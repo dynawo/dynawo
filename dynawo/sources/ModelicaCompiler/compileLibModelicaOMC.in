@@ -1,0 +1,140 @@
+#!/bin/bash
+#
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# See AUTHORS.txt
+# All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, you can obtain one at http://mozilla.org/MPL/2.0/.
+# SPDX-License-Identifier: MPL-2.0
+# 
+# This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+
+
+# Setting install path environment variables
+COMPILER_CMD=@CMAKE_CXX_COMPILER@
+DYNAWO_INCLUDE_DIR=${DYNAWO_INSTALL_DIR}/include
+DYNAWO_LIB_DIR=${DYNAWO_INSTALL_DIR}/lib
+
+WITH_ADEPT=@USE_ADEPT@
+ADEPT_INCLUDE_DIR=${ADEPT_INSTALL_DIR}/include
+ADEPT_LIBRARY=${ADEPT_INSTALL_DIR}/lib/libadept.so
+BOOST_INCLUDE_DIR=${BOOST_ROOT}/include
+
+OMC_INCLUDE_DIR=${INSTALL_OPENMODELICA}/include/omc/c
+DEBUG="false"
+
+while (($#)); do
+  case $1 in
+    --model-name=*)
+      MODEL_NAME=`echo $1 | sed -e 's/--model-name=//g'`
+      ;;
+    --directory=*)
+      DIRECTORY=`echo $1 | sed -e 's/--directory=//g'`
+      ;;
+    --lib-name=*)
+      LIB_NAME=`echo $1 | sed -e 's/--lib-name=//g'`
+      ;;
+    --debug)
+      DEBUG="true"
+      ;;
+    *)
+      break
+      ;;
+  esac
+  shift
+done
+
+if  [[ -z "$MODEL_NAME" ]]; then
+  echo "Need a model name to compile"
+  exit 1
+fi
+if  [[ -z "$DIRECTORY" ]]; then
+  echo "Need a directory to compile"
+  exit 1
+fi
+
+# Flags for compilation
+FLAGS="@CMAKE_CXX_FLAGS@"
+INCLUDE_FLAGS="-I$DYNAWO_INCLUDE_DIR -I$OMC_INCLUDE_DIR -I$BOOST_INCLUDE_DIR"
+LIB_FLAGS="-L$DYNAWO_LIB_DIR -ldynawo_ModelManager"
+if [ "$WITH_ADEPT" = "YES" ]; then
+  FLAGS="$FLAGS -D_ADEPT_"
+  INCLUDE_FLAGS="$INCLUDE_FLAGS -I$ADEPT_INCLUDE_DIR"
+  LIB_FLAGS="$LIB_FLAGS -Wl,--start-group,$ADEPT_LIBRARY,--end-group"
+fi
+
+if [ "$DEBUG" = "true" ]; then
+    FLAGS="$FLAGS -g -shared -fPIC -D_OMC_ -D_DEBUG_"
+else
+    FLAGS="$FLAGS -O3 -shared -fPIC -D_OMC_"
+fi
+
+# definition of variables from parameters
+CPP_FILE="$DIRECTORY"/"$MODEL_NAME".cpp
+CPP_INIT_FILE="$DIRECTORY"/"$MODEL_NAME"_Init.cpp
+CPP_DYN_FILE="$DIRECTORY"/"$MODEL_NAME"_Dyn.cpp
+EXTERN_DYN_FILE="$DIRECTORY"/"$MODEL_NAME"_Dyn_external.cpp
+EXTERN_INIT_FILE="$DIRECTORY"/"$MODEL_NAME"_Init_external.cpp
+
+O_FILE="$DIRECTORY"/"$MODEL_NAME".o
+O_INIT_FILE="$DIRECTORY"/"$MODEL_NAME"_Init.o
+O_DYN_FILE="$DIRECTORY"/"$MODEL_NAME"_Dyn.o
+O_EXTERN_DYN_FILE="$DIRECTORY"/"$MODEL_NAME"_Dyn_external.o
+O_EXTERN_INIT_FILE="$DIRECTORY"/"$MODEL_NAME"_Init_external.o
+
+
+SO_FILE="$DIRECTORY"/"$LIB_NAME"
+
+# Compilation the CPP file
+echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_FILE -o $O_FILE"
+$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_FILE -o $O_FILE 2>&1
+if [[ ! -f "$O_FILE" ]]; then
+    echo "Compilation of $CPP_FILE failed"
+    exit 1
+fi
+
+# Compilation of the DYN_CPP file
+echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_DYN_FILE -o $O_DYN_FILE"
+$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_DYN_FILE -o $O_DYN_FILE 2>&1
+if [[ ! -f "$O_DYN_FILE" ]]; then
+    echo "Compilation of $CPP_DYN_FILE failed"
+    exit 1
+fi
+
+# Compilation of the DYN_EXTERN function file
+echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $EXTERN_DYN_FILE -o $O_EXTERN_DYN_FILE"
+$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $EXTERN_DYN_FILE -o $O_EXTERN_DYN_FILE 2>&1
+if [[ ! -f "$O_EXTERN_DYN_FILE" ]]; then
+    echo "Compilation of $EXTERN_DYN_FILE failed"
+    exit 1
+fi
+
+# If INIT_cpp file exists
+if [[ -f "$CPP_INIT_FILE" ]]; then
+    # Compilation of the INIT_CPP file
+    echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_INIT_FILE -o $O_INIT_FILE"
+    $COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_INIT_FILE -o $O_INIT_FILE 2>&1
+    if [[ ! -f "$O_INIT_FILE" ]]; then
+	echo "Compilation of $CPP_INIT_FILE failed"
+	exit 1
+    fi
+
+    # Compilation of INIT_EXTERN function file
+    echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $EXTERN_INIT_FILE -o $O_EXTERN_INIT_FILE"
+    $COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $EXTERN_INIT_FILE -o $O_EXTERN_INIT_FILE 2>&1
+    if [[ ! -f "$O_EXTERN_INIT_FILE" ]]; then
+	echo "Compilation of $EXTERN_DYN_FILE failed"
+	exit 1
+    fi
+
+    # Creation of the library
+    echo "$COMPILER_CMD $O_FILE $O_DYN_FILE $O_INIT_FILE $O_EXTERN_DYN_FILE $O_EXTERN_INIT_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE"
+    $COMPILER_CMD $O_FILE $O_DYN_FILE $O_INIT_FILE $O_EXTERN_DYN_FILE $O_EXTERN_INIT_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE 2>&1
+else
+    # Creation of the library
+    echo "$COMPILER_CMD $O_FILE $O_DYN_FILE $O_EXTERN_DYN_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE"
+    $COMPILER_CMD $O_FILE $O_DYN_FILE $O_EXTERN_DYN_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE 2>&1
+fi
+
+exit 0

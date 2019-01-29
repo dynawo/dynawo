@@ -1,0 +1,116 @@
+within Dynawo.Electrical.Controls.Transformers;
+
+/*
+* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+*/
+
+package BaseClasses_INIT
+
+partial model BaseTapChangerPhaseShifter_INIT "Base initialization model for tap-changers and phase-shifters"
+
+  public
+    type State = enumeration (moveDownN "1: phase shifter has decreased the next tap",
+                              moveDown1 "2: phase shifter has decreased the first tap",
+                              waitingToMoveDown "3: phase shifter is waiting to decrease the first tap",
+                              standard "4:phase shifter is in standard state with UThresholdDown <= UMonitored <= UThresholdUp",
+                              waitingToMoveUp "5: phase shifter is waiting to increase the first tap",
+                              moveUp1 "6: phase shifter has increased the first tap",
+                              moveUpN "7: phase shifter has increased the next tap",
+                              locked "8: phase shifter locked");
+
+    parameter Real valueMax  "Threshold above which the phase-shifter will take action";
+    parameter Boolean regulating0 "Whether the phase-shifter is initially regulating";
+
+  protected
+    type TapChangerType = enumeration ( undefined "1: undefined", tapChanger "2: tap-changer", phaseShifter "3: phase-shifter");
+    parameter TapChangerType tapChangerType( start = TapChangerType.undefined );
+    parameter Boolean locked0 = not regulating0 "Whether the phase-shifter is initially locked";
+    Boolean lookingToIncreaseTap "True if the phase shifter wants to increase tap";
+    Boolean lookingToDecreaseTap "True if the phase shifter wants to decrease tap";
+    State state0 "Initial state";
+
+
+end BaseTapChangerPhaseShifter_INIT;
+
+
+partial model BaseTapChangerPhaseShifter_MAX_INIT "Base initialization model for tap-changers and phase-shifters which takes a maximum and stop value, and tries to bring the value back to the stop value when the maximum value is reached"
+  extends BaseTapChangerPhaseShifter_INIT;
+
+  public
+    parameter Real valueStop (max = valueMax) "Value below which the phase-shifter will stop";
+
+  equation
+
+    lookingToDecreaseTap = valueToMonitor0 > valueMax and increaseTapToIncreaseValue;
+    lookingToIncreaseTap = valueToMonitor0 > valueMax and not(increaseTapToIncreaseValue);
+
+    when locked0 then
+      state0 = State.locked;
+    elsewhen not(locked0) and valueToMonitor0 <= valueMax then
+      state0 = State.standard;
+    elsewhen not(locked0) and lookingToIncreaseTap then
+      state0 = State.waitingToMoveUp;
+    elsewhen not(locked0) and lookingToDecreaseTap then
+      state0 = State.waitingToMoveDown;
+    end when;
+
+end BaseTapChangerPhaseShifter_MAX_INIT;
+
+
+partial model BaseTapChangerPhaseShifter_INTERVAL_INIT "Base initialisation model for tap-changers and phase-shifters which tries to keep a value within a given interval" 
+  extends BaseTapChangerPhaseShifter_INIT;
+
+  public
+    parameter Real valueMin (max = valueMax) "Minimum allowed value of the monitored value";
+
+  equation
+
+    lookingToDecreaseTap = (valueToMonitor0 > valueMax and increaseTapToIncreaseValue) or (valueToMonitor0 < valueMin and not(increaseTapToIncreaseValue));
+    lookingToIncreaseTap = (valueToMonitor0 < valueMin and increaseTapToIncreaseValue) or (valueToMonitor0 > valueMax and not(increaseTapToIncreaseValue));
+
+    when locked0 then
+      state0 = State.locked;
+    elsewhen not(locked0) and valueToMonitor0 <= valueMax and valueToMonitor0 >= valueMin then
+      state0 = State.standard;
+    elsewhen not(locked0) and lookingToIncreaseTap then
+      state0 = State.waitingToMoveUp;
+    elsewhen not(locked0) and lookingToDecreaseTap then
+      state0 = State.waitingToMoveDown;
+    end when;
+
+end BaseTapChangerPhaseShifter_INTERVAL_INIT;
+
+
+partial model BaseTapChangerPhaseShifter_TARGET_INIT "Base initialization model for tap-changers and phase-shifters ensuring that the monitored value remains close to a target value"
+  extends BaseTapChangerPhaseShifter_INTERVAL_INIT (valueMax = targetValue + deadBand, valueMin = targetValue - deadBand);
+
+  public
+    parameter Real targetValue "Target value";
+    parameter Real deadBand (min = 0) "Acceptable dead-band next to the target value";
+
+end BaseTapChangerPhaseShifter_TARGET_INIT;
+
+
+partial model BaseTapChanger_INIT "Base initialization model for tap-changers"
+  extends BaseTapChangerPhaseShifter_TARGET_INIT (targetValue = UTarget, deadBand = UDeadBand, tapChangerType = tapChangerType0 );
+
+  public
+    parameter Types.AC.VoltageModule UTarget "voltage set-point" ;
+    parameter Types.AC.VoltageModule UDeadBand "Voltage dead-band";
+
+  protected
+    parameter Boolean increaseTapToIncreaseValue = true "Whether a tap increase will lead to an increase in the monitored value";
+    parameter TapChangerType tapChangerType0 = TapChangerType.tapChanger;
+
+end BaseTapChanger_INIT;
+
+
+end BaseClasses_INIT;

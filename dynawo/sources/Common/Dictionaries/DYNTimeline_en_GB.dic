@@ -1,0 +1,118 @@
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+
+//-------------  Modelica models ------------------------------------------
+// --> Governor
+ActivatePMIN              =             PMIN : activation
+ActivatePMAX              =             PMAX : activation
+DeactivatePMIN            =             PMIN : deactivation
+DeactivatePMAX            =             PMAX : deactivation
+// --> CurrentLimitAutomaton
+CurrentLimitAutomatonActing =           CLA : order to change topology
+CurrentLimitAutomatonArming =           CLA : arming by over-current constraint
+CurrentLimitAutomatonDisarming =        CLA : disarming by under-current constraint
+// --> Generator PV
+GeneratorPVMaxQ           =             PV Generator : max reactive power limit reached
+GeneratorPVMinQ           =             PV Generator : min reactive power limit reached
+GeneratorPVBackRegulation =             PV Generator : back to voltage regulation
+// --> Generator PQ
+GeneratorPQMaxV           =             PQ Generator : max voltage limit reached
+GeneratorPQMinV           =             PQ Generator : min voltage limit reached
+GeneratorPQBackRegulation =             PQ Generator : back to reactive power regulation
+// --> BaseTapChangerPhaseShifter
+TapUp                     =             Tap +1
+TapDown                   =             Tap -1
+// --> Tap-Changer
+TapChangerSwitchOff       =             Tap-changer : switched off
+TapChangerAboveMax        =             Tap-changer : above maximum allowed value
+TapChangerBelowMin        =             Tap-changer : below minimum allowed value
+// --> Phase-shifter
+PhaseShifterSwitchOff     =             Phase-shifter : switched off
+PhaseShifterAboveMax      =             Phase-shifter : above maximum allowed value
+PhaseShifterBelowMin      =             Phase-shifter : below minimum allowed value
+PhaseShifterBelowMax      =             Phase-shifter : below maximum allowed value
+PhaseShifterBelowStop     =             Phase-shifter : back to acceptable value
+PhaseShifterWithinInterval=             Phase-shifter : back to acceptable value
+// --> Tap-Changer Lock
+TapChangersArming         =             TCL : tap changers lock arming (U < UMin)
+TapChangersUnarming       =             TCL : tap changers lock disarming (U > UMin)
+TapChangersLocked         =             TCL : tap changers lock order activated on area
+TapChangersUnlocked       =             TCL : tap changers lock order deactivated on area
+TapChangersLockedT        =             TCL : high voltage tap changers locked on area
+TapChangersLockedD        =             TCL : low voltage tap changers locked on area
+// --> Transformer
+TransformerSwitchOff      =             Transformer : switched off
+// --> Voltage Regulator
+VRBackToRegulation        =             Voltage regulator : back to regulation
+VRLimitationDownward      =             Voltage regulator : lower limit reached
+VRLimitationUpward        =             Voltage regulator : upper limit reached
+// --> Under-voltage automaton
+UVATripped                =              Under-voltage generator trip
+UVAArming                 =              Under-voltage automaton for generator arming
+UVADisarming              =              Under-voltage automaton for generator disarming
+// --> CurrentLimit
+OverloadUp                =             Overload %1% : activation
+OverloadDown              =             Overload %1% : deactivation
+OverloadOpen              =             Overload %1% : opening line
+// --> NodeFault
+NodeFaultEnd              =             Fault (node) : end
+NodeFaultBegin            =             Fault (node) : beginning
+//-------------  C++ models ----------------------------------------------
+// --> BUS
+NodeOff                   =             BUS : switch off
+NodeOn                    =             BUS : switch on
+// --> LINE
+LineOpen                  =             LINE : opening both sides
+LineClosed                =             LINE : closing both sides
+LineCloseSide1            =             LINE : closing on side 1
+LineCloseSide2            =             LINE : closing on side 2
+LineOpenSide1             =             LINE : opening on side 1
+LineOpenSide2             =             LINE : opening on side 2
+// --> LOAD
+LoadConnected             =             LOAD : connecting
+LoadDisconnected          =             LOAD : disconnecting
+// --> DANGLING LINE
+DanglingLineConnected     =             LINE : connecting
+DanglingLineDisconnected  =             LINE : disconnecting
+// --> GENERATOR
+GeneratorConnected        =             GENERATOR : connecting
+GeneratorDisconnected     =             GENERATOR : disconnecting
+GeneratorTargetP          =             GENERATOR : change of active power target (%1%)
+GeneratorTargetQ          =             GENERATOR : change of reactive power target (%1%)
+// --> SHUNT
+ShuntConnected            =             SHUNT : connecting
+ShuntDisconnected         =             SHUNT : disconnecting
+// --> STATIC VAR COMPENSATOR
+SVarCConnected            =             SVarC : connecting
+SVarCDisconnected         =             SVarC : disconnecting
+SVarCRunning              =             SVarC : in running mode
+SVarCStandby              =             SVarC : in standby
+SVarCOff                  =             SVarC : off
+SVarCUminreached          =             SVarC : switches to running mode (Umin threshold reached)
+SVarCUmaxreached          =             SVarC : switches to running mode (Umax threshold reached)
+// --> SWITCH
+SwitchClosed              =             SWITCH : closing
+SwitchOpened              =             SWITCH : opening
+// --> HVDC
+Converter1SwitchOff       =             CONVERTER1 : disconnecting
+Converter1Connected       =             CONVERTER1 : connecting
+Converter2SwitchOff       =             CONVERTER2 : disconnecting
+Converter2Connected       =             CONVERTER2 : connecting
+// --> 2 windings transformer
+TwoWTFOOpen               =             TRANSFORMER : opening both sides
+TwoWTFOClosed             =             TRANSFORMER : closing both sides
+TwoWTFOCloseSide1         =             TRANSFORMER : closing on side 1
+TwoWTFOCloseSide2         =             TRANSFORMER : closing on side 2
+TwoWTFOOpenSide1          =             TRANSFORMER : opening on side 1
+TwoWTFOOpenSide2          =             TRANSFORMER : opening on side 2
+//-------------  Simulation process  --------------------------------------
+TerminateInModel          =             Simulation stopped : model %1% terminated simulation : %2%
+CriteriaNotChecked        =             Simulation stopped : one criteria is not respected
+SignalReceived            =             Simulation stopped : one interrupt signal was received

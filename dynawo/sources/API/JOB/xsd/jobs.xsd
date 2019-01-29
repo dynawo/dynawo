@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:dyn="http://www.rte-france.com/dynawo"
+           version="1.0"
+           targetNamespace="http://www.rte-france.com/dynawo"
+           elementFormDefault="qualified">
+  <xs:element name="jobs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="job" type="dyn:Job" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="Job">
+    <xs:all minOccurs="0">
+      <xs:element name="solver" type="dyn:SolverEntry"/>
+      <xs:element name="modeler" type="dyn:ModelerEntry">
+        <xs:unique name="UniqueModeler">
+          <xs:selector xpath="dyn:dynModels"/>
+          <xs:field xpath="@dydFile"/>
+        </xs:unique>
+      </xs:element>
+      <xs:element name="simulation" type="dyn:SimulationEntry"/>
+      <xs:element name="outputs" type="dyn:OutputsEntry" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute name="name" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="SolverEntry">
+    <xs:attribute name="lib" use="required" type="xs:string"/>
+    <xs:attribute name="parFile" use="required" type="xs:string"/>
+    <xs:attribute name="parId" use="required" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:complexType name="ModelerEntry">
+    <xs:sequence>
+      <xs:element name="network" type="dyn:NetworkEntry" minOccurs="0"/>
+      <xs:element name="dynModels" type="dyn:DynModelsEntry" maxOccurs="unbounded"/>
+      <xs:element name="initialState" type="dyn:InitialStateEntry" minOccurs="0"/>
+      <xs:element name="precompiledModels" type="dyn:ModelsDirEntry"/>
+      <xs:element name="modelicaModels" type="dyn:ModelsDirEntry"/>
+    </xs:sequence>
+    <xs:attribute name="compileDir" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="NetworkEntry">
+    <xs:attribute name="iidmFile" use="required" type="xs:string"/>
+    <xs:attribute name="parFile" use="required" type="xs:string"/>
+    <xs:attribute name="parId" use="required" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:complexType name="DynModelsEntry">
+    <xs:attribute name="dydFile" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="InitialStateEntry">
+    <xs:attribute name="file" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="ModelsDirEntry">
+    <xs:sequence>
+      <xs:element name="directory" type="dyn:Directory" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="modelExtension" type="xs:string"/>
+    <xs:attribute name="useStandardModels" use="required" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="Directory">
+    <xs:attribute name="path" use="required" type="xs:string"/>
+    <xs:attribute name="recursive" use="required" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="SimulationEntry">
+    <xs:attribute name="startTime" use="required" type="xs:float"/>
+    <xs:attribute name="stopTime" use="required" type="xs:float"/>
+    <xs:attribute name="activateCriteria" type="xs:boolean"/>
+    <xs:attribute name="criteriaStep" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:complexType name="OutputsEntry">
+    <xs:all>
+      <xs:element name="dumpInitValues" type="dyn:InitValuesEntry" minOccurs="0"/>
+      <xs:element name="constraints" type="dyn:ConstraintsEntry" minOccurs="0"/>
+      <xs:element name="timeline" type="dyn:TimelineEntry" minOccurs="0"/>
+      <xs:element name="finalState" type="dyn:FinalStateEntry" minOccurs="0"/>
+      <xs:element name="curves" type="dyn:CurvesEntry" minOccurs="0"/>
+      <xs:element name="logs" type="dyn:LogsEntry" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute name="directory" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="InitValuesEntry">
+    <xs:attribute name="local" use="required" type="xs:boolean"/>
+    <xs:attribute name="global" use="required" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="ConstraintsEntry">
+    <xs:attribute name="exportMode" use="required" type="dyn:ConstraintsExportMode"/>
+  </xs:complexType>
+
+  <xs:simpleType name="ConstraintsExportMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="XML"/>
+      <xs:enumeration value="TXT"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="TimelineEntry">
+    <xs:attribute name="exportMode" use="required" type="dyn:TimelineExportMode"/>
+  </xs:complexType>
+
+  <xs:simpleType name="TimelineExportMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="TXT"/>
+      <xs:enumeration value="CSV"/>
+      <xs:enumeration value="XML"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="FinalStateEntry">
+    <xs:attribute name="exportIIDMFile" use="required" type="xs:boolean"/>
+    <xs:attribute name="exportDumpFile" use="required" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="CurvesEntry">
+    <xs:attribute name="inputFile" use="required" type="xs:string"/>
+    <xs:attribute name="exportMode" use="required" type="dyn:CurvesExportMode"/>
+  </xs:complexType>
+
+  <xs:simpleType name="CurvesExportMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="XML"/>
+      <xs:enumeration value="CSV"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="LogsEntry">
+    <xs:sequence>
+      <xs:element name="appender" type="dyn:AppenderEntry" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AppenderEntry">
+    <xs:attribute name="file" use="required" type="xs:string"/>
+    <xs:attribute name="tag" type="xs:string"/>
+    <xs:attribute name="lvlFilter" type="dyn:LevelFilter"/>
+    <xs:attribute name="showLevelTag" type="xs:boolean"/>
+    <xs:attribute name="timeStampFormat" type="xs:string"/>
+    <xs:attribute name="separator" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:simpleType name="LevelFilter">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DEBUG"/>
+      <xs:enumeration value="INFO"/>
+      <xs:enumeration value="WARN"/>
+      <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

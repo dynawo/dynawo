@@ -1,0 +1,12 @@
+The following errors are disabled for parser library due to errors in XercesC:
+  - parentheses
+  - sign-compare
+
+-Wno-parentheses
+================
+xercesc/validators/schema/SchemaAttDef.hpp:404: erreur: suggest parentheses around '&& within '||'
+xercesc/validators/schema/SchemaElementDecl.hpp:594: erreur: suggest parentheses around '&&' within '||'
+
+-Wno-sign-compare
+=================
+xercesc/validators/schema/SchemaElementDecl.hpp:508: erreur: comparison between signed and unsigned integer expressions

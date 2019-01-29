@@ -1,0 +1,320 @@
+//
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+// simulation tool for power systems.
+//
+
+/**
+ * @file  DYNModelCPP.h
+ *
+ * @brief Class Interface to describe a c++ model : header file
+ *
+ */
+#ifndef MODELS_CPP_COMMON_DYNMODELCPP_H_
+#define MODELS_CPP_COMMON_DYNMODELCPP_H_
+
+#include <vector>
+#include <set>
+#include <map>
+
+#include "DYNSubModel.h"
+
+namespace DYN {
+class SparseMatrix;
+
+/**
+ * class ModelCPP
+ */
+class ModelCPP : public SubModel {
+ public:
+  /**
+   * @brief Default constructor
+   *
+   */
+  ModelCPP() { }
+
+  /**
+   * @brief Default destructor
+   *
+   */
+  ~ModelCPP() { }
+
+  /**
+   * @brief paramters initiation
+   *
+   */
+  virtual void initParams() = 0;
+
+  /**
+   * @brief initialize all the data for a sub model
+   * @param t0: initial time of the simulation
+   */
+  virtual void init(const double& t0) = 0;
+
+  /**
+   * @brief get the index of variables used to define the jacobian associated to a calculated variable
+   *
+   * @param iCalculatedVar index of the calculated variable
+   *
+   * @return index of variables used to define the jacobian
+   */
+  virtual std::vector<int> getDefJCalculatedVarI(int iCalculatedVar) = 0;
+
+  /**
+   * @brief evaluate the jacobian associated to a calculated variable
+   *
+   * @param iCalculatedVar index of the calculated variable
+   * @param y value of the variable used to calculate the jacobian
+   * @param yp value of the derivatives of variable used to calculate the jacobian
+   * @param res values of the jacobian
+   */
+  virtual void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res) = 0;
+
+  /**
+   * @brief evaluate the value of a calculated variable
+   *
+   * @param iCalculatedVar index of the calculated variable
+   * @param y values of the variables used to calculate the variable
+   * @param yp values of the derivatives used to calculate the variable
+   *
+   * @return value of the calculated variable
+   */
+  virtual double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)= 0;
+
+  /**
+   * @brief get model type
+   * @return model type
+   */
+  virtual std::string modelType() const = 0;
+
+  /**
+   * @brief export the parameters of the sub model for dump
+   *
+   * @param mapParameters : map associating the file where parameters should be dumped with the stream of parameters
+   */
+  virtual void dumpParameters(std::map< std::string, std::string > & mapParameters) = 0;
+
+  /**
+   * @brief export the variables values of the sub model for dump
+   *
+   * @param mapVariables : map associating the file where values should be dumped with the stream of values
+   */
+  virtual void dumpVariables(std::map< std::string, std::string > & mapVariables) = 0;
+
+  /**
+   * @brief load the parameters values from a previous dump
+   *
+   * @param parameters : stream of values where the parameters were dumped
+   */
+  virtual void loadParameters(const std::string &parameters) = 0;
+
+  /**
+   * @brief load the variables values from a previous dump
+   *
+   * @param variables : stream of values where the variables were dumped
+   */
+  virtual void loadVariables(const std::string &variables) = 0;
+
+  /**
+   * @brief  CPP Model F(t,y,y') function evaluation
+   *
+   * Get the residues' values at a certain instant time with given state variables,
+   * state variables derivatives
+   * @param[in] t Simulation instant
+   */
+  virtual void evalF(const double & t) = 0;
+
+  /**
+   * @brief  CPP Model G(t,y,y') function evaluation
+   *
+   * Get the roots' value
+   * @param[in] t Simulation instant
+   */
+  virtual void evalG(const double & t) = 0;
+
+  /**
+   * @brief  CPP Model discrete variables evaluation
+   *
+   * Get the discrete variables' value depending on current simulation instant and
+   * current state variables values.
+   * @param[in] t Simulation instant
+   * @throws Error::MODELER typed @p Error. Shouldn't, but if it happens
+   * it shows that there is a bug in the selection of activated shunt.
+   */
+  virtual void evalZ(const double & t) = 0;
+
+  /**
+   * @brief  CPP Model transposed jacobian evaluation
+   *
+   * Get the sparse transposed jacobian
+   * @param[in] t Simulation instant
+   * @param[in] cj Jacobian prime coefficient
+   * @param jt jacobian matrix to fullfill
+   * @param rowOffset offset to use to identify the row where data should be added
+   */
+  virtual void evalJt(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset) = 0;
+
+  /**
+   * @brief calculate jacobien prime matrix
+   *
+   * @param[in] t Simulation instant
+   * @param[in] cj Jacobian prime coefficient
+   * @param jt jacobian matrix to fullfill
+   * @param rowOffset offset to use to identify the row where data should be added
+   */
+  virtual void evalJtPrim(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset) = 0;
+
+  /**
+   * @brief  CPP Model modes' evaluation
+   *
+   * Set the modes' value depending on current simulation instant and
+   * current state variables values. Modes are considered to be member
+   * variables.
+   * @param[in] t Simulation instant
+   */
+  //--------------------------------------------------------------------
+  virtual void evalMode(const double & t) = 0;
+
+  /**
+   * @brief  CPP Model initial state variables' evaluation
+   *
+   * Set the initial value of model's state variables, state variables derivatives
+   * and discrete variables.
+   */
+  virtual void getY0() = 0;
+
+  /**
+   * @brief calculate calculated variables
+   */
+  virtual void evalCalculatedVars() = 0;
+
+  /**
+   * @brief evaluate variables' properties
+   */
+  virtual void evalYType() = 0;
+
+  /**
+   * @brief evaluate residual functions' properties
+   */
+  virtual void evalFType() = 0;
+
+  /**
+   * @brief  CPP Model model's sizes getter
+   *
+   * Get the sizes of the vectors and matrixes used by the solver to simulate
+   * Model CPP Model instance. Used by @p ModelMulti to generate right size matrixes
+   * and vector for the solver.
+   */
+  virtual void getSize() = 0;
+
+  /**
+   * @copydoc SubModel::setSubModelParameters()
+   */
+  virtual void setSubModelParameters() = 0;
+
+  /**
+   * @copydoc SubModel::setSharedParametersDefaultValues()
+   */
+  virtual void setSharedParametersDefaultValues() { /* no parameter */ }
+
+  /**
+   * @copydoc SubModel::setSharedParametersDefaultValuesInit()
+   */
+  virtual void setSharedParametersDefaultValuesInit() { /* no parameter */ }
+
+  /**
+   * @brief  CPP Model elements initializer
+   *
+   * Define  CPP Model elements (connection variables for output and other models).
+   * @param[out] elements Reference to elements' vector
+   * @param[out] mapElement Map associating each element index in the elements vector to its name
+   */
+  //---------------------------------------------------------------------
+  virtual void defineElements(std::vector<Element> &elements, std::map<std::string, int >& mapElement) = 0;
+
+  /**
+   * @brief initialze static data
+   *
+   */
+  virtual void initializeStaticData() = 0;
+
+  /**
+   * @brief write initial values of a model in a file
+   *
+   * @param directory directory where the file should be printed
+   */
+  virtual void printInitValues(const std::string & directory) = 0;
+
+  /**
+   * @brief rotate buffers
+   *
+   */
+  virtual void rotateBuffers() = 0;
+
+  /**
+   * @copydoc SubModel::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
+   */
+  virtual void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) = 0;
+
+  /**
+   * @copydoc SubModel::defineParameters(std::vector<ParameterModeler>& parameters)
+   */
+  virtual void defineParameters(std::vector<ParameterModeler>& parameters) = 0;
+
+  /**
+   * @copydoc SubModel::defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables)
+   */
+  virtual void defineVariablesInit(std::vector<boost::shared_ptr<Variable> >& variables) = 0;
+
+  /**
+   * @copydoc SubModel::defineParametersInit(std::vector<ParameterModeler>& parameters)
+   */
+  virtual void defineParametersInit(std::vector<ParameterModeler>& parameters) = 0;
+
+  /**
+   * @copydoc SubModel::checkDataCoherence(const double& t)
+   */
+  virtual void checkDataCoherence(const double & t) = 0;
+
+  /**
+   * @copydoc SubModel::setFequations()
+   */
+  virtual void setFequations() = 0;
+
+  /**
+   * @copydoc SubModel::setGequations()
+   */
+  virtual void setGequations() = 0;
+
+  /**
+   * @copydoc SubModel::setFequationsInit()
+   */
+  virtual void setFequationsInit() = 0;
+
+  /**
+   * @copydoc SubModel::setGequationsInit()
+   */
+  virtual void setGequationsInit() = 0;
+
+  /**
+   * @copydoc SubModel::initSubBuffers()
+   */
+  virtual void initSubBuffers() = 0;
+
+  /**
+   * @brief class implementation
+   */
+
+  class Impl;
+};
+
+}  // namespace DYN
+
+#endif  // MODELS_CPP_COMMON_DYNMODELCPP_H_

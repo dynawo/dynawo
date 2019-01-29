@@ -1,0 +1,194 @@
+/*
+ * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+ * See AUTHORS.txt
+ * All rights reserved.
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, you can obtain one at http://mozilla.org/MPL/2.0/.
+ * SPDX-License-Identifier: MPL-2.0
+ *
+ * This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+ * simulation tool for power systems.
+ */
+
+/* #page_bloc */
+/* { */
+/*     width: 1500px; */
+/*     margin: auto; */
+/* } */
+
+header
+{
+    display: inline-block;
+    border-bottom: 2px solid #8B2500;
+    width: 100%;
+}
+
+header h1
+{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#logo, header h1
+{
+    display: inline-block;
+    margin-bottom: 10px;
+    vertical-align: middle;
+}
+body
+{
+    font-family: 'CM Roman', Arial, sans-serif;
+    color: #181818;
+    width: 100%;
+}
+
+/* Navigation */
+
+nav
+{
+    display: inline-block;
+    background-color: #8B2500;
+    color: white;
+    width: 300px;
+    height: 100%;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+nav h1
+{
+    font-size: 1.5em;
+}
+
+nav ul
+{
+    list-style-type: disc;
+}
+
+nav ul li
+{
+    margin-left: 15px;
+}
+
+section
+{
+    display: inline-block;
+    padding: 20px 20px 20px 20px;
+    width: 1500px;
+}
+
+section aside
+{
+    display: inline-block;
+    width: 1500px;
+    vertical-align: top;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+section aside h2
+{
+    display: inline;
+    background-color: white;
+    foreground-color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+    position: relative;
+    left: 20px;
+    top: -10px;
+}
+
+section aside ul
+{
+    list-style-type: none;
+    display: inline-block;
+    vertical-align: top;
+}
+
+section table
+{
+    margin-top: 10px;
+    width: 540px;
+    border-collapse: collapse;
+    border: 2px solid black;
+    align : center;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+tr:nth-child(even) {
+    background-color: #FFEBCD;
+}
+
+td, th
+{
+    border: 1px solid black;
+    padding: 2px 2px 2px 2px;
+}
+
+.ok, .comparisonOk
+{
+    background-color: #008B00;
+    color: white;
+    text-align:center;
+    font-weight: bold;
+}
+
+.nok, .comparisonNOk
+{
+    background-color: #8B0000;
+    color: white;
+    text-align:center;
+    font-weight: bold;
+}
+
+.tooLong
+{
+    background-color: #808080;
+    color: white;
+    text-align:center;
+    font-weight: bold;
+    font-size:50%;
+}
+
+.noComparison
+{
+}
+
+.warn, .comparisonWarn
+{
+    background-color: orange;
+    color: white;
+    text-align:center;
+    font-weight: bold;
+}
+
+
+.simuTime
+{
+    text-align:center;
+}
+.code
+{
+    text-align:center;
+}
+
+h3
+{
+  color: #FFFFFF; background-color: #8B2500;
+  padding-left: 10px;
+  width: 1500px
+}
+
+h2
+{
+  color: #FFFFFF; background-color: #001000;
+  padding-left: 10px;
+  width: 1500px
+}

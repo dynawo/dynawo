@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!-- Machine with four windings, a fixed mechanical power and a fixed excitation voltage-->
+  <dyn:modelicaModel id="MACHINE_4W_NOREGUL">
+    <dyn:unitDynamicModel id="MS" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT"/>
+    <dyn:unitDynamicModel id="PmPu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
+    <dyn:unitDynamicModel id="EfdPu" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
+    <dyn:initConnect id1="MS" var1="Pm0Pu" id2="PmPu" var2="Value0"/>
+    <dyn:initConnect id1="MS" var1="Efd0Pu" id2="EfdPu" var2="Value0"/>
+    <dyn:connect id1="MS" var1="PmPu" id2="PmPu" var2="setPoint"/>
+    <dyn:connect id1="MS" var1="efdPu" id2="EfdPu" var2="setPoint"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

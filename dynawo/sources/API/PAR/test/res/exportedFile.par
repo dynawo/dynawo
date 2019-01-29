@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par name="A_1_1_" type="DOUBLE" value="0.10000000000000001"/>
+    <par name="A_1_2_" type="DOUBLE" value="0.5"/>
+    <par name="A_2_1_" type="DOUBLE" value="1"/>
+    <par name="A_2_2_" type="DOUBLE" value="0"/>
+    <par name="B_1_1_" type="INT" value="1"/>
+    <par name="B_1_2_" type="INT" value="2"/>
+    <par name="C_1_1_" type="BOOL" value="true"/>
+    <par name="C_1_2_" type="BOOL" value="false"/>
+    <par name="Ca" type="DOUBLE" value="0.5"/>
+    <par name="Cb" type="DOUBLE" value="1"/>
+    <par name="D_1_1_" type="STRING" value="term1"/>
+    <par name="D_1_2_" type="STRING" value="term2"/>
+    <par name="Dx" type="DOUBLE" value="2"/>
+    <par name="Dy" type="DOUBLE" value="0"/>
+    <par name="boolean" type="BOOL" value="true"/>
+    <par name="int" type="INT" value="1"/>
+    <par name="string" type="STRING" value="mode"/>
+    <par name="tb" type="DOUBLE" value="30"/>
+    <par name="tc" type="DOUBLE" value="40"/>
+    <reference type="DOUBLE" name="M" origData="IIDM" origName="m"/>
+    <reference type="DOUBLE" name="N" origData="IIDM" origName="n"/>
+    <reference type="DOUBLE" name="O" origData="IIDM" origName="o"/>
+  </set>
+</parametersSet>

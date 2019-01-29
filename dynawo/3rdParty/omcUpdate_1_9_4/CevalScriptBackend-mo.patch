@@ -1,0 +1,172 @@
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Patch for OpenModelica 1.9.4 (https://www.openmodelica.org)
+# 
+# All rights reserved.
+# 
+# THIS PROGRAM IS PROVIDED UNDER THE TERMS OF GPL VERSION 3 LICENSE OR
+# THIS OSMC PUBLIC LICENSE (OSMC-PL) VERSION 1.2.
+# ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE
+# OF THE OSMC PUBLIC LICENSE OR THE GPL VERSION 3, ACCORDING TO RECIPIENTS CHOICE.
+# 
+# The OpenModelica software and the Open Source Modelica
+# Consortium (OSMC) Public License (OSMC-PL) are obtained
+# from OSMC, either from the above address,
+# from the URLs: http://www.ida.liu.se/projects/OpenModelica or
+# http://www.openmodelica.org, and in the OpenModelica distribution.
+# GNU version 3 is obtained from: http://www.gnu.org/copyleft/gpl.html.
+# 
+# This program is distributed WITHOUT ANY WARRANTY; without
+# even the implied warranty of  MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE, EXCEPT AS EXPRESSLY SET FORTH
+# IN THE BY RECIPIENT SELECTED SUBSIDIARY LICENSE CONDITIONS OF OSMC-PL.
+# 
+# See the full OSMC Public License conditions for more details.
+# SPDX-License-Identifier: GPL-3.0 OR LicenseRef-OSMC-PL
+Index: OMCompiler/Compiler/Script/CevalScriptBackend.mo
+===================================================================
+--- OMCompiler/Compiler/Script/CevalScriptBackend.mo	(révision 8)
++++ OMCompiler/Compiler/Script/CevalScriptBackend.mo	(copie de travail)
+@@ -111,6 +111,7 @@
+ import Util;
+ import ValuesUtil;
+ import XMLDump;
++import XMLCreateDynawo;
+ import ComponentReference;
+ import Uncertainties;
+ import OpenTURNS;
+@@ -2321,6 +2322,16 @@
+       then
+         (cache,ValuesUtil.makeTuple({Values.BOOL(false),Values.STRING("")}),st);
+ 
++   case (cache,env,"createXML2RTE",vals,st,_)
++      equation
++        (cache,st,xml_filename) = createXML2RTE(cache,env,vals,st,msg);
++      then
++        (cache,ValuesUtil.makeTuple({Values.BOOL(true),Values.STRING(xml_filename)}),st);
++
++    case (cache,_,"createXML2RTE",_,st,_)
++      then
++        (cache,ValuesUtil.makeTuple({Values.BOOL(false),Values.STRING("New openModelica API : Xml creation for Dynawo error.")}),st);
++
+     case (cache,_,"solveLinearSystem",{Values.ARRAY(valueLst=vals),v,Values.ENUM_LITERAL(index=1 /*dgesv*/),Values.ARRAY(valueLst={Values.INTEGER(-1)})},st,_)
+       equation
+         (realVals,i) = System.dgesv(List.map(vals,ValuesUtil.arrayValueReals),ValuesUtil.arrayValueReals(v));
+@@ -4844,6 +4855,118 @@
+   end matchcontinue;
+ end dumpXMLDAE;
+ 
++protected function createXMLDAE2DynawoFrontEnd
++" This function runs the front-end for the createXML2RTE function"
++  input FCore.Cache inCache;
++  input FCore.Graph   inEnv;
++  input Absyn.Path inClassName;
++  input String rewriteRulesFile;
++  input GlobalScript.SymbolTable inInteractiveSymbolTable;
++  output FCore.Cache outCache;
++  output FCore.Graph   outEnv;
++  output DAE.DAElist outDae;
++algorithm
++  (outCache, outEnv, outDae) := matchcontinue(inCache, inEnv, inClassName, rewriteRulesFile, inInteractiveSymbolTable)
++    local
++      Absyn.Program p;
++      SCode.Program scode;
++
++    case (_, _, _, _, _)
++      equation
++        // set the rewrite rules flag
++        Flags.setConfigString(Flags.REWRITE_RULES_FILE, rewriteRulesFile);
++        // load the rewrite rules
++        RewriteRules.loadRules();
++
++        GlobalScript.SYMBOLTABLE(ast = p) = inInteractiveSymbolTable;  
++        scode = SCodeUtil.translateAbsyn2SCode(p);
++        (outCache, outEnv, _, outDae) = Inst.instantiateClass(inCache, InnerOuter.emptyInstHierarchy, scode, inClassName);
++
++        outDae = DAEUtil.transformationsBeforeBackend(outCache,outEnv,outDae);
++
++        // clear the rewrite rules after running the front-end
++        Flags.setConfigString(Flags.REWRITE_RULES_FILE, "");
++        RewriteRules.clearRules();
++     then
++       (outCache, outEnv, outDae);
++       
++    case (_, _, _, _, _)
++      equation
++        // clear the rewrite rules if we fail!
++        Flags.setConfigString(Flags.REWRITE_RULES_FILE, "");
++        RewriteRules.clearRules();
++     then
++       fail();
++  end matchcontinue;
++end createXMLDAE2DynawoFrontEnd;
++
++protected function createXML2RTE 
++" This function outputs the DAE system corresponding to a RTR specific model."
++  input FCore.Cache inCache;
++  input FCore.Graph inEnv;
++  input list<Values.Value> vals;
++  input GlobalScript.SymbolTable inInteractiveSymbolTable;
++  input Absyn.Msg inMsg;
++
++  output FCore.Cache outCache;
++  output GlobalScript.SymbolTable outInteractiveSymbolTable3;
++  output String xml_filename "Output specific XML fileName";
++algorithm
++  (outCache,outInteractiveSymbolTable3,xml_filename) :=
++  match (inCache,inEnv,vals,inInteractiveSymbolTable,inMsg)
++    local
++      FCore.Cache cache;
++      FCore.Graph graph;
++      DAE.DAElist dae;
++      BackendDAE.BackendDAE dlow;
++
++      Absyn.Path classname;
++      String rewriteRulesFile;
++      GlobalScript.SymbolTable st;
++      Absyn.Msg msg;
++
++      String cname_str,compileDir,description;
++
++    case (cache,graph,
++          {Values.CODE(Absyn.C_TYPENAME(classname)),Values.STRING(rewriteRulesFile)},
++          st,msg)
++      equation
++	// Initialisations
++        //~~~~~~~~~~~~~~~~
++        System.startTimer();
++	Error.clearMessages() "Clear messages";
++
++        compileDir = System.pwd() + System.pathDelimiter();
++        cname_str  = Absyn.pathString(classname);
++
++	// Generation of the DAE structure
++        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++        (cache, graph, dae) = createXMLDAE2DynawoFrontEnd(cache, graph, classname, rewriteRulesFile, st);
++        
++        // Generation of the DAE Lower structure
++        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++	description = DAEUtil.daeDescription(dae);
++        dlow = BackendDAECreate.lower(dae,cache,graph,BackendDAE.EXTRA_INFO(description,cname_str));
++
++        // Call of the new Metamodelica sub-method
++        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++        Print.clearBuf();
++        XMLCreateDynawo.createDAE2Dynawo(dlow,cname_str);
++
++        // Complete generation of the output XML file
++        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++        xml_filename = stringAppendList({cname_str,"_structure.xml"});
++        Print.writeBuf(xml_filename);
++
++        Print.clearBuf();
++        compileDir = if Config.getRunningTestsuite() then "" else compileDir;
++        System.stopTimer();
++      then
++        (cache,st,stringAppendList({compileDir,xml_filename}));
++  
++  end match;
++end createXML2RTE;
++
+ protected function applyRewriteRulesOnBackend
+   input BackendDAE.BackendDAE inBackendDAE;
+   output BackendDAE.BackendDAE outBackendDAE;

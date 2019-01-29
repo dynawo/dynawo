@@ -1,0 +1,16 @@
+Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+See AUTHORS.txt
+All rights reserved.
+This Source Code Form is subject to the terms of the Mozilla Public
+License, v. 2.0. If a copy of the MPL was not distributed with this
+file, you can obtain one at http://mozilla.org/MPL/2.0/.
+SPDX-License-Identifier: MPL-2.0
+
+This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+=======================================================
+How to set up reference data and automated data check
+=======================================================
+
+1. Create a "reference" directory within the specific NRT directory (for example create 12n/baseCase/reference)
+2. Insert / Copy-paste any file or directory from the NRT directory into the reference directory (for example, copy the outputs directory into the reference directory).
+3. When running the NRT, the files will automatically be checked (when no reference directory exists, the output data sets will not be checked)   Delete any file you do not need in the reference directory (for example, delete the .svn directory from reference (for example delete 12n/baseCase/reference/outputs/.svn)

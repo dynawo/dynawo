@@ -1,0 +1,128 @@
+ ====== INIT VARIABLES VALUES ======
+MS_lambdaDPu                                      : y =        1.10949 yp =              0
+MS_lambdaQ1Pu                                     : y =    -4.8502e-05 yp =              0
+MS_lambdaQ2Pu                                     : y =    -4.8502e-05 yp =              0
+MS_lambdafPu                                      : y =        1.21072 yp =              0
+MS_omegaPu_value                                  : y =              1 yp =              0
+MS_omegaRefPu_value                               : y =              1 yp =              0
+MS_terminal_V_im                                  : y =      -0.252141 yp =              0
+MS_terminal_V_re                                  : y =        1.06044 yp =              0
+MS_theta                                          : y =       -0.23381 yp =              0
+EfdPu_setPoint_value                              : y =        1.14655 yp =              0
+MS_IRotorPu_value                                 : y =        1.14655 yp =              0
+MS_IStatorPu_value                                : y =       0.171622 yp =              0
+MS_PGen                                           : y =    2.20071e-06 yp =              0
+MS_PGenPu                                         : y =    2.20071e-08 yp =              0
+MS_PePu                                           : y =    2.49072e-05 yp =              0
+MS_PmPu_value                                     : y =    2.93817e-05 yp =              0
+MS_QGen                                           : y =         17.305 yp =              0
+MS_QGenPu                                         : y =        0.17305 yp =              0
+MS_QStatorPu_value                                : y =       0.176758 yp =              0
+MS_UPu                                            : y =           1.09 yp =              0
+MS_UStatorPu_value                                : y =        1.02993 yp =              0
+MS_cePu                                           : y =    2.49072e-05 yp =              0
+MS_cmPu                                           : y =    2.93817e-05 yp =              0
+MS_efdPu_value                                    : y =        1.14655 yp =              0
+MS_iDPu                                           : y =    5.83898e-09 yp =              0
+MS_iQ1Pu                                          : y =    8.30605e-10 yp =              0
+MS_iQ2Pu                                          : y =    5.64318e-09 yp =              0
+MS_iStatorPu_im                                   : y =       0.166967 yp =              0
+MS_iStatorPu_re                                   : y =      0.0396999 yp =              0
+MS_idPu                                           : y =     -0.0538176 yp =              0
+MS_ifPu                                           : y =       0.513376 yp =              0
+MS_iqPu                                           : y =   -2.00966e-05 yp =              0
+MS_lambdadPu                                      : y =           1.09 yp =              0
+MS_lambdaqPu                                      : y =   -5.57799e-05 yp =              0
+MS_sStatorPu_im                                   : y =      -0.176758 yp =              0
+MS_sStatorPu_re                                   : y =    -9.8896e-05 yp =              0
+MS_terminal_i_im                                  : y =       0.154456 yp =              0
+MS_terminal_i_re                                  : y =      0.0367252 yp =              0
+MS_thetaInternal_value                            : y =   -0.000373293 yp =              0
+MS_uStatorPu_im                                   : y =      -0.238807 yp =              0
+MS_uStatorPu_re                                   : y =        1.00186 yp =              0
+MS_udPu                                           : y =   -0.000406889 yp =              0
+MS_ufPu                                           : y =    0.000627561 yp =              0
+MS_uqPu                                           : y =           1.09 yp =              0
+PmPu_setPoint_value                               : y =    2.93817e-05 yp =              0
+ ====== INIT DISCRETE VARIABLES VALUES ======
+MS_running_value                                  : z =              1
+MS_switchOffSignal1_value                         : z =             -1
+MS_switchOffSignal2_value                         : z =             -1
+MS_switchOffSignal3_value                         : z =             -1
+MS_state                                          : z =              2
+ ====== PARAMETERS VALUES ======
+EfdPu_Value0                                       =        1.14655
+MS_Ce0Pu                                           =    2.48997e-05
+MS_Cm0Pu                                           =    2.93817e-05
+MS_DPu                                             =              0
+MS_Efd0Pu                                          =        1.14655
+MS_H                                               =           3.53
+MS_IRotor0Pu                                       =        1.14655
+MS_IStator0Pu                                      =       0.171622
+MS_Id0Pu                                           =     -0.0538176
+MS_If0Pu                                           =       0.513376
+MS_Iq0Pu                                           =   -2.00899e-05
+MS_Kuf                                             =    0.000506335
+MS_LDPPu                                           =       0.117053
+MS_LQ1PPu                                          =        0.57248
+MS_LQ2PPu                                          =       0.084262
+MS_LambdaD0Pu                                      =        1.10949
+MS_LambdaQ10Pu                                     =    -4.8502e-05
+MS_LambdaQ20Pu                                     =    -4.8502e-05
+MS_Lambdad0Pu                                      =           1.09
+MS_Lambdaf0Pu                                      =        1.21072
+MS_Lambdaq0Pu                                      =   -5.57762e-05
+MS_LdPPu                                           =       0.215015
+MS_LfPPu                                           =       0.197185
+MS_LqPPu                                           =       0.215015
+MS_MdPPu                                           =        2.41425
+MS_MqPPu                                           =        2.41425
+MS_MrcPPu                                          =              0
+MS_P0Pu                                            =             -0
+MS_PGen0Pu                                         =              0
+MS_PNom                                            =            250
+MS_Pm0Pu                                           =    2.93817e-05
+MS_Q0Pu                                            =       -0.17305
+MS_QGen0Pu                                         =        0.17305
+MS_QStator0Pu                                      =       0.176758
+MS_RDPPu                                           =      0.0202735
+MS_RQ1PPu                                          =      0.0169769
+MS_RQ2PPu                                          =     0.00542428
+MS_RTfPu                                           =         0.0033
+MS_RTfoPu                                          =     0.00392274
+MS_RaPPu                                           =     0.00467424
+MS_RfPPu                                           =     0.00122242
+MS_SNom                                            =            295
+MS_SnTfo                                           =            290
+MS_Theta0                                          =       -0.23381
+MS_ThetaInternal0                                  =       -0.23381
+MS_U0Pu                                            =           1.09
+MS_UBaseHV                                         =            225
+MS_UBaseLV                                         =             20
+MS_UNom                                            =             20
+MS_UNomHV                                          =        243.225
+MS_UNomLV                                          =             20
+MS_UPhase0                                         =      -0.233437
+MS_UStator0Pu                                      =        1.02993
+MS_Ud0Pu                                           =   -0.000406893
+MS_Uf0Pu                                           =    0.000627561
+MS_Uq0Pu                                           =           1.09
+MS_XTfPu                                           =       0.123756
+MS_XTfoPu                                          =        0.14711
+MS_i0Pu_im                                         =       0.154456
+MS_i0Pu_re                                         =      0.0367252
+MS_iStator0Pu_im                                   =       0.166967
+MS_iStator0Pu_re                                   =      0.0396999
+MS_rTfoPu                                          =          1.081
+MS_s0Pu_im                                         =       -0.17305
+MS_s0Pu_re                                         =             -0
+MS_sStator0Pu_im                                   =      -0.176758
+MS_sStator0Pu_re                                   =    -9.8874e-05
+MS_u0Pu_im                                         =      -0.252141
+MS_u0Pu_re                                         =        1.06044
+MS_uStator0Pu_im                                   =      -0.238807
+MS_uStator0Pu_re                                   =        1.00186
+PmPu_Value0                                        =    2.93817e-05
+MS_ExcitationPu                                    =              1
+MS_NbSwitchOffSignals                              =              3
+MS_State0                                          =              2

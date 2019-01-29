@@ -1,0 +1,68 @@
+//
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+// simulation tool for power systems.
+//
+
+/**
+ * @file  CRVCurvesCollectionFactory.h
+ *
+ * @brief Dynawo Curves collection factory : header file
+ *
+ */
+#ifndef API_CRV_CRVCURVESCOLLECTIONFACTORY_H_
+#define API_CRV_CRVCURVESCOLLECTIONFACTORY_H_
+
+#include <boost/shared_ptr.hpp>
+
+#include "CRVExport.h"
+
+namespace curves {
+class CurvesCollection;
+
+/**
+ * @class CurvesCollectionFactory
+ * @brief Curves collection factory class
+ *
+ * CurvesCollectionFactory encapsulate methods for creating new
+ * @p CurvesCollection objects.
+ */
+class __DYNAWO_CRV_EXPORT CurvesCollectionFactory {
+ public:
+  /**
+   * @brief Create new CurvesCollection instance
+   *
+   * @param id id of the new instance
+   *
+   * @return shared pointer to a new empty @p CurvesCollection
+   */
+  static boost::shared_ptr<CurvesCollection> newInstance(const std::string& id);
+
+  /**
+   * @brief Create new CurvesCollection instance as a clone of given instance
+   *
+   * @param[in] original CurvesCollection to be cloned
+   *
+   * @return Shared pointer to a new @p CurvesCollection copied from original
+   */
+  static boost::shared_ptr<CurvesCollection> copyInstance(boost::shared_ptr<CurvesCollection> original);
+
+  /**
+   * @brief Create new CurvesCollection instance as a clone of given instance
+   *
+   * @param[in] original CurvesCollection to be cloned
+   *
+   * @return Shared pointer to a new @p CurvesCollection copied from original
+   */
+  static boost::shared_ptr<CurvesCollection> copyInstance(const CurvesCollection& original);
+};
+}  // namespace curves
+
+#endif  // API_CRV_CRVCURVESCOLLECTIONFACTORY_H_

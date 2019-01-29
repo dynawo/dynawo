@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="3">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="4">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="5">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="6">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="7">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="8">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="9">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="10">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="11">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+  <set id="12">
+    <par type="INT" name="ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="DPu" value="0"/>
+    <par type="DOUBLE" name="H" value="5.4000000000000004"/>
+    <par type="DOUBLE" name="RaPu" value="0.0027959999999999999"/>
+    <par type="DOUBLE" name="XlPu" value="0.20200000000000001"/>
+    <par type="DOUBLE" name="XdPu" value="2.2200000000000002"/>
+    <par type="DOUBLE" name="XpdPu" value="0.38400000000000001"/>
+    <par type="DOUBLE" name="XppdPu" value="0.26400000000000001"/>
+    <par type="DOUBLE" name="Tpd0" value="8.0939999999999994"/>
+    <par type="DOUBLE" name="Tppd0" value="0.080000000000000002"/>
+    <par type="DOUBLE" name="XqPu" value="2.2200000000000002"/>
+    <par type="DOUBLE" name="XpqPu" value="0.39300000000000002"/>
+    <par type="DOUBLE" name="XppqPu" value="0.26200000000000001"/>
+    <par type="DOUBLE" name="Tpq0" value="1.5720000000000001"/>
+    <par type="DOUBLE" name="Tppq0" value="0.084000000000000005"/>
+    <par type="DOUBLE" name="UNom" value="24"/>
+    <par type="DOUBLE" name="SNom" value="1211"/>
+    <par type="DOUBLE" name="PNom" value="1090"/>
+    <par type="DOUBLE" name="SnTfo" value="1080"/>
+    <par type="DOUBLE" name="UNomHV" value="415"/>
+    <par type="DOUBLE" name="UNomLV" value="24"/>
+    <par type="DOUBLE" name="UBaseHV" value="380"/>
+    <par type="DOUBLE" name="UBaseLV" value="24"/>
+    <par type="DOUBLE" name="RTfPu" value="0.0024897999999999999"/>
+    <par type="DOUBLE" name="XTfPu" value="0.13697737366400001"/>
+    <par type="DOUBLE" name="PmPu_ValueIn" value="0"/>
+    <par type="DOUBLE" name="EfdPu_ValueIn" value="0"/>
+    <reference name="P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="121">
+    <par type="DOUBLE" name="ValueIn" value="0"/>
+  </set>
+  <set id="13">
+    <par type="INT" name="MS_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="MS_DPu" value="0"/>
+    <par type="DOUBLE" name="MS_H" value="6.2999999999999998"/>
+    <par type="DOUBLE" name="MS_RaPu" value="0.0035699999999999998"/>
+    <par type="DOUBLE" name="MS_XlPu" value="0.219"/>
+    <par type="DOUBLE" name="MS_XdPu" value="2.5699999999999998"/>
+    <par type="DOUBLE" name="MS_XpdPu" value="0.40699999999999997"/>
+    <par type="DOUBLE" name="MS_XppdPu" value="0.29999999999999999"/>
+    <par type="DOUBLE" name="MS_Tpd0" value="9.6509999999999998"/>
+    <par type="DOUBLE" name="MS_Tppd0" value="0.058000000000000003"/>
+    <par type="DOUBLE" name="MS_XqPu" value="2.5699999999999998"/>
+    <par type="DOUBLE" name="MS_XpqPu" value="0.45400000000000001"/>
+    <par type="DOUBLE" name="MS_XppqPu" value="0.30099999999999999"/>
+    <par type="DOUBLE" name="MS_Tpq0" value="1.0089999999999999"/>
+    <par type="DOUBLE" name="MS_Tppq0" value="0.059999999999999998"/>
+    <par type="DOUBLE" name="MS_UNom" value="24"/>
+    <par type="DOUBLE" name="MS_SNom" value="1120"/>
+    <par type="DOUBLE" name="MS_PNom" value="1008"/>
+    <par type="DOUBLE" name="MS_SnTfo" value="1080"/>
+    <par type="DOUBLE" name="MS_UNomHV" value="235"/>
+    <par type="DOUBLE" name="MS_UNomLV" value="24"/>
+    <par type="DOUBLE" name="MS_UBaseHV" value="225"/>
+    <par type="DOUBLE" name="MS_UBaseLV" value="24"/>
+    <par type="DOUBLE" name="MS_RTfPu" value="0.0024721999999999999"/>
+    <par type="DOUBLE" name="MS_XTfPu" value="0.13787783805699999"/>
+    <par type="DOUBLE" name="PmPu_ValueIn" value="0"/>
+    <par type="DOUBLE" name="EfdPu_ValueIn" value="0"/>
+    <reference name="MS_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="MS_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="MS_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="MS_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="14">
+    <par type="INT" name="MS_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="MS_DPu" value="0"/>
+    <par type="DOUBLE" name="MS_H" value="5.625"/>
+    <par type="DOUBLE" name="MS_RaPu" value="0.00316"/>
+    <par type="DOUBLE" name="MS_XlPu" value="0.25600000000000001"/>
+    <par type="DOUBLE" name="MS_XdPu" value="2.8100000000000001"/>
+    <par type="DOUBLE" name="MS_XpdPu" value="0.50900000000000001"/>
+    <par type="DOUBLE" name="MS_XppdPu" value="0.35399999999999998"/>
+    <par type="DOUBLE" name="MS_Tpd0" value="10.041"/>
+    <par type="DOUBLE" name="MS_Tppd0" value="0.065000000000000002"/>
+    <par type="DOUBLE" name="MS_XqPu" value="2.6200000000000001"/>
+    <par type="DOUBLE" name="MS_XpqPu" value="0.60099999999999998"/>
+    <par type="DOUBLE" name="MS_XppqPu" value="0.377"/>
+    <par type="DOUBLE" name="MS_Tpq0" value="1.22"/>
+    <par type="DOUBLE" name="MS_Tppq0" value="0.094"/>
+    <par type="DOUBLE" name="MS_UNom" value="20"/>
+    <par type="DOUBLE" name="MS_PNom" value="1485"/>
+    <par type="DOUBLE" name="MS_SNom" value="1650"/>
+    <par type="DOUBLE" name="MS_SnTfo" value="1650"/>
+    <par type="DOUBLE" name="MS_UNomHV" value="415"/>
+    <par type="DOUBLE" name="MS_UNomLV" value="20"/>
+    <par type="DOUBLE" name="MS_UBaseHV" value="380"/>
+    <par type="DOUBLE" name="MS_UBaseLV" value="20"/>
+    <par type="DOUBLE" name="MS_RTfPu" value="0.0027352000000000001"/>
+    <par type="DOUBLE" name="MS_XTfPu" value="0.15347562894799999"/>
+    <par type="DOUBLE" name="PmPu_ValueIn" value="0"/>
+    <par type="DOUBLE" name="EfdPu_ValueIn" value="0"/>
+    <reference name="MS_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="MS_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="MS_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="MS_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="15">
+    <par type="INT" name="MS_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="MS_DPu" value="0"/>
+    <par type="DOUBLE" name="MS_H" value="4.9630000000000001"/>
+    <par type="DOUBLE" name="MS_RaPu" value="0.0016000000000000001"/>
+    <par type="DOUBLE" name="MS_XlPu" value="0.152"/>
+    <par type="DOUBLE" name="MS_XdPu" value="1.99"/>
+    <par type="DOUBLE" name="MS_XpdPu" value="0.24299999999999999"/>
+    <par type="DOUBLE" name="MS_XppdPu" value="0.17399999999999999"/>
+    <par type="DOUBLE" name="MS_Tpd0" value="6.2999999999999998"/>
+    <par type="DOUBLE" name="MS_Tppd0" value="0.029000000000000001"/>
+    <par type="DOUBLE" name="MS_XqPu" value="1.7"/>
+    <par type="DOUBLE" name="MS_XpqPu" value="0.22800000000000001"/>
+    <par type="DOUBLE" name="MS_XppqPu" value="0.001"/>
+    <par type="DOUBLE" name="MS_Tpq0" value="0.041000000000000002"/>
+    <par type="DOUBLE" name="MS_Tppq0" value="0.01"/>
+    <par type="DOUBLE" name="MS_UNom" value="11.5"/>
+    <par type="DOUBLE" name="MS_PNom" value="70"/>
+    <par type="DOUBLE" name="MS_SNom" value="86"/>
+    <par type="DOUBLE" name="MS_SnTfo" value="84"/>
+    <par type="DOUBLE" name="MS_UNomHV" value="250"/>
+    <par type="DOUBLE" name="MS_UNomLV" value="11.5"/>
+    <par type="DOUBLE" name="MS_UBaseHV" value="225"/>
+    <par type="DOUBLE" name="MS_UBaseLV" value="11.5"/>
+    <par type="DOUBLE" name="MS_RTfPu" value="0.0030000000000000001"/>
+    <par type="DOUBLE" name="MS_XTfPu" value="0.11996249413899999"/>
+    <par type="DOUBLE" name="PmPu_ValueIn" value="0"/>
+    <par type="DOUBLE" name="EfdPu_ValueIn" value="0"/>
+    <reference name="MS_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="MS_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="MS_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="MS_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="16">
+    <par type="INT" name="MS_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="MS_DPu" value="0"/>
+    <par type="DOUBLE" name="MS_H" value="3.5299999999999998"/>
+    <par type="DOUBLE" name="MS_RaPu" value="0.0040000000000000001"/>
+    <par type="DOUBLE" name="MS_XlPu" value="0.184"/>
+    <par type="DOUBLE" name="MS_XdPu" value="2.25"/>
+    <par type="DOUBLE" name="MS_XpdPu" value="0.34000000000000002"/>
+    <par type="DOUBLE" name="MS_XppdPu" value="0.245"/>
+    <par type="DOUBLE" name="MS_Tpd0" value="6.7999999999999998"/>
+    <par type="DOUBLE" name="MS_Tppd0" value="0.047"/>
+    <par type="DOUBLE" name="MS_XqPu" value="2.25"/>
+    <par type="DOUBLE" name="MS_XpqPu" value="0.57999999999999996"/>
+    <par type="DOUBLE" name="MS_XppqPu" value="0.245"/>
+    <par type="DOUBLE" name="MS_Tpq0" value="0.56000000000000005"/>
+    <par type="DOUBLE" name="MS_Tppq0" value="0.32100000000000001"/>
+    <par type="DOUBLE" name="MS_UNom" value="20"/>
+    <par type="DOUBLE" name="MS_PNom" value="250"/>
+    <par type="DOUBLE" name="MS_SNom" value="295"/>
+    <par type="DOUBLE" name="MS_SnTfo" value="290"/>
+    <par type="DOUBLE" name="MS_UNomHV" value="243.22499999999999"/>
+    <par type="DOUBLE" name="MS_UNomLV" value="20"/>
+    <par type="DOUBLE" name="MS_UBaseHV" value="225"/>
+    <par type="DOUBLE" name="MS_UBaseLV" value="20"/>
+    <par type="DOUBLE" name="MS_RTfPu" value="0.0033"/>
+    <par type="DOUBLE" name="MS_XTfPu" value="0.123756009955"/>
+    <par type="DOUBLE" name="PmPu_ValueIn" value="0"/>
+    <par type="DOUBLE" name="EfdPu_ValueIn" value="0"/>
+    <reference name="MS_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="MS_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="MS_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="MS_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+  </set>
+  <set id="17">
+    <par type="INT" name="nbGen" value="5"/>
+    <par type="DOUBLE" name="weight_gen_0" value="1090"/>
+    <par type="DOUBLE" name="weight_gen_1" value="1008"/>
+    <par type="DOUBLE" name="weight_gen_2" value="1485"/>
+    <par type="DOUBLE" name="weight_gen_3" value="69"/>
+    <par type="DOUBLE" name="weight_gen_4" value="191"/>
+  </set>
+  <set id="18">
+    <par type="DOUBLE" name="CAPACITOR_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="DANGLING_LINE_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="LINE_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="LOAD_Tp" value="90"/>
+    <par type="DOUBLE" name="LOAD_Tq" value="90"/>
+    <par type="DOUBLE" name="LOAD_alpha" value="1"/>
+    <par type="DOUBLE" name="LOAD_alphaLong" value="0"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2"/>
+    <par type="DOUBLE" name="LOAD_betaLong" value="0"/>
+    <par type="BOOL" name="LOAD_isControllable" value="false"/>
+    <par type="BOOL" name="LOAD_isRestorative" value="false"/>
+    <par type="DOUBLE" name="LOAD_zPMax" value="100"/>
+    <par type="DOUBLE" name="LOAD_zQMax" value="100"/>
+    <par type="DOUBLE" name="REACTANCE_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="TFO_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="TFO_t1st_HT" value="60"/>
+    <par type="DOUBLE" name="TFO_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="TFO_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="TFO_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="TFO_tolV" value="0.014999999700000001"/>
+  </set>
+</parametersSet>

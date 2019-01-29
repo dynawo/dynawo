@@ -1,0 +1,167 @@
+#!/bin/bash
+#
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# See AUTHORS.txt
+# All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, you can obtain one at http://mozilla.org/MPL/2.0/.
+# SPDX-License-Identifier: MPL-2.0
+# 
+# This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+
+
+# Setting install path environment variables
+export BIN_DIR=${DYNAWO_INSTALL_DIR}/@BINDIR_NAME@/
+export SBIN_DIR=${DYNAWO_INSTALL_DIR}/@SBINDIR_NAME@/
+export DDB_DIR=${DYNAWO_INSTALL_DIR}/@DDBDIR_NAME@/
+export SCRIPTS_DIR=${DYNAWO_INSTALL_DIR}/@SBINDIR_NAME@/
+export RESSOURCES_DIR=${DYNAWO_INSTALL_DIR}/@SHAREDIR_NAME@/
+export XSD_DIR=${RESSOURCES_DIR}/xsd/
+
+# Setting dynawo binary location
+DYNAWO=${BIN_DIR}/dynawo
+DYDLIBGENERATOR=${SBIN_DIR}/dydLibGenerator
+COMPILERMODELICAOMC=${SBIN_DIR}/compilerModelicaOMC
+DUMPMODELBIN=${SBIN_DIR}/dumpModel
+
+# analysing the launch mode
+MODE=""
+case $1 in
+--valgrind)
+  MODE=VALGRIND
+  ;;
+--valgrind-callgrind)
+  MODE=VALGRIND_CALLGRIND
+  ;;
+--valgrind-dhat)
+  MODE=VALGRIND_DHAT
+  ;;
+--valgrind-massif)
+  MODE=VALGRIND_MASSIF
+  ;;
+--gdb)
+  MODE=GDB
+  ;;
+--dydlib)
+  MODE=DYDLIBGENERATOR
+  ;;
+--dydlib-gdb)
+  MODE=DYDLIBGENERATOR-GDB
+  ;;
+--compile)
+  MODE=COMPILE
+  ;;
+--dump-model)
+  MODE=DUMPMODEL
+  ;;
+--help)
+  MODE=HELP
+  ;;
+--version)
+  MODE=VERSION
+  ;;
+esac
+
+# erasing the mode from the args
+ARGS=$*
+case ${MODE} in
+VALGRIND)
+  ARGS=`echo ${ARGS} |sed -e 's/--valgrind//g'`
+  ;;
+VALGRIND_CALLGRIND)
+  ARGS=`echo ${ARGS} |sed -e 's/--valgrind-callgrind//g'`
+  ;;
+VALGRIND_DHAT)
+  ARGS=`echo ${ARGS} |sed -e 's/--valgrind-dhat//g'`
+  ;;
+VALGRIND_MASSIF)
+  ARGS=`echo ${ARGS} |sed -e 's/--valgrind-massif//g'`
+  ;;
+GDB)
+  ARGS=`echo ${ARGS} |sed -e 's/--gdb//g'`
+  ;;
+DYDLIBGENERATOR)
+  ARGS=`echo ${ARGS} |sed -e 's/--dydlib//g'`
+;;
+DYDLIBGENERATOR-GDB)
+  ARGS=`echo ${ARGS} |sed -e 's/--dydlib-gdb//g'`
+;;
+COMPILE)
+  ARGS=`echo ${ARGS} |sed -e 's/--compile//g'`
+;;
+DUMPMODEL)
+  ARGS=`echo ${ARGS} |sed -e 's/--dump-model//g'`
+;;
+esac
+
+ # Launching Dynawo with the script args and the correct mode
+case ${MODE} in
+VALGRIND)
+  valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all ${DYNAWO} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+VALGRIND_CALLGRIND)
+  valgrind --tool=callgrind --dump-instr=yes --collect-jumps=yes ${DYNAWO} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+VALGRIND_DHAT)
+  valgrind --tool=exp-dhat ${DYNAWO} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+VALGRIND_MASSIF)
+  valgrind --tool=massif ${DYNAWO} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+GDB)
+  gdb -q --args ${DYNAWO} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+DYDLIBGENERATOR)
+  ${DYDLIBGENERATOR} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+DYDLIBGENERATOR-GDB)
+  echo ${ARGS}
+  gdb -q --args ${DYDLIBGENERATOR} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+COMPILE)
+  ${COMPILERMODELICAOMC} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+DUMPMODEL)
+  ${DUMPMODELBIN} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+VERSION)
+  ${DYNAWO} --version
+  RETURN_CODE=$?
+  ;;
+HELP)
+  echo \
+"###### LAUNCHER HELP #####
+   --valgrind           launch DYNAWO with valgrind (must be the first argument)
+   --valgrind-callgrind  launch DYNAWO with valgrind using callgrind tool (must be the first argument)
+   --valgrind-massif     launch DYNAWO with valgrind using memory tool (must be the first argument)
+   --valgrind-dhat       launch DYNAWO with valgrind using dhat tool (must be the first argument)
+   --gdb                launch DYNAWO with gdb (must be the first argument)
+   --compile            launch DYNAWO for compilation of Modelica models (must be the first argument)
+   --dydlib             launch DYNAWO dynamic library generator (must be the first argument)
+   --dydlib-gdb         launch DYNAWO dynamic library generator with gdb (must be the first argument)
+   --dump-model         launch DYNAWO dumpModel executable (must be the first argument)
+   --version            show dynawo version (must be the first argument)
+   --help               produce help message (must be the first argument)
+
+##### DYNAWO HELP #####"
+  ${DYNAWO} --help
+  RETURN_CODE=$?
+  ;;
+*)
+  ${DYNAWO} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+esac
+
+# Returning return code
+exit ${RETURN_CODE}

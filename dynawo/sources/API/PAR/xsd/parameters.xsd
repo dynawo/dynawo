@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:dyn="http://www.rte-france.com/dynawo"
+           targetNamespace="http://www.rte-france.com/dynawo"
+           elementFormDefault="qualified">
+
+  <xs:element name="parametersSet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="set" type="dyn:Set" maxOccurs="unbounded">
+          <xs:unique name="UniqueParameterName">
+            <xs:selector xpath="dyn:par|dyn:reference|dyn:parTable"/>
+            <xs:field xpath="@name"/>
+          </xs:unique>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+    <xs:unique name="UniqueId">
+      <xs:selector xpath="dyn:set"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+  </xs:element>
+
+  <xs:complexType name="Set">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="parTable" type="dyn:TableParameter"/>
+      <xs:element name="par" type="dyn:Parameter"/>
+      <xs:element name="reference" type="dyn:Reference"/>
+    </xs:choice>
+    <xs:attribute name="id" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="TableParameter">
+    <xs:sequence>
+      <xs:element name="par" type="dyn:ParameterInTable" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="type" use="required" type="dyn:Type"/>
+    <xs:attribute name="name" use="required" type="dyn:String"/>
+  </xs:complexType>
+
+  <xs:complexType name="ParameterInTable">
+    <xs:attribute name="value" use="required" type="xs:string"/>
+    <xs:attribute name="row" use="required" type="xs:int"/>
+    <xs:attribute name="column" use="required" type="xs:int"/>
+  </xs:complexType>
+
+  <xs:complexType name="Parameter">
+    <xs:attribute name="type" use="required" type="dyn:Type"/>
+    <xs:attribute name="name" use="required" type="dyn:String"/>
+    <xs:attribute name="value" use="required" type="xs:string"/>
+    <!--<xs:assert test="@type != 'BOOL' or @value = 'true' or @value = 'false'"/>-->
+  </xs:complexType>
+
+  <xs:complexType name="Reference">
+    <xs:attribute name="type" use="required" type="dyn:Type"/>
+    <xs:attribute name="name" use="required" type="dyn:String"/>
+    <xs:attribute name="origData" use="required" type="dyn:OriginData"/>
+    <xs:attribute name="origName" use="required" type="dyn:String"/>
+    <xs:attribute name="componentId" type="dyn:String"/>
+  </xs:complexType>
+
+  <xs:simpleType name="OriginData">
+    <xs:restriction base="dyn:String">
+      <xs:enumeration value="IIDM"/>
+      <xs:enumeration value="INIT"/> <!-- only for AIA if needed -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DOUBLE"/>
+      <xs:enumeration value="INT"/>
+      <xs:enumeration value="BOOL"/>
+      <xs:enumeration value="STRING"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="String">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([+-])*([a-zA-Z0-9_.\s-])+([+-])*([0-9])*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,63 @@
+2018-12-19 17:10:54 | DEBUG |  ============================================================
+2018-12-19 17:10:54 | DEBUG | DYNAWO VERSION  :     0.0.4
+2018-12-19 17:10:54 | DEBUG | DYNAWO REVISION :    IEEE14-c38e63c
+2018-12-19 17:10:54 | DEBUG |  ============================================================
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS____1_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS____2_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS____3_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS____4_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS____5_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS____6_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS____7_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS____8_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS____9_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS___10_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS___11_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS___12_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS___13_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | INFO | adding curve : Id: NETWORK; curve: _BUS___14_TN_Upu_value found. (exact name)
+2018-12-19 17:10:54 | DEBUG | nbSubNetwork = 1 nbsub = 1
+2018-12-19 17:10:54 | DEBUG | subNetwork[0] nbBus = 14
+2018-12-19 17:10:54 | DEBUG | keep SubNetworks num : 0
+2018-12-19 17:10:54 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2018-12-19 17:10:54 | DEBUG | -----------------------------------------------------------------------
+2018-12-19 17:10:54 | DEBUG | number of continuous variables : 408 (display limited to 4 variables)
+2018-12-19 17:10:54 | DEBUG | number of discrete variables : 190
+2018-12-19 17:10:54 | DEBUG | -----------------------------------------------------------------------
+2018-12-19 17:10:54 | DEBUG |     t              y1            y2            y3            y4      | nst k      h
+2018-12-19 17:10:54 | DEBUG | -----------------------------------------------------------------------
+2018-12-19 17:10:54 | DEBUG |        0.000  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |   0 0 3.193744e-04
+2018-12-19 17:10:54 | DEBUG |        0.001  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |   1 1 1.000000e-03
+2018-12-19 17:10:54 | DEBUG |        0.003  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |   2 1 2.000000e-03
+2018-12-19 17:10:54 | DEBUG |        0.007  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |   3 1 4.000000e-03
+2018-12-19 17:10:54 | DEBUG |        0.015  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |   4 1 8.000000e-03
+2018-12-19 17:10:54 | DEBUG |        0.031  1.016071e+00 -2.744099e-01 -6.818683e-02  7.549782e-02 |   5 1 1.600000e-02
+2018-12-19 17:10:54 | DEBUG |        0.063  1.016071e+00 -2.744099e-01 -6.818683e-02  7.549782e-02 |   6 1 3.200000e-02
+2018-12-19 17:10:54 | DEBUG |        0.127  1.016071e+00 -2.744099e-01 -6.818683e-02  7.549782e-02 |   7 1 6.400000e-02
+2018-12-19 17:10:54 | DEBUG |        0.255  1.016071e+00 -2.744099e-01 -6.818683e-02  7.549782e-02 |   8 1 1.280000e-01
+2018-12-19 17:10:54 | DEBUG |        0.511  1.016071e+00 -2.744099e-01 -6.818683e-02  7.549782e-02 |   9 1 2.560000e-01
+2018-12-19 17:10:54 | DEBUG |        1.023  1.016071e+00 -2.744099e-01 -6.818683e-02  7.549782e-02 |  10 1 5.120000e-01
+2018-12-19 17:10:54 | DEBUG |        2.047  1.016071e+00 -2.744099e-01 -6.818683e-02  7.549782e-02 |  11 1 1.024000e+00
+2018-12-19 17:10:54 | DEBUG |        4.095  1.016071e+00 -2.744099e-01 -6.818683e-02  7.549782e-02 |  12 1 2.048000e+00
+2018-12-19 17:10:54 | DEBUG |        8.191  1.016071e+00 -2.744099e-01 -6.818683e-02  7.549782e-02 |  13 1 4.096000e+00
+2018-12-19 17:10:54 | DEBUG |       16.383  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |  14 1 8.192000e+00
+2018-12-19 17:10:54 | DEBUG |       26.383  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |  15 1 1.000000e+01
+2018-12-19 17:10:54 | DEBUG |       36.383  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |  16 1 1.000000e+01
+2018-12-19 17:10:54 | DEBUG |       46.383  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |  17 1 1.000000e+01
+2018-12-19 17:10:54 | DEBUG |       56.383  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |  18 1 1.000000e+01
+2018-12-19 17:10:54 | DEBUG |       66.383  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |  19 1 1.000000e+01
+2018-12-19 17:10:54 | DEBUG |       76.383  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |  20 1 1.000000e+01
+2018-12-19 17:10:54 | DEBUG |       86.383  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |  21 1 1.000000e+01
+2018-12-19 17:10:54 | DEBUG |       96.383  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |  22 1 1.000000e+01
+2018-12-19 17:10:54 | DEBUG |      100.000  1.016071e+00 -2.744099e-01 -6.818682e-02  7.549782e-02 |  23 1 3.617000e+00
+2018-12-19 17:10:54 | DEBUG |
+2018-12-19 17:10:54 | DEBUG | execution Stats :
+2018-12-19 17:10:54 | DEBUG |
+2018-12-19 17:10:54 | DEBUG | number of iterations                     = 23
+2018-12-19 17:10:54 | DEBUG | number of Residual evaluations           = 25
+2018-12-19 17:10:54 | DEBUG | number of Jacobian evaluations           = 17
+2018-12-19 17:10:54 | DEBUG | number of Nonlinear iterations           = 23
+2018-12-19 17:10:54 | DEBUG | number of error test failures            = 0
+2018-12-19 17:10:54 | DEBUG | number of Nonlinear convergence failures = 0
+2018-12-19 17:10:54 | DEBUG | number of root functions evaluations     = 26
+2018-12-19 17:10:54 | DEBUG | end of job IEEE14 - MacroStaticRefs

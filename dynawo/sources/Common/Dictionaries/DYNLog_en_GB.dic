@@ -1,0 +1,222 @@
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+
+//---------------------- HEADER --------------------------------------
+DynawoVersion                 =             DYNAWO VERSION  :
+DynawoRevision                =             DYNAWO REVISION :
+//---------------------- MODELER --------------------------------------
+ModelDesc                     =             instancing model description %1% ...
+ModelConnectorsNB             =             model connectors (Y,Flow) NB = %1%
+ModelConnectorsList           =             connectors list
+StaticConnect                 =             connecting %1%_%2% with %3%
+DynamicConnect                =             connecting %1%_%2% with %3%_%4%
+ModelName                     =             model :
+ConnectedModels               =             model %1% to model %2%
+SolveParameters               =             solve Parameters of model : %1%
+SolveParametersError          =             error > %1% : F[%2%] = %3% equation %4%
+UnstableRoot                  =             instability for root  : %1%
+RootGeq                       =             root: %1% ( model: %2%, equation: %3% )
+UnstableRootFound             =             at least one root is not stable
+EnteringInitConnects          =             entering InitConnects()
+LeavingInitConnects           =             leaving InitConnects()
+IncorrectConnectionDiffSize   =             impossible to connect model :%1% element :%2% to model :%3% element :%4% (different size structure %5% Vs %6%)
+ImpossibleConnection          =             element 1 (id %1%: name :%2%) not found in model :%3% ( %4% ) element :%5% impossible connection
+WrongCheckSum                 =             unable to load dump state : Checksum is different from the registered state (%1%)
+WrongParameterNum             =             unable to load dump state : Number of parameters has change in comparison with the registered state (%1%)
+AddedRefParToSet              =             modelDescription %1%: Added Reference parameter %2% to parameters set. parameter value: %3%
+SubModelFeqFormulaNotExist    =             failed to retrieve equation %2% of submodel %1%
+SubModelGeqFormulaNotExist    =             failed to retrieve root equation %2% of submodel %1%
+//---------------------- PARAMETER -------------------------------------
+ValueInPARFile                =             value read in PAR file for parameter %1%: %2%
+NoValueInPARFile              =             no value read in PAR file for parameter %1%
+ParamSameValue                =             %1% same value as %2%
+ParamNoNeedToSetValueNotExist =             no need to set value for %1% : the parameter does not exist
+ParamNoValueInOriginData      =             no value found for parameter %1% linked with origin %2%
+ParamOppositeValue            =             %1% opposite value of %2%
+ParamUnused                   =             parameter %1% in model %2% is not used
+ParamValueInOrigin            =             setting parameter %1% value %3% (coming from origin %2%)
+ModelMultiGetParam            =             get parameter value in model multi : %1% value: %2% in submodel: %3%
+ModelMultiParamNotFound       =             in model multi get parameter value: Model: %1%  Parameter: %2% not found.
+//---------------------- COMPILER --------------------------------------
+DDBDir                        =             DDB Dir : %1%
+CustomDir                     =             custom Dir : %1% with extension %2%
+CompileFiles                  =             compilation files (and packages)
+CompiledModelID               =             compiled model ID: %1%
+CompilationDone               =             COMPILATION ACCOMPLISHED.
+AlreadyMappedModel            =             modelica model's model description %1% already mapped: nothing to do.
+AddingModelToMap              =             modelica model %1% has same structure as %2% . ADD TO MAP.
+ReferenceModelDesc            =             modelica model's Model Description: %1% is a reference model description to be compiled.
+CompilingModel                =             compiling %1%
+AlreadyCompiledModel          =             model %1% already compiled : nothing to do.
+SetLib                        =             setlib: %1% : %2%
+BlackBoxModelCompiled         =             blackBox Model: %1%. Compilation succeed.
+ModelTemplateExpansionCompiled=             modelTemplateExpansion: %1%. Compilation succeed.
+CompileCommmand               =             compile commmand: %1%
+ParsingExtVarFile             =             parsing external variables file %1%
+ExtVarFileNotFound            =             model %1% has no external variable file declared.
+GenerateModelicaConcatFile    =             generating modelica concatenation file %1%. For model : %2%. For ModelDescription : %3%
+ConcatingNetworkConnects      =             concatingNetworkConnects: %1% : %2% : %3% : %4%.
+InvalidModel                  =             not Valid Model: %1%
+ValidatedModel                =             model Validated: %1%
+DYDLibGenerated               =             DYD LIBRARY GENERATED. Total No Models: %1%
+InvalidSharedObjects          =             FOLLOWING %1% SHARED OBJECTS ARE NOT VALID:
+//---------------------- NETWORK --------------------------------------
+NbSubNetwork                  =             nbSubNetwork = %1% nbsub = %2%
+SubNetwork                    =             subNetwork[%1%] nbBus = %2%
+FNode_ir                      =             %1% : FNode_ir = %2%
+FNode_ii                      =             %1% : FNode_ii = %2%
+AddingVoltageLevelToNetwork   =             adding voltage level %1% to the Network
+AddingElementBus              =             adding element for BUS : %1%
+AddingBusToNetwork            =             adding bus %1% to the Network.
+SwitchExtDynModel             =             switch %1% using an external dynamic modelisation : not added to the Network.
+AddingSwitchToNetwork         =             adding Switch %1% to the Network.
+LoadExtDynModel               =             load %1% using an external dynamic modelisation : not added to the Network.
+AddingLoadToNetwork           =             adding load %1% to the Network.
+SVCExtDynModel                =             SVC %1% using an external dynamic modelisation : not added to the Network.
+AddingSVCToNetwork            =             adding SVC %1% to the Network.
+LineExtDynModel               =             line %1% using an external dynamic modelisation : not added to the Network.
+AddingLineToNetwork           =             adding Line %1% to the Network.
+GeneratorExtDynModel          =             generator %1% using an external dynamic modelisation : not added to the Network.
+AddingGeneratorToNetwork      =             adding Generator %1% to the Network.
+ShuntExtDynModel              =             shunt Compensator %1% using an external dynamic modelisation : not added to the Network.
+AddingShuntToNetwork          =             adding Shunt Compensator %1% to the Network.
+DanglingLineExtDynModel       =             dangling Line %1% using an external dynamic modelisation : not added to the Network.
+AddingDanglingLineToNetwork   =             adding Dangling Line %1% to the Network.
+TwoWTfoExtDynModel            =             two Windings Transformer %1% using an external dynamic modelisation : not added to the Network.
+AddingTwoWTfoToNetwork        =             adding Two Windings Transformer %1% to the Network.
+ThreeWTfoExtDynModel          =             three Windings Transformer %1% using an external dynamic modelisation : not added to the Network.
+AddingThreeWTfoToNetwork      =             adding Three Windings Transformer %1% to the Network.
+HvdcExtDynModel               =             HVDC %1% using an external dynamic modelisation : not added to the Network.
+AddingHvdcToNetwork           =             adding HVDC %1% to the Network.
+TapChangerLocked              =             %1%:  Tap changer is blocked
+NetworkInitSwitchCurrentsFailed =           model network : initialization of switches' currents failed
+//---------------------- DATAINTERFACE --------------------------------------
+VariableNotSet                =             %1% : "%3%" is not set for model %2%
+BusUnderVoltage               =             node: %1% has a voltage under 0.8Un
+LoadUnderVoltageT             =             total load power with voltage under 0.85Un = %1% MW > 200 MW
+LoadUnderVoltageTEnd          =             total load power with voltage under 0.92Un at the end of simulation = %1%  MW > 1500 MW
+NoNetworkConnection           =             component %1% not imported : no network connection declared
+PossibleDivisionByZero        =             impedance of line ID: %1% set to 0 in IIDM file, default parameters are then used: R = 0 and X = 0.01
+//---------------------- OTHERS --------------------------------------
+// --> ModelNetwork
+DanglingLineStateChange       =             state of the Dangling Line %1% change from %2% to %3%
+GeneratorStateChange          =             state of Generator %1% change from %2% to %3%
+UnableToCloseLine             =             impossible to close Line %1%,  One of the line terminals is unknown
+UnableToCloseLineSide1        =             impossible to close the side 1 of the Line %2%, the terminal 1 is unknown
+UnableToCloseLineSide2        =             impossible to close the side 2 of the Line %2%, the terminal 2 is unknown
+LineStateChange               =             state of Line %1% change from %2% to %3%
+LoadStateChange               =             state of Load %1% change from %2% to %3%
+SVCStateChange                =             state of SVC %1% change from %2% to %3%
+ShuntStateChange              =             state of Shunt %1% change from %2% to %3%
+SwitchStateChange             =             state of Switch %1% change from %2% to %3%
+Converter1StateChange         =             state of converter 1 of HVDC link %1% change from %2% to %3%
+Converter2StateChange         =             state of converter 2 of HVDC link %1% change from %2% to %3%
+UnableToCloseTfo              =             impossible to close two windings transformer %1%, one of the terminals is unknown
+UnableToCloseTfoSide1         =             impossible to close the side 1 of the two windings transformer %1%, the terminal 1 is unknown
+UnableToCloseTfoSide2         =             impossible to close the side 2 of the two windings transformer %1%, the terminal 2 is unknown
+TfoStateChange                =             state of Transformer %1% change from %2% to %3%
+TfoTapChange                  =             tap of Transformer %1% change from %2% to %3%
+DeactivateCurrentLimits       =             %1% deactivate current Limits
+DisableInternalTapChanger     =             %1% disable internal tap changer, use external automaton
+// --> DYNModeler
+CreateStaticConnectFailed     =             impossible to create a connect between %1%_%2% and %3%.
+CreateDynamicConnectFailed    =             impossible to create a connect between %1%_%2% and %3%_%4%.
+NotInstancedModel             =             one of the two models has not been instanced.
+// --> DYNModelMulti
+AlgebraicModeChange           =             ALGEBRAIC mode change for Model : %1%
+ModeChange                    =             mode change for Model : %1%
+SubModelExtVar                =             subModel : %1%  Var -%2%- is external and not connected
+KeepSubNetwork                =             keep SubNetworks num : %1%
+AddingCurve                   =             adding curve : Id: %1%; curve: %2% found. (exact name)
+AddingCurveParam              =             adding parameter curve: Id: %1%; parameter curve: %2% found. (exact name)
+AddingCurveOutput             =             adding curve : Id: %1%; output: %2% found.( %3% )
+CurveNotAdded                 =             curve not added: Id: %1% , name: %2%
+// --> DYNSimulation
+NewStartPoint                 =             calculation of the new starting point of the simulation.
+ParamCurveUpdated             =             parameter curve:%1% curve variable:%2% updated.
+ParamCurveNotFound            =             parameter curve:%1% curve variable:%2% not found. not updated.
+NbVar                         =             number of variables : %1%
+NbRootFunctions               =             number of root functions : %1%
+// --> DYNSolverIDA
+SolverIDAInitOk               =             initialization of IDA solver : ok
+SolverIDABeforeCalcIC         =             BEFORE CALC IC
+SolverIDAAfterInit            =             AFTER INIT
+SolverIDAMaxDiff              =             max diff =%1% index =%2%
+IdaSuccess                    =             IDA_SUCCESS : IDASolve succeeded.
+IdaMemNull                    =             IDA_MEM_NULL : The argument ida mem was NULL.
+IdaNoMalloc                   =             IDA_NO_MALLOC : The allocation function IDAInit has not been called.
+IdaIllInput                   =             IDA_ILL_INPUT : One of the input arguments was illegal.
+IdalsetupFail                 =             IDA_LSETUP_FAIL : The linear solver's setup function failed in an unrecoverable manner.
+IdaLinitFail                  =             IDA_LINIT_FAIL : The linear solver's initialization function failed.
+IdaLsolveFail                 =             IDA_LSOLVE_FAIL : The linear solver's solve function failed in an unrecoverable manner.
+IdaBadEwt                     =             IDA_BAD_EWT : Some component of the error weight vector is zero (illegal), either for the input value of y0 or a corrected value.
+IdaFirstResFail               =             IDA_FIRST_RES_FAIL : The user's residual function returned a recoverable error flag on the first call, but IDACalcIC was unable to recover.
+IdaResFail                    =             IDA_RES_FAIL : The user's residual function returned a nonrecoverable error flag.
+IdaNoRecovery                 =             IDA_NO_RECOVERY : The user's residual function, or the linear solver's setup or solve function had a recoverable error, but IDACalcIC was unable to recover.
+IdaConstrFail                 =             IDA_CONSTR_FAIL : IDACalcIC was unable to find a solution satisfying the inequality constraints.
+IdaLinesearchFail             =             IDA_LINESEARCH_FAIL : The linesearch algorithm failed to find a solution with a step larger than steptol in weighted RMS norm.
+IdaConvFail                   =             IDA_CONV_FAIL : IDACalcIC failed to get convergence of the Newton iterations.
+SolverIDAUnknownError         =             unknown error during IDA Solve
+SolverIDARestorAlgebraicEqu   =             restoration of the algebraic equations
+SolverIDADebugResidual        =             DEBUG RESIDUAL
+SolverIDALargestErrors        =             largest errors (= total variation during Newton iterations * weight) for variables - truncated to the first %1%
+SolverIDAErrorValue           =             error > %1% : variable %2%, error %3%
+// --> DYNSolverIMP
+SolverInstableRoot            =             instability for the root  :%1% switch from %2% to %3%
+SolverInstableRootFound       =             at least one root is not stable
+SolverNbYVar                  =             number of continuous variables : %1%
+SolverVarDisplayLimit         =             display limited to %1% variables
+SolverNbZVar                  =             number of discrete variables : %1%
+// --> DYNSolverSIM
+SolverSIMInitOK               =             initialization of SIM solver : ok
+SolverExecutionStats          =             execution Stats :
+SolverNbIter                  =             number of iterations                     = %1%
+SolverNbResEval               =             number of Residual evaluations           = %1%
+SolverNbJacEval               =             number of Jacobian evaluations           = %1%
+SolverNbNonLinIter            =             number of Nonlinear iterations           = %1%
+SolverNbErrorTestFail         =             number of error test failures            = %1%
+SolverNbNonLinConvFail        =             number of Nonlinear convergence failures = %1%
+SolverNbRootFuncEval          =             number of root functions evaluations     = %1%
+CalculateIC                   =             calculate initial condition of the DAE
+EndCalculateIC                =             end of calculate initial condition of the DAE
+CalculateICIteration          =             initial condition iteration %1%
+// --> DYNSolverKIN
+SolverKINLargestErrors        =             largest errors (truncated to the first %1%)
+SolverKINErrorValue           =             error > %1% : F[%2%]=%3% (model=%4% index=%5% equation:%6%)
+SolverKINUnknownError         =             unknown error during KINSOL Solve
+SolverKINResidualNorm         =             newton iteration %1% : ||F(y_%1%)*Weight||_Infinity = %2% and ||F(y_%1%)*Weight||_2 = %3%
+MatrixStructureChange         =             call of SolverReInit ie a new symbolic and numerical factorization will be performed
+// --> DYNSolverEulerKIN
+KinsolSucceeded               =             KINSOL succeeded
+KinInitialGuessOk             =             the Initial user-supplied guess already satisfies the stopping criterion
+KinStepLtStpTol               =             the stopping tolerance on scaled step length was satisfied
+KinMemNull                    =             the kin_mem argument was NULL
+KinIllInput                   =             one of the solution input is illegal
+KinNoMalloc                   =             the KINSOL memory was not allocated by a call to KINMalloc
+KinLineSearchNonConv          =             the linesearch algortihm was unable to find an iterate sufficiently distinct from the current iterate
+KinMaxIterReached             =             the maximum number of nonlinear iterations has been reached
+KinMxNewt5xExceeded           =             five consecutive step have been taken that satisfy a scaled step length test
+KinLineSearchBcFail           =             the linesearch algorithm was unable to satisfy the beta-condtion for nbcfails iterations
+KinLinsolvNoRecovery          =             the user-supplied routine preconditioner solve function failed recoveravly, but the preconditionner is already current
+KinLinitFail                  =             the linear solver's initialization function failed
+KinLsetupFail                 =             the linear solver's setup function failed in an unrecoverable manner
+KinLsolveFail                 =             the linear solver's solve function failed in an unrecoverable manner
+KinSysFuncFail                =             the system function failed in an unrecoverable manner
+KinFirstSysFuncErr            =             the system function failed recoverably at the first call
+KinReptdSysfuncErr            =             the system function had repeated recoverable errors
+KinLargestErrors              =             largest errors (truncated to the first %1%) during divergence at time step (%2%)
+// --> others...
+LaunchingJob                  =             launching job %1%
+EndOfJob                      =             end of job %1%
+SwitchOffBus                  =             switch Off bus : %1%
+SwitchOnBus                   =             switch ON bus : %1%
+XmlParsingError               =             error while parsing file %1% : %2%
+ExecutingCommand              =             executing command : %1%
+UnexpectedError               =             unexpected error

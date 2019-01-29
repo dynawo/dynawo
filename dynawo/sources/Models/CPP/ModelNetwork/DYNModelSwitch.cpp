@@ -1,0 +1,402 @@
+//
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+// simulation tool for power systems.
+//
+
+/**
+ * @file  DYNModelSwitch.cpp
+ *
+ * @brief
+ *
+ */
+#include <cmath>
+#include <cassert>
+
+#include "DYNModelSwitch.h"
+#include "DYNModelBus.h"
+#include "DYNCommonModeler.h"
+#include "DYNTrace.h"
+#include "DYNSparseMatrix.h"
+#include "DYNTimer.h"
+#include "DYNVariableForModel.h"
+#include "DYNParameter.h"
+#include "DYNDerivative.h"
+#include "DYNSwitchInterface.h"
+#include "DYNBusInterface.h"
+#include "DYNModelNetwork.h"
+#include "DYNMessageTimeline.h"
+
+using std::vector;
+using std::map;
+using std::string;
+using boost::shared_ptr;
+
+namespace DYN {
+
+ModelSwitch::ModelSwitch(const shared_ptr<SwitchInterface>& sw) :
+Impl(sw->getID()),
+inLoop_(false) {
+  // init data
+  if (sw->isOpen())
+    connectionState_ = OPEN;
+  else
+    connectionState_ = CLOSED;
+  ir0_ = 0;
+  ii0_ = 0;
+}
+
+boost::shared_ptr<ModelBus>
+ModelSwitch::getModelBus1() const {
+  if (!modelBus1_)
+    throw DYNError(Error::MODELER, SwitchMissingBus1, id());
+
+  return modelBus1_;
+}
+
+boost::shared_ptr<ModelBus>
+ModelSwitch::getModelBus2() const {
+  if (!modelBus2_)
+    throw DYNError(Error::MODELER, SwitchMissingBus2, id());
+
+  return modelBus2_;
+}
+
+void
+ModelSwitch::initSize() {
+  if (network_->isInitModel()) {
+    sizeF_ = 2;
+    sizeY_ = 2;
+    sizeZ_ = 0;
+    sizeG_ = 0;
+    sizeMode_ = 0;
+    sizeCalculatedVar_ = 0;
+  } else {
+    sizeF_ = 2;
+    sizeY_ = 2;
+    sizeZ_ = 1;
+    sizeG_ = 0;
+    sizeMode_ = 1;
+    sizeCalculatedVar_ = nbCalculatedVariables_;
+  }
+}
+
+void
+ModelSwitch::evalNodeInjection() {
+  if (network_->isInit()) {
+    modelBus1_->irAdd(ir0_);
+    modelBus1_->iiAdd(ii0_);
+    modelBus2_->irAdd(-ir0_);
+    modelBus2_->iiAdd(-ii0_);
+  } else if (network_->isInitModel()) {
+    modelBus1_->irAdd(y_[0]);
+    modelBus1_->iiAdd(y_[1]);
+    modelBus2_->irAdd(-y_[0]);
+    modelBus2_->iiAdd(-y_[1]);
+  } else {
+    modelBus1_->irAdd(y_[0]);
+    modelBus1_->iiAdd(y_[1]);
+    modelBus2_->irAdd(-y_[0]);
+    modelBus2_->iiAdd(-y_[1]);
+  }
+}
+
+void
+ModelSwitch::evalZ(const double& /*t*/) {
+  z_[0] = connectionState_;
+}
+
+void
+ModelSwitch::evalF() {
+  if (connectionState_ == CLOSED && !modelBus1_->getSwitchOff()) {
+    if (inLoop_) {
+      // 1 is the default value for the current in a loop
+      f_[0] = y_[0] - 1.;
+      f_[1] = y_[1] - 1.;
+    } else {
+      f_[0] = modelBus1_->ur() - modelBus2_->ur();
+      f_[1] = modelBus1_->ui() - modelBus2_->ui();
+    }
+  } else {
+    f_[0] = y_[0];
+    f_[1] = y_[1];
+  }
+#ifdef _DEBUG_
+  if (sqrt(f_[0] * f_[0]) > 0.001) {
+    if (connectionState_ == CLOSED) {
+      Trace::debug("NETWORK") << id_ << " Fswitch_ir = " << f_[0] << Trace::endline;
+    } else {
+      Trace::debug("NETWORK") << id_ << " Fswitch_ur = " << f_[0] << Trace::endline;
+    }
+  }
+  if (sqrt(f_[1] * f_[1]) > 0.001) {
+    if (connectionState_ == CLOSED) {
+      Trace::debug("NETWORK") << id_ << " Fswitch_ii =" << f_[1] << Trace::endline;
+    } else {
+      Trace::debug("NETWORK") << id_ << " Fswitch_ui =" << f_[1] << Trace::endline;
+    }
+  }
+#endif
+}
+
+void
+ModelSwitch::setFequations(std::map<int, std::string>& fEquationIndex) {
+  if (connectionState_ == CLOSED && !modelBus1_->getSwitchOff()) {
+    if (inLoop_) {
+      // 1 is the default value for the current in a loop
+      fEquationIndex[0] = std::string("y_[irNum_] - 1 localModel:").append(id());
+      fEquationIndex[1] = std::string("y_[iiNum_] - 1 localModel:").append(id());
+    } else {
+      fEquationIndex[0] = std::string("modelBus1_->ur() - modelBus2_->ur() localModel:").append(id());
+      fEquationIndex[1] = std::string("modelBus1_->ui() - modelBus2_->ui() localModel:").append(id());
+    }
+  } else {
+    fEquationIndex[0] = std::string("y_[irNum_] localModel:").append(id());
+    fEquationIndex[1] = std::string("y_[iiNum_] localModel:").append(id());
+  }
+
+  assert(fEquationIndex.size() == (unsigned int) sizeF_ && "ModelSwitch: fEquationIndex.size() != f_.size()");
+}
+
+void
+ModelSwitch::evalYType() {
+  yType_[0] = ALGEBRIC;
+  yType_[1] = ALGEBRIC;
+}
+
+void
+ModelSwitch::evalFType() {
+  fType_[0] = ALGEBRIC_EQ;   // no differential variable for switch equation
+  fType_[1] = ALGEBRIC_EQ;
+}
+
+void
+ModelSwitch::init(int& yNum) {
+  irYNum_ = yNum;
+  ++yNum;
+  iiYNum_ = yNum;
+  ++yNum;
+}
+
+void
+ModelSwitch::getY0() {
+  if (network_->isInitModel()) {
+    y_[0] = inLoop_ ? 1. : 0.;
+    y_[1] = inLoop_ ? 1. : 0.;
+  } else {
+    y_[0] = inLoop_ ? 1. : ir0_;
+    y_[1] = inLoop_ ? 1. : ii0_;
+    yp_[0] = 0.;
+    yp_[1] = 0.;
+    z_[0] = getConnectionState();
+  }
+}
+
+void
+ModelSwitch::setInitialCurrents() {
+  ir0_ = y_[0];
+  ii0_ = y_[1];
+}
+
+void
+ModelSwitch::evalDerivatives() {
+  Timer timer3("ModelSwitch::evalDerivatives");
+  if (connectionState_ == CLOSED) {
+    modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, irYNum_, 1.);
+    modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, iiYNum_, 1.);
+
+    modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, irYNum_, -1.);
+    modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, iiYNum_, -1.);
+  }
+}
+
+void
+ModelSwitch::defineVariables(vector<shared_ptr<Variable> >& variables) {
+  variables.push_back(VariableNativeFactory::createState("@ID@_irsw", FLOW));
+  variables.push_back(VariableNativeFactory::createState("@ID@_iisw", FLOW));
+  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_swState_value", CONTINUOUS));
+}
+
+void
+ModelSwitch::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
+  variables.push_back(VariableNativeFactory::createState(id_ + "_irsw", FLOW));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_iisw", FLOW));
+  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_swState_value", CONTINUOUS));
+}
+
+void
+ModelSwitch::defineParameters(vector<ParameterModeler>& /*parameters*/) {
+  // no parameter
+}
+
+void
+ModelSwitch::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
+  string switchName = id_;
+  // ========  CONNECTION STATE ======
+  string name = switchName + string("_state");
+  addElement(name, Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+
+  // ========  sw STATE ======
+  name = switchName + string("_swState");
+  addElement(name, Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+}
+
+NetworkComponent::StateChange_t
+ModelSwitch::evalState(const double& /*time*/) {
+  if (z_[0] != getConnectionState()) {
+    Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
+    setConnectionState((State) z_[0]);
+    if ((State) z_[0] == CLOSED) {
+      network_->addEvent(id_, DYNTimeline(SwitchClosed));
+    } else {
+      network_->addEvent(id_, DYNTimeline(SwitchOpened));
+    }
+    return NetworkComponent::TOPO_CHANGE;
+  }
+  return NetworkComponent::NO_CHANGE;
+}
+
+void
+ModelSwitch::open() {
+  z_[0] = OPEN;
+  if (z_[0] != getConnectionState())
+    Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
+  setConnectionState((State) z_[0]);
+}
+
+void
+ModelSwitch::close() {
+  z_[0] = CLOSED;
+  if (z_[0] != getConnectionState())
+    Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
+  setConnectionState((State) z_[0]);
+}
+
+void
+ModelSwitch::addBusNeighbors() {
+  shared_ptr<ModelBus> bus1 = modelBus1_;
+  shared_ptr<ModelBus> bus2 = modelBus2_;
+  if (getConnectionState() == CLOSED) {
+    bus1->addNeighbor(bus2);
+    bus2->addNeighbor(bus1);
+  }
+}
+
+void
+ModelSwitch::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
+  // Column for node current / real part of the voltage (i depending on re(V))
+  // --------------------------------------------------------------------------
+
+  // Switching column
+  jt.changeCol();
+
+  if (getConnectionState() == CLOSED && !modelBus1_->getSwitchOff()) {  // Close switch
+    if (inLoop_) {  // Switch breaking a loop : irsw - 1 = 0
+      jt.addTerm(irYNum_ + rowOffset, +1);
+    } else {  // "Normal" case : ur1 - ur2 = 0
+      jt.addTerm(modelBus1_->urYNum() + rowOffset, +1.);
+      jt.addTerm(modelBus2_->urYNum() + rowOffset, -1.);
+    }
+  } else {  // Open switch : irsw = 0
+    jt.addTerm(irYNum_ + rowOffset, +1);
+  }
+
+  // Column for node current / imaginary part of the voltage (i depending on im(V))
+  // ------------------------------------------------------------------------------
+
+  // Switching column
+  jt.changeCol();
+
+  if (getConnectionState() == CLOSED && !modelBus1_->getSwitchOff()) {  // Close switch
+    if (inLoop_) {  // Switch breaking a loop : iisw -1 = 0
+      jt.addTerm(iiYNum_ + rowOffset, +1.);
+    } else {  // "Normal" case : ui1 - ui2 = 0
+      jt.addTerm(modelBus1_->uiYNum() + rowOffset, +1.);
+      jt.addTerm(modelBus2_->uiYNum() + rowOffset, -1.);
+    }
+  } else {  // Open switch : iisw = 0
+    jt.addTerm(iiYNum_ + rowOffset, +1.);
+  }
+}
+
+void
+ModelSwitch::evalJtPrim(SparseMatrix& jt, const int& /*rowOffset*/) {
+  // Switching column - node current / real part of the voltage
+  jt.changeCol();
+  // Switching column - node current / imaginary part of the voltage
+  jt.changeCol();
+}
+
+void
+ModelSwitch::evalCalculatedVars() {
+  calculatedVars_[swStateNum_] = connectionState_;
+}
+
+void
+ModelSwitch::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& /*numVars*/) {
+  switch (numCalculatedVar) {
+    case swStateNum_:
+      break;
+
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
+  }
+}
+
+void
+ModelSwitch::evalJCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*yp*/, vector<double>& /*res*/) {
+  switch (numCalculatedVar) {
+    case swStateNum_:
+      break;
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
+      break;
+  }
+}
+
+double
+ModelSwitch::evalCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*yp*/) {
+  double output = 0;
+  switch (numCalculatedVar) {
+    case swStateNum_:
+      output = connectionState_;
+      break;
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
+      break;
+  }
+  return output;
+}
+
+void
+ModelSwitch::defineNonGenericParameters(vector<ParameterModeler>& /*parameters*/) {
+  // no parameter
+}
+
+void
+ModelSwitch::evalG(const double& /*t*/) {
+  // not needed
+}
+
+void
+ModelSwitch::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& /*params*/) {
+  // no parameter
+}
+
+void
+ModelSwitch::setGequations(map<int, string>& /*gEquationIndex*/) {
+  // not needed
+}
+
+}  // namespace DYN

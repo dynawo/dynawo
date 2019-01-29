@@ -1,0 +1,60 @@
+//
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+// simulation tool for power systems.
+//
+
+/**
+ * @file  JOBImporter.h
+ *
+ * @brief job collection importer : interface file
+ *
+ */
+
+#ifndef API_JOB_JOBIMPORTER_H_
+#define API_JOB_JOBIMPORTER_H_
+
+#include <boost/shared_ptr.hpp>
+
+#include "JOBExport.h"
+
+namespace job {
+class JobsCollection;
+
+/**
+ * @class Importer
+ * @brief Importer interface class
+ *
+ * Import class for job collection.
+ */
+class __DYNAWO_JOB_EXPORT Importer {
+ public:
+  /**
+   * @brief Import job's collection from file
+   *
+   * @param fileName file name
+   *
+   * @return jobs description imported
+   */
+  virtual boost::shared_ptr<JobsCollection> importFromFile(const std::string& fileName) const = 0;
+
+  /**
+   * @brief Import job's collection from stream
+   *
+   * @param stream stream to import
+   *
+   * @return jobs description imported
+   */
+  virtual boost::shared_ptr<JobsCollection> importFromStream(std::istream& stream) const = 0;
+};
+
+}  // namespace job
+
+#endif  // API_JOB_JOBIMPORTER_H_

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:dyn="http://www.rte-france.com/dynawo"
+           targetNamespace="http://www.rte-france.com/dynawo"
+           elementFormDefault="qualified">
+  <xs:element name="dynamicModelsArchitecture">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="modelicaModel" type="dyn:ModelicaModel" minOccurs="0" maxOccurs="unbounded">
+          <xs:unique name="UniqueModelicaModelConnectId">
+            <xs:selector xpath="dyn:connect"/>
+            <xs:field xpath="@id1"/>
+            <xs:field xpath="@var1"/>
+            <xs:field xpath="@id2"/>
+            <xs:field xpath="@var2"/>
+          </xs:unique>
+          <xs:unique name="UniqueModelicaModelInitConnectId">
+            <xs:selector xpath="dyn:initConnect"/>
+            <xs:field xpath="@id1"/>
+            <xs:field xpath="@var1"/>
+            <xs:field xpath="@id2"/>
+            <xs:field xpath="@var2"/>
+          </xs:unique>
+        </xs:element>
+        <xs:element name="modelTemplate" type="dyn:ModelTemplate" minOccurs="0" maxOccurs="unbounded">
+          <xs:unique name="UniqueModelTemplateConnectId">
+            <xs:selector xpath="dyn:connect"/>
+            <xs:field xpath="@id1"/>
+            <xs:field xpath="@var1"/>
+            <xs:field xpath="@id2"/>
+            <xs:field xpath="@var2"/>
+          </xs:unique>
+          <xs:unique name="UniqueModelTemplateInitConnectId">
+            <xs:selector xpath="dyn:initConnect"/>
+            <xs:field xpath="@id1"/>
+            <xs:field xpath="@var1"/>
+            <xs:field xpath="@id2"/>
+            <xs:field xpath="@var2"/>
+          </xs:unique>
+        </xs:element>
+        <xs:element name="blackBoxModel" type="dyn:BlackBoxModel" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="modelTemplateExpansion" type="dyn:ModelTemplateExpansion" minOccurs="0"
+                            maxOccurs="unbounded"/>
+        <xs:element name="connect" type="dyn:Connect" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="macroConnect" type="dyn:MacroConnect" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="macroConnector" type="dyn:MacroConnector" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="macroStaticReference" type="dyn:MacroStaticReference" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:choice>
+    </xs:complexType>
+
+    <xs:unique name="UniqueId">
+      <xs:selector xpath="dyn:modelicaModel|dyn:blackBoxModel|dyn:modelTemplate|dyn:modelTemplateExpansion"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+    <xs:unique name="UniqueIdMacroConnector">
+      <xs:selector xpath="dyn:MacroConnector"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+
+    <xs:unique name="UniqueIdStatic">
+      <xs:selector xpath="dyn:modelicaModel|dyn:blackBoxModel|dyn:modelTemplateExpansion"/>
+      <xs:field xpath="@staticId"/>
+    </xs:unique>
+
+    <xs:unique name="UniqueSystemConnectId">
+      <xs:selector xpath="dyn:connect"/>
+      <xs:field xpath="@id1"/>
+      <xs:field xpath="@var1"/>
+      <xs:field xpath="@id2"/>
+      <xs:field xpath="@var2"/>
+    </xs:unique>
+
+    <xs:unique name="UniqueSystemMacroConnectId">
+      <xs:selector xpath="dyn:macroConnect"/>
+      <xs:field xpath="@connector"/>
+      <xs:field xpath="@id1"/>
+      <xs:field xpath="@id2"/>
+    </xs:unique>
+
+  </xs:element>
+
+  <xs:complexType name="IdentifiableModel">
+    <xs:attribute name="id" use="required" type="dyn:IdString"/>
+  </xs:complexType>
+
+  <!-- use this specific type for BBM, id may be generated with spaces by a platform-->
+  <xs:complexType name="Identifiable">
+    <xs:attribute name="id" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="ModelicaModel">
+    <xs:complexContent>
+      <xs:extension base="dyn:IdentifiableModel">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="unitDynamicModel" type="dyn:UnitDynamicModel" maxOccurs="unbounded"/>
+          <xs:element name="connect" type="dyn:Connect" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="initConnect" type="dyn:Connect" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="macroConnect" type="dyn:MacroConnect" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="staticRef" type="dyn:StaticRef" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="macroStaticRef" type="MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:choice>
+        <xs:attribute name="staticId" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ModelTemplate">
+    <xs:complexContent>
+      <xs:extension base="dyn:IdentifiableModel">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="unitDynamicModel" type="dyn:UnitDynamicModel" maxOccurs="unbounded"/>
+          <xs:element name="connect" type="dyn:Connect" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="initConnect" type="dyn:Connect" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="macroConnect" type="dyn:MacroConnect" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="staticRef" type="dyn:StaticRef" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="macroStaticRef" type="MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:choice>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="BlackBoxModel">
+    <xs:complexContent>
+      <xs:extension base="dyn:Identifiable">
+        <xs:sequence>
+          <xs:element name="staticRef" type="dyn:StaticRef" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="macroStaticRef" type="MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="staticId" type="xs:string"/>
+        <xs:attribute name="lib" use="required" type="xs:string"/>
+        <xs:attribute name="parFile" type="xs:string"/>
+        <xs:attribute name="parId" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ModelTemplateExpansion">
+    <xs:complexContent>
+      <xs:extension base="dyn:IdentifiableModel">
+        <xs:sequence>
+          <xs:element name="staticRef" type="dyn:StaticRef" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="macroStaticRef" type="MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="staticId" type="xs:string"/>
+        <xs:attribute name="templateId" use="required" type="dyn:IdString"/>
+        <xs:attribute name="parFile" type="xs:string"/>
+        <xs:attribute name="parId" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="UnitDynamicModel">
+    <xs:attribute name="id" use="required" type="dyn:IdString"/>
+    <xs:attribute name="name" use="required" type="xs:string"/>
+    <xs:attribute name="moFile" type="xs:string"/>
+    <xs:attribute name="initName" type="xs:string"/>
+    <xs:attribute name="initFile" type="xs:string"/>
+    <xs:attribute name="parFile" type="xs:string"/>
+    <xs:attribute name="parId" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="Connect">
+    <xs:attribute name="id1" use="required" type="xs:string"/>
+    <xs:attribute name="var1" use="required" type="xs:string"/>
+    <xs:attribute name="id2" use="required" type="xs:string"/>
+    <xs:attribute name="var2" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="MacroConnect">
+    <xs:attribute name="connector" use="required" type="xs:string"/>
+    <xs:attribute name="id1" use="required" type="xs:string"/>
+    <xs:attribute name="id2" use="required" type="xs:string"/>
+    <xs:attribute name="index1" type="xs:int"/>
+    <xs:attribute name="index2" type="xs:int"/>
+    <xs:attribute name="name1" type="xs:string"/>
+    <xs:attribute name="name2" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="StaticRef">
+    <xs:attribute name="var" use="required" type="xs:string"/>
+    <xs:attribute name="staticVar" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="MacroStaticRef">
+    <xs:attribute name="id" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:simpleType name='IdString'>
+    <xs:restriction base='xs:string'>
+      <xs:pattern value="[a-zA-Z0-9_.]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="MacroConnection">
+    <xs:attribute name="var1" use="required" type="xs:string"/>
+    <xs:attribute name="var2" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="MacroConnector">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="connect" type="dyn:MacroConnection" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="initConnect" type="dyn:MacroConnection" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:choice>
+    <xs:attribute name="id" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="MacroStaticReference">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="staticRef" type="StaticRef" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:choice>
+    <xs:attribute name="id" use="required" type="xs:string"/>
+  </xs:complexType>
+
+</xs:schema>

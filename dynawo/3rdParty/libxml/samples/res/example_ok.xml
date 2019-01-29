@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Libxml, a library to handle XML files parsing.
+-->
+<x:books xmlns:x="urn:books">
+   <book id="bk001">
+      <author>Writer</author>
+      <title>The First Book</title>
+      <genre>Fiction</genre>
+      <price>44.95</price>
+      <pub_date>2000-10-01</pub_date>
+      <review>An amazing story of nothing.</review>
+   </book>
+
+   <book id="bk002">
+      <author>Poet</author>
+      <title>The Poet's First Poem</title>
+      <genre>Poem</genre>
+      <price>24.95</price>
+      <pub_date>2012-10-02</pub_date>
+      <review>Least poetic poems.</review>
+   </book>
+</x:books>
+

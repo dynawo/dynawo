@@ -1,0 +1,33 @@
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+# SPDX-License-Identifier: MPL-2.0
+#
+# This file is part of Libxml, a library to handle XML files parsing.
+
+# - Find libXML library and headers
+#  The module defines the following variables:
+#
+# LibXML_SAX_PARSER_FOUND        - TRUE
+# LibXML_SAX_PARSER_VERSION      - Version of the libXML
+# LibXML_SAX_PARSER_INCLUDE_DIR  - include search path
+# LibXML_SAX_PARSER_LIB_DIR      - library path search path
+# LibXML_SAX_PARSER_BIN_DIR      - binary search path (windows dll)
+
+set(LibXML_SAX_PARSER_VERSION @LIBXML_VERSION@)
+
+@PACKAGE_INIT@
+
+set_and_check(LibXML_SAX_PARSER_INCLUDE_DIR "@PACKAGE_LibXML_INSTALL_INCLUDE@")
+set_and_check(LibXML_SAX_PARSER_LIB_DIR "@PACKAGE_LibXML_INSTALL_LIBRARIES@")
+
+if (WIN32)
+  set_and_check(LibXML_SAX_PARSER_BIN_DIR "@PACKAGE_LibXML_INSTALL_BINARIES@")
+endif()
+
+include(${CMAKE_CURRENT_LIST_DIR}/libxml-sax-parser-targets.cmake)
+
+set(LibXML_SAX_PARSER_FOUND TRUE)
+mark_as_advanced(LibXML_SAX_PARSER_FOUND)

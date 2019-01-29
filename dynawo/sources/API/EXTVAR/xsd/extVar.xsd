@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:dyn="http://www.rte-france.com/dynawo"
+           targetNamespace="http://www.rte-france.com/dynawo"
+           elementFormDefault="qualified">
+
+  <xs:element name="external_variables">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="variable" type="dyn:Variable" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:unique name="UniqueId">
+      <xs:selector xpath="dyn:Variable"/>
+      <xs:field xpath="@id"/>
+    </xs:unique>
+  </xs:element>
+
+  <xs:complexType name="Variable">
+    <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="type" use="required" type="dyn:VariableType"/>
+    <xs:attribute name="defaultValue" type="xs:string"/>
+    <xs:attribute name="size" type="xs:positiveInteger"/>
+    <xs:attribute name="optional" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:simpleType name="VariableType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="continuous"/>
+      <xs:enumeration value="discrete"/>
+      <xs:enumeration value="continuousArray"/>
+      <xs:enumeration value="discreteArray"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

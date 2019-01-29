@@ -1,0 +1,15 @@
+Dynawo authors:
+
+Francois BEAUDE
+Gautier BUREAU
+Angela CHIEH
+Sebastien DOUMEIX
+Adrien GUIRONNET
+Romain LOSSEAU
+Emilie MILIN
+Sebastien MURGEY
+Sebastien PETITRENAUD
+Florentine ROSIERE
+Marianne SAUGIER
+Pengbo WANG
+Youssef ZAKI

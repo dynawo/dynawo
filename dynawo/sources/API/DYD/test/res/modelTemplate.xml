@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelTemplate id="ModelTemplate">
+    <dyn:unitDynamicModel id="UDM1" name="unitModel1" initName="unitModel1_INIT"/>
+    <dyn:unitDynamicModel id="UDM2" name="unitModel2" initName="unitModel2_INIT"/>
+    <dyn:connect id1="UDM1" var1="var1" id2="UDM2" var2="var1"/>
+    <dyn:connect id1="UDM1" var1="var2" id2="UDM2" var2="var2"/>
+    <dyn:initConnect id1="UDM1" var1="var10" id2="UDM2" var2="var10"/>
+    <dyn:initConnect id1="UDM1" var1="var10" id2="UDM2" var2="var20"/>
+    <dyn:staticRef var="var" staticVar="staticVar"/>
+  </dyn:modelTemplate>
+</dyn:dynamicModelsArchitecture>

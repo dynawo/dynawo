@@ -1,0 +1,310 @@
+//
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+// simulation tool for power systems.
+//
+
+/**
+ * @file  DYNModelVoltageLevel.h
+ *
+ * @brief ModelVoltageLevel header
+ *
+ * ModelVoltageLevel is the container of all subModels who constitute a voltage level
+ * such as buses, switches, generators, loads, shunt etc..
+ *
+ */
+
+#ifndef MODELS_CPP_MODELNETWORK_DYNMODELVOLTAGELEVEL_H_
+#define MODELS_CPP_MODELNETWORK_DYNMODELVOLTAGELEVEL_H_
+
+#include <boost/shared_ptr.hpp>
+
+#include "DYNNetworkComponentImpl.h"
+#include "DYNVoltageLevelInterface.h"
+#include "DYNGraph.h"
+
+namespace DYN {
+class VoltageLevelInterface;
+class ModelBus;
+class ModelSwitch;
+
+/**
+ * class ModelVoltageLevel
+ */
+class ModelVoltageLevel : public NetworkComponent::Impl {
+ public:
+  /**
+   * @brief default constructor
+   * @param[in] voltageLevel: voltage level data interface to use for the model
+   */
+  explicit ModelVoltageLevel(const boost::shared_ptr<VoltageLevelInterface>& voltageLevel);
+
+  /**
+   * @brief destructor
+   */
+  ~ModelVoltageLevel() { }
+
+  /**
+   * @brief list of calculated variables indexes
+   */
+  typedef enum {
+    nbCalculatedVariables_ = 0
+  } CalculatedVariables_t;
+
+  /**
+   * @brief getter for the voltage level components
+   * @return the voltage level components
+   */
+  inline std::vector<boost::shared_ptr<NetworkComponent> > getComponents() const {
+    return components_;
+  }
+
+  /**
+   * @brief getter for the voltage level topology kind
+   * @return the voltage level topology kind
+   */
+  inline VoltageLevelInterface::VoltageLevelTopologyKind_t& getTopologyKind() {
+    return topologyKind_;
+  }
+
+  /**
+   * @brief add a new component instance to the voltage level model
+   * @param component instance to add
+   */
+  void addComponent(const boost::shared_ptr<NetworkComponent>& component);
+
+  /**
+   * @brief add a new bus component instance to the voltage level model
+   * @param bus component instance to add
+   */
+  void addBus(const boost::shared_ptr<ModelBus>& bus);
+
+  /**
+   * @brief add a new switch component instance to the voltage level model
+   * @param sw component instance to add
+   */
+  void addSwitch(const boost::shared_ptr<ModelSwitch>& sw);
+
+  /**
+   * @brief compute switches loops
+   */
+  void computeLoops();
+
+  /**
+   * @brief find the shortest path between a node and a bus bar section node, then close all switches between them (if they are breaker)
+   * @param node node to connect to a bus bar section
+   */
+  void connectNode(const unsigned int node);
+
+  /**
+   * @brief find all paths between a node and all bus bar section node, then open the first switches found (if it's a breaker)
+   * @param node node to disconnect
+   */
+  void disconnectNode(const unsigned int node);
+
+  /**
+   * @brief find the closest bus bar section of a bus in a voltage level
+   * @param node: the index of the bus for which to look for the closest bus bar section
+   * @return a pair with the closest bus bar section index and the list of switch names that seperate the bus bar section from the initial bus
+   */
+  std::pair<unsigned int, std::vector<std::string> > findClosestBBS(const unsigned int node);
+
+  /**
+   * @brief return true if the closest bus bar section is switched off
+   * @param bus: the bus from which to look for the closest bus bar section
+   * @return true is the closest bus bar section is switched off, false otherwise
+   */
+  bool isClosestBBSSwitchedOff(const boost::shared_ptr<ModelBus>& bus);
+
+  /**
+   * @brief set the initial currents of each switch
+   */
+  void setInitialSwitchCurrents();
+
+  /**
+   * @brief evalution F
+   */
+  void evalF();
+
+  /**
+   * @brief evaluate jacobien \f$( J = @F/@x + cj * @F/@x')\f$
+   * @param jt sparse matrix to fill
+   * @param cj
+   * @param rowOffset row offset to use to find the first row to fill
+   */
+  void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
+
+  /**
+   * @brief evaluate jacobien \f$( J =  @F/@x')\f$
+   * @param jt sparse matrix to fill
+   * @param rowOffset row offset to use to find the first row to fill
+   */
+  void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+
+  /**
+   * @brief define variables
+   * @param variables vector of variables to fill
+   */
+  static void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+
+  /**
+   * @brief define parameters
+   * @param parameters vector of parameter to fill
+   */
+  static void defineParameters(std::vector<ParameterModeler>& parameters);
+
+  /**
+   * @copydoc NetworkComponent::initSize()
+   */
+  void initSize();
+
+  /**
+   * @copydoc NetworkComponent::init(int& yNum )
+   */
+  void init(int& yNum);
+
+  /**
+   * @copydoc NetworkComponent::getY0()
+   */
+  void getY0();
+
+  /**
+   * @copydoc NetworkComponent::setFequations(std::map<int,std::string>& fEquationIndex)
+   */
+  void setFequations(std::map<int, std::string>& fEquationIndex);
+
+  /**
+   * @copydoc NetworkComponent::evalFType()
+   */
+  void evalFType();
+
+  /**
+   * @copydoc NetworkComponent::evalYMat()
+   */
+  void evalYMat();
+
+  /**
+   *  @copydoc NetworkComponent::evalYType()
+   */
+  void evalYType();
+
+  /**
+   * @copydoc NetworkComponent::evalG(const double& t)
+   */
+  void evalG(const double& t);
+
+  /**
+   * @copydoc NetworkComponent::setGequations(std::map<int,std::string>& gEquationIndex)
+   */
+  void setGequations(std::map<int, std::string>& gEquationIndex);
+
+  /**
+   * @copydoc NetworkComponent::evalZ(const double& t)
+   */
+  void evalZ(const double& t);
+
+  /**
+   * @copydoc NetworkComponent::evalState(const double& time)
+   */
+  StateChange_t evalState(const double& time);
+
+  /**
+   * @copydoc NetworkComponent::evalNodeInjection()
+   */
+  void evalNodeInjection();
+
+  /**
+   * @copydoc NetworkComponent::evalDerivatives()
+   */
+  void evalDerivatives();
+
+  /**
+   * @copydoc NetworkComponent::evalCalculatedVars()
+   */
+  void evalCalculatedVars();
+
+  /**
+   * @copydoc NetworkComponent::getDefJCalculatedVarI(int numCalculatedVar, std::vector<int>& numVars)
+   */
+  void getDefJCalculatedVarI(int numCalculatedVar, std::vector<int>& numVars);
+
+  /**
+   * @copydoc NetworkComponent::evalJCalculatedVarI()
+   */
+  void evalJCalculatedVarI(int numCalculatedVar, double* y, double* yp, std::vector<double>& res);
+
+  /**
+   * @copydoc NetworkComponent::evalCalculatedVarI()
+   */
+  double evalCalculatedVarI(int numCalculatedVar, double* y, double* yp);
+
+  /**
+   * @copydoc NetworkComponent::instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables)
+   */
+  void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
+
+  /**
+   * @copydoc NetworkComponent::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params)
+   */
+  void setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params);
+
+  /**
+   * @copydoc NetworkComponent::defineNonGenericParameters(std::vector<ParameterModeler>& parameters)
+   */
+  void defineNonGenericParameters(std::vector<ParameterModeler>& parameters);
+
+  /**
+   * @copydoc NetworkComponent::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement)
+   */
+  void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+
+  /**
+   * @copydoc NetworkComponent::addBusNeighbors()
+   */
+  void addBusNeighbors();
+
+  /**
+   * @copydoc NetworkComponent::setReferenceY( double* y, double* yp, double* f, const int & offsetY, const int & offsetF)
+   */
+  void setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF);
+
+  /**
+   * @copydoc NetworkComponent::setReferenceZ( double* z, const int & offsetZ )
+   */
+  void setReferenceZ(double* z, const int& offsetZ);
+
+  /**
+   * @copydoc NetworkComponent::setReferenceCalculatedVar( double* calculatedVars, const int & offsetCalculatedVars )
+   */
+  void setReferenceCalculatedVar(double* calculatedVars, const int& offsetCalculatedVars);
+
+  /**
+   * @copydoc NetworkComponent::setReferenceG( state_g* g, const int & offsetG )
+   */
+  void setReferenceG(state_g* g, const int& offsetG);
+
+ private:
+  /**
+   * @brief build graph used by the voltage level to deal with topology change
+   */
+  void defineGraph();
+
+  boost::optional<Graph> graph_;  ///< topology graph to find node connection
+  VoltageLevelInterface::VoltageLevelTopologyKind_t topologyKind_;  ///< voltage level topology (bus breaker or node breaker)
+  std::vector<boost::shared_ptr<NetworkComponent> > components_;  ///< all components in a voltage level
+  std::map<int, boost::shared_ptr<ModelBus> > busesByIndex_;  ///< map of voltage level buses with their index
+  std::vector<boost::shared_ptr<ModelBus> > busesWithBBS_;  ///< vector of buses that contain a bus bar section
+  std::vector<boost::shared_ptr<ModelSwitch> > switches_;  ///< all switch components in a voltage level
+  std::map<std::string, boost::shared_ptr<ModelSwitch> > switchesById_;  ///< map of voltage level switches with their id
+  std::vector<int> componentIndexByCalculatedVar_;  ///< index of component for each calculated var
+};
+
+}  // namespace DYN
+#endif  // MODELS_CPP_MODELNETWORK_DYNMODELVOLTAGELEVEL_H_
