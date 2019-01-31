@@ -18,9 +18,9 @@ import csv
 import shutil
 from optparse import OptionParser
 
-csvToHtml_ressources_dir = os.path.join(os.path.dirname(__file__),"../ressources")
-jsFileIn=csvToHtml_ressources_dir+"/curves.js.in"
-htmlFileIn=csvToHtml_ressources_dir+"/curves.html.in"
+csvToHtml_resources_dir = os.path.join(os.path.dirname(__file__),"../resources")
+jsFileIn=csvToHtml_resources_dir+"/curves.js.in"
+htmlFileIn=csvToHtml_resources_dir+"/curves.html.in"
 
 def cleanIdForJS(id):
     return id.replace(".","_").replace(" ","_").replace("-","_")
@@ -42,13 +42,13 @@ class Data:
 
 def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
     full_path = os.path.expanduser(output_dir)
-    # Copy ressources in output directory
-    output_ressources_dir = os.path.join(full_path,"curvesRessources")
+    # Copy resources in output directory
+    output_resources_dir = os.path.join(full_path,"curvesResources")
 
-    # Delete ressources directory and then create it again
-    if os.path.isdir(output_ressources_dir) == True:
-        shutil.rmtree(output_ressources_dir)
-    shutil.copytree(csvToHtml_ressources_dir,output_ressources_dir)
+    # Delete resources directory and then create it again
+    if os.path.isdir(output_resources_dir) == True:
+        shutil.rmtree(output_resources_dir)
+    shutil.copytree(csvToHtml_resources_dir,output_resources_dir)
 
     full_path = os.path.expanduser(csv_file)
     ## read csv and create data structures
@@ -139,8 +139,8 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
             line=line.replace("@FILE_JS@",os.path.basename(jsDst))
         elif(line.find("@TITLE_TO_READ@")!=-1):
             line=line.replace("@TITLE_TO_READ@",titleToPrint)
-        elif(line.find("@RESSOURCES_DIR@")!=-1):
-            line=line.replace("@RESSOURCES_DIR@","curvesRessources")
+        elif(line.find("@RESOURCES_DIR@")!=-1):
+            line=line.replace("@RESOURCES_DIR@","curvesResources")
 
         fileDst.write(line)
 
@@ -150,7 +150,7 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
 def main():
     usage=u""" Usage: %prog --csvFile=<csv-file> --outputDir=<output-dir>
 
-    Script intended to build a HTML interface for curves visualization    
+    Script intended to build a HTML interface for curves visualization
     from a CSV curves file <csv-file>
 
     Options :

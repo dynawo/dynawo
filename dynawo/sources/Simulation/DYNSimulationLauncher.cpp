@@ -56,7 +56,7 @@ void launchSimu(const std::string& jobsFileName) {
       Trace::debug() << DYNLog(LaunchingJob, (*itJobEntry)->getName()) << Trace::endline;
 
       boost::shared_ptr<SimulationContext> context = boost::shared_ptr<SimulationContext>(new SimulationContext());
-      context->setResourcesDirectory(getEnvVar("RESSOURCES_DIR"));
+      context->setResourcesDirectory(getEnvVar("RESOURCES_DIR"));
       context->setLocale(getEnvVar("DYNAWO_LOCALE"));
       context->setInputDirectory(prefixJobFile);
       context->setWorkingDirectory(prefixJobFile);

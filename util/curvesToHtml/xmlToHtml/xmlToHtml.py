@@ -18,9 +18,9 @@ import shutil
 import lxml.etree
 from optparse import OptionParser
 
-xmlToHtml_ressources_dir = os.path.join(os.path.dirname(__file__),"../ressources")
-jsFileIn=xmlToHtml_ressources_dir+"/curves.js.in"
-htmlFileIn=xmlToHtml_ressources_dir+"/curves.html.in"
+xmlToHtml_resources_dir = os.path.join(os.path.dirname(__file__),"../resources")
+jsFileIn=xmlToHtml_resources_dir+"/curves.js.in"
+htmlFileIn=xmlToHtml_resources_dir+"/curves.html.in"
 
 DYN_NAMESPACE = "http://www.rte-france.com/dynawo"
 
@@ -48,13 +48,13 @@ class Data:
 
 def readXmlToHtml(xml_file, output_dir, withoutOffset, showpoints):
     full_path = os.path.expanduser(output_dir)
-    # Copy ressources in output directory
-    output_ressources_dir = os.path.join(full_path,"curvesRessources")
+    # Copy resources in output directory
+    output_resources_dir = os.path.join(full_path,"curvesResources")
 
-    # Delete ressources directory and then create it again
-    if os.path.isdir(output_ressources_dir) == True:
-        shutil.rmtree(output_ressources_dir)
-    shutil.copytree(xmlToHtml_ressources_dir,output_ressources_dir)
+    # Delete resources directory and then create it again
+    if os.path.isdir(output_resources_dir) == True:
+        shutil.rmtree(output_resources_dir)
+    shutil.copytree(xmlToHtml_resources_dir,output_resources_dir)
 
     ## read xml and create data structures
     datas=[]
@@ -139,8 +139,8 @@ def readXmlToHtml(xml_file, output_dir, withoutOffset, showpoints):
             line=line.replace("@FILE_JS@",os.path.basename(jsDst))
         elif(line.find("@TITLE_TO_READ@")!=-1):
             line=line.replace("@TITLE_TO_READ@",titleToPrint)
-        elif(line.find("@RESSOURCES_DIR@")!=-1):
-            line=line.replace("@RESSOURCES_DIR@","curvesRessources")
+        elif(line.find("@RESOURCES_DIR@")!=-1):
+            line=line.replace("@RESOURCES_DIR@","curvesResources")
 
         fileDst.write(line)
 
@@ -150,8 +150,8 @@ def readXmlToHtml(xml_file, output_dir, withoutOffset, showpoints):
 def main():
     usage=u""" Usage: %prog --xmlFile=<xml-file> --outputDir=<output-dir>
 
-    Script intended to build a HTML interface for curves visualization    
-    from a XML curves file <xml-file> 
+    Script intended to build a HTML interface for curves visualization
+    from a XML curves file <xml-file>
 
     Options :
       --withoutOffset : remove time offset

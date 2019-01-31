@@ -109,7 +109,7 @@ int main(int argc, char ** argv) {
       }
 
       boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-      dicos->addPath(getEnvVar("RESSOURCES_DIR"));
+      dicos->addPath(getEnvVar("RESOURCES_DIR"));
       dicos->addDico("ERROR", "DYNError", getEnvVar("DYNAWO_LOCALE"));
       dicos->addDico("TIMELINE", "DYNTimeline", getEnvVar("DYNAWO_LOCALE"));
       dicos->addDico("CONSTRAINT", "DYNConstraint", getEnvVar("DYNAWO_LOCALE"));
