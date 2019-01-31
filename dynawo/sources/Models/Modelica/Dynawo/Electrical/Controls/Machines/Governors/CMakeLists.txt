@@ -8,13 +8,13 @@
 # 
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(Protections)
-ADD_SUBDIRECTORY(VoltageRegulators)
-ADD_SUBDIRECTORY(Governors)
+# Governors models
 
 SET(MODEL_FILES
-    # Machines control models
     package.mo
+    GoverProportionalBlock.mo
+    GoverProportionalBlock.xml
+    GovernorBlock_INIT.mo
     )
 
 #
