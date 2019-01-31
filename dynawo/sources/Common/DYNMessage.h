@@ -39,6 +39,10 @@ namespace DYN {
  */
 class Message {
  public:
+  static const char TIMELINE_KEY[];  ///< Key used to store timeline dictionary
+  static const char ERROR_KEY[];  ///< Key used to store error dictionary
+  static const char CONSTRAINT_KEY[];  ///< Key used to store constraint dictionary
+  static const char LOG_KEY[];  ///< Key used to store log dictionary
   /**
    * @brief Constructor
    *

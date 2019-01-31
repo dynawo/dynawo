@@ -45,7 +45,7 @@ XmlImporter::importFromDydFiles(const vector<string>& fileNames) const {
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
   bool xsdValidation = false;
   if (getEnvVar("USE_XSD_VALIDATION") == "true") {
-    string dydXsdPath = getEnvVar("XSD_DIR") + string("dyd.xsd");
+    string dydXsdPath = getEnvVar("DYNAWO_XSD_DIR") + string("dyd.xsd");
     parser->addXmlSchema(dydXsdPath);
     xsdValidation = true;
   }

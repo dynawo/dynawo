@@ -65,12 +65,14 @@ class Compiler {
    * @param useStandardModelicaModels: whether to use standard modelica models
    * @param modelicaModelsDirs modelica models directories
    * @param modelicaModelsExtension: modelica models extension
+   * @param additionalHeaderFiles: list of headers that should be included in the dynamic model files
    * @param outputDir: output directory
    */
   Compiler(const boost::shared_ptr<DynamicData>& dyd,
           const bool useStandardPrecompiledModels, const std::vector <UserDefinedDirectory> & precompiledModelsDirs,
           const std::string & precompiledModelsExtension,
           const bool useStandardModelicaModels, const std::vector <UserDefinedDirectory> & modelicaModelsDirs, const std::string & modelicaModelsExtension,
+          const std::vector <std::string> & additionalHeaderFiles,
           std::string outputDir) :
   dyd_(dyd),
   unitDynamicModelsMap_(),
@@ -81,7 +83,8 @@ class Compiler {
   useStandardModelicaModels_(useStandardModelicaModels),
   modelicaModelsDirsPaths_(modelicaModelsDirs),
   modelicaModelsExtension_(modelicaModelsExtension),
-  compileDirPath_(outputDir) { }
+  compileDirPath_(outputDir),
+  additionalHeaderFiles_(additionalHeaderFiles) { }
 
   /**
    * @brief default destructor.
@@ -188,6 +191,9 @@ class Compiler {
 
   // Compiled lib (for DydLibGenerator)
   std::vector<std::string> compiledLib_;  ///< Compiled lib
+
+  // list of headers that should be included in the dynamic model files
+  std::vector<std::string> additionalHeaderFiles_;  ///< list of headers that should be included in the dynamic model files
 };
 
 }  // namespace DYN

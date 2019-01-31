@@ -19,6 +19,10 @@ SET(DYNAWO_DICTIONARIES
   Dictionaries/DYNLog_en_GB.dic
   )
 
+SET(DYNAWO_DICTIONARIES_MAPPING
+  Dictionaries/dictionaries_mapping.dic
+  )
+
 
 # custom target to generate files associated to dictionnaries
 ADD_CUSTOM_TARGET( create_keys_files ALL
@@ -26,7 +30,7 @@ ADD_CUSTOM_TARGET( create_keys_files ALL
 
 ADD_CUSTOM_COMMAND(TARGET create_keys_files
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/Dictionaries/validateDictionaries.py --inputDir=${CMAKE_CURRENT_SOURCE_DIR}/Dictionaries --outputDir=${CMAKE_CURRENT_SOURCE_DIR} --modelicaDir=${CMAKE_CURRENT_SOURCE_DIR}/../Models/Modelica/Dynawo/NonElectrical/Logs/
+  COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/Dictionaries/validateDictionaries.py --inputDir=${CMAKE_CURRENT_SOURCE_DIR}/Dictionaries,${CMAKE_DYN_DICTIONARY_PATHS} --outputDir=${CMAKE_CURRENT_SOURCE_DIR} --modelicaPackage=Dynawo.NonElectrical.Logs --modelicaDir=${CMAKE_CURRENT_SOURCE_DIR}/../Models/Modelica/Dynawo/NonElectrical/Logs/
   COMMENT "Generate key files for dictionnaries"
   )
 
@@ -90,6 +94,7 @@ SET(COMMON_INCLUDE_HEADERS
     DYNParameter.h
     DYNSparseMatrix.h
     DYNParameter.hpp
+    gtest_dynawo.h
     ${INCLUDE_KEYS}
     )
 
@@ -108,8 +113,15 @@ TARGET_LINK_LIBRARIES(dynawo_Common
     )
 SET_TARGET_PROPERTIES(dynawo_Common PROPERTIES VERSION ${COMMON_VERSION_STRING}
                                         SOVERSION ${COMMON_VERSION_MAJOR})
+# PYTHON scripts for models
+SET(PYTHON_SCRIPTS_COMMON
+  Dictionaries/validateDictionaries.py
+  )
 
 INSTALL(TARGETS dynawo_Common DESTINATION ${libdir})
 INSTALL(FILES ${COMMON_INCLUDE_HEADERS} DESTINATION ${includedir})
 INSTALL(FILES ${DYNAWO_DICTIONARIES} DESTINATION ${sharedir})
+INSTALL(FILES ${DYNAWO_DICTIONARIES_MAPPING} DESTINATION ${sharedir})
+INSTALL(PROGRAMS ${PYTHON_SCRIPTS_COMMON} DESTINATION ${sbindir})
+
 

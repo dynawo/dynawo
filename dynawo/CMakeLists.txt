@@ -65,6 +65,8 @@ ENDIF()
 
 SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG_")
 
+SET(CMAKE_DYN_DICTIONARY_PATHS "$ENV{DYN_DICTIONARY_PATHS}")
+
 # Add specific options for gcc 4.8
 IF("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   # See all warnings in Debug mode

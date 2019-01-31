@@ -110,7 +110,7 @@ EmptyConnector              =             empty continuous connector found
 JobsFileBadlyFormattedDirectory =         jobs file not well formatted : directory items are not relevant where they are written
 JobsFileBadlyFormattedDumpInit =          jobs file not well formatted : DumpInitValues items are not relevant where they are written
 ModelicaPackageBadStructure =             bad Modelica package structure (%1%)
-MissingDDBDir               =             missing DDB_DIR (dynamic models database) environment variable => exit
+MissingDDBDir               =             missing DYNAWO_DDB_DIR (dynamic models database) environment variable => exit
 DuplicateLibFile            =             duplicate %1% => exit
 DuplicateModelicaModel      =             duplicate %1%
 NotBlackBoxModel            =             compiling BlackBoxModel Description: %1% : model is not a black box model.

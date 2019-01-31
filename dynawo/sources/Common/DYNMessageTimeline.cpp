@@ -29,7 +29,7 @@ using std::string;
 
 namespace DYN {
 
-MessageTimeline::MessageTimeline(const string& key) : Message("TIMELINE", key) {
+MessageTimeline::MessageTimeline(const string& key) : Message(Message::TIMELINE_KEY, key) {
   initialize(key);
 }
 

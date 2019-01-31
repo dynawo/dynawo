@@ -139,8 +139,8 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
             line=line.replace("@FILE_JS@",os.path.basename(jsDst))
         elif(line.find("@TITLE_TO_READ@")!=-1):
             line=line.replace("@TITLE_TO_READ@",titleToPrint)
-        elif(line.find("@RESOURCES_DIR@")!=-1):
-            line=line.replace("@RESOURCES_DIR@","curvesResources")
+        elif(line.find("@DYNAWO_RESOURCES_DIR@")!=-1):
+            line=line.replace("@DYNAWO_RESOURCES_DIR@","curvesResources")
 
         fileDst.write(line)
 

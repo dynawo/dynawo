@@ -109,11 +109,8 @@ int main(int argc, char ** argv) {
       }
 
       boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-      dicos->addPath(getEnvVar("RESOURCES_DIR"));
-      dicos->addDico("ERROR", "DYNError", getEnvVar("DYNAWO_LOCALE"));
-      dicos->addDico("TIMELINE", "DYNTimeline", getEnvVar("DYNAWO_LOCALE"));
-      dicos->addDico("CONSTRAINT", "DYNConstraint", getEnvVar("DYNAWO_LOCALE"));
-      dicos->addDico("LOG", "DYNLog", getEnvVar("DYNAWO_LOCALE"));
+      dicos->addPath(getEnvVar("DYNAWO_RESOURCES_DIR"));
+      dicos->addDicos(getEnvVar("DYNAWO_DICTIONARIES"));
 
       launchSimu(jobsFileName);
     } catch (...) {

@@ -56,7 +56,8 @@ static void compileModelicaToC(const string& modelName, const string& fileToComp
 static void compileModelicaToXML(const string& modelName, const string& fileToCompile, const vector<string>& libs,
                                  const string& outputDir);  ///< Generate the .xml file describing the model parameters and variables
 static void generateModelFile(const string& modelName, const string& outputDir,
-                              bool& withInitFile);  ///< Rewrite parts of one whole Modelica model C/C++ code to fit Dynawo C/C++ requirements
+                              bool& withInitFile,
+                              const string& additionalHeaderList);  ///< Rewrite parts of one whole Modelica model C/C++ code to fit Dynawo C/C++ requirements
 static void removeTemporaryFiles(const string& modelName, const string& outputDir);  ///< remove temporary compilation files
 static bool verifySharedObject(const string& library);  ///< Ensure that the generated compiled library can actually run
 
@@ -71,6 +72,7 @@ int main(int argc, char ** argv) {
   string libName = "";
   string modelName = "";
   string outputDir = ".";
+  string additionalHeaderList;
   po::options_description desc;
   vector<string> moFiles;
   vector<string> initFiles;
@@ -81,7 +83,9 @@ int main(int argc, char ** argv) {
           ("output-dir", po::value<string>(&outputDir), "set output directory (default : current directory)")
           ("moFiles", po::value< vector<string> >(&moFiles)->multitoken(), "modelica files to use for expansion")
           ("initFiles", po::value< vector<string> >(&initFiles)->multitoken(), "init files to use for expansion")
-          ("lib", po::value<string>(&libName), "set the name of the output lib");
+          ("lib", po::value<string>(&libName), "set the name of the output lib")
+          ("additionalHeaderList", po::value< string >(&additionalHeaderList),
+              "list of headers that should be included in the dynamic model files");
 
   po::variables_map vm;
   // parse regular options
@@ -113,18 +117,15 @@ int main(int argc, char ** argv) {
   // Launch the compile of the model
   try {
     boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getEnvVar("RESOURCES_DIR"));
-    dicos->addDico("ERROR", "DYNError", getEnvVar("DYNAWO_LOCALE"));
-    dicos->addDico("TIMELINE", "DYNTimeline", getEnvVar("DYNAWO_LOCALE"));
-    dicos->addDico("CONSTRAINT", "DYNConstraint", getEnvVar("DYNAWO_LOCALE"));
-    dicos->addDico("LOG", "DYNLog", getEnvVar("DYNAWO_LOCALE"));
+    dicos->addPath(getEnvVar("DYNAWO_RESOURCES_DIR"));
+    dicos->addDicos(getEnvVar("DYNAWO_DICTIONARIES"));
 
     // Create .c, .h and .xml files from .mo
     bool withInitFile = false;
     modelicaCompile(modelName, outputDir1, initFiles, moFiles, withInitFile);
 
     // generate the .cpp file from the previous files
-    generateModelFile(modelName, outputDir1, withInitFile);
+    generateModelFile(modelName, outputDir1, withInitFile, additionalHeaderList);
 
     // Creation of the lib .so
     if (libName != "") {
@@ -158,7 +159,7 @@ void
 modelicaCompile(const string& modelName, const string& outputDir,
         const vector<string>&  initFiles, const vector<string>& moFiles, bool& withInitFile) {
   string outputDir1 = prettyPath(outputDir);
-  string scriptsDir1 = getEnvVar("SCRIPTS_DIR");
+  string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
 
   // input FILES
   string moFile = absolute(modelName + ".mo", outputDir1);
@@ -321,9 +322,11 @@ compileModelicaToXML(const string& modelName, const string& fileToCompile, const
 }
 
 void
-generateModelFile(const string& modelName, const string& outputDir, bool& withInitFile) {
-  string scriptsDir1 = getEnvVar("SCRIPTS_DIR");
+generateModelFile(const string& modelName, const string& outputDir, bool& withInitFile, const string& additionalHeaderList) {
+  string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
   string varExtCommand = "python " + scriptsDir1 + "/writeModel.py -m " + modelName + " -i " + outputDir + " -o " + outputDir;
+  if (!additionalHeaderList.empty())
+    varExtCommand += " -a " + additionalHeaderList;
   if (withInitFile)
     varExtCommand += " --init";
 
@@ -334,7 +337,7 @@ generateModelFile(const string& modelName, const string& outputDir, bool& withIn
 void
 compileLib(const string& modelName, const string& libName, const string& outputDir) {
   string outputDir1 = prettyPath(outputDir);
-  string scriptsDir1 = getEnvVar("SCRIPTS_DIR");
+  string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
 
   string compileLibCommand = scriptsDir1 + "/compileLibModelicaOMC --model-name=" + modelName + " --directory=" + outputDir1 + " --lib-name=" + libName;
 
@@ -351,7 +354,7 @@ compileLib(const string& modelName, const string& libName, const string& outputD
 void
 removeTemporaryFiles(const string& modelName, const string& outputDir) {
   string outputDir1 = prettyPath(outputDir);
-  string scriptsDir1 = getEnvVar("SCRIPTS_DIR");
+  string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
   string commandRemove = scriptsDir1 + "/cleanCompilerModelicaOMC --model=" + modelName + " --directory=" + outputDir1;
 #ifdef _DEBUG_
   commandRemove += " --debug";
@@ -364,7 +367,7 @@ removeTemporaryFiles(const string& modelName, const string& outputDir) {
 void
 removeOldFiles(const string& modelName, const string& outputDir) {
   string outputDir1 = prettyPath(outputDir);
-  string scriptsDir1 = getEnvVar("SCRIPTS_DIR");
+  string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
   string commandRemove = scriptsDir1 + "/cleanCompilerModelicaOMC --model=\"" + modelName + "\" --directory=\"" + outputDir1 + "\"";
   bool doPrintLogs = true;
   string result = executeCommand(commandRemove, doPrintLogs);

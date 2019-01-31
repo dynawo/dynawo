@@ -49,7 +49,12 @@ INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
 INCLUDE_DIRECTORIES(../../Common
                     ../Common
                     )
-
+                    
+SET(DATA_INTERFACE_INCLUDE_HEADERS
+    DYNDataInterface.h
+    DYNDataInterfaceIIDM.h
+    )
+    
 ADD_LIBRARY(dynawo_DataInterface SHARED ${DATA_INTERFACE_SOURCES})
 
 TARGET_LINK_LIBRARIES(dynawo_DataInterface
@@ -61,3 +66,4 @@ SET_TARGET_PROPERTIES(dynawo_DataInterface PROPERTIES VERSION ${DATA_INTERFACE_V
                                                SOVERSION ${DATA_INTERFACE_VERSION_MAJOR})
 
 INSTALL(TARGETS dynawo_DataInterface DESTINATION ${libdir})
+INSTALL(FILES ${DATA_INTERFACE_INCLUDE_HEADERS} DESTINATION ${includedir})
