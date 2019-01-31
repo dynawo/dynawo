@@ -36,8 +36,8 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 
 **To achieve this goal, Dyna&omega;o is based on two mains principles: the use of a high-level modeling language Modelica and a strict separation between modeling and solving parts**. Modelica is an equation-based, declarative and object-oriented modeling language that is easy to read and understand (the equations are written in a similar way than they are written in textbooks for example) and already used in different and various industrial sectors. Using this language enables to easily share and discuss the modeling choices done because the final models implementation is available in an understandable way, even for the end-user. It is important to mention that Modelica-based tools already exist (Dymola, OpenModelica, JModelica, etc.) but they are not efficient enough for large-scale simulation of power system, which was one of the motivation for Dyna&omega;o. In addition to this, the Modelica language itself has some limitations that are adressed in Dyna&omega;o by the possibility to use C++ models in a similar way than Modelica models. The second important point in Dyna&omega;o is the strict separation between modeler and solvers - it means that the models only expose a few methods to the solvers such as the residual evaluation, the Jacobian evaluation or the zero-crossing functions or in other words that the numerical resolution method doesn't interfere in the modeling part. This feature has several advantages: it enables to easily test or use new solvers, it eases the addition of new model and it allows modeling expert not to bother about numerical difficulties and vice versa.
 
-**Dyna&omega;o's primary focus has been on RMS simulations and most of the tests done until now have been for long-term stability studies (such as voltage stability). Nevertheless, the models and solvers delivered in the repository enables to launch any kind of RMS simulation (short-term and long-term).** The simulation tool structure and the flexibility offered make it also possible to run other types of power system simulations, as long as the user provides the necessary models and adapts the solver parameters (or even plugs its own solver). Different initiatives are under discussion or submission to test the possibility to use Dyna&omega;o for EMT simulations or multi-system simulations.
-**Only validated models are included into the library that is still under construction.** We hope to be able to release a new set of models in the near future, with for example HVDC, wind and solar power plants models or more different standard regulation models, etc.
+**Dyna&omega;o's primary focus has been on RMS simulations and most of the tests done until now have been for long-term and short-term stability studies.** However, the simulation tool structure offers great flexibility and makes it also possible to run other types of power system simulations, as long as the user provides the necessary models and solvers. Different initiatives are under discussion or submission to test the possibility to use Dyna&omega;o for EMT simulations or multi-system simulations.
+**Only validated models are included into the library that is still under construction.** We plan to be able to release a new set of models in the near future, with for example HVDC, wind and solar power plants models or more different standard regulation models, etc.
 
 <a name="build"></a>
 ## Building Dyna&omega;o
@@ -82,7 +82,7 @@ $> ./myEnvDynawo.sh build-omcDynawo
 $> ./myEnvDynawo.sh build-all
 ```
 
-**Warning**: If you're working behind a proxy make sure you have exported the following proxy environement variables
+**Warning**: If you're working behind a proxy make sure you have exported the following proxy environment variables
 ``` bash
 $> export http_proxy=
 $> export https_proxy=
