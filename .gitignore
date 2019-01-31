@@ -1,4 +1,4 @@
-build/*
+build/
 dynawo/sources/Common/*_keys.cpp
 dynawo/sources/Common/*_keys.h
 dynawo/sources/Models/Modelica/Dynawo/NonElectrical/Logs/*Keys.mo
@@ -6,6 +6,7 @@ dynawo/sources/config.h
 dynawo/sources/gitversion.h*
 install/
 deploy/
+OpenModelica/
 distributions/
 nrt/data/*/*/outputs*/
 nrt/data/*/*/*/outputs*/

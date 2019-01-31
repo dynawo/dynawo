@@ -42,16 +42,21 @@ class Dictionaries:
     # @param dictionary : new dictionary to add
     # @return
     def addDict(self , dictionary):
-        self.dicts_.append(dictionary)
-        self.names_.append(dictionary.name_)
+        index = [x for x in self.names_ if x == dictionary.name()]
+        if index:
+            self.dicts_[self.names_.index(dictionary.name())].dict_.update(dictionary.dict_)
+        else:
+            self.dicts_.append(dictionary)
+            self.names_.append(dictionary.name_)
 
     ##
     #  Generate files with respect to keys found in dictionary
     # @param self: object pointer
     # @param outputDir : directory where files should be created
     # @param modelicaDir : directory where modelica files should be created
+    # @param modelicaPackage : Parent package of modelica keys files
     # @return
-    def generateFiles(self,outputDir, modelicaDir):
+    def generateFiles(self,outputDir, modelicaDir, modelicaPackage):
         for name in self.names_:
             dictionary = Dictionary()
             for d in self.dicts_:
@@ -61,7 +66,7 @@ class Dictionaries:
             dictionary.setModelicaDir(modelicaDir)
             dictionary.generateHeader()
             dictionary.generateCPP()
-            dictionary.generateModelica()
+            dictionary.generateModelica(modelicaPackage)
             dictionary.copyDeleteFiles()
 ##
 #  Class defining one dictionary found by the utility
@@ -228,8 +233,9 @@ class Dictionary:
     ##
     # Generate a modelica file to declare the enum of the dictionary
     # @param self : object pointer
+    # @param modelicaPackage : Parent package of modelica keys files
     # @return
-    def generateModelica(self):
+    def generateModelica(self, modelicaPackage):
         if not os.path.exists(self.modelicaDir_):
             print ("Modelica directory :"+str(self.modelicaDir_)+" does not exist")
             exit(1)
@@ -248,7 +254,7 @@ class Dictionary:
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 ''')
-        moFile.write("within Dynawo.NonElectrical.Logs;\n\n")
+        moFile.write("within " + modelicaPackage + ";\n\n")
         moFile.write('encapsulated package '+name+'Keys\n\n')
         i = 0
         for key in self.keys():
@@ -385,20 +391,22 @@ def createDictionary(file2Read):
 ##
 #   Main function of the utility
 def main():
-    usage =u""" usage: %prog --inputDir=<directory> --outputDir=<directory> --modelicaDir=<directory>
+    usage =u""" usage: %prog --inputDir=<directories> --outputDir=<directory> --modelicaDir=<directory> --modelicaPackage=<packageName>
 
     Script generates keys.h and keys.cpp of inputDir files in outputDir
-    Genreates keys.mo files in modelicaDir
-    If everything is ok, generates header associated with all kinf of dictionary
+    Generates keys.mo files in modelicaDir
+    If everything is ok, generates header associated with all kind of dictionary
     """
 
     parser = OptionParser(usage)
     parser.add_option( '--inputDir', dest="inputDir",
-                       help=u"input directory where dictionaires files should be read")
+                       help=u"input directories where dictionaries files should be read (commas separated)")
     parser.add_option( '--outputDir', dest="outputDir",
                        help=u"Output directory where keys (.h and .cpp) files should be created")
     parser.add_option( '--modelicaDir', dest="modelicaDir",
                        help=u"Output directory where modelica keys files should be created")
+    parser.add_option( '--modelicaPackage', dest="modelicaPackage",
+                       help=u"Parent package of modelica keys files")
 
     (options, args) = parser.parse_args()
 
@@ -411,10 +419,21 @@ def main():
     if options.modelicaDir == None:
         parser.error("Output directory for modelica files should be informed")
 
+    if options.modelicaPackage == None:
+        parser.error("Parent package of modelica keys files should be informed")
+
     # create dictionaries structure
     dicts = Dictionaries()
 
-    files = glob.glob(str(options.inputDir)+'/*.dic')
+    files = []
+    input_dir_list = str(options.inputDir).split(",")
+    for input_dir in input_dir_list:
+        if len(input_dir) == 0:
+            continue
+        dic_mapping_name = os.environ.get('DYNAWO_DICTIONARIES',"")+".dic"
+        for path in glob.glob(str(input_dir)+'/*.dic'):
+            if os.path.basename(path) != "dictionaries_mapping.dic" and  os.path.basename(path) !=  dic_mapping_name:
+                files.append(path)
 
     # read all files
     for f in files:
@@ -422,7 +441,7 @@ def main():
         dicts.addDict(dictionary)
 
     # generate files
-    dicts.generateFiles(options.outputDir, options.modelicaDir)
+    dicts.generateFiles(options.outputDir, options.modelicaDir, options.modelicaPackage)
 
 if __name__ == "__main__":
     main()

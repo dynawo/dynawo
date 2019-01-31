@@ -14,10 +14,17 @@
 # Setting install path environment variables
 export BIN_DIR=${DYNAWO_INSTALL_DIR}/@BINDIR_NAME@/
 export SBIN_DIR=${DYNAWO_INSTALL_DIR}/@SBINDIR_NAME@/
-export DDB_DIR=${DYNAWO_INSTALL_DIR}/@DDBDIR_NAME@/
-export SCRIPTS_DIR=${DYNAWO_INSTALL_DIR}/@SBINDIR_NAME@/
-export RESOURCES_DIR=${DYNAWO_INSTALL_DIR}/@SHAREDIR_NAME@/
-export XSD_DIR=${RESOURCES_DIR}/xsd/
+if [[ -z "${DYNAWO_DDB_DIR}" ]]; then
+  export DYNAWO_DDB_DIR=${DYNAWO_INSTALL_DIR}/@DDBDIR_NAME@/
+fi
+export DYNAWO_SCRIPTS_DIR=${DYNAWO_INSTALL_DIR}/@SBINDIR_NAME@/
+if [[ -z "${DYNAWO_RESOURCES_DIR}" ]]; then
+  export DYNAWO_RESOURCES_DIR=${DYNAWO_INSTALL_DIR}/@SHAREDIR_NAME@/
+fi
+export DYNAWO_XSD_DIR=${DYNAWO_INSTALL_DIR}/@SHAREDIR_NAME@/xsd/
+if [[ -z "${DYNAWO_DICTIONARIES}" ]]; then
+  export DYNAWO_DICTIONARIES=dictionaries_mapping
+fi
 
 # Setting dynawo binary location
 DYNAWO=${BIN_DIR}/dynawo

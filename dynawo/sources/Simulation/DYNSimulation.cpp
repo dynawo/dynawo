@@ -30,6 +30,8 @@
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 
 #include <libzip/ZipFile.h>
 #include <libzip/ZipFileFactory.h>
@@ -431,12 +433,18 @@ Simulation::compileModels() {
   if (!exists(compileDir))
     create_directory(compileDir);
 
+  vector<string> additionalHeaderFiles;
+  if (hasEnvVar("DYNAWO_HEADER_FILES_FOR_PREASSEMBLED")) {
+    string additionalHeaderList = getEnvVar("DYNAWO_HEADER_FILES_FOR_PREASSEMBLED");
+    boost::split(additionalHeaderFiles, additionalHeaderList, boost::is_any_of(" "), boost::token_compress_on);
+  }
   Compiler cf = Compiler(dyd_, preCompiledUseStandardModels,
           precompiledModelsDirsAbsolute,
           preCompiledModelsExtension,
           modelicaUseStandardModels,
           modelicaModelsDirsAbsolute,
           modelicaModelsExtension,
+          additionalHeaderFiles,
           compileDir);
 
   cf.compile();  // modelOnly = false, compilation and parameter linking

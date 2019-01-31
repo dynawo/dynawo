@@ -28,7 +28,7 @@ import sys
 import time
 
 try:
-    nrtDiff_dir = os.path.join(os.path.dirname(__file__), "..", "util", "nrt_diff")
+    nrtDiff_dir = os.environ["NRT_DIFF_DIR"]
     sys.path.append(nrtDiff_dir)
     import nrtDiff
 except:
@@ -70,11 +70,11 @@ def kill_subprocess(proc_pid):
     process.kill()
 
 # Non-regression tests configuration
-resources_dir = os.path.join(os.path.dirname(__file__), "resources")
-data_dir = os.path.join(os.path.dirname(__file__), "data")
+resources_dir = os.path.join(os.environ["NRT_DIR"], "resources")
+data_dir = os.path.join(os.environ["NRT_DIR"], "data")
 branch_name = os.environ["BRANCH_NAME"]
-output_dir_all_nrt = os.path.join(os.path.dirname(__file__), "output")
-output_dir = os.path.join(os.path.dirname(__file__), "output",branch_name)
+output_dir_all_nrt = os.path.join(os.environ["NRT_DIR"], "output")
+output_dir = os.path.join(os.environ["NRT_DIR"], "output",branch_name)
 
 # No branch in jenkins mode until now
 jenkins_mode = os.getenv("JENKINS_MODE","NO")
@@ -84,11 +84,11 @@ html_output = os.path.join(output_dir, "report.html")
 env_dynawo = os.environ["ENV_DYNAWO"]
 
 # Load custom python modules
-csvToHtml_dir = os.path.join(os.path.dirname(__file__), "..", "util", "curvesToHtml", "csvToHtml")
+csvToHtml_dir = os.path.join(os.environ["CURVES_TO_HTML_DIR"], "csvToHtml")
 sys.path.append(csvToHtml_dir)
 from csvToHtml import *
 
-xmlToHtml_dir = os.path.join(os.path.dirname(__file__), "..", "util", "curvesToHtml", "xmlToHtml")
+xmlToHtml_dir = os.path.join(os.environ["CURVES_TO_HTML_DIR"], "xmlToHtml")
 sys.path.append(xmlToHtml_dir)
 from xmlToHtml import *
 

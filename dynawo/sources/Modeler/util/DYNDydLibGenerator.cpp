@@ -72,6 +72,7 @@ int main(int argc, char ** argv) {
   string nonRecursiveModelicaModelsDir = "";
   string modelicaModelsExtension = "";
   string outputDir = ".";   // output dir
+  vector<string> additionalHeaderFiles;   // list of headers that should be included in the dynamic model files
 
   po::options_description desc;
 
@@ -79,14 +80,17 @@ int main(int argc, char ** argv) {
           ("help,h", "produce help message")
           ("model-list", po::value<string>(&modelList), "set model list file (required)")
           ("use-standard-precompiled-models", po::value<bool>(&useStandardPrecompiledModels), "use standard precompiled models (default true)")
-          ("recursive-precompiled-models-dir", po::value<string>(&recursivePrecompiledModelsDir), "set precompiled models directory (default DDB_DIR)")
-          ("non-recursive-precompiled-models-dir", po::value<string>(&nonRecursivePrecompiledModelsDir), "set precompiled models directory (default DDB_DIR)")
+          ("recursive-precompiled-models-dir", po::value<string>(&recursivePrecompiledModelsDir), "set precompiled models directory (default DYNAWO_DDB_DIR)")
+          ("non-recursive-precompiled-models-dir", po::value<string>(&nonRecursivePrecompiledModelsDir),
+              "set precompiled models directory (default DYNAWO_DDB_DIR)")
           ("precompiled-models-extension", po::value<string>(&precompiledModelsExtension), "set precompiled models file extension (default .so)")
           ("use-standard-modelica-models", po::value<bool>(&useStandardModelicaModels), "use standard Modelica models (default true)")
-          ("recursive-modelica-models-dir", po::value<string>(&recursiveModelicaModelsDir), "set Modelica models directory (default DDB_DIR)")
-          ("non-recursive-modelica-models-dir", po::value<string>(&nonRecursiveModelicaModelsDir), "set Modelica models directory (default DDB_DIR)")
+          ("recursive-modelica-models-dir", po::value<string>(&recursiveModelicaModelsDir), "set Modelica models directory (default DYNAWO_DDB_DIR)")
+          ("non-recursive-modelica-models-dir", po::value<string>(&nonRecursiveModelicaModelsDir), "set Modelica models directory (default DYNAWO_DDB_DIR)")
           ("modelica-models-extension", po::value<string>(&modelicaModelsExtension), "set Modelica models file extension (default .mo)")
-          ("output-dir", po::value<string>(&outputDir), "set output directory (default : current directory)");
+          ("output-dir", po::value<string>(&outputDir), "set output directory (default : current directory)")
+          ("additional-header-files", po::value< vector<string> >(&additionalHeaderFiles)->multitoken(),
+              "list of headers that should be included in the dynamic model files");
 
   po::variables_map vm;
   // parse regular options
@@ -129,11 +133,8 @@ int main(int argc, char ** argv) {
     // Initializes logs, parsers & dictionnaries for Dynawo
     Trace::init();
     shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getEnvVar("RESOURCES_DIR"));
-    dicos->addDico("ERROR", "DYNError", getEnvVar("DYNAWO_LOCALE"));
-    dicos->addDico("TIMELINE", "DYNTimeline", getEnvVar("DYNAWO_LOCALE"));
-    dicos->addDico("CONSTRAINT", "DYNConstraint", getEnvVar("DYNAWO_LOCALE"));
-    dicos->addDico("LOG", "DYNLog", getEnvVar("DYNAWO_LOCALE"));
+    dicos->addPath(getEnvVar("DYNAWO_RESOURCES_DIR"));
+    dicos->addDicos(getEnvVar("DYNAWO_DICTIONARIES"));
 
     // Dynamic data import
     shared_ptr<DYN::DynamicData> dyd(new DYN::DynamicData());
@@ -176,7 +177,7 @@ int main(int argc, char ** argv) {
     }
 
     Compiler cf = Compiler(dyd, useStandardPrecompiledModels, precompiledModelsDirs, precompiledModelsExtension,
-            useStandardModelicaModels, modelicaModelsDirs, modelicaModelsExtension, outputDir);
+            useStandardModelicaModels, modelicaModelsDirs, modelicaModelsExtension, additionalHeaderFiles, outputDir);
     cf.compile();
 
     fs::remove(dydFileName);
@@ -261,7 +262,7 @@ bool verifySharedObject(string modelname) {
 std::string verifyModelListFile(std::string modelList) {
   string dydFileName = "";
   dydFileName = modelList + "_bak";
-  string scriptsDir1 = getEnvVar("SCRIPTS_DIR");
+  string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
 
   // scriptVerifyModelList.py
   std::cout << "Create file: " << dydFileName << std::endl;

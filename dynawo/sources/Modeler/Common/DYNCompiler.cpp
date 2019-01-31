@@ -128,10 +128,10 @@ Compiler::getDDB() {
   // check that the DDB environment variable was set when it is used
   string DDBDir = "";
   if (useStandardPrecompiledModels_ || useStandardModelicaModels_) {
-    if (!hasEnvVar("DDB_DIR")) {
+    if (!hasEnvVar("DYNAWO_DDB_DIR")) {
       throw DYNError(Error::MODELER, MissingDDBDir);
     }
-    DDBDir = getEnvVar("DDB_DIR");
+    DDBDir = getEnvVar("DYNAWO_DDB_DIR");
   }
 
   // look for precompiled libs
@@ -386,6 +386,15 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
     }
 
     compileCommand += " --moFiles" + moFilesList + " --initFiles" + moFilesList;
+  }
+
+  if (!additionalHeaderFiles_.empty()) {
+    string additionalHeaderList = "";
+    for (unsigned i = 0, iEnd = additionalHeaderFiles_.size(); i < iEnd; ++i) {
+      additionalHeaderList += " " + additionalHeaderFiles_[i];
+    }
+
+    compileCommand += " --additionalHeaderList" + additionalHeaderList;
   }
 
   Trace::info("COMPILE") << DYNLog(CompileCommmand, compileCommand) << Trace::endline;

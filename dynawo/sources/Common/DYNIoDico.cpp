@@ -67,11 +67,11 @@ boost::shared_ptr<IoDico> IoDicos::getIoDico(const string& dicoName) {
   }
 }
 
-string IoDicos::findFile(const string& fileName) {
+vector<std::string> IoDicos::findFiles(const string& fileName) {
+  vector<std::string> res;
   if (fileName.empty())
-    return string("");
+    return res;
 
-  string fic = "";
 
   // Research file in paths
   vector<string> allPaths;
@@ -84,7 +84,7 @@ string IoDicos::findFile(const string& fileName) {
   for (vector<string>::const_iterator it = allPaths.begin();
           it != allPaths.end();
           ++it) {
-    fic = *it;
+    string fic = *it;
 
     if (fic.size() > 0 && fic[fic.size() - 1] != '/')
       fic += '/';
@@ -93,13 +93,12 @@ string IoDicos::findFile(const string& fileName) {
     ifstream in;
     // Test if file exists
     in.open(fic.c_str());
-    if (!in.fail())
-      break;
-    else
-      fic = "";
+    if (!in.fail()) {
+      res.push_back(fic);
+    }
   }
 
-  return fic;
+  return res;
 }
 
 void IoDicos::addDico(const string& name, const string& baseName, const string& locale) {
@@ -107,19 +106,22 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
     throw("Impossible to add the dictionary : empty name");
 
   // build name of the file to search
-  string file;
+  vector<string> files;
   string fileName;
   // To deal with a Priority dictionnary that does not have a locale.
   if (locale != "") {
     fileName = baseName + string("_") + locale + string(".dic");
-    file = findFile(fileName);
+    files = findFiles(fileName);
   } else {
     fileName = baseName + string(".dic");
-    file = findFile(fileName);
+    files = findFiles(fileName);
   }
 
-  if (file.empty())
+  if (files.empty())
     throw("Impossible to find the dictionary : " + fileName);
+  if (files.size() != 1)
+    throw("Multiple occurence of the dictionary : " + fileName);
+  string file = files[0];
 
   if (hasIoDico(name)) {
     boost::shared_ptr<IoDico> dico = getIoDico(name);
@@ -128,6 +130,28 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
     boost::shared_ptr<IoDico> dico(new IoDico(name));
     dico->readFile(file);
     getInstance()->dicos_[name] = dico;
+  }
+}
+
+void IoDicos::addDicos(const string& dictionariesMappingFile, const string& locale) {
+  if (dictionariesMappingFile.empty())
+    throw("Impossible to add the dictionary mapping file : empty name");
+
+  // build name of the file to search
+  string fileName = dictionariesMappingFile + ".dic";
+  const vector<string>& files = findFiles(fileName);
+
+  if (files.empty())
+    throw("Impossible to find the dictionary mapping file : " + fileName);
+
+  boost::shared_ptr<IoDico> dico(new IoDico("MAPPING"));
+  for (vector<string>::const_iterator it = files.begin(), itEnd = files.end(); it != itEnd; ++it) {
+    dico->readFile(*it);
+  }
+
+  typedef std::map<string, string>::const_iterator DicoIter;
+  for (DicoIter it = dico->begin(), itEnd = dico->end(); it != itEnd; ++it) {
+    addDico(it->second, it->first, locale);
   }
 }
 
@@ -188,6 +212,14 @@ string IoDico::msg(const string& msgId) {
     throw(msg.str());
   }
   return phrase;
+}
+
+std::map<string, string>::const_iterator IoDico::begin() const {
+  return map_.begin();
+}
+
+std::map<string, string>::const_iterator IoDico::end() const {
+  return map_.end();
 }
 
 /**

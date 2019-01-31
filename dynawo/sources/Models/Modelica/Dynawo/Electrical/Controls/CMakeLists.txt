@@ -17,7 +17,6 @@ ADD_SUBDIRECTORY(Basics)
 
 SET(MODEL_FILES
     package.mo
-    Constants.mo
     )
 
 #

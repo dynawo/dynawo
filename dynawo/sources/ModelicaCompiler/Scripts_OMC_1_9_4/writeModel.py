@@ -40,6 +40,9 @@ options[('-b','--init')] = { 'action':"store_true",
                             'dest': 'init_pb',
                             'help': 'To indicate an init problem for the model',
 			    'default': False}
+
+options[('-a','--additionalHeaderList')] = { 'dest': 'additionalHeaderFilesStr',
+                            'help': 'list of headers that should be included in the dynamic model files'}
 ##
 # Main program
 if __name__ == '__main__':
@@ -49,6 +52,7 @@ if __name__ == '__main__':
     inputDir = ""
     outputDir = "."
     modName = ""
+    additionalHeaderFilesStr = ""
 
     opt_parser = OptionParser()
     for param, option in options.items():
@@ -66,6 +70,8 @@ if __name__ == '__main__':
     modName = options.modName
     modNameInit =  modName + "_INIT"
     init_pb = options.init_pb
+    additionalHeaderFiles = []
+    if options.additionalHeaderFilesStr is not None: additionalHeaderFiles = options.additionalHeaderFilesStr.split(" ")
 
     ###########################################
     # Readers (init pb and dynamic pb)
@@ -186,7 +192,7 @@ if __name__ == '__main__':
         writer_init_pb.writeExternalCallsFile()
 
         # h file corresponding to INIT_CPP
-        writer_init_pb.getHeaderPattern()
+        writer_init_pb.getHeaderPattern(additionalHeaderFiles)
         writer_init_pb.insert_model_name()
         writer_init_pb.insert_checkSum(os.path.abspath(outputDir))
         writer_init_pb.addExternalCalls()
@@ -238,7 +244,7 @@ if __name__ == '__main__':
     writer.writeExternalCallsFile()
 
     # h file corresponding to the CPP
-    writer.getHeaderPattern()
+    writer.getHeaderPattern(additionalHeaderFiles)
     writer.insert_model_name()
     writer.insert_checkSum(os.path.abspath(outputDir))
     writer.addExternalCalls()

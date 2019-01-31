@@ -74,10 +74,10 @@ Modeler::initNetwork() {
   // --------------------------------------------
   shared_ptr<SubModel> modelNetwork;
   string DDBDir = "";
-  if (!hasEnvVar("DDB_DIR")) {
+  if (!hasEnvVar("DYNAWO_DDB_DIR")) {
     throw DYNError(Error::MODELER, MissingDDBDir);
   }
-  DDBDir = getEnvVar("DDB_DIR");
+  DDBDir = getEnvVar("DYNAWO_DDB_DIR");
 
   try {
     modelNetwork.reset(SubModelFactory::createSubModelFromLib(DDBDir + "/DYNModelNetwork.so"));

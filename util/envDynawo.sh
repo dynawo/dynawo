@@ -277,8 +277,8 @@ set_environment() {
   export_var_env NRT_DIR=$DYNAWO_HOME/nrt
   export_var_env RESULTS_SHOW=true
   export_var_env CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
-  export_var_env MODEL_DOCUMENTATION_DIR=$DYNAWO_HOME/util/modelDocumentation
-  export_var_env SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin/
+  export_var_env DYNAWO_MODEL_DOCUMENTATION_DIR=$DYNAWO_HOME/util/modelDocumentation
+  export_var_env DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin/
 
   # Only used until now by nrt
   export_var_env NB_PROCESSORS_USED=1
@@ -326,7 +326,7 @@ set_standardEnvironmentVariables() {
 
   export PATH=$INSTALL_OPENMODELICA/bin:$PATH
   export PYTHONPATH=$PYTHONPATH:$SCRIPTS_DIR
-  export RESOURCES_DIR=$DYNAWO_INSTALL_DIR/share:$DYNAWO_INSTALL_DIR/share/xsd
+  export DYNAWO_RESOURCES_DIR=$DYNAWO_INSTALL_DIR/share:$DYNAWO_INSTALL_DIR/share/xsd
 }
 
 set_compiler() {
@@ -898,6 +898,7 @@ version() {
 }
 
 nrt() {
+  export_var_env NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   export_var_env ENV_DYNAWO=$SCRIPT
   python -u $NRT_DIR/nrt.py $@
   FAILED_CASES_NUM=$?
@@ -1062,6 +1063,18 @@ deploy_dynawo() {
   cp $DYNAWO_INSTALL_DIR/sbin/dydLibGenerator sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dumpSolver sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dydLibGenerator-${version} bin/
+    
+  if [ -d "$DYNAWO_INSTALL_DIR/doxygen" ]; then
+    mkdir -p doxygen
+    cp -r $DYNAWO_INSTALL_DIR/doxygen/html doxygen/.
+    cp $DYNAWO_INSTALL_DIR/doxygen/Dynawo.tag doxygen/.
+  fi
+    
+  cp -r $CURVES_TO_HTML_DIR sbin/.
+  mkdir -p sbin/nrt
+  cp -r $DYNAWO_HOME/util/nrt_diff sbin/nrt/.
+  cp -r $NRT_DIR/nrt.py sbin/nrt/.
+  cp -r $NRT_DIR/resources sbin/nrt/.
 
   cd $current_dir
 }

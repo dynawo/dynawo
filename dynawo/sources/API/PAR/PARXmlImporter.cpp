@@ -55,7 +55,7 @@ shared_ptr<ParametersSetCollection> XmlImporter::importFromStream(std::istream& 
   try {
     bool xsdValidation = false;
     if (getEnvVar("USE_XSD_VALIDATION") == "true") {
-      string parXsdPath = getEnvVar("XSD_DIR") + string("parameters.xsd");
+      string parXsdPath = getEnvVar("DYNAWO_XSD_DIR") + string("parameters.xsd");
       parser->addXmlSchema(parXsdPath);
       xsdValidation = true;
     }

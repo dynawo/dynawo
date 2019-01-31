@@ -668,8 +668,8 @@ class modelWriter(modelWriterBase):
     # Define the header file
     # @param self : object pointer
     # @return
-    def getHeaderPattern(self):
-        headerPattern = headerPatternDefine()
+    def getHeaderPattern(self, additionalHeaderFiles):
+        headerPattern = headerPatternDefine(additionalHeaderFiles)
         lines =[]
         if self.init_pb_:
             lines = headerPattern.getInit().split('\n')

@@ -22,7 +22,7 @@
 class headerPatternDefine:
     ##
     # default constructor
-    def __init__(self):
+    def __init__(self, additionalHeaderFiles):
         ## pattern to use when creating the header file of the model
         self.patternDyn_="""
 #ifndef __fill_model_name____Dyn_h
@@ -39,9 +39,13 @@ class headerPatternDefine:
 #include "DYNParameter.h"
 #ifdef _ADEPT_
 #include "adept.h"
-#endif
+#endif\n"""
 
-namespace DYN {
+        for file in additionalHeaderFiles:
+            self.patternDyn_+="#include \""+ file + "\"\n"
+    
+        self.patternDyn_+="\n"
+        self.patternDyn_+="""namespace DYN {
 
   class Model__fill_model_name___Dyn : public ModelModelicaDyn
   {
