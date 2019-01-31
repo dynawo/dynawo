@@ -17,17 +17,20 @@ This repository contains Dyna&omega;o's simulation tool code.
 ## Table of Contents
 
 - [About Dyna&omega;o](#about)
-- [Building Dynaωo](#build)
+- [Building Dyna&omega;o](#build)
+- [Launch Dyna&omega;o](#launch)
+- [Dyna&omega;o Documentation](#documentation)
 - [Get involved](#contributions)
 - [Quoting Dyna&omega;o](#quoting)
 - [License](#license)
 - [Maintainers](#maintainers)
+- [Roadmap](#roadmap)
 - [Links](#links)
 
 <a name="about"></a>
 ## About Dyna&omega;o
 
-**Dyna&omega;o is an open source time domain simulation tool for power systems using the Modelica language. It aims at providing power sytem stakeholders with a transparent, flexible, interoperable and robust simulation tool that could ease collaboration and cooperation in the power system community**.
+**Dyna&omega;o is an open source time domain simulation tool for power systems using the Modelica language. It aims at providing power system stakeholders with a transparent, flexible, interoperable and robust simulation tool that could ease collaboration and cooperation in the power system community**.
 
 The nature of power system dynamics is deeply evolving towards a more diverse and difficult to predict behavior due to the massive changes going on in the power system (large penetration of power-electronic based components such as Renewable Energies Sources - RES - or High Voltage Direct Current - HVDC - lines, booming use of complex automata, control strategies or smart grids). Due to this radical change from physically-driven to numerically-driven dynamics, being able to assess the system stability becomes harder but is still essential as any generalized incident will be unacceptable for the economy and the consumers. This requires to have access to a transparent, flexible, robust and easy to use simulation tool that will allow to run collaborative studies in a very simple way by sharing not only the same data but also the same modeling and solving choices in an open-source frame. Such tools will ensure to get similar results and to agree upon optimal and shared actions on the system to accompany the ongoing changes in the best possible way. This analysis has motivated us to launch a new effort on time-domain simulation tools that finally ends up in the development of the Dyna&omega;o's software.
 
@@ -38,6 +41,8 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 
 <a name="build"></a>
 ## Building Dyna&omega;o
+
+For the moment Dyna&omega;o has only be tested on **Linux** platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distributions. For **MacOS** and **Windows** users a [Docker](https://www.docker.com/) solution will be provided in a near future. We also plan to provide compilation compatibility for Windows. If you have any issue building Dyna&omega;o don't hesitate to send us an [email](mailto:rte-des-simulation-dynamique@rte-france.com) with your errors and we will try to answer you back quickly.
 
 Dyna&omega;o and its dependencies will need some packages to work. Here is the list of all packages you can install to have no dependency problem in the following steps. This example works for Ubuntu:
 
@@ -55,17 +60,18 @@ To build Dyna&omega;o you need to clone this repository and launch the following
 $> git clone https://github.com/dynawo/dynawo.git dynawo
 $> cd dynawo
 $> echo '#!/bin/bash
-export OPENMODELICA_VERSION=1_9_4
-export SRC_OPENMODELICA=$(pwd)/OpenModelica/Source
-export INSTALL_OPENMODELICA=$(pwd)/OpenModelica/Install
+export DYNAWO_HOME=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-export DYNAWO_HOME=$(pwd)
+export OPENMODELICA_VERSION=1_9_4
+export SRC_OPENMODELICA=$DYNAWO_HOME/OpenModelica/Source
+export INSTALL_OPENMODELICA=$DYNAWO_HOME/OpenModelica/Install
+
 export DYNAWO_LOCALE=en_GB
 export USE_ADEPT=YES
 export RESULTS_SHOW=true
 export BROWSER=xdg-open
 
-export NB_PROCESSORS_USED=1
+export NB_PROCESSORS_USED=$(($(nproc --all)/2))
 
 export BUILD_TYPE=Release
 export CXX11_ENABLED=YES
@@ -75,6 +81,31 @@ $> chmod +x myEnvDynawo.sh
 $> ./myEnvDynawo.sh build-omcDynawo
 $> ./myEnvDynawo.sh build-all
 ```
+
+**Warning**: If you're working behind a proxy make sure you have exported the following proxy environement variables
+``` bash
+$> export http_proxy=
+$> export https_proxy=
+$> export no_proxy=localhost,127.0.0.0/8,::1
+$> export HTTP_PROXY=$http_proxy;export HTTPS_PROXY=$https_proxy;export NO_PROXY=$no_proxy;
+```
+
+<a name="launch"></a>
+## Launch Dyna&omega;o
+
+Once you have build Dyna&omega;o you can start launching a simulation with the command:
+``` bash
+$> ./myEnvDynawo.sh jobs-with-curves nrt/data/IEEE/IEEE14_BlackBoxModels/IEEE14.jobs
+```
+
+You can also list all available commands with:
+``` bash
+$> ./myEnvDynawo.sh help
+```
+
+<a name="documentation"></a>
+## Dyna&omega;o Documentation
+You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v0.1.0/DynawoDocumentation.pdf).
 
 <a name="contributions"></a>
 ## Get involved!
@@ -95,13 +126,13 @@ A. Guironnet, M. Saugier, S. Petitrenaud, F. Xavier, and P. Panciatici, “Towar
 Dyna&omega;o is licensed under the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, you can obtain one at http://mozilla.org/MPL/2.0. You can also see the [LICENSE](LICENSE.txt) file for more information.
 
 Dyna&omega;o is using some external libraries to run simulations:
-* [OpenModelica] (https://www.openmodelica.org/), a Modelica environment developed and maintained by the Open Source Modelica Consortium distributed under a GPL V3.0 or OSMC Public License V1.2. The current version used is V1.9.4.
-* [SUNDIALS] (https://computation.llnl.gov/projects/sundials), a suite of solvers developed and maintained by the Lawrence Livermore National Lab and distributed under a BSD-3-Clause license. The 2.7.0 version is currently used.
-* [SuiteSparse] (http://faculty.cse.tamu.edu/davis/suitesparse.html), and in particular KLU, a LU decomposition library that is part of the suite sparse project, developed and maintained by T. A. Davis et al. at the University of Florida distributed under a LGPL-2.1+. The version 4.5.4 of suite sparse is the one used by Dyna&omega;o.
-* [Adept] (http://www.met.reading.ac.uk/clouds/adept/), an automatic differentiation library that has been developed and maintained at the University of Reading by R.J. Hogan distributed under Apache-2.0. It is the version 1.1 that is integrated into Dyna&omega;o.
-* [NICSLU] (http://nicslu.weebly.com/) which is another LU decomposition library. It is developed and maintained by Tsinghua University and is optional at the moment into Dyna&omega;o. It is distributed under a GNU LGPL license.
-* [jQuery] (https://jquery.com/) that is distributed into Dyna&omega;o to display results into a minimalistic GUI after the simulation. The current version used is the 1.3.4 distributed under both a MIT and a GPL license.
-* [cpplint] (https://github.com/google/styleguide/tree/gh-pages/cpplint), a tool used during Dyna&omega;o compilation process to ensure that the C++ files follow the Google's C++ style. It is distributed under a CC-By 3.0 License.
+* [OpenModelica](https://www.openmodelica.org/), a Modelica environment developed and maintained by the Open Source Modelica Consortium distributed under a GPL V3.0 or OSMC Public License V1.2. The current version used is V1.9.4.
+* [SUNDIALS](https://computation.llnl.gov/projects/sundials), a suite of solvers developed and maintained by the Lawrence Livermore National Lab and distributed under a BSD-3-Clause license. The 2.7.0 version is currently used.
+* [SuiteSparse](http://faculty.cse.tamu.edu/davis/suitesparse.html), and in particular KLU, a LU decomposition library that is part of the suite sparse project, developed and maintained by T. A. Davis et al. at the University of Florida distributed under a LGPL-2.1+. The version 4.5.4 of suite sparse is the one used by Dyna&omega;o.
+* [Adept](http://www.met.reading.ac.uk/clouds/adept/), an automatic differentiation library that has been developed and maintained at the University of Reading by R.J. Hogan distributed under Apache-2.0. It is the version 1.1 that is integrated into Dyna&omega;o.
+* [NICSLU](http://nicslu.weebly.com/) which is another LU decomposition library. It is developed and maintained by Tsinghua University and is optional at the moment into Dyna&omega;o. It is distributed under a GNU LGPL license.
+* [jQuery](https://jquery.com/) that is distributed into Dyna&omega;o to display results into a minimalistic GUI after the simulation. The current version used is the 1.3.4 distributed under both a MIT and a GPL license.
+* [cpplint](https://github.com/google/styleguide/tree/gh-pages/cpplint), a tool used during Dyna&omega;o compilation process to ensure that the C++ files follow the Google's C++ style. It is distributed under a CC-By 3.0 License.
 
 <a name="maintainers"></a>
 ## Maintainers
@@ -116,10 +147,30 @@ Dyna&omega;o is currently maintained by the following people in RTE:
 
 In case of questions or issues, you can also send an e-mail to rte-des-simulation-dynamique@rte-france.com.
 
+<a name="roadmap"></a>
+## Roadmap
+Below are the major development axis identified for Dyna&omega;o for the next few months, with associated contents and due date. It is important to notice that the development content and the due dates may be subject to change due to unforeseen complexity in implementing features or priority changes.
+
+### Axis 1 - Test cases and models development - Expected July 2019
+
+* Adding larger IEEE cases
+* Adding large scale test cases (national and panEuropean ones)
+* Adding new models (standard regulations for generators, static var compensator, etc.)
+
+### Axis 2 - Dependencies upgrade - Expected September 2019
+
+* Switch to OpenModelica V1.13 version and DAE mode use
+* Switch to SUNDIALS V4.0 version
+* Switch to a newer IIDM library version
+
+### Axis 3 - Dyna&omega;o structure evolution - Expected February 2020
+* New initialization strategy: using Modelica initEquations section into Dyna&omega;o
+* Dyna&omega;o connectivity analysis improvement (system splitting)
+
 <a name="links"></a>
 ## Links
 
 For more information about Dyna&omega;o:
 
-* Consult [Dyna&omega;o website](#)
+* Consult [Dyna&omega;o website](https://dynawo.github.io/)
 * Contact us at [rte-des-simulation-dynamique@rte-france.com](mailto:rte-des-simulation-dynamique@rte-france.com)
