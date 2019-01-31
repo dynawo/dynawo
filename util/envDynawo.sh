@@ -337,15 +337,15 @@ $DYNAWO_HOME/util/hooks/commit_hook.sh"' $1'
   if [ -f "$DYNAWO_HOME/.git/hooks/commit-msg" ]; then
     current_file=$(cat $DYNAWO_HOME/.git/hooks/commit-msg)
     if [ "$hook_file_msg" != "$current_file" ]; then
-      echo "$hook_file_msg" > $DYNAWO_HOME/.git/hooks/commit-msg
+      echo "$hook_file_msg" > $DYNAWO_HOME/.git/hooks/commit-msg || error_exit "You need to set commit-msg in .git/hooks."
     fi
     if [ ! -x "$DYNAWO_HOME/.git/hooks/commit-msg" ]; then
-      chmod +x $DYNAWO_HOME/.git/hooks/commit-msg
+      chmod +x $DYNAWO_HOME/.git/hooks/commit-msg || error_exit "commit-msg in .git/hooks needs to be executable."
     fi
   else
     if [ -d ".git" ]; then
-      echo "$hook_file_msg" > $DYNAWO_HOME/.git/hooks/commit-msg
-      chmod +x $DYNAWO_HOME/.git/hooks/commit-msg
+      echo "$hook_file_msg" > $DYNAWO_HOME/.git/hooks/commit-msg || error_exit "You need to set commit-msg in .git/hooks."
+      chmod +x $DYNAWO_HOME/.git/hooks/commit-msg || error_exit "commit-msg in .git/hooks needs to be executable."
     fi
   fi
 
@@ -370,6 +370,8 @@ fi"
       chmod +x $DYNAWO_HOME/.git/hooks/pre-commit
     fi
   fi
+
+  git config core.commentchar % || error_exit "You need to change git config commentchar from # to %."
 }
 
 set_cpplint() {
