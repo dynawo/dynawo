@@ -316,7 +316,7 @@ set_standardEnvironmentVariables() {
 
   export PATH=$INSTALL_OPENMODELICA/bin:$PATH
   export PYTHONPATH=$PYTHONPATH:$SCRIPTS_DIR
-  export RESSOURCES_DIR=$DYNAWO_INSTALL_DIR/share:$DYNAWO_INSTALL_DIR/share/xsd
+  export RESOURCES_DIR=$DYNAWO_INSTALL_DIR/share:$DYNAWO_INSTALL_DIR/share/xsd
 }
 
 set_compiler() {
@@ -798,7 +798,7 @@ install_jquery() {
   JQUERY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/jquery
   mkdir -p $JQUERY_BUILD_DIR
 
-  if [ ! -f "$DYNAWO_HOME/util/curvesToHtml/ressources/jquery.js" ]; then
+  if [ ! -f "$DYNAWO_HOME/util/curvesToHtml/resources/jquery.js" ]; then
     if [ ! -f "$JQUERY_BUILD_DIR/${JQUERY_ARCHIVE}" ]; then
       if [ -x "$(command -v wget)" ]; then
         wget --timeout 10 --tries 3 ${JQUERY_DOWNLOAD_URL}/${JQUERY_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Jquery."
@@ -813,14 +813,14 @@ install_jquery() {
         tar xzf $JQUERY_BUILD_DIR/${JQUERY_ARCHIVE} -C $JQUERY_BUILD_DIR
       fi
       if [ -d "$JQUERY_BUILD_DIR/jquery-$JQUERY_VERSION" ]; then
-        cp "$JQUERY_BUILD_DIR/jquery-$JQUERY_VERSION/jquery.js" "$DYNAWO_HOME/util/curvesToHtml/ressources/jquery.js"
+        cp "$JQUERY_BUILD_DIR/jquery-$JQUERY_VERSION/jquery.js" "$DYNAWO_HOME/util/curvesToHtml/resources/jquery.js"
       fi
     fi
   fi
 
   flot_files=(jquery.flot.crosshair.js jquery.flot.js jquery.flot.navigate.js jquery.flot.selection.js arrow-down.gif arrow-left.gif arrow-right.gif arrow-up.gif)
   for file in ${flot_files[*]}; do
-    if [ ! -f "$DYNAWO_HOME/util/curvesToHtml/ressources/$file" ]; then
+    if [ ! -f "$DYNAWO_HOME/util/curvesToHtml/resources/$file" ]; then
       if [ ! -f "$JQUERY_BUILD_DIR/${FLOT_ARCHIVE}" ]; then
         if [ -x "$(command -v wget)" ]; then
           wget --timeout 10 --tries 3 ${FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Flot."
@@ -836,9 +836,9 @@ install_jquery() {
         fi
         if [ -d "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION" ]; then
           if expr match "$file" "arrow-.*" >/dev/null; then
-            cp "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION/examples/$file" "$DYNAWO_HOME/util/curvesToHtml/ressources/$file"
+            cp "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION/examples/$file" "$DYNAWO_HOME/util/curvesToHtml/resources/$file"
           else
-            cp "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION/$file" "$DYNAWO_HOME/util/curvesToHtml/ressources/$file"
+            cp "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION/$file" "$DYNAWO_HOME/util/curvesToHtml/resources/$file"
           fi
         fi
       fi

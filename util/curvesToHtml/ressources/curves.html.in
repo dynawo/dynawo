@@ -15,12 +15,12 @@
  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>@TITLE_TO_READ@</title>
-    <link rel="stylesheet" href="@RESSOURCES_DIR@/placeholder.css"/>
-    <script language="javascript" type="text/javascript" src="@RESSOURCES_DIR@/jquery.js"></script>
-    <script language="javascript" type="text/javascript" src="@RESSOURCES_DIR@/jquery.flot.js"></script>
-    <script language="javascript" type="text/javascript" src="@RESSOURCES_DIR@/jquery.flot.navigate.js"></script>
-    <script language="javascript" type="text/javascript" src="@RESSOURCES_DIR@/jquery.flot.selection.js"></script>
-    <script language="javascript" type="text/javascript" src="@RESSOURCES_DIR@/placeholder.js"></script>
+    <link rel="stylesheet" href="@RESOURCES_DIR@/placeholder.css"/>
+    <script language="javascript" type="text/javascript" src="@RESOURCES_DIR@/jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="@RESOURCES_DIR@/jquery.flot.js"></script>
+    <script language="javascript" type="text/javascript" src="@RESOURCES_DIR@/jquery.flot.navigate.js"></script>
+    <script language="javascript" type="text/javascript" src="@RESOURCES_DIR@/jquery.flot.selection.js"></script>
+    <script language="javascript" type="text/javascript" src="@RESOURCES_DIR@/placeholder.js"></script>
     <script language="javascript" type="text/javascript" src="@FILE_JS@"></script>
  </head>
  <body>
@@ -36,14 +36,13 @@
          <button type="button" id="resetGraph">reset</button>
        </div>
        <div id="buttons2">
-         <button type="button" id="arrow-left"><img src="@RESSOURCES_DIR@/arrow-left.gif"/></button>
-         <button type="button" id="arrow-right"><img src="@RESSOURCES_DIR@/arrow-right.gif"/></button>
-         <button type="button" id="arrow-up"><img src="@RESSOURCES_DIR@/arrow-up.gif"/></button>
-         <button type="button" id="arrow-down"><img src="@RESSOURCES_DIR@/arrow-down.gif"/></button>
+         <button type="button" id="arrow-left"><img src="@RESOURCES_DIR@/arrow-left.gif"/></button>
+         <button type="button" id="arrow-right"><img src="@RESOURCES_DIR@/arrow-right.gif"/></button>
+         <button type="button" id="arrow-up"><img src="@RESOURCES_DIR@/arrow-up.gif"/></button>
+         <button type="button" id="arrow-down"><img src="@RESOURCES_DIR@/arrow-down.gif"/></button>
        </div>
      </div>
    </div>
    <div id="checkbox"></div>
  </body>
 </html>
-

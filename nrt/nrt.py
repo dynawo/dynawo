@@ -70,7 +70,7 @@ def kill_subprocess(proc_pid):
     process.kill()
 
 # Non-regression tests configuration
-ressources_dir = os.path.join(os.path.dirname(__file__), "resources")
+resources_dir = os.path.join(os.path.dirname(__file__), "resources")
 data_dir = os.path.join(os.path.dirname(__file__), "data")
 branch_name = os.environ["BRANCH_NAME"]
 output_dir_all_nrt = os.path.join(os.path.dirname(__file__), "output")
@@ -775,7 +775,7 @@ def main():
     os.mkdir(output_dir)
 
     # Copy resources in outputs repository
-    shutil.copytree(ressources_dir, os.path.join(output_dir,"resources"))
+    shutil.copytree(resources_dir, os.path.join(output_dir,"resources"))
 
     # Delete former results if they exists
     NRT.clear(html_output)

@@ -129,7 +129,7 @@ int main(int argc, char ** argv) {
     // Initializes logs, parsers & dictionnaries for Dynawo
     Trace::init();
     shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getEnvVar("RESSOURCES_DIR"));
+    dicos->addPath(getEnvVar("RESOURCES_DIR"));
     dicos->addDico("ERROR", "DYNError", getEnvVar("DYNAWO_LOCALE"));
     dicos->addDico("TIMELINE", "DYNTimeline", getEnvVar("DYNAWO_LOCALE"));
     dicos->addDico("CONSTRAINT", "DYNConstraint", getEnvVar("DYNAWO_LOCALE"));
@@ -279,4 +279,3 @@ std::string executeCommand1(const std::string & command) {
   std::cout << ss.str() << std::endl;
   return ss.str();
 }
-
