@@ -33,7 +33,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include <ida/ida_impl.h>
 #include <nvector/nvector_serial.h>
 #include <sundials/sundials_types.h>
 #include <sundials/sundials_math.h>
