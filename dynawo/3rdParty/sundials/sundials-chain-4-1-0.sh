@@ -34,7 +34,7 @@ export_var_env() {
   export $name="$value"
 }
 
-SUNDIALS_VERSION=4.0.2
+SUNDIALS_VERSION=4.1.0
 SUNDIALS_ARCHIVE=sundials-${SUNDIALS_VERSION}.tar.gz
 SUNDIALS_DIRECTORY=sundials-${SUNDIALS_VERSION}
 export_var_env SUNDIALS_DOWNLOAD_URL=https://computation.llnl.gov/projects/sundials/download
