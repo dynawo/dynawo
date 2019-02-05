@@ -371,7 +371,9 @@ fi"
     fi
   fi
 
-  git config core.commentchar % || error_exit "You need to change git config commentchar from # to %."
+  if [ "$(git config --get core.commentchar)" == "#" ]; then
+    git config core.commentchar % || error_exit "You need to change git config commentchar from # to %."
+  fi
 }
 
 set_cpplint() {
