@@ -34,7 +34,7 @@ export_var_env() {
   export $name="$value"
 }
 
-SUNDIALS_VERSION=2.7.0
+SUNDIALS_VERSION=4.0.2
 SUNDIALS_ARCHIVE=sundials-${SUNDIALS_VERSION}.tar.gz
 SUNDIALS_DIRECTORY=sundials-${SUNDIALS_VERSION}
 export_var_env SUNDIALS_DOWNLOAD_URL=https://computation.llnl.gov/projects/sundials/download
@@ -68,7 +68,7 @@ patch_sundials() {
     tar -xzf $SUNDIALS_ARCHIVE -C $BUILD_DIR
     patch -d $BUILD_DIR -p0 < sundials-${SUNDIALS_VERSION}.patch
     if [ -f "$NICSLU_INSTALL_DIR/lib/libnicslu.so" ]; then
-     patch -d $BUILD_DIR -p1 < nicslu_sundials-${SUNDIALS_VERSION}.patch
+     patch -d $BUILD_DIR -p0 < nicslu_sundials-${SUNDIALS_VERSION}.patch
     fi
   fi
 }

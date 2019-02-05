@@ -27,13 +27,14 @@
 #include <sstream>
 
 #include <kinsol/kinsol.h>
-#include <kinsol/kinsol_sparse.h>
-#include <kinsol/kinsol_klu.h>
-#include <kinsol/kinsol_impl.h>
+#include <sunlinsol/sunlinsol_klu.h>
+#include <sundials/sundials_types.h>
+#include <sundials/sundials_math.h>
+#include <sundials/sundials_sparse.h>
 #include <nvector/nvector_serial.h>
 
 #ifdef WITH_NICSLU
-  #include <kinsol/kinsol_nicslu.h>
+#include <sunlinsol/sunlinsol_nicslu.h>
 #endif
 
 #include "DYNSparseMatrix.h"
@@ -59,6 +60,11 @@ model_() {
   yscale_ = NULL;
   fscale_ = NULL;
   lastRowVals_ = NULL;
+  LS_ = NULL;
+  M_ = NULL;
+  firstIteration_ =  false;
+  h0_ = 0.;
+  t0_ = 0.;
 }
 
 SolverEulerKIN::~SolverEulerKIN() {
@@ -66,6 +72,14 @@ SolverEulerKIN::~SolverEulerKIN() {
 }
 
 void SolverEulerKIN::clean() {
+  if (M_ != NULL) {
+    SUNMatDestroy(M_);
+    M_ = NULL;
+  }
+  if (LS_ != NULL) {
+    SUNLinSolFree(LS_);
+    LS_ = NULL;
+  }
   if (KINMem_ != NULL) {
     KINFree(&KINMem_);
     KINMem_ = NULL;
@@ -146,13 +160,22 @@ SolverEulerKIN::init(const shared_ptr<Model>& model, const std::string& linearSo
   // (6) Solver choice
   // -------------------
   // Here CSR has nothing to do with how the matrix is stored but rather how to solve the linear system using the matrix (CSC_MAT) or its transpose (CSR_MAT)
+  M_ = SUNSparseMatrix(sizeY, sizeY, 10., CSR_MAT);
+  if (M_ == NULL)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
   if (linearSolverName_ == "KLU") {
-    flag = KINKLU(KINMem_, sizeY, 10., CSR_MAT);
+    LS_ = SUNLinSol_KLU(yy_, M_);
+    if (LS_ == NULL)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNLinSol_KLU");
+    flag = KINSetLinearSolver(KINMem_, LS_, M_);
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINKLU");
 #ifdef WITH_NICSLU
   } else if (linearSolverName_ == "NICSLU") {
-    flag = kinNICSLU(KINMem_, sizeY, 10., CSR_MAT);
+    LS_ = SUNLinSol_NICSLU(yy_, M_);
+    if (LS_ == NULL)
+      throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNLinSol_NICSLU");
+    flag = KINSetLinearSolver(KINMem_, LS_, M_);
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "kinNICSLU");
 #endif
@@ -177,7 +200,7 @@ SolverEulerKIN::init(const shared_ptr<Model>& model, const std::string& linearSo
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetMaxSetupCalls");
 
   // Specify the jacobian function to use
-  flag = KINSlsSetSparseJacFn(KINMem_, evalJ_KIN);
+  flag = KINSetJacFn(KINMem_, evalJ_KIN);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSlsSetSparseJacFn");
 
@@ -245,7 +268,7 @@ SolverEulerKIN::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
 
 int
 SolverEulerKIN::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
-        SlsMat JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
+        SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   Timer timer("SolverEulerKIN::evalJ_KIN");
   SolverEulerKIN* solv = reinterpret_cast<SolverEulerKIN*> (data);
   shared_ptr<Model> model = solv->getModel();
@@ -273,10 +296,10 @@ SolverEulerKIN::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
   if (matrixStructChange) {
     Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
     if (solv->getLinearSolverName() == "KLU") {
-      KINKLUReInit(solv->KINMem_, model->sizeY(), JJ->NNZ, 2);  // reinit symbolic factorisation
+      SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
 #ifdef WITH_NICSLU
     } else if (solv->getLinearSolverName() == "NICSLU") {
-      kinNICSLUReInit(solv->KINMem_, model->sizeY(), JJ->NNZ, 2);  // reinit symbolic factorisation
+      SUNLinSol_NICSLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
     }
 #else
   }
@@ -284,8 +307,8 @@ SolverEulerKIN::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
     if (solv->lastRowVals_ != NULL) {
       free(solv->lastRowVals_);
     }
-    solv->lastRowVals_ = reinterpret_cast<int*> (malloc(sizeof (int)*JJ->NNZ));
-    memcpy(solv->lastRowVals_, JJ->indexvals, sizeof (int)*JJ->NNZ);
+    solv->lastRowVals_ = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
+    memcpy(solv->lastRowVals_, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
   }
 
   return (0);
@@ -464,7 +487,7 @@ void
 SolverEulerKIN::updateStatistics(int64_t& nni, int64_t& nre, int64_t& nje) {
   KINGetNumNonlinSolvIters(KINMem_, &nni);
   KINGetNumFuncEvals(KINMem_, &nre);
-  KINSlsGetNumJacEvals(KINMem_, &nje);
+  KINGetNumJacEvals(KINMem_, &nje);
 }
 
 }  // namespace DYN

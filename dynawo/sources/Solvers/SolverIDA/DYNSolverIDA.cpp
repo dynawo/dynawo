@@ -32,12 +32,12 @@
 
 
 #include <ida/ida.h>
-#include <ida/ida_sparse.h>
-#include <ida/ida_klu.h>
 #include <ida/ida_impl.h>
 #include <nvector/nvector_serial.h>
 #include <sundials/sundials_types.h>
 #include <sundials/sundials_math.h>
+#include <sundials/sundials_sparse.h>
+#include <sunlinsol/sunlinsol_klu.h>
 
 #include "PARParametersSet.h"
 #include "PARParameter.h"
@@ -125,15 +125,32 @@ SolverIDA::SolverIDA() {
   flagInit_ = false;
 
   IDAMem_ = NULL;
+  M_ = NULL;
+  LS_ = NULL;
   // KINSOL solver Init
   //-----------------------
   solverKIN_.reset(new SolverKIN());
 
   lastRowVals_ = NULL;
+  order_ = 0;
+  initStep_ = 0.;
+  minStep_ = 0.;
+  maxStep_ = 0.;
+  absAccuracy_ = 0.;
+  relAccuracy_ = 0.;
+  flagInit_ = false;
 }
 
 void
 SolverIDA::clean() {
+  if (M_ != NULL) {
+    SUNMatDestroy(M_);
+    M_ = NULL;
+  }
+  if (LS_ != NULL) {
+    SUNLinSolFree(LS_);
+    LS_ = NULL;
+  }
   if (IDAMem_ != NULL) {
     IDAFree(&IDAMem_);
     IDAMem_ = NULL;
@@ -270,21 +287,31 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetId");
 
   // algebraic variables are ignored in the error computation (prefered for an order>=2 algorithm)
-  flag = IDASetSuppressAlg(IDAMem_, TRUE);
+  flag = IDASetSuppressAlg(IDAMem_, SUNTRUE);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetSuppressAlg");
 
 
   // (8) Solver choice
   // -------------------
-  flag = IDAKLU(IDAMem_, model->sizeY(), 10., CSR_MAT);
+  M_ = SUNSparseMatrix(model->sizeY(), model->sizeY(), 10., CSR_MAT);
+  if (M_ == NULL)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "SUNSparseMatrix");
+
+  /* Create KLU SUNLinearSolver object */
+  LS_ = SUNLinSol_KLU(yy_, M_);
+  if (LS_ == NULL)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "SUNLinSol_KLU");
+
+  /* Attach the matrix and linear solver */
+  flag = IDASetLinearSolver(IDAMem_, LS_, M_);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAKLU");
 
 
   // (9) Solver options
   // ---------------------
-  flag = IDASlsSetSparseJacFn(IDAMem_, evalJ);
+  flag = IDASetJacFn(IDAMem_, evalJ);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASlsSetSparseJacFn");
 
@@ -553,7 +580,7 @@ SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype *gout,
 int
 SolverIDA::evalJ(realtype tt, realtype cj,
         N_Vector yy, N_Vector yp, N_Vector /*rr*/,
-        SlsMat JJ, void* data,
+        SUNMatrix JJ, void* data,
         N_Vector /*tmp1*/, N_Vector /*tmp2*/, N_Vector /*tmp3*/) {
 #ifdef _DEBUG_
   Timer timer("SolverIDA::evalJ");
@@ -575,12 +602,12 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
 
   if (matrixStructChange) {
-    IDAKLUReInit(solv->IDAMem_, model->sizeY(), JJ->NNZ, 2);  // reinit symbolic factorisation
+    SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
     if (solv->lastRowVals_ != NULL) {
       free(solv->lastRowVals_);
     }
-    solv->lastRowVals_ = reinterpret_cast<int*> (malloc(sizeof (int)*JJ->NNZ));
-    memcpy(solv->lastRowVals_, JJ->indexvals, sizeof (int)*JJ->NNZ);
+    solv->lastRowVals_ = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
+    memcpy(solv->lastRowVals_, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
   }
 
   return (0);
@@ -793,7 +820,7 @@ SolverIDA::updateStatistics() {
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumResEvals");
 
   int64_t nje;
-  if (IDASlsGetNumJacEvals(IDAMem_, &nje) < 0)
+  if (IDAGetNumJacEvals(IDAMem_, &nje) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASlsGetNumJacEvals");
 
   int64_t nni;

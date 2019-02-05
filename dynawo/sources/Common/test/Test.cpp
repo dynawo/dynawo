@@ -293,7 +293,6 @@ TEST(CommonTest, testSparseMatrix) {
   smj.addTerm(2, 3.);
   smj.changeCol();
   smj.addTerm(1, 4.);
-  smj.changeCol();
 
   ASSERT_EQ(smj.withoutNan(), true);
   ASSERT_EQ(smj.withoutInf(), false);
@@ -308,7 +307,6 @@ TEST(CommonTest, testSparseMatrix) {
   smj2.addTerm(2, 3.);
   smj2.changeCol();
   smj2.addTerm(1, 4.);
-  smj2.changeCol();
 
   ASSERT_EQ(smj2.withoutNan(), false);
   ASSERT_EQ(smj2.withoutInf(), true);
@@ -323,7 +321,6 @@ TEST(CommonTest, testSparseMatrix) {
   smj3.addTerm(2, 3.);
   smj3.changeCol();
   smj3.addTerm(1, 4.);
-  smj3.changeCol();
   ASSERT_EQ(smj3.nbCol(), 3);
   ASSERT_EQ(smj3.nbElem(), 4);
 
@@ -408,7 +405,6 @@ TEST(CommonTest, testSparseMatrix) {
   for (unsigned i = 0; i < 55; ++i) {
     smj4.addTerm(i, i);
   }
-  smj4.changeCol();
   for (int icol = 0; icol < smj4.nbCol(); ++icol) {
     for (int ind = smj4.Ap_[icol]; ind < smj4.Ap_[icol + 1]; ++ind) {
       int ilig = smj4.Ai_[ind];

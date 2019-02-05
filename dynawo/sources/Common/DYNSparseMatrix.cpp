@@ -67,6 +67,7 @@ SparseMatrix::~SparseMatrix() {
 void
 SparseMatrix::changeCol() {
   ++iAp_;
+  assert(iAp_ < nbCol_ + 1);
   Ap_[iAp_] = Ap_[iAp_ - 1];
 }
 

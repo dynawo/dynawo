@@ -18,10 +18,12 @@
  *
  */
 
+
 #include <kinsol/kinsol.h>
-#include <kinsol/kinsol_sparse.h>
-#include <kinsol/kinsol_klu.h>
-#include <kinsol/kinsol_impl.h>
+#include <sunlinsol/sunlinsol_klu.h>
+#include <sundials/sundials_types.h>
+#include <sundials/sundials_math.h>
+#include <sundials/sundials_sparse.h>
 #include <nvector/nvector_serial.h>
 #include <string.h>
 #include <vector>
@@ -51,6 +53,10 @@ mode_(KIN_NORMAL) {
   KINMem_ = NULL;
   yy_ = NULL;
   lastRowVals_ = NULL;
+  LS_ = NULL;
+  M_ = NULL;
+  nbF_ = 0;
+  t0_ = 0.;
 }
 
 SolverKIN::~SolverKIN() {
@@ -58,6 +64,14 @@ SolverKIN::~SolverKIN() {
 }
 
 void SolverKIN::clean() {
+  if (M_ != NULL) {
+    SUNMatDestroy(M_);
+    M_ = NULL;
+  }
+  if (LS_ != NULL) {
+    SUNLinSolFree(LS_);
+    LS_ = NULL;
+  }
   if (KINMem_ != NULL) {
     KINFree(&KINMem_);
     KINMem_ = NULL;
@@ -147,23 +161,31 @@ SolverKIN::init(const shared_ptr<Model>& model, modeKin_t mode) {
 
   // (8) Solver choice
   // -------------------
-  flag = KINKLU(KINMem_, nbF_, 10., CSR_MAT);
+  M_ = SUNSparseMatrix(nbF_, nbF_, 10., CSR_MAT);
+  if (M_ == NULL)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
+
+  LS_ = SUNLinSol_KLU(yy_, M_);
+  if (LS_ == NULL)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNLinSol_KLU");
+
+  flag = KINSetLinearSolver(KINMem_, LS_, M_);
   if (flag < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINKLU");
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetLinearSolver");
 
   // (9) Solver options
   // -------------------
   switch (mode) {
     case KIN_NORMAL:
-      flag = KINSlsSetSparseJacFn(KINMem_, evalJ_KIN);
+      flag = KINSetJacFn(KINMem_, evalJ_KIN);
       break;
     case KIN_YPRIM:
-      flag = KINSlsSetSparseJacFn(KINMem_, evalJPrim_KIN);
+      flag = KINSetJacFn(KINMem_, evalJPrim_KIN);
       break;
   }
 
   if (flag < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSlsSparseSetJacFn");
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetJacFn");
 
   // (10) Options for error/infos messages
   // -------------------------------------
@@ -265,7 +287,7 @@ SolverKIN::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
 
 int
 SolverKIN::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
-        SlsMat JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
+         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKIN* solv = reinterpret_cast<SolverKIN*> (data);
   shared_ptr<Model> model = solv->getModel();
 
@@ -294,19 +316,19 @@ SolverKIN::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
 
   if (matrixStructChange) {
     Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
-    KINKLUReInit(solv->KINMem_, model->sizeY(), JJ->NNZ, 2);  // reinit symbolic factorisation
+    SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
     if (solv->lastRowVals_ != NULL) {
       free(solv->lastRowVals_);
     }
-    solv->lastRowVals_ = reinterpret_cast<int*> (malloc(sizeof (int)*JJ->NNZ));
-    memcpy(solv->lastRowVals_, JJ->indexvals, sizeof (int)*JJ->NNZ);
+    solv->lastRowVals_ = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
+    memcpy(solv->lastRowVals_, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
   }
   return (0);
 }
 
 int
 SolverKIN::evalJPrim_KIN(N_Vector yy, N_Vector /*rr*/,
-        SlsMat JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
+        SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKIN* solv = reinterpret_cast<SolverKIN*> (data);
   shared_ptr<Model> model = solv->getModel();
 
@@ -334,12 +356,12 @@ SolverKIN::evalJPrim_KIN(N_Vector yy, N_Vector /*rr*/,
   bool matrixStructChange = copySparseToKINSOL(smjKin, JJ, size, solv->lastRowVals_);
 
   if (matrixStructChange) {
-    KINKLUReInit(solv->KINMem_, model->sizeY(), JJ->NNZ, 2);  // reinit symbolic factorisation
+    SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
     if (solv->lastRowVals_ != NULL) {
       free(solv->lastRowVals_);
     }
-    solv->lastRowVals_ = reinterpret_cast<int*> (malloc(sizeof (int)*JJ->NNZ));
-    memcpy(solv->lastRowVals_, JJ->indexvals, sizeof (int)*JJ->NNZ);
+    solv->lastRowVals_ = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
+    memcpy(solv->lastRowVals_, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
   }
 
   return (0);

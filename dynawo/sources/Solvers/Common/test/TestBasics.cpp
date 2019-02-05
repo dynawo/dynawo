@@ -20,7 +20,7 @@
 #include <fstream>
 
 #include <boost/filesystem.hpp>
-#include <sundials/sundials_sparse.h>
+#include <sunmatrix/sunmatrix_sparse.h>
 
 #include "gtest_dynawo.h"
 #include "DYNParameterSolver.h"
@@ -73,9 +73,8 @@ TEST(SimulationCommonTest, testSolverCommon) {
   smj.addTerm(2, 3.);
   smj.changeCol();
   smj.addTerm(1, 4.);
-  smj.changeCol();
-  SlsMat JJ = (SlsMat) malloc(sizeof(struct _SlsMat));
-  JJ->NNZ = 2;
+  SUNMatrix JJ = SUNSparseMatrix(3, 3, 2, CSC_MAT);
+  assert(JJ != NULL);
 
   int row = 0;
   int col = 0;
@@ -83,38 +82,35 @@ TEST(SimulationCommonTest, testSolverCommon) {
   ASSERT_EQ(row, 2);
   ASSERT_EQ(col, 1);
 
-  JJ->indexptrs = reinterpret_cast<int*> (malloc(3 * sizeof (int)));
-  JJ->indexvals = reinterpret_cast<int*> (malloc(JJ->NNZ * sizeof (int)));
-  JJ->data = reinterpret_cast<realtype*> (malloc(JJ->NNZ * sizeof (realtype)));
+  SM_INDEXPTRS_S(JJ) = reinterpret_cast<sunindextype*> (malloc(3 * sizeof (sunindextype)));
+  SM_INDEXVALS_S(JJ) = reinterpret_cast<sunindextype*> (malloc(SM_NNZ_S(JJ) * sizeof (sunindextype)));
+  SM_DATA_S(JJ) = reinterpret_cast<realtype*> (malloc(SM_NNZ_S(JJ) * sizeof (realtype)));
   for (unsigned i = 0; i < 3; ++i) {
-    JJ->indexptrs[i] = i;
+    SM_INDEXPTRS_S(JJ)[i] = i;
   }
-  JJ->indexvals[0] = 0;
-  JJ->indexvals[1] = 1;
-  JJ->data[0] = 1;
-  JJ->data[1] = 2;
+  SM_INDEXVALS_S(JJ)[0] = 0;
+  SM_INDEXVALS_S(JJ)[1] = 1;
+  SM_DATA_S(JJ)[0] = 1;
+  SM_DATA_S(JJ)[1] = 2;
 
   ASSERT_EQ(copySparseToKINSOL(smj, JJ, 3, NULL), true);
-  ASSERT_EQ(JJ->NNZ, 4);
-  ASSERT_EQ(JJ->indexptrs[0], 0);
-  ASSERT_EQ(JJ->indexptrs[1], 1);
-  ASSERT_EQ(JJ->indexptrs[2], 3);
-  ASSERT_EQ(JJ->indexptrs[3], 4);
+  ASSERT_EQ(SM_NNZ_S(JJ), 4);
+  ASSERT_EQ(SM_INDEXPTRS_S(JJ)[0], 0);
+  ASSERT_EQ(SM_INDEXPTRS_S(JJ)[1], 1);
+  ASSERT_EQ(SM_INDEXPTRS_S(JJ)[2], 3);
+  ASSERT_EQ(SM_INDEXPTRS_S(JJ)[3], 4);
 
-  ASSERT_EQ(JJ->indexvals[0], 1);
-  ASSERT_EQ(JJ->indexvals[1], 0);
-  ASSERT_EQ(JJ->indexvals[2], 2);
-  ASSERT_EQ(JJ->indexvals[3], 1);
+  ASSERT_EQ(SM_INDEXVALS_S(JJ)[0], 1);
+  ASSERT_EQ(SM_INDEXVALS_S(JJ)[1], 0);
+  ASSERT_EQ(SM_INDEXVALS_S(JJ)[2], 2);
+  ASSERT_EQ(SM_INDEXVALS_S(JJ)[3], 1);
 
-  ASSERT_EQ(JJ->data[0], 1);
-  ASSERT_EQ(JJ->data[1], 2);
-  ASSERT_EQ(JJ->data[2], 3);
-  ASSERT_EQ(JJ->data[3], 4);
-  ASSERT_EQ(JJ->NNZ, 4);
-  delete[] JJ->indexptrs;
-  delete[] JJ->indexvals;
-  delete[] JJ->data;
-  delete JJ;
+  ASSERT_EQ(SM_DATA_S(JJ)[0], 1);
+  ASSERT_EQ(SM_DATA_S(JJ)[1], 2);
+  ASSERT_EQ(SM_DATA_S(JJ)[2], 3);
+  ASSERT_EQ(SM_DATA_S(JJ)[3], 4);
+  ASSERT_EQ(SM_NNZ_S(JJ), 4);
+  SUNMatDestroy_Sparse(JJ);
 }
 
 TEST(SimulationCommonTest, testNormVectors) {

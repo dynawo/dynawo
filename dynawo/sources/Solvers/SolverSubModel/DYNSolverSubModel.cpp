@@ -18,9 +18,10 @@
  *
  */
 #include <kinsol/kinsol.h>
-#include <kinsol/kinsol_sparse.h>
-#include <kinsol/kinsol_klu.h>
-#include <kinsol/kinsol_impl.h>
+#include <sunlinsol/sunlinsol_klu.h>
+#include <sundials/sundials_types.h>
+#include <sundials/sundials_math.h>
+#include <sundials/sundials_sparse.h>
 #include <nvector/nvector_serial.h>
 #include <cstring>
 #include <vector>
@@ -51,6 +52,13 @@ subModel_() {
   scaley_ = NULL;
   scalef_ = NULL;
   lastRowVals_ = NULL;
+  LS_ = NULL;
+  M_ = NULL;
+  yBuffer_ = NULL;
+  fBuffer_ = NULL;
+  nbF_ = 0;
+  t0_ = 0.;
+  firstIteration_ = false;
 }
 
 SolverSubModel::~SolverSubModel() {
@@ -58,6 +66,14 @@ SolverSubModel::~SolverSubModel() {
 }
 
 void SolverSubModel::clean() {
+  if (M_ != NULL) {
+    SUNMatDestroy(M_);
+    M_ = NULL;
+  }
+  if (LS_ != NULL) {
+    SUNLinSolFree(LS_);
+    LS_ = NULL;
+  }
   if (KINMem_ != NULL) {
     KINFree(&KINMem_);
     KINMem_ = NULL;
@@ -143,13 +159,19 @@ SolverSubModel::init(SubModel* subModel, const double t0, double* yBuffer, doubl
 
   // (8) Choose the library used to perform the LU factorisation
   // -----------------------------------------------------------
-  flag = KINKLU(KINMem_, subModel->sizeY(), 10, CSR_MAT);
+  M_ = SUNSparseMatrix(subModel->sizeY(), subModel->sizeY(), 10, CSR_MAT);
+  if (M_ == NULL)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "Matrix Initialization");
+  LS_ = SUNLinSol_KLU(yy_, M_);
+  if (LS_ == NULL)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KLU solver object");
+  flag = KINSetLinearSolver(KINMem_, LS_, M_);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINKLU");
 
   // (9) Solver options
   // ------------------
-  flag = KINSlsSetSparseJacFn(KINMem_, evalJInit_KIN);
+  flag = KINSetJacFn(KINMem_, evalJInit_KIN);
 
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSlsSetSparseJacFn");
@@ -218,7 +240,7 @@ SolverSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
 
 int
 SolverSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
-        SlsMat JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
+        SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverSubModel* solv = reinterpret_cast<SolverSubModel*> (data);
   SubModel* subModel = solv->getSubModel();
 
@@ -239,12 +261,12 @@ SolverSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
 
   if (matrixStructChange) {
-    KINKLUReInit(solv->KINMem_, solv->subModel_->sizeY(), JJ->NNZ, 2);  // reinit symbolic factorisation
+    SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
     if (solv->lastRowVals_ != NULL) {
       free(solv->lastRowVals_);
     }
-    solv->lastRowVals_ = reinterpret_cast<int*> (malloc(sizeof (int)*JJ->NNZ));
-    memcpy(solv->lastRowVals_, JJ->indexvals, sizeof (int)*JJ->NNZ);
+    solv->lastRowVals_ = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
+    memcpy(solv->lastRowVals_, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
   }
 
   return (0);

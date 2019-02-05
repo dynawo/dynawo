@@ -25,7 +25,13 @@ INCLUDE_DIRECTORIES(../
 
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
-TARGET_LINK_LIBRARIES(${MODULE_NAME} dynawo_SolverCommon dynawo_ModelerCommon ${UNITTEST_LIBRARIES} dl)
+TARGET_LINK_LIBRARIES(${MODULE_NAME} 
+                      dynawo_SolverCommon 
+                      dynawo_ModelerCommon 
+                      ${UNITTEST_LIBRARIES} 
+                      dl
+                      ${SUNDIALS_KINSOL_LIBRARY}
+                      )
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-tests ${MODULE_NAME}
   DEPENDS

@@ -35,6 +35,7 @@ TARGET_LINK_LIBRARIES(dynawo_SolverKINSOL
                       dynawo_Common
                       ${SUNDIALS_KINSOL_LIBRARY}
                       ${SUNDIALS_NVECSERIAL_LIBRARY}
+                      ${SUNDIALS_SUNLINSOLKLU_LIBRARY}
                       ${SUITESPARSE_LIBRARIES}
                       )
 

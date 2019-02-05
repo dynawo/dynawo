@@ -24,7 +24,7 @@
 #include <boost/core/noncopyable.hpp>
 
 #include <sundials/sundials_nvector.h>
-#include <sundials/sundials_sparse.h>
+#include <sundials/sundials_linearsolver.h>
 
 namespace DYN {
 class SubModel;
@@ -124,7 +124,7 @@ class SolverSubModel : private boost::noncopyable {
    * @return  0 is successful, positive value otherwise
    */
   static int evalJInit_KIN(N_Vector yy, N_Vector rr,
-          SlsMat JJ, void * data, N_Vector tmp1, N_Vector tmp2);
+          SUNMatrix JJ, void * data, N_Vector tmp1, N_Vector tmp2);
 
   /**
    * @brief  processes error and warning messages from KINSOL solver
@@ -159,6 +159,8 @@ class SolverSubModel : private boost::noncopyable {
   SubModel* subModel_;  ///< model currently simulated
 
   void* KINMem_;  ///< KINSOL internal memory structure
+  SUNLinearSolver LS_;  ///< Linear Solver pointer
+  SUNMatrix M_;  ///< sparse SUNMatrix
   N_Vector yy_;  ///< variables values stored in sundials structure
   N_Vector scaley_;  ///< scaling to use for y values (Y near 1.0 when F near 0)
   N_Vector scalef_;  ///< scaling to use for residual values (F have same magnitude when Y far from its solution)
@@ -169,7 +171,7 @@ class SolverSubModel : private boost::noncopyable {
   double t0_;  ///< initial time to use
   bool firstIteration_;  ///< @b true if first iteration, @b false otherwise
 
-  int* lastRowVals_;  ///< save of last jacobian structure, to force symbolic factorisation if structure change
+  sunindextype* lastRowVals_;  ///< save of last jacobian structure, to force symbolic factorisation if structure change
 };  ///< class Solver related to a SubModel
 
 }  // namespace DYN
