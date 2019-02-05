@@ -132,7 +132,7 @@ class SolverEulerKIN : private boost::noncopyable{
    * @return 0 if successful
    */
   static int evalJ_KIN(N_Vector yy, N_Vector rr,
-          SlsMat JJ, void* data, N_Vector tmp1, N_Vector tmp2);
+          SUNMatrix JJ, void* data, N_Vector tmp1, N_Vector tmp2);
 
   /**
    * @brief error message handler function : process error and warning messages
@@ -191,6 +191,8 @@ class SolverEulerKIN : private boost::noncopyable{
 
   boost::shared_ptr<Model> model_;  ///< instance of model to interact with
   void* KINMem_;  ///< KINSol memory pointer
+  SUNLinearSolver LS_;  ///< Linear Solver pointer
+  SUNMatrix M_;  ///< sparse SUNMatrix
   N_Vector yy_;  ///< Current values of variables during the call of the solver
   ///< (allocated by kinsol)
   N_Vector yscale_;  ///< Scaling vector for variables allocated by kinsol
@@ -204,7 +206,7 @@ class SolverEulerKIN : private boost::noncopyable{
   std::vector<double> YP_;  ///< calculated values of derivatives
   double t0_;  ///< Initial value of time before call of the solver
   double h0_;  ///< Step of the solver to reach
-  int* lastRowVals_;  ///< save of last jacobian structure, to force symbolic factorisation if structure change
+  sunindextype* lastRowVals_;  ///< save of last jacobian structure, to force symbolic factorisation if structure change
   bool firstIteration_;  ///< @b true if first iteration, @b false otherwise
   std::string linearSolverName_;  ///< name of the linear solver (KLU or NICSLU at the moment)
 };

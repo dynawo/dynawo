@@ -21,6 +21,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <cmath>
+#include <sunmatrix/sunmatrix_sparse.h>
 
 #include "DYNMacrosMessage.h"
 #include "DYNModel.h"
@@ -31,26 +32,31 @@
 namespace DYN {
 
 bool
-copySparseToKINSOL(const SparseMatrix& smj, SlsMat JJ, const int& size, int * lastRowVals) {
+copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype * lastRowVals) {
   bool matrixStructChange = false;
-  if (JJ->NNZ < smj.nbElem()) {
-    free(JJ->indexvals);
-    free(JJ->data);
-    JJ->NNZ = smj.nbElem();
-    JJ->indexvals = reinterpret_cast<int*> (malloc(JJ->NNZ * sizeof (int)));
-    JJ->data = reinterpret_cast<realtype*> (malloc(JJ->NNZ * sizeof (realtype)));
+  if (SM_NNZ_S(JJ) < smj.nbElem()) {
+    free(SM_INDEXVALS_S(JJ));
+    free(SM_DATA_S(JJ));
+    SM_NNZ_S(JJ) = smj.nbElem();
+    SM_INDEXPTRS_S(JJ) = reinterpret_cast<sunindextype*> (malloc((size + 1) * sizeof (sunindextype)));
+    SM_INDEXVALS_S(JJ) = reinterpret_cast<sunindextype*> (malloc(SM_NNZ_S(JJ) * sizeof (sunindextype)));
+    SM_DATA_S(JJ) = reinterpret_cast<realtype*> (malloc(SM_NNZ_S(JJ) * sizeof (realtype)));
     matrixStructChange = true;
   }
 
   // NNZ has to be actualized anyway
-  JJ->NNZ = smj.nbElem();
+  SM_NNZ_S(JJ) = smj.nbElem();
 
-  memcpy(JJ->indexptrs, smj.Ap_, (size + 1) * sizeof (int));
-  memcpy(JJ->indexvals, smj.Ai_, smj.nbElem() * sizeof (int));
-  memcpy(JJ->data, smj.Ax_, smj.nbElem() * sizeof (double));
+  for (unsigned i = 0, iEnd = size + 1; i < iEnd; ++i) {
+    SM_INDEXPTRS_S(JJ)[i] = smj.Ap_[i];  //!!! implicit conversion from int to sunindextype
+  }
+  for (unsigned i = 0, iEnd = smj.nbElem(); i < iEnd; ++i) {
+    SM_INDEXVALS_S(JJ)[i] = smj.Ai_[i];  //!!! implicit conversion from int to sunindextype
+    SM_DATA_S(JJ)[i] = smj.Ax_[i];  //!!! implicit conversion from double to realtype
+  }
 
   if (lastRowVals != NULL) {
-    if (memcmp(lastRowVals, JJ->indexvals, sizeof (int)*JJ->NNZ) != 0) {
+    if (memcmp(lastRowVals, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ)) != 0) {
       matrixStructChange = true;
     }
   } else {  // first time or size change

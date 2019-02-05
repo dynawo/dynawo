@@ -20,7 +20,8 @@
 #ifndef SOLVERS_COMMON_DYNSOLVERCOMMON_H_
 #define SOLVERS_COMMON_DYNSOLVERCOMMON_H_
 
-#include <sundials/sundials_sparse.h>
+#include <sunmatrix/sunmatrix_band.h>
+#include <sunmatrix/sunmatrix_sparse.h>
 #include <cmath>
 
 namespace DYN {
@@ -37,7 +38,7 @@ class Model;
  *
  * @return @b true if the matrix structure has changed, @b false else
  */
-bool copySparseToKINSOL(const SparseMatrix& smj, SlsMat JJ, const int& size, int * lastRowVals);
+bool copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype * lastRowVals);
 
 /**
  * @brief Print the largest residuals errors

@@ -42,6 +42,20 @@ MARK_AS_ADVANCED(SUNDIALS_KINSOL_LIBRARY)
 FIND_LIBRARY(SUNDIALS_NVECSERIAL_LIBRARY NAME sundials_nvecserial libsundials_nvecserial HINTS ${SUNDIALS_HOME}/lib)
 MARK_AS_ADVANCED(SUNDIALS_NVECSERIAL_LIBRARY)
 
+# Searching for sundials sunlinsolklu
+FIND_LIBRARY(SUNDIALS_SUNLINSOLKLU_LIBRARY NAME sundials_sunlinsolklu libsundials_sunlinsolklu HINTS ${SUNDIALS_HOME}/lib)
+MARK_AS_ADVANCED(SUNDIALS_SUNLINSOLKLU_LIBRARY)
+
+# Searching for sundials sunmatrixsparse
+FIND_LIBRARY(SUNDIALS_SUNMATRIXSPARSE_LIBRARY NAME sundials_sunmatrixsparse libsundials_sunmatrixsparse HINTS ${SUNDIALS_HOME}/lib)
+MARK_AS_ADVANCED(SUNDIALS_SUNMATRIXSPARSE_LIBRARY)
+
+IF(NICSLU_FOUND)
+  # Searching for sundials sunlinsolnicslu
+  FIND_LIBRARY(SUNDIALS_SUNLINSOLNICSLU_LIBRARY NAME sundials_sunlinsolnicslu libsundials_sunlinsolnicslu HINTS ${SUNDIALS_HOME}/lib)
+  MARK_AS_ADVANCED(SUNDIALS_SUNLINSOLNICSLU_LIBRARY)
+ENDIF()
+
 # Handle the QUIETLY and REQUIRED arguments and set SUNDIALS_FOUND
 # to TRUE if all listed variables are TRUE.
 # (Use ${CMAKE_ROOT}/Modules instead of ${CMAKE_CURRENT_LIST_DIR} because CMake

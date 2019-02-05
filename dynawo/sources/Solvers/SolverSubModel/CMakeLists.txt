@@ -31,8 +31,10 @@ INCLUDE_DIRECTORIES(../Common
 ADD_LIBRARY(dynawo_SolverSubModel SHARED ${SOLVER_SUBMODEL_SOURCES})
 
 TARGET_LINK_LIBRARIES(dynawo_SolverSubModel
-                      ${SUNDIALS_KINSOL_LIBRARY}
                       ${SUNDIALS_NVECSERIAL_LIBRARY}
+                      ${SUNDIALS_KINSOL_LIBRARY}
+                      ${SUNDIALS_SUNLINSOLKLU_LIBRARY}
+                      ${SUNDIALS_SUNMATRIXSPARSE_LIBRARY}
                       ${SUITESPARSE_LIBRARIES}
                       dynawo_SolverCommon
                       )

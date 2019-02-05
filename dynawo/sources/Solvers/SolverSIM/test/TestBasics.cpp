@@ -418,14 +418,12 @@ TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicMode, false);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0.8);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 0.8);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.5);
+  //Does not diverge as sundials forces a reevaluation of the jacobian
+  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2);
 
   solver->solve(tStop, tCurrent, y, yp, z, algebraicMode);
   ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicMode, false);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0.8);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2.5);
-
-  solver->solve(tStop, tCurrent, y, yp, z, algebraicMode);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 3);
 }
 

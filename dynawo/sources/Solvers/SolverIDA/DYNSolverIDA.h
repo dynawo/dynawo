@@ -185,7 +185,7 @@ class SolverIDA : public Solver::Impl {
    */
   static int evalJ(double tt, double cj,
           N_Vector yy, N_Vector yp, N_Vector rr,
-          SlsMat JJ, void *data,
+          SUNMatrix JJ, void *data,
           N_Vector tmp1, N_Vector tmp2, N_Vector tmp3);
 
   /**
@@ -214,6 +214,8 @@ class SolverIDA : public Solver::Impl {
 
  private:
   void* IDAMem_;  ///< IDA internal memory structure
+  SUNLinearSolver LS_;  ///< Linear Solver pointer
+  SUNMatrix M_;  ///< sparse SUNMatrix
   boost::shared_ptr<SolverKIN> solverKIN_;  ///< Newton Raphson solver for the algebraic variables restoration
 
   // parameters
@@ -226,7 +228,7 @@ class SolverIDA : public Solver::Impl {
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
 
-  int* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+  sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
 };
 
 }  // end of namespace DYN

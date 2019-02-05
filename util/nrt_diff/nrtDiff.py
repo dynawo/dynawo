@@ -477,22 +477,6 @@ def DirectoryDiffJob (first_dir, second_dir):
     test_case.case_ = "case_" + str(len(listCases))
     listCases.append(test_case)
 
-##
-# Retrieve the name of log files with the build type on reference side
-# @param path : the path to the log file without the build type
-# @return the correct path to the reference log file or the input path if not applicable
-def findFileNamesWithBuildType(path):
-    res = path
-    file_extension = os.path.splitext(os.path.basename(res))[1]
-    if (file_extension == ".log"):
-        file_name = os.path.splitext(os.path.basename(res))[0]
-        if "reference" in path and file_name != "timeline":
-            new_path_table = res.rsplit(file_name, 1)
-            new_file_name = file_name+"_"+os.environ['BUILD_TYPE']
-            new_path = new_file_name.join(new_path_table)
-            res = new_path
-    return res
-
 
 ##
 # Compare a given directory
@@ -534,8 +518,8 @@ def DirectoryDiff (directory_left, directory_right, is_reference_check):
                     file_names.append(relative_file_path)
 
     for file_name in file_names:
-        left_path = findFileNamesWithBuildType(os.path.join(directory_left, file_name))
-        right_path = findFileNamesWithBuildType(os.path.join(directory_right, file_name))
+        left_path = os.path.join(directory_left, file_name)
+        right_path = os.path.join(directory_right, file_name)
 
         diff_status = None
         if (os.path.isfile(left_path)) and (os.path.isfile(right_path)):
@@ -825,6 +809,12 @@ def EndLogWriting():
 # @param path_right : the absolute path to the right-side file
 # @param logs_separator_right : the separator to use as a string
 def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_right):
+    #ignore log files in debug mode
+    file_extension = os.path.splitext(os.path.basename(path_left))[1]
+    file_name = os.path.splitext(os.path.basename(path_left))[0]
+    if os.environ['BUILD_TYPE'] == "Debug" and file_extension == ".log" and file_name != "timeline" :
+        return (IDENTICAL, "")
+                
     identical = filecmp.cmp (path_left, path_right)
     message = ""
 
@@ -833,7 +823,6 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
         return_value = IDENTICAL
 
     else:
-        file_extension = os.path.splitext(os.path.basename(path_left))[1]
         if (file_extension == ".log" or file_extension == ".xml"):
             message = os.path.basename(path_left) + ": "
             nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different = DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separator_right)

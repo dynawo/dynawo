@@ -99,7 +99,7 @@ compile_nicslu() {
 
 compile_sundials() {
   cd $SCRIPT_DIR/sundials
-  bash sundials-chain-2-7-0.sh --build-dir=$SUNDIALS_BUILD_DIR --install-dir=$SUNDIALS_INSTALL_DIR --suitesparse-install-dir=$SUITESPARSE_INSTALL_DIR --build-type=$BUILD_TYPE
+  bash sundials-chain-4-0-2.sh --build-dir=$SUNDIALS_BUILD_DIR --install-dir=$SUNDIALS_INSTALL_DIR --suitesparse-install-dir=$SUITESPARSE_INSTALL_DIR --build-type=$BUILD_TYPE
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }

@@ -122,7 +122,7 @@ class SolverKIN : private boost::noncopyable{
    * @return 0 is successful, positive value otherwise
    */
   static int evalJ_KIN(N_Vector yy, N_Vector rr,
-          SlsMat JJ, void * data, N_Vector tmp1, N_Vector tmp2);
+          SUNMatrix JJ, void * data, N_Vector tmp1, N_Vector tmp2);
 
   /**
    * @brief calculate the Jacobian associate to F(u): \f$( J=@F/@u)\f$
@@ -139,7 +139,7 @@ class SolverKIN : private boost::noncopyable{
    * @return 0 is successful, positive value otherwise
    */
   static int evalJPrim_KIN(N_Vector yy, N_Vector rr,
-          SlsMat JJ, void * data, N_Vector tmp1, N_Vector tmp2);
+          SUNMatrix JJ, void * data, N_Vector tmp1, N_Vector tmp2);
 
   /**
    * @brief processes error and warning messages from KINSOL solver
@@ -175,6 +175,8 @@ class SolverKIN : private boost::noncopyable{
   boost::shared_ptr<Model> model_;  ///< model currently simulated
 
   void* KINMem_;  ///< KINSOL internal memory structure
+  SUNLinearSolver LS_;  ///< Linear Solver pointer
+  SUNMatrix M_;  ///< sparse SUNMatrix
   N_Vector yy_;  ///< variables values stored in Sundials structure
   std::vector<double> vYy_;  ///< variables values
   std::vector<double> y0_;  ///< initial variables values
@@ -189,7 +191,7 @@ class SolverKIN : private boost::noncopyable{
   unsigned int nbF_;  ///< number of equations to solve
   double t0_;  ///< initial time to use
   modeKin_t mode_;  ///< mode of the solver (i.e algebraic equations or derivative)
-  int* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
+  sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
   std::vector<double> fScaling_;  ///< scaling vector for residual function, for KINSOL norm evaluation
   std::vector<double> yScaling_;  ///< scaling vector for solution, for KINSOL norm evaluation
 };

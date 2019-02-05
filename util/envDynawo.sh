@@ -300,7 +300,7 @@ set_environment() {
 }
 
 set_standardEnvironmentVariables() {
-  export LD_LIBRARY_PATH=$NICSLU_INSTALL_DIR/lib:$SUITESPARSE_INSTALL_DIR/lib:$SUNDIALS_INSTALL_DIR/lib:$LIBZIP_HOME/lib:$LIBXML_HOME/lib:$LIBIIDM_HOME/lib:$DYNAWO_INSTALL_DIR/lib:$ADEPT_INSTALL_DIR/lib:$XERCESC_INSTALL_DIR/lib:$LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$NICSLU_INSTALL_DIR/lib:$SUITESPARSE_INSTALL_DIR/lib:$SUNDIALS_INSTALL_DIR/lib64:$LIBZIP_HOME/lib:$LIBXML_HOME/lib:$LIBIIDM_HOME/lib:$DYNAWO_INSTALL_DIR/lib:$ADEPT_INSTALL_DIR/lib:$XERCESC_INSTALL_DIR/lib:$LD_LIBRARY_PATH
 
   if [ $LIBARCHIVE_HOME_DEFAULT != true ]; then
     export LD_LIBRARY_PATH=$LIBARCHIVE_HOME/lib:$LD_LIBRARY_PATH
@@ -983,7 +983,7 @@ deploy_dynawo() {
   mkdir -p extraLibs/LIBARCHIVE/lib/
   mkdir -p extraLibs/LIBZIP/lib
   mkdir -p extraLibs/LIBXML/lib
-  cp -P $SUNDIALS_INSTALL_DIR/lib/*.* 3rdParty/sundials/lib/
+  cp -P $SUNDIALS_INSTALL_DIR/lib64/*.* 3rdParty/sundials/lib/
   cp -P $ADEPT_INSTALL_DIR/lib/*.* 3rdParty/adept/lib/
   cp -P $SUITESPARSE_INSTALL_DIR/lib/*.* 3rdParty/suitesparse/lib/
   if [ -d "$NICSLU_INSTALL_DIR/lib" ]; then
