@@ -234,7 +234,6 @@ set_environment() {
   # External libs
   export_var_env_default LIBARCHIVE_HOME=UNDEFINED
   export_var_env_default BOOST_ROOT=UNDEFINED
-  export_var_env_default XERCESC_HOME=UNDEFINED
 
   # Third parties
   export_var_env THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
@@ -252,10 +251,13 @@ set_environment() {
   export_var_env_force NICSLU_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/nicslu
   export_var_env_force SUNDIALS_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/sundials
   export_var_env_force ADEPT_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/adept
+  export_var_env_force XERCESC_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/xerces-c
+
   export_var_env_force SUITESPARSE_INSTALL_DIR=$THIRD_PARTY_INSTALL_DIR_VERSION/suitesparse
   export_var_env_force NICSLU_INSTALL_DIR=$THIRD_PARTY_INSTALL_DIR_VERSION/nicslu
   export_var_env_force SUNDIALS_INSTALL_DIR=$THIRD_PARTY_INSTALL_DIR_VERSION/sundials
   export_var_env_force ADEPT_INSTALL_DIR=$THIRD_PARTY_INSTALL_DIR_VERSION/adept
+  export_var_env_force XERCESC_INSTALL_DIR=$THIRD_PARTY_INSTALL_DIR_VERSION/xerces-c
 
   export_var_env_force LIBIIDM_HOME=$THIRD_PARTY_INSTALL_DIR_VERSION/libiidm
   export_var_env_force LIBIIDM_INSTALL_DIR=$LIBIIDM_HOME
@@ -300,7 +302,7 @@ set_environment() {
 }
 
 set_standardEnvironmentVariables() {
-  export LD_LIBRARY_PATH=$NICSLU_INSTALL_DIR/lib:$SUITESPARSE_INSTALL_DIR/lib:$SUNDIALS_INSTALL_DIR/lib:$LIBZIP_HOME/lib:$LIBXML_HOME/lib:$LIBIIDM_HOME/lib:$DYNAWO_INSTALL_DIR/lib:$ADEPT_INSTALL_DIR/lib:$LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$NICSLU_INSTALL_DIR/lib:$SUITESPARSE_INSTALL_DIR/lib:$SUNDIALS_INSTALL_DIR/lib:$LIBZIP_HOME/lib:$LIBXML_HOME/lib:$LIBIIDM_HOME/lib:$DYNAWO_INSTALL_DIR/lib:$ADEPT_INSTALL_DIR/lib:$XERCESC_INSTALL_DIR/lib:$LD_LIBRARY_PATH
 
   if [ $LIBARCHIVE_HOME_DEFAULT != true ]; then
     export LD_LIBRARY_PATH=$LIBARCHIVE_HOME/lib:$LD_LIBRARY_PATH
@@ -308,10 +310,6 @@ set_standardEnvironmentVariables() {
 
   if [ $BOOST_ROOT_DEFAULT != true ]; then
     export LD_LIBRARY_PATH=$BOOST_ROOT/lib:$LD_LIBRARY_PATH
-  fi
-
-  if [ $XERCESC_HOME_DEFAULT != true ]; then
-    export LD_LIBRARY_PATH=$XERCESC_HOME/lib:$LD_LIBRARY_PATH
   fi
 
   export PATH=$INSTALL_OPENMODELICA/bin:$PATH
@@ -961,7 +959,7 @@ deploy_dynawo() {
     mkdir -p 3rdParty/suitesparse/lib
     mkdir -p 3rdParty/nicslu/lib
     mkdir -p extraLibs/BOOST/lib/
-    mkdir -p extraLibs/XERCES/lib/
+    mkdir -p extraLibs/XERCESC/lib/
     mkdir -p extraLibs/LIBARCHIVE/lib/
     mkdir -p extraLibs/LIBIIDM/lib/
     mkdir -p extraLibs/LIBZIP/lib
@@ -1028,13 +1026,8 @@ deploy_dynawo() {
         cp -P -R $boost_system_folder_include/boost extraLibs/BOOST/include/
     fi
 
-    # XERCES
-    if [ $XERCESC_HOME_DEFAULT != true ]; then
-        cp -P $XERCESC_HOME/lib/libxerces-c*.so* extraLibs/XERCES/lib/
-    else
-        xerces_system_folder=$(findLibSystemPath xerces)
-        cp -P ${xerces_system_folder}libxerces-c*.so* extraLibs/XERCES/lib/
-    fi
+    # XERCESC
+    cp -P $XERCESC_INSTALL_DIR/lib/libxerces-c*.so* extraLibs/XERCESC/lib/
 
     # LIBARCHIVE
     if [ $LIBARCHIVE_HOME_DEFAULT != true ]; then
@@ -1133,7 +1126,7 @@ create_distrib(){
     zip -r -g -y $ZIP_FILE extraLibs/LIBXML/lib -x \*.a
     zip -r -g -y $ZIP_FILE extraLibs/LIBIIDM/lib -x \*.a
     zip -r -g -y $ZIP_FILE extraLibs/LIBARCHIVE/lib -x \*.a
-    zip -r -g -y $ZIP_FILE extraLibs/XERCES/lib -x \*.a
+    zip -r -g -y $ZIP_FILE extraLibs/XERCESC/lib -x \*.a
     zip -r -g -y $ZIP_FILE extraLibs/BOOST/lib -x \*.a
 
     # move distribution in distribution directory
