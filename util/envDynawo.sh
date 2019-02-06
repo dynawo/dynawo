@@ -654,7 +654,7 @@ clean_tests_coverage() {
   uninstall_dynawo || error_exit
 }
 
-clean_old_dir(){
+clean_old_dir() {
   directory=$1
   cd ${directory}
   shift 1
@@ -897,7 +897,6 @@ version() {
   return ${RETURN_CODE}
 }
 
-
 nrt() {
   export_var_env ENV_DYNAWO=$SCRIPT
   python -u $NRT_DIR/nrt.py $@
@@ -928,7 +927,7 @@ nrt_diff() {
   python $NRT_DIFF_DIR/nrtDiff.py $1 $2
 }
 
-checkCodingFiles(){
+checkCodingFiles() {
   # html escape .dic files for dictionary
   for dicfile in $(find $DYNAWO_INSTALL_DIR -iname '*.dic')
   do
@@ -951,54 +950,32 @@ findIncludeSystemPath() {
 }
 
 deploy_dynawo() {
-    DYNAWO_VERSION=$(version)
-    version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
-    rm -rf $DYNAWO_DEPLOY_DIR
+  DYNAWO_VERSION=$(version)
+  version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
+  rm -rf $DYNAWO_DEPLOY_DIR
 
-    # check coding
-    checkCodingFiles
+  # check coding
+  checkCodingFiles
 
-    current_dir=$PWD
-    mkdir -p $DYNAWO_DEPLOY_DIR
-    cd $DYNAWO_DEPLOY_DIR
-    mkdir -p 3rdParty/sundials/lib
-    mkdir -p 3rdParty/adept/lib
-    mkdir -p 3rdParty/suitesparse/lib
-    mkdir -p 3rdParty/nicslu/lib
-    mkdir -p extraLibs/BOOST/lib/
-    mkdir -p extraLibs/XERCESC/lib/
-    mkdir -p extraLibs/LIBARCHIVE/lib/
-    mkdir -p extraLibs/LIBIIDM/lib/
-    mkdir -p extraLibs/LIBZIP/lib
-    mkdir -p extraLibs/LIBXML/lib
-    cp -P $SUNDIALS_INSTALL_DIR/lib/*.* 3rdParty/sundials/lib/
-    cp -P $ADEPT_INSTALL_DIR/lib/*.* 3rdParty/adept/lib/
-    cp -P $SUITESPARSE_INSTALL_DIR/lib/*.* 3rdParty/suitesparse/lib/
-    if [ -d "$NICSLU_INSTALL_DIR/lib" ]; then
-      if [ ! -z "$(ls -A $NICSLU_INSTALL_DIR/lib)" ]; then
-        cp -P $NICSLU_INSTALL_DIR/lib/*.* 3rdParty/nicslu/lib/
-      fi
-    fi
-    cp -P $LIBZIP_HOME/lib/*.* extraLibs/LIBZIP/lib/
-    cp -P $LIBXML_HOME/lib/*.* extraLibs/LIBXML/lib/
-    cp -P $LIBIIDM_HOME/lib/*.* extraLibs/LIBIIDM/lib/
-
-    mkdir -p 3rdParty/sundials/include
-    mkdir -p 3rdParty/adept/include
-    mkdir -p 3rdParty/suitesparse/include
-    mkdir -p 3rdParty/nicslu/include
-    mkdir -p extraLibs/BOOST/include
-    mkdir -p extraLibs/LIBARCHIVE/include
-    mkdir -p extraLibs/LIBIIDM/include
-    mkdir -p extraLibs/LIBZIP/include
-    mkdir -p extraLibs/LIBXML/include
-    cp -R -P $SUNDIALS_INSTALL_DIR/include/* 3rdParty/sundials/include/
-    cp -P $ADEPT_INSTALL_DIR/include/*.* 3rdParty/adept/include/
-    cp -P $SUITESPARSE_INSTALL_DIR/include/*.* 3rdParty/suitesparse/include/
-    if [ -d "$NICSLU_INSTALL_DIR/include" ]; then
-      if [ ! -z "$(ls -A $NICSLU_INSTALL_DIR/include)" ]; then
-        cp -P $NICSLU_INSTALL_DIR/include/*.* 3rdParty/nicslu/include/
-      fi
+  current_dir=$PWD
+  mkdir -p $DYNAWO_DEPLOY_DIR
+  cd $DYNAWO_DEPLOY_DIR
+  mkdir -p 3rdParty/sundials/lib
+  mkdir -p 3rdParty/adept/lib
+  mkdir -p 3rdParty/suitesparse/lib
+  mkdir -p 3rdParty/nicslu/lib
+  mkdir -p extraLibs/BOOST/lib/
+  mkdir -p extraLibs/XERCESC/lib/
+  mkdir -p extraLibs/LIBARCHIVE/lib/
+  mkdir -p extraLibs/LIBIIDM/lib/
+  mkdir -p extraLibs/LIBZIP/lib
+  mkdir -p extraLibs/LIBXML/lib
+  cp -P $SUNDIALS_INSTALL_DIR/lib/*.* 3rdParty/sundials/lib/
+  cp -P $ADEPT_INSTALL_DIR/lib/*.* 3rdParty/adept/lib/
+  cp -P $SUITESPARSE_INSTALL_DIR/lib/*.* 3rdParty/suitesparse/lib/
+  if [ -d "$NICSLU_INSTALL_DIR/lib" ]; then
+    if [ ! -z "$(ls -A $NICSLU_INSTALL_DIR/lib)" ]; then
+      cp -P $NICSLU_INSTALL_DIR/lib/*.* 3rdParty/nicslu/lib/
     fi
   fi
   cp -P $LIBZIP_HOME/lib/*.* extraLibs/LIBZIP/lib/
