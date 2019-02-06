@@ -204,32 +204,32 @@ FIND_PACKAGE(libXML 0.2.4 REQUIRED)
 
 #libIIDM
 FIND_PACKAGE(libIIDM 0.2.8 REQUIRED
-             COMPONENTS
-	     core
-	     xml
-	     ext-activeseason
-	     ext-activeseason-xml
-             ext-busbarsectionposition
-             ext-busbarsectionposition-xml
-             ext-connectableposition
-             ext-connectableposition-xml
-	     ext-currentlimitsperseason
-	     ext-currentlimitsperseason-xml
-	     ext-generatoractivepowercontrol
-	     ext-generatoractivepowercontrol-xml
-             ext-hvdcangledroopactivepowercontrol
-             ext-hvdcangledroopactivepowercontrol-xml
-             ext-hvdcoperatoractivepowerrange
-             ext-hvdcoperatoractivepowerrange-xml
-             ext-generatorentsoecategory
-             ext-generatorentsoecategory-xml
-             ext-generatorstartup
-             ext-generatorstartup-xml
-             ext-loaddetail
-             ext-loaddetail-xml
-	     ext-standbyautomaton
-	     ext-standbyautomaton-xml
-             )
+  COMPONENTS
+    core
+    xml
+    ext-activeseason
+    ext-activeseason-xml
+    ext-busbarsectionposition
+    ext-busbarsectionposition-xml
+    ext-connectableposition
+    ext-connectableposition-xml
+    ext-currentlimitsperseason
+    ext-currentlimitsperseason-xml
+    ext-generatoractivepowercontrol
+    ext-generatoractivepowercontrol-xml
+    ext-hvdcangledroopactivepowercontrol
+    ext-hvdcangledroopactivepowercontrol-xml
+    ext-hvdcoperatoractivepowerrange
+    ext-hvdcoperatoractivepowerrange-xml
+    ext-generatorentsoecategory
+    ext-generatorentsoecategory-xml
+    ext-generatorstartup
+    ext-generatorstartup-xml
+    ext-loaddetail
+    ext-loaddetail-xml
+    ext-standbyautomaton
+    ext-standbyautomaton-xml
+)
 
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h @ONLY)
 

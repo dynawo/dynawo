@@ -12,21 +12,59 @@
 # simulation tool for power systems.
 #
 
-error_exit()
-{
+error_exit() {
 	echo "${1:-"Unknown Error"}" 1>&2
 	exit -1
 }
 
-HERE=$PWD
+export_var_env() {
+  var=$@
+  name=${var%=*}
+  value=${var##*=}
+
+  if eval "[ \$$name ]"; then
+    eval "value=\${$name}"
+    ##echo "Environment variable for $name already set : $value"
+    return
+  fi
+
+  if [ "$value" = UNDEFINED ]; then
+    error_exit "You must define the value of $name"
+  fi
+  export $name="$value"
+}
+
+export_var_env_default() {
+  var=$@
+  name=${var%=*}
+  value=${var##*=}
+
+  if [ "$value" = UNDEFINED ]; then
+    if eval "[ \$$name ]"; then
+      eval "value=\${$name}"
+      export_var_env ${name}_DEFAULT=false
+    else
+      export_var_env ${name}_DEFAULT=true
+      return
+    fi
+  fi
+
+  export $name="$value"
+  export_var_env ${name}_DEFAULT=false
+}
 
 get_absolute_path() {
   absolute=$(readlink -m $1)
   echo "$absolute"
 }
 
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+export_var_env_default LIBARCHIVE_HOME=UNDEFINED
+export_var_env_default BOOST_ROOT=UNDEFINED
+export_var_env_default GTEST_ROOT=UNDEFINED
+
 find_cxx_std_flag() {
-  if [ $CXX11_ENABLED = "YES" ]; then
+  if [ "${CXX11_ENABLED,,}" = "yes" -o "${CXX11_ENABLED,,}" = "true" -o "${CXX11_ENABLED,,}" = "on" ]; then
     echo "int main() {return 0;}" > test_cxx11.cpp
     g++ -std=c++11 -c test_cxx11.cpp -o test_cxx11 2> /dev/null
     RETURN_CODE=$?
@@ -50,50 +88,57 @@ find_cxx_std_flag() {
 }
 
 compile_suitesparse() {
-  cd $HERE/suitesparse
+  cd $SCRIPT_DIR/suitesparse
   bash suitesparse-chain.sh --build-dir=$SUITESPARSE_BUILD_DIR --install-dir=$SUITESPARSE_INSTALL_DIR
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 compile_nicslu() {
-  cd $HERE/nicslu
+  cd $SCRIPT_DIR/nicslu
   bash nicslu-chain.sh --build-dir=$NICSLU_BUILD_DIR --install-dir=$NICSLU_INSTALL_DIR
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 compile_sundials() {
-  cd $HERE/sundials
+  cd $SCRIPT_DIR/sundials
   bash sundials-chain-2-7-0.sh --build-dir=$SUNDIALS_BUILD_DIR --install-dir=$SUNDIALS_INSTALL_DIR --suitesparse-install-dir=$SUITESPARSE_INSTALL_DIR --build-type=$BUILD_TYPE
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 compile_adept() {
-  cd $HERE/adept
+  cd $SCRIPT_DIR/adept
   bash adept-chain-1.1.sh --build-dir=$ADEPT_BUILD_DIR --install-dir=$ADEPT_INSTALL_DIR --build-type=$BUILD_TYPE
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 compile_libzip() {
-  cd $HERE/libzip
-  bash libzip-chain.sh --build-dir=$LIBZIP_BUILD_DIR --install-dir=$LIBZIP_INSTALL_DIR --build-type=$BUILD_TYPE
+  cd $SCRIPT_DIR/libzip
+  bash libzip-chain.sh --build-dir=$LIBZIP_BUILD_DIR --install-dir=$LIBZIP_INSTALL_DIR --build-type=$BUILD_TYPE $LIBARCHIVE_OPTION $BOOST_OPTION $GTEST_OPTION
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 compile_libxml() {
-  cd $HERE/libxml
-  bash libxml-chain.sh --build-dir=$LIBXML_BUILD_DIR --install-dir=$LIBXML_INSTALL_DIR --build-type=$BUILD_TYPE
+  cd $SCRIPT_DIR/libxml
+  bash libxml-chain.sh --build-dir=$LIBXML_BUILD_DIR --install-dir=$LIBXML_INSTALL_DIR --build-type=$BUILD_TYPE --xercesc-install-dir=$XERCESC_INSTALL_DIR $BOOST_OPTION $GTEST_OPTION
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 compile_libiidm() {
-  cd $HERE/libiidm
-  bash libiidm-chain.sh --build-dir=$LIBIIDM_BUILD_DIR --install-dir=$LIBIIDM_INSTALL_DIR --build-type=$BUILD_TYPE --libxml-install-dir=$LIBXML_INSTALL_DIR
+  cd $SCRIPT_DIR/libiidm
+  bash libiidm-chain.sh --build-dir=$LIBIIDM_BUILD_DIR --install-dir=$LIBIIDM_INSTALL_DIR --build-type=$BUILD_TYPE --libxml-install-dir=$LIBXML_INSTALL_DIR $BOOST_OPTION $GTEST_OPTION
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
+compile_xercesc() {
+  cd $SCRIPT_DIR/xerces-c
+  bash xerces-c-chain.sh --build-dir=$XERCESC_BUILD_DIR --install-dir=$XERCESC_INSTALL_DIR --build-type=$BUILD_TYPE
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -103,6 +148,7 @@ compile_all() {
   compile_nicslu &&
   compile_sundials &&
   compile_adept &&
+  compile_xercesc &&
 	compile_libzip &&
 	compile_libxml &&
 	compile_libiidm
@@ -161,6 +207,22 @@ while (($#)); do
         mkdir -p $LIBIIDM_INSTALL_DIR
       fi
       ;;
+    --xercesc-install-dir=*)
+      XERCESC_INSTALL_DIR=`echo $1 | sed -e 's/--xercesc-install-dir=//g'`
+      XERCESC_INSTALL_DIR=$(get_absolute_path $XERCESC_INSTALL_DIR)
+      if [ ! -d "$XERCESC_INSTALL_DIR" ]; then
+        mkdir -p $XERCESC_INSTALL_DIR
+      fi
+      ;;
+    --boost-install-dir=*)
+			BOOST_ROOT=`echo $1 | sed -e 's/--boost-install-dir=//g'`
+			;;
+    --libarchive-install-dir=*)
+			LIBARCHIVE_HOME=`echo $1 | sed -e 's/--libarchive-install-dir=//g'`
+      ;;
+    --gtest-install-dir=*)
+      GTEST_INSTALL_DIR=`echo $1 | sed -e 's/--gtest-install-dir=//g'`
+      ;;
     --sundials-build-dir=*)
 	    SUNDIALS_BUILD_DIR=`echo $1 | sed -e 's/--sundials-build-dir=//g'`
 	    SUNDIALS_BUILD_DIR=$(get_absolute_path $SUNDIALS_BUILD_DIR)
@@ -210,6 +272,13 @@ while (($#)); do
         mkdir -p $LIBIIDM_BUILD_DIR
       fi
       ;;
+    --xercesc-build-dir=*)
+      XERCESC_BUILD_DIR=`echo $1 | sed -e 's/--xercesc-build-dir=//g'`
+      XERCESC_BUILD_DIR=$(get_absolute_path $XERCESC_BUILD_DIR)
+      if [ ! -d "$XERCESC_BUILD_DIR" ]; then
+        mkdir -p $XERCESC_BUILD_DIR
+      fi
+      ;;
     *)
       break
       ;;
@@ -217,63 +286,87 @@ while (($#)); do
   shift
 done
 
-if  [[ -z "$SUNDIALS_INSTALL_DIR" ]]; then
+if [[ -z "$SUNDIALS_INSTALL_DIR" ]]; then
   echo "Need to set SUNDIALS_INSTALL_DIR"
   exit 1
 fi
-if  [[ -z "$SUITESPARSE_INSTALL_DIR" ]]; then
+if [[ -z "$SUITESPARSE_INSTALL_DIR" ]]; then
   echo "Need to set SUITESPARSE_INSTALL_DIR"
   exit 1
 fi
-if  [[ -z "$NICSLU_INSTALL_DIR" ]]; then
+if [[ -z "$NICSLU_INSTALL_DIR" ]]; then
   echo "Need to set NICSLU_INSTALL_DIR"
   exit 1
 fi
-if  [[ -z "$ADEPT_INSTALL_DIR" ]]; then
+if [[ -z "$ADEPT_INSTALL_DIR" ]]; then
   echo "Need to set ADEPT_INSTALL_DIR"
   exit 1
 fi
-if  [[ -z "$LIBZIP_INSTALL_DIR" ]]; then
+if [[ -z "$LIBZIP_INSTALL_DIR" ]]; then
   echo "Need to set LIBZIP_INSTALL_DIR"
   exit 1
 fi
-if  [[ -z "$LIBXML_INSTALL_DIR" ]]; then
+if [[ -z "$LIBXML_INSTALL_DIR" ]]; then
   echo "Need to set LIBXML_INSTALL_DIR"
   exit 1
 fi
-if  [[ -z "$LIBIIDM_INSTALL_DIR" ]]; then
+if [[ -z "$LIBIIDM_INSTALL_DIR" ]]; then
   echo "Need to set LIBIIDM_INSTALL_DIR"
   exit 1
 fi
-if  [[ -z "$SUNDIALS_BUILD_DIR" ]]; then
+if [[ -z "$XERCESC_INSTALL_DIR" ]]; then
+  echo "Need to set XERCESC_INSTALL_DIR"
+  exit 1
+fi
+if [[ -z "$SUNDIALS_BUILD_DIR" ]]; then
   echo "Need to set SUNDIALS_BUILD_DIR"
   exit 1
 fi
-if  [[ -z "$SUITESPARSE_BUILD_DIR" ]]; then
+if [[ -z "$SUITESPARSE_BUILD_DIR" ]]; then
   echo "Need to set SUITESPARSE_BUILD_DIR"
   exit 1
 fi
-if  [[ -z "$NICSLU_BUILD_DIR" ]]; then
+if [[ -z "$NICSLU_BUILD_DIR" ]]; then
   echo "Need to set NICSLU_BUILD_DIR"
   exit 1
 fi
-if  [[ -z "$ADEPT_BUILD_DIR" ]]; then
+if [[ -z "$ADEPT_BUILD_DIR" ]]; then
   echo "Need to set ADEPT_BUILD_DIR"
   exit 1
 fi
-if  [[ -z "$LIBZIP_BUILD_DIR" ]]; then
+if [[ -z "$LIBZIP_BUILD_DIR" ]]; then
   echo "Need to set LIBZIP_BUILD_DIR"
   exit 1
 fi
-if  [[ -z "$LIBXML_BUILD_DIR" ]]; then
+if [[ -z "$LIBXML_BUILD_DIR" ]]; then
   echo "Need to set LIBXML_BUILD_DIR"
   exit 1
 fi
-if  [[ -z "$LIBIIDM_BUILD_DIR" ]]; then
+if [[ -z "$LIBIIDM_BUILD_DIR" ]]; then
   echo "Need to set LIBIIDM_BUILD_DIR"
+  exit 1
+fi
+if [[ -z "$XERCESC_BUILD_DIR" ]]; then
+  echo "Need to set XERCESC_BUILD_DIR"
   exit 1
 fi
 
 find_cxx_std_flag
+
+if [ $BOOST_ROOT_DEFAULT != true ]; then
+  BOOST_OPTION="--boost-install-dir=$BOOST_ROOT"
+else
+  BOOST_OPTION=""
+fi
+if [ $LIBARCHIVE_HOME_DEFAULT != true ]; then
+  LIBARCHIVE_OPTION="--libarchive-install-dir=$LIBARCHIVE_HOME"
+else
+  LIBARCHIVE_OPTION=""
+fi
+if [ $GTEST_ROOT_DEFAULT != true ]; then
+  GTEST_OPTION="--gtest-install-dir=$GTEST_ROOT"
+else
+  GTEST_OPTION=""
+fi
 
 compile_all || error_exit "Error while building 3rd parties"

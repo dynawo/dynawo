@@ -12,10 +12,26 @@
 # simulation tool for power systems.
 #
 
-error_exit()
-{
+error_exit() {
 	echo "${1:-"Unknown Error"}" 1>&2
 	exit -1
+}
+
+export_var_env() {
+  var=$@
+  name=${var%=*}
+  value=${var##*=}
+
+  if eval "[ \$$name ]"; then
+  	eval "value=\${$name}"
+    ##echo "Environment variable for $name already set : $value"
+    return
+  fi
+
+  if [  "$value" = UNDEFINED ]; then
+  	error_exit "You must define the value of $name"
+  fi
+  export $name="$value"
 }
 
 NICSLU_ARCHIVE=_nicslu301.zip
@@ -23,13 +39,16 @@ NICSLU_DIR=_nicslu
 
 HERE=$PWD
 
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 BUILD_DIR=$HERE
-export INSTALL_LIB=$HERE/lib
-export INSTALL_INCLUDE=$HERE/include
+INSTALL_DIR=$HERE/install
+export_var_env C_COMPILER=$(command -v gcc)
+export_var_env NB_PROCESSORS_USED=1
 
 patch_nicslu() {
+  cd $SCRIPT_DIR
   if [ -d "$BUILD_DIR" ]; then
-    if [ -z "$(ls -A $BUILD_DIR)" ]; then # If directory is empty
+    if [ ! -d "$BUILD_DIR/$NICSLU_DIR" ]; then
       if [ -x "$(command -v unzip)" ]; then
         unzip $NICSLU_ARCHIVE -d $BUILD_DIR
       else
@@ -41,16 +60,16 @@ patch_nicslu() {
 }
 
 install_nicslu() {
-  if [ -f "$NICSLU_ARCHIVE" ]; then
+  if [ -f "$SCRIPT_DIR/$NICSLU_ARCHIVE" ]; then
     patch_nicslu
     cd $BUILD_DIR/$NICSLU_DIR
-    if [ "${BUILD_TYPE}" = "Debug" ]; then
-      make DEBUGFLAG="-g" OPTIMIZATION="" || error_exit "Error while building Nicslu"
+    if [ "$BUILD_TYPE" = "Debug" ]; then
+      make -j $NB_PROCESSORS_USED CC=$C_COMPILER DEBUGFLAG="-g" OPTIMIZATION="" || error_exit "Error while building NICSLU"
     else
-      make || error_exit "Error while building Nicslu"
+      make -j $NB_PROCESSORS_USED CC=$C_COMPILER || error_exit "Error while building NICSLU"
     fi
-    cp -R include $INSTALL_DIR || error_exit "Error while building Nicslu"
-    cp lib/*.so $INSTALL_LIB && cp util/*.so $INSTALL_LIB || error_exit "Error while building Nicslu"
+    cp -R include $INSTALL_DIR || error_exit "Error while building NICSLU"
+    cp lib/*.so $INSTALL_DIR/lib && cp util/*.so $INSTALL_DIR/lib || error_exit "Error while building NICSLU"
   else
     echo ""
     echo "You can download Nicslu from http://nicslu.weebly.com/ and copy/paste the zip obtained in $(pwd)."
@@ -63,12 +82,9 @@ while (($#)); do
     --install-dir=*)
 	    INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
       if [ ! -d "$INSTALL_DIR" ]; then
-        mkdir -p $INSTALL_DIR
         mkdir -p $INSTALL_DIR/include
         mkdir -p $INSTALL_DIR/lib
       fi
-      export INSTALL_LIB=$INSTALL_DIR/lib
-      export INSTALL_INCLUDE=$INSTALL_DIR/include
       break
       ;;
     --build-dir=*)
@@ -84,4 +100,4 @@ while (($#)); do
   shift
 done
 
-install_nicslu || error_exit "Error while building NICSLU suite"
+install_nicslu || error_exit "Error while building NICSLU"
