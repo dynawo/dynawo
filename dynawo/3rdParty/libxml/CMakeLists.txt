@@ -22,8 +22,6 @@ option(LibXML_SAX_BUILD_PARSER "Set to OFF to disable XML SAX parser build" ON)
 option(LibXML_BUILD_TESTS "Set to OFF to disable testings" ON)
 option(LibXML_SAX_BUILD_SAMPLES "Set to OFF to disable XML SAX samples build" ON)
 
-
-
 set(LibXML_SAX_BUILD_SHARED TRUE CACHE BOOL "Build LibXML_SAX as shared library.")
 set(LibXML_SAX_BUILD_STATIC TRUE CACHE BOOL "Build LibXML_SAX as static library.")
 
@@ -76,7 +74,7 @@ endif ()
 # Add specific options for gcc
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic -Wall -Wextra")
-  
+
   if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.8)
     message(STATUS "Use of GCC version greater than 4.8: activate specific options")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-local-typedefs")
@@ -85,8 +83,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnarrowing")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wtrampolines")
   endif()
-  
-  
+
   if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.5 AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.4.0)
     # gcc 4.4.* as several problems with aliasing in Boost.Function and Boost.Optional (actually with align_as).
       set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing")
@@ -173,8 +170,6 @@ endif ()
 if (LibXML_SAX_BUILD_SAMPLES)
   add_subdirectory(samples)
 endif ()
-
-
 
 # install files allowing find_package.
 

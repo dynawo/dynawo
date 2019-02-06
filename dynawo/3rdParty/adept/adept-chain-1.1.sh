@@ -12,8 +12,7 @@
 # simulation tool for power systems.
 #
 
-error_exit()
-{
+error_exit() {
 	echo "${1:-"Unknown Error"}" 1>&2
 	exit -1
 }
@@ -29,22 +28,31 @@ export_var_env() {
     return
   fi
 
-  if [  "$value" = UNDEFINED ]; then
+  if [ "$value" = UNDEFINED ]; then
     error_exit "You must define the value of $name"
   fi
   export $name="$value"
 }
 
-ADEPT_ARCHIVE=adept-1.1.tar.gz
-ADEPT_DIRECTORY=adept-1.1
+ADEPT_VERSION=1.1
+ADEPT_ARCHIVE=adept-$ADEPT_VERSION.tar.gz
+ADEPT_DIRECTORY=adept-$ADEPT_VERSION
 export_var_env ADEPT_DOWNLOAD_URL=http://www.met.reading.ac.uk/clouds/adept
 
 HERE=$PWD
 
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 BUILD_DIR=$HERE
 BUILD_TYPE=Debug
+INSTALL_DIR=$BUILD_DIR/$ADEPT_DIRECTORY/install
+
+export_var_env COMPILER=GCC
+export_var_env C_COMPILER=$(command -v gcc)
+export_var_env CXX_COMPILER=$(command -v g++)
+export_var_env NB_PROCESSORS_USED=1
 
 download_adept() {
+  cd $SCRIPT_DIR
   if [ ! -f "${ADEPT_ARCHIVE}" ]; then
     if [ -x "$(command -v wget)" ]; then
       wget --timeout 10 --tries 3 ${ADEPT_DOWNLOAD_URL}/${ADEPT_ARCHIVE} || error_exit "Error while downloading Adept."
@@ -57,23 +65,25 @@ download_adept() {
 }
 
 install_adept() {
-  tar -xzf $ADEPT_ARCHIVE -C $BUILD_DIR
+  cd $SCRIPT_DIR
+  if [ ! -d "$BUILD_DIR/$ADEPT_DIRECTORY" ]; then
+    tar -xzf $ADEPT_ARCHIVE -C $BUILD_DIR
+  fi
   cd $BUILD_DIR/$ADEPT_DIRECTORY
   if [ "$COMPILER" = "GCC" ]; then
-    export CXXFLAGS_ADEPT=-Wall
+    CXXFLAGS_ADEPT=-Wall
   elif [ "$COMPILER" = "CLANG" ]; then
-    export CXXFLAGS_ADEPT=-Weverything
+    CXXFLAGS_ADEPT=-Weverything
   else
     error_exit "COMPILER environment variable needs to be GCC or CLANG."
   fi
   export CXXFLAGS_ADEPT="$CXXFLAGS_ADEPT $CXX_STDFLAG"
   if [ "${BUILD_TYPE}" = "Release" ]; then
-      ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -O3" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp
+    ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -O3" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp
   else
-      ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -g" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp
+    ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -g" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp
   fi
-
-  make && make install
+  make -j $NB_PROCESSORS_USED && make install
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -92,8 +102,8 @@ while (($#)); do
         mkdir -p $BUILD_DIR
       fi
       ;;
-     --build-type=*)
-          BUILD_TYPE=`echo $1 | sed -e 's/--build-type=//g'`
+    --build-type=*)
+      BUILD_TYPE=`echo $1 | sed -e 's/--build-type=//g'`
       ;;
     *)
       break

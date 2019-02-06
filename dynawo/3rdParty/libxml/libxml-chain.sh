@@ -11,8 +11,7 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 #
 
-error_exit()
-{
+error_exit() {
 	echo "${1:-"Unknown Error"}" 1>&2
 	exit -1
 }
@@ -23,29 +22,41 @@ export_var_env() {
   value=${var##*=}
 
   if eval "[ \$$name ]"; then
-      eval "value=\${$name}"
-      ##echo "Environment variable for $name already set : $value"
-      return
+    eval "value=\${$name}"
+    ##echo "Environment variable for $name already set : $value"
+    return
   fi
 
-  if [  "$value" = UNDEFINED ]; then
-        error_exit "You must define the value of $name"
+  if [ "$value" = UNDEFINED ]; then
+    error_exit "You must define the value of $name"
   fi
   export $name="$value"
 }
 
 HERE=$PWD
 
+SOURCE_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 BUILD_DIR=$HERE
+INSTALL_DIR=$SOURCE_DIR/install
 BUILD_TYPE=Debug
-export_var_env C_COMPILER=/bin/gcc
-export_var_env CXX_COMPILER=/bin/g++
+BOOST_INSTALL_DIR=""
+GTEST_INSTALL_DIR=""
+export_var_env C_COMPILER=$(command -v gcc)
+export_var_env CXX_COMPILER=$(command -v g++)
 export_var_env CXX11_ENABLED=NO
 export_var_env NB_PROCESSORS_USED=1
 
 install_libxml() {
   cd $BUILD_DIR
-  cmake $HERE -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=$C_COMPILER -DCMAKE_CXX_COMPILER=$CXX_COMPILER -DCXX11_ENABLED=$CXX11_ENABLED
+  if [ ! -z "$BOOST_INSTALL_DIR" ]; then
+    CMAKE_OPTIONNAL="-DBOOST_ROOT=$BOOST_INSTALL_DIR"
+  else
+    CMAKE_OPTIONNAL=""
+  fi
+  if [ ! -z "$GTEST_INSTALL_DIR" ]; then
+    CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DGTEST_ROOT=$GTEST_INSTALL_DIR"
+  fi
+  cmake $SOURCE_DIR -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=$C_COMPILER -DCMAKE_CXX_COMPILER=$CXX_COMPILER -DCXX11_ENABLED=$CXX11_ENABLED -DXERCESC_HOME=$XERCESC_INSTALL_DIR $CMAKE_OPTIONNAL
   make -j $NB_PROCESSORS_USED && make install
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -65,8 +76,17 @@ while (($#)); do
         mkdir -p $BUILD_DIR
       fi
       ;;
-     --build-type=*)
-          BUILD_TYPE=`echo $1 | sed -e 's/--build-type=//g'`
+    --build-type=*)
+      BUILD_TYPE=`echo $1 | sed -e 's/--build-type=//g'`
+      ;;
+    --xercesc-install-dir=*)
+			XERCESC_INSTALL_DIR=`echo $1 | sed -e 's/--xercesc-install-dir=//g'`
+			;;
+    --boost-install-dir=*)
+			BOOST_INSTALL_DIR=`echo $1 | sed -e 's/--boost-install-dir=//g'`
+			;;
+    --gtest-install-dir=*)
+      GTEST_INSTALL_DIR=`echo $1 | sed -e 's/--gtest-install-dir=//g'`
       ;;
     *)
       break
@@ -74,5 +94,10 @@ while (($#)); do
   esac
   shift
 done
+
+if [ -z "$XERCESC_INSTALL_DIR" ]; then
+  echo "Need to set XERCESC_INSTALL_DIR"
+  exit 1
+fi
 
 install_libxml || error_exit "Error while building libxml"

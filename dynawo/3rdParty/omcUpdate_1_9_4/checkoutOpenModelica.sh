@@ -12,8 +12,7 @@
 # simulation tool for power systems.
 #
 
-error_exit()
-{
+error_exit() {
     echo "${1:-"Unknown Error"}" 1>&2
     exit 1
 }

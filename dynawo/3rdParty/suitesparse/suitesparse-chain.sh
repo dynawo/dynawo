@@ -12,8 +12,7 @@
 # simulation tool for power systems.
 #
 
-error_exit()
-{
+error_exit() {
 	echo "${1:-"Unknown Error"}" 1>&2
 	exit -1
 }
@@ -29,7 +28,7 @@ export_var_env() {
     return
   fi
 
-  if [  "$value" = UNDEFINED ]; then
+  if [ "$value" = UNDEFINED ]; then
     error_exit "You must define the value of $name"
   fi
   export $name="$value"
@@ -40,54 +39,50 @@ SUITE_SPARSE_ARCHIVE=SuiteSparse-${SUITE_SPARSE_VERSION}.tar.gz
 SUITE_SPARSE_DIRECTORY=SuiteSparse
 export_var_env SUITE_SPARSE_DOWNLOAD_URL=http://faculty.cse.tamu.edu/davis/SuiteSparse
 
+HERE=$PWD
+
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+BUILD_DIR=$HERE
+INSTALL_DIR=$HERE/install
+export_var_env C_COMPILER=$(command -v gcc)
+export_var_env CXX_COMPILER=$(command -v g++)
+export_var_env NB_PROCESSORS_USED=1
+export_var_env CXX_STDFLAG=""
+
 download_suitesparse() {
+  cd $SCRIPT_DIR
   if [ ! -f "${SUITE_SPARSE_ARCHIVE}" ]; then
     if [ -x "$(command -v wget)" ]; then
       wget --timeout 10 --tries 3 ${SUITE_SPARSE_DOWNLOAD_URL}/${SUITE_SPARSE_ARCHIVE} || error_exit "Error while downloading SuiteSparse."
     elif [ -x "$(command -v curl)" ]; then
-      curl --connect-timeout 10 --retry 2 ${SUITE_SPARSE_DOWNLOAD_URL}/${ADEPT_ARCHIVE} --output ${SUITE_SPARSE_ARCHIVE} || error_exit "Error while downloading SuiteSparse."
+      curl --connect-timeout 10 --retry 2 ${SUITE_SPARSE_DOWNLOAD_URL}/${SUITE_SPARSE_ARCHIVE} --output ${SUITE_SPARSE_ARCHIVE} || error_exit "Error while downloading SuiteSparse."
     else
       error_exit "You need to install either wget or curl."
     fi
   fi
 }
 
-HERE=$PWD
-
-BUILD_DIR=$HERE
-export INSTALL_LIB=$HERE/lib
-export INSTALL_INCLUDE=$HERE/include
-
-patch_suitesparse() {
+install_suitesparse() {
+  cd $SCRIPT_DIR
   if [ ! -d "$BUILD_DIR/$SUITE_SPARSE_DIRECTORY" ]; then
     tar -xzf $SUITE_SPARSE_ARCHIVE -C $BUILD_DIR
   fi
-}
-
-install_suitesparse() {
-  patch_suitesparse
-  if [ ! -d "$INSTALL_LIB" ]; then
-    mkdir -p $INSTALL_LIB
-  fi
-  if [ ! -d "$INSTALL_INCLUDE" ]; then
-    mkdir -p $INSTALL_INCLUDE
-  fi
   if [ "${BUILD_TYPE}" = "Debug" ]; then
-    export CC_FLAG="-g"
-    export OPTIMIZATION=""
+    CC_FLAG="-g"
+    OPTIMIZATION=""
   else
-    export CC_FLAG=""
+    CC_FLAG=""
   fi
   cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config
-  (make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" install) || error_exit "Error while building SuiteSparse"
+  { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make  CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building SuiteSparse"
   cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/AMD
-  (make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" install) || error_exit "Error while building AMD"
+  { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building AMD"
   cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/COLAMD
-  (make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" install) || error_exit "Error while building COLAMD"
+  { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building COLAMD"
   cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/BTF
-  (make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" install) || error_exit "Error while building BTF"
+  { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building BTF"
   cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/KLU
-  (make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" install) || error_exit "Error while building KLU"
+  { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building KLU"
 }
 
 while (($#)); do
@@ -97,8 +92,6 @@ while (($#)); do
       if [ ! -d "$INSTALL_DIR" ]; then
         mkdir -p $INSTALL_DIR
       fi
-      export INSTALL_LIB=$INSTALL_DIR/lib
-      export INSTALL_INCLUDE=$INSTALL_DIR/include
       break
       ;;
     --build-dir=*)
@@ -114,5 +107,5 @@ while (($#)); do
   shift
 done
 
-download_suitesparse || error_exit "Error while downloading Adept"
+download_suitesparse || error_exit "Error while downloading SuiteSparse suite"
 install_suitesparse || error_exit "Error while building SuiteSparse suite"
