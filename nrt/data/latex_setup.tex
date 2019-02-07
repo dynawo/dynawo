@@ -1,0 +1,141 @@
+%%  Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+%%  See AUTHORS.txt
+%%  All rights reserved.
+%%  This Source Code Form is subject to the terms of the Mozilla Public
+%%  License, v. 2.0. If a copy of the MPL was not distributed with this
+%%  file, you can obtain one at http://mozilla.org/MPL/2.0/.
+%%  SPDX-License-Identifier: MPL-2.0
+%%
+%%  This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+%%  simulation tool for power systems.
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define text and document settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{lmodern} % Latin Modern fam­ily of fonts
+\usepackage[english]{babel} % English
+
+% Specify encoding
+\usepackage[utf8]{inputenc} % Input
+\usepackage[T1]{fontenc} % Output
+
+% Document structure setup
+\usepackage{titlesec} % To change chapter format
+\setcounter{tocdepth}{3} % Add subsubsection in Content
+\setcounter{secnumdepth}{3} % Add numbering for subsubsection
+\setlength{\parindent}{0pt} % No paragraph indentation
+
+% Avoid numbering starting at each chapter for figures
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+
+% Change title format for chapter
+\titleformat{\chapter}{\Huge\bf}{\thechapter}{20pt}{\Huge\bf}
+
+% To add links on page number in Content and hide red rectangle on links
+\usepackage[hidelinks, linktoc=all]{hyperref}
+\usepackage[nottoc]{tocbibind} % To add biblio in table of content
+\usepackage{textcomp} % For single quote
+\usepackage{url} % Allow linebreaks in \url command 
+\usepackage{listings} % To add code samples
+
+% Define typography
+\usepackage{xspace} 
+\usepackage{dirtree}
+\newcommand{\Dynawo}[0]{Dyna$\omega$o\xspace}
+
+% Default listings parameters
+\lstset
+{
+  aboveskip={1\baselineskip}, % A bit of space above
+  backgroundcolor=\color{shadecolor}, % Choose the background color
+  basicstyle={\ttfamily\footnotesize}, % Use font and smaller size \small \footnotesize
+  breakatwhitespace=true, % Sets if automatic breaks should only happen at whitespace
+  breaklines=true, % Sets automatic line breaking
+  columns=fixed, % Nice spacing -> fixed / flexible
+  mathescape=false, % Escape to latex false
+  numbers=left, % Where to put the line-numbers
+  numberstyle=\tiny\color{gray}, % The style that is used for the line-numbers
+  showstringspaces=false, % Do not emphasize spaces in strings
+  tabsize=4, % Number of spaces of a TAB
+  texcl=false, % Activates or deactivates LaTeX comment lines
+  upquote=true % Upright quotes
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define plots settings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Macro pack­age for cre­at­ing graph­ics
+\usepackage{tikz} 
+\usepackage{float}
+
+% Draws func­tion plots (based on pgf/tikz)
+\usepackage{pgfplots}
+\pgfplotsset{enlarge x limits=false, xlabel={\begin{small}$time$ (s)\end{small}}, height=0.6\textwidth, width=1\textwidth} 
+\pgfplotstableset{col sep=semicolon}
+
+% Define colors
+\usepackage{color}
+\definecolor{blue}{rgb}{.3,.5,1}
+\definecolor{deepblue}{rgb}{0,0,1}
+\definecolor{darkblue}{rgb}{0,0,.4}
+\definecolor{red}{rgb}{1,0,0}
+\definecolor{darkred}{rgb}{.56,0,0}
+\definecolor{pink}{rgb}{.933,0,.933}
+\definecolor{purple}{rgb}{0.58,0,0.82}
+\definecolor{green}{rgb}{0.133,0.545,0.133}
+\definecolor{darkgreen}{rgb}{0,.4,0}
+\definecolor{gray}{rgb}{.3,.3,.3}
+\definecolor{darkgray}{rgb}{.2,.2,.2}
+\definecolor{shadecolor}{gray}{0.925}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define blocks for simple network drawings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define blocks for newtorks drawings
+\usepackage{amsmath} % Add math­e­mat­i­cal fea­tures
+\usepackage{schemabloc} % Add block diagram library (french one)
+
+%% Define infinite bus
+\tikzset{infinite bus/.pic={
+  code={
+  \draw (0,0) circle (2) node[inner sep=0, outer sep=0] {{$\infty$}};
+  \draw (2,0) --++ (2,0);
+ 	}
+  }
+}
+
+%% Define transformer
+\tikzset{transfo/.pic={
+  code={
+  \draw (0,0) circle (2);
+  \draw (2,0) circle (2);
+  \draw (4,0) --++ (4,0);
+  \draw (-2,0) --++ (-4,0);
+ 	}
+  }
+}
+
+%% Define generator
+\tikzset{generator/.pic={
+  code={
+  	\draw (0,0) circle (2);
+    \draw (0,0) arc (0:180:0.5);
+    \draw (0,0) arc (180:360:0.5);
+    \draw (-2,0) --++ (-2,0);
+ 	}
+  }
+}
+
+%% Define generator controls
+\tikzset{VR/.pic={
+  code={
+  \draw (0,0) circle (2) node[inner sep=0, outer sep=0] {{VR}};
+ 	}
+  }
+}
+
