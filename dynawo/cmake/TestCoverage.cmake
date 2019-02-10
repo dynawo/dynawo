@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage"))
@@ -26,7 +26,6 @@ set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${COVERAGE_LINKER_FL
 set(LCOV_EXCLUDE_PATTERNS "" CACHE STRING "lcov exclude patterns.")
 set(LCOV_OUTPUT_FILE "${CMAKE_BINARY_DIR}/coverage/coverage.info" CACHE STRING "lcov output file.")
 set(GENHTML_OUTPUT_DIR "${CMAKE_BINARY_DIR}/coverage" CACHE STRING "genhtml output directory.")
-set(Coverage_OUTPUT_DIR "${CMAKE_BINARY_DIR}/coverage-sonar" CACHE STRING "coverage output directory.")
 
 IF("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   find_program(GCOV_PATH gcov)
@@ -64,11 +63,6 @@ if (NOT LCOV_PATH)
   message(FATAL_ERROR "lcov not found")
 endif()
 
-find_program(GCOVR_CMD gcovr)
-if (NOT GCOVR_CMD)
-  message(FATAL_ERROR "gcovr not found")
-endif ()
-
 function(add_test_coverage test-target extract_patterns)
    ## report generation for test
    add_custom_target(${test-target}-launch
@@ -80,7 +74,6 @@ function(add_test_coverage test-target extract_patterns)
      COMMAND ${GENHTML_PATH} ${GENHTML_OPTIONS} -o ${GENHTML_OUTPUT_DIR} ${LCOV_OUTPUT_FILE}
      DEPENDS ${test-target}-launch)
    add_dependencies(tests-coverage ${test-target}-launch)
-   add_dependencies(tests-coverage-sonar ${test-target})
 endfunction()
 
 
@@ -94,19 +87,3 @@ add_custom_target(tests-coverage
 
 add_custom_target(export-coverage
   COMMAND ${GENHTML_PATH} ${GENHTML_OPTIONS} -o ${GENHTML_OUTPUT_DIR} ${LCOV_OUTPUT_FILE} )
-
-### Specific targets for SONARQUBE
-add_custom_target(reset-coverage-sonar
-  COMMAND ${CMAKE_COMMAND} -E remove_directory ${Coverage_OUTPUT_DIR}
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${Coverage_OUTPUT_DIR}/reports)
-
-add_custom_target(tests-coverage-sonar
-  COMMENT "launch each unit test")
-
-add_custom_target(export-coverage-sonar
-  # Generating report
-  COMMAND ${GCOVR_CMD} ${CMAKE_CURRENT_BINARY_DIR}/sources/ --root ${CMAKE_HOME_DIRECTORY}/sources/
-    --html --html-details --output ${Coverage_OUTPUT_DIR}/index.html
-    --keep --object-directory ${Coverage_OUTPUT_DIR}/reports
-    --exclude=.*/test/.*
-)

@@ -28,6 +28,7 @@ where [option] can be:
     =========== Building Dynawo
     build-omcDynawo                   build the openModelica compiler for dynawo (need to have OpenModelica sources)
     build-3rd-party                   build 3rd party softwares (SuiteSparse, Sundials and Adept)
+    build-3rd-party-version           build 3rd party softwares version (SuiteSparse, Sundials and Adept)
     config-dynawo                     configure Dynawo's compiling environment using CMake
     build-dynawo                      build Dynawo and install preassembled models
     build-dynawo-core                 build Dynawo without preassembled models
@@ -38,8 +39,6 @@ where [option] can be:
     clean-tests-coverage              remove all objects needed for unittest-coverage
     build-tests ([args])              build and launch Dynawo's unittest (launch all tests if [args] is empty)
     build-tests-coverage ([args])     build/launch Dynawo's unittest and generate code coverage report (launch all tests if [args] is empty)
-
-    launch-tests-coverage-sonar       launch ALL Dynawo's unittest and generate code coverage report (specific target for sonar toolchain)
 
     build-all                         call in this order build-3rd-party, config-dynawo, build-dynawo, build-doxygen-doc
 
@@ -163,10 +162,6 @@ set_environment() {
     export_var_env_force BUILD_TYPE=TestCoverage
     export_var_env_force USE_XSD_VALIDATION=true
     ;;
-  launch-tests-coverage-sonar)
-    export_var_env_force BUILD_TYPE=TestCoverage
-    export_var_env_force USE_XSD_VALIDATION=true
-    ;;
   build-tests)
     export_var_env_force BUILD_TYPE=Tests
     export_var_env_force USE_XSD_VALIDATION=true
@@ -190,11 +185,11 @@ set_environment() {
   # Find build type for thid party libraries
   export_var_env_force BUILD_TYPE_THIRD_PARTY=$BUILD_TYPE
   case $BUILD_TYPE_THIRD_PARTY in
-  Tests | TestCoverage)
-    export_var_env_force BUILD_TYPE_THIRD_PARTY="Debug"
-    ;;
-  *)
-    ;;
+    Tests | TestCoverage)
+      export_var_env_force BUILD_TYPE_THIRD_PARTY="Debug"
+      ;;
+    *)
+      ;;
   esac
 
   # Compiler, to have default with gcc
@@ -443,20 +438,20 @@ build_3rd_party() {
   export_var_env_force BUILD_TYPE=Release
   export_var_env_force CXX11_ENABLED=NO
   set_environment "No-Mode"
-  build_third_party_version || error_exit
+  build_3rd_party_version || error_exit
 
   export_var_env_force CXX11_ENABLED=YES
   set_environment "No-Mode"
-  build_third_party_version || error_exit
+  build_3rd_party_version || error_exit
 
   export_var_env_force BUILD_TYPE=Debug
   export_var_env_force CXX11_ENABLED=NO
   set_environment "No-Mode"
-  build_third_party_version || error_exit
+  build_3rd_party_version || error_exit
 
   export_var_env_force CXX11_ENABLED=YES
   set_environment "No-Mode"
-  build_third_party_version || error_exit
+  build_3rd_party_version || error_exit
 
   # Come back to initial environement
   export_var_env_force BUILD_TYPE=$INITIAL_BUILD_TYPE
@@ -472,7 +467,7 @@ build_3rd_party() {
 }
 
 # Build a speficic verison of third party libraries
-build_third_party_version() {
+build_3rd_party_version() {
   if [ ! -d "$THIRD_PARTY_BUILD_DIR_VERSION" ]; then
     cd $DYNAWO_SRC_DIR/3rdParty
     bash toolchain.sh
@@ -541,17 +536,33 @@ compileModelicaOMC() {
 # Compile Dynawo core (without models)
 build_dynawo_core() {
   cd $DYNAWO_BUILD_DIR
-  make -j$NB_PROCESSORS_USED && make -j$NB_PROCESSORS_USED install && make -j$NB_PROCESSORS_USED models-cpp
+  make -j$NB_PROCESSORS_USED && make -j$NB_PROCESSORS_USED install
   RETURN_CODE=$?
   return ${RETURN_CODE}
+}
+
+build_dynawo_models_cpp() {
+  cd $DYNAWO_BUILD_DIR
+  make -j$NB_PROCESSORS_USED models-cpp || error_exit
+}
+
+build_dynawo_models() {
+  cd $DYNAWO_BUILD_DIR
+  make -j$NB_PROCESSORS_USED models || error_exit
+}
+
+build_dynawo_solvers() {
+  cd $DYNAWO_BUILD_DIR
+  make -j$NB_PROCESSORS_USED solvers || error_exit
 }
 
 # Compile Dynawo (core + models)
 build_dynawo() {
   cd $DYNAWO_BUILD_DIR
   build_dynawo_core || error_exit
-  make -j$NB_PROCESSORS_USED models || error_exit
-  make -j$NB_PROCESSORS_USED solvers
+  build_dynawo_models_cpp || error_exit
+  build_dynawo_models || error_exit
+  build_dynawo_solvers
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -567,14 +578,15 @@ build_all() {
 }
 
 build_tests() {
-  if [ ! -d "$THIRD_PARTY_BUILD_DIR" ]; then
-    build_3rd_party || error_exit
+  if [ ! -d "$THIRD_PARTY_BUILD_DIR_VERSION" ]; then
+    build_3rd_party_version || error_exit
   fi
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     config_dynawo || error_exit
   fi
   ## for unit test, no need to generate modelica models
   build_dynawo_core || error_exit
+  build_dynawo_models_cpp || error_exit
 
   tests=$@
   if [ -z "$tests" ]; then
@@ -597,14 +609,15 @@ list_tests() {
 }
 
 build_tests_coverage() {
-  if [ ! -d "$THIRD_PARTY_BUILD_DIR" ]; then
-    build_3rd_party || error_exit
+  if [ ! -d "$THIRD_PARTY_BUILD_DIR_VERSION" ]; then
+    build_3rd_party_version || error_exit
   fi
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     config_dynawo || error_exit
   fi
   ## for unit test, no need to generate modelica models
   build_dynawo_core || error_exit
+  build_dynawo_models_cpp || error_exit
 
   tests=$@
 
@@ -624,24 +637,18 @@ build_tests_coverage() {
   if [ "$RESULTS_SHOW" = true ] ; then
     $BROWSER $DYNAWO_BUILD_DIR/coverage/index.html
   fi
-}
-
-launch_tests_coverage_sonar() {
-  if [ ! -d "$THIRD_PARTY_BUILD_DIR" ]; then
-    build_3rd_party || error_exit
+  cp $DYNAWO_BUILD_DIR/coverage/coverage.info $DYNAWO_HOME/build
+  if [ -d "$DYNAWO_HOME/build/coverage-sonar" ]; then
+    rm -rf "$DYNAWO_HOME/build/coverage-sonar"
   fi
-  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
-    config_dynawo || error_exit
-  fi
-  ## for unit test, no need to generate modelica models
-  build_dynawo_core || error_exit
-
-  make reset-coverage-sonar || error_exit
-  make tests-coverage-sonar || error_exit
-  make export-coverage-sonar || error_exit
-  if [ "$RESULTS_SHOW" = true ] ; then
-    $BROWSER $DYNAWO_BUILD_DIR/coverage-sonar/index.html
-  fi
+  mkdir -p $DYNAWO_HOME/build/coverage-sonar
+  cd $DYNAWO_HOME/build/coverage-sonar
+  for file in $(find $DYNAWO_BUILD_DIR -name "*.gcno"); do
+    cpp_file_name=$(basename $file .gcno)
+    cpp_file=$(find $DYNAWO_HOME/dynawo/sources -name "$cpp_file_name")
+    gcov -pb $cpp_file -o $file > /dev/null
+  done
+  rm -f $DYNAWO_HOME/build/coverage-sonar/\#usr\#*
 }
 
 clean_tests() {
@@ -1063,13 +1070,13 @@ deploy_dynawo() {
   cp $DYNAWO_INSTALL_DIR/sbin/dydLibGenerator sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dumpSolver sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dydLibGenerator-${version} bin/
-    
+
   if [ -d "$DYNAWO_INSTALL_DIR/doxygen" ]; then
     mkdir -p doxygen
     cp -r $DYNAWO_INSTALL_DIR/doxygen/html doxygen/.
     cp $DYNAWO_INSTALL_DIR/doxygen/Dynawo.tag doxygen/.
   fi
-    
+
   cp -r $CURVES_TO_HTML_DIR sbin/.
   mkdir -p sbin/nrt
   cp -r $DYNAWO_HOME/util/nrt_diff sbin/nrt/.
@@ -1214,6 +1221,10 @@ case $MODE in
     build_3rd_party || error_exit "Error while building 3rd parties"
     ;;
 
+  build-3rd-party-version)
+    build_3rd_party_version || error_exit "Error while building 3rd party version"
+    ;;
+
   compileModelicaOMCHelp)
     compileModelicaOMCHelp || error_exit
     ;;
@@ -1239,6 +1250,18 @@ case $MODE in
     build_test_doxygen_doc || error_exit "Error while building doxygen documentation"
     ;;
 
+  build-dynawo-models-cpp)
+    build_dynawo_models_cpp || error_exit "Failed to build Dynawo models-cpp"
+    ;;
+
+  build-dynawo-models)
+    build_dynawo_models || error_exit "Failed to build Dynawo models"
+    ;;
+
+  build-dynawo-solvers)
+    build_dynawo_solvers || error_exit "Failed to build Dynawo solvers"
+    ;;
+
   build-modelica-doc)
     build_modelica_doc || error_exit "Error while building Dynawo Modelica library documentation"
     ;;
@@ -1253,10 +1276,6 @@ case $MODE in
 
   build-tests-coverage)
     build_tests_coverage ${ARGS}|| error_exit
-    ;;
-
-  launch-tests-coverage-sonar)
-    launch_tests_coverage_sonar || error_exit
     ;;
 
   list-tests)

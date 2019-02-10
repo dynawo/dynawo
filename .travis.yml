@@ -1,0 +1,76 @@
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# See AUTHORS.txt
+# All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, you can obtain one at http://mozilla.org/MPL/2.0/.
+# SPDX-License-Identifier: MPL-2.0
+#
+# This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+# simulation tool for power systems.
+#
+# Continous Integration setup for Dynawo.
+
+dist: trusty
+sudo: required
+
+language: cpp
+
+compiler: g++
+
+services:
+  - docker
+
+addons:
+  sonarcloud:
+    organization: "dynawo"
+    token:
+      secure: ${SONAR_TOKEN}
+
+env:
+  global:
+    - DYNAWO_HOME=/home/dynawo_travis/dynawo;
+    - OPENMODELICA_VERSION=1_9_4
+    - INSTALL_OPENMODELICA=/opt/OpenModelica/Install
+    - SRC_OPENMODELICA=/opt/OpenModelica/Source"
+    - NB_PROCESSORS_USED=2
+    - RESULTS_SHOW="false"
+    - USE_ADEPT=YES
+    - ADEPT_DOWNLOAD_URL=http://localhost:8080
+    - SUNDIALS_DOWNLOAD_URL=http://localhost:8080
+    - SUITE_SPARSE_DOWNLOAD_URL=http://localhost:8080
+    - JQUERY_DOWNLOAD_URL=http://localhost:8080
+    - FLOT_DOWNLOAD_URL=http://localhost:8080
+    - CPPLINT_DOWNLOAD_URL=http://localhost:8080
+    - XERCESC_DOWNLOAD_URL=http://localhost:8080
+    - ci_env=`bash <(curl -s https://codecov.io/env)`
+    - dynawo_env=$(echo -n "-e DYNAWO_HOME -e OPENMODELICA_VERSION -e INSTALL_OPENMODELICA -e SRC_OPENMODELICA -e NB_PROCESSORS_USED -e RESULTS_SHOW -e USE_ADEPT -e BUILD_TYPE -e CXX11_ENABLED")
+    - dynawo_env_url=$(echo -n "-e ADEPT_DOWNLOAD_URL -e SUNDIALS_DOWNLOAD_URL -e SUITE_SPARSE_DOWNLOAD_URL -e JQUERY_DOWNLOAD_URL -e FLOT_DOWNLOAD_URL -e CPPLINT_DOWNLOAD_URL -e XERCESC_DOWNLOAD_URL")
+    - SH="docker exec $dynawo_env $dynawo_env_url dynawo_travis_container bash -c"
+
+install:
+  - docker pull dynawo/dynawo-travis
+  - docker run -itd -u dynawo_travis --name dynawo_travis_container dynawo/dynawo-travis
+  - GIT_COMMAND=$(util/travis_ci/checkout_branch.sh)
+  - docker exec dynawo_travis_container bash -c "$GIT_COMMAND"
+  - docker exec dynawo_travis_container bash -c "cd /opt;nohup python -m SimpleHTTPServer 8080 &> /dev/null &"
+
+jobs:
+  include:
+    - stage: build
+      env: BUILD_TYPE=Debug CXX11_ENABLED=YES
+      script: $SH "cd dynawo;util/envDynawo.sh build-3rd-party-version;util/envDynawo.sh build-dynawo"
+      after_success:
+        - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_EVENT_TYPE" = "push" ]; then docker exec -e SONAR_TOKEN $dynawo_env $dynawo_env_url dynawo_travis_container bash -c "cd dynawo;/opt/sonar/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output ./util/envDynawo.sh build-tests-coverage;/opt/sonar/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner;"; else $SH "cd dynawo;util/envDynawo.sh build-tests-coverage;"; fi
+        - $SH "cd dynawo;util/envDynawo.sh build-tests-coverage;"
+        - docker exec -e $COVERALLS_TOKEN dynawo_travis_container bash -c "cd dynawo;coveralls-lcov -t $COVERALLS_TOKEN build/coverage.info"
+        - docker exec $ci_env dynawo_travis_container bash -c "cd dynawo;bash <(curl -s https://codecov.io/bash) > /dev/null"
+    - stage: build
+      env: BUILD_TYPE=Debug CXX11_ENABLED=NO
+      script: $SH "cd dynawo;util/envDynawo.sh build-3rd-party-version;util/envDynawo.sh build-dynawo"
+    - stage: build
+      env: BUILD_TYPE=Release CXX11_ENABLED=YES
+      script: $SH "cd dynawo;util/envDynawo.sh build-3rd-party-version;util/envDynawo.sh build-dynawo"
+    - stage: build
+      env: BUILD_TYPE=Release CXX11_ENABLED=NO
+      script: $SH "cd dynawo;util/envDynawo.sh build-3rd-party-version;util/envDynawo.sh build-dynawo"
