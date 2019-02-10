@@ -11,6 +11,10 @@
     simulation tool for power systems.
 -->
 # Dyna&omega;o - An hybrid C++/Modelica time-domain simulation tool for power systems
+[![Build Status](https://travis-ci.com/dynawo/dynawo.svg?branch=master)](https://travis-ci.com/dynawo/dynawo)
+[![Coverage Status](https://codecov.io/gh/dynawo/dynawo/branch/master/graph/badge.svg)](https://codecov.io/gh/dynawo/dynawo)
+[![Coverage Status](https://coveralls.io/repos/github/dynawo/dynawo/badge.svg?branch=master)](https://coveralls.io/github/dynawo/dynawo?branch=master)
+[![MPL-2.0 License](https://img.shields.io/badge/license-MPL_2.0-blue.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
 
 [http://dynawo.org](http://dynawo.org)
 
