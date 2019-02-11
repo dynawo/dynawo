@@ -31,7 +31,7 @@ where [option] can be:
     config-dynawo                     configure Dynawo's compiling environment using CMake
     build-dynawo                      build Dynawo and install preassembled models
     build-dynawo-core                 build Dynawo without preassembled models
-    build-doc                         build all doxygen documentation
+    build-doxygen-doc                 build all doxygen documentation
     build-modelica-doc                build all dynawo modelica library document
     list-tests                        print all available unittest target
     clean-tests                       remove all objects needed for unittest
@@ -41,7 +41,7 @@ where [option] can be:
 
     launch-tests-coverage-sonar       launch ALL Dynawo's unittest and generate code coverage report (specific target for sonar toolchain)
 
-    build-all                         call in this order build-3rd-party, config-dynawo, build-dynawo, build-doc
+    build-all                         call in this order build-3rd-party, config-dynawo, build-dynawo, build-doxygen-doc
 
     distrib                           create distribution of dynawo
     distrib-omc                       create distribution with omc binary
@@ -79,7 +79,7 @@ where [option] can be:
     =========== Others
     compileModelicaOMCHelp            show the compilerModelica's help
     curves-visu ([args])              visualize curves output from Dynawo in an HTML file
-    doc-dynawo                        open Dynawo's documentation into chosen browser
+    doxygen-doc-dynawo                open Dynawo's Doxygen documentation into chosen browser
     flat-model ([args])               generate and display the (full) flat Modelica model
     nrt ([-p regex] [-n name_filter]) run (filtered) non-regression tests and open the result in chosen browser
     nrt-diff ([args])                 make a diff between two non-regression test outputs
@@ -237,7 +237,7 @@ set_environment() {
   export_var_env THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
   export_var_env THIRD_PARTY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/$COMPILER_NAME$COMPILER_VERSION
   export_var_env THIRD_PARTY_INSTALL_DIR=$DYNAWO_HOME/install/3rdParty/$COMPILER_NAME$COMPILER_VERSION
-  if [ "${CXX11_ENABLED,,}" = "yes" -o "${CXX11_ENABLED,,}" = "true" -o "${CXX11_ENABLED,,}" = "on" ]; then
+  if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     export_var_env_force THIRD_PARTY_BUILD_DIR_VERSION=$THIRD_PARTY_BUILD_DIR/$BUILD_TYPE_THIRD_PARTY-cxx11
     export_var_env_force THIRD_PARTY_INSTALL_DIR_VERSION=$THIRD_PARTY_INSTALL_DIR/$BUILD_TYPE_THIRD_PARTY-cxx11
   else
@@ -381,7 +381,7 @@ fi"
     fi
   fi
 
-  if [ "$(git config --get core.commentchar)" == "#" ]; then
+  if [ "$(git config --get core.commentchar)" = "#" ]; then
     git config core.commentchar % || error_exit "You need to change git config commentchar from # to %."
   fi
 }
@@ -563,7 +563,7 @@ build_all() {
   fi
   config_dynawo || error_exit
   build_dynawo || error_exit
-  build_test_doc || error_exit
+  build_test_doxygen_doc || error_exit
 }
 
 build_tests() {
@@ -725,13 +725,13 @@ version_validation() {
   nrt || error_exit
 }
 
-# Compile Dynawo doc
-build_test_doc() {
-  build_doc || error_exit
+# Compile Dynawo Doxygen doc
+build_test_doxygen_doc() {
+  build_doxygen_doc || error_exit
   test_doxygen_doc || error_exit
 }
 
-build_doc() {
+build_doxygen_doc() {
   cd $DYNAWO_BUILD_DIR
   mkdir -p $DYNAWO_INSTALL_DIR/doxygen/
   make -j $NB_PROCESSORS_USED doc
@@ -873,11 +873,11 @@ dump_model() {
   return ${RETURN_CODE}
 }
 
-doc_dynawo() {
+doxygen_doc_dynawo() {
   if [ ! -f "$DYNAWO_INSTALL_DIR/doxygen/html/index.html" ]; then
     echo "Doxygen documentation not yet generated"
     echo "Generating ..."
-    build_test_doc
+    build_test_doxygen_doc
     RETURN_CODE=$?
     if [ ${RETURN_CODE} -ne 0 ]; then
       exit ${RETURN_CODE}
@@ -1235,8 +1235,8 @@ case $MODE in
     build_dynawo_core || error_exit "Failed to build Dynawo core"
     ;;
 
-  build-doc)
-    build_test_doc || error_exit "Error while building doxygen documenation"
+  build-doxygen-doc)
+    build_test_doxygen_doc || error_exit "Error while building doxygen documentation"
     ;;
 
   build-modelica-doc)
@@ -1315,8 +1315,8 @@ case $MODE in
     dump_model ${ARGS} || error_exit "Error during model's description dump"
     ;;
 
-  doc-dynawo)
-    doc_dynawo || error_exit "Error during dynawo doc visualisation"
+  doxygen-doc-dynawo)
+    doxygen_doc_dynawo || error_exit "Error during Dynawo Doxygen doc visualisation"
     ;;
 
   flat-model)
