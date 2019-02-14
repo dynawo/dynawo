@@ -348,7 +348,7 @@ $DYNAWO_HOME/util/hooks/commit_hook.sh"' $1'
       chmod +x $DYNAWO_HOME/.git/hooks/commit-msg || error_exit "commit-msg in .git/hooks needs to be executable."
     fi
   else
-    if [ -d ".git" ]; then
+    if [ -d "$DYNAWO_HOME/.git" ]; then
       echo "$hook_file_msg" > $DYNAWO_HOME/.git/hooks/commit-msg || error_exit "You need to set commit-msg in .git/hooks."
       chmod +x $DYNAWO_HOME/.git/hooks/commit-msg || error_exit "commit-msg in .git/hooks needs to be executable."
     fi
@@ -975,7 +975,6 @@ deploy_dynawo() {
   mkdir -p extraLibs/BOOST/lib/
   mkdir -p extraLibs/XERCESC/lib/
   mkdir -p extraLibs/LIBARCHIVE/lib/
-  mkdir -p extraLibs/LIBIIDM/lib/
   mkdir -p extraLibs/LIBZIP/lib
   mkdir -p extraLibs/LIBXML/lib
   cp -P $SUNDIALS_INSTALL_DIR/lib/*.* 3rdParty/sundials/lib/
@@ -988,7 +987,22 @@ deploy_dynawo() {
   fi
   cp -P $LIBZIP_HOME/lib/*.* extraLibs/LIBZIP/lib/
   cp -P $LIBXML_HOME/lib/*.* extraLibs/LIBXML/lib/
-  cp -P $LIBIIDM_HOME/lib/*.* extraLibs/LIBIIDM/lib/
+  
+  cd $THIRD_PARTY_SRC_DIR/libiidm
+  if [ $BOOST_ROOT_DEFAULT != true ]; then
+    BOOST_OPTION="--boost-install-dir=$BOOST_ROOT"
+  else
+    BOOST_OPTION=""
+  fi
+  if [ $GTEST_ROOT_DEFAULT != true ]; then
+    GTEST_OPTION="--gtest-install-dir=$GTEST_ROOT"
+  else
+    GTEST_OPTION=""
+  fi
+  bash libiidm-chain.sh --build-dir=$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM/build --install-dir=$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM/ --build-type=$BUILD_TYPE --libxml-install-dir=$LIBXML_INSTALL_DIR $BOOST_OPTION $GTEST_OPTION
+  rm -rf $DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM/build
+
+  cd $DYNAWO_DEPLOY_DIR
 
   mkdir -p 3rdParty/sundials/include
   mkdir -p 3rdParty/adept/include
@@ -996,7 +1010,6 @@ deploy_dynawo() {
   mkdir -p 3rdParty/nicslu/include
   mkdir -p extraLibs/BOOST/include
   mkdir -p extraLibs/LIBARCHIVE/include
-  mkdir -p extraLibs/LIBIIDM/include
   mkdir -p extraLibs/LIBZIP/include
   mkdir -p extraLibs/LIBXML/include
   cp -R -P $SUNDIALS_INSTALL_DIR/include/* 3rdParty/sundials/include/
@@ -1009,13 +1022,9 @@ deploy_dynawo() {
   fi
   cp -R -P $LIBZIP_HOME/include/libzip extraLibs/LIBZIP/include/
   cp -R -P $LIBXML_HOME/include/xml extraLibs/LIBXML/include/
-  cp -R -P $LIBIIDM_HOME/include/IIDM extraLibs/LIBIIDM/include/
 
-  mkdir -p extraLibs/LIBIIDM/share
   mkdir -p extraLibs/LIBXML/share
   cp -R -P $LIBXML_HOME/share/cmake extraLibs/LIBXML/share/
-  cp -R -P $LIBIIDM_HOME/share/cmake extraLibs/LIBIIDM/share/
-  cp -R -P $LIBIIDM_HOME/share/iidm extraLibs/LIBIIDM/share/
 
   mkdir -p 3rdParty/openmodelica/bin/
   mkdir -p 3rdParty/openmodelica/include/
