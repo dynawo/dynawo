@@ -161,10 +161,12 @@ set_environment() {
   build-tests-coverage)
     export_var_env_force BUILD_TYPE=TestCoverage
     export_var_env_force USE_XSD_VALIDATION=true
+    export DYNAWO_DICTIONARIES=dictionaries_mapping
     ;;
   build-tests)
     export_var_env_force BUILD_TYPE=Tests
     export_var_env_force USE_XSD_VALIDATION=true
+    export DYNAWO_DICTIONARIES=dictionaries_mapping
     ;;
   list-tests)
     export_var_env_force BUILD_TYPE=Tests

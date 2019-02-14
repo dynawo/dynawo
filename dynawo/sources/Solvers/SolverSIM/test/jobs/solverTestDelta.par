@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+    <!--Network parameters-->
+    <set id="0">
+        <par type="DOUBLE" name="CAPACITOR_no_reclosing_delay" value="300"/>
+        <par type="DOUBLE" name="DANGLING_LINE_currentLimit_maxTimeOperation" value="90"/>
+        <par type="DOUBLE" name="LINE_currentLimit_maxTimeOperation" value="90"/>
+        <par type="DOUBLE" name="LOAD_Tp" value="90"/>
+        <par type="DOUBLE" name="LOAD_Tq" value="90"/>
+        <par type="DOUBLE" name="LOAD_alpha" value="1"/>
+        <par type="DOUBLE" name="LOAD_alphaLong" value="0"/>
+        <par type="DOUBLE" name="LOAD_beta" value="2"/>
+        <par type="DOUBLE" name="LOAD_betaLong" value="0"/>
+        <par type="BOOL" name="LOAD_isControllable" value="false"/>
+        <par type="BOOL" name="LOAD_isRestorative" value="false"/>
+        <par type="DOUBLE" name="LOAD_zPMax" value="100"/>
+        <par type="DOUBLE" name="LOAD_zQMax" value="100"/>
+        <par type="DOUBLE" name="REACTANCE_no_reclosing_delay" value="0"/>
+        <par type="DOUBLE" name="TFO_currentLimit_maxTimeOperation" value="90"/>
+        <par type="DOUBLE" name="TFO_t1st_HT" value="60"/>
+        <par type="DOUBLE" name="TFO_t1st_THT" value="30"/>
+        <par type="DOUBLE" name="TFO_tNext_HT" value="10"/>
+        <par type="DOUBLE" name="TFO_tNext_THT" value="10"/>
+        <par type="DOUBLE" name="TFO_tolV" value="0.014999999700000001"/>
+        <par type="DOUBLE" name="CSPR_TEST_no_reclosing_delay" value="0"/>
+    </set>
+</parametersSet>
