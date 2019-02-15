@@ -58,4 +58,6 @@ install:
   - docker exec dynawo_travis_container bash -c "cd /opt;nohup python -m SimpleHTTPServer 8080 &> /dev/null &"
 
 script:
-  - docker exec -e SONAR_TOKEN $dynawo_env $dynawo_env_url dynawo_travis_container bash -c "cd dynawo;/opt/sonar/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output ./util/envDynawo.sh build-tests-coverage;/opt/sonar/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner;"
+  - COMMAND=$(util/travis_ci/launch_command.sh)
+  - echo $COMMAND
+  - docker exec -e SONAR_TOKEN $dynawo_env $dynawo_env_url dynawo_travis_container bash -c "$COMMAND"
