@@ -36,6 +36,8 @@ env:
     - NB_PROCESSORS_USED=2
     - RESULTS_SHOW="false"
     - USE_ADEPT=YES
+    - BUILD_TYPE=Debug
+    - CXX11_ENABLED=YES
     - ADEPT_DOWNLOAD_URL=http://localhost:8080
     - SUNDIALS_DOWNLOAD_URL=http://localhost:8080
     - SUITE_SPARSE_DOWNLOAD_URL=http://localhost:8080
@@ -55,22 +57,6 @@ install:
   - docker exec dynawo_travis_container bash -c "$GIT_COMMAND"
   - docker exec dynawo_travis_container bash -c "cd /opt;nohup python -m SimpleHTTPServer 8080 &> /dev/null &"
 
-jobs:
-  include:
-    - stage: build
-      env: BUILD_TYPE=Debug CXX11_ENABLED=YES
-      script: $SH "cd dynawo;util/envDynawo.sh build-3rd-party-version;util/envDynawo.sh build-dynawo"
-      after_success:
-        - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_EVENT_TYPE" = "push" ]; then docker exec -e SONAR_TOKEN $dynawo_env $dynawo_env_url dynawo_travis_container bash -c "cd dynawo;/opt/sonar/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output ./util/envDynawo.sh build-tests-coverage;/opt/sonar/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner;"; else $SH "cd dynawo;util/envDynawo.sh build-tests-coverage;"; fi
-        - $SH "cd dynawo;util/envDynawo.sh build-tests-coverage;"
-        - docker exec -e $COVERALLS_TOKEN dynawo_travis_container bash -c "cd dynawo;coveralls-lcov -t $COVERALLS_TOKEN build/coverage.info"
-        - docker exec $ci_env dynawo_travis_container bash -c "cd dynawo;bash <(curl -s https://codecov.io/bash) > /dev/null"
-    - stage: build
-      env: BUILD_TYPE=Debug CXX11_ENABLED=NO
-      script: $SH "cd dynawo;util/envDynawo.sh build-3rd-party-version;util/envDynawo.sh build-dynawo"
-    - stage: build
-      env: BUILD_TYPE=Release CXX11_ENABLED=YES
-      script: $SH "cd dynawo;util/envDynawo.sh build-3rd-party-version;util/envDynawo.sh build-dynawo"
-    - stage: build
-      env: BUILD_TYPE=Release CXX11_ENABLED=NO
-      script: $SH "cd dynawo;util/envDynawo.sh build-3rd-party-version;util/envDynawo.sh build-dynawo"
+script:
+  - SONAR_OPTIONS=$(util/travis_ci/sonar_options.sh)
+  - docker exec -e SONAR_TOKEN $dynawo_env $dynawo_env_url dynawo_travis_container bash -c "cd dynawo;/opt/sonar/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output ./util/envDynawo.sh build-tests-coverage;/opt/sonar/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner $SONAR_OPTIONS;"
