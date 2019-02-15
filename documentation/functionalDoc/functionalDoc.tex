@@ -1,0 +1,748 @@
+%% Except where otherwise noted, content in this documentation is Copyright (c)
+%% 2015-2019, RTE (http://www.rte-france.com) and licensed under a
+%% CC-BY-SA-4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+%% license. All rights reserved.
+
+\documentclass[a4paper, 12pt]{report}
+
+% Latex setup
+\input{../latex_setup.tex}
+
+\begin{document}
+
+\title{\Dynawo Functional Documentation}
+\date\today
+
+\maketitle
+\tableofcontents
+
+\chapter{Functional documentation}
+
+\section{\Dynawo Overview}
+
+The nature of power system dynamics is deeply evolving towards a more diverse and difficult to predict behaviour due to the massive changes going on in the power system (large penetration of power-electronic based components such as Renewable Energies Sources - RES - or High Voltage Direct Current - HVDC - lines, booming use of complex automata, control strategies or smart grids). Due to this radical change from physically-driven to numerically-driven dynamics, being able to assess the system stability becomes harder but is still essential as any generalized incident will be unacceptable for the economy and the consumers. This requires to have access to a transparent, flexible, robust and easy to use simulation tool that will allow to run collaborative studies in a very simple way by sharing not only the same data but also the same modelling and solving choices in an open-source frame. Such a tool will ensure to get similar results and to agree upon optimal and shared actions on the system to accompany the ongoing changes in the best possible way. This analysis has motivated us to launch a new effort on time-domain simulation tools that finally ends up in the development of the \Dynawo's software. \\
+
+\textbf{To achieve this goal, \Dynawo is based on two mains principles: the use of a high-level modelling language \href{https://modelica.org/} {\underline{Modelica}} and a strict separation between modelling and solving parts}.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{../resources/DynawoModelSolver.png}
+\caption{Separation between modelling and solving parts in \Dynawo}
+\end{figure}
+
+\textbf{Modelica is an equation-based, declarative and object-oriented modelling language that is easy to read and understand}. The equations are written in a similar way as how they are written in textbooks for example. Using this language enables to easily share and discuss the modelling choices done because the final models implementation is available in an understandable way, even for the end-user. The Modelica language is already used in different and various industrial sectors. It is important to mention that Modelica-based tools already exist (Dymola, OpenModelica, JModelica, etc.) but they are not efficient enough for large-scale simulation of power system, which was one of the motivation for developing \Dynawo. In addition to this, the Modelica language itself has some limitations that are addressed in \Dynawo by the possibility to use C++ models in a similar way as Modelica models. Anyway, in the end all Modelica models are converted to C++ by \Dynawo. \\
+
+\textbf{In order to transform the Modelica code into an executable C code, \Dynawo uses \href{https://www.openmodelica.org/}{\underline{OpenModelica}}, which is an open-source Modelica-based modelling and simulation environment, and particularly the OpenModelica compiler}. OpenModelica is the Modelica open source environment that is the most widely used today in the Modelica community and that covers the best the language norm. As such and in order not to develop an in-house solution that will be difficult to maintain in the long-term, as well as to benefit from developments and progresses made for other industrial sectors simulations, we have made the choice to build \Dynawo upon OpenModelica. In addition to the transformation done by the OpenModelica compiler, Python scripts are implemented into \Dynawo to transform the outputs from the OpenModelica compiler in a generic frame that is also common to the C++ models available in \Dynawo. All the thereby generated C++ models are then combined to build a global model that will interact with the solving part.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{../resources/GlobalModel.png}
+\caption{Building a global model from different unit models in \Dynawo}
+\end{figure}
+
+To ensure acceptable performances both for compilation and simulation, a mechanism has been created into \Dynawo to compile non squared Modelica models individually (for example a generator model by itself) and before the simulation. These compiled models are then only instantiated during the simulation. This strategy enables to use \Dynawo for large-scale simulations (French EHV-HV networks - i.e. 250 000 continuous and 250 000 discrete variables) while keeping computation time in a range close to current simulation tools.\\
+
+\textbf{The global model only exposes a few methods to the solvers} such as the residual functions, the Jacobian function or the zero-crossing functions. Having a separation between the modelling and the solving parts means that the choice of the numerical resolution method doesn't interfere with the models implementation. This feature has several advantages: it enables to easily test or use new solvers, it eases the addition of new model and it allows modelling experts not to bother about numerical difficulties and vice versa.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{../resources/ExchangeModelSolver.png}
+\caption{Exchange between the modelling and the solving parts in \Dynawo}
+\end{figure}
+
+\textbf{There are currently two solvers included into \Dynawo}:
+
+\begin{itemize}
+\item The first solver is a fixed time-step solver developed for long-term stability studies that is based on works done during the European project \href{http://www.fp7-pegase.com/}{\underline{Pegase}}. It is an order-1 Backward-Euler solver that focuses more on performances than on accuracy as there is no control error scheme and events are detected and applied in a synchronous way at time instants corresponding to the time step values;
+\item The second solver is the variable time-step variable order BDF solver called IDA and developed by the Lawrence Livermore National Lab as part of the \href{https://computation.llnl.gov/projects/sundials}{\underline{SUNDIALS}} suite of solvers. Contrary to the first solver, IDA aims at running very accurate simulations by using a control error scheme and by detecting the exact instant corresponding to an event, thanks to its root findings mechanism;
+\end{itemize}
+
+One important idea in \Dynawo is that the same models could be used for different stability studies, in particular one set of RMS models should be usable for both short-term and long-term stability analysis. It is the solvers approximations that enable to run long-term stability studies with acceptable computation time and not a priori simplifications done at the modelling stage. \\
+
+More details on the philosophy of \Dynawo could be found into \cite{Dynawo}.
+
+\section{Models}
+
+\subsection{Introduction}
+
+\Dynawo\textquotesingle s library is divided into two parts: a C++ part and a Modelica part. \\
+
+Modelica is the favourite modelling language in \Dynawo for a lot of different reasons: it is an open source language, widely used in different industrial sectors (automotive, building, etc.), that is equation-based, declarative, high-level and object oriented. It means that the person in charge of the modelling task doesn't have to bother about the way the equations will be solved but only on the necessity to have as many equations as variables, which makes it possible to just use equations from reference papers or textbooks without having to modify them. With such an approach, model sharing becomes a reality in the sense that it is very easy for any user to understand what is done in a model without having to spend a lot of time and energy in trying to understand the written code (as it is often the case with Fortran or C for example). Another advantage in a long-term perspective is the possibility to easily do multi-system simulations with a Modelica-based simulation tool. Indeed, by nature, Modelica is not specific to one domain and so it is possible (and some libraries already exist) to model prime movers or gas systems in Modelica. All these advantages have motivated the choice to use Modelica in \Dynawo. Nevertheless, the Modelica language also has a few drawbacks that prevent us to exclusively base our solution on Modelica. For example, it is very impractical to deal with connectivity analysis with Modelica models (which is required in power system simulations to deal with system splitting) or to have variable-size objects (there is no vector object in Modelica). \\
+
+In order to be able to model any kind of object and to bypass the aforementioned Modelica\textquotesingle s limitations, it is possible to use C++ models in \Dynawo. This is particularly useful to model large-scale regulations that need to be connected to a large number of components or to deal with the network topology. \\
+
+All library models are available in the ddb (dynamic database) repository generated by \Dynawo compilation and can be directly used into test cases. In addition, the ddb directory also contains the .so library corresponding to the preassembled models and two xml files - one describing the connection needed by the model *.xml and one describing the parameters required and the model variables *.desc.xml.  \\
+
+Below is an example of a Pi line model in Modelica. As explained earlier, the model is easy to read and understand:
+
+\lstinputlisting[language=Modelica,title=Pi Line implementation in Modelica]{../resources/Line.mo}
+
+\subsection{C++ library}
+
+The C++ library contains three models:
+\begin{itemize}
+\item A network model that provides a default behaviour for any grid component
+\item An ``OmegaRef'' model that calculates the rotation speed reference value for the system.
+\item A variation area model that applies a variation on the (P, Q) values of one area\textquotesingle s loads.
+\end{itemize}
+
+\subsubsection{Network model}
+
+The C++ network model is fundamental in \Dynawo. Indeed, as soon as there is a static description of the network (iidm file) given in input, it is necessary to map a default behaviour to any component that can be present into the grid. Therefore, for each static component, there is a corresponding default behaviour into the network model. These models are used if and only if no other dynamic model is associated to the static component. Such a scheme ensures to be able to run simulations even without any dynamic data (or Modelica model). In this case, the simulation only uses the default C++ models. For most of these default models, the choice has been made to keep a very simple behaviour consisting in maintaining the original power flows and power injections (calculated a priori by a load flow module for example). \\
+Each component is described with more details in the next parts. \\
+
+\paragraph{Bus}
+~~\\
+
+The bus model contains two equations corresponding to the Kirchoff's law on the current $\sum i = 0$. It is also possible to turn on or turn off a bus during a simulation by using events. \\
+In addition to this, the voltage module and angle are available as outputs both in per unit, kV or degree for display as well as the bus connection state. The model also enables to define an upper and a lower constraint limit for the bus' voltage. If they are violated, a constraint is printed out into the output constraint file. \\
+
+\paragraph{Line}
+~~\\
+
+The default line model in \Dynawo is a classical $\pi$ line model.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=60mm]{../resources/PiLine.png}
+\caption{$\pi$ line model}
+\end{figure}
+
+The line can be connected or disconnected during the simulation, either on both sides or only on one side. In addition, the line model gives access to a large number of variables: P, Q or the current circulating into the line (at each side) and the line status (open/close/close on one side). \\ 
+If such limits exist in the input file (iidm file), current maximum limits are added to the line. These limits correspond to the maximum current that the line can support during a certain time. If the line is overloaded during more time than this allowed time, the line will be tripped. \\
+
+\paragraph{Transformer}
+~~\\
+
+Only two-windings transformers are handled by \Dynawo C++ model at the moment. In the transformer model, conductance and susceptance are only defined at the side 2 voltage level and they are, as the resistance and the reactance, defined in side 2 voltage per-unit basis. \\
+The transformer model could be connected to either a phase shifter automaton to regulate the current on a line or to a tap changer to control the bus module voltage. The tap changer automaton modifies the voltage ratio applied between side 1 and side 2 to respect a certain set point on side 2, whereas the phase shifter can add a contribution to the voltage angle to change the power flow going through a line. There are logs indicating a tap change when the automata have to act. \\
+As the line model it is possible to display the P, Q, current values going through the transformer. In a similar way, maximum current limits could be added to the transformer. \\
+
+\paragraph{HVDC}
+~~\\
+
+The current implementation for the C++ HVDC model is a one that keeps P and Q on the HVDC AC sides constant. There is no calculation of any variables on the DC side. \\
+The HVDC can be connected or disconnected during the simulation. The user can have access to the active and reactive power injected by the link on the network. \\
+
+\paragraph{Generator}
+~~\\
+
+The generator model calculates the necessary current to follow set points for P and Q. It doesn't have any limits on P, Q or the current. The set points can be modified during the simulation and the generator can be connected or disconnected. In case the set point is modified, there is a log message displayed into the timeline output that indicates the set point new value(s). \\
+
+\paragraph{Load}
+~~\\
+
+The load model can represent different behaviours, depending on the parameters given by the user. The generic equations defining the load behaviour are:
+
+\begin{equation}
+\begin{aligned}
+& P = z_{P} * P_{0} * (1 + \Delta P_{C}) * (\frac{U}{U_{0}})^\alpha \\
+& Q = z_{Q} * Q_{0} * (1 + \Delta Q_{C}) * (\frac{U}{U_{0}})^\alpha
+\end{aligned}
+\label{Load model}
+\end{equation}
+
+The possible behaviours are:
+\begin{itemize}
+\item A voltage dependant load if the load is neither declared as restorative or controllable - $z_{P} = z_{Q} = 1$ and $\Delta P_{C} = \Delta Q_{C} = 0 $. This is the default model.
+\item A load with a possible variation coming from another model (for example the variation area model). In this case, there is a delta applied on P and Q at each instant that is determined by the other model. For example, if we choose to apply a variation of 10 MW over 10 s, the load value will vary by 1 MW every 1 s. In this case, $\Delta P_{C}$ and $\Delta Q_{C}$ are varying over time but $z_{P}$ and $z_{Q}$ are kept constant equal to 1. This is the controllable load model.
+\item A restorative load model in which the load works as a first order restorative one. $z_{P}$ and $z_{Q}$ can vary during the simulation.
+\end{itemize}
+
+\begin{figure}[h]
+  \setlength{\abovecaptionskip}{15pt}
+  \begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
+\sbEntree{E}
+\sbStyleLien{node distance=1em}
+\sbStyleBloc{inner xsep=2}
+\sbBlocL{a}{$\frac{(\frac{U}{U_0})^\alpha}{1+T_p s}$}{E}
+\sbNomLien[0.7]{E}{$z_{p_{t-1}}$}
+\sbSumb{b}{a}
+\sbRelier{a}{b}
+\sbDecaleNoeudy[3]{b}{c}
+\sbRelier{c}{b}
+\sbNomLien[-1]{c}{$(\frac{U}{U_0})^{\alpha_L}$}
+\sbSortie{S}{b}
+\sbRelier{b}{S}
+\sbNomLien[0.7]{S}{$z_{p_{t}}$}
+\end{tikzpicture}
+\centering
+\caption{Restorative load model}
+\end{figure}
+
+Any load model can be connected or disconnected. It is also possible for the user to have access to the output $P$, $Q$,$ P_C$ and $Q_C$ values. \\
+
+\paragraph{Shunt}
+~~\\
+
+The shunt provides a constant reactive injection to the network. It can be connected or disconnected either by an user action or by an automaton action. \\ 
+In order to simulate the necessary time between two actions on the same shunt, a minimal waiting time has been introduced into the shunt model between two actions (parameter noReclosingDelay). \\
+
+\paragraph{Static Var Compensator}
+~~\\
+
+The static var compensator model controls the susceptance to respect a predefine set point. This is done through a PI structure as shown in Figure \ref{StaticVarCompensator} control scheme:
+
+\begin{figure}[h]
+  \setlength{\abovecaptionskip}{15pt}
+  \begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
+\sbEntree{E}
+\sbStyleLien{node distance=1em}
+\sbStyleBloc{inner xsep=2}
+\sbComp{comp}{E}
+\sbRelier{E}{comp}
+\sbNomLien[0.7]{E}{$U_C$}
+\sbDecaleNoeudy[3]{comp}{UNet}
+\sbRelier{UNet}{comp}
+\sbNomLien[-0.7]{UNet}{$U_{Net}$}
+\sbSumb{addQ}{comp}
+\sbRelier{comp}{addQ}
+\sbDecaleNoeudy[3]{addQ}{Q}
+\sbRelier{Q}{addQ}
+\sbNomLien[-0.7]{Q}{$\lambda*Q_{Net}$}
+\sbBlocL{GainKpKg}{$K_p * K_g$}{addQ}
+\sbSumb{feedback}{GainKpKg}
+\sbRelier{GainKpKg}{feedback}
+\sbBlocL{Limiter}{\tikz {\draw (-0.4,-0.4) -- (0,-0.4);\draw (0,-0.4) -- (0,0.4); \draw (0,0.4) -- (0.4,0.4);)}}{feedback}
+% Creating BMin
+\sbDecaleNoeudy[3]{Limiter}{BMin}
+\sbDecaleNoeudx[-1]{BMin}{BMinName}
+\sbNomLien{BMinName}{$B_{Min}$}
+% Creating BMax
+\sbDecaleNoeudy[-2]{Limiter}{BMax}
+\sbDecaleNoeudx[1]{BMax}{BMaxName}
+\sbNomLien{BMaxName}{$B_{Max}$}
+\sbSortie{S}{Limiter}
+\sbRelier{Limiter}{S}
+\sbNomLien[0.7]{S}{$B$}
+\sbDecaleNoeudy[6]{S}{PINode}
+\sbBlocr{PI}{$\frac{1}{K_p * T_i}$}{PINode}
+\sbRelieryx{Limiter-S}{PI}
+\sbRelierxy{PI}{feedback}
+\end{tikzpicture}
+\centering
+ \caption{Static Var Compensator model}
+ \label{StaticVarCompensator}
+\end{figure}
+
+\subsubsection{OmegaRef model}
+
+The ``OmegaRef'' model calculates the reference speed for each synchronous area. This reference speed is determined by calculating a weighted barycentre of the different speeds of the generators connected to the grid in the synchronous area:
+
+\begin{equation}
+\begin{aligned}
+& \omega_{ref} = \frac{\sum\limits_{i} H_i * S_{Nom, i} * \omega_{i}}{\sum\limits_{i} H_i * S_{Nom, i}}
+\end{aligned}
+\label{Speed reference calculation}
+\end{equation}
+
+This model is connected to all the generators of one synchronous area and takes their speed as inputs to calculate the reference speed that is used into the machine models.
+
+\subsubsection{Variation area model}
+
+This model enables to calculate the active and reactive power variation to apply to a set of loads to match a given variation in a time window. Its parameters are thus the starting and stopping time of the variation and the required changes into P and Q.
+
+\subsection{Modelica library}
+
+The \Dynawo Modelica library contains several models to describe advanced dynamic behaviours of the main grid components as well as simple models equivalent to the C++ default models that are mainly used for testing in full Modelica simulations. In addition to the individual models (.mo files), \Dynawo\textquotesingle s code contains ``preassembled'' models that consists in a group of Modelica models that are compiled together to create a single final model library (.so) that could be directly used in the simulation (without being compiled at run time). These preassembled models correspond to a coherent dynamic behaviour (physical model + regulation models) and are built to be associated to one static component. One example is the combination of a synchronous machine model with its regulations (voltage regulators and governors). This gives one preassembled model that can be directly used during the simulation and associated to one particular generator (without having to associate the three models to the generator).
+
+\subsubsection{Library content}
+
+In this part, we will briefly describe what is the content of \Dynawo\textquotesingle s Modelica library. To understand in details the behaviour of each model and the chosen modelling assumptions, we encourage the reader to directly dig into the Modelica  model or to look at the specific documentation that is automatically built from the Modelica models. \\
+
+The \Dynawo library is divided into three main parts:
+\begin{itemize}
+\item The ``Connectors'' part contains all the specific connectors defined into \Dynawo that are used to connect together different models. This enables to have clear interfaces between the different models or the different parts of a model (regulation and physical model for example). For each type of variable, there is a type of connector (BPin for boolean values, ZPin for discrete values, ImPin for real values and ACPower for connecting both complex voltages and complex currents)
+\item The ``Electrical'' part with the different models of the electrical components and their controls.
+\item The ``NonElectrical'' part including all \Dynawo - specific blocks. In the library, we have tried to use as much as possible existing blocks from the Modelica Standard Library but when necessary, specific models or blocks have been developed and are stored into this folder to be reused several times. This folder also contains logs files that are used to generate logs from the Modelica model during a simulation.
+\end{itemize}
+
+More details on the ``Electrical'' package are given in the next sections.
+
+\paragraph{Bus}
+~~\\
+
+The bus package contains an InfiniteBus model. No other bus models are provided in the package as the default C++ model is generally used in \Dynawo simulations and is simple enough to be understandable by everyone, even written in C++.
+
+\paragraph{Controls}
+~~\\
+
+The controls package gathers all the controls and regulations models for the different components:
+\begin{itemize}
+\item Common models, such as set point, perturbation, step and switch-off, are included into the Basics package.
+\item The Current package includes a current limit automaton model.
+\item The Generic package contains an example implementation to call a C function from a Modelica model. This model can serve for example to include an OPF-based automaton into a \Dynawo simulation.
+\item The Machines package with the different regulations for the machines such as voltage  regulations, governors or under-voltage protection.
+\item The Transformers package that includes the phase-shifter and tap changer automata models.
+\item The Voltage package containing a tap changer locking automaton model. It is an automaton that can lock the tap changer automaton in case the voltage becomes too low in an area.
+\end{itemize}
+
+\paragraph{Events}
+~~\\
+
+Events models enable to change the connection status of the different grid elements. They are all based on a similar basis with a time corresponding to the event and a variable whose value will change at the event time.
+
+\paragraph{Lines}
+~~\\
+
+There is at the moment one $\pi$ line model included into \Dynawo.
+
+\paragraph{Loads}
+~~\\
+
+Two load models are included into the package:
+\begin{itemize}
+\item A voltage dependent load model (LoadAlphaBeta)
+\item A constant P,Q load  model (LoadPQ)
+\end{itemize}
+
+\paragraph{Machines}
+~~\\
+
+Different models with different levels of details constitute the Machines package. The most detailed model is a four-windings synchronous machine model (GeneratorSynchronous). Others are simplified ones:
+\begin{itemize}
+\item GeneratorPQ in which the P output is modulated according to frequency and the Q output is only modulated when large variations occur.
+\item GeneratorPV that modulates the P output according to frequency and the Q outputs to keep $U + \lambda * Q$ as close as possible to a set point.
+\item GeneratorFictitious that acts as a voltage-dependent generator. P and Q vary around their initial values depending on the voltage value.
+\end{itemize}
+
+\paragraph{Transformers}
+~~\\
+
+The transformers package contains both a fixed ratio transformer model and a variable tap transformer model that can serve for phase shifter or tap changer modelling.
+
+\subsubsection{Preassembled models}
+
+Preassembled models are Modelica models that are compiled together during \Dynawo compilation to produce a .so library that can be directly used (as a blackbox model) in a simulation. With this mechanism these models don't have to be compiled at run time but only instantiated which allows to have acceptable performances with \Dynawo. \\
+
+The different preassembled models delivered with \Dynawo are:
+\begin{itemize}
+\item CurrentLimitAutomaton corresponding to the current limit automaton model
+\item Different event models
+\item GeneratorFictitious, MachinePV, MachinePQ and Machine4WNoRegul corresponding to the different generator models
+\item GenericAutomaton that enables to call a C function every few s (corresponding to the GenericAutomaton model)
+\item Different load models: LoadAlphaBeta corresponding to the LoadAlphaBeta model, LoadOneTransformer which is a load alpha beta plus a transformer, LoadTwoTransformers which is a load alpha beta behind two transformers
+\item PhaseShifterI and PhaseShifterP that are phase shifter models controlling either the current or the active power
+\item TapChangerAutomaton, the tap changer automaton model
+\item TapChangerBlockingArea, the automaton that allows to block the tap on transformers
+\end{itemize}
+
+\section{Solvers}
+
+\subsection{Introduction}
+\label{sec:Solver Introduction}
+
+\subsubsection{Differential Algebraic Equations}
+
+The mathematical problem to be solved in power system time-domain simulations is an explicit \textbf{\ac{DAE}} system:\\
+\begin{equation}
+\begin{aligned}
+& \Gamma(y(t), \dot{y}(t), z(t), t) = 0
+\end{aligned}
+\label{DAE}
+\end{equation}
+where y is the continuous variables vector, z the discrete variables vector and t the time. \\
+
+This problem could be rewritten as a semi-explicit one:
+
+\begin{equation}
+\begin{aligned}
+\begin{cases}
+& f_d(y_d(t), \dot{y_d}(t), y_a(t), z(t), t) = 0 \\
+& f_a(y_d(t), y_a(t), z(t), t) = 0
+\end{cases}
+\end{aligned}
+\end{equation}  
+where $f_d$ represents the differential equations vector, $f_a$ the algebraic equations vector, $y_d$ the differential continuous variables vector and $y_a$ the algebraic continuous variables vector. \\
+
+The \textbf{algebraic equations} represent the network that is considered to have an instantaneous response in phasor time-domain simulations (no delay) as well as time-independant parts of the other models.\\
+
+The \textbf{differential equations} correspond to a broad range of phenomena, from short-term dynamics existing into the machine regulations, static var compensator behaviours, induction machines, etc., to long-term dynamics coming from the long-term regulations (secondary voltage/frequency controls), load restoration behaviour, etc.
+
+\subsubsection{System resolution}
+\label{Dynawo_Solver_System_Resolution}
+
+To solve the problem and determine the variable values during a whole simulation, a numerical integration method has to be chosen to transform the \ac{DAE} system to a non-linear algebraic system corresponding to a particular instant in time (time step):
+\begin{equation}
+\begin{aligned}
+& \dot{y_d}(t_n) = h(y_d(t_n), y_d(t_{n-1}), y_d(t_{n-2}), ...))
+\end{aligned}
+\label{Integration}
+\end{equation}
+Using \eqref{Integration} the \ac{DAE} system becomes for a time step $t_n$:
+\begin{equation}
+\begin{aligned}
+& \Gamma(y_d(t_n), y_a(t_n), h(y_d(t_n), y_d(t_{n-1}), y_d(t_{n-2}) ...) = 0
+\end{aligned}
+\end{equation}
+that we can rewrite for simplicity purpose
+\begin{equation}
+\begin{aligned}
+& F(x) = 0
+\end{aligned}
+\label{Correction}
+\end{equation}
+
+This non linear algebraic system can then be solved using different \textbf{iterative methods}, the most frequent in power system being the \textbf{Newton method}. \\
+
+At each iteration i of the Newton algorithm, the new values for x are calculated using a first-order Taylor development:
+\begin{equation}
+\begin{aligned}
+& F(x_{i+1}) = F(x_i) + J_F(x_i)(x_{i+1} - x_i)
+\end{aligned}
+\label{Newton}
+\end{equation}
+where $J_F$ is the \textbf{Jacobian}, defined in the following way ($\alpha$ depending on the integration method chosen):
+\begin{equation}
+\begin{aligned}
+& J_F = \frac{\partial F}{\partial y} + \alpha \frac{\partial F}{\partial \dot{y}}
+\end{aligned}
+\end{equation}
+
+Using \eqref{Correction} and \eqref{Newton} leads to:
+\begin{equation}
+\begin{aligned}
+& x_{i+1} = x_i - J_F(x_i)^{-1} F(x_i)
+\end{aligned}
+\label{Linear}
+\end{equation}
+
+The Newton iterations are stopped whenever $F(x_{i+1})$ is considered to be close enough to zero. 
+
+\subsubsection{Prediction-Correction scheme}
+
+Prediction-correction schemes aim at improving the convergence characteristics of the numerical methods by combining two steps in the overall problem resolution:
+\begin{itemize}
+\item A prediction step that consists in using past values ($y(t_{n-1}, y(t_{n-2}), ...)$,  of the variables to calculate initial values ($y(t_{n_0}) <=> x_0$) for the next time step. It is generally done by extrapolating a function that fits the past values of the variables. This step gives a very good initial point for the Newton used in the correction step and facilitates convergence, especially when the system is evolving in a continuous way. 
+\item A correction step that is the system resolution presented in the above section - (\ref{Dynawo_Solver_System_Resolution})
+\end{itemize}
+
+With such schemes, the convergence step iterations number is a good indicator of the system evolution. Indeed, a slow convergence means that the system has changed a lot since the last time step.
+
+\subsubsection{Discrete event handling}
+
+During a dynamic simulation, discrete events can occur. They can be:
+\begin{itemize}
+\item a change of the discrete variables values $z(t)$;
+\item a change of the \ac{DAE} system functions $f_d(t)$ and $f_a(t)$ (called modes);
+\end{itemize} 
+
+A \textbf{discrete variable value change} corresponds for example to a transformer tap change or a breaker opening/closing. \\
+
+A \textbf{mode change} corresponds for example to the switch from one regulation mode to another (machine switching from standard regulation mode to maximum reactive absorption limit, static var compensator switching from standy to standard regulation mode, etc). \\
+
+It is important to be able to correctly determine the time instants corresponding to a discrete variable value change or to a mode change. This is done by using a root detection mechanism that detects the zero crossing of a set of functions called root functions (denoted $r(y(t), \dot{y}(t), z(t), t) = 0$) associated to each discrete variable or each f function that can change over time. \\
+
+Some events can lead to very important discontinuities that dramatically change the system evolution. For these events, a reinitialization of the \ac{DAE} system - ie calculation of new initial conditions - is necessary to manage to go over the event and continue the simulation. \\
+
+\subsubsection{Solvers in \Dynawo}
+
+Two solvers are currently integrated into \Dynawo:
+\begin{itemize}
+\item \textbf{A fixed time-step solver} (called Simplified solver in the remaining parts of this document) based on research work done during the European project Pegase \cite{Pegase_Report, Pegase_Events, Pegase_IEEE_GM}
+\item \textbf{A variable time-step solver} based on IDA, which is part of \ac{SUNDIALS} - a suite of solvers developed by the \ac{LLNL} -, plus additional routines \cite{hindmarsh2005sundials}.
+\end{itemize} 
+
+For the simulation of a given test case, the results obtained with these solvers will be different, as the numerical methods applied are different. These differences are illustrated in the figure below for a test simulating a line disconnection.
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[
+        ymin = 396,
+        ymax = 406,
+        xmin = 40,
+        xmax = 60,
+        xtick= {40, 50, 60},
+        ytick= {396, 398, 400, 402, 404, 406},
+        x label style={at={(axis description cs:0.5,-0.15)},anchor=north},
+        xlabel={\begin{small}$time$ (s)\end{small}},
+        height=0.6\textwidth,
+        width=1\textwidth,
+        /pgf/number format/precision=5,
+        legend pos=north west,
+        tick pos=left
+        ]
+        \addplot[color=blue!50,no markers,line width=1pt,each nth point={1}]
+        table[x=time,y=AVOI5P7_S_VL7_TN3_U, col sep=semicolon]
+        {../resources/exampleSolver/curvesSIM.csv};
+        \addplot[color=red!50,no markers,line width=1pt,each nth point={1}]
+        table[x=time,y=AVOI5P7_S_VL7_TN3_U, col sep=semicolon]
+        {../resources/exampleSolver/curvesIDA.csv};
+        \addplot[color=green!50,no markers,line width=1pt,each nth point={1}]
+        table[x=time,y=AVOI5P7_S_VL7_TN3_U, col sep=semicolon]
+        {../resources/exampleSolver/curvesIDA2.csv};
+        \legend{$U_{SIM}$, $U_{IDA1}$, $U_{IDA2}$}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Differences between solvers for a line disconnection}
+\end{figure}
+
+The solver integration in \Dynawo is generic enough to easily enable to integrate other solvers. For example, the Sinusoidal Predictor Method has been tested with \Dynawo \cite{Gibert_2018, Gibert_2017} and shows that it is straightforward to include a new solver into the \Dynawo frame. \\
+
+The next sections give more details about the two aforementioned solvers.
+
+
+\subsection{Simplified solver}
+
+\subsubsection{Introduction}
+
+The Simplified solver is a fixed time-step solver, based on the work done during the FP7 European project \href{http://www.fp7-pegase.com/}{\underline{Pegase}} and particularly on the efforts conducted by the University of Liege to derive a numerical approach to speed up calculations for long term stability problems by filtering out the fast dynamics. \\
+
+It uses an order-1 \ac{BE} method, which means that $\dot{y_t} = \frac{y_t - y_{t-1}}{h}$. This method is an A-stable method thus if the system is stable, the calculated solution will be stable. It is also an A-unstable method and as such, a stable solution can be found by the solver even if it doesn't exist for the real system. \\
+
+This solver goal is to have acceptable computation times for long-term dynamics simulations. It doesn't aim at making accurate simulations to detect oscillations or any other short-term dynamics. Its behaviour for long-term dynamics has been compared against the variable time step solver to validate the approximations done. \\
+
+\subsubsection{Prediction step}
+
+At the moment, there is \textbf{no prediction} in the Simplified solver  algorithm. Indeed, the variables starting values for the time step $t_{n+1}$ are the variables values calculated at time step $t_n$. As a consequence, and considering the chosen integration method (\ac{BE} order 1), the differential variables are equal to zero at the beginning of a new time step.
+
+\begin{equation}
+\begin{aligned}
+& y_0(t_{n+1}) = y(t_n) \\
+& \dot{y_0}(t_{n+1}) = 0
+\end{aligned}
+\end{equation}
+
+It is important to mention that different prediction schemes have been tested both during the Pegase project and internally in RTE after the project. These alternatives have shown to be beneficial most of the time (especially when the system evolution is ``continuous") but have also led to very detrimental behaviours in certain cases. The current choice is thus to stick to this ``no-prediction" approach. In the current version, this choice can't be modified by the user.
+
+\subsubsection{Correction step}
+
+The correction step is handled by a \ac{NR} algorithm calling a \ac{NR} solver developed by the \ac{LLNL}: \ac{KINSOL}. The approach used in \ac{KINSOL} is an \textbf{inexact \ac{NR} method}: the Jacobian isn't calculated at each iteration but kept constant for a few iterations. Different criteria exist to force a recalculation of the Jacobian and its associated LU decomposition, trying to track too slow convergence.
+
+\paragraph{KINSOL parameters}
+~~\\
+
+At the moment, \ac{KINSOL} is used in the following way:
+\begin{itemize}
+\item The tolerance is set to $tolerance$.
+\item The Jacobian matrix isn't calculated at each iteration but only if the solver hasn't converged after $n$ iterations or if the residual functions hasn't decreased enough after $n_2$ iterations. Other conditions also exist in \ac{KINSOL} but can't be modified by the software calling it.
+\item The iterations maximum number is set to $n_{Max}$.
+\end{itemize}
+
+By default, these parameters have the following values into \Dynawo :
+$tolerance = 10^{-4}, n = 10, n_2 = 5, n_{Max} = 30$.
+They aren't yet configurable by the user.
+
+\paragraph{Jacobian evaluation}
+~~\\
+
+As already mentioned, the Jacobian matrix is not calculated at each \ac{NR} iteration. The algorithm used is an inexact \ac{NR} which aims at refreshing as less as possible the Jacobian matrix to gain computation time. The Jacobian calculation is only forced at the beginning of the \ac{NR} iterations in the following cases:
+\begin{itemize}
+\item For the first time step
+\item After an algebraic mode change
+\item After a non convergence
+\item After a root unstability detection (number of consecutive discrete variable values or mode changes higher than a threshold)
+\end{itemize}
+
+Re-evaluations can happen during a time step, as explained in the previous section, when the solver hasn't converged after a certain number of iterations or when the convergence speed is not good enough.
+
+\paragraph{LU decomposition}
+~~\\
+
+When the Jacobian is evaluated, its LU decomposition is calculated in order to solve the linear algebraic system appearing in \eqref{Linear}. In \Dynawo , we have made the choice to use publicly available and open source libraries to resolve these linear algebraic systems and not to develop an in-house solution. \\
+
+Most LU decomposition methods perform these two main steps:
+\begin{itemize}
+\item A symbolical factorization or pre-ordering in which the non zero structure (ie sparsity pattern) of the matrix gets permuted in order to improve numerical properties as well as performance.
+\item A numerical factorization or factorization where the LU decomposition is really done.
+\end{itemize}
+
+The symbolical factorization is the most costly part in the overall process. That's why, when the matrix structure doesn't evolve (constant number and position of the non zero entries), we only call the numerical part.
+
+\subparagraph{Symbolical vs numerical decomposition}
+~~\\
+
+After a call to the Jacobian evaluation method in \Dynawo, a method is called to check if the matrix structure has changed or not. If the structure has changed, the LU decomposition is reinitialized in order to force a new complete decomposition (symbolical + numerical). Otherwise, only the numerical part is done.  \\
+
+One can expect that symbolical decomposition is required only in the case of important change in the system such as topological change, running status of generators changes, etc. In practice, due to some numerical noises, the number of non zeros elements in the matrix in large test cases often varies from one decomposition to another. Complementary studies on this point will be done in the next few months to try to detect the origin of these numerical noises and decrease their impact on the computation time.
+
+\subparagraph{LU decomposition libraries}
+~~\\
+
+Two LU decomposition libraries could be used into \Dynawo   at the moment: 
+\begin{itemize}
+\item KLU \cite{DavisKLU}, which has been deeply tested during the Pegase project and has proved to be the most efficient of the existing LU decomposition library available at this time for power system problems. This is the library that we advise to use at the moment;
+\item NICSLU \cite{chenNicsLu}, which results from a more recent effort and that is also very efficient for power system problems. NISCLU is in particular faster for refactorization (numerical factorization only) but its integration into \ac{SUNDIALS} and its use in \Dynawo is still under experimentation;
+\end{itemize} 
+
+It is possible to switch from KLU to NICSLU by modifying the solver parameter called ``linearSolverName".
+
+\paragraph{Residual function evaluation}
+~~\\
+
+In order to give \ac{KINSOL} a better criterion to stop the \ac{NR} algorithm, it is necessary to provide a scaling vector to \ac{KINSOL}. To calculate this scaling vector, the residuals have to be calculated beforehand. These residuals are identical to the ones that would be calculated by \ac{KINSOL} at the beginning of the \ac{NR} algorithm. In order to gain time, the residual calculation method has been modified in \Dynawo  and the first residuals are not calculated again. Values are taken from the scaling method calculation.
+
+\subsubsection{Discontinuities handling}
+
+At the end of a time step, the discrete variables value are compared with their values at the previous time step, and the root functions are evaluate in order to detect if a mode has changed during the iteration. When a change is detected, the Simplified solver offers two different strategies: 
+\begin{itemize}
+\item A ``go-through" strategy in which the time step isn't repeated;
+\item A ``recalculate" strategy in which the time step is recalculated until we reach a system state with no more discrete variable value or mode change.
+\end{itemize}
+
+Regarding discontinuities detection, the Simplified solver algorithm doesn\textquotesingle t try to determine the exact event time as it could be the case with more detailed solver. All the discrete variable and mode changes are considered at the next (or previous) time-step depending on the strategy used. The delay (or advance) is then equal at maximum to the time step. \\
+
+At the moment, the different tests conducted with both strategies haven't permitted to exhibit a test case in which only one of the two strategies enables to find the correct final state (= similar to IDA). As the ``go-through'' strategy is more efficient because it requires less calculations, we advise to use it by default. Nevertheless the user can choose to use one or the other strategy by modifying the recalculatedStep parameter. \\
+
+The algorithm for one time step for the Simplified solver (particularly for discontinuity handling) is presented in Figure \ref{fig:AlgoSim}.
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=lightblue!40, 
+    text width=5em, text badly centered, inner sep=0pt, aspect=2]
+\tikzstyle{block} = [rectangle, draw, fill=lightblue!20, 
+    text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse, text badly centered]
+\begin{figure}
+\centering   
+\begin{adjustbox}{width=\textwidth,height=\textheight,keepaspectratio}    
+\begin{tikzpicture}[node distance = 3cm, auto]
+    % Place nodes
+    \node [cloud] (start) {Start for $t_{n+1}$};
+    \node [block, below of=start] (evalY) {Calculate $y(t_{n+1})$};
+    \node [block, right of=evalY, xshift=10mm] (reduce) {Reduce time step};    
+    \node [decision, below of=evalY] (NR) {Succes?};
+    \node [decision, below of=reduce] (Hmin)
+{$h\neq{h_{Min}}$?};    
+    \node [cloud, right of=Hmin, xshift=10mm, fill=red!20] (endFail) {Divergence}; 
+    \node [block, below of=NR] (evalG) {Calculate $g(t_{n+1})$};
+    \node [decision, below of=evalG] (gChange)
+{$g(t_{n+1})\neq{g(t_{n})}$?};
+    \node [cloud, right of=gChange, xshift=20mm, fill=green!20] (endSuccesG) {Go to $t_{n+2}$}; 
+    \node [block, below of=gChange] (evalGZMode) {Calculate $g(t_{n+1})$, $z(t_{n+1})$ and modes}; 
+    \node [decision, below of=evalGZMode] (gzChange) {Change?};
+    \node [decision, below of=gzChange] (algChange) {Algebraic mode change?};
+    \node [block, right of= algChange, xshift=20mm] (restaure) {Restaure algebraic equations}; 
+    \node [cloud, right of=restaure, xshift=10mm, fill=green!20] (endSuccesAlg) {Go to $t_{n+2}$}; 
+    \node [decision, below of=algChange] (recalculate) {Recalculate step?}; 
+    \node [cloud, below of=recalculate, fill=green!20] (endSuccesNoRecal) {Go to $t_{n+2}$}; 
+    \node [decision, left of=recalculate, xshift=-20mm] (nbNR) {$nb_{NR} < nb_{NR_{Max}}$?}; 
+    \node [cloud, below of=nbNR, fill=green!20] (endSuccesNbNr) {Go to $t_{n+2}$}; 
+    % Draw edges
+    \path [line] (start) -- (evalY);
+    \path [line] (evalY) -- (NR);
+    \path [line] (reduce) -- (evalY);
+    \path [line] (NR) -- node {No} (Hmin);
+    \path [line] (Hmin) -- node {Yes} (reduce);
+    \path [line] (Hmin) -- node {No}(endFail);
+    \path [line] (NR) -- node {Yes} (evalG);
+    \path [line] (evalG) -- (gChange);
+    \path [line] (gChange) -- node {No}(endSuccesG);    
+    \path [line] (gChange) -- node {Yes} (evalGZMode);  
+    \path [line] (evalGZMode) -- (gzChange);  
+    \path [line] (gzChange) -- node {Yes} ++(-2,0) |-(evalGZMode);
+    \path [line] (gzChange) -- node {No} (algChange); 
+    \path [line] (algChange) -- node {Yes} (restaure); 
+    \path [line] (restaure) -- (endSuccesAlg); 
+    \path [line] (algChange) -- node {No} (recalculate); 
+    \path [line] (recalculate) -- node {No} (endSuccesNoRecal);
+    \path [line] (recalculate) -- node {Yes} (nbNR);
+    \path [line] (nbNR) -- node {Yes} ++(-2,0) |-(evalY);
+    \draw[->] (nbNR) -- node {No} (endSuccesNbNr);
+\end{tikzpicture}
+\end{adjustbox}
+\caption{Simplified solver algorithm for one time step}
+\label{fig:AlgoSim}
+\end{figure}
+
+\subsubsection{Time step management}
+
+The Simplified solver is based on a fixed time-step approach in the sense that the different time steps are not calculated automatically to respect a certain error (as it is done with variable time-step solvers).
+
+However, when the system is facing important discontinuities or large disturbances, the \ac{NR} algorithm can fail. In this case, the strategy is to \textbf{decrease the time step temporarily}. The time step is then increased when the system comes back to steady-state to reach its ``normal" fixed value (the increase is done in a progressive way, based on the convergence speed of the \ac{NR}). By default, the time step is set to 1 s in \Dynawo. \\
+
+The time-step is updated in the following way in \Dynawo:
+\begin{itemize}
+\item When the time step is equal to its maximum value ($hMax$) and the \ac{NR} algorithm converges, it doesn't change.
+\item If the time step is not equal to its maximum values and the \ac{NR} algorithm converges, the time step is increased if the number of iterations in the \ac{NR} algorithm ($nbNR$) is lower than a target number $nEff$. The increase is proportional to the difference between this target number and the number of iterations really needed.
+\begin{equation}
+\begin{aligned}
+& h_{New} = h * \frac{n_{Eff}}{nb_{NR}}
+\end{aligned}
+\end{equation}
+A deadband $nDeadband$ has been added to avoid oscillations between time steps.
+\item If there is a divergence, the time step is multiplied by a factor $kReduceStep$.
+\end{itemize}
+A minimum time step ($hMin$) is used in \Dynawo to stop the simulation. If the \ac{NR} is divergent with this value the simulation is stopped. \\
+
+All these parameters can be modified by the user and their default values are: $h_{Max} = 1 s, h_{Min} = 10^{-6} s, kReduceStep = 0.5, n_{Eff} = 10, n_{Deadband} = 2 $.
+
+\subsubsection{Algebraic equations restoration}
+
+As already mentioned in ~\ref{sec:Solver Introduction}, the \ac{DAE} system \eqref{DAE} can change during the simulation because the differential equations or the algebraic equations can change their form (mode). \\
+
+In most of the cases, these changes are smooth changes (for example reaching a limit) and the simulation can just go on without any special process. Nevertheless, some changes lead to a deep change in the  equations form (for example a change in the network topology) and require to \textbf{reinitialize the \ac{DAE} system} by calculating new initial conditions for $y_a$ in the Simplified solver case. 
+This is done by calling a \ac{NR} on the algebraic equations.
+
+\subsection{Variable time-step solver}
+
+\subsubsection{Introduction}
+
+The variable time-step solver corresponds to a packaging of \ac{IDA} plus some additional in-house routines to deal with discrete variable values changes propagation or algebraic mode restoration. Otherwise, the continuous variable calculation as well as the zero crossing times determination are done by classical approaches from \ac{IDA}. \\
+
+The integration method used in \ac{IDA} is a variable-coefficient, variable-order \ac{BDF} in fixed-lead coefficient form. The order q BDF formulation is given by the following multistep formula:
+
+\begin{equation}
+\begin{aligned}
+& \sum\limits_{i=0}^q \alpha_{n,i} y_{n,i} = h_{n}\dot{y_n}
+\end{aligned}
+\end{equation}
+
+The method order supported by \ac{IDA} ranges from 1 to 5. Nevertheless all tests done in \Dynawo have used order 1 or order 2 as the maximum possible order. It seems sufficient enough to get accurate results while keeping acceptable time durations. This parameter could be set to any value (between 1 and 5) by the user. \\
+
+The \ac{IDA} solver contains a root finding routine enabling the solver to detect the exact moment of a zero crossing, ie the exact moment corresponding to a discrete variable value or a mode change. When such a moment is detected, the solver will stop at this time-step and calculates the solution for this time. Compared to the Simplified solver, the \ac{IDA} solver focuses on accuracy, especially when used with small minimal time-step and high order.
+We recommend to use it in off-line simulations to run very accurate simulations. \\
+
+It has to be noticed that \ac{IDA} is used in the ONE STEP mode in \Dynawo : it means that the solver resolves one step and then returns to the main \Dynawo code. Between time steps, a series of additional routines are called into \Dynawo main code:
+\begin{itemize}
+\item Changes in the discrete variable values and mode are propagating, especially through the connectors
+\item In case of a severe event, the \ac{DAE} problem is reinitialized in order to go through this severe event
+\item Curves are plotted and criteria to stop the simulation are checked
+\item ...
+\end{itemize}
+
+In the next following parts, the main principles for this approach will be briefly explained but a complete and thorough description is available in the \ac{IDA} documentation. The content of the next paragraphs will rather focus on the conceptual ideas present in \ac{IDA} than in the exact mathematical formulations or the implementation details that are widely and clearly explained in \ac{IDA} documentation or  \href{https://computation.llnl.gov/projects/sundials}{\underline{Sundials website}}.
+
+\subsubsection{Prediction step}
+
+\ac{IDA} uses a predictor-corrector scheme, ie initial values for the next time step $y_0(t_{n+1})$ are initialized using the historical values of $y(t_n)$ and $\dot{y}(t_n)$. It is done using an interpolating polynomial that matches the previous values and is coherent with the chosen multi-step method. \\
+
+This prediction step enables to have initial values for the correction step that should be close to the final values calculated, ie to have a correction step that is convergent with only a few iterations.
+
+\subsubsection{Correction step}
+
+The correction step in IDA is done using a Newton-Raphson method. The code is directly included into IDA.
+As the interpolating polynomial used in the prediction scheme should give good initial values (in case the system evolution is regular), the maximum number of iterations allowed for the correction step is equal to 4 by default. It is not possible at the moment to modify this parameter.
+The correction step is considered convergent when the difference between the variable values at the iteration m and at the iteration m+1 is small relative to the variable values themselves. If this ratio becomes smaller than a threshold (defined through the relative and absolute accuracies parameters), the Newton-Raphson is considered convergent and the time step accepted.
+
+The Jacobian matrix is never re-evaluated during the correction step (ie during the Newton-Raphson algorithm). It is updated only in the following cases:
+\begin{itemize}
+\item when it is the first time iteration
+\item when the time step variation is larger or smaller than a certain threshold (5/3 or 3/5 by default)
+\item when the last \ac{NR} calculation has not converged
+\end{itemize}
+As for the Simplified solver, the idea is to try to minimize the number of Jacobian evaluations. However, the Jacobian evaluations are much more frequent with IDA because of the time-step variations, especially for simulations with a lots of events where the time-step decreases around the event and increases during steady-state.
+
+Regarding the LU decompositions that could be used with \ac{IDA} in \Dynawo , the user can choose to use KLU or NICSLU. Most of the simulations have been done until now with KLU but NICSLU gives slightly better performances (especially because the Jacobian is sometimes updated without any change in its structure when using \ac{IDA}).
+
+\subsubsection{Events detection}
+
+\ac{IDA} contains a mechanism to detect the exact time corresponding to a change in a discrete variable value or a mode. This detection is done using the root of the zero-crossing functions defined to catch these changes.
+When a time-step has been defined and accepted by \ac{IDA}, the solver checks if there has been a root change (ie a change in the signs of the zero-crossing functions during the time-step). If such a change occurs, then it means that an event occurs between $t_{n}$ and $t_{n+1}$. The exact time corresponding to the event is determined by a dichotomy search.
+The solver determines what is the smallest time corresponding to an event and stops at this time (it can't be smaller than the minimum time-step given to the solver).
+
+\subsubsection{Time-step and order management}
+
+\ac{IDA} is a variable time-step and order solver. When the system is in steady-state, the order used by the method should be 1 and the time-step large (equal to the maximum time-step). During transients, where variables values change a lot, the order used by the method should be the maximum allowed order and the time-step close to its minimal value: it means that the system evolution is not regular and is difficult to predict. In this case, the prediction step quality is poor if the solver tries to use large time steps and the correction step won't converge. To use the past data and the past system evolution it is necessary to keep small time-steps for which this approximation is valid. \\
+
+The time-step and order are changed by \ac{IDA} using the Local Truncation Error, which is an image of the convergence difficulty of the correction step and so of the prediction phase viability.
+
+\subsubsection{Algebraic equations restoration}
+
+In a similar way than for the Simplified solver, in case of a severe event that leads to a strong discontinuity in the system (for example a line disconnection), a reinitialization of the problem is done into \Dynawo before the next time step.
+In the \ac{IDA} case, it consists in two Newton-Raphson resolutions; one on the algebraic equations enabling to calculate $y_a$ and one on the differential equations only to calculate the derivative values of differential variables $\dot{y_d}$. These values are necessary to be able to relaunch correctly \ac{IDA} after the discontinuity.
+
+\bibliography{../resources/dynawoDocumentation}
+\bibliographystyle{abbrv}
+
+\end{document}

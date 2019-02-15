@@ -1,0 +1,151 @@
+%% Except where otherwise noted, content in this documentation is Copyright (c)
+%% 2015-2019, RTE (http://www.rte-france.com) and licensed under a
+%% CC-BY-SA-4.0 (https://creativecommons.org/licenses/by-sa/4.0/)
+%% license. All rights reserved.
+
+\documentclass[a4paper, 12pt]{report}
+
+% Latex setup
+\input{../latex_setup.tex}
+
+\begin{document}
+
+\title{\Dynawo Installation Documentation}
+\date\today
+
+\maketitle
+\tableofcontents
+
+\chapter{Install procedure}
+
+\section{Building \Dynawo}
+\label{Dynawo_Installation_Documentation_Building_Dynawo}
+
+For the moment \Dynawo has only be tested on Linux platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distribution. For MacOS and Windows users a \href{https://www.docker.com/}{\underline{Docker}} solution will be provided in a near future. We also plan to provide compliation compatibility for Windows.
+
+\Dynawo and its dependencies will need some system packages to work. Here is the list of all packages you can install to have no dependency problem in the following steps. \\
+
+Command for Ubuntu:
+
+\begin{lstlisting}[language=bash]
+$> apt-get install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev libxerces-c-dev zlib1g-dev gettext patch clang python-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev qt4-qmake qt4-dev-tools lsb-release libxml2-utils python-lxml python-psutil wget
+\end{lstlisting}
+
+Command for Fedora:
+
+\begin{lstlisting}[language=bash]
+$> dnf install -y git gcc gcc-c++ gcc-gfortran autoconf automake make libtool cmake hwloc java-1.8.0-openjdk-devel blas-devel lapack-devel lpsolve-devel expat-devel glibc-devel sqlite-devel xerces-c-devel libarchive-devel zlib-devel doxygen doxygen-latex qt-devel gettext patch wget python-devel clang llvm-devel ncurses-devel readline-devel unzip perl-Digest-MD5 vim gcovr python-pip python-psutil boost-devel lcov gtest-devel gmock-devel xz rsync python-lxml graphviz
+\end{lstlisting}
+
+To build \Dynawo you need to clone its repository and launch the following commands in the source code directory:
+
+\begin{lstlisting}[language=bash]
+$> git clone https://github.com/dynawo/dynawo.git dynawo
+$> cd dynawo
+$> echo '#!/bin/bash
+export DYNAWO_HOME=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+export OPENMODELICA_VERSION=1_9_4
+export SRC_OPENMODELICA=$DYNAWO_HOME/OpenModelica/Source
+export INSTALL_OPENMODELICA=$DYNAWO_HOME/OpenModelica/Install
+
+export DYNAWO_LOCALE=en_GB
+export USE_ADEPT=YES
+export RESULTS_SHOW=true
+export BROWSER=xdg-open
+
+export NB_PROCESSORS_USED=$(($(nproc --all) / 2))
+
+export BUILD_TYPE=Release
+export CXX11_ENABLED=YES
+
+$DYNAWO_HOME/util/envDynawo.sh $@' > myEnvDynawo.sh
+$> chmod +x myEnvDynawo.sh
+$> ./myEnvDynawo.sh build-omcDynawo
+$> ./myEnvDynawo.sh build-all
+\end{lstlisting}
+
+Below is a description of some environment variables that might be changed in the file \textit{myEnvDynawo.sh}:
+
+\begin{center}
+\begin{tabular}{|l|l|}
+  \hline
+   BROWSER & Default browser command \\
+  \hline
+   NB\_PROCESSORS\_USED & Maximum number of cores to use \\
+  \hline
+   BUILD\_TYPE & Build type : Release or Debug \\
+  \hline
+\end{tabular}
+\end{center}
+
+\textbf{Warning}: If you're working behind a proxy make sure you have exported the following proxy environment variables:
+
+\begin{lstlisting}[language=bash]
+$> export http_proxy=
+$> export https_proxy=
+$> export no_proxy=localhost,127.0.0.0/8,::1
+$> export HTTP_PROXY=$http_proxy;export HTTPS_PROXY=$https_proxy;export NO_PROXY=$no_proxy;
+\end{lstlisting}
+
+\section{Launching \Dynawo}
+
+Once you have installed and compiled \Dynawo as explained in part \ref{Dynawo_Installation_Documentation_Building _Dynawo}, you can launch a simulation by calling:
+
+\begin{lstlisting}[language=bash]
+$> ./myEnvDynawo.sh jobs nrt/data/IEEE/IEEE14_BlackBoxModels/IEEE14.jobs
+\end{lstlisting}
+
+This command launches a simple simulation on the IEEE 14-bus network that should succeed if your installation went well and your compilation finished successfully. 
+
+The correctness of the simulation can be checked by looking into the outputs directory and compare its content with the ones from the reference outputs directory (especially the curves file).
+
+\begin{lstlisting}[language=bash]
+$> cd nrt/data/IEEE/IEEE14_BlackBoxModels
+$> ls outputs
+$> diff outputs/curves/curves.csv reference/outputs/curves/curves.csv
+\end{lstlisting}
+
+All the simulation outputs are stored into the outputs directory, as specified in the jobs file. \\
+
+It is also possible to display directly simulation results - plots - into a simple GUI (created for demonstration purpose) by using for example the following command:
+
+\begin{lstlisting}[language=bash]
+$> ./myEnvDynawo.sh jobs-with-curves nrt/data/IEEE/IEEE14_DisconnectLine/IEEE14.jobs
+\end{lstlisting}
+
+For example, for this line disconnection simulation, the plot for the voltage module in p.u. on bus 10 should look like this:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{../resources/VoltageModule.png}
+\caption{\Dynawo results on IEEE14\_DisconnectLine case}
+\end{figure}
+
+\section{Third parties}
+
+To run a simulation, \Dynawo uses several external libraries that are downloaded and compiled during the building process:
+\begin{itemize}
+\item \href{https://www.openmodelica.org/} {\underline{OpenModelica}} \cite{openmodelica}, a Modelica \cite{modelica} environment developed and maintained by the Open Source Modelica Consortium distributed under a GPL V3.0 or OSMC Public License V1.2. \Dynawo is currently using the version 1.9.4 of the OpenModelica compiler to compile Modelica models either at run-time or beforehand during the compilation process. OpenModelica compiler source code is modified to match specific needs from \Dynawo ; these modifications are available in \path|dynawo/3rdParty/omcUpdate_1_9_4|.
+
+\item \href{https://computation.llnl.gov/projects/sundials}{\underline{SUNDIALS}} \cite{hindmarsh2005sundials}, a suite of solvers developed and maintained by the Lawrence Livermore National Lab distributed under a BSD-3-Clause license. \newline \Dynawo is currently using the version 2.7.0 from SUNDIALS. Small modifications on the library are applied to fit \Dynawo's needs and are available in \path|dynawo/3rdParty/sundials|. In particular, KINSOL and IDA from the SUNDIALS library are called to solve the Algebraic Equations and Differential Algebraic Equations systems arising during the simulation.
+
+\item \href{http://faculty.cse.tamu.edu/davis/suitesparse.html} {\underline{SuiteSparse}}, a suite of sparse matrix algorithms and in particular KLU \cite{DavisKLU}, a LU decomposition library that is  developed and maintained by T. A. Davis et al. at the University of Florida. \Dynawo currently uses the V 4.5.4 version of the suite sparse library that is distributed under a LGPL-2.1+ license. KLU is used inside KINSOL and IDA to make the LU decomposition required during Newton-Raphson resolutions.
+
+\item \href{http://www.met.reading.ac.uk/clouds/adept/}{\underline{Adept}} \cite{hogan_robin_j_2017_1004730} \cite{Hogan:2014:FRA:2639949.2560359}, an automatic differentiation library that is developed and maintained at the University of Reading by R.J. Hogan. The 1.1 version is currently employed into \Dynawo to evaluate the Jacobian matrices for Modelica models during the simulation and distributed under both Apache-2.0, GPL-2.0 and MIT licenses.
+
+\item \href{http://nicslu.weebly.com/} {\underline{NICSLU}} \cite{chenNicsLu} which is another LU decomposition library. It is developed and maintained by Tsinghua University and is optional at the moment into \Dynawo .If downloaded by the user, it could be used for LU decomposition in a similar way than KLU. This library is distributed under GNU LGPL license for open-source projects.
+\end{itemize}
+
+In addition to these libraries needed for the simulation process, \Dynawo downloads the code for two other libraries:
+\begin{itemize}
+\item \href{https://jquery.com/}{\underline{jQuery}} is used to provide a minimalistic GUI with \Dynawo that enables to visualize the results into a browser. jQuery is distributed under both a MIT and GPL license.
+\item \href{https://github.com/google/styleguide/tree/gh-pages/cpplint}{\underline{cpplint}}, a tool used during \Dynawo compilation process to ensure that the C++ files follow the Google\textquotesingle s C++ style.
+\end{itemize}
+
+Finally, \Dynawo also uses a large number of other system libraries for its compilation process, the unit testing process or to build its source documentation. These libraries must be installed by the developer before compiling \Dynawo and the complete list is given in \ref{Dynawo_Installation_Documentation_Building_Dynawo}.
+
+\bibliography{../resources/dynawoDocumentation}
+\bibliographystyle{abbrv}
+
+\end{document}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <!--Curves for scenario-->
+  <curve model="NETWORK" variable="_BUS___10_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_BUS___11_TN_Upu_value"/>
+</curvesInput>
+

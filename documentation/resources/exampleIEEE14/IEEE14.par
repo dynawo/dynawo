@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="7">
+    <par type="DOUBLE" name="LOAD_alpha" value="1.5"/>
+    <par type="DOUBLE" name="LOAD_beta" value="2.5"/>
+    <reference type="DOUBLE" name="LOAD_P0Pu" origData="IIDM" origName="p_pu"/>
+    <reference type="DOUBLE" name="LOAD_Q0Pu" origData="IIDM" origName="q_pu"/>
+    <reference type="DOUBLE" name="LOAD_U0Pu" origData="IIDM" origName="v_pu"/>
+    <reference type="DOUBLE" name="LOAD_UPhase0" origData="IIDM" origName="angle_pu"/>
+  </set>
+</parametersSet>

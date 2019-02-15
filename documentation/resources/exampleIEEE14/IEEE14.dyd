@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="_LOAD__10_EC" lib="LOAD_ALPHA_BETA.so" parFile="IEEE14.par" parId="7" staticId="_LOAD__10_EC"/>
+  <dyn:blackBoxModel id="_LOAD__11_EC" lib="LOAD_ALPHA_BETA.so" parFile="IEEE14.par" parId="8" staticId="_LOAD__11_EC"/>
+  <dyn:connect id1="_LOAD__10_EC" var1="LOAD_terminal" id2="NETWORK" var2="_BUS___10_TN_ACPIN"/>
+  <dyn:connect id1="_LOAD__11_EC" var1="LOAD_terminal" id2="NETWORK" var2="_BUS___11_TN_ACPIN"/>
+</dyn:dynamicModelsArchitecture>

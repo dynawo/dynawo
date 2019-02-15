@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="Test_LoadFrequency">
+    <dyn:unitDynamicModel id="Generator" name="Dynawo.Electrical.Machines.GeneratorPQ" initName ="Dynawo.Electrical.Machines.GeneratorPQ_INIT" parFile="Load.par" parId="1"/>
+    <dyn:unitDynamicModel id="Line" name="Dynawo.Electrical.Lines.Line" parFile="Load.par" parId="2"/>
+    <dyn:unitDynamicModel id="infBus" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="Load.par" parId="3"/>
+    <dyn:connect id1="Line" var1="terminal1" id2="Generator" var2="terminal"/>
+    <dyn:connect id1="Line" var1="terminal2" id2="infBus" var2="terminal"/>
+  </dyn:modelicaModel>
+  <dyn:blackBoxModel id="Load" lib="FrequencyLoad.so" parFile="Load.par" parId="5"/>
+  <dyn:connect id1="Load" var1="LOAD_terminal" id2="Test_LoadFrequency" var2="Generator_terminal"/>
+  <dyn:blackBoxModel id="SP_Omega" lib="SET_POINT.so" parFile="Load.par" parId="5"/>
+  <dyn:connect id1="SP_Omega" var1="SP_setPoint" id2="Test_LoadFrequency" var2="Generator_omegaRefPu"/>
+  <dyn:blackBoxModel id="SP_Omega2" lib="SET_POINT.so" parFile="Load.par" parId="5"/>
+  <dyn:connect id1="SP_Omega2" var1="SP_setPoint" id2="Load" var2="LOAD_omegaRefPu"/>
+</dyn:dynamicModelsArchitecture>
