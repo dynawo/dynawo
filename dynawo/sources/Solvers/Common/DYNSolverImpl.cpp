@@ -247,7 +247,6 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
   }
 
   throw DYNError(Error::SOLVER_ALGO, SolverUnstableZMode);
-  return false;
 }
 
 bool

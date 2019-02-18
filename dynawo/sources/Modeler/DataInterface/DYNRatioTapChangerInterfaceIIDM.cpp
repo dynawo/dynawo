@@ -95,16 +95,12 @@ RatioTapChangerInterfaceIIDM::getTerminalRefSide() const {
     switch (tapChangerIIDM_.terminalReference().side) {
       case IIDM::side_1:
         return "ONE";
-        break;
       case IIDM::side_2:
         return "TWO";
-        break;
       case IIDM::side_3:
         return "THREE";
-        break;
       case IIDM::side_end:
         return "";
-        break;
     }
   }
   return "";

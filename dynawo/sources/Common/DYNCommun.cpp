@@ -37,10 +37,7 @@ bool vectorAreEquals(const std::vector<double> & y1, const std::vector<double> &
 
   if (std::equal(y1.begin(), y1.end(), y2.begin()))
     return true;
-  else
-    return false;
-
-  return true;  // To avoid compiler warnings
+  return false;
 }
 
 std::string double2String(const double& value, const int& nbDecimal) {

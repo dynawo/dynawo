@@ -481,7 +481,6 @@ SolverIDA::analyseFlag(const int & flag) {
       Trace::debug() << DYNLog(SolverIDAUnknownError) << Trace::endline;
 #endif
       throw DYNError(Error::SUNDIALS_ERROR, SolverIDAError);
-      break;
   }
 
   if (flag < 0) {

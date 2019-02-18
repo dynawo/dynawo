@@ -390,7 +390,6 @@ SolverSIM::solve() {
       }
     }
   }
-  return (CONV);
 }
 
 int
