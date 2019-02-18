@@ -755,7 +755,6 @@ ModelDanglingLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* 
     }
     default:
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
-      break;
   }
 }
 

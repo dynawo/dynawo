@@ -361,7 +361,6 @@ ModelSwitch::evalJCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*
       break;
     default:
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
-      break;
   }
 }
 
@@ -374,7 +373,6 @@ ModelSwitch::evalCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*y
       break;
     default:
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
-      break;
   }
   return output;
 }

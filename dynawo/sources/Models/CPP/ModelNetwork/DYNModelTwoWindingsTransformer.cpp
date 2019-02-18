@@ -1126,7 +1126,6 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
       break;
     default:
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
-      break;
   }
 }
 
@@ -1607,7 +1606,6 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(int numCalculatedVar, double* y,
       break;
     default:
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
-      break;
   }
   return output;
 }

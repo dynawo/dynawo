@@ -88,10 +88,8 @@ VoltageLevelInterfaceIIDM::getVoltageLevelTopologyKind() const {
   switch (topo) {
     case IIDM::VoltageLevel::bus_breaker:
       return VoltageLevelInterface::BUS_BREAKER;
-      break;
     case IIDM::VoltageLevel::node_breaker:
       return VoltageLevelInterface::NODE_BREAKER;
-      break;
   }
   throw DYNError(Error::MODELER, VoltageLevelTopoError, getID());
 }

@@ -1179,7 +1179,6 @@ ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
       break;
     default:
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
-      break;
   }
 }
 
@@ -1221,7 +1220,7 @@ ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
   int signP1 = sign(P1);
   int signP2 = sign(P2);
 
-  double output;
+  double output = 0.0;
   switch (numCalculatedVar) {
     case i1Num_:
       output = sqrt(Ir1 * Ir1 + Ii1 * Ii1);
@@ -1302,7 +1301,6 @@ ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
       break;
     default:
       throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
-      break;
   }
   return output;
 }

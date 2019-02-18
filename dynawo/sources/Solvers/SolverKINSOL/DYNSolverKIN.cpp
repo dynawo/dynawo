@@ -405,7 +405,6 @@ SolverKIN::analyseFlag(const int & flag) {
       Trace::debug() << DYNLog(SolverKINUnknownError) << Trace::endline;
 #endif
       throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
-      break;
   }
 
   if (flag < 0) {

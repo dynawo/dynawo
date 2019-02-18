@@ -253,16 +253,12 @@ StaticVarCompensatorInterface::RegulationMode_t StaticVarCompensatorInterfaceIID
   switch (regMode) {
     case IIDM::StaticVarCompensator::regulation_voltage:
       return StaticVarCompensatorInterface::RUNNING_V;
-      break;
     case IIDM::StaticVarCompensator::regulation_reactive_power:
       return StaticVarCompensatorInterface::RUNNING_Q;
-      break;
     case IIDM::StaticVarCompensator::regulation_off:
       return StaticVarCompensatorInterface::OFF;
-      break;
     default:
       return StaticVarCompensatorInterface::OFF;
-      break;
   }
 
   return StaticVarCompensatorInterface::OFF;  // avoid compiler warning, should not happen

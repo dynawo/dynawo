@@ -271,11 +271,10 @@ ModelVoltageLevel::disconnectNode(const unsigned int nodeToDisconnect) {
       list<vector<string> >::const_iterator iter;
       for (iter = paths.begin(); iter != paths.end(); ++iter) {
         vector<string> path = *iter;
-        vector<string>::iterator itSwitchName;
-        for (itSwitchName = path.begin(); itSwitchName != path.end(); ++itSwitchName) {
+        vector<string>::iterator itSwitchName = path.begin();
+        if (itSwitchName != path.end()) {
           shared_ptr<ModelSwitch> sw = switchesById_.find(*itSwitchName)->second;
           sw->open();
-          break;
         }
       }
     }

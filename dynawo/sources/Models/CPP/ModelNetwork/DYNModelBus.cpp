@@ -713,7 +713,7 @@ ModelBus::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, v
 
 double
 ModelBus::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
-  double output;
+  double output = 0.0;
   double ur = y[0];
   double ui = y[1];
   switch (numCalculatedVar) {

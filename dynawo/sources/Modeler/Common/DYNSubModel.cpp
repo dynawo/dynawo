@@ -358,13 +358,11 @@ SubModel::getVariableIndexGlobal(const shared_ptr <Variable> variable) const {
     case CONTINUOUS:
     case FLOW: {
       return yDeb() + varNum;
-      break;
     }
     case DISCRETE:
     case BOOLEAN:
     case INTEGER: {  // Z vector contains DISCRETE variables and then INTEGER variables
       return zDeb() + varNum;
-      break;
     }
   }
   throw DYNError(Error::MODELER, SubModelBadVariableTypeForVariableIndex, name(), modelType(), variable->getName());

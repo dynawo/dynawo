@@ -85,10 +85,8 @@ HvdcLineInterfaceIIDM::getConverterMode() const {
   switch (convMode) {
     case IIDM::HvdcLine::mode_RectifierInverter:
       return HvdcLineInterface::RECTIFIER_INVERTER;
-      break;
     case IIDM::HvdcLine::mode_InverterRectifier:
       return HvdcLineInterface::INVERTER_RECTIFIER;
-      break;
     default:
       throw DYNError(Error::MODELER, ConvertersModeError, getID());
   }

@@ -336,7 +336,7 @@ ModelManager::evalJtAdept(const double & t, double *y, double * yp, const double
     throw(e.what());
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    throw e;
+    throw;
   } catch (const char *s) {
     std::cerr << "An error occured :" << s << std::endl;
     throw(s);
