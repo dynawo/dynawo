@@ -260,8 +260,6 @@ StaticVarCompensatorInterface::RegulationMode_t StaticVarCompensatorInterfaceIID
     default:
       return StaticVarCompensatorInterface::OFF;
   }
-
-  return StaticVarCompensatorInterface::OFF;  // avoid compiler warning, should not happen
 }
 
 }  // namespace DYN
