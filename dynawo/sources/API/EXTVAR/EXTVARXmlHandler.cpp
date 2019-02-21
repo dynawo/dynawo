@@ -24,6 +24,8 @@
 #include <boost/phoenix/bind.hpp>
 
 #include "DYNFileSystemUtils.h"
+#include "DYNMacrosMessage.h"
+#include "DYNExecUtils.h"
 
 #include "EXTVARVariableFactory.h"
 #include "EXTVARVariablesCollectionFactory.h"
@@ -96,6 +98,8 @@ VariableHandler::create(attributes_type const& attributes) {
 #else
     variableType = Variable::CONTINUOUS_ARRAY;
 #endif
+  } else {
+    throw DYNError(DYN::Error::API, XmlParsingError, "variable type should be one of continuous|discrete|discreteArray|continuousArray");
   }
   variable_ = VariableFactory::newVariable(attributes["id"], variableType);
   if (attributes.has("defaultValue")) {

@@ -102,8 +102,10 @@ vector<std::string> IoDicos::findFiles(const string& fileName) {
 }
 
 void IoDicos::addDico(const string& name, const string& baseName, const string& locale) {
-  if (baseName.empty())
-    throw("Impossible to add the dictionary : empty name");
+  if (baseName.empty()) {
+    static string msg = "Impossible to add the dictionary : empty name";
+    throw(&msg);
+  }
 
   // build name of the file to search
   vector<string> files;
@@ -134,8 +136,10 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
 }
 
 void IoDicos::addDicos(const string& dictionariesMappingFile, const string& locale) {
-  if (dictionariesMappingFile.empty())
-    throw("Impossible to add the dictionary mapping file : empty name");
+  if (dictionariesMappingFile.empty()) {
+    static string msg = "Impossible to add the dictionary mapping file : empty name";
+    throw(&msg);
+  }
 
   // build name of the file to search
   string fileName = dictionariesMappingFile + ".dic";
