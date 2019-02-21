@@ -47,31 +47,31 @@ executeCommand(const std::string & command, std::stringstream & ss) {
   // fd[0]entry and fd[1] exit
   int fd[2];
   if (pipe(fd) == -1) {
-    string msg = "pipe : ";
+    static string msg = "pipe : ";
     msg += strerror_r(errno, buferr, sizeof (buferr));
-    throw(msg.c_str());
+    throw(&msg);
   }
 
   pid_t pid;
 
   pid = fork();
   if (pid < 0) {  // fork failed
-    string msg = "fork : ";
+    static  string msg = "fork : ";
     msg += strerror_r(errno, buferr, sizeof (buferr));
-    throw(msg.c_str());
+    throw(&msg);
   }
 
   if (pid != 0) {  // Father process (reading the pipe to retrieve the traces made by the son)
     FILE *f = fdopen(fd[0], "r");
     if (f == NULL) {
-      string msg = "fdopen : ";
+      static string msg = "fdopen : ";
       msg += strerror_r(errno, buferr, sizeof (buferr));
-      throw(msg.c_str());
+      throw(&msg);
     }
     if (close(fd[1]) == -1) {
-      string msg = "close : ";
+      static string msg = "close : ";
       msg += strerror_r(errno, buferr, sizeof (buferr));
-      throw(msg.c_str());
+      throw(&msg);
     }
 
     // To make fd[0] non blocking
@@ -96,9 +96,9 @@ executeCommand(const std::string & command, std::stringstream & ss) {
       int retsel = select(fd[0] + 1, &rfds, NULL, NULL, &tv);
 
       if (retsel == -1) {  // error
-        string msg = "select : ";
+        static string msg = "select : ";
         msg += strerror_r(errno, buferr, sizeof (buferr));
-        throw(msg.c_str());
+        throw(&msg);
       } else if (retsel> 0) {  // some data may be available
         int retread;
         while ((retread = read(fd[0], buf, BUFSIZ)) > 0) {
@@ -108,9 +108,9 @@ executeCommand(const std::string & command, std::stringstream & ss) {
         if (retread == 0) {  // no more data (eof)
           fin = true;
         } else if (retread == -1 && errno != EAGAIN) {  // error
-          string msg = "read : ";
+          static string msg = "read : ";
           msg += strerror_r(errno, buferr, sizeof (buferr));
-          throw(msg.c_str());
+          throw(&msg);
         }
       }
     }
@@ -118,22 +118,22 @@ executeCommand(const std::string & command, std::stringstream & ss) {
       ss << strbuf << std::endl;
 
     if (fclose(f) != 0) {
-      string msg = "fclose : ";
+      static string msg = "fclose : ";
       msg += strerror_r(errno, buferr, sizeof (buferr));
-      throw(msg.c_str());
+      throw(&msg);
     }
 
     // wait for the main process to finish
     if (waitpid(pid, &status, WUNTRACED) == -1) {
-      string msg = "waitpid : ";
+      static string msg = "waitpid : ";
       msg += strerror_r(errno, buferr, sizeof (buferr));
-      throw(msg.c_str());
+      throw(&msg);
     }
   } else {  // Son process (execution and writing in the pipe for emission of traces)
     if (close(fd[0]) == -1) {
-      string msg = "close : ";
+      static string msg = "close : ";
       msg += strerror_r(errno, buferr, sizeof (buferr));
-      throw(msg.c_str());
+      throw(&msg);
     }
 
     // Connecting the standard output to the output of the pipe

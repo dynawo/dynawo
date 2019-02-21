@@ -330,22 +330,25 @@ ModelManager::evalJtAdept(const double & t, double *y, double * yp, const double
     delete timer3;
   } catch (adept::stack_already_active & e) {
     std::cerr << "Error :" << e.what() << std::endl;
-    throw(e.what());
+    static string msg = e.what();
+    throw(&msg);
   } catch (adept::autodiff_exception & e) {
     std::cerr << "Error :" << e.what() << std::endl;
-    throw(e.what());
+    static string msg = e.what();
+    throw(&msg);
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
     throw;
   } catch (const char *s) {
     std::cerr << "An error occured :" << s << std::endl;
-    throw(s);
+    static string msg = s;
+    throw(&msg);
   } catch (const string &s) {
     std::cerr << "An error occured :" << s << std::endl;
     throw(s);
   } catch (...) {
     std::cerr << "An error occurred" << std::endl;
-    throw("");
+    throw;
   }
 }
 #endif

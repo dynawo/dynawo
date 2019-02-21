@@ -87,7 +87,8 @@ namespace DYN {
         stringstream msg;
         msg << "Load error :" << dlerror();
         Trace::error() << msg.str() << Trace::endline;
-        throw(msg.str().c_str());
+        static string message = msg.str();
+        throw(&message);
       }
 
       dlerror();
@@ -96,7 +97,8 @@ namespace DYN {
         stringstream msg;
         msg << "Load error :" << error;
         Trace::error() << msg.str() << Trace::endline;
-        throw(msg.str().c_str());
+        static string message = msg.str();
+        throw(&message);
       }
       SolverFactory * factory = getFactory();
       factory->handle_ = handle;
