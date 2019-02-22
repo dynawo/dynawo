@@ -65,7 +65,7 @@ static void mosAddHeader(const string& mosFilePath, const string& runOptions, of
 static void mosAddFilesImport(const bool importModelicaPackage, const vector<string>& filesToImport,
                               ofstream& mosFile);  ///< Add files import commands to a .mos file
 static void mosRunFile(const string& mosFilePath, const string& runOptions);  ///< Run a given .mos file
-
+static void prepareWorkspace(const string& modelName, const string& inputDir, const string& outputDir, bool& rmModels);
 int main(int argc, char ** argv) {
   Trace::init();
 
@@ -119,37 +119,8 @@ int main(int argc, char ** argv) {
   int size = string("compilerModelicaOMC").size();
   fullPathBin.erase(fullPathBin.end() - size, fullPathBin.end());  // erase the name of the binary file
   string installDir = prettyPath(fullPathBin + "/../");  // the binary is in the sbin directory, so the install dir is in sbin/../
-  if (!is_directory(outputDir))
-    create_directory(outputDir);
+  prepareWorkspace(modelName, inputDir, outputDir, rmModels);
   string outputDir1 = prettyPath(outputDir);
-  if (!is_directory(inputDir))
-    throw DYNError(DYN::Error::MODELER, MissingModelicaFile, absolute(modelName + ".mo", inputDir));
-  string inputDir1 = prettyPath(inputDir);
-  string inputMoFile = absolute(modelName + ".mo", inputDir1);
-  string inputExtVarFile = absolute(modelName + ".xml", inputDir1);
-  string inputInitFile = absolute(modelName + "_INIT.mo", inputDir1);
-  string outputMoFile = absolute(modelName + ".mo", outputDir1);
-  string outputExtVarFile = absolute(modelName + ".xml", outputDir1);
-  string outputInitFile = absolute(modelName + "_INIT.mo", outputDir1);
-  if (exists(inputMoFile) && inputMoFile != outputMoFile) {
-    if (exists(outputMoFile))
-      remove(outputMoFile);
-    copy(inputMoFile, outputMoFile);
-  }
-  // Force file deletion if input folder is not output folder to avoid having the model copy in the output folder.
-  // Otherwise follows user instruction
-  if (inputMoFile != outputMoFile)
-    rmModels = true;
-  if (exists(inputExtVarFile) && inputExtVarFile != outputExtVarFile) {
-    if (exists(outputExtVarFile))
-      remove(outputExtVarFile);
-    copy(inputExtVarFile, outputExtVarFile);
-  }
-  if (exists(inputInitFile) && inputInitFile != outputInitFile) {
-    if (exists(outputInitFile))
-      remove(outputInitFile);
-    copy(inputInitFile, outputInitFile);
-  }
 
   // Launch the compile of the model
   try {
@@ -191,6 +162,42 @@ int main(int argc, char ** argv) {
     std::cerr << " Compilation of " << modelName << " failed :" << e << std::endl;
   } catch (...) {
     std::cerr << " Compilation of " << modelName << " failed : Unexpected exception " << std::endl;
+  }
+}
+
+
+void
+prepareWorkspace(const string& modelName, const string& inputDir, const string& outputDir, bool& rmModels) {
+  if (!is_directory(outputDir))
+    create_directory(outputDir);
+  string outputDir1 = prettyPath(outputDir);
+  if (!is_directory(inputDir))
+    throw DYNError(DYN::Error::MODELER, MissingModelicaFile, absolute(modelName + ".mo", inputDir));
+  string inputDir1 = prettyPath(inputDir);
+  string inputMoFile = absolute(modelName + ".mo", inputDir1);
+  string inputExtVarFile = absolute(modelName + ".xml", inputDir1);
+  string inputInitFile = absolute(modelName + "_INIT.mo", inputDir1);
+  string outputMoFile = absolute(modelName + ".mo", outputDir1);
+  string outputExtVarFile = absolute(modelName + ".xml", outputDir1);
+  string outputInitFile = absolute(modelName + "_INIT.mo", outputDir1);
+  if (exists(inputMoFile) && inputMoFile != outputMoFile) {
+    if (exists(outputMoFile))
+      remove(outputMoFile);
+    copy(inputMoFile, outputMoFile);
+  }
+  // Force file deletion if input folder is not output folder to avoid having the model copy in the output folder.
+  // Otherwise follows user instruction
+  if (inputMoFile != outputMoFile)
+    rmModels = true;
+  if (exists(inputExtVarFile) && inputExtVarFile != outputExtVarFile) {
+    if (exists(outputExtVarFile))
+      remove(outputExtVarFile);
+    copy(inputExtVarFile, outputExtVarFile);
+  }
+  if (exists(inputInitFile) && inputInitFile != outputInitFile) {
+    if (exists(outputInitFile))
+      remove(outputInitFile);
+    copy(inputInitFile, outputInitFile);
   }
 }
 
