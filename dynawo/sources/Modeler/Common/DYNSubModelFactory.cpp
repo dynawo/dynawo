@@ -83,8 +83,7 @@ SubModel* SubModelFactory::createSubModelFromLib(const std::string & lib) {
       stringstream msg;
       msg << "Load error :" << dlerror();
       Trace::error() << msg.str() << Trace::endline;
-      static string message = msg.str();
-      throw(message);
+      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
     }
 
     dlerror();
@@ -93,8 +92,7 @@ SubModel* SubModelFactory::createSubModelFromLib(const std::string & lib) {
       stringstream msg;
       msg << "Load error :" << error;
       Trace::error() << msg.str() << Trace::endline;
-      static string message = msg.str();
-      throw(message);
+      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::getFactory");
     }
     SubModelFactory * factory = getFactory();
     factory->handle_ = handle;
