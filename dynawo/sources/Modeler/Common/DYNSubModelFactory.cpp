@@ -84,7 +84,7 @@ SubModel* SubModelFactory::createSubModelFromLib(const std::string & lib) {
       msg << "Load error :" << dlerror();
       Trace::error() << msg.str() << Trace::endline;
       static string message = msg.str();
-      throw(&message);
+      throw(message);
     }
 
     dlerror();
@@ -94,7 +94,7 @@ SubModel* SubModelFactory::createSubModelFromLib(const std::string & lib) {
       msg << "Load error :" << error;
       Trace::error() << msg.str() << Trace::endline;
       static string message = msg.str();
-      throw(&message);
+      throw(message);
     }
     SubModelFactory * factory = getFactory();
     factory->handle_ = handle;

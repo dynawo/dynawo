@@ -99,7 +99,7 @@ XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& co
           break;
         case Parameter::SIZE_OF_ENUM:
           static string msg = "SIZE_OF_ENUM should not be set as a Parameter type";
-          throw(&msg);
+          throw(msg);
       }
       formatter->startElement("par", attrs);
       formatter->endElement();   // par

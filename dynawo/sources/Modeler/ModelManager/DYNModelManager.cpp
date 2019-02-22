@@ -331,18 +331,18 @@ ModelManager::evalJtAdept(const double & t, double *y, double * yp, const double
   } catch (adept::stack_already_active & e) {
     std::cerr << "Error :" << e.what() << std::endl;
     static string msg = e.what();
-    throw(&msg);
+    throw(msg);
   } catch (adept::autodiff_exception & e) {
     std::cerr << "Error :" << e.what() << std::endl;
     static string msg = e.what();
-    throw(&msg);
+    throw(msg);
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
     throw;
   } catch (const char *s) {
     std::cerr << "An error occured :" << s << std::endl;
     static string msg = s;
-    throw(&msg);
+    throw(msg);
   } catch (const string &s) {
     std::cerr << "An error occured :" << s << std::endl;
     throw(s);
