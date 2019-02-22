@@ -532,7 +532,7 @@ compileModelicaOMCHelp() {
 
 # Compile a modelica model
 compileModelicaOMC() {
-  $DYNAWO_INSTALL_DIR/bin/launcher --compile $@
+  $DYNAWO_INSTALL_DIR/bin/launcher --compile $@ --remove-model-files false
 }
 
 # Compile Dynawo core (without models)

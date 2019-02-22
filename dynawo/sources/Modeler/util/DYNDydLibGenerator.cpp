@@ -220,6 +220,8 @@ int main(int argc, char ** argv) {
   } catch (const string& msg) {
     Trace::error() << msg << Trace::endline;
     return -1;
+  } catch (const DYN::Error& e) {
+    std::cerr << " Generation failed :" << e << std::endl;
   } catch (...) {
     std::cerr << " Generation failed : Unexpected exception " << std::endl;
     return -1;

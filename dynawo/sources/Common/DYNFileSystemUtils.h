@@ -192,6 +192,15 @@ bool exists(const std::string & path);
 bool remove(const std::string & path);
 
 /**
+ * @brief copy a given file
+ *
+ * @param[in] oldPath : the path to copy
+ * @param[in] newPath : the copied file
+ *
+ */
+void copy(const std::string & oldPath, const std::string & newPath);
+
+/**
  * @brief Retrieve the current path
  * WARNING : not thread-safe
  *

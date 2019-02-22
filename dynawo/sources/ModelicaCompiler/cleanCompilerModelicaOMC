@@ -12,6 +12,7 @@
 # simulation tool for power systems.
 #
 
+DO_NOT_RM_MODELS="false"
 while (($#)); do
   case $1 in
     --model=*)
@@ -23,6 +24,10 @@ while (($#)); do
     --debug)
       DEBUG="true"
       ;;
+    --do-not-remove-model-files)
+      DO_NOT_RM_MODELS="true"
+      ;;
+
     *)
       break
       ;;
@@ -46,7 +51,9 @@ cd $DIRECTORY
 
 RM="rm -f"
 
-$RM "$MODEL".mo
+if [ "$DO_NOT_RM_MODELS" == "false" ]; then
+	$RM "$MODEL".mo
+fi
 $RM "$MODEL".o
 $RM "$MODEL".c
 $RM "$MODEL".makefile
@@ -77,7 +84,9 @@ $RM "$MODEL"_init.xml
 $RM "$MODEL"_Init.o
 $RM "$MODEL"_INIT.c
 $RM "$MODEL"_INIT.makefile
-$RM "$MODEL"_INIT.mo
+if [ "$DO_NOT_RM_MODELS" == "false" ]; then
+	$RM "$MODEL"_INIT.mo
+fi
 $RM "$MODEL"_INIT_01exo.c
 $RM "$MODEL"_INIT_02nls.c
 $RM "$MODEL"_INIT_03lsy.c

@@ -58,7 +58,7 @@ static void compileModelicaToXML(const string& modelName, const string& fileToCo
 static void generateModelFile(const string& modelName, const string& outputDir,
                               bool& withInitFile,
                               const string& additionalHeaderList);  ///< Rewrite parts of one whole Modelica model C/C++ code to fit Dynawo C/C++ requirements
-static void removeTemporaryFiles(const string& modelName, const string& outputDir);  ///< remove temporary compilation files
+static void removeTemporaryFiles(const string& modelName, const string& outputDir, bool rmModels);  ///< remove temporary compilation files
 static bool verifySharedObject(const string& library);  ///< Ensure that the generated compiled library can actually run
 
 static void mosAddHeader(const string& mosFilePath, const string& runOptions, ofstream& mosFile);  ///< Add a header to the .mos file
@@ -72,18 +72,22 @@ int main(int argc, char ** argv) {
   string libName = "";
   string modelName = "";
   string outputDir = ".";
+  string inputDir = "";
   string additionalHeaderList;
   po::options_description desc;
   vector<string> moFiles;
   vector<string> initFiles;
+  bool rmModels = true;
 
   desc.add_options()
           ("help,h", "produce help message")
           ("model", po::value<string>(&modelName), "set the model name of the file to compile (model.mo needs to be in output-dir)")
+          ("input-dir", po::value<string>(&inputDir), "set input directory (default : output directory)")
           ("output-dir", po::value<string>(&outputDir), "set output directory (default : current directory)")
           ("moFiles", po::value< vector<string> >(&moFiles)->multitoken(), "modelica files to use for expansion")
           ("initFiles", po::value< vector<string> >(&initFiles)->multitoken(), "init files to use for expansion")
           ("lib", po::value<string>(&libName), "set the name of the output lib")
+          ("remove-model-files", po::value<bool>(&rmModels), "if true the .mo input files will be deleted (default : true)")
           ("additionalHeaderList", po::value< string >(&additionalHeaderList),
               "list of headers that should be included in the dynamic model files");
 
@@ -99,6 +103,9 @@ int main(int argc, char ** argv) {
     cout << desc << endl;
     return 1;
   }
+  if (inputDir == "") {
+    inputDir = outputDir;
+  }
 
   // find the current installDir
   string currentPath = prettyPath(current_path());
@@ -112,7 +119,37 @@ int main(int argc, char ** argv) {
   int size = string("compilerModelicaOMC").size();
   fullPathBin.erase(fullPathBin.end() - size, fullPathBin.end());  // erase the name of the binary file
   string installDir = prettyPath(fullPathBin + "/../");  // the binary is in the sbin directory, so the install dir is in sbin/../
+  if (!is_directory(outputDir))
+    create_directory(outputDir);
   string outputDir1 = prettyPath(outputDir);
+  if (!is_directory(inputDir))
+    throw DYNError(DYN::Error::MODELER, MissingModelicaFile, absolute(modelName + ".mo", inputDir));
+  string inputDir1 = prettyPath(inputDir);
+  string inputMoFile = absolute(modelName + ".mo", inputDir1);
+  string inputExtVarFile = absolute(modelName + ".xml", inputDir1);
+  string inputInitFile = absolute(modelName + "_INIT.mo", inputDir1);
+  string outputMoFile = absolute(modelName + ".mo", outputDir1);
+  string outputExtVarFile = absolute(modelName + ".xml", outputDir1);
+  string outputInitFile = absolute(modelName + "_INIT.mo", outputDir1);
+  if (exists(inputMoFile) && inputMoFile != outputMoFile) {
+    if (exists(outputMoFile))
+      remove(outputMoFile);
+    copy(inputMoFile, outputMoFile);
+  }
+  // Force file deletion if input folder is not output folder to avoid having the model copy in the output folder.
+  // Otherwise follows user instruction
+  if (inputMoFile != outputMoFile)
+    rmModels = true;
+  if (exists(inputExtVarFile) && inputExtVarFile != outputExtVarFile) {
+    if (exists(outputExtVarFile))
+      remove(outputExtVarFile);
+    copy(inputExtVarFile, outputExtVarFile);
+  }
+  if (exists(inputInitFile) && inputInitFile != outputInitFile) {
+    if (exists(outputInitFile))
+      remove(outputInitFile);
+    copy(inputInitFile, outputInitFile);
+  }
 
   // Launch the compile of the model
   try {
@@ -138,7 +175,7 @@ int main(int argc, char ** argv) {
       if (!exists(lib)) {
         throw DYNError(DYN::Error::MODELER, FileGenerationFailed, lib);
       } else {
-        removeTemporaryFiles(modelName, outputDir1);
+        removeTemporaryFiles(modelName, outputDir1, rmModels);
         bool valid = verifySharedObject(lib);
         if (!valid)
           throw DYNError(DYN::Error::MODELER, FileGenerationFailed, lib);
@@ -150,6 +187,8 @@ int main(int argc, char ** argv) {
     std::cerr << " Compilation of " << modelName << " failed :" << s << std::endl;
   } catch (const char *s) {
     std::cerr << " Compilation of " << modelName << " failed :" << s << std::endl;
+  } catch (const DYN::Error& e) {
+    std::cerr << " Compilation of " << modelName << " failed :" << e << std::endl;
   } catch (...) {
     std::cerr << " Compilation of " << modelName << " failed : Unexpected exception " << std::endl;
   }
@@ -352,23 +391,16 @@ compileLib(const string& modelName, const string& libName, const string& outputD
 }
 
 void
-removeTemporaryFiles(const string& modelName, const string& outputDir) {
+removeTemporaryFiles(const string& modelName, const string& outputDir, bool rmModels) {
   string outputDir1 = prettyPath(outputDir);
   string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
   string commandRemove = scriptsDir1 + "/cleanCompilerModelicaOMC --model=" + modelName + " --directory=" + outputDir1;
+  if (!rmModels)
+    commandRemove += " --do-not-remove-model-files";
 #ifdef _DEBUG_
   commandRemove += " --debug";
 #endif
 
-  bool doPrintLogs = true;
-  string result = executeCommand(commandRemove, doPrintLogs);
-}
-
-void
-removeOldFiles(const string& modelName, const string& outputDir) {
-  string outputDir1 = prettyPath(outputDir);
-  string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
-  string commandRemove = scriptsDir1 + "/cleanCompilerModelicaOMC --model=\"" + modelName + "\" --directory=\"" + outputDir1 + "\"";
   bool doPrintLogs = true;
   string result = executeCommand(commandRemove, doPrintLogs);
 }

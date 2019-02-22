@@ -1158,7 +1158,7 @@ class readerOMC:
         global nbBracesOpened
         global crossedOpeningBraces
         global stopAtNextCall
-        ptrnFunc = re.compile(r'.* (?P<var>.*)\(.*\)')
+        ptrnFunc = re.compile(r'^(?![\/]).* (?P<var>.*)\(.*\)')
         with open(fileToRead, 'r') as f:
             while True:
                 nbBracesOpened = 0
