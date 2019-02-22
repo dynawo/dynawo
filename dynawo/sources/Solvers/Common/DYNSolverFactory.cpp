@@ -23,6 +23,7 @@
 
 #include "DYNTrace.h"
 #include "DYNSolverFactory.h"
+#include "DYNMacrosMessage.h"
 
 using std::map;
 using std::string;
@@ -87,8 +88,7 @@ namespace DYN {
         stringstream msg;
         msg << "Load error :" << dlerror();
         Trace::error() << msg.str() << Trace::endline;
-        static string message = msg.str();
-        throw(message);
+        throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
       }
 
       dlerror();
@@ -97,8 +97,7 @@ namespace DYN {
         stringstream msg;
         msg << "Load error :" << error;
         Trace::error() << msg.str() << Trace::endline;
-        static string message = msg.str();
-        throw(message);
+        throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::getFactory");
       }
       SolverFactory * factory = getFactory();
       factory->handle_ = handle;
