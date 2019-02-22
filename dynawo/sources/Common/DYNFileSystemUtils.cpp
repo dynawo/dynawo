@@ -241,6 +241,13 @@ bool remove(const string & path) {
   return fs::remove(fspath);
 }
 
+
+void copy(const std::string & oldPath, const std::string & newPath) {
+  fs::path from(oldPath);
+  fs::path to(newPath);
+  return fs::copy(from, to);
+}
+
 string current_path() {
   return fs::current_path().string();
 }
