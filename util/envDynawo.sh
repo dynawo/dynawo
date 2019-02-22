@@ -645,12 +645,14 @@ build_tests_coverage() {
   fi
   mkdir -p $DYNAWO_HOME/build/coverage-sonar
   cd $DYNAWO_HOME/build/coverage-sonar
-  for file in $(find $DYNAWO_BUILD_DIR -name "*.gcno"); do
+  for file in $(find $DYNAWO_BUILD_DIR -name "*.gcno" | grep -v "/test/"); do
     cpp_file_name=$(basename $file .gcno)
     cpp_file=$(find $DYNAWO_HOME/dynawo/sources -name "$cpp_file_name")
+    echo "gcov -pb $cpp_file -o $file"
     gcov -pb $cpp_file -o $file > /dev/null
   done
   rm -f $DYNAWO_HOME/build/coverage-sonar/\#usr\#*
+  find $DYNAWO_HOME/build/coverage-sonar -name "*3rdParty*" -exec rm -f {} \;
 }
 
 clean_tests() {
@@ -989,7 +991,7 @@ deploy_dynawo() {
   fi
   cp -P $LIBZIP_HOME/lib/*.* extraLibs/LIBZIP/lib/
   cp -P $LIBXML_HOME/lib/*.* extraLibs/LIBXML/lib/
-  
+
   cd $THIRD_PARTY_SRC_DIR/libiidm
   if [ $BOOST_ROOT_DEFAULT != true ]; then
     BOOST_OPTION="--boost-install-dir=$BOOST_ROOT"
