@@ -33,17 +33,17 @@ Filter variables. To use in argument of the primitive "filter" for example .
 # @return @b True if the variable is a variable of the system
 def isSystVar(var):
     # if it's a var $dummy for omc, it does not count
-    nameVar = var.getName()
-    if "$dummy" in nameVar : return False
+    name_var = var.getName()
+    if "$dummy" in name_var : return False
 
-    typeVar = var.getType()
+    type_var = var.getType()
     variability = var.getVariability()
 
-    rightVarType = (typeVar in ["rSta", "rAlg"])
-    isContinuous = (variability == "continuous")
-    withinSystem = True
+    right_var_type = (type_var in ["rSta", "rAlg"])
+    is_continuous = (variability == "continuous")
+    within_system = True
 
-    return isContinuous and rightVarType and withinSystem
+    return is_continuous and right_var_type and within_system
 
 ##
 # Check whether the variable is a variable of the system or not
@@ -51,49 +51,49 @@ def isSystVar(var):
 # @return @b True if the variable is a variable of the system
 def isVar(var):
     # if it's a var $dummy for omc, it does not count
-    nameVar = var.getName()
-    if "$dummy" in nameVar : return False
+    name_var = var.getName()
+    if "$dummy" in name_var : return False
 
-    typeVar = var.getType()
+    type_var = var.getType()
     variability = var.getVariability()
     # iAlg is for Integer variable
-    rightVarType = (typeVar in ["rSta", "rAlg", "rAli", "iAlg", "bAlg"])
-    isContinuous = (variability in ["continuous","discrete"])
-    withinSystem = True
+    right_var_type = (type_var in ["rSta", "rAlg", "rAli", "iAlg", "bAlg"])
+    is_continuous = (variability in ["continuous","discrete"])
+    within_system = True
 
-    return isContinuous and rightVarType and withinSystem
+    return is_continuous and right_var_type and within_system
 
 ##
 # Check whether the variable is an algebraic variable of the system or not
 # @param var : variable to test
 # @return @b True if the variable is a algebraic variable of the system
 def isAlgVar(var):
-    typeVar = var.getType()
+    type_var = var.getType()
     variability = var.getVariability()
 
-    rightVarType = (typeVar in ["rAlg"])
-    isContinuous = (variability == "continuous")
-    withinSystem = True
+    right_var_type = (type_var in ["rAlg"])
+    is_continuous = (variability == "continuous")
+    within_system = True
 
-    return isContinuous and rightVarType and withinSystem
+    return is_continuous and right_var_type and within_system
 
 ##
 # Check whether the variable is a discrete variable of the system or not
 # @param var : variable to test
 # @return @b True if the variable is a discrete variable of the system
 def isDiscreteRealVar(var):
-    typeVar = var.getType()
+    type_var = var.getType()
     variability = var.getVariability()
-    return variability == "discrete" and typeVar == "rAlg"
+    return variability == "discrete" and type_var == "rAlg"
 
 ##
 # Check whether the variable is an integer variable of the system or not
 # @param var : variable to test
 # @return @b True if the variable is an integer variable of the system
 def isIntegerVar(var):
-    typeVar = var.getType()
+    type_var = var.getType()
     variability = var.getVariability()
-    return variability == "discrete" and typeVar == "iAlg"
+    return variability == "discrete" and type_var == "iAlg"
 
 EXTERNAL_PARAMETER, SHARED_PARAMETER, INTERNAL_PARAMETER = range(3)
 
@@ -109,12 +109,12 @@ def paramScope(par):
     else:
         return EXTERNAL_PARAMETER
 
-def paramScopeStr (parScope):
-    if parScope == INTERNAL_PARAMETER:
+def paramScopeStr (par_scope):
+    if par_scope == INTERNAL_PARAMETER:
         return "INTERNAL_PARAMETER"
-    elif parScope == SHARED_PARAMETER:
+    elif par_scope == SHARED_PARAMETER:
         return "SHARED_PARAMETER"
-    elif parScope == EXTERNAL_PARAMETER:
+    elif par_scope == EXTERNAL_PARAMETER:
         return "EXTERNAL_PARAMETER"
 
 ##
@@ -122,25 +122,25 @@ def paramScopeStr (parScope):
 # @param par : parameter to test
 # @return @b True if the parameter is a boolean parameter
 def isParamBool(par):
-    typeVar = par.getType()
-    return typeVar == "bPar"
+    type_var = par.getType()
+    return type_var == "bPar"
 
 ##
 # Check whether the parameter is an external boolean parameter
 # @param par : parameter to test
 # @return @b True if the parameter is an external boolean parameter
 def isParamExtBool(par):
-    typeVar = par.getType()
+    type_var = par.getType()
     internal = par.getInternal()
-    useStart = par.getUseStart()
-    return isParamBool(par) and not internal and not useStart
+    use_start = par.getUseStart()
+    return isParamBool(par) and not internal and not use_start
 
 ##
 # Check whether the parameter is an internal boolean parameter
 # @param par : parameter to test
 # @return @b True if the parameter is an internal boolean parameter
 def isParamInternalBool(par):
-    typeVar = par.getType()
+    type_var = par.getType()
     return isParamBool(par) and not isParamExtBool(par)
 
 ##
@@ -148,25 +148,25 @@ def isParamInternalBool(par):
 # @param par : parameter to test
 # @return @b True if the parameter is an integer parameter
 def isParamInteger(par):
-    typeVar = par.getType()
-    return typeVar == "iPar"
+    type_var = par.getType()
+    return type_var == "iPar"
 
 ##
 # Check whether the parameter is an external integer parameter
 # @param par : parameter to test
 # @return @b True if the parameter is an external integer parameter
 def isParamExtInteger(par):
-    typeVar = par.getType()
+    type_var = par.getType()
     internal = par.getInternal()
-    useStart = par.getUseStart()
-    return isParamInteger(par) and not internal and not useStart
+    use_start = par.getUseStart()
+    return isParamInteger(par) and not internal and not use_start
 
 ##
 # Check whether the parameter is an internal integer parameter
 # @param par : parameter to test
 # @return @b True if the parameter is an internal integer parameter
 def isParamInternalInteger(par):
-    typeVar = par.getType()
+    type_var = par.getType()
     return isParamInteger(par) and not isParamExtInteger(par)
 
 
@@ -175,24 +175,24 @@ def isParamInternalInteger(par):
 # @param par : parameter to test
 # @return @b True if the parameter is a string parameter
 def isParamString(par):
-    typeVar = par.getType()
-    return typeVar == "sPar"
+    type_var = par.getType()
+    return type_var == "sPar"
 
 ##
 # Check whether the parameter is an external string parameter
 # @param par : parameter to test
 # @return @b True if the parameter is an external string parameter
 def isParamExtString(par):
-    typeVar = par.getType()
-    startText = par.getStartText()[0]
-    return isParamString(par) and startText == ""
+    type_var = par.getType()
+    start_text = par.getStartText()[0]
+    return isParamString(par) and start_text == ""
 
 ##
 # Check whether the parameter is an internal string parameter
 # @param par : parameter to test
 # @return @b True if the parameter is an internal string parameter
 def isParamInternalString(par):
-    typeVar = par.getType()
+    type_var = par.getType()
     return isParamString(par) and not isParamExtString(par)
 
 ##
@@ -200,20 +200,20 @@ def isParamInternalString(par):
 # @param par : parameter to test
 # @return @b True if the parameter is a real parameter
 def isParamReal(par):
-    typeVar = par.getType()
-    return typeVar == "rPar"
+    type_var = par.getType()
+    return type_var == "rPar"
 
 ##
 # Check whether the parameter is an external real parameter
 # @param par : parameter to test
 # @return @b True if the parameter is an external real parameter
 def isParamExtReal(par):
-    typeVar = par.getType()
+    type_var = par.getType()
     name = par.getName()
     internal = par.getInternal()
-    initByInitExtend = par.getInitByExtendIn06Inz()
-    useStart = par.getUseStart()
-    return isParamReal(par) and not internal and not initByInitExtend and not useStart
+    init_by_init_extend = par.getInitByExtendIn06Inz()
+    use_start = par.getUseStart()
+    return isParamReal(par) and not internal and not init_by_init_extend and not use_start
 
 
 ##
@@ -236,8 +236,8 @@ def isParamWithPrivateEquation(par):
 # @param var : variable to test
 # @return @b True if the variable is a boolean variable
 def isBoolVar(var):
-    typeVar = var.getType()
-    return typeVar == "bAlg"
+    type_var = var.getType()
+    return type_var == "bAlg"
 
 ##
 # Check whether the variable is derivative variable
@@ -245,11 +245,11 @@ def isBoolVar(var):
 # @return @b True if the variable is a derivative variable
 def isDerRealVar(var):
     # if it's a var $dummy for omc, it does not count
-    nameVar = var.getName()
-    if "$dummy" in nameVar : return False
+    name_var = var.getName()
+    if "$dummy" in name_var : return False
 
-    typeVar = var.getType()
-    return typeVar == "rDer"
+    type_var = var.getType()
+    return type_var == "rDer"
 
 ##
 # Check if the variable has an alias
@@ -293,9 +293,9 @@ def isDummyVar(var):
 # @param var2 : second variable to compare
 # @return 1 if var1 > var2, 0 if var1 = var2, -1 otherwise
 def cmp_numOmc_vars(var1, var2):
-    numOmc1, numOmc2 = int(var1.getNumOmc()), int(var2.getNumOmc())
-    if numOmc1 > numOmc2: res = 1
-    elif numOmc1 < numOmc2: res = -1
+    num_omc1, num_omc2 = int(var1.getNumOmc()), int(var2.getNumOmc())
+    if num_omc1 > num_omc2: res = 1
+    elif num_omc1 < num_omc2: res = -1
     else: res = 0
     return res
 
@@ -480,18 +480,18 @@ class variable:
     ##
     # Set the list of lines used to initialize the variable in 06inz file
     # @param self : object pointer
-    # @param startText : list of lines
+    # @param start_text : list of lines
     # @return
-    def setStartText06Inz(self, startText):
-        self.startText06Inz = startText
+    def setStartText06Inz(self, start_text):
+        self.startText06Inz = start_text
 
     ##
     # Set the list of lines used to initialize the variable in 08bnd file
     # @param self : object pointer
-    # @param startText : list of lines
+    # @param start_text : list of lines
     # @return
-    def setStartText(self, startText):
-        self.startText = startText
+    def setStartText(self, start_text):
+        self.startText = start_text
 
     ##
     # Set if the initial value is set in the mo file
@@ -504,10 +504,10 @@ class variable:
     ##
     # Set the output index of the variable
     # @param self : object pointer
-    # @param numDyn : output index
+    # @param num_dyn : output index
     # @return
-    def setNumDynOutput(self, numDyn):
-        self.numDynOutput = numDyn
+    def setNumDynOutput(self, num_dyn):
+        self.numDynOutput = num_dyn
 
     ##
     # Set the name of the variable to use in Dynawo (x[i], xd[i], z[i], rpar[i])
@@ -520,26 +520,26 @@ class variable:
     ##
     # Set the index of the variable in omc arrays
     # @param self : object pointer
-    # @param numOmc : variable's index
+    # @param num_omc : variable's index
     # @return
-    def setNumOmc(self, numOmc):
-        self.numOmc = numOmc
+    def setNumOmc(self, num_omc):
+        self.numOmc = num_omc
 
     ##
     # Set the index of the function used to initialize the variable in the 06inz file
     # @param self : object pointer
-    # @param numFunc06Inz : index of the function
+    # @param num_func06_inz : index of the function
     # @return
-    def setNumFunc06Inz(self, numFunc06Inz):
-        self.numFunc06Inz = numFunc06Inz
+    def setNumFunc06Inz(self, num_func06_inz):
+        self.numFunc06Inz = num_func06_inz
 
     ##
     # Set if the initial value should be used
     # @param self : object pointer
-    # @param useStart : @b true if the initial value should be used
+    # @param use_start : @b true if the initial value should be used
     # @return
-    def setUseStart(self, useStart):
-        self.useStart = useStart != "false"
+    def setUseStart(self, use_start):
+        self.useStart = use_start != "false"
 
     ##
     # Get the name of the variable
@@ -793,10 +793,10 @@ class Element:
     ##
     # default constructor
     # @param self : object pointer
-    # @param isStruct : @b true is the element is a structure
+    # @param is_struct : @b true is the element is a structure
     # @param name : name of the element
-    # @param numElt : index of the element
-    def __init__(self, isStruct = None, name = None, numElt=None):
+    # @param num_elt : index of the element
+    def __init__(self, is_struct = None, name = None, num_elt=None):
         ## @b true if the element is a structure
         self.isStruct = False
 
@@ -812,12 +812,12 @@ class Element:
         ## in case of a structure, list of elements that constitues the structure
         self.listElements = []
 
-        if isStruct is not None : self.isStruct = isStruct
-        if numElt is not None : self.numElt = numElt
+        if is_struct is not None : self.isStruct = is_struct
+        if num_elt is not None : self.numElt = num_elt
         if name is not None :
             self.name = name
-            splitName = name.split('.')
-            self.shortName=splitName[len(splitName)-1]
+            split_name = name.split('.')
+            self.shortName=split_name[len(split_name)-1]
 
     ##
     # Get the short name of the element name1.name2.name => name
@@ -850,13 +850,13 @@ class Element:
     ##
     # Creates the line to describe a structure
     # @param self : object pointer
-    # @param linesToReturn : lines to describe the structure
+    # @param lines_to_return : lines to describe the structure
     # @return
-    def printLink(self,linesToReturn):
+    def printLink(self,lines_to_return):
         motif="  elements[%s].subElementsNum().push_back(%s);\n"
         for elt in self.listElements :
             line = motif % (str(self.numElt),str(elt.getElementNum()))
-            linesToReturn.append(line)
+            lines_to_return.append(line)
 
 
 ##
@@ -868,9 +868,9 @@ def cmp_equations(eq1, eq2):
     """
     Compare 2 functions with their number in omc (in main *.c or other *.c)
     """
-    numOmc1, numOmc2 = int(eq1.getNumOmc()), int(eq2.getNumOmc())
-    if numOmc1 > numOmc2: res = 1
-    elif numOmc1 < numOmc2: res = -1
+    num_omc1, num_omc2 = int(eq1.getNumOmc()), int(eq2.getNumOmc())
+    if num_omc1 > num_omc2: res = 1
+    elif num_omc1 < num_omc2: res = -1
     else: res = 0
     return res
 
@@ -1014,10 +1014,10 @@ class RawOmcFunctions:
     ##
     # Set the type returned by the function
     # @param self : object pointer
-    # @param returnType : type returned by the function
+    # @param return_type : type returned by the function
     # @return
-    def setReturnType(self,returnType):
-        self.returnType = returnType
+    def setReturnType(self,return_type):
+        self.returnType = return_type
 
     ##
     # Get the type returned by the function
@@ -1033,8 +1033,8 @@ class EqMaker():
     ##
     # default constructor
     # @param self : object pointer
-    # @param rawFct : raw fonction where come from the equation
-    def __init__(self, rawFct = None):
+    # @param raw_fct : raw fonction where come from the equation
+    def __init__(self, raw_fct = None):
         ## Name of the function in *c files
         self.name = ""
         ## Index of the function in *c files
@@ -1051,11 +1051,11 @@ class EqMaker():
         ## For whenCondition, index of the relation associated to this equation
         self.numRelation = ""
 
-        if rawFct is not None:
-            self.name = rawFct.getName()
-            self.numOmc = rawFct.getNumOmc()
-            self.rawBody = copy.deepcopy( rawFct.getBody() )
-            self.bodyFunc = rawFct.getBody()  # Here, deepcopy?
+        if raw_fct is not None:
+            self.name = raw_fct.getName()
+            self.numOmc = raw_fct.getNumOmc()
+            self.rawBody = copy.deepcopy( raw_fct.getBody() )
+            self.bodyFunc = raw_fct.getBody()  # Here, deepcopy?
 
     ##
     # Check whether the current function is a reinit one
@@ -1091,10 +1091,10 @@ class EqMaker():
     ##
     # Set the list of variables needed to evaluate the equation
     # @param self : object pointer
-    # @param listVars : list of variables
+    # @param list_vars : list of variables
     # @return
-    def setDependVars(self, listVars):
-        self.dependVars = listVars
+    def setDependVars(self, list_vars):
+        self.dependVars = list_vars
 
 
     ##
@@ -1213,8 +1213,8 @@ class ifEquation():
         self.body.append(line)
         match=re.search(self.ptrn_define_tmp,line)
         if match is not None:
-            tmpVar = match.group('var')
-            self.tmpDefined.append(tmpVar)
+            tmp_var = match.group('var')
+            self.tmpDefined.append(tmp_var)
 
     ##
     # get the body of the if equation
@@ -1280,8 +1280,8 @@ class EqMakerNLS():
     ##
     # default constructor
     # @param self : object pointer
-    # @param rawFct : raw function used to build equations
-    def __init__(self, rawFct = None):
+    # @param raw_fct : raw function used to build equations
+    def __init__(self, raw_fct = None):
         ## name of the function
         self.name = ""
         ## index of the function
@@ -1304,10 +1304,10 @@ class EqMakerNLS():
         ## index of classical function called in non linear system (_eq_function)
         self.classicFctNum = []
 
-        if rawFct is not None:
-            self.numOmc = rawFct.getNumOmc()
-            self.name = rawFct.getName()
-            self.bodyFunc = rawFct.getBody()  # Here, deepcopy?
+        if raw_fct is not None:
+            self.numOmc = raw_fct.getNumOmc()
+            self.name = raw_fct.getName()
+            self.bodyFunc = raw_fct.getBody()  # Here, deepcopy?
 
         ## pattern to identify line begun by res[n]
         self.ptrn_res = re.compile(r'^[ ]*res\[\d+\][ ]*=[ ]*(?P<body>.*)$')
@@ -1366,36 +1366,36 @@ class EqMakerNLS():
     # @return
     def getInfosForNLSeq(self):
         # #analysis of the function to find if/else and variables used
-        nbIfOpen = 0
-        nbElseOpen = 0
-        numEqIf = 0
-        eqIf=ifEquation()
-        #one single eqIf even if multiple nested
+        nb_if_open = 0
+        nb_else_open = 0
+        num_eq_if = 0
+        eq_if=ifEquation()
+        #one single eq_if even if multiple nested
         for line in self.bodyFunc:
             match = re.search(self.ptrn_if,line)
-            matchElse = re.search(self.ptrn_else,line)
-            if matchElse is not None:
-                nbElseOpen += 1
+            match_else = re.search(self.ptrn_else,line)
+            if match_else is not None:
+                nb_else_open += 1
 
             if match is not None:
-                varCond = match.group('var')
-                nbIfOpen += 1
-                if(nbIfOpen == 1):
-                    eqIf = ifEquation(numEqIf,varCond)
-                    numEqIf +=1
-                    self.ifEquations.append(eqIf)
+                var_cond = match.group('var')
+                nb_if_open += 1
+                if(nb_if_open == 1):
+                    eq_if = ifEquation(num_eq_if,var_cond)
+                    num_eq_if +=1
+                    self.ifEquations.append(eq_if)
 
 
-            if nbIfOpen>0 or nbElseOpen>0:
-                eqIf.addLineBody(line)
+            if nb_if_open>0 or nb_else_open>0:
+                eq_if.addLineBody(line)
 
-            if nbElseOpen >0:
+            if nb_else_open >0:
                 if ' }\n' in line :
-                    nbElseOpen -= 1
+                    nb_else_open -= 1
             else:
-                if nbIfOpen>0:
+                if nb_if_open>0:
                     if ' }\n' in line :
-                        nbIfOpen -= 1
+                        nb_if_open -= 1
 
 
         map_tmp_dep = {} # For each tmp var, the list of other tmp vars on which it depends
@@ -1406,24 +1406,24 @@ class EqMakerNLS():
             for line in equation.getBody():
                 match = re.search(self.ptrn_tmp_dep, line)
                 if match is not None:
-                    evalTmpVar = match.group('var') # Tmp var affected
-                    evalTmpVarDep = self.ptrn_tmp.findall(equation.getCondition())
-                    if map_tmp_dep.has_key(evalTmpVar):
-                        for tmpVar in evalTmpVarDep:
-                            map_tmp_dep[evalTmpVar].append(tmpVar)
-                    else: map_tmp_dep[evalTmpVar] = evalTmpVarDep
+                    eval_tmp_var = match.group('var') # Tmp var affected
+                    eval_tmp_var_dep = self.ptrn_tmp.findall(equation.getCondition())
+                    if map_tmp_dep.has_key(eval_tmp_var):
+                        for tmp_var in eval_tmp_var_dep:
+                            map_tmp_dep[eval_tmp_var].append(tmp_var)
+                    else: map_tmp_dep[eval_tmp_var] = eval_tmp_var_dep
 
                 # for adding the if conditions included in other if
                 match = re.search(self.ptrn_tmp_dep_if, line)
                 if match is not None:
-                    evalTmpVar = match.group ('var') # the var used in the if
-                    evalTmpVarDep = self.ptrn_tmp.findall(equation.getCondition())
-                    for tmpVar in evalTmpVarDep:
-                        if map_tmp_dep.has_key(tmpVar):
-                            map_tmp_dep[tmpVar].append(evalTmpVar)
+                    eval_tmp_var = match.group ('var') # the var used in the if
+                    eval_tmp_var_dep = self.ptrn_tmp.findall(equation.getCondition())
+                    for tmp_var in eval_tmp_var_dep:
+                        if map_tmp_dep.has_key(tmp_var):
+                            map_tmp_dep[tmp_var].append(eval_tmp_var)
                         else:
-                            tmpList = [evalTmpVar]
-                            map_tmp_dep[tmpVar] = tmpList
+                            tmp_list = [eval_tmp_var]
+                            map_tmp_dep[tmp_var] = tmp_list
 
         # For each tmp var, the list of other tmp vars on which it depends
         for line in self.bodyFunc:
@@ -1438,24 +1438,24 @@ class EqMakerNLS():
                 # 2) We go through the dependencies of tmp2, tmp3, ..., and we add
                 # their dependency vars in those of tmp1
 
-                evalTmpVar = match.group('var') # The tmp var affected
-                evalTmpVarDep = self.ptrn_tmp.findall( line ) # The list of vars on which "evalTmpVar" depends
+                eval_tmp_var = match.group('var') # The tmp var affected
+                eval_tmp_var_dep = self.ptrn_tmp.findall( line ) # The list of vars on which "eval_tmp_var" depends
 
                 # The tmp var assigned here depends on the tmp vars of the second member
                 # in the expression : tmp1 = aFunctionOfVars(tmp2, tmp3, ...)
-                if map_tmp_dep.has_key(evalTmpVar) :
-                    for tmpVar in evalTmpVarDep :
-                        map_tmp_dep[evalTmpVar].append(tmpVar)
-                else : map_tmp_dep[evalTmpVar] = evalTmpVarDep
+                if map_tmp_dep.has_key(eval_tmp_var) :
+                    for tmp_var in eval_tmp_var_dep :
+                        map_tmp_dep[eval_tmp_var].append(tmp_var)
+                else : map_tmp_dep[eval_tmp_var] = eval_tmp_var_dep
 
                 # The tmp var assigned here also depends on the vars of dependency of tmp vars of the second member
-                for tmpVar in evalTmpVarDep :
-                    if map_tmp_dep.has_key(tmpVar) :
-                        listDep = map_tmp_dep[tmpVar]
-                        for vtmp in listDep :
+                for tmp_var in eval_tmp_var_dep :
+                    if map_tmp_dep.has_key(tmp_var) :
+                        list_dep = map_tmp_dep[tmp_var]
+                        for vtmp in list_dep :
                             # If it is not already there, we add it
-                            if vtmp not in map_tmp_dep[evalTmpVar] :
-                                map_tmp_dep[evalTmpVar].append(vtmp)
+                            if vtmp not in map_tmp_dep[eval_tmp_var] :
+                                map_tmp_dep[eval_tmp_var].append(vtmp)
 
 
             # We process lines of type: "res[n] = ..."
@@ -1477,37 +1477,37 @@ class EqMakerNLS():
 
                 # Recovery of all variables $Pvar or $P$DER $Pvar
                 # in a line starting by "res[n] = ..."
-                listVarsDepend = []
+                list_vars_depend = []
                 for v in self.ptrnVars.findall( line ) :
-                    if v not in listVarsDepend:
-                        listVarsDepend.append( to_classic_style(v) )
-                self.dependVars.append( listVarsDepend )
+                    if v not in list_vars_depend:
+                        list_vars_depend.append( to_classic_style(v) )
+                self.dependVars.append( list_vars_depend )
 
                 # Recovery of all variables tmp${num}
                 # in a line starting by "res[n] = ..."
-                listTmpDepend = []
+                list_tmp_depend = []
                 for tmp in self.ptrn_tmp.findall( line ) :
-                    if tmp not in listTmpDepend:
-                        listTmpDepend.append( tmp )
-                self.dependTmp.append( listTmpDepend )
+                    if tmp not in list_tmp_depend:
+                        list_tmp_depend.append( tmp )
+                self.dependTmp.append( list_tmp_depend )
 
         # For each tmp var in a line of type:
         # "res[n] = ..."
         # we add vars on which it depends in "self.dependTmp"
-        dependTmp2 = self.dependTmp
+        depend_tmp2 = self.dependTmp
         i = 0
-        for L_vars in dependTmp2 :
-            for v in L_vars:
+        for l_vars in depend_tmp2 :
+            for v in l_vars:
                 if map_tmp_dep.has_key(v) :
                     for vtmp in map_tmp_dep[v]:
-                        if vtmp not in dependTmp2[i] :
+                        if vtmp not in depend_tmp2[i] :
                             self.dependTmp[i].append(vtmp)
-            # addition of declared tmp variables in if whose L_vars does not depend
+            # addition of declared tmp variables in if whose l_vars does not depend
             for equation in self.ifEquations:
-                for v in L_vars:
+                for v in l_vars:
                     if equation.defineTmp(v):
                         for v1 in equation.getTmpDefined():
-                            if v1 not in dependTmp2[i]:
+                            if v1 not in depend_tmp2[i]:
                                 self.dependTmp[i].append(v1)
             i += 1
 
@@ -1542,15 +1542,15 @@ class EqMakerNLS():
         # To do this, we go through the body of the residual function coming from *_02nls.c.
         for i in range(self.nbNLSeq):
             for line in self.bodyFunc:
-                lineInIfEquation = False
-                for ifEquation in self.ifEquations:
-                    if ifEquation.hasLine(line):
-                        lineInIfEquation = True
+                line_in_if_equation = False
+                for if_equation in self.ifEquations:
+                    if if_equation.hasLine(line):
+                        line_in_if_equation = True
                 match = re.search(self.ptrn_res, line)
                 if match is not None : continue
                 # At this stage, "line" is a line of type "res[n] = ..."
                 for tmp in self.dependTmp[i]:
-                   if tmp in line and lineInIfEquation == False:
+                   if tmp in line and line_in_if_equation == False:
                        # If the line "res[n] = ..." contains the current tmp var...
                        self.NLSbodies[i].insert( len(self.NLSbodies[i]) - 1, line )
                        # If the line is already taken into account, we leave the loop:
@@ -1560,11 +1560,11 @@ class EqMakerNLS():
         # adding if equations
         for i in range(self.nbNLSeq):
             for tmp in self.dependTmp[i]:
-                for ifEquation in self.ifEquations:
-                    if ifEquation.defineTmp(tmp) and ifEquation.getPrint()==False:
-                        for line in ifEquation.getBody():
+                for if_equation in self.ifEquations:
+                    if if_equation.defineTmp(tmp) and if_equation.getPrint()==False:
+                        for line in if_equation.getBody():
                             self.NLSbodies[i].insert( len(self.NLSbodies[i]) - 1, line )
-                        ifEquation.setPrint()
+                        if_equation.setPrint()
 
 
         # Replace "throwStreamPrintWithEquationIndexes(threadData, equationIndexes" par "throwStreamPrint(threadData"
@@ -1587,15 +1587,15 @@ class EqMakerNLS():
     # @param self : object pointer
     # @return : list of new equations
     def createEquations(self):
-        listEqToReturn = []
+        list_eq_to_return = []
         for i in range(self.nbNLSeq):
-            listEqToReturn.append(  EquationNLS( self.NLSbodies[i], \
+            list_eq_to_return.append(  EquationNLS( self.NLSbodies[i], \
                                                  self.evaluatedVars[i], \
                                                  self.dependVars[i], \
                                                  self.name, \
                                                  self.numOmc)  )
 
-        return listEqToReturn
+        return list_eq_to_return
 
 
 
@@ -1606,9 +1606,9 @@ class EqMakerLS:
     ##
     # default constructor
     # @param self : object pointer
-    # @param rawMatrixFct : function which declares the matrix A of the linear system
-    # @param rawRhsFct : function which declares the vector B of the linear system
-    def __init__(self, rawMatrixFct = None, rawRhsFct = None):
+    # @param raw_matrix_fct : function which declares the matrix A of the linear system
+    # @param raw_rhs_fct : function which declares the vector B of the linear system
+    def __init__(self, raw_matrix_fct = None, raw_rhs_fct = None):
 
         ## pattern to identify declaration of element of the matrix A in 03lsy file
         self.matElemFct = 'setAElement'
@@ -1655,14 +1655,14 @@ class EqMakerLS:
         ## vector B of the linear system
         self.rhs = []
 
-        if rawMatrixFct is not None:
-            self.numOmc = rawMatrixFct.getNumOmc()
-            self.matFctName = rawMatrixFct.getName()
-            self.matFctBody = rawMatrixFct.getBody()  # Here, deepcopy?
+        if raw_matrix_fct is not None:
+            self.numOmc = raw_matrix_fct.getNumOmc()
+            self.matFctName = raw_matrix_fct.getName()
+            self.matFctBody = raw_matrix_fct.getBody()  # Here, deepcopy?
 
-        if rawRhsFct is not None:
-            self.rhsFctName = rawRhsFct.getName()
-            self.rhsFctBody = rawRhsFct.getBody()  # Here, deepcopy?
+        if raw_rhs_fct is not None:
+            self.rhsFctName = raw_rhs_fct.getName()
+            self.rhsFctBody = raw_rhs_fct.getBody()  # Here, deepcopy?
 
         ## list of ifEquations used in linear system
         self.ifEquations = []
@@ -1688,67 +1688,67 @@ class EqMakerLS:
         # Get the necessary equations in the rhs function
 
         # #analysis to find if/else and variables used
-        nbIfOpen = 0
-        nbElseOpen = 0
-        numEqIf = 0
-        eqIf=ifEquation()
-        #one single eqIf even if multiple nested
+        nb_if_open = 0
+        nb_else_open = 0
+        num_eq_if = 0
+        eq_if=ifEquation()
+        #one single eq_if even if multiple nested
         for line in self.rhsFctBody:
             match = re.search(self.ptrn_if,line)
-            matchElse = re.search(self.ptrn_else,line)
-            if matchElse is not None:
-                nbElseOpen += 1
+            match_else = re.search(self.ptrn_else,line)
+            if match_else is not None:
+                nb_else_open += 1
 
             if match is not None:
-                varCond = match.group('var')
-                nbIfOpen += 1
-                if(nbIfOpen == 1):
-                    eqIf = ifEquation(numEqIf,varCond)
-                    numEqIf +=1
-                    self.ifEquations.append(eqIf)
+                var_cond = match.group('var')
+                nb_if_open += 1
+                if(nb_if_open == 1):
+                    eq_if = ifEquation(num_eq_if,var_cond)
+                    num_eq_if +=1
+                    self.ifEquations.append(eq_if)
 
 
-            if nbIfOpen>0 or nbElseOpen>0:
-                eqIf.addLineBody(line)
+            if nb_if_open>0 or nb_else_open>0:
+                eq_if.addLineBody(line)
 
-            if nbElseOpen >0:
+            if nb_else_open >0:
                 if ' }\n' in line :
-                    nbElseOpen -= 1
+                    nb_else_open -= 1
             else:
-                if nbIfOpen>0:
+                if nb_if_open>0:
                     if ' }\n' in line :
-                        nbIfOpen -= 1
+                        nb_if_open -= 1
         # likewise for self.matFctBody
-        nbIfOpen = 0
-        nbElseOpen = 0
-        numEqIf = 0
-        eqIf=ifEquation()
-        #one single eqIf even if multiple nested
+        nb_if_open = 0
+        nb_else_open = 0
+        num_eq_if = 0
+        eq_if=ifEquation()
+        #one single eq_if even if multiple nested
         for line in self.matFctBody:
             match = re.search(self.ptrn_if,line)
-            matchElse = re.search(self.ptrn_else,line)
-            if matchElse is not None:
-                nbElseOpen += 1
+            match_else = re.search(self.ptrn_else,line)
+            if match_else is not None:
+                nb_else_open += 1
 
             if match is not None:
-                varCond = match.group('var')
-                nbIfOpen += 1
-                if(nbIfOpen == 1):
-                    eqIf = ifEquation(numEqIf,varCond)
-                    numEqIf +=1
-                    self.ifEquations.append(eqIf)
+                var_cond = match.group('var')
+                nb_if_open += 1
+                if(nb_if_open == 1):
+                    eq_if = ifEquation(num_eq_if,var_cond)
+                    num_eq_if +=1
+                    self.ifEquations.append(eq_if)
 
 
-            if nbIfOpen>0 or nbElseOpen>0:
-                eqIf.addLineBody(line)
+            if nb_if_open>0 or nb_else_open>0:
+                eq_if.addLineBody(line)
 
-            if nbElseOpen >0:
+            if nb_else_open >0:
                 if ' }\n' in line :
-                    nbElseOpen -= 1
+                    nb_else_open -= 1
             else:
-                if nbIfOpen>0:
+                if nb_if_open>0:
                     if ' }\n' in line :
-                        nbIfOpen -= 1
+                        nb_if_open -= 1
 
 
 
@@ -1761,24 +1761,24 @@ class EqMakerLS:
             for line in equation.getBody():
                 match = re.search(self.ptrn_tmp_dep, line)
                 if match is not None:
-                    evalTmpVar = match.group('var') # tmp var affected
-                    evalTmpVarDep = self.ptrn_tmp.findall(equation.getCondition())
-                    if map_tmp_dep.has_key(evalTmpVar):
-                        for tmpVar in evalTmpVarDep:
-                            map_tmp_dep[evalTmpVar].append(tmpVar)
-                    else: map_tmp_dep[evalTmpVar] = evalTmpVarDep
+                    eval_tmp_var = match.group('var') # tmp var affected
+                    eval_tmp_var_dep = self.ptrn_tmp.findall(equation.getCondition())
+                    if map_tmp_dep.has_key(eval_tmp_var):
+                        for tmp_var in eval_tmp_var_dep:
+                            map_tmp_dep[eval_tmp_var].append(tmp_var)
+                    else: map_tmp_dep[eval_tmp_var] = eval_tmp_var_dep
 
                 # for adding the if conditions included in other if
                 match = re.search(self.ptrn_tmp_dep_if, line)
                 if match is not None:
-                    evalTmpVar = match.group ('var') # the var used in the if
-                    evalTmpVarDep = self.ptrn_tmp.findall(equation.getCondition())
-                    for tmpVar in evalTmpVarDep:
-                        if map_tmp_dep.has_key(tmpVar):
-                            map_tmp_dep[tmpVar].append(evalTmpVar)
+                    eval_tmp_var = match.group ('var') # the var used in the if
+                    eval_tmp_var_dep = self.ptrn_tmp.findall(equation.getCondition())
+                    for tmp_var in eval_tmp_var_dep:
+                        if map_tmp_dep.has_key(tmp_var):
+                            map_tmp_dep[tmp_var].append(eval_tmp_var)
                         else:
-                            tmpList = [evalTmpVar]
-                            map_tmp_dep[tmpVar] = tmpList
+                            tmp_list = [eval_tmp_var]
+                            map_tmp_dep[tmp_var] = tmp_list
 
 
         for line in self.rhsFctBody:
@@ -1792,24 +1792,24 @@ class EqMakerLS:
                 # 2) We go through the dependencies of tmp2, tmp3, ..., and we add
                 # their dependency vars in those of tmp1
 
-                evalTmpVar = match.group('var') # tmp var affected
-                evalTmpVarDep = self.ptrn_tmp.findall( line ) # List of vars on which "evalTmpVar" depends
+                eval_tmp_var = match.group('var') # tmp var affected
+                eval_tmp_var_dep = self.ptrn_tmp.findall( line ) # List of vars on which "eval_tmp_var" depends
 
                 # The tmp var assigned here depends on the tmp vars of the second member
                 # in the expression : tmp1 = aFunctionOfvars(tmp2, tmp3, ...)
-                if map_tmp_dep.has_key(evalTmpVar) :
-                    for tmpVar in evalTmpVarDep :
-                        map_tmp_dep[evalTmpVar].append(tmpVar)
-                else : map_tmp_dep[evalTmpVar] = evalTmpVarDep
+                if map_tmp_dep.has_key(eval_tmp_var) :
+                    for tmp_var in eval_tmp_var_dep :
+                        map_tmp_dep[eval_tmp_var].append(tmp_var)
+                else : map_tmp_dep[eval_tmp_var] = eval_tmp_var_dep
 
                 # The tmp var assigned here also depends on the vars of dependency of tmp vars of the second member
-                for tmpVar in evalTmpVarDep :
-                    if map_tmp_dep.has_key(tmpVar) :
-                        listDep = map_tmp_dep[tmpVar]
-                        for vtmp in listDep :
+                for tmp_var in eval_tmp_var_dep :
+                    if map_tmp_dep.has_key(tmp_var) :
+                        list_dep = map_tmp_dep[tmp_var]
+                        for vtmp in list_dep :
                             # If it is not already in it, we add it
-                            if vtmp not in map_tmp_dep[evalTmpVar] :
-                                map_tmp_dep[evalTmpVar].append(vtmp)
+                            if vtmp not in map_tmp_dep[eval_tmp_var] :
+                                map_tmp_dep[eval_tmp_var].append(vtmp)
 
 
             # Here we use the lines of the type: "linearSystemData->b[n] = ..."
@@ -1823,30 +1823,30 @@ class EqMakerLS:
             if (self.rhsElemFct in line):
                 # Recovery of all variables $ Pvar or $ P $ DER $ Pvar
                 # in a line starting by "linearSystemData->b[n] = ..."
-                listVarsDepend = []
+                list_vars_depend = []
                 for v in self.ptrnVars.findall( line ) :
-                    if v not in listVarsDepend:
-                        listVarsDepend.append( to_classic_style(v) )
-                self.dependVars.append( listVarsDepend )
+                    if v not in list_vars_depend:
+                        list_vars_depend.append( to_classic_style(v) )
+                self.dependVars.append( list_vars_depend )
 
                 # Recovery of all variables tmp${num}
                 # in a line starting by "linearSystemData->b[n] = ..."
-                listTmpDepend = []
+                list_tmp_depend = []
                 for tmp in self.ptrn_tmp.findall( line ) :
-                    if tmp not in listTmpDepend:
-                        listTmpDepend.append( tmp )
-                self.dependTmp.append( listTmpDepend )
+                    if tmp not in list_tmp_depend:
+                        list_tmp_depend.append( tmp )
+                self.dependTmp.append( list_tmp_depend )
 
         # # For each tmp var in a line of type:
         # # "linearSystemData->b[n] = ..."
         # # we add vars on which it depends in "self.dependTmp"
-        # dependTmp2 = self.dependTmp
+        # depend_tmp2 = self.dependTmp
         # i = 0
-        # for L_vars in self.dependTmp :
-        #     for v in L_vars:
+        # for l_vars in self.dependTmp :
+        #     for v in l_vars:
         #         if map_tmp_dep.has_key(v) :
         #             for vtmp in map_tmp_dep[v]:
-        #                 if vtmp not in dependTmp2[i] : dependTmp2[i].append(vtmp)
+        #                 if vtmp not in depend_tmp2[i] : depend_tmp2[i].append(vtmp)
         #     i += 1
 
 
@@ -1862,24 +1862,24 @@ class EqMakerLS:
                 # 2) We go through the dependencies of tmp2, tmp3, ..., and we add
                 # their dependency vars in those of tmp1
 
-                evalTmpVar = match.group('var') # tmp var affected
-                evalTmpVarDep = self.ptrn_tmp.findall( line ) # List of vars on which "evalTmpVar" depends
+                eval_tmp_var = match.group('var') # tmp var affected
+                eval_tmp_var_dep = self.ptrn_tmp.findall( line ) # List of vars on which "eval_tmp_var" depends
 
                 # The tmp var assigned here depends on the tmp vars of the second member
                 # in the expression : tmp1 = aFunctionOfvars(tmp2, tmp3, ...)
-                if map_tmp_dep.has_key(evalTmpVar) :
-                    for tmpVar in evalTmpVarDep :
-                        map_tmp_dep[evalTmpVar].append(tmpVar)
-                else : map_tmp_dep[evalTmpVar] = evalTmpVarDep
+                if map_tmp_dep.has_key(eval_tmp_var) :
+                    for tmp_var in eval_tmp_var_dep :
+                        map_tmp_dep[eval_tmp_var].append(tmp_var)
+                else : map_tmp_dep[eval_tmp_var] = eval_tmp_var_dep
 
                 # The tmp var assigned here also depends on the vars of dependency of tmp vars of the second member
-                for tmpVar in evalTmpVarDep :
-                    if map_tmp_dep.has_key(tmpVar) :
-                        listDep = map_tmp_dep[tmpVar]
-                        for vtmp in listDep :
+                for tmp_var in eval_tmp_var_dep :
+                    if map_tmp_dep.has_key(tmp_var) :
+                        list_dep = map_tmp_dep[tmp_var]
+                        for vtmp in list_dep :
                             # If it is not already there, we add it
-                            if vtmp not in map_tmp_dep[evalTmpVar] :
-                                map_tmp_dep[evalTmpVar].append(vtmp)
+                            if vtmp not in map_tmp_dep[eval_tmp_var] :
+                                map_tmp_dep[eval_tmp_var].append(vtmp)
 
 
             # We process lines of type: "linearSystemData->setAElement(..."
@@ -1890,40 +1890,40 @@ class EqMakerLS:
             # For each equation we get "normal" variables in "self.dependVars"
             # (for example $Pvar or  $P$DER$Pvar) and "tmp" variables in "self.dependTmp"
             if self.matElemFct in line:
-                matElemArgs = split_function_arguments (line, self.matElemFct)
+                mat_elem_args = split_function_arguments (line, self.matElemFct)
                 # Recovery of all variables $Pvar or $P$DER $Pvar
                 # in a line starting by "linearSystemData->setAElement(..."
-                listVarsDepend = []
+                list_vars_depend = []
                 for v in self.ptrnVars.findall( line ) :
-                    if v not in listVarsDepend:
-                        listVarsDepend.append( to_classic_style(v) )
-                i = int( matElemArgs [0] )
-                self.dependVars[i].extend(listVarsDepend)
+                    if v not in list_vars_depend:
+                        list_vars_depend.append( to_classic_style(v) )
+                i = int( mat_elem_args [0] )
+                self.dependVars[i].extend(list_vars_depend)
 
                 # Recovery of all variables tmp${num}
                 # in a line starting by "linearSystemData->setAElement(..."
-                listTmpDepend = []
+                list_tmp_depend = []
                 for tmp in self.ptrn_tmp.findall( line ) :
-                    if tmp not in listTmpDepend:
-                        listTmpDepend.append( tmp )
-                self.dependTmp[i].extend(listTmpDepend)
+                    if tmp not in list_tmp_depend:
+                        list_tmp_depend.append( tmp )
+                self.dependTmp[i].extend(list_tmp_depend)
 
         # For each tmp var in a line of type:
         # we add vars on which it depends in "self.dependTmp"
-        dependTmp2 = self.dependTmp
+        depend_tmp2 = self.dependTmp
         i = 0
-        for L_vars in dependTmp2 :
-            for v in L_vars:
+        for l_vars in depend_tmp2 :
+            for v in l_vars:
                 if map_tmp_dep.has_key(v) :
                     for vtmp in map_tmp_dep[v]:
-                        if vtmp not in dependTmp2[i] :
+                        if vtmp not in depend_tmp2[i] :
                             self.dependTmp[i].append(vtmp)
-            # addition of declared tmp variables in if whose L_vars does not depend
+            # addition of declared tmp variables in if whose l_vars does not depend
             for equation in self.ifEquations:
-                for v in L_vars:
+                for v in l_vars:
                     if equation.defineTmp(v):
                         for v1 in equation.getTmpDefined():
-                            if v1 not in dependTmp2[i]:
+                            if v1 not in depend_tmp2[i]:
                                 self.dependTmp[i].append(v1)
             i += 1
 
@@ -1970,10 +1970,10 @@ class EqMakerLS:
             # To get rid of enventual DIVISION
             filtered_line = subDivisionSIM(line)
             if (self.matElemFct in filtered_line):
-                matElemArgs = split_function_arguments (filtered_line, self.matElemFct)
-                i = int( matElemArgs [0] )
-                j = int( matElemArgs [1] )
-                val = matElemArgs [2]
+                mat_elem_args = split_function_arguments (filtered_line, self.matElemFct)
+                i = int( mat_elem_args [0] )
+                j = int( mat_elem_args [1] )
+                val = mat_elem_args [2]
                 self.matrix[i][j] = val
 
 
@@ -2040,28 +2040,28 @@ class EqMakerLS:
         # intervening in the line of the equation.
         for i in range(self.dim):
             for line in self.rhsFctBody:
-                lineInIfEquation = False
-                for ifEquation in self.ifEquations:
-                    if ifEquation.hasLine(line):
-                        lineInIfEquation = True
+                line_in_if_equation = False
+                for if_equation in self.ifEquations:
+                    if if_equation.hasLine(line):
+                        line_in_if_equation = True
                 if (self.rhsElemFct in line) : continue
                 # At this stage, "line" is a line of type "linearSystemData->b[n] = ..."
                 for tmp in self.dependTmp[i]:
-                   if tmp in line and lineInIfEquation == False:
+                   if tmp in line and line_in_if_equation == False:
                        # If the line "linearSystemData->b[n] = ..." contains the current tmp var...
                        self.LSbodies[i].insert( len(self.LSbodies[i]) - 1, line )
                        # If the line is already taken into account, we leave the loop:
                        # no need to store it "self.LSbodies[i]" multiple times!
                        break
             for line in self.matFctBody:
-                lineInIfEquation = False
-                for ifEquation in self.ifEquations:
-                    if ifEquation.hasLine(line):
-                        lineInIfEquation = True
+                line_in_if_equation = False
+                for if_equation in self.ifEquations:
+                    if if_equation.hasLine(line):
+                        line_in_if_equation = True
                 if self.matElemFct in line : continue
                 # At this stage, "line" is a line of type "linearSystemData->setElementA(..."
                 for tmp in self.dependTmp[i]:
-                   if tmp in line and lineInIfEquation == False:
+                   if tmp in line and line_in_if_equation == False:
                        # If the line "linearSystemData->setElementA(..." contains the current tmp var...
                        self.LSbodies[i].insert( len(self.LSbodies[i]) - 1, line )
                        # If the line is already taken into account, we leave the loop:
@@ -2070,11 +2070,11 @@ class EqMakerLS:
 
         for i in range(self.dim):
              for tmp in self.dependTmp[i]:
-                for ifEquation in self.ifEquations:
-                    if ifEquation.defineTmp(tmp) and ifEquation.getPrint()==False:
-                        for line in ifEquation.getBody():
+                for if_equation in self.ifEquations:
+                    if if_equation.defineTmp(tmp) and if_equation.getPrint()==False:
+                        for line in if_equation.getBody():
                             self.LSbodies[i].insert( len(self.LSbodies[i]) - 1, line )
-                        ifEquation.setPrint()
+                        if_equation.setPrint()
 
         # see utils.py to see the list of tasks
         # done by makeVariousTreatments
@@ -2085,15 +2085,15 @@ class EqMakerLS:
     # @param self : object pointer
     # @return : list of new equations
     def createEquations(self):
-        listEqToReturn = []
+        list_eq_to_return = []
         for i in range(self.dim):
-            listEqToReturn.append( EquationLS( self.LSbodies[i], \
+            list_eq_to_return.append( EquationLS( self.LSbodies[i], \
                                                self.evaluatedVars[i], \
                                                self.dependVars[i], \
                                                self.matFctName, \
                                                self.numOmc) )
 
-        return listEqToReturn
+        return list_eq_to_return
 
 ##
 # base class for Equation declaration
@@ -2103,11 +2103,11 @@ class EquationBase:
     # default constructor
     # @param self : object pointer
     # @param body : body of the equation
-    # @param evalVar : variable evaluated by the equation
-    # @param dependVars : variables used in the equation
-    # @param comesFrom : name of the function using the equation
+    # @param eval_var : variable evaluated by the equation
+    # @param depend_vars : variables used in the equation
+    # @param comes_from : name of the function using the equation
     # @param numOmc : index of the equation in omc arrays
-    def __init__(self, body = None, evalVar = None, dependVars = None, comesFrom = None, numOmc = None):
+    def __init__(self, body = None, eval_var = None, depend_vars = None, comes_from = None, num_omc = None):
         ## pattern to identify the variable evaluated
         self.ptrnEvaluatedVar = re.compile(r'\$P(?P<var>[\$\w]+) = (?P<rhs>[^;]+)')
 
@@ -2129,14 +2129,14 @@ class EquationBase:
 
         if body is not None:
             self.body = body
-        if evalVar is not None:
-            self.evaluatedVar = evalVar
-        if dependVars is not None:
-            self.dependVars = dependVars
-        if comesFrom is not None:
-            self.comesFrom = comesFrom
-        if numOmc is not None:
-            self.numOmc = numOmc
+        if eval_var is not None:
+            self.evaluatedVar = eval_var
+        if depend_vars is not None:
+            self.dependVars = depend_vars
+        if comes_from is not None:
+            self.comesFrom = comes_from
+        if num_omc is not None:
+            self.numOmc = num_omc
 
     ##
     # Set the index of the equation in omc arrays
@@ -2171,12 +2171,12 @@ class EquationBase:
     # @param self: object pointer
     # @return @b True if the equation use the 'throw' instruction
     def withThrow(self):
-        withThrow = False
+        with_throw = False
         for line in self.body:
             if "throwStreamPrint" in line:
-                withThrow = True
+                with_throw = True
 
-        return withThrow
+        return with_throw
 
     ##
     # Get the list of variables used in the equation
@@ -2204,9 +2204,9 @@ class EquationBase:
     # @param self: object pointer
     # @return : body of the equation
     def getRawBody(self):
-        textToReturn = ""
-        for line in self.body : textToReturn += line
-        return textToReturn
+        text_to_return = ""
+        for line in self.body : text_to_return += line
+        return text_to_return
 
     ##
     # get if the equation defined a differential equation
@@ -2226,12 +2226,12 @@ class Equation(EquationBase):
     # default constructor
     # @param self : object pointer
     # @param body : body of the equation
-    # @param evalVar : variable evaluated by the equation
-    # @param dependVars : variables used in the equation
-    # @param comesFrom : name of the function using the equation
-    # @param numOmc : index of the equation in omc arrays
-    def __init__(self, body = None, evalVar = None, dependVars = None, comesFrom = None, numOmc = None):
-        EquationBase.__init__(self, body, evalVar, dependVars, comesFrom, numOmc)
+    # @param eval_var : variable evaluated by the equation
+    # @param depend_vars : variables used in the equation
+    # @param comes_from : name of the function using the equation
+    # @param num_omc : index of the equation in omc arrays
+    def __init__(self, body = None, eval_var = None, depend_vars = None, comes_from = None, num_omc = None):
+        EquationBase.__init__(self, body, eval_var, depend_vars, comes_from, num_omc)
 
     ##
     # retrieve the body formatted for Modelica reinit affectation
@@ -2252,7 +2252,7 @@ class Equation(EquationBase):
     # @param self : object pointer
     # @return list of lines to print
     def getBodyFor_setF(self):
-        textToReturn = []
+        text_to_return = []
         for line in self.body:
             line = mmc_strings_len1(line)
 
@@ -2263,17 +2263,17 @@ class Equation(EquationBase):
             line = subDivisionSIM(line)
 
             if re.search(self.ptrnEvaluatedVar, line) is None:
-                textToReturn.append( line )
+                text_to_return.append( line )
             else:
-                textToReturn.append( self.ptrnEvaluatedVar.sub(r'f[%d] = $P\g<1> - ( \g<2> )' % self.getNumDyn(), line) )
-        return textToReturn
+                text_to_return.append( self.ptrnEvaluatedVar.sub(r'f[%d] = $P\g<1> - ( \g<2> )' % self.getNumDyn(), line) )
+        return text_to_return
 
     ##
     # Prepares the body of the equation to be used in evalFAdept function
     # @param self : object pointer
     # @return list of lines to print
     def getBodyFor_evalFAdept(self):
-        textToReturn = []
+        text_to_return = []
         for line in self.body:
             line = mmc_strings_len1(line)
             line_tmp = line
@@ -2293,10 +2293,10 @@ class Equation(EquationBase):
 
             line_tmp = subDivisionSIM(line_tmp)
             if re.search(self.ptrnEvaluatedVar, line_tmp) is None:
-                textToReturn.append( line_tmp )
+                text_to_return.append( line_tmp )
             else:
-                textToReturn.append( self.ptrnEvaluatedVar.sub(r'res[%d] = $P\g<1> - ( \g<2> )' % self.getNumDyn(), line_tmp) )
-        return textToReturn
+                text_to_return.append( self.ptrnEvaluatedVar.sub(r'res[%d] = $P\g<1> - ( \g<2> )' % self.getNumDyn(), line_tmp) )
+        return text_to_return
 ##
 # class Equation LS (linear system)
 #
@@ -2305,36 +2305,36 @@ class EquationLS(EquationBase):
     # default constructor
     # @param self : object pointer
     # @param body : body of the equation
-    # @param evalVar : variable evaluated by the equation
-    # @param dependVars : variables used in the equation
-    # @param comesFrom : name of the function using the equation
-    # @param numOmc : index of the equation in omc arrays
-    def __init__(self, body = None, evalVar = None, dependVars = None, comesFrom = None, numOmc = None):
+    # @param eval_var : variable evaluated by the equation
+    # @param depend_vars : variables used in the equation
+    # @param comes_from : name of the function using the equation
+    # @param num_omc : index of the equation in omc arrays
+    def __init__(self, body = None, eval_var = None, depend_vars = None, comes_from = None, num_omc = None):
         ## pattern to identify equations
         self.ptrnEq = re.compile(r'(?P<lhs>\([^=]+\))[ ]*=[ ]*(?P<rhs>\([^=]+\))')
 
-        EquationBase.__init__(self, body, evalVar, dependVars, comesFrom, numOmc)
+        EquationBase.__init__(self, body, eval_var, depend_vars, comes_from, num_omc)
 
     ##
     # Prepares the body of the equation to be used in setF function
     # @param self : object pointer
     # @return list of lines to print
     def getBodyFor_setF(self):
-        textToReturn = []
+        text_to_return = []
         for line in self.body:
             line = mmc_strings_len1(line)
             if re.search(self.ptrnEq, line) is None:
-                textToReturn.append( line )
+                text_to_return.append( line )
             else:
-                textToReturn.append( self.ptrnEq.sub(r'  f[%d] = \g<lhs> - ( \g<rhs> );' % self.getNumDyn(), line) )
-        return textToReturn
+                text_to_return.append( self.ptrnEq.sub(r'  f[%d] = \g<lhs> - ( \g<rhs> );' % self.getNumDyn(), line) )
+        return text_to_return
 
     ##
     # Prepares the body of the equation to be used in evalFAdept function
     # @param self : object pointer
     # @return list of lines to print
     def getBodyFor_evalFAdept(self):
-        textToReturn = []
+        text_to_return = []
         for line in self.body:
             line = mmc_strings_len1(line)
             line_tmp = line
@@ -2348,10 +2348,10 @@ class EquationLS(EquationBase):
             line_tmp = line_tmp.replace("GreaterEq)", "GreaterEq<adept::adouble>)")
             line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
             if re.search(self.ptrnEq, line_tmp) is None:
-                textToReturn.append( line_tmp )
+                text_to_return.append( line_tmp )
             else:
-                textToReturn.append( self.ptrnEq.sub(r'  res[%d] = \g<lhs> - ( \g<rhs> );' % self.getNumDyn(), line_tmp) )
-        return textToReturn
+                text_to_return.append( self.ptrnEq.sub(r'  res[%d] = \g<lhs> - ( \g<rhs> );' % self.getNumDyn(), line_tmp) )
+        return text_to_return
 
 ##
 # class Equation for non linear system
@@ -2361,22 +2361,22 @@ class EquationNLS(EquationBase):
     # default constructor
     # @param self : object pointer
     # @param body : body of the equation
-    # @param evalVar : variable evaluated by the equation
-    # @param dependVars : variables used in the equation
-    # @param comesFrom : name of the function using the equation
-    # @param numOmc : index of the equation in omc arrays
-    def __init__(self, body = None, evalVar = None, dependVars = None, comesFrom = None, numOmc = None):
-        EquationBase.__init__(self, body, evalVar, dependVars, comesFrom, numOmc)
+    # @param eval_var : variable evaluated by the equation
+    # @param depend_vars : variables used in the equation
+    # @param comes_from : name of the function using the equation
+    # @param num_omc : index of the equation in omc arrays
+    def __init__(self, body = None, eval_var = None, depend_vars = None, comes_from = None, num_omc = None):
+        EquationBase.__init__(self, body, eval_var, depend_vars, comes_from, num_omc)
 
     ##
     # Prepares the body of the equation to be used in setF function
     # @param self : object pointer
     # @return list of lines to print
     def getBodyFor_setF(self):
-        textToReturn = copy.deepcopy( self.body )
-        textToReturn.pop () # Remove the last line, replace it with the following
-        textToReturn.append( "  f[%d] = %s" % (self.getNumDyn(), self.body[len(self.body) - 1]) )
-        return textToReturn
+        text_to_return = copy.deepcopy( self.body )
+        text_to_return.pop () # Remove the last line, replace it with the following
+        text_to_return.append( "  f[%d] = %s" % (self.getNumDyn(), self.body[len(self.body) - 1]) )
+        return text_to_return
 
     ##
     # Prepares the body of the equation to be used in evalFAdept function
@@ -2384,12 +2384,12 @@ class EquationNLS(EquationBase):
     # @return list of lines to print
     def getBodyFor_evalFAdept(self):
 
-        textToReturn = copy.deepcopy( self.body )
-        textToReturn.pop () # Remove the last line, replace it with the following
-        textToReturn.append( "  res[%d] = %s" % (self.getNumDyn(), self.body[len(self.body) - 1]) )
+        text_to_return = copy.deepcopy( self.body )
+        text_to_return.pop () # Remove the last line, replace it with the following
+        text_to_return.append( "  res[%d] = %s" % (self.getNumDyn(), self.body[len(self.body) - 1]) )
 
         list_tmp = []
-        for line in textToReturn:
+        for line in text_to_return:
             line_tmp = ""
             line_tmp = line.replace("modelica_real", "adept::adouble")
             line_tmp = line_tmp.replace("Greater(", "Greater<adept::adouble>(")
@@ -2402,9 +2402,9 @@ class EquationNLS(EquationBase):
             line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
             list_tmp.append( line_tmp )
 
-        textToReturn = list_tmp
+        text_to_return = list_tmp
 
-        return textToReturn
+        return text_to_return
 
 
 ##
@@ -2414,8 +2414,8 @@ class RootObject:
     ##
     # default constructor
     # @param self: object pointer
-    # @param whenVarName : name of the when variable
-    def __init__(self, whenVarName = None):
+    # @param when_var_name : name of the when variable
+    def __init__(self, when_var_name = None):
         ## pattern to identify RELATIONHYSTERESIS expression
         self.ptrnHyst = re.compile(r'RELATIONHYSTERESIS\(([^,]*),([^,]*),([^,]*),([^,]*),([^),]*)\)')
 
@@ -2438,8 +2438,8 @@ class RootObject:
         ## Equations to evaluate if the condition is False
         self.blockWhenEquation=[]
 
-        if whenVarName is not None:
-            self.whenVarName = whenVarName
+        if when_var_name is not None:
+            self.whenVarName = when_var_name
 
     ##
     # Get the name of the when variable
@@ -2497,34 +2497,34 @@ class RootObject:
     # @return
     def prepareBody(self):
         # cleaning the block, removing the start and end braces
-        newBody = []
+        new_body = []
         i = 0
         for line in self.bodyForNumRelation:
             if not has_Omc_trace (line) and not has_Omc_equationIndexes (line):
                 if i != 0 and i != len(self.bodyForNumRelation)-1:
-                    newBody.append(line)
+                    new_body.append(line)
             i = i + 1
-        self.bodyForNumRelation = newBody
+        self.bodyForNumRelation = new_body
 
 
     ##
     # Filter the when condition in the bodies
     # @param self : object pointer
-    # @param listFuncBodies : body to filter
+    # @param list_func_bodies : body to filter
     # @return
-    def filterWhenCondBlocks(self, listFuncBodies):
-        for body in listFuncBodies:
-            blockToExtract = extractBlock(body, ["if(", self.whenVarName])
+    def filterWhenCondBlocks(self, list_func_bodies):
+        for body in list_func_bodies:
+            block_to_extract = extractBlock(body, ["if(", self.whenVarName])
             # I nothing is found in the body None is returned.
-            if blockToExtract is not None :
+            if block_to_extract is not None :
 
                 # Clean and replace....
-                blockCleaned = []
-                for line in blockToExtract:
+                block_cleaned = []
+                for line in block_to_extract:
                     line_cleaned = line.replace("time", "get_manager_time()")
-                    blockCleaned.append(line_cleaned)
+                    block_cleaned.append(line_cleaned)
 
-                self.blocksWhenCondIsTrue.append(  blockCleaned  )
+                self.blocksWhenCondIsTrue.append(  block_cleaned  )
 
 
     ##
@@ -2698,14 +2698,14 @@ class Warn:
                 line = line.replace("static const MMC_DEFSTRINGLIT(","")
                 line = line.replace(");","")
                 words = line.split(",")
-                nameVar = words[0]
+                name_var = words[0]
                 index =  words[1]
-                nbWords = len(words)
+                nb_words = len(words)
                 value =""
-                for i in range(2,nbWords):
+                for i in range(2,nb_words):
                     value = value + words[i]
                 value = value.replace("\n","")
-                line_tmp = "  const modelica_string "+str(nameVar)+" = "+str(value)+";\n"
+                line_tmp = "  const modelica_string "+str(name_var)+" = "+str(value)+";\n"
                 tmp_body.append(line_tmp)
             elif "MMC_REFSTRINGLIT" in line:
                 line = line.replace("MMC_REFSTRINGLIT","")

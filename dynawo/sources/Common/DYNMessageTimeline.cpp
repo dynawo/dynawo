@@ -49,7 +49,9 @@ MessageTimeline::initialize(const string& key) {
 #else
       priority_ = std::atoi(priority.c_str());
 #endif
-    } catch (...) {}  // nothing to do, just try to find the error message
+    } catch (...) {
+      std::cerr << "Could not load the message associated to key " << key << std::endl;
+    }
   }
 }
 

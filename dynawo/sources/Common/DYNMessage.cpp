@@ -52,7 +52,9 @@ Message::initialize(const std::string& dicoName, const std::string& key) {
       fmt = IoDicos::getIoDico(dicoName)->msg(key);
       hasFmt_ = true;
       fmt_ = boost::format(fmt.c_str());
-    } catch (...) {}  // nothing to do, just try to find the error message
+    } catch (...) {
+      std::cerr << "Could not load the message associated to key " << key << std::endl;
+    }
   } else {
     hasFmt_ = false;
     fmtss_ << key;
