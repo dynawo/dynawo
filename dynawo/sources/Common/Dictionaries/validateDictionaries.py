@@ -52,21 +52,21 @@ class Dictionaries:
     ##
     #  Generate files with respect to keys found in dictionary
     # @param self: object pointer
-    # @param outputDir : directory where files should be created
-    # @param modelicaDir : directory where modelica files should be created
-    # @param modelicaPackage : Parent package of modelica keys files
+    # @param output_dir : directory where files should be created
+    # @param modelica_dir : directory where modelica files should be created
+    # @param modelica_package : Parent package of modelica keys files
     # @return
-    def generateFiles(self,outputDir, modelicaDir, modelicaPackage):
+    def generateFiles(self,output_dir, modelica_dir, modelica_package):
         for name in self.names_:
             dictionary = Dictionary()
             for d in self.dicts_:
                 if (d.name() == name):
                     dictionary = d
-            dictionary.setOutputDir(outputDir)
-            dictionary.setModelicaDir(modelicaDir)
+            dictionary.setOutputDir(output_dir)
+            dictionary.setModelicaDir(modelica_dir)
             dictionary.generateHeader()
             dictionary.generateCPP()
-            dictionary.generateModelica(modelicaPackage)
+            dictionary.generateModelica(modelica_package)
             dictionary.copyDeleteFiles()
 ##
 #  Class defining one dictionary found by the utility
@@ -162,11 +162,11 @@ class Dictionary:
     # @param self : object pointer
     # @return
     def generateHeader(self):
-        fileName = str(self.directory_)+'/'+str(self.name_)+'_keys.h-tmp'
+        file_name = str(self.directory_)+'/'+str(self.name_)+'_keys.h-tmp'
         tag = str(self.name_).upper()  + '_KEYS_H'
-        headerFile = open(fileName,'w')
+        header_file = open(file_name,'w')
         name = self.name_[ 3:]
-        headerFile.write('''//
+        header_file.write('''//
 // Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
@@ -178,37 +178,37 @@ class Dictionary:
 // This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 //
 ''')
-        headerFile.write("#ifndef "+str(tag)+"\n")
-        headerFile.write("#define "+str(tag)+"\n")
-        headerFile.write("#include <string>\n")
-        headerFile.write("namespace DYN {\n\n")
-        headerFile.write("  ///< struct of Key"+str(name)+" to declare enum values and names associated to the enum to be used in dynawo\n")
-        headerFile.write("  struct Key"+name+"_t\n")
-        headerFile.write("  {\n")
-        headerFile.write("    ///< enum of possible key for "+str(name)+"\n")
-        headerFile.write("    enum value\n")
-        headerFile.write("    {\n")
-        listKeys = self.keys()
-        for key in listKeys:
+        header_file.write("#ifndef "+str(tag)+"\n")
+        header_file.write("#define "+str(tag)+"\n")
+        header_file.write("#include <string>\n")
+        header_file.write("namespace DYN {\n\n")
+        header_file.write("  ///< struct of Key"+str(name)+" to declare enum values and names associated to the enum to be used in dynawo\n")
+        header_file.write("  struct Key"+name+"_t\n")
+        header_file.write("  {\n")
+        header_file.write("    ///< enum of possible key for "+str(name)+"\n")
+        header_file.write("    enum value\n")
+        header_file.write("    {\n")
+        list_keys = self.keys()
+        for key in list_keys:
             key1 = key+","
-            keyToPrint = key1.ljust(70)
-            headerFile.write('      '+str(keyToPrint)+'\t///< '+self.getMessage(key)+'\n')
-        headerFile.write("    };\n\n")
-        headerFile.write("    static std::string names[]; ///< names associated to the enum \n")
-        headerFile.write("  };\n")
-        headerFile.write("} //namespace DYN\n")
-        headerFile.write("#endif\n")
-        headerFile.close()
+            key_to_print = key1.ljust(70)
+            header_file.write('      '+str(key_to_print)+'\t///< '+self.getMessage(key)+'\n')
+        header_file.write("    };\n\n")
+        header_file.write("    static std::string names[]; ///< names associated to the enum \n")
+        header_file.write("  };\n")
+        header_file.write("} //namespace DYN\n")
+        header_file.write("#endif\n")
+        header_file.close()
 
     ##
     # Generate a cpp file associated to the dictionary
     # @param self : object pointer
     # @return
     def generateCPP(self):
-        fileName = str(self.directory_)+'/'+str(self.name_)+'_keys.cpp-tmp'
-        cppFile = open(fileName,'w')
+        file_name = str(self.directory_)+'/'+str(self.name_)+'_keys.cpp-tmp'
+        cpp_file = open(file_name,'w')
         name = self.name_[ 3:]
-        cppFile.write('''//
+        cpp_file.write('''//
 // Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
@@ -220,29 +220,29 @@ class Dictionary:
 // This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 //
 ''')
-        cppFile.write('#include "'+ str(self.name_)+'_keys.h"\n')
-        cppFile.write("namespace DYN {\n\n")
-        cppFile.write("std::string Key"+name+"_t::names[] = {\n")
-        listKeys = self.keys()
-        for key in listKeys:
-            cppFile.write('  "'+str(key)+'",\n')
-        cppFile.write("};\n")
-        cppFile.write("} //namespace DYN\n")
-        cppFile.close()
+        cpp_file.write('#include "'+ str(self.name_)+'_keys.h"\n')
+        cpp_file.write("namespace DYN {\n\n")
+        cpp_file.write("std::string Key"+name+"_t::names[] = {\n")
+        list_keys = self.keys()
+        for key in list_keys:
+            cpp_file.write('  "'+str(key)+'",\n')
+        cpp_file.write("};\n")
+        cpp_file.write("} //namespace DYN\n")
+        cpp_file.close()
 
     ##
     # Generate a modelica file to declare the enum of the dictionary
     # @param self : object pointer
-    # @param modelicaPackage : Parent package of modelica keys files
+    # @param modelica_package : Parent package of modelica keys files
     # @return
-    def generateModelica(self, modelicaPackage):
+    def generateModelica(self, modelica_package):
         if not os.path.exists(self.modelicaDir_):
             print ("Modelica directory :"+str(self.modelicaDir_)+" does not exist")
             exit(1)
         name = self.name_[3:]
-        fileName = str(self.modelicaDir_)+'/'+str(name)+'Keys.mo-tmp'
-        moFile = open(fileName,'w')
-        moFile.write('''/*
+        file_name = str(self.modelicaDir_)+'/'+str(name)+'Keys.mo-tmp'
+        mo_file = open(file_name,'w')
+        mo_file.write('''/*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
@@ -254,14 +254,14 @@ class Dictionary:
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 ''')
-        moFile.write("within " + modelicaPackage + ";\n\n")
-        moFile.write('encapsulated package '+name+'Keys\n\n')
+        mo_file.write("within " + modelica_package + ";\n\n")
+        mo_file.write('encapsulated package '+name+'Keys\n\n')
         i = 0
         for key in self.keys():
-            moFile.write("final constant Integer "+str(key)+" = "+str(i)+";\n")
+            mo_file.write("final constant Integer "+str(key)+" = "+str(i)+";\n")
             i = i+1
-        moFile.write("\nend "+name+"Keys;\n")
-        moFile.close()
+        mo_file.write("\nend "+name+"Keys;\n")
+        mo_file.close()
 
     ##
     # to avoid regeneration of sources, tmp files are created
@@ -270,60 +270,60 @@ class Dictionary:
     # @param self : object pointer
     # @return
     def copyDeleteFiles(self):
-        HFile = str(self.directory_)+'/'+str(self.name_)+'_keys.h'
-        tmpHFile = HFile+'-tmp'
-        CPPFile = str(self.directory_)+'/'+str(self.name_)+'_keys.cpp'
-        tmpCPPFile = CPPFile+'-tmp'
+        h_file = str(self.directory_)+'/'+str(self.name_)+'_keys.h'
+        tmp_h_file = h_file+'-tmp'
+        cpp_file = str(self.directory_)+'/'+str(self.name_)+'_keys.cpp'
+        tmp_cpp_file = cpp_file+'-tmp'
 
-        diffCPP_H = False
+        diff_cpp_h = False
         # file exists
-        if not os.path.exists(HFile):
-            diffCPP_H = True
+        if not os.path.exists(h_file):
+            diff_cpp_h = True
         else :
             # file is different
-            if not filecmp.cmp(tmpHFile, HFile):
-                diffCPP_H = True
+            if not filecmp.cmp(tmp_h_file, h_file):
+                diff_cpp_h = True
 
         # file exists
-        if not os.path.exists(CPPFile):
-            diffCPP_H = True
+        if not os.path.exists(cpp_file):
+            diff_cpp_h = True
         else:
             # file is different
-            if not filecmp.cmp(tmpCPPFile, CPPFile):
-                diffCPP_H = True
+            if not filecmp.cmp(tmp_cpp_file, cpp_file):
+                diff_cpp_h = True
 
-        if diffCPP_H :
-            if os.path.exists(HFile):
-                os.chmod(HFile,0777) # change before copy
-            if os.path.exists(CPPFile):
-                os.chmod(CPPFile,0777)
-            shutil.copyfile(tmpHFile, HFile)
-            shutil.copyfile(tmpCPPFile, CPPFile)
-            os.chmod(HFile,0444) # file only readable
-            os.chmod(CPPFile,0444) # file only readable
+        if diff_cpp_h :
+            if os.path.exists(h_file):
+                os.chmod(h_file,0777) # change before copy
+            if os.path.exists(cpp_file):
+                os.chmod(cpp_file,0777)
+            shutil.copyfile(tmp_h_file, h_file)
+            shutil.copyfile(tmp_cpp_file, cpp_file)
+            os.chmod(h_file,0444) # file only readable
+            os.chmod(cpp_file,0444) # file only readable
 
         name = self.name_[3:]
-        MOFile = str(self.modelicaDir_)+'/'+str(name)+'Keys.mo'
-        tmpMOFile = MOFile+'-tmp'
+        mo_file = str(self.modelicaDir_)+'/'+str(name)+'Keys.mo'
+        tmp_mo_file = mo_file+'-tmp'
 
         diff = False
-        if not os.path.exists(MOFile):
+        if not os.path.exists(mo_file):
             diff = True
         else :
             # file is different
-            if not filecmp.cmp(tmpMOFile, MOFile):
+            if not filecmp.cmp(tmp_mo_file, mo_file):
                 diff = True
 
         if diff:
-            if os.path.exists(MOFile):
-                os.chmod(MOFile, 0777)
-            shutil.copyfile(tmpMOFile, MOFile)
-            os.chmod(MOFile, 0444)
+            if os.path.exists(mo_file):
+                os.chmod(mo_file, 0777)
+            shutil.copyfile(tmp_mo_file, mo_file)
+            os.chmod(mo_file, 0444)
 
         # suppression fichier tmp
-        os.remove(tmpHFile)
-        os.remove(tmpCPPFile)
-        os.remove(tmpMOFile)
+        os.remove(tmp_h_file)
+        os.remove(tmp_cpp_file)
+        os.remove(tmp_mo_file)
 
 ##
 # Class defining status when parsing a dictionary file
@@ -336,9 +336,9 @@ class Status():
 # Read a line and add a key/value to a dictionary
 # @param line : line to read and analyse
 # @param dictionary : dictionary where the message should be added
-# @param checkCapitalLetters : whether we should check if the first letter of the first word is capitalized or not
+# @param check_capital_letters : whether we should check if the first letter of the first word is capitalized or not
 # @return  True is the line is correctly added to the dictionary
-def readLine(line,dictionary,checkCapitalLetters):
+def readLine(line,dictionary,check_capital_letters):
     if( line.find("//") != -1):
         line = line[ :line.find("//")] # erase any comment
 
@@ -351,40 +351,40 @@ def readLine(line,dictionary,checkCapitalLetters):
     key = line[ : line.find("=")].strip()
     value = line[ line.find("=")+1:].strip()
     # analyze first word of the value
-    listWords = value.split()
-    firstWord = listWords[0]
-    if (checkCapitalLetters and firstWord[0].isupper() and not firstWord.isupper()): # first letter is a capitalized one, and the other letters are not
+    list_words = value.split()
+    first_word = list_words[0]
+    if (check_capital_letters and first_word[0].isupper() and not first_word.isupper()): # first letter is a capitalized one, and the other letters are not
       return Status.BEGIN_WITH_CAPITAL_LETTER
     dictionary.addPair(key,value)
     return Status.OK
 
 ##
 # Create a dictionary thanks to information found in a file
-# @param file2Read: file where the information are stored
+# @param file_2_read: file where the information are stored
 # @return the dictionary created by the function
 # @throw Raise an error is the file is not well formatted
-def createDictionary(file2Read):
+def createDictionary(file_2_read):
     # create a dictionary
     dictionary = Dictionary()
-    names = file2Read.split("/")
-    dictionaryName = names.pop()
-    dictionaryName = (dictionaryName.split(".")[0]).split("_")[0] # dictionary name is like : name_en_GB.dic
-    dictionary.setName(dictionaryName)
-    dictionary.setFullName(file2Read)
-    checkCapitalLetters = False
-    if(dictionaryName.find("Log") != -1 or dictionaryName.find("Error") != -1):
-      checkCapitalLetters = True
-    fileRead = open(file2Read,'r')
-    lines = fileRead.readlines()
-    fileRead.close()
+    names = file_2_read.split("/")
+    dictionary_name = names.pop()
+    dictionary_name = (dictionary_name.split(".")[0]).split("_")[0] # dictionary name is like : name_en_GB.dic
+    dictionary.setName(dictionary_name)
+    dictionary.setFullName(file_2_read)
+    check_capital_letters = False
+    if(dictionary_name.find("Log") != -1 or dictionary_name.find("Error") != -1):
+      check_capital_letters = True
+    file_read = open(file_2_read,'r')
+    lines = file_read.readlines()
+    file_read.close()
     for line in lines:
         line = line.rstrip('\n\r') # erase the endline characters
-        status = readLine(line,dictionary,checkCapitalLetters)
+        status = readLine(line,dictionary,check_capital_letters)
         if( status == Status.NO_SEPARATOR ) :
-            print ("File :"+str(file2Read)+" line : '"+str(line)+"' is not well defined, no separator '=' between the key and the value")
+            print ("File :"+str(file_2_read)+" line : '"+str(line)+"' is not well defined, no separator '=' between the key and the value")
             exit(1)
         if( status == Status.BEGIN_WITH_CAPITAL_LETTER):
-            print ("File :"+str(file2Read)+" line : '"+str(line)+"' , the value definition should not begin with a capital letter")
+            print ("File :"+str(file_2_read)+" line : '"+str(line)+"' , the value definition should not begin with a capital letter")
             exit(1)
     return dictionary
 

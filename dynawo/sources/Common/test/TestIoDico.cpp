@@ -22,6 +22,7 @@
 #include "DYNIoDico.h"
 #include "DYNMessage.h"
 #include "DYNMessageTimeline.h"
+#include "DYNMacrosMessage.h"
 #include "DYNTerminate.h"
 
 
@@ -34,7 +35,7 @@ TEST(CommonIoDicoTest, testCommonIoDicosTest) {
   boost::shared_ptr<IoDicos> dicos = IoDicos::getInstance();
   dicos->addPath("res");
   ASSERT_NO_THROW(dicos->addDico("MyIoDico", "dico", ""));
-  ASSERT_THROW(dicos->addDico("MyIoDico", "", ""), char const*);
+  ASSERT_THROW_DYNAWO(dicos->addDico("MyIoDico", "", ""), DYN::Error::API, DYN::KeyError_t::EmptyDictionaryName);
   ASSERT_THROW(dicos->addDico("MyIoDico", "MyDummyDico", ""), std::string);
 
   ASSERT_EQ(IoDicos::hasIoDico("MyIoDico"), true);
