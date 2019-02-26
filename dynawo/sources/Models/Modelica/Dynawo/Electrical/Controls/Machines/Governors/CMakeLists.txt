@@ -12,9 +12,9 @@
 
 SET(MODEL_FILES
     package.mo
-    GoverProportionalBlock.mo
-    GoverProportionalBlock.xml
-    GovernorBlock_INIT.mo
+    GoverProportional.mo
+    GoverProportional.xml
+    Governor_INIT.mo
     )
 
 #

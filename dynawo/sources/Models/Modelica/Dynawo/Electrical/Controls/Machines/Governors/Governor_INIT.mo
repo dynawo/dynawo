@@ -12,11 +12,11 @@ within Dynawo.Electrical.Controls.Machines.Governors;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GovernorBlock_INIT "Initialisation model for governor"
+model Governor_INIT "Initialisation model for governor"
   // only retrieves initial mechanical torque from whole generator model
   // In steady-state, omegaPu is supposed = 1
   
   public
     SIunits.PerUnit Pm0Pu (start = 1) "Initial mechanical power";
     
-end GovernorBlock_INIT;
+end Governor_INIT;
