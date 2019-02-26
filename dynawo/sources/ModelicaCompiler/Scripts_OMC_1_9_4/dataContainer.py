@@ -130,7 +130,6 @@ def isParamBool(par):
 # @param par : parameter to test
 # @return @b True if the parameter is an external boolean parameter
 def isParamExtBool(par):
-    type_var = par.getType()
     internal = par.getInternal()
     use_start = par.getUseStart()
     return isParamBool(par) and not internal and not use_start
@@ -140,7 +139,6 @@ def isParamExtBool(par):
 # @param par : parameter to test
 # @return @b True if the parameter is an internal boolean parameter
 def isParamInternalBool(par):
-    type_var = par.getType()
     return isParamBool(par) and not isParamExtBool(par)
 
 ##
@@ -156,7 +154,6 @@ def isParamInteger(par):
 # @param par : parameter to test
 # @return @b True if the parameter is an external integer parameter
 def isParamExtInteger(par):
-    type_var = par.getType()
     internal = par.getInternal()
     use_start = par.getUseStart()
     return isParamInteger(par) and not internal and not use_start
@@ -166,7 +163,6 @@ def isParamExtInteger(par):
 # @param par : parameter to test
 # @return @b True if the parameter is an internal integer parameter
 def isParamInternalInteger(par):
-    type_var = par.getType()
     return isParamInteger(par) and not isParamExtInteger(par)
 
 
@@ -183,7 +179,6 @@ def isParamString(par):
 # @param par : parameter to test
 # @return @b True if the parameter is an external string parameter
 def isParamExtString(par):
-    type_var = par.getType()
     start_text = par.getStartText()[0]
     return isParamString(par) and start_text == ""
 
@@ -192,7 +187,6 @@ def isParamExtString(par):
 # @param par : parameter to test
 # @return @b True if the parameter is an internal string parameter
 def isParamInternalString(par):
-    type_var = par.getType()
     return isParamString(par) and not isParamExtString(par)
 
 ##
@@ -208,8 +202,6 @@ def isParamReal(par):
 # @param par : parameter to test
 # @return @b True if the parameter is an external real parameter
 def isParamExtReal(par):
-    type_var = par.getType()
-    name = par.getName()
     internal = par.getInternal()
     init_by_init_extend = par.getInitByExtendIn06Inz()
     use_start = par.getUseStart()
