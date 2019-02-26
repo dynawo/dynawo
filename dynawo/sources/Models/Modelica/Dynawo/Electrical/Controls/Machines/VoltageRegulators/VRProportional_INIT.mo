@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model VRProportionalBlock_INIT "Simple Proportional Voltage Regulator INIT Model. Here one of the inputs is Efd0PuLF. This value will initialize the limiter's input variable, but since it could be out the saturation bounds, the initial value kept for EfdPu is Efd0Pu which is min(max(Efd0PuLF, EfdMinPu), EfdMaxPu)"
+model VRProportional_INIT "Simple Proportional Voltage Regulator INIT Model. Here one of the inputs is Efd0PuLF. This value will initialize the limiter's input variable, but since it could be out the saturation bounds, the initial value kept for EfdPu is Efd0Pu which is min(max(Efd0PuLF, EfdMinPu), EfdMaxPu)"
   import Modelica.Constants;
 
   import Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag_INIT;
@@ -48,4 +48,4 @@ equation
   Us0Pu = ComplexMath.'abs'(u0);
   limiterWithLag.u0 = (UcEfd0Pu - Us0Pu)*Gain;
 
-end VRProportionalBlock_INIT;
+end VRProportional_INIT;

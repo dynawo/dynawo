@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model VRProportionalBlock "Simple Proportional Voltage Regulator"
+model VRProportional "Simple Proportional Voltage Regulator"
 
   import Modelica.Blocks;
 
@@ -87,4 +87,4 @@ equation
     limitationUp.value = false;
   end when;
 
-end VRProportionalBlock;
+end VRProportional;

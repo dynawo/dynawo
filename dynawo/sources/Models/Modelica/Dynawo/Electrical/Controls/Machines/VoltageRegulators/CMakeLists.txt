@@ -12,14 +12,14 @@
 
 SET(MODEL_FILES
     package.mo
-    VRProportionalBlock.mo
-    VRProportionalBlock_INIT.mo
-    VRProportionalBlock.xml
-    VRProportionalIntegralBlock.mo
-    VRProportionalIntegralBlock_INIT.mo
-    VRProportionalIntegralBlock.xml
-    VRProportionalReactiveFeedbackBlock.mo
-    VRProportionalReactiveFeedbackBlock.xml
+    VRProportional.mo
+    VRProportional_INIT.mo
+    VRProportional.xml
+    VRProportionalIntegral.mo
+    VRProportionalIntegral_INIT.mo
+    VRProportionalIntegral.xml
+    VRProportionalReactiveFeedback.mo
+    VRProportionalReactiveFeedback.xml
     )
 
 #
