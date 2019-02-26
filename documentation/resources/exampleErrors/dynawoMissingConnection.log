@@ -1,0 +1,2 @@
+| DEBUG | subModel : GeneratorPQ  Var -Generator_omegaRefPu_value- is external and not connected
+| ERROR | missing connection for one/several external variable(s) ( DYNSimulation.cpp:591 )

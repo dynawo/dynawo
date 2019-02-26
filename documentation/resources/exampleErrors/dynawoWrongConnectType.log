@@ -1,0 +1,1 @@
+| ERROR | connection between model SET_POINT variable( SP_setPoint_value ) of type CONTINUOUS and model GeneratorPQ variable (Generator_running_value) of type BOOLEAN is impossible ( DYNModelMulti.cpp:642 )

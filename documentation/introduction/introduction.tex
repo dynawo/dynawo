@@ -1,0 +1,62 @@
+%% Except where otherwise noted, content in this documentation is Copyright (c)
+%% 2015-2019, RTE (http://www.rte-france.com) and licensed under a
+%% CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)
+%% license. All rights reserved.
+
+\documentclass[a4paper, 12pt]{report}
+
+% Latex setup
+\input{../latex_setup.tex}
+
+\begin{document}
+
+\title{\Dynawo Introduction Documentation}
+\date\today
+
+\maketitle
+\tableofcontents
+
+\chapter{Introduction}
+
+\textbf{\Dynawo is an hybrid C++/Modelica open source time domain simulation tool for power systems. It aims at providing power system stakeholders with a transparent, flexible, interoperable and robust simulation tool that could ease collaboration and cooperation in the power system community.} \\
+
+To achieve this goal, \textbf{\Dynawo is based on two mains principles}: the use of a high-level modelling language \href{https://modelica.org/} {\underline{Modelica}} and a strict separation between the modelling and the solving parts. \\
+
+It is an ongoing project based on previous works conducted particularly in two R\&D European projects: \href{http://www.fp7-pegase.com/}{\underline{Pegase}} and \href{http://www.itesla-project.eu/}{\underline{iTesla}}. These projects have contributed to the choices that are the basis upon which \Dynawo is built: they proved the usability of the Modelica language for power system simulations and contributed to the development of numerical resolution strategies that are integrated into \Dynawo. \\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{../resources/DynawoModelSolverLight.png}
+\caption{Separation between modelling and solving parts in \Dynawo}
+\end{figure}
+
+
+\textbf{\Dynawo 's primary focus has been on RMS simulations} and most of the
+tests done until now have been for long-term and short-term stability studies.
+However, the simulation tool structure offers great flexibility and makes it
+also possible to run others types of power system simulations, as long as the
+user provides the necessary models and solvers. Different initiatives are under discussion or submission to test the possibility to use \Dynawo for EMT simulations or multi-system simulations. \\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{../resources/DynawoScope.png}
+\caption{\Dynawo scope in the range of dynamic phenomena}
+\end{figure}
+
+\textbf{Only validated models are included into the library that is still under
+construction.} We plan to release a new set of models in the near future, e.g.
+HVDC, wind and solar power plants models or more different standard regulation
+models. \\
+
+\Dynawo is licensed under the terms of the \href{http://mozilla.org/MPL/2.0}{\underline{Mozilla Public License, v2.0}}.
+The source code is hosted into a \href{https://github.com/dynawo/dynawo} {\underline{GitHub repository}}. \\
+
+\textbf{In the following sections of this document, the reader will find}:
+\begin{itemize}
+\item Installation directions to be able to compile and use \Dynawo;
+\item Configuration directions to be able to create the needed input files in order to simulate a given test case;
+\item Detailed information about the \Dynawo simulator, its architecture, models and solvers;
+\item Advanced information on the code organization, the procedure to follow to add a new model or a new solver into \Dynawo;
+\end{itemize}
+
+\end{document}

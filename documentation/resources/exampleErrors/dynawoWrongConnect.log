@@ -1,0 +1,1 @@
+| ERROR | impossible to connect two elements : element 1 (id SP_setPoint_value: name :SP_setPoint_value) not found in model :GeneratorPQ ( GeneratorPQ ) element :Generator_omegaRefPu impossible connection ( DYNModelMulti.cpp:605 )
