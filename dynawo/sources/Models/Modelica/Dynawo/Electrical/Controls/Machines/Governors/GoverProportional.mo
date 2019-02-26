@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Machines.Governors;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GoverProportionalBlock "Keep the mechanical power as a constant modulated by the difference between omega and a reference"
+model GoverProportional "Keep the mechanical power as a constant modulated by the difference between omega and a reference"
   // as a result, the mechanical torque will vary with (angular) frequency
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
@@ -80,4 +80,4 @@ protected
     Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
   end when;
   
-end GoverProportionalBlock;
+end GoverProportional;
