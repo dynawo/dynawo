@@ -65,7 +65,8 @@ static void mosAddHeader(const string& mosFilePath, const string& runOptions, of
 static void mosAddFilesImport(const bool importModelicaPackage, const vector<string>& filesToImport,
                               ofstream& mosFile);  ///< Add files import commands to a .mos file
 static void mosRunFile(const string& mosFilePath, const string& runOptions);  ///< Run a given .mos file
-static void prepareWorkspace(const string& modelName, const string& inputDir, const string& outputDir, bool& rmModels);
+static bool copyInputFile(const string& fileName,
+    const string& inputDir, const string& outputDir);  ///< copy input file into the output folder, return true if the input file is equal to the output file
 int main(int argc, char ** argv) {
   Trace::init();
 
@@ -119,7 +120,20 @@ int main(int argc, char ** argv) {
   int size = string("compilerModelicaOMC").size();
   fullPathBin.erase(fullPathBin.end() - size, fullPathBin.end());  // erase the name of the binary file
   string installDir = prettyPath(fullPathBin + "/../");  // the binary is in the sbin directory, so the install dir is in sbin/../
-  prepareWorkspace(modelName, inputDir, outputDir, rmModels);
+
+  // Prepare workspace
+  if (!is_directory(outputDir))
+    create_directory(outputDir);
+  if (!is_directory(inputDir))
+    throw DYNError(DYN::Error::MODELER, MissingModelicaInputFolder, inputDir);
+  bool moFilesEqual = copyInputFile(modelName + ".mo", inputDir, outputDir);
+  copyInputFile(modelName + ".xml", inputDir, outputDir);
+  copyInputFile(modelName + "_INIT.mo", inputDir, outputDir);
+  // Force file deletion if input folder is not output folder to avoid having the model copy in the output folder.
+  // Otherwise follows user instruction
+  if (!moFilesEqual)
+    rmModels = true;
+
   string outputDir1 = prettyPath(outputDir);
 
   // Launch the compile of the model
@@ -166,39 +180,18 @@ int main(int argc, char ** argv) {
 }
 
 
-void
-prepareWorkspace(const string& modelName, const string& inputDir, const string& outputDir, bool& rmModels) {
-  if (!is_directory(outputDir))
-    create_directory(outputDir);
+bool
+copyInputFile(const string& fileName, const string& inputDir, const string& outputDir) {
   string outputDir1 = prettyPath(outputDir);
-  if (!is_directory(inputDir))
-    throw DYNError(DYN::Error::MODELER, MissingModelicaFile, absolute(modelName + ".mo", inputDir));
   string inputDir1 = prettyPath(inputDir);
-  string inputMoFile = absolute(modelName + ".mo", inputDir1);
-  string inputExtVarFile = absolute(modelName + ".xml", inputDir1);
-  string inputInitFile = absolute(modelName + "_INIT.mo", inputDir1);
-  string outputMoFile = absolute(modelName + ".mo", outputDir1);
-  string outputExtVarFile = absolute(modelName + ".xml", outputDir1);
-  string outputInitFile = absolute(modelName + "_INIT.mo", outputDir1);
-  if (exists(inputMoFile) && inputMoFile != outputMoFile) {
-    if (exists(outputMoFile))
-      remove(outputMoFile);
-    copy(inputMoFile, outputMoFile);
+  string inputFile = absolute(fileName, inputDir1);
+  string outputFile = absolute(fileName, outputDir1);
+  if (exists(inputFile) && inputFile != outputFile) {
+    if (exists(outputFile))
+      remove(outputFile);
+    copy(inputFile, outputFile);
   }
-  // Force file deletion if input folder is not output folder to avoid having the model copy in the output folder.
-  // Otherwise follows user instruction
-  if (inputMoFile != outputMoFile)
-    rmModels = true;
-  if (exists(inputExtVarFile) && inputExtVarFile != outputExtVarFile) {
-    if (exists(outputExtVarFile))
-      remove(outputExtVarFile);
-    copy(inputExtVarFile, outputExtVarFile);
-  }
-  if (exists(inputInitFile) && inputInitFile != outputInitFile) {
-    if (exists(outputInitFile))
-      remove(outputInitFile);
-    copy(inputInitFile, outputInitFile);
-  }
+  return inputFile == outputFile;
 }
 
 void
