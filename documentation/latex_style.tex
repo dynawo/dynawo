@@ -1,0 +1,154 @@
+%% Except where otherwise noted, content in this documentation is Copyright (c)
+%% 2015-2019, RTE (http://www.rte-france.com) and licensed under a
+%% CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)
+%% license. All rights reserved.
+
+\usepackage{color}
+
+\definecolor{blue}{rgb}{0,0,1}
+\definecolor{lightblue}{rgb}{.3,.5,1}
+\definecolor{darkblue}{rgb}{0,0,.4}
+\definecolor{red}{rgb}{1,0,0}
+\definecolor{darkred}{rgb}{.56,0,0}
+\definecolor{pink}{rgb}{.933,0,.933}
+\definecolor{purple}{rgb}{0.58,0,0.82}
+\definecolor{green}{rgb}{0.133,0.545,0.133}
+\definecolor{darkgreen}{rgb}{0,.4,0}
+\definecolor{gray}{rgb}{.3,.3,.3}
+\definecolor{darkgray}{rgb}{.2,.2,.2}
+\definecolor{shadecolor}{gray}{0.925}
+
+% **********************************************************************************
+%	Syntax : Bash (bash)
+% **********************************************************************************
+
+\lstdefinelanguage{bash}
+{
+  keywordstyle=\color{blue},
+  morekeywords={
+    cd,
+    export,
+    source},
+  numbers=none,
+  deletekeywords={jobs}
+}
+
+% **********************************************************************************
+%	Syntax : XML
+% **********************************************************************************
+
+\lstdefinelanguage{XML}
+{
+  morestring=[s][\color{purple}]{"}{"},
+  morecomment=[s][\color{green}]{<?}{?>},
+  morecomment=[s][\color{green}]{<!--}{-->},
+  stringstyle=\color{black},
+  identifierstyle=\color{blue},
+  keywordstyle=\color{red},
+  morekeywords={
+    xmlns,
+    xsi,
+    noNamespaceSchemaLocation,
+    type,
+    source,
+    target,
+    version,
+    tool,
+    transRef,
+    roleRef,
+    objective,
+    eventually}
+}
+
+% **********************************************************************************
+%	Syntax : Modelica (modelica)
+% **********************************************************************************
+\lstdefinelanguage{Modelica}{
+  alsoletter={...},
+  morekeywords=[1]{				% types
+  	  Boolean,
+  	  Integer,
+	  Real},
+  keywordstyle=[1]\color{red},
+  morekeywords=[2]{       			% keywords
+	  algorithm,
+	  and,
+	  annotation,
+	  assert,
+	  block,
+	  class,
+	  connector,
+	  constant,
+	  discrete,
+	  else,
+	  elseif,
+	  elsewhen,
+	  end,
+	  equation,
+	  exit,
+	  extends,
+	  external,
+	  false,
+	  final,
+	  flow,
+	  for,
+	  function,
+	  if,
+	  in,
+	  inner,
+	  input,
+	  import,
+	  loop,
+	  model,
+	  nondiscrete,
+	  not,
+	  or,
+	  outer,
+	  output,
+	  package,
+	  parameter,
+	  public,
+	  protected,
+	  record,
+	  redeclare,
+	  replaceable,
+	  return,
+	  size,
+	  terminate,
+	  then,
+	  true,
+	  type,
+	  when,
+	  while},
+  keywordstyle=[2]\color{darkred},
+  morekeywords=[3]{				% functions
+	  abs,
+	  acos,
+	  asin,
+	  atan,
+	  atan2,
+	  Complex,
+	  connect,
+	  conj,
+	  cos,
+	  cosh,
+	  cross,
+	  der,
+	  edge,
+	  exp,
+	  fromPolar,
+	  imag,
+	  noEvent,
+	  pre,
+	  sign,
+	  sin,
+	  sinh,
+	  sqrt,
+	  tan,
+	  tanh},
+  keywordstyle=[3]\color{blue},
+  morecomment=[l][\color{green}]{//},		% comments
+  morecomment=[s][\color{green}]{/*}{*/},	% comments
+  morestring=[b][\color{pink}]{'},		% strings
+  morestring=[b][\color{pink}]{"},		% strings
+}

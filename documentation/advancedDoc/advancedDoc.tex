@@ -1,0 +1,404 @@
+%% Except where otherwise noted, content in this documentation is Copyright (c)
+%% 2015-2019, RTE (http://www.rte-france.com) and licensed under a
+%% CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)
+%% license. All rights reserved.
+
+\documentclass[a4paper, 12pt]{report}
+
+% Latex setup
+\input{../latex_setup.tex}
+
+\begin{document}
+
+\title{\Dynawo Advanced Documentation}
+\date\today
+
+\maketitle
+\tableofcontents
+
+\chapter{Advanced documentation}
+
+This chapter contains documentation on advanced features for readers that would like to have a deep look in \Dynawo. It will explain:
+\begin{itemize}
+\item \Dynawo code organization (\ref{Dynawo_Advanced_Documentation_Code_Organization})
+\item \Dynawo executables
+(\ref{Dynawo_Advanced_Documentation_Dynawo_executables})
+\item how to add a new Modelica model to the library (\ref{Dynawo_Advanced_Documentation_Adding_Modelica_Model_To_Library})
+\item how to add a new solver into \Dynawo (\ref{Dynawo_Advanced_Documentation_Adding_Solver})
+\end{itemize}
+
+\section{Code organization}
+\label{Dynawo_Advanced_Documentation_Code_Organization}
+
+The \Dynawo source code \href{https://github.com/dynawo/dynawo.git}
+{\underline{repository}} is organized as follows:
+\dirtree{%
+.1 cpplint.
+.1 document.
+.1 dynawo.
+.2 3rd party.
+.2 cmake.
+.2 doxygen.
+.2 sources.
+.3 API.
+.3 Common.
+.3 Launcher.
+.3 Modeler.
+.3 ModelicaCompiler.
+.3 Models.
+.3 Simulation.
+.3 Solvers.
+.1 nrt.
+.1 util.
+}
+\begin{itemize}
+\item the cpplint directory contains the Python scripts needed to use cpplint;
+\item the document directory contains the different latex documents used to
+create this documentation as well as the \Dynawo website;
+\item the dynawo directory contains all the code related to \Dynawo itself and
+the modifications on 3rd party. This is the most important directory;
+\item the nrt directory contains the testsuite used to check the correct
+behaviour of the simulation tool. They also serve as examples of the simulation
+tool behaviour and main principles;
+\item the util directory contains some utilities code e.g. to display the
+simulation results in a browser or to compare the nrt
+results with a reference.
+\end{itemize}
+
+The main dynawo directory contains the following folders:
+\begin{itemize}
+\item the 3rd party folder contains the toolchains to download, potentially
+modify and compile the necessary third-party libraries needed to run a \Dynawo
+simulation;
+\item the cmake folder contains all the files related to the general
+configuration of the compilation process;
+\item the doxygen folder contains the \Dynawo settings to build the source code
+documentation;
+\item the sources folder contains the \Dynawo code.
+\end{itemize}
+
+Finally, the source code is divided into different subdirectories corresponding to the different parts of the \Dynawo simulation tool. They are:
+\begin{itemize}
+\item the API directory contains the code related to all the Input/Output
+files;
+\item the Common directory contains all the code dealing with common feature and methods as well as the dictionaries for logs;
+\item the Launcher folder contains the main file and the launcher;
+\item the Modeler folder corresponding to all the code related to the generic
+API for the models, ie. the files that define the architecture and required
+methods expected from a model. It also contains the code related to the data transfer from the input data file to the models as well as the generic methods for the Modelica models;
+\item the ModelicaCompiler directory contains the Python scripts that are
+applied to the outputs produced by OpenModelica compiler. These scripts allow to
+get a final C code in adequation with the \Dynawo API;
+\item the Models directory contains the \Dynawo models library (both C++ and
+Modelica models);
+\item the Simulation directory contains the files related to the handling
+of the global simulation itself;
+\item the Solvers directory is the part of the code dealing with the resolution of the DAE system.
+\end{itemize}
+
+\section{\Dynawo executables}
+\label{Dynawo_Advanced_Documentation_Dynawo_executables}
+
+Once compiled, \Dynawo offers a certain number of utility binaries and scripts
+mainly to handle compilation of Modelica models. Below we explain how to use
+them to generate a .so library or to compile Modelica models at run-time.
+\textbf{Nevertheless, if you want to often use a new Modelica model into your simulations, we recommend adding it to the \Dynawo library (for this, see \ref{Dynawo_Advanced_Documentation_Adding_Modelica_Model_To_Library}).} \\
+
+\subsection{\Dynawo commands}
+
+To see all available \Dynawo commands run:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> ./myEnvDynawo.sh help
+\end{lstlisting}
+
+In the following we will give examples on how to use some commands, and particularly: \lstinline[language=bash]{compileModelicaOMC}, \lstinline[language=bash]{generate-preassembled} and \lstinline[language=bash]{dump-model}.
+
+To be able to execute \Dynawo from anywhere in the following examples you can do:
+\begin{lstlisting}[language=bash,deletekeywords={help,source}]
+$> cd /root/of/dynawo/source/folder
+$> export MY_ENV_DYNAWO=$(pwd)/myEnvDynawo.sh
+\end{lstlisting}
+
+\subsection{Compilation and simulation of a single Modelica model}
+
+The \lstinline[language=bash]{compileModelicaOMC} option of the myEnvDynawo.sh script takes as input a Modelica model and generates a .so library that can be used as input of \Dynawo to simulate this model.
+
+A summary of the possible arguments of the \lstinline[language=bash]{compileModelicaOMC} option can be obtained with the following
+command:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> $MY_ENV_DYNAWO compileModelicaOMC --help
+\end{lstlisting}
+
+In the following, we will provide some examples of usage.
+
+\paragraph{First example: Modelica model with no external variables}
+~~\\
+In the following we will show how to generate a .so library from a
+Modelica model with no external variable and then use it in a \Dynawo
+simulation. 
+
+We take as example the following Modelica model:
+\lstinputlisting[language=Modelica,title=Test.mo]{../resources/exampleExecutables/TestCompile/Basic/Test.mo}
+To generate the .so library of this model, the command below can be
+used. \\
+
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> cd /path/to/Test.mo
+$> $MY_ENV_DYNAWO compileModelicaOMC --model Test --output-dir compilation --input-dir . --lib Test.so
+\end{lstlisting}
+
+In the compilation folder you will find the output model library Test.so. \\
+
+To only generate the C++ files used to compile the model .so library, the user can call the same command without the \lstinline[language=bash]{--lib} argument.
+This will only generate the C++ model files used to generate the library:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> cd /path/to/Test.mo
+$> $MY_ENV_DYNAWO compileModelicaOMC --model Test --output-dir compilation  --input-dir .
+\end{lstlisting}
+
+~~\\
+The following input files are needed in the same folder as the library to launch a \Dynawo simulation of this basic model:
+\lstinputlisting[language=XML,title=Test.jobs]{../resources/exampleExecutables/TestCompile/Basic/BlackBox/Test.jobs}
+\lstinputlisting[language=XML,title=Test.dyd]{../resources/exampleExecutables/TestCompile/Basic/BlackBox/Test.dyd}
+\lstinputlisting[language=XML,title=Test.par]{../resources/exampleExecutables/TestCompile/Basic/BlackBox/Test.par}
+\lstinputlisting[language=XML,title=Test.crv]{../resources/exampleExecutables/TestCompile/Basic/BlackBox/Test.crv}
+\lstinputlisting[language=XML,title=solvers.par]{../resources/exampleExecutables/TestCompile/Basic/BlackBox/solvers.par}
+
+The following command is used to launch the simulation:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> cp compilation/Test.so /path/to/folder/with/input/files
+$> cd /path/to/folder/with/input/files
+$> $MY_ENV_DYNAWO jobs-with-curves Test.jobs
+\end{lstlisting}
+
+~~\\
+With different input files, it is also possible to let \Dynawo
+internally compiles the model before launching the simulation. The following input files need to be created in the same folder as the Test.mo file:
+\lstinputlisting[language=XML,title=Test.jobs]{../resources/exampleExecutables/TestCompile/Basic/Test.jobs}
+\lstinputlisting[language=XML,title=Test.dyd]{../resources/exampleExecutables/TestCompile/Basic/Test.dyd}
+\lstinputlisting[language=XML,title=Test.crv]{../resources/exampleExecutables/TestCompile/Basic/Test.crv}
+
+And the same solvers.par file as previously.
+
+The following command is used to launch the simulation:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> cd /path/to/Test.mo
+$> $MY_ENV_DYNAWO jobs-with-curves Test.jobs
+\end{lstlisting}
+
+\paragraph{Second example: Modelica model with external variables}
+\label{Dynawo_Advanced_Documentation_Dynawo_executables_execDynawo_second_example}
+~~\\
+In the following we will show how to generate a .so library from a
+Modelica model containing some external variables (i.e. variables that will be connected later to another model). \\
+
+Please note that such simulation scenario cannot be handled by OpenModelica. \\
+
+We take as example the following Modelica model:
+\lstinputlisting[language=Modelica,title=Test.mo]{../resources/exampleExecutables/TestCompile/ExternalVariables/Test.mo}
+In this model the \lstinline[language=Modelica]{v} variable needs to be connected later to another variable of another model. 
+
+A Test.xml file is needed to declare the variable as \textbf{external}:
+
+\lstinputlisting[language=XML,title=Test.xml]{../resources/exampleExecutables/TestCompile/ExternalVariables/Test.xml}
+
+To generate the .so library of this model, the following commands are used:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> cd /path/to/Test.mo
+$> $MY_ENV_DYNAWO compileModelicaOMC --model Test --output-dir compilation  --input-dir . --lib Test.so
+\end{lstlisting}
+
+\textbf{Warning}, at this point you cannot directly launch a simulation with only this model as it needs to be connected to another model providing the missing equation on \lstinline[language=Modelica]{v}. The way to do this is described in section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_Dydlib}.
+
+\subsection{Compilation and simulation of complex models}
+\label{Dynawo_Advanced_Documentation_Dynawo_executables_Dydlib}
+
+The \lstinline[language=bash]{generate-preassembled} option takes as input a xml file that contains a list of models and their connections and generates from it a .so library that can be used as input of \Dynawo to simulate this model.
+
+A summary of the possible arguments of the \lstinline[language=bash]{generate-preassembled} options can be obtained with the following command:
+
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> $MY_ENV_DYNAWO generate-preassembled --help
+\end{lstlisting}
+
+In the following, we will provide some examples of usage.
+
+\paragraph{First example: Model with fully connected external variables}
+~~\\
+We take as example the following Modelica models:
+\lstinputlisting[language=Modelica,title=Model1.mo]{../resources/exampleExecutables/TestDydLibNoExternal/Model1.mo}
+
+And the second:
+\lstinputlisting[language=Modelica,title=Model2.mo]{../resources/exampleExecutables/TestDydLibNoExternal/Model2.mo}
+
+In this example, the \lstinline[language=Modelica]{v} variable from
+\lstinline[language=Modelica]{Model1} needs to be connected to the \lstinline[language=Modelica]{v} variable of \lstinline[language=Modelica]{Model2}. 
+The two models have their respective external variables declared in xml files as shown in section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_execDynawo_second_example}.\\
+
+The Test.xml file shown below describes to \Dynawo how to compile and connect those two models:
+\lstinputlisting[language=XML,title=Test.xml]{../resources/exampleExecutables/TestDydLibNoExternal/Test.xml}
+
+~~\\
+The following commands generate the associated Test.so library:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> cd /path/to/Test.xml
+$> ls
+Model1.mo  Model1.xml  Model2.mo  Model2.xml  Test.xml
+$> mkdir -p compilation
+$> cp Model1.mo Model2.mo Model1.xml Model2.xml compilation
+$> $MY_ENV_DYNAWO generate-preassembled --model-list Test.xml --output-dir compilation --non-recursive-modelica-models-dir .
+\end{lstlisting}
+
+~~\\
+To launch a simulation with the compiled model the following input files needs to be created in the same folder as the .so library:
+\lstinputlisting[language=XML,title=Test.jobs]{../resources/exampleExecutables/TestDydLibNoExternal/SimulationCompiledLib/Test.jobs}
+\lstinputlisting[language=XML,title=Test.dyd]{../resources/exampleExecutables/TestDydLibNoExternal/SimulationCompiledLib/Test.dyd}
+\lstinputlisting[language=XML,title=Test.crv]{../resources/exampleExecutables/TestDydLibNoExternal/SimulationCompiledLib/Test.crv}
+And the same solvers.par file as previously. 
+
+~~\\
+The following command is used to launch the simulation:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> cp compilation/Test.so /path/to/folder/with/input/files
+$> cd /path/to/folder/with/input/files
+$> $MY_ENV_DYNAWO jobs-with-curves Test.jobs
+\end{lstlisting}
+
+~~\\
+In this example the parameters in \lstinline[language=Modelica]{Model1} and \lstinline[language=Modelica]{Model2} are fixed at the compilation of the model and to change them the compilation needs to be run again.
+
+The \Dynawo par files can be used to avoid recompiling models just to change parameters value. To do so, the following par file needs to be created in the same folder as the .so library:
+\lstinputlisting[language=XML,title=Test.par]{../resources/exampleExecutables/TestDydLibNoExternal/SimulationCompiledLib/Test.par}
+
+And the dyd file needs to be modified as follows:
+\begin{lstlisting}[language=XML]
+<dyn:blackBoxModel id="Model" lib="Test.so" parFile="Test.par" parId="1"/>
+\end{lstlisting}
+
+~~\\
+To modify \lstinline[language=Modelica]{Model2} parameters it is now enough to modify the par file and regenerating the .so library is not required. \\
+
+~~\\
+With different input files, it is also possible to let \Dynawo internally compiles the model before launching the simulation. To do so, the following files need to be created in the same folder as the Model1.mo and Model2.mo files:
+\lstinputlisting[language=XML,title=Test.jobs]{../resources/exampleExecutables/TestDydLibNoExternal/Simulation/Test.jobs}
+\lstinputlisting[language=XML,title=Test.dyd]{../resources/exampleExecutables/TestDydLibNoExternal/Simulation/Test.dyd}
+\lstinputlisting[language=XML,title=Test.par]{../resources/exampleExecutables/TestDydLibNoExternal/Simulation/Test.par}
+\lstinputlisting[language=XML,title=Test.crv]{../resources/exampleExecutables/TestDydLibNoExternal/Simulation/Test.crv}
+And the same solvers.par file as previously.
+
+~~\\
+The following command is used to launch the simulation:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> $MY_ENV_DYNAWO jobs-with-curves Test.jobs
+\end{lstlisting}
+
+
+\paragraph{Second example: Model with partially connected external variables}
+ ~~\\
+This second example is based on the previous one. The difference is that we let one of the external variable unconnected so that it can be connected later to another model that provides an equation for it. \\
+The Model1.mo and Model1.xml files are the same as in the first example.
+A new variable \lstinline[language=Modelica]{w} is added to
+\lstinline[language=Modelica]{Model2}.
+\lstinputlisting[language=Modelica,title=Model2.mo]{../resources/exampleExecutables/TestDydLib/Model2.mo}
+\lstinputlisting[language=XML,title=Model2.xml]{../resources/exampleExecutables/TestDydLib/Model2.xml}
+
+The same xml file is used as in the first example to connect those models:
+\lstinputlisting[language=XML,title=Test.xml]{../resources/exampleExecutables/TestDydLib/Test.xml}
+
+ ~~\\
+The following commands generate the associated Test.so library and a Test.xml file summarizing the external variables of the combined models:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> cd /path/to/Test.xml
+$> ls
+Model1.mo  Model1.xml  Model2.mo  Model2.xml  Test.xml
+$> mkdir -p compilation
+$> cp Model1.mo Model2.mo Model1.xml Model2.xml compilation
+$> $MY_ENV_DYNAWO generate-preassembled --model-list Test.xml --output-dir compilation --non-recursive-modelica-models-dir .
+\end{lstlisting}
+
+\lstinputlisting[language=XML,title=Test.xml]{../resources/exampleExecutables/TestDydLib/compilation/Test.xml}
+\lstinline[language=Modelica]{w} is thus an external variable of the compiled model, as expected. \\
+~~\\
+\textbf{Warning}, at this point you cannot directly launch a simulation containing only this generated model as it needs to be connected to another model providing the missing equation on \lstinline[language=Modelica]{w}. Please refer to the first example for the creation of such connection.
+
+\subsection{Generation of a xml summary of the parameters and variables of a compiled model} 
+~~\\
+The \lstinline[language=bash]{dump-model} option takes as input a compiled \Dynawo model and generates a xml file that contains a list of the parameters and variables of this model.
+
+A summary of the possible arguments of the \lstinline[language=bash]{dump-model} options can be obtained with the following command:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> $MY_ENV_DYNAWO dump-model --help
+\end{lstlisting}
+
+The following command is used to generate a xml summary of the parameters and variables of a compiled model:
+\begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
+$> $MY_ENV_DYNAWO dump-model -m ./Test.so -o Test.desc.xml
+\end{lstlisting}
+
+Below is given an example of a file generated by this command based on the model of the first example of section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_Dydlib}:
+\lstinputlisting[language=XML,title=Test.desc.xml]{../resources/exampleExecutables/TestDumpNoExternal/Test.desc.xml}
+
+\section{Adding a model to the \Dynawo library}
+\label{Dynawo_Advanced_Documentation_Adding_Modelica_Model_To_Library}
+
+\subsection{Adding a Modelica model in the \Dynawo Modelica library}
+
+If you develop a new Modelica model and want to use it seamlessly and often into \Dynawo simulations, it is better to add it to the \Dynawo library. Otherwise, you will have to manually refer to the directory where it is stored into all your simulations. \\
+
+To do this, the best way is to include your Modelica model into the Dynawo library part of the code: \path|dynawo/sources/Models/Modelica/Dynawo/|. You need to add your mo file into one existing directory or create a new directory containing your mo file. If your model is not squared (not the same number of equations than variables), you must supplement it with a xml file (called external variable file) to describe the pending equations that will be connected to your model later on (see \ref{Dynawo_Advanced_Documentation_Dynawo_executables_execDynawo_second_example}).\\
+
+You  also need to :
+\begin{itemize}
+  \item add the mo file into the package.order file that deals
+  with display orders into OpenModelica;
+  \item add the mo and xml files into the CMakeFiles.txt file that will ensure that the model is integrated into the library 
+\end{itemize}
+
+If an initialization model (e.g. to calculate initial values from $P,Q,U,\theta$ values at the node) is needed, it must be also be put into the aforementioned files. \\
+
+For example, to add a FrequencyDependantLoad to the \Dynawo library, you first need to create the Modelica model and the associated xml file to describe the connections between your model and other models:
+
+\lstinputlisting[language=Modelica,title=FrequencyLoad.mo]{../resources/exampleLibrary/FrequencyLoad.mo}
+
+\lstinputlisting[language=XML,title=FrequencyLoad.xml]{../resources/exampleLibrary/FrequencyLoad.xml}
+
+You then need to add these two files into the \path|dynawo/sources/Models/Modelica/Dynawo/Electrical/Loads| repository and to update the CMakeLists.txt and package.order to take into account these two new files.
+
+\lstinputlisting[title=CMakeLists.txt]{../resources/exampleLibrary/CMakeLists.txt}
+\lstinputlisting[title=package.order]{../resources/exampleLibrary/package.order}
+
+Once this is done, the frequency load model could be directly used into a dyd file in the following way.
+Notice that there is a connection between the frequency load model and a set point to provide a value for $\omega$ to the model.
+
+\lstinputlisting[language=XML,title=testFrequencyLoadWithMo.dyd]{../resources/exampleLibrary/testFrequencyLoadWithMo.dyd}
+
+\subsection{Adding a Modelica model in the \Dynawo precompiled library}
+
+In the example from the previous section, the model is only available as a .mo file that is compiled at run-time.
+If you envision to use a model in different simulations, it is recommended to also add it into the list of the precompiled models to be able to use it as a black-box model during the simulations (calling the .so library generated by \Dynawo compilation). 
+We recommend doing preassembled models that correspond to a dynamic behaviour for one component e.g. having different precompiled models for the loads:
+voltage-dependant load, frequency-dependant load\dots \\
+
+To create a preassembled model corresponding to the frequency-dependant load model, it is necessary to add a new xml file into the preassembled models directory \path|dynawo/sources/Models/Modelica/PreassembledModels/|. This xml file name should be added into the CMakeLists.txt of the directory to be compiled.
+
+\lstinputlisting[language=XML,title=FrequencyLoadPAM.xml]{../resources/exampleLibrary/FrequencyLoadPAM.xml}
+
+Once this is done, the model can be used as a black-box model into the simulations.
+
+\lstinputlisting[language=XML,title=testFrequencyLoadWithSo.dyd]{../resources/exampleLibrary/testFrequencyLoadWithSo.dyd}
+
+\section{Adding a new solver}
+\label{Dynawo_Advanced_Documentation_Adding_Solver}
+
+New solvers could easily be added into \Dynawo. Indeed, the architecture is very generic and a basic common class has been defined (\path|dynawo/sources/Solvers/Common/DYNSolver.h|) that gives all the methods that a solver needs to implement to be integrated into the \Dynawo frame.
+The most important ones are:
+\begin{itemize}
+\item the \textit{calculateIC} method dealing with the initialization step;
+\item the \textit{solve} method resolving the DAE problem for each time
+step;
+\item the \textit{reinit} method is in charge of the algebraic equation restoration when this step is needed.
+\end{itemize}
+
+If you want to add your own solver implementation, the simplest way is to create a new directory SolverX and then to implement your solver there. You can have a look to the SolverIDA and SolverSIM directories ; the first one shows how to get connected to an existing solver library whereas the second one is an example of a solver implementation specific to \Dynawo. Once it is done and the solver compiled, you can use it directly into the jobs file in a similar way than existing \Dynawo solvers.
+
+\end{document}

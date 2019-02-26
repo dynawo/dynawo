@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<model xmlns="http://www.rte-france.com/dynawo">
+  <name>Test</name>
+  <elements>
+    <parameters>
+      <parameter name="MODEL1_a" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1"/>
+      <parameter name="MODEL1_b" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="2"/>
+      <parameter name="MODEL2_a" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1"/>
+      <parameter name="MODEL2_b" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="2"/>
+    </parameters>
+    <variables>
+      <variable name="MODEL1_u" valueType="DOUBLE"/>
+      <variable name="MODEL1_v" valueType="DOUBLE"/>
+      <variable name="MODEL2_v" valueType="DOUBLE"/>
+    </variables>
+  </elements>
+</model>

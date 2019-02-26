@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <variable type="continuous" id="v"/>
+  <variable type="continuous" id="w"/>
+</external_variables>
+

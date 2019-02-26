@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="MODEL1_a" value="1."/>
+    <par type="DOUBLE" name="MODEL1_b" value="1."/>
+    <par type="DOUBLE" name="MODEL2_a" value=".1"/>
+    <par type="DOUBLE" name="MODEL2_b" value=".1"/>
+  </set>
+</parametersSet>
+

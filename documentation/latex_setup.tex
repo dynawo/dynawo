@@ -1,0 +1,82 @@
+%% Except where otherwise noted, content in this documentation is Copyright (c)
+%% 2015-2019, RTE (http://www.rte-france.com) and licensed under a
+%% CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)
+%% license. All rights reserved.
+
+% Latin Modern fam­ily of fonts 
+\usepackage{lmodern}
+
+\usepackage[english]{babel}
+
+% specify encoding
+\usepackage[utf8]{inputenc} % input
+\usepackage[T1]{fontenc} % output
+
+% Document structure setup
+\usepackage{titlesec} 			% To change chapter format
+\setcounter{tocdepth}{3} 		% Add subsubsection in Content
+\setcounter{secnumdepth}{3} 	% Add numbering for subsubsection
+\setlength{\parindent}{0pt}     % No paragraph indentation
+
+% Change title format for chapter
+\titleformat{\chapter}{\Huge\bf}{\thechapter}{20pt}{\Huge\bf}
+
+% To add links on page number in Content and hide red rectangle on links
+\usepackage[hidelinks, linktoc=all]{hyperref}
+\usepackage[nottoc]{tocbibind}	% To add biblio in table of content
+\usepackage{textcomp} 			% For single quote
+\usepackage{url}				% Allow linebreaks in \url command 
+\usepackage{listings} 			% To add code samples
+
+% Default listings parameters
+\lstset
+{
+  aboveskip={1\baselineskip},				% a bit of space above
+  backgroundcolor=\color{shadecolor},  		% choose the background color
+  basicstyle={\ttfamily\footnotesize},  	% use font and smaller size \small \footnotesize
+  breakatwhitespace=true,					% sets if automatic breaks should only happen at whitespace
+  breaklines=true,  						% sets automatic line breaking
+  columns=fixed,							% nice spacing -> fixed / flexible
+  mathescape=false,							% escape to latex false
+  numbers=left,								% where to put the line-numbers
+  numberstyle=\tiny\color{gray},  			% the style that is used for the line-numbers
+  showstringspaces=false,					% do not emphasize spaces in strings
+  tabsize=4,								% number of spaces of a TAB
+  texcl=false,								% activates or deactivates LaTeX comment lines
+  upquote=true								% upright quotes
+}
+
+% Avoid numbering starting at each chapter for figures
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+
+\usepackage{tikz} % macro pack­age for cre­at­ing graph­ics
+\usepackage{pgfplots} % draws func­tion plots (based on pgf/tikz)
+
+\usepackage{algorithm} % Add algorithms
+\usepackage[noend]{algpseudocode} %  all end ... lines are omitted in algos
+
+\usepackage{amsmath} % Add math­e­mat­i­cal fea­tures
+\usepackage{schemabloc} % Add block diagram library (french one)
+
+\usepackage{adjustbox} % Add box for flowchart
+ 
+\usepackage[nolist]{acronym} % don’t write the list of acronyms.
+% Acronyms list
+\begin{acronym}
+\acro{BDF}{Backward Differentiation Formula}
+\acro{BE}{Backward Euler}
+\acro{DAE}{Differential Algebraic Equations}
+\acro{IDA}{Implicit Differential-Algebraic solver}
+\acro{LLNL}{Lawrence Livermore National Lab}
+\acro{KINSOL}{Krylov Inexact Newton SOLver}
+\acro{NR}{Newton-Raphson}
+\acro{SUNDIALS}{SUite of Nonlinear and DIfferential/ALgebraic equation Solvers}
+\end{acronym}
+
+% Syntax highlight
+\input{../latex_style.tex}
+
+\usepackage{xspace} % Define typography
+\usepackage{dirtree}
+\newcommand{\Dynawo}[0]{Dyna$\omega$o\xspace}
