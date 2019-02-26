@@ -74,6 +74,7 @@ ConnectorBadInfo            =             failed to retrieve connector informati
 CompileModel                =             no compiled Model for this model (%1%)
 UndefCalculatedVar          =             index of the calculated variable which we want connect is undefined
 MissingModelicaFile         =             one Modelica file is missing : %1%
+MissingModelicaInputFolder  =             input folder is missing : %1%
 MultiIncorrectSize          =             vector size is not the one expected
 MultiIncorrectConnection    =             impossible to connect two elements : %1%
 MultiSubModelNotFound       =             model %1% named %2% not found (research key %3%)
