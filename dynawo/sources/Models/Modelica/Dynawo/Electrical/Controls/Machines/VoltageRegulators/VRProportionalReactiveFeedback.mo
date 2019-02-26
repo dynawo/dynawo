@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model VRProportionalReactiveFeedbackBlock
+model VRProportionalReactiveFeedback
 // This a block version of model VRProportionalReactiveFeedback. It is a temporary model that needs to be checked since VRProportionalReactiveFeedback equations are not fully understood (see comments in the code).
 // The init model is still to be written.
 
@@ -148,4 +148,4 @@ equation
 
 
 
-end VRProportionalReactiveFeedbackBlock;
+end VRProportionalReactiveFeedback;

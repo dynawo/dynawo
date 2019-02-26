@@ -1,7 +1,7 @@
-VRProportionalBlock
-VRProportionalBlock_INIT
-VRProportionalIntegralBlock
-VRProportionalIntegralBlock_INIT
-VRProportionalReactiveFeedbackBlock
+VRProportional
+VRProportional_INIT
+VRProportionalIntegral
+VRProportionalIntegral_INIT
+VRProportionalReactiveFeedback
 
 

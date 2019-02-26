@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model VRProportionalIntegralBlock "Proportional Integral Voltage Regulator, keeps machine stator's voltage constant"
+model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps machine stator's voltage constant"
 
   import Modelica.Blocks;
 
@@ -108,4 +108,4 @@ equation
     limitationUp.value = false;
   end when;
 
-end VRProportionalIntegralBlock;
+end VRProportionalIntegral;
