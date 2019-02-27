@@ -109,17 +109,6 @@ namespace DYN {
     return solver;
   }
 
-  SolverFactory::SolverFactory() {
-    handle_ = NULL;
-  }
-
-  SolverFactory::~SolverFactory() {
-    // if( handle_ != NULL)
-    // {
-    //   dlclose(handle_);
-    // }
-  }
-
   void SolverFactory::resetFactories() {
     factories_.reset();
   }

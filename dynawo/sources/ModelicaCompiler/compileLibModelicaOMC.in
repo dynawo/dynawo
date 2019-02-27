@@ -7,7 +7,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 
@@ -16,9 +16,31 @@ COMPILER_CMD=@CMAKE_CXX_COMPILER@
 DYNAWO_INCLUDE_DIR=${DYNAWO_INSTALL_DIR}/include
 DYNAWO_LIB_DIR=${DYNAWO_INSTALL_DIR}/lib
 
+LIBRARY_TYPE=@LIBRARY_TYPE@
+CXX11_ENABLED=@CXX11_ENABLED@
 WITH_ADEPT=@USE_ADEPT@
 ADEPT_INCLUDE_DIR=${ADEPT_INSTALL_DIR}/include
-ADEPT_LIBRARY=${ADEPT_INSTALL_DIR}/lib/libadept.so
+if [ "$LIBRARY_TYPE" = "SHARED" ]; then
+  ADEPT_LIBRARY=${ADEPT_INSTALL_DIR}/lib/libadept.so
+elif [ "$LIBRARY_TYPE" = "STATIC" ]; then
+  ADEPT_LIBRARY=${ADEPT_INSTALL_DIR}/lib/libadept.a
+else
+  echo "Error invalid LIBRARY_TYPE."
+  exit 1
+fi
+
+SUNDIALS_LIBRARIES="@SUNDIALS_KINSOL_LIBRARY@ @SUNDIALS_NVECSERIAL_LIBRARY@ @SUNDIALS_IDA_LIBRARY@ @SUNDIALS_SUNLINSOLKLU_LIBRARY@ @SUNDIALS_SUNMATRIXSPARSE_LIBRARY@"
+SUITESPARSE_LIBRARIES="@KLU_LIBRARY@ @AMD_LIBRARY@ @COLAMD_LIBRARY@ @BTF_LIBRARY@ @SUITESPARSE_CONFIG_LIBRARY@"
+NICSLU_FOUND="@NICSLU_FOUND@"
+
+if [ "$NICSLU_FOUND_TYPE" = "YES" ]; then
+  SUNDIALS_NICSLU_LIBRARY="@SUNDIALS_SUNLINSOLNICSLU_LIBRARY@"
+  NICSLU_LIBRARIES="@NICSLU_LIBRARIES@"
+else
+  SUNDIALS_NICSLU_LIBRARY=""
+  NICSLU_LIBRARIES=""
+fi
+
 BOOST_INCLUDE_DIR=${BOOST_ROOT}/include
 
 OMC_INCLUDE_DIR=${INSTALL_OPENMODELICA}/include/omc/c
@@ -45,11 +67,11 @@ while (($#)); do
   shift
 done
 
-if  [[ -z "$MODEL_NAME" ]]; then
+if [[ -z "$MODEL_NAME" ]]; then
   echo "Need a model name to compile"
   exit 1
 fi
-if  [[ -z "$DIRECTORY" ]]; then
+if [[ -z "$DIRECTORY" ]]; then
   echo "Need a directory to compile"
   exit 1
 fi
@@ -57,7 +79,14 @@ fi
 # Flags for compilation
 FLAGS="@CMAKE_CXX_FLAGS@"
 INCLUDE_FLAGS="-I$DYNAWO_INCLUDE_DIR -I$OMC_INCLUDE_DIR -I$BOOST_INCLUDE_DIR $DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED"
-LIB_FLAGS="-L$DYNAWO_LIB_DIR -ldynawo_ModelManager $DYNAWO_ADDITIONAL_LIBRARY_FOR_PREASSEMBLED"
+LIB_FLAGS="-L$DYNAWO_LIB_DIR -ldynawo_API_PAR -ldynawo_ModelManager -ldynawo_ModelerCommon \
+-ldynawo_DataInterface -ldynawo_SolverKINSOL -ldynawo_SolverSubModel -ldynawo_SolverCommon -ldynawo_Common $DYNAWO_ADDITIONAL_LIBRARY_FOR_PREASSEMBLED \
+-lboost_serialization -lboost_log $SUNDIALS_LIBRARIES $SUITESPARSE_LIBRARIES $SUNDIALS_NICSLU_LIBRARY $NICSLU_LIBRARIES"
+
+if [ "$LIBRARY_TYPE" = "SHARED" ]; then
+  LIB_FLAGS="$LIB_FLAGS -ldynawo_Util"
+fi
+
 if [ "$WITH_ADEPT" = "YES" ]; then
   FLAGS="$FLAGS -D_ADEPT_"
   INCLUDE_FLAGS="$INCLUDE_FLAGS -I$ADEPT_INCLUDE_DIR"
@@ -65,9 +94,13 @@ if [ "$WITH_ADEPT" = "YES" ]; then
 fi
 
 if [ "$DEBUG" = "true" ]; then
-    FLAGS="$FLAGS -g -shared -fPIC -D_OMC_ -D_DEBUG_"
+  FLAGS="$FLAGS -g -O0 -shared -fPIC -D_OMC_ -D_DEBUG_"
 else
-    FLAGS="$FLAGS -O3 -shared -fPIC -D_OMC_"
+  FLAGS="$FLAGS -O3 -shared -fPIC -D_OMC_"
+fi
+
+if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "no" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "false" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "off" ]; then
+  FLAGS="$FLAGS -std=c++98"
 fi
 
 # definition of variables from parameters
@@ -83,58 +116,57 @@ O_DYN_FILE="$DIRECTORY"/"$MODEL_NAME"_Dyn.o
 O_EXTERN_DYN_FILE="$DIRECTORY"/"$MODEL_NAME"_Dyn_external.o
 O_EXTERN_INIT_FILE="$DIRECTORY"/"$MODEL_NAME"_Init_external.o
 
-
 SO_FILE="$DIRECTORY"/"$LIB_NAME"
 
 # Compilation the CPP file
 echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_FILE -o $O_FILE"
 $COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_FILE -o $O_FILE 2>&1
 if [[ ! -f "$O_FILE" ]]; then
-    echo "Compilation of $CPP_FILE failed"
-    exit 1
+  echo "Compilation of $CPP_FILE failed"
+  exit 1
 fi
 
 # Compilation of the DYN_CPP file
 echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_DYN_FILE -o $O_DYN_FILE"
 $COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_DYN_FILE -o $O_DYN_FILE 2>&1
 if [[ ! -f "$O_DYN_FILE" ]]; then
-    echo "Compilation of $CPP_DYN_FILE failed"
-    exit 1
+  echo "Compilation of $CPP_DYN_FILE failed"
+  exit 1
 fi
 
 # Compilation of the DYN_EXTERN function file
 echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $EXTERN_DYN_FILE -o $O_EXTERN_DYN_FILE"
 $COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $EXTERN_DYN_FILE -o $O_EXTERN_DYN_FILE 2>&1
 if [[ ! -f "$O_EXTERN_DYN_FILE" ]]; then
-    echo "Compilation of $EXTERN_DYN_FILE failed"
-    exit 1
+  echo "Compilation of $EXTERN_DYN_FILE failed"
+  exit 1
 fi
 
 # If INIT_cpp file exists
 if [[ -f "$CPP_INIT_FILE" ]]; then
-    # Compilation of the INIT_CPP file
-    echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_INIT_FILE -o $O_INIT_FILE"
-    $COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_INIT_FILE -o $O_INIT_FILE 2>&1
-    if [[ ! -f "$O_INIT_FILE" ]]; then
-	echo "Compilation of $CPP_INIT_FILE failed"
-	exit 1
-    fi
+  # Compilation of the INIT_CPP file
+  echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_INIT_FILE -o $O_INIT_FILE"
+  $COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $CPP_INIT_FILE -o $O_INIT_FILE 2>&1
+  if [[ ! -f "$O_INIT_FILE" ]]; then
+    echo "Compilation of $CPP_INIT_FILE failed"
+    exit 1
+  fi
 
-    # Compilation of INIT_EXTERN function file
-    echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $EXTERN_INIT_FILE -o $O_EXTERN_INIT_FILE"
-    $COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $EXTERN_INIT_FILE -o $O_EXTERN_INIT_FILE 2>&1
-    if [[ ! -f "$O_EXTERN_INIT_FILE" ]]; then
-	echo "Compilation of $EXTERN_DYN_FILE failed"
-	exit 1
-    fi
+  # Compilation of INIT_EXTERN function file
+  echo "$COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $EXTERN_INIT_FILE -o $O_EXTERN_INIT_FILE"
+  $COMPILER_CMD $FLAGS  $INCLUDE_FLAGS -c $EXTERN_INIT_FILE -o $O_EXTERN_INIT_FILE 2>&1
+  if [[ ! -f "$O_EXTERN_INIT_FILE" ]]; then
+    echo "Compilation of $EXTERN_DYN_FILE failed"
+    exit 1
+  fi
 
-    # Creation of the library
-    echo "$COMPILER_CMD $O_FILE $O_DYN_FILE $O_INIT_FILE $O_EXTERN_DYN_FILE $O_EXTERN_INIT_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE"
-    $COMPILER_CMD $O_FILE $O_DYN_FILE $O_INIT_FILE $O_EXTERN_DYN_FILE $O_EXTERN_INIT_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE 2>&1
+  # Creation of the library
+  echo "$COMPILER_CMD $O_FILE $O_DYN_FILE $O_INIT_FILE $O_EXTERN_DYN_FILE $O_EXTERN_INIT_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE"
+  $COMPILER_CMD $O_FILE $O_DYN_FILE $O_INIT_FILE $O_EXTERN_DYN_FILE $O_EXTERN_INIT_FILE $FLAGS $LIB_FLAGS -o $SO_FILE 2>&1
 else
-    # Creation of the library
-    echo "$COMPILER_CMD $O_FILE $O_DYN_FILE $O_EXTERN_DYN_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE"
-    $COMPILER_CMD $O_FILE $O_DYN_FILE $O_EXTERN_DYN_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE 2>&1
+  # Creation of the library
+  echo "$COMPILER_CMD $O_FILE $O_DYN_FILE $O_EXTERN_DYN_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE"
+  $COMPILER_CMD $O_FILE $O_DYN_FILE $O_EXTERN_DYN_FILE $FLAGS $LIB_FLAGS -o $SO_FILE 2>&1
 fi
 
 exit 0

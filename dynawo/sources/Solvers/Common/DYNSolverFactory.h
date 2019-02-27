@@ -37,12 +37,12 @@ class SolverFactory {
   /**
    * @brief Constructor
    */
-  SolverFactory();
+  SolverFactory() { }
 
   /**
    * @brief Destructor
    */
-  virtual ~SolverFactory();
+  virtual ~SolverFactory() { }
 
   /**
    * @brief create a new instance of a solver

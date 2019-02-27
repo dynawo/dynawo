@@ -1,44 +1,57 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
-# Patch for Nicslu 301 (http://nicslu.weebly.com/)
-# 
-# All rights reserved.
-# 
-# This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
-# SPDX-License-Identifier: LGPL-2.1-or-later
 diff '--exclude=.git' '--exclude=.gitignore' -urpN nicslu_static/lib/Makefile nicslu_shared/lib/Makefile
---- nicslu_static/lib/Makefile	2013-06-07 20:08:22.000000000 +0200
-+++ nicslu_shared/lib/Makefile	2018-06-13 15:19:12.356604436 +0200
-@@ -41,14 +41,13 @@ system.o \
+--- nicslu_static/lib/Makefile	2018-11-20 11:30:12.607491191 +0100
++++ nicslu_shared/lib/Makefile	2019-02-25 15:35:05.615684300 +0100
+@@ -1,6 +1,6 @@
+ include ../make.inc
+ MAKELIB = $(AR)
+-COMPILE = $(CC) $(CFLAGS)
++COMPILE = $(CC) $(CFLAGS) -fPIC
+ 
+ OBJS = nicslu_aegraph.o \
+ nicslu_amd.o \
+@@ -41,14 +41,19 @@ system.o \
  thread.o \
  timer_c.o
  
 -all: nicslu.a
-+all: libnicslu.so
++shared: libnicslu.so
  
 -nicslu.a: ${OBJS}
--	$(MAKELIB) $@ $^
--	$(RANLIB) $@
++static: libnicslu.a
++
++libnicslu.a: ${OBJS}
+ 	$(MAKELIB) $@ $^
+ 	$(RANLIB) $@
+ 
 +libnicslu.so: ${OBJS}
 +	$(CC) $(LFLAGS) $^ -o $@
- 
++
  %.o: ../source/%.c
  	$(COMPILE) $< -o $@
  
  clean:
 -	rm -f *.o nicslu.a
-+	rm -f *.o libnicslu.so
++	rm -f *.o libnicslu.so libnicslu.a
 diff '--exclude=.git' '--exclude=.gitignore' -urpN nicslu_static/Makefile nicslu_shared/Makefile
---- nicslu_static/Makefile	2013-06-04 21:49:06.000000000 +0200
-+++ nicslu_shared/Makefile	2018-06-13 15:19:12.356604436 +0200
-@@ -1,7 +1,6 @@
+--- nicslu_static/Makefile	2018-11-20 11:30:12.127491197 +0100
++++ nicslu_shared/Makefile	2019-02-06 11:55:54.464402528 +0100
+@@ -1,7 +1,14 @@
  all:
  	(cd lib; make)
  	(cd util; make)
 -	(cd demo; make)
++
++static:
++	(cd lib; make static)
++	(cd util; make static)
++
++shared:
++	(cd lib; make shared)
++	(cd util; make shared)
  
  lib:
  	(cd lib; make)
-@@ -15,4 +14,4 @@ demo:
+@@ -15,4 +22,4 @@ demo:
  clean:
  	(cd lib; make clean)
  	(cd util; make clean)
@@ -46,8 +59,8 @@ diff '--exclude=.git' '--exclude=.gitignore' -urpN nicslu_static/Makefile nicslu
 \ No newline at end of file
 +	(cd demo; make clean)
 diff '--exclude=.git' '--exclude=.gitignore' -urpN nicslu_static/make.inc nicslu_shared/make.inc
---- nicslu_static/make.inc	2013-06-11 20:51:32.000000000 +0200
-+++ nicslu_shared/make.inc	2018-07-13 15:33:43.995479710 +0200
+--- nicslu_static/make.inc	2018-11-20 11:30:12.128491197 +0100
++++ nicslu_shared/make.inc	2019-02-06 11:09:45.096360662 +0100
 @@ -3,5 +3,7 @@ AR = ar -r
  RANLIB = ranlib
  MACROS = -DNO_ATOMIC -DSSE2 #-DNICS_INT64 #-DNO_EXTENSION
@@ -57,30 +70,37 @@ diff '--exclude=.git' '--exclude=.gitignore' -urpN nicslu_static/make.inc nicslu
 \ No newline at end of file
 +DEBUGFLAG =
 +OPTIMIZATION = -O2
-+CFLAGS = -c $(DEBUGFLAG) $(OPTIMIZATION) -fPIC -Wall -Wextra $(ARCH) $(MACROS)
++CFLAGS = -c $(DEBUGFLAG) $(OPTIMIZATION) -Wall -Wextra $(ARCH) $(MACROS)
 +LFLAGS = -shared
 diff '--exclude=.git' '--exclude=.gitignore' -urpN nicslu_static/util/Makefile nicslu_shared/util/Makefile
---- nicslu_static/util/Makefile	2013-06-07 20:09:48.000000000 +0200
-+++ nicslu_shared/util/Makefile	2018-06-13 15:19:12.357604441 +0200
-@@ -3,16 +3,15 @@ COMPILE = $(CC) $(CFLAGS)
+--- nicslu_static/util/Makefile	2018-11-20 11:30:12.619491190 +0100
++++ nicslu_shared/util/Makefile	2019-02-25 15:35:16.654691209 +0100
+@@ -1,13 +1,18 @@
+ include ../make.inc
+-COMPILE = $(CC) $(CFLAGS)
++COMPILE = $(CC) $(CFLAGS) -fPIC
  MAKELIB = $(AR)
  INC = -I ../include
  
 -all: nicslu_util.a
-+all: libnicslu_util.so
++shared: libnicslu_util.so
++
++static: libnicslu_util.a
  
  OBJS = nicslu_readfile.o
  
 -nicslu_util.a: $(OBJS)
--	$(MAKELIB) $@ $^
--	$(RANLIB) $@
 +libnicslu_util.so: $(OBJS)
 +	$(CC) $(LFLAGS) $^ -o $@
++
++libnicslu_util.a: $(OBJS)
+ 	$(MAKELIB) $@ $^
+ 	$(RANLIB) $@
  
- %.o: %.c
+@@ -15,4 +20,4 @@ nicslu_util.a: $(OBJS)
  	$(COMPILE) $(INC) $< -o $@
  
  clean:
 -	rm -f *.o nicslu_util.a
 \ No newline at end of file
-+	rm -f *.o libnicslu_util.so
++	rm -f *.o libnicslu_util.so libnicslu.a

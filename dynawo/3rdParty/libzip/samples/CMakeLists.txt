@@ -8,4 +8,8 @@
 # This file is part of Libzip, a library to handle zip archives.
 
 add_executable(sample1 sample1.cpp)
-target_link_libraries(sample1 zip)
+if (LIBZIP_BUILD_SHARED)
+  target_link_libraries(sample1 ${CMAKE_PROJECT_NAME})
+elseif(LIBZIP_BUILD_STATIC)
+  target_link_libraries(sample1 ${CMAKE_PROJECT_NAME}-static)
+endif ()

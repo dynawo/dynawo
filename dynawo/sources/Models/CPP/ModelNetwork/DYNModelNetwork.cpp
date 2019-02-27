@@ -90,7 +90,7 @@ using parameters::ParametersSet;
  */
 //---------------------------------------------------------------------
 
-extern "C" DYN::SubModelFactory * getFactory() {
+extern "C" DYN::SubModelFactory* getFactory() {
   return (new DYN::ModelNetworkFactory());
 }
 
@@ -100,11 +100,10 @@ extern "C" DYN::SubModelFactory * getFactory() {
  *
  * @return A pointer to a new instance of Model Network
  */
-extern "C" DYN::SubModel * DYN::ModelNetworkFactory::create() const {
-  DYN::SubModel * model(new DYN::ModelNetwork());
+extern "C" DYN::SubModel* DYN::ModelNetworkFactory::create() const {
+  DYN::SubModel* model(new DYN::ModelNetwork());
   return model;
 }
-
 
 namespace DYN {
 

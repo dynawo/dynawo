@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 SET(SIM_VERSION_STRING ${DYNAWO_VERSION_STRING})
@@ -25,7 +25,7 @@ INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
                     ${SUNDIALS_INCLUDE_DIR}
                     ${KLU_INCLUDE_DIR}
                     ${libZIP_INCLUDE_DIR}
-                    ${LIBXML_INCLUDE_DIR}
+                    ${LibXML_INCLUDE_DIR}
                     ${LibIIDM_CORE_INCLUDE_DIR}
                     ${LibIIDM_EXT_ACTIVESEASON_INCLUDE_DIR}
                     ${LibIIDM_EXT_CURRENTLIMITSPERSEASON_INCLUDE_DIR}
@@ -53,7 +53,7 @@ INCLUDE_DIRECTORIES(../API/CRV
                     ../
                     )
 
-ADD_LIBRARY(dynawo_Simulation SHARED ${SIM_SOURCES})
+ADD_LIBRARY(dynawo_Simulation ${LIBRARY_TYPE} ${SIM_SOURCES})
 
 TARGET_LINK_LIBRARIES(dynawo_Simulation
                       dynawo_SimulationCommon
@@ -66,11 +66,11 @@ TARGET_LINK_LIBRARIES(dynawo_Simulation
                       dynawo_SolverCommon
                       dynawo_Common
                       dynawo_ModelerCommon
+                      dynawo_DataInterface
                       ${libZIP_LIBRARY}
                       ${Boost_SERIALIZATION_LIBRARY}
-                      dynawo_DataInterface
-                      XMLSAXFormatter
-                      XMLSAXParser
+                      XMLSAXFormatter${LibXML_LINK_SUFFIX}
+                      XMLSAXParser${LibXML_LINK_SUFFIX}
                       iidm-xml
                       iidm-ext-activeseason-xml
                       iidm-ext-currentlimitsperseason-xml
@@ -104,7 +104,7 @@ SET(SIMCOMMON_INCLUDE_HEADERS
     DYNSimulationContext.h
     )
 
-ADD_LIBRARY(dynawo_SimulationCommon SHARED ${SIMCOMMON_SOURCES})
+ADD_LIBRARY(dynawo_SimulationCommon ${LIBRARY_TYPE} ${SIMCOMMON_SOURCES})
 
 #TARGET_LINK_LIBRARIES(dynawo_SimulationCommon)
 

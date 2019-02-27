@@ -232,10 +232,13 @@ MACRO(COMPILE_CPP_MODEL
 
     ADD_DEPENDENCIES(${CPP_MODEL} ${CPP_MODEL}_HPP)
 
-
     TARGET_LINK_LIBRARIES(${CPP_MODEL}
                           ${CPP_LINKED_LIBRARIES}
                          )
+
+    IF(LIBRARY_TYPE STREQUAL "SHARED")
+      TARGET_LINK_LIBRARIES(${CPP_MODEL} dynawo_Util)
+    ENDIF()
 
     ADD_CUSTOM_COMMAND(OUTPUT ${CPP_MODEL}.desc.xml
                        DEPENDS ${CPP_MODEL} dumpModel

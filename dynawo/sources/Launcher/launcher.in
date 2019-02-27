@@ -62,6 +62,12 @@ case $1 in
 --dump-model)
   MODE=DUMPMODEL
   ;;
+--dump-model-gdb)
+  MODE=GDB-DUMPMODEL
+  ;;
+--dump-model-valgrind)
+  MODE=VALGRIND-DUMPMODEL
+  ;;
 --help)
   MODE=HELP
   ;;
@@ -100,6 +106,12 @@ COMPILE)
 DUMPMODEL)
   ARGS=`echo ${ARGS} |sed -e 's/--dump-model//g'`
 ;;
+GDB-DUMPMODEL)
+  ARGS=`echo ${ARGS} |sed -e 's/--dump-model-gdb//g'`
+;;
+VALGRIND-DUMPMODEL)
+  ARGS=`echo ${ARGS} |sed -e 's/--dump-model-valgrind//g'`
+;;
 esac
 
  # Launching Dynawo with the script args and the correct mode
@@ -129,7 +141,6 @@ DYDLIBGENERATOR)
   RETURN_CODE=$?
   ;;
 DYDLIBGENERATOR-GDB)
-  echo ${ARGS}
   gdb -q --args ${DYDLIBGENERATOR} ${ARGS}
   RETURN_CODE=$?
   ;;
@@ -139,6 +150,14 @@ COMPILE)
   ;;
 DUMPMODEL)
   ${DUMPMODELBIN} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+GDB-DUMPMODEL)
+  gdb -q --args ${DUMPMODELBIN} ${ARGS}
+  RETURN_CODE=$?
+  ;;
+VALGRIND-DUMPMODEL)
+  valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all ${DUMPMODELBIN} ${ARGS}
   RETURN_CODE=$?
   ;;
 VERSION)
@@ -157,6 +176,8 @@ HELP)
    --dydlib             launch DYNAWO dynamic library generator (must be the first argument)
    --dydlib-gdb         launch DYNAWO dynamic library generator with gdb (must be the first argument)
    --dump-model         launch DYNAWO dumpModel executable (must be the first argument)
+   --dump-model-gdb      launch DYNAWO dumpModel executable (must be the first argument)
+   --dump-model-valgrind launch DYNAWO dumpModel executable in valgrind (must be the first argument)
    --version            show dynawo version (must be the first argument)
    --help               produce help message (must be the first argument)
 

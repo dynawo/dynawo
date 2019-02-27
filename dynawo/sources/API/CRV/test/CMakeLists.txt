@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 SET(MODULE_NAME CRV_unittest)
@@ -29,7 +29,11 @@ INCLUDE_DIRECTORIES(../
 
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
-TARGET_LINK_LIBRARIES(${MODULE_NAME} dynawo_API_CRV ${UNITTEST_LIBRARIES})
+TARGET_LINK_LIBRARIES(${MODULE_NAME}
+                      dynawo_API_CRV
+                      ${UNITTEST_LIBRARIES}
+                      pthread
+                      ${Boost_THREAD_LIBRARY})
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res

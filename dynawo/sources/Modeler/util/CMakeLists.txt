@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 #################################
@@ -16,7 +16,7 @@ SET(DUMP_MODEL_SOURCES
     )
 
 INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
-                    ${LIBXML_INCLUDE_DIR}
+                    ${LibXML_INCLUDE_DIR}
                     )
 
 INCLUDE_DIRECTORIES(../Common
@@ -26,11 +26,20 @@ INCLUDE_DIRECTORIES(../Common
 ADD_EXECUTABLE(dumpModel ${DUMP_MODEL_SOURCES})
 
 TARGET_LINK_LIBRARIES(dumpModel
-                      XMLSAXFormatter
+                      XMLSAXFormatter${LibXML_LINK_SUFFIX}
+                      "-Wl,--whole-archive"
                       dynawo_Common
+                      dynawo_Util
                       dynawo_ModelerCommon
                       dynawo_ModelManager
+                      dynawo_DataInterface
+                      dynawo_SolverCommon
+                      dynawo_SolverSubModel
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
+                      pthread
+                      ${Boost_THREAD_LIBRARY}
+                      "-Wl,--no-whole-archive"
+                      "-rdynamic"
                       )
 
 INSTALL(TARGETS dumpModel DESTINATION ${sbindir})
@@ -54,12 +63,20 @@ INCLUDE_DIRECTORIES(../../Common
 ADD_EXECUTABLE(dydLibGenerator ${DYD_LIB_GENERATION_SOURCES})
 
 TARGET_LINK_LIBRARIES(dydLibGenerator
-                      XMLSAXFormatter
-                      XMLSAXParser
+                      XMLSAXFormatter${LibXML_LINK_SUFFIX}
+                      "-Wl,--whole-archive"
                       dynawo_Common
+                      dynawo_Util
                       dynawo_ModelerCommon
                       dynawo_API_EXTVAR
+                      "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
+                      pthread
+                      ${Boost_THREAD_LIBRARY}
+                      ${Boost_FILESYSTEM_LIBRARY}
+                      ${Boost_LOG_LIBRARY}
+                      ${Boost_SYSTEM_LIBRARY}
+                      "-rdynamic"
                      )
 SET_TARGET_PROPERTIES(dydLibGenerator PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 

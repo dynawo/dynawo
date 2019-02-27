@@ -28,7 +28,7 @@ export_var_env() {
     return
   fi
 
-  if [  "$value" = UNDEFINED ]; then
+  if [ "$value" = UNDEFINED ]; then
   	error_exit "You must define the value of $name"
   fi
   export $name="$value"
@@ -49,6 +49,8 @@ export_var_env C_COMPILER=$(command -v gcc)
 export_var_env CXX_COMPILER=$(command -v g++)
 export_var_env NB_PROCESSORS_USED=1
 
+export_var_env DYNAWO_LIBRARY_TYPE=SHARED
+
 download_sundials() {
   cd $SCRIPT_DIR
   if [ ! -f "${SUNDIALS_ARCHIVE}" ]; then
@@ -67,7 +69,14 @@ patch_sundials() {
   if [ ! -d "$BUILD_DIR/$SUNDIALS_DIRECTORY" ]; then
     tar -xzf $SUNDIALS_ARCHIVE -C $BUILD_DIR
     patch -d $BUILD_DIR -p0 < sundials-${SUNDIALS_VERSION}.patch
-    if [ -f "$NICSLU_INSTALL_DIR/lib/libnicslu.so" ]; then
+    if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
+      LIB_SUFFIX="so"
+    elif [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
+      LIB_SUFFIX="a"
+    else
+      error_exit "Library type is invalid."
+    fi
+    if [ -f "$NICSLU_INSTALL_DIR/lib/libnicslu.$LIB_SUFFIX" ]; then
      patch -d $BUILD_DIR -p0 < nicslu_sundials-${SUNDIALS_VERSION}.patch
     fi
   fi
@@ -76,10 +85,22 @@ patch_sundials() {
 install_sundials() {
   patch_sundials
 
+  if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
+    LIB_SUFFIX="so"
+    SUNDIALS_LIBRARY_TYPE_SHARED=ON
+    SUNDIALS_LIBRARY_TYPE_STATIC=OFF
+  elif [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
+    LIB_SUFFIX="a"
+    SUNDIALS_LIBRARY_TYPE_SHARED=OFF
+    SUNDIALS_LIBRARY_TYPE_STATIC=ON
+  else
+    error_exit "Library type is invalid."
+  fi
+
   CMAKE_OPTIONS="-D CMAKE_INSTALL_PREFIX:STRING=$INSTALL_DIR"
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D BUILD_ARKODE:BOOL=OFF"
-  CMAKE_OPTIONS="$CMAKE_OPTIONS -D BUILD_SHARED_LIBS:BOOL=ON"
-  CMAKE_OPTIONS="$CMAKE_OPTIONS -D BUILD_STATIC_LIBS:BOOL=OFF"
+  CMAKE_OPTIONS="$CMAKE_OPTIONS -D BUILD_SHARED_LIBS:BOOL=$SUNDIALS_LIBRARY_TYPE_SHARED"
+  CMAKE_OPTIONS="$CMAKE_OPTIONS -D BUILD_STATIC_LIBS:BOOL=$SUNDIALS_LIBRARY_TYPE_STATIC"
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D BUILD_CVODE:BOOL=OFF"
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D BUILD_CVODES:BOOL=OFF"
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D BUILD_IDAS:BOOL=OFF"
@@ -91,11 +112,11 @@ install_sundials() {
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D CMAKE_BUILD_TYPE:STRING=$BUILD_TYPE"
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D CMAKE_C_COMPILER:STRING=$C_COMPILER"
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D CMAKE_CXX_COMPILER:STRING=$CXX_COMPILER"
+  CMAKE_OPTIONS="$CMAKE_OPTIONS -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON"
 
-  if [ -f "$NICSLU_INSTALL_DIR/lib/libnicslu.so" ]; then
+  if [ -f "$NICSLU_INSTALL_DIR/lib/libnicslu.$LIB_SUFFIX" ]; then
     CMAKE_OPTIONS="$CMAKE_OPTIONS -D NICSLU_ENABLE:BOOL=ON"
     CMAKE_OPTIONS="$CMAKE_OPTIONS -D NICSLU_INCLUDE_DIR:STRING=$NICSLU_INSTALL_DIR/include"
-    CMAKE_OPTIONS="$CMAKE_OPTIONS -D NICSLU_LIBRARY_DIR:STRING=$NICSLU_INSTALL_DIR/lib"
   fi
 
   cd $BUILD_DIR

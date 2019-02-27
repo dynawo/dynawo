@@ -58,7 +58,7 @@ class SolverSIMFactory : public SolverFactory {  ///< Simplified solver factory
    * @brief Create an instance of solver
    * @return the new instance of solver created by the factory
    */
-  Solver * create() const;
+  Solver* create() const;
 };
 
 /**

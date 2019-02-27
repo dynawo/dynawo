@@ -43,11 +43,14 @@ HERE=$PWD
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 BUILD_DIR=$HERE
+BUILD_TYPE=Debug
 INSTALL_DIR=$HERE/install
 export_var_env C_COMPILER=$(command -v gcc)
 export_var_env CXX_COMPILER=$(command -v g++)
 export_var_env NB_PROCESSORS_USED=1
 export_var_env CXX_STDFLAG=""
+
+export_var_env DYNAWO_LIBRARY_TYPE=SHARED
 
 download_suitesparse() {
   cd $SCRIPT_DIR
@@ -73,16 +76,41 @@ install_suitesparse() {
   else
     CC_FLAG=""
   fi
-  cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config
-  { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make  CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building SuiteSparse"
-  cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/AMD
-  { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building AMD"
-  cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/COLAMD
-  { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building COLAMD"
-  cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/BTF
-  { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building BTF"
-  cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/KLU
-  { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building KLU"
+  if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
+    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config
+    { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make  CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building SuiteSparse"
+    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/AMD
+    { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building AMD"
+    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/COLAMD
+    { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building COLAMD"
+    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/BTF
+    { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building BTF"
+    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/KLU
+    { make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" library && make CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building KLU"
+  else
+    mkdir -p $INSTALL_DIR/lib
+    mkdir -p $INSTALL_DIR/include
+    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config
+    make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" static || error_exit "Error while building SuiteSparse"
+    cp *.a $INSTALL_DIR/lib/ || error_exit "Error while building SuiteSparse"
+    cp SuiteSparse_config.h $INSTALL_DIR/include/ || error_exit "Error while building SuiteSparse"
+    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/AMD
+    make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" static || error_exit "Error while building AMD"
+    cp Lib/*.a $INSTALL_DIR/lib || error_exit "Error while building AMD"
+    cp Include/amd.h $INSTALL_DIR/include || error_exit "Error while building AMD"
+    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/COLAMD
+    make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" static || error_exit "Error while building COLAMD"
+    cp Lib/*.a $INSTALL_DIR/lib || error_exit "Error while building COLAMD"
+    cp Include/colamd.h $INSTALL_DIR/include || error_exit "Error while building COLAMD"
+    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/BTF
+    make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" static || error_exit "Error while building BTF"
+    cp Lib/*.a $INSTALL_DIR/lib || error_exit "Error while building BTF"
+    cp Include/btf.h $INSTALL_DIR/include || error_exit "Error while building BTF"
+    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/KLU
+    make -j $NB_PROCESSORS_USED CC="$C_COMPILER $CC_FLAG" CXX="$CXX_COMPILER $CC_FLAG $CXX_STDFLAG" static || error_exit "Error while building KLU"
+    cp Lib/*.a $INSTALL_DIR/lib || error_exit "Error while building KLU"
+    cp Include/klu.h $INSTALL_DIR/include || error_exit "Error while building KLU"
+  fi
 }
 
 while (($#)); do

@@ -5,11 +5,14 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 SET(COMMON_VERSION_STRING ${DYNAWO_VERSION_STRING})
 SET(COMMON_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+
+SET(UTIL_VERSION_STRING ${DYNAWO_VERSION_STRING})
+SET(UTIL_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 
 SET(DYNAWO_DICTIONARIES
@@ -61,7 +64,6 @@ SET(COMMON_SOURCES
     DYNExecUtils.cpp
     DYNEnumUtils.cpp
     DYNFileSystemUtils.cpp
-    DYNTimer.cpp
     DYNTrace.cpp
     DYNTraceStream.cpp
     DYNMessage.cpp
@@ -81,7 +83,6 @@ SET(COMMON_INCLUDE_HEADERS
     DYNExecUtils.h
     DYNEnumUtils.h
     DYNFileSystemUtils.h
-    DYNTimer.h
     DYNTrace.h
     DYNTraceStream.h
     DYNGraph.h
@@ -98,11 +99,19 @@ SET(COMMON_INCLUDE_HEADERS
     ${INCLUDE_KEYS}
     )
 
+SET(UTIL_SOURCES
+    DYNTimer.cpp
+    )
+
+SET(UTIL_INCLUDE_HEADERS
+    DYNTimer.cpp
+    )
 
 INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
                     )
 
-ADD_LIBRARY(dynawo_Common SHARED ${COMMON_SOURCES})
+ADD_LIBRARY(dynawo_Common ${LIBRARY_TYPE} ${COMMON_SOURCES})
+ADD_LIBRARY(dynawo_Util ${LIBRARY_TYPE} ${UTIL_SOURCES})
 
 ADD_DEPENDENCIES(dynawo_Common create_keys_files)
 
@@ -111,17 +120,28 @@ TARGET_LINK_LIBRARIES(dynawo_Common
     ${Boost_LOG_LIBRARY}
     ${Boost_SYSTEM_LIBRARY}
     )
+
 SET_TARGET_PROPERTIES(dynawo_Common PROPERTIES VERSION ${COMMON_VERSION_STRING}
                                         SOVERSION ${COMMON_VERSION_MAJOR})
+
+TARGET_LINK_LIBRARIES(dynawo_Util
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${Boost_LOG_LIBRARY}
+    ${Boost_SYSTEM_LIBRARY}
+    )
+
+SET_TARGET_PROPERTIES(dynawo_Util PROPERTIES VERSION ${UTIL_VERSION_STRING}
+                                        SOVERSION ${UTIL_VERSION_MAJOR})
+
 # PYTHON scripts for models
 SET(PYTHON_SCRIPTS_COMMON
   Dictionaries/validateDictionaries.py
   )
 
 INSTALL(TARGETS dynawo_Common DESTINATION ${libdir})
+INSTALL(TARGETS dynawo_Util DESTINATION ${libdir})
 INSTALL(FILES ${COMMON_INCLUDE_HEADERS} DESTINATION ${includedir})
+INSTALL(FILES ${UTIL_INCLUDE_HEADERS} DESTINATION ${includedir})
 INSTALL(FILES ${DYNAWO_DICTIONARIES} DESTINATION ${sharedir})
 INSTALL(FILES ${DYNAWO_DICTIONARIES_MAPPING} DESTINATION ${sharedir})
 INSTALL(PROGRAMS ${PYTHON_SCRIPTS_COMMON} DESTINATION ${sbindir})
-
-
