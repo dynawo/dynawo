@@ -90,8 +90,8 @@ $> ./myEnvDynawo.sh build-all
 
 **Warning**: If you're working behind a proxy make sure you have exported the following proxy environment variables
 ``` bash
-$> export http_proxy=
-$> export https_proxy=
+$> export http_proxy=http://login:mdp@proxy_address:proxy_port/
+$> export https_proxy=https://login:mdp@proxy_address:proxy_port/
 $> export no_proxy=localhost,127.0.0.0/8,::1
 $> export HTTP_PROXY=$http_proxy;export HTTPS_PROXY=$https_proxy;export NO_PROXY=$no_proxy;
 ```
