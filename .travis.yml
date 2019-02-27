@@ -60,3 +60,6 @@ script:
   - COMMAND=$(util/travis_ci/launch_command.sh)
   - echo $COMMAND
   - docker exec -e SONAR_TOKEN $dynawo_env $dynawo_env_url dynawo_travis_container bash -c "$COMMAND"
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_EVENT_TYPE" = "push" ]; then curl --header "Content-Type":" application/json" -X POST --data '{"dynawo":"Update"}' https://cloud.docker.com/api/build/v1/source/$DOCKER_HUB_TOKEN1/trigger/$DOCKER_HUB_TOKEN2/call/; fi
