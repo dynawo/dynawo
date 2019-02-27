@@ -26,6 +26,9 @@ model Line "AC power line - PI model"
 */
 
   import Dynawo.Connectors;
+  import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  
+  extends SwitchOff.SwitchOffLine;
 
   Connectors.ACPower terminal1;
   Connectors.ACPower terminal2;
@@ -41,7 +44,12 @@ protected
 
 equation
 
-  ZPu * (terminal2.i - YPu * terminal2.V) = terminal2.V - terminal1.V;
-  ZPu * (terminal1.i - YPu * terminal1.V) = terminal1.V - terminal2.V;
+  if (running.value) then
+    ZPu * (terminal2.i - YPu * terminal2.V) = terminal2.V - terminal1.V;
+    ZPu * (terminal1.i - YPu * terminal1.V) = terminal1.V - terminal2.V;
+  else
+    terminal1.i = Complex (0);
+    terminal2.i = Complex (0);
+  end if;
 
 end Line;
