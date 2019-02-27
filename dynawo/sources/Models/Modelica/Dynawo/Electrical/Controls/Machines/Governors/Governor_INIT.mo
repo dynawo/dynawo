@@ -13,8 +13,6 @@ within Dynawo.Electrical.Controls.Machines.Governors;
 */
 
 model Governor_INIT "Initialisation model for governor"
-  // only retrieves initial mechanical torque from whole generator model
-  // In steady-state, omegaPu is supposed = 1
   
   public
     SIunits.PerUnit Pm0Pu (start = 1) "Initial mechanical power";

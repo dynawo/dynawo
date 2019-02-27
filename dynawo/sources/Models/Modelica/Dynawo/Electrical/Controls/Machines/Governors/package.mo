@@ -1,3 +1,5 @@
+within Dynawo.Electrical.Controls.Machines;
+
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
@@ -9,8 +11,6 @@
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
-
-within Dynawo.Electrical.Controls.Machines;
 
 package Governors "Governors"
 end Governors;
