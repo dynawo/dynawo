@@ -4,7 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Libiidm, a library to model IIDM networks and allows importing and exporting them to files.
 
 project(libiidm_xml CXX)
@@ -36,15 +36,15 @@ set(IIDM_XML_SOURCES
   src/export.cpp
   src/export/attributes_helper.cpp
   src/export/export_functions.cpp
-  
+
   src/import.cpp
   src/import/IIDMDocumentHandler.cpp
-  
+
   src/import/iidm_namespace.cpp
   src/import/ExtensionHandler.cpp
-  
+
   src/import/ConnectableHandler.cpp
-  
+
   src/import/NetworkHandler.cpp
   src/import/LinesHandler.cpp
   src/import/HvdcLineHandler.cpp
@@ -52,9 +52,9 @@ set(IIDM_XML_SOURCES
 
   src/import/Transformer2WindingsHandler.cpp
   src/import/Transformer3WindingsHandler.cpp
-  
+
   src/import/VoltageLevelHandler.cpp
-  
+
   src/import/BusHandler.cpp
   src/import/BusBarSectionHandler.cpp
   src/import/SwitchHandler.cpp
@@ -79,12 +79,13 @@ target_include_directories(iidm-xml
   ${Boost_INCLUDE_DIR}
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibIIDM_INSTALL_INCLUDE}>
+  ${LibXML_INCLUDE_DIR}
 )
 
 target_link_libraries(iidm-xml
   iidm
-  XMLSAXFormatter
-  XMLSAXParser
+  XMLSAXFormatter${LibXML_LINK_SUFFIX}
+  XMLSAXParser${LibXML_LINK_SUFFIX}
 )
 
 set_target_properties(iidm-xml
@@ -140,7 +141,7 @@ install(DIRECTORY share/
 
 add_custom_target(install-xml
   DEPENDS iidm-xml
-  COMMAND 
+  COMMAND
     "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=iidm-xml -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
 )
 
@@ -160,13 +161,13 @@ if( BUILD_SAMPLES )
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibIIDM_INSTALL_INCLUDE}>
     PRIVATE
-    ${LIBXML_INCLUDE_DIR}
+    ${LibXML_INCLUDE_DIR}
   )
 
   target_link_libraries(iidm-xml-testing
     iidm
-    XMLSAXFormatter
-    XMLSAXParser
+    XMLSAXFormatter${LibXML_LINK_SUFFIX}
+    XMLSAXParser${LibXML_LINK_SUFFIX}
   )
 
   set_target_properties(iidm-xml-testing
@@ -174,7 +175,7 @@ if( BUILD_SAMPLES )
       VERSION ${IIDM_VERSION_STRING}
       SOVERSION ${IIDM_VERSION_MAJOR}
   )
-  
+
   add_custom_command(TARGET iidm-xml-testing PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E
       copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/share/xsd ${CMAKE_BINARY_DIR}/${IIDM_SHARE_PATH}/xsd

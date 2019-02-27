@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 ##############################
@@ -28,7 +28,7 @@ INCLUDE_DIRECTORIES(../Common
                     ../../Common
                     )
 
-ADD_LIBRARY(dynawo_SolverSubModel SHARED ${SOLVER_SUBMODEL_SOURCES})
+ADD_LIBRARY(dynawo_SolverSubModel ${LIBRARY_TYPE} ${SOLVER_SUBMODEL_SOURCES})
 
 TARGET_LINK_LIBRARIES(dynawo_SolverSubModel
                       ${SUNDIALS_NVECSERIAL_LIBRARY}
@@ -40,7 +40,7 @@ TARGET_LINK_LIBRARIES(dynawo_SolverSubModel
                       )
 
 IF(${NICSLU_FOUND})
-  TARGET_LINK_LIBRARIES(dynawo_SolverSubModel ${NICSLU_LIBRARY})
+  TARGET_LINK_LIBRARIES(dynawo_SolverSubModel ${NICSLU_LIBRARIES})
 ENDIF()
 
 SET_TARGET_PROPERTIES(dynawo_SolverSubModel PROPERTIES VERSION ${SOLVER_SUBMODEL_VERSION_STRING}

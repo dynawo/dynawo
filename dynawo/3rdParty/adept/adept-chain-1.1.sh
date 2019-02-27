@@ -56,6 +56,8 @@ if [ "$(echo $COMPILER | tr "[A-Z]" "[a-z]")" != "$(basename $C_COMPILER)" ]; th
   exit 1
 fi
 
+export_var_env DYNAWO_LIBRARY_TYPE=SHARED
+
 download_adept() {
   cd $SCRIPT_DIR
   if [ ! -f "${ADEPT_ARCHIVE}" ]; then
@@ -82,11 +84,16 @@ install_adept() {
   else
     error_exit "COMPILER environment variable needs to be GCC or CLANG."
   fi
-  export CXXFLAGS_ADEPT="$CXXFLAGS_ADEPT $CXX_STDFLAG"
-  if [ "${BUILD_TYPE}" = "Release" ]; then
-    ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -O3" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp
+  export CXXFLAGS_ADEPT="$CXXFLAGS_ADEPT $CXX_STDFLAG -fPIC"
+  if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
+    ADEPT_LIBRARY_TYPE_OPTION="--disable-static --enable-shared"
   else
-    ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -g" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp
+    ADEPT_LIBRARY_TYPE_OPTION="--enable-static --disable-shared"
+  fi
+  if [ "${BUILD_TYPE}" = "Release" ]; then
+    ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -O3" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
+  else
+    ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -g" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
   fi
   make -j $NB_PROCESSORS_USED && make install
   RETURN_CODE=$?

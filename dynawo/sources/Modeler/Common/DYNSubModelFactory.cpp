@@ -59,7 +59,7 @@ void
 SubModelFactories::reset() {
   std::map<std::string, SubModelFactory*>::iterator iter = factoryMap_.begin();
   for (; iter != factoryMap_.end(); ++iter) {
-    void * handle = iter->second->handle_;
+    void* handle = iter->second->handle_;
     delete iter->second;
 
     if (handle)

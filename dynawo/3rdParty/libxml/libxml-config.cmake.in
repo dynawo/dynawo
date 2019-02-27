@@ -55,7 +55,7 @@ foreach(COMPONENT ${LibXML_FIND_COMPONENTS})
     set(LibXML_FOUND False)
     set(LibXML_NOTFOUND_MESSAGE "Specified unsupported component: ${COMPONENT}")
   endif()
-  
+
   set(component_config "${CMAKE_CURRENT_LIST_DIR}/libxml-sax-${COMPONENT_LOWER}${LibXML_LINK_SUFFIX}-config.cmake")
   if(LibXML_FIND_REQUIRED_${COMPONENT})
     include(${component_config})
@@ -64,5 +64,3 @@ foreach(COMPONENT ${LibXML_FIND_COMPONENTS})
   endif()
   unset(component_config)
 endforeach()
-
-unset(LibXML_LINK_SUFFIX)

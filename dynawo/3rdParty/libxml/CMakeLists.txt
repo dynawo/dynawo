@@ -22,6 +22,8 @@ option(LibXML_SAX_BUILD_PARSER "Set to OFF to disable XML SAX parser build" ON)
 option(LibXML_BUILD_TESTS "Set to OFF to disable testings" ON)
 option(LibXML_SAX_BUILD_SAMPLES "Set to OFF to disable XML SAX samples build" ON)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 set(LibXML_SAX_BUILD_SHARED TRUE CACHE BOOL "Build LibXML_SAX as shared library.")
 set(LibXML_SAX_BUILD_STATIC TRUE CACHE BOOL "Build LibXML_SAX as static library.")
 

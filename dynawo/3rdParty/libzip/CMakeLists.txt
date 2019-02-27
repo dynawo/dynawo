@@ -18,6 +18,8 @@ set(LIBZIP_BUILD_STATIC TRUE CACHE BOOL "Build LibZIP as static library.")
 set(LIBZIP_BUILD_TESTS TRUE CACHE BOOL "Build LibZIP tests.")
 set(LIBZIP_BUILD_SAMPLES TRUE CACHE BOOL "Build LibZIP samples.")
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 find_package(LibArchive 2.8.0 REQUIRED)
 find_package(Boost 1.39 REQUIRED)
 if (LIBZIP_BUILD_TESTS)

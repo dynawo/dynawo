@@ -183,13 +183,13 @@ int main(int argc, char ** argv) {
     cf.compile();
 
     fs::remove(dydFileName);
-    vector<string > solist = cf.getCompiledLib();   // get all .so
+    vector<string > solist = cf.getCompiledLib();  // get all .so
     vector<string > notValidsolist;
 
      // verification linking status of shared object
     bool libValid = true;
     for (vector<string >::iterator it = solist.begin(); it != solist.end(); ++it) {
-      bool valid = verifySharedObject(*it);   // verification .so
+      bool valid = verifySharedObject(*it);  // verification .so
       if (!valid) {
         libValid = false;
         notValidsolist.push_back(*it);
@@ -206,6 +206,11 @@ int main(int argc, char ** argv) {
       for (vector<string >::iterator it = notValidsolist.begin(); it != notValidsolist.end(); ++it) {
         Trace::info("COMPILE") << *it << Trace::endline;
       }
+      string libList;
+      for (std::vector<std::string>::const_iterator lib = notValidsolist.begin(); lib != notValidsolist.end(); ++lib) {
+        libList += *lib;
+      }
+      throw DYNError(DYN::Error::MODELER, FileGenerationFailed, libList.c_str());
     }
   } catch (const xml::sax::parser::ParserException& exp) {
     Trace::error() << DYNLog(XmlParsingError, dydFileName, exp.what()) << Trace::endline;
@@ -239,21 +244,27 @@ bool verifySharedObject(string modelname) {
   // dlopen include <dlfcn.h>: to see if a shared object file
   const char* filename = modelname.c_str();
   void *handle;
-  handle = dlopen(filename, RTLD_LAZY);
+  handle = dlopen(filename, RTLD_NOW);
   if (!handle) {
     fprintf(stderr, "%s\n", dlerror());
-    printf(" Could not open .so by dlopen. ");
+    printf(" DydLibGenerator: could not open .so by dlopen.");
     return false;
   }
   dlclose(handle);
 
   // verify links.
-  string command = "ldd -r " + modelname;
+  string command = "ldd -r " + modelname + " | c++filt";
   string result = executeCommand1(command);
-  bool valid = true;
-  if (result.find("undefinded symbol") != std::string::npos)
+  boost::replace_all(result, "'", "\"");
+  // In case of static compilation it is expected that symbols about Timer are missing.
+  string command2 = "echo \"" + result + "\"| c++filt | grep 'undefined'  | grep -v 'DYN::Timer::~Timer()' | grep -v \"DYN::Timer::Timer([^)]*)\"";
+  int returnCode = system(command2.c_str());
+  bool valid;
+  if (returnCode == 0) {
     valid = false;
-
+  } else {
+    valid = true;
+  }
   return valid;
 }
 

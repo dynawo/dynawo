@@ -22,6 +22,7 @@
 #include <list>
 #include <set>
 #include <memory>
+#include <boost/algorithm/string/replace.hpp>
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/lexical_cast.hpp>
@@ -409,7 +410,18 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   stringstream ss;
   executeCommand(compileCommand, ss);
   Trace::debug("COMPILE") << ss.str() << Trace::endline;
-  bool hasUndefinedSymbol = (ss.str().find("undefined symbol") != string::npos);
+  string echoString = ss.str();
+  boost::replace_all(echoString, "'", "\"");
+  // In case of static compilation it is expected that symbols about Timer are missing.
+  string commandUndefined = "echo '" + echoString + "' | sed '1,/ldd -r/d' | c++filt | grep 'undefined' | grep -v 'DYN::Timer::~Timer()'"
+          " | grep -v \"DYN::Timer::Timer([^)]*)\"";
+  int returnCode = system(commandUndefined.c_str());
+  bool hasUndefinedSymbol;
+  if (returnCode == 0) {
+    hasUndefinedSymbol = true;
+  } else {
+    hasUndefinedSymbol = false;
+  }
 
   // testing if the lib was successfully compiled (test if it exists, and if no undefined symbol was noticed)
   if ((!exists(compileDirPath_ + "/" + libName)) || (hasUndefinedSymbol))

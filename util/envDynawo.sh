@@ -164,30 +164,30 @@ export_git_branch() {
 set_environment() {
   # Force build type when building tests (or tests coverage)
   case $1 in
-  build-tests-coverage)
-    export_var_env_force BUILD_TYPE=TestCoverage
-    export_var_env_force USE_XSD_VALIDATION=true
-    export DYNAWO_DICTIONARIES=dictionaries_mapping
-    ;;
-  build-tests)
-    export_var_env_force BUILD_TYPE=Tests
-    export_var_env_force USE_XSD_VALIDATION=true
-    export DYNAWO_DICTIONARIES=dictionaries_mapping
-    ;;
-  list-tests)
-    export_var_env_force BUILD_TYPE=Tests
-    export_var_env_force USE_XSD_VALIDATION=true
-    ;;
-  clean-tests)
-    export_var_env_force BUILD_TYPE=Tests
-    export_var_env_force USE_XSD_VALIDATION=true
-    ;;
-  clean-tests-coverage)
-    export_var_env_force BUILD_TYPE=TestCoverage
-    export_var_env_force USE_XSD_VALIDATION=true
-    ;;
-  *)
-    ;;
+    build-tests-coverage)
+      export_var_env_force BUILD_TYPE=TestCoverage
+      export_var_env_force USE_XSD_VALIDATION=true
+      export DYNAWO_DICTIONARIES=dictionaries_mapping
+      ;;
+    build-tests)
+      export_var_env_force BUILD_TYPE=Tests
+      export_var_env_force USE_XSD_VALIDATION=true
+      export DYNAWO_DICTIONARIES=dictionaries_mapping
+      ;;
+    list-tests)
+      export_var_env_force BUILD_TYPE=Tests
+      export_var_env_force USE_XSD_VALIDATION=true
+      ;;
+    clean-tests)
+      export_var_env_force BUILD_TYPE=Tests
+      export_var_env_force USE_XSD_VALIDATION=true
+      ;;
+    clean-tests-coverage)
+      export_var_env_force BUILD_TYPE=TestCoverage
+      export_var_env_force USE_XSD_VALIDATION=true
+      ;;
+    *)
+      ;;
   esac
 
   # Find build type for thid party libraries
@@ -212,21 +212,22 @@ set_environment() {
   export_var_env_force USE_ADEPT=YES
 
   export COMPILER_VERSION=$($C_COMPILER -dumpversion)
+  export_var_env DYNAWO_LIBRARY_TYPE=SHARED
 
   # Dynawo
   export_var_env DYNAWO_HOME=UNDEFINED
   export_git_branch
   export_var_env_force DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
-  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$COMPILER_NAME$COMPILER_VERSION/
+  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
 
   jenkins_mode=$(printenv | grep "JENKINS_MODE" | wc -l)
 
   if [ ${jenkins_mode} -ne 0 ]; then
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/dynawo
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
   else
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/$BRANCH_NAME/$BUILD_TYPE/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/$BRANCH_NAME/$BUILD_TYPE/dynawo
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/$BRANCH_NAME/$BUILD_TYPE/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/$BRANCH_NAME/$BUILD_TYPE/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
   fi
 
   # External libs
@@ -236,8 +237,8 @@ set_environment() {
 
   # Third parties
   export_var_env_force THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
-  export_var_env THIRD_PARTY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/$COMPILER_NAME$COMPILER_VERSION
-  export_var_env THIRD_PARTY_INSTALL_DIR=$DYNAWO_HOME/install/3rdParty/$COMPILER_NAME$COMPILER_VERSION
+  export_var_env THIRD_PARTY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
+  export_var_env THIRD_PARTY_INSTALL_DIR=$DYNAWO_HOME/install/3rdParty/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
   if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     export_var_env_force THIRD_PARTY_BUILD_DIR_VERSION=$THIRD_PARTY_BUILD_DIR/$BUILD_TYPE_THIRD_PARTY-cxx11
     export_var_env_force THIRD_PARTY_INSTALL_DIR_VERSION=$THIRD_PARTY_INSTALL_DIR/$BUILD_TYPE_THIRD_PARTY-cxx11
@@ -546,7 +547,7 @@ config_dynawo() {
     mkdir -p $DYNAWO_BUILD_DIR
   fi
   cd $DYNAWO_BUILD_DIR
-  cmake -DCMAKE_C_COMPILER:PATH=$C_COMPILER -DCMAKE_CXX_COMPILER:PATH=$CXX_COMPILER -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE -DDYNAWO_HOME:PATH=$DYNAWO_HOME -DCMAKE_INSTALL_PREFIX:PATH=$DYNAWO_INSTALL_DIR $DYNAWO_SRC_DIR -DUSE_ADEPT:BOOL=$USE_ADEPT -DINSTALL_OPENMODELICA:PATH=$INSTALL_OPENMODELICA -DCXX11_ENABLED:BOOL=$CXX11_ENABLED -DBOOST_ROOT_DEFAULT:STRING=$BOOST_ROOT_DEFAULT -DOPENMODELICA_VERSION:STRING=$OPENMODELICA_VERSION -G "Unix Makefiles" "-DCMAKE_PREFIX_PATH=$LIBXML_HOME;$LIBIIDM_HOME"
+  cmake -DLIBRARY_TYPE=$DYNAWO_LIBRARY_TYPE -DCMAKE_C_COMPILER:PATH=$C_COMPILER -DCMAKE_CXX_COMPILER:PATH=$CXX_COMPILER -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE -DDYNAWO_HOME:PATH=$DYNAWO_HOME -DCMAKE_INSTALL_PREFIX:PATH=$DYNAWO_INSTALL_DIR $DYNAWO_SRC_DIR -DUSE_ADEPT:BOOL=$USE_ADEPT -DINSTALL_OPENMODELICA:PATH=$INSTALL_OPENMODELICA -DCXX11_ENABLED:BOOL=$CXX11_ENABLED -DBOOST_ROOT_DEFAULT:STRING=$BOOST_ROOT_DEFAULT -DOPENMODELICA_VERSION:STRING=$OPENMODELICA_VERSION -G "Unix Makefiles" "-DCMAKE_PREFIX_PATH=$LIBXML_HOME;$LIBIIDM_HOME"
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -924,6 +925,12 @@ dump_model() {
     install_launcher || error_exit
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model $@
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
+valgrind_dump_model() {
+  $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-valgrind $@
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1396,6 +1403,10 @@ case $MODE in
 
   dump-model)
     dump_model ${ARGS} || error_exit "Error during model's description dump"
+    ;;
+
+  dump-model-valgrind)
+    valgrind_dump_model ${ARGS} || error_exit "Error during model's description dump"
     ;;
 
   doxygen-doc-dynawo)

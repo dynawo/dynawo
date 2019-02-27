@@ -69,6 +69,7 @@ if (LibXML_SAX_BUILD_SHARED)
 
   target_link_libraries(XMLSAXParser${LINK_SUFFIX_SHARED}
     ${XercesC_LIBRARIES}
+
   )
 
   set_target_properties(XMLSAXParser${LINK_SUFFIX_SHARED}
@@ -84,7 +85,7 @@ if (LibXML_SAX_BUILD_SHARED)
     RUNTIME DESTINATION ${LibXML_INSTALL_BINARIES}
     COMPONENT sax-parser
   )
-  
+
   # installed config file for find_package
   install(EXPORT XMLSAXParser${LINK_SUFFIX_SHARED}-config
     DESTINATION ${LibXML_INSTALL_CMAKE}
@@ -102,7 +103,7 @@ if (LibXML_SAX_BUILD_SHARED)
       LibXML_INSTALL_BINARIES
     NO_CHECK_REQUIRED_COMPONENTS_MACRO
   )
-  
+
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-parser${LINK_SUFFIX_SHARED}-config.cmake
     DESTINATION ${LibXML_INSTALL_CMAKE}
     COMPONENT sax-parser
@@ -111,6 +112,9 @@ if (LibXML_SAX_BUILD_SHARED)
 endif ()
 
 if (LibXML_SAX_BUILD_STATIC)
+  find_package(CURL REQUIRED)
+  find_package(ICU REQUIRED COMPONENTS i18n uc data)
+
   add_library(XMLSAXParser${LINK_SUFFIX_STATIC} STATIC ${PARSER_SOURCES})
 
   target_include_directories(XMLSAXParser${LINK_SUFFIX_STATIC}
@@ -119,6 +123,8 @@ if (LibXML_SAX_BUILD_STATIC)
     $<BUILD_INTERFACE:${XML_common_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibXML_INSTALL_INCLUDE}>
     ${Boost_INCLUDE_DIRS}
+    PRIVATE
+    ${XercesC_INCLUDE_DIRS}
   )
 
   set_target_properties(XMLSAXParser${LINK_SUFFIX_STATIC}
@@ -129,7 +135,9 @@ if (LibXML_SAX_BUILD_STATIC)
   )
 
   target_link_libraries(XMLSAXParser${LINK_SUFFIX_STATIC}
-    XercesC::XercesC
+    ${XercesC_LIBRARIES}
+    ${CURL_LIBRARIES}
+    ${ICU_LIBRARIES}
   )
 
   install(TARGETS XMLSAXParser${LINK_SUFFIX_STATIC} EXPORT XMLSAXParser${LINK_SUFFIX_STATIC}-config
@@ -139,7 +147,7 @@ if (LibXML_SAX_BUILD_STATIC)
     RUNTIME DESTINATION ${LibXML_INSTALL_BINARIES}
     COMPONENT sax-parser
   )
-  
+
   # installed config file for find_package
   install(EXPORT XMLSAXParser${LINK_SUFFIX_STATIC}-config
     DESTINATION ${LibXML_INSTALL_CMAKE}
@@ -157,7 +165,7 @@ if (LibXML_SAX_BUILD_STATIC)
       LibXML_INSTALL_BINARIES
     NO_CHECK_REQUIRED_COMPONENTS_MACRO
   )
-  
+
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-parser${LINK_SUFFIX_STATIC}-config.cmake
     DESTINATION ${LibXML_INSTALL_CMAKE}
     COMPONENT sax-parser

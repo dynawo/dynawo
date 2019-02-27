@@ -49,6 +49,8 @@ export_var_env CXX_COMPILER=$(command -v g++)
 export_var_env CXX11_ENABLED=NO
 export_var_env NB_PROCESSORS_USED=1
 
+export_var_env DYNAWO_LIBRARY_TYPE=SHARED
+
 download_xercesc() {
   cd $SCRIPT_DIR
   if [ ! -f "${XERCESC_ARCHIVE}" ]; then
@@ -68,17 +70,22 @@ install_xercesc() {
     tar -xzf $XERCESC_ARCHIVE -C $BUILD_DIR
   fi
   cd $BUILD_DIR/$XERCESC_DIRECTORY
+  if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
+    XERCESC_LIBRARY_TYPE_OPTION="--disable-static --enable-shared"
+  else
+    XERCESC_LIBRARY_TYPE_OPTION="--enable-static --disable-shared"
+  fi
   if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     if [ "$BUILD_TYPE" = "Debug" ]; then
-      CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-g -O0" ./configure --prefix=$INSTALL_DIR
+      CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-g -O0" ./configure $XERCESC_LIBRARY_TYPE_OPTION --prefix=$INSTALL_DIR
     else
-      CC=$C_COMPILER CXX=$CXX_COMPILER ./configure --prefix=$INSTALL_DIR
+      CC=$C_COMPILER CXX=$CXX_COMPILER ./configure $XERCESC_LIBRARY_TYPE_OPTION --prefix=$INSTALL_DIR
     fi
   else
     if [ "$BUILD_TYPE" = "Debug" ]; then
-      CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-g -O0 -std=c++98" ./configure --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
+      CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-g -O0 -std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
     else
-      CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-std=c++98" ./configure --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
+      CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
     fi
   fi
   make -j $NB_PROCESSORS_USED && make install

@@ -14,9 +14,13 @@ endif ()
 set(UNIT_TEST_SOURCES
     test1.cpp
     test2.cpp)
-    
+
 add_executable(unittest ${UNIT_TEST_SOURCES})
-target_link_libraries(unittest pthread ${GTEST_BOTH_LIBRARIES} zip)
+target_link_libraries(unittest pthread ${GTEST_BOTH_LIBRARIES})
+if (LIBZIP_BUILD_SHARED)
+  target_link_libraries(unittest ${CMAKE_PROJECT_NAME})
+elseif(LIBZIP_BUILD_STATIC)
+  target_link_libraries(unittest ${CMAKE_PROJECT_NAME}-static)
+endif ()
 
 add_custom_target(tests unittest DEPENDS unittest COMMENT "Running unit tests...")
-

@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 #################################
@@ -66,7 +66,7 @@ SET(MODELER_INCLUDE_HEADERS
     )
 
 INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
-                    ${LIBXML_INCLUDE_DIR}
+                    ${LibXML_INCLUDE_DIR}
                     )
 
 INCLUDE_DIRECTORIES(../../API/PAR
@@ -82,11 +82,11 @@ INCLUDE_DIRECTORIES(../../API/PAR
                     ../../Common
                     )
 
-ADD_LIBRARY(dynawo_ModelerCommon SHARED ${MODELER_SOURCES})
+ADD_LIBRARY(dynawo_ModelerCommon ${LIBRARY_TYPE} ${MODELER_SOURCES})
 
 TARGET_LINK_LIBRARIES(dynawo_ModelerCommon
-                      ${LIBXML_LIBRARY_FORMATTER}
-                      ${LIBXML_LIBRARY_PARSER}
+                      XMLSAXFormatter${LibXML_LINK_SUFFIX}
+                      XMLSAXParser${LibXML_LINK_SUFFIX}
                       dynawo_API_PAR
                       dynawo_API_TL
                       dynawo_API_CRV

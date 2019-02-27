@@ -27,7 +27,13 @@ if (WIN32)
   set_and_check(LibXML_SAX_PARSER_BIN_DIR "@PACKAGE_LibXML_INSTALL_BINARIES@")
 endif()
 
-include(${CMAKE_CURRENT_LIST_DIR}/libxml-sax-parser-targets.cmake)
+if(LibXML_USE_STATIC_LIBS)
+  set(LibXML_LINK_SUFFIX "@LINK_SUFFIX_STATIC@")
+else()
+  set(LibXML_LINK_SUFFIX "@LINK_SUFFIX_SHARED@")
+endif()
+
+include(${CMAKE_CURRENT_LIST_DIR}/libxml-sax-parser${LibXML_LINK_SUFFIX}-targets.cmake)
 
 set(LibXML_SAX_PARSER_FOUND TRUE)
 mark_as_advanced(LibXML_SAX_PARSER_FOUND)

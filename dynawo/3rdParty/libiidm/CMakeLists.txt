@@ -4,7 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Libiidm, a library to model IIDM networks and allows importing and exporting them to files.
 
 cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
@@ -27,7 +27,13 @@ option(BUILD_SAMPLES "enables the building of the samples (only those related to
 # making an option allow "shared" to be the default value
 option(IIDM_BUILD_SHARED "build shared libraries instead of static ones" ON)
 
+if(NOT IIDM_BUILD_SHARED)
+  set(LibXML_USE_STATIC_LIBS True)
+endif()
+
 set(CXX11_ENABLED OFF CACHE BOOL "activates the C++11 compilation")
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "build type, one of (Release, Debug, RelWithDebInfo)" FORCE)
@@ -48,7 +54,6 @@ set(IIDM_SOVERSION ${IIDM_VERSION_MAJOR}.${IIDM_VERSION_MINOR})
 set(IIDM_VERSION_STRING ${IIDM_VERSION})
 
 set(IIDM_SHARE_PATH "share/iidm")
-
 
 if(WIN32)
   set(LibIIDM_INSTALL_CMAKE cmake)
@@ -90,11 +95,11 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     message(STATUS "Use of GCC version greater than 4.8: activate specific options")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-local-typedefs")
     # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnoexcept")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wconversion-null")	
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wconversion-null")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnarrowing")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wtrampolines")
   endif()
-  
+
   # add many warnings
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wstrict-null-sentinel")
@@ -103,11 +108,11 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wcast-align")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wcast-qual")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfloat-equal")
-  
+
   if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.5)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wlogical-op")
   endif()
-  
+
   # some where not added due to warning from boost.
     # '-Wsign-promo', #disabled since problems in boost
     # '-Wctor-dtor-privacy', #disabled since problems in boost
@@ -118,7 +123,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     # '-Wold-style-cast', #disabled since problems in boost
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_NO_LONG_LONG")
-    
+
   # also add a few extra check
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wvla -Wredundant-decls")
   # -Wpadded
@@ -163,7 +168,7 @@ if( BUILD_XML )
   find_package(libXML ${LibIIDM_LibXML_REQUIRED_VERSION} REQUIRED)
   add_subdirectory(xml)
 endif()
-  
+
 add_subdirectory(extensions/activeSeason)
 add_subdirectory(extensions/busbarSectionPosition)
 add_subdirectory(extensions/connectablePosition)

@@ -194,7 +194,7 @@ class Dictionary:
             key_to_print = key1.ljust(70)
             header_file.write('      '+str(key_to_print)+'\t///< '+self.get_message(key)+'\n')
         header_file.write("    };\n\n")
-        header_file.write("    static std::string names[]; ///< names associated to the enum \n")
+        header_file.write("    static const char* const names[]; ///< names associated to the enum \n")
         header_file.write("  };\n")
         header_file.write("} //namespace DYN\n")
         header_file.write("#endif\n")
@@ -222,7 +222,7 @@ class Dictionary:
 ''')
         cpp_file.write('#include "'+ str(self.name_)+'_keys.h"\n')
         cpp_file.write("namespace DYN {\n\n")
-        cpp_file.write("std::string Key"+name+"_t::names[] = {\n")
+        cpp_file.write("const char* const Key"+name+"_t::names[] = {\n")
         list_keys = self.keys()
         for key in list_keys:
             cpp_file.write('  "'+str(key)+'",\n')

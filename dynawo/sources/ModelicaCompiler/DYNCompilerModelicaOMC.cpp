@@ -11,15 +11,6 @@
 // simulation tool for power systems.
 //
 
-// ------------------------------------------------------------------------------
-//  Projet        : Modeles
-//  Sous-ensemble : Dynawo
-// ------------------------------------------------------------------------------
-//  (c) RTE 2013
-// ------------------------------------------------------------------------------
-//  Description :
-//    Compile modelica files
-// ------------------------------------------------------------------------------
 #include <string>
 #include <vector>
 #include <iomanip>
@@ -28,6 +19,7 @@
 #include <dlfcn.h>
 
 #include <boost/program_options.hpp>
+#include <boost/algorithm/string/replace.hpp>
 
 #include "DYNIoDico.h"
 #include "DYNTrace.h"
@@ -409,20 +401,28 @@ bool verifySharedObject(const string& library) {
   // dlopen include <dlfcn.h>: to see if a shared object file
   const char* filename = library.c_str();
   void *handle;
-  handle = dlopen(filename, RTLD_LAZY);
+  handle = dlopen(filename, RTLD_NOW);
   if (!handle) {
     fprintf(stderr, "%s\n", dlerror());
-    printf(" Could not open .so by dlopen. ");
+    printf(" DYNCompilerModelicaOMC: could not open .so by dlopen.");
     return false;
   }
   dlclose(handle);
 
   // verify links.
-  string command = "ldd -r " + library;
+  string command1 = "ldd -r " + library + " | c++filt";
   bool doPrintLogs = true;
-  string result = executeCommand(command, doPrintLogs);
-  bool valid = result.find("undefined symbol") == string::npos;
-
+  string result = executeCommand(command1, doPrintLogs);
+  // In case of static compilation it is expected that symbols about Timer are missing.
+  boost::replace_all(result, "'", "\"");
+  string command2 = "echo \"" + result + "\" | grep 'undefined' | c++filt | grep -v 'DYN::Timer::~Timer()' | grep -v \"DYN::Timer::Timer([^)]*)\"";
+  int returnCode = system(command2.c_str());
+  bool valid;
+  if (returnCode == 0) {
+    valid = false;
+  } else {
+    valid = true;
+  }
   return valid;
 }
 

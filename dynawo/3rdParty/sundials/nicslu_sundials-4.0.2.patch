@@ -1,6 +1,6 @@
-diff -urpN sundials-4.0.2/CMakeLists.txt sundials-4.0.2_patched/CMakeLists.txt
---- sundials-4.0.2/CMakeLists.txt	2019-01-22 23:05:44.000000000 +0100
-+++ sundials-4.0.2_patched/CMakeLists.txt	2019-02-05 16:08:04.073520254 +0100
+diff '--exclude=.git' -urpN sundials-4.0.2/CMakeLists.txt sundials-4.0.2_patched/CMakeLists.txt
+--- sundials-4.0.2/CMakeLists.txt	2019-03-13 17:07:44.492571808 +0100
++++ sundials-4.0.2_patched/CMakeLists.txt	2019-03-13 17:32:44.343319342 +0100
 @@ -358,6 +358,19 @@ INCLUDE(SundialsPOSIXTimers)
  # ===============================================================
  
@@ -62,92 +62,50 @@ diff -urpN sundials-4.0.2/CMakeLists.txt sundials-4.0.2_patched/CMakeLists.txt
  # Find (and test) the hypre libraries
  # ---------------------------------------------------------------
  
-diff -urpN sundials-4.0.2/config/FindNICSLU.cmake sundials-4.0.2_patched/config/FindNICSLU.cmake
+diff '--exclude=.git' -urpN sundials-4.0.2/config/FindNICSLU.cmake sundials-4.0.2_patched/config/FindNICSLU.cmake
 --- sundials-4.0.2/config/FindNICSLU.cmake	1970-01-01 01:00:00.000000000 +0100
-+++ sundials-4.0.2_patched/config/FindNICSLU.cmake	2019-02-05 15:48:11.000000000 +0100
-@@ -0,0 +1,79 @@
-+# ---------------------------------------------------------------
-+# $Revision: 1 $
-+# $Date: 2018-03-28 13:29:20 +0100 (Wed, 28 Mar 2018) $
-+# ---------------------------------------------------------------
-+# Programmer:  Lennart M. Schumacher
-+# ---------------------------------------------------------------
-+# Copyright (c) 2013, The Regents of the University of California.
-+# Produced at the Lawrence Livermore National Laboratory.
-+# All rights reserved.
-+# For details, see the LICENSE file.
-+# ---------------------------------------------------------------
-+# Find NICSLU library.
++++ sundials-4.0.2_patched/config/FindNICSLU.cmake	2019-02-25 15:24:39.120292000 +0100
+@@ -0,0 +1,37 @@
++# - Find NICSLU
++# Find the native NICSLU includes and library
 +#
++#  NICSLU_INCLUDE_DIR - where to find nicslu.h, etc.
++#  NICSLU_LIBRARIES   - List of libraries when using NICSLU.
++#  NICSLU_FOUND       - True if NICSLU found.
 +
-+set(PRE "lib")
-+IF(WIN32)
-+  set(POST ".lib" ".dll")
-+  if(IS_MINGW32 OR IS_MINGW64)
-+    set(POST ".a" ".dll")
-+  endif(IS_MINGW32 OR IS_MINGW64)
-+else(WIN32)
-+  set(POST ".so")
-+endif(WIN32)
++IF(NOT NICSLU_HOME AND NOT $ENV{NICSLU_HOME} STREQUAL "")
++    SET(NICSLU_HOME $ENV{NICSLU_HOME})
++ENDIF()
 +
-+if (NICSLU_LIBRARY)
-+    set(temp_NICSLU_LIBRARY_DIR ${NICSLU_LIBRARY_DIR})
-+    get_filename_component(NICSLU_LIBRARY_DIR ${NICSLU_LIBRARY} PATH)
-+	if(NOT NICSLU_LIBRARY_DIR)
-+	  set(NICSLU_LIBRARY_DIR ${temp_NICSLU_LIBRARY_DIR})
-+	endif(NOT NICSLU_LIBRARY_DIR)
-+else (NICSLU_LIBRARY)
-+    # SGS TODO Assumption here that all of SparseSuite is in the same dir
-+    # SGS TODO Not sure why this is convoluted.
-+    set(NICSLU_LIBRARY_NAME nicslu)
++IF(NOT NICSLU_HOME AND NOT $ENV{NICSLU_ROOT} STREQUAL "")
++    SET(NICSLU_HOME $ENV{NICSLU_ROOT})
++ENDIF()
 +
-+    # find library path using potential names for static and/or shared libs
-+    set(temp_NICSLU_LIBRARY_DIR ${NICSLU_LIBRARY_DIR})
-+    unset(NICSLU_LIBRARY_DIR CACHE)
-+    find_path(NICSLU_LIBRARY_DIR
-+        NAMES ${PRE}${NICSLU_LIBRARY_NAME}${POST}
-+        PATHS ${temp_NICSLU_LIBRARY_DIR}
-+        )
++IF(NOT NICSLU_HOME AND NOT $ENV{NICSLU_INSTALL_DIR} STREQUAL "")
++    SET(NICSLU_HOME $ENV{NICSLU_INSTALL_DIR})
++ENDIF()
 +
-+    MESSAGE("NICSLU INC3:")
-+    MESSAGE(${NICSLU_INCLUDE_DIR})
-+    MESSAGE("NICSLU LIB3:")
-+    MESSAGE(${NICSLU_LIBRARY_DIR})
++FIND_PATH(NICSLU_INCLUDE_DIR NAME nicslu.h HINTS ${NICSLU_HOME}/include)
++FIND_LIBRARY(NICSLU_LIBRARY NAME nicslu HINTS ${NICSLU_HOME}/lib)
++FIND_LIBRARY(NICSLU_UTIL NAME nicslu_util HINTS ${NICSLU_HOME}/lib)
 +
-+	mark_as_advanced(NICSLU_LIBRARY)
++MARK_AS_ADVANCED(NICSLU_INCLUDE_DIR NICSLU_LIBRARY NICSLU_UTIL)
 +
-+    FIND_LIBRARY( NICSLU_LIBRARY ${PRE}${NICSLU_LIBRARY_NAME}${POST} ${NICSLU_LIBRARY_DIR} NO_DEFAULT_PATH)
-+endif (NICSLU_LIBRARY)
++# Handle the QUIETLY and REQUIRED arguments and set NICSLU_FOUND
++# to TRUE if all listed variables are TRUE.
++# (Use ${CMAKE_ROOT}/Modules instead of ${CMAKE_CURRENT_LIST_DIR} because CMake
++#  itself includes this FindNICSLU when built with an older CMake that does
++#  not provide it.  The older CMake also does not have CMAKE_CURRENT_LIST_DIR.)
++INCLUDE(FindPackageHandleStandardArgs)
++FIND_PACKAGE_HANDLE_STANDARD_ARGS(NICSLU DEFAULT_MSG NICSLU_INCLUDE_DIR NICSLU_LIBRARY NICSLU_UTIL)
 +
-+if (NICSLU_UTIL)
-+	set(temp_NICSLU_UTIL_DIR ${NICSLU_LIBRARY_DIR})
-+   get_filename_component(NICSLU_LIBRARY_DIR ${NICSLU_UTIL} PATH)
-+	   if(NOT NICSLU_UTIL_DIR)
-+		   set(NICSLU_LIBRARY_DIR ${temp_NICSLU_UTIL_DIR})
-+      	   endif(NOT NICSLU_UTIL_DIR)
-+else (NICSLU_UTIL)
-+   set(NICSLU_UTIL_NAME nicslu_util)
-+   set(temp_NICSLU_UTIL_DIR ${NICSLU_LIBRARY_DIR})
-+   unset(NICSLU_UTIL_DIR CACHE)
-+   find_path(NICSLU_UTIL_DIR
-+       NAMES ${PRE}${NICSLU_UTIL_NAME}${POST}
-+       PATHS ${temp_NICSLU_LIBRARY_DIR}
-+       )
-+
-+    MESSAGE("NICSLU_UTIL LIB3:")
-+    MESSAGE(${NICSLU_LIBRARY_DIR})
-+
-+    	mark_as_advanced(NICSLU_UTIL)
-+
-+	FIND_LIBRARY( NICSLU_UTIL ${PRE}${NICSLU_UTIL_NAME}${POST} ${NICSLU_LIBRARY_DIR} NO_DEFAULT_PATH)
-+endif (NICSLU_UTIL)
-+
-+MESSAGE("NICSLU LIBS: " ${NICSLU_LIBRARY} ${NICSLU_UTIL})
-+
-+set(NICSLU_LIBRARIES ${NICSLU_LIBRARY} ${NICSLU_UTIL})
-diff -urpN sundials-4.0.2/config/SundialsNICSLU.cmake sundials-4.0.2_patched/config/SundialsNICSLU.cmake
++IF(NICSLU_FOUND)
++  SET(NICSLU_INCLUDE_DIRS ${NICSLU_INCLUDE_DIR})
++  SET(NICSLU_LIBRARIES ${NICSLU_LIBRARY} ${NICSLU_UTIL})
++ENDIF()
+diff '--exclude=.git' -urpN sundials-4.0.2/config/SundialsNICSLU.cmake sundials-4.0.2_patched/config/SundialsNICSLU.cmake
 --- sundials-4.0.2/config/SundialsNICSLU.cmake	1970-01-01 01:00:00.000000000 +0100
-+++ sundials-4.0.2_patched/config/SundialsNICSLU.cmake	2019-02-05 15:48:11.000000000 +0100
++++ sundials-4.0.2_patched/config/SundialsNICSLU.cmake	2019-03-13 17:32:44.344319343 +0100
 @@ -0,0 +1,76 @@
 +# ---------------------------------------------------------------
 +# $Revision: 2 $
@@ -225,9 +183,9 @@ diff -urpN sundials-4.0.2/config/SundialsNICSLU.cmake sundials-4.0.2_patched/con
 +#PRINT_WARNING("y SundialsNICSLU.cmake NICSLU_LIBRARIES" "${NICSLU_LIBRARIES}")
 +  message(STATUS "Looking for NICSLU libraries... FAILED")
 +endif(NICSLU_LIBRARIES)
-diff -urpN sundials-4.0.2/include/sunlinsol/sunlinsol_nicslu.h sundials-4.0.2_patched/include/sunlinsol/sunlinsol_nicslu.h
+diff '--exclude=.git' -urpN sundials-4.0.2/include/sunlinsol/sunlinsol_nicslu.h sundials-4.0.2_patched/include/sunlinsol/sunlinsol_nicslu.h
 --- sundials-4.0.2/include/sunlinsol/sunlinsol_nicslu.h	1970-01-01 01:00:00.000000000 +0100
-+++ sundials-4.0.2_patched/include/sunlinsol/sunlinsol_nicslu.h	2019-02-06 11:43:48.938100466 +0100
++++ sundials-4.0.2_patched/include/sunlinsol/sunlinsol_nicslu.h	2019-03-13 17:32:44.344319343 +0100
 @@ -0,0 +1,80 @@
 +/*
 + * --------------------------------------------------------
@@ -309,9 +267,9 @@ diff -urpN sundials-4.0.2/include/sunlinsol/sunlinsol_nicslu.h sundials-4.0.2_pa
 +#endif
 +
 +#endif
-diff -urpN sundials-4.0.2/src/CMakeLists.txt sundials-4.0.2_patched/src/CMakeLists.txt
---- sundials-4.0.2/src/CMakeLists.txt	2019-01-22 23:05:45.000000000 +0100
-+++ sundials-4.0.2_patched/src/CMakeLists.txt	2019-02-05 16:39:10.995975885 +0100
+diff '--exclude=.git' -urpN sundials-4.0.2/src/CMakeLists.txt sundials-4.0.2_patched/src/CMakeLists.txt
+--- sundials-4.0.2/src/CMakeLists.txt	2019-03-13 17:07:44.495571811 +0100
++++ sundials-4.0.2_patched/src/CMakeLists.txt	2019-03-13 17:32:44.345319344 +0100
 @@ -27,6 +27,11 @@ IF(KLU_FOUND)
    ADD_SUBDIRECTORY(sunlinsol_klu)
  ENDIF(KLU_FOUND)
@@ -324,9 +282,9 @@ diff -urpN sundials-4.0.2/src/CMakeLists.txt sundials-4.0.2_patched/src/CMakeLis
  IF(SUPERLUMT_FOUND)
    ADD_SUBDIRECTORY(sunlinsol_superlumt)
  ENDIF(SUPERLUMT_FOUND)
-diff -urpN sundials-4.0.2/src/ida/fcmix/CMakeLists.txt sundials-4.0.2_patched/src/ida/fcmix/CMakeLists.txt
---- sundials-4.0.2/src/ida/fcmix/CMakeLists.txt	2019-01-22 23:06:14.000000000 +0100
-+++ sundials-4.0.2_patched/src/ida/fcmix/CMakeLists.txt	2019-02-05 16:37:49.341299897 +0100
+diff '--exclude=.git' -urpN sundials-4.0.2/src/ida/fcmix/CMakeLists.txt sundials-4.0.2_patched/src/ida/fcmix/CMakeLists.txt
+--- sundials-4.0.2/src/ida/fcmix/CMakeLists.txt	2019-03-13 17:07:44.503571820 +0100
++++ sundials-4.0.2_patched/src/ida/fcmix/CMakeLists.txt	2019-03-13 17:32:44.345319344 +0100
 @@ -60,6 +60,12 @@ IF(KLU_FOUND)
      )
  ENDIF()
@@ -340,9 +298,9 @@ diff -urpN sundials-4.0.2/src/ida/fcmix/CMakeLists.txt sundials-4.0.2_patched/sr
  IF(SUPERLUMT_FOUND)
    LIST(APPEND sunlinsol_SOURCES
      ${sundials_SOURCE_DIR}/src/sunlinsol_superlumt/fsunlinsol_superlumt.c
-diff -urpN sundials-4.0.2/src/kinsol/fcmix/CMakeLists.txt sundials-4.0.2_patched/src/kinsol/fcmix/CMakeLists.txt
---- sundials-4.0.2/src/kinsol/fcmix/CMakeLists.txt	2019-01-22 23:06:25.000000000 +0100
-+++ sundials-4.0.2_patched/src/kinsol/fcmix/CMakeLists.txt	2019-02-05 16:37:59.693385597 +0100
+diff '--exclude=.git' -urpN sundials-4.0.2/src/kinsol/fcmix/CMakeLists.txt sundials-4.0.2_patched/src/kinsol/fcmix/CMakeLists.txt
+--- sundials-4.0.2/src/kinsol/fcmix/CMakeLists.txt	2019-03-13 17:07:44.505571822 +0100
++++ sundials-4.0.2_patched/src/kinsol/fcmix/CMakeLists.txt	2019-03-13 17:32:44.346319345 +0100
 @@ -58,6 +58,12 @@ IF(KLU_FOUND)
      )
  ENDIF()
@@ -356,9 +314,9 @@ diff -urpN sundials-4.0.2/src/kinsol/fcmix/CMakeLists.txt sundials-4.0.2_patched
  IF(SUPERLUMT_FOUND)
    LIST(APPEND sunlinsol_SOURCES
      ${sundials_SOURCE_DIR}/src/sunlinsol_superlumt/fsunlinsol_superlumt.c
-diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/CMakeLists.txt sundials-4.0.2_patched/src/sunlinsol_nicslu/CMakeLists.txt
+diff '--exclude=.git' -urpN sundials-4.0.2/src/sunlinsol_nicslu/CMakeLists.txt sundials-4.0.2_patched/src/sunlinsol_nicslu/CMakeLists.txt
 --- sundials-4.0.2/src/sunlinsol_nicslu/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
-+++ sundials-4.0.2_patched/src/sunlinsol_nicslu/CMakeLists.txt	2019-02-05 17:10:35.931580616 +0100
++++ sundials-4.0.2_patched/src/sunlinsol_nicslu/CMakeLists.txt	2019-03-13 17:32:44.346319345 +0100
 @@ -0,0 +1,92 @@
 +INSTALL(CODE "MESSAGE(\"\nInstall SUNLINSOL_NICSLU\n\")")
 +
@@ -452,9 +410,9 @@ diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/CMakeLists.txt sundials-4.0.2_pat
 +
 +#
 +MESSAGE(STATUS "Added SUNLINSOL_NICSLU module")
-diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/F90/CMakeLists.txt sundials-4.0.2_patched/src/sunlinsol_nicslu/F90/CMakeLists.txt
+diff '--exclude=.git' -urpN sundials-4.0.2/src/sunlinsol_nicslu/F90/CMakeLists.txt sundials-4.0.2_patched/src/sunlinsol_nicslu/F90/CMakeLists.txt
 --- sundials-4.0.2/src/sunlinsol_nicslu/F90/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
-+++ sundials-4.0.2_patched/src/sunlinsol_nicslu/F90/CMakeLists.txt	2019-02-05 17:10:55.212740237 +0100
++++ sundials-4.0.2_patched/src/sunlinsol_nicslu/F90/CMakeLists.txt	2019-03-13 17:32:44.346319345 +0100
 @@ -0,0 +1,23 @@
 +set(sunlinsolnicslu_SOURCES fsunlinsol_nicslu.f90)
 +
@@ -479,9 +437,9 @@ diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/F90/CMakeLists.txt sundials-4.0.2
 +endif(BUILD_SHARED_LIBS)
 +
 +message(STATUS "Added SUNLINSOL_NICSLU F2003 interface")
-diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/F90/fsunlinsol_nicslu.f90 sundials-4.0.2_patched/src/sunlinsol_nicslu/F90/fsunlinsol_nicslu.f90
+diff '--exclude=.git' -urpN sundials-4.0.2/src/sunlinsol_nicslu/F90/fsunlinsol_nicslu.f90 sundials-4.0.2_patched/src/sunlinsol_nicslu/F90/fsunlinsol_nicslu.f90
 --- sundials-4.0.2/src/sunlinsol_nicslu/F90/fsunlinsol_nicslu.f90	1970-01-01 01:00:00.000000000 +0100
-+++ sundials-4.0.2_patched/src/sunlinsol_nicslu/F90/fsunlinsol_nicslu.f90	2019-02-05 17:11:18.159930217 +0100
++++ sundials-4.0.2_patched/src/sunlinsol_nicslu/F90/fsunlinsol_nicslu.f90	2019-03-13 17:32:44.346319345 +0100
 @@ -0,0 +1,129 @@
 +! -----------------------------------------------------------------
 +! Programmer(s): Cody J. Balos @ LLNL
@@ -612,9 +570,9 @@ diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/F90/fsunlinsol_nicslu.f90 sundial
 +  end interface
 +
 +end module fsunlinsol_nicslu_mod
-diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/fsunlinsol_nicslu.c sundials-4.0.2_patched/src/sunlinsol_nicslu/fsunlinsol_nicslu.c
+diff '--exclude=.git' -urpN sundials-4.0.2/src/sunlinsol_nicslu/fsunlinsol_nicslu.c sundials-4.0.2_patched/src/sunlinsol_nicslu/fsunlinsol_nicslu.c
 --- sundials-4.0.2/src/sunlinsol_nicslu/fsunlinsol_nicslu.c	1970-01-01 01:00:00.000000000 +0100
-+++ sundials-4.0.2_patched/src/sunlinsol_nicslu/fsunlinsol_nicslu.c	2019-02-06 09:52:56.334026203 +0100
++++ sundials-4.0.2_patched/src/sunlinsol_nicslu/fsunlinsol_nicslu.c	2019-03-13 17:32:44.346319345 +0100
 @@ -0,0 +1,98 @@
 +/*
 + * -------------------------------------------------------------------
@@ -714,9 +672,9 @@ diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/fsunlinsol_nicslu.c sundials-4.0.
 +  *ier = 0;
 +  *ier = SUNLinSol_NICSLUSetOrdering(F2C_ARKODE_mass_sol, *ordering_choice);
 +}
-diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/fsunlinsol_nicslu.h sundials-4.0.2_patched/src/sunlinsol_nicslu/fsunlinsol_nicslu.h
+diff '--exclude=.git' -urpN sundials-4.0.2/src/sunlinsol_nicslu/fsunlinsol_nicslu.h sundials-4.0.2_patched/src/sunlinsol_nicslu/fsunlinsol_nicslu.h
 --- sundials-4.0.2/src/sunlinsol_nicslu/fsunlinsol_nicslu.h	1970-01-01 01:00:00.000000000 +0100
-+++ sundials-4.0.2_patched/src/sunlinsol_nicslu/fsunlinsol_nicslu.h	2019-02-06 09:52:37.260868305 +0100
++++ sundials-4.0.2_patched/src/sunlinsol_nicslu/fsunlinsol_nicslu.h	2019-03-13 17:32:44.346319345 +0100
 @@ -0,0 +1,73 @@
 +/*
 + * ----------------------------------------------------------------- 
@@ -791,9 +749,9 @@ diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/fsunlinsol_nicslu.h sundials-4.0.
 +#endif
 +
 +#endif
-diff -urpN sundials-4.0.2/src/sunlinsol_nicslu/sunlinsol_nicslu.c sundials-4.0.2_patched/src/sunlinsol_nicslu/sunlinsol_nicslu.c
+diff '--exclude=.git' -urpN sundials-4.0.2/src/sunlinsol_nicslu/sunlinsol_nicslu.c sundials-4.0.2_patched/src/sunlinsol_nicslu/sunlinsol_nicslu.c
 --- sundials-4.0.2/src/sunlinsol_nicslu/sunlinsol_nicslu.c	1970-01-01 01:00:00.000000000 +0100
-+++ sundials-4.0.2_patched/src/sunlinsol_nicslu/sunlinsol_nicslu.c	2019-02-19 15:43:43.847330947 +0100
++++ sundials-4.0.2_patched/src/sunlinsol_nicslu/sunlinsol_nicslu.c	2019-03-13 17:32:44.346319345 +0100
 @@ -0,0 +1,436 @@
 +/*
 + * -------------------------------------------------------------------
