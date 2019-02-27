@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelTemplateExpansion id="modelTemplateExpansion" templateId="templateModel" staticId="staticModel" parFile="myPAR.par" parId="1">
-    <dyn:staticRef var="var" staticVar="staticVar"/>
-  </dyn:modelTemplateExpansion>
-  <dyn:connect id1="modelTemplateExpansion" var1="var1" id2="Model2" var2="var"/>
-  <dyn:connect id1="modelTemplateExpansion" var1="var2" id2="Model3" var2="var"/>
-</dyn:dynamicModelsArchitecture>
