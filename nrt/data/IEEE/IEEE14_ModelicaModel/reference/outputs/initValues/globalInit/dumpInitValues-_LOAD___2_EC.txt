@@ -9,8 +9,8 @@ LOAD_UPu_value                                    : y =          1.045 yp =     
 LOAD_terminal_i_im                                : y =      -0.139097 yp =              0
 LOAD_terminal_i_re                                : y =       0.196323 yp =              0
  ====== INIT DISCRETE VARIABLES VALUES ======
-LOAD_PLoadPu_value                                : z =          0.217
-LOAD_QLoadPu_value                                : z =          0.127
+LOAD_PRefPu_value                                 : z =          0.217
+LOAD_QRefPu_value                                 : z =          0.127
 LOAD_running_value                                : z =              1
 LOAD_switchOffSignal1_value                       : z =             -1
 LOAD_switchOffSignal2_value                       : z =             -1

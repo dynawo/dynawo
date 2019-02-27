@@ -19,14 +19,14 @@ model LoadAlphaBeta "Load with voltage dependant active and reactive power (alph
     parameter Real alpha "Active load sensitivity to voltage";
     parameter Real beta "Reactive load sensitivity to voltage";
 
-    // in order to change the load set-point, connect an event to PLoadPu or QLoadPu
-    Connectors.ZPin PLoadPu (value (start = s0Pu.re)) "Active power request";
-    Connectors.ZPin QLoadPu (value (start = s0Pu.im)) "Reactive power request";
+    // in order to change the load set-point, connect an event to PRefPu or QRefPu
+    Connectors.ZPin PRefPu (value (start = s0Pu.re)) "Active power request";
+    Connectors.ZPin QRefPu (value (start = s0Pu.im)) "Reactive power request";
 
   equation
     if (running.value) then
-      PPu = PLoadPu.value * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ alpha);
-      QPu = QLoadPu.value * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ beta);
+      PPu = PRefPu.value * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ alpha);
+      QPu = QRefPu.value * ((ComplexMath.'abs' (terminal.V) / ComplexMath.'abs' (u0Pu)) ^ beta);
     else
       terminal.i = Complex(0);
     end if;
