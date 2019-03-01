@@ -120,7 +120,7 @@ install_sundials() {
   fi
 
   cd $BUILD_DIR
-  cmake $CMAKE_OPTIONS $BUILD_DIR/$SUNDIALS_DIRECTORY
+  cmake $CMAKE_OPTIONS $BUILD_DIR/$SUNDIALS_DIRECTORY -DCMAKE_C_FLAGS_DEBUG="-g -O0"
   make -j $NB_PROCESSORS_USED && make install
   RETURN_CODE=$?
   return ${RETURN_CODE}

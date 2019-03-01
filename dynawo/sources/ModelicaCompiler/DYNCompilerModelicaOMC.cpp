@@ -417,12 +417,7 @@ bool verifySharedObject(const string& library) {
   boost::replace_all(result, "'", "\"");
   string command2 = "echo \"" + result + "\" | grep 'undefined' | c++filt | grep -v 'DYN::Timer::~Timer()' | grep -v \"DYN::Timer::Timer([^)]*)\"";
   int returnCode = system(command2.c_str());
-  bool valid;
-  if (returnCode == 0) {
-    valid = false;
-  } else {
-    valid = true;
-  }
+  bool valid = (returnCode != 0);
   return valid;
 }
 

@@ -58,10 +58,10 @@ SET(DATA_INTERFACE_INCLUDE_HEADERS
 ADD_LIBRARY(dynawo_DataInterface ${LIBRARY_TYPE} ${DATA_INTERFACE_SOURCES})
 
 TARGET_LINK_LIBRARIES(dynawo_DataInterface
-          dynawo_Common
-		      iidm
-		      iidm-ext-standbyautomaton
-          )
+                      dynawo_Common
+                      iidm
+                      iidm-ext-standbyautomaton
+                   )
 
 SET_TARGET_PROPERTIES(dynawo_DataInterface PROPERTIES VERSION ${DATA_INTERFACE_VERSION_STRING}
                                                SOVERSION ${DATA_INTERFACE_VERSION_MAJOR})

@@ -222,12 +222,17 @@ set_environment() {
 
   jenkins_mode=$(printenv | grep "JENKINS_MODE" | wc -l)
 
+  SUFFIX_CX11=""
+  if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
+    SUFFIX_CX11="-cxx11"
+  fi
+
   if [ ${jenkins_mode} -ne 0 ]; then
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
   else
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/$BRANCH_NAME/$BUILD_TYPE/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/$BRANCH_NAME/$BUILD_TYPE/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/$BRANCH_NAME/$BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/$BRANCH_NAME/$BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
   fi
 
   # External libs
@@ -239,13 +244,8 @@ set_environment() {
   export_var_env_force THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
   export_var_env THIRD_PARTY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
   export_var_env THIRD_PARTY_INSTALL_DIR=$DYNAWO_HOME/install/3rdParty/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
-  if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
-    export_var_env_force THIRD_PARTY_BUILD_DIR_VERSION=$THIRD_PARTY_BUILD_DIR/$BUILD_TYPE_THIRD_PARTY-cxx11
-    export_var_env_force THIRD_PARTY_INSTALL_DIR_VERSION=$THIRD_PARTY_INSTALL_DIR/$BUILD_TYPE_THIRD_PARTY-cxx11
-  else
-    export_var_env_force THIRD_PARTY_BUILD_DIR_VERSION=$THIRD_PARTY_BUILD_DIR/$BUILD_TYPE_THIRD_PARTY
-    export_var_env_force THIRD_PARTY_INSTALL_DIR_VERSION=$THIRD_PARTY_INSTALL_DIR/$BUILD_TYPE_THIRD_PARTY
-  fi
+  export_var_env_force THIRD_PARTY_BUILD_DIR_VERSION=$THIRD_PARTY_BUILD_DIR/$BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
+  export_var_env_force THIRD_PARTY_INSTALL_DIR_VERSION=$THIRD_PARTY_INSTALL_DIR/$BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
 
   export_var_env_force SUITESPARSE_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/suitesparse
   export_var_env_force NICSLU_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/nicslu

@@ -203,12 +203,10 @@ int main(int argc, char ** argv) {
       Trace::info("COMPILE") << DYNLog(DYDLibGenerated, solist.size()) << Trace::endline;
     } else {
       Trace::info("COMPILE") << DYNLog(InvalidSharedObjects, notValidsolist.size()) << Trace::endline;
+      string libList;
       for (vector<string >::iterator it = notValidsolist.begin(); it != notValidsolist.end(); ++it) {
         Trace::info("COMPILE") << *it << Trace::endline;
-      }
-      string libList;
-      for (std::vector<std::string>::const_iterator lib = notValidsolist.begin(); lib != notValidsolist.end(); ++lib) {
-        libList += *lib;
+        libList += *it;
       }
       throw DYNError(DYN::Error::MODELER, FileGenerationFailed, libList.c_str());
     }
@@ -259,12 +257,7 @@ bool verifySharedObject(string modelname) {
   // In case of static compilation it is expected that symbols about Timer are missing.
   string command2 = "echo \"" + result + "\"| c++filt | grep 'undefined'  | grep -v 'DYN::Timer::~Timer()' | grep -v \"DYN::Timer::Timer([^)]*)\"";
   int returnCode = system(command2.c_str());
-  bool valid;
-  if (returnCode == 0) {
-    valid = false;
-  } else {
-    valid = true;
-  }
+  bool valid = (returnCode != 0);
   return valid;
 }
 
