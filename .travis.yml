@@ -35,7 +35,6 @@ env:
     - SRC_OPENMODELICA=/opt/OpenModelica/Source"
     - NB_PROCESSORS_USED=2
     - RESULTS_SHOW="false"
-    - USE_ADEPT=YES
     - BUILD_TYPE=Debug
     - CXX11_ENABLED=YES
     - ADEPT_DOWNLOAD_URL=http://localhost:8080
@@ -45,7 +44,7 @@ env:
     - FLOT_DOWNLOAD_URL=http://localhost:8080
     - CPPLINT_DOWNLOAD_URL=http://localhost:8080
     - XERCESC_DOWNLOAD_URL=http://localhost:8080
-    - dynawo_env=$(echo -n "-e DYNAWO_HOME -e OPENMODELICA_VERSION -e INSTALL_OPENMODELICA -e SRC_OPENMODELICA -e NB_PROCESSORS_USED -e RESULTS_SHOW -e USE_ADEPT -e BUILD_TYPE -e CXX11_ENABLED")
+    - dynawo_env=$(echo -n "-e DYNAWO_HOME -e OPENMODELICA_VERSION -e INSTALL_OPENMODELICA -e SRC_OPENMODELICA -e NB_PROCESSORS_USED -e RESULTS_SHOW -e BUILD_TYPE -e CXX11_ENABLED")
     - dynawo_env_url=$(echo -n "-e ADEPT_DOWNLOAD_URL -e SUNDIALS_DOWNLOAD_URL -e SUITE_SPARSE_DOWNLOAD_URL -e JQUERY_DOWNLOAD_URL -e FLOT_DOWNLOAD_URL -e CPPLINT_DOWNLOAD_URL -e XERCESC_DOWNLOAD_URL")
     - SH="docker exec $dynawo_env $dynawo_env_url dynawo_travis_container bash -c"
 
