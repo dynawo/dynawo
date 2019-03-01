@@ -150,7 +150,7 @@ export_git_branch() {
     branch_ref=$(git rev-parse --short HEAD)
     branch_name="detached_"${branch_ref}
   fi
-  export_var_env BRANCH_NAME=${branch_name}
+  export_var_env_force BRANCH_NAME=${branch_name}
   cd $current_dir
 }
 
@@ -195,9 +195,7 @@ set_environment() {
   esac
 
   # Compiler, to have default with gcc
-  if [ -z "$COMPILER" ]; then
-    export_var_env COMPILER=GCC
-  fi
+  export_var_env COMPILER=GCC
 
   # Set path to compilers
   set_compiler
@@ -205,14 +203,14 @@ set_environment() {
   # Build_config
   export_var_env BUILD_TYPE=UNDEFINED
   export_var_env CXX11_ENABLED=UNDEFINED
-  export_var_env USE_ADEPT=UNDEFINED
+  export_var_env_force USE_ADEPT=YES
 
   export COMPILER_VERSION=$($C_COMPILER -dumpversion)
 
   # Dynawo
   export_var_env DYNAWO_HOME=UNDEFINED
   export_git_branch
-  export_var_env DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
+  export_var_env_force DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
   export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$COMPILER_NAME$COMPILER_VERSION/
 
   jenkins_mode=$(printenv | grep "JENKINS_MODE" | wc -l)
@@ -231,7 +229,7 @@ set_environment() {
   export_var_env_default GTEST_ROOT=UNDEFINED
 
   # Third parties
-  export_var_env THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
+  export_var_env_force THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
   export_var_env THIRD_PARTY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/$COMPILER_NAME$COMPILER_VERSION
   export_var_env THIRD_PARTY_INSTALL_DIR=$DYNAWO_HOME/install/3rdParty/$COMPILER_NAME$COMPILER_VERSION
   if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
@@ -268,14 +266,13 @@ set_environment() {
 
   # Miscellaneous
   export_var_env USE_XSD_VALIDATION=true
-  export_var_env DYNAWO_LOCALE=en_GB # or fr_FR
+  export_var_env DYNAWO_LOCALE=en_GB
   export_var_env BROWSER=firefox
-  export_var_env TEXT_EDITOR=vi
-  export_var_env NRT_DIR=$DYNAWO_HOME/nrt
+  export_var_env_force NRT_DIR=$DYNAWO_HOME/nrt
   export_var_env RESULTS_SHOW=true
-  export_var_env CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
-  export_var_env DYNAWO_MODEL_DOCUMENTATION_DIR=$DYNAWO_HOME/util/modelDocumentation
-  export_var_env DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin/
+  export_var_env_force CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
+  export_var_env_force DYNAWO_MODEL_DOCUMENTATION_DIR=$DYNAWO_HOME/util/modelDocumentation
+  export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin/
 
   # Only used until now by nrt
   export_var_env NB_PROCESSORS_USED=1
@@ -312,12 +309,12 @@ set_standardEnvironmentVariables() {
   fi
 
   if [ $GTEST_ROOT_DEFAULT != true ]; then
-    if (( "$(getconf LONG_BIT)" == 64 )); then
+    if [ -d "$GTEST_ROOT/lib64" ]; then
       export LD_LIBRARY_PATH=$GTEST_ROOT/lib64:$LD_LIBRARY_PATH
-    elif (( "$(getconf LONG_BIT)" == 32 )); then
+    elif [ -d "$GTEST_ROOT/lib" ]; then
       export LD_LIBRARY_PATH=$GTEST_ROOT/lib:$LD_LIBRARY_PATH
     else
-      error_exit "Not enable to find which integer size your CPU architecture have."
+      error_exit "Not enable to find GoogleTest library directory for runtime."
     fi
   fi
 
@@ -908,8 +905,8 @@ version() {
 }
 
 nrt() {
-  export_var_env NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
-  export_var_env ENV_DYNAWO=$SCRIPT
+  export_var_env_force NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
+  export_var_env_force ENV_DYNAWO=$SCRIPT
   python -u $NRT_DIR/nrt.py $@
   FAILED_CASES_NUM=$?
 
