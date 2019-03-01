@@ -254,7 +254,7 @@ ModelSwitch::defineElements(std::vector<Element>& elements, std::map<std::string
 
 NetworkComponent::StateChange_t
 ModelSwitch::evalState(const double& /*time*/) {
-  if (z_[0] != getConnectionState()) {
+  if (static_cast<State>(z_[0]) != getConnectionState()) {
     Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
     setConnectionState((State) z_[0]);
     if ((State) z_[0] == CLOSED) {
@@ -270,7 +270,7 @@ ModelSwitch::evalState(const double& /*time*/) {
 void
 ModelSwitch::open() {
   z_[0] = OPEN;
-  if (z_[0] != getConnectionState())
+  if (static_cast<State>(z_[0]) != getConnectionState())
     Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
   setConnectionState((State) z_[0]);
 }
@@ -278,7 +278,7 @@ ModelSwitch::open() {
 void
 ModelSwitch::close() {
   z_[0] = CLOSED;
-  if (z_[0] != getConnectionState())
+  if (static_cast<State>(z_[0]) != getConnectionState())
     Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
   setConnectionState((State) z_[0]);
 }

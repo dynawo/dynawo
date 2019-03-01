@@ -97,6 +97,14 @@ class __DYNAWO_CRV_EXPORT CurvesCollection {
     ~iterator();
 
     /**
+     * @brief assignment
+     * @param other : const_iterator to assign
+     *
+     * @returns Reference to this iterator
+     */
+    iterator& operator=(const iterator& other);
+
+    /**
      * @brief Prefix-increment operator
      *
      * @returns Reference to this iterator
@@ -204,6 +212,14 @@ class __DYNAWO_CRV_EXPORT CurvesCollection {
      * @brief Destructor
      */
     ~const_iterator();
+
+    /**
+     * @brief assignment
+     * @param other : const_iterator to assign
+     *
+     * @returns Reference to this const_iterator
+     */
+    const_iterator& operator=(const const_iterator& other);
 
     /**
      * @brief Prefix-increment operator

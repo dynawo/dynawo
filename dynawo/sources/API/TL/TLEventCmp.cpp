@@ -18,6 +18,7 @@
  *
  */
 
+#include "DYNCommun.h"
 #include "TLEventCmp.h"
 #include "TLEvent.h"
 
@@ -29,7 +30,7 @@ bool
 EventCmp::operator()(const shared_ptr<Event>& E1, const shared_ptr<Event>& E2) const {
   if (E1->getTime() < E2->getTime()) {
     return true;
-  } else if (E1->getTime() == E2->getTime()) {
+  } else if (DYN::doubleEquals(E1->getTime(), E2->getTime())) {
     if (E1->getModelName() < E2->getModelName()) {
       return true;
     } else if (E1->getModelName() == E2->getModelName()) {

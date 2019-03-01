@@ -23,6 +23,7 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <boost/core/noncopyable.hpp>
 
 #include "DYNSubModel.h"
 #include "DYNModelManagerCommon.h"
@@ -45,7 +46,7 @@ class ModelModelica;
 /**
  * class ModelManager
  */
-class ModelManager : public SubModel {
+class ModelManager : public SubModel, private boost::noncopyable {
  public:
   /**
    * @brief default constructor

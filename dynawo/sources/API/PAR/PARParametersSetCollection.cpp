@@ -32,6 +32,14 @@ ParametersSetCollection::parametersSet_const_iterator::parametersSet_const_itera
 
 ParametersSetCollection::parametersSet_const_iterator::~parametersSet_const_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+ParametersSetCollection::parametersSet_const_iterator&
+ParametersSetCollection::parametersSet_const_iterator::operator=(const ParametersSetCollection::parametersSet_const_iterator& other) {
+  delete impl_;
+  impl_ = new BaseIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 ParametersSetCollection::parametersSet_const_iterator&

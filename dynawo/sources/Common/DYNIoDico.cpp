@@ -162,11 +162,6 @@ IoDico::IoDico(const string& name) :
 name_(name) {
 }
 
-IoDico::IoDico(const IoDico & d) {
-  map_ = d.map_;
-  name_ = d.name_;
-}
-
 void IoDico::readFile(const string& file) {
   // Open file
   ifstream in(file.c_str());

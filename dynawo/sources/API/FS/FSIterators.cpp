@@ -43,6 +43,14 @@ model_const_iterator::model_const_iterator(const model_iterator& original) {
 
 model_const_iterator::~model_const_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+model_const_iterator&
+model_const_iterator::operator=(const model_const_iterator& other) {
+  delete impl_;
+  impl_ = new ModelConstIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 model_const_iterator&
@@ -109,6 +117,14 @@ variable_const_iterator::variable_const_iterator(const variable_iterator& origin
 
 variable_const_iterator::~variable_const_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+variable_const_iterator&
+variable_const_iterator::operator=(const variable_const_iterator& other) {
+  delete impl_;
+  impl_ = new VariableConstIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 variable_const_iterator&
@@ -171,6 +187,14 @@ model_iterator::model_iterator(const model_iterator& original) {
 
 model_iterator::~model_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+model_iterator&
+model_iterator::operator=(const model_iterator& other) {
+  delete impl_;
+  impl_ = new ModelIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 model_iterator&
@@ -238,6 +262,14 @@ variable_iterator::variable_iterator(const variable_iterator& original) {
 
 variable_iterator::~variable_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+variable_iterator&
+variable_iterator::operator=(const variable_iterator& other) {
+  delete impl_;
+  impl_ = new VariableIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 variable_iterator&

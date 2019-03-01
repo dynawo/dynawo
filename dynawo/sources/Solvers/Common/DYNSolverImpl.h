@@ -24,6 +24,7 @@
 #include <string>
 #include <map>
 #include <boost/shared_ptr.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <sundials/sundials_nvector.h>
 
 #include "DYNSolver.h"
@@ -64,7 +65,7 @@ class ParameterSolver;
  *
  * Implementation of Solver interface class
  */
-class Solver::Impl : public Solver {
+class Solver::Impl : public Solver, private boost::noncopyable {
  public:
   /**
    * @brief Constructor

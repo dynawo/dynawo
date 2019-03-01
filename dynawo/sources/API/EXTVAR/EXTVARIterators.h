@@ -62,6 +62,14 @@ class variable_iterator {
   ~variable_iterator();
 
   /**
+   * @brief assignment
+   * @param other : variable_iterator to assign
+   *
+   * @returns Reference to this variable_iterator
+   */
+  variable_iterator& operator=(const variable_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this variable_iterator
@@ -169,6 +177,14 @@ class variable_const_iterator {
    * @brief Destructor
    */
   ~variable_const_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : variable_const_iterator to assign
+   *
+   * @returns Reference to this variable_const_iterator
+   */
+  variable_const_iterator& operator=(const variable_const_iterator& other);
 
   /**
    * @brief Prefix-increment operator

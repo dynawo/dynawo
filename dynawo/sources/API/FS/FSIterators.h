@@ -87,6 +87,14 @@ class model_const_iterator {
   ~model_const_iterator();
 
   /**
+   * @brief assignment
+   * @param other : model_const_iterator to assign
+   *
+   * @returns Reference to this model_const_iterator
+   */
+  model_const_iterator& operator=(const model_const_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this model_const_iterator
@@ -194,6 +202,14 @@ class model_iterator {
    * @brief Destructor
    */
   ~model_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : model_iterator to assign
+   *
+   * @returns Reference to this model_iterator
+   */
+  model_iterator& operator=(const model_iterator& other);
 
   /**
    * @brief Prefix-increment operator
@@ -319,6 +335,14 @@ class variable_const_iterator {
   ~variable_const_iterator();
 
   /**
+   * @brief assignment
+   * @param other : variable_const_iterator to assign
+   *
+   * @returns Reference to this variable_const_iterator
+   */
+  variable_const_iterator& operator=(const variable_const_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this variable_const_iterator
@@ -426,6 +450,14 @@ class variable_iterator {
    * @brief Destructor
    */
   ~variable_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : variable_iterator to assign
+   *
+   * @returns Reference to this variable_iterator
+   */
+  variable_iterator& operator=(const variable_iterator& other);
 
   /**
    * @brief Prefix-increment operator

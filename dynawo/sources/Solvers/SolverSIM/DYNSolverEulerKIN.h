@@ -23,6 +23,7 @@
 #define SOLVERS_SOLVERSIM_DYNSOLVEREULERKIN_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <sundials/sundials_nvector.h>
 #include <sundials/sundials_sparse.h>
 #include "DYNEnumUtils.h"
@@ -37,7 +38,7 @@ class Model;
  * SolverEulerKIN is the implementation of a solver with euler method based on
  * kinsol solver.
  */
-class SolverEulerKIN {
+class SolverEulerKIN : private boost::noncopyable{
  public:
   /**
    * @brief Default constructor

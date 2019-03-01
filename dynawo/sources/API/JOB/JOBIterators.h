@@ -61,6 +61,14 @@ class job_iterator {
   ~job_iterator();
 
   /**
+   * @brief assignment
+   * @param other : job_iterator to assign
+   *
+   * @returns Reference to this job_iterator
+   */
+  job_iterator& operator=(const job_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this job_iterator
@@ -168,6 +176,14 @@ class job_const_iterator {
    * @brief Destructor
    */
   ~job_const_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : job_const_iterator to assign
+   *
+   * @returns Reference to this job_const_iterator
+   */
+  job_const_iterator& operator=(const job_const_iterator& other);
 
   /**
    * @brief Prefix-increment operator

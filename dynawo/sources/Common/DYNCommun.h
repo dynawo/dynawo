@@ -20,7 +20,10 @@
 #ifndef COMMON_DYNCOMMUN_H_
 #define COMMON_DYNCOMMUN_H_
 
+#include <string>
 #include <vector>
+#include <cmath>
+#include <limits>
 
 namespace DYN {
   /**
@@ -88,6 +91,31 @@ namespace DYN {
   }
 
   /**
+   * @brief return true if a == b
+   *
+   *
+   * @param a first double
+   * @param b second double
+   * @return return true if a == b
+   */
+  static inline bool doubleEquals(const double& a, const double& b) {
+    return std::abs(a-b) < std::numeric_limits<double>::epsilon() * std::abs(a+b) * 1000
+            || std::abs(a-b) < std::numeric_limits<double>::min();
+  }
+
+  /**
+   * @brief return true if a != b
+   *
+   *
+   * @param a first double
+   * @param b second double
+   * @return return true if a != b
+   */
+  static inline bool doubleNotEquals(const double& a, const double& b) {
+    return !doubleEquals(a, b);
+  }
+
+  /**
    * @brief convert Real (aka Dynawo boolean) to native boolean
    *
    *
@@ -95,7 +123,7 @@ namespace DYN {
    * @return the boolean value as a native boolean
    */
   static inline bool toNativeBool(const double& dynawoBool) {
-    return dynawoBool == 1.0;
+    return doubleEquals(dynawoBool, 1.0);
   }
 }  // namespace DYN
 

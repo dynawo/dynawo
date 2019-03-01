@@ -241,7 +241,7 @@ ModelShuntCompensator::isAvailable(const double& t) const {
   if (modelBus_->getVoltageLevel()->isClosestBBSSwitchedOff(modelBus_)) {
     return false;
   } else {
-    if (tLastOpening_ != VALDEF)
+    if (doubleNotEquals(tLastOpening_, VALDEF))
       return (t >= tLastOpening_ + noReclosingDelay_);
 
     return true;

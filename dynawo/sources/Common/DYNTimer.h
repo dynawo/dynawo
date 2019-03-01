@@ -25,6 +25,7 @@
 #include <vector>
 
 #include <boost/timer.hpp>
+#include <boost/core/noncopyable.hpp>
 
 namespace DYN {
 
@@ -33,7 +34,7 @@ namespace DYN {
  * @brief Timers clas description : stored all timer created during execution
  *
  */
-class Timers {
+class Timers : private boost::noncopyable {
  public:
   /**
    * @brief default constructor

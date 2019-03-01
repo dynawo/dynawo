@@ -40,6 +40,14 @@ variable_const_iterator::variable_const_iterator(const variable_iterator& origin
 
 variable_const_iterator::~variable_const_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+variable_const_iterator&
+variable_const_iterator::operator=(const variable_const_iterator& other) {
+    delete impl_;
+    impl_ = new VariablesConstIteratorImpl(*(other.impl_));
+    return *this;
 }
 
 variable_const_iterator&
@@ -98,6 +106,14 @@ variable_iterator::variable_iterator(const variable_iterator& original) {
 
 variable_iterator::~variable_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+variable_iterator&
+variable_iterator::operator=(const variable_iterator& other) {
+    delete impl_;
+    impl_ = new VariablesIteratorImpl(*(other.impl_));
+    return *this;
 }
 
 variable_iterator&

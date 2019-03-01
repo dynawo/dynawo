@@ -39,6 +39,14 @@ Curve::const_iterator::const_iterator(const Curve::const_iterator& original) {
 
 Curve::const_iterator::~const_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+Curve::const_iterator&
+Curve::const_iterator::operator=(const Curve::const_iterator& other) {
+  delete impl_;
+  impl_ = new BaseConstIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 Curve::const_iterator&

@@ -454,10 +454,10 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMCheckCriteriaAndStaticParameters
   exportStateVariables(data);
 
   ASSERT_EQ(data->checkCriteria(true), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p_pu"), 105. / SNREF);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q_pu"), 90. / SNREF);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p"), 105.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q"), 90.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p_pu"), 1.04999999999969850784);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q_pu"), 0.89999999999991364685);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p"), 104.99999999996984456629);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q"), 89.99999999999135980033);
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorIIDMCheckCriteriaAndStaticParameters) {
@@ -486,7 +486,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDMCheckCriteriaAndStaticParameters) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "p"), -105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "q"), -90.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "v_pu"), 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "angle_pu"), 0.0261799);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "angle_pu"), 0.02617993877991494148);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "uc_pu"), 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "v"), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "uc"), 150.);
@@ -544,7 +544,7 @@ TEST(DataInterfaceIIDMTest, testLccConverterIIDMCheckCriteriaAndStaticParameters
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "p"), -105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "q"), -90.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "v_pu"), 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "angle_pu"), 0.0261799);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "angle_pu"), 0.02617993877991494148);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "v"), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "angle"), 1.5);
 }
@@ -600,7 +600,7 @@ TEST(DataInterfaceIIDMTest, testLoadIIDMCheckCriteriaAndStaticParameters) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "p"), 105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "q"), 90.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "v_pu"), 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "angle_pu"), 0.0261799);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "angle_pu"), 0.02617993877991494148);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "v"), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "angle"), 1.5);
 }

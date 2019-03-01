@@ -446,7 +446,7 @@ void
 ModelMulti::copieResultZ(vector<double> & z) {
   vector<int> indicesDiff;
   for (unsigned int i = 0; i < z.size(); ++i) {
-    if (z[i] != zSave_[i]) {
+    if (doubleNotEquals(z[i], zSave_[i])) {
       indicesDiff.push_back(i);
     }
   }

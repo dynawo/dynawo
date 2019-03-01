@@ -22,6 +22,7 @@
 #define MODELER_COMMON_DYNSUBMODELFACTORY_H_
 #include <map>
 #include <string>
+#include <boost/core/noncopyable.hpp>
 namespace DYN {
 class SubModel;
 class SubModelFactories;
@@ -31,12 +32,13 @@ class SubModelFactories;
  *
  * Utility interface used to define a building class for sub models.
  */
-class SubModelFactory {
+class SubModelFactory : private boost::noncopyable {
  public:
   /**
    * @brief Constructor
    */
-  SubModelFactory() { }
+  SubModelFactory() :
+  handle_(NULL) { }
 
   /**
    * @brief Destructor

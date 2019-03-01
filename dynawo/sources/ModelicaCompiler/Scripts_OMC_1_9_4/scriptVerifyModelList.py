@@ -43,16 +43,16 @@ def main():
 
     (options, args) = parser.parse_args()
 
-    global dydFileName
-    global modelListfile
+    global dyd_file_name
+    global model_list_file
 
-    dydFileName = options.dydFileName
-    modelListfile = options.modelListfile
+    dyd_file_name = options.dydFileName
+    model_list_file = options.modelListfile
 
-    print (dydFileName, modelListfile)
+    print (dyd_file_name, model_list_file)
     if( os.path.isfile(options.modelListfile) ):
-      dyd = open(dydFileName,"w")
-      modellist = open(modelListfile,"r")
+      dyd = open(dyd_file_name,"w")
+      modellist = open(model_list_file,"r")
     else:
       print ("Error: modelListfile not valid.")
       return
@@ -69,7 +69,7 @@ def main():
     modellist.close()
     dyd.close()
 
-    print ("Verified Model List File: "+ dydFileName)
+    print ("Verified Model List File: "+ dyd_file_name)
 
 
 if __name__ == "__main__":

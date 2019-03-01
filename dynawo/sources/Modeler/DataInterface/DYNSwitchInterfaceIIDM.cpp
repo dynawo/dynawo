@@ -80,7 +80,7 @@ SwitchInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
 
 void
 SwitchInterfaceIIDM::exportStateVariablesUnitComponent() {
-  double state = getValue<int>(VAR_STATE);
+  int state = getValue<int>(VAR_STATE);
   if (state == OPEN)
     switchIIDM_.open();
   else

@@ -21,13 +21,15 @@
 #ifndef SOLVERS_SOLVERSUBMODEL_DYNSOLVERSUBMODEL_H_
 #define SOLVERS_SOLVERSUBMODEL_DYNSOLVERSUBMODEL_H_
 
+#include <boost/core/noncopyable.hpp>
+
 #include <sundials/sundials_nvector.h>
 #include <sundials/sundials_sparse.h>
 
 namespace DYN {
 class SubModel;
 
-class SolverSubModel {
+class SolverSubModel : private boost::noncopyable {
  public:
   /**
    * @brief default constructor

@@ -38,6 +38,14 @@ CurvesCollection::const_iterator::const_iterator(const CurvesCollection::iterato
 
 CurvesCollection::const_iterator::~const_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+CurvesCollection::const_iterator&
+CurvesCollection::const_iterator::operator=(const CurvesCollection::const_iterator& other) {
+  delete impl_;
+  impl_ = new BaseConstIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 CurvesCollection::const_iterator&
@@ -96,6 +104,14 @@ CurvesCollection::iterator::iterator(const CurvesCollection::iterator& original)
 
 CurvesCollection::iterator::~iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+CurvesCollection::iterator&
+CurvesCollection::iterator::operator=(const CurvesCollection::iterator& other) {
+    delete impl_;
+    impl_ = new BaseIteratorImpl(*(other.impl_));
+    return *this;
 }
 
 CurvesCollection::iterator&

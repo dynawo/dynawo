@@ -127,12 +127,6 @@ inline std::string key2Str(const int & key) {
   ::testing::FLAGS_gtest_death_test_style = "threadsafe";       \
   EXPECT_EXIT(F, ::testing::KilledBySignal(SIGABRT), ".*");      \
 
-
-/**
- * @brief epsilon used to compare double
- */
-#define EPSILON_DYNAWO 0.0001
-
 /**
  * @brief macro to test if two double are equals
  *
@@ -140,6 +134,6 @@ inline std::string key2Str(const int & key) {
  * @param B second double
  */
 #define  ASSERT_DOUBLE_EQUALS_DYNAWO(A, B) \
-  ASSERT_LT(fabs(A - B), EPSILON_DYNAWO)          \
+    ASSERT_EQ(doubleEquals(A, B), true)          \
 
 #endif  // COMMON_GTEST_DYNAWO_H_

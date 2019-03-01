@@ -312,6 +312,14 @@ class __DYNAWO_PAR_EXPORT ParametersSet : public boost::enable_shared_from_this<
     ~parameter_const_iterator();
 
     /**
+     * @brief assignment
+     * @param other : parameter_const_iterator to assign
+     *
+     * @returns Reference to this parameter_const_iterator
+     */
+    parameter_const_iterator& operator=(const parameter_const_iterator& other);
+
+    /**
      * @brief Prefix-increment operator
      *
      * @returns Reference to this parameter_const_iterator
@@ -417,6 +425,14 @@ class __DYNAWO_PAR_EXPORT ParametersSet : public boost::enable_shared_from_this<
      * @brief Destructor
      */
     ~reference_const_iterator();
+
+    /**
+     * @brief assignment
+     * @param other : reference_const_iterator to assign
+     *
+     * @returns Reference to this reference_const_iterator
+     */
+    reference_const_iterator& operator=(const reference_const_iterator& other);
 
     /**
      * @brief Prefix-increment operator

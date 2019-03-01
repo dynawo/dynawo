@@ -35,6 +35,14 @@ Timeline::event_const_iterator::event_const_iterator(const Timeline::event_const
 
 Timeline::event_const_iterator::~event_const_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+Timeline::event_const_iterator&
+Timeline::event_const_iterator::operator=(const Timeline::event_const_iterator& other) {
+  delete impl_;
+  impl_ = new BaseIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 Timeline::event_const_iterator&

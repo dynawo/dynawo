@@ -106,17 +106,17 @@ ModelVariationArea::getSize() {
 
 void
 ModelVariationArea::evalF(const double & t) {
-  if (stateVariationArea_ == 0) {  // load increase not started
+  if (static_cast<int>(stateVariationArea_) == 0) {  // load increase not started
     for (int i = 0; i < nbLoads_; ++i) {
       fLocal_[i * 2] = yLocal_[i * 2];
       fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1];
     }
-  } else if (stateVariationArea_ == 1) {  // load increase in progress
+  } else if (static_cast<int>(stateVariationArea_) == 1) {  // load increase in progress
     for (int i = 0; i < nbLoads_; ++i) {
       fLocal_[i * 2] = yLocal_[i * 2] - deltaP_ / (stopTime_ - startTime_)*(t - startTime_);
       fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_ / (stopTime_ - startTime_)*(t - startTime_);
     }
-  } else if (stateVariationArea_ == 2) {  // load increase completed
+  } else if (static_cast<int>(stateVariationArea_) == 2) {  // load increase completed
     for (int i = 0; i < nbLoads_; ++i) {
       fLocal_[i * 2] = yLocal_[i * 2] - deltaP_;
       fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_;

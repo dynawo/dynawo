@@ -21,6 +21,7 @@
 #define SOLVERS_SOLVERKINSOL_DYNSOLVERKIN_H_
 
 #include <boost/shared_ptr.hpp>
+#include <boost/core/noncopyable.hpp>
 #include <sundials/sundials_nvector.h>
 #include "DYNEnumUtils.h"
 
@@ -31,7 +32,7 @@ class Model;
  * @brief class Solver KINSOL
  * Generic class for Kinsol solver
  */
-class SolverKIN {
+class SolverKIN : private boost::noncopyable{
  public:
   /**
    * @brief default constructor
