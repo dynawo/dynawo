@@ -416,12 +416,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   string commandUndefined = "echo '" + echoString + "' | sed '1,/ldd -r/d' | c++filt | grep 'undefined' | grep -v 'DYN::Timer::~Timer()'"
           " | grep -v \"DYN::Timer::Timer([^)]*)\"";
   int returnCode = system(commandUndefined.c_str());
-  bool hasUndefinedSymbol;
-  if (returnCode == 0) {
-    hasUndefinedSymbol = true;
-  } else {
-    hasUndefinedSymbol = false;
-  }
+  bool hasUndefinedSymbol = (returnCode == 0);
 
   // testing if the lib was successfully compiled (test if it exists, and if no undefined symbol was noticed)
   if ((!exists(compileDirPath_ + "/" + libName)) || (hasUndefinedSymbol))

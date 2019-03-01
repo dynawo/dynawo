@@ -43,8 +43,8 @@ HERE=$PWD
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 BUILD_DIR=$HERE
-BUILD_TYPE=Debug
 INSTALL_DIR=$HERE/install
+export_var_env BUILD_TYPE=Debug
 export_var_env C_COMPILER=$(command -v gcc)
 export_var_env CXX_COMPILER=$(command -v g++)
 export_var_env NB_PROCESSORS_USED=1
@@ -71,10 +71,10 @@ install_suitesparse() {
     tar -xzf $SUITE_SPARSE_ARCHIVE -C $BUILD_DIR
   fi
   if [ "${BUILD_TYPE}" = "Debug" ]; then
-    CC_FLAG="-g"
-    OPTIMIZATION=""
+    export CC_FLAG="-g"
+    export OPTIMIZATION="-O0"
   else
-    CC_FLAG=""
+    export CC_FLAG=""
   fi
   if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
     cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config

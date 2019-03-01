@@ -28,7 +28,7 @@ export_var_env() {
     return
   fi
 
-  if [  "$value" = UNDEFINED ]; then
+  if [ "$value" = UNDEFINED ]; then
   	error_exit "You must define the value of $name"
   fi
   export $name="$value"
@@ -42,6 +42,7 @@ HERE=$PWD
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 BUILD_DIR=$HERE
 INSTALL_DIR=$HERE/install
+export_var_env BUILD_TYPE=Debug
 export_var_env C_COMPILER=$(command -v gcc)
 export_var_env NB_PROCESSORS_USED=1
 
@@ -67,23 +68,23 @@ install_nicslu() {
     cd $BUILD_DIR/$NICSLU_DIR
     if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
       if [ "${BUILD_TYPE}" = "Debug" ]; then
-        make -j $NB_PROCESSORS_USED shared DEBUGFLAG="-g" OPTIMIZATION="" || error_exit "Error while building Nicslu"
+        make -j $NB_PROCESSORS_USED shared DEBUGFLAG="-g" OPTIMIZATION="-O0" || error_exit "Error while building Nicslu"
       else
         make -j $NB_PROCESSORS_USED shared || error_exit "Error while building Nicslu"
       fi
-      cp -R include $INSTALL_DIR || error_exit "Error while building Nicslu"
-      cp util/nicslu_util.h $INSTALL_DIR/include || error_exit "Error while building Nicslu"
       cp lib/*.so $INSTALL_DIR/lib && cp util/*.so $INSTALL_DIR/lib || error_exit "Error while building Nicslu"
-    else
+    elif [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
       if [ "${BUILD_TYPE}" = "Debug" ]; then
-        make -j $NB_PROCESSORS_USED static DEBUGFLAG="-g" OPTIMIZATION="" || error_exit "Error while building Nicslu"
+        make -j $NB_PROCESSORS_USED static DEBUGFLAG="-g" OPTIMIZATION="-O0" || error_exit "Error while building Nicslu"
       else
         make -j $NB_PROCESSORS_USED static || error_exit "Error while building Nicslu"
       fi
-      cp -R include $INSTALL_DIR || error_exit "Error while building Nicslu"
-      cp util/nicslu_util.h $INSTALL_DIR/include || error_exit "Error while building Nicslu"
       cp lib/*.a $INSTALL_DIR/lib && cp util/*.a $INSTALL_DIR/lib || error_exit "Error while building Nicslu"
+    else
+      error_exit "Error while building Nicslu BUILD_TYPE is invalid"
     fi
+    cp -R include $INSTALL_DIR || error_exit "Error while building Nicslu"
+    cp util/nicslu_util.h $INSTALL_DIR/include || error_exit "Error while building Nicslu"
   else
     echo ""
     echo "You can download Nicslu from http://nicslu.weebly.com/ and copy/paste the zip obtained in $(pwd)."

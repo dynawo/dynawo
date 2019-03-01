@@ -93,7 +93,7 @@ install_adept() {
   if [ "${BUILD_TYPE}" = "Release" ]; then
     ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -O3" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
   else
-    ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -g" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
+    ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -g -O0" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
   fi
   make -j $NB_PROCESSORS_USED && make install
   RETURN_CODE=$?

@@ -88,7 +88,7 @@ install_xercesc() {
       CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
     fi
   fi
-  make -j $NB_PROCESSORS_USED && make install
+  make -j $NB_PROCESSORS_USED V=1 && make install
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
