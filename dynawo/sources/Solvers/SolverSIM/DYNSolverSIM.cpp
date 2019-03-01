@@ -233,7 +233,7 @@ void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound) {
        *   => In case we use the recalculateStep strategy, timeline events must be deleted.
       */
       case NON_CONV: {
-        if (h_ == hMin_) {
+        if (doubleEquals(h_, hMin_)) {
           throw DYNError(Error::SOLVER_ALGO, SolverSIMConvFailMin);   // Divergence or unstable root at minimum step length, fail to resolve problem
         }
         countRestart_ = 0;
@@ -258,7 +258,7 @@ void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound) {
        *  => The LU decomposition is forced for the next time step.
        */
       case ROOT_INSTAB: {
-        if (h_ == hMin_) {
+        if (doubleEquals(h_, hMin_)) {
           throw DYNError(Error::SOLVER_ALGO, SolverSIMConvFailMin);   // Divergence or unstable root at minimum step length, fail to resolve problem
         }
         countRestart_ = 0;
@@ -428,7 +428,7 @@ SolverSIM::callSolverEulerKIN() {
 
 void
 SolverSIM::updateStepConvergence() {
-  if (h_ != hMax_) {
+  if (doubleNotEquals(h_, hMax_)) {
     if (nNewt_ > nEff_ - nDeadband_ && nNewt_ < nEff_ + nDeadband_) {
       hNew_ = h_;
     } else {

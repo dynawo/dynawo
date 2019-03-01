@@ -45,8 +45,8 @@ def main():
     preassembled_model_root = lxml.etree.parse(preassembled_model_file).getroot()
 
     preassembled_model_id = ""
-    for modelicaModel in preassembled_model_root.iter(namespace("modelicaModel")):
-        preassembled_model_id = modelicaModel.get("id")
+    for modelica_model in preassembled_model_root.iter(namespace("modelicaModel")):
+        preassembled_model_id = modelica_model.get("id")
 
     list_words=preassembled_model_file.split("/")
     name_file = list_words[len(list_words)-1]

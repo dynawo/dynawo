@@ -22,15 +22,15 @@ options = {}
 options[('-m', '--model')] = {'dest': 'modName',
                                'help': 'Designate the model name'}
 
-def existFile(fileName):
-    if not os.path.isfile(fileName) :
-        print ("Error : %s does not exist" % fileName)
+def existFile(file_name):
+    if not os.path.isfile(file_name) :
+        print ("Error : %s does not exist" % file_name)
         sys.exit(1)
 
 def getCheckSum(path):
     md5sum_pipe = Popen(["md5sum",path],stdout = PIPE)
-    checkSum = md5sum_pipe.communicate()[0].split()[0]
-    return checkSum
+    check_sum = md5sum_pipe.communicate()[0].split()[0]
+    return check_sum
 
 if __name__ =='__main__':
     modName=""
@@ -45,20 +45,20 @@ if __name__ =='__main__':
 
     modName = options.modName
 
-    fileName_cpp = str(modName)+'.cpp'
-    fileName_h = str(modName)+'.h'
-    fileName_hpp_in = str(modName)+'.hpp.in'
-    fileName_hpp = str(modName)+'.hpp'
+    file_name_cpp = str(modName)+'.cpp'
+    file_name_h = str(modName)+'.h'
+    file_name_hpp_in = str(modName)+'.hpp.in'
+    file_name_hpp = str(modName)+'.hpp'
 
     # Test if original files exist
-    existFile(fileName_cpp)
-    existFile(fileName_h)
-    existFile(fileName_hpp_in)
+    existFile(file_name_cpp)
+    existFile(file_name_h)
+    existFile(file_name_hpp_in)
 
     # create absolute path
-    path_cpp = os.path.abspath(fileName_cpp)
-    path_h =  os.path.abspath(fileName_h)
-    path_hpp_in = os.path.abspath(fileName_hpp_in)
+    path_cpp = os.path.abspath(file_name_cpp)
+    path_h =  os.path.abspath(file_name_h)
+    path_hpp_in = os.path.abspath(file_name_hpp_in)
     path_hpp = path_hpp_in.replace('.hpp.in','.hpp')
 
     # create checkSum wich is the combination of cpp file's checkSum and h file's checkSum
@@ -80,7 +80,7 @@ if __name__ =='__main__':
     f.close()
 
     if not found:
-        print ("Error : %s is not well-formatted, '_CHECKSUM_' is not in file" % fileName_hpp_in)
+        print ("Error : %s is not well-formatted, '_CHECKSUM_' is not in file" % file_name_hpp_in)
         sys.exit(1)
 
     # write new file

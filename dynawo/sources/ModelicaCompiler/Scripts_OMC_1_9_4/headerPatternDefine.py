@@ -22,7 +22,7 @@
 class headerPatternDefine:
     ##
     # default constructor
-    def __init__(self, additionalHeaderFiles):
+    def __init__(self, additional_header_files):
         ## pattern to use when creating the header file of the model
         self.patternDyn_="""
 #ifndef __fill_model_name____Dyn_h
@@ -41,7 +41,7 @@ class headerPatternDefine:
 #include "adept.h"
 #endif\n"""
 
-        for file in additionalHeaderFiles:
+        for file in additional_header_files:
             self.patternDyn_+="#include \""+ file + "\"\n"
     
         self.patternDyn_+="\n"

@@ -25,17 +25,6 @@ using std::map;
 
 namespace DYN {
 
-Derivatives::Derivatives() :
-values_() {
-}
-
-Derivatives::~Derivatives() {
-}
-
-Derivatives::Derivatives(const Derivatives& src) :
-values_(src.values_) {
-}
-
 void
 Derivatives::reset() {
   values_.clear();
@@ -44,20 +33,6 @@ Derivatives::reset() {
 void
 Derivatives::addValue(const int& numVar, const double& value) {
   values_[numVar] += value;
-}
-
-BusDerivatives::BusDerivatives() :
-irDerivatives_(),
-iiDerivatives_(),
-empty_(true) {
-}
-
-BusDerivatives::BusDerivatives(const BusDerivatives& src) :
-irDerivatives_(src.irDerivatives_),
-iiDerivatives_(src.iiDerivatives_) {
-}
-
-BusDerivatives::~BusDerivatives() {
 }
 
 void

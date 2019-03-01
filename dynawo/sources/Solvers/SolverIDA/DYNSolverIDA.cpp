@@ -241,14 +241,14 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetStopTime");
 
   // minimum time step
-  if (minStep_ != 0.) {
+  if (doubleNotEquals(minStep_ , 0.)) {
     flag = IDASetMinStep(IDAMem_, minStep_);
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMinStep");
   }
 
   // maximum time step
-  if (maxStep_ != 0.) {
+  if (doubleNotEquals(maxStep_ , 0.)) {
     flag = IDASetMaxStep(IDAMem_, maxStep_);
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMaxStep");
@@ -260,7 +260,7 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetMaxOrd");
 
   // no initial time
-  if (initStep_ != 0) {
+  if (doubleNotEquals(initStep_, 0.)) {
     flag = IDASetInitStep(IDAMem_, initStep_);
     if (flag < 0)
       throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASetInitStep");

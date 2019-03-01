@@ -75,6 +75,14 @@ class model_iterator {
   ~model_iterator();
 
   /**
+   * @brief assignment
+   * @param other : model_iterator to assign
+   *
+   * @returns Reference to this model_iterator
+   */
+  model_iterator& operator=(const model_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this model_iterator
@@ -184,6 +192,14 @@ class model_const_iterator {
   ~model_const_iterator();
 
   /**
+   * @brief assignment
+   * @param other : model_const_iterator to assign
+   *
+   * @returns Reference to this model_const_iterator
+   */
+  model_const_iterator& operator=(const model_const_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this model_const_iterator
@@ -277,6 +293,14 @@ class connector_iterator {
    * @brief Destructor
    */
   ~connector_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : connector_iterator to assign
+   *
+   * @returns Reference to this connector_iterator
+   */
+  connector_iterator& operator=(const connector_iterator& other);
 
   /**
    * @brief Prefix-increment operator
@@ -388,6 +412,14 @@ class connector_const_iterator {
   ~connector_const_iterator();
 
   /**
+   * @brief assignment
+   * @param other : connector_const_iterator to assign
+   *
+   * @returns Reference to this connector_const_iterator
+   */
+  connector_const_iterator& operator=(const connector_const_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this connector_const_iterator
@@ -481,6 +513,14 @@ class macroConnector_iterator {
    * @brief Destructor
    */
   ~macroConnector_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : macroConnector_iterator to assign
+   *
+   * @returns Reference to this macroConnector_iterator
+   */
+  macroConnector_iterator& operator=(const macroConnector_iterator& other);
 
   /**
    * @brief Prefix-increment operator
@@ -592,6 +632,14 @@ class macroConnector_const_iterator {
   ~macroConnector_const_iterator();
 
   /**
+   * @brief assignment
+   * @param other : macroConnector_const_iterator to assign
+   *
+   * @returns Reference to this macroConnector_const_iterator
+   */
+  macroConnector_const_iterator& operator=(const macroConnector_const_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this macroConnector_const_iterator
@@ -685,6 +733,14 @@ class macroConnect_iterator {
    * @brief Destructor
    */
   ~macroConnect_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : macroConnect_iterator to assign
+   *
+   * @returns Reference to this macroConnect_iterator
+   */
+  macroConnect_iterator& operator=(const macroConnect_iterator& other);
 
   /**
    * @brief Prefix-increment operator
@@ -796,6 +852,14 @@ class macroConnect_const_iterator {
   ~macroConnect_const_iterator();
 
   /**
+   * @brief assignment
+   * @param other : macroConnect_const_iterator to assign
+   *
+   * @returns Reference to this macroConnect_const_iterator
+   */
+  macroConnect_const_iterator& operator=(const macroConnect_const_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this macroConnect_const_iterator
@@ -903,6 +967,14 @@ class staticRef_iterator {
    * @brief Destructor
    */
   ~staticRef_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : staticRef_iterator to assign
+   *
+   * @returns Reference to this staticRef_iterator
+   */
+  staticRef_iterator& operator=(const staticRef_iterator& other);
 
   /**
    * @brief Prefix-increment operator
@@ -1028,6 +1100,14 @@ class staticRef_const_iterator {
   virtual ~staticRef_const_iterator();
 
   /**
+   * @brief assignment
+   * @param other : staticRef_iterator to assign
+   *
+   * @returns Reference to this staticRef_iterator
+   */
+  staticRef_const_iterator& operator=(const staticRef_const_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this staticRef_const_iterator
@@ -1121,6 +1201,14 @@ class macroStaticRef_iterator {
    * @brief Destructor
    */
   ~macroStaticRef_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : macroStaticRef_iterator to assign
+   *
+   * @returns Reference to this macroStaticRef_iterator
+   */
+  macroStaticRef_iterator& operator=(const macroStaticRef_iterator& other);
 
   /**
    * @brief Prefix-increment operator
@@ -1232,6 +1320,14 @@ class macroStaticRef_const_iterator {
   ~macroStaticRef_const_iterator();
 
   /**
+   * @brief assignment
+   * @param other : macroStaticRef_const_iterator to assign
+   *
+   * @returns Reference to this macroStaticRef_const_iterator
+   */
+  macroStaticRef_const_iterator& operator=(const macroStaticRef_const_iterator& other);
+
+  /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this macroStaticRef_const_iterator
@@ -1325,6 +1421,14 @@ class macroStaticReference_iterator {
    * @brief Destructor
    */
   ~macroStaticReference_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : macroStaticReference_iterator to assign
+   *
+   * @returns Reference to this macroStaticReference_iterator
+   */
+  macroStaticReference_iterator& operator=(const macroStaticReference_iterator& other);
 
   /**
    * @brief Prefix-increment operator
@@ -1434,6 +1538,14 @@ class macroStaticReference_const_iterator {
    * @brief Destructor
    */
   ~macroStaticReference_const_iterator();
+
+  /**
+   * @brief assignment
+   * @param other : macroStaticReference_const_iterator to assign
+   *
+   * @returns Reference to this macroStaticReference_const_iterator
+   */
+  macroStaticReference_const_iterator& operator=(const macroStaticReference_const_iterator& other);
 
   /**
    * @brief Prefix-increment operator

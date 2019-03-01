@@ -21,110 +21,110 @@ from xml.dom.minidom import parse
 ##
 # Copy file to tmp file
 def defaultPreCompil():
-    name = os.path.basename(fileName).replace('.mo', '-tmp.mo')
-    dirname = os.path.dirname(fileName)
-    fichierTmpName = ""
+    name = os.path.basename(file_name).replace('.mo', '-tmp.mo')
+    dirname = os.path.dirname(file_name)
+    tmp_file_name = ""
     if( dirname != ""):
-        fichierTmpName = os.path.join (dirname, name)
+        tmp_file_name = os.path.join (dirname, name)
     else:
-        fichierTmpName = name
-    shutil.copy (fileName, fichierTmpName)
+        tmp_file_name = name
+    shutil.copy (file_name, tmp_file_name)
 
 
 ##
 # Extract external variables from an external variables file
 # (for fictitious equations)
-def listExternalVariables (externalVariablesFilePath):
-    if (not os.path.isfile (externalVariablesFilePath)):
+def listExternalVariables (external_variables_file_path):
+    if (not os.path.isfile (external_variables_file_path)):
         print("Failed to extract external variables : missing file")
         sys.exit(1)
 
-    listeVarExtContinuous = []
-    listeVarExtDiscrete = []
-    listeVarOptionalExtContinuous = []
+    liste_var_ext_continuous = []
+    liste_var_ext_discrete = []
+    liste_var_optional_ext_continuous = []
 
-    doc = parse (externalVariablesFilePath)
+    doc = parse (external_variables_file_path)
     for node in doc.getElementsByTagName("external_variables"):
         for variable in node.getElementsByTagName("variable"):
-            defaultValue = "0"
+            default_value = "0"
             size = 1
             optional = False
             if ( variable.hasAttribute("defaultValue") ):
-                defaultValue = variable.getAttribute("defaultValue")
+                default_value = variable.getAttribute("defaultValue")
             if ( variable.hasAttribute("size") ):
                 size = int(variable.getAttribute("size"))
             if ( variable.hasAttribute("optional") ):
                 optional = (variable.getAttribute("optional") == "true")
 
             if (variable.getAttribute("type") == "continuous"):
-                listeVarExtContinuous.append((variable.getAttribute("id"), defaultValue))
+                liste_var_ext_continuous.append((variable.getAttribute("id"), default_value))
             elif (variable.getAttribute("type") == "discrete"):
-                listeVarExtDiscrete.append((variable.getAttribute("id"), defaultValue))
+                liste_var_ext_discrete.append((variable.getAttribute("id"), default_value))
             elif (variable.getAttribute("type") == "continuousArray"):
               for i in range(1,size+1):
                 if not optional:
-                  listeVarExtContinuous.append((variable.getAttribute("id")+"["+str(i)+"]", defaultValue))
+                  liste_var_ext_continuous.append((variable.getAttribute("id")+"["+str(i)+"]", default_value))
                 else:
-                  listeVarOptionalExtContinuous.append((variable.getAttribute("id")+"["+str(i)+"]", defaultValue))
+                  liste_var_optional_ext_continuous.append((variable.getAttribute("id")+"["+str(i)+"]", default_value))
             elif (variable.getAttribute("type") == "discreteArray"):
               for i in range(1,size+1):
-                listeVarExtDiscrete.append((variable.getAttribute("id")+"["+str(i)+"]", defaultValue))
+                liste_var_ext_discrete.append((variable.getAttribute("id")+"["+str(i)+"]", default_value))
 
-    return (listeVarExtContinuous, listeVarOptionalExtContinuous, listeVarExtDiscrete)
+    return (liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete)
 
 ##
 # Add fictious equation read in xml file
 def preCompil():
 
-    listeVarExtContinuous, listeVarOptionalExtContinuous, listeVarExtDiscrete = listExternalVariables (fileVarExtName)
+    liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete = listExternalVariables (file_var_ext_name)
 
-    nomModele = os.path.basename(fileName).replace(".mo", "")
+    model_name = os.path.basename(file_name).replace(".mo", "")
     # modification of the .mo file
-    file = open(fileName, "r")
+    file = open(file_name, "r")
     lines = file.readlines()
     file.close()
 
     for il in lines:
         line = il.rstrip('\n\r\t') # delete end of line characters
-        lineSave = ""
+        line_save = ""
 
-        if( line.find("end " + str(nomModele)) != -1):
-            lineSave = il
+        if( line.find("end " + str(model_name)) != -1):
+            line_save = il
             lines.remove(il)
 
-            for var, defaultValue in listeVarExtContinuous:
-                value = 'der(' + str(var) + ') =' + defaultValue + ';\n'
+            for var, default_value in liste_var_ext_continuous:
+                value = 'der(' + str(var) + ') =' + default_value + ';\n'
                 lines.append(value)
 
-            for var, defaultValue in listeVarOptionalExtContinuous:
-                value = 'der(' + str(var) + ') =' + defaultValue + ';\n'
+            for var, default_value in liste_var_optional_ext_continuous:
+                value = 'der(' + str(var) + ') =' + default_value + ';\n'
                 lines.append(value)
 
-            if len(listeVarExtDiscrete) > 0 :
+            if len(liste_var_ext_discrete) > 0 :
                 value = " when(time > 999999) then \n"
                 lines.append(value)
-                for (var, val) in listeVarExtDiscrete:
+                for (var, val) in liste_var_ext_discrete:
                     value = "    " + str(var) + ' = ' + val + ';\n'
                     lines.append(value)
                 value = " end when;\n"
                 lines.append(value)
 
-            lines.append(lineSave)
+            lines.append(line_save)
 
             break
 
-    name = os.path.basename(fileName).replace('.mo','-tmp.mo')
-    dirname = os.path.dirname(fileName)
-    fichierTmp = ""
-    filePath = name
+    name = os.path.basename(file_name).replace('.mo','-tmp.mo')
+    dirname = os.path.dirname(file_name)
+    tmp_file = ""
+    file_path = name
     if( dirname != ""):
-        filePath = os.path.join(dirname, name)
+        file_path = os.path.join(dirname, name)
 
-    fichierTmp = open(filePath, 'w')
+    tmp_file = open(file_path, 'w')
 
     for il in lines:
-        fichierTmp.write(il)
-    fichierTmp.close()
+        tmp_file.write(il)
+    tmp_file.close()
 
 ##
 # Script adding fictitious equations in file thanks to description made in xml file
@@ -148,13 +148,13 @@ def main():
 
     (options, args) = parser.parse_args()
 
-    global fileVarExtName
-    global fileName
+    global file_var_ext_name
+    global file_name
 
-    fileVarExtName = options.fileVarExt
-    fileName = options.file
+    file_var_ext_name = options.fileVarExt
+    file_name = options.file
 
-    if( os.path.isfile(fileVarExtName) ):
+    if( os.path.isfile(file_var_ext_name) ):
         if( options.preCompil):
             preCompil()
     else:

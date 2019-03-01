@@ -33,9 +33,6 @@ g_(g),
 b_(b) {
 }
 
-TapChangerStep::~TapChangerStep() {
-}
-
 TapChangerStep::TapChangerStep() :
 rho_(1),
 alpha_(0),
@@ -43,15 +40,6 @@ r_(0),
 x_(0),
 g_(0),
 b_(0) {
-}
-
-TapChangerStep::TapChangerStep(const TapChangerStep& source) :
-rho_(source.rho_),
-alpha_(source.alpha_),
-r_(source.r_),
-x_(source.x_),
-g_(source.g_),
-b_(source.b_) {
 }
 
 double

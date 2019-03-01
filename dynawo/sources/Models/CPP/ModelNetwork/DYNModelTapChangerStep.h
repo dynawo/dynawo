@@ -48,18 +48,6 @@ class TapChangerStep {
           const double& g, const double& b);
 
   /**
-   * @brief Copy constructor
-   *
-   * @param source instance of tap changer step to copy
-   */
-  TapChangerStep(const TapChangerStep& source);
-
-  /**
-   * @brief destructor
-   */
-  ~TapChangerStep();
-
-  /**
    * @brief Get the step conversion ratio
    * @return The conversion ratio of the step
    */

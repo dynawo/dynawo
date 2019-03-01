@@ -658,7 +658,7 @@ Simulation::init() {
   // if no dump to load t0 should be equal to zero
   // if dump loaded, t0 should be equal to the current time loaded
 
-  if (getStartTime() != t0)
+  if (doubleNotEquals(getStartTime(), t0))
     throw DYNError(Error::GENERAL, WrongStartTime, getStartTime(), t0);
 
   solver_->setTimeline(timeline_);

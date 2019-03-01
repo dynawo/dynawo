@@ -32,10 +32,10 @@ class modelWriterBase:
     ##
     # default constructor
     # @param self : object pointer
-    # @param modName : model name to use when creating file
-    def __init__(self,modName):
+    # @param mod_name : model name to use when creating file
+    def __init__(self,mod_name):
         ##  model name to use when creating file
-        self.modName = modName
+        self.modName = mod_name
         ## data to print in cpp file
         self.fileContent = []
         ## data to print in header file
@@ -67,17 +67,17 @@ class modelWriterManager(modelWriterBase):
     ##
     # default constructor
     # @param self : object pointer
-    # @param modName : name of the model
-    # @param outputDir : directory where files should be writtern
+    # @param mod_name : name of the model
+    # @param output_dir : directory where files should be writtern
     # @param init_pb : @b True if the model has an init model
-    def __init__(self,modName,outputDir,init_pb):
-        modelWriterBase.__init__(self,modName)
+    def __init__(self,mod_name,output_dir,init_pb):
+        modelWriterBase.__init__(self,mod_name)
         ## name of the model to use in files
-        self.className = modName
+        self.className = mod_name
         ## canonical name of the cpp file
-        self.fileName = os.path.join (outputDir, modName + ".cpp")
+        self.fileName = os.path.join (output_dir, mod_name + ".cpp")
         ## canonical name of the header file
-        self.fileName_h = os.path.join (outputDir, modName + ".h")
+        self.fileName_h = os.path.join (output_dir, mod_name + ".h")
         ## indicates if the model has an init model
         self.hasInitPb = init_pb
         ## body of the cpp file
@@ -193,10 +193,10 @@ namespace DYN {
                 line_tmp = line.replace("__fill_model_name__",self.modName)
                 self.fileContent_h.append(line_tmp)
             elif "__fill_has_init_model__" in line:
-                fillString = "false"
+                fill_string = "false"
                 if self.hasInitPb:
-                    fillString = "true"
-                line_tmp = line.replace("__fill_has_init_model__",fillString)
+                    fill_string = "true"
+                line_tmp = line.replace("__fill_has_init_model__",fill_string)
                 self.fileContent_h.append(line_tmp)
             else:
                 self.fileContent_h.append(line)
@@ -209,11 +209,11 @@ class modelWriter(modelWriterBase):
     ##
     # default constructor
     # @param obj_factory : builder associated to the writer
-    # @param modName : name of the model
-    # @param outputDir : output directory where files should be written
+    # @param mod_name : name of the model
+    # @param output_dir : output directory where files should be written
     # @param init_pb : indicates if the model is an init model
-    def __init__(self, obj_factory, modName, outputDir, init_pb = False):
-        modelWriterBase.__init__(self,modName)
+    def __init__(self, obj_factory, mod_name, output_dir, init_pb = False):
+        modelWriterBase.__init__(self,mod_name)
         ## builder associated to the writer
         self.builder = obj_factory
         ## indicates if the model is an init model
@@ -221,24 +221,24 @@ class modelWriter(modelWriterBase):
         ## define the name of the class to use in cpp/h files
         self.className =""
         if init_pb:
-            self.className = modName + "_Init"
+            self.className = mod_name + "_Init"
         else:
-            self.className = modName + "_Dyn"
+            self.className = mod_name + "_Dyn"
 
         ## Cpp file to generate
-        self.fileName = os.path.join(outputDir, self.className + ".cpp")
+        self.fileName = os.path.join(output_dir, self.className + ".cpp")
 
         ## header file to generate
-        self.fileName_h = os.path.join(outputDir, self.className + ".h")
+        self.fileName_h = os.path.join(output_dir, self.className + ".h")
 
         ## header file to generate
-        self.fileNameLiterals_h = os.path.join(outputDir, self.className + "_literal.h")
+        self.fileNameLiterals_h = os.path.join(output_dir, self.className + "_literal.h")
 
         ## header file to generate
-        self.fileNameDefinitions_h = os.path.join(outputDir, self.className + "_definition.h")
+        self.fileNameDefinitions_h = os.path.join(output_dir, self.className + "_definition.h")
 
         ## filename for external functions
-        self.fileName_external   = os.path.join(outputDir, self.className + "_external.cpp")
+        self.fileName_external   = os.path.join(output_dir, self.className + "_external.cpp")
 
         ## List of external functions
         self.fileContent_external=[]
@@ -668,8 +668,8 @@ class modelWriter(modelWriterBase):
     # Define the header file
     # @param self : object pointer
     # @return
-    def getHeaderPattern(self, additionalHeaderFiles):
-        headerPattern = headerPatternDefine(additionalHeaderFiles)
+    def getHeaderPattern(self, additional_header_files):
+        headerPattern = headerPatternDefine(additional_header_files)
         lines =[]
         if self.init_pb_:
             lines = headerPattern.getInit().split('\n')
@@ -698,17 +698,17 @@ class modelWriter(modelWriterBase):
     ##
     # Insert a checkSum to identify the model in header file
     # @param self : object pointer
-    # @param inputDir : input directory where the cpp file is created
+    # @param input_dir : input directory where the cpp file is created
     # @return
-    def insert_checkSum(self,inputDir):
-        fileName = os.path.join (inputDir, self.className + ".cpp")
-        md5sum_pipe = Popen(["md5sum",fileName],stdout = PIPE)
-        checkSum = md5sum_pipe.communicate()[0].split()[0]
+    def insert_checkSum(self,input_dir):
+        file_name = os.path.join (input_dir, self.className + ".cpp")
+        md5sum_pipe = Popen(["md5sum",file_name],stdout = PIPE)
+        check_sum = md5sum_pipe.communicate()[0].split()[0]
 
         content_h_tmp = []
         for n, line in enumerate(self.fileContent_h):
             if "__fill_model_checkSum__" in line:
-                line_tmp = line.replace("__fill_model_checkSum__", checkSum)
+                line_tmp = line.replace("__fill_model_checkSum__", check_sum)
                 self.fileContent_h [n] = line_tmp
 
     ##
@@ -743,16 +743,16 @@ class modelWriter(modelWriterBase):
 
         for n, line in enumerate(self.fileContent_h):
             if "__fill_internal_functions__" in line:
-                fileContent_tmp = []
+                file_content_tmp = []
                 if len(self.builder.getListFor_externalCallsHeader())> 0 :
-                    fileContent_tmp.append("   //External Calls\n")
+                    file_content_tmp.append("   //External Calls\n")
                     for line in self.builder.getListFor_externalCallsHeader():
-                        fileContent_tmp.append("     "+line)
-                    fileContent_tmp.append("\n")
+                        file_content_tmp.append("     "+line)
+                    file_content_tmp.append("\n")
                 else:
-                    fileContent_tmp.append("   // No External Calls\n")
+                    file_content_tmp.append("   // No External Calls\n")
 
-                self.fileContent_h [n : n+1] = fileContent_tmp
+                self.fileContent_h [n : n+1] = file_content_tmp
 
     ##
     # Add the definition of parameters in header file
@@ -761,20 +761,20 @@ class modelWriter(modelWriterBase):
     def addParameters(self):
         for n, line in enumerate(self.fileContent_h):
             if "__insert_params__" in line:
-                fileContent_tmp = []
-                fileContent_tmp.append("      // Non-internal parameters \n")
-                parametersReal = self.builder.getListParamsRealNotInternalFor_h()
-                parametersBool = self.builder.getListParamsBoolNotInternalFor_h()
-                parametersInt = self.builder.getListParamsIntegerNotInternalFor_h()
-                parametersString = self.builder.getListParamsStringNotInternalFor_h()
-                for par in parametersReal + parametersBool + parametersInt + parametersString:
-                    variableType = par.getValueTypeModelicaCCode()
-                    if (variableType == "string"):
-                        variableType = "std::string"
+                file_content_tmp = []
+                file_content_tmp.append("      // Non-internal parameters \n")
+                parameters_real = self.builder.getListParamsRealNotInternalFor_h()
+                parameters_bool = self.builder.getListParamsBoolNotInternalFor_h()
+                parameters_int = self.builder.getListParamsIntegerNotInternalFor_h()
+                parameters_string = self.builder.getListParamsStringNotInternalFor_h()
+                for par in parameters_real + parameters_bool + parameters_int + parameters_string:
+                    variable_type = par.getValueTypeModelicaCCode()
+                    if (variable_type == "string"):
+                        variable_type = "std::string"
 
-                    fileContent_tmp.append("      " + variableType + " " + to_compile_name(par.getName() + "_") + ";\n")
+                    file_content_tmp.append("      " + variable_type + " " + to_compile_name(par.getName() + "_") + ";\n")
 
-                self.fileContent_h [n : n+1] = fileContent_tmp
+                self.fileContent_h [n : n+1] = file_content_tmp
 
     ##
     # write the external functions file

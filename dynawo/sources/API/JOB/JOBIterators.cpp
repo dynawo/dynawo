@@ -39,6 +39,14 @@ job_const_iterator::job_const_iterator(const job_iterator& original) {
 
 job_const_iterator::~job_const_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+job_const_iterator&
+job_const_iterator::operator=(const job_const_iterator& other) {
+  delete impl_;
+  impl_ = new JobConstIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 job_const_iterator&
@@ -97,6 +105,14 @@ job_iterator::job_iterator(const job_iterator& original) {
 
 job_iterator::~job_iterator() {
   delete impl_;
+  impl_ = NULL;
+}
+
+job_iterator&
+job_iterator::operator=(const job_iterator& other) {
+  delete impl_;
+  impl_ = new JobIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 job_iterator&

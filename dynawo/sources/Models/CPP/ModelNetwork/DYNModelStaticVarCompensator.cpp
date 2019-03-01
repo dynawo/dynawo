@@ -96,7 +96,7 @@ Ti_(0.005) {
     ur0 = uBus0 / unomBus * cos(tetaBus0 * DEG_TO_RAD);
     ui0 = uBus0 / unomBus * sin(tetaBus0 * DEG_TO_RAD);
     U0 = sqrt(ur0 * ur0 + ui0 * ui0);
-    if (U0 != 0.) {
+    if (doubleNotEquals(U0, 0.)) {
       bTotal0 = -1. * Q0 / (U0 * U0);  // in order to have the same convention as a shunt : b < 0 when Q > 0 (network convention)
       ir0_ = Q0 * ui0 / (ur0 * ur0 + ui0 * ui0);
       ii0_ = - Q0 * ur0 / (ur0 * ur0 + ui0 * ui0);
@@ -472,8 +472,8 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
 
 void
 ModelStaticVarCompensator::evalG(const double& /*t*/) {
-  g_[0] = (z_[0] == 0.) ? ROOT_UP : ROOT_DOWN;
-  g_[1] = (z_[0] == 2.) ? ROOT_UP : ROOT_DOWN;
+  g_[0] = (doubleEquals(z_[0], 0.)) ? ROOT_UP : ROOT_DOWN;
+  g_[1] = (doubleEquals(z_[0], 2.)) ? ROOT_UP : ROOT_DOWN;
 
   double b = piOut();
   g_[2] = (bMin_ - b > 0.) ? ROOT_UP : ROOT_DOWN;  // B < BMin

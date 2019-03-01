@@ -42,20 +42,6 @@ class IoDico {
   explicit IoDico(const std::string& name);
 
   /**
-   * @brief destructor
-   */
-  ~IoDico() { }
-
-  /**
-   * @brief Copy constructor
-   *
-   * creates a new instance of IoDico with same attriibutes as the IoDico object given
-   *
-   * @param d IoDico to copy
-   */
-  IoDico(const IoDico& d);
-
-  /**
    * @brief returns the message description associated to the key
    *
    * @param msgId id/key of the message to return

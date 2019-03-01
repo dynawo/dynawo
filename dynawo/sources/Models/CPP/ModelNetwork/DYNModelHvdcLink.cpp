@@ -72,7 +72,7 @@ Impl(dcLine->getID()) {
     double ur01 = uNode1 / unomNode1 * cos(tetaNode1 * DEG_TO_RAD);
     double ui01 = uNode1 / unomNode1 * sin(tetaNode1 * DEG_TO_RAD);
     double U201 = ur01 * ur01 + ui01 * ui01;
-    if (U201 != 0.) {
+    if (doubleNotEquals(U201, 0.)) {
       ir01_ = (P01 * ur01 + Q01 * ui01) / U201;
       ii01_ = (P01 * ui01 - Q01 * ur01) / U201;
     }
@@ -89,7 +89,7 @@ Impl(dcLine->getID()) {
     double ur02 = uNode2 / unomNode2 * cos(tetaNode2 * DEG_TO_RAD);
     double ui02 = uNode2 / unomNode2 * sin(tetaNode2 * DEG_TO_RAD);
     double U202 = ur02 * ur02 + ui02 * ui02;
-    if (U202 != 0.) {
+    if (doubleNotEquals(U202, 0.)) {
       ir02_ = (P02 * ur02 + Q02 * ui02) / U202;
       ii02_ = (P02 * ui02 - Q02 * ur02) / U202;
     }
@@ -594,7 +594,7 @@ ModelHvdcLink::getQ2() const {
 double
 ModelHvdcLink::ir1(const double& ur1, const double& ui1, const double& U1_2) const {
   double ir = 0.;
-  if (U1_2 != 0.)
+  if (doubleNotEquals(U1_2, 0.))
     ir = (-getP1() * ur1 - getQ1() * ui1) / U1_2;
 
   return ir;
@@ -603,7 +603,7 @@ ModelHvdcLink::ir1(const double& ur1, const double& ui1, const double& U1_2) con
 double
 ModelHvdcLink::ii1(const double& ur1, const double& ui1, const double& U1_2) const {
   double ii = 0.;
-  if (U1_2 != 0.)
+  if (doubleNotEquals(U1_2, 0.))
     ii = (-getP1() * ui1 + getQ1() * ur1) / U1_2;
 
   return ii;
@@ -612,7 +612,7 @@ ModelHvdcLink::ii1(const double& ur1, const double& ui1, const double& U1_2) con
 double
 ModelHvdcLink::ir2(const double& ur2, const double& ui2, const double& U2_2) const {
   double ir = 0.;
-  if (U2_2 != 0.)
+  if (doubleNotEquals(U2_2, 0.))
     ir = (-getP2() * ur2 - getQ2() * ui2) / U2_2;
 
   return ir;
@@ -621,7 +621,7 @@ ModelHvdcLink::ir2(const double& ur2, const double& ui2, const double& U2_2) con
 double
 ModelHvdcLink::ii2(const double& ur2, const double& ui2, const double& U2_2) const {
   double ii = 0.;
-  if (U2_2 != 0.)
+  if (doubleNotEquals(U2_2, 0.))
     ii = (-getP2() * ui2 + getQ2() * ur2) / U2_2;
 
   return ii;
@@ -630,7 +630,7 @@ ModelHvdcLink::ii2(const double& ur2, const double& ui2, const double& U2_2) con
 double
 ModelHvdcLink::ir1_dUr(const double& ur1, const double& ui1, const double& U1_2) const {
   double ir_dUr = 0.;
-  if (U1_2 != 0.)
+  if (doubleNotEquals(U1_2, 0.))
     ir_dUr = (-getP1() - 2. * ur1 * (-getP1() * ur1 - getQ1() * ui1) / U1_2) / U1_2;
 
   return ir_dUr;
@@ -639,7 +639,7 @@ ModelHvdcLink::ir1_dUr(const double& ur1, const double& ui1, const double& U1_2)
 double
 ModelHvdcLink::ir1_dUi(const double& ur1, const double& ui1, const double& U1_2) const {
   double ir_dUi = 0.;
-  if (U1_2 != 0.)
+  if (doubleNotEquals(U1_2, 0.))
     ir_dUi = (-getQ1() - 2. * ui1 * (-getP1() * ur1 - getQ1() * ui1) / U1_2) / U1_2;
 
   return ir_dUi;
@@ -648,7 +648,7 @@ ModelHvdcLink::ir1_dUi(const double& ur1, const double& ui1, const double& U1_2)
 double
 ModelHvdcLink::ii1_dUr(const double& ur1, const double& ui1, const double& U1_2) const {
   double ii_dUr = 0.;
-  if (U1_2 != 0.)
+  if (doubleNotEquals(U1_2, 0.))
     ii_dUr = (getQ1() - 2. * ur1 * (-getP1() * ui1 + getQ1() * ur1) / U1_2) / U1_2;
 
   return ii_dUr;
@@ -657,7 +657,7 @@ ModelHvdcLink::ii1_dUr(const double& ur1, const double& ui1, const double& U1_2)
 double
 ModelHvdcLink::ii1_dUi(const double& ur1, const double& ui1, const double& U1_2) const {
   double ii_dUi = 0.;
-  if (U1_2 != 0.)
+  if (doubleNotEquals(U1_2, 0.))
     ii_dUi = (-getP1() - 2. * ui1 * (-getP1() * ui1 + getQ1() * ur1) / U1_2) / U1_2;
 
   return ii_dUi;
@@ -666,7 +666,7 @@ ModelHvdcLink::ii1_dUi(const double& ur1, const double& ui1, const double& U1_2)
 double
 ModelHvdcLink::ir2_dUr(const double& ur2, const double& ui2, const double& U2_2) const {
   double ir_dUr = 0.;
-  if (U2_2 != 0.)
+  if (doubleNotEquals(U2_2, 0.))
     ir_dUr = (-getP2() - 2. * ur2 * (-getP2() * ur2 - getQ2() * ui2) / U2_2) / U2_2;
 
   return ir_dUr;
@@ -675,7 +675,7 @@ ModelHvdcLink::ir2_dUr(const double& ur2, const double& ui2, const double& U2_2)
 double
 ModelHvdcLink::ir2_dUi(const double& ur2, const double& ui2, const double& U2_2) const {
   double ir_dUi = 0.;
-  if (U2_2 != 0.)
+  if (doubleNotEquals(U2_2, 0.))
     ir_dUi = (-getQ2() - 2. * ui2 * (-getP2() * ur2 - getQ2() * ui2) / U2_2) / U2_2;
 
   return ir_dUi;
@@ -684,7 +684,7 @@ ModelHvdcLink::ir2_dUi(const double& ur2, const double& ui2, const double& U2_2)
 double
 ModelHvdcLink::ii2_dUr(const double& ur2, const double& ui2, const double& U2_2) const {
   double ii_dUr = 0.;
-  if (U2_2 != 0.)
+  if (doubleNotEquals(U2_2, 0.))
     ii_dUr = (getQ2() - 2. * ur2 * (-getP2() * ui2 + getQ2() * ur2) / U2_2) / U2_2;
 
   return ii_dUr;
@@ -693,7 +693,7 @@ ModelHvdcLink::ii2_dUr(const double& ur2, const double& ui2, const double& U2_2)
 double
 ModelHvdcLink::ii2_dUi(const double& ur2, const double& ui2, const double& U2_2) const {
   double ii_dUi = 0.;
-  if (U2_2 != 0.)
+  if (doubleNotEquals(U2_2, 0.))
     ii_dUi = (-getP2() - 2. * ui2 * (-getP2() * ui2 + getQ2() * ur2) / U2_2) / U2_2;
 
   return ii_dUi;

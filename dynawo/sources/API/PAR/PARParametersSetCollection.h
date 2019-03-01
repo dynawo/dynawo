@@ -108,6 +108,14 @@ class __DYNAWO_PAR_EXPORT ParametersSetCollection {
     ~parametersSet_const_iterator();
 
     /**
+     * @brief assignment
+     * @param other : parametersSet_const_iterator to assign
+     *
+     * @returns Reference to this parametersSet_const_iterator
+     */
+    parametersSet_const_iterator& operator=(const parametersSet_const_iterator& other);
+
+    /**
      * @brief Prefix-increment operator
      *
      * @returns Reference to this parametersSet_const_iterator

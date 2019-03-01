@@ -49,29 +49,28 @@ if __name__ == '__main__':
     """
     Main program
     """
-    inputDir = ""
-    outputDir = "."
-    modName = ""
-    additionalHeaderFilesStr = ""
+    input_dir = ""
+    output_dir = "."
+    mod_name = ""
 
     opt_parser = OptionParser()
     for param, option in options.items():
         opt_parser.add_option(*param, **option)
     options, args = opt_parser.parse_args()
 
-    # Options "inputDir" and "modName" are mandatory
+    # Options "input_dir" and "mod_name" are mandatory
     if not options.inputDir:
         opt_parser.error('Input directory not given')
     if not options.modName:
         opt_parser.error('Model name not given')
 
-    inputDir = options.inputDir
-    if options.outputDir is not None: outputDir = options.outputDir
-    modName = options.modName
-    modNameInit =  modName + "_INIT"
+    input_dir = options.inputDir
+    if options.outputDir is not None: output_dir = options.outputDir
+    mod_name = options.modName
+    mod_name_init =  mod_name + "_INIT"
     init_pb = options.init_pb
-    additionalHeaderFiles = []
-    if options.additionalHeaderFilesStr is not None: additionalHeaderFiles = options.additionalHeaderFilesStr.split(" ")
+    additional_header_files = []
+    if options.additionalHeaderFilesStr is not None: additional_header_files = options.additionalHeaderFilesStr.split(" ")
 
     ###########################################
     # Readers (init pb and dynamic pb)
@@ -81,7 +80,7 @@ if __name__ == '__main__':
     reader_init = None
 
     if init_pb:
-        reader_init = readerOMC(modNameInit, inputDir, isInitPb = True)
+        reader_init = readerOMC(mod_name_init, input_dir, is_init_pb = True)
 
         #reader_init.readInfoXml() 		# Read *_info.xml
         reader_init.readInfoJson()              # Read *_info.json
@@ -98,7 +97,7 @@ if __name__ == '__main__':
         reader_init.read_literalsHFile()        # Read *_literals.h
 
     # Reader for dynamic pb
-    reader = readerOMC(modName, inputDir, isInitPb = False)
+    reader = readerOMC(mod_name, input_dir, is_init_pb = False)
 
     #reader.readInfoXml() 	       # Read *_info.xml
     reader.readInfoJson()              # Read *_info.json
@@ -158,7 +157,7 @@ if __name__ == '__main__':
     writer_init_pb = None # The file writer binds to the initialization template
 
     if init_pb:
-        writer_init_pb = modelWriter(builder_init_pb, modName, outputDir, init_pb)
+        writer_init_pb = modelWriter(builder_init_pb, mod_name, output_dir, init_pb)
 
         writer_init_pb.getHead()
         writer_init_pb.fill_initData()
@@ -192,9 +191,9 @@ if __name__ == '__main__':
         writer_init_pb.writeExternalCallsFile()
 
         # h file corresponding to INIT_CPP
-        writer_init_pb.getHeaderPattern(additionalHeaderFiles)
+        writer_init_pb.getHeaderPattern(additional_header_files)
         writer_init_pb.insert_model_name()
-        writer_init_pb.insert_checkSum(os.path.abspath(outputDir))
+        writer_init_pb.insert_checkSum(os.path.abspath(output_dir))
         writer_init_pb.addExternalCalls()
         writer_init_pb.addParameters()
         writer_init_pb.writeHeaderFile()
@@ -209,7 +208,7 @@ if __name__ == '__main__':
     # Generation of files related to the dynamic model
     # -------------------------------------------------------
 
-    writer = modelWriter(builder, modName, outputDir)
+    writer = modelWriter(builder, mod_name, output_dir)
 
     # Fichier C
     writer.getHead()
@@ -244,9 +243,9 @@ if __name__ == '__main__':
     writer.writeExternalCallsFile()
 
     # h file corresponding to the CPP
-    writer.getHeaderPattern(additionalHeaderFiles)
+    writer.getHeaderPattern(additional_header_files)
     writer.insert_model_name()
-    writer.insert_checkSum(os.path.abspath(outputDir))
+    writer.insert_checkSum(os.path.abspath(output_dir))
     writer.addExternalCalls()
     writer.addParameters()
     writer.writeHeaderFile()
@@ -261,7 +260,7 @@ if __name__ == '__main__':
     # -------------------------------------------------------
     # Generation of the files related to the complete model
     # -------------------------------------------------------
-    writer = modelWriterManager( modName, outputDir,init_pb)
+    writer = modelWriterManager( mod_name, output_dir,init_pb)
     writer.setBody()
     writer.writeFile()
 

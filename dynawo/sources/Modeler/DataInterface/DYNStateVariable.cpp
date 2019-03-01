@@ -177,7 +177,7 @@ StateVariable::isNeededForCriteriaCheck() const {
  */
 void
 StateVariable::setValue(const double& value) {
-  if (valueAffected_ && rawValue_ == value)
+  if (valueAffected_ && doubleEquals(rawValue_, value))
     return;
   valueAffected_ = true;
   rawValue_ = value;

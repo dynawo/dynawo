@@ -25,27 +25,27 @@ import itertools
 ##
 # Indicates whether is the variable a derivative variable
 #
-# @param varName : name of the variable
+# @param var_name : name of the variable
 # @return @b true if the variable is a derivative variable
-def isDer(varName):
-    ptrn_derVar = re.compile(r'der\((\S*)\)$')
-    return ptrn_derVar.search(varName) is not None
+def isDer(var_name):
+    ptrn_der_var = re.compile(r'der\((\S*)\)$')
+    return ptrn_der_var.search(var_name) is not None
 
 ##
 # Transforms the variable name to omc style variable name
 # var -> $Pvar
 # der(var) -> $P$DER$var
 #
-# @param varName : variable name to transform
+# @param var_name : variable name to transform
 # @return the variable name with omc style
-def to_omc_style(varName):
+def to_omc_style(var_name):
 
     name = ""
-    if isDer (varName):
-        ptrn_derVar = re.compile(r'der\((\S*)\)$')
-        name = ptrn_derVar.sub(r'$P$DER$P\g<1>', varName)
+    if isDer (var_name):
+        ptrn_der_var = re.compile(r'der\((\S*)\)$')
+        name = ptrn_der_var.sub(r'$P$DER$P\g<1>', var_name)
     else:
-        name = "$P%s" % varName
+        name = "$P%s" % var_name
 
     name = name.replace(".","$P")
     name = name.replace("[","$lB")
@@ -54,14 +54,14 @@ def to_omc_style(varName):
     return name
 
 ##
-# replace '.' by '_' so that varName should be correctly analyse by gcc
+# replace '.' by '_' so that var_name should be correctly analyse by gcc
 # replace ']' by '_' A[1] => A_1_
 # replace ']' by '_'
 # replace ',' by '_' A[1,1] => A_1_1_
-# @param varName : input name of the variable
+# @param var_name : input name of the variable
 # @return the variable name without '.'
-def to_compile_name(varName):
-    name = varName.replace(".","_")
+def to_compile_name(var_name):
+    name = var_name.replace(".","_")
     name = name.replace("[","_")
     name = name.replace("]","_")
     name = name.replace(",","_")
@@ -71,23 +71,23 @@ def to_compile_name(varName):
 # transforms variable name from omc style to classic style
 #
 # $Pvar -> var
-# $P$DER$PvarName -> der(varName)
+# $P$DER$Pvar_name -> der(var_name)
 #
-# @param varName : input variable name
+# @param var_name : input variable name
 # @return the variable name with classic style
-def to_classic_style(varName):
+def to_classic_style(var_name):
     # search for the derivative of variables being component of a 2D table
-    ptrnDerVar = re.compile(r'\$P\$DER\$P(?P<var>\S*)\$lB(?P<int1>\S*)\$c(?P<int2>\S*)\$rB')
-    match = re.search(ptrnDerVar, varName)
+    ptrn_der_var = re.compile(r'\$P\$DER\$P(?P<var>\S*)\$lB(?P<int1>\S*)\$c(?P<int2>\S*)\$rB')
+    match = re.search(ptrn_der_var, var_name)
     if match is not None :
-        derVar = "der("+match.group('var')
-        derVar = derVar.replace("$P",".")
-        derVar = derVar + "[" + match.group('int1') + "," + match.group('int2') + "]"+")"
-        return derVar
+        der_var = "der("+match.group('var')
+        der_var = der_var.replace("$P",".")
+        der_var = der_var + "[" + match.group('int1') + "," + match.group('int2') + "]"+")"
+        return der_var
 
     # search for variables being component of a 2D table
-    ptrnVar = re.compile(r'\$P(?P<var>\S*)\$lB(?P<int1>\S*)\$c(?P<int2>\S*)\$rB')
-    match = re.search(ptrnVar, varName)
+    ptrn_var = re.compile(r'\$P(?P<var>\S*)\$lB(?P<int1>\S*)\$c(?P<int2>\S*)\$rB')
+    match = re.search(ptrn_var, var_name)
     if match is not None :
         var = match.group('var')
         var =  var.replace("$P",".")
@@ -95,17 +95,17 @@ def to_classic_style(varName):
         return var
 
     # search for the derivative of variables being component of a vector
-    ptrnDerVar = re.compile(r'\$P\$DER\$P(?P<var>\S*)\$lB(?P<int>\S*)\$rB')
-    match = re.search(ptrnDerVar, varName)
+    ptrn_der_var = re.compile(r'\$P\$DER\$P(?P<var>\S*)\$lB(?P<int>\S*)\$rB')
+    match = re.search(ptrn_der_var, var_name)
     if match is not None :
-        derVar = "der("+match.group('var')
-        derVar = derVar.replace("$P",".")
-        derVar = derVar + "[" + match.group('int') + "]"+")"
-        return derVar
+        der_var = "der("+match.group('var')
+        der_var = der_var.replace("$P",".")
+        der_var = der_var + "[" + match.group('int') + "]"+")"
+        return der_var
 
     # search for variables being component of a vector
-    ptrnVar = re.compile(r'\$P(?P<var>\S*)\$lB(?P<int>\S*)\$rB')
-    match = re.search(ptrnVar, varName)
+    ptrn_var = re.compile(r'\$P(?P<var>\S*)\$lB(?P<int>\S*)\$rB')
+    match = re.search(ptrn_var, var_name)
     if match is not None :
         var = match.group('var')
         var =  var.replace("$P",".")
@@ -113,26 +113,26 @@ def to_classic_style(varName):
         return var
 
     # search for the derivative of variables
-    ptrnDerVar = re.compile(r'\$P\$DER\$P(?P<var>\S*)')
-    match = re.search(ptrnDerVar, varName)
+    ptrn_der_var = re.compile(r'\$P\$DER\$P(?P<var>\S*)')
+    match = re.search(ptrn_der_var, var_name)
     if match is not None :
-        derVar = "der("+match.group('var')+")"
-        derVar = derVar.replace("$P",".")
-        return derVar
+        der_var = "der("+match.group('var')+")"
+        der_var = der_var.replace("$P",".")
+        return der_var
 
     # search for variables
-    ptrnVar = re.compile(r'\$P(?P<var>\S*)')
-    match = re.search(ptrnVar, varName)
+    ptrn_var = re.compile(r'\$P(?P<var>\S*)')
+    match = re.search(ptrn_var, var_name)
     if match is not None :
         var = match.group('var')
         var =  var.replace("$P",".")
         return var
 
-    return varName
+    return var_name
 
-nbBracesOpened = 0
-stopAtNextCall = False
-crossedOpeningBraces = False
+nb_braces_opened = 0
+stop_at_next_call = False
+crossed_opening_braces = False
 
 ##
 # Count the number of opening braces in an expression
@@ -153,33 +153,33 @@ def countClosingBraces(expr):
 # @param element : current line reading
 # @return @b False if we read the body, @b True else
 def stopReadingBlock(element):
-    global nbBracesOpened
-    global stopAtNextCall
-    global crossedOpeningBraces
-    if stopAtNextCall and crossedOpeningBraces : return False
-    nbBracesOpened += countOpeningBraces(element)
-    nbBracesOpened -= countClosingBraces(element)
-    if nbBracesOpened != 0 : crossedOpeningBraces = True
-    elif crossedOpeningBraces : stopAtNextCall = True
+    global nb_braces_opened
+    global stop_at_next_call
+    global crossed_opening_braces
+    if stop_at_next_call and crossed_opening_braces : return False
+    nb_braces_opened += countOpeningBraces(element)
+    nb_braces_opened -= countClosingBraces(element)
+    if nb_braces_opened != 0 : crossed_opening_braces = True
+    elif crossed_opening_braces : stop_at_next_call = True
     return True
 
 ##
 # throws an error and exit
-# @param errorMessage : the message to display
-# @param errorCode : the error code to send back
-def errorExit(errorMessage, errorCode = 1):
-    print(errorMessage)
-    sys.exit(errorCode)
+# @param error_message : the message to display
+# @param error_code : the error code to send back
+def errorExit(error_message, error_code = 1):
+    print(error_message)
+    sys.exit(error_code)
 
 ##
 # check if the file exist
 #
-# @param fileName : name of the file to check
+# @param file_name : name of the file to check
 #
 # @throw sys.exit() if the file does not exist
-def existFile(fileName):
-    if not os.path.isfile(fileName) :
-        errorExit ("%s does not exist" % fileName)
+def existFile(file_name):
+    if not os.path.isfile(file_name) :
+        errorExit ("%s does not exist" % file_name)
 
 
 ##
@@ -245,40 +245,40 @@ def find_keys_in_map(a_map, the_value):
 ##
 # Find a division expression in a line
 # @param line line  to analize
-# @param startPos : pointer in the line where the division begins
+# @param start_pos : pointer in the line where the division begins
 # @returns : the division expression
-def getDivBlock_SIM(line, startPos):
-    nbBrackets = 1
-    endPos = len(line)
+def getDivBlock_SIM(line, start_pos):
+    nb_brackets = 1
+    end_pos = len(line)
 
-    currentPos = startPos
-    for char in line[startPos:]:
-       if char == "(" : nbBrackets += 1
-       if char == ")" : nbBrackets -= 1
-       if nbBrackets == 0:
-	    endPos = currentPos
+    current_pos = start_pos
+    for char in line[start_pos:]:
+       if char == "(" : nb_brackets += 1
+       if char == ")" : nb_brackets -= 1
+       if nb_brackets == 0:
+	    end_pos = current_pos
 	    break
-       currentPos += 1
-    return "DIVISION_SIM(" + line[startPos:endPos] + ")"
+       current_pos += 1
+    return "DIVISION_SIM(" + line[start_pos:end_pos] + ")"
 
 ##
 # Find an expression between brackets in a line
 # @param line line to analize
-# @param startPos : pointer in the line where the expression begins
+# @param start_pos : pointer in the line where the expression begins
 # @returns : the expression
-def getArgument(line, startPos):
-    nbBrackets = 0
-    endPos = len(line)
+def getArgument(line, start_pos):
+    nb_brackets = 0
+    end_pos = len(line)
 
-    currentPos = startPos
-    for char in line[startPos:]:
-       if char == "(" : nbBrackets += 1
-       if char == ")" : nbBrackets -= 1
-       if char == "," and nbBrackets == 0:
-	    endPos = currentPos
+    current_pos = start_pos
+    for char in line[start_pos:]:
+       if char == "(" : nb_brackets += 1
+       if char == ")" : nb_brackets -= 1
+       if char == "," and nb_brackets == 0:
+	    end_pos = current_pos
 	    break
-       currentPos += 1
-    return line[startPos:endPos], endPos
+       current_pos += 1
+    return line[start_pos:end_pos], end_pos
 
 
 ##
@@ -286,35 +286,35 @@ def getArgument(line, startPos):
 # @param line line to analize
 # @returns : the line with the new expression
 def replacePow(line):
-    lineToReturn = line
+    line_to_return = line
     if 'pow(' in line:
-        lineToReturn = lineToReturn.replace("pow(", "pow_dynawo(")
-    return lineToReturn
+        line_to_return = line_to_return.replace("pow(", "pow_dynawo(")
+    return line_to_return
 
 ##
 # Replace a DIVISION expression in a line by a/b
 # @param line line to analize
 # @returns : the line with the new expression
 def subDivisionSIM(line):
-    lineToReturn = line
-    ptrnDiv = re.compile(r'DIVISION_SIM\(')
-    nbIter = 0
+    line_to_return = line
+    ptrn_div = re.compile(r'DIVISION_SIM\(')
+    nb_iter = 0
     while True:
-        match = ptrnDiv.search(lineToReturn)
+        match = ptrn_div.search(line_to_return)
 	if match is None : break
         else:
-	    posStartDiv = match.end()
-	    divBlock = getDivBlock_SIM(lineToReturn, posStartDiv)
+	    pos_start_div = match.end()
+	    div_block = getDivBlock_SIM(line_to_return, pos_start_div)
 
-            arg1, endPosArg1 = getArgument(lineToReturn, posStartDiv)
-            arg2, endPosArg2 = getArgument(lineToReturn, endPosArg1 + 1)
-	    lineToReturn = lineToReturn.replace(divBlock, "("+arg1 + ") / (" + arg2+")")
+            arg1, end_pos_arg1 = getArgument(line_to_return, pos_start_div)
+            arg2, end_pos_arg2 = getArgument(line_to_return, end_pos_arg1 + 1)
+	    line_to_return = line_to_return.replace(div_block, "("+arg1 + ") / (" + arg2+")")
 
-	nbIter += 1
+	nb_iter += 1
 
-	if nbIter == 5:
+	if nb_iter == 5:
             errorExit("pb avec subDivision_SIM. " + line)
-    return lineToReturn
+    return line_to_return
 
 ##
 # Replace throwStreamPrintEquation by throwStreamPrint
@@ -325,51 +325,51 @@ def throwStreamIndexes(line):
     pattern_bis = "throwStreamPrintWithEquationIndexes(data->threadData, equationIndexes"
     pattern1 = "throwStreamPrint("
     pattern1_bis = "throwStreamPrint("
-    lineToReturn = line
+    line_to_return = line
     if pattern in line:
-        lineToReturn = line.replace(pattern,pattern1)
+        line_to_return = line.replace(pattern,pattern1)
     elif pattern_bis in line:
-        lineToReturn = line.replace(pattern_bis, pattern1_bis)
+        line_to_return = line.replace(pattern_bis, pattern1_bis)
 
-    return lineToReturn
+    return line_to_return
 
 ##
 # Replace the mmc_strings_len1 macro by the mmc_strings_len1 function
 # @param line : line where expression should be replaced
 # @returns new line expression
 def mmc_strings_len1(line):
-    ptrnMMC = re.compile(r'mmc_strings_len1\[(?P<var>\d+)\]')
+    ptrn_mmc = re.compile(r'mmc_strings_len1\[(?P<var>\d+)\]')
     pattern = "mmc_strings_len1"
-    lineToReturn = line
+    line_to_return = line
     if pattern in line:
-        match = re.search(ptrnMMC, line)
+        match = re.search(ptrn_mmc, line)
         if match is not None:
-            nbDigits = match.group('var')
-            fullWord = '(modelica_string) '+ pattern+'['+str(nbDigits)+']'
-            fullWord1 = pattern+'('+str(nbDigits)+')'
-            lineToReturn = line.replace(fullWord,fullWord1)
-    return lineToReturn
+            nb_digits = match.group('var')
+            full_word = '(modelica_string) '+ pattern+'['+str(nb_digits)+']'
+            full_word1 = pattern+'('+str(nb_digits)+')'
+            line_to_return = line.replace(full_word,full_word1)
+    return line_to_return
 
 ##
 # Replace some expressions by other expressions
-# @param txtList : whole text to analyse
+# @param txt_list : whole text to analyse
 # @returns: new text
-def makeVariousTreatments(txtList):
+def makeVariousTreatments(txt_list):
     """
        Different treatments on a list of text lines.
        See comments in the body of this function.
     """
-    txtListToReturn = txtList
+    txt_list_to_return = txt_list
 
     # Replace DIVISION(a1,a2,a3) ==> a1 / a2
     # Difficult to do this with a regex and a sub, so we use
     # the function "subDivision()"
     txt_tmp = []
-    for line in txtListToReturn:
+    for line in txt_list_to_return:
         line_tmp = subDivisionSIM(line) # Difficult to do this with a regex and a sub.
         txt_tmp.append(line_tmp)
 
-    txtListToReturn = txt_tmp
+    txt_list_to_return = txt_tmp
 
     # Sample block to process:
     # -------------------------
@@ -387,15 +387,15 @@ def makeVariousTreatments(txtList):
     # }
 
     txt_tmp = []
-    for line in txtListToReturn:
+    for line in txt_list_to_return:
         if "FILE_INFO" in line : continue
 
     # Line that does not call for processing:
 	txt_tmp.append(line)
 
-    txtListToReturn = txt_tmp
+    txt_list_to_return = txt_tmp
 
-    return txtListToReturn
+    return txt_list_to_return
 
 
 
@@ -407,8 +407,8 @@ class Transpose:
     ##
     # Default constructor
     # @param a_map : map associating var name to var value
-    # @param txtList : expressions where var name should be replaced
-    def __init__(self, a_map = None, txtList = None):
+    # @param txt_list : expressions where var name should be replaced
+    def __init__(self, a_map = None, txt_list = None):
 	## pattern to intercept var name in expression
 	self.ptrnVars = re.compile(r'\$P\$DER[\w\$]+|\$P[\w\$]+')
         ## map associating var name to var value
@@ -418,27 +418,27 @@ class Transpose:
 
         if a_map is not None:
 	    self.map = a_map
-	if txtList is not None:
-	    self.txtList = txtList
+	if txt_list is not None:
+	    self.txtList = txt_list
 
     ##
     # set the expressions where var name should be replaced
     # @param self : object pointer
-    # @param txtList : list of expressions
+    # @param txt_list : list of expressions
     # @return
-    def setTxtList(self, txtList):
-        self.txtList = txtList
+    def setTxtList(self, txt_list):
+        self.txtList = txt_list
 
     ##
     # Run through all expressions and replace all var name contains in map by var value
     # @param self: object pointer
     # @return the list of expressions with var name replaced
     def translate(self):
-        tmp_txtList = []
+        tmp_txt_list = []
         for line in self.txtList:
             line_tmp = line # Line changed by overrides
             match = self.ptrnVars.findall(line) # Is this a word that matches the regex?
-            iterMatch = self.ptrnVars.finditer (line)
+            iter_match = self.ptrnVars.finditer (line)
             line_tmp = line_tmp.replace ('$PRE$P', '@@@@@@@')
             # first the $PDER then the vars
             for name in match:
@@ -456,8 +456,8 @@ class Transpose:
                     name_ptrn = re.sub(r'\$', '\$', name) # Replace $ in "name" by \$ in "name_ptrn" for the following line suivante
                     line_tmp = re.sub(r'%s([^\w])' % name_ptrn, '%s\g<1>' % self.map[name], line_tmp)
             line_tmp = line_tmp.replace ('@@@@@@@', '$PRE$P')
-            tmp_txtList.append(line_tmp)
-	return tmp_txtList
+            tmp_txt_list.append(line_tmp)
+	return tmp_txt_list
 
 
 ##
@@ -466,20 +466,20 @@ class Transpose:
 class watcherBlock:
     ##
     # Default constructor
-    # @param listSubStr : list of string to find in a block
-    def __init__(self, listSubStr = None):
+    # @param list_sub_str : list of string to find in a block
+    def __init__(self, list_sub_str = None):
         ## list of string to find in a block
         self.listSubStr = []
 
-        if listSubStr is not None:
-	    self.listSubStr = listSubStr
+        if list_sub_str is not None:
+	    self.listSubStr = list_sub_str
     ##
     # Call method
     # @param line : line to analyse
     # @return @b False if no string in list are found in the line
     def __call__(self, line):
-        for subStr in self.listSubStr:
-	    if subStr not in line:
+        for sub_str in self.listSubStr:
+	    if sub_str not in line:
 	        return True
 	return False
 
@@ -489,73 +489,73 @@ class watcherBlock:
 class watcherIntroBlock:
     ##
     # Default constructor
-    # @param listSubStr : list of string to find in a block
-    def __init__(self, listSubStr = None):
+    # @param list_sub_str : list of string to find in a block
+    def __init__(self, list_sub_str = None):
         ## list of string to find in a block
         self.listSubStr = []
 
-        if listSubStr is not None:
-	    self.listSubStr = listSubStr
+        if list_sub_str is not None:
+	    self.listSubStr = list_sub_str
     ##
     # Call method
     # @param line : line to analyse
     # @return @b True if no string in list are found in the line
     def __call__(self, line):
-        for subStr in self.listSubStr:
-	    if subStr in line:
+        for sub_str in self.listSubStr:
+	    if sub_str in line:
 	        return False
 	return True
 
-def extractBlock(block, listSubString):
+def extractBlock(block, list_sub_string):
     """
       - Recovery of all instructions before any block (lines
-        not including any substrings of listSubString)
+        not including any substrings of list_sub_string)
       - Recovery of the interesting block: the one introduced by a line
-        with all substrings of listSubString
+        with all substrings of list_sub_string
       - post processing of the block: we delete the braces at the beginning and end of the block
     """
-    wIntroBlock = watcherIntroBlock(listSubString)
-    wBlock = watcherBlock(listSubString)
+    w_intro_block = watcherIntroBlock(list_sub_string)
+    w_block = watcherBlock(list_sub_string)
 
 
-    global nbBracesOpened
-    global crossedOpeningBraces
-    global stopAtNextCall
+    global nb_braces_opened
+    global crossed_opening_braces
+    global stop_at_next_call
 
-    nbBracesOpened = 0
-    crossedOpeningBraces = False
-    stopAtNextCall = False
+    nb_braces_opened = 0
+    crossed_opening_braces = False
+    stop_at_next_call = False
 
     # We recover the declarations of the vars used in the block: all the lines
     # before finding an "if" block
-    introBlockToCatch = []
-    introBlockToCatch.extend( list(itertools.takewhile(wIntroBlock, block)) )
+    intro_block_to_catch = []
+    intro_block_to_catch.extend( list(itertools.takewhile(w_intro_block, block)) )
     # Added spaces in front of each line
-    introBlockToCatch = ["  " + line for line in introBlockToCatch]
+    intro_block_to_catch = ["  " + line for line in intro_block_to_catch]
 
     # Then we neglect all lines until the block
-    it = itertools.dropwhile(wBlock, block)
-    nextIter = next(it, None) # Line on which "dropwhile" stopped
+    it = itertools.dropwhile(w_block, block)
+    next_iter = next(it, None) # Line on which "dropwhile" stopped
 
-    if nextIter is None: return # If we reach the end of the file, exit.
+    if next_iter is None: return # If we reach the end of the file, exit.
 
     # We recover the block
-    blockToCatch = list(itertools.takewhile(stopReadingBlock, it))
+    block_to_catch = list(itertools.takewhile(stopReadingBlock, it))
 
     # Delete lines with a single brace at the beginning and end of the block
     # ... Intercept a line containing only a brace (opening or closing) and spaces
-    ptrnOnlyOneOpeningBrace = re.compile(r'^\s*{\s*$')
-    ptrnOnlyOneClosingBrace = re.compile(r'^\s*}\s*$')
-    match1 = re.search(ptrnOnlyOneOpeningBrace, blockToCatch[0])
-    match2 = re.search(ptrnOnlyOneClosingBrace, blockToCatch[len(blockToCatch)-1])
+    ptrn_only_one_opening_brace = re.compile(r'^\s*{\s*$')
+    ptrn_only_one_closing_brace = re.compile(r'^\s*}\s*$')
+    match1 = re.search(ptrn_only_one_opening_brace, block_to_catch[0])
+    match2 = re.search(ptrn_only_one_closing_brace, block_to_catch[len(block_to_catch)-1])
     #... Delete
     if match1 is not None and match2 is not None:
-	blockToCatch.pop(0)
-	blockToCatch.pop()
+	block_to_catch.pop(0)
+	block_to_catch.pop()
 
-    blockToCatch = introBlockToCatch + blockToCatch
+    block_to_catch = intro_block_to_catch + block_to_catch
 
-    return blockToCatch
+    return block_to_catch
 
 ##
 # Analyse the number of opening/closing brackets in a expression
@@ -564,115 +564,115 @@ def extractBlock(block, listSubString):
 #  @return new expression
 def analyseBracket(word):
     ## allows you to balance the number of opening / closing parentheses
-    openBracket=len(re.findall(r'\(', word))
-    closeBracket=len(re.findall(r'\)', word))
+    open_bracket=len(re.findall(r'\(', word))
+    close_bracket=len(re.findall(r'\)', word))
 
-    if openBracket == closeBracket:
+    if open_bracket == close_bracket:
         return word
 
-    if openBracket < closeBracket:
-        nb = closeBracket - openBracket
-        newWord=""
+    if open_bracket < close_bracket:
+        nb = close_bracket - open_bracket
+        new_word=""
         for i in range(1,nb+1):
-            newWord = '(' + newWord
-        newWord += word
-        return newWord
+            new_word = '(' + new_word
+        new_word += word
+        return new_word
 
-    if closeBracket < openBracket:
-        nb = openBracket - closeBracket
-        newWord=""
+    if close_bracket < open_bracket:
+        nb = open_bracket - close_bracket
+        new_word=""
         for i in range(1,nb+1):
-            newWord = ')' + newWord
-        newWord = word + newWord
-        return newWord
+            new_word = ')' + new_word
+        new_word = word + new_word
+        return new_word
 
 ##
 # Analyse and replace ternary expression:
 # @param line : line to analyze
 # @param body : body where the new expression should be added
-# @param numTernary : num of boolean to create to replace ternary expression
-def analyseAndReplaceTernary(line,body,numTernary):
-   patternTernary = re.compile(r'.*\((?P<var>.*\?.*:.*)\).*')  #look for for ternary operator identifiable by (A ? B : C)
+# @param num_ternary : num of boolean to create to replace ternary expression
+def analyseAndReplaceTernary(line,body,num_ternary):
+   pattern_ternary = re.compile(r'.*\((?P<var>.*\?.*:.*)\).*')  #look for for ternary operator identifiable by (A ? B : C)
 
-   patternTernary1 = re.compile(r'.*\(\((?P<var>.*\)\?.*:.*)\).*') #look for for ternary operator identifiable by ((A)? B: C)
+   pattern_ternary1 = re.compile(r'.*\(\((?P<var>.*\)\?.*:.*)\).*') #look for for ternary operator identifiable by ((A)? B: C)
 
-   patternCond = re.compile(r'.*\((?P<var>.*)\?.*') #look for the condition
-   patternCond1 = re.compile(r'.*\(\((?P<var>.*)\)\?.*') #look for the condition
-   patternVar1 = re.compile(r'.*\?(?P<var1>.*):.*') #look for num 1
-   patternVar2 = re.compile(r'.*:(?P<var2>.*)\).*') #look for possibility number 2
+   pattern_cond = re.compile(r'.*\((?P<var>.*)\?.*') #look for the condition
+   pattern_cond1 = re.compile(r'.*\(\((?P<var>.*)\)\?.*') #look for the condition
+   pattern_var1 = re.compile(r'.*\?(?P<var1>.*):.*') #look for num 1
+   pattern_var2 = re.compile(r'.*:(?P<var2>.*)\).*') #look for possibility number 2
 
    ternary=""
    cond=""
    cond1=""
    var1=""
    var2=""
-   ternaryType1= False
+   ternary_type1= False
 
    if 'omc_assert_warning' in line: # ternary operator in assert, nothing to do
        body.append(line)
        return
 
    # look for ternary operator
-   matchT = re.search(patternTernary1,line)
-   if matchT is not None:
-       ternary = analyseBracket(str(matchT.group('var')))
-       ternaryType1 = True
+   match_t = re.search(pattern_ternary1,line)
+   if match_t is not None:
+       ternary = analyseBracket(str(match_t.group('var')))
+       ternary_type1 = True
    else:
-       matchT = re.search(patternTernary,line)
-       if matchT is not None:
-           ternary = analyseBracket(str(matchT.group('var')))
+       match_t = re.search(pattern_ternary,line)
+       if match_t is not None:
+           ternary = analyseBracket(str(match_t.group('var')))
 
    # look for the condition of the operator
-   if ternaryType1:
-       match = re.search(patternCond1,line)
+   if ternary_type1:
+       match = re.search(pattern_cond1,line)
        if match is not None:
            cond = analyseBracket(str(match.group('var')))
    else:
-       match = re.search(patternCond,line)
+       match = re.search(pattern_cond,line)
        if match is not None:
            cond = analyseBracket(str(match.group('var')))
 
    # look for possibility 1
-   match1 = re.search(patternVar1,line)
+   match1 = re.search(pattern_var1,line)
    if match1 is not None:
        var1 = analyseBracket(match1.group('var1'))
 
    # look for possibility 2
-   match2 = re.search(patternVar2,line)
+   match2 = re.search(pattern_var2,line)
    if match2 is not None:
        var2 = analyseBracket(match2.group('var2'))
 
-   firstWord = line.split()[0]
-   blanck = line[0 : line.find(firstWord)] # number of black lines to format
+   first_word = line.split()[0]
+   blanck = line[0 : line.find(first_word)] # number of black lines to format
 
-   body.append(blanck+"adept::adouble tmpTernary"+str(numTernary)+";\n")
+   body.append(blanck+"adept::adouble tmpTernary"+str(num_ternary)+";\n")
    body.append(blanck+"if("+cond+")\n")
    body.append(blanck+"{\n")
-   body.append(blanck+"    tmpTernary"+str(numTernary)+" = "+var1+";\n")
+   body.append(blanck+"    tmpTernary"+str(num_ternary)+" = "+var1+";\n")
    body.append(blanck+"}\n")
    body.append(blanck+"else\n")
    body.append(blanck+"{\n")
-   body.append(blanck+"    tmpTernary"+str(numTernary)+" = "+var2+";\n")
+   body.append(blanck+"    tmpTernary"+str(num_ternary)+" = "+var2+";\n")
    body.append(blanck+"}\n")
-   newLine = line.replace(ternary,"tmpTernary"+str(numTernary))
-   body.append(newLine)
+   new_line = line.replace(ternary,"tmpTernary"+str(num_ternary))
+   body.append(new_line)
 
 ##
 # Transform ternary expression in if/else expression
 # @param body : body to analyse
-# @param numTernary : num to use when creating new boolean condition
-# @return newBody without ternary expression
-def transformTernaryOperator(body,numTernary):
-    newBody = []
+# @param num_ternary : num to use when creating new boolean condition
+# @return new_body without ternary expression
+def transformTernaryOperator(body,num_ternary):
+    new_body = []
 
     for line in body:
         if line.find("?") != -1:
             # analysis of the line ....
-            analyseAndReplaceTernary(line,newBody,numTernary)
+            analyseAndReplaceTernary(line,new_body,num_ternary)
         else:
-            newBody.append(line)
+            new_body.append(line)
 
-    return newBody
+    return new_body
 
 ##
 # Transform omc_Modelica_Math_atan3 expression to atan2
@@ -703,12 +703,12 @@ def transformAtan3OperatorEvalF(line):
     return line_tmp_bis
 
 ##
-# Transform Rawbody in a list to a string, used by setGequations()
-# @param Rawbody : Rawbody in a list of string
-# @return string : string contains Rawbody
-def transformRawbodyToString(Rawbody):
+# Transform raw_body in a list to a string, used by setGequations()
+# @param raw_body : raw_body in a list of string
+# @return string : string contains raw_body
+def transformRawbodyToString(raw_body):
     string = ""
-    for item in Rawbody:
+    for item in raw_body:
         string += item.strip('\n')
     return string
 
@@ -858,8 +858,8 @@ def split_function_arguments (line, function_name):
 # @param line : the line to scan
 # @return whether TRACE_POP or TRACE_PUSH lies within the line
 def has_Omc_equationIndexes (line):
-    equationIndexesPattern = re.compile(r'const int equationIndexes.*')
-    return (re.search (equationIndexesPattern, line) is not None)
+    equation_indexes_pattern = re.compile(r'const int equationIndexes.*')
+    return (re.search (equation_indexes_pattern, line) is not None)
 
 ##
 # Check whether OpenModelica Trace (TRACE_PUSH or TRACE_POPO) is within a given line
@@ -867,9 +867,9 @@ def has_Omc_equationIndexes (line):
 # @param line : the line to scan
 # @return whether TRACE_POP or TRACE_PUSH lies within the line
 def has_Omc_trace (line):
-    pushPattern = re.compile (r'TRACE_PUSH')
-    popPattern = re.compile (r'TRACE_POP')
-    return (re.search(pushPattern, line) is not None) or (re.search(popPattern, line) is not None)
+    push_pattern = re.compile (r'TRACE_PUSH')
+    pop_pattern = re.compile (r'TRACE_POP')
+    return (re.search(push_pattern, line) is not None) or (re.search(pop_pattern, line) is not None)
 
 
 ##
@@ -877,8 +877,8 @@ def has_Omc_trace (line):
 # @param body : a body of lines
 # @return whether the body of lines is linked with a Modelica reinit
 def is_Modelica_reinit_body(body):
-    patternToLookFor = "data->simulationInfo->needToIterate = 1;"
-    return any(patternToLookFor in line for line in body)
+    pattern_to_look_for = "data->simulationInfo->needToIterate = 1;"
+    return any(pattern_to_look_for in line for line in body)
 
 
 ##
@@ -886,19 +886,19 @@ def is_Modelica_reinit_body(body):
 # @param body : a body of lines
 # @return the formatted body
 def formatFor_ModelicaReinitAffectation(body):
-    textToReturn = []
-    needToIteratePattern = "data->simulationInfo->needToIterate = 1;"
+    text_to_return = []
+    need_to_iterate_pattern = "data->simulationInfo->needToIterate = 1;"
     for line in body:
         line = mmc_strings_len1(line)
 
         if has_Omc_trace (line) or has_Omc_equationIndexes (line) \
-           or ("infoStreamPrint" in line) or (needToIteratePattern in line):
+           or ("infoStreamPrint" in line) or (need_to_iterate_pattern in line):
             continue
 
         line = subDivisionSIM(line)
 
-        textToReturn.append( line )
-    return textToReturn
+        text_to_return.append( line )
+    return text_to_return
 
 
 ##
@@ -906,12 +906,12 @@ def formatFor_ModelicaReinitAffectation(body):
 # @param body : a body of lines
 # @return the formatted body
 def formatFor_ModelicaReinitEvalMode(body):
-    textToReturn = []
+    text_to_return = []
     entered_if = False
     exited_if = False
     nb_opened_brackets = 0
-    needToIteratePattern = "data->simulationInfo->needToIterate = 1;"
-    modeChangeLine = "return true;"
+    need_to_iterate_pattern = "data->simulationInfo->needToIterate = 1;"
+    mode_change_line = "return true;"
     for line in body:
         line = mmc_strings_len1(line)
 
@@ -934,15 +934,15 @@ def formatFor_ModelicaReinitEvalMode(body):
                     if (nb_opened_brackets == 0):
                         exited_if = True
 
-                textToReturn.append (line)
+                text_to_return.append (line)
 
             elif (nb_opened_brackets > 0):
-                if (needToIteratePattern not in line):
+                if (need_to_iterate_pattern not in line):
                     continue
                 else:
-                    new_line = line.replace (needToIteratePattern, modeChangeLine)
-                    textToReturn.append (new_line)
+                    new_line = line.replace (need_to_iterate_pattern, mode_change_line)
+                    text_to_return.append (new_line)
         else:
-            textToReturn.append (line)
+            text_to_return.append (line)
 
-    return textToReturn
+    return text_to_return

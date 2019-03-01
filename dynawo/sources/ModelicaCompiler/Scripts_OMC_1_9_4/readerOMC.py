@@ -33,9 +33,9 @@ from utils import *
 # ##### Reading functions #####
 # ##################################
 
-nbBracesOpened = 0
-stopAtNextCall = False
-crossedOpeningBraces = False
+nb_braces_opened = 0
+stop_at_next_call = False
+crossed_opening_braces = False
 
 ##
 # Count the number of opening braces in an expression
@@ -56,14 +56,14 @@ def countClosingBraces(expr):
 # @param element : current line reading
 # @return @b False if we read the body, @b True else
 def stopReadingFunction(element):
-    global nbBracesOpened
-    global stopAtNextCall
-    global crossedOpeningBraces
-    if stopAtNextCall and crossedOpeningBraces : return False
-    nbBracesOpened += countOpeningBraces(element)
-    nbBracesOpened -= countClosingBraces(element)
-    if nbBracesOpened != 0 : crossedOpeningBraces = True
-    elif crossedOpeningBraces : stopAtNextCall = True
+    global nb_braces_opened
+    global stop_at_next_call
+    global crossed_opening_braces
+    if stop_at_next_call and crossed_opening_braces : return False
+    nb_braces_opened += countOpeningBraces(element)
+    nb_braces_opened -= countClosingBraces(element)
+    if nb_braces_opened != 0 : crossed_opening_braces = True
+    elif crossed_opening_braces : stop_at_next_call = True
     return True
 
 ##################################
@@ -74,72 +74,72 @@ def stopReadingFunction(element):
 class readerOMC:
     ##
     # Default contstructor
-    # @param modName : model read
-    # @param inputDir : directory where the files should be read
-    # @param isInitPb : @b True is we should read the init model
-    def __init__(self, modName, inputDir, isInitPb):
+    # @param mod_name : model read
+    # @param input_dir : directory where the files should be read
+    # @param is_init_pb : @b True is we should read the init model
+    def __init__(self, mod_name, input_dir, is_init_pb):
         ## model read
-        self.modName = modName
+        self.modName = mod_name
 
         ## directory where the files should be read
-        self.inDir = inputDir
+        self.inDir = input_dir
 
         # -------------------
         # File to read
         # -------------------
         ## Full name of the _info.xml file
-        # self.infoXmlFile = os.path.join (inputDir, self.modName + "_info.xml")
+        # self.infoXmlFile = os.path.join (input_dir, self.modName + "_info.xml")
         # existFile(self.infoXmlFile)
 
         ## Full name of the _info.json file
-        self.infoJsonFile = os.path.join (inputDir, self.modName + "_info.json")
+        self.infoJsonFile = os.path.join (input_dir, self.modName + "_info.json")
         existFile(self.infoJsonFile)
 
         ## Full name of the _init.xml file
-        self.initXmlFile = os.path.join (inputDir, self.modName + "_init.xml")
+        self.initXmlFile = os.path.join (input_dir, self.modName + "_init.xml")
         existFile(self.initXmlFile)
 
         ## Full name of the _model.h file
-        self.modelHeader = os.path.join (inputDir, self.modName + "_model.h")
+        self.modelHeader = os.path.join (input_dir, self.modName + "_model.h")
         existFile(self.modelHeader)
 
         ## Full name of the .c file
-        self.mainCfile = os.path.join (inputDir, self.modName + ".c")
+        self.mainCfile = os.path.join (input_dir, self.modName + ".c")
         existFile(self.mainCfile)
 
         ## Full name of the _02nls.c file
-        self._02nlsCfile = os.path.join (inputDir, self.modName + "_02nls.c")
+        self._02nlsCfile = os.path.join (input_dir, self.modName + "_02nls.c")
         existFile(self._02nlsCfile)
 
         ## Full name of the _03lsy.c file
-        self._03lsyCfile = os.path.join (inputDir, self.modName + "_03lsy.c")
+        self._03lsyCfile = os.path.join (input_dir, self.modName + "_03lsy.c")
         existFile(self._03lsyCfile)
 
         ## Full name of the _08bnd.c file
-        self._08bndCfile = os.path.join (inputDir, self.modName + "_08bnd.c")
+        self._08bndCfile = os.path.join (input_dir, self.modName + "_08bnd.c")
         existFile(self._08bndCfile)
 
         ## Full name of the _06inz.c file
-        self._06inzCfile = os.path.join (inputDir, self.modName + "_06inz.c")
+        self._06inzCfile = os.path.join (input_dir, self.modName + "_06inz.c")
         existFile(self._06inzCfile)
 
         ## Full name of the _05evt.c file
-        self._05evtCfile = os.path.join (inputDir, self.modName + "_05evt.c")
+        self._05evtCfile = os.path.join (input_dir, self.modName + "_05evt.c")
         existFile(self._05evtCfile)
 
         ## Full name of xml containing fictitious equations description
-        self.eqFictiveXmlFile = os.path.join (inputDir, self.modName + ".xml")
+        self.eqFictiveXmlFile = os.path.join (input_dir, self.modName + ".xml")
 
         ## Full name of the _structure.xml file
-        self.structXmlFile = os.path.join (inputDir, self.modName + "_structure.xml")
-        if not isInitPb : existFile(self.structXmlFile)
+        self.structXmlFile = os.path.join (input_dir, self.modName + "_structure.xml")
+        if not is_init_pb : existFile(self.structXmlFile)
 
         ## Full name of the _functions.h file
-        self._functionsHeader = os.path.join (inputDir, self.modName + "_functions.h")
+        self._functionsHeader = os.path.join (input_dir, self.modName + "_functions.h")
         ## Full name of the _functions.c file
-        self._functionsCfile  = os.path.join (inputDir, self.modName + "_functions.c")
+        self._functionsCfile  = os.path.join (input_dir, self.modName + "_functions.c")
         ## Full name of the _literals.h file
-        self._literalsFile = os.path.join (inputDir, self.modName + "_literals.h")
+        self._literalsFile = os.path.join (input_dir, self.modName + "_literals.h")
 
         # ---------------------------------------
         # Attribute for reading *_info.json file
@@ -200,7 +200,7 @@ class readerOMC:
         # Attribute for reading main c file
         # ---------------------------------------
         ## Root name for functions to extract
-        self.functionsRootName = modName + "_eqFunction_"
+        self.functionsRootName = mod_name + "_eqFunction_"
 
         ## Pattern to find function definition and retrieve num of the function
         self.ptrnFuncDeclMainC = re.compile(r'%s[ ]+%s(?P<num>\d+)\(.*\)[^;]$' % ("void", self.functionsRootName))
@@ -315,27 +315,27 @@ class readerOMC:
     ##
     # Read a function in a file and try to identify a function thanks to a pattern
     # @param self : object pointer
-    # @param fileToRead : file to read
-    # @param ptrnFuncToRead : pattern to use to identify a function
-    # @param funcName : name to use when creating the raw function
+    # @param file_to_read : file to read
+    # @param ptrn_func_to_read : pattern to use to identify a function
+    # @param func_name : name to use when creating the raw function
     #
     # @return the new raw function
-    def readFunction(self, fileToRead, ptrnFuncToRead, funcName):
-        global nbBracesOpened
-        global crossedOpeningBraces
-        global stopAtNextCall
+    def readFunction(self, file_to_read, ptrn_func_to_read, func_name):
+        global nb_braces_opened
+        global crossed_opening_braces
+        global stop_at_next_call
 
-        with open(fileToRead, 'r') as f:
-            nbBracesOpened = 0
-            crossedOpeningBraces = False
-            stopAtNextCall = False
+        with open(file_to_read, 'r') as f:
+            nb_braces_opened = 0
+            crossed_opening_braces = False
+            stop_at_next_call = False
 
-            it = itertools.dropwhile(lambda line: ptrnFuncToRead.search(line) is None, f)
-            nextIter = next(it, None) # Line on which "dropwhile" stopped
-            if nextIter is None: return None # If we reach the end of the file, exit
+            it = itertools.dropwhile(lambda line: ptrn_func_to_read.search(line) is None, f)
+            next_iter = next(it, None) # Line on which "dropwhile" stopped
+            if next_iter is None: return None # If we reach the end of the file, exit
 
             func = RawFunc()
-            func.setName(funcName)
+            func.setName(func_name)
 
             # "takewhile" only stops when the whole body of the function is read
             func.setBody( list(itertools.takewhile(stopReadingFunction, it)) )
@@ -345,39 +345,39 @@ class readerOMC:
     ##
     # Read several functions in a file and try to identify them thanks to a pattern
     # @param self: object pointer
-    # @param fileToRead : file to read
-    # @param ptrnFuncToRead : pattern to use to identify a function
-    # @param funcRootName : root name function to use when creating the raw function
+    # @param file_to_read : file to read
+    # @param ptrn_func_to_read : pattern to use to identify a function
+    # @param func_root_name : root name function to use when creating the raw function
     #
     # @return: a list of raw functions identified in the file
-    def readFunctions(self, fileToRead, ptrnFuncToRead, funcRootName):
-        global nbBracesOpened
-        global crossedOpeningBraces
-        global stopAtNextCall
+    def readFunctions(self, file_to_read, ptrn_func_to_read, func_root_name):
+        global nb_braces_opened
+        global crossed_opening_braces
+        global stop_at_next_call
 
-        listRawFunc = []
+        list_raw_func = []
 
-        with open(fileToRead, 'r') as f:
+        with open(file_to_read, 'r') as f:
             while True:
-                nbBracesOpened = 0
-                crossedOpeningBraces = False
-                stopAtNextCall = False
+                nb_braces_opened = 0
+                crossed_opening_braces = False
+                stop_at_next_call = False
 
-                it = itertools.dropwhile(lambda line: ptrnFuncToRead.search(line) is None, f)
-                nextIter = next(it, None) # Line on which "dropwhile" stopped
-                if nextIter is None: break # If we reach the end of the file, exit loop
+                it = itertools.dropwhile(lambda line: ptrn_func_to_read.search(line) is None, f)
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
 
                 func = RawFunc()
 
-                match = re.search(ptrnFuncToRead, nextIter)
-                numOmc = match.group('num')
-                func.setNumOmc(numOmc)
-                func.setName(funcRootName + numOmc)
+                match = re.search(ptrn_func_to_read, next_iter)
+                num_omc = match.group('num')
+                func.setNumOmc(num_omc)
+                func.setName(func_root_name + num_omc)
 
                 # "takewhile" only stops when the whole body of the function is read
                 func.setBody( list(itertools.takewhile(stopReadingFunction, it)) )
-                listRawFunc.append(func)
-        return listRawFunc
+                list_raw_func.append(func)
+        return list_raw_func
 
     ##
     # Read the *_info.json file
@@ -387,19 +387,19 @@ class readerOMC:
     def readInfoJson(self):
         json_data=open(self.infoJsonFile).read()
         data = json.loads(json_data)
-        nbEquations = len(data["equations"])
-        for i in range(nbEquations):
+        nb_equations = len(data["equations"])
+        for i in range(nb_equations):
             equation = data["equations"][i]
             keys =  equation.keys()
-            typeEq = ""
+            type_eq = ""
             if "section" in keys:
-                typeEq = equation["section"]
+                type_eq = equation["section"]
 
-            tagEq = ""
+            tag_eq = ""
             if "tag" in keys:
-                tagEq = equation["tag"]
+                tag_eq = equation["tag"]
 
-            if typeEq == "regular" or  typeEq == "container":
+            if type_eq == "regular" or  type_eq == "container":
                 index = str(int(equation["eqIndex"]))
                 display =""
                 if "display" in keys:
@@ -409,18 +409,18 @@ class readerOMC:
                 if display == "linear":
                     self.linearEqNums.append(index)
 
-                self.map_tag_numEq[index]=str(tagEq)
+                self.map_tag_numEq[index]=str(tag_eq)
 
                 # Retrieving numbers from nonlinear equations
                 if display == "non-linear":
                     self.nonLinearEqNums.append(index)
 
                 # Get map [calculated var] --> [Func num / Eq in .xml]
-                listDefinedVars=[]
+                list_defined_vars=[]
                 if "defines" in keys:
-                    listDefinedVars = equation["defines"]
-                    listDefinedVars = [s.encode('utf-8') for s in listDefinedVars]
-                    for name in listDefinedVars :
+                    list_defined_vars = equation["defines"]
+                    list_defined_vars = [s.encode('utf-8') for s in list_defined_vars]
+                    for name in list_defined_vars :
                         if (index not in self.map_numEq_vars_defined.keys()):
                             self.map_numEq_vars_defined [index] = []
                         self.map_numEq_vars_defined [index].append(name)
@@ -429,18 +429,18 @@ class readerOMC:
                             self.map_vars_numEq[name] = index
 
                 # Get map [calculated var] --> [vars on which the equation depends]
-                listDependVars=[]
+                list_depend_vars=[]
                 if "uses" in keys:
-                    listDependVars = equation["uses"]
-                    listDependVars = [s.encode('utf-8') for s in listDependVars]
-                    for name in listDefinedVars :
-                        self.map_vars_dependVars[name] = listDependVars
-            elif typeEq == "initial":
-                listDefinedVars=[]
+                    list_depend_vars = equation["uses"]
+                    list_depend_vars = [s.encode('utf-8') for s in list_depend_vars]
+                    for name in list_defined_vars :
+                        self.map_vars_dependVars[name] = list_depend_vars
+            elif type_eq == "initial":
+                list_defined_vars=[]
                 if "defines" in keys:
-                    listDefinedVars = equation["defines"]
-                    listDefinedVars = [s.encode('utf-8') for s in listDefinedVars]
-                    for name in listDefinedVars :
+                    list_defined_vars = equation["defines"]
+                    list_defined_vars = [s.encode('utf-8') for s in list_defined_vars]
+                    for name in list_defined_vars :
                         if name not in self.initial_defined: # if/else split in two in the json file
                             self.initial_defined.append(name)
 
@@ -483,8 +483,8 @@ class readerOMC:
     def readInitXml(self):
         doc = minidom.parse(self.initXmlFile)
         root = doc.documentElement
-        listVarsXml = root.getElementsByTagName('ScalarVariable')
-        for node in listVarsXml:
+        list_vars_xml = root.getElementsByTagName('ScalarVariable')
+        for node in list_vars_xml:
             var = variable()
             var.setName(node.getAttribute('name'))
             var.setVariability(node.getAttribute('variability')) # "continuous", "discrete"
@@ -501,50 +501,50 @@ class readerOMC:
 
             # 'Start' attribute: this attribute is only assigned for real vars
             if var.getType()[0] == "r":
-                listReal = node.getElementsByTagName('Real')
-                if len(listReal) != 1:
+                list_real = node.getElementsByTagName('Real')
+                if len(list_real) != 1:
                     print ("pb : readInitXml")
                     sys.exit()
-                start = listReal[0].getAttribute('start')
+                start = list_real[0].getAttribute('start')
                 if start != '':
                     var.setStartText( [start] )
-                    var.setUseStart(listReal[0].getAttribute('useStart'))
+                    var.setUseStart(list_real[0].getAttribute('useStart'))
                 else:
                     var.setUseStart("false")
             # 'Start' attribute for integer vars
             elif var.getType()[0] == "i":
-                listInteger = node.getElementsByTagName('Integer')
-                if len(listInteger) != 1:
+                list_integer = node.getElementsByTagName('Integer')
+                if len(list_integer) != 1:
                     print ("pb: readInitXml")
                     sys.exit()
-                start = listInteger[0].getAttribute('start')
+                start = list_integer[0].getAttribute('start')
                 if start != '':
                     var.setStartText( [start] )
-                    var.setUseStart(listInteger[0].getAttribute('useStart'))
+                    var.setUseStart(list_integer[0].getAttribute('useStart'))
                 else:
                     var.setUseStart("false")
             # 'Start' attribute for boolean vars
             elif var.getType()[0] =="b":
-                listBoolean = node.getElementsByTagName('Boolean')
-                if len(listBoolean) != 1:
+                list_boolean = node.getElementsByTagName('Boolean')
+                if len(list_boolean) != 1:
                     print ("pb : readInitXml")
                     sys.exit()
-                start = listBoolean[0].getAttribute('start')
+                start = list_boolean[0].getAttribute('start')
                 if start != '':
                     var.setStartText( [start] )
-                    var.setUseStart(listBoolean[0].getAttribute('useStart'))
+                    var.setUseStart(list_boolean[0].getAttribute('useStart'))
                 else:
                     var.setUseStart("false")
             # 'Start' attribute for string vars
             elif var.getType()[0] =="s":
-                listString = node.getElementsByTagName('String')
-                if len(listString) != 1:
+                list_string = node.getElementsByTagName('String')
+                if len(list_string) != 1:
                     print ("pb : readInitXml")
                     sys.exit()
-                start = listString[0].getAttribute('start')
+                start = list_string[0].getAttribute('start')
                 if start != '':
                     var.setStartText( [start] )
-                    var.setUseStart(listString[0].getAttribute('useStart'))
+                    var.setUseStart(list_string[0].getAttribute('useStart'))
                 else:
                     var.setUseStart("false")
 
@@ -562,16 +562,16 @@ class readerOMC:
             print ("Warning: xml file of fictitious variables does not exist...")
             return
 
-        listeVarExtContinuous, listeVarExtOptionalContinuous, listeVarExtDiscrete = scriptVarExt.listExternalVariables (self.eqFictiveXmlFile)
+        list_var_ext_continuous, list_var_ext_optional_continuous, list_var_ext_discrete = scriptVarExt.listExternalVariables (self.eqFictiveXmlFile)
 
-        for variableId, defaultValue in listeVarExtContinuous:
-            self.fictiveContinuousVars.append (variableId)
+        for variable_id, default_value in list_var_ext_continuous:
+            self.fictiveContinuousVars.append (variable_id)
 
-        for variableId, defaultValue in listeVarExtDiscrete:
-            self.fictiveDiscreteVars.append (variableId)
+        for variable_id, default_value in list_var_ext_discrete:
+            self.fictiveDiscreteVars.append (variable_id)
 
-        for variableId, defaultValue in listeVarExtOptionalContinuous:
-            self.fictiveOptionalContinuousVars.append(variableId)
+        for variable_id, default_value in list_var_ext_optional_continuous:
+            self.fictiveOptionalContinuousVars.append(variable_id)
 
         for name in self.fictiveContinuousVars:
           self.fictiveContinuousVarsDer.append("der(%s)" % name)
@@ -602,23 +602,23 @@ class readerOMC:
     ##
     # Read the header file and find all vars with a defined type and store them in "map_vars_numOmc"
     # @param self : object pointer
-    # @param typeVar : type of variable to find
+    # @param type_var : type of variable to find
     # @return
-    def getVars_from_modelHeader(self, typeVar):
-        varPattern = None
-        varNameAndNumPtrn = ""
+    def getVars_from_modelHeader(self, type_var):
+        var_pattern = None
+        var_name_and_num_ptrn = ""
 
-        if typeVar == "realVars" :
-            varPattern = re.compile(r'\->realVars\[')
-            varNameAndNumPtrn = r'#define _\$P(?P<var>.*)\(i\).*\[(?P<num>\d+)\]$'
+        if type_var == "realVars" :
+            var_pattern = re.compile(r'\->realVars\[')
+            var_name_and_num_ptrn = r'#define _\$P(?P<var>.*)\(i\).*\[(?P<num>\d+)\]$'
 
-        elif typeVar == "realParams" :
-            varPattern = re.compile(r'\.realParameter\[')
-            varNameAndNumPtrn = r'#define \$P(?P<var>.*)[ ].*\[(?P<num>\d+)\]$'
+        elif type_var == "realParams" :
+            var_pattern = re.compile(r'\.realParameter\[')
+            var_name_and_num_ptrn = r'#define \$P(?P<var>.*)[ ].*\[(?P<num>\d+)\]$'
 
-        elif typeVar == "boolVars" :
-            varPattern = re.compile(r'\->booleanVars\[')
-            varNameAndNumPtrn = r'#define _\$P(?P<var>.*)\(i\).*\[(?P<num>\d+)\]$'
+        elif type_var == "boolVars" :
+            var_pattern = re.compile(r'\->booleanVars\[')
+            var_name_and_num_ptrn = r'#define _\$P(?P<var>.*)\(i\).*\[(?P<num>\d+)\]$'
 
         else :
             print ("getVars_from_modelHeader : typeVar unknown.")
@@ -627,15 +627,15 @@ class readerOMC:
 
         with open(self.modelHeader, 'r') as f:
             while True:
-                it = itertools.dropwhile(lambda line: varPattern.search(line) is None, f)
-                nextIter = next(it, None)
-                if nextIter is None: break
-                match = re.search(varNameAndNumPtrn, nextIter)
+                it = itertools.dropwhile(lambda line: var_pattern.search(line) is None, f)
+                next_iter = next(it, None)
+                if next_iter is None: break
+                match = re.search(var_name_and_num_ptrn, next_iter)
 
                 # If the name of the var if of type "$DER$Pvar", we replace it by "der(var)"
-                varName = to_omc_style(match.group('var'))
+                var_name = to_omc_style(match.group('var'))
 
-                self.map_vars_numOmc[varName] = match.group('num')
+                self.map_vars_numOmc[var_name] = match.group('num')
 
 
     ##
@@ -657,17 +657,17 @@ class readerOMC:
         self.listFuncMainC = self.readFunctions(self.mainCfile, self.ptrnFuncDeclMainC, self.functionsRootName)
 
         # Reading the function ..._setupDataStruc(...)
-        fileToRead = self.mainCfile
-        # functionName = "DYNModel" + self.modName + "_setupDataStruc"
-        functionName = self.modName + "_setupDataStruc"
-        ptrnFuncToRead = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("void", functionName))
-        self.setupDataStruc_rawFunc = self.readFunction(fileToRead, ptrnFuncToRead, functionName)
+        file_to_read = self.mainCfile
+        # function_name = "DYNModel" + self.modName + "_setupDataStruc"
+        function_name = self.modName + "_setupDataStruc"
+        ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("void", function_name))
+        self.setupDataStruc_rawFunc = self.readFunction(file_to_read, ptrn_func_to_read, function_name)
 
         # Reading function ..._functionDAE(...)
-        fileToRead = self.mainCfile
-        functionName = self.modName + "_functionDAE"
-        ptrnFuncToRead = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", functionName))
-        self.functionDAE_rawFunc = self.readFunction(fileToRead, ptrnFuncToRead, functionName)
+        file_to_read = self.mainCfile
+        function_name = self.modName + "_functionDAE"
+        ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", function_name))
+        self.functionDAE_rawFunc = self.readFunction(file_to_read, ptrn_func_to_read, function_name)
 
         for function in self.listFuncMainC:
           for line in function.body:
@@ -675,23 +675,23 @@ class readerOMC:
                   self.LSCalculatedVariables [function.numOmc] = function.body
                   break
 
-        ptrnComments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
-        commentsOpening = "/*"
-        commentsEnd = "*/"
+        ptrn_comments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
+        comments_opening = "/*"
+        comments_end = "*/"
         with open(self.mainCfile, 'r') as f:
             while True:
-                it = itertools.dropwhile(lambda line: commentsOpening not in line, f)
-                nextIter = next(it, None)
-                if nextIter is None: break
-                listBody = list(itertools.takewhile(lambda line: commentsEnd not in line, f))
-                for line in listBody:
-                    if ptrnComments.search(line) is not None:
-                        match = re.search(ptrnComments, line)
+                it = itertools.dropwhile(lambda line: comments_opening not in line, f)
+                next_iter = next(it, None)
+                if next_iter is None: break
+                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                for line in list_body:
+                    if ptrn_comments.search(line) is not None:
+                        match = re.search(ptrn_comments, line)
                         index = match.group('index')
-                        self.map_equation_formula[index] = listBody[-1].lstrip().strip('\n')
-                        if "matrix" in listBody[-1]:
-                            itVar = itertools.dropwhile(lambda line: "var" not in line, listBody)
-                            xmlstring = '<equations>' + ''.join(list(itVar)) + '</equations>'
+                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
+                        if "matrix" in list_body[-1]:
+                            it_var = itertools.dropwhile(lambda line: "var" not in line, list_body)
+                            xmlstring = '<equations>' + ''.join(list(it_var)) + '</equations>'
                             self.map_equation_formula[index] = ' '.join(xmlstring.split()).replace('"', "'")
                         break
 
@@ -705,20 +705,20 @@ class readerOMC:
         # Reading residual functions of NLS (non linear system)
         self.listNLSresFunc =  self.readFunctions(self._02nlsCfile, self.ptrnNLSresFct_02nls, "residualFunc")
 
-        ptrnComments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
-        commentsOpening = "/*"
-        commentsEnd = "*/"
+        ptrn_comments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
+        comments_opening = "/*"
+        comments_end = "*/"
         with open(self._02nlsCfile, 'r') as f:
             while True:
-                it = itertools.dropwhile(lambda line: commentsOpening not in line, f)
-                nextIter = next(it, None)
-                if nextIter is None: break
-                listBody = list(itertools.takewhile(lambda line: commentsEnd not in line, f))
-                for line in listBody:
-                    if ptrnComments.search(line) is not None:
-                        match = re.search(ptrnComments, line)
+                it = itertools.dropwhile(lambda line: comments_opening not in line, f)
+                next_iter = next(it, None)
+                if next_iter is None: break
+                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                for line in list_body:
+                    if ptrn_comments.search(line) is not None:
+                        match = re.search(ptrn_comments, line)
                         index = match.group('index')
-                        self.map_equation_formula[index] = listBody[-1].lstrip().strip('\n')
+                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
                         break
     ##
     # Read the  *_03lsy.c file
@@ -734,20 +734,20 @@ class readerOMC:
         # Reading residual functions of NLS (non linear system)
         self.listLSresFunc =  self.readFunctions(self._03lsyCfile, self.ptrnLSresFct_03lsy, "residualFunc")
 
-        ptrnComments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
-        commentsOpening = "/*"
-        commentsEnd = "*/"
+        ptrn_comments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
+        comments_opening = "/*"
+        comments_end = "*/"
         with open(self._03lsyCfile, 'r') as f:
             while True:
-                it = itertools.dropwhile(lambda line: commentsOpening not in line, f)
-                nextIter = next(it, None)
-                if nextIter is None: break
-                listBody = list(itertools.takewhile(lambda line: commentsEnd not in line, f))
-                for line in listBody:
-                    if ptrnComments.search(line) is not None:
-                        match = re.search(ptrnComments, line)
+                it = itertools.dropwhile(lambda line: comments_opening not in line, f)
+                next_iter = next(it, None)
+                if next_iter is None: break
+                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                for line in list_body:
+                    if ptrn_comments.search(line) is not None:
+                        match = re.search(ptrn_comments, line)
                         index = match.group('index')
-                        self.map_equation_formula[index] = listBody[-1].lstrip().strip('\n')
+                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
                         break
 
     ##
@@ -755,109 +755,109 @@ class readerOMC:
     # @param self : object pointer
     # @return
     def read_06inzCFile(self):
-        global nbBracesOpened
-        global crossedOpeningBraces
-        global stopAtNextCall
+        global nb_braces_opened
+        global crossed_opening_braces
+        global stop_at_next_call
 
         # Find functions of type MODEL_NAME_eqFunction_N and variable assignment expressions
         # Regular expression to recognize a line of type $Pvar = $Prhs
-        ptrnAssignVar = re.compile(r'^[ ]*\$P(?P<var>\S*)[ ]*=[ ]*(?P<rhs>[^;]+);')
+        ptrn_assign_var = re.compile(r'^[ ]*\$P(?P<var>\S*)[ ]*=[ ]*(?P<rhs>[^;]+);')
         with open(self._06inzCfile, 'r') as f:
             while True:
-                nbBracesOpened = 0
-                crossedOpeningBraces = False
-                stopAtNextCall = False
+                nb_braces_opened = 0
+                crossed_opening_braces = False
+                stop_at_next_call = False
 
                 it = itertools.dropwhile(lambda line: self.ptrnFuncDeclMainC.search(line) is None, f)
-                nextIter = next(it, None) # Line on which "dropwhile" stopped
-                if nextIter is None: break # If we reach the end of the file, exit loop
-                match = re.search(self.ptrnFuncDeclMainC, nextIter)
-                numFunction = match.group('num')
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
+                match = re.search(self.ptrnFuncDeclMainC, next_iter)
+                num_function = match.group('num')
 
                 # "takewhile" only stops when the whole body of the function is read
-                listBody = list(itertools.takewhile(stopReadingFunction, it))
+                list_body = list(itertools.takewhile(stopReadingFunction, it))
 
-                for line in listBody:
-                    if ptrnAssignVar.search(line) is not None:
-                        match = re.search(ptrnAssignVar, line)
+                for line in list_body:
+                    if ptrn_assign_var.search(line) is not None:
+                        match = re.search(ptrn_assign_var, line)
                         var = "$P"+str(match.group('var'))
                         rhs = match.group('rhs')
                         # rejection of inits of type var = ATTRIBUTE$.. and var = $P$PRE
                         if '$P$ATTRIBUTE$' not in rhs and '$P$PRE$' not in rhs and 'data->simulationInfo' not in rhs:
-                            self.var_initVal06Inz[ to_classic_style(var) ] = listBody
-                            self.var_numInitVal06Inz[to_classic_style(var)] = numFunction
+                            self.var_initVal06Inz[ to_classic_style(var) ] = list_body
+                            self.var_numInitVal06Inz[to_classic_style(var)] = num_function
                             break
                         elif ('data->simulationInfo->linearSystemData' in rhs):
-                            self.LSCalculatedVariables [numFunction] = listBody
+                            self.LSCalculatedVariables [num_function] = list_body
                             break
 
-        ptrnComments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
-        commentsOpening = "/*"
-        commentsEnd = "*/"
+        ptrn_comments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
+        comments_opening = "/*"
+        comments_end = "*/"
         with open(self._06inzCfile, 'r') as f:
             while True:
-                it = itertools.dropwhile(lambda line: commentsOpening not in line, f)
-                nextIter = next(it, None)
-                if nextIter is None: break
-                listBody = list(itertools.takewhile(lambda line: commentsEnd not in line, f))
-                for line in listBody:
-                    if ptrnComments.search(line) is not None:
-                        match = re.search(ptrnComments, line)
+                it = itertools.dropwhile(lambda line: comments_opening not in line, f)
+                next_iter = next(it, None)
+                if next_iter is None: break
+                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                for line in list_body:
+                    if ptrn_comments.search(line) is not None:
+                        match = re.search(ptrn_comments, line)
                         index = match.group('index')
-                        self.map_equation_formula[index] = listBody[-1].lstrip().strip('\n')
+                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
                         break
 
 
         # Look for MODEL_initial_residual type functions due to extend commands
-        extendFunctionName = "_initial_residual(DATA *data, double *initialResiduals)"
-        extendAssignVar = "initialResiduals[i++]"
+        extend_function_name = "_initial_residual(DATA *data, double *initialResiduals)"
+        extend_assign_var = "initialResiduals[i++]"
         with open(self._06inzCfile, 'r') as f:
             while True:
-                nbBracesOpened = 0
-                crossedOpeningBraces = False
-                stopAtNextCall = False
+                nb_braces_opened = 0
+                crossed_opening_braces = False
+                stop_at_next_call = False
 
-                it = itertools.dropwhile(lambda line: extendFunctionName not in line, f)
-                nextIter = next(it, None) # Line on which "dropwhile" stopped
-                if nextIter is None: break # If we reach the end of the file, exit loop
+                it = itertools.dropwhile(lambda line: extend_function_name not in line, f)
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
 
                 # "takewhile" only stops when the whole body of the function is read
-                listBody = list(itertools.takewhile(stopReadingFunction, it))
+                list_body = list(itertools.takewhile(stopReadingFunction, it))
 
-                for line in listBody:
-                    if extendAssignVar in line:
+                for line in list_body:
+                    if extend_assign_var in line:
                         # extract the part of the line related to the assignment
-                        subLine = line[line.index(extendAssignVar) + len(extendAssignVar) + 3:]
+                        sub_line = line[line.index(extend_assign_var) + len(extend_assign_var) + 3:]
                         index_plus = 99999
                         index_minus = 99999
-                        if ("+" in subLine and "-" in subLine):
-                            index_plus = subLine.index("+")
-                            index_minus = subLine.index("-")
-                        elif ("+" in subLine and "-" not in subLine):
-                            index_plus = subLine.index("+")
-                        elif ("+" not in subLine and "-" in subLine):
-                            index_minus = subLine.index("-")
+                        if ("+" in sub_line and "-" in sub_line):
+                            index_plus = sub_line.index("+")
+                            index_minus = sub_line.index("-")
+                        elif ("+" in sub_line and "-" not in sub_line):
+                            index_plus = sub_line.index("+")
+                        elif ("+" not in sub_line and "-" in sub_line):
+                            index_minus = sub_line.index("-")
 
                         var = "" # variable to assign
                         assignment = "" # assignment
-                        if "(" in subLine:
-                            var = subLine [subLine.index("(") + 1 : min(index_plus, index_minus)]
+                        if "(" in sub_line:
+                            var = sub_line [sub_line.index("(") + 1 : min(index_plus, index_minus)]
 
                             if (index_plus < index_minus):
                                 assignment += "(-1) * ("
 
-                            assignment += subLine [min(index_plus, index_minus) + 1 : subLine.index(";") - 1]
+                            assignment += sub_line [min(index_plus, index_minus) + 1 : sub_line.index(";") - 1]
 
                             if (index_plus < index_minus):
                                 assignment += ")"
 
-                        elif ("+" not in subLine and "-" not in subLine):
-                            if ("*" in subLine or "/" in subLine):
+                        elif ("+" not in sub_line and "-" not in sub_line):
+                            if ("*" in sub_line or "/" in sub_line):
                                 print("error during equations export due to extends")
                                 sys.exit(1)
 
                             # where we use extends (x = 0)
-                            var = subLine [:subLine.index(";")]
+                            var = sub_line [:sub_line.index(";")]
                             assignment = "0"
 
                         # the assignment line is composed of:
@@ -865,8 +865,8 @@ class readerOMC:
                         # the name of the variable to assign
                         # the assignment formula
                         # the end of line
-                        newLine = line [:line.index(extendAssignVar)] + var + " = " + assignment + ";"
-                        self.var_initVal06Extend [to_classic_style(var)] = newLine
+                        new_line = line [:line.index(extend_assign_var)] + var + " = " + assignment + ";"
+                        self.var_initVal06Extend [to_classic_style(var)] = new_line
 
     ##
     # Initialise variables in listVars by values found in 06inz file
@@ -880,25 +880,25 @@ class readerOMC:
                     var.setInitByParamIn06Inz(True)
                     var.setNumFunc06Inz(self.var_numInitVal06Inz[var.getName()])
 
-        for varName, varAssignment in self.var_initVal06Extend.iteritems():
+        for var_name, var_assignment in self.var_initVal06Extend.iteritems():
             for var in self.listVars:
-                if var.getName() == varName:
-                    var.setStartText06Inz(['{/n', varAssignment, '}'])
+                if var.getName() == var_name:
+                    var.setStartText06Inz(['{/n', var_assignment, '}'])
                     var.setInitByExtendIn06Inz(True)
 
     ##
     # Retrieve the ordered calculated variables for linear systems
     # @param self : object pointer
-    # @param OMC_equation_index : the OMC equation index
+    # @param omc_equation_index : the OMC equation index
     # @return the ordered list of calculated variables
-    def LinearSystemCalculatedVariables (self, OMC_equation_index):
-        if (OMC_equation_index not in self.LSCalculatedVariables.keys()):
+    def LinearSystemCalculatedVariables (self, omc_equation_index):
+        if (omc_equation_index not in self.LSCalculatedVariables.keys()):
             print("pb : LinearSystemCalculatedVariables")
             sys.exit(1)
         else:
             string_to_find = "data->simulationInfo->linearSystemData["
             initial_variables_list = []
-            for line in self.LSCalculatedVariables [OMC_equation_index]:
+            for line in self.LSCalculatedVariables [omc_equation_index]:
                 if (string_to_find in line):
                     variable_name = to_classic_style (line [:line.find("=")])
                     if string_to_find in variable_name:
@@ -925,48 +925,48 @@ class readerOMC:
     # @param self : object pointer
     # @return
     def read_08bndCFile(self):
-        global nbBracesOpened
-        global crossedOpeningBraces
-        global stopAtNextCall
+        global nb_braces_opened
+        global crossed_opening_braces
+        global stop_at_next_call
         # Regular expression to recognize a line of type $Pvar = $Prhs
-        ptrnAssignVar = re.compile(r'^[ ]*\$P(?P<var>\S*)[ ]*=[^;]*;$')
+        ptrn_assign_var = re.compile(r'^[ ]*\$P(?P<var>\S*)[ ]*=[^;]*;$')
         with open(self._08bndCfile, 'r') as f:
             while True:
-                nbBracesOpened = 0
-                crossedOpeningBraces = False
-                stopAtNextCall = False
+                nb_braces_opened = 0
+                crossed_opening_braces = False
+                stop_at_next_call = False
 
                 it = itertools.dropwhile(lambda line: self.ptrnFuncDeclMainC.search(line) is None, f)
-                nextIter = next(it, None) # Line on which "dropwhile" stopped
-                if nextIter is None: break # If we reach the end of the file, exit loop
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
 
                 # "takewhile" only stops when the whole body of the function is read
-                listBody = list(itertools.takewhile(stopReadingFunction, it))
+                list_body = list(itertools.takewhile(stopReadingFunction, it))
 
-                for line in listBody:
-                    if ptrnAssignVar.search(line) is not None:
-                        match = re.search(ptrnAssignVar, line)
+                for line in list_body:
+                    if ptrn_assign_var.search(line) is not None:
+                        match = re.search(ptrn_assign_var, line)
                         var = "$P"+str(match.group('var'))
-                        self.var_initVal[ to_classic_style(var) ] = listBody
+                        self.var_initVal[ to_classic_style(var) ] = list_body
 
-                for line in listBody:
+                for line in list_body:
                     if 'omc_assert_warning(' in line:
-                        self.warnings.append(listBody)
+                        self.warnings.append(list_body)
 
-        ptrnComments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
-        commentsOpening = "/*"
-        commentsEnd = "*/"
+        ptrn_comments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
+        comments_opening = "/*"
+        comments_end = "*/"
         with open(self._08bndCfile, 'r') as f:
             while True:
-                it = itertools.dropwhile(lambda line: commentsOpening not in line, f)
-                nextIter = next(it, None)
-                if nextIter is None: break
-                listBody = list(itertools.takewhile(lambda line: commentsEnd not in line, f))
-                for line in listBody:
-                    if ptrnComments.search(line) is not None:
-                        match = re.search(ptrnComments, line)
+                it = itertools.dropwhile(lambda line: comments_opening not in line, f)
+                next_iter = next(it, None)
+                if next_iter is None: break
+                list_body = list(itertools.takewhile(lambda line: comments_end not in line, f))
+                for line in list_body:
+                    if ptrn_comments.search(line) is not None:
+                        match = re.search(ptrn_comments, line)
                         index = match.group('index')
-                        self.map_equation_formula[index] = listBody[-1].lstrip().strip('\n')
+                        self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
                         break
     ##
     #  Initialise variables in listVars by values found in 08bnd file
@@ -985,15 +985,15 @@ class readerOMC:
     # @return
     def read_05evtCFile(self):
         # Reading body of *_function_ZeroCrossings(...) function
-        fileToRead = self._05evtCfile
-        functionName = self.modName + "_function_ZeroCrossings"
+        file_to_read = self._05evtCfile
+        function_name = self.modName + "_function_ZeroCrossings"
 
-        ptrnFuncToRead = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", functionName))
-        self.functionZeroCrossings_rawFunc = self.readFunction(fileToRead, ptrnFuncToRead, functionName)
+        ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", function_name))
+        self.functionZeroCrossings_rawFunc = self.readFunction(file_to_read, ptrn_func_to_read, function_name)
 
-        functionName = self.modName + "_zeroCrossingDescription"
-        ptrnFuncToRead = re.compile(r'%s[ ]+[*]+%s\(.*\)[^;]$' % ("const char", functionName))
-        self.functionZeroCrossingDescription_rawFunc = self.readFunction(fileToRead, ptrnFuncToRead, functionName)
+        function_name = self.modName + "_zeroCrossingDescription"
+        ptrn_func_to_read = re.compile(r'%s[ ]+[*]+%s\(.*\)[^;]$' % ("const char", function_name))
+        self.functionZeroCrossingDescription_rawFunc = self.readFunction(file_to_read, ptrn_func_to_read, function_name)
 
 
     ##
@@ -1010,87 +1010,87 @@ class readerOMC:
         list_struct = []
         self.list_elements=[]
         if(len(elements) > 0 ):
-            for nodeElement in elements:
+            for node_element in elements:
                 # reading structures
-                nodesStruct = nodeElement.getElementsByTagName('struct')
-                for node in nodesStruct:
-                    structName = node.getElementsByTagName('name')[0].firstChild.nodeValue
-                    nodeTerminal = node.getElementsByTagName('terminal')[0]
-                    nameTerminal = nodeTerminal.getElementsByTagName('name')[0].firstChild.nodeValue
-                    connectorNode =  nodeTerminal.getElementsByTagName('connector')[0]
-                    typeConnector = str(connectorNode.getAttribute('type'))
-                    compoName=structName + "."+nameTerminal
+                nodes_struct = node_element.getElementsByTagName('struct')
+                for node in nodes_struct:
+                    struct_name = node.getElementsByTagName('name')[0].firstChild.nodeValue
+                    node_terminal = node.getElementsByTagName('terminal')[0]
+                    name_terminal = node_terminal.getElementsByTagName('name')[0].firstChild.nodeValue
+                    connector_node =  node_terminal.getElementsByTagName('connector')[0]
+                    type_connector = str(connector_node.getAttribute('type'))
+                    compo_name=struct_name + "."+name_terminal
 
                     # we store all this in an object
-                    structure = Element(True,structName,len(self.list_elements))
-                    if structName not in list_struct:
-                        list_struct.append(structName)
+                    structure = Element(True,struct_name,len(self.list_elements))
+                    if struct_name not in list_struct:
+                        list_struct.append(struct_name)
                         self.list_elements.append(structure)
-                        self.map_structName_structObj[structName] = structure
+                        self.map_structName_structObj[struct_name] = structure
                     else:
-                        structure =  self.map_structName_structObj[structName]
+                        structure =  self.map_structName_structObj[struct_name]
 
                     # terminal name can be composed of a sub-structure (or several) and the actual name of the terminal
-                    splitName = nameTerminal.split('.')
-                    structName1 = structName
+                    split_name = name_terminal.split('.')
+                    struct_name1 = struct_name
                     structure1 = structure
-                    if(len(splitName)>1): #terminal is composed of substructure:
-                        listOfStructure=splitName[0:len(splitName)-1]
-                        for struct in listOfStructure:
-                            structName1=structName1+"."+struct
-                            if structName1 not in list_struct:
-                                s =  Element(True, structName1, len(self.list_elements));
-                                list_struct.append(structName1)
+                    if(len(split_name)>1): #terminal is composed of substructure:
+                        list_of_structure=split_name[0:len(split_name)-1]
+                        for struct in list_of_structure:
+                            struct_name1=struct_name1+"."+struct
+                            if struct_name1 not in list_struct:
+                                s =  Element(True, struct_name1, len(self.list_elements));
+                                list_struct.append(struct_name1)
                                 self.list_elements.append(s)
-                                self.map_structName_structObj[structName1] = s
+                                self.map_structName_structObj[struct_name1] = s
                                 structure1.listElements.append(s)
                                 structure1=s
                             else:
-                                structure1 = self.map_structName_structObj[structName1]
+                                structure1 = self.map_structName_structObj[struct_name1]
 
-                    terminal = Element(False, compoName, len(self.list_elements))
+                    terminal = Element(False, compo_name, len(self.list_elements))
                     self.list_elements.append(terminal)
                     structure1.listElements.append(terminal)
 
                     #Find vars that are "flow"
-                    if typeConnector == "Flow" :  self.list_flow_vars.append(compoName)
+                    if type_connector == "Flow" :  self.list_flow_vars.append(compo_name)
 
                 # reading terminals
-                for child in nodeElement.childNodes:
+                for child in node_element.childNodes:
                     if child.nodeType== child.ELEMENT_NODE:
                         if child.localName=='terminal':
                             name = child.getElementsByTagName('name')[0].firstChild.nodeValue
-                            typeTerminal = child.getElementsByTagName('type')[0].firstChild.nodeValue
-                            connectorNode =  child.getElementsByTagName('connector')[0]
-                            typeConnector = str(connectorNode.getAttribute('type'))
+                            type_terminal = child.getElementsByTagName('type')[0].firstChild.nodeValue
+                            connector_node =  child.getElementsByTagName('connector')[0]
+                            type_connector = str(connector_node.getAttribute('type'))
 
-                            splitName = name.split('.')
-                            nameTerminal=name
-                            structName1 =""
+                            split_name = name.split('.')
+                            name_terminal=name
+                            struct_name1 =""
                             structure1 = Element(True,"")
-                            if (len(splitName)> 1): #component name: terminal name: last in the list, the rest is a composite of structures
-                                listOfStructure=splitName[0:len(splitName)-1]
-                                for struct in listOfStructure:
-                                    if structName1 != "":
-                                        structName1=structName1+"."+struct
+                            if (len(split_name)> 1): #component name: terminal name: last in the list, the rest is a composite of structures
+                                list_of_structure=split_name[0:len(split_name)-1]
+                                for struct in list_of_structure:
+                                    if struct_name1 != "":
+                                        struct_name1=struct_name1+"."+struct
                                     else:
-                                        structName1 = struct
-                                    if structName1 not in list_struct:
-                                        s =  Element(True,structName1,len(self.list_elements));
-                                        list_struct.append(structName1)
+                                        struct_name1 = struct
+                                    if struct_name1 not in list_struct:
+                                        s =  Element(True,struct_name1,len(self.list_elements));
+                                        list_struct.append(struct_name1)
                                         self.list_elements.append(s)
-                                        self.map_structName_structObj[structName1] = s
+                                        self.map_structName_structObj[struct_name1] = s
                                         structure1.listElements.append(s)
                                         structure1=s
                                     else:
-                                        structure1 = self.map_structName_structObj[structName1]
+                                        structure1 = self.map_structName_structObj[struct_name1]
 
-                            terminal = Element(False,nameTerminal,len(self.list_elements))
+                            terminal = Element(False,name_terminal,len(self.list_elements))
                             self.list_elements.append(terminal)
                             structure1.listElements.append(terminal)
 
                              #Find vars that are "flow"
-                            if typeConnector == "Flow" :  self.list_flow_vars.append(name)
+                            if type_connector == "Flow" :  self.list_flow_vars.append(name)
 
 
     ##
@@ -1098,30 +1098,30 @@ class readerOMC:
     # @param self : object pointer
     # @return
     def read_functionsHeader(self):
-        ptrnFuncExtern = re.compile(r'extern .*;')
-        ptrnFunc = re.compile(r'.*;')
-        ptrnNotFunc = re.compile(r'static const MMC_.*;')
-        ptrnStruct = re.compile(r'.*typedef struct .* {.*')
+        ptrn_func_extern = re.compile(r'extern .*;')
+        ptrn_func = re.compile(r'.*;')
+        ptrn_not_func = re.compile(r'static const MMC_.*;')
+        ptrn_struct = re.compile(r'.*typedef struct .* {.*')
 
-        fileToRead = self._functionsHeader
-        if not os.path.isfile(fileToRead) :
+        file_to_read = self._functionsHeader
+        if not os.path.isfile(file_to_read) :
             return
 
-        with open(fileToRead,'r') as f:
+        with open(file_to_read,'r') as f:
             while True:
-                it = itertools.dropwhile(lambda line: ptrnFuncExtern.search(line) is None, f)
-                nextIter = next(it,None) # Line on which "dropwhile" stopped
-                if nextIter is None: break # If we reach the end of the file, exit loop
-                self.list_external_functions.append(nextIter)
+                it = itertools.dropwhile(lambda line: ptrn_func_extern.search(line) is None, f)
+                next_iter = next(it,None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
+                self.list_external_functions.append(next_iter)
 
-        with open(fileToRead,'r') as f:
+        with open(file_to_read,'r') as f:
             while True:
-                it = itertools.dropwhile(lambda line: (ptrnFunc.search(line) is None) and (ptrnStruct.search(line) is None), f)
-                nextIter = next(it,None) # Line on which "dropwhile" stopped
-                if nextIter is None: break # If we reach the end of the file, exit loop
-                if nextIter not in self.list_external_functions:
-                    if ptrnNotFunc.search(nextIter) is None:
-                        self.list_internal_functions.append(nextIter)
+                it = itertools.dropwhile(lambda line: (ptrn_func.search(line) is None) and (ptrn_struct.search(line) is None), f)
+                next_iter = next(it,None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
+                if next_iter not in self.list_external_functions:
+                    if ptrn_not_func.search(next_iter) is None:
+                        self.list_internal_functions.append(next_iter)
 
 
     ##
@@ -1129,53 +1129,53 @@ class readerOMC:
     # @param self : object pointer
     # @return
     def read_literalsHFile(self):
-        fileToRead = self._literalsFile
-        if not os.path.isfile(fileToRead):
+        file_to_read = self._literalsFile
+        if not os.path.isfile(file_to_read):
             return
 
-        ptrnVar = re.compile(r'#define _OMC_LIT.*')
-        ptrnVar1 = re.compile(r'static const MMC_DEFSTRINGLIT*')
-        ptrnVar2 = re.compile(r'static const modelica_integer _OMC_LIT.*')
+        ptrn_var = re.compile(r'#define _OMC_LIT.*')
+        ptrn_var1 = re.compile(r'static const MMC_DEFSTRINGLIT*')
+        ptrn_var2 = re.compile(r'static const modelica_integer _OMC_LIT.*')
 
-        with open(fileToRead,'r') as f:
+        with open(file_to_read,'r') as f:
             while True:
-                it = itertools.dropwhile(lambda line: (ptrnVar.search(line) is None) and (ptrnVar1.search(line) is None)\
-                                         and (ptrnVar2.search(line) is None), f)
-                nextIter = next(it, None) # Line on which "dropwhile" stopped
-                if nextIter is None: break # If we reach the end of the file, exit loop
+                it = itertools.dropwhile(lambda line: (ptrn_var.search(line) is None) and (ptrn_var1.search(line) is None)\
+                                         and (ptrn_var2.search(line) is None), f)
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
 
-                self.list_vars_literal.append(nextIter)
+                self.list_vars_literal.append(next_iter)
 
     ##
     # Read *_functions.c file and store all functions' body declared
     # @param self : object pointer
     # @return
     def read_functionsCfile(self):
-        fileToRead = self._functionsCfile
-        if not os.path.isfile(fileToRead) :
+        file_to_read = self._functionsCfile
+        if not os.path.isfile(file_to_read) :
             return
 
-        global nbBracesOpened
-        global crossedOpeningBraces
-        global stopAtNextCall
-        ptrnFunc = re.compile(r'^(?![\/]).* (?P<var>.*)\(.*\)')
-        with open(fileToRead, 'r') as f:
+        global nb_braces_opened
+        global crossed_opening_braces
+        global stop_at_next_call
+        ptrn_func = re.compile(r'^(?![\/]).* (?P<var>.*)\(.*\)')
+        with open(file_to_read, 'r') as f:
             while True:
-                nbBracesOpened = 0
-                crossedOpeningBraces = False
-                stopAtNextCall = False
+                nb_braces_opened = 0
+                crossed_opening_braces = False
+                stop_at_next_call = False
 
-                it = itertools.dropwhile(lambda line: ptrnFunc.search(line) is None, f)
-                nextIter = next(it, None) # Line on which "dropwhile" stopped
-                if nextIter is None: break # If we reach the end of the file, exit loop
+                it = itertools.dropwhile(lambda line: ptrn_func.search(line) is None, f)
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
 
-                match = re.search(ptrnFunc, nextIter)
+                match = re.search(ptrn_func, next_iter)
 
-                if ";" not in nextIter: # it is a function declaration
+                if ";" not in next_iter: # it is a function declaration
                     func = RawOmcFunctions()
                     func.setName(match.group('var'))
-                    func.setSignature(nextIter)
-                    func.setReturnType(nextIter.split()[0])
+                    func.setSignature(next_iter)
+                    func.setReturnType(next_iter.split()[0])
 
                     # "takewhile" only stops when the whole body of the function is read
                     func.setBody( list(itertools.takewhile(stopReadingFunction, it)) )

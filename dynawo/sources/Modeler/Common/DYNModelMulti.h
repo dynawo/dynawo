@@ -22,6 +22,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <boost/core/noncopyable.hpp>
 
 #include "DYNModel.h"
 
@@ -29,7 +30,7 @@ namespace DYN {
 class SubModel;
 class ConnectorContainer;
 
-class ModelMulti : public Model {
+class ModelMulti : public Model, private boost::noncopyable {
  public:
   /**
    * @brief default constructor

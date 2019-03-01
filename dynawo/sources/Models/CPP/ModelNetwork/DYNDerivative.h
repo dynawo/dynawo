@@ -40,19 +40,6 @@ typedef enum {
 class Derivatives {
  public:
   /**
-   * @brief default constructor
-   */
-  Derivatives();
-  /**
-   * @brief destructor
-   */
-  ~Derivatives();
-  /**
-   * @brief constructor
-   * @param src source
-   */
-  Derivatives(const Derivatives& src);
-  /**
    * @brief reset
    */
   void reset();
@@ -83,19 +70,6 @@ class Derivatives {
  */
 class BusDerivatives {
  public:
-  /**
-   * @brief default constructor
-   */
-  BusDerivatives();
-  /**
-   * @brief constructor
-   * @param src
-   */
-  BusDerivatives(const BusDerivatives& src);
-  /**
-   * @brief destructor
-   */
-  ~BusDerivatives();
   /**
    * @brief reset
    */

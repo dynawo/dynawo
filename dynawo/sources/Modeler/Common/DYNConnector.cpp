@@ -40,14 +40,6 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-Connector::Connector() :
-connectedSubModels_() {
-}
-
-Connector::Connector(const Connector & connector) :
-connectedSubModels_(connector.connectedSubModels_) {
-}
-
 void
 Connector::addConnectedSubModel(const connectedSubModel& subModel) {
   connectedSubModels_.push_back(subModel);
@@ -610,7 +602,7 @@ ConnectorContainer::getY0Connector() {
             it != zc->connectedSubModels().end();
             ++it) {
       const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
-      if (zLocal_[numVar] != 0) {  // non zero variable
+      if (doubleNotEquals(zLocal_[numVar], 0)) {  // non zero variable
         itReference = it;
         nonZeroVariableFound = true;
         break;
@@ -675,7 +667,7 @@ ConnectorContainer::propagateZDiff(vector<int> & indicesDiff, vector<double> & z
     shared_ptr<Connector> connect = iter->second;
     // Get negated attribute of the z variable in the connector
     bool zNegated;
-    bool found =false;
+    bool found = false;
     for (vector<connectedSubModel>::iterator it = connect->connectedSubModels().begin();
             it != connect->connectedSubModels().end();
             ++it) {

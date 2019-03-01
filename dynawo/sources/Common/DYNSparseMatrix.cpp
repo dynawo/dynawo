@@ -27,6 +27,7 @@
 #include <cassert>
 #include <cmath>
 
+#include "DYNCommun.h"
 #include "DYNMacrosMessage.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNSparseMatrix.h"
@@ -71,7 +72,7 @@ SparseMatrix::changeCol() {
 
 void
 SparseMatrix::addTerm(const int& row, const double& val) {
-  if (val != 0.) {
+  if (doubleNotEquals(val, 0.)) {
     // To deal with exploding matrix sizes
     if (nbTerm_ >= currentMaxTerm_) increaseReserve();
     ++Ap_[iAp_];

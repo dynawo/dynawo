@@ -102,6 +102,14 @@ class __DYNAWO_TL_EXPORT Timeline {
     ~event_const_iterator();
 
     /**
+     * @brief assignment
+     * @param other : event_const_iterator to assign
+     *
+     * @returns Reference to this event_const_iterator
+     */
+    event_const_iterator& operator=(const event_const_iterator& other);
+
+    /**
      * @brief Prefix-increment operator
      *
      * @returns Reference to this event_const_iterator

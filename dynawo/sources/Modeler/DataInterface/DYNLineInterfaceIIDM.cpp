@@ -22,6 +22,7 @@
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/BasicTypes.h>
 
+#include "DYNCommun.h"
 #include "DYNLineInterfaceIIDM.h"
 #include "DYNVoltageLevelInterface.h"
 #include "DYNStateVariable.h"
@@ -104,7 +105,7 @@ LineInterfaceIIDM::getR() const {
 
 double
 LineInterfaceIIDM::getX() const {
-  if (lineIIDM_.x() == 0 && lineIIDM_.r() == 0) {
+  if (doubleEquals(lineIIDM_.x(), 0) && doubleEquals(lineIIDM_.r(), 0)) {
     Trace::debug() << DYNLog(PossibleDivisionByZero, lineIIDM_.id()) << Trace::endline;
     return 0.01;  // default parameter
   }
