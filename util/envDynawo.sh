@@ -1054,6 +1054,7 @@ deploy_dynawo() {
 
   # XERCESC
   cp -P $XERCESC_INSTALL_DIR/lib/libxerces-c*.so* extraLibs/XERCESC/lib/
+  cp -r $XERCESC_INSTALL_DIR/include extraLibs/XERCESC/.
 
   # LIBARCHIVE
   if [ $LIBARCHIVE_HOME_DEFAULT != true ]; then
