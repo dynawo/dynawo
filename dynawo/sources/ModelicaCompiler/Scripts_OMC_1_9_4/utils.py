@@ -505,7 +505,7 @@ class watcherIntroBlock:
 	        return False
 	return True
 
-def extractBlock(block, list_sub_string):
+def extract_block(block, list_sub_string):
     """
       - Recovery of all instructions before any block (lines
         not including any substrings of list_sub_string)
@@ -590,7 +590,7 @@ def analyseBracket(word):
 # @param line : line to analyze
 # @param body : body where the new expression should be added
 # @param num_ternary : num of boolean to create to replace ternary expression
-def analyseAndReplaceTernary(line,body,num_ternary):
+def analyse_and_replace_ternary(line,body,num_ternary):
    pattern_ternary = re.compile(r'.*\((?P<var>.*\?.*:.*)\).*')  #look for for ternary operator identifiable by (A ? B : C)
 
    pattern_ternary1 = re.compile(r'.*\(\((?P<var>.*\)\?.*:.*)\).*') #look for for ternary operator identifiable by ((A)? B: C)
@@ -661,13 +661,13 @@ def analyseAndReplaceTernary(line,body,num_ternary):
 # @param body : body to analyse
 # @param num_ternary : num to use when creating new boolean condition
 # @return new_body without ternary expression
-def transformTernaryOperator(body,num_ternary):
+def transform_ternary_operator(body,num_ternary):
     new_body = []
 
     for line in body:
         if line.find("?") != -1:
             # analysis of the line ....
-            analyseAndReplaceTernary(line,new_body,num_ternary)
+            analyse_and_replace_ternary(line,new_body,num_ternary)
         else:
             new_body.append(line)
 
@@ -705,7 +705,7 @@ def transformAtan3OperatorEvalF(line):
 # Transform raw_body in a list to a string, used by setGequations()
 # @param raw_body : raw_body in a list of string
 # @return string : string contains raw_body
-def transformRawbodyToString(raw_body):
+def transform_rawbody_to_string(raw_body):
     string = ""
     for item in raw_body:
         string += item.strip('\n')

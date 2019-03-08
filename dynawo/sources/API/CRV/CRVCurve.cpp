@@ -47,7 +47,7 @@ Curve::const_iterator::operator=(const Curve::const_iterator& other) {
   if (this == &other)
     return *this;
   delete impl_;
-  impl_ = new BaseConstIteratorImpl(*(other.impl_));
+  impl_ = (other.impl_ == NULL)?NULL:new BaseConstIteratorImpl(*(other.impl_));
   return *this;
 }
 

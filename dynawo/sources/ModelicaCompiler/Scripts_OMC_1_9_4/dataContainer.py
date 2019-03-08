@@ -2506,7 +2506,7 @@ class RootObject:
     # @return
     def filterWhenCondBlocks(self, list_func_bodies):
         for body in list_func_bodies:
-            block_to_extract = extractBlock(body, ["if(", self.whenVarName])
+            block_to_extract = extract_block(body, ["if(", self.whenVarName])
             # I nothing is found in the body None is returned.
             if block_to_extract is not None :
 

@@ -155,7 +155,7 @@ ModelLoad::evalF() {
         zPprimValue = zPdiff;
     }
 
-    if (doubleNotEquals(Tp_, 0.) && isRunning())
+    if (!doubleIsZero(Tp_) && isRunning())
       f_[0] = Tp_ * zPPrim() - zPprimValue;
     else
       f_[0] = zPPrim();  // z is constant
@@ -172,7 +172,7 @@ ModelLoad::evalF() {
         zQprimValue = zQdiff;
     }
 
-    if (doubleNotEquals(Tq_, 0.) && isRunning())
+    if (!doubleIsZero(Tq_) && isRunning())
       f_[1] = Tq_ * zQPrim() - zQprimValue;
     else
       f_[1] = zQPrim();  // z is constant
@@ -187,14 +187,14 @@ ModelLoad::setFequations(std::map<int, std::string>& fEquationIndex) {
   unsigned int index = 0;
 
   if (isRestorative_) {
-    if (doubleNotEquals(Tp_, 0.) && isRunning())
+    if (!doubleIsZero(Tp_) && isRunning())
       fEquationIndex[index] = std::string("Tp_*zPPrim() - zPprimValue localModel:").append(id());
     else
       fEquationIndex[index] = std::string("zPPrim() localModel:").append(id());  // z is constant
     ++index;
 
 
-    if (doubleNotEquals(Tq_, 0.) && isRunning())
+    if (!doubleIsZero(Tq_) && isRunning())
       fEquationIndex[index] = std::string("Tq_*zQPrim() - zQprimValue localModel:").append(id());
     else
       fEquationIndex[index] = std::string("zQPrim() localModel:").append(id());  // z is constant
@@ -272,7 +272,7 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
       termUi = dZpdiff_dUi;
     }
 
-    if (doubleNotEquals(Tp_, 0.) && isRunning()) {
+    if (!doubleIsZero(Tp_) && isRunning()) {
       jt.addTerm(globalYIndex(zPYNum_) + rowOffset, -termZp + cj * Tp_);
       jt.addTerm(urYNum + rowOffset, -termUr);
       jt.addTerm(uiYNum + rowOffset, -termUi);
@@ -307,7 +307,7 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
       termUi = dZqdiff_dUi;
     }
 
-    if (doubleNotEquals(Tq_, 0.) && isRunning()) {
+    if (!doubleIsZero(Tq_) && isRunning()) {
       jt.addTerm(globalYIndex(zQYNum_) + rowOffset, - termZq + cj * Tq_);
       jt.addTerm(urYNum + rowOffset, -termUr);
       jt.addTerm(uiYNum + rowOffset, -termUi);
@@ -322,13 +322,13 @@ ModelLoad::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
   if (isRestorative_) {
     // colonne pour équations Zp
     jt.changeCol();
-    if (doubleNotEquals(Tp_, 0.) && isConnected())
+    if (!doubleIsZero(Tp_) && isConnected())
       jt.addTerm(globalYIndex(zPYNum_) + rowOffset, Tp_);
     else
       jt.addTerm(globalYIndex(zPYNum_) + rowOffset, 1);
     // colonne pour équations Zq
     jt.changeCol();
-    if (doubleNotEquals(Tq_, 0.) && isConnected())
+    if (!doubleIsZero(Tq_) && isConnected())
       jt.addTerm(globalYIndex(zQYNum_) + rowOffset, Tq_);
     else
       jt.addTerm(globalYIndex(zQYNum_) + rowOffset, 1);
@@ -425,7 +425,7 @@ double
 ModelLoad::ir(const double& ur, const double& ui, const double& U, const double& U2) const {
   double ir = 0.;
   if (isRunning()) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ir = (P(ur, ui, U) * ur + Q(ur, ui, U) * ui) / U2;
   }
   return ir;
@@ -435,7 +435,7 @@ double
 ModelLoad::ii(const double& ur, const double& ui, const double& U, const double& U2) const {
   double ii = 0.;
   if (isRunning()) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ii = (P(ur, ui, U) * ui - Q(ur, ui, U) * ur) / U2;
   }
   return ii;
@@ -449,7 +449,7 @@ ModelLoad::ir_dUr(const double& ur, const double& ui, const double& U, const dou
     double QdUr = Q_dUr(ur, ui, U, U2);
     double p = P(ur, ui, U);
     double q = Q(ur, ui, U);
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ir_dUr = ((PdUr * ur + p) + (QdUr * ui) - 2. * ur * (p * ur + q * ui) / U2) / U2;
   }
   return ir_dUr;
@@ -463,7 +463,7 @@ ModelLoad::ir_dUi(const double& ur, const double& ui, const double& U, const dou
     double QdUi = Q_dUi(ur, ui, U, U2);
     double p = P(ur, ui, U);
     double q = Q(ur, ui, U);
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ir_dUi = ((PdUi * ur) + (QdUi * ui + q) - 2. * ui * (p * ur + q * ui) / U2) / U2;
   }
 
@@ -478,7 +478,7 @@ ModelLoad::ii_dUr(const double& ur, const double& ui, const double& U, const dou
     double QdUr = Q_dUr(ur, ui, U, U2);
     double p = P(ur, ui, U);
     double q = Q(ur, ui, U);
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ii_dUr = ((PdUr * ui) - (QdUr * ur + q) - 2. * ur * (p * ui - q * ur) / U2) / U2;
   }
 
@@ -493,7 +493,7 @@ ModelLoad::ii_dUi(const double& ur, const double& ui, const double& U, const dou
     double QdUi = Q_dUi(ur, ui, U, U2);
     double p = P(ur, ui, U);
     double q = Q(ur, ui, U);
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ii_dUi = ((PdUi * ui + p) - (QdUi * ur) - 2. * ui * (p * ui - q * ur) / U2) / U2;
   }
 
@@ -504,7 +504,7 @@ double
 ModelLoad::ir_dZp(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
   double ir_dZp = 0.;
   if (isRunning() && isRestorative_) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ir_dZp = 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ur;
   }
   return ir_dZp;
@@ -514,7 +514,7 @@ double
 ModelLoad::ir_dZq(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
   double ir_dZq = 0.;
   if (isRunning() && isRestorative_) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ir_dZq = 1. / U2 * (Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ui;
   }
   return ir_dZq;
@@ -524,7 +524,7 @@ double
 ModelLoad::ii_dZp(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
   double ii_dZp = 0.;
   if (isRunning() && isRestorative_) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ii_dZp = 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ui;
   }
   return ii_dZp;
@@ -534,7 +534,7 @@ double
 ModelLoad::ii_dZq(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
   double ii_dZq = 0.;
   if (isRunning() && isRestorative_) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ii_dZq = 1. / U2 * (-1. * Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ur;
   }
   return ii_dZq;
@@ -767,7 +767,7 @@ ModelLoad::setSubModelParameters(const std::tr1::unordered_map<std::string, Para
 
   // Connection ModelBus is supposed to be initialized before parameters set
   u0_ = modelBus_->getU0();
-  if (isConnected() && doubleNotEquals(u0_, 0.)) {
+  if (isConnected() && !doubleIsZero(u0_)) {
     kp_ = 1. / pow(u0_, alpha_);
     kq_ = 1. / pow(u0_, beta_);
   } else {

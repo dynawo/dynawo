@@ -456,7 +456,7 @@ double
 ModelDanglingLine::irLoad_dUr(const double& ur, const double& ui) const {
   double ir_dUr = 0.;
   double U2 = ur * ur + ui * ui;
-  if (doubleNotEquals(U2, 0.))
+  if (!doubleIsZero(U2))
     ir_dUr = (P0_ - 2 * ur * (P0_ * ur + Q0_ * ui) / U2) / U2;
 
   return ir_dUr;
@@ -466,7 +466,7 @@ double
 ModelDanglingLine::irLoad_dUi(const double& ur, const double& ui) const {
   double ir_dUi = 0.;
   double U2 = ur * ur + ui*ui;
-  if (doubleNotEquals(U2, 0.))
+  if (!doubleIsZero(U2))
     ir_dUi = (Q0_ - 2 * ui * (P0_ * ur + Q0_ * ui) / U2) / U2;
 
   return ir_dUi;
@@ -476,7 +476,7 @@ double
 ModelDanglingLine::iiLoad_dUr(const double& ur, const double& ui) const {
   double ii_dUr = 0.;
   double U2 = ur * ur + ui*ui;
-  if (doubleNotEquals(U2, 0.))
+  if (!doubleIsZero(U2))
     ii_dUr = (-Q0_ - 2. * ur * (P0_ * ui - Q0_ * ur) / U2) / U2;
 
   return ii_dUr;
@@ -486,7 +486,7 @@ double
 ModelDanglingLine::iiLoad_dUi(const double& ur, const double& ui) const {
   double ii_dUi = 0;
   double U2 = ur * ur + ui*ui;
-  if (doubleNotEquals(U2, 0.))
+  if (!doubleIsZero(U2))
     ii_dUi = (P0_ - 2 * ui * (P0_ * ui - Q0_ * ur) / U2) / U2;
 
   return ii_dUi;
@@ -712,7 +712,7 @@ ModelDanglingLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* 
   switch (numCalculatedVar) {
     case iNum_: {
       double I = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
-      if (getConnectionState() == CLOSED && doubleNotEquals(I, 0)) {
+      if (getConnectionState() == CLOSED && !doubleIsZero(I)) {
         res[0] = (ii1_dUr_ * Ii1 + ir1_dUr_ * Ir1) / I;   // dI1/dUr1
         res[1] = (ii1_dUi_ * Ii1 + ir1_dUi_ * Ir1) / I;   // dI1/dUi1
         res[2] = (ii1_dUrFict_ * Ii1 + ir1_dUrFict_ * Ir1) / I;   // dI1/dUrFict
