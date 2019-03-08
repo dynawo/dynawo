@@ -54,7 +54,7 @@ Impl(generator->getID()) {
   double ur0 = uNode / unomNode * cos(tetaNode * DEG_TO_RAD);
   double ui0 = uNode / unomNode * sin(tetaNode * DEG_TO_RAD);
   double U20 = ur0 * ur0 + ui0 * ui0;
-  if (doubleNotEquals(U20, 0.)) {
+  if (!doubleIsZero(U20)) {
     ir0_ = (-Pc() * ur0 - Qc() * ui0) / U20;
     ii0_ = (-Pc() * ui0 + Qc() * ur0) / U20;
   } else {
@@ -96,7 +96,7 @@ double
 ModelGenerator::ir(const double& ur, const double& ui, const double& U2) const {
   double ir = 0.;
   if (isConnected() && !modelBus_->getSwitchOff()) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ir = (-Pc() * ur - Qc() * ui) / U2;
   }
   return ir;
@@ -106,7 +106,7 @@ double
 ModelGenerator::ii(const double& ur, const double& ui, const double& U2) const {
   double ii = 0.;
   if (isConnected() && !modelBus_->getSwitchOff()) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ii = (-Pc() * ui + Qc() * ur) / U2;
   }
   return ii;
@@ -116,7 +116,7 @@ double
 ModelGenerator::ir_dUr(const double& ur, const double& ui, const double& U2) const {
   double ir_dUr = 0.;
   if (isConnected() && !modelBus_->getSwitchOff()) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ir_dUr = (-Pc() - 2. * ur * (-Pc() * ur - Qc() * ui) / U2) / U2;
   }
   return ir_dUr;
@@ -126,7 +126,7 @@ double
 ModelGenerator::ir_dUi(const double& ur, const double& ui, const double& U2) const {
   double ir_dUi = 0.;
   if (isConnected()&& !modelBus_->getSwitchOff()) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ir_dUi = (-Qc() - 2. * ui * (-Pc() * ur - Qc() * ui) / U2) / U2;
   }
   return ir_dUi;
@@ -136,7 +136,7 @@ double
 ModelGenerator::ii_dUr(const double& ur, const double& ui, const double& U2) const {
   double ii_dUr = 0.;
   if (isConnected()&& !modelBus_->getSwitchOff()) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ii_dUr = (Qc() - 2. * ur * (-Pc() * ui + Qc() * ur) / U2) / U2;
   }
   return ii_dUr;
@@ -146,7 +146,7 @@ double
 ModelGenerator::ii_dUi(const double& ur, const double& ui, const double& U2) const {
   double ii_dUi = 0.;
   if (isConnected()&& !modelBus_->getSwitchOff()) {
-    if (doubleNotEquals(U2, 0.))
+    if (!doubleIsZero(U2))
       ii_dUi = (-Pc() - 2 * ui * (-Pc() * ui + Qc() * ur) / U2) / U2;
   }
   return ii_dUi;

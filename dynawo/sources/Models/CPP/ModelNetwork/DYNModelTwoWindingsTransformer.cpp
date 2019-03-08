@@ -278,7 +278,7 @@ tapChangerIndex_(0) {
     double ur01 = uNode1 / unomNode1 * cos(tetaNode1 * DEG_TO_RAD);
     double ui01 = uNode1 / unomNode1 * sin(tetaNode1 * DEG_TO_RAD);
     double U201 = ur01 * ur01 + ui01 * ui01;
-    if (doubleNotEquals(U201, 0.)) {
+    if (!doubleIsZero(U201)) {
       ir01_ = (P01 * ur01 + Q01 * ui01) / U201;
       ii01_ = (P01 * ui01 - Q01 * ur01) / U201;
     }
@@ -295,7 +295,7 @@ tapChangerIndex_(0) {
     double ur02 = uNode2 / unomNode2 * cos(tetaNode2 * DEG_TO_RAD);
     double ui02 = uNode2 / unomNode2 * sin(tetaNode2 * DEG_TO_RAD);
     double U202 = ur02 * ur02 + ui02 * ui02;
-    if (doubleNotEquals(U202, 0.)) {
+    if (!doubleIsZero(U202)) {
       ir02_ = (P02 * ur02 + Q02 * ui02) / U202;
       ii02_ = (P02 * ui02 - Q02 * ur02) / U202;
     }
@@ -940,7 +940,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
   switch (numCalculatedVar) {
     case i1Num_: {
       double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && doubleNotEquals(I1, 0.)) {
+      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && !doubleIsZero(I1)) {
         res[0] = (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;   // dI1/dUr1
         res[1] = (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;   // dI1/dUi1
         res[2] = (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;   // dI1/dUr2
@@ -957,7 +957,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
       double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
       double P1 = Ir1 * ur1 + Ii1 * ui1;
       int signP1 = sign(P1);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && doubleNotEquals(I1, 0.)) {
+      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && !doubleIsZero(I1)) {
         res[0] = signP1 * factorPuToASide1_ * (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;   // dI1/dUr1
         res[1] = signP1 * factorPuToASide1_ * (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;   // dI1/dUi1
         res[2] = signP1 * factorPuToASide1_ * (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;   // dI1/dUr2
@@ -974,7 +974,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
       double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
       double P1 = Ir1 * ur1 + Ii1 * ui1;
       int signP1 = sign(-1 * P1);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && doubleNotEquals(I1, 0.)) {
+      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && !doubleIsZero(I1)) {
         res[0] = signP1 * factorPuToASide1_ * (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;   // dI1/dUr1
         res[1] = signP1 * factorPuToASide1_ * (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;   // dI1/dUi1
         res[2] = signP1 * factorPuToASide1_ * (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;   // dI1/dUr2
@@ -989,7 +989,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
     }
     case iSide1Num_: {
       double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && doubleNotEquals(I1, 0.)) {
+      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && !doubleIsZero(I1)) {
         res[0] = factorPuToASide1_ * (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;   // dI1/dUr1
         res[1] = factorPuToASide1_ * (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;   // dI1/dUi1
         res[2] = factorPuToASide1_ * (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;   // dI1/dUr2
@@ -1004,7 +1004,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
     }
     case i2Num_: {
       double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && doubleNotEquals(I2, 0.)) {
+      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && !doubleIsZero(I2)) {
         res[0] = (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;   // dI2/dUr1
         res[1] = (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;   // dI2/dUi1
         res[2] = (ii2_dUr2_ * Ii2 + ii2_dUr2_ * Ir2) / I2;   // dI2/dUr2
@@ -1021,7 +1021,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
       double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
       double P2 = ur2 * Ir2 + ui2 * Ii2;
       int signP2 = sign(P2);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && doubleNotEquals(I2, 0.)) {
+      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && !doubleIsZero(I2)) {
         res[0] = signP2 * factorPuToASide2_ * (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;   // dI2/dUr1
         res[1] = signP2 * factorPuToASide2_ * (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;   // dI2/dUi1
         res[2] = signP2 * factorPuToASide2_ * (ii2_dUr2_ * Ii2 + ii2_dUr2_ * Ir2) / I2;   // dI2/dUr2
@@ -1038,7 +1038,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
       double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
       double P2 = ur2 * Ir2 + ui2 * Ii2;
       int signP2 = sign(-1 * P2);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && doubleNotEquals(I2, 0.)) {
+      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && !doubleIsZero(I2)) {
         res[0] = signP2 * factorPuToASide2_ * (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;   // dI2/dUr1
         res[1] = signP2 * factorPuToASide2_ * (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;   // dI2/dUi1
         res[2] = signP2 * factorPuToASide2_ * (ii2_dUr2_ * Ii2 + ii2_dUr2_ * Ir2) / I2;   // dI2/dUr2
@@ -1053,7 +1053,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
     }
     case iSide2Num_: {
       double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && doubleNotEquals(I2, 0.)) {
+      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && !doubleIsZero(I2)) {
         res[0] = factorPuToASide2_ * (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;   // dI2/dUr1
         res[1] = factorPuToASide2_ * (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;   // dI2/dUi1
         res[2] = factorPuToASide2_ * (ii2_dUr2_ * Ii2 + ii2_dUr2_ * Ir2) / I2;   // dI2/dUr2

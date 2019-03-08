@@ -96,7 +96,7 @@ Ti_(0.005) {
     ur0 = uBus0 / unomBus * cos(tetaBus0 * DEG_TO_RAD);
     ui0 = uBus0 / unomBus * sin(tetaBus0 * DEG_TO_RAD);
     U0 = sqrt(ur0 * ur0 + ui0 * ui0);
-    if (doubleNotEquals(U0, 0.)) {
+    if (!doubleIsZero(U0)) {
       bTotal0 = -1. * Q0 / (U0 * U0);  // in order to have the same convention as a shunt : b < 0 when Q > 0 (network convention)
       ir0_ = Q0 * ui0 / (ur0 * ur0 + ui0 * ui0);
       ii0_ = - Q0 * ur0 / (ur0 * ur0 + ui0 * ui0);

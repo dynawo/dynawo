@@ -1118,8 +1118,7 @@ class readerOMC:
                 it = itertools.dropwhile(lambda line: (ptrn_func.search(line) is None) and (ptrn_struct.search(line) is None), f)
                 next_iter = next(it,None) # Line on which "dropwhile" stopped
                 if next_iter is None: break # If we reach the end of the file, exit loop
-                if next_iter not in self.list_external_functions:
-                    if ptrn_not_func.search(next_iter) is None:
+                if next_iter not in self.list_external_functions and ptrn_not_func.search(next_iter) is None:
                         self.list_internal_functions.append(next_iter)
 
 

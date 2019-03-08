@@ -42,7 +42,7 @@ ParametersSet::parameter_const_iterator::operator=(const ParametersSet::paramete
   if (this == &other)
     return *this;
   delete impl_;
-  impl_ = new BaseIteratorImpl(*(other.impl_));
+  impl_ = (other.impl_ == NULL)?NULL:new BaseIteratorImpl(*(other.impl_));
   return *this;
 }
 
@@ -110,7 +110,7 @@ ParametersSet::reference_const_iterator::operator=(const ParametersSet::referenc
   if (this == &other)
     return *this;
   delete impl_;
-  impl_ = new BaseIteratorRefImpl(*(other.impl_));
+  impl_ = (other.impl_ == NULL)?NULL:new BaseIteratorRefImpl(*(other.impl_));
   return *this;
 }
 

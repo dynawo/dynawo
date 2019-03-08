@@ -346,7 +346,7 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
   staticParameters_["q2"] = StaticParameter("q2", StaticParameter::DOUBLE).setValue(getQ2());
 
   double i1 = 0;
-  if (getInitialConnected1() && doubleNotEquals(busInterface1_->getV0(), 0)) {
+  if (getInitialConnected1() && !doubleIsZero(busInterface1_->getV0())) {
     double V = busInterface1_->getV0() / getVNom1();
     double teta = busInterface1_->getAngle0();
     double ur = V * cos(teta);
@@ -357,7 +357,7 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
   }
 
   double i2 = 0;
-  if (getInitialConnected2() && doubleNotEquals(busInterface2_->getV0(), 0)) {
+  if (getInitialConnected2() && !doubleIsZero(busInterface2_->getV0())) {
     double V = busInterface2_->getV0() / getVNom2();
     double teta = busInterface2_->getAngle0();
     double ur = V * cos(teta);

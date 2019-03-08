@@ -454,10 +454,10 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMCheckCriteriaAndStaticParameters
   exportStateVariables(data);
 
   ASSERT_EQ(data->checkCriteria(true), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p_pu"), 1.04999999999969850784);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q_pu"), 0.89999999999991364685);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p"), 104.99999999996984456629);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q"), 89.99999999999135980033);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p_pu"), 1.05);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q_pu"), 0.9);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p"), 105);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q"), 90);
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorIIDMCheckCriteriaAndStaticParameters) {

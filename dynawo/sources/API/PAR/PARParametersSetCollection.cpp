@@ -40,7 +40,7 @@ ParametersSetCollection::parametersSet_const_iterator::operator=(const Parameter
   if (this == &other)
     return *this;
   delete impl_;
-  impl_ = new BaseIteratorImpl(*(other.impl_));
+  impl_ = (other.impl_ == NULL)?NULL:new BaseIteratorImpl(*(other.impl_));
   return *this;
 }
 

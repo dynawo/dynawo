@@ -72,7 +72,7 @@ SparseMatrix::changeCol() {
 
 void
 SparseMatrix::addTerm(const int& row, const double& val) {
-  if (doubleNotEquals(val, 0.)) {
+  if (!doubleIsZero(val)) {
     // To deal with exploding matrix sizes
     if (nbTerm_ >= currentMaxTerm_) increaseReserve();
     ++Ap_[iAp_];

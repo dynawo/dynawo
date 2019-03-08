@@ -99,8 +99,8 @@ namespace DYN {
    * @return return true if a == b
    */
   static inline bool doubleEquals(const double& a, const double& b) {
-    return std::abs(a-b) < std::numeric_limits<double>::epsilon() * std::abs(a+b) * 1000
-            || std::abs(a-b) < std::numeric_limits<double>::min();
+    return std::fabs(a-b) < std::numeric_limits<double>::epsilon() * std::fabs(a+b) * 1000
+            || std::fabs(a-b) < std::numeric_limits<double>::min();
   }
 
   /**
@@ -113,6 +113,17 @@ namespace DYN {
    */
   static inline bool doubleNotEquals(const double& a, const double& b) {
     return !doubleEquals(a, b);
+  }
+
+  /**
+   * @brief return true if a == 0.
+   *
+   *
+   * @param a double to test
+   * @return return true if a == 0.
+   */
+  static inline bool doubleIsZero(const double& a) {
+    return doubleEquals(a, 0.);
   }
 
   /**

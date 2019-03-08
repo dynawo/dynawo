@@ -1059,7 +1059,7 @@ class factory:
             # when the whenCondition is checked.
             r_obj.filterWhenCondBlocks( list_func_bodies_discr )
 
-            if re.search(r'RELATIONHYSTERESIS\(tmp[0-9]+, data->localData\[0\]->timeValue, 999999.0, [0-9]+, Greater\);',transformRawbodyToString(r_obj.getBodyForNumRelation())):
+            if re.search(r'RELATIONHYSTERESIS\(tmp[0-9]+, data->localData\[0\]->timeValue, 999999.0, [0-9]+, Greater\);',transform_rawbody_to_string(r_obj.getBodyForNumRelation())):
                 r_obj.setNumDyn(-1)
                 self.listWhenEqToFilter.append(str(r_obj.getWhenVarName())+" ")
                 continue
@@ -1344,7 +1344,7 @@ class factory:
                 continue
             index = str(r_obj.getNumDyn()) + " + " + str(nb_zero_crossing)
             self.listFor_setGequations.append(line_when_ptrn %(r_obj.getWhenVarName()))
-            when_string = r_obj.getWhenVarName() + ":" + transformRawbodyToString(r_obj.getBodyForNumRelation())
+            when_string = r_obj.getWhenVarName() + ":" + transform_rawbody_to_string(r_obj.getBodyForNumRelation())
             self.listFor_setGequations.append( line_ptrn % (index, when_string ) )
             self.listFor_setGequations.append(" \n")
 
@@ -1734,7 +1734,7 @@ class factory:
                         break
 
                 if body_to_transform:
-                    body_translated = transformTernaryOperator(body_translated,num_ternary)
+                    body_translated = transform_ternary_operator(body_translated,num_ternary)
                     num_ternary += 1
 
                 # convert native boolean variables

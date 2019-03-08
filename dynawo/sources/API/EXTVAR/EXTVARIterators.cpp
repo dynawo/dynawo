@@ -48,7 +48,7 @@ variable_const_iterator::operator=(const variable_const_iterator& other) {
   if (this == &other)
     return *this;
   delete impl_;
-  impl_ = new VariablesConstIteratorImpl(*(other.impl_));
+  impl_ = (other.impl_ == NULL)?NULL:new VariablesConstIteratorImpl(*(other.impl_));
   return *this;
 }
 
@@ -116,7 +116,7 @@ variable_iterator::operator=(const variable_iterator& other) {
   if (this == &other)
     return *this;
   delete impl_;
-  impl_ = new VariablesIteratorImpl(*(other.impl_));
+  impl_ = (other.impl_ == NULL)?NULL:new VariablesIteratorImpl(*(other.impl_));
   return *this;
 }
 
