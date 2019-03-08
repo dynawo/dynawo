@@ -48,6 +48,8 @@ model_const_iterator::~model_const_iterator() {
 
 model_const_iterator&
 model_const_iterator::operator=(const model_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new ModelConstIteratorImpl(*(other.impl_));
   return *this;
@@ -122,6 +124,8 @@ variable_const_iterator::~variable_const_iterator() {
 
 variable_const_iterator&
 variable_const_iterator::operator=(const variable_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new VariableConstIteratorImpl(*(other.impl_));
   return *this;
@@ -192,6 +196,8 @@ model_iterator::~model_iterator() {
 
 model_iterator&
 model_iterator::operator=(const model_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new ModelIteratorImpl(*(other.impl_));
   return *this;
@@ -267,6 +273,8 @@ variable_iterator::~variable_iterator() {
 
 variable_iterator&
 variable_iterator::operator=(const variable_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new VariableIteratorImpl(*(other.impl_));
   return *this;

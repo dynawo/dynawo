@@ -39,9 +39,11 @@ ConstraintsCollection::const_iterator::~const_iterator() {
 
 ConstraintsCollection::const_iterator&
 ConstraintsCollection::const_iterator::operator=(const ConstraintsCollection::const_iterator& other) {
-    delete impl_;
-    impl_ = new BaseIteratorImpl(*(other.impl_));
+  if (this == &other)
     return *this;
+  delete impl_;
+  impl_ = new BaseIteratorImpl(*(other.impl_));
+  return *this;
 }
 
 ConstraintsCollection::const_iterator&

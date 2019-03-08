@@ -45,6 +45,8 @@ model_const_iterator::~model_const_iterator() {
 
 model_const_iterator&
 model_const_iterator::operator=(const model_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new ModelConstIteratorImpl(*(other.impl_));
   return *this;
@@ -115,6 +117,8 @@ connector_const_iterator::~connector_const_iterator() {
 
 connector_const_iterator&
 connector_const_iterator::operator=(const connector_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new ConnectorConstIteratorImpl(*(other.impl_));
   return *this;
@@ -181,6 +185,8 @@ model_iterator::~model_iterator() {
 
 model_iterator&
 model_iterator::operator=(const model_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new ModelIteratorImpl(*(other.impl_));
   return *this;
@@ -252,6 +258,8 @@ connector_iterator::~connector_iterator() {
 
 connector_iterator&
 connector_iterator::operator=(const connector_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new ConnectorIteratorImpl(*(other.impl_));
   return *this;
@@ -323,6 +331,8 @@ macroConnector_iterator::~macroConnector_iterator() {
 
 macroConnector_iterator&
 macroConnector_iterator::operator=(const macroConnector_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new MacroConnectorIteratorImpl(*(other.impl_));
   return *this;
@@ -398,6 +408,8 @@ macroConnector_const_iterator::~macroConnector_const_iterator() {
 
 macroConnector_const_iterator&
 macroConnector_const_iterator::operator=(const macroConnector_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new MacroConnectorConstIteratorImpl(*(other.impl_));
   return *this;
@@ -464,6 +476,8 @@ macroConnect_iterator::~macroConnect_iterator() {
 
 macroConnect_iterator&
 macroConnect_iterator::operator=(const macroConnect_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new MacroConnectIteratorImpl(*(other.impl_));
   return *this;
@@ -539,6 +553,8 @@ macroConnect_const_iterator::~macroConnect_const_iterator() {
 
 macroConnect_const_iterator&
 macroConnect_const_iterator::operator=(const macroConnect_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new MacroConnectConstIteratorImpl(*(other.impl_));
   return *this;
@@ -609,6 +625,8 @@ staticRef_iterator::~staticRef_iterator() {
 
 staticRef_iterator&
 staticRef_iterator::operator=(const staticRef_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new StaticRefIteratorImpl(*(other.impl_));
   return *this;
@@ -688,6 +706,8 @@ staticRef_const_iterator::~staticRef_const_iterator() {
 
 staticRef_const_iterator&
 staticRef_const_iterator::operator=(const staticRef_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new StaticRefConstIteratorImpl(*(other.impl_));
   return *this;
@@ -754,6 +774,8 @@ macroStaticRef_iterator::~macroStaticRef_iterator() {
 
 macroStaticRef_iterator&
 macroStaticRef_iterator::operator=(const macroStaticRef_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new MacroStaticRefIteratorImpl(*(other.impl_));
   return *this;
@@ -829,6 +851,8 @@ macroStaticRef_const_iterator::~macroStaticRef_const_iterator() {
 
 macroStaticRef_const_iterator&
 macroStaticRef_const_iterator::operator=(const macroStaticRef_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new MacroStaticRefConstIteratorImpl(*(other.impl_));
   return *this;
@@ -895,6 +919,8 @@ macroStaticReference_iterator::~macroStaticReference_iterator() {
 
 macroStaticReference_iterator&
 macroStaticReference_iterator::operator=(const macroStaticReference_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new MacroStaticReferenceIteratorImpl(*(other.impl_));
   return *this;
@@ -970,6 +996,8 @@ macroStaticReference_const_iterator::~macroStaticReference_const_iterator() {
 
 macroStaticReference_const_iterator&
 macroStaticReference_const_iterator::operator=(const macroStaticReference_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new MacroStaticReferenceConstIteratorImpl(*(other.impl_));
   return *this;

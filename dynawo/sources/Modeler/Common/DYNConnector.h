@@ -77,6 +77,8 @@ class connectedSubModel {
    * @returns Reference to this const_iterator
    */
   connectedSubModel& operator=(const connectedSubModel& other) {
+    if (this == &other)
+      return *this;
     subModel_ = other.subModel_;
     variable_ = other.variable_;
     negated_ = other.negated_;

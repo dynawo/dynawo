@@ -1297,7 +1297,6 @@ class factory:
     # @return list of lines
     def getListFor_setFequations(self):
         map_fequation = self.reader.getMap_equation_formula()
-        ptrn_f_name ="  // ----- %s -----\n"
         for eq in self.getListEqSyst():
             index = str(eq.getNumOmc())
             fequation_index = str(eq.getNumDyn())
@@ -1526,7 +1525,6 @@ class factory:
         found_init_by_param_and_at_least2lines = False # to enhance readability
 
         dict_line_par_by_param = {}
-        line_par_other = []
         pattern_num = re.compile(r',(?P<num>\d+)}')
         # Prepare initRpar lines
         for par in filter(lambda x: (paramScope(x) ==  INTERNAL_PARAMETER), self.listParamsReal + self.listParamsBool + self.listParamsInteger + self.listParamsString):

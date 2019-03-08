@@ -44,6 +44,8 @@ job_const_iterator::~job_const_iterator() {
 
 job_const_iterator&
 job_const_iterator::operator=(const job_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new JobConstIteratorImpl(*(other.impl_));
   return *this;
@@ -110,6 +112,8 @@ job_iterator::~job_iterator() {
 
 job_iterator&
 job_iterator::operator=(const job_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new JobIteratorImpl(*(other.impl_));
   return *this;
