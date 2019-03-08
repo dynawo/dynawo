@@ -14,9 +14,7 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
-  <variable type="discrete" id="PRefPu.value"/>
-  <variable type="discrete" id="QRefPu.value"/>
-  <xi:include href="./SwitchOffLoad.xml" xpointer="xmlns(dyn=http://www.rte-france.com/dynawo)xpointer(//dyn:external_variables/*)"/>
+  <xi:include href="SwitchOffGenerator.extvar" xpointer="xmlns(dyn=http://www.rte-france.com/dynawo)xpointer(//dyn:external_variables/*)"/>
 </external_variables>
 
 

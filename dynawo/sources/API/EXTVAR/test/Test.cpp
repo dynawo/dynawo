@@ -277,7 +277,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   ASSERT_NO_THROW(collection->addVariable(variable4));
 
   // export
-  const std::string fileName = "ExternalVariables.xml";
+  const std::string fileName = "ExternalVariables.extvar";
   XmlExporter exporter;
   ASSERT_NO_THROW(exporter.exportToFile(*collection, fileName));
 

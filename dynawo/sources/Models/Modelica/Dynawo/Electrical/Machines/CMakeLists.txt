@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # Machines models
@@ -15,20 +15,20 @@ SET(MODEL_FILES
     BaseClasses.mo
     BaseClasses_INIT.mo
     GeneratorFictitious.mo
-    GeneratorFictitious.xml
+    GeneratorFictitious.extvar
     GeneratorFictitious_INIT.mo
     GeneratorPQ.mo
-    GeneratorPQ.xml
+    GeneratorPQ.extvar
     GeneratorPQ_INIT.mo
     GeneratorPV.mo
-    GeneratorPV.xml
+    GeneratorPV.extvar
     GeneratorPV_INIT.mo
     GeneratorSynchronous.mo
-    GeneratorSynchronous.xml
+    GeneratorSynchronous.extvar
     GeneratorSynchronousInt_INIT.mo
     GeneratorSynchronousExt_4E_INIT.mo
     GeneratorSynchronousExt_3E_INIT.mo
-    SwitchOffGenerator.xml
+    SwitchOffGenerator.extvar
     )
 
 #

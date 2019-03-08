@@ -73,6 +73,7 @@ int main(int argc, char ** argv) {
   string modelicaModelsExtension = "";
   string outputDir = ".";   // output dir
   vector<string> additionalHeaderFiles;   // list of headers that should be included in the dynamic model files
+  bool rmModels = false;
 
   po::options_description desc;
 
@@ -88,7 +89,8 @@ int main(int argc, char ** argv) {
           ("recursive-modelica-models-dir", po::value<string>(&recursiveModelicaModelsDir), "set Modelica models directory (default DYNAWO_DDB_DIR)")
           ("non-recursive-modelica-models-dir", po::value<string>(&nonRecursiveModelicaModelsDir), "set Modelica models directory (default DYNAWO_DDB_DIR)")
           ("modelica-models-extension", po::value<string>(&modelicaModelsExtension), "set Modelica models file extension (default .mo)")
-          ("output-dir", po::value<string>(&outputDir), "set output directory (default : current directory)")
+          ("output-dir", po::value<string>(&outputDir), "set output directory (default: current directory)")
+          ("remove-model-files", po::value<bool>(&rmModels), "if true the .mo input files will be deleted (default: false)")
           ("additional-header-files", po::value< vector<string> >(&additionalHeaderFiles)->multitoken(),
               "list of headers that should be included in the dynamic model files");
 
@@ -177,7 +179,7 @@ int main(int argc, char ** argv) {
     }
 
     Compiler cf = Compiler(dyd, useStandardPrecompiledModels, precompiledModelsDirs, precompiledModelsExtension,
-            useStandardModelicaModels, modelicaModelsDirs, modelicaModelsExtension, additionalHeaderFiles, outputDir);
+            useStandardModelicaModels, modelicaModelsDirs, modelicaModelsExtension, additionalHeaderFiles, rmModels, outputDir);
     cf.compile();
 
     fs::remove(dydFileName);

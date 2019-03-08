@@ -71,12 +71,12 @@ where [option] can be:
     clean-build-3rd-party             clean then build 3rd party libraries
     version-validation                clean all built items, then build them all and run non-regression tests
     dump-model ([args])               call dumpModel executable with given arguments setting LD_LIBRARY_PATH correctly
-    compileModelicaOMC([args])        call compilerModelicaOMC with given arguments
+    compilerModelicaOMC([args])        call compilerModelicaOMC with given arguments
     generate-preassembled             generate a preassembled model
     generate-preassembled-gdb         generate a preassembled model with debugger
 
     =========== Others
-    compileModelicaOMCHelp            show the compilerModelica's help
+    compilerModelicaOMCHelp            show the compilerModelica's help
     curves-visu ([args])              visualize curves output from Dynawo in an HTML file
     doxygen-doc-dynawo                open Dynawo's Doxygen documentation into chosen browser
     flat-model ([args])               generate and display the (full) flat Modelica model
@@ -523,13 +523,13 @@ config_dynawo() {
 }
 
 # show the compiler Modelica help
-compileModelicaOMCHelp() {
+compilerModelicaOMCHelp() {
   $DYNAWO_INSTALL_DIR/bin/launcher --compile --help
 }
 
 # Compile a modelica model
-compileModelicaOMC() {
-  $DYNAWO_INSTALL_DIR/bin/launcher --compile $@ --remove-model-files false
+compilerModelicaOMC() {
+  $DYNAWO_INSTALL_DIR/bin/launcher --compile $@
 }
 
 # Compile Dynawo core (without models)
@@ -1235,12 +1235,12 @@ case $MODE in
     build_3rd_party_version || error_exit "Error while building 3rd party version"
     ;;
 
-  compileModelicaOMCHelp)
-    compileModelicaOMCHelp || error_exit
+  compilerModelicaOMCHelp)
+    compilerModelicaOMCHelp || error_exit
     ;;
 
-  compileModelicaOMC)
-    compileModelicaOMC ${ARGS} || error_exit "Failed to compile Modelica model"
+  compilerModelicaOMC)
+    compilerModelicaOMC ${ARGS} || error_exit "Failed to compile Modelica model"
     ;;
 
   config-dynawo)

@@ -110,6 +110,12 @@ You can also list all available commands with:
 $> ./myEnvDynawo.sh help
 ```
 
+We advise you to create an alias in your bashrc (or other) to be able to call Dyna&omega;o from anywhere:
+``` bash
+$> cd /root/of/dynawo/source/folder
+$> echo "alias dynawo=$(pwd)/myEnvDynawo.sh" >> ~/.bashrc
+```
+
 <a name="documentation"></a>
 ## Dyna&omega;o Documentation
 You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v0.1.0/DynawoDocumentation.pdf).

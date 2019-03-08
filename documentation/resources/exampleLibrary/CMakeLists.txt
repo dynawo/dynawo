@@ -14,15 +14,15 @@ SET(MODEL_FILES
     BaseClasses.mo
     BaseClasses_INIT.mo
     FrequencyLoad.mo
-    FrequencyLoad.xml
+    FrequencyLoad.extvar
     LoadAlphaBeta.mo
-    LoadAlphaBeta.xml
+    LoadAlphaBeta.extvar
     LoadPQ.mo
-    LoadPQ.xml
+    LoadPQ.extvar
     Load_INIT.mo
     LoadConnect_INIT.mo
     LoadAuxiliaries_INIT.mo
-    SwitchOffLoad.xml
+    SwitchOffLoad.extvar
     )
 
 #

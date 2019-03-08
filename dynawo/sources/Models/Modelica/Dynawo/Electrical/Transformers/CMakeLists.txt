@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # Transformers models
@@ -14,9 +14,9 @@ SET(MODEL_FILES
     package.mo
     BaseClasses_INIT.mo
     TransformerFixedRatio.mo
-    TransformerFixedRatio.xml
+    TransformerFixedRatio.extvar
     TransformerVariableTap.mo
-    TransformerVariableTap.xml
+    TransformerVariableTap.extvar
     TransformerVariableTapPQ_INIT.mo
     TransformerVariableTapI_INIT.mo
     )

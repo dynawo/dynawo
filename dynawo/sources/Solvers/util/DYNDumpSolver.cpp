@@ -135,9 +135,9 @@ int main(int argc, char ** argv) {
   }
 
   if (outputFileName == "") {
-    cout << " Default output file used : ./dumpSolver.xml" << endl;
+    cout << " Default output file used : ./dumpSolver.desc.xml" << endl;
     cout << desc << endl;
-    outputFileName = "dumpSolver.xml";
+    outputFileName = "dumpSolver.desc.xml";
   }
 
   // Getting data from Solver
