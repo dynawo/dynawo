@@ -12,7 +12,7 @@
 # simulation tool for power systems.
 #
 
-DO_NOT_RM_MODELS="false"
+RM_MODELS="false"
 while (($#)); do
   case $1 in
     --model=*)
@@ -24,10 +24,9 @@ while (($#)); do
     --debug)
       DEBUG="true"
       ;;
-    --do-not-remove-model-files)
-      DO_NOT_RM_MODELS="true"
+    --remove-model-files)
+      RM_MODELS="true"
       ;;
-
     *)
       break
       ;;
@@ -51,91 +50,91 @@ cd $DIRECTORY
 
 RM="rm -f"
 
-if [ "$DO_NOT_RM_MODELS" == "false" ]; then
-	$RM "$MODEL".mo
-fi
-$RM "$MODEL".o
-$RM "$MODEL".c
-$RM "$MODEL".makefile
-$RM "$MODEL"_01exo.c
-$RM "$MODEL"_02nls.c
-$RM "$MODEL"_03lsy.c
-$RM "$MODEL"_04set.c
-$RM "$MODEL"_05evt.c
-$RM "$MODEL"_06inz.c
-$RM "$MODEL"_07dly.c
-$RM "$MODEL"_08bnd.c
-$RM "$MODEL"_09alg.c
-$RM "$MODEL"_10asr.c
-$RM "$MODEL"_11mix.c
-$RM "$MODEL"_11mix.h
-$RM "$MODEL"_12jac.c
-$RM "$MODEL"_12jac.h
-$RM "$MODEL"_13opt.c
-$RM "$MODEL"_13opt.h
-$RM "$MODEL"_14lnz.c
-$RM "$MODEL"_15syn.c
-$RM "$MODEL"_Dyn.o
-$RM "$MODEL"_Dyn_external.o
-$RM "$MODEL"_functions.c
-$RM "$MODEL"_functions.h
-$RM "$MODEL"_info.json
-$RM "$MODEL"_init.xml
-$RM "$MODEL"_Init.o
-$RM "$MODEL"_INIT.c
-$RM "$MODEL"_INIT.makefile
-if [ "$DO_NOT_RM_MODELS" == "false" ]; then
-	$RM "$MODEL"_INIT.mo
-fi
-$RM "$MODEL"_INIT_01exo.c
-$RM "$MODEL"_INIT_02nls.c
-$RM "$MODEL"_INIT_03lsy.c
-$RM "$MODEL"_INIT_04set.c
-$RM "$MODEL"_INIT_05evt.c
-$RM "$MODEL"_INIT_06inz.c
-$RM "$MODEL"_INIT_07dly.c
-$RM "$MODEL"_INIT_08bnd.c
-$RM "$MODEL"_INIT_09alg.c
-$RM "$MODEL"_INIT_10asr.c
-$RM "$MODEL"_INIT_11mix.c
-$RM "$MODEL"_INIT_11mix.h
-$RM "$MODEL"_INIT_12jac.c
-$RM "$MODEL"_INIT_12jac.h
-$RM "$MODEL"_INIT_13opt.c
-$RM "$MODEL"_INIT_13opt.h
-$RM "$MODEL"_INIT_14lnz.c
-$RM "$MODEL"_INIT_15syn.c
-$RM "$MODEL"_Init_external.o
-$RM "$MODEL"_INIT_functions.c
-$RM "$MODEL"_INIT_functions.h
-$RM "$MODEL"_INIT_info.json
-$RM "$MODEL"_INIT_init.xml
-$RM "$MODEL"_INIT_records.c
-$RM "$MODEL"_records.c
-$RM "$MODEL"_structure.xml
-$RM "$MODEL"-tmp.mo
-$RM createStructure-"$MODEL".mos
-$RM Complex__omc*.*
-$RM Modelica_ComplexMath__omc*.*
-$RM Modelica_ComplexMath_conj*.*
-
 if [ "$DEBUG" != "true" ]; then
-    $RM "$MODEL"_model.h
-    $RM "$MODEL".cpp
-    $RM "$MODEL".h
-    $RM "$MODEL"_Dyn.cpp
-    $RM "$MODEL"_Dyn.h
-    $RM "$MODEL"_Dyn_external.cpp
-    $RM "$MODEL"_Dyn_literal.h
-    $RM "$MODEL"_Init.cpp
-    $RM "$MODEL"_Init.h
-    $RM "$MODEL"_Init_external.cpp
-    $RM "$MODEL"_Init_literal.h
-    $RM "$MODEL"_INIT_model.h
-    $RM "$MODEL"_INIT_literals.h
-    $RM "$MODEL"_literals.h
-    $RM compileModelicaToC-"$MODEL".mos
-    $RM compileModelicaToC-"$MODEL"_INIT.mos
+  if [ "$RM_MODELS" = "true" ]; then
+    $RM "$MODEL".mo
+  fi
+  $RM "$MODEL".o
+  $RM "$MODEL".c
+  $RM "$MODEL".makefile
+  $RM "$MODEL"_01exo.c
+  $RM "$MODEL"_02nls.c
+  $RM "$MODEL"_03lsy.c
+  $RM "$MODEL"_04set.c
+  $RM "$MODEL"_05evt.c
+  $RM "$MODEL"_06inz.c
+  $RM "$MODEL"_07dly.c
+  $RM "$MODEL"_08bnd.c
+  $RM "$MODEL"_09alg.c
+  $RM "$MODEL"_10asr.c
+  $RM "$MODEL"_11mix.c
+  $RM "$MODEL"_11mix.h
+  $RM "$MODEL"_12jac.c
+  $RM "$MODEL"_12jac.h
+  $RM "$MODEL"_13opt.c
+  $RM "$MODEL"_13opt.h
+  $RM "$MODEL"_14lnz.c
+  $RM "$MODEL"_15syn.c
+  $RM "$MODEL"_Dyn.o
+  $RM "$MODEL"_Dyn_external.o
+  $RM "$MODEL"_functions.c
+  $RM "$MODEL"_functions.h
+  $RM "$MODEL"_info.json
+  $RM "$MODEL"_init.xml
+  $RM "$MODEL"_Init.o
+  $RM "$MODEL"_INIT.c
+  $RM "$MODEL"_INIT.makefile
+  if [ "$RM_MODELS" = "true" ]; then
+    $RM "$MODEL"_INIT.mo
+  fi
+  $RM "$MODEL"_INIT_01exo.c
+  $RM "$MODEL"_INIT_02nls.c
+  $RM "$MODEL"_INIT_03lsy.c
+  $RM "$MODEL"_INIT_04set.c
+  $RM "$MODEL"_INIT_05evt.c
+  $RM "$MODEL"_INIT_06inz.c
+  $RM "$MODEL"_INIT_07dly.c
+  $RM "$MODEL"_INIT_08bnd.c
+  $RM "$MODEL"_INIT_09alg.c
+  $RM "$MODEL"_INIT_10asr.c
+  $RM "$MODEL"_INIT_11mix.c
+  $RM "$MODEL"_INIT_11mix.h
+  $RM "$MODEL"_INIT_12jac.c
+  $RM "$MODEL"_INIT_12jac.h
+  $RM "$MODEL"_INIT_13opt.c
+  $RM "$MODEL"_INIT_13opt.h
+  $RM "$MODEL"_INIT_14lnz.c
+  $RM "$MODEL"_INIT_15syn.c
+  $RM "$MODEL"_Init_external.o
+  $RM "$MODEL"_INIT_functions.c
+  $RM "$MODEL"_INIT_functions.h
+  $RM "$MODEL"_INIT_info.json
+  $RM "$MODEL"_INIT_init.xml
+  $RM "$MODEL"_INIT_records.c
+  $RM "$MODEL"_records.c
+  $RM "$MODEL"_structure.xml
+  $RM "$MODEL"-tmp.mo
+  $RM createStructure-"$MODEL".mos
+  $RM Complex__omc*.*
+  $RM Modelica_ComplexMath__omc*.*
+  $RM Modelica_ComplexMath_conj*.*
+
+  $RM "$MODEL"_model.h
+  $RM "$MODEL".cpp
+  $RM "$MODEL".h
+  $RM "$MODEL"_Dyn.cpp
+  $RM "$MODEL"_Dyn.h
+  $RM "$MODEL"_Dyn_external.cpp
+  $RM "$MODEL"_Dyn_literal.h
+  $RM "$MODEL"_Init.cpp
+  $RM "$MODEL"_Init.h
+  $RM "$MODEL"_Init_external.cpp
+  $RM "$MODEL"_Init_literal.h
+  $RM "$MODEL"_INIT_model.h
+  $RM "$MODEL"_INIT_literals.h
+  $RM "$MODEL"_literals.h
+  $RM compileModelicaToC-"$MODEL".mos
+  $RM compileModelicaToC-"$MODEL"_INIT.mos
 fi
 
 cd $currentDirectory

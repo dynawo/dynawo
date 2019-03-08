@@ -175,8 +175,8 @@ Compiler::getDDB() {
     // scan for all .mo files (for sanity checks purposes)
     searchModelsFiles(DDBDir, ".mo", noFileExtensionsForbidden, searchInSubDirsStandardModels, packageNeedsRecursive, !stopWhenSeePackage, moFilesAll_);
 
-    // scan for all .xml (external variables files)
-    searchModelsFiles(DDBDir, ".xml", fileExtensionsForbiddenXML, searchInSubDirsStandardModels, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
+    // scan for all .extvar (external variables files)
+    searchModelsFiles(DDBDir, ".extvar", fileExtensionsForbiddenXML, searchInSubDirsStandardModels, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
   }
 
   for (vector<UserDefinedDirectory>::const_iterator itDir = modelicaModelsDirsPaths_.begin(); itDir != modelicaModelsDirsPaths_.end(); ++itDir) {
@@ -185,7 +185,7 @@ Compiler::getDDB() {
 
     searchModelsFiles(itDir->path, modelicaModelsExtension_, noFileExtensionsForbidden, itDir->isRecursive, packageNeedsRecursive, !stopWhenSeePackage,
             moFilesAll_);
-    searchModelsFiles(itDir->path, ".xml", fileExtensionsForbiddenXML, itDir->isRecursive, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
+    searchModelsFiles(itDir->path, ".extvar", fileExtensionsForbiddenXML, itDir->isRecursive, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
   }
   Trace::info("COMPILE") << DYNLog(CompileFiles) << Trace::endline;
   for (std::map<string, string>::const_iterator itFile = moFilesCompilation_.begin(); itFile != moFilesCompilation_.end(); ++itFile) {
@@ -317,12 +317,17 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 
   // remove old files
   string cleanCommand = installDir + "/sbin/cleanCompilerModelicaOMC --model=" + thisCompiledId + " --directory=" + compileDirPath_;
+  if (rmModels_)
+    cleanCommand += " --remove-model-files";
+#ifdef _DEBUG_
+  cleanCommand += " --debug";
+#endif
   stringstream ssClean;
   executeCommand(cleanCommand, ssClean);
   Trace::debug("COMPILE") << ssClean.str() << Trace::endline;
 
   // concat models
-  concatModel(modelDescription);  // for .mo, .xml, -init.mo
+  concatModel(modelDescription);  // for .mo, .extvar, -init.mo
 
   // erase old version of the lib before compiling it.
   remove(createAbsolutePath(libName, compileDirPath_));
@@ -396,6 +401,8 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 
     compileCommand += " --additionalHeaderList" + additionalHeaderList;
   }
+  if (rmModels_)
+    compileCommand += " --remove-model-files true";
 
   Trace::info("COMPILE") << DYNLog(CompileCommmand, compileCommand) << Trace::endline;
 
@@ -565,7 +572,7 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
   fOut << "end " << modelConcatName << ";" << std::endl;
   fOut.close();
 
-  // .xml file generation
+  // .extvar file generation
   // only keep external variables for which no internal connect has already been conducted
   shared_ptr<externalVariables::VariablesCollection> modelExternalvariables = externalVariables::VariablesCollectionFactory::newCollection();
   bool atLeastOneExternalVariable = false;
@@ -612,7 +619,7 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
   }
 
   if (atLeastOneExternalVariable) {
-    const string extVarFlatPath = absolute(modelConcatName + ".xml", compileDirPath_);
+    const string extVarFlatPath = absolute(modelConcatName + ".extvar", compileDirPath_);
     externalVariables::XmlExporter extVarExporter;
     extVarExporter.exportToFile(*modelExternalvariables, extVarFlatPath);
   }

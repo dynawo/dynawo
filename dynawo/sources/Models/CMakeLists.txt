@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 #
@@ -72,7 +72,7 @@ ADD_CUSTOM_TARGET(CPP_FILES_INSTALL
                  )
 
 #
-# Macro called to install a .mo or .xml file
+# Macro called to install a .mo or .extvar file
 # to ddbdir. Automatically adds the dependencies
 # to the main targets.
 #
@@ -98,7 +98,7 @@ MACRO(INSTALL_MODEL_FILE
 
     # Run xmllint on external variable files in order to include possible sub-model external variables
     string (TOLOWER ${SHORT_EXTENSION} SHORT_EXTENSION_LOWER)
-    set (EXTERNAL_VARIABLES_EXTENSION ".xml")
+    set (EXTERNAL_VARIABLES_EXTENSION ".extvar")
     if (${SHORT_EXTENSION_LOWER} STREQUAL ${EXTERNAL_VARIABLES_EXTENSION})
         SET (TARGET_PROCESSING_NAME "${TARGET_NAME}_EXTVAR_FLATTENING")
         ADD_CUSTOM_TARGET(${TARGET_PROCESSING_NAME}
@@ -163,7 +163,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
                            ${CMAKE_CURRENT_SOURCE_DIR}/buildChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} > ${MODEL_NAME}.log 2>&1 ||
                            (echo "*** [${MODEL_NAME}] Error : for more information see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
                        COMMAND
-                           ${bindir}/launcher --dydlib --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} >> ${MODEL_NAME}.log 2>&1 ||
+                           ${bindir}/launcher --dydlib --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} --remove-model-files true >> ${MODEL_NAME}.log 2>&1 ||
                            (echo "*** [${MODEL_NAME}] Error : for more information please see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
                        COMMENT "Building ${MODEL_NAME}"
                       )
@@ -187,22 +187,24 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
 #                          ${MODEL_NAME}.dep
                           ${MODEL_NAME}.so
                           ${MODEL_NAME}.desc.xml
+                          ${MODEL_NAME}.extvar
                           CREATE_DDBDIR
                       COMMAND
                         ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.so ${ddbdir}/${MODEL_NAME}.so \;
                         ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.desc.xml ${ddbdir}/${MODEL_NAME}.desc.xml
                      )
 
-    ADD_CUSTOM_TARGET(${MODEL_NAME}.xml
+    ADD_CUSTOM_TARGET(${MODEL_NAME}.extvar
                       DEPENDS
                           ${MODEL_NAME}.so
                           CREATE_DDBDIR
                       COMMAND
-                        test ! -e ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.xml || cp ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.xml ${ddbdir}/${MODEL_NAME}.xml
-                      COMMENT "Install ${MODEL_NAME}.xml external variables description file"
+                        test ! -e ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.extvar || cp ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.extvar ${ddbdir}/${MODEL_NAME}.extvar
+                      COMMENT "Install ${MODEL_NAME}.extvar external variables description file"
                      )
 
     ADD_DEPENDENCIES(PREASSEMBLED_MODEL_FILES_INSTALL ${MODEL_NAME})
+    ADD_DEPENDENCIES(PREASSEMBLED_MODEL_FILES_INSTALL ${MODEL_NAME}.extvar)
 ENDMACRO(COMPILE_PREASSEMBLED_MODEL)
 
 #

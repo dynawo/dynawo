@@ -66,6 +66,7 @@ class Compiler {
    * @param modelicaModelsDirs modelica models directories
    * @param modelicaModelsExtension: modelica models extension
    * @param additionalHeaderFiles: list of headers that should be included in the dynamic model files
+   * @param rmModels: remove .mo model (defautl: false)
    * @param outputDir: output directory
    */
   Compiler(const boost::shared_ptr<DynamicData>& dyd,
@@ -73,6 +74,7 @@ class Compiler {
           const std::string & precompiledModelsExtension,
           const bool useStandardModelicaModels, const std::vector <UserDefinedDirectory> & modelicaModelsDirs, const std::string & modelicaModelsExtension,
           const std::vector <std::string> & additionalHeaderFiles,
+          const bool rmModels,
           std::string outputDir) :
   dyd_(dyd),
   unitDynamicModelsMap_(),
@@ -84,7 +86,8 @@ class Compiler {
   modelicaModelsDirsPaths_(modelicaModelsDirs),
   modelicaModelsExtension_(modelicaModelsExtension),
   compileDirPath_(outputDir),
-  additionalHeaderFiles_(additionalHeaderFiles) { }
+  additionalHeaderFiles_(additionalHeaderFiles),
+  rmModels_(rmModels) { }
 
   /**
    * @brief default destructor.
@@ -194,6 +197,9 @@ class Compiler {
 
   // list of headers that should be included in the dynamic model files
   std::vector<std::string> additionalHeaderFiles_;  ///< list of headers that should be included in the dynamic model files
+
+  // if set to true the .mo input files will be deleted (default: false)
+  bool rmModels_;  ///< enables to remove model file
 };
 
 }  // namespace DYN

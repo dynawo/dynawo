@@ -17,6 +17,6 @@
   <variable type="continuous" id="PmPu.value"/>
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
-  <xi:include href="SwitchOffGenerator.xml" xpointer="xmlns(dyn=http://www.rte-france.com/dynawo)xpointer(//dyn:external_variables/*)"/>
+  <xi:include href="SwitchOffGenerator.extvar" xpointer="xmlns(dyn=http://www.rte-france.com/dynawo)xpointer(//dyn:external_variables/*)"/>
 </external_variables>
 

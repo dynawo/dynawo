@@ -127,9 +127,9 @@ int main(int argc, char ** argv) {
   }
 
   if (outputFileName == "") {
-    cout << " Default output file used : ./dumpModel.xml" << endl;
+    cout << " Default output file used : ./dumpModel.desc.xml" << endl;
     cout << desc << endl;
-    outputFileName = "dumpModel.xml";
+    outputFileName = "dumpModel.desc.xml";
   }
 
   // Getting data from SubModel

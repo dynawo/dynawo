@@ -29,7 +29,7 @@ namespace externalVariables {
 
 TEST(APIEXTVARTest, ExternalVariableImportBadType) {
   // import
-  const std::string fileName = "res/ExternalVariablesBadType.xml";
+  const std::string fileName = "res/ExternalVariablesBadType.extvar";
   XmlImporter importer;
   ASSERT_THROW_DYNAWO(importer.importFromFile(fileName), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
@@ -40,7 +40,7 @@ TEST(APIEXTVARTest, ExternalVariableImportBadType) {
 
 TEST(APIEXTVARTest, ExternalVariableImportDuplicateId) {
   // import
-  const std::string fileName = "res/ExternalVariablesDuplicateId.xml";
+  const std::string fileName = "res/ExternalVariablesDuplicateId.extvar";
   XmlImporter importer;
   ASSERT_THROW_DYNAWO(importer.importFromFile(fileName), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
 }
@@ -51,7 +51,7 @@ TEST(APIEXTVARTest, ExternalVariableImportDuplicateId) {
 
 TEST(APIEXTVARTest, nonExistingFile) {
   XmlImporter importer;
-  ASSERT_THROW_DYNAWO(importer.importFromFile("res/dummyFile.xml"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
+  ASSERT_THROW_DYNAWO(importer.importFromFile("res/dummyFile.extvar"), DYN::Error::API, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }
 
 TEST(APICRVTest, testXmlWrongStream) {
@@ -63,7 +63,7 @@ TEST(APICRVTest, testXmlWrongStream) {
 
 TEST(APICRVTest, testXmlFileImporter) {
   XmlImporter importer;
-  ASSERT_NO_THROW(importer.importFromFile("res/ExternalVariablesTest.xml"));
+  ASSERT_NO_THROW(importer.importFromFile("res/ExternalVariablesTest.extvar"));
 }
 
 TEST(APICRVTest, testXmlStreamImporter) {

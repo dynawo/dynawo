@@ -445,6 +445,7 @@ Simulation::compileModels() {
           modelicaModelsDirsAbsolute,
           modelicaModelsExtension,
           additionalHeaderFiles,
+          true,
           compileDir);
 
   cf.compile();  // modelOnly = false, compilation and parameter linking

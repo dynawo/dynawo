@@ -128,7 +128,7 @@ class readerOMC:
         existFile(self._05evtCfile)
 
         ## Full name of xml containing fictitious equations description
-        self.eqFictiveXmlFile = os.path.join (input_dir, self.modName + ".xml")
+        self.eqFictiveXmlFile = os.path.join (input_dir, self.modName + ".extvar")
 
         ## Full name of the _structure.xml file
         self.structXmlFile = os.path.join (input_dir, self.modName + "_structure.xml")
@@ -553,13 +553,13 @@ class readerOMC:
 
 
     ##
-    # Read the *.xml defining the fictitious equations
+    # Read the *.extvar defining the fictitious equations
     # @param self : object pointer
     # @return
     def readEqFictiveXml(self):
         # If this file does not exist, we exit
         if not os.path.isfile(self.eqFictiveXmlFile) :
-            print ("Warning: xml file of fictitious variables does not exist...")
+            print ("Warning: extvar file of fictitious (external) variables does not exist...")
             return
 
         list_var_ext_continuous, list_var_ext_optional_continuous, list_var_ext_discrete = scriptVarExt.listExternalVariables (self.eqFictiveXmlFile)

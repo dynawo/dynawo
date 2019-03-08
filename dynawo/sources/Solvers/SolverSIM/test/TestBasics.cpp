@@ -108,6 +108,7 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
             modelicaModelsDirsAbsolute,
             modelicaModelsExtension,
             additionalHeaderFiles,
+            true,
             getEnvVar("PWD") +"/jobs");
   cf.compile();  // modelOnly = false, compilation and parameter linking
   cf.concatConnects();
