@@ -438,7 +438,6 @@ class Transpose:
         for line in self.txtList:
             line_tmp = line # Line changed by overrides
             match = self.ptrnVars.findall(line) # Is this a word that matches the regex?
-            iter_match = self.ptrnVars.finditer (line)
             line_tmp = line_tmp.replace ('$PRE$P', '@@@@@@@')
             # first the $PDER then the vars
             for name in match:

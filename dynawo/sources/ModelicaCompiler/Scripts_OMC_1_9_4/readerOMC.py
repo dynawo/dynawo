@@ -1060,7 +1060,6 @@ class readerOMC:
                     if child.nodeType== child.ELEMENT_NODE:
                         if child.localName=='terminal':
                             name = child.getElementsByTagName('name')[0].firstChild.nodeValue
-                            type_terminal = child.getElementsByTagName('type')[0].firstChild.nodeValue
                             connector_node =  child.getElementsByTagName('connector')[0]
                             type_connector = str(connector_node.getAttribute('type'))
 

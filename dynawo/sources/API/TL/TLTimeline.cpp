@@ -40,6 +40,8 @@ Timeline::event_const_iterator::~event_const_iterator() {
 
 Timeline::event_const_iterator&
 Timeline::event_const_iterator::operator=(const Timeline::event_const_iterator& other) {
+  if (this == &other)
+    return *this;
   delete impl_;
   impl_ = new BaseIteratorImpl(*(other.impl_));
   return *this;
