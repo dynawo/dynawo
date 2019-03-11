@@ -68,7 +68,7 @@ install_xercesc() {
     tar -xzf $XERCESC_ARCHIVE -C $BUILD_DIR
   fi
   cd $BUILD_DIR/$XERCESC_DIRECTORY
-  if [ "${CXX11_ENABLED,,}" = "yes" -o "${CXX11_ENABLED,,}" = "true" -o "${CXX11_ENABLED,,}" = "on" ]; then
+  if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     if [ "$BUILD_TYPE" = "Debug" ]; then
       CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-g -O0" ./configure --prefix=$INSTALL_DIR
     else

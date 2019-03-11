@@ -85,9 +85,14 @@ where [option] can be:
     version                           show dynawo version
     help                              show this message"
 
-HERE=$PWD
-SCRIPT=$(readlink -f $0)
-TOTAL_CPU=$(grep -c \^processor /proc/cpuinfo)
+if [ "`uname`" = "Linux" ]; then
+  TOTAL_CPU=$(grep -c \^processor /proc/cpuinfo)
+elif [ "`uname`" = "Darwin" ]; then
+  TOTAL_CPU=$(sysctl hw | grep ncpu | awk '{print $(NF)}')
+else
+  echo "OS not supported."
+  exit 1
+fi
 
 export_var_env_force() {
   var=$@
