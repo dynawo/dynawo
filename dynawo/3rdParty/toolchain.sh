@@ -145,9 +145,9 @@ compile_all() {
   compile_sundials &&
   compile_adept &&
   compile_xercesc &&
-	compile_libzip &&
-	compile_libxml &&
-	compile_libiidm
+  compile_libzip &&
+  compile_libxml &&
+  compile_libiidm
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -155,22 +155,22 @@ compile_all() {
 while (($#)); do
   case $1 in
     --sundials-install-dir=*)
-	    SUNDIALS_INSTALL_DIR=`echo $1 | sed -e 's/--sundials-install-dir=//g'`
-	    SUNDIALS_INSTALL_DIR=$(get_absolute_path $SUNDIALS_INSTALL_DIR)
+      SUNDIALS_INSTALL_DIR=`echo $1 | sed -e 's/--sundials-install-dir=//g'`
+      SUNDIALS_INSTALL_DIR=$(get_absolute_path $SUNDIALS_INSTALL_DIR)
       if [ ! -d "$SUNDIALS_INSTALL_DIR" ]; then
         mkdir -p $SUNDIALS_INSTALL_DIR
       fi
       ;;
     --suitesparse-install-dir=*)
-	    SUITESPARSE_INSTALL_DIR=`echo $1 | sed -e 's/--suitesparse-install-dir=//g'`
-	    SUITESPARSE_INSTALL_DIR=$(get_absolute_path $SUITESPARSE_INSTALL_DIR)
+      SUITESPARSE_INSTALL_DIR=`echo $1 | sed -e 's/--suitesparse-install-dir=//g'`
+      SUITESPARSE_INSTALL_DIR=$(get_absolute_path $SUITESPARSE_INSTALL_DIR)
       if [ ! -d "$SUITESPARSE_INSTALL_DIR" ]; then
         mkdir -p $SUITESPARSE_INSTALL_DIR
       fi
       ;;
     --adept-install-dir=*)
-	    ADEPT_INSTALL_DIR=`echo $1 | sed -e 's/--adept-install-dir=//g'`
-	    ADEPT_INSTALL_DIR=$(get_absolute_path $ADEPT_INSTALL_DIR)
+      ADEPT_INSTALL_DIR=`echo $1 | sed -e 's/--adept-install-dir=//g'`
+      ADEPT_INSTALL_DIR=$(get_absolute_path $ADEPT_INSTALL_DIR)
       if [ ! -d "$ADEPT_INSTALL_DIR" ]; then
         mkdir -p $ADEPT_INSTALL_DIR
       fi
@@ -211,38 +211,38 @@ while (($#)); do
       fi
       ;;
     --boost-install-dir=*)
-			BOOST_ROOT=`echo $1 | sed -e 's/--boost-install-dir=//g'`
-			;;
+      BOOST_ROOT=`echo $1 | sed -e 's/--boost-install-dir=//g'`
+      ;;
     --libarchive-install-dir=*)
-			LIBARCHIVE_HOME=`echo $1 | sed -e 's/--libarchive-install-dir=//g'`
+      LIBARCHIVE_HOME=`echo $1 | sed -e 's/--libarchive-install-dir=//g'`
       ;;
     --gtest-install-dir=*)
       GTEST_ROOT=`echo $1 | sed -e 's/--gtest-install-dir=//g'`
       ;;
     --sundials-build-dir=*)
-	    SUNDIALS_BUILD_DIR=`echo $1 | sed -e 's/--sundials-build-dir=//g'`
-	    SUNDIALS_BUILD_DIR=$(get_absolute_path $SUNDIALS_BUILD_DIR)
+      SUNDIALS_BUILD_DIR=`echo $1 | sed -e 's/--sundials-build-dir=//g'`
+      SUNDIALS_BUILD_DIR=$(get_absolute_path $SUNDIALS_BUILD_DIR)
       if [ ! -d "$SUNDIALS_BUILD_DIR" ]; then
         mkdir -p $SUNDIALS_BUILD_DIR
       fi
       ;;
     --suitesparse-build-dir=*)
-	    SUITESPARSE_BUILD_DIR=`echo $1 | sed -e 's/--suitesparse-build-dir=//g'`
-	    SUITESPARSE_BUILD_DIR=$(get_absolute_path $SUITESPARSE_BUILD_DIR)
+      SUITESPARSE_BUILD_DIR=`echo $1 | sed -e 's/--suitesparse-build-dir=//g'`
+      SUITESPARSE_BUILD_DIR=$(get_absolute_path $SUITESPARSE_BUILD_DIR)
       if [ ! -d "$SUITESPARSE_BUILD_DIR" ]; then
         mkdir -p $SUITESPARSE_BUILD_DIR
       fi
       ;;
     --nicslu-build-dir=*)
-	    NICSLU_BUILD_DIR=`echo $1 | sed -e 's/--nicslu-build-dir=//g'`
-	    NICSLU_BUILD_DIR=$(get_absolute_path $NICSLU_BUILD_DIR)
+      NICSLU_BUILD_DIR=`echo $1 | sed -e 's/--nicslu-build-dir=//g'`
+      NICSLU_BUILD_DIR=$(get_absolute_path $NICSLU_BUILD_DIR)
       if [ ! -d "$NICSLU_BUILD_DIR" ]; then
         mkdir -p $NICSLU_BUILD_DIR
       fi
       ;;
     --adept-build-dir=*)
-	    ADEPT_BUILD_DIR=`echo $1 | sed -e 's/--adept-build-dir=//g'`
-	    ADEPT_BUILD_DIR=$(get_absolute_path $ADEPT_BUILD_DIR)
+      ADEPT_BUILD_DIR=`echo $1 | sed -e 's/--adept-build-dir=//g'`
+      ADEPT_BUILD_DIR=$(get_absolute_path $ADEPT_BUILD_DIR)
       if [ ! -d "$ADEPT_BUILD_DIR" ]; then
         mkdir -p $ADEPT_BUILD_DIR
       fi
