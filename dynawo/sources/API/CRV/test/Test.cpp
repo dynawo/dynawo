@@ -77,6 +77,10 @@ TEST(APICRVTest, test1) {
   // export the curves in xml format
   CsvExporter csvExporter;
   ASSERT_NO_THROW(csvExporter.exportToFile(curves, "testCsvCurvesExport.csv"));
+
+  // throw
+  ASSERT_THROW_DYNAWO(csvExporter.exportToFile(curves, ""), DYN::Error::API, DYN::KeyError_t::FileGenerationFailed);
+  ASSERT_THROW_DYNAWO(xmlExporter.exportToFile(curves, ""), DYN::Error::API, DYN::KeyError_t::FileGenerationFailed);
 }
 
 }  // namespace curves
