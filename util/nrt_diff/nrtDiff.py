@@ -835,15 +835,16 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
     else:
         file_extension = os.path.splitext(os.path.basename(path_left))[1]
         if (file_extension == ".log" or file_extension == ".xml"):
+            message = os.path.basename(path_left) + ": "
             nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different = DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separator_right)
             if (nb_lines_different == 0) and (nb_lines_identical_but_timestamp == 0):
                 return_value = IDENTICAL
             elif (nb_lines_different == 0) and (nb_lines_identical_but_timestamp > 0):
                 return_value = SAME_LOG_WITH_DIFFERENT_TIMESTAMP
-                message = str (nb_lines_compared) + " lines compared"
+                message += str (nb_lines_compared) + " lines compared"
             elif (nb_lines_different > 0):
                 return_value = DIFFERENT
-                message = str (nb_lines_different) + " difference"
+                message += str (nb_lines_different) + " difference"
                 if (nb_lines_different > 1):
                     message += "s"
 
