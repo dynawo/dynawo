@@ -1,0 +1,349 @@
+#!/bin/bash
+#
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# See AUTHORS.txt
+# All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, you can obtain one at http://mozilla.org/MPL/2.0/.
+# SPDX-License-Identifier: MPL-2.0
+#
+# This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+# simulation tool for power systems.
+#
+
+_dynawo() {
+
+  local cur prev options commands
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+  local global_commands global_options propose_options
+  global_commands=$(TO_COMPLETE_DYNAWO_USER_SCRIPT_PATH help | sed -e '1,/=/d' | grep -v '==' | grep -v -e '^ *$'  | sed 's/^ *//g' | sed 's/(\[.*\])//g' | sed 's/\(\S*\) *\(.*\)/\1/g')
+  global_options=""
+  propose_options="no"
+
+  local nrt_options nrt_diff_options build_tests_options build_tests_options
+  nrt_options="-p -n"
+  build_tests_options="tests CRV_unittest-tests DYD_unittest-tests EXTVAR_unittest-tests PAR_unittest-tests TL_unittest-tests CSTR_unittest-tests FS_unittest-tests JOB_unittest-tests COMMON_unittest-tests MODELER_COMMON_unittest-tests MODELER_DATAINTERFACE_unittest-tests MODELS_MODELNETWORK_unittest-tests SOLVERCOMMON_unittest-tests SOLVERIDA_unittest-tests SOLVERSIM_unittest-tests MODELICACOMPILER_unittest-tests"
+  nrt_diff_options="--firstDirectory --secondDirectory"
+  build_tests_options="tests CRV_unittest-tests DYD_unittest-tests EXTVAR_unittest-tests PAR_unittest-tests TL_unittest-tests CSTR_unittest-tests FS_unittest-tests JOB_unittest-tests COMMON_unittest-tests MODELER_COMMON_unittest-tests MODELER_DATAINTERFACE_unittest-tests MODELS_MODELNETWORK_unittest-tests SOLVERCOMMON_unittest-tests SOLVERIDA_unittest-tests SOLVERSIM_unittest-tests MODELICACOMPILER_unittest-tests"
+  dump_model_options="-h -m -o"
+  compilerModelicaOMC_options="-h --model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
+  dydLibGenerator_options="-h --model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
+  deploy_autocompletion_options="--deploy --update-tests --help"
+  curves_visu_options="--withoutOffset --showpoints --htmlBrowser"
+
+  case "${COMP_WORDS[1]}" in
+    build-3rd-party|build-3rd-party-version|build-all|build-doxygen-doc|build-dynawo|build-dynawo-core|build-modelica-doc|build-omcDynawo|clean-3rd-party|clean-all|clean-build-3rd-party|clean-build-all|clean-build-dynawo|clean-dynawo|clean-old-branches|clean-omcDynawo|clean-tests|clean-tests-coverage|config-dynawo|distrib|distrib-omc|doxygen-doc-dynawo|help|list-tests|uninstall-3rd-party|uninstall-all|uninstall-dynawo|version|version-validation)
+      case "${prev}" in
+        build-3rd-party|build-3rd-party-version|build-all|build-doxygen-doc|build-dynawo|build-dynawo-core|build-modelica-doc|build-omcDynawo|clean-3rd-party|clean-all|clean-build-3rd-party|clean-build-all|clean-build-dynawo|clean-dynawo|clean-old-branches|clean-omcDynawo|clean-tests|clean-tests-coverage|config-dynawo|distrib|distrib-omc|doxygen-doc-dynawo|help|list-tests|uninstall-3rd-party|uninstall-all|uninstall-dynawo|version|version-validation)
+          COMPREPLY=()
+          return 0
+          ;;
+        *)
+          solo_commands="build-3rd-party build-3rd-party-version build-all build-doxygen-doc build-dynawo build-dynawo-core build-modelica-doc build-omcDynawo clean-3rd-party clean-all clean-build-3rd-party clean-build-all clean-build-dynawo clean-dynawo clean-old-branches clean-omcDynawo clean-tests clean-tests-coverage config-dynawo distrib distrib-omc doxygen-doc-dynawo help list-tests uninstall-3rd-party uninstall-all uninstall-dynawo version version-validation"
+          commands=$solo_commands
+          ;;
+      esac
+      ;;
+    jobs|jobs-valgrind|jobs-gdb|jobs-valgrind-callgrind|jobs-valgrind-dhat|jobs-valgrind-massif|jobs-with-curves)
+      case "${prev}" in
+        jobs|jobs-valgrind|jobs-gdb|jobs-valgrind-callgrind|jobs-valgrind-dhat|jobs-valgrind-massif|jobs-with-curves)
+          _filedir '@(jobs|xml)'
+          return 0
+          ;;
+        *.jobs|*.xml)
+          commands=""
+          ;;
+        *)
+          jobs_commands="jobs jobs-valgrind jobs-gdb jobs-valgrind-callgrind jobs-valgrind-dhat jobs-valgrind-massif jobs-with-curves"
+          commands=$jobs_commands
+          ;;
+        esac
+      ;;
+    nrt)
+      case "${prev}" in
+        -n)
+          local nrt_n=$(find TO_COMPLETE_DYNAWO_HOME/nrt/data -mindepth 1 -type d | grep -v reference | grep -v outputs | sed 's#TO_COMPLETE_DYNAWO_HOME/nrt/data/##')
+          commands=$nrt_n
+          ;;
+        -p)
+          COMPREPLY=()
+          return 0
+          ;;
+        nrt)
+          options="$nrt_options"
+          propose_options="yes"
+          ;;
+        *)
+          if  [[ -z ${COMP_WORDS[3]} ]]; then
+            nrt_commands="nrt nrt-diff"
+            commands=$nrt_commands
+          else
+            commands=""
+          fi
+  				;;
+      esac
+      ;;
+    build-tests|build-tests-coverage)
+      case "${prev}" in
+        build-tests|build-tests-coverage)
+          options="$build_tests_options"
+          propose_options="yes"
+          ;;
+        *)
+          if [[ -z ${COMP_WORDS[2]} ]]; then
+            build_tests_commands="build-tests build-tests-coverage"
+            commands=$build_tests_commands
+          else
+            commands=""
+          fi
+          ;;
+      esac
+      ;;
+    nrt-diff)
+      case "${prev}" in
+        nrt-diff)
+          compopt -o nospace
+          COMPREPLY=($(compgen -S\= -W "--firstDirectory" -- ${cur}))
+          return 0
+          ;;
+        --firstDirectory|--secondDirectory)
+          cur=${cur#*=}
+          _filedir -d
+          return 0
+          ;;
+        =)
+          _filedir -d
+          return 0
+          ;;
+        *)
+          case ${COMP_WORDS[2]} in
+            --firstDirectory)
+              if [[ ! -z ${COMP_WORDS[4]} && "${COMP_WORDS[5]}" != "--secondDirectory" ]]; then
+                compopt -o nospace
+                COMPREPLY=($(compgen -S\= -W "--secondDirectory" -- ${cur}))
+                return 0
+              fi
+            ;;
+          esac
+      esac
+      ;;
+    dump-model)
+      case "${prev}" in
+        -h)
+          COMPREPLY=()
+          return 0
+          ;;
+        -m)
+          _filedir '@(so)'
+          return 0
+          ;;
+        -o)
+          COMPREPLY=($(compgen -S ".desc.xml" -W "$(echo ${COMP_WORDS[3]} | sed 's/[.]so//')" -- ${cur}))
+          return 0
+          ;;
+        *.so)
+          options="-o"
+          propose_options="yes"
+          ;;
+        dump-model)
+          options="$dump_model_options"
+          propose_options="yes"
+          ;;
+        *)
+          if [[ -z ${COMP_WORDS[2]} ]]; then
+            dump_model_commands="dump-model"
+            commands=$dump_model_commands
+          else
+            commands=""
+          fi
+          ;;
+      esac
+      ;;
+    compilerModelicaOMC)
+      case "${prev}" in
+        -h)
+          COMPREPLY=()
+          return 0
+          ;;
+        compilerModelicaOMC)
+          options="$compilerModelicaOMC_options"
+          propose_options="yes"
+          ;;
+        *)
+          if [[ -z ${COMP_WORDS[2]} ]]; then
+            compilerModelicaOMC_commands="compilerModelicaOMC"
+            commands=$compilerModelicaOMC_commands
+          else
+            _handle_compilerModelicaOMC_options
+            return 0
+          fi
+        ;;
+      esac
+      ;;
+    dydLibGenerator)
+      case "${prev}" in
+        -h)
+          COMPREPLY=()
+          return 0
+          ;;
+        dydLibGenerator|dydLibGenerator-gdb)
+          options="$dydLibGenerator_options"
+          propose_options="yes"
+          ;;
+        *)
+          if [[ -z ${COMP_WORDS[2]} ]]; then
+            dydLibGenerator_commands="dydLibGenerator dydLibGenerator-gdb"
+            commands=$dydLibGenerator_commands
+          else
+            _handle_dydLibGenerator_options
+            return 0
+          fi
+        ;;
+      esac
+      ;;
+    deploy|deploy-autocompletion)
+      case "${prev}" in
+        --help)
+          COMPREPLY=()
+          return 0
+          ;;
+        --update-tests)
+          COMPREPLY=()
+          return 0
+          ;;
+        --deploy)
+          COMPREPLY=($(compgen -W "--shell-type --script --permanent-path" -- $cur))
+          return 0
+          ;;
+        deploy-autocompletion)
+          options="$deploy_autocompletion_options"
+          propose_options="yes"
+          ;;
+        deploy)
+          COMPREPLY=()
+          return 0
+          ;;
+        *)
+          if [[ -z ${COMP_WORDS[2]} ]]; then
+            deploy_autocompletion_commands="deploy deploy-autocompletion"
+            commands=$deploy_autocompletion_commands
+          else
+            _handle_deploy_autocompletion_options
+            return 0
+          fi
+        ;;
+      esac
+      ;;
+    *)
+  		case "${prev}" in
+  			*)
+  				options="$global_options"
+  				commands="$global_commands"
+  				;;
+      esac
+    ;;
+  esac
+
+  if [[ $cur == -* ]]; then
+		COMPREPLY=($(compgen -W "$options" -- $cur))
+  elif [[ $propose_options == "yes" ]]; then
+    COMPREPLY=($(compgen -W "$options" -- $cur))
+	else
+		COMPREPLY=($(compgen -W "$commands" -- $cur))
+	fi
+
+  return 0
+}
+
+_handle_compilerModelicaOMC_options() {
+  compilerModelicaOMC_options=(--model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList)
+  compilerModelicaOMC_options_echo="--model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
+
+  case "${prev}" in
+    --model) COMPREPLY=(); return 0;;
+    --input-dir) _filedir; return 0;;
+    --output-dir) _filedir; return 0;;
+    --moFiles) _filedir '@(mo)'; return 0;;
+    --initFiles) _filedir '@(mo)'; return 0;;
+    --lib) COMPREPLY=(); return 0;;
+    --remove-model-files) COMPREPLY=($(compgen -W "true false" -- $cur)); return 0;;
+    --additionalHeaderList) COMPREPLY=(); return 0;;
+  esac
+
+  local other_options=""
+
+  for ((j = 0; j < ${#compilerModelicaOMC_options[@]}; ++j)); do
+    for ((i = 1; i < ${#COMP_WORDS[@]}; ++i)); do
+      if [[ ${COMP_WORDS[i]} == ${compilerModelicaOMC_options[j]} ]]; then
+        compilerModelicaOMC_options_echo=$(echo $compilerModelicaOMC_options_echo | sed "s/${compilerModelicaOMC_options[j]}//")
+      fi
+    done
+  done
+
+  other_options=$compilerModelicaOMC_options_echo
+  COMPREPLY=($(compgen -W "$other_options" -- $cur))
+}
+
+_handle_dydLibGenerator_options() {
+  dydLibGenerator_options=(--model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files)
+  dydLibGenerator_options_echo="--model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
+
+  case "${prev}" in
+    --model-list) _filedir '@(xml)'; return 0;;
+    --use-standard-precompiled-models) COMPREPLY=($(compgen -W "true false" -- $cur)); return 0;;
+    --recursive-precompiled-models-dir) _filedir; return 0;;
+    --non-recursive-precompiled-models-dir) _filedir; return 0;;
+    --precompiled-models-extension) COMPREPLY=(); return 0;;
+    --use-standard-modelica-models) COMPREPLY=($(compgen -W "true false" -- $cur)); return 0;;
+    --recursive-modelica-models-dir) _filedir; return 0;;
+    --non-recursive-modelica-models-dir) _filedir; return 0;;
+    --modelica-models-extension) COMPREPLY=(); return 0;;
+    --output-dir) _filedir; return 0;;
+    --remove-model-files) COMPREPLY=($(compgen -W "true false" -- $cur)); return 0;;
+    --additional-header-files) COMPREPLY=(); return 0;;
+  esac
+
+  local other_options=""
+
+  for ((j = 0; j < ${#dydLibGenerator_options[@]}; ++j)); do
+    for ((i = 1; i < ${#COMP_WORDS[@]}; ++i)); do
+      if [[ ${COMP_WORDS[i]} == ${dydLibGenerator_options[j]} ]]; then
+        dydLibGenerator_options_echo=$(echo $dydLibGenerator_options_echo | sed "s/${dydLibGenerator_options[j]}//")
+      fi
+    done
+  done
+
+  other_options=$dydLibGenerator_options_echo
+  COMPREPLY=($(compgen -W "$other_options" -- $cur))
+}
+
+_handle_deploy_autocompletion_options() {
+  deploy_autocompletion_options=(--script --shell-type --permanent-path)
+  deploy_autocompletion_options_echo="--script --shell-type --permanent-path"
+
+  case "${prev}" in
+    --script) _filedir '@(sh)'; return 0;;
+    --permanent-path) _filedir; return 0;;
+    --shell-type) COMPREPLY=($(compgen -W "bash zsh" -- $cur)); return 0;;
+    --add-command) COMPREPLY=(); return 0;;
+  esac
+
+  local other_options=""
+
+  for ((j = 0; j < ${#deploy_autocompletion_options[@]}; ++j)); do
+    for ((i = 1; i < ${#COMP_WORDS[@]}; ++i)); do
+      if [[ ${COMP_WORDS[i]} == ${deploy_autocompletion_options[j]} ]]; then
+        deploy_autocompletion_options_echo=$(echo $deploy_autocompletion_options_echo | sed "s/${deploy_autocompletion_options[j]}//")
+      fi
+    done
+  done
+
+  other_options=$deploy_autocompletion_options_echo
+  COMPREPLY=($(compgen -W "$other_options" -- $cur))
+}
+
+complete -F _dynawo dynawo TO_COMPLETE_DYNAWO_USER_SCRIPT_NAME
