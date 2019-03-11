@@ -1112,7 +1112,7 @@ deploy_dynawo() {
   mkdir -p extraLibs/LIBZIP/include
   mkdir -p extraLibs/LIBXML/include
   cp -R -P $SUNDIALS_INSTALL_DIR/include/* 3rdParty/sundials/include/
-  cp -P $ADEPT_INSTALL_DIR/include/*.* 3rdParty/adept/include/
+  cp -Pr $ADEPT_INSTALL_DIR/include/* 3rdParty/adept/include/
   cp -P $SUITESPARSE_INSTALL_DIR/include/*.* 3rdParty/suitesparse/include/
   if [ -d "$NICSLU_INSTALL_DIR/include" ]; then
     if [ ! -z "$(ls -A $NICSLU_INSTALL_DIR/include)" ]; then

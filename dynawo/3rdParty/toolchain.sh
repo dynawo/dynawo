@@ -106,7 +106,7 @@ compile_sundials() {
 
 compile_adept() {
   cd $SCRIPT_DIR/adept
-  bash adept-chain-1.1.sh --build-dir=$ADEPT_BUILD_DIR --install-dir=$ADEPT_INSTALL_DIR --build-type=$BUILD_TYPE
+  bash adept-chain-2.0.5.sh --build-dir=$ADEPT_BUILD_DIR --install-dir=$ADEPT_INSTALL_DIR --build-type=$BUILD_TYPE
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
