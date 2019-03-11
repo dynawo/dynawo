@@ -101,6 +101,8 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
     std::string headerFileList = getEnvVar("DYNAWO_HEADER_FILES_FOR_PREASSEMBLED");
     boost::split(additionalHeaderFiles, headerFileList, boost::is_any_of(" "), boost::token_compress_on);
   }
+
+  const bool rmModels = true;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
             precompiledModelsDirsAbsolute,
             preCompiledModelsExtension,
@@ -108,7 +110,7 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
             modelicaModelsDirsAbsolute,
             modelicaModelsExtension,
             additionalHeaderFiles,
-            true,
+            rmModels,
             getEnvVar("PWD") +"/jobs");
   cf.compile();  // modelOnly = false, compilation and parameter linking
   cf.concatConnects();
