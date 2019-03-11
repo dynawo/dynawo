@@ -93,6 +93,7 @@ else
   echo "OS not supported."
   exit 1
 fi
+SCRIPT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && echo "$(pwd)"/"$(basename ${BASH_SOURCE[0]})")
 
 export_var_env_force() {
   var=$@
