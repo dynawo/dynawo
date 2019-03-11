@@ -824,7 +824,9 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
 
     else:
         if (file_extension == ".log" or file_extension == ".xml"):
-            message = os.path.basename(path_left) + ": "
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
             nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different = DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separator_right)
             if (nb_lines_different == 0) and (nb_lines_identical_but_timestamp == 0):
                 return_value = IDENTICAL

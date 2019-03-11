@@ -73,6 +73,7 @@ documents/inputFiles/DynawoInputFiles.pdf
 documents/inputFiles/DynawoInputFiles.synctex.gz
 documents/inputFiles/DynawoInputFiles.toc
 dynawo/3rdParty/adept/adept-1.1.tar.gz
+dynawo/3rdParty/adept/adept-2.0.5.tar.gz
 dynawo/3rdParty/suitesparse/SuiteSparse-4.5.4.tar.gz
 dynawo/3rdParty/nicslu/_nicslu301.zip
 dynawo/3rdParty/sundials/sundials-2.7.0.tar.gz

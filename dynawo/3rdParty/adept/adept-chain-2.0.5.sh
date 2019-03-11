@@ -34,7 +34,7 @@ export_var_env() {
   export $name="$value"
 }
 
-ADEPT_VERSION=1.1
+ADEPT_VERSION=2.0.5
 ADEPT_ARCHIVE=adept-$ADEPT_VERSION.tar.gz
 ADEPT_DIRECTORY=adept-$ADEPT_VERSION
 export_var_env ADEPT_DOWNLOAD_URL=http://www.met.reading.ac.uk/clouds/adept
