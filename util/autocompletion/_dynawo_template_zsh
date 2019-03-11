@@ -1,0 +1,165 @@
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# See AUTHORS.txt
+# All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, you can obtain one at http://mozilla.org/MPL/2.0/.
+# SPDX-License-Identifier: MPL-2.0
+#
+# This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+# simulation tool for power systems.
+#
+
+_dynawo() {
+  local context state state_descr line
+  typeset -A opt_args
+
+  arguments=(
+    '1:cmd:->cmds' \
+    '*:: :->args'
+  )
+
+  _arguments -C $arguments[@]
+
+  case "$state" in
+    cmds)
+      local -a commands;
+      OLD_IFS="$IFS"
+      IFS=$'\n'
+      commands=($(TO_COMPLETE_DYNAWO_USER_SCRIPT_PATH help | sed -e '1,/=/d' | grep -v '==' | grep -v -e '^ *$'  | sed 's/^ *//g' | sed 's/(\[.*\])//g' | sed 's/\(\S*\) *\(.*\)/\1:\2/g'))
+      IFS="$OLD_IFS"
+      _describe -t commands 'dynawo commands' commands && ret=0
+    ;;
+    *)
+      case "${line[1]}" in
+        jobs|jobs-valgrind|jobs-gdb|jobs-valgrind-callgrind|jobs-valgrind-dhat|jobs-valgrind-massif|jobs-with-curves)
+          _files -g "*.(jobs|xml)"
+          ;;
+        build-tests|build-tests-coverage)
+          local -a tests_options
+          tests_options=('tests' 'CRV_unittest-tests' 'DYD_unittest-tests' 'EXTVAR_unittest-tests' 'PAR_unittest-tests' 'TL_unittest-tests' 'CSTR_unittest-tests' 'FS_unittest-tests' 'JOB_unittest-tests' 'COMMON_unittest-tests' 'MODELER_COMMON_unittest-tests' 'MODELER_DATAINTERFACE_unittest-tests' 'MODELS_MODELNETWORK_unittest-tests' 'SOLVERCOMMON_unittest-tests' 'SOLVERIDA_unittest-tests' 'SOLVERSIM_unittest-tests' 'MODELICACOMPILER_unittest-tests')
+          _describe -t tests_options 'available tests' tests_options
+          ;;
+        nrt)
+          case "$line" in
+            "nrt -n ")
+              local -a nrt_n_options
+              nrt_n_options=($(paste -d: <(find TO_COMPLETE_DYNAWO_HOME/nrt/data -mindepth 1 -type d | grep -v reference | grep -v outputs | sed 's#TO_COMPLETE_DYNAWO_HOME/nrt/data/##') <(find TO_COMPLETE_DYNAWO_HOME/nrt/data -mindepth 1 -type d | grep -v reference | grep -v outputs | sed 's#TO_COMPLETE_DYNAWO_HOME/nrt/data/##')))
+              _describe -t nrt_n_options 'nrt available' nrt_n_options
+              ;;
+            "nrt -p ")
+                local -a nrt_p_options
+                nrt_p_options=()
+                _describe -t nrt_p_options 'regex' nrt_p_options
+              ;;
+            *)
+              if [[ "${line[1]} ${line[2]} " != "nrt -n " && "${line[1]} ${line[2]} " != "nrt -p " ]]; then
+                local -a nrt_options
+                nrt_options=('-p:regex' '-n:name_filter')
+                _describe -t nrt_options 'nrt options' nrt_options
+              fi
+              ;;
+          esac
+          ;;
+        nrt-diff)
+          _dynawo_nrt_diff
+          ;;
+        dump-model)
+          _dynawo_dump_model
+          ;;
+        compilerModelicaOMC)
+          _dynawo_compilerModelicaOMC
+          ;;
+        dydLibGenerator|dydLibGenerator-gdb)
+          _dynawo_dydLibGenerator
+          ;;
+        deploy-autocompletion)
+          _dynawo_deploy_autocompletion
+          ;;
+        *)
+          ;;
+      esac
+    ;;
+  esac
+}
+
+function _dynawo_nrt_diff() {
+  local -a args
+  args+=(
+    "1:folder:_dynawo_nrt_diff_first"
+    "2:folder:_dynawo_nrt_diff_second"
+  )
+  _arguments -w -s -S $args[@]
+}
+
+function _dynawo_nrt_diff_first() {
+  local -a args
+  args+=(
+    "--firstDirectory=:folder:_files -/"
+  )
+  _arguments -w -s -S $args[@]
+}
+
+function _dynawo_nrt_diff_second() {
+  local -a args
+  args+=(
+    "--secondDirectory=:folder:_files -/"
+  )
+  _arguments -w -s -S $args[@]
+}
+
+_dynawo_dump_model() {
+  _arguments \
+    - set1 \
+      "-h[display help and exit]:help" \
+    - set2 \
+      "-m[model filename to dump]:model filename to dump:_files -g '*.so'" \
+      "-o[output directory]:output directory:_files -/"
+}
+
+_dynawo_compilerModelicaOMC() {
+  _arguments \
+    - set1 \
+      "-h[display help and exit]:help" \
+    - set2 \
+      "--model[set the model name of the file to compile (model.mo needs to be in output-dir)]:set the model name of the file to compile (model.mo needs to be in output-dir):_files -g '*.mo'" \
+      "--input-dir[set input directory (default\: output directory)]:set input directory (default\: output directory):_files -/" \
+      "--output-dir[set output directory (default\: current directory)]:set output directory (default\: current directory):_files -/" \
+      "--moFiles[modelica files to use for expansion]:modelica files to use for expansion:_files -g '*.mo'" \
+      "--initFiles[init files to use for expansion]:init files to use for expansion:_files -g '*.mo'" \
+      "--lib[set the name of the output lib]:set the name of the output lib: " \
+      "--remove-model-files[if true the .mo input files will be deleted (default\: false)]:if true the .mo input files will be deleted (default\: false):('false' 'true' )" \
+      "--additionalHeaderList[list of headers that should be included in the dynamic model files]:list of headers that should be included in the dynamic model files:_files -g '*.h'"
+}
+
+_dynawo_dydLibGenerator() {
+  _arguments \
+    - set1 \
+      "-h[display help and exit]:help" \
+    -set2 \
+     "--model-list[set model list file (required)]:set model list file (required):_files -g '*.xml'" \
+     "--use-standard-precompiled-models[use standard precompiled models (default true)]:use standard precompiled models (default true):('true' 'false')" \
+     "--recursive-precompiled-models-dir[set precompiled models directory (default DYNAWO_DDB_DIR)]:set precompiled models directory (default DYNAWO_DDB_DIR):_files -/" \
+     "--non-recursive-precompiled-models-dir[set precompiled models directory (default DYNAWO_DDB_DIR)]:set precompiled models directory (default DYNAWO_DDB_DIR):_files -/" \
+     "--precompiled-models-extension[set precompiled models file extension (default .so)]:set precompiled models file extension (default .so): " \
+     "--use-standard-modelica-models[use standard Modelica models (default true)]:use standard Modelica models (default true):('true' 'false')" \
+     "--recursive-modelica-models-dir[set Modelica models directory (default DYNAWO_DDB_DIR)]:set Modelica models directory (default DYNAWO_DDB_DIR):_files -/" \
+     "--non-recursive-modelica-models-dir[set Modelica models directory (default DYNAWO_DDB_DIR)]:set Modelica models directory (default DYNAWO_DDB_DIR):_files -/" \
+     "--modelica-models-extension[set Modelica models file extension (default .mo)]:set Modelica models file extension (default .mo): " \
+     "--output-dir[set output directory (default\: current directory)]:set output directory (default\: current directory):_files -/" \
+     "--remove-model-files[if true the .mo input files will be deleted (default\: false)]:if true the .mo input files will be deleted (default\: false):('false' 'true' )" \
+     "--additional-header-files[list of headers that should be included in the dynamic model files]:list of headers that should be included in the dynamic model files:_files -g '*.h'"
+}
+
+_dynawo_deploy_autocompletion() {
+  _arguments \
+    - set1 \
+      "--help[display help and exit]:help" \
+    - set2 \
+      "--deploy[deploy autocompletion script and add source in your .bashrc]" \
+      "--update-tests[update tests list of Dyanwo to complete for an old version of completion script]" \
+      "--add-command[add another name of command to autocomplete (ex\: dynawo_release)]" \
+      "--script[name of the script calling envDynawo.sh (default\: myEnvDynawo.sh)]:name of the script calling envDynawo.sh (default\: myEnvDynawo.sh):_files -g '*.sh'" \
+      "--shell-type[user's shell type (default\: bash)]:user's shell type (default\: bash):('bash' 'zsh')" \
+      "--permanent-path[allow to deploy Dynawo completion script outside of Dynawo folder (default\: DYNAWO_HOME/util/autocompletion/_dynawo).]:allow to deploy Dynawo completion script outside of Dynawo folder (default\: DYNAWO_HOME/util/autocompletion/_dynawo).:_files -/"
+}

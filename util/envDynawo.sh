@@ -60,7 +60,7 @@ where [option] can be:
     jobs ([args])                     call Dynawo's launcher with given arguments setting LD_LIBRARY_PATH correctly
     jobs-valgrind ([args])            call Dynawo's launcher with valgrind with given arguments setting LD_LIBRARY_PATH correctly
     jobs-valgrind-callgrind ([args])  call Dynawo's launcher with valgrind using callgrind tool with given arguments setting LD_LIBRARY_PATH correctly
-    jobs-valgrind-dhat ([args])  call Dynawo's launcher with valgrind using dhat tool with given arguments setting LD_LIBRARY_PATH correctly
+    jobs-valgrind-dhat ([args])       call Dynawo's launcher with valgrind using dhat tool with given arguments setting LD_LIBRARY_PATH correctly
     jobs-valgrind-massif ([args])     call Dynawo's launcher with valgrind measuring the memory used by DYNAWO
     jobs-gdb ([args])                 call Dynawo's launcher with debugger with given arguments setting LD_LIBRARY_PATH correctly
     jobs-with-curves ([args])         call Dynawo's launcher with curves output visualization with given arguments setting LD_LIBRARY_PATH correctly
@@ -71,17 +71,17 @@ where [option] can be:
     clean-build-3rd-party             clean then build 3rd party libraries
     version-validation                clean all built items, then build them all and run non-regression tests
     dump-model ([args])               call dumpModel executable with given arguments setting LD_LIBRARY_PATH correctly
-    compilerModelicaOMC([args])        call compilerModelicaOMC with given arguments
-    generate-preassembled             generate a preassembled model
-    generate-preassembled-gdb         generate a preassembled model with debugger
+    compilerModelicaOMC([args])       call compilerModelicaOMC with given arguments
+    dydLibGenerator                   generate a preassembled model
+    dydLibGenerator-gdb               generate a preassembled model with debugger
 
     =========== Others
-    compilerModelicaOMCHelp            show the compilerModelica's help
     curves-visu ([args])              visualize curves output from Dynawo in an HTML file
     doxygen-doc-dynawo                open Dynawo's Doxygen documentation into chosen browser
     flat-model ([args])               generate and display the (full) flat Modelica model
     nrt ([-p regex] [-n name_filter]) run (filtered) non-regression tests and open the result in chosen browser
     nrt-diff ([args])                 make a diff between two non-regression test outputs
+    deploy-autocompletion             deploy aucompletion functions for Dynawo.
     version                           show dynawo version
     help                              show this message"
 
@@ -471,14 +471,37 @@ build_3rd_party() {
   fi
 }
 
-# Build a speficic verison of third party libraries
+# Build a speficic version of third party libraries
 build_3rd_party_version() {
-  if [ ! -d "$THIRD_PARTY_BUILD_DIR_VERSION" ]; then
+  if ! is_3rd_party_version_installed; then
     cd $DYNAWO_SRC_DIR/3rdParty
     bash toolchain.sh
     RETURN_CODE=$?
     return ${RETURN_CODE}
   fi
+}
+
+# Very simple check to see if each third party has installed something or not
+is_3rd_party_version_installed() {
+  third_party_folders=(adept libiidm libxml libzip suitesparse sundials xerces-c)
+  for folder in ${third_party_folders[*]}; do
+    if [ ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder" ]; then
+      return 1
+    fi
+    if [ ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib" ]; then
+      return 1
+    fi
+    if [ ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include" ]; then
+      return 1
+    fi
+    if [ -z "find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib \( -name "*.so" -o -name "*.a" \)" ]; then
+      return 1
+    fi
+    if [ -z "find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.h"" ]; then
+      return 1
+    fi
+  done
+  return 0
 }
 
 # clean third parties
@@ -528,13 +551,13 @@ config_dynawo() {
   return ${RETURN_CODE}
 }
 
-# show the compiler Modelica help
-compilerModelicaOMCHelp() {
-  $DYNAWO_INSTALL_DIR/bin/launcher --compile --help
-}
-
 # Compile a modelica model
-compilerModelicaOMC() {
+compiler_Modelica_OMC() {
+  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
+    build_3rd_party_version || error_exit
+    config_dynawo || error_exit
+    build_dynawo || error_exit
+  fi
   $DYNAWO_INSTALL_DIR/bin/launcher --compile $@
 }
 
@@ -604,6 +627,10 @@ build_tests() {
 }
 
 list_tests() {
+  if [ ! -d "$THIRD_PARTY_BUILD_DIR_VERSION" ]; then
+    echo "Building 3rd Party first."
+    build_3rd_party_version > /dev/null 2>&1 || error_exit
+  fi
   echo "===================================="
   echo " List of available unittests target"
   echo "===================================="
@@ -787,18 +814,37 @@ test_modelica_doc() {
 }
 
 jobs() {
+  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
+    build_3rd_party_version || error_exit
+    config_dynawo || error_exit
+    build_dynawo || error_exit
+  fi
   $DYNAWO_INSTALL_DIR/bin/launcher $@
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
-generate_preassembled() {
+dydLibGenerator() {
+  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
+    build_3rd_party_version || error_exit
+    config_dynawo || error_exit
+    build_dynawo_core || error_exit
+  fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dydlib $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
-generate_preassembled_gdb() {
+dydLibGenerator_gdb() {
+  if [ "$BUILD_TYPE" != "Debug" ]; then
+    echo "You should compile with BUILD_TYPE=Debug."
+    exit 1
+  fi
+  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
+    build_3rd_party_version || error_exit
+    config_dynawo || error_exit
+    build_dynawo_core || error_exit
+  fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dydlib-gdb $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -881,6 +927,11 @@ curves_visu() {
 }
 
 dump_model() {
+  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
+    build_3rd_party_version || error_exit
+    config_dynawo || error_exit
+    build_dynawo_core || error_exit
+  fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model $@
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -905,12 +956,22 @@ echo #  python $MODEL_DOCUMENTATION_DIR/model_documentation.py --model=$@ --outp
 }
 
 version() {
+  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
+    build_3rd_party_version || error_exit
+    config_dynawo || error_exit
+    build_dynawo_core || error_exit
+  fi
   $DYNAWO_INSTALL_DIR/bin/launcher --version
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 nrt() {
+  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
+    build_3rd_party_version || error_exit
+    config_dynawo || error_exit
+    build_dynawo || error_exit
+  fi
   export_var_env_force NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   export_var_env_force ENV_DYNAWO=$SCRIPT
   python -u $NRT_DIR/nrt.py $@
@@ -1177,6 +1238,10 @@ create_distrib(){
   mv $ZIP_FILE $DISTRIB_DIR
 }
 
+deploy_dynawo_autocompletion() {
+  $DYNAWO_HOME/util/autocompletion/deploy_autocompletion.sh $*
+}
+
 ## force build_type for specific cases
 LAUNCH_COMMAND=$*
 MODE=$1
@@ -1241,12 +1306,8 @@ case $MODE in
     build_3rd_party_version || error_exit "Error while building 3rd party version"
     ;;
 
-  compilerModelicaOMCHelp)
-    compilerModelicaOMCHelp || error_exit
-    ;;
-
   compilerModelicaOMC)
-    compilerModelicaOMC ${ARGS} || error_exit "Failed to compile Modelica model"
+    compiler_Modelica_OMC ${ARGS} || error_exit "Failed to compile Modelica model"
     ;;
 
   config-dynawo)
@@ -1287,7 +1348,7 @@ case $MODE in
     ;;
 
   build-tests)
-    build_tests ${ARGS}|| error_exit
+    build_tests ${ARGS} || error_exit
     ;;
 
   build-tests-coverage)
@@ -1382,12 +1443,12 @@ case $MODE in
     version_validation || error_exit "The current version does not fulfill the standard quality check"
     ;;
 
-  generate-preassembled)
-    generate_preassembled ${ARGS} || error_exit "Error during the generation of a preassembled model"
+  dydLibGenerator)
+    dydLibGenerator ${ARGS} || error_exit "Error during the generation of a preassembled model"
     ;;
 
-  generate-preassembled-gdb)
-    generate_preassembled_gdb ${ARGS} || error_exit "Error during the generation of a preassembled model"
+  dydLibGenerator-gdb)
+    dydLibGenerator_gdb ${ARGS} || error_exit "Error during the generation of a preassembled model"
     ;;
 
   clean-old-branches)
@@ -1396,6 +1457,10 @@ case $MODE in
 
   deploy)
     deploy_dynawo || error_exit "Error during the deployment of dynawo"
+    ;;
+
+  deploy-autocompletion)
+    deploy_dynawo_autocompletion ${ARGS} || error_exit "Error during the deployment of autocompletion for dynawo"
     ;;
 
   help)
