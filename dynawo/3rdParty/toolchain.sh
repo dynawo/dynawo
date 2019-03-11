@@ -54,17 +54,13 @@ export_var_env_default() {
 }
 
 get_absolute_path() {
-  absolute=$(readlink -m $1)
-  echo "$absolute"
+  python -c "import os; print(os.path.realpath('$1'))"
 }
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-export_var_env_default LIBARCHIVE_HOME=UNDEFINED
-export_var_env_default BOOST_ROOT=UNDEFINED
-export_var_env_default GTEST_ROOT=UNDEFINED
 
 find_cxx_std_flag() {
-  if [ "${CXX11_ENABLED,,}" = "yes" -o "${CXX11_ENABLED,,}" = "true" -o "${CXX11_ENABLED,,}" = "on" ]; then
+  if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     echo "int main() {return 0;}" > test_cxx11.cpp
     g++ -std=c++11 -c test_cxx11.cpp -o test_cxx11 2> /dev/null
     RETURN_CODE=$?
@@ -221,7 +217,7 @@ while (($#)); do
 			LIBARCHIVE_HOME=`echo $1 | sed -e 's/--libarchive-install-dir=//g'`
       ;;
     --gtest-install-dir=*)
-      GTEST_INSTALL_DIR=`echo $1 | sed -e 's/--gtest-install-dir=//g'`
+      GTEST_ROOT=`echo $1 | sed -e 's/--gtest-install-dir=//g'`
       ;;
     --sundials-build-dir=*)
 	    SUNDIALS_BUILD_DIR=`echo $1 | sed -e 's/--sundials-build-dir=//g'`
@@ -352,6 +348,10 @@ if [[ -z "$XERCESC_BUILD_DIR" ]]; then
 fi
 
 find_cxx_std_flag
+
+export_var_env_default LIBARCHIVE_HOME=UNDEFINED
+export_var_env_default BOOST_ROOT=UNDEFINED
+export_var_env_default GTEST_ROOT=UNDEFINED
 
 if [ $BOOST_ROOT_DEFAULT != true ]; then
   BOOST_OPTION="--boost-install-dir=$BOOST_ROOT"
