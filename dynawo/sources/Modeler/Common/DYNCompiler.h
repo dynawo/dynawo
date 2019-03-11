@@ -66,14 +66,17 @@ class Compiler {
    * @param modelicaModelsDirs modelica models directories
    * @param modelicaModelsExtension: modelica models extension
    * @param additionalHeaderFiles: list of headers that should be included in the dynamic model files
-   * @param rmModels: remove .mo model (defautl: false)
+   * @param rmModels: remove .mo model
    * @param outputDir: output directory
    */
   Compiler(const boost::shared_ptr<DynamicData>& dyd,
-          const bool useStandardPrecompiledModels, const std::vector <UserDefinedDirectory> & precompiledModelsDirs,
+          const bool useStandardPrecompiledModels,
+          const std::vector <UserDefinedDirectory>& precompiledModelsDirs,
           const std::string & precompiledModelsExtension,
-          const bool useStandardModelicaModels, const std::vector <UserDefinedDirectory> & modelicaModelsDirs, const std::string & modelicaModelsExtension,
-          const std::vector <std::string> & additionalHeaderFiles,
+          const bool useStandardModelicaModels,
+          const std::vector <UserDefinedDirectory>& modelicaModelsDirs,
+          const std::string& modelicaModelsExtension,
+          const std::vector <std::string>& additionalHeaderFiles,
           const bool rmModels,
           std::string outputDir) :
   dyd_(dyd),
