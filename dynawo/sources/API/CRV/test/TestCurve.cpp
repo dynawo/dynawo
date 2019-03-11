@@ -138,6 +138,22 @@ TEST(APICRVTest, CurveUpdateParameterCurveValue) {
   ASSERT_EQ((itPt++)->get()->getTime(), 0);
   ASSERT_EQ((itPt--)->get()->getTime(), 1);
   ASSERT_EQ(itPt->get()->getTime(), 0);
+  Curve::const_iterator itPt2 = itPt;
+  ASSERT_EQ(itPt == itPt2, true);
+
+
+  boost::shared_ptr<Curve> curve2 = CurveFactory::newCurve();
+  curve2->setVariable("variable1");
+  curve2->setAvailable(true);
+  curve2->setNegated(false);
+  curve2->setAsParameterCurve(true);
+  std::vector<double> variables2;
+  variables2.assign(1, 2);
+  curve1->setBuffer(&variables2[0]);
+  itPt2 = curve2->at(0);
+  ASSERT_EQ(itPt == itPt2, false);
+  itPt2 = itPt2;
+  ASSERT_EQ(itPt == itPt2, false);
 }
 
 }  // namespace curves
