@@ -495,42 +495,36 @@ ModelStaticVarCompensator::evalCalculatedVars() {
 
 void
 ModelStaticVarCompensator::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
-  if (numCalculatedVar == qNum_) {
-    if (isConnected()) {
-      int urYNum = modelBus_->urYNum();
-      int uiYNum = modelBus_->uiYNum();
-      numVars.push_back(urYNum);
-      numVars.push_back(uiYNum);
-      numVars.push_back(bSvcYNum_);
-    }
+  if (numCalculatedVar == qNum_ && isConnected()) {
+    int urYNum = modelBus_->urYNum();
+    int uiYNum = modelBus_->uiYNum();
+    numVars.push_back(urYNum);
+    numVars.push_back(uiYNum);
+    numVars.push_back(bSvcYNum_);
   }
 }
 
 
 void
 ModelStaticVarCompensator::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, vector<double>& res) {
-  if (numCalculatedVar == qNum_) {
-    if (isConnected()) {
-      double ur = y[0];
-      double ui = y[1];
-      double b = y[2];
-      // QProduced = SNREF * b * (ur * ur + ui * ui * ui)
-      res[0] = SNREF * b * 2. * ur;  // @Q/@Ur
-      res[1] = SNREF * b * 2. * ui;  // @Q/@Ui
-      res[2] = SNREF * (ur * ur + ui * ui);  // @Q/@BSvc
-    }
+  if (numCalculatedVar == qNum_ && isConnected()) {
+    double ur = y[0];
+    double ui = y[1];
+    double b = y[2];
+    // QProduced = SNREF * b * (ur * ur + ui * ui * ui)
+    res[0] = SNREF * b * 2. * ur;  // @Q/@Ur
+    res[1] = SNREF * b * 2. * ui;  // @Q/@Ui
+    res[2] = SNREF * (ur * ur + ui * ui);  // @Q/@BSvc
   }
 }
 
 double
 ModelStaticVarCompensator::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
-  if (numCalculatedVar == qNum_) {
-    if (isConnected()) {
-      double ur = y[0];
-      double ui = y[1];
-      double b = y[2];
-      return SNREF * b * (ur * ur + ui * ui);
-    }
+  if (numCalculatedVar == qNum_ && isConnected()) {
+    double ur = y[0];
+    double ui = y[1];
+    double b = y[2];
+    return SNREF * b * (ur * ur + ui * ui);
   }
   return 0.;
 }

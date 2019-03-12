@@ -177,10 +177,9 @@ int main(int argc, char ** argv) {
     const DYN::ParameterModeler& parameterInit = parameterIterator->second;
     // only keep parameters which
     // which can either be displayed or set
-    if ((model->hasParameterDynamic(parameterInit.getName())) || (!parameterInit.isFullyInternal())) {
-      if (fillParameterDescription(parameterInit, model->modelType(), parametersAttributes) != 0) {
-        return 1;
-      }
+    if ((model->hasParameterDynamic(parameterInit.getName()) || !parameterInit.isFullyInternal()) &&
+        fillParameterDescription(parameterInit, model->modelType(), parametersAttributes) != 0) {
+      return 1;
     }
   }
 

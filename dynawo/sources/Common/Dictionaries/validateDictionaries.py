@@ -41,7 +41,7 @@ class Dictionaries:
     # @param self: object pointer
     # @param dictionary : new dictionary to add
     # @return
-    def addDict(self , dictionary):
+    def add_dict(self , dictionary):
         index = [x for x in self.names_ if x == dictionary.name()]
         if index:
             self.dicts_[self.names_.index(dictionary.name())].dict_.update(dictionary.dict_)
@@ -56,18 +56,18 @@ class Dictionaries:
     # @param modelica_dir : directory where modelica files should be created
     # @param modelica_package : Parent package of modelica keys files
     # @return
-    def generateFiles(self,output_dir, modelica_dir, modelica_package):
+    def generate_files(self,output_dir, modelica_dir, modelica_package):
         for name in self.names_:
             dictionary = Dictionary()
             for d in self.dicts_:
                 if (d.name() == name):
                     dictionary = d
-            dictionary.setOutputDir(output_dir)
-            dictionary.setModelicaDir(modelica_dir)
-            dictionary.generateHeader()
-            dictionary.generateCPP()
-            dictionary.generateModelica(modelica_package)
-            dictionary.copyDeleteFiles()
+            dictionary.set_output_dir(output_dir)
+            dictionary.set_modelica_dir(modelica_dir)
+            dictionary.generate_header()
+            dictionary.generate_cpp()
+            dictionary.generate_modelica(modelica_package)
+            dictionary.copy_delete_files()
 ##
 #  Class defining one dictionary found by the utility
 #  A dictionary associates a key with a message
@@ -91,7 +91,7 @@ class Dictionary:
     # @param self : object pointer
     # @param name : name of the dictionary
     # @return
-    def setName(self,name):
+    def set_name(self,name):
         self.name_ = name
 
     ##
@@ -99,7 +99,7 @@ class Dictionary:
     # @param self : object pointer
     # @param directory : path to use
     # @return
-    def setOutputDir(self, directory):
+    def set_output_dir(self, directory):
         self.directory_ = directory
 
     ##
@@ -107,7 +107,7 @@ class Dictionary:
     # @param self : object pointer
     # @param directory : path to use
     # @return
-    def setModelicaDir(self, directory):
+    def set_modelica_dir(self, directory):
         self.modelicaDir_ = directory
 
     ##
@@ -115,7 +115,7 @@ class Dictionary:
     # @param self : object pointer
     # @param name : full name of the dictionary
     # @return
-    def setFullName(self,name):
+    def set_full_name(self,name):
         self.fullName_ = name
 
     ##
@@ -124,7 +124,7 @@ class Dictionary:
     # @param key : key to add in the dictionary
     # @param value: value associated to the key
     # @return
-    def addPair(self,key,value):
+    def add_pair(self,key,value):
         self.dict_[key]=value
 
     ##
@@ -138,7 +138,7 @@ class Dictionary:
     # Getter of the dictionary's full name
     # @param self: object pointer
     # @return :  full name of the dictionary
-    def fullName(self):
+    def full_name(self):
         return self.fullName_
 
     ##
@@ -153,7 +153,7 @@ class Dictionary:
     # @param self: object pointer
     # @param key: key of the message to find
     # @return  the message associated to the key
-    def getMessage(self,key):
+    def get_message(self,key):
         return self.dict_[key]
 
 
@@ -161,7 +161,7 @@ class Dictionary:
     # Generate a header file associated to the dictionary
     # @param self : object pointer
     # @return
-    def generateHeader(self):
+    def generate_header(self):
         file_name = str(self.directory_)+'/'+str(self.name_)+'_keys.h-tmp'
         tag = str(self.name_).upper()  + '_KEYS_H'
         header_file = open(file_name,'w')
@@ -192,7 +192,7 @@ class Dictionary:
         for key in list_keys:
             key1 = key+","
             key_to_print = key1.ljust(70)
-            header_file.write('      '+str(key_to_print)+'\t///< '+self.getMessage(key)+'\n')
+            header_file.write('      '+str(key_to_print)+'\t///< '+self.get_message(key)+'\n')
         header_file.write("    };\n\n")
         header_file.write("    static std::string names[]; ///< names associated to the enum \n")
         header_file.write("  };\n")
@@ -204,7 +204,7 @@ class Dictionary:
     # Generate a cpp file associated to the dictionary
     # @param self : object pointer
     # @return
-    def generateCPP(self):
+    def generate_cpp(self):
         file_name = str(self.directory_)+'/'+str(self.name_)+'_keys.cpp-tmp'
         cpp_file = open(file_name,'w')
         name = self.name_[ 3:]
@@ -235,7 +235,7 @@ class Dictionary:
     # @param self : object pointer
     # @param modelica_package : Parent package of modelica keys files
     # @return
-    def generateModelica(self, modelica_package):
+    def generate_modelica(self, modelica_package):
         if not os.path.exists(self.modelicaDir_):
             print ("Modelica directory :"+str(self.modelicaDir_)+" does not exist")
             exit(1)
@@ -269,7 +269,7 @@ class Dictionary:
     # else tmp files are copied
     # @param self : object pointer
     # @return
-    def copyDeleteFiles(self):
+    def copy_delete_files(self):
         h_file = str(self.directory_)+'/'+str(self.name_)+'_keys.h'
         tmp_h_file = h_file+'-tmp'
         cpp_file = str(self.directory_)+'/'+str(self.name_)+'_keys.cpp'
@@ -355,7 +355,7 @@ def readLine(line,dictionary,check_capital_letters):
     first_word = list_words[0]
     if (check_capital_letters and first_word[0].isupper() and not first_word.isupper()): # first letter is a capitalized one, and the other letters are not
       return Status.BEGIN_WITH_CAPITAL_LETTER
-    dictionary.addPair(key,value)
+    dictionary.add_pair(key,value)
     return Status.OK
 
 ##
@@ -369,8 +369,8 @@ def createDictionary(file_2_read):
     names = file_2_read.split("/")
     dictionary_name = names.pop()
     dictionary_name = (dictionary_name.split(".")[0]).split("_")[0] # dictionary name is like : name_en_GB.dic
-    dictionary.setName(dictionary_name)
-    dictionary.setFullName(file_2_read)
+    dictionary.set_name(dictionary_name)
+    dictionary.set_full_name(file_2_read)
     check_capital_letters = False
     if(dictionary_name.find("Log") != -1 or dictionary_name.find("Error") != -1):
       check_capital_letters = True
@@ -438,10 +438,10 @@ def main():
     # read all files
     for f in files:
         dictionary=createDictionary(f)
-        dicts.addDict(dictionary)
+        dicts.add_dict(dictionary)
 
     # generate files
-    dicts.generateFiles(options.outputDir, options.modelicaDir, options.modelicaPackage)
+    dicts.generate_files(options.outputDir, options.modelicaDir, options.modelicaPackage)
 
 if __name__ == "__main__":
     main()

@@ -116,7 +116,7 @@ Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertex
     }
   }
   paths.sort(path_length_is_shorter);
-  return (paths);  // sorted by length of paths
+  return paths;  // sorted by length of paths
 }
 
 bool
@@ -173,7 +173,7 @@ Graph::shortestPath(const unsigned int& vertexOrigin, const unsigned int& vertex
     return emptyPath;
 
   // paths sorted by size
-  return ( *allPaths.begin());
+  return *allPaths.begin();
 }
 
 std::pair<unsigned int, vector<unsigned int> >

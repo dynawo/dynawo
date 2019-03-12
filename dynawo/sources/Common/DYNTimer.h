@@ -67,7 +67,7 @@ class Timers : private boost::noncopyable {
  * and its destruction
  *
  */
-class Timer {
+class Timer : private boost::noncopyable {
  public:
   /**
    * @brief constructor

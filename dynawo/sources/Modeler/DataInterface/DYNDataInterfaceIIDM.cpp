@@ -229,7 +229,7 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   IIDM::Contains<IIDM::HvdcLine>::iterator itHvdcLine = networkIIDM_.hvdclines().begin();
   for (; itHvdcLine != networkIIDM_.hvdclines().end(); ++itHvdcLine) {
-    shared_ptr<HvdcLineInterfaceIIDM> hvdc(new HvdcLineInterfaceIIDM((*itHvdcLine)));
+    shared_ptr<HvdcLineInterfaceIIDM> hvdc(new HvdcLineInterfaceIIDM(*itHvdcLine));
     network_->addHvdcLine(hvdc);
     components_[hvdc->getID()] = hvdc;
   }
@@ -265,7 +265,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
     //===========================
     IIDM::Contains<IIDM::Bus>::iterator itBus = voltageLevelIIDM.buses().begin();
     for (; itBus != voltageLevelIIDM.buses().end(); ++itBus) {
-      shared_ptr<BusInterfaceIIDM> bus(new BusInterfaceIIDM((*itBus)));
+      shared_ptr<BusInterfaceIIDM> bus(new BusInterfaceIIDM(*itBus));
       components_[bus->getID()] = bus;
       busComponents_[bus->getID()] = bus;
       voltageLevel->addBus(bus);
@@ -525,7 +525,7 @@ DataInterfaceIIDM::importTwoWindingsTransformer(IIDM::Transformer2Windings & two
 
     IIDM::PhaseTapChanger::const_iterator itStep = twoWTfo.phaseTapChanger().begin();
     for (; itStep != twoWTfo.phaseTapChanger().end(); ++itStep) {
-      shared_ptr<StepInterfaceIIDM> step(new StepInterfaceIIDM((*itStep)));
+      shared_ptr<StepInterfaceIIDM> step(new StepInterfaceIIDM(*itStep));
       tapChanger->addStep(step);
     }
     tfo->setPhaseTapChanger(tapChanger);
@@ -535,7 +535,7 @@ DataInterfaceIIDM::importTwoWindingsTransformer(IIDM::Transformer2Windings & two
     shared_ptr<RatioTapChangerInterfaceIIDM> tapChanger(new RatioTapChangerInterfaceIIDM(twoWTfo.ratioTapChanger()));
     IIDM::RatioTapChanger::const_iterator itStep = twoWTfo.ratioTapChanger().begin();
     for (; itStep != twoWTfo.ratioTapChanger().end(); ++itStep) {
-      shared_ptr<StepInterfaceIIDM> step(new StepInterfaceIIDM((*itStep)));
+      shared_ptr<StepInterfaceIIDM> step(new StepInterfaceIIDM(*itStep));
       tapChanger->addStep(step);
     }
     tfo->setRatioTapChanger(tapChanger);

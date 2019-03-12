@@ -424,9 +424,8 @@ ModelLoad::deltaPc() const {
 double
 ModelLoad::ir(const double& ur, const double& ui, const double& U, const double& U2) const {
   double ir = 0.;
-  if (isRunning()) {
-    if (!doubleIsZero(U2))
-      ir = (P(ur, ui, U) * ur + Q(ur, ui, U) * ui) / U2;
+  if (isRunning() && !doubleIsZero(U2)) {
+    ir = (P(ur, ui, U) * ur + Q(ur, ui, U) * ui) / U2;
   }
   return ir;
 }
@@ -434,9 +433,8 @@ ModelLoad::ir(const double& ur, const double& ui, const double& U, const double&
 double
 ModelLoad::ii(const double& ur, const double& ui, const double& U, const double& U2) const {
   double ii = 0.;
-  if (isRunning()) {
-    if (!doubleIsZero(U2))
-      ii = (P(ur, ui, U) * ui - Q(ur, ui, U) * ur) / U2;
+  if (isRunning() && !doubleIsZero(U2)) {
+    ii = (P(ur, ui, U) * ui - Q(ur, ui, U) * ur) / U2;
   }
   return ii;
 }
@@ -503,9 +501,8 @@ ModelLoad::ii_dUi(const double& ur, const double& ui, const double& U, const dou
 double
 ModelLoad::ir_dZp(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
   double ir_dZp = 0.;
-  if (isRunning() && isRestorative_) {
-    if (!doubleIsZero(U2))
-      ir_dZp = 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ur;
+  if (isRunning() && isRestorative_ && !doubleIsZero(U2)) {
+    ir_dZp = 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ur;
   }
   return ir_dZp;
 }
@@ -513,9 +510,8 @@ ModelLoad::ir_dZp(const double& ur, const double& /*ui*/, const double& U, const
 double
 ModelLoad::ir_dZq(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
   double ir_dZq = 0.;
-  if (isRunning() && isRestorative_) {
-    if (!doubleIsZero(U2))
-      ir_dZq = 1. / U2 * (Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ui;
+  if (isRunning() && isRestorative_ && !doubleIsZero(U2)) {
+    ir_dZq = 1. / U2 * (Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ui;
   }
   return ir_dZq;
 }
@@ -523,9 +519,8 @@ ModelLoad::ir_dZq(const double& /*ur*/, const double& ui, const double& U, const
 double
 ModelLoad::ii_dZp(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
   double ii_dZp = 0.;
-  if (isRunning() && isRestorative_) {
-    if (!doubleIsZero(U2))
-      ii_dZp = 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ui;
+  if (isRunning() && isRestorative_ && !doubleIsZero(U2)) {
+    ii_dZp = 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ui;
   }
   return ii_dZp;
 }
@@ -533,9 +528,8 @@ ModelLoad::ii_dZp(const double& /*ur*/, const double& ui, const double& U, const
 double
 ModelLoad::ii_dZq(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
   double ii_dZq = 0.;
-  if (isRunning() && isRestorative_) {
-    if (!doubleIsZero(U2))
-      ii_dZq = 1. / U2 * (-1. * Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ur;
+  if (isRunning() && isRestorative_ && !doubleIsZero(U2)) {
+    ii_dZq = 1. / U2 * (-1. * Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ur;
   }
   return ii_dZq;
 }
@@ -875,16 +869,14 @@ ModelLoad::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
     }
     break;
     case pcNum_: {
-      if (isRunning()) {
-        if (isControllable_)
-          numVars.push_back(DeltaPcYNum_ + yOffset_);
+      if (isRunning() && isControllable_) {
+        numVars.push_back(DeltaPcYNum_ + yOffset_);
       }
     }
     break;
     case qcNum_: {
-      if (isRunning()) {
-        if (isControllable_)
-          numVars.push_back(DeltaQcYNum_ + yOffset_);
+      if (isRunning() && isControllable_) {
+        numVars.push_back(DeltaQcYNum_ + yOffset_);
       }
     }
     break;

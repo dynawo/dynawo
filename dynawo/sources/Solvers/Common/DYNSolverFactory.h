@@ -21,6 +21,7 @@
 #define SOLVERS_COMMON_DYNSOLVERFACTORY_H_
 
 #include <map>
+#include <boost/core/noncopyable.hpp>
 
 namespace DYN {
 class Solver;
@@ -74,7 +75,7 @@ class SolverFactory {
  * Manage solver factories to avoid loading the same library multiple
  * time.
  */
-class SolverFactories {
+class SolverFactories : private boost::noncopyable {
  public:
   /**
    * @brief Constructor

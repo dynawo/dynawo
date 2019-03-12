@@ -244,9 +244,8 @@ StaticVarCompensatorInterfaceIIDM::getB0() const {
 }
 
 StaticVarCompensatorInterface::RegulationMode_t StaticVarCompensatorInterfaceIIDM::getRegulationMode() const {
-  if (sa_) {
-    if (sa_->standBy())
-      return StaticVarCompensatorInterface::STANDBY;
+  if (sa_ && sa_->standBy()) {
+    return StaticVarCompensatorInterface::STANDBY;
   }
 
   IIDM::StaticVarCompensator::e_regulation_mode regMode = staticVarCompensatorIIDM_.regulationMode();

@@ -235,41 +235,41 @@ __fill_variables_definitions__h
     # Getter of the pattern to define header file
     # @param self : object pointer
     # @return pattern to define header file
-    def getDyn(self):
+    def get_dyn(self):
         return self.patternDyn_
 
     ##
     # Getter of the pattern to define header literals file
     # @param self : object pointer
     # @return pattern to define header literals file
-    def getDynLiterals(self):
+    def get_dyn_literals(self):
         return self.patternDynLiterals_
 
     ##
     # Getter of the pattern to define header file of init model
     # @param self : object pointer
     # @return pattern to define header file of init model
-    def getInit(self):
+    def get_init(self):
         return self.patternInit_
 
     ##
     # Getter of the pattern to define header literals file of init model
     # @param self : object pointer
     # @return pattern to define header literals file of init model
-    def getInitLiterals(self):
+    def get_init_literals(self):
         return self.patternInitLiterals_
 
     ##
     # Getter of the pattern to define header definitions file
     # @param self : object pointer
     # @return pattern to define header definitions file
-    def getDynDefinitions(self):
+    def get_dyn_definitions(self):
         return self.patternDynDefinitions_
 
     ##
     # Getter of the pattern to define header definitions file of init model
     # @param self : object pointer
     # @return pattern to define header defintions file of init model
-    def getInitDefinitions(self):
+    def get_init_definitions(self):
         return self.patternInitDefinitions_
 

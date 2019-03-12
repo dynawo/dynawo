@@ -83,37 +83,37 @@ if __name__ == '__main__':
         reader_init = readerOMC(mod_name_init, input_dir, is_init_pb = True)
 
         #reader_init.readInfoXml() 		# Read *_info.xml
-        reader_init.readInfoJson()              # Read *_info.json
-        reader_init.readInitXml() 		# Read *_init.xml
-        reader_init.read_modelHeader() 		# Read *_model.h
-        reader_init.readMainC()   		# Read *.c principal
-        reader_init.read_03lsyCFile() 		# Read *_03lsy.c
-        reader_init.read_02nlsCFile() 		# Read *_02nls.c
-        reader_init.read_06inzCFile()   	# Read *_06inz.c
-        reader_init.read_08bndCFile()   	# Read *_08bnd.c
-        reader_init.read_05evtCFile()   	# Read *_05evt.c
-        reader_init.read_functionsHeader()      # Read *_functions.h
-        reader_init.read_functionsCfile()       # Read *_functions.c
-        reader_init.read_literalsHFile()        # Read *_literals.h
+        reader_init.read_info_json()              # Read *_info.json
+        reader_init.read_init_xml() 		# Read *_init.xml
+        reader_init.read_model_header() 		# Read *_model.h
+        reader_init.read_main_c()   		# Read *.c principal
+        reader_init.read_03lsy_c_file() 		# Read *_03lsy.c
+        reader_init.read_02nls_c_file() 		# Read *_02nls.c
+        reader_init.read_06inz_c_file()   	# Read *_06inz.c
+        reader_init.read_08bnd_c_file()   	# Read *_08bnd.c
+        reader_init.read_05evt_c_file()   	# Read *_05evt.c
+        reader_init.read_functions_header()      # Read *_functions.h
+        reader_init.read_functions_c_file()       # Read *_functions.c
+        reader_init.read_literals_h_file()        # Read *_literals.h
 
     # Reader for dynamic pb
     reader = readerOMC(mod_name, input_dir, is_init_pb = False)
 
     #reader.readInfoXml() 	       # Read *_info.xml
-    reader.readInfoJson()              # Read *_info.json
-    reader.readInitXml() 	       # Read *_init.xml
-    reader.read_modelHeader() 	       # Read *_model.h
-    reader.readMainC()   	       # Read *.c principal
-    reader.read_03lsyCFile() 	       # Read *_03lsy.c
-    reader.read_02nlsCFile() 	       # Read *_02nls.c
-    reader.read_06inzCFile()   	       # Read *_06inz.c
-    reader.read_08bndCFile()   	       # Read *_08bnd.c
-    reader.read_05evtCFile()   	       # Read *_05evt.c
-    reader.readEqFictiveXml() # Read the fictitious equation file
-    reader.read_structXmlFile()        # Read *_structure.xml (contains structure elements)
-    reader.read_functionsHeader()      # Read *_functions.h
-    reader.read_functionsCfile()       # Read *_functions.c
-    reader.read_literalsHFile()        # Read *_literals.h
+    reader.read_info_json()              # Read *_info.json
+    reader.read_init_xml() 	       # Read *_init.xml
+    reader.read_model_header() 	       # Read *_model.h
+    reader.read_main_c()   	       # Read *.c principal
+    reader.read_03lsy_c_file() 	       # Read *_03lsy.c
+    reader.read_02nls_c_file() 	       # Read *_02nls.c
+    reader.read_06inz_c_file()   	       # Read *_06inz.c
+    reader.read_08bnd_c_file()   	       # Read *_08bnd.c
+    reader.read_05evt_c_file()   	       # Read *_05evt.c
+    reader.read_eq_fictive_xml() # Read the fictitious equation file
+    reader.read_struct_xml_file()        # Read *_structure.xml (contains structure elements)
+    reader.read_functions_header()      # Read *_functions.h
+    reader.read_functions_c_file()       # Read *_functions.c
+    reader.read_literals_h_file()        # Read *_literals.h
 
 
     #################################
@@ -125,24 +125,24 @@ if __name__ == '__main__':
     if init_pb:
         builder_init_pb = factory(reader_init)
 
-        builder_init_pb.buildVariables()
-        builder_init_pb.buildEquations()
-        builder_init_pb.buildWarnings()
-        builder_init_pb.buildCallFunctions()
-        builder_init_pb.prepareForPrint()
+        builder_init_pb.build_variables()
+        builder_init_pb.build_equations()
+        builder_init_pb.build_warnings()
+        builder_init_pb.build_call_functions()
+        builder_init_pb.prepare_for_print()
 
     # Builder for the dynamic pb
     builder = factory(reader)
 
-    builder.buildVariables()
+    builder.build_variables()
 
     # In order to build C++ methods getTypeVariable(...) and defineElements(...)
-    builder.buildElements()
+    builder.build_elements()
 
-    builder.buildEquations()
-    builder.buildWarnings()
-    builder.buildCallFunctions()
-    builder.prepareForPrint()
+    builder.build_equations()
+    builder.build_warnings()
+    builder.build_call_functions()
+    builder.prepare_for_print()
 
 
 
@@ -261,7 +261,7 @@ if __name__ == '__main__':
     # Generation of the files related to the complete model
     # -------------------------------------------------------
     writer = modelWriterManager( mod_name, output_dir,init_pb)
-    writer.setBody()
+    writer.set_body()
     writer.writeFile()
 
     writer.setBodyHeader()

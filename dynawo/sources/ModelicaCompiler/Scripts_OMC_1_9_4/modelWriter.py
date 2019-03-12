@@ -146,7 +146,7 @@ namespace DYN {
     # Defines the body of the cpp file (add new lines)
     # @param self : object pointer
     # @return
-    def setBody(self):
+    def set_body(self):
         lines = self.body.split('\n')
         body = []
         for line in lines:
@@ -360,7 +360,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model" + self.className + "::setFomc(double * f)\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_setF())
+        self.addBody(self.builder.get_list_for_setf())
         self.addLine("}\n")
 
     ##
@@ -373,7 +373,7 @@ class modelWriter(modelWriterBase):
         self.addLine("bool Model" + self.className + "::evalMode(const double & t) const\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_evalMode())
+        self.addBody(self.builder.get_list_for_evalmode())
         self.addLine("}\n")
 
     ##
@@ -386,7 +386,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model" + self.className + "::setZomc()\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_setZ())
+        self.addBody(self.builder.get_list_for_setz())
         self.addLine("}\n")
 
     ##
@@ -399,7 +399,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model" + self.className + "::setGomc(state_g * gout)\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_setG())
+        self.addBody(self.builder.get_list_for_setg())
         self.addLine("}\n")
 
 
@@ -412,7 +412,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model" + self.className + "::setY0omc()\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_setY0())
+        self.addBody(self.builder.get_list_for_sety0())
         self.addLine("}\n")
 
     ##
@@ -424,7 +424,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model" + self.className + "::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_setVariables())
+        self.addBody(self.builder.get_list_for_setvariables())
         self.addLine("}\n")
 
     ##
@@ -435,7 +435,7 @@ class modelWriter(modelWriterBase):
         self.addEmptyLine()
         self.addLine("void Model" + self.className + "::defineParameters(std::vector<ParameterModeler>& parameters)\n")
         self.addLine("{\n")
-        self.addBody(self.builder.getListFor_defineParameters())
+        self.addBody(self.builder.get_list_for_defineparameters())
         self.addLine("}\n")
 
     ##
@@ -447,7 +447,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model" + self.className + "::initRpar()\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_initRpar())
+        self.addBody(self.builder.get_list_for_initrpar())
 
         self.addEmptyLine()
         self.addLine("  return;\n")
@@ -463,10 +463,10 @@ class modelWriter(modelWriterBase):
         self.addLine("{\n")
         self.addEmptyLine()
 
-        self.addBody(self.builder.getSetupDataStruc())
+        self.addBody(self.builder.get_setupdatastruc())
 
         self.addLine("  data->nbVars ="+str(len(self.builder.listVarsSyst))+";\n")
-        self.addLine("  data->nbF = "+str(self.builder.getNbEqDyn()) +";\n")
+        self.addLine("  data->nbF = "+str(self.builder.get_nb_eq_dyn()) +";\n")
         self.addLine("  data->nbModes = 0; \n")
         self.addLine("  data->nbZ = "+str(len(self.builder.listAllVarsDiscr))+";\n")
         self.addLine("}\n")
@@ -477,14 +477,14 @@ class modelWriter(modelWriterBase):
     # @return
     def fill_setYType_omc(self):
         self.addEmptyLine()
-        if self.init_pb_ and len(self.builder.getListFor_setYType()) == 0:
+        if self.init_pb_ and len(self.builder.get_list_for_setytype()) == 0:
           self.addLine("void Model" + self.className + "::setYType_omc(propertyContinuousVar_t* /*yType*/)\n")
         else:
           self.addLine("void Model" + self.className + "::setYType_omc(propertyContinuousVar_t* yType)\n")
 
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_setYType())
+        self.addBody(self.builder.get_list_for_setytype())
 
         self.addLine("}\n")
 
@@ -494,14 +494,14 @@ class modelWriter(modelWriterBase):
     # @return
     def fill_setFType_omc(self):
         self.addEmptyLine()
-        if self.init_pb_ and len(self.builder.getListFor_setFType()) == 0:
+        if self.init_pb_ and len(self.builder.get_list_for_setftype()) == 0:
           self.addLine("void Model" + self.className + "::setFType_omc(propertyF_t* /*fType*/)\n")
         else:
           self.addLine("void Model" + self.className + "::setFType_omc(propertyF_t* fType)\n")
 
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_setFType())
+        self.addBody(self.builder.get_list_for_setftype())
 
         self.addLine("}\n")
 
@@ -511,13 +511,13 @@ class modelWriter(modelWriterBase):
     # @return
     def fill_defineElements(self):
         self.addEmptyLine()
-        if self.init_pb_ and len(self.builder.getListFor_defElem()) == 0:
+        if self.init_pb_ and len(self.builder.get_list_for_defelem()) == 0:
           self.addLine("void Model" + self.className + "::defineElements(std::vector<Element>& /*elements*/, std::map<std::string, int >& /*mapElement*/)\n")
         else:
           self.addLine("void Model" + self.className + "::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)\n")
         self.addLine("{\n")
 
-        self.addBody( self.builder.getListFor_defElem() )
+        self.addBody( self.builder.get_list_for_defelem() )
         self.addLine("}\n")
 
     ##
@@ -529,7 +529,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model" + self.className + "::setParameters( boost::shared_ptr<parameters::ParametersSet> params )\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_setParams())
+        self.addBody(self.builder.get_list_for_setparams())
         self.addLine("}\n")
 
     ##
@@ -541,7 +541,7 @@ class modelWriter(modelWriterBase):
         self.addLine("boost::shared_ptr<parameters::ParametersSet> Model" + self.className + "::setSharedParametersDefaultValues()\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.getListFor_setSharedParamsDefaultValue())
+        self.addBody(self.builder.get_list_for_setsharedparamsdefaultvalue())
         self.addLine("}\n")
 
     ##
@@ -556,7 +556,7 @@ class modelWriter(modelWriterBase):
         self.addLine("                              std::vector<adept::adouble> & res)\n")
         self.addLine("{\n")
 
-        self.addBody( self.builder.getListFor_evalFAdept() )
+        self.addBody( self.builder.get_list_for_evalfadept() )
 
         self.addLine("}\n")
         self.addLine("#endif\n")
@@ -569,7 +569,7 @@ class modelWriter(modelWriterBase):
         new_content_h = []
         for line in self.fileContentLiterals_h:
             if ("__insert_literals__") in line:
-                new_content_h.extend (self.builder.getListFor_literalConstants())
+                new_content_h.extend (self.builder.get_list_for_literalconstants())
             else:
                 new_content_h.append (line)
         self.fileContentLiterals_h = new_content_h
@@ -581,7 +581,7 @@ class modelWriter(modelWriterBase):
     # @return
     def fill_externalCalls(self):
         self.addEmptyLine_external()
-        body = self.builder.getListFor_externalCalls()
+        body = self.builder.get_list_for_externalcalls()
         body_tmp=[]
         for line in body:
             if "__fill_model_name__" in line:
@@ -611,7 +611,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model"+ self.className +"::deInitializeDataStruc()\n")
         self.addLine("{\n")
 
-        self.addBody( self.builder.getListFor_deInitializeDataStruc() )
+        self.addBody( self.builder.get_list_for_deinitializedatastruc() )
 
         self.addLine("}\n")
 
@@ -624,7 +624,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model"+ self.className +"::initializeDataStruc()\n")
         self.addLine("{\n")
 
-        self.addBody( self.builder.getListFor_initializeDataStruc() )
+        self.addBody( self.builder.get_list_for_initializedatastruc() )
 
         self.addLine("}\n")
 
@@ -637,7 +637,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model"+ self.className +"::checkDataCoherence()\n")
         self.addLine("{\n")
 
-        self.addBody( self.builder.getListFor_warnings() )
+        self.addBody( self.builder.get_list_for_warnings() )
 
         self.addLine("}\n")
 
@@ -650,7 +650,7 @@ class modelWriter(modelWriterBase):
         self.addLine("void Model"+ self.className +"::setFequations(std::map<int,std::string>& fEquationIndex)\n")
         self.addLine("{\n")
         self.addBody("  //Note: fictive equations are not added. fEquationIndex.size() = sizeF() - Nunmber of fictive equations.\n")
-        self.addBody( self.builder.getListFor_setFequations() )
+        self.addBody( self.builder.get_list_for_setf_equations() )
         self.addLine("}\n")
 
     ##
@@ -661,7 +661,7 @@ class modelWriter(modelWriterBase):
         self.addEmptyLine()
         self.addLine("void Model"+ self.className +"::setGequations(std::map<int,std::string>& gEquationIndex)\n")
         self.addLine("{\n")
-        self.addBody( self.builder.getListFor_setGequations() )
+        self.addBody( self.builder.get_list_for_setg_equations() )
         self.addLine("}\n")
 
     ##
@@ -672,25 +672,25 @@ class modelWriter(modelWriterBase):
         headerPattern = headerPatternDefine(additional_header_files)
         lines =[]
         if self.init_pb_:
-            lines = headerPattern.getInit().split('\n')
+            lines = headerPattern.get_init().split('\n')
         else:
-            lines = headerPattern.getDyn().split('\n')
+            lines = headerPattern.get_dyn().split('\n')
 
         for line in lines:
             self.fileContent_h.append(line + '\n')
 
         if self.init_pb_:
-            lines = headerPattern.getInitLiterals().split('\n')
+            lines = headerPattern.get_init_literals().split('\n')
         else:
-            lines = headerPattern.getDynLiterals().split('\n')
+            lines = headerPattern.get_dyn_literals().split('\n')
 
         for line in lines:
             self.fileContentLiterals_h.append(line + '\n')
 
         if self.init_pb_:
-            lines = headerPattern.getInitDefinitions().split('\n')
+            lines = headerPattern.get_init_definitions().split('\n')
         else:
-            lines = headerPattern.getDynDefinitions().split('\n')
+            lines = headerPattern.get_dyn_definitions().split('\n')
 
         for line in lines:
             self.fileContentDefinitions_h.append(line + '\n')
@@ -732,7 +732,7 @@ class modelWriter(modelWriterBase):
                 self.fileContentDefinitions_h [n] = line_tmp
 
             elif "__fill_variables_definitions__h" in line:
-                self.fileContentDefinitions_h [n : n+1] = self.builder.getListDefinitionsFor_h()
+                self.fileContentDefinitions_h [n : n+1] = self.builder.get_list_definitions_for_h()
                 break
 
     ##
@@ -744,9 +744,9 @@ class modelWriter(modelWriterBase):
         for n, line in enumerate(self.fileContent_h):
             if "__fill_internal_functions__" in line:
                 file_content_tmp = []
-                if len(self.builder.getListFor_externalCallsHeader())> 0 :
+                if len(self.builder.get_list_for_externalcalls_header())> 0 :
                     file_content_tmp.append("   //External Calls\n")
-                    for line in self.builder.getListFor_externalCallsHeader():
+                    for line in self.builder.get_list_for_externalcalls_header():
                         file_content_tmp.append("     "+line)
                     file_content_tmp.append("\n")
                 else:
@@ -763,16 +763,16 @@ class modelWriter(modelWriterBase):
             if "__insert_params__" in line:
                 file_content_tmp = []
                 file_content_tmp.append("      // Non-internal parameters \n")
-                parameters_real = self.builder.getListParamsRealNotInternalFor_h()
-                parameters_bool = self.builder.getListParamsBoolNotInternalFor_h()
-                parameters_int = self.builder.getListParamsIntegerNotInternalFor_h()
-                parameters_string = self.builder.getListParamsStringNotInternalFor_h()
+                parameters_real = self.builder.get_list_params_real_not_internal_for_h()
+                parameters_bool = self.builder.get_list_params_bool_not_internal_for_h()
+                parameters_int = self.builder.get_list_params_integer_not_internal_for_h()
+                parameters_string = self.builder.get_list_params_string_not_internal_for_h()
                 for par in parameters_real + parameters_bool + parameters_int + parameters_string:
-                    variable_type = par.getValueTypeModelicaCCode()
+                    variable_type = par.get_value_type_modelica_c_code()
                     if (variable_type == "string"):
                         variable_type = "std::string"
 
-                    file_content_tmp.append("      " + variable_type + " " + to_compile_name(par.getName() + "_") + ";\n")
+                    file_content_tmp.append("      " + variable_type + " " + to_compile_name(par.get_name() + "_") + ";\n")
 
                 self.fileContent_h [n : n+1] = file_content_tmp
 

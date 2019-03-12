@@ -320,7 +320,7 @@ class readerOMC:
     # @param func_name : name to use when creating the raw function
     #
     # @return the new raw function
-    def readFunction(self, file_to_read, ptrn_func_to_read, func_name):
+    def read_function(self, file_to_read, ptrn_func_to_read, func_name):
         global nb_braces_opened
         global crossed_opening_braces
         global stop_at_next_call
@@ -335,10 +335,10 @@ class readerOMC:
             if next_iter is None: return None # If we reach the end of the file, exit
 
             func = RawFunc()
-            func.setName(func_name)
+            func.set_name(func_name)
 
             # "takewhile" only stops when the whole body of the function is read
-            func.setBody( list(itertools.takewhile(stopReadingFunction, it)) )
+            func.set_body( list(itertools.takewhile(stopReadingFunction, it)) )
 
             return func
 
@@ -350,7 +350,7 @@ class readerOMC:
     # @param func_root_name : root name function to use when creating the raw function
     #
     # @return: a list of raw functions identified in the file
-    def readFunctions(self, file_to_read, ptrn_func_to_read, func_root_name):
+    def read_functions(self, file_to_read, ptrn_func_to_read, func_root_name):
         global nb_braces_opened
         global crossed_opening_braces
         global stop_at_next_call
@@ -371,11 +371,11 @@ class readerOMC:
 
                 match = re.search(ptrn_func_to_read, next_iter)
                 num_omc = match.group('num')
-                func.setNumOmc(num_omc)
-                func.setName(func_root_name + num_omc)
+                func.set_num_omc(num_omc)
+                func.set_name(func_root_name + num_omc)
 
                 # "takewhile" only stops when the whole body of the function is read
-                func.setBody( list(itertools.takewhile(stopReadingFunction, it)) )
+                func.set_body( list(itertools.takewhile(stopReadingFunction, it)) )
                 list_raw_func.append(func)
         return list_raw_func
 
@@ -384,7 +384,7 @@ class readerOMC:
     #
     # @param self : object pointer
     # @return
-    def readInfoJson(self):
+    def read_info_json(self):
         json_data=open(self.infoJsonFile).read()
         data = json.loads(json_data)
         nb_equations = len(data["equations"])
@@ -449,104 +449,104 @@ class readerOMC:
     # getter for the map associating variables to variables used to evaluate them
     # @param self: object pointer
     # @return the map associating variavles and variables used to evaluate them
-    def get_mapDepVarsForFunc(self):
+    def get_map_dep_vars_for_func(self):
         return self.map_vars_dependVars
 
     ##
     # getter for the map associating var evaluated and index of the function evaluating them
     # @param self : object pointer
     # @return the map associating var evaluated and index of the function evaluating them
-    def getMap_vars_numEq(self):
+    def get_map_vars_num_eq(self):
         return self.map_vars_numEq
 
-    def getMap_numEq_vars_defined(self):
+    def get_map_num_eq_vars_defined(self):
         return self.map_numEq_vars_defined
 
     ##
     # getter for the map associating formuala of an equation and index of the equation
     # @param self : object pointer
     # @return the map associating formuala of an equation and index of the equation
-    def getMap_equation_formula(self):
+    def get_map_equation_formula(self):
         return self.map_equation_formula
 
     ##
     # getter for the map associating tag of the function and the index of it
     # @param self : object pointer
     # @return the map associating tag of the function and the index of it
-    def getMap_tag_numEq(self):
+    def get_map_tag_num_eq(self):
         return self.map_tag_numEq
 
     ##
     # Read the _init.xml file
     # @param self : object pointer
     # @return
-    def readInitXml(self):
+    def read_init_xml(self):
         doc = minidom.parse(self.initXmlFile)
         root = doc.documentElement
         list_vars_xml = root.getElementsByTagName('ScalarVariable')
         for node in list_vars_xml:
             var = variable()
-            var.setName(node.getAttribute('name'))
-            var.setVariability(node.getAttribute('variability')) # "continuous", "discrete"
-            var.setCausality(node.getAttribute('causality')) # "output" or "internal"
-            var.setType(node.getAttribute('classType'))
+            var.set_name(node.getAttribute('name'))
+            var.set_variability(node.getAttribute('variability')) # "continuous", "discrete"
+            var.set_causality(node.getAttribute('causality')) # "output" or "internal"
+            var.set_type(node.getAttribute('classType'))
 
             # Vars represented by an output var have an attribute
             # 'aliasVariable', which is the name of the output var
             if node.getAttribute('alias') == "alias":
-                var.setAliasName( node.getAttribute('aliasVariable'), False)
+                var.set_alias_name( node.getAttribute('aliasVariable'), False)
             if node.getAttribute('alias') == "negatedAlias":
-                var.setAliasName( node.getAttribute('aliasVariable'), True)
+                var.set_alias_name( node.getAttribute('aliasVariable'), True)
 
 
             # 'Start' attribute: this attribute is only assigned for real vars
-            if var.getType()[0] == "r":
+            if var.get_type()[0] == "r":
                 list_real = node.getElementsByTagName('Real')
                 if len(list_real) != 1:
-                    print ("pb : readInitXml")
+                    print ("pb : read_init_xml")
                     sys.exit()
                 start = list_real[0].getAttribute('start')
                 if start != '':
-                    var.setStartText( [start] )
-                    var.setUseStart(list_real[0].getAttribute('useStart'))
+                    var.set_start_text( [start] )
+                    var.set_use_start(list_real[0].getAttribute('useStart'))
                 else:
-                    var.setUseStart("false")
+                    var.set_use_start("false")
             # 'Start' attribute for integer vars
-            elif var.getType()[0] == "i":
+            elif var.get_type()[0] == "i":
                 list_integer = node.getElementsByTagName('Integer')
                 if len(list_integer) != 1:
-                    print ("pb: readInitXml")
+                    print ("pb: read_init_xml")
                     sys.exit()
                 start = list_integer[0].getAttribute('start')
                 if start != '':
-                    var.setStartText( [start] )
-                    var.setUseStart(list_integer[0].getAttribute('useStart'))
+                    var.set_start_text( [start] )
+                    var.set_use_start(list_integer[0].getAttribute('useStart'))
                 else:
-                    var.setUseStart("false")
+                    var.set_use_start("false")
             # 'Start' attribute for boolean vars
-            elif var.getType()[0] =="b":
+            elif var.get_type()[0] =="b":
                 list_boolean = node.getElementsByTagName('Boolean')
                 if len(list_boolean) != 1:
-                    print ("pb : readInitXml")
+                    print ("pb : read_init_xml")
                     sys.exit()
                 start = list_boolean[0].getAttribute('start')
                 if start != '':
-                    var.setStartText( [start] )
-                    var.setUseStart(list_boolean[0].getAttribute('useStart'))
+                    var.set_start_text( [start] )
+                    var.set_use_start(list_boolean[0].getAttribute('useStart'))
                 else:
-                    var.setUseStart("false")
+                    var.set_use_start("false")
             # 'Start' attribute for string vars
-            elif var.getType()[0] =="s":
+            elif var.get_type()[0] =="s":
                 list_string = node.getElementsByTagName('String')
                 if len(list_string) != 1:
-                    print ("pb : readInitXml")
+                    print ("pb : read_init_xml")
                     sys.exit()
                 start = list_string[0].getAttribute('start')
                 if start != '':
-                    var.setStartText( [start] )
-                    var.setUseStart(list_string[0].getAttribute('useStart'))
+                    var.set_start_text( [start] )
+                    var.set_use_start(list_string[0].getAttribute('useStart'))
                 else:
-                    var.setUseStart("false")
+                    var.set_use_start("false")
 
             # Vars after the read of *_init.xml
             self.listVars.append(var)
@@ -556,7 +556,7 @@ class readerOMC:
     # Read the *.extvar defining the fictitious equations
     # @param self : object pointer
     # @return
-    def readEqFictiveXml(self):
+    def read_eq_fictive_xml(self):
         # If this file does not exist, we exit
         if not os.path.isfile(self.eqFictiveXmlFile) :
             print ("Warning: extvar file of fictitious (external) variables does not exist...")
@@ -584,15 +584,15 @@ class readerOMC:
     # Find all vars with a defined type and store them in "map_vars_numOmc"
     # @param self : object pointer
     # @return
-    def read_modelHeader(self):
+    def read_model_header(self):
         # Searches for real types: state + diff + discrete + algebraic
-        self.getVars_from_modelHeader("realVars")
+        self.get_vars_from_model_header("realVars")
 
         # Search real settings
-        self.getVars_from_modelHeader("realParams")
+        self.get_vars_from_model_header("realParams")
 
         # Search vars alg booleennes
-        self.getVars_from_modelHeader("boolVars")
+        self.get_vars_from_model_header("boolVars")
 
         # look for variables definitions
         with open(self.modelHeader, 'r') as f:
@@ -604,7 +604,7 @@ class readerOMC:
     # @param self : object pointer
     # @param type_var : type of variable to find
     # @return
-    def getVars_from_modelHeader(self, type_var):
+    def get_vars_from_model_header(self, type_var):
         var_pattern = None
         var_name_and_num_ptrn = ""
 
@@ -621,7 +621,7 @@ class readerOMC:
             var_name_and_num_ptrn = r'#define _\$P(?P<var>.*)\(i\).*\[(?P<num>\d+)\]$'
 
         else :
-            print ("getVars_from_modelHeader : typeVar unknown.")
+            print ("get_vars_from_model_header : typeVar unknown.")
             sys.exit(1)
 
 
@@ -642,32 +642,32 @@ class readerOMC:
     # Give an omx index to variables stored in listVars
     # @param self : object pointer
     # @return
-    def give_numOmc_to_vars(self):
+    def give_num_omc_to_vars(self):
        for var in self.listVars:
-            name = to_omc_style(var.getName())
+            name = to_omc_style(var.get_name())
             val = find_value_in_map(self.map_vars_numOmc, name)
-            if val is not None : var.setNumOmc(val)
+            if val is not None : var.set_num_omc(val)
 
     ##
     # Read the main c file
     # @param self: object pointer
     # @return
-    def readMainC(self):
+    def read_main_c(self):
         # Reading of functions "..._eqFunction_${num}(...)"
-        self.listFuncMainC = self.readFunctions(self.mainCfile, self.ptrnFuncDeclMainC, self.functionsRootName)
+        self.listFuncMainC = self.read_functions(self.mainCfile, self.ptrnFuncDeclMainC, self.functionsRootName)
 
         # Reading the function ..._setupDataStruc(...)
         file_to_read = self.mainCfile
         # function_name = "DYNModel" + self.modName + "_setupDataStruc"
         function_name = self.modName + "_setupDataStruc"
         ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("void", function_name))
-        self.setupDataStruc_rawFunc = self.readFunction(file_to_read, ptrn_func_to_read, function_name)
+        self.setupDataStruc_rawFunc = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
         # Reading function ..._functionDAE(...)
         file_to_read = self.mainCfile
         function_name = self.modName + "_functionDAE"
         ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", function_name))
-        self.functionDAE_rawFunc = self.readFunction(file_to_read, ptrn_func_to_read, function_name)
+        self.functionDAE_rawFunc = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
         for function in self.listFuncMainC:
           for line in function.body:
@@ -699,11 +699,11 @@ class readerOMC:
     # Read the  *_02nls.c file
     # @param self : object pointer
     # @return
-    def read_02nlsCFile(self):
+    def read_02nls_c_file(self):
         # Reading functions of type "eqFunction_". They are called in "residualFunc" (read after)
-        self.listNLSclassicFunc =  self.readFunctions(self._02nlsCfile, self.ptrnEqFct_02nls, self.functionsRootName)
+        self.listNLSclassicFunc =  self.read_functions(self._02nlsCfile, self.ptrnEqFct_02nls, self.functionsRootName)
         # Reading residual functions of NLS (non linear system)
-        self.listNLSresFunc =  self.readFunctions(self._02nlsCfile, self.ptrnNLSresFct_02nls, "residualFunc")
+        self.listNLSresFunc =  self.read_functions(self._02nlsCfile, self.ptrnNLSresFct_02nls, "residualFunc")
 
         ptrn_comments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
         comments_opening = "/*"
@@ -724,15 +724,15 @@ class readerOMC:
     # Read the  *_03lsy.c file
     # @param self : object pointer
     # @return
-    def read_03lsyCFile(self):
+    def read_03lsy_c_file(self):
         # Reading functions containing matrices
-        self.listFuncLS_mat =  self.readFunctions(self._03lsyCfile, self.ptrnFctMat_03lsy, "setLinearMatrixA")
+        self.listFuncLS_mat =  self.read_functions(self._03lsyCfile, self.ptrnFctMat_03lsy, "setLinearMatrixA")
         # Reading functions containing rhs
-        self.listFuncLS_rhs =  self.readFunctions(self._03lsyCfile, self.ptrnFctRhs_03lsy, "setLinearVectorb")
+        self.listFuncLS_rhs =  self.read_functions(self._03lsyCfile, self.ptrnFctRhs_03lsy, "setLinearVectorb")
         # Reading functions of type "eqFunction_". They are called in "residualFunc" (read just after)
-        self.listLSclassicFunc =  self.readFunctions(self._03lsyCfile, self.ptrnEqFct_03lsy, self.functionsRootName)
+        self.listLSclassicFunc =  self.read_functions(self._03lsyCfile, self.ptrnEqFct_03lsy, self.functionsRootName)
         # Reading residual functions of NLS (non linear system)
-        self.listLSresFunc =  self.readFunctions(self._03lsyCfile, self.ptrnLSresFct_03lsy, "residualFunc")
+        self.listLSresFunc =  self.read_functions(self._03lsyCfile, self.ptrnLSresFct_03lsy, "residualFunc")
 
         ptrn_comments = re.compile(r'\sequation index:[ ]*(?P<index>.*)[ ]*\n')
         comments_opening = "/*"
@@ -754,7 +754,7 @@ class readerOMC:
     # Read the *_06inz.c to find initial value of variables
     # @param self : object pointer
     # @return
-    def read_06inzCFile(self):
+    def read_06inz_c_file(self):
         global nb_braces_opened
         global crossed_opening_braces
         global stop_at_next_call
@@ -872,28 +872,28 @@ class readerOMC:
     # Initialise variables in listVars by values found in 06inz file
     # @param self : object pointer
     # @return
-    def setStartValueForSystVars06Inz(self):
+    def set_start_value_for_syst_vars_06inz(self):
         for key, value in self.var_initVal06Inz.iteritems():
             for var in self.listVars:
-                if var.getName() == key:
-                    var.setStartText06Inz(value)
-                    var.setInitByParamIn06Inz(True)
-                    var.setNumFunc06Inz(self.var_numInitVal06Inz[var.getName()])
+                if var.get_name() == key:
+                    var.set_start_text_06inz(value)
+                    var.set_init_by_param_in_06inz(True)
+                    var.set_num_func_06inz(self.var_numInitVal06Inz[var.get_name()])
 
         for var_name, var_assignment in self.var_initVal06Extend.iteritems():
             for var in self.listVars:
-                if var.getName() == var_name:
-                    var.setStartText06Inz(['{/n', var_assignment, '}'])
-                    var.setInitByExtendIn06Inz(True)
+                if var.get_name() == var_name:
+                    var.set_start_text_06inz(['{/n', var_assignment, '}'])
+                    var.set_init_by_extend_in_06inz(True)
 
     ##
     # Retrieve the ordered calculated variables for linear systems
     # @param self : object pointer
     # @param omc_equation_index : the OMC equation index
     # @return the ordered list of calculated variables
-    def LinearSystemCalculatedVariables (self, omc_equation_index):
+    def linear_system_calculated_variables (self, omc_equation_index):
         if (omc_equation_index not in self.LSCalculatedVariables.keys()):
-            print("pb : LinearSystemCalculatedVariables")
+            print("pb : linear_system_calculated_variables")
             sys.exit(1)
         else:
             string_to_find = "data->simulationInfo->linearSystemData["
@@ -924,7 +924,7 @@ class readerOMC:
     # Read the *_08nbd.c to find initial value of variables
     # @param self : object pointer
     # @return
-    def read_08bndCFile(self):
+    def read_08bnd_c_file(self):
         global nb_braces_opened
         global crossed_opening_braces
         global stop_at_next_call
@@ -972,35 +972,35 @@ class readerOMC:
     #  Initialise variables in listVars by values found in 08bnd file
     # @param self : object pointer
     # @return
-    def setStartValueForSystVars(self):
+    def set_start_value_for_syst_vars(self):
         for key, value in self.var_initVal.iteritems():
             for var in self.listVars:
-                if var.getName() == key:
-                    var.setStartText(value)
-                    var.setInitByParam(True) # Indicates that the var is initialized with a param
+                if var.get_name() == key:
+                    var.set_start_text(value)
+                    var.set_init_by_param(True) # Indicates that the var is initialized with a param
 
     ##
     # Read *_05evt.c file, and try to find declarations of zeroCrossing functions :
     # @param self : object pointer
     # @return
-    def read_05evtCFile(self):
+    def read_05evt_c_file(self):
         # Reading body of *_function_ZeroCrossings(...) function
         file_to_read = self._05evtCfile
         function_name = self.modName + "_function_ZeroCrossings"
 
         ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", function_name))
-        self.functionZeroCrossings_rawFunc = self.readFunction(file_to_read, ptrn_func_to_read, function_name)
+        self.functionZeroCrossings_rawFunc = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
         function_name = self.modName + "_zeroCrossingDescription"
         ptrn_func_to_read = re.compile(r'%s[ ]+[*]+%s\(.*\)[^;]$' % ("const char", function_name))
-        self.functionZeroCrossingDescription_rawFunc = self.readFunction(file_to_read, ptrn_func_to_read, function_name)
+        self.functionZeroCrossingDescription_rawFunc = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
 
     ##
     # read _structure.xml file
     # @param self : object pointer
     # @return
-    def read_structXmlFile(self):
+    def read_struct_xml_file(self):
         doc = minidom.parse(self.structXmlFile)
         root = doc.documentElement
         # read file structures
@@ -1096,7 +1096,7 @@ class readerOMC:
     # Read _functions.h file and store internal/external functions declaration
     # @param self : object pointer
     # @return
-    def read_functionsHeader(self):
+    def read_functions_header(self):
         ptrn_func_extern = re.compile(r'extern .*;')
         ptrn_func = re.compile(r'.*;')
         ptrn_not_func = re.compile(r'static const MMC_.*;')
@@ -1126,7 +1126,7 @@ class readerOMC:
     # Read *_literals.h file and store all string declaration with type '_OMC_LIT'
     # @param self : object pointer
     # @return
-    def read_literalsHFile(self):
+    def read_literals_h_file(self):
         file_to_read = self._literalsFile
         if not os.path.isfile(file_to_read):
             return
@@ -1148,7 +1148,7 @@ class readerOMC:
     # Read *_functions.c file and store all functions' body declared
     # @param self : object pointer
     # @return
-    def read_functionsCfile(self):
+    def read_functions_c_file(self):
         file_to_read = self._functionsCfile
         if not os.path.isfile(file_to_read) :
             return
@@ -1171,10 +1171,10 @@ class readerOMC:
 
                 if ";" not in next_iter: # it is a function declaration
                     func = RawOmcFunctions()
-                    func.setName(match.group('var'))
-                    func.setSignature(next_iter)
-                    func.setReturnType(next_iter.split()[0])
+                    func.set_name(match.group('var'))
+                    func.set_signature(next_iter)
+                    func.set_return_type(next_iter.split()[0])
 
                     # "takewhile" only stops when the whole body of the function is read
-                    func.setBody( list(itertools.takewhile(stopReadingFunction, it)) )
+                    func.set_body( list(itertools.takewhile(stopReadingFunction, it)) )
                     self.listOmcFunctions.append(func)

@@ -173,10 +173,8 @@ int main(int argc, char ** argv) {
   // add initial parameters
   for (map<string, DYN::ParameterSolver>::const_iterator parameterIterator=parameters.begin(); parameterIterator != parameters.end(); ++parameterIterator) {
     const DYN::ParameterSolver& parameter = (*parameterIterator).second;
-    if (solver->hasParameter(parameter.getName())) {
-      if (fillParameterDescription(parameter, solver->solverType(), parametersAttributes) != 0) {
-        return 1;
-      }
+    if (solver->hasParameter(parameter.getName()) && fillParameterDescription(parameter, solver->solverType(), parametersAttributes) != 0) {
+      return 1;
     }
   }
 

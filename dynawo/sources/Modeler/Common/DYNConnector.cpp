@@ -200,17 +200,15 @@ ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<
           itCon != connector->connectedSubModels().end();
           ++itCon) {
     const int numVar = itCon->subModel()->getVariableIndexGlobal(itCon->variable());
-    if (connectorsByVarNum.find(numVar) != connectorsByVarNum.end()) {
+    if (connectorsByVarNum.find(numVar) != connectorsByVarNum.end() && connectorsByVarNum[numVar] == reference) {
       // check whether the two connectors have at least one variable in common :
       // if so, the negated attribute of the merge is derived from the shared variable negated attribute comparison
-      if (connectorsByVarNum[numVar] == reference) {
-        for (vector<connectedSubModel>::const_iterator itRef = connector->connectedSubModels().begin();
-                itRef != connector->connectedSubModels().end();
-                ++itRef) {
-          if (itRef->subModel()->getVariableIndexGlobal(itRef->variable()) == numVar) {  // found the two connectedSubModels
-            negatedMerge = itRef->negated() != itCon->negated();
-            break;
-          }
+      for (vector<connectedSubModel>::const_iterator itRef = connector->connectedSubModels().begin();
+          itRef != connector->connectedSubModels().end();
+          ++itRef) {
+        if (itRef->subModel()->getVariableIndexGlobal(itRef->variable()) == numVar) {  // found the two connectedSubModels
+          negatedMerge = itRef->negated() != itCon->negated();
+          break;
         }
       }
     }

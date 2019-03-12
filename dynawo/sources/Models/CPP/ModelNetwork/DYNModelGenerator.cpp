@@ -95,9 +95,8 @@ ModelGenerator::Qc() const {
 double
 ModelGenerator::ir(const double& ur, const double& ui, const double& U2) const {
   double ir = 0.;
-  if (isConnected() && !modelBus_->getSwitchOff()) {
-    if (!doubleIsZero(U2))
-      ir = (-Pc() * ur - Qc() * ui) / U2;
+  if (isConnected() && !modelBus_->getSwitchOff() && !doubleIsZero(U2)) {
+    ir = (-Pc() * ur - Qc() * ui) / U2;
   }
   return ir;
 }
@@ -105,9 +104,8 @@ ModelGenerator::ir(const double& ur, const double& ui, const double& U2) const {
 double
 ModelGenerator::ii(const double& ur, const double& ui, const double& U2) const {
   double ii = 0.;
-  if (isConnected() && !modelBus_->getSwitchOff()) {
-    if (!doubleIsZero(U2))
-      ii = (-Pc() * ui + Qc() * ur) / U2;
+  if (isConnected() && !modelBus_->getSwitchOff() && !doubleIsZero(U2)) {
+    ii = (-Pc() * ui + Qc() * ur) / U2;
   }
   return ii;
 }
@@ -115,9 +113,8 @@ ModelGenerator::ii(const double& ur, const double& ui, const double& U2) const {
 double
 ModelGenerator::ir_dUr(const double& ur, const double& ui, const double& U2) const {
   double ir_dUr = 0.;
-  if (isConnected() && !modelBus_->getSwitchOff()) {
-    if (!doubleIsZero(U2))
-      ir_dUr = (-Pc() - 2. * ur * (-Pc() * ur - Qc() * ui) / U2) / U2;
+  if (isConnected() && !modelBus_->getSwitchOff() && !doubleIsZero(U2)) {
+    ir_dUr = (-Pc() - 2. * ur * (-Pc() * ur - Qc() * ui) / U2) / U2;
   }
   return ir_dUr;
 }
@@ -125,9 +122,8 @@ ModelGenerator::ir_dUr(const double& ur, const double& ui, const double& U2) con
 double
 ModelGenerator::ir_dUi(const double& ur, const double& ui, const double& U2) const {
   double ir_dUi = 0.;
-  if (isConnected()&& !modelBus_->getSwitchOff()) {
-    if (!doubleIsZero(U2))
-      ir_dUi = (-Qc() - 2. * ui * (-Pc() * ur - Qc() * ui) / U2) / U2;
+  if (isConnected()&& !modelBus_->getSwitchOff() && !doubleIsZero(U2)) {
+    ir_dUi = (-Qc() - 2. * ui * (-Pc() * ur - Qc() * ui) / U2) / U2;
   }
   return ir_dUi;
 }
@@ -135,9 +131,8 @@ ModelGenerator::ir_dUi(const double& ur, const double& ui, const double& U2) con
 double
 ModelGenerator::ii_dUr(const double& ur, const double& ui, const double& U2) const {
   double ii_dUr = 0.;
-  if (isConnected()&& !modelBus_->getSwitchOff()) {
-    if (!doubleIsZero(U2))
-      ii_dUr = (Qc() - 2. * ur * (-Pc() * ui + Qc() * ur) / U2) / U2;
+  if (isConnected()&& !modelBus_->getSwitchOff() && !doubleIsZero(U2)) {
+    ii_dUr = (Qc() - 2. * ur * (-Pc() * ui + Qc() * ur) / U2) / U2;
   }
   return ii_dUr;
 }
@@ -145,9 +140,8 @@ ModelGenerator::ii_dUr(const double& ur, const double& ui, const double& U2) con
 double
 ModelGenerator::ii_dUi(const double& ur, const double& ui, const double& U2) const {
   double ii_dUi = 0.;
-  if (isConnected()&& !modelBus_->getSwitchOff()) {
-    if (!doubleIsZero(U2))
-      ii_dUi = (-Pc() - 2 * ui * (-Pc() * ui + Qc() * ur) / U2) / U2;
+  if (isConnected()&& !modelBus_->getSwitchOff() && !doubleIsZero(U2)) {
+    ii_dUi = (-Pc() - 2 * ui * (-Pc() * ui + Qc() * ur) / U2) / U2;
   }
   return ii_dUi;
 }
