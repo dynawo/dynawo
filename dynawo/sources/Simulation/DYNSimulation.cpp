@@ -637,7 +637,7 @@ Simulation::init() {
   for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
           itCurve != curvesCollection_->end();
           ++itCurve) {
-    model_->initCurves((*itCurve));
+    model_->initCurves(*itCurve);
   }
 
 #ifdef _DEBUG_
@@ -767,13 +767,11 @@ Simulation::simulate() {
     } else if (!criteriaChecked) {
       addEvent(DYNTimeline(CriteriaNotChecked));
       throw DYNError(Error::SIMULATION, CriteriaNotChecked);
-    } else if (end()) {
-      if (data_ && activateCriteria_) {
-        criteriaChecked = checkCriteria(false);
-        if (!criteriaChecked) {
-          addEvent(DYNTimeline(CriteriaNotChecked));
-          throw DYNError(Error::SIMULATION, CriteriaNotChecked);
-        }
+    } else if (end() && data_ && activateCriteria_) {
+      criteriaChecked = checkCriteria(false);
+      if (!criteriaChecked) {
+        addEvent(DYNTimeline(CriteriaNotChecked));
+        throw DYNError(Error::SIMULATION, CriteriaNotChecked);
       }
     }
     remove(fileName.str());
@@ -973,13 +971,13 @@ Simulation::printFinalState(std::ostream& stream) const {
       for (model_iterator itModel = finalStateCollection_->beginModel();
               itModel != finalStateCollection_->endModel();
               ++itModel) {
-        model_->fillVariables((*itModel));
+        model_->fillVariables(*itModel);
       }
 
       for (variable_iterator itVariable = finalStateCollection_->beginVariable();
               itVariable != finalStateCollection_->endVariable();
               ++itVariable) {
-        model_->fillVariable((*itVariable));
+        model_->fillVariable(*itVariable);
       }
       // export variables
       finalState::XmlExporter xmlExporter;

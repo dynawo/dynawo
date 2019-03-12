@@ -78,7 +78,7 @@ class SubModelFactory : private boost::noncopyable {
  * Manage submodel factories to avoid loading the same library multiple
  * time.
  */
-class SubModelFactories {
+class SubModelFactories : private boost::noncopyable {
  public:
   /**
    * @brief Constructor

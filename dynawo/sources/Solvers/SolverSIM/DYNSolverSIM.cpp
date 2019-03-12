@@ -243,12 +243,10 @@ void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound) {
         restoreInitialValues(true, true);
 
         // Erase timeline messages (if necessary) that could have been added between the previous accepted time step and the non convergence
-        if (recalculateStep_) {
-          if (timeline_) {
-            finalEventsSize = timeline_->getSizeEvents();
-            if (finalEventsSize != initialEventsSize)
-              timeline_->eraseEvents(finalEventsSize - initialEventsSize, timeline_->cendEvent());
-          }
+        if (recalculateStep_ && timeline_) {
+          finalEventsSize = timeline_->getSizeEvents();
+          if (finalEventsSize != initialEventsSize)
+            timeline_->eraseEvents(finalEventsSize - initialEventsSize, timeline_->cendEvent());
         }
         break;
       }

@@ -52,27 +52,27 @@ class zeroCrossingFilter:
     # returns the lines that constitues the body of G equations descriptions
     # @param self : object pointer
     # @return list of lines
-    def getFunctionZeroCrossingDescription_rawFunc(self):
+    def get_function_zero_crossing_description_raw_func(self):
         return self.functionZeroCrossingDescription_rawFunc
 
     ##
     # returns the lines that constitues the body of G equations
     # @param self : object pointer
     # @return list of lines
-    def getFunctionZeroCrossings_rawFunc(self):
+    def get_function_zero_crossings_raw_func(self):
         return self.functionZeroCrossings_rawFunc
 
     ##
     # returns the number of zero crossing
     # @param self : object pointer
     # @return number of zero crossing
-    def getNumberOfZeroCrossings(self):
+    def get_number_of_zero_crossings(self):
         return self.numberOfZeroCrossings
 
     ##
     # remove fictitious when equations
     # @param self : object pointer
-    def removeFictitiousGEquation(self):
+    def remove_fictitious_gequation(self):
         # Filtering the body lines of the function
         def filter_descData(line):
             if "return res[i];" not in line \
@@ -82,7 +82,7 @@ class zeroCrossingFilter:
             return False
 
         filtered_func = []
-        filtered_iter = itertools.ifilter( filter_descData, self.reader.functionZeroCrossingDescription_rawFunc.getBody() )
+        filtered_iter = itertools.ifilter( filter_descData, self.reader.functionZeroCrossingDescription_rawFunc.get_body() )
         filtered_func = list(filtered_iter)
 
 
@@ -113,7 +113,7 @@ class zeroCrossingFilter:
             return False
         #TODO ALSO REMOVE ASSOCIATED WHEN CONDITION
         filtered_func = []
-        filtered_iter = itertools.ifilter( filter_eqData, self.reader.functionZeroCrossings_rawFunc.getBody() )
+        filtered_iter = itertools.ifilter( filter_eqData, self.reader.functionZeroCrossings_rawFunc.get_body() )
         filtered_func = list(filtered_iter)
 
         nb_zero_crossing_tot = 0;
@@ -292,45 +292,45 @@ class factory:
     # Getter to obtain the list of system's variables
     # @param self : object pointer
     # @return list of system's variables
-    def getVarsSyst(self):
+    def get_vars_syst(self):
         return self.listVarsSyst
 
     ##
     # Getter to obtain the number of dynamic equations
     # @param self : object pointer
     # @return number of dynamic equations
-    def getNbEqDyn(self):
+    def get_nb_eq_dyn(self):
         return self.nbEqDyn
 
     ##
     # Getter to obtain all the equations defining the model
     # @param self : object pointer
     # @return list of equations
-    def getListEqSyst(self):
+    def get_list_eq_syst(self):
         return self.listEqSyst
 
-    def keepContinousModelicaReinit(self):
+    def keep_continous_modelica_reinit(self):
         return False
 
     ##
     # Getter to obtain all the equations linked with Modelica reinit for continuous variables
     # @param self : object pointer
     # @return list of equations
-    def getMapEqReinitContinuous(self):
+    def get_map_eq_reinit_continuous(self):
         return self.mapEqReinitContinuous
 
     ##
     # Getter to obtain all the equations linked with Modelica reinit for discrete variables
     # @param self : object pointer
     # @return list of equations
-    def getMapEqReinitDiscrete(self):
+    def get_map_eq_reinit_discrete(self):
         return self.mapEqReinitDiscrete
 
     ##
     # Getter to obtain all equations not defining the model
     # @param self : object pointer
     # @return list of equations
-    def getListOtherEq(self):
+    def get_list_other_eq(self):
         return self.listOtherEq
 
     ##
@@ -338,7 +338,7 @@ class factory:
     # Sort variables by type
     # @param self : object pointer
     # @return
-    def buildVariables(self):
+    def build_variables(self):
         # ---------------------------------------------------------
         # Improvement of information on variables
         # ---------------------------------------------------------
@@ -346,23 +346,23 @@ class factory:
         # in the reader.
 
         # We assign an omc index to each var (thanks to *_model.h)
-        self.reader.give_numOmc_to_vars()
+        self.reader.give_num_omc_to_vars()
 
         # We initialize vars of self.listVars with initial values found in *_06inz.c
-        self.reader.setStartValueForSystVars06Inz()
+        self.reader.set_start_value_for_syst_vars_06inz()
 
         # We initialize vars of self.listVars with initial values found in *_08bnd.c
-        self.reader.setStartValueForSystVars()
+        self.reader.set_start_value_for_syst_vars()
 
         # Set if the variables is internal or not
         initial_defined = self.reader.initial_defined
 
         list_vars_read = self.reader.listVars
         for var in list_vars_read:
-            if var.getName() in initial_defined:
-                var.setInternal(True)
+            if var.get_name() in initial_defined:
+                var.set_internal(True)
             else:
-                var.setInternal(False)
+                var.set_internal(False)
 
 
         # ----------------------------------------------
@@ -425,8 +425,8 @@ class factory:
         ## type of each variables
         self.varByType = {}
         for var in list_vars_read:
-            type_var = var.getType()
-            self.varByType[var.getName()] = type_var
+            type_var = var.get_type()
+            self.varByType[var.get_name()] = type_var
 
         # ----------------------------------------------
         # Order: according to the their number in *_model.h
@@ -454,62 +454,62 @@ class factory:
         # The following gives this expression for each type of vars
         # ------------------------------------------------------------------------
         for v in self.listAllVars:
-            v.setDynType()
+            v.set_dyn_type()
 
         i = 0
         for v in self.listVarsDer:
-            v.setDynawoName( "xd[%s]" % str(i) )
+            v.set_dynawo_name( "xd[%s]" % str(i) )
             i += 1
 
         i = 0
         for v in self.listAllVarsDiscr:
-            v.setDynawoName( "z[%s]" % str(i) )
+            v.set_dynawo_name( "z[%s]" % str(i) )
             if (v not in self.listVarsBool):
-                v.setDiscreteDynType()
+                v.set_discrete_dyn_type()
             i += 1
 
         i = 0
         for v in self.listVarsInt:
-            v.setDynawoName( "i[%s]" %str(i) )
+            v.set_dynawo_name( "i[%s]" %str(i) )
             i += 1
 
         i = 0
         for v in self.listVarsSyst:
-            v.setDynawoName( "x[%s]" % str(i) )
+            v.set_dynawo_name( "x[%s]" % str(i) )
             i += 1
 
         i = 0
         # only for real parameters!
         for v in self.listParamsReal:
-            v.setDynawoName( "rpar[%s]" % str(i) )
+            v.set_dynawo_name( "rpar[%s]" % str(i) )
             i += 1
 
         # Assignement of the type "FLOW" to certain vars thanks to information from the reader
         list_flow_vars = self.reader.list_flow_vars
         for v in self.listVarsDiscr + self.listVarsSyst :
-            var_name = v.getName()
-            if var_name in list_flow_vars : v.setFlowDynType()
+            var_name = v.get_name()
+            if var_name in list_flow_vars : v.set_flow_dyn_type()
 
         # Filling ot the map giving [ $Pvar or $P$DER$Pvar ] --> [  x[i] ou xd[i]]
         # for the construction of evalFAdept (the vars are left as they are)
         # no need to do it for booleans
         for v in self.listVarsDer + self.listVarsSyst:
-            self.map_varOmc_varDyn_evalFAdept[ to_omc_style(v.getName()) ] = v.getDynawoName()
+            self.map_varOmc_varDyn_evalFAdept[ to_omc_style(v.get_name()) ] = v.get_dynawo_name()
 
         # List of names of discrete vars
         for v in self.listAllVarsDiscr:
-            self.listNameDiscreteVars.append( v.getName() )
+            self.listNameDiscreteVars.append( v.get_name() )
 
 
         # List of names of integer vars
         for v in self.listVarsInt:
-            self.listNameIntegerVars.append( v.getName() )
+            self.listNameIntegerVars.append( v.get_name() )
 
     ##
     # build the list of all elements
     # @param self : object pointer
     # @return
-    def buildElements(self):
+    def build_elements(self):
         # ----------------------------------------------------------------------------------
         # Building info for the generation of C ++ methods defineElements(...)
         # ----------------------------------------------------------------------------------
@@ -520,14 +520,14 @@ class factory:
     # Build equation from functions found in main c file
     # @param self : object pointer
     # @return
-    def buildEquationsFromMainC(self):
+    def build_equations_from_main_c(self):
         pass
 
     ##
     # Build equation from functions found in *_03lsy.c file
     # @param self : object pointer
     # @return
-    def buildEquationsFrom_03lsy(self):
+    def build_equations_from_03lsy(self):
         pass
 
     ##
@@ -535,7 +535,7 @@ class factory:
     # @param self : object pointer
     # @return
 
-    def buildEquationsFrom_02nls(self):
+    def build_equations_from_02nls(self):
         pass
 
     ##
@@ -545,22 +545,22 @@ class factory:
     # Native functions such as omc_assert and omc_terminate are also concerned
     # @param self : object pointer
     # @return
-    def buildCallFunctions(self):
-        map_tags_num_eq = self.reader.getMap_tag_numEq()
+    def build_call_functions(self):
+        map_tags_num_eq = self.reader.get_map_tag_num_eq()
         list_omc_functions = self.reader.listOmcFunctions
         name_func_to_search = ["omc_assert", "omc_terminate"]
         for func in list_omc_functions:
-            name_func_to_search.append(func.getName())
+            name_func_to_search.append(func.get_name())
 
         # Analysis of MainC functions => if external call => will be added to setFOMC
         list_body_to_analyse = []
         body_to_add = []
 
         for eq_mak in self.listEqMakerMainCAndNLS:
-            tag = find_value_in_map( map_tags_num_eq, eq_mak.getNumOmc() )
-            if eq_mak.getEvaluatedVar() == "" and tag != 'when':
+            tag = find_value_in_map( map_tags_num_eq, eq_mak.get_num_omc() )
+            if eq_mak.get_evaluated_var() == "" and tag != 'when':
                 # call to a function and not evaluation of a variable
-                body = eq_mak.getBody()
+                body = eq_mak.get_body()
                 body_tmp=[]
                 for line in body:
                     if "threadData" in line:
@@ -596,9 +596,9 @@ class factory:
 
         # Function analysis, if tag when: external call
         for eq_mak in self.listEqMakerMainCAndNLS:
-            tag = find_value_in_map( map_tags_num_eq, eq_mak.getNumOmc() )
-            if (tag == 'when' and not eq_mak.getIsModelicaReinit()):
-                body = eq_mak.getBody()
+            tag = find_value_in_map( map_tags_num_eq, eq_mak.get_num_omc() )
+            if (tag == 'when' and not eq_mak.get_is_modelica_reinit()):
+                body = eq_mak.get_body()
                 body_tmp = []
                 for line in body:
                     if "threadData" in line:
@@ -617,7 +617,7 @@ class factory:
     # Change their expression and transforms them in residual function
     # @param self : object pointer
     # @return
-    def buildEquations(self):
+    def build_equations(self):
         # Recovery of the map [var name evaluated] --> [ Func / Eq number in *_info.xml]
         # In the "equations" section of *_info.xml, each equation defines the value
         # of a var with respect to other vars. The name of the evaluated var is in the attribut "defines".
@@ -626,8 +626,8 @@ class factory:
         # Warning:
         # The case of linear and nonlinear systems is particular concerning the determination
         # of the evaluated var considering that several equations must leave a function (see + far).
-        map_vars_num_eq = self.reader.getMap_vars_numEq()
-        map_num_eq_vars_defined = self.reader.getMap_numEq_vars_defined()
+        map_vars_num_eq = self.reader.get_map_vars_num_eq()
+        map_num_eq_vars_defined = self.reader.get_map_num_eq_vars_defined()
 
 
         ##########################################################
@@ -646,37 +646,37 @@ class factory:
 
         # Build the eqMaker for functions of the main *.c file
         for f in self.reader.listFuncMainC:
-            if f.getNumOmc() not in list_num_func_to_remove:
+            if f.get_num_omc() not in list_num_func_to_remove:
                 eq_maker = EqMaker(f)
                 list_eq_maker_main_c.append( eq_maker )
 
         # Find, for each function of the main *.c file :
         # - the variable it evaluates
         # - the vars on which it depends to evaluate this variable
-        map_dep = self.reader.get_mapDepVarsForFunc()
+        map_dep = self.reader.get_map_dep_vars_for_func()
         for eq_mak in list_eq_maker_main_c:
-            eq_mak_num_omc = eq_mak.getNumOmc()
+            eq_mak_num_omc = eq_mak.get_num_omc()
             name_var_eval = find_key_in_map( map_vars_num_eq, eq_mak_num_omc)
 
             # for Modelica reinit equations, the evaluated var scan does not always work
             # a fallback is to look at the variable defined in this case
-            if (name_var_eval is None) and (eq_mak.getIsModelicaReinit())\
+            if (name_var_eval is None) and (eq_mak.get_is_modelica_reinit())\
                and (eq_mak_num_omc in map_num_eq_vars_defined.keys()) \
                and (len(map_num_eq_vars_defined[eq_mak_num_omc]) == 1):
                 name_var_eval = map_num_eq_vars_defined[eq_mak_num_omc] [0]
 
             list_depend = [] # list of vars on which depends the function
             if name_var_eval is not None:
-                eq_mak.setEvaluatedVar(name_var_eval)
+                eq_mak.set_evaluated_var(name_var_eval)
                 list_depend.append(name_var_eval) # The / equation function depends on the var it evaluates
                 if name_var_eval in map_dep.keys():
                     list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
-                eq_mak.setDependVars(list_depend)
+                eq_mak.set_depend_vars(list_depend)
 
         # Build an equation for each function in the main *.c file
         for eq_mak in list_eq_maker_main_c:
-            eq_mak.prepareBodyForEquation()
-            self.listAllEquations.append( eq_mak.createEquation() )
+            eq_mak.prepare_body_for_equation()
+            self.listAllEquations.append( eq_mak.create_equation() )
             self.listEqMakerMainCAndNLS.append(eq_mak)
 
 
@@ -701,7 +701,7 @@ class factory:
         # Objects RawFunc of matrices and rhs come from the read of *_03lsy.c file.
         for mat_fct in self.reader.listFuncLS_mat:
             for rhs_fct in self.reader.listFuncLS_rhs:
-                if rhs_fct.getNumOmc() == mat_fct.getNumOmc():
+                if rhs_fct.get_num_omc() == mat_fct.get_num_omc():
                     map_mat_rhs[mat_fct] = rhs_fct
                     break
 
@@ -714,8 +714,8 @@ class factory:
             raw_list_vars = []
             eq_mak_to_keep = True
             # Here, we do not have a single var evaluated, but several (all the vars intervening in the LS).
-            raw_list_vars = find_keys_in_map (map_vars_num_eq, eq_mak.getNumOmc())
-            ordered_list_vars = self.reader.LinearSystemCalculatedVariables (eq_mak.getNumOmc())
+            raw_list_vars = find_keys_in_map (map_vars_num_eq, eq_mak.get_num_omc())
+            ordered_list_vars = self.reader.linear_system_calculated_variables (eq_mak.get_num_omc())
             # If the list of evaluated vars is empty, it is an LS for the initialization step
             # that openModelica implements for its own simulations.
             # WARNING: ordered_list_vars is never empty
@@ -724,10 +724,10 @@ class factory:
                 eq_mak_to_keep = False
 
             if eq_mak_to_keep:
-                eq_mak.setEvaluatedVars(ordered_list_vars)
-                eq_mak.getInfosForLSeq()
-                eq_mak.prepareBodiesForEquations()
-                self.listAllEquations.extend( eq_mak.createEquations() )
+                eq_mak.set_evaluated_vars(ordered_list_vars)
+                eq_mak.get_infos_for_lseq()
+                eq_mak.prepare_bodies_for_equations()
+                self.listAllEquations.extend( eq_mak.create_equations() )
 
         # List of eqMaker of "type NLS" (residualFunc and eqFunction)
         # in *_03lsy.c file and called in residual functions really used
@@ -754,13 +754,13 @@ class factory:
             list_vars = []
             # Here, we do not have one evaluated var, but several (all the vars intervening in the NLS).
             # Recovery of NLS vars (i.e. evaluated vars).
-            list_vars = find_keys_in_map( map_vars_num_eq, eq_mak.getNumOmc() )
+            list_vars = find_keys_in_map( map_vars_num_eq, eq_mak.get_num_omc() )
 
             # If the list of evaluated vars is empty, it is an NLS for the initialization step
             # that openModelica implements for its own simulations.
             # We do not need it. We will delete it below
             if list_vars == [] : list_eq_to_remove.append(eq_mak)
-            else: eq_mak.setEvaluatedVars(list_vars) # So this would be useless ??
+            else: eq_mak.set_evaluated_vars(list_vars) # So this would be useless ??
 
         for em in list_eq_to_remove : list_eq_maker_nls_type.remove(em)
 
@@ -774,39 +774,39 @@ class factory:
         # - Prepare the body of the function for the creation (later) of the equations
         #    - ...
         for eq_mak in list_eq_maker_nls_type:
-            eq_mak.getInfosForNLSeq()
-            eq_mak.setNumEqClassic()
-            eq_mak.prepareBodiesForEquations()
-            list_num_eq_classic.extend( eq_mak.getNumEqClassic() )
+            eq_mak.get_infos_for_nl_seq()
+            eq_mak.set_num_eq_classic()
+            eq_mak.prepare_bodies_for_equations()
+            list_num_eq_classic.extend( eq_mak.get_num_eq_classic() )
 
 
         #    Build eqMaker for classic functions of *_03lsy.c
         for f in self.reader.listLSclassicFunc:
-            if f.getNumOmc() in list_num_eq_classic:
+            if f.get_num_omc() in list_num_eq_classic:
                 list_nls_typeclassic_eq_maker.append( EqMaker(f) )
 
         #    Determine, for each classic function of *_03lsy.c:
         # - the variable it evaluates
         # - the vars on which it depends to evaluate this variable
-        map_dep = self.reader.get_mapDepVarsForFunc()
+        map_dep = self.reader.get_map_dep_vars_for_func()
         for eq_mak in list_nls_typeclassic_eq_maker:
-            name_var_eval = find_key_in_map( map_vars_num_eq, eq_mak.getNumOmc() )
+            name_var_eval = find_key_in_map( map_vars_num_eq, eq_mak.get_num_omc() )
             list_depend = [] # list of vars on which depends the function
             if name_var_eval is not None:
-                eq_mak.setEvaluatedVar(name_var_eval)
+                eq_mak.set_evaluated_var(name_var_eval)
                 list_depend.append(name_var_eval) # The / equation function depends on the var it evaluates
                 list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
-                eq_mak.setDependVars(list_depend)
+                eq_mak.set_depend_vars(list_depend)
 
 
         #    Building equations associated to each classic function of *_02nls.c
         for eq_mak in list_nls_typeclassic_eq_maker:
-            eq_mak.prepareBodyForEquation()
-            self.listAllEquations.append( eq_mak.createEquation() )
+            eq_mak.prepare_body_for_equation()
+            self.listAllEquations.append( eq_mak.create_equation() )
 
         # 7. Building equations associated to each residual function of *_02nls.c
         for eq_mak in list_eq_maker_nls_type:
-            self.listAllEquations.extend( eq_mak.createEquations() )
+            self.listAllEquations.extend( eq_mak.create_equations() )
 
         ##########################################################
         # Equations from *_02nls.c (NLS)
@@ -853,13 +853,13 @@ class factory:
             list_vars = []
             # Here, we dot not have one evaluated var, but several (all the vars used in the NLS).
             # Recovery of NLS vars (i.e. evaluated vars).
-            list_vars = find_keys_in_map( map_vars_num_eq, eq_mak.getNumOmc() )
+            list_vars = find_keys_in_map( map_vars_num_eq, eq_mak.get_num_omc() )
 
             # If the list of evaluated vars is empty, it is an NLS for the initialization step
             # that openModelica implements for its own simulations.
             # We do not need it. We will delete it below
             if list_vars == [] : list_eq_to_remove.append(eq_mak)
-            else: eq_mak.setEvaluatedVars(list_vars) # So this would be useless ??
+            else: eq_mak.set_evaluated_vars(list_vars) # So this would be useless ??
 
         for em in list_eq_to_remove : list_eq_maker_nls.remove(em)
 
@@ -873,17 +873,17 @@ class factory:
         # - Prepare the body of the function for the creation (later) of the equations
         #    - ...
         for eq_mak in list_eq_maker_nls:
-            eq_mak.getInfosForNLSeq()
-            eq_mak.setNumEqClassic()
-            eq_mak.prepareBodiesForEquations()
-            list_num_eq_classic.extend( eq_mak.getNumEqClassic() )
+            eq_mak.get_infos_for_nl_seq()
+            eq_mak.set_num_eq_classic()
+            eq_mak.prepare_bodies_for_equations()
+            list_num_eq_classic.extend( eq_mak.get_num_eq_classic() )
 
 
         # 4. Build eqMaker for classic functions in *_02nls.c
         # For now, each classic function defined in *_02nls.c instead of *.c is used
         # in residual functions
         for f in self.reader.listNLSclassicFunc:
-            if f.getNumOmc() in list_num_eq_classic:
+            if f.get_num_omc() in list_num_eq_classic:
                 list_nls_classic_eq_maker.append( EqMaker(f) )
 
         # -----------------------------------------------------------
@@ -892,26 +892,26 @@ class factory:
         # 5. Find, for each classic of *_02nls.c:
         # - the variable it evaluates
         # - the vars on which it depends to evaluate this variable
-        map_dep = self.reader.get_mapDepVarsForFunc()
+        map_dep = self.reader.get_map_dep_vars_for_func()
         for eq_mak in list_nls_classic_eq_maker:
-            name_var_eval = find_key_in_map( map_vars_num_eq, eq_mak.getNumOmc() )
+            name_var_eval = find_key_in_map( map_vars_num_eq, eq_mak.get_num_omc() )
             list_depend = [] # list of vars on which depends the function
             if name_var_eval is not None:
-                eq_mak.setEvaluatedVar(name_var_eval)
+                eq_mak.set_evaluated_var(name_var_eval)
                 list_depend.append(name_var_eval) # The / equation function depends on the var it evaluates
                 list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
-                eq_mak.setDependVars(list_depend)
+                eq_mak.set_depend_vars(list_depend)
 
 
         # 6. Building of equations associated to each classic function in *_02nls.c
         for eq_mak in list_nls_classic_eq_maker:
-            eq_mak.prepareBodyForEquation()
-            self.listAllEquations.append( eq_mak.createEquation() )
+            eq_mak.prepare_body_for_equation()
+            self.listAllEquations.append( eq_mak.create_equation() )
             self.listEqMakerMainCAndNLS.append(eq_mak)
 
         # 7. Building of equations associated to each residual function in *_02nls.c
         for eq_mak in list_eq_maker_nls:
-            self.listAllEquations.extend( eq_mak.createEquations() )
+            self.listAllEquations.extend( eq_mak.create_equations() )
 
         ##########################################################
 
@@ -925,13 +925,13 @@ class factory:
         # the equations that evaluate these vars.
         list_vars_for_sys_build = itertools.chain(self.listVarsSyst, self.listVarsDer)
         for var in list_vars_for_sys_build:
-            for eq in filter(lambda x: (not x.getIsModelicaReinit()) and (x.getEvaluatedVar() == var.getName()), self.listAllEquations):
+            for eq in filter(lambda x: (not x.get_is_modelica_reinit()) and (x.get_evaluated_var() == var.get_name()), self.listAllEquations):
                 self.listEqSyst.append(eq)
 
         for eq in self.listAllEquations:
-            if eq.getEvaluatedVar() =="" and eq.withThrow():
+            if eq.get_evaluated_var() =="" and eq.with_throw():
                 warning = Warn(warning)
-                warning.prepareBody()
+                warning.prepare_body()
                 self.listWarnings.append(warning)
 
         #... Sort the previous functions with their index in the main *.c file (and other *.c)
@@ -940,12 +940,12 @@ class factory:
         # ... we give them a number for DYNAWO
         i = 0 # num dyn of the equation
         for eq in self.listEqSyst:
-            var_name = eq.getEvaluatedVar()
+            var_name = eq.get_evaluated_var()
             if var_name not in self.reader.fictiveContinuousVarsDer:
-                eq.setNumDyn(i)
+                eq.set_num_dyn(i)
                 i += 1
             else:
-                eq.setNumDyn (-1) # can detect bugs
+                eq.set_num_dyn (-1) # can detect bugs
         self.nbEqDyn = i
 
         # ---------------------------------------------------------------------
@@ -955,28 +955,28 @@ class factory:
         for var in self.listVarsSyst + self.listAllVarsDiscr + self.listVarsInt:
             #retrieve the num_dyn attribute : retrieve the equation linked with the current variable
             num_dyn = None
-            for eq_standard in filter(lambda x: (not x.getIsModelicaReinit()) \
-                                      and ((x.getEvaluatedVar() == var.getName()) or (x.getEvaluatedVar() == 'der(' + var.getName() + ')')), self.listAllEquations):
-                num_dyn = eq_standard.getNumDyn()
+            for eq_standard in filter(lambda x: (not x.get_is_modelica_reinit()) \
+                                      and ((x.get_evaluated_var() == var.get_name()) or (x.get_evaluated_var() == 'der(' + var.get_name() + ')')), self.listAllEquations):
+                num_dyn = eq_standard.get_num_dyn()
                 break
 
             # retrieve all Modelica reinit equations linked with the current variable
-            for eq in filter(lambda x: x.getIsModelicaReinit() \
-                             and ((x.getEvaluatedVar() == var.getName()) or (x.getEvaluatedVar() == 'der(' + var.getName() + ')')), self.listEqMakerMainCAndNLS):
-                equation = Equation (eq.getBody(), eq.getEvaluatedVar(), eq.getDependVars(), eq.getNumOmc())
+            for eq in filter(lambda x: x.get_is_modelica_reinit() \
+                             and ((x.get_evaluated_var() == var.get_name()) or (x.get_evaluated_var() == 'der(' + var.get_name() + ')')), self.listEqMakerMainCAndNLS):
+                equation = Equation (eq.get_body(), eq.get_evaluated_var(), eq.get_depend_vars(), eq.get_num_omc())
                 if (num_dyn is not None):
-                    equation.setNumDyn(num_dyn)
+                    equation.set_num_dyn(num_dyn)
 
                 if (var in self.listVarsSyst):
-                    if var.getName() not in self.mapEqReinitContinuous:
-                        self.mapEqReinitContinuous [var.getName()] = []
-                    self.mapEqReinitContinuous[var.getName()].append(equation)
+                    if var.get_name() not in self.mapEqReinitContinuous:
+                        self.mapEqReinitContinuous [var.get_name()] = []
+                    self.mapEqReinitContinuous[var.get_name()].append(equation)
                 elif (var in self.listAllVarsDiscr + self.listVarsInt):
-                    if (var.getName()) not in self.mapEqReinitDiscrete:
-                        self.mapEqReinitDiscrete [var.getName()] = []
-                    self.mapEqReinitDiscrete [var.getName()].append(equation)
+                    if (var.get_name()) not in self.mapEqReinitDiscrete:
+                        self.mapEqReinitDiscrete [var.get_name()] = []
+                    self.mapEqReinitDiscrete [var.get_name()].append(equation)
                 else:
-                    errorExit('bad Modelica reinit equation : ' + eq.getBody())
+                    errorExit('bad Modelica reinit equation : ' + eq.get_body())
 
 
         # ---------------------------------------------------------------------
@@ -1001,7 +1001,7 @@ class factory:
         # good info) functions evaluating whencondition
         # and, in the body of these functions, retrieve the relation number (4th arg
         # of RELATIONHYSTERESIS (...)).
-        #      The list of whenCondition vars is already built above (in "buildVariables()").
+        #      The list of whenCondition vars is already built above (in "build_variables()").
         # At this point, we know which relations concern whenCondition (we can forget the others)
         # and therefore knows the number of relationships to keep
         #    - With this, we can create objects of type "Relations"
@@ -1012,17 +1012,17 @@ class factory:
         # Creation of the rootObject list
 
         for v in self.listVarsWhen :
-            self.listRootObjects.append( RootObject(v.getName()) )
+            self.listRootObjects.append( RootObject(v.get_name()) )
 
         for r_obj in self.listRootObjects:
             # For the current when variable, search for the body of the function
             # which evaluates the variable whenCondition (for, later, retrieve the number of relationship associated with the
             # var whenCondition)
             for eq_mak in self.listEqMakerMainCAndNLS:
-                if r_obj.getWhenVarName() == eq_mak.getEvaluatedVar():
-                    r_obj.setBodyForNumRelation( eq_mak.getRawBody() )
+                if r_obj.get_when_var_name() == eq_mak.get_evaluated_var():
+                    r_obj.set_body_for_num_relation( eq_mak.get_raw_body() )
                     break
-            r_obj.prepareBody()
+            r_obj.prepare_body()
 
         # List of function fields evaluating discrete vars
         list_func_bodies_discr = []
@@ -1030,9 +1030,9 @@ class factory:
 
         for v in self.listAllVarsDiscr:
             for eq_mak in self.listEqMakerMainCAndNLS:
-                if v.getName() == eq_mak.getEvaluatedVar():
-                    list_func_bodies_discr.append( eq_mak.getBody() )
-                    list_func_bodies_discr_names[v.getName()]=eq_mak.getBody()
+                if v.get_name() == eq_mak.get_evaluated_var():
+                    list_func_bodies_discr.append( eq_mak.get_body() )
+                    list_func_bodies_discr_names[v.get_name()]=eq_mak.get_body()
                     break
 
         # List of function bodies evaluating integer vars
@@ -1041,9 +1041,9 @@ class factory:
 
         for v in self.listVarsInt:
             for eq_mak in self.listEqMakerMainCAndNLS:
-                if (v.getName() == eq_mak.getEvaluatedVar()) and (not eq_mak.getIsModelicaReinit()):
-                    list_func_bodies_int.append( eq_mak.getBody() )
-                    list_func_bodies_int_names[v.getName()]= eq_mak.getBody()
+                if (v.get_name() == eq_mak.get_evaluated_var()) and (not eq_mak.get_is_modelica_reinit()):
+                    list_func_bodies_int.append( eq_mak.get_body() )
+                    list_func_bodies_int_names[v.get_name()]= eq_mak.get_body()
                     break
 
         i = 0
@@ -1051,17 +1051,17 @@ class factory:
         self.listWhenEqToFilter = []
         for r_obj in self.listRootObjects:
             # we assign a DYNAWO number (from 0 -> nb vars whenCondition) to each variable whenCondition
-            r_obj.setNumDyn(i)
+            r_obj.set_num_dyn(i)
 
 
             # For each RootObject (or each var whenCondition), we review the bodies
             # of function evaluating the discrete vars and we extract the pieces executed
             # when the whenCondition is checked.
-            r_obj.filterWhenCondBlocks( list_func_bodies_discr )
+            r_obj.filter_when_cond_blocks( list_func_bodies_discr )
 
-            if re.search(r'RELATIONHYSTERESIS\(tmp[0-9]+, data->localData\[0\]->timeValue, 999999.0, [0-9]+, Greater\);',transform_rawbody_to_string(r_obj.getBodyForNumRelation())):
-                r_obj.setNumDyn(-1)
-                self.listWhenEqToFilter.append(str(r_obj.getWhenVarName())+" ")
+            if re.search(r'RELATIONHYSTERESIS\(tmp[0-9]+, data->localData\[0\]->timeValue, 999999.0, [0-9]+, Greater\);',transform_rawbody_to_string(r_obj.get_body_for_num_relation())):
+                r_obj.set_num_dyn(-1)
+                self.listWhenEqToFilter.append(str(r_obj.get_when_var_name())+" ")
                 continue
 
             #r_obj.printWhenEquation()
@@ -1072,19 +1072,19 @@ class factory:
         keys = list_func_bodies_discr_names.keys()
         for key in keys:
             z_equation = ZEquation(key)
-            z_equation.setBody(list_func_bodies_discr_names[key])
-            z_equation.prepareBody()
-            if any(ext in " ".join(z_equation.getBody()) for ext in self.listWhenEqToFilter):
+            z_equation.set_body(list_func_bodies_discr_names[key])
+            z_equation.prepare_body()
+            if any(ext in " ".join(z_equation.get_body()) for ext in self.listWhenEqToFilter):
                 continue
             self.listZEquations.append(z_equation)
 
         # add Modelica reinit equations
-        for var_name, eq_list in self.getMapEqReinitDiscrete().iteritems():
+        for var_name, eq_list in self.get_map_eq_reinit_discrete().iteritems():
             for eq in eq_list:
                 z_equation = ZEquation("reinit for " + var_name)
-                z_equation.setBody(eq.getBodyFor_ModelicaReinitAffectation())
-                z_equation.prepareBody()
-                if any(ext in " ".join(z_equation.getBody()) for ext in self.listWhenEqToFilter):
+                z_equation.set_body(eq.getBodyFor_ModelicaReinitAffectation())
+                z_equation.prepare_body()
+                if any(ext in " ".join(z_equation.get_body()) for ext in self.listWhenEqToFilter):
                     continue
                 self.listZEquations.append(z_equation)
 
@@ -1092,23 +1092,23 @@ class factory:
         keys = list_func_bodies_int_names.keys()
         for key in keys:
             int_equation = INTEquation(key)
-            int_equation.setBody(list_func_bodies_int_names[key])
-            int_equation.prepareBody()
+            int_equation.set_body(list_func_bodies_int_names[key])
+            int_equation.prepare_body()
             self.listINTEquations.append(int_equation)
 
         # preparation of the blocks for the assignment of the variables bool (except whenEquation)
         list_func_bodies_bool_names={}
         for v in self.listVarsBool:
             for eq_mak in self.listEqMakerMainCAndNLS:
-                if v.getName() == eq_mak.getEvaluatedVar():
-                    list_func_bodies_bool_names[v.getName()]=eq_mak.getBody()
+                if v.get_name() == eq_mak.get_evaluated_var():
+                    list_func_bodies_bool_names[v.get_name()]=eq_mak.get_body()
                     break
 
         keys =  list_func_bodies_bool_names.keys()
         for key in keys:
             bool_equation = BoolEquation(key)
-            bool_equation.setBody(list_func_bodies_bool_names[key])
-            bool_equation.prepareBody()
+            bool_equation.set_body(list_func_bodies_bool_names[key])
+            bool_equation.prepare_body()
             self.listBoolEquations.append(bool_equation)
 
 
@@ -1116,12 +1116,12 @@ class factory:
     # Change the expression of warnings and assert in order to add them to evalF
     # @param self : object pointer
     # @return
-    def buildWarnings(self):
+    def build_warnings(self):
         # omc_assert
         warnings = self.reader.warnings
         for warning in warnings:
             warning = Warn(warning)
-            warning.prepareBody()
+            warning.prepare_body()
             self.listWarnings.append(warning)
 
 
@@ -1129,7 +1129,7 @@ class factory:
     # prepare the equations/variables for setY0 methods
     # @param self : object pointer
     # @return
-    def prepareFor_setY0(self):
+    def prepare_for_sety0(self):
         # In addition to system vars, discrete vars (bool or not) must be initialized as well
         # We concatenate system vars and discrete vars
         list_vars = itertools.chain(self.listVarsSyst, self.listAllVarsDiscr, self.listVarsInt)
@@ -1139,63 +1139,63 @@ class factory:
         list_vars = sorted(list_vars,cmp = cmp_numInit_vars)
         # We prepare the results to print in setY0omc
         for var in list_vars:
-            if var.getUseStart():
-                init_val = var.getStartText()[0]
+            if var.get_use_start():
+                init_val = var.get_start_text()[0]
                 if init_val == "":
                     init_val = "0.0"
-                line = "    %s = %s;\n" % ( to_omc_style(var.getName()), init_val )
+                line = "    %s = %s;\n" % ( to_omc_style(var.get_name()), init_val )
                 self.listFor_setY0.append(line)
 
-            elif var.getInitByParam (): # If the var was initialized with a param (not with an actual value)
-                var.cleanStartText () # Clean up initialization text before printing
+            elif var.get_init_by_param (): # If the var was initialized with a param (not with an actual value)
+                var.clean_start_text () # Clean up initialization text before printing
 
                 # Lines for reading comfort at the impression
-                if len(var.getStartText()) > 1 :
+                if len(var.get_start_text()) > 1 :
                     if not found_init_by_param_and_at_least2lines:
                         self.listFor_setY0.append("\n")
                     found_init_by_param_and_at_least2lines = True
                 else : found_init_by_param_and_at_least2lines = False
 
-                for L in var.getStartText() :
+                for L in var.get_start_text() :
                    self.listFor_setY0.append("  " + L)
 
-                if len(var.getStartText()) > 1 : self.listFor_setY0.append("\n") # reading comfort
+                if len(var.get_start_text()) > 1 : self.listFor_setY0.append("\n") # reading comfort
 
-            elif var.getInitByParamIn06Inz():
-                var.cleanStartText06Inz()
+            elif var.get_init_by_param_in_06inz():
+                var.clean_start_text_06inz()
 
                 # Lines for reading comfort at the impression
-                if len(var.getStartText06Inz()) > 1 :
+                if len(var.get_start_text_06inz()) > 1 :
                     if not found_init_by_param_and_at_least2lines:
                         self.listFor_setY0.append("\n")
                     found_init_by_param_and_at_least2lines = True
                 else : found_init_by_param_and_at_least2lines = False
 
                 self.listFor_setY0.append("  {\n")
-                for L in var.getStartText06Inz() :
+                for L in var.get_start_text_06inz() :
                     self.listFor_setY0.append("  " + L)
                 self.listFor_setY0.append("  }\n")
 
-                if len(var.getStartText06Inz()) > 1 : self.listFor_setY0.append("\n") # reading comfort
+                if len(var.get_start_text_06inz()) > 1 : self.listFor_setY0.append("\n") # reading comfort
 
             else:
-                init_val = var.getStartText()[0]
+                init_val = var.get_start_text()[0]
                 if init_val == "":
                     init_val = "0.0"
-                line = "    %s = %s;\n" % ( to_omc_style(var.getName()), init_val )
+                line = "    %s = %s;\n" % ( to_omc_style(var.get_name()), init_val )
                 self.listFor_setY0.append(line)
 
                 # for reading comfort when printing
                 found_init_by_param_and_at_least2lines = False
 
         # convert native boolean variables
-        convert_booleans_body ([item.getName() for item in self.listAllBoolItems], self.listFor_setY0)
+        convert_booleans_body ([item.get_name() for item in self.listAllBoolItems], self.listFor_setY0)
 
     ##
     # return the list of lines that constitues the body of setY0
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setY0(self):
+    def get_list_for_sety0(self):
         for line in self.listFor_setY0:
             if "omc_Modelica_Math_atan3" in line:
                 index = self.listFor_setY0.index(line)
@@ -1209,18 +1209,18 @@ class factory:
     # prepare the lines that constitues the body of setF
     # @param self : object pointer
     # @return
-    def prepareFor_setF(self):
+    def prepare_for_setf(self):
         ptrn_f_name ="  // ----- %s -----\n"
-        map_eq_reinit_continuous = self.getMapEqReinitContinuous()
-        for eq in self.getListEqSyst() + self.getListOtherEq():
-            var_name = eq.getEvaluatedVar()
+        map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
+        for eq in self.get_list_eq_syst() + self.get_list_other_eq():
+            var_name = eq.get_evaluated_var()
             var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
             if var_name not in self.reader.fictiveContinuousVarsDer:
                 standard_eq_body = []
-                standard_eq_body.append (ptrn_f_name %(eq.getSrcFctName()))
-                standard_eq_body.extend(eq.getBodyFor_setF())
+                standard_eq_body.append (ptrn_f_name %(eq.get_src_fct_name()))
+                standard_eq_body.extend(eq.get_body_for_setf())
 
-                if self.keepContinousModelicaReinit() and ((var_name in map_eq_reinit_continuous) or (var_name_without_der in map_eq_reinit_continuous)):
+                if self.keep_continous_modelica_reinit() and ((var_name in map_eq_reinit_continuous) or (var_name_without_der in map_eq_reinit_continuous)):
                     var_name_modelica_reinit = var_name if var_name in map_eq_reinit_continuous else var_name_without_der
                     eq_list = map_eq_reinit_continuous [var_name_modelica_reinit]
                     first_eq = True
@@ -1228,7 +1228,7 @@ class factory:
                     for eq in eq_list:
                         if (not first_eq):
                             self.listFor_setF.append("  else ")
-                        self.listFor_setF.extend(eq.getBodyFor_setF())
+                        self.listFor_setF.extend(eq.get_body_for_setf())
                         self.listFor_setF.extend("\n")
                         first_eq = False
                     self.listFor_setF.append("  else \n")
@@ -1241,7 +1241,7 @@ class factory:
 
         for warn in self.listWarnings:
             self.listFor_warnings.append("{\n")
-            self.listFor_warnings.extend(warn.getBodyFor_setF())
+            self.listFor_warnings.extend(warn.get_body_for_setf())
             self.listFor_warnings.append("\n\n")
             self.listFor_warnings.append("}\n")
 
@@ -1275,7 +1275,7 @@ class factory:
             self.listFor_setF.append("\n\n")
 
         # convert native boolean variables
-        convert_booleans_body ([item.getName() for item in self.listAllBoolItems], self.listFor_setF)
+        convert_booleans_body ([item.get_name() for item in self.listAllBoolItems], self.listFor_setF)
 
         # remove atan3, replace pow by pow_dynawo
         for index, line in enumerate(self.listFor_setF):
@@ -1288,27 +1288,27 @@ class factory:
     # returns the lines that constitues the body of setF
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setF(self):
+    def get_list_for_setf(self):
         return self.listFor_setF
 
     ##
     # returns the lines that constitues the body of setFquations
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setFequations(self):
-        map_fequation = self.reader.getMap_equation_formula()
-        for eq in self.getListEqSyst():
-            index = str(eq.getNumOmc())
-            fequation_index = str(eq.getNumDyn())
+    def get_list_for_setf_equations(self):
+        map_fequation = self.reader.get_map_equation_formula()
+        for eq in self.get_list_eq_syst():
+            index = str(eq.get_num_omc())
+            fequation_index = str(eq.get_num_dyn())
             if fequation_index != '-1':
                 if index in map_fequation.keys():
                     equation = map_fequation[index]
                     linetoadd = "  fEquationIndex["+ fequation_index +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
                     self.listFor_setFequations.append(linetoadd)
 
-        for eq in self.getListOtherEq():
-            index = str(eq.getNumOmc())
-            fequation_index = str(eq.getNumDyn())
+        for eq in self.get_list_other_eq():
+            index = str(eq.get_num_omc())
+            fequation_index = str(eq.get_num_dyn())
             if fequation_index != '-1':
                 if  index in map_fequation.keys():
                     linetoadd = "  fEquationIndex["+ str(fequation_index) +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
@@ -1319,11 +1319,11 @@ class factory:
     # prepare the lines that constitues the body of setGequations
     # @param self : object pointer
     # @return list of lines
-    def prepareFor_setGequations(self):
+    def prepare_for_setg_equations(self):
         line_ptrn = '  gEquationIndex[%s] = " %s " ;\n'
         line_ptrn_res = '  gEquationIndex[%s] =  %s  ;\n'
 
-        filtered_func = list(self.zc_filter.getFunctionZeroCrossingDescription_rawFunc())
+        filtered_func = list(self.zc_filter.get_function_zero_crossing_description_raw_func())
         filtered_func = filtered_func[1:-1] # remove last and first elements which are "}" and "{"
 
 
@@ -1340,36 +1340,36 @@ class factory:
 
         line_when_ptrn = "  // ------------- %s ------------\n"
         for r_obj in self.listRootObjects:
-            if r_obj.getNumDyn() == -1:
+            if r_obj.get_num_dyn() == -1:
                 continue
-            index = str(r_obj.getNumDyn()) + " + " + str(nb_zero_crossing)
-            self.listFor_setGequations.append(line_when_ptrn %(r_obj.getWhenVarName()))
-            when_string = r_obj.getWhenVarName() + ":" + transform_rawbody_to_string(r_obj.getBodyForNumRelation())
+            index = str(r_obj.get_num_dyn()) + " + " + str(nb_zero_crossing)
+            self.listFor_setGequations.append(line_when_ptrn %(r_obj.get_when_var_name()))
+            when_string = r_obj.get_when_var_name() + ":" + transform_rawbody_to_string(r_obj.get_body_for_num_relation())
             self.listFor_setGequations.append( line_ptrn % (index, when_string ) )
             self.listFor_setGequations.append(" \n")
 
         # convert native boolean variables
-        convert_booleans_body ([item.getName() for item in self.listAllBoolItems], self.listFor_setGequations)
+        convert_booleans_body ([item.get_name() for item in self.listAllBoolItems], self.listFor_setGequations)
 
     ##
     # returns the lines that constitues the body of setGquations
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setGequations(self):
+    def get_list_for_setg_equations(self):
         return self.listFor_setGequations
 
 
     ##
     # prepare the lines for the evalMode body
     # @param self : object pointer
-    def prepareFor_evalMode(self):
+    def prepare_for_evalmode(self):
         self.listFor_evalMode.append  ("  // modes may either be due to")
         self.listFor_evalMode.append("\n  // - a change in network topology (currently forbidden for Modelica models)")
         self.listFor_evalMode.append("\n  // - a Modelica reinit command")
         self.listFor_evalMode.append("\n")
 
-        if (self.keepContinousModelicaReinit()):
-            for var_name, eq_list in self.getMapEqReinitContinuous().iteritems():
+        if (self.keep_continous_modelica_reinit()):
+            for var_name, eq_list in self.get_map_eq_reinit_continuous().iteritems():
                 for eq in eq_list:
                     self.listFor_evalMode.append("\n  // mode linked with " + var_name + "\n")
                	    self.listFor_evalMode.extend (eq.getBodyFor_evalMode())
@@ -1381,28 +1381,28 @@ class factory:
         self.listFor_evalMode.append("\n")
 
         # convert native boolean variables
-        convert_booleans_body ([item.getName() for item in self.listAllBoolItems], self.listFor_evalMode)
+        convert_booleans_body ([item.get_name() for item in self.listAllBoolItems], self.listFor_evalMode)
 
     ##
     # returns the lines that constitues the body of evalMode
     # @param self : object pointer
     # @return list of lines
-    def getListFor_evalMode(self):
+    def get_list_for_evalmode(self):
         return self.listFor_evalMode
 
     ##
     # prepare the lines that constitues the body of setZ
     # @param self : object pointer
     # @return
-    def prepareFor_setZ(self):
+    def prepare_for_setz(self):
         ptrn_name="\n  // -------------------- %s ---------------------\n"
         for z_equation in self.listZEquations:
-            self.listFor_setZ.append(ptrn_name %(z_equation.getName()))
-            self.listFor_setZ.extend(z_equation.getBody())
+            self.listFor_setZ.append(ptrn_name %(z_equation.get_name()))
+            self.listFor_setZ.extend(z_equation.get_body())
 
         for int_equation in self.listINTEquations:
-            self.listFor_setZ.append(ptrn_name %(int_equation.getName()))
-            self.listFor_setZ.extend(int_equation.getBody())
+            self.listFor_setZ.append(ptrn_name %(int_equation.get_name()))
+            self.listFor_setZ.extend(int_equation.get_body())
 
         if len(self.listCallFor_setZ) > 0:
             self.listFor_setZ.append("\n\n  // -------------- call functions ----------\n")
@@ -1436,30 +1436,30 @@ class factory:
             self.listFor_setZ.append("\n\n")
 
         # convert native boolean variables
-        convert_booleans_body ([item.getName() for item in self.listAllBoolItems], self.listFor_setZ)
+        convert_booleans_body ([item.get_name() for item in self.listAllBoolItems], self.listFor_setZ)
 
     ##
     # returns the lines that constitues the body of setF
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setZ(self):
+    def get_list_for_setz(self):
         return self.listFor_setZ
 
     ##
     # prepare the lines that constitues the body of setG
     # @param self : object pointer
     # @return
-    def prepareFor_setG(self):
+    def prepare_for_setg(self):
         line_ptrn = "  gout[%s] = ( %s ) ? ROOT_UP : ROOT_DOWN;\n"
         line_when_ptrn = "  // ------------- %s ------------\n"
         for r_obj in self.listRootObjects:
-            if r_obj.getNumDyn() == -1:
+            if r_obj.get_num_dyn() == -1:
                 continue
-            self.listFor_setG.append(line_when_ptrn %(r_obj.getWhenVarName()))
-            self.listFor_setG.extend(r_obj.getBodyForNumRelation())
+            self.listFor_setG.append(line_when_ptrn %(r_obj.get_when_var_name()))
+            self.listFor_setG.extend(r_obj.get_body_for_num_relation())
             self.listFor_setG.append(" \n")
 
-        filtered_func = list(self.zc_filter.getFunctionZeroCrossings_rawFunc())
+        filtered_func = list(self.zc_filter.get_function_zero_crossings_raw_func())
         filtered_func = filtered_func[1:-1] # remove last and first elements which are "}" and "{"
 
         for line in filtered_func :
@@ -1475,26 +1475,26 @@ class factory:
                 nb_zero_crossing +=1
 
         for r_obj in self.listRootObjects:
-            if r_obj.getNumDyn() == -1:
+            if r_obj.get_num_dyn() == -1:
                 continue
-            index = str(r_obj.getNumDyn()) + " + " + str(nb_zero_crossing)
-            self.listFor_setG.append( line_ptrn % (index, "$P"+r_obj.getWhenVarName()) )
+            index = str(r_obj.get_num_dyn()) + " + " + str(nb_zero_crossing)
+            self.listFor_setG.append( line_ptrn % (index, "$P"+r_obj.get_when_var_name()) )
 
         # convert native boolean variables
-        convert_booleans_body ([item.getName() for item in self.listAllBoolItems], self.listFor_setG)
+        convert_booleans_body ([item.get_name() for item in self.listAllBoolItems], self.listFor_setG)
 
     ##
     # returns the lines that constitues the body of setG
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setG(self):
+    def get_list_for_setg(self):
         return self.listFor_setG
 
     ##
     # prepare the lines that constitues the body of initRpar
     # @param self : object pointer
     # @return
-    def prepareFor_initRpar(self):
+    def prepare_for_initrpar(self):
 
         # -----------------------------------------------------------
         # Shared and external parameters
@@ -1508,12 +1508,12 @@ class factory:
         motif_string = "%s = %s.c_str();\n"
 
         for par in filter(lambda x: (paramScope(x) !=  INTERNAL_PARAMETER), self.listParamsReal + self.listParamsBool + self.listParamsInteger + self.listParamsString):
-            name_underscore = par.getName() + "_"
+            name_underscore = par.get_name() + "_"
             affectation_line = ""
             if (par in self.listParamsString):
-                affectation_line = motif_string % ( to_omc_style(par.getName()), to_compile_name(name_underscore) )
+                affectation_line = motif_string % ( to_omc_style(par.get_name()), to_compile_name(name_underscore) )
             else:
-                affectation_line = motif % ( to_omc_style(par.getName()), to_compile_name(name_underscore) )
+                affectation_line = motif % ( to_omc_style(par.get_name()), to_compile_name(name_underscore) )
 
             self.listFor_initRpar.append(affectation_line)
 
@@ -1529,18 +1529,18 @@ class factory:
         # Prepare initRpar lines
         for par in filter(lambda x: (paramScope(x) ==  INTERNAL_PARAMETER), self.listParamsReal + self.listParamsBool + self.listParamsInteger + self.listParamsString):
             # the variable is initialised through an equation (rather than a hard-coded value)
-            if (not par.getInitByParam()) and (not par.getInitByParamIn06Inz()):
-                print('failed to generate parameter setting for ' + par.getName() + ' : no initialisation formula')
+            if (not par.get_init_by_param()) and (not par.get_init_by_param_in_06inz()):
+                print('failed to generate parameter setting for ' + par.get_name() + ' : no initialisation formula')
                 sys.exit(1)
 
             start_text_getter = None
             start_text_cleaner = None
-            if par.getInitByParam():
-                start_text_getter = "getStartText"
-                start_text_cleaner = "cleanStartText"
-            elif par.getInitByParamIn06Inz() :
-                start_text_getter = "getStartText06Inz"
-                start_text_cleaner = "cleanStartText06Inz"
+            if par.get_init_by_param():
+                start_text_getter = "get_start_text"
+                start_text_cleaner = "clean_start_text"
+            elif par.get_init_by_param_in_06inz() :
+                start_text_getter = "get_start_text_06inz"
+                start_text_cleaner = "clean_start_text_06inz"
 
             line_par_by_param = []
             # parameters setting is order based on equation index
@@ -1576,14 +1576,14 @@ class factory:
             self.listFor_initRpar +=  dict_line_par_by_param[key]
 
         # convert native Modelica booleans
-        convert_booleans_body ([item.getName() for item in self.listAllBoolItems], self.listFor_initRpar)
+        convert_booleans_body ([item.get_name() for item in self.listAllBoolItems], self.listFor_initRpar)
 
 
     ##
     # returns the lines that constitues the body of initRpar
     # @param self : object pointer
     # @return list of lines
-    def getListFor_initRpar(self):
+    def get_list_for_initrpar(self):
         for line in self.listFor_initRpar:
             if "omc_Modelica_Math_atan3" in line:
                 index = self.listFor_initRpar.index(line)
@@ -1597,7 +1597,7 @@ class factory:
     # prepare the lines that constitues the body of setupDataStruc
     # @param self : object pointer
     # @return
-    def prepareFor_setupDataStruc(self):
+    def prepare_for_setupdatastruc(self):
 
         # If there are dummy vars in the main.c generated by omc, you need to
         # substract them to the following lines (in the body of "setupDataStruc(...)") :
@@ -1617,13 +1617,13 @@ class factory:
             return False
 
         filtered_func = []
-        filtered_iter = itertools.ifilter( filter_setupData, self.reader.setupDataStruc_rawFunc.getBody() )
+        filtered_iter = itertools.ifilter( filter_setupData, self.reader.setupDataStruc_rawFunc.get_body() )
         filtered_func = list(filtered_iter)
 
         # Change the number of zeroCrossings
         for n, line in enumerate(filtered_func):
             if "data->modelData->nZeroCrossings" in line:
-                line = line [ :line.find("=") ] + "= " + str(self.zc_filter.getNumberOfZeroCrossings())+";\n"
+                line = line [ :line.find("=") ] + "= " + str(self.zc_filter.get_number_of_zero_crossings())+";\n"
                 new_line = line [ :line.find(";") ] + " + " + str(self.nbRootObjects) + line[ line.find(";") : ]
                 filtered_func[n] = new_line
 
@@ -1659,18 +1659,18 @@ class factory:
     # returns the lines that constitues the body of setupDataStruc
     # @param self : object pointer
     # @return list of lines
-    def getSetupDataStruc(self):
+    def get_setupdatastruc(self):
         return self.listFor_setupDataStruc
 
     ##
     # prepare the lines that constitues the body of evalFAdept
     # @param self : object pointer
     # @return
-    def prepareFor_evalFAdept(self):
+    def prepare_for_evalfadept(self):
         # In comment, we give the correspondence name var -> expression in vectors x, xd or rpar
         self.listFor_evalFAdept.append("  /*\n")
         for v in self.listVarsSyst + self.listVarsDer:
-            self.listFor_evalFAdept.append( "    %s : %s\n" % (to_compile_name(v.getName()), v.getDynawoName()) )
+            self.listFor_evalFAdept.append( "    %s : %s\n" % (to_compile_name(v.get_name()), v.get_dynawo_name()) )
         self.listFor_evalFAdept.append("\n")
 
         self.listFor_evalFAdept.append("  */\n")
@@ -1689,23 +1689,23 @@ class factory:
         #     vars [ $Pvar ou $P$DER$Pvar ] --> [ x[i]  xd[i] ou rpar[i] ]
         trans = Transpose(a_map = self.map_varOmc_varDyn_evalFAdept)
 
-        map_eq_reinit_continuous = self.getMapEqReinitContinuous()
+        map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
 
         num_ternary = 0
-        for eq in self.getListEqSyst():
-            var_name = eq.getEvaluatedVar()
+        for eq in self.get_list_eq_syst():
+            var_name = eq.get_evaluated_var()
             var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
             if var_name not in self.reader.fictiveContinuousVarsDer:
-                line = "  // ----- %s -----\n" % eq.getSrcFctName()
+                line = "  // ----- %s -----\n" % eq.get_src_fct_name()
                 self.listFor_evalFAdept.append(line)
 
                 # We recover the text of the equations
-                standard_body = eq.getBodyFor_evalFAdept()
+                standard_body = eq.get_body_for_evalf_adept()
 
                 # Build the whole equation body as if clauses linked with reinit
                 # the standard equation body is written in the last else section
                 body = []
-                if self.keepContinousModelicaReinit() \
+                if self.keep_continous_modelica_reinit() \
                    and ((var_name in map_eq_reinit_continuous) or (var_name_without_der in map_eq_reinit_continuous)):
                     var_name_modelica_reinit = var_name if var_name in map_eq_reinit_continuous else var_name_without_der
                     eq_list = map_eq_reinit_continuous [var_name_modelica_reinit]
@@ -1713,7 +1713,7 @@ class factory:
                     for eq in eq_list:
                         if (not first_eq):
                             body.append("  else ")
-                        body.extend (eq.getBodyFor_evalFAdept())
+                        body.extend (eq.get_body_for_evalf_adept())
                         body.append("\n")
 
                     body.append("  else \n")
@@ -1723,7 +1723,7 @@ class factory:
                 else:
                     body = standard_body
 
-                trans.setTxtList(body)
+                trans.set_txt_list(body)
                 body_translated = trans.translate()
 
                 # transformation of ternary operators:
@@ -1738,7 +1738,7 @@ class factory:
                     num_ternary += 1
 
                 # convert native boolean variables
-                convert_booleans_body ([item.getName() for item in self.listAllBoolItems], body_translated)
+                convert_booleans_body ([item.get_name() for item in self.listAllBoolItems], body_translated)
 
                 # L'equation transformee est incorporee dans la fonction a imprimer
                 self.listFor_evalFAdept.extend(body_translated)
@@ -1750,7 +1750,7 @@ class factory:
     # returns the lines that constitues the body of evalFAdept
     # @param self : object pointer
     # @return list of lines
-    def getListFor_evalFAdept(self):
+    def get_list_for_evalfadept(self):
         for line in self.listFor_evalFAdept:
             if "omc_Modelica_Math_atan3" in line:
                 index = self.listFor_evalFAdept.index(line)
@@ -1762,20 +1762,20 @@ class factory:
     # prepare the lines that constitues the body of externalCalls
     # @param self : object pointer
     # @return
-    def prepareFor_externalCalls(self):
+    def prepare_for_externalcalls(self):
         for func in self.reader.listOmcFunctions:
             # if function does not start with omc_ we do not add it
-            name = func.getName()
+            name = func.get_name()
             if name[0:4] != 'omc_' :
                 self.eraseFunc.append(name)
                 continue
 
             self.listFor_externalCalls.append("\n")
-            signature = func.getSignature()
+            signature = func.get_signature()
             name_to_fill = "__fill_model_name__::"+name
             signature = signature.replace(name, name_to_fill)
 
-            return_type = func.getReturnType()
+            return_type = func.get_return_type()
             # type is not a predefined type
             if (return_type !="void" and return_type[0:9] != 'modelica_' and return_type[0:10] != 'real_array'):
                 new_return_type ="__fill_model_name__::"+return_type
@@ -1785,7 +1785,7 @@ class factory:
 
             self.listFor_externalCalls.append(signature)
             new_body = []
-            for line in func.getBody():
+            for line in func.get_body():
                 if "modelica_metatype tmpMeta" in line:
                     words = line.split()
                     line_tmp = "  modelica_string " + str(words[1]) + ";\n"
@@ -1801,7 +1801,7 @@ class factory:
     # prepare the lines that constitues the header of externalCalls
     # @param self : object pointer
     # @return
-    def prepareFor_externalCallsHeader(self):
+    def prepare_for_externalcalls_header(self):
         tmp_list = self.reader.list_internal_functions
         for func in self.eraseFunc:
             for line in self.reader.list_internal_functions:
@@ -1817,21 +1817,21 @@ class factory:
     # returns the lines that constitues the body of externalCalls
     # @param self : object pointer
     # @return list of lines
-    def getListFor_externalCalls(self):
+    def get_list_for_externalcalls(self):
         return self.listFor_externalCalls
 
     ##
     # returns the lines that constitues the header of externalCalls
     # @param self : object pointer
     # @return list of lines
-    def getListFor_externalCallsHeader(self):
+    def get_list_for_externalcalls_header(self):
         return self.listFor_externalCallsHeader
 
     ##
     # prepare the lines for the shared parameters default value setting
     # @param self : object pointer
     # @return
-    def prepareFor_setSharedParamsDefaultValue(self):
+    def prepare_for_setsharedparamsdefaultvalue(self):
         # -----------------------------------------------------------
         # Parameters default value set in *.mo
         # -----------------------------------------------------------
@@ -1845,9 +1845,9 @@ class factory:
         # define local parameters
         lines_local_par_definition = []
         for par in filter(lambda x: (paramScope(x) ==  SHARED_PARAMETER), self.listParamsReal + self.listParamsBool + self.listParamsInteger + self.listParamsString):
-            local_par_name = to_omc_style (par.getName()) + local_name_prefix
-            all_parameters_names [to_omc_style(par.getName())] = local_par_name
-            par_value_type = par.getValueTypeC()
+            local_par_name = to_omc_style (par.get_name()) + local_name_prefix
+            all_parameters_names [to_omc_style(par.get_name())] = local_par_name
+            par_value_type = par.get_value_type_c()
             if (par_value_type == "string"):
                 par_value_type = "std::string"
             line_local_par_definition = '  %s %s;\n' % (par_value_type, local_par_name)
@@ -1859,8 +1859,8 @@ class factory:
 
         line_par_other = []
         for par in filter(lambda x: (paramScope(x) ==  SHARED_PARAMETER), self.listParamsReal + self.listParamsBool + self.listParamsInteger + self.listParamsString):
-                init_val = par.getStartText()[0]
-                local_par_name = all_parameters_names [to_omc_style (par.getName())]
+                init_val = par.get_start_text()[0]
+                local_par_name = all_parameters_names [to_omc_style (par.get_name())]
 
                 # add quotes
                 if isParamString (par):
@@ -1874,7 +1874,7 @@ class factory:
 
                 line_value_setting = "  %s = %s; \n" % (local_par_name, init_val)
                 line_par_other.append (line_value_setting)
-                line_modelica_params = create_parameter_pattern % (to_compile_name(par.getName()), local_par_name)
+                line_modelica_params = create_parameter_pattern % (to_compile_name(par.get_name()), local_par_name)
                 line_par_other.append (line_modelica_params)
 
         # concatenation of lists
@@ -1884,20 +1884,20 @@ class factory:
         self.listFor_setSharedParamsDefault.append('  return parametersSet;\n')
 
         # convert native Modelica booleans
-        convert_booleans_body ([item.getName() for item in self.listAllBoolItems] + [all_parameters_names[to_omc_style(par.getName())] for par in filter(lambda x: (paramScope(x) ==  SHARED_PARAMETER), self.listParamsBool)], self.listFor_setSharedParamsDefault)
+        convert_booleans_body ([item.get_name() for item in self.listAllBoolItems] + [all_parameters_names[to_omc_style(par.get_name())] for par in filter(lambda x: (paramScope(x) ==  SHARED_PARAMETER), self.listParamsBool)], self.listFor_setSharedParamsDefault)
 
     ##
     # returns the lines describing shared parameters initial value setting
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setSharedParamsDefaultValue(self):
+    def get_list_for_setsharedparamsdefaultvalue(self):
         return self.listFor_setSharedParamsDefault
 
     ##
     # prepare the lines that constitues the body of setParameters
     # @param self : object pointer
     # @return
-    def prepareFor_setParams(self):
+    def prepare_for_setparams(self):
         # Pattern of the body lines of setParameters
         motif_double = "  %s = params->getParameter(\"%s\")->getDouble();\n"
         motif_bool =  "  %s = params->getParameter(\"%s\")->getBool();\n"
@@ -1915,61 +1915,61 @@ class factory:
             elif (par in self.listParamsString):
                 motif = motif_string
 
-            name = to_compile_name(par.getName())
+            name = to_compile_name(par.get_name())
             name_underscore = name + "_"
             line = motif % ( name_underscore, name )
             self.listFor_setParams.append(line)
 
         # convert native boolean variables
-        convert_booleans_body ([item.getName() for item in self.listAllBoolItems], self.listFor_setParams)
+        convert_booleans_body ([item.get_name() for item in self.listAllBoolItems], self.listFor_setParams)
 
     ##
     # returns the lines that constitues the body of setParameters
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setParams(self):
+    def get_list_for_setparams(self):
         return self.listFor_setParams
 
     ##
     # returns the lines that declares non-internal real parameters
     # @param self : object pointer
     # @return list of lines
-    def getListParamsRealNotInternalFor_h(self):
+    def get_list_params_real_not_internal_for_h(self):
         return filter(lambda x: (paramScope(x) !=  INTERNAL_PARAMETER), self.listParamsReal)
 
     ##
     # returns the lines that declares non-internal boolean parameters
     # @param self : object pointer
     # @return list of lines
-    def getListParamsBoolNotInternalFor_h(self):
+    def get_list_params_bool_not_internal_for_h(self):
         return filter(lambda x: (paramScope(x) !=  INTERNAL_PARAMETER), self.listParamsBool)
 
     ##
     # returns the lines that declares non-internal string parameters
     # @param self : object pointer
     # @return list of lines
-    def getListParamsStringNotInternalFor_h(self):
+    def get_list_params_string_not_internal_for_h(self):
         return filter(lambda x: (paramScope(x) !=  INTERNAL_PARAMETER), self.listParamsString)
 
     ##
     # returns the lines that declares non-internal integer parameters
     # @param self : object pointer
     # @return list of lines
-    def getListParamsIntegerNotInternalFor_h(self):
+    def get_list_params_integer_not_internal_for_h(self):
         return filter(lambda x: (paramScope(x) !=  INTERNAL_PARAMETER), self.listParamsInteger)
 
     ##
     # returns the lines that should be included in header to define variables
     # @param self : object pointer
     # @return
-    def getListDefinitionsFor_h (self):
+    def get_list_definitions_for_h (self):
         return self.listFor_definitionHeader
 
     ##
     # Prepare the lines that should be included in header to define variables
     # @param self : object pointer
     # @return
-    def prepareFor_DefinitionsFor_h (self):
+    def prepare_for_definitions_for_h (self):
         variable_definitions = self.reader.model_header_content
 
         lines_to_write = variable_definitions
@@ -1993,7 +1993,7 @@ class factory:
             elif(item_type == 'Parameter'):
                 new_type='real'
 
-            item_names = [to_omc_style(var.getName()) for var in items]
+            item_names = [to_omc_style(var.get_name()) for var in items]
 
             # sort item names in order to start with the longest one (to avoid taking varXY for varX)
             item_names.sort(key=len, reverse=True)
@@ -2035,8 +2035,8 @@ class factory:
                         full_offset = item_external_offset + item_internal_offset
                         items_full_offsets [item_found] = full_offset
                         for search_item in items:
-                            if (to_omc_style(search_item.getName()) == item_found):
-                                search_item.setNumOmc (full_offset)
+                            if (to_omc_style(search_item.get_name()) == item_found):
+                                search_item.set_num_omc (full_offset)
                                 break
                         item_internal_offset += 1
 
@@ -2065,19 +2065,19 @@ class factory:
     # prepare the lines that constitues the body of setYType
     # @param self : object pointer
     # @return
-    def prepareFor_setYType(self):
+    def prepare_for_setytype(self):
         ind = 0
         for v in self.listVarsSyst:
             spin = "DIFFERENTIAL"
             var_ext = ""
             if isAlgVar(v) : spin = "ALGEBRIC"
-            if v.getName() in self.reader.fictiveContinuousVars:
+            if v.get_name() in self.reader.fictiveContinuousVars:
               spin = "EXTERNAL"
               var_ext = "- external variables"
-            elif v.getName() in self.reader.fictiveOptionalContinuousVars:
+            elif v.get_name() in self.reader.fictiveOptionalContinuousVars:
               spin = "OPTIONAL_EXTERNAL"
               var_ext = "- optional external variables"
-            line = "   yType[ %s ] = %s;   /* %s (%s) %s */\n" % (str(ind), spin, to_compile_name(v.getName()), v.getType(), var_ext)
+            line = "   yType[ %s ] = %s;   /* %s (%s) %s */\n" % (str(ind), spin, to_compile_name(v.get_name()), v.get_type(), var_ext)
             self.listFor_setYType.append(line)
             ind += 1
 
@@ -2085,7 +2085,7 @@ class factory:
     # returns the lines that constitues the body of setYType
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setYType(self):
+    def get_list_for_setytype(self):
         return self.listFor_setYType
 
 
@@ -2093,13 +2093,13 @@ class factory:
     # prepare the lines that constitues the body of setFType
     # @param self : object pointer
     # @return
-    def prepareFor_setFType(self):
+    def prepare_for_setftype(self):
         ind = 0
-        for eq in self.getListEqSyst():
-            var_name = eq.getEvaluatedVar()
+        for eq in self.get_list_eq_syst():
+            var_name = eq.get_evaluated_var()
             if var_name not in self.reader.fictiveContinuousVarsDer:
                 spin = "ALGEBRIC_EQ" # no derivatives in the equation
-                if eq.isDiffEq() : spin = "DIFFERENTIAL_EQ"
+                if eq.is_diff_eq() : spin = "DIFFERENTIAL_EQ"
                 line = "   fType[ %s ] = %s;\n" % (str(ind), spin)
                 self.listFor_setFType.append(line)
                 ind += 1
@@ -2108,32 +2108,32 @@ class factory:
     # returns the lines that constitues the body of setFType
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setFType(self):
+    def get_list_for_setftype(self):
         return self.listFor_setFType
 
     ##
     # prepare the lines that constitues the body of setVariables
     # @param self : object pointer
     # @return
-    def prepareFor_setVariables(self):
+    def prepare_for_setvariables(self):
         line_ptrn_native_state = '  variables.push_back (VariableNativeFactory::createState ("%s", %s, %s));\n'
         line_ptrn_native_calculated = '  variables.push_back (VariableNativeFactory::createCalculated ("%s", %s, %s));\n'
         line_ptrn_alias =  '  variables.push_back (VariableAliasFactory::create ("%s", "%s", %s));\n'
 
         # System vars
         for v in self.listAllVars:
-            name = to_compile_name(v.getName())
+            name = to_compile_name(v.get_name())
             is_state = True
-            negated = "true" if v.getAliasNegated() else "false"
+            negated = "true" if v.get_alias_negated() else "false"
             line = ""
-            if v.getAliasName() != '':
-                alias_name = to_compile_name(v.getAliasName())
+            if v.get_alias_name() != '':
+                alias_name = to_compile_name(v.get_alias_name())
                 line = line_ptrn_alias % ( name, alias_name, negated)
 
             elif is_state:
-                line = line_ptrn_native_state % ( name, v.getDynType(), negated)
+                line = line_ptrn_native_state % ( name, v.get_dyn_type(), negated)
             else:
-                line = line_ptrn_native_calculated % ( name, v.getDynType(), negated)
+                line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), negated)
 
 
             self.listFor_setVariables.append(line)
@@ -2142,21 +2142,21 @@ class factory:
     # returns the lines that constitues the body of setVariables
     # @param self : object pointer
     # @return list of lines
-    def getListFor_setVariables(self):
+    def get_list_for_setvariables(self):
         return self.listFor_setVariables
 
     ##
     # prepare the lines that constitues the body of defineParameters
     # @param self : object pointer
     # @return
-    def prepareFor_defineParameters(self):
+    def prepare_for_defineparameters(self):
         line_ptrn = "  parameters.push_back(ParameterModeler(\"%s\", %s, %s));\n"
 
         # Les parametres
         for par in self.listParamsReal + self.listParamsBool + self.listParamsInteger + self.listParamsString:
             par_type = paramScopeStr (paramScope (par))
-            name = to_compile_name(par.getName())
-            value_type = par.getValueTypeC().upper()
+            name = to_compile_name(par.get_name())
+            value_type = par.get_value_type_c().upper()
             line = line_ptrn %( name, value_type, par_type)
             self.listFor_defineParameters.append(line)
 
@@ -2164,14 +2164,14 @@ class factory:
     # returns the lines that constitues the body of defineParameters
     # @param self : object pointer
     # @return list of lines
-    def getListFor_defineParameters(self):
+    def get_list_for_defineparameters(self):
         return self.listFor_defineParameters
 
     ##
     # prepare the lines that constitues the body of defineElements
     # @param self : object pointer
     # @return
-    def prepareFor_defElem(self):
+    def prepare_for_defelem(self):
 
         motif1 = "  elements.push_back(Element(\"%s\",\"%s\",Element::%s));\n"
         motif2 = "  mapElement[\"%s\"] = %d;\n"
@@ -2179,10 +2179,10 @@ class factory:
 
         # # First part of defineElements (...)
         for elt in self.listElements :
-            elt_name = elt.getElementName()
-            elt_short_name = elt.getElementShortName()
+            elt_name = elt.get_element_name()
+            elt_short_name = elt.get_element_short_name()
             line =""
-            if not elt.isStructure() :
+            if not elt.is_structure() :
                 line = motif1 % ( to_compile_name(elt_short_name), to_compile_name(elt_name), "TERMINAL" )
             else :
                 line = motif1 % ( to_compile_name(elt_short_name), to_compile_name(elt_name), "STRUCTURE" )
@@ -2193,14 +2193,14 @@ class factory:
 
         # Second part of defineElements (...)
         for elt in self.listElements :
-            elt.printLink(self.listFor_defElem)
+            elt.print_link(self.listFor_defElem)
 
         self.listFor_defElem.append("\n") # Empty line
 
         # Third part of defineElements (...)
         for elt in self.listElements :
-            elt_name = elt.getElementName()
-            elt_index = elt.getElementNum()
+            elt_name = elt.get_element_name()
+            elt_index = elt.get_element_num()
             # The structure itself
             line = motif2 % (to_compile_name(elt_name), elt_index)
             self.listFor_defElem.append(line)
@@ -2210,14 +2210,14 @@ class factory:
     # returns the lines that constitues the body of defineElements
     # @param self : object pointer
     # @return list of lines
-    def getListFor_defElem(self):
+    def get_list_for_defelem(self):
        return self.listFor_defElem
 
     ##
     # prepare the lines that constitues the defines for literal constants
     # @param self : object pointer
     # @return
-    def prepareFor_literalConstants(self):
+    def prepare_for_literalconstants(self):
         list_literal = self.reader.list_vars_literal
         for var in list_literal:
             words = var.split()
@@ -2244,7 +2244,7 @@ class factory:
     # returns the lines that constitues the defines for literal constants
     # @param self : object pointer
     # @return list of lines
-    def getListFor_literalConstants(self):
+    def get_list_for_literalconstants(self):
         return self.listFor_literalConstants
 
 
@@ -2252,7 +2252,7 @@ class factory:
    # returns the lines that constitues the body of initializeDataStruc
    # @param self : object pointer
    # @return list of lines
-    def getListFor_initializeDataStruc(self):
+    def get_list_for_initializedatastruc(self):
         body="""
   dataStructIsInitialized_ = true;
   data->localData = (SIMULATION_DATA**) calloc(1, sizeof(SIMULATION_DATA*));
@@ -2300,7 +2300,7 @@ class factory:
     # returns the lines that constitues the body of deInitializeDataStruc
     # @param self : object pointer
     # @return list of lines
-    def getListFor_deInitializeDataStruc(self):
+    def get_list_for_deinitializedatastruc(self):
         body="""
   if(! dataStructIsInitialized_)
     return;
@@ -2333,37 +2333,37 @@ class factory:
     # returns the lines that defines warnings/assert
     # @param self : object pointer
     # @return list of lines
-    def getListFor_warnings (self):
+    def get_list_for_warnings (self):
         return self.listFor_warnings
 
     ##
     # Prepare all the data stored in dataContainer in list of lines to be printed
     # @param self : object pointer
     # @return
-    def prepareForPrint(self):
+    def prepare_for_print(self):
         # Concern the filling of the _definition.h file
         # To do first, because modifies some variables (Boolean -> real discrete)
-        self.prepareFor_DefinitionsFor_h()
+        self.prepare_for_definitions_for_h()
 
-        self.zc_filter.removeFictitiousGEquation()
+        self.zc_filter.remove_fictitious_gequation()
 
         # Concern the filling of the C file
-        self.prepareFor_setF()
-        self.prepareFor_evalMode()
-        self.prepareFor_setZ()
-        self.prepareFor_setG()
-        self.prepareFor_setGequations()
-        self.prepareFor_setY0()
-        self.prepareFor_initRpar()
-        self.prepareFor_setupDataStruc()
-        self.prepareFor_setYType()
-        self.prepareFor_setFType()
-        self.prepareFor_defElem()
-        self.prepareFor_setSharedParamsDefaultValue()
-        self.prepareFor_setParams()
-        self.prepareFor_evalFAdept()
-        self.prepareFor_setVariables()
-        self.prepareFor_defineParameters()
-        self.prepareFor_externalCalls()
-        self.prepareFor_externalCallsHeader()
-        self.prepareFor_literalConstants()
+        self.prepare_for_setf()
+        self.prepare_for_evalmode()
+        self.prepare_for_setz()
+        self.prepare_for_setg()
+        self.prepare_for_setg_equations()
+        self.prepare_for_sety0()
+        self.prepare_for_initrpar()
+        self.prepare_for_setupdatastruc()
+        self.prepare_for_setytype()
+        self.prepare_for_setftype()
+        self.prepare_for_defelem()
+        self.prepare_for_setsharedparamsdefaultvalue()
+        self.prepare_for_setparams()
+        self.prepare_for_evalfadept()
+        self.prepare_for_setvariables()
+        self.prepare_for_defineparameters()
+        self.prepare_for_externalcalls()
+        self.prepare_for_externalcalls_header()
+        self.prepare_for_literalconstants()

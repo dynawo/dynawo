@@ -342,7 +342,7 @@ ModelManager::evalJtAdept(const double & t, double *y, double * yp, const double
     throw DYNError(DYN::Error::MODELER, AdeptFailure);
   } catch (const string &s) {
     std::cerr << "An error occured :" << s << std::endl;
-    throw(s);
+    throw s;
   } catch (...) {
     std::cerr << "An error occurred" << std::endl;
     throw;
@@ -429,34 +429,32 @@ ModelManager::setSharedParametersDefaultValues(const bool isInit, const paramete
     const ParameterModeler& currentParameter = it->second;
     const string& paramName = currentParameter.getName();
 
-    if (currentParameter.isUnitary()) {
-      if (sharedParametersInitialValues->hasParameter(paramName)) {
-        switch (currentParameter.getValueType()) {
-          case BOOL:
-          {
-            const bool value = sharedParametersInitialValues->getParameter(paramName)->getBool();
-            setParameterValue(paramName, origin, value, isInit);
-            break;
-          }
-          case INT:
-          {
-            const int value = sharedParametersInitialValues->getParameter(paramName)->getInt();
-            setParameterValue(paramName, origin, value, isInit);
-            break;
-          }
-          case DOUBLE:
-          {
-            const double& value = sharedParametersInitialValues->getParameter(paramName)->getDouble();
-            setParameterValue(paramName, origin, value, isInit);
-            break;
-          }
-          case STRING:
-          {
-            const string& value = sharedParametersInitialValues->getParameter(paramName)->getString();
-            setParameterValue(paramName, origin, value, isInit);
-            break;
-          }
-        }
+    if (currentParameter.isUnitary() && sharedParametersInitialValues->hasParameter(paramName)) {
+      switch (currentParameter.getValueType()) {
+      case BOOL:
+      {
+        const bool value = sharedParametersInitialValues->getParameter(paramName)->getBool();
+        setParameterValue(paramName, origin, value, isInit);
+        break;
+      }
+      case INT:
+      {
+        const int value = sharedParametersInitialValues->getParameter(paramName)->getInt();
+        setParameterValue(paramName, origin, value, isInit);
+        break;
+      }
+      case DOUBLE:
+      {
+        const double& value = sharedParametersInitialValues->getParameter(paramName)->getDouble();
+        setParameterValue(paramName, origin, value, isInit);
+        break;
+      }
+      case STRING:
+      {
+        const string& value = sharedParametersInitialValues->getParameter(paramName)->getString();
+        setParameterValue(paramName, origin, value, isInit);
+        break;
+      }
       }
     }
   }

@@ -426,7 +426,7 @@ class Transpose:
     # @param self : object pointer
     # @param txt_list : list of expressions
     # @return
-    def setTxtList(self, txt_list):
+    def set_txt_list(self, txt_list):
         self.txtList = txt_list
 
     ##

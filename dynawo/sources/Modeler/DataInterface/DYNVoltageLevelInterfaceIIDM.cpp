@@ -265,7 +265,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
       for (; itSwitch != path.end(); ++itSwitch) {
         string switchID = *itSwitch;
         IIDM::Switch sw = *(voltageLevelIIDM_.switches().find(switchID));
-        if ((sw.type() == IIDM::Switch::breaker)) {
+        if (sw.type() == IIDM::Switch::breaker) {
           if (!sw.opened()) {
             map<string, shared_ptr<SwitchInterface> >::iterator itSw = switchesById_.find(switchID);
             if (itSw != switchesById_.end()) {

@@ -136,8 +136,8 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
   for (iVL = voltageLevels.begin(); iVL != voltageLevels.end(); ++iVL) {
     string id = (*iVL)->getID();
     Trace::debug("NETWORK") << DYNLog(AddingVoltageLevelToNetwork, id) << Trace::endline;
-    shared_ptr<ModelVoltageLevel> modelVoltageLevel(new ModelVoltageLevel((*iVL)));
-    shared_ptr<ModelVoltageLevel> modelVoltageLevelInit(new ModelVoltageLevel((*iVL)));
+    shared_ptr<ModelVoltageLevel> modelVoltageLevel(new ModelVoltageLevel(*iVL));
+    shared_ptr<ModelVoltageLevel> modelVoltageLevelInit(new ModelVoltageLevel(*iVL));
     // Add to containers
     components_.push_back(modelVoltageLevel);
     initComponents_.push_back(modelVoltageLevelInit);
@@ -155,7 +155,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     for (iBus = buses.begin(); iBus != buses.end(); ++iBus) {
       string id = (*iBus)->getID();
       Trace::debug("NETWORK") << DYNLog(AddingBusToNetwork, id) << Trace::endline;
-      shared_ptr<ModelBus> modelBus(new ModelBus((*iBus)));
+      shared_ptr<ModelBus> modelBus(new ModelBus(*iBus));
       componentsById[id] = (*iBus);
       modelBusById[id] = modelBus;
       // Add to containers
@@ -177,7 +177,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     for (iSwitch = switches.begin(); iSwitch != switches.end(); ++iSwitch) {
       string id = (*iSwitch)->getID();
       componentsById[id] = (*iSwitch);
-      shared_ptr<ModelSwitch> modelSwitch(new ModelSwitch((*iSwitch)));
+      shared_ptr<ModelSwitch> modelSwitch(new ModelSwitch(*iSwitch));
 
       modelSwitch->setNetwork(this);
       if ((*iSwitch)->getBusInterface1()) {
@@ -210,7 +210,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     for (iLoad = loads.begin(); iLoad != loads.end(); ++iLoad) {
       string id = (*iLoad)->getID();
       componentsById[id] = (*iLoad);
-      shared_ptr<ModelLoad> modelLoad(new ModelLoad((*iLoad)));
+      shared_ptr<ModelLoad> modelLoad(new ModelLoad(*iLoad));
       modelLoad->setNetwork(this);
       shared_ptr<ModelBus> modelBus = modelBusById[(*iLoad)->getBusInterface()->getID()];
       modelLoad->setModelBus(modelBus);
@@ -238,7 +238,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     for (iGen = generators.begin(); iGen != generators.end(); ++iGen) {
       string id = (*iGen)->getID();
       componentsById[id] = (*iGen);
-      shared_ptr<ModelGenerator> modelGenerator(new ModelGenerator((*iGen)));
+      shared_ptr<ModelGenerator> modelGenerator(new ModelGenerator(*iGen));
       modelGenerator->setNetwork(this);
       shared_ptr<ModelBus> modelBus = modelBusById[(*iGen)->getBusInterface()->getID()];
       modelGenerator->setModelBus(modelBus);
@@ -266,7 +266,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     for (iShunt = shunts.begin(); iShunt != shunts.end(); ++iShunt) {
       string id = (*iShunt)->getID();
       componentsById[id] = (*iShunt);
-      shared_ptr<ModelShuntCompensator> modelShuntCompensator(new ModelShuntCompensator((*iShunt)));
+      shared_ptr<ModelShuntCompensator> modelShuntCompensator(new ModelShuntCompensator(*iShunt));
       modelShuntCompensator->setNetwork(this);
       shared_ptr<ModelBus> modelBus = modelBusById[(*iShunt)->getBusInterface()->getID()];
       modelShuntCompensator->setModelBus(modelBus);
@@ -294,7 +294,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     for (iSvc = svcs.begin(); iSvc != svcs.end(); ++iSvc) {
       string id = (*iSvc)->getID();
       componentsById[id] = (*iSvc);
-      shared_ptr<ModelStaticVarCompensator> modelStaticVarCompensator(new ModelStaticVarCompensator((*iSvc)));
+      shared_ptr<ModelStaticVarCompensator> modelStaticVarCompensator(new ModelStaticVarCompensator(*iSvc));
       modelStaticVarCompensator->setNetwork(this);
       shared_ptr<ModelBus> modelBus = modelBusById[(*iSvc)->getBusInterface()->getID()];
       modelStaticVarCompensator->setModelBus(modelBus);
@@ -323,7 +323,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     for (iDangling = danglingLines.begin(); iDangling != danglingLines.end(); ++iDangling) {
       string id = (*iDangling)->getID();
       componentsById[id] = (*iDangling);
-      shared_ptr<ModelDanglingLine> modelDanglingLine(new ModelDanglingLine((*iDangling)));
+      shared_ptr<ModelDanglingLine> modelDanglingLine(new ModelDanglingLine(*iDangling));
       modelDanglingLine->setNetwork(this);
       shared_ptr<ModelBus> modelBus = modelBusById[(*iDangling)->getBusInterface()->getID()];
       modelDanglingLine->setModelBus(modelBus);
@@ -353,7 +353,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
   for (iLine = lines.begin(); iLine != lines.end(); ++iLine) {
     string id = (*iLine)->getID();
     componentsById[id] = (*iLine);
-    shared_ptr<ModelLine> modelLine(new ModelLine((*iLine)));
+    shared_ptr<ModelLine> modelLine(new ModelLine(*iLine));
     modelLine->setNetwork(this);
     if ((*iLine)->getBusInterface1()) {
       shared_ptr<ModelBus> modelBus1 = modelBusById[(*iLine)->getBusInterface1()->getID()];
@@ -391,7 +391,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
   for (i2WTfo = twoWTfos.begin(); i2WTfo != twoWTfos.end(); ++i2WTfo) {
     string id = (*i2WTfo)->getID();
     componentsById[id] = (*i2WTfo);
-    shared_ptr<ModelTwoWindingsTransformer> modelTwoWindingsTransformer(new ModelTwoWindingsTransformer((*i2WTfo)));
+    shared_ptr<ModelTwoWindingsTransformer> modelTwoWindingsTransformer(new ModelTwoWindingsTransformer(*i2WTfo));
     modelsTfo.push_back(modelTwoWindingsTransformer);
     modelTwoWindingsTransformer->setNetwork(this);
     if ((*i2WTfo)->getBusInterface1()) {
@@ -432,7 +432,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
   for (i3WTfo = threeWTfos.begin(); i3WTfo != threeWTfos.end(); ++i3WTfo) {
     string id = (*i3WTfo)->getID();
     componentsById[id] = (*i3WTfo);
-    shared_ptr<ModelThreeWindingsTransformer> modelThreeWindingsTransformer(new ModelThreeWindingsTransformer((*i3WTfo)));
+    shared_ptr<ModelThreeWindingsTransformer> modelThreeWindingsTransformer(new ModelThreeWindingsTransformer(*i3WTfo));
     modelThreeWindingsTransformer->setNetwork(this);
     if ((*i3WTfo)->getBusInterface1()) {
       shared_ptr<ModelBus> modelBus1 = modelBusById[(*i3WTfo)->getBusInterface1()->getID()];

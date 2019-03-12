@@ -702,7 +702,7 @@ ModelMulti::findSubModelByName(const string& name) {
   if (iter == subModelByName_.end())
     return (shared_ptr<SubModel>());
   else
-    return (iter->second);
+    return iter->second;
 }
 
 vector<boost::shared_ptr<SubModel> >
@@ -711,7 +711,7 @@ ModelMulti::findSubModelByLib(const string& libName) {
   if (iter == subModelByLib_.end())
     return (vector<shared_ptr<SubModel> >());
   else
-    return (iter->second);
+    return iter->second;
 }
 
 bool
