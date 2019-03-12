@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- EVT QUADRIPOLE CONNECTION -->
-  <dyn:modelicaModel id="EVT_QUADRIPOLE_CONNECTION">
-    <dyn:unitDynamicModel id="EVT" name="Dynawo.Electrical.Events.Event.EventQuadripoleConnection"/>
+  <dyn:modelicaModel id="EventSetPointDouble">
+    <dyn:unitDynamicModel id="event" name="Dynawo.Electrical.Events.Event.SingleRealEvent"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

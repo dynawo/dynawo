@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- MACHINE_PV-->
-  <dyn:modelicaModel id="MACHINE_PV">
-    <dyn:unitDynamicModel id="MACHINE" name="Dynawo.Electrical.Machines.GeneratorPV" initName ="Dynawo.Electrical.Machines.GeneratorPV_INIT"/>
+  <dyn:modelicaModel id="EventConnectedStatus">
+    <dyn:unitDynamicModel id="event" name="Dynawo.Electrical.Events.Event.EventConnectedStatus"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

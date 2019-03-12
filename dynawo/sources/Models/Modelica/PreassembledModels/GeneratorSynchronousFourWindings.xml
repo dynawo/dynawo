@@ -12,8 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- Machine with four windings, fixed mechanical power and excitation voltage-->
-  <dyn:modelTemplate id="MachineTemplate">
+  <!-- Synchronous generator with four windings, a fixed mechanical power and a fixed excitation voltage-->
+  <dyn:modelicaModel id="GeneratorSynchronousFourWindings">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT"/>
     <dyn:unitDynamicModel id="mechanicalPower" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
     <dyn:unitDynamicModel id="excitationVoltage" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
@@ -21,5 +21,5 @@
     <dyn:initConnect id1="generator" var1="Efd0Pu" id2="excitationVoltage" var2="Value0"/>
     <dyn:connect id1="generator" var1="PmPu" id2="mechanicalPower" var2="setPoint"/>
     <dyn:connect id1="generator" var1="efdPu" id2="excitationVoltage" var2="setPoint"/>
-  </dyn:modelTemplate>
+  </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

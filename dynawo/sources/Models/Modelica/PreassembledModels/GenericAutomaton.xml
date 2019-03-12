@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- GenericAutomaton -->
   <dyn:modelicaModel id="GenericAutomaton">
-    <dyn:unitDynamicModel id="AUTOMATON" name="Dynawo.Electrical.Controls.Generic.GenericAutomaton" />
+    <dyn:unitDynamicModel id="automaton" name="Dynawo.Electrical.Controls.Generic.GenericAutomaton" />
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

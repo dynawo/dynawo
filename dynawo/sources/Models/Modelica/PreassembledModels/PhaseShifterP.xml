@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- EVT_SET_POINT_TWO_DOUBLES-->
-  <dyn:modelicaModel id="EVT_SET_POINT_TWO_DOUBLES">
-    <dyn:unitDynamicModel id="EVT" name="Dynawo.Electrical.Events.Event.DoubleRealEvent"/>
+  <dyn:modelicaModel id="PhaseShifterP">
+    <dyn:unitDynamicModel id="phaseShifter" name="Dynawo.Electrical.Controls.Transformers.PhaseShifterP" initName="Dynawo.Electrical.Controls.Transformers.PhaseShifterP_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

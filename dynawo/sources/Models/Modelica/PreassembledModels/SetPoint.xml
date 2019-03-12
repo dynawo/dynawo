@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- SET_POINT-->
-  <dyn:modelicaModel id="SET_POINT">
-    <dyn:unitDynamicModel id="SP" name="Dynawo.Electrical.Controls.Basics.SetPoint"/>
+  <dyn:modelicaModel id="SetPoint">
+    <dyn:unitDynamicModel id="setPoint" name="Dynawo.Electrical.Controls.Basics.SetPoint"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

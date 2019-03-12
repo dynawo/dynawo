@@ -12,25 +12,25 @@
 
 SET(MODELICA_PREASSEMBLED_MODELS
     CurrentLimitAutomaton.xml
-    EVT_QUADRIPOLE_CONNECTION.xml
-    EVT_QUADRIPOLE_DISCONNECTION.xml
-    EVT_CONNECTED_STATUS.xml
-    EVT_SET_POINT_BOOL.xml
-    EVT_SET_POINT_DOUBLE.xml
-    EVT_SET_POINT_TWO_DOUBLES.xml
-    EVT_SET_POINT_LOAD.xml
-    EVT_SET_POINT_GEN.xml
+    EventConnectedStatus.xml
+    EventQuadripoleConnection.xml
+    EventQuadripoleDisconnection.xml
+    EventSetPointBoolean.xml
+    EventSetPointDouble.xml
+    EventSetPointGenerator.xml
+    EventSetPointLoad.xml
+    EventSetPointTwoDoubles.xml
     GeneratorFictitious.xml
+    GeneratorPQ.xml
+    GeneratorPV.xml
+    GeneratorSynchronousFourWindings.xml
     GenericAutomaton.xml
-    LOAD_ALPHA_BETA.xml
+    LoadAlphaBeta.xml
     LoadOneTransformer.xml
     LoadTwoTransformers.xml
-    MACHINE_4W_NOREGUL.xml
-    MACHINE_PQ.xml
-    MACHINE_PV.xml
-    PHASE_SHIFTER_I.xml
-    PHASE_SHIFTER_P.xml
-    SET_POINT.xml
+    PhaseShifterI.xml
+    PhaseShifterP.xml
+    SetPoint.xml
     TapChangerAutomaton.xml
     TapChangerBlockingArea.xml
    )

@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- TapChangerBlockingArea-->
   <dyn:modelicaModel id="TapChangerBlockingArea">
-    <dyn:unitDynamicModel id="TCL" name="Dynawo.Electrical.Controls.Voltage.TCL"/>
+    <dyn:unitDynamicModel id="tapChangerLock" name="Dynawo.Electrical.Controls.Voltage.TCL"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

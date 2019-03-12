@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- EVT QUADRIPOLE DISCONNECTION -->
-  <dyn:modelicaModel id="EVT_QUADRIPOLE_DISCONNECTION">
-    <dyn:unitDynamicModel id="EVT" name="Dynawo.Electrical.Events.Event.EventQuadripoleDisconnection"/>
+  <dyn:modelicaModel id="GeneratorPQ">
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.GeneratorPQ" initName ="Dynawo.Electrical.Machines.GeneratorPQ_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 
