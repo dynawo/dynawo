@@ -14,7 +14,7 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <!-- CurrentLimitAutomaton-->
   <dyn:modelicaModel id="CurrentLimitAutomaton">
-    <dyn:unitDynamicModel id="CLA" name="Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton"/>
+    <dyn:unitDynamicModel id="currentLimitAutomaton" name="Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

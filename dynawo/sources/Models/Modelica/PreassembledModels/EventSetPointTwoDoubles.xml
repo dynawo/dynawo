@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- EVT_SET_POINT_LOAD-->
-  <dyn:modelicaModel id="EVT_SET_POINT_LOAD">
-    <dyn:unitDynamicModel id="EVT" name="Dynawo.Electrical.Events.Event.DoubleRealEvent"/>
+  <dyn:modelicaModel id="EventSetPointTwoDoubles">
+    <dyn:unitDynamicModel id="event" name="Dynawo.Electrical.Events.Event.DoubleRealEvent"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

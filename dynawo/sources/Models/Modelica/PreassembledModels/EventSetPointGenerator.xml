@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- Load Alpha Beta-->
-  <dyn:modelicaModel id="LOAD_ALPHA_BETA">
-    <dyn:unitDynamicModel id="LOAD" name="Dynawo.Electrical.Loads.LoadAlphaBeta" initName="Dynawo.Electrical.Loads.Load_INIT"/>
+  <dyn:modelicaModel id="EventSetPointGenerator">
+    <dyn:unitDynamicModel id="event" name="Dynawo.Electrical.Events.Event.DoubleRealEvent"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

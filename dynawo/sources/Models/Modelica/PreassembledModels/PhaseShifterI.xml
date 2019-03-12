@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- MACHINE_PQ-->
-  <dyn:modelicaModel id="MACHINE_PQ">
-    <dyn:unitDynamicModel id="MACHINE" name="Dynawo.Electrical.Machines.GeneratorPQ" initName ="Dynawo.Electrical.Machines.GeneratorPQ_INIT"/>
+  <dyn:modelicaModel id="PhaseShifterI">
+    <dyn:unitDynamicModel id="phaseShifter" name="Dynawo.Electrical.Controls.Transformers.PhaseShifterI" initName="Dynawo.Electrical.Controls.Transformers.PhaseShifterI_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

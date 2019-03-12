@@ -12,9 +12,8 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- Tap Changer-->
   <dyn:modelicaModel id="TapChangerAutomaton">
-    <dyn:unitDynamicModel id="TAP_CHANGER" name="Dynawo.Electrical.Controls.Transformers.TapChanger" initName="Dynawo.Electrical.Controls.Transformers.TapChanger_INIT"/>
+    <dyn:unitDynamicModel id="tapChanger" name="Dynawo.Electrical.Controls.Transformers.TapChanger" initName="Dynawo.Electrical.Controls.Transformers.TapChanger_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
 

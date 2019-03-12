@@ -1,28 +1,28 @@
  ====== INIT VARIABLES VALUES ======
-LOAD_terminal_V_im                                : y =      -0.274791 yp =              0
-LOAD_terminal_V_re                                : y =        1.01892 yp =              0
-LOAD_PPu                                          : y =          0.061 yp =              0
-LOAD_QPu                                          : y =          0.016 yp =              0
-LOAD_SPu_im                                       : y =          0.016 yp =              0
-LOAD_SPu_re                                       : y =          0.061 yp =              0
-LOAD_UPu_value                                    : y =        1.05532 yp =              0
-LOAD_terminal_i_im                                : y =     -0.0296892 yp =              0
-LOAD_terminal_i_re                                : y =      0.0518607 yp =              0
+load_terminal_V_im                                : y =      -0.274791 yp =              0
+load_terminal_V_re                                : y =        1.01892 yp =              0
+load_PPu                                          : y =          0.061 yp =              0
+load_QPu                                          : y =          0.016 yp =              0
+load_SPu_im                                       : y =          0.016 yp =              0
+load_SPu_re                                       : y =          0.061 yp =              0
+load_UPu_value                                    : y =        1.05532 yp =              0
+load_terminal_i_im                                : y =     -0.0296892 yp =              0
+load_terminal_i_re                                : y =      0.0518607 yp =              0
  ====== INIT DISCRETE VARIABLES VALUES ======
-LOAD_PRefPu_value                                 : z =          0.061
-LOAD_QRefPu_value                                 : z =          0.016
-LOAD_running_value                                : z =              1
-LOAD_switchOffSignal1_value                       : z =             -1
-LOAD_switchOffSignal2_value                       : z =             -1
-LOAD_state                                        : z =              2
+load_PRefPu_value                                 : z =          0.061
+load_QRefPu_value                                 : z =          0.016
+load_running_value                                : z =              1
+load_switchOffSignal1_value                       : z =             -1
+load_switchOffSignal2_value                       : z =             -1
+load_state                                        : z =              2
  ====== PARAMETERS VALUES ======
-LOAD_alpha                                         =            1.5
-LOAD_beta                                          =            2.5
-LOAD_i0Pu_im                                       =     -0.0296892
-LOAD_i0Pu_re                                       =      0.0518607
-LOAD_s0Pu_im                                       =          0.016
-LOAD_s0Pu_re                                       =          0.061
-LOAD_u0Pu_im                                       =      -0.274791
-LOAD_u0Pu_re                                       =        1.01892
-LOAD_NbSwitchOffSignals                            =              2
-LOAD_State0                                        =              2
+load_alpha                                         =            1.5
+load_beta                                          =            2.5
+load_i0Pu_im                                       =     -0.0296892
+load_i0Pu_re                                       =      0.0518607
+load_s0Pu_im                                       =          0.016
+load_s0Pu_re                                       =          0.061
+load_u0Pu_im                                       =      -0.274791
+load_u0Pu_re                                       =        1.01892
+load_NbSwitchOffSignals                            =              2
+load_State0                                        =              2
