@@ -488,16 +488,16 @@ is_3rd_party_version_installed() {
     if [ ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder" ]; then
       return 1
     fi
-    if [ ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib" ]; then
+    if [[ ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib" && ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib64" ]]; then
       return 1
     fi
     if [ ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include" ]; then
       return 1
     fi
-    if [ -z "find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib \( -name "*.so" -o -name "*.a" \)" ]; then
+    if [[ -z "$(find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib \( -name "*.so" -o -name "*.a" \) 2> /dev/null)" && -z "$(find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib64 \( -name "*.so" -o -name "*.a" \) 2> /dev/null)" ]]; then
       return 1
     fi
-    if [ -z "find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.h"" ]; then
+    if [[ -z "$(find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.h")" && -z "$(find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.hpp")" ]]; then
       return 1
     fi
   done
@@ -551,12 +551,24 @@ config_dynawo() {
   return ${RETURN_CODE}
 }
 
+launcher_installed() {
+  if [ -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+install_launcher() {
+  build_3rd_party_version || error_exit
+  config_dynawo || error_exit
+  build_dynawo || error_exit
+}
+
 # Compile a modelica model
 compiler_Modelica_OMC() {
-  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
-    build_3rd_party_version || error_exit
-    config_dynawo || error_exit
-    build_dynawo || error_exit
+  if ! launcher_installed; then
+    install_launcher || error_exit
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --compile $@
 }
@@ -597,18 +609,14 @@ build_dynawo() {
 
 # Compile Dynawo and its dependencies
 build_all() {
-  if [ ! -d "$THIRD_PARTY_BUILD_DIR" ]; then
-    build_3rd_party || error_exit
-  fi
+  build_3rd_party || error_exit
   config_dynawo || error_exit
   build_dynawo || error_exit
   build_test_doxygen_doc || error_exit
 }
 
 build_tests() {
-  if [ ! -d "$THIRD_PARTY_BUILD_DIR_VERSION" ]; then
-    build_3rd_party_version || error_exit
-  fi
+  build_3rd_party_version || error_exit
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     config_dynawo || error_exit
   fi
@@ -627,10 +635,7 @@ build_tests() {
 }
 
 list_tests() {
-  if [ ! -d "$THIRD_PARTY_BUILD_DIR_VERSION" ]; then
-    echo "Building 3rd Party first."
-    build_3rd_party_version > /dev/null 2>&1 || error_exit
-  fi
+  build_3rd_party_version > /dev/null 2>&1 || error_exit
   echo "===================================="
   echo " List of available unittests target"
   echo "===================================="
@@ -641,9 +646,7 @@ list_tests() {
 }
 
 build_tests_coverage() {
-  if [ ! -d "$THIRD_PARTY_BUILD_DIR_VERSION" ]; then
-    build_3rd_party_version || error_exit
-  fi
+  build_3rd_party_version || error_exit
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     config_dynawo || error_exit
   fi
@@ -814,10 +817,8 @@ test_modelica_doc() {
 }
 
 jobs() {
-  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
-    build_3rd_party_version || error_exit
-    config_dynawo || error_exit
-    build_dynawo || error_exit
+  if ! launcher_installed; then
+    install_launcher || error_exit
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher $@
   RETURN_CODE=$?
@@ -825,10 +826,8 @@ jobs() {
 }
 
 dydLibGenerator() {
-  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
-    build_3rd_party_version || error_exit
-    config_dynawo || error_exit
-    build_dynawo_core || error_exit
+  if ! launcher_installed; then
+    install_launcher || error_exit
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dydlib $*
   RETURN_CODE=$?
@@ -836,14 +835,8 @@ dydLibGenerator() {
 }
 
 dydLibGenerator_gdb() {
-  if [ "$BUILD_TYPE" != "Debug" ]; then
-    echo "You should compile with BUILD_TYPE=Debug."
-    exit 1
-  fi
-  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
-    build_3rd_party_version || error_exit
-    config_dynawo || error_exit
-    build_dynawo_core || error_exit
+  if ! launcher_installed; then
+    install_launcher || error_exit
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dydlib-gdb $*
   RETURN_CODE=$?
@@ -927,10 +920,8 @@ curves_visu() {
 }
 
 dump_model() {
-  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
-    build_3rd_party_version || error_exit
-    config_dynawo || error_exit
-    build_dynawo_core || error_exit
+  if ! launcher_installed; then
+    install_launcher || error_exit
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model $@
   RETURN_CODE=$?
@@ -956,10 +947,8 @@ echo #  python $MODEL_DOCUMENTATION_DIR/model_documentation.py --model=$@ --outp
 }
 
 version() {
-  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
-    build_3rd_party_version || error_exit
-    config_dynawo || error_exit
-    build_dynawo_core || error_exit
+  if ! launcher_installed; then
+    install_launcher
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --version
   RETURN_CODE=$?
@@ -967,10 +956,8 @@ version() {
 }
 
 nrt() {
-  if [ ! -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
-    build_3rd_party_version || error_exit
-    config_dynawo || error_exit
-    build_dynawo || error_exit
+  if ! launcher_installed; then
+    install_launcher || error_exit
   fi
   export_var_env_force NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   export_var_env_force ENV_DYNAWO=$SCRIPT

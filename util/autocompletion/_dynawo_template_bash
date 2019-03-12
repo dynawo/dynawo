@@ -249,12 +249,12 @@ _dynawo() {
   esac
 
   if [[ $cur == -* ]]; then
-		COMPREPLY=($(compgen -W "$options" -- $cur))
+    COMPREPLY=($(compgen -W "$options" -- $cur))
   elif [[ $propose_options == "yes" ]]; then
     COMPREPLY=($(compgen -W "$options" -- $cur))
-	else
-		COMPREPLY=($(compgen -W "$commands" -- $cur))
-	fi
+  else
+    COMPREPLY=($(compgen -W "$commands" -- $cur))
+  fi
 
   return 0
 }
