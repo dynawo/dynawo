@@ -342,7 +342,7 @@ ModelManager::evalJtAdept(const double & t, double *y, double * yp, const double
     throw DYNError(DYN::Error::MODELER, AdeptFailure);
   } catch (const string &s) {
     std::cerr << "An error occured :" << s << std::endl;
-    throw s;
+    throw;
   } catch (...) {
     std::cerr << "An error occurred" << std::endl;
     throw;
