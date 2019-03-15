@@ -35,29 +35,29 @@ class modelWriterBase:
     # @param mod_name : model name to use when creating file
     def __init__(self,mod_name):
         ##  model name to use when creating file
-        self.modName = mod_name
+        self.mod_name = mod_name
         ## data to print in cpp file
-        self.fileContent = []
+        self.file_content = []
         ## data to print in header file
-        self.fileContent_h = []
+        self.file_content_h = []
         ## data to print in header definition file
-        self.fileContentDefinitions_h = []
+        self.file_content_definitions_h = []
         ## data to print header literals file
-        self.fileContentLiterals_h = []
+        self.file_content_literals_h = []
 
     ##
     # write cpp file
     # @param self : object pointer
     # @return
-    def writeFile(self):
-        write_file (self.fileContent, self.fileName)
+    def write_file(self):
+        write_file (self.file_content, self.fileName)
 
     ##
     # write header file
     # @param self : object pointer
     # @return
-    def writeHeaderFile(self):
-        write_file (self.fileContent_h, self.fileName_h)
+    def write_header_file(self):
+        write_file (self.file_content_h, self.fileName_h)
 
 
 ##
@@ -154,29 +154,29 @@ namespace DYN {
 
         for line in body:
             if "__fill_model_name__" in line:
-                line_tmp = line.replace("__fill_model_name__",self.modName)
-                self.fileContent.append(line_tmp)
+                line_tmp = line.replace("__fill_model_name__",self.mod_name)
+                self.file_content.append(line_tmp)
             elif "__fill_model_include_header__" in line:
-                self.fileContent.append("#include \""+ self.modName+"_Dyn.h\"\n")
+                self.file_content.append("#include \""+ self.mod_name+"_Dyn.h\"\n")
                 if self.hasInitPb:
-                    self.fileContent.append("#include \""+ self.modName+"_Init.h\"\n")
+                    self.file_content.append("#include \""+ self.mod_name+"_Init.h\"\n")
             elif "__fill_model_constructor__" in line:
-                self.fileContent.append("  modelType_ = std::string(\"" +self.modName +"\");\n")
-                self.fileContent.append("  modelDyn_ = NULL;\n")
-                self.fileContent.append("  modelInit_ = NULL;\n")
-                self.fileContent.append("  modelDyn_ = new Model"+ self.modName+"_Dyn();\n")
-                self.fileContent.append("  modelDyn_->setModelManager(this);\n")
-                self.fileContent.append("  modelDyn_->setModelType(this->modelType());\n")
+                self.file_content.append("  modelType_ = std::string(\"" +self.mod_name +"\");\n")
+                self.file_content.append("  modelDyn_ = NULL;\n")
+                self.file_content.append("  modelInit_ = NULL;\n")
+                self.file_content.append("  modelDyn_ = new Model"+ self.mod_name+"_Dyn();\n")
+                self.file_content.append("  modelDyn_->setModelManager(this);\n")
+                self.file_content.append("  modelDyn_->setModelType(this->modelType());\n")
                 if self.hasInitPb:
-                    self.fileContent.append("  modelInit_ = new Model"+ self.modName+"_Init();\n")
-                    self.fileContent.append("  modelInit_->setModelManager(this);\n")
-                    self.fileContent.append("  modelInit_->setModelType(this->modelType());\n")
+                    self.file_content.append("  modelInit_ = new Model"+ self.mod_name+"_Init();\n")
+                    self.file_content.append("  modelInit_->setModelManager(this);\n")
+                    self.file_content.append("  modelInit_->setModelType(this->modelType());\n")
             elif "__fill_model_destructor__" in line:
-                self.fileContent.append("  delete modelDyn_;\n")
+                self.file_content.append("  delete modelDyn_;\n")
                 if self.hasInitPb:
-                    self.fileContent.append("  delete modelInit_;\n")
+                    self.file_content.append("  delete modelInit_;\n")
             else:
-                self.fileContent.append(line)
+                self.file_content.append(line)
 
     ##
     # Defines the body of the header file (add new lines)
@@ -190,16 +190,16 @@ namespace DYN {
 
         for line in body:
             if "__fill_model_name__" in line:
-                line_tmp = line.replace("__fill_model_name__",self.modName)
-                self.fileContent_h.append(line_tmp)
+                line_tmp = line.replace("__fill_model_name__",self.mod_name)
+                self.file_content_h.append(line_tmp)
             elif "__fill_has_init_model__" in line:
                 fill_string = "false"
                 if self.hasInitPb:
                     fill_string = "true"
                 line_tmp = line.replace("__fill_has_init_model__",fill_string)
-                self.fileContent_h.append(line_tmp)
+                self.file_content_h.append(line_tmp)
             else:
-                self.fileContent_h.append(line)
+                self.file_content_h.append(line)
 
 
 ##
@@ -241,16 +241,16 @@ class modelWriter(modelWriterBase):
         self.fileName_external   = os.path.join(output_dir, self.className + "_external.cpp")
 
         ## List of external functions
-        self.fileContent_external=[]
+        self.file_content_external=[]
         ## data to print header literals file
-        self.fileContentLiterals_h = []
+        self.file_content_literals_h = []
 
     ##
     # Add an empty line in external file
     # @param self : object pointer
     # @return
     def addEmptyLine_external(self):
-        self.fileContent_external.append("\n")
+        self.file_content_external.append("\n")
 
     ##
     # Add a line in external file
@@ -258,7 +258,7 @@ class modelWriter(modelWriterBase):
     # @param line : line to add
     # @return
     def addLine_external(self, line):
-        self.fileContent_external.append(line)
+        self.file_content_external.append(line)
 
     ##
     # Add a list of lines in external file
@@ -266,14 +266,14 @@ class modelWriter(modelWriterBase):
     # @param body : list of lines to add
     # @return
     def addBody_external(self, body):
-        self.fileContent_external.extend(body)
+        self.file_content_external.extend(body)
 
     ##
     # Add empty line in file
     # @param self : object pointer
     # @return
     def addEmptyLine(self):
-        self.fileContent.append("\n")
+        self.file_content.append("\n")
 
     ##
     # Add a line in file
@@ -281,7 +281,7 @@ class modelWriter(modelWriterBase):
     # @param line : line to add
     # @return
     def addLine(self, line):
-        self.fileContent.append(line)
+        self.file_content.append(line)
 
     ##
     # Add a list of lines in file
@@ -289,7 +289,7 @@ class modelWriter(modelWriterBase):
     # @param body : list of lines to add
     # @return
     def addBody(self, body):
-        self.fileContent.extend(body)
+        self.file_content.extend(body)
 
 
     ##
@@ -297,41 +297,41 @@ class modelWriter(modelWriterBase):
     # @param self : object pointer
     # @return
     def getHeadExternalCalls(self):
-        self.fileContent_external.append("#include <math.h>\n")
-        self.fileContent_external.append("#include \"DYNModelManager.h\"\n") # DYN_assert overload
+        self.file_content_external.append("#include <math.h>\n")
+        self.file_content_external.append("#include \"DYNModelManager.h\"\n") # DYN_assert overload
         if self.init_pb_:
-            self.fileContent_external.append("#include \"" + self.modName + "_Init_literal.h\"\n")
+            self.file_content_external.append("#include \"" + self.mod_name + "_Init_literal.h\"\n")
         else:
-            self.fileContent_external.append("#include \"" + self.modName + "_Dyn_literal.h\"\n")
-        self.fileContent_external.append("#include \"" + self.className + ".h\"\n")
-        self.fileContent_external.append("namespace DYN {\n")
-        self.fileContent_external.append("\n")
+            self.file_content_external.append("#include \"" + self.mod_name + "_Dyn_literal.h\"\n")
+        self.file_content_external.append("#include \"" + self.className + ".h\"\n")
+        self.file_content_external.append("namespace DYN {\n")
+        self.file_content_external.append("\n")
 
     ##
     # define the head of the cpp file
     # @param self : object pointer
     # @return
     def getHead(self):
-        self.fileContent.append("#include <limits>\n")
-        self.fileContent.append("#include <cassert>\n")
-        self.fileContent.append("#include <set>\n")
-        self.fileContent.append("#include <string>\n")
-        self.fileContent.append("#include <vector>\n")
-        self.fileContent.append("#include <math.h>\n")
-        self.fileContent.append("\n")
-        self.fileContent.append("#include \"DYNElement.h\"\n")
-        self.fileContent.append("\n")
-        self.fileContent.append("#include \"" + self.className + ".h\"\n")
+        self.file_content.append("#include <limits>\n")
+        self.file_content.append("#include <cassert>\n")
+        self.file_content.append("#include <set>\n")
+        self.file_content.append("#include <string>\n")
+        self.file_content.append("#include <vector>\n")
+        self.file_content.append("#include <math.h>\n")
+        self.file_content.append("\n")
+        self.file_content.append("#include \"DYNElement.h\"\n")
+        self.file_content.append("\n")
+        self.file_content.append("#include \"" + self.className + ".h\"\n")
         if self.init_pb_:
-            self.fileContent.append("#include \"" + self.modName + "_Init_definition.h\"\n")
-            self.fileContent.append("#include \"" + self.modName + "_Init_literal.h\"\n")
+            self.file_content.append("#include \"" + self.mod_name + "_Init_definition.h\"\n")
+            self.file_content.append("#include \"" + self.mod_name + "_Init_literal.h\"\n")
         else:
-            self.fileContent.append("#include \"" + self.modName + "_Dyn_definition.h\"\n")
-            self.fileContent.append("#include \"" + self.modName + "_Dyn_literal.h\"\n")
-        self.fileContent.append("\n")
-        self.fileContent.append("\n")
-        self.fileContent.append("namespace DYN {\n")
-        self.fileContent.append("\n")
+            self.file_content.append("#include \"" + self.mod_name + "_Dyn_definition.h\"\n")
+            self.file_content.append("#include \"" + self.mod_name + "_Dyn_literal.h\"\n")
+        self.file_content.append("\n")
+        self.file_content.append("\n")
+        self.file_content.append("namespace DYN {\n")
+        self.file_content.append("\n")
 
     ##
     # define the end of the cpp file
@@ -465,10 +465,10 @@ class modelWriter(modelWriterBase):
 
         self.addBody(self.builder.get_setupdatastruc())
 
-        self.addLine("  data->nbVars ="+str(len(self.builder.listVarsSyst))+";\n")
+        self.addLine("  data->nbVars ="+str(len(self.builder.list_vars_syst))+";\n")
         self.addLine("  data->nbF = "+str(self.builder.get_nb_eq_dyn()) +";\n")
         self.addLine("  data->nbModes = 0; \n")
-        self.addLine("  data->nbZ = "+str(len(self.builder.listAllVarsDiscr))+";\n")
+        self.addLine("  data->nbZ = "+str(len(self.builder.list_all_vars_discr))+";\n")
         self.addLine("}\n")
 
     ##
@@ -567,12 +567,12 @@ class modelWriter(modelWriterBase):
     # @return
     def fill_externalLiteralConstants(self):
         new_content_h = []
-        for line in self.fileContentLiterals_h:
+        for line in self.file_content_literals_h:
             if ("__insert_literals__") in line:
                 new_content_h.extend (self.builder.get_list_for_literalconstants())
             else:
                 new_content_h.append (line)
-        self.fileContentLiterals_h = new_content_h
+        self.file_content_literals_h = new_content_h
 
 
     ##
@@ -669,31 +669,31 @@ class modelWriter(modelWriterBase):
     # @param self : object pointer
     # @return
     def getHeaderPattern(self, additional_header_files):
-        headerPattern = headerPatternDefine(additional_header_files)
+        header_pattern = headerPatternDefine(additional_header_files)
         lines =[]
         if self.init_pb_:
-            lines = headerPattern.get_init().split('\n')
+            lines = header_pattern.get_init().split('\n')
         else:
-            lines = headerPattern.get_dyn().split('\n')
+            lines = header_pattern.get_dyn().split('\n')
 
         for line in lines:
-            self.fileContent_h.append(line + '\n')
+            self.file_content_h.append(line + '\n')
 
         if self.init_pb_:
-            lines = headerPattern.get_init_literals().split('\n')
+            lines = header_pattern.get_init_literals().split('\n')
         else:
-            lines = headerPattern.get_dyn_literals().split('\n')
+            lines = header_pattern.get_dyn_literals().split('\n')
 
         for line in lines:
-            self.fileContentLiterals_h.append(line + '\n')
+            self.file_content_literals_h.append(line + '\n')
 
         if self.init_pb_:
-            lines = headerPattern.get_init_definitions().split('\n')
+            lines = header_pattern.get_init_definitions().split('\n')
         else:
-            lines = headerPattern.get_dyn_definitions().split('\n')
+            lines = header_pattern.get_dyn_definitions().split('\n')
 
         for line in lines:
-            self.fileContentDefinitions_h.append(line + '\n')
+            self.file_content_definitions_h.append(line + '\n')
 
     ##
     # Insert a checkSum to identify the model in header file
@@ -706,33 +706,33 @@ class modelWriter(modelWriterBase):
         check_sum = md5sum_pipe.communicate()[0].split()[0]
 
         content_h_tmp = []
-        for n, line in enumerate(self.fileContent_h):
+        for n, line in enumerate(self.file_content_h):
             if "__fill_model_checkSum__" in line:
                 line_tmp = line.replace("__fill_model_checkSum__", check_sum)
-                self.fileContent_h [n] = line_tmp
+                self.file_content_h [n] = line_tmp
 
     ##
     # Insert the model name in header file
     # @param self : object pointer
     # @return
     def insert_model_name(self):
-        for n, line in enumerate(self.fileContent_h):
+        for n, line in enumerate(self.file_content_h):
             if "__fill_model_name__" in line:
-                line_tmp = line.replace("__fill_model_name__", self.modName)
-                self.fileContent_h [n] = line_tmp
+                line_tmp = line.replace("__fill_model_name__", self.mod_name)
+                self.file_content_h [n] = line_tmp
 
     ##
     # Insert variables definitions
     # @param self: object pointer
     # @return NONE (act on self variable)
     def fill_variables_definitions(self):
-        for n, line in enumerate(self.fileContentDefinitions_h):
+        for n, line in enumerate(self.file_content_definitions_h):
             if "__fill_model_name__" in line:
-                line_tmp = line.replace("__fill_model_name__", self.modName)
-                self.fileContentDefinitions_h [n] = line_tmp
+                line_tmp = line.replace("__fill_model_name__", self.mod_name)
+                self.file_content_definitions_h [n] = line_tmp
 
             elif "__fill_variables_definitions__h" in line:
-                self.fileContentDefinitions_h [n : n+1] = self.builder.get_list_definitions_for_h()
+                self.file_content_definitions_h [n : n+1] = self.builder.get_list_definitions_for_h()
                 break
 
     ##
@@ -741,7 +741,7 @@ class modelWriter(modelWriterBase):
     # @return
     def addExternalCalls(self):
 
-        for n, line in enumerate(self.fileContent_h):
+        for n, line in enumerate(self.file_content_h):
             if "__fill_internal_functions__" in line:
                 file_content_tmp = []
                 if len(self.builder.get_list_for_externalcalls_header())> 0 :
@@ -752,14 +752,14 @@ class modelWriter(modelWriterBase):
                 else:
                     file_content_tmp.append("   // No External Calls\n")
 
-                self.fileContent_h [n : n+1] = file_content_tmp
+                self.file_content_h [n : n+1] = file_content_tmp
 
     ##
     # Add the definition of parameters in header file
     # @param self : object pointer
     # @return
     def addParameters(self):
-        for n, line in enumerate(self.fileContent_h):
+        for n, line in enumerate(self.file_content_h):
             if "__insert_params__" in line:
                 file_content_tmp = []
                 file_content_tmp.append("      // Non-internal parameters \n")
@@ -774,21 +774,21 @@ class modelWriter(modelWriterBase):
 
                     file_content_tmp.append("      " + variable_type + " " + to_compile_name(par.get_name() + "_") + ";\n")
 
-                self.fileContent_h [n : n+1] = file_content_tmp
+                self.file_content_h [n : n+1] = file_content_tmp
 
     ##
     # write the external functions file
     # @param self : object pointer
     # @return
     def writeExternalCallsFile(self):
-        write_file (self.fileContent_external, self.fileName_external)
+        write_file (self.file_content_external, self.fileName_external)
 
     ##
     # write header literals file
     # @param self : object pointer
     # @return
     def writeHeaderLiteralsFile(self):
-        write_file (self.fileContentLiterals_h, self.fileNameLiterals_h)
+        write_file (self.file_content_literals_h, self.fileNameLiterals_h)
 
 
     ##
@@ -796,4 +796,4 @@ class modelWriter(modelWriterBase):
     # @param self : object pointer
     # @return
     def writeHeaderDefinitionsFile(self):
-        write_file (self.fileContentDefinitions_h, self.fileNameDefinitions_h)
+        write_file (self.file_content_definitions_h, self.fileNameDefinitions_h)

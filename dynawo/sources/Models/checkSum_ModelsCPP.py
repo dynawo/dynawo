@@ -22,12 +22,12 @@ options = {}
 options[('-m', '--model')] = {'dest': 'modName',
                                'help': 'Designate the model name'}
 
-def existFile(file_name):
+def exist_file(file_name):
     if not os.path.isfile(file_name) :
         print ("Error : %s does not exist" % file_name)
         sys.exit(1)
 
-def getCheckSum(path):
+def get_checksum(path):
     md5sum_pipe = Popen(["md5sum",path],stdout = PIPE)
     check_sum = md5sum_pipe.communicate()[0].split()[0]
     return check_sum
@@ -51,9 +51,9 @@ if __name__ =='__main__':
     file_name_hpp = str(modName)+'.hpp'
 
     # Test if original files exist
-    existFile(file_name_cpp)
-    existFile(file_name_h)
-    existFile(file_name_hpp_in)
+    exist_file(file_name_cpp)
+    exist_file(file_name_h)
+    exist_file(file_name_hpp_in)
 
     # create absolute path
     path_cpp = os.path.abspath(file_name_cpp)
@@ -62,8 +62,8 @@ if __name__ =='__main__':
     path_hpp = path_hpp_in.replace('.hpp.in','.hpp')
 
     # create checkSum wich is the combination of cpp file's checkSum and h file's checkSum
-    ckSum1 = getCheckSum(path_cpp)
-    ckSum2 = getCheckSum(path_h)
+    ckSum1 = get_checksum(path_cpp)
+    ckSum2 = get_checksum(path_h)
     ckSum = str(ckSum1)+'-'+str(ckSum2)
 
     # read hpp.in file and replace _CHECKSUM_ by new ckSum in hpp file

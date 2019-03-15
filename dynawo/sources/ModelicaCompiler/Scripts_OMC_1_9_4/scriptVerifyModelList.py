@@ -19,14 +19,6 @@ from optparse import OptionParser
 from xml.dom.minidom import parse
 from lxml import etree
 
-DYN_NAMESPACE = "http://www.rte-france.com/dynawo"
-##
-# Define tag with namespace
-# @param tag : input tag
-# @return tag with namespace
-def namespaceDYD(tag):
-    return "{" + DYN_NAMESPACE + "}" + tag
-
 ##
 # Script to verify a model list file
 def main():
@@ -58,11 +50,6 @@ def main():
       return
 
     root = etree.parse(modellist).getroot()
-#    for udm in root.iter(namespaceDYD("unitDynamicModel")):
-#        if not udm.attrib.get("parFile"):
-#            udm.attrib["parFile"] = "-1"
-#        if not udm.attrib.get("parId"):
-#            udm.attrib["parId"] = "-1"
     output_tree = etree.ElementTree(root)
     output_tree.write(dyd, encoding = 'UTF-8', pretty_print = True, xml_declaration=True)
 

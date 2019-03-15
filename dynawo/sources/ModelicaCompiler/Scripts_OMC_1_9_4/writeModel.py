@@ -183,7 +183,7 @@ if __name__ == '__main__':
         writer_init_pb.fill_setFType_omc()
         writer_init_pb.fill_tail()
 
-        writer_init_pb.writeFile()
+        writer_init_pb.write_file()
 
         writer_init_pb.getHeadExternalCalls()
         writer_init_pb.fill_externalCalls()
@@ -196,7 +196,7 @@ if __name__ == '__main__':
         writer_init_pb.insert_checkSum(os.path.abspath(output_dir))
         writer_init_pb.addExternalCalls()
         writer_init_pb.addParameters()
-        writer_init_pb.writeHeaderFile()
+        writer_init_pb.write_header_file()
 
         writer_init_pb.fill_externalLiteralConstants()
         writer_init_pb.writeHeaderLiteralsFile()
@@ -235,7 +235,7 @@ if __name__ == '__main__':
     writer.fill_setGequations()
     writer.fill_tail()
 
-    writer.writeFile()
+    writer.write_file()
 
     writer.getHeadExternalCalls()
     writer.fill_externalCalls()
@@ -248,7 +248,7 @@ if __name__ == '__main__':
     writer.insert_checkSum(os.path.abspath(output_dir))
     writer.addExternalCalls()
     writer.addParameters()
-    writer.writeHeaderFile()
+    writer.write_header_file()
 
     writer.fill_externalLiteralConstants()
     writer.writeHeaderLiteralsFile()
@@ -262,8 +262,8 @@ if __name__ == '__main__':
     # -------------------------------------------------------
     writer = modelWriterManager( mod_name, output_dir,init_pb)
     writer.set_body()
-    writer.writeFile()
+    writer.write_file()
 
     writer.setBodyHeader()
-    writer.writeHeaderFile()
+    writer.write_header_file()
 
