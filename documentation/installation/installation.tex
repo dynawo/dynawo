@@ -78,6 +78,12 @@ Below is a description of some environment variables that might be changed in th
 \end{tabular}
 \end{center}
 
+We advise the user to install an autocompletion script to help you with the available commands in \Dynawo. I will also add an alias to your bashrc or zshrc to be able to execute \Dynawo from anywhere. You can launch one of the following commands:
+\begin{lstlisting}[language=bash,deletekeywords={help,source}]
+$> ./myEnvDynawo.sh deploy-autocompletion --deploy --shell-type bash
+$> ./myEnvDynawo.sh deploy-autocompletion --deploy --shell-type zsh
+\end{lstlisting}
+
 \textbf{Warning}: If you're working behind a proxy make sure you have exported the following proxy environment variables:
 
 \begin{lstlisting}[language=bash]

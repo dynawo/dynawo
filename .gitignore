@@ -75,6 +75,7 @@ dynawo/3rdParty/adept/adept-1.1.tar.gz
 dynawo/3rdParty/suitesparse/SuiteSparse-4.5.4.tar.gz
 dynawo/3rdParty/nicslu/_nicslu301.zip
 dynawo/3rdParty/sundials/sundials-2.7.0.tar.gz
+dynawo/3rdParty/sundials/sundials-4.0.2.tar.gz
 dynawo/3rdParty/xerces-c/xerces-c-3.2.2.tar.gz
 util/curvesToHtml/resources/arrow-down.gif
 util/curvesToHtml/resources/arrow-left.gif
