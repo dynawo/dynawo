@@ -98,6 +98,11 @@ TARGET_LINK_LIBRARIES(dynawo_ModelerCommon
                       dynawo_Common
                       dynawo_DataInterface
                       )
+
+IF(LIBRARY_TYPE STREQUAL "SHARED")
+  TARGET_LINK_LIBRARIES(dynawo_ModelerCommon dynawo_Util)
+ENDIF()
+
 SET_TARGET_PROPERTIES(dynawo_ModelerCommon PROPERTIES VERSION ${MODELER_VERSION_STRING}
                                          SOVERSION ${MODELER_VERSION_MAJOR})
 

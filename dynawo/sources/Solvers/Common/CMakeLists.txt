@@ -44,6 +44,10 @@ TARGET_LINK_LIBRARIES(dynawo_SolverCommon
                       dl
                       )
 
+IF(LIBRARY_TYPE STREQUAL "SHARED")
+  TARGET_LINK_LIBRARIES(dynawo_SolverCommon dynawo_Util)
+ENDIF()
+
 SET_TARGET_PROPERTIES(dynawo_SolverCommon PROPERTIES VERSION ${SOLVER_COMMON_VERSION_STRING}
                                               SOVERSION ${SOLVER_COMMON_VERSION_MAJOR})
 

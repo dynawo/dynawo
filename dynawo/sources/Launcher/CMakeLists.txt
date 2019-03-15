@@ -27,9 +27,7 @@ INCLUDE_DIRECTORIES(../Common
 ADD_EXECUTABLE(dynawo ${DYNAWO_SOURCES})
 
 TARGET_LINK_LIBRARIES(dynawo
-                      "-Wl,--whole-archive"
                       dynawo_Common
-                      dynawo_Util
                       dynawo_API_PAR
                       dynawo_ModelerCommon
                       dynawo_DataInterface
@@ -37,6 +35,8 @@ TARGET_LINK_LIBRARIES(dynawo
                       dynawo_SolverCommon
                       dynawo_SolverKINSOL
                       dynawo_SolverSubModel
+                      "-Wl,--whole-archive"
+                      dynawo_Util
                       "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       pthread

@@ -22,12 +22,12 @@ INCLUDE_DIRECTORIES(../Common
 ADD_EXECUTABLE(compilerModelicaOMC ${COMPILER_MODELICA_OMC_SOURCES})
 
 TARGET_LINK_LIBRARIES(compilerModelicaOMC
-                      "-Wl,--whole-archive"
                       dynawo_ModelerCommon
                       dynawo_Common
-                      dynawo_Util
                       dynawo_SolverCommon
                       dynawo_SolverSubModel
+                      "-Wl,--whole-archive"
+                      dynawo_Util
                       "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       dl
