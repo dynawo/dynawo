@@ -80,12 +80,5 @@ private:\
   boost::optional< Type > m_##Name;\
 public:\
   boost::optional< Type > const& Name() const { return m_##Name; }\
-  Self& Name(boost::optional< Type > const& Name) { m_##Name = Name; return static_cast<Self&>(*this); }\
-  template <typename X> \
-  typename IIDM_ENABLE_IF< \
-    IIDM::tt::is_same< std::basic_string< X >, Type>::value, \
-    Self& \
-  >::type \
-  Name(X const* Name) { m_##Name = std::string(Name); return static_cast<Self&>(*this); }
-
+  Self& Name(boost::optional< Type > const& Name) { m_##Name = Name; return static_cast<Self&>(*this); }
 #endif

@@ -115,7 +115,7 @@ ModelBusContainer::exploreNeighbors() {
   }
 
   // Erase the last subNetwork which is empty
-  subNetworks_.erase(subNetworks_.begin() + subNetworks_.size());
+  subNetworks_.erase(subNetworks_.end() - 1);
 
   Trace::debug() << DYNLog(NbSubNetwork, numSubNetwork, subNetworks_.size()) << Trace::endline;
   Trace::debug("NETWORK") << DYNLog(NbSubNetwork, numSubNetwork, subNetworks_.size()) << Trace::endline;

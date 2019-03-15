@@ -310,7 +310,6 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
 
  private:
   double * calculatedVarBuffer_;  ///< calculated variable buffer
-  int sizeCalculatedVar_;  ///< size of calculated variable
 
   bool isInit_;  ///< whether the current process is the initialization process
   bool isInitModel_;  ///< whether the current model used is the init one

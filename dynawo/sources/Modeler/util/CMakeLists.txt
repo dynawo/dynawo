@@ -27,18 +27,18 @@ ADD_EXECUTABLE(dumpModel ${DUMP_MODEL_SOURCES})
 
 TARGET_LINK_LIBRARIES(dumpModel
                       XMLSAXFormatter${LibXML_LINK_SUFFIX}
-                      "-Wl,--whole-archive"
                       dynawo_Common
-                      dynawo_Util
                       dynawo_ModelerCommon
                       dynawo_ModelManager
                       dynawo_DataInterface
                       dynawo_SolverCommon
                       dynawo_SolverSubModel
+                      "-Wl,--whole-archive"
+                      dynawo_Util
+                      "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       pthread
                       ${Boost_THREAD_LIBRARY}
-                      "-Wl,--no-whole-archive"
                       "-rdynamic"
                       )
 
@@ -64,11 +64,11 @@ ADD_EXECUTABLE(dydLibGenerator ${DYD_LIB_GENERATION_SOURCES})
 
 TARGET_LINK_LIBRARIES(dydLibGenerator
                       XMLSAXFormatter${LibXML_LINK_SUFFIX}
-                      "-Wl,--whole-archive"
                       dynawo_Common
-                      dynawo_Util
                       dynawo_ModelerCommon
                       dynawo_API_EXTVAR
+                      "-Wl,--whole-archive"
+                      dynawo_Util
                       "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       pthread
