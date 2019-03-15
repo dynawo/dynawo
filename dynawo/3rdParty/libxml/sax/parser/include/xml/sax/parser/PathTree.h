@@ -46,7 +46,7 @@ class iterator_range {
 public:
   typedef Iter iterator;
 
-  iterator_range() {}
+  iterator_range() : m_begin(), m_end(m_begin) {}
   iterator_range(iterator const& begin, iterator const& end): m_begin(begin), m_end(end) {}
 
   iterator begin() const { return m_begin; }

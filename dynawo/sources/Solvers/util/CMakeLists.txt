@@ -32,12 +32,12 @@ ADD_EXECUTABLE(dumpSolver ${DUMP_SOLVER_SOURCES})
 TARGET_LINK_LIBRARIES(dumpSolver
                       XMLSAXFormatter${LibXML_LINK_SUFFIX}
                       XMLSAXParser${LibXML_LINK_SUFFIX}
-                      "-Wl,--whole-archive"
                       dynawo_API_PAR
                       dynawo_Common
                       dynawo_SolverCommon
                       dynawo_SolverKINSOL
                       dynawo_API_TL
+                      "-Wl,--whole-archive"
                       dynawo_Util
                       "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
