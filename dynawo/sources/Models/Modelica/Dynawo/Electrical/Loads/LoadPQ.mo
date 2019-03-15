@@ -16,8 +16,8 @@ model LoadPQ "Load with constant reactive/active power"
   extends BaseClasses.BaseLoad;
 
   // in order to change the load set-point, connect an event to PRefPu or QRefPu
-  Connectors.ZPin PRefPu (value (start = s0Pu.re)) "Active power request";
-  Connectors.ZPin QRefPu (value (start = s0Pu.im)) "Reactive power request";
+  Connectors.ImPin PRefPu (value (start = s0Pu.re)) "Active power request";
+  Connectors.ImPin QRefPu (value (start = s0Pu.im)) "Reactive power request";
 
 equation
  

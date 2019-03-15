@@ -20,8 +20,8 @@ model LoadAlphaBeta "Load with voltage dependant active and reactive power (alph
     parameter Real beta "Reactive load sensitivity to voltage";
 
     // in order to change the load set-point, connect an event to PRefPu or QRefPu
-    Connectors.ZPin PRefPu (value (start = s0Pu.re)) "Active power request";
-    Connectors.ZPin QRefPu (value (start = s0Pu.im)) "Reactive power request";
+    Connectors.ImPin PRefPu (value (start = s0Pu.re)) "Active power request";
+    Connectors.ImPin QRefPu (value (start = s0Pu.im)) "Reactive power request";
 
   equation
     if (running.value) then
