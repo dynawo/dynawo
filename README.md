@@ -110,10 +110,15 @@ You can also list all available commands with:
 $> ./myEnvDynawo.sh help
 ```
 
-We advise you to create an alias in your bashrc (or other) to be able to call Dyna&omega;o from anywhere:
+**We advise you to deploy our autocompletion** script to help you with the available commands, it will also set an alias in your bashrc or zshrc to be able to call Dyna&omega;o from anywhere. You can launch one of the two following commands:
 ``` bash
-$> cd /root/of/dynawo/source/folder
-$> echo "alias dynawo=$(pwd)/myEnvDynawo.sh" >> ~/.bashrc
+$> ./myEnvDynawo.sh deploy-autocompletion --deploy --shell-type bash
+$> ./myEnvDynawo.sh deploy-autocompletion --deploy --shell-type zsh
+```
+
+Then you can launch:
+``` bash
+$> dynawo help
 ```
 
 <a name="documentation"></a>
