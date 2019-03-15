@@ -75,12 +75,16 @@ if [ "$DEBUG" != "true" ]; then
   $RM "$MODEL"_13opt.h
   $RM "$MODEL"_14lnz.c
   $RM "$MODEL"_15syn.c
+  $RM "$MODEL"_16dae.c
+  $RM "$MODEL"_16dae.h
+  $RM "$MODEL"_17inl.c
   $RM "$MODEL"_Dyn.o
   $RM "$MODEL"_Dyn_external.o
   $RM "$MODEL"_functions.c
   $RM "$MODEL"_functions.h
   $RM "$MODEL"_info.json
   $RM "$MODEL"_init.xml
+  $RM "$MODEL"_variables.txt
   $RM "$MODEL"_Init.o
   $RM "$MODEL"_INIT.c
   $RM "$MODEL"_INIT.makefile
@@ -105,11 +109,15 @@ if [ "$DEBUG" != "true" ]; then
   $RM "$MODEL"_INIT_13opt.h
   $RM "$MODEL"_INIT_14lnz.c
   $RM "$MODEL"_INIT_15syn.c
+  $RM "$MODEL"_INIT_16dae.c
+  $RM "$MODEL"_INIT_16dae.h
+  $RM "$MODEL"_INIT_17inl.c
   $RM "$MODEL"_Init_external.o
   $RM "$MODEL"_INIT_functions.c
   $RM "$MODEL"_INIT_functions.h
   $RM "$MODEL"_INIT_info.json
   $RM "$MODEL"_INIT_init.xml
+  $RM "$MODEL"_INIT_variables.txt
   $RM "$MODEL"_INIT_records.c
   $RM "$MODEL"_records.c
   $RM "$MODEL"_structure.xml

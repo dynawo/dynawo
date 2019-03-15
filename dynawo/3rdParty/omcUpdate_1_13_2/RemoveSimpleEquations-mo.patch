@@ -1,0 +1,115 @@
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Patch for OpenModelica 1.13.2 (https://www.openmodelica.org)
+# 
+# All rights reserved.
+# 
+# THIS PROGRAM IS PROVIDED UNDER THE TERMS OF GPL VERSION 3 LICENSE OR
+# THIS OSMC PUBLIC LICENSE (OSMC-PL) VERSION 1.2.
+# ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE
+# OF THE OSMC PUBLIC LICENSE OR THE GPL VERSION 3, ACCORDING TO RECIPIENTS CHOICE.
+# 
+# The OpenModelica software and the Open Source Modelica
+# Consortium (OSMC) Public License (OSMC-PL) are obtained
+# from OSMC, either from the above address,
+# from the URLs: http://www.ida.liu.se/projects/OpenModelica or
+# http://www.openmodelica.org, and in the OpenModelica distribution.
+# GNU version 3 is obtained from: http://www.gnu.org/copyleft/gpl.html.
+# 
+# This program is distributed WITHOUT ANY WARRANTY; without
+# even the implied warranty of  MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE, EXCEPT AS EXPRESSLY SET FORTH
+# IN THE BY RECIPIENT SELECTED SUBSIDIARY LICENSE CONDITIONS OF OSMC-PL.
+# 
+# See the full OSMC Public License conditions for more details.
+# SPDX-License-Identifier: GPL-3.0 OR LicenseRef-OSMC-PL
+Index: OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
+===================================================================
+--- OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo.orig	2019-04-11 11:31:10.413525240 +0200
++++ OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo	2019-04-11 11:31:10.458525625 +0200
+@@ -962,46 +962,46 @@ algorithm
+       Boolean b;
+       BackendDAE.EquationAttributes eqAttr;
+ 
+-    case (BackendDAE.EQUATION(exp=e1, scalar=e2, source=source, attr=eqAttr), _)
+-      equation
+-        if Flags.isSet(Flags.DEBUG_ALIAS) then
+-          BackendDump.debugStrExpStrExpStr("Found Equation ", e1, " = ", e2, " to handle.\n");
+-        end if;
+-      then
+-        simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
+-
+-    case (BackendDAE.ARRAY_EQUATION(left=e1, right=e2, source=source, attr=eqAttr), _)
+-      equation
+-        if Flags.isSet(Flags.DEBUG_ALIAS) then
+-          BackendDump.debugStrExpStrExpStr("Found Array Equation ", e1, " = ", e2, " to handle.\n");
+-        end if;
+-      then
+-        simpleArrayEquationAcausal(e1, e2, Expression.typeof(e1), (source, eqAttr), inTpl);
+-
+-    case (BackendDAE.SOLVED_EQUATION(componentRef=cr, exp=e2, source=source, attr=eqAttr), _)
+-      equation
+-        e1 = Expression.crefExp(cr);
+-        if Flags.isSet(Flags.DEBUG_ALIAS) then
+-          BackendDump.debugStrExpStrExpStr("Found Solved Equation ", e1, " = ", e2, " to handle.\n");
+-        end if;
+-      then
+-        simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
+-
+-    case (BackendDAE.RESIDUAL_EQUATION(exp=e1, source=source, attr=eqAttr), _)
+-      equation
+-        if Flags.isSet(Flags.DEBUG_ALIAS) then
+-          BackendDump.debugStrExpStr("Found Residual Equation ", e1, " to handle.\n");
+-        end if;
+-      then
+-        simpleExpressionAcausal(e1, (source, eqAttr), false, inTpl);
+-
+-    case (BackendDAE.COMPLEX_EQUATION(left=e1, right=e2, source=source, attr=eqAttr), _)
+-      equation
+-        if Flags.isSet(Flags.DEBUG_ALIAS) then
+-          BackendDump.debugStrExpStrExpStr("Found Complex Equation ", e1, " = ", e2, " to handle.\n");
+-        end if;
+-      then
+-        simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
++    // case (BackendDAE.EQUATION(exp=e1, scalar=e2, source=source, attr=eqAttr), _)
++    //   equation
++    //     if Flags.isSet(Flags.DEBUG_ALIAS) then
++    //       BackendDump.debugStrExpStrExpStr("Found Equation ", e1, " = ", e2, " to handle.\n");
++    //     end if;
++    //   then
++    //     simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
++
++    // case (BackendDAE.ARRAY_EQUATION(left=e1, right=e2, source=source, attr=eqAttr), _)
++    //   equation
++    //     if Flags.isSet(Flags.DEBUG_ALIAS) then
++    //       BackendDump.debugStrExpStrExpStr("Found Array Equation ", e1, " = ", e2, " to handle.\n");
++    //     end if;
++    //   then
++    //     simpleArrayEquationAcausal(e1, e2, Expression.typeof(e1), (source, eqAttr), inTpl);
++
++    // case (BackendDAE.SOLVED_EQUATION(componentRef=cr, exp=e2, source=source, attr=eqAttr), _)
++    //   equation
++    //     e1 = Expression.crefExp(cr);
++    //     if Flags.isSet(Flags.DEBUG_ALIAS) then
++    //       BackendDump.debugStrExpStrExpStr("Found Solved Equation ", e1, " = ", e2, " to handle.\n");
++    //     end if;
++    //   then
++    //     simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
++
++    // case (BackendDAE.RESIDUAL_EQUATION(exp=e1, source=source, attr=eqAttr), _)
++    //   equation
++    //     if Flags.isSet(Flags.DEBUG_ALIAS) then
++    //       BackendDump.debugStrExpStr("Found Residual Equation ", e1, " to handle.\n");
++    //     end if;
++    //   then
++    //     simpleExpressionAcausal(e1, (source, eqAttr), false, inTpl);
++
++    // case (BackendDAE.COMPLEX_EQUATION(left=e1, right=e2, source=source, attr=eqAttr), _)
++    //   equation
++    //     if Flags.isSet(Flags.DEBUG_ALIAS) then
++    //       BackendDump.debugStrExpStrExpStr("Found Complex Equation ", e1, " = ", e2, " to handle.\n");
++    //     end if;
++    //   then
++    //     simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
+ 
+     case (_, (v, s, eqns, seqns, index, mT, b))
+       then ((v, s, eqn::eqns, seqns, index, mT, b));

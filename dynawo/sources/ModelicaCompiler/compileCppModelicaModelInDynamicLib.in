@@ -11,7 +11,7 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 if [ -z "$DYNAWO_INSTALL_DIR" ]; then
-  echo "DYNAWO_INSTALL_DIR environment variable should be set."w
+  echo "DYNAWO_INSTALL_DIR environment variable should be set."
   exit 1
 fi
 if [ -z "$DYNAWO_ADEPT_INSTALL_DIR" ]; then
@@ -113,9 +113,9 @@ if [ "$WITH_ADEPT" = "YES" ]; then
 fi
 
 if [ "$DEBUG" = "true" ]; then
-  FLAGS="$FLAGS -g -O0 -shared -fPIC -D_OMC_ -D_DEBUG_"
+  FLAGS="$FLAGS -g -O0 -shared -fPIC -D_OMC_${DYNAWO_OPENMODELICA_VERSION} -D_DEBUG_"
 else
-  FLAGS="$FLAGS -O3 -shared -fPIC -D_OMC_"
+  FLAGS="$FLAGS -O3 -shared -fPIC -D_OMC_${DYNAWO_OPENMODELICA_VERSION}"
 fi
 
 if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "no" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "false" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "off" ]; then

@@ -30,7 +30,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
-  std::string varExtCommand = "python Scripts_OMC_1_9_4/writeModel.py -m MACHINE_PQ  -i ModelicaModel/ -o res/ --init";
+  std::string varExtCommand = "python Scripts_OMC_1_13_2/writeModel.py -m GeneratorPQ  -i ModelicaModel/ -o res/ --init";
 
   remove_all_in_directory("res");
   boost::filesystem::path fspath("res");

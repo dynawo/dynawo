@@ -1,0 +1,64 @@
+//stateVars (3)
+//----------------------
+type: stateVars (3) index: 0: generator.omegaRefPu.value (no alias) valueType: real initial: 	no arrCref index:(1) [] 
+type: stateVars (3) index: 1: generator.terminal.V.im (no alias) valueType: real initial: generator.u0Pu.im	no arrCref index:(2) [] 
+type: stateVars (3) index: 2: generator.terminal.V.re (no alias) valueType: real initial: generator.u0Pu.re	no arrCref index:(3) [] 
+//derivativeVars
+//----------------------
+type: derivativeVars index: 3: $DER.generator.omegaRefPu.value (no alias) valueType: real initial: 	no arrCref index:(4) [] 
+type: derivativeVars index: 4: $DER.generator.terminal.V.im (no alias) valueType: real initial: 	no arrCref index:(5) [] 
+type: derivativeVars index: 5: $DER.generator.terminal.V.re (no alias) valueType: real initial: 	no arrCref index:(6) [] 
+//algVars (8)
+//----------------------
+type: algVars (8) index: 6: generator.PGenPu (no alias)  protected  hideResult valueType: real initial: generator.PGen0Pu	no arrCref index:(7) [] 
+type: algVars (8) index: 7: generator.PGenRawPu (no alias)  protected  hideResult valueType: real initial: generator.PGen0Pu	no arrCref index:(8) [] 
+type: algVars (8) index: 8: generator.QGenPu (no alias)  protected  hideResult valueType: real initial: generator.QGen0Pu	no arrCref index:(9) [] 
+type: algVars (8) index: 9: generator.SGenPu.im (no alias)  protected  hideResult valueType: real initial: generator.QGen0Pu	no arrCref index:(10) [] 
+type: algVars (8) index: 10: generator.SGenPu.re (no alias)  protected  hideResult valueType: real initial: generator.PGen0Pu	no arrCref index:(11) [] 
+type: algVars (8) index: 11: generator.UPu (no alias)  protected  hideResult valueType: real initial: generator.U0Pu	no arrCref index:(12) [] 
+type: algVars (8) index: 12: generator.terminal.i.im (no alias) valueType: real initial: generator.i0Pu.im	no arrCref index:(13) [] 
+type: algVars (8) index: 13: generator.terminal.i.re (no alias) valueType: real initial: generator.i0Pu.re	no arrCref index:(14) [] 
+//intAlgVars
+//----------------------
+type: intAlgVars index: 0: generator.pStatus (no alias)  protected  hideResult valueType: enumeration initial: Dynawo.Electrical.Machines.GeneratorPQ.PStatus.Standard	no arrCref index:(29) [] 
+type: intAlgVars index: 1: generator.qStatus (no alias)  protected  hideResult valueType: enumeration initial: Dynawo.Electrical.Machines.GeneratorPQ.QStatus.Standard	no arrCref index:(30) [] 
+type: intAlgVars index: 2: generator.state (no alias) valueType: enumeration initial: generator.State0	no arrCref index:(31) [] 
+//boolAlgVars
+//----------------------
+type: boolAlgVars index: 0: $whenCondition1 (no alias)  protected  hideResult valueType: boolean initial: 	no arrCref index:(34) [] 
+type: boolAlgVars index: 1: $whenCondition10 (no alias)  protected  hideResult valueType: boolean initial: 	no arrCref index:(35) [] 
+type: boolAlgVars index: 2: $whenCondition2 (no alias)  protected  hideResult valueType: boolean initial: 	no arrCref index:(36) [] 
+type: boolAlgVars index: 3: $whenCondition3 (no alias)  protected  hideResult valueType: boolean initial: 	no arrCref index:(37) [] 
+type: boolAlgVars index: 4: $whenCondition4 (no alias)  protected  hideResult valueType: boolean initial: 	no arrCref index:(38) [] 
+type: boolAlgVars index: 5: $whenCondition5 (no alias)  protected  hideResult valueType: boolean initial: 	no arrCref index:(39) [] 
+type: boolAlgVars index: 6: $whenCondition6 (no alias)  protected  hideResult valueType: boolean initial: 	no arrCref index:(40) [] 
+type: boolAlgVars index: 7: $whenCondition7 (no alias)  protected  hideResult valueType: boolean initial: 	no arrCref index:(41) [] 
+type: boolAlgVars index: 8: $whenCondition8 (no alias)  protected  hideResult valueType: boolean initial: 	no arrCref index:(42) [] 
+type: boolAlgVars index: 9: $whenCondition9 (no alias)  protected  hideResult valueType: boolean initial: 	no arrCref index:(43) [] 
+type: boolAlgVars index: 10: generator.running.value (no alias) valueType: boolean initial: true	no arrCref index:(44) [] 
+type: boolAlgVars index: 11: generator.switchOffSignal1.value (no alias) valueType: boolean initial: false	no arrCref index:(45) [] 
+type: boolAlgVars index: 12: generator.switchOffSignal2.value (no alias) valueType: boolean initial: false	no arrCref index:(46) [] 
+type: boolAlgVars index: 13: generator.switchOffSignal3.value (no alias) valueType: boolean initial: false	no arrCref index:(47) [] 
+//paramVars
+//----------------------
+type: paramVars index: 0: generator.AlphaPu (no alias) valueType: real initial: 	no arrCref index:(15) [] 
+type: paramVars index: 1: generator.PGen0Pu (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(16) [] 
+type: paramVars index: 2: generator.PMaxPu (no alias) valueType: real initial: 	no arrCref index:(17) [] 
+type: paramVars index: 3: generator.PMinPu (no alias) valueType: real initial: 	no arrCref index:(18) [] 
+type: paramVars index: 4: generator.QGen0Pu (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(19) [] 
+type: paramVars index: 5: generator.QMaxPu (no alias) valueType: real initial: 	no arrCref index:(20) [] 
+type: paramVars index: 6: generator.QMinPu (no alias) valueType: real initial: 	no arrCref index:(21) [] 
+type: paramVars index: 7: generator.U0Pu (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(22) [] 
+type: paramVars index: 8: generator.UMaxPu (no alias) valueType: real initial: 	no arrCref index:(23) [] 
+type: paramVars index: 9: generator.UMinPu (no alias) valueType: real initial: 	no arrCref index:(24) [] 
+type: paramVars index: 10: generator.i0Pu.im (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(25) [] 
+type: paramVars index: 11: generator.i0Pu.re (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(26) [] 
+type: paramVars index: 12: generator.u0Pu.im (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(27) [] 
+type: paramVars index: 13: generator.u0Pu.re (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(28) [] 
+//intParamVars
+//----------------------
+type: intParamVars index: 0: generator.NbSwitchOffSignals (no alias) valueType: integer initial: 3	no arrCref index:(32) [] 
+type: intParamVars index: 1: generator.State0 (no alias)  protected  hideResult valueType: enumeration initial: Dynawo.Electrical.Constants.state.Closed	no arrCref index:(33) [] 
+//constVars
+//----------------------
+type: constVars index: 0: generator.UDeadBand (no alias)  protected  hideResult valueType: real initial: 	no arrCref index:(48) [] 

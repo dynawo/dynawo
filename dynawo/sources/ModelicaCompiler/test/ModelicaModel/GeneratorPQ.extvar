@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<external_variables xmlns="http://www.rte-france.com/dynawo">
+  <variable id="generator.omegaRefPu.value" type="continuous"/>
+  <variable id="generator.switchOffSignal1.value" type="discrete" defaultValue="false"/>
+  <variable id="generator.switchOffSignal2.value" type="discrete" defaultValue="false"/>
+  <variable id="generator.switchOffSignal3.value" type="discrete" defaultValue="false"/>
+  <variable id="generator.terminal.V.im" type="continuous"/>
+  <variable id="generator.terminal.V.re" type="continuous"/>
+</external_variables>
