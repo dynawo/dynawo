@@ -20,7 +20,7 @@ from xml.dom.minidom import parse
 
 ##
 # Copy file to tmp file
-def defaultPreCompil():
+def default_pre_compil():
     name = os.path.basename(file_name).replace('.mo', '-tmp.mo')
     dirname = os.path.dirname(file_name)
     tmp_file_name = ""
@@ -34,7 +34,7 @@ def defaultPreCompil():
 ##
 # Extract external variables from an external variables file
 # (for fictitious equations)
-def listExternalVariables (external_variables_file_path):
+def list_external_variables (external_variables_file_path):
     if (not os.path.isfile (external_variables_file_path)):
         print("Failed to extract external variables : missing file")
         sys.exit(1)
@@ -74,9 +74,9 @@ def listExternalVariables (external_variables_file_path):
 
 ##
 # Add fictious equation read in xml file
-def preCompil():
+def pre_compil():
 
-    liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete = listExternalVariables (file_var_ext_name)
+    liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete = list_external_variables (file_var_ext_name)
 
     model_name = os.path.basename(file_name).replace(".mo", "")
     # modification of the .mo file
@@ -156,10 +156,10 @@ def main():
 
     if( os.path.isfile(file_var_ext_name) ):
         if( options.preCompil):
-            preCompil()
+            pre_compil()
     else:
         if( options.preCompil):
-            defaultPreCompil()
+            default_pre_compil()
 
 if __name__ == "__main__":
     main()

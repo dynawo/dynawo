@@ -24,7 +24,7 @@ class headerPatternDefine:
     # default constructor
     def __init__(self, additional_header_files):
         ## pattern to use when creating the header file of the model
-        self.patternDyn_="""
+        self.pattern_dyn_="""
 #ifndef __fill_model_name____Dyn_h
 #define __fill_model_name____Dyn_h
 
@@ -42,10 +42,10 @@ class headerPatternDefine:
 #endif\n"""
 
         for file in additional_header_files:
-            self.patternDyn_+="#include \""+ file + "\"\n"
+            self.pattern_dyn_+="#include \""+ file + "\"\n"
     
-        self.patternDyn_+="\n"
-        self.patternDyn_+="""namespace DYN {
+        self.pattern_dyn_+="\n"
+        self.pattern_dyn_+="""namespace DYN {
 
   class Model__fill_model_name___Dyn : public ModelModelicaDyn
   {
@@ -108,7 +108,7 @@ class headerPatternDefine:
 """
 
         ## pattern to use when creating the header file of the init model
-        self.patternInit_="""
+        self.pattern_init_="""
 #ifndef __fill_model_name___Init_h
 #define __fill_model_name___Init_h
 
@@ -184,7 +184,7 @@ namespace DYN {
 #endif
 """
     ## pattern to use for literals header
-        self.patternDynLiterals_="""
+        self.pattern_dyn_literals_="""
 #ifndef __fill_model_name____Dyn_Literals_h
 #define __fill_model_name____Dyn_Literals_h
 
@@ -195,7 +195,7 @@ namespace DYN {
 #endif
 """
         ## pattern to use for literals header for the INIT file
-        self.patternInitLiterals_="""
+        self.pattern_init_literals_="""
 #ifndef __fill_model_name____Init_Literals_h
 #define __fill_model_name____Init_Literals_h
 
@@ -207,7 +207,7 @@ namespace DYN {
 """
 
     ## pattern to use for definitions header
-        self.patternDynDefinitions_="""
+        self.pattern_dyn_definitions_="""
 #ifndef __fill_model_name____Dyn_Definitions_h
 #define __fill_model_name____Dyn_Definitions_h
 
@@ -219,7 +219,7 @@ __fill_variables_definitions__h
 #endif
 """
         ## pattern to use for definitions headers for the INIT file
-        self.patternInitDefinitions_="""
+        self.pattern_init_definitions_="""
 #ifndef __fill_model_name____Init_Definitions_h
 #define __fill_model_name____Init_Definitions_h
 
@@ -236,40 +236,40 @@ __fill_variables_definitions__h
     # @param self : object pointer
     # @return pattern to define header file
     def get_dyn(self):
-        return self.patternDyn_
+        return self.pattern_dyn_
 
     ##
     # Getter of the pattern to define header literals file
     # @param self : object pointer
     # @return pattern to define header literals file
     def get_dyn_literals(self):
-        return self.patternDynLiterals_
+        return self.pattern_dyn_literals_
 
     ##
     # Getter of the pattern to define header file of init model
     # @param self : object pointer
     # @return pattern to define header file of init model
     def get_init(self):
-        return self.patternInit_
+        return self.pattern_init_
 
     ##
     # Getter of the pattern to define header literals file of init model
     # @param self : object pointer
     # @return pattern to define header literals file of init model
     def get_init_literals(self):
-        return self.patternInitLiterals_
+        return self.pattern_init_literals_
 
     ##
     # Getter of the pattern to define header definitions file
     # @param self : object pointer
     # @return pattern to define header definitions file
     def get_dyn_definitions(self):
-        return self.patternDynDefinitions_
+        return self.pattern_dyn_definitions_
 
     ##
     # Getter of the pattern to define header definitions file of init model
     # @param self : object pointer
     # @return pattern to define header defintions file of init model
     def get_init_definitions(self):
-        return self.patternInitDefinitions_
+        return self.pattern_init_definitions_
 

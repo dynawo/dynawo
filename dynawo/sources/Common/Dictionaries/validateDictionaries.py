@@ -78,13 +78,13 @@ class Dictionary:
         ## name of the dictionary
         self.name_ = ""
         ## full name of the dictionary
-        self.fullName_ = ""
+        self.full_name_ = ""
         ## dictionary to store information
         self.dict_ = dict()
         ## path to create files
         self.directory_ = ""
         ## path to create modelica files
-        self.modelicaDir_ = ""
+        self.modelica_dir_ = ""
 
     ##
     # Set the name of the dictionary
@@ -108,7 +108,7 @@ class Dictionary:
     # @param directory : path to use
     # @return
     def set_modelica_dir(self, directory):
-        self.modelicaDir_ = directory
+        self.modelica_dir_ = directory
 
     ##
     # Set the full name of the dictionary
@@ -116,7 +116,7 @@ class Dictionary:
     # @param name : full name of the dictionary
     # @return
     def set_full_name(self,name):
-        self.fullName_ = name
+        self.full_name_ = name
 
     ##
     # Add a new pair of value in the dictionary
@@ -139,7 +139,7 @@ class Dictionary:
     # @param self: object pointer
     # @return :  full name of the dictionary
     def full_name(self):
-        return self.fullName_
+        return self.full_name_
 
     ##
     # Getter of the keys found in dictionary
@@ -236,11 +236,11 @@ class Dictionary:
     # @param modelica_package : Parent package of modelica keys files
     # @return
     def generate_modelica(self, modelica_package):
-        if not os.path.exists(self.modelicaDir_):
-            print ("Modelica directory :"+str(self.modelicaDir_)+" does not exist")
+        if not os.path.exists(self.modelica_dir_):
+            print ("Modelica directory :"+str(self.modelica_dir_)+" does not exist")
             exit(1)
         name = self.name_[3:]
-        file_name = str(self.modelicaDir_)+'/'+str(name)+'Keys.mo-tmp'
+        file_name = str(self.modelica_dir_)+'/'+str(name)+'Keys.mo-tmp'
         mo_file = open(file_name,'w')
         mo_file.write('''/*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -303,7 +303,7 @@ class Dictionary:
             os.chmod(cpp_file,0444) # file only readable
 
         name = self.name_[3:]
-        mo_file = str(self.modelicaDir_)+'/'+str(name)+'Keys.mo'
+        mo_file = str(self.modelica_dir_)+'/'+str(name)+'Keys.mo'
         tmp_mo_file = mo_file+'-tmp'
 
         diff = False
@@ -338,7 +338,7 @@ class Status():
 # @param dictionary : dictionary where the message should be added
 # @param check_capital_letters : whether we should check if the first letter of the first word is capitalized or not
 # @return  True is the line is correctly added to the dictionary
-def readLine(line,dictionary,check_capital_letters):
+def read_line(line,dictionary,check_capital_letters):
     if( line.find("//") != -1):
         line = line[ :line.find("//")] # erase any comment
 
@@ -363,7 +363,7 @@ def readLine(line,dictionary,check_capital_letters):
 # @param file_2_read: file where the information are stored
 # @return the dictionary created by the function
 # @throw Raise an error is the file is not well formatted
-def createDictionary(file_2_read):
+def create_dictionary(file_2_read):
     # create a dictionary
     dictionary = Dictionary()
     names = file_2_read.split("/")
@@ -379,7 +379,7 @@ def createDictionary(file_2_read):
     file_read.close()
     for line in lines:
         line = line.rstrip('\n\r') # erase the endline characters
-        status = readLine(line,dictionary,check_capital_letters)
+        status = read_line(line,dictionary,check_capital_letters)
         if( status == Status.NO_SEPARATOR ) :
             print ("File :"+str(file_2_read)+" line : '"+str(line)+"' is not well defined, no separator '=' between the key and the value")
             exit(1)
@@ -437,7 +437,7 @@ def main():
 
     # read all files
     for f in files:
-        dictionary=createDictionary(f)
+        dictionary=create_dictionary(f)
         dicts.add_dict(dictionary)
 
     # generate files
