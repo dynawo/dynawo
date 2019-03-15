@@ -63,6 +63,8 @@ ModelManager::ModelManager() :
 SubModel() {
   dataInit_ = new DYNDATA;
   dataDyn_ = new DYNDATA;
+  modelInit_ = NULL;
+  modelDyn_ = NULL;
   modelInitUsed_ = false;
 }
 

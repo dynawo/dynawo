@@ -189,7 +189,7 @@ T pow_dynawo(T a, T b) {
 
 #define stringEqual(x, y) compareString_(std::string(x), std::string(y))
 
-#define size_of_dimension_base_array(x, y) sizeOffArray_ (x)
+#define size_of_dimension_base_array(x, y) sizeOffArray_ (x.dim_size)
 
 #define MMC_STRINGDATA(x) x
 

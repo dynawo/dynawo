@@ -1,0 +1,46 @@
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Patch for OpenModelica 1.13.2 (https://www.openmodelica.org)
+# 
+# All rights reserved.
+# 
+# THIS PROGRAM IS PROVIDED UNDER THE TERMS OF GPL VERSION 3 LICENSE OR
+# THIS OSMC PUBLIC LICENSE (OSMC-PL) VERSION 1.2.
+# ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE
+# OF THE OSMC PUBLIC LICENSE OR THE GPL VERSION 3, ACCORDING TO RECIPIENTS CHOICE.
+# 
+# The OpenModelica software and the Open Source Modelica
+# Consortium (OSMC) Public License (OSMC-PL) are obtained
+# from OSMC, either from the above address,
+# from the URLs: http://www.ida.liu.se/projects/OpenModelica or
+# http://www.openmodelica.org, and in the OpenModelica distribution.
+# GNU version 3 is obtained from: http://www.gnu.org/copyleft/gpl.html.
+# 
+# This program is distributed WITHOUT ANY WARRANTY; without
+# even the implied warranty of  MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE, EXCEPT AS EXPRESSLY SET FORTH
+# IN THE BY RECIPIENT SELECTED SUBSIDIARY LICENSE CONDITIONS OF OSMC-PL.
+# 
+# See the full OSMC Public License conditions for more details.
+# SPDX-License-Identifier: GPL-3.0 OR LicenseRef-OSMC-PL
+Index: configure.ac
+===================================================================
+--- configure.ac.orig	2019-04-11 11:31:10.432525402 +0200
++++ configure.ac	2019-04-11 11:31:10.471525736 +0200
+@@ -69,7 +69,7 @@ if test ! -z "$USE_CORBA"; then
+   CORBA_TARGETS="OMOptim-omoptim"
+ fi
+ 
+-for dir_target in OMCompiler-omc OMPlot-omplot OMEdit-omedit OMNotebook-omnotebook OMShell-omshell $CORBA_TARGETS; do
++for dir_target in OMCompiler-omc $CORBA_TARGETS; do
+   dir=`echo $dir_target | cut -d- -f1`
+   if test ! -f "$dir/configure.ac"; then
+     AC_MSG_NOTICE("Subproject $dir does not exist")
+@@ -87,7 +87,7 @@ if test -f testsuite/Makefile; then
+ fi
+ 
+ 
+-AC_CONFIG_SUBDIRS([OMCompiler OMPlot OMEdit OMNotebook OMShell])
++AC_CONFIG_SUBDIRS([OMCompiler])
+ if test ! -z "$USE_CORBA"; then
+   AC_CONFIG_SUBDIRS([OMOptim])
+ fi

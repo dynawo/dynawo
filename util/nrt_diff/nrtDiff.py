@@ -992,10 +992,12 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
     file_right = open (path_right, "rb")
     lines_to_compare_left = []
     lines_to_compare_right = []
-    for line_left, line_right in zip(file_left, file_right):
+    for line_left in file_left:
         # skip some lines when needed
         if (LineToCompare (line_left)):
             lines_to_compare_left.append(line_left)
+
+    for line_right in file_right:
         # skip some lines when needed
         if (LineToCompare (line_right)):
             lines_to_compare_right.append(line_right)
@@ -1006,7 +1008,7 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
     nb_lines_compared = 0
     nb_lines_identical = 0
     nb_lines_identical_but_timestamp = 0
-    nb_lines_different = 0
+    nb_lines_different = abs(len(lines_to_compare_left) - len(lines_to_compare_right))
     nb_lines_different_within_tolerance = 0
     for line_left, line_right in zip(lines_to_compare_left, lines_to_compare_right):
         nb_lines_compared += 1

@@ -24,6 +24,10 @@
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 // redefine modelica_types like we want
+/**
+ * All Type defined below are copied from <OpenModelica Sources>/SimulationRuntime/c/openmodelica_types.h
+ * They have to be defined for Dynawo models dynamic libraries compilation
+ */
 typedef void* modelica_complex;
 typedef void* modelica_metatype;
 typedef void* modelica_fnptr;
@@ -65,10 +69,9 @@ typedef m_integer modelica_integer;
 typedef base_array_t integer_array_t;
 
 typedef real_array_t real_array;
-typedef integer_array_t integer_array;
-typedef boolean_array_t boolean_array;
 typedef string_array_t string_array;
 
+#ifdef _OMC_1_9_4
 typedef enum {
   ERROR_UNKOWN = 0,
   ERROR_SIMULATION,
@@ -121,6 +124,7 @@ typedef struct threadData_s {
   jmp_buf *simulationJumpBuffer;  ///< ??
   errorStage currentErrorStage;  ///< ??
 } threadData_t;
+#endif  // _OMC_1_9_4
 
 #endif  // DOXYGEN_SHOULD_SKIP_THIS
 

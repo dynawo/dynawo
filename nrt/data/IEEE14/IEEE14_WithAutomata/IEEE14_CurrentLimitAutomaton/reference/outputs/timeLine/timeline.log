@@ -1,0 +1,45 @@
+0.036548 | GEN____3_SM | PMIN : activation
+0.971046 | GEN____3_SM | PMIN : deactivation
+20 | _BUS____1-BUS____5-1_AC | LINE : opening on side 2
+20.2568 | CLA_2_5 | CLA : arming by over-current constraint
+20.4472 | GEN____6_SM | PMIN : activation
+20.5639 | GEN____8_SM | PMIN : activation
+20.878 | GEN____6_SM | PMIN : deactivation
+20.9231 | GEN____3_SM | PMIN : activation
+21.0652 | GEN____8_SM | PMIN : deactivation
+21.4834 | GEN____6_SM | PMIN : activation
+21.5341 | GEN____3_SM | PMIN : deactivation
+21.5347 | GEN____6_SM | PMIN : deactivation
+21.6187 | GEN____8_SM | PMIN : activation
+22.0634 | GEN____6_SM | PMIN : activation
+22.0805 | GEN____8_SM | PMIN : deactivation
+22.137 | GEN____6_SM | PMIN : deactivation
+22.705 | GEN____8_SM | PMIN : activation
+22.8846 | GEN____6_SM | PMIN : activation
+23.0721 | GEN____8_SM | PMIN : deactivation
+23.1074 | GEN____6_SM | PMIN : deactivation
+25.2568 | CLA_2_5 | CLA : order to change topology
+25.2568 | _BUS____2-BUS____5-1_AC | LINE : opening both sides
+25.4457 | CLA_2_4 | CLA : arming by over-current constraint
+25.7347 | GEN____6_SM | PMIN : activation
+25.8692 | GEN____8_SM | PMIN : activation
+26.1188 | GEN____6_SM | PMIN : deactivation
+26.3313 | GEN____8_SM | PMIN : deactivation
+26.4671 | GEN____3_SM | PMIN : activation
+26.5834 | GEN____3_SM | PMIN : deactivation
+26.9228 | GEN____8_SM | PMIN : activation
+27.3181 | GEN____8_SM | PMIN : deactivation
+28.0997 | GEN____8_SM | PMIN : activation
+28.1826 | GEN____6_SM | PMIN : activation
+28.2977 | GEN____8_SM | PMIN : deactivation
+28.3687 | GEN____6_SM | PMIN : deactivation
+35.4457 | CLA_2_4 | CLA : order to change topology
+35.4457 | _BUS____2-BUS____4-1_AC | LINE : opening on side 2
+36.2424 | GEN____8_SM | PMIN : activation
+36.6265 | GEN____8_SM | PMIN : deactivation
+36.9451 | GEN____3_SM | PMIN : activation
+37.2341 | GEN____3_SM | PMIN : deactivation
+37.2633 | GEN____8_SM | PMIN : activation
+37.3908 | GEN____6_SM | PMIN : activation
+37.771 | GEN____8_SM | PMIN : deactivation
+37.7928 | GEN____6_SM | PMIN : deactivation

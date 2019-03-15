@@ -97,8 +97,10 @@ ModelRatioTapChanger::sizeZ() const {
 
 void
 ModelRatioTapChanger::evalG(const double& t, const double& uValue, bool nodeOff, state_g* g, const double& disable, const double& locked, bool tfoClosed) {
-  g[0] = (uValue > targetV_ + tolV_ && !(disable > 0) && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U > Uc + deadBand
-  g[1] = (uValue < targetV_ - tolV_ && !(disable > 0) && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U < Uc - deadBand
+  g[0] = (uValue > targetV_ + tolV_ && doubleNotEquals(uValue, targetV_ + tolV_)
+  && !(disable > 0) && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U > Uc + deadBand
+  g[1] = (uValue < targetV_ - tolV_ && doubleNotEquals(uValue, targetV_ - tolV_)
+  && !(disable > 0) && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U < Uc - deadBand
   g[2] = (uValue <= targetV_ + tolV_ && uValue >= targetV_ - tolV_) ? ROOT_UP : ROOT_DOWN;  // U-deadBand < U < U + deadBand
   g[3] = (moveUp_ && (t - whenUp_ >= tFirst_) && currentStepIndex_ < highStepIndex_ && !(locked > 0) && regulating_ && currentStepIndex_ == tapRefUp_
           && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // first tap Up

@@ -6,8 +6,7 @@ dynawo/sources/config.h
 dynawo/sources/gitversion.h*
 install/
 deploy/
-OpenModelica/Source/
-OpenModelica/Install/
+OpenModelica/
 distributions/
 nrt/data/*/*/outputs*/
 nrt/data/*/*/*/outputs*/
