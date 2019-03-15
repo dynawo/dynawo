@@ -110,7 +110,7 @@ You can also list all available commands with:
 $> ./myEnvDynawo.sh help
 ```
 
-**We advise you to deploy our autocompletion** script to help you with the available commands, it will also set an alias in your bashrc or zshrc to be able to call Dyna&omega;o from anywhere. You can launch one of the two following commands:
+**We advise you to deploy our autocompletion** script to help you with the available commands, it will also set an alias (`dynawo`) in your bashrc or zshrc to be able to call Dyna&omega;o from anywhere. You can launch one of the two following commands:
 ``` bash
 $> ./myEnvDynawo.sh deploy-autocompletion --deploy --shell-type bash
 $> ./myEnvDynawo.sh deploy-autocompletion --deploy --shell-type zsh
