@@ -39,7 +39,7 @@ class NetworkEntry::Impl : public NetworkEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc NetworkEntry::setIidmFile()

@@ -19,7 +19,7 @@ ADD_CUSTOM_TARGET(solvers
 
 #
 # Target used to install solvers files in ddbdir
-# (.so and .desc.xml)
+# (.dylib and .desc.xml)
 #
 ADD_CUSTOM_TARGET(SOLVERS_FILES_INSTALL
                   COMMENT "Installing solvers"
@@ -41,7 +41,7 @@ MACRO(DESC_SOLVER
                        DEPENDS ${SOLVER_NAME} dumpSolver
                        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
                        COMMAND
-                           dumpSolver ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.so ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.desc.xml \;
+                           ${sbindir}/dumpSolver ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.dylib ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.desc.xml \;
                        COMMENT "Generating ${SOLVER_NAME} description file"
                       )
 
@@ -54,7 +54,7 @@ MACRO(DESC_SOLVER
                           ${SOLVER_NAME}.desc.xml
                           CREATE_DDBDIR
                       COMMAND
-                          ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.so ${ddbdir}/lib${SOLVER_NAME}.so \;
+                          ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.dylib ${ddbdir}/lib${SOLVER_NAME}.dylib \;
                           ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.desc.xml ${ddbdir}/lib${SOLVER_NAME}.desc.xml
                      )
 

@@ -55,7 +55,7 @@ download_xercesc() {
   cd $SCRIPT_DIR
   if [ ! -f "${XERCESC_ARCHIVE}" ]; then
     if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${XERCESC_DOWNLOAD_URL}/${XERCESC_ARCHIVE} || error_exit "Error while downloading Xerces-c."
+      wget --no-check-certificate --timeout 10 --tries 3 ${XERCESC_DOWNLOAD_URL}/${XERCESC_ARCHIVE} || error_exit "Error while downloading Xerces-c."
     elif [ -x "$(command -v curl)" ]; then
       curl --connect-timeout 10 --retry 2 ${XERCESC_DOWNLOAD_URL}/${XERCESC_ARCHIVE} --output ${XERCESC_ARCHIVE} || error_exit "Error while downloading Xerces-c."
     else

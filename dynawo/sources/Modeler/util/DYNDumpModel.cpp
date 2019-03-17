@@ -147,8 +147,8 @@ int main(int argc, char ** argv) {
   model->defineVariables();
   model->defineNames();
   model->setSharedParametersDefaultValues();
-  const std::tr1::unordered_map<std::string, DYN::ParameterModeler>& parametersInit = model->getParametersInit();
-  const std::tr1::unordered_map<std::string, DYN::ParameterModeler>& parametersDynamic = model->getParametersDynamic();
+  const boost::unordered_map<std::string, DYN::ParameterModeler>& parametersInit = model->getParametersInit();
+  const boost::unordered_map<std::string, DYN::ParameterModeler>& parametersDynamic = model->getParametersDynamic();
   std::map<std::string, AttributeList> parametersAttributes;  // map between parameter name and attributes (alphabetically sort parameters)
   std::map<std::string, boost::shared_ptr<DYN::Variable> > mapVariable = model->getVariableByName();
 
@@ -172,7 +172,7 @@ int main(int argc, char ** argv) {
   formatter->startElement("parameters", attrs);
 
   // add initial parameters
-  std::tr1::unordered_map<std::string, DYN::ParameterModeler>::const_iterator parameterIterator;
+  boost::unordered_map<std::string, DYN::ParameterModeler>::const_iterator parameterIterator;
   for (parameterIterator = parametersInit.begin(); parameterIterator != parametersInit.end(); ++parameterIterator) {
     const DYN::ParameterModeler& parameterInit = parameterIterator->second;
     // only keep parameters which

@@ -10,6 +10,6 @@
 
 set(CPPLINT_PATH ${DYNAWO_HOME}/cpplint/cpplint-wrapper.py)
 
-add_custom_target(cpplint ALL ${CPPLINT_PATH} --modified ${DYNAWO_HOME})
+#add_custom_target(cpplint ALL ${CPPLINT_PATH} --modified ${DYNAWO_HOME})
 
 

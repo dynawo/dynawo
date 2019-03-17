@@ -1462,7 +1462,7 @@ ModelLine::addBusNeighbors() {
 }
 
 void
-ModelLine::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params) {
+ModelLine::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
   double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "LINE_currentLimit_maxTimeOperation", success);
   if (success) {

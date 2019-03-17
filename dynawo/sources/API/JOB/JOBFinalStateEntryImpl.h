@@ -39,7 +39,7 @@ class FinalStateEntry::Impl : public FinalStateEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc FinalStateEntry::getExportIIDMFile()

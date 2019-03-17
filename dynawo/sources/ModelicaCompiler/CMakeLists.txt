@@ -26,9 +26,8 @@ TARGET_LINK_LIBRARIES(compilerModelicaOMC
                       dynawo_Common
                       dynawo_SolverCommon
                       dynawo_SolverSubModel
-                      "-Wl,--whole-archive"
+                      "-force_load"
                       dynawo_Util
-                      "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       dl
                       pthread
@@ -38,6 +37,10 @@ TARGET_LINK_LIBRARIES(compilerModelicaOMC
 
 INSTALL(TARGETS compilerModelicaOMC DESTINATION ${sbindir})
 
+if (APPLE)
+  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
+  set_target_properties(compilerModelicaOMC PROPERTIES INSTALL_RPATH "@loader_path/../lib")
+endif()
 
 #compileLibModelicaOMC
 CONFIGURE_FILE(compileLibModelicaOMC.in ${CMAKE_CURRENT_BINARY_DIR}/compileLibModelicaOMC @ONLY)
@@ -46,7 +49,6 @@ INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/compileLibModelicaOMC DESTINATION $
 
 #cleanCompilerModelicaOMC
 INSTALL(PROGRAMS cleanCompilerModelicaOMC DESTINATION ${sbindir})
-
 
 #Add post processing scripts
 ADD_SUBDIRECTORY(Scripts_OMC_${OPENMODELICA_VERSION})

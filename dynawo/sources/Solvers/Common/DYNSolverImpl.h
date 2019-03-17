@@ -45,13 +45,13 @@ namespace DYN {
  * @brief Structure for storing solver statistics
  */
 typedef struct {
-  int64_t nst_;  ///< number of steps
-  int64_t nre_;  ///< number of residual evaluations
-  int64_t nje_;  ///< number of Jacobian evaluations
-  int64_t nni_;  ///< number of nonlinear iterations
-  int64_t netf_;  ///< number of error test failures
-  int64_t ncfn_;  ///< number of nonlinear convergence failures
-  int64_t nge_;  ///< number of root function evaluations
+  long int nst_;  ///< number of steps
+  long int nre_;  ///< number of residual evaluations
+  long int nje_;  ///< number of Jacobian evaluations
+  long int nni_;  ///< number of nonlinear iterations
+  long int netf_;  ///< number of error test failures
+  long int ncfn_;  ///< number of nonlinear convergence failures
+  long int nge_;  ///< number of root function evaluations
 } stat_t;
 
 class Message;
@@ -202,10 +202,10 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   void setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline);
 
   /**
-   * @copydoc Solver::getLastConf(int64_t &nst, int &kused, double &hused)
+   * @copydoc Solver::getLastConf(long int &nst, int &kused, double &hused)
    */
 
-  virtual void getLastConf(int64_t &nst, int &kused, double &hused) = 0;
+  virtual void getLastConf(long int &nst, int &kused, double &hused) = 0;
 
  protected:
   /**

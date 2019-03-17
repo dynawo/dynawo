@@ -356,7 +356,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
 shared_ptr<SubModel>
 initializeModel(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork;
-  modelNetwork.reset(SubModelFactory::createSubModelFromLib("../../../Models/CPP/ModelNetwork/DYNModelNetwork.so"));
+  modelNetwork.reset(SubModelFactory::createSubModelFromLib("../../../Models/CPP/ModelNetwork/DYNModelNetwork.dylib"));
   modelNetwork->initFromData(data);
   data->setModelNetwork(modelNetwork);
   modelNetwork->name("NETWORK");

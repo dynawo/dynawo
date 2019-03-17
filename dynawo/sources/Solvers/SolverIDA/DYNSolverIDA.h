@@ -109,9 +109,9 @@ class SolverIDA : public Solver::Impl {
   void calculateIC();
 
   /**
-   * @copydoc Solver::Impl::getLastConf(int64_t &nst, int & kused, double & hused)
+   * @copydoc Solver::Impl::getLastConf(long int &nst, int & kused, double & hused)
    */
-  void getLastConf(int64_t &nst, int & kused, double & hused);
+  void getLastConf(long int &nst, int & kused, double & hused);
 
   /**
    * @brief print a summary of the execution statistics of the solver

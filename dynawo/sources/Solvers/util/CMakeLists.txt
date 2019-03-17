@@ -37,9 +37,8 @@ TARGET_LINK_LIBRARIES(dumpSolver
                       dynawo_SolverCommon
                       dynawo_SolverKINSOL
                       dynawo_API_TL
-                      "-Wl,--whole-archive"
+                      "-force_load"
                       dynawo_Util
-                      "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       pthread
                       ${Boost_THREAD_LIBRARY}

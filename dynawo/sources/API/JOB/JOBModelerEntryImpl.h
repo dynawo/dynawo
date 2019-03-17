@@ -41,7 +41,7 @@ class ModelerEntry::Impl : public ModelerEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc ModelerEntry::setPreCompiledModelsDirEntry()

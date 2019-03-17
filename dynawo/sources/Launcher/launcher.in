@@ -133,7 +133,7 @@ VALGRIND_MASSIF)
   RETURN_CODE=$?
   ;;
 GDB)
-  gdb -q --args ${DYNAWO} ${ARGS}
+  lldb -- ${DYNAWO} ${ARGS}
   RETURN_CODE=$?
   ;;
 DYDLIBGENERATOR)

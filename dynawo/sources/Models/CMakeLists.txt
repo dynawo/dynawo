@@ -57,7 +57,7 @@ ADD_CUSTOM_TARGET (EXTERNAL_VARIABLES_FLATTENING
 
 #
 # Target used to install Modelica preassembled models files in ddbdir
-# (.so and .desc.xml)
+# (.dylib and .desc.xml)
 #
 ADD_CUSTOM_TARGET(PREASSEMBLED_MODEL_FILES_INSTALL
                   COMMENT "Installing preassembled models"
@@ -65,7 +65,7 @@ ADD_CUSTOM_TARGET(PREASSEMBLED_MODEL_FILES_INSTALL
 
 #
 # Target used to install C++ models files in ddbdir
-# (.so and .desc.xml)
+# (.dylib and .desc.xml)
 #
 ADD_CUSTOM_TARGET(CPP_FILES_INSTALL
                   COMMENT "Installing C++ models"
@@ -135,7 +135,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     # Generates .dep file for the preassembled model
     #
 #    ADD_CUSTOM_TARGET(${MODEL_NAME}_DEPCHECKER
-#                       COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/depChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} ${MODEL_NAME}.dep
+#                       COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/depChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} ${MODEL_NAME}.dep
 #                       COMMENT "Checking ${MODEL_NAME} dependencies"
 #                      )
 
@@ -151,7 +151,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     # Builds the preassembled model if .dep file shows
     # it has been modified
     #
-    ADD_CUSTOM_COMMAND(OUTPUT ${MODEL_NAME}.so
+    ADD_CUSTOM_COMMAND(OUTPUT ${MODEL_NAME}.dylib
                        DEPENDS
                            ${PREASSEMBLED_MODEL}
 #                           ${MODEL_NAME}_DEPCHECKER
@@ -160,7 +160,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
                            MODEL_FILES_INSTALL
                            EXTERNAL_VARIABLES_FLATTENING
                        COMMAND
-                           ${CMAKE_CURRENT_SOURCE_DIR}/buildChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} > ${MODEL_NAME}.log 2>&1 ||
+                           python ${CMAKE_CURRENT_SOURCE_DIR}/buildChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} > ${MODEL_NAME}.log 2>&1 ||
                            (echo "*** [${MODEL_NAME}] Error : for more information see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
                        COMMAND
                            ${bindir}/launcher --dydlib --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} --remove-model-files true >> ${MODEL_NAME}.log 2>&1 ||
@@ -172,10 +172,10 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     # Generates .desc.xml file for the preassembled model
     #
     ADD_CUSTOM_COMMAND(OUTPUT ${MODEL_NAME}.desc.xml
-                       DEPENDS ${MODEL_NAME}.so dumpModel
+                       DEPENDS ${MODEL_NAME}.dylib dumpModel
                        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
                        COMMAND
-                           dumpModel ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.so ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.desc.xml \;
+                           ${bindir}/launcher --dump-model ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.dylib ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.desc.xml \;
                        COMMENT "Generating ${MODEL_NAME} description file"
                       )
 
@@ -185,18 +185,18 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     ADD_CUSTOM_TARGET(${MODEL_NAME}
                       DEPENDS
 #                          ${MODEL_NAME}.dep
-                          ${MODEL_NAME}.so
+                          ${MODEL_NAME}.dylib
                           ${MODEL_NAME}.desc.xml
                           ${MODEL_NAME}.extvar
                           CREATE_DDBDIR
                       COMMAND
-                        ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.so ${ddbdir}/${MODEL_NAME}.so \;
+                        ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.dylib ${ddbdir}/${MODEL_NAME}.dylib \;
                         ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.desc.xml ${ddbdir}/${MODEL_NAME}.desc.xml
                      )
 
     ADD_CUSTOM_TARGET(${MODEL_NAME}.extvar
                       DEPENDS
-                          ${MODEL_NAME}.so
+                          ${MODEL_NAME}.dylib
                           CREATE_DDBDIR
                       COMMAND
                         test ! -e ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.extvar || cp ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.extvar ${ddbdir}/${MODEL_NAME}.extvar
@@ -234,7 +234,14 @@ MACRO(COMPILE_CPP_MODEL
 
     TARGET_LINK_LIBRARIES(${CPP_MODEL}
                           ${CPP_LINKED_LIBRARIES}
+                          ${Boost_ATOMIC_LIBRARY}
+                          ${Boost_DATE_TIME_LIBRARY}
+                          ${Boost_REGEX_LIBRARY}
+                          ${Boost_CHRONO_LIBRARY}
                          )
+    IF(LIBRARY_TYPE STREQUAL "STATIC")
+      TARGET_LINK_LIBRARIES(${CPP_MODEL} "-flat_namespace -undefined warning")
+    ENDIF()
 
     IF(LIBRARY_TYPE STREQUAL "SHARED")
       TARGET_LINK_LIBRARIES(${CPP_MODEL} dynawo_Util)
@@ -243,7 +250,7 @@ MACRO(COMPILE_CPP_MODEL
     ADD_CUSTOM_COMMAND(OUTPUT ${CPP_MODEL}.desc.xml
                        DEPENDS ${CPP_MODEL} dumpModel
                        COMMAND
-                           dumpModel ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.so ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml \;
+                           ${bindir}/launcher --dump-model ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.dylib ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml \;
                        COMMENT "Building ${CPP_MODEL} description file"
                       )
 
@@ -253,7 +260,7 @@ MACRO(COMPILE_CPP_MODEL
                           ${CPP_MODEL}.desc.xml
                           CREATE_DDBDIR
                       COMMAND
-                          ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.so ${ddbdir}/${CPP_MODEL}.so \;
+                          ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.dylib ${ddbdir}/${CPP_MODEL}.dylib \;
                           ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml ${ddbdir}/${CPP_MODEL}.desc.xml
                      )
 

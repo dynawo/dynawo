@@ -46,17 +46,17 @@ endif()
 
 if(LibXML_SAX_BUILD_PARSER)
   # add_executable(sampleParser sampleParser.cpp sampleXmlHandler.cpp)
-  # target_link_libraries(sampleParser XMLSAXParser)
+  # target_link_libraries(sampleParser XMLSAXParser "-framework CoreFoundation -framework CoreServices")
 
   add_executable(sampleChainHandler sampleChainHandler.cpp)
-  target_link_libraries(sampleChainHandler XMLSAXParser${LINK_SUFFIX_TEST} pthread)
+  target_link_libraries(sampleChainHandler XMLSAXParser${LINK_SUFFIX_TEST} pthread "-framework CoreFoundation -framework CoreServices")
 
   add_executable(sampleChainHandler-boost sampleChainHandler-boost.cpp)
-  target_link_libraries(sampleChainHandler-boost XMLSAXParser${LINK_SUFFIX_TEST} pthread)
+  target_link_libraries(sampleChainHandler-boost XMLSAXParser${LINK_SUFFIX_TEST} pthread "-framework CoreFoundation -framework CoreServices")
 
   if(COMPILER_SUPPORTS_CXX11 OR COMPILER_SUPPORTS_CXX14)
     add_executable(sampleChainHandler-c11 sampleChainHandler-c11.cpp)
-    target_link_libraries(sampleChainHandler-c11 XMLSAXParser${LINK_SUFFIX_TEST} pthread)
+    target_link_libraries(sampleChainHandler-c11 XMLSAXParser${LINK_SUFFIX_TEST} pthread "-framework CoreFoundation -framework CoreServices")
   endif()
 
 endif()

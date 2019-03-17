@@ -62,7 +62,7 @@ download_adept() {
   cd $SCRIPT_DIR
   if [ ! -f "${ADEPT_ARCHIVE}" ]; then
     if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${ADEPT_DOWNLOAD_URL}/${ADEPT_ARCHIVE} || error_exit "Error while downloading Adept."
+      wget --no-check-certificate --timeout 10 --tries 3 ${ADEPT_DOWNLOAD_URL}/${ADEPT_ARCHIVE} || error_exit "Error while downloading Adept."
     elif [ -x "$(command -v curl)" ]; then
       curl --connect-timeout 10 --retry 2 ${ADEPT_DOWNLOAD_URL}/${ADEPT_ARCHIVE} --output ${ADEPT_ARCHIVE} || error_exit "Error while downloading Adept."
     else

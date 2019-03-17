@@ -56,7 +56,7 @@ download_suitesparse() {
   cd $SCRIPT_DIR
   if [ ! -f "${SUITE_SPARSE_ARCHIVE}" ]; then
     if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${SUITE_SPARSE_DOWNLOAD_URL}/${SUITE_SPARSE_ARCHIVE} || error_exit "Error while downloading SuiteSparse."
+      wget --no-check-certificate --timeout 10 --tries 3 ${SUITE_SPARSE_DOWNLOAD_URL}/${SUITE_SPARSE_ARCHIVE} || error_exit "Error while downloading SuiteSparse."
     elif [ -x "$(command -v curl)" ]; then
       curl --connect-timeout 10 --retry 2 ${SUITE_SPARSE_DOWNLOAD_URL}/${SUITE_SPARSE_ARCHIVE} --output ${SUITE_SPARSE_ARCHIVE} || error_exit "Error while downloading SuiteSparse."
     else

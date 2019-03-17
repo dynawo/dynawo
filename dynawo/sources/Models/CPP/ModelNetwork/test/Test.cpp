@@ -68,7 +68,7 @@ namespace DYN {
 shared_ptr<SubModel>
 initializeModelNetwork(shared_ptr<DataInterface> data) {
   shared_ptr<SubModel> modelNetwork;
-  modelNetwork.reset(SubModelFactory::createSubModelFromLib("../DYNModelNetwork.so"));
+  modelNetwork.reset(SubModelFactory::createSubModelFromLib("../DYNModelNetwork.dylib"));
   modelNetwork->initFromData(data);
   data->setModelNetwork(modelNetwork);
   modelNetwork->name("NETWORK");

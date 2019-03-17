@@ -33,14 +33,18 @@ TARGET_LINK_LIBRARIES(dumpModel
                       dynawo_DataInterface
                       dynawo_SolverCommon
                       dynawo_SolverSubModel
-                      "-Wl,--whole-archive"
+                      "-force_load"
                       dynawo_Util
-                      "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       pthread
                       ${Boost_THREAD_LIBRARY}
                       "-rdynamic"
                       )
+
+if (APPLE)
+  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
+  set_target_properties(dumpModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
+endif()
 
 INSTALL(TARGETS dumpModel DESTINATION ${sbindir})
 
@@ -67,9 +71,8 @@ TARGET_LINK_LIBRARIES(dydLibGenerator
                       dynawo_Common
                       dynawo_ModelerCommon
                       dynawo_API_EXTVAR
-                      "-Wl,--whole-archive"
+                      "-force_load"
                       dynawo_Util
-                      "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       pthread
                       ${Boost_THREAD_LIBRARY}
@@ -77,7 +80,13 @@ TARGET_LINK_LIBRARIES(dydLibGenerator
                       ${Boost_LOG_LIBRARY}
                       ${Boost_SYSTEM_LIBRARY}
                       "-rdynamic"
+                      "-framework CoreFoundation -framework CoreServices"
                      )
 SET_TARGET_PROPERTIES(dydLibGenerator PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
+
+if (APPLE)
+  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
+  set_target_properties(dydLibGenerator PROPERTIES INSTALL_RPATH "@loader_path/../lib")
+endif()
 
 INSTALL(TARGETS dydLibGenerator DESTINATION ${sbindir})

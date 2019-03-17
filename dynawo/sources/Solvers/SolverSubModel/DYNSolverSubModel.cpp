@@ -376,7 +376,7 @@ SolverSubModel::solve() {
     analyseFlag(flag);
     throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
   }
-  int64_t nfevals;
+  long int nfevals;
   int flag1 = KINGetNumFuncEvals(KINMem_, &nfevals);
   if (flag1 < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINGetNumFuncEvals");

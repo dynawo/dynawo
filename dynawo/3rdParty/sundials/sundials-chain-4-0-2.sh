@@ -55,7 +55,7 @@ download_sundials() {
   cd $SCRIPT_DIR
   if [ ! -f "${SUNDIALS_ARCHIVE}" ]; then
     if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${SUNDIALS_DOWNLOAD_URL}/${SUNDIALS_ARCHIVE} || error_exit "Error while downloading Sundials"
+      wget --no-check-certificate --timeout 10 --tries 3 ${SUNDIALS_DOWNLOAD_URL}/${SUNDIALS_ARCHIVE} || error_exit "Error while downloading Sundials"
     elif [ -x "$(command -v curl)" ]; then
       curl --connect-timeout 10 --retry 2 ${SUNDIALS_DOWNLOAD_URL}/${SUNDIALS_ARCHIVE} --output ${SUNDIALS_ARCHIVE} || error_exit "Error while downloading Sundials"
     else

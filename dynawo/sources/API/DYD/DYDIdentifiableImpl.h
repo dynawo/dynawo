@@ -42,7 +42,7 @@ class Identifiable::Impl : public Identifiable {
   /**
    *  @brief destructor
    */
-  ~Impl() { }
+  virtual ~Impl() { }
 
   /**
    * @brief get the id of the identifiable

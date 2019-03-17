@@ -304,7 +304,7 @@ create_omc_dynawo() {
   launch_command ${cmd1}
 
   cmd1="${MAKE} -j${NB_PROCESSORS_USED} clean"
-  launch_command ${cmd1}
+  #launch_command ${cmd1}
 
   cmd1="${MAKE} -j${NB_PROCESSORS_USED} omc"
   launch_command ${cmd1}
@@ -431,6 +431,12 @@ save_original_files
 # 4- Apply modifications with respect to resource files
 #-------------------------------------------------------
 update_sources
+
+sed -i 's/libstdc++/libc++/' OMCompiler/configure.ac
+sed -i 's/disable-gcj-support/disable-gcj-support --enable-static/' OMCompiler/Makefile.common
+sed -i '99d' Makefile.in
+sed -i '114d' Makefile.in
+sed -i '155 s#$# CXX="/usr/bin/clang++"#' OMCompiler/Makefile.common
 
 #---------------------------
 # 5- OMC binary creation

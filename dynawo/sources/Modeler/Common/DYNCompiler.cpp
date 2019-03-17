@@ -150,7 +150,7 @@ Compiler::getDDB() {
   // look for standard precompiled models
   if (useStandardPrecompiledModels_) {
     Trace::info("COMPILE") << DYNLog(DDBDir, DDBDir) << Trace::endline;
-    searchFilesAccordingToExtension(DDBDir, ".so", noFileExtensionsForbidden, searchInSubDirsStandardModels, libraryFiles);
+    searchFilesAccordingToExtension(DDBDir, ".dylib", noFileExtensionsForbidden, searchInSubDirsStandardModels, libraryFiles);
   }
 
   for (vector<UserDefinedDirectory>::const_iterator itDir = precompiledModelsDirsPaths_.begin(); itDir != precompiledModelsDirsPaths_.end(); ++itDir) {
@@ -294,13 +294,13 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
     modelDescription->hasCompiledModel(true);
     modelDescription->setCompiledModelId(modelDescription->getID());
     shared_ptr<dynamicdata::ModelTemplate> modelicaModel = dynamic_pointer_cast<dynamicdata::ModelTemplate> (modelDescription->getModel());
-    libName = modelicaModel->getId() + ".so";
+    libName = modelicaModel->getId() + ".dylib";
     unitDynamicModels = modelicaModel->getUnitDynamicModels();
     modelID = modelicaModel->getId();
   } else {
     // compile(modelicaModel) compile the modelica model already mapped;
     shared_ptr<dynamicdata::ModelicaModel> modelicaModel = dynamic_pointer_cast<dynamicdata::ModelicaModel> (modelDescription->getModel());
-    libName = modelicaModel->getId() + ".so";
+    libName = modelicaModel->getId() + ".dylib";
     unitDynamicModels = modelicaModel->getUnitDynamicModels();
     modelID = modelicaModel->getId();
   }

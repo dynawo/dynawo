@@ -735,7 +735,7 @@ ModelLoad::getY0() {
 }
 
 void
-ModelLoad::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params) {
+ModelLoad::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   // All the parameters could be non generic ones
   vector<string> ids;
   ids.push_back(id_);

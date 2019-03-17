@@ -793,7 +793,7 @@ SolverIDA::getRootsFound() const {
 }
 
 void
-SolverIDA::getLastConf(int64_t &nst, int & kused, double & hused) {
+SolverIDA::getLastConf(long int &nst, int & kused, double & hused) {
   // number of used intern iterations
   if (IDAGetNumSteps(IDAMem_, &nst) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumSteps");
@@ -811,31 +811,31 @@ SolverIDA::getLastConf(int64_t &nst, int & kused, double & hused) {
 void
 SolverIDA::updateStatistics() {
   // statistics gathering
-  int64_t nst;
+  long int nst;
   if (IDAGetNumSteps(IDAMem_, &nst) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumSteps");
 
-  int64_t nre;
+  long int nre;
   if (IDAGetNumResEvals(IDAMem_, &nre) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumResEvals");
 
-  int64_t nje;
+  long int nje;
   if (IDAGetNumJacEvals(IDAMem_, &nje) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASlsGetNumJacEvals");
 
-  int64_t nni;
+  long int nni;
   if (IDAGetNumNonlinSolvIters(IDAMem_, &nni) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumNonlinSolvIters");
 
-  int64_t netf;
+  long int netf;
   if (IDAGetNumErrTestFails(IDAMem_, &netf) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumErrTestFails");
 
-  int64_t ncfn;
+  long int ncfn;
   if (IDAGetNumNonlinSolvConvFails(IDAMem_, &ncfn) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumNonlinSolvConvFails");
 
-  int64_t nge;
+  long int nge;
   if (IDAGetNumGEvals(IDAMem_, &nge) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumGEvals");
 

@@ -74,6 +74,7 @@ foreach(TEST IN LISTS PARSER_TESTS)
     XMLSAXParser${LINK_SUFFIX_TEST}
     ${GTEST_BOTH_LIBRARIES}
     pthread
+    "-framework CoreFoundation -framework CoreServices"
   )
 
   add_custom_target(test-${TEST}

@@ -249,7 +249,7 @@ ModelShuntCompensator::isAvailable(const double& t) const {
 }
 
 void
-ModelShuntCompensator::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params) {
+ModelShuntCompensator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   try {
     switch (type_) {
       case CAPACITOR: {

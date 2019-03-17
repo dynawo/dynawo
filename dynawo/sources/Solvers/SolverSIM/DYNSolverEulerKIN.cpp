@@ -258,7 +258,7 @@ SolverEulerKIN::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   }
   double weightedInfNorm = weightedInfinityNorm(solv->F_, solv->vFscale_);
   double wL2Norm = weightedL2Norm(solv->F_, solv->vFscale_);
-  int64_t current_nni = 0;
+  long int current_nni = 0;
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 #endif
@@ -484,7 +484,7 @@ SolverEulerKIN::errHandlerFn(int /*error_code*/, const char* /*module*/, const c
 }
 
 void
-SolverEulerKIN::updateStatistics(int64_t& nni, int64_t& nre, int64_t& nje) {
+SolverEulerKIN::updateStatistics(long int& nni, long int& nre, long int& nje) {
   KINGetNumNonlinSolvIters(KINMem_, &nni);
   KINGetNumFuncEvals(KINMem_, &nre);
   KINGetNumJacEvals(KINMem_, &nje);

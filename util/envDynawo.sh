@@ -397,7 +397,7 @@ set_cpplint() {
 
   if [ ! -f "$CPPLINT_DIR/$CPPLINT_FILE" ]; then
     if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} -P "$CPPLINT_DIR" || error_exit "Error while downloading cpplint."
+      wget --no-check-certificate --timeout 10 --tries 3 ${CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} -P "$CPPLINT_DIR" || error_exit "Error while downloading cpplint."
     elif [ -x "$(command -v curl)" ]; then
       curl -L --connect-timeout 10 --retry 2 ${CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} --output "$CPPLINT_DIR/$CPPLINT_ARCHIVE" || error_exit "Error while downloading cpplint."
     else
@@ -863,7 +863,7 @@ install_jquery() {
   if [ ! -f "$DYNAWO_HOME/util/curvesToHtml/resources/jquery.js" ]; then
     if [ ! -f "$JQUERY_BUILD_DIR/${JQUERY_ARCHIVE}" ]; then
       if [ -x "$(command -v wget)" ]; then
-        wget --timeout 10 --tries 3 ${JQUERY_DOWNLOAD_URL}/${JQUERY_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Jquery."
+        wget --no-check-certificate --timeout 10 --tries 3 ${JQUERY_DOWNLOAD_URL}/${JQUERY_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Jquery."
       elif [ -x "$(command -v curl)" ]; then
         curl -L --connect-timeout 10 --retry 2 ${JQUERY_DOWNLOAD_URL}/${JQUERY_ARCHIVE} -o $JQUERY_BUILD_DIR/${JQUERY_ARCHIVE} || error_exit "Error while downloading Jquery."
       else
@@ -885,7 +885,7 @@ install_jquery() {
     if [ ! -f "$DYNAWO_HOME/util/curvesToHtml/resources/$file" ]; then
       if [ ! -f "$JQUERY_BUILD_DIR/${FLOT_ARCHIVE}" ]; then
         if [ -x "$(command -v wget)" ]; then
-          wget --timeout 10 --tries 3 ${FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Flot."
+          wget --no-check-certificate --timeout 10 --tries 3 ${FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Flot."
         elif [ -x "$(command -v curl)" ]; then
           curl --connect-timeout 10 --retry 2 ${FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} --output $JQUERY_BUILD_DIR/${FLOT_ARCHIVE} || error_exit "Error while downloading Flot."
         else
