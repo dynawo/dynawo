@@ -131,7 +131,7 @@ partial model BaseTransformerVariableTap_INIT "Base model for initialization of 
 
     Integer Tap0 "Start value of transformer tap";
     SIunits.PerUnit rTfo0Pu "Start value of transformer ratio";
-    Constants.state state0 = Constants.state.CLOSED "Start value of connection state";
+    Constants.state state0 = Constants.state.Closed "Start value of connection state";
 
 equation
 

@@ -18,9 +18,9 @@ package BaseClasses
 partial model BaseGeneratorSimplified "Base model for simplified generator models"
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
-  
+
   extends SwitchOff.SwitchOffGenerator;
-  
+
   public
     Connectors.ACPower terminal (V (re (start = u0Pu.re), im (start = u0Pu.im)), i (re (start = i0Pu.re), im (start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid";
 
@@ -36,7 +36,7 @@ partial model BaseGeneratorSimplified "Base model for simplified generator model
     Types.AC.ApparentPower SGenPu (re (start = PGen0Pu), im (start = QGen0Pu)) "Complex apparent power at terminal in p.u (base SnRef) (generator convention)";
     Types.AC.ActivePower PGenPu (start = PGen0Pu) "Active power at terminal in p.u (base SnRef) (generator convention)";
     Types.AC.ReactivePower QGenPu (start = QGen0Pu) "Reactive power at terminal in p.u (base SnRef) (generator convention)";
-    Types.AC.VoltageModule UPu (start = U0Pu) "Voltage amplitude at terminal in p.u (base UNom)"; 
+    Types.AC.VoltageModule UPu (start = U0Pu) "Voltage amplitude at terminal in p.u (base UNom)";
 
 equation
 
@@ -51,15 +51,15 @@ partial model BaseGeneratorSimplifiedPFBehavior "Base model for generator active
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  public 
+  public
 
-    type PStatus = enumeration (standard "Active power is modulated by the frequency deviation", 
-                                limitPMin "Active power is fixed to its minimum value", 
-                                limitPMax "Active power is fixed to its maximum value");
+    type PStatus = enumeration (Standard "Active power is modulated by the frequency deviation",
+                                LimitPMin "Active power is fixed to its minimum value",
+                                LimitPMax "Active power is fixed to its maximum value");
 
     Connectors.ImPin omegaRefPu "Network angular reference frequency in p.u (base OmegaNom)";
 
-    parameter Types.AC.ActivePower PMinPu "Minimum active power in p.u (base SnRef)"; 
+    parameter Types.AC.ActivePower PMinPu "Minimum active power in p.u (base SnRef)";
     parameter Types.AC.ActivePower PMaxPu "Maximum active power in p.u (base SnRef)";
     parameter SIunits.PerUnit AlphaPu "Frequency sensitivity in p.u (base SnRef, OmegaNom)";
 
@@ -67,27 +67,27 @@ partial model BaseGeneratorSimplifiedPFBehavior "Base model for generator active
 
     Types.AC.ActivePower PGenRawPu (start = PGen0Pu) "Active power generation without taking limits into account in p.u (base SnRef) (generator convention)";
 
-    PStatus pStatus (start = PStatus.standard) "Status of the power / frequency regulation function";
+    PStatus pStatus (start = PStatus.Standard) "Status of the power / frequency regulation function";
 
 equation
 
-  when PGenRawPu >= PMaxPu and pre(pStatus) <> PStatus.limitPMax then
-    pStatus = PStatus.limitPMax;
+  when PGenRawPu >= PMaxPu and pre(pStatus) <> PStatus.LimitPMax then
+    pStatus = PStatus.LimitPMax;
     Timeline.logEvent1(TimelineKeys.ActivatePMAX);
-  elsewhen PGenRawPu <= PMinPu and pre(pStatus) <> PStatus.limitPMin then
-    pStatus = PStatus.limitPMin;
+  elsewhen PGenRawPu <= PMinPu and pre(pStatus) <> PStatus.LimitPMin then
+    pStatus = PStatus.LimitPMin;
     Timeline.logEvent1(TimelineKeys.ActivatePMIN);
-  elsewhen PGenRawPu > PMinPu and pre(pStatus) == PStatus.limitPMin then
-    pStatus = PStatus.standard;
+  elsewhen PGenRawPu > PMinPu and pre(pStatus) == PStatus.LimitPMin then
+    pStatus = PStatus.Standard;
     Timeline.logEvent1(TimelineKeys.DeactivatePMIN);
-  elsewhen PGenRawPu < PMaxPu and pre(pStatus) == PStatus.limitPMax then
-    pStatus = PStatus.standard;
+  elsewhen PGenRawPu < PMaxPu and pre(pStatus) == PStatus.LimitPMax then
+    pStatus = PStatus.Standard;
     Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
   end when;
 
   if running.value then
     PGenRawPu = PGen0Pu + AlphaPu * (1 - omegaRefPu.value);
-    PGenPu = if pStatus == PStatus.limitPMax then PMaxPu else if pStatus == PStatus.limitPMin then PMinPu else PGenRawPu;
+    PGenPu = if pStatus == PStatus.LimitPMax then PMaxPu else if pStatus == PStatus.LimitPMin then PMinPu else PGenRawPu;
   else
     PGenRawPu = 0;
     PGenPu = 0;
@@ -116,7 +116,7 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
     parameter SIunits.Time H "Kinetic constant = kinetic energy / rated power";
     parameter SIunits.PerUnit DPu "Damping coefficient of the swing equation in p.u.";
 
-    // Transformer input parameters 
+    // Transformer input parameters
     parameter Types.AC.ApparentPowerModule SnTfo "Nominal apparent power of the generator transformer in MVA";
     parameter Types.AC.VoltageModule UNomHV "Nominal voltage on the network side of the transformer in kV";
     parameter Types.AC.VoltageModule UNomLV "Nominal voltage on the generator side of the transformer in kV";
@@ -130,7 +130,7 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
     // Transformer internal parameters
     final parameter SIunits.PerUnit RTfoPu = RTfPu * (UNomHV / UBaseHV) ^ 2 * (SNom / SnTfo) "Resistance of the generator transformer in p.u (base SNom, UNom)";
     final parameter SIunits.PerUnit XTfoPu = XTfPu * (UNomHV / UBaseHV) ^ 2 * (SNom / SnTfo) "Reactance of the generator transformer in p.u (base SNom, UNom)";
-    final parameter SIunits.PerUnit rTfoPu = if (RTfPu > 0.0) or (XTfPu > 0.0) then (UNomHV / UBaseHV) / (UNomLV / UBaseLV) 
+    final parameter SIunits.PerUnit rTfoPu = if (RTfPu > 0.0) or (XTfPu > 0.0) then (UNomHV / UBaseHV) / (UNomLV / UBaseLV)
                                                   else 1.0 "Ratio of the generator transformer in p.u (base UBaseHV, UBaseLV)";
 
 end GeneratorSynchronousParameters;
@@ -201,7 +201,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     parameter SIunits.PerUnit Lambdaf0Pu "Start value of flux of excitation winding";
     parameter SIunits.PerUnit LambdaQ10Pu "Start value of flux of quadrature axis 1st damper";
     parameter SIunits.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
-    
+
     parameter SIunits.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/OmegaNom)";
     parameter SIunits.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNom/OmegaNom)";
     parameter SIunits.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNom/OmegaNom)";
@@ -211,22 +211,22 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     SIunits.PerUnit uqPu(start = Uq0Pu) "Voltage of quadrature axis in p.u";
     SIunits.PerUnit idPu(start = Id0Pu) "Current of direct axis in p.u";
     SIunits.PerUnit iqPu(start = Iq0Pu) "Current of quadrature axis in p.u";
-    
+
     SIunits.PerUnit iDPu(start = 0) "Current of direct axis damper in p.u";
     SIunits.PerUnit iQ1Pu(start = 0) "Current of quadrature axis 1st damper in p.u";
     SIunits.PerUnit iQ2Pu(start = 0) "Current of quadrature axis 2nd damper in p.u";
     SIunits.PerUnit ifPu(start = If0Pu) "Current of excitation winding in p.u";
     SIunits.PerUnit ufPu(start = Uf0Pu) "Voltage of exciter winding in p.u (base voltage as per Kundur)";
-    
+
     SIunits.PerUnit lambdadPu(start = Lambdad0Pu) "Flux of direct axis in p.u";
     SIunits.PerUnit lambdaqPu(start = Lambdaq0Pu) "Flux of quadrature axis in p.u";
     SIunits.PerUnit lambdaDPu(start = LambdaD0Pu) "Flux of direct axis damper in p.u";
     SIunits.PerUnit lambdafPu(start = Lambdaf0Pu) "Flux of excitation winding in p.u";
     SIunits.PerUnit lambdaQ1Pu(start = LambdaQ10Pu) "Flux of quadrature axis 1st damper in p.u";
     SIunits.PerUnit lambdaQ2Pu(start = LambdaQ20Pu) "Flux of quadrature axis 2nd damper in p.u";
-    
+
     // Other variables
-    SIunits.Angle theta(start = Theta0) "Rotor angle: angle between machine rotor frame and port phasor frame";  
+    SIunits.Angle theta(start = Theta0) "Rotor angle: angle between machine rotor frame and port phasor frame";
     SIunits.PerUnit cmPu(start = Cm0Pu) "Mechanical torque in p.u (base PNom/OmegaNom)";
     SIunits.PerUnit cePu(start = Ce0Pu) "Electrical torque in p.u (base SNom/OmegaNom)";
     SIunits.PerUnit PePu(start = Ce0Pu*SystemBase.omega0Pu) "Electrical active power in p.u (base SNom)";

@@ -27,9 +27,9 @@ model GeneratorPV "Generator with power / frequency modulation and voltage / rea
 
   public
 
-    type QStatus = enumeration (standard "Reactive power is fixed to its initial value",
-                                absorptionMax "Reactive power is fixed to its absorption limit",
-                                generationMax "Reactive power is fixed to its generation limit");
+    type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
+                                AbsorptionMax "Reactive power is fixed to its absorption limit",
+                                GenerationMax "Reactive power is fixed to its generation limit");
 
     Connectors.ZPin URefPu (value = URef0Pu) "Voltage regulation set point in p.u (base UNom)";
 
@@ -43,25 +43,25 @@ model GeneratorPV "Generator with power / frequency modulation and voltage / rea
 
     Types.AC.ReactivePower QGenRefPu (start = QGen0Pu) "Reactive power set point in p.u (base SnRef)";
 
-    QStatus qStatus (start = QStatus.standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+    QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 
 equation
 
   URefPu.value = UPu + LambdaPu * QGenRefPu;
 
-  when QGenRefPu >= QMaxPu and pre(qStatus) <> QStatus.absorptionMax then
-    qStatus = QStatus.absorptionMax;
+  when QGenRefPu >= QMaxPu and pre(qStatus) <> QStatus.AbsorptionMax then
+    qStatus = QStatus.AbsorptionMax;
     Timeline.logEvent1(TimelineKeys.GeneratorPVMaxQ);
-  elsewhen QGenRefPu <= QMinPu and pre(qStatus) <> QStatus.generationMax then
-    qStatus = QStatus.generationMax;
+  elsewhen QGenRefPu <= QMinPu and pre(qStatus) <> QStatus.GenerationMax then
+    qStatus = QStatus.GenerationMax;
     Timeline.logEvent1(TimelineKeys.GeneratorPVMinQ);
-  elsewhen (QGenRefPu < QMaxPu and pre(qStatus) == QStatus.absorptionMax) or (QGenRefPu > QMinPu and pre(qStatus) == QStatus.generationMax) then
-    qStatus = QStatus.standard;
+  elsewhen (QGenRefPu < QMaxPu and pre(qStatus) == QStatus.AbsorptionMax) or (QGenRefPu > QMinPu and pre(qStatus) == QStatus.GenerationMax) then
+    qStatus = QStatus.Standard;
     Timeline.logEvent1(TimelineKeys.GeneratorPVBackRegulation);
   end when;
 
   if running.value then
-    QGenPu = if pre(qStatus) == QStatus.absorptionMax then QMaxPu else if pre(qStatus) == QStatus.generationMax then QMinPu else QGenRefPu;
+    QGenPu = if pre(qStatus) == QStatus.AbsorptionMax then QMaxPu else if pre(qStatus) == QStatus.GenerationMax then QMinPu else QGenRefPu;
   else
     QGenPu = 0;
   end if;

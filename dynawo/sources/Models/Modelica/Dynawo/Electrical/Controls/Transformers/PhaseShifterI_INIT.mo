@@ -25,7 +25,7 @@ model PhaseShifterI_INIT "Initialisation model for a phase-shifter monitoring th
   protected
     parameter Real valueToMonitor0 = I0  "Initial monitored value";
     parameter Boolean increaseTapToIncreaseValue = (sign * increasePhase < 0) "Whether a tap increase will lead to an increase in the monitored value";
-    parameter TapChangerType tapChangerType0 = TapChangerType.phaseShifter;
+    parameter TapChangerType tapChangerType0 = TapChangerType.PhaseShifter;
 
 end PhaseShifterI_INIT;
 

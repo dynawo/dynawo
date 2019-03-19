@@ -17,21 +17,21 @@ package BaseClasses_INIT
 partial model BaseTapChangerPhaseShifter_INIT "Base initialization model for tap-changers and phase-shifters"
 
   public
-    type State = enumeration (moveDownN "1: phase shifter has decreased the next tap",
-                              moveDown1 "2: phase shifter has decreased the first tap",
-                              waitingToMoveDown "3: phase shifter is waiting to decrease the first tap",
-                              standard "4:phase shifter is in standard state with UThresholdDown <= UMonitored <= UThresholdUp",
-                              waitingToMoveUp "5: phase shifter is waiting to increase the first tap",
-                              moveUp1 "6: phase shifter has increased the first tap",
-                              moveUpN "7: phase shifter has increased the next tap",
-                              locked "8: phase shifter locked");
+    type State = enumeration (MoveDownN "1: phase shifter has decreased the next tap",
+                              MoveDown1 "2: phase shifter has decreased the first tap",
+                              WaitingToMoveDown "3: phase shifter is waiting to decrease the first tap",
+                              Standard "4:phase shifter is in Standard state with UThresholdDown <= UMonitored <= UThresholdUp",
+                              WaitingToMoveUp "5: phase shifter is waiting to increase the first tap",
+                              MoveUp1 "6: phase shifter has increased the first tap",
+                              MoveUpN "7: phase shifter has increased the next tap",
+                              Locked "8: phase shifter locked");
 
     parameter Real valueMax  "Threshold above which the phase-shifter will take action";
     parameter Boolean regulating0 "Whether the phase-shifter is initially regulating";
 
   protected
-    type TapChangerType = enumeration ( undefined "1: undefined", tapChanger "2: tap-changer", phaseShifter "3: phase-shifter");
-    parameter TapChangerType tapChangerType( start = TapChangerType.undefined );
+    type TapChangerType = enumeration ( Undefined "1: undefined", TapChanger "2: tap-changer", PhaseShifter "3: phase-shifter");
+    parameter TapChangerType tapChangerType( start = TapChangerType.Undefined );
     parameter Boolean locked0 = not regulating0 "Whether the phase-shifter is initially locked";
     Boolean lookingToIncreaseTap "True if the phase shifter wants to increase tap";
     Boolean lookingToDecreaseTap "True if the phase shifter wants to decrease tap";
@@ -53,13 +53,13 @@ partial model BaseTapChangerPhaseShifter_MAX_INIT "Base initialization model for
     lookingToIncreaseTap = valueToMonitor0 > valueMax and not(increaseTapToIncreaseValue);
 
     when locked0 then
-      state0 = State.locked;
+      state0 = State.Locked;
     elsewhen not(locked0) and valueToMonitor0 <= valueMax then
-      state0 = State.standard;
+      state0 = State.Standard;
     elsewhen not(locked0) and lookingToIncreaseTap then
-      state0 = State.waitingToMoveUp;
+      state0 = State.WaitingToMoveUp;
     elsewhen not(locked0) and lookingToDecreaseTap then
-      state0 = State.waitingToMoveDown;
+      state0 = State.WaitingToMoveDown;
     end when;
 
 end BaseTapChangerPhaseShifter_MAX_INIT;
@@ -77,13 +77,13 @@ partial model BaseTapChangerPhaseShifter_INTERVAL_INIT "Base initialisation mode
     lookingToIncreaseTap = (valueToMonitor0 < valueMin and increaseTapToIncreaseValue) or (valueToMonitor0 > valueMax and not(increaseTapToIncreaseValue));
 
     when locked0 then
-      state0 = State.locked;
+      state0 = State.Locked;
     elsewhen not(locked0) and valueToMonitor0 <= valueMax and valueToMonitor0 >= valueMin then
-      state0 = State.standard;
+      state0 = State.Standard;
     elsewhen not(locked0) and lookingToIncreaseTap then
-      state0 = State.waitingToMoveUp;
+      state0 = State.WaitingToMoveUp;
     elsewhen not(locked0) and lookingToDecreaseTap then
-      state0 = State.waitingToMoveDown;
+      state0 = State.WaitingToMoveDown;
     end when;
 
 end BaseTapChangerPhaseShifter_INTERVAL_INIT;
@@ -108,7 +108,7 @@ partial model BaseTapChanger_INIT "Base initialization model for tap-changers"
 
   protected
     parameter Boolean increaseTapToIncreaseValue = true "Whether a tap increase will lead to an increase in the monitored value";
-    parameter TapChangerType tapChangerType0 = TapChangerType.tapChanger;
+    parameter TapChangerType tapChangerType0 = TapChangerType.TapChanger;
 
 end BaseTapChanger_INIT;
 
