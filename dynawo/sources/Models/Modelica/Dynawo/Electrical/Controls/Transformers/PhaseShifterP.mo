@@ -19,7 +19,7 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
   extends SwitchOff.SwitchOffPhaseShifter;
   
   protected
-    parameter TapChangerType tapChangerType0 = TapChangerType.phaseShifter;
+    parameter TapChangerType tapChangerType0 = TapChangerType.PhaseShifter;
 
   public
     parameter Types.AC.ActivePower PTarget  "Target active power";

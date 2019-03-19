@@ -19,7 +19,7 @@ model PhaseShifterI "Phase-shifter monitoring the current so that it remains und
   extends SwitchOff.SwitchOffPhaseShifter;
   
   protected
-    parameter TapChangerType tapChangerType0 = TapChangerType.phaseShifter;
+    parameter TapChangerType tapChangerType0 = TapChangerType.PhaseShifter;
 
   public
     parameter Types.AC.CurrentModule iMax "Maximum allowed current";

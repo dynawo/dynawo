@@ -25,7 +25,7 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
 
     Connectors.ImPin UMonitored (value (start = U0)) "Initial voltage";
   protected
-    parameter TapChangerType tapChangerType0 = TapChangerType.tapChanger;
+    parameter TapChangerType tapChangerType0 = TapChangerType.TapChanger;
 
 equation
 

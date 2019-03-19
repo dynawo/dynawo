@@ -22,9 +22,9 @@ model GoverProportional "Keep the mechanical power as a constant modulated by th
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
   
-  type status = enumeration (standard "Active power is modulated by the frequency deviation",
-                             limitPMin "Active power is fixed to its minimum value",
-                             limitPMax "Active power is fixed to its maximum value");
+  type status = enumeration (Standard "Active power is modulated by the frequency deviation",
+                             LimitPMin "Active power is fixed to its minimum value",
+                             LimitPMax "Active power is fixed to its maximum value");
 
   //Input variables
   Connectors.ImPin omegaPu(value (start = SystemBase.omega0Pu)) "Angular frequency" annotation(
@@ -75,16 +75,16 @@ equation
     Line(points = {{-154, 0}, {-114, 0}, {-114, 0}, {-114, 0}}, color = {0, 0, 127}));
 
   when PmRawPu.y >= PMaxPu then
-    state = status.limitPMax;
+    state = status.LimitPMax;
     Timeline.logEvent1(TimelineKeys.ActivatePMAX);
   elsewhen PmRawPu.y <= PMinPu then
-    state = status.limitPMin;
+    state = status.LimitPMin;
     Timeline.logEvent1(TimelineKeys.ActivatePMIN);
-  elsewhen PmRawPu.y > PMinPu and PmRawPu.y < PMaxPu and pre(state) == status.limitPMin then
-    state = status.standard;
+  elsewhen PmRawPu.y > PMinPu and PmRawPu.y < PMaxPu and pre(state) == status.LimitPMin then
+    state = status.Standard;
     Timeline.logEvent1(TimelineKeys.DeactivatePMIN);
-  elsewhen PmRawPu.y > PMinPu and PmRawPu.y < PMaxPu and pre(state) == status.limitPMax then
-    state = status.standard;
+  elsewhen PmRawPu.y > PMinPu and PmRawPu.y < PMaxPu and pre(state) == status.LimitPMax then
+    state = status.Standard;
     Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
   end when;
   

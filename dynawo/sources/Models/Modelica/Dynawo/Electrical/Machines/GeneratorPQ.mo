@@ -26,9 +26,9 @@ model GeneratorPQ "Generator with power / frequency modulation and fixed reactiv
 
   public
 
-    type QStatus = enumeration (standard "Reactive power is fixed to its initial value",
-                                absorptionMax "Reactive power is fixed to its absorption limit",
-                                generationMax "Reactive power is fixed to its generation limit");
+    type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
+                                AbsorptionMax "Reactive power is fixed to its absorption limit",
+                                GenerationMax "Reactive power is fixed to its generation limit");
 
     parameter Types.AC.VoltageModule UMinPu "Minimum voltage in p.u (base UNom)";
     parameter Types.AC.VoltageModule UMaxPu "Maximum voltage in p.u (base UNom)";
@@ -39,23 +39,23 @@ model GeneratorPQ "Generator with power / frequency modulation and fixed reactiv
 
     constant Types.AC.VoltageModule UDeadBand = 1e-4 "Voltage dead-band";
 
-    QStatus qStatus (start = QStatus.standard) "Reactive power status: standard, absorptionMax or generationMax";
+    QStatus qStatus (start = QStatus.Standard) "Reactive power status: standard, absorptionMax or generationMax";
 
 equation
 
-  when UPu >= UMaxPu + UDeadBand and pre(qStatus) <> QStatus.absorptionMax then
-    qStatus = QStatus.absorptionMax;
+  when UPu >= UMaxPu + UDeadBand and pre(qStatus) <> QStatus.AbsorptionMax then
+    qStatus = QStatus.AbsorptionMax;
     Timeline.logEvent1(TimelineKeys.GeneratorPQMaxV);
-  elsewhen UPu <= UMinPu - UDeadBand and pre(qStatus) <> QStatus.generationMax then
-    qStatus = QStatus.generationMax;
+  elsewhen UPu <= UMinPu - UDeadBand and pre(qStatus) <> QStatus.GenerationMax then
+    qStatus = QStatus.GenerationMax;
     Timeline.logEvent1(TimelineKeys.GeneratorPQMinV);
-  elsewhen (UPu < UMaxPu - UDeadBand and pre(qStatus) == QStatus.absorptionMax) or (UPu > UMinPu + UDeadBand and pre(qStatus) == QStatus.generationMax) then
-    qStatus = QStatus.standard;
+  elsewhen (UPu < UMaxPu - UDeadBand and pre(qStatus) == QStatus.AbsorptionMax) or (UPu > UMinPu + UDeadBand and pre(qStatus) == QStatus.GenerationMax) then
+    qStatus = QStatus.Standard;
     Timeline.logEvent1(TimelineKeys.GeneratorPQBackRegulation);
   end when;
 
   if running.value then
-    QGenPu = if pre(qStatus) == QStatus.absorptionMax then QMaxPu else if pre(qStatus) == QStatus.generationMax then QMinPu else QGen0Pu;
+    QGenPu = if pre(qStatus) == QStatus.AbsorptionMax then QMaxPu else if pre(qStatus) == QStatus.GenerationMax then QMinPu else QGen0Pu;
   else
     QGenPu = 0;
   end if;

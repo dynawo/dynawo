@@ -61,12 +61,12 @@ partial model SwitchOffGenerator "Switch-off model for a generator"
     Constants.state state (start = State0) "Generator connection state";
     
   protected 
-    parameter Constants.state State0 = Constants.state.CLOSED " Start value of connection state"; 
+    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
   
   equation
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.GeneratorDisconnected);
-      state = Constants.state.OPEN;
+      state = Constants.state.Open;
     end when;
     
 end SwitchOffGenerator;
@@ -84,12 +84,12 @@ partial model SwitchOffLoad "Switch-off model for a load"
     Constants.state state (start = State0) "Load connection state";
     
   protected 
-    parameter Constants.state State0 = Constants.state.CLOSED " Start value of connection state"; 
+    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
   
   equation
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.LoadDisconnected);
-      state = Constants.state.OPEN;
+      state = Constants.state.Open;
     end when;
   
 end SwitchOffLoad;
@@ -134,12 +134,12 @@ partial model SwitchOffLine "Switch-off signal for a line"
     Constants.state state (start = State0) "Line connection state";
     
   protected 
-    parameter Constants.state State0 = Constants.state.CLOSED " Start value of connection state"; 
+    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
   
   equation
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.LineOpen);
-      state = Constants.state.OPEN;
+      state = Constants.state.Open;
     end when;
     
 end SwitchOffLine;
@@ -157,12 +157,12 @@ partial model SwitchOffTransformer "Switch-off signal for a transformer"
     Constants.state state (start = State0) "Load connection state";
     
   protected 
-    parameter Constants.state State0 = Constants.state.CLOSED " Start value of connection state"; 
+    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
   
   equation
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.TransformerSwitchOff);
-      state = Constants.state.OPEN;
+      state = Constants.state.Open;
     end when;
     
 end SwitchOffTransformer;
