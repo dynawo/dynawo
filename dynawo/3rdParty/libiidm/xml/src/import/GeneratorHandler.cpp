@@ -60,7 +60,7 @@ GeneratorHandler::GeneratorHandler(elementName_type const& root_element):
 {
   curve_handler.onEnd( make_setter(builder(), &builder_type::reactiveCapabilityCurve, curve_handler.curve) );
   onElement( root_element+iidm_ns("reactiveCapabilityCurve"), curve_handler );
-  
+
   limits_handler.onEnd( make_setter(builder(), &builder_type::minMaxReactiveLimits, limits_handler.limits) );
   onElement( root_element+iidm_ns("minMaxReactiveLimits"), limits_handler );
 
@@ -76,7 +76,7 @@ void GeneratorHandler::set_regulatingTerminal(attributes_type const& attributes)
 
 void GeneratorHandler::configure(attributes_type const& attributes) {
   ConnectableHandler<IIDM::builders::GeneratorBuilder, false, IIDM::side_1>::configure(attributes);
-  
+
   builder()
     .energySource( attributes["energySource"] )
     .regulating( attributes["voltageRegulatorOn"] )

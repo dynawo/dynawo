@@ -14,10 +14,10 @@ within Dynawo.Electrical;
 
 package Constants "Defining constants for network components"
   /* This package enables to express the connection status for any component in a similar way
-     between C++ and Modelica. */ 
+     between C++ and Modelica. */
 
   public
-  
+
   final constant Real Open = 1 " Component disconnected";
   final constant Real Closed = 2 "Component connected";
   final constant Real Closed1 = 3 "Component connected on side 1";

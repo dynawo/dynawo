@@ -30,7 +30,7 @@ partial model BaseGeneratorSimplified_INIT "Base initialization model for simpli
     Types.AC.ApparentPower s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
     Types.AC.Current i0Pu  "Start value of complex current at terminal in p.u (base UNom, SnRef) (receptor convention)";
 
-equation  
+equation
 
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = Complex(P0Pu, Q0Pu);
@@ -132,24 +132,24 @@ equation
   // Internal parameters after transformation due to the presence of a generator transformer in the model
   RaPPu  = RaPu  * rTfoPu * rTfoPu;
   LdPPu  = LdPu  * rTfoPu * rTfoPu;
-  MdPPu  = MdPu  * rTfoPu * rTfoPu; 
-  LDPPu  = LDPu  * rTfoPu * rTfoPu; 
-  RDPPu  = RDPu  * rTfoPu * rTfoPu; 
-  MrcPPu = MrcPu * rTfoPu * rTfoPu; 
-  LfPPu  = LfPu  * rTfoPu * rTfoPu; 
-  RfPPu  = RfPu  * rTfoPu * rTfoPu; 
-  LqPPu  = LqPu  * rTfoPu * rTfoPu; 
-  MqPPu  = MqPu  * rTfoPu * rTfoPu; 
-  LQ1PPu = LQ1Pu * rTfoPu * rTfoPu; 
-  RQ1PPu = RQ1Pu * rTfoPu * rTfoPu; 
-  LQ2PPu = LQ2Pu * rTfoPu * rTfoPu; 
-  RQ2PPu = RQ2Pu * rTfoPu * rTfoPu; 
+  MdPPu  = MdPu  * rTfoPu * rTfoPu;
+  LDPPu  = LDPu  * rTfoPu * rTfoPu;
+  RDPPu  = RDPu  * rTfoPu * rTfoPu;
+  MrcPPu = MrcPu * rTfoPu * rTfoPu;
+  LfPPu  = LfPu  * rTfoPu * rTfoPu;
+  RfPPu  = RfPu  * rTfoPu * rTfoPu;
+  LqPPu  = LqPu  * rTfoPu * rTfoPu;
+  MqPPu  = MqPu  * rTfoPu * rTfoPu;
+  LQ1PPu = LQ1Pu * rTfoPu * rTfoPu;
+  RQ1PPu = RQ1Pu * rTfoPu * rTfoPu;
+  LQ2PPu = LQ2Pu * rTfoPu * rTfoPu;
+  RQ2PPu = RQ2Pu * rTfoPu * rTfoPu;
 
 // Apparent power, voltage and current at terminal in p.u (base SnRef, UNom)
   s0Pu = Complex(P0Pu, Q0Pu);
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
-  
+
   PGen0Pu = -P0Pu;
   QGen0Pu = -Q0Pu;
 
@@ -159,14 +159,14 @@ equation
   sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
 
 // Rotation between machine rotor frame and port phasor frame
-  S0Pu = sqrt(P0Pu^2+Q0Pu^2)*SystemBase.SnRef/SNom;  
+  S0Pu = sqrt(P0Pu^2+Q0Pu^2)*SystemBase.SnRef/SNom;
   I0Pu = S0Pu/U0Pu;
   phi0 = acos(abs(P0Pu/sqrt(P0Pu^2+Q0Pu^2)));
   sinTheta0 = u0Pu.im -    XqPPu         *i0Pu.re*SystemBase.SnRef/SNom - (RaPPu + RTfoPu)*i0Pu.im*SystemBase.SnRef/SNom;
   cosTheta0 = u0Pu.re - (RaPPu + RTfoPu) *i0Pu.re*SystemBase.SnRef/SNom +       XqPPu     *i0Pu.im*SystemBase.SnRef/SNom;
   tanTheta0 = sinTheta0/cosTheta0;
   Theta0 = atan(tanTheta0);
-  
+
 // Park's transformations
   u0Pu.re =  sin(Theta0)*Ud0Pu + cos(Theta0)*Uq0Pu;
   u0Pu.im = -cos(Theta0)*Ud0Pu + sin(Theta0)*Uq0Pu;
@@ -204,7 +204,7 @@ partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for sy
 
   extends BaseGeneratorSynchronous_INIT;
 
-  public 
+  public
 
     // External parameters of the synchronous machine given as parameters in p.u (base UNom, SNom)
     parameter SIunits.PerUnit RaPu "Armature resistance in p.u.";
@@ -246,38 +246,38 @@ partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for sy
 
     // Auxiliary parameters: quadrature axis (see Kundur implementation, p143)
     SIunits.Time Tpq;
-    
+
     SIunits.PerUnit T1qPu;
     SIunits.PerUnit T4qPu;
 
 equation
-  
+
   MrcPu = 0;
 
   // Direct axis
   LdPu = XlPu;
   MdPu + LdPu = XdPu;
-  
+
   Tpd = Tpd0 * XpdPu / XdPu;
   Tppd = Tppd0 * XppdPu / XpdPu;
-  
+
   T1dPu = Tpd0  * SystemBase.omegaNom;
   T3dPu = Tppd0 * SystemBase.omegaNom;
   T4dPu = Tpd   * SystemBase.omegaNom;
   T6dPu = Tppd  * SystemBase.omegaNom;
-  
-  LfPu * (MdPu + LdPu) * (T1dPu - T4dPu) = MdPu * ( (MdPu + LdPu) * T4dPu -  LdPu * T1dPu); 
+
+  LfPu * (MdPu + LdPu) * (T1dPu - T4dPu) = MdPu * ( (MdPu + LdPu) * T4dPu -  LdPu * T1dPu);
   RfPu * T1dPu = MdPu + LfPu;
-  
+
   LDPu * (MdPu + LfPu) * (T3dPu - T6dPu) = MdPu * LfPu * (T6dPu - T3dPu * (MdPu + LfPu) * LdPu / (MdPu * LdPu + MdPu * LfPu + LdPu * LfPu));
   RDPu * T3dPu = LDPu + MdPu * LfPu / (MdPu + LfPu);
-  
+
   // Quadrature axis
   LqPu = XlPu;
   MqPu + LqPu = XqPu;
-  
+
   Tpq = Tpq0 * XpqPu / XqPu;
-  
+
   T1qPu = Tpq0  * SystemBase.omegaNom;
   T4qPu = Tpq   * SystemBase.omegaNom;
 

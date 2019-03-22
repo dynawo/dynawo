@@ -34,34 +34,34 @@ namespace xml {
 class IIDMDocumentHandler : public ::xml::sax::parser::ComposableDocumentHandler {
 public:
   IIDMDocumentHandler();
-  
+
 
   bool has_network() const;
-  
+
   IIDM::Network const& network() const;
   IIDM::Network & network();
 
   void add_extension(ExtensionHandlerFactory const& factory);
-  
+
 private:
   class ActualExtensionHandler: public ::xml::sax::parser::ComposableElementHandler {
   public:
     explicit ActualExtensionHandler(IIDMDocumentHandler &);
     ~ActualExtensionHandler();
-    
-    
+
+
     void add_extension(ExtensionHandlerFactory const& factory);
 
   private:
     void add_constructed_extension(ExtensionHandler& ext);
-    
+
     //note: std::auto_ptr are not safe to use in STL containers
     typedef std::vector<ExtensionHandler*> extension_handlers_type;
 
     extension_handlers_type extension_handlers;
     IIDMDocumentHandler & doc_handler;
     std::string id;
-    
+
     struct onEndFunctor;
   };
 

@@ -52,5 +52,3 @@ class CsvExporter : public Exporter {
 }  // namespace curves
 
 #endif  // API_CRV_CRVCSVEXPORTER_H_
-
-

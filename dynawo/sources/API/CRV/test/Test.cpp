@@ -80,4 +80,3 @@ TEST(APICRVTest, test1) {
 }
 
 }  // namespace curves
-

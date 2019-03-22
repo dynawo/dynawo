@@ -193,4 +193,3 @@ Graph::hasVertex(const unsigned int& index) {
 }
 
 }  // namespace DYN
-

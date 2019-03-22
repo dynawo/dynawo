@@ -1612,5 +1612,3 @@ class macroStaticReference_const_iterator {
 }  // namespace dynamicdata
 
 #endif  // API_DYD_DYDITERATORS_H_
-
-

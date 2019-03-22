@@ -26,7 +26,7 @@ BusBarSectionHandler::BusBarSectionHandler(elementName_type const& root_element)
 
 void BusBarSectionHandler::configure(attributes_type const& attributes) {
   IdentifiableHandler<IIDM::builders::BusBarSectionBuilder>::configure(attributes);
-  
+
   builder()
     .node( attributes["node"] )
     .v( attributes["v"] )

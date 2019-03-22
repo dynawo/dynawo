@@ -31,7 +31,7 @@ public:
   typedef VoltageLevelShortCircuitsBuilder builder_type;
 
   VoltageLevelShortCircuits build() const;
-  
+
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, double, minShortCircuitsCurrent)
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, double, maxShortCircuitsCurrent)
 };

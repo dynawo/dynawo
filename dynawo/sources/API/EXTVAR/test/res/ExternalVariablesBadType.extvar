@@ -16,4 +16,3 @@
   <!-- variable with bad type -->
   <variable type="otherVariableType" id="var1" defaultValue="true"/>
 </external_variables>
-

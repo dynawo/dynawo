@@ -25,7 +25,7 @@ namespace builders {
 LccConverterStationBuilder::builded_type
 LccConverterStationBuilder::build(id_type const& id) const {
   builded_type builded(make_identifier(id), properties());
-  
+
   builded.m_lossFactor = m_lossFactor;
   builded.m_powerFactor = m_powerFactor;
 

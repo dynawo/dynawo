@@ -38,4 +38,3 @@ private:
 }
 
 #endif /* __ZIP_INPUT_STREAM_H__ */
-

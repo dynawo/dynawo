@@ -28,11 +28,11 @@ namespace builders {
 BusBarSectionBuilder::builded_type
 BusBarSectionBuilder::build(id_type const& id) const {
   builded_type builded(make_identifier(id), properties());
-  
+
   builded.m_node=m_node;
   builded.m_v=m_v;
   builded.m_angle=m_angle;
-  
+
   return builded;
 }
 

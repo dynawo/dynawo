@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file ComposableDocumentHandler.cpp
  * @brief ComposableDocumentHandler : implementation file
  *
@@ -63,7 +63,7 @@ void ComposableDocumentHandler::endElement(ElementName const& name) {
 
 void ComposableDocumentHandler::readCharacters(std::string const& characters) {
   ComposableBase::readCharacters(characters);
-  
+
 }
 
 } // end of namespace xml::sax::parser::

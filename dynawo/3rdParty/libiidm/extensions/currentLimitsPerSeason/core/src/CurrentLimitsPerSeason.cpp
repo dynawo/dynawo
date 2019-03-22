@@ -51,12 +51,12 @@ CurrentLimitsPerSeason::season::set(IIDM::side_id side, IIDM::CurrentLimits cons
   if (m_single_sided && side != IIDM::side_1) {
     throw std::range_error("only side 1 is available on this season");
   }
-  
+
   std::pair<limits_type::iterator, bool> insertion = m_limits.insert(limits_type::value_type(side, limits));
   if (!insertion.second) {
     insertion.first->second = limits;
   }
-  
+
   return *this;
 }
 

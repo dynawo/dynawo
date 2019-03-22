@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file FormatterImpl.h
  * @brief XML formatter implementation description : header file
  *
@@ -93,7 +93,7 @@ private:
    * Used with pretty format outputs
    */
   void add_indentation();
-  
+
   /**
    * @brief Adds a line break
    *
@@ -114,21 +114,21 @@ private:
 private: //non copyable:
   FormatterImpl(FormatterImpl const&);
   FormatterImpl& operator=(FormatterImpl const&);
-  
+
 private:
   typedef std::string namespace_prefix_type;
   typedef std::string fullname_type;
-  
+
   typedef std::map<namespace_prefix_type, std::string> namespaces_type;
-  
+
   typedef std::stack<fullname_type> tag_stack_type;
-  
+
   static fullname_type make_fullname(namespace_prefix_type const& prefix, std::string const& name);
-  
+
   std::ostream& out_;         ///< Output XML stream
-  
+
   namespaces_type namespaces_;///< Namespaces map organized by prefix
-  
+
   tag_stack_type tag_stack;   ///< Namespace stack for correct elements prefixing
   bool tagClosed_;            ///< Latest tag closed ?
   bool hasCharacters_;        ///< Element with characters

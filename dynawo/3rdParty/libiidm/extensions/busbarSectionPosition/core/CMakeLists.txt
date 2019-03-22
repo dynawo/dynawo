@@ -4,7 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Libiidm, a library to model IIDM networks and allows importing and exporting them to files.
 
 project(libiidm_ext_busbarsectionposition CXX)
@@ -87,7 +87,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libiidm-ext-busbarsectionposition-conf
 # create a target to install this extension (and dependencies).
 add_custom_target(install-busbarsectionposition
   DEPENDS iidm-ext-busbarsectionposition
-  COMMAND 
+  COMMAND
     "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=iidm-ext-busbarsectionposition
     -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
 )

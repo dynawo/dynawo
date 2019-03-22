@@ -19,7 +19,7 @@ By default, only XML Formatter is installed. Its only dependency is Boost, v1.59
 ```
 $> mkdir <build-prefix>
 $> cd <build-prefix>
-$> cmake <libXML-src-path> -DBOOST_ROOT:PATH=<boost-root> -DCMAKE_INSTALL_PREFIX=<install path> 
+$> cmake <libXML-src-path> -DBOOST_ROOT:PATH=<boost-root> -DCMAKE_INSTALL_PREFIX=<install path>
 $> make
 $> make install
 ```

@@ -145,4 +145,3 @@ class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorI
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNLCCCONVERTERINTERFACEIIDM_H_
-

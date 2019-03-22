@@ -14,7 +14,7 @@
  * @file LoadDetail_cat.cpp
  * @brief sample program replicating an iidm xml file using only LoadDetail extension
  */
- 
+
 #include <IIDM/extensions/loadDetail/xml.h>
 
 #include <iostream>
@@ -43,12 +43,12 @@ int main(int argc, char** argv) {
 
   IIDM::xml::xml_parser parser;
   parser.register_extension<LoadDetailHandler>();
-  
+
   Network extracted = parser.from_xml(argv[1], true);
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportLoadDetail, LoadDetailHandler::uri(), "ld" );
-  
+
   formatter.to_xml(extracted, cout);
 
   return 0;

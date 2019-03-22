@@ -415,4 +415,3 @@ VoltageLevelInterfaceIIDM::mapConnections() {
 }
 
 }  // namespace DYN
-

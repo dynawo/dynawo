@@ -17,4 +17,3 @@
   </dyn:modelTemplateExpansion>
   <dyn:connect id1="BadModelTemplateExpansion" var1="var2" id2="Model3" var2="var1"/>
 </dyn:dynamicModelsArchitecture>
-

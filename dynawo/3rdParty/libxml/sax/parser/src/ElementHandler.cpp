@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file ElementHandler.cpp
  * @brief ElementHandler : implementation file
  *
@@ -64,4 +64,3 @@ void ElementHandler::end() {
 } // end of namespace xml::sax::parser::
 } // end of namespace xml::sax::
 } // end of namespace xml::
-

@@ -41,7 +41,7 @@ public:
   IdentifiableHandler(elementName_type const& root_element);
 
   builded_type build() const { return m_builder.build(m_id); }
-  
+
   builder_type const& builder () const { return m_builder; }
   builder_type      & builder ()       { return m_builder; }
 
@@ -52,7 +52,7 @@ public:
   builder_type      * operator-> ()       { return &m_builder; }
 
 protected:
-  
+
   //called when opening the block's root element
   //inheriter override shall call its parent's one.
   virtual void configure(attributes_type const& attributes) {
@@ -61,34 +61,34 @@ protected:
   }
 
   IIDM::id_type const& id() const { return m_id; }
-  
+
 private:
   IdentifiableHandler(IdentifiableHandler const&);
   IdentifiableHandler& operator=(IdentifiableHandler const&);
-  
+
   builder_type m_builder;
   IIDM::id_type m_id;
 
   void set_property(attributes_type const& attributes) {
     m_builder.set(attributes["name"], attributes["value"]);
   }
-  
+
 private:
   //a few functors, to not use Boost.Phoenix nor lambda in this header
-  
+
   struct configurator {
     self_type & handler;
     configurator(self_type & ref): handler(ref) {}
-    
+
     void operator() (elementName_type const&, attributes_type const& attributes) const {
       handler.configure(attributes);
     }
   };
-  
+
   struct property_adder {
     self_type & handler;
     property_adder(self_type & ref): handler(ref) {}
-    
+
     void operator() (elementName_type const&, attributes_type const& attributes) const {
       handler.set_property(attributes);
     }

@@ -14,7 +14,7 @@
  * @file BusbarSectionPositionHandler.cpp
  * @brief Provides BusbarSectionPositionHandler definition
  */
- 
+
 #include <IIDM/extensions/busbarSectionPosition/xml/BusbarSectionPositionHandler.h>
 #include <IIDM/extensions/BusbarSectionPosition.h>
 

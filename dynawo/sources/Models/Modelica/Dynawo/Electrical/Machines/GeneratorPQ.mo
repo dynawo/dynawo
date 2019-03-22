@@ -22,7 +22,7 @@ model GeneratorPQ "Generator with power / frequency modulation and fixed reactiv
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends BaseClasses.BaseGeneratorSimplified;
-  extends BaseClasses.BaseGeneratorSimplifiedPFBehavior;  
+  extends BaseClasses.BaseGeneratorSimplifiedPFBehavior;
 
   public
 

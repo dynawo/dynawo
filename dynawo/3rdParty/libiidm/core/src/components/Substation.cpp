@@ -29,7 +29,7 @@ void Substation::register_into(Network & net) {
 
   net.register_all_identifiable(twoWindingsTransformers());
   net.register_all_identifiable(threeWindingsTransformers());
-  
+
   for (Contains<VoltageLevel>::iterator it = voltageLevels().begin(); it!=voltageLevels().end(); ++it) {
     it->register_into(net);
   }
@@ -38,12 +38,12 @@ void Substation::register_into(Network & net) {
 
 VoltageLevel& Substation::add(VoltageLevel const& voltageLevel) {
   VoltageLevel& added = Contains<VoltageLevel>::add(voltageLevel);
-  
+
   Network* net = network_of(*this);
   if (net) {
     added.register_into(*net);
   }
-  
+
   return added;
 }
 
@@ -55,7 +55,7 @@ Substation& Substation::add(Transformer2Windings const& transformer, boost::opti
 
   Network* net = network_of(*this);
   if (net) net->register_identifiable(added);
-  
+
   if (c1) added.createConnection(*c1);
   if (c2) added.createConnection(*c2);
 
@@ -77,7 +77,7 @@ Substation& Substation::add(Transformer3Windings const& transformer,
 
   Network* net = network_of(*this);
   if (net) net->register_identifiable(added);
-  
+
   if (c1) added.createConnection(*c1);
   if (c2) added.createConnection(*c2);
   if (c3) added.createConnection(*c3);
@@ -90,7 +90,7 @@ Substation& Substation::add(Transformer3Windings const& transformer,
 //throws if a connection is not valid or does not match the given side count
 void Substation::check(boost::optional<Connection> const& connection, side_id max_sides) const {
   if (!connection) return;
-  
+
   if (!connection->has_voltageLevel()) {
     throw std::runtime_error("missing voltage level");
   }

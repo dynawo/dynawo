@@ -137,5 +137,3 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
 }  // namespace DYN
 
 #endif  // MODELS_CPP_MODELNETWORK_DYNMODELCURRENTLIMITS_H_
-
-

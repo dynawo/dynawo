@@ -27,7 +27,7 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
 
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
-  
+
   extends SwitchOff.SwitchOffTransformer;
 
   Connectors.ACPower terminal1;

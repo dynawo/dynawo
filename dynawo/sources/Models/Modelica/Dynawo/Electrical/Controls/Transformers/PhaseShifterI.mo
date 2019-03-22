@@ -14,10 +14,10 @@ within Dynawo.Electrical.Controls.Transformers;
 
 model PhaseShifterI "Phase-shifter monitoring the current so that it remains under iMax"
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
-  
+
   extends BaseClasses.BaseTapChangerPhaseShifter_MAX (valueMax = iMax, valueStop = iStop, valueToMonitor0 = I0, tapChangerType = tapChangerType0);
   extends SwitchOff.SwitchOffPhaseShifter;
-  
+
   protected
     parameter TapChangerType tapChangerType0 = TapChangerType.PhaseShifter;
 
@@ -32,4 +32,3 @@ equation
   connect (iMonitored.value, valueToMonitor.value);
 
 end PhaseShifterI;
-

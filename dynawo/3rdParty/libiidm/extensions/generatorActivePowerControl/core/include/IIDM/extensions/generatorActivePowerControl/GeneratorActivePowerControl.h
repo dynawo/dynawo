@@ -32,7 +32,7 @@ public:
   BOOST_TYPE_INDEX_REGISTER_CLASS
 
   IIDM_UNIQUE_PTR<GeneratorActivePowerControl> clone() const { return IIDM_UNIQUE_PTR<GeneratorActivePowerControl>(do_clone()); }
-  
+
 protected:
   virtual GeneratorActivePowerControl* do_clone() const IIDM_OVERRIDE;
 
@@ -48,7 +48,7 @@ public:
   GeneratorActivePowerControl& participate(bool value) { m_participate = value; return *this; }
 
   GeneratorActivePowerControl& droop(double value) { m_droop = value; return *this; }
-  
+
 private:
   double m_droop;
   bool m_participate;

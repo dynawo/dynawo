@@ -17,5 +17,3 @@
     <dyn:unitDynamicModel id="currentLimitAutomaton" name="Dynawo.Electrical.Controls.Current.CurrentLimitAutomaton"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-
-

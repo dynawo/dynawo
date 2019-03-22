@@ -120,4 +120,3 @@ class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNPHASETAPCHANGERINTERFACEIIDM_H_
-

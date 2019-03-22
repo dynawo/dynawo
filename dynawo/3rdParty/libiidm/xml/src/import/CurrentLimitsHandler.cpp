@@ -43,4 +43,3 @@ void CurrentLimitsHandler::do_startElement(elementName_type const& name, attribu
 
 } // end of namespace IIDM::xml::
 } // end of namespace IIDM::
-

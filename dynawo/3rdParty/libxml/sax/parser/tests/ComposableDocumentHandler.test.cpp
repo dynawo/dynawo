@@ -24,11 +24,11 @@ using p::ComposableDocumentHandler;
 
 struct listener {
   unsigned int n;
-  
+
   listener(): n(0) {}
-  
+
   void operator() () { ++n; }
-  
+
   bool operator==(unsigned int value) const { return n==value; }
   bool operator!=(unsigned int value) const { return n!=value; }
 };
@@ -48,46 +48,46 @@ TEST(TestComposableBase, Creation) {
 
 TEST(TestComposableBase, onStartDocument) {
   const p::ElementName node("node");
-  
+
   ComposableDocumentHandler doc;
   listener l;
-  
+
   ASSERT_EQ(l, 0);
-  
+
   ASSERT_NO_THROW( doc.onStartDocument( boost::ref(l) ) );
   ASSERT_EQ(l, 0);
-  
+
   ASSERT_NO_THROW( doc.startDocument() );
   ASSERT_EQ(l, 1);
-  
+
   ASSERT_NO_THROW( doc.startElement(node, p::Attributes()) );
   ASSERT_NO_THROW( doc.readCharacters("value") );
   ASSERT_NO_THROW( doc.endElement(node) );
   ASSERT_EQ(l, 1);
-  
+
   ASSERT_NO_THROW( doc.endDocument() );
   ASSERT_EQ(l, 1);
 }
 
 TEST(TestComposableBase, onEndDocument) {
   const p::ElementName node("node");
-  
+
   ComposableDocumentHandler doc;
   listener l;
 
   ASSERT_EQ(l, 0);
-  
+
   ASSERT_NO_THROW( doc.onEndDocument( boost::ref(l) ) );
   ASSERT_EQ(l, 0);
-  
+
   ASSERT_NO_THROW( doc.startDocument() );
   ASSERT_EQ(l, 0);
-  
+
   ASSERT_NO_THROW( doc.startElement(node, p::Attributes()) );
   ASSERT_NO_THROW( doc.readCharacters("value") );
   ASSERT_NO_THROW( doc.endElement(node) );
   ASSERT_EQ(l, 0);
-  
+
   ASSERT_NO_THROW( doc.endDocument() );
   ASSERT_EQ(l, 1);
 }

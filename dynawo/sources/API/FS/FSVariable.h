@@ -74,5 +74,3 @@ class __DYNAWO_FS_EXPORT Variable {
 }  // namespace finalState
 
 #endif  // API_FS_FSVARIABLE_H_
-
-

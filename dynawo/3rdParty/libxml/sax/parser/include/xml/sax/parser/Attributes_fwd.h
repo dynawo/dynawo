@@ -28,4 +28,3 @@ class Attributes;
 } // end of namespace xml::
 
 #endif
-

@@ -9,4 +9,3 @@
 *
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
-

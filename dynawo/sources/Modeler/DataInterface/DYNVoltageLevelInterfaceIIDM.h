@@ -226,4 +226,3 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNVOLTAGELEVELINTERFACEIIDM_H_
-

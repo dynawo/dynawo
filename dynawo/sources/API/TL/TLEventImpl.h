@@ -100,4 +100,3 @@ class Event::Impl : public Event {
 }  // namespace timeline
 
 #endif  // API_TL_TLEVENTIMPL_H_
-

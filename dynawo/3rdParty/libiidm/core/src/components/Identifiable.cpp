@@ -67,7 +67,7 @@ Identifiable::configure(property_id_type const& property, std::string const& val
 /* extension management */
 
 bool Identifiable::has_extension(extension_id_type const& name) const { return find_extension(name); }
- 
+
 void Identifiable::setExtension(extension_id_type const& name, Extension* e) {
   Extension* & target = m_extensions[name];
   delete target;

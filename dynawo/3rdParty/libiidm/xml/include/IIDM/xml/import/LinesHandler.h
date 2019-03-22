@@ -50,7 +50,7 @@ public:
 
 private:
   CurrentLimitsHandler currentLimits1_handler, currentLimits2_handler;
-  
+
 protected:
   void configure(attributes_type const& attributes) IIDM_OVERRIDE;
 };

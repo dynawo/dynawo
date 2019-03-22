@@ -6,4 +6,3 @@
     <dyn:connect id1="MODEL1" var1="v" id2="MODEL2" var2="v"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-

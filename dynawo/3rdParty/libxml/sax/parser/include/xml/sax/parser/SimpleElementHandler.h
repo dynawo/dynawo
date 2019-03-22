@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file SimpleElementHandler.h
  * @brief SimpleElementHandler: interface file
  *
@@ -35,7 +35,7 @@ class SimpleElementHandler: public virtual ElementHandler {
 public:
   SimpleElementHandler();
   virtual ~SimpleElementHandler() {}
-  
+
   /**
    * @brief Called when an XML element opening tag is read.
    *
@@ -47,7 +47,7 @@ public:
    * @param attributes the attributes of the read element
    */
   virtual void startElement(ElementName const& name, attributes_type const& attributes) XML_OVERRIDE XML_FINAL;
-  
+
   /**
    * @brief Called when an XML element closing tag is read.
    *
@@ -58,7 +58,7 @@ public:
    * @param name Name of the element
    */
   virtual void endElement(ElementName const& name) XML_OVERRIDE XML_FINAL;
-  
+
 protected:
   virtual void do_startElement(ElementName const& name, attributes_type const& attributes);
   virtual void do_endElement(ElementName const& name);

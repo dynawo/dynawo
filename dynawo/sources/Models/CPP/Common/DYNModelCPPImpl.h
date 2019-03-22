@@ -253,5 +253,3 @@ class ModelCPP::Impl : public ModelCPP {
 }  // namespace DYN
 
 #endif  // MODELS_CPP_COMMON_DYNMODELCPPIMPL_H_
-
-

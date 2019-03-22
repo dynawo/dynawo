@@ -45,7 +45,7 @@ public:
   typedef XMLFilePos file_position_type;
   typedef XMLSize_t bytecount_type;
 #endif
-  
+
   virtual file_position_type curPos() const XML_OVERRIDE;
 
   virtual bytecount_type readBytes(XMLByte* const toFill, bytecount_type maxToRead) XML_OVERRIDE;

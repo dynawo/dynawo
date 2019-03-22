@@ -46,7 +46,7 @@ void down_hand(stree const& tree, spath const& path) {
   spath p;
   for (spath::const_iterator it = path.begin(); it!=path.end(); ++it) {
     p+=*it;
-    
+
     boost::optional<std::string const&> searched = tree.find(p);
 
     if (searched) {
@@ -67,34 +67,34 @@ int main() {
   spath p2 = spath("a")+"b"+"c";
   cout << "p1 = " << p1 << endl;
   cout << "p2 = " << p2 << endl;
-  
+
   stree tree1;
-  
+
   tree1.insert(p1, "value1");
   tree1.insert(p2, "value2");
 
   look_at(tree1, p1);
   look_at(tree1, p2);
-  
-  
+
+
   stree tree2 = tree1;
-  
+
   tree1.insert(p1,"coin coin");
-  
+
   stree tree3;
   tree3.insert(spath("a"), "erreur");
-  
+
   tree3 = tree2;
   tree3.insert(spath("a"), "correction");
-  
+
   cout << "tree1 = " << endl;
   down_hand(tree1, p2);
   cout << "tree2 = " << endl;
   down_hand(tree2, p2);
   cout << "tree3 = " << endl;
   down_hand(tree3, p2);
-  
+
   cout << "------------------------" << endl;
-  
+
   return 0;
 }

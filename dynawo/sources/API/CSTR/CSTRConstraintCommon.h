@@ -34,5 +34,3 @@ typedef enum {
 }  // namespace constraints
 
 #endif  // API_CSTR_CSTRCONSTRAINTCOMMON_H_
-
-

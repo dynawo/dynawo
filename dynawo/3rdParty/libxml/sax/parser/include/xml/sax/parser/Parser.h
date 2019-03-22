@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file Parser.h
  * @brief XML parser description : header file
  *
@@ -38,7 +38,7 @@ public:
    * @brief Destructor
    */
   virtual ~Parser();
-  
+
   /**
    * @brief Parsing method
    *

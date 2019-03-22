@@ -153,5 +153,3 @@ BusInterfaceIIDM::importStaticParameters() {
 }
 
 }  // namespace DYN
-
-

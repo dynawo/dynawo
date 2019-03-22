@@ -31,4 +31,3 @@ equation
   Q10Pu = ComplexMath.imag(u10Pu * ComplexMath.conj(i10Pu));
 
 end TransformerVariableTapI_INIT;
-

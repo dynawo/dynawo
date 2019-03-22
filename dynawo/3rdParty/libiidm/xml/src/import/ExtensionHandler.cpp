@@ -19,7 +19,7 @@
 
 namespace IIDM {
 namespace xml {
-  
+
 ExtensionHandler::~ExtensionHandler() {}
 
 } // end of namespace IIDM::xml::

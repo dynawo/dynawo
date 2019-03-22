@@ -55,7 +55,7 @@ public:
   std::string const & price   () const { return m_price   ; }
   std::string const & pub_date() const { return m_pub_date; }
   std::string const & review  () const { return m_review  ; }
-  
+
   friend struct BookBuilder;
 };
 
@@ -77,7 +77,7 @@ struct BookBuilder {
     pub_date.clear();
     review  .clear();
   }
-    
+
   Book build() const {
     Book b;
     b.m_id       = id      ;
@@ -104,16 +104,16 @@ class BookHandler : public parser::ComposableElementHandler {
   struct PropertyHandler: public parser::CDataCollector {
     std::string& target;
     PropertyHandler(std::string& target): target(target) {}
-    
+
     void do_endElement(parser::ElementName const&) { target=data(); }
   };
-  
+
   BookBuilder builder;
-  
+
   PropertyHandler h_title, h_author, h_genre, h_price, h_pub_date, h_review;
- 
+
 public:
-  explicit BookHandler(): 
+  explicit BookHandler():
     h_title   (builder.title   ),
     h_author  (builder.author  ),
     h_genre   (builder.genre   ),
@@ -124,13 +124,13 @@ public:
     using parser::ns::empty;
 
     onStartElement(
-      empty("book"), 
+      empty("book"),
       [this](parser::ElementName const&, attributes_type const& attributes) {
         builder.clear();
         builder.id = attributes.get<std::string>("id");
       }
     );
-    
+
     onElement(empty("book/title")   , h_title   );
     onElement(empty("book/author")  , h_author  );
     onElement(empty("book/genre")   , h_genre   );
@@ -138,7 +138,7 @@ public:
     onElement(empty("book/pub_date"), h_pub_date);
     onElement(empty("book/review")  , h_review  );
   }
-  
+
   sample::data::Book build() {return builder.build();}
 };
 
@@ -160,7 +160,7 @@ int main(int argc, char** argv) {
   const std::string fileName(argv[1]);
   const std::string fileXsd(argv[2]);
 
-  
+
   parser::ParserFactory parser_factory;
 
   parser::ParserPtr parser;
@@ -172,14 +172,14 @@ int main(int argc, char** argv) {
     std::cerr<<"grammar error :"<< exp.what()<<std::endl;
     return -1;
   }
-  
+
   parser::namespace_uri books_uri(grammar_target);
 
   sample::data::library library;
-  
+
   sample::io::BookHandler bh;
   bh.onEnd( [&library, &bh]() {library.push_back(bh.build());} );
-  
+
   parser::ComposableDocumentHandler handler;
   handler.onStartDocument( []() {cout << "loading book definitions..." << endl;} );
   handler.onEndDocument( []() {cout << "book list loaded." << endl;} );

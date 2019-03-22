@@ -68,4 +68,3 @@ TEST(APICRVTest, ConstraintsCollectionIterator) {
 }
 
 }  // namespace constraints
-

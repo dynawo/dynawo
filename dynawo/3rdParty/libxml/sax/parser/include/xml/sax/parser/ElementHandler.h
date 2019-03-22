@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file ElementHandler.h
  * @brief ElementHandler Handler
  *
@@ -35,7 +35,7 @@ class ElementHandler {
 public:
   typedef Attributes attributes_type;
   typedef ElementName elementName_type;
-  
+
   typedef boost::function<void()> start_observer;
   typedef boost::function<void()> end_observer;
 
@@ -75,7 +75,7 @@ protected:
 
   void start();
   void end();
-  
+
 private:
   typedef std::vector<start_observer> start_observers_type;
   typedef std::vector<end_observer> end_observers_type;

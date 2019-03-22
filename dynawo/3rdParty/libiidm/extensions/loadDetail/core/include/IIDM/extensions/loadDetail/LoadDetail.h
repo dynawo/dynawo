@@ -33,7 +33,7 @@ public:
 
   /// clones this LoadDetail
   IIDM_UNIQUE_PTR<LoadDetail> clone() const { return IIDM_UNIQUE_PTR<LoadDetail>(do_clone()); }
-  
+
 protected:
   virtual LoadDetail* do_clone() const IIDM_OVERRIDE;
 
@@ -43,7 +43,7 @@ private:
 
 public:
   float fixedActivePower() const { return m_fixedActivePower; }
-  
+
   LoadDetail& fixedActivePower(float fixedActivePower) { m_fixedActivePower = fixedActivePower; return *this; }
 
   float fixedReactivePower() const { return m_fixedReactivePower; }

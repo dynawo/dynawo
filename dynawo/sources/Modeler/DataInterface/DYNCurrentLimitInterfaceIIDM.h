@@ -57,4 +57,3 @@ class CurrentLimitInterfaceIIDM : public CurrentLimitInterface {
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNCURRENTLIMITINTERFACEIIDM_H_
-

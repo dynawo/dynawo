@@ -14,14 +14,14 @@ within Dynawo.Electrical.Controls.Machines.Governors;
 
 model GoverProportional "Keep the mechanical power as a constant modulated by the difference between omega and a reference"
   // as a result, the mechanical power will vary with (angular) frequency
-  
+
   import Modelica.Blocks;
-  
+
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
-  
+
   type status = enumeration (Standard "Active power is modulated by the frequency deviation",
                              LimitPMin "Active power is fixed to its minimum value",
                              LimitPMax "Active power is fixed to its maximum value");
@@ -32,7 +32,7 @@ model GoverProportional "Keep the mechanical power as a constant modulated by th
   //Output variables
   Connectors.ImPin PmPu(value (start = Pm0Pu)) "Mechanical power" annotation(
     Placement(visible = true, transformation(origin = {72, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {72, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  
+
   parameter SIunits.PerUnit KGover  "Mechanical power sensitivity to frequency";
   parameter Types.AC.ActivePower PMin  "Minimum mechanical power";
   parameter Types.AC.ActivePower PMax  "Maximum mechanical power";   // may be negative (for power plants which may be pumping)
@@ -55,9 +55,9 @@ protected
     parameter SIunits.PerUnit PMinPu = PMin/PNom "Minimum mechanical power Pu";
     parameter SIunits.PerUnit PMaxPu = PMax/PNom "Maximum mechanical power Pu";
     parameter SIunits.PerUnit Pm0Pu  "Initial mechanical power";
-  
+
     status state (start = status.standard);
-  
+
 equation
   connect(limiter.y, PmPu.value) annotation(
     Line(points = {{40, 0}, {64, 0}, {64, 0}, {72, 0}}, color = {0, 0, 127}));
@@ -87,5 +87,5 @@ equation
     state = status.Standard;
     Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
   end when;
-  
+
 end GoverProportional;

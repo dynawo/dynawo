@@ -123,4 +123,3 @@ TEST(APIDYDTest, ImportMacroStaticRef) {
 }
 
 }  // namespace dynamicdata
-

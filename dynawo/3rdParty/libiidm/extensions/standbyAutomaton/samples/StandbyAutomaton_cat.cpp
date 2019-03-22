@@ -43,14 +43,13 @@ int main(int argc, char** argv) {
 
   IIDM::xml::xml_parser parser;
   parser.register_extension<StandbyAutomatonHandler>();
-  
+
   Network extracted = parser.from_xml(argv[1], true);
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportStandbyAutomaton, StandbyAutomatonHandler::uri(), "ext_as" );
-  
+
   formatter.to_xml(extracted, cout);
 
-	return 0;
+  return 0;
 }
-

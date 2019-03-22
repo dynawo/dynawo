@@ -17,5 +17,3 @@
   <variable type="continuous" id="omegaRefPu.value"/>
   <xi:include href="SwitchOffGenerator.extvar" xpointer="xmlns(dyn=http://www.rte-france.com/dynawo)xpointer(//dyn:external_variables/*)"/>
 </external_variables>
-
-

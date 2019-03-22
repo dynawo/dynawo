@@ -1373,7 +1373,7 @@ algorithm
     else
       equation
         error_msg = "in XMLCreateDynawo.lbinopSymbol - Unknown operator";
-	error_msg = error_msg + ExpressionDump.debugBinopSymbol(inOperator);
+  error_msg = error_msg + ExpressionDump.debugBinopSymbol(inOperator);
         Error.addMessage(Error.INTERNAL_ERROR, {error_msg});
       then
         fail();
@@ -1872,9 +1872,9 @@ algorithm
 
         //... Dump one variable
         dumpVariableRTE(intString(varno),cr,
-			dumpKind(kind),dumpDirectionStr(dir),dumpTypeStr(var_type),
+      dumpKind(kind),dumpDirectionStr(dir),dumpTypeStr(var_type),
                         boolString(BackendVariable.varFixed(v)),
-		        dumpConnectorStr(ct),connectorName,
+           dumpConnectorStr(ct),connectorName,
                         unparseCommentOptionNoAnnotation(comment),
                         BackendVariable.isVarConnector(v));
 
@@ -1889,9 +1889,9 @@ public function dumpVarsRTE "
 This function prints a list of Var in a XML format.
 If the list is not empty (in that case nothing is printed)
 the output is:
-	<elements DIMENSION= ...>
+  <elements DIMENSION= ...>
         ...
-	</elements>
+  </elements>
 "
   input list<BackendDAE.Var> vars;
 algorithm
@@ -2077,7 +2077,7 @@ algorithm
                  vars_externalObject as BackendDAE.VARIABLES(crefIndices=crefIdxLstArr_externalObject,varArr=varArr_externalObject,bucketSize=bucketSize_externalObject,numberOfVars=numberOfVars_externalObject),
                  vars_aliasVars as BackendDAE.VARIABLES(crefIndices=crefIdxLstArr_aliasVars,varArr=varArr_aliasVars,bucketSize=bucketSize_aliasVars,numberOfVars=numberOfVars_aliasVars),
                  ieqns,reqns,constrs,clsAttrs,_,_,funcs,eventInfo,extObjCls,btp,symjacs,_)),
-		 cName)
+     cName)
       equation
         //... Get all the variables
         vars = List.fold(systs,getVars_RTE,{});
@@ -2203,7 +2203,7 @@ algorithm
         String  strCrefIndx,elem;
         list<String> tail;
     case({},_,_)
-	then {};
+  then {};
     case(elem :: tail,_,_)
      equation
        print("4.1.1\n");

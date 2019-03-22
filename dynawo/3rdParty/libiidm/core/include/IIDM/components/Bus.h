@@ -45,7 +45,7 @@ public:
 
   ///gets a constant reference to the parent VoltageLevel
   VoltageLevel const& voltageLevel() const { return parent(); }
-  
+
   ///gets a reference to the parent VoltageLevel
   VoltageLevel & voltageLevel() { return parent(); }
 
@@ -88,4 +88,3 @@ private:
 } // end of namespace IIDM::
 
 #endif
-

@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, you can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 ADD_SUBDIRECTORY(NonLinear)
@@ -20,4 +20,3 @@ SET(MODEL_FILES
 FOREACH( MODEL_FILE ${MODEL_FILES} )
     INSTALL_MODEL_FILE(${MODEL_FILE})
 ENDFOREACH( MODEL_FILE )
-

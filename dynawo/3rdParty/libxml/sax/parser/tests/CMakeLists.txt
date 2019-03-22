@@ -26,14 +26,14 @@ set(PARSER_TESTS
   Path
   PathTree
 
-	DocumentHandler
+  DocumentHandler
 
   ElementHandler
   SimpleElementHandler
-	CDataCollector
+  CDataCollector
 
   ComposableBase
-	ComposableDocumentHandler
+  ComposableDocumentHandler
 
   Parser
 )
@@ -61,7 +61,7 @@ foreach(TEST IN LISTS PARSER_TESTS)
     ${TEST}.test.cpp
     ${PARSER_TESTS_SUPPORT}
   )
-  
+
   target_include_directories(${TEST}
     PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../common/tests/include>

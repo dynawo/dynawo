@@ -108,7 +108,7 @@ The default line model in \Dynawo is a classical $\pi$ line model.
 \caption{$\pi$ line model}
 \end{figure}
 
-The line can be connected or disconnected during the simulation, either on both sides or only on one side. In addition, the line model gives access to a large number of variables: P, Q or the current circulating into the line (at each side) and the line status (open/close/close on one side). \\ 
+The line can be connected or disconnected during the simulation, either on both sides or only on one side. In addition, the line model gives access to a large number of variables: P, Q or the current circulating into the line (at each side) and the line status (open/close/close on one side). \\
 If such limits exist in the input file (iidm file), current maximum limits are added to the line. These limits correspond to the maximum current that the line can support during a certain time. If the line is overloaded during more time than this allowed time, the line will be tripped. \\
 
 \paragraph{Transformer}
@@ -175,7 +175,7 @@ Any load model can be connected or disconnected. It is also possible for the use
 \paragraph{Shunt}
 ~~\\
 
-The shunt provides a constant reactive injection to the network. It can be connected or disconnected either by an user action or by an automaton action. \\ 
+The shunt provides a constant reactive injection to the network. It can be connected or disconnected either by an user action or by an automaton action. \\
 In order to simulate the necessary time between two actions on the same shunt, a minimal waiting time has been introduced into the shunt model between two actions (parameter noReclosingDelay). \\
 
 \paragraph{Static Var Compensator}
@@ -352,7 +352,7 @@ This problem could be rewritten as a semi-explicit one:
 & f_a(y_d(t), y_a(t), z(t), t) = 0
 \end{cases}
 \end{aligned}
-\end{equation}  
+\end{equation}
 where $f_d$ represents the differential equations vector, $f_a$ the algebraic equations vector, $y_d$ the differential continuous variables vector and $y_a$ the algebraic continuous variables vector. \\
 
 The \textbf{algebraic equations} represent the network that is considered to have an instantaneous response in phasor time-domain simulations (no delay) as well as time-independant parts of the other models.\\
@@ -407,13 +407,13 @@ Using \eqref{Correction} and \eqref{Newton} leads to:
 \label{Linear}
 \end{equation}
 
-The Newton iterations are stopped whenever $F(x_{i+1})$ is considered to be close enough to zero. 
+The Newton iterations are stopped whenever $F(x_{i+1})$ is considered to be close enough to zero.
 
 \subsubsection{Prediction-Correction scheme}
 
 Prediction-correction schemes aim at improving the convergence characteristics of the numerical methods by combining two steps in the overall problem resolution:
 \begin{itemize}
-\item A prediction step that consists in using past values ($y(t_{n-1}, y(t_{n-2}), ...)$,  of the variables to calculate initial values ($y(t_{n_0}) <=> x_0$) for the next time step. It is generally done by extrapolating a function that fits the past values of the variables. This step gives a very good initial point for the Newton used in the correction step and facilitates convergence, especially when the system is evolving in a continuous way. 
+\item A prediction step that consists in using past values ($y(t_{n-1}, y(t_{n-2}), ...)$,  of the variables to calculate initial values ($y(t_{n_0}) <=> x_0$) for the next time step. It is generally done by extrapolating a function that fits the past values of the variables. This step gives a very good initial point for the Newton used in the correction step and facilitates convergence, especially when the system is evolving in a continuous way.
 \item A correction step that is the system resolution presented in the above section - (\ref{Dynawo_Solver_System_Resolution})
 \end{itemize}
 
@@ -425,7 +425,7 @@ During a dynamic simulation, discrete events can occur. They can be:
 \begin{itemize}
 \item a change of the discrete variables values $z(t)$;
 \item a change of the \ac{DAE} system functions $f_d(t)$ and $f_a(t)$ (called modes);
-\end{itemize} 
+\end{itemize}
 
 A \textbf{discrete variable value change} corresponds for example to a transformer tap change or a breaker opening/closing. \\
 
@@ -441,7 +441,7 @@ Two solvers are currently integrated into \Dynawo:
 \begin{itemize}
 \item \textbf{A fixed time-step solver} (called Simplified solver in the remaining parts of this document) based on research work done during the European project Pegase \cite{Pegase_Report, Pegase_Events, Pegase_IEEE_GM}
 \item \textbf{A variable time-step solver} based on IDA, which is part of \ac{SUNDIALS} - a suite of solvers developed by the \ac{LLNL} -, plus additional routines \cite{hindmarsh2005sundials}.
-\end{itemize} 
+\end{itemize}
 
 For the simulation of a given test case, the results obtained with these solvers will be different, as the numerical methods applied are different. These differences are illustrated in the figure below for a test simulating a line disconnection.
 
@@ -559,11 +559,11 @@ One can expect that symbolical decomposition is required only in the case of imp
 \subparagraph{LU decomposition libraries}
 ~~\\
 
-Two LU decomposition libraries could be used into \Dynawo   at the moment: 
+Two LU decomposition libraries could be used into \Dynawo   at the moment:
 \begin{itemize}
 \item KLU \cite{DavisKLU}, which has been deeply tested during the Pegase project and has proved to be the most efficient of the existing LU decomposition library available at this time for power system problems. This is the library that we advise to use at the moment;
 \item NICSLU \cite{chenNicsLu}, which results from a more recent effort and that is also very efficient for power system problems. NISCLU is in particular faster for refactorization (numerical factorization only) but its integration into \ac{SUNDIALS} and its use in \Dynawo is still under experimentation;
-\end{itemize} 
+\end{itemize}
 
 It is possible to switch from KLU to NICSLU by modifying the solver parameter called ``linearSolverName".
 
@@ -574,7 +574,7 @@ In order to give \ac{KINSOL} a better criterion to stop the \ac{NR} algorithm, i
 
 \subsubsection{Discontinuities handling}
 
-At the end of a time step, the discrete variables value are compared with their values at the previous time step, and the root functions are evaluate in order to detect if a mode has changed during the iteration. When a change is detected, the Simplified solver offers two different strategies: 
+At the end of a time step, the discrete variables value are compared with their values at the previous time step, and the root functions are evaluate in order to detect if a mode has changed during the iteration. When a change is detected, the Simplified solver offers two different strategies:
 \begin{itemize}
 \item A ``go-through" strategy in which the time step isn't repeated;
 \item A ``recalculate" strategy in which the time step is recalculated until we reach a system state with no more discrete variable value or mode change.
@@ -587,37 +587,37 @@ At the moment, the different tests conducted with both strategies haven't permit
 The algorithm for one time step for the Simplified solver (particularly for discontinuity handling) is presented in Figure \ref{fig:AlgoSim}.
 
 % Define block styles
-\tikzstyle{decision} = [diamond, draw, fill=lightblue!40, 
+\tikzstyle{decision} = [diamond, draw, fill=lightblue!40,
     text width=5em, text badly centered, inner sep=0pt, aspect=2]
-\tikzstyle{block} = [rectangle, draw, fill=lightblue!20, 
+\tikzstyle{block} = [rectangle, draw, fill=lightblue!20,
     text width=5em, text centered, rounded corners, minimum height=4em]
 \tikzstyle{line} = [draw, -latex']
 \tikzstyle{cloud} = [draw, ellipse, text badly centered]
 \begin{figure}
-\centering   
-\begin{adjustbox}{width=\textwidth,height=\textheight,keepaspectratio}    
+\centering
+\begin{adjustbox}{width=\textwidth,height=\textheight,keepaspectratio}
 \begin{tikzpicture}[node distance = 3cm, auto]
     % Place nodes
     \node [cloud] (start) {Start for $t_{n+1}$};
     \node [block, below of=start] (evalY) {Calculate $y(t_{n+1})$};
-    \node [block, right of=evalY, xshift=10mm] (reduce) {Reduce time step};    
+    \node [block, right of=evalY, xshift=10mm] (reduce) {Reduce time step};
     \node [decision, below of=evalY] (NR) {Succes?};
     \node [decision, below of=reduce] (Hmin)
-{$h\neq{h_{Min}}$?};    
-    \node [cloud, right of=Hmin, xshift=10mm, fill=red!20] (endFail) {Divergence}; 
+{$h\neq{h_{Min}}$?};
+    \node [cloud, right of=Hmin, xshift=10mm, fill=red!20] (endFail) {Divergence};
     \node [block, below of=NR] (evalG) {Calculate $g(t_{n+1})$};
     \node [decision, below of=evalG] (gChange)
 {$g(t_{n+1})\neq{g(t_{n})}$?};
-    \node [cloud, right of=gChange, xshift=20mm, fill=green!20] (endSuccesG) {Go to $t_{n+2}$}; 
-    \node [block, below of=gChange] (evalGZMode) {Calculate $g(t_{n+1})$, $z(t_{n+1})$ and modes}; 
+    \node [cloud, right of=gChange, xshift=20mm, fill=green!20] (endSuccesG) {Go to $t_{n+2}$};
+    \node [block, below of=gChange] (evalGZMode) {Calculate $g(t_{n+1})$, $z(t_{n+1})$ and modes};
     \node [decision, below of=evalGZMode] (gzChange) {Change?};
     \node [decision, below of=gzChange] (algChange) {Algebraic mode change?};
-    \node [block, right of= algChange, xshift=20mm] (restaure) {Restaure algebraic equations}; 
-    \node [cloud, right of=restaure, xshift=10mm, fill=green!20] (endSuccesAlg) {Go to $t_{n+2}$}; 
-    \node [decision, below of=algChange] (recalculate) {Recalculate step?}; 
-    \node [cloud, below of=recalculate, fill=green!20] (endSuccesNoRecal) {Go to $t_{n+2}$}; 
-    \node [decision, left of=recalculate, xshift=-20mm] (nbNR) {$nb_{NR} < nb_{NR_{Max}}$?}; 
-    \node [cloud, below of=nbNR, fill=green!20] (endSuccesNbNr) {Go to $t_{n+2}$}; 
+    \node [block, right of= algChange, xshift=20mm] (restaure) {Restaure algebraic equations};
+    \node [cloud, right of=restaure, xshift=10mm, fill=green!20] (endSuccesAlg) {Go to $t_{n+2}$};
+    \node [decision, below of=algChange] (recalculate) {Recalculate step?};
+    \node [cloud, below of=recalculate, fill=green!20] (endSuccesNoRecal) {Go to $t_{n+2}$};
+    \node [decision, left of=recalculate, xshift=-20mm] (nbNR) {$nb_{NR} < nb_{NR_{Max}}$?};
+    \node [cloud, below of=nbNR, fill=green!20] (endSuccesNbNr) {Go to $t_{n+2}$};
     % Draw edges
     \path [line] (start) -- (evalY);
     \path [line] (evalY) -- (NR);
@@ -627,14 +627,14 @@ The algorithm for one time step for the Simplified solver (particularly for disc
     \path [line] (Hmin) -- node {No}(endFail);
     \path [line] (NR) -- node {Yes} (evalG);
     \path [line] (evalG) -- (gChange);
-    \path [line] (gChange) -- node {No}(endSuccesG);    
-    \path [line] (gChange) -- node {Yes} (evalGZMode);  
-    \path [line] (evalGZMode) -- (gzChange);  
+    \path [line] (gChange) -- node {No}(endSuccesG);
+    \path [line] (gChange) -- node {Yes} (evalGZMode);
+    \path [line] (evalGZMode) -- (gzChange);
     \path [line] (gzChange) -- node {Yes} ++(-2,0) |-(evalGZMode);
-    \path [line] (gzChange) -- node {No} (algChange); 
-    \path [line] (algChange) -- node {Yes} (restaure); 
-    \path [line] (restaure) -- (endSuccesAlg); 
-    \path [line] (algChange) -- node {No} (recalculate); 
+    \path [line] (gzChange) -- node {No} (algChange);
+    \path [line] (algChange) -- node {Yes} (restaure);
+    \path [line] (restaure) -- (endSuccesAlg);
+    \path [line] (algChange) -- node {No} (recalculate);
     \path [line] (recalculate) -- node {No} (endSuccesNoRecal);
     \path [line] (recalculate) -- node {Yes} (nbNR);
     \path [line] (nbNR) -- node {Yes} ++(-2,0) |-(evalY);
@@ -671,7 +671,7 @@ All these parameters can be modified by the user and their default values are: $
 
 As already mentioned in ~\ref{sec:Solver Introduction}, the \ac{DAE} system \eqref{DAE} can change during the simulation because the differential equations or the algebraic equations can change their form (mode). \\
 
-In most of the cases, these changes are smooth changes (for example reaching a limit) and the simulation can just go on without any special process. Nevertheless, some changes lead to a deep change in the  equations form (for example a change in the network topology) and require to \textbf{reinitialize the \ac{DAE} system} by calculating new initial conditions for $y_a$ in the Simplified solver case. 
+In most of the cases, these changes are smooth changes (for example reaching a limit) and the simulation can just go on without any special process. Nevertheless, some changes lead to a deep change in the  equations form (for example a change in the network topology) and require to \textbf{reinitialize the \ac{DAE} system} by calculating new initial conditions for $y_a$ in the Simplified solver case.
 This is done by calling a \ac{NR} on the algebraic equations.
 
 \subsection{Variable time-step solver}

@@ -15,4 +15,3 @@
   <curve model="myModel" variable="var1"/>
   <curve model="myModel" variable="var2"/>
 </curvesInput>
-

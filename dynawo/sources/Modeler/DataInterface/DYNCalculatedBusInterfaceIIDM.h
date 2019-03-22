@@ -193,4 +193,3 @@ std::ostream& operator<<(std::ostream& stream, const CalculatedBusInterfaceIIDM&
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNCALCULATEDBUSINTERFACEIIDM_H_
-

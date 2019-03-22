@@ -16,5 +16,3 @@
     <dyn:unitDynamicModel id="event" name="Dynawo.Electrical.Events.Event.SingleBooleanEvent"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-
-

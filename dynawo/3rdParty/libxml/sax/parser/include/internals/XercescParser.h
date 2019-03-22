@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file XercescParser.h
  * @brief XML Xerces c++ parser description : header file
  *
@@ -53,7 +53,7 @@ public:
    * @brief Destructor
    */
   virtual ~XercescParser();
-  
+
   /**
    * @copydoc Parser::parse(std::string const&, DocumentHandler &, bool)
    */
@@ -64,13 +64,13 @@ public:
    */
   virtual void parse(std::istream & inputStream, DocumentHandler & handler, bool xsdCheck = false) XML_OVERRIDE;
 
-  
+
   /**
    * @copydoc Parser::addXmlSchema(std::string const&)
    */
   virtual std::string addXmlSchema(std::string const& schemaPath) XML_OVERRIDE;
 
-  
+
 private:
   class XercesHandler;
   void parse(std::istream&, XercesHandler &, bool xsdCheck = false);

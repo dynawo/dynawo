@@ -25,13 +25,13 @@ namespace builders {
 
 GeneratorBuilder::builded_type
 GeneratorBuilder::build(id_type const& id) const {
-  
+
   if (!m_minMaxReactiveLimits && !m_reactiveCapabilityCurve) {
     throw builder_exception(id +": generator needs either reactiveCapabilityCurve or minMaxReactiveLimits.");
   }
-  
+
   builded_type builded(make_identifier(id), properties());
-  
+
   builded.m_energySource = m_energySource;
   builded.m_regulating = m_regulating;
   builded.m_pmin = m_pmin;
@@ -44,7 +44,7 @@ GeneratorBuilder::build(id_type const& id) const {
   builded.m_minMaxReactiveLimits = m_minMaxReactiveLimits;
   builded.m_reactiveCapabilityCurve = m_reactiveCapabilityCurve;
   builded.m_regulatingTerminal = m_regulatingTerminal;
-  
+
   return configure_injection(builded);
 }
 

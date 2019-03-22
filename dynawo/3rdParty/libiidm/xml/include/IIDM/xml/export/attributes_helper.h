@@ -123,10 +123,10 @@ IIDM::Connectable<T, side> const& connectable(IIDM::Connectable<T, side> const& 
 template<typename T>
 struct WithVoltageLevel {
   T const& ref;
-  
+
   explicit WithVoltageLevel(T const& that): ref(that) {}
   operator T const& () const { return ref; }
-  
+
   T const& operator* () const { return ref; }
   T const* operator->() const { return &ref; }
 };
@@ -188,10 +188,10 @@ inline ::xml::sax::formatter::AttributeList& operator << (::xml::sax::formatter:
 template<typename T, side_id sides, bool q_only = false>
 struct WritePQ {
   T const& ref;
-  
+
   WritePQ(T const& that): ref(that) {}
   operator T const& () const { return ref; }
-  
+
   T const& operator* () const { return ref; }
   T const* operator->() const { return &ref; }
 };
@@ -248,4 +248,3 @@ template <typename T>
 } // end of namespace IIDM::
 
 #endif
-

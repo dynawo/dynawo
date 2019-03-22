@@ -84,12 +84,12 @@ public:
     //does not throw, unlike lexical_cast
     return boost::conversion::try_lexical_convert(it->second, value);
   }
-  
+
   class SearchedAttribute;
-  
+
   SearchedAttribute operator[] (name_type const& id) const;
 
-private:  
+private:
   value_type const* find(name_type const& name) const {
     attributes_type::const_iterator it = attributes.find(name);
     return ( it != attributes.end() ) ? &it->second : XML_NULLPTR;
@@ -137,12 +137,12 @@ public:
   explicit SearchedAttribute(parser::Attributes::name_type const& name, parser::Attributes::value_type const* value = 0): name(name), value(value) {}
 
   bool exists() const { return value; }
-  
+
   parser::Attributes::value_type const& as_string() const {
     if (!value) throw std::runtime_error("no string value for attribute "+name);
     return *value;
   }
-  
+
   operator parser::Attributes::value_type const& () const { return as_string(); }
 
   template<typename T>
@@ -167,7 +167,7 @@ public:
       throw std::runtime_error( make_message(name, e, "optional ") );
     }
   }
-  
+
   //or overloads
   template<typename T>
   T operator | (T const& default_value) const;
@@ -201,4 +201,3 @@ inline T Attributes::SearchedAttribute::operator | (T const& default_value) cons
 } // end of namespace xml::
 
 #endif
-

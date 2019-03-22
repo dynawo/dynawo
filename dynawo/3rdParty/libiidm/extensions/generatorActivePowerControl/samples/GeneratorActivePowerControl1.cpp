@@ -40,17 +40,17 @@ using namespace IIDM::extensions::generatoractivepowercontrol::xml;
 int main(int argc, char** argv) {
   //creating the network
   SubstationBuilder substation_builder = SubstationBuilder().country("FR").tso("RTE");
-	VoltageLevelBuilder bus_voltagelevel_builder = VoltageLevelBuilder().mode(VoltageLevel::bus_breaker).nominalV(50);
+  VoltageLevelBuilder bus_voltagelevel_builder = VoltageLevelBuilder().mode(VoltageLevel::bus_breaker).nominalV(50);
   BusBuilder bus_builder = BusBuilder().v(0).angle(10);
-  
-	GeneratorBuilder solar_builder = GeneratorBuilder()
+
+  GeneratorBuilder solar_builder = GeneratorBuilder()
     .energySource(Generator::source_solar)
     .minMaxReactiveLimits( MinMaxReactiveLimits(0, 10) )
     .regulating(false)
     .pmin(0).pmax(10).targetP(5);
-    
-  
-	Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("2000-01-01T00:00:00").forecastDistance(0).build("network");
+
+
+  Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("2000-01-01T00:00:00").forecastDistance(0).build("network");
 
   network.add( substation_builder.build("station") )
     .add( bus_voltagelevel_builder.build("VL") )
@@ -60,13 +60,13 @@ int main(int argc, char** argv) {
       .add( solar_builder.build("solar2"), at("solars", connected) )
       .add( solar_builder.build("solar3"), at("solars", connected) )
   ;
-  
+
   Generator& gen = network.substations().get("station").voltageLevels().get("VL").generators().get("solar1");
 
   gen.setExtension(GeneratorActivePowerControlBuilder().participate(true).droop(2.5).build());
 
   //exporting the network into cout or each of the given files
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportGeneratorActivePowerControl, GeneratorActivePowerControlHandler::uri(), "ext_gapc" );
 
@@ -82,4 +82,3 @@ int main(int argc, char** argv) {
 
   return 0;
 }
-

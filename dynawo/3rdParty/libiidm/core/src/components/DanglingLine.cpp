@@ -22,4 +22,3 @@ namespace IIDM {
 DanglingLine::DanglingLine(Identifier const& id, properties_type const& properties): Identifiable(id, properties) {}
 
 } // end of namespace IIDM::
-

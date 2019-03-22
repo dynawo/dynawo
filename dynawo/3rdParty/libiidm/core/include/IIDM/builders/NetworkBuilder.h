@@ -37,7 +37,7 @@ namespace builders {
 class IIDM_EXPORT NetworkBuilder {
 public:
   typedef IIDM::Network builded_type;
-  
+
   MACRO_IIDM_BUILDER_PROPERTY(NetworkBuilder, std::string, sourceFormat)
   MACRO_IIDM_BUILDER_PROPERTY(NetworkBuilder, std::string, caseDate)
   MACRO_IIDM_BUILDER_PROPERTY(NetworkBuilder, int, forecastDistance)

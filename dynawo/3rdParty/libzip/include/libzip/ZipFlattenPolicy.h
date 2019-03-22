@@ -47,4 +47,3 @@ public:
 }
 
 #endif /* __ZIP_POLICY_H__ */
-

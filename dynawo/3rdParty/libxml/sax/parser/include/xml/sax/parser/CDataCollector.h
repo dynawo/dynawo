@@ -31,27 +31,27 @@ class CDataCollector: public SimpleElementHandler {
 public:
   CDataCollector();
   virtual ~CDataCollector() {}
-  
+
   /**
    * @brief characters inside XML element event handler
    *
    * @param chars Characters to write in the element
    */
   virtual void readCharacters(std::string const& characters) XML_OVERRIDE XML_FINAL;
-  
+
 protected:
   virtual void do_startElement(ElementName const& tag, attributes_type const& attributes) XML_OVERRIDE XML_FINAL;
 
   ElementName const& tag() const { return *tag_; }
-  
+
   ElementName::name_type const& name() const { return tag_->name; }
-  
+
   std::string const& data() const { return data_; }
-  
+
   attributes_type const& attributes() const { return attributes_; }
-  
+
   attributes_type::SearchedAttribute attribute(attributes_type::name_type const& id) const { return attributes_[id]; }
-  
+
 private:
   boost::optional<ElementName> tag_;
   std::string data_;

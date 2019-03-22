@@ -28,7 +28,7 @@ namespace builders {
 DanglingLineBuilder::builded_type
 DanglingLineBuilder::build(id_type const& id) const {
   builded_type builded(make_identifier(id), properties());
-  
+
   builded.m_p0 = m_p0;
   builded.m_q0 = m_q0;
   builded.m_r = m_r;

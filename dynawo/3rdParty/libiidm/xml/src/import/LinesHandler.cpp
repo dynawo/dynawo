@@ -34,7 +34,7 @@ LineHandler::LineHandler(elementName_type const& root_element):
 {
   currentLimits1_handler.onEnd( make_setter(builder(), &builder_type::currentLimits1, currentLimits1_handler.limits) );
   onElement( root_element+iidm_ns("currentLimits1"), currentLimits1_handler );
-  
+
   currentLimits2_handler.onEnd( make_setter(builder(), &builder_type::currentLimits2, currentLimits2_handler.limits) );
   onElement( root_element+iidm_ns("currentLimits2"), currentLimits2_handler );
 }
@@ -65,7 +65,7 @@ TieLineHandler::TieLineHandler(elementName_type const& root_element):
 {
   currentLimits1_handler.onEnd( make_setter(builder(), &builder_type::currentLimits1, currentLimits1_handler.limits) );
   onElement( root_element+iidm_ns("currentLimits1"), currentLimits1_handler );
-  
+
   currentLimits2_handler.onEnd( make_setter(builder(), &builder_type::currentLimits2, currentLimits2_handler.limits) );
   onElement( root_element+iidm_ns("currentLimits2"), currentLimits2_handler );
 }
@@ -74,7 +74,7 @@ void TieLineHandler::configure(attributes_type const& attributes) {
   ConnectableHandler<IIDM::builders::TieLineBuilder, true, IIDM::side_2>::configure(attributes);
   builder()
     .ucteXnodeCode( attributes["ucteXnodeCode"] )
-    
+
     .id_1( attributes["id_1"] )
     .name_1( attributes["name_1"] )
     .id_1( attributes["id_1"] )

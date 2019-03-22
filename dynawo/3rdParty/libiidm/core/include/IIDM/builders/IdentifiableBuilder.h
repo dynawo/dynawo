@@ -35,7 +35,7 @@ namespace builders {
  * @brief an helper bas class for builders for objects inheriting from IIDM::Identifiable
  * @tparam T the Identifiable class this builder is expected to build. T shall inherit from IIDM::Identifiable
  * @tparam CRTP_BUILDER the actual builder class. CRTP_BUILDER shall inherit from this class.
- * 
+ *
  * CRTP_BUILDER is expected to be a class inheriting from this class (static_cast<CRTP&>(*this) shall always be correct)
  * an identifiable builder does NOT hold the unique identifier, it shall be given at actual building time
  * Inheriting builders shall provide the following functions:
@@ -74,7 +74,7 @@ public:
    * @returns true if name() returns a name, false otherwise
    */
   bool named() const { return !m_name; }
-  
+
   /**
    * @brief Creates the identifier for the builded object
    * @returns an Identifier made of the given id and the selected name
@@ -86,4 +86,3 @@ public:
 } // end of namespace IIDM::
 
 #endif
-

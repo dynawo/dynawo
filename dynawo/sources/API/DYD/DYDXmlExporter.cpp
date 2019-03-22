@@ -404,4 +404,3 @@ XmlExporter::writeInitMacroConnection(const boost::shared_ptr<MacroConnection>& 
 }
 
 }  // namespace dynamicdata
-

@@ -14,7 +14,7 @@
  * @file ConnectablePositionFormatter.cpp
  * @brief Provides ConnectablePositionFormatter definition
  */
- 
+
 #include <IIDM/extensions/connectablePosition/xml/ConnectablePositionFormatter.h>
 #include <IIDM/extensions/connectablePosition/ConnectablePosition.h>
 #include <IIDM/components/Identifiable.h>

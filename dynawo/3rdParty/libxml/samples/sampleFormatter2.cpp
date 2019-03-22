@@ -33,21 +33,21 @@ using format::Element;
 
 int main(int argc, char** argv) {
   // use of xercesc personal.xml as example
-  
+
   std::ofstream file;
   std::ostream & stream = (argc<2) ? std::cout : (file.open(argv[1]),file);
-  
+
   FormatterPtr formatter = Formatter::createFormatter(stream);
   format::Document doc(*formatter);
-  
+
   format::Element personnel = doc.element("personnel");
 
   format::Element boss = personnel.element("person", AttributeList("id", "Big.Boss"));
-  
+
   boss.element("name")
     .simple_element("family", "Boss")
     .simple_element("given", "Big");
-    
+
   boss.simple_element("email", "chief@foo.com");
 
   boss.simple_element("link",

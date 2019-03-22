@@ -17,9 +17,9 @@
 
  #include <IIDM/xml/export/attributes_helper.h>
 
- 
+
 #include <xml/sax/formatter/Document.h>
- 
+
 namespace IIDM {
 namespace xml {
 

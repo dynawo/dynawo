@@ -14,7 +14,7 @@
  * @file StandbyAutomatonHandler.cpp
  * @brief Provides StandbyAutomatonHandler definition
  */
- 
+
 #include <IIDM/extensions/standbyAutomaton/xml/StandbyAutomatonHandler.h>
 #include <IIDM/extensions/StandbyAutomaton.h>
 

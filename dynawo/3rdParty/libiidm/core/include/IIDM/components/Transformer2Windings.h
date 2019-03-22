@@ -54,13 +54,13 @@ public:
   Substation      & substation()       { return parent(); }
 
   id_type const& voltageLevelId1() const;
-  
+
   id_type const& voltageLevelId2() const;
-  
+
   VoltageLevel const& voltageLevel1() const;
 
   VoltageLevel const& voltageLevel2() const;
-  
+
 public:
   double r() const { return m_r; }
   double x() const { return m_x; }

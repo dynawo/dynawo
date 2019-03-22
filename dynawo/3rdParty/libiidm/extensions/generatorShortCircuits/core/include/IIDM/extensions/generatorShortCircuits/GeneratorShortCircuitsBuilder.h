@@ -31,7 +31,7 @@ public:
   typedef GeneratorShortCircuitsBuilder builder_type;
 
   GeneratorShortCircuits build() const;
-  
+
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, double, transientReactance)
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, double, stepUpTransformerReactance)
 };

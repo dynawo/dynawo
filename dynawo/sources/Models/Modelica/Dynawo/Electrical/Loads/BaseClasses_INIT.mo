@@ -32,5 +32,5 @@ partial model BaseLoadInterfaceParameters_INIT "Base model for load initializati
     s0Pu = Complex(P0Pu, Q0Pu);
 
 end BaseLoadInterfaceParameters_INIT;
-  
+
 end BaseClasses_INIT;

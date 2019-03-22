@@ -52,17 +52,17 @@ public:
   Substation const& substation() const { return parent(); }
   ///gets a reference to the parent substation
   Substation & substation() { return parent(); }
-  
+
   id_type const& voltageLevelId1() const;
-  
+
   id_type const& voltageLevelId2() const;
-  
+
   id_type const& voltageLevelId3() const;
-  
+
   VoltageLevel const& voltageLevel1() const;
 
   VoltageLevel const& voltageLevel2() const;
-  
+
   VoltageLevel const& voltageLevel3() const;
 
 public:

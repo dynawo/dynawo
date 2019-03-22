@@ -68,7 +68,7 @@ map_get(Map & map, typename Map::key_type const& key) {
 }
 
 template <typename Map>
-typename Map::mapped_type const& 
+typename Map::mapped_type const&
 map_get(Map const& map, typename Map::key_type const& key) {
   typename Map::const_iterator it = map.find(key);
   if (it != map.end()) {
@@ -89,7 +89,7 @@ struct access_member_f {
   // preserve cv-qualification of T for T::second_type
   typedef typename tt::conditional<
     tt::is_const<T>::value,
-    typename tt::conditional<  
+    typename tt::conditional<
       tt::is_volatile<T>::value,
       typename tt::add_cv<MemberType>::type,
       typename tt::add_const<MemberType>::type
@@ -114,20 +114,20 @@ template<typename Iterator>
 class map_value_iterator_adapter:
   public boost::transform_iterator<
     details::access_member_f<
-      typename tt::remove_reference< typename std::iterator_traits<Iterator>::reference >::type, 
-      typename std::iterator_traits<Iterator>::value_type::second_type, 
+      typename tt::remove_reference< typename std::iterator_traits<Iterator>::reference >::type,
+      typename std::iterator_traits<Iterator>::value_type::second_type,
       &std::iterator_traits<Iterator>::value_type::second
-    >, 
+    >,
     Iterator
   >
 {
 private:
   typedef boost::transform_iterator<
     details::access_member_f<
-      typename IIDM::tt::remove_reference< typename std::iterator_traits<Iterator>::reference >::type, 
-      typename std::iterator_traits<Iterator>::value_type::second_type, 
+      typename IIDM::tt::remove_reference< typename std::iterator_traits<Iterator>::reference >::type,
+      typename std::iterator_traits<Iterator>::value_type::second_type,
       &std::iterator_traits<Iterator>::value_type::second
-    >, 
+    >,
     Iterator
   > baseclass;
 

@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
   gen.setExtension(GeneratorEntsoeCategoryBuilder().code(17).build());
 
   //exporting the network into cout or each of the given files
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportGeneratorEntsoeCategory, GeneratorEntsoeCategoryHandler::uri(), "gec" );
 
@@ -76,4 +76,3 @@ int main(int argc, char** argv) {
 
   return 0;
 }
-

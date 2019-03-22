@@ -68,4 +68,3 @@ shared_ptr<ParametersSetCollection> XmlImporter::importFromStream(std::istream& 
 }
 
 }  // namespace parameters
-

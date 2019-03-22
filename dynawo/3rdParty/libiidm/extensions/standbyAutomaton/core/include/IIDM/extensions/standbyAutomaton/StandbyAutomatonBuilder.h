@@ -34,7 +34,7 @@ public:
   typedef StandbyAutomatonBuilder builder_type;
 
   StandbyAutomaton build() const;
-  
+
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, bool, standBy)
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, double, b0)
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, double, lowVoltageSetPoint)

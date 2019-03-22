@@ -685,4 +685,3 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
 }  // namespace dynamicdata
 
 #endif  // API_DYD_DYDXMLHANDLER_H_
-

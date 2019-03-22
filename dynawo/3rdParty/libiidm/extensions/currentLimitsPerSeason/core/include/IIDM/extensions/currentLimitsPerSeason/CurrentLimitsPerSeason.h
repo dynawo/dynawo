@@ -36,14 +36,14 @@ public:
   BOOST_TYPE_INDEX_REGISTER_CLASS
 
   IIDM_UNIQUE_PTR<CurrentLimitsPerSeason> clone() const { return IIDM_UNIQUE_PTR<CurrentLimitsPerSeason>(do_clone()); }
-  
+
 protected:
   virtual CurrentLimitsPerSeason* do_clone() const IIDM_OVERRIDE;
 
 // ****** concrete content ****** //
 public:
   typedef std::string season_name;
-  
+
   class season {
   private:
     season_name m_name;
@@ -65,7 +65,7 @@ public:
      */
     season(season_name name, IIDM::CurrentLimits const& limits);
 
-    
+
     season_name const& name() const { return m_name; }
 
     /**
@@ -73,41 +73,41 @@ public:
      * @returns true if the xml shall contain currentLimits, false if there should be currentLimits<N>
      */
     bool single_sided() const { return m_single_sided; }
-    
+
     bool exists(IIDM::side_id side) const { return m_limits.count(side)!=0; }
-  
+
     IIDM::CurrentLimits const& get(IIDM::side_id side) const { return map_get(m_limits, side); }
 
     IIDM::CurrentLimits const* find(IIDM::side_id side) const { return map_find(m_limits, side); }
-    
+
 
     season& set(IIDM::side_id side, IIDM::CurrentLimits const& );
 
     IIDM::CurrentLimits & get(IIDM::side_id side) { return map_get(m_limits, side); }
-    
+
     IIDM::CurrentLimits * find(IIDM::side_id side) { return map_find(m_limits, side); }
-    
+
   };
 
 private:
   typedef std::map<season_name, season> seasons_type;
-  
+
   seasons_type m_seasons;
-  
+
 public:
   bool exists(season_name const& season) const { return m_seasons.count(season)!=0; }
-  
+
   season const& get(season_name const& name) const { return map_get(m_seasons, name); }
   season & get(season_name const& name) { return map_get(m_seasons, name); }
-  
+
   season const* find(season_name const& name) const { return map_find(m_seasons, name); }
   season * find(season_name const& name) { return map_find(m_seasons, name); }
 
   //season names must be unique, throws on error.
   CurrentLimitsPerSeason& set(season const& s);
-  
+
   typedef IIDM::map_value_iterator_adapter<seasons_type::const_iterator> season_const_iterator;
-  
+
   season_const_iterator begin() const { return season_const_iterator(m_seasons.begin()); }
   season_const_iterator end() const { return season_const_iterator(m_seasons.end()); }
 };

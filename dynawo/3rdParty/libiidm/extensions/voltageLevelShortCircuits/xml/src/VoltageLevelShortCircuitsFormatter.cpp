@@ -14,7 +14,7 @@
  * @file VoltageLevelShortCircuitsFormatter.cpp
  * @brief Provides VoltageLevelShortCircuitsFormatter definition
  */
- 
+
 #include <IIDM/extensions/voltageLevelShortCircuits/xml/VoltageLevelShortCircuitsFormatter.h>
 #include <IIDM/extensions/voltageLevelShortCircuits/VoltageLevelShortCircuits.h>
 #include <IIDM/components/Identifiable.h>

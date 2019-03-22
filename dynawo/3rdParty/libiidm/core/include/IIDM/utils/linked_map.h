@@ -85,7 +85,7 @@ public:
     for (typename map_type::const_iterator it = other.map.begin(); it != other.map.end(); ++it) {
       iterator target_it = list.begin();
       std::advance(target_it, std::distance(other_begin, const_iterator(it->second)));
-      
+
       map.insert( map_value_type(it->first, target_it) );
     }
   }

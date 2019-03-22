@@ -158,5 +158,3 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
 }  // namespace finalState
 
 #endif  // API_FS_FSXMLHANDLER_H_
-
-

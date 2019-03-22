@@ -87,4 +87,3 @@ class MacroConnector::Impl : public MacroConnector {
 }  // namespace dynamicdata
 
 #endif  // API_DYD_DYDMACROCONNECTORIMPL_H_
-

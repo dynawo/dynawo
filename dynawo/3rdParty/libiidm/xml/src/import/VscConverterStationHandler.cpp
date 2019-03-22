@@ -31,7 +31,7 @@ VscConverterStationHandler::VscConverterStationHandler(elementName_type const& r
 {
   curve_handler.onEnd( make_setter(builder(), &builder_type::reactiveCapabilityCurve, curve_handler.curve) );
   onElement( root_element+iidm_ns("reactiveCapabilityCurve"), curve_handler );
-  
+
   limits_handler.onEnd( make_setter(builder(), &builder_type::minMaxReactiveLimits, limits_handler.limits) );
   onElement( root_element+iidm_ns("minMaxReactiveLimits"), limits_handler );
 }
@@ -39,7 +39,7 @@ VscConverterStationHandler::VscConverterStationHandler(elementName_type const& r
 
 void VscConverterStationHandler::configure(attributes_type const& attributes) {
   ConnectableHandler<IIDM::builders::VscConverterStationBuilder, false, IIDM::side_1>::configure(attributes);
-  
+
   builder()
     .lossFactor( attributes["lossFactor"] )
     .regulating( attributes["voltageRegulatorOn"] )

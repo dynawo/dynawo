@@ -4,4 +4,3 @@
     <dyn:unitDynamicModel id="TEST" name="Test" moFile="Test.mo"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-

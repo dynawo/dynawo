@@ -14,7 +14,7 @@
  * @file GeneratorActivePowerControlHandler.cpp
  * @brief Provides GeneratorActivePowerControlHandler definition
  */
- 
+
 #include <IIDM/extensions/generatorActivePowerControl/xml/GeneratorActivePowerControlHandler.h>
 #include <IIDM/extensions/GeneratorActivePowerControl.h>
 
@@ -26,7 +26,7 @@ namespace IIDM {
 namespace extensions {
 namespace generatoractivepowercontrol {
 namespace xml {
-  
+
 std::string GeneratorActivePowerControlHandler::xsd_path() {
   return IIDM_EXT_GENERATORACTIVEPOWERCONTROL_XML_XSD_PATH + std::string("generatorActivePowerControl.xsd");
 }

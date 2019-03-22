@@ -207,4 +207,3 @@ std::ostream& operator<<(std::ostream& stream, const CalculatedBusInterfaceIIDM&
 }
 
 }  // namespace DYN
-

@@ -51,4 +51,3 @@ inline Network * network_of(ContainedIn<Network> & contained) {
 } // end of namespace IIDM::
 
 #endif
-

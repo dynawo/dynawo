@@ -32,7 +32,7 @@ protected:
 TEST_F(TestAttributes, construction) {
   EXPECT_TRUE(attributes.has("name1"));
   EXPECT_TRUE(attributes.has("name2"));
-  
+
   EXPECT_NE( attributes.get<std::string>("name1"), attributes.get<std::string>("name2") );
   EXPECT_EQ(attributes.get<std::string>("name1"), "value1");
   EXPECT_EQ(attributes.get<std::string>("name2"), "value2");
@@ -49,15 +49,15 @@ TEST_F(TestAttributes, reading) {
   EXPECT_THROW(attributes.get<std::string>("not a key"), p::ParserException);
   // wrong value type
   EXPECT_THROW(attributes.get<double>("name2"), p::ParserException);
-  
+
   double d = 0;
   std::string s = "";
-  
+
   EXPECT_FALSE(attributes.get("not a key", d));
   EXPECT_FALSE(attributes.get("not a key", s));
-  
+
   EXPECT_FALSE(attributes.get("name1", d));
-  
+
   EXPECT_TRUE(attributes.get("name1", s));
   EXPECT_EQ(s, "value1");
 }
@@ -66,7 +66,7 @@ TEST_F(TestAttributes, reading) {
 TEST_F(TestAttributes, booleans) {
   attributes.set("bool1", "true");
   attributes.set("bool2", "false");
-  
+
   EXPECT_EQ(attributes.get<bool>("bool1"), true);
   EXPECT_EQ(attributes.get<bool>("bool2"), false);
 }
@@ -81,30 +81,30 @@ protected:
   //used to check conversion extraction.
   template <typename T>
   static T use(T value) {return value;}
-  
-  
+
+
   template <typename T>
   static std::string make_string(T const& value) { return boost::lexical_cast<std::string>(value); }
-  
-  
+
+
   template <typename T>
   void test(T const& value, T const& failed_value) {
     std::string const string_value = make_string(value);
-    
+
     attributes.set("key", string_value);
     SearchedAttribute searched = attributes["key"];
     SearchedAttribute failed = attributes["missing"];
-    
+
     EXPECT_TRUE(searched.exists());
     EXPECT_FALSE(failed.exists());
-    
+
     EXPECT_EQ(searched.as_string(), string_value);
     EXPECT_EQ(searched.as<T>(), value);
-    
+
     EXPECT_EQ(use<T const&>(searched), value);
     EXPECT_EQ(use< boost::optional<T> const& >(searched), value);
     EXPECT_EQ(use< boost::optional<T> const& >(failed), boost::none);
-    
+
     EXPECT_EQ(use<T>(searched | failed_value), value);
     EXPECT_EQ(use<T>(failed | failed_value), failed_value);
   }

@@ -35,7 +35,7 @@ public:
 
   /// clones this ConnectablePosition
   IIDM_UNIQUE_PTR<ConnectablePosition> clone() const { return IIDM_UNIQUE_PTR<ConnectablePosition>(do_clone()); }
-  
+
 protected:
   virtual ConnectablePosition* do_clone() const IIDM_OVERRIDE;
 

@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file ParserFactory.h
  * @brief XML parser description : header file
  *
@@ -37,7 +37,7 @@ typedef XML_OWNER_PTR<Parser> ParserPtr; /**< smart pointer to Parser object. un
 class ParserFactory {
 public:
   ParserFactory();
-  
+
   ~ParserFactory();
 
   //this inline methode allows library users to chose if they are using C++11 or boost pointers.

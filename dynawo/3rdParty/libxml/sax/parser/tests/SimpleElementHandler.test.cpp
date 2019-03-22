@@ -27,9 +27,9 @@ class MySimpleElementHandler: public SimpleElementHandler {
 public:
   MySimpleElementHandler(int value = 0): value(value) {}
   operator int () const { return value; }
-  
+
   virtual void readCharacters(std::string const&) { value*=2; }
-  
+
 protected:
   virtual void do_startElement(p::ElementName const&, attributes_type const&) { ++value; }
   virtual void do_endElement(p::ElementName const&) { --value; }
@@ -43,7 +43,7 @@ TEST(TestElementHandler, Interface) {
 
   MySimpleElementHandler h(0);
   EXPECT_EQ(h, 0);
-  
+
   EXPECT_NO_THROW( h.startElement(e, MySimpleElementHandler::attributes_type()) );
   EXPECT_EQ(h, 1);
   EXPECT_NO_THROW( h.readCharacters("value") );

@@ -54,4 +54,3 @@ class __DYNAWO_FS_EXPORT FinalStateCollectionFactory {
 }  // namespace finalState
 
 #endif  // API_FS_FSFINALSTATECOLLECTIONFACTORY_H_
-

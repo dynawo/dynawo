@@ -36,4 +36,3 @@ TEST(APIJOBTest, testInitValuesEntry) {
 }
 
 }  // namespace job
-

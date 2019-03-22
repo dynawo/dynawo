@@ -12,8 +12,8 @@
 #
 
 error_exit() {
-	echo "${1:-"Unknown Error"}" 1>&2
-	exit -1
+  echo "${1:-"Unknown Error"}" 1>&2
+  exit -1
 }
 
 export_var_env() {
@@ -77,13 +77,13 @@ install_libzip() {
 while (($#)); do
   case $1 in
     --install-dir=*)
-	    INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
+      INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
       if [ ! -d "$INSTALL_DIR" ]; then
         mkdir -p $INSTALL_DIR
       fi
       ;;
     --build-dir=*)
-	    BUILD_DIR=`echo $1 | sed -e 's/--build-dir=//g'`
+      BUILD_DIR=`echo $1 | sed -e 's/--build-dir=//g'`
       if [ ! -d "$BUILD_DIR" ]; then
         mkdir -p $BUILD_DIR
       fi
@@ -92,11 +92,11 @@ while (($#)); do
       BUILD_TYPE=`echo $1 | sed -e 's/--build-type=//g'`
       ;;
     --boost-install-dir=*)
-			BOOST_INSTALL_DIR=`echo $1 | sed -e 's/--boost-install-dir=//g'`
-			;;
+      BOOST_INSTALL_DIR=`echo $1 | sed -e 's/--boost-install-dir=//g'`
+      ;;
     --libarchive-install-dir=*)
-			LIBARCHIVE_INSTALL_DIR=`echo $1 | sed -e 's/--libarchive-install-dir=//g'`
-			;;
+      LIBARCHIVE_INSTALL_DIR=`echo $1 | sed -e 's/--libarchive-install-dir=//g'`
+      ;;
     --gtest-install-dir=*)
       GTEST_INSTALL_DIR=`echo $1 | sed -e 's/--gtest-install-dir=//g'`
       ;;

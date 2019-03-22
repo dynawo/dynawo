@@ -14,7 +14,7 @@
  * @file GeneratorShortCircuitsFormatter.cpp
  * @brief Provides GeneratorShortCircuitsFormatter definition
  */
- 
+
 #include <IIDM/components/Identifiable.h>
 #include <IIDM/extensions/generatorShortCircuits/GeneratorShortCircuits.h>
 #include <string>

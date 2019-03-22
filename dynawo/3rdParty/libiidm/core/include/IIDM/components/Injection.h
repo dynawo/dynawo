@@ -49,7 +49,7 @@ protected:
 private:
   template <typename T, typename CRTP_BUILDER>
   friend class IIDM::builders::InjectionBuilder;
-  
+
   boost::optional<double> m_p;
   boost::optional<double> m_q;
 
@@ -357,4 +357,3 @@ public:
 } // end of namespace IIDM
 
 #endif
-

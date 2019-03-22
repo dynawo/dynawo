@@ -126,4 +126,3 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNRATIOTAPCHANGERINTERFACEIIDM_H_
-

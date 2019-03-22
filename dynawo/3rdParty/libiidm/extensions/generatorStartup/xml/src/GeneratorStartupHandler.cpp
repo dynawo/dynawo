@@ -14,7 +14,7 @@
  * @file GeneratorStartupHandler.cpp
  * @brief Provides GeneratorStartupHandler definition
  */
- 
+
 #include <IIDM/extensions/generatorStartup/xml/GeneratorStartupHandler.h>
 #include <IIDM/extensions/GeneratorStartup.h>
 

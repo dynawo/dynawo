@@ -41,7 +41,7 @@ template <typename CRTP_TapChanger, typename Step>
 class TapChanger {
 public:
   typedef CRTP_TapChanger TapChanger_type;
-  
+
 /**
  * @name Steps management
  * @{
@@ -80,7 +80,7 @@ public:
   int tapPosition() const { return m_tapPosition; }
 
   void tapPosition(int tapPosition) { m_tapPosition = tapPosition; }
-  
+
   ///Gets the number of taps.
   int tapCount() const { return m_steps.size(); }
 
@@ -122,11 +122,11 @@ public:
     m_regulating = regulating;
     return static_cast<TapChanger_type&>(*this);
   }
-  
-  
-  
-  
-  
+
+
+
+
+
 
   /** @brief tells if the terminal reference is set. */
   bool has_terminalReference() const { return static_cast<bool>(m_ref); }
@@ -190,7 +190,7 @@ public:
   RatioTapChanger(int lowStepPosition, int position, bool loadTapChangingCapabilities);
 
   using parent_type::add;
-  
+
   #if __cplusplus < 201103L
   RatioTapChanger& add(double r, double x, double g, double b, double rho) {
     return add(step_type(r, x, g, b, rho));
@@ -257,7 +257,7 @@ public:
   PhaseTapChanger& step(double r, double x, double g, double b, double rho, double alpha) {
     return add(r, x, g, b, rho, alpha);
   }
-  
+
 
   /**
    * @brief gets the regulation mode.
@@ -267,7 +267,7 @@ public:
   /** @brief sets the regulation mode. */
   PhaseTapChanger& regulationMode(e_mode mode) { m_regulationMode = mode; return *this; }
 
-  
+
 
   /** @brief tells if the regulation value is set. */
   bool has_regulationValue() const { return static_cast<bool>(m_regulationValue); }

@@ -84,7 +84,7 @@ _dynawo() {
           else
             commands=""
           fi
-  				;;
+          ;;
       esac
       ;;
     build-tests|build-tests-coverage)
@@ -239,11 +239,11 @@ _dynawo() {
       esac
       ;;
     *)
-  		case "${prev}" in
-  			*)
-  				options="$global_options"
-  				commands="$global_commands"
-  				;;
+      case "${prev}" in
+        *)
+          options="$global_options"
+          commands="$global_commands"
+          ;;
       esac
     ;;
   esac

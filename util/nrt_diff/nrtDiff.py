@@ -814,7 +814,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
     file_name = os.path.splitext(os.path.basename(path_left))[0]
     if os.environ['BUILD_TYPE'] == "Debug" and file_extension == ".log" and file_name != "timeline" :
         return (IDENTICAL, "")
-                
+
     identical = filecmp.cmp (path_left, path_right)
     message = ""
 

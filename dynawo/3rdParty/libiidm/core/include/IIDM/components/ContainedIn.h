@@ -47,7 +47,7 @@ public:
 
 private:
   parent_type * m_parent;
-  
+
 private:
   template<typename T>
   friend class IIDM::Contains;
@@ -86,4 +86,3 @@ protected:
 } // end of namespace IIDM::
 
 #endif
-

@@ -98,7 +98,7 @@ struct IIDMDocumentHandler::ActualExtensionHandler::onEndFunctor {
   onEndFunctor(IIDMDocumentHandler::ActualExtensionHandler & aeh, ExtensionHandler & handler):
     aeh(aeh), handler(handler)
   {}
-  
+
   void operator() () {
     aeh.add_constructed_extension(handler);
   }
@@ -110,7 +110,7 @@ private:
 void IIDMDocumentHandler::ActualExtensionHandler::add_extension(ExtensionHandlerFactory const& factory) {
   ExtensionHandler* handler = factory();
   extension_handlers.push_back(handler);
-  
+
   onElement(iidm_ns("extension") + handler->root_element(), *handler);
   handler->onEnd( onEndFunctor(*this, *handler) );
 }

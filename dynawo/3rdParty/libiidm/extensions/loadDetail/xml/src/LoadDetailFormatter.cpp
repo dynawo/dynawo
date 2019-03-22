@@ -14,7 +14,7 @@
  * @file LoadDetailFormatter.cpp
  * @brief Provides LoadDetailFormatter definition
  */
- 
+
 #include <IIDM/extensions/loadDetail/xml/LoadDetailFormatter.h>
 #include <IIDM/extensions/loadDetail/LoadDetail.h>
 #include <IIDM/components/Identifiable.h>

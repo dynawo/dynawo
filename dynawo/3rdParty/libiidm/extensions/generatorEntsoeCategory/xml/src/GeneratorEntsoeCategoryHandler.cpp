@@ -14,7 +14,7 @@
  * @file GeneratorEntsoeCategoryHandler.cpp
  * @brief Provides GeneratorEntsoeCategoryHandler definition
  */
- 
+
 #include <IIDM/extensions/generatorEntsoeCategory/xml/GeneratorEntsoeCategoryHandler.h>
 #include <IIDM/extensions/GeneratorEntsoeCategory.h>
 

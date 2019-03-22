@@ -15,4 +15,3 @@
   <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
   <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
 </external_variables>
-

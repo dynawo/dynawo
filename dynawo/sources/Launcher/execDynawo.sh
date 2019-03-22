@@ -96,22 +96,22 @@ fi
 while (($#)); do
   case $1 in
     jobs)
-	    shift
-	    jobs $@ || error_exit "Dynawo execution failed"
-	    break
-	    ;;
+      shift
+      jobs $@ || error_exit "Dynawo execution failed"
+      break
+      ;;
     version)
       jobs --version
       break
       ;;
     help)
-	    echo "$usage"
-	    break
-	    ;;
+      echo "$usage"
+      break
+      ;;
     *)
-	    echo "$1 is an invalid option"
-	    echo "$usage"
-	    break
-	    ;;
+      echo "$1 is an invalid option"
+      echo "$usage"
+      break
+      ;;
   esac
 done

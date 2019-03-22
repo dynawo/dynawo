@@ -1367,5 +1367,3 @@ class MacroStaticReferenceConstIteratorImpl {
 }  // namespace dynamicdata
 
 #endif  // API_DYD_DYDITERATORSIMPL_H_
-
-

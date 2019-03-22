@@ -35,7 +35,7 @@ class ElementHandler;
 
 /**
  * @brief handler built by attaching handlers or functors to an xml path.
- * 
+ *
  * A full handler can be attached to a path, or just one of the event handling functors
  */
 class ComposableBase {
@@ -52,20 +52,20 @@ public:
    */
   explicit ComposableBase() {}
   explicit ComposableBase(ComposableBase const&);
-  
+
   ComposableBase& operator=(ComposableBase const&);
-  
+
 protected:
   /** @brief Destructor */
   ~ComposableBase() {}
-  
+
 public:
   //adds a possibility to beginElement
   ComposableBase& onStartElement(path_type const&, startElement_observer const&, bool recursive = false);
-  
+
   //adds a possibility to endElement
   ComposableBase& onEndElement(path_type const&, endElement_observer const&, bool recursive = false);
-  
+
   //adds a possibility to readCharacters
   ComposableBase& onReadCharacters(path_type const&, characters_observer const&, bool recursive = false);
 
@@ -80,27 +80,27 @@ public:
    * @param attributes the attributes of the read element
    */
   void startElement(ElementName const& name, Attributes const& attributes);
-  
+
   /**
    * @brief Called when an XML element closing tag is read.
    *
    * @param name Name of the element
    */
   void endElement(ElementName const& name);
-  
+
   /**
    * @brief Characters inside XML element event handler
    *
    * @param chars Characters to write in the element
    */
   void readCharacters(std::string const& characters);
-  
+
 protected:
   void reset();
   path_type const& current_path() const { return m_current_path; }
-  
+
   bool at_root() const { return m_current_path.empty(); }
-  
+
 private:
   //allows to attach a bool to a functor
   template <typename O>
@@ -117,7 +117,7 @@ private:
   typedef path_multitree<ElementName, Observer<endElement_observer> > endElement_observers_type;
   typedef path_multitree<ElementName, Observer<characters_observer> > characters_observers_type;
 
-  
+
   startElement_observers_type m_startElement_observers;
   endElement_observers_type m_endElement_observers;
   characters_observers_type m_characters_observers;

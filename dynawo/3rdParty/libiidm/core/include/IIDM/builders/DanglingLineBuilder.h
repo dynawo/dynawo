@@ -31,7 +31,7 @@ namespace IIDM {
 class DanglingLine;
 
 namespace builders {
-  
+
 /**
  * @class DanglingLineBuilder
  * @brief IIDM::DanglingLine builder

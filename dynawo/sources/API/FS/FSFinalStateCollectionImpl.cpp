@@ -83,6 +83,3 @@ FinalStateCollection::Impl::endVariable() {
   return variable_iterator(this, false);
 }
 }  // namespace finalState
-
-
-

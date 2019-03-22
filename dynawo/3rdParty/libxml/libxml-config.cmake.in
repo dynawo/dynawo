@@ -11,7 +11,7 @@
 #
 # The following variables as effect on the found component
 #
-# LibXML_USE_STATIC_LIBS:	if set to a true value, only static libraries are searched. Otherwise, only shared ones.
+# LibXML_USE_STATIC_LIBS: if set to a true value, only static libraries are searched. Otherwise, only shared ones.
 #
 # The module defines the following variables:
 #

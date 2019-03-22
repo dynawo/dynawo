@@ -14,7 +14,7 @@
  * @file ActiveSeasonHandler.cpp
  * @brief Provides ActiveSeasonHandler definition
  */
- 
+
 #include <IIDM/extensions/activeSeason/xml/ActiveSeasonHandler.h>
 
 #include "internals/config.h"

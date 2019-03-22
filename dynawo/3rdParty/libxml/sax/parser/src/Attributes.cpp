@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file Attributes.cpp
  * @brief Attributes : implementation file
  *

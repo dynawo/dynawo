@@ -84,5 +84,3 @@ TEST(CommonIoDicoTest, testCommonIoDicosTest) {
 }
 
 }  // namespace DYN
-
-

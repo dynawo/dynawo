@@ -207,4 +207,3 @@ class Graph {
 }  // namespace DYN
 
 #endif  // COMMON_DYNGRAPH_H_
-

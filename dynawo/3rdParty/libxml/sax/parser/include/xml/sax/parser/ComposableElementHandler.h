@@ -37,7 +37,7 @@ namespace parser {
 
 /**
  * @brief handler built by attaching handlers or functors to an xml path.
- * 
+ *
  * A full handler can be attached to a path, or just one of the event handling functors
  */
 class ComposableElementHandler : public virtual ElementHandler, private ComposableBase {
@@ -51,14 +51,14 @@ public:
 
   /** @brief Destructor */
   virtual ~ComposableElementHandler() {}
-  
+
 public:
   using ComposableBase::path_type;
 
   using ComposableBase::onStartElement;
   using ComposableBase::onEndElement;
   using ComposableBase::onReadCharacters;
-  
+
   using ComposableBase::onElement;
 
 public:
@@ -69,14 +69,14 @@ public:
    * @param attributes the attributes of the read element
    */
   virtual void startElement(ElementName const& name, attributes_type const& attributes) XML_OVERRIDE XML_FINAL;
-  
+
   /**
    * @brief Called when an XML element closing tag is read.
    *
    * @param name Name of the element
    */
   virtual void endElement(ElementName const& name) XML_OVERRIDE XML_FINAL;
-  
+
   /**
    * @brief Characters inside XML element event handler
    *

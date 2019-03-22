@@ -82,7 +82,7 @@ ConnectableBase::at(side_id side) {
 std::map<side_id, ConnectionPoint>
 ConnectableBase::connectionPoints() const {
   std::map<side_id, ConnectionPoint> values;
-  
+
   std::transform(
     m_connections.begin(), m_connections.end(),
     std::inserter(values, values.begin()),

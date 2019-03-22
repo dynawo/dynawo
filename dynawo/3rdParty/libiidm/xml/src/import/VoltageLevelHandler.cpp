@@ -47,12 +47,12 @@ namespace xml {
 
 VoltageLevelHandler::VoltageLevelHandler(elementName_type const& root_element):
   parent_type(root_element),
-  
+
   bus_handler(elementName_type(iidm_ns, "bus")),
   busbarsection_handler(elementName_type(iidm_ns, "busbarSection")),
   bus_switch_handler(elementName_type(iidm_ns, "switch")),
   node_switch_handler(elementName_type(iidm_ns, "switch")),
-  
+
   danglingline_handler(elementName_type(iidm_ns, "danglingLine")),
   generator_handler(elementName_type(iidm_ns, "generator")),
   load_handler(elementName_type(iidm_ns, "load")),
@@ -64,13 +64,13 @@ VoltageLevelHandler::VoltageLevelHandler(elementName_type const& root_element):
   onStartElement( root_element+iidm_ns("nodeBreakerTopology"),
     lambda::bind(&VoltageLevelHandler::configure_nodeBreakerTopology, lambda::ref(*this), lambda_args::arg2 )
   );
-  
+
   set_topology_part_handler(root_element+iidm_ns("busBreakerTopology/bus"), bus_handler, &VoltageLevelHandler::add_bus);
   set_topology_part_handler(root_element+iidm_ns("busBreakerTopology/switch"), bus_switch_handler, &VoltageLevelHandler::add_bus_switch);
-  
+
   set_topology_part_handler(root_element+iidm_ns("nodeBreakerTopology/busbarSection"), busbarsection_handler, &VoltageLevelHandler::add_busbarsection);
   set_topology_part_handler(root_element+iidm_ns("nodeBreakerTopology/switch"), node_switch_handler, &VoltageLevelHandler::add_node_switch);
-  
+
   set_connectable_handler(root_element+iidm_ns("danglingLine"), danglingline_handler);
   set_connectable_handler(root_element+iidm_ns("generator"), generator_handler);
   set_connectable_handler(root_element+iidm_ns("load"), load_handler);

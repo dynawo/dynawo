@@ -37,7 +37,7 @@ public:
   explicit CurrentLimitsHandler(elementName_type const& root_name): root_name(root_name) {}
 
   void clear() { limits = boost::none;}
-  
+
 private:
   const elementName_type root_name;
 

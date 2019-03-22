@@ -54,16 +54,16 @@ int main(int argc, char** argv) {
           .add( bus_voltagelevel_builder.build("VL") )
           .add( bus_builder.build("solars") )
 
-	      .add( solar_builder.build("solar1"), at("solars", connected) )
-	      .add( solar_builder.build("solar2"), at("solars", connected) )
-	      .add( solar_builder.build("solar3"), at("solars", connected) );
+        .add( solar_builder.build("solar1"), at("solars", connected) )
+        .add( solar_builder.build("solar2"), at("solars", connected) )
+        .add( solar_builder.build("solar3"), at("solars", connected) );
 
   Generator& gen = network.substations().get("station").voltageLevels().get("VL").generators().get("solar1");
 
   gen.setExtension(GeneratorShortCircuitsBuilder().transientReactance(1.1).stepUpTransformerReactance(1.1).build());
 
   //exporting the network into cout or each of the given files
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportGeneratorShortCircuits, GeneratorShortCircuitsHandler::uri(), "ext_gsc" );
 

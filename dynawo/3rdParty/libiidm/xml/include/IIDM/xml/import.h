@@ -36,7 +36,7 @@ namespace xml {
 class xml_parser {
 public:
   typedef std::string extension_uri;
-  
+
   ///type of extension request for partial selection.
   typedef std::vector<extension_uri> extension_uris_type;
 
@@ -50,12 +50,12 @@ private:
     ExtensionHandlerFactory factory;
     std::string xsd_path;
   };
-  
+
   typedef std::map<extension_uri, extension_handler_factory> extension_factories_type;
 
 public:
   explicit xml_parser() {}
-  
+
   /**
    * @brief sets the handler factory related to a given xml target namespace.
    * @param uri target namespace as defined in the xsd.
@@ -63,7 +63,7 @@ public:
    * @throws IIDM::xml::extension_error if an extension is already set for the given uri.
    */
   void register_extension(extension_uri const& uri, ExtensionHandlerFactory const& factory, std::string const& xsd_path);
-  
+
   /**
    * @brief helper to easily set an extension. requires some static members
    * @tparam Ext a type having static string functions uri() and xsd_path(), and a static type Factory. (see register_extension(...) for meanings)
@@ -74,9 +74,9 @@ public:
   void register_extension() {
     register_extension(Ext::uri(), SimpleExtensionHandlerFactory<Ext>(), Ext::xsd_path());
   }
-  
-  
-  
+
+
+
   ///imports with all defined extensions
   // @throws IIDM::xml::extension_error if an extension's xsd can't be parsed.
   // @throws IIDM::xml::import_error if an error occurs while parsing
@@ -108,11 +108,11 @@ public:
   // @throws IIDM::xml::extension_error if an extension's xsd can't be parsed.
   // @throws IIDM::xml::import_error if an error occurs while parsing
   Network from_xml(std::istream& source, extension_uris_type const& extensions, bool validating = false);
-  
-  
+
+
 private:
   ::xml::sax::parser::ParserPtr make_parser(bool validating);
-  
+
   ::xml::sax::parser::ParserFactory parser_factory;
   extension_factories_type extension_factories;
 };

@@ -149,4 +149,3 @@ ModelTemplateExpansion::Impl::findMacroStaticRef(const std::string& id) {
 }
 
 }  // namespace dynamicdata
-

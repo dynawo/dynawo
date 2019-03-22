@@ -21,4 +21,3 @@ equation
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
 end LoadAuxiliaries_INIT;
-

@@ -36,24 +36,24 @@ Transformer3WindingsBuilder::build(id_type const& id) const {
   builded.m_x3 = m_x3;
   builded.m_g1 = m_g1;
   builded.m_b1 = m_b1;
-  
+
   builded.m_ratedU1 = m_ratedU1;
   builded.m_ratedU2 = m_ratedU2;
   builded.m_ratedU3 = m_ratedU3;
-  
+
   builded.m_p1 = m_p1;
   builded.m_q1 = m_q1;
   builded.m_p2 = m_p2;
   builded.m_q2 = m_q2;
   builded.m_p3 = m_p3;
   builded.m_q3 = m_q3;
-  
+
   builded.m_ratioTapChanger2 = m_ratioTapChanger2;
   builded.m_ratioTapChanger3 = m_ratioTapChanger3;
   builded.m_currentLimits1 = m_currentLimits1;
   builded.m_currentLimits2 = m_currentLimits2;
   builded.m_currentLimits3 = m_currentLimits3;
-  
+
   return builded;
 }
 

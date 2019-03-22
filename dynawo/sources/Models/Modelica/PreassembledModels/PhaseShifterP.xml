@@ -16,5 +16,3 @@
     <dyn:unitDynamicModel id="phaseShifter" name="Dynawo.Electrical.Controls.Transformers.PhaseShifterP" initName="Dynawo.Electrical.Controls.Transformers.PhaseShifterP_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-
-

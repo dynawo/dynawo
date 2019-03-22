@@ -12,7 +12,7 @@
 
 /**
  * @file components/ConnectionPoint.cpp
- * @brief 
+ * @brief
  */
 #include <IIDM/components/ConnectionPoint.h>
 
@@ -21,7 +21,7 @@
 #include <stdexcept>
 
 namespace IIDM {
-  
+
 /* ****** class Port ****** */
 
 int Port::compare(Port const& other) const {
@@ -30,7 +30,7 @@ int Port::compare(Port const& other) const {
 
 bool operator<(Port const& a, Port const& b) {
   if (a.is_node() != b.is_node()) return a.is_bus();
-  
+
   return a.port < b.port;
 }
 

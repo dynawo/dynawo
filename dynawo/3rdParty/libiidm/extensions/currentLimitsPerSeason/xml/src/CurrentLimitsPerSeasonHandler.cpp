@@ -14,7 +14,7 @@
  * @file CurrentLimitsPerSeasonHandler.cpp
  * @brief Provides CurrentLimitsPerSeasonHandler definition
  */
- 
+
 #include <IIDM/extensions/currentLimitsPerSeason/xml/CurrentLimitsPerSeasonHandler.h>
 
 #include "internals/config.h"
@@ -51,7 +51,7 @@ CurrentLimitsPerSeasonHandler::CurrentLimitsPerSeasonHandler():
   season_handler( elementName_type(root.ns, "season"), root )
 {
   onStartElement(root, boost::bind(&CurrentLimitsPerSeasonHandler::clear, boost::ref(*this)) );
-  
+
   onElement( root + elementName_type(root.ns, "season"), season_handler );
   season_handler.onEnd( boost::bind(&CurrentLimitsPerSeasonHandler::add_season, boost::ref(*this)) );
 }
@@ -63,8 +63,8 @@ void CurrentLimitsPerSeasonHandler::clear() {
 void CurrentLimitsPerSeasonHandler::add_season() {
   builded.set(season_handler.make());
 }
-  
-  
+
+
 CurrentLimitsPerSeason* CurrentLimitsPerSeasonHandler::do_make() {
   return new CurrentLimitsPerSeason(builded);
 }
@@ -78,7 +78,7 @@ SeasonHandler::SeasonHandler(elementName_type const& element_name, elementName_t
   limits3_handler( elementName_type(root.ns, "currentLimits3") )
 {
   onStartElement(element_name, boost::bind<void>(&SeasonHandler::start, boost::ref(*this), _2) );
-  
+
   onElement( element_name+root.ns("currentLimits"), limits_handler );
   onElement( element_name+root.ns("currentLimits1"), limits1_handler );
   onElement( element_name+root.ns("currentLimits2"), limits2_handler );

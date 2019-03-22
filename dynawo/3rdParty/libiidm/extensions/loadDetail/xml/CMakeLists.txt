@@ -4,7 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Libiidm, a library to model IIDM networks and allows importing and exporting them to files.
 
 project(libiidm_ext_loaddetail_xml CXX)
@@ -103,7 +103,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libiidm-ext-loaddetail-xml-config.cmak
 # create a target to install this extension (and dependencies).
 add_custom_target(install-loaddetail-xml
   DEPENDS iidm-ext-loaddetail-xml
-  COMMAND 
+  COMMAND
     "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=iidm-ext-loaddetail-xml
     -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
 )
@@ -117,7 +117,7 @@ if(BUILD_SAMPLES)
   add_library(iidm-ext-loaddetail-xml-testing EXCLUDE_FROM_ALL ${IIDM_EXT_LOADDETAIL_XML_SOURCES})
 
   target_compile_definitions(iidm-ext-loaddetail-xml-testing PRIVATE IIDM_TESTING)
-  
+
   target_include_directories(iidm-ext-loaddetail-xml-testing
     PUBLIC
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>

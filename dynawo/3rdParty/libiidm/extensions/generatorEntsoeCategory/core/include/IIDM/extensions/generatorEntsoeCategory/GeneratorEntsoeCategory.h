@@ -35,7 +35,7 @@ public:
 
   /// clones this GeneratorEntsoeCategory
   IIDM_UNIQUE_PTR<GeneratorEntsoeCategory> clone() const { return IIDM_UNIQUE_PTR<GeneratorEntsoeCategory>(do_clone()); }
-  
+
 protected:
   virtual GeneratorEntsoeCategory* do_clone() const IIDM_OVERRIDE;
 
@@ -45,7 +45,7 @@ private:
 
 public:
   unsigned int code() const { return m_code; }
-  
+
   GeneratorEntsoeCategory& code(unsigned int code) {
     if (code < 1 || code > 42) {
       throw std::runtime_error("Bad generator ENTSO-E code " + boost::lexical_cast<std::string>(code));

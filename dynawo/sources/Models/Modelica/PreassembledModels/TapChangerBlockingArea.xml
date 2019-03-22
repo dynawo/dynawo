@@ -16,5 +16,3 @@
     <dyn:unitDynamicModel id="tapChangerLock" name="Dynawo.Electrical.Controls.Voltage.TCL"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-
-

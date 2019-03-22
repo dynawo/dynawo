@@ -135,4 +135,3 @@ class Model::Impl : public Model {
 }  // namespace finalState
 
 #endif  // API_FS_FSMODELIMPL_H_
-

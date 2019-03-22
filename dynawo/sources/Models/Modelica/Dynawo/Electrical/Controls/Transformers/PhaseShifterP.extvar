@@ -16,5 +16,3 @@
   <variable id="locked" type="discrete" defaultValue="false"/>
   <variable id="switchOffSignal1.value" type="discrete" defaultValue="false"/>
 </external_variables>
-
-

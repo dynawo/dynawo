@@ -45,9 +45,9 @@ using namespace IIDM::builders;
 int main(int argc, char** argv) {
 //a few builder to ease network building
 
-	LineBuilder line_builder = LineBuilder().r(0).x(0).g1(0).b1(0).g2(0).b2(0);
+  LineBuilder line_builder = LineBuilder().r(0).x(0).g1(0).b1(0).g2(0).b2(0);
 
-	TieLineBuilder tieline_builder = TieLineBuilder()
+  TieLineBuilder tieline_builder = TieLineBuilder()
     .id_1("A").r_1(0).x_1(0).g1_1(0).b1_1(0).g2_1(0).b2_1(0).xnodeP_1(0).xnodeP_2(0)
     .id_2("B").r_2(0).x_2(0).g1_2(0).b1_2(0).g2_2(0).b2_2(0).xnodeP_1(0).xnodeP_2(0)
   ;
@@ -61,22 +61,22 @@ int main(int argc, char** argv) {
 
   LoadBuilder load_builder = LoadBuilder().p0(0).q0(0).p(0).q(0).p(2);
 
-	ShuntCompensatorBuilder shunt_builder= ShuntCompensatorBuilder().section_current(1).section_max(2).b_per_section(1).q(0);
+  ShuntCompensatorBuilder shunt_builder= ShuntCompensatorBuilder().section_current(1).section_max(2).b_per_section(1).q(0);
 
-	StaticVarCompensatorBuilder svc_off_builder, svc_voltage_builder, svc_reactive_builder;
+  StaticVarCompensatorBuilder svc_off_builder, svc_voltage_builder, svc_reactive_builder;
   svc_off_builder.regulationMode(StaticVarCompensator::regulation_off).bmin(1).bmax(2);
   svc_voltage_builder.regulationMode(StaticVarCompensator::regulation_voltage).bmin(1).bmax(2).voltageSetPoint(1.2);
   svc_reactive_builder.regulationMode(StaticVarCompensator::regulation_reactive_power).bmin(1).bmax(2).reactivePowerSetPoint(1.7);
 
-	DanglingLineBuilder danglingline_builder = DanglingLineBuilder().p0(0).q0(0).r(0).x(0).g(0).b(0);
+  DanglingLineBuilder danglingline_builder = DanglingLineBuilder().p0(0).q0(0).r(0).x(0).g(0).b(0);
 
 
-	GeneratorBuilder solar_builder = GeneratorBuilder()
+  GeneratorBuilder solar_builder = GeneratorBuilder()
     .energySource(Generator::source_solar)
     .minMaxReactiveLimits( MinMaxReactiveLimits(0, 10) )
     .regulating(false)
     .pmin(0).pmax(10).targetP(5);
-	GeneratorBuilder nuclear_builder = GeneratorBuilder()
+  GeneratorBuilder nuclear_builder = GeneratorBuilder()
     .energySource(Generator::source_nuclear)
     .minMaxReactiveLimits( MinMaxReactiveLimits(0, 10) )
     .regulating(true)
@@ -98,12 +98,12 @@ int main(int argc, char** argv) {
 
   BusBuilder bus_builder = BusBuilder().v(0).angle(10);
 
-	VoltageLevelBuilder bus_voltagelevel_builder = VoltageLevelBuilder().mode(VoltageLevel::bus_breaker).nominalV(50);
+  VoltageLevelBuilder bus_voltagelevel_builder = VoltageLevelBuilder().mode(VoltageLevel::bus_breaker).nominalV(50);
 
 
-	SwitchBuilder breaker_builder = SwitchBuilder().type(Switch::breaker).opened(false).retained(false);
-	SwitchBuilder disconnector_builder = SwitchBuilder().type(Switch::disconnector).opened(false).retained(false);
-	SwitchBuilder load_break_builder = SwitchBuilder().type(Switch::load_break_switch).opened(false).retained(false);
+  SwitchBuilder breaker_builder = SwitchBuilder().type(Switch::breaker).opened(false).retained(false);
+  SwitchBuilder disconnector_builder = SwitchBuilder().type(Switch::disconnector).opened(false).retained(false);
+  SwitchBuilder load_break_builder = SwitchBuilder().type(Switch::load_break_switch).opened(false).retained(false);
 
 
   //caracteristics:
@@ -112,9 +112,9 @@ int main(int argc, char** argv) {
 
 //creating the network
 
-	cerr << "creating network..." << endl;
-	Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("2000-01-01T00:00:00").forecastDistance(0).build("network");
-  
+  cerr << "creating network..." << endl;
+  Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("2000-01-01T00:00:00").forecastDistance(0).build("network");
+
   //connectivity test: 2 stations, bus, busbarsection, lines and tielines
 #if MACRO_WITH_CONNECTIVITY_TEST
   {
@@ -197,7 +197,7 @@ int main(int argc, char** argv) {
 #if MACRO_WITH_COMPONENTS_TEST
   {
     cerr << "adding components test..." << endl;
-    
+
     LoadBuilder loads = load_builder;
     DanglingLineBuilder const& dlines = danglingline_builder;
 
@@ -272,7 +272,7 @@ int main(int argc, char** argv) {
         .add( load_builder.build("CT_unconnectable_load") )
         .add( danglingline_builder.build("CT_unconnectable_dline"))
         .add( nuclear_builder.build("CT_unconnectable_generator"))
-        
+
       .parent()
         .add( bus_voltagelevel_builder.build("CT_VL_transfos0") )
           .add( bus_builder.build("CT_transformersWindings0") )
@@ -290,9 +290,9 @@ int main(int argc, char** argv) {
           .add( bus_builder.build("CT_transformersWindings3") )
           .add( load_builder.build("CT_reference3"), at("CT_transformersWindings3", connected) )
         .parent()
-        
+
         // 2 windings transformersWindings
-        .add( 
+        .add(
           Transformer2WindingsBuilder()
             .r(0).x(0).g(0).b(0)
             .ratedU1(0).p1(0).q1(0)
@@ -319,7 +319,7 @@ int main(int argc, char** argv) {
         )
 
         // 3 windings transformersWindings
-        .add( 
+        .add(
           Transformer3WindingsBuilder()
             .g1(0).b1(0)
             .r1(0).x1(0).ratedU1(0).p1(0).q1(0)
@@ -348,12 +348,12 @@ int main(int argc, char** argv) {
           at("CT_VL_transfos3", "CT_transformersWindings3", connected, side_3)
         )
     ;
-    
+
     Contains<Load>& CT_loads = network.substations().get("component tests").voltageLevels().get("CT_VL").loads();
     for (Contains<Load>::iterator it = CT_loads.begin(); it!=CT_loads.end(); ++it) {
       it->p(42);
     }
-    
+
     network.add(
       hvdcline_builder.clone()
         .convertersMode(HvdcLine::mode_RectifierInverter)
@@ -438,17 +438,17 @@ int main(int argc, char** argv) {
         at("TOPO_VL_transfos_B1", "TOPO_bus1", connected, side_1),
         at("TOPO_VL_transfos_B2", "TOPO_bus2", connected, side_2)
       )
-      
+
       .add( _2WT.build("BN 2WT"),
         at("TOPO_VL_transfos_B1", "TOPO_bus1", connected, side_1),
         at("TOPO_VL_transfos_N2", 0, side_2)
       )
-      
+
       .add( _2WT.build("NB 2WT"),
         at("TOPO_VL_transfos_N1", 0, side_1),
         at("TOPO_VL_transfos_B2", "TOPO_bus2", connected, side_2)
       )
-      
+
       .add( _2WT.build("NN 2WT"),
         at("TOPO_VL_transfos_N1", 0, side_1),
         at("TOPO_VL_transfos_N2", 0, side_2)
@@ -515,8 +515,8 @@ int main(int argc, char** argv) {
     ;
   }
 
-	cerr << "export xml..." << endl;
-  
+  cerr << "export xml..." << endl;
+
   if (argc >1) {
     for (int i = 1; i < argc; ++i) {
       std::ofstream output(argv[1]);
@@ -527,7 +527,6 @@ int main(int argc, char** argv) {
     IIDM::xml::to_xml(network, std::cout);
   }
 
-	cerr << "done." << endl;
-	return 0;
+  cerr << "done." << endl;
+  return 0;
 }
-

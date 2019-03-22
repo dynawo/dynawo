@@ -219,4 +219,3 @@ RefHandler::get() const {
 }
 
 }  // namespace parameters
-

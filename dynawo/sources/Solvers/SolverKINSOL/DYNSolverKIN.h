@@ -199,4 +199,3 @@ class SolverKIN : private boost::noncopyable{
 }  // end of namespace DYN
 
 #endif  // SOLVERS_SOLVERKINSOL_DYNSOLVERKIN_H_
-

@@ -4,7 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 # SPDX-License-Identifier: MPL-2.0
-# 
+#
 # This file is part of Libiidm, a library to model IIDM networks and allows importing and exporting them to files.
 
 project(libiidm CXX)
@@ -29,25 +29,25 @@ add_library(
   iidm
   src/Network.cpp
   src/Extension.cpp
-  
+
   src/components/Identifiable.cpp
   src/components/Connectable.cpp
   src/components/Connection.cpp
   src/components/ConnectionPoint.cpp
-  
+
   src/components/ExternalComponent.cpp
-  
+
   src/components/Substation.cpp
   src/components/Line.cpp
   src/components/TieLine.cpp
   src/components/HvdcLine.cpp
-  
+
   src/components/VoltageLevel.cpp
-  
+
   src/components/BusBarSection.cpp
   src/components/Bus.cpp
   src/components/Switch.cpp
-  
+
   src/components/Generator.cpp
   src/components/DanglingLine.cpp
   src/components/Load.cpp
@@ -55,33 +55,33 @@ add_library(
   src/components/StaticVarCompensator.cpp
   src/components/VscConverterStation.cpp
   src/components/LccConverterStation.cpp
-  
+
   src/components/Transformer2Windings.cpp
   src/components/Transformer3Windings.cpp
-  
+
   src/components/CurrentLimit.cpp
   src/components/ReactiveInformations.cpp
   src/components/TapChanger.cpp
   src/components/TerminalReference.cpp
 
-  
+
   src/builders/NetworkBuilder.cpp
-  
+
   src/builders/BusBarSectionBuilder.cpp
   src/builders/BusBuilder.cpp
-  
+
   src/builders/LineBuilder.cpp
   src/builders/TieLineBuilder.cpp
   src/builders/HvdcLineBuilder.cpp
-  
+
   src/builders/SubstationBuilder.cpp
-  
+
   src/builders/SwitchBuilder.cpp
   src/builders/Transformer2WindingsBuilder.cpp
   src/builders/Transformer3WindingsBuilder.cpp
-  
+
   src/builders/VoltageLevelBuilder.cpp
-  
+
   src/builders/GeneratorBuilder.cpp
   src/builders/DanglingLineBuilder.cpp
   src/builders/LoadBuilder.cpp
@@ -144,7 +144,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libiidm-core-config.cmake
 
 add_custom_target(install-core
   DEPENDS iidm
-  COMMAND 
+  COMMAND
     "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=iidm-core -P "${CMAKE_BINARY_DIR}/cmake_install.cmake"
 )
 

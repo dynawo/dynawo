@@ -14,7 +14,7 @@
  * @file GeneratorActivePowerControlFormatter.cpp
  * @brief Provides GeneratorActivePowerControlFormatter definition
  */
- 
+
 #include <IIDM/extensions/generatorActivePowerControl/xml/GeneratorActivePowerControlFormatter.h>
 #include <IIDM/extensions/generatorActivePowerControl/GeneratorActivePowerControl.h>
 #include <IIDM/components/Identifiable.h>

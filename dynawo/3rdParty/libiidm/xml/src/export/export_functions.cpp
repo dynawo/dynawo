@@ -68,7 +68,7 @@ inline IIDM::Identifiable const& properties(IIDM::Identifiable const& identifiab
 // adds Identifiable's properties
 Element& operator << (Element& root, IIDM::Identifiable const& identifiable) {
   typedef IIDM::Identifiable::properties_type::const_iterator const_iterator;
-  
+
   for (const_iterator it = identifiable.properties().begin(), end = identifiable.properties().end(); it!=end; ++it) {
     root.element( "property", AttributeList("name", it->first)("value", it->second) );
   }
@@ -116,7 +116,7 @@ void to_xml(Element& root, IIDM::Line const& line) {
       << pq(line)// itesla has option not to export this (isWithBranchSV)
   );
   e << properties(line);
-  
+
   if (line.has_currentLimits1()) to_xml(e, "currentLimits1", line.currentLimits1());
   if (line.has_currentLimits2()) to_xml(e, "currentLimits2", line.currentLimits2());
 }
@@ -129,7 +129,7 @@ void to_xml(Element& root, IIDM::TieLine const& line) {
           << withVoltageLevel(line)
           << pq(line)// itesla has option not to export this (isWithBranchSV)
         )
-        
+
         ("id_1"    , line.id_1())
         ("name_1"  , line.optional_name_1())
         ("r_1"     , line.r_1     ())
@@ -151,17 +151,17 @@ void to_xml(Element& root, IIDM::TieLine const& line) {
         ("b2_2"    , line.b2_2    ())
         ("xnodeP_2", line.xnodeP_2())
         ("xnodeQ_2", line.xnodeQ_2())
-        
+
   );
   e << properties(line);
-  
+
   if (line.has_currentLimits1()) to_xml(e, "currentLimits1", line.currentLimits1());
   if (line.has_currentLimits2()) to_xml(e, "currentLimits2", line.currentLimits2());
 }
 
 void to_xml(Element& root, IIDM::HvdcLine const& line) {
   const bool isRectifierInverter = (line.convertersMode() == IIDM::HvdcLine::mode_RectifierInverter);
-  
+
   Element e = root.element(
     "hvdcLine",
     make_attributes(line)
@@ -194,7 +194,7 @@ void to_xml(Element& root, IIDM::Substation const& substation) {
 
 void to_xml(Element& root, IIDM::VoltageLevel const& v) {
   const bool is_node_breaker = (v.mode() == IIDM::VoltageLevel::node_breaker);
-  
+
   Element voltageLevel = root.element(
     "voltageLevel",
       make_attributes(v)
@@ -204,7 +204,7 @@ void to_xml(Element& root, IIDM::VoltageLevel const& v) {
         ("topologyKind", is_node_breaker ? "NODE_BREAKER" : "BUS_BREAKER")
   );
   voltageLevel << properties(v);
-  
+
   if (is_node_breaker) {
     Element topology = voltageLevel.element(
       "nodeBreakerTopology",
@@ -255,7 +255,7 @@ void to_xml(Element& root, IIDM::Switch const& s) {
     default: kind="UNAVAILABLE";
   }
   const bool bus_mode = (s.mode() == IIDM::Switch::mode_bus);
-  
+
   Element e = root.element(
     "switch",
     make_attributes(s)
@@ -318,7 +318,7 @@ void to_xml(Element& root, IIDM::DanglingLine const& danglingLine) {
       << pq(danglingLine)
   );
   e << properties(danglingLine);
-  
+
   if (danglingLine.has_currentLimits()) {
     to_xml(e, "currentLimits", danglingLine.currentLimits());
   }
@@ -332,7 +332,7 @@ void to_xml(Element& root, IIDM::StaticVarCompensator const& svc) {
     case IIDM::StaticVarCompensator::regulation_off:            kind = "OFF"; break;
     default: kind="UNAVAILABLE";
   }
-  
+
   Element e = root.element(
     "staticVarCompensator",
     make_attributes(identifiable(svc))
@@ -374,7 +374,7 @@ void to_xml(Element& root, IIDM::Generator const& generator) {
       << pq(generator)
   );
   e << properties(generator);
-  
+
   if (generator.has_regulatingTerminal())      to_xml(e, "regulatingTerminal", generator.regulatingTerminal());
   if (generator.has_reactiveCapabilityCurve()) to_xml(e, "reactiveCapabilityCurve", generator.reactiveCapabilityCurve());
   if (generator.has_minMaxReactiveLimits())    to_xml(e, "minMaxReactiveLimits", generator.minMaxReactiveLimits());
@@ -392,7 +392,7 @@ void to_xml(Element& root, IIDM::VscConverterStation const& vcs) {
       << pq(vcs)
   );
   e << properties(vcs);
-  
+
   if (vcs.has_reactiveCapabilityCurve()) to_xml(e, "reactiveCapabilityCurve", vcs.reactiveCapabilityCurve());
   if (vcs.has_minMaxReactiveLimits())    to_xml(e, "minMaxReactiveLimits", vcs.minMaxReactiveLimits());
 }
@@ -504,7 +504,7 @@ void to_xml(Element& root, std::string const& name, IIDM::MinMaxReactiveLimits c
 
 void to_xml(Element& root, std::string const& name, IIDM::ReactiveCapabilityCurve const& curve) {
   Element e = root.element(name);
-  
+
   for (IIDM::ReactiveCapabilityCurve::const_iterator it=curve.begin(), end=curve.end(); it!=end; ++it) {
     e.element("point", AttributeList("p", it->p)("minQ", it->qmin)("maxQ", it->qmax) );
   }
@@ -521,7 +521,7 @@ void to_xml(Element& root, std::string const& name, IIDM::RatioTapChanger const&
       ("targetV", rtc.optional_targetV())
   );
   if (rtc.has_terminalReference()) to_xml(e, "terminalRef", rtc.terminalReference());
-  
+
   for (IIDM::RatioTapChanger::const_iterator it=rtc.begin(), end=rtc.end(); it!=end; ++it) {
     e.element(
       "step",
@@ -539,7 +539,7 @@ void to_xml(Element& root, std::string const& name, IIDM::PhaseTapChanger const&
     case IIDM::PhaseTapChanger::mode_fixed_tap: mode = "FIXED_TAP"; break;
     default: mode="UNAVAILABLE";
   }
-  
+
   Element e = root.element(name,
     AttributeList()
       ("lowTapPosition", ptc.lowTapPosition())
@@ -549,7 +549,7 @@ void to_xml(Element& root, std::string const& name, IIDM::PhaseTapChanger const&
       ("regulating", ptc.regulating())
   );
   if (ptc.has_terminalReference()) to_xml(e, "terminalRef", ptc.terminalReference());
-  
+
   for (IIDM::PhaseTapChanger::const_iterator it=ptc.begin(), end=ptc.end(); it!=end; ++it) {
     e.empty_element(
       "step",

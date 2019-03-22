@@ -17,8 +17,8 @@ var dataId;
 var oldOptions;
 $(function () {
 
-	dataToPlot= [];
-	dataId=[];
+  dataToPlot= [];
+  dataId=[];
 
     var placeholder = $("#placeholder");
 
@@ -27,15 +27,15 @@ $(function () {
       yaxis: { show: true, ticks: 3 },
       series: { lines: { show: true },
         point:{ radius: 3, show: true },
-		    shadowSize: 5
-		  },
+        shadowSize: 5
+    },
       zoom: {interactive: false },
       pan: {interactive: false },
       crosshair: { mode: "xy" },
       grid: { color: "#67523F",
-	      backgroundColor: { colors: ["#fff", "#e9e9e9"] },
-	      hoverable: true,
-	      autoHighlight: true
+        backgroundColor: { colors: ["#fff", "#e9e9e9"] },
+        hoverable: true,
+        autoHighlight: true
       },
       selection: { mode: "xy" },
       legend: { show : false }
@@ -44,50 +44,50 @@ $(function () {
     plot = $.plot(placeholder, dataToPlot, options);
 
     $("#resetButton").click(function() {
-	plot=$.plot(placeholder, dataToPlot, options);
+  plot=$.plot(placeholder, dataToPlot, options);
       });
 
     $("#zoomOut").click(function() {
-	plot.zoomOut();
+  plot.zoomOut();
       });
 
     $("#zoomIn").click(function() {
-	plot.zoom();
+  plot.zoom();
       });
 
     $("#resetGraph").click(function() {
-	resetGraph();
+  resetGraph();
       });
 
     $("#arrow-left").click(function() {
-	plot.pan({ left: -10 });
+  plot.pan({ left: -10 });
       });
 
     $("#arrow-right").click(function() {
-	plot.pan({ left: 10 });
+  plot.pan({ left: 10 });
       });
 
     $("#arrow-up").click(function() {
-	plot.pan({ top: -10 });
+  plot.pan({ top: -10 });
       });
 
     $("#arrow-down").click(function() {
-	plot.pan({ top: 10 });
+  plot.pan({ top: 10 });
       });
 
     $("#placeholder").bind("plotselected", function (event, ranges) {
         // clamp the zooming to prevent eternal zoom
         if (ranges.xaxis.to - ranges.xaxis.from < 0.00001)
-	  ranges.xaxis.to = ranges.xaxis.from + 0.00001;
+    ranges.xaxis.to = ranges.xaxis.from + 0.00001;
         if (ranges.yaxis.to - ranges.yaxis.from < 0.00001)
-	  ranges.yaxis.to = ranges.yaxis.from + 0.00001;
+    ranges.yaxis.to = ranges.yaxis.from + 0.00001;
 
         // do the zooming
         plot = $.plot($("#placeholder"), dataToPlot,
                       $.extend(true, {}, options, {
                           xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to },
                           yaxis: { min: ranges.yaxis.from, max: ranges.yaxis.to },
-			}));
+        }));
 
 
 

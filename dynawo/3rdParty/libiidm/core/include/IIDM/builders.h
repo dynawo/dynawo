@@ -39,4 +39,3 @@
 
 #include <IIDM/builders/Transformer2WindingsBuilder.h>
 #include <IIDM/builders/Transformer3WindingsBuilder.h>
-

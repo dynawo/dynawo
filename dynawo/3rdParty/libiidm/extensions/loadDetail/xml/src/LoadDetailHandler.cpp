@@ -14,7 +14,7 @@
  * @file LoadDetailHandler.cpp
  * @brief Provides LoadDetailHandler definition
  */
- 
+
 #include <IIDM/extensions/loadDetail/xml/LoadDetailHandler.h>
 #include <IIDM/extensions/LoadDetail.h>
 

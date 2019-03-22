@@ -36,10 +36,10 @@ class IIDM_EXPORT VoltageLevelBuilder: public IdentifiableBuilder<IIDM::VoltageL
   MACRO_IIDM_BUILDER_PROPERTY(VoltageLevelBuilder, builded_type::e_mode, mode)
   MACRO_IIDM_BUILDER_PROPERTY(VoltageLevelBuilder, double, nominalV)
   MACRO_IIDM_BUILDER_PROPERTY(VoltageLevelBuilder, node_type, node_count)
-  
+
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(VoltageLevelBuilder, double, lowVoltageLimit)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(VoltageLevelBuilder, double, highVoltageLimit)
-  
+
 public:
   builded_type build(id_type const&) const;
 };

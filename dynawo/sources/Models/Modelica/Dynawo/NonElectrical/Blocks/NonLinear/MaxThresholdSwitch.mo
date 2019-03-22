@@ -69,4 +69,3 @@ block MaxThresholdSwitch "Switch between two real values, depending on the input
           fillPattern=FillPattern.Solid,
           extent={{2.0,-8.0},{18.0,8.0}})}));
 end MaxThresholdSwitch;
-

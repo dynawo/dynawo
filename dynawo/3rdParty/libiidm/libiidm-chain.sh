@@ -12,8 +12,8 @@
 #
 
 error_exit() {
-	echo "${1:-"Unknown Error"}" 1>&2
-	exit -1
+  echo "${1:-"Unknown Error"}" 1>&2
+  exit -1
 }
 
 export_var_env() {
@@ -68,13 +68,13 @@ install_libiidm() {
 while (($#)); do
   case $1 in
     --install-dir=*)
-	    INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
+      INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
       if [ ! -d "$INSTALL_DIR" ]; then
         mkdir -p $INSTALL_DIR
       fi
       ;;
     --build-dir=*)
-	    BUILD_DIR=`echo $1 | sed -e 's/--build-dir=//g'`
+      BUILD_DIR=`echo $1 | sed -e 's/--build-dir=//g'`
       if [ ! -d "$BUILD_DIR" ]; then
         mkdir -p $BUILD_DIR
       fi
@@ -84,10 +84,10 @@ while (($#)); do
       ;;
     --libxml-install-dir=*)
       LIBXML_INSTALL_DIR=`echo $1 | sed -e 's/--libxml-install-dir=//g'`
-			;;
+      ;;
     --boost-install-dir=*)
-			BOOST_INSTALL_DIR=`echo $1 | sed -e 's/--boost-install-dir=//g'`
-			;;
+      BOOST_INSTALL_DIR=`echo $1 | sed -e 's/--boost-install-dir=//g'`
+      ;;
     *)
       break
       ;;

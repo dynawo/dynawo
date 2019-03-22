@@ -54,4 +54,3 @@ public:
 }
 
 #endif /* __ZIP_FILE_H__ */
-

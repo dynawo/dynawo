@@ -129,7 +129,3 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
 }
 
 }  // namespace curves
-
-
-
-

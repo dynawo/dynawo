@@ -68,5 +68,3 @@ boost::shared_ptr<FinalStateCollection> XmlImporter::importFromStream(std::istre
 
 
 }  // namespace finalState
-
-

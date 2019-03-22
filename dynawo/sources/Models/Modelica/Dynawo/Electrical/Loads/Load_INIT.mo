@@ -26,4 +26,3 @@ equation
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
 end Load_INIT;
-

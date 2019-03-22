@@ -114,6 +114,3 @@ class __DYNAWO_FS_EXPORT FinalStateCollection {
 }  // namespace finalState
 
 #endif  // API_FS_FSFINALSTATECOLLECTION_H_
-
-
-

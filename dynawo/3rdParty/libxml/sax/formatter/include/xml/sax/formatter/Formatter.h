@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file Formatter.h
  * @brief XML formatter description : interface file
  *
@@ -30,7 +30,7 @@ namespace formatter {
 
 /**
  * @class Formatter
- * @brief SAX XML Formatter 
+ * @brief SAX XML Formatter
  *
  * Formatter objects allow to create XML streams throw event-driven
  * serialization.
@@ -70,14 +70,14 @@ public:
    * @param uri URI of the namespace
    */
   virtual void addNamespace(std::string const& prefix, std::string const& uri) = 0;
-  
+
   /**
    * @brief Start the XML document
    *
    * Adds the XML declaration in the stream
    */
   virtual void startDocument() = 0;
-  
+
   /**
    * @brief End the XML document
    *
@@ -94,7 +94,7 @@ public:
    * namespace if nothing specified)
    */
   void startElement(std::string const& name) { return startElement("", name); }
-  
+
   /**
    * @brief Start an XML element
    *
@@ -105,7 +105,7 @@ public:
    * namespace if nothing specified)
    */
   void startElement(std::string const& name, AttributeList const& attrs) { return startElement("", name, attrs); }
-  
+
   /**
    * @brief Start an XML element
    *
@@ -115,8 +115,8 @@ public:
    * @param namespacePrefix Namespace used, repesented as its prefix (default namespace is "")
    */
   void startElement(std::string const& namespacePrefix, std::string const& name) { return startElement(namespacePrefix, name, AttributeList()); }
-  
-  
+
+
   /**
    * @brief Start an XML element
    *
@@ -127,19 +127,19 @@ public:
    * @param namespacePrefix Namespace used, repesented as its prefix (default namespace is "")
    */
   virtual void startElement(std::string const& namespacePrefix, std::string const& name, AttributeList const& attrs) = 0;
-  
+
   /**
    * @brief End the current XML element
    */
   virtual void endElement() = 0;
-  
+
   /**
    * @brief Write characters in the element
    *
    * @param chars Characters to write in the element
    */
   virtual void characters(std::string const& chars) = 0;
-  
+
 public:
   static Formatter* newFormatter(std::ostream& out, std::string const& defaultNamespace = "", std::string const& indentation = "  ");
 };

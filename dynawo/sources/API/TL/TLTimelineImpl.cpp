@@ -137,4 +137,3 @@ Timeline::BaseIteratorImpl::operator->() const {
 }
 
 }  // namespace timeline
-

@@ -206,4 +206,3 @@ Curve::BaseConstIteratorImpl::operator->() const {
 
 
 }  // namespace curves
-

@@ -256,8 +256,8 @@ def get_div_block_sim(line, start_pos):
        if char == "(" : nb_brackets += 1
        if char == ")" : nb_brackets -= 1
        if nb_brackets == 0:
-	    end_pos = current_pos
-	    break
+           end_pos = current_pos
+           break
        current_pos += 1
     return "DIVISION_SIM(" + line[start_pos:end_pos] + ")"
 
@@ -275,8 +275,8 @@ def get_argument(line, start_pos):
        if char == "(" : nb_brackets += 1
        if char == ")" : nb_brackets -= 1
        if char == "," and nb_brackets == 0:
-	    end_pos = current_pos
-	    break
+           end_pos = current_pos
+           break
        current_pos += 1
     return line[start_pos:end_pos], end_pos
 
@@ -301,18 +301,18 @@ def sub_division_sim(line):
     nb_iter = 0
     while True:
         match = ptrn_div.search(line_to_return)
-	if match is None : break
+        if match is None : break
         else:
-	    pos_start_div = match.end()
-	    div_block = get_div_block_sim(line_to_return, pos_start_div)
+            pos_start_div = match.end()
+            div_block = get_div_block_sim(line_to_return, pos_start_div)
 
             arg1, end_pos_arg1 = get_argument(line_to_return, pos_start_div)
             arg2, end_pos_arg2 = get_argument(line_to_return, end_pos_arg1 + 1)
-	    line_to_return = line_to_return.replace(div_block, "("+arg1 + ") / (" + arg2+")")
+            line_to_return = line_to_return.replace(div_block, "("+arg1 + ") / (" + arg2+")")
 
-	nb_iter += 1
+        nb_iter += 1
 
-	if nb_iter == 5:
+        if nb_iter == 5:
             error_exit("pb avec subDivision_SIM. " + line)
     return line_to_return
 
@@ -390,8 +390,8 @@ def make_various_treatments(txt_list):
     for line in txt_list_to_return:
         if "FILE_INFO" in line : continue
 
-    # Line that does not call for processing:
-	txt_tmp.append(line)
+        # Line that does not call for processing:
+        txt_tmp.append(line)
 
     txt_list_to_return = txt_tmp
 
@@ -409,17 +409,17 @@ class Transpose:
     # @param a_map : map associating var name to var value
     # @param txt_list : expressions where var name should be replaced
     def __init__(self, a_map = None, txt_list = None):
-	## pattern to intercept var name in expression
-	self.ptrn_vars = re.compile(r'\$P\$DER[\w\$]+|\$P[\w\$]+')
+        ## pattern to intercept var name in expression
+        self.ptrn_vars = re.compile(r'\$P\$DER[\w\$]+|\$P[\w\$]+')
         ## map associating var name to var value
-	self.map = {}
+        self.map = {}
         ## expressions where var name should be replaced
-	self.txt_list = []
+        self.txt_list = []
 
         if a_map is not None:
-	    self.map = a_map
-	if txt_list is not None:
-	    self.txt_list = txt_list
+            self.map = a_map
+        if txt_list is not None:
+            self.txt_list = txt_list
 
     ##
     # set the expressions where var name should be replaced
@@ -456,7 +456,7 @@ class Transpose:
                     line_tmp = re.sub(r'%s([^\w])' % name_ptrn, '%s\g<1>' % self.map[name], line_tmp)
             line_tmp = line_tmp.replace ('@@@@@@@', '$PRE$P')
             tmp_txt_list.append(line_tmp)
-	return tmp_txt_list
+        return tmp_txt_list
 
 
 ##
@@ -471,16 +471,16 @@ class watcherBlock:
         self.list_sub_str = []
 
         if list_sub_str is not None:
-	    self.list_sub_str = list_sub_str
+            self.list_sub_str = list_sub_str
     ##
     # Call method
     # @param line : line to analyse
     # @return @b False if no string in list are found in the line
     def __call__(self, line):
         for sub_str in self.list_sub_str:
-	    if sub_str not in line:
-	        return True
-	return False
+            if sub_str not in line:
+                return True
+        return False
 
 ##
 # class watcherIntroBlock
@@ -494,16 +494,16 @@ class watcherIntroBlock:
         self.list_sub_str = []
 
         if list_sub_str is not None:
-	    self.list_sub_str = list_sub_str
+            self.list_sub_str = list_sub_str
     ##
     # Call method
     # @param line : line to analyse
     # @return @b True if no string in list are found in the line
     def __call__(self, line):
         for sub_str in self.list_sub_str:
-	    if sub_str in line:
-	        return False
-	return True
+            if sub_str in line:
+                return False
+        return True
 
 def extract_block(block, list_sub_string):
     """
@@ -549,8 +549,8 @@ def extract_block(block, list_sub_string):
     match2 = re.search(ptrn_only_one_closing_brace, block_to_catch[len(block_to_catch)-1])
     #... Delete
     if match1 is not None and match2 is not None:
-	block_to_catch.pop(0)
-	block_to_catch.pop()
+        block_to_catch.pop(0)
+        block_to_catch.pop()
 
     block_to_catch = intro_block_to_catch + block_to_catch
 

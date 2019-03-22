@@ -19,7 +19,7 @@ model FrequencyLoad "Load with frequency dependant active and reactive power"
     parameter Real Gamma "Active load sensitivity to frequency";
     parameter Real Delta "Reactive load sensitivity to voltage";
     parameter Real omegaRef0Pu = 1 "Reference frequency value";
-    
+
     Connectors.ImPin omegaRefPu "Network angular reference frequency in p.u (base OmegaNom)";
 
   equation

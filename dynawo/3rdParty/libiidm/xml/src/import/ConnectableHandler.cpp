@@ -43,12 +43,12 @@ make_connection(Attributes::SearchedAttribute const& voltageLevelId, IIDM::Port 
 
 boost::optional<IIDM::Connection>
 connection(Attributes const& s, IIDM::side_id side, bool withVoltageLevel) {
-  
+
   std::string const suffix = (side==side_end) ? "" : boost::lexical_cast<std::string>(side - IIDM::side_begin + 1);
 
   IIDM::side_id const actual_side = (side!=IIDM::side_end) ? side : IIDM::side_1;
 
-  //a voltage level id is required 
+  //a voltage level id is required
   Attributes::SearchedAttribute voltageLevelId = s["voltageLevelId"+suffix];
   if (withVoltageLevel && !voltageLevelId.exists()) return boost::none;
 
@@ -56,10 +56,10 @@ connection(Attributes const& s, IIDM::side_id side, bool withVoltageLevel) {
   if (node.exists()) {
     return make_connection(voltageLevelId, static_cast<IIDM::node_type>(node), actual_side);
   }
-  
+
   Attributes::SearchedAttribute connectableBus = s["connectableBus"+suffix];
   Attributes::SearchedAttribute bus = s["bus"+suffix];
-  
+
   if (connectableBus.exists() || bus.exists()) {
     return make_connection(
       voltageLevelId,

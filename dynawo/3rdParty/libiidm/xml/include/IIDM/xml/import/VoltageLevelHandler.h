@@ -23,7 +23,7 @@
 #include <IIDM/xml/import/BusHandler.h>
 #include <IIDM/xml/import/BusBarSectionHandler.h>
 #include <IIDM/xml/import/SwitchHandler.h>
-  
+
 #include <IIDM/xml/import/LoadHandler.h>
 #include <IIDM/xml/import/GeneratorHandler.h>
 #include <IIDM/xml/import/DanglingLineHandler.h>
@@ -49,7 +49,7 @@ private:
   BusHandler bus_handler;
   BusBarSectionHandler busbarsection_handler;
   SwitchHandler bus_switch_handler, node_switch_handler;
-  
+
   DanglingLineHandler danglingline_handler;
   GeneratorHandler generator_handler;
   LoadHandler load_handler;
@@ -64,7 +64,7 @@ private:
 private:
   void add_bus();
   void add_busbarsection();
-  
+
   void add_bus_switch();
 
   void add_node_switch();
@@ -73,7 +73,7 @@ private:
 
 protected:
   void configure(attributes_type const& attributes) IIDM_OVERRIDE;
-  
+
 };
 
 

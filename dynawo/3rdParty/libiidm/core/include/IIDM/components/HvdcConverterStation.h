@@ -48,7 +48,7 @@ public:
 
 public:
   double lossFactor() const { return m_lossFactor; }
-  
+
 protected:
   //protected so that child class builders can access it
   double m_lossFactor;

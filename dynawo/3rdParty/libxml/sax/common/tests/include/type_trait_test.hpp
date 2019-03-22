@@ -57,7 +57,7 @@
 /**
 */
 namespace type_trait_test {
-  
+
 /**
  * @brief represents a type for test purpose.
  * @tparam T represented type.
@@ -66,8 +66,8 @@ template <typename T>
 struct type_test{
   type_test() {}
   type_test(T const&) {}
-  
-  
+
+
   /**
    * @brief tells that the underlying types are equal for this type_test and another type_test of the same type.
    * @returns true
@@ -112,7 +112,7 @@ inline std::ostream& operator<<(std::ostream& stream, type_test<T> const&) {
 
 /**
  * @brief creates a type_test related to a specific value.
- 
+
  * Also strips `const&` specification.
  * @return a type_test structure representing the type
 */

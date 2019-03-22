@@ -81,5 +81,3 @@ CurveHandler::get() const {
 }
 
 }  // namespace curves
-
-

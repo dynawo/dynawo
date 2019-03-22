@@ -81,4 +81,3 @@ const std::string& ZipEntry::Impl::getData() const {
 }
 
 }
-

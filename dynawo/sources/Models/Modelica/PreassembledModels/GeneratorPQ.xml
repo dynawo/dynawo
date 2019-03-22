@@ -16,5 +16,3 @@
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.GeneratorPQ" initName ="Dynawo.Electrical.Machines.GeneratorPQ_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-
-

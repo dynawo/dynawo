@@ -93,4 +93,3 @@ ConstraintsCollection::const_iterator::operator->() const {
 }
 
 }  // namespace constraints
-

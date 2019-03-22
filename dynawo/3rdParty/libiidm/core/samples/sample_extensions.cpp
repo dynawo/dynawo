@@ -28,13 +28,13 @@ public:
 
   int value() const { return m_value; }
   SampleExtension& value(int v) { m_value = v; return *this; }
-  
+
 private:
   int m_value;
-  
+
 public:
   IIDM_UNIQUE_PTR<SampleExtension> clone() const { return IIDM_UNIQUE_PTR<SampleExtension>(do_clone()); }
-  
+
 protected:
   virtual SampleExtension* do_clone() const IIDM_OVERRIDE {return new SampleExtension(*this);}
 };
@@ -50,8 +50,8 @@ using namespace IIDM::builders;
 int main() {
 //creating the network
 
-	cout << "creating network with external component extensions..." << endl;
-	Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("today").forecastDistance(0).build("network");
+  cout << "creating network with external component extensions..." << endl;
+  Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("today").forecastDistance(0).build("network");
 
   std::vector<id_type> ids;
   ids.push_back("EXT 1");
@@ -63,7 +63,7 @@ int main() {
   ids.push_back("EXT 7");
 
   network.add_externalComponent("EXT 8");
-  
+
   // inspired from xml..IIDMDocumentHandler.cpp
 
   for (std::vector<id_type>::size_type i = 0; i < ids.size(); ++i) {
@@ -83,7 +83,6 @@ int main() {
     cout << endl;
   }
 
-	cout << "done." << endl;
-	return 0;
+  cout << "done." << endl;
+  return 0;
 }
-

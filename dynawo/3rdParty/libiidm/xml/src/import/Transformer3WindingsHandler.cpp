@@ -34,17 +34,17 @@ Transformer3WindingsHandler::Transformer3WindingsHandler(elementName_type const&
 {
   currentLimits1_handler.onEnd( make_setter(builder(), &builder_type::currentLimits1, currentLimits1_handler.limits) );
   onElement( root_element+iidm_ns("currentLimits1"), currentLimits1_handler );
-  
+
   currentLimits2_handler.onEnd( make_setter(builder(), &builder_type::currentLimits2, currentLimits2_handler.limits) );
   onElement( root_element+iidm_ns("currentLimits2"), currentLimits2_handler );
-  
+
   currentLimits3_handler.onEnd( make_setter(builder(), &builder_type::currentLimits3, currentLimits3_handler.limits) );
   onElement( root_element+iidm_ns("currentLimits3"), currentLimits3_handler );
-  
-  
+
+
   rtc2_handler.onEnd( make_setter(builder(), &builder_type::ratioTapChanger2, rtc2_handler.tapchanger) );
   onElement( root_element+iidm_ns("ratioTapChanger2"), rtc2_handler );
-  
+
   rtc3_handler.onEnd( make_setter(builder(), &builder_type::ratioTapChanger3, rtc3_handler.tapchanger) );
   onElement( root_element+iidm_ns("ratioTapChanger3"), rtc3_handler );
 }

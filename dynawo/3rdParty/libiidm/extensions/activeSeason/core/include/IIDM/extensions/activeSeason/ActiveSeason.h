@@ -36,10 +36,10 @@ public:
   std::string const& value() const { return m_value; }
   ActiveSeason& value(std::string const& v) { m_value = v; return *this; }
 
-  
+
 public:
   IIDM_UNIQUE_PTR<ActiveSeason> clone() const { return IIDM_UNIQUE_PTR<ActiveSeason>(do_clone()); }
-  
+
 protected:
   virtual ActiveSeason* do_clone() const IIDM_OVERRIDE;
 

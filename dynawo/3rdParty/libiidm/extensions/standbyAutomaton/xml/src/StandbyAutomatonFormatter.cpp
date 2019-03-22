@@ -14,7 +14,7 @@
  * @file StandbyAutomatonFormatter.cpp
  * @brief Provides StandbyAutomatonFormatter definition
  */
- 
+
 #include <IIDM/extensions/standbyAutomaton/xml/StandbyAutomatonFormatter.h>
 
 #include <IIDM/extensions/StandbyAutomaton.h>

@@ -14,7 +14,7 @@
  * @file GeneratorStartupFormatter.cpp
  * @brief Provides GeneratorStartupFormatter definition
  */
- 
+
 #include <IIDM/extensions/generatorStartup/xml/GeneratorStartupFormatter.h>
 #include <IIDM/extensions/generatorStartup/GeneratorStartup.h>
 #include <IIDM/components/Identifiable.h>

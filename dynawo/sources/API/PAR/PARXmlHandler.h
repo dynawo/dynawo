@@ -311,4 +311,3 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
 }  // namespace parameters
 
 #endif  // API_PAR_PARXMLHANDLER_H_
-

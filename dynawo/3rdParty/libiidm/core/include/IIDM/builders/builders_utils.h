@@ -17,7 +17,7 @@
 
 /*
 an exemple of builder:
- 
+
 namespace IIDM {
 namespace builders {
 
@@ -47,7 +47,7 @@ public:
 
 namespace IIDM {
 namespace builders {
-  
+
 struct builder_exception: std::runtime_error {
   explicit builder_exception(std::string const& msg) : std::runtime_error(msg) {}
 };

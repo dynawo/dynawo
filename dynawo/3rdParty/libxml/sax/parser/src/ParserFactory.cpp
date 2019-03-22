@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file Parser.cpp
  * @brief XML parser description : implementation file
  *

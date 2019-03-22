@@ -14,5 +14,3 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
   <variable type="continuous" id="x.value"/>
 </external_variables>
-
-

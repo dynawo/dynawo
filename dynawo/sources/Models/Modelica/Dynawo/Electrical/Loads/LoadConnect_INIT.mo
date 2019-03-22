@@ -19,4 +19,3 @@ model LoadConnect_INIT "Initialization for load where u0Pu and i0Pu need to be c
     s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
 end LoadConnect_INIT;
-

@@ -34,14 +34,14 @@ public:
   BOOST_TYPE_INDEX_REGISTER_CLASS
 
   IIDM_UNIQUE_PTR<StandbyAutomaton> clone() const { return IIDM_UNIQUE_PTR<StandbyAutomaton>(do_clone()); }
-  
+
 protected:
   virtual StandbyAutomaton* do_clone() const IIDM_OVERRIDE;
 
 private:
   StandbyAutomaton() {}
   friend class StandbyAutomatonBuilder;
-  
+
 public:
   double b0() const { return m_b0; }
 

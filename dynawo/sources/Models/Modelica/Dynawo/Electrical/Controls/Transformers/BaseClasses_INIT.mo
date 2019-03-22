@@ -65,7 +65,7 @@ partial model BaseTapChangerPhaseShifter_MAX_INIT "Base initialization model for
 end BaseTapChangerPhaseShifter_MAX_INIT;
 
 
-partial model BaseTapChangerPhaseShifter_INTERVAL_INIT "Base initialisation model for tap-changers and phase-shifters which tries to keep a value within a given interval" 
+partial model BaseTapChangerPhaseShifter_INTERVAL_INIT "Base initialisation model for tap-changers and phase-shifters which tries to keep a value within a given interval"
   extends BaseTapChangerPhaseShifter_INIT;
 
   public

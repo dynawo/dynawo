@@ -111,7 +111,7 @@ public:
   typedef Contains<VoltageLevel> voltageLevels_type;
   typedef voltageLevels_type::iterator voltageLevel_iterator;
   typedef voltageLevels_type::const_iterator voltageLevel_const_iterator;
-  
+
   voltageLevels_type const& voltageLevels() const { return *this; }
   voltageLevels_type & voltageLevels() { return *this; }
 
@@ -132,7 +132,7 @@ public:
   typedef Contains<Transformer2Windings> twoWindingsTransformers_type;
   typedef twoWindingsTransformers_type::iterator twoWindingsTransformer_iterator;
   typedef twoWindingsTransformers_type::const_iterator twoWindingsTransformer_const_iterator;
-  
+
   twoWindingsTransformers_type const& twoWindingsTransformers() const { return *this; }
   twoWindingsTransformers_type & twoWindingsTransformers() { return *this; }
 
@@ -153,7 +153,7 @@ public:
   typedef Contains<Transformer3Windings> threeWindingsTransformers_type;
   typedef threeWindingsTransformers_type::iterator threeWindingsTransformer_iterator;
   typedef threeWindingsTransformers_type::const_iterator threeWindingsTransformer_const_iterator;
-  
+
   threeWindingsTransformers_type const& threeWindingsTransformers() const { return *this; }
   threeWindingsTransformers_type & threeWindingsTransformers() { return *this; }
 

@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file CDataCollector.cpp
  * @brief CDataCollector : implementation file
  *

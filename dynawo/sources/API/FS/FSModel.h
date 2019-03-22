@@ -123,6 +123,3 @@ class __DYNAWO_FS_EXPORT Model {
 }  // namespace finalState
 
 #endif  // API_FS_FSMODEL_H_
-
-
-

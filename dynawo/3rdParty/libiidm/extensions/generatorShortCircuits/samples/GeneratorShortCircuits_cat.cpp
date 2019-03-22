@@ -14,7 +14,7 @@
  * @file GeneratorShortCircuits_cat.cpp
  * @brief sample program replicating an iidm xml file using only GeneratorShortCircuits extension
  */
- 
+
 #include <iostream>
 #include <fstream>
 
@@ -42,14 +42,13 @@ int main(int argc, char** argv) {
 
   IIDM::xml::xml_parser parser;
   parser.register_extension<GeneratorShortCircuitsHandler>();
-  
+
   Network extracted = parser.from_xml(argv[1], true);
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportGeneratorShortCircuits, GeneratorShortCircuitsHandler::uri(), "ext_gsc" );
-  
+
   formatter.to_xml(extracted, cout);
 
   return 0;
 }
-

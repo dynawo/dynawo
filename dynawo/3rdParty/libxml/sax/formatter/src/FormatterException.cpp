@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file FormatterException.cpp
  * @brief XML formatter exception description : implementation file
  *

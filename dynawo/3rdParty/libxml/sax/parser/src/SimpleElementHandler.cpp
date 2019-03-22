@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file SimpleElementHandler.cpp
  * @brief SimpleElementHandler: implementation file
  *
@@ -25,10 +25,10 @@ namespace xml {
 namespace sax {
 namespace parser {
 
-SimpleElementHandler::SimpleElementHandler(): 
+SimpleElementHandler::SimpleElementHandler():
   depth(0)
 {}
-  
+
 void SimpleElementHandler::startElement(ElementName const& tag, attributes_type const& attributes) {
   if (depth++ == 0) start();
   do_startElement(tag, attributes);
@@ -47,4 +47,3 @@ void SimpleElementHandler::do_endElement(ElementName const&) {}
 } // end of namespace xml::sax::parser::
 } // end of namespace xml::sax::
 } // end of namespace xml::
-

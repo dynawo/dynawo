@@ -14,5 +14,3 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="continuous" id="UPu.value"/>
 </external_variables>
-
-
