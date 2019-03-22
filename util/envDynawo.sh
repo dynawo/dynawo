@@ -366,7 +366,45 @@ branch=\"\$(git rev-parse --abbrev-ref HEAD)\"
 if [ \"\$branch\" = \"master\" ]; then
   echo \"You can't commit directly to master branch.\"
   exit 1
-fi"
+fi
+whitespace_present=no
+for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | grep -v \".*.patch\" | grep -v \".*.png\" | grep -v \"ModelicaCompiler/test\" | grep -v \"reference\" | cut -c3-); do
+  if [ ! -z \"\$(sed -n '/^[[:space:]]\+\$/p' \$file)\" ]; then
+    sed -i 's/^[[:space:]]*\$//' \$file
+    whitespace_present=yes
+  fi
+  if [ ! -z \"\$(sed -n '/[[:space:]]\+\$/p' \$file)\" ]; then
+    sed -i 's/[[:space:]]*\$//' \$file
+    whitespace_present=yes
+  fi
+  if [ -n \"\$(tail -c1 \$file)\" ]; then
+    echo >> \$file
+    whitespace_present=yes
+  fi
+done
+tab_present=no
+files=()
+for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | grep -v \".*.patch\" | grep -v \".*.png\" | grep -v \"ModelicaCompiler/test\" | grep -v \"reference\" | cut -c3-); do
+  if [ ! -z \"\$(grep -P '\t' \$file)\" ]; then
+    tab_present=yes
+    files=(\${files[@]} \$file)
+  fi
+done
+if [ \"\$whitespace_present\" = \"yes\" ]; then
+  echo \"Whitespace problems has been corrected on your files. You need to add them to the index and relaunch commit again.\"
+  echo
+fi
+if [ \"\$tab_present\" = \"yes\" ]; then
+  echo \"Following files contain tab character, you need to replace them by spaces:\"
+  for file in \"\${files[@]}\"; do
+    echo \$file
+  done
+  echo
+fi
+if [[ \"\$whitespace_present\" == \"yes\" || \"\$tab_present\" == \"yes\" ]]; then
+  exit 1
+fi
+git diff-index --check --cached HEAD"
   if [ -f "$DYNAWO_HOME/.git/hooks/pre-commit" ]; then
     current_file=$(cat $DYNAWO_HOME/.git/hooks/pre-commit)
     if [ "$hook_file_master" != "$current_file" ]; then
