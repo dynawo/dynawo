@@ -12,7 +12,7 @@
 
 /**
  * @file components/Connection.cpp
- * @brief 
+ * @brief
  */
 #include <IIDM/components/Connection.h>
 

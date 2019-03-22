@@ -681,4 +681,3 @@ ModelStaticVarCompensator::setSubModelParameters(const std::tr1::unordered_map<s
   // no parameter
 }
 }  // namespace DYN
-

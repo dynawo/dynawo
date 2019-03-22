@@ -14,5 +14,3 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="continuous" id="IMonitored.value"/>
 </external_variables>
-
-

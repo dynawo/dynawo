@@ -30,7 +30,7 @@ namespace IIDM {
 class TieLine;
 
 namespace builders {
-  
+
 /**
  * @class LineBuilder
  * @brief IIDM::Line builder
@@ -38,7 +38,7 @@ namespace builders {
 class IIDM_EXPORT TieLineBuilder: public IdentifiableBuilder<IIDM::TieLine, TieLineBuilder> {
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(TieLineBuilder, CurrentLimits, currentLimits1)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(TieLineBuilder, CurrentLimits, currentLimits2)
-  
+
   MACRO_IIDM_BUILDER_PROPERTY(TieLineBuilder, std::string, id_1)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(TieLineBuilder, std::string, name_1)
   MACRO_IIDM_BUILDER_PROPERTY(TieLineBuilder, double, r_1     )
@@ -60,14 +60,14 @@ class IIDM_EXPORT TieLineBuilder: public IdentifiableBuilder<IIDM::TieLine, TieL
   MACRO_IIDM_BUILDER_PROPERTY(TieLineBuilder, double, b2_2    )
   MACRO_IIDM_BUILDER_PROPERTY(TieLineBuilder, double, xnodeP_2)
   MACRO_IIDM_BUILDER_PROPERTY(TieLineBuilder, double, xnodeQ_2)
-  
+
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(TieLineBuilder, std::string, ucteXnodeCode)
 
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(TieLineBuilder, double, p1)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(TieLineBuilder, double, q1)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(TieLineBuilder, double, p2)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(TieLineBuilder, double, q2)
-  
+
 public:
   builded_type build(id_type const&) const;
 };

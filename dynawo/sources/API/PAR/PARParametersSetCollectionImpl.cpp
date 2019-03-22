@@ -131,4 +131,3 @@ ParametersSetCollection::BaseIteratorImpl::operator->() const {
 }
 
 }  // namespace parameters
-

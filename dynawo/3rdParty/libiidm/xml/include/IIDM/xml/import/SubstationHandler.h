@@ -23,7 +23,7 @@
 #include <IIDM/xml/import/VoltageLevelHandler.h>
 #include <IIDM/xml/import/Transformer2WindingsHandler.h>
 #include <IIDM/xml/import/Transformer3WindingsHandler.h>
-  
+
 #include <IIDM/builders/SubstationBuilder.h>
 #include <IIDM/components/Substation.h>
 

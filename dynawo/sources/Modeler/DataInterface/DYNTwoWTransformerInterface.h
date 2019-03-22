@@ -225,4 +225,3 @@ class TwoWTransformerInterface : public ComponentInterface {
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNTWOWTRANSFORMERINTERFACE_H_
-

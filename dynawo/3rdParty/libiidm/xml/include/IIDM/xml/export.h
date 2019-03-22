@@ -49,7 +49,7 @@ class xml_formatter {
 public:
   typedef std::string extension_uri;
   typedef std::string xml_prefix;
-  
+
   ///type of extension request for partial selection.
   typedef std::vector<extension_uri> extensions_filter_type;
 
@@ -67,12 +67,12 @@ private:
     xml_prefix prefix;
     extension_exporter functor;
   };
-  
+
   typedef std::map< extension_uri, exporter > exporters_type;
   typedef std::vector< exporters_type::mapped_type > extensions_type;
 
   exporters_type exporters;
-  
+
 public:
   /**
    * @brief sets the formatter for a given prefix.
@@ -134,4 +134,3 @@ inline void to_xml(Network const& network, std::ostream& target) {
 } // end of namespace IIDM::
 
 #endif
-

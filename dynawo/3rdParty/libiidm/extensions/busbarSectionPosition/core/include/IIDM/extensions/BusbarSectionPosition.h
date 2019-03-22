@@ -13,4 +13,3 @@
 #include <IIDM/extensions/busbarSectionPosition/version.h>
 #include <IIDM/extensions/busbarSectionPosition/BusbarSectionPosition.h>
 #include <IIDM/extensions/busbarSectionPosition/BusbarSectionPositionBuilder.h>
-

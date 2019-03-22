@@ -41,4 +41,3 @@ TimelineFactory::copyInstance(const Timeline& original) {
 }
 
 }  // namespace timeline
-

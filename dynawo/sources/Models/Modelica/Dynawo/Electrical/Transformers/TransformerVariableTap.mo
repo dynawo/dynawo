@@ -29,9 +29,9 @@ model TransformerVariableTap "Transformer with variable tap to be connected to a
 
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
-  
+
   extends SwitchOff.SwitchOffTransformer;
-  
+
   public
 
     Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)),i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the transformer to the grid";
@@ -76,16 +76,16 @@ model TransformerVariableTap "Transformer with variable tap to be connected to a
 
     // Internal variables
     SIunits.PerUnit rTfoPu (start = rTfo0Pu) "Transformation ratio in p.u: U2/U1 in no load conditions";
-  
+
 equation
-  
+
   // Transformer ratio calculation
   if (NbTap == 1) then
     rTfoPu = rTfoMinPu;
   else
     rTfoPu = rTfoMinPu + (rTfoMaxPu - rTfoMinPu) * (tap.value / (NbTap - 1));
   end if;
-  
+
   if (running.value) then
     // Transformer equations
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
@@ -107,4 +107,3 @@ equation
   end if;
 
 end TransformerVariableTap;
-

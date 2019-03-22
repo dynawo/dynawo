@@ -19,18 +19,18 @@ package SwitchOff
 
 partial model SwitchOffLogic "Manage switch-off logic"
   /* Handles a predefinite number of switch-off signals and sets running to false as soon as one signal is set to true */
-  
+
   public
     Connectors.BPin switchOffSignal1 (value (start = false)) "Switch-off signal 1";
     Connectors.BPin switchOffSignal2 (value (start = false)) if NbSwitchOffSignals >= 2 "Switch-off signal 2";
     Connectors.BPin switchOffSignal3 (value (start = false)) if NbSwitchOffSignals >= 3 "Switch-off signal 3";
-    
+
     Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
-    
+
     parameter Integer NbSwitchOffSignals (min = 1, max = 3) "Number of switch-off signals to take into account in inputs";
-  
+
   equation
-    
+
     if (NbSwitchOffSignals >= 3) then
       when switchOffSignal1.value or switchOffSignal2.value or switchOffSignal3.value and pre(running.value) then
         running.value = false;
@@ -39,7 +39,7 @@ partial model SwitchOffLogic "Manage switch-off logic"
       when switchOffSignal1.value or switchOffSignal2.value and pre(running.value) then
         running.value = false;
       end when;
-    else 
+    else
       when switchOffSignal1.value and pre(running.value) then
         running.value = false;
       end when;
@@ -49,26 +49,26 @@ end SwitchOffLogic;
 
 partial model SwitchOffGenerator "Switch-off model for a generator"
   /* The three possible/expected switch-off signals for a generator are:
-     - a switch-off signal coming from the node in case of a node disconnection 
+     - a switch-off signal coming from the node in case of a node disconnection
      - a switch-off signal coming from the user (event)
      - a switch-off signal coming from an automaton in the generator (under-voltage protection for example)
   */
   import Dynawo.Electrical.Constants;
 
-  extends SwitchOffLogic(NbSwitchOffSignals = 3);  
-  
-  public 
+  extends SwitchOffLogic(NbSwitchOffSignals = 3);
+
+  public
     Constants.state state (start = State0) "Generator connection state";
-    
-  protected 
+
+  protected
     parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
-  
+
   equation
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.GeneratorDisconnected);
       state = Constants.state.Open;
     end when;
-    
+
 end SwitchOffGenerator;
 
 partial model SwitchOffLoad "Switch-off model for a load"
@@ -78,28 +78,28 @@ partial model SwitchOffLoad "Switch-off model for a load"
   */
   import Dynawo.Electrical.Constants;
 
-  extends SwitchOffLogic(NbSwitchOffSignals = 2);  
-  
-  public 
+  extends SwitchOffLogic(NbSwitchOffSignals = 2);
+
+  public
     Constants.state state (start = State0) "Load connection state";
-    
-  protected 
+
+  protected
     parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
-  
+
   equation
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.LoadDisconnected);
       state = Constants.state.Open;
     end when;
-  
+
 end SwitchOffLoad;
 
-partial model SwitchOffTapChanger "Switch-off model for a tap-changer" 
+partial model SwitchOffTapChanger "Switch-off model for a tap-changer"
   /* The only possible/expected switch-off signal for a tap-changer is:
      - a switch-off signal coming from the node in case of a node disconnection
   */
   extends SwitchOffLogic(NbSwitchOffSignals = 1);
-  
+
   equation
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.TapChangerSwitchOff);
@@ -111,9 +111,9 @@ partial model SwitchOffPhaseShifter "Switch-off model for a phase-shifter"
   /* The only possible/expected switch-off signal for a phase-shifter is:
      - a switch-off signal coming from the node in case of a node disconnection
   */
-  
+
   extends SwitchOffLogic(NbSwitchOffSignals = 1);
-  
+
   equation
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.PhaseShifterSwitchOff);
@@ -128,20 +128,20 @@ partial model SwitchOffLine "Switch-off signal for a line"
   */
   import Dynawo.Electrical.Constants;
 
-  extends SwitchOffLogic(NbSwitchOffSignals = 2);  
-  
-  public 
+  extends SwitchOffLogic(NbSwitchOffSignals = 2);
+
+  public
     Constants.state state (start = State0) "Line connection state";
-    
-  protected 
+
+  protected
     parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
-  
+
   equation
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.LineOpen);
       state = Constants.state.Open;
     end when;
-    
+
 end SwitchOffLine;
 
 
@@ -152,19 +152,19 @@ partial model SwitchOffTransformer "Switch-off signal for a transformer"
   import Dynawo.Electrical.Constants;
 
   extends SwitchOffLogic(NbSwitchOffSignals = 1);
-  
-  public 
+
+  public
     Constants.state state (start = State0) "Load connection state";
-    
-  protected 
+
+  protected
     parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
-  
+
   equation
     when not(running.value) then
       Timeline.logEvent1 (TimelineKeys.TransformerSwitchOff);
       state = Constants.state.Open;
     end when;
-    
+
 end SwitchOffTransformer;
 
 end SwitchOff;

@@ -30,7 +30,7 @@ using namespace IIDM::builders;
 
 
 int main() {
-	const char * const separator = "----------------------------------------";
+  const char * const separator = "----------------------------------------";
 
   cout << separator << "\n------------ BUILDERS TESTS ------------\n" << separator << endl;
 
@@ -39,20 +39,20 @@ int main() {
   cout << SubstationBuilder().country("FR").tso("RTE").build("Substation") << endl;
 
   cout << LineBuilder().r(0).x(0).g1(0).b1(0).g2(0).b2(0).build("Line") << endl;
-	cout << "tie line" << endl;
-  
-	VoltageLevelBuilder bus_voltagelevel_builder, node_voltagelevel_builder;
+  cout << "tie line" << endl;
+
+  VoltageLevelBuilder bus_voltagelevel_builder, node_voltagelevel_builder;
   cout << bus_voltagelevel_builder.mode(VoltageLevel::bus_breaker).nominalV(50).build("BusVL") << endl;
   cout << node_voltagelevel_builder.mode(VoltageLevel::node_breaker).node_count(7).nominalV(50).build("NodeVL") << endl;
-  
+
   cout << BusBuilder().v(0).angle(10).build("Bus") << endl;
   cout << BusBarSectionBuilder().node(0).name("1").build("BusBarSection") << endl;
-  
+
   cout << SwitchBuilder().type(Switch::breaker).opened(false).retained(false).build("Switch") << endl;
 
   cout << LoadBuilder().type(Load::type_auxiliary).p0(0).q0(0).p(0).q(0).name("a load").build("Load") << endl;
 
-	cout << ShuntCompensatorBuilder().section_current(1).section_max(2).b_per_section(1).q(0).build("Shunt") << endl;
+  cout << ShuntCompensatorBuilder().section_current(1).section_max(2).b_per_section(1).q(0).build("Shunt") << endl;
 
   cout << DanglingLineBuilder()
             .p0(1)
@@ -87,9 +87,8 @@ int main() {
 
   cout << "2WT" << endl;
   cout << "3WT" << endl;
-  
-	cout << separator << endl;
 
-	return 0;
+  cout << separator << endl;
+
+  return 0;
 }
-

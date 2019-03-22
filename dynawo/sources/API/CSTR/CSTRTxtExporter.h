@@ -53,4 +53,3 @@ class TxtExporter : public Exporter {
 }  // namespace constraints
 
 #endif  // API_CSTR_CSTRTXTEXPORTER_H_
-

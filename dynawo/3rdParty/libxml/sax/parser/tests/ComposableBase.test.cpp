@@ -33,7 +33,7 @@ struct inspector {
   unsigned int count_root;
   unsigned int count_child;
   unsigned int depth_child;
-  
+
   inspector(): count_root(0), count_child(0), depth_child(0) {}
 };
 
@@ -41,9 +41,9 @@ struct inspector {
 struct start_counter {
   inspector & target;
   unsigned int inspector::* counter;
-  
+
   start_counter(inspector & target, unsigned int inspector::* counter): target(target), counter(counter) {}
-  
+
   void operator() (p::ElementName const&, p::Attributes const&) const {
     ++(target.*counter);
   }
@@ -52,9 +52,9 @@ struct start_counter {
 struct end_counter {
   inspector & target;
   unsigned int inspector::* counter;
-  
+
   end_counter(inspector & target, unsigned int inspector::* counter): target(target), counter(counter) {}
-  
+
   bool operator() (p::ElementName const&) const {
     --(target.*counter);
     return true;
@@ -65,19 +65,19 @@ struct end_counter {
 TEST(TestComposableBase, Interface) {
   const p::ElementName root (elt::root );
   const p::ElementName child(elt::child);
-  
+
   const p::Attributes no_attributes;
   const p::Attributes attributes = p::Attributes().set("a1", "1").set("a2", "2");
-  
+
   inspector i;
   MyComposable h;
-  
+
   ASSERT_NO_THROW( h.onStartElement(root, start_counter(i, &inspector::count_root)) );
-  
+
   ASSERT_NO_THROW( h.onStartElement(root+child, start_counter(i, &inspector::count_child)) );
   ASSERT_NO_THROW( h.onStartElement(root+child, start_counter(i, &inspector::depth_child)) );
   ASSERT_NO_THROW( h.onEndElement(root+child, end_counter(i, &inspector::depth_child)) );
-  
+
   ASSERT_NO_THROW( h.onStartElement(root+child+child, start_counter(i, &inspector::count_child)) );
   ASSERT_NO_THROW( h.onStartElement(root+child+child, start_counter(i, &inspector::depth_child)) );
   ASSERT_NO_THROW( h.onEndElement(root+child+child, end_counter(i, &inspector::depth_child)) );
@@ -85,17 +85,17 @@ TEST(TestComposableBase, Interface) {
   ASSERT_EQ(i.count_root , 0);
   ASSERT_EQ(i.count_child, 0);
   ASSERT_EQ(i.depth_child, 0);
-  
+
   ASSERT_NO_THROW( h.startElement(root, attributes) );
   EXPECT_EQ(i.count_root , 1);
   EXPECT_EQ(i.count_child, 0);
   EXPECT_EQ(i.depth_child, 0);
-  
+
   ASSERT_NO_THROW( h.startElement(child, no_attributes) );
   EXPECT_EQ(i.count_root , 1);
   EXPECT_EQ(i.count_child, 1);
   EXPECT_EQ(i.depth_child, 1);
-  
+
   ASSERT_NO_THROW( h.startElement(child, no_attributes) );
   EXPECT_EQ(i.count_root , 1);
   EXPECT_EQ(i.count_child, 2);
@@ -118,5 +118,3 @@ TEST(TestComposableBase, Interface) {
   EXPECT_EQ(i.count_child, 2);
   EXPECT_EQ(i.depth_child, 0);
 }
-
-

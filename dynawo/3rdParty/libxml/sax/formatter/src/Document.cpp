@@ -100,4 +100,3 @@ Element& Element::empty_element(std::string const& namespacePrefix, std::string 
 } // end of namespace xml::sax::formatter::
 } // end of namespace xml::sax::
 } // end of namespace xml::
-

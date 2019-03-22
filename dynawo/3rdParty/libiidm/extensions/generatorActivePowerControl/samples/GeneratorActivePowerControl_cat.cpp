@@ -14,7 +14,7 @@
  * @file GeneratorActivePowerControl_cat.cpp
  * @brief sample program replicating an iidm xml file using only GeneratorActivePowerControl extension
  */
- 
+
 #include <IIDM/extensions/generatorActivePowerControl/xml.h>
 
 #include <iostream>
@@ -43,14 +43,13 @@ int main(int argc, char** argv) {
 
   IIDM::xml::xml_parser parser;
   parser.register_extension<GeneratorActivePowerControlHandler>();
-  
+
   Network extracted = parser.from_xml(argv[1], true);
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportGeneratorActivePowerControl, GeneratorActivePowerControlHandler::uri(), "ext_gapc" );
-  
+
   formatter.to_xml(extracted, cout);
 
-	return 0;
+  return 0;
 }
-

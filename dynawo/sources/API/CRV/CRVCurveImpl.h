@@ -286,4 +286,3 @@ class Curve::BaseConstIteratorImpl {
 }  // end of namespace curves
 
 #endif  // API_CRV_CRVCURVEIMPL_H_
-

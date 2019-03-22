@@ -30,7 +30,7 @@ namespace IIDM {
 class Line;
 
 namespace builders {
-  
+
 /**
  * @class LineBuilder
  * @brief IIDM::Line builder

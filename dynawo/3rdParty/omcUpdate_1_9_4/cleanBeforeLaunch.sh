@@ -25,7 +25,7 @@ OS="lnx"
 while (($#)); do
   case $1 in
     --openmodelica-dir=*)
-	    SRC_OPENMODELICA=`echo $1 | sed -e 's/--openmodelica-dir=//g'`
+      SRC_OPENMODELICA=`echo $1 | sed -e 's/--openmodelica-dir=//g'`
       ;;
     *)
       break

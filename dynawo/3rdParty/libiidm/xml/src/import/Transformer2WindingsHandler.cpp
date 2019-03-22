@@ -33,14 +33,14 @@ Transformer2WindingsHandler::Transformer2WindingsHandler(elementName_type const&
 {
   currentLimits1_handler.onEnd( make_setter(builder(), &builder_type::currentLimits1, currentLimits1_handler.limits) );
   onElement( root_element+iidm_ns("currentLimits1"), currentLimits1_handler );
-  
+
   currentLimits2_handler.onEnd( make_setter(builder(), &builder_type::currentLimits2, currentLimits2_handler.limits) );
   onElement( root_element+iidm_ns("currentLimits2"), currentLimits2_handler );
-  
-  
+
+
   rtc_handler.onEnd( make_setter(builder(), &builder_type::ratioTapChanger, rtc_handler.tapchanger) );
   onElement( root_element+iidm_ns("ratioTapChanger"), rtc_handler );
-  
+
   ptc_handler.onEnd( make_setter(builder(), &builder_type::phaseTapChanger, ptc_handler.tapchanger) );
   onElement( root_element+iidm_ns("phaseTapChanger"), ptc_handler );
 }

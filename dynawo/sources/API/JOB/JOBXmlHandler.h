@@ -771,4 +771,3 @@ class XmlHandler : public xml::sax::parser::ComposableDocumentHandler {
 }  // namespace job
 
 #endif  // API_JOB_JOBXMLHANDLER_H_
-

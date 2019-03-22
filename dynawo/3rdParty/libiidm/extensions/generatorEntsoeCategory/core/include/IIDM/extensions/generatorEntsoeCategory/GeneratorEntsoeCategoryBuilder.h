@@ -32,7 +32,7 @@ public:
   typedef GeneratorEntsoeCategoryBuilder builder_type;
 
   GeneratorEntsoeCategory build() const;
-  
+
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, unsigned int, code)
 };
 

@@ -37,7 +37,7 @@ LccConverterStationHandler::LccConverterStationHandler(elementName_type const& r
 
 void LccConverterStationHandler::configure(attributes_type const& attributes) {
   ConnectableHandler<IIDM::builders::LccConverterStationBuilder, false, IIDM::side_1>::configure(attributes);
-  
+
   builder()
     .lossFactor( attributes["lossFactor"] )
     .powerFactor( attributes["powerFactor"] )

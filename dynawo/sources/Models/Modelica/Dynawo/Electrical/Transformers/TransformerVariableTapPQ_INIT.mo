@@ -33,5 +33,3 @@ equation
   s10Pu = u10Pu * ComplexMath.conj(i10Pu);
 
 end TransformerVariableTapPQ_INIT;
-
-

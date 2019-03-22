@@ -10,7 +10,7 @@
 //
 
 //======================================================================
-/** 
+/**
  * @file Parser.cpp
  * @brief XML parser description : implementation file
  *

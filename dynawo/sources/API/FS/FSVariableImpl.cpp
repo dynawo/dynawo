@@ -59,4 +59,3 @@ Variable::Impl::getAvailable() const {
 }
 
 }  // namespace finalState
-

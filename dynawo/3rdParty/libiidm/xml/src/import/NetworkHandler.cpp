@@ -55,10 +55,10 @@ NetworkHandler::NetworkHandler(elementName_type const& root_element):
 
   onElement(root_element+iidm_ns("substation"), substation_handler);
   substation_handler.onEnd( lambda::bind(&NetworkHandler::add_substation, lambda::ref(*this)) );
-  
+
   set_connectable_handler(root_element+iidm_ns("line"), line_handler);
   set_connectable_handler(root_element+iidm_ns("tieLine"), tieline_handler);
-  
+
   onElement(root_element+iidm_ns("hvdcLine"), hvdcline_handler);
   hvdcline_handler.onEnd( lambda::bind(&NetworkHandler::add_hvdcline, lambda::ref(*this)) );
  }

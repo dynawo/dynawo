@@ -34,7 +34,7 @@ public:
   typedef CurrentLimitsPerSeasonBuilder builder_type;
 
   builded_type build() const;
-  
+
 private:
   builded_type m_builded;
 };

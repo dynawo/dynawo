@@ -45,7 +45,7 @@ public:
 
   ///gets a constant reference to the parent VoltageLevel
   VoltageLevel const& voltageLevel() const { return parent(); }
-  
+
   ///gets a reference to the parent VoltageLevel
   VoltageLevel      & voltageLevel()       { return parent(); }
 
@@ -53,48 +53,48 @@ public:
   ///the node defined by this BusBarSection
   node_type node() const { return m_node; }
 
-  
+
   /** tells if the tension is set */
   bool has_v() const { return static_cast<bool>(m_v); }
-  
+
   /** gets the tension
    * @throws boost::bad_optional_access if not set
    */
   double v() const { return m_v.value(); }
-  
+
   /** gets the optional tension */
   boost::optional<double> const& optional_v() const { return m_v; }
-  
+
   /** sets the tension */
   BusBarSection& v(double v) { m_v = v; return *this; }
-  
+
   /** sets the tension (or unsets if used with boost::none or an empty optional) */
   BusBarSection& v(boost::optional<double> const& v) { m_v = v; return *this; }
 
-  
+
   /** tells if the angle is set */
   bool has_angle() const { return static_cast<bool>(m_angle); }
-  
+
   /** gets the angle
    * @throws boost::bad_optional_access if not set
    */
   double angle() const { return m_angle.value(); }
-  
+
   /** gets the optional angle */
   boost::optional<double> const& optional_angle() const { return m_angle; }
-  
+
   /** sets the angle */
   BusBarSection& angle(double angle) { m_angle = angle; return *this; }
-  
+
   /** sets the angle (or unsets if used with boost::none or an empty optional) */
   BusBarSection& angle(boost::optional<double> const& angle) { m_angle = angle; return *this; }
-  
+
 private:
   node_type m_node;
-  
+
   boost::optional<double> m_v;
   boost::optional<double> m_angle;
-  
+
 
 private:
   BusBarSection(Identifier const&, properties_type const&);
@@ -104,4 +104,3 @@ private:
 } // end of namespace IIDM::
 
 #endif
-

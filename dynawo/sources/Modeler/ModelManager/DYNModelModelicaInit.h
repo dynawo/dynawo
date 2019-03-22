@@ -130,4 +130,3 @@ class ModelModelicaInit : public ModelModelica {
 }  // namespace DYN
 
 #endif  // MODELER_MODELMANAGER_DYNMODELMODELICAINIT_H_
-

@@ -177,4 +177,3 @@ class SolverSubModel : private boost::noncopyable {
 }  // namespace DYN
 
 #endif  // SOLVERS_SOLVERSUBMODEL_DYNSOLVERSUBMODEL_H_
-

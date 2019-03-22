@@ -14,7 +14,7 @@
  * @file BusbarSectionPosition_cat.cpp
  * @brief sample program replicating an iidm xml file using only BusbarSectionPosition extension
  */
- 
+
 #include <IIDM/extensions/busbarSectionPosition/xml.h>
 
 #include <iostream>
@@ -43,14 +43,13 @@ int main(int argc, char** argv) {
 
   IIDM::xml::xml_parser parser;
   parser.register_extension<BusbarSectionPositionHandler>();
-  
+
   Network extracted = parser.from_xml(argv[1], true);
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportBusbarSectionPosition, BusbarSectionPositionHandler::uri(), "bbsp" );
-  
+
   formatter.to_xml(extracted, cout);
 
-	return 0;
+  return 0;
 }
-

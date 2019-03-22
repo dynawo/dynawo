@@ -29,46 +29,46 @@ struct test_CDataCollector: public p::CDataCollector {
 
 TEST(TestElementHandler, Interface) {
   const p::ns::uri uri("uri");
-  
+
   const p::ElementName e1(uri, "name1");
   const p::ElementName e2(uri, "name2");
-  
+
   p::Attributes attributes;
   attributes.set("key", "value");
-  
-  
+
+
   test_CDataCollector h;
-  
+
   ASSERT_NO_THROW( h.startElement(e1, attributes) );
   EXPECT_EQ(h.tag(), e1);
   EXPECT_EQ(h.name(), e1.name);
   EXPECT_TRUE(h.data().empty());
-  
+
   ASSERT_NO_THROW( h.readCharacters("a") );
   EXPECT_EQ(h.tag(), e1);
   EXPECT_EQ(h.name(), e1.name);
   EXPECT_EQ(h.data(), "a");
-  
+
   ASSERT_NO_THROW( h.startElement(e2, attributes) );
   EXPECT_EQ(h.tag(), e2);
   EXPECT_EQ(h.name(), e2.name);
   EXPECT_EQ(h.data(), "a");
-  
+
   ASSERT_NO_THROW( h.readCharacters("b") );
   EXPECT_EQ(h.tag(), e2);
   EXPECT_EQ(h.name(), e2.name);
   EXPECT_EQ(h.data(), "b");
-  
+
   ASSERT_NO_THROW( h.readCharacters("c") );
   EXPECT_EQ(h.tag(), e2);
   EXPECT_EQ(h.name(), e2.name);
   EXPECT_EQ(h.data(), "c");
-  
+
   ASSERT_NO_THROW( h.endElement(e1) );
   EXPECT_EQ(h.tag(), e2);
   EXPECT_EQ(h.name(), e2.name);
   EXPECT_EQ(h.data(), "c");
-  
+
   ASSERT_NO_THROW( h.endElement(e2) );
   EXPECT_EQ(h.tag(), e2);
   EXPECT_EQ(h.name(), e2.name);

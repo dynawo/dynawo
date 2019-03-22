@@ -39,7 +39,7 @@ class IIDM_EXPORT SwitchBuilder: public IdentifiableBuilder<IIDM::Switch, Switch
   MACRO_IIDM_BUILDER_PROPERTY(SwitchBuilder, bool, retained)
   MACRO_IIDM_BUILDER_PROPERTY(SwitchBuilder, bool, opened)
   MACRO_IIDM_BUILDER_PROPERTY(SwitchBuilder, bool, fictitious)
-  
+
 public:
   builded_type build(id_type const&) const;
 };

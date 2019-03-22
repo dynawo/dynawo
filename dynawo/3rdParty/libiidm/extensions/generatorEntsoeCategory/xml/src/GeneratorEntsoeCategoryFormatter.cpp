@@ -14,7 +14,7 @@
  * @file GeneratorEntsoeCategoryFormatter.cpp
  * @brief Provides GeneratorEntsoeCategoryFormatter definition
  */
- 
+
 #include <IIDM/extensions/generatorEntsoeCategory/xml/GeneratorEntsoeCategoryFormatter.h>
 #include <IIDM/extensions/generatorEntsoeCategory/GeneratorEntsoeCategory.h>
 #include <IIDM/components/Identifiable.h>

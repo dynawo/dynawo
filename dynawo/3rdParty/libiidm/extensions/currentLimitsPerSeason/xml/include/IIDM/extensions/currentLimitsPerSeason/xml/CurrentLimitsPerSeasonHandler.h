@@ -57,9 +57,9 @@ public:
 class CurrentLimitsPerSeasonHandler: public IIDM::xml::ExtensionHandler, private ::xml::sax::parser::ComposableElementHandler {
 public:
   static const elementName_type root;
-  
+
   static std::string const& uri() { return root.ns; }
-  
+
   static std::string xsd_path();
 
 
@@ -69,11 +69,11 @@ public:
 
 private:
   virtual CurrentLimitsPerSeason* do_make() IIDM_OVERRIDE IIDM_FINAL;
-  
+
 private:
   SeasonHandler season_handler;
   CurrentLimitsPerSeason builded;
-  
+
   void clear();
   void add_season();
 };

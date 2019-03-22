@@ -14,7 +14,7 @@
  * @file StandbyAutomatonFormatter.cpp
  * @brief Provides StandbyAutomatonFormatter definition
  */
- 
+
 #include <IIDM/extensions/currentLimitsPerSeason/xml/CurrentLimitsPerSeasonFormatter.h>
 
 #include <IIDM/extensions/CurrentLimitsPerSeason.h>
@@ -39,10 +39,10 @@ void exportCurrentLimitsPerSeason(IIDM::Identifiable const& identifiable, Elemen
   CurrentLimitsPerSeason const* ext = identifiable.findExtension<CurrentLimitsPerSeason>();
   if (ext) {
     Element element = parent.element(xml_prefix, "currentLimitsPerSeason");
-    
+
     for (CurrentLimitsPerSeason::season_const_iterator it = ext->begin(); it != ext->end(); ++it) {
       Element season = element.element( xml_prefix, "season", AttributeList("name", it->name()) );
-      
+
       if (it->single_sided()) {
         IIDM::CurrentLimits const* limits = it->find(IIDM::side_1);
         if (limits) {

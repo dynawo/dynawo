@@ -26,40 +26,40 @@ nullptr is replaced by NULL
 */
 #if __cplusplus >= 201103L
   ///the C++11 override special identifier
-	#define XML_OVERRIDE override
+  #define XML_OVERRIDE override
   ///the C++11 final special identifier
-	#define XML_FINAL final
+  #define XML_FINAL final
 
   ///the C++11 noexcept specifier
-	#define XML_NOEXCEPT(X) noexcept(X)
+  #define XML_NOEXCEPT(X) noexcept(X)
 
-	#define XML_NOTHROW noexcept
+  #define XML_NOTHROW noexcept
 
 
   ///the C++11 nullptr keyword
-	#define XML_NULLPTR nullptr
-  
+  #define XML_NULLPTR nullptr
+
   ///the C++11 constexpr keyword
-	#define XML_CONSTEXPR constexpr
-  
+  #define XML_CONSTEXPR constexpr
+
 #else //not a C++11 compilation
   ///the C++11 override special identifier
-	#define XML_OVERRIDE
+  #define XML_OVERRIDE
 
   ///the C++11 final special identifier
-	#define XML_FINAL
-  
+  #define XML_FINAL
+
   ///the C++11 noexcept(...) specifier, which is not available in C++03
-	#define XML_NOEXCEPT(X)
-	
-	#define XML_NOTHROW throw()
-  
+  #define XML_NOEXCEPT(X)
+
+  #define XML_NOTHROW throw()
+
 
   ///the C++11 nullptr keyword, given the NULL value
-	#define XML_NULLPTR NULL
-  
+  #define XML_NULLPTR NULL
+
   ///the C++11 constexpr keyword, which is not available in C++03
-	#define XML_CONSTEXPR
+  #define XML_CONSTEXPR
 
 #endif
 

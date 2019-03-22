@@ -14,22 +14,22 @@ var datasRead=[];
 var colors=["#0000CC","#FF0000","#FF9900","#9900FF","#6600FF","#000000"];
 var colorUsed=[false,false,false,false,false,false];
 $(function () {
-	@DATA_TO_PRINT@
+  @DATA_TO_PRINT@
 
-	// reset graph
-	resetGraph();
+  // reset graph
+  resetGraph();
 
-	var eltitle = document.getElementById('case_title');
-	// remove old children
-	eltitle.innerHTML='';
-	var titleHtml="<h1>@TITLE_TO_READ@</h1>";
-	var line = document.createElement("LABEL");
-	eltitle.appendChild(line);
-	var frag = document.createElement('div');
-	frag.innerHTML = titleHtml;
-	line.appendChild(frag);
+  var eltitle = document.getElementById('case_title');
+  // remove old children
+  eltitle.innerHTML='';
+  var titleHtml="<h1>@TITLE_TO_READ@</h1>";
+  var line = document.createElement("LABEL");
+  eltitle.appendChild(line);
+  var frag = document.createElement('div');
+  frag.innerHTML = titleHtml;
+  line.appendChild(frag);
 
-	updateLegend();
+  updateLegend();
     });
 
 function listenCheckbox(button,yAxis)
@@ -87,14 +87,14 @@ function addData(serie,id,yAxis) {
   colorUsed[indexColor] = true;
 
   dataToPlot.push(
-		  {
-		    label: id,
-		      yaxis: yAxis,
-		      data : serie,
-		      color: colors[indexColor],
-		      points: { show: @SHOW_POINTS@ }
-		  }
-		  );
+    {
+      label: id,
+        yaxis: yAxis,
+        data : serie,
+        color: colors[indexColor],
+        points: { show: @SHOW_POINTS@ }
+    }
+    );
   plotData();
   updateLegend();
 }

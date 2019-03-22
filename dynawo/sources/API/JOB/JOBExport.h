@@ -32,4 +32,3 @@
 #endif  // WIN32
 
 #endif  // API_JOB_JOBEXPORT_H_
-

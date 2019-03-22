@@ -16,7 +16,7 @@ package Automaton "Function to call external automaton"
 
 function functionAutomaton
   import Dynawo.Electrical.Controls.Generic.GenericAutomatonConstants;
-  
+
   input String command "Command to be called";
   input SIunits.Time timeActivation "Automaton activation time";
   input Real inputs[GenericAutomatonConstants.inputsMaxSize] "Inputs data for the automaton";
@@ -25,7 +25,7 @@ function functionAutomaton
   input String outputsName[GenericAutomatonConstants.outputsMaxSize] "Outputs data name for the automaton";
   input Integer nbOutputs "Number of outputs to provide to the automaton";
   output Real outputs[GenericAutomatonConstants.outputsMaxSize] "Outputs data provided by the automaton";
-  
+
   external "C" callExternalAutomaton(command, timeActivation, inputs, inputsName, nbInputs, outputs, outputsName, nbOutputs);
 
 end functionAutomaton;

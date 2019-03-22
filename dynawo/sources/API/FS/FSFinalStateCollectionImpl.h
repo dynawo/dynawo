@@ -129,4 +129,3 @@ class FinalStateCollection::Impl : public FinalStateCollection {
 }  // namespace finalState
 
 #endif  // API_FS_FSFINALSTATECOLLECTIONIMPL_H_
-

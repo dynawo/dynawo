@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
                                             .build());
 
   //exporting the network into cout or each of the given files
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportGeneratorStartup, GeneratorStartupHandler::uri(), "gs" );
 
@@ -80,4 +80,3 @@ int main(int argc, char** argv) {
 
   return 0;
 }
-

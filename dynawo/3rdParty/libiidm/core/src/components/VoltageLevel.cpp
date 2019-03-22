@@ -56,7 +56,7 @@ bool VoltageLevel::has(node_type const& node) const {
 
 bool VoltageLevel::has(ConnectionPoint const& port) const {
   if (port.voltageLevel()!=id()) return false;
-  
+
   switch (mode()) {
     case node_breaker:
       if (port.is_bus ()) {
@@ -69,12 +69,12 @@ bool VoltageLevel::has(ConnectionPoint const& port) const {
         throw std::runtime_error("no node in the bus breaker voltage level "+id());
       }
       return has(port.bus_id());
-      
+
     default:
       //that's not even possible
       throw std::logic_error("strange mode for voltage level "+id());
   }
-  
+
 }
 
 boost::optional<ActualConnectionPoint> VoltageLevel::validate(ConnectionPoint const& port) const {
@@ -103,7 +103,7 @@ void VoltageLevel::check(Connection const& connection, side_id sides) const {
         throw std::runtime_error(s.str());
       }
       break;
-    
+
     case node_breaker:
       if (!connection.port().is_node()) {
         std::ostringstream s;
@@ -129,7 +129,7 @@ void VoltageLevel::register_into(Network & net) {
   net.register_all_identifiable(buses());
   net.register_all_identifiable(busBarSections());
   net.register_all_identifiable(switches());
-  
+
   net.register_all_identifiable(loads());
   net.register_all_identifiable(shuntCompensators());
   net.register_all_identifiable(danglingLines());
@@ -139,9 +139,9 @@ void VoltageLevel::register_into(Network & net) {
 
 VoltageLevel& VoltageLevel::add(Bus const& bus) {
   if (mode()!=bus_breaker) throw std::runtime_error("Bus may only be added to a bus breaker voltage level "+id());
-  
+
   Bus& added = Contains<Bus>::add(bus);
-  
+
   Network* net = network_of(*this);
   if (net) net->register_identifiable(added);
 
@@ -159,12 +159,12 @@ VoltageLevel& VoltageLevel::add(BusBarSection const& busBarSection) {
     oss << "unknown node " << node;
     throw std::runtime_error(oss.str());
   }
-  
+
   BusBarSection& added = Contains<BusBarSection>::add(busBarSection);
-  
+
   Network* net = network_of(*this);
   if (net) net->register_identifiable(added);
-  
+
   return *this;
 }
 
@@ -173,7 +173,7 @@ VoltageLevel& VoltageLevel::add(BusBarSection const& busBarSection) {
 
 VoltageLevel& VoltageLevel::add(Switch const& s, id_type const& bus1, id_type const& bus2) {
   if (mode()!=bus_breaker) throw std::runtime_error("Bus switch may only be added to a bus breaker voltage level "+id());
-  
+
   if (!has(bus1)) {
     std::ostringstream oss;
     oss << "unknown bus id " << bus1;
@@ -184,13 +184,13 @@ VoltageLevel& VoltageLevel::add(Switch const& s, id_type const& bus1, id_type co
     oss << "unknown bus id " << bus2;
     throw std::runtime_error(oss.str());
   }
-  
+
   return add(s, Port(bus1, connected), Port(bus2, connected));
 }
 
 VoltageLevel& VoltageLevel::add(Switch const& s, node_type node1, node_type node2) {
   if (mode()!=node_breaker) throw std::runtime_error("Node switch may only be added to a node breaker voltage level "+id());
-  
+
   if (!has(node1)) {
     std::ostringstream oss;
     oss << "unknown node " << node1;
@@ -208,10 +208,10 @@ VoltageLevel& VoltageLevel::add(Switch const& s, node_type node1, node_type node
 
 VoltageLevel& VoltageLevel::add(Switch const& s, Port const& port1, Port const& port2) {
   Switch& added = Contains<Switch>::add(s).connectTo(port1, port2);
-  
+
   Network* net = network_of(*this);
   if (net) net->register_identifiable(added);
-  
+
   return *this;
 }
 
@@ -225,14 +225,14 @@ template <typename T>
 #endif
 VoltageLevel::connect(T const& connectable, boost::optional<Connection> const& c) {
   check(c, side_1);
-  
+
   T& added = Contains<T>::add(connectable);
 
   if (c) added.connectTo(id(), c->port());
-  
+
   Network* net = network_of(*this);
   if (net) net->register_identifiable(added);
-  
+
   return *this;
 }
 

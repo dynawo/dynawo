@@ -530,5 +530,3 @@ class variable_iterator {
 }  // namespace finalState
 
 #endif  // API_FS_FSITERATORS_H_
-
-

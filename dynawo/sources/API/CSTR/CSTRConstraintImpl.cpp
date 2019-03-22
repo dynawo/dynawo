@@ -70,5 +70,3 @@ Constraint::Impl::getType() const {
 }
 
 }  // namespace constraints
-
-

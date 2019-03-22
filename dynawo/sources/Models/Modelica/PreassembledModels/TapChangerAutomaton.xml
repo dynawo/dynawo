@@ -16,5 +16,3 @@
     <dyn:unitDynamicModel id="tapChanger" name="Dynawo.Electrical.Controls.Transformers.TapChanger" initName="Dynawo.Electrical.Controls.Transformers.TapChanger_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-
-

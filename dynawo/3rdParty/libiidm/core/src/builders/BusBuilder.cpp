@@ -28,10 +28,10 @@ namespace builders {
 BusBuilder::builded_type
 BusBuilder::build(id_type const& id) const {
   builded_type builded(make_identifier(id), properties());
-  
+
   builded.m_v=m_v;
   builded.m_angle=m_angle;
-  
+
   return builded;
 }
 

@@ -51,11 +51,11 @@ TieLineBuilder::build(id_type const& id) const {
 
   builded.m_ucteXnodeCode = m_ucteXnodeCode;
 
-  builded.m_p1 = m_p1;           
-  builded.m_q1 = m_q1;           
-  builded.m_p2 = m_p2;           
-  builded.m_q2 = m_q2;           
-  
+  builded.m_p1 = m_p1;
+  builded.m_q1 = m_q1;
+  builded.m_p2 = m_p2;
+  builded.m_q2 = m_q2;
+
   builded.m_currentLimits1 = m_currentLimits1;
   builded.m_currentLimits2 = m_currentLimits2;
 

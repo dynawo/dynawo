@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file ComposableBase.cpp
  * @brief XML Handler description : implementation file
  *
@@ -28,9 +28,9 @@ namespace parser {
 namespace {
 
 struct startElement_wrapper {
-public:  
+public:
   startElement_wrapper(ElementHandler& wrapped): wrapped(wrapped) {}
-  
+
   bool operator()(ElementName const& name, Attributes const& attributes) {
     wrapped.startElement(name, attributes);
     return true;
@@ -41,9 +41,9 @@ private:
 };
 
 struct endElement_wrapper {
-public:  
+public:
   endElement_wrapper(ElementHandler& wrapped): wrapped(wrapped) {}
-  
+
   bool operator()(ElementName const& name) {
     wrapped.endElement(name);
     return true;
@@ -54,9 +54,9 @@ private:
 };
 
 struct characters_wrapper {
-public:  
+public:
   characters_wrapper(ElementHandler& wrapped): wrapped(wrapped) {}
-  
+
   bool operator()(std::string const& chars) {
     wrapped.readCharacters(chars);
     return true;
@@ -107,7 +107,7 @@ ComposableBase& ComposableBase::onElement(path_type const& p, ElementHandler & o
   m_startElement_observers.insert(p, make_observer<startElement_observer>( startElement_wrapper(other), true) );
   m_endElement_observers.insert(p, make_observer<endElement_observer>( endElement_wrapper(other), true) );
   m_characters_observers.insert(p, make_observer<characters_observer>( characters_wrapper(other), true) );
-  
+
   return *this;
 }
 
@@ -121,15 +121,15 @@ void ComposableBase::reset() {
 
 void ComposableBase::startElement(ElementName const& name, Attributes const& attributes) {
   m_current_path += name;
-  
+
   path_type p;
   for (path_type::const_iterator it = m_current_path.begin(); it!=m_current_path.end(); ++it) {
     p+=*it;
 
-    startElement_observers_type::const_value_range 
-    // boost::optional< Observer<startElement_observer> const&> 
+    startElement_observers_type::const_value_range
+    // boost::optional< Observer<startElement_observer> const&>
     that = m_startElement_observers.find(p);
-    
+
     for (startElement_observers_type::const_value_range::iterator it = that.begin(); it!=that.end(); ++it) {
       if (it->is_recursive || p == m_current_path ) {
         (it->observer)(name, attributes);
@@ -140,9 +140,9 @@ void ComposableBase::startElement(ElementName const& name, Attributes const& att
 
 void ComposableBase::endElement(ElementName const& name) {
   for (path_type p = m_current_path; !p.empty(); p.remove_end()) {
-    endElement_observers_type::const_value_range 
+    endElement_observers_type::const_value_range
     that = m_endElement_observers.find(p);
-    
+
     for (endElement_observers_type::const_value_range::iterator it = that.begin(); it!=that.end(); ++it) {
       if (it->is_recursive || p == m_current_path ) {
         (it->observer)(name);

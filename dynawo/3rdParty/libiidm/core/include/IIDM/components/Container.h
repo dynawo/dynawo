@@ -75,7 +75,7 @@ public:
    * @returns the iterator to the object if found, end() otherwise.
    */
   iterator find(id_type const& id) { return contents.find(id); }
-  
+
   /**
    * @brief search an object by its id.
    *
@@ -156,10 +156,9 @@ private:
     child.setParent( static_cast<typename value_type::parent_type&>(*this) );
     return child;
   }
-  
+
 };
 
 } // end of namespace IIDM
 
 #endif
-

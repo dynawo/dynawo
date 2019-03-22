@@ -15,5 +15,3 @@
   <variable type="continuous" id="terminal.i.re"/>
   <variable type="continuous" id="terminal.i.im"/>
 </external_variables>
-
-

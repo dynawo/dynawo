@@ -31,23 +31,23 @@ using format::FormatterPtr;
 
 int main(int argc, char** argv) {
   // use of xercesc personal.xml as example
-  
+
   std::ofstream file;
   std::ostream & stream = (argc<2) ? std::cout : (file.open(argv[1]),file);
-  
+
   FormatterPtr formatter = Formatter::createFormatter(stream);
   formatter->startDocument();
-  
+
   AttributeList attrs;
   formatter->startElement("personnel", attrs);
 
   attrs.clear();
   attrs.add("id","Big.Boss");
   formatter->startElement("person",attrs);
-  
+
   attrs.clear();
   formatter->startElement("name",attrs);
-  
+
   formatter->startElement("family",attrs);
   formatter->characters("Boss");
   formatter->endElement();// family
@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
   formatter->startElement("given",attrs);
   formatter->characters("Big");
   formatter->endElement();// given
-  
+
   formatter->endElement();// name
 
   formatter->startElement("email",attrs);
@@ -71,6 +71,6 @@ int main(int argc, char** argv) {
   formatter->endElement();// link
 
   formatter->endElement();// person
-  
+
   formatter->endElement();// personnel
 }

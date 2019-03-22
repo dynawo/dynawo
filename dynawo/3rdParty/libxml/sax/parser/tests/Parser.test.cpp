@@ -78,5 +78,5 @@ TEST_F(TestParser, ValidPrettyInput) {
   ASSERT_EQ(value_handler.ints.size(), 4);
   for (int i = 0; i<4; ++i) {
     EXPECT_EQ(value_handler.ints[i], i+1);
-  }  
+  }
 }

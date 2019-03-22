@@ -19,13 +19,13 @@ partial model BaseLoad "Base model for loads"
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Dynawo.Electrical.SystemBase;
-  
+
   extends SwitchOff.SwitchOffLoad;
 
   public
-  
-    Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the load to the grid";  
-    
+
+    Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the load to the grid";
+
     Connectors.ImPin UPu(value (start = ComplexMath.'abs'(u0Pu))) "Voltage amplitude at load terminal in p.u (base UNom)";
 
     Types.AC.ActivePower PPu(start = s0Pu.re) "Active power at load terminal in p.u (base SnRef) (receptior convention)";
@@ -49,5 +49,5 @@ partial model BaseLoad "Base model for loads"
     end if;
 
 end BaseLoad;
-      
+
 end BaseClasses;

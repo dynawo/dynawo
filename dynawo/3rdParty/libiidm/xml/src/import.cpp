@@ -35,7 +35,7 @@ namespace xml {
 
 void xml_parser::register_extension(extension_uri const& uri, ExtensionHandlerFactory const& factory, std::string const& xsd_path) {
   extension_handler_factory added = {factory, xsd_path};
-  
+
   if (extension_factories.insert( extension_factories_type::value_type(uri, added) ).second == false) {
     throw extension_error("an extension is already defined for "+uri);
   }
@@ -44,7 +44,7 @@ void xml_parser::register_extension(extension_uri const& uri, ExtensionHandlerFa
 parser::ParserPtr xml_parser::make_parser(bool validating) {
   parser::ParserPtr parser = parser_factory.createParser();
   if (validating) parser->addXmlSchema( IIDM_XML_XSD_PATH + std::string("iidm.xsd") );
-  
+
   return parser;
 }
 
@@ -80,7 +80,7 @@ Network xml_parser::from_xml(std::istream& source, bool validating) {
   IIDMDocumentHandler handler;
   parser::ParserPtr parser = make_parser(validating);
 
-  try {  
+  try {
     for (extension_factories_type::const_iterator it = extension_factories.begin(); it != extension_factories.end(); ++it) {
       handler.add_extension( it->second.factory );
       if (validating) parser->addXmlSchema( it->second.xsd_path );
@@ -111,7 +111,7 @@ IIDM::Network xml_parser::from_xml(std::istream& source, extension_uris_type con
   IIDMDocumentHandler handler;
   parser::ParserPtr parser = make_parser(validating);
 
-  try {  
+  try {
     for (extension_uris_type::const_iterator it = extensions.begin(); it != extensions.end(); ++it) {
       extension_factories_type::const_iterator ext = extension_factories.find(*it);
       if (ext!=extension_factories.end()) {
@@ -119,7 +119,7 @@ IIDM::Network xml_parser::from_xml(std::istream& source, extension_uris_type con
         if (validating) parser->addXmlSchema( ext->second.xsd_path );
       }
     }
-  } 
+  }
   catch (parser::ParserException const& e) {
     throw extension_error(e.what());
   }

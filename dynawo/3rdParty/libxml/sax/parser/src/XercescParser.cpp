@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file XercescParser.cpp
  * @brief XML Xerces c++ parser description : implementation file
  *
@@ -57,11 +57,11 @@ namespace parser {
 class XmlToString {
 public:
   XmlToString(const XMLCh* toTranscode): xmlChar_(xercesc::XMLString::transcode(toTranscode)) {}
-  
+
   ~XmlToString() { xercesc::XMLString::release(&xmlChar_); }
-  
+
   std::string xml2S() const { return std::string(xmlChar_); }
-  
+
 private:
   char* xmlChar_;
 };
@@ -77,22 +77,22 @@ private:
   std::string parsedFile_;
 
   namespace_uri default_uri;
-  
+
   namespace_uri make_namespace_uri(const XMLCh *const raw_ns_uri) {
     const std::string ns_uri = XML2S(raw_ns_uri);
     return (!ns_uri.empty()) ? namespace_uri(ns_uri) : default_uri;
   }
-  
+
 public:
   XercesHandler(DocumentHandler & handler): xercesc::DefaultHandler(), handler_(handler) {}
-  
+
   XercesHandler(DocumentHandler & handler, std::string filename):
     xercesc::DefaultHandler(),
     handler_(handler), parsedFile_(filename)
   {}
-  
+
   std::string const& filename() const {return parsedFile_;}
-  
+
 //extends xercesc::DefaultHandler
 public:
   /**
@@ -107,19 +107,19 @@ public:
    * Receive notification of the end of the document.
    */
   virtual void endDocument() XML_OVERRIDE { handler_.endDocument(); }
-  
-  
-  
+
+
+
   virtual void startPrefixMapping(const XMLCh *const prefix, const XMLCh *const uri) XML_OVERRIDE {
     if (XML2S(prefix).empty()) default_uri = namespace_uri(XML2S(uri));
   }
-  
-  
-  
+
+
+
   void
   startElement(const XMLCh *const raw_ns_uri, const XMLCh *const localname, const XMLCh *const /*qname*/, xercesc::Attributes const& attributes) XML_OVERRIDE {
     namespace_uri ns = make_namespace_uri(raw_ns_uri);
-    
+
     Attributes att;
     for (unsigned int i = 0; i < attributes.getLength(); i++) {
       att.set( XML2S(attributes.getQName(i)), XML2S(attributes.getValue(i)) );
@@ -187,9 +187,9 @@ std::string XercescParser::addXmlSchema(std::string const& schemaPath) {
   if ( !std::ifstream(schemaPath.c_str()).is_open() ) {
     throw ParserException("Schema path is not valid: "+schemaPath);
   }
-  
+
   grammarPool_->unlockPool();
-  
+
   // Load the schema into the grammar pool
   XML_OWNER_PTR<xercesc::SAX2XMLReader> reader(
     xercesc::XMLReaderFactory::createXMLReader(xercesc::XMLPlatformUtils::fgMemoryManager, grammarPool_.get())
@@ -197,7 +197,7 @@ std::string XercescParser::addXmlSchema(std::string const& schemaPath) {
 
   xercesc::Grammar * g = reader->loadGrammar(schemaPath.c_str(), xercesc::Grammar::SchemaGrammarType, true);
   std::string ns = XML2S(g->getTargetNamespace());
-  
+
   grammarPool_->lockPool();
   return ns;
 }
@@ -265,4 +265,3 @@ void XercescParser::parse(std::istream& stream, XercesHandler & handler, bool xs
 } // end of namespace xml::sax::parser::
 } // end of namespace xml::sax::
 } // end of namespace xml::
-

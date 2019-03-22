@@ -14,7 +14,7 @@
  * @file VoltageLevelShortCircuitsHandler.cpp
  * @brief Provides VoltageLevelShortCircuitsHandler definition
  */
- 
+
 #include <IIDM/extensions/voltageLevelShortCircuits/xml/VoltageLevelShortCircuitsHandler.h>
 #include <IIDM/extensions/VoltageLevelShortCircuits.h>
 
@@ -26,7 +26,7 @@ namespace IIDM {
 namespace extensions {
 namespace voltagelevelshortcircuits {
 namespace xml {
-  
+
 std::string VoltageLevelShortCircuitsHandler::xsd_path() {
   return IIDM_EXT_VOLTAGELEVELSHORTCIRCUITS_XML_XSD_PATH + std::string("voltageLevelShortCircuits.xsd");
 }

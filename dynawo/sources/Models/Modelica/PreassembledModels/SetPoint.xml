@@ -16,4 +16,3 @@
     <dyn:unitDynamicModel id="setPoint" name="Dynawo.Electrical.Controls.Basics.SetPoint"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-

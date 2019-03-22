@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file DocumentHandler.h
  * @brief DocumentHandler : interface file
  *
@@ -37,20 +37,20 @@ namespace parser {
 class DocumentHandler {
 public:
   typedef xml::sax::parser::Attributes attributes_type;
-  
+
 public:
   virtual ~DocumentHandler() = 0;
-  
+
   /**
    * @brief Called when a document parsing starts. Calls begin()
    */
   virtual void startDocument() {}
-  
+
   /**
    * @brief Called when a document parsing ends. Calls end()
    */
   virtual void endDocument() {}
-  
+
   /**
    * @brief Called when an XML element opening tag is read.
    *
@@ -58,14 +58,14 @@ public:
    * @param attributes the attributes of the read element
    */
   virtual void startElement(ElementName const& name, attributes_type const& attributes);
-  
+
   /**
    * @brief Called when an XML element closing tag is read.
    *
    * @param name Name of the element
    */
   virtual void endElement(ElementName const& name);
-  
+
   /**
    * @brief Called when characters are read inside an XML element.
    *

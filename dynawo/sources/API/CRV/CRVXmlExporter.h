@@ -52,4 +52,3 @@ class XmlExporter : public Exporter {
 }  // namespace curves
 
 #endif  // API_CRV_CRVXMLEXPORTER_H_
-

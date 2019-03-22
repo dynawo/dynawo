@@ -27,7 +27,7 @@ model Line "AC power line - PI model"
 
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
-  
+
   extends SwitchOff.SwitchOffLine;
 
   Connectors.ACPower terminal1;

@@ -91,7 +91,7 @@ public:
   ///map type binding propertie identifiers to their values
   typedef std::map<property_id_type, property_value_type> properties_type;
 
-  
+
 private:
   typedef boost::typeindex::type_index extension_id_type;
   /**
@@ -100,8 +100,8 @@ private:
    * pointers are used due to inheritence, but they shall not be null.
    */
   typedef std::map<extension_id_type, IIDM::Extension*> extensions_type;
-  
-  
+
+
 public:
   /**
    * @brief Get the unique identifier of the object.
@@ -165,9 +165,9 @@ public:
    */
   void configure(property_id_type const& name, std::string const& value);
 
-  
-  
-  
+
+
+
 public:
   struct missing_extension : public std::runtime_error {
     missing_extension(): std::runtime_error("missing extension") {}
@@ -177,8 +177,8 @@ public:
    * @brief tells if any extension exists.
    */
   bool has_extensions() const { return !m_extensions.empty(); }
-  
-  
+
+
   /**
    * @brief tells if an extension exists for the given name.
    * @param name the name to look for
@@ -205,7 +205,7 @@ public:
   ExtensionType* findExtension() {
     return dynamic_cast<ExtensionType*>( find_extension(boost::typeindex::type_id<ExtensionType>()) );
   }
-  
+
   /**
    * @brief Get an extension by its type.
    * @tparam the type of extension to look for. It shall extend Extension.
@@ -218,7 +218,7 @@ public:
     if (!e) throw missing_extension();
     return *e;
   }
-  
+
   /**
    * @brief Get an extension by its type.
    * @tparam the type of extension to look for. It shall extend Extension.
@@ -256,7 +256,7 @@ public:
 
 private:
   bool has_extension(extension_id_type const& t) const;
-  
+
   void setExtension(extension_id_type const& name, Extension* e);
 
   Extension* find_extension(extension_id_type const& name);
@@ -272,7 +272,7 @@ public:
   Identifiable& operator=(Identifiable);
 
   Identifiable& swap(Identifiable&);
-  
+
 protected:
   ///constructs an identifiable with no properties
   Identifiable(Identifier const& id): m_id(id) {}
@@ -297,4 +297,3 @@ inline void swap(Identifiable & a, Identifiable & b) { a.swap(b); }
 } // end of namespace IIDM::
 
 #endif
-

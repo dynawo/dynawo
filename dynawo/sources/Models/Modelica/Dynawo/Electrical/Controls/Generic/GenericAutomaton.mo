@@ -24,9 +24,9 @@ public
   parameter String Command "External command line to call";
   parameter String InputsName[GenericAutomatonConstants.inputsMaxSize] = {"EMPTY" for i in 1:GenericAutomatonConstants.inputsMaxSize} "Names of required inputs data for the automaton";
   parameter String OutputsName[GenericAutomatonConstants.outputsMaxSize] = {"EMPTY" for i in 1:GenericAutomatonConstants.outputsMaxSize} "Names of required outputs data from the automaton";
-  
+
   SIunits.Time t0 (start = 0) "First time when the automaton will act";
-  Boolean initialize(start = true) "Indicates if the automaton should be called at initialization"; 
+  Boolean initialize(start = true) "Indicates if the automaton should be called at initialization";
   Real inputs[GenericAutomatonConstants.inputsMaxSize] "Inputs provided to the automaton";
   Real outputs[GenericAutomatonConstants.outputsMaxSize] "Outputs got from the automaton";
 

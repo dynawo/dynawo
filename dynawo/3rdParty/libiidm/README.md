@@ -46,31 +46,30 @@ ccmake <src-path>  -DBOOST_ROOT=<boost-path>
 Once CMake was run, you may use specific make targets to build (and install) specific parts.
 see `make help` for the exact list
 
-	all                     builds everything: core, xml, extensions (with there xml support), and samples
-	install                 build "all" and install everything
+  all                     builds everything: core, xml, extensions (with there xml support), and samples
+  install                 build "all" and install everything
 
-	iidm                    only builds core
-	iidm-xml                builds core and xml
-	
-	install-core            only installs core
-	install-xml             installs core and xml
-	
-	extensions              builds all extensions (and core)
-	extensions-xml              builds all extensions and their xml support (as well as core and xml)
-	
-	install-extensions      installs core and every extensions
-	install-extensions-xml  installs core, xml and every extensions with there xml support
+  iidm                    only builds core
+  iidm-xml                builds core and xml
+
+  install-core            only installs core
+  install-xml             installs core and xml
+
+  extensions              builds all extensions (and core)
+  extensions-xml              builds all extensions and their xml support (as well as core and xml)
+
+  install-extensions      installs core and every extensions
+  install-extensions-xml  installs core, xml and every extensions with there xml support
 
 For each extension <E>, there are 4 targets:
 
-	iidm-ext-<E>
-	iidm-ext-<E>-xml
-	install-<E>
-	install-<E>-xml
+  iidm-ext-<E>
+  iidm-ext-<E>-xml
+  install-<E>
+  install-<E>-xml
 
 Each sample program has its own build target, but no install target.
 
 ## IV. packaging the library
 `make package` creates the packages.
 You may prefer `cpack -G <type>` to select which package kind. see `cpack --help`.
-

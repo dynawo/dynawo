@@ -69,4 +69,3 @@ Event::Impl::getMessage() const {
 }
 
 }  // namespace timeline
-

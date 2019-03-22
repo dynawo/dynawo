@@ -20,4 +20,3 @@ model TapChanger_INIT "Initialisation model for standalone tap-changer"
     parameter Real valueToMonitor0 = U0  "Initial monitored value";
 
 end TapChanger_INIT;
-

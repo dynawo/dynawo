@@ -34,7 +34,7 @@ public:
   boost::optional<IIDM::PhaseTapChanger> tapchanger;
 
   explicit PhaseTapChangerHandler(elementName_type const& root_name): root_name(root_name) {}
-  
+
 private:
   const elementName_type root_name;
 
@@ -47,9 +47,9 @@ protected:
 class RatioTapChangerHandler : public ::xml::sax::parser::SimpleElementHandler {
 public:
   boost::optional<IIDM::RatioTapChanger> tapchanger;
-  
+
   explicit RatioTapChangerHandler(elementName_type const& root_name): root_name(root_name) {}
-  
+
 private:
   const elementName_type root_name;
 

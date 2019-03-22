@@ -14,7 +14,7 @@
  * @file RemoteMeasurementsHandler.cpp
  * @brief Provides RemoteMeasurementsHandler definition
  */
- 
+
 #include <IIDM/extensions/remoteMeasurements/xml/RemoteMeasurementsHandler.h>
 #include <IIDM/extensions/RemoteMeasurements.h>
 

@@ -13,8 +13,8 @@ within Dynawo.Electrical.Controls.Machines.Governors;
 */
 
 model Governor_INIT "Initialisation model for governor"
-  
+
   public
     SIunits.PerUnit Pm0Pu (start = 1) "Initial mechanical power";
-    
+
 end Governor_INIT;

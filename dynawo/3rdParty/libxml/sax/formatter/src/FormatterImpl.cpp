@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file FormatterImpl.cpp
  * @brief XML formatter implementation description : implementation file
  *
@@ -78,8 +78,8 @@ FormatterImpl::startElement(std::string const& namespacePrefix, std::string cons
   hasCharacters_ = false;
 
   add_indentation();
-  
-  
+
+
   if (namespaces_.find(namespacePrefix) == namespaces_.end()) { // invalid namespace
     std::ostringstream msg;
     msg << "Invalid namespace '" << namespacePrefix << "'";
@@ -89,7 +89,7 @@ FormatterImpl::startElement(std::string const& namespacePrefix, std::string cons
   fullname_type fullname = make_fullname(namespacePrefix, name);
 
   out_ << "<" << fullname;
-  
+
   // adding namespace definition to root element
   if (tag_stack.empty()) {
     for (namespaces_type::const_iterator it = namespaces_.begin(); it != namespaces_.end(); it ++) {
@@ -106,9 +106,9 @@ FormatterImpl::startElement(std::string const& namespacePrefix, std::string cons
       }
     }
   }
-  
+
   tag_stack.push(fullname);
-  
+
   for (AttributeList::const_iterator it = attrs.begin(); it!=attrs.end(); ++it) {
     std::string newValue;
     bool hasReservedChar = replaceReservedCharacters(it->value, newValue);
@@ -123,7 +123,7 @@ void FormatterImpl::endElement() {
   if (!tagClosed_) {
     out_ << "/>";
     add_newline();
-    
+
     tagClosed_ = true;
     tag_stack.pop();
   }

@@ -42,4 +42,3 @@ def transpose(i, o=None, d=','):
         f.close ()
 
     return out_data
-

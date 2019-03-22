@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file AttributeList.cpp
  * @brief XML attribute list description : implementation file
  *
@@ -55,7 +55,7 @@ AttributeList& AttributeList::remove(std::string const& name) {
 void AttributeList::clear() { m_values.clear(); }
 
 
-  
+
 
 AttributeList::const_iterator AttributeList::begin() const {
   return as_list().begin();

@@ -250,5 +250,3 @@ class job_const_iterator {
 }  // namespace job
 
 #endif  // API_JOB_JOBITERATORS_H_
-
-

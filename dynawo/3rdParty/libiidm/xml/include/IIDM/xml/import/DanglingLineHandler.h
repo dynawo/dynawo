@@ -32,7 +32,7 @@ public:
 
 private:
   CurrentLimitsHandler currentLimits;
-  
+
 protected:
   void configure(attributes_type const& attributes) IIDM_OVERRIDE;
 };

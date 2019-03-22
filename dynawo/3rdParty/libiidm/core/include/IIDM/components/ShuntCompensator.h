@@ -82,4 +82,3 @@ private:
 } // end of namespace IIDM::
 
 #endif
-

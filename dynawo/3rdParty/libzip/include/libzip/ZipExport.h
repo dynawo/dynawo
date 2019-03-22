@@ -13,13 +13,13 @@
 #define __ZIP_EXPORT_H__
 
 #if ((defined _WIN32) && (!defined LIBZIP_STATIC))
-#	ifdef LIBZIP_EXPORTS
-#		define __LIBZIP_EXPORT __declspec(dllexport)
-#	else
-#		define __LIBZIP_EXPORT __declspec(dllimport)
-#	endif
+# ifdef LIBZIP_EXPORTS
+#   define __LIBZIP_EXPORT __declspec(dllexport)
+# else
+#   define __LIBZIP_EXPORT __declspec(dllimport)
+# endif
 #else
-#	define __LIBZIP_EXPORT
+# define __LIBZIP_EXPORT
 #endif // WIN32
 
 #endif /* __ZIP_EXPORT_H__ */

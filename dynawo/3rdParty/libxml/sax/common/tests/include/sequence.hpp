@@ -23,7 +23,7 @@ template <typename T>
 struct sequence {
 public:
   typedef std::vector<T> data_type;
-  
+
   typedef typename data_type::size_type size_type;
   typedef typename data_type::const_iterator const_iterator;
   typedef typename data_type::const_reverse_iterator const_reverse_iterator;
@@ -33,18 +33,18 @@ public:
       data.push_back( boost::lexical_cast<T>(i) );
     }
   }
-  
+
   size_type size() const { return data.size(); }
-  
+
   T const& first() const { return data[0]; }
   T const& second() const { return data[1]; }
   T const& last() const { return data.back(); }
-  
+
   T const& operator[] (size_type n) const { return data[n]; }
-  
+
   const_iterator begin() const { return data.begin(); }
   const_iterator end() const { return data.end(); }
-  
+
   const_reverse_iterator rbegin() const { return data.rbegin(); }
   const_reverse_iterator rend() const { return data.rend(); }
 

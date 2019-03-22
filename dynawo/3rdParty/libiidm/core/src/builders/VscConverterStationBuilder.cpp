@@ -27,22 +27,22 @@ namespace builders {
 
 VscConverterStationBuilder::builded_type
 VscConverterStationBuilder::build(id_type const& id) const {
-  
+
   if (!m_minMaxReactiveLimits && !m_reactiveCapabilityCurve) {
     throw builder_exception(id +": LccConverterStation needs either reactiveCapabilityCurve or minMaxReactiveLimits.");
   }
-  
+
   builded_type builded(make_identifier(id), properties());
-  
+
   builded.m_lossFactor = m_lossFactor;
   builded.m_regulating = m_regulating;
-  
+
   builded.m_voltageSetpoint = m_voltageSetpoint;
   builded.m_reactivePowerSetpoint = m_reactivePowerSetpoint;
 
   builded.m_minMaxReactiveLimits = m_minMaxReactiveLimits;
   builded.m_reactiveCapabilityCurve = m_reactiveCapabilityCurve;
-  
+
   return configure_injection(builded);
 }
 

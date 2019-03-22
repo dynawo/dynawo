@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file DocumentHandler.cpp
  * @brief DocumentHandler : implementation file
  *
@@ -33,4 +33,3 @@ void DocumentHandler::readCharacters(std::string const&) {}
 } // end of namespace xml::sax::parser::
 } // end of namespace xml::sax::
 } // end of namespace xml::
-

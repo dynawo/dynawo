@@ -51,13 +51,13 @@ enum side_id {
   side_3,//!< is the (or has a) side three
 
   side_end,//!< this value represents "not a side"
-  side_begin=0//!< the first available side, i.e. side_1 
+  side_begin=0//!< the first available side, i.e. side_1
 };
 
 
 /** @defgroup connection_status connection status
  * @brief pseudo keywords for connection status.
- * 
+ *
  * @{
  */
 //modeled after boost::none
@@ -100,4 +100,3 @@ const connection_status_t& disconnected = details::connection_status_instance<co
 } // end of namespace IIDM::
 
 #endif
-

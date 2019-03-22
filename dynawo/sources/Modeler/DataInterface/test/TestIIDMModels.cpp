@@ -708,4 +708,3 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDMCheckCriteriaAndStati
 }
 
 }  // namespace DYN
-

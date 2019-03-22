@@ -16,5 +16,3 @@
     <dyn:unitDynamicModel id="automaton" name="Dynawo.Electrical.Controls.Generic.GenericAutomaton" />
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-
-

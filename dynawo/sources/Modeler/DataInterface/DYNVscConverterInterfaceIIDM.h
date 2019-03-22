@@ -155,4 +155,3 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNVSCCONVERTERINTERFACEIIDM_H_
-

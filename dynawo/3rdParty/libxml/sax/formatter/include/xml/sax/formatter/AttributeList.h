@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file AttributeList.h
  * @brief XML attribute list description : header file
  *
@@ -52,7 +52,7 @@ public:
     std::string value;
     attribute(std::string const& name, std::string const& value): name(name), value(value) {}
   };
-  
+
 private:
   // a container of attributes ordered both by name and by insertion order
   typedef boost::multi_index::multi_index_container<
@@ -64,37 +64,37 @@ private:
       >
     >
   > values_type;
-  
+
   values_type m_values;
-  
-  
+
+
   // Typedefs for the sequence index and the ordered index
   enum { InsertionOrder, NameOrder };
   typedef values_type::nth_index<InsertionOrder>::type insertion_order_index;
   typedef values_type::nth_index<NameOrder>::type name_order_index;
-  
-  
+
+
   insertion_order_index & as_list() { return m_values.get<InsertionOrder>(); }
   insertion_order_index const& as_list() const { return m_values.get<InsertionOrder>(); }
-  
+
   name_order_index & as_map() { return m_values.get<NameOrder>(); }
   name_order_index const& as_map() const { return m_values.get<NameOrder>(); }
-  
+
   typedef insertion_order_index::const_iterator ordered_iterator;
   typedef name_order_index::const_iterator search_iterator;
-  
+
 public:
   typedef values_type::size_type size_type;
   typedef ordered_iterator const_iterator;
 
 public:
   AttributeList() {}
-  
+
   template <typename V>
   AttributeList(std::string const& name, V const& value) {set(name, value);}
-  
+
   //build interface.
-  
+
   template <typename V>
   AttributeList& operator() (std::string const& name, V const& value) {
     return set(name, value);
@@ -199,7 +199,7 @@ public:
    */
   void clear();
 
-  
+
   //read interface.
   /**
    * @brief Counts the number of attributes in the attribute list
@@ -209,7 +209,7 @@ public:
   size_type size() const { return m_values.size(); }
 
   bool empty() const { return m_values.empty(); }
-  
+
   const_iterator begin() const;
   const_iterator end() const;
 

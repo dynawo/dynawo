@@ -33,7 +33,7 @@ VoltageLevelBuilder::build(id_type const& id) const {
   builded.m_node_count = m_node_count;
   builded.m_lowVoltageLimit= m_lowVoltageLimit;
   builded.m_highVoltageLimit= m_highVoltageLimit;
-  
+
   return builded;
 }
 

@@ -40,7 +40,7 @@ class IIDM_EXPORT VscConverterStationBuilder: public InjectionBuilder<VscConvert
 
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(VscConverterStationBuilder, double, voltageSetpoint)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(VscConverterStationBuilder, double, reactivePowerSetpoint)
-  
+
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(VscConverterStationBuilder, MinMaxReactiveLimits, minMaxReactiveLimits)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(VscConverterStationBuilder, ReactiveCapabilityCurve, reactiveCapabilityCurve)
 

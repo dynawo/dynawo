@@ -34,7 +34,7 @@ using format::Document;
 using format::Element;
 
 int main(int argc, char** argv) {
-  
+
   std::ofstream file;
   std::ostream & stream = (argc<2) ? std::cout : (file.open(argv[1]),file);
 
@@ -44,9 +44,9 @@ int main(int argc, char** argv) {
     formatter->addNamespace("ns1", "http://www.namespaces/namespace1");
     formatter->addNamespace("ns2", "http://www.namespaces/namespace2");
     Document doc(*formatter);
-    
+
     Element personnel = doc.element("ns3", "personnel"); //should raise an exception
-    
+
     personnel.element("person", AttributeList("id", "Big.Boss"));
   }
   catch (FormatterException const& exp) {

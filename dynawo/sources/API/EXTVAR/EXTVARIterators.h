@@ -251,5 +251,3 @@ class variable_const_iterator {
 }  // namespace externalVariables
 
 #endif  // API_EXTVAR_EXTVARITERATORS_H_
-
-

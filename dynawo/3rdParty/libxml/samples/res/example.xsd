@@ -16,9 +16,9 @@
 
   <xsd:complexType name="BooksForm">
     <xsd:sequence>
-      <xsd:element name="book" 
-                  type="bks:BookForm" 
-                  minOccurs="0" 
+      <xsd:element name="book"
+                  type="bks:BookForm"
+                  minOccurs="0"
                   maxOccurs="unbounded"/>
       </xsd:sequence>
   </xsd:complexType>

@@ -27,7 +27,7 @@ namespace builders {
  * @brief an helper base class for builders for objects inheriting from IIDM::Injection
  * @tparam T the Injection class this builder is expected to build. T shall inherit from IIDM::Injection<T>
  * @tparam CRTP_BUILDER the actual builder class. CRTP_BUILDER shall inherit from this class.
- * 
+ *
  * CRTP_BUILDER is expected to be a class inheriting from this class (static_cast<CRTP&>(*this) shall always be correct)
  * an InjectionBuilder builder does NOT hold the unique identifier, it shall be given at actual building time
  * Inheriting builders shall provide the following functions:
@@ -62,4 +62,3 @@ protected:
 } // end of namespace IIDM::
 
 #endif
-

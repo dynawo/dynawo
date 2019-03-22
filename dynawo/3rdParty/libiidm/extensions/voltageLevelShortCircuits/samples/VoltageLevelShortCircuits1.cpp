@@ -40,32 +40,32 @@ using namespace IIDM::extensions::voltagelevelshortcircuits::xml;
 int main(int argc, char** argv) {
   //creating the network
   SubstationBuilder substation_builder = SubstationBuilder().country("FR").tso("RTE");
-	VoltageLevelBuilder bus_voltagelevel_builder = VoltageLevelBuilder().mode(VoltageLevel::bus_breaker).nominalV(50);
+  VoltageLevelBuilder bus_voltagelevel_builder = VoltageLevelBuilder().mode(VoltageLevel::bus_breaker).nominalV(50);
   BusBuilder bus_builder = BusBuilder().v(0).angle(10);
-  
-	GeneratorBuilder solar_builder = GeneratorBuilder()
+
+  GeneratorBuilder solar_builder = GeneratorBuilder()
     .energySource(Generator::source_solar)
     .minMaxReactiveLimits( MinMaxReactiveLimits(0, 10) )
     .regulating(false)
     .pmin(0).pmax(10).targetP(5);
-    
-  
-	Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("2000-01-01T00:00:00").forecastDistance(0).build("network");
+
+
+  Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("2000-01-01T00:00:00").forecastDistance(0).build("network");
 
   network.add( substation_builder.build("station") )
     .add( bus_voltagelevel_builder.build("VL") )
       .add( bus_builder.build("solars") )
 
-	  .add( solar_builder.build("solar1"), at("solars", connected) )
+    .add( solar_builder.build("solar1"), at("solars", connected) )
       .add( solar_builder.build("solar2"), at("solars", connected) )
       .add( solar_builder.build("solar3"), at("solars", connected) );
-  
+
   VoltageLevel& voltageLevel = network.substations().get("station").voltageLevels().get("VL");
 
   voltageLevel.setExtension(VoltageLevelShortCircuitsBuilder().minShortCircuitsCurrent(500.0).maxShortCircuitsCurrent(1500.0).build());
 
   //exporting the network into cout or each of the given files
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportVoltageLevelShortCircuits, VoltageLevelShortCircuitsHandler::uri(), "ext_vlsc" );
 
@@ -81,4 +81,3 @@ int main(int argc, char** argv) {
 
   return 0;
 }
-

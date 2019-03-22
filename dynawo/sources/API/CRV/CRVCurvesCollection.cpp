@@ -170,5 +170,3 @@ CurvesCollection::iterator::impl() const {
 }
 
 }  // namespace curves
-
-

@@ -10,7 +10,7 @@
 //
 
 //======================================================================
-/** 
+/**
  * @file ParserException.cpp
  * @brief XML parser exception description : implementation file
  *

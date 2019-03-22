@@ -31,7 +31,7 @@ public:
   typedef GeneratorActivePowerControlBuilder builder_type;
 
   GeneratorActivePowerControl build() const;
-  
+
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, bool, participate)
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, double, droop)
 };

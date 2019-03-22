@@ -14,7 +14,7 @@
  * @file ConnectablePositionHandler.cpp
  * @brief Provides ConnectablePositionHandler definition
  */
- 
+
 #include <IIDM/extensions/connectablePosition/xml/ConnectablePositionHandler.h>
 #include <IIDM/extensions/ConnectablePosition.h>
 

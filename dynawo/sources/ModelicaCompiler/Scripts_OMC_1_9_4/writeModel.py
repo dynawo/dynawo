@@ -39,7 +39,7 @@ options[('-o', '--outputDir')] = {'dest': 'outputDir',
 options[('-b','--init')] = { 'action':"store_true",
                             'dest': 'init_pb',
                             'help': 'To indicate an init problem for the model',
-			    'default': False}
+                            'default': False}
 
 options[('-a','--additionalHeaderList')] = { 'dest': 'additionalHeaderFilesStr',
                             'help': 'list of headers that should be included in the dynamic model files'}
@@ -82,16 +82,16 @@ if __name__ == '__main__':
     if init_pb:
         reader_init = readerOMC(mod_name_init, input_dir, is_init_pb = True)
 
-        #reader_init.readInfoXml() 		# Read *_info.xml
+        #reader_init.readInfoXml()   # Read *_info.xml
         reader_init.read_info_json()              # Read *_info.json
-        reader_init.read_init_xml() 		# Read *_init.xml
-        reader_init.read_model_header() 		# Read *_model.h
-        reader_init.read_main_c()   		# Read *.c principal
-        reader_init.read_03lsy_c_file() 		# Read *_03lsy.c
-        reader_init.read_02nls_c_file() 		# Read *_02nls.c
-        reader_init.read_06inz_c_file()   	# Read *_06inz.c
-        reader_init.read_08bnd_c_file()   	# Read *_08bnd.c
-        reader_init.read_05evt_c_file()   	# Read *_05evt.c
+        reader_init.read_init_xml()   # Read *_init.xml
+        reader_init.read_model_header()   # Read *_model.h
+        reader_init.read_main_c()     # Read *.c principal
+        reader_init.read_03lsy_c_file()   # Read *_03lsy.c
+        reader_init.read_02nls_c_file()   # Read *_02nls.c
+        reader_init.read_06inz_c_file()    # Read *_06inz.c
+        reader_init.read_08bnd_c_file()    # Read *_08bnd.c
+        reader_init.read_05evt_c_file()    # Read *_05evt.c
         reader_init.read_functions_header()      # Read *_functions.h
         reader_init.read_functions_c_file()       # Read *_functions.c
         reader_init.read_literals_h_file()        # Read *_literals.h
@@ -99,16 +99,16 @@ if __name__ == '__main__':
     # Reader for dynamic pb
     reader = readerOMC(mod_name, input_dir, is_init_pb = False)
 
-    #reader.readInfoXml() 	       # Read *_info.xml
+    #reader.readInfoXml()         # Read *_info.xml
     reader.read_info_json()              # Read *_info.json
-    reader.read_init_xml() 	       # Read *_init.xml
-    reader.read_model_header() 	       # Read *_model.h
-    reader.read_main_c()   	       # Read *.c principal
-    reader.read_03lsy_c_file() 	       # Read *_03lsy.c
-    reader.read_02nls_c_file() 	       # Read *_02nls.c
-    reader.read_06inz_c_file()   	       # Read *_06inz.c
-    reader.read_08bnd_c_file()   	       # Read *_08bnd.c
-    reader.read_05evt_c_file()   	       # Read *_05evt.c
+    reader.read_init_xml()         # Read *_init.xml
+    reader.read_model_header()         # Read *_model.h
+    reader.read_main_c()           # Read *.c principal
+    reader.read_03lsy_c_file()         # Read *_03lsy.c
+    reader.read_02nls_c_file()         # Read *_02nls.c
+    reader.read_06inz_c_file()           # Read *_06inz.c
+    reader.read_08bnd_c_file()           # Read *_08bnd.c
+    reader.read_05evt_c_file()           # Read *_05evt.c
     reader.read_eq_fictive_xml() # Read the fictitious equation file
     reader.read_struct_xml_file()        # Read *_structure.xml (contains structure elements)
     reader.read_functions_header()      # Read *_functions.h
@@ -266,4 +266,3 @@ if __name__ == '__main__':
 
     writer.setBodyHeader()
     writer.write_header_file()
-

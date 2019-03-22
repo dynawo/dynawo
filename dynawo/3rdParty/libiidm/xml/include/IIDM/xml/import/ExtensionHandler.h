@@ -32,12 +32,12 @@ public:
   typedef IIDM_UNIQUE_PTR<IIDM::Extension> extension_ptr;
 
   virtual ~ExtensionHandler();
-  
+
   extension_ptr make() { return extension_ptr(do_make()); }
-  
+
 private:
   virtual IIDM::Extension* do_make() = 0;
-  
+
 public:
   ///name of the xml element serving as base element
   virtual elementName_type const& root_element() const = 0;

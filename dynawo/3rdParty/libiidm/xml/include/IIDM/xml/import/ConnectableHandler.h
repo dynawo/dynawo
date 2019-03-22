@@ -48,18 +48,18 @@ public:
 
 private:
   typedef ConnectableHandler<Builder, WithVoltageLevel, Sides> self_type;
-  
+
   boost::optional<IIDM::Connection> connections[1+Sides];
-  
+
 public:
   ConnectableHandler(elementName_type const& root_element): IdentifiableHandler<Builder>(root_element) {}
-  
+
   bool allow_connection_at(IIDM::side_id i) const { return i<=Sides; }
-  
+
   boost::optional<IIDM::Connection> at(IIDM::side_id i) const {
     return allow_connection_at(i) ? connections[i] : boost::none;
   }
-  
+
   ConnectableHandler& connect(IIDM::side_id i, boost::optional<IIDM::Connection> const& c) {
     if (allow_connection_at(i)) connections[i] = c;
     return *this;
@@ -75,7 +75,7 @@ protected:
   //inheriter override shall call its parent's one.
   virtual void configure(attributes_type const& attributes) IIDM_OVERRIDE {
     IdentifiableHandler<Builder>::configure(attributes);
-    
+
     if (Sides == IIDM::side_1) {
       connect( IIDM::side_1, connection(attributes, IIDM::side_end, WithVoltageLevel));
     } else {
@@ -85,7 +85,7 @@ protected:
     }
   }
 };
-  
+
 } // end of namespace IIDM::xml::
 } // end of namespace IIDM::
 

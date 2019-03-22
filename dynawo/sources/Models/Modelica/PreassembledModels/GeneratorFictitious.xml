@@ -16,5 +16,3 @@
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.GeneratorFictitious" initName="Dynawo.Electrical.Machines.GeneratorFictitious_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-
-

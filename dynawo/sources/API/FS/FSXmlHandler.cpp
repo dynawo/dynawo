@@ -132,4 +132,3 @@ VariableHandler::get() const {
 }
 
 }  // namespace finalState
-

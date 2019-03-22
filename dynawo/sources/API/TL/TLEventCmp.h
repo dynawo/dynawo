@@ -48,4 +48,3 @@ class EventCmp {
 }  // namespace timeline
 
 #endif  // API_TL_TLEVENTCMP_H_
-

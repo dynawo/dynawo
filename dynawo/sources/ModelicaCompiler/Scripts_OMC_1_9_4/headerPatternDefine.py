@@ -43,7 +43,7 @@ class headerPatternDefine:
 
         for file in additional_header_files:
             self.pattern_dyn_+="#include \""+ file + "\"\n"
-    
+
         self.pattern_dyn_+="\n"
         self.pattern_dyn_+="""namespace DYN {
 
@@ -272,4 +272,3 @@ __fill_variables_definitions__h
     # @return pattern to define header defintions file of init model
     def get_init_definitions(self):
         return self.pattern_init_definitions_
-

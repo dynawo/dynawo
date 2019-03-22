@@ -41,4 +41,3 @@ CurvesCollectionFactory::copyInstance(const CurvesCollection& original) {
 }
 
 }  // namespace curves
-

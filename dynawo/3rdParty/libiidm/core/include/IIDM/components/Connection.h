@@ -51,16 +51,16 @@ public:
   ///sets if the component is actually connected or not.
   ///throws port_error if this connection is not related to a bus.
   void status(connection_status_t status);
-  
+
   ///side of the component
   side_id side() const { return m_side; }
-  
+
   ///gets the voltage level id of this connection
   bool has_voltageLevel() const { return static_cast<bool>(voltageLevel_id); }
 
   ///gets the voltage level id of this connection
   id_type const& voltageLevel() const { return *voltageLevel_id; }
-  
+
   boost::optional<id_type> const& voltageLevel_optional() const { return voltageLevel_id; }
 
   ///gets a ConnectionPoint view of this connection
@@ -99,20 +99,20 @@ public:
    * @throws a std::port_error if the Port is not a bus, i.e. if is_bus() returns false
    */
   id_type bus() const { return m_port.bus(); }
-  
+
   /**
    * @brief tells if this connection is electrically connected.
    * @returns true if this connection is defined by a bus id, and is connected, or is a node, false otherwise
    */
   connection_status_t status() const { return m_port.status(); }
-  
+
   /**
    * @brief tells if this connection is on an electrically connected bus.
    * @returns true if this connection is defined by a bus id, and is connected, false otherwise
    * @throws a std::port_error if this connection is not on a bus, i.e. if is_bus() returns false
    */
   connection_status_t bus_status() const { return m_port.bus_status(); }
-  
+
   /**
    * @brief tells if this connection is on an electrically connected bus.
    * @returns true if this connection is defined by a bus id, and is connected, false otherwise
@@ -168,4 +168,3 @@ inline IIDM_EXPORT Connection at(ConnectionPoint const& cp, side_id s = side_1) 
 } // end of namespace IIDM
 
 #endif
-

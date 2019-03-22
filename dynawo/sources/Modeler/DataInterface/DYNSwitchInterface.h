@@ -95,5 +95,3 @@ class SwitchInterface : public ComponentInterface {
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNSWITCHINTERFACE_H_
-
-

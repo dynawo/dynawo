@@ -35,7 +35,7 @@ public:
 
   /// clones this GeneratorStartup
   IIDM_UNIQUE_PTR<GeneratorStartup> clone() const { return IIDM_UNIQUE_PTR<GeneratorStartup>(do_clone()); }
-  
+
 protected:
   virtual GeneratorStartup* do_clone() const IIDM_OVERRIDE;
 

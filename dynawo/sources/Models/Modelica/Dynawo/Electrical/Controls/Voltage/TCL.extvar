@@ -15,5 +15,3 @@
   <variable type="continuous" id="UMonitored.value"/>
   <variable type="discrete" id="lockOrder.value" defaultValue="false"/>
 </external_variables>
-
-

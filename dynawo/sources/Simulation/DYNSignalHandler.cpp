@@ -66,4 +66,3 @@ SignalHandler::setSignalHandlers() {
 }
 
 }  // namespace DYN
-

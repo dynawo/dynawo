@@ -18,5 +18,3 @@
   <variable type="continuous" id="terminal2.V.im"/>
   <variable id="switchOffSignal1.value" type="discrete" defaultValue="false"/>
 </external_variables>
-
-

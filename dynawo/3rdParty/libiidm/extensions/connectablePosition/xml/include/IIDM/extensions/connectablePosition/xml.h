@@ -13,4 +13,3 @@
 #include <IIDM/extensions/connectablePosition/xml/version.h>
 #include <IIDM/extensions/connectablePosition/xml/ConnectablePositionHandler.h>
 #include <IIDM/extensions/connectablePosition/xml/ConnectablePositionFormatter.h>
-

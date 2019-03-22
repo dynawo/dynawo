@@ -216,4 +216,3 @@ class SolverEulerKIN : private boost::noncopyable{
 }  // namespace DYN
 
 #endif  // SOLVERS_SOLVERSIM_DYNSOLVEREULERKIN_H_
-

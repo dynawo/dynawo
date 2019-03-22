@@ -456,5 +456,3 @@ class VariableConstIteratorImpl {
 }  // namespace finalState
 
 #endif  // API_FS_FSITERATORSIMPL_H_
-
-

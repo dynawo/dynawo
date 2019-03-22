@@ -14,7 +14,7 @@
  * @file GeneratorShortCircuitsHandler.cpp
  * @brief Provides GeneratorShortCircuitsHandler definition
  */
- 
+
 #include <IIDM/extensions/generatorShortCircuits/xml/GeneratorShortCircuitsHandler.h>
 #include <IIDM/extensions/GeneratorShortCircuits.h>
 
@@ -26,7 +26,7 @@ namespace IIDM {
 namespace extensions {
 namespace generatorshortcircuits {
 namespace xml {
-  
+
 std::string GeneratorShortCircuitsHandler::xsd_path() {
   return IIDM_EXT_GENERATORSHORTCIRCUITS_XML_XSD_PATH + std::string("generatorShortCircuits.xsd");
 }

@@ -23,7 +23,7 @@
 #include <IIDM/xml/import/SubstationHandler.h>
 #include <IIDM/xml/import/LinesHandler.h>
 #include <IIDM/xml/import/HvdcLineHandler.h>
-  
+
 #include <IIDM/Network.h>
 
 namespace IIDM {
@@ -34,7 +34,7 @@ public:
   explicit NetworkHandler(elementName_type const& root_element);
 
   bool has_network() const { return static_cast<bool>(m_network); }
-  
+
   IIDM::Network const& network() const { return *m_network; }
   IIDM::Network & network() { return *m_network; }
 
@@ -51,7 +51,7 @@ private:
 
   template <typename Handler>//Handler is either LineHandler or TieLineHandler
   void set_connectable_handler(path_type const& path, Handler& handler);
-  
+
   void add_substation();
   void add_hvdcline();
 };

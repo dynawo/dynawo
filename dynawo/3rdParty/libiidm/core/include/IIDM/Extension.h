@@ -40,7 +40,7 @@ protected:
 
 public:
   IIDM_UNIQUE_PTR<Extension> clone() const { return IIDM_UNIQUE_PTR<Extension>(do_clone()); }
-  
+
 protected:
   virtual Extension* do_clone() const = 0;
 };

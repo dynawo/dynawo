@@ -715,4 +715,3 @@ ModelHvdcLink::setSubModelParameters(const std::tr1::unordered_map<std::string, 
 }
 
 }  // namespace DYN
-

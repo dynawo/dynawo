@@ -256,4 +256,3 @@ Modeler::findNodeConnectorName(const string& id) {
 }
 
 }  // namespace DYN
-

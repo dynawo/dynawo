@@ -50,7 +50,7 @@ INCLUDE_DIRECTORIES(../../../API/PAR
                     ../../../Solvers/SolverSubModel
                     ../../../Modeler/Common
                     ../Common
-		    )
+                  )
 
 SET(MODEL_LINKED_LIBRARIES
     dynawo_CPPModelsCommon

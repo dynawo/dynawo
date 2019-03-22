@@ -41,11 +41,11 @@ public:
   typedef typename IdentifiableHandler<Builder>::elementName_type elementName_type;
   typedef typename IdentifiableHandler<Builder>::attributes_type attributes_type;
   typedef typename IdentifiableHandler<Builder>::path_type path_type;
-  
+
   explicit ContainerHandler(elementName_type const& root_element):
     IdentifiableHandler<Builder>(root_element)
   {}
-  
+
   builded_type const& get() const {
     if (!m_builded) m_builded = this->build();
     return *m_builded;
@@ -62,19 +62,19 @@ protected:
   add_connectable(ConnectableHandler<B, with_voltageLevel, IIDM::side_1> const& handler) {
     m_builded->add( handler.build(), handler.at(IIDM::side_1) );
   }
-  
+
   template <typename B, bool with_voltageLevel, IIDM::side_id Sides>
   typename IIDM_ENABLE_IF<Sides == IIDM::side_2>::type
   add_connectable(ConnectableHandler<B, with_voltageLevel, IIDM::side_2> const& handler) {
     m_builded->add( handler.build(), handler.at(IIDM::side_1), handler.at(IIDM::side_2) );
   }
-  
+
   template <typename B, bool with_voltageLevel, IIDM::side_id Sides>
   typename IIDM_ENABLE_IF<Sides == IIDM::side_3>::type
   add_connectable(ConnectableHandler<B, with_voltageLevel, IIDM::side_3> const& handler) {
     m_builded->add( handler.build(), handler.at(IIDM::side_1), handler.at(IIDM::side_2), handler.at(IIDM::side_3) );
   }
-  
+
   template <typename H>
   void add(H const& handler) {
     get().add(handler.build());
@@ -83,13 +83,13 @@ protected:
   struct create_builded {
   private:
     ContainerHandler & self;
-  
+
   public:
     create_builded(ContainerHandler & ref): self(ref) {}
-    
+
     void operator() () { self.get(); }
   };
-  
+
   template <typename B, bool with_voltageLevel, IIDM::side_id Sides>
   struct connectable_adder {
   private:
@@ -100,10 +100,10 @@ protected:
     connectable_adder(ContainerHandler & ref, ConnectableHandler<B, with_voltageLevel, Sides>& handler_ref):
       self(ref), handler(handler_ref)
     {}
-    
+
     void operator() () { self.add_connectable<B, with_voltageLevel, Sides>(handler); }
   };
-  
+
   template <typename B, bool with_voltageLevel, IIDM::side_id Sides>
   void set_connectable_handler(path_type const& path, ConnectableHandler<B, with_voltageLevel, Sides>& handler) {
     this->onElement(path, handler);
@@ -116,7 +116,7 @@ protected:
     IdentifiableHandler<Builder>::configure(attributes);
     m_builded = boost::none;
   }
-  
+
 private:
   mutable boost::optional<builded_type> m_builded;
 };

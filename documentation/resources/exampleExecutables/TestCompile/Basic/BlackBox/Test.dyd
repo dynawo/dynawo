@@ -2,4 +2,3 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="Model" lib="Test.so" parFile="Test.par" parId="1"/>
 </dyn:dynamicModelsArchitecture>
-

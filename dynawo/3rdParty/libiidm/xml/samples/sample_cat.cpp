@@ -40,13 +40,12 @@ int main(int argc, char** argv) {
     Network extracted = parser.from_xml(std::cin, true);
     IIDM::xml::to_xml(extracted, cout);
   } else {
-    
+
     Network extracted = parser.from_xml(argv[1], true);
     IIDM::xml::to_xml(extracted, cout);
   }
-  
-  
 
-	return 0;
+
+
+  return 0;
 }
-

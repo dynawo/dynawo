@@ -26,9 +26,9 @@ class MyDocumentHandler: public DocumentHandler {};
 
 TEST(TestDocumentHandler, Interface) {
   ASSERT_TYPE_EQ( MyDocumentHandler::attributes_type, p::Attributes );
-  
+
   const p::ElementName e("name");
-  
+
   MyDocumentHandler h;
   EXPECT_NO_THROW( h.startDocument() );
   EXPECT_NO_THROW( h.startElement(e, MyDocumentHandler::attributes_type()) );

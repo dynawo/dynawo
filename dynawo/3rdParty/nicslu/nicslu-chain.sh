@@ -13,8 +13,8 @@
 #
 
 error_exit() {
-	echo "${1:-"Unknown Error"}" 1>&2
-	exit -1
+  echo "${1:-"Unknown Error"}" 1>&2
+  exit -1
 }
 
 export_var_env() {
@@ -23,13 +23,13 @@ export_var_env() {
   value=${var##*=}
 
   if eval "[ \$$name ]"; then
-  	eval "value=\${$name}"
+    eval "value=\${$name}"
     ##echo "Environment variable for $name already set : $value"
     return
   fi
 
   if [ "$value" = UNDEFINED ]; then
-  	error_exit "You must define the value of $name"
+    error_exit "You must define the value of $name"
   fi
   export $name="$value"
 }
@@ -95,7 +95,7 @@ install_nicslu() {
 while (($#)); do
   case $1 in
     --install-dir=*)
-	    INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
+      INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
       if [ ! -d "$INSTALL_DIR" ]; then
         mkdir -p $INSTALL_DIR/include
         mkdir -p $INSTALL_DIR/lib
@@ -103,7 +103,7 @@ while (($#)); do
       break
       ;;
     --build-dir=*)
-	    BUILD_DIR=`echo $1 | sed -e 's/--build-dir=//g'`
+      BUILD_DIR=`echo $1 | sed -e 's/--build-dir=//g'`
       if [ ! -d "$BUILD_DIR" ]; then
         mkdir -p $BUILD_DIR
       fi

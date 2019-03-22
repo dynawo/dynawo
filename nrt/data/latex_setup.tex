@@ -8,7 +8,7 @@
 %%
 %%  This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 %%  simulation tool for power systems.
- 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Define text and document settings
@@ -38,11 +38,11 @@
 \usepackage[hidelinks, linktoc=all]{hyperref}
 \usepackage[nottoc]{tocbibind} % To add biblio in table of content
 \usepackage{textcomp} % For single quote
-\usepackage{url} % Allow linebreaks in \url command 
+\usepackage{url} % Allow linebreaks in \url command
 \usepackage{listings} % To add code samples
 
 % Define typography
-\usepackage{xspace} 
+\usepackage{xspace}
 \usepackage{dirtree}
 \newcommand{\Dynawo}[0]{Dyna$\omega$o\xspace}
 
@@ -69,12 +69,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Macro pack­age for cre­at­ing graph­ics
-\usepackage{tikz} 
+\usepackage{tikz}
 \usepackage{float}
 
 % Draws func­tion plots (based on pgf/tikz)
 \usepackage{pgfplots}
-\pgfplotsset{enlarge x limits=false, xlabel={\begin{small}$time$ (s)\end{small}}, height=0.6\textwidth, width=1\textwidth} 
+\pgfplotsset{enlarge x limits=false, xlabel={\begin{small}$time$ (s)\end{small}}, height=0.6\textwidth, width=1\textwidth}
 \pgfplotstableset{col sep=semicolon}
 
 % Define colors
@@ -105,7 +105,7 @@
   code={
   \draw (0,0) circle (2) node[inner sep=0, outer sep=0] {{$\infty$}};
   \draw (2,0) --++ (2,0);
- 	}
+  }
   }
 }
 
@@ -116,18 +116,18 @@
   \draw (2,0) circle (2);
   \draw (4,0) --++ (4,0);
   \draw (-2,0) --++ (-4,0);
- 	}
+  }
   }
 }
 
 %% Define generator
 \tikzset{generator/.pic={
   code={
-  	\draw (0,0) circle (2);
+    \draw (0,0) circle (2);
     \draw (0,0) arc (0:180:0.5);
     \draw (0,0) arc (180:360:0.5);
     \draw (-2,0) --++ (-2,0);
- 	}
+  }
   }
 }
 
@@ -135,7 +135,6 @@
 \tikzset{VR/.pic={
   code={
   \draw (0,0) circle (2) node[inner sep=0, outer sep=0] {{VR}};
- 	}
+  }
   }
 }
-

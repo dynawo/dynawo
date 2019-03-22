@@ -16,5 +16,3 @@
     <dyn:unitDynamicModel id="solverTestGamma" name="DYNSolverTestGamma" moFile="DYNSolverTest.mo"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
-
-

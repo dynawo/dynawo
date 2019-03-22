@@ -14,10 +14,10 @@ within Dynawo.Electrical.Controls.Transformers;
 
 model TapChanger "Tap-changer monitoring the voltage so that it remains within [UTarget - UDeadBand ; UTarget + UDeadBand]"
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
-  
+
   extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0, tapChangerType = tapChangerType0 );
   extends SwitchOff.SwitchOffTapChanger;
-  
+
   public
     parameter Types.AC.VoltageModule UTarget "Voltage set-point";
     parameter Types.AC.VoltageModule UDeadBand (min = 0) "Voltage dead-band";
@@ -32,4 +32,3 @@ equation
     connect (UMonitored.value, valueToMonitor.value);
 
 end TapChanger;
-

@@ -32,7 +32,7 @@ public:
   typedef GeneratorStartupBuilder builder_type;
 
   GeneratorStartup build() const;
-  
+
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, boost::optional<float>, predefinedActivePowerSetpoint)
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, boost::optional<float>, marginalCost)
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, boost::optional<float>, plannedOutageRate)

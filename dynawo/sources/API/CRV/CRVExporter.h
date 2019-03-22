@@ -55,6 +55,3 @@ class __DYNAWO_CRV_EXPORT Exporter {
 }  // namespace curves
 
 #endif  // API_CRV_CRVEXPORTER_H_
-
-
-

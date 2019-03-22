@@ -51,7 +51,7 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
     Placement(visible = true, transformation(origin = {-68, 32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Feedback feedbackNonWindUp annotation(
     Placement(visible = true, transformation(origin = {0, 64}, extent = {{-10, 10}, {10, -10}}, rotation = 180)));
-    
+
 protected
 
   parameter Types.AC.VoltageModule UcEfd0Pu  "Initial control voltage, p.u. = Unom";

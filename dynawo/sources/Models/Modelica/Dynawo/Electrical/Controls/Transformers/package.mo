@@ -14,4 +14,3 @@ within Dynawo.Electrical.Controls;
 
 package Transformers "Controls for transformers"
 end Transformers;
-

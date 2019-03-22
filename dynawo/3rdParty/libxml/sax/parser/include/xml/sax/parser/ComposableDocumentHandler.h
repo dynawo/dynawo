@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file DocumentHandler.h
  * @brief DocumentHandler : interface file
  *
@@ -39,12 +39,12 @@ namespace parser {
 class ComposableDocumentHandler : public DocumentHandler, private ComposableBase {
 public:
   virtual ~ComposableDocumentHandler() {}
-  
+
   /**
    * @brief Called when a document parsing starts. Calls begin()
    */
   virtual void startDocument() XML_OVERRIDE XML_FINAL;
-  
+
   /**
    * @brief Called when a document parsing ends. Calls end()
    */
@@ -57,33 +57,33 @@ public:
    * @param attributes the attributes of the read element
    */
   virtual void startElement(ElementName const& name, attributes_type const& attributes) XML_OVERRIDE XML_FINAL;
-  
+
   /**
    * @brief Called when an XML element closing tag is read.
    *
    * @param name Name of the element
    */
   virtual void endElement(ElementName const& name) XML_OVERRIDE XML_FINAL;
-  
+
   /**
    * @brief Characters inside XML element event handler
    *
    * @param chars Characters to write in the element
    */
   virtual void readCharacters(std::string const& characters) XML_OVERRIDE XML_FINAL;
-  
+
 public:
   typedef boost::function<void ()> startDocument_observer;
   typedef boost::function<void ()> endDocument_observer;
-  
+
   using ComposableBase::startElement_observer;
   using ComposableBase::endElement_observer;
   using ComposableBase::characters_observer;
-  
+
 public:
   //adds a possibility to startDocument
   ComposableDocumentHandler& onStartDocument(startDocument_observer const&);
-  
+
   //adds a possibility to startDocument
   ComposableDocumentHandler& onEndDocument(endDocument_observer const&);
 
@@ -98,7 +98,7 @@ public:
 private:
   typedef std::vector<startDocument_observer> startDocument_observers_type;
   typedef std::vector<endDocument_observer> endDocument_observers_type;
-  
+
   startDocument_observers_type startDocument_observers;
   endDocument_observers_type endDocument_observers;
 };

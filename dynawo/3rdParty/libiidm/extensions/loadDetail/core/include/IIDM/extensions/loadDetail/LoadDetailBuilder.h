@@ -32,7 +32,7 @@ public:
   typedef LoadDetailBuilder builder_type;
 
   LoadDetail build() const;
-  
+
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, float, fixedActivePower)
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, float, fixedReactivePower)
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, float, variableActivePower)

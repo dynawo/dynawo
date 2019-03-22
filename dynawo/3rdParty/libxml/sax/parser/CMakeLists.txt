@@ -34,14 +34,14 @@ set(PARSER_SOURCES
 
   src/ComposableBase.cpp
 
-	src/DocumentHandler.cpp
-	src/ComposableDocumentHandler.cpp
+  src/DocumentHandler.cpp
+  src/ComposableDocumentHandler.cpp
 
   src/ElementHandler.cpp
   src/ComposableElementHandler.cpp
   src/SimpleElementHandler.cpp
 
-	src/CDataCollector.cpp
+  src/CDataCollector.cpp
 
   src/ParserException.cpp
   src/ParserFactory.cpp

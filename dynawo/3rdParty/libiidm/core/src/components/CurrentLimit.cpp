@@ -58,7 +58,7 @@ CurrentLimits& CurrentLimits::add(std::string const& name, double value, int acc
   m_temporary_limits.push_back(l);
 #else
   m_temporary_limits.emplace_back(name, value, acceptableDuration);
-#endif  
+#endif
   return *this;
 }
 
@@ -72,7 +72,7 @@ CurrentLimits& CurrentLimits::add(
   m_temporary_limits.push_back( CurrentLimit(name, value, acceptableDuration, fictitious) );
 #else
   m_temporary_limits.emplace_back(name, value, acceptableDuration, fictitious);
-#endif  
+#endif
   return *this;
 }
 

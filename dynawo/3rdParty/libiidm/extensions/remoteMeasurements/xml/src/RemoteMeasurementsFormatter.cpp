@@ -55,20 +55,20 @@ void toXml( Element& parent, const std::string& elementName,
 }
 
 void exportRemoteMeasurements(IIDM::Identifiable const& identifiable, Element& root, std::string const& xml_prefix) {
-	RemoteMeasurements const* ext = identifiable.findExtension<RemoteMeasurements>();
+  RemoteMeasurements const* ext = identifiable.findExtension<RemoteMeasurements>();
 
-	if (ext) {
-		Element remoteMeasurements = root.element(xml_prefix, "remoteMeasurements");
+  if (ext) {
+    Element remoteMeasurements = root.element(xml_prefix, "remoteMeasurements");
 
-		toXml(remoteMeasurements, "p",							ext->p(),							xml_prefix);
-		toXml(remoteMeasurements, "q",							ext->q(),							xml_prefix);
-		toXml(remoteMeasurements, "p1",							ext->p1(),						xml_prefix);
-		toXml(remoteMeasurements, "q1",							ext->q1(),						xml_prefix);
-		toXml(remoteMeasurements, "p2",							ext->p2(),						xml_prefix);
-		toXml(remoteMeasurements, "q2",							ext->q2(),						xml_prefix);
-		toXml(remoteMeasurements, "v",							ext->v(),							xml_prefix);
-		toXml(remoteMeasurements, "tapPosition" ,		ext->tapPosition(),		xml_prefix);
-	}
+    toXml(remoteMeasurements, "p",              ext->p(),              xml_prefix);
+    toXml(remoteMeasurements, "q",              ext->q(),              xml_prefix);
+    toXml(remoteMeasurements, "p1",              ext->p1(),            xml_prefix);
+    toXml(remoteMeasurements, "q1",              ext->q1(),            xml_prefix);
+    toXml(remoteMeasurements, "p2",              ext->p2(),            xml_prefix);
+    toXml(remoteMeasurements, "q2",              ext->q2(),            xml_prefix);
+    toXml(remoteMeasurements, "v",              ext->v(),              xml_prefix);
+    toXml(remoteMeasurements, "tapPosition" ,    ext->tapPosition(),    xml_prefix);
+  }
 }
 
 } // end of namespace IIDM::extensions::remotemeasurements::xml::

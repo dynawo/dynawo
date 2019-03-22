@@ -144,7 +144,7 @@ public:
    * @returns true if the given side is defined, false otherwise
    */
   bool has_connection(side_id s) const { return m_connections.find(s)!=m_connections.end(); }
-  
+
 
   /**
    * @brief gets an iterator to the first defined connection.
@@ -213,11 +213,11 @@ public:
   /** @brief gets defined connection points */
   std::map<side_id, ConnectionPoint> connectionPoints() const;
 
-  
-  
+
+
   // bus breaker view related
-  
-  
+
+
   /** @brief gets connection statuses for each sides */
   std::map<side_id, connection_status_t> connectionStates() const;
 
@@ -281,17 +281,17 @@ public:
     m_connection = Connection(voltageLevel, port, side_1);
     return *static_cast<component_type*>(this);
   }
-  
+
 public:
   ///gets the number of available sides
   IIDM_CONSTEXPR side_id side_count() const { return side_1; }
-  
+
   /**
    * @brief tells if the connection is defined.
    * @returns true if the connection is defined, false otherwise
    */
   bool has_connection() const { return static_cast<bool>(m_connection); }
-  
+
   /**
    * @brief gets the potential connection.
    * @returns the connection if defined, boost::none otherwise.
@@ -331,7 +331,7 @@ public:
    * @throws a std::runtime_error if is_bus() returns false
    */
   id_type bus_id() const { return m_connection->bus_id(); }
-  
+
 private:
   boost::optional<Connection> & connection() {return m_connection;}
 
@@ -460,4 +460,3 @@ public:
 } // end of namespace IIDM
 
 #endif
-

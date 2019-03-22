@@ -28,4 +28,3 @@ model PhaseShifterP_INIT "Initialisation model for a phase-shifter monitoring th
     parameter TapChangerType tapChangerType0 = TapChangerType.PhaseShifter;
 
 end PhaseShifterP_INIT;
-

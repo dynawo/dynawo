@@ -24,4 +24,3 @@ model TapChangerWithTransformer_INIT "Initialisation model for tap-changer used 
     valueToMonitor0 = U0; // it is better to use an equation in case the transformer U0 changes, (otherwise the updated value would not be propagated)
 
 end TapChangerWithTransformer_INIT;
-

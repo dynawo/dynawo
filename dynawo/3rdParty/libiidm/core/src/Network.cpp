@@ -98,7 +98,7 @@ void Network::check(Connection const& connection, side_id max_sides) const {
 
 Substation& Network::add(Substation const& s) {
   Substation& added = Contains<Substation>::add(s);
-  
+
   added.register_into(*this);
 
   return added;
@@ -115,7 +115,7 @@ Line& Network::add(
   Line& added = Contains<Line>::add(line);
 
   register_identifiable(added);
-  
+
   if (c1) added.createConnection(*c1);
   if (c2) added.createConnection(*c2);
 
@@ -133,7 +133,7 @@ TieLine& Network::add(
   TieLine& added = Contains<TieLine>::add(tieline);
 
   register_identifiable(added);
-  
+
   if (c1) added.createConnection(*c1);
   if (c2) added.createConnection(*c2);
 
@@ -144,7 +144,7 @@ HvdcLine& Network::add(HvdcLine const& hvdcline) {
   HvdcLine& added = Contains<HvdcLine>::add(hvdcline);
 
   register_identifiable(added);
-  
+
   return added;
 }
 

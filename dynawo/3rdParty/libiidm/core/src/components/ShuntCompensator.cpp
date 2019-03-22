@@ -35,4 +35,3 @@ ShuntCompensator& ShuntCompensator::currentSection(section_id const& segment) {
 }
 
 } // end of namespace IIDM::
-

@@ -1357,8 +1357,8 @@ class factory:
             for var_name, eq_list in self.get_map_eq_reinit_continuous().iteritems():
                 for eq in eq_list:
                     self.list_for_evalmode.append("\n  // mode linked with " + var_name + "\n")
-               	    self.list_for_evalmode.extend (eq.get_body_for_evalmode())
-               	    self.list_for_evalmode.append("\n")
+                    self.list_for_evalmode.extend (eq.get_body_for_evalmode())
+                    self.list_for_evalmode.append("\n")
 
         self.list_for_evalmode.append("  // no mode triggered => return false")
         self.list_for_evalmode.append("\n  return false;")

@@ -38,26 +38,26 @@ public:
 
   typedef typename token_sequence_type::const_iterator const_iterator;
   typedef typename token_sequence_type::iterator iterator;
-  
+
   typedef typename token_sequence_type::const_reverse_iterator const_reverse_iterator;
   typedef typename token_sequence_type::reverse_iterator reverse_iterator;
 
 public:
   path() {}
   path(token_type const& t): m_path(1, t) {}
-  
+
   template <typename It>
   path(It first, It end): m_path(first, end) {}
 
   path& operator += (token_type const& t) { m_path.push_back(t); return *this; }
-  
-  path& operator += (path const& p) { 
+
+  path& operator += (path const& p) {
     m_path.insert(m_path.end(), p.m_path.begin(), p.m_path.end());
     return *this;
   }
 
   token_type const& base() const {return m_path.back();}
-  
+
   path& remove_end() { if (!empty()) m_path.pop_back(); return *this; }
 
   path parent() const {
@@ -66,19 +66,19 @@ public:
 
   bool empty() const { return m_path.empty(); }
   size_type size() const { return m_path.size(); }
-  
+
   void clear() { m_path.clear(); }
 
   const_iterator begin() const { return m_path.begin(); }
   const_iterator end() const { return m_path.end(); }
-  
+
   iterator begin() { return m_path.begin(); }
   iterator end() { return m_path.end(); }
-  
+
 
   const_reverse_iterator rbegin() const { return m_path.rbegin(); }
   const_reverse_iterator rend() const { return m_path.rend(); }
-  
+
   reverse_iterator rbegin() { return m_path.rbegin(); }
   reverse_iterator rend() { return m_path.rend(); }
 };

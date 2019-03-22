@@ -40,4 +40,3 @@ equation
   RQ2Pu * T3qPu = LQ2Pu + MqPu * LQ1Pu / (MqPu + LQ1Pu);
 
 end GeneratorSynchronousExt_4E_INIT;
-

@@ -64,7 +64,7 @@ private:
 
   typedef std::map<id_type, Identifiable*> identifiables_type;
   identifiables_type m_identifiables;
-  
+
 public:
   id_type const& id()  const { return m_id; }
   std::string const& sourceFormat() const { return m_format; }
@@ -73,16 +73,16 @@ public:
 
 /* ****** navigation interface ****** */
 public:
-  typedef 
+  typedef
     boost::indirect_iterator< map_value_iterator_adapter<identifiables_type::const_iterator> >
   identifiable_const_iterator;
-  typedef 
+  typedef
     boost::indirect_iterator< map_value_iterator_adapter<identifiables_type::iterator> >
   identifiable_iterator;
-  
+
   Identifiable const* searchById(id_type const& id) const;
   Identifiable * searchById(id_type const& id);
-  
+
   Identifiable const& getById(id_type const& id) const;
   Identifiable & getById(id_type const& id);
 
@@ -98,7 +98,7 @@ private:
 
   void register_identifiable(Identifiable & identifiable);
   void register_identifiable(VoltageLevel &);
-  
+
   template <typename Component>
   void register_all_identifiable(Contains<Component> & all) {
     for (typename Contains<Component>::iterator it = all.begin(); it != all.end(); ++it) {
@@ -124,7 +124,7 @@ public:
   typedef Contains<Substation> substations_type;
   typedef substations_type::iterator substation_iterator;
   typedef substations_type::const_iterator substation_const_iterator;
-  
+
   substations_type const& substations() const { return *this; }
   substations_type & substations() { return *this; }
 
@@ -136,18 +136,18 @@ public:
 
   Substation const& get_substation(id_type const& id) const { return substations().get(id); }
   Substation & get_substation(id_type const& id) { return substations().get(id); }
-  
+
   substation_const_iterator find_substation(id_type const& id) const { return substations().find(id); }
   substation_iterator find_substation(id_type const& id) { return substations().find(id); }
 
   Substation& add(Substation const&);
-  
+
 //Lines
 public:
   typedef Contains<Line> lines_type;
   typedef lines_type::iterator line_iterator;
   typedef lines_type::const_iterator line_const_iterator;
-  
+
   lines_type const& lines() const { return *this; }
   lines_type & lines() { return *this; }
 
@@ -159,7 +159,7 @@ public:
 
   Line const& get_line(id_type const& id) const { return lines().get(id); }
   Line & get_line(id_type const& id) { return lines().get(id); }
-  
+
   line_const_iterator find_line(id_type const& id) const { return lines().find(id); }
   line_iterator find_line(id_type const& id) { return lines().find(id); }
 
@@ -174,7 +174,7 @@ public:
   typedef Contains<TieLine> tielines_type;
   typedef tielines_type::iterator tieline_iterator;
   typedef tielines_type::const_iterator tieline_const_iterator;
-  
+
   tielines_type const& tielines() const { return *this; }
   tielines_type & tielines() { return *this; }
 
@@ -186,7 +186,7 @@ public:
 
   TieLine const& get_tieline(id_type const& id) const { return tielines().get(id); }
   TieLine & get_tieline(id_type const& id) { return tielines().get(id); }
-  
+
   tieline_const_iterator find_tieline(id_type const& id) const { return tielines().find(id); }
   tieline_iterator find_tieline(id_type const& id) { return tielines().find(id); }
 
@@ -201,7 +201,7 @@ public:
   typedef Contains<HvdcLine> hvdclines_type;
   typedef hvdclines_type::iterator hvdcline_iterator;
   typedef hvdclines_type::const_iterator hvdcline_const_iterator;
-  
+
   hvdclines_type const& hvdclines() const { return *this; }
   hvdclines_type & hvdclines() { return *this; }
 
@@ -213,7 +213,7 @@ public:
 
   HvdcLine const& get_hvdcline(id_type const& id) const { return hvdclines().get(id); }
   HvdcLine & get_hvdcline(id_type const& id) { return hvdclines().get(id); }
-  
+
   hvdcline_const_iterator find_hvdcline(id_type const& id) const { return hvdclines().find(id); }
   hvdcline_iterator find_hvdcline(id_type const& id) { return hvdclines().find(id); }
 
@@ -224,10 +224,10 @@ public:
   typedef Contains<ExternalComponent> externals_type;
   typedef externals_type::iterator external_iterator;
   typedef externals_type::const_iterator external_const_iterator;
-  
+
   externals_type const& externals() const { return *this; }
   externals_type & externals() { return *this; }
-  
+
   external_const_iterator externals_begin() const { return externals().begin(); }
   external_const_iterator externals_end() const { return externals().end(); }
 
@@ -236,7 +236,7 @@ public:
 
   ExternalComponent const& get_externalComponent(id_type const& id) const { return externals().get(id); }
   ExternalComponent & get_externalComponent(id_type const& id) { return externals().get(id); }
-  
+
   external_const_iterator find_externalComponent(id_type const& id) const { return externals().find(id); }
   external_iterator find_externalComponent(id_type const& id) { return externals().find(id); }
 
@@ -257,4 +257,3 @@ private:
 } // end of namespace IIDM::
 
 #endif
-

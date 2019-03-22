@@ -77,7 +77,7 @@ using ::xml::sax::formatter::FormatterPtr;
 
 inline FormatterPtr make_formatter(std::ostream& stream) {
   stream << std::boolalpha;
-  
+
   return ::xml::sax::formatter::Formatter::createFormatter(
     stream, "http://www.itesla_project.eu/schema/iidm/1_0", "  "
   );
@@ -94,7 +94,7 @@ void xml_formatter::to_xml(Network const& network, std::ostream& stream) {
   extensions.reserve(exporters.size());
   for (exporters_type::const_iterator it = exporters.begin(); it != exporters.end(); ++it) {
     extensions.push_back(it->second);
-    
+
     formatter->addNamespace(it->second.prefix, it->first);
   }
   try {
@@ -119,25 +119,25 @@ void xml_formatter::to_xml(Network const& network, std::ostream& stream) {
 void xml_formatter::to_xml(Network const& network, std::ostream& stream, extensions_filter_type const& extensions_filter) {
   FormatterPtr formatter = make_formatter(stream);
   Document document(*formatter);
-  
-  
+
+
   extensions_type extensions;
   extensions.reserve(extensions_filter.size());
 
   if (!exporters.empty()) {
     for (extensions_filter_type::const_iterator it = extensions_filter.begin(); it != extensions_filter.end(); ++it) {
       exporters_type::const_iterator where = exporters.find(*it);
-      
+
       if (where!=exporters.end()) {
         extensions.push_back(where->second);
         formatter->addNamespace(where->second.prefix, where->first);
       }
     }
   }
-  
+
   try {
     Element network_element = IIDM::xml::to_xml(document, network);
-  
+
     if (!extensions.empty()) {
       for (Network::identifiable_const_iterator it = network.identifiable_begin(); it!=network.identifiable_end(); ++it) {
         export_extensions(extensions, network_element, *it );
@@ -156,9 +156,9 @@ void xml_formatter::to_xml(Network const& network, std::ostream& stream, extensi
 // support function
 void xml_formatter::export_extensions(extensions_type const& extensions, Element& root, IIDM::Identifiable const& c) {
   if (!c.has_extensions()) return;
-  
+
   Element extension = root.element( "extension", ::xml::sax::formatter::AttributeList("id", c.id()) );
-  
+
   for (extensions_type::const_iterator it = extensions.begin(); it!= extensions.end(); ++it) {
     (*it)(c, extension);
   }

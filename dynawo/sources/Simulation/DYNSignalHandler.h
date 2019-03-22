@@ -69,4 +69,3 @@ class SignalHandler {
 };
 }  // namespace DYN
 #endif  // SIMULATION_DYNSIGNALHANDLER_H_
-

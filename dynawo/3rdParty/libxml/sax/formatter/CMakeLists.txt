@@ -70,7 +70,7 @@ if (LibXML_SAX_BUILD_SHARED)
       LibXML_INSTALL_BINARIES
     NO_CHECK_REQUIRED_COMPONENTS_MACRO
   )
-  
+
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-formatter${LINK_SUFFIX_SHARED}-config.cmake
     DESTINATION ${LibXML_INSTALL_CMAKE}
     COMPONENT sax-formatter
@@ -105,15 +105,15 @@ if (LibXML_SAX_BUILD_STATIC)
     RUNTIME DESTINATION ${LibXML_INSTALL_BINARIES}
     COMPONENT sax-formatter
   )
-  
-  
+
+
   # installed config file for find_package
   install(EXPORT XMLSAXFormatter${LINK_SUFFIX_STATIC}-config
     DESTINATION ${LibXML_INSTALL_CMAKE}
     FILE libxml-sax-formatter${LINK_SUFFIX_STATIC}-targets.cmake
     COMPONENT sax-formatter
   )
-  
+
   include(CMakePackageConfigHelpers)
   configure_package_config_file(libxml-sax-formatter-config.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-formatter${LINK_SUFFIX_STATIC}-config.cmake
@@ -124,7 +124,7 @@ if (LibXML_SAX_BUILD_STATIC)
       LibXML_INSTALL_BINARIES
     NO_CHECK_REQUIRED_COMPONENTS_MACRO
   )
-  
+
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libxml-sax-formatter${LINK_SUFFIX_STATIC}-config.cmake
     DESTINATION ${LibXML_INSTALL_CMAKE}
     COMPONENT sax-formatter

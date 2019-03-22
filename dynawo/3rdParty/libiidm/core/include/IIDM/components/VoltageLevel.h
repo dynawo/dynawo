@@ -163,7 +163,7 @@ public:
   typedef Contains<Bus> buses_type;
   typedef buses_type::iterator bus_iterator;
   typedef buses_type::const_iterator bus_const_iterator;
-  
+
   buses_type const& buses() const { return *this; }
   buses_type & buses() { return *this; }
 
@@ -175,7 +175,7 @@ public:
 
   Bus const& get_bus(id_type const& id) const { return buses().get(id); }
   Bus & get_bus(id_type const& id) { return buses().get(id); }
-  
+
   bus_const_iterator find_bus(id_type const& id) const { return buses().find(id); }
   bus_iterator find_bus(id_type const& id) { return buses().find(id); }
 
@@ -184,7 +184,7 @@ public:
   typedef Contains<BusBarSection> busBarSections_type;
   typedef busBarSections_type::iterator busBarSection_iterator;
   typedef busBarSections_type::const_iterator busBarSection_const_iterator;
-  
+
   busBarSections_type const& busBarSections() const { return *this; }
   busBarSections_type & busBarSections() { return *this; }
 
@@ -196,7 +196,7 @@ public:
 
   BusBarSection const& get_busBarSection(id_type const& id) const { return busBarSections().get(id); }
   BusBarSection & get_busBarSection(id_type const& id) { return busBarSections().get(id); }
-  
+
   busBarSection_const_iterator find_busBarSection(id_type const& id) const { return busBarSections().find(id); }
   busBarSection_iterator find_busBarSection(id_type const& id) { return busBarSections().find(id); }
 
@@ -205,7 +205,7 @@ public:
   typedef Contains<Switch> switches_type;
   typedef switches_type::iterator switch_iterator;
   typedef switches_type::const_iterator switch_const_iterator;
-  
+
   switches_type const& switches() const { return *this; }
   switches_type & switches() { return *this; }
 
@@ -217,7 +217,7 @@ public:
 
   Switch const& get_switch(id_type const& id) const { return switches().get(id); }
   Switch & get_switch(id_type const& id) { return switches().get(id); }
-  
+
   switch_const_iterator find_switch(id_type const& id) const { return switches().find(id); }
   switch_iterator find_switch(id_type const& id) { return switches().find(id); }
 
@@ -226,7 +226,7 @@ public:
   typedef Contains<Load> loads_type;
   typedef loads_type::iterator load_iterator;
   typedef loads_type::const_iterator load_const_iterator;
-  
+
   loads_type const& loads() const { return *this; }
   loads_type & loads() { return *this; }
 
@@ -238,7 +238,7 @@ public:
 
   Load const& get_load(id_type const& id) const { return loads().get(id); }
   Load & get_load(id_type const& id) { return loads().get(id); }
-  
+
   load_const_iterator find_load(id_type const& id) const { return loads().find(id); }
   load_iterator find_load(id_type const& id) { return loads().find(id); }
 
@@ -247,7 +247,7 @@ public:
   typedef Contains<ShuntCompensator> shuntCompensators_type;
   typedef shuntCompensators_type::iterator shuntCompensator_iterator;
   typedef shuntCompensators_type::const_iterator shuntCompensator_const_iterator;
-  
+
   shuntCompensators_type const& shuntCompensators() const { return *this; }
   shuntCompensators_type & shuntCompensators() { return *this; }
 
@@ -259,7 +259,7 @@ public:
 
   ShuntCompensator const& get_shuntCompensator(id_type const& id) const { return shuntCompensators().get(id); }
   ShuntCompensator & get_shuntCompensator(id_type const& id) { return shuntCompensators().get(id); }
-  
+
   shuntCompensator_const_iterator find_shuntCompensator(id_type const& id) const { return shuntCompensators().find(id); }
   shuntCompensator_iterator find_shuntCompensator(id_type const& id) { return shuntCompensators().find(id); }
 
@@ -268,7 +268,7 @@ public:
   typedef Contains<DanglingLine> danglingLines_type;
   typedef danglingLines_type::iterator danglingLine_iterator;
   typedef danglingLines_type::const_iterator danglingLine_const_iterator;
-  
+
   danglingLines_type const& danglingLines() const { return *this; }
   danglingLines_type & danglingLines() { return *this; }
 
@@ -280,7 +280,7 @@ public:
 
   DanglingLine const& get_danglingLine(id_type const& id) const { return danglingLines().get(id); }
   DanglingLine & get_danglingLine(id_type const& id) { return danglingLines().get(id); }
-  
+
   danglingLine_const_iterator find_danglingLine(id_type const& id) const { return danglingLines().find(id); }
   danglingLine_iterator find_danglingLine(id_type const& id) { return danglingLines().find(id); }
 
@@ -289,7 +289,7 @@ public:
   typedef Contains<Generator> generators_type;
   typedef generators_type::iterator generator_iterator;
   typedef generators_type::const_iterator generator_const_iterator;
-  
+
   generators_type const& generators() const { return *this; }
   generators_type & generators() { return *this; }
 
@@ -301,7 +301,7 @@ public:
 
   Generator const& get_generator(id_type const& id) const { return generators().get(id); }
   Generator & get_generator(id_type const& id) { return generators().get(id); }
-  
+
   generator_const_iterator find_generator(id_type const& id) const { return generators().find(id); }
   generator_iterator find_generator(id_type const& id) { return generators().find(id); }
 
@@ -310,7 +310,7 @@ public:
   typedef Contains<StaticVarCompensator> staticVarCompensators_type;
   typedef staticVarCompensators_type::iterator staticVarCompensator_iterator;
   typedef staticVarCompensators_type::const_iterator staticVarCompensator_const_iterator;
-  
+
   staticVarCompensators_type const& staticVarCompensators() const { return *this; }
   staticVarCompensators_type & staticVarCompensators() { return *this; }
 
@@ -322,7 +322,7 @@ public:
 
   StaticVarCompensator const& get_staticVarCompensator(id_type const& id) const { return staticVarCompensators().get(id); }
   StaticVarCompensator & get_staticVarCompensator(id_type const& id) { return staticVarCompensators().get(id); }
-  
+
   staticVarCompensator_const_iterator find_staticVarCompensator(id_type const& id) const { return staticVarCompensators().find(id); }
   staticVarCompensator_iterator find_staticVarCompensator(id_type const& id) { return staticVarCompensators().find(id); }
 
@@ -331,7 +331,7 @@ public:
   typedef Contains<VscConverterStation> vscConverterStations_type;
   typedef vscConverterStations_type::iterator vscConverterStation_iterator;
   typedef vscConverterStations_type::const_iterator vscConverterStation_const_iterator;
-  
+
   vscConverterStations_type const& vscConverterStations() const { return *this; }
   vscConverterStations_type & vscConverterStations() { return *this; }
 
@@ -343,7 +343,7 @@ public:
 
   VscConverterStation const& get_vscConverterStation(id_type const& id) const { return vscConverterStations().get(id); }
   VscConverterStation & get_vscConverterStation(id_type const& id) { return vscConverterStations().get(id); }
-  
+
   vscConverterStation_const_iterator find_vscConverterStation(id_type const& id) const { return vscConverterStations().find(id); }
   vscConverterStation_iterator find_vscConverterStation(id_type const& id) { return vscConverterStations().find(id); }
 
@@ -352,7 +352,7 @@ public:
   typedef Contains<LccConverterStation> lccConverterStations_type;
   typedef lccConverterStations_type::iterator lccConverterStation_iterator;
   typedef lccConverterStations_type::const_iterator lccConverterStation_const_iterator;
-  
+
   lccConverterStations_type const& lccConverterStations() const { return *this; }
   lccConverterStations_type & lccConverterStations() { return *this; }
 
@@ -364,7 +364,7 @@ public:
 
   LccConverterStation const& get_lccConverterStation(id_type const& id) const { return lccConverterStations().get(id); }
   LccConverterStation & get_lccConverterStation(id_type const& id) { return lccConverterStations().get(id); }
-  
+
   lccConverterStation_const_iterator find_lccConverterStation(id_type const& id) const { return lccConverterStations().find(id); }
   lccConverterStation_iterator find_lccConverterStation(id_type const& id) { return lccConverterStations().find(id); }
 
@@ -410,7 +410,7 @@ private:
   #endif
   connect(T const& , boost::optional<Connection> const&);
 
-  
+
 private:
   //builder requirements
   VoltageLevel(Identifier const&, properties_type const&);

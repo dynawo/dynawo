@@ -26,7 +26,7 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA)"
     parameter Boolean Running "Automaton activated ?";
     parameter SIunits.Time tLagBeforeActing "Time lag before taking action";
     parameter Integer OrderToEmit  "Order to emit by automaton (it should be a value corresponding to a state: [1:OPEN, 2:CLOSE, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
-    
+
     Connectors.ImPin IMonitored "Monitored current";
     Connectors.ZPin order "Order emitted by automaton";
     Connectors.BPin AutomatonExists (value = true) "Pin to indicate to deactivate internal automaton natively present in C++ object";

@@ -25,11 +25,11 @@ INCLUDE_DIRECTORIES(../
 
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
-TARGET_LINK_LIBRARIES(${MODULE_NAME} 
-                      dynawo_SolverCommon 
+TARGET_LINK_LIBRARIES(${MODULE_NAME}
+                      dynawo_SolverCommon
                       dynawo_ModelerCommon
                       dynawo_Util
-                      ${UNITTEST_LIBRARIES} 
+                      ${UNITTEST_LIBRARIES}
                       dl
                       ${SUNDIALS_KINSOL_LIBRARY}
                       pthread

@@ -101,4 +101,3 @@ class NetworkInterface {
 }  // namespace DYN
 
 #endif  // MODELER_DATAINTERFACE_DYNNETWORKINTERFACE_H_
-

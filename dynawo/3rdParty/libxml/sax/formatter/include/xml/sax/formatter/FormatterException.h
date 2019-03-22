@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file FormatterException.h
  * @brief XML formatter exception description : header file
  *
@@ -35,7 +35,7 @@ public:
    * @brief Default constructor
    */
   FormatterException();
-  
+
   /**
    * @brief constructor
    *

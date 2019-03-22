@@ -14,7 +14,7 @@
  * @file BusbarSectionPositionFormatter.cpp
  * @brief Provides BusbarSectionPositionFormatter definition
  */
- 
+
 #include <IIDM/extensions/busbarSectionPosition/xml/BusbarSectionPositionFormatter.h>
 #include <IIDM/extensions/busbarSectionPosition/BusbarSectionPosition.h>
 #include <IIDM/components/Identifiable.h>

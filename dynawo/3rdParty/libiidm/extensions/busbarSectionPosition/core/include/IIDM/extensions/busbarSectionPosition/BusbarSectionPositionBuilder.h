@@ -32,7 +32,7 @@ public:
   typedef BusbarSectionPositionBuilder builder_type;
 
   BusbarSectionPosition build() const;
-  
+
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, unsigned int, busbarIndex)
   MACRO_IIDM_BUILDER_PROPERTY(builder_type, unsigned int, sectionIndex)
 };

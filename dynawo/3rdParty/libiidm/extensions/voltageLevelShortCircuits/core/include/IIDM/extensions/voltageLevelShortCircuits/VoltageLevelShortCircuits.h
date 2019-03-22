@@ -32,7 +32,7 @@ public:
   BOOST_TYPE_INDEX_REGISTER_CLASS
 
   IIDM_UNIQUE_PTR<VoltageLevelShortCircuits> clone() const { return IIDM_UNIQUE_PTR<VoltageLevelShortCircuits>(do_clone()); }
-  
+
 protected:
   virtual VoltageLevelShortCircuits* do_clone() const IIDM_OVERRIDE;
 
@@ -48,7 +48,7 @@ public:
   VoltageLevelShortCircuits& minShortCircuitsCurrent(double value) { m_minShortCircuitsCurrent = value; return *this; }
 
   VoltageLevelShortCircuits& maxShortCircuitsCurrent(double value) { m_maxShortCircuitsCurrent = value; return *this; }
-  
+
 private:
   double m_minShortCircuitsCurrent;
   double m_maxShortCircuitsCurrent;

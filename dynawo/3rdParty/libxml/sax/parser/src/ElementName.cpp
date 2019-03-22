@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file ElementName.cpp
  * @brief ElementName : implementation file
  *
@@ -18,7 +18,7 @@
 #include <xml/sax/parser/ElementName.h>
 
 #include <boost/tokenizer.hpp>
-  
+
 namespace xml {
 namespace sax {
 namespace parser {
@@ -29,14 +29,14 @@ uri const empty;
 
 XmlPath uri::operator() (std::string const& element_sequence) const {
   XmlPath path;
-  
+
   typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
   tokenizer tokens(element_sequence, boost::char_separator<char>("/") );
-  
+
   for (tokenizer::iterator it = tokens.begin(); it != tokens.end(); ++it) {
     path += ElementName(*this, *it);
   }
-  
+
   return path;
 }
 

@@ -71,4 +71,3 @@ TEST(APICSTRTest, CollectionEraseConstraint) {
 }
 
 }  // namespace constraints
-

@@ -29,4 +29,3 @@ static const double defaultAngle0 = 0.;  ///< default value of the voltage angle
 
 
 #endif  // MODELER_DATAINTERFACE_DYNCOMMONCONSTANTS_H_
-

@@ -32,7 +32,7 @@ public:
   BOOST_TYPE_INDEX_REGISTER_CLASS
 
   IIDM_UNIQUE_PTR<GeneratorShortCircuits> clone() const { return IIDM_UNIQUE_PTR<GeneratorShortCircuits>(do_clone()); }
-  
+
 protected:
   virtual GeneratorShortCircuits* do_clone() const IIDM_OVERRIDE;
 
@@ -48,7 +48,7 @@ public:
   GeneratorShortCircuits& transientReactance(double value) { m_transientReactance = value; return *this; }
 
   GeneratorShortCircuits& stepUpTransformerReactance(double value) { m_stepUpTransformerReactance = value; return *this; }
-  
+
 private:
   double m_stepUpTransformerReactance;
   double m_transientReactance;

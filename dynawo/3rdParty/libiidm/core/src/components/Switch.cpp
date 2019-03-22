@@ -33,11 +33,11 @@ Switch& Switch::connectTo(Port const& port1, Port const& port2) {
   if (port1.is_bus()!=port2.is_bus()) {
     throw std::runtime_error("A switch can not connect a bus and a node");
   }
-  
+
   m_ports = std::make_pair(ConnectionPoint(parent().id(), port1), ConnectionPoint(parent().id(), port2));
   return *this;
 }
-  
+
 
 Switch::e_mode Switch::mode() const {
   if (!connected()) return mode_disconnected;
@@ -45,4 +45,3 @@ Switch::e_mode Switch::mode() const {
 }
 
 } // end of namespace IIDM::
-

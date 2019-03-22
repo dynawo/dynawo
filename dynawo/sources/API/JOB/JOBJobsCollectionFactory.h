@@ -40,4 +40,3 @@ class __DYNAWO_JOB_EXPORT JobsCollectionFactory {
 }  // namespace job
 
 #endif  // API_JOB_JOBJOBSCOLLECTIONFACTORY_H_
-

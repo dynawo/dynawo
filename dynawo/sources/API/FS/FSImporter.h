@@ -58,5 +58,3 @@ class __DYNAWO_FS_EXPORT Importer {
 }  // namespace finalState
 
 #endif  // API_FS_FSIMPORTER_H_
-
-

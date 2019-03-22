@@ -44,13 +44,13 @@ private:
   struct bus_port {
     id_type bus;
     connection_status_t status;
-    
+
     bus_port(id_type const& bus, connection_status_t status): bus(bus), status(status) {}
-    
+
     bool operator<(bus_port const& other) const;
-    
+
     int compare(bus_port const& other) const;
-    
+
     bool operator==(bus_port const& other) const { return bus == other.bus && status == other.status; }
   };
 
@@ -65,7 +65,7 @@ public:
 
   /// Named constructor for a Port from a bus id
   static Port from_bus(id_type const& bus, connection_status_t status) { return Port(bus, status); }
-  
+
   ///constructs a Port from a node number
   Port(node_type node): port(node) {}
 
@@ -101,7 +101,7 @@ public:
    * @throws a std::port_error if this Port is not a bus, i.e. if is_bus() returns false
    */
   id_type bus() const { return bus_id(); }
-  
+
   /**
    * @brief gets the bus id defining this Port.
    * @returns the bus id defining this Port.
@@ -231,7 +231,7 @@ public:
    * @throws a std::port_error if this ConnectionPoint is not a bus, i.e. if is_bus() returns false
    */
   id_type bus() const { return m_port.bus(); }
-  
+
   /**
    * @brief gets the bus id defining this ConnectionPoint.
    * @returns the bus id defining this ConnectionPoint.
@@ -245,14 +245,14 @@ public:
    * @throws a std::port_error if this ConnectionPoint is not a bus, i.e. if is_bus() returns false
    */
   bool is_bus_connected() const { return m_port.is_bus_connected(); }
-  
+
   /**
    * @brief tells if this bus is electrically connected.
    * @returns true if this ConnectionPoint is defined by a bus id, and is electrically connected, false otherwise
    * @throws a std::port_error if this ConnectionPoint is not a bus, i.e. if is_bus() returns false
    */
   connection_status_t bus_status() const { return m_port.bus_status(); }
-  
+
   /**@}*/
 
   /**
@@ -294,4 +294,3 @@ private:
 } // end of namespace IIDM
 
 #endif
-

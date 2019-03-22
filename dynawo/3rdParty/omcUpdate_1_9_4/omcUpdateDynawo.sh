@@ -33,10 +33,10 @@ NB_PROCESSORS_USED=1
 while (($#)); do
   case $1 in
     --openmodelica-dir=*)
-	    SRC_OPENMODELICA=`echo $1 | sed -e 's/--openmodelica-dir=//g'`
+      SRC_OPENMODELICA=`echo $1 | sed -e 's/--openmodelica-dir=//g'`
       ;;
     --openmodelica-install=*)
-	    INSTALL_OPENMODELICA=`echo $1 | sed -e 's/--openmodelica-install=//g'`
+      INSTALL_OPENMODELICA=`echo $1 | sed -e 's/--openmodelica-install=//g'`
       ;;
     --nbProcessors=*)
       NB_PROCESSORS_USED=`echo $1 | sed -e 's/--nbProcessors=//g'`

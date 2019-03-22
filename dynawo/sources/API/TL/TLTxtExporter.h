@@ -51,4 +51,3 @@ class TxtExporter : public Exporter {
 }  // namespace timeline
 
 #endif  // API_TL_TLTXTEXPORTER_H_
-

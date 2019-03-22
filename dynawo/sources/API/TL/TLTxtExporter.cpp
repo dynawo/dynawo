@@ -62,4 +62,3 @@ TxtExporter::exportToStream(const boost::shared_ptr<Timeline>& timeline, ostream
 }
 
 }  // namespace timeline
-

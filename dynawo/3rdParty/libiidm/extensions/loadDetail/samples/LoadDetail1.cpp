@@ -50,12 +50,12 @@ int main(int argc, char** argv) {
       .add( bus_builder.build("loads") )
       .add( load_builder.type(Load::type_undefined ).build("load1"), at("loads", connected) )
   ;
-  
+
   Load& load = network
     .substations().get("station")
     .voltageLevels().get("VL")
     .loads().get("load1");
-    
+
   load.setExtension(LoadDetailBuilder().fixedActivePower(3.0)
                                        .fixedReactivePower(1.5)
                                        .variableActivePower(4.2)
@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
                                        .build());
 
   //exporting the network into cout or each of the given files
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportLoadDetail, LoadDetailHandler::uri(), "ld" );
 

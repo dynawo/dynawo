@@ -94,4 +94,3 @@ MacroConnector::Impl::addInitConnect(const string& var1, const string& var2) {
 }
 
 }  // namespace dynamicdata
-

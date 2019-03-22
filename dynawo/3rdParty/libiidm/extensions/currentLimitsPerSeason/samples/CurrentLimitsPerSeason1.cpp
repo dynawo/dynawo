@@ -40,11 +40,11 @@ using namespace IIDM::extensions::currentlimitsperseason::xml;
 int main(int argc, char** argv) {
   //creating the network
   SubstationBuilder substation_builder = SubstationBuilder().country("FR").tso("RTE");
-	VoltageLevelBuilder bus_voltagelevel_builder = VoltageLevelBuilder().mode(VoltageLevel::bus_breaker).nominalV(50);
+  VoltageLevelBuilder bus_voltagelevel_builder = VoltageLevelBuilder().mode(VoltageLevel::bus_breaker).nominalV(50);
   BusBuilder bus_builder = BusBuilder().v(0).angle(10);
   LoadBuilder load_builder = LoadBuilder().p0(0).q0(0).p(0).q(0).p(2);
 
-	Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("2000-01-01T00:00:00").forecastDistance(0).build("network");
+  Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("2000-01-01T00:00:00").forecastDistance(0).build("network");
 
   network.add( substation_builder.build("station") )
     .add( bus_voltagelevel_builder.build("VL") )
@@ -54,12 +54,12 @@ int main(int argc, char** argv) {
       .add( load_builder.type(Load::type_auxiliary ).build("load2"), at("loads", connected) )
       .add( load_builder.type(Load::type_fictitious).build("load3"), at("loads", connected) )
   ;
-  
+
   Load& load = network
     .substations().get("station")
     .voltageLevels().get("VL")
     .loads().get("load1");
-  
+
   load.setExtension(
     CurrentLimitsPerSeason()
       .set(
@@ -78,7 +78,7 @@ int main(int argc, char** argv) {
   );
 
   //exporting the network into cout or each of the given files
-  
+
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension( &exportCurrentLimitsPerSeason, CurrentLimitsPerSeasonHandler::uri(), "ext_as" );
 
@@ -93,6 +93,5 @@ int main(int argc, char** argv) {
   }
 
 
-	return 0;
+  return 0;
 }
-

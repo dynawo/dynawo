@@ -28,7 +28,7 @@
 
 namespace IIDM {
 namespace builders {
-  
+
 /**
  * @class LineBuilder
  * @brief IIDM::Line builder

@@ -268,4 +268,3 @@ class ModelVariationArea : public ModelCPP::Impl {
 }  // namespace DYN
 
 #endif  // MODELS_CPP_MODELVARIATIONAREA_DYNMODELVARIATIONAREA_H_
-

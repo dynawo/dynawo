@@ -141,4 +141,3 @@ Model::Impl::findMacroStaticRef(const string& id) {
 }
 
 }  // namespace dynamicdata
-

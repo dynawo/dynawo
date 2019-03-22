@@ -45,7 +45,7 @@ namespace xml {
 
 void PhaseTapChangerHandler::do_startElement(elementName_type const& name, attributes_type const& attributes) {
   if (name == root_name) {
-    tapchanger = 
+    tapchanger =
       IIDM::PhaseTapChanger(
         attributes["lowTapPosition"],
         attributes["tapPosition"],
@@ -53,7 +53,7 @@ void PhaseTapChangerHandler::do_startElement(elementName_type const& name, attri
       );
     tapchanger->regulating( attributes["regulating"].as< boost::optional<bool> >() );
     tapchanger->regulationValue( attributes["regulationValue"].as< boost::optional<double> >() );
-    
+
   } else if (name == iidm_ns("terminalRef")) {
     tapchanger->terminalReference( make_terminalReference(attributes) );
 
@@ -65,7 +65,7 @@ void PhaseTapChangerHandler::do_startElement(elementName_type const& name, attri
 
 void RatioTapChangerHandler::do_startElement(elementName_type const& name, attributes_type const& attributes) {
   if (name == root_name) {
-    tapchanger = 
+    tapchanger =
       IIDM::RatioTapChanger(
         attributes["lowTapPosition"],
         attributes["tapPosition"],
@@ -73,7 +73,7 @@ void RatioTapChangerHandler::do_startElement(elementName_type const& name, attri
       );
     tapchanger->regulating( attributes["regulating"].as< boost::optional<bool> >() );
     tapchanger->targetV( attributes["targetV"].as< boost::optional<double> >() );
-    
+
   } else if (name == iidm_ns("terminalRef")) {
     tapchanger->terminalReference( make_terminalReference(attributes) );
 

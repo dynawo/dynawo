@@ -122,4 +122,3 @@ XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& co
 }
 
 }  // namespace parameters
-

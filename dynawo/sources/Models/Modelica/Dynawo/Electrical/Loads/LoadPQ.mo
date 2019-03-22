@@ -20,7 +20,7 @@ model LoadPQ "Load with constant reactive/active power"
   Connectors.ImPin QRefPu (value (start = s0Pu.im)) "Reactive power request";
 
 equation
- 
+
   if (running.value) then
     PPu = PRefPu.value;
     QPu = QRefPu.value;

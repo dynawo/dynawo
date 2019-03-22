@@ -87,4 +87,3 @@ class __DYNAWO_CSTR_EXPORT Constraint {
 }  // namespace constraints
 
 #endif  // API_CSTR_CSTRCONSTRAINT_H_
-

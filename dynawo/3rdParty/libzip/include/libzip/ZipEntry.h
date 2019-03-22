@@ -32,4 +32,3 @@ public:
 }
 
 #endif /* __ZIP_ENTRY_H__ */
-

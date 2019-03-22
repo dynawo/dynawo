@@ -14,7 +14,7 @@
  * @file ActiveSeasonFormatter.cpp
  * @brief Provides ActiveSeasonFormatter definition
  */
- 
+
 #include <IIDM/extensions/activeSeason/xml/ActiveSeasonFormatter.h>
 #include <IIDM/extensions/activeSeason/ActiveSeason.h>
 #include <IIDM/components/Identifiable.h>

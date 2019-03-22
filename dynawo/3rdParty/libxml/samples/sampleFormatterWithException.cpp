@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     std::cerr << "Usage: sampleFormatter <fileOut.xml>" << std::endl;
     exit(-1);
   }
-  
+
   const std::string filename(argv[1]);
 
   // use of xercesc personal.xml as example
@@ -46,11 +46,11 @@ int main(int argc, char** argv) {
     formatter->addNamespace("ns1", "http://www.namespaces/namespace1");
     formatter->addNamespace("ns2", "http://www.namespaces/namespace2");
     formatter->startDocument();
-    
+
     AttributeList attrs;
     formatter->startElement("ns3", "personnel", attrs); //should raise an exception
     attrs.clear();
-    
+
     attrs.add("id","Big.Boss");
     formatter->startElement("person",attrs);
     formatter->endElement();// person

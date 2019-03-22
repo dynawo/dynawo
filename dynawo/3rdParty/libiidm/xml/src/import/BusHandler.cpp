@@ -26,7 +26,7 @@ BusHandler::BusHandler(elementName_type const& root_element):
 
 void BusHandler::configure(attributes_type const& attributes) {
   IdentifiableHandler<IIDM::builders::BusBuilder>::configure(attributes);
-  
+
   builder()
     .v( attributes["v"] )
     .angle( attributes["angle"] )
@@ -35,4 +35,3 @@ void BusHandler::configure(attributes_type const& attributes) {
 
 } // end of namespace IIDM::xml::
 } // end of namespace IIDM::
-

@@ -30,36 +30,36 @@ nullptr is replaced by NULL
   #define IIDM_OVERRIDE override
   ///the C++11 final special identifier
   #define IIDM_FINAL final
-  
+
   ///the C++11 noexcept specifier
   #define IIDM_NOEXCEPT noexcept
   ///the C++11 noexcept(...) specifier
   #define IIDM_NOEXCEPT_IF(X) noexcept(X)
-  
-  
+
+
   ///the C++11 nullptr keyword
   #define IIDM_NULLPTR nullptr
-  
+
   ///the C++11 constexpr keyword
   #define IIDM_CONSTEXPR constexpr
-  
+
 #else //not a C++11 compilation
   ///the C++11 override special identifier
   #define IIDM_OVERRIDE
 
   ///the C++11 final special identifier
   #define IIDM_FINAL
-  
+
   ///the C++11 noexcept specifier, which is not available in C++03
   #define IIDM_NOEXCEPT
-  
+
   ///the C++11 noexcept(...) specifier, which is not available in C++03
   #define IIDM_NOEXCEPT_IF(X)
-  
-  
+
+
   ///the C++11 nullptr keyword, given the NULL value
   #define IIDM_NULLPTR NULL
-  
+
   ///the C++11 constexpr keyword, which is not available in C++03
   #define IIDM_CONSTEXPR
 

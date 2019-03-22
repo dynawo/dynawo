@@ -31,5 +31,3 @@
 #endif  // WIN32
 
 #endif  // API_TL_TLEXPORT_H_
-
-

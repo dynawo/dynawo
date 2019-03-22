@@ -19,4 +19,3 @@
   <variable type="continuous" id="terminal.V.im"/>
   <xi:include href="SwitchOffGenerator.extvar" xpointer="xmlns(dyn=http://www.rte-france.com/dynawo)xpointer(//dyn:external_variables/*)"/>
 </external_variables>
-

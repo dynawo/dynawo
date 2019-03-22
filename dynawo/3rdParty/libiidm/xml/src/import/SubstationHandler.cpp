@@ -46,7 +46,7 @@ SubstationHandler::SubstationHandler(elementName_type const& root_element):
   voltagelevel_handler.onEnd(
     lambda::bind( &SubstationHandler::add_voltageLevel, lambda::ref(*this), lambda::cref(voltagelevel_handler) )
   );
-  
+
   set_connectable_handler(root_element+iidm_ns("twoWindingsTransformer"), transformer2windings_handler);
   set_connectable_handler(root_element+iidm_ns("threeWindingsTransformer"), transformer3windings_handler);
 }

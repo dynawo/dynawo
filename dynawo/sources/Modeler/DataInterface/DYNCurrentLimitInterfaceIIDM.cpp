@@ -47,4 +47,3 @@ namespace DYN {
   }
 
 }  // namespace DYN
-

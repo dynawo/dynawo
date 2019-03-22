@@ -33,7 +33,7 @@ public:
 
   /// clones this BusbarSectionPosition
   IIDM_UNIQUE_PTR<BusbarSectionPosition> clone() const { return IIDM_UNIQUE_PTR<BusbarSectionPosition>(do_clone()); }
-  
+
 protected:
   virtual BusbarSectionPosition* do_clone() const IIDM_OVERRIDE;
 
@@ -47,7 +47,7 @@ public:
    * @return the value of the busbar index
    */
   unsigned int busbarIndex() const { return m_busbarIndex; }
-  
+
   /**
    * @brief defines the busbar index
    * @param index the new value
@@ -60,7 +60,7 @@ public:
    * @return the value of the section index
    */
   unsigned int sectionIndex() const { return m_sectionIndex; }
-  
+
   /**
    * @brief defines the section index
    * @param index the new value

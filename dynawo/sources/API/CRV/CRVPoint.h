@@ -66,4 +66,3 @@ class __DYNAWO_CRV_EXPORT Point {
 }  // end of namespace curves
 
 #endif  // API_CRV_CRVPOINT_H_
-

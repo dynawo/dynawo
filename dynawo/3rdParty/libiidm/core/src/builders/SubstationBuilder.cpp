@@ -37,4 +37,3 @@ SubstationBuilder::build(id_type const& id) const {
 } // end of namespace IIDM::builders::
 
 } // end of namespace IIDM::
-

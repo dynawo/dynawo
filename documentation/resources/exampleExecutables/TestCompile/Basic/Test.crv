@@ -2,4 +2,3 @@
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
   <curve model="Model" variable="TEST_u"/>
 </curvesInput>
-

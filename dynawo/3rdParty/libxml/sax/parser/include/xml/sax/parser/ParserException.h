@@ -9,7 +9,7 @@
 // This file is part of Libxml, a library to handle XML files parsing.
 //
 
-/** 
+/**
  * @file ParserException.h
  * @brief XML parser exception description : header file
  *
@@ -34,7 +34,7 @@ class ParserException : virtual public std::exception {
      * @brief Default constructor
      */
     ParserException();
-    
+
     /**
      * @brief constructor
      *
@@ -43,12 +43,12 @@ class ParserException : virtual public std::exception {
      * @param line : line where the exception occurs
      */
     ParserException(const std::string& message,const std::string& parsedFile="",int line=0);
-    
+
     /**
      * @brief Destructor
      */
     virtual ~ParserException() throw();
-    
+
     /**
      * @brief return exception message
      */

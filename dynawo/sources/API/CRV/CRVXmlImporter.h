@@ -47,4 +47,3 @@ class XmlImporter : public Importer {
 }  // namespace curves
 
 #endif  // API_CRV_CRVXMLIMPORTER_H_
-

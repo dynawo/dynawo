@@ -43,7 +43,7 @@ private:
 public:
   uri(): m_uri() {}
   uri(std::string const& uri): m_uri(uri) {}
-  
+
   std::string const& name() const { return m_uri; }
   operator std::string const& () const { return m_uri; }
 
@@ -52,7 +52,7 @@ public:
    * @param element_sequence the sequence to apply on. elements are separated by '/'
    */
   XmlPath operator() (std::string const& element_sequence) const;
-  
+
   int compare(uri const& other) const { return m_uri.compare(other.m_uri); }
 };
 
@@ -61,7 +61,7 @@ inline bool operator <  (uri const& a, uri const& b) { return a.name() < b.name(
 
 /**
  * @brief empty namespace uri.
- * 
+ *
  * An empty namespace uri to be used on instead of uri default constructor.
  */
 extern uri const empty;
@@ -89,7 +89,7 @@ public:
 
   name_type name;
   ns::uri ns;
-  
+
   int compare(ElementName const& other) const {
     int tag_cmp = name.compare(other.name);
     if (tag_cmp!=0) return tag_cmp;
@@ -117,4 +117,3 @@ inline XmlPath operator + (ElementName const& a, ElementName::name_type const& b
 } // end of namespace xml::
 
 #endif
-

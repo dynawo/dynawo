@@ -87,4 +87,3 @@ MacroStaticReference::Impl::findStaticRef(const string& key) {
 }
 
 }  // namespace dynamicdata
-
