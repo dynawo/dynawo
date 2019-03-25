@@ -30,7 +30,7 @@ OTHER_LIBS=
 ALL_LIBS=$(CORE_LIBS) $(OTHER_LIBS)
 
 MSL:
-  # Building git/MSL
-  rsync -r --verbose --exclude='*.svn' 'Modelica/Complex.mo' "$(BUILD_DIR)/Complex 3.2.2.mo"
-  rsync -r --verbose --exclude='*.svn' 'Modelica/Modelica 3.2.2' "$(BUILD_DIR)/"
-  rsync -r --verbose --exclude='*.svn' 'Modelica/ModelicaServices 3.2.2' "$(BUILD_DIR)/"
+	# Building git/MSL
+	rsync -r --verbose --exclude='*.svn' 'Modelica/Complex.mo' "$(BUILD_DIR)/Complex 3.2.2.mo"
+	rsync -r --verbose --exclude='*.svn' 'Modelica/Modelica 3.2.2' "$(BUILD_DIR)/"
+	rsync -r --verbose --exclude='*.svn' 'Modelica/ModelicaServices 3.2.2' "$(BUILD_DIR)/"
