@@ -384,7 +384,7 @@ for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | gre
 done
 tab_present=no
 files=()
-for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | grep -v \".*.patch\" | grep -v \".*.png\" | grep -v \"ModelicaCompiler/test\" | grep -v \"reference\" | cut -c3-); do
+for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | grep -v \".*.patch\" | grep -v \".*.png\" | grep -v \"Makefile\" | grep -v \"ModelicaCompiler/test\" | grep -v \"reference\" | cut -c3-); do
   if [ ! -z \"\$(grep -P '\t' \$file)\" ]; then
     tab_present=yes
     files=(\${files[@]} \$file)
