@@ -33,6 +33,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT NetworkEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~NetworkEntry() {}
+
+  /**
    * @brief IIDM file setter
    * @param iidmFile : IIDM file for the job
    */

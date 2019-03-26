@@ -37,6 +37,11 @@ class ParametersSetCollection;
 class __DYNAWO_PAR_EXPORT Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Exporter() {}
+
+  /**
    * @brief Export method for this exporter
    *
    * @param collection Collection to export

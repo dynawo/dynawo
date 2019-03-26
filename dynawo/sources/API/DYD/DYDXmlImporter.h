@@ -37,6 +37,10 @@ class XmlHandler;
 class XmlImporter : public Importer {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~XmlImporter() {}
+  /**
    * @copydoc Importer::importFromDydFiles()
    */
   boost::shared_ptr<DynamicModelsCollection> importFromDydFiles(const std::vector<std::string>& fileNames) const;

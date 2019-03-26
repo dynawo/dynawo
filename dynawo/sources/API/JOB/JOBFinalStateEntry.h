@@ -33,6 +33,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT FinalStateEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~FinalStateEntry() {}
+
+  /**
    * @brief whether to export IIDM output file getter
    * @return whether to export IIDM output file
    */

@@ -40,6 +40,11 @@ class LogsEntry;
 class __DYNAWO_JOB_EXPORT OutputsEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~OutputsEntry() {}
+
+  /**
    * @brief Outputs directory setter
    * @param outputsDirectory : directory for simulation outputs
    */

@@ -51,6 +51,10 @@ class Model;
 class __DYNAWO_DYD_EXPORT DynamicModelsCollection {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~DynamicModelsCollection() {}
+  /**
    * @brief Add a model in the collection
    *
    * @param model model to add in the collection

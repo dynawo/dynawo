@@ -36,6 +36,10 @@ namespace dynamicdata {
 class __DYNAWO_DYD_EXPORT UnitDynamicModel {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~UnitDynamicModel() {}
+  /**
    * @brief Model id getter
    *
    * @returns Model id

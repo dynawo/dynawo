@@ -37,6 +37,11 @@ class JobsCollection;
 class __DYNAWO_JOB_EXPORT Importer {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Importer() {}
+
+  /**
    * @brief Import job's collection from file
    *
    * @param fileName file name

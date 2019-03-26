@@ -33,6 +33,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT DynModelsEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~DynModelsEntry() {}
+
+  /**
    * @brief .dyd file setter
    * @param dydFile : .dyd file for the job
    */

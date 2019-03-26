@@ -48,6 +48,11 @@ class __DYNAWO_PAR_EXPORT Reference {
   };
 
   /**
+   * @brief Destructor
+   */
+  virtual ~Reference() {}
+
+  /**
    * @brief Setter for reference type
    *
    * @param type Reference's type

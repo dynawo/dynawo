@@ -39,7 +39,7 @@ class SolverEntry::Impl : public SolverEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc SolverEntry::setLib()

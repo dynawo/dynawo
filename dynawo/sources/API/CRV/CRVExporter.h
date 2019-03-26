@@ -36,6 +36,10 @@ class CurvesCollection;
 class __DYNAWO_CRV_EXPORT Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Exporter() {}
+  /**
    * @brief Export method for this exporter
    *
    * @param curves curvers to export

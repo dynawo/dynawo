@@ -39,6 +39,11 @@ class ParametersSet;
 class __DYNAWO_PAR_EXPORT ParametersSetCollection {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~ParametersSetCollection() {}
+
+  /**
    * @brief Add a parameters set in the collection
    *
    * Add a parameter set in the collection

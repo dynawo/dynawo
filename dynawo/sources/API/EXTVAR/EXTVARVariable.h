@@ -45,6 +45,11 @@ class __DYNAWO_EXTVAR_EXPORT Variable {
   };
 
   /**
+   * @brief Destructor
+   */
+  virtual ~Variable() {}
+
+  /**
    * @brief Variable id getter
    * @returns Variable id
    */

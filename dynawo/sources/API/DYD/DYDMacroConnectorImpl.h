@@ -42,7 +42,7 @@ class MacroConnector::Impl : public MacroConnector {
   /**
    * @brief MacroConnector destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc MacroConnector::getId()

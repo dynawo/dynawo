@@ -34,6 +34,11 @@ namespace finalState {
 class XmlExporter : public Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~XmlExporter() {}
+
+  /**
    * @brief Export method in XML format
    *
    * @param finalState final state to export

@@ -34,6 +34,11 @@ namespace finalState {
 class XmlImporter : public Importer {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~XmlImporter() {}
+
+  /**
    * @copydoc Importer::importFromFile()
    */
   boost::shared_ptr<FinalStateCollection> importFromFile(const std::string& fileName) const;

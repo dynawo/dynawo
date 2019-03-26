@@ -50,6 +50,11 @@ class __DYNAWO_PAR_EXPORT Parameter {
     STRING,  ///< Indicates string parameter
     SIZE_OF_ENUM  ///< value to use ONLY to assess the enumeration size
   };
+  /**
+   * @brief Destructor
+   */
+  virtual ~Parameter() {}
+
 
   /**
    * @brief Getter for parameter type

@@ -38,6 +38,11 @@ class Timeline;
 class __DYNAWO_TL_EXPORT Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Exporter() {}
+
+  /**
    * @brief Export method for this exporter
    *
    * @param timeline Timeline to export

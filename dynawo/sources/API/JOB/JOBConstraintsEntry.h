@@ -33,6 +33,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT ConstraintsEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~ConstraintsEntry() {}
+
+  /**
    * @brief Output file attribute setter
    * @param outputFile: Output file for constraints
    */

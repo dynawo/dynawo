@@ -37,6 +37,10 @@ class Model;
 class __DYNAWO_DYD_EXPORT Connector {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Connector() {}
+  /**
    * @brief First model getter
    *
    * @return First model shared pointer

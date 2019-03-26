@@ -38,6 +38,10 @@ class XmlHandler;
 class __DYNAWO_DYD_EXPORT Importer {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Importer() {}
+  /**
    * @brief Import dynamic models collection from files
    *
    * @param fileNames list of files to read

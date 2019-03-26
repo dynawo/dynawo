@@ -41,6 +41,10 @@ namespace dynamicdata {
 class __DYNAWO_DYD_EXPORT ModelTemplateExpansion : public Model {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~ModelTemplateExpansion() {}
+  /**
    * @brief Template Model getter
    *
    * @returns Template Model absolute path

@@ -45,7 +45,7 @@ class Variable::Impl : public Variable {
   /**
    * @brief Destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc Variable::getId()

@@ -33,6 +33,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT InitialStateEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~InitialStateEntry() {}
+
+  /**
    * @brief initial state file setter
    * @param initialStateFile : initial state file for the job
    */

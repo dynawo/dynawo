@@ -40,6 +40,11 @@ class OutputsEntry;
 class __DYNAWO_JOB_EXPORT JobEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~JobEntry() {}
+
+  /**
    * @brief Modeler entries container setter
    * @param modelerEntry : Modeler entries container for the job
    */

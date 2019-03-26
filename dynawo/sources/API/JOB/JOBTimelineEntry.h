@@ -33,6 +33,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT TimelineEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~TimelineEntry() {}
+
+  /**
    * @brief Output file attribute setter
    * @param outputFile: Output file for timeline
    */

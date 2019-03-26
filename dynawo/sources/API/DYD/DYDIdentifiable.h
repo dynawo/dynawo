@@ -34,6 +34,10 @@ namespace dynamicdata {
 class __DYNAWO_DYD_EXPORT Identifiable {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Identifiable() {}
+  /**
    * @brief Get the id of the identifiable object
    * @return Id of the identifiable
    */

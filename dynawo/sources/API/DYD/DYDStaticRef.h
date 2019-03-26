@@ -35,6 +35,10 @@ namespace dynamicdata {
 class __DYNAWO_DYD_EXPORT StaticRef {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~StaticRef() {}
+  /**
    * @brief Model Variable setter
    * @param modelVar model variable
    */

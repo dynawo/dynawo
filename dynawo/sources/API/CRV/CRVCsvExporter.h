@@ -33,6 +33,10 @@ namespace curves {
 class CsvExporter : public Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~CsvExporter() {}
+  /**
    * @brief Export method in csv format
    *
    * @param curves curves to export

@@ -36,6 +36,11 @@ class ParametersSetCollection;
 class __DYNAWO_PAR_EXPORT Importer {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Importer() {}
+
+  /**
    * @brief Import parameters' set collection from file
    *
    * @param fileName File name

@@ -55,6 +55,10 @@ class MacroStaticReference;
 class XmlExporter : public Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~XmlExporter() {}
+  /**
    * @brief Export method in XML format
    *
    * @param collection Collection to export

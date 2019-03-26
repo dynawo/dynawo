@@ -39,6 +39,11 @@ class ModelsDirEntry;
 class __DYNAWO_JOB_EXPORT ModelerEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~ModelerEntry() {}
+
+  /**
    * @brief Precompiled models directories entry setter
    * @param preCompiledModelsDirEntry : PreCompiledModelsDirEntry for the job
    */
