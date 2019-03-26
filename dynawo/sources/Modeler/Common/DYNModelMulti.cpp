@@ -785,7 +785,7 @@ ModelMulti::findSubModel(const string& modelName, const string& variable) {
     if (subModel->hasVariable(variable)) {   // found exact curve name
       return findSubModelFromVarName_t(subModel, isNetwork, false, variable);
     } else if (subModel->hasParameterDynamic(variable)) {   // case 2: curve's variable curve is a parameter in submodel
-      return findSubModelFromVarName_t(subModel, isNetwork, true, variable);;
+      return findSubModelFromVarName_t(subModel, isNetwork, true, variable);
     } else {   // BEGIN search :Some names of "variables" type are ended by "_value". This might change in the future, then this block could be neglected.
       if (subModel->hasVariable(variableNameBis)) {   // find variableNameBis = name_value
         return findSubModelFromVarName_t(subModel, isNetwork, false, variableNameBis);
