@@ -34,6 +34,10 @@ namespace dynamicdata {
 class __DYNAWO_DYD_EXPORT MacroConnect {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~MacroConnect() {}
+  /**
    * @brief First model getter
    *
    * @return First model id

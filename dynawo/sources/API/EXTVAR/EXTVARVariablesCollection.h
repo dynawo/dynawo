@@ -41,6 +41,10 @@ class variable_iterator;
 class __DYNAWO_EXTVAR_EXPORT VariablesCollection {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~VariablesCollection() {}
+  /**
    * @brief Add an external variable in the collection
    *
    * @param variable Variable to add

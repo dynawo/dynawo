@@ -35,6 +35,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT ModelsDirEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~ModelsDirEntry() {}
+
+  /**
    * @brief get the extension of model to parse
    * @return extension of model
    */

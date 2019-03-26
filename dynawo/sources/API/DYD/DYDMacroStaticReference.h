@@ -39,6 +39,10 @@ class StaticRef;
 class __DYNAWO_DYD_EXPORT MacroStaticReference {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~MacroStaticReference() {}
+  /**
    * @brief macroStaticReference id getter
    *
    * @returns the id of the macroStaticReference

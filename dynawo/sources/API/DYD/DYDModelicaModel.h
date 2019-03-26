@@ -46,6 +46,10 @@ class MacroConnect;
 class __DYNAWO_DYD_EXPORT ModelicaModel : public Model {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~ModelicaModel() {}
+  /**
    * @brief Network Identifiable device modeled getter
 
    * @returns Id of Network Identifiable device modeled

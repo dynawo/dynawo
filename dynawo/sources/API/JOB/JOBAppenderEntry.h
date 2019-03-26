@@ -33,6 +33,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT AppenderEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~AppenderEntry() {}
+
+  /**
    * @brief Tag attribute getter
    * @return Tag filtered by the appender
    */

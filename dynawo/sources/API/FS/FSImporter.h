@@ -37,6 +37,11 @@ class FinalStateCollection;
 class __DYNAWO_FS_EXPORT Importer {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Importer() {}
+
+  /**
    * @brief Import final state's collection from file
    *
    * @param fileName file name

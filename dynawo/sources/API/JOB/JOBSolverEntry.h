@@ -32,6 +32,11 @@ namespace job {
  */
 class __DYNAWO_JOB_EXPORT SolverEntry {
  public:
+  /**
+   * @brief Destructor
+   */
+  virtual ~SolverEntry() {}
+
    /**
    * @brief Solver lib setter
    * @param lib : Solver lib for the job

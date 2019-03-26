@@ -40,7 +40,7 @@ class AppenderEntry::Impl : public AppenderEntry {
   /**
    * @brief AppenderEntry destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc AppenderEntry::getTag() const

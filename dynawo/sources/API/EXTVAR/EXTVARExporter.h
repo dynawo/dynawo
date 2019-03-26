@@ -36,6 +36,10 @@ class VariablesCollection;
 class __DYNAWO_EXTVAR_EXPORT Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Exporter() {}
+  /**
    * @brief Export method for this exporter
    *
    * @param collection variables collection to export

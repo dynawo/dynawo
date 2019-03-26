@@ -37,6 +37,10 @@ class CurvesCollection;
 class __DYNAWO_CRV_EXPORT Importer {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Importer() {}
+  /**
    * @brief Import curves's collection from file
    *
    * @param fileName file name

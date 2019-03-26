@@ -34,6 +34,10 @@ namespace dynamicdata {
 class __DYNAWO_DYD_EXPORT MacroStaticRef {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~MacroStaticRef() {}
+  /**
    * @brief macroStaticRef id getter
    *
    * @return the id of the macroStaticRef

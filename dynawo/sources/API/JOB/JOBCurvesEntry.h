@@ -33,6 +33,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT CurvesEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~CurvesEntry() {}
+
+  /**
    * @brief Input file attribute getter
    * @return Input file for curves
    */

@@ -39,7 +39,7 @@ class ModelsDirEntry::Impl : public ModelsDirEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc ModelsDirEntry::getModelExtension()

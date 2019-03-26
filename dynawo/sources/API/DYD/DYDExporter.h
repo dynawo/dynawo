@@ -36,6 +36,10 @@ class DynamicModelsCollection;
 class __DYNAWO_DYD_EXPORT Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Exporter() {}
+  /**
    * @brief Export method for this exporter
    *
    * @param collection Collection to export

@@ -38,6 +38,11 @@ class FinalStateCollection;
 class __DYNAWO_FS_EXPORT Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Exporter() {}
+
+  /**
    * @brief Export method for this exporter
    *
    * @param finalState final state to export

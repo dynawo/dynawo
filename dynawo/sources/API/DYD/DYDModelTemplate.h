@@ -43,6 +43,10 @@ class MacroConnect;
 class __DYNAWO_DYD_EXPORT ModelTemplate : public Model {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~ModelTemplate() {}
+  /**
    * @brief Modelica models getter
    *
    * @returns Map of modelica models

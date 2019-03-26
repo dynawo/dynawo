@@ -31,6 +31,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT InitValuesEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~InitValuesEntry() {}
+
+  /**
    * @brief whether to write local init values setter
    * @param dumpLocalInitValues : whether to dump the local init values for the job
    */

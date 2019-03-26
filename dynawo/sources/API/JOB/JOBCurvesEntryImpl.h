@@ -39,7 +39,7 @@ class CurvesEntry::Impl : public CurvesEntry {
   /**
    * @brief default destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc CurvesEntry::getInputFile() const

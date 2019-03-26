@@ -36,6 +36,10 @@ class VariablesCollection;
 class __DYNAWO_EXTVAR_EXPORT Importer {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Importer() {}
+  /**
    * @brief Import external (i.e. C++-connected) variables
    *
    * @param fileName File name

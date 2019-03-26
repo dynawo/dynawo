@@ -41,7 +41,7 @@ class LogsEntry::Impl : public LogsEntry {
   /**
    * @brief LogsEntry destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc LogsEntry::addAppenderEntry()

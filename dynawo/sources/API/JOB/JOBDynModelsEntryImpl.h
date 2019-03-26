@@ -39,7 +39,7 @@ class DynModelsEntry::Impl : public DynModelsEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc DynModelsEntry::setDydFile()

@@ -37,6 +37,10 @@ class MacroConnection;
 class __DYNAWO_DYD_EXPORT MacroConnector {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~MacroConnector() {}
+  /**
    * @brief Macro connector id getter
    *
    * @returns the id of the macro connector

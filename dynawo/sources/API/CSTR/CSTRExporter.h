@@ -38,6 +38,10 @@ class ConstraintsCollection;
 class __DYNAWO_CSTR_EXPORT Exporter {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~Exporter() {}
+  /**
    * @brief Export method for this exporter
    *
    * @param constraints ConstraintsCollection to export

@@ -31,6 +31,11 @@ namespace job {
 class __DYNAWO_JOB_EXPORT SimulationEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~SimulationEntry() {}
+
+  /**
    * @brief Start time setter
    * @param startTime : Start time for the job
    */

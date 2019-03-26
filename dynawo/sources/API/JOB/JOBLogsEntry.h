@@ -35,6 +35,11 @@ class AppenderEntry;
 class __DYNAWO_JOB_EXPORT LogsEntry {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~LogsEntry() {}
+
+  /**
    * @brief Appender entry adder
    * @param appenderEntry : appender for the job
    */

@@ -39,7 +39,7 @@ class ConstraintsEntry::Impl : public ConstraintsEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc ConstraintsEntry::setOutputFile()

@@ -39,6 +39,10 @@ namespace dynamicdata {
 class __DYNAWO_DYD_EXPORT BlackBoxModel : public Model {
  public:
   /**
+   * @brief Destructor
+   */
+  virtual ~BlackBoxModel() {}
+  /**
    * @brief Model library getter
    *
    * @returns Model library absolute path

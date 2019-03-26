@@ -39,7 +39,7 @@ class InitialStateEntry::Impl : public InitialStateEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc InitialStateEntry::setInitialStateFile()

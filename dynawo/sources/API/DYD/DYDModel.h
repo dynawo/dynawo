@@ -56,6 +56,11 @@ class __DYNAWO_DYD_EXPORT Model {
   };
 
   /**
+   * @brief Destructor
+   */
+  virtual ~Model() {}
+
+  /**
    * @brief Model id getter
    *
    * @returns Model id

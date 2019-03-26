@@ -39,7 +39,7 @@ class TimelineEntry::Impl : public TimelineEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc TimelineEntry::setOutputFile()

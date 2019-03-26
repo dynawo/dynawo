@@ -39,7 +39,7 @@ class SimulationEntry::Impl : public SimulationEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc SimulationEntry::setStartTime()
