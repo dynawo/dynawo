@@ -204,9 +204,9 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   void getY0();
 
   /**
-   * @copydoc NetworkComponent::Impl::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @copydoc NetworkComponent::setFequations( std::map<int,std::string>& fEquationIndex )

@@ -237,7 +237,7 @@ ModelBus::ui() const {
 }
 
 void
-ModelBus::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params) {
+ModelBus::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
   double value = getParameterDynamicNoThrow<double>(params, "BUS_uMax", success);
   if (success)

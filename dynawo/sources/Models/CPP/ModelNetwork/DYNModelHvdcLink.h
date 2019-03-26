@@ -222,9 +222,9 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @copydoc NetworkComponent::Impl::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::Impl::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @brief addBusNeighbors

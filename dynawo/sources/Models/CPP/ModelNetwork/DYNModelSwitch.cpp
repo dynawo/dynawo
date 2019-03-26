@@ -388,7 +388,7 @@ ModelSwitch::evalG(const double& /*t*/) {
 }
 
 void
-ModelSwitch::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& /*params*/) {
+ModelSwitch::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& /*params*/) {
   // no parameter
 }
 

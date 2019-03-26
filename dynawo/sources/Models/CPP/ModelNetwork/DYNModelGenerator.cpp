@@ -209,7 +209,7 @@ ModelGenerator::defineNonGenericParameters(std::vector<ParameterModeler>& /*para
 }
 
 void
-ModelGenerator::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& /*params*/) {
+ModelGenerator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& /*params*/) {
   // no parameter
 }
 

@@ -530,7 +530,7 @@ ModelVoltageLevel::instantiateVariables(vector<shared_ptr<Variable> >& variables
 }
 
 void
-ModelVoltageLevel::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params) {
+ModelVoltageLevel::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->setSubModelParameters(params);

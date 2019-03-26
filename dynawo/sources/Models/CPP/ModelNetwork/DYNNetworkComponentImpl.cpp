@@ -121,8 +121,8 @@ NetworkComponent::Impl::setNetwork(ModelNetwork* model) {
 }
 
 ParameterModeler
-NetworkComponent::Impl::findParameter(const string& name, const std::tr1::unordered_map<string, ParameterModeler>& params) const {
-  std::tr1::unordered_map<string, ParameterModeler>:: const_iterator it = params.find(name);
+NetworkComponent::Impl::findParameter(const string& name, const boost::unordered_map<string, ParameterModeler>& params) const {
+  boost::unordered_map<string, ParameterModeler>:: const_iterator it = params.find(name);
   if (it != params.end()) {
     return it->second;
   }
@@ -130,12 +130,12 @@ NetworkComponent::Impl::findParameter(const string& name, const std::tr1::unorde
 }
 
 bool
-NetworkComponent::Impl::hasParameter(const string& name, const std::tr1::unordered_map<string, ParameterModeler>& params) const {
+NetworkComponent::Impl::hasParameter(const string& name, const boost::unordered_map<string, ParameterModeler>& params) const {
   return params.find(name) != params.end();
 }
 
 template <>
-double NetworkComponent::Impl::getParameterDynamicNoThrow(const std::tr1::unordered_map<std::string, ParameterModeler>& params,
+double NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids) const {
   double value = 0.;
   findParameterDynamicNoThrow<double>(params, id, foundParam, ids, value);
@@ -143,7 +143,7 @@ double NetworkComponent::Impl::getParameterDynamicNoThrow(const std::tr1::unorde
 }
 
 template <>
-int NetworkComponent::Impl::getParameterDynamicNoThrow(const std::tr1::unordered_map<std::string, ParameterModeler>& params,
+int NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids) const {
   int value = 0;
   findParameterDynamicNoThrow<int>(params, id, foundParam, ids, value);
@@ -151,7 +151,7 @@ int NetworkComponent::Impl::getParameterDynamicNoThrow(const std::tr1::unordered
 }
 
 template <>
-bool NetworkComponent::Impl::getParameterDynamicNoThrow(const std::tr1::unordered_map<std::string, ParameterModeler>& params,
+bool NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids) const {
   bool value = false;
   findParameterDynamicNoThrow<bool>(params, id, foundParam, ids, value);
@@ -159,7 +159,7 @@ bool NetworkComponent::Impl::getParameterDynamicNoThrow(const std::tr1::unordere
 }
 
 template <>
-std::string NetworkComponent::Impl::getParameterDynamicNoThrow(const std::tr1::unordered_map<std::string, ParameterModeler>& params,
+std::string NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids) const {
   std::string value = "";
   findParameterDynamicNoThrow<std::string>(params, id, foundParam, ids, value);
