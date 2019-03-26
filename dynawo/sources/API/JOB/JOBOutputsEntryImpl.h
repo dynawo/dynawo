@@ -40,7 +40,7 @@ class OutputsEntry::Impl : public OutputsEntry {
   /*
    * @brief Default destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc OutputsEntry::setOutputsDirectory()

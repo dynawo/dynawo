@@ -38,7 +38,7 @@ class InitValuesEntry::Impl : public InitValuesEntry {
   /**
    * @brief destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc InitValuesEntry::setDumpLocalInitValues()

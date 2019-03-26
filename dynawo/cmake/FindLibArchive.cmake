@@ -56,5 +56,5 @@ UNSET(LIBARCHIVE_FOUND)
 
 IF(LibArchive_FOUND)
     SET(LibArchive_INCLUDE_DIRS ${LibArchive_INCLUDE_DIR})
-    SET(LibArchive_LIBRARIES    ${LibArchive_LIBRARY})
+    SET(LibArchive_LIBRARIES ${LibArchive_LIBRARY})
 ENDIF()

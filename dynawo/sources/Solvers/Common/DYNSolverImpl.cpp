@@ -138,9 +138,9 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
 
   double *idx = NV_DATA_S(yId_);
   for (int ieq = 0; ieq < model->sizeY(); ++ieq) {
-    idx[ieq] = ONE;
+    idx[ieq] = ONE
     if (vYId_[ieq] != DYN::DIFFERENTIAL)  // Algebraic or external variable
-      idx[ieq] = ZERO;
+      idx[ieq] = ZERO
   }
 
   // Initial values

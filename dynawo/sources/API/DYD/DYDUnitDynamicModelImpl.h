@@ -47,7 +47,7 @@ class UnitDynamicModel::Impl : public UnitDynamicModel {
   /**
    * @brief UnitDynamicModel destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc UnitDynamicModel::getId()

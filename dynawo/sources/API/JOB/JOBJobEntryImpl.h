@@ -39,7 +39,7 @@ class JobEntry::Impl : public JobEntry {
   /**
    * @brief Destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc JobEntry::setModelerEntry()

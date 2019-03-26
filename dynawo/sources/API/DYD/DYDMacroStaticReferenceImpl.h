@@ -42,7 +42,7 @@ class MacroStaticReference::Impl : public MacroStaticReference {
   /**
    * @brief MacroStaticReference destructor
    */
-  ~Impl();
+  virtual ~Impl();
 
   /**
    * @copydoc MacroStaticReference::getId()
