@@ -51,7 +51,7 @@ using std::ofstream;
 using std::stringstream;
 using std::vector;
 using std::map;
-using std::tr1::unordered_map;
+using boost::unordered_map;
 using std::string;
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;

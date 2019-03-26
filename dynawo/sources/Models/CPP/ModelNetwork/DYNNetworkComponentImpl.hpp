@@ -26,7 +26,7 @@ namespace DYN {
 
 template<typename T>
 T
-inline NetworkComponent::Impl::getParameterDynamic(const std::tr1::unordered_map<std::string, ParameterModeler>& params,
+inline NetworkComponent::Impl::getParameterDynamic(const boost::unordered_map<std::string, ParameterModeler>& params,
     const std::string& id, const std::vector<std::string>& ids) const {
   bool foundParam = false;
   T value = getParameterDynamicNoThrow<T>(params, id, foundParam, ids);
@@ -38,7 +38,7 @@ inline NetworkComponent::Impl::getParameterDynamic(const std::tr1::unordered_map
 
 template<typename T>
 void
-inline NetworkComponent::Impl::findParameterDynamicNoThrow(const std::tr1::unordered_map<std::string, ParameterModeler>& params,
+inline NetworkComponent::Impl::findParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
     const std::string& id, bool& foundParam, const std::vector<std::string>& ids, T& value) const {
   foundParam = false;
   if (ids.empty()) {

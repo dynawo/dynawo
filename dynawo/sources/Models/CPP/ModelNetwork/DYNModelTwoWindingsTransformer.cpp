@@ -1797,7 +1797,7 @@ ModelTwoWindingsTransformer::addBusNeighbors() {
 }
 
 void
-ModelTwoWindingsTransformer::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params) {
+ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   // current limits parameter
   bool success = false;
   double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "TFO_currentLimit_maxTimeOperation", success);

@@ -22,7 +22,7 @@
 #include <vector>
 #include <map>
 #include <string>
-#include <tr1/unordered_map>
+#include <boost/unordered_map.hpp>
 
 #include <boost/shared_ptr.hpp>
 
@@ -242,7 +242,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief network submodels parameters setter
    * @param params: vector of parameters used to set network submodels parameters
    */
-  virtual void setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params) = 0;
+  virtual void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) = 0;
 
   /**
    * @brief get a parameter with a given name from a vector of parameters
@@ -250,7 +250,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param params: vector of parameters
    * @return parameter with the given name
    */
-  virtual ParameterModeler findParameter(const std::string& name, const std::tr1::unordered_map<std::string, ParameterModeler>& params) const = 0;
+  virtual ParameterModeler findParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const = 0;
 
   /**
    * @brief true if a parameter with a given name is present in a vector of parameters
@@ -258,7 +258,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @param params: vector of parameters
    * @return true if the parameter with the given name has been found, false otherwise
    */
-  virtual bool hasParameter(const std::string& name, const std::tr1::unordered_map<std::string, ParameterModeler>& params) const = 0;
+  virtual bool hasParameter(const std::string& name, const boost::unordered_map<std::string, ParameterModeler>& params) const = 0;
 
   /**
    * @brief set equation's formula

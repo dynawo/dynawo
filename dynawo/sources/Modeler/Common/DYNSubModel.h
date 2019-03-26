@@ -25,7 +25,7 @@
 #include <string>
 #include <list>
 #include <iostream>
-#include <tr1/unordered_map>
+#include <boost/unordered_map.hpp>
 
 #include <boost/shared_ptr.hpp>
 
@@ -835,7 +835,7 @@ class SubModel {
    * @param isInitParam: whether to retrieve the initial (or dynamic) parameters
    * @return submodel parameters
    */
-  inline const std::tr1::unordered_map<std::string, ParameterModeler>& getParameters(const bool isInitParam) const {
+  inline const boost::unordered_map<std::string, ParameterModeler>& getParameters(const bool isInitParam) const {
     return (isInitParam ? getParametersInit() : getParametersDynamic());
   }
 
@@ -844,14 +844,14 @@ class SubModel {
    *
    * @return submodel attribute parametersDynamic_
    */
-  const std::tr1::unordered_map<std::string, ParameterModeler>& getParametersDynamic() const;
+  const boost::unordered_map<std::string, ParameterModeler>& getParametersDynamic() const;
 
   /**
    * @brief Getter for attribute parametersInit_
    *
    * @return submodel attribute parametersInit_
    */
-  const std::tr1::unordered_map<std::string, ParameterModeler>& getParametersInit() const;
+  const boost::unordered_map<std::string, ParameterModeler>& getParametersInit() const;
 
   /**
    * @brief Add parameters
@@ -1350,8 +1350,8 @@ class SubModel {
   propertyContinuousVar_t* yType_;  ///< local buffer to use when accessing each variable property (Algebraic / Differential / External)
   propertyF_t* fType_;  ///< local buffer to use when accessing each residual function property(Algebraic / Differential)
 
-  std::tr1::unordered_map<std::string, ParameterModeler> parametersDynamic_;  ///< hashmap of sub-model parameters
-  std::tr1::unordered_map<std::string, ParameterModeler> parametersInit_;  ///< hashmap of sub-model parameters
+  boost::unordered_map<std::string, ParameterModeler> parametersDynamic_;  ///< hashmap of sub-model parameters
+  boost::unordered_map<std::string, ParameterModeler> parametersInit_;  ///< hashmap of sub-model parameters
 
   // Index to access data inside global buffers
   // -------------------------------------------

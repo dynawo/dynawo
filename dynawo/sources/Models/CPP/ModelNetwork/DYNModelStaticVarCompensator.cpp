@@ -677,7 +677,7 @@ ModelStaticVarCompensator::defineNonGenericParameters(std::vector<ParameterModel
 }
 
 void
-ModelStaticVarCompensator::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& /*params*/) {
+ModelStaticVarCompensator::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& /*params*/) {
   // no parameter
 }
 }  // namespace DYN

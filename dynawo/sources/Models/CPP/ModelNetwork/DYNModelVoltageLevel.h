@@ -251,9 +251,9 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables);
 
   /**
-   * @copydoc NetworkComponent::setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params)
+   * @copydoc NetworkComponent::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params)
    */
-  void setSubModelParameters(const std::tr1::unordered_map<std::string, ParameterModeler>& params);
+  void setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params);
 
   /**
    * @copydoc NetworkComponent::defineNonGenericParameters(std::vector<ParameterModeler>& parameters)
