@@ -18,6 +18,9 @@ language: cpp
 
 compiler: g++
 
+notifications:
+  email: false
+
 services:
   - docker
 
