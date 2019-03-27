@@ -35,7 +35,7 @@ env:
     - DYNAWO_HOME=/home/dynawo_travis/dynawo;
     - OPENMODELICA_VERSION=1_9_4
     - INSTALL_OPENMODELICA=/opt/OpenModelica/Install
-    - SRC_OPENMODELICA=/opt/OpenModelica/Source"
+    - SRC_OPENMODELICA=/opt/OpenModelica/Source
     - NB_PROCESSORS_USED=2
     - RESULTS_SHOW="false"
     - BUILD_TYPE=Debug
