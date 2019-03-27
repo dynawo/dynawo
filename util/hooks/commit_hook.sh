@@ -1,7 +1,7 @@
 #!/bin/bash
 
 branch_name=$(git symbolic-ref HEAD | awk -F'/' '{print $(NF)}')
-if [ ! -z "$(echo "$branch_name" | grep -E "[0-9]+_[^_]*")" ]; then
+if [ ! -z "$(echo "$branch_name" | grep -E "^[0-9]+_[^_]*")" ]; then
   ticket_num=$(echo $branch_name | cut -d '_' -f 1)
   if [[ "$(cat $1)" = \#* ]]; then
     hashtag_message=$(cat $1 | grep -Eo "^#[0-9]+ ")
