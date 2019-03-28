@@ -72,17 +72,31 @@ using parameters::ParametersSet;
  * @brief SolverIDAFactory getter
  * @return A pointer to a new instance of SolverIDAFactory
  */
-extern"C" DYN::SolverFactory * getFactory() {
+extern "C" DYN::SolverFactory * getFactory() {
   return (new DYN::SolverIDAFactory());
+}
+
+/**
+ * @brief SolverIDAFactory destroy method
+ */
+extern "C" void deleteFactory(DYN::SolverFactory* factory) {
+  delete factory;
 }
 
 /**
  * @brief SolverIDA getter
  * @return A pointer to a new instance of SolverIDA
  */
-extern "C" DYN::Solver * DYN::SolverIDAFactory::create() const {
-  DYN::Solver * solver(new DYN::SolverIDA());
+extern "C" DYN::Solver* DYN::SolverIDAFactory::create() const {
+  DYN::Solver* solver(new DYN::SolverIDA());
   return solver;
+}
+
+/**
+ * @brief SolverIDA destroy method
+ */
+extern "C" void DYN::SolverIDAFactory::destroy(DYN::Solver* solver) const {
+  delete solver;
 }
 
 /**

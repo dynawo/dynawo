@@ -48,7 +48,12 @@ class ModelVariationAreaFactory : public SubModelFactory {
    *
    * @return A pointer to a new instance of Model VariationArea
    */
-  SubModel * create() const;
+  SubModel* create() const;
+
+  /**
+   * @brief Model VariationArea destroy
+   */
+  void destroy(SubModel*) const;
 };
 
 /**

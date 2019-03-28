@@ -88,21 +88,32 @@ using parameters::ParametersSet;
  *
  * @return A pointer to a new instance of ModelNetworkFactory
  */
-//---------------------------------------------------------------------
-
 extern "C" DYN::SubModelFactory* getFactory() {
   return (new DYN::ModelNetworkFactory());
 }
 
 /**
+ * @brief ModelNewtorkFactory destroy method
+ */
+extern "C" void deleteFactory(DYN::SubModelFactory* factory) {
+  delete factory;
+}
+
+/**
  * @brief ModelNetwork getter
- *
  *
  * @return A pointer to a new instance of Model Network
  */
 extern "C" DYN::SubModel* DYN::ModelNetworkFactory::create() const {
   DYN::SubModel* model(new DYN::ModelNetwork());
   return model;
+}
+
+/**
+ * @brief ModelNetwork destroy method
+ */
+extern "C" void DYN::ModelNetworkFactory::destroy(DYN::SubModel* model) const {
+  delete model;
 }
 
 namespace DYN {

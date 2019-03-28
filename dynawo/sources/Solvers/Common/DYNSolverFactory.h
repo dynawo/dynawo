@@ -22,6 +22,7 @@
 
 #include <map>
 #include <boost/core/noncopyable.hpp>
+#include <boost/shared_ptr.hpp>
 
 namespace DYN {
 class Solver;
@@ -51,23 +52,27 @@ class SolverFactory {
    */
   virtual Solver* create() const = 0;
 
+    /**
+   * @brief destroy an instance of a solver
+   *
+   */
+  virtual void destroy(Solver*) const = 0;
+
   /**
    * @brief Create a solver loading given lib
    *
    * @param lib : Name of the solver library to load
    * @return Pointer to the created solver
    */
-  static Solver* createSolverFromLib(const std::string & lib);
+  static boost::shared_ptr<Solver> createSolverFromLib(const std::string& lib);
 
-  /**
-   * @brief reset all factories of solver
-   */
-  static void resetFactories();
-
- public:
   void* handle_;  ///< handle return by dlopen when the library is loaded
+
+ private:
   static SolverFactories factories_;  ///< Factories already available
 };
+
+typedef void destroy_solver_t(SolverFactory*);
 
 /**
  * @brief SolverFactories class
@@ -116,13 +121,61 @@ class SolverFactories : private boost::noncopyable {
   void add(const std::string & lib, SolverFactory * factory);
 
   /**
-   * @brief reset all factory : delete all factories
+   * @brief Add a factory associated to its destruction method
    *
+   * @param lib : Name of the submodel library to add - key in the map
+   * @param deleteFactory : function pointer to a desctruction method
+   * map
    */
-  void reset();
+  void add(const std::string& lib, destroy_solver_t* deleteFactory);
 
  private:
   std::map<std::string, SolverFactory* > factoryMap_;  ///< associate a library factory with the name of the library
+  std::map<std::string, destroy_solver_t*> factoryMapDestroy_;  ///< associate a library factory with its destruction method
+};
+
+/**
+ * @brief SolverDelete class
+ *
+ * Manage the destruction of a submodel.
+ */
+class SolverDelete {
+ public:
+  /**
+   * @brief Constructor
+   */
+  explicit SolverDelete(SolverFactory* factory);
+
+  /**
+   * @brief destructor
+   */
+  ~SolverDelete() { }
+
+  /**
+   * @brief Function to use this class as a Functor
+   *
+   * @param subModel: pointer to the subModel to delete
+   * map
+   */
+  void operator()(Solver* solver);
+
+  /**
+   * @brief Copy Constructor
+   */
+  SolverDelete(const SolverDelete& solverDelete) : factory_(solverDelete.factory_) { }
+
+  /**
+   * @brief Copy Constructor
+   */
+  SolverDelete(SolverDelete& solverDelete) : factory_(solverDelete.factory_) { }
+
+ private:
+  /**
+   * @brief Constructor
+   */
+  SolverDelete() { }
+
+  SolverFactory* factory_;  ///< factory associated to the solver to destroy
 };
 
 }  // end of namespace DYN

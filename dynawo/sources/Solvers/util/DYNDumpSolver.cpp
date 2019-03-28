@@ -146,7 +146,7 @@ int main(int argc, char ** argv) {
     return 1;
   }
 
-  boost::shared_ptr<DYN::Solver> solver(DYN::SolverFactory::createSolverFromLib(inputFileName));
+  boost::shared_ptr<DYN::Solver> solver = DYN::SolverFactory::createSolverFromLib(inputFileName);
   solver->defineParameters();
   const map<string, DYN::ParameterSolver>& parameters = solver->getParametersMap();
   map<string, AttributeList> parametersAttributes;  // map between parameter name and attributes (alphabetically sort parameters)

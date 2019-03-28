@@ -253,8 +253,6 @@ Simulation::clean() {
   solver_.reset();
   data_.reset();
   dyd_.reset();
-  SubModelFactory::resetFactories();
-  SolverFactory::resetFactories();
 }
 
 void
@@ -507,7 +505,7 @@ Simulation::setSolver() {
   // Creates solver
   string solverParFile = createAbsolutePath(jobEntry_->getSolverEntry()->getParametersFile(), context_->getInputDirectory());
   try {
-    solver_.reset(SolverFactory::createSolverFromLib(jobEntry_->getSolverEntry()->getLib()));
+    solver_ = SolverFactory::createSolverFromLib(jobEntry_->getSolverEntry()->getLib());
 
     parameters::XmlImporter importer;
     boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
@@ -519,7 +517,7 @@ Simulation::setSolver() {
 #ifdef _DEBUG_
     solver_->checkUnusedParameters(solverParams);
 #endif
-  } catch (const string & Msg) {
+  } catch (const string& Msg) {
     Trace::error() << Msg << Trace::endline;
   }
 }

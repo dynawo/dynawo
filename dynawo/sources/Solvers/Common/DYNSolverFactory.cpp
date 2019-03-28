@@ -30,87 +30,108 @@ using std::string;
 using std::stringstream;
 
 namespace DYN {
+/**
+ * @brief type of the function return by dlsym
+ */
+typedef SolverFactory* getFactory_t();
 
-  SolverFactories SolverFactory::factories_;
+SolverFactories SolverFactory::factories_;
 
-  /**
-   * @brief type of the function return by dlsym
-   */
-  typedef SolverFactory * getFactory_t();
+SolverFactories::SolverFactories() { }
 
-  SolverFactories::SolverFactories() {
-  }
+SolverFactories::~SolverFactories() {
+  std::map<std::string, SolverFactory*>::iterator iter = factoryMap_.begin();
+  for (; iter != factoryMap_.end(); ++iter) {
+    void* handle = iter->second->handle_;
 
-  SolverFactories::~SolverFactories() {
-    std::map<std::string, SolverFactory*>::iterator iter = factoryMap_.begin();
-    for (; iter != factoryMap_.end(); ++iter)
-      delete iter->second;
-  }
+    destroy_solver_t* deleteFactory = factoryMapDestroy_.find(iter->first)->second;
 
-  std::map<std::string, SolverFactory*>::iterator
-  SolverFactories::find(const std::string & lib) {
-    return (factoryMap_.find(lib));
-  }
+    deleteFactory(iter->second);
 
-  bool
-  SolverFactories::end(std::map<std::string, SolverFactory*>::iterator & iter) {
-    return (iter == factoryMap_.end());
-  }
-
-  void
-  SolverFactories::add(const std::string & lib, SolverFactory * factory) {
-    factoryMap_[lib] = factory;
-  }
-
-  void
-  SolverFactories::reset() {
-    std::map<std::string, SolverFactory*>::iterator iter = factoryMap_.begin();
-    for (; iter != factoryMap_.end(); ++iter) {
-      void * handle = iter->second->handle_;
-      delete iter->second;
-
-      if (handle)
-        dlclose(handle);
+    if (handle) {
+      dlclose(handle);
     }
-    factoryMap_.clear();
   }
+  factoryMap_.clear();
+  factoryMapDestroy_.clear();
+}
 
-  Solver* SolverFactory::createSolverFromLib(const std::string & lib) {
-    map<string, SolverFactory* >::iterator iter = factories_.find(lib);
-    Solver* solver;
+std::map<std::string, SolverFactory*>::iterator
+SolverFactories::find(const std::string& lib) {
+  return (factoryMap_.find(lib));
+}
 
-    if (factories_.end(iter)) {
-      // Loading library
-      void *handle;
-      handle = dlopen(lib.c_str(), RTLD_NOW);
-      char * error;
-      if (!handle) {
-        stringstream msg;
-        msg << "Load error :" << dlerror();
-        Trace::error() << msg.str() << Trace::endline;
-        throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
-      }
+bool
+SolverFactories::end(std::map<std::string, SolverFactory*>::iterator & iter) {
+  return (iter == factoryMap_.end());
+}
 
-      dlerror();
-      getFactory_t* getFactory = reinterpret_cast<getFactory_t*> (dlsym(handle, "getFactory"));
-      if ((error = dlerror()) != NULL) {
-        stringstream msg;
-        msg << "Load error :" << error;
-        Trace::error() << msg.str() << Trace::endline;
-        throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::getFactory");
-      }
-      SolverFactory * factory = getFactory();
-      factory->handle_ = handle;
-      factories_.add(lib, factory);
-      solver = factory->create();
-    } else {
-      solver = iter->second->create();
+void
+SolverFactories::add(const std::string& lib, SolverFactory* factory) {
+  factoryMap_.insert(std::make_pair(lib, factory));
+}
+
+void SolverFactories::add(const std::string& lib, destroy_solver_t* deleteFactory) {
+  factoryMapDestroy_.insert(std::make_pair(lib, deleteFactory));
+}
+
+boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& lib) {
+  map<string, SolverFactory*>::iterator iter = factories_.find(lib);
+  Solver* solver;
+  boost::shared_ptr<Solver> solverShared;
+
+  if (factories_.end(iter)) {
+    // load the library
+    void* handle;
+    handle = dlopen(lib.c_str(), RTLD_NOW);
+    if (!handle) {
+      stringstream msg;
+      msg << "Load error :" << dlerror();
+      Trace::error() << msg.str() << Trace::endline;
+      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
     }
-    return solver;
-  }
 
-  void SolverFactory::resetFactories() {
-    factories_.reset();
+    // reset errors
+    dlerror();
+
+    getFactory_t* getFactory = reinterpret_cast<getFactory_t*> (dlsym(handle, "getFactory"));
+    const char* dlsym_error = dlerror();
+    if (dlsym_error) {
+      stringstream msg;
+      msg << "Load error :" << dlsym_error;
+      Trace::error() << msg.str() << Trace::endline;
+      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::getFactory");
+    }
+
+    destroy_solver_t* deleteFactory = reinterpret_cast<destroy_solver_t*>(dlsym(handle, "deleteFactory"));
+    dlsym_error = dlerror();
+    if (dlsym_error) {
+      stringstream msg;
+      msg << "Load error :" << dlsym_error;
+      Trace::error() << msg.str() << Trace::endline;
+      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::deleteFactory");
+    }
+
+    SolverFactory* factory = getFactory();
+    factory->handle_ = handle;
+    factories_.add(lib, factory);
+    factories_.add(lib, deleteFactory);
+    solver = factory->create();
+    SolverDelete deleteSolver(factory);
+    solverShared.reset(solver, deleteSolver);
+  } else {
+    solver = iter->second->create();
+    SolverDelete deleteSolver(iter->second);
+    solverShared.reset(solver, deleteSolver);
   }
+  return solverShared;
+}
+
+SolverDelete::SolverDelete(SolverFactory* factory) : factory_(factory) {
+}
+
+void SolverDelete::operator()(Solver* solver) {
+  factory_->destroy(solver);
+}
 
 }  // end of namespace DYN

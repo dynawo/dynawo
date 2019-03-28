@@ -65,8 +65,7 @@ namespace DYN {
 
 boost::shared_ptr<Solver> initSolver(const double& tStart, const double& tStop, const bool& recalculateStep, const int& maxRootRestart) {
   // Solver
-  boost::shared_ptr<Solver> solver;
-  solver.reset(SolverFactory::createSolverFromLib("libdynawo_SolverSIM.so"));
+  boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("libdynawo_SolverSIM.so");
 
   boost::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newInstance("MySolverParam");
   params->addParameter(parameters::ParameterFactory::newParameter("hMin", 0.000001));
@@ -167,7 +166,7 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   return std::make_pair(solver, model);
 }
 
-std::pair<boost::shared_ptr<Solver>,  boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
+std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
  const double& tStart, const double& tStop, const bool& recalculateStep, const int& maxRootRestart) {
   boost::shared_ptr<Solver> solver = initSolver(tStart, tStop, recalculateStep, maxRootRestart);
   // DYD
@@ -194,7 +193,7 @@ std::pair<boost::shared_ptr<Solver>,  boost::shared_ptr<Model> > initSolverAndMo
 TEST(SimulationTest, testSolverSIMTestAlpha) {
   const double tStart = 0.;
   const double tStop = 5.;
-  std::pair<boost::shared_ptr<Solver>,  boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestAlpha.dyd", tStart, tStop, false, 3);
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestAlpha.dyd", tStart, tStop, false, 3);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -250,7 +249,7 @@ TEST(SimulationTest, testSolverSIMTestAlpha) {
 TEST(SimulationTest, testSolverSIMTestBeta) {
   const double tStart = 0.;
   const double tStop = 5.;
-  std::pair<boost::shared_ptr<Solver>,  boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop, false, 3);
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop, false, 3);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -305,7 +304,7 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
   const double tStart = 0.;
   const double tStop = 5.;
   // Here the maximum root restart is artificially set at zero to test the maximum root restart detection in the simplified solver strategy.
-  std::pair<boost::shared_ptr<Solver>,  boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop, false, 0);
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop, false, 0);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -338,7 +337,7 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
 TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
   const double tStart = 0.;
   const double tStop = 5.;
-  std::pair<boost::shared_ptr<Solver>,  boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop, true, 3);
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestBeta.dyd", tStart, tStop, true, 3);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -391,7 +390,7 @@ TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
 TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
   const double tStart = 0.;
   const double tStop = 3.;
-  std::pair<boost::shared_ptr<Solver>,  boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestGamma.dyd", tStart, tStop, true, 3);
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestGamma.dyd", tStart, tStop, true, 3);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -421,7 +420,7 @@ TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicMode, false);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0.8);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 0.8);
-  //Does not diverge as sundials forces a reevaluation of the jacobian
+  // Does not diverge as sundials forces a reevaluation of the jacobian
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2);
 
   solver->solve(tStop, tCurrent, y, yp, z, algebraicMode);
@@ -433,7 +432,7 @@ TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
 TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   const double tStart = 0.;
   const double tStop = 3.;
-  std::pair<boost::shared_ptr<Solver>,  boost::shared_ptr<Model> > p = initSolverAndModel("jobs/solverTestDelta.dyd",
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModel("jobs/solverTestDelta.dyd",
   "jobs/solverTestDelta.iidm", "jobs/solverTestDelta.par", tStart, tStop, true, 3);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;

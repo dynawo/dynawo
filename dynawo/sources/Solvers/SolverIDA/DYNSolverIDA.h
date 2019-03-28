@@ -56,6 +56,11 @@ class SolverIDAFactory : public SolverFactory {
    * @return the new instance of solver created by the factory
    */
   Solver* create() const;
+
+  /**
+   * @brief SolverIDA destroy
+   */
+  void destroy(Solver*) const;
 };
 
 /**

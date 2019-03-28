@@ -71,9 +71,12 @@ where [option] can be:
     clean-build-3rd-party             clean then build 3rd party libraries
     version-validation                clean all built items, then build them all and run non-regression tests
     dump-model ([args])               call dumpModel executable with given arguments setting LD_LIBRARY_PATH correctly
+    dump-model-valgrind ([args])      call dumpModel executable with given arguments setting LD_LIBRARY_PATH correctly
+    dump-model-gdb ([args])           call dumpModel executable with given arguments setting LD_LIBRARY_PATH correctly
     compilerModelicaOMC([args])       call compilerModelicaOMC with given arguments
     generate-preassembled             generate a preassembled model
     generate-preassembled-gdb         generate a preassembled model with debugger
+    compileLibModelicaOMC             compile Modelica Model generated for Dynawo
 
     =========== Others
     curves-visu ([args])              visualize curves output from Dynawo in an HTML file
@@ -884,6 +887,15 @@ generate_preassembled_gdb() {
   return ${RETURN_CODE}
 }
 
+compile_lib_modelica_omc() {
+  if ! launcher_installed; then
+    install_launcher || error_exit
+  fi
+  $DYNAWO_INSTALL_DIR/bin/launcher --compile-lib-modelica-omc $*
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
 install_jquery() {
   export_var_env JQUERY_DOWNLOAD_URL=https://github.com/jquery/jquery/archive
   JQUERY_VERSION=1.3.2
@@ -971,6 +983,12 @@ dump_model() {
 
 valgrind_dump_model() {
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-valgrind $@
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
+gdb_dump_model() {
+  $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-gdb $@
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1276,7 +1294,6 @@ deploy_dynawo_autocompletion() {
   $DYNAWO_HOME/util/autocompletion/deploy_autocompletion.sh $*
 }
 
-## force build_type for specific cases
 LAUNCH_COMMAND=$*
 MODE=$1
 
@@ -1449,6 +1466,10 @@ case $MODE in
     valgrind_dump_model ${ARGS} || error_exit "Error during model's description dump"
     ;;
 
+  dump-model-gdb)
+    gdb_dump_model ${ARGS} || error_exit "Error during model's description dump"
+    ;;
+
   doxygen-doc-dynawo)
     doxygen_doc_dynawo || error_exit "Error during Dynawo Doxygen doc visualisation"
     ;;
@@ -1499,6 +1520,10 @@ case $MODE in
 
   deploy-autocompletion)
     deploy_dynawo_autocompletion ${ARGS} || error_exit "Error during the deployment of autocompletion for dynawo"
+    ;;
+
+  compileLibModelicaOMC)
+    compile_lib_modelica_omc ${ARGS} || error_exit "Error during the compilation of Modelica Model for dynawo"
     ;;
 
   help)

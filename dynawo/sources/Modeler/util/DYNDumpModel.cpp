@@ -138,7 +138,7 @@ int main(int argc, char ** argv) {
     return 1;
   }
 
-  boost::shared_ptr<DYN::SubModel> model(DYN::SubModelFactory::createSubModelFromLib(inputFileName));
+  boost::shared_ptr<DYN::SubModel> model = DYN::SubModelFactory::createSubModelFromLib(inputFileName);
   model->defineVariablesInit();
   model->defineParametersInit();
   model->defineNamesInit();

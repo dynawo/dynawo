@@ -57,7 +57,12 @@ class ModelNetworkFactory : public SubModelFactory {
    * @brief ModelNetwork getter
    * @return A pointer to a new instance of Model Network
    */
-  SubModel * create() const;
+  SubModel* create() const;
+
+  /**
+   * @brief ModelNetwork destroy
+   */
+  void destroy(SubModel*) const;
 };
 
 /**
