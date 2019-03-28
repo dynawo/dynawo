@@ -41,7 +41,7 @@ MACRO(DESC_SOLVER
                        DEPENDS ${SOLVER_NAME} dumpSolver
                        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
                        COMMAND
-                           dumpSolver ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.so ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.desc.xml \;
+                           ${sbindir}/dumpSolver -m ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.so -o ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.desc.xml \;
                        COMMENT "Generating ${SOLVER_NAME} description file"
                       )
 

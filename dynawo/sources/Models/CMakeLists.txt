@@ -156,14 +156,14 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
                            ${PREASSEMBLED_MODEL}
 #                           ${MODEL_NAME}_DEPCHECKER
 #                           ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.dep
-                           dydLibGenerator
+                           generate-preassembled
                            MODEL_FILES_INSTALL
                            EXTERNAL_VARIABLES_FLATTENING
                        COMMAND
-                           ${CMAKE_CURRENT_SOURCE_DIR}/buildChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} > ${MODEL_NAME}.log 2>&1 ||
+                           python ${CMAKE_CURRENT_SOURCE_DIR}/buildChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} > ${MODEL_NAME}.log 2>&1 ||
                            (echo "*** [${MODEL_NAME}] Error : for more information see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
                        COMMAND
-                           ${bindir}/launcher --dydlib --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} --remove-model-files true >> ${MODEL_NAME}.log 2>&1 ||
+                           ${bindir}/launcher --generate-preassembled --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} --remove-model-files true >> ${MODEL_NAME}.log 2>&1 ||
                            (echo "*** [${MODEL_NAME}] Error : for more information please see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
                        COMMENT "Building ${MODEL_NAME}"
                       )
@@ -175,7 +175,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
                        DEPENDS ${MODEL_NAME}.so dumpModel
                        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
                        COMMAND
-                           dumpModel ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.so ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.desc.xml \;
+                           ${bindir}/launcher --dump-model -m ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.so -o ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.desc.xml \;
                        COMMENT "Generating ${MODEL_NAME} description file"
                       )
 
@@ -243,7 +243,7 @@ MACRO(COMPILE_CPP_MODEL
     ADD_CUSTOM_COMMAND(OUTPUT ${CPP_MODEL}.desc.xml
                        DEPENDS ${CPP_MODEL} dumpModel
                        COMMAND
-                           dumpModel ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.so ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml \;
+                           ${bindir}/launcher --dump-model -m ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.so -o ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml \;
                        COMMENT "Building ${CPP_MODEL} description file"
                       )
 

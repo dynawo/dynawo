@@ -12,7 +12,7 @@
 //
 
 /**
- * @file DYNDydLibGenerator.cpp
+ * @file DYNGeneratePreassembled.cpp
  * @brief compile a list of model modelica and verifiy .so linking stats
  */
 
@@ -200,7 +200,7 @@ int main(int argc, char ** argv) {
     }
 
     if (libValid) {
-      Trace::info("COMPILE") << DYNLog(DYDLibGenerated, solist.size()) << Trace::endline;
+      Trace::info("COMPILE") << DYNLog(PreassembledModelGenerated, solist.size()) << Trace::endline;
     } else {
       Trace::info("COMPILE") << DYNLog(InvalidSharedObjects, notValidsolist.size()) << Trace::endline;
       string libList;
@@ -245,7 +245,7 @@ bool verifySharedObject(string modelname) {
   handle = dlopen(filename, RTLD_NOW);
   if (!handle) {
     fprintf(stderr, "%s\n", dlerror());
-    printf(" DydLibGenerator: could not open .so by dlopen.");
+    printf(" GeneratePreassembled: could not open .so by dlopen.");
     return false;
   }
   dlclose(handle);

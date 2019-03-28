@@ -195,7 +195,7 @@ class Compiler {
   std::map<std::string, std::string> moFilesAll_;  ///< All Modelica models located within models directories
   std::map<std::string, std::string> moFilesCompilation_;  ///< Modelica models which are needed for models compilation
 
-  // Compiled lib (for DydLibGenerator)
+  // Compiled lib (for generate-preassembled)
   std::vector<std::string> compiledLib_;  ///< Compiled lib
 
   // list of headers that should be included in the dynamic model files

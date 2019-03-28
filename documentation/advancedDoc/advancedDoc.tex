@@ -205,10 +205,10 @@ $> cd /path/to/Test.mo
 $> dynawo compilerModelicaOMC --model Test --lib Test.so
 \end{lstlisting}
 
-\textbf{Warning}, at this point you cannot directly launch a simulation with only this model as it needs to be connected to another model providing the missing equation on \lstinline[language=Modelica]{v}. The way to do this is described in section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_Dydlib}.
+\textbf{Warning}, at this point you cannot directly launch a simulation with only this model as it needs to be connected to another model providing the missing equation on \lstinline[language=Modelica]{v}. The way to do this is described in section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_Preassembled}.
 
 \subsection{Compilation and simulation of complex models}
-\label{Dynawo_Advanced_Documentation_Dynawo_executables_Dydlib}
+\label{Dynawo_Advanced_Documentation_Dynawo_executables_Preassembled}
 
 The \lstinline[language=bash]{generate-preassembled} option takes as input a xml file that contains a list of models and their connections and generates from it a .so library that can be used as input of \Dynawo to simulate this model.
 
@@ -223,17 +223,17 @@ In the following, we will provide some examples of usage.
 \paragraph{First example: Model with fully connected external variables}
 ~~\\
 We take as example the following Modelica models:
-\lstinputlisting[language=Modelica,title=Model1.mo]{../resources/exampleExecutables/TestDydLibNoExternal/Model1.mo}
+\lstinputlisting[language=Modelica,title=Model1.mo]{../resources/exampleExecutables/TestPreassembledNoExternal/Model1.mo}
 
 And the second:
-\lstinputlisting[language=Modelica,title=Model2.mo]{../resources/exampleExecutables/TestDydLibNoExternal/Model2.mo}
+\lstinputlisting[language=Modelica,title=Model2.mo]{../resources/exampleExecutables/TestPreassembledNoExternal/Model2.mo}
 
 In this example, the \lstinline[language=Modelica]{v} variable from
 \lstinline[language=Modelica]{Model1} needs to be connected to the \lstinline[language=Modelica]{v} variable of \lstinline[language=Modelica]{Model2}.
 The two models have their respective external variables declared in extvar files as shown in section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_execDynawo_second_example}.\\
 
 The Test.xml file shown below describes to \Dynawo how to compile and connect those two models:
-\lstinputlisting[language=XML,title=Test.xml]{../resources/exampleExecutables/TestDydLibNoExternal/Test.xml}
+\lstinputlisting[language=XML,title=Test.xml]{../resources/exampleExecutables/TestPreassembledNoExternal/Test.xml}
 
 ~~\\
 The following commands generate the associated Test.so library:
@@ -246,9 +246,9 @@ $> dynawo generate-preassembled --model-list Test.xml --non-recursive-modelica-m
 
 ~~\\
 To launch a simulation with the compiled model the following input files needs to be created in the same folder as the .so library:
-\lstinputlisting[language=XML,title=Test.jobs]{../resources/exampleExecutables/TestDydLibNoExternal/SimulationCompiledLib/Test.jobs}
-\lstinputlisting[language=XML,title=Test.dyd]{../resources/exampleExecutables/TestDydLibNoExternal/SimulationCompiledLib/Test.dyd}
-\lstinputlisting[language=XML,title=Test.crv]{../resources/exampleExecutables/TestDydLibNoExternal/SimulationCompiledLib/Test.crv}
+\lstinputlisting[language=XML,title=Test.jobs]{../resources/exampleExecutables/TestPreassembledNoExternal/SimulationCompiledLib/Test.jobs}
+\lstinputlisting[language=XML,title=Test.dyd]{../resources/exampleExecutables/TestPreassembledNoExternal/SimulationCompiledLib/Test.dyd}
+\lstinputlisting[language=XML,title=Test.crv]{../resources/exampleExecutables/TestPreassembledNoExternal/SimulationCompiledLib/Test.crv}
 And the same solvers.par file as previously.
 
 ~~\\
@@ -263,7 +263,7 @@ $> dynawo jobs-with-curves Test.jobs
 In this example the parameters in \lstinline[language=Modelica]{Model1} and \lstinline[language=Modelica]{Model2} are fixed at the compilation of the model and to change them the compilation needs to be run again.
 
 The \Dynawo par files can be used to avoid recompiling models just to change parameters value. To do so, the following par file needs to be created in the same folder as the .so library:
-\lstinputlisting[language=XML,title=Test.par]{../resources/exampleExecutables/TestDydLibNoExternal/SimulationCompiledLib/Test.par}
+\lstinputlisting[language=XML,title=Test.par]{../resources/exampleExecutables/TestPreassembledNoExternal/SimulationCompiledLib/Test.par}
 
 And the dyd file needs to be modified as follows:
 \begin{lstlisting}[language=XML]
@@ -275,10 +275,10 @@ To modify \lstinline[language=Modelica]{Model2} parameters it is now enough to m
 
 ~~\\
 With different input files, it is also possible to let \Dynawo internally compiles the model before launching the simulation. To do so, the following files need to be created in the same folder as the Model1.mo and Model2.mo files:
-\lstinputlisting[language=XML,title=Test.jobs]{../resources/exampleExecutables/TestDydLibNoExternal/Simulation/Test.jobs}
-\lstinputlisting[language=XML,title=Test.dyd]{../resources/exampleExecutables/TestDydLibNoExternal/Simulation/Test.dyd}
-\lstinputlisting[language=XML,title=Test.par]{../resources/exampleExecutables/TestDydLibNoExternal/Simulation/Test.par}
-\lstinputlisting[language=XML,title=Test.crv]{../resources/exampleExecutables/TestDydLibNoExternal/Simulation/Test.crv}
+\lstinputlisting[language=XML,title=Test.jobs]{../resources/exampleExecutables/TestPreassembledNoExternal/Simulation/Test.jobs}
+\lstinputlisting[language=XML,title=Test.dyd]{../resources/exampleExecutables/TestPreassembledNoExternal/Simulation/Test.dyd}
+\lstinputlisting[language=XML,title=Test.par]{../resources/exampleExecutables/TestPreassembledNoExternal/Simulation/Test.par}
+\lstinputlisting[language=XML,title=Test.crv]{../resources/exampleExecutables/TestPreassembledNoExternal/Simulation/Test.crv}
 And the same solvers.par file as previously.
 
 ~~\\
@@ -294,11 +294,11 @@ This second example is based on the previous one. The difference is that we let 
 The Model1.mo and Model1.extvar files are the same as in the first example.
 A new variable \lstinline[language=Modelica]{w} is added to
 \lstinline[language=Modelica]{Model2}.
-\lstinputlisting[language=Modelica,title=Model2.mo]{../resources/exampleExecutables/TestDydLib/Model2.mo}
-\lstinputlisting[language=XML,title=Model2.extvar]{../resources/exampleExecutables/TestDydLib/Model2.extvar}
+\lstinputlisting[language=Modelica,title=Model2.mo]{../resources/exampleExecutables/TestPreassembled/Model2.mo}
+\lstinputlisting[language=XML,title=Model2.extvar]{../resources/exampleExecutables/TestPreassembled/Model2.extvar}
 
 The same xml file is used as in the first example to connect those models:
-\lstinputlisting[language=XML,title=Test.xml]{../resources/exampleExecutables/TestDydLib/Test.xml}
+\lstinputlisting[language=XML,title=Test.xml]{../resources/exampleExecutables/TestPreassembled/Test.xml}
 
  ~~\\
 The following commands generate the associated Test.so library and a Test.extvar file summarizing the external variables of the combined models:
@@ -309,7 +309,7 @@ Model1.mo  Model1.extvar  Model2.mo  Model2.extvar  Test.xml
 $> dynawo generate-preassembled --model-list Test.xml --output-dir compilation --non-recursive-modelica-models-dir .
 \end{lstlisting}
 
-\lstinputlisting[language=XML,title=Test.extvar]{../resources/exampleExecutables/TestDydLib/compilation/Test.extvar}
+\lstinputlisting[language=XML,title=Test.extvar]{../resources/exampleExecutables/TestPreassembled/compilation/Test.extvar}
 \lstinline[language=Modelica]{w} is thus an external variable of the compiled model, as expected. \\
 ~~\\
 \textbf{Warning}, at this point you cannot directly launch a simulation containing only this generated model as it needs to be connected to another model providing the missing equation on \lstinline[language=Modelica]{w}. Please refer to the first example for the creation of such connection.
@@ -328,7 +328,7 @@ The following command is used to generate a xml summary of the parameters and va
 $> dynawo dump-model -m ./Test.so -o Test.desc.xml
 \end{lstlisting}
 
-Below is given an example of a file generated by this command based on the model of the first example of section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_Dydlib}:
+Below is given an example of a file generated by this command based on the model of the first example of section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_Preassembled}:
 \lstinputlisting[language=XML,title=Test.desc.xml]{../resources/exampleExecutables/TestDumpNoExternal/Test.desc.xml}
 
 \section{Adding a model to the \Dynawo library}

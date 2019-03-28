@@ -45,11 +45,11 @@ TARGET_LINK_LIBRARIES(dumpModel
 INSTALL(TARGETS dumpModel DESTINATION ${sbindir})
 
 #################################
-#        dydLibGenerator        #
+#        generate-preassembled        #
 #################################
 # Generate Dyd Library from dyd file
 SET(DYD_LIB_GENERATION_SOURCES
-    DYNDydLibGenerator.cpp
+    DYNGeneratePreassembled.cpp
     )
 
 INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
@@ -60,9 +60,9 @@ INCLUDE_DIRECTORIES(../../Common
                     ../Common
                     )
 
-ADD_EXECUTABLE(dydLibGenerator ${DYD_LIB_GENERATION_SOURCES})
+ADD_EXECUTABLE(generate-preassembled ${DYD_LIB_GENERATION_SOURCES})
 
-TARGET_LINK_LIBRARIES(dydLibGenerator
+TARGET_LINK_LIBRARIES(generate-preassembled
                       XMLSAXFormatter${LibXML_LINK_SUFFIX}
                       dynawo_Common
                       dynawo_ModelerCommon
@@ -78,6 +78,6 @@ TARGET_LINK_LIBRARIES(dydLibGenerator
                       ${Boost_SYSTEM_LIBRARY}
                       "-rdynamic"
                      )
-SET_TARGET_PROPERTIES(dydLibGenerator PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
+SET_TARGET_PROPERTIES(generate-preassembled PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 
-INSTALL(TARGETS dydLibGenerator DESTINATION ${sbindir})
+INSTALL(TARGETS generate-preassembled DESTINATION ${sbindir})

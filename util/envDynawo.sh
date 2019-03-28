@@ -72,8 +72,8 @@ where [option] can be:
     version-validation                clean all built items, then build them all and run non-regression tests
     dump-model ([args])               call dumpModel executable with given arguments setting LD_LIBRARY_PATH correctly
     compilerModelicaOMC([args])       call compilerModelicaOMC with given arguments
-    dydLibGenerator                   generate a preassembled model
-    dydLibGenerator-gdb               generate a preassembled model with debugger
+    generate-preassembled             generate a preassembled model
+    generate-preassembled-gdb         generate a preassembled model with debugger
 
     =========== Others
     curves-visu ([args])              visualize curves output from Dynawo in an HTML file
@@ -866,20 +866,20 @@ jobs() {
   return ${RETURN_CODE}
 }
 
-dydLibGenerator() {
+generate_preassembled() {
   if ! launcher_installed; then
     install_launcher || error_exit
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --dydlib $*
+  $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
-dydLibGenerator_gdb() {
+generate_preassembled_gdb() {
   if ! launcher_installed; then
     install_launcher || error_exit
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --dydlib-gdb $*
+  $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled-gdb $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1178,9 +1178,9 @@ deploy_dynawo() {
   cp $DYNAWO_INSTALL_DIR/sbin/compileLibModelicaOMC sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/compilerModelicaOMC sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dumpModel sbin/
-  cp $DYNAWO_INSTALL_DIR/sbin/dydLibGenerator sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/generate-preassembled sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dumpSolver sbin/
-  cp $DYNAWO_INSTALL_DIR/sbin/dydLibGenerator-${version} bin/
+  cp $DYNAWO_INSTALL_DIR/sbin/generate-preassembled-${version} bin/
 
   if [ -d "$DYNAWO_INSTALL_DIR/doxygen" ]; then
     mkdir -p doxygen
@@ -1481,12 +1481,12 @@ case $MODE in
     version_validation || error_exit "The current version does not fulfill the standard quality check"
     ;;
 
-  dydLibGenerator)
-    dydLibGenerator ${ARGS} || error_exit "Error during the generation of a preassembled model"
+  generate-preassembled)
+    generate_preassembled ${ARGS} || error_exit "Error during the generation of a preassembled model"
     ;;
 
-  dydLibGenerator-gdb)
-    dydLibGenerator_gdb ${ARGS} || error_exit "Error during the generation of a preassembled model"
+  generate-preassembled-gdb)
+    generate_preassembled_gdb ${ARGS} || error_exit "Error during the generation of a preassembled model"
     ;;
 
   clean-old-branches)
