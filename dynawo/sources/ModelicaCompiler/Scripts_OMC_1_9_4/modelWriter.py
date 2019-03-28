@@ -86,26 +86,31 @@ class modelWriterManager(modelWriterBase):
 #include "DYNSubModel.h"
 __fill_model_include_header__
 
-extern"C" DYN::SubModelFactory * getFactory()
-{
+extern "C" DYN::SubModelFactory* getFactory() {
   return (new DYN::Model__fill_model_name__Factory());
 }
 
-extern "C" DYN::SubModel * DYN::Model__fill_model_name__Factory::create() const
+extern "C" void deleteFactory(DYN::SubModelFactory* factory) {
+  delete factory;
+}
+
+extern "C" DYN::SubModel* DYN::Model__fill_model_name__Factory::create() const
 {
-  DYN::SubModel * model (new DYN::Model__fill_model_name__() );
+  DYN::SubModel* model (new DYN::Model__fill_model_name__() );
   return model;
+}
+
+extern "C" void DYN::Model__fill_model_name__Factory::destroy(DYN::SubModel* model) const {
+  delete model;
 }
 
 namespace DYN {
 
-Model__fill_model_name__::Model__fill_model_name__()
-{
+Model__fill_model_name__::Model__fill_model_name__() {
 __fill_model_constructor__
 }
 
-Model__fill_model_name__::~Model__fill_model_name__()
-{
+Model__fill_model_name__::~Model__fill_model_name__() {
 __fill_model_destructor__
 }
 
@@ -127,7 +132,8 @@ namespace DYN {
     Model__fill_model_name__Factory() {}
     ~Model__fill_model_name__Factory() {}
 
-    SubModel * create() const;
+    SubModel* create() const;
+    void destroy(SubModel*) const;
   };
 
   class Model__fill_model_name__ : public ModelManager

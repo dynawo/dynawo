@@ -50,24 +50,34 @@ using parameters::ParametersSet;
 /**
  * @brief ModelVariationAreaFactory getter
  *
- *
- *
  * @return A pointer to a new instance of ModelVariationaAreaFactory
  */
-extern"C" DYN::SubModelFactory * getFactory() {
+extern"C" DYN::SubModelFactory* getFactory() {
   return (new DYN::ModelVariationAreaFactory());
+}
+
+/**
+ * @brief ModelVariationAreaFactory destroy method
+ */
+extern "C" void deleteFactory(DYN::SubModelFactory* factory) {
+  delete factory;
 }
 
 /**
  * @brief ModelVariationArea getter
  *
- *
- *
  * @return A pointer to a new instance of ModelVariationArea
  */
-extern "C" DYN::SubModel * DYN::ModelVariationAreaFactory::create() const {
+extern "C" DYN::SubModel* DYN::ModelVariationAreaFactory::create() const {
   DYN::SubModel * model(new DYN::ModelVariationArea());
   return model;
+}
+
+/**
+ * @brief ModelVariationArea destroy method
+ */
+extern "C" void DYN::ModelVariationAreaFactory::destroy(DYN::SubModel* model) const {
+  delete model;
 }
 
 namespace DYN {

@@ -23,6 +23,8 @@
 #include <map>
 #include <string>
 #include <boost/core/noncopyable.hpp>
+#include <boost/shared_ptr.hpp>
+
 namespace DYN {
 class SubModel;
 class SubModelFactories;
@@ -53,24 +55,26 @@ class SubModelFactory : private boost::noncopyable {
   virtual SubModel* create() const = 0;
 
   /**
+   * @brief destroy an instance of a submodel
+   *
+   */
+  virtual void destroy(SubModel*) const = 0;
+
+  /**
    * @brief Create a submodel loading given lib
    *
    * @param lib : Name of the submodel library to load
    * @return Pointer to the created submodel
    */
-  static SubModel* createSubModelFromLib(const std::string & lib);
-
-  /**
-   * @brief reset all factories of submodel
-   */
-  static void resetFactories();
-
+  static boost::shared_ptr<SubModel> createSubModelFromLib(const std::string& lib);
 
   void* handle_;  ///< handle return by dlopen when the library is loaded
 
  private:
   static SubModelFactories factories_;  ///< Factories already available
 };
+
+typedef void destroy_model_t(SubModelFactory*);
 
 /**
  * @brief SubModelFactories class
@@ -116,16 +120,64 @@ class SubModelFactories : private boost::noncopyable {
    * @param factory : Pointer to the SubModel to add - value in the
    * map
    */
-  void add(const std::string & lib, SubModelFactory * factory);
+  void add(const std::string& lib, SubModelFactory* factory);
 
   /**
-   * @brief reset all factory : delete all factories
+   * @brief Add a factory associated to its destruction method
    *
+   * @param lib : Name of the submodel library to add - key in the map
+   * @param deleteFactory : function pointer to a desctruction method
+   * map
    */
-  void reset();
+  void add(const std::string& lib, destroy_model_t* deleteFactory);
 
  private:
   std::map<std::string, SubModelFactory* > factoryMap_;  ///< associate a library factory with the name of the library
+  std::map<std::string, destroy_model_t*> factoryMapDestroy_;  ///< associate a library factory with its destruction method
+};
+
+/**
+ * @brief SubModelDelete class
+ *
+ * Manage the destruction of a submodel.
+ */
+class SubModelDelete {
+ public:
+  /**
+   * @brief Constructor
+   */
+  explicit SubModelDelete(SubModelFactory* factory);
+
+  /**
+   * @brief destructor
+   */
+  ~SubModelDelete() { }
+
+  /**
+   * @brief Function to use this class as a Functor
+   *
+   * @param subModel: pointer to the subModel to delete
+   * map
+   */
+  void operator()(SubModel* subModel);
+
+  /**
+   * @brief Copy Constructor
+   */
+  SubModelDelete(const SubModelDelete& subModelDelete) : factory_(subModelDelete.factory_) { }
+
+  /**
+   * @brief Copy Constructor
+   */
+  SubModelDelete(SubModelDelete& subModelDelete) : factory_(subModelDelete.factory_) { }
+
+ private:
+  /**
+   * @brief Constructor
+   */
+  SubModelDelete() { }
+
+  SubModelFactory* factory_;  ///< factory associated to the model to destroy
 };
 }  // namespace DYN
 #endif  // MODELER_COMMON_DYNSUBMODELFACTORY_H_

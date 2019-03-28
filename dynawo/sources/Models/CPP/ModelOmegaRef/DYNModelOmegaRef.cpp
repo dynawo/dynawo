@@ -48,24 +48,34 @@ using parameters::ParametersSet;
 /**
  * @brief ModelOmegaRefFactory getter
  *
- *
- *
  * @return A pointer to a new instance of ModelOmegaRefFactory
  */
-extern"C" DYN::SubModelFactory * getFactory() {
+extern "C" DYN::SubModelFactory* getFactory() {
   return (new DYN::ModelOmegaRefFactory());
+}
+
+/**
+ * @brief ModelOmegaRefFactory destroy method
+ */
+extern "C" void deleteFactory(DYN::SubModelFactory* factory) {
+  delete factory;
 }
 
 /**
  * @brief ModelOmegaRef getter
  *
- *
- *
  * @return A pointer to a new instance of ModelOmegaRef
  */
-extern "C" DYN::SubModel * DYN::ModelOmegaRefFactory::create() const {
-  DYN::SubModel * model(new DYN::ModelOmegaRef());
+extern "C" DYN::SubModel* DYN::ModelOmegaRefFactory::create() const {
+  DYN::SubModel* model(new DYN::ModelOmegaRef());
   return model;
+}
+
+/**
+ * @brief ModelOmegaRef destroy method
+ */
+extern "C" void DYN::ModelOmegaRefFactory::destroy(DYN::SubModel* model) const {
+  delete model;
 }
 
 namespace DYN {

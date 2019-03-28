@@ -49,11 +49,14 @@ class ModelOmegaRefFactory : public SubModelFactory {
   /**
    * @brief ModelOmegaRef getter
    *
-   *
-   *
    * @return A pointer to a new instance of ModelOmegaRef
    */
-  SubModel * create() const;
+  SubModel* create() const;
+
+  /**
+   * @brief ModelOmegaRef destroy
+   */
+  void destroy(SubModel*) const;
 };
 
 /**

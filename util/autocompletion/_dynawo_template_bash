@@ -32,6 +32,8 @@ _dynawo() {
   dump_model_options="-h -m -o"
   compilerModelicaOMC_options="-h --model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
   generate-preassembled_options="-h --model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
+  compileLibModelicaOMC_options_equal="--model-name --directory --lib-name"
+  compileLibModelicaOMC_options_debug="--debug"
   deploy_autocompletion_options="--deploy --update-tests --help"
   curves_visu_options="--withoutOffset --showpoints --htmlBrowser"
 
@@ -149,7 +151,7 @@ _dynawo() {
           options="-o"
           propose_options="yes"
           ;;
-        dump-model)
+        dump-model|dump-model-gdb|dump-model-valgrind)
           options="$dump_model_options"
           propose_options="yes"
           ;;
@@ -179,6 +181,24 @@ _dynawo() {
             commands=$compilerModelicaOMC_commands
           else
             _handle_compilerModelicaOMC_options
+            return 0
+          fi
+        ;;
+      esac
+      ;;
+    compileLibModelicaOMC)
+      case "${prev}" in
+        compileLibModelicaOMC)
+          compopt -o nospace
+          COMPREPLY=($(compgen -S\= -W "$compileLibModelicaOMC_options_equal" -- ${cur}) $(compgen -W "$compileLibModelicaOMC_options_debug" -- ${cur}))
+          return 0
+          ;;
+        *)
+          if [[ -z ${COMP_WORDS[2]} ]]; then
+            compileLibModelicaOMC_commands="compileLibModelicaOMC"
+            commands=$compileLibModelicaOMC_commands
+          else
+            _handle_compileLibModelicaOMC_options
             return 0
           fi
         ;;
@@ -319,6 +339,49 @@ _handle_generate-preassembled_options() {
 
   other_options=$generate-preassembled_options_echo
   COMPREPLY=($(compgen -W "$other_options" -- $cur))
+}
+
+_handle_compileLibModelicaOMC_options() {
+  compileLibModelicaOMC_options=(--model-name --directory --lib-name)
+  compileLibModelicaOMC_options_echo="--model-name --directory --lib-name"
+
+  compileLibModelicaOMC_options_debug=(--debug)
+  compileLibModelicaOMC_options_debug_echo="--debug"
+
+  case "${prev}" in
+    --model-name) COMPREPLY=(); return 0;;
+    --directory)
+      cur=${cur#*=}
+      _filedir -d
+      return 0
+      ;;
+    --lib-name) COMPREPLY=(); return 0;;
+    --debug) ;;
+  esac
+
+  local other_options=""
+  local other_options_debug=""
+
+  for ((j = 0; j < ${#compileLibModelicaOMC_options[@]}; ++j)); do
+    for ((i = 1; i < ${#COMP_WORDS[@]}; ++i)); do
+      if [[ ${COMP_WORDS[i]} == ${compileLibModelicaOMC_options[j]} ]]; then
+        compileLibModelicaOMC_options_echo=$(echo $compileLibModelicaOMC_options_echo | sed "s/${compileLibModelicaOMC_options[j]}//")
+      fi
+    done
+  done
+
+  for ((j = 0; j < ${#compileLibModelicaOMC_options_debug[@]}; ++j)); do
+    for ((i = 1; i < ${#COMP_WORDS[@]}; ++i)); do
+      if [[ ${COMP_WORDS[i]} == ${compileLibModelicaOMC_options_debug[j]} ]]; then
+        compileLibModelicaOMC_options_debug_echo=$(echo $compileLibModelicaOMC_options_debug_echo | sed "s/${compileLibModelicaOMC_options_debug[j]}//")
+      fi
+    done
+  done
+
+  other_options=$compileLibModelicaOMC_options_echo
+  other_options_debug=$compileLibModelicaOMC_options_debug_echo
+  compopt -o nospace
+  COMPREPLY=($(compgen -S\= -W "$other_options" -- ${cur}) $(compgen -W "$other_options_debug" -- ${cur}))
 }
 
 _handle_deploy_autocompletion_options() {

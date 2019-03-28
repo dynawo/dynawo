@@ -69,17 +69,31 @@ using timeline::Timeline;
  * @brief SolverSIMFactory getter
  * @return A pointer to a new instance of SolverSIMFactory
  */
-extern"C" DYN::SolverFactory * getFactory() {
+extern "C" DYN::SolverFactory* getFactory() {
   return (new DYN::SolverSIMFactory());
+}
+
+/**
+ * @brief SolverSIMFactory destroy method
+ */
+extern "C" void deleteFactory(DYN::SolverFactory* factory) {
+  delete factory;
 }
 
 /**
  * @brief SolverSIM getter
  * @return A pointer to a new instance of SolverSIM
  */
-extern "C" DYN::Solver * DYN::SolverSIMFactory::create() const {
-  DYN::Solver * solver(new DYN::SolverSIM());
+extern "C" DYN::Solver* DYN::SolverSIMFactory::create() const {
+  DYN::Solver* solver(new DYN::SolverSIM());
   return solver;
+}
+
+/**
+ * @brief SolverSIM destroy method
+ */
+extern "C" void DYN::SolverSIMFactory::destroy(DYN::Solver* solver) const {
+  delete solver;
 }
 
 namespace DYN {

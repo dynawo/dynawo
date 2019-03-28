@@ -64,7 +64,7 @@ _dynawo() {
         nrt-diff)
           _dynawo_nrt_diff
           ;;
-        dump-model)
+        dump-model|dump-model-gdb|dump-model-valgrind)
           _dynawo_dump_model
           ;;
         compilerModelicaOMC)
@@ -75,6 +75,9 @@ _dynawo() {
           ;;
         deploy-autocompletion)
           _dynawo_deploy_autocompletion
+          ;;
+        compileLibModelicaOMC)
+          _dynawo_compile_lib_modelica_omc
           ;;
         *)
           ;;
@@ -162,4 +165,12 @@ _dynawo_deploy_autocompletion() {
       "--script[name of the script calling envDynawo.sh (default\: myEnvDynawo.sh)]:name of the script calling envDynawo.sh (default\: myEnvDynawo.sh):_files -g '*.sh'" \
       "--shell-type[user's shell type (default\: bash)]:user's shell type (default\: bash):('bash' 'zsh')" \
       "--permanent-path[allow to deploy Dynawo completion script outside of Dynawo folder (default\: DYNAWO_HOME/util/autocompletion/_dynawo).]:allow to deploy Dynawo completion script outside of Dynawo folder (default\: DYNAWO_HOME/util/autocompletion/_dynawo).:_files -/"
+}
+
+_dynawo_compile_lib_modelica_omc() {
+  _arguments \
+    "--model-name=-[Name of the model.]:Name of the model." \
+    "--directory=-[Directory of model cpp files to compile.]:Directory of cpp files to compile.:_files -/" \
+    "--lib-name=-[Output name of the compiled library (*.so).]:Output name of the compiled library (*.so)." \
+    "--debug[Compile cpp files in debug mode.]"
 }

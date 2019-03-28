@@ -12,7 +12,8 @@ namespace DYN {
     ModelMACHINE_PQFactory() {}
     ~ModelMACHINE_PQFactory() {}
 
-    SubModel * create() const;
+    SubModel* create() const;
+    void destroy(SubModel*) const;
   };
 
   class ModelMACHINE_PQ : public ModelManager

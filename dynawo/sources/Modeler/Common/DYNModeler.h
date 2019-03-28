@@ -25,7 +25,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-
 namespace DYN {
 
 class ModelMulti;

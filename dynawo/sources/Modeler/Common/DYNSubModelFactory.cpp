@@ -29,6 +29,8 @@ using std::string;
 using std::stringstream;
 
 namespace DYN {
+typedef SubModelFactory* getFactory_t();
+
 SubModelFactories SubModelFactory::factories_;
 
 SubModelFactories::SubModelFactories() {
@@ -36,13 +38,24 @@ SubModelFactories::SubModelFactories() {
 
 SubModelFactories::~SubModelFactories() {
   std::map<std::string, SubModelFactory*>::iterator iter = factoryMap_.begin();
-  for (; iter != factoryMap_.end(); ++iter)
-    delete iter->second;
+  for (; iter != factoryMap_.end(); ++iter) {
+    void* handle = iter->second->handle_;
+
+    destroy_model_t* deleteFactory = factoryMapDestroy_.find(iter->first)->second;
+
+    deleteFactory(iter->second);
+
+    if (handle) {
+      dlclose(handle);
+    }
+  }
+  factoryMap_.clear();
+  factoryMapDestroy_.clear();
 }
 
 std::map<std::string, SubModelFactory*>::iterator
 SubModelFactories::find(const std::string & lib) {
-  return ( factoryMap_.find(lib));
+  return (factoryMap_.find(lib));
 }
 
 bool
@@ -51,34 +64,23 @@ SubModelFactories::end(std::map<std::string, SubModelFactory*>::iterator & iter)
 }
 
 void
-SubModelFactories::add(const std::string & lib, SubModelFactory * factory) {
-  factoryMap_[lib] = factory;
+SubModelFactories::add(const std::string& lib, SubModelFactory* factory) {
+  factoryMap_.insert(std::make_pair(lib, factory));
 }
 
-void
-SubModelFactories::reset() {
-  std::map<std::string, SubModelFactory*>::iterator iter = factoryMap_.begin();
-  for (; iter != factoryMap_.end(); ++iter) {
-    void* handle = iter->second->handle_;
-    delete iter->second;
-
-    if (handle)
-      dlclose(handle);
-  }
-  factoryMap_.clear();
+void SubModelFactories::add(const std::string& lib, destroy_model_t* deleteFactory) {
+  factoryMapDestroy_.insert(std::make_pair(lib, deleteFactory));
 }
 
-SubModel* SubModelFactory::createSubModelFromLib(const std::string & lib) {
-  typedef SubModelFactory * getFactory_t();
-
-  map<string, SubModelFactory* >::iterator iter = factories_.find(lib);
-  SubModel* model;
+boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::string & lib) {
+  map<string, SubModelFactory*>::iterator iter = factories_.find(lib);
+  SubModel* subModel;
+  boost::shared_ptr<SubModel> subModelShared;
 
   if (factories_.end(iter)) {
     // load the library
-    void *handle;
+    void* handle;
     handle = dlopen(lib.c_str(), RTLD_NOW);
-    char * error;
     if (!handle) {
       stringstream msg;
       msg << "Load error :" << dlerror();
@@ -86,26 +88,47 @@ SubModel* SubModelFactory::createSubModelFromLib(const std::string & lib) {
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib);
     }
 
+    // reset errors
     dlerror();
+
     getFactory_t* getFactory = reinterpret_cast<getFactory_t*> (dlsym(handle, "getFactory"));
-    if ((error = dlerror()) != NULL) {
+    const char* dlsym_error = dlerror();
+    if (dlsym_error) {
       stringstream msg;
-      msg << "Load error :" << error;
+      msg << "Load error :" << dlsym_error;
       Trace::error() << msg.str() << Trace::endline;
       throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::getFactory");
     }
-    SubModelFactory * factory = getFactory();
+
+    destroy_model_t* deleteFactory = reinterpret_cast<destroy_model_t*>(dlsym(handle, "deleteFactory"));
+    dlsym_error = dlerror();
+    if (dlsym_error) {
+      stringstream msg;
+      msg << "Load error :" << dlsym_error;
+      Trace::error() << msg.str() << Trace::endline;
+      throw DYNError(DYN::Error::GENERAL, LibraryLoadFailure, lib+"::deleteFactory");
+    }
+
+    SubModelFactory* factory = getFactory();
     factory->handle_ = handle;
     factories_.add(lib, factory);
-    model = factory->create();
+    factories_.add(lib, deleteFactory);
+    subModel = factory->create();
+    SubModelDelete deleteSubModel(factory);
+    subModelShared.reset(subModel, deleteSubModel);
   } else {
-    model = iter->second->create();
+    subModel = iter->second->create();
+    SubModelDelete deleteSubModel(iter->second);
+    subModelShared.reset(subModel, deleteSubModel);
   }
-  return model;
+  return subModelShared;
 }
 
-void SubModelFactory::resetFactories() {
-  factories_.reset();
+SubModelDelete::SubModelDelete(SubModelFactory* factory) : factory_(factory) {
+}
+
+void SubModelDelete::operator()(SubModel* subModel) {
+  factory_->destroy(subModel);
 }
 
 }  // namespace DYN

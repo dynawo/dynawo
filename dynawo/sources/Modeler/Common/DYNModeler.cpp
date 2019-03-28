@@ -80,7 +80,7 @@ Modeler::initNetwork() {
   DDBDir = getEnvVar("DYNAWO_DDB_DIR");
 
   try {
-    modelNetwork.reset(SubModelFactory::createSubModelFromLib(DDBDir + "/DYNModelNetwork.so"));
+    modelNetwork = SubModelFactory::createSubModelFromLib(DDBDir + "/DYNModelNetwork.so");
     modelNetwork->initFromData(data_);
     data_->setModelNetwork(modelNetwork);
     modelNetwork->name("NETWORK");
@@ -106,7 +106,7 @@ Modeler::initModelDescription() {
     if ((itModelDescription->second)->hasCompiledModel()) {
       shared_ptr<SubModel> model;
       try {
-        model.reset(SubModelFactory::createSubModelFromLib(itModelDescription->second->getLib()));
+        model = SubModelFactory::createSubModelFromLib(itModelDescription->second->getLib());
         model->name((itModelDescription->second)->getID());
         model->staticId((itModelDescription->second)->getStaticId());
         shared_ptr<ParametersSet> params = (itModelDescription->second)->getParametersSet();
