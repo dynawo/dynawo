@@ -65,7 +65,7 @@ GenerateModelicaConcatFile    =             generating modelica concatenation fi
 ConcatingNetworkConnects      =             concatingNetworkConnects: %1% : %2% : %3% : %4%.
 InvalidModel                  =             not Valid Model: %1%
 ValidatedModel                =             model Validated: %1%
-DYDLibGenerated               =             DYD LIBRARY GENERATED. Total No Models: %1%
+PreassembledModelGenerated    =             preassembled model generated. Total No Models: %1%
 InvalidSharedObjects          =             FOLLOWING %1% SHARED OBJECTS ARE NOT VALID:
 //---------------------- NETWORK --------------------------------------
 NbSubNetwork                  =             nbSubNetwork = %1% nbsub = %2%

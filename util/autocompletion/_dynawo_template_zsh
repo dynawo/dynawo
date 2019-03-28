@@ -70,8 +70,8 @@ _dynawo() {
         compilerModelicaOMC)
           _dynawo_compilerModelicaOMC
           ;;
-        dydLibGenerator|dydLibGenerator-gdb)
-          _dynawo_dydLibGenerator
+        generate-preassembled|generate-preassembled-gdb)
+          _dynawo_generate-preassembled
           ;;
         deploy-autocompletion)
           _dynawo_deploy_autocompletion
@@ -132,7 +132,7 @@ _dynawo_compilerModelicaOMC() {
       "--additionalHeaderList[list of headers that should be included in the dynamic model files]:list of headers that should be included in the dynamic model files:_files -g '*.h'"
 }
 
-_dynawo_dydLibGenerator() {
+_dynawo_generate-preassembled() {
   _arguments \
     - set1 \
       "-h[display help and exit]:help" \

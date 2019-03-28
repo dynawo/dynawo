@@ -31,7 +31,7 @@ _dynawo() {
   build_tests_options="tests CRV_unittest-tests DYD_unittest-tests EXTVAR_unittest-tests PAR_unittest-tests TL_unittest-tests CSTR_unittest-tests FS_unittest-tests JOB_unittest-tests COMMON_unittest-tests MODELER_COMMON_unittest-tests MODELER_DATAINTERFACE_unittest-tests MODELS_MODELNETWORK_unittest-tests SOLVERCOMMON_unittest-tests SOLVERIDA_unittest-tests SOLVERSIM_unittest-tests MODELICACOMPILER_unittest-tests"
   dump_model_options="-h -m -o"
   compilerModelicaOMC_options="-h --model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
-  dydLibGenerator_options="-h --model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
+  generate-preassembled_options="-h --model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
   deploy_autocompletion_options="--deploy --update-tests --help"
   curves_visu_options="--withoutOffset --showpoints --htmlBrowser"
 
@@ -184,22 +184,22 @@ _dynawo() {
         ;;
       esac
       ;;
-    dydLibGenerator)
+    generate-preassembled)
       case "${prev}" in
         -h)
           COMPREPLY=()
           return 0
           ;;
-        dydLibGenerator|dydLibGenerator-gdb)
-          options="$dydLibGenerator_options"
+        generate-preassembled|generate-preassembled-gdb)
+          options="$generate-preassembled_options"
           propose_options="yes"
           ;;
         *)
           if [[ -z ${COMP_WORDS[2]} ]]; then
-            dydLibGenerator_commands="dydLibGenerator dydLibGenerator-gdb"
-            commands=$dydLibGenerator_commands
+            generate-preassembled_commands="generate-preassembled generate-preassembled-gdb"
+            commands=$generate-preassembled_commands
           else
-            _handle_dydLibGenerator_options
+            _handle_generate-preassembled_options
             return 0
           fi
         ;;
@@ -288,9 +288,9 @@ _handle_compilerModelicaOMC_options() {
   COMPREPLY=($(compgen -W "$other_options" -- $cur))
 }
 
-_handle_dydLibGenerator_options() {
-  dydLibGenerator_options=(--model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files)
-  dydLibGenerator_options_echo="--model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
+_handle_generate-preassembled_options() {
+  generate-preassembled_options=(--model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files)
+  generate-preassembled_options_echo="--model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
 
   case "${prev}" in
     --model-list) _filedir '@(xml)'; return 0;;
@@ -309,15 +309,15 @@ _handle_dydLibGenerator_options() {
 
   local other_options=""
 
-  for ((j = 0; j < ${#dydLibGenerator_options[@]}; ++j)); do
+  for ((j = 0; j < ${#generate-preassembled_options[@]}; ++j)); do
     for ((i = 1; i < ${#COMP_WORDS[@]}; ++i)); do
-      if [[ ${COMP_WORDS[i]} == ${dydLibGenerator_options[j]} ]]; then
-        dydLibGenerator_options_echo=$(echo $dydLibGenerator_options_echo | sed "s/${dydLibGenerator_options[j]}//")
+      if [[ ${COMP_WORDS[i]} == ${generate-preassembled_options[j]} ]]; then
+        generate-preassembled_options_echo=$(echo $generate-preassembled_options_echo | sed "s/${generate-preassembled_options[j]}//")
       fi
     done
   done
 
-  other_options=$dydLibGenerator_options_echo
+  other_options=$generate-preassembled_options_echo
   COMPREPLY=($(compgen -W "$other_options" -- $cur))
 }
 

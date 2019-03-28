@@ -28,7 +28,7 @@ fi
 
 # Setting dynawo binary location
 DYNAWO=${BIN_DIR}/dynawo
-DYDLIBGENERATOR=${SBIN_DIR}/dydLibGenerator
+GENERATE_PREASSEMBLED=${SBIN_DIR}/generate-preassembled
 COMPILERMODELICAOMC=${SBIN_DIR}/compilerModelicaOMC
 DUMPMODELBIN=${SBIN_DIR}/dumpModel
 
@@ -50,11 +50,11 @@ case $1 in
 --gdb)
   MODE=GDB
   ;;
---dydlib)
-  MODE=DYDLIBGENERATOR
+--generate-preassembled)
+  MODE=GENERATE_PREASSEMBLED
   ;;
---dydlib-gdb)
-  MODE=DYDLIBGENERATOR-GDB
+--generate-preassembled-gdb)
+  MODE=GENERATE_PREASSEMBLED-GDB
   ;;
 --compile)
   MODE=COMPILE
@@ -94,11 +94,11 @@ VALGRIND_MASSIF)
 GDB)
   ARGS=`echo ${ARGS} |sed -e 's/--gdb//g'`
   ;;
-DYDLIBGENERATOR)
-  ARGS=`echo ${ARGS} |sed -e 's/--dydlib//g'`
+GENERATE_PREASSEMBLED)
+  ARGS=`echo ${ARGS} |sed -e 's/--generate-preassembled//g'`
 ;;
-DYDLIBGENERATOR-GDB)
-  ARGS=`echo ${ARGS} |sed -e 's/--dydlib-gdb//g'`
+GENERATE_PREASSEMBLED-GDB)
+  ARGS=`echo ${ARGS} |sed -e 's/--generate-preassembled-gdb//g'`
 ;;
 COMPILE)
   ARGS=`echo ${ARGS} |sed -e 's/--compile//g'`
@@ -136,12 +136,12 @@ GDB)
   gdb -q --args ${DYNAWO} ${ARGS}
   RETURN_CODE=$?
   ;;
-DYDLIBGENERATOR)
-  ${DYDLIBGENERATOR} ${ARGS}
+GENERATE_PREASSEMBLED)
+  ${GENERATE_PREASSEMBLED} ${ARGS}
   RETURN_CODE=$?
   ;;
-DYDLIBGENERATOR-GDB)
-  gdb -q --args ${DYDLIBGENERATOR} ${ARGS}
+GENERATE_PREASSEMBLED-GDB)
+  gdb -q --args ${GENERATE_PREASSEMBLED} ${ARGS}
   RETURN_CODE=$?
   ;;
 COMPILE)
@@ -167,19 +167,19 @@ VERSION)
 HELP)
   echo \
 "###### LAUNCHER HELP #####
-   --valgrind           launch DYNAWO with valgrind (must be the first argument)
-   --valgrind-callgrind  launch DYNAWO with valgrind using callgrind tool (must be the first argument)
-   --valgrind-massif     launch DYNAWO with valgrind using memory tool (must be the first argument)
-   --valgrind-dhat       launch DYNAWO with valgrind using dhat tool (must be the first argument)
-   --gdb                launch DYNAWO with gdb (must be the first argument)
-   --compile            launch DYNAWO for compilation of Modelica models (must be the first argument)
-   --dydlib             launch DYNAWO dynamic library generator (must be the first argument)
-   --dydlib-gdb         launch DYNAWO dynamic library generator with gdb (must be the first argument)
-   --dump-model         launch DYNAWO dumpModel executable (must be the first argument)
-   --dump-model-gdb      launch DYNAWO dumpModel executable (must be the first argument)
-   --dump-model-valgrind launch DYNAWO dumpModel executable in valgrind (must be the first argument)
-   --version            show dynawo version (must be the first argument)
-   --help               produce help message (must be the first argument)
+   --valgrind                   launch DYNAWO with valgrind (must be the first argument)
+   --valgrind-callgrind         launch DYNAWO with valgrind using callgrind tool (must be the first argument)
+   --valgrind-massif            launch DYNAWO with valgrind using memory tool (must be the first argument)
+   --valgrind-dhat              launch DYNAWO with valgrind using dhat tool (must be the first argument)
+   --gdb                        launch DYNAWO with gdb (must be the first argument)
+   --compile                    launch DYNAWO for compilation of Modelica models (must be the first argument)
+   --generate-preassembled      launch DYNAWO dynamic library generator (must be the first argument)
+   --generate-preassembled-gdb  launch DYNAWO dynamic library generator with gdb (must be the first argument)
+   --dump-model                 launch DYNAWO dumpModel executable (must be the first argument)
+   --dump-model-gdb             launch DYNAWO dumpModel executable (must be the first argument)
+   --dump-model-valgrind        launch DYNAWO dumpModel executable in valgrind (must be the first argument)
+   --version                    show dynawo version (must be the first argument)
+   --help                       produce help message (must be the first argument)
 
 ##### DYNAWO HELP #####"
   ${DYNAWO} --help
