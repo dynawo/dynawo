@@ -29,6 +29,8 @@ model GoverProportional "Keep the mechanical power as a constant modulated by th
   //Input variables
   Connectors.ImPin omegaPu(value (start = SystemBase.omega0Pu)) "Angular frequency" annotation(
     Placement(visible = true, transformation(origin = {-106, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-106, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
+  Connectors.ImPin PmRefPu(value(start = Pm0Pu)) annotation(
+    Placement(visible = true, transformation(origin = {-106, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-106, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   //Output variables
   Connectors.ImPin PmPu(value (start = Pm0Pu)) "Mechanical power" annotation(
     Placement(visible = true, transformation(origin = {72, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {72, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -48,23 +50,20 @@ model GoverProportional "Keep the mechanical power as a constant modulated by th
     Placement(visible = true, transformation(origin = {-154, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-154, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Blocks.Nonlinear.Limiter limiter(limitsAtInit = true,uMax=PMaxPu, uMin=PMinPu) annotation(
     Placement(visible = true, transformation(origin = {28, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Sources.Constant PmRefPu(k = Pm0Pu)  annotation(
-    Placement(visible = true, transformation(origin = {-60, 36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
     parameter SIunits.PerUnit PMinPu = PMin/PNom "Minimum mechanical power Pu";
     parameter SIunits.PerUnit PMaxPu = PMax/PNom "Maximum mechanical power Pu";
     parameter SIunits.PerUnit Pm0Pu  "Initial mechanical power";
 
-    status state (start = status.standard);
-
+    status state (start = status.Standard);
 equation
+  connect(PmRawPu.u1, PmRefPu.value) annotation(
+    Line(points = {{-28, 6}, {-38, 6}, {-38, 60}, {-106, 60}}, color = {0, 0, 127}));
   connect(limiter.y, PmPu.value) annotation(
     Line(points = {{40, 0}, {64, 0}, {64, 0}, {72, 0}}, color = {0, 0, 127}));
   connect(PmRawPu.y, limiter.u) annotation(
     Line(points = {{-4, 0}, {14, 0}, {14, 0}, {16, 0}}, color = {0, 0, 127}));
-  connect(PmRefPu.y, PmRawPu.u1) annotation(
-    Line(points = {{-48, 36}, {-40, 36}, {-40, 6}, {-30, 6}, {-30, 6}, {-28, 6}}, color = {0, 0, 127}));
   connect(gain.y, PmRawPu.u2) annotation(
     Line(points = {{-48, 0}, {-40, 0}, {-40, -6}, {-28, -6}, {-28, -6}}, color = {0, 0, 127}));
   connect(feedback.y, gain.u) annotation(
@@ -73,7 +72,6 @@ equation
     Line(points = {{-106, -48}, {-106, -48}, {-106, -8}, {-106, -8}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, feedback.u1) annotation(
     Line(points = {{-154, 0}, {-114, 0}, {-114, 0}, {-114, 0}}, color = {0, 0, 127}));
-
   when PmRawPu.y >= PMaxPu then
     state = status.LimitPMax;
     Timeline.logEvent1(TimelineKeys.ActivatePMAX);
@@ -87,5 +85,4 @@ equation
     state = status.Standard;
     Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
   end when;
-
 end GoverProportional;
