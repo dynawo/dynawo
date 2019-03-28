@@ -35,6 +35,7 @@ bool
 copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype * lastRowVals) {
   bool matrixStructChange = false;
   if (SM_NNZ_S(JJ) < smj.nbElem()) {
+    free(SM_INDEXPTRS_S(JJ));
     free(SM_INDEXVALS_S(JJ));
     free(SM_DATA_S(JJ));
     SM_NNZ_S(JJ) = smj.nbElem();
