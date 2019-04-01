@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="modelicaModel" staticId="modelicaStaticId">
-    <dyn:unitDynamicModel id="UDM1" name="unitModel1" moFile="file1.mo" initName="name1" initFile="init1.mo" parFile="myPAR.par" parId="1"/>
+    <dyn:unitDynamicModel id="UDM1" name="unitModel1" moFile="file1.mo" initFile="init1.mo" parFile="myPAR.par" parId="1"/>
     <dyn:unitDynamicModel id="UDM2" name="unitModel2" moFile="file2.mo" initName="name2" initFile="init2.mo" parFile="myPAR.par" parId="2"/>
     <dyn:connect id1="UDM1" var1="var" id2="UDM1" var2="var"/>
     <dyn:initConnect id1="UDM1" var1="var0" id2="UDM1" var2="var0"/>
