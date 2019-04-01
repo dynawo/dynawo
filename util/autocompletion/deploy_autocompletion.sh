@@ -16,14 +16,14 @@ usage() {
   echo -e "Usage: `basename $0` ARGUMENT [OPTIONS]\tprogram to deal with Dynawo autocompletion deployment
 
   where ARGUMENT can be one of the following:
-    --deploy           deploy autocompletion script and add source in your .bashrc
-    --update-tests     update tests list of Dyanwo to complete for an old version of completion script
-    --add-command      add another name of command to autocomplete (ex: dynawo_release)
-    --help             print this message
+    --deploy                    deploy autocompletion script and add source in your .bashrc (or .zshrc)
+    --update-tests              update tests list of Dynawo to complete for an old version of completion script
+    --add-command mycommand     add another name of command to autocomplete (ex: dynawo_release)
+    --help                      print this message
   where OPTIONS can be:
-    --script           name of the script calling envDynawo.sh (default: myEnvDynawo.sh)
-    --shell-type       user's shell type (default: bash)
-    --permanent-path   allow to deploy Dynawo completion script outside of Dynawo folder (default: DYNAWO_HOME/util/autocompletion/_dynawo).
+    --script scriptname.sh      name of the script calling envDynawo.sh (default: myEnvDynawo.sh)
+    --shell-type bash           user's shell type (default: bash)
+    --permanent-path mypath     allow to deploy Dynawo completion script outside of Dynawo folder (default: DYNAWO_HOME/util/autocompletion/_dynawo).
 "
 }
 
@@ -92,7 +92,6 @@ add_command() {
     echo "$USER_PERMANENT_PATH/_dynawo file is not present to add-command."
     exit 1
   fi
-
 }
 
 MODE=""
@@ -100,10 +99,7 @@ export USER_SHELL_TYPE="bash"
 export DYNAWO_USER_SCRIPT_NAME=myEnvDynawo.sh
 export USER_PERMANENT_PATH=$DYNAWO_HOME/util/autocompletion
 
-opts=`getopt -o '' --long "help,deploy,shell-type:,script:,permanent-path:,update-tests,add-command:" -n 'deploy_autocompletion' -- "$@"`
-if [ $? -ne 0 ]; then usage; exit 1; fi
-eval set -- "$opts"
-while true; do
+while (($#)); do
   case "$1" in
     --deploy)
       MODE=deploy
@@ -128,7 +124,7 @@ while true; do
     --permanent-path)
       export USER_PERMANENT_PATH=${2%/}
       if [ ! -d "$USER_PERMANENT_PATH" ]; then
-        mkdir -p
+        mkdir -p $USER_PERMANENT_PATH
       fi
       shift 2
       ;;
@@ -141,12 +137,10 @@ while true; do
       export NEW_COMMAND=$2
       shift 2
       ;;
-    --)
-      shift
-      break
-      ;;
     *)
-      break
+      echo "$1: invalid option."
+      usage
+      exit 1
       ;;
   esac
 done
