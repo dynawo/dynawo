@@ -175,6 +175,10 @@ class SolverDelete {
    */
   SolverDelete() { }
 
+  SolverDelete& operator=(const SolverDelete& solverDelete);
+
+  SolverDelete& operator=(SolverDelete& solverDelete);
+
   SolverFactory* factory_;  ///< factory associated to the solver to destroy
 };
 
