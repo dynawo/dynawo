@@ -134,4 +134,18 @@ void SolverDelete::operator()(Solver* solver) {
   factory_->destroy(solver);
 }
 
+SolverDelete& SolverDelete::operator=(const SolverDelete& solverDelete) {
+  if (this != &solverDelete) {
+    factory_ = solverDelete.factory_;
+  }
+  return *this;
+}
+
+SolverDelete& SolverDelete::operator=(SolverDelete& solverDelete) {
+  if (this != &solverDelete) {
+    factory_ = solverDelete.factory_;
+  }
+  return *this;
+}
+
 }  // end of namespace DYN

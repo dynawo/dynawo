@@ -177,6 +177,10 @@ class SubModelDelete {
    */
   SubModelDelete() { }
 
+  SubModelDelete& operator=(const SubModelDelete& subModelDelete);
+
+  SubModelDelete& operator=(SubModelDelete& subModelDelete);
+
   SubModelFactory* factory_;  ///< factory associated to the model to destroy
 };
 }  // namespace DYN

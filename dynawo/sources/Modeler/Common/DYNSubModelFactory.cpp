@@ -131,4 +131,18 @@ void SubModelDelete::operator()(SubModel* subModel) {
   factory_->destroy(subModel);
 }
 
+SubModelDelete& SubModelDelete::operator=(const SubModelDelete& subModelDelete) {
+  if (this != &subModelDelete) {
+    factory_ = subModelDelete.factory_;
+  }
+  return *this;
+}
+
+SubModelDelete& SubModelDelete::operator=(SubModelDelete& subModelDelete) {
+  if (this != &subModelDelete) {
+    factory_ = subModelDelete.factory_;
+  }
+  return *this;
+}
+
 }  // namespace DYN
