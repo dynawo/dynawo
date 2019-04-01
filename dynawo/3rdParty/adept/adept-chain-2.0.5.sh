@@ -71,7 +71,17 @@ download_adept() {
   fi
 }
 
+patch_adept() {
+  cd $SCRIPT_DIR
+  if [ ! -d "$BUILD_DIR/$ADEPT_DIRECTORY" ]; then
+    tar -xzf $ADEPT_ARCHIVE -C $BUILD_DIR
+    patch -d $BUILD_DIR -p0 < adept-${ADEPT_VERSION}.patch
+  fi
+}
+
 install_adept() {
+  patch_adept
+
   cd $SCRIPT_DIR
   if [ ! -d "$BUILD_DIR/$ADEPT_DIRECTORY" ]; then
     tar -xzf $ADEPT_ARCHIVE -C $BUILD_DIR
