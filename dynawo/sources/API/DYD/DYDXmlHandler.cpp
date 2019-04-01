@@ -28,7 +28,7 @@
 #include <boost/phoenix/operator/self.hpp>
 #include <boost/phoenix/bind.hpp>
 
-
+#include "DYNMacrosMessage.h"
 #include "DYDUnitDynamicModelFactory.h"
 #include "DYDModelTemplateExpansionFactory.h"
 #include "DYDModelTemplateFactory.h"
@@ -513,7 +513,8 @@ unitDynamicModel_() {
 
 void
 UnitDynamicModelHandler::create(attributes_type const& attributes) {
-  unitDynamicModel_ = UnitDynamicModelFactory::newModel(attributes["id"], attributes["name"]);
+  std::string name = attributes["name"];
+  unitDynamicModel_ = UnitDynamicModelFactory::newModel(attributes["id"], name);
 
   if (attributes.has("moFile"))
     unitDynamicModel_->setDynamicFileName(attributes["moFile"]);
@@ -521,8 +522,11 @@ UnitDynamicModelHandler::create(attributes_type const& attributes) {
   if (attributes.has("initName"))
     unitDynamicModel_->setInitModelName(attributes["initName"]);
 
-  if (attributes.has("initFile"))
+  if (attributes.has("initFile")) {
+    if (!attributes.has("initName"))
+      throw DYNError(DYN::Error::API, MissingDYDInitName, name);
     unitDynamicModel_->setInitFileName(attributes["initFile"]);
+  }
 
   if (attributes.has("parFile"))
     unitDynamicModel_->setParFile(attributes["parFile"]);

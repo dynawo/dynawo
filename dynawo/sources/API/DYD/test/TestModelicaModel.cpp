@@ -95,6 +95,15 @@ TEST(APIDYDTest, ModelicaModelImport_export) {
   ASSERT_EQ(compareFiles("modelicaModelExport.xml", "res/modelicaModel.xml"), true);
 }
 
+TEST(APIDYDTest, ModelicaModelMissingInitName) {
+  // import
+  XmlImporter importer;
+  boost::shared_ptr<DynamicModelsCollection> collection;
+  std::vector<std::string> files;
+  files.push_back("res/modelicaModelMissingInitName.xml");
+  ASSERT_THROW_DYNAWO(collection = importer.importFromDydFiles(files), DYN::Error::API, DYN::KeyError_t::XmlFileParsingError);
+}
+
 TEST(APIDYDTest, ModelicaModelBadConnectors) {
   boost::shared_ptr<DynamicModelsCollection> collection = DynamicModelsCollectionFactory::newCollection();  // reset identifiable
 
