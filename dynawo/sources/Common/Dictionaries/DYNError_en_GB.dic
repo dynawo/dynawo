@@ -222,7 +222,7 @@ MacroStaticRefNotUnique     =             macroStaticRef for model %1% ( id = "%
 MacroStaticRefUndefined     =             macroStaticRef (id = "%1%") is not defined
 MacroStaticReferenceNotUnique =           macroStaticReference (id = "%1%") is not unique
 MacroStaticReferenceUndefined =           macroStaticReference (id = "%1%") is not defined
-MissingDYDInitName            =           modelica initialization model name is missing for %1%
+MissingDYDInitName            =           modelica initialization model name (attribute 'initName' in the dyd file) is missing for %1%
 //---EXTVAR------------------
 ExternalVariableAttributeNotDefined=      external variable (%1%) does not have a value for the attribute "%2%"
 ExternalVariableAttributeOnlyForArray=    external variable (%1%) could not have the attribute "%2%", only defined for array variable
