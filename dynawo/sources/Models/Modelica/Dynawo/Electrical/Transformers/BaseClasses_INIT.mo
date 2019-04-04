@@ -14,77 +14,81 @@ within Dynawo.Electrical.Transformers;
 
 package BaseClasses_INIT
 
-// Function that estimates the initial tap of a transformer
-function TapEstimation "Function that estimate the initial tap of a transformer"
+function TapEstimation "Function that estimates the initial tap of a transformer"
+
+/*
+  It is done using the voltage and current values on side 1 and the set point value for the voltage module on side 2.
+
+  The algorithm uses the following equations related to the input data:
+    (1) rcTfo0Pu² * Re(u10Pu) - Re(ZPu * i10Pu) = rcTfo0Pu * Re(u20Pu)
+    (2) rcTfo0Pu² * Im(u10Pu) - Im(ZPu * i10Pu) = rcTfo0Pu * Im(u20Pu)
+    (3) Uc20Pu² = Re(u20Pu)² + Im(u20Pu)²
+  (1) and (2) are the real and imaginary parts of the transformer equation: rTfo0Pu * rTfo0Pu * u10Pu = rTfo0Pu * u20Pu + ZPu * i10Pu
+
+  By adding (1)² + (2)² and substituting Re(u20Pu)² + Im(u20Pu)² with Uc20Pu² from (3), we get:
+    (4) rcTfo0Pu⁴ * U10Pu² + rcTfo0Pu² * (-2 * Re(ZPu * i10Pu) * Re(u10Pu) - 2 * Im(ZPu * i10Pu) * Im(u10Pu) - Uc20Pu²) + (|ZPu|*I10Pu)² = 0
+  That we can rewrite as:
+    (5) Ax² + Bx + C = 0 with x = rcTfo0Pu²
+
+  We then solve for (rcTfo0Pu²) and deduce rcTfo0Pu that is used to find the closest tap - Tap0 -.
+*/
 
   input Types.AC.Impedance ZPu " Transformer impedance in p.u (base U2Nom, SnRef)";
   input SIunits.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
   input SIunits.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
   input Integer NbTap "Number of taps";
-
   input Types.AC.Voltage u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
   input Types.AC.Current i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
   input Types.AC.VoltageModule Uc20Pu "Voltage set-point on side 2 in p.u (base U2Nom)";
 
-  output Integer estimatedTap "Estimated tap";
+  output Integer Tap0 "Estimated tap";
 
 protected
-  Types.AC.ApparentPower s10Pu;
-  Real ro;
-  Real r2;
-  Real estimatedRho;
+  SIunits.PerUnit rcTfo0Pu "Ratio value corresponding to the voltage set point on side 2 in p.u.: U2/U1 in no load conditions";
+  Types.AC.Voltage deltauPu "Voltage drop due to the impedance in p.u. (base U2Nom, SnRef)";
 
-  Real a;
-  Real b;
-  Real A;
-  Real B;
-  Real C;
-  Real delta;
-  Real estimatedTapReal;
+  // Mathematical intermediate variables for resolving (5)
+  Real A, B, C "Polynomial coefficients";
+  Real delta "Discriminant";
+  Real root "Largest root";
+
+  Real tapEstimation "Intermediate real value corresponding to the tap estimation based on the minimum and maximum tap values";
 
 algorithm
-  if (rTfoMaxPu == rTfoMinPu) then
-    estimatedTap := 0;
+
+  // Handling the one tap case
+  if (NbTap == 1) then
+    Tap0 := 0;
     return;
   end if;
 
+  // Handling zero voltage case
+  if (ComplexMath. 'abs'(u10Pu) == 0) then
+    Tap0 := 0;
+    return;
+  end if;
 
-  s10Pu := u10Pu * ComplexMath.conj(i10Pu);
+  // Determining the ratio voltage corresponding to the voltage set point based on equation (5)
+  deltauPu := ZPu * i10Pu;
+  A := ComplexMath. 'abs'(u10Pu) * ComplexMath. 'abs'(u10Pu);
+  B := -2 * deltauPu.re * u10Pu.re -2 * deltauPu.im * u10Pu.im - Uc20Pu * Uc20Pu;
+  C := ComplexMath. 'abs'(deltauPu) * ComplexMath. 'abs'(deltauPu);
+  delta := B * B - 4 * A * C;
+  assert(delta > 0, "The power flow through the transformer is incoherent: rTfo0Pu is supposed to be positive");
+  root := (-B + sqrt(delta)) / (2 * A);
+  assert(root > 0, "The power flow through the transformer is incoherent: rTfo0Pu is supposed to be positive");
+  rcTfo0Pu := sqrt(root);
 
-  if (ComplexMath.'abs' (u10Pu) > 0) then
-    if ((ComplexMath.'abs' (s10Pu) > 0) and (ComplexMath.'abs' (ZPu) > 0)) then
-      //(R + j * X) * i1 = rho² * V1 - V2 => deduce rho
-      a := ZPu.re * i10Pu.re - ZPu.im * i10Pu.im; // R * ir - X * ii
-      b := ZPu.im * i10Pu.re + ZPu.re * i10Pu.im; // R * ii + X * ir
-      //solving for Ax² + Bx + C
-      A := (u10Pu.re * u10Pu.re + u10Pu.im * u10Pu.im);
-      B := - 2 * (a * u10Pu.re + b * u10Pu.im) - Uc20Pu * Uc20Pu;
-      C := (a * a + b * b);
-      delta := B * B - 4 * A * C;
-      assert(delta > 0,"rho supposed to be positive");
-
-      r2 := (-1 * B + sqrt(delta)) / (2 * A); // take the largest x root
-      assert(r2 > 0,"r2 supposed to be positive");
-      estimatedRho := sqrt(r2);
-    else
-      estimatedRho := Uc20Pu / ComplexMath.'abs' (u10Pu);
-    end if;
-
-    estimatedTapReal := ((estimatedRho - rTfoMinPu) / (rTfoMaxPu - rTfoMinPu)) * (NbTap - 1);
-    if (estimatedRho < rTfoMinPu) then
-      estimatedTap := 0;
-    elseif (estimatedRho > rTfoMaxPu) then
-      estimatedTap := NbTap - 1;
-    else
-      //round the tap estimation (in order to get an integer)
-      if (estimatedTapReal - floor(estimatedTapReal) < ceil(estimatedTapReal) - estimatedTapReal) then
-        estimatedTap := integer(floor (estimatedTapReal));
-      else
-        estimatedTap := integer(ceil (estimatedTapReal));
-      end if;
-    end if;
+  // Finding the tap position closest to the ratio calculated (rounded to an integer)
+  tapEstimation := ((rcTfo0Pu - rTfoMinPu) / (rTfoMaxPu - rTfoMinPu)) * (NbTap - 1);
+  if tapEstimation <= 0 then
+    Tap0 := 0;
+  elseif tapEstimation >= (NbTap -1) then
+    Tap0 := NbTap - 1;
+  elseif (tapEstimation - floor(tapEstimation)) < (ceil(tapEstimation) - tapEstimation) then
+   Tap0 := integer(floor(tapEstimation));
   else
-    estimatedTap := 0;
+    Tap0 := integer(ceil(tapEstimation));
   end if;
 
 end TapEstimation;
@@ -101,6 +105,10 @@ partial model BaseTransformerVariableTap_INIT "Base model for initialization of 
                                G+jB
                                 |
                                ---
+
+  The initialization scheme is specific and considers that the values on only one side of the transformer are known plus the voltage set point on the other side.
+  From these values, the tap position and its corresponding ratio are determined.
+  From the tap and ratio values, the final U2, P2 and Q2 values are calculated.
 */
 
   import Dynawo.Electrical.SystemBase;
@@ -135,10 +143,8 @@ partial model BaseTransformerVariableTap_INIT "Base model for initialization of 
 
 equation
 
-  // Estimation of initial tap
+  // Initial tap and ratio estimation
   Tap0 = TapEstimation (ZPu, rTfoMinPu, rTfoMaxPu, NbTap, u10Pu, i10Pu, Uc20Pu);
-
-  // Transformer ratio calculation
   if (NbTap == 1) then
     rTfo0Pu = rTfoMinPu;
   else
