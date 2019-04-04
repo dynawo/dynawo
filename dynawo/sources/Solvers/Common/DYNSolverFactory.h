@@ -92,6 +92,8 @@ class SolverFactories : private boost::noncopyable {
    */
   ~SolverFactories();
 
+  typedef std::map<std::string, SolverFactory*>::iterator SolverFactoryIterator;
+
   /**
    * @brief Get available factory for a given library name
    *
@@ -99,7 +101,7 @@ class SolverFactories : private boost::noncopyable {
    * @return A map iterator whose key is the library name and whose value
    * is a pointer to the SolverFactory.
    */
-  std::map<std::string, SolverFactory*>::iterator find(const std::string & lib);
+  SolverFactoryIterator find(const std::string & lib);
 
   /**
    * @brief Test if a map iterator is the end operator of factories map
@@ -109,7 +111,7 @@ class SolverFactories : private boost::noncopyable {
    * @return @b true if the iterator is the end operator of the factories,
    * @b false otherwise.
    */
-  bool end(std::map<std::string, SolverFactory*>::iterator & iter);
+  bool end(SolverFactoryIterator& iter);
 
   /**
    * @brief Add a factory associated to a given given library name
@@ -159,26 +161,7 @@ class SolverDelete {
    */
   void operator()(Solver* solver);
 
-  /**
-   * @brief Copy Constructor
-   */
-  SolverDelete(const SolverDelete& solverDelete) : factory_(solverDelete.factory_) { }
-
-  /**
-   * @brief Copy Constructor
-   */
-  SolverDelete(SolverDelete& solverDelete) : factory_(solverDelete.factory_) { }
-
  private:
-  /**
-   * @brief Constructor
-   */
-  SolverDelete() { }
-
-  SolverDelete& operator=(const SolverDelete& solverDelete);
-
-  SolverDelete& operator=(SolverDelete& solverDelete);
-
   SolverFactory* factory_;  ///< factory associated to the solver to destroy
 };
 

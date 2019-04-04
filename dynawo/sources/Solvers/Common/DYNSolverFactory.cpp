@@ -40,7 +40,7 @@ SolverFactories SolverFactory::factories_;
 SolverFactories::SolverFactories() { }
 
 SolverFactories::~SolverFactories() {
-  std::map<std::string, SolverFactory*>::iterator iter = factoryMap_.begin();
+  SolverFactoryIterator iter = factoryMap_.begin();
   for (; iter != factoryMap_.end(); ++iter) {
     void* handle = iter->second->handle_;
 
@@ -52,17 +52,13 @@ SolverFactories::~SolverFactories() {
       dlclose(handle);
     }
   }
-  factoryMap_.clear();
-  factoryMapDestroy_.clear();
 }
 
-std::map<std::string, SolverFactory*>::iterator
-SolverFactories::find(const std::string& lib) {
+SolverFactories::SolverFactoryIterator SolverFactories::find(const std::string& lib) {
   return (factoryMap_.find(lib));
 }
 
-bool
-SolverFactories::end(std::map<std::string, SolverFactory*>::iterator & iter) {
+bool SolverFactories::end(SolverFactoryIterator& iter) {
   return (iter == factoryMap_.end());
 }
 
@@ -76,7 +72,7 @@ void SolverFactories::add(const std::string& lib, destroy_solver_t* deleteFactor
 }
 
 boost::shared_ptr<Solver> SolverFactory::createSolverFromLib(const std::string& lib) {
-  map<string, SolverFactory*>::iterator iter = factories_.find(lib);
+  SolverFactories::SolverFactoryIterator iter = factories_.find(lib);
   Solver* solver;
   boost::shared_ptr<Solver> solverShared;
 
@@ -132,20 +128,6 @@ SolverDelete::SolverDelete(SolverFactory* factory) : factory_(factory) {
 
 void SolverDelete::operator()(Solver* solver) {
   factory_->destroy(solver);
-}
-
-SolverDelete& SolverDelete::operator=(const SolverDelete& solverDelete) {
-  if (this != &solverDelete) {
-    factory_ = solverDelete.factory_;
-  }
-  return *this;
-}
-
-SolverDelete& SolverDelete::operator=(SolverDelete& solverDelete) {
-  if (this != &solverDelete) {
-    factory_ = solverDelete.factory_;
-  }
-  return *this;
 }
 
 }  // end of namespace DYN

@@ -37,7 +37,7 @@ SubModelFactories::SubModelFactories() {
 }
 
 SubModelFactories::~SubModelFactories() {
-  std::map<std::string, SubModelFactory*>::iterator iter = factoryMap_.begin();
+  SubmodelFactoryIterator iter = factoryMap_.begin();
   for (; iter != factoryMap_.end(); ++iter) {
     void* handle = iter->second->handle_;
 
@@ -49,17 +49,13 @@ SubModelFactories::~SubModelFactories() {
       dlclose(handle);
     }
   }
-  factoryMap_.clear();
-  factoryMapDestroy_.clear();
 }
 
-std::map<std::string, SubModelFactory*>::iterator
-SubModelFactories::find(const std::string & lib) {
+SubModelFactories::SubmodelFactoryIterator SubModelFactories::find(const std::string& lib) {
   return (factoryMap_.find(lib));
 }
 
-bool
-SubModelFactories::end(std::map<std::string, SubModelFactory*>::iterator & iter) {
+bool SubModelFactories::end(SubmodelFactoryIterator& iter) {
   return (iter == factoryMap_.end());
 }
 
@@ -73,7 +69,7 @@ void SubModelFactories::add(const std::string& lib, destroy_model_t* deleteFacto
 }
 
 boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::string & lib) {
-  map<string, SubModelFactory*>::iterator iter = factories_.find(lib);
+  SubModelFactories::SubmodelFactoryIterator iter = factories_.find(lib);
   SubModel* subModel;
   boost::shared_ptr<SubModel> subModelShared;
 
@@ -129,20 +125,6 @@ SubModelDelete::SubModelDelete(SubModelFactory* factory) : factory_(factory) {
 
 void SubModelDelete::operator()(SubModel* subModel) {
   factory_->destroy(subModel);
-}
-
-SubModelDelete& SubModelDelete::operator=(const SubModelDelete& subModelDelete) {
-  if (this != &subModelDelete) {
-    factory_ = subModelDelete.factory_;
-  }
-  return *this;
-}
-
-SubModelDelete& SubModelDelete::operator=(SubModelDelete& subModelDelete) {
-  if (this != &subModelDelete) {
-    factory_ = subModelDelete.factory_;
-  }
-  return *this;
 }
 
 }  // namespace DYN
