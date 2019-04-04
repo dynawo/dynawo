@@ -94,6 +94,8 @@ class SubModelFactories : private boost::noncopyable {
    */
   ~SubModelFactories();
 
+  typedef std::map<std::string, SubModelFactory*>::iterator SubmodelFactoryIterator;
+
   /**
    * @brief Get available factory for a given library name
    *
@@ -101,7 +103,7 @@ class SubModelFactories : private boost::noncopyable {
    * @return A map iterator whose key is the library name and whose value
    * is a pointer to the SubModelFactory.
    */
-  std::map<std::string, SubModelFactory*>::iterator find(const std::string & lib);
+  SubmodelFactoryIterator find(const std::string & lib);
 
   /**
    * @brief Test if a map iterator is the end operator of factories map
@@ -111,7 +113,7 @@ class SubModelFactories : private boost::noncopyable {
    * @return @b true if the iterator is the end operator of the factories,
    * @b false otherwise.
    */
-  bool end(std::map<std::string, SubModelFactory*>::iterator & iter);
+  bool end(SubmodelFactoryIterator& iter);
 
   /**
    * @brief Add a factory associated to a given given library name
@@ -161,26 +163,7 @@ class SubModelDelete {
    */
   void operator()(SubModel* subModel);
 
-  /**
-   * @brief Copy Constructor
-   */
-  SubModelDelete(const SubModelDelete& subModelDelete) : factory_(subModelDelete.factory_) { }
-
-  /**
-   * @brief Copy Constructor
-   */
-  SubModelDelete(SubModelDelete& subModelDelete) : factory_(subModelDelete.factory_) { }
-
  private:
-  /**
-   * @brief Constructor
-   */
-  SubModelDelete() { }
-
-  SubModelDelete& operator=(const SubModelDelete& subModelDelete);
-
-  SubModelDelete& operator=(SubModelDelete& subModelDelete);
-
   SubModelFactory* factory_;  ///< factory associated to the model to destroy
 };
 }  // namespace DYN
