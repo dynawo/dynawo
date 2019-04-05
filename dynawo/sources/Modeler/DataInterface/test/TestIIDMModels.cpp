@@ -67,17 +67,15 @@
 #include "DYNNetworkInterface.h"
 #include "DYNTwoWTransformerInterface.h"
 #include "DYNModelConstants.h"
+#include "DYNVoltageLevelInterface.h"
+#include "DYNLoadInterface.h"
 
 using boost::shared_ptr;
 
 namespace DYN {
 
-struct NodeBreakerNetworkPropertyIIDM {
-  bool instantiateGenerator;
-};
-
 shared_ptr<DataInterface>
-createNodeBreakerNetworkIIDM(const NodeBreakerNetworkPropertyIIDM& properties) {
+createNodeBreakerNetworkIIDM() {
   IIDM::builders::NetworkBuilder nb;
   IIDM::Network network = nb.build("MyNetwork");
   IIDM::Port p1(0), p2(0);
@@ -99,21 +97,6 @@ createNodeBreakerNetworkIIDM(const NodeBreakerNetworkPropertyIIDM& properties) {
   bbs.v(110.);
   bbs.angle(1.5);
   vl.add(bbs);
-
-//  if (properties.instantiateGenerator) {
-//    IIDM::builders::GeneratorBuilder gb;
-//    IIDM::MinMaxReactiveLimits limits(1., 2.);
-//    gb.minMaxReactiveLimits(limits);
-//    gb.targetP(1.05);
-//    gb.pmin(1.);
-//    gb.pmax(2.);
-//    gb.energySource(IIDM::Generator::source_nuclear);
-//    IIDM::Generator g = gb.build("MyGenerator");
-//    g.p(105.);
-//    g.q(90.);
-//    g.connectTo("MyVoltageLevel", p1);
-//    vl.add(g);
-//  }
 
   ss.add(vl);
 
@@ -392,10 +375,7 @@ exportStateVariables(shared_ptr<DataInterface> data) {
 }
 
 TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDMCheckCriteriaAndStaticParameters) {
-  const NodeBreakerNetworkPropertyIIDM properties = {
-      false /*instantiateGenerator*/
-  };
-  shared_ptr<DataInterface> data = createNodeBreakerNetworkIIDM(properties);
+  shared_ptr<DataInterface> data = createNodeBreakerNetworkIIDM();
   exportStateVariables(data);
 
   ASSERT_EQ(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "U"), 110.);
@@ -704,6 +684,45 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDMCheckCriteriaAndStati
   exportStateVariables(data);
 
   ASSERT_EQ(data->checkCriteria(true), true);
+}
+
+TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
+  const BusBreakerNetworkProperty properties = {
+      false /*falseCheckCriteriaBus*/,
+      false /*instantiateCapacitorShuntCompensator*/,
+      false /*instantiateStaticVarCompensator*/,
+      false /*instantiateTwoWindingTransformer*/,
+      false /*instantiateRatioTapChanger*/,
+      false /*instantiatePhaseTapChanger*/,
+      false /*instantiateDanglingLine*/,
+      false /*instantiateGenerator*/,
+      false /*instantiateLccConverter*/,
+      false /*instantiateLine*/,
+      true /*instantiateLoad*/,
+      false /*instantiateSwitch*/,
+      false /*instantiateVscConverter*/,
+      false /*instantiateThreeWindingTransformer*/
+  };
+  shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
+  exportStateVariables(data);
+
+  boost::shared_ptr<LoadInterface> loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
+  ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyLoad", "P_value"));
+  ASSERT_THROW_DYNAWO(data->setReference("badParam", loadItf->getID(), "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStateVariable);
+  ASSERT_THROW_DYNAWO(data->setReference("p", "", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::WrongReferenceId);
+  ASSERT_THROW_DYNAWO(data->setReference("p", "MyBadLoad", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStaticComponent);
+  ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyLoad", "myBadModelVar"));
+  ASSERT_THROW_DYNAWO(data->getStateVariableReference(), Error::MODELER, KeyError_t::StateVariableNoReference);
+  const bool filterForCriteriaCheck = false;
+  ASSERT_NO_THROW(data->updateFromModel(filterForCriteriaCheck));
+
+  // Reset
+  data = createBusBreakerNetwork(properties);
+  exportStateVariables(data);
+  loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
+  ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyBadLoad", "p_pu"));
+  ASSERT_THROW_DYNAWO(data->getStateVariableReference(), Error::MODELER, KeyError_t::StateVariableNoReference);
+  ASSERT_NO_THROW(data->updateFromModel(filterForCriteriaCheck));
 }
 
 }  // namespace DYN
