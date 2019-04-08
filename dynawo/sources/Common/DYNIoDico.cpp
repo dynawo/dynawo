@@ -62,9 +62,7 @@ boost::shared_ptr<IoDico> IoDicos::getIoDico(const string& dicoName) {
   if (hasIoDico(dicoName)) {
     return getInstance()->dicos_[dicoName];
   } else {
-    stringstream msg;
-    msg << " Unknown dictionary '" << dicoName << "'";
-    throw(msg.str());
+    throw MessageError("Unknown dictionary '" + dicoName + "'");
   }
 }
 
@@ -104,7 +102,7 @@ vector<std::string> IoDicos::findFiles(const string& fileName) {
 
 void IoDicos::addDico(const string& name, const string& baseName, const string& locale) {
   if (baseName.empty()) {
-    throw DYNError(DYN::Error::API, EmptyDictionaryName);
+    throw MessageError("impossible to add the dictionary : empty name");
   }
 
   // build name of the file to search
@@ -120,9 +118,10 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
   }
 
   if (files.empty())
-    throw("Impossible to find the dictionary : " + fileName);
-  if (files.size() != 1)
-    throw("Multiple occurence of the dictionary : " + fileName);
+    throw MessageError("Impossible to find the dictionary : " + fileName);
+  if (files.size() != 1) {
+    throw MessageError("Multiple occurences of the dictionary : " + fileName);
+  }
   string file = files[0];
 
   if (hasIoDico(name)) {
@@ -137,7 +136,7 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
 
 void IoDicos::addDicos(const string& dictionariesMappingFile, const string& locale) {
   if (dictionariesMappingFile.empty()) {
-    throw DYNError(DYN::Error::API, EmptyDictionaryMappingName);
+    throw MessageError("impossible to add the dictionary mapping file : empty name");
   }
 
   // build name of the file to search
@@ -145,7 +144,7 @@ void IoDicos::addDicos(const string& dictionariesMappingFile, const string& loca
   const vector<string>& files = findFiles(fileName);
 
   if (files.empty())
-    throw("Impossible to find the dictionary mapping file : " + fileName);
+    throw MessageError("Impossible to find the dictionary mapping file : " + fileName);
 
   boost::shared_ptr<IoDico> dico(new IoDico("MAPPING"));
   for (vector<string>::const_iterator it = files.begin(), itEnd = files.end(); it != itEnd; ++it) {
@@ -168,9 +167,7 @@ void IoDico::readFile(const string& file) {
 
   // Try to read it
   if (in.bad()) {
-    stringstream msg;
-    msg << "Error when opening file : " << file;
-    throw(msg.str());
+    throw MessageError("Error when opening file : " + file);
   }
 
   string line;
@@ -183,16 +180,12 @@ void IoDico::readFile(const string& file) {
       if (ok) {
         if (!key.empty()) {
           if (map_.find(key) != map_.end()) {
-            stringstream msg;
-            msg << " Reading of the dictionary " << file << " the key '" << key << "' is not unique";
-            throw(msg.str());
+            throw MessageError(" Reading of the dictionary " + file + " the key '" + key + "' is not unique");
           }
           map_[key] = phrase;
         }
       } else {
-        stringstream msg;
-        msg << "Error happened when reading the dictionary " << file;
-        throw(msg.str());
+        throw MessageError("Error happened when reading the dictionary " + file);
       }
     }
     in.close();
@@ -205,9 +198,7 @@ string IoDico::msg(const string& msgId) {
   if (map_.find(msgId) != map_.end()) {
     phrase = map_[msgId];
   } else {
-    stringstream msg;
-    msg << "there is no key '" << msgId << "' in the dictionary";
-    throw(msg.str());
+    throw MessageError("there is no key '" + msgId + "' in the dictionary");
   }
   return phrase;
 }

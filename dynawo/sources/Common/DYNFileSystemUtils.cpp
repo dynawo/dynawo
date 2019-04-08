@@ -93,7 +93,8 @@ void searchFilesAccordingToExtensions(const string & directoryToScan, const vect
       throw DYNError(DYN::Error::GENERAL, FileSystemItemDoesNotExist, root);
     }
   } catch (const fs::filesystem_error& ex) {
-    throw DYN::Trace::error() << ex.what() << DYN::Trace::endline;
+    DYN::Trace::error() << ex.what() << DYN::Trace::endline;
+    throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "filesystem", ex.what());
   }
 }
 
@@ -168,7 +169,8 @@ void searchModelsFilesRec(const std::string& directoryToScan, const std::string&
       }
     }
   } catch (const fs::filesystem_error& ex) {
-    throw DYN::Trace::error() << ex.what() << DYN::Trace::endline;
+    DYN::Trace::error() << ex.what() << DYN::Trace::endline;
+    throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "filesystem", ex.what());
   }
 }
 

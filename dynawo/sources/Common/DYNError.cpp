@@ -62,4 +62,22 @@ int Error::key() const {
   return key_;
 }
 
+MessageError::MessageError(const MessageError& e) :
+std::exception(),
+msgToReturn_(e.msgToReturn_) {
+}
+
+MessageError::MessageError(const std::string& message) :
+std::exception(),
+msgToReturn_(message) {
+}
+
+const char * MessageError::what() const throw() {
+  return (msgToReturn_.c_str());
+}
+
+std::string MessageError::message() const {
+  return msgToReturn_;
+}
+
 }  // namespace DYN

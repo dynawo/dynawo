@@ -103,15 +103,11 @@ void addLogConstraintEnd_(ModelManager* model, const Message& message) {
 }
 
 void assert_(ModelManager* model, const Message& message) {
-  std::stringstream msg;
-  msg << model->name() << " : " << message.str();
-  throw(msg.str());
+  throw MessageError(model->name() + " : " + message.str());
 }
 
 void throw_(ModelManager* model, const Message& message) {
-  std::stringstream msg;
-  msg << model->name() << " : " << message.str();
-  throw(msg.str());
+  throw MessageError(model->name() + " : " + message.str());
 }
 
 void terminate_(ModelManager* model, const MessageTimeline& messageTimeline) {
