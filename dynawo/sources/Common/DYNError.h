@@ -124,11 +124,85 @@ class Error : public std::exception {
   /**
    * @brief default constructor
    */
-  Error() { }
+  Error(): key_(-1), type_(UNDEFINED) { }
 
  private:
   int key_;  ///< key of the error
   TypeError_t type_;  ///< type of the error
+  std::string msgToReturn_;  ///< string message to return when the error is flushed
+};
+
+/**
+ * @class MessageError
+ * @brief Generic error handler for Dynawo (simple message). Used when dictionaries are not initialized
+ */
+class MessageError : public std::exception {
+ public:
+  /**
+   * @brief Copy constructor. Creates a new Error with same attributes as the object given
+   *
+   * @param e error to copy
+   */
+  MessageError(const MessageError& e);
+
+  /**
+   * @brief Constructor
+   *
+   * creates an error with a message
+   *
+   * @param message   message of the error
+   */
+  explicit MessageError(const std::string& message);
+
+  /**
+   * @brief Assignement operator.
+   *
+   * @param e error to copy
+   *
+   * @return an error with same value as e
+   */
+  MessageError & operator=(const MessageError & e);
+
+  /**
+   * @brief Returns a pointer to the error description
+   *
+   * @return error's description
+   */
+  virtual const char * what() const throw();
+
+  /**
+   * @brief destructor
+   */
+  virtual ~MessageError() throw() { }
+
+  /**
+   * @brief returns the error's message
+   *
+   * @return error's message
+   */
+  std::string message() const;
+
+  /**
+   * @brief Operator << overload for error
+   *
+   * @param os stream instance where the error is added
+   * @param e Object to add to the stream
+   *
+   * @return reference to the stream instance
+   *
+   */
+  friend std::ostream & operator<<(std::ostream & os, const MessageError & e) {
+    os << e.msgToReturn_;
+    return os;
+  }
+
+ private:
+  /**
+   * @brief default constructor
+   */
+  MessageError() { }
+
+ private:
   std::string msgToReturn_;  ///< string message to return when the error is flushed
 };
 }  // namespace DYN

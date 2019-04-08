@@ -61,8 +61,6 @@ NoInitModel                 =             no init model of model %1% named %2%
 ErrorInit                   =             error happened during the initialization of model %1% named %2%
 FileGenerationFailed        =             failed to generate %1%
 PARXmlSizeOfEnumParamType   =             parameter type should not be SIZE_OF_ENUM
-EmptyDictionaryName         =             impossible to add the dictionary : empty name
-EmptyDictionaryMappingName  =             impossible to add the dictionary mapping file : empty name
 LibraryLoadFailure          =             an error happened during the load of the library %1%
 AdeptFailure                =             an error happened during Jacobian evaluation by adept
 UnstableRoots               =             roots are unstable during the solve of the parameter's value
@@ -178,6 +176,7 @@ FileSystemItemDoesNotExist  =             %1% does not exist
 UnknownVertex               =             vertex %1% is unknown in graph
 AlreadyDefinedEdge          =             edge %1% already defined in graph
 UnknownAutomatonOutput      =             output %2% of automaton %1% does not exist
+SystemCallFailed            =             call to %1% failed with error '%2%'
 //--------------- STATIC_DATA -----------------------------------------
 UnknownBus                  =             bus id '%1%' does not exist in the iidm import
 UnknownCalculatedBus        =             calculated bus associated to '%1%' node '%2%' does not exist in the iidm import
@@ -223,6 +222,7 @@ MacroStaticRefUndefined     =             macroStaticRef (id = "%1%") is not def
 MacroStaticReferenceNotUnique =           macroStaticReference (id = "%1%") is not unique
 MacroStaticReferenceUndefined =           macroStaticReference (id = "%1%") is not defined
 MissingDYDInitName            =           modelica initialization model name (attribute 'initName' in the dyd file) is missing for %1%
+InternalConnectDoneInSystem   =           fully internal connect should not be used within system connects (%1%.%2%<->%3%.%4%)
 //---EXTVAR------------------
 ExternalVariableAttributeNotDefined=      external variable (%1%) does not have a value for the attribute "%2%"
 ExternalVariableAttributeOnlyForArray=    external variable (%1%) could not have the attribute "%2%", only defined for array variable

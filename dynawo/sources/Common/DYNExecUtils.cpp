@@ -25,6 +25,9 @@
 #include <fcntl.h>
 #include <cerrno>
 #include <sstream>
+
+#include "DYNMacrosMessage.h"
+
 using std::string;
 using std::stringstream;
 
@@ -47,31 +50,23 @@ executeCommand(const std::string & command, std::stringstream & ss) {
   // fd[0]entry and fd[1] exit
   int fd[2];
   if (pipe(fd) == -1) {
-    static string msg = "pipe : ";
-    msg += strerror_r(errno, buferr, sizeof (buferr));
-    throw msg;
+    throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "pipe", strerror_r(errno, buferr, sizeof (buferr)));
   }
 
   pid_t pid;
 
   pid = fork();
   if (pid < 0) {  // fork failed
-    static  string msg = "fork : ";
-    msg += strerror_r(errno, buferr, sizeof (buferr));
-    throw msg;
+    throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "fork",  strerror_r(errno, buferr, sizeof (buferr)));
   }
 
   if (pid != 0) {  // Father process (reading the pipe to retrieve the traces made by the son)
     FILE *f = fdopen(fd[0], "r");
     if (f == NULL) {
-      static string msg = "fdopen : ";
-      msg += strerror_r(errno, buferr, sizeof (buferr));
-      throw msg;
+      throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "fdopen", strerror_r(errno, buferr, sizeof (buferr)));
     }
     if (close(fd[1]) == -1) {
-      static string msg = "close : ";
-      msg += strerror_r(errno, buferr, sizeof (buferr));
-      throw msg;
+      throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "close", strerror_r(errno, buferr, sizeof (buferr)));
     }
 
     // To make fd[0] non blocking
@@ -96,9 +91,7 @@ executeCommand(const std::string & command, std::stringstream & ss) {
       int retsel = select(fd[0] + 1, &rfds, NULL, NULL, &tv);
 
       if (retsel == -1) {  // error
-        static string msg = "select : ";
-        msg += strerror_r(errno, buferr, sizeof (buferr));
-        throw msg;
+        throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "select", strerror_r(errno, buferr, sizeof (buferr)));
       } else if (retsel> 0) {  // some data may be available
         int retread;
         while ((retread = read(fd[0], buf, BUFSIZ)) > 0) {
@@ -108,9 +101,7 @@ executeCommand(const std::string & command, std::stringstream & ss) {
         if (retread == 0) {  // no more data (eof)
           fin = true;
         } else if (retread == -1 && errno != EAGAIN) {  // error
-          static string msg = "read : ";
-          msg += strerror_r(errno, buferr, sizeof (buferr));
-          throw msg;
+          throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "read", strerror_r(errno, buferr, sizeof (buferr)));
         }
       }
     }
@@ -118,22 +109,16 @@ executeCommand(const std::string & command, std::stringstream & ss) {
       ss << strbuf << std::endl;
 
     if (fclose(f) != 0) {
-      static string msg = "fclose : ";
-      msg += strerror_r(errno, buferr, sizeof (buferr));
-      throw msg;
+      throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "fclose", strerror_r(errno, buferr, sizeof (buferr)));
     }
 
     // wait for the main process to finish
     if (waitpid(pid, &status, WUNTRACED) == -1) {
-      static string msg = "waitpid : ";
-      msg += strerror_r(errno, buferr, sizeof (buferr));
-      throw msg;
+      throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "waitpid", strerror_r(errno, buferr, sizeof (buferr)));
     }
   } else {  // Son process (execution and writing in the pipe for emission of traces)
     if (close(fd[0]) == -1) {
-      static string msg = "close : ";
-      msg += strerror_r(errno, buferr, sizeof (buferr));
-      throw msg;
+      throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "close", strerror_r(errno, buferr, sizeof (buferr)));
     }
 
     // Connecting the standard output to the output of the pipe

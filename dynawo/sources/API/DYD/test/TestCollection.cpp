@@ -115,7 +115,8 @@ TEST(APIDYDTest, CollectionAddConnect) {
   collection = boost::shared_ptr<DynamicModelsCollection>(DynamicModelsCollectionFactory::newCollection());
 
   collection->addConnect("model1", "var1", "model2", "var2");
-  ASSERT_THROW(collection->addConnect("model1", "var1", "model1", "var2"), std::string);  // no internal connection between same models
+  // no internal connection between same models
+  ASSERT_THROW_DYNAWO(collection->addConnect("model1", "var1", "model1", "var2"), DYN::Error::API, DYN::KeyError_t::InternalConnectDoneInSystem);
   collection->addConnect("model1", "var2", "model2", "var1");
 
   int nbConnect = 0;
