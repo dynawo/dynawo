@@ -819,6 +819,9 @@ build_test_doxygen_doc() {
 }
 
 build_doxygen_doc() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "You need to build Dynawo first to build doxygen documentation."
+  fi
   cd $DYNAWO_BUILD_DIR
   mkdir -p $DYNAWO_INSTALL_DIR/doxygen/
   make -j $NB_PROCESSORS_USED doc

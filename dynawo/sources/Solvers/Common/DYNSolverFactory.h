@@ -72,6 +72,9 @@ class SolverFactory {
   static SolverFactories factories_;  ///< Factories already available
 };
 
+/**
+* @brief function pointer type to destroy a solver.
+*/
 typedef void destroy_solver_t(SolverFactory*);
 
 /**
@@ -92,6 +95,9 @@ class SolverFactories : private boost::noncopyable {
    */
   ~SolverFactories();
 
+  /**
+  * @brief iterator type on SolverFactory map.
+  */
   typedef std::map<std::string, SolverFactory*>::iterator SolverFactoryIterator;
 
   /**
@@ -125,7 +131,7 @@ class SolverFactories : private boost::noncopyable {
   /**
    * @brief Add a factory associated to its destruction method
    *
-   * @param lib : Name of the submodel library to add - key in the map
+   * @param lib : Name of the solver library to add - key in the map
    * @param deleteFactory : function pointer to a desctruction method
    * map
    */
@@ -139,12 +145,14 @@ class SolverFactories : private boost::noncopyable {
 /**
  * @brief SolverDelete class
  *
- * Manage the destruction of a submodel.
+ * Manage the destruction of a solver.
  */
 class SolverDelete {
  public:
   /**
    * @brief Constructor
+   *
+   * @param factory: solver factory to delete
    */
   explicit SolverDelete(SolverFactory* factory);
 
@@ -156,7 +164,7 @@ class SolverDelete {
   /**
    * @brief Function to use this class as a Functor
    *
-   * @param subModel: pointer to the subModel to delete
+   * @param solver: pointer to the solver to delete
    * map
    */
   void operator()(Solver* solver);
