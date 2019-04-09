@@ -74,6 +74,9 @@ class SubModelFactory : private boost::noncopyable {
   static SubModelFactories factories_;  ///< Factories already available
 };
 
+/**
+* @brief function pointer type to destroy a model.
+*/
 typedef void destroy_model_t(SubModelFactory*);
 
 /**
@@ -94,6 +97,9 @@ class SubModelFactories : private boost::noncopyable {
    */
   ~SubModelFactories();
 
+  /**
+  * @brief iterator type on SubModelFactory map.
+  */
   typedef std::map<std::string, SubModelFactory*>::iterator SubmodelFactoryIterator;
 
   /**
@@ -147,6 +153,8 @@ class SubModelDelete {
  public:
   /**
    * @brief Constructor
+   *
+   * @param factory: model factory to delete
    */
   explicit SubModelDelete(SubModelFactory* factory);
 
