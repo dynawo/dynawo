@@ -29,23 +29,23 @@ _dynawo() {
   build_tests_options="tests CRV_unittest-tests DYD_unittest-tests EXTVAR_unittest-tests PAR_unittest-tests TL_unittest-tests CSTR_unittest-tests FS_unittest-tests JOB_unittest-tests COMMON_unittest-tests MODELER_COMMON_unittest-tests MODELER_DATAINTERFACE_unittest-tests MODELS_MODELNETWORK_unittest-tests SOLVERCOMMON_unittest-tests SOLVERIDA_unittest-tests SOLVERSIM_unittest-tests MODELICACOMPILER_unittest-tests"
   nrt_diff_options="--firstDirectory --secondDirectory"
   build_tests_options="tests CRV_unittest-tests DYD_unittest-tests EXTVAR_unittest-tests PAR_unittest-tests TL_unittest-tests CSTR_unittest-tests FS_unittest-tests JOB_unittest-tests COMMON_unittest-tests MODELER_COMMON_unittest-tests MODELER_DATAINTERFACE_unittest-tests MODELS_MODELNETWORK_unittest-tests SOLVERCOMMON_unittest-tests SOLVERIDA_unittest-tests SOLVERSIM_unittest-tests MODELICACOMPILER_unittest-tests"
+  unittest_options="SOLVERCOMMON_unittest SOLVERSIM_unittest SOLVERIDA_unittest COMMON_unittest MODELS_MODELNETWORK_unittest CRV_unittest DYD_unittest JOB_unittest TL_unittest EXTVAR_unittest PAR_unittest CSTR_unittest FS_unittest MODELICACOMPILER_unittest MODELER_COMMON_unittest MODELER_DATAINTERFACE_unittest"
   dump_model_options="-h -m -o"
-  compilerModelicaOMC_options="-h --model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
-  generate-preassembled_options="-h --model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
+  compileModelicaModel_options="-h --model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
+  generate_preassembled_options="-h --model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
   compileLibModelicaOMC_options_equal="--model-name --directory --lib-name"
   compileLibModelicaOMC_options_debug="--debug"
   deploy_autocompletion_options="--deploy --update-tests --help"
-  curves_visu_options="--withoutOffset --showpoints --htmlBrowser"
 
   case "${COMP_WORDS[1]}" in
-    build-3rd-party|build-3rd-party-version|build-all|build-doxygen-doc|build-dynawo|build-dynawo-core|build-modelica-doc|build-omcDynawo|clean-3rd-party|clean-all|clean-build-3rd-party|clean-build-all|clean-build-dynawo|clean-dynawo|clean-old-branches|clean-omcDynawo|clean-tests|clean-tests-coverage|config-dynawo|distrib|distrib-omc|doxygen-doc-dynawo|help|list-tests|uninstall-3rd-party|uninstall-all|uninstall-dynawo|version|version-validation)
+    build-3rd-party|build-3rd-party-version|build-all|build-doc|build-doxygen-doc|build-dynawo|build-dynawo-core|build-dynawo-models|build-dynawo-models-cpp|build-dynawo-solvers|build-modelica-doc|build-nrt-doc|build-omcDynawo|build-user|clean-3rd-party|clean-all|clean-build-3rd-party|clean-build-all|clean-build-dynawo|clean-doc|clean-dynawo|clean-nrt-doc|clean-old-branches|clean-omcDynawo|clean-tests|clean-tests-coverage|config-dynawo|deploy|display-environment|distrib|distrib-omc|doc|doxygen-doc|help|help-user|list-tests|modelica-doc|nrt-doc|reset-environment|uninstall-3rd-party|uninstall-all|uninstall-dynawo|version|version-validation)
       case "${prev}" in
-        build-3rd-party|build-3rd-party-version|build-all|build-doxygen-doc|build-dynawo|build-dynawo-core|build-modelica-doc|build-omcDynawo|clean-3rd-party|clean-all|clean-build-3rd-party|clean-build-all|clean-build-dynawo|clean-dynawo|clean-old-branches|clean-omcDynawo|clean-tests|clean-tests-coverage|config-dynawo|distrib|distrib-omc|doxygen-doc-dynawo|help|list-tests|uninstall-3rd-party|uninstall-all|uninstall-dynawo|version|version-validation)
+        build-3rd-party|build-3rd-party-version|build-all|build-doc|build-doxygen-doc|build-dynawo|build-dynawo-core|build-dynawo-models|build-dynawo-models-cpp|build-dynawo-solvers|build-modelica-doc|build-nrt-doc|build-omcDynawo|build-user|clean-3rd-party|clean-all|clean-build-3rd-party|clean-build-all|clean-build-dynawo|clean-doc|clean-dynawo|clean-nrt-doc|clean-old-branches|clean-omcDynawo|clean-tests|clean-tests-coverage|config-dynawo|deploy|display-environment|distrib|distrib-omc|doc|doxygen-doc|help|help-user|list-tests|modelica-doc|nrt-doc|reset-environment|uninstall-3rd-party|uninstall-all|uninstall-dynawo|version|version-validation)
           COMPREPLY=()
           return 0
           ;;
         *)
-          solo_commands="build-3rd-party build-3rd-party-version build-all build-doxygen-doc build-dynawo build-dynawo-core build-modelica-doc build-omcDynawo clean-3rd-party clean-all clean-build-3rd-party clean-build-all clean-build-dynawo clean-dynawo clean-old-branches clean-omcDynawo clean-tests clean-tests-coverage config-dynawo distrib distrib-omc doxygen-doc-dynawo help list-tests uninstall-3rd-party uninstall-all uninstall-dynawo version version-validation"
+          solo_commands="build-3rd-party build-3rd-party-version build-all build-doc build-doxygen-doc build-dynawo build-dynawo-core build-dynawo-models build-dynawo-models-cpp build-dynawo-solvers build-modelica-doc build-nrt-doc build-omcDynawo build-user clean-3rd-party clean-all clean-build-3rd-party clean-build-all clean-build-dynawo clean-doc clean-dynawo clean-nrt-doc clean-old-branches clean-omcDynawo clean-tests clean-tests-coverage config-dynawo deploy display-environment distrib distrib-omc doc doxygen-doc help help-user list-tests modelica-doc nrt-doc reset-environment uninstall-3rd-party uninstall-all uninstall-dynawo version version-validation"
           commands=$solo_commands
           ;;
       esac
@@ -99,6 +99,22 @@ _dynawo() {
           if [[ -z ${COMP_WORDS[2]} ]]; then
             build_tests_commands="build-tests build-tests-coverage"
             commands=$build_tests_commands
+          else
+            commands=""
+          fi
+          ;;
+      esac
+      ;;
+    unittest-gdb)
+      case "${prev}" in
+        unittest-gdb)
+          options="$unittest_options"
+          propose_options="yes"
+          ;;
+        *)
+          if [[ -z ${COMP_WORDS[2]} ]]; then
+            unittest_commands="unittest-gdb"
+            commands=$unittest_commands
           else
             commands=""
           fi
@@ -165,22 +181,22 @@ _dynawo() {
           ;;
       esac
       ;;
-    compilerModelicaOMC)
+    compileModelicaModel)
       case "${prev}" in
         -h)
           COMPREPLY=()
           return 0
           ;;
-        compilerModelicaOMC)
-          options="$compilerModelicaOMC_options"
+        compileModelicaModel)
+          options="$compileModelicaModel_options"
           propose_options="yes"
           ;;
         *)
           if [[ -z ${COMP_WORDS[2]} ]]; then
-            compilerModelicaOMC_commands="compilerModelicaOMC"
-            commands=$compilerModelicaOMC_commands
+            compileModelicaModel_commands="compileModelicaModel"
+            commands=$compileModelicaModel_commands
           else
-            _handle_compilerModelicaOMC_options
+            _handle_compileModelicaModel_options
             return 0
           fi
         ;;
@@ -211,15 +227,15 @@ _dynawo() {
           return 0
           ;;
         generate-preassembled|generate-preassembled-gdb)
-          options="$generate-preassembled_options"
+          options="$generate_preassembled_options"
           propose_options="yes"
           ;;
         *)
           if [[ -z ${COMP_WORDS[2]} ]]; then
-            generate-preassembled_commands="generate-preassembled generate-preassembled-gdb"
-            commands=$generate-preassembled_commands
+            generate_preassembled_commands="generate-preassembled generate-preassembled-gdb"
+            commands=$generate_preassembled_commands
           else
-            _handle_generate-preassembled_options
+            _handle_generate_preassembled_options
             return 0
           fi
         ;;
@@ -279,9 +295,9 @@ _dynawo() {
   return 0
 }
 
-_handle_compilerModelicaOMC_options() {
-  compilerModelicaOMC_options=(--model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList)
-  compilerModelicaOMC_options_echo="--model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
+_handle_compileModelicaModel_options() {
+  compileModelicaModel_options=(--model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList)
+  compileModelicaModel_options_echo="--model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
 
   case "${prev}" in
     --model) COMPREPLY=(); return 0;;
@@ -296,21 +312,21 @@ _handle_compilerModelicaOMC_options() {
 
   local other_options=""
 
-  for ((j = 0; j < ${#compilerModelicaOMC_options[@]}; ++j)); do
+  for ((j = 0; j < ${#compileModelicaModel_options[@]}; ++j)); do
     for ((i = 1; i < ${#COMP_WORDS[@]}; ++i)); do
-      if [[ ${COMP_WORDS[i]} == ${compilerModelicaOMC_options[j]} ]]; then
-        compilerModelicaOMC_options_echo=$(echo $compilerModelicaOMC_options_echo | sed "s/${compilerModelicaOMC_options[j]}//")
+      if [[ ${COMP_WORDS[i]} == ${compileModelicaModel_options[j]} ]]; then
+        compileModelicaModel_options_echo=$(echo $compileModelicaModel_options_echo | sed "s/${compileModelicaModel_options[j]}//")
       fi
     done
   done
 
-  other_options=$compilerModelicaOMC_options_echo
+  other_options=$compileModelicaModel_options_echo
   COMPREPLY=($(compgen -W "$other_options" -- $cur))
 }
 
-_handle_generate-preassembled_options() {
-  generate-preassembled_options=(--model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files)
-  generate-preassembled_options_echo="--model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
+_handle_generate_preassembled_options() {
+  generate_preassembled_options=(--model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files)
+  generate_preassembled_options_echo="--model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
 
   case "${prev}" in
     --model-list) _filedir '@(xml)'; return 0;;
@@ -329,15 +345,15 @@ _handle_generate-preassembled_options() {
 
   local other_options=""
 
-  for ((j = 0; j < ${#generate-preassembled_options[@]}; ++j)); do
+  for ((j = 0; j < ${#generate_preassembled_options[@]}; ++j)); do
     for ((i = 1; i < ${#COMP_WORDS[@]}; ++i)); do
-      if [[ ${COMP_WORDS[i]} == ${generate-preassembled_options[j]} ]]; then
-        generate-preassembled_options_echo=$(echo $generate-preassembled_options_echo | sed "s/${generate-preassembled_options[j]}//")
+      if [[ ${COMP_WORDS[i]} == ${generate_preassembled_options[j]} ]]; then
+        generate_preassembled_options_echo=$(echo $generate_preassembled_options_echo | sed "s/${generate_preassembled_options[j]}//")
       fi
     done
   done
 
-  other_options=$generate-preassembled_options_echo
+  other_options=$generate_preassembled_options_echo
   COMPREPLY=($(compgen -W "$other_options" -- $cur))
 }
 

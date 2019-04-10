@@ -29,7 +29,7 @@ fi
 # Setting dynawo binary location
 DYNAWO=${BIN_DIR}/dynawo
 GENERATE_PREASSEMBLED=${SBIN_DIR}/generate-preassembled
-COMPILERMODELICAOMC=${SBIN_DIR}/compilerModelicaOMC
+COMPILEMODELICAMODEL=${SBIN_DIR}/compileModelicaModel
 DUMPMODELBIN=${SBIN_DIR}/dumpModel
 COMPILELIBMODELICAOMCBIN=${SBIN_DIR}/compileLibModelicaOMC
 
@@ -152,7 +152,7 @@ GENERATE_PREASSEMBLED-GDB)
   RETURN_CODE=$?
   ;;
 COMPILE)
-  ${COMPILERMODELICAOMC} ${ARGS}
+  ${COMPILEMODELICAMODEL} ${ARGS}
   RETURN_CODE=$?
   ;;
 DUMPMODEL)
@@ -189,7 +189,7 @@ HELP)
    --dump-model                 launch DYNAWO dumpModel executable (must be the first argument)
    --dump-model-gdb             launch DYNAWO dumpModel executable (must be the first argument)
    --dump-model-valgrind        launch DYNAWO dumpModel executable in valgrind (must be the first argument)
-   --compile-lib-modelica-omc   launch DYNAWO compileLibModeliaOMC (must be the first argument)    
+   --compile-lib-modelica-omc   launch DYNAWO compileLibModeliaOMC (must be the first argument)
    --version                    show dynawo version (must be the first argument)
    --help                       produce help message (must be the first argument)
 

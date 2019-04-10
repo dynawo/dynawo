@@ -111,19 +111,19 @@ To see all available \Dynawo commands run:
 $> ./myEnvDynawo.sh help
 \end{lstlisting}
 
-In the following we will give examples on how to use some commands, and particularly: \lstinline[language=bash]{compilerModelicaOMC}, \lstinline[language=bash]{generate-preassembled} and \lstinline[language=bash]{dump-model}.
+In the following we will give examples on how to use some commands, and particularly: \lstinline[language=bash]{compileModelicaModel}, \lstinline[language=bash]{generate-preassembled} and \lstinline[language=bash]{dump-model}.
 
 ~~\\
 In the following we will assume that you have installed autocompletion, and then the \lstinline[language=bash]{dynawo} alias. Otherwise see \textbf{Installation procedure}.
 
 \subsection{Compilation and simulation of a single Modelica model}
 
-The \lstinline[language=bash]{compilerModelicaOMC} option of the myEnvDynawo.sh script takes as input a Modelica model and generates a .so library that can be used as input of \Dynawo to simulate this model.
+The \lstinline[language=bash]{compileModelicaModel} option of the myEnvDynawo.sh script takes as input a Modelica model and generates a .so library that can be used as input of \Dynawo to simulate this model.
 
-A summary of the possible arguments of the \lstinline[language=bash]{compilerModelicaOMC} option can be obtained with the following
+A summary of the possible arguments of the \lstinline[language=bash]{compileModelicaModel} option can be obtained with the following
 command:
 \begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
-$> dynawo compilerModelicaOMC --help
+$> dynawo compileModelicaModel --help
 \end{lstlisting}
 
 In the following, we will provide some examples of usage.
@@ -141,7 +141,7 @@ used. \\
 
 \begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
 $> cd /path/to/Test.mo
-$> dynawo compilerModelicaOMC --model Test --lib Test.so --output-dir compilation --input-dir .
+$> dynawo compileModelicaModel --model Test --lib Test.so --output-dir compilation --input-dir .
 \end{lstlisting}
 
 The options \lstinline[language=bash]{--output-dir} and \lstinline[language=bash]{--input-dir} are optional and by default they are taken as the working directory. In the compilation folder you will find the output model library Test.so. \\
@@ -150,7 +150,7 @@ To only generate the C++ files used to compile the model .so library, the user c
 This will only generate the C++ model files used to generate the library:
 \begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
 $> cd /path/to/Test.mo
-$> dynawo compilerModelicaOMC --model Test
+$> dynawo compileModelicaModel --model Test
 \end{lstlisting}
 
 ~~\\
@@ -202,7 +202,7 @@ A Test.extvar file is needed to declare the variable as \textbf{external}:
 To generate the .so library of this model, the following commands are used:
 \begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
 $> cd /path/to/Test.mo
-$> dynawo compilerModelicaOMC --model Test --lib Test.so
+$> dynawo compileModelicaModel --model Test --lib Test.so
 \end{lstlisting}
 
 \textbf{Warning}, at this point you cannot directly launch a simulation with only this model as it needs to be connected to another model providing the missing equation on \lstinline[language=Modelica]{v}. The way to do this is described in section \ref{Dynawo_Advanced_Documentation_Dynawo_executables_Preassembled}.

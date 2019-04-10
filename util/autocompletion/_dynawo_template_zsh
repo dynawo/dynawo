@@ -40,6 +40,11 @@ _dynawo() {
           tests_options=('tests' 'CRV_unittest-tests' 'DYD_unittest-tests' 'EXTVAR_unittest-tests' 'PAR_unittest-tests' 'TL_unittest-tests' 'CSTR_unittest-tests' 'FS_unittest-tests' 'JOB_unittest-tests' 'COMMON_unittest-tests' 'MODELER_COMMON_unittest-tests' 'MODELER_DATAINTERFACE_unittest-tests' 'MODELS_MODELNETWORK_unittest-tests' 'SOLVERCOMMON_unittest-tests' 'SOLVERIDA_unittest-tests' 'SOLVERSIM_unittest-tests' 'MODELICACOMPILER_unittest-tests')
           _describe -t tests_options 'available tests' tests_options
           ;;
+        unittest-gdb)
+          local -a unittest_options
+          unittest_options=('SOLVERCOMMON_unittest' 'SOLVERSIM_unittest' 'SOLVERIDA_unittest' 'COMMON_unittest' 'MODELS_MODELNETWORK_unittest' 'CRV_unittest' 'DYD_unittest' 'JOB_unittest' 'TL_unittest' 'EXTVAR_unittest' 'PAR_unittest' 'CSTR_unittest' 'FS_unittest' 'MODELICACOMPILER_unittest' 'MODELER_COMMON_unittest' 'MODELER_DATAINTERFACE_unittest')
+          _describe -t unittest_options 'available tests' unittest_options
+          ;;
         nrt)
           case "$line" in
             "nrt -n ")
@@ -67,8 +72,8 @@ _dynawo() {
         dump-model|dump-model-gdb|dump-model-valgrind)
           _dynawo_dump_model
           ;;
-        compilerModelicaOMC)
-          _dynawo_compilerModelicaOMC
+        compileModelicaModel)
+          _dynawo_compileModelicaModel
           ;;
         generate-preassembled|generate-preassembled-gdb)
           _dynawo_generate-preassembled
@@ -120,7 +125,7 @@ _dynawo_dump_model() {
       "-o[output directory]:output directory:_files -/"
 }
 
-_dynawo_compilerModelicaOMC() {
+_dynawo_compileModelicaModel() {
   _arguments \
     - set1 \
       "-h[display help and exit]:help" \
