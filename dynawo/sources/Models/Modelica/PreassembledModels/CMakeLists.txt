@@ -30,6 +30,8 @@ SET(MODELICA_PREASSEMBLED_MODELS
     LoadOneTransformer.xml
     LoadTwoTransformers.xml
     NodeFault.xml
+    GeneratorSynchronousFourWindingsProportionalRegulations.xml
+    GeneratorSynchronousThreeWindingsProportionalRegulations.xml
     PhaseShifterI.xml
     PhaseShifterP.xml
     SetPoint.xml
