@@ -28,6 +28,7 @@ SET(MODELICA_PREASSEMBLED_MODELS
     LoadAlphaBeta.xml
     LoadOneTransformer.xml
     LoadTwoTransformers.xml
+    NodeFault.xml
     PhaseShifterI.xml
     PhaseShifterP.xml
     SetPoint.xml
