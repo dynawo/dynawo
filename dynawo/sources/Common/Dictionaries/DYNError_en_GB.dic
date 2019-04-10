@@ -60,6 +60,7 @@ ModelIncompleteDump         =             incomplete dump : miss one file : %1%
 NoInitModel                 =             no init model of model %1% named %2%
 ErrorInit                   =             error happened during the initialization of model %1% named %2%
 FileGenerationFailed        =             failed to generate %1%
+OMCompilationFailed         =             compilation of %1% failed with the following OpenModelica errors: %2%
 PARXmlSizeOfEnumParamType   =             parameter type should not be SIZE_OF_ENUM
 EmptyDictionaryName         =             impossible to add the dictionary : empty name
 EmptyDictionaryMappingName  =             impossible to add the dictionary mapping file : empty name
