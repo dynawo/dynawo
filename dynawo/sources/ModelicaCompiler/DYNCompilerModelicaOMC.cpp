@@ -15,6 +15,7 @@
 #include <vector>
 #include <iomanip>
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <dlfcn.h>
 
@@ -33,6 +34,7 @@ using std::ofstream;
 using std::cout;
 using std::endl;
 using std::stringstream;
+using std::istringstream;
 using std::ios;
 using DYN::Trace;
 
@@ -43,7 +45,7 @@ static void modelicaCompile(const string& modelName, const string& outputDir, co
                             bool& withInitFile);  ///< Convert the whole (INIT when relevant + standard) Modelica model into a C++ model
 static void compileLib(const string& modelName, const string& libName, const string& outputDir);  ///< Compile the C++ model
 static string executeCommand(const string& command, const bool printLogs);  ///< Run a given command and return logs
-static void compileModelicaToC(const string& modelName, const string& fileToCompile, const vector<string>& libs,
+static string compileModelicaToC(const string& modelName, const string& fileToCompile, const vector<string>& libs,
                                const string& outputDir);  ///< Convert one (INIT or standard) Modelica model into C code
 static void compileModelicaToXML(const string& modelName, const string& fileToCompile, const vector<string>& libs,
                                  const string& outputDir);  ///< Generate the .xml file describing the model parameters and variables
@@ -56,7 +58,7 @@ static bool verifySharedObject(const string& library);  ///< Ensure that the gen
 static void mosAddHeader(const string& mosFilePath, const string& runOptions, ofstream& mosFile);  ///< Add a header to the .mos file
 static void mosAddFilesImport(const bool importModelicaPackage, const vector<string>& filesToImport,
                               ofstream& mosFile);  ///< Add files import commands to a .mos file
-static void mosRunFile(const string& mosFilePath, const string& runOptions);  ///< Run a given .mos file
+static string mosRunFile(const string& mosFilePath, const string& runOptions);  ///< Run a given .mos file
 static bool copyInputFile(const string& fileName,
     const string& inputDir, const string& outputDir);  ///< copy input file into the output folder, return true if the input file is equal to the output file
 int main(int argc, char ** argv) {
@@ -220,9 +222,9 @@ modelicaCompile(const string& modelName, const string& outputDir,
 
   // generate C/CPP files
   vector<string> libs(moFiles);
-  compileModelicaToC(modelName, modelTmpFile, libs, outputDir);
+  string error = compileModelicaToC(modelName, modelTmpFile, libs, outputDir);
   if (!exists(cFile))
-    throw DYNError(DYN::Error::MODELER, FileGenerationFailed, cFile);
+    throw DYNError(DYN::Error::MODELER, OMCompilationFailed, modelName, error);
 
   // generate C/CPP files for INIT file
   withInitFile = exists(initFile);
@@ -231,10 +233,10 @@ modelicaCompile(const string& modelName, const string& outputDir,
     for (unsigned int i = 0; i < initFiles.size(); ++i)
       libs1.push_back(initFiles[i]);  // some libs for .mo can be used for _INIT.mo
 
-    compileModelicaToC(modelName + "_INIT", initFile, libs1, outputDir);
+    string error = compileModelicaToC(modelName + "_INIT", initFile, libs1, outputDir);
 
     if (!exists(cInitFile))
-      throw DYNError(DYN::Error::MODELER, FileGenerationFailed, cInitFile);
+      throw DYNError(DYN::Error::MODELER, OMCompilationFailed, modelName+ "_INIT", error);
   }
 
   // we generate the XML file for structuring the model
@@ -281,7 +283,7 @@ void mosAddFilesImport(const bool importModelicaPackage, const vector<string>& f
 
 ///< Run a given .mos file
 
-void mosRunFile(const string& mosFilePath, const string& runOptions) {
+string mosRunFile(const string& mosFilePath, const string& runOptions) {
   stringstream modelicaCommand;
   modelicaCommand << "omcDynawo ";
   if ((!runOptions.empty())&& (runOptions.length() > 0)) {
@@ -292,9 +294,18 @@ void mosRunFile(const string& mosFilePath, const string& runOptions) {
 
   bool doPrintLogs = true;
   string result = executeCommand(command, doPrintLogs);
+
+  string error = "\n";
+  istringstream stream(result);
+  string line;
+  while (std::getline(stream, line)) {
+    if (line.find("Error:") != string::npos && line.find(".mo") != string::npos && line.find("-tmp.mo") == string::npos)
+      error += line + "\n";
+  }
+  return error;
 }
 
-void
+string
 compileModelicaToC(const string& modelName, const string& fileToCompile, const vector<string>& libs, const string& /*outputDir*/) {
   // Create a .mos file
   string mosFileName = "compileModelicaToC-" + modelName + ".mos";
@@ -324,7 +335,7 @@ compileModelicaToC(const string& modelName, const string& fileToCompile, const v
   mosFile.close();
 
   // run the generated .mos file
-  mosRunFile(mosFileName, noOptions);
+  return mosRunFile(mosFileName, noOptions);
 }
 
 void
