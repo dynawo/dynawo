@@ -24,6 +24,7 @@ SET(MODELICA_PREASSEMBLED_MODELS
     GeneratorPQ.xml
     GeneratorPV.xml
     GeneratorSynchronousFourWindings.xml
+    GeneratorSynchronousThreeWindings.xml
     GenericAutomaton.xml
     LoadAlphaBeta.xml
     LoadOneTransformer.xml
