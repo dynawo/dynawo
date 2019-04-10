@@ -111,7 +111,7 @@ int main(int argc, char ** argv) {
   } else {
     fullPathBin = prettyPath(currentPath + "/" + argvs);  // construct the full path of the binary
   }
-  int size = string("compilerModelicaOMC").size();
+  int size = string("compileModelicaModel").size();
   fullPathBin.erase(fullPathBin.end() - size, fullPathBin.end());  // erase the name of the binary file
   string installDir = prettyPath(fullPathBin + "/../");  // the binary is in the sbin directory, so the install dir is in sbin/../
 
@@ -377,7 +377,7 @@ compileLib(const string& modelName, const string& libName, const string& outputD
   string outputDir1 = prettyPath(outputDir);
   string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
 
-  string compileLibCommand = scriptsDir1 + "/compileLibModelicaOMC --model-name=" + modelName + " --directory=" + outputDir1 + " --lib-name=" + libName;
+  string compileLibCommand = scriptsDir1 + "/compileModelicaModelInLib --model-name=" + modelName + " --directory=" + outputDir1 + " --lib-name=" + libName;
 
 #ifdef _DEBUG_
   compileLibCommand += " --debug";
@@ -393,7 +393,7 @@ void
 removeTemporaryFiles(const string& modelName, const string& outputDir, bool rmModels) {
   string outputDir1 = prettyPath(outputDir);
   string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
-  string commandRemove = scriptsDir1 + "/cleanCompilerModelicaOMC --model=" + modelName + " --directory=" + outputDir1;
+  string commandRemove = scriptsDir1 + "/cleanCompileModelicaModel --model=" + modelName + " --directory=" + outputDir1;
   if (rmModels)
     commandRemove += " --remove-model-files";
 #ifdef _DEBUG_
@@ -411,7 +411,7 @@ bool verifySharedObject(const string& library) {
   handle = dlopen(filename, RTLD_NOW);
   if (!handle) {
     fprintf(stderr, "%s\n", dlerror());
-    printf(" DYNCompilerModelicaOMC: could not open .so by dlopen.");
+    printf(" DYNCompileModelicaModel: could not open .so by dlopen.");
     return false;
   }
   dlclose(handle);

@@ -13,7 +13,7 @@
 #
 
 for file in $(find ../data -name "*.tex"); do
-  (cd $(dirname  $file) ; sed -i'' '2i\\usepackage{nopageno}\' $(basename $file) ; pdflatex --jobname=$(basename ${file%.tex})-no-numbering -halt-on-error -interaction=nonstopmode $(basename $file) > /dev/null)
+  (cd $(dirname  $file) ; sed -i'' '14i\\usepackage{nopageno}\' $(basename $file) ; pdflatex --jobname=$(basename ${file%.tex})-no-numbering -halt-on-error -interaction=nonstopmode $(basename $file) > /dev/null)
   ret=$?
   sed -i'' '/\usepackage{nopageno}/d' $file
   if [[ $ret > 0 ]]; then

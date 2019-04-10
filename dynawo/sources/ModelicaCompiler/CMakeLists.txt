@@ -8,9 +8,9 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-#CompilerModelicaOMC
+#CompileModelicaModel
 SET(COMPILER_MODELICA_OMC_SOURCES
-    DYNCompilerModelicaOMC.cpp
+    DYNCompileModelicaModel.cpp
     )
 
 INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
@@ -19,9 +19,9 @@ INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
 INCLUDE_DIRECTORIES(../Common
                    )
 
-ADD_EXECUTABLE(compilerModelicaOMC ${COMPILER_MODELICA_OMC_SOURCES})
+ADD_EXECUTABLE(compileModelicaModel ${COMPILER_MODELICA_OMC_SOURCES})
 
-TARGET_LINK_LIBRARIES(compilerModelicaOMC
+TARGET_LINK_LIBRARIES(compileModelicaModel
                       dynawo_ModelerCommon
                       dynawo_Common
                       dynawo_SolverCommon
@@ -36,16 +36,16 @@ TARGET_LINK_LIBRARIES(compilerModelicaOMC
                       "-rdynamic"
                       )
 
-INSTALL(TARGETS compilerModelicaOMC DESTINATION ${sbindir})
+INSTALL(TARGETS compileModelicaModel DESTINATION ${sbindir})
 
 
-#compileLibModelicaOMC
-CONFIGURE_FILE(compileLibModelicaOMC.in ${CMAKE_CURRENT_BINARY_DIR}/compileLibModelicaOMC @ONLY)
+#compileModelicaModelInLib
+CONFIGURE_FILE(compileModelicaModelInLib.in ${CMAKE_CURRENT_BINARY_DIR}/compileModelicaModelInLib @ONLY)
 
-INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/compileLibModelicaOMC DESTINATION ${sbindir})
+INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/compileModelicaModelInLib DESTINATION ${sbindir})
 
-#cleanCompilerModelicaOMC
-INSTALL(PROGRAMS cleanCompilerModelicaOMC DESTINATION ${sbindir})
+#cleanCompileModelicaModel
+INSTALL(PROGRAMS cleanCompileModelicaModel DESTINATION ${sbindir})
 
 
 #Add post processing scripts

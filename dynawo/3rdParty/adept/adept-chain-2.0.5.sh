@@ -50,6 +50,7 @@ export_var_env COMPILER=GCC
 export_var_env C_COMPILER=$(command -v gcc)
 export_var_env CXX_COMPILER=$(command -v g++)
 export_var_env NB_PROCESSORS_USED=1
+export_var_env CXX_STDFLAG="-std=c++11"
 
 if [ "$(echo $COMPILER | tr "[A-Z]" "[a-z]")" != "$(basename $C_COMPILER)" ]; then
   echo "There is an incoherence between COMPILER and C_COMPILER. You should export COMPILER with the appropriate value (GCC or CLANG)."

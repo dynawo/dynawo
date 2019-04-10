@@ -12,6 +12,10 @@
 # simulation tool for power systems.
 #
 
+#################################
+########### Functions ###########
+#################################
+
 error_exit() {
   echo "${1:-"Unknown Error"}" 1>&2
   exit 1
@@ -21,82 +25,133 @@ error() {
   echo "${1:-"Unknown Error"}" 1>&2
 }
 
-usage="Usage: `basename $0` [option] -- program to deal with Dynawo debugging environment
+define_options() {
+  export dynawo_usage="Usage: `basename $0` [option] -- program to deal with Dynawo debugging environment
 
-where [option] can be:
+where [option] can be:"
 
-    =========== Building Dynawo
-    build-omcDynawo                   build the openModelica compiler for dynawo (need to have OpenModelica sources)
-    build-3rd-party                   build 3rd party softwares (SuiteSparse, Sundials and Adept)
-    build-3rd-party-version           build 3rd party softwares version (SuiteSparse, Sundials and Adept)
-    config-dynawo                     configure Dynawo's compiling environment using CMake
-    build-dynawo                      build Dynawo and install preassembled models
-    build-dynawo-core                 build Dynawo without preassembled models
-    build-doxygen-doc                 build all doxygen documentation
-    build-modelica-doc                build all dynawo modelica library document
-    list-tests                        print all available unittest target
-    clean-tests                       remove all objects needed for unittest
-    clean-tests-coverage              remove all objects needed for unittest-coverage
-    build-tests ([args])              build and launch Dynawo's unittest (launch all tests if [args] is empty)
-    build-tests-coverage ([args])     build/launch Dynawo's unittest and generate code coverage report (launch all tests if [args] is empty)
+  export dynawo_user_options="    =========== Dynawo User
+        =========== Build
+        build-user                        build Dynawo and its dependencies
 
-    build-all                         call in this order build-3rd-party, config-dynawo, build-dynawo, build-doxygen-doc
+        =========== Launch
+        jobs ([args])                     launch Dynawo simulation
+        jobs-with-curves ([args])         launch Dynawo simulation and open resulting curves in a browser
 
-    distrib                           create distribution of dynawo
-    distrib-omc                       create distribution with omc binary
+        =========== Utilities
+        compileModelicaModel ([args])     compile a single Modelica model (.mo) into a Dynawo model (.so)
+        generate-preassembled ([args])    generate a preassembled model (.so) from a model description (.xml)
+        dump-model ([args])               dump variables and parameters of a Dynawo model (.so) into a xml file"
 
-    clean-omcDynawo                   remove the OpenModelica compiler for dynawo
-    clean-3rd-party                   remove all 3rd party softwares(SuiteSparse, Sundials and Adept) objects
-    clean-dynawo                      remove Dynawo's objects
-    clean-all                         call clean-3rd-party, clean-dynawo
-    uninstall-3rd-party               uninstall all 3rd party softwares(SuiteSparse, Sundials and Adept)
-    uninstall-dynawo                  uninstall Dynawo
-    uninstall-all                     call uninstall-3rd-party, uninstall-dynawo
-    clean-old-branches                remove old build/install/nrt results from merge branches
+  export dynawo_developer_options="    =========== Dynawo Developer
+        =========== Build
+        build-omcDynawo                   build the OpenModelica compiler for Dynawo
+        build-3rd-party                   build 3rd party softwares for all compilation environments (Release/Debug, C++98/11) for a compiler in shared or static
+        build-3rd-party-version           build 3rd party softwares
+        config-dynawo                     configure Dynawo's compiling environment using CMake
+        build-dynawo                      build Dynawo and install preassembled models (core, models cpp, models and solvers)
+        build-dynawo-core                 build Dynawo without models
+        build-dynawo-models-cpp           build Dynawo CPP models
+        build-dynawo-models               build Dynawo preassembled models
+        build-dynawo-solvers              build Dynawo solver descriptions
+        build-all                         call in this order build-3rd-party, config-dynawo, build-dynawo, build-doxygen-doc
+        build-tests ([args])              build and launch Dynawo's unittest (launch all tests if [args] is empty)
+        build-tests-coverage ([args])     build/launch Dynawo's unittest and generate code coverage report (launch all tests if [args] is empty)
 
-    deploy                            deploy the current version of dynawo binaries/libraries/includes to be used as a release by an another project
+        =========== Clean
+        clean-omcDynawo                   remove the OpenModelica compiler for dynawo
+        clean-3rd-party                   remove all 3rd party softwares objects
+        clean-dynawo                      remove Dynawo's objects
+        clean-all                         call clean-3rd-party, clean-dynawo
+        clean-tests                       remove all objects needed for unittest
+        clean-tests-coverage              remove all objects needed for unittest-coverage
+        clean-old-branches                remove old build/install/nrt results from merge branches
 
-    =========== Dynawo main launching options
-    jobs ([args])                     call Dynawo's launcher with given arguments setting LD_LIBRARY_PATH correctly
-    jobs-valgrind ([args])            call Dynawo's launcher with valgrind with given arguments setting LD_LIBRARY_PATH correctly
-    jobs-valgrind-callgrind ([args])  call Dynawo's launcher with valgrind using callgrind tool with given arguments setting LD_LIBRARY_PATH correctly
-    jobs-valgrind-dhat ([args])       call Dynawo's launcher with valgrind using dhat tool with given arguments setting LD_LIBRARY_PATH correctly
-    jobs-valgrind-massif ([args])     call Dynawo's launcher with valgrind measuring the memory used by DYNAWO
-    jobs-gdb ([args])                 call Dynawo's launcher with debugger with given arguments setting LD_LIBRARY_PATH correctly
-    jobs-with-curves ([args])         call Dynawo's launcher with curves output visualization with given arguments setting LD_LIBRARY_PATH correctly
+        =========== Clean-Build
+        clean-build-3rd-party             clean then build 3rd party libraries
+        clean-build-dynawo                clean, then configure and build Dynawo
+        clean-build-all                   clean, then configure and build 3rd party libraries, Dynawo
 
-    =========== Dynawo utilities
-    clean-build-dynawo                clean, then configure and build Dynawo
-    clean-build-all                   clean, then configure and build 3rd party libraries, Dynawo
-    clean-build-3rd-party             clean then build 3rd party libraries
-    version-validation                clean all built items, then build them all and run non-regression tests
-    dump-model ([args])               call dumpModel executable with given arguments setting LD_LIBRARY_PATH correctly
-    dump-model-valgrind ([args])      call dumpModel executable with given arguments setting LD_LIBRARY_PATH correctly
-    dump-model-gdb ([args])           call dumpModel executable with given arguments setting LD_LIBRARY_PATH correctly
-    compilerModelicaOMC([args])       call compilerModelicaOMC with given arguments
-    generate-preassembled             generate a preassembled model
-    generate-preassembled-gdb         generate a preassembled model with debugger
-    compileLibModelicaOMC             compile Modelica Model generated for Dynawo
+        =========== Uninstall
+        uninstall-3rd-party               uninstall all 3rd party softwares
+        uninstall-dynawo                  uninstall Dynawo
+        uninstall-all                     call uninstall-3rd-party, uninstall-dynawo
 
-    =========== Others
-    curves-visu ([args])              visualize curves output from Dynawo in an HTML file
-    doxygen-doc-dynawo                open Dynawo's Doxygen documentation into chosen browser
-    flat-model ([args])               generate and display the (full) flat Modelica model
-    nrt ([-p regex] [-n name_filter]) run (filtered) non-regression tests and open the result in chosen browser
-    nrt-diff ([args])                 make a diff between two non-regression test outputs
-    deploy-autocompletion             deploy aucompletion functions for Dynawo.
-    version                           show dynawo version
-    help                              show this message"
+        =========== Launch
+        jobs ([args])                     launch Dynawo simulation
+        jobs-with-curves ([args])         launch Dynawo simulation and open resulting curves in a browser
+        jobs-gdb ([args])                 call Dynawo's launcher with debugger with given arguments setting LD_LIBRARY_PATH correctly
+        jobs-valgrind ([args])            call Dynawo's launcher with valgrind with given arguments setting LD_LIBRARY_PATH correctly
+        jobs-valgrind-callgrind ([args])  call Dynawo's launcher with valgrind using callgrind tool with given arguments setting LD_LIBRARY_PATH correctly
+        jobs-valgrind-dhat ([args])       call Dynawo's launcher with valgrind using dhat tool with given arguments setting LD_LIBRARY_PATH correctly
+        jobs-valgrind-massif ([args])     call Dynawo's launcher with valgrind measuring the memory used by Dynawo
+        unittest-gdb [arg]                call unittest in gdb
 
-if [ "`uname`" = "Linux" ]; then
-  TOTAL_CPU=$(grep -c \^processor /proc/cpuinfo)
-elif [ "`uname`" = "Darwin" ]; then
-  TOTAL_CPU=$(sysctl hw | grep ncpu | awk '{print $(NF)}')
-else
-  echo "OS not supported."
-  exit 1
-fi
-SCRIPT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && echo "$(pwd)"/"$(basename ${BASH_SOURCE[0]})")
+        =========== Distribution
+        distrib                           create distribution of Dynawo
+        distrib-omc                       create distribution with omc binary
+        deploy                            deploy the current version of dynawo binaries/libraries/includes to be used as a release by an another project
+
+        =========== Tests
+        nrt ([-p regex] [-n name_filter]) run (filtered) non-regression tests and open the result in chosen browser
+        nrt-diff ([args])                 make a diff between two non-regression test outputs
+        version-validation                clean all built items, then build them all and run non-regression tests
+        list-tests                        print all available unittest target
+
+        =========== Utilities
+        generate-preassembled-gdb         generate a preassembled model with debugger
+        compileLibModelicaOMC             compile Modelica Model generated for Dynawo
+        flat-model ([args])               generate and display the (full) flat Modelica model"
+
+  export dynawo_documentation_options="    =========== Dynawo Documentation
+        =========== Launch
+        doc                               open Dynawo's documentation
+        doxygen-doc                       open Dynawo's Doxygen documentation into chosen browser
+        modelica-doc                      open Dynawo's Modelica models documentation
+        nrt-doc                           open Dynawo's nrt documentation
+
+        =========== Build
+        build-doc                         build documentation
+        build-doxygen-doc                 build all doxygen documentation
+        build-modelica-doc                build all Dynawo modelica library document
+        build-nrt-doc                     build nrt documentation
+
+        =========== Clean
+        clean-doc                         clean documentation
+        clean-nrt-doc                     clean nrt documentation"
+
+  export dynawo_other_options="    =========== Others
+    help                                  show all available options
+    help-user                             show user specific options
+    deploy-autocompletion                 deploy autocompletion functions for Dynawo.
+    display-environment                   display all environment variables managed by Dynawo
+    reset-environment                     reset all environment variables set by Dynawo
+    version                               show Dynawo version"
+}
+
+help_dynawo() {
+  define_options
+  echo "$dynawo_usage"
+  echo
+  echo "$dynawo_user_options"
+  echo;echo
+  echo "$dynawo_developer_options"
+  echo;echo
+  echo "$dynawo_documentation_options"
+  echo;echo
+  echo "$dynawo_other_options"
+}
+
+help_dynawo_user() {
+  define_options
+  echo "$dynawo_usage"
+  echo
+  echo "$dynawo_user_options"
+  echo;echo
+  echo "$dynawo_documentation_options"
+  echo;echo
+  echo "$dynawo_other_options"
+}
 
 export_var_env_force() {
   var=$@
@@ -153,6 +208,9 @@ export_var_env_default() {
 
 export_git_branch() {
   current_dir=$PWD
+  if [ ! -d "$DYNAWO_HOME" ]; then
+    error_exit "$DYNAWO_HOME does not exist."
+  fi
   cd $DYNAWO_HOME
   branch_name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
   if [[ "${branch_name}" == "" ]]; then
@@ -170,12 +228,12 @@ set_environment() {
     build-tests-coverage)
       export_var_env_force BUILD_TYPE=TestCoverage
       export_var_env_force USE_XSD_VALIDATION=true
-      export DYNAWO_DICTIONARIES=dictionaries_mapping
+      export_var_env DYNAWO_DICTIONARIES=dictionaries_mapping
       ;;
     build-tests)
       export_var_env_force BUILD_TYPE=Tests
       export_var_env_force USE_XSD_VALIDATION=true
-      export DYNAWO_DICTIONARIES=dictionaries_mapping
+      export_var_env DYNAWO_DICTIONARIES=dictionaries_mapping
       ;;
     list-tests)
       export_var_env_force BUILD_TYPE=Tests
@@ -214,7 +272,7 @@ set_environment() {
   export_var_env CXX11_ENABLED=UNDEFINED
   export_var_env_force USE_ADEPT=YES
 
-  export COMPILER_VERSION=$($C_COMPILER -dumpversion)
+  export_var_env COMPILER_VERSION=$($C_COMPILER -dumpversion)
   export_var_env DYNAWO_LIBRARY_TYPE=SHARED
 
   # Dynawo
@@ -223,14 +281,12 @@ set_environment() {
   export_var_env_force DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
   export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
 
-  jenkins_mode=$(printenv | grep "JENKINS_MODE" | wc -l)
-
   SUFFIX_CX11=""
   if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     SUFFIX_CX11="-cxx11"
   fi
 
-  if [ ${jenkins_mode} -ne 0 ]; then
+  if [ ! -z "$JENKINS_MODE" ]; then
     export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
     export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
   else
@@ -278,11 +334,14 @@ set_environment() {
   export_var_env USE_XSD_VALIDATION=true
   export_var_env DYNAWO_LOCALE=en_GB
   export_var_env BROWSER=firefox
+  export_var_env DYNAWO_PDFVIEWER=xdg-open
   export_var_env_force NRT_DIR=$DYNAWO_HOME/nrt
   export_var_env RESULTS_SHOW=true
   export_var_env_force CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
   export_var_env_force DYNAWO_MODEL_DOCUMENTATION_DIR=$DYNAWO_HOME/util/modelDocumentation
-  export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin/
+  export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
+  export_var_env_force NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
+  export_var_env_force ENV_DYNAWO=$SCRIPT
 
   # Only used until now by nrt
   export_var_env NB_PROCESSORS_USED=1
@@ -291,46 +350,95 @@ set_environment() {
   fi
 
   # OpenModelica config
-  export_var_env OPENMODELICA_VERSION=1_9_4
+  export_var_env_force OPENMODELICA_VERSION=1_9_4
+  export_var_env_force MODELICA_LIB=3.2.2
   export_var_env SRC_OPENMODELICA=UNDEFINED
   export_var_env INSTALL_OPENMODELICA=UNDEFINED
 
+  # JQuery config
+  export_var_env JQUERY_DOWNLOAD_URL=https://github.com/jquery/jquery/archive
+  export_var_env FLOT_DOWNLOAD_URL=https://github.com/flot/flot/archive
+
   # Export library path, path and other standard environment variables
-  set_standardEnvironmentVariables
+  set_standard_environment_variables
 
   set_commit_hook
 
   set_cpplint
 }
 
-set_standardEnvironmentVariables() {
-  export LD_LIBRARY_PATH=$NICSLU_INSTALL_DIR/lib:$SUITESPARSE_INSTALL_DIR/lib:$SUNDIALS_INSTALL_DIR/lib64:$LIBZIP_HOME/lib:$LIBXML_HOME/lib:$LIBIIDM_HOME/lib:$DYNAWO_INSTALL_DIR/lib:$ADEPT_INSTALL_DIR/lib:$XERCESC_INSTALL_DIR/lib:$LD_LIBRARY_PATH
+ld_library_path_remove() {
+  export LD_LIBRARY_PATH=`echo -n $LD_LIBRARY_PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`;
+}
+
+ld_library_path_prepend() {
+  if [ ! -z "$LD_LIBRARY_PATH" ]; then
+    ld_library_path_remove $1
+    export LD_LIBRARY_PATH="$1:$LD_LIBRARY_PATH"
+  else
+    export LD_LIBRARY_PATH="$1"
+  fi
+}
+
+python_path_remove() {
+  export PYTHONPATH=`echo -n $PYTHONPATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`;
+}
+
+python_path_append() {
+  if [ ! -z "$PYTHONPATH" ]; then
+    python_path_remove $1
+    export PYTHONPATH="$PYTHONPATH:$1"
+  else
+    export PYTHONPATH="$1"
+  fi
+}
+
+path_remove() {
+  export PATH=`echo -n $PATH | awk -v RS=: -v ORS=: '$0 != "'$1'"' | sed 's/:$//'`;
+}
+
+path_prepend() {
+  if [ ! -z "$PATH" ]; then
+    path_remove $1
+    export PATH="$1:$PATH"
+  else
+    export PATH="$1"
+  fi
+}
+
+set_standard_environment_variables() {
+  ld_library_path_prepend $NICSLU_INSTALL_DIR/lib
+  ld_library_path_prepend $SUITESPARSE_INSTALL_DIR/lib
+  ld_library_path_prepend $SUNDIALS_INSTALL_DIR/lib64
+  ld_library_path_prepend $LIBZIP_HOME/lib
+  ld_library_path_prepend $LIBXML_HOME/lib
+  ld_library_path_prepend $LIBIIDM_HOME/lib
+  ld_library_path_prepend $ADEPT_INSTALL_DIR/lib
+  ld_library_path_prepend $XERCESC_INSTALL_DIR/lib
+  ld_library_path_prepend $DYNAWO_INSTALL_DIR/lib
 
   if [ $LIBARCHIVE_HOME_DEFAULT != true ]; then
-    export LD_LIBRARY_PATH=$LIBARCHIVE_HOME/lib:$LD_LIBRARY_PATH
+    ld_library_path_prepend $LIBARCHIVE_HOME/lib
   fi
 
   if [ $BOOST_ROOT_DEFAULT != true ]; then
-    export LD_LIBRARY_PATH=$BOOST_ROOT/lib:$LD_LIBRARY_PATH
-  fi
-
-  if [ ! -x "$(command -v getconf)" ]; then
-    error_exit "You need to install getconf command line utility."
+    ld_library_path_prepend $BOOST_ROOT/lib
   fi
 
   if [ $GTEST_ROOT_DEFAULT != true ]; then
     if [ -d "$GTEST_ROOT/lib64" ]; then
-      export LD_LIBRARY_PATH=$GTEST_ROOT/lib64:$LD_LIBRARY_PATH
+      ld_library_path_prepend $GTEST_ROOT/lib64
     elif [ -d "$GTEST_ROOT/lib" ]; then
-      export LD_LIBRARY_PATH=$GTEST_ROOT/lib:$LD_LIBRARY_PATH
+      ld_library_path_prepend $GTEST_ROOT/lib
     else
       error_exit "Not enable to find GoogleTest library directory for runtime."
     fi
   fi
 
-  export PATH=$INSTALL_OPENMODELICA/bin:$PATH
-  export PYTHONPATH=$PYTHONPATH:$SCRIPTS_DIR
-  export DYNAWO_RESOURCES_DIR=$DYNAWO_INSTALL_DIR/share:$DYNAWO_INSTALL_DIR/share/xsd
+  path_prepend $INSTALL_OPENMODELICA/bin
+  python_path_append $DYNAWO_SCRIPTS_DIR
+
+  export_var_env_force DYNAWO_RESOURCES_DIR=$DYNAWO_INSTALL_DIR/share:$DYNAWO_INSTALL_DIR/share/xsd
 }
 
 set_compiler() {
@@ -457,23 +565,113 @@ set_cpplint() {
   fi
 }
 
-display_environmentVariables() {
-  set -x
-  set_standardEnvironmentVariables
-  set +x
+display_environment_variables() {
+  echo ADEPT_BUILD_DIR $ADEPT_BUILD_DIR
+  echo ADEPT_INSTALL_DIR $ADEPT_INSTALL_DIR
+  echo BOOST_ROOT $BOOST_ROOT
+  echo BOOST_ROOT_DEFAULT $BOOST_ROOT_DEFAULT
+  echo BRANCH_NAME $BRANCH_NAME
+  echo BROWSER $BROWSER
+  echo BUILD_TYPE $BUILD_TYPE
+  echo BUILD_TYPE_THIRD_PARTY $BUILD_TYPE_THIRD_PARTY
+  echo C_COMPILER $C_COMPILER
+  echo COMPILER $COMPILER
+  echo COMPILER_NAME $COMPILER_NAME
+  echo COMPILER_VERSION $COMPILER_VERSION
+  echo CPPLINT_DOWNLOAD_URL $CPPLINT_DOWNLOAD_URL
+  echo CURVES_TO_HTML_DIR $CURVES_TO_HTML_DIR
+  echo CXX11_ENABLED $CXX11_ENABLED
+  echo CXX_COMPILER $CXX_COMPILER
+  echo DYNAWO_BUILD_DIR $DYNAWO_BUILD_DIR
+  echo DYNAWO_DEPLOY_DIR $DYNAWO_DEPLOY_DIR
+  echo DYNAWO_DICTIONARIES $DYNAWO_DICTIONARIES
+  echo DYNAWO_HOME $DYNAWO_HOME
+  echo DYNAWO_INSTALL_DIR $DYNAWO_INSTALL_DIR
+  echo DYNAWO_LIBRARY_TYPE $DYNAWO_LIBRARY_TYPE
+  echo DYNAWO_LOCALE $DYNAWO_LOCALE
+  echo DYNAWO_MODEL_DOCUMENTATION_DIR $DYNAWO_MODEL_DOCUMENTATION_DIR
+  echo DYNAWO_RESOURCES_DIR $DYNAWO_RESOURCES_DIR
+  echo DYNAWO_SCRIPTS_DIR $DYNAWO_SCRIPTS_DIR
+  echo DYNAWO_SRC_DIR $DYNAWO_SRC_DIR
+  echo ENV_DYNAWO $ENV_DYNAWO
+  echo FLOT_DOWNLOAD_URL $FLOT_DOWNLOAD_URL
+  echo GTEST_ROOT $GTEST_ROOT
+  echo GTEST_ROOT_DEFAULT $GTEST_ROOT_DEFAULT
+  echo INSTALL_OPENMODELICA $INSTALL_OPENMODELICA
+  echo JQUERY_DOWNLOAD_URL $JQUERY_DOWNLOAD_URL
+  echo LD_LIBRARY_PATH $LD_LIBRARY_PATH
+  echo LIBARCHIVE_HOME $LIBARCHIVE_HOME
+  echo LIBARCHIVE_HOME_DEFAULT $LIBARCHIVE_HOME_DEFAULT
+  echo LIBIIDM_BUILD_DIR $LIBIIDM_BUILD_DIR
+  echo LIBIIDM_HOME $LIBIIDM_HOME
+  echo LIBIIDM_INSTALL_DIR $LIBIIDM_INSTALL_DIR
+  echo LIBXML_BUILD_DIR $LIBXML_BUILD_DIR
+  echo LIBXML_HOME $LIBXML_HOME
+  echo LIBXML_INSTALL_DIR $LIBXML_INSTALL_DIR
+  echo LIBZIP_BUILD_DIR $LIBZIP_BUILD_DIR
+  echo LIBZIP_HOME $LIBZIP_HOME
+  echo LIBZIP_INSTALL_DIR $LIBZIP_INSTALL_DIR
+  echo MODELICA_LIB $MODELICA_LIB
+  echo NB_PROCESSORS_USED $NB_PROCESSORS_USED
+  echo NICSLU_BUILD_DIR $NICSLU_BUILD_DIR
+  echo NICSLU_INSTALL_DIR $NICSLU_INSTALL_DIR
+  echo NRT_DIFF_DIR $NRT_DIFF_DIR
+  echo NRT_DIR $NRT_DIR
+  echo OPENMODELICA_VERSION $OPENMODELICA_VERSION
+  echo PATH $PATH
+  echo PYTHONPATH $PYTHONPATH
+  echo RESULTS_SHOW $RESULTS_SHOW
+  echo SRC_OPENMODELICA $SRC_OPENMODELICA
+  echo SUITESPARSE_BUILD_DIR $SUITESPARSE_BUILD_DIR
+  echo SUITESPARSE_INSTALL_DIR $SUITESPARSE_INSTALL_DIR
+  echo SUNDIALS_BUILD_DIR $SUNDIALS_BUILD_DIR
+  echo SUNDIALS_INSTALL_DIR $SUNDIALS_INSTALL_DIR
+  echo THIRD_PARTY_BUILD_DIR $THIRD_PARTY_BUILD_DIR
+  echo THIRD_PARTY_BUILD_DIR_VERSION $THIRD_PARTY_BUILD_DIR_VERSION
+  echo THIRD_PARTY_INSTALL_DIR $THIRD_PARTY_INSTALL_DIR
+  echo THIRD_PARTY_INSTALL_DIR_VERSION $THIRD_PARTY_INSTALL_DIR_VERSION
+  echo THIRD_PARTY_SRC_DIR $THIRD_PARTY_SRC_DIR
+  echo USE_ADEPT $USE_ADEPT
+  echo USE_XSD_VALIDATION $USE_XSD_VALIDATION
+  echo XERCESC_BUILD_DIR $XERCESC_BUILD_DIR
+  echo XERCESC_INSTALL_DIR $XERCESC_INSTALL_DIR
+}
+
+is_omcDynawo_installed() {
+  if [ ! -x "$INSTALL_OPENMODELICA/bin/omcDynawo" ]; then
+    return 1
+  elif [ -x "$INSTALL_OPENMODELICA/bin/omcDynawo" ]; then
+    $INSTALL_OPENMODELICA/bin/omcDynawo --version > /dev/null 2>&1 || return 1
+    installed_version=$($INSTALL_OPENMODELICA/bin/omcDynawo --version | cut -d ' ' -f2 | tr -d 'v')
+    if [ "$installed_version" != ${OPENMODELICA_VERSION//_/.} ]; then
+      return 1
+    fi
+  else
+    return 0
+  fi
 }
 
 # Build openModelica compiler
 build_omcDynawo() {
-  export_var_env MODELICA_LIB=3.2.2
-  cd $DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION
-  bash checkoutOpenModelica.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-version=$OPENMODELICA_VERSION --modelica-version=$MODELICA_LIB || error_exit "OpenModelica source code is not well checked-out. Delete your current source folder and relaunch command."
-  bash cleanBeforeLaunch.sh --openmodelica-dir=$SRC_OPENMODELICA || error_exit "Cleaning of OpenModelica source folder did not work. Delete your current source folder and relaunch command."
-  bash omcUpdateDynawo.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-install=$INSTALL_OPENMODELICA --nbProcessors=$NB_PROCESSORS_USED || error_exit "Building of OpenModelica did not work. Delete your current source folder and relaunch command."
+  if ! is_omcDynawo_installed; then
+    if [ ! -d "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION" ]; then
+      error_exit "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION does not exist."
+    fi
+    cd $DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION
+    bash checkoutOpenModelica.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-version=$OPENMODELICA_VERSION --modelica-version=$MODELICA_LIB || error_exit "OpenModelica source code is not well checked-out. Delete your current source folder and relaunch command."
+    bash cleanBeforeLaunch.sh --openmodelica-dir=$SRC_OPENMODELICA || error_exit "Cleaning of OpenModelica source folder did not work. Delete your current source folder and relaunch command."
+    bash omcUpdateDynawo.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-install=$INSTALL_OPENMODELICA --nbProcessors=$NB_PROCESSORS_USED || error_exit "Building of OpenModelica did not work. Delete your current source folder and relaunch command."
+  else
+    echo "OpenModelica for Dynawo is already installed."
+    echo "You can re-install it by launching clean-omcDynawo command first."
+  fi
 }
 
 # Clean openModelica compiler
 clean_omcDynawo() {
+  if [ ! -d "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION" ]; then
+    error_exit "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION does not exist."
+  fi
   cd $DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION
   bash cleanBeforeLaunch.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-install=$INSTALL_OPENMODELICA
 }
@@ -487,20 +685,20 @@ build_3rd_party() {
   export_var_env_force BUILD_TYPE=Release
   export_var_env_force CXX11_ENABLED=NO
   set_environment "No-Mode"
-  build_3rd_party_version || error_exit
+  build_3rd_party_version || error_exit "Error during 3rd parties build in Release and c++98."
 
   export_var_env_force CXX11_ENABLED=YES
   set_environment "No-Mode"
-  build_3rd_party_version || error_exit
+  build_3rd_party_version || error_exit "Error during 3rd parties build in Release and c++11."
 
   export_var_env_force BUILD_TYPE=Debug
   export_var_env_force CXX11_ENABLED=NO
   set_environment "No-Mode"
-  build_3rd_party_version || error_exit
+  build_3rd_party_version || error_exit "Error during 3rd parties build in Debug and c++98."
 
   export_var_env_force CXX11_ENABLED=YES
   set_environment "No-Mode"
-  build_3rd_party_version || error_exit
+  build_3rd_party_version || error_exit "Error during 3rd parties build in Debug and c++11."
 
   # Come back to initial environement
   export_var_env_force BUILD_TYPE=$INITIAL_BUILD_TYPE
@@ -518,6 +716,9 @@ build_3rd_party() {
 # Build a speficic version of third party libraries
 build_3rd_party_version() {
   if ! is_3rd_party_version_installed; then
+    if [ ! -d "$DYNAWO_SRC_DIR/3rdParty" ]; then
+      error_exit "$DYNAWO_SRC_DIR/3rdParty does not exist."
+    fi
     cd $DYNAWO_SRC_DIR/3rdParty
     bash toolchain.sh --build-type=$BUILD_TYPE_THIRD_PARTY
     RETURN_CODE=$?
@@ -564,12 +765,16 @@ uninstall_3rd_party() {
 
 # clean Dynawo
 clean_dynawo() {
-  rm -rf $DYNAWO_BUILD_DIR
+  if [ -d "$DYNAWO_BUILD_DIR" ]; then
+    rm -rf $DYNAWO_BUILD_DIR
+  fi
 }
 
 # uninstall Dynawo
 uninstall_dynawo() {
-  rm -rf $DYNAWO_INSTALL_DIR
+  if [ -d "$DYNAWO_INSTALL_DIR" ]; then
+    rm -rf $DYNAWO_INSTALL_DIR
+  fi
 }
 
 # clean Dynawo, 3rd party
@@ -590,12 +795,27 @@ config_dynawo() {
     mkdir -p $DYNAWO_BUILD_DIR
   fi
   cd $DYNAWO_BUILD_DIR
-  cmake -DLIBRARY_TYPE=$DYNAWO_LIBRARY_TYPE -DCMAKE_C_COMPILER:PATH=$C_COMPILER -DCMAKE_CXX_COMPILER:PATH=$CXX_COMPILER -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE -DDYNAWO_HOME:PATH=$DYNAWO_HOME -DCMAKE_INSTALL_PREFIX:PATH=$DYNAWO_INSTALL_DIR $DYNAWO_SRC_DIR -DUSE_ADEPT:BOOL=$USE_ADEPT -DINSTALL_OPENMODELICA:PATH=$INSTALL_OPENMODELICA -DCXX11_ENABLED:BOOL=$CXX11_ENABLED -DBOOST_ROOT_DEFAULT:STRING=$BOOST_ROOT_DEFAULT -DOPENMODELICA_VERSION:STRING=$OPENMODELICA_VERSION -G "Unix Makefiles" "-DCMAKE_PREFIX_PATH=$LIBXML_HOME;$LIBIIDM_HOME"
+
+  cmake -DLIBRARY_TYPE=$DYNAWO_LIBRARY_TYPE \
+    -DCMAKE_C_COMPILER:PATH=$C_COMPILER \
+    -DCMAKE_CXX_COMPILER:PATH=$CXX_COMPILER \
+    -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE \
+    -DDYNAWO_HOME:PATH=$DYNAWO_HOME \
+    -DCMAKE_INSTALL_PREFIX:PATH=$DYNAWO_INSTALL_DIR \
+    -DUSE_ADEPT:BOOL=$USE_ADEPT \
+    -DINSTALL_OPENMODELICA:PATH=$INSTALL_OPENMODELICA \
+    -DOPENMODELICA_VERSION:STRING=$OPENMODELICA_VERSION \
+    -DCXX11_ENABLED:BOOL=$CXX11_ENABLED \
+    -DBOOST_ROOT_DEFAULT:STRING=$BOOST_ROOT_DEFAULT \
+    -G "Unix Makefiles" \
+    "-DCMAKE_PREFIX_PATH=$LIBXML_HOME;$LIBIIDM_HOME" \
+    $DYNAWO_SRC_DIR
+
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
-launcher_installed() {
+is_launcher_installed() {
   if [ -x "$DYNAWO_INSTALL_DIR/bin/launcher" ]; then
     return 0
   else
@@ -604,21 +824,24 @@ launcher_installed() {
 }
 
 install_launcher() {
-  build_3rd_party_version || error_exit
-  config_dynawo || error_exit
-  build_dynawo || error_exit
+  build_3rd_party_version || error_exit "Error during 3rd parties installation."
+  config_dynawo || error_exit "Error during Dynawo configuration."
+  build_dynawo || error_exit "Error during Dynawo installation."
 }
 
 # Compile a modelica model
-compiler_Modelica_OMC() {
-  if ! launcher_installed; then
-    install_launcher || error_exit
+compile_Modelica_Model() {
+  if ! is_launcher_installed; then
+    install_launcher || error_exit "Error during launcher install."
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --compile $@
 }
 
 # Compile Dynawo core (without models)
 build_dynawo_core() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
   cd $DYNAWO_BUILD_DIR
   make -j$NB_PROCESSORS_USED && make -j$NB_PROCESSORS_USED install
   RETURN_CODE=$?
@@ -626,47 +849,64 @@ build_dynawo_core() {
 }
 
 build_dynawo_models_cpp() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
   cd $DYNAWO_BUILD_DIR
-  make -j$NB_PROCESSORS_USED models-cpp || error_exit
+  make -j$NB_PROCESSORS_USED models-cpp || error_exit "Error during make models-cpp."
 }
 
 build_dynawo_models() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
   cd $DYNAWO_BUILD_DIR
-  make -j$NB_PROCESSORS_USED models || error_exit
+  make -j$NB_PROCESSORS_USED models || error_exit "Error during make models."
 }
 
 build_dynawo_solvers() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
   cd $DYNAWO_BUILD_DIR
-  make -j$NB_PROCESSORS_USED solvers || error_exit
+  make -j$NB_PROCESSORS_USED solvers || error_exit "Error during make solvers."
 }
 
 # Compile Dynawo (core + models)
 build_dynawo() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
   cd $DYNAWO_BUILD_DIR
-  build_dynawo_core || error_exit
-  build_dynawo_models_cpp || error_exit
-  build_dynawo_models || error_exit
+  build_dynawo_core || error_exit "Error during build_dynawo_core."
+  build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
+  build_dynawo_models || error_exit "Error during build_dynawo_models."
   build_dynawo_solvers
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
+build_user() {
+  build_omcDynawo || error_exit "Error during OpenModelica installation."
+  install_launcher || error_exit "Error during Dynawo installation."
+}
+
 # Compile Dynawo and its dependencies
 build_all() {
-  build_3rd_party || error_exit
-  config_dynawo || error_exit
-  build_dynawo || error_exit
-  build_test_doxygen_doc || error_exit
+  build_3rd_party || error_exit "Error during build_3rd_party."
+  config_dynawo || error_exit "Error during config_dynawo."
+  build_dynawo || error_exit "Error during build_dynawo."
+  build_test_doxygen_doc || error_exit "Error during build_test_doxygen_doc."
 }
 
 build_tests() {
-  build_3rd_party_version || error_exit
+  build_3rd_party_version || error_exit "Error during build_3rd_party_version."
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
-    config_dynawo || error_exit
+    config_dynawo || error_exit "Error during config_dynawo."
   fi
   ## for unit test, no need to generate modelica models
-  build_dynawo_core || error_exit
-  build_dynawo_models_cpp || error_exit
+  build_dynawo_core || error_exit "Error during build_dynawo_core."
+  build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
 
   tests=$@
   if [ -z "$tests" ]; then
@@ -679,33 +919,39 @@ build_tests() {
 }
 
 list_tests() {
-  build_3rd_party_version > /dev/null 2>&1 || error_exit
+  build_3rd_party_version > /dev/null 2>&1 || error_exit "Error during build_3rd_party_version."
   echo "===================================="
   echo " List of available unittests target"
   echo "===================================="
-  config_dynawo > /dev/null 2>&1 || error_exit
+  config_dynawo > /dev/null 2>&1 || error_exit "Error during config_dynawo."
   make help | grep -Ei 'tests' | grep -Eiv 'pre-tests'
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
+verify_browser() {
+  if [ ! -x "$(command -v $BROWSER)" ]; then
+    error_exit "Your browser $BROWSER seems not to be executable."
+  fi
+}
+
 build_tests_coverage() {
-  build_3rd_party_version || error_exit
+  build_3rd_party_version || error_exit "Error during build_3rd_party_version."
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
-    config_dynawo || error_exit
+    config_dynawo || error_exit "Error during config_dynawo."
   fi
   ## for unit test, no need to generate modelica models
-  build_dynawo_core || error_exit
-  build_dynawo_models_cpp || error_exit
+  build_dynawo_core || error_exit "Error during build_dynawo_core."
+  build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
 
   tests=$@
 
-  make reset-coverage || error_exit
+  make reset-coverage || error_exit "Error during make reset-coverage."
   if [ -z "$tests" ]; then
-    make tests-coverage || error_exit
+    make tests-coverage || error_exit "Error during make tests-coverage."
   else
     for test in ${tests}; do
-      make ${test}-coverage || error_exit
+      make ${test}-coverage || error_exit "Error during make ${test}-coverage."
     done
   fi
   make export-coverage
@@ -714,13 +960,14 @@ build_tests_coverage() {
     exit ${RETURN_CODE}
   fi
   if [ "$RESULTS_SHOW" = true ] ; then
+    verify_browser
     $BROWSER $DYNAWO_BUILD_DIR/coverage/index.html
   fi
   cp $DYNAWO_BUILD_DIR/coverage/coverage.info $DYNAWO_HOME/build
   if [ -d "$DYNAWO_HOME/build/coverage-sonar" ]; then
     rm -rf "$DYNAWO_HOME/build/coverage-sonar"
   fi
-  mkdir -p $DYNAWO_HOME/build/coverage-sonar
+  mkdir -p $DYNAWO_HOME/build/coverage-sonar || error_exit "Impossible to create $DYNAWO_HOME/build/coverage-sonar."
   cd $DYNAWO_HOME/build/coverage-sonar
   for file in $(find $DYNAWO_BUILD_DIR -name "*.gcno" | grep -v "/test/"); do
     cpp_file_name=$(basename $file .gcno)
@@ -845,16 +1092,17 @@ test_doxygen_doc() {
 
 # Compile Dynawo Modelica library doc
 build_modelica_doc() {
-echo #    python $MODEL_DOCUMENTATION_DIR/latex/model_documentation.py --model_file=$MODEL_DOCUMENTATION_DIR/latex/models.txt --outputDir=$DYNAWO_HOME/documents/ModelicaDocumentation/resources || error_exit "Error during LaTeX file generation"
-    #Do it twice to generate cross references and Contents section
-#    pdflatex -halt-on-error -output-directory $DYNAWO_HOME/documents/ModelicaDocumentation $DYNAWO_HOME/documents/ModelicaDocumentation/resources/model_documentation.tex
-#    pdflatex -halt-on-error -output-directory $DYNAWO_HOME/documents/ModelicaDocumentation $DYNAWO_HOME/documents/ModelicaDocumentation/resources/model_documentation.tex
-#    test_modelica_doc
+  error_exit "Not available for the moment."
+  # python $DYNAWO_MODEL_DOCUMENTATION_DIR/latex/model_documentation.py --model_file=$DYNAWO_MODEL_DOCUMENTATION_DIR/latex/models.txt --outputDir=$DYNAWO_HOME/documents/ModelicaDocumentation/resources || error_exit "Error during LaTeX file generation"
+  # Do it twice to generate cross references and Contents section
+  # pdflatex -halt-on-error -output-directory $DYNAWO_HOME/documentation/ModelicaDocumentation $DYNAWO_HOME/documentation/ModelicaDocumentation/resources/model_documentation.tex
+  # pdflatex -halt-on-error -output-directory $DYNAWO_HOME/documentation/ModelicaDocumentation $DYNAWO_HOME/documentation/ModelicaDocumentation/resources/model_documentation.tex
+  # test_modelica_doc
 }
 
 test_modelica_doc() {
-  if [ -f "$DYNAWO_HOME/documents/ModelicaDocumentation/resources/model_documentation.tex" ] ; then
-    nb_diff=$(diff $DYNAWO_HOME/documents/ModelicaDocumentation/resources/model_documentation.tex $MODEL_DOCUMENTATION_DIR/latex/ref.tex | wc -l)
+  if [ -f "$DYNAWO_HOME/documentation/ModelicaDocumentation/resources/model_documentation.tex" ] ; then
+    nb_diff=$(diff $DYNAWO_HOME/documentation/ModelicaDocumentation/resources/model_documentation.tex $DYNAWO_MODEL_DOCUMENTATION_DIR/latex/ref.tex | wc -l)
     if [ ${nb_diff} -ne 0 ]; then
       error_exit "The generated LaTeX file does not correspond to the reference"
     fi
@@ -863,9 +1111,24 @@ test_modelica_doc() {
   fi
 }
 
-jobs() {
-  if ! launcher_installed; then
-    install_launcher || error_exit
+open_modelica_doc() {
+  error_exit "Not available for the moment."
+  # if [ -x "$(command -v xdg-open)" ]; then
+  #   xdg-open $DYNAWO_HOME/documentation/ModelicaDocumentation/model_documentation.pdf
+  # elif [ ! -z "$DYNAWO_PDFVIEWER" ]; then
+  #   if [ -x "$(command -v $DYNAWO_PDFVIEWER)" ]; then
+  #     $DYNAWO_PDFVIEWER $DYNAWO_HOME/documentation/ModelicaDocumentation/model_documentation.pdf
+  #   else
+  #     error_exit "$DYNAWO_PDFVIEWER seems not to be executable."
+  #   fi
+  # else
+  #   error_exit "Cannot determine how to open pdf document from command line. Use DYNAWO_PDFVIEWER environement variable."
+  # fi
+}
+
+launch_jobs() {
+  if ! is_launcher_installed; then
+    install_launcher || error_exit "Error during launcher installation."
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher $@
   RETURN_CODE=$?
@@ -873,8 +1136,8 @@ jobs() {
 }
 
 generate_preassembled() {
-  if ! launcher_installed; then
-    install_launcher || error_exit
+  if ! is_launcher_installed; then
+    install_launcher || error_exit "Error during launcher installation."
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled $*
   RETURN_CODE=$?
@@ -882,8 +1145,8 @@ generate_preassembled() {
 }
 
 generate_preassembled_gdb() {
-  if ! launcher_installed; then
-    install_launcher || error_exit
+  if ! is_launcher_installed; then
+    install_launcher || error_exit "Error during launcher installation."
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --generate-preassembled-gdb $*
   RETURN_CODE=$?
@@ -900,11 +1163,9 @@ compile_lib_modelica_omc() {
 }
 
 install_jquery() {
-  export_var_env JQUERY_DOWNLOAD_URL=https://github.com/jquery/jquery/archive
   JQUERY_VERSION=1.3.2
   JQUERY_ARCHIVE=$JQUERY_VERSION.tar.gz
 
-  export_var_env FLOT_DOWNLOAD_URL=https://github.com/flot/flot/archive
   FLOT_VERSION=0.6.0
   FLOT_ARCHIVE=v$FLOT_VERSION.tar.gz
 
@@ -965,18 +1226,19 @@ install_jquery() {
 
 jobs_with_curves() {
   install_jquery
-  jobs $@ || error_exit "Dynawo job failed."
+  launch_jobs $@ || error_exit "Dynawo job failed."
   echo "Generating curves visualization pages"
   curves_visu $@ || error_exit "Error during curves visualisation page generation"
   echo "End of generating curves visualization pages"
 }
 
 curves_visu() {
+  verify_browser
   python $CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$(readlink -f $@) --withoutOffset --htmlBrowser=$BROWSER || return 1
 }
 
 dump_model() {
-  if ! launcher_installed; then
+  if ! is_launcher_installed; then
     install_launcher || error_exit
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model $@
@@ -985,18 +1247,24 @@ dump_model() {
 }
 
 valgrind_dump_model() {
+  if ! is_launcher_installed; then
+    install_launcher || error_exit
+  fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-valgrind $@
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 gdb_dump_model() {
+  if ! is_launcher_installed; then
+    install_launcher || error_exit
+  fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-gdb $@
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
-doxygen_doc_dynawo() {
+open_doxygen_doc() {
   if [ ! -f "$DYNAWO_INSTALL_DIR/doxygen/html/index.html" ]; then
     echo "Doxygen documentation not yet generated"
     echo "Generating ..."
@@ -1007,15 +1275,17 @@ doxygen_doc_dynawo() {
     fi
     echo "... end of doc generation"
   fi
+  verify_browser
   $BROWSER $DYNAWO_INSTALL_DIR/doxygen/html/index.html
 }
 
 flat_model() {
-echo #  python $MODEL_DOCUMENTATION_DIR/model_documentation.py --model=$@ --outputDir=/tmp/dynawo/doxygen --outputFormat=Modelica
+  error_exit "Not available for the moment."
+  # python $DYNAWO_MODEL_DOCUMENTATION_DIR/model_documentation.py --model=$@ --outputDir=/tmp/dynawo/doxygen --outputFormat=Modelica
 }
 
 version() {
-  if ! launcher_installed; then
+  if ! is_launcher_installed; then
     install_launcher
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --version
@@ -1024,11 +1294,9 @@ version() {
 }
 
 nrt() {
-  if ! launcher_installed; then
+  if ! is_launcher_installed; then
     install_launcher || error_exit
   fi
-  export_var_env_force NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
-  export_var_env_force ENV_DYNAWO=$SCRIPT
   python -u $NRT_DIR/nrt.py $@
   FAILED_CASES_NUM=$?
 
@@ -1043,6 +1311,7 @@ nrt() {
       error_exit "No report was generated by the non regression test script"
     fi
     if [ "$RESULTS_SHOW" = true ] ; then
+      verify_browser
       $BROWSER $NRT_DIR/output/$BRANCH_NAME/report.html &
     fi
   fi
@@ -1053,11 +1322,10 @@ nrt() {
 }
 
 nrt_diff() {
-  NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   python $NRT_DIFF_DIR/nrtDiff.py $1 $2
 }
 
-checkCodingFiles() {
+check_coding_files() {
   # html escape .dic files for dictionary
   for dicfile in $(find $DYNAWO_INSTALL_DIR -iname '*.dic')
   do
@@ -1065,16 +1333,22 @@ checkCodingFiles() {
   done
 }
 
-findLibSystemPath() {
+find_lib_system_path() {
   if [ -z "$1" ]; then
     error_exit "You need to give the name of the library to search."
+  fi
+  if [ ! -f "$DYNAWO_INSTALL_DIR/bin/dynawo" ]; then
+    error_exit "Dynawo binary should exist to deploy and find system library used to link against it."
   fi
   ldd $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | cut -d '>' -f 2 | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq
 }
 
-findIncludeSystemPath() {
+find_include_system_path() {
   if [ -z "$1" ]; then
     error_exit "You need to give the name of the library to search."
+  fi
+  if [ ! -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
+    error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine include system paths used during compilation."
   fi
   cat $DYNAWO_BUILD_DIR/CMakeCache.txt | grep "$1":PATH | cut -d '=' -f 2
 }
@@ -1085,10 +1359,10 @@ deploy_dynawo() {
   rm -rf $DYNAWO_DEPLOY_DIR
 
   # check coding
-  checkCodingFiles
+  check_coding_files
 
   current_dir=$PWD
-  mkdir -p $DYNAWO_DEPLOY_DIR
+  mkdir -p $DYNAWO_DEPLOY_DIR || error_exit "Impossible to create $DYNAWO_DEPLOY_DIR."
   cd $DYNAWO_DEPLOY_DIR
   mkdir -p 3rdParty/sundials/lib
   mkdir -p 3rdParty/adept/lib
@@ -1110,6 +1384,9 @@ deploy_dynawo() {
   cp -P $LIBZIP_HOME/lib/*.* extraLibs/LIBZIP/lib/
   cp -P $LIBXML_HOME/lib/*.* extraLibs/LIBXML/lib/
 
+  if [ ! -d "$THIRD_PARTY_SRC_DIR/libiidm" ]; then
+    error_exit "$THIRD_PARTY_SRC_DIR/libiidm does not exist."
+  fi
   cd $THIRD_PARTY_SRC_DIR/libiidm
   if [ $BOOST_ROOT_DEFAULT != true ]; then
     BOOST_OPTION="--boost-install-dir=$BOOST_ROOT"
@@ -1121,9 +1398,19 @@ deploy_dynawo() {
   else
     GTEST_OPTION=""
   fi
-  bash libiidm-chain.sh --build-dir=$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM/build --install-dir=$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM/ --build-type=$BUILD_TYPE --libxml-install-dir=$LIBXML_INSTALL_DIR $BOOST_OPTION $GTEST_OPTION
+
+  bash libiidm-chain.sh --build-dir=$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM/build \
+    --install-dir=$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM \
+    --build-type=$BUILD_TYPE \
+    --libxml-install-dir=$LIBXML_INSTALL_DIR \
+    $BOOST_OPTION \
+    $GTEST_OPTION
+
   rm -rf $DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM/build
 
+  if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
+    error_exit "$DYNAWO_DEPLOY_DIR does not exist."
+  fi
   cd $DYNAWO_DEPLOY_DIR
 
   mkdir -p 3rdParty/sundials/include
@@ -1165,9 +1452,9 @@ deploy_dynawo() {
     cp -P $BOOST_ROOT/lib/libboost_*.so* extraLibs/BOOST/lib/
     cp -P -R $BOOST_ROOT/include/boost/ extraLibs/BOOST/include/
   else
-    boost_system_folder=$(findLibSystemPath boost)
+    boost_system_folder=$(find_lib_system_path boost)
     cp -P ${boost_system_folder}libboost_*.so* extraLibs/BOOST/lib/
-    boost_system_folder_include=$(findIncludeSystemPath Boost_INCLUDE_DIR)
+    boost_system_folder_include=$(find_include_system_path Boost_INCLUDE_DIR)
     cp -P -R $boost_system_folder_include/boost extraLibs/BOOST/include/
   fi
 
@@ -1181,9 +1468,9 @@ deploy_dynawo() {
     cp $LIBARCHIVE_HOME/include/archive_entry.h extraLibs/LIBARCHIVE/include/
     cp $LIBARCHIVE_HOME/include/archive.h extraLibs/LIBARCHIVE/include/
   else
-    libarchive_system_folder=$(findLibSystemPath archive)
+    libarchive_system_folder=$(find_lib_system_path archive)
     cp -P ${libarchive_system_folder}libarchive*.so* extraLibs/LIBARCHIVE/lib/
-    libarchive_system_folder_include=$(findIncludeSystemPath LibArchive_INCLUDE_DIR)
+    libarchive_system_folder_include=$(find_include_system_path LibArchive_INCLUDE_DIR)
     cp $libarchive_system_folder_include/archive_entry.h extraLibs/LIBARCHIVE/include/
     cp $libarchive_system_folder_include/archive.h extraLibs/LIBARCHIVE/include/
   fi
@@ -1195,9 +1482,9 @@ deploy_dynawo() {
 
   mkdir -p sbin
   cp $DYNAWO_INSTALL_DIR/sbin/*.py sbin/
-  cp $DYNAWO_INSTALL_DIR/sbin/cleanCompilerModelicaOMC sbin/
-  cp $DYNAWO_INSTALL_DIR/sbin/compileLibModelicaOMC sbin/
-  cp $DYNAWO_INSTALL_DIR/sbin/compilerModelicaOMC sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/cleanCompileModelicaModel sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/compileModelicaModelInLib sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/compileModelicaModel sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dumpModel sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/generate-preassembled sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dumpSolver sbin/
@@ -1218,7 +1505,7 @@ deploy_dynawo() {
   cd $current_dir
 }
 
-create_distrib_with_omc(){
+create_distrib_with_omc() {
    # Set Dynawo distrib version
   DYNAWO_VERSION=$(version)
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
@@ -1226,7 +1513,7 @@ create_distrib_with_omc(){
   ZIP_FILE=Dynawo_omc_V$version.zip
 
   # check coding
-  checkCodingFiles
+  check_coding_files
 
   # Deploy Dynawo
   deploy_dynawo
@@ -1236,6 +1523,9 @@ create_distrib_with_omc(){
   fi
 
   # create distribution
+  if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
+    error_exit "$DYNAWO_DEPLOY_DIR does not exist."
+  fi
   cd $DYNAWO_DEPLOY_DIR
   zip -r -y $ZIP_FILE bin/ lib/ share/
 
@@ -1255,7 +1545,7 @@ create_distrib_with_omc(){
   mv $ZIP_FILE $DISTRIB_DIR
 }
 
-create_distrib(){
+create_distrib() {
   # Set Dynawo distrib version
   DYNAWO_VERSION=$(version)
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
@@ -1263,12 +1553,15 @@ create_distrib(){
   ZIP_FILE=Dynawo_V$version.zip
 
   # check coding
-  checkCodingFiles
+  check_coding_files
 
   # Deploy Dynawo
   deploy_dynawo
 
   # create distribution
+  if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
+    error_exit "$DYNAWO_DEPLOY_DIR does not exist."
+  fi
   cd $DYNAWO_DEPLOY_DIR
   zip -r -y $ZIP_FILE bin/ lib/ share/
   zip -r -g -y $ZIP_FILE ddb/*.so ddb/*.desc.xml
@@ -1297,6 +1590,211 @@ deploy_dynawo_autocompletion() {
   $DYNAWO_HOME/util/autocompletion/deploy_autocompletion.sh $*
 }
 
+build_doc() {
+  if [ ! -d "$DYNAWO_HOME/documentation" ]; then
+    error_exit "$DYNAWO_HOME/documentation does not exist."
+  fi
+  cd $DYNAWO_HOME/documentation
+  bash dynawo_documentation.sh
+}
+
+clean_doc() {
+  if [ ! -d "$DYNAWO_HOME/documentation" ]; then
+    error_exit "$DYNAWO_HOME/documentation does not exist."
+  fi
+  cd $DYNAWO_HOME/documentation
+  bash clean.sh
+}
+
+open_doc() {
+  if [ -x "$(command -v xdg-open)" ]; then
+    xdg-open $DYNAWO_HOME/documentation/dynawoDocumentation/DynawoDocumentation.pdf
+  elif [ ! -z "$DYNAWO_PDFVIEWER" ]; then
+    if [ -x "$(command -v $DYNAWO_PDFVIEWER)" ]; then
+      $DYNAWO_PDFVIEWER $DYNAWO_HOME/documentation/dynawoDocumentation/DynawoDocumentation.pdf
+    else
+      error_exit "$DYNAWO_PDFVIEWER seems not to be executable."
+    fi
+  else
+    error_exit "Cannot determine how to open pdf document from command line. Use DYNAWO_PDFVIEWER environement variable."
+  fi
+}
+
+build_nrt_doc() {
+  if [ ! -d "$DYNAWO_HOME/nrt/documentation" ]; then
+    error_exit "$DYNAWO_HOME/nrt/documentation does not exist."
+  fi
+  cd $DYNAWO_HOME/nrt/documentation
+  bash merge_tnr_descriptions.sh
+}
+
+clean_nrt_doc() {
+  for folder in $(find $DYNAWO_HOME/nrt/data -type d -name "description"); do
+    if [ -d "$folder" ]; then
+      (cd $folder; rm -f *.toc *.aux *.bbl *.blg *.log *.out *.pdf *.gz *.mtc* *.maf *.lof)
+    fi
+  done
+  (cd $DYNAWO_HOME/nrt/documentation; rm -f *.toc *.aux *.bbl *.blg *.log *.out *.pdf *.gz *.mtc* *.maf *.lof nrt_doc.tex)
+}
+
+open_nrt_doc() {
+  if [ -x "$(command -v xdg-open)" ]; then
+    xdg-open $DYNAWO_HOME/nrt/documentation/nrt_doc.pdf
+  elif [ ! -z "$DYNAWO_PDFVIEWER" ]; then
+    if [ -x "$(command -v $DYNAWO_PDFVIEWER)" ]; then
+      $DYNAWO_PDFVIEWER $DYNAWO_HOME/nrt/documentation/nrt_doc.pdf
+    else
+      error_exit "$DYNAWO_PDFVIEWER seems not to be executable."
+    fi
+  else
+    error_exit "Cannot determine how to open pdf document from command line. Use DYNAWO_PDFVIEWER environement variable."
+  fi
+}
+
+unittest_gdb() {
+  reset_environment_variables
+  set_environment build-tests
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    build_3rd_party_version || error_exit
+    config_dynawo || error_exit
+    build_dynawo_core || error_exit
+    build_dynawo_models_cpp || error_exit
+  fi
+  list_of_tests=($(find $DYNAWO_BUILD_DIR/sources -executable -type f -exec basename {} \; | grep test))
+  if [[ ${#list_of_tests[@]} == 0 ]]; then
+    echo "The list of tests is empty. This should not happen."
+    exit 1
+  fi
+  if [ -z "$1" ]; then
+    echo "You need to give the name of unittest to run."
+    echo "List of available unittests:"
+    for name in ${list_of_tests[@]}; do
+      echo "  $name"
+    done
+    exit 1
+  fi
+  unittest_exe=$(find $DYNAWO_BUILD_DIR/sources -name "$1")
+  if [ -z "$unittest_exe" ]; then
+    echo "The unittest you gave is not available."
+    echo "List of available unittests:"
+    for name in ${list_of_tests[@]}; do
+      echo "  $name"
+    done
+    exit 1
+  fi
+  if [ ! -d "$(dirname $unittest_exe)" ]; then
+    error_exit "$(dirname $unittest_exe) does not exist."
+  fi
+  cd $(dirname $unittest_exe)
+  gdb -q --args $unittest_exe
+}
+
+reset_environment_variables() {
+  ld_library_path_remove $NICSLU_INSTALL_DIR/lib
+  ld_library_path_remove $SUITESPARSE_INSTALL_DIR/lib
+  ld_library_path_remove $SUNDIALS_INSTALL_DIR/lib64
+  ld_library_path_remove $LIBZIP_HOME/lib
+  ld_library_path_remove $LIBXML_HOME/lib
+  ld_library_path_remove $LIBIIDM_HOME/lib
+  ld_library_path_remove $ADEPT_INSTALL_DIR/lib
+  ld_library_path_remove $XERCESC_INSTALL_DIR/lib
+  ld_library_path_remove $DYNAWO_INSTALL_DIR/lib
+  ld_library_path_remove $LIBARCHIVE_HOME/lib
+  ld_library_path_remove $BOOST_ROOT/lib
+  ld_library_path_remove $GTEST_ROOT/lib64
+  ld_library_path_remove $GTEST_ROOT/lib
+  path_remove $INSTALL_OPENMODELICA/bin
+  python_path_remove $DYNAWO_SCRIPTS_DIR
+  unset ADEPT_BUILD_DIR
+  unset ADEPT_INSTALL_DIR
+  unset BOOST_ROOT
+  unset BOOST_ROOT_DEFAULT
+  unset BRANCH_NAME
+  unset BROWSER
+  unset BUILD_TYPE_THIRD_PARTY
+  unset COMPILER_NAME
+  unset CPPLINT_DOWNLOAD_URL
+  unset CURVES_TO_HTML_DIR
+  unset C_COMPILER
+  unset COMPILER_VERSION
+  unset CXX_COMPILER
+  unset DYNAWO_BUILD_DIR
+  unset DYNAWO_DEPLOY_DIR
+  unset DYNAWO_INSTALL_DIR
+  unset DYNAWO_LOCALE
+  unset DYNAWO_MODEL_DOCUMENTATION_DIR
+  unset DYNAWO_RESOURCES_DIR
+  unset DYNAWO_SCRIPTS_DIR
+  unset DYNAWO_SRC_DIR
+  unset ENV_DYNAWO
+  unset FLOT_DOWNLOAD_URL
+  unset GTEST_ROOT
+  unset GTEST_ROOT_DEFAULT
+  unset JQUERY_DOWNLOAD_URL
+  unset LIBARCHIVE_HOME
+  unset LIBARCHIVE_HOME_DEFAULT
+  unset LIBIIDM_BUILD_DIR
+  unset LIBIIDM_HOME
+  unset LIBIIDM_INSTALL_DIR
+  unset LIBXML_BUILD_DIR
+  unset LIBXML_HOME
+  unset LIBXML_INSTALL_DIR
+  unset LIBZIP_BUILD_DIR
+  unset LIBZIP_HOME
+  unset LIBZIP_INSTALL_DIR
+  unset MODELICA_LIB
+  unset NB_PROCESSORS_USED
+  unset NICSLU_BUILD_DIR
+  unset NICSLU_INSTALL_DIR
+  unset NRT_DIFF_DIR
+  unset NRT_DIR
+  unset OPENMODELICA_VERSION
+  unset RESULTS_SHOW
+  unset SUITESPARSE_BUILD_DIR
+  unset SUITESPARSE_INSTALL_DIR
+  unset SUNDIALS_BUILD_DIR
+  unset SUNDIALS_INSTALL_DIR
+  unset THIRD_PARTY_BUILD_DIR
+  unset THIRD_PARTY_BUILD_DIR_VERSION
+  unset THIRD_PARTY_INSTALL_DIR
+  unset THIRD_PARTY_INSTALL_DIR_VERSION
+  unset THIRD_PARTY_SRC_DIR
+  unset USE_ADEPT
+  unset USE_XSD_VALIDATION
+  unset XERCESC_BUILD_DIR
+  unset XERCESC_INSTALL_DIR
+}
+
+reset_environment_variables_full() {
+  reset_environment_variables
+  unset BUILD_TYPE
+  unset COMPILER
+  unset CXX11_ENABLED
+  unset DYNAWO_HOME
+  unset DYNAWO_LIBRARY_TYPE
+  unset INSTALL_OPENMODELICA
+  unset SRC_OPENMODELICA
+}
+
+#################################
+########### Main script #########
+#################################
+
+if [ "`uname`" = "Linux" ]; then
+  TOTAL_CPU=$(grep -c \^processor /proc/cpuinfo)
+elif [ "`uname`" = "Darwin" ]; then
+  TOTAL_CPU=$(sysctl hw | grep ncpu | awk '{print $(NF)}')
+else
+  echo "OS not supported."
+  exit 1
+fi
+
+if [ -n "$BASH_VERSION" ]; then
+  SCRIPT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && echo "$(pwd)"/"$(basename ${BASH_SOURCE[0]})")
+elif [ -n "$ZSH_VERSION" ]; then
+  SCRIPT=$(cd "$(dirname "$0")" && echo "$(pwd)"/"$(basename $0)")
+fi
+
 LAUNCH_COMMAND=$*
 MODE=$1
 
@@ -1312,46 +1810,6 @@ fi
 
 ## launch command
 case $MODE in
-  distrib)
-    create_distrib || error_exit "Error while building Dynawo distribution"
-    ;;
-
-  distrib-omc)
-    create_distrib_with_omc || error_exit "Error while building Dynawo distribution"
-    ;;
-
-  clean-omcDynawo)
-    clean_omcDynawo
-    ;;
-
-  build-omcDynawo)
-    build_omcDynawo || error_exit "Failed to build OMC for Dynawo"
-    ;;
-
-  clean-3rd-party)
-    clean_3rd_party || error_exit "Error while cleaning 3rd parties"
-    ;;
-
-  clean-dynawo)
-    clean_dynawo || error_exit "Error while cleaning Dynawo"
-    ;;
-
-  clean-all)
-    clean_all || error_exit
-    ;;
-
-  uninstall-3rd-party)
-    uninstall_3rd_party || error_exit "Error while uninstalling 3rd parties"
-    ;;
-
-  uninstall-dynawo)
-    uninstall_dynawo || error_exit "Error while uninstalling Dynawo"
-    ;;
-
-  uninstall-all)
-    uninstall_all || error_exit "Error while uninstalling all"
-    ;;
-
   build-3rd-party)
     build_3rd_party || error_exit "Error while building 3rd parties"
     ;;
@@ -1360,16 +1818,20 @@ case $MODE in
     build_3rd_party_version || error_exit "Error while building 3rd party version"
     ;;
 
-  compilerModelicaOMC)
-    compiler_Modelica_OMC ${ARGS} || error_exit "Failed to compile Modelica model"
+  build-all)
+    build_all || error_exit "Error while building all"
     ;;
 
-  config-dynawo)
-    config_dynawo || error_exit "Error while configuring Dynawo"
+  build-doc)
+    build_doc || error_exit "Error during the build of dynawo documentation"
+    ;;
+
+  build-doxygen-doc)
+    build_test_doxygen_doc || error_exit "Error while building doxygen documentation"
     ;;
 
   build-dynawo)
-    config_dynawo ||  error_exit "Error while configuring Dynawo"
+    config_dynawo || error_exit "Error while configuring Dynawo"
     build_dynawo || error_exit "Error while building Dynawo"
     ;;
 
@@ -1377,16 +1839,12 @@ case $MODE in
     build_dynawo_core || error_exit "Failed to build Dynawo core"
     ;;
 
-  build-doxygen-doc)
-    build_test_doxygen_doc || error_exit "Error while building doxygen documentation"
+  build-dynawo-models)
+    build_dynawo_models || error_exit "Failed to build Dynawo models"
     ;;
 
   build-dynawo-models-cpp)
     build_dynawo_models_cpp || error_exit "Failed to build Dynawo models-cpp"
-    ;;
-
-  build-dynawo-models)
-    build_dynawo_models || error_exit "Failed to build Dynawo models"
     ;;
 
   build-dynawo-solvers)
@@ -1397,112 +1855,128 @@ case $MODE in
     build_modelica_doc || error_exit "Error while building Dynawo Modelica library documentation"
     ;;
 
-  build-all)
-    build_all || error_exit
+  build-nrt-doc)
+    build_nrt_doc || error_exit "Error during the build of Dynawo nrt documentation"
+    ;;
+
+  build-omcDynawo)
+    build_omcDynawo || error_exit "Failed to build OMC for Dynawo"
     ;;
 
   build-tests)
-    build_tests ${ARGS} || error_exit
+    build_tests ${ARGS} || error_exit "Error while building tests"
     ;;
 
   build-tests-coverage)
-    build_tests_coverage ${ARGS}|| error_exit
+    build_tests_coverage ${ARGS}|| error_exit "Error while building tests coverage"
     ;;
 
-  list-tests)
-    list_tests || error_exit
+  build-user)
+    build_user || error_exit "Error while building Dynawo"
     ;;
 
-  clean-tests)
-    clean_tests || error_exit
+  clean-3rd-party)
+    clean_3rd_party || error_exit "Error while cleaning 3rd parties"
     ;;
 
-  clean-tests-coverage)
-    clean_tests_coverage || error_exit
-    ;;
-
-  clean-build-all)
-    clean_build_all || error_exit
-    ;;
-
-  clean-build-dynawo)
-    clean_build_dynawo || error_exit
+  clean-all)
+    clean_all || error_exit "Error while clean all"
     ;;
 
   clean-build-3rd-party)
-    clean_build_3rd_party || error_exit
+    clean_build_3rd_party || error_exit "Error while clean build 3rd parties"
     ;;
 
-  jobs)
-    jobs ${ARGS} || error_exit "Dynawo job failed"
+  clean-build-all)
+    clean_build_all || error_exit "Error while clean build all"
     ;;
 
-  jobs-valgrind)
-    jobs --valgrind ${ARGS} || error_exit "Dynawo job failed"
+  clean-build-dynawo)
+    clean_build_dynawo || error_exit "Error while clean build all"
     ;;
 
-  jobs-valgrind-callgrind)
-    jobs --valgrind-callgrind ${ARGS} || error_exit "Dynawo job failed"
+  clean-doc)
+    clean_doc || error_exit "Error during the clean of Dynawo documentation"
     ;;
 
-  jobs-valgrind-dhat)
-    jobs --valgrind-dhat ${ARGS} || error_exit "Dynawo job failed"
+  clean-dynawo)
+    clean_dynawo || error_exit "Error while cleaning Dynawo"
     ;;
 
-  jobs-valgrind-massif)
-    jobs --valgrind-massif ${ARGS} || error_exit "Dynawo job failed"
+  clean-nrt-doc)
+    clean_nrt_doc || error_exit "Error during the clean of Dynawo nrt documentation"
     ;;
 
-  jobs-gdb)
-    jobs --gdb ${ARGS} || error_exit "Dynawo job failed"
+  clean-old-branches)
+    clean_old_branches || error_exit "Error during the cleaning of old branches build/install/nrt"
     ;;
 
-  jobs-with-curves)
-    jobs_with_curves ${ARGS} || error_exit "Dynawo job with curves failed"
+  clean-omcDynawo)
+    clean_omcDynawo || error_exit "Error during the cleaning of omcDynawo"
+    ;;
+
+  clean-tests)
+    clean_tests || error_exit "Error during the cleaning of tests"
+    ;;
+
+  clean-tests-coverage)
+    clean_tests_coverage || error_exit "Error during the cleaning of tests coverage"
+    ;;
+
+  compileLibModelicaOMC)
+    compile_lib_modelica_omc ${ARGS} || error_exit "Error during the compilation of Modelica Model for dynawo"
+    ;;
+
+  compileModelicaModel)
+    compile_Modelica_Model ${ARGS} || error_exit "Failed to compile Modelica model"
+    ;;
+
+  config-dynawo)
+    config_dynawo || error_exit "Error while configuring Dynawo"
+    ;;
+
+  deploy)
+    deploy_dynawo || error_exit "Error during the deployment of Dynawo"
+    ;;
+
+  deploy-autocompletion)
+    deploy_dynawo_autocompletion ${ARGS} || error_exit "Error during the deployment of autocompletion for Dynawo"
+    ;;
+
+  display-environment)
+    display_environment_variables || error_exit "Failed to display environment variables"
+    ;;
+
+  distrib)
+    create_distrib || error_exit "Error while building Dynawo distribution"
+    ;;
+
+  distrib-omc)
+    create_distrib_with_omc || error_exit "Error while building Dynawo distribution"
+    ;;
+
+  doc)
+    open_doc || error_exit "Error during the opening of Dynawo documentation"
+    ;;
+
+  doxygen-doc)
+    open_doxygen_doc || error_exit "Error during Dynawo Doxygen doc visualisation"
     ;;
 
   dump-model)
     dump_model ${ARGS} || error_exit "Error during model's description dump"
     ;;
 
-  dump-model-valgrind)
-    valgrind_dump_model ${ARGS} || error_exit "Error during model's description dump"
-    ;;
-
   dump-model-gdb)
     gdb_dump_model ${ARGS} || error_exit "Error during model's description dump"
     ;;
 
-  doxygen-doc-dynawo)
-    doxygen_doc_dynawo || error_exit "Error during Dynawo Doxygen doc visualisation"
+  dump-model-valgrind)
+    valgrind_dump_model ${ARGS} || error_exit "Error during model's description dump"
     ;;
 
   flat-model)
     flat_model ${ARGS} || error_exit "Failed to generate Modelica model documentation"
-    ;;
-
-  nrt)
-    nrt ${ARGS} || error_exit "Error during Dynawo's non regression tests execution"
-    ;;
-
-  nrt-diff)
-    nrt_diff ${ARGS} || error_exit "Error during Dynawo's NRT Diff execution"
-    ;;
-
-  curves-visu)
-    curves_visu ${ARGS} || error_exit "Error during curves visualisation page generation"
-    ;;
-
-  display-environment)
-    display_environmentVariables || error_exit "Failed to display environment variables"
-    ;;
-
-  version)
-    version || error_exit "Error during version visualisation"
-    ;;
-
-  version-validation)
-    version_validation || error_exit "The current version does not fulfill the standard quality check"
     ;;
 
   generate-preassembled)
@@ -1513,28 +1987,84 @@ case $MODE in
     generate_preassembled_gdb ${ARGS} || error_exit "Error during the generation of a preassembled model"
     ;;
 
-  clean-old-branches)
-    clean_old_branches || error_exit "Error during the cleaning of old branches build/install/nrt"
-    ;;
-
-  deploy)
-    deploy_dynawo || error_exit "Error during the deployment of dynawo"
-    ;;
-
-  deploy-autocompletion)
-    deploy_dynawo_autocompletion ${ARGS} || error_exit "Error during the deployment of autocompletion for dynawo"
-    ;;
-
-  compileLibModelicaOMC)
-    compile_lib_modelica_omc ${ARGS} || error_exit "Error during the compilation of Modelica Model for dynawo"
-    ;;
-
   help)
-    echo "$usage"
+    help_dynawo "Error during the help"
+    ;;
+
+  help-user)
+    help_dynawo_user "Error during the help for users"
+    ;;
+
+  jobs)
+    launch_jobs ${ARGS} || error_exit "Dynawo job failed"
+    ;;
+
+  jobs-gdb)
+    launch_jobs --gdb ${ARGS} || error_exit "Dynawo job failed"
+    ;;
+
+  jobs-valgrind)
+    launch_jobs --valgrind ${ARGS} || error_exit "Dynawo job failed"
+    ;;
+
+  jobs-valgrind-callgrind)
+    launch_jobs --valgrind-callgrind ${ARGS} || error_exit "Dynawo job failed"
+    ;;
+
+  jobs-with-curves)
+    jobs_with_curves ${ARGS} || error_exit "Dynawo job with curves failed"
+    ;;
+
+  list-tests)
+    list_tests || error_exit "Error during the display of tests list"
+    ;;
+
+  modelica-doc)
+    open_modelica_doc || error_exit "Error while opening Dynawo Modelica library documentation"
+    ;;
+
+  nrt)
+    nrt ${ARGS} || error_exit "Error during Dynawo's non regression tests execution"
+    ;;
+
+  nrt-diff)
+    nrt_diff ${ARGS} || error_exit "Error during Dynawo's NRT Diff execution"
+    ;;
+
+  nrt-doc)
+    open_nrt_doc || error_exit "Error during the opening of Dynawo nrt documentation"
+    ;;
+
+  reset-environment)
+    reset_environment_variables_full || error_exit "Failed to reset environment variables"
+    ;;
+
+  uninstall-3rd-party)
+    uninstall_3rd_party || error_exit "Error while uninstalling 3rd parties"
+    ;;
+
+  uninstall-all)
+    uninstall_all || error_exit "Error while uninstalling all"
+    ;;
+
+  uninstall-dynawo)
+    uninstall_dynawo || error_exit "Error while uninstalling Dynawo"
+    ;;
+
+  unittest-gdb)
+    unittest_gdb ${ARGS} || error_exit "Error during the run unittest in gdb"
+    ;;
+
+  version)
+    version || error_exit "Error during version visualisation"
+    ;;
+
+  version-validation)
+    version_validation || error_exit "The current version does not fulfill the standard quality check"
     ;;
 
   *)
     echo "$1 is an invalid option"
-    echo "$usage"
+    help_dynawo
     ;;
 esac

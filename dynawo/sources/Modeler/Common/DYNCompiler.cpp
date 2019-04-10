@@ -317,7 +317,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   string installDir = prettyPath(getEnvVar("DYNAWO_INSTALL_DIR"));
 
   // remove old files
-  string cleanCommand = installDir + "/sbin/cleanCompilerModelicaOMC --model=" + thisCompiledId + " --directory=" + compileDirPath_;
+  string cleanCommand = installDir + "/sbin/cleanCompileModelicaModel --model=" + thisCompiledId + " --directory=" + compileDirPath_;
   if (rmModels_)
     cleanCommand += " --remove-model-files";
 #ifdef _DEBUG_
@@ -383,7 +383,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   }
 
   // Compilation and post-treatment on concatenated files
-  string compileCommand = installDir + "/sbin/compilerModelicaOMC --model " + thisCompiledId + " --output-dir " + compileDirPath_ + " --lib " + libName;
+  string compileCommand = installDir + "/sbin/compileModelicaModel --model " + thisCompiledId + " --output-dir " + compileDirPath_ + " --lib " + libName;
 
   if (moFilesCompilation_.size() > 0) {
     string moFilesList = "";
