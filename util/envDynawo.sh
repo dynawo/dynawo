@@ -80,11 +80,11 @@ where [option] can be:"
         =========== Launch
         jobs ([args])                     launch Dynawo simulation
         jobs-with-curves ([args])         launch Dynawo simulation and open resulting curves in a browser
-        jobs-gdb ([args])                 call Dynawo's launcher with debugger with given arguments setting LD_LIBRARY_PATH correctly
-        jobs-valgrind ([args])            call Dynawo's launcher with valgrind with given arguments setting LD_LIBRARY_PATH correctly
-        jobs-valgrind-callgrind ([args])  call Dynawo's launcher with valgrind using callgrind tool with given arguments setting LD_LIBRARY_PATH correctly
-        jobs-valgrind-dhat ([args])       call Dynawo's launcher with valgrind using dhat tool with given arguments setting LD_LIBRARY_PATH correctly
-        jobs-valgrind-massif ([args])     call Dynawo's launcher with valgrind measuring the memory used by Dynawo
+        jobs-gdb ([args])                 launch Dynawo simulation in gdb
+        jobs-valgrind ([args])            launch Dynawo simulation in valgrind (defaut tool to check memory leakage)
+        jobs-valgrind-callgrind ([args])  launch Dynawo simulation in valgrind with callgrind tool (profiling tool that records the call history)
+        jobs-valgrind-dhat ([args])       launch Dynawo simulation in valgrind with dhat tool (dynamic heap analysis tool)
+        jobs-valgrind-massif ([args])     launch Dynawo simulation in valgrind with massif tool (a heap profiler)
         unittest-gdb [arg]                call unittest in gdb
 
         =========== Distribution
@@ -765,16 +765,12 @@ uninstall_3rd_party() {
 
 # clean Dynawo
 clean_dynawo() {
-  if [ -d "$DYNAWO_BUILD_DIR" ]; then
-    rm -rf $DYNAWO_BUILD_DIR
-  fi
+  rm -rf $DYNAWO_BUILD_DIR
 }
 
 # uninstall Dynawo
 uninstall_dynawo() {
-  if [ -d "$DYNAWO_INSTALL_DIR" ]; then
-    rm -rf $DYNAWO_INSTALL_DIR
-  fi
+  rm -rf $DYNAWO_INSTALL_DIR
 }
 
 # clean Dynawo, 3rd party
@@ -931,7 +927,7 @@ list_tests() {
 
 verify_browser() {
   if [ ! -x "$(command -v $BROWSER)" ]; then
-    error_exit "Your browser $BROWSER seems not to be executable."
+    error_exit "Specified browser BROWSER=$BROWSER not found."
   fi
 }
 
@@ -1113,17 +1109,7 @@ test_modelica_doc() {
 
 open_modelica_doc() {
   error_exit "Not available for the moment."
-  # if [ -x "$(command -v xdg-open)" ]; then
-  #   xdg-open $DYNAWO_HOME/documentation/ModelicaDocumentation/model_documentation.pdf
-  # elif [ ! -z "$DYNAWO_PDFVIEWER" ]; then
-  #   if [ -x "$(command -v $DYNAWO_PDFVIEWER)" ]; then
-  #     $DYNAWO_PDFVIEWER $DYNAWO_HOME/documentation/ModelicaDocumentation/model_documentation.pdf
-  #   else
-  #     error_exit "$DYNAWO_PDFVIEWER seems not to be executable."
-  #   fi
-  # else
-  #   error_exit "Cannot determine how to open pdf document from command line. Use DYNAWO_PDFVIEWER environement variable."
-  # fi
+  # open_pdf $DYNAWO_HOME/documentation/ModelicaDocumentation/model_documentation.pdf
 }
 
 launch_jobs() {
@@ -1607,17 +1593,7 @@ clean_doc() {
 }
 
 open_doc() {
-  if [ -x "$(command -v xdg-open)" ]; then
-    xdg-open $DYNAWO_HOME/documentation/dynawoDocumentation/DynawoDocumentation.pdf
-  elif [ ! -z "$DYNAWO_PDFVIEWER" ]; then
-    if [ -x "$(command -v $DYNAWO_PDFVIEWER)" ]; then
-      $DYNAWO_PDFVIEWER $DYNAWO_HOME/documentation/dynawoDocumentation/DynawoDocumentation.pdf
-    else
-      error_exit "$DYNAWO_PDFVIEWER seems not to be executable."
-    fi
-  else
-    error_exit "Cannot determine how to open pdf document from command line. Use DYNAWO_PDFVIEWER environement variable."
-  fi
+  open_pdf $DYNAWO_HOME/documentation/dynawoDocumentation/DynawoDocumentation.pdf
 }
 
 build_nrt_doc() {
@@ -1637,18 +1613,29 @@ clean_nrt_doc() {
   (cd $DYNAWO_HOME/nrt/documentation; rm -f *.toc *.aux *.bbl *.blg *.log *.out *.pdf *.gz *.mtc* *.maf *.lof nrt_doc.tex)
 }
 
-open_nrt_doc() {
-  if [ -x "$(command -v xdg-open)" ]; then
-    xdg-open $DYNAWO_HOME/nrt/documentation/nrt_doc.pdf
-  elif [ ! -z "$DYNAWO_PDFVIEWER" ]; then
+open_pdf() {
+  if [ -z "$1" ]; then
+    error_exit "You need to specify a pdf file to open."
+  fi
+  if [ ! -z "$DYNAWO_PDFVIEWER" ]; then
     if [ -x "$(command -v $DYNAWO_PDFVIEWER)" ]; then
-      $DYNAWO_PDFVIEWER $DYNAWO_HOME/nrt/documentation/nrt_doc.pdf
+      if [ -f "$1" ]; then
+        $DYNAWO_PDFVIEWER $1
+      else
+        error_exit "Pdf file $1 you try to open does not exist."
+      fi
     else
       error_exit "$DYNAWO_PDFVIEWER seems not to be executable."
     fi
+  elif [ -x "$(command -v xdg-open)" ]; then
+      xdg-open $1
   else
-    error_exit "Cannot determine how to open pdf document from command line. Use DYNAWO_PDFVIEWER environement variable."
+    error_exit "Cannot determine how to open pdf document from command line. Use DYNAWO_PDFVIEWER environemnt variable."
   fi
+}
+
+open_nrt_doc() {
+  open_pdf $DYNAWO_HOME/nrt/documentation/nrt_doc.pdf
 }
 
 unittest_gdb() {
@@ -2065,6 +2052,6 @@ case $MODE in
 
   *)
     echo "$1 is an invalid option"
-    help_dynawo
+    help_dynawo_user
     ;;
 esac
