@@ -161,7 +161,7 @@ class MessageError : public std::exception {
    *
    * @return an error with same value as e
    */
-  MessageError & operator=(const MessageError & e);
+  MessageError& operator=(const MessageError & e);
 
   /**
    * @brief Returns a pointer to the error description
