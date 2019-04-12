@@ -100,13 +100,15 @@ while (($#)); do
         mkdir -p $INSTALL_DIR/include
         mkdir -p $INSTALL_DIR/lib
       fi
-      break
       ;;
     --build-dir=*)
       BUILD_DIR=`echo $1 | sed -e 's/--build-dir=//g'`
       if [ ! -d "$BUILD_DIR" ]; then
         mkdir -p $BUILD_DIR
       fi
+      ;;
+    --build-type=*)
+      BUILD_TYPE=`echo $1 | sed -e 's/--build-type=//g'`
       ;;
     *)
       break
