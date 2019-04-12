@@ -85,14 +85,14 @@ find_cxx_std_flag() {
 
 compile_suitesparse() {
   cd $SCRIPT_DIR/suitesparse
-  bash suitesparse-chain.sh --build-dir=$SUITESPARSE_BUILD_DIR --install-dir=$SUITESPARSE_INSTALL_DIR
+  bash suitesparse-chain.sh --build-dir=$SUITESPARSE_BUILD_DIR --install-dir=$SUITESPARSE_INSTALL_DIR --build-type=$BUILD_TYPE
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 compile_nicslu() {
   cd $SCRIPT_DIR/nicslu
-  bash nicslu-chain.sh --build-dir=$NICSLU_BUILD_DIR --install-dir=$NICSLU_INSTALL_DIR
+  bash nicslu-chain.sh --build-dir=$NICSLU_BUILD_DIR --install-dir=$NICSLU_INSTALL_DIR --build-type=$BUILD_TYPE
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -275,6 +275,9 @@ while (($#)); do
         mkdir -p $XERCESC_BUILD_DIR
       fi
       ;;
+    --build-type=*)
+      BUILD_TYPE=`echo $1 | sed -e 's/--build-type=//g'`
+      ;;
     *)
       break
       ;;
@@ -344,6 +347,10 @@ if [[ -z "$LIBIIDM_BUILD_DIR" ]]; then
 fi
 if [[ -z "$XERCESC_BUILD_DIR" ]]; then
   echo "Need to set XERCESC_BUILD_DIR"
+  exit 1
+fi
+if [[ -z "$BUILD_TYPE" ]]; then
+  echo "Need to set BUILD_TYPE"
   exit 1
 fi
 
