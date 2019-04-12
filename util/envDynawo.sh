@@ -519,7 +519,7 @@ build_3rd_party() {
 build_3rd_party_version() {
   if ! is_3rd_party_version_installed; then
     cd $DYNAWO_SRC_DIR/3rdParty
-    bash toolchain.sh
+    bash toolchain.sh --build-type=$BUILD_TYPE_THIRD_PARTY
     RETURN_CODE=$?
     return ${RETURN_CODE}
   fi
