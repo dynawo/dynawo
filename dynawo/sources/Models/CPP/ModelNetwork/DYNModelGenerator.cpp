@@ -162,7 +162,6 @@ ModelGenerator::evalNodeInjection() {
 
 void
 ModelGenerator::evalDerivatives() {
-  // Timer timer3("ModelGen::evalDerivatives");
   if (!network_->isInitModel() && isConnected()) {
     double ur = modelBus_->ur();
     double ui = modelBus_->ui();

@@ -189,7 +189,6 @@ ModelStaticVarCompensator::evalF() {
   // equation 3 : 0 = T * d(feedBack)/dt - K * bSvc + feedBack
   // ----------------------------------------------------------
   f_[index] = kP_ * Ti_ * feedBackPrim() - bSvc() + feedBack();
-  index += 1;
 }
 
 void

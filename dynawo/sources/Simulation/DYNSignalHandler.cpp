@@ -27,12 +27,6 @@ namespace DYN {
 
 bool SignalHandler::gotExitSignal_ = false;
 
-SignalHandler::SignalHandler() {
-}
-
-SignalHandler::~SignalHandler() {
-}
-
 bool
 SignalHandler::gotExitSignal() {
   return gotExitSignal_;

@@ -157,7 +157,6 @@ namespace DYN {
 Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context) :
 context_(context),
 jobEntry_(jobEntry),
-signalHandler_(),
 solver_(),
 model_(),
 data_(),
@@ -184,7 +183,7 @@ dumpLocalInitValues_(false),
 dumpGlobalInitValues_(false),
 lastTimeSimulated_(-1),
 nbLastTimeSimulated_(0) {
-  signalHandler_.setSignalHandlers();
+  SignalHandler::setSignalHandlers();
 
   pid_ = getpid();
   stringstream pid_string;
@@ -727,7 +726,7 @@ Simulation::simulate() {
                                          // either in a modelica model or in a C++ model.
     }
     int currentIterNb = 0;
-    while (!end() && !signalHandler_.gotExitSignal() && criteriaChecked) {
+    while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       bool isCheckCriteriaIter = data_ && activateCriteria_ && currentIterNb % criteriaStep_ == 0;
 
       iterate(algebraicModeFound);
@@ -759,7 +758,7 @@ Simulation::simulate() {
     if (exportIIDM_ && (exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_))
       model_->evalCalculatedVariables(tCurrent_, yCurrent_, ypCurrent_, zCurrent_);
 
-    if (signalHandler_.gotExitSignal() && !end()) {
+    if (SignalHandler::gotExitSignal() && !end()) {
       addEvent(DYNTimeline(SignalReceived));
       throw DYNError(Error::GENERAL, SignalReceived);
     } else if (!criteriaChecked) {

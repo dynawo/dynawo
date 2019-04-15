@@ -716,7 +716,6 @@ ModelLine::evalZ(const double& t) {
 
   if (currentLimits2_) {
     currentLimitState = currentLimits2_->evalZ(id() + "_side2", t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_);
-    offsetRoot += currentLimits2_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
@@ -740,7 +739,6 @@ ModelLine::evalG(const double& t) {
     double ur2Val = ur2();
     double ui2Val = ui2();
     currentLimits2_->evalG(id() + "_side2", t, i2(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
-    offset += currentLimits2_->sizeG();
   }
 }
 
@@ -763,7 +761,6 @@ ModelLine::setGequations(std::map<int, std::string>& gEquationIndex) {
     for (int i = 0; i < currentLimits2_->sizeG(); ++i) {
       gEquationIndex[i + offset] = "Model Line: current limit 2.";
     }
-    offset += currentLimits2_->sizeG();
   }
 
   assert(gEquationIndex.size() == (unsigned int) sizeG_ && "ModelLine: gEquationIndex.size() != sizeG_");

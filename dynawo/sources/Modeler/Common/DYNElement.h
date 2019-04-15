@@ -46,7 +46,8 @@ class Element {
    * @brief default constructor
    *
    */
-  Element() { }
+  Element()
+  :type_(STRUCTURE) { }
 
   /**
    * @brief default destructor
@@ -60,11 +61,10 @@ class Element {
    * @param id
    * @param type
    */
-  Element(const std::string& name, const std::string& id, typeElement type) {
-    name_ = name;
-    id_ = id;
-    type_ = type;
-  }
+  Element(const std::string& name, const std::string& id, typeElement type)
+  : type_(type)
+  , name_(name)
+  , id_(id) { }
 
   /**
    * @brief get type element

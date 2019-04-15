@@ -68,6 +68,8 @@ ModelMulti::ModelMulti() {
   sizeZ_ = 0;
   sizeG_ = 0;
   sizeMode_ = 0;
+  sizeCalculatedVar_ = 0;
+  offsetFOptional_ = 0;
   zChange_ = false;
   connectorContainer_.reset(new ConnectorContainer());
   fLocal_ = NULL;
@@ -183,8 +185,7 @@ ModelMulti::initBuffers() {
 
   connectorContainer_->setOffsetModel(sizeF_);
   connectorContainer_->setSizeY(sizeY_);
-  int sizeF = connectorContainer_->nbContinuousConnectors();
-  sizeF_ += sizeF;
+  sizeF_ += connectorContainer_->nbContinuousConnectors();
 
   offsetFOptional_ = sizeF_;
   sizeF_ += numVarsOptional_.size();  /// fictitious equation will be added for unconnected optional external variables
@@ -829,7 +830,7 @@ ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
       if (props.isDynParam_) {   // case 2: curve's variable curve is a parameter in submodel
         Trace::info() << DYNLog(AddingCurveParam, modelName, variable) << Trace::endline;
         curve->setAvailable(true);
-        curve->setFoundVariableName(variable);   // curve->setFoundVariableName("testCase_Aa");
+        curve->setFoundVariableName(variable);
         curve->setAsParameterCurve(true);   // This is a parameter curve
         subModel->addParameterCurve(curve);
         return;

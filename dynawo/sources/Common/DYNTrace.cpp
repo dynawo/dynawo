@@ -133,18 +133,6 @@ void Trace::addAppenders(std::vector<TraceAppender> & appenders) {
 
     logging::formatter fmt;
 
-    // The lines below fail to work with boost log
-    // logging::formatter fmt (expr::stream);
-    // if (showTimeStamp)
-    // {
-    // fmt << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", dateFormat) << separator;
-    // }
-    // if (showTag)
-    // {
-    // fmt << severity << separator;
-    // }
-    // fmt << expr::message;
-
     if (showTimeStamp && showTag) {
       fmt = expr::stream << expr::format_date_time< boost::posix_time::ptime >("TimeStamp", dateFormat) << separator << severity << separator << expr::message;
     } else if (showTimeStamp) {  // && ! showTag

@@ -144,8 +144,8 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
   const vector<shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
   vector<shared_ptr<VoltageLevelInterface> >::const_iterator iVL;
   for (iVL = voltageLevels.begin(); iVL != voltageLevels.end(); ++iVL) {
-    string id = (*iVL)->getID();
-    Trace::debug("NETWORK") << DYNLog(AddingVoltageLevelToNetwork, id) << Trace::endline;
+    string voltageLevelsId = (*iVL)->getID();
+    Trace::debug("NETWORK") << DYNLog(AddingVoltageLevelToNetwork, voltageLevelsId) << Trace::endline;
     shared_ptr<ModelVoltageLevel> modelVoltageLevel(new ModelVoltageLevel(*iVL));
     shared_ptr<ModelVoltageLevel> modelVoltageLevelInit(new ModelVoltageLevel(*iVL));
     // Add to containers

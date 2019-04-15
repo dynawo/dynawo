@@ -530,8 +530,8 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
   static const string nameLabel = "@NAME@";
   // expand macro connect
   vector<shared_ptr<dynamicdata::Connector> > macroConnection;
-  map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
-  for (; itMC != macroConnects.end(); ++itMC) {
+  for (map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
+      itMC != macroConnects.end(); ++itMC) {
     string connector = itMC->second->getConnector();
     string model1 = itMC->second->getFirstModelId();
     string model2 = itMC->second->getSecondModelId();
@@ -658,8 +658,8 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
 
     // expand init macro connect
     // expand macro connect
-    map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
-    for (; itMC != macroConnects.end(); ++itMC) {
+    for (map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
+        itMC != macroConnects.end(); ++itMC) {
       string connector = itMC->second->getConnector();
       string model1 = itMC->second->getFirstModelId();
       string model2 = itMC->second->getSecondModelId();

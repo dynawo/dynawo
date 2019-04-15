@@ -34,8 +34,6 @@
 #include "DYNModelConstants.h"
 #include "DYNTrace.h"
 
-using boost::shared_ptr;
-
 namespace DYN {
 
 template<class T>
@@ -66,9 +64,9 @@ InjectorInterfaceIIDM<T>::setVoltageLevelInterface(const boost::shared_ptr<Volta
 }
 
 template<class T>
-shared_ptr<VoltageLevelInterface>
+boost::shared_ptr<VoltageLevelInterface>
 InjectorInterfaceIIDM<T>::getVoltageLevelInterface() const {
-  shared_ptr<VoltageLevelInterface> voltageLevel = voltageLevelInterface_.lock();
+  boost::shared_ptr<VoltageLevelInterface> voltageLevel = voltageLevelInterface_.lock();
   assert(voltageLevel && "shared_ptr for voltage level is empty");
   return voltageLevel;
 }

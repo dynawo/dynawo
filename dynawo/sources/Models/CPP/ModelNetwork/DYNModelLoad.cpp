@@ -258,15 +258,9 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
     double dZpdiff_dUr = alphaLong_ * ur * pow(U, alphaLong_ - 2.) / pow(u0_, alphaLong_) - zp * alpha_ * ur * pow(U, alpha_ - 2.) * kp_;
     double dZpdiff_dUi = alphaLong_ * ui * pow(U, alphaLong_ - 2.) / pow(u0_, alphaLong_) - zp * alpha_ * ui * pow(U, alpha_ - 2.) * kp_;
 
-    if (zp > 0. && zp < zPMax_) {
-      termZp = dZpdiff_dZp;
-      termUr = dZpdiff_dUr;
-      termUi = dZpdiff_dUi;
-    } else if (zp <= 0. && zPdiff > 0.) {
-      termZp = dZpdiff_dZp;
-      termUr = dZpdiff_dUr;
-      termUi = dZpdiff_dUi;
-    } else if (zp >= zPMax_ && zPdiff < 0.) {
+    if ((zp > 0. && zp < zPMax_) ||
+        (zp <= 0. && zPdiff > 0.) ||
+        (zp >= zPMax_ && zPdiff < 0.)) {
       termZp = dZpdiff_dZp;
       termUr = dZpdiff_dUr;
       termUi = dZpdiff_dUi;
@@ -293,15 +287,9 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
     double dZqdiff_dUr = betaLong_ * ur * pow(U, betaLong_ - 2.) / pow(u0_, betaLong_) - zq * beta_ * ur * pow(U, beta_ - 2.) * kq_;
     double dZqdiff_dUi = betaLong_ * ui * pow(U, betaLong_ - 2.) / pow(u0_, betaLong_) - zq * beta_ * ui * pow(U, beta_ - 2.) * kq_;
 
-    if (zq > 0. && zq < zQMax_) {
-      termZq = dZqdiff_dZq;
-      termUr = dZqdiff_dUr;
-      termUi = dZqdiff_dUi;
-    } else if (zq <= 0. && zQdiff > 0.) {
-      termZq = dZqdiff_dZq;
-      termUr = dZqdiff_dUr;
-      termUi = dZqdiff_dUi;
-    } else if (zq >= zQMax_ && zQdiff < 0.) {
+    if ((zq > 0. && zq < zQMax_) ||
+        (zq <= 0. && zQdiff > 0.) ||
+        (zq >= zQMax_ && zQdiff < 0.)) {
       termZq = dZqdiff_dZq;
       termUr = dZqdiff_dUr;
       termUi = dZqdiff_dUi;

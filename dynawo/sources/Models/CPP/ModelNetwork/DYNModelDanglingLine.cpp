@@ -514,7 +514,6 @@ void
 ModelDanglingLine::evalDerivatives() {
   if (network_->isInitModel())
     return;  ///< current injection constant for the init model
-  // Timer timer3("ModelDL::evalDerivatives");
   int ur1YNum = modelBus_->urYNum();
   int ui1YNum = modelBus_->uiYNum();
   int ur2YNum = urFictYNum_;
