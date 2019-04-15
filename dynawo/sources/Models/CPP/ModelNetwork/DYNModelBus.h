@@ -497,7 +497,8 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
   /**
    * @brief default constructor
    */
-  SubNetwork() { }
+  SubNetwork()
+  :num_(0) { }
 
   /**
    * @brief destructor
@@ -508,9 +509,8 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
    * @brief constructor
    * @param num
    */
-  explicit SubNetwork(const int& num) {
-    num_ = num;
-  }
+  explicit SubNetwork(const int& num)
+  :num_(num) { }
 
   /**
    * @brief set num

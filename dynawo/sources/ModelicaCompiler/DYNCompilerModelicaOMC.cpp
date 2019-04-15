@@ -313,10 +313,6 @@ compileModelicaToC(const string& modelName, const string& fileToCompile, const v
 
   // add header
   string runOptions("+simCodeTarget=C +showErrorMessages +g=Modelica +d=initialization +d=disableSingleFlowEq +d=failtrace --numProcs=1");
-  // runOptions += " --initOptModules-=calculateStrongComponentJacobians";
-  // runOptions += " --preOptModules-=comSubExp --preOptModules-=clockPartitioning";
-  // runOptions += " --postOptModules-=detectJacobianSparsePattern --disableLinearTearing --removeSimpleEquations=none";
-  // runOptions += " --postOptModules-=removeSimpleEquations --indexReductionMethod=uode --tearingMethod=omcTearing";
   const string noOptions("");
   mosAddHeader(mosFileName, noOptions, mosFile);
 

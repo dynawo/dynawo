@@ -641,17 +641,8 @@ void
 ModelBus::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
   switch (numCalculatedVar) {
     case upuNum_:
-      numVars.push_back(urYNum_);
-      numVars.push_back(uiYNum_);
-      break;
     case phipuNum_:
-      numVars.push_back(urYNum_);
-      numVars.push_back(uiYNum_);
-      break;
     case uNum_:
-      numVars.push_back(urYNum_);
-      numVars.push_back(uiYNum_);
-      break;
     case phiNum_:
       numVars.push_back(urYNum_);
       numVars.push_back(uiYNum_);

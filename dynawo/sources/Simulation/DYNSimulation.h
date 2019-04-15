@@ -484,7 +484,6 @@ class Simulation {
  public:
   boost::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   boost::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description
-  SignalHandler signalHandler_;  ///< instance of signal handler to monitor external signals
   boost::shared_ptr<Solver> solver_;  ///< solver used for the simulation
   boost::shared_ptr<Model> model_;  ///< model used for the simulation
   boost::shared_ptr<DataInterface> data_;  ///< Data interface associated to the job

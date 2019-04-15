@@ -661,7 +661,8 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
       nativeVariable->setIndex(index);
     } else {
       switch (type) {
-        case CONTINUOUS: {
+        case CONTINUOUS:
+        case FLOW: {
           index = xNames.size();
           xNames.push_back(name);
           break;
@@ -673,11 +674,6 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
 #ifdef _DEBUG_
           maxOtherDiscreteVarIndex = std::max(maxOtherDiscreteVarIndex, index);
 #endif
-          break;
-        }
-        case FLOW: {
-          index = xNames.size();
-          xNames.push_back(name);
           break;
         }
         case INTEGER: {  // Z vector contains DISCRETE variables and then INTEGER variables

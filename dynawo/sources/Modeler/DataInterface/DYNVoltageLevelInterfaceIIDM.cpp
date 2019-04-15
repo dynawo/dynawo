@@ -250,8 +250,8 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
   IIDM::Contains<IIDM::BusBarSection>::iterator itBBS = voltageLevelIIDM_.busBarSections().begin();
   for (; itBBS != voltageLevelIIDM_.busBarSections().end(); ++itBBS) {
     map<string, float> weights;
-    IIDM::Contains<IIDM::Switch>::const_iterator itSwitch = voltageLevelIIDM_.switches().begin();
-    for (; itSwitch != voltageLevelIIDM_.switches().end(); ++itSwitch) {
+    for (IIDM::Contains<IIDM::Switch>::const_iterator itSwitch = voltageLevelIIDM_.switches().begin();
+        itSwitch != voltageLevelIIDM_.switches().end(); ++itSwitch) {
       weights[itSwitch->id()] = !itSwitch->opened() ? 1 : 0;
     }
 
@@ -261,8 +261,7 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
     list<vector<string> >::const_iterator iter = paths.begin();
     for (; iter != paths.end(); ++iter) {
       vector<string> path = *iter;
-      vector<string>::iterator itSwitch = path.begin();
-      for (; itSwitch != path.end(); ++itSwitch) {
+      for (vector<string>::iterator itSwitch = path.begin(); itSwitch != path.end(); ++itSwitch) {
         string switchID = *itSwitch;
         IIDM::Switch sw = *(voltageLevelIIDM_.switches().find(switchID));
         if (sw.type() == IIDM::Switch::breaker) {

@@ -137,26 +137,6 @@ class ConnectorCalculatedVariable : public SubModel {
   void evalYType();
 
   /**
-   * @copydoc SubModel::modeChange(bool modeChange)
-   */
-  void modeChange(bool modeChange);
-
-  /**
-   * @copydoc SubModel::modeChange() const
-   */
-  bool modeChange() const;
-
-  /**
-   * @copydoc SubModel::modeChangeAlg() const
-   */
-  bool modeChangeAlg() const;
-
-  /**
-   * @copydoc SubModel::modeChangeAlg(bool modeChange)
-   */
-  void modeChangeAlg(bool modeChange);
-
-  /**
    * @copydoc SubModel::dumpParameters(std::map<std::string, std::string > & mapParameters)
    */
   void dumpParameters(std::map<std::string, std::string >& mapParameters);

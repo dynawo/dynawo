@@ -32,16 +32,6 @@ namespace DYN {
 class SignalHandler {
  public:
   /**
-   * @brief default constructor
-   */
-  SignalHandler();
-
-  /**
-   * @brief destructor
-   */
-  ~SignalHandler();
-
-  /**
    * @brief getter to check if one signal was intercepted
    * @return @b true if one signal was intercepted
    */

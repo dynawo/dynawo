@@ -124,9 +124,9 @@ int main(int argc, char ** argv) {
   string currentPath = prettyPath(current_path());
 
   // output directory (default: current directory)
-  string dir = createAbsolutePath(outputDir, currentPath);
-  if (!exists(dir))
-    create_directory(dir);
+  string absOutputDir = createAbsolutePath(outputDir, currentPath);
+  if (!exists(absOutputDir))
+    create_directory(absOutputDir);
 
   string dydFileName = "";
   try {

@@ -77,8 +77,9 @@ void searchFilesAccordingToExtensions(const string & directoryToScan, const vect
     if (exists(root)) {
       for (fs::directory_iterator it(root); it != fs::directory_iterator(); ++it) {
         if (fs::is_directory(*it)) {
-          bool directoryToScan = searchInSubDirs && (std::find(forbiddenDirectories.begin(), forbiddenDirectories.end(), *it) == forbiddenDirectories.end());
-          if (directoryToScan) {
+          bool shouldScanThisDirectory = searchInSubDirs &&
+              (std::find(forbiddenDirectories.begin(), forbiddenDirectories.end(), *it) == forbiddenDirectories.end());
+          if (shouldScanThisDirectory) {
             searchFilesAccordingToExtensions((*it).path().string(), fileExtensionsAllowed, fileExtensionsForbidden, searchInSubDirs, filesFound);
           }
         } else {

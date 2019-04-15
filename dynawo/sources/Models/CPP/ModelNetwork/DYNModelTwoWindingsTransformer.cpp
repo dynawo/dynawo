@@ -1309,7 +1309,6 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
     bool P1SupP2 = (pSide1 > pSide2);
     modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, connectionState_ == CLOSED);
-    offsetRoot += modelPhaseChanger_->sizeG();
   }
 }
 
@@ -1398,7 +1397,6 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
     double ui2Val = ui2();
     double iValue = i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
     modelPhaseChanger_->evalG(t, iValue, false, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, connectionState_ == CLOSED);
-    offset += modelPhaseChanger_->sizeG();
   }
 }
 
@@ -1430,7 +1428,6 @@ ModelTwoWindingsTransformer::setGequations(std::map<int, std::string>& gEquation
     for (int i = 0; i < modelPhaseChanger_->sizeG(); ++i) {
       gEquationIndex[i + offset] = "ModelTwoWindingsTransformer: modelPhaseChagner.";
     }
-    offset += modelPhaseChanger_->sizeG();
   }
 
 
