@@ -409,7 +409,7 @@ fi
 if [[ \"\$whitespace_present\" == \"yes\" || \"\$tab_present\" == \"yes\" ]]; then
   exit 1
 fi
-git diff-index --check --cached HEAD"
+git diff-index --check --cached HEAD -- ':(exclude)*/reference/*'"
   if [ -f "$DYNAWO_HOME/.git/hooks/pre-commit" ]; then
     current_file=$(cat $DYNAWO_HOME/.git/hooks/pre-commit)
     if [ "$hook_file_master" != "$current_file" ]; then
