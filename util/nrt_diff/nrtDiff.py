@@ -19,7 +19,11 @@ import datetime
 import filecmp
 import imp
 import itertools
-import lxml.etree
+try:
+    import lxml.etree
+except:
+    print("Error when trying to import lxml.etree")
+    sys.exit(1)
 import os
 import re
 import sys

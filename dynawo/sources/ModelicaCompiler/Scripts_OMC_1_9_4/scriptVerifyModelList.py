@@ -17,7 +17,11 @@ import os, sys,re, locale, codecs
 import shutil
 from optparse import OptionParser
 from xml.dom.minidom import parse
-from lxml import etree
+try:
+    from lxml import etree
+except:
+    print("Error when trying to import lxml.etree")
+    sys.exit(1)
 
 ##
 # Script to verify a model list file

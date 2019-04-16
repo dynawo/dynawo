@@ -15,7 +15,11 @@
 
 import os
 import shutil
-import lxml.etree
+try:
+    import lxml.etree
+except:
+    print("Error when trying to import lxml.etree")
+    sys.exit(1)
 from optparse import OptionParser
 
 xmlToHtml_resources_dir = os.path.join(os.path.dirname(__file__),"../resources")
