@@ -180,7 +180,7 @@ $> export no_proxy=localhost,127.0.0.0/8,::1
 $> export HTTP_PROXY=$http_proxy;export HTTPS_PROXY=$https_proxy;export NO_PROXY=$no_proxy;
 \end{lstlisting}
 
-\section{Launching \Dynawo}
+\section[Launching Dynawo]{Launching \Dynawo}
 
 Once you have installed and compiled \Dynawo as explained in part \ref{Dynawo_Installation_Documentation_Building _Dynawo}, you can launch a simulation by calling:
 
@@ -206,12 +206,13 @@ It is also possible to display directly simulation results - plots - into a simp
 $> ./myEnvDynawo.sh jobs-with-curves nrt/data/IEEE/IEEE14_DisconnectLine/IEEE14.jobs
 \end{lstlisting}
 
-For example, for this line disconnection simulation, the plot for the voltage module in p.u. on bus 10 should look like this:
+For example, for this line disconnection simulation, on Figure~\ref{IEEE14DisconnectLine} we can see the plot for the voltage module in p.u. on bus 10.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{../resources/VoltageModule.png}
 \caption{\Dynawo results on IEEE14\_DisconnectLine case}
+\label{IEEE14DisconnectLine}
 \end{figure}
 
 \section{Third parties}
