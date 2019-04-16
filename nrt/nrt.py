@@ -16,7 +16,11 @@
 import datetime
 import glob
 import imp
-import lxml.etree
+try:
+    import lxml.etree
+except:
+    print("Error when trying to import lxml.etree")
+    sys.exit(1)
 import multiprocessing as mp
 from optparse import OptionParser
 import os

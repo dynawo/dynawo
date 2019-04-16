@@ -14,7 +14,11 @@
 # simulation tool for power systems.
 
 import os
-import lxml.etree
+try:
+    import lxml.etree
+except:
+    print("Error when trying to import lxml.etree")
+    sys.exit(1)
 from optparse import OptionParser
 
 NAMESPACE = "http://www.rte-france.com/dynawo"
