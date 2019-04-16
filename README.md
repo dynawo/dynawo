@@ -23,6 +23,7 @@ This repository contains Dyna&omega;o's simulation tool code.
 ## Table of Contents
 
 - [About Dyna&omega;o](#about)
+- [Building requirements on Unix/Linux](#requirements)
 - [Building Dyna&omega;o](#build)
 - [Launch Dyna&omega;o](#launch)
 - [Dyna&omega;o Documentation](#documentation)
@@ -45,16 +46,48 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 **Dyna&omega;o's primary focus has been on RMS simulations and most of the tests done until now have been for long-term and short-term stability studies.** However, the simulation tool structure offers great flexibility and makes it also possible to run other types of power system simulations, as long as the user provides the necessary models and solvers. Different initiatives are under discussion or submission to test the possibility to use Dyna&omega;o for EMT simulations or multi-system simulations.
 **Only validated models are included into the library that is still under construction.** We plan to be able to release a new set of models in the near future, with for example HVDC, wind and solar power plants models or more different standard regulation models, etc.
 
-<a name="build"></a>
-## Building Dyna&omega;o
+<a name="requirements"></a>
+## Building requirements on Unix/Linux
 
 For the moment Dyna&omega;o has only be tested on **Linux** platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distributions. For **MacOS** and **Windows** users we provide a [Docker](https://github.com/dynawo/dynawo-docker) solution (also on [Docker Hub](https://hub.docker.com/r/dynawo/dynawo)) to either download a [pre-build image](https://github.com/dynawo/dynawo-docker#users) with Dyna&omega;o embedded or create your [own image](https://github.com/dynawo/dynawo-docker#developer) for developers. We also plan to provide compilation compatibility for Windows. If you have any issue building Dyna&omega;o don't hesitate to send us an [email](mailto:rte-des-simulation-dynamique@rte-france.com) with your errors and we will try to answer you back quickly.
 
-Dyna&omega;o and its dependencies will need some packages to work. Here is the list of all packages you can install to have no dependency problem in the following steps. This example works for Ubuntu:
+In the following we give a list of requirements needed to build Dyna&omega;o and its dependencies.
+
+### Global
+- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), c++98 or c++11 compatible for C++ standard
+
+### OpenModelica Compiler
+- Compiler: Fortran ([gfortran](https://gcc.gnu.org/fortran/))
+- Build systems: [autoconf](https://www.gnu.org/software/autoconf/), [automake](https://www.gnu.org/software/autoconf/), [libtool](https://www.gnu.org/software/libtool/), [pkgconf](http://pkgconf.org/), make, [CMake](https://cmake.org/)
+- Binary utilities: [xz](https://tukaani.org/xz/), patch, [GNU sed](https://www.gnu.org/software/sed/), msgfmt from [gettext](https://www.gnu.org/software/gettext/), [rsync](https://rsync.samba.org/)
+- Java ([openjdk](https://openjdk.java.net/) for example)
+- Libraries: [expat](https://libexpat.github.io/), [BLAS](http://www.netlib.org/blas/index.html), [LAPACK](http://www.netlib.org/lapack/index.html)
+- [lpsolve55](http://lpsolve.sourceforge.net/) or [bison](https://www.gnu.org/software/bison/) and [flex](https://www.gnu.org/software/flex/) (to let OpenModelica compiles lpsolve itself)
+
+### Dyna&omega;o user
+- [CMake](https://cmake.org/): minimum version 3.9.6 (last version to compile with c++98 compiler)
+- Libraries:
+  * [libarchive](https://www.libarchive.org/): minimum version 2.8.0, latest 3.3.3 version has been tested and works fine
+  * [Boost](https://www.boost.org/): minimum version 1.59, up to 1.69 multiple versions has been tested and work fine
+- Python
+- Python packages: [lxml](https://lxml.de/)
+- Binary utilities: [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/), [xmllint](http://xmlsoft.org/xmllint.html)
+
+### Dyna&omega;o developer
+- [Doxygen](http://www.doxygen.nl/): minimum version 1.8, [Graphviz](https://graphviz.readthedocs.io/en/stable/) and LaTeX to build full documentation
+- Python packages: [psutil](https://psutil.readthedocs.io/en/latest/)
+- [GoogleTest](https://github.com/google/googletest): minimum version 1.5.0, latest 1.8.1 version has been tested and works fine on recent OS
+- [LCOV](http://ltp.sourceforge.net/coverage/lcov.php): 1.7 to 1.13 versions work fine
+
+<a name="build"></a>
+## Building Dyna&omega;o
+
+You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu:
 
 ``` bash
 $> apt-get install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev qt4-qmake qt4-dev-tools lsb-release libxml2-utils python-lxml python-psutil wget libcurl4-openssl-dev rsync
 ```
+
 This one works for Fedora:
 ``` bash
 $> dnf install -y git gcc gcc-c++ gcc-gfortran autoconf automake make libtool cmake hwloc java-1.8.0-openjdk-devel blas-devel lapack-devel lpsolve-devel expat-devel glibc-devel sqlite-devel libarchive-devel zlib-devel doxygen doxygen-latex qt-devel gettext patch wget python-devel clang llvm-devel ncurses-devel readline-devel unzip perl-Digest-MD5 vim gcovr python-pip python-psutil boost-devel lcov gtest-devel gmock-devel xz rsync python-lxml graphviz libcurl-devel
