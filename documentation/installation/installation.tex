@@ -18,12 +18,99 @@
 
 \chapter{Install procedure}
 
-\section{Building \Dynawo}
+\section{Building requirements on Unix/Linux}
+
+For the moment \Dynawo has only be tested on Linux platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distribution. For MacOS and Windows users a \href{https://www.docker.com/}{\underline{Docker}} solution will be provided in a near future. We also plan to provide compilation compatibility for Windows.
+
+In the following we give a list of requirements needed to build \Dynawo and its dependencies.
+
+\paragraph{Global}
+
+\begin{itemize}
+\item Compilers: C and C++ (\href{https://www.gnu.org/software/gcc}{gcc} or \href{https://clang.llvm.org}{clang}), c++98 or c++11 compatible for C++ standard
+\end{itemize}
+
+\paragraph{OpenModelica Compiler}
+
+\begin{itemize}
+\item
+  Compiler: Fortran (\href{https://gcc.gnu.org/fortran/}{gfortran})
+\item
+  Build systems:
+  \href{https://www.gnu.org/software/autoconf/}{autoconf},
+  \href{https://www.gnu.org/software/autoconf/}{automake},
+  \href{https://www.gnu.org/software/libtool/}{libtool},
+  \href{http://pkgconf.org/}{pkgconf}, make,
+  \href{https://cmake.org/}{CMake}
+\item
+  Binary utilities: \href{https://tukaani.org/xz/}{xz}, patch,
+  \href{https://www.gnu.org/software/sed/}{GNU sed}, msgfmt from
+  \href{https://www.gnu.org/software/gettext/}{gettext},
+  \href{https://rsync.samba.org/}{rsync}
+\item
+  Java (\href{https://openjdk.java.net/}{openjdk} for example)
+\item
+  Libraries: \href{https://libexpat.github.io/}{expat},
+  \href{http://www.netlib.org/blas/index.html}{BLAS},
+  \href{http://www.netlib.org/lapack/index.html}{LAPACK}
+\item
+  \href{http://lpsolve.sourceforge.net/}{lpsolve55} or
+  \href{https://www.gnu.org/software/bison/}{bison} and
+  \href{https://www.gnu.org/software/flex/}{flex} (to let OpenModelica
+  compiles lpsolve itself)
+\end{itemize}
+
+\paragraph{\Dynawo user}
+
+\begin{itemize}
+\item
+  \href{https://cmake.org/}{CMake}: minimum version 3.9.6 (last version
+  to compile with c++98 compiler)
+\item
+  Libraries:
+
+  \begin{itemize}
+  \item
+    \href{https://www.libarchive.org/}{libarchive}: minimum version
+    2.8.0, latest 3.3.3 version has been tested and works fine
+  \item
+    \href{https://www.boost.org/}{Boost}: minimum version 1.59, up to
+    1.69 multiple versions has been tested and work fine
+  \end{itemize}
+
+\item
+  Python
+\item
+  Python packages: \href{https://lxml.de/}{lxml}
+\item
+  Binary utilities: \href{https://curl.haxx.se/}{curl} or
+  \href{https://www.gnu.org/software/wget/}{wget},
+  \href{http://xmlsoft.org/xmllint.html}{xmllint}
+\end{itemize}
+
+\paragraph{\Dynawo developer}
+
+\begin{itemize}
+\item
+  \href{http://www.doxygen.nl/}{Doxygen}: minimum version 1.8,
+  \href{https://graphviz.readthedocs.io/en/stable/}{Graphviz} and LaTeX
+  to build full documentation
+\item
+  Python packages:
+  \href{https://psutil.readthedocs.io/en/latest/}{psutil}
+\item
+  \href{https://github.com/google/googletest}{GoogleTest}: minimum
+  version 1.5.0, latest 1.8.1 version has been tested and works fine on
+  recent OS
+\item
+  \href{http://ltp.sourceforge.net/coverage/lcov.php}{LCOV}: 1.7 to 1.13
+  versions work fine
+\end{itemize}
+
+\section[Building Dynawo]{Building \Dynawo}
 \label{Dynawo_Installation_Documentation_Building_Dynawo}
 
-For the moment \Dynawo has only be tested on Linux platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distribution. For MacOS and Windows users a \href{https://www.docker.com/}{\underline{Docker}} solution will be provided in a near future. We also plan to provide compliation compatibility for Windows.
-
-\Dynawo and its dependencies will need some system packages to work. Here is the list of all packages you can install to have no dependency problem in the following steps. \\
+You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu: \\
 
 Command for Ubuntu:
 
