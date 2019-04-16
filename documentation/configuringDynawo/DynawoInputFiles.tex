@@ -16,7 +16,7 @@
 \maketitle
 \tableofcontents
 
-\chapter{Configure \Dynawo}
+\chapter[Configure Dynawo]{Configure \Dynawo}
 
 \section{Overview}
 
@@ -34,7 +34,7 @@ The list of input files and the most important output files are summarized in th
 \caption{\Dynawo input and output files}
 \end{figure}
 
-\subsection{\Dynawo inputs}
+\subsection[Dynawo inputs]{\Dynawo inputs}
 
 To run a simulation, \Dynawo needs most of the time five input files:
 \begin{itemize}
@@ -57,7 +57,7 @@ All jobs, iidm, dyd, par and crv files are XML files. Their extension can also b
 
 The iidm.xsd is directly located in the install directory of the IIDM library and can be found in \path{share/iidm/xsd}.
 
-\subsection{\Dynawo outputs}
+\subsection[Dynawo outputs]{\Dynawo outputs}
 
 After a simulation that went well, \Dynawo generates the following output files:
 \begin{itemize}
@@ -71,7 +71,7 @@ After a simulation that went well, \Dynawo generates the following output files:
 
 The input jobs file should be configured properly in order to give access to all these outputs (see paragraph \ref{sec:Configure the jobs outputs}).
 
-\section{\Dynawo input files}
+\section[Dynawo input files]{\Dynawo input files}
 
 The following sections get into more details regarding the five input files and give some examples based on the non regression test IEEE14 present in the \Dynawo repository. \\
 Warning: the following example files are extracted from IEEE14 case in \Dynawo and might not be complete, hence not work as they are presented here.
@@ -156,7 +156,7 @@ Here is an example of a crv file (extraction from IEEE14.crv):
 
 In this example, the curves available are the voltage amplitudes of buses \_BUS\_\_\_10\_TN and \_BUS\_\_\_10\_TN in per unit.
 
-\section{\Dynawo input files modification}
+\section[Dynawo input files modification]{\Dynawo input files modification}
 
 \Dynawo input files (jobs, iidm, dyd, par and crv) have been briefly described in the previous section. This section aims at giving more details on each file in order to help the user parametrize its inputs easily and autonomously.
 
@@ -337,7 +337,7 @@ Black box models are precompiled black-box libraries. In order to use a black bo
 
 The models libraries are stored in the install directory in \path{dynawo/ddb}.
 
-\subsubsection{Use a Modelica model from \Dynawo library}
+\subsubsection[Use a Modelica model from Dynawo library]{Use a Modelica model from \Dynawo library}
 
 Several Modelica models are included in the \Dynawo Modelica library. Most of the time, the Modelica models used by the dynamic simulation are present in this library. To use one of these models, the user should specify the name of the dynamic and the init models in the Modelica library, the associated par file and the parameters' set.
 
@@ -349,7 +349,7 @@ Several Modelica models are included in the \Dynawo Modelica library. Most of th
 
 The name of the model should include the whole path through the library, for example for a transformer: Dynawo.Electrical.Branches.Transformer.
 
-\subsubsection{Use a Modelica model not in \Dynawo Library}
+\subsubsection[Use a Modelica model not in Dynawo Library]{Use a Modelica model not in \Dynawo Library}
 
 To use a Modelica model that is not in the library, the user should provide the path to the dynamic and the init models to use. To do so, two attributes should be added to the ``unitDynamicModel'' item: ``moFile'' and ``initFile''.
 

@@ -73,7 +73,7 @@ license_name=('\Dynawo' '\Dynawo Documentation' 'OpenModelica' 'SUNDIALS' 'Suite
 i=0
 j=1
 for name in "${license_name[@]}"; do
-  echo "\chapter{$name License}" >> dynawoDocumentation/$output_file
+  echo "\chapter[${name/\\/} License]{$name License}" >> dynawoDocumentation/$output_file
   if [ ! -z "$(echo "$name" | grep jQuery)" ]; then
     echo "\includepdf[pages=-,pagecommand=\thispagestyle{plain}]{../${licenses_folders[$i]}/license-$j-no-numbering.pdf}" >> dynawoDocumentation/$output_file
     if (( $j < 2 )); then
