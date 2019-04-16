@@ -67,10 +67,9 @@ void launchSimu(const std::string& jobsFileName) {
         simulation->simulate();
         simulation->terminate();
       } catch (const DYN::Error& err) {
-        // Issue #144: otherwise terminate might crash due to missing staticRef variables
+        // Needed as otherwise terminate might crash due to missing staticRef variables
         if (err.key() == DYN::KeyError_t::StateVariableNoReference)
           simulation->activateExportIIDM(false);
-        // Issue #144
         simulation->terminate();
         throw;
       } catch (...) {
