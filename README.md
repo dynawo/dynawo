@@ -68,7 +68,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 - [CMake](https://cmake.org/): minimum version 3.9.6 (last version to compile with c++98 compiler)
 - Libraries:
   * [libarchive](https://www.libarchive.org/): minimum version 2.8.0, latest 3.3.3 version has been tested and works fine
-  * [Boost](https://www.boost.org/): minimum version 1.59, up to 1.69 multiple versions has been tested and work fine
+  * [Boost](https://www.boost.org/): minimum version 1.59, up to 1.69 multiple versions have been tested and work fine
 - Python
 - Python packages: [lxml](https://lxml.de/)
 - Binary utilities: [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/), [xmllint](http://xmlsoft.org/xmllint.html)
