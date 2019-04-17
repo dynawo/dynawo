@@ -1,0 +1,345 @@
+%% Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, you can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+%%
+%% This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+
+\documentclass[a4paper, 12pt]{report}
+
+\input{../../../latex_setup.tex}
+
+\begin{document}
+
+\chapter{Synchronous Machine - Infinite Bus}
+
+The SMIB system is a well-known test case in the power system community. It is very often used to illustrate the transient or the small-signal stability of a synchronous machine. It is also used to demonstrate the behavior of a new regulation, such as a speed governor, a voltage regulation or a power-system stabilizer.
+
+% Generic description of the non regression test
+% List of scenarios
+\section{Test case description}
+
+The following test case consists of a single machine connected to the infinite bus through two parallel lines and a transformer as presented in Figure 1.
+
+\begin{figure}[H]
+\centering
+\def\factor{0.4}
+\begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
+% Infinite bus
+\path (0,0)  pic[scale=0.2,local bounding box=bus] {infinite bus};
+%% Transfo
+\path (5,0) pic[scale=0.2,local bounding box=transfo] {transfo};
+% Generator
+\path (8,0) pic[scale=0.2,local bounding box=gen] {generator};
+% Line 1
+\draw ([yshift=0.25cm]bus.east) -- ([yshift=0.25cm]transfo.west);
+% Line 1
+\draw ([yshift=-0.25cm]bus.east) -- ([yshift=-0.25cm]transfo.west);
+% Bus inf
+\draw (bus.east) ++ (0,0.5) --++ (0,-1);
+% Bus tfo 1
+\draw (transfo.west) ++ (0,0.5) node (bustop) {} --++ (0,-1) node (busbottom) {};
+% Bus tfo 2
+\draw (transfo.east) ++ (0,0.3) node (bustop) {} --++ (0,-0.6) node (busbottom) {};
+% Transfo-Generator connection
+\draw (transfo.east) -- (gen.west);
+\end{tikzpicture}
+\caption{SMIB system representation}
+\label{circuit-1}
+\end{figure}
+
+\subsection{Initial Conditions}
+
+The infinite bus base voltage is 400 kV and the synchronous machine base voltage is 24 kV. \\
+
+The generator is a 2220 MVA equivalent for four 555 MVA generators.\\
+
+The lines and transformer parameters in per unit on 100 MVA base are:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $R_1=0$ & $R_2=0$ & $R_{Tfo}=0$ \\
+   $X_1=0.022522$ & $X_2=0.04189$ & $X_{Tfo}=0.00675$ \\
+\end{tabular}
+\end{center}
+
+The reference angle for the load flow is set at the infinite bus, and the voltage amplitude at the machine terminal is set to 1. \\
+
+The load flow results in per unit on 100 MVA base are:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $U_{Inf}=0.90081$ & $U_{SM}=1$ & $P_{SM}=19.98$ \\
+   $\Theta_{Inf}=0rad$ & $\Theta_{SM}=0.49445rad$ & $Q_{SM}=9.68$ \\
+\end{tabular}
+\end{center}
+
+\subsection{Models}
+
+The equivalent generator parameters are given in per unit on 2220 MVA - 24 kV (no transformer included, no saturation):
+\begin{center}
+\begin{tabular}{l|l|l|l}
+   $R_a=0.003$ & $X_l=0.15$ & $H=3.5$ & $D=0$ \\
+   $X_d=1.81$ & $T'_d0=8s$ & $X_q=1.76$ & $T'_q0=1s$ \\
+   $X'_d=0.30$ & $T''_d0=0.03s$ & $X'_q=0.65$ & $T''_q0=0.07s$ \\
+   $X''_d=0.23$ & & $X''_q=0.25$ &  \\
+\end{tabular}
+\end{center}
+
+The system reference frequency omegaRef is set to 1.\\
+The machine is controlled by a proportional speed governor and a proportional voltage regulator. \\
+
+The voltage regulator is as follows:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\sbEntree{E}
+\sbCompSum[5]{errAVR}{E}{}{-}{+}{}
+\sbRelier[$U_{Ref}$]{E}{errAVR}
+\sbDecaleNoeudy[4]{errAVR}{Us}
+\sbRelier[$U_{Stator}$]{Us}{errAVR}
+\sbBloc{Gain}{$K_A$}{errAVR}
+\sbRelier{errAVR}{Gain}
+\sbBlocL{Limiter}{\tikz {\draw (-0.4,-0.4) -- (0,-0.4);\draw (0,-0.4) -- (0,0.4); \draw (0,0.4) -- (0.4,0.4); }}{Gain}
+\sbSortie[5]{S}{Limiter}
+\sbRelier[$Efd$]{Limiter}{S}
+\end{tikzpicture}
+\caption{Voltage regulator}
+\end{figure}
+
+The speed governor is as follows:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\sbEntree{E}
+\sbCompSum[6]{errW}{E}{}{-}{+}{}
+\sbRelier[$omega_{Ref}$]{E}{errW}
+\sbDecaleNoeudy[4]{errW}{Omega}
+\sbRelier[$omega$]{Omega}{errW}
+\sbBloc{Gain}{$K_{Gover}$}{errW}
+\sbRelier{errW}{Gain}
+\sbCompSum{sumP}{Gain}{+}{}{+}{}
+\sbRelier{Gain}{sumP}
+\sbDecaleNoeudy[-4]{sumP}{PRef}
+\sbRelier[$P_{Ref}$]{PRef}{sumP}
+\sbBlocL{Limiter}{\tikz {\draw (-0.4,-0.4) -- (0,-0.4);\draw (0,-0.4) -- (0,0.4); \draw (0,0.4) -- (0.4,0.4); }}{sumP}
+\sbSortie[5]{S}{Limiter}
+\sbRelier[$Pm$]{Limiter}{S}
+\end{tikzpicture}
+\caption{Speed Governor}
+\end{figure}
+
+The voltage regulator parameters are:
+\begin{center}
+\begin{tabular}{l|l}
+   $K_A=20$ & $Efd_{Max}=5$  \\
+    & $Efd_{Min}=-5$   \\
+\end{tabular}
+\end{center}
+
+The speed governor parameters are:
+\begin{center}
+\begin{tabular}{l|l}
+   $P_{Nom}=2220$ & $P_{Max}=2220$  \\
+   $K_{Gover}=5$ & $P_{Min}=0$   \\
+\end{tabular}
+\end{center}
+
+\subsection{Scenarios}
+The simulated scenarios are :
+\begin{itemize}
+\item a step on the mechanical power;
+\item a step on the excitation voltage;
+\item a reactive load variation;
+\item a disconnection of line 2;
+\item a three-phase fault at the transformer high level terminal;
+\end{itemize}
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=10e-6;
+\item $Accuracy_{Abs}$=10e-6;
+\end{itemize}
+
+\newpage
+\section{Results}
+
+\subsection{Step on the mechanical power}
+
+At $t=1s$, the reference mechanical power $P_{Ref}$ is increased by 0.02 p.u.\\
+
+We observe that the active power is increased by 0.02 p.u. The voltage drop between the infinite bus and the machine terminal is consequently increased, resulting in a slight decrease of the machine terminal voltage.\\
+
+\begin{figure}[H]
+\subfigure[Generator stator voltage (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_UPu}*24]
+        {../SMIB_1_StepPm/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator active power (p.u)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_PGenPu}*100/2220]
+        {../SMIB_1_StepPm/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Step on the mechanical power}
+\end{figure}
+
+\newpage
+\subsection{Step on the excitation voltage}
+
+At $t=1s$, the reference voltage of the voltage regulation $U_{Ref}$ is decreased by 0.1 p.u.\\
+
+We observe that the reactive power injected by the machine is decreased in order to decrease the machine terminal voltage.\\
+
+\begin{figure}[H]
+\subfigure[Generator stator voltage (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_UPu}*24]
+        {../SMIB_2_StepEfd/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator reactive power (p.u)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_QGenPu}*100/2220]
+        {../SMIB_2_StepEfd/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Step on the excitation voltage}
+\end{figure}
+
+\newpage
+\subsection{Load Variation}
+
+At $t=1s$, we apply a reactive load change at the machine terminal of 0.5 p.u.\\
+
+We observe that the voltage drops directly after the load modification. In order to counter this voltage drop, the voltage regulation acts and the machine starts injecting more reactive power. As a consequence, the voltage is increased again but stabilizes at a value lower than the initial one. \\
+
+\begin{figure}[H]
+\subfigure[Generator stator voltage (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_UPu}*24]
+        {../SMIB_3_LoadVarQ/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator reactive power (p.u)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_QGenPu}*100/2220]
+        {../SMIB_3_LoadVarQ/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Load variation}
+\end{figure}
+
+\newpage
+\subsection{Line Opening}
+
+At $t=1s$, we open one of the two lines of the system.\\
+
+We observe that the system is oscillating after the event but stabilizes after a few seconds. The active power is restored to its pre-event value but the reactive power is changed in response to the terminal voltage change (action of the voltage regulation). \\
+
+\begin{figure}[H]
+\subfigure[Generator stator voltage (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.7in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_UPu}*24]
+        {../SMIB_4_DisconnectLine/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator active power (p.u)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.7in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_PGenPu}*100/2220]
+        {../SMIB_4_DisconnectLine/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator reactive power (p.u)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.7in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_QGenPu}*100/2220]
+        {../SMIB_4_DisconnectLine/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Line opening}
+\end{figure}
+
+\newpage
+\subsection{Three-Phase Fault}
+
+At $t=1s$, a 0.07s three-phase fault is applied at the transformer high voltage terminal.\\
+
+We observe that active power during the fault is zero and that it is restored to its pre-event value after fault clearance. During the fault the machine terminal voltage drops but there is a remaning voltage at the node. The machine naturally injects reactive power during the fault. \\
+
+\begin{figure}[H]
+\subfigure[Generator stator voltage (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.7in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_UPu}*24]
+        {../SMIB_5_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator active power (p.u)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.7in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_PGenPu}*100/2220]
+        {../SMIB_5_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator reactive power (p.u)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.7in]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{SM_gen_QGenPu}*100/2220]
+        {../SMIB_5_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Three-phase fault}
+\end{figure}
+
+
+\end{document}
