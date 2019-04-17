@@ -28,7 +28,7 @@ This test case compares the behavior of a synchronous machine subject to a 3-pha
 \item a proportional voltage regulator;
 \item a proportional voltage regulator with a PSS function;
 \end{itemize}
-To do so, a simple Synchronous Machine - Infinite Bus (SMIB) system is used. It consists of a single machine connected to the infinite bus trough two parallel lines and a transformer as presented in Figure 1.
+To do so, a simple Synchronous Machine - Infinite Bus (SMIB) system is used. It consists of a single machine connected to the infinite bus through two parallel lines and a transformer as presented in Figure 1.
 
 \begin{figure}[H]
 \centering
@@ -185,7 +185,7 @@ These results match the results obtained in the example 13 of the "Power System 
 \begin{figure}[H]
   \caption{Rotor angle (deg)}
   \begin{tikzpicture}
-    \begin{axis} [ymin = 0, ymax = 3.14]
+    \begin{axis} [ymin = 0, ymax = 3.14, legend style={at={(0.5,-0.1)},anchor=north}]
         \addplot[color=red!50]
         table[x=time, y=SM_gen_theta]
         {../reference/outputs_AVR_SetPoint/curves/curves.csv};
@@ -203,7 +203,7 @@ These results match the results obtained in the example 13 of the "Power System 
 \begin{figure}[H]
   \caption{Stator voltage (p.u)}
   \begin{tikzpicture}
-    \begin{axis}
+    \begin{axis}[legend style={at={(0.5,-0.1)},anchor=north}]
         \addplot[color=red!50]
         table[x=time, y=SM_gen_UPu]
         {../reference/outputs_AVR_SetPoint/curves/curves.csv};
@@ -221,7 +221,7 @@ These results match the results obtained in the example 13 of the "Power System 
 \begin{figure}[H]
   \caption{Active power (p.u)}
   \begin{tikzpicture}
-    \begin{axis} [ymin = 0]
+    \begin{axis} [ymin = 0, legend style={at={(0.5,-0.1)},anchor=north}]
         \addplot[color=red!50]
         table[x=time, y=SM_gen_PGenPu]
         {../reference/outputs_AVR_SetPoint/curves/curves.csv};
