@@ -18,6 +18,56 @@ standardReturnCode = [0]
 standardReturnCodeType = "ALLOWED"
 forbiddenReturnCodeType = "FORBIDDEN"
 
+########################################
+#           SMIB_1_StepPm              #
+########################################
+
+case_name = "SMIB_StepPm"
+case_description = "SMIB test case with a step on the mechanical power"
+job_file = os.path.join(os.path.dirname(__file__), "RegulationProportional", "SMIB_1_StepPm", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+########################################
+#           SMIB_2_StepEfd             #
+########################################
+
+case_name = "SMIB_StepEfd"
+case_description = "SMIB test case with a step on the excitation voltage"
+job_file = os.path.join(os.path.dirname(__file__), "RegulationProportional", "SMIB_2_StepEfd", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+########################################
+#           SMIB_3_LoadVarQ            #
+########################################
+
+case_name = "SMIB_LoadVarQ"
+case_description = "SMIB test case with a step on the load reactive power"
+job_file = os.path.join(os.path.dirname(__file__), "RegulationProportional", "SMIB_3_LoadVarQ", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+########################################
+#           SMIB_4_DisconnectLine      #
+########################################
+
+case_name = "SMIB_DisconnectLine"
+case_description = "SMIB test case with a line disconnection"
+job_file = os.path.join(os.path.dirname(__file__), "RegulationProportional", "SMIB_4_DisconnectLine", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
+########################################
+#           SMIB_5_Fault               #
+########################################
+
+case_name = "SMIB_Fault"
+case_description = "SMIB test case with a fault"
+job_file = os.path.join(os.path.dirname(__file__), "RegulationProportional", "SMIB_5_Fault", "SMIB.jobs")
+
+test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+
 #########################################
 #          Kundur Example 13            #
 #########################################
