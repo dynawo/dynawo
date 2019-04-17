@@ -11,6 +11,9 @@
 */
 
 model AVRPSS "Simple Proportional Voltage Regulator with PSS"
+/*This model is inherated from the Kundur "Power System Stability and Control" book.
+  Notations are kept identical whenever possible for readability reasons.*/
+
   import Modelica.Blocks;
   import Modelica.SIunits;
   import Dynawo.Connectors;
