@@ -29,7 +29,7 @@
     <dyn:unitDynamicModel id="QRefPu" name="Dynawo.Electrical.Controls.Basics.Step" parFile="event.par" parId="1"/>
     <dyn:connect id1="QRefPu" var1="step" id2="load" var2="QRefPu"/>
   </dyn:modelicaModel>
-  <!-- Generator with four windings with fixed excitation voltage and proportional speed regulation -->
+  <!-- Generator with four windings with proportional speed regulation and proportional excitation control-->
   <dyn:modelicaModel id="SM">
     <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName = "Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT" parFile="SMIB.par" parId="6" />
     <dyn:unitDynamicModel id="gover" name="Dynawo.Electrical.Controls.Machines.Governors.GoverProportional" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT" parFile="SMIB.par" parId="7"/>
