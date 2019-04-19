@@ -62,17 +62,17 @@ message_directory() {
 # File existence test
 #----------------------------
 test_file() {
-    if [ ! -f "$1" ]; then
-        message_file $1
-    fi
+  if [ ! -f "$1" ]; then
+    message_file $1
+  fi
 }
 
 # Directory existence test
 # ------------------------------
 test_directory() {
-    if [ ! -d "$1" ]; then
-        message_directory $1
-    fi
+  if [ ! -d "$1" ]; then
+    message_directory $1
+  fi
 }
 
 # Restore original file
@@ -110,6 +110,7 @@ architecture_omc() {
   LIBRARIES_MAKEFILE="Makefile"
   MAKEFILE_LIBS="Makefile.libs"
   TASK_GRAPH_RESULTS_CMP_FILE="TaskGraphResultsCmp.cpp"
+  MAKEFILE_IN="Makefile.in"
 
   test_directory ${SRC_OPENMODELICA}
 
@@ -169,6 +170,9 @@ architecture_omc() {
 
   TaskGraphResultsCmpFile="${SRC_OPENMODELICA}${ps}${COMPILER_RUNTIME_DIR}${ps}${TASK_GRAPH_RESULTS_CMP_FILE}"
   test_file ${TaskGraphResultsCmpFile}
+
+  MakefileIn="${SRC_OPENMODELICA}${ps}${MAKEFILE_IN}"
+  test_file ${MakefileIn}
 }
 
 restore_files() {
@@ -184,6 +188,7 @@ restore_files() {
   restore_original_file ${MakefileLibs}
   restore_original_file ${SimulationDataFile}
   restore_original_file ${TaskGraphResultsCmpFile}
+  restore_original_file ${MakefileIn}
 }
 
 remove_created_files() {
@@ -221,6 +226,9 @@ remove_patch_files() {
   $RM ${patchFile}
 
   patchFile="${SRC_OPENMODELICA}${ps}TaskGraphResultsCmp.cpp.patch"
+  $RM ${patchFile}
+
+  patchFile="${SRC_OPENMODELICA}${ps}Makefile.in.patch"
   $RM ${patchFile}
 }
 

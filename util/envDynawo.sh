@@ -409,7 +409,7 @@ fi
 if [[ \"\$whitespace_present\" == \"yes\" || \"\$tab_present\" == \"yes\" ]]; then
   exit 1
 fi
-git diff-index --check --cached HEAD -- ':(exclude)*/reference/*'"
+git diff-index --check --cached HEAD -- ':(exclude)*/reference/*' ':(exclude)*.patch'"
   if [ -f "$DYNAWO_HOME/.git/hooks/pre-commit" ]; then
     current_file=$(cat $DYNAWO_HOME/.git/hooks/pre-commit)
     if [ "$hook_file_master" != "$current_file" ]; then
@@ -467,9 +467,9 @@ display_environmentVariables() {
 build_omcDynawo() {
   export_var_env MODELICA_LIB=3.2.2
   cd $DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION
-  bash checkoutOpenModelica.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-version=$OPENMODELICA_VERSION --modelica-version=$MODELICA_LIB || error_exit "OpenModelica source code is not well checked-out."
-  bash cleanBeforeLaunch.sh --openmodelica-dir=$SRC_OPENMODELICA
-  bash omcUpdateDynawo.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-install=$INSTALL_OPENMODELICA --nbProcessors=$NB_PROCESSORS_USED
+  bash checkoutOpenModelica.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-version=$OPENMODELICA_VERSION --modelica-version=$MODELICA_LIB || error_exit "OpenModelica source code is not well checked-out. Delete your current source folder and relaunch command."
+  bash cleanBeforeLaunch.sh --openmodelica-dir=$SRC_OPENMODELICA || error_exit "Cleaning of OpenModelica source folder did not work. Delete your current source folder and relaunch command."
+  bash omcUpdateDynawo.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-install=$INSTALL_OPENMODELICA --nbProcessors=$NB_PROCESSORS_USED || error_exit "Building of OpenModelica did not work. Delete your current source folder and relaunch command."
 }
 
 # Clean openModelica compiler

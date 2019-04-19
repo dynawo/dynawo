@@ -1,0 +1,13 @@
+diff --git a/Makefile.in b/Makefile.in
+index b181ae212..dd42ce615 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -122,7 +122,7 @@ install: install-dirs
+ 	# License
+ 	cp -p OMCompiler/COPYING ${INSTALL_DOCDIR}/omc/
+ 	# Documents
+-	test ! -e "doc" || cp -p doc/*.pdf ${INSTALL_DOCDIR}/omc/
++	test -e "doc" || cp -p doc/*.pdf ${INSTALL_DOCDIR}/omc/
+ 	cp -p "@OMBUILDDIR@"/share/doc/omc/testmodels/* ${INSTALL_DOCDIR}/omc/testmodels/
+ 	# man pages
+ 	# cp -p "@OMBUILDDIR@"/share/man/man1/*.gz ${INSTALL_MANDIR}/man1/

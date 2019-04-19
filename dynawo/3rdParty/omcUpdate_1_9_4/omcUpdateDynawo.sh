@@ -138,7 +138,6 @@ architecture_omc() {
   BOOT_DIR="boot"
   LIBRARIES_DIR="libraries"
 
-
   # files concerned by modifications
   METAMODELICA_REMOVE_SIMPLE_FILE="RemoveSimpleEquations.mo"
   CMAKELISTS="CMakeLists.txt"
@@ -152,7 +151,7 @@ architecture_omc() {
   MAKEFILE_LIBS="Makefile.libs"
   SIMULATION_DATA_FILE="simulation_data.h"
   TASK_GRAPH_RESULTS_CMP_FILE="TaskGraphResultsCmp.cpp"
-
+  MAKEFILE_IN="Makefile.in"
 
   test_directory ${SRC_OPENMODELICA}
   mkdir -p ${INSTALL_OPENMODELICA}
@@ -213,6 +212,9 @@ architecture_omc() {
 
   TaskGraphResultsCmpFile="${SRC_OPENMODELICA}${ps}${COMPILER_RUNTIME_DIR}${ps}${TASK_GRAPH_RESULTS_CMP_FILE}"
   test_file ${TaskGraphResultsCmpFile}
+
+  MakefileIn="${SRC_OPENMODELICA}${ps}${MAKEFILE_IN}"
+  test_file ${MakefileIn}
 }
 
 # Dynawo specific architecture
@@ -231,6 +233,7 @@ architecture_dynawo() {
   fileRessource10="CodegenC-tpl.patch"
   fileRessource11="simulation_data-h.patch"
   fileRessource12="TaskGraphResultsCmp.cpp.patch"
+  fileRessource13="Makefile.in.patch"
 
   # File existence tests
   #-----------------------------
@@ -272,6 +275,9 @@ architecture_dynawo() {
 
   file12="${DIR_RESOURCE}${ps}${fileRessource12}"
   test_file ${file12}
+
+  file13="${DIR_RESOURCE}${ps}${fileRessource13}"
+  test_file ${file13}
 }
 
 # Baner presentation
@@ -364,6 +370,7 @@ save_original_files() {
   save_file_if_not_exist ${MakefileLibs}
   save_file_if_not_exist ${SimulationDataFile}
   save_file_if_not_exist ${TaskGraphResultsCmpFile}
+  save_file_if_not_exist ${MakefileIn}
 }
 
 # Update sources
@@ -384,6 +391,7 @@ update_sources() {
   $CP ${file10} .
   $CP ${file11} .
   $CP ${file12} .
+  $CP ${file13} .
 
   patch -p0 < ${fileRessource1}
   patch -p0 < ${fileRessource2}
@@ -395,6 +403,7 @@ update_sources() {
   patch -p0 < ${fileRessource10}
   patch -p0 < ${fileRessource11}
   patch -p0 < ${fileRessource12}
+  patch -p1 < ${fileRessource13}
 
   # replace files in libraries
   $CP ${file8} ${MakefileLibraries}
