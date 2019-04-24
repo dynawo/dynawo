@@ -22,16 +22,15 @@
 #
 # See the full OSMC Public License conditions for more details.
 # SPDX-License-Identifier: GPL-3.0 OR LicenseRef-OSMC-PL
-diff --git a/Makefile.in b/Makefile.in
-index b181ae212..dd42ce615 100644
---- a/Makefile.in
-+++ b/Makefile.in
-@@ -122,7 +122,7 @@ install: install-dirs
- 	# License
- 	cp -p OMCompiler/COPYING ${INSTALL_DOCDIR}/omc/
- 	# Documents
--	test ! -e "doc" || cp -p doc/*.pdf ${INSTALL_DOCDIR}/omc/
-+	test -e "doc" || cp -p doc/*.pdf ${INSTALL_DOCDIR}/omc/
- 	cp -p "@OMBUILDDIR@"/share/doc/omc/testmodels/* ${INSTALL_DOCDIR}/omc/testmodels/
- 	# man pages
- 	# cp -p "@OMBUILDDIR@"/share/man/man1/*.gz ${INSTALL_MANDIR}/man1/
+Index: OMCompiler/configure.ac
+===================================================================
+--- OMCompiler/configure.ac
++++ OMCompiler/configure.ac
+@@ -155,7 +155,7 @@ AC_ARG_WITH(msys, [  --with-msys[=no]              Point to an msys installation
+     LDFLAGS="$LDFLAGS -L$withval/$MINGWNUM/lib"
+     echo "Got: $CPPFLAGS"
+   ],
+-  [
++  [:
+   ]
+ )
