@@ -646,9 +646,21 @@ is_omcDynawo_installed() {
     if [ "$installed_version" != ${OPENMODELICA_VERSION//_/.} ]; then
       return 1
     fi
-  else
-    return 0
+    if [ ! -d "$INSTALL_OPENMODELICA/lib/omlibrary" ]; then
+      return 1
+    else
+      if [ ! -d "$INSTALL_OPENMODELICA/lib/omlibrary/Modelica $MODELICA_LIB" ]; then
+        return 1
+      fi
+      if [ ! -d "$INSTALL_OPENMODELICA/lib/omlibrary/ModelicaServices $MODELICA_LIB" ]; then
+        return 1
+      fi
+      if [ ! -f "$INSTALL_OPENMODELICA/lib/omlibrary/Complex $MODELICA_LIB.mo" ]; then
+        return 1
+      fi
+    fi
   fi
+  return 0
 }
 
 # Build openModelica compiler

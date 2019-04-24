@@ -34,6 +34,20 @@ export_var_env() {
   export $name="$value"
 }
 
+check_git_version() {
+  if [ -x "$(command -v git)" ]; then
+    GIT_VERSION=$(git --version | grep -o "[0-9][.].*")
+    if [ $(echo $GIT_VERSION | cut -d '.' -f 1) -ge 2 ]; then
+      if [ $(echo $GIT_VERSION | cut -d '.' -f 2) -ge 11 ]; then
+        return 0
+      fi
+    fi
+  else
+    error_exit "You need to install git command line utility."
+  fi
+  return 1
+}
+
 # Default values
 SRC_OPENMODELICA=""
 OPENMODELICA_VERSION=""
@@ -118,9 +132,13 @@ checkout_openmodelica_repository() {
     git clone $OPENMODELICA_GIT_URL $SRC_OPENMODELICA || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
     if [ -d "$SRC_OPENMODELICA" ]; then
       cd "$SRC_OPENMODELICA"
-      git submodule update --init --progress --recursive OMCompiler || error_exit "Git clone of OMCompiler in $SRC_OPENMODELICA failed."
-      git submodule update --init --progress --recursive libraries || error_exit "Git clone of libraries in $SRC_OPENMODELICA failed."
-      git submodule update --init --progress --recursive common || error_exit "Git clone of common in $SRC_OPENMODELICA failed."
+      GIT_OPTION=""
+      if check_git_version; then
+        GIT_OPTION="--progress"
+      fi
+      git submodule update --init $GIT_OPTION --recursive OMCompiler || error_exit "Git clone of OMCompiler in $SRC_OPENMODELICA failed."
+      git submodule update --init $GIT_OPTION --recursive libraries || error_exit "Git clone of libraries in $SRC_OPENMODELICA failed."
+      git submodule update --init $GIT_OPTION --recursive common || error_exit "Git clone of common in $SRC_OPENMODELICA failed."
       if [ -d "$SRC_OPENMODELICA/libraries" ]; then
         cd libraries && git clone $MODELICA_GIT_URL Modelica || error_exit "Git clone of Modelica Standard Library failed in $SRC_OPENMODELICA/libraries."
       fi

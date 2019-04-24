@@ -88,6 +88,7 @@ restore_original_file() {
 architecture_omc() {
   # omc directories
   COMPILER_DIR="OMCompiler/Compiler"
+  OMCOMPILER_DIR="OMCompiler"
   COMPILER_RUNTIME_DIR="OMCompiler/Compiler/runtime"
   SIMULATION_RUNTIME_C_DIR="OMCompiler/SimulationRuntime/c"
   BACKEND_DIR="BackEnd"
@@ -173,6 +174,9 @@ architecture_omc() {
 
   MakefileIn="${SRC_OPENMODELICA}${ps}${MAKEFILE_IN}"
   test_file ${MakefileIn}
+
+  ConfigureOMCompiler="${SRC_OPENMODELICA}${ps}${OMCOMPILER_DIR}${ps}${CONFIGURE_FILE}"
+  test_file ${ConfigureOMCompiler}
 }
 
 restore_files() {
@@ -189,6 +193,7 @@ restore_files() {
   restore_original_file ${SimulationDataFile}
   restore_original_file ${TaskGraphResultsCmpFile}
   restore_original_file ${MakefileIn}
+  restore_original_file ${ConfigureOMCompiler}
 }
 
 remove_created_files() {
@@ -229,6 +234,9 @@ remove_patch_files() {
   $RM ${patchFile}
 
   patchFile="${SRC_OPENMODELICA}${ps}Makefile.in.patch"
+  $RM ${patchFile}
+
+  patchFile="${SRC_OPENMODELICA}${ps}configure-ac-omcompiler.patch"
   $RM ${patchFile}
 }
 

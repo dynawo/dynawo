@@ -129,6 +129,7 @@ launch_command() {
 architecture_omc() {
   # omc directories
   COMPILER_DIR="OMCompiler/Compiler"
+  OMCOMPILER_DIR="OMCompiler"
   COMPILER_RUNTIME_DIR="OMCompiler/Compiler/runtime"
   SIMULATION_RUNTIME_C_DIR="OMCompiler/SimulationRuntime/c"
   BACKEND_DIR="BackEnd"
@@ -215,6 +216,9 @@ architecture_omc() {
 
   MakefileIn="${SRC_OPENMODELICA}${ps}${MAKEFILE_IN}"
   test_file ${MakefileIn}
+
+  ConfigureOMCompiler="${SRC_OPENMODELICA}${ps}${OMCOMPILER_DIR}${ps}${CONFIGURE_FILE}"
+  test_file ${ConfigureOMCompiler}
 }
 
 # Dynawo specific architecture
@@ -234,6 +238,7 @@ architecture_dynawo() {
   fileRessource11="simulation_data-h.patch"
   fileRessource12="TaskGraphResultsCmp.cpp.patch"
   fileRessource13="Makefile.in.patch"
+  fileRessource14="configure-ac-omcompiler.patch"
 
   # File existence tests
   #-----------------------------
@@ -278,6 +283,9 @@ architecture_dynawo() {
 
   file13="${DIR_RESOURCE}${ps}${fileRessource13}"
   test_file ${file13}
+
+  file14="${DIR_RESOURCE}${ps}${fileRessource14}"
+  test_file ${file14}
 }
 
 # Baner presentation
@@ -371,6 +379,7 @@ save_original_files() {
   save_file_if_not_exist ${SimulationDataFile}
   save_file_if_not_exist ${TaskGraphResultsCmpFile}
   save_file_if_not_exist ${MakefileIn}
+  save_file_if_not_exist ${ConfigureOMCompiler}
 }
 
 # Update sources
@@ -392,6 +401,7 @@ update_sources() {
   $CP ${file11} .
   $CP ${file12} .
   $CP ${file13} .
+  $CP ${file14} .
 
   patch -p0 < ${fileRessource1}
   patch -p0 < ${fileRessource2}
@@ -404,6 +414,7 @@ update_sources() {
   patch -p0 < ${fileRessource11}
   patch -p0 < ${fileRessource12}
   patch -p1 < ${fileRessource13}
+  patch -p0 < ${fileRessource14}
 
   # replace files in libraries
   $CP ${file8} ${MakefileLibraries}
