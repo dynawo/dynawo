@@ -409,7 +409,14 @@ path_prepend() {
 set_standard_environment_variables() {
   ld_library_path_prepend $NICSLU_INSTALL_DIR/lib
   ld_library_path_prepend $SUITESPARSE_INSTALL_DIR/lib
-  ld_library_path_prepend $SUNDIALS_INSTALL_DIR/lib64
+  if [ -d "$SUNDIALS_INSTALL_DIR/lib64" ]; then
+    ld_library_path_prepend $SUNDIALS_INSTALL_DIR/lib64
+  elif [ -d "$SUNDIALS_INSTALL_DIR/lib" ]; then
+    ld_library_path_prepend $SUNDIALS_INSTALL_DIR/lib
+  else
+    ld_library_path_prepend $SUNDIALS_INSTALL_DIR/lib
+    ld_library_path_prepend $SUNDIALS_INSTALL_DIR/lib64
+  fi
   ld_library_path_prepend $LIBZIP_HOME/lib
   ld_library_path_prepend $LIBXML_HOME/lib
   ld_library_path_prepend $LIBIIDM_HOME/lib
@@ -1371,7 +1378,7 @@ deploy_dynawo() {
   mkdir -p extraLibs/LIBARCHIVE/lib/
   mkdir -p extraLibs/LIBZIP/lib
   mkdir -p extraLibs/LIBXML/lib
-  cp -P $SUNDIALS_INSTALL_DIR/lib64/*.* 3rdParty/sundials/lib/
+  cp -P $SUNDIALS_INSTALL_DIR/lib*/*.* 3rdParty/sundials/lib/
   cp -P $ADEPT_INSTALL_DIR/lib/*.* 3rdParty/adept/lib/
   cp -P $SUITESPARSE_INSTALL_DIR/lib/*.* 3rdParty/suitesparse/lib/
   if [ -d "$NICSLU_INSTALL_DIR/lib" ]; then
@@ -1691,6 +1698,7 @@ unittest_gdb() {
 reset_environment_variables() {
   ld_library_path_remove $NICSLU_INSTALL_DIR/lib
   ld_library_path_remove $SUITESPARSE_INSTALL_DIR/lib
+  ld_library_path_remove $SUNDIALS_INSTALL_DIR/lib
   ld_library_path_remove $SUNDIALS_INSTALL_DIR/lib64
   ld_library_path_remove $LIBZIP_HOME/lib
   ld_library_path_remove $LIBXML_HOME/lib
