@@ -527,7 +527,7 @@ git diff-index --check --cached HEAD -- ':(exclude)*/reference/*' ':(exclude)*.p
       chmod +x $DYNAWO_HOME/.git/hooks/pre-commit
     fi
   else
-    if [ -d ".git" ]; then
+    if [ -d "$DYNAWO_HOME/.git" ]; then
       echo "$hook_file_master" > $DYNAWO_HOME/.git/hooks/pre-commit
       chmod +x $DYNAWO_HOME/.git/hooks/pre-commit
     fi
