@@ -1,0 +1,195 @@
+ ====== INIT VARIABLES VALUES ======
+generator_lambdaDPu                               : y =       0.982521 yp =    9.37734e-05
+generator_lambdaQ1Pu                              : y =     -0.0675863 yp =    3.55522e-05
+generator_lambdaQ2Pu                              : y =     -0.0675863 yp =    2.05609e-05
+generator_lambdafPu                               : y =        1.08029 yp =    9.54361e-05
+generator_omegaPu_value                           : y =              1 yp =     2.8573e-06
+generator_omegaRefPu_value                        : y =              1 yp =              0
+generator_terminal_V_im                           : y =      -0.102762 yp =              0
+generator_terminal_V_re                           : y =       0.979581 yp =              0
+generator_theta                                   : y =     -0.0255787 yp =    4.88759e-07
+Pm_setPoint_value                                 : y =      0.0367007 yp =              0
+URef_setPoint_value                               : y =        1.03416 yp =              0
+generator_IRotorPu_value                          : y =       0.986273 yp =              0
+generator_IStatorPu_value                         : y =       0.405478 yp =              0
+generator_PGen                                    : y =        39.9252 yp =              0
+generator_PGenPu                                  : y =       0.399252 yp =              0
+generator_PePu                                    : y =      0.0329719 yp =              0
+generator_PmPu_value                              : y =      0.0367007 yp =              0
+generator_QGen                                    : y =       -1.00186 yp =              0
+generator_QGenPu                                  : y =     -0.0100186 yp =              0
+generator_QStatorPu_value                         : y =     0.00642259 yp =              0
+generator_UPu                                     : y =       0.984956 yp =              0
+generator_UStatorPu_value                         : y =       0.984774 yp =              0
+generator_cePu                                    : y =      0.0329719 yp =              0
+generator_cmPu                                    : y =      0.0367007 yp =              0
+generator_efdPu_value                             : y =       0.987681 yp =              0
+generator_iDPu                                    : y =   -5.44152e-05 yp =              0
+generator_iQ1Pu                                   : y =    -5.3798e-05 yp =              0
+generator_iQ2Pu                                   : y =   -1.91647e-06 yp =              0
+generator_iStatorPu_im                            : y =      0.0321748 yp =              0
+generator_iStatorPu_re                            : y =      -0.404199 yp =              0
+generator_idPu                                    : y =    -0.00180235 yp =              0
+generator_ifPu                                    : y =       0.488738 yp =              0
+generator_iqPu                                    : y =     -0.0334343 yp =              0
+generator_lambdadPu                               : y =       0.981982 yp =              0
+generator_lambdaqPu                               : y =     -0.0776801 yp =              0
+generator_sStatorPu_im                            : y =    -0.00642259 yp =              0
+generator_sStatorPu_re                            : y =      -0.399252 yp =              0
+generator_terminal_i_im                           : y =      0.0321748 yp =              0
+generator_terminal_i_re                           : y =      -0.404199 yp =              0
+generator_thetaInternal_value                     : y =      0.0789434 yp =              0
+generator_uStatorPu_im                            : y =     -0.0623424 yp =              0
+generator_uStatorPu_re                            : y =       0.982798 yp =              0
+generator_udPu                                    : y =       0.077675 yp =              0
+generator_ufPu                                    : y =    0.000426926 yp =              0
+generator_uqPu                                    : y =       0.981889 yp =              0
+governor_PmPu_value                               : y =      0.0367007 yp =              0
+governor_PmRawPu_u1                               : y =      0.0367007 yp =              0
+governor_PmRawPu_u2                               : y =   -7.49191e-09 yp =              0
+governor_PmRawPu_y                                : y =      0.0367007 yp =              0
+governor_PmRefPu_value                            : y =      0.0367007 yp =              0
+governor_feedback_u1                              : y =              1 yp =              0
+governor_feedback_u2                              : y =              1 yp =              0
+governor_feedback_y                               : y =   -1.49838e-09 yp =              0
+governor_gain_u                                   : y =   -1.49838e-09 yp =              0
+governor_gain_y                                   : y =   -7.49191e-09 yp =              0
+governor_limiter_u                                : y =      0.0367007 yp =              0
+governor_limiter_y                                : y =      0.0367007 yp =              0
+governor_omegaPu_value                            : y =              1 yp =              0
+governor_omegaRefPu_y                             : y =              1 yp =              0
+voltageRegulator_EfdPu                            : y =       0.987681 yp =              0
+voltageRegulator_EfdPuPin_value                   : y =       0.987681 yp =              0
+voltageRegulator_UcEfdPu                          : y =        1.03416 yp =              0
+voltageRegulator_UsPu                             : y =       0.984774 yp =              0
+voltageRegulator_feedback_u1                      : y =        1.03416 yp =              0
+voltageRegulator_feedback_u2                      : y =       0.984774 yp =              0
+voltageRegulator_feedback_y                       : y =      0.0493841 yp =              0
+voltageRegulator_gain_u                           : y =      0.0493841 yp =              0
+voltageRegulator_gain_y                           : y =       0.987681 yp =              0
+voltageRegulator_limiterWithLag_u                 : y =       0.987681 yp =              0
+voltageRegulator_limiterWithLag_y                 : y =       0.987681 yp =              0
+ ====== INIT DISCRETE VARIABLES VALUES ======
+voltageRegulator_limiterWithLag_tUMaxReached      : z =          1e+60
+voltageRegulator_limiterWithLag_tUMinReached      : z =          1e+60
+generator_running_value                           : z =              1
+generator_switchOffSignal1_value                  : z =             -1
+generator_switchOffSignal2_value                  : z =             -1
+generator_switchOffSignal3_value                  : z =             -1
+voltageRegulator_limitationDown_value             : z =             -1
+voltageRegulator_limitationUp_value               : z =             -1
+voltageRegulator_limiterWithLag_initSaturatedMax  : z =             -1
+voltageRegulator_limiterWithLag_initSaturatedMin  : z =             -1
+generator_state                                   : z =              2
+governor_state                                    : z =              1
+ ====== PARAMETERS VALUES ======
+Pm_Value0                                          =      0.0367007
+URef_Value0                                        =        1.03416
+generator_Ce0Pu                                    =      0.0330337
+generator_Cm0Pu                                    =      0.0367007
+generator_DPu                                      =              0
+generator_Efd0Pu                                   =       0.986325
+generator_H                                        =            5.4
+generator_IRotor0Pu                                =       0.986325
+generator_IStator0Pu                               =       0.406226
+generator_Id0Pu                                    =     -0.0018849
+generator_If0Pu                                    =       0.488764
+generator_Iq0Pu                                    =     -0.0334917
+generator_Kuf                                      =     0.00043225
+generator_LDPPu                                    =      0.0940333
+generator_LQ1PPu                                   =      0.0618386
+generator_LQ2PPu                                   =           1.74
+generator_LambdaD0Pu                               =       0.982521
+generator_LambdaQ10Pu                              =     -0.0675863
+generator_LambdaQ20Pu                              =     -0.0675863
+generator_Lambdad0Pu                               =       0.981952
+generator_Lambdaf0Pu                               =        1.08029
+generator_Lambdaq0Pu                               =     -0.0777007
+generator_LdPPu                                    =          0.202
+generator_LfPPu                                    =       0.200041
+generator_LqPPu                                    =          0.202
+generator_MdPPu                                    =          2.018
+generator_MqPPu                                    =          2.018
+generator_MrcPPu                                   =              0
+generator_P0Pu                                     =           -0.4
+generator_PGen0Pu                                  =            0.4
+generator_PNom                                     =           1090
+generator_Pm0Pu                                    =      0.0367007
+generator_Q0Pu                                     =         0.0091
+generator_QGen0Pu                                  =        -0.0091
+generator_QStator0Pu                               =     0.00740198
+generator_RDPPu                                    =       0.010983
+generator_RQ1PPu                                   =     0.00421141
+generator_RQ2PPu                                   =      0.0682093
+generator_RTfPu                                    =              0
+generator_RTfoPu                                   =              0
+generator_RaPPu                                    =       0.002796
+generator_RfPPu                                    =    0.000872281
+generator_SNom                                     =           1211
+generator_SnTfo                                    =           1211
+generator_Theta0                                   =     -0.0255787
+generator_ThetaInternal0                           =     -0.0255787
+generator_U0Pu                                     =       0.984928
+generator_UBaseHV                                  =             69
+generator_UBaseLV                                  =             24
+generator_UNom                                     =             24
+generator_UNomHV                                   =             69
+generator_UNomLV                                   =             24
+generator_UPhase0                                  =      -0.104545
+generator_UStator0Pu                               =       0.984841
+generator_Ud0Pu                                    =      0.0776955
+generator_Uf0Pu                                    =    0.000426339
+generator_Uq0Pu                                    =       0.981858
+generator_XTfPu                                    =            0.1
+generator_XTfoPu                                   =            0.1
+generator_i0Pu_im                                  =      0.0331919
+generator_i0Pu_re                                  =      -0.404868
+generator_iStator0Pu_im                            =      0.0331919
+generator_iStator0Pu_re                            =      -0.404868
+generator_rTfoPu                                   =              1
+generator_s0Pu_im                                  =         0.0091
+generator_s0Pu_re                                  =           -0.4
+generator_sStator0Pu_im                            =    -0.00740198
+generator_sStator0Pu_re                            =           -0.4
+generator_u0Pu_im                                  =      -0.102782
+generator_u0Pu_re                                  =        0.97955
+generator_uStator0Pu_im                            =     -0.0622952
+generator_uStator0Pu_re                            =       0.982869
+governor_KGover                                    =              5
+governor_PMax                                      =           1090
+governor_PMaxPu                                    =              1
+governor_PMin                                      =              0
+governor_PMinPu                                    =              0
+governor_PNom                                      =           1090
+governor_Pm0Pu                                     =      0.0367007
+governor_PmRawPu_k1                                =              1
+governor_PmRawPu_k2                                =              1
+governor_gain_k                                    =              5
+governor_limiter_uMax                              =              1
+governor_limiter_uMin                              =              0
+governor_omegaRefPu_k                              =              1
+voltageRegulator_Efd0Pu                            =       0.986325
+voltageRegulator_Efd0PuLF                          =       0.986325
+voltageRegulator_EfdMaxPu                          =              5
+voltageRegulator_EfdMinPu                          =             -5
+voltageRegulator_Gain                              =             20
+voltageRegulator_LagEfdMax                         =              0
+voltageRegulator_LagEfdMin                         =              0
+voltageRegulator_UcEfd0Pu                          =        1.03416
+voltageRegulator_Us0Pu                             =       0.984841
+voltageRegulator_gain_k                            =             20
+voltageRegulator_limiterWithLag_LagMax             =              0
+voltageRegulator_limiterWithLag_LagMin             =              0
+voltageRegulator_limiterWithLag_UMax               =              5
+voltageRegulator_limiterWithLag_UMin               =             -5
+voltageRegulator_limiterWithLag_tUMaxReached0      =          1e+60
+voltageRegulator_limiterWithLag_tUMinReached0      =          1e+60
+voltageRegulator_limiterWithLag_u0                 =       0.986325
+voltageRegulator_limiterWithLag_y0                 =       0.986325
+voltageRegulator_tEfdMaxReached0                   =          1e+60
+voltageRegulator_tEfdMinReached0                   =          1e+60
+governor_limiter_limitsAtInit                      =              1
+governor_limiter_strict                            =             -1
+generator_ExcitationPu                             =              1
+generator_NbSwitchOffSignals                       =              3
+generator_State0                                   =              2

@@ -1,0 +1,386 @@
+%% Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, you can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+%%
+%% This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+
+\documentclass[a4paper, 12pt]{report}
+
+\input{../../../../documentation/latex_setup.tex}
+
+\begin{document}
+
+\chapter{IEEE57 Test case}
+
+The IEEE57 bus system is a standard test case in the power system community. It represents a simple approximation of the American Electric Power system (in the U.S. Midwest) as it was in the early 1960s. The data were provided by Iraj Dabbagchi of AEP and converted into the IEEE Common Data Format by Rich Christie at the University of Washington in August 1993.
+
+
+% Generic description of the non regression test
+% List of scenarios
+\section{Test case description}
+
+The IEEE 57-bus test case system has 57 buses, 7 generators, 3 shunts, 16 transformers, 63 lines and 42 loads.\\
+There are three voltage levels in the test case: 69 kV, 18 kV and 13.8 kV. The outer part of the system, with the generators, corresponds to the 69 kV network. The upper inner part is the 18 kV part and the lower inner part is the 13.8 kV part.
+
+\begin{figure}[H]
+\includegraphics[scale=0.5]{IEEE57BusSystem.png}
+\caption{IEEE57 system representation}
+\label{circuit-1}
+\end{figure}
+
+\subsection{Models}
+
+The generators are modeled as four windings synchronous generators models with a proportional voltage regulator and a proportional speed governor (transformers are included into the machine model; saturations are not represented).
+
+The voltage regulator is as follows:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\sbEntree{E}
+\sbCompSum[5]{errAVR}{E}{}{-}{+}{}
+\sbRelier[$U_{Ref}$]{E}{errAVR}
+\sbDecaleNoeudy[4]{errAVR}{Us}
+\sbRelier[$U_{Stator}$]{Us}{errAVR}
+\sbBloc{Gain}{$K_A$}{errAVR}
+\sbRelier{errAVR}{Gain}
+\sbBlocL{Limiter}{\tikz {\draw (-0.4,-0.4) -- (0,-0.4);\draw (0,-0.4) -- (0,0.4); \draw (0,0.4) -- (0.4,0.4); }}{Gain}
+\sbSortie[5]{S}{Limiter}
+\sbRelier[$Efd$]{Limiter}{S}
+\end{tikzpicture}
+\caption{Voltage regulator}
+\end{figure}
+
+The speed governor is as follows:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\sbEntree{E}
+\sbCompSum[6]{errW}{E}{}{-}{+}{}
+\sbRelier[$omega_{Ref}$]{E}{errW}
+\sbDecaleNoeudy[4]{errW}{Omega}
+\sbRelier[$omega$]{Omega}{errW}
+\sbBloc{Gain}{$K_{Gover}$}{errW}
+\sbRelier{errW}{Gain}
+\sbCompSum{sumP}{Gain}{+}{}{+}{}
+\sbRelier{Gain}{sumP}
+\sbDecaleNoeudy[-4]{sumP}{PRef}
+\sbRelier[$P_{Ref}$]{PRef}{sumP}
+\sbBlocL{Limiter}{\tikz {\draw (-0.4,-0.4) -- (0,-0.4);\draw (0,-0.4) -- (0,0.4); \draw (0,0.4) -- (0.4,0.4); }}{sumP}
+\sbSortie[5]{S}{Limiter}
+\sbRelier[$Pm$]{Limiter}{S}
+\end{tikzpicture}
+\caption{Speed Governor}
+\end{figure}
+
+The system reference frequency omegaRef is set to 1.\\
+
+The loads are modeled as voltage-dependant loads:
+\begin{equation*}
+\begin{aligned}
+& P = P_{0} * (\frac{U}{U_{0}})^\alpha \\
+& Q = Q_{0} * (\frac{U}{U_{0}})^\alpha
+\end{aligned}
+\label{Voltage-dependant load model}
+\end{equation*}
+
+All the models parameters can be viewed into the par file available in the different test case directories.
+
+\subsection{Scenarios}
+The simulated scenarios are :
+\begin{itemize}
+\item a load variation on node 9 [\ref{LoadVariation}];
+\item a disconnection of the generator connected to node 12 [\ref{DisconnectGenerator}];
+\item a disconnection of the 6-8 line [\ref{DisconnectLine}]
+\end{itemize}
+
+\subsection{Solver}
+All scenarios are simulated with the variable time step solver IDA using the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=10e-4;
+\item $Accuracy_{Abs}$=10e-4;
+\end{itemize}
+
+In addition, the line disconnection is also simulated with the simplified solver using in particular the following values:
+\begin{itemize}
+\item $h_{Max}$=1s;
+\item recalculateStep=false;
+\end{itemize}
+
+The complete set of parameters used for the solvers are available into the solvers.par file in each test case directory.
+
+\newpage
+\section{Results}
+
+\subsection{Load variation}
+\label{LoadVariation}
+
+At $t=20s$, the active and reactive power set points for the load on node 9 are doubled. The load value on node 9 is initially multiplied by 2 at $t=20s$ as expected and decreases in the next instants to stabilize at a lower value (due to the voltage-dependant model used). \\
+
+To compensate for this load increase, each generator has to provide more active power, which leads to a decrease in the generator speeds due to the post-event difference between the electrical power requested by the network and the mechanical power provided by the machine. The proportional speed regulation enables to counteract this effect by increasing the mechanical power and thus helps limiting the speed deviation due to the event. \\
+
+Regarding reactive power, it immediately increases after the event to compensate for the load increase and the associated network voltage decrease. Nevertheless, this reactive power increase is limited by the voltage regulator action that counters the stator voltage increase.
+
+\begin{figure}[H]
+\subfigure[Active load (MW)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y expr= \thisrow{_LOAD____9_EC_load_PPu}*100]
+        {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive load (MVAr)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{_LOAD____9_EC_load_QPu}*100]
+        {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Network voltage (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{NETWORK__SALT___9_TN_Upu_value}*69]
+        {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Load variation and voltage evolution on node 9}
+\end{figure}
+
+\begin{figure}[H]
+\subfigure[Active power (MW)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____9_SM_generator_PGen]
+        {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Omega (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in, xmax=40, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____9_SM_generator_omegaPu]
+        {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power (MVAr)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____9_SM_generator_QGen]
+        {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Stator voltage (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.5in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GEN____9_SM_generator_UStatorPu}*20]
+        {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Generator 9 response to the load variation}
+\end{figure}
+
+\newpage
+\subsection{Generator disconnection}
+\label{DisconnectGenerator}
+
+At $t=20s$, the generator connected to the node 12 is disconnected. To compensate for this disconnection, the other generators have to increase the active and reactive power delivered to the network in a similar way than for the load increase. It leads to a similar dynamic behavior than for the load increase: the control actions contribute to limit the speed and voltage deviations from the reference values.
+
+\begin{figure}[H]
+\subfigure[Active power (MW)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____1_SM_generator_PGen]
+        {../IEEE57_2_DisconnectGroup/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Omega (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____1_SM_generator_omegaPu]
+        {../IEEE57_2_DisconnectGroup/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power (MVAr)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____1_SM_generator_QGen]
+        {../IEEE57_2_DisconnectGroup/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Stator voltage (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GEN____1_SM_generator_UStatorPu}*20]
+        {../IEEE57_2_DisconnectGroup/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Generator 1 response to the disconnection}
+\end{figure}
+
+\newpage
+\subsection{Line Opening}
+\label{DisconnectLine}
+
+At $t=20s$, we open the direct line between the nodes 6 and 8.We observe that the system is oscillating after the event but stabilizes after a few seconds. The active power is restored to its pre-event value and the generator speeds remains quasi-constant but the reactive power is changed in response to the stator voltage change (action of the voltage regulation).
+
+\begin{figure}[H]
+\subfigure[Active power (MW)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____8_SM_generator_PGen]
+        {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Omega (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____8_SM_generator_omegaPu]
+        {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power (MVAr)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____8_SM_generator_QGen]
+        {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Stator voltage (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GEN____8_SM_generator_UStatorPu}*20]
+        {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Generator 8 response to the disconnection}
+\end{figure}
+
+When the simulation is done with the simplified solver, it naturally filters the fast oscillations (fix time-step equal to one second) but is able to correctly catch the long-term behavior and the new equilibrium point.
+
+\begin{figure}[H]
+\subfigure[Active power (MW)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____8_SM_generator_PGen]
+        {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Omega (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____8_SM_generator_omegaPu]
+        {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power (MVAr)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____8_SM_generator_QGen]
+        {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Stator voltage (kV)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 1.3in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{GEN____8_SM_generator_UStatorPu}*20]
+        {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Generator 8 response to the disconnection with the simplified solver}
+\end{figure}
+
+This is also visible when superposing the active power going onto the lines 6-7 and 7-8 (that were in parallel with the line 6-8 being disconnected) with the two solvers.
+
+\begin{figure}[H]
+\subfigure[Active power on line 6-7]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2.5in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{NETWORK__BEAV___6-BUS____7-1_AC_P2_value}*100]
+        {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{NETWORK__BEAV___6-BUS____7-1_AC_P2_value}*100]
+        {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
+        \legend{IDA Solver, Simplified Solver}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Active power on line 7-8]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2.5in, xmax=40]
+        \addplot[color=blue!50]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____7-CLIN___8-1_AC_P1_value}*100]
+        {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time, y expr=\thisrow{NETWORK__BUS____7-CLIN___8-1_AC_P1_value}*100]
+        {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
+        \legend{IDA Solver, Simplified Solver}
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Active power on remaining lines with IDA and simplified solvers}
+\end{figure}
+
+\end{document}
