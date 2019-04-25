@@ -1,0 +1,28 @@
+ ====== INIT VARIABLES VALUES ======
+load_terminal_V_im                                : y =      -0.301469 yp =              0
+load_terminal_V_re                                : y =       0.898324 yp =              0
+load_PPu                                          : y =       0.037984 yp =              0
+load_QPu                                          : y =      0.0189867 yp =              0
+load_SPu_im                                       : y =      0.0189867 yp =              0
+load_SPu_re                                       : y =       0.037984 yp =              0
+load_UPu_value                                    : y =        0.94756 yp =              0
+load_terminal_i_im                                : y =     -0.0317498 yp =              0
+load_terminal_i_re                                : y =      0.0316283 yp =              0
+ ====== INIT DISCRETE VARIABLES VALUES ======
+load_PRefPu_value                                 : z =          0.038
+load_QRefPu_value                                 : z =          0.019
+load_running_value                                : z =              1
+load_switchOffSignal1_value                       : z =             -1
+load_switchOffSignal2_value                       : z =             -1
+load_state                                        : z =              2
+ ====== PARAMETERS VALUES ======
+load_alpha                                         =            1.5
+load_beta                                          =            2.5
+load_i0Pu_im                                       =     -0.0317589
+load_i0Pu_re                                       =      0.0316316
+load_s0Pu_im                                       =          0.019
+load_s0Pu_re                                       =          0.038
+load_u0Pu_im                                       =      -0.301534
+load_u0Pu_re                                       =       0.898583
+load_NbSwitchOffSignals                            =              2
+load_State0                                        =              2
