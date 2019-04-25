@@ -664,7 +664,7 @@ ConnectorContainer::propagateZDiff(vector<int> & indicesDiff, vector<double> & z
 
     shared_ptr<Connector> connect = iter->second;
     // Get negated attribute of the z variable in the connector
-    bool zNegated;
+    bool zNegated = false;
     bool found = false;
     for (vector<connectedSubModel>::iterator it = connect->connectedSubModels().begin();
             it != connect->connectedSubModels().end();

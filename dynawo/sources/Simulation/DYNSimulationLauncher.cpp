@@ -42,45 +42,41 @@ using DYN::Simulation;
 using DYN::SimulationContext;
 
 void launchSimu(const std::string& jobsFileName) {
-  try {
-    DYN::Timer timer("Main::LaunchSimu");
+  DYN::Timer timer("Main::LaunchSimu");
 
-    job::XmlImporter importer;
-    boost::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
-    std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
+  job::XmlImporter importer;
+  boost::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);
+  std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
 
-    for (job::job_iterator itJobEntry = jobsCollection->begin();
-          itJobEntry != jobsCollection->end();
-          ++itJobEntry) {
-      Trace::init();
-      Trace::debug() << DYNLog(LaunchingJob, (*itJobEntry)->getName()) << Trace::endline;
+  for (job::job_iterator itJobEntry = jobsCollection->begin();
+      itJobEntry != jobsCollection->end();
+      ++itJobEntry) {
+    Trace::init();
+    Trace::debug() << DYNLog(LaunchingJob, (*itJobEntry)->getName()) << Trace::endline;
 
-      boost::shared_ptr<SimulationContext> context = boost::shared_ptr<SimulationContext>(new SimulationContext());
-      context->setResourcesDirectory(getEnvVar("DYNAWO_RESOURCES_DIR"));
-      context->setLocale(getEnvVar("DYNAWO_LOCALE"));
-      context->setInputDirectory(prefixJobFile);
-      context->setWorkingDirectory(prefixJobFile);
+    boost::shared_ptr<SimulationContext> context = boost::shared_ptr<SimulationContext>(new SimulationContext());
+    context->setResourcesDirectory(getEnvVar("DYNAWO_RESOURCES_DIR"));
+    context->setLocale(getEnvVar("DYNAWO_LOCALE"));
+    context->setInputDirectory(prefixJobFile);
+    context->setWorkingDirectory(prefixJobFile);
 
-      boost::shared_ptr<Simulation> simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
-      simulation->init();
-      try {
-        simulation->simulate();
-        simulation->terminate();
-      } catch (const DYN::Error& err) {
-        // Needed as otherwise terminate might crash due to missing staticRef variables
-        if (err.key() == DYN::KeyError_t::StateVariableNoReference)
-          simulation->activateExportIIDM(false);
-        simulation->terminate();
-        throw;
-      } catch (...) {
-        simulation->terminate();
-        throw;
-      }
-      simulation->clean();
-      Trace::debug() << DYNLog(EndOfJob, (*itJobEntry)->getName()) << Trace::endline;
-      Trace::resetCustomAppenders();
+    boost::shared_ptr<Simulation> simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
+    simulation->init();
+    try {
+      simulation->simulate();
+      simulation->terminate();
+    } catch (const DYN::Error& err) {
+      // Needed as otherwise terminate might crash due to missing staticRef variables
+      if (err.key() == DYN::KeyError_t::StateVariableNoReference)
+        simulation->activateExportIIDM(false);
+      simulation->terminate();
+      throw;
+    } catch (...) {
+      simulation->terminate();
+      throw;
     }
-  } catch (...) {
-    throw;
+    simulation->clean();
+    Trace::debug() << DYNLog(EndOfJob, (*itJobEntry)->getName()) << Trace::endline;
+    Trace::resetCustomAppenders();
   }
 }

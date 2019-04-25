@@ -95,27 +95,23 @@ int main(int argc, char ** argv) {
     }
 
     // launch simulation
-    try {
-      if (jobsFileName == "") {
-        cout << " job file name is required" << endl;
-        cout << desc << endl;
-        return 1;
-      }
-
-      if (!exists(jobsFileName)) {
-        cout << " failed to locate jobs file (" << jobsFileName << ")" << endl;
-        cout << desc << endl;
-        return 1;
-      }
-
-      boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-      dicos->addPath(getEnvVar("DYNAWO_RESOURCES_DIR"));
-      dicos->addDicos(getEnvVar("DYNAWO_DICTIONARIES"));
-
-      launchSimu(jobsFileName);
-    } catch (...) {
-      throw;
+    if (jobsFileName == "") {
+      cout << " job file name is required" << endl;
+      cout << desc << endl;
+      return 1;
     }
+
+    if (!exists(jobsFileName)) {
+      cout << " failed to locate jobs file (" << jobsFileName << ")" << endl;
+      cout << desc << endl;
+      return 1;
+    }
+
+    boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
+    dicos->addPath(getEnvVar("DYNAWO_RESOURCES_DIR"));
+    dicos->addDicos(getEnvVar("DYNAWO_DICTIONARIES"));
+
+    launchSimu(jobsFileName);
   } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
     return e.type();

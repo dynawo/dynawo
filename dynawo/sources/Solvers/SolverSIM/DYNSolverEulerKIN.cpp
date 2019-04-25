@@ -246,8 +246,6 @@ SolverEulerKIN::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
       } else {
         throw;
       }
-    } catch (...) {
-      throw;
     }
   }
 

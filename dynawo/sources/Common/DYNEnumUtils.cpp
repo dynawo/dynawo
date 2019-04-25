@@ -73,7 +73,7 @@ typeVar2Str(const typeVar_t& type) {
 }
 
 typeVarC_t toCTypeVar(const typeVar_t& type) {
-  typeVarC_t typeVar;
+  typeVarC_t typeVar = DOUBLE;
   switch (type) {
     case DISCRETE:
     case CONTINUOUS:
