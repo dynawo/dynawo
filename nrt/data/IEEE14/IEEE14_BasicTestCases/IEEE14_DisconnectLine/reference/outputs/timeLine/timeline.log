@@ -1,1 +1,19 @@
-20 | _BUS___12-BUS___13-1_AC | LINE : opening both sides
+0.036548 | GEN____3_SM | PMIN : activation
+0.971046 | GEN____3_SM | PMIN : deactivation
+20 | _BUS____1-BUS____5-1_AC | LINE : opening on side 2
+20.4488 | GEN____6_SM | PMIN : activation
+20.5647 | GEN____8_SM | PMIN : activation
+20.8797 | GEN____6_SM | PMIN : deactivation
+20.9237 | GEN____3_SM | PMIN : activation
+21.0662 | GEN____8_SM | PMIN : deactivation
+21.4865 | GEN____6_SM | PMIN : activation
+21.5346 | GEN____3_SM | PMIN : deactivation
+21.5374 | GEN____6_SM | PMIN : deactivation
+21.62 | GEN____8_SM | PMIN : activation
+22.0725 | GEN____6_SM | PMIN : activation
+22.0818 | GEN____8_SM | PMIN : deactivation
+22.1307 | GEN____6_SM | PMIN : deactivation
+22.7068 | GEN____8_SM | PMIN : activation
+22.8875 | GEN____6_SM | PMIN : activation
+23.0734 | GEN____8_SM | PMIN : deactivation
+23.1079 | GEN____6_SM | PMIN : deactivation

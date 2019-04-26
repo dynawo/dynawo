@@ -3,13 +3,13 @@
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
-    This Source Code Form is subject to the terGenerator of the Mozilla Public
+    This Source Code Form is subject to the terms of the Mozilla Public
     License, v. 2.0. If a copy of the MPL was not distributed with this
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systeGenerator.
+    simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="_LOAD___2_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="1" staticId="_LOAD___2_EC"/>
@@ -23,11 +23,11 @@
   <dyn:blackBoxModel id="_LOAD__12_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="9" staticId="_LOAD__12_EC"/>
   <dyn:blackBoxModel id="_LOAD__13_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="10" staticId="_LOAD__13_EC"/>
   <dyn:blackBoxModel id="_LOAD__14_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="11" staticId="_LOAD__14_EC"/>
-  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindings.so" parFile="IEEE14.par" parId="12" staticId="_GEN____1_SM"/>
-  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindings.so" parFile="IEEE14.par" parId="13" staticId="_GEN____2_SM"/>
-  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindings.so" parFile="IEEE14.par" parId="14" staticId="_GEN____3_SM"/>
-  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousFourWindings.so" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM"/>
-  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousFourWindings.so" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM"/>
+  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="12" staticId="_GEN____1_SM"/>
+  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="13" staticId="_GEN____2_SM"/>
+  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="14" staticId="_GEN____3_SM"/>
+  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM"/>
+  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef.so" parFile="IEEE14.par" parId="17"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>

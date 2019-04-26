@@ -47,21 +47,21 @@
   <dyn:blackBoxModel id="_LOAD__14_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="11" staticId="_LOAD__14_EC">
     <dyn:macroStaticRef id="LOAD"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindings.so" parFile="IEEE14.par" parId="12" staticId="_GEN____1_SM">
+  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="12" staticId="_GEN____1_SM">
     <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
     <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
     <dyn:staticRef var="generator_state" staticVar="state"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindings.so" parFile="IEEE14.par" parId="13" staticId="_GEN____2_SM">
+  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="13" staticId="_GEN____2_SM">
     <dyn:macroStaticRef id="GEN"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindings.so" parFile="IEEE14.par" parId="14" staticId="_GEN____3_SM">
+  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="14" staticId="_GEN____3_SM">
     <dyn:macroStaticRef id="GEN"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousFourWindings.so" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM">
+  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM">
     <dyn:macroStaticRef id="GEN"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousFourWindings.so" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM">
+  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM">
     <dyn:macroStaticRef id="GEN"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef.so" parFile="IEEE14.par" parId="17"/>
