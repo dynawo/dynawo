@@ -1,0 +1,366 @@
+%% Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, you can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+%%
+%% This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+
+\documentclass[a4paper, 12pt]{report}
+
+\input{../../../../documentation/latex_setup.tex}
+
+\begin{document}
+
+\chapter*{IEEE14 with proportional regulations}
+
+
+IEEE 14 bus system is widely used as a case for conducting various studies like short circuit analysis, load flow studies, interconnected grid problems etc...
+Here are performed different scenarios in order to validate the models behaviours in a context of a small network.
+
+% Generic description of the non regression test
+% List of scenarios
+\section{Test case description}
+
+The following test case consists in a network of 16 lines and 3 transformers, on which are connected 11 loads, 1 shunt and 5 synchronous machines (three of them being synchronous compensators used only for reactive power support).
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{Single-line-diagram-of-IEEE-14-bus-system.png}
+  \caption{IEEE 14 bus system diagram}
+\end{figure}
+
+\subsection{Initial Conditions}
+
+The reference angle for the load flow is set at bus n°1. \\
+
+Here are the initial conditions for each generator.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Generator & P (MW) & Q (MVar) & U (kV) & $\Theta$ (°) \\
+  \hline
+  1 & 232.39 & -16.55 & 73.14 & 0.00\\
+  2 & 40.00 & 43.56 & 72.11 & -4.98\\
+  3 & 0.00 & 25.07 & 69.69 & -12.73\\
+  6 & 0.00 & 12.73 & 14.77 & -14.22\\
+  8 & 0.00 & 17.62 & 15.04 & -13.36\\
+  \hline
+\end{tabular}
+\end{center}
+
+\subsection{Models}
+
+\subsubsection{Synchronous Machines}
+
+The following table recaps the modelisation of each generator.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+  \hline
+  Generator & Windings  & Saturations & Transformer & Low Voltage Base & High Voltage Base\\
+  \hline
+  1 & 4 & No & Yes & 24 & 69\\
+  2 & 4 & No & Yes & 24 & 69\\
+  3 & 4 & No & Yes & 20 & 69\\
+  6 & 3 & No & No & 15 &  \\
+  8 & 3 & No & Yes & 13.8 & 18\\
+  \hline
+\end{tabular}
+\end{center}
+
+All 5 machines are controlled by a proportional speed governor and a proportional voltage regulator. \\
+
+For every machine the voltage regulator is as follows:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\sbEntree{E}
+\sbCompSum[5]{errAVR}{E}{}{-}{+}{}
+\sbRelier[$U_{Ref}$]{E}{errAVR}
+\sbDecaleNoeudy[4]{errAVR}{Us}
+\sbRelier[$U_{Stator}$]{Us}{errAVR}
+\sbBloc{Gain}{$K_A$}{errAVR}
+\sbRelier{errAVR}{Gain}
+\sbBlocL{Limiter}{\tikz {\draw (-0.4,-0.4) -- (0,-0.4);\draw (0,-0.4) -- (0,0.4); \draw (0,0.4) -- (0.4,0.4); }}{Gain}
+\sbSortie[5]{S}{Limiter}
+\sbRelier[$Efd$]{Limiter}{S}
+\end{tikzpicture}
+\caption{Voltage regulator}
+\end{figure}
+
+For every machine the speed governor is as follows:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\sbEntree{E}
+\sbCompSum[6]{errW}{E}{}{-}{+}{}
+\sbRelier[$omega_{Ref}$]{E}{errW}
+\sbDecaleNoeudy[4]{errW}{Omega}
+\sbRelier[$omega$]{Omega}{errW}
+\sbBloc{Gain}{$K_{Gover}$}{errW}
+\sbRelier{errW}{Gain}
+\sbCompSum{sumP}{Gain}{+}{}{+}{}
+\sbRelier{Gain}{sumP}
+\sbDecaleNoeudy[-4]{sumP}{PRef}
+\sbRelier[$P_{Ref}$]{PRef}{sumP}
+\sbBlocL{Limiter}{\tikz {\draw (-0.4,-0.4) -- (0,-0.4);\draw (0,-0.4) -- (0,0.4); \draw (0,0.4) -- (0.4,0.4); }}{sumP}
+\sbSortie[5]{S}{Limiter}
+\sbRelier[$Pm$]{Limiter}{S}
+\end{tikzpicture}
+\caption{Speed Governor}
+\end{figure}
+
+For every machine the voltage regulator parameters are:
+\begin{center}
+\begin{tabular}{l|l}
+   $K_A=20$ & $Efd_{Max}=5$  \\
+    & $Efd_{Min}=-5$   \\
+\end{tabular}
+\end{center}
+
+For every machine the speed governor parameters are:
+\begin{center}
+\begin{tabular}{l|l}
+   $P_{Nom}=S_{Nom_{SM}}$ & $P_{Max}=S_{Nom_{SM}}$  \\
+   $K_{Gover}=5$ & $P_{Min}=0$   \\
+\end{tabular}
+\end{center}
+
+All other parameters (physical behaviour, transformer, etc...) can be found in each scenario's ieee14.par file.
+
+\subsubsection{System reference frequency}
+
+The system reference frequency used in every machine's model is computed as following:
+
+\[
+ \omega_{ref} = \sum_{Gen \hspace{2pt} n} H_{n} Snom_{n} \omega_{n}
+\]
+
+where $H_{n}$ is generator n inertia and $Snom_{n}$ its apparent power.
+\subsubsection{Loads}
+
+Loads follow an alpha beta dynamic behaviour, that is to say :
+
+\[
+\begin{aligned}
+& P = P_{ref} (\frac{U}{U_{0}})^\alpha \\
+& Q = Q_{ref} (\frac{U}{U_{0}})^\beta
+\end{aligned}
+\]
+with $\alpha$ = 1.5 and $\beta$ = 2.5 \\
+They are directly connected to the grid (no transformer included).
+
+
+\subsection{Scenarios}
+The simulated scenarios are :
+\begin{itemize}
+\item a disconnection of generator 2;
+\item a disconnection of line 1-5;
+\item a variation of load 2 consumption;
+\end{itemize}
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{itemize}
+\item $Order$=2;
+\item $Accuracy_{Rel}$=10e-4;
+\item $Accuracy_{Abs}$=10e-4;
+\end{itemize}
+
+
+\newpage
+\section{Results}
+
+For each event, we focus on generator 1 's response.
+
+\subsection*{Group Disconnection}
+
+At $t=20s$, generator 2 is disconnected.\\
+
+As generator 2 was injecting active and reactive power, we observe that its loss entails both a voltage and a frequency drop for the nearby generator 1. In response, the voltage and speed regulations raise their outputs and therefore the injected active and reactive powers, having generator 1 's voltage and frequency stabilize at a lower value.\\
+
+\begin{figure}[H]
+\subfigure[Generator 1 voltage (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, height = 1.8in]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{NETWORK__BUS____1_TN_Upu_value}]
+        {../IEEE14_DisconnectGroup/reference/outputs/curves/curves.csv};
+
+        \legend{$UPu1_{Eurostag}$,$UPu1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator 1 reactive power (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5,scaled y ticks = false}, height = 1.8in]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{GEN____1_SM_generator_QGen}/1211]
+        {../IEEE14_DisconnectGroup/reference/outputs/curves/curves.csv};
+
+        \legend{$QGen1_{Eurostag}$,$QGen1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Group disconnection}
+\end{figure}
+\begin{figure}[H]
+\subfigure[Generator 1 frequency (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time,y=GEN____1_SM_generator_omegaPu]
+        {../IEEE14_DisconnectGroup/reference/outputs/curves/curves.csv};
+
+        \legend{$Omega1_{Eurostag}$,$Omega1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator 1 active power (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, height = 2.4in];
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{GEN____1_SM_generator_PGen}/1211]
+        {../IEEE14_DisconnectGroup/reference/outputs/curves/curves.csv};
+
+        \legend{$PGen1_{Eurostag}$,$PGen1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Group disconnection}
+\end{figure}
+
+\newpage
+\subsection*{Line 1-5 deconnection}
+
+At $t=20s$, the line between buses 1 and 5 is opened at its bus 5 's extremity.\\
+
+We observe that the system is oscillating after the event but stabilizes after a few seconds. Due to the topology modification, the terminal voltage rises and then stabilize under the control of the voltage regulator. Minor changes are also induced on the evolution of generator 1 's frequency and its active power.\\
+
+\begin{figure}[H]
+\subfigure[Generator 1 voltage (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{NETWORK__BUS____1_TN_Upu_value}]
+        {../IEEE14_DisconnectLine/reference/outputs/curves/curves.csv};
+
+        \legend{$UPu1_{Eurostag}$,$UPu1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator 1 reactive power (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5,scaled y ticks = false}, height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{GEN____1_SM_generator_QGen}/1211]
+        {../IEEE14_DisconnectLine/reference/outputs/curves/curves.csv};
+
+        \legend{$QGen1_{Eurostag}$,$QGen1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Line disconnection}
+\end{figure}
+
+\begin{figure}[H]
+\subfigure[Generator 1 active power (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{GEN____1_SM_generator_PGen}/1211]
+        {../IEEE14_DisconnectLine/reference/outputs/curves/curves.csv};
+
+        \legend{$PGen1_{Eurostag}$,$PGen1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator 1 frequency (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time,y=GEN____1_SM_generator_omegaPu]
+        {../IEEE14_DisconnectLine/reference/outputs/curves/curves.csv};
+
+        \legend{$Omega1_{Eurostag}$,$Omega1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Line disconnection}
+\end{figure}
+
+\newpage
+\subsection*{Load 2 variation}
+
+At $t=20s$, we apply an active and reactive load increase on bus 2 of 0.9 p.u.\\
+
+We observe that the reactive load variation triggers a sudden voltage drop at bus 1, which is contained and stabilized by a rise of generator 1's reactive power induced by the voltage regulator. Similarly, as the load active power consumption increases, the generator's frequency plummets before finding a lower steady state quickly thanks to the speed regulator.\\
+
+\begin{figure}[H]
+\subfigure[Generator 1 voltage (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{NETWORK__BUS____1_TN_Upu_value}]
+        {../IEEE14_LoadVariation/reference/outputs/curves/curves.csv};
+
+        \legend{$UPu1_{Eurostag}$,$UPu1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator 1 reactive power (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5,scaled y ticks = false}, height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{GEN____1_SM_generator_QGen}/1211]
+        {../IEEE14_LoadVariation/reference/outputs/curves/curves.csv};
+
+        \legend{$QGen1_{Eurostag}$,$QGen1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Line disconnection}
+\end{figure}
+
+\begin{figure}[H]
+\subfigure[Generator 1 active power (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{GEN____1_SM_generator_PGen}/1211]
+        {../IEEE14_LoadVariation/reference/outputs/curves/curves.csv};
+
+        \legend{$PGen1_{Eurostag}$,$PGen1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Generator 1 frequency (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[xmax=60, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, height = 2.4in]
+        \addplot[color=blue!50]
+        table[x=time,y=GEN____1_SM_generator_omegaPu]
+        {../IEEE14_LoadVariation/reference/outputs/curves/curves.csv};
+
+        \legend{$Omega1_{Eurostag}$,$Omega1_{Dynawo}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Load Variation}
+\end{figure}
+
+\end{document}

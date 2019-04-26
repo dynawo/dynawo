@@ -23,11 +23,11 @@
   <dyn:blackBoxModel id="_LOAD__12_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="9" staticId="_LOAD__12_EC"/>
   <dyn:blackBoxModel id="_LOAD__13_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="10" staticId="_LOAD__13_EC"/>
   <dyn:blackBoxModel id="_LOAD__14_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="11" staticId="_LOAD__14_EC"/>
-  <dyn:modelTemplateExpansion id="GEN____1_SM" templateId="MachineTemplate" parFile="IEEE14.par" parId="12" staticId="_GEN____1_SM"/>
-  <dyn:modelTemplateExpansion id="GEN____2_SM" templateId="MachineTemplate" parFile="IEEE14.par" parId="13" staticId="_GEN____2_SM"/>
-  <dyn:modelTemplateExpansion id="GEN____3_SM" templateId="MachineTemplate" parFile="IEEE14.par" parId="14" staticId="_GEN____3_SM"/>
-  <dyn:modelTemplateExpansion id="GEN____6_SM" templateId="MachineTemplate" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM"/>
-  <dyn:modelTemplateExpansion id="GEN____8_SM" templateId="MachineTemplate" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM"/>
+  <dyn:modelTemplateExpansion id="GEN____1_SM" templateId="MachineFourWindingsTemplate" parFile="IEEE14.par" parId="12" staticId="_GEN____1_SM"/>
+  <dyn:modelTemplateExpansion id="GEN____2_SM" templateId="MachineFourWindingsTemplate" parFile="IEEE14.par" parId="13" staticId="_GEN____2_SM"/>
+  <dyn:modelTemplateExpansion id="GEN____3_SM" templateId="MachineFourWindingsTemplate" parFile="IEEE14.par" parId="14" staticId="_GEN____3_SM"/>
+  <dyn:modelTemplateExpansion id="GEN____6_SM" templateId="MachineThreeWindingsTemplate" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM"/>
+  <dyn:modelTemplateExpansion id="GEN____8_SM" templateId="MachineThreeWindingsTemplate" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef.so" parFile="IEEE14.par" parId="17"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>

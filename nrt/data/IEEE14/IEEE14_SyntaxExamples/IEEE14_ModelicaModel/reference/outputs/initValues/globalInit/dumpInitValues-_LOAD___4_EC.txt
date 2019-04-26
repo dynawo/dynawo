@@ -1,13 +1,13 @@
  ====== INIT VARIABLES VALUES ======
-load_terminal_V_im                                : y =      -0.182455 yp =              0
-load_terminal_V_re                                : y =        1.00201 yp =              0
-load_PPu                                          : y =          0.478 yp =              0
-load_QPu                                          : y =         -0.039 yp =              0
-load_SPu_im                                       : y =         -0.039 yp =              0
-load_SPu_re                                       : y =          0.478 yp =              0
-load_UPu_value                                    : y =        1.01849 yp =              0
-load_terminal_i_im                                : y =     -0.0464034 yp =              0
-load_terminal_i_re                                : y =       0.468591 yp =              0
+load_terminal_V_im                                : y =      -0.182198 yp =              0
+load_terminal_V_re                                : y =        1.00127 yp =              0
+load_PPu                                          : y =       0.478031 yp =              0
+load_QPu                                          : y =     -0.0390042 yp =              0
+load_SPu_im                                       : y =     -0.0390042 yp =              0
+load_SPu_re                                       : y =       0.478031 yp =              0
+load_UPu_value                                    : y =        1.01771 yp =              0
+load_terminal_i_im                                : y =     -0.0463847 yp =              0
+load_terminal_i_re                                : y =       0.468983 yp =              0
  ====== INIT DISCRETE VARIABLES VALUES ======
 load_PRefPu_value                                 : z =          0.478
 load_QRefPu_value                                 : z =         -0.039
@@ -18,11 +18,11 @@ load_state                                        : z =              2
  ====== PARAMETERS VALUES ======
 load_alpha                                         =            1.5
 load_beta                                          =            2.5
-load_i0Pu_im                                       =     -0.0464034
-load_i0Pu_re                                       =       0.468591
+load_i0Pu_im                                       =     -0.0463837
+load_i0Pu_re                                       =       0.468972
 load_s0Pu_im                                       =         -0.039
 load_s0Pu_re                                       =          0.478
-load_u0Pu_im                                       =      -0.182455
-load_u0Pu_re                                       =        1.00201
+load_u0Pu_im                                       =      -0.182187
+load_u0Pu_re                                       =        1.00123
 load_NbSwitchOffSignals                            =              2
 load_State0                                        =              2
