@@ -295,7 +295,7 @@ At $t=20s$, we open the direct line between the nodes 6 and 8.We observe that th
   \begin{tikzpicture}
     \begin{axis}[height = 1.3in, xmax=40]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{GEN____8_SM_generator_UStatorPu}*20]
+        table[x=time, y expr=\thisrow{GEN____8_SM_generator_UStatorPu}*24]
         {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -341,7 +341,7 @@ When the simulation is done with the simplified solver, it naturally filters the
   \begin{tikzpicture}
     \begin{axis}[height = 1.3in, xmax=40]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{GEN____8_SM_generator_UStatorPu}*20]
+        table[x=time, y expr=\thisrow{GEN____8_SM_generator_UStatorPu}*24]
         {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
