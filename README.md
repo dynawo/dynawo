@@ -133,7 +133,7 @@ $> export HTTP_PROXY=$http_proxy;export HTTPS_PROXY=$https_proxy;export NO_PROXY
 
 Once you have build Dyna&omega;o you can start launching a simulation with the command:
 ``` bash
-$> ./myEnvDynawo.sh jobs-with-curves nrt/data/IEEE/IEEE14_BlackBoxModels/IEEE14.jobs
+$> ./myEnvDynawo.sh jobs-with-curves nrt/data/IEEE14/IEEE14_BasicTestCases/IEEE14_DisconnectLine/IEEE14.jobs
 ```
 
 You can also list all available commands with:

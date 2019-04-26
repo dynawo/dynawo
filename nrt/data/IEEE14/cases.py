@@ -24,7 +24,7 @@ forbiddenReturnCodeType = "FORBIDDEN"
 
 case_name = "IEEE14 - Modelica models"
 case_description = "IEEE14 - Modelica models"
-job_file = os.path.join(os.path.dirname(__file__), "IEEE14_ModelicaModel", "IEEE14.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEEE14_ModelicaModel", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
 
@@ -34,7 +34,7 @@ test_cases.append((case_name, case_description, job_file, 30, standardReturnCode
 
 case_name = "IEEE14 - Template models"
 case_description = "IEEE14 - Template models"
-job_file = os.path.join(os.path.dirname(__file__), "IEEE14_TemplateModels", "IEEE14.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEEE14_TemplateModels", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
 
@@ -44,7 +44,7 @@ test_cases.append((case_name, case_description, job_file, 30, standardReturnCode
 
 case_name = "IEEE14 - Black box models"
 case_description = "IEEE14 - Black box models"
-job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BlackBoxModels", "IEEE14.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEEE14_BlackBoxModels", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -54,7 +54,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 
 case_name = "IEEE14 - MacroConnects"
 case_description = "IEEE14 - MacroConnects"
-job_file = os.path.join(os.path.dirname(__file__), "IEEE14_MacroConnects", "IEEE14.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEEE14_MacroConnects", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -64,7 +64,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 
 case_name = "IEEE14 - MacroStaticRefs"
 case_description = "IEEE14 - MacroStaticRefs"
-job_file = os.path.join(os.path.dirname(__file__), "IEEE14_MacroStaticRefs", "IEEE14.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_SyntaxExamples", "IEEE14_MacroStaticRefs", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -74,7 +74,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 
 case_name = "IEEE14 - Disconnect line"
 case_description = "IEEE14 - Disconnect line"
-job_file = os.path.join(os.path.dirname(__file__), "IEEE14_DisconnectLine", "IEEE14.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEEE14_DisconnectLine", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -84,6 +84,6 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 
 case_name = "IEEE14 - Disconnect group"
 case_description = "IEEE14 - Disconnect group"
-job_file = os.path.join(os.path.dirname(__file__), "IEEE14_DisconnectGroup", "IEEE14.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_BasicTestCases", "IEEE14_DisconnectGroup", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
