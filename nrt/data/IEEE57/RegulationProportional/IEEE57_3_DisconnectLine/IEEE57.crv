@@ -12,41 +12,41 @@
     simulation tool for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="_KANA___1_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_TURN___2_TN_Upu_value"/>
+  <curve model="NETWORK" variable="_LOGA___3_TN_Upu_value"/>
   <curve model="NETWORK" variable="_BEAV___6_TN_Upu_value"/>
   <curve model="NETWORK" variable="_CLIN___8_TN_Upu_value"/>
-  <curve model="NETWORK" variable="_GLEN__12_TN_Upu_value"/>
-  <curve model="NETWORK" variable="_KANA___1_TN_Upu_value"/>
-  <curve model="NETWORK" variable="_LOGA___3_TN_Upu_value"/>
   <curve model="NETWORK" variable="_SALT___9_TN_Upu_value"/>
-  <curve model="NETWORK" variable="_TURN___2_TN_Upu_value"/>
-  <curve model="GEN____6_SM" variable="generator_PGen"/>
-  <curve model="GEN____9_SM" variable="generator_PGen"/>
+  <curve model="NETWORK" variable="_GLEN__12_TN_Upu_value"/>
   <curve model="GEN____1_SM" variable="generator_PGen"/>
-  <curve model="GEN___12_SM" variable="generator_PGen"/>
-  <curve model="GEN____3_SM" variable="generator_PGen"/>
-  <curve model="GEN____8_SM" variable="generator_PGen"/>
   <curve model="GEN____2_SM" variable="generator_PGen"/>
-  <curve model="GEN____6_SM" variable="generator_QGen"/>
-  <curve model="GEN____9_SM" variable="generator_QGen"/>
+  <curve model="GEN____3_SM" variable="generator_PGen"/>
+  <curve model="GEN____6_SM" variable="generator_PGen"/>
+  <curve model="GEN____8_SM" variable="generator_PGen"/>
+  <curve model="GEN____9_SM" variable="generator_PGen"/>
+  <curve model="GEN___12_SM" variable="generator_PGen"/>
   <curve model="GEN____1_SM" variable="generator_QGen"/>
-  <curve model="GEN___12_SM" variable="generator_QGen"/>
-  <curve model="GEN____3_SM" variable="generator_QGen"/>
-  <curve model="GEN____8_SM" variable="generator_QGen"/>
   <curve model="GEN____2_SM" variable="generator_QGen"/>
-  <curve model="GEN____6_SM" variable="generator_omegaPu"/>
-  <curve model="GEN____9_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____3_SM" variable="generator_QGen"/>
+  <curve model="GEN____6_SM" variable="generator_QGen"/>
+  <curve model="GEN____8_SM" variable="generator_QGen"/>
+  <curve model="GEN____9_SM" variable="generator_QGen"/>
+  <curve model="GEN___12_SM" variable="generator_QGen"/>
   <curve model="GEN____1_SM" variable="generator_omegaPu"/>
-  <curve model="GEN___12_SM" variable="generator_omegaPu"/>
-  <curve model="GEN____3_SM" variable="generator_omegaPu"/>
-  <curve model="GEN____8_SM" variable="generator_omegaPu"/>
   <curve model="GEN____2_SM" variable="generator_omegaPu"/>
-  <curve model="GEN____6_SM" variable="generator_UStatorPu"/>
-  <curve model="GEN____9_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN____3_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____6_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____8_SM" variable="generator_omegaPu"/>
+  <curve model="GEN____9_SM" variable="generator_omegaPu"/>
+  <curve model="GEN___12_SM" variable="generator_omegaPu"/>
   <curve model="GEN____1_SM" variable="generator_UStatorPu"/>
-  <curve model="GEN___12_SM" variable="generator_UStatorPu"/>
-  <curve model="GEN____3_SM" variable="generator_UStatorPu"/>
-  <curve model="GEN____8_SM" variable="generator_UStatorPu"/>
   <curve model="GEN____2_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN____3_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN____6_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN____8_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN____9_SM" variable="generator_UStatorPu"/>
+  <curve model="GEN___12_SM" variable="generator_UStatorPu"/>
   <curve model="NETWORK" variable="_BEAV___6-BUS____7-1_AC_P2_value"/>
   <curve model="NETWORK" variable="_BUS____7-CLIN___8-1_AC_P1_value"/>
 </curvesInput>

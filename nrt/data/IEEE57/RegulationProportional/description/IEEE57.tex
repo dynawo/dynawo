@@ -54,7 +54,7 @@ The voltage regulator is as follows:
 \caption{Voltage regulator}
 \end{figure}
 
-The speed governor is as follows:
+The speed governor is as follows - omegaRef being 1 p.u. in this control scheme -:
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
@@ -76,16 +76,16 @@ The speed governor is as follows:
 \caption{Speed Governor}
 \end{figure}
 
-The system reference frequency omegaRef is set to 1.\\
-
 The loads are modeled as voltage-dependant loads:
 \begin{equation*}
 \begin{aligned}
 & P = P_{0} * (\frac{U}{U_{0}})^\alpha \\
-& Q = Q_{0} * (\frac{U}{U_{0}})^\alpha
+& Q = Q_{0} * (\frac{U}{U_{0}})^\beta
 \end{aligned}
 \label{Voltage-dependant load model}
 \end{equation*}
+
+The system reference frequency is calculated by the OmegaRef model using the different generators speeds.\\
 
 All the models parameters can be viewed into the par file available in the different test case directories.
 
@@ -121,9 +121,9 @@ The complete set of parameters used for the solvers are available into the solve
 
 At $t=20s$, the active and reactive power set points for the load on node 9 are doubled. The load value on node 9 is initially multiplied by 2 at $t=20s$ as expected and decreases in the next instants to stabilize at a lower value (due to the voltage-dependant model used). \\
 
-To compensate for this load increase, each generator has to provide more active power, which leads to a decrease in the generator speeds due to the post-event difference between the electrical power requested by the network and the mechanical power provided by the machine. The proportional speed regulation enables to counteract this effect by increasing the mechanical power and thus helps limiting the speed deviation due to the event. \\
+The load increase induces an higher active power demand from the network to the generators and causes a speed decrease. The governor's proportional action limits this speed decrease by increasing the final active power delivered by the machines. Without the regulation action, the final active power delivered by the machines - after the transient behavior - would have been similar to the pre-event active power. \\
 
-Regarding reactive power, it immediately increases after the event to compensate for the load increase and the associated network voltage decrease. Nevertheless, this reactive power increase is limited by the voltage regulator action that counters the stator voltage increase.
+Regarding reactive power, it increases after the event to compensate for the load increase. The reactive power increase is stabilized at a value enabling to maintain the stator voltage close to its reference value thanks to the voltage regulator action: this action also enables to limit the voltage decrease on the network.
 
 \begin{figure}[H]
 \subfigure[Active load (MW)]
