@@ -100,7 +100,7 @@ where [option] can be:"
 
         =========== Utilities
         generate-preassembled-gdb         generate a preassembled model with debugger
-        compileLibModelicaOMC             compile Modelica Model generated for Dynawo
+        compileModelicaModelInLib         compile Modelica Model generated for Dynawo
         flat-model ([args])               generate and display the (full) flat Modelica model"
 
   export dynawo_documentation_options="    =========== Dynawo Documentation
@@ -1158,7 +1158,7 @@ generate_preassembled_gdb() {
   return ${RETURN_CODE}
 }
 
-compile_lib_modelica_omc() {
+compile_modelica_model_in_lib() {
   if ! launcher_installed; then
     install_launcher || error_exit
   fi
@@ -1930,8 +1930,8 @@ case $MODE in
     clean_tests_coverage || error_exit "Error during the cleaning of tests coverage"
     ;;
 
-  compileLibModelicaOMC)
-    compile_lib_modelica_omc ${ARGS} || error_exit "Error during the compilation of Modelica Model for dynawo"
+  compileModelicaModelInLib)
+    compile_modelica_model_in_lib ${ARGS} || error_exit "Error during the compilation of Modelica Model for dynawo"
     ;;
 
   compileModelicaModel)

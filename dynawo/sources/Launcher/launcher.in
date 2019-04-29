@@ -31,7 +31,7 @@ DYNAWO=${BIN_DIR}/dynawo
 GENERATE_PREASSEMBLED=${SBIN_DIR}/generate-preassembled
 COMPILEMODELICAMODEL=${SBIN_DIR}/compileModelicaModel
 DUMPMODELBIN=${SBIN_DIR}/dumpModel
-COMPILELIBMODELICAOMCBIN=${SBIN_DIR}/compileLibModelicaOMC
+COMPILEMODELICAMODELINLIBBIN=${SBIN_DIR}/compileModelicaModelInLib
 
 # analysing the launch mode
 MODE=""
@@ -70,7 +70,7 @@ case $1 in
   MODE=VALGRIND-DUMPMODEL
   ;;
 --compile-lib-modelica-omc)
-  MODE=COMPILELIBMODELICAOMC
+  MODE=COMPILEMODELICAMODELINLIB
   ;;
 --help)
   MODE=HELP
@@ -116,7 +116,7 @@ GDB-DUMPMODEL)
 VALGRIND-DUMPMODEL)
   ARGS=`echo ${ARGS} |sed -e 's/--dump-model-valgrind//g'`
 ;;
-COMPILELIBMODELICAOMC)
+COMPILEMODELICAMODELINLIB)
   ARGS=`echo ${ARGS} |sed -e 's/--compile-lib-modelica-omc//g'`
 ;;
 esac
@@ -167,8 +167,8 @@ VALGRIND-DUMPMODEL)
   valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all ${DUMPMODELBIN} ${ARGS}
   RETURN_CODE=$?
   ;;
-COMPILELIBMODELICAOMC)
-  $COMPILELIBMODELICAOMCBIN ${ARGS}
+COMPILEMODELICAMODELINLIB)
+  $COMPILEMODELICAMODELINLIBBIN ${ARGS}
   RETURN_CODE=$?
   ;;
 VERSION)
