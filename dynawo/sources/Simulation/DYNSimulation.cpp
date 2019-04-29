@@ -475,7 +475,7 @@ Simulation::loadDynamicData() {
       parser.register_extension<IIDM::extensions::load_detail::xml::LoadDetailHandler>();
 
       bool xsdValidation = false;
-      if (getEnvVar("USE_XSD_VALIDATION") == "true")
+      if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true")
         xsdValidation = true;
 
       IIDM::Network networkIIDM = parser.from_xml(iidmFile_, xsdValidation);

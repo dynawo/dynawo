@@ -19,8 +19,8 @@ error_exit() {
 
 export_var_env() {
   var=$@
-  name=${var%=*}
-  value=${var##*=}
+  name=${var%%=*}
+  value=${var#*=}
 
   if eval "[ \$$name ]"; then
     eval "value=\${$name}"
@@ -42,9 +42,8 @@ HERE=$PWD
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 BUILD_DIR=$HERE
 INSTALL_DIR=$HERE/install
-export_var_env BUILD_TYPE=Debug
-export_var_env C_COMPILER=$(command -v gcc)
-export_var_env NB_PROCESSORS_USED=1
+BUILD_TYPE=Debug
+export_var_env DYNAWO_C_COMPILER=$(command -v gcc)
 
 export_var_env DYNAWO_LIBRARY_TYPE=SHARED
 
@@ -68,16 +67,16 @@ install_nicslu() {
     cd $BUILD_DIR/$NICSLU_DIR
     if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
       if [ "${BUILD_TYPE}" = "Debug" ]; then
-        make -j $NB_PROCESSORS_USED shared DEBUGFLAG="-g" OPTIMIZATION="-O0" || error_exit "Error while building Nicslu"
+        make shared DEBUGFLAG="-g" OPTIMIZATION="-O0" CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
       else
-        make -j $NB_PROCESSORS_USED shared || error_exit "Error while building Nicslu"
+        make shared CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
       fi
       cp lib/*.so $INSTALL_DIR/lib && cp util/*.so $INSTALL_DIR/lib || error_exit "Error while building Nicslu"
     elif [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
       if [ "${BUILD_TYPE}" = "Debug" ]; then
-        make -j $NB_PROCESSORS_USED static DEBUGFLAG="-g" OPTIMIZATION="-O0" || error_exit "Error while building Nicslu"
+        make static DEBUGFLAG="-g" OPTIMIZATION="-O0" CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
       else
-        make -j $NB_PROCESSORS_USED static || error_exit "Error while building Nicslu"
+        make static CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
       fi
       cp lib/*.a $INSTALL_DIR/lib && cp util/*.a $INSTALL_DIR/lib || error_exit "Error while building Nicslu"
     else
@@ -96,8 +95,10 @@ while (($#)); do
   case $1 in
     --install-dir=*)
       INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
-      if [ ! -d "$INSTALL_DIR" ]; then
+      if [ ! -d "$INSTALL_DIR/include" ]; then
         mkdir -p $INSTALL_DIR/include
+      fi
+      if [ ! -d "$INSTALL_DIR/lib" ]; then
         mkdir -p $INSTALL_DIR/lib
       fi
       ;;

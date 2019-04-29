@@ -314,7 +314,7 @@ create_omc_dynawo() {
   cmd1="autoreconf"
   launch_command ${cmd1}
 
-  cmd1="./configure CC=$C_COMPILER CXX=$CXX_COMPILER --prefix=${INSTALL_OPENMODELICA} --disable-modelica3d --disable-omnotebook --disable-omshell-terminal --with-qwt=NO"
+  cmd1="./configure CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --prefix=${INSTALL_OPENMODELICA} --disable-modelica3d --disable-omnotebook --disable-omshell-terminal --with-qwt=NO"
   launch_command ${cmd1}
 
   cmd1="${MAKE} -j${NB_PROCESSORS_USED} clean"

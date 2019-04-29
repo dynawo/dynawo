@@ -53,7 +53,7 @@ boost::shared_ptr<JobsCollection> XmlImporter::importFromStream(std::istream& st
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
   try {
     bool xsdValidation = false;
-    if (getEnvVar("USE_XSD_VALIDATION") == "true") {
+    if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {
       string jobsXsdPath = getEnvVar("DYNAWO_XSD_DIR") + string("jobs.xsd");
       parser->addXmlSchema(jobsXsdPath);
       xsdValidation = true;

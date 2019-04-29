@@ -19,8 +19,8 @@ error_exit() {
 
 export_var_env() {
   var=$@
-  name=${var%=*}
-  value=${var##*=}
+  name=${var%%=*}
+  value=${var#*=}
 
   if eval "[ \$$name ]"; then
     eval "value=\${$name}"
@@ -34,54 +34,17 @@ export_var_env() {
   export $name="$value"
 }
 
-export_var_env_default() {
-  var=$@
-  name=${var%=*}
-  value=${var##*=}
-
-  if [ "$value" = UNDEFINED ]; then
-    if eval "[ \$$name ]"; then
-      eval "value=\${$name}"
-      export_var_env ${name}_DEFAULT=false
-    else
-      export_var_env ${name}_DEFAULT=true
-      return
-    fi
-  fi
-
-  export $name="$value"
-  export_var_env ${name}_DEFAULT=false
-}
-
 get_absolute_path() {
   python -c "import os; print(os.path.realpath('$1'))"
 }
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-find_cxx_std_flag() {
-  if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
-    echo "int main() {return 0;}" > test_cxx11.cpp
-    g++ -std=c++11 -c test_cxx11.cpp -o test_cxx11 2> /dev/null
-    RETURN_CODE=$?
-    if [ $RETURN_CODE -eq 0 ]; then
-      export CXX_STDFLAG="-std=c++11"
-      rm -f test_cxx11
-    else
-      g++ -std=c++0x -c test_cxx11.cpp -o test_cxx11 2> /dev/null
-      RETURN_CODE=$?
-      if [ $RETURN_CODE -eq 0 ]; then
-        export CXX_STDFLAG="-std=c++0x"
-        rm -f test_cxx11
-      else
-        export CXX_STDFLAG="-std=c++98"
-      fi
-    fi
-    rm -f test_cxx11.cpp
-  else
-    export CXX_STDFLAG="-std=c++98"
-  fi
-}
+LIBARCHIVE_HOME=""
+BOOST_HOME=""
+GTEST_HOME=""
+NICSLU_INSTALL_DIR=""
+NICSLU_BUILD_DIR=""
 
 compile_suitesparse() {
   cd $SCRIPT_DIR/suitesparse
@@ -99,7 +62,8 @@ compile_nicslu() {
 
 compile_sundials() {
   cd $SCRIPT_DIR/sundials
-  bash sundials-chain-4-1-0.sh --build-dir=$SUNDIALS_BUILD_DIR --install-dir=$SUNDIALS_INSTALL_DIR --suitesparse-install-dir=$SUITESPARSE_INSTALL_DIR --build-type=$BUILD_TYPE
+  bash sundials-chain-4-1-0.sh --build-dir=$SUNDIALS_BUILD_DIR --install-dir=$SUNDIALS_INSTALL_DIR --suitesparse-install-dir=$SUITESPARSE_INSTALL_DIR --build-type=$BUILD_TYPE \
+    $NICSLU_OPTION
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -113,21 +77,24 @@ compile_adept() {
 
 compile_libzip() {
   cd $SCRIPT_DIR/libzip
-  bash libzip-chain.sh --build-dir=$LIBZIP_BUILD_DIR --install-dir=$LIBZIP_INSTALL_DIR --build-type=$BUILD_TYPE $LIBARCHIVE_OPTION $BOOST_OPTION $GTEST_OPTION
+  bash libzip-chain.sh --build-dir=$LIBZIP_BUILD_DIR --install-dir=$LIBZIP_INSTALL_DIR --build-type=$BUILD_TYPE \
+    $LIBARCHIVE_OPTION $BOOST_OPTION $GTEST_OPTION
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 compile_libxml() {
   cd $SCRIPT_DIR/libxml
-  bash libxml-chain.sh --build-dir=$LIBXML_BUILD_DIR --install-dir=$LIBXML_INSTALL_DIR --build-type=$BUILD_TYPE --xercesc-install-dir=$XERCESC_INSTALL_DIR $BOOST_OPTION $GTEST_OPTION
+  bash libxml-chain.sh --build-dir=$LIBXML_BUILD_DIR --install-dir=$LIBXML_INSTALL_DIR --build-type=$BUILD_TYPE --xercesc-install-dir=$XERCESC_INSTALL_DIR \
+    $BOOST_OPTION $GTEST_OPTION
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 compile_libiidm() {
   cd $SCRIPT_DIR/libiidm
-  bash libiidm-chain.sh --build-dir=$LIBIIDM_BUILD_DIR --install-dir=$LIBIIDM_INSTALL_DIR --build-type=$BUILD_TYPE --libxml-install-dir=$LIBXML_INSTALL_DIR $BOOST_OPTION $GTEST_OPTION
+  bash libiidm-chain.sh --build-dir=$LIBIIDM_BUILD_DIR --install-dir=$LIBIIDM_INSTALL_DIR --build-type=$BUILD_TYPE --libxml-install-dir=$LIBXML_INSTALL_DIR \
+    $BOOST_OPTION $GTEST_OPTION
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -211,13 +178,13 @@ while (($#)); do
       fi
       ;;
     --boost-install-dir=*)
-      BOOST_ROOT=`echo $1 | sed -e 's/--boost-install-dir=//g'`
+      BOOST_HOME=`echo $1 | sed -e 's/--boost-install-dir=//g'`
       ;;
     --libarchive-install-dir=*)
       LIBARCHIVE_HOME=`echo $1 | sed -e 's/--libarchive-install-dir=//g'`
       ;;
     --gtest-install-dir=*)
-      GTEST_ROOT=`echo $1 | sed -e 's/--gtest-install-dir=//g'`
+      GTEST_HOME=`echo $1 | sed -e 's/--gtest-install-dir=//g'`
       ;;
     --sundials-build-dir=*)
       SUNDIALS_BUILD_DIR=`echo $1 | sed -e 's/--sundials-build-dir=//g'`
@@ -293,10 +260,6 @@ if [[ -z "$SUITESPARSE_INSTALL_DIR" ]]; then
   echo "Need to set SUITESPARSE_INSTALL_DIR"
   exit 1
 fi
-if [[ -z "$NICSLU_INSTALL_DIR" ]]; then
-  echo "Need to set NICSLU_INSTALL_DIR"
-  exit 1
-fi
 if [[ -z "$ADEPT_INSTALL_DIR" ]]; then
   echo "Need to set ADEPT_INSTALL_DIR"
   exit 1
@@ -325,10 +288,6 @@ if [[ -z "$SUITESPARSE_BUILD_DIR" ]]; then
   echo "Need to set SUITESPARSE_BUILD_DIR"
   exit 1
 fi
-if [[ -z "$NICSLU_BUILD_DIR" ]]; then
-  echo "Need to set NICSLU_BUILD_DIR"
-  exit 1
-fi
 if [[ -z "$ADEPT_BUILD_DIR" ]]; then
   echo "Need to set ADEPT_BUILD_DIR"
   exit 1
@@ -354,26 +313,27 @@ if [[ -z "$BUILD_TYPE" ]]; then
   exit 1
 fi
 
-find_cxx_std_flag
+export_var_env DYNAWO_CXX11_ENABLED=NO
 
-export_var_env_default LIBARCHIVE_HOME=UNDEFINED
-export_var_env_default BOOST_ROOT=UNDEFINED
-export_var_env_default GTEST_ROOT=UNDEFINED
-
-if [ $BOOST_ROOT_DEFAULT != true ]; then
-  BOOST_OPTION="--boost-install-dir=$BOOST_ROOT"
+if [ ! -z "$BOOST_HOME" ]; then
+  BOOST_OPTION="--boost-install-dir=$BOOST_HOME"
 else
   BOOST_OPTION=""
 fi
-if [ $LIBARCHIVE_HOME_DEFAULT != true ]; then
+if [ ! -z "$LIBARCHIVE_HOME" ]; then
   LIBARCHIVE_OPTION="--libarchive-install-dir=$LIBARCHIVE_HOME"
 else
   LIBARCHIVE_OPTION=""
 fi
-if [ $GTEST_ROOT_DEFAULT != true ]; then
-  GTEST_OPTION="--gtest-install-dir=$GTEST_ROOT"
+if [ ! -z "$GTEST_HOME" ]; then
+  GTEST_OPTION="--gtest-install-dir=$GTEST_HOME"
 else
   GTEST_OPTION=""
+fi
+if [ ! -z "$NICSLU_INSTALL_DIR" ]; then
+  NICSLU_OPTION="--nicslu-install-dir=$NICSLU_INSTALL_DIR"
+else
+  NICSLU_OPTION=""
 fi
 
 compile_all || error_exit "Error while building 3rd parties"

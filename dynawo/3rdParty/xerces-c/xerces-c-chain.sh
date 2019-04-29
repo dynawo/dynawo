@@ -18,8 +18,8 @@ error_exit() {
 
 export_var_env() {
   var=$@
-  name=${var%=*}
-  value=${var##*=}
+  name=${var%%=*}
+  value=${var#*=}
 
   if eval "[ \$$name ]"; then
     eval "value=\${$name}"
@@ -27,7 +27,7 @@ export_var_env() {
     return
   fi
 
-  if [  "$value" = UNDEFINED ]; then
+  if [ "$value" = UNDEFINED ]; then
     error_exit "You must define the value of $name"
   fi
   export $name="$value"
@@ -36,18 +36,18 @@ export_var_env() {
 XERCESC_VERSION=3.2.2
 XERCESC_ARCHIVE=xerces-c-${XERCESC_VERSION}.tar.gz
 XERCESC_DIRECTORY=xerces-c-$XERCESC_VERSION
-export_var_env XERCESC_DOWNLOAD_URL=http://archive.apache.org/dist/xerces/c/$(echo "$XERCESC_VERSION" | cut -d '.' -f 1)/sources
+export_var_env DYNAWO_XERCESC_DOWNLOAD_URL=http://archive.apache.org/dist/xerces/c/$(echo "$XERCESC_VERSION" | cut -d '.' -f 1)/sources
 
 HERE=$PWD
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 BUILD_DIR=$HERE
-BUILD_TYPE=Debug
 INSTALL_DIR=$BUILD_DIR/$XERCESC_DIRECTORY/install
-export_var_env C_COMPILER=$(command -v gcc)
-export_var_env CXX_COMPILER=$(command -v g++)
-export_var_env CXX11_ENABLED=NO
-export_var_env NB_PROCESSORS_USED=1
+BUILD_TYPE=Debug
+export_var_env DYNAWO_C_COMPILER=$(command -v gcc)
+export_var_env DYNAWO_CXX_COMPILER=$(command -v g++)
+export_var_env DYNAWO_CXX11_ENABLED=NO
+export_var_env DYNAWO_NB_PROCESSORS_USED=1
 
 export_var_env DYNAWO_LIBRARY_TYPE=SHARED
 
@@ -55,9 +55,9 @@ download_xercesc() {
   cd $SCRIPT_DIR
   if [ ! -f "${XERCESC_ARCHIVE}" ]; then
     if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${XERCESC_DOWNLOAD_URL}/${XERCESC_ARCHIVE} || error_exit "Error while downloading Xerces-c."
+      wget --timeout 10 --tries 3 ${DYNAWO_XERCESC_DOWNLOAD_URL}/${XERCESC_ARCHIVE} || error_exit "Error while downloading Xerces-c."
     elif [ -x "$(command -v curl)" ]; then
-      curl --connect-timeout 10 --retry 2 ${XERCESC_DOWNLOAD_URL}/${XERCESC_ARCHIVE} --output ${XERCESC_ARCHIVE} || error_exit "Error while downloading Xerces-c."
+      curl --connect-timeout 10 --retry 2 ${DYNAWO_XERCESC_DOWNLOAD_URL}/${XERCESC_ARCHIVE} --output ${XERCESC_ARCHIVE} || error_exit "Error while downloading Xerces-c."
     else
       error_exit "You need to install either wget or curl."
     fi
@@ -75,20 +75,20 @@ install_xercesc() {
   else
     XERCESC_LIBRARY_TYPE_OPTION="--enable-static --disable-shared"
   fi
-  if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
+  if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     if [ "$BUILD_TYPE" = "Debug" ]; then
-      CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-g -O0" ./configure $XERCESC_LIBRARY_TYPE_OPTION --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0" ./configure $XERCESC_LIBRARY_TYPE_OPTION --prefix=$INSTALL_DIR
     else
-      CC=$C_COMPILER CXX=$CXX_COMPILER ./configure $XERCESC_LIBRARY_TYPE_OPTION --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER ./configure $XERCESC_LIBRARY_TYPE_OPTION --prefix=$INSTALL_DIR
     fi
   else
     if [ "$BUILD_TYPE" = "Debug" ]; then
-      CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-g -O0 -std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0 -std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
     else
-      CC=$C_COMPILER CXX=$CXX_COMPILER CXXFLAGS="-std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
     fi
   fi
-  make -j $NB_PROCESSORS_USED V=1 && make install
+  make -j $DYNAWO_NB_PROCESSORS_USED V=1 && make install
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }

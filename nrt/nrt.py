@@ -32,7 +32,7 @@ import sys
 import time
 
 try:
-    nrtDiff_dir = os.environ["NRT_DIFF_DIR"]
+    nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
     sys.path.append(nrtDiff_dir)
     import nrtDiff
 except:
@@ -74,25 +74,25 @@ def kill_subprocess(proc_pid):
     process.kill()
 
 # Non-regression tests configuration
-resources_dir = os.path.join(os.environ["NRT_DIR"], "resources")
-data_dir = os.path.join(os.environ["NRT_DIR"], "data")
-branch_name = os.environ["BRANCH_NAME"]
-output_dir_all_nrt = os.path.join(os.environ["NRT_DIR"], "output")
-output_dir = os.path.join(os.environ["NRT_DIR"], "output",branch_name)
+resources_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "resources")
+data_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "data")
+branch_name = os.environ["DYNAWO_BRANCH_NAME"]
+output_dir_all_nrt = os.path.join(os.environ["DYNAWO_NRT_DIR"], "output")
+output_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "output",branch_name)
 
 # No branch in jenkins mode until now
-jenkins_mode = os.getenv("JENKINS_MODE","NO")
+jenkins_mode = os.getenv("DYNAWO_JENKINS_MODE","NO")
 if jenkins_mode == "YES" :
     output_dir = output_dir_all_nrt
 html_output = os.path.join(output_dir, "report.html")
-env_dynawo = os.environ["ENV_DYNAWO"]
+env_dynawo = os.environ["DYNAWO_ENV_DYNAWO"]
 
 # Load custom python modules
-csvToHtml_dir = os.path.join(os.environ["CURVES_TO_HTML_DIR"], "csvToHtml")
+csvToHtml_dir = os.path.join(os.environ["DYNAWO_CURVES_TO_HTML_DIR"], "csvToHtml")
 sys.path.append(csvToHtml_dir)
 from csvToHtml import *
 
-xmlToHtml_dir = os.path.join(os.environ["CURVES_TO_HTML_DIR"], "xmlToHtml")
+xmlToHtml_dir = os.path.join(os.environ["DYNAWO_CURVES_TO_HTML_DIR"], "xmlToHtml")
 sys.path.append(xmlToHtml_dir)
 from xmlToHtml import *
 
@@ -177,7 +177,7 @@ class NonRegressionTest:
         self.number_of_nok_cases_= 0
         self.number_of_tooLong_cases_= 0
         self.real_time_ = 0
-        self.nb_processors_used_ = int(os.getenv("NB_PROCESSORS_USED"))
+        self.nb_processors_used_ = int(os.getenv("DYNAWO_NB_PROCESSORS_USED"))
         self.timeout = timeout
 
     def clear(self,html_output):
