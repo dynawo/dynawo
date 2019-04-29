@@ -207,6 +207,8 @@ NumericalErrorFunction      =             A numerical error occurs during the ca
 //---CSTR--------------------
 //---DYD---------------------
 ModelIDNotUnique            =             model id (%1%) is not unique
+UnitModelIDSameAsModelName  =             model %1% has the same name as the parent modelica model
+UnitModelIDSameAsUnitModelName =          model %1% has the same name as its modelica class
 ConnectorNotPartofModel     =             impossible to create connection between %1% and %2% for model %3% (%1% is not a sub model of %3%)
 ConnectedModelNotFound      =             connected sub model %1% not found in modelica model
 MacroConnectNotPartofModel  =             impossible to create macroConnect between %1% and %2% for model %3% (%1% is not a sub model of %3%)

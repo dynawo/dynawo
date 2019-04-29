@@ -92,6 +92,10 @@ ModelicaModel&
 ModelicaModel::Impl::addUnitDynamicModel(const shared_ptr<UnitDynamicModel>& model) {
   if (unitDynamicModelsMap_.find(model->getId()) != unitDynamicModelsMap_.end())
     throw DYNError(DYN::Error::API, ModelIDNotUnique, model->getId());
+  if (model->getId() == getId())
+    throw DYNError(DYN::Error::API, UnitModelIDSameAsModelName, model->getId());
+  if (model->getId() == model->getDynamicModelName())
+    throw DYNError(DYN::Error::API, UnitModelIDSameAsUnitModelName, model->getId());
   unitDynamicModelsMap_[model->getId()] = model;
   return *this;
 }

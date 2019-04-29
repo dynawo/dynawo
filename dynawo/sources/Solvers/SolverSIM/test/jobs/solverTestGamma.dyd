@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="solverTestGamma">
-    <dyn:unitDynamicModel id="solverTestGamma" name="DYNSolverTestGamma" moFile="DYNSolverTest.mo"/>
+    <dyn:unitDynamicModel id="solverTestGammaModel" name="DYNSolverTestGamma" moFile="DYNSolverTest.mo"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
