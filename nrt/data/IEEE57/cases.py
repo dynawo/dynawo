@@ -23,7 +23,7 @@ standardReturnCodeType = "ALLOWED"
 
 case_name = "IEEE57_1_StepLoad"
 case_description = "IEEE57 - Step on the load connected at node 9"
-job_file = os.path.join(os.path.dirname(__file__), "RegulationProportional", "IEEE57_1_StepLoad", "IEEE57.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "IEEE57_BasicTestCases", "IEEE57_1_StepLoad", "IEEE57.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -33,7 +33,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 
 case_name = "IEEE57_2_DisconnectGroup"
 case_description = "IEEE57 - Disconnection of the generator connected to node 12"
-job_file = os.path.join(os.path.dirname(__file__), "RegulationProportional", "IEEE57_2_DisconnectGroup", "IEEE57.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "IEEE57_BasicTestCases", "IEEE57_2_DisconnectGroup", "IEEE57.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -43,6 +43,6 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 
 case_name = "IEEE57_3_DisconnectLine"
 case_description = "IEEE57 - Disconnection of the line 6-8"
-job_file = os.path.join(os.path.dirname(__file__), "RegulationProportional", "IEEE57_3_DisconnectLine", "IEEE57.jobs")
+job_file = os.path.join(os.path.dirname(__file__), "IEEE57_BasicTestCases", "IEEE57_3_DisconnectLine", "IEEE57.jobs")
 
 test_cases.append((case_name, case_description, job_file, 2, standardReturnCodeType, standardReturnCode))
