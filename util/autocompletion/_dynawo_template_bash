@@ -33,8 +33,8 @@ _dynawo() {
   dump_model_options="-h -m -o"
   compileModelicaModel_options="-h --model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
   generate_preassembled_options="-h --model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
-  compileModelicaModelInLib_options_equal="--model-name --directory --lib-name"
-  compileModelicaModelInLib_options_debug="--debug"
+  compileCppModelicaModelInDynamicLib_options_equal="--model-name --directory --lib-name"
+  compileCppModelicaModelInDynamicLib_options_debug="--debug"
   deploy_autocompletion_options="--deploy --update-tests --help"
 
   case "${COMP_WORDS[1]}" in
@@ -202,19 +202,19 @@ _dynawo() {
         ;;
       esac
       ;;
-    compileModelicaModelInLib)
+    compileCppModelicaModelInDynamicLib)
       case "${prev}" in
-        compileModelicaModelInLib)
+        compileCppModelicaModelInDynamicLib)
           compopt -o nospace
-          COMPREPLY=($(compgen -S\= -W "$compileModelicaModelInLib_options_equal" -- ${cur}) $(compgen -W "$compileModelicaModelInLib_options_debug" -- ${cur}))
+          COMPREPLY=($(compgen -S\= -W "$compileCppModelicaModelInDynamicLib_options_equal" -- ${cur}) $(compgen -W "$compileCppModelicaModelInDynamicLib_options_debug" -- ${cur}))
           return 0
           ;;
         *)
           if [[ -z ${COMP_WORDS[2]} ]]; then
-            compileModelicaModelInLib_commands="compileModelicaModelInLib"
-            commands=$compileModelicaModelInLib_commands
+            compileCppModelicaModelInDynamicLib_commands="compileCppModelicaModelInDynamicLib"
+            commands=$compileCppModelicaModelInDynamicLib_commands
           else
-            _handle_compileModelicaModelInLib_options
+            _handle_compileCppModelicaModelInDynamicLib_options
             return 0
           fi
         ;;
@@ -357,12 +357,12 @@ _handle_generate_preassembled_options() {
   COMPREPLY=($(compgen -W "$other_options" -- $cur))
 }
 
-_handle_compileModelicaModelInLib_options() {
-  compileModelicaModelInLib_options=(--model-name --directory --lib-name)
-  compileModelicaModelInLib_options_echo="--model-name --directory --lib-name"
+_handle_compileCppModelicaModelInDynamicLib_options() {
+  compileCppModelicaModelInDynamicLib_options=(--model-name --directory --lib-name)
+  compileCppModelicaModelInDynamicLib_options_echo="--model-name --directory --lib-name"
 
-  compileModelicaModelInLib_options_debug=(--debug)
-  compileModelicaModelInLib_options_debug_echo="--debug"
+  compileCppModelicaModelInDynamicLib_options_debug=(--debug)
+  compileCppModelicaModelInDynamicLib_options_debug_echo="--debug"
 
   case "${prev}" in
     --model-name) COMPREPLY=(); return 0;;
@@ -378,24 +378,24 @@ _handle_compileModelicaModelInLib_options() {
   local other_options=""
   local other_options_debug=""
 
-  for ((j = 0; j < ${#compileModelicaModelInLib_options[@]}; ++j)); do
+  for ((j = 0; j < ${#compileCppModelicaModelInDynamicLib_options[@]}; ++j)); do
     for ((i = 1; i < ${#COMP_WORDS[@]}; ++i)); do
-      if [[ ${COMP_WORDS[i]} == ${compileModelicaModelInLib_options[j]} ]]; then
-        compileModelicaModelInLib_options_echo=$(echo $compileModelicaModelInLib_options_echo | sed "s/${compileModelicaModelInLib_options[j]}//")
+      if [[ ${COMP_WORDS[i]} == ${compileCppModelicaModelInDynamicLib_options[j]} ]]; then
+        compileCppModelicaModelInDynamicLib_options_echo=$(echo $compileCppModelicaModelInDynamicLib_options_echo | sed "s/${compileCppModelicaModelInDynamicLib_options[j]}//")
       fi
     done
   done
 
-  for ((j = 0; j < ${#compileModelicaModelInLib_options_debug[@]}; ++j)); do
+  for ((j = 0; j < ${#compileCppModelicaModelInDynamicLib_options_debug[@]}; ++j)); do
     for ((i = 1; i < ${#COMP_WORDS[@]}; ++i)); do
-      if [[ ${COMP_WORDS[i]} == ${compileModelicaModelInLib_options_debug[j]} ]]; then
-        compileModelicaModelInLib_options_debug_echo=$(echo $compileModelicaModelInLib_options_debug_echo | sed "s/${compileModelicaModelInLib_options_debug[j]}//")
+      if [[ ${COMP_WORDS[i]} == ${compileCppModelicaModelInDynamicLib_options_debug[j]} ]]; then
+        compileCppModelicaModelInDynamicLib_options_debug_echo=$(echo $compileCppModelicaModelInDynamicLib_options_debug_echo | sed "s/${compileCppModelicaModelInDynamicLib_options_debug[j]}//")
       fi
     done
   done
 
-  other_options=$compileModelicaModelInLib_options_echo
-  other_options_debug=$compileModelicaModelInLib_options_debug_echo
+  other_options=$compileCppModelicaModelInDynamicLib_options_echo
+  other_options_debug=$compileCppModelicaModelInDynamicLib_options_debug_echo
   compopt -o nospace
   COMPREPLY=($(compgen -S\= -W "$other_options" -- ${cur}) $(compgen -W "$other_options_debug" -- ${cur}))
 }

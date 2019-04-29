@@ -377,7 +377,8 @@ compileLib(const string& modelName, const string& libName, const string& outputD
   string outputDir1 = prettyPath(outputDir);
   string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
 
-  string compileLibCommand = scriptsDir1 + "/compileModelicaModelInLib --model-name=" + modelName + " --directory=" + outputDir1 + " --lib-name=" + libName;
+  string compileLibCommand = scriptsDir1 + "/compileCppModelicaModelInDynamicLib --model-name=" + modelName
+    + " --directory=" + outputDir1 + " --lib-name=" + libName;
 
 #ifdef _DEBUG_
   compileLibCommand += " --debug";

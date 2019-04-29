@@ -31,7 +31,7 @@ DYNAWO=${BIN_DIR}/dynawo
 GENERATE_PREASSEMBLED=${SBIN_DIR}/generate-preassembled
 COMPILEMODELICAMODEL=${SBIN_DIR}/compileModelicaModel
 DUMPMODELBIN=${SBIN_DIR}/dumpModel
-COMPILEMODELICAMODELINLIBBIN=${SBIN_DIR}/compileModelicaModelInLib
+COMPILECPPMODELICAMODELINDYNAMICLIBBIN=${SBIN_DIR}/compileCppModelicaModelInDynamicLib
 
 # analysing the launch mode
 MODE=""
@@ -69,8 +69,8 @@ case $1 in
 --dump-model-valgrind)
   MODE=VALGRIND-DUMPMODEL
   ;;
---compile-lib-modelica-omc)
-  MODE=COMPILEMODELICAMODELINLIB
+--compile-cpp-modelica-model-in-dynamic-lib)
+  MODE=COMPILECPPMODELICAMODELINDYNAMICLIB
   ;;
 --help)
   MODE=HELP
@@ -116,8 +116,8 @@ GDB-DUMPMODEL)
 VALGRIND-DUMPMODEL)
   ARGS=`echo ${ARGS} |sed -e 's/--dump-model-valgrind//g'`
 ;;
-COMPILEMODELICAMODELINLIB)
-  ARGS=`echo ${ARGS} |sed -e 's/--compile-lib-modelica-omc//g'`
+COMPILECPPMODELICAMODELINDYNAMICLIB)
+  ARGS=`echo ${ARGS} |sed -e 's/--compile-cpp-modelica-model-in-dynamic-lib//g'`
 ;;
 esac
 
@@ -167,8 +167,8 @@ VALGRIND-DUMPMODEL)
   valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all ${DUMPMODELBIN} ${ARGS}
   RETURN_CODE=$?
   ;;
-COMPILEMODELICAMODELINLIB)
-  $COMPILEMODELICAMODELINLIBBIN ${ARGS}
+COMPILECPPMODELICAMODELINDYNAMICLIB)
+  $COMPILECPPMODELICAMODELINDYNAMICLIBBIN ${ARGS}
   RETURN_CODE=$?
   ;;
 VERSION)
@@ -178,20 +178,20 @@ VERSION)
 HELP)
   echo \
 "###### LAUNCHER HELP #####
-   --valgrind                   launch DYNAWO with valgrind (must be the first argument)
-   --valgrind-callgrind         launch DYNAWO with valgrind using callgrind tool (must be the first argument)
-   --valgrind-massif            launch DYNAWO with valgrind using memory tool (must be the first argument)
-   --valgrind-dhat              launch DYNAWO with valgrind using dhat tool (must be the first argument)
-   --gdb                        launch DYNAWO with gdb (must be the first argument)
-   --compile                    launch DYNAWO for compilation of Modelica models (must be the first argument)
-   --generate-preassembled      launch DYNAWO dynamic library generator (must be the first argument)
-   --generate-preassembled-gdb  launch DYNAWO dynamic library generator with gdb (must be the first argument)
-   --dump-model                 launch DYNAWO dumpModel executable (must be the first argument)
-   --dump-model-gdb             launch DYNAWO dumpModel executable (must be the first argument)
-   --dump-model-valgrind        launch DYNAWO dumpModel executable in valgrind (must be the first argument)
-   --compile-lib-modelica-omc   launch DYNAWO compileLibModeliaOMC (must be the first argument)
-   --version                    show dynawo version (must be the first argument)
-   --help                       produce help message (must be the first argument)
+   --valgrind                                    launch DYNAWO with valgrind (must be the first argument)
+   --valgrind-callgrind                          launch DYNAWO with valgrind using callgrind tool (must be the first argument)
+   --valgrind-massif                             launch DYNAWO with valgrind using memory tool (must be the first argument)
+   --valgrind-dhat                               launch DYNAWO with valgrind using dhat tool (must be the first argument)
+   --gdb                                         launch DYNAWO with gdb (must be the first argument)
+   --compile                                     launch DYNAWO for compilation of Modelica models (must be the first argument)
+   --generate-preassembled                       launch DYNAWO dynamic library generator (must be the first argument)
+   --generate-preassembled-gdb                   launch DYNAWO dynamic library generator with gdb (must be the first argument)
+   --dump-model                                  launch DYNAWO dumpModel executable (must be the first argument)
+   --dump-model-gdb                              launch DYNAWO dumpModel executable (must be the first argument)
+   --dump-model-valgrind                         launch DYNAWO dumpModel executable in valgrind (must be the first argument)
+   --compile-cpp-modelica-model-in-dynamic-lib   launch DYNAWO compileLibModeliaOMC (must be the first argument)
+   --version                                     show dynawo version (must be the first argument)
+   --help                                        produce help message (must be the first argument)
 
 ##### DYNAWO HELP #####"
   ${DYNAWO} --help
