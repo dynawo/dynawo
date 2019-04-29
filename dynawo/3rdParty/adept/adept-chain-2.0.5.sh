@@ -92,18 +92,14 @@ install_adept() {
   else
     ADEPT_LIBRARY_TYPE_OPTION="--enable-static --disable-shared"
   fi
-  if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
-    if [ "$BUILD_TYPE" = "Debug" ]; then
-      ./configure "CXXFLAGS=-g -O0 -fPIC" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
-    else
-      ./configure "CXXFLAGS=-O3 -fPIC" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
-    fi
+  CXX_STD=""
+  if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "no" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "false" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "off" ]; then
+    CXX_STD="-std=c++98"
+  fi
+  if [ "$BUILD_TYPE" = "Debug" ]; then
+    ./configure "CXXFLAGS=-g -O0 -fPIC $CXX_STD" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
   else
-    if [ "$BUILD_TYPE" = "Debug" ]; then
-      ./configure "CXXFLAGS=-g -O0 -fPIC -std=c++98" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
-    else
-      ./configure "CXXFLAGS=-O3 -fPIC -std=c++98" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
-    fi
+    ./configure "CXXFLAGS=-O3 -fPIC $CXX_STD" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
   fi
   make -j $DYNAWO_NB_PROCESSORS_USED && make install
   RETURN_CODE=$?
