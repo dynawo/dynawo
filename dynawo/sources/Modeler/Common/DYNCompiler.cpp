@@ -507,7 +507,6 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
   string modelConcatName = modelicaModelDescription->getCompiledModelId();
 
   string modelConcatFile = absolute(modelConcatName + ".mo", compileDirPath_);
-  string modelConcatTmpFile = absolute(modelConcatName + "-tmp.mo", compileDirPath_);
   Trace::info("COMPILE") << DYNLog(GenerateModelicaConcatFile, modelConcatFile, modelID, modelicaModelDescription->getID()) << Trace::endline;
   std::ofstream fOut;
 
