@@ -76,13 +76,13 @@ _dynawo() {
           _dynawo_compileModelicaModel
           ;;
         generate-preassembled|generate-preassembled-gdb)
-          _dynawo_generate-preassembled
+          _dynawo_generate_preassembled
           ;;
         deploy-autocompletion)
           _dynawo_deploy_autocompletion
           ;;
-        compileLibModelicaOMC)
-          _dynawo_compile_lib_modelica_omc
+        compileModelicaModelInLib)
+          _dynawo_compile_modelica_model_in_lib
           ;;
         *)
           ;;
@@ -140,7 +140,7 @@ _dynawo_compileModelicaModel() {
       "--additionalHeaderList[list of headers that should be included in the dynamic model files]:list of headers that should be included in the dynamic model files:_files -g '*.h'"
 }
 
-_dynawo_generate-preassembled() {
+_dynawo_generate_preassembled() {
   _arguments \
     - set1 \
       "-h[display help and exit]:help" \
@@ -172,7 +172,7 @@ _dynawo_deploy_autocompletion() {
       "--permanent-path[allow to deploy Dynawo completion script outside of Dynawo folder (default\: DYNAWO_HOME/util/autocompletion/_dynawo).]:allow to deploy Dynawo completion script outside of Dynawo folder (default\: DYNAWO_HOME/util/autocompletion/_dynawo).:_files -/"
 }
 
-_dynawo_compile_lib_modelica_omc() {
+_dynawo_compile_modelica_model_in_lib() {
   _arguments \
     "--model-name=-[Name of the model.]:Name of the model." \
     "--directory=-[Directory of model cpp files to compile.]:Directory of cpp files to compile.:_files -/" \
