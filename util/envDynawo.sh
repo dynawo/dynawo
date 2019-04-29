@@ -32,101 +32,101 @@ where [option] can be:"
 
   export dynawo_user_options="    =========== Dynawo User
         =========== Build
-        build-user                        build Dynawo and its dependencies
+        build-user                            build Dynawo and its dependencies
 
         =========== Launch
-        jobs ([args])                     launch Dynawo simulation
-        jobs-with-curves ([args])         launch Dynawo simulation and open resulting curves in a browser
+        jobs ([args])                         launch Dynawo simulation
+        jobs-with-curves ([args])             launch Dynawo simulation and open resulting curves in a browser
 
         =========== Utilities
-        compileModelicaModel ([args])     compile a single Modelica model (.mo) into a Dynawo model (.so)
-        generate-preassembled ([args])    generate a preassembled model (.so) from a model description (.xml)
-        dump-model ([args])               dump variables and parameters of a Dynawo model (.so) into a xml file"
+        compileModelicaModel ([args])         compile a single Modelica model (.mo) into a Dynawo model (.so)
+        generate-preassembled ([args])        generate a preassembled model (.so) from a model description (.xml)
+        dump-model ([args])                   dump variables and parameters of a Dynawo model (.so) into a xml file"
 
   export dynawo_developer_options="    =========== Dynawo Developer
         =========== Build
-        build-omcDynawo                   build the OpenModelica compiler for Dynawo
-        build-3rd-party                   build 3rd party softwares for all compilation environments (Release/Debug, C++98/11) for a compiler in shared or static
-        build-3rd-party-version           build 3rd party softwares
-        config-dynawo                     configure Dynawo's compiling environment using CMake
-        build-dynawo                      build Dynawo and install preassembled models (core, models cpp, models and solvers)
-        build-dynawo-core                 build Dynawo without models
-        build-dynawo-models-cpp           build Dynawo CPP models
-        build-dynawo-models               build Dynawo preassembled models
-        build-dynawo-solvers              build Dynawo solver descriptions
-        build-all                         call in this order build-3rd-party, config-dynawo, build-dynawo, build-doxygen-doc
-        build-tests ([args])              build and launch Dynawo's unittest (launch all tests if [args] is empty)
-        build-tests-coverage ([args])     build/launch Dynawo's unittest and generate code coverage report (launch all tests if [args] is empty)
+        build-omcDynawo                       build the OpenModelica compiler for Dynawo
+        build-3rd-party                       build 3rd party softwares for all compilation environments (Release/Debug, C++98/11) for a compiler in shared or static
+        build-3rd-party-version               build 3rd party softwares
+        config-dynawo                         configure Dynawo's compiling environment using CMake
+        build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
+        build-dynawo-core                     build Dynawo without models
+        build-dynawo-models-cpp               build Dynawo CPP models
+        build-dynawo-models                   build Dynawo preassembled models
+        build-dynawo-solvers                  build Dynawo solver descriptions
+        build-all                             call in this order build-3rd-party, config-dynawo, build-dynawo, build-doxygen-doc
+        build-tests ([args])                  build and launch Dynawo's unittest (launch all tests if [args] is empty)
+        build-tests-coverage ([args])         build/launch Dynawo's unittest and generate code coverage report (launch all tests if [args] is empty)
 
         =========== Clean
-        clean-omcDynawo                   remove the OpenModelica compiler for dynawo
-        clean-3rd-party                   remove all 3rd party softwares objects
-        clean-dynawo                      remove Dynawo's objects
-        clean-all                         call clean-3rd-party, clean-dynawo
-        clean-tests                       remove all objects needed for unittest
-        clean-tests-coverage              remove all objects needed for unittest-coverage
-        clean-old-branches                remove old build/install/nrt results from merge branches
+        clean-omcDynawo                       remove the OpenModelica compiler for dynawo
+        clean-3rd-party                       remove all 3rd party softwares objects
+        clean-dynawo                          remove Dynawo's objects
+        clean-all                             call clean-3rd-party, clean-dynawo
+        clean-tests                           remove all objects needed for unittest
+        clean-tests-coverage                  remove all objects needed for unittest-coverage
+        clean-old-branches                    remove old build/install/nrt results from merge branches
 
         =========== Clean-Build
-        clean-build-3rd-party             clean then build 3rd party libraries
-        clean-build-dynawo                clean, then configure and build Dynawo
-        clean-build-all                   clean, then configure and build 3rd party libraries, Dynawo
+        clean-build-3rd-party                 clean then build 3rd party libraries
+        clean-build-dynawo                    clean, then configure and build Dynawo
+        clean-build-all                       clean, then configure and build 3rd party libraries, Dynawo
 
         =========== Uninstall
-        uninstall-3rd-party               uninstall all 3rd party softwares
-        uninstall-dynawo                  uninstall Dynawo
-        uninstall-all                     call uninstall-3rd-party, uninstall-dynawo
+        uninstall-3rd-party                   uninstall all 3rd party softwares
+        uninstall-dynawo                      uninstall Dynawo
+        uninstall-all                         call uninstall-3rd-party, uninstall-dynawo
 
         =========== Launch
-        jobs ([args])                     launch Dynawo simulation
-        jobs-with-curves ([args])         launch Dynawo simulation and open resulting curves in a browser
-        jobs-gdb ([args])                 launch Dynawo simulation in gdb
-        jobs-valgrind ([args])            launch Dynawo simulation in valgrind (defaut tool to check memory leakage)
-        jobs-valgrind-callgrind ([args])  launch Dynawo simulation in valgrind with callgrind tool (profiling tool that records the call history)
-        jobs-valgrind-dhat ([args])       launch Dynawo simulation in valgrind with dhat tool (dynamic heap analysis tool)
-        jobs-valgrind-massif ([args])     launch Dynawo simulation in valgrind with massif tool (a heap profiler)
-        unittest-gdb [arg]                call unittest in gdb
+        jobs ([args])                         launch Dynawo simulation
+        jobs-with-curves ([args])             launch Dynawo simulation and open resulting curves in a browser
+        jobs-gdb ([args])                     launch Dynawo simulation in gdb
+        jobs-valgrind ([args])                launch Dynawo simulation in valgrind (defaut tool to check memory leakage)
+        jobs-valgrind-callgrind ([args])      launch Dynawo simulation in valgrind with callgrind tool (profiling tool that records the call history)
+        jobs-valgrind-dhat ([args])           launch Dynawo simulation in valgrind with dhat tool (dynamic heap analysis tool)
+        jobs-valgrind-massif ([args])         launch Dynawo simulation in valgrind with massif tool (a heap profiler)
+        unittest-gdb [arg]                    call unittest in gdb
 
         =========== Distribution
-        distrib                           create distribution of Dynawo
-        distrib-omc                       create distribution with omc binary
-        deploy                            deploy the current version of dynawo binaries/libraries/includes to be used as a release by an another project
+        distrib                               create distribution of Dynawo
+        distrib-omc                           create distribution with omc binary
+        deploy                                deploy the current version of dynawo binaries/libraries/includes to be used as a release by an another project
 
         =========== Tests
-        nrt ([-p regex] [-n name_filter]) run (filtered) non-regression tests and open the result in chosen browser
-        nrt-diff ([args])                 make a diff between two non-regression test outputs
-        version-validation                clean all built items, then build them all and run non-regression tests
-        list-tests                        print all available unittest target
+        nrt ([-p regex] [-n name_filter])     run (filtered) non-regression tests and open the result in chosen browser
+        nrt-diff ([args])                     make a diff between two non-regression test outputs
+        version-validation                    clean all built items, then build them all and run non-regression tests
+        list-tests                            print all available unittest target
 
         =========== Utilities
-        generate-preassembled-gdb         generate a preassembled model with debugger
-        compileModelicaModelInLib         compile Modelica Model generated for Dynawo
-        flat-model ([args])               generate and display the (full) flat Modelica model"
+        generate-preassembled-gdb             generate a preassembled model with debugger
+        compileCppModelicaModelInDynamicLib   compile Modelica Model generated for Dynawo
+        flat-model ([args])                   generate and display the (full) flat Modelica model"
 
   export dynawo_documentation_options="    =========== Dynawo Documentation
         =========== Launch
-        doc                               open Dynawo's documentation
-        doxygen-doc                       open Dynawo's Doxygen documentation into chosen browser
-        modelica-doc                      open Dynawo's Modelica models documentation
-        nrt-doc                           open Dynawo's nrt documentation
+        doc                                   open Dynawo's documentation
+        doxygen-doc                           open Dynawo's Doxygen documentation into chosen browser
+        modelica-doc                          open Dynawo's Modelica models documentation
+        nrt-doc                               open Dynawo's nrt documentation
 
         =========== Build
-        build-doc                         build documentation
-        build-doxygen-doc                 build all doxygen documentation
-        build-modelica-doc                build all Dynawo modelica library document
-        build-nrt-doc                     build nrt documentation
+        build-doc                             build documentation
+        build-doxygen-doc                     build all doxygen documentation
+        build-modelica-doc                    build all Dynawo modelica library document
+        build-nrt-doc                         build nrt documentation
 
         =========== Clean
-        clean-doc                         clean documentation
-        clean-nrt-doc                     clean nrt documentation"
+        clean-doc                             clean documentation
+        clean-nrt-doc                         clean nrt documentation"
 
   export dynawo_other_options="    =========== Others
-    help                                  show all available options
-    help-user                             show user specific options
-    deploy-autocompletion                 deploy autocompletion functions for Dynawo.
-    display-environment                   display all environment variables managed by Dynawo
-    reset-environment                     reset all environment variables set by Dynawo
-    version                               show Dynawo version"
+    help                                      show all available options
+    help-user                                 show user specific options
+    deploy-autocompletion                     deploy autocompletion functions for Dynawo.
+    display-environment                       display all environment variables managed by Dynawo
+    reset-environment                         reset all environment variables set by Dynawo
+    version                                   show Dynawo version"
 }
 
 help_dynawo() {
@@ -1158,11 +1158,11 @@ generate_preassembled_gdb() {
   return ${RETURN_CODE}
 }
 
-compile_modelica_model_in_lib() {
+compile_cpp_modelica_model_in_dynamic_lib() {
   if ! launcher_installed; then
     install_launcher || error_exit
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --compile-lib-modelica-omc $*
+  $DYNAWO_INSTALL_DIR/bin/launcher --compile-cpp-modelica-model-in-dynamic-lib $*
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1488,7 +1488,7 @@ deploy_dynawo() {
   mkdir -p sbin
   cp $DYNAWO_INSTALL_DIR/sbin/*.py sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/cleanCompileModelicaModel sbin/
-  cp $DYNAWO_INSTALL_DIR/sbin/compileModelicaModelInLib sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/compileCppModelicaModelInDynamicLib sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/compileModelicaModel sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dumpModel sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/generate-preassembled sbin/
@@ -1930,8 +1930,8 @@ case $MODE in
     clean_tests_coverage || error_exit "Error during the cleaning of tests coverage"
     ;;
 
-  compileModelicaModelInLib)
-    compile_modelica_model_in_lib ${ARGS} || error_exit "Error during the compilation of Modelica Model for dynawo"
+  compileCppModelicaModelInDynamicLib)
+    compile_cpp_modelica_model_in_dynamic_lib ${ARGS} || error_exit "Error during the compilation of Modelica Model for Dynawo"
     ;;
 
   compileModelicaModel)

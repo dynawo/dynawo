@@ -81,8 +81,8 @@ _dynawo() {
         deploy-autocompletion)
           _dynawo_deploy_autocompletion
           ;;
-        compileModelicaModelInLib)
-          _dynawo_compile_modelica_model_in_lib
+        compileCppModelicaModelInDynamicLib)
+          _dynawo_compile_cpp_modelica_model_in_dynamic_lib
           ;;
         *)
           ;;
@@ -172,7 +172,7 @@ _dynawo_deploy_autocompletion() {
       "--permanent-path[allow to deploy Dynawo completion script outside of Dynawo folder (default\: DYNAWO_HOME/util/autocompletion/_dynawo).]:allow to deploy Dynawo completion script outside of Dynawo folder (default\: DYNAWO_HOME/util/autocompletion/_dynawo).:_files -/"
 }
 
-_dynawo_compile_modelica_model_in_lib() {
+_dynawo_compile_cpp_modelica_model_in_dynamic_lib() {
   _arguments \
     "--model-name=-[Name of the model.]:Name of the model." \
     "--directory=-[Directory of model cpp files to compile.]:Directory of cpp files to compile.:_files -/" \

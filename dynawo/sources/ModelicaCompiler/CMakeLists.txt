@@ -38,15 +38,13 @@ TARGET_LINK_LIBRARIES(compileModelicaModel
 
 INSTALL(TARGETS compileModelicaModel DESTINATION ${sbindir})
 
+#compileCppModelicaModelInDynamicLib
+CONFIGURE_FILE(compileCppModelicaModelInDynamicLib.in ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib @ONLY)
 
-#compileModelicaModelInLib
-CONFIGURE_FILE(compileModelicaModelInLib.in ${CMAKE_CURRENT_BINARY_DIR}/compileModelicaModelInLib @ONLY)
-
-INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/compileModelicaModelInLib DESTINATION ${sbindir})
+INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib DESTINATION ${sbindir})
 
 #cleanCompileModelicaModel
 INSTALL(PROGRAMS cleanCompileModelicaModel DESTINATION ${sbindir})
-
 
 #Add post processing scripts
 ADD_SUBDIRECTORY(Scripts_OMC_${OPENMODELICA_VERSION})
