@@ -12,6 +12,9 @@
 # simulation tool for power systems.
 #
 
+# All environment variables in this script must be exported through custom functions export_var_env or export_var_env_force
+# or export_var_env_default and prefixed by DYNAWO_.
+
 #################################
 ########### Functions ###########
 #################################
@@ -26,11 +29,11 @@ error() {
 }
 
 define_options() {
-  export dynawo_usage="Usage: `basename $0` [option] -- program to deal with Dynawo debugging environment
+  export_var_env DYNAWO_USAGE="Usage: `basename $0` [option] -- program to deal with Dynawo debugging environment
 
 where [option] can be:"
 
-  export dynawo_user_options="    =========== Dynawo User
+  export_var_env DYNAWO_USER_OPTIONS="    =========== Dynawo User
         =========== Build
         build-user                            build Dynawo and its dependencies
 
@@ -43,7 +46,7 @@ where [option] can be:"
         generate-preassembled ([args])        generate a preassembled model (.so) from a model description (.xml)
         dump-model ([args])                   dump variables and parameters of a Dynawo model (.so) into a xml file"
 
-  export dynawo_developer_options="    =========== Dynawo Developer
+  export_var_env DYNAWO_DEVELOPER_OPTIONS="    =========== Dynawo Developer
         =========== Build
         build-omcDynawo                       build the OpenModelica compiler for Dynawo
         build-3rd-party                       build 3rd party softwares for all compilation environments (Release/Debug, C++98/11) for a compiler in shared or static
@@ -103,7 +106,7 @@ where [option] can be:"
         compileCppModelicaModelInDynamicLib   compile Modelica Model generated for Dynawo
         flat-model ([args])                   generate and display the (full) flat Modelica model"
 
-  export dynawo_documentation_options="    =========== Dynawo Documentation
+  export_var_env DYNAWO_DOCUMENTATION_OPTIONS="    =========== Dynawo Documentation
         =========== Launch
         doc                                   open Dynawo's documentation
         doxygen-doc                           open Dynawo's Doxygen documentation into chosen browser
@@ -120,43 +123,47 @@ where [option] can be:"
         clean-doc                             clean documentation
         clean-nrt-doc                         clean nrt documentation"
 
-  export dynawo_other_options="    =========== Others
-    help                                      show all available options
-    help-user                                 show user specific options
-    deploy-autocompletion                     deploy autocompletion functions for Dynawo.
-    display-environment                       display all environment variables managed by Dynawo
-    reset-environment                         reset all environment variables set by Dynawo
-    version                                   show Dynawo version"
+  export_var_env DYNAWO_OTHER_OPTIONS="    =========== Others
+    help                                  show all available options
+    help-user                             show user specific options
+    deploy-autocompletion                 deploy autocompletion functions for Dynawo.
+    display-environment                   display all environment variables managed by Dynawo
+    reset-environment                     reset all environment variables set by Dynawo
+    version                               show Dynawo version"
 }
 
 help_dynawo() {
   define_options
-  echo "$dynawo_usage"
+  echo "$DYNAWO_USAGE"
   echo
-  echo "$dynawo_user_options"
+  echo "$DYNAWO_USER_OPTIONS"
   echo;echo
-  echo "$dynawo_developer_options"
+  echo "$DYNAWO_DEVELOPER_OPTIONS"
   echo;echo
-  echo "$dynawo_documentation_options"
+  echo "$DYNAWO_DOCUMENTATION_OPTIONS"
   echo;echo
-  echo "$dynawo_other_options"
+  echo "$DYNAWO_OTHER_OPTIONS"
 }
 
 help_dynawo_user() {
   define_options
-  echo "$dynawo_usage"
+  echo "$DYNAWO_USAGE"
   echo
-  echo "$dynawo_user_options"
+  echo "$DYNAWO_USER_OPTIONS"
   echo;echo
-  echo "$dynawo_documentation_options"
+  echo "$DYNAWO_DOCUMENTATION_OPTIONS"
   echo;echo
-  echo "$dynawo_other_options"
+  echo "$DYNAWO_OTHER_OPTIONS"
 }
 
 export_var_env_force() {
-  var=$@
-  name=${var%=*}
-  value=${var##*=}
+  local var=$@
+  local name=${var%%=*}
+  local value=${var#*=}
+
+  if ! `expr $name : "\<DYNAWO_.*" > /dev/null`; then
+    error_exit "You must export variables with DYNAWO prefix for $name."
+  fi
 
   if eval "[ \$$name ]"; then
     unset $name
@@ -171,9 +178,13 @@ export_var_env_force() {
 }
 
 export_var_env() {
-  var=$@
-  name=${var%=*}
-  value=${var##*=}
+  local var=$@
+  local name=${var%%=*}
+  local value=${var#*=}
+
+  if ! `expr $name : "\<DYNAWO_.*" > /dev/null`; then
+    error_exit "You must export variables with DYNAWO prefix for $name."
+  fi
 
   if eval "[ \$$name ]"; then
     eval "value=\${$name}"
@@ -188,9 +199,13 @@ export_var_env() {
 }
 
 export_var_env_default() {
-  var=$@
-  name=${var%=*}
-  value=${var##*=}
+  local var=$@
+  local name=${var%%=*}
+  local value=${var#*=}
+
+  if ! `expr $name : "\<DYNAWO_.*" > /dev/null`; then
+    error_exit "You must export variables with DYNAWO prefix for $name."
+  fi
 
   if [ "$value" = UNDEFINED ]; then
     if eval "[ \$$name ]"; then
@@ -217,7 +232,7 @@ export_git_branch() {
     branch_ref=$(git rev-parse --short HEAD)
     branch_name="detached_"${branch_ref}
   fi
-  export_var_env_force BRANCH_NAME=${branch_name}
+  export_var_env_force DYNAWO_BRANCH_NAME=${branch_name}
   cd $current_dir
 }
 
@@ -226,138 +241,139 @@ set_environment() {
   # Force build type when building tests (or tests coverage)
   case $1 in
     build-tests-coverage)
-      export_var_env_force BUILD_TYPE=TestCoverage
-      export_var_env_force USE_XSD_VALIDATION=true
+      export_var_env_force DYNAWO_BUILD_TYPE=TestCoverage
+      export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       export_var_env DYNAWO_DICTIONARIES=dictionaries_mapping
       ;;
     build-tests)
-      export_var_env_force BUILD_TYPE=Tests
-      export_var_env_force USE_XSD_VALIDATION=true
+      export_var_env_force DYNAWO_BUILD_TYPE=Tests
+      export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       export_var_env DYNAWO_DICTIONARIES=dictionaries_mapping
       ;;
     list-tests)
-      export_var_env_force BUILD_TYPE=Tests
-      export_var_env_force USE_XSD_VALIDATION=true
+      export_var_env_force DYNAWO_BUILD_TYPE=Tests
+      export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       ;;
     clean-tests)
-      export_var_env_force BUILD_TYPE=Tests
-      export_var_env_force USE_XSD_VALIDATION=true
+      export_var_env_force DYNAWO_BUILD_TYPE=Tests
+      export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       ;;
     clean-tests-coverage)
-      export_var_env_force BUILD_TYPE=TestCoverage
-      export_var_env_force USE_XSD_VALIDATION=true
+      export_var_env_force DYNAWO_BUILD_TYPE=TestCoverage
+      export_var_env_force DYNAWO_USE_XSD_VALIDATION=true
       ;;
     *)
       ;;
   esac
 
   # Find build type for thid party libraries
-  export_var_env_force BUILD_TYPE_THIRD_PARTY=$BUILD_TYPE
-  case $BUILD_TYPE_THIRD_PARTY in
+  export_var_env_force DYNAWO_BUILD_TYPE_THIRD_PARTY=$DYNAWO_BUILD_TYPE
+  case $DYNAWO_BUILD_TYPE_THIRD_PARTY in
     Tests | TestCoverage)
-      export_var_env_force BUILD_TYPE_THIRD_PARTY="Debug"
+      export_var_env_force DYNAWO_BUILD_TYPE_THIRD_PARTY="Debug"
       ;;
     *)
       ;;
   esac
 
   # Compiler, to have default with gcc
-  export_var_env COMPILER=GCC
+  export_var_env DYNAWO_COMPILER=GCC
 
   # Set path to compilers
   set_compiler
 
   # Build_config
-  export_var_env BUILD_TYPE=UNDEFINED
-  export_var_env CXX11_ENABLED=UNDEFINED
-  export_var_env_force USE_ADEPT=YES
+  export_var_env DYNAWO_BUILD_TYPE=UNDEFINED
+  export_var_env DYNAWO_CXX11_ENABLED=UNDEFINED
+  export_var_env_force DYNAWO_USE_ADEPT=YES
 
-  export_var_env COMPILER_VERSION=$($C_COMPILER -dumpversion)
+  export_var_env DYNAWO_COMPILER_VERSION=$($DYNAWO_C_COMPILER -dumpversion)
   export_var_env DYNAWO_LIBRARY_TYPE=SHARED
 
   # Dynawo
   export_var_env DYNAWO_HOME=UNDEFINED
   export_git_branch
   export_var_env_force DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
-  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
+  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
 
   SUFFIX_CX11=""
-  if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
+  if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     SUFFIX_CX11="-cxx11"
   fi
 
-  if [ ! -z "$JENKINS_MODE" ]; then
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
+  if [ ! -z "$DYNAWO_JENKINS_MODE" ]; then
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")$SUFFIX_CX11/dynawo
   else
-    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$COMPILER_NAME$COMPILER_VERSION/$BRANCH_NAME/$BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
-    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$COMPILER_NAME$COMPILER_VERSION/$BRANCH_NAME/$BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+    export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
+    export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
   fi
 
   # External libs
-  export_var_env_default LIBARCHIVE_HOME=UNDEFINED
-  export_var_env_default BOOST_ROOT=UNDEFINED
-  export_var_env_default GTEST_ROOT=UNDEFINED
+  export_var_env_default DYNAWO_LIBARCHIVE_HOME=UNDEFINED
+  export_var_env_default DYNAWO_BOOST_HOME=UNDEFINED
+  export_var_env_default DYNAWO_GTEST_HOME=UNDEFINED
+  export_var_env_default DYNAWO_GMOCK_HOME=UNDEFINED
 
   # Third parties
-  export_var_env_force THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
-  export_var_env THIRD_PARTY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
-  export_var_env THIRD_PARTY_INSTALL_DIR=$DYNAWO_HOME/install/3rdParty/$COMPILER_NAME$COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
-  export_var_env_force THIRD_PARTY_BUILD_DIR_VERSION=$THIRD_PARTY_BUILD_DIR/$BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
-  export_var_env_force THIRD_PARTY_INSTALL_DIR_VERSION=$THIRD_PARTY_INSTALL_DIR/$BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
+  export_var_env_force DYNAWO_THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
+  export_var_env DYNAWO_THIRD_PARTY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
+  export_var_env DYNAWO_THIRD_PARTY_INSTALL_DIR=$DYNAWO_HOME/install/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
+  export_var_env_force DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION=$DYNAWO_THIRD_PARTY_BUILD_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
+  export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_THIRD_PARTY_INSTALL_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
 
-  export_var_env_force SUITESPARSE_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/suitesparse
-  export_var_env_force NICSLU_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/nicslu
-  export_var_env_force SUNDIALS_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/sundials
-  export_var_env_force ADEPT_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/adept
-  export_var_env_force XERCESC_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/xerces-c
+  export_var_env_force DYNAWO_SUITESPARSE_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/suitesparse
+  export_var_env_force DYNAWO_NICSLU_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/nicslu
+  export_var_env_force DYNAWO_SUNDIALS_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/sundials
+  export_var_env_force DYNAWO_ADEPT_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/adept
+  export_var_env_force DYNAWO_XERCESC_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/xerces-c
 
-  export_var_env_force SUITESPARSE_INSTALL_DIR=$THIRD_PARTY_INSTALL_DIR_VERSION/suitesparse
-  export_var_env_force NICSLU_INSTALL_DIR=$THIRD_PARTY_INSTALL_DIR_VERSION/nicslu
-  export_var_env_force SUNDIALS_INSTALL_DIR=$THIRD_PARTY_INSTALL_DIR_VERSION/sundials
-  export_var_env_force ADEPT_INSTALL_DIR=$THIRD_PARTY_INSTALL_DIR_VERSION/adept
-  export_var_env_force XERCESC_INSTALL_DIR=$THIRD_PARTY_INSTALL_DIR_VERSION/xerces-c
+  export_var_env_force DYNAWO_SUITESPARSE_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/suitesparse
+  export_var_env_force DYNAWO_NICSLU_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/nicslu
+  export_var_env_force DYNAWO_SUNDIALS_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/sundials
+  export_var_env_force DYNAWO_ADEPT_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/adept
+  export_var_env_force DYNAWO_XERCESC_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/xerces-c
 
-  export_var_env_force LIBIIDM_HOME=$THIRD_PARTY_INSTALL_DIR_VERSION/libiidm
-  export_var_env_force LIBIIDM_INSTALL_DIR=$LIBIIDM_HOME
-  export_var_env_force LIBIIDM_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/libiidm
+  export_var_env_force DYNAWO_LIBIIDM_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libiidm
+  export_var_env_force DYNAWO_LIBIIDM_INSTALL_DIR=$DYNAWO_LIBIIDM_HOME
+  export_var_env_force DYNAWO_LIBIIDM_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/libiidm
 
-  export_var_env_force LIBZIP_HOME=$THIRD_PARTY_INSTALL_DIR_VERSION/libzip
-  export_var_env_force LIBZIP_INSTALL_DIR=$LIBZIP_HOME
-  export_var_env_force LIBZIP_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/libzip
+  export_var_env_force DYNAWO_LIBZIP_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libzip
+  export_var_env_force DYNAWO_LIBZIP_INSTALL_DIR=$DYNAWO_LIBZIP_HOME
+  export_var_env_force DYNAWO_LIBZIP_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/libzip
 
-  export_var_env_force LIBXML_HOME=$THIRD_PARTY_INSTALL_DIR_VERSION/libxml
-  export_var_env_force LIBXML_INSTALL_DIR=$LIBXML_HOME
-  export_var_env_force LIBXML_BUILD_DIR=$THIRD_PARTY_BUILD_DIR_VERSION/libxml
+  export_var_env_force DYNAWO_LIBXML_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libxml
+  export_var_env_force DYNAWO_LIBXML_INSTALL_DIR=$DYNAWO_LIBXML_HOME
+  export_var_env_force DYNAWO_LIBXML_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/libxml
 
   # Miscellaneous
-  export_var_env USE_XSD_VALIDATION=true
+  export_var_env DYNAWO_USE_XSD_VALIDATION=true
   export_var_env DYNAWO_LOCALE=en_GB
-  export_var_env BROWSER=firefox
+  export_var_env DYNAWO_BROWSER=firefox
   export_var_env DYNAWO_PDFVIEWER=xdg-open
-  export_var_env_force NRT_DIR=$DYNAWO_HOME/nrt
-  export_var_env RESULTS_SHOW=true
-  export_var_env_force CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
+  export_var_env_force DYNAWO_NRT_DIR=$DYNAWO_HOME/nrt
+  export_var_env DYNAWO_RESULTS_SHOW=true
+  export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
   export_var_env_force DYNAWO_MODEL_DOCUMENTATION_DIR=$DYNAWO_HOME/util/modelDocumentation
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
-  export_var_env_force NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
-  export_var_env_force ENV_DYNAWO=$SCRIPT
+  export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
+  export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
 
   # Only used until now by nrt
-  export_var_env NB_PROCESSORS_USED=1
-  if [ $NB_PROCESSORS_USED -gt $TOTAL_CPU ]; then
-    error_exit "PROCESSORS_USED ($NB_PROCESSORS_USED) is higher than the number of cpu of the system ($TOTAL_CPU)"
+  export_var_env DYNAWO_NB_PROCESSORS_USED=1
+  if [ $DYNAWO_NB_PROCESSORS_USED -gt $TOTAL_CPU ]; then
+    error_exit "PROCESSORS_USED ($DYNAWO_NB_PROCESSORS_USED) is higher than the number of cpu of the system ($TOTAL_CPU)"
   fi
 
   # OpenModelica config
-  export_var_env_force OPENMODELICA_VERSION=1_9_4
-  export_var_env_force MODELICA_LIB=3.2.2
-  export_var_env SRC_OPENMODELICA=UNDEFINED
-  export_var_env INSTALL_OPENMODELICA=UNDEFINED
+  export_var_env_force DYNAWO_OPENMODELICA_VERSION=1_9_4
+  export_var_env_force DYNAWO_MODELICA_LIB=3.2.2
+  export_var_env DYNAWO_SRC_OPENMODELICA=UNDEFINED
+  export_var_env DYNAWO_INSTALL_OPENMODELICA=UNDEFINED
 
   # JQuery config
-  export_var_env JQUERY_DOWNLOAD_URL=https://github.com/jquery/jquery/archive
-  export_var_env FLOT_DOWNLOAD_URL=https://github.com/flot/flot/archive
+  export_var_env DYNAWO_JQUERY_DOWNLOAD_URL=https://github.com/jquery/jquery/archive
+  export_var_env DYNAWO_FLOT_DOWNLOAD_URL=https://github.com/flot/flot/archive
 
   # Export library path, path and other standard environment variables
   set_standard_environment_variables
@@ -407,57 +423,57 @@ path_prepend() {
 }
 
 set_standard_environment_variables() {
-  ld_library_path_prepend $NICSLU_INSTALL_DIR/lib
-  ld_library_path_prepend $SUITESPARSE_INSTALL_DIR/lib
-  if [ -d "$SUNDIALS_INSTALL_DIR/lib64" ]; then
-    ld_library_path_prepend $SUNDIALS_INSTALL_DIR/lib64
-  elif [ -d "$SUNDIALS_INSTALL_DIR/lib" ]; then
-    ld_library_path_prepend $SUNDIALS_INSTALL_DIR/lib
+  ld_library_path_prepend $DYNAWO_NICSLU_INSTALL_DIR/lib
+  ld_library_path_prepend $DYNAWO_SUITESPARSE_INSTALL_DIR/lib
+  if [ -d "$DYNAWO_SUNDIALS_INSTALL_DIR/lib64" ]; then
+    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib64
+  elif [ -d "$DYNAWO_SUNDIALS_INSTALL_DIR/lib" ]; then
+    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib
   else
-    ld_library_path_prepend $SUNDIALS_INSTALL_DIR/lib
-    ld_library_path_prepend $SUNDIALS_INSTALL_DIR/lib64
+    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib
+    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib64
   fi
-  ld_library_path_prepend $LIBZIP_HOME/lib
-  ld_library_path_prepend $LIBXML_HOME/lib
-  ld_library_path_prepend $LIBIIDM_HOME/lib
-  ld_library_path_prepend $ADEPT_INSTALL_DIR/lib
-  ld_library_path_prepend $XERCESC_INSTALL_DIR/lib
+  ld_library_path_prepend $DYNAWO_LIBZIP_HOME/lib
+  ld_library_path_prepend $DYNAWO_LIBXML_HOME/lib
+  ld_library_path_prepend $DYNAWO_LIBIIDM_HOME/lib
+  ld_library_path_prepend $DYNAWO_ADEPT_INSTALL_DIR/lib
+  ld_library_path_prepend $DYNAWO_XERCESC_INSTALL_DIR/lib
   ld_library_path_prepend $DYNAWO_INSTALL_DIR/lib
 
-  if [ $LIBARCHIVE_HOME_DEFAULT != true ]; then
-    ld_library_path_prepend $LIBARCHIVE_HOME/lib
+  if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
+    ld_library_path_prepend $DYNAWO_LIBARCHIVE_HOME/lib
   fi
 
-  if [ $BOOST_ROOT_DEFAULT != true ]; then
-    ld_library_path_prepend $BOOST_ROOT/lib
+  if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
+    ld_library_path_prepend $DYNAWO_BOOST_HOME/lib
   fi
 
-  if [ $GTEST_ROOT_DEFAULT != true ]; then
-    if [ -d "$GTEST_ROOT/lib64" ]; then
-      ld_library_path_prepend $GTEST_ROOT/lib64
-    elif [ -d "$GTEST_ROOT/lib" ]; then
-      ld_library_path_prepend $GTEST_ROOT/lib
+  if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
+    if [ -d "$DYNAWO_GTEST_HOME/lib64" ]; then
+      ld_library_path_prepend $DYNAWO_GTEST_HOME/lib64
+    elif [ -d "$DYNAWO_GTEST_HOME/lib" ]; then
+      ld_library_path_prepend $DYNAWO_GTEST_HOME/lib
     else
       error_exit "Not enable to find GoogleTest library directory for runtime."
     fi
   fi
 
-  path_prepend $INSTALL_OPENMODELICA/bin
+  path_prepend $DYNAWO_INSTALL_OPENMODELICA/bin
   python_path_append $DYNAWO_SCRIPTS_DIR
 
   export_var_env_force DYNAWO_RESOURCES_DIR=$DYNAWO_INSTALL_DIR/share:$DYNAWO_INSTALL_DIR/share/xsd
 }
 
 set_compiler() {
-  if [ "$COMPILER" = "GCC" ]; then
-    export_var_env_force COMPILER_NAME=$(echo $COMPILER | tr "[A-Z]" "[a-z]")
-  elif [ "$COMPILER" = "CLANG" ]; then
-    export_var_env_force COMPILER_NAME=$(echo $COMPILER | tr "[A-Z]" "[a-z]")
+  if [ "$DYNAWO_COMPILER" = "GCC" ]; then
+    export_var_env_force DYNAWO_COMPILER_NAME=$(echo $DYNAWO_COMPILER | tr "[A-Z]" "[a-z]")
+  elif [ "$DYNAWO_COMPILER" = "CLANG" ]; then
+    export_var_env_force DYNAWO_COMPILER_NAME=$(echo $DYNAWO_COMPILER | tr "[A-Z]" "[a-z]")
   else
-    error_exit "COMPILER environment variable needs to be GCC or CLANG."
+    error_exit "DYNAWO_COMPILER environment variable needs to be GCC or CLANG."
   fi
-  export_var_env_force C_COMPILER=$(command -v $COMPILER_NAME)
-  export_var_env_force CXX_COMPILER=$(command -v ${COMPILER_NAME%cc}++) # Trick to remove cc from gcc and leave clang alone, because we want fo find g++ and clang++
+  export_var_env_force DYNAWO_C_COMPILER=$(command -v $DYNAWO_COMPILER_NAME)
+  export_var_env_force DYNAWO_CXX_COMPILER=$(command -v ${DYNAWO_COMPILER_NAME%cc}++) # Trick to remove cc from gcc and leave clang alone, because we want fo find g++ and clang++
 }
 
 set_commit_hook() {
@@ -546,7 +562,7 @@ git diff-index --check --cached HEAD -- ':(exclude)*/reference/*' ':(exclude)*.p
 }
 
 set_cpplint() {
-  export_var_env CPPLINT_DOWNLOAD_URL=https://github.com/cpplint/cpplint/archive
+  export_var_env DYNAWO_CPPLINT_DOWNLOAD_URL=https://github.com/cpplint/cpplint/archive
   CPPLINT_VERSION=1.3.0
   CPPLINT_ARCHIVE=$CPPLINT_VERSION.tar.gz
 
@@ -555,9 +571,9 @@ set_cpplint() {
 
   if [ ! -f "$CPPLINT_DIR/$CPPLINT_FILE" ]; then
     if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} -P "$CPPLINT_DIR" || error_exit "Error while downloading cpplint."
+      wget --timeout 10 --tries 3 ${DYNAWO_CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} -P "$CPPLINT_DIR" || error_exit "Error while downloading cpplint."
     elif [ -x "$(command -v curl)" ]; then
-      curl -L --connect-timeout 10 --retry 2 ${CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} --output "$CPPLINT_DIR/$CPPLINT_ARCHIVE" || error_exit "Error while downloading cpplint."
+      curl -L --connect-timeout 10 --retry 2 ${DYNAWO_CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} --output "$CPPLINT_DIR/$CPPLINT_ARCHIVE" || error_exit "Error while downloading cpplint."
     else
       error_exit "You need to install either wget or curl."
     fi
@@ -573,96 +589,31 @@ set_cpplint() {
 }
 
 display_environment_variables() {
-  echo ADEPT_BUILD_DIR $ADEPT_BUILD_DIR
-  echo ADEPT_INSTALL_DIR $ADEPT_INSTALL_DIR
-  echo BOOST_ROOT $BOOST_ROOT
-  echo BOOST_ROOT_DEFAULT $BOOST_ROOT_DEFAULT
-  echo BRANCH_NAME $BRANCH_NAME
-  echo BROWSER $BROWSER
-  echo BUILD_TYPE $BUILD_TYPE
-  echo BUILD_TYPE_THIRD_PARTY $BUILD_TYPE_THIRD_PARTY
-  echo C_COMPILER $C_COMPILER
-  echo COMPILER $COMPILER
-  echo COMPILER_NAME $COMPILER_NAME
-  echo COMPILER_VERSION $COMPILER_VERSION
-  echo CPPLINT_DOWNLOAD_URL $CPPLINT_DOWNLOAD_URL
-  echo CURVES_TO_HTML_DIR $CURVES_TO_HTML_DIR
-  echo CXX11_ENABLED $CXX11_ENABLED
-  echo CXX_COMPILER $CXX_COMPILER
-  echo DYNAWO_BUILD_DIR $DYNAWO_BUILD_DIR
-  echo DYNAWO_DEPLOY_DIR $DYNAWO_DEPLOY_DIR
-  echo DYNAWO_DICTIONARIES $DYNAWO_DICTIONARIES
-  echo DYNAWO_HOME $DYNAWO_HOME
-  echo DYNAWO_INSTALL_DIR $DYNAWO_INSTALL_DIR
-  echo DYNAWO_LIBRARY_TYPE $DYNAWO_LIBRARY_TYPE
-  echo DYNAWO_LOCALE $DYNAWO_LOCALE
-  echo DYNAWO_MODEL_DOCUMENTATION_DIR $DYNAWO_MODEL_DOCUMENTATION_DIR
-  echo DYNAWO_RESOURCES_DIR $DYNAWO_RESOURCES_DIR
-  echo DYNAWO_SCRIPTS_DIR $DYNAWO_SCRIPTS_DIR
-  echo DYNAWO_SRC_DIR $DYNAWO_SRC_DIR
-  echo ENV_DYNAWO $ENV_DYNAWO
-  echo FLOT_DOWNLOAD_URL $FLOT_DOWNLOAD_URL
-  echo GTEST_ROOT $GTEST_ROOT
-  echo GTEST_ROOT_DEFAULT $GTEST_ROOT_DEFAULT
-  echo INSTALL_OPENMODELICA $INSTALL_OPENMODELICA
-  echo JQUERY_DOWNLOAD_URL $JQUERY_DOWNLOAD_URL
-  echo LD_LIBRARY_PATH $LD_LIBRARY_PATH
-  echo LIBARCHIVE_HOME $LIBARCHIVE_HOME
-  echo LIBARCHIVE_HOME_DEFAULT $LIBARCHIVE_HOME_DEFAULT
-  echo LIBIIDM_BUILD_DIR $LIBIIDM_BUILD_DIR
-  echo LIBIIDM_HOME $LIBIIDM_HOME
-  echo LIBIIDM_INSTALL_DIR $LIBIIDM_INSTALL_DIR
-  echo LIBXML_BUILD_DIR $LIBXML_BUILD_DIR
-  echo LIBXML_HOME $LIBXML_HOME
-  echo LIBXML_INSTALL_DIR $LIBXML_INSTALL_DIR
-  echo LIBZIP_BUILD_DIR $LIBZIP_BUILD_DIR
-  echo LIBZIP_HOME $LIBZIP_HOME
-  echo LIBZIP_INSTALL_DIR $LIBZIP_INSTALL_DIR
-  echo MODELICA_LIB $MODELICA_LIB
-  echo NB_PROCESSORS_USED $NB_PROCESSORS_USED
-  echo NICSLU_BUILD_DIR $NICSLU_BUILD_DIR
-  echo NICSLU_INSTALL_DIR $NICSLU_INSTALL_DIR
-  echo NRT_DIFF_DIR $NRT_DIFF_DIR
-  echo NRT_DIR $NRT_DIR
-  echo OPENMODELICA_VERSION $OPENMODELICA_VERSION
+  printenv | grep DYNAWO_ | sort
   echo PATH $PATH
   echo PYTHONPATH $PYTHONPATH
-  echo RESULTS_SHOW $RESULTS_SHOW
-  echo SRC_OPENMODELICA $SRC_OPENMODELICA
-  echo SUITESPARSE_BUILD_DIR $SUITESPARSE_BUILD_DIR
-  echo SUITESPARSE_INSTALL_DIR $SUITESPARSE_INSTALL_DIR
-  echo SUNDIALS_BUILD_DIR $SUNDIALS_BUILD_DIR
-  echo SUNDIALS_INSTALL_DIR $SUNDIALS_INSTALL_DIR
-  echo THIRD_PARTY_BUILD_DIR $THIRD_PARTY_BUILD_DIR
-  echo THIRD_PARTY_BUILD_DIR_VERSION $THIRD_PARTY_BUILD_DIR_VERSION
-  echo THIRD_PARTY_INSTALL_DIR $THIRD_PARTY_INSTALL_DIR
-  echo THIRD_PARTY_INSTALL_DIR_VERSION $THIRD_PARTY_INSTALL_DIR_VERSION
-  echo THIRD_PARTY_SRC_DIR $THIRD_PARTY_SRC_DIR
-  echo USE_ADEPT $USE_ADEPT
-  echo USE_XSD_VALIDATION $USE_XSD_VALIDATION
-  echo XERCESC_BUILD_DIR $XERCESC_BUILD_DIR
-  echo XERCESC_INSTALL_DIR $XERCESC_INSTALL_DIR
+  echo LD_LIBRARY_PATH $LD_LIBRARY_PATH
 }
 
 is_omcDynawo_installed() {
-  if [ ! -x "$INSTALL_OPENMODELICA/bin/omcDynawo" ]; then
+  if [ ! -x "$DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo" ]; then
     return 1
-  elif [ -x "$INSTALL_OPENMODELICA/bin/omcDynawo" ]; then
-    $INSTALL_OPENMODELICA/bin/omcDynawo --version > /dev/null 2>&1 || return 1
-    installed_version=$($INSTALL_OPENMODELICA/bin/omcDynawo --version | cut -d ' ' -f2 | tr -d 'v')
-    if [ "$installed_version" != ${OPENMODELICA_VERSION//_/.} ]; then
+  elif [ -x "$DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo" ]; then
+    $DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo --version > /dev/null 2>&1 || return 1
+    installed_version=$($DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo --version | cut -d ' ' -f2 | tr -d 'v')
+    if [ "$installed_version" != ${DYNAWO_OPENMODELICA_VERSION//_/.} ]; then
       return 1
     fi
-    if [ ! -d "$INSTALL_OPENMODELICA/lib/omlibrary" ]; then
+    if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary" ]; then
       return 1
     else
-      if [ ! -d "$INSTALL_OPENMODELICA/lib/omlibrary/Modelica $MODELICA_LIB" ]; then
+      if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/Modelica $DYNAWO_MODELICA_LIB" ]; then
         return 1
       fi
-      if [ ! -d "$INSTALL_OPENMODELICA/lib/omlibrary/ModelicaServices $MODELICA_LIB" ]; then
+      if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/ModelicaServices $DYNAWO_MODELICA_LIB" ]; then
         return 1
       fi
-      if [ ! -f "$INSTALL_OPENMODELICA/lib/omlibrary/Complex $MODELICA_LIB.mo" ]; then
+      if [ ! -f "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/Complex $DYNAWO_MODELICA_LIB.mo" ]; then
         return 1
       fi
     fi
@@ -673,13 +624,13 @@ is_omcDynawo_installed() {
 # Build openModelica compiler
 build_omcDynawo() {
   if ! is_omcDynawo_installed; then
-    if [ ! -d "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION" ]; then
-      error_exit "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION does not exist."
+    if [ ! -d "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION" ]; then
+      error_exit "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION does not exist."
     fi
-    cd $DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION
-    bash checkoutOpenModelica.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-version=$OPENMODELICA_VERSION --modelica-version=$MODELICA_LIB || error_exit "OpenModelica source code is not well checked-out. Delete your current source folder and relaunch command."
-    bash cleanBeforeLaunch.sh --openmodelica-dir=$SRC_OPENMODELICA || error_exit "Cleaning of OpenModelica source folder did not work. Delete your current source folder and relaunch command."
-    bash omcUpdateDynawo.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-install=$INSTALL_OPENMODELICA --nbProcessors=$NB_PROCESSORS_USED || error_exit "Building of OpenModelica did not work. Delete your current source folder and relaunch command."
+    cd $DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION
+    bash checkoutOpenModelica.sh --openmodelica-dir=$DYNAWO_SRC_OPENMODELICA --openmodelica-version=$DYNAWO_OPENMODELICA_VERSION --modelica-version=$DYNAWO_MODELICA_LIB || error_exit "OpenModelica source code is not well checked-out. Delete your current source folder and relaunch command."
+    bash cleanBeforeLaunch.sh --openmodelica-dir=$DYNAWO_SRC_OPENMODELICA || error_exit "Cleaning of OpenModelica source folder did not work. Delete your current source folder and relaunch command."
+    bash omcUpdateDynawo.sh --openmodelica-dir=$DYNAWO_SRC_OPENMODELICA --openmodelica-install=$DYNAWO_INSTALL_OPENMODELICA --nbProcessors=$DYNAWO_NB_PROCESSORS_USED || error_exit "Building of OpenModelica did not work. Delete your current source folder and relaunch command."
   else
     echo "OpenModelica for Dynawo is already installed."
     echo "You can re-install it by launching clean-omcDynawo command first."
@@ -688,40 +639,40 @@ build_omcDynawo() {
 
 # Clean openModelica compiler
 clean_omcDynawo() {
-  if [ ! -d "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION" ]; then
-    error_exit "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION does not exist."
+  if [ ! -d "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION" ]; then
+    error_exit "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION does not exist."
   fi
-  cd $DYNAWO_SRC_DIR/3rdParty/omcUpdate_$OPENMODELICA_VERSION
-  bash cleanBeforeLaunch.sh --openmodelica-dir=$SRC_OPENMODELICA --openmodelica-install=$INSTALL_OPENMODELICA
+  cd $DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION
+  bash cleanBeforeLaunch.sh --openmodelica-dir=$DYNAWO_SRC_OPENMODELICA --openmodelica-install=$DYNAWO_INSTALL_OPENMODELICA
 }
 
 # Build third parties
 build_3rd_party() {
-  # Save BUILD_TYPE and CXX11_ENABLED as I force it to change to build all 3rd party combination
-  INITIAL_BUILD_TYPE=$BUILD_TYPE
-  INITIAL_CXX11_ENABLED=$CXX11_ENABLED
+  # Save DYNAWO_BUILD_TYPE and DYNAWO_CXX11_ENABLED as I force it to change to build all 3rd party combination
+  INITIAL_BUILD_TYPE=$DYNAWO_BUILD_TYPE
+  INITIAL_CXX11_ENABLED=$DYNAWO_CXX11_ENABLED
 
-  export_var_env_force BUILD_TYPE=Release
-  export_var_env_force CXX11_ENABLED=NO
+  export_var_env_force DYNAWO_BUILD_TYPE=Release
+  export_var_env_force DYNAWO_CXX11_ENABLED=NO
   set_environment "No-Mode"
   build_3rd_party_version || error_exit "Error during 3rd parties build in Release and c++98."
 
-  export_var_env_force CXX11_ENABLED=YES
+  export_var_env_force DYNAWO_CXX11_ENABLED=YES
   set_environment "No-Mode"
   build_3rd_party_version || error_exit "Error during 3rd parties build in Release and c++11."
 
-  export_var_env_force BUILD_TYPE=Debug
-  export_var_env_force CXX11_ENABLED=NO
+  export_var_env_force DYNAWO_BUILD_TYPE=Debug
+  export_var_env_force DYNAWO_CXX11_ENABLED=NO
   set_environment "No-Mode"
   build_3rd_party_version || error_exit "Error during 3rd parties build in Debug and c++98."
 
-  export_var_env_force CXX11_ENABLED=YES
+  export_var_env_force DYNAWO_CXX11_ENABLED=YES
   set_environment "No-Mode"
   build_3rd_party_version || error_exit "Error during 3rd parties build in Debug and c++11."
 
   # Come back to initial environement
-  export_var_env_force BUILD_TYPE=$INITIAL_BUILD_TYPE
-  export_var_env_force CXX11_ENABLED=$INITIAL_CXX11_ENABLED
+  export_var_env_force DYNAWO_BUILD_TYPE=$INITIAL_BUILD_TYPE
+  export_var_env_force DYNAWO_CXX11_ENABLED=$INITIAL_CXX11_ENABLED
   set_environment $MODE
 
   NICSLU_ARCHIVE=_nicslu301.zip
@@ -739,7 +690,48 @@ build_3rd_party_version() {
       error_exit "$DYNAWO_SRC_DIR/3rdParty does not exist."
     fi
     cd $DYNAWO_SRC_DIR/3rdParty
-    bash toolchain.sh --build-type=$BUILD_TYPE_THIRD_PARTY
+    if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
+      BOOST_OPTION="--boost-install-dir=$DYNAWO_BOOST_HOME"
+    else
+      BOOST_OPTION=""
+    fi
+    if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
+      LIBARCHIVE_OPTION="--libarchive-install-dir=$DYNAWO_LIBARCHIVE_HOME"
+    else
+      LIBARCHIVE_OPTION=""
+    fi
+    case "$DYNAWO_BUILD_TYPE_THIRD_PARTY" in
+      Debug)
+        if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
+          GTEST_OPTION="--gtest-install-dir=$DYNAWO_GTEST_HOME"
+        else
+          GTEST_OPTION=""
+        fi
+        ;;
+      *)
+        GTEST_OPTION=""
+        ;;
+    esac
+
+    bash toolchain.sh --build-type=$DYNAWO_BUILD_TYPE_THIRD_PARTY \
+      --sundials-install-dir=$DYNAWO_SUNDIALS_INSTALL_DIR \
+      --suitesparse-install-dir=$DYNAWO_SUITESPARSE_INSTALL_DIR \
+      --adept-install-dir=$DYNAWO_ADEPT_INSTALL_DIR \
+      --nicslu-install-dir=$DYNAWO_NICSLU_INSTALL_DIR \
+      --libzip-install-dir=$DYNAWO_LIBZIP_INSTALL_DIR \
+      --libxml-install-dir=$DYNAWO_LIBXML_INSTALL_DIR \
+      --libiidm-install-dir=$DYNAWO_LIBIIDM_INSTALL_DIR \
+      --xercesc-install-dir=$DYNAWO_XERCESC_INSTALL_DIR \
+      --sundials-build-dir=$DYNAWO_SUNDIALS_BUILD_DIR \
+      --suitesparse-build-dir=$DYNAWO_SUITESPARSE_BUILD_DIR \
+      --nicslu-build-dir=$DYNAWO_NICSLU_BUILD_DIR \
+      --adept-build-dir=$DYNAWO_ADEPT_BUILD_DIR \
+      --libzip-build-dir=$DYNAWO_LIBZIP_BUILD_DIR \
+      --libxml-build-dir=$DYNAWO_LIBXML_BUILD_DIR \
+      --libiidm-build-dir=$DYNAWO_LIBIIDM_BUILD_DIR \
+      --xercesc-build-dir=$DYNAWO_XERCESC_BUILD_DIR \
+      $BOOST_OPTION $LIBARCHIVE_OPTION $GTEST_OPTION
+
     RETURN_CODE=$?
     return ${RETURN_CODE}
   fi
@@ -749,19 +741,19 @@ build_3rd_party_version() {
 is_3rd_party_version_installed() {
   third_party_folders=(adept libiidm libxml libzip suitesparse sundials xerces-c)
   for folder in ${third_party_folders[*]}; do
-    if [ ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder" ]; then
+    if [ ! -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder" ]; then
       return 1
     fi
-    if [[ ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib" && ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib64" ]]; then
+    if [[ ! -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib" && ! -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib64" ]]; then
       return 1
     fi
-    if [ ! -d "$THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include" ]; then
+    if [ ! -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include" ]; then
       return 1
     fi
-    if [[ -z "$(find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib \( -name "*.so" -o -name "*.a" \) 2> /dev/null)" && -z "$(find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib64 \( -name "*.so" -o -name "*.a" \) 2> /dev/null)" ]]; then
+    if [[ -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib \( -name "*.so" -o -name "*.a" \) 2> /dev/null)" && -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib64 \( -name "*.so" -o -name "*.a" \) 2> /dev/null)" ]]; then
       return 1
     fi
-    if [[ -z "$(find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.h")" && -z "$(find $THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.hpp")" ]]; then
+    if [[ -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.h")" && -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.hpp")" ]]; then
       return 1
     fi
   done
@@ -770,15 +762,15 @@ is_3rd_party_version_installed() {
 
 # clean third parties
 clean_3rd_party() {
-  if [ -d "$THIRD_PARTY_BUILD_DIR" ]; then
-    rm -rf $THIRD_PARTY_BUILD_DIR
+  if [ -d "$DYNAWO_THIRD_PARTY_BUILD_DIR" ]; then
+    rm -rf $DYNAWO_THIRD_PARTY_BUILD_DIR
   fi
 }
 
 # uninstall third parties
 uninstall_3rd_party() {
-  if [ -d "$THIRD_PARTY_INSTALL_DIR" ]; then
-    rm -rf $THIRD_PARTY_INSTALL_DIR
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR" ]; then
+    rm -rf $DYNAWO_THIRD_PARTY_INSTALL_DIR
   fi
 }
 
@@ -811,19 +803,45 @@ config_dynawo() {
   fi
   cd $DYNAWO_BUILD_DIR
 
+  CMAKE_OPTIONNAL=""
+  if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
+    CMAKE_OPTIONNAL="-DBOOST_ROOT=$DYNAWO_BOOST_HOME"
+  fi
+  if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
+    CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
+  fi
+  case $DYNAWO_BUILD_TYPE in
+    Tests|TestCoverage)
+      if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
+        CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DGTEST_ROOT=$DYNAWO_GTEST_HOME"
+      fi
+      if [ $DYNAWO_GMOCK_HOME_DEFAULT != true ]; then
+        CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DGMOCK_HOME=$DYNAWO_GMOCK_HOME"
+      fi
+      ;;
+    *)
+      ;;
+  esac
+
   cmake -DLIBRARY_TYPE=$DYNAWO_LIBRARY_TYPE \
-    -DCMAKE_C_COMPILER:PATH=$C_COMPILER \
-    -DCMAKE_CXX_COMPILER:PATH=$CXX_COMPILER \
-    -DCMAKE_BUILD_TYPE:STRING=$BUILD_TYPE \
+    -DCMAKE_C_COMPILER:PATH=$DYNAWO_C_COMPILER \
+    -DCMAKE_CXX_COMPILER:PATH=$DYNAWO_CXX_COMPILER \
+    -DCMAKE_BUILD_TYPE:STRING=$DYNAWO_BUILD_TYPE \
     -DDYNAWO_HOME:PATH=$DYNAWO_HOME \
     -DCMAKE_INSTALL_PREFIX:PATH=$DYNAWO_INSTALL_DIR \
-    -DUSE_ADEPT:BOOL=$USE_ADEPT \
-    -DINSTALL_OPENMODELICA:PATH=$INSTALL_OPENMODELICA \
-    -DOPENMODELICA_VERSION:STRING=$OPENMODELICA_VERSION \
-    -DCXX11_ENABLED:BOOL=$CXX11_ENABLED \
-    -DBOOST_ROOT_DEFAULT:STRING=$BOOST_ROOT_DEFAULT \
+    -DUSE_ADEPT:BOOL=$DYNAWO_USE_ADEPT \
+    -DINSTALL_OPENMODELICA:PATH=$DYNAWO_INSTALL_OPENMODELICA \
+    -DOPENMODELICA_VERSION:STRING=$DYNAWO_OPENMODELICA_VERSION \
+    -DCXX11_ENABLED:BOOL=$DYNAWO_CXX11_ENABLED \
+    -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
+    -DADEPT_HOME=$DYNAWO_ADEPT_INSTALL_DIR \
+    -DSUNDIALS_HOME=$DYNAWO_SUNDIALS_INSTALL_DIR \
+    -DSUITESPARSE_HOME=$DYNAWO_SUITESPARSE_INSTALL_DIR \
+    -DNICSLU_HOME=$DYNAWO_NICSLU_INSTALL_DIR \
+    -DLIBZIP_HOME=$DYNAWO_LIBZIP_INSTALL_DIR \
+    $CMAKE_OPTIONNAL \
     -G "Unix Makefiles" \
-    "-DCMAKE_PREFIX_PATH=$LIBXML_HOME;$LIBIIDM_HOME" \
+    "-DCMAKE_PREFIX_PATH=$DYNAWO_LIBXML_HOME;$DYNAWO_LIBIIDM_HOME" \
     $DYNAWO_SRC_DIR
 
   RETURN_CODE=$?
@@ -858,7 +876,7 @@ build_dynawo_core() {
     error_exit "$DYNAWO_BUILD_DIR does not exist."
   fi
   cd $DYNAWO_BUILD_DIR
-  make -j$NB_PROCESSORS_USED && make -j$NB_PROCESSORS_USED install
+  make -j$DYNAWO_NB_PROCESSORS_USED && make -j$DYNAWO_NB_PROCESSORS_USED install
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -868,7 +886,7 @@ build_dynawo_models_cpp() {
     error_exit "$DYNAWO_BUILD_DIR does not exist."
   fi
   cd $DYNAWO_BUILD_DIR
-  make -j$NB_PROCESSORS_USED models-cpp || error_exit "Error during make models-cpp."
+  make -j$DYNAWO_NB_PROCESSORS_USED models-cpp || error_exit "Error during make models-cpp."
 }
 
 build_dynawo_models() {
@@ -876,7 +894,7 @@ build_dynawo_models() {
     error_exit "$DYNAWO_BUILD_DIR does not exist."
   fi
   cd $DYNAWO_BUILD_DIR
-  make -j$NB_PROCESSORS_USED models || error_exit "Error during make models."
+  make -j$DYNAWO_NB_PROCESSORS_USED models || error_exit "Error during make models."
 }
 
 build_dynawo_solvers() {
@@ -884,7 +902,7 @@ build_dynawo_solvers() {
     error_exit "$DYNAWO_BUILD_DIR does not exist."
   fi
   cd $DYNAWO_BUILD_DIR
-  make -j$NB_PROCESSORS_USED solvers || error_exit "Error during make solvers."
+  make -j$DYNAWO_NB_PROCESSORS_USED solvers || error_exit "Error during make solvers."
 }
 
 # Compile Dynawo (core + models)
@@ -945,8 +963,8 @@ list_tests() {
 }
 
 verify_browser() {
-  if [ ! -x "$(command -v $BROWSER)" ]; then
-    error_exit "Specified browser BROWSER=$BROWSER not found."
+  if [ ! -x "$(command -v $DYNAWO_BROWSER)" ]; then
+    error_exit "Specified browser DYNAWO_BROWSER=$DYNAWO_BROWSER not found."
   fi
 }
 
@@ -974,9 +992,9 @@ build_tests_coverage() {
   if [ ${RETURN_CODE} -ne 0 ]; then
     exit ${RETURN_CODE}
   fi
-  if [ "$RESULTS_SHOW" = true ] ; then
+  if [ "$DYNAWO_RESULTS_SHOW" = true ] ; then
     verify_browser
-    $BROWSER $DYNAWO_BUILD_DIR/coverage/index.html
+    $DYNAWO_BROWSER $DYNAWO_BUILD_DIR/coverage/index.html
   fi
   cp $DYNAWO_BUILD_DIR/coverage/coverage.info $DYNAWO_HOME/build
   if [ -d "$DYNAWO_HOME/build/coverage-sonar" ]; then
@@ -1086,7 +1104,7 @@ build_doxygen_doc() {
   fi
   cd $DYNAWO_BUILD_DIR
   mkdir -p $DYNAWO_INSTALL_DIR/doxygen/
-  make -j $NB_PROCESSORS_USED doc
+  make -j $DYNAWO_NB_PROCESSORS_USED doc
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1184,9 +1202,9 @@ install_jquery() {
   if [ ! -f "$DYNAWO_HOME/util/curvesToHtml/resources/jquery.js" ]; then
     if [ ! -f "$JQUERY_BUILD_DIR/${JQUERY_ARCHIVE}" ]; then
       if [ -x "$(command -v wget)" ]; then
-        wget --timeout 10 --tries 3 ${JQUERY_DOWNLOAD_URL}/${JQUERY_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Jquery."
+        wget --timeout 10 --tries 3 ${DYNAWO_JQUERY_DOWNLOAD_URL}/${JQUERY_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Jquery."
       elif [ -x "$(command -v curl)" ]; then
-        curl -L --connect-timeout 10 --retry 2 ${JQUERY_DOWNLOAD_URL}/${JQUERY_ARCHIVE} -o $JQUERY_BUILD_DIR/${JQUERY_ARCHIVE} || error_exit "Error while downloading Jquery."
+        curl -L --connect-timeout 10 --retry 2 ${DYNAWO_JQUERY_DOWNLOAD_URL}/${JQUERY_ARCHIVE} -o $JQUERY_BUILD_DIR/${JQUERY_ARCHIVE} || error_exit "Error while downloading Jquery."
       else
         error_exit "You need to install either wget or curl."
       fi
@@ -1206,9 +1224,9 @@ install_jquery() {
     if [ ! -f "$DYNAWO_HOME/util/curvesToHtml/resources/$file" ]; then
       if [ ! -f "$JQUERY_BUILD_DIR/${FLOT_ARCHIVE}" ]; then
         if [ -x "$(command -v wget)" ]; then
-          wget --timeout 10 --tries 3 ${FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Flot."
+          wget --timeout 10 --tries 3 ${DYNAWO_FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Flot."
         elif [ -x "$(command -v curl)" ]; then
-          curl --connect-timeout 10 --retry 2 ${FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} --output $JQUERY_BUILD_DIR/${FLOT_ARCHIVE} || error_exit "Error while downloading Flot."
+          curl --connect-timeout 10 --retry 2 ${DYNAWO_FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} --output $JQUERY_BUILD_DIR/${FLOT_ARCHIVE} || error_exit "Error while downloading Flot."
         else
           error_exit "You need to install either wget or curl."
         fi
@@ -1239,7 +1257,7 @@ jobs_with_curves() {
 
 curves_visu() {
   verify_browser
-  python $CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$(readlink -f $@) --withoutOffset --htmlBrowser=$BROWSER || return 1
+  python $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$(readlink -f $@) --withoutOffset --htmlBrowser=$DYNAWO_BROWSER || return 1
 }
 
 dump_model() {
@@ -1281,7 +1299,7 @@ open_doxygen_doc() {
     echo "... end of doc generation"
   fi
   verify_browser
-  $BROWSER $DYNAWO_INSTALL_DIR/doxygen/html/index.html
+  $DYNAWO_BROWSER $DYNAWO_INSTALL_DIR/doxygen/html/index.html
 }
 
 flat_model() {
@@ -1302,22 +1320,22 @@ nrt() {
   if ! is_launcher_installed; then
     install_launcher || error_exit
   fi
-  python -u $NRT_DIR/nrt.py $@
+  python -u $DYNAWO_NRT_DIR/nrt.py $@
   FAILED_CASES_NUM=$?
 
-  jenkins_mode=$(printenv | grep "JENKINS_MODE" | wc -l)
+  jenkins_mode=$(printenv | grep "DYNAWO_JENKINS_MODE" | wc -l)
 
   if [ ${jenkins_mode} -ne 0 ]; then
-    if [ ! -f "$NRT_DIR/output/report.html" ]; then
+    if [ ! -f "$DYNAWO_NRT_DIR/output/report.html" ]; then
       error_exit "No report was generated by the non regression test script"
     fi
   else
-    if [ ! -f "$NRT_DIR/output/$BRANCH_NAME/report.html" ]; then
+    if [ ! -f "$DYNAWO_NRT_DIR/output/$DYNAWO_BRANCH_NAME/report.html" ]; then
       error_exit "No report was generated by the non regression test script"
     fi
-    if [ "$RESULTS_SHOW" = true ] ; then
+    if [ "$DYNAWO_RESULTS_SHOW" = true ] ; then
       verify_browser
-      $BROWSER $NRT_DIR/output/$BRANCH_NAME/report.html &
+      $DYNAWO_BROWSER $DYNAWO_NRT_DIR/output/$DYNAWO_BRANCH_NAME/report.html &
     fi
   fi
 
@@ -1327,7 +1345,7 @@ nrt() {
 }
 
 nrt_diff() {
-  python $NRT_DIFF_DIR/nrtDiff.py $1 $2
+  python $DYNAWO_NRT_DIFF_DIR/nrtDiff.py $1 $2
 }
 
 check_coding_files() {
@@ -1378,36 +1396,36 @@ deploy_dynawo() {
   mkdir -p extraLibs/LIBARCHIVE/lib/
   mkdir -p extraLibs/LIBZIP/lib
   mkdir -p extraLibs/LIBXML/lib
-  cp -P $SUNDIALS_INSTALL_DIR/lib*/*.* 3rdParty/sundials/lib/
-  cp -P $ADEPT_INSTALL_DIR/lib/*.* 3rdParty/adept/lib/
-  cp -P $SUITESPARSE_INSTALL_DIR/lib/*.* 3rdParty/suitesparse/lib/
-  if [ -d "$NICSLU_INSTALL_DIR/lib" ]; then
-    if [ ! -z "$(ls -A $NICSLU_INSTALL_DIR/lib)" ]; then
-      cp -P $NICSLU_INSTALL_DIR/lib/*.* 3rdParty/nicslu/lib/
+  cp -P $DYNAWO_SUNDIALS_INSTALL_DIR/lib*/*.* 3rdParty/sundials/lib/
+  cp -P $DYNAWO_ADEPT_INSTALL_DIR/lib/*.* 3rdParty/adept/lib/
+  cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/lib/*.* 3rdParty/suitesparse/lib/
+  if [ -d "$DYNAWO_NICSLU_INSTALL_DIR/lib" ]; then
+    if [ ! -z "$(ls -A $DYNAWO_NICSLU_INSTALL_DIR/lib)" ]; then
+      cp -P $DYNAWO_NICSLU_INSTALL_DIR/lib/*.* 3rdParty/nicslu/lib/
     fi
   fi
-  cp -P $LIBZIP_HOME/lib/*.* extraLibs/LIBZIP/lib/
-  cp -P $LIBXML_HOME/lib/*.* extraLibs/LIBXML/lib/
+  cp -P $DYNAWO_LIBZIP_HOME/lib/*.* extraLibs/LIBZIP/lib/
+  cp -P $DYNAWO_LIBXML_HOME/lib/*.* extraLibs/LIBXML/lib/
 
-  if [ ! -d "$THIRD_PARTY_SRC_DIR/libiidm" ]; then
-    error_exit "$THIRD_PARTY_SRC_DIR/libiidm does not exist."
+  if [ ! -d "$DYNAWO_THIRD_PARTY_SRC_DIR/libiidm" ]; then
+    error_exit "$DYNAWO_THIRD_PARTY_SRC_DIR/libiidm does not exist."
   fi
-  cd $THIRD_PARTY_SRC_DIR/libiidm
-  if [ $BOOST_ROOT_DEFAULT != true ]; then
-    BOOST_OPTION="--boost-install-dir=$BOOST_ROOT"
+  cd $DYNAWO_THIRD_PARTY_SRC_DIR/libiidm
+  if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
+    BOOST_OPTION="--boost-install-dir=$DYNAWO_BOOST_HOME"
   else
     BOOST_OPTION=""
   fi
-  if [ $GTEST_ROOT_DEFAULT != true ]; then
-    GTEST_OPTION="--gtest-install-dir=$GTEST_ROOT"
+  if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
+    GTEST_OPTION="--gtest-install-dir=$DYNAWO_GTEST_HOME"
   else
     GTEST_OPTION=""
   fi
 
   bash libiidm-chain.sh --build-dir=$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM/build \
     --install-dir=$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM \
-    --build-type=$BUILD_TYPE \
-    --libxml-install-dir=$LIBXML_INSTALL_DIR \
+    --build-type=$DYNAWO_BUILD_TYPE \
+    --libxml-install-dir=$DYNAWO_LIBXML_INSTALL_DIR \
     $BOOST_OPTION \
     $GTEST_OPTION
 
@@ -1426,36 +1444,36 @@ deploy_dynawo() {
   mkdir -p extraLibs/LIBARCHIVE/include
   mkdir -p extraLibs/LIBZIP/include
   mkdir -p extraLibs/LIBXML/include
-  cp -R -P $SUNDIALS_INSTALL_DIR/include/* 3rdParty/sundials/include/
-  cp -Pr $ADEPT_INSTALL_DIR/include/* 3rdParty/adept/include/
-  cp -P $SUITESPARSE_INSTALL_DIR/include/*.* 3rdParty/suitesparse/include/
-  if [ -d "$NICSLU_INSTALL_DIR/include" ]; then
-    if [ ! -z "$(ls -A $NICSLU_INSTALL_DIR/include)" ]; then
-      cp -P $NICSLU_INSTALL_DIR/include/*.* 3rdParty/nicslu/include/
+  cp -R -P $DYNAWO_SUNDIALS_INSTALL_DIR/include/* 3rdParty/sundials/include/
+  cp -Pr $DYNAWO_ADEPT_INSTALL_DIR/include/* 3rdParty/adept/include/
+  cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/include/*.* 3rdParty/suitesparse/include/
+  if [ -d "$DYNAWO_NICSLU_INSTALL_DIR/include" ]; then
+    if [ ! -z "$(ls -A $DYNAWO_NICSLU_INSTALL_DIR/include)" ]; then
+      cp -P $DYNAWO_NICSLU_INSTALL_DIR/include/*.* 3rdParty/nicslu/include/
     fi
   fi
-  cp -R -P $LIBZIP_HOME/include/libzip extraLibs/LIBZIP/include/
-  cp -R -P $LIBXML_HOME/include/xml extraLibs/LIBXML/include/
+  cp -R -P $DYNAWO_LIBZIP_HOME/include/libzip extraLibs/LIBZIP/include/
+  cp -R -P $DYNAWO_LIBXML_HOME/include/xml extraLibs/LIBXML/include/
 
   mkdir -p extraLibs/LIBXML/share
-  cp -R -P $LIBXML_HOME/share/cmake extraLibs/LIBXML/share/
+  cp -R -P $DYNAWO_LIBXML_HOME/share/cmake extraLibs/LIBXML/share/
 
   mkdir -p 3rdParty/openmodelica/bin/
   mkdir -p 3rdParty/openmodelica/include/
   mkdir -p 3rdParty/openmodelica/lib/omc/
-  cp -P $INSTALL_OPENMODELICA/bin/omc* 3rdParty/openmodelica/bin
-  cp -P -R $INSTALL_OPENMODELICA/include/omc/ 3rdParty/openmodelica/include/
-  cp -P -R $INSTALL_OPENMODELICA/lib/* 3rdParty/openmodelica/lib/
-  cp -P $INSTALL_OPENMODELICA/lib/omc/*.mo 3rdParty/openmodelica/lib/omc/
-  cp -P -R $INSTALL_OPENMODELICA/lib/omlibrary 3rdParty/openmodelica/lib/
+  cp -P $DYNAWO_INSTALL_OPENMODELICA/bin/omc* 3rdParty/openmodelica/bin
+  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/include/omc/ 3rdParty/openmodelica/include/
+  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/* 3rdParty/openmodelica/lib/
+  cp -P $DYNAWO_INSTALL_OPENMODELICA/lib/omc/*.mo 3rdParty/openmodelica/lib/omc/
+  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary 3rdParty/openmodelica/lib/
 
   ##############
   #    BOOST   #
   ##############
   # for dynawo
-  if [ $BOOST_ROOT_DEFAULT != true ]; then
-    cp -P $BOOST_ROOT/lib/libboost_*.so* extraLibs/BOOST/lib/
-    cp -P -R $BOOST_ROOT/include/boost/ extraLibs/BOOST/include/
+  if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
+    cp -P $DYNAWO_BOOST_HOME/lib/libboost_*.so* extraLibs/BOOST/lib/
+    cp -P -R $DYNAWO_BOOST_HOME/include/boost/ extraLibs/BOOST/include/
   else
     boost_system_folder=$(find_lib_system_path boost)
     cp -P ${boost_system_folder}libboost_*.so* extraLibs/BOOST/lib/
@@ -1464,14 +1482,14 @@ deploy_dynawo() {
   fi
 
   # XERCESC
-  cp -P $XERCESC_INSTALL_DIR/lib/libxerces-c*.so* extraLibs/XERCESC/lib/
-  cp -r $XERCESC_INSTALL_DIR/include extraLibs/XERCESC/.
+  cp -P $DYNAWO_XERCESC_INSTALL_DIR/lib/libxerces-c*.so* extraLibs/XERCESC/lib/
+  cp -r $DYNAWO_XERCESC_INSTALL_DIR/include extraLibs/XERCESC/.
 
   # LIBARCHIVE
-  if [ $LIBARCHIVE_HOME_DEFAULT != true ]; then
-    cp -P $LIBARCHIVE_HOME/lib/libarchive*.so* extraLibs/LIBARCHIVE/lib/
-    cp $LIBARCHIVE_HOME/include/archive_entry.h extraLibs/LIBARCHIVE/include/
-    cp $LIBARCHIVE_HOME/include/archive.h extraLibs/LIBARCHIVE/include/
+  if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
+    cp -P $DYNAWO_LIBARCHIVE_HOME/lib/libarchive*.so* extraLibs/LIBARCHIVE/lib/
+    cp $DYNAWO_LIBARCHIVE_HOME/include/archive_entry.h extraLibs/LIBARCHIVE/include/
+    cp $DYNAWO_LIBARCHIVE_HOME/include/archive.h extraLibs/LIBARCHIVE/include/
   else
     libarchive_system_folder=$(find_lib_system_path archive)
     cp -P ${libarchive_system_folder}libarchive*.so* extraLibs/LIBARCHIVE/lib/
@@ -1501,11 +1519,11 @@ deploy_dynawo() {
     cp $DYNAWO_INSTALL_DIR/doxygen/Dynawo.tag doxygen/.
   fi
 
-  cp -r $CURVES_TO_HTML_DIR sbin/.
+  cp -r $DYNAWO_CURVES_TO_HTML_DIR sbin/.
   mkdir -p sbin/nrt
   cp -r $DYNAWO_HOME/util/nrt_diff sbin/nrt/.
-  cp -r $NRT_DIR/nrt.py sbin/nrt/.
-  cp -r $NRT_DIR/resources sbin/nrt/.
+  cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
+  cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
 
   cd $current_dir
 }
@@ -1696,91 +1714,46 @@ unittest_gdb() {
 }
 
 reset_environment_variables() {
-  ld_library_path_remove $NICSLU_INSTALL_DIR/lib
-  ld_library_path_remove $SUITESPARSE_INSTALL_DIR/lib
-  ld_library_path_remove $SUNDIALS_INSTALL_DIR/lib
-  ld_library_path_remove $SUNDIALS_INSTALL_DIR/lib64
-  ld_library_path_remove $LIBZIP_HOME/lib
-  ld_library_path_remove $LIBXML_HOME/lib
-  ld_library_path_remove $LIBIIDM_HOME/lib
-  ld_library_path_remove $ADEPT_INSTALL_DIR/lib
-  ld_library_path_remove $XERCESC_INSTALL_DIR/lib
+  ld_library_path_remove $DYNAWO_NICSLU_INSTALL_DIR/lib
+  ld_library_path_remove $DYNAWO_SUITESPARSE_INSTALL_DIR/lib
+  ld_library_path_remove $DYNAWO_SUNDIALS_INSTALL_DIR/lib64
+  ld_library_path_remove $DYNAWO_SUNDIALS_INSTALL_DIR/lib
+  ld_library_path_remove $DYNAWO_LIBZIP_HOME/lib
+  ld_library_path_remove $DYNAWO_LIBXML_HOME/lib
+  ld_library_path_remove $DYNAWO_LIBIIDM_HOME/lib
+  ld_library_path_remove $DYNAWO_ADEPT_INSTALL_DIR/lib
+  ld_library_path_remove $DYNAWO_XERCESC_INSTALL_DIR/lib
   ld_library_path_remove $DYNAWO_INSTALL_DIR/lib
-  ld_library_path_remove $LIBARCHIVE_HOME/lib
-  ld_library_path_remove $BOOST_ROOT/lib
-  ld_library_path_remove $GTEST_ROOT/lib64
-  ld_library_path_remove $GTEST_ROOT/lib
-  path_remove $INSTALL_OPENMODELICA/bin
+  ld_library_path_remove $DYNAWO_LIBARCHIVE_HOME/lib
+  ld_library_path_remove $DYNAWO_BOOST_HOME/lib
+  ld_library_path_remove $DYNAWO_GTEST_HOME/lib64
+  ld_library_path_remove $DYNAWO_GTEST_HOME/lib
+  path_remove $DYNAWO_INSTALL_OPENMODELICA/bin
   python_path_remove $DYNAWO_SCRIPTS_DIR
-  unset ADEPT_BUILD_DIR
-  unset ADEPT_INSTALL_DIR
-  unset BOOST_ROOT
-  unset BOOST_ROOT_DEFAULT
-  unset BRANCH_NAME
-  unset BROWSER
-  unset BUILD_TYPE_THIRD_PARTY
-  unset COMPILER_NAME
-  unset CPPLINT_DOWNLOAD_URL
-  unset CURVES_TO_HTML_DIR
-  unset C_COMPILER
-  unset COMPILER_VERSION
-  unset CXX_COMPILER
-  unset DYNAWO_BUILD_DIR
-  unset DYNAWO_DEPLOY_DIR
-  unset DYNAWO_INSTALL_DIR
-  unset DYNAWO_LOCALE
-  unset DYNAWO_MODEL_DOCUMENTATION_DIR
-  unset DYNAWO_RESOURCES_DIR
-  unset DYNAWO_SCRIPTS_DIR
-  unset DYNAWO_SRC_DIR
-  unset ENV_DYNAWO
-  unset FLOT_DOWNLOAD_URL
-  unset GTEST_ROOT
-  unset GTEST_ROOT_DEFAULT
-  unset JQUERY_DOWNLOAD_URL
-  unset LIBARCHIVE_HOME
-  unset LIBARCHIVE_HOME_DEFAULT
-  unset LIBIIDM_BUILD_DIR
-  unset LIBIIDM_HOME
-  unset LIBIIDM_INSTALL_DIR
-  unset LIBXML_BUILD_DIR
-  unset LIBXML_HOME
-  unset LIBXML_INSTALL_DIR
-  unset LIBZIP_BUILD_DIR
-  unset LIBZIP_HOME
-  unset LIBZIP_INSTALL_DIR
-  unset MODELICA_LIB
-  unset NB_PROCESSORS_USED
-  unset NICSLU_BUILD_DIR
-  unset NICSLU_INSTALL_DIR
-  unset NRT_DIFF_DIR
-  unset NRT_DIR
-  unset OPENMODELICA_VERSION
-  unset RESULTS_SHOW
-  unset SUITESPARSE_BUILD_DIR
-  unset SUITESPARSE_INSTALL_DIR
-  unset SUNDIALS_BUILD_DIR
-  unset SUNDIALS_INSTALL_DIR
-  unset THIRD_PARTY_BUILD_DIR
-  unset THIRD_PARTY_BUILD_DIR_VERSION
-  unset THIRD_PARTY_INSTALL_DIR
-  unset THIRD_PARTY_INSTALL_DIR_VERSION
-  unset THIRD_PARTY_SRC_DIR
-  unset USE_ADEPT
-  unset USE_XSD_VALIDATION
-  unset XERCESC_BUILD_DIR
-  unset XERCESC_INSTALL_DIR
+
+  do_not_unset="DYNAWO_BUILD_TYPE DYNAWO_COMPILER DYNAWO_CXX11_ENABLED DYNAWO_HOME DYNAWO_LIBRARY_TYPE DYNAWO_INSTALL_OPENMODELICA \
+DYNAWO_SRC_OPENMODELICA DYNAWO_LIBARCHIVE_HOME DYNAWO_BOOST_HOME DYNAWO_GTEST_HOME DYNAWO_GMOCK_HOME"
+
+  for var in $(printenv | grep DYNAWO_ | cut -d '=' -f 1); do
+    if ! `echo $do_not_unset | grep -w $var > /dev/null`; then
+      unset $var
+    fi
+  done
 }
 
 reset_environment_variables_full() {
   reset_environment_variables
-  unset BUILD_TYPE
-  unset COMPILER
-  unset CXX11_ENABLED
+  unset DYNAWO_BUILD_TYPE
+  unset DYNAWO_COMPILER
+  unset DYNAWO_CXX11_ENABLED
   unset DYNAWO_HOME
+  unset DYNAWO_INSTALL_OPENMODELICA
   unset DYNAWO_LIBRARY_TYPE
-  unset INSTALL_OPENMODELICA
-  unset SRC_OPENMODELICA
+  unset DYNAWO_SRC_OPENMODELICA
+  unset DYNAWO_LIBARCHIVE_HOME
+  unset DYNAWO_BOOST_HOME
+  unset DYNAWO_GTEST_HOME
+  unset DYNAWO_GMOCK_HOME
 }
 
 #################################

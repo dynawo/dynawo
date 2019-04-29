@@ -53,7 +53,7 @@ boost::shared_ptr<FinalStateCollection> XmlImporter::importFromStream(std::istre
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
   try {
     bool xsdValidation = false;
-    if (getEnvVar("USE_XSD_VALIDATION") == "true") {
+    if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {
       string fsXsdPath = getEnvVar("DYNAWO_XSD_DIR") + string("finalStateInput.xsd");
       parser->addXmlSchema(fsXsdPath);
       xsdValidation = true;

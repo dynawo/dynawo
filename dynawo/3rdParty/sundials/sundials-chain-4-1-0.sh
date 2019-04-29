@@ -19,8 +19,8 @@ error_exit() {
 
 export_var_env() {
   var=$@
-  name=${var%=*}
-  value=${var##*=}
+  name=${var%%=*}
+  value=${var#*=}
 
   if eval "[ \$$name ]"; then
     eval "value=\${$name}"
@@ -37,17 +37,17 @@ export_var_env() {
 SUNDIALS_VERSION=4.1.0
 SUNDIALS_ARCHIVE=sundials-${SUNDIALS_VERSION}.tar.gz
 SUNDIALS_DIRECTORY=sundials-${SUNDIALS_VERSION}
-export_var_env SUNDIALS_DOWNLOAD_URL=https://computation.llnl.gov/projects/sundials/download
+export_var_env DYNAWO_SUNDIALS_DOWNLOAD_URL=https://computation.llnl.gov/projects/sundials/download
 
 HERE=$PWD
 
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 BUILD_DIR=$HERE
-BUILD_TYPE=Debug
 INSTALL_DIR=$BUILD_DIR/$SUNDIALS_DIRECTORY/install
-export_var_env C_COMPILER=$(command -v gcc)
-export_var_env CXX_COMPILER=$(command -v g++)
-export_var_env NB_PROCESSORS_USED=1
+BUILD_TYPE=Debug
+NICSLU_INSTALL_DIR=""
+export_var_env DYNAWO_C_COMPILER=$(command -v gcc)
+export_var_env DYNAWO_NB_PROCESSORS_USED=1
 
 export_var_env DYNAWO_LIBRARY_TYPE=SHARED
 
@@ -55,9 +55,9 @@ download_sundials() {
   cd $SCRIPT_DIR
   if [ ! -f "${SUNDIALS_ARCHIVE}" ]; then
     if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${SUNDIALS_DOWNLOAD_URL}/${SUNDIALS_ARCHIVE} || error_exit "Error while downloading Sundials"
+      wget --timeout 10 --tries 3 ${DYNAWO_SUNDIALS_DOWNLOAD_URL}/${SUNDIALS_ARCHIVE} || error_exit "Error while downloading Sundials"
     elif [ -x "$(command -v curl)" ]; then
-      curl --connect-timeout 10 --retry 2 ${SUNDIALS_DOWNLOAD_URL}/${SUNDIALS_ARCHIVE} --output ${SUNDIALS_ARCHIVE} || error_exit "Error while downloading Sundials"
+      curl --connect-timeout 10 --retry 2 ${DYNAWO_SUNDIALS_DOWNLOAD_URL}/${SUNDIALS_ARCHIVE} --output ${SUNDIALS_ARCHIVE} || error_exit "Error while downloading Sundials"
     else
       error_exit "You need to install either wget or curl."
     fi
@@ -110,18 +110,18 @@ install_sundials() {
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D KLU_INCLUDE_DIR:STRING=$SUITESPARSE_INSTALL_DIR/include"
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D KLU_LIBRARY_DIR:STRING=$SUITESPARSE_INSTALL_DIR/lib"
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D CMAKE_BUILD_TYPE:STRING=$BUILD_TYPE"
-  CMAKE_OPTIONS="$CMAKE_OPTIONS -D CMAKE_C_COMPILER:STRING=$C_COMPILER"
-  CMAKE_OPTIONS="$CMAKE_OPTIONS -D CMAKE_CXX_COMPILER:STRING=$CXX_COMPILER"
+  CMAKE_OPTIONS="$CMAKE_OPTIONS -D CMAKE_C_COMPILER:STRING=$DYNAWO_C_COMPILER"
   CMAKE_OPTIONS="$CMAKE_OPTIONS -D CMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON"
 
   if [ -f "$NICSLU_INSTALL_DIR/lib/libnicslu.$LIB_SUFFIX" ]; then
     CMAKE_OPTIONS="$CMAKE_OPTIONS -D NICSLU_ENABLE:BOOL=ON"
     CMAKE_OPTIONS="$CMAKE_OPTIONS -D NICSLU_INCLUDE_DIR:STRING=$NICSLU_INSTALL_DIR/include"
+    CMAKE_OPTIONS="$CMAKE_OPTIONS -D NICSLU_HOME=$NICSLU_INSTALL_DIR"
   fi
 
   cd $BUILD_DIR
   cmake $CMAKE_OPTIONS $BUILD_DIR/$SUNDIALS_DIRECTORY -DCMAKE_C_FLAGS_DEBUG="-g -O0"
-  make -j $NB_PROCESSORS_USED && make install
+  make -j $DYNAWO_NB_PROCESSORS_USED && make install
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }

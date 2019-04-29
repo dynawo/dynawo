@@ -53,7 +53,7 @@ CONFIGURE_FILE(launcher.in launcher @ONLY)
 
 INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/launcher DESTINATION ${bindir})
 
-# execution script for convergence
+# execution script for distribution
 SET(EXEC_DYNAWO
   execDynawo.sh)
 

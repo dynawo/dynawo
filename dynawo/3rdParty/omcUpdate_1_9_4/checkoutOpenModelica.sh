@@ -19,8 +19,8 @@ error_exit() {
 
 export_var_env() {
   var=$@
-  name=${var%=*}
-  value=${var##*=}
+  name=${var%%=*}
+  value=${var#*=}
 
   if eval "[ \$$name ]"; then
     eval "value=\${$name}"
@@ -52,8 +52,8 @@ check_git_version() {
 SRC_OPENMODELICA=""
 OPENMODELICA_VERSION=""
 MODELICA_LIB=""
-export_var_env OPENMODELICA_GIT_URL=https://openmodelica.org/git-readonly/OpenModelica.git
-export_var_env MODELICA_GIT_URL=https://github.com/modelica/ModelicaStandardLibrary.git
+export_var_env DYNAWO_OPENMODELICA_GIT_URL=https://openmodelica.org/git-readonly/OpenModelica.git
+export_var_env DYNAWO_MODELICA_GIT_URL=https://github.com/modelica/ModelicaStandardLibrary.git
 
 while (($#)); do
   case $1 in

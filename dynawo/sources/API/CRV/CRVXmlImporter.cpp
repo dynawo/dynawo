@@ -56,7 +56,7 @@ XmlImporter::importFromStream(std::istream& stream) const {
 
   try {
     bool xsdValidation = false;
-    if (getEnvVar("USE_XSD_VALIDATION") == "true") {
+    if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {
       const std::string crvXsdPath = getEnvVar("DYNAWO_XSD_DIR") + std::string("curvesInput.xsd");
       parser->addXmlSchema(crvXsdPath);
       xsdValidation = true;

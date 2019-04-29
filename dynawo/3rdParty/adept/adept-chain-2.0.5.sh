@@ -19,8 +19,8 @@ error_exit() {
 
 export_var_env() {
   var=$@
-  name=${var%=*}
-  value=${var##*=}
+  name=${var%%=*}
+  value=${var#*=}
 
   if eval "[ \$$name ]"; then
     eval "value=\${$name}"
@@ -37,7 +37,7 @@ export_var_env() {
 ADEPT_VERSION=2.0.5
 ADEPT_ARCHIVE=adept-$ADEPT_VERSION.tar.gz
 ADEPT_DIRECTORY=adept-$ADEPT_VERSION
-export_var_env ADEPT_DOWNLOAD_URL=http://www.met.reading.ac.uk/clouds/adept
+export_var_env DYNAWO_ADEPT_DOWNLOAD_URL=http://www.met.reading.ac.uk/clouds/adept
 
 HERE=$PWD
 
@@ -46,14 +46,13 @@ BUILD_DIR=$HERE
 BUILD_TYPE=Debug
 INSTALL_DIR=$BUILD_DIR/$ADEPT_DIRECTORY/install
 
-export_var_env COMPILER=GCC
-export_var_env C_COMPILER=$(command -v gcc)
-export_var_env CXX_COMPILER=$(command -v g++)
-export_var_env NB_PROCESSORS_USED=1
-export_var_env CXX_STDFLAG="-std=c++11"
+export_var_env DYNAWO_C_COMPILER=$(command -v gcc)
+export_var_env DYNAWO_CXX_COMPILER=$(command -v g++)
+export_var_env DYNAWO_NB_PROCESSORS_USED=1
+export_var_env DYNAWO_CXX11_ENABLED=NO
 
-if [ "$(echo $COMPILER | tr "[A-Z]" "[a-z]")" != "$(basename $C_COMPILER)" ]; then
-  echo "There is an incoherence between COMPILER and C_COMPILER. You should export COMPILER with the appropriate value (GCC or CLANG)."
+if [ "$(echo $DYNAWO_COMPILER | tr "[A-Z]" "[a-z]")" != "$(basename $DYNAWO_C_COMPILER)" ]; then
+  echo "There is an incoherence between DYNAWO_COMPILER and DYNAWO_C_COMPILER. You should export DYNAWO_COMPILER with the appropriate value (GCC or CLANG)."
   exit 1
 fi
 
@@ -63,9 +62,9 @@ download_adept() {
   cd $SCRIPT_DIR
   if [ ! -f "${ADEPT_ARCHIVE}" ]; then
     if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${ADEPT_DOWNLOAD_URL}/${ADEPT_ARCHIVE} || error_exit "Error while downloading Adept."
+      wget --timeout 10 --tries 3 ${DYNAWO_ADEPT_DOWNLOAD_URL}/${ADEPT_ARCHIVE} || error_exit "Error while downloading Adept."
     elif [ -x "$(command -v curl)" ]; then
-      curl --connect-timeout 10 --retry 2 ${ADEPT_DOWNLOAD_URL}/${ADEPT_ARCHIVE} --output ${ADEPT_ARCHIVE} || error_exit "Error while downloading Adept."
+      curl --connect-timeout 10 --retry 2 ${DYNAWO_ADEPT_DOWNLOAD_URL}/${ADEPT_ARCHIVE} --output ${ADEPT_ARCHIVE} || error_exit "Error while downloading Adept."
     else
       error_exit "You need to install either wget or curl."
     fi
@@ -88,25 +87,25 @@ install_adept() {
     tar -xzf $ADEPT_ARCHIVE -C $BUILD_DIR
   fi
   cd $BUILD_DIR/$ADEPT_DIRECTORY
-  if [ "$COMPILER" = "GCC" ]; then
-    CXXFLAGS_ADEPT=-Wall
-  elif [ "$COMPILER" = "CLANG" ]; then
-    CXXFLAGS_ADEPT=-Weverything
-  else
-    error_exit "COMPILER environment variable needs to be GCC or CLANG."
-  fi
-  export CXXFLAGS_ADEPT="$CXXFLAGS_ADEPT $CXX_STDFLAG -fPIC"
   if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
     ADEPT_LIBRARY_TYPE_OPTION="--disable-static --enable-shared"
   else
     ADEPT_LIBRARY_TYPE_OPTION="--enable-static --disable-shared"
   fi
-  if [ "${BUILD_TYPE}" = "Release" ]; then
-    ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -O3" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
+  if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
+    if [ "$BUILD_TYPE" = "Debug" ]; then
+      ./configure "CXXFLAGS=-g -O0 -fPIC" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
+    else
+      ./configure "CXXFLAGS=-O3 -fPIC" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
+    fi
   else
-    ./configure "CXXFLAGS=$CXXFLAGS_ADEPT -g -O0" --prefix=$INSTALL_DIR CC=$C_COMPILER CXX=$CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
+    if [ "$BUILD_TYPE" = "Debug" ]; then
+      ./configure "CXXFLAGS=-g -O0 -fPIC -std=c++98" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
+    else
+      ./configure "CXXFLAGS=-O3 -fPIC -std=c++98" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
+    fi
   fi
-  make -j $NB_PROCESSORS_USED && make install
+  make -j $DYNAWO_NB_PROCESSORS_USED && make install
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }

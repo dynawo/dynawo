@@ -61,12 +61,12 @@ def namespaceDYN(tag):
     return "{" + DYN_NAMESPACE + "}" + tag
 
 # Output configuration
-branch_name = os.environ["BRANCH_NAME"]
+branch_name = os.environ["DYNAWO_BRANCH_NAME"]
 output_dir_all_nrt = os.path.join(os.path.dirname(__file__), "output")
 output_dir = os.path.join(output_dir_all_nrt, branch_name)
 resources_dir = os.path.join(os.path.dirname(__file__), "..", "..","nrt", "resources")
 html_output = os.path.join(output_dir, "nrtDiff.html")
-web_browser = os.getenv ('BROWSER', 'firefox')
+web_browser = os.getenv ('DYNAWO_BROWSER', 'firefox')
 files_included = set(settings.files_included)
 files_excluded = set(settings.files_excluded)
 
@@ -254,7 +254,7 @@ class ComparedFile:
         self.diff_message_ = diff_message
 
 # Maximum number of threads to use
-maximumNumberOfThreads = int(os.getenv ('NB_PROCESSORS_USED', settings.maximum_threads_nb))
+maximumNumberOfThreads = int(os.getenv ('DYNAWO_NB_PROCESSORS_USED', settings.maximum_threads_nb))
 
 ##
 # Make a diff between two non-regression test outputs
@@ -816,7 +816,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
     #ignore log files in debug mode
     file_extension = os.path.splitext(os.path.basename(path_left))[1]
     file_name = os.path.splitext(os.path.basename(path_left))[0]
-    if os.environ['BUILD_TYPE'] == "Debug" and file_extension == ".log" and file_name != "timeline" :
+    if os.environ['DYNAWO_BUILD_TYPE'] == "Debug" and file_extension == ".log" and file_name != "timeline" :
         return (IDENTICAL, "")
 
     identical = filecmp.cmp (path_left, path_right)

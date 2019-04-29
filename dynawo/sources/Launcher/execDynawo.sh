@@ -12,16 +12,6 @@
 # simulation tool for power systems.
 #
 
-############################################################################################################################
-#
-# The following environnement variables can be set outside this script:
-#
-#    - DYNAWO_INSTALL_DIR :  the directory where all sources of DYNAWO are installed
-#
-#    - DYNAWO_LOCALE: the locale you want to use (fr_FR or en_GB)
-#
-###########################################################################################################################
-
 error_exit() {
   RETURN_CODE=$?
   echo "${1:-"Unknown Error"}" 1>&2
@@ -30,8 +20,8 @@ error_exit() {
 
 export_var_env() {
   var=$@
-  name=${var%=*}
-  value=${var##*=}
+  name=${var%%=*}
+  value=${var#*=}
 
   if eval "[ \$$name ]"; then
     eval "value=\${$name}"
@@ -50,33 +40,31 @@ where [option] can be:
 set_environment() {
   export_var_env DYNAWO_INSTALL_DIR=$(dirname $(dirname $(readlink -f $0)))
 
-  # BOOST, XERCESC, LIBARCHIVE lib dir should be set in the path by convergence
-  export_var_env ADEPT_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/adept
-  export_var_env DYNAWO_SUNDIALS_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/sundials
-  export_var_env SUITESPARSE_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/suitesparse
-  export_var_env NICSLU_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/nicslu
+  export_var_env DYNAWO_BOOST_LIB_DIR=$DYNAWO_INSTALL_DIR/extraLibs/BOOST
+  export_var_env DYNAWO_LIBARCHIVE_LIB_DIR=$DYNAWO_INSTALL_DIR/extraLibs/LIBARCHIVE/lib
 
-  export_var_env BOOST_ROOT=$DYNAWO_INSTALL_DIR/extraLibs/BOOST
+  export_var_env DYNAWO_ADEPT_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/adept
+  export_var_env DYNAWO_SUNDIALS_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/sundials
+  export_var_env DYNAWO_SUITESPARSE_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/suitesparse
+  export_var_env DYNAWO_NICSLU_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/nicslu
+  export_var_env DYNAWO_XERCES_LIB_DIR=$DYNAWO_INSTALL_DIR/extraLibs/XERCES/lib
   export_var_env DYNAWO_LIBXML_INSTALL_DIR=$DYNAWO_INSTALL_DIR/extraLibs/LIBXML
   export_var_env DYNAWO_LIBZIP_INSTALL_DIR=$DYNAWO_INSTALL_DIR/extraLibs/LIBZIP
   export_var_env DYNAWO_LIBIIDM_INSTALL_DIR=$DYNAWO_INSTALL_DIR/extraLibs/LIBIIDM
-  export_var_env DYNAWO_BOOST_LIB_DIR=$BOOST_ROOT/lib
-  export_var_env DYNAWO_XERCES_LIB_DIR=$DYNAWO_INSTALL_DIR/extraLibs/XERCES/lib
-  export_var_env DYNAWO_LIBARCHIVE_LIB_DIR=$DYNAWO_INSTALL_DIR/extraLibs/LIBARCHIVE/lib
 
-  export_var_env INSTALL_OPENMODELICA=$DYNAWO_INSTALL_DIR/3rdParty/openmodelica
+  export_var_env DYNAWO_INSTALL_OPENMODELICA=$DYNAWO_INSTALL_DIR/3rdParty/openmodelica
 
   export_var_env DYNAWO_LOCALE=en_GB
-  export_var_env USE_XSD_VALIDATION=false
+  export_var_env DYNAWO_USE_XSD_VALIDATION=false
 
   # set LD_LIBRARY_PATH for BOOST, XERCESC, LIBARCHIVE
   export LD_LIBRARY_PATH=$DYNAWO_XERCES_LIB_DIR:$DYNAWO_BOOST_LIB_DIR:$DYNAWO_LIBARCHIVE_LIB_DIR:$LD_LIBRARY_PATH
 
   # set LD_LIBRARY_PATH
-  export LD_LIBRARY_PATH=$DYNAWO_LIBXML_INSTALL_DIR/lib:$DYNAWO_LIBZIP_INSTALL_DIR/lib:$DYNAWO_LIBIIDM_INSTALL_DIR/lib:$DYNAWO_SUNDIALS_INSTALL_DIR/lib:$ADEPT_INSTALL_DIR/lib:$SUITESPARSE_INSTALL_DIR/lib:$NICSLU_INSTALL_DIR/lib:$DYNAWO_INSTALL_DIR/lib:$LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$DYNAWO_LIBXML_INSTALL_DIR/lib:$DYNAWO_LIBZIP_INSTALL_DIR/lib:$DYNAWO_LIBIIDM_INSTALL_DIR/lib:$DYNAWO_SUNDIALS_INSTALL_DIR/lib:$DYNAWO_ADEPT_INSTALL_DIR/lib:$DYNAWO_SUITESPARSE_INSTALL_DIR/lib:$DYNAWO_NICSLU_INSTALL_DIR/lib:$DYNAWO_INSTALL_DIR/lib:$LD_LIBRARY_PATH
 
   # set PATH
-  export PATH=$INSTALL_OPENMODELICA/bin:$PATH
+  export PATH=$DYNAWO_INSTALL_OPENMODELICA/bin:$PATH
 }
 
 jobs() {

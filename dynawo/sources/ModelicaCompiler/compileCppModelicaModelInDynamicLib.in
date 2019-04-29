@@ -10,6 +10,19 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+if [ -z "$DYNAWO_INSTALL_DIR" ]; then
+  echo "DYNAWO_INSTALL_DIR environment variable should be set."w
+  exit 1
+fi
+if [ -z "$DYNAWO_ADEPT_INSTALL_DIR" ]; then
+  echo "DYNAWO_ADEPT_INSTALL_DIR environment variable should be set."
+  exit 1
+fi
+if [ -z "$DYNAWO_INSTALL_OPENMODELICA" ]; then
+  echo "DYNAWO_INSTALL_OPENMODELICA environment variable should be set."
+  exit 1
+fi
+
 # Setting install path environment variables
 COMPILER_CMD=@CMAKE_CXX_COMPILER@
 DYNAWO_INCLUDE_DIR=${DYNAWO_INSTALL_DIR}/include
@@ -18,11 +31,11 @@ DYNAWO_LIB_DIR=${DYNAWO_INSTALL_DIR}/lib
 LIBRARY_TYPE=@LIBRARY_TYPE@
 CXX11_ENABLED=@CXX11_ENABLED@
 WITH_ADEPT=@USE_ADEPT@
-ADEPT_INCLUDE_DIR=${ADEPT_INSTALL_DIR}/include
+ADEPT_INCLUDE_DIR=${DYNAWO_ADEPT_INSTALL_DIR}/include
 if [ "$LIBRARY_TYPE" = "SHARED" ]; then
-  ADEPT_LIBRARY=${ADEPT_INSTALL_DIR}/lib/libadept.so
+  ADEPT_LIBRARY=${DYNAWO_ADEPT_INSTALL_DIR}/lib/libadept.so
 elif [ "$LIBRARY_TYPE" = "STATIC" ]; then
-  ADEPT_LIBRARY=${ADEPT_INSTALL_DIR}/lib/libadept.a
+  ADEPT_LIBRARY=${DYNAWO_ADEPT_INSTALL_DIR}/lib/libadept.a
 else
   echo "Error invalid LIBRARY_TYPE."
   exit 1
@@ -40,10 +53,16 @@ else
   NICSLU_LIBRARIES=""
 fi
 
-BOOST_INCLUDE_DIR=${BOOST_ROOT}/include
-BOOST_LIB_DIR=${BOOST_ROOT}/lib
+BOOST_INCLUDE_DIR_OPTION=""
+BOOST_LIB_DIR_OPTION=""
+if [ ! -z "$DYNAWO_BOOST_HOME" ]; then
+  BOOST_INCLUDE_DIR=${DYNAWO_BOOST_HOME}/include
+  BOOST_LIB_DIR=${DYNAWO_BOOST_HOME}/lib
+  BOOST_INCLUDE_DIR_OPTION=-I$BOOST_INCLUDE_DIR
+  BOOST_LIB_DIR_OPTION=-L$BOOST_LIB_DIR
+fi
 
-OMC_INCLUDE_DIR=${INSTALL_OPENMODELICA}/include/omc/c
+OMC_INCLUDE_DIR=${DYNAWO_INSTALL_OPENMODELICA}/include/omc/c
 DEBUG="false"
 
 while (($#)); do
@@ -78,8 +97,8 @@ fi
 
 # Flags for compilation
 FLAGS="@CMAKE_CXX_FLAGS@"
-INCLUDE_FLAGS="-I$DYNAWO_INCLUDE_DIR -I$OMC_INCLUDE_DIR -I$BOOST_INCLUDE_DIR $DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED"
-LIB_FLAGS="-L$DYNAWO_LIB_DIR -L$BOOST_LIB_DIR -ldynawo_API_PAR -ldynawo_ModelManager -ldynawo_ModelerCommon \
+INCLUDE_FLAGS="-I$DYNAWO_INCLUDE_DIR -I$OMC_INCLUDE_DIR $BOOST_INCLUDE_DIR_OPTION $DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED"
+LIB_FLAGS="-L$DYNAWO_LIB_DIR $BOOST_LIB_DIR_OPTION -ldynawo_API_PAR -ldynawo_ModelManager -ldynawo_ModelerCommon \
 -ldynawo_DataInterface -ldynawo_SolverKINSOL -ldynawo_SolverSubModel -ldynawo_SolverCommon -ldynawo_Common $DYNAWO_ADDITIONAL_LIBRARY_FOR_PREASSEMBLED \
 -lboost_serialization -lboost_log $SUNDIALS_LIBRARIES $SUITESPARSE_LIBRARIES $SUNDIALS_NICSLU_LIBRARY $NICSLU_LIBRARIES"
 
@@ -90,7 +109,7 @@ fi
 if [ "$WITH_ADEPT" = "YES" ]; then
   FLAGS="$FLAGS -D_ADEPT_"
   INCLUDE_FLAGS="$INCLUDE_FLAGS -I$ADEPT_INCLUDE_DIR"
-  LIB_FLAGS="$LIB_FLAGS -Wl,--start-group,$ADEPT_LIBRARY,--end-group"
+  LIB_FLAGS="$LIB_FLAGS $ADEPT_LIBRARY"
 fi
 
 if [ "$DEBUG" = "true" ]; then

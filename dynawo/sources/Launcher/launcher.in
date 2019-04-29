@@ -10,10 +10,14 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
+if [ -z "$DYNAWO_INSTALL_DIR" ]; then
+  echo "DYNAWO_INSTALL_DIR environment variable should be set."
+  exit 1
+fi
 
 # Setting install path environment variables
-export BIN_DIR=${DYNAWO_INSTALL_DIR}/@BINDIR_NAME@/
-export SBIN_DIR=${DYNAWO_INSTALL_DIR}/@SBINDIR_NAME@/
+BIN_DIR=${DYNAWO_INSTALL_DIR}/@BINDIR_NAME@/
+SBIN_DIR=${DYNAWO_INSTALL_DIR}/@SBINDIR_NAME@/
 if [[ -z "${DYNAWO_DDB_DIR}" ]]; then
   export DYNAWO_DDB_DIR=${DYNAWO_INSTALL_DIR}/@DDBDIR_NAME@/
 fi
