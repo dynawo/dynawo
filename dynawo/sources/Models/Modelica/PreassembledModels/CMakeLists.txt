@@ -37,6 +37,7 @@ SET(MODELICA_PREASSEMBLED_MODELS
     SetPoint.xml
     TapChangerAutomaton.xml
     TapChangerBlockingArea.xml
+    UnderVoltageAutomaton.xml
    )
 
 # PYTHON scripts preassembled models
