@@ -53,16 +53,6 @@ namespace DYN {
 
 const unsigned int affMax = 4;  ///< number of variables to print
 
-/**
- * \def ZERO
- * @brief define the zero value Sundials solver
- *
- * \def ONE
- * @brief define the one value  for Sundials solver
- */
-#define ZERO RCONST(0.0)
-#define ONE  RCONST(1.0)
-
 namespace conditions {
 #if defined LANG_CXX11 || defined LANG_CXX0X
 /**
@@ -138,9 +128,9 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
 
   double *idx = NV_DATA_S(yId_);
   for (int ieq = 0; ieq < model->sizeY(); ++ieq) {
-    idx[ieq] = ONE;
+    idx[ieq] = RCONST(1.0);
     if (vYId_[ieq] != DYN::DIFFERENTIAL)  // Algebraic or external variable
-      idx[ieq] = ZERO;
+      idx[ieq] = RCONST(0.0);
   }
 
   // Initial values

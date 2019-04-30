@@ -114,16 +114,6 @@ struct mapcomp {
   }
 };
 
-/**
- * \def ZERO
- * @brief define the zero value Sundials solver
- *
- * \def ONE
- * @brief define the one value  for Sundials solver
- */
-#define ZERO RCONST(0.0);
-#define ONE  RCONST(1.0);
-
 namespace DYN {
 
 const bool affDebug = false;  ///< variable used to activate debug log
