@@ -130,7 +130,9 @@ ModelTemplate::Impl::addInitConnect(const string& model1, const string& var1,
   if (unitDynamicModelsMap_.find(model2) == unitDynamicModelsMap_.end())
     throw DYNError(DYN::Error::API, ConnectorNotPartofModel, model2, model1, getId());
 
-  string ic_first, ic_second, ic_Id;
+  string ic_first;
+  string ic_second;
+  string ic_Id;
   ic_first = model1 + '_' + var1;
   ic_second = model2 + '_' + var2;
   // To build the connector Id, sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2

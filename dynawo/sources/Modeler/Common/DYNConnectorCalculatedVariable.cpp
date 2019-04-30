@@ -147,7 +147,9 @@ ConnectorCalculatedVariable::evalCalculatedVarI(int /*iCalculatedVar*/, double* 
 
 void
 ConnectorCalculatedVariable::getY0() {
-  vector<double> y, yp, z;
+  vector<double> y;
+  vector<double> yp;
+  vector<double> z;
   y.resize(model_->sizeY());
   z.resize(model_->sizeZ());
   yp.resize(model_->sizeY());

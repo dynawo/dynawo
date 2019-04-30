@@ -334,18 +334,6 @@ ModelManager::evalJtAdept(const double & t, double *y, double * yp, const double
   } catch (adept::autodiff_exception & e) {
     std::cerr << "Error :" << e.what() << std::endl;
     throw DYNError(DYN::Error::MODELER, AdeptFailure);
-  } catch (const Error& e) {
-    Trace::error() << e.what() << Trace::endline;
-    throw;
-  } catch (const char *s) {
-    std::cerr << "An error occured :" << s << std::endl;
-    throw DYNError(DYN::Error::MODELER, AdeptFailure);
-  } catch (const string &s) {
-    std::cerr << "An error occured :" << s << std::endl;
-    throw;
-  } catch (...) {
-    std::cerr << "An error occurred" << std::endl;
-    throw;
   }
 }
 #endif
