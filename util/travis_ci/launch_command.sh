@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_EVENT_TYPE" = "push" ]; then
-  echo -n "cd dynawo;util/envDynawo.sh build-3rd-party-version;RETURN_CODE=\$?;if [ \${RETURN_CODE} -ne 0 ]; then exit \${RETURN_CODE}; fi;util/envDynawo.sh build-dynawo;RETURN_CODE=\$?;if [ \${RETURN_CODE} -ne 0 ]; then exit \${RETURN_CODE}; fi;util/envDynawo.sh clean-dynawo;RETURN_CODE=\$?;if [ \${RETURN_CODE} -ne 0 ]; then exit \${RETURN_CODE}; fi;/opt/sonar/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output ./util/envDynawo.sh build-tests-coverage;RETURN_CODE=\$?;if [ \${RETURN_CODE} -ne 0 ]; then exit \${RETURN_CODE}; fi;/opt/sonar/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner;"
+  echo -n "export BUILD_TYPE=TestCoverage;cd dynawo;util/envDynawo.sh build-3rd-party-version;RETURN_CODE=\$?;if [ \${RETURN_CODE} -ne 0 ]; then exit \${RETURN_CODE}; fi;/opt/sonar/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output ./util/envDynawo.sh build-tests-coverage;RETURN_CODE=\$?;if [ \${RETURN_CODE} -ne 0 ]; then exit \${RETURN_CODE}; fi;/opt/sonar/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner;RETURN_CODE=\$?;if [ \${RETURN_CODE} -ne 0 ]; then exit \${RETURN_CODE}; fi;util/envDynawo.sh build-dynawo-models;"
 elif [ "$TRAVIS_EVENT_TYPE" = "push" ]; then
   echo -n "cd dynawo;util/envDynawo.sh build-3rd-party-version;RETURN_CODE=\$?;if [ \${RETURN_CODE} -ne 0 ]; then exit \${RETURN_CODE}; fi;util/envDynawo.sh build-dynawo;"
 elif [ "$TRAVIS_EVENT_TYPE" = "pull_request" ]; then
