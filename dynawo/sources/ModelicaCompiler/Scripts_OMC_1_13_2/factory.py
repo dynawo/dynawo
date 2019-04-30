@@ -748,9 +748,21 @@ class Factory:
         list_func_bodies_discr = []
         list_func_bodies_discr_names = {}
 
+        list_vars_for_sys_build = itertools.chain(self.list_vars_syst, self.list_vars_der)
         for v in self.list_all_vars_discr:
             for eq_mak in self.list_eq_maker_main_c_and_nls:
                 if v.get_name() == eq_mak.get_evaluated_var():
+
+                    ## SANITY CHECK: cannot assign a continuous value to a discrete real outside of a when or a if
+                    if is_discrete_real_var(v):
+                        for real_var in list_vars_for_sys_build:
+                            for depend_var in filter(lambda x: x == real_var.get_name(), eq_mak.get_depend_vars()):
+                                if self.reader.get_map_tag_num_eq()[eq_mak.get_num_omc()] != "when" and "if" not in str(eq_mak.get_body()):
+                                    error_msg = "    Error: Found an equation (id:"+str(eq_mak.get_num_omc())+") that assigns the continuous variable " + depend_var+\
+                                        " to the discrete real variable " + v.get_name() +\
+                                        " outside of the scope of a when or a if. Please rewrite the equation or check that you didn't connect a zPin to a ImPin.\n"
+                                    error_exit(error_msg)
+
                     list_func_bodies_discr.append( eq_mak.get_body() )
                     list_func_bodies_discr_names[v.get_name()]=eq_mak.get_body()
                     break
