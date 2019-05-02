@@ -107,3 +107,33 @@ case_description = "IEEE14 with an under-voltage automaton on generator 3"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_UnderVoltageAutomaton", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
+#      IEEE14 - PhaseShifterI           #
+#########################################
+
+case_name = "IEEE14 - Phase Shifter I"
+case_description = "IEEE14 with a phase shifter P monitoring bus5-bus6 transformer's current"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_PhaseShifterI", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
+#      IEEE14 - PhaseShifterP           #
+#########################################
+
+case_name = "IEEE14 - Phase Shifter P"
+case_description = "IEEE14 with a phase shifter P monitoring bus5-bus6 transformer's active power"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_PhaseShifterP", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
+#           IEEE14 - CLA                #
+#########################################
+
+case_name = "IEEE14 - Current Limit Automaton"
+case_description = "IEEE14 with a current limit automaton on line 2-4 and on line 2-5"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_CurrentLimitAutomaton", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
