@@ -161,6 +161,7 @@ ParameterNoTypeDetected     =             no type detected for parameter %1%
 ParameterNotReadInPARFile   =             value of parameter %1% could not be read from PAR file
 ParameterNotDefined         =             parameter %1% has not been defined
 ParameterNoCardinalityInformator =        no cardinality information for parameter %1%
+ParameterStaticIdNotFound   =             could not find reference parameter with origName '%1%' and name '%2%' for %3%
 //--------------- MODEL NETWORK & CPP------------------------------
 SwitchMissingBus1           =             SWITCH %1% : bus 1 is missing
 SwitchMissingBus2           =             SWITCH %1% : bus 2 is missing
