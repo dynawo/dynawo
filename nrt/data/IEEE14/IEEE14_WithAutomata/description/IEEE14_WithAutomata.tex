@@ -31,6 +31,9 @@ For each test presented in this document, one or more automata have been added t
 The tested automaton are;
 \begin{itemize}
 \item the under-voltage automaton [\ref{UnderVoltageAutomaton}];
+\item the phase-shifter I automaton [\ref{PhaseShifterIAutomaton}];
+\item the phase-shifter P automaton [\ref{PhaseShifterPAutomaton}];
+\item the current limit automaton [\ref{CurrentLimitAutomaton}];
 \end{itemize}
 
 
@@ -74,7 +77,7 @@ The solver used is the variable time step solver IDA with the following paramete
 \end{center}
 
 \newpage
-\section{Results}
+\subsection{Results}
 
 The simulated load variations make the network voltage decrease at node 3, until achieving the minimum threshold of the automaton. 5 seconds later, the generator is disconnected, which corresponds to the addition of the measurement time and the action time.\\
 
@@ -106,7 +109,249 @@ The simulated load variations make the network voltage decrease at node 3, until
 \caption{Behavior of the under voltage automaton}
 \end{figure}
 
-This corresponds to the following timeline:
-\lstinputlisting[breaklines, frame = lines, framesep = 2em]{../IEEE14_UnderVoltageAutomaton/reference/outputs/timeLine/timeline.log}
+
+\newpage
+\section{Phase Shifter I}
+\label{PhaseShifterIAutomaton}
+
+The phase-shifter I is an automaton that gradually changes the tap of a phase-shifter transformer if its monitored transiting current goes higher than a defined threshold for a certain amount of time.
+
+\subsection{Initial Conditions}
+
+Initial conditions are the same that in the IEEE14 basic test cases.
+
+\subsection{Models}
+
+Instead of a ratio tap changer transformer (no phase shift) between buses 5 and 6, we use a phase tap changer transformer controlled by a phase-shifter I automaton in order to regulate the transiting current.
+The automaton is supposed to keep the transit within acceptable bounds, by reducing or increasing the phase shift step by step. \\
+
+The phase-shifter I measures the current flowing through a transformer and sends an order to change its tap if the monitored transiting current stays higher than $I_{Max}$ for a certain amount of time. Then the automaton keeps on making the transformer change its tap until its current reach $I_{Stop}$. The first tap is changed after a delay $t_{1st}$ and the next taps are changed after $t_{Next}$ seconds. \\
+
+The phase-shifter parameters are:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $I_{Max}=0.475p.u$ & $t_{1st}=10s$ & $tap_{Max}=13$ \\
+   $I_{Stop}=0.45p.u$  & $t_{Next}=5s$ & $tap_{Min}=1$ \\
+\end{tabular}
+\end{center}
+
+\subsection{Scenario}
+At $t=20s$, the following line disconnection is simulated:
+\begin{itemize}
+\item{the line connecting bus 9 to bus 10 is opened at its bus 10 end}
+\end{itemize}
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $Order$=2 & $Accuracy_{Rel}$=10e-4 & $Accuracy_{Abs}$=10e-4 \\
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Results}
+
+At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter I becomes higher than its threshold $I_{Max}$. After a time delay of 10s, the phase shifter changes its first step, which results in a step decrease of the transformer's current. Then, step are changed every 5s and the process repeats until the current goes back inside the acceptable range, i.e. until it reaches $I_{Stop}$. \\
+
+\begin{figure}[H]
+\subfigure[Transformer's current (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[dashed, color=red!50]
+        table[dashed, x=time,y=PhaseShifter_phaseShifter_iMax]
+        {../IEEE14_PhaseShifterI/reference/outputs/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x=time,y=PhaseShifter_phaseShifter_iMonitored]
+        {../IEEE14_PhaseShifterI/reference/outputs/curves/curves.csv};
+        \addplot[dashed, color=green!50]
+        table[x=time,y=PhaseShifter_phaseShifter_iStop]
+        {../IEEE14_PhaseShifterI/reference/outputs/curves/curves.csv};
+        \legend{$I_{Max_{Pu}}$, $I_{Pu}$, $I_{Stop_{Pu}}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Transformer's tap (p.u.)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=NETWORK__BUS____5-BUS____6-1_PS_step]
+        {../IEEE14_PhaseShifterI/reference/outputs/curves/curves.csv};
+        \legend{$Tap$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Behavior of the phase-shifter I}
+\end{figure}
+
+
+\newpage
+\section{Phase Shifter P}
+\label{PhaseShifterPAutomaton}
+
+The phase-shifter P is an automaton that gradually changes the tap of a phase-shifter transformer if its monitored transiting active power goes out of a certain range for a certain amount of time.
+
+\subsection{Initial Conditions}
+
+Initial conditions are the same that in the IEEE14 basic test cases.
+
+\subsection{Models}
+
+Instead of a ratio tap changer transformer (no phase shift) between buses 5 and 6, we use a phase tap changer transformer controlled by a phase-shifter P automaton in order to regulate the transiting active power.
+The automaton is supposed to keep the transit within acceptable bounds, by reducing or increasing the phase shift step by step. \\
+
+The phase-shifter P measures the transiting active power through a transformer and sends an order to change the its tap if the monitored active power differs from $P_{target}$ by more than $P_{DeadBand}$. The first tap is changed after the time $t_{1st}$ and the next taps are changed after $t_{Next}$ seconds.\\
+
+The phase-shifter parameters are:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $P_{target}=0.44p.u$ & $t_{1st}=10s$ & $tap_{Max}=13$ \\
+   $P_{DeadBand}=0.005p.u$  & $t_{Next}=5s$ & $tap_{Min}=1$ \\
+\end{tabular}
+\end{center}
+
+\subsection{Scenario}
+At $t=20s$, the following line disconnection is simulated:
+\begin{itemize}
+\item{the line connecting bus 9 to bus 10 is opened at its bus 10 end}
+\end{itemize}
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $Order$=2 & $Accuracy_{Rel}$=10e-4 & $Accuracy_{Abs}$=10e-4 \\
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Results}
+
+At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter goes out of the tolerated range around $P_{Target}$.  10 seconds later, the transformer tap is changed which results in a step decrease of transiting active power. Though, it is still not in the tolerated range so the phase-shifter increases the tap again, this time only waiting for 5 seconds. Consequently, the active power transit drops and transiently falls back into the dead-band before going out of it again. Therefore, the phase-shifter P first temporarily stops taking steps, and then starts again waiting for a 10s delay before shifting to the next tap. This process repeats two times more and the automaton stops acting once the active power transit finally stabilizes in the range around $P_{Target}$. \\
+
+\begin{figure}[H]
+\subfigure[Transformer's current (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[dashed, color=red!50]
+        table[x=time, y=PhaseShifter_phaseShifter_valueMax]
+        {../IEEE14_PhaseShifterP/reference/outputs/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x=time, y=PhaseShifter_phaseShifter_PMonitored]
+        {../IEEE14_PhaseShifterP/reference/outputs/curves/curves.csv};
+        \addplot[dashed, color=green!50]
+        table[x=time, y=PhaseShifter_phaseShifter_valueMin]
+        {../IEEE14_PhaseShifterP/reference/outputs/curves/curves.csv};
+        \legend{$P_{Max_{Pu}}$, $P_{Pu}$, $P_{Min_{Pu}}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Transformer's tap (p.u.)]
+{%
+\begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=NETWORK__BUS____5-BUS____6-1_PS_step]
+        {../IEEE14_PhaseShifterP/reference/outputs/curves/curves.csv};
+        \legend{$Tap$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Behavior of the phase-shifter P}
+\end{figure}
+
+
+\newpage
+\section{Current limit automaton}
+\label{CurrentLimitAutomaton}
+
+Current limit automata monitor lines' transiting current and open them if it is superior to a defined threshold for a certain amount of time.
+
+\subsection{Initial Conditions}
+
+Initial conditions are the same that in the IEEE14 basic test cases.
+
+\subsection{Models}
+
+Two current limit automaton is added to the network : one monitoring the line connecting bus 2 to bus 4, one monitoring the line connecting bus 2 to bus 5.
+Automata's role is to protect their line from unbearable currents by disconnecting it after a too long over-current constraint. \\
+
+The current limit automata measure the current transiting through a line and send an order to disconnect it if it stays more than $t_{Action}$ seconds above the threshold $I_{Max}$. The order also specifies the type of disconnection (origin end, extremity end, or both).\\
+
+The current limit automaton monitoring line bus2-bus5 parameters are:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $I_{Max}=600A$ & $t_{Action}=5$ & $order=3$ (disconnect bus 5 end)\\
+\end{tabular}
+\end{center}
+
+The current limit automaton monitoring line bus2-bus4 parameters are:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $I_{Max}=1000A$ & $t_{Action}=10$ & $order=3$ (disconnect bus 4 end)\\
+\end{tabular}
+\end{center}
+
+\subsection{Scenario}
+At $t=20s$, the following line disconnection is simulated:
+\begin{itemize}
+\item{the line connecting bus 1 to bus 5 is opened at its bus 5 end}
+\end{itemize}
+
+\subsection{Solver}
+The solver used is the variable time step solver IDA with the following parameters:
+\begin{center}
+\begin{tabular}{l|l|l}
+   $Order$=2 & $Accuracy_{Rel}$=10e-4 & $Accuracy_{Abs}$=10e-4 \\
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Results}
+
+At t=20s, the line 1-5 is disconnected. Following this topology change, the current value on the line 2-5 monitored by the first current limit automaton becomes higher than its threshold $I_{Max}$=600 A. After the time delay (5s), and as the current didn't go back under $I_{Max}$, the automaton then opens line 2-5.
+As a consequence, the transit on line 2-4 increases and exceeds the second current limit automaton threshold $I_{Max}$=1000 A . After the time delay (10s), and as the current didn't go back under $I_{Max}$, the automaton opens line 2-4. \\
+
+\begin{figure}[H]
+\subfigure[Currents monitored by the automata (A)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=green!50]
+        table[x=time,y=NETWORK__BUS____2-BUS____5-1_AC_iSide2]
+        {../IEEE14_CurrentLimitAutomaton/reference/outputs/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x=time,y=NETWORK__BUS____2-BUS____4-1_AC_iSide2]
+        {../IEEE14_CurrentLimitAutomaton/reference/outputs/curves/curves.csv};
+        \addplot[dashed, color=red!50]
+        table[x=time,y=CLA_2_4_currentLimitAutomaton_IMax]
+        {../IEEE14_CurrentLimitAutomaton/reference/outputs/curves/curves.csv};
+        \addplot[dashed, color=orange!50]
+        table[x=time,y=CLA_2_5_currentLimitAutomaton_IMax]
+        {../IEEE14_CurrentLimitAutomaton/reference/outputs/curves/curves.csv};
+        \legend{$I_{bus2\_bus5}$, $I_{bus2\_bus4}$, $I_{Max_{CLA\_2\_4}}$, $I_{Max_{CLA\_2\_5}}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Automata's orders sent to the lines]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[legend pos=south east, height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y=CLA_2_5_currentLimitAutomaton_order]
+        {../IEEE14_CurrentLimitAutomaton/reference/outputs/curves/curves.csv};
+        \addplot[color=red!50]
+        table[x=time,y=CLA_2_4_currentLimitAutomaton_order]
+        {../IEEE14_CurrentLimitAutomaton/reference/outputs/curves/curves.csv};
+        \legend{$Order_{CLA\_2\_5}$, $Order_{CLA\_2\_4}$}
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Behavior of the current limit automata}
+\end{figure}
+
 
 \end{document}
