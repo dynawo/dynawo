@@ -126,6 +126,8 @@ Modeler::initModelDescription() {
             if (componentID != "")
               staticID = componentID;  // when componentID exist, this id should be used to find the parameter value
             if (refOrigData_ == Reference::IIDM) {
+              if (staticID.empty())
+                throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, params->getReference(*itRef)->getName(), itModelDescription->first);
               if (refType == "DOUBLE") {
                 double value = data_->getStaticParameterDoubleValue(staticID, refOrigName);
                 params->createParameter(*itRef, value);
