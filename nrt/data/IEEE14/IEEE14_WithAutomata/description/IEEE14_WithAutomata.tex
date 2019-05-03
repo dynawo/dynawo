@@ -123,9 +123,9 @@ Initial conditions are the same that in the IEEE14 basic test cases.
 \subsection{Models}
 
 Instead of a ratio tap changer transformer (no phase shift) between buses 5 and 6, we use a phase tap changer transformer controlled by a phase-shifter I automaton in order to regulate the transiting current.
-The automaton is supposed to keep the transit within acceptable bounds, by reducing or increasing the phase shift step by step. \\
+The automaton is supposed to keep the transit under a given threshold, by reducing or increasing the phase shift step by step. \\
 
-The phase-shifter I measures the current flowing through a transformer and sends an order to change its tap if the monitored transiting current stays higher than $I_{Max}$ for a certain amount of time. Then the automaton keeps on making the transformer change its tap until its current reach $I_{Stop}$. The first tap is changed after a delay $t_{1st}$ and the next taps are changed after $t_{Next}$ seconds. \\
+The phase-shifter I measures the current flowing through a transformer and sends an order to change its tap if the monitored transiting current stays higher than $I_{Max}$ for a certain amount of time. Then the automaton keeps on making the transformer change its tap until its current reaches $I_{Stop}$. The first tap is changed after a delay $t_{1st}$ and the next taps are changed after $t_{Next}$ seconds. \\
 
 The phase-shifter parameters are:
 \begin{center}
@@ -152,7 +152,7 @@ The solver used is the variable time step solver IDA with the following paramete
 \newpage
 \subsection{Results}
 
-At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter I becomes higher than its threshold $I_{Max}$. After a time delay of 10s, the phase shifter changes its first step, which results in a step decrease of the transformer's current. Then, step are changed every 5s and the process repeats until the current goes back inside the acceptable range, i.e. until it reaches $I_{Stop}$. \\
+At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter I becomes higher than its threshold $I_{Max}$. After a time delay of 10s, the phase shifter changes its first step, which results in a step decrease of the transformer's current. Then, step are changed every 5s and the process repeats until the current reaches $I_{Stop}$ and don't cross $I_{Max}$ again. \\
 
 \begin{figure}[H]
 \subfigure[Transformer's current (p.u.)]
@@ -172,7 +172,7 @@ At t=20s, the line is disconnected. Following the topology modification, the cur
     \end{axis}
   \end{tikzpicture}
 }
-\subfigure[Transformer's tap (p.u.)]
+\subfigure[Transformer's tap]
 {%
 \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -232,7 +232,7 @@ The solver used is the variable time step solver IDA with the following paramete
 At t=20s, the line is disconnected. Following the topology modification, the current through the transformer monitored by the phase shifter goes out of the tolerated range around $P_{Target}$.  10 seconds later, the transformer tap is changed which results in a step decrease of transiting active power. Though, it is still not in the tolerated range so the phase-shifter increases the tap again, this time only waiting for 5 seconds. Consequently, the active power transit drops and transiently falls back into the dead-band before going out of it again. Therefore, the phase-shifter P first temporarily stops taking steps, and then starts again waiting for a 10s delay before shifting to the next tap. This process repeats two times more and the automaton stops acting once the active power transit finally stabilizes in the range around $P_{Target}$. \\
 
 \begin{figure}[H]
-\subfigure[Transformer's current (p.u.)]
+\subfigure[Transformer's transiting active power (p.u.)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -249,7 +249,7 @@ At t=20s, the line is disconnected. Following the topology modification, the cur
     \end{axis}
   \end{tikzpicture}
 }
-\subfigure[Transformer's tap (p.u.)]
+\subfigure[Transformer's tap]
 {%
 \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -268,7 +268,7 @@ At t=20s, the line is disconnected. Following the topology modification, the cur
 \section{Current limit automaton}
 \label{CurrentLimitAutomaton}
 
-Current limit automata monitor lines' transiting current and open them if it is superior to a defined threshold for a certain amount of time.
+The current limit automaton monitors a line's transiting current and opens it if it is superior to a defined threshold for a certain amount of time.
 
 \subsection{Initial Conditions}
 
@@ -276,15 +276,15 @@ Initial conditions are the same that in the IEEE14 basic test cases.
 
 \subsection{Models}
 
-Two current limit automaton is added to the network : one monitoring the line connecting bus 2 to bus 4, one monitoring the line connecting bus 2 to bus 5.
+Two current limit automata are added to the network : one monitoring the line connecting bus 2 to bus 4, one monitoring the line connecting bus 2 to bus 5.
 Automata's role is to protect their line from unbearable currents by disconnecting it after a too long over-current constraint. \\
 
-The current limit automata measure the current transiting through a line and send an order to disconnect it if it stays more than $t_{Action}$ seconds above the threshold $I_{Max}$. The order also specifies the type of disconnection (origin end, extremity end, or both).\\
+The current limit automaton measures the current transiting through a line and sends an order to disconnect it if it stays more than $t_{Action}$ seconds above the threshold $I_{Max}$. The order also specifies the type of disconnection (origin end, extremity end, or both).\\
 
 The current limit automaton monitoring line bus2-bus5 parameters are:
 \begin{center}
 \begin{tabular}{l|l|l}
-   $I_{Max}=600A$ & $t_{Action}=5$ & $order=3$ (disconnect bus 5 end)\\
+   $I_{Max}=600A$ & $t_{Action}=5$ & $order=1$ (disconnect both ends)\\
 \end{tabular}
 \end{center}
 

@@ -348,7 +348,7 @@
     <par type="DOUBLE" name="currentLimitAutomaton_tLagBeforeActing" value="10"/>
   </set>
   <set id="21">
-    <par type="INT" name="currentLimitAutomaton_OrderToEmit" value="3"/>
+    <par type="INT" name="currentLimitAutomaton_OrderToEmit" value="1"/>
     <par type="BOOL" name="currentLimitAutomaton_Running" value="true"/>
     <par type="DOUBLE" name="currentLimitAutomaton_IMax" value="600"/>
     <par type="DOUBLE" name="currentLimitAutomaton_tLagBeforeActing" value="5"/>
