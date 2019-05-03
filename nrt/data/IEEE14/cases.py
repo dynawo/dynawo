@@ -137,3 +137,13 @@ case_description = "IEEE14 with a current limit automaton on line 2-4 and on lin
 job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_CurrentLimitAutomaton", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+#########################################
+#           IEEE14 - Tap Changer        #
+#########################################
+
+case_name = "IEEE14 - TapChanger"
+case_description = "IEEE14 with load 3 behind a transformer with a tap changer"
+job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_TapChanger", "IEEE14.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
