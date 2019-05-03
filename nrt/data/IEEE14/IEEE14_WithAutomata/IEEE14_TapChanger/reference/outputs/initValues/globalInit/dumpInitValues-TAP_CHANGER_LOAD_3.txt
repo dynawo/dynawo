@@ -1,0 +1,48 @@
+ ====== INIT VARIABLES VALUES ======
+tapChanger_UMonitored_value                       : y =       0.992375 yp =              0
+tapChanger_valueToMonitor_value                   : y =       0.992375 yp =              0
+ ====== INIT DISCRETE VARIABLES VALUES ======
+tapChanger_tTapDown                               : z =          1e+60
+tapChanger_tTapUp                                 : z =          1e+60
+tapChanger_tValueAboveMaxWhileRunning             : z =          1e+60
+tapChanger_tValueAboveMinWhileRunning             : z =              0
+tapChanger_tValueUnderMaxWhileRunning             : z =              0
+tapChanger_tValueUnderMinWhileRunning             : z =          1e+60
+tapChanger_tap_value                              : z =              5
+tapChanger_AutomatonExists_value                  : z =              1
+tapChanger_locked                                 : z =             -1
+tapChanger_lookingToDecreaseTap                   : z =             -1
+tapChanger_lookingToIncreaseTap                   : z =             -1
+tapChanger_running_value                          : z =              1
+tapChanger_switchOffSignal1_value                 : z =             -1
+tapChanger_valueAboveMax                          : z =             -1
+tapChanger_valueAboveMin                          : z =              1
+tapChanger_valueUnderMax                          : z =              1
+tapChanger_valueUnderMin                          : z =             -1
+tapChanger_state                                  : z =              4
+ ====== PARAMETERS VALUES ======
+tapChanger_U0                                      =              1
+tapChanger_UDeadBand                               =           0.01
+tapChanger_UTarget                                 =              1
+tapChanger_deadBand                                =           0.01
+tapChanger_t1st                                    =             60
+tapChanger_tNext                                   =             10
+tapChanger_tTransition                             =              0
+tapChanger_targetValue                             =              1
+tapChanger_valueMax                                =           1.01
+tapChanger_valueMin                                =           0.99
+tapChanger_valueToMonitor0                         =              1
+tapChanger_decreaseTapToDecreaseValue              =              1
+tapChanger_decreaseTapToIncreaseValue              =             -1
+tapChanger_increaseTapToDecreaseValue              =             -1
+tapChanger_increaseTapToIncreaseValue              =              1
+tapChanger_locked0                                 =             -1
+tapChanger_regulating0                             =              1
+tapChanger_running0                                =              1
+tapChanger_NbSwitchOffSignals                      =              1
+tapChanger_state0                                  =              4
+tapChanger_tap0                                    =              5
+tapChanger_tapChangerType                          =              2
+tapChanger_tapChangerType0                         =              2
+tapChanger_tapMax                                  =             10
+tapChanger_tapMin                                  =              0

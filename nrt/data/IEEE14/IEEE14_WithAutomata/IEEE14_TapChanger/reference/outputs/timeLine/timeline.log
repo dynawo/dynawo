@@ -1,0 +1,8 @@
+0.03655 | GEN____3_SM | PMIN : activation
+0.970075 | GEN____3_SM | PMIN : deactivation
+20 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
+20.4663 | GEN____6_SM | PMIN : activation
+20.4846 | GEN____8_SM | PMIN : activation
+20.6854 | GEN____3_SM | PMIN : activation
+80 | TAP_CHANGER_LOAD_3 | Tap +1
+90 | TAP_CHANGER_LOAD_3 | Tap +1
