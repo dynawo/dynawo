@@ -14,12 +14,9 @@ SET(MODEL_FILES
     package.mo
     VRProportional.mo
     VRProportional_INIT.mo
-    VRProportional.extvar
     VRProportionalIntegral.mo
     VRProportionalIntegral_INIT.mo
-    VRProportionalIntegral.extvar
     VRProportionalReactiveFeedback.mo
-    VRProportionalReactiveFeedback.extvar
     )
 
 #
