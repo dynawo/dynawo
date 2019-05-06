@@ -958,6 +958,8 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
             if (line_left == line_right):
                 nb_lines_identical += 1
             else:
+                if "number of root functions evaluations" in line_left:
+                    continue
                 line_left_message = LineMessage (line_left, logs_separator_left)
                 line_right_message = LineMessage (line_right, logs_separator_right)
                 if (line_left_message == line_right_message):
