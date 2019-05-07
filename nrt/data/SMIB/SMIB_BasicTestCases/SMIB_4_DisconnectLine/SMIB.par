@@ -41,61 +41,49 @@
   </set>
   <!-- Synchronous machine external parameters -->
   <set id="5">
-    <par type="INT" name="ExcitationPu" value="1"/>
-    <par type="DOUBLE" name="H" value="3.5"/>
-    <par type="DOUBLE" name="DPu" value="0.0"/>
-    <par type="DOUBLE" name="RaPu" value="0.003"/>
-    <par type="DOUBLE" name="XlPu" value="0.15"/>
-    <par type="DOUBLE" name="XdPu" value="1.81"/>
-    <par type="DOUBLE" name="XpdPu" value="0.30"/>
-    <par type="DOUBLE" name="XppdPu" value="0.23"/>
-    <par type="DOUBLE" name="Tpd0" value="8"/>
-    <par type="DOUBLE" name="Tppd0" value="0.03"/>
-    <par type="DOUBLE" name="XqPu" value="1.76"/>
-    <par type="DOUBLE" name="XpqPu" value="0.65"/>
-    <par type="DOUBLE" name="XppqPu" value="0.25"/>
-    <par type="DOUBLE" name="Tpq0" value="1"/>
-    <par type="DOUBLE" name="Tppq0" value="0.07"/>
-    <par type="DOUBLE" name="UNom" value="24"/>
-    <par type="DOUBLE" name="SNom" value="2220"/>
-    <par type="DOUBLE" name="PNom" value="2220"/>
-    <par type="DOUBLE" name="SnTfo" value="2220"/>
-    <par type="DOUBLE" name="UNomHV" value="400"/>
-    <par type="DOUBLE" name="UNomLV" value="24"/>
-    <par type="DOUBLE" name="UBaseHV" value="400"/>
-    <par type="DOUBLE" name="UBaseLV" value="24"/>
-    <par type="DOUBLE" name="RTfPu" value="0"/>
-    <par type="DOUBLE" name="XTfPu" value="0"/>
-    <par type="DOUBLE" name="P0Pu" value="-19.98"/>
-    <par type="DOUBLE" name="Q0Pu" value="-9.68"/>
-    <par type="DOUBLE" name="U0Pu" value="1"/>
-    <par type="DOUBLE" name="UPhase0" value="0.494451"/>
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_H" value="3.5"/>
+    <par type="DOUBLE" name="generator_DPu" value="0.0"/>
+    <par type="DOUBLE" name="generator_RaPu" value="0.003"/>
+    <par type="DOUBLE" name="generator_XlPu" value="0.15"/>
+    <par type="DOUBLE" name="generator_XdPu" value="1.81"/>
+    <par type="DOUBLE" name="generator_XpdPu" value="0.30"/>
+    <par type="DOUBLE" name="generator_XppdPu" value="0.23"/>
+    <par type="DOUBLE" name="generator_Tpd0" value="8"/>
+    <par type="DOUBLE" name="generator_Tppd0" value="0.03"/>
+    <par type="DOUBLE" name="generator_XqPu" value="1.76"/>
+    <par type="DOUBLE" name="generator_XpqPu" value="0.65"/>
+    <par type="DOUBLE" name="generator_XppqPu" value="0.25"/>
+    <par type="DOUBLE" name="generator_Tpq0" value="1"/>
+    <par type="DOUBLE" name="generator_Tppq0" value="0.07"/>
+    <par type="DOUBLE" name="generator_UNom" value="24"/>
+    <par type="DOUBLE" name="generator_SNom" value="2220"/>
+    <par type="DOUBLE" name="generator_PNom" value="2220"/>
+    <par type="DOUBLE" name="generator_SnTfo" value="2220"/>
+    <par type="DOUBLE" name="generator_UNomHV" value="400"/>
+    <par type="DOUBLE" name="generator_UNomLV" value="24"/>
+    <par type="DOUBLE" name="generator_UBaseHV" value="400"/>
+    <par type="DOUBLE" name="generator_UBaseLV" value="24"/>
+    <par type="DOUBLE" name="generator_RTfPu" value="0"/>
+    <par type="DOUBLE" name="generator_XTfPu" value="0"/>
+    <par type="DOUBLE" name="generator_P0Pu" value="-19.98"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="-9.68"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0.494451"/>
+    <par type="DOUBLE" name="governor_PNom" value="2220"/>
+    <par type="DOUBLE" name="governor_PMin" value="0"/>
+    <par type="DOUBLE" name="governor_PMax" value="2220"/>
+    <par type="DOUBLE" name="governor_KGover" value="5"/>
+    <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
+    <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
+    <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="voltageRegulator_LagEfdMin" value="0"/>
+    <par type="DOUBLE" name="voltageRegulator_LagEfdMax" value="0"/>
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
    </set>
-  <!-- Gover -->
-  <set id="6">
-    <par type="DOUBLE" name="PNom" value="2220"/>
-    <par type="DOUBLE" name="PMin" value="0"/>
-    <par type="DOUBLE" name="PMax" value="2220"/>
-    <par type="DOUBLE" name="KGover" value="5"/>
-  </set>
-  <!-- Voltage regulator -->
-  <set id="7">
-    <par type="DOUBLE" name="Gain" value="20"/>
-    <par type="DOUBLE" name="EfdMinPu" value="-5"/>
-    <par type="DOUBLE" name="EfdMaxPu" value="5"/>
-    <par type="DOUBLE" name="LagEfdMin" value="0"/>
-    <par type="DOUBLE" name="LagEfdMax" value="0"/>
-  </set>
-  <!-- Pm SetPoint - valueIn is overwritten by init -->
-  <set id="8">
-    <par type="DOUBLE" name="ValueIn" value="0"/>
-  </set>
-  <!-- Uf SetPoint - valueIn is overwritten by init -->
-  <set id="9">
-    <par type="DOUBLE" name="ValueIn" value="0"/>
-  </set>
   <!-- OmegaRef -->
-  <set id="10">
-    <par type="DOUBLE" name="Value0" value="1"/>
+  <set id="6">
+    <par type="DOUBLE" name="setPoint_Value0" value="1"/>
   </set>
 </parametersSet>
