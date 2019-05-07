@@ -1,4 +1,4 @@
-time;SM_gen_cePu;SM_gen_PePu;SM_gen_cmPu;SM_gen_PmPu;SM_gen_ufPu;SM_gen_efdPu;SM_gen_omegaPu;SM_gen_theta;SM_gen_PGenPu;SM_gen_QGenPu;SM_gen_PGen;SM_gen_QGen;SM_gen_UPu;SM_gen_IStatorPu;SM_gen_IRotorPu;SM_gen_UStatorPu;SM_gen_QStatorPu;SM_gen_thetaInternal;
+time;SM_generator_cePu;SM_generator_PePu;SM_generator_cmPu;SM_generator_PmPu;SM_generator_ufPu;SM_generator_efdPu;SM_generator_omegaPu;SM_generator_theta;SM_generator_PGenPu;SM_generator_QGenPu;SM_generator_PGen;SM_generator_QGen;SM_generator_UPu;SM_generator_IStatorPu;SM_generator_IRotorPu;SM_generator_UStatorPu;SM_generator_QStatorPu;SM_generator_thetaInternal;
 0;0.902957;0.902957;0.903;0.903;0.00105874;2.42046;1;1.224;19.9791;9.67902;1997.91;967.902;1.00001;22.1998;2.42068;1.00001;9.67902;0.729542;
 1e-06;0.902957;0.902957;0.903;0.903;0.00105874;2.42046;1;1.224;19.9791;9.67902;1997.91;967.902;1.00001;22.1998;2.42068;1.00001;9.67902;0.729542;
 2e-06;0.902957;0.902957;0.903;0.903;0.00105874;2.42046;1;1.224;19.9791;9.67902;1997.91;967.902;1.00001;22.1998;2.42068;1.00001;9.67902;0.729542;
