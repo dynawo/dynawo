@@ -569,7 +569,7 @@ At $t=90s$,the tap-changer lock automaton monitored voltage reaches $U_{Min}$. T
 \caption{Behaviour of the Tap-Changer Lock automaton}
 \end{figure}
 
-If we try to simulate this test case without the tap-changer lock automaton we see that the transformers of load 2 and 3 keep changing taps and that the voltages of the area keep decreasing.
+If we try to simulate this test case without the tap-changer lock automaton we see that the transformers of load 2 and 3 keep changing taps and that the voltages of the area keep decreasing. In order to run this scenario, two possibilities are available: delete the tap-changer lock automaton in the .dyd file (with its connections), or set the automaton threshold $UMin=0$ in the .par file (that way the automaton will never get activated).
 
 \begin{figure}[H]
 \subfigure[Network voltage at bus 2 and 3 (p.u)]
