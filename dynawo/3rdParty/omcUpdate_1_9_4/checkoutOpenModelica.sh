@@ -129,7 +129,7 @@ check_tags() {
 
 checkout_openmodelica_repository() {
   if [ ! -d "$SRC_OPENMODELICA" ]; then
-    git clone $OPENMODELICA_GIT_URL $SRC_OPENMODELICA || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
+    git clone $DYNAWO_OPENMODELICA_GIT_URL $SRC_OPENMODELICA || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
     if [ -d "$SRC_OPENMODELICA" ]; then
       cd "$SRC_OPENMODELICA"
       GIT_OPTION=""
@@ -140,7 +140,7 @@ checkout_openmodelica_repository() {
       git submodule update --init $GIT_OPTION --recursive libraries || error_exit "Git clone of libraries in $SRC_OPENMODELICA failed."
       git submodule update --init $GIT_OPTION --recursive common || error_exit "Git clone of common in $SRC_OPENMODELICA failed."
       if [ -d "$SRC_OPENMODELICA/libraries" ]; then
-        cd libraries && git clone $MODELICA_GIT_URL Modelica || error_exit "Git clone of Modelica Standard Library failed in $SRC_OPENMODELICA/libraries."
+        cd libraries && git clone $DYNAWO_MODELICA_GIT_URL Modelica || error_exit "Git clone of Modelica Standard Library failed in $SRC_OPENMODELICA/libraries."
       fi
     fi
   fi
