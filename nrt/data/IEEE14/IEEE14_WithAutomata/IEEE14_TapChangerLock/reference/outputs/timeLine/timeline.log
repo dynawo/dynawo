@@ -1,0 +1,21 @@
+0.0365488 | GEN____3_SM | PMIN : activation
+0.970779 | GEN____3_SM | PMIN : deactivation
+20 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
+20 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
+20.0012 | GEN____3_SM | PMIN : activation
+20.201 | GEN____8_SM | PMIN : activation
+20.3222 | GEN____6_SM | PMIN : activation
+80 | TAP_CHANGER_LOAD_2 | Tap +1
+80 | TAP_CHANGER_LOAD_3 | Tap +1
+90 | TAP_CHANGER_LOAD_2 | Tap +1
+90 | TAP_CHANGER_LOAD_3 | Tap +1
+90.009 | TAP_CHANGER_LOCK | TCL : tap changers lock arming (U < UMin)
+100 | TAP_CHANGER_LOAD_2 | Tap +1
+100 | TAP_CHANGER_LOAD_3 | Tap +1
+110 | TAP_CHANGER_LOAD_2 | Tap +1
+110 | TAP_CHANGER_LOAD_3 | Tap +1
+110.009 | TAP_CHANGER_LOCK | TCL : tap changers lock order activated on area
+120 | TAP_CHANGER_LOAD_2 | Tap +1
+120 | TAP_CHANGER_LOAD_3 | Tap +1
+120.009 | TAP_CHANGER_LOCK | TCL : high voltage tap changers locked on area
+120.009 | TAP_CHANGER_LOCK | TCL : low voltage tap changers locked on area
