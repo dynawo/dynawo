@@ -1347,7 +1347,7 @@ nrt() {
 }
 
 nrt_diff() {
-  python $DYNAWO_NRT_DIFF_DIR/nrtDiff.py $1 $2
+  python $DYNAWO_NRT_DIFF_DIR/nrtDiff.py $1 $2 $3
 }
 
 check_coding_files() {
