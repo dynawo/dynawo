@@ -62,10 +62,7 @@ def namespaceDYN(tag):
 
 # Output configuration
 branch_name = os.environ["DYNAWO_BRANCH_NAME"]
-output_dir_all_nrt = os.path.join(os.path.dirname(__file__), "output")
-output_dir = os.path.join(output_dir_all_nrt, branch_name)
 resources_dir = os.path.join(os.path.dirname(__file__), "..", "..","nrt", "resources")
-html_output = os.path.join(output_dir, "nrtDiff.html")
 web_browser = os.getenv ('DYNAWO_BROWSER', 'firefox')
 files_included = set(settings.files_included)
 files_excluded = set(settings.files_excluded)
@@ -265,7 +262,7 @@ def main():
     global listCases
     global totalTime
 
-    usage=u""" Usage: %prog --firstDirectory=<directory> --secondDirectory=<directory>
+    usage=u""" Usage: %prog --firstDirectory=<directory> --secondDirectory=<directory> --outputDir=<directory>
     Compare two launches of non regression test and check if there is differences between their outputs
     """
     parser = OptionParser(usage)
@@ -273,12 +270,21 @@ def main():
                        help=u"directory where the output of the first non-regression test are located")
     parser.add_option( '--secondDirectory', dest='secondDirectory',
                        help=u"directory where the output of the second non-regression test are located")
+    parser.add_option( '--outputDir', dest='outputDir',
+                       help=u"directory where the resulting files will be stored (default: <current_folder>/nrt-diff-output)")
     (options, args) = parser.parse_args()
     if options.firstDirectory == None:
         parser.error("First directory is not set")
     if options.secondDirectory == None:
         parser.error("Second directory is not set")
+    if options.outputDir == None:
+        output_dir_all_nrt = os.path.join(os.getcwd(), "nrt-diff-output")
+    else:
+        output_dir_all_nrt = options.outputDir
+    output_dir = os.path.join(output_dir_all_nrt, branch_name)
+    html_output = os.path.join(output_dir, "nrtDiff.html")
 
+    print "[INFO] output dir: " + output_dir
     firstDirectory  = os.path.realpath (os.path.expanduser(options.firstDirectory))
     secondDirectory = os.path.realpath (os.path.expanduser(options.secondDirectory))
 
@@ -396,7 +402,7 @@ def main():
 
     # Results are exported as an html file
     print ("exporting results to html ...")
-    exportHTML()
+    exportHTML(output_dir, html_output)
 
 
 
@@ -1125,7 +1131,9 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
 
 ##
 # Make an html report to display diff results
-def exportHTML():
+# @param output_dir : output directory
+# @param html_output : path of html result file
+def exportHTML(output_dir, html_output):
     # delete old html report if exists
     if os.path.isfile(html_output):
         os.remove(html_output)
@@ -1136,7 +1144,7 @@ def exportHTML():
     file = open(html_output, "w")
     writeHeader(file)
     writeResume(file)
-    writeDetails(file)
+    writeDetails(file, output_dir, html_output)
     writeFooter(file)
     # open the html report
     webbrowser.get(web_browser).open_new_tab(html_output)
@@ -1287,18 +1295,22 @@ def writeNOKTable(file):
 ##
 # Write details of NRT diff results
 # @param file : html file
-def writeDetails(file):
+# @param output_dir : output directory
+# @param html_output : path of html result file
+def writeDetails(file, output_dir, html_output):
     file.write("<section>")
     file.write("<h2>Details by test case</h2>")
     for test_case in listCases:
-        writeDetailsCase(file, test_case)
+        writeDetailsCase(file, test_case, output_dir, html_output)
     file.write("</section>")
 
 ##
 # Write details of NRT test case diff results
 # @param file : html file
 # @param test_case : NRT test case
-def writeDetailsCase(file, test_case):
+# @param output_dir : output directory
+# @param html_output : path of html result file
+def writeDetailsCase(file, test_case, output_dir, html_output):
     file.write('<h3 id="' + test_case.case_ + '">' + test_case.case_ + "</h3>")
     file.write("<table><tr><th>Properties</th><th>value</th></tr>")
     file.write("<tr><td>Directory</td><td>" + test_case.directory_ + "</td></tr>")
