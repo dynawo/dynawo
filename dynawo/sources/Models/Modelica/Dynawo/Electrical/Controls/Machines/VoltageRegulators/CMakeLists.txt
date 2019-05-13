@@ -12,10 +12,13 @@
 
 SET(MODEL_FILES
     package.mo
+    VRProportional.extvar
     VRProportional.mo
     VRProportional_INIT.mo
+    VRProportionalIntegral.extvar
     VRProportionalIntegral.mo
     VRProportionalIntegral_INIT.mo
+    VRProportionalReactiveFeedback.extvar
     VRProportionalReactiveFeedback.mo
     )
 
