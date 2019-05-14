@@ -33,8 +33,9 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @brief default constructor
    *
    * @param id : name of the tap changer
+   * @param side : side where the voltage is controlled
    */
-  explicit ModelRatioTapChanger(const std::string& id);
+  explicit ModelRatioTapChanger(const std::string& id, const std::string& side);
 
   /**
    * @brief destructor
@@ -72,13 +73,6 @@ class ModelRatioTapChanger : public ModelTapChanger {
   int sizeZ() const;
 
   /**
-   * @brief Set if the nominal voltage of side 1 is superior to the nominal voltage of side 2
-   *
-   * @param v1SupV2 @b true if V1nom > V2Nom
-   */
-  void setV1SupV2(bool v1SupV2);
-
-  /**
    * @brief set the dead band around the target of the tap changer
    *
    * @param tolerance dead band to use
@@ -106,7 +100,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
   bool getUpIncreaseTargetU();
 
  private:
-  bool V1SupV2_;  ///< @b true if the side one of the tap changer has a nominal voltage > side 2
+  std::string side_;  ///< reference side where the voltage is controlled
   double tolV_;  ///< dead band around targetV
   double targetV_;  ///< target voltage
   double whenUp_;  ///< when the voltage reached a value over the target+deadBand
