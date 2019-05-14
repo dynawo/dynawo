@@ -25,9 +25,9 @@
 
 namespace DYN {
 
-ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id) :
+ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id, const std::string& side) :
 ModelTapChanger(id),
-V1SupV2_(false),
+side_(side),
 tolV_(0.015),
 targetV_(0) {
   whenUp_ = VALDEF;
@@ -54,29 +54,20 @@ ModelRatioTapChanger::getUpIncreaseTargetU() {
     increaseRate = (steps_[lowStepIndex_].getRho() < steps_[lowStepIndex_ + 1].getRho());
 
   // in tfo, the main equation is U2 = rho*U1
-  // if V1 > V2, then the target is V2
-  // when rho increase U2 increase
-  // if V2 > V1, the target is V1; V1 = U2/rho
-  // when rho increase V1 decrease
-  if (V1SupV2_) {
+  if (side_ == "ONE") {
     if (increaseRate) {
-      upIncreaseTargetU = true;
-    } else {
       upIncreaseTargetU = false;
+    } else {
+      upIncreaseTargetU = true;
     }
-  } else {
+  } else if (side_ == "TWO") {
     if (increaseRate) {
-      upIncreaseTargetU = false;
-    } else {
       upIncreaseTargetU = true;
+    } else {
+      upIncreaseTargetU = false;
     }
   }
   return upIncreaseTargetU;
-}
-
-void
-ModelRatioTapChanger::setV1SupV2(bool v1SupV2) {
-  V1SupV2_ = v1SupV2;
 }
 
 void

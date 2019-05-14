@@ -175,8 +175,7 @@ tapChangerIndex_(0) {
     modelPhaseChanger_->setHighStepIndex(phaseTapChanger->getNbTap() - 1. + lowIndex);
     modelPhaseChanger_->setCurrentStepIndex(phaseTapChanger->getCurrentPosition());
   } else if (ratioTapChanger) {
-    modelRatioChanger_.reset(new ModelRatioTapChanger(tfo->getID()));
-    modelRatioChanger_->setV1SupV2(vNom1_ > vNom2_);
+    modelRatioChanger_.reset(new ModelRatioTapChanger(tfo->getID(), tfo->getRatioTapChanger()->getTerminalRefSide()));
 
     vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
     int lowIndex = ratioTapChanger->getLowPosition();
