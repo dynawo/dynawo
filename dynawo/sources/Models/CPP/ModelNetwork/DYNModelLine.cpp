@@ -919,7 +919,7 @@ ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
   double ui1 = 0.;
   double ur2 = 0.;
   double ui2 = 0.;
-  if (numCalculatedVar != u1Num_ && numCalculatedVar != u2Num_) {
+  if (numCalculatedVar == u1Num_ || numCalculatedVar == u2Num_) {
     // in the y vector, we have access only at variables declared in getDefJCalculatedVarI
     switch (knownBus_) {
       case BUS1_BUS2: {
@@ -1185,7 +1185,7 @@ ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
   double ui1 = 0.;
   double ur2 = 0.;
   double ui2 = 0.;
-  if (numCalculatedVar != u1Num_ && numCalculatedVar != u2Num_) {
+  if (numCalculatedVar == u1Num_ || numCalculatedVar == u2Num_) {
     // in the y vector, we have access only at variables declared in getDefJCalculatedVarI
     switch (knownBus_) {
       case BUS1_BUS2: {
