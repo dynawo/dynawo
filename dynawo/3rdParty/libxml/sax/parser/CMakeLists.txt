@@ -112,9 +112,6 @@ if (LibXML_SAX_BUILD_SHARED)
 endif ()
 
 if (LibXML_SAX_BUILD_STATIC)
-  find_package(CURL REQUIRED)
-  find_package(ICU REQUIRED COMPONENTS i18n uc data)
-
   add_library(XMLSAXParser${LINK_SUFFIX_STATIC} STATIC ${PARSER_SOURCES})
 
   target_include_directories(XMLSAXParser${LINK_SUFFIX_STATIC}
@@ -136,8 +133,6 @@ if (LibXML_SAX_BUILD_STATIC)
 
   target_link_libraries(XMLSAXParser${LINK_SUFFIX_STATIC}
     ${XercesC_LIBRARIES}
-    ${CURL_LIBRARIES}
-    ${ICU_LIBRARIES}
   )
 
   install(TARGETS XMLSAXParser${LINK_SUFFIX_STATIC} EXPORT XMLSAXParser${LINK_SUFFIX_STATIC}-config

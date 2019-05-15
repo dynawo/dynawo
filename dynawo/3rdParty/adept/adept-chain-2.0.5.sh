@@ -34,6 +34,10 @@ export_var_env() {
   export $name="$value"
 }
 
+get_absolute_path() {
+  python -c "import os; print(os.path.realpath('$1'))"
+}
+
 ADEPT_VERSION=2.0.5
 ADEPT_ARCHIVE=adept-$ADEPT_VERSION.tar.gz
 ADEPT_DIRECTORY=adept-$ADEPT_VERSION
@@ -50,11 +54,6 @@ export_var_env DYNAWO_C_COMPILER=$(command -v gcc)
 export_var_env DYNAWO_CXX_COMPILER=$(command -v g++)
 export_var_env DYNAWO_NB_PROCESSORS_USED=1
 export_var_env DYNAWO_CXX11_ENABLED=NO
-
-if [ "$(echo $DYNAWO_COMPILER | tr "[A-Z]" "[a-z]")" != "$(basename $DYNAWO_C_COMPILER)" ]; then
-  echo "There is an incoherence between DYNAWO_COMPILER and DYNAWO_C_COMPILER. You should export DYNAWO_COMPILER with the appropriate value (GCC or CLANG)."
-  exit 1
-fi
 
 export_var_env DYNAWO_LIBRARY_TYPE=SHARED
 
@@ -109,7 +108,7 @@ install_adept() {
 while (($#)); do
   case $1 in
     --install-dir=*)
-      INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
+      INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--install-dir=//g'`)
       if [ ! -d "$INSTALL_DIR" ]; then
         mkdir -p $INSTALL_DIR
       fi

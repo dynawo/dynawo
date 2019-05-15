@@ -34,6 +34,10 @@ export_var_env() {
   export $name="$value"
 }
 
+get_absolute_path() {
+  python -c "import os; print(os.path.realpath('$1'))"
+}
+
 SUNDIALS_VERSION=4.1.0
 SUNDIALS_ARCHIVE=sundials-${SUNDIALS_VERSION}.tar.gz
 SUNDIALS_DIRECTORY=sundials-${SUNDIALS_VERSION}
@@ -120,7 +124,7 @@ install_sundials() {
   fi
 
   cd $BUILD_DIR
-  cmake $CMAKE_OPTIONS $BUILD_DIR/$SUNDIALS_DIRECTORY -DCMAKE_C_FLAGS_DEBUG="-g -O0"
+  cmake $CMAKE_OPTIONS $SUNDIALS_DIRECTORY -DCMAKE_C_FLAGS_DEBUG="-g -O0"
   make -j $DYNAWO_NB_PROCESSORS_USED && make install
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -129,16 +133,16 @@ install_sundials() {
 while (($#)); do
   case $1 in
     --install-dir=*)
-      INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
+      INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--install-dir=//g'`)
       if [ ! -d "$INSTALL_DIR" ]; then
         mkdir -p $INSTALL_DIR
       fi
       ;;
     --suitesparse-install-dir=*)
-      SUITESPARSE_INSTALL_DIR=`echo $1 | sed -e 's/--suitesparse-install-dir=//g'`
+      SUITESPARSE_INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--suitesparse-install-dir=//g'`)
       ;;
     --nicslu-install-dir=*)
-      NICSLU_INSTALL_DIR=`echo $1 | sed -e 's/--nicslu-install-dir=//g'`
+      NICSLU_INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--nicslu-install-dir=//g'`)
       ;;
     --build-type=*)
       BUILD_TYPE=`echo $1 | sed -e 's/--build-type=//g'`
