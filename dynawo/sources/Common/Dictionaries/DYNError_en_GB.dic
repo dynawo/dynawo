@@ -94,7 +94,7 @@ UnknownCurvesExport         =             unknown curves export mode : %1%
 UnknownConstraintsExport    =             unknown constraints export mode : %1%
 UnknownDydFile              =             missing DYD file : %1%
 UnknownIidmFile             =             missing IIDM file : %1%
-UnknownModelFile            =             missing Modelica file : %1%
+UnknownModelFile            =             modelica file(s) %1% not found neither in standard library nor user defined path. Use "useStandardModels="true"" or add a directory in the corresponding modelicaModels in the jobs file.
 UnknownModelsDir            =             failed to locate the models directory : %1%
 UnknownParFile              =             unable to find the parFile : %1% in the parDir : %2%
 UnknownParSet               =             unable to find the parSet num %2% in the parFile %1%
