@@ -226,6 +226,12 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   NetworkComponent::StateChange_t evalState(const double& time);
 
   /**
+   * @brief evaluate if a short-circuit is appearing or being cleared on the bus
+   * @return @b true if a short-circuit is appearing or being cleared on the bus, @b false otherwise
+   */
+  bool evalNodeFault();
+
+  /**
    * @brief addBusNeighbors
    */
   void addBusNeighbors() { /* not needed*/ }
@@ -321,7 +327,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   /**
    * @brief get information about whether the bus is switched off
-   * @return @b tur if the bus is switched off, @b false otherwise
+   * @return @b true if the bus is switched off, @b false otherwise
    */
   inline bool getSwitchOff() const {
     return switchOff_;
@@ -460,6 +466,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   bool stateUmin_;  ///< whether U < Umin
 
   bool switchOff_;  ///< whether the bus was switched off
+  bool nodeFault_;  ///< whether a short-circuit is applied to the bus or not
   // equivalent to switchOff_ but with discrete variable, to be able to switch off a node thanks to an outside event
   State connectionState_;  ///< connection status
   double irConnection_;  ///< real current injected
@@ -639,6 +646,12 @@ class ModelBusContainer {
    * @param rowOffset row offset to use to find the first row to fill
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+
+  /**
+   * @brief evaluate if a short-circuit is appearing or being cleared on one bus of the network
+   * @return @b true if a short-circuit is appearing or being cleared on one bus of the network, @b false otherwise
+   */
+  bool evalNodeFault();
 
  private:
   std::vector<boost::shared_ptr<ModelBus> > models_;  ///< model bus
