@@ -376,6 +376,15 @@ set_environment() {
   export_var_env DYNAWO_JQUERY_DOWNLOAD_URL=https://github.com/jquery/jquery/archive
   export_var_env DYNAWO_FLOT_DOWNLOAD_URL=https://github.com/flot/flot/archive
 
+  if [ "`uname`" = "Linux" ]; then
+    export_var_env_force DYNAWO_SHARED_LIBRARY_SUFFIX="so"
+  elif [ "`uname`" = "Darwin" ]; then
+    export_var_env_force DYNAWO_SHARED_LIBRARY_SUFFIX="dylib"
+  else
+    echo "OS `uname` not supported."
+    exit 1
+  fi
+
   # Export library path, path and other standard environment variables
   set_standard_environment_variables
 
@@ -751,7 +760,7 @@ is_3rd_party_version_installed() {
     if [ ! -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include" ]; then
       return 1
     fi
-    if [[ -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib \( -name "*.so" -o -name "*.a" \) 2> /dev/null)" && -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib64 \( -name "*.so" -o -name "*.a" \) 2> /dev/null)" ]]; then
+    if [[ -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib \( -name "*.$DYNAWO_SHARED_LIBRARY_SUFFIX" -o -name "*.a" \) 2> /dev/null)" && -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib64 \( -name "*.$DYNAWO_SHARED_LIBRARY_SUFFIX" -o -name "*.a" \) 2> /dev/null)" ]]; then
       return 1
     fi
     if [[ -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.h")" && -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.hpp")" ]]; then
@@ -867,9 +876,9 @@ install_launcher() {
 # Compile a modelica model
 compile_Modelica_Model() {
   if ! is_launcher_installed; then
-    install_launcher || error_exit "Error during launcher install."
+    install_launcher || error_exit "Error during launcher installation."
   fi
-  $DYNAWO_INSTALL_DIR/bin/launcher --compile $@
+  $DYNAWO_INSTALL_DIR/bin/launcher --compile $@ || error_exit "Error during compilation of a Modelica Model."
 }
 
 # Compile Dynawo core (without models)
@@ -1006,7 +1015,7 @@ build_tests_coverage() {
   cd $DYNAWO_HOME/build/coverage-sonar
   for file in $(find $DYNAWO_BUILD_DIR -name "*.gcno" | grep -v "/test/"); do
     cpp_file_name=$(basename $file .gcno)
-    cpp_file=$(find $DYNAWO_HOME/dynawo/sources -name "$cpp_file_name")
+    cpp_file=$(find $DYNAWO_HOME/dynawo/sources -name "$cpp_file_name" 2> /dev/null)
     gcov -pb $cpp_file -o $file > /dev/null
   done
   rm -f $DYNAWO_HOME/build/coverage-sonar/\#usr\#*
@@ -1179,8 +1188,8 @@ generate_preassembled_gdb() {
 }
 
 compile_cpp_modelica_model_in_dynamic_lib() {
-  if ! launcher_installed; then
-    install_launcher || error_exit
+  if ! is_launcher_installed; then
+    install_launcher || error_exit "Error during launcher installation."
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --compile-cpp-modelica-model-in-dynamic-lib $*
   RETURN_CODE=$?
@@ -1259,12 +1268,12 @@ jobs_with_curves() {
 
 curves_visu() {
   verify_browser
-  python $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$(readlink -f $@) --withoutOffset --htmlBrowser=$DYNAWO_BROWSER || return 1
+  python $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$(python -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser=$DYNAWO_BROWSER || return 1
 }
 
 dump_model() {
   if ! is_launcher_installed; then
-    install_launcher || error_exit
+    install_launcher || error_exit "Error during launcher installation."
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model $@
   RETURN_CODE=$?
@@ -1273,7 +1282,7 @@ dump_model() {
 
 valgrind_dump_model() {
   if ! is_launcher_installed; then
-    install_launcher || error_exit
+    install_launcher || error_exit "Error during launcher installation."
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-valgrind $@
   RETURN_CODE=$?
@@ -1282,7 +1291,7 @@ valgrind_dump_model() {
 
 gdb_dump_model() {
   if ! is_launcher_installed; then
-    install_launcher || error_exit
+    install_launcher || error_exit "Error during launcher installation."
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --dump-model-gdb $@
   RETURN_CODE=$?
@@ -1311,7 +1320,7 @@ flat_model() {
 
 version() {
   if ! is_launcher_installed; then
-    install_launcher
+    install_launcher > /dev/null 2>&1 || error_exit
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --version
   RETURN_CODE=$?
@@ -1320,7 +1329,7 @@ version() {
 
 nrt() {
   if ! is_launcher_installed; then
-    install_launcher || error_exit
+    install_launcher || error_exit "Error during launcher installation."
   fi
   python -u $DYNAWO_NRT_DIR/nrt.py $@
   FAILED_CASES_NUM=$?
@@ -1464,7 +1473,7 @@ deploy_dynawo() {
   mkdir -p 3rdParty/openmodelica/include/
   mkdir -p 3rdParty/openmodelica/lib/omc/
   cp -P $DYNAWO_INSTALL_OPENMODELICA/bin/omc* 3rdParty/openmodelica/bin
-  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/include/omc/ 3rdParty/openmodelica/include/
+  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/include/omc 3rdParty/openmodelica/include/
   cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/* 3rdParty/openmodelica/lib/
   cp -P $DYNAWO_INSTALL_OPENMODELICA/lib/omc/*.mo 3rdParty/openmodelica/lib/omc/
   cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary 3rdParty/openmodelica/lib/
@@ -1474,34 +1483,34 @@ deploy_dynawo() {
   ##############
   # for dynawo
   if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
-    cp -P $DYNAWO_BOOST_HOME/lib/libboost_*.so* extraLibs/BOOST/lib/
-    cp -P -R $DYNAWO_BOOST_HOME/include/boost/ extraLibs/BOOST/include/
+    cp -P $DYNAWO_BOOST_HOME/lib/libboost_*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/BOOST/lib/
+    cp -P -R $DYNAWO_BOOST_HOME/include/boost extraLibs/BOOST/include/
   else
     boost_system_folder=$(find_lib_system_path boost)
-    cp -P ${boost_system_folder}libboost_*.so* extraLibs/BOOST/lib/
+    cp -P ${boost_system_folder}libboost_*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/BOOST/lib/
     boost_system_folder_include=$(find_include_system_path Boost_INCLUDE_DIR)
     cp -P -R $boost_system_folder_include/boost extraLibs/BOOST/include/
   fi
 
   # XERCESC
-  cp -P $DYNAWO_XERCESC_INSTALL_DIR/lib/libxerces-c*.so* extraLibs/XERCESC/lib/
+  cp -P $DYNAWO_XERCESC_INSTALL_DIR/lib/libxerces-c*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/XERCESC/lib/
   cp -r $DYNAWO_XERCESC_INSTALL_DIR/include extraLibs/XERCESC/.
 
   # LIBARCHIVE
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
-    cp -P $DYNAWO_LIBARCHIVE_HOME/lib/libarchive*.so* extraLibs/LIBARCHIVE/lib/
+    cp -P $DYNAWO_LIBARCHIVE_HOME/lib/libarchive*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/LIBARCHIVE/lib/
     cp $DYNAWO_LIBARCHIVE_HOME/include/archive_entry.h extraLibs/LIBARCHIVE/include/
     cp $DYNAWO_LIBARCHIVE_HOME/include/archive.h extraLibs/LIBARCHIVE/include/
   else
     libarchive_system_folder=$(find_lib_system_path archive)
-    cp -P ${libarchive_system_folder}libarchive*.so* extraLibs/LIBARCHIVE/lib/
+    cp -P ${libarchive_system_folder}libarchive*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/LIBARCHIVE/lib/
     libarchive_system_folder_include=$(find_include_system_path LibArchive_INCLUDE_DIR)
     cp $libarchive_system_folder_include/archive_entry.h extraLibs/LIBARCHIVE/include/
     cp $libarchive_system_folder_include/archive.h extraLibs/LIBARCHIVE/include/
   fi
 
   # DYNAWO
-  cp -r $DYNAWO_INSTALL_DIR/bin/ $DYNAWO_INSTALL_DIR/lib/ $DYNAWO_INSTALL_DIR/include/ $DYNAWO_INSTALL_DIR/share/ .
+  cp -r $DYNAWO_INSTALL_DIR/bin $DYNAWO_INSTALL_DIR/lib $DYNAWO_INSTALL_DIR/include $DYNAWO_INSTALL_DIR/share .
   mkdir -p ddb/
   cp -r $DYNAWO_INSTALL_DIR/ddb .
 
@@ -1513,7 +1522,7 @@ deploy_dynawo() {
   cp $DYNAWO_INSTALL_DIR/sbin/dumpModel sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/generate-preassembled sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dumpSolver sbin/
-  cp $DYNAWO_INSTALL_DIR/sbin/generate-preassembled-${version} bin/
+  cp $DYNAWO_INSTALL_DIR/sbin/generate-preassembled-${version} sbin/
 
   if [ -d "$DYNAWO_INSTALL_DIR/doxygen" ]; then
     mkdir -p doxygen
@@ -1589,7 +1598,7 @@ create_distrib() {
   fi
   cd $DYNAWO_DEPLOY_DIR
   zip -r -y $ZIP_FILE bin/ lib/ share/
-  zip -r -g -y $ZIP_FILE ddb/*.so ddb/*.desc.xml
+  zip -r -g -y $ZIP_FILE ddb/*.$DYNAWO_SHARED_LIBRARY_SUFFIX ddb/*.desc.xml
 
   # Add lib to zip file
   zip -r -g -y $ZIP_FILE 3rdParty/adept/lib -x \*.a
