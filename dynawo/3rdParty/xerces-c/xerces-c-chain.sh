@@ -33,6 +33,10 @@ export_var_env() {
   export $name="$value"
 }
 
+get_absolute_path() {
+  python -c "import os; print(os.path.realpath('$1'))"
+}
+
 XERCESC_VERSION=3.2.2
 XERCESC_ARCHIVE=xerces-c-${XERCESC_VERSION}.tar.gz
 XERCESC_DIRECTORY=xerces-c-$XERCESC_VERSION
@@ -77,15 +81,15 @@ install_xercesc() {
   fi
   if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     if [ "$BUILD_TYPE" = "Debug" ]; then
-      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0" ./configure $XERCESC_LIBRARY_TYPE_OPTION --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0" ./configure $XERCESC_LIBRARY_TYPE_OPTION --disable-network --without-icu --prefix=$INSTALL_DIR
     else
-      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER ./configure $XERCESC_LIBRARY_TYPE_OPTION --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER ./configure $XERCESC_LIBRARY_TYPE_OPTION --disable-network --without-icu --prefix=$INSTALL_DIR
     fi
   else
     if [ "$BUILD_TYPE" = "Debug" ]; then
-      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0 -std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0 -std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --disable-network --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
     else
-      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --disable-network --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
     fi
   fi
   make -j $DYNAWO_NB_PROCESSORS_USED V=1 && make install
@@ -96,7 +100,7 @@ install_xercesc() {
 while (($#)); do
   case $1 in
     --install-dir=*)
-      INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
+      INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--install-dir=//g'`)
       if [ ! -d "$INSTALL_DIR" ]; then
         mkdir -p $INSTALL_DIR
       fi

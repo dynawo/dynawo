@@ -34,6 +34,10 @@ export_var_env() {
   export $name="$value"
 }
 
+get_absolute_path() {
+  python -c "import os; print(os.path.realpath('$1'))"
+}
+
 NICSLU_ARCHIVE=_nicslu301.zip
 NICSLU_DIR=_nicslu
 
@@ -94,7 +98,7 @@ install_nicslu() {
 while (($#)); do
   case $1 in
     --install-dir=*)
-      INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
+      INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--install-dir=//g'`)
       if [ ! -d "$INSTALL_DIR/include" ]; then
         mkdir -p $INSTALL_DIR/include
       fi

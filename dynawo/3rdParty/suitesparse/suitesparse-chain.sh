@@ -34,6 +34,10 @@ export_var_env() {
   export $name="$value"
 }
 
+get_absolute_path() {
+  python -c "import os; print(os.path.realpath('$1'))"
+}
+
 SUITE_SPARSE_VERSION=4.5.4
 SUITE_SPARSE_ARCHIVE=SuiteSparse-${SUITE_SPARSE_VERSION}.tar.gz
 SUITE_SPARSE_DIRECTORY=SuiteSparse
@@ -114,13 +118,13 @@ install_suitesparse() {
 while (($#)); do
   case $1 in
     --install-dir=*)
-      INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
+      INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--install-dir=//g'`)
       if [ ! -d "$INSTALL_DIR" ]; then
         mkdir -p $INSTALL_DIR
       fi
       ;;
     --build-dir=*)
-      BUILD_DIR=`echo $1 | sed -e 's/--build-dir=//g'`
+      BUILD_DIR=$(get_absolute_path `echo $1 | sed -e 's/--build-dir=//g'`)
       if [ ! -d "$BUILD_DIR" ]; then
         mkdir -p $BUILD_DIR
       fi

@@ -33,6 +33,10 @@ export_var_env() {
   export $name="$value"
 }
 
+get_absolute_path() {
+  python -c "import os; print(os.path.realpath('$1'))"
+}
+
 HERE=$PWD
 
 SOURCE_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
@@ -77,7 +81,7 @@ install_libiidm() {
 while (($#)); do
   case $1 in
     --install-dir=*)
-      INSTALL_DIR=`echo $1 | sed -e 's/--install-dir=//g'`
+      INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--install-dir=//g'`)
       if [ ! -d "$INSTALL_DIR" ]; then
         mkdir -p $INSTALL_DIR
       fi
@@ -92,10 +96,10 @@ while (($#)); do
       BUILD_TYPE=`echo $1 | sed -e 's/--build-type=//g'`
       ;;
     --libxml-install-dir=*)
-      LIBXML_INSTALL_DIR=`echo $1 | sed -e 's/--libxml-install-dir=//g'`
+      LIBXML_INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--libxml-install-dir=//g'`)
       ;;
     --boost-install-dir=*)
-      BOOST_INSTALL_DIR=`echo $1 | sed -e 's/--boost-install-dir=//g'`
+      BOOST_INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--boost-install-dir=//g'`)
       ;;
     *)
       break
