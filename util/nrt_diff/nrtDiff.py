@@ -68,7 +68,8 @@ files_included = set(settings.files_included)
 files_excluded = set(settings.files_excluded)
 
 IDENTICAL, MISSING_DATA_BOTH_SIDES, MISSING_DATA_LEFT, MISSING_DATA_RIGHT, \
-           WITHIN_TOLERANCE, DIFFERENT, SAME_LOG_WITH_DIFFERENT_TIMESTAMP, NO_FILES_TO_COMPARE, UNABLE_TO_CHECK = range(9)
+           WITHIN_TOLERANCE, DIFFERENT, SAME_LOG_WITH_DIFFERENT_TIMESTAMP, LOG_DIFFERENT_WITHIN_TOLERANCE, \
+           NO_FILES_TO_COMPARE, UNABLE_TO_CHECK = range(10)
 ##
 # Convert the status into a string
 # @param status : the diff status (as one of the values in the range above)
@@ -92,7 +93,7 @@ def toString (status, is_reference_check):
             right_hand_name = "reference"
         return "some data missing on the " + ("left" if (status == MISSING_DATA_LEFT) else right_hand_name) + " side"
 
-    elif (status == WITHIN_TOLERANCE):
+    elif (status == WITHIN_TOLERANCE) or (status == LOG_DIFFERENT_WITHIN_TOLERANCE):
         return "within tolerance"
 
     elif (status == DIFFERENT):
@@ -113,7 +114,7 @@ def diff_error_statuses (is_reference_check):
 ##
 # Generate a list of diff statuses linked with a warning
 def diff_warn_statuses():
-    return [WITHIN_TOLERANCE]
+    return [WITHIN_TOLERANCE, LOG_DIFFERENT_WITHIN_TOLERANCE]
 
 ##
 # Generate a list of diff statuses linked with no diff process at all
@@ -550,10 +551,13 @@ def DirectoryDiff (directory_left, directory_right, is_reference_check):
                 message_added = str(os.path.relpath(left_path, directory_left) + " does not have the same number of curves (but curves present in both are within tolerance)" + message_added + "\n")
                 return_message_str += message_added
 
-            elif (diff_status == WITHIN_TOLERANCE):
+            elif (diff_status == WITHIN_TOLERANCE) or (diff_status == LOG_DIFFERENT_WITHIN_TOLERANCE):
                 identical_dir = False
                 return_message_str += str(os.path.relpath(left_path, directory_left) + " within error margin" + message_added + "\n")
-                message_added = ""
+                if diff_status == WITHIN_TOLERANCE:
+                    message_added = ""
+                else:
+                    message_added = str(os.path.relpath(left_path, directory_left) + " within error margin\n")
 
             elif (diff_status == DIFFERENT):
                 return_message_str += str(file_name + " DIFFERENT" + message_added + "\n")
@@ -643,7 +647,7 @@ def update_one_log_file(file_path, output_file_path):
 # @param nrt_directory : the base directory of the non-regression test case
 def DirectoryDiffReferenceDataJob (nrt_directory):
     reference_data_directory = os.path.join (nrt_directory, REFERENCE_DATA_DIRECTORY_NAME)
-    status_priority = [UNABLE_TO_CHECK, NO_FILES_TO_COMPARE, MISSING_DATA_BOTH_SIDES, MISSING_DATA_LEFT, DIFFERENT, WITHIN_TOLERANCE, MISSING_DATA_RIGHT, SAME_LOG_WITH_DIFFERENT_TIMESTAMP, IDENTICAL]
+    status_priority = [UNABLE_TO_CHECK, NO_FILES_TO_COMPARE, MISSING_DATA_BOTH_SIDES, MISSING_DATA_LEFT, DIFFERENT, WITHIN_TOLERANCE, LOG_DIFFERENT_WITHIN_TOLERANCE, MISSING_DATA_RIGHT, SAME_LOG_WITH_DIFFERENT_TIMESTAMP, IDENTICAL]
 
     diff_statuses = None
     diff_messages = None
@@ -822,7 +826,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
     #ignore log files in debug mode
     file_extension = os.path.splitext(os.path.basename(path_left))[1]
     file_name = os.path.splitext(os.path.basename(path_left))[0]
-    if os.environ['DYNAWO_BUILD_TYPE'] == "Debug" and file_extension == ".log" and file_name != "timeline" :
+    if os.environ['DYNAWO_BUILD_TYPE'] == "Debug" :
         return (IDENTICAL, "")
 
     identical = filecmp.cmp (path_left, path_right)
@@ -837,12 +841,18 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
             message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
-            nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different = DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separator_right)
-            if (nb_lines_different == 0) and (nb_lines_identical_but_timestamp == 0):
+            nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different_within_tolerance, nb_lines_different = DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separator_right)
+            if (nb_lines_different == 0) and (nb_lines_identical_but_timestamp == 0) and (nb_lines_different_within_tolerance == 0):
                 return_value = IDENTICAL
-            elif (nb_lines_different == 0) and (nb_lines_identical_but_timestamp > 0):
+            elif (nb_lines_different == 0) and (nb_lines_identical_but_timestamp > 0) and (nb_lines_different_within_tolerance == 0):
                 return_value = SAME_LOG_WITH_DIFFERENT_TIMESTAMP
                 message += str (nb_lines_compared) + " lines compared"
+            elif (nb_lines_different == 0) and (nb_lines_different_within_tolerance > 0):
+                return_value = LOG_DIFFERENT_WITHIN_TOLERANCE
+                message += str (nb_lines_different_within_tolerance) + " difference"
+                if (nb_lines_different_within_tolerance > 1):
+                    message += "s"
+                message += " within tolerance"
             elif (nb_lines_different > 0):
                 return_value = DIFFERENT
                 message += str (nb_lines_different) + " difference"
@@ -922,6 +932,9 @@ def LineToCompare (line):
     if (re.search(NumLinePattern, line) is not None):
         return False
 
+    if "number of" not in line:
+        return False
+
     # everything went fine => the line should be compared
     return True
 
@@ -940,6 +953,26 @@ def LineMessage (line, separator):
     else:
         return line [sub_line.rfind (separator) + 1 : ]
 
+## Compare the statistics line ("number of ... = ") with a tolerance
+# @param line_left : the raw line to study as a string from left file
+# @param line_right : the raw line to study as a string from right file
+# @return : IDENTICAL if lines are equals, WITHIN_TOLERANCE if the comparison is within tolerance, DIFFERENT otherwise
+def StatisticLineCloseEnough (line_left, line_right):
+    tolerance = 2
+    if line_left == line_right:
+        return IDENTICAL
+
+    value_pattern = re.compile(r'.*number of [\w ]*= (?P<value>[0-9]+)')
+    match_left = re.search(value_pattern, line_left)
+    match_right = re.search(value_pattern, line_right)
+    if match_left is not None and match_right is not None:
+        value_left = int(match_left.group("value"))
+        value_right = int(match_right.group("value"))
+        if abs(value_left - value_right) <= tolerance:
+            return WITHIN_TOLERANCE
+    return DIFFERENT
+
+
 ##
 # Check whether two log files are close enough
 # @param path_left : the absolute path to the left-side file
@@ -954,6 +987,7 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
     nb_lines_identical = 0
     nb_lines_identical_but_timestamp = 0
     nb_lines_different = 0
+    nb_lines_different_within_tolerance = 0
     for line_left, line_right in zip(file_left, file_right):
         # skip some lines when needed
         if (not LineToCompare (line_left)) and (not LineToCompare (line_right)):
@@ -964,16 +998,18 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
             if (line_left == line_right):
                 nb_lines_identical += 1
             else:
-                if "number of root functions evaluations" in line_left \
-                or "number of Residual evaluations" in line_left \
-                or "number of Nonlinear iterations" in line_left:
-                    continue
                 line_left_message = LineMessage (line_left, logs_separator_left)
                 line_right_message = LineMessage (line_right, logs_separator_right)
                 if (line_left_message == line_right_message):
                     nb_lines_identical_but_timestamp += 1
                 else:
-                    nb_lines_different += 1
+                    diff = StatisticLineCloseEnough (line_left_message, line_right_message)
+                    if diff == DIFFERENT:
+                        nb_lines_different += 1
+                    elif diff == WITHIN_TOLERANCE:
+                        nb_lines_different_within_tolerance += 1
+                    else:
+                        assert(0)
         else: # one line to compare, the other line not to compare => add one difference
             nb_lines_compared += 1
             nb_lines_different += 1
@@ -981,7 +1017,7 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
     file_left.close()
     file_right.close()
 
-    return (nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different)
+    return (nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different_within_tolerance, nb_lines_different)
 
 
 # Check whether two csv files are close enough
