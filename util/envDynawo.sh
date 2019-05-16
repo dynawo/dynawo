@@ -876,7 +876,7 @@ install_launcher() {
 # Compile a modelica model
 compile_Modelica_Model() {
   if ! is_launcher_installed; then
-    install_launcher || error_exit "Error during launcher installation."
+    (install_launcher) || error_exit "Error during launcher installation."
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --compile $@ || error_exit "Error during compilation of a Modelica Model."
 }
@@ -1320,7 +1320,7 @@ flat_model() {
 
 version() {
   if ! is_launcher_installed; then
-    install_launcher > /dev/null 2>&1 || error_exit
+    (install_launcher > /dev/null 2>&1) || error_exit "Error during launcher installation."
   fi
   $DYNAWO_INSTALL_DIR/bin/launcher --version
   RETURN_CODE=$?
@@ -1388,7 +1388,7 @@ find_include_system_path() {
 }
 
 deploy_dynawo() {
-  DYNAWO_VERSION=$(version)
+  DYNAWO_VERSION=$(version) || error_exit "Error with version."
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
   rm -rf $DYNAWO_DEPLOY_DIR
 
