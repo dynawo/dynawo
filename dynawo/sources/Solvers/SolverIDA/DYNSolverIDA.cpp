@@ -407,7 +407,7 @@ SolverIDA::calculateIC() {
   // loops until a stable state is found
   bool change(true);
   int counter = 0;
-  solverKIN_->init(model_);
+  solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 10, 0, 30, 0);
   do {
     // call to solver KIN in order to find the new (adequate) algebraic variables's values
     solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
@@ -754,18 +754,22 @@ SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
         if (vYId_[i] != DYN::DIFFERENTIAL)
           vYp_[i] = 0;
 
-      solverKIN_->init(model_);
+      // During the algebraic equation restoration, the system could have moved a lot from its previous state.
+      // J updates and preconditioner calls must be done on a regular basis.
+      solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 1, 1, 30, 0);
       solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
       solverKIN_->solve();
       solverKIN_->getValues(vYy_, vYp_);
       solverKIN_->clean();
 
-      // recomputation of differential variables' values
+      // Recomputation of differential variables' values
       for (unsigned int i = 0; i < vYId_.size(); i++)
         if (vYId_[i] != DYN::DIFFERENTIAL)
           vYp_[i] = 0;
 
-      solverKIN_->init(model_, SolverKIN::KIN_YPRIM);
+      // During the algebraic equation restoration, the system could have moved a lot from its previous state.
+      // J updates and preconditioner calls must be done on a regular basis.
+      solverKIN_->init(model_, SolverKIN::KIN_YPRIM, 1e-5, 1e-5, 30, 1, 1, 30, 0);
       solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
       solverKIN_->solve();
       solverKIN_->getValues(vYy_, vYp_);
