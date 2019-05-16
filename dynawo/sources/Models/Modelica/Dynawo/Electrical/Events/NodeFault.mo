@@ -22,7 +22,6 @@ model NodeFault "Node fault which lasts from tBegin to tEnd"
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   Connectors.ACPower terminal;
-  Connectors.BPin nodeFault (value(start = false)) "True when the fault is ongoing, false otherwise";
 
   parameter SIunits.Resistance RPu  "Fault resistance in p.u (base SnRef)";
   parameter SIunits.Reactance XPu  "Fault reactance in p.u (base SnRef)";
@@ -35,15 +34,13 @@ protected
 equation
     when time >= tEnd then
       Timeline.logEvent1(TimelineKeys.NodeFaultEnd);
-      nodeFault.value = false;
     elsewhen time >= tBegin then
       Timeline.logEvent1(TimelineKeys.NodeFaultBegin);
-      nodeFault.value = true;
     end when;
 
-    if nodeFault.value then
-      terminal.V = ZPu * terminal.i;
-    else
+    if time < tBegin or time >= tEnd then
       terminal.i = Complex(0);
+    else
+      terminal.V = ZPu * terminal.i;
     end if;
 end NodeFault;

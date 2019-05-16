@@ -144,18 +144,6 @@ ModelBusContainer::initDerivatives() {
     (*itModelBus)->initDerivatives();
 }
 
-bool
-ModelBusContainer::evalNodeFault() {
-  bool nodeFault = false;
-  vector<shared_ptr<ModelBus> >::iterator itModelBus;
-  for (itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    if ((*itModelBus)->evalNodeFault())
-      nodeFault = true;
-  }
-
-  return nodeFault;
-}
-
 ModelBus::ModelBus(const shared_ptr<BusInterface>& bus) :
 Impl(bus->getID()) {
   neighbors_.clear();
@@ -166,10 +154,9 @@ Impl(bus->getID()) {
   iiConnection_ = 0.0;
   ir0_ = 0.0;
   ii0_ = 0.0;
-  nodeFault_ = false;
+  switchOff_ = false;
   stateUmax_ = false;
   stateUmin_ = false;
-  switchOff_ = false;
   hasConnection_ = bus->hasConnection();
 
   derivatives_.reset(new BusDerivatives());
@@ -218,7 +205,7 @@ ModelBus::initSize() {
     sizeY_ = 2;
     if (hasConnection_)
       sizeY_ = 4;
-    sizeZ_ = 4;  // numCC, switchOff, state, nodeFault
+    sizeZ_ = 3;  // numCC, switchOff, state
     sizeG_ = 4;  // U> Umax or U< Umin
     sizeMode_ = 0;
     sizeCalculatedVar_ = nbCalculatedVariables_;
@@ -457,7 +444,6 @@ ModelBus::getY0() {
     z_[0] = numSubNetwork();
     z_[1] = fromNativeBool(switchOff_);
     z_[2] = connectionState_;
-    z_[3] = fromNativeBool(nodeFault_);
   }
 }
 
@@ -480,7 +466,6 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState(id_ + "_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_nodeFault_value", BOOLEAN));
 
   for (unsigned int i = 0; i < busBarSectionNames_.size(); ++i) {
     std::string busBarSectionId = busBarSectionNames_[i];
@@ -501,7 +486,6 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_numcc_value", id_ + "_numcc_value"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_switchOff_value", id_ + "_switchOff_value"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_state_value", id_ + "_state_value"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_nodeFault_value", id_ + "_nodeFault_value"));
   }
 }
 
@@ -533,7 +517,6 @@ ModelBus::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_switchOff_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_nodeFault_value", BOOLEAN));
 }
 
 void
@@ -606,11 +589,6 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
   name = id + string("_state");
   addElement(name, Element::STRUCTURE, elements, mapElement);
   addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== Node fault ======
-  name = id + string("_nodeFault");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
 }
 
 void
@@ -618,7 +596,6 @@ ModelBus::evalZ(const double& /*t*/) {
   z_[0] = numSubNetwork();
   z_[1] = fromNativeBool(switchOff_);
   z_[2] = connectionState_;
-  z_[3] = fromNativeBool(nodeFault_);
 
   if (g_[0] == ROOT_UP && !stateUmax_ && !switchOff_) {
     network_->addConstraint(id_, true, DYNConstraint(USupUmax));
@@ -830,15 +807,6 @@ ModelBus::evalState(const double& /*time*/) {
     state = NetworkComponent::TOPO_CHANGE;
   }
   return state;
-}
-
-bool
-ModelBus::evalNodeFault() {
-  if (z_[3] != fromNativeBool(nodeFault_)) {
-    nodeFault_ = toNativeBool(z_[3]);
-    return true;
-  }
-  return false;
 }
 
 void
