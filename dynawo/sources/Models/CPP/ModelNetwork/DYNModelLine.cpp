@@ -919,7 +919,20 @@ ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
   double ui1 = 0.;
   double ur2 = 0.;
   double ui2 = 0.;
-  if (numCalculatedVar == u1Num_ || numCalculatedVar == u2Num_) {
+
+  switch (numCalculatedVar) {
+  case i1Num_:
+  case iS1ToS2Side1Num_:
+  case iS2ToS1Side1Num_:
+  case iSide1Num_:
+  case i2Num_:
+  case iS2ToS1Side2Num_:
+  case iS1ToS2Side2Num_:
+  case iSide2Num_:
+  case p1Num_:
+  case p2Num_:
+  case q1Num_:
+  case q2Num_: {
     // in the y vector, we have access only at variables declared in getDefJCalculatedVarI
     switch (knownBus_) {
       case BUS1_BUS2: {
@@ -940,6 +953,14 @@ ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
         break;
       }
     }
+    break;
+  }
+  case u1Num_:
+  case u2Num_:
+  case lineStateNum_:
+    break;
+  default:
+    throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
   double Ir1 = ir1(ur1, ui1, ur2, ui2);
   double Ii1 = ii1(ur1, ui1, ur2, ui2);
@@ -1185,7 +1206,20 @@ ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
   double ui1 = 0.;
   double ur2 = 0.;
   double ui2 = 0.;
-  if (numCalculatedVar == u1Num_ || numCalculatedVar == u2Num_) {
+
+  switch (numCalculatedVar) {
+  case i1Num_:
+  case iS1ToS2Side1Num_:
+  case iS2ToS1Side1Num_:
+  case iSide1Num_:
+  case i2Num_:
+  case iS2ToS1Side2Num_:
+  case iS1ToS2Side2Num_:
+  case iSide2Num_:
+  case p1Num_:
+  case p2Num_:
+  case q1Num_:
+  case q2Num_: {
     // in the y vector, we have access only at variables declared in getDefJCalculatedVarI
     switch (knownBus_) {
       case BUS1_BUS2: {
@@ -1206,6 +1240,14 @@ ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
         break;
       }
     }
+    break;
+  }
+  case u1Num_:
+  case u2Num_:
+  case lineStateNum_:
+    break;
+  default:
+    throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 
   double Ir1 = ir1(ur1, ui1, ur2, ui2);
