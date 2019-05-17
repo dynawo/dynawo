@@ -559,7 +559,7 @@ DataInterfaceIIDM::importTwoWindingsTransformer(IIDM::Transformer2Windings & two
   }
   // add ratio tapChanger and steps if exists
   if (twoWTfo.has_ratioTapChanger()) {
-    shared_ptr<RatioTapChangerInterfaceIIDM> tapChanger(new RatioTapChangerInterfaceIIDM(twoWTfo.ratioTapChanger()));
+    shared_ptr<RatioTapChangerInterfaceIIDM> tapChanger(new RatioTapChangerInterfaceIIDM(twoWTfo.ratioTapChanger(), twoWTfo.id()));
     IIDM::RatioTapChanger::const_iterator itStep = twoWTfo.ratioTapChanger().begin();
     for (; itStep != twoWTfo.ratioTapChanger().end(); ++itStep) {
       shared_ptr<StepInterfaceIIDM> step(new StepInterfaceIIDM(*itStep));

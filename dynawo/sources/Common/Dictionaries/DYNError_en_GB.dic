@@ -200,6 +200,9 @@ ConvertersModeError         =             hvdc id '%1%' converters control mode 
 WrongIIDMDataForHVDC        =             wrong iidm data for hvdc line %1% (converter missing or wrong id)
 NoExtension                 =             access to attribute %1% impossible because %2% extension is not loaded
 RegulationModeNotInIIDM     =             control mode calculated by the dynamic simulation (%1%) for component %2% does not exist in the static format (iidm)
+MissingTargetVInRatioTapChanger =         ratio tap changer of %1% has the attribute 'regulating' set to true but no targetV attribute
+MissingTerminalRefInRatioTapChanger =     ratio tap changer of %1% has the attribute 'regulating' set to true but no terminalRef
+MissingTerminalRefSideInRatioTapChanger = ratio tap changer of %1% has the attribute 'regulating' set to true but no side defined in its terminalRef
 //-------------- NUMERICAL_ERROR -------------------------------------
 NumericalErrorFunction      =             A numerical error occurs during the call of the function '%1%'
 //-------------- API_ERROR -------------------------------------------

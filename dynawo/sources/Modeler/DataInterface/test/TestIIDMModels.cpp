@@ -725,4 +725,155 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   ASSERT_NO_THROW(data->updateFromModel(filterForCriteriaCheck));
 }
 
+TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTargetV) {
+  IIDM::builders::NetworkBuilder nb;
+  IIDM::Network network = nb.build("MyNetwork");
+  IIDM::connection_status_t cs = {true /*connected*/};
+  IIDM::Port p1("MyBus", cs), p2("MyBus", cs), p3("MyBus", cs);
+  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2),
+      c3("MyVoltageLevel", p3, IIDM::side_3);
+
+  IIDM::builders::SubstationBuilder ssb;
+  IIDM::Substation ss = ssb.build("MySubStation");
+
+  IIDM::builders::BusBuilder bb;
+  bb.v(150);
+  bb.angle(1.5);
+  IIDM::Bus bus = bb.build("MyBus");
+
+  IIDM::builders::VoltageLevelBuilder vlb;
+  vlb.mode(IIDM::VoltageLevel::bus_breaker);
+  vlb.nominalV(150.);
+  IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
+  vl.add(bus);
+  ss.add(vl);
+
+  IIDM::builders::Transformer2WindingsBuilder t2Wb;
+  IIDM::Transformer2Windings t2W = t2Wb.build("MyTransformer2Winding");
+  IIDM::RatioTapChanger rtp(0, 0, true);
+  rtp.regulating(true);
+  t2W.ratioTapChanger(rtp);
+  ss.add(t2W, c1, c2);
+  network.add(ss);
+
+  shared_ptr<DataInterface> data;
+  DataInterfaceIIDM ptr(network);
+  ASSERT_THROW_DYNAWO(ptr.initFromIIDM(), Error::STATIC_DATA, KeyError_t::MissingTargetVInRatioTapChanger);
+}
+
+TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTerminalRef) {
+  IIDM::builders::NetworkBuilder nb;
+  IIDM::Network network = nb.build("MyNetwork");
+  IIDM::connection_status_t cs = {true /*connected*/};
+  IIDM::Port p1("MyBus", cs), p2("MyBus", cs), p3("MyBus", cs);
+  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2),
+      c3("MyVoltageLevel", p3, IIDM::side_3);
+
+  IIDM::builders::SubstationBuilder ssb;
+  IIDM::Substation ss = ssb.build("MySubStation");
+
+  IIDM::builders::BusBuilder bb;
+  bb.v(150);
+  bb.angle(1.5);
+  IIDM::Bus bus = bb.build("MyBus");
+
+  IIDM::builders::VoltageLevelBuilder vlb;
+  vlb.mode(IIDM::VoltageLevel::bus_breaker);
+  vlb.nominalV(150.);
+  IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
+  vl.add(bus);
+  ss.add(vl);
+
+  IIDM::builders::Transformer2WindingsBuilder t2Wb;
+  IIDM::Transformer2Windings t2W = t2Wb.build("MyTransformer2Winding");
+  IIDM::RatioTapChanger rtp(0, 0, true);
+  rtp.regulating(true);
+  rtp.targetV(20.);
+  t2W.ratioTapChanger(rtp);
+  ss.add(t2W, c1, c2);
+  network.add(ss);
+
+  shared_ptr<DataInterface> data;
+  DataInterfaceIIDM ptr(network);
+  ASSERT_THROW_DYNAWO(ptr.initFromIIDM(), Error::STATIC_DATA, KeyError_t::MissingTerminalRefInRatioTapChanger);
+}
+
+TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTerminalRefSide) {
+  IIDM::builders::NetworkBuilder nb;
+  IIDM::Network network = nb.build("MyNetwork");
+  IIDM::connection_status_t cs = {true /*connected*/};
+  IIDM::Port p1("MyBus", cs), p2("MyBus", cs), p3("MyBus", cs);
+  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2),
+      c3("MyVoltageLevel", p3, IIDM::side_3);
+
+  IIDM::builders::SubstationBuilder ssb;
+  IIDM::Substation ss = ssb.build("MySubStation");
+
+  IIDM::builders::BusBuilder bb;
+  bb.v(150);
+  bb.angle(1.5);
+  IIDM::Bus bus = bb.build("MyBus");
+
+  IIDM::builders::VoltageLevelBuilder vlb;
+  vlb.mode(IIDM::VoltageLevel::bus_breaker);
+  vlb.nominalV(150.);
+  IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
+  vl.add(bus);
+  ss.add(vl);
+
+  IIDM::builders::Transformer2WindingsBuilder t2Wb;
+  IIDM::Transformer2Windings t2W = t2Wb.build("MyTransformer2Winding");
+  IIDM::RatioTapChanger rtp(0, 0, true);
+  rtp.regulating(true);
+  rtp.targetV(20.);
+  IIDM::TerminalReference tr("MyTerminalRef");
+  rtp.terminalReference(tr);
+  t2W.ratioTapChanger(rtp);
+  ss.add(t2W, c1, c2);
+  network.add(ss);
+
+  shared_ptr<DataInterface> data;
+  DataInterfaceIIDM ptr(network);
+  ASSERT_THROW_DYNAWO(ptr.initFromIIDM(), Error::STATIC_DATA, KeyError_t::MissingTerminalRefSideInRatioTapChanger);
+}
+
+TEST(DataInterfaceIIDMTest, testRegulatingRatioTapChanger) {
+  IIDM::builders::NetworkBuilder nb;
+  IIDM::Network network = nb.build("MyNetwork");
+  IIDM::connection_status_t cs = {true /*connected*/};
+  IIDM::Port p1("MyBus", cs), p2("MyBus", cs), p3("MyBus", cs);
+  IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_2),
+      c3("MyVoltageLevel", p3, IIDM::side_3);
+
+  IIDM::builders::SubstationBuilder ssb;
+  IIDM::Substation ss = ssb.build("MySubStation");
+
+  IIDM::builders::BusBuilder bb;
+  bb.v(150);
+  bb.angle(1.5);
+  IIDM::Bus bus = bb.build("MyBus");
+
+  IIDM::builders::VoltageLevelBuilder vlb;
+  vlb.mode(IIDM::VoltageLevel::bus_breaker);
+  vlb.nominalV(150.);
+  IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
+  vl.add(bus);
+  ss.add(vl);
+
+  IIDM::builders::Transformer2WindingsBuilder t2Wb;
+  IIDM::Transformer2Windings t2W = t2Wb.build("MyTransformer2Winding");
+  IIDM::RatioTapChanger rtp(0, 0, true);
+  rtp.regulating(true);
+  rtp.targetV(20.);
+  IIDM::TerminalReference tr("MyTerminalRef", IIDM::side_1);
+  rtp.terminalReference(tr);
+  t2W.ratioTapChanger(rtp);
+  ss.add(t2W, c1, c2);
+  network.add(ss);
+
+  shared_ptr<DataInterface> data;
+  DataInterfaceIIDM ptr(network);
+  ASSERT_NO_THROW(ptr.initFromIIDM());
+}
+
 }  // namespace DYN
