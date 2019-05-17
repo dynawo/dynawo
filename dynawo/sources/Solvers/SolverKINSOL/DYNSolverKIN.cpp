@@ -84,7 +84,8 @@ void SolverKIN::clean() {
 }
 
 void
-SolverKIN::init(const shared_ptr<Model>& model, modeKin_t mode) {
+SolverKIN::init(const shared_ptr<Model>& model, modeKin_t mode, double scsteptol, double fnormtol,
+                int mxiter, int nnz, int msbset, int mxnstepin, int printfl) {
   // (1) Arguments
   // --------------
   clean();
@@ -132,8 +133,6 @@ SolverKIN::init(const shared_ptr<Model>& model, modeKin_t mode) {
 
   // (6) KINtolerances
   // -------------------
-  double scsteptol = 1e-5;
-  double fnormtol = 1e-5;
   flag = KINSetFuncNormTol(KINMem_, fnormtol);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetFuncNormTol");
@@ -154,14 +153,24 @@ SolverKIN::init(const shared_ptr<Model>& model, modeKin_t mode) {
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetErrHandlerFn");
 
-  // Specify newton step
-  flag = KINSetMaxNewtonStep(KINMem_, 30);
+  // Specify the maximum number of nonlinear iterations allowed
+  flag = KINSetNumMaxIters(KINMem_, mxiter);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNumMaxIters");
+
+  // Specify the maximum number of iteration without preconditionner call (passing 0 means keeping the KINSOL default value, currently 10)
+  flag = KINSetMaxSetupCalls(KINMem_, msbset);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetMaxSetupCalls");
+
+  // Specify the maximum allowable scaled step length
+  flag = KINSetMaxNewtonStep(KINMem_, mxnstepin);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetMaxNewtonStep");
 
   // (8) Solver choice
   // -------------------
-  M_ = SUNSparseMatrix(nbF_, nbF_, 10., CSR_MAT);
+  M_ = SUNSparseMatrix(nbF_, nbF_, nnz, CSR_MAT);
   if (M_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
 
@@ -189,7 +198,7 @@ SolverKIN::init(const shared_ptr<Model>& model, modeKin_t mode) {
 
   // (10) Options for error/infos messages
   // -------------------------------------
-  flag = KINSetPrintLevel(KINMem_, 0);
+  flag = KINSetPrintLevel(KINMem_, printfl);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetPrintLevel");
 
@@ -197,12 +206,6 @@ SolverKIN::init(const shared_ptr<Model>& model, modeKin_t mode) {
   flag = KINSetInfoHandlerFn(KINMem_, infoHandlerFn, NULL);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetInfoHandlerFn");
-
-  // Specify the maximum number of iteration without preconditionner call
-  // Passing 0 means default ie 10 iterations
-  flag = KINSetMaxSetupCalls(KINMem_, 0);
-  if (flag < 0)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetMaxSetupCalls");
 
   // analyse variables to find differential variables and differential equation
   // depending of the kind of the problem to solve, keep differential variables/equation or algebraic variables/equation

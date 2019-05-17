@@ -58,8 +58,16 @@ class SolverKIN : private boost::noncopyable{
    *
    * @param model the model to simulate
    * @param mode mode of the solver (i.e algebraic equations or derivative)
+   * @param scsteptol scaled step length tolerance
+   * @param fnormtol stopping tolerance on L2-norm of function value
+   * @param mxiter maximum number of nonlinear iterations
+   * @param nnz maximum number of nonlinear iterations that may be performed between updating the Jacobian
+   * @param msbset maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+   * @param mxnstepin maximum allowable scaled step length
+   * @param printfl level of verbosity of output
    */
-  void init(const boost::shared_ptr<Model>& model, modeKin_t mode = KIN_NORMAL);
+  void init(const boost::shared_ptr<Model>& model, modeKin_t mode, double scsteptol, double fnormtol,
+            int mxiter, int nnz, int msbset, int mxnstepin, int printfl);
 
   /**
    * @brief solve the equations of F(u) = 0 to find the new value of u
