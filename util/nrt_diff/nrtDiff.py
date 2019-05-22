@@ -958,7 +958,7 @@ def LineMessage (line, separator):
 # @param line_right : the raw line to study as a string from right file
 # @return : IDENTICAL if lines are equals, WITHIN_TOLERANCE if the comparison is within tolerance, DIFFERENT otherwise
 def StatisticLineCloseEnough (line_left, line_right):
-    tolerance = 2
+    percentage_tolerance = 3
     if line_left == line_right:
         return IDENTICAL
 
@@ -968,7 +968,8 @@ def StatisticLineCloseEnough (line_left, line_right):
     if match_left is not None and match_right is not None:
         value_left = int(match_left.group("value"))
         value_right = int(match_right.group("value"))
-        if abs(value_left - value_right) <= tolerance:
+        threshold = min(value_left, value_right)*percentage_tolerance/100
+        if abs(value_left - value_right) <= threshold:
             return WITHIN_TOLERANCE
     return DIFFERENT
 
