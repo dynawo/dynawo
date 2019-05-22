@@ -1804,7 +1804,7 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
       currentLimits2_->setMaxTimeOperation(maxTimeOperation);
   }
   try {
-    if (modelRatioChanger_) {
+    if (modelRatioChanger_ || modelPhaseChanger_) {
       // model tap changer parameter
       vector<string> ids;
       ids.push_back(id_);
@@ -1822,15 +1822,26 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
       const bool bus2HV = (vNom2_ >= HV_THRESHOLD && vNom2_ < VHV_THRESHOLD);
 
       // set modelTapChanger parameters
-      if ((bus1VHV && bus2HV) || (bus2VHV && bus1HV)) {
-        modelRatioChanger_->setTFirst(t1stTHT);
-        modelRatioChanger_->setTNext(tNextTHT);
-      } else {
-        modelRatioChanger_->setTFirst(t1stHT);
-        modelRatioChanger_->setTNext(tNextHT);
+      if (modelRatioChanger_) {
+        if ((bus1VHV && bus2HV) || (bus2VHV && bus1HV)) {
+          modelRatioChanger_->setTFirst(t1stTHT);
+          modelRatioChanger_->setTNext(tNextTHT);
+        } else {
+          modelRatioChanger_->setTFirst(t1stHT);
+          modelRatioChanger_->setTNext(tNextHT);
+        }
+        if (modelBusMonitored_)
+          modelRatioChanger_->setTolV(tolV * modelBusMonitored_->getVNom());
       }
-      if (modelBusMonitored_)
-        modelRatioChanger_->setTolV(tolV * modelBusMonitored_->getVNom());
+      if (modelPhaseChanger_) {
+        if ((bus1VHV && bus2HV) || (bus2VHV && bus1HV)) {
+          modelPhaseChanger_->setTFirst(t1stTHT);
+          modelPhaseChanger_->setTNext(tNextTHT);
+        } else {
+          modelPhaseChanger_->setTFirst(t1stHT);
+          modelPhaseChanger_->setTNext(tNextHT);
+        }
+      }
     }
   } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
