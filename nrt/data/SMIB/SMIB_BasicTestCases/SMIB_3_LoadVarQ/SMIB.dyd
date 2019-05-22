@@ -30,7 +30,7 @@
   <!-- OmegaRef -->
   <dyn:blackBoxModel id="OmegaRef" lib="SetPoint.so" parFile="SMIB.par" parId="7"/>
   <!-- Load Variation -->
-  <dyn:blackBoxModel id="LoadVar" lib="EventSetPointLoad.so" parFile="event.par" parId="1"/>
+  <dyn:blackBoxModel id="LoadVar" lib="EventSetPointDoubleReal.so" parFile="event.par" parId="1"/>
   <!-- Connections -->
   <dyn:connect id1="Network" var1="tfo_terminal2" id2="SM" var2="generator_terminal"/>
   <dyn:connect id1="Network" var1="tfo_terminal2" id2="Load" var2="load_terminal"/>

@@ -29,8 +29,8 @@
   <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindings.so" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM"/>
   <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindings.so" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef.so" parFile="IEEE14.par" parId="17"/>
-  <dyn:blackBoxModel id="LOADVAR_LOAD2" lib="EventSetPointLoad.so" parFile="IEEE14.par" parId="19"/>
-  <dyn:blackBoxModel id="LOADVAR_LOAD3" lib="EventSetPointLoad.so" parFile="IEEE14.par" parId="20"/>
+  <dyn:blackBoxModel id="LOADVAR_LOAD2" lib="EventSetPointDoubleReal.so" parFile="IEEE14.par" parId="19"/>
+  <dyn:blackBoxModel id="LOADVAR_LOAD3" lib="EventSetPointDoubleReal.so" parFile="IEEE14.par" parId="20"/>
   <dyn:blackBoxModel id="UVA" lib="UnderVoltageAutomaton.so" parFile="IEEE14.par" parId="21"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>

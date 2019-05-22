@@ -29,7 +29,7 @@
   <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM"/>
   <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef.so" parFile="IEEE14.par" parId="17"/>
-  <dyn:blackBoxModel id="QREFPU_LOAD2" lib="EventSetPointLoad.so" parFile="IEEE14.par" parId="19"/>
+  <dyn:blackBoxModel id="QREFPU_LOAD2" lib="EventSetPointDoubleReal.so" parFile="IEEE14.par" parId="19"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_numcc"/>

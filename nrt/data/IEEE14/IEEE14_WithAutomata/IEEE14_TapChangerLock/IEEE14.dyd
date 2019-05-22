@@ -29,8 +29,8 @@
   <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM"/>
   <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef.so" parFile="IEEE14.par" parId="17"/>
-  <dyn:blackBoxModel id="LOADVAR_LOAD2" lib="EventSetPointLoad.so" parFile="IEEE14.par" parId="19"/>
-  <dyn:blackBoxModel id="LOADVAR_LOAD3" lib="EventSetPointLoad.so" parFile="IEEE14.par" parId="20"/>
+  <dyn:blackBoxModel id="LOADVAR_LOAD2" lib="EventSetPointDoubleReal.so" parFile="IEEE14.par" parId="19"/>
+  <dyn:blackBoxModel id="LOADVAR_LOAD3" lib="EventSetPointDoubleReal.so" parFile="IEEE14.par" parId="20"/>
   <dyn:blackBoxModel id="TAP_CHANGER_LOAD_2" lib="TapChangerAutomaton.so" parFile="IEEE14.par" parId="21"/>
   <dyn:blackBoxModel id="TAP_CHANGER_LOAD_3" lib="TapChangerAutomaton.so" parFile="IEEE14.par" parId="21"/>
   <dyn:blackBoxModel id="TAP_CHANGER_LOCK" lib="TapChangerBlockingArea.so" parFile="IEEE14.par" parId="22"/>
