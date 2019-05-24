@@ -23,6 +23,7 @@ TerminateInModel            =             simulation interrupted by model %1% : 
 SignalReceived              =             simulation interrupted by external signal
 CriteriaNotChecked          =             one simulation's criteria is not respected
 OpenFileFailed              =             failed to open file %1%
+NoJobDefined                =             no job found in the .jobs file
 //---------------- SOLVER -----------------------------------------
 SolverSubModelYvsF          =             model's initialisation %1% :  Variables number %2% not equals to the equations number %3%
 SolverYvsF                  =             variables number %1% not equals to the equations number %2%
