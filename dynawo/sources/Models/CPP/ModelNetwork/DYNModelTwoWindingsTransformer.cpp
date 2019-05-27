@@ -1796,7 +1796,7 @@ void
 ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   // current limits parameter
   bool success = false;
-  double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "TFO_currentLimit_maxTimeOperation", success);
+  double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "transformer_currentLimit_maxTimeOperation", success);
   if (success) {
     if (currentLimits1_)
       currentLimits1_->setMaxTimeOperation(maxTimeOperation);
@@ -1808,7 +1808,7 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
       // model tap changer parameter
       vector<string> ids;
       ids.push_back(id_);
-      ids.push_back("TFO");
+      ids.push_back("transformer");
 
       double t1stTHT = getParameterDynamic<double>(params, "t1st_THT", ids);
       double tNextTHT = getParameterDynamic<double>(params, "tNext_THT", ids);
@@ -1852,12 +1852,12 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
 
 void
 ModelTwoWindingsTransformer::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("TFO_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("TFO_t1st_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("TFO_tNext_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("TFO_t1st_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("TFO_tNext_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("TFO_tolV", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_t1st_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_tNext_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_t1st_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_tNext_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_tolV", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 }  // namespace DYN
