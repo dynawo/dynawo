@@ -255,14 +255,14 @@ ModelShuntCompensator::setSubModelParameters(const boost::unordered_map<std::str
       case CAPACITOR: {
         vector<string> ids;
         ids.push_back(id_);
-        ids.push_back("CAPACITOR");
+        ids.push_back("capacitor");
         noReclosingDelay_ = getParameterDynamic<double>(params, "no_reclosing_delay", ids);
         break;
       }
       case REACTANCE: {
         vector<string> ids;
         ids.push_back(id_);
-        ids.push_back("REACTANCE");
+        ids.push_back("reactance");
         noReclosingDelay_ = getParameterDynamic<double>(params, "no_reclosing_delay", ids);
         break;
       }
@@ -275,8 +275,8 @@ ModelShuntCompensator::setSubModelParameters(const boost::unordered_map<std::str
 
 void
 ModelShuntCompensator::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("CAPACITOR_no_reclosing_delay", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("REACTANCE_no_reclosing_delay", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("capacitor_no_reclosing_delay", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("reactance_no_reclosing_delay", DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void

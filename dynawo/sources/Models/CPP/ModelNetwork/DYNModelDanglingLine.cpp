@@ -824,14 +824,14 @@ ModelDanglingLine::evalState(const double& /*time*/) {
 void
 ModelDanglingLine::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
-  double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "DANGLING_LINE_currentLimit_maxTimeOperation", success);
+  double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "dangling_line_currentLimit_maxTimeOperation", success);
   if (success && currentLimits_)
     currentLimits_->setMaxTimeOperation(maxTimeOperation);
 }
 
 void
 ModelDanglingLine::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("DANGLING_LINE_currentLimit_maxTimeOperation", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("dangling_line_currentLimit_maxTimeOperation", DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void
