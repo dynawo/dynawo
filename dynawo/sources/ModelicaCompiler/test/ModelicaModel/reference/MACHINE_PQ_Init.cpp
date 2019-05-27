@@ -263,10 +263,10 @@ void ModelMACHINE_PQ_Init::defineVariables(std::vector<boost::shared_ptr<Variabl
 
 void ModelMACHINE_PQ_Init::defineParameters(std::vector<ParameterModeler>& parameters)
 {
-  parameters.push_back(ParameterModeler("MACHINE_P0Pu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_Q0Pu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_U0Pu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_UPhase0", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_P0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_Q0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_UPhase0", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 #ifdef _ADEPT_

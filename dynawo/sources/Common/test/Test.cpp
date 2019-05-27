@@ -33,16 +33,16 @@ namespace DYN {
 
 TEST(CommonTest, testCommunVarC) {
   // typeVarC2Str
-  ASSERT_EQ(typeVarC2Str(DOUBLE), "DOUBLE");
-  ASSERT_EQ(typeVarC2Str(STRING), "STRING");
-  ASSERT_EQ(typeVarC2Str(INT), "INT");
-  ASSERT_EQ(typeVarC2Str(BOOL), "BOOL");
+  ASSERT_EQ(typeVarC2Str(VAR_TYPE_DOUBLE), "DOUBLE");
+  ASSERT_EQ(typeVarC2Str(VAR_TYPE_STRING), "STRING");
+  ASSERT_EQ(typeVarC2Str(VAR_TYPE_INT), "INT");
+  ASSERT_EQ(typeVarC2Str(VAR_TYPE_BOOL), "BOOL");
 
   // str2TypeVarC
-  ASSERT_EQ(str2TypeVarC("DOUBLE"), DOUBLE);
-  ASSERT_EQ(str2TypeVarC("INT"), INT);
-  ASSERT_EQ(str2TypeVarC("BOOL"), BOOL);
-  ASSERT_EQ(str2TypeVarC("STRING"), STRING);
+  ASSERT_EQ(str2TypeVarC("DOUBLE"), VAR_TYPE_DOUBLE);
+  ASSERT_EQ(str2TypeVarC("INT"), VAR_TYPE_INT);
+  ASSERT_EQ(str2TypeVarC("BOOL"), VAR_TYPE_BOOL);
+  ASSERT_EQ(str2TypeVarC("STRING"), VAR_TYPE_STRING);
 
   ASSERT_THROW_DYNAWO(str2TypeVarC("ABCDEF"), Error::MODELER, KeyError_t::TypeVarCUnableToConvert);
 

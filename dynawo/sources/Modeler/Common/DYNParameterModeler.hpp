@@ -29,7 +29,7 @@ namespace DYN {
  */
 template<>
 inline void ParameterModeler::setValue(const bool& value, const parameterOrigin_t& origin) {
-  if (getValueType() != BOOL)
+  if (getValueType() != VAR_TYPE_BOOL)
     throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, getName(), typeVarC2Str(getValueType()), "BOOL");
 
   writeChecks(origin);
@@ -44,7 +44,7 @@ inline void ParameterModeler::setValue(const bool& value, const parameterOrigin_
  */
 template<>
 inline void ParameterModeler::setValue(const int& value, const parameterOrigin_t& origin) {
-  if (getValueType() != INT)
+  if (getValueType() != VAR_TYPE_INT)
     throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, getName(), typeVarC2Str(getValueType()), "INT");
 
   writeChecks(origin);
@@ -59,7 +59,7 @@ inline void ParameterModeler::setValue(const int& value, const parameterOrigin_t
  */
 template<>
 inline void ParameterModeler::setValue(const double& value, const parameterOrigin_t& origin) {
-  if (getValueType() != DOUBLE)
+  if (getValueType() != VAR_TYPE_DOUBLE)
     throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, getName(), typeVarC2Str(getValueType()), "DOUBLE");
 
   writeChecks(origin);
@@ -74,7 +74,7 @@ inline void ParameterModeler::setValue(const double& value, const parameterOrigi
  */
 template<>
 inline void ParameterModeler::setValue(const std::string& value, const parameterOrigin_t& origin) {
-  if (getValueType() != STRING)
+  if (getValueType() != VAR_TYPE_STRING)
     throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, getName(), typeVarC2Str(getValueType()), "STRING");
 
   writeChecks(origin);

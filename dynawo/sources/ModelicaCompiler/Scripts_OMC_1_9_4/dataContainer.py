@@ -295,7 +295,7 @@ def cmp_num_init_vars(var1, var2):
 ##
 # Variable class : store data to each variable read
 #
-class variable:
+class Variable:
     ##
     # default constructor
     def __init__(self):
@@ -1119,7 +1119,7 @@ class EqMaker():
 ##
 # class if Equation : class defining an if equation
 #
-class ifEquation():
+class IfEquation():
     ##
     # default constructor
     # @param self : object pointer
@@ -1304,7 +1304,7 @@ class EqMakerNLS():
         nb_if_open = 0
         nb_else_open = 0
         num_eq_if = 0
-        eq_if=ifEquation()
+        eq_if=IfEquation()
         #one single eq_if even if multiple nested
         for line in self.body_func:
             match = re.search(self.ptrn_if,line)
@@ -1316,7 +1316,7 @@ class EqMakerNLS():
                 var_cond = match.group('var')
                 nb_if_open += 1
                 if(nb_if_open == 1):
-                    eq_if = ifEquation(num_eq_if,var_cond)
+                    eq_if = IfEquation(num_eq_if,var_cond)
                     num_eq_if +=1
                     self.if_equations.append(eq_if)
 
@@ -1328,9 +1328,8 @@ class EqMakerNLS():
                 if ' }\n' in line :
                     nb_else_open -= 1
             else:
-                if nb_if_open>0:
-                    if ' }\n' in line :
-                        nb_if_open -= 1
+                if nb_if_open>0 and ' }\n' in line :
+                    nb_if_open -= 1
 
 
         map_tmp_dep = {} # For each tmp var, the list of other tmp vars on which it depends
@@ -1626,7 +1625,7 @@ class EqMakerLS:
         nb_if_open = 0
         nb_else_open = 0
         num_eq_if = 0
-        eq_if=ifEquation()
+        eq_if=IfEquation()
         #one single eq_if even if multiple nested
         for line in self.rhs_fct_body:
             match = re.search(self.ptrn_if,line)
@@ -1638,7 +1637,7 @@ class EqMakerLS:
                 var_cond = match.group('var')
                 nb_if_open += 1
                 if(nb_if_open == 1):
-                    eq_if = ifEquation(num_eq_if,var_cond)
+                    eq_if = IfEquation(num_eq_if,var_cond)
                     num_eq_if +=1
                     self.if_equations.append(eq_if)
 
@@ -1650,14 +1649,13 @@ class EqMakerLS:
                 if ' }\n' in line :
                     nb_else_open -= 1
             else:
-                if nb_if_open>0:
-                    if ' }\n' in line :
-                        nb_if_open -= 1
+                if nb_if_open>0 and ' }\n' in line :
+                    nb_if_open -= 1
         # likewise for self.mat_fct_body
         nb_if_open = 0
         nb_else_open = 0
         num_eq_if = 0
-        eq_if=ifEquation()
+        eq_if=IfEquation()
         #one single eq_if even if multiple nested
         for line in self.mat_fct_body:
             match = re.search(self.ptrn_if,line)
@@ -1669,7 +1667,7 @@ class EqMakerLS:
                 var_cond = match.group('var')
                 nb_if_open += 1
                 if(nb_if_open == 1):
-                    eq_if = ifEquation(num_eq_if,var_cond)
+                    eq_if = IfEquation(num_eq_if,var_cond)
                     num_eq_if +=1
                     self.if_equations.append(eq_if)
 
@@ -1681,9 +1679,8 @@ class EqMakerLS:
                 if ' }\n' in line :
                     nb_else_open -= 1
             else:
-                if nb_if_open>0:
-                    if ' }\n' in line :
-                        nb_if_open -= 1
+                if nb_if_open>0 and ' }\n' in line :
+                    nb_if_open -= 1
 
 
 
@@ -1898,8 +1895,8 @@ class EqMakerLS:
     def set_matrix(self):
         # Initialization of the matrix with 0
         matrix_line = [] #
-        for k in range(self.dim) : matrix_line.append( "0.0" )
-        for k in range(self.dim) : self.matrix.append( copy.deepcopy(matrix_line) )
+        for _ in range(self.dim) : matrix_line.append( "0.0" )
+        for _ in range(self.dim) : self.matrix.append( copy.deepcopy(matrix_line) )
         # Filling of the matrix with what we find in "setLinearMatrixA..."
         for line in self.mat_fct_body:
             # To get rid of enventual DIVISION
@@ -1919,7 +1916,7 @@ class EqMakerLS:
     def set_rhs(self):
         # Initialization of rhs with 0
         rhs_line = []
-        for k in range(self.dim) : rhs_line.append( "0.0" )
+        for _ in range(self.dim) : rhs_line.append( "0.0" )
         self.rhs = copy.deepcopy(rhs_line)
 
         # Filling of the rhs with what we find in "setLinearVectorb..."
@@ -2428,9 +2425,11 @@ class RootObject:
         new_body = []
         i = 0
         for line in self.body_for_num_relation:
+            if i == 0 or i == len(self.body_for_num_relation)-1:
+                i = i + 1
+                continue
             if not has_omc_trace (line) and not has_omc_equation_indexes (line):
-                if i != 0 and i != len(self.body_for_num_relation)-1:
-                    new_body.append(line)
+                new_body.append(line)
             i = i + 1
         self.body_for_num_relation = new_body
 
@@ -2627,7 +2626,6 @@ class Warn:
                 line = line.replace(");","")
                 words = line.split(",")
                 name_var = words[0]
-                index =  words[1]
                 nb_words = len(words)
                 value =""
                 for i in range(2,nb_words):

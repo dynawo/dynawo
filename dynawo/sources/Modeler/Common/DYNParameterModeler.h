@@ -55,7 +55,7 @@ class ParameterModeler : public ParameterCommon {
    * @param parameter the parameter to copy
    */
 #ifdef LANG_CXX11
-  ParameterModeler(const ParameterModeler& parameter) = default;
+  ParameterModeler(const ParameterModeler&) = default;
 #else
   ParameterModeler(const ParameterModeler& parameter);
 #endif

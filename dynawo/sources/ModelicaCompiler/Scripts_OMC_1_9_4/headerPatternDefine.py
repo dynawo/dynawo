@@ -19,7 +19,7 @@
 ##
 # Header Pattern Define
 #
-class headerPatternDefine:
+class HeaderPatternDefine:
     ##
     # default constructor
     def __init__(self, additional_header_files):

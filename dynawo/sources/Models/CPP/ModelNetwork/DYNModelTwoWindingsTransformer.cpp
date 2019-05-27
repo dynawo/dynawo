@@ -1852,12 +1852,12 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
 
 void
 ModelTwoWindingsTransformer::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("TFO_currentLimit_maxTimeOperation", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("TFO_t1st_THT", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("TFO_tNext_THT", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("TFO_t1st_HT", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("TFO_tNext_HT", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("TFO_tolV", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("TFO_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("TFO_t1st_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("TFO_tNext_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("TFO_t1st_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("TFO_tNext_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("TFO_tolV", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 }  // namespace DYN

@@ -495,8 +495,8 @@ ModelOmegaRef::defineVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 ModelOmegaRef::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("nbGen", INT, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("weight_gen", DOUBLE, EXTERNAL_PARAMETER, "*", "nbGen"));
+  parameters.push_back(ParameterModeler("nbGen", VAR_TYPE_INT, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("weight_gen", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGen"));
 }
 
 void

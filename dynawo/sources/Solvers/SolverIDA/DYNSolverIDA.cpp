@@ -116,7 +116,9 @@ struct mapcomp {
 
 namespace DYN {
 
+#ifdef _DEBUG_
 const bool affDebug = false;  ///< variable used to activate debug log
+#endif
 
 SolverIDAFactory::SolverIDAFactory() {
 }
@@ -170,12 +172,12 @@ SolverIDA::~SolverIDA() {
 
 void
 SolverIDA::defineParameters() {
-  parameters_.insert(make_pair("order", ParameterSolver("order", INT)));
-  parameters_.insert(make_pair("initStep", ParameterSolver("initStep", DOUBLE)));
-  parameters_.insert(make_pair("minStep", ParameterSolver("minStep", DOUBLE)));
-  parameters_.insert(make_pair("maxStep", ParameterSolver("maxStep", DOUBLE)));
-  parameters_.insert(make_pair("absAccuracy", ParameterSolver("absAccuracy", DOUBLE)));
-  parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", DOUBLE)));
+  parameters_.insert(make_pair("order", ParameterSolver("order", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("initStep", ParameterSolver("initStep", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("minStep", ParameterSolver("minStep", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("maxStep", ParameterSolver("maxStep", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("absAccuracy", ParameterSolver("absAccuracy", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE)));
 }
 
 void

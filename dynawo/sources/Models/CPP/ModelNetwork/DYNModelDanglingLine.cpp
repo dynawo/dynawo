@@ -831,7 +831,7 @@ ModelDanglingLine::setSubModelParameters(const boost::unordered_map<std::string,
 
 void
 ModelDanglingLine::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("DANGLING_LINE_currentLimit_maxTimeOperation", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("DANGLING_LINE_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void

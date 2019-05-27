@@ -507,8 +507,8 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 ModelBus::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("BUS_uMax", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("BUS_uMin", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("BUS_uMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("BUS_uMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void

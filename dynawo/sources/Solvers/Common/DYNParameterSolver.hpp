@@ -29,7 +29,7 @@ namespace DYN {
  */
 template<>
 inline void ParameterSolver::setValue(const bool& value) {
-  if (getValueType() != BOOL)
+  if (getValueType() != VAR_TYPE_BOOL)
     throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, getName(), typeVarC2Str(getValueType()), "BOOL");
 
   value_ = value;
@@ -41,7 +41,7 @@ inline void ParameterSolver::setValue(const bool& value) {
  */
 template<>
 inline void ParameterSolver::setValue(const int& value) {
-  if (getValueType() != INT)
+  if (getValueType() != VAR_TYPE_INT)
     throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, getName(), typeVarC2Str(getValueType()), "INT");
 
   value_ = value;
@@ -53,7 +53,7 @@ inline void ParameterSolver::setValue(const int& value) {
  */
 template<>
 inline void ParameterSolver::setValue(const double& value) {
-  if (getValueType() != DOUBLE)
+  if (getValueType() != VAR_TYPE_DOUBLE)
     throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, getName(), typeVarC2Str(getValueType()), "DOUBLE");
 
   value_ = value;
@@ -65,7 +65,7 @@ inline void ParameterSolver::setValue(const double& value) {
  */
 template<>
 inline void ParameterSolver::setValue(const std::string& value) {
-  if (getValueType() != STRING)
+  if (getValueType() != VAR_TYPE_STRING)
     throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, getName(), typeVarC2Str(getValueType()), "STRING");
 
   value_ = value;

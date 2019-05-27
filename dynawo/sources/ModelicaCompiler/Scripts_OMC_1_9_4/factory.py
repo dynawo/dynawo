@@ -20,9 +20,9 @@ from dataContainer import *
 from utils import *
 
 ##
-# zeroCrossingFilter class : take G data, read and prepare them to be used in factory
+# ZeroCrossingFilter class : take G data, read and prepare them to be used in factory
 #
-class zeroCrossingFilter:
+class ZeroCrossingFilter:
     ##
     # default constructor
     # @param self : object pointer
@@ -130,7 +130,7 @@ class zeroCrossingFilter:
 ##
 # Factory class: take datas, read and prepare them to print them in new file
 #
-class factory:
+class Factory:
     ##
     # default constructor
     # @param self : object pointer
@@ -271,7 +271,7 @@ class factory:
         self.list_call_for_setz =[]
 
         ## fictitious G equation filter
-        self.zc_filter = zeroCrossingFilter(self.reader)
+        self.zc_filter = ZeroCrossingFilter(self.reader)
 
     ##
     # Getter to obtain the list of system's variables
@@ -1285,19 +1285,16 @@ class factory:
         for eq in self.get_list_eq_syst():
             index = str(eq.get_num_omc())
             fequation_index = str(eq.get_num_dyn())
-            if fequation_index != '-1':
-                if index in map_fequation.keys():
-                    equation = map_fequation[index]
-                    linetoadd = "  fEquationIndex["+ fequation_index +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
-                    self.listfor_setfequations.append(linetoadd)
+            if fequation_index != '-1' and index in map_fequation.keys():
+                linetoadd = "  fEquationIndex["+ fequation_index +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
+                self.listfor_setfequations.append(linetoadd)
 
         for eq in self.get_list_other_eq():
             index = str(eq.get_num_omc())
             fequation_index = str(eq.get_num_dyn())
-            if fequation_index != '-1':
-                if  index in map_fequation.keys():
-                    linetoadd = "  fEquationIndex["+ str(fequation_index) +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
-                    self.listfor_setfequations.append(linetoadd)
+            if fequation_index != '-1' and index in map_fequation.keys():
+                linetoadd = "  fEquationIndex["+ str(fequation_index) +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
+                self.listfor_setfequations.append(linetoadd)
         return self.listfor_setfequations
 
     ##
@@ -2142,7 +2139,7 @@ class factory:
             par_type = param_scope_str (param_scope (par))
             name = to_compile_name(par.get_name())
             value_type = par.get_value_type_c().upper()
-            line = line_ptrn %( name, value_type, par_type)
+            line = line_ptrn %( name, "VAR_TYPE_"+value_type, par_type)
             self.list_for_defineparameters.append(line)
 
     ##

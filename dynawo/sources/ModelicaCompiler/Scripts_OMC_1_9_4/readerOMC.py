@@ -55,9 +55,9 @@ def stop_reading_function(element):
 ##################################
 
 ##
-# class readerOMC
+# class ReaderOMC
 #
-class readerOMC:
+class ReaderOMC:
     ##
     # Default contstructor
     # @param mod_name : model read
@@ -465,7 +465,7 @@ class readerOMC:
         root = doc.documentElement
         list_vars_xml = root.getElementsByTagName('ScalarVariable')
         for node in list_vars_xml:
-            var = variable()
+            var = Variable()
             var.set_name(node.getAttribute('name'))
             var.set_variability(node.getAttribute('variability')) # "continuous", "discrete"
             var.set_causality(node.getAttribute('causality')) # "output" or "internal"
@@ -1036,39 +1036,38 @@ class readerOMC:
 
                 # reading terminals
                 for child in node_element.childNodes:
-                    if child.nodeType== child.ELEMENT_NODE:
-                        if child.localName=='terminal':
-                            name = child.getElementsByTagName('name')[0].firstChild.nodeValue
-                            connector_node =  child.getElementsByTagName('connector')[0]
-                            type_connector = str(connector_node.getAttribute('type'))
+                    if child.nodeType== child.ELEMENT_NODE and child.localName=='terminal':
+                        name = child.getElementsByTagName('name')[0].firstChild.nodeValue
+                        connector_node =  child.getElementsByTagName('connector')[0]
+                        type_connector = str(connector_node.getAttribute('type'))
 
-                            split_name = name.split('.')
-                            name_terminal=name
-                            struct_name1 =""
-                            structure1 = Element(True,"")
-                            if (len(split_name)> 1): #component name: terminal name: last in the list, the rest is a composite of structures
-                                list_of_structure=split_name[0:len(split_name)-1]
-                                for struct in list_of_structure:
-                                    if struct_name1 != "":
-                                        struct_name1=struct_name1+"."+struct
-                                    else:
-                                        struct_name1 = struct
-                                    if struct_name1 not in list_struct:
-                                        s =  Element(True,struct_name1,len(self.list_elements));
-                                        list_struct.append(struct_name1)
-                                        self.list_elements.append(s)
-                                        self.map_struct_name_struct_obj[struct_name1] = s
-                                        structure1.list_elements.append(s)
-                                        structure1=s
-                                    else:
-                                        structure1 = self.map_struct_name_struct_obj[struct_name1]
+                        split_name = name.split('.')
+                        name_terminal=name
+                        struct_name1 =""
+                        structure1 = Element(True,"")
+                        if (len(split_name)> 1): #component name: terminal name: last in the list, the rest is a composite of structures
+                            list_of_structure=split_name[0:len(split_name)-1]
+                            for struct in list_of_structure:
+                                if struct_name1 != "":
+                                    struct_name1=struct_name1+"."+struct
+                                else:
+                                    struct_name1 = struct
+                                if struct_name1 not in list_struct:
+                                    s =  Element(True,struct_name1,len(self.list_elements));
+                                    list_struct.append(struct_name1)
+                                    self.list_elements.append(s)
+                                    self.map_struct_name_struct_obj[struct_name1] = s
+                                    structure1.list_elements.append(s)
+                                    structure1=s
+                                else:
+                                    structure1 = self.map_struct_name_struct_obj[struct_name1]
 
-                            terminal = Element(False,name_terminal,len(self.list_elements))
-                            self.list_elements.append(terminal)
-                            structure1.list_elements.append(terminal)
+                        terminal = Element(False,name_terminal,len(self.list_elements))
+                        self.list_elements.append(terminal)
+                        structure1.list_elements.append(terminal)
 
-                             #Find vars that are "flow"
-                            if type_connector == "Flow" :  self.list_flow_vars.append(name)
+                        #Find vars that are "flow"
+                        if type_connector == "Flow" :  self.list_flow_vars.append(name)
 
 
     ##

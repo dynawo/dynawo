@@ -761,31 +761,31 @@ ModelLoad::setSubModelParameters(const boost::unordered_map<std::string, Paramet
 
 void
 ModelLoad::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("LOAD_alpha", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_beta", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_isRestorative", BOOL, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_isControllable", BOOL, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_Tp", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_Tq", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_zPMax", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_zQMax", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_alphaLong", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_betaLong", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("LOAD_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("LOAD_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("LOAD_isRestorative", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("LOAD_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("LOAD_Tp", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("LOAD_Tq", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("LOAD_zPMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("LOAD_zQMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("LOAD_alphaLong", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("LOAD_betaLong", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 // All the load parameters can be defined specifically for one load
 void
 ModelLoad::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler(id_ + "_alpha", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(id_ + "_beta", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(id_ + "_isRestorative", BOOL, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(id_ + "_isControllable", BOOL, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(id_ + "_Tp", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(id_ + "_Tq", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(id_ + "_zPMax", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(id_ + "_zQMax", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(id_ + "_alphaLong", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler(id_ + "_betaLong", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_isRestorative", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_Tp", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_Tq", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_zPMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_zQMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_alphaLong", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_betaLong", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 NetworkComponent::StateChange_t

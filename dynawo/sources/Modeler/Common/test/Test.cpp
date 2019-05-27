@@ -218,15 +218,15 @@ class SubModelMock : public SubModel {
 TEST(ModelerCommonTest, ParameterUnitary) {   // Test for unitary parameters
   // Create a vector of parameters with no values
   std::vector<ParameterModeler> parameters;
-  parameters.push_back(ParameterModeler("name_bool", BOOL, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("name_int", INT, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("name_double", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("name_string", STRING, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("test", STRING, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("name_bool", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("name_int", VAR_TYPE_INT, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("name_double", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("name_string", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("test", VAR_TYPE_STRING, EXTERNAL_PARAMETER));
 
   // Test attributes given from contructor
   ASSERT_EQ(parameters[0].getName(), "name_bool");
-  ASSERT_EQ(parameters[0].getValueType(), BOOL);
+  ASSERT_EQ(parameters[0].getValueType(), VAR_TYPE_BOOL);
   ASSERT_EQ(parameters[0].getScope(), EXTERNAL_PARAMETER);
   ASSERT_EQ(parameters[0].getCardinality(), "1");
   ASSERT_EQ(parameters[0].indexSet(), false);
@@ -243,13 +243,13 @@ TEST(ModelerCommonTest, ParameterUnitary) {   // Test for unitary parameters
   ASSERT_EQ(parameters[0].getIndex(), index);
 
   ASSERT_EQ(parameters[1].indexSet(), false);
-  ASSERT_EQ(parameters[1].getValueType(), INT);
+  ASSERT_EQ(parameters[1].getValueType(), VAR_TYPE_INT);
   ASSERT_THROW_DYNAWO(parameters[1].getValue<int>(), Error::MODELER, KeyError_t::ParameterHasNoValue);
 
-  ASSERT_EQ(parameters[2].getValueType(), DOUBLE);
+  ASSERT_EQ(parameters[2].getValueType(), VAR_TYPE_DOUBLE);
   ASSERT_THROW_DYNAWO(parameters[2].getValue<double>(), Error::MODELER, KeyError_t::ParameterHasNoValue);
 
-  ASSERT_EQ(parameters[3].getValueType(), STRING);
+  ASSERT_EQ(parameters[3].getValueType(), VAR_TYPE_STRING);
   ASSERT_THROW_DYNAWO(parameters[3].getValue<std::string>(), Error::MODELER, KeyError_t::ParameterHasNoValue);
   ASSERT_THROW_DYNAWO(parameters[3].getOrigin(), Error::MODELER, KeyError_t::ParameterHasNoValue);
 
@@ -331,10 +331,10 @@ TEST(ModelerCommonTest, ParameterUnitary) {   // Test for unitary parameters
 
 TEST(ModelerCommonTest, ParameterMultipleCardinality) {   // Test for parameters with multiple cardinality
   // Create parameter with multiple cardinality
-  ParameterModeler paramMultiBool = ParameterModeler("name_bool", BOOL, EXTERNAL_PARAMETER, "*");
-  ParameterModeler paramMultiInt = ParameterModeler("name_int", INT, EXTERNAL_PARAMETER, "*", "nbGen");
-  ParameterModeler paramMultiDouble = ParameterModeler("name_double", DOUBLE, EXTERNAL_PARAMETER, "*", "nbGen");
-  ParameterModeler paramMultiString = ParameterModeler("name_string", STRING, EXTERNAL_PARAMETER, "*", "nbGen");
+  ParameterModeler paramMultiBool = ParameterModeler("name_bool", VAR_TYPE_BOOL, EXTERNAL_PARAMETER, "*");
+  ParameterModeler paramMultiInt = ParameterModeler("name_int", VAR_TYPE_INT, EXTERNAL_PARAMETER, "*", "nbGen");
+  ParameterModeler paramMultiDouble = ParameterModeler("name_double", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbGen");
+  ParameterModeler paramMultiString = ParameterModeler("name_string", VAR_TYPE_STRING, EXTERNAL_PARAMETER, "*", "nbGen");
 
   // Test attributes given from contructor
   ASSERT_EQ(paramMultiBool.getCardinality(), "*");
@@ -354,7 +354,7 @@ TEST(ModelerCommonTest, ParameterMultipleCardinality) {   // Test for parameters
   ASSERT_EQ(paramMultiBool.getCardinality(), "2");
 
   // Test instantiate multiple parameter
-  ParameterModeler paramMultiBoolInstance = ParameterModeler("name_bool_1", BOOL, EXTERNAL_PARAMETER, "");
+  ParameterModeler paramMultiBoolInstance = ParameterModeler("name_bool_1", VAR_TYPE_BOOL, EXTERNAL_PARAMETER, "");
   paramMultiBoolInstance.setIsNonUnitaryParameterInstance(true);
   ASSERT_EQ(paramMultiBoolInstance.getIsNonUnitaryParameterInstance(), true);
   ASSERT_EQ(paramMultiBool.getIsNonUnitaryParameterInstance(), false);
@@ -384,14 +384,14 @@ TEST(ModelerCommonTest, SetParameterFromPARFile) {
           ->createParameter("wrong_type", true);
 
   // Create unitary parameters
-  ParameterModeler paramBool = ParameterModeler("name_bool", BOOL, EXTERNAL_PARAMETER);
-  ParameterModeler paramInt = ParameterModeler("name_int", INT, EXTERNAL_PARAMETER);
-  ParameterModeler paramDouble = ParameterModeler("name_double", DOUBLE, EXTERNAL_PARAMETER);
-  ParameterModeler paramDoubleShared = ParameterModeler("shared_par", DOUBLE, SHARED_PARAMETER);
-  ParameterModeler paramDoubleInternal = ParameterModeler("internal_par", DOUBLE, INTERNAL_PARAMETER);
-  ParameterModeler paramString = ParameterModeler("name_string", STRING, EXTERNAL_PARAMETER);
-  ParameterModeler paramNotInSet = ParameterModeler("not_in_set", BOOL, EXTERNAL_PARAMETER);
-  ParameterModeler paramNotUnitary = ParameterModeler("not_unitary", DOUBLE, EXTERNAL_PARAMETER, "*", "name_int");
+  ParameterModeler paramBool = ParameterModeler("name_bool", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+  ParameterModeler paramInt = ParameterModeler("name_int", VAR_TYPE_INT, EXTERNAL_PARAMETER);
+  ParameterModeler paramDouble = ParameterModeler("name_double", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+  ParameterModeler paramDoubleShared = ParameterModeler("shared_par", VAR_TYPE_DOUBLE, SHARED_PARAMETER);
+  ParameterModeler paramDoubleInternal = ParameterModeler("internal_par", VAR_TYPE_DOUBLE, INTERNAL_PARAMETER);
+  ParameterModeler paramString = ParameterModeler("name_string", VAR_TYPE_STRING, EXTERNAL_PARAMETER);
+  ParameterModeler paramNotInSet = ParameterModeler("not_in_set", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+  ParameterModeler paramNotUnitary = ParameterModeler("not_unitary", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "name_int");
 
   // Create submodel
   SubModelMock submodel = SubModelMock();
@@ -453,12 +453,12 @@ TEST(ModelerCommonTest, SetParametersFromPARFile) {
           ->createParameter("not_unitary_double_1", 6.12);
 
   // Create unitary parameters
-  ParameterModeler paramBool = ParameterModeler("name_bool", BOOL, EXTERNAL_PARAMETER);
-  ParameterModeler paramInt = ParameterModeler("name_int", INT, EXTERNAL_PARAMETER);
-  ParameterModeler paramDouble = ParameterModeler("name_double", DOUBLE, EXTERNAL_PARAMETER);
-  ParameterModeler paramString = ParameterModeler("name_string", STRING, EXTERNAL_PARAMETER);
-  ParameterModeler paramNotUnitaryInt = ParameterModeler("not_unitary_int", INT, EXTERNAL_PARAMETER, "*", "name_int");
-  ParameterModeler paramNotUnitaryDouble = ParameterModeler("not_unitary_double", DOUBLE, EXTERNAL_PARAMETER, "*", "name_int");
+  ParameterModeler paramBool = ParameterModeler("name_bool", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
+  ParameterModeler paramInt = ParameterModeler("name_int", VAR_TYPE_INT, EXTERNAL_PARAMETER);
+  ParameterModeler paramDouble = ParameterModeler("name_double", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
+  ParameterModeler paramString = ParameterModeler("name_string", VAR_TYPE_STRING, EXTERNAL_PARAMETER);
+  ParameterModeler paramNotUnitaryInt = ParameterModeler("not_unitary_int", VAR_TYPE_INT, EXTERNAL_PARAMETER, "*", "name_int");
+  ParameterModeler paramNotUnitaryDouble = ParameterModeler("not_unitary_double", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "name_int");
 
   // Create submodel
   SubModelMock submodel = SubModelMock();
@@ -501,7 +501,7 @@ TEST(ModelerCommonTest, FindParameter) {
 
   // Create a vector of parameters
   std::vector<ParameterModeler> parameters;
-  ParameterModeler paramBool = ParameterModeler("name_bool", BOOL, EXTERNAL_PARAMETER);
+  ParameterModeler paramBool = ParameterModeler("name_bool", VAR_TYPE_BOOL, EXTERNAL_PARAMETER);
   parameters.push_back(paramBool);
 
   // Fill the submodel's attribute parameters_
@@ -771,23 +771,23 @@ TEST(ModelerCommonTest, ModelerCommonUtilities) {
   // toCTypeVar
   typeVarC_t typeVarC;
   ASSERT_NO_THROW(typeVarC = toCTypeVar(DISCRETE));
-  ASSERT_EQ(typeVarC, DOUBLE);
-  ASSERT_EQ(toCTypeVar(CONTINUOUS), DOUBLE);
-  ASSERT_EQ(toCTypeVar(FLOW), DOUBLE);
-  ASSERT_EQ(toCTypeVar(INTEGER), INT);
-  ASSERT_EQ(toCTypeVar(BOOLEAN), BOOL);
+  ASSERT_EQ(typeVarC, VAR_TYPE_DOUBLE);
+  ASSERT_EQ(toCTypeVar(CONTINUOUS), VAR_TYPE_DOUBLE);
+  ASSERT_EQ(toCTypeVar(FLOW), VAR_TYPE_DOUBLE);
+  ASSERT_EQ(toCTypeVar(INTEGER), VAR_TYPE_INT);
+  ASSERT_EQ(toCTypeVar(BOOLEAN), VAR_TYPE_BOOL);
 
   // typeVarC2Str
   ASSERT_EQ(typeVarC2Str(typeVarC), "DOUBLE");
-  ASSERT_EQ(typeVarC2Str(STRING), "STRING");
-  ASSERT_EQ(typeVarC2Str(INT), "INT");
-  ASSERT_EQ(typeVarC2Str(BOOL), "BOOL");
+  ASSERT_EQ(typeVarC2Str(VAR_TYPE_STRING), "STRING");
+  ASSERT_EQ(typeVarC2Str(VAR_TYPE_INT), "INT");
+  ASSERT_EQ(typeVarC2Str(VAR_TYPE_BOOL), "BOOL");
 
   // str2TypeVarC
-  ASSERT_EQ(str2TypeVarC("DOUBLE"), DOUBLE);
-  ASSERT_EQ(str2TypeVarC("INT"), INT);
-  ASSERT_EQ(str2TypeVarC("BOOL"), BOOL);
-  ASSERT_EQ(str2TypeVarC("STRING"), STRING);
+  ASSERT_EQ(str2TypeVarC("DOUBLE"), VAR_TYPE_DOUBLE);
+  ASSERT_EQ(str2TypeVarC("INT"), VAR_TYPE_INT);
+  ASSERT_EQ(str2TypeVarC("BOOL"), VAR_TYPE_BOOL);
+  ASSERT_EQ(str2TypeVarC("STRING"), VAR_TYPE_STRING);
 
   ASSERT_THROW_DYNAWO(str2TypeVarC("ABCDEF"), Error::MODELER, KeyError_t::TypeVarCUnableToConvert);
 

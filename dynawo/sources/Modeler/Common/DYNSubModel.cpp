@@ -423,7 +423,7 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam) {
       const ParameterModeler& cardinaliyInformator = findParameter(cardinalityInformatorName, isInitParam);
       if (!cardinaliyInformator.hasValue()) {
         throw DYNError(Error::MODELER, ParameterCardinalityNotDefined, paramName, cardinalityInformatorName);
-      } else if (cardinaliyInformator.getValueType() != INT) {
+      } else if (cardinaliyInformator.getValueType() != VAR_TYPE_INT) {
         throw DYNError(Error::MODELER, ParameterCardinalityBadType, paramName, cardinalityInformatorName, typeVarC2Str(cardinaliyInformator.getValueType()));
       }
       const int cardinalityValue = cardinaliyInformator.getValue<int>();
@@ -454,25 +454,25 @@ SubModel::setParameterFromSet(const string& parName, const boost::shared_ptr<par
     if (parametersSet->hasParameter(parName)) {
       // Set the parameter value with the information given in PAR file
       switch (parameter.getValueType()) {
-        case BOOL: {
+        case VAR_TYPE_BOOL: {
           const bool value = parametersSet->getParameter(parName)->getBool();
           setParameterValue(parName, origin, value, isInitParam);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(origin), value) << Trace::endline;
           break;
         }
-        case INT: {
+        case VAR_TYPE_INT: {
           const int value = parametersSet->getParameter(parName)->getInt();
           setParameterValue(parName, origin, value, isInitParam);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(origin), value) << Trace::endline;
           break;
         }
-        case DOUBLE: {
+        case VAR_TYPE_DOUBLE: {
           const double& value = parametersSet->getParameter(parName)->getDouble();
           setParameterValue(parName, origin, value, isInitParam);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(origin), value) << Trace::endline;
           break;
         }
-        case STRING: {
+        case VAR_TYPE_STRING: {
           const string& value = parametersSet->getParameter(parName)->getString();
           setParameterValue(parName, origin, value, isInitParam);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(origin), value) << Trace::endline;
