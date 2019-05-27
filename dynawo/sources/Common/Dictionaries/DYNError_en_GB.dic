@@ -178,6 +178,8 @@ FileSystemItemDoesNotExist  =             %1% does not exist
 UnknownVertex               =             vertex %1% is unknown in graph
 AlreadyDefinedEdge          =             edge %1% already defined in graph
 UnknownAutomatonOutput      =             output %2% of automaton %1% does not exist
+AutomatonMaximumInputSizeReached  =       automaton %1% has more inputs defined (%2%) than the maximum (%3%)
+AutomatonMaximumOutputSizeReached =       automaton %1% has more outputs defined (%2%) than the maximum (%3%)
 SystemCallFailed            =             call to %1% failed with error '%2%'
 //--------------- STATIC_DATA -----------------------------------------
 UnknownBus                  =             bus id '%1%' does not exist in the iidm import
