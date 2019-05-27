@@ -22,11 +22,13 @@ function functionAutomaton
   input Real inputs[GenericAutomatonConstants.inputsMaxSize] "Inputs data for the automaton";
   input String inputsName[GenericAutomatonConstants.inputsMaxSize] "Inputs data name for the automaton";
   input Integer nbInputs "Number of inputs to provide to the automaton";
+  input Integer nbMaxInputs "Maximum number of inputs";
   input String outputsName[GenericAutomatonConstants.outputsMaxSize] "Outputs data name for the automaton";
   input Integer nbOutputs "Number of outputs to provide to the automaton";
+  input Integer nbMaxOuputs "Maximum number of outputs";
   output Real outputs[GenericAutomatonConstants.outputsMaxSize] "Outputs data provided by the automaton";
 
-  external "C" callExternalAutomaton(command, timeActivation, inputs, inputsName, nbInputs, outputs, outputsName, nbOutputs);
+  external "C" callExternalAutomaton(command, timeActivation, inputs, inputsName, nbInputs, nbMaxInputs, outputs, outputsName, nbOutputs, nbMaxOuputs);
 
 end functionAutomaton;
 

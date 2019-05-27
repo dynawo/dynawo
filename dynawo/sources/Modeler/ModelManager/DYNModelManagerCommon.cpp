@@ -25,6 +25,7 @@
 #include <map>
 #include <cstdlib>
 #include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include "DYNMacrosMessage.h"
 #include "DYNSubModel.h"
@@ -252,8 +253,15 @@ modelica_integer sizeOffArray_(const modelica_integer array[]) {
 }
 
 void
-callExternalAutomatonModel(const std::string& modelName, const char* command, const double time, const double* inputs, const char** inputsName,
-        const int nbInputs, double* outputs, const char** outputsName, const int nbOutputs, const std::string& workingDirectory) {
+callExternalAutomatonModel(const std::string& modelName, const char* command, const double time,
+    const double* inputs, const char** inputsName, const int nbInputs, const int nbMaxInputs,
+    double* outputs, const char** outputsName, const int nbOutputs, const int nbMaxOutputs, const std::string& workingDirectory) {
+  if (nbInputs >= nbMaxInputs)
+    throw DYNError(Error::GENERAL, AutomatonMaximumInputSizeReached, modelName,
+        boost::lexical_cast<std::string>(nbInputs), boost::lexical_cast<std::string>(nbMaxInputs));
+  if (nbOutputs >= nbMaxOutputs)
+    throw DYNError(Error::GENERAL, AutomatonMaximumOutputSizeReached, modelName,
+        boost::lexical_cast<std::string>(nbOutputs), boost::lexical_cast<std::string>(nbMaxOutputs));
   static std::string separator = ";";
   std::string workingDir = workingDirectory + "/execution/" + modelName + "/";
   if (!exists(workingDir))

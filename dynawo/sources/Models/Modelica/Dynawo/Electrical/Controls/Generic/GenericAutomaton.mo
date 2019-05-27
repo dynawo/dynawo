@@ -34,7 +34,7 @@ equation
 when time >= pre(t0) + SamplingTime or pre(initialize) == true then
   t0 = time;
   initialize = false;
-  outputs = Functions.Automaton.functionAutomaton(Command, t0, inputs, InputsName, NbInputs, OutputsName, NbOutputs);
+  outputs = Functions.Automaton.functionAutomaton(Command, t0, inputs, InputsName, NbInputs, GenericAutomatonConstants.inputsMaxSize, OutputsName, NbOutputs,GenericAutomatonConstants.outputsMaxSize);
 end when;
 
 end GenericAutomaton;
