@@ -839,6 +839,11 @@ ModelNetwork::evalZ(const double& t) {
 void
 ModelNetwork::evalMode(const double& t) {
   modeChange(false);
+
+  /* Two kinds of events are controlled:
+   *     1. State or topological change on the network (given by the evalState method)
+   *     2. Short-circuit on a bus (given by the evalNodeFault method)
+   */
   bool topoChange = false;
   bool stateChange = false;
 
@@ -866,6 +871,9 @@ ModelNetwork::evalMode(const double& t) {
   } else if (stateChange) {
     evalYMat();
   }
+
+  if (busContainer_->evalNodeFault())
+    modeChangeAlg_ = true;
 }
 
 void
