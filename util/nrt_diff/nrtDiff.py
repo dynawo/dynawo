@@ -1149,6 +1149,10 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
             data_point_right = float (data_right [t_right] .strip())
             error = abs(data_point_left - data_point_right)
 
+            # If we are below the target precision do not compare the numbers
+            if (abs(data_point_left) < settings.error_absolute and abs (data_point_right) < settings.error_absolute):
+                continue
+
             if (error > 0):
                 nb_differences += 1
 
