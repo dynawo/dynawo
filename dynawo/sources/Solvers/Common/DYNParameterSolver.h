@@ -50,7 +50,7 @@ class ParameterSolver : public ParameterCommon {
    * @param parameter the parameter to copy
    */
 #ifdef LANG_CXX11
-  ParameterSolver(const ParameterSolver& parameter) = default;
+  ParameterSolver(const ParameterSolver&) = default;
 #else
   ParameterSolver(const ParameterSolver& parameter);
 #endif

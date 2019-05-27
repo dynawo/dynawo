@@ -75,7 +75,7 @@ Parameter::Impl::getBool() const {
   try {
     value = boost::any_cast<bool>(value_);
   }
-  catch (boost::bad_any_cast& bac)  {
+  catch (boost::bad_any_cast&)  {
     throw DYNError(DYN::Error::API, ParameterBadCast, getName(), ParameterTypeNames[type_]);
   }
   return value;
@@ -90,7 +90,7 @@ Parameter::Impl::getInt() const {
   try {
     value = boost::any_cast<int>(value_);
   }
-  catch (boost::bad_any_cast& bac)  {
+  catch (boost::bad_any_cast&)  {
     throw DYNError(DYN::Error::API, ParameterBadCast, getName(), ParameterTypeNames[type_]);
   }
   return value;
@@ -105,7 +105,7 @@ Parameter::Impl::getDouble() const {
   try {
     value = boost::any_cast<double>(value_);
   }
-  catch (boost::bad_any_cast& bac)  {
+  catch (boost::bad_any_cast&)  {
     throw DYNError(DYN::Error::API, ParameterBadCast, getName(), ParameterTypeNames[type_]);
   }
   return value;
@@ -120,7 +120,7 @@ Parameter::Impl::getString() const {
   try {
     value = boost::any_cast<string>(value_);
   }
-  catch (boost::bad_any_cast& bac)  {
+  catch (boost::bad_any_cast&)  {
     throw DYNError(DYN::Error::API, ParameterBadCast, getName(), ParameterTypeNames[type_]);
   }
   return value;

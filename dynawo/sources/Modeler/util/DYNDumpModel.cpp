@@ -65,19 +65,19 @@ int fillParameterDescription(const DYN::ParameterModeler& parameter, const std::
 
   if ((parameter.isUnitary()) && (parameter.hasValue())) {
     switch (parameter.getValueType()) {
-      case DYN::DOUBLE: {
+      case DYN::VAR_TYPE_DOUBLE: {
         attributes.add("defaultValue", parameter.getValue<double>());
         break;
       }
-      case DYN::INT: {
+      case DYN::VAR_TYPE_INT: {
         attributes.add("defaultValue", parameter.getValue<int>());
         break;
       }
-      case DYN::BOOL: {
+      case DYN::VAR_TYPE_BOOL: {
         attributes.add("defaultValue", parameter.getValue<bool>());
         break;
       }
-      case DYN::STRING: {
+      case DYN::VAR_TYPE_STRING: {
         attributes.add("defaultValue", parameter.getValue<std::string>());
         break;
       }

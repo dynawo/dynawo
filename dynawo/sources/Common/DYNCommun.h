@@ -59,10 +59,10 @@ namespace DYN {
    * @brief C type definition for variable
    */
   typedef enum {
-    STRING,  ///< the variable is a string variable
-    BOOL,  ///< The variable is a boolean variable
-    INT,  ///< The variable is an integer variable
-    DOUBLE,  ///< The variable is a (possibly discrete) real variable
+    VAR_TYPE_STRING,  ///< the variable is a string variable
+    VAR_TYPE_BOOL,  ///< The variable is a boolean variable
+    VAR_TYPE_INT,  ///< The variable is an integer variable
+    VAR_TYPE_DOUBLE,  ///< The variable is a (possibly discrete) real variable
   } typeVarC_t;
 
   /**

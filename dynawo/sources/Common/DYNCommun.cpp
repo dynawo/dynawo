@@ -49,16 +49,16 @@ std::string double2String(const double& value, const int& nbDecimal) {
 string typeVarC2Str(const typeVarC_t& type) {
   string typeVarC;
   switch (type) {
-    case STRING:
+    case VAR_TYPE_STRING:
       typeVarC = "STRING";
       break;
-    case DOUBLE:
+    case VAR_TYPE_DOUBLE:
       typeVarC = "DOUBLE";
       break;
-    case INT:
+    case VAR_TYPE_INT:
       typeVarC = "INT";
       break;
-    case BOOL:
+    case VAR_TYPE_BOOL:
       typeVarC = "BOOL";
       break;
   }
@@ -67,13 +67,13 @@ string typeVarC2Str(const typeVarC_t& type) {
 
 typeVarC_t str2TypeVarC(const std::string& typeStr) {
   if (typeStr == "STRING")
-    return STRING;
+    return VAR_TYPE_STRING;
   else if (typeStr == "DOUBLE")
-    return DOUBLE;
+    return VAR_TYPE_DOUBLE;
   else if (typeStr == "INT")
-    return INT;
+    return VAR_TYPE_INT;
   else if (typeStr == "BOOL")
-    return BOOL;
+    return VAR_TYPE_BOOL;
   else
     throw DYNError(Error::MODELER, TypeVarCUnableToConvert, typeStr);
 }

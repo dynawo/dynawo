@@ -43,9 +43,9 @@ ParameterCommonMock::ParameterCommonMock(const std::string& name, const typeVarC
 }
 
 TEST(CommonTest, testClassParameter) {
-  ParameterCommonMock parameter("Parameter1", DOUBLE);
+  ParameterCommonMock parameter("Parameter1", VAR_TYPE_DOUBLE);
   ASSERT_EQ(parameter.getName(), "Parameter1");
-  ASSERT_EQ(parameter.getValueType(), DOUBLE);
+  ASSERT_EQ(parameter.getValueType(), VAR_TYPE_DOUBLE);
   ASSERT_EQ(parameter.indexSet(), false);
   parameter.setIndex(1);
   ASSERT_EQ(parameter.getIndex(), 1);

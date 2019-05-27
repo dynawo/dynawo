@@ -17,7 +17,7 @@ import sys
 import os
 
 from utils import *
-from headerPatternDefine import headerPatternDefine
+from headerPatternDefine import HeaderPatternDefine
 from subprocess import Popen, PIPE
 ########################################################
 #
@@ -28,7 +28,7 @@ from subprocess import Popen, PIPE
 ##
 # Writer Base
 #
-class modelWriterBase:
+class ModelWriterBase:
     ##
     # default constructor
     # @param self : object pointer
@@ -63,7 +63,7 @@ class modelWriterBase:
 ##
 # Writer Manager
 #
-class modelWriterManager(modelWriterBase):
+class ModelWriterManager(ModelWriterBase):
     ##
     # default constructor
     # @param self : object pointer
@@ -71,7 +71,7 @@ class modelWriterManager(modelWriterBase):
     # @param output_dir : directory where files should be writtern
     # @param init_pb : @b True if the model has an init model
     def __init__(self,mod_name,output_dir,init_pb):
-        modelWriterBase.__init__(self,mod_name)
+        ModelWriterBase.__init__(self,mod_name)
         ## name of the model to use in files
         self.className = mod_name
         ## canonical name of the cpp file
@@ -211,7 +211,7 @@ namespace DYN {
 ##
 # Writer
 #
-class modelWriter(modelWriterBase):
+class ModelWriter(ModelWriterBase):
     ##
     # default constructor
     # @param obj_factory : builder associated to the writer
@@ -219,7 +219,7 @@ class modelWriter(modelWriterBase):
     # @param output_dir : output directory where files should be written
     # @param init_pb : indicates if the model is an init model
     def __init__(self, obj_factory, mod_name, output_dir, init_pb = False):
-        modelWriterBase.__init__(self,mod_name)
+        ModelWriterBase.__init__(self,mod_name)
         ## builder associated to the writer
         self.builder = obj_factory
         ## indicates if the model is an init model
@@ -675,7 +675,7 @@ class modelWriter(modelWriterBase):
     # @param self : object pointer
     # @return
     def getHeaderPattern(self, additional_header_files):
-        header_pattern = headerPatternDefine(additional_header_files)
+        header_pattern = HeaderPatternDefine(additional_header_files)
         lines =[]
         if self.init_pb_:
             lines = header_pattern.get_init().split('\n')
@@ -711,7 +711,6 @@ class modelWriter(modelWriterBase):
         md5sum_pipe = Popen(["md5sum",file_name],stdout = PIPE)
         check_sum = md5sum_pipe.communicate()[0].split()[0]
 
-        content_h_tmp = []
         for n, line in enumerate(self.file_content_h):
             if "__fill_model_checkSum__" in line:
                 line_tmp = line.replace("__fill_model_checkSum__", check_sum)

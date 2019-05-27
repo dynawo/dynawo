@@ -313,25 +313,25 @@ Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr
     if (parametersSet->hasParameter(parName)) {
       // Set the parameter value with the information given in PAR file
       switch (parameter.getValueType()) {
-        case BOOL: {
+        case VAR_TYPE_BOOL: {
           const bool value = parametersSet->getParameter(parName)->getBool();
           setParameterValue(parameter, value);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(PAR), value) << Trace::endline;
           break;
         }
-        case INT: {
+        case VAR_TYPE_INT: {
           const int value = parametersSet->getParameter(parName)->getInt();
           setParameterValue(parameter, value);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(PAR), value) << Trace::endline;
           break;
         }
-        case DOUBLE: {
+        case VAR_TYPE_DOUBLE: {
           const double& value = parametersSet->getParameter(parName)->getDouble();
           setParameterValue(parameter, value);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(PAR), value) << Trace::endline;
           break;
         }
-        case STRING: {
+        case VAR_TYPE_STRING: {
           const string& value = parametersSet->getParameter(parName)->getString();
           setParameterValue(parameter, value);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(PAR), value) << Trace::endline;

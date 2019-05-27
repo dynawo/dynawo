@@ -73,18 +73,18 @@ typeVar2Str(const typeVar_t& type) {
 }
 
 typeVarC_t toCTypeVar(const typeVar_t& type) {
-  typeVarC_t typeVar = DOUBLE;
+  typeVarC_t typeVar = VAR_TYPE_DOUBLE;
   switch (type) {
     case DISCRETE:
     case CONTINUOUS:
     case FLOW:
-      typeVar = DOUBLE;
+      typeVar = VAR_TYPE_DOUBLE;
       break;
     case INTEGER:
-      typeVar = INT;
+      typeVar = VAR_TYPE_INT;
       break;
     case BOOLEAN:
-      typeVar = BOOL;
+      typeVar = VAR_TYPE_BOOL;
       break;
   }
   return typeVar;

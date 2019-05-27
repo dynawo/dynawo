@@ -39,11 +39,11 @@ ParameterSolver::ParameterSolver(const ParameterSolver& parameter) :
 
 double
 ParameterSolver::getDoubleValue() const {
-  if (getValueType() == DOUBLE)
+  if (getValueType() == VAR_TYPE_DOUBLE)
     return getValue<double>();
-  else if (getValueType() == INT)
+  else if (getValueType() == VAR_TYPE_INT)
     return static_cast<double> (getValue<int>());
-  else if (getValueType() == BOOL)
+  else if (getValueType() == VAR_TYPE_BOOL)
     return fromNativeBool(getValue<bool>());
   else
     throw DYNError(Error::GENERAL, ParameterUnableToConvertToDouble, getName(), typeVarC2Str(getValueType()));

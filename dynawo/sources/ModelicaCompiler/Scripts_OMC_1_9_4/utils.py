@@ -460,9 +460,9 @@ class Transpose:
 
 
 ##
-# class watcherBlock
+# class WatcherBlock
 #
-class watcherBlock:
+class WatcherBlock:
     ##
     # Default constructor
     # @param list_sub_str : list of string to find in a block
@@ -483,9 +483,9 @@ class watcherBlock:
         return False
 
 ##
-# class watcherIntroBlock
+# class WatcherIntroBlock
 #
-class watcherIntroBlock:
+class WatcherIntroBlock:
     ##
     # Default constructor
     # @param list_sub_str : list of string to find in a block
@@ -513,8 +513,8 @@ def extract_block(block, list_sub_string):
         with all substrings of list_sub_string
       - post processing of the block: we delete the braces at the beginning and end of the block
     """
-    w_intro_block = watcherIntroBlock(list_sub_string)
-    w_block = watcherBlock(list_sub_string)
+    w_intro_block = WatcherIntroBlock(list_sub_string)
+    w_block = WatcherBlock(list_sub_string)
 
 
     global nb_braces_opened
@@ -572,7 +572,7 @@ def analyse_bracket(word):
     if open_bracket < close_bracket:
         nb = close_bracket - open_bracket
         new_word=""
-        for i in range(1,nb+1):
+        for _ in range(1,nb+1):
             new_word = '(' + new_word
         new_word += word
         return new_word
@@ -580,7 +580,7 @@ def analyse_bracket(word):
     if close_bracket < open_bracket:
         nb = open_bracket - close_bracket
         new_word=""
-        for i in range(1,nb+1):
+        for _ in range(1,nb+1):
             new_word = ')' + new_word
         new_word = word + new_word
         return new_word
@@ -602,7 +602,6 @@ def analyse_and_replace_ternary(line,body,num_ternary):
 
    ternary=""
    cond=""
-   cond1=""
    var1=""
    var2=""
    ternary_type1= False
