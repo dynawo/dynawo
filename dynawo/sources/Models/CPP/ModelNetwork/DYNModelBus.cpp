@@ -252,12 +252,12 @@ ModelBus::ui() const {
 void
 ModelBus::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
-  double value = getParameterDynamicNoThrow<double>(params, "BUS_uMax", success);
+  double value = getParameterDynamicNoThrow<double>(params, "bus_uMax", success);
   if (success)
     uMax_ = value;
 
   success = false;
-  value = getParameterDynamicNoThrow<double>(params, "BUS_uMin", success);
+  value = getParameterDynamicNoThrow<double>(params, "bus_uMin", success);
   if (success)
     uMin_ = value;
 }
@@ -507,8 +507,8 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 ModelBus::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("BUS_uMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("BUS_uMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("bus_uMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("bus_uMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void

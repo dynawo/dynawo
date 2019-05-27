@@ -727,7 +727,7 @@ ModelLoad::setSubModelParameters(const boost::unordered_map<std::string, Paramet
   // All the parameters could be non generic ones
   vector<string> ids;
   ids.push_back(id_);
-  ids.push_back("LOAD");
+  ids.push_back("load");
   try {
     // Non generic parameters have a higher priority than generic ones
     alpha_ = getParameterDynamic<double>(params, "alpha", ids);
@@ -761,16 +761,16 @@ ModelLoad::setSubModelParameters(const boost::unordered_map<std::string, Paramet
 
 void
 ModelLoad::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("LOAD_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_isRestorative", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_Tp", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_Tq", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_zPMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_zQMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_alphaLong", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("LOAD_betaLong", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_alpha", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_beta", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_isRestorative", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_isControllable", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_Tp", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_Tq", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_zPMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_zQMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_alphaLong", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("load_betaLong", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 // All the load parameters can be defined specifically for one load

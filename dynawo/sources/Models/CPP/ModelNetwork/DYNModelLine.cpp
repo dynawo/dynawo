@@ -1503,7 +1503,7 @@ ModelLine::addBusNeighbors() {
 void
 ModelLine::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
-  double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "LINE_currentLimit_maxTimeOperation", success);
+  double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "line_currentLimit_maxTimeOperation", success);
   if (success) {
     if (currentLimits1_)
       currentLimits1_->setMaxTimeOperation(maxTimeOperation);
@@ -1514,7 +1514,7 @@ ModelLine::setSubModelParameters(const boost::unordered_map<std::string, Paramet
 
 void
 ModelLine::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("LINE_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("line_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void
