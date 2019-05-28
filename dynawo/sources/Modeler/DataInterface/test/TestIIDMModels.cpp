@@ -752,6 +752,8 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTargetV) {
   IIDM::Transformer2Windings t2W = t2Wb.build("MyTransformer2Winding");
   IIDM::RatioTapChanger rtp(0, 0, true);
   rtp.regulating(true);
+  IIDM::TerminalReference tr("MyTerminalRef", IIDM::side_1);
+  rtp.terminalReference(tr);
   t2W.ratioTapChanger(rtp);
   ss.add(t2W, c1, c2);
   network.add(ss);

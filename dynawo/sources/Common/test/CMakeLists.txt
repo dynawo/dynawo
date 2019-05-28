@@ -13,6 +13,7 @@ SET(MODULE_NAME COMMON_unittest)
 SET(MODULE_SOURCES
     TestGraph.cpp
     TestParameter.cpp
+    TestErrorQueue.cpp
     Test.cpp
     TestIoDico.cpp
 )

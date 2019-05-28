@@ -23,6 +23,8 @@
 #include "DYNRatioTapChangerInterfaceIIDM.h"
 #include "DYNStepInterfaceIIDM.h"
 #include "DYNMacrosMessage.h"
+#include "DYNErrorQueue.h"
+#include "DYNTrace.h"
 
 using std::vector;
 using std::string;
@@ -142,11 +144,12 @@ void
 RatioTapChangerInterfaceIIDM::sanityCheck(const std::string& parentName) const {
   if (tapChangerIIDM_.has_regulating() && tapChangerIIDM_.regulating()) {
     if (!tapChangerIIDM_.has_targetV())
-      throw DYNError(DYN::Error::STATIC_DATA, MissingTargetVInRatioTapChanger, parentName);
+      DYNErrorQueue::get()->push(DYNError(DYN::Error::STATIC_DATA, MissingTargetVInRatioTapChanger, parentName));
     if (!tapChangerIIDM_.has_terminalReference())
-      throw DYNError(DYN::Error::STATIC_DATA, MissingTerminalRefInRatioTapChanger, parentName);
-    if (tapChangerIIDM_.terminalReference().side == IIDM::side_end)
-      throw DYNError(DYN::Error::STATIC_DATA, MissingTerminalRefSideInRatioTapChanger, parentName);
+      DYNErrorQueue::get()->push(DYNError(DYN::Error::STATIC_DATA, MissingTerminalRefInRatioTapChanger, parentName));
+    if (tapChangerIIDM_.has_terminalReference() && tapChangerIIDM_.terminalReference().side == IIDM::side_end) {
+      DYNErrorQueue::get()->push(DYNError(DYN::Error::STATIC_DATA, MissingTerminalRefSideInRatioTapChanger, parentName));
+    }
   }
 }
 

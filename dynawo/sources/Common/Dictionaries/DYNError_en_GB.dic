@@ -182,6 +182,8 @@ UnknownAutomatonOutput      =             output %2% of automaton %1% does not e
 AutomatonMaximumInputSizeReached  =       automaton %1% has more inputs defined (%2%) than the maximum (%3%)
 AutomatonMaximumOutputSizeReached =       automaton %1% has more outputs defined (%2%) than the maximum (%3%)
 SystemCallFailed            =             call to %1% failed with error '%2%'
+MultipleErrors              =             %1% errors were found and displayed above
+MultipleAndHiddenErrors     =             first %1% errors displayed above
 //--------------- STATIC_DATA -----------------------------------------
 UnknownBus                  =             bus id '%1%' does not exist in the iidm import
 UnknownCalculatedBus        =             calculated bus associated to '%1%' node '%2%' does not exist in the iidm import

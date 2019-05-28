@@ -65,6 +65,7 @@
 #include "DYNSubModel.h"
 #include "DYNTimer.h"
 #include "DYNTrace.h"
+#include "DYNErrorQueue.h"
 
 using std::map;
 using std::string;
@@ -233,6 +234,7 @@ DataInterfaceIIDM::initFromIIDM() {
     network_->addHvdcLine(hvdc);
     components_[hvdc->getID()] = hvdc;
   }
+  DYNErrorQueue::get()->flush();
 }
 
 shared_ptr<VoltageLevelInterface>
