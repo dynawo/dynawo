@@ -1814,7 +1814,6 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
       double tNextTHT = getParameterDynamic<double>(params, "tNext_THT", ids);
       double t1stHT = getParameterDynamic<double>(params, "t1st_HT", ids);
       double tNextHT = getParameterDynamic<double>(params, "tNext_HT", ids);
-      double tolV = getParameterDynamic<double>(params, "tolV", ids);
 
       const bool bus1VHV = (vNom1_ >= VHV_THRESHOLD);
       const bool bus1HV = (vNom1_ >= HV_THRESHOLD && vNom1_ < VHV_THRESHOLD);
@@ -1823,6 +1822,8 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
 
       // set modelTapChanger parameters
       if (modelRatioChanger_) {
+        double tolV = getParameterDynamic<double>(params, "tolV", ids);
+
         if ((bus1VHV && bus2HV) || (bus2VHV && bus1HV)) {
           modelRatioChanger_->setTFirst(t1stTHT);
           modelRatioChanger_->setTNext(tNextTHT);
