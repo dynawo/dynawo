@@ -251,7 +251,7 @@ DynamicData::associateParameters() {
 
         map<string, shared_ptr<UnitDynamicModel> >::const_iterator itUDM = models.begin();
         for (; itUDM != models.end(); ++itUDM) {
-          shared_ptr<ParametersSet> udmSet = getParametersSet(itUDM->second->getParFile(), itUDM->second->getParId());
+          shared_ptr<ParametersSet> udmSet = getParametersSet(model->getId(), itUDM->second->getParFile(), itUDM->second->getParId());
           if (unitDynamicModelsMap_.find(itUDM->second) == unitDynamicModelsMap_.end())
             throw DYNError(Error::MODELER, UDMUndefined, itUDM->first, model->getId());
 
@@ -266,13 +266,13 @@ DynamicData::associateParameters() {
       }
       case Model::BLACK_BOX_MODEL: {
         shared_ptr<BlackBoxModel> bbm = dynamic_pointer_cast<BlackBoxModel>(model);
-        shared_ptr<ParametersSet> modelSet = getParametersSet(bbm->getParFile(), bbm->getParId());
+        shared_ptr<ParametersSet> modelSet = getParametersSet(bbm->getId(), bbm->getParFile(), bbm->getParId());
         (iter->second)->setParametersSet(modelSet);
         break;
       }
       case Model::MODEL_TEMPLATE_EXPANSION: {
         shared_ptr<ModelTemplateExpansion> modelTemplateExp = dynamic_pointer_cast<ModelTemplateExpansion>(model);
-        shared_ptr<ParametersSet> modelSet = getParametersSet(modelTemplateExp->getParFile(), modelTemplateExp->getParId());
+        shared_ptr<ParametersSet> modelSet = getParametersSet(modelTemplateExp->getId(), modelTemplateExp->getParFile(), modelTemplateExp->getParId());
         (iter->second)->setParametersSet(modelSet);
         break;
       }
@@ -281,9 +281,13 @@ DynamicData::associateParameters() {
 }
 
 shared_ptr<ParametersSet>
-DynamicData::getParametersSet(const string& parFile, const string& parId) {
+DynamicData::getParametersSet(const std::string& modelId, const string& parFile, const string& parId) {
   if (parFile == "" && parId == "")
     return shared_ptr<ParametersSet>();
+  if (parFile != "" && parId == "")
+    throw DYNError(Error::API, MissingParameterId, modelId);
+  if (parFile == "" && parId != "")
+    throw DYNError(Error::API, MissingParameterFile, modelId);
 
   if (referenceParameters_.find(parFile) != referenceParameters_.end())
     return referenceParameters_[parFile]->getParametersSet(parId);
@@ -447,7 +451,7 @@ DynamicData::getNetworkParameters(const string & parFile, const string& parSet) 
   if (filePath == "")
     throw DYNError(Error::MODELER, UnknownParFile, parFile, rootDirectory_);
 
-  shared_ptr<ParametersSet> parameters = getParametersSet(filePath, parSet);
+  shared_ptr<ParametersSet> parameters = getParametersSet("network", filePath, parSet);
   setNetworkParameters(parameters);
 }
 

@@ -233,6 +233,8 @@ MacroStaticReferenceNotUnique =           macroStaticReference (id = "%1%") is n
 MacroStaticReferenceUndefined =           macroStaticReference (id = "%1%") is not defined
 MissingDYDInitName            =           modelica initialization model name (attribute 'initName' in the dyd file) is missing for %1%
 InternalConnectDoneInSystem   =           fully internal connect should not be used within system connects (%1%.%2%<->%3%.%4%)
+MissingParameterFile        =             missing 'parFile' attribute for model %1% in the dyd file (whereas 'parId' is defined)
+MissingParameterId          =             missing 'parId' attribute for model %1% in the dyd file (whereas 'parFile' is defined)
 //---EXTVAR------------------
 ExternalVariableAttributeNotDefined=      external variable (%1%) does not have a value for the attribute "%2%"
 ExternalVariableAttributeOnlyForArray=    external variable (%1%) could not have the attribute "%2%", only defined for array variable
