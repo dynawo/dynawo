@@ -202,14 +202,16 @@ initializeModelNetwork(shared_ptr<DataInterface> data) {
   parametersSet->createParameter("LOAD_beta", 0.);
   parametersSet->createParameter("LOAD_isRestorative", false);
   parametersSet->createParameter("LOAD_isControllable", false);
-  if (!data->getNetwork()->getTwoWTransformers().empty() && (data->getNetwork()->getTwoWTransformers()[0]->getRatioTapChanger() ||
-           data->getNetwork()->getTwoWTransformers()[0]->getPhaseTapChanger())) {
+
+  bool hasRatioTapChanger = !data->getNetwork()->getTwoWTransformers().empty() && data->getNetwork()->getTwoWTransformers()[0]->getRatioTapChanger();
+  bool hasPhaseTapChanger = !data->getNetwork()->getTwoWTransformers().empty() && data->getNetwork()->getTwoWTransformers()[0]->getPhaseTapChanger();
+  if (hasRatioTapChanger || hasPhaseTapChanger) {
     parametersSet->createParameter("TFO_t1st_THT", 9.);
     parametersSet->createParameter("TFO_tNext_THT", 10.);
     parametersSet->createParameter("TFO_t1st_HT", 11.);
     parametersSet->createParameter("TFO_tNext_HT", 12.);
   }
-  if (!data->getNetwork()->getTwoWTransformers().empty() && data->getNetwork()->getTwoWTransformers()[0]->getRatioTapChanger()) {
+  if (hasRatioTapChanger) {
     parametersSet->createParameter("TFO_tolV", 13.);
     }
   modelNetwork->setPARParameters(parametersSet);
