@@ -60,6 +60,7 @@ SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/DYNLog_keys.cpp PROPERTI
 SET(COMMON_SOURCES
     DYNCommun.cpp
     DYNError.cpp
+    DYNErrorQueue.cpp
     DYNTerminate.cpp
     DYNExecUtils.cpp
     DYNEnumUtils.cpp
@@ -79,6 +80,7 @@ SET(COMMON_SOURCES
 SET(COMMON_INCLUDE_HEADERS
     DYNCommun.h
     DYNError.h
+    DYNErrorQueue.h
     DYNTerminate.h
     DYNExecUtils.h
     DYNEnumUtils.h
