@@ -39,6 +39,7 @@
 #include "DYNSubModel.h"
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
+#include "DYNDynamicData.h"
 
 #include "DYNError.h"
 
@@ -802,4 +803,20 @@ TEST(ModelerCommonTest, ModelerCommonUtilities) {
   ASSERT_EQ(fromNativeBool(false), -1.0);
 }
 
+TEST(ModelerCommonTest, testNoParFile) {
+  boost::shared_ptr<DynamicData> dyd(new DynamicData());
+  boost::shared_ptr<parameters::ParametersSet> params;
+  ASSERT_NO_THROW(params = dyd->getParametersSet("MyModel", "", ""));
+  assert(!params);
+}
+
+TEST(ModelerCommonTest, testMissingParFile) {
+  boost::shared_ptr<DynamicData> dyd(new DynamicData());
+  ASSERT_THROW_DYNAWO(dyd->getParametersSet("MyModel", "", "2"), Error::API, KeyError_t::MissingParameterFile);
+}
+
+TEST(ModelerCommonTest, testMissingParId) {
+  boost::shared_ptr<DynamicData> dyd(new DynamicData());
+  ASSERT_THROW_DYNAWO(dyd->getParametersSet("MyModel", "MyFile.par", ""), Error::API, KeyError_t::MissingParameterId);
+}
 }  // namespace DYN

@@ -131,11 +131,12 @@ class DynamicData {
   /**
    * @brief find a set of parameters thanks to its file and its id
    * read the file if it's not already read
+   * @param modelId : parent model id
    * @param file : file of the set of parameters
    * @param id : id of the set of parameters
    * @return set of the parameters associate to the file and the id
    */
-  boost::shared_ptr<parameters::ParametersSet> getParametersSet(const std::string& file, const std::string& id);
+  boost::shared_ptr<parameters::ParametersSet> getParametersSet(const std::string& modelId, const std::string& file, const std::string& id);
 
  public:
   /**
