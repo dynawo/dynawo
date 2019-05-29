@@ -16,9 +16,9 @@ model PhaseShifterP_INIT "Initialisation model for a phase-shifter monitoring th
   extends BaseClasses_INIT.BaseTapChangerPhaseShifter_TARGET_INIT (targetValue = PTarget, deadBand = PDeadBand, tapChangerType = tapChangerType0);
 
   public
-    parameter Types.AC.ActivePower PTarget  "Target active power";
-    parameter Types.AC.ActivePower PDeadBand (min = 0) "Active-power dead-band around the target";
-    parameter Types.AC.ActivePower P0  "Initial active power";
+    parameter Types.ActivePower PTarget  "Target active power";
+    parameter Types.ActivePower PDeadBand (min = 0) "Active-power dead-band around the target";
+    parameter Types.ActivePower P0  "Initial active power";
     parameter Real sign;
     parameter Integer increasePhase;
 

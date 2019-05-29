@@ -35,15 +35,15 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
 
     parameter Real valueMax "Threshold above which the tap-changer/phase-shifter will take action";
 
-    parameter SIunits.Time t1st (min = 0) "Time lag before changing the first tap";
-    parameter SIunits.Time tNext (min = 0) "Time lag before changing subsequent taps";
+    parameter Types.Time t1st (min = 0) "Time lag before changing the first tap";
+    parameter Types.Time tNext (min = 0) "Time lag before changing subsequent taps";
     parameter Integer tapMin "Minimum tap";
     parameter Integer tapMax "Maximum tap";
     parameter Boolean increaseTapToIncreaseValue "Whether increasing the tap will increase the monitored value";
     parameter Boolean increaseTapToDecreaseValue = not decreaseTapToDecreaseValue "Whether increasing the tap will decrease the monitored value";
     parameter Boolean decreaseTapToIncreaseValue = not increaseTapToIncreaseValue "Whether decreasing the tap will increase the monitored value";
     parameter Boolean decreaseTapToDecreaseValue = increaseTapToIncreaseValue "Whether decreasing the tap will decrease the monitored value";
-    parameter SIunits.Time tTransition = 0 "Time lag before transition to standard state"; //to avoid problems with discrete events iterations
+    parameter Types.Time tTransition = 0 "Time lag before transition to standard state"; //to avoid problems with discrete events iterations
 
     Connectors.ImPin valueToMonitor (value (start = valueToMonitor0)) "Monitored value";
     Connectors.ZPin tap (value (start = tap0)) "Current tap";
@@ -64,9 +64,9 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
     Boolean valueAboveMax(start = false) "True if the monitored signal is above the maximum limit";
     Boolean lookingToIncreaseTap "True if the tap-changer/phase-shifter wants to increase tap";
     Boolean lookingToDecreaseTap "True if the tap-changer/phase-shifter wants to decrease tap";
-    SIunits.Time tValueAboveMaxWhileRunning(start = Constants.inf) "Time when the monitored signal went above the maximum limit and the tap-changer/phase-shifter is running";
-    SIunits.Time tTapUp(start = Constants.inf) "Time when the tap has been increased";
-    SIunits.Time tTapDown(start = Constants.inf) "Time when the tap has been decreased";
+    Types.Time tValueAboveMaxWhileRunning(start = Constants.inf) "Time when the monitored signal went above the maximum limit and the tap-changer/phase-shifter is running";
+    Types.Time tTapUp(start = Constants.inf) "Time when the tap has been increased";
+    Types.Time tTapDown(start = Constants.inf) "Time when the tap has been decreased";
 
 equation
   // to force the value of AutomatonExists : writing only value = true in the ZPin declaration would lead the other side of the conneion to be set to false, leading to a bug
@@ -253,9 +253,9 @@ partial model BaseTapChangerPhaseShifter_INTERVAL "Base model for tap-changers a
     Boolean valueUnderMin "True if the monitored signal is under the minimum limit";
     Boolean valueUnderMax "True if the monitored signal is under the maximum limit";
     Boolean valueAboveMin "True if the monitored signal is above the minimum limit";
-    SIunits.Time tValueUnderMaxWhileRunning(start = 0) "Time when the monitored signal went under the maximum limit and the tap-changer/phase-shifter is running";
-    SIunits.Time tValueUnderMinWhileRunning(start = Constants.inf) "Time when the monitored signal went under the minimum limit and the tap-changer/phase-shifter is running";
-    SIunits.Time tValueAboveMinWhileRunning(start = 0) "Time when the monitored signal went above the minimum limit and the tap-changer/phase-shifter is running";
+    Types.Time tValueUnderMaxWhileRunning(start = 0) "Time when the monitored signal went under the maximum limit and the tap-changer/phase-shifter is running";
+    Types.Time tValueUnderMinWhileRunning(start = Constants.inf) "Time when the monitored signal went under the minimum limit and the tap-changer/phase-shifter is running";
+    Types.Time tValueAboveMinWhileRunning(start = 0) "Time when the monitored signal went above the minimum limit and the tap-changer/phase-shifter is running";
 
 equation
 

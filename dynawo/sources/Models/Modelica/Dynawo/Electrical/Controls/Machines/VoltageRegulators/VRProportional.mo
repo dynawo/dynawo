@@ -21,10 +21,10 @@ model VRProportional "Simple Proportional Voltage Regulator"
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   parameter Real Gain "Control gain";
-  parameter Types.AC.VoltageModule EfdMinPu "Minimum allowed EfdPu";
-  parameter Types.AC.VoltageModule EfdMaxPu "Maximum allowed EfdPu";
-  parameter SIunits.Time LagEfdMin "Time lag before taking action when going below EfdMin";
-  parameter SIunits.Time LagEfdMax "Time lag before taking action when going above EfdMax";
+  parameter Types.VoltageModulePu EfdMinPu "Minimum allowed EfdPu";
+  parameter Types.VoltageModulePu EfdMaxPu "Maximum allowed EfdPu";
+  parameter Types.Time LagEfdMin "Time lag before taking action when going below EfdMin";
+  parameter Types.Time LagEfdMax "Time lag before taking action when going above EfdMax";
 
   LimiterWithLag limiterWithLag(UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = tEfdMinReached0, tUMaxReached0 = tEfdMaxReached0) "Limiter activated only after a certain period outside the bounds" annotation(
     Placement(visible = true, transformation(origin = {26, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -44,14 +44,14 @@ model VRProportional "Simple Proportional Voltage Regulator"
 
 protected
 
-  parameter Types.AC.VoltageModule UcEfd0Pu "Initial control voltage";
+  parameter Types.VoltageModulePu UcEfd0Pu "Initial control voltage";
   // p.u. = Unom
-  parameter Types.AC.VoltageModule Us0Pu "Initial stator voltage";
+  parameter Types.VoltageModulePu Us0Pu "Initial stator voltage";
   // p.u. = Unom
-  parameter Types.AC.VoltageModule Efd0Pu "Initial Efd, i.e Efd0PuLF if compliant with saturations";
-  parameter SIunits.Time tEfdMaxReached0 "Initial time when Efd went above EfdMax";
-  parameter SIunits.Time tEfdMinReached0 "Initial time when Efd went below EfdMin";
-  parameter Types.AC.VoltageModule Efd0PuLF "Initial Efd from LoadFlow";
+  parameter Types.VoltageModulePu Efd0Pu "Initial Efd, i.e Efd0PuLF if compliant with saturations";
+  parameter Types.Time tEfdMaxReached0 "Initial time when Efd went above EfdMax";
+  parameter Types.Time tEfdMinReached0 "Initial time when Efd went below EfdMin";
+  parameter Types.VoltageModulePu Efd0PuLF "Initial Efd from LoadFlow";
 
 equation
 

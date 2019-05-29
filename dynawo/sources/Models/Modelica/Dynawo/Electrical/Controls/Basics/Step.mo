@@ -19,7 +19,7 @@ model Step "Parametrable step model : applies a change of amplitude at a given t
     Connectors.ImPin step (value(start = Value0));
 
     parameter Real Height "Amplitude of the step to be imposed by the model";
-    parameter SIunits.Time tStep "Time instant when the step occurs";
+    parameter Types.Time tStep "Time instant when the step occurs";
 
   protected
     parameter Real Value0 "Start value of the step model";

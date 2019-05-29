@@ -27,13 +27,13 @@ model VRProportionalReactiveFeedback
   import Dynawo.NonElectrical.Blocks.NonLinear.MinThresholdSwitch;
 
   parameter Real Gain  "Control gain";
-  parameter SIunits.Time tIntegral "Integral time";
-  parameter Types.AC.ReactivePower QsMinPu "Minimum stator reactive power";
-  parameter Types.AC.ReactivePower QsMaxPu "Maximum stator reactive power";
-  parameter Types.AC.VoltageModule UsMinPu "Minimum stator voltage";
-  parameter Types.AC.VoltageModule UsMaxPu "Maximum stator voltage";
-  parameter Types.AC.VoltageModule EfdMinPu "Minimum allowed Efd";
-  parameter Types.AC.VoltageModule EfdMaxPu "Maximum allowed Efd";
+  parameter Types.Time tIntegral "Integral time";
+  parameter Types.ReactivePowerPu QsMinPu "Minimum stator reactive power";
+  parameter Types.ReactivePowerPu QsMaxPu "Maximum stator reactive power";
+  parameter Types.VoltageModulePu UsMinPu "Minimum stator voltage";
+  parameter Types.VoltageModulePu UsMaxPu "Maximum stator voltage";
+  parameter Types.VoltageModulePu EfdMinPu "Minimum allowed Efd";
+  parameter Types.VoltageModulePu EfdMaxPu "Maximum allowed Efd";
   parameter Real UcTDerMaxPu ( unit = "kV/s") "Maximum time derivative of the voltage request";
   constant Real Cq0 = 15.0;
 
@@ -68,10 +68,10 @@ model VRProportionalReactiveFeedback
     Placement(visible = true, transformation(origin = {126, -46}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 // Here, UsMin and UsMax don't play a symetric role, to be checked
 protected
-  parameter Types.AC.ReactivePower Qs0Pu "Initial stator reactive power";
-  parameter Types.AC.VoltageModule UcEfd0Pu "Initial control voltage"; // p.u. = Unom
-  parameter Types.AC.VoltageModule Us0Pu "Initial stator voltage"; // p.u. = Unom
-  parameter Types.AC.VoltageModule Efd0Pu "Initial Efd";
+  parameter Types.ReactivePowerPu Qs0Pu "Initial stator reactive power";
+  parameter Types.VoltageModulePu UcEfd0Pu "Initial control voltage"; // p.u. = Unom
+  parameter Types.VoltageModulePu Us0Pu "Initial stator voltage"; // p.u. = Unom
+  parameter Types.VoltageModulePu Efd0Pu "Initial Efd";
 
   Boolean constraintUsMax (start = false) "Maximum limit reached for stator voltage";
   Boolean constraintUsMin (start = false) "Minimum limit reached for stator voltage";

@@ -18,8 +18,8 @@ model Load_INIT "Initialization for load from load-flow outputs"
   extends BaseClasses_INIT.BaseLoadInterfaceVariables_INIT;
 
   public
-    parameter Types.AC.VoltageModule U0Pu  "Start value of voltage amplitude at load terminal in p.u (base UNom)";
-    parameter SIunits.Angle UPhase0  "Start value of voltage angle at load terminal (in rad)";
+    parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at load terminal in p.u (base UNom)";
+    parameter Types.Angle UPhase0  "Start value of voltage angle at load terminal (in rad)";
 
 equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);

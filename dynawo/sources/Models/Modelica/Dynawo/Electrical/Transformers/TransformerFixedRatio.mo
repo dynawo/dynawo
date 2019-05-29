@@ -33,15 +33,15 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
   Connectors.ACPower terminal1;
   Connectors.ACPower terminal2;
 
-  parameter SIunits.Resistance RPu "Resistance in p.u (base U2Nom, SnRef)";
-  parameter SIunits.Reactance XPu "Reactance in p.u (base U2Nom, SnRef)";
-  parameter SIunits.Conductance GPu "Conductance in p.u (base U2Nom, SnRef)";
-  parameter SIunits.Susceptance BPu "Susceptance in p.u (base U2Nom, SnRef)";
-  parameter SIunits.PerUnit rTfoPu "Transformation ratio in p.u: U2/U1 in no load conditions";
+  parameter Types.PerUnit RPu "Resistance in p.u (base U2Nom, SnRef)";
+  parameter Types.PerUnit XPu "Reactance in p.u (base U2Nom, SnRef)";
+  parameter Types.PerUnit GPu "Conductance in p.u (base U2Nom, SnRef)";
+  parameter Types.PerUnit BPu "Susceptance in p.u (base U2Nom, SnRef)";
+  parameter Types.PerUnit rTfoPu "Transformation ratio in p.u: U2/U1 in no load conditions";
 
 protected
-  parameter Types.AC.Impedance ZPu(re = RPu , im  = XPu) "Transformer impedance";
-  parameter Types.AC.Admittance YPu(re = GPu , im  = BPu) "Transformer admittance";
+  parameter Types.ComplexImpedancePu ZPu(re = RPu , im  = XPu) "Transformer impedance";
+  parameter Types.ComplexAdmittancePu YPu(re = GPu , im  = BPu) "Transformer admittance";
 
 equation
 

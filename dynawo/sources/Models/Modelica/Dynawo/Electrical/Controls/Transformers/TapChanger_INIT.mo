@@ -16,7 +16,7 @@ model TapChanger_INIT "Initialisation model for standalone tap-changer"
   extends BaseClasses_INIT.BaseTapChanger_INIT;
 
   protected
-    parameter Types.AC.VoltageModule U0 "Initial absolute voltage";
+    parameter Types.VoltageModule U0 "Initial absolute voltage";
     parameter Real valueToMonitor0 = U0  "Initial monitored value";
 
 end TapChanger_INIT;

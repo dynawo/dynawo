@@ -40,8 +40,8 @@ line1_state                                       : z =              2
 line2_state                                       : z =              2
 tfo_state                                         : z =              2
  ====== PARAMETERS VALUES ======
-busInf_U                                           =        0.90081
 busInf_UPhase                                      =              0
+busInf_UPu                                         =        0.90081
 line1_BPu                                          =              0
 line1_GPu                                          =              0
 line1_RPu                                          =              0

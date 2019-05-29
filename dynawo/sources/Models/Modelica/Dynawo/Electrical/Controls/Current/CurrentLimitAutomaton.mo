@@ -22,9 +22,9 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA)"
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   public
-    parameter Types.AC.CurrentModule IMax "Maximum current on the monitored component";
+    parameter Types.CurrentModule IMax "Maximum current on the monitored component";
     parameter Boolean Running "Automaton activated ?";
-    parameter SIunits.Time tLagBeforeActing "Time lag before taking action";
+    parameter Types.Time tLagBeforeActing "Time lag before taking action";
     parameter Integer OrderToEmit  "Order to emit by automaton (it should be a value corresponding to a state: [1:OPEN, 2:CLOSE, 3:CLOSED_1, 4:CLOSED_2, 5:CLOSED_3, 6:UNDEFINED])";
 
     Connectors.ImPin IMonitored "Monitored current";
@@ -33,8 +33,8 @@ model CurrentLimitAutomaton "Current Limit Automaton (CLA)"
 
   protected
 
-    discrete SIunits.Time tThresholdReached (start = Constants.inf) "Time when I > IThreshold was first reached";
-    discrete SIunits.Time tOrder (start = Constants.inf) "Last time the automaton emitted an order";
+    discrete Types.Time tThresholdReached (start = Constants.inf) "Time when I > IThreshold was first reached";
+    discrete Types.Time tOrder (start = Constants.inf) "Last time the automaton emitted an order";
 
 equation
   when IMonitored.value > IMax and Running and pre(order.value) <> OrderToEmit then

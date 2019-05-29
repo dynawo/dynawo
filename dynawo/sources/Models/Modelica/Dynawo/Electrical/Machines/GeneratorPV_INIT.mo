@@ -18,7 +18,7 @@ model GeneratorPV_INIT "Initialisation model for generator PV"
 
   parameter Real LambdaPu "Reactive power sensitivity of the voltage regulation in p.u (base UNom, SnRef)";
 
-  Types.AC.VoltageModule URef0Pu "Initial voltage regulation set point";
+  Types.VoltageModulePu URef0Pu "Initial voltage regulation set point";
 
 equation
 

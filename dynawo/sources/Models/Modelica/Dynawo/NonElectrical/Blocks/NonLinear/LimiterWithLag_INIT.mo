@@ -23,8 +23,8 @@ model LimiterWithLag_INIT "LimiterWithLag INIT Model. Here the input is y0LF. Th
   Real y0LF "Initial y from loadflow";
   Real u0 "Initial input";
   Real y0 "Initial output, =y0LF if compliant with saturations";
-  discrete SIunits.Time tUMinReached0(start = Constants.inf) "Initial time when u went below UMin";
-  discrete SIunits.Time tUMaxReached0(start = Constants.inf) "Initial time when u went above UMax";
+  discrete Types.Time tUMinReached0(start = Constants.inf) "Initial time when u went below UMin";
+  discrete Types.Time tUMaxReached0(start = Constants.inf) "Initial time when u went above UMax";
 
 equation
 

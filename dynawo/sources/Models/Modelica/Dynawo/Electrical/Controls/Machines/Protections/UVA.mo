@@ -24,17 +24,17 @@ model UVA "Under-Voltage Automaton"
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   public
-    parameter Types.AC.VoltageModule UMinPu "Voltage threshold under which the automaton is activated in p.u. (base UNom network)";
-    parameter SIunits.Time tLagMeasure "Time-lag before deciding to trip in s";
-    parameter SIunits.Time tLagAction "Time-lag due to the actual trip action in s";
-    parameter Types.AC.VoltageModule U0Pu  "Initial monitored voltage in p.u. (base UNom network)";
+    parameter Types.VoltageModulePu UMinPu "Voltage threshold under which the automaton is activated in p.u. (base UNom network)";
+    parameter Types.Time tLagMeasure "Time-lag before deciding to trip in s";
+    parameter Types.Time tLagAction "Time-lag due to the actual trip action in s";
+    parameter Types.VoltageModulePu U0Pu  "Initial monitored voltage in p.u. (base UNom network)";
 
     Connectors.ImPin UPu (value (start = U0Pu)) "Monitored voltage in p.u. (base UNom network)";
     Connectors.BPin switchOffSignal (value (start = false)) "Switch off message for the generator";
 
   protected
-    SIunits.Time tThresholdReached (start = Constants.inf) "Time when the threshold was reached";
-    SIunits.Time tDelayReached (start = Constants.inf) "Time when the delay before acting was reached";
+    Types.Time tThresholdReached (start = Constants.inf) "Time when the threshold was reached";
+    Types.Time tDelayReached (start = Constants.inf) "Time when the delay before acting was reached";
 
   equation
     // Voltage comparison with the minimum accepted value
