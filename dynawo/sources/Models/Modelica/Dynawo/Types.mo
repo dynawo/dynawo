@@ -14,33 +14,55 @@ within Dynawo;
 
 package Types "Standard types for electrical variables"
 
-  public
+  // Voltage
+  record Voltage = Complex(redeclare VoltageComponent re "Real part of complex voltage",
+                           redeclare VoltageComponent im "Imaginary part of complex voltage") "Complex voltage";
+  type VoltageComponent = Real (final unit="kV") "Real or imaginary part of complex voltage";
+  type VoltageModule = Real (final unit="kV") "Voltage module";
 
-  package AC "types for AC variables"
-    // voltages
-    // record Voltage = Complex (re (VoltageComponent), im (VoltageComponent)) "AC voltage as complex number";
-    record Voltage = Complex "AC voltage as complex number";
-    type VoltageComponent = SIunits.Voltage "Real or imaginary part of complex AC voltage";
-    type VoltageModule = SIunits.Voltage "AC voltage module";
+  // Current
+  record Current = Complex(redeclare CurrentComponent re "Real part of complex current",
+                           redeclare CurrentComponent im "Imaginary part of complex current") "Complex current";
+  type CurrentComponent = Real (final unit = "kA") "Real or imaginary part of complex current";
+  type CurrentModule = Real (final unit = "kA") "Current module";
 
-    // currents
-    // record Current = flow Complex (re (CurrentComponent), im (CurrentComponent)) "AC current as complex number";
-    record Current = Complex "AC current as complex number";
-    type CurrentComponent = SIunits.ElectricCurrent "Real or imaginary part of complex AC current";
-    type CurrentModule = SIunits.ElectricCurrent "AC current module";
+  // Power
+  record ApparentPower = Complex(redeclare ActivePower re "Real part of complex apparent power",
+                                 redeclare ReactivePower im "Imaginary part of complex apparent power") "Complex apparent power";
+  type ApparentPowerModule = Real (final unit = "MVA") "Apparent power module";
+  type ActivePower = Real (final unit = "MW") "Active power";
+  type ReactivePower = Real (final unit = "MVar") "Reactive power";
 
-    // apparent power
-    // record ApparentPower = Complex (re (ActivePower), im (ReactivePower)) "AC apparent power";
-    record ApparentPower = Complex "AC apparent power";
-    type ApparentPowerModule = Real (final unit = "MVA") "AC apparent power module";
-    type ActivePower = SIunits.ActivePower "AC active power";
-    type ReactivePower = SIunits.ReactivePower "AC reactive power";
+  // Angle
+  type Angle = Real (final unit = "rad") "Angle";
 
-    // impedance
-    // record Impedance = Complex (re (Resistance), im (Reactance)) "Complex impedance";
-    record Impedance = Complex "Complex impedance";
-    record Admittance = Complex "Complex admittance";
+  // Frequency
+  type Frequency = Real (final unit = "Hz") "Frequency";
 
-  end AC;
+  // AngularVelocity
+  type AngularVelocity = Real (final unit = "rad/s") "Angular velocity";
+
+  // Time
+  type Time = Real (final unit = "s") "Time";
+
+  // PerUnit
+  record ComplexPerUnit = Complex(redeclare PerUnit re "Real part of complex per unit quantity",
+                                  redeclare PerUnit im "Imaginary part of complex per unit quantity") "Complex per unit";
+  record ComplexVoltagePu = ComplexPerUnit;
+  record ComplexCurrentPu = ComplexPerUnit;
+  record ComplexApparentPowerPu = ComplexPerUnit;
+  record ComplexImpedancePu = ComplexPerUnit;
+  record ComplexAdmittancePu = ComplexPerUnit;
+
+  type PerUnit = Real(unit = "1") "Per unit quantity";
+  type VoltageModulePu = PerUnit;
+  type CurrentModulePu = PerUnit;
+  type ApparentPowerModulePu = PerUnit;
+  type ActivePowerPu = PerUnit;
+  type ReactivePowerPu = PerUnit;
+  type ApparentPowerPu = PerUnit;
+
+  // Percent
+  type Percent = Real (unit = "100") "Percent quantity";
 
 end Types;

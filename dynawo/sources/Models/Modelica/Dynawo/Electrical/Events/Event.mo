@@ -34,7 +34,7 @@ partial model EventEquations
     typeConnector state5 if (nbEventVariables >= 5);
 
   public
-    parameter SIunits.Time tEvent "Event time";
+    parameter Types.Time tEvent "Event time";
 
     parameter Integer nbEventVariables (min = 1, max = 5) "Number of variables to update during the event";
 

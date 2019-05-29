@@ -14,7 +14,7 @@
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <!-- InfiniteBus -->
   <set id="1">
-    <par type="DOUBLE" name="U" value="0.90081"/>
+    <par type="DOUBLE" name="UPu" value="0.90081"/>
     <par type="DOUBLE" name="UPhase" value="0.0"/>
   </set>
   <!-- line 1 -->

@@ -16,9 +16,9 @@ model PhaseShifterI_INIT "Initialisation model for a phase-shifter monitoring th
   extends BaseClasses_INIT.BaseTapChangerPhaseShifter_MAX_INIT (valueMax = iMax, valueStop = iStop, tapChangerType = tapChangerType0);
 
   public
-    parameter Types.AC.CurrentModule iMax  "Maximum allowed current";
-    parameter Types.AC.CurrentModule iStop  "Current below which the phase-shifter will not take action";
-    parameter Types.AC.CurrentModule I0 "Initial current module";
+    parameter Types.CurrentModule iMax  "Maximum allowed current";
+    parameter Types.CurrentModule iStop  "Current below which the phase-shifter will not take action";
+    parameter Types.CurrentModule I0 "Initial current module";
     parameter Real sign;
     parameter Integer increasePhase;
 

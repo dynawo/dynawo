@@ -18,16 +18,16 @@ model GeneratorSynchronousExt_4E_INIT "Synchronous machine with 4 windings - Ini
 
   public
 
-    parameter SIunits.PerUnit XppqPu "Quadrature axis sub-transient reactance in p.u.";
-    parameter SIunits.Time Tppq0 "Open circuit quadrature axis sub-transient time constant";
+    parameter Types.PerUnit XppqPu "Quadrature axis sub-transient reactance in p.u.";
+    parameter Types.Time Tppq0 "Open circuit quadrature axis sub-transient time constant";
 
   protected
 
     // Auxiliary parameters: quadrature axis
-    SIunits.Time Tppq;
+    Types.Time Tppq;
 
-    SIunits.PerUnit T3qPu;
-    SIunits.PerUnit T6qPu;
+    Types.PerUnit T3qPu;
+    Types.PerUnit T6qPu;
 
 equation
 

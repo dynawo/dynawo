@@ -18,7 +18,7 @@ function functionAutomaton
   import Dynawo.Electrical.Controls.Generic.GenericAutomatonConstants;
 
   input String command "Command to be called";
-  input SIunits.Time timeActivation "Automaton activation time";
+  input Types.Time timeActivation "Automaton activation time";
   input Real inputs[GenericAutomatonConstants.inputsMaxSize] "Inputs data for the automaton";
   input String inputsName[GenericAutomatonConstants.inputsMaxSize] "Inputs data name for the automaton";
   input Integer nbInputs "Number of inputs to provide to the automaton";

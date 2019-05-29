@@ -33,19 +33,19 @@ function TapEstimation "Function that estimates the initial tap of a transformer
   We then solve for (rcTfo0Pu²) and deduce rcTfo0Pu that is used to find the closest tap - Tap0 -.
 */
 
-  input Types.AC.Impedance ZPu " Transformer impedance in p.u (base U2Nom, SnRef)";
-  input SIunits.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
-  input SIunits.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
+  input Types.ComplexImpedancePu ZPu " Transformer impedance in p.u (base U2Nom, SnRef)";
+  input Types.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
+  input Types.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
   input Integer NbTap "Number of taps";
-  input Types.AC.Voltage u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
-  input Types.AC.Current i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
-  input Types.AC.VoltageModule Uc20Pu "Voltage set-point on side 2 in p.u (base U2Nom)";
+  input Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
+  input Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
+  input Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in p.u (base U2Nom)";
 
   output Integer Tap0 "Estimated tap";
 
 protected
-  SIunits.PerUnit rcTfo0Pu "Ratio value corresponding to the voltage set point on side 2 in p.u.: U2/U1 in no load conditions";
-  Types.AC.Voltage deltauPu "Voltage drop due to the impedance in p.u. (base U2Nom, SnRef)";
+  Types.PerUnit rcTfo0Pu "Ratio value corresponding to the voltage set point on side 2 in p.u.: U2/U1 in no load conditions";
+  Types.ComplexVoltagePu deltauPu "Voltage drop due to the impedance in p.u. (base U2Nom, SnRef)";
 
   // Mathematical intermediate variables for resolving (5)
   Real A, B, C "Polynomial coefficients";
@@ -116,29 +116,29 @@ partial model BaseTransformerVariableTap_INIT "Base model for initialization of 
   public
 
     // Transformer's parameters
-    parameter Types.AC.ApparentPowerModule SNom "Nominal apparent power in MVA";
-    parameter SIunits.Resistance R "Resistance in % (base U2Nom, SNom)";
-    parameter SIunits.Reactance X "Reactance in % (base U2Nom, SNom)";
-    parameter SIunits.Conductance G "Conductance in % (base U2Nom, SNom)";
-    parameter SIunits.Susceptance B "Susceptance in % (base U2Nom, SNom)";
-    parameter SIunits.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
-    parameter SIunits.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
+    parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+    parameter Types.Percent R "Resistance in % (base U2Nom, SNom)";
+    parameter Types.Percent X "Reactance in % (base U2Nom, SNom)";
+    parameter Types.Percent G "Conductance in % (base U2Nom, SNom)";
+    parameter Types.Percent B "Susceptance in % (base U2Nom, SNom)";
+    parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
+    parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
     parameter Integer NbTap "Number of taps";
-    parameter Types.AC.VoltageModule Uc20Pu "Voltage set-point on side 2 in p.u (base U2Nom)";
+    parameter Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in p.u (base U2Nom)";
 
   protected
 
     // Transformer's impedance and susceptance
-    parameter Types.AC.Impedance ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom) "Transformer impedance in p.u (base U2Nom, SnRef)";
-    parameter Types.AC.Admittance YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in p.u (base U2Nom, SnRef)";
+    parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom) "Transformer impedance in p.u (base U2Nom, SnRef)";
+    parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in p.u (base U2Nom, SnRef)";
 
     // Transformer start values
-    Types.AC.Voltage u20Pu  "Start value of complex voltage at terminal 2 in p.u (base U2Nom)";
-    flow Types.AC.Current i20Pu  "Start value of complex current at terminal 2 in p.u (base U2Nom, SnRef) (receptor convention)";
-    Types.AC.VoltageModule U20Pu "Start value of voltage amplitude at terminal 2 in p.u (base U2Nom)";
+    Types.ComplexVoltagePu u20Pu  "Start value of complex voltage at terminal 2 in p.u (base U2Nom)";
+    flow Types.ComplexCurrentPu i20Pu  "Start value of complex current at terminal 2 in p.u (base U2Nom, SnRef) (receptor convention)";
+    Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in p.u (base U2Nom)";
 
     Integer Tap0 "Start value of transformer tap";
-    SIunits.PerUnit rTfo0Pu "Start value of transformer ratio";
+    Types.PerUnit rTfo0Pu "Start value of transformer ratio";
     Constants.state state0 = Constants.state.Closed "Start value of connection state";
 
 equation

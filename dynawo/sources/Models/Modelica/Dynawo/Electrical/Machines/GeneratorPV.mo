@@ -33,15 +33,15 @@ model GeneratorPV "Generator with power / frequency modulation and voltage / rea
 
     Connectors.ZPin URefPu (value = URef0Pu) "Voltage regulation set point in p.u (base UNom)";
 
-    parameter Types.AC.ReactivePower QMinPu  "Minimum reactive power in p.u (base SnRef)";
-    parameter Types.AC.ReactivePower QMaxPu  "Maximum reactive power in p.u (base SnRef)";
-    parameter SIunits.PerUnit LambdaPu "Reactive power sensitivity of the voltage regulation in p.u (base UNom, SnRef)";
+    parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
+    parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
+    parameter Types.PerUnit LambdaPu "Reactive power sensitivity of the voltage regulation in p.u (base UNom, SnRef)";
 
   protected
 
-    parameter Types.AC.VoltageModule URef0Pu "Initial voltage regulation set point";
+    parameter Types.VoltageModulePu URef0Pu "Initial voltage regulation set point";
 
-    Types.AC.ReactivePower QGenRefPu (start = QGen0Pu) "Reactive power set point in p.u (base SnRef)";
+    Types.ReactivePowerPu QGenRefPu (start = QGen0Pu) "Reactive power set point in p.u (base SnRef)";
 
     QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
 

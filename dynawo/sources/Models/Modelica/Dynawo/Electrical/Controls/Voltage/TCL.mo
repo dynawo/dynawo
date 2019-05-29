@@ -23,10 +23,10 @@ model TCL "Tap Changer Lock (TCL)"
 
   public
 
-    parameter Types.AC.VoltageModule UMin "Minimum voltage threshold before tap-changer locking";
-    parameter SIunits.Time tLagBeforeLocked "Time to wait before activating lock event";
-    parameter SIunits.Time tLagTransLockedT "Time to wait before sending lock event to high voltage transformers";
-    parameter SIunits.Time tLagTransLockedD "Time to wait before sending lock event to low voltage transformers";
+    parameter Types.VoltageModule UMin "Minimum voltage threshold before tap-changer locking";
+    parameter Types.Time tLagBeforeLocked "Time to wait before activating lock event";
+    parameter Types.Time tLagTransLockedT "Time to wait before sending lock event to high voltage transformers";
+    parameter Types.Time tLagTransLockedD "Time to wait before sending lock event to low voltage transformers";
 
     Connectors.ImPin UMonitored (value (unit = "kV")) "Monitored voltage";
     Connectors.BPin lockOrder (value (start = locked0)) "TCL lock order";
@@ -38,8 +38,8 @@ model TCL "Tap Changer Lock (TCL)"
     parameter Boolean locked0 = false "Is the TCL initially locked ?";
 
     Boolean UUnderMin (start = false) "U < Umin ?";
-    SIunits.Time tUnderUmin (start = Constants.inf) "Time when U < Umin";
-    SIunits.Time tLocked (start = Constants.inf) "Time when the TCL was locked";
+    Types.Time tUnderUmin (start = Constants.inf) "Time when U < Umin";
+    Types.Time tLocked (start = Constants.inf) "Time when the TCL was locked";
     Boolean locked (start = locked0) "TCL locked ?";
 
   equation

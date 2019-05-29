@@ -19,25 +19,25 @@ model VRProportionalIntegral_INIT "Proportional Integral Voltage Regulator INIT 
 
   public
 
-    parameter Types.AC.VoltageModule EfdMinPu "Minimum exciter field voltage";
-    parameter Types.AC.VoltageModule EfdMaxPu "Maximum exciter field voltage";
+    parameter Types.VoltageModulePu EfdMinPu "Minimum exciter field voltage";
+    parameter Types.VoltageModulePu EfdMaxPu "Maximum exciter field voltage";
     parameter Real Gain "Control gain";
 
-    Types.AC.VoltageModule Efd0PuLF "Initial Efd from loadflow";
-    Types.AC.VoltageModule Efd0Pu "Initial Efd";
-    Types.AC.VoltageModule yIntegrator0 "Initial control before saturation";
-    Types.AC.VoltageModule UcEfd0Pu "Initial voltage set-point, p.u. = Unom";
-    Types.AC.VoltageModule Us0Pu "Initial stator voltage, p.u. = Unom";
+    Types.VoltageModulePu Efd0PuLF "Initial Efd from loadflow";
+    Types.VoltageModulePu Efd0Pu "Initial Efd";
+    Types.PerUnit yIntegrator0 "Initial control before saturation";
+    Types.VoltageModulePu UcEfd0Pu "Initial voltage set-point, p.u. = Unom";
+    Types.VoltageModulePu Us0Pu "Initial stator voltage, p.u. = Unom";
 
   protected
 
-    parameter Types.AC.VoltageComponent Ur0Pu = 1.0;
-    parameter Types.AC.VoltageComponent Ui0Pu = 0.0 "Start values for complex voltage";
+    parameter Types.PerUnit Ur0Pu = 1.0;
+    parameter Types.PerUnit Ui0Pu = 0.0 "Start values for complex voltage";
 
-    discrete SIunits.Time tEfdMaxReached0(start = Constants.inf) "First time when the Efd went above the maximum Efd";
-    discrete SIunits.Time tEfdMinReached0(start = Constants.inf) "First time when the Efd went below the maximum Efd";
+    discrete Types.Time tEfdMaxReached0(start = Constants.inf) "First time when the Efd went above the maximum Efd";
+    discrete Types.Time tEfdMinReached0(start = Constants.inf) "First time when the Efd went below the maximum Efd";
 
-    Types.AC.Voltage u0 (re (start = Ur0Pu), im (start = Ui0Pu));
+    Types.ComplexVoltagePu u0 (re (start = Ur0Pu), im (start = Ui0Pu));
     LimiterWithLag_INIT limiterWithLag(UMin = EfdMinPu, UMax = EfdMaxPu);
 
   equation

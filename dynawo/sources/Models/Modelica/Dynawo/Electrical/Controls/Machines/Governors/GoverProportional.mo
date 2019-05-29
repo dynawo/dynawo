@@ -35,10 +35,10 @@ model GoverProportional "Keep the mechanical power as a constant modulated by th
   Connectors.ImPin PmPu(value (start = Pm0Pu)) "Mechanical power" annotation(
     Placement(visible = true, transformation(origin = {72, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {72, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
-  parameter SIunits.PerUnit KGover  "Mechanical power sensitivity to frequency";
-  parameter Types.AC.ActivePower PMin  "Minimum mechanical power";
-  parameter Types.AC.ActivePower PMax  "Maximum mechanical power";   // may be negative (for power plants which may be pumping)
-  parameter Types.AC.ActivePower PNom  "Nominal active power";
+  parameter Types.PerUnit KGover  "Mechanical power sensitivity to frequency";
+  parameter Types.ActivePower PMin  "Minimum mechanical power";
+  parameter Types.ActivePower PMax  "Maximum mechanical power";   // may be negative (for power plants which may be pumping)
+  parameter Types.ActivePower PNom  "Nominal active power";
 
   Blocks.Math.Gain gain(k=KGover) annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -52,9 +52,9 @@ model GoverProportional "Keep the mechanical power as a constant modulated by th
     Placement(visible = true, transformation(origin = {28, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
-    parameter SIunits.PerUnit PMinPu = PMin/PNom "Minimum mechanical power Pu";
-    parameter SIunits.PerUnit PMaxPu = PMax/PNom "Maximum mechanical power Pu";
-    parameter SIunits.PerUnit Pm0Pu  "Initial mechanical power";
+    parameter Types.ActivePowerPu PMinPu = PMin/PNom "Minimum mechanical power Pu";
+    parameter Types.ActivePowerPu PMaxPu = PMax/PNom "Maximum mechanical power Pu";
+    parameter Types.ActivePowerPu Pm0Pu  "Initial mechanical power";
 
     status state (start = status.Standard);
 equation

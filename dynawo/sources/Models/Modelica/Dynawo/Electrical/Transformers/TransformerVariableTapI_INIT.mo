@@ -17,12 +17,12 @@ model TransformerVariableTapI_INIT "Initialization for transformer based on the 
   extends BaseClasses_INIT.BaseTransformerVariableTap_INIT;
 
   protected
-    Types.AC.Voltage u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
-    flow Types.AC.Current i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
+    Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
+    flow Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
 
-    Types.AC.VoltageModule U10Pu "Start value of voltage amplitude at terminal 1 in p.u (base U1Nom)";
-    Types.AC.ActivePower P10Pu "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    Types.AC.ReactivePower Q10Pu "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in p.u (base U1Nom)";
+    Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
 
 equation
 

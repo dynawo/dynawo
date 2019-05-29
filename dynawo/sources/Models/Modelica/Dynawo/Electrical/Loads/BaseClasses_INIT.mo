@@ -17,16 +17,16 @@ package BaseClasses_INIT
 partial model BaseLoadInterfaceVariables_INIT "Base model for load initialization"
 
   protected
-    Types.AC.Voltage u0Pu "Start value of complex voltage at load terminal in p.u (base UNom)";
-    Types.AC.ApparentPower s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
-    flow Types.AC.Current i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
+    Types.ComplexVoltagePu u0Pu "Start value of complex voltage at load terminal in p.u (base UNom)";
+    Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
+    flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
 
 end BaseLoadInterfaceVariables_INIT;
 
 partial model BaseLoadInterfaceParameters_INIT "Base model for load initialization from load flow"
 
-  parameter Types.AC.ActivePower P0Pu  "Start value of active power in p.u (base SnRef) (receptor convention)";
-  parameter Types.AC.ReactivePower Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
+  parameter Types.ActivePowerPu P0Pu  "Start value of active power in p.u (base SnRef) (receptor convention)";
+  parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
 
   equation
     s0Pu = Complex(P0Pu, Q0Pu);

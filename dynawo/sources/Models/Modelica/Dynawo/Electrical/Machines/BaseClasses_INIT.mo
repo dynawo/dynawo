@@ -17,18 +17,18 @@ package BaseClasses_INIT
 partial model BaseGeneratorSimplified_INIT "Base initialization model for simplified generator models"
 
   public
-    parameter Types.AC.ActivePower P0Pu  "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.AC.ReactivePower Q0Pu  "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.AC.VoltageModule U0Pu "Start value of voltage amplitude at terminal in p.u (base UNom)";
-    parameter SIunits.Angle UPhase0  "Start value of voltage angle at terminal in rad";
+    parameter Types.ActivePowerPu P0Pu  "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in p.u (base UNom)";
+    parameter Types.Angle UPhase0  "Start value of voltage angle at terminal in rad";
 
   protected
-    Types.AC.ActivePower PGen0Pu "Start value of active power at terminal in p.u (base SnRef) (generator convention)";
-    Types.AC.ReactivePower QGen0Pu "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)";
+    Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in p.u (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)";
 
-    Types.AC.Voltage u0Pu  "Start value of complex voltage at terminal in p.u (base UNom)";
-    Types.AC.ApparentPower s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
-    Types.AC.Current i0Pu  "Start value of complex current at terminal in p.u (base UNom, SnRef) (receptor convention)";
+    Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at terminal in p.u (base UNom)";
+    Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef) (receptor convention)";
+    Types.ComplexCurrentPu i0Pu  "Start value of complex current at terminal in p.u (base UNom, SnRef) (receptor convention)";
 
 equation
 
@@ -56,72 +56,72 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
       For an initialization from external parameters:
         - Calculate the internal parameter from the external parameters
         - Apply the transformation due to the presence of a generator transformer in the model to the internal parameters calculated from the external ones*/
-    SIunits.PerUnit RaPPu "Armature resistance in p.u.";
-    SIunits.PerUnit LdPPu "Direct axis stator leakage in p.u.";
-    SIunits.PerUnit MdPPu "Direct axis mutual inductance in p.u.";
-    SIunits.PerUnit LDPPu "Direct axis damper leakage in p.u.";
-    SIunits.PerUnit RDPPu "Direct axis damper resistance in p.u.";
-    SIunits.PerUnit MrcPPu "Canay's mutual inductance in p.u.";
-    SIunits.PerUnit LfPPu "Excitation winding leakage in p.u.";
-    SIunits.PerUnit RfPPu "Excitation winding resistance in p.u.";
-    SIunits.PerUnit LqPPu "Quadrature axis stator leakage in p.u.";
-    SIunits.PerUnit MqPPu "Quadrature axis mutual inductance in p.u.";
-    SIunits.PerUnit LQ1PPu "Quadrature axis 1st damper leakage in p.u.";
-    SIunits.PerUnit RQ1PPu "Quadrature axis 1st damper resistance in p.u.";
-    SIunits.PerUnit LQ2PPu "Quadrature axis 2nd damper leakage in p.u.";
-    SIunits.PerUnit RQ2PPu "Quadrature axis 2nd damper resistance in p.u.";
+    Types.PerUnit RaPPu "Armature resistance in p.u.";
+    Types.PerUnit LdPPu "Direct axis stator leakage in p.u.";
+    Types.PerUnit MdPPu "Direct axis mutual inductance in p.u.";
+    Types.PerUnit LDPPu "Direct axis damper leakage in p.u.";
+    Types.PerUnit RDPPu "Direct axis damper resistance in p.u.";
+    Types.PerUnit MrcPPu "Canay's mutual inductance in p.u.";
+    Types.PerUnit LfPPu "Excitation winding leakage in p.u.";
+    Types.PerUnit RfPPu "Excitation winding resistance in p.u.";
+    Types.PerUnit LqPPu "Quadrature axis stator leakage in p.u.";
+    Types.PerUnit MqPPu "Quadrature axis mutual inductance in p.u.";
+    Types.PerUnit LQ1PPu "Quadrature axis 1st damper leakage in p.u.";
+    Types.PerUnit RQ1PPu "Quadrature axis 1st damper resistance in p.u.";
+    Types.PerUnit LQ2PPu "Quadrature axis 2nd damper leakage in p.u.";
+    Types.PerUnit RQ2PPu "Quadrature axis 2nd damper resistance in p.u.";
 
     // Used for initialization of theta
-    SIunits.PerUnit XqPPu "Quadrature axis reactance in p.u.";
+    Types.PerUnit XqPPu "Quadrature axis reactance in p.u.";
 
     // Start values calculated by the initialization model
-    SIunits.PerUnit Kuf "Scaling factor for excitation p.u voltage";
+    Types.PerUnit Kuf "Scaling factor for excitation p.u voltage";
 
-    Types.AC.ApparentPower sStator0Pu "Start value of complex apparent power at stator side in p.u (base SnRef)";
-    Types.AC.Voltage uStator0Pu "Start value of complex voltage at stator side in p.u (base UNom)";
-    Types.AC.Current iStator0Pu "Start value of complex current at stator side in p.u (base UNom, SnRef)";
+    Types.ComplexApparentPowerPu sStator0Pu "Start value of complex apparent power at stator side in p.u (base SnRef)";
+    Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator side in p.u (base UNom)";
+    Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator side in p.u (base UNom, SnRef)";
 
-    Types.AC.ApparentPower s0Pu "Start value of complex apparent power at terminal side in p.u (base SnRef)";
-    Types.AC.Voltage u0Pu "Start value of complex voltage at terminal side (base UNom)";
-    Types.AC.Current i0Pu "Start value of complex current at terminal side (base UNom, SnRef)";
+    Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal side in p.u (base SnRef)";
+    Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal side (base UNom)";
+    Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal side (base UNom, SnRef)";
 
-    Types.AC.ApparentPowerModule S0Pu "Start value of apparent power at terminal side in p.u (base SNom)";
-    Types.AC.CurrentModule I0Pu "Start value of current module at terminal side in p.u (base UNom, SNom)";
-    SIunits.Angle phi0 "Start value of power factor";
+    Types.ApparentPowerModulePu S0Pu "Start value of apparent power at terminal side in p.u (base SNom)";
+    Types.CurrentModulePu I0Pu "Start value of current module at terminal side in p.u (base UNom, SNom)";
+    Types.Angle phi0 "Start value of power factor";
 
-    Types.AC.ActivePower PGen0Pu "Start value of active power at terminal in p.u (base SnRef) (generator convention)";
-    Types.AC.ReactivePower QGen0Pu "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)";
+    Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in p.u (base SnRef) (generator convention)";
+    Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)";
 
-    SIunits.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
-    SIunits.PerUnit sinTheta0 "Start value of sin(theta)";
-    SIunits.PerUnit cosTheta0 "Start value of cos(theta)";
-    SIunits.PerUnit tanTheta0 "Start value of tan(theta)";
+    Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
+    Types.PerUnit sinTheta0 "Start value of sin(theta)";
+    Types.PerUnit cosTheta0 "Start value of cos(theta)";
+    Types.PerUnit tanTheta0 "Start value of tan(theta)";
 
-    SIunits.PerUnit Ud0Pu "Start value of voltage of direct axis in p.u";
-    SIunits.PerUnit Uq0Pu "Start value of voltage of quadrature axis in p.u";
-    SIunits.PerUnit Id0Pu "Start value of current of direct axis in p.u";
-    SIunits.PerUnit Iq0Pu "Start value of current of quadrature axis in p.u";
+    Types.PerUnit Ud0Pu "Start value of voltage of direct axis in p.u";
+    Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in p.u";
+    Types.PerUnit Id0Pu "Start value of current of direct axis in p.u";
+    Types.PerUnit Iq0Pu "Start value of current of quadrature axis in p.u";
 
-    SIunits.PerUnit If0Pu "Start value of flux of excitation winding in p.u";
-    SIunits.PerUnit Uf0Pu "Start value of exciter voltage in p.u (Kundur base)";
-    SIunits.PerUnit Efd0Pu "Start value of input exciter voltage in p.u (user-selcted base)";
+    Types.PerUnit If0Pu "Start value of flux of excitation winding in p.u";
+    Types.PerUnit Uf0Pu "Start value of exciter voltage in p.u (Kundur base)";
+    Types.PerUnit Efd0Pu "Start value of input exciter voltage in p.u (user-selcted base)";
 
-    SIunits.PerUnit Lambdad0Pu "Start value of flux of direct axis in p.u";
-    SIunits.PerUnit Lambdaq0Pu "Start value of flux of quadrature axis in p.u";
-    SIunits.PerUnit LambdaD0Pu "Start value of flux of direct axis damper";
-    SIunits.PerUnit Lambdaf0Pu "Start value of flux of excitation winding";
-    SIunits.PerUnit LambdaQ10Pu "Start value of flux of quadrature axis 1st damper";
-    SIunits.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
+    Types.PerUnit Lambdad0Pu "Start value of flux of direct axis in p.u";
+    Types.PerUnit Lambdaq0Pu "Start value of flux of quadrature axis in p.u";
+    Types.PerUnit LambdaD0Pu "Start value of flux of direct axis damper";
+    Types.PerUnit Lambdaf0Pu "Start value of flux of excitation winding";
+    Types.PerUnit LambdaQ10Pu "Start value of flux of quadrature axis 1st damper";
+    Types.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
 
-    SIunits.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/omegaNom)";
-    SIunits.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNom/omegaNom)";
-    SIunits.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNom/omegaNom)";
+    Types.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/omegaNom)";
+    Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNom/omegaNom)";
+    Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNom/omegaNom)";
 
-    SIunits.PerUnit UStator0Pu "Start value of stator voltage amplitude in p.u (base UNom)";
-    SIunits.PerUnit IStator0Pu "Start value of stator current amplitude in p.u (base SnRef)";
-    SIunits.PerUnit QStator0Pu "Start value of stator reactive power generated in p.u (base SnRef)";
-    SIunits.PerUnit IRotor0Pu "Start value of rotor current in p.u (base SNom)";
-    SIunits.Angle ThetaInternal0 "Start value of internal angle";
+    Types.VoltageModulePu UStator0Pu "Start value of stator voltage amplitude in p.u (base UNom)";
+    Types.CurrentModulePu IStator0Pu "Start value of stator current amplitude in p.u (base SnRef)";
+    Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power generated in p.u (base SnRef)";
+    Types.CurrentModulePu IRotor0Pu "Start value of rotor current in p.u (base SNom)";
+    Types.Angle ThetaInternal0 "Start value of internal angle";
 
 equation
   Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 else RfPPu / MdPPu;
@@ -207,48 +207,48 @@ partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for sy
   public
 
     // External parameters of the synchronous machine given as parameters in p.u (base UNom, SNom)
-    parameter SIunits.PerUnit RaPu "Armature resistance in p.u.";
-    parameter SIunits.PerUnit XlPu "Stator leakage in p.u.";
-    parameter SIunits.PerUnit XdPu "Direct axis reactance in p.u.";
-    parameter SIunits.PerUnit XpdPu "Direct axis transient reactance in p.u.";
-    parameter SIunits.PerUnit XppdPu "Direct axis sub-transient reactance p.u.";
-    parameter SIunits.Time Tpd0 "Direct axis, open circuit transient time constant";
-    parameter SIunits.Time Tppd0 "Direct axis, open circuit sub-transient time constant";
-    parameter SIunits.PerUnit XqPu "Quadrature axis reactance in p.u.";
-    parameter SIunits.PerUnit XpqPu "Quadrature axis transient reactance in p.u.";
-    parameter SIunits.Time Tpq0 "Open circuit quadrature axis transient time constant";
+    parameter Types.PerUnit RaPu "Armature resistance in p.u.";
+    parameter Types.PerUnit XlPu "Stator leakage in p.u.";
+    parameter Types.PerUnit XdPu "Direct axis reactance in p.u.";
+    parameter Types.PerUnit XpdPu "Direct axis transient reactance in p.u.";
+    parameter Types.PerUnit XppdPu "Direct axis sub-transient reactance p.u.";
+    parameter Types.Time Tpd0 "Direct axis, open circuit transient time constant";
+    parameter Types.Time Tppd0 "Direct axis, open circuit sub-transient time constant";
+    parameter Types.PerUnit XqPu "Quadrature axis reactance in p.u.";
+    parameter Types.PerUnit XpqPu "Quadrature axis transient reactance in p.u.";
+    parameter Types.Time Tpq0 "Open circuit quadrature axis transient time constant";
 
   protected
 
     // Internal parameters to be calculated from the external ones in p.u (base UNom, SNom)
-    SIunits.PerUnit LdPu "Direct axis stator leakage in p.u.";
-    SIunits.PerUnit MdPu "Direct axis mutual inductance in p.u.";
-    SIunits.PerUnit LDPu "Direct axis damper leakage in p.u.";
-    SIunits.PerUnit RDPu "Direct axis damper resistance in p.u.";
-    SIunits.PerUnit MrcPu "Canay's mutual inductance in p.u.";
-    SIunits.PerUnit LfPu "Excitation winding leakage in p.u.";
-    SIunits.PerUnit RfPu "Excitation winding resistance in p.u.";
-    SIunits.PerUnit LqPu "Quadrature axis stator leakage in p.u.";
-    SIunits.PerUnit MqPu "Quadrature axis mutual inductance in p.u.";
-    SIunits.PerUnit LQ1Pu "Quadrature axis 1st damper leakage in p.u.";
-    SIunits.PerUnit RQ1Pu "Quadrature axis 1st damper resistance in p.u.";
-    SIunits.PerUnit LQ2Pu "Quadrature axis 2nd damper leakage in p.u.";
-    SIunits.PerUnit RQ2Pu "Quadrature axis 2nd damper resistance in p.u.";
+    Types.PerUnit LdPu "Direct axis stator leakage in p.u.";
+    Types.PerUnit MdPu "Direct axis mutual inductance in p.u.";
+    Types.PerUnit LDPu "Direct axis damper leakage in p.u.";
+    Types.PerUnit RDPu "Direct axis damper resistance in p.u.";
+    Types.PerUnit MrcPu "Canay's mutual inductance in p.u.";
+    Types.PerUnit LfPu "Excitation winding leakage in p.u.";
+    Types.PerUnit RfPu "Excitation winding resistance in p.u.";
+    Types.PerUnit LqPu "Quadrature axis stator leakage in p.u.";
+    Types.PerUnit MqPu "Quadrature axis mutual inductance in p.u.";
+    Types.PerUnit LQ1Pu "Quadrature axis 1st damper leakage in p.u.";
+    Types.PerUnit RQ1Pu "Quadrature axis 1st damper resistance in p.u.";
+    Types.PerUnit LQ2Pu "Quadrature axis 2nd damper leakage in p.u.";
+    Types.PerUnit RQ2Pu "Quadrature axis 2nd damper resistance in p.u.";
 
     // Auxiliary parameters: direct axis (see Kundur implementation, p143)
-    SIunits.Time Tpd;
-    SIunits.Time Tppd;
+    Types.Time Tpd;
+    Types.Time Tppd;
 
-    SIunits.PerUnit T1dPu;
-    SIunits.PerUnit T3dPu;
-    SIunits.PerUnit T4dPu;
-    SIunits.PerUnit T6dPu;
+    Types.PerUnit T1dPu;
+    Types.PerUnit T3dPu;
+    Types.PerUnit T4dPu;
+    Types.PerUnit T6dPu;
 
     // Auxiliary parameters: quadrature axis (see Kundur implementation, p143)
-    SIunits.Time Tpq;
+    Types.Time Tpq;
 
-    SIunits.PerUnit T1qPu;
-    SIunits.PerUnit T4qPu;
+    Types.PerUnit T1qPu;
+    Types.PerUnit T4qPu;
 
 equation
 

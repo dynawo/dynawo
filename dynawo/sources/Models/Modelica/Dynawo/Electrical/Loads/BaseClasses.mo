@@ -28,14 +28,14 @@ partial model BaseLoad "Base model for loads"
 
     Connectors.ImPin UPu(value (start = ComplexMath.'abs'(u0Pu))) "Voltage amplitude at load terminal in p.u (base UNom)";
 
-    Types.AC.ActivePower PPu(start = s0Pu.re) "Active power at load terminal in p.u (base SnRef) (receptior convention)";
-    Types.AC.ReactivePower QPu(start = s0Pu.im) "Reactive power at load terminal in p.u (base SnRef) (receptor convention)";
-    Types.AC.ApparentPower SPu(re (start = s0Pu.re), im (start = s0Pu.im)) "Apparent power at load terminal in p.u (base SnRef) (receptor convention)";
+    Types.ActivePowerPu PPu(start = s0Pu.re) "Active power at load terminal in p.u (base SnRef) (receptior convention)";
+    Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at load terminal in p.u (base SnRef) (receptor convention)";
+    Types.ComplexApparentPowerPu SPu(re (start = s0Pu.re), im (start = s0Pu.im)) "Apparent power at load terminal in p.u (base SnRef) (receptor convention)";
 
   protected
-    parameter Types.AC.Voltage u0Pu  "Start value of complex voltage at load terminal in p.u (base UNom)";
-    parameter Types.AC.ApparentPower s0Pu  "Start value of apparent power at load terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.AC.Current i0Pu  "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
+    parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at load terminal in p.u (base UNom)";
+    parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at load terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
 
   equation
 

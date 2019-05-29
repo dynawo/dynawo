@@ -19,9 +19,9 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
   extends SwitchOff.SwitchOffTapChanger;
 
   public
-    parameter Types.AC.VoltageModule UTarget "Voltage set-point";
-    parameter Types.AC.VoltageModule UDeadBand (min = 0) "Voltage dead-band";
-    parameter Types.AC.VoltageModule U0  "Initial voltage";
+    parameter Types.VoltageModule UTarget "Voltage set-point";
+    parameter Types.VoltageModule UDeadBand (min = 0) "Voltage dead-band";
+    parameter Types.VoltageModule U0  "Initial voltage";
 
     Connectors.ImPin UMonitored (value (start = U0)) "Initial voltage";
   protected

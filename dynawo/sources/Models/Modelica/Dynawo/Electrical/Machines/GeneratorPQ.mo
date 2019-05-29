@@ -30,14 +30,14 @@ model GeneratorPQ "Generator with power / frequency modulation and fixed reactiv
                                 AbsorptionMax "Reactive power is fixed to its absorption limit",
                                 GenerationMax "Reactive power is fixed to its generation limit");
 
-    parameter Types.AC.VoltageModule UMinPu "Minimum voltage in p.u (base UNom)";
-    parameter Types.AC.VoltageModule UMaxPu "Maximum voltage in p.u (base UNom)";
-    parameter Types.AC.ReactivePower QMinPu  "Minimum reactive power in p.u (base SnRef)";
-    parameter Types.AC.ReactivePower QMaxPu  "Maximum reactive power in p.u (base SnRef)";
+    parameter Types.VoltageModulePu UMinPu "Minimum voltage in p.u (base UNom)";
+    parameter Types.VoltageModulePu UMaxPu "Maximum voltage in p.u (base UNom)";
+    parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
+    parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
 
   protected
 
-    constant Types.AC.VoltageModule UDeadBand = 1e-4 "Voltage dead-band";
+    constant Types.VoltageModulePu UDeadBand = 1e-4 "Voltage dead-band";
 
     QStatus qStatus (start = QStatus.Standard) "Reactive power status: standard, absorptionMax or generationMax";
 

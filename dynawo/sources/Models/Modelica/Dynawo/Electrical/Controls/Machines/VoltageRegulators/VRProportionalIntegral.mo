@@ -22,11 +22,11 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   parameter Real Gain "Control gain";
-  parameter Types.AC.VoltageModule EfdMinPu "Minimum allowed EfdPu";
-  parameter Types.AC.VoltageModule EfdMaxPu "Maximum allowed EfdPu";
-  parameter SIunits.Time LagEfdMin "Time lag before taking action when going below EfdMin";
-  parameter SIunits.Time LagEfdMax "Time lag before taking action when going above EfdMax";
-  parameter SIunits.Time tIntegral "Time integration constant";
+  parameter Types.VoltageModulePu EfdMinPu "Minimum allowed EfdPu";
+  parameter Types.VoltageModulePu EfdMaxPu "Maximum allowed EfdPu";
+  parameter Types.Time LagEfdMin "Time lag before taking action when going below EfdMin";
+  parameter Types.Time LagEfdMax "Time lag before taking action when going above EfdMax";
+  parameter Types.Time tIntegral "Time integration constant";
 
   LimiterWithLag limiterWithLag (UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = tEfdMinReached0, tUMaxReached0 = tEfdMaxReached0) "Limiter activated only after a certain period outside the bounds" annotation(
     Placement(visible = true, transformation(origin = {40, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -54,12 +54,12 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
 
 protected
 
-  parameter Types.AC.VoltageModule UcEfd0Pu  "Initial control voltage, p.u. = Unom";
-  parameter Types.AC.VoltageModule Us0Pu  "Initial stator voltage, p.u. = Unom";
-  parameter Types.AC.VoltageModule Efd0Pu "Initial Efd";
-  parameter Types.AC.VoltageModule yIntegrator0 "Initial control before saturation";
-  parameter SIunits.Time tEfdMaxReached0 "Initial time when the Efd went above EfdMax";
-  parameter SIunits.Time tEfdMinReached0 "Initial time when the Efd went below EfdMin";
+  parameter Types.VoltageModulePu UcEfd0Pu  "Initial control voltage, p.u. = Unom";
+  parameter Types.VoltageModulePu Us0Pu  "Initial stator voltage, p.u. = Unom";
+  parameter Types.VoltageModulePu Efd0Pu "Initial Efd";
+  parameter Types.PerUnit yIntegrator0 "Initial control before saturation";
+  parameter Types.Time tEfdMaxReached0 "Initial time when the Efd went above EfdMax";
+  parameter Types.Time tEfdMinReached0 "Initial time when the Efd went below EfdMin";
 
 
 equation

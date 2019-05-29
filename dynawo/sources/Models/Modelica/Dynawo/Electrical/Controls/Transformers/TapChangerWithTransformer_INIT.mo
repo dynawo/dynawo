@@ -17,7 +17,7 @@ model TapChangerWithTransformer_INIT "Initialisation model for tap-changer used 
 
   protected
     Integer tap0 "Initial tap";
-    Types.AC.VoltageModule U0 "Initial absolute voltage";
+    Types.VoltageModule U0 "Initial absolute voltage";
     Real valueToMonitor0 "Initial monitored value";
 
   equation
