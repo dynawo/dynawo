@@ -245,7 +245,7 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
     int urYNum = modelBus_->urYNum();
     int uiYNum = modelBus_->uiYNum();
 
-    // colonne pour équations Zp
+    // column for equations Zp
     jt.changeCol();
 
     // @f[2]/@zp, @f[2]/@ur, @f[2]/@ui
@@ -275,7 +275,7 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
     }
 
 
-    // colonne pour équations Zq
+    // column for equations Zq
     jt.changeCol();
     // @f[3]/@zq, @f[3]/@ur, @f[3]/@ui
     double termZq = 0.;
@@ -308,13 +308,13 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
 void
 ModelLoad::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
   if (isRestorative_) {
-    // colonne pour équations Zp
+    // column for equations Zp
     jt.changeCol();
     if (!doubleIsZero(Tp_) && isConnected())
       jt.addTerm(globalYIndex(zPYNum_) + rowOffset, Tp_);
     else
       jt.addTerm(globalYIndex(zPYNum_) + rowOffset, 1);
-    // colonne pour équations Zq
+    // column for equations Zq
     jt.changeCol();
     if (!doubleIsZero(Tq_) && isConnected())
       jt.addTerm(globalYIndex(zQYNum_) + rowOffset, Tq_);
