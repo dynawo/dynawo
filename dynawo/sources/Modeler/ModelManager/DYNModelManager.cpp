@@ -832,13 +832,14 @@ ModelManager::solveParameters() {
 
     try {
       solver.solve();
-    } catch (const char *s) {
-      Trace::error() << s << Trace::endline;
+    } catch (const MessageError& Msg) {
+      Trace::error() << Msg.what() << Trace::endline;
       throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
-    } catch (const string & Msg) {
-      Trace::error() << Msg << Trace::endline;
+    } catch (const Terminate& Msg) {
+      Trace::error() << Msg.what() << Trace::endline;
       throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
-    } catch (...) {
+    } catch (const Error& Msg) {
+      Trace::error() << Msg.what() << Trace::endline;
       throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
     }
 
