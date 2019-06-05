@@ -281,7 +281,7 @@ DynamicData::associateParameters() {
 }
 
 shared_ptr<ParametersSet>
-DynamicData::getParametersSet(const std::string& modelId, const string& parFile, const string& parId) {
+DynamicData::getParametersSet(const string& modelId, const string& parFile, const string& parId) {
   if (parFile == "" && parId == "")
     return shared_ptr<ParametersSet>();
   if (parFile != "" && parId == "")
