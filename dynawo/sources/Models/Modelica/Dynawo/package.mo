@@ -3,7 +3,6 @@ encapsulated package Dynawo "Dynawo models library"
   // generic import commands
   import Complex "Complex numbers foundation class";
   import Modelica.ComplexMath "Complex numbers operators (+, - , *, exp, abs...)";
-  import Modelica.SIunits "Modelica SI units";
 
   import Dynawo.Types "Standard Dynawo variable types";
 

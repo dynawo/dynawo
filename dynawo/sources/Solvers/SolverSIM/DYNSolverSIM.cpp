@@ -113,15 +113,15 @@ SolverSIM::~SolverSIM() {
 
 void
 SolverSIM::defineParameters() {
-  parameters_.insert(make_pair("hMin", ParameterSolver("hMin", DOUBLE)));
-  parameters_.insert(make_pair("hMax", ParameterSolver("hMax", DOUBLE)));
-  parameters_.insert(make_pair("kReduceStep", ParameterSolver("kReduceStep", DOUBLE)));
-  parameters_.insert(make_pair("nEff", ParameterSolver("nEff", INT)));
-  parameters_.insert(make_pair("nDeadband", ParameterSolver("nDeadband", INT)));
-  parameters_.insert(make_pair("maxRootRestart", ParameterSolver("maxRootRestart", INT)));
-  parameters_.insert(make_pair("maxNewtonTry", ParameterSolver("maxNewtonTry", INT)));
-  parameters_.insert(make_pair("linearSolverName", ParameterSolver("linearSolverName", STRING)));
-  parameters_.insert(make_pair("recalculateStep", ParameterSolver("recalculateStep", BOOL)));
+  parameters_.insert(make_pair("hMin", ParameterSolver("hMin", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("hMax", ParameterSolver("hMax", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("kReduceStep", ParameterSolver("kReduceStep", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("nEff", ParameterSolver("nEff", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("nDeadband", ParameterSolver("nDeadband", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("maxRootRestart", ParameterSolver("maxRootRestart", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("maxNewtonTry", ParameterSolver("maxNewtonTry", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("linearSolverName", ParameterSolver("linearSolverName", VAR_TYPE_STRING)));
+  parameters_.insert(make_pair("recalculateStep", ParameterSolver("recalculateStep", VAR_TYPE_BOOL)));
 }
 
 void

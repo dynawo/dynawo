@@ -22,11 +22,11 @@ model InfiniteBus "Infinite bus"
 
   Connectors.ACPower terminal;
 
-  parameter Types.AC.VoltageModule U "Infinite bus constant voltage module";
-  parameter SIunits.Angle UPhase "Infinite bus constant voltage angle";
+  parameter Types.PerUnit UPu "Infinite bus constant voltage module";
+  parameter Types.Angle UPhase "Infinite bus constant voltage angle";
 
 equation
 
-  terminal.V = U * ComplexMath.exp(ComplexMath.j * UPhase);
+  terminal.V = UPu * ComplexMath.exp(ComplexMath.j * UPhase);
 
 end InfiniteBus;

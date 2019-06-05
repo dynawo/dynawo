@@ -23,6 +23,7 @@ TerminateInModel            =             simulation interrupted by model %1% : 
 SignalReceived              =             simulation interrupted by external signal
 CriteriaNotChecked          =             one simulation's criteria is not respected
 OpenFileFailed              =             failed to open file %1%
+NoJobDefined                =             no job found in the .jobs file
 //---------------- SOLVER -----------------------------------------
 SolverSubModelYvsF          =             model's initialisation %1% :  Variables number %2% not equals to the equations number %3%
 SolverYvsF                  =             variables number %1% not equals to the equations number %2%
@@ -178,6 +179,8 @@ FileSystemItemDoesNotExist  =             %1% does not exist
 UnknownVertex               =             vertex %1% is unknown in graph
 AlreadyDefinedEdge          =             edge %1% already defined in graph
 UnknownAutomatonOutput      =             output %2% of automaton %1% does not exist
+AutomatonMaximumInputSizeReached  =       automaton %1% has more inputs defined (%2%) than the maximum (%3%)
+AutomatonMaximumOutputSizeReached =       automaton %1% has more outputs defined (%2%) than the maximum (%3%)
 SystemCallFailed            =             call to %1% failed with error '%2%'
 //--------------- STATIC_DATA -----------------------------------------
 UnknownBus                  =             bus id '%1%' does not exist in the iidm import
@@ -200,6 +203,9 @@ ConvertersModeError         =             hvdc id '%1%' converters control mode 
 WrongIIDMDataForHVDC        =             wrong iidm data for hvdc line %1% (converter missing or wrong id)
 NoExtension                 =             access to attribute %1% impossible because %2% extension is not loaded
 RegulationModeNotInIIDM     =             control mode calculated by the dynamic simulation (%1%) for component %2% does not exist in the static format (iidm)
+MissingTargetVInRatioTapChanger =         ratio tap changer of %1% has the attribute 'regulating' set to true but no targetV attribute in the static format (iidm)
+MissingTerminalRefInRatioTapChanger =     ratio tap changer of %1% has the attribute 'regulating' set to true but no terminalRef in the static format (iidm)
+MissingTerminalRefSideInRatioTapChanger = ratio tap changer of %1% has the attribute 'regulating' set to true but no side defined in its terminalRef in the static format (iidm)
 //-------------- NUMERICAL_ERROR -------------------------------------
 NumericalErrorFunction      =             A numerical error occurs during the call of the function '%1%'
 //-------------- API_ERROR -------------------------------------------

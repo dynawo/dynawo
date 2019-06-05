@@ -14,9 +14,9 @@
 # simulation tool for power systems.
 
 from optparse import OptionParser
-from readerOMC import readerOMC
-from factory import factory
-from modelWriter import modelWriter, modelWriterManager
+from readerOMC import ReaderOMC
+from factory import Factory
+from modelWriter import ModelWriter, ModelWriterManager
 from utils import *
 
 import os
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     reader_init = None
 
     if init_pb:
-        reader_init = readerOMC(mod_name_init, input_dir, is_init_pb = True)
+        reader_init = ReaderOMC(mod_name_init, input_dir, is_init_pb = True)
 
         #reader_init.readInfoXml()   # Read *_info.xml
         reader_init.read_info_json()              # Read *_info.json
@@ -97,7 +97,7 @@ if __name__ == '__main__':
         reader_init.read_literals_h_file()        # Read *_literals.h
 
     # Reader for dynamic pb
-    reader = readerOMC(mod_name, input_dir, is_init_pb = False)
+    reader = ReaderOMC(mod_name, input_dir, is_init_pb = False)
 
     #reader.readInfoXml()         # Read *_info.xml
     reader.read_info_json()              # Read *_info.json
@@ -123,7 +123,7 @@ if __name__ == '__main__':
     # Builder for the init pb
     builder_init_pb = None
     if init_pb:
-        builder_init_pb = factory(reader_init)
+        builder_init_pb = Factory(reader_init)
 
         builder_init_pb.build_variables()
         builder_init_pb.build_equations()
@@ -132,7 +132,7 @@ if __name__ == '__main__':
         builder_init_pb.prepare_for_print()
 
     # Builder for the dynamic pb
-    builder = factory(reader)
+    builder = Factory(reader)
 
     builder.build_variables()
 
@@ -157,7 +157,7 @@ if __name__ == '__main__':
     writer_init_pb = None # The file writer binds to the initialization template
 
     if init_pb:
-        writer_init_pb = modelWriter(builder_init_pb, mod_name, output_dir, init_pb)
+        writer_init_pb = ModelWriter(builder_init_pb, mod_name, output_dir, init_pb)
 
         writer_init_pb.getHead()
         writer_init_pb.fill_initData()
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     # Generation of files related to the dynamic model
     # -------------------------------------------------------
 
-    writer = modelWriter(builder, mod_name, output_dir)
+    writer = ModelWriter(builder, mod_name, output_dir)
 
     # Fichier C
     writer.getHead()
@@ -260,7 +260,7 @@ if __name__ == '__main__':
     # -------------------------------------------------------
     # Generation of the files related to the complete model
     # -------------------------------------------------------
-    writer = modelWriterManager( mod_name, output_dir,init_pb)
+    writer = ModelWriterManager( mod_name, output_dir,init_pb)
     writer.set_body()
     writer.write_file()
 

@@ -47,35 +47,35 @@ model TransformerVariableTap "Transformer with variable tap to be connected to a
     Connectors.ImPin U2Pu (value (start = U20Pu)) "Voltage amplitude at terminal 2 in p.u (base U2Nom)";
 
     // Transformer's parameters
-    parameter Types.AC.ApparentPowerModule SNom "Nominal apparent power in MVA";
-    parameter SIunits.Resistance R "Resistance in % (base U2Nom, SNom)";
-    parameter SIunits.Reactance X "Reactance in % (base U2Nom, SNom)";
-    parameter SIunits.Conductance G "Conductance in % (base U2Nom, SNom)";
-    parameter SIunits.Susceptance B "Susceptance in % (base U2Nom, SNom)";
-    parameter SIunits.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
-    parameter SIunits.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
+    parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+    parameter Types.Percent R "Resistance in % (base U2Nom, SNom)";
+    parameter Types.Percent X "Reactance in % (base U2Nom, SNom)";
+    parameter Types.Percent G "Conductance in % (base U2Nom, SNom)";
+    parameter Types.Percent B "Susceptance in % (base U2Nom, SNom)";
+    parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
+    parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
     parameter Integer NbTap "Number of taps";
 
   protected
-    parameter Types.AC.Impedance ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom ) "Transformer impedance in p.u (base U2Nom, SnRef)";
-    parameter Types.AC.Admittance YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in p.u (base U2Nom, SnRef)";
+    parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom ) "Transformer impedance in p.u (base U2Nom, SnRef)";
+    parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in p.u (base U2Nom, SnRef)";
 
     // Parameters comming from the initialization process
-    parameter Types.AC.Voltage u10Pu  "Start value of complex voltage at terminal 1 in p.u (base U1Nom)";
-    parameter Types.AC.Current i10Pu  "Start value of complex current at terminal 1 in p.u (base U1Nom, SnRef) (receptor convention)";
-    parameter Types.AC.Voltage u20Pu  "Start value of complex voltage at terminal 2 in p.u (base U2Nom)";
-    parameter Types.AC.Current i20Pu  "Start value of complex current at terminal 2 in p.u (base U2Nom, SnRef) (receptor convention)";
+    parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base U1Nom)";
+    parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base U1Nom, SnRef) (receptor convention)";
+    parameter Types.ComplexVoltagePu u20Pu  "Start value of complex voltage at terminal 2 in p.u (base U2Nom)";
+    parameter Types.ComplexCurrentPu i20Pu  "Start value of complex current at terminal 2 in p.u (base U2Nom, SnRef) (receptor convention)";
 
-    parameter Types.AC.VoltageModule U10Pu "Start value of voltage amplitude at terminal 1 in p.u (base U1Nom)";
-    parameter Types.AC.VoltageModule U20Pu "Start value of voltage amplitude at terminal 2 in p.u (base U2Nom)";
-    parameter Types.AC.ActivePower P10Pu "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
-    parameter Types.AC.ReactivePower Q10Pu "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    parameter Types.VoltageModulePu U10Pu "Start value of voltage amplitude at terminal 1 in p.u (base U1Nom)";
+    parameter Types.VoltageModulePu U20Pu "Start value of voltage amplitude at terminal 2 in p.u (base U2Nom)";
+    parameter Types.ActivePowerPu P10Pu "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
+    parameter Types.ReactivePowerPu Q10Pu "Start value of reactive power at terminal 1 in p.u (base SnRef) (receptor convention)";
 
     parameter Integer Tap0 "Start value of transformer tap";
-    parameter SIunits.PerUnit rTfo0Pu "Start value of transformer ratio";
+    parameter Types.PerUnit rTfo0Pu "Start value of transformer ratio";
 
     // Internal variables
-    SIunits.PerUnit rTfoPu (start = rTfo0Pu) "Transformation ratio in p.u: U2/U1 in no load conditions";
+    Types.PerUnit rTfoPu (start = rTfo0Pu) "Transformation ratio in p.u: U2/U1 in no load conditions";
 
 equation
 

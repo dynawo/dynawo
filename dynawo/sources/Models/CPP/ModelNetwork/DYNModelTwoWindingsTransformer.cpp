@@ -1804,7 +1804,7 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
       currentLimits2_->setMaxTimeOperation(maxTimeOperation);
   }
   try {
-    if (modelRatioChanger_) {
+    if (modelRatioChanger_ || modelPhaseChanger_) {
       // model tap changer parameter
       vector<string> ids;
       ids.push_back(id_);
@@ -1814,7 +1814,6 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
       double tNextTHT = getParameterDynamic<double>(params, "tNext_THT", ids);
       double t1stHT = getParameterDynamic<double>(params, "t1st_HT", ids);
       double tNextHT = getParameterDynamic<double>(params, "tNext_HT", ids);
-      double tolV = getParameterDynamic<double>(params, "tolV", ids);
 
       const bool bus1VHV = (vNom1_ >= VHV_THRESHOLD);
       const bool bus1HV = (vNom1_ >= HV_THRESHOLD && vNom1_ < VHV_THRESHOLD);
@@ -1822,15 +1821,28 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
       const bool bus2HV = (vNom2_ >= HV_THRESHOLD && vNom2_ < VHV_THRESHOLD);
 
       // set modelTapChanger parameters
-      if ((bus1VHV && bus2HV) || (bus2VHV && bus1HV)) {
-        modelRatioChanger_->setTFirst(t1stTHT);
-        modelRatioChanger_->setTNext(tNextTHT);
-      } else {
-        modelRatioChanger_->setTFirst(t1stHT);
-        modelRatioChanger_->setTNext(tNextHT);
+      if (modelRatioChanger_) {
+        double tolV = getParameterDynamic<double>(params, "tolV", ids);
+
+        if ((bus1VHV && bus2HV) || (bus2VHV && bus1HV)) {
+          modelRatioChanger_->setTFirst(t1stTHT);
+          modelRatioChanger_->setTNext(tNextTHT);
+        } else {
+          modelRatioChanger_->setTFirst(t1stHT);
+          modelRatioChanger_->setTNext(tNextHT);
+        }
+        if (modelBusMonitored_)
+          modelRatioChanger_->setTolV(tolV * modelBusMonitored_->getVNom());
       }
-      if (modelBusMonitored_)
-        modelRatioChanger_->setTolV(tolV * modelBusMonitored_->getVNom());
+      if (modelPhaseChanger_) {
+        if ((bus1VHV && bus2HV) || (bus2VHV && bus1HV)) {
+          modelPhaseChanger_->setTFirst(t1stTHT);
+          modelPhaseChanger_->setTNext(tNextTHT);
+        } else {
+          modelPhaseChanger_->setTFirst(t1stHT);
+          modelPhaseChanger_->setTNext(tNextHT);
+        }
+      }
     }
   } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
@@ -1840,12 +1852,12 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
 
 void
 ModelTwoWindingsTransformer::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("transformer_currentLimit_maxTimeOperation", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("transformer_t1st_THT", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("transformer_tNext_THT", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("transformer_t1st_HT", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("transformer_tNext_HT", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("transformer_tolV", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_t1st_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_tNext_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_t1st_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_tNext_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_tolV", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 }  // namespace DYN

@@ -927,16 +927,11 @@ def LineToCompare (line):
         if pattern in line:
             return False
 
-    # ignore lines containing error message with source file line number
-    NumLinePattern = re.compile(r'(\.cpp|\.hpp|\.h):[0-9]+')
-    if (re.search(NumLinePattern, line) is not None):
-        return False
-
-    if "number of" not in line:
-        return False
+    if "number of" in line or "ERROR" in line or "WARN" in line:
+        return True
 
     # everything went fine => the line should be compared
-    return True
+    return False
 
 ## Extract the log message from a given log line
 # @param line : the raw line to study as a string
@@ -957,12 +952,13 @@ def LineMessage (line, separator):
 # @param line_left : the raw line to study as a string from left file
 # @param line_right : the raw line to study as a string from right file
 # @return : IDENTICAL if lines are equals, WITHIN_TOLERANCE if the comparison is within tolerance, DIFFERENT otherwise
-def StatisticLineCloseEnough (line_left, line_right):
+def LineCloseEnough (line_left, line_right):
     percentage_tolerance = 3
     if line_left == line_right:
         return IDENTICAL
 
-    value_pattern = re.compile(r'.*number of [\w ]*= (?P<value>[0-9]+)')
+    # Compare statistics lines
+    value_pattern = re.compile(r'.*number of [\w ]*= (?P<value>[0-9]+)[ ()\w]*')
     match_left = re.search(value_pattern, line_left)
     match_right = re.search(value_pattern, line_right)
     if match_left is not None and match_right is not None:
@@ -971,6 +967,17 @@ def StatisticLineCloseEnough (line_left, line_right):
         threshold = min(value_left, value_right)*percentage_tolerance/100
         if abs(value_left - value_right) <= threshold:
             return WITHIN_TOLERANCE
+
+    # Compare warning and error lines
+    num_line_pattern = re.compile(r'(?P<value>(\.cpp|\.hpp|\.h):[0-9]+)')
+    match_left = re.search(num_line_pattern, line_left)
+    match_right = re.search(num_line_pattern, line_right)
+    if match_left is not None and match_right is not None:
+        line_left = line_left.replace(match_left.group("value"),"")
+        line_right = line_right.replace(match_right.group("value"),"")
+        if line_left == line_right:
+            return IDENTICAL
+
     return DIFFERENT
 
 
@@ -983,40 +990,41 @@ def StatisticLineCloseEnough (line_left, line_right):
 def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separator_right):
     file_left = open (path_left, "rb")
     file_right = open (path_right, "rb")
+    lines_to_compare_left = []
+    lines_to_compare_right = []
+    for line_left, line_right in zip(file_left, file_right):
+        # skip some lines when needed
+        if (LineToCompare (line_left)):
+            lines_to_compare_left.append(line_left)
+        # skip some lines when needed
+        if (LineToCompare (line_right)):
+            lines_to_compare_right.append(line_right)
+
+    file_left.close()
+    file_right.close()
 
     nb_lines_compared = 0
     nb_lines_identical = 0
     nb_lines_identical_but_timestamp = 0
     nb_lines_different = 0
     nb_lines_different_within_tolerance = 0
-    for line_left, line_right in zip(file_left, file_right):
-        # skip some lines when needed
-        if (not LineToCompare (line_left)) and (not LineToCompare (line_right)):
-            continue
-
-        elif (LineToCompare (line_left)) and (LineToCompare (line_right)):
-            nb_lines_compared += 1
-            if (line_left == line_right):
-                nb_lines_identical += 1
+    for line_left, line_right in zip(lines_to_compare_left, lines_to_compare_right):
+        nb_lines_compared += 1
+        if (line_left == line_right):
+            nb_lines_identical += 1
+        else:
+            line_left_message = LineMessage (line_left, logs_separator_left)
+            line_right_message = LineMessage (line_right, logs_separator_right)
+            if (line_left_message == line_right_message):
+                nb_lines_identical_but_timestamp += 1
             else:
-                line_left_message = LineMessage (line_left, logs_separator_left)
-                line_right_message = LineMessage (line_right, logs_separator_right)
-                if (line_left_message == line_right_message):
-                    nb_lines_identical_but_timestamp += 1
+                diff = LineCloseEnough (line_left_message, line_right_message)
+                if diff == DIFFERENT:
+                    nb_lines_different += 1
+                elif diff == WITHIN_TOLERANCE:
+                    nb_lines_different_within_tolerance += 1
                 else:
-                    diff = StatisticLineCloseEnough (line_left_message, line_right_message)
-                    if diff == DIFFERENT:
-                        nb_lines_different += 1
-                    elif diff == WITHIN_TOLERANCE:
-                        nb_lines_different_within_tolerance += 1
-                    else:
-                        assert(0)
-        else: # one line to compare, the other line not to compare => add one difference
-            nb_lines_compared += 1
-            nb_lines_different += 1
-
-    file_left.close()
-    file_right.close()
+                    nb_lines_identical += 1
 
     return (nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different_within_tolerance, nb_lines_different)
 
@@ -1140,6 +1148,10 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
             data_point_left = float (data_left [t_left] .strip())
             data_point_right = float (data_right [t_right] .strip())
             error = abs(data_point_left - data_point_right)
+
+            # If we are below the target precision do not compare the numbers
+            if (abs(data_point_left) < settings.error_absolute and abs (data_point_right) < settings.error_absolute):
+                continue
 
             if (error > 0):
                 nb_differences += 1

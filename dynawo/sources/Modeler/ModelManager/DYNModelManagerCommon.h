@@ -199,9 +199,9 @@ T pow_dynawo(T a, T b) {
 
 #define modelica_string_to_modelica_string(item, index1, index2) item
 
-#define callExternalAutomaton(command, time, inputs, inputs_name, nbInputs, outputs, outputs_name, nbOutputs) \
-    callExternalAutomatonModel((this)->getModelManager()->name(), command, time, inputs, inputs_name, nbInputs, outputs, outputs_name, nbOutputs, \
-this->getModelManager()->getWorkingDirectory());
+#define callExternalAutomaton(command, time, inputs, inputs_name, nbInputs, nbMaxInputs, outputs, outputs_name, nbOutputs, nbMaxOutputs) \
+    callExternalAutomatonModel((this)->getModelManager()->name(), command, time, inputs, inputs_name, nbInputs, nbMaxInputs, outputs, outputs_name, nbOutputs, \
+nbMaxOutputs, this->getModelManager()->getWorkingDirectory());
 
 #endif  // DOXYGEN_SHOULD_SKIP_THIS
 
@@ -523,13 +523,17 @@ modelica_string enumToModelicaString_(modelica_integer nr, const char *e[]);
  * @param inputs current values needed by the automaton
  * @param inputs_name name associated to each input value
  * @param nbInputs number of inputs needed by the automaton
+ * @param nbMaxInputs maximum number of inputs
  * @param outputs values calculated by the automaton
  * @param outputs_name name associated to each ouput value
  * @param nbOutputs number of outputs calculated by the automaton
+ * @param nbMaxOutputs maximum number of outputs
  * @param workingDirectory Working directory of the simulation.
  */
-void callExternalAutomatonModel(const std::string& modelName, const char* command, const double time, const double* inputs, const char** inputs_name,
-                                const int nbInputs, double* outputs, const char** outputs_name, const int nbOutputs, const std::string& workingDirectory);
+void callExternalAutomatonModel(const std::string& modelName, const char* command, const double time,
+    const double* inputs, const char** inputs_name, const int nbInputs, const int nbMaxInputs,
+    double* outputs, const char** outputs_name, const int nbOutputs, const int nbMaxOutputs,
+    const std::string& workingDirectory);
 
 }  // namespace DYN
 #endif  // MODELER_MODELMANAGER_DYNMODELMANAGERCOMMON_H_

@@ -27,8 +27,8 @@ block LimiterWithLag "Limiter that enforces saturations only after they were vio
 
     parameter Real UMin  "Minimum allowed u";
     parameter Real UMax  "Maximum allowed u";
-    parameter SIunits.Time LagMin  "Time lag before taking action when going below uMin";
-    parameter SIunits.Time LagMax  "Time lag before taking action when going above uMax";
+    parameter Types.Time LagMin  "Time lag before taking action when going below uMin";
+    parameter Types.Time LagMax  "Time lag before taking action when going above uMax";
 
     Interfaces.RealInput u (start = u0) "Input signal connector" annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}})));
@@ -39,11 +39,11 @@ block LimiterWithLag "Limiter that enforces saturations only after they were vio
 
     parameter Real u0 "Initial input";
     parameter Real y0 "Initial output";
-    parameter SIunits.Time tUMinReached0 "Initial time when u went below UMin";
-    parameter SIunits.Time tUMaxReached0 "Initial time when u went above UMax";
+    parameter Types.Time tUMinReached0 "Initial time when u went below UMin";
+    parameter Types.Time tUMaxReached0 "Initial time when u went above UMax";
 
-    discrete SIunits.Time tUMinReached (start = tUMinReached0) "Last time when u went below EfdMin";
-    discrete SIunits.Time tUMaxReached (start = tUMaxReached0) "Last time when u went above EfdMax";
+    discrete Types.Time tUMinReached (start = tUMinReached0) "Last time when u went below EfdMin";
+    discrete Types.Time tUMaxReached (start = tUMaxReached0) "Last time when u went above EfdMax";
     Boolean initSaturatedMin (start = (tUMinReached0 == - Constants.inf) ) "Whether we start in min saturated mode. Boolean used to prevent the model from resetting tUMinReached when in saturated mode at the beginning of the simulation";
     Boolean initSaturatedMax (start = (tUMaxReached0 == - Constants.inf) ) "Whether we start in max saturated mode. Boolean used to prevent the model from resetting tUMaxReached when in saturated mode at the beginning of the simulation";
 

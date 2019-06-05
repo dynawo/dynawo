@@ -41,8 +41,9 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
   /**
    * @brief Constructor
    * @param tapChanger ratioTapChanger's iidm instance
+   * @param parentName parent Transformer2WindingsBuilder id
    */
-  explicit RatioTapChangerInterfaceIIDM(IIDM::RatioTapChanger& tapChanger);
+  explicit RatioTapChangerInterfaceIIDM(IIDM::RatioTapChanger& tapChanger, const std::string& parentName);
 
   /**
    * @copydoc RatioTapChangerInterface::getSteps() const
@@ -118,6 +119,13 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
    * @copydoc RatioTapChangerInterface::getCurrentRho() const
    */
   double getCurrentRho() const;
+
+ private:
+  /**
+  * @brief sanity check to make sure the ratio tap changer is properly built
+  * @param parentName parent Transformer2WindingsBuilder id
+  */
+  void sanityCheck(const std::string& parentName) const;
 
  private:
   std::vector<boost::shared_ptr<StepInterface> > steps_;  ///< steps of the ratio tap changer

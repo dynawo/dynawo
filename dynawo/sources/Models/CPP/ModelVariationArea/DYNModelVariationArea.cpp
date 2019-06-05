@@ -255,11 +255,11 @@ ModelVariationArea::defineVariables(vector<shared_ptr<Variable> >& variables) {
 
 void
 ModelVariationArea::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("nbLoads", INT, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("startTime", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("stopTime", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("deltaP", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("deltaQ", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("nbLoads", VAR_TYPE_INT, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("startTime", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("stopTime", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("deltaP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("deltaQ", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void

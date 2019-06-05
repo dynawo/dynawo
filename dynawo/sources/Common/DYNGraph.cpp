@@ -93,7 +93,8 @@ Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertex
   list<PathDescription> paths;
   if (hasVertex(vertexOrigin) && hasVertex(vertexExtremity)) {
     // explore graph thanks to AdjacentVertices
-    adjacency_iterator_filtered neighbourIt, neighbourEnd;
+    adjacency_iterator_filtered neighbourIt;
+    adjacency_iterator_filtered neighbourEnd;
     boost::tie(neighbourIt, neighbourEnd) = boost::adjacent_vertices(vertices_[vertexOrigin], filteredGraph);
     for (; neighbourIt != neighbourEnd; ++neighbourIt) {
       vector<bool> encountered = vector<bool>(boost::num_vertices(filteredGraph), false);
@@ -123,7 +124,8 @@ bool
 Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
         PathDescription& currentPath, vector<bool> &encountered, list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
         bool stopWhenExtremityReached) {
-  adjacency_iterator_filtered neighbourIt, neighbourEnd;
+  adjacency_iterator_filtered neighbourIt;
+  adjacency_iterator_filtered neighbourEnd;
   boost::tie(neighbourIt, neighbourEnd) = boost::adjacent_vertices(vertices_[vertexOrigin], filteredGraph);
   for (; neighbourIt != neighbourEnd; ++neighbourIt) {
     if (encountered[*neighbourIt])

@@ -126,19 +126,19 @@ ModelManager::createParametersValueSet(const boost::unordered_map<string, Parame
 
     if (parameter.hasValue()) {
       switch (parameter.getValueType()) {
-        case DOUBLE: {
+        case VAR_TYPE_DOUBLE: {
           parametersSet->createParameter(parameterName, parameter.getValue<double>());
           break;
         }
-        case INT: {
+        case VAR_TYPE_INT: {
           parametersSet->createParameter(parameterName, parameter.getValue<int>());
           break;
         }
-        case BOOL: {
+        case VAR_TYPE_BOOL: {
           parametersSet->createParameter(parameterName, parameter.getValue<bool>());
           break;
         }
-        case STRING: {
+        case VAR_TYPE_STRING: {
           parametersSet->createParameter(parameterName, parameter.getValue<string>());
           break;
         }
@@ -334,18 +334,6 @@ ModelManager::evalJtAdept(const double & t, double *y, double * yp, const double
   } catch (adept::autodiff_exception & e) {
     std::cerr << "Error :" << e.what() << std::endl;
     throw DYNError(DYN::Error::MODELER, AdeptFailure);
-  } catch (const Error& e) {
-    Trace::error() << e.what() << Trace::endline;
-    throw;
-  } catch (const char *s) {
-    std::cerr << "An error occured :" << s << std::endl;
-    throw DYNError(DYN::Error::MODELER, AdeptFailure);
-  } catch (const string &s) {
-    std::cerr << "An error occured :" << s << std::endl;
-    throw;
-  } catch (...) {
-    std::cerr << "An error occurred" << std::endl;
-    throw;
   }
 }
 #endif
@@ -431,25 +419,25 @@ ModelManager::setSharedParametersDefaultValues(const bool isInit, const paramete
 
     if (currentParameter.isUnitary() && sharedParametersInitialValues->hasParameter(paramName)) {
       switch (currentParameter.getValueType()) {
-      case BOOL:
+      case VAR_TYPE_BOOL:
       {
         const bool value = sharedParametersInitialValues->getParameter(paramName)->getBool();
         setParameterValue(paramName, origin, value, isInit);
         break;
       }
-      case INT:
+      case VAR_TYPE_INT:
       {
         const int value = sharedParametersInitialValues->getParameter(paramName)->getInt();
         setParameterValue(paramName, origin, value, isInit);
         break;
       }
-      case DOUBLE:
+      case VAR_TYPE_DOUBLE:
       {
         const double& value = sharedParametersInitialValues->getParameter(paramName)->getDouble();
         setParameterValue(paramName, origin, value, isInit);
         break;
       }
-      case STRING:
+      case VAR_TYPE_STRING:
       {
         const string& value = sharedParametersInitialValues->getParameter(paramName)->getString();
         setParameterValue(paramName, origin, value, isInit);
@@ -548,22 +536,22 @@ void ModelManager::writeParametersFinalValues() {
     if (i < nbParamsReal) {
       const unsigned int localRealIndex = i;
       switch (currentParameter.getValueType()) {
-        case DOUBLE:
+        case VAR_TYPE_DOUBLE:
         {
           setFinalParameter(currentParameterName, simulationInfo()->realParameter[localRealIndex]);
           break;
         }
-        case INT:
+        case VAR_TYPE_INT:
         {
           setFinalParameter(currentParameterName, static_cast<int> (simulationInfo()->realParameter[localRealIndex]));
           break;
         }
-        case BOOL:
+        case VAR_TYPE_BOOL:
         {
           setFinalParameter(currentParameterName, toNativeBool(simulationInfo()->realParameter[localRealIndex]));
           break;
         }
-        case STRING:
+        case VAR_TYPE_STRING:
         {
           throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, currentParameter.getName(), typeVarC2Str(currentParameter.getValueType()), "DOUBLE");
         }
@@ -571,14 +559,14 @@ void ModelManager::writeParametersFinalValues() {
     } else if (i < nbParamsReal + nbParamsBool) {
       const unsigned int localBooleanIndex = i - nbParamsReal;
       assert(localBooleanIndex < nbParamsBool);
-      if (currentParameter.getValueType() != BOOL)
+      if (currentParameter.getValueType() != VAR_TYPE_BOOL)
         throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, currentParameter.getName(), typeVarC2Str(currentParameter.getValueType()), "BOOL");
 
       setFinalParameter(currentParameterName, simulationInfo()->booleanParameter[localBooleanIndex]);
     } else if (i < nbParamsReal + nbParamsBool + nbParamsInt) {
       const unsigned int localIntegerIndex = i - nbParamsReal - nbParamsBool;
       assert(localIntegerIndex < nbParamsInt);
-      if (currentParameter.getValueType() != INT)
+      if (currentParameter.getValueType() != VAR_TYPE_INT)
         throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, currentParameter.getName(), typeVarC2Str(currentParameter.getValueType()), "INT");
 
       setFinalParameter(currentParameterName, simulationInfo()->integerParameter[localIntegerIndex]);
@@ -755,7 +743,7 @@ ModelManager::loadParameters(const string & parameters) {
   // copy of loaded parameters in the map
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
-  vector<ParameterModeler> parametersList(parametersMap.size(), ParameterModeler("TMP", DOUBLE, EXTERNAL_PARAMETER));
+  vector<ParameterModeler> parametersList(parametersMap.size(), ParameterModeler("TMP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
     const ParameterModeler& currentParameter = it->second;
     parametersList[currentParameter.getIndex()] = currentParameter;
@@ -763,22 +751,22 @@ ModelManager::loadParameters(const string & parameters) {
   for (unsigned int i = 0; i < modelData()->nParametersReal; ++i) {
     const ParameterModeler& currentParameter = parametersList[i];
     switch (currentParameter.getValueType()) {
-      case DOUBLE:
+      case VAR_TYPE_DOUBLE:
       {
         setLoadedParameter(currentParameter.getName(), parameterDoubleValues[i]);
         break;
       }
-      case INT:
+      case VAR_TYPE_INT:
       {
         setLoadedParameter(currentParameter.getName(), static_cast<int> (parameterDoubleValues[i]));
         break;
       }
-      case BOOL:
+      case VAR_TYPE_BOOL:
       {
         setLoadedParameter(currentParameter.getName(), toNativeBool(parameterDoubleValues[i]));
         break;
       }
-      case STRING:
+      case VAR_TYPE_STRING:
       {
         throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, currentParameter.getName(), typeVarC2Str(currentParameter.getValueType()), "DOUBLE");
       }
@@ -931,7 +919,7 @@ ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z) {
   const vector<string>& zNamesInitial = zNamesInit();
   const boost::unordered_map<string, ParameterModeler>& parametersMap = getParametersInit();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
-  vector<ParameterModeler> parametersInitial(parametersMap.size(), ParameterModeler("TMP", DOUBLE, EXTERNAL_PARAMETER));
+  vector<ParameterModeler> parametersInitial(parametersMap.size(), ParameterModeler("TMP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
     const ParameterModeler& currentParameter = it->second;
     parametersInitial[currentParameter.getIndex()] = currentParameter;
@@ -1031,22 +1019,22 @@ ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z) {
       if (!parameter.isFullyInternal()) {
         // ternary operator does not work here (because the boolean would be implicitly converted to double, leading to a downstream parameter type error)
         switch (parameter.getValueType()) {
-          case DOUBLE:
+          case VAR_TYPE_DOUBLE:
           {
             setCalculatedParameter(parName, simulationInfo()->realParameter[i]);
             break;
           }
-          case INT:
+          case VAR_TYPE_INT:
           {
             setCalculatedParameter(parName, static_cast<int> (simulationInfo()->realParameter[i]));
             break;
           }
-          case BOOL:
+          case VAR_TYPE_BOOL:
           {
             setCalculatedParameter(parName, toNativeBool(simulationInfo()->realParameter[i]));
             break;
           }
-          case STRING:
+          case VAR_TYPE_STRING:
           {
             throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, parName, typeVarC2Str(parameter.getValueType()), "DOUBLE");
           }
@@ -1107,7 +1095,7 @@ ModelManager::printInitValues(const string & directory) {
   file << " ====== PARAMETERS VALUES ======\n";
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
   // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
-  vector<ParameterModeler> parameters(parametersMap.size(), ParameterModeler("TMP", DOUBLE, EXTERNAL_PARAMETER));
+  vector<ParameterModeler> parameters(parametersMap.size(), ParameterModeler("TMP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
     const ParameterModeler& currentParameter = it->second;
     parameters[currentParameter.getIndex()] = currentParameter;

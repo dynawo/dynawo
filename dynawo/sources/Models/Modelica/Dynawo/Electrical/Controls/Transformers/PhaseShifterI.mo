@@ -22,9 +22,9 @@ model PhaseShifterI "Phase-shifter monitoring the current so that it remains und
     parameter TapChangerType tapChangerType0 = TapChangerType.PhaseShifter;
 
   public
-    parameter Types.AC.CurrentModule iMax "Maximum allowed current";
-    parameter Types.AC.CurrentModule iStop  "Current below which the phase-shifter will stop action";
-    parameter Types.AC.CurrentModule I0 "Initial current module";
+    parameter Types.CurrentModule iMax "Maximum allowed current";
+    parameter Types.CurrentModule iStop  "Current below which the phase-shifter will stop action";
+    parameter Types.CurrentModule I0 "Initial current module";
 
     Connectors.ImPin iMonitored (value (start = I0)) "Monitored current";
 

@@ -12,7 +12,7 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="EventSetPointLoad">
+  <dyn:modelicaModel id="EventSetPointDoubleReal">
     <dyn:unitDynamicModel id="event" name="Dynawo.Electrical.Events.Event.DoubleRealEvent"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

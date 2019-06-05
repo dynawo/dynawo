@@ -1514,7 +1514,7 @@ ModelLine::setSubModelParameters(const boost::unordered_map<std::string, Paramet
 
 void
 ModelLine::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("line_currentLimit_maxTimeOperation", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("line_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void

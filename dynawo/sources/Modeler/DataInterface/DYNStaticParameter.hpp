@@ -78,7 +78,7 @@ T StaticParameter::getValue() const {
   try {
     value = boost::any_cast<T>(*value_);
   }
-  catch (boost::bad_any_cast& bac)  {
+  catch (boost::bad_any_cast&)  {
     throw DYNError(Error::MODELER, StaticParameterBadCast, name_, typeAsString(type_));
   }
   return value;

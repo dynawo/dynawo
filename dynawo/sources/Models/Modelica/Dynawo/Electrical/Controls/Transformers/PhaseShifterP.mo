@@ -22,9 +22,9 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
     parameter TapChangerType tapChangerType0 = TapChangerType.PhaseShifter;
 
   public
-    parameter Types.AC.ActivePower PTarget  "Target active power";
-    parameter Types.AC.ActivePower PDeadBand (min = 0) "Active-power dead-band around the target";
-    parameter Types.AC.ActivePower P0  "Initial active power";
+    parameter Types.ActivePower PTarget  "Target active power";
+    parameter Types.ActivePower PDeadBand (min = 0) "Active-power dead-band around the target";
+    parameter Types.ActivePower P0  "Initial active power";
 
     Connectors.ImPin PMonitored (value (start = P0)) "Monitored active power";
 

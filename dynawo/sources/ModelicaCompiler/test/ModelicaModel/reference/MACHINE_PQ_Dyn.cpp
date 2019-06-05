@@ -610,22 +610,22 @@ void ModelMACHINE_PQ_Dyn::defineVariables(std::vector<boost::shared_ptr<Variable
 
 void ModelMACHINE_PQ_Dyn::defineParameters(std::vector<ParameterModeler>& parameters)
 {
-  parameters.push_back(ParameterModeler("MACHINE_AlphaPu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_PGen0Pu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_PMaxPu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_PMinPu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_QGen0Pu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_QMaxPu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_QMinPu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_U0Pu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_UMaxPu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_UMinPu", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_i0Pu_im", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_i0Pu_re", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_u0Pu_im", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_u0Pu_re", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_NbSwitchOffSignals", INT, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("MACHINE_State0", INT, SHARED_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_AlphaPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_PGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_PMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_PMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_QGen0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_QMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_QMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_U0Pu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_UMaxPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_UMinPu", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_i0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_i0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_u0Pu_im", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_u0Pu_re", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_NbSwitchOffSignals", VAR_TYPE_INT, SHARED_PARAMETER));
+  parameters.push_back(ParameterModeler("MACHINE_State0", VAR_TYPE_INT, SHARED_PARAMETER));
 }
 
 void ModelMACHINE_PQ_Dyn::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)

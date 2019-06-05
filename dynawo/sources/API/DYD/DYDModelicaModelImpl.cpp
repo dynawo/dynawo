@@ -138,7 +138,9 @@ ModelicaModel::Impl::addInitConnect(const string& model1, const string& var1,
   if (unitDynamicModelsMap_.find(model2) == unitDynamicModelsMap_.end())
     throw DYNError(DYN::Error::API, ConnectorNotPartofModel, model2, model1, getId());
 
-  string ic_first, ic_second, ic_Id;
+  string ic_first;
+  string ic_second;
+  string ic_Id;
   ic_first = model1 + '_' + var1;
   ic_second = model2 + '_' + var2;
   // To build the connector Id, sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2
@@ -395,9 +397,9 @@ ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelic
     vector<string> UDMAlreadyMapped;  //  UDMs in the reference modelica model that have already been linked to
     //  an UDM in the considered modelica model. An already mapped UDM should not be mapped again
     map<string, shared_ptr<UnitDynamicModel> > interMapUDM = modelicaModel->getUnitDynamicModels();
-    map<string, shared_ptr<UnitDynamicModel> >::iterator itUdm1, itUdm2;
-    for (itUdm1 = unitDynamicModelsMap_.begin(); itUdm1 != unitDynamicModelsMap_.end(); ++itUdm1)
-      for (itUdm2 = interMapUDM.begin(); itUdm2 != interMapUDM.end(); ++itUdm2)
+    for (map<string, shared_ptr<UnitDynamicModel> >::iterator itUdm1 = unitDynamicModelsMap_.begin();
+        itUdm1 != unitDynamicModelsMap_.end(); ++itUdm1)
+      for (map<string, shared_ptr<UnitDynamicModel> >::iterator itUdm2 = interMapUDM.begin(); itUdm2 != interMapUDM.end(); ++itUdm2)
         if ((*(itUdm1->second)) == (*(itUdm2->second)) && find(UDMAlreadyMapped.begin(), UDMAlreadyMapped.end(), itUdm2->first) == UDMAlreadyMapped.end()) {
           unitDynModelsMap[itUdm1->second] = itUdm2->second;
           UDMAlreadyMapped.push_back(itUdm2->first);
@@ -445,8 +447,8 @@ ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelic
   if (modelsInvolvedInOneConnectedVariableType1.size() != modelsInvolvedInOneConnectedVariableType2.size())
     return false;
   // Testing if each type of Init connected variable have same number of UDM involved in
-  map<string, set<string> >::iterator itNb1, itNb2;
-  for (itNb1 = modelsInvolvedInOneConnectedVariableType1.begin(), itNb2 = modelsInvolvedInOneConnectedVariableType2.begin();
+  for (map<string, set<string> >::iterator  itNb1 = modelsInvolvedInOneConnectedVariableType1.begin(),
+      itNb2 = modelsInvolvedInOneConnectedVariableType2.begin();
       itNb1 != modelsInvolvedInOneConnectedVariableType1.end(); ++itNb1, ++itNb2) {
     if ((itNb1->second).size() != (itNb2->second).size())
       return false;
@@ -467,7 +469,8 @@ ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelic
   if (modelsInvolvedInOneConnectedVariableType1.size() != modelsInvolvedInOneConnectedVariableType2.size())
     return false;
   // Testing if each type of connected variable have same number of UDM involved in
-  for (itNb1 = modelsInvolvedInOneConnectedVariableType1.begin(), itNb2 = modelsInvolvedInOneConnectedVariableType2.begin();
+  for (map<string, set<string> >::iterator  itNb1 = modelsInvolvedInOneConnectedVariableType1.begin(),
+      itNb2 = modelsInvolvedInOneConnectedVariableType2.begin();
       itNb1 != modelsInvolvedInOneConnectedVariableType1.end(); ++itNb1, ++itNb2) {
     if ((itNb1->second).size() != (itNb2->second).size())
       return false;
@@ -481,9 +484,8 @@ ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelic
   vector<string> InitConnectionAlreadyMapped;  //  Init connects in the reference modelica model that have already been linked to
   //  an Init connect in the considered modelica model. An already mapped Init connect should not be mapped again
   map<shared_ptr<Connector>, shared_ptr<Connector> > initConnectionsMap;
-  map<string, shared_ptr<Connector> >::iterator itIc1, itIc2;
-  for (itIc1 = initConnectorsMap_.begin(); itIc1 != initConnectorsMap_.end(); ++itIc1)
-    for (itIc2 = interMapIC.begin(); itIc2 != interMapIC.end(); ++itIc2)
+  for ( map<string, shared_ptr<Connector> >::iterator itIc1 = initConnectorsMap_.begin(); itIc1 != initConnectorsMap_.end(); ++itIc1)
+    for (map<string, shared_ptr<Connector> >::iterator itIc2 = interMapIC.begin(); itIc2 != interMapIC.end(); ++itIc2)
       if (isSameConnection(itIc1->second, itIc2->second, modelsInitName1, modelsInitName2) &&
           find(InitConnectionAlreadyMapped.begin(), InitConnectionAlreadyMapped.end(), itIc2->first) == InitConnectionAlreadyMapped.end()) {
         initConnectionsMap[itIc1->second] = itIc2->second;
@@ -497,9 +499,8 @@ ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelic
   //  Have in mind that some rare dyd cases can be built where checking that each reference Connect is mapped to only one Connect does not guarantee
   //  that the mapping is done properly since two connects may be the same (same udms and variables) and play different roles in the overall connects' graph
   map<shared_ptr<Connector>, shared_ptr<Connector> > pinConnectionsMap;
-  map<string, shared_ptr<Connector> >::iterator itPc1, itPc2;
-  for (itPc1 = connectorsMap_.begin(); itPc1 != connectorsMap_.end(); ++itPc1)
-    for (itPc2 = interMapPC.begin(); itPc2 != interMapPC.end(); ++itPc2)
+  for (map<string, shared_ptr<Connector> >::iterator itPc1 = connectorsMap_.begin(); itPc1 != connectorsMap_.end(); ++itPc1)
+    for (map<string, shared_ptr<Connector> >::iterator itPc2 = interMapPC.begin(); itPc2 != interMapPC.end(); ++itPc2)
       if (isSameConnection(itPc1->second, itPc2->second, modelsName1, modelsName2) &&
           find(PinConnectionAlreadyMapped.begin(), PinConnectionAlreadyMapped.end(), itPc2->first) == PinConnectionAlreadyMapped.end()) {
         pinConnectionsMap[itPc1->second] = itPc2->second;
@@ -511,9 +512,8 @@ ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelic
   vector<string> MacroConnectionAlreadyMapped;  //  Macro connects in the reference modelica model that have already been linked to
   //  a Macro connect in the considered modelica model. An already mapped Macro connect should not be mapped again
   map<shared_ptr<MacroConnect>, shared_ptr<MacroConnect> > macroConnectMap;
-  map<string, shared_ptr<MacroConnect> >::iterator itMC1, itMC2;
-  for (itMC1 = macroConnectsMap_.begin(); itMC1 != macroConnectsMap_.end(); ++itMC1)
-    for (itMC2 = interMapMacroConnect.begin(); itMC2 != interMapMacroConnect.end(); ++itMC2)
+  for (map<string, shared_ptr<MacroConnect> >::iterator itMC1 = macroConnectsMap_.begin(); itMC1 != macroConnectsMap_.end(); ++itMC1)
+    for (map<string, shared_ptr<MacroConnect> >::iterator itMC2 = interMapMacroConnect.begin(); itMC2 != interMapMacroConnect.end(); ++itMC2)
       if (isSameMacroConnect(itMC1->second, itMC2->second, modelsName1, modelsName2) &&
           find(MacroConnectionAlreadyMapped.begin(), MacroConnectionAlreadyMapped.end(), itMC2->first) == MacroConnectionAlreadyMapped.end()) {
         macroConnectMap[itMC1->second] = itMC2->second;
@@ -525,7 +525,7 @@ ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelic
   map<string, shared_ptr<UnitDynamicModel> > modelsID1 = unitDynamicModelsMap_;
   map<string, shared_ptr<UnitDynamicModel> > modelsID2 = modelicaModel->getUnitDynamicModels();
   map<shared_ptr<UnitDynamicModel>, shared_ptr<UnitDynamicModel> > localUnitDynamicModelsMap;
-  for (itIc1 = initConnectorsMap_.begin(); itIc1 != initConnectorsMap_.end(); ++itIc1) {
+  for (map<string, shared_ptr<Connector> >::iterator itIc1 = initConnectorsMap_.begin(); itIc1 != initConnectorsMap_.end(); ++itIc1) {
     shared_ptr<UnitDynamicModel> udm1_side1 = modelsID1[itIc1->second->getFirstModelId()];
     shared_ptr<UnitDynamicModel> udm1_side2 = modelsID1[itIc1->second->getSecondModelId()];
 
@@ -548,7 +548,7 @@ ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelic
   }
 
   // Mapping unit dynamic models thanks to the connectors declaration
-  for (itPc1 = connectorsMap_.begin(); itPc1 != connectorsMap_.end(); ++itPc1) {
+  for (map<string, shared_ptr<Connector> >::iterator itPc1 = connectorsMap_.begin(); itPc1 != connectorsMap_.end(); ++itPc1) {
     shared_ptr<UnitDynamicModel> udm1_side1 = modelsID1[itPc1->second->getFirstModelId()];
     shared_ptr<UnitDynamicModel> udm1_side2 = modelsID1[itPc1->second->getSecondModelId()];
 
@@ -571,7 +571,7 @@ ModelicaModel::Impl::hasSameStructureAs(const shared_ptr<ModelicaModel>& modelic
   }
 
   // Mapping unit dynamic models thanks to the macro connect declaration
-  for (itMC1 = macroConnectsMap_.begin(); itMC1 != macroConnectsMap_.end(); ++itMC1) {
+  for (map<string, shared_ptr<MacroConnect> >::iterator itMC1 = macroConnectsMap_.begin(); itMC1 != macroConnectsMap_.end(); ++itMC1) {
     shared_ptr<UnitDynamicModel> udm1_side1 = modelsID1[itMC1->second->getFirstModelId()];
     shared_ptr<UnitDynamicModel> udm1_side2 = modelsID1[itMC1->second->getSecondModelId()];
 

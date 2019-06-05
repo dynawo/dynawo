@@ -61,7 +61,7 @@
   <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE57.par" parId="47" staticId="_GEN____3_SM"/>
   <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE57.par" parId="48" staticId="_GEN____8_SM"/>
   <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE57.par" parId="49" staticId="_GEN____2_SM"/>
-  <dyn:blackBoxModel id="LoadVariation" lib="EventSetPointLoad.so" parFile="event.par" parId="1"/>
+  <dyn:blackBoxModel id="LoadVariation" lib="EventSetPointDoubleReal.so" parFile="event.par" parId="1"/>
   <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef.so" parFile="IEEE57.par" parId="50"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____6_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____6_SM" var2="generator_omegaRefPu"/>

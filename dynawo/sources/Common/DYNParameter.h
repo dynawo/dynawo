@@ -51,7 +51,7 @@ class ParameterCommon {
    * @param parameter the parameter to copy
    */
 #ifdef LANG_CXX11
-  ParameterCommon(const ParameterCommon& parameter) = default;
+  ParameterCommon(const ParameterCommon&) = default;
 #else
   ParameterCommon(const ParameterCommon& parameter);
 #endif

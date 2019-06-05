@@ -103,8 +103,8 @@ partial model BaseTapChanger_INIT "Base initialization model for tap-changers"
   extends BaseTapChangerPhaseShifter_TARGET_INIT (targetValue = UTarget, deadBand = UDeadBand, tapChangerType = tapChangerType0 );
 
   public
-    parameter Types.AC.VoltageModule UTarget "voltage set-point" ;
-    parameter Types.AC.VoltageModule UDeadBand "Voltage dead-band";
+    parameter Types.VoltageModule UTarget "voltage set-point" ;
+    parameter Types.VoltageModule UDeadBand "Voltage dead-band";
 
   protected
     parameter Boolean increaseTapToIncreaseValue = true "Whether a tap increase will lead to an increase in the monitored value";

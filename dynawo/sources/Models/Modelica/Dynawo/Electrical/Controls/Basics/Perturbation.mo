@@ -20,7 +20,7 @@ model Perturbation "Parametrable perturbation model : adds a constant signal at 
     Connectors.ImPin perturbatedSignal (value(start = Value0));
 
     parameter Real Height "Amplitude of the peturbation to be added";
-    parameter SIunits.Time tStep "Time instant when the perturbation occurs";
+    parameter Types.Time tStep "Time instant when the perturbation occurs";
 
   protected
     parameter Real Value0 "Start value of the output";

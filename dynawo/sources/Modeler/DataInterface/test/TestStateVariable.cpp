@@ -162,7 +162,7 @@ TEST(DataInterfaceTest, testStateVariable) {
   ASSERT_EQ(var2.getVariableId(), "variableBoolVariable");
   ASSERT_EQ(var2.getVariable(), variableForBool);
 
-  // check assignement operator
+  // check assignment operator
   StateVariable var3;
   var3 = intVariable;
   ASSERT_EQ(var3.getType(), StateVariable::INT);
@@ -202,13 +202,18 @@ initializeModelNetwork(shared_ptr<DataInterface> data) {
   parametersSet->createParameter("LOAD_beta", 0.);
   parametersSet->createParameter("LOAD_isRestorative", false);
   parametersSet->createParameter("LOAD_isControllable", false);
-  if (!data->getNetwork()->getTwoWTransformers().empty() && data->getNetwork()->getTwoWTransformers()[0]->getRatioTapChanger()) {
+
+  bool hasRatioTapChanger = !data->getNetwork()->getTwoWTransformers().empty() && data->getNetwork()->getTwoWTransformers()[0]->getRatioTapChanger();
+  bool hasPhaseTapChanger = !data->getNetwork()->getTwoWTransformers().empty() && data->getNetwork()->getTwoWTransformers()[0]->getPhaseTapChanger();
+  if (hasRatioTapChanger || hasPhaseTapChanger) {
     parametersSet->createParameter("TFO_t1st_THT", 9.);
     parametersSet->createParameter("TFO_tNext_THT", 10.);
     parametersSet->createParameter("TFO_t1st_HT", 11.);
     parametersSet->createParameter("TFO_tNext_HT", 12.);
-    parametersSet->createParameter("TFO_tolV", 13.);
   }
+  if (hasRatioTapChanger) {
+    parametersSet->createParameter("TFO_tolV", 13.);
+    }
   modelNetwork->setPARParameters(parametersSet);
   return modelNetwork;
 }

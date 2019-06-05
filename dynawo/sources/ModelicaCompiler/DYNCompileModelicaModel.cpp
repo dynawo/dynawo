@@ -233,7 +233,7 @@ modelicaCompile(const string& modelName, const string& outputDir,
     for (unsigned int i = 0; i < initFiles.size(); ++i)
       libs1.push_back(initFiles[i]);  // some libs for .mo can be used for _INIT.mo
 
-    string error = compileModelicaToC(modelName + "_INIT", initFile, libs1, outputDir);
+    error = compileModelicaToC(modelName + "_INIT", initFile, libs1, outputDir);
 
     if (!exists(cInitFile))
       throw DYNError(DYN::Error::MODELER, OMCompilationFailed, modelName+ "_INIT", error);

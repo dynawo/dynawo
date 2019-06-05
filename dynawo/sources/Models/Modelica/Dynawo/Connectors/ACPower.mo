@@ -14,7 +14,7 @@ within Dynawo.Connectors;
 
 connector ACPower "Connector for AC power (described using complex V and i variables)"
   public
-    Types.AC.Voltage V "Complex AC voltage";
-    flow Types.AC.Current i "Complex AC current (positive when entering the device)";
+    Types.Voltage V "Complex AC voltage";
+    flow Types.Current i "Complex AC current (positive when entering the device)";
   annotation(Icon(graphics = {Rectangle(extent = {{-100, 98}, {100, -102}}, lineColor = {0, 0, 255}, fillColor = {0, 0, 255}, fillPattern = FillPattern.Solid)}));
 end ACPower;

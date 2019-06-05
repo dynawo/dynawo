@@ -275,13 +275,13 @@ ModelShuntCompensator::setSubModelParameters(const boost::unordered_map<std::str
 
 void
 ModelShuntCompensator::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("capacitor_no_reclosing_delay", DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("reactance_no_reclosing_delay", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("capacitor_no_reclosing_delay", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("reactance_no_reclosing_delay", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 void
 ModelShuntCompensator::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler(id_ + "_no_reclosing_delay", DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler(id_ + "_no_reclosing_delay", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
 }
 
 NetworkComponent::StateChange_t
