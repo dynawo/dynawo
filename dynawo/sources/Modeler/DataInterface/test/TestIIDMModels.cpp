@@ -343,18 +343,18 @@ initializeModel(shared_ptr<DataInterface> data) {
   data->setModelNetwork(modelNetwork);
   modelNetwork->name("NETWORK");
   shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
-  parametersSet->createParameter("BUS_uMax", 0.);
-  parametersSet->createParameter("CAPACITOR_no_reclosing_delay", 0.);
-  parametersSet->createParameter("LOAD_alpha", 0.);
-  parametersSet->createParameter("LOAD_beta", 0.);
-  parametersSet->createParameter("LOAD_isRestorative", false);
-  parametersSet->createParameter("LOAD_isControllable", false);
+  parametersSet->createParameter("bus_uMax", 0.);
+  parametersSet->createParameter("capacitor_no_reclosing_delay", 0.);
+  parametersSet->createParameter("load_alpha", 0.);
+  parametersSet->createParameter("load_beta", 0.);
+  parametersSet->createParameter("load_isRestorative", false);
+  parametersSet->createParameter("load_isControllable", false);
   if (!data->getNetwork()->getTwoWTransformers().empty() && data->getNetwork()->getTwoWTransformers()[0]->getRatioTapChanger()) {
-    parametersSet->createParameter("TFO_t1st_THT", 9.);
-    parametersSet->createParameter("TFO_tNext_THT", 10.);
-    parametersSet->createParameter("TFO_t1st_HT", 11.);
-    parametersSet->createParameter("TFO_tNext_HT", 12.);
-    parametersSet->createParameter("TFO_tolV", 13.);
+    parametersSet->createParameter("transformer_t1st_THT", 9.);
+    parametersSet->createParameter("transformer_tNext_THT", 10.);
+    parametersSet->createParameter("transformer_t1st_HT", 11.);
+    parametersSet->createParameter("transformer_tNext_HT", 12.);
+    parametersSet->createParameter("transformer_tolV", 13.);
   }
   modelNetwork->setPARParameters(parametersSet);
 
