@@ -40,6 +40,7 @@
 #include "DYNCommonModeler.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
+#include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
 #include "DYNVariableForModel.h"
 #include "DYNParameter.h"
@@ -297,6 +298,7 @@ tapChangerIndex_(0) {
     if (!doubleIsZero(U202)) {
       ir02_ = (P02 * ur02 + Q02 * ui02) / U202;
       ii02_ = (P02 * ui02 - Q02 * ur02) / U202;
+      i0Side2Var_ = sqrt(ir02_ * ir02_ + ii02_ * ii02_) * factorPuToASide2_;
     }
   }
 }
@@ -336,6 +338,8 @@ ModelTwoWindingsTransformer::initSize() {
     }
 
     if (modelPhaseChanger_) {
+      sizeF_ += 1;
+      sizeY_ += 1;
       sizeG_ += modelPhaseChanger_->sizeG();
       sizeZ_ += modelPhaseChanger_->sizeZ();
     }
@@ -363,18 +367,60 @@ ModelTwoWindingsTransformer::evalYMat() {
 }
 
 void
-ModelTwoWindingsTransformer::init(int& /*yNum*/) {
-  // not needed
+ModelTwoWindingsTransformer::init(int& yNum) {
+  if (!network_->isInitModel()) {
+    yOffset_ = (unsigned int) yNum;
+    unsigned int localIndex = 0;
+
+    if (modelPhaseChanger_) {
+      iSide2YNum_ = localIndex;
+      ++localIndex;
+    }
+
+    yNum += localIndex;
+  }
 }
 
 void
-ModelTwoWindingsTransformer::evalJt(SparseMatrix& /*jt*/, const double& /*cj*/, const int& /*rowOffset*/) {
-  // not needed
+ModelTwoWindingsTransformer::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
+  if (network_->isInitModel())
+    return;
+
+  if (modelPhaseChanger_) {
+    int ur1YNum = modelBus1_->urYNum();
+    int ui1YNum = modelBus1_->uiYNum();
+    int ur2YNum = modelBus2_->urYNum();
+    int ui2YNum = modelBus2_->uiYNum();
+
+    double ur1Val = ur1();
+    double ui1Val = ui1();
+    double ur2Val = ur2();
+    double ui2Val = ui2();
+    double ur1Term = (ir2_dUr1() * ir2(ur1Val, ui1Val, ur2Val, ui2Val) + ii2_dUr1() * ii2(ur1Val, ui1Val, ur2Val, ui2Val))
+           / i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
+    double ui1Term = (ir2_dUi1() * ir2(ur1Val, ui1Val, ur2Val, ui2Val) + ii2_dUi1() * ii2(ur1Val, ui1Val, ur2Val, ui2Val))
+               / i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
+    double ur2Term = (ir2_dUr2() * ir2(ur1Val, ui1Val, ur2Val, ui2Val) + ii2_dUr2() * ii2(ur1Val, ui1Val, ur2Val, ui2Val))
+               / i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
+    double ui2Term = (ir2_dUi2() * ir2(ur1Val, ui1Val, ur2Val, ui2Val) + ii2_dUi2() * ii2(ur1Val, ui1Val, ur2Val, ui2Val))
+               / i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
+
+    // column for equations iSide2Var
+    jt.changeCol();
+
+    jt.addTerm(globalYIndex(iSide2YNum_) + rowOffset, -1);
+    jt.addTerm(ur1YNum + rowOffset, ur1Term);
+    jt.addTerm(ui1YNum + rowOffset, ui1Term);
+    jt.addTerm(ur2YNum + rowOffset, ur2Term);
+    jt.addTerm(ui2YNum + rowOffset, ui2Term);
+  }
 }
 
 void
-ModelTwoWindingsTransformer::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
-  // not needed
+ModelTwoWindingsTransformer::evalJtPrim(SparseMatrix& jt, const int& /*rowOffset*/) {
+  if (modelPhaseChanger_) {
+    jt.changeCol();
+  }
 }
 
 void
@@ -383,8 +429,13 @@ ModelTwoWindingsTransformer::defineNonGenericParameters(std::vector<ParameterMod
 }
 
 void
-ModelTwoWindingsTransformer::setFequations(std::map<int, std::string>& /*fEquationIndex*/) {
-  // not needed
+ModelTwoWindingsTransformer::setFequations(std::map<int, std::string>& fEquationIndex) {
+  if (network_->isInitModel())
+    return;
+
+  if (modelPhaseChanger_) {
+      fEquationIndex[0] = std::string("iSide2Var - iSide2(ur1,ur2,ui1,ui2) localModel:").append(id());
+  }
 }
 
 void
@@ -911,7 +962,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
   double ui1 = 0.;
   double ur2 = 0.;
   double ui2 = 0.;
-  // in the y vector, we have access only at variables declared in getDefJCalculatedVarI
+  // in the y vector, we have access only to variables declared in getDefJCalculatedVarI
   switch (knownBus_) {
     case BUS1_BUS2: {
       ur1 = y[0];
@@ -1130,6 +1181,9 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
 
 void
 ModelTwoWindingsTransformer::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
+  if (modelPhaseChanger_) {
+    variables.push_back(VariableNativeFactory::createState(id_ + "_iSide2Var_value", CONTINUOUS));
+  }
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P1_value", CONTINUOUS));
@@ -1153,6 +1207,7 @@ ModelTwoWindingsTransformer::instantiateVariables(vector<shared_ptr<Variable> >&
 
 void
 ModelTwoWindingsTransformer::defineVariables(vector<shared_ptr<Variable> >& variables) {
+  variables.push_back(VariableNativeFactory::createState("@ID@_iSide2Var_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_i1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_i2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1_value", CONTINUOUS));
@@ -1176,8 +1231,13 @@ ModelTwoWindingsTransformer::defineVariables(vector<shared_ptr<Variable> >& vari
 void
 ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   string twtName = id();
+  // ===== ISide2Var =====
+  string name = twtName + string("_iSide2Var");
+  addElement(name, Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+
   // ===== I1 =====
-  string name = twtName + string("_i1");
+  name = twtName + string("_i1");
   addElement(name, Element::STRUCTURE, elements, mapElement);
   addSubElement("value", name, Element::TERMINAL, elements, mapElement);
 
@@ -1358,6 +1418,34 @@ ModelTwoWindingsTransformer::P2(const double& ur1, const double& ui1, const doub
 }
 
 void
+ModelTwoWindingsTransformer::evalF() {
+  if (network_->isInitModel())
+    return;
+
+  if (modelPhaseChanger_) {
+      double ur1Val = ur1();
+      double ui1Val = ui1();
+      double ur2Val = ur2();
+      double ui2Val = ui2();
+      double iSide2Val = i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
+
+      f_[0] = iSide2Val - y_[0];
+  }
+}
+
+void ModelTwoWindingsTransformer::evalYType() {
+  if (modelPhaseChanger_) {
+    yType_[0] = ALGEBRIC;  // algebraic equation
+  }
+}
+
+void ModelTwoWindingsTransformer::evalFType() {
+  if (modelPhaseChanger_) {
+    fType_[0] = ALGEBRIC_EQ;  // algebraic equation
+  }
+}
+
+void
 ModelTwoWindingsTransformer::evalG(const double& t) {
   int offset = 0;
   if (currentLimits1_) {
@@ -1390,11 +1478,8 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
   }
 
   if (modelPhaseChanger_) {
-    double ur1Val = ur1();
-    double ui1Val = ui1();
-    double ur2Val = ur2();
-    double ui2Val = ui2();
-    double iValue = i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
+    double iValue = y_[0];
+    DYN::Trace::debug() << "evalG iValue : " << iValue << DYN::Trace::endline;
     modelPhaseChanger_->evalG(t, iValue, false, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, connectionState_ == CLOSED);
   }
 }
@@ -1614,6 +1699,10 @@ ModelTwoWindingsTransformer::getY0() {
     z_[2] = getCurrentLimitsDesactivate();
     z_[3] = getDisableInternalTapChanger();
     z_[4] = getTapChangerLocked();
+
+    if (modelPhaseChanger_) {
+      y_[0] = i0Side2Var_;
+    }
   }
 }
 
