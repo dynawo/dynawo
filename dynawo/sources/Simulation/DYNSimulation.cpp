@@ -644,10 +644,18 @@ Simulation::init() {
   model_->setTimeline(timeline_);
   model_->setConstraints(constraintsCollection_);
 
+  zCurrent_.assign(model_->sizeZ(), 0.);
+  yCurrent_.assign(model_->sizeY(), 0.);
   for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
           itCurve != curvesCollection_->end();
           ++itCurve) {
-    model_->initCurves(*itCurve);
+    shared_ptr<curves::Curve>& curve = *itCurve;
+    model_->initCurves(curve);
+    if (curve->getCurveType() == curves::Curve::DISCRETE_VARIABLE) {
+      curve->setBuffer(&(zCurrent_[curve->getGlobalIndex()]));
+    } else if (curve->getCurveType() == curves::Curve::CONTINUOUS_VARIABLE) {
+      curve->setBuffer(&(yCurrent_[curve->getGlobalIndex()]));
+    }
   }
 
 #ifdef _DEBUG_
@@ -699,6 +707,8 @@ Simulation::calculateIC() {
   // ensure globally satisfactory initial values for dynamic models
   solver_->init(model_, tStart_, tStop_);
   solver_->calculateIC();
+  zCurrent_ = solver_->getCurrentZ();
+  yCurrent_ = solver_->getCurrentY();
 
   if (dumpGlobalInitValues_) {
     string globalInitDir = createAbsolutePath("initValues/globalInit", outputsDirectory_);
@@ -732,6 +742,7 @@ Simulation::simulate() {
   updateCurves(updateCalculatedVariable);  // initial curves
 
   bool algebraicModeFound = false;
+  bool discreteVariableChangeFound = false;
   bool criteriaChecked = true;
   try {
     if (data_ && (exportIIDM_ || activateCriteria_)) {  // no need to update state variable if the IIDM final state is not exported (same for criteria check)
@@ -742,9 +753,12 @@ Simulation::simulate() {
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       bool isCheckCriteriaIter = data_ && activateCriteria_ && currentIterNb % criteriaStep_ == 0;
 
-      iterate(algebraicModeFound);
+      iterate(algebraicModeFound, discreteVariableChangeFound);
       solver_->printSolve();
 
+      if (discreteVariableChangeFound)
+        updateCurves(true);
+      zCurrent_ = solver_->getCurrentZ();
       if (algebraicModeFound) {
         // When there is an algebraic mode, curves are updated before checking the criteria (so calculated variables haven't been updated)
         updateCurves(true);
@@ -837,10 +851,10 @@ Simulation::updateParametersValues() {
 }
 
 void
-Simulation::iterate(bool &algebraicModeFound) {
+Simulation::iterate(bool &algebraicModeFound, bool& discreteVariableChangeFound) {
   double tVise = tStop_;
 
-  solver_->solve(tVise, tCurrent_, yCurrent_, ypCurrent_, zCurrent_, algebraicModeFound);
+  solver_->solve(tVise, tCurrent_, yCurrent_, ypCurrent_, algebraicModeFound, discreteVariableChangeFound);
 
   if (std::abs(tCurrent_ - lastTimeSimulated_) < 1e-6)
     ++nbLastTimeSimulated_;

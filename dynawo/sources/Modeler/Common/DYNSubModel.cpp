@@ -864,18 +864,22 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
 
   if (!isState) {
     buffer = &(calculatedVars_[varNum]);
-    curve->setAsCalculatedVariableCurve(true);
+    curve->setCurveType(Curve::CALCULATED_VARIABLE);
   } else {
     switch (typeVar) {
       case CONTINUOUS:
       case FLOW: {
         buffer = &(yLocal_[varNum]);
+        curve->setCurveType(Curve::CONTINUOUS_VARIABLE);
+        curve->setGlobalIndex(yDeb() + varNum);
         break;
       }
       case DISCRETE:
       case BOOLEAN:  // @todo : use (double) toNativeBool for the buffer ?
       case INTEGER: {  // Z vector contains DISCRETE variables and then INTEGER variables
         buffer = &(zLocal_[varNum]);
+        curve->setCurveType(Curve::DISCRETE_VARIABLE);
+        curve->setGlobalIndex(zDeb() + varNum);
         break;
       }
     }
@@ -891,7 +895,7 @@ SubModel::updateCalculatedVarForCurve(boost::shared_ptr<curves::Curve>& curve, d
 #ifdef _DEBUG_
   assert(curve);
 #endif
-  if (!curve->isCalculatedVariableCurve()) return;
+  if (curve->getCurveType() != Curve::CALCULATED_VARIABLE) return;
   const string variableName = curve->getFoundVariableName();
   if (!hasVariable(variableName)) return;
 

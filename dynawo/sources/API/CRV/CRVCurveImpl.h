@@ -82,6 +82,16 @@ class Curve::Impl : public Curve {
   void setBuffer(double* buffer);
 
   /**
+   * @copydoc Curve::setGlobalIndex(size_t index)
+   */
+  virtual void setGlobalIndex(size_t index);
+
+  /**
+   * @copydoc Curve::getGlobalIndex()
+   */
+  virtual size_t getGlobalIndex();
+
+  /**
    * @copydoc Curve::getModelName()
    */
   std::string getModelName() const;
@@ -147,19 +157,19 @@ class Curve::Impl : public Curve {
   }
 
   /**
-   * @brief Get if curve is a calculated variable curve
-   * @return @b true if the curve is a calculated variable curve
+   * @brief Get the curve type (calculated variable, continous, discrete)
+   * @return the curve type (calculated variable, continous, discrete)
    */
-  bool isCalculatedVariableCurve() const {
-    return isCalculatedVariableCurve_;
+  CurveType_t getCurveType() const {
+    return curveType_;
   }
 
   /**
-   * @brief Set curve as a calculated variable curve
-   * @param isCalculatedVariableCurve : @b true if the curve is a calculated variable curve, @b false otherwise
+   * @brief Set the curve type (calculated variable, continous, discrete)
+   * @param curveType : curve type (calculated variable, continous, discrete)
    */
-  void setAsCalculatedVariableCurve(bool isCalculatedVariableCurve) {
-    isCalculatedVariableCurve_ = isCalculatedVariableCurve;
+  void setCurveType(CurveType_t curveType) {
+    curveType_ = curveType;
   }
 
   /**
@@ -183,7 +193,8 @@ class Curve::Impl : public Curve {
   double *buffer_;  ///< adress buffer where to find value
   std::vector<boost::shared_ptr<Point> > points_;  ///< vector of each values
   bool isParameterCurve_;  ///< @b true if a parameter curve, @b false if variable
-  bool isCalculatedVariableCurve_;  ///< @b true if a calculated variable curve, @b false if variable
+  CurveType_t curveType_;  ///< @b true if a calculated variable curve, @b false if variable
+  size_t indexInGlobalTable_;  ///< curve's index in global table
 };
 
 /**

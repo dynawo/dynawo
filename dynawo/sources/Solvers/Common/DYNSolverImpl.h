@@ -138,15 +138,15 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void calculateIC() = 0;
 
   /**
-   * @copydoc Solver::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt, std::vector<double> &zNxt, bool &algebraicModeFound)
+   * @copydoc Solver::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound)
    */
   void solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt,
-                     std::vector<double> &zNxt, bool &algebraicModeFound);
+                     bool &algebraicModeFound, bool& discreteVariableChangeFound);
 
   /**
-   * @copydoc Solver::solve(double tAim, double &tNxt, bool &algebraicModeFound)
+   * @copydoc Solver::solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound)
    */
-  virtual void solve(double tAim, double &tNxt, bool &algebraicModeFound) = 0;
+  virtual void solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound) = 0;
 
   /**
    * @copydoc Solver::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::vector<double> &zNxt)
@@ -246,10 +246,11 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @param G0 previous value of zero crossing functions
    * @param G1 new value of zero crossing functions
    * @param time time to use to evaluate these values
+   * @param discreteVariableChangeFound @b true if a modification of a discrete variable has been found at time
    *
    * @return @b true zero crossing functions or discretes variables have changed
    */
-  bool evalZMode(std::vector<state_g> &G0, std::vector<state_g> &G1, const double &time);
+  bool evalZMode(std::vector<state_g> &G0, std::vector<state_g> &G1, const double &time, bool& discreteVariableChangeFound);
 
   /**
    * @brief detect if one zero crossing functions have changed its value

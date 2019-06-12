@@ -392,7 +392,8 @@ SolverIDA::calculateIC() {
 
   // Updating discrete variable values and mode
   model_->evalG(tSolve_, vYy_, vYp_, vYz_, g0_);
-  evalZMode(g0_, g1_, tSolve_);
+  bool discreteVariableChangeFound = false;
+  evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
 
   model_->rotateBuffers();
 
@@ -446,7 +447,8 @@ SolverIDA::calculateIC() {
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
     if (rootFound) {
       g0_.assign(g1_.begin(), g1_.end());
-      change = evalZMode(g0_, g1_, tSolve_);
+      bool discreteVariableChangeFound = false;
+      change = evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
     }
 
     model_->rotateBuffers();
@@ -619,7 +621,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
 }
 
 void
-SolverIDA::solve(double tAim, double &tNxt, bool &algebraicModeFound) {
+SolverIDA::solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound) {
   int flag = IDASolve(IDAMem_, tAim, &tNxt, yy_, yp_, IDA_ONE_STEP);
 
   string msg;
@@ -656,7 +658,7 @@ SolverIDA::solve(double tAim, double &tNxt, bool &algebraicModeFound) {
     // Propagating the root change
     model_->evalG(tNxt, vYy_, vYp_, vYz_, g0_);
     ++stats_.nge_;
-    bool change = evalZMode(g0_, g1_, tNxt);
+    bool change = evalZMode(g0_, g1_, tNxt, discreteVariableChangeFound);
 
     updateStatistics();
 
@@ -770,7 +772,8 @@ SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
     // Root stabilization
     model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
     ++stats_.nge_;
-    evalZMode(g0_, g1_, tSolve_);
+    bool discreteVariableChangeFound = false;
+    evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
 
     counter++;
     if (counter >= 10)

@@ -18,6 +18,7 @@
  *
  */
 #include <iostream>
+#include <limits>
 
 #include "CRVCurveImpl.h"
 #include "CRVPoint.h"
@@ -36,7 +37,8 @@ available_(false),
 negated_(false),
 buffer_(NULL),
 isParameterCurve_(false),
-isCalculatedVariableCurve_(false) {
+curveType_(UNDEFINED),
+indexInGlobalTable_(std::numeric_limits<size_t>::max()) {
 }
 
 Curve::Impl::~Impl() {
@@ -97,6 +99,16 @@ Curve::Impl::setNegated(bool negated) {
 void
 Curve::Impl::setBuffer(double* buffer) {
   buffer_ = buffer;
+}
+
+void
+Curve::Impl::setGlobalIndex(size_t index) {
+  indexInGlobalTable_ = index;
+}
+
+size_t
+Curve::Impl::getGlobalIndex() {
+  return indexInGlobalTable_;
 }
 
 string
