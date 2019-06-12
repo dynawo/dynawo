@@ -36,6 +36,16 @@ class Point;
  */
 class __DYNAWO_CRV_EXPORT Curve {
  public:
+/**
+* defined type of variables
+*/
+typedef enum {
+  UNDEFINED,
+  CALCULATED_VARIABLE,
+  DISCRETE_VARIABLE,
+  CONTINUOUS_VARIABLE
+} CurveType_t;  ///< type on constraint
+
   /**
    * @brief Destructor
    */
@@ -82,6 +92,18 @@ class __DYNAWO_CRV_EXPORT Curve {
    * @param buffer buffer where the curve should find the value to store
    */
   virtual void setBuffer(double* buffer) = 0;
+
+  /**
+   * @brief Setter for curve's index in global table
+   * @param index curve's index in global table
+   */
+  virtual void setGlobalIndex(size_t index) = 0;
+
+  /**
+   * @brief Getter for curve's index in global table
+   * @return index curve's index in global table
+   */
+  virtual size_t getGlobalIndex() = 0;
 
   /**
    * @brief Getter for curve's model name
@@ -132,16 +154,16 @@ class __DYNAWO_CRV_EXPORT Curve {
   virtual void setAsParameterCurve(bool isParameterCurve) = 0;
 
   /**
-   * @brief Get if curve is a calculated variable curve
-   * @return @b true if the curve is a calculated variable curve
+   * @brief Get the curve type (calculated variable, continous, discrete)
+   * @return the curve type (calculated variable, continous, discrete)
    */
-  virtual bool isCalculatedVariableCurve() const = 0;
+  virtual CurveType_t getCurveType() const = 0;
 
   /**
-   * @brief Set curve as a calculated variable curve
-   * @param isCalculatedVariableCurve : @b true if the curve is a calculated variable curve, @b false otherwise
+   * @brief Set the curve type (calculated variable, continous, discrete)
+   * @param curveType : curve type (calculated variable, continous, discrete)
    */
-  virtual void setAsCalculatedVariableCurve(bool isCalculatedVariableCurve) = 0;
+  virtual void setCurveType(CurveType_t curveType) = 0;
 
   /**
    * @brief update parameter curve value

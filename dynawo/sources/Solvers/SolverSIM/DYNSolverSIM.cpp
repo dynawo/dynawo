@@ -178,7 +178,8 @@ SolverSIM::calculateIC() {
 
   // Updating discrete variable values and mode
   model_->evalG(tSolve_, vYy_, vYp_, vYz_, g0_);
-  evalZMode(g0_, g1_, tSolve_);
+  bool discreteVariableChangeFound = false;
+  evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
 
   model_->rotateBuffers();
 
@@ -197,7 +198,7 @@ SolverSIM::calculateIC() {
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
     if (rootFound) {
       g0_.assign(g1_.begin(), g1_.end());
-      change = evalZMode(g0_, g1_, tSolve_);
+      change = evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
     }
 
     ++counter;
@@ -213,7 +214,7 @@ SolverSIM::calculateIC() {
   solverKIN_->clean();
 }
 
-void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound) {
+void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound) {
   bool redoStep = true;
   int counter = 0;
 
@@ -236,7 +237,7 @@ void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound) {
     h_ = hNew_;
 
     // Call the Newton-Raphson solver and analyze the root evolution
-    SolverStatus_t status = solve();
+    SolverStatus_t status = solve(discreteVariableChangeFound);
 
     switch (status) {
       /* NON_CONV: the Newton-Raphson algorithm fails to converge
@@ -332,7 +333,7 @@ void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound) {
 }
 
 SolverSIM::SolverStatus_t
-SolverSIM::solve() {
+SolverSIM::solve(bool& discreteVariableChangeFound) {
   /*
    * Call the Newton-Raphson solver for the time step
    * Returns y and yp updated values
@@ -378,7 +379,7 @@ SolverSIM::solve() {
        * Calculate the propagation of discrete variable value changes and mode changes
        */
       g0_.assign(g1_.begin(), g1_.end());
-      bool modelChange = evalZMode(g0_, g1_, tSolve_ + h_);
+      bool modelChange = evalZMode(g0_, g1_, tSolve_ + h_, discreteVariableChangeFound);
 
       // Number of discrete variable values / mode change greater than maxRootRestart
       if (countRestart_ >= maxRootRestart_) {
@@ -513,7 +514,8 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
     if (rootFound) {
       g0_.assign(g1_.begin(), g1_.end());
-      evalZMode(g0_, g1_, tSolve_);
+      bool discreteVariableChangeFound = false;
+      evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
     }
 
     counter++;

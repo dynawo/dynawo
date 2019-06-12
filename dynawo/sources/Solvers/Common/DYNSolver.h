@@ -163,11 +163,11 @@ class Solver {
    * @param tNxt the time reached by the solver
    * @param yNxt the compute solution vector y
    * @param ypNxt the compute solution vector yp
-   * @param zNxt the compute solution vector z after root stabilization
    * @param algebraicModeFound @b true if an algebraic mode has been found at tNxt
+   * @param discreteVariableChangeFound @b true if a modification of a discrete variable has been found at tNxt
    */
   virtual void solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt,
-                     std::vector<double> &zNxt, bool &algebraicModeFound) = 0;
+                     bool &algebraicModeFound, bool& discreteVariableChangeFound) = 0;
 
   /**
    * @brief Integrate the DAE over an interval in t and determines if an algebraic mode has been found
@@ -175,8 +175,9 @@ class Solver {
    * @param tAim the next time at which a computed solution is desired
    * @param tNxt the time reached by the solver
    * @param algebraicModeFound @b true if an algebraic mode has been found at tNxt
+   * @param discreteVariableChangeFound @b true if a modification of a discrete variable has been found at tNxt
    */
-  virtual void solve(double tAim, double &tNxt, bool &algebraicModeFound) = 0;
+  virtual void solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound) = 0;
 
   /**
    * @brief Restore the equations after an algebraic mode - reinitialize the DAE problem (new initial point)

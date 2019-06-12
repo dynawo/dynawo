@@ -113,9 +113,9 @@ class SolverSIM : public Solver::Impl {
    */
   void init(const boost::shared_ptr<Model> &model, const double & t0, const double & tEnd);
   /**
-   * @copydoc Solver::solve(double tAim, double &tNxt, bool &algebraicModeFound)
+   * @copydoc Solver::solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound)
    */
-  void solve(double tAim, double &tNxt, bool &algebraicModeFound);
+  void solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound);
 
   /**
    * @copydoc Solver::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::vector<double> &zNxt)
@@ -139,10 +139,11 @@ class SolverSIM : public Solver::Impl {
  private:
   /**
    * @brief find the solution of the problem for t+h (h is the step)
+   * @param discreteVariableChangeFound @b true if a modification of a discrete variable has been found at tNxt
    *
    * @return the current status of the solver
    */
-  SolverStatus_t solve();
+  SolverStatus_t solve(bool& discreteVariableChangeFound);
 
   /**
    * @brief find the solution of f(u(t+h))

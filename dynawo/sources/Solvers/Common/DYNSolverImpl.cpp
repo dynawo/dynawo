@@ -199,21 +199,21 @@ Solver::Impl::resetStats() {
 
 void
 Solver::Impl::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt,
-                    std::vector<double> &zNxt, bool &algebraicModeFound) {
+                    bool &algebraicModeFound, bool& discreteVariableChangeFound) {
   // Solving
   algebraicModeFound = false;
+  discreteVariableChangeFound = false;
   model_->rotateBuffers();
-  solve(tAim, tNxt, algebraicModeFound);
+  solve(tAim, tNxt, algebraicModeFound, discreteVariableChangeFound);
 
   // Updating values
   yNxt = vYy_;
   ypNxt = vYp_;
-  zNxt = vYz_;
   tSolve_ = tNxt;
 }
 
 bool
-Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double & time) {
+Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double & time, bool& discreteVariableChangeFound) {
   Timer timer("SolverIMPL::evalZMode");
   bool zChange = false;
   bool modeChange = false;
@@ -222,6 +222,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
     // evalZ
     model_->evalZ(time, vYy_, vYp_, vYz_);
     zChange = model_->zChange();
+    discreteVariableChangeFound |= zChange;
 
     // evalMode
     model_->evalMode(time, vYy_, vYp_, vYz_);
