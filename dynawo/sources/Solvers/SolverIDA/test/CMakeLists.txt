@@ -36,6 +36,7 @@ TARGET_LINK_LIBRARIES(
                     dynawo_API_DYD
                     iidm-xml
                     dynawo_ModelerCommon
+                    dynawo_DataInterface
                     dynawo_Util
                     ${Boost_SERIALIZATION_LIBRARY}
                     dynawo_CPPModelsCommon

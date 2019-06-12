@@ -41,11 +41,21 @@ TARGET_LINK_LIBRARIES(dynawo_SolverIDA
                       ${SUNDIALS_IDA_LIBRARY}
                       ${SUNDIALS_NVECSERIAL_LIBRARY}
                       ${SUITESPARSE_LIBRARIES}
+                      ${Boost_ATOMIC_LIBRARY}
+                      ${Boost_DATE_TIME_LIBRARY}
+                      ${Boost_REGEX_LIBRARY}
+                      ${Boost_CHRONO_LIBRARY}
                       )
 
 IF(${NICSLU_FOUND})
   TARGET_LINK_LIBRARIES(dynawo_SolverIDA ${NICSLU_LIBRARIES})
 ENDIF()
+
+if (APPLE)
+  IF(LIBRARY_TYPE STREQUAL "STATIC")
+    TARGET_LINK_LIBRARIES(dynawo_SolverIDA "-flat_namespace -undefined warning")
+  ENDIF()
+endif()
 
 SET_TARGET_PROPERTIES(dynawo_SolverIDA PROPERTIES VERSION ${SOLVER_IDA_VERSION_STRING}
                                            SOVERSION ${SOLVER_IDA_VERSION_MAJOR})

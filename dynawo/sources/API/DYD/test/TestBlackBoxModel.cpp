@@ -41,14 +41,14 @@ TEST(APIDYDTest, BlackBoxModelCreate) {
   // create object
   boost::shared_ptr<BlackBoxModel> model;
   model = BlackBoxModelFactory::newModel("blackBoxModel");
-  model->setLib("model.so");
+  model->setLib("model");
   model->setStaticId("staticId");
   model->setParFile("parFile");
   model->setParId("parId");
 
   ASSERT_EQ(model->getType(), Model::BLACK_BOX_MODEL);
   ASSERT_EQ(model->getId(), "blackBoxModel");
-  ASSERT_EQ(model->getLib(), "model.so");
+  ASSERT_EQ(model->getLib(), "model");
   ASSERT_EQ(model->getStaticId(), "staticId");
   ASSERT_EQ(model->getParFile(), "parFile");
   ASSERT_EQ(model->getParId(), "parId");

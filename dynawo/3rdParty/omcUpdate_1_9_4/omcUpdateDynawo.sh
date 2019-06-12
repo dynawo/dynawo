@@ -452,6 +452,27 @@ save_original_files
 #-------------------------------------------------------
 update_sources
 
+if [ "`uname`" = "Darwin" ]; then
+  pushd $SRC_OPENMODELICA
+  if [ -x "$(command -v sed)" ]; then
+    if [ -z "$(sed --version 2>&1 | head -1 | grep GNU)" ]; then
+      echo "You need GNU version of sed to install OpenModelica. See https://www.gnu.org/software/sed/"
+      exit 1
+    fi
+  fi
+  sed -i 's/libstdc++/libc++/' OMCompiler/configure.ac || { echo "Error while updating OMC sources for Darwin."; exit 1; }
+  sed -i 's/disable-gcj-support/disable-gcj-support --enable-static/' OMCompiler/Makefile.common || { echo "Error while updating OMC sources for Darwin."; exit 1; }
+  sed -i 's#if [ "@APP@" = ".app" ]; then mkdir -p ${INSTALL_APPDIR}; fi##' Makefile.in || { echo "Error while updating OMC sources for Darwin."; exit 1; }
+  sed -i 's#if [ "@APP@" = ".app" ]; then cp -a "@OMBUILDDIR@"/Applications/* $(INSTALL_APPDIR); fi##' Makefile.in || { echo "Error while updating OMC sources for Darwin."; exit 1; }
+  if [ -x "/usr/bin/clang++" ]; then
+    sed -i '155 s#$# CXX="/usr/bin/clang++"#' OMCompiler/Makefile.common || { echo "Error while updating OMC sources for Darwin."; exit 1; }
+  else
+    echo "/usr/bin/clang++ is not available as compiler. We only support clang on MacOs."
+    exit 1
+  fi
+  popd
+fi
+
 #---------------------------
 # 5- OMC binary creation
 #---------------------------

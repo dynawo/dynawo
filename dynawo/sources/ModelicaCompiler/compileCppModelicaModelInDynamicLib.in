@@ -28,12 +28,21 @@ COMPILER_CMD=@CMAKE_CXX_COMPILER@
 DYNAWO_INCLUDE_DIR=${DYNAWO_INSTALL_DIR}/include
 DYNAWO_LIB_DIR=${DYNAWO_INSTALL_DIR}/lib
 
+if [ "`uname`" = "Linux" ]; then
+  DYNAWO_SHARED_LIBRARY_SUFFIX="so"
+elif [ "`uname`" = "Darwin" ]; then
+  DYNAWO_SHARED_LIBRARY_SUFFIX="dylib"
+else
+  echo "OS `uname` not supported."
+  exit 1
+fi
+
 LIBRARY_TYPE=@LIBRARY_TYPE@
 CXX11_ENABLED=@CXX11_ENABLED@
 WITH_ADEPT=@USE_ADEPT@
 ADEPT_INCLUDE_DIR=${DYNAWO_ADEPT_INSTALL_DIR}/include
 if [ "$LIBRARY_TYPE" = "SHARED" ]; then
-  ADEPT_LIBRARY=${DYNAWO_ADEPT_INSTALL_DIR}/lib/libadept.so
+  ADEPT_LIBRARY=${DYNAWO_ADEPT_INSTALL_DIR}/lib/libadept.$DYNAWO_SHARED_LIBRARY_SUFFIX
 elif [ "$LIBRARY_TYPE" = "STATIC" ]; then
   ADEPT_LIBRARY=${DYNAWO_ADEPT_INSTALL_DIR}/lib/libadept.a
 else
@@ -100,10 +109,26 @@ FLAGS="@CMAKE_CXX_FLAGS@"
 INCLUDE_FLAGS="-I$DYNAWO_INCLUDE_DIR -I$OMC_INCLUDE_DIR $BOOST_INCLUDE_DIR_OPTION $DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED"
 LIB_FLAGS="-L$DYNAWO_LIB_DIR $BOOST_LIB_DIR_OPTION -ldynawo_API_PAR -ldynawo_ModelManager -ldynawo_ModelerCommon \
 -ldynawo_DataInterface -ldynawo_SolverKINSOL -ldynawo_SolverSubModel -ldynawo_SolverCommon -ldynawo_Common $DYNAWO_ADDITIONAL_LIBRARY_FOR_PREASSEMBLED \
--lboost_serialization -lboost_log $SUNDIALS_LIBRARIES $SUITESPARSE_LIBRARIES $SUNDIALS_NICSLU_LIBRARY $NICSLU_LIBRARIES"
+-lboost_serialization -lboost_log -lboost_chrono -lboost_date_time -lboost_regex -lboost_atomic -lboost_filesystem -pthread -lboost_thread -lboost_system \
+$SUNDIALS_LIBRARIES $SUITESPARSE_LIBRARIES $SUNDIALS_NICSLU_LIBRARY $NICSLU_LIBRARIES"
 
 if [ "$LIBRARY_TYPE" = "SHARED" ]; then
   LIB_FLAGS="$LIB_FLAGS -ldynawo_Util"
+fi
+
+if [ "`uname`" = "Darwin" ]; then
+  if [ "$LIBRARY_TYPE" = "STATIC" ]; then
+    LIB_FLAGS="$LIB_FLAGS -flat_namespace -undefined warning"
+  fi
+  SUNDIALS_KINSOL_LIBRARY=@SUNDIALS_KINSOL_LIBRARY@
+  SUNDIALS_LIB_PATH=$(dirname $SUNDIALS_KINSOL_LIBRARY)
+  KLU_LIBRARY=@KLU_LIBRARY@
+  SUITESPARSE_LIB_PATH=$(dirname $KLU_LIBRARY)
+  LIB_FLAGS="$LIB_FLAGS -rpath $SUNDIALS_LIB_PATH"
+  LIB_FLAGS="$LIB_FLAGS -rpath $SUITESPARSE_LIB_PATH"
+  LIB_FLAGS="$LIB_FLAGS -rpath $DYNAWO_LIB_DIR"
+  LIB_FLAGS="$LIB_FLAGS -rpath $DYNAWO_ADEPT_INSTALL_DIR/lib"
+  LIB_FLAGS="$LIB_FLAGS -install_name @rpath/$LIB_NAME"
 fi
 
 if [ "$WITH_ADEPT" = "YES" ]; then
@@ -113,9 +138,9 @@ if [ "$WITH_ADEPT" = "YES" ]; then
 fi
 
 if [ "$DEBUG" = "true" ]; then
-  FLAGS="$FLAGS -g -O0 -shared -fPIC -D_OMC_${DYNAWO_OPENMODELICA_VERSION} -D_DEBUG_"
+  FLAGS="$FLAGS -g -O0 -fPIC -D_OMC_${DYNAWO_OPENMODELICA_VERSION} -D_DEBUG_"
 else
-  FLAGS="$FLAGS -O3 -shared -fPIC -D_OMC_${DYNAWO_OPENMODELICA_VERSION}"
+  FLAGS="$FLAGS -O3 -fPIC -D_OMC_${DYNAWO_OPENMODELICA_VERSION}"
 fi
 
 if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "no" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "false" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "off" ]; then
@@ -181,11 +206,11 @@ if [[ -f "$CPP_INIT_FILE" ]]; then
 
   # Creation of the library
   echo "$COMPILER_CMD $O_FILE $O_DYN_FILE $O_INIT_FILE $O_EXTERN_DYN_FILE $O_EXTERN_INIT_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE"
-  $COMPILER_CMD $O_FILE $O_DYN_FILE $O_INIT_FILE $O_EXTERN_DYN_FILE $O_EXTERN_INIT_FILE $FLAGS $LIB_FLAGS -o $SO_FILE 2>&1
+  $COMPILER_CMD $O_FILE $O_DYN_FILE $O_INIT_FILE $O_EXTERN_DYN_FILE $O_EXTERN_INIT_FILE -shared $FLAGS $LIB_FLAGS -o $SO_FILE 2>&1
 else
   # Creation of the library
   echo "$COMPILER_CMD $O_FILE $O_DYN_FILE $O_EXTERN_DYN_FILE $FLAGS  $LIB_FLAGS -o $SO_FILE"
-  $COMPILER_CMD $O_FILE $O_DYN_FILE $O_EXTERN_DYN_FILE $FLAGS $LIB_FLAGS -o $SO_FILE 2>&1
+  $COMPILER_CMD $O_FILE $O_DYN_FILE $O_EXTERN_DYN_FILE -shared $FLAGS $LIB_FLAGS -o $SO_FILE 2>&1
 fi
 
 exit 0

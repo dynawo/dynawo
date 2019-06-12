@@ -8,10 +8,10 @@
     <dyn:connect var1="var1_@INDEX@" var2="var2_@NAME@"/>
     <dyn:connect var1="var1" var2="var2"/>
   </dyn:macroConnector>
-  <dyn:blackBoxModel id="BlackBoxModel1" staticId="bbmId1" lib="model1.so" parFile="myPAR.par" parId="1">
+  <dyn:blackBoxModel id="BlackBoxModel1" staticId="bbmId1" lib="model1" parFile="myPAR.par" parId="1">
     <dyn:staticRef var="var" staticVar="staticVar"/>
   </dyn:blackBoxModel>
-  <dyn:blackBoxModel id="BlackBoxModel2" staticId="bbmId2" lib="model2.so" parFile="myPAR.par" parId="2">
+  <dyn:blackBoxModel id="BlackBoxModel2" staticId="bbmId2" lib="model2" parFile="myPAR.par" parId="2">
     <dyn:staticRef var="var" staticVar="staticVar"/>
   </dyn:blackBoxModel>
   <dyn:modelTemplate id="ModelTemplate">

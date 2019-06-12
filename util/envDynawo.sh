@@ -161,7 +161,7 @@ export_var_env_force() {
   local name=${var%%=*}
   local value=${var#*=}
 
-  if ! `expr $name : "\<DYNAWO_.*" > /dev/null`; then
+  if ! `expr $name : "DYNAWO_.*" > /dev/null`; then
     error_exit "You must export variables with DYNAWO prefix for $name."
   fi
 
@@ -182,7 +182,7 @@ export_var_env() {
   local name=${var%%=*}
   local value=${var#*=}
 
-  if ! `expr $name : "\<DYNAWO_.*" > /dev/null`; then
+  if ! `expr $name : "DYNAWO_.*" > /dev/null`; then
     error_exit "You must export variables with DYNAWO prefix for $name."
   fi
 
@@ -203,7 +203,7 @@ export_var_env_default() {
   local name=${var%%=*}
   local value=${var#*=}
 
-  if ! `expr $name : "\<DYNAWO_.*" > /dev/null`; then
+  if ! `expr $name : "DYNAWO_.*" > /dev/null`; then
     error_exit "You must export variables with DYNAWO prefix for $name."
   fi
 
@@ -534,7 +534,7 @@ done
 tab_present=no
 files=()
 for file in \$(git diff-index --name-status --cached HEAD | grep -v \"^D\" | grep -v \".*.patch\" | grep -v \".*.png\" | grep -v \"Makefile\" | grep -v \"ModelicaCompiler/test\" | grep -v \"reference\" | cut -c3-); do
-  if [ ! -z \"\$(git grep --cached -P '\t' \$file)\" ]; then
+  if [ ! -z \"\$(git grep --cached \"$(printf '\t')\" \$file)\" ]; then
     tab_present=yes
     files=(\${files[@]} \$file)
   fi
@@ -1021,8 +1021,7 @@ build_tests_coverage() {
     cpp_file=$(find $DYNAWO_HOME/dynawo/sources -name "$cpp_file_name" 2> /dev/null)
     gcov -pb $cpp_file -o $file > /dev/null
   done
-  rm -f $DYNAWO_HOME/build/coverage-sonar/\#usr\#*
-  find $DYNAWO_HOME/build/coverage-sonar -name "*3rdParty*" -exec rm -f {} \;
+  find $DYNAWO_HOME/build/coverage-sonar -type f -not -name "*dynawo*" -exec rm -f {} \;
 }
 
 clean_tests() {
@@ -1366,7 +1365,7 @@ check_coding_files() {
   # html escape .dic files for dictionary
   for dicfile in $(find $DYNAWO_INSTALL_DIR -iname '*.dic')
   do
-    iconv -t iso8859-1 -f utf-8 -o $dicfile $dicfile
+    iconv -t iso8859-1 -f utf-8 "$dicfile" > "$dicfile.new" && mv -f "$dicfile.new" "$dicfile"
   done
 }
 
@@ -1377,7 +1376,14 @@ find_lib_system_path() {
   if [ ! -f "$DYNAWO_INSTALL_DIR/bin/dynawo" ]; then
     error_exit "Dynawo binary should exist to deploy and find system library used to link against it."
   fi
-  ldd $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | cut -d '>' -f 2 | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq
+  if [ "`uname`" = "Linux" ]; then
+    ldd $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | cut -d '>' -f 2 | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq
+  elif [ "`uname`" = "Darwin" ]; then
+    otool -L $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq
+  else
+    echo "OS not supported."
+    exit 1
+  fi
 }
 
 find_include_system_path() {
@@ -1459,7 +1465,7 @@ deploy_dynawo() {
   mkdir -p extraLibs/LIBZIP/include
   mkdir -p extraLibs/LIBXML/include
   cp -R -P $DYNAWO_SUNDIALS_INSTALL_DIR/include/* 3rdParty/sundials/include/
-  cp -Pr $DYNAWO_ADEPT_INSTALL_DIR/include/* 3rdParty/adept/include/
+  cp -R -P $DYNAWO_ADEPT_INSTALL_DIR/include/* 3rdParty/adept/include/
   cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/include/*.* 3rdParty/suitesparse/include/
   if [ -d "$DYNAWO_NICSLU_INSTALL_DIR/include" ]; then
     if [ ! -z "$(ls -A $DYNAWO_NICSLU_INSTALL_DIR/include)" ]; then
@@ -1481,10 +1487,7 @@ deploy_dynawo() {
   cp -P $DYNAWO_INSTALL_OPENMODELICA/lib/omc/*.mo 3rdParty/openmodelica/lib/omc/
   cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary 3rdParty/openmodelica/lib/
 
-  ##############
-  #    BOOST   #
-  ##############
-  # for dynawo
+  # BOOST
   if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
     cp -P $DYNAWO_BOOST_HOME/lib/libboost_*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/BOOST/lib/
     cp -P -R $DYNAWO_BOOST_HOME/include/boost extraLibs/BOOST/include/

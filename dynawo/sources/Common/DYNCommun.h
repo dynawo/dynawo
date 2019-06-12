@@ -27,6 +27,13 @@
 
 namespace DYN {
   /**
+   * @brief determine the shared library extension based on the platform
+   *
+   * @return ".so", ".dylib" or ".dll"
+   */
+  const char* sharedLibraryExtension();
+
+  /**
    * @brief determine whether two vectors of double are equalss
    *
    * @param y1 : first vector to compare

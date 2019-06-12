@@ -16,7 +16,7 @@
     <dyn:staticRef var="var1_mm" staticVar="staticVar1_mm"/>
     <dyn:staticRef var="var2_mm" staticVar="staticVar2_mm"/>
   </dyn:macroStaticReference>
-  <dyn:blackBoxModel id="BlackBoxModel" staticId="BlackBoxModelStaticId" lib="BlackBoxModel.so" parFile="parFile.par" parId="1">
+  <dyn:blackBoxModel id="BlackBoxModel" staticId="BlackBoxModelStaticId" lib="BlackBoxModel" parFile="parFile.par" parId="1">
     <dyn:macroStaticRef id="macroStaticRef_BlackBoxModel"/>
   </dyn:blackBoxModel>
   <dyn:modelTemplate id="ModelTemplate">

@@ -159,6 +159,7 @@ IF(USE_ADEPT)
     FIND_PACKAGE(Adept REQUIRED)
 ENDIF(USE_ADEPT)
 
+find_package(ZLIB REQUIRED)
 
 # LibArchive
 FIND_PACKAGE(LibArchive 2.8.0 REQUIRED)
@@ -245,7 +246,22 @@ FIND_PACKAGE(libIIDM 0.2.8 REQUIRED
 
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h @ONLY)
 
-SET(CMAKE_SKIP_RPATH TRUE)
+if (APPLE)
+  set(CMAKE_MACOSX_RPATH True)
+
+  # use, i.e. don't skip the full RPATH for the build tree
+  set(CMAKE_SKIP_BUILD_RPATH  False)
+
+  # when building, don't use the install RPATH already
+  # (but later on when installing)
+  set(CMAKE_BUILD_WITH_INSTALL_RPATH False)
+
+  set(CMAKE_INSTALL_RPATH "${INSTALL_PREFIX}/lib")
+
+  # add the automatically determined parts of the RPATH
+  # which point to directories outside the build tree to the install RPATH
+  set(CMAKE_INSTALL_RPATH_USE_LINK_PATH True)
+endif()
 
 INCLUDE(../cpplint/cpplint.cmake)
 

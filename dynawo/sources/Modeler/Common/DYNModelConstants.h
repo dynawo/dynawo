@@ -25,8 +25,8 @@
 namespace DYN {
 static const double SNREF = 100.;  ///< per-unitage base Sn
 static const double VALDEF = 999999;  ///< VALDEF a constant
-static const double DEG_TO_RAD = M_PIl / 180.0;  ///< degree to radius conversion constant
-static const double RAD_TO_DEG = 180.0 / M_PIl;  ///< radius to degree conversion constant
+static const double DEG_TO_RAD = M_PI / 180.0;  ///< degree to radius conversion constant
+static const double RAD_TO_DEG = 180.0 / M_PI;  ///< radius to degree conversion constant
 static const int VHV_THRESHOLD = 130;  ///< lower voltage threshold (in kV) for the very high voltage grid
 static const int HV_THRESHOLD = 50;  ///< lower voltage threshold (in kV) for the high voltage grid
 

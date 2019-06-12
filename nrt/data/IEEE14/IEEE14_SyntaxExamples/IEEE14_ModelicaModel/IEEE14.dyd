@@ -12,17 +12,17 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="_LOAD___2_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="1" staticId="_LOAD___2_EC"/>
-  <dyn:blackBoxModel id="_LOAD___3_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="2" staticId="_LOAD___3_EC"/>
-  <dyn:blackBoxModel id="_LOAD___4_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="3" staticId="_LOAD___4_EC"/>
-  <dyn:blackBoxModel id="_LOAD___5_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="4" staticId="_LOAD___5_EC"/>
-  <dyn:blackBoxModel id="_LOAD___6_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="5" staticId="_LOAD___6_EC"/>
-  <dyn:blackBoxModel id="_LOAD___9_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="6" staticId="_LOAD___9_EC"/>
-  <dyn:blackBoxModel id="_LOAD__10_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="7" staticId="_LOAD__10_EC"/>
-  <dyn:blackBoxModel id="_LOAD__11_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="8" staticId="_LOAD__11_EC"/>
-  <dyn:blackBoxModel id="_LOAD__12_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="9" staticId="_LOAD__12_EC"/>
-  <dyn:blackBoxModel id="_LOAD__13_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="10" staticId="_LOAD__13_EC"/>
-  <dyn:blackBoxModel id="_LOAD__14_EC" lib="LoadAlphaBeta.so" parFile="IEEE14.par" parId="11" staticId="_LOAD__14_EC"/>
+  <dyn:blackBoxModel id="_LOAD___2_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___2_EC"/>
+  <dyn:blackBoxModel id="_LOAD___3_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="2" staticId="_LOAD___3_EC"/>
+  <dyn:blackBoxModel id="_LOAD___4_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="3" staticId="_LOAD___4_EC"/>
+  <dyn:blackBoxModel id="_LOAD___5_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="4" staticId="_LOAD___5_EC"/>
+  <dyn:blackBoxModel id="_LOAD___6_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="5" staticId="_LOAD___6_EC"/>
+  <dyn:blackBoxModel id="_LOAD___9_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="6" staticId="_LOAD___9_EC"/>
+  <dyn:blackBoxModel id="_LOAD__10_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="7" staticId="_LOAD__10_EC"/>
+  <dyn:blackBoxModel id="_LOAD__11_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="8" staticId="_LOAD__11_EC"/>
+  <dyn:blackBoxModel id="_LOAD__12_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="9" staticId="_LOAD__12_EC"/>
+  <dyn:blackBoxModel id="_LOAD__13_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="10" staticId="_LOAD__13_EC"/>
+  <dyn:blackBoxModel id="_LOAD__14_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="11" staticId="_LOAD__14_EC"/>
   <dyn:modelicaModel id="GEN____1_SM" staticId="_GEN____1_SM">
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT" parFile="IEEE14.par" parId="12"/>
     <dyn:unitDynamicModel id="voltageRegulator" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.VRProportional" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.VRProportional_INIT" parFile="IEEE14.par" parId="122"/>
@@ -41,11 +41,11 @@
     <dyn:connect id1="governor" var1="omegaPu" id2="generator" var2="omegaPu"/>
     <dyn:connect id1="governor" var1="PmPu" id2="generator" var2="PmPu"/>
   </dyn:modelicaModel>
-  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="13" staticId="_GEN____2_SM"/>
-  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="14" staticId="_GEN____3_SM"/>
-  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM"/>
-  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations.so" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM"/>
-  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef.so" parFile="IEEE14.par" parId="17"/>
+  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="13" staticId="_GEN____2_SM"/>
+  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="14" staticId="_GEN____3_SM"/>
+  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="15" staticId="_GEN____6_SM"/>
+  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousThreeWindingsProportionalRegulations" parFile="IEEE14.par" parId="16" staticId="_GEN____8_SM"/>
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE14.par" parId="17"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____1_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____1_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_numcc"/>

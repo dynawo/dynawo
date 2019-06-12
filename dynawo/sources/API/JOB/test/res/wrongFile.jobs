@@ -13,7 +13,7 @@
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="Wrong job file for unit test">
-    <dyn:solver lib="libdynawo_SolverSIM.so" parFile="solvers.par" parId="3"/>
+    <dyn:solver lib="libdynawo_SolverSIM" parFile="solvers.par" parId="3"/>
     <dyn:modeler compileDir="outputs/dump/compilation">
       <dyn:network iidmFile="myIIDM.iidm" parFile="myPAR.par" parId="1"/>
       <dyn:dynModels dydFile="myDYD.dyd"/>

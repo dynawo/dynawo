@@ -64,7 +64,7 @@ namespace DYN {
 
 boost::shared_ptr<Solver> initSolver() {
   // Solver
-  boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("libdynawo_SolverIDA.so");
+  boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../libdynawo_SolverIDA" + std::string(sharedLibraryExtension()));
 
   boost::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newInstance("MySolverParam");
   params->addParameter(parameters::ParameterFactory::newParameter("order", 2));
@@ -81,7 +81,7 @@ boost::shared_ptr<Solver> initSolver() {
 void compile(boost::shared_ptr<DynamicData> dyd) {
   bool preCompiledUseStandardModels = false;
   std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
-  std::string preCompiledModelsExtension = ".so";
+  std::string preCompiledModelsExtension = sharedLibraryExtension();
   bool modelicaUseStandardModels = false;
 
   std::vector <UserDefinedDirectory> modelicaModelsDirsAbsolute;

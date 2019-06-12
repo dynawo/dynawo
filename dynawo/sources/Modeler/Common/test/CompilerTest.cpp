@@ -12,6 +12,7 @@
 //
 
 #include "gtest_dynawo.h"
+#include "DYNCommun.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNExecUtils.h"
 #include "DYNCompiler.h"
@@ -26,7 +27,7 @@ TEST(CompilerTest, testMissingModelicaFile) {
   dyd->initFromDydFiles(fileNames);
   bool preCompiledUseStandardModels = false;
   std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
-  std::string preCompiledModelsExtension = ".so";
+  std::string preCompiledModelsExtension = sharedLibraryExtension();
   bool modelicaUseStandardModels = false;
 
   std::vector <UserDefinedDirectory> modelicaModelsDirsAbsolute;

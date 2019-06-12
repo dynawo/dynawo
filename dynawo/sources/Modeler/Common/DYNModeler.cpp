@@ -80,14 +80,14 @@ Modeler::initNetwork() {
   DDBDir = getEnvVar("DYNAWO_DDB_DIR");
 
   try {
-    modelNetwork = SubModelFactory::createSubModelFromLib(DDBDir + "/DYNModelNetwork.so");
+    modelNetwork = SubModelFactory::createSubModelFromLib(DDBDir + "/DYNModelNetwork" + sharedLibraryExtension());
     modelNetwork->initFromData(data_);
     data_->setModelNetwork(modelNetwork);
     modelNetwork->name("NETWORK");
     shared_ptr<ParametersSet> networkParams = dyd_->getNetworkParameters();
     modelNetwork->setPARParameters(networkParams);
 
-    model_->addSubModel(modelNetwork, "DYNModelNetwork.so");
+    model_->addSubModel(modelNetwork, "DYNModelNetwork" + string(sharedLibraryExtension()));
     subModels_["NETWORK"] = modelNetwork;
   } catch (const string & msg) {
     Trace::error() << msg << Trace::endline;

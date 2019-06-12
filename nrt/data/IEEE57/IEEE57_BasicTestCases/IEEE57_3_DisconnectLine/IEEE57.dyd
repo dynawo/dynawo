@@ -12,15 +12,15 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE57.par" parId="43" staticId="_GEN____6_SM"/>
-  <dyn:blackBoxModel id="GEN____9_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE57.par" parId="44" staticId="_GEN____9_SM"/>
-  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE57.par" parId="45" staticId="_GEN____1_SM"/>
-  <dyn:blackBoxModel id="GEN___12_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE57.par" parId="46" staticId="_GEN___12_SM"/>
-  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE57.par" parId="47" staticId="_GEN____3_SM"/>
-  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE57.par" parId="48" staticId="_GEN____8_SM"/>
-  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="IEEE57.par" parId="49" staticId="_GEN____2_SM"/>
-  <dyn:blackBoxModel id="DisconnectLine" lib="EventQuadripoleDisconnection.so" parFile="event.par" parId="1"/>
-  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef.so" parFile="IEEE57.par" parId="50"/>
+  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="43" staticId="_GEN____6_SM"/>
+  <dyn:blackBoxModel id="GEN____9_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="44" staticId="_GEN____9_SM"/>
+  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="45" staticId="_GEN____1_SM"/>
+  <dyn:blackBoxModel id="GEN___12_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="46" staticId="_GEN___12_SM"/>
+  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="47" staticId="_GEN____3_SM"/>
+  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="48" staticId="_GEN____8_SM"/>
+  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="49" staticId="_GEN____2_SM"/>
+  <dyn:blackBoxModel id="DisconnectLine" lib="EventQuadripoleDisconnection" parFile="event.par" parId="1"/>
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE57.par" parId="50"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____6_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____6_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_numcc"/>

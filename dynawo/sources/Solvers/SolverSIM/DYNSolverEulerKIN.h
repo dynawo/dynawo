@@ -108,7 +108,7 @@ class SolverEulerKIN : private boost::noncopyable{
    * @param nre residual functions call number
    * @param nje Jacobian call number
    */
-  void updateStatistics(int64_t& nni, int64_t& nre, int64_t& nje);
+  void updateStatistics(long int& nni, long int& nre, long int& nje);
 
   /**
    * @brief calculated F(u) for a given value of u

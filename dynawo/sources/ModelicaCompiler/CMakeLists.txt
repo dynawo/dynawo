@@ -26,15 +26,19 @@ TARGET_LINK_LIBRARIES(compileModelicaModel
                       dynawo_Common
                       dynawo_SolverCommon
                       dynawo_SolverSubModel
-                      "-Wl,--whole-archive"
-                      dynawo_Util
-                      "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       dl
                       pthread
                       ${Boost_THREAD_LIBRARY}
                       "-rdynamic"
                       )
+if (APPLE)
+  TARGET_LINK_LIBRARIES(compileModelicaModel "-force_load" dynawo_Util)
+  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
+  set_target_properties(compileModelicaModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
+else()
+  TARGET_LINK_LIBRARIES(compileModelicaModel "-Wl,--whole-archive" dynawo_Util "-Wl,--no-whole-archive")
+endif()
 
 INSTALL(TARGETS compileModelicaModel DESTINATION ${sbindir})
 

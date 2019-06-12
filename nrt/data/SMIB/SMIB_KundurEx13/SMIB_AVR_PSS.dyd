@@ -42,7 +42,7 @@
     <dyn:connect id1="VR" var1="omegaRefPu" id2="omega" var2="setPoint.value"/>
   </dyn:modelicaModel>
   <!-- Line opening -->
-  <dyn:blackBoxModel id="OpenLine" lib="EventSetPointBoolean.so" parFile="event.par" parId="2"/>
+  <dyn:blackBoxModel id="OpenLine" lib="EventSetPointBoolean" parFile="event.par" parId="2"/>
   <!-- Connections -->
   <dyn:connect id1="Network" var1="tfo_terminal2" id2="SM" var2="gen_terminal"/>
   <dyn:connect id1="OpenLine" var1="event_state1" id2="Network" var2="line2_switchOffSignal2"/>

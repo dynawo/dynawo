@@ -135,7 +135,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     # Generates .dep file for the preassembled model
     #
 #    ADD_CUSTOM_TARGET(${MODEL_NAME}_DEPCHECKER
-#                       COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/depChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} ${MODEL_NAME}.dep
+#                       COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/depChecker.py ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} ${MODEL_NAME}.dep
 #                       COMMENT "Checking ${MODEL_NAME} dependencies"
 #                      )
 
@@ -151,7 +151,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     # Builds the preassembled model if .dep file shows
     # it has been modified
     #
-    ADD_CUSTOM_COMMAND(OUTPUT ${MODEL_NAME}.so
+    ADD_CUSTOM_COMMAND(OUTPUT ${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
                        DEPENDS
                            ${PREASSEMBLED_MODEL}
 #                           ${MODEL_NAME}_DEPCHECKER
@@ -172,10 +172,10 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     # Generates .desc.xml file for the preassembled model
     #
     ADD_CUSTOM_COMMAND(OUTPUT ${MODEL_NAME}.desc.xml
-                       DEPENDS ${MODEL_NAME}.so dumpModel
+                       DEPENDS ${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX} dumpModel
                        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
                        COMMAND
-                           ${bindir}/launcher --dump-model -m ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.so -o ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.desc.xml \;
+                           ${bindir}/launcher --dump-model -m ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX} -o ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.desc.xml \;
                        COMMENT "Generating ${MODEL_NAME} description file"
                       )
 
@@ -185,18 +185,18 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     ADD_CUSTOM_TARGET(${MODEL_NAME}
                       DEPENDS
 #                          ${MODEL_NAME}.dep
-                          ${MODEL_NAME}.so
+                          ${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
                           ${MODEL_NAME}.desc.xml
                           ${MODEL_NAME}.extvar
                           CREATE_DDBDIR
                       COMMAND
-                        ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.so ${ddbdir}/${MODEL_NAME}.so \;
+                        ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX} ${ddbdir}/${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX} \;
                         ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.desc.xml ${ddbdir}/${MODEL_NAME}.desc.xml
                      )
 
     ADD_CUSTOM_TARGET(${MODEL_NAME}.extvar
                       DEPENDS
-                          ${MODEL_NAME}.so
+                          ${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
                           CREATE_DDBDIR
                       COMMAND
                         test ! -e ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.extvar || cp ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.extvar ${ddbdir}/${MODEL_NAME}.extvar
@@ -234,7 +234,16 @@ MACRO(COMPILE_CPP_MODEL
 
     TARGET_LINK_LIBRARIES(${CPP_MODEL}
                           ${CPP_LINKED_LIBRARIES}
+                          ${Boost_ATOMIC_LIBRARY}
+                          ${Boost_DATE_TIME_LIBRARY}
+                          ${Boost_REGEX_LIBRARY}
+                          ${Boost_CHRONO_LIBRARY}
                          )
+    if (APPLE)
+      IF(LIBRARY_TYPE STREQUAL "STATIC")
+        TARGET_LINK_LIBRARIES(${CPP_MODEL} "-flat_namespace -undefined warning")
+      ENDIF()
+    endif()
 
     IF(LIBRARY_TYPE STREQUAL "SHARED")
       TARGET_LINK_LIBRARIES(${CPP_MODEL} dynawo_Util)
@@ -243,7 +252,7 @@ MACRO(COMPILE_CPP_MODEL
     ADD_CUSTOM_COMMAND(OUTPUT ${CPP_MODEL}.desc.xml
                        DEPENDS ${CPP_MODEL} dumpModel
                        COMMAND
-                           ${bindir}/launcher --dump-model -m ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.so -o ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml \;
+                           ${bindir}/launcher --dump-model -m ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}${CMAKE_SHARED_LIBRARY_SUFFIX} -o ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml \;
                        COMMENT "Building ${CPP_MODEL} description file"
                       )
 
@@ -253,7 +262,7 @@ MACRO(COMPILE_CPP_MODEL
                           ${CPP_MODEL}.desc.xml
                           CREATE_DDBDIR
                       COMMAND
-                          ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.so ${ddbdir}/${CPP_MODEL}.so \;
+                          ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}${CMAKE_SHARED_LIBRARY_SUFFIX} ${ddbdir}/${CPP_MODEL}${CMAKE_SHARED_LIBRARY_SUFFIX} \;
                           ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml ${ddbdir}/${CPP_MODEL}.desc.xml
                      )
 

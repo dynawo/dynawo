@@ -382,7 +382,7 @@ Simulation::compileModels() {
   // ModelsDirEntry: Precompiled models
   // convert precompiled models directories into absolute directories, and check whether they actually exist
   vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
-  string preCompiledModelsExtension = ".so";
+  string preCompiledModelsExtension = sharedLibraryExtension();
   bool preCompiledUseStandardModels = false;
   if (jobEntry_->getModelerEntry()->getPreCompiledModelsDirEntry()) {
     vector <UserDefinedDirectory> precompiledModelsDirs = jobEntry_->getModelerEntry()->getPreCompiledModelsDirEntry()->getDirectories();
@@ -395,9 +395,6 @@ Simulation::compileModels() {
       dir.path = absoluteDirPath;
       dir.isRecursive = precompiledModelsDirs[i].isRecursive;
       precompiledModelsDirsAbsolute.push_back(dir);
-    }
-    if (jobEntry_->getModelerEntry()->getPreCompiledModelsDirEntry()->getModelExtension() != "") {
-      preCompiledModelsExtension = jobEntry_->getModelerEntry()->getPreCompiledModelsDirEntry()->getModelExtension();
     }
     preCompiledUseStandardModels = jobEntry_->getModelerEntry()->getPreCompiledModelsDirEntry()->getUseStandardModels();
   }
@@ -504,7 +501,7 @@ Simulation::setSolver() {
   // Creates solver
   string solverParFile = createAbsolutePath(jobEntry_->getSolverEntry()->getParametersFile(), context_->getInputDirectory());
   try {
-    solver_ = SolverFactory::createSolverFromLib(jobEntry_->getSolverEntry()->getLib());
+    solver_ = SolverFactory::createSolverFromLib(jobEntry_->getSolverEntry()->getLib() + sharedLibraryExtension());
 
     parameters::XmlImporter importer;
     boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);

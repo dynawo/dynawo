@@ -35,15 +35,21 @@ TARGET_LINK_LIBRARIES(dynawo
                       dynawo_SolverCommon
                       dynawo_SolverKINSOL
                       dynawo_SolverSubModel
-                      "-Wl,--whole-archive"
-                      dynawo_Util
-                      "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       pthread
                       ${Boost_THREAD_LIBRARY}
                       ${LibArchive_LIBRARY}
+                      ${ZLIB_LIBRARY}
                       "-rdynamic"
                       )
+
+if (APPLE)
+  TARGET_LINK_LIBRARIES(dynawo "-force_load" dynawo_Util)
+  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
+  set_target_properties(dynawo PROPERTIES INSTALL_RPATH "@loader_path/../lib")
+else()
+  TARGET_LINK_LIBRARIES(dynawo "-Wl,--whole-archive" dynawo_Util "-Wl,--no-whole-archive")
+endif()
 
 SET_TARGET_PROPERTIES(dynawo PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 INSTALL(TARGETS dynawo DESTINATION ${bindir})

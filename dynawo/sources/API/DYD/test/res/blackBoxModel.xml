@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:blackBoxModel id="BlackBoxModel" staticId="bbmId" lib="model.so" parFile="myPAR.par" parId="1">
+  <dyn:blackBoxModel id="BlackBoxModel" staticId="bbmId" lib="model" parFile="myPAR.par" parId="1">
     <dyn:staticRef var="var" staticVar="staticVar"/>
   </dyn:blackBoxModel>
   <dyn:connect id1="BlackBoxModel" var1="var" id2="Model2" var2="var"/>

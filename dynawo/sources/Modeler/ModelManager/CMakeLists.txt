@@ -56,7 +56,7 @@ SET_TARGET_PROPERTIES(dynawo_ModelManager PROPERTIES VERSION ${MODEL_MANAGER_VER
                                               SOVERSION ${MODEL_MANAGER_VERSION_MAJOR})
 IF(USE_ADEPT)
   INCLUDE_DIRECTORIES(${ADEPT_INCLUDE_DIR})
-  TARGET_LINK_LIBRARIES(dynawo_ModelManager -Wl,--start-group ${ADEPT_LIBRARY} -Wl,--end-group)
+  TARGET_LINK_LIBRARIES(dynawo_ModelManager ${ADEPT_LIBRARY})
 ENDIF(USE_ADEPT)
 
 INSTALL(TARGETS dynawo_ModelManager DESTINATION ${libdir})

@@ -100,7 +100,7 @@ install_adept() {
   else
     ./configure "CXXFLAGS=-O3 -fPIC $CXX_STD" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp $ADEPT_LIBRARY_TYPE_OPTION
   fi
-  make -j $DYNAWO_NB_PROCESSORS_USED && make install
+  make -j $DYNAWO_NB_PROCESSORS_USED && make install && if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" -a "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libadept.dylib $INSTALL_DIR/lib/libadept.dylib; fi
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }

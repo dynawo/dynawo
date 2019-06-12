@@ -66,13 +66,13 @@ TEST(APIJOBTest, testXmlStreamImporter) {
     "<dyn:jobs xmlns:dyn=\"http://www.rte-france.com/dynawo\">"
     "<dyn:job name=\"100 nodes with final dump\">"
     "<!-- Simulation using simplified solver - final dump-->"
-    "<dyn:solver lib=\"libdynawo_SolverSIM.so\" parFile=\"../solvers.par\" parId=\"3\"/>"
+    "<dyn:solver lib=\"libdynawo_SolverSIM\" parFile=\"../solvers.par\" parId=\"3\"/>"
     "<dyn:modeler compileDir=\"outputs/dump/compilation\">"
     "<dyn:network iidmFile=\"../baseCase/100n.iidm\" parFile=\"../BDD/DYNModelNetwork.par\" parId=\"1\"/>"
     "<dyn:dynModels dydFile=\"dydFile_dump.dyd\"/>"
     "<dyn:dynModels dydFile=\"../../DDB/Generators.dyd\"/>"
     "<dyn:initialState file=\"outputs/dump/finalState/outputState.dmp\"/>"
-    "<dyn:precompiledModels useStandardModels=\"true\" modelExtension=\".so\">"
+    "<dyn:precompiledModels useStandardModels=\"true\">"
     "<dyn:directory path=\".\" recursive=\"false\"/>"
     "<dyn:directory path=\"/tmp/\" recursive=\"true\"/>"
     "</dyn:precompiledModels>"
@@ -130,7 +130,7 @@ TEST(APIJOBTest, testXmlImporter) {
   // ===== SolverEntry =====
   ASSERT_NE(job1->getSolverEntry(), boost::shared_ptr<SolverEntry>());
   boost::shared_ptr<SolverEntry> solver =  job1->getSolverEntry();
-  ASSERT_EQ(solver->getLib(), "libdynawo_SolverSIM.so");
+  ASSERT_EQ(solver->getLib(), "libdynawo_SolverSIM");
   ASSERT_EQ(solver->getParametersFile(), "solvers.par");
   ASSERT_EQ(solver->getParametersId(), "3");
 
@@ -148,7 +148,6 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(precompiledModelsDirs[0].isRecursive, false);
   ASSERT_EQ(precompiledModelsDirs[1].path, "/tmp/");
   ASSERT_EQ(precompiledModelsDirs[1].isRecursive, true);
-  ASSERT_EQ(preCompiledModelsDirEntry->getModelExtension(), ".so");
 
   ASSERT_NE(modeler->getModelicaModelsDirEntry(), boost::shared_ptr<ModelsDirEntry>());
   boost::shared_ptr<ModelsDirEntry> modelicaModelsDirEntry = modeler->getModelicaModelsDirEntry();
@@ -160,8 +159,6 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_EQ(modelicaModelsDirs[1].path, "/tmp2/");
   ASSERT_EQ(modelicaModelsDirs[1].isRecursive, true);
   ASSERT_EQ(modelicaModelsDirEntry->getModelExtension(), ".mo");
-
-
 
   ASSERT_NE(modeler->getNetworkEntry(), boost::shared_ptr<NetworkEntry>());
   boost::shared_ptr<NetworkEntry> network = modeler->getNetworkEntry();

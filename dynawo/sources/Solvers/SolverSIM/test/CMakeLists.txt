@@ -31,11 +31,12 @@ ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
 TARGET_LINK_LIBRARIES(
                     ${MODULE_NAME}
-                    dynawo_SolverIDA
+                    dynawo_SolverSIM
                     dynawo_SolverCommon
                     dynawo_API_DYD
                     iidm-xml
                     dynawo_ModelerCommon
+                    dynawo_DataInterface
                     ${Boost_SERIALIZATION_LIBRARY}
                     dynawo_CPPModelsCommon
                     ${UNITTEST_LIBRARIES}

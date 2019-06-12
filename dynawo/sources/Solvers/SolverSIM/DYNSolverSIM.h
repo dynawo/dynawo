@@ -127,9 +127,9 @@ class SolverSIM : public Solver::Impl {
    */
   void calculateIC();
   /**
-   * @copydoc Solver::Impl::getLastConf(int64_t &nst, int & kused, double & hused)
+   * @copydoc Solver::Impl::getLastConf(long int &nst, int & kused, double & hused)
    */
-  void getLastConf(int64_t &nst, int & kused, double & hused);
+  void getLastConf(long int &nst, int & kused, double & hused);
 
   /**
    * @brief print a summary of the execution statistics of the solver
@@ -199,7 +199,7 @@ class SolverSIM : public Solver::Impl {
   double tEnd_;  ///< simulation end time
   double h_;  ///< current time step
   double hNew_;  ///< next time-step
-  int64_t nNewt_;  ///< number of newton iterations since the beginning of the simulation
+  long int nNewt_;  ///< number of newton iterations since the beginning of the simulation
   int countRestart_;  ///< current number of consecutive Newton resolutions leading to root changes
   bool factorizationForced_;  ///< force the Jacobian calculation due to an algebraic mode or a non convergence of the previous NR
 

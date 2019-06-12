@@ -45,12 +45,22 @@ TARGET_LINK_LIBRARIES(dynawo_SolverSIM
                       ${SUNDIALS_SUNLINSOLNICSLU_LIBRARY}
                       ${SUNDIALS_NVECSERIAL_LIBRARY}
                       ${SUITESPARSE_LIBRARIES}
+                      ${Boost_ATOMIC_LIBRARY}
+                      ${Boost_DATE_TIME_LIBRARY}
+                      ${Boost_REGEX_LIBRARY}
+                      ${Boost_CHRONO_LIBRARY}
                       )
 
 IF(${NICSLU_FOUND})
   INCLUDE_DIRECTORIES(SYSTEM ${NICSLU_INCLUDE_DIR})
   TARGET_LINK_LIBRARIES(dynawo_SolverSIM ${NICSLU_LIBRARIES})
 ENDIF()
+
+if (APPLE)
+  IF(LIBRARY_TYPE STREQUAL "STATIC")
+    TARGET_LINK_LIBRARIES(dynawo_SolverSIM "-flat_namespace -undefined warning")
+  ENDIF()
+endif()
 
 SET_TARGET_PROPERTIES(dynawo_SolverSIM PROPERTIES VERSION ${SOLVER_SIM_VERSION_STRING}
                                            SOVERSION ${SOLVER_SIM_VERSION_MAJOR})
