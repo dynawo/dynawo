@@ -40,6 +40,43 @@ prettyPath(const std::string & path) {
   return prettyPath;
 }
 
+void parentProcess(int fd[2], std::stringstream & ss) {
+  char buferr[256];
+  struct timeval tv;
+  char buf[BUFSIZ];
+  string strbuf;
+  // Trace recovery
+  // from stdin piped to stdout
+  bool fin = false;
+  while (!fin) {
+    // Watch fd[0] waiting for data -> traces
+    // Timeout of 1 second associated with the select
+    // WARNING: in Linux reset at each call
+    tv.tv_sec = 1;
+    tv.tv_usec = 0;
+    fd_set rfds;
+    FD_ZERO(&rfds);
+    FD_SET(fd[0], &rfds);
+    int retsel = select(fd[0] + 1, &rfds, NULL, NULL, &tv);
+
+    if (retsel == -1) {  // error
+      throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "select", strerror_r(errno, buferr, sizeof (buferr)));
+    } else if (retsel> 0) {  // some data may be available
+      int retread;
+      while ((retread = read(fd[0], buf, BUFSIZ)) > 0) {
+        strbuf += string(buf, retread);
+      }
+
+      if (retread == 0) {  // no more data (eof)
+        fin = true;
+      } else if (retread == -1 && errno != EAGAIN) {  // error
+        throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "read", strerror_r(errno, buferr, sizeof (buferr)));
+      }
+    }
+  }
+  if (strbuf.size() != 0)
+    ss << strbuf << std::endl;
+}
 void
 executeCommand(const std::string & command, std::stringstream & ss) {
   ss << "Executing command : " << command << std::endl;
@@ -73,40 +110,7 @@ executeCommand(const std::string & command, std::stringstream & ss) {
     int status = fcntl(fd[0], F_GETFL);
     fcntl(fd[0], F_SETFL, status | O_NONBLOCK);
 
-    struct timeval tv;
-    char buf[BUFSIZ];
-    string strbuf;
-    // Trace recovery
-    // from stdin piped to stdout
-    bool fin = false;
-    while (!fin) {
-      // Watch fd[0] waiting for data -> traces
-      // Timeout of 1 second associated with the select
-      // WARNING: in Linux reset at each call
-      tv.tv_sec = 1;
-      tv.tv_usec = 0;
-      fd_set rfds;
-      FD_ZERO(&rfds);
-      FD_SET(fd[0], &rfds);
-      int retsel = select(fd[0] + 1, &rfds, NULL, NULL, &tv);
-
-      if (retsel == -1) {  // error
-        throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "select", strerror_r(errno, buferr, sizeof (buferr)));
-      } else if (retsel> 0) {  // some data may be available
-        int retread;
-        while ((retread = read(fd[0], buf, BUFSIZ)) > 0) {
-          strbuf += string(buf, retread);
-        }
-
-        if (retread == 0) {  // no more data (eof)
-          fin = true;
-        } else if (retread == -1 && errno != EAGAIN) {  // error
-          throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "read", strerror_r(errno, buferr, sizeof (buferr)));
-        }
-      }
-    }
-    if (strbuf.size() != 0)
-      ss << strbuf << std::endl;
+    parentProcess(fd, ss);
 
     if (fclose(f) != 0) {
       throw DYNError(DYN::Error::GENERAL, SystemCallFailed, "fclose", strerror_r(errno, buferr, sizeof (buferr)));

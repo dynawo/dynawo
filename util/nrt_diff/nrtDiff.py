@@ -927,7 +927,7 @@ def LineToCompare (line):
         if pattern in line:
             return False
 
-    if "number of" in line or "ERROR" in line or "WARN" in line:
+    if "number of" in line or "ERROR" in line or ("WARN" in line and "KINSOL" not in line):
         return True
 
     # everything went fine => the line should be compared

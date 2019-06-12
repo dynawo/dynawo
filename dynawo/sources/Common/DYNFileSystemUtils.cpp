@@ -119,6 +119,21 @@ void searchModelsFiles(const std::string& directoryToScan, const std::string& fi
                        packageForcesSubDirsSearch, stopWhenSeePackage, namespaces, filesFound);
 }
 
+std::string getFullModelName(std::string fileName, const std::vector <std::string>& namespacesLocal,
+    const std::string& fileExtension, const std::string& packageFileName) {
+  std::string full_model_name("");
+  for (std::vector<std::string>::const_iterator itNameSpace = namespacesLocal.begin(); itNameSpace != namespacesLocal.end(); ++itNameSpace) {
+    full_model_name += *itNameSpace + ".";
+  }
+
+  if (fileName == packageFileName) {
+    full_model_name = full_model_name.substr(0, full_model_name.size() - 1);
+  } else {
+    full_model_name += fileName.substr(0, fileName.size() - fileExtension.size());
+  }
+  return full_model_name;
+}
+
 void searchModelsFilesRec(const std::string& directoryToScan, const std::string& fileExtension, const vector <std::string>& fileExtensionsForbidden,
                           const bool searchInSubDirs, const bool /*isPackage*/, const bool packageForcesSubDirsSearch,
                           const bool stopWhenSeePackage, const std::vector<std::string>& namespaces, std::map<std::string, std::string>& filesFound) {
@@ -134,38 +149,28 @@ void searchModelsFilesRec(const std::string& directoryToScan, const std::string&
   }
 
   try {
-    if (exists(root)) {
-      for (fs::directory_iterator it(root); it != fs::directory_iterator(); ++it) {
-        // folders scanning
-        if (fs::is_directory(*it)) {
-          if (searchInSubDirsLocal) {
-            searchModelsFilesRec((*it).path().string(), fileExtension, fileExtensionsForbidden, searchInSubDirsLocal, isPackageLocal,
-                                 packageForcesSubDirsSearch, stopWhenSeePackage, namespacesLocal, filesFound);
+    if (!exists(root)) return;
+    for (fs::directory_iterator it(root); it != fs::directory_iterator(); ++it) {
+      // folders scanning
+      if (fs::is_directory(*it)) {
+        if (searchInSubDirsLocal) {
+          searchModelsFilesRec((*it).path().string(), fileExtension, fileExtensionsForbidden, searchInSubDirsLocal, isPackageLocal,
+              packageForcesSubDirsSearch, stopWhenSeePackage, namespacesLocal, filesFound);
+        }
+      } else if (doScan || (file_name((*it).path().string()) == packageFileName)) {  // files scanning : usually scan everything. When not, only scan package
+        // a path is added if the extension is not within forbidden extensions and the extension is within allowed extensions
+        bool fileToKeep = (!extensionFound((*it).path().string(), fileExtensionsForbidden)) && extensionEquals((*it).path().string(), fileExtension);
+
+        if (fileToKeep) {
+          std::string filePath = (*it).path().string();
+          std::string fileName = file_name(filePath);
+
+          std::string full_model_name = getFullModelName(fileName, namespacesLocal, fileExtension, packageFileName);
+
+          if (filesFound.find(full_model_name) != filesFound.end()) {
+            throw DYNError(DYN::Error::MODELER, DuplicateModelicaModel, full_model_name);
           }
-        } else if (doScan || (file_name((*it).path().string()) == packageFileName)) {  // files scanning : usually scan everything. When not, only scan package
-          // a path is added if the extension is not within forbidden extensions and the extension is within allowed extensions
-          bool fileToKeep = (!extensionFound((*it).path().string(), fileExtensionsForbidden)) && extensionEquals((*it).path().string(), fileExtension);
-
-          if (fileToKeep) {
-            std::string filePath = (*it).path().string();
-            std::string fileName = file_name(filePath);
-
-            std::string full_model_name("");
-            for (std::vector<std::string>::const_iterator itNameSpace = namespacesLocal.begin(); itNameSpace != namespacesLocal.end(); ++itNameSpace) {
-              full_model_name += *itNameSpace + ".";
-            }
-
-            if (fileName == packageFileName) {
-              full_model_name = full_model_name.substr(0, full_model_name.size() - 1);
-            } else {
-              full_model_name += fileName.substr(0, fileName.size() - fileExtension.size());
-            }
-
-            if (filesFound.find(full_model_name) != filesFound.end()) {
-              throw DYNError(DYN::Error::MODELER, DuplicateModelicaModel, full_model_name);
-            }
-            filesFound[full_model_name] = absolute(filePath);
-          }
+          filesFound[full_model_name] = absolute(filePath);
         }
       }
     }

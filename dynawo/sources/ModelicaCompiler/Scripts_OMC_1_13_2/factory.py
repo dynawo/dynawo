@@ -1054,19 +1054,16 @@ class Factory:
         for eq in self.get_list_eq_syst():
             index = str(eq.get_num_omc())
             fequation_index = str(eq.get_num_dyn())
-            if fequation_index != '-1':
-                if index in map_fequation.keys():
-                    equation = map_fequation[index]
-                    linetoadd = "  fEquationIndex["+ fequation_index +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
-                    self.listfor_setfequations.append(linetoadd)
+            if fequation_index != '-1' and index in map_fequation.keys():
+                linetoadd = "  fEquationIndex["+ fequation_index +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
+                self.listfor_setfequations.append(linetoadd)
 
         for eq in self.get_list_other_eq():
             index = str(eq.get_num_omc())
             fequation_index = str(eq.get_num_dyn())
-            if fequation_index != '-1':
-                if  index in map_fequation.keys():
-                    linetoadd = "  fEquationIndex["+ str(fequation_index) +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
-                    self.listfor_setfequations.append(linetoadd)
+            if fequation_index != '-1' and index in map_fequation.keys():
+                linetoadd = "  fEquationIndex["+ str(fequation_index) +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
+                self.listfor_setfequations.append(linetoadd)
         return self.listfor_setfequations
 
     ##
@@ -1425,7 +1422,6 @@ class Factory:
         # We do not change the size of the array of Boolean variables
         nb_vars_bool = len(self.list_vars_bool)
         nb_params_bool = len(self.list_params_bool)
-        bool_vars_plural_addon = 's' if nb_vars_bool > 1 else ''
         bool_params_plural_addon = 's' if nb_params_bool > 1 else ''
         if (nb_vars_bool > 0) or (nb_params_bool > 0):
             for n, line in enumerate(filtered_func):

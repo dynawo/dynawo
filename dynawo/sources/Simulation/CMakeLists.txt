@@ -46,6 +46,8 @@ INCLUDE_DIRECTORIES(../API/CRV
                     ../API/CSTR
                     ../API/JOB
                     ../API/PAR
+                    ../API/DYD
+                    ../API/EXTVAR
                     ../Common
                     ../Modeler/Common
                     ../Modeler/DataInterface

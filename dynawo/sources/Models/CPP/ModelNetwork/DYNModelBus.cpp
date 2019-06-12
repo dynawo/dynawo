@@ -834,7 +834,7 @@ ModelBus::evalState(const double& /*time*/) {
 
 bool
 ModelBus::evalNodeFault() {
-  if (z_[3] != fromNativeBool(nodeFault_)) {
+  if (doubleNotEquals(z_[3], fromNativeBool(nodeFault_))) {
     nodeFault_ = toNativeBool(z_[3]);
     return true;
   }

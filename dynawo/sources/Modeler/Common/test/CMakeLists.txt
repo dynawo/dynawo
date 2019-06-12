@@ -22,6 +22,8 @@ INCLUDE_DIRECTORIES(${UNITTEST_INCLUDE_DIRS}
 INCLUDE_DIRECTORIES(../
                     ../../../Common/
                     ../../../API/PAR
+                    ../../../API/DYD
+                    ../../../API/EXTVAR
                    )
 
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})

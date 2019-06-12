@@ -654,7 +654,6 @@ class ReaderOMC:
                     self.auxiliary_vars_to_address_map[match.group("var")] = "data->simulationInfo->daeModeData->auxiliaryVars["+match.group("num")+"]"
                 match = re.search(residuals_var, line)
                 if match is not None:
-                    var = match.group("var")
                     self.residual_vars_to_address_map[match.group("var")] = "data->simulationInfo->daeModeData->residualVars["+match.group("num")+"]"
 
     ##
@@ -784,8 +783,8 @@ class ReaderOMC:
                         if "matrix" in list_body[-1]:
                             match = re.search(ptrn_comments, line)
                             index = match.group('index')
-                            itVar = itertools.dropwhile(lambda line: "var" not in line, list_body)
-                            xmlstring = '<equations>' + ''.join(list(itVar)) + '</equations>'
+                            it_var = itertools.dropwhile(lambda line: "var" not in line, list_body)
+                            xmlstring = '<equations>' + ''.join(list(it_var)) + '</equations>'
                             self.map_equation_formula[index] = ' '.join(xmlstring.split()).replace('"', "'")
                         break
 
@@ -958,39 +957,38 @@ class ReaderOMC:
 
                 # reading terminals
                 for child in node_element.childNodes:
-                    if child.nodeType== child.ELEMENT_NODE:
-                        if child.localName=='terminal':
-                            name = child.getElementsByTagName('name')[0].firstChild.nodeValue
-                            connector_node =  child.getElementsByTagName('connector')[0]
-                            type_connector = str(connector_node.getAttribute('type'))
+                    if child.nodeType== child.ELEMENT_NODE and child.localName=='terminal':
+                        name = child.getElementsByTagName('name')[0].firstChild.nodeValue
+                        connector_node =  child.getElementsByTagName('connector')[0]
+                        type_connector = str(connector_node.getAttribute('type'))
 
-                            split_name = name.split('.')
-                            name_terminal=name
-                            struct_name1 =""
-                            structure1 = Element(True,"")
-                            if (len(split_name)> 1): #component name: terminal name: last in the list, the rest is a composite of structures
-                                list_of_structure=split_name[0:len(split_name)-1]
-                                for struct in list_of_structure:
-                                    if struct_name1 != "":
-                                        struct_name1=struct_name1+"."+struct
-                                    else:
-                                        struct_name1 = struct
-                                    if struct_name1 not in list_struct:
-                                        s =  Element(True,struct_name1,len(self.list_elements));
-                                        list_struct.append(struct_name1)
-                                        self.list_elements.append(s)
-                                        self.map_struct_name_struct_obj[struct_name1] = s
-                                        structure1.list_elements.append(s)
-                                        structure1=s
-                                    else:
-                                        structure1 = self.map_struct_name_struct_obj[struct_name1]
+                        split_name = name.split('.')
+                        name_terminal=name
+                        struct_name1 =""
+                        structure1 = Element(True,"")
+                        if (len(split_name)> 1): #component name: terminal name: last in the list, the rest is a composite of structures
+                            list_of_structure=split_name[0:len(split_name)-1]
+                            for struct in list_of_structure:
+                                if struct_name1 != "":
+                                    struct_name1=struct_name1+"."+struct
+                                else:
+                                    struct_name1 = struct
+                                if struct_name1 not in list_struct:
+                                    s =  Element(True,struct_name1,len(self.list_elements));
+                                    list_struct.append(struct_name1)
+                                    self.list_elements.append(s)
+                                    self.map_struct_name_struct_obj[struct_name1] = s
+                                    structure1.list_elements.append(s)
+                                    structure1=s
+                                else:
+                                    structure1 = self.map_struct_name_struct_obj[struct_name1]
 
-                            terminal = Element(False,name_terminal,len(self.list_elements))
-                            self.list_elements.append(terminal)
-                            structure1.list_elements.append(terminal)
+                        terminal = Element(False,name_terminal,len(self.list_elements))
+                        self.list_elements.append(terminal)
+                        structure1.list_elements.append(terminal)
 
-                             #Find vars that are "flow"
-                            if type_connector == "Flow" :  self.list_flow_vars.append(name)
+                        #Find vars that are "flow"
+                        if type_connector == "Flow" :  self.list_flow_vars.append(name)
 
 
     ##
@@ -1070,7 +1068,6 @@ class ReaderOMC:
                 type = match.group("type")
                 index = match.group("index")
                 name = match.group("name")
-                value_type = match.group("valueType")
                 if "$cse" in name:
                     map_var_name_2_addresses[name]= "data->simulationInfo->daeModeData->auxiliaryVars["+str(index_aux_var)+"]"
                     index_aux_var+=1
@@ -1097,14 +1094,11 @@ class ReaderOMC:
                     else:
                         map_var_name_2_addresses[name]= "data->localData[0]->discreteVars["+str(index_discrete_var)+"]"
                         index_discrete_var+=1
-                elif type == "paramVars":
+                elif type == "paramVars" or type == "boolParamVars":
                     map_var_name_2_addresses[name]= "data->simulationInfo->realParameter["+str(index_real_param)+"]"
                     index_real_param+=1
                 elif type == "intParamVars":
                     map_var_name_2_addresses[name]= "data->simulationInfo->integerParameter["+index+"]"
-                elif type == "boolParamVars":
-                    map_var_name_2_addresses[name]= "data->simulationInfo->realParameter["+str(index_real_param)+"]"
-                    index_real_param+=1
                 elif type == "stringParamVars":
                     map_var_name_2_addresses[name]= "data->simulationInfo->stringParameter["+index+"]"
                 test_param_address(name)

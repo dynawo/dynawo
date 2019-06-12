@@ -584,7 +584,7 @@ def analyse_bracket(word):
     if open_bracket < close_bracket:
         nb = close_bracket - open_bracket
         new_word=""
-        for i in range(1,nb+1):
+        for _ in range(1,nb+1):
             new_word = '(' + new_word
         new_word += word
         return new_word
@@ -592,7 +592,7 @@ def analyse_bracket(word):
     if close_bracket < open_bracket:
         nb = open_bracket - close_bracket
         new_word=""
-        for i in range(1,nb+1):
+        for _ in range(1,nb+1):
             new_word = ')' + new_word
         new_word = word + new_word
         return new_word
