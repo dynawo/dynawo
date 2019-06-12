@@ -98,6 +98,7 @@ where [option] can be:"
         =========== Tests
         nrt ([-p regex] [-n name_filter])     run (filtered) non-regression tests and open the result in chosen browser
         nrt-diff ([args])                     make a diff between two non-regression test outputs
+        nrt-ref ([args])                      define or redefine automatically the non-regression tests references
         version-validation                    clean all built items, then build them all and run non-regression tests
         list-tests                            print all available unittest target
 
@@ -1361,6 +1362,10 @@ nrt_diff() {
   python $DYNAWO_NRT_DIFF_DIR/nrtDiff.py $1 $2 $3
 }
 
+nrt_ref() {
+  python $DYNAWO_NRT_DIFF_DIR/defineTestReference.py $1 $2 $3 $4 $5
+}
+
 check_coding_files() {
   # html escape .dic files for dictionary
   for dicfile in $(find $DYNAWO_INSTALL_DIR -iname '*.dic')
@@ -2026,6 +2031,10 @@ case $MODE in
 
   nrt-diff)
     nrt_diff ${ARGS} || error_exit "Error during Dynawo's NRT Diff execution"
+    ;;
+
+  nrt-ref)
+    nrt_ref ${ARGS} || error_exit "Error during Dynawo's NRT ref execution"
     ;;
 
   nrt-doc)
