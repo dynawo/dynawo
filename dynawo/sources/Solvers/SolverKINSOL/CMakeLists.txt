@@ -33,6 +33,7 @@ ADD_LIBRARY(dynawo_SolverKINSOL ${LIBRARY_TYPE} ${SOLVER_KINSOL_SOURCES})
 
 TARGET_LINK_LIBRARIES(dynawo_SolverKINSOL
                       dynawo_Common
+                      dynawo_SolverCommon
                       ${SUNDIALS_KINSOL_LIBRARY}
                       ${SUNDIALS_NVECSERIAL_LIBRARY}
                       ${SUNDIALS_SUNLINSOLKLU_LIBRARY}

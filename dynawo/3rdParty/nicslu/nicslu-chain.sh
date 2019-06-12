@@ -34,6 +34,27 @@ export_var_env() {
   export $name="$value"
 }
 
+export_var_env_force() {
+  local var=$@
+  local name=${var%%=*}
+  local value=${var#*=}
+
+  if ! `expr $name : "DYNAWO_.*" > /dev/null`; then
+    error_exit "You must export variables with DYNAWO prefix for $name."
+  fi
+
+  if eval "[ \$$name ]"; then
+    unset $name
+    export $name="$value"
+    return
+  fi
+
+  if [ "$value" = UNDEFINED ]; then
+    error_exit "You must define the value of $name"
+  fi
+  export $name="$value"
+}
+
 get_absolute_path() {
   python -c "import os; print(os.path.realpath('$1'))"
 }
@@ -50,6 +71,15 @@ BUILD_TYPE=Debug
 export_var_env DYNAWO_C_COMPILER=$(command -v gcc)
 
 export_var_env DYNAWO_LIBRARY_TYPE=SHARED
+
+if [ "`uname`" = "Linux" ]; then
+  export_var_env_force DYNAWO_SHARED_LIBRARY_SUFFIX="so"
+elif [ "`uname`" = "Darwin" ]; then
+  export_var_env_force DYNAWO_SHARED_LIBRARY_SUFFIX="dylib"
+else
+  echo "OS `uname` not supported."
+  exit 1
+fi
 
 patch_nicslu() {
   cd $SCRIPT_DIR
@@ -75,7 +105,7 @@ install_nicslu() {
       else
         make shared CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"
       fi
-      cp lib/*.so $INSTALL_DIR/lib && cp util/*.so $INSTALL_DIR/lib || error_exit "Error while building Nicslu"
+      cp lib/*.$DYNAWO_SHARED_LIBRARY_SUFFIX $INSTALL_DIR/lib && cp util/*.$DYNAWO_SHARED_LIBRARY_SUFFIX $INSTALL_DIR/lib || error_exit "Error while building Nicslu"
     elif [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
       if [ "${BUILD_TYPE}" = "Debug" ]; then
         make static DEBUGFLAG="-g" OPTIMIZATION="-O0" CC=$DYNAWO_C_COMPILER || error_exit "Error while building Nicslu"

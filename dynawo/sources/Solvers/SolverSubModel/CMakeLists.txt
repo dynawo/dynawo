@@ -37,6 +37,7 @@ TARGET_LINK_LIBRARIES(dynawo_SolverSubModel
                       ${SUNDIALS_SUNMATRIXSPARSE_LIBRARY}
                       ${SUITESPARSE_LIBRARIES}
                       dynawo_SolverCommon
+                      dynawo_ModelerCommon
                       )
 
 IF(${NICSLU_FOUND})

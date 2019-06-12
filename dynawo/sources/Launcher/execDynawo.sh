@@ -38,16 +38,16 @@ where [option] can be:
     help                       show this message"
 
 set_environment() {
-  export_var_env DYNAWO_INSTALL_DIR=$(dirname $(dirname $(readlink -f $0)))
+  export_var_env DYNAWO_INSTALL_DIR=$(dirname $(dirname $(python -c "import os; print(os.path.realpath('$0'))")))
 
-  export_var_env DYNAWO_BOOST_LIB_DIR=$DYNAWO_INSTALL_DIR/extraLibs/BOOST
+  export_var_env DYNAWO_BOOST_LIB_DIR=$DYNAWO_INSTALL_DIR/extraLibs/BOOST/lib
   export_var_env DYNAWO_LIBARCHIVE_LIB_DIR=$DYNAWO_INSTALL_DIR/extraLibs/LIBARCHIVE/lib
 
   export_var_env DYNAWO_ADEPT_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/adept
   export_var_env DYNAWO_SUNDIALS_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/sundials
   export_var_env DYNAWO_SUITESPARSE_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/suitesparse
   export_var_env DYNAWO_NICSLU_INSTALL_DIR=$DYNAWO_INSTALL_DIR/3rdParty/nicslu
-  export_var_env DYNAWO_XERCES_LIB_DIR=$DYNAWO_INSTALL_DIR/extraLibs/XERCES/lib
+  export_var_env DYNAWO_XERCES_LIB_DIR=$DYNAWO_INSTALL_DIR/extraLibs/XERCESC/lib
   export_var_env DYNAWO_LIBXML_INSTALL_DIR=$DYNAWO_INSTALL_DIR/extraLibs/LIBXML
   export_var_env DYNAWO_LIBZIP_INSTALL_DIR=$DYNAWO_INSTALL_DIR/extraLibs/LIBZIP
   export_var_env DYNAWO_LIBIIDM_INSTALL_DIR=$DYNAWO_INSTALL_DIR/extraLibs/LIBIIDM

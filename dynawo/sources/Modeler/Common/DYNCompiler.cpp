@@ -61,6 +61,8 @@
 #include "EXTVARVariablesCollectionFactory.h"
 #include "EXTVARVariable.h"
 
+#include "DYNCommun.h"
+
 using std::list;
 using std::map;
 using std::string;
@@ -150,7 +152,7 @@ Compiler::getDDB() {
   // look for standard precompiled models
   if (useStandardPrecompiledModels_) {
     Trace::info("COMPILE") << DYNLog(DDBDir, DDBDir) << Trace::endline;
-    searchFilesAccordingToExtension(DDBDir, ".so", noFileExtensionsForbidden, searchInSubDirsStandardModels, libraryFiles);
+    searchFilesAccordingToExtension(DDBDir, sharedLibraryExtension(), noFileExtensionsForbidden, searchInSubDirsStandardModels, libraryFiles);
   }
 
   for (vector<UserDefinedDirectory>::const_iterator itDir = precompiledModelsDirsPaths_.begin(); itDir != precompiledModelsDirsPaths_.end(); ++itDir) {
@@ -264,8 +266,8 @@ Compiler::compileBlackBoxModelDescription(const shared_ptr<ModelDescription>& bl
 
   shared_ptr<dynamicdata::BlackBoxModel> blackBoxModel = dynamic_pointer_cast<dynamicdata::BlackBoxModel> (blackBoxModelDescription->getModel());
 
-  if (libFiles_.find(blackBoxModel->getLib()) != libFiles_.end()) {
-    blackBoxModelDescription->setLib(libFiles_[blackBoxModel->getLib()]);
+  if (libFiles_.find(blackBoxModel->getLib() + precompiledModelsExtension_) != libFiles_.end()) {
+    blackBoxModelDescription->setLib(libFiles_[blackBoxModel->getLib() + precompiledModelsExtension_]);
     Trace::info("COMPILE") << DYNLog(SetLib, blackBoxModel->getLib(), libFiles_[blackBoxModel->getLib()]) << Trace::endline;
   } else {
     throw DYNError(Error::MODELER, UnableToFindLib, blackBoxModel->getLib());
@@ -294,13 +296,13 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
     modelDescription->hasCompiledModel(true);
     modelDescription->setCompiledModelId(modelDescription->getID());
     shared_ptr<dynamicdata::ModelTemplate> modelicaModel = dynamic_pointer_cast<dynamicdata::ModelTemplate> (modelDescription->getModel());
-    libName = modelicaModel->getId() + ".so";
+    libName = modelicaModel->getId() + sharedLibraryExtension();
     unitDynamicModels = modelicaModel->getUnitDynamicModels();
     modelID = modelicaModel->getId();
   } else {
     // compile(modelicaModel) compile the modelica model already mapped;
     shared_ptr<dynamicdata::ModelicaModel> modelicaModel = dynamic_pointer_cast<dynamicdata::ModelicaModel> (modelDescription->getModel());
-    libName = modelicaModel->getId() + ".so";
+    libName = modelicaModel->getId() + sharedLibraryExtension();
     unitDynamicModels = modelicaModel->getUnitDynamicModels();
     modelID = modelicaModel->getId();
   }
@@ -412,11 +414,15 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   Trace::debug("COMPILE") << ss.str() << Trace::endline;
   string echoString = ss.str();
   boost::replace_all(echoString, "'", "\"");
+  #ifdef __linux__
   // In case of static compilation it is expected that symbols about Timer are missing.
   string commandUndefined = "echo '" + echoString + "' | sed '1,/ldd -r/d' | c++filt | grep 'undefined' | grep -v 'DYN::Timer::~Timer()'"
           " | grep -v \"DYN::Timer::Timer([^)]*)\"";
   int returnCode = system(commandUndefined.c_str());
   bool hasUndefinedSymbol = (returnCode == 0);
+  #else
+  bool hasUndefinedSymbol = false;
+  #endif
 
   // testing if the lib was successfully compiled (test if it exists, and if no undefined symbol was noticed)
   if ((!exists(compileDirPath_ + "/" + libName)) || (hasUndefinedSymbol))

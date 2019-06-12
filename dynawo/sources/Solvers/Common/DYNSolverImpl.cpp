@@ -163,7 +163,7 @@ Solver::Impl::printHeader() {
 
 void
 Solver::Impl::printSolve() {
-  int64_t nst;
+  long int nst;
   int kused;
   double hused;
   getLastConf(nst, kused, hused);

@@ -96,7 +96,6 @@ TARGET_LINK_LIBRARIES(dynawo_ModelerCommon
                       dynawo_API_DYD
                       dl
                       dynawo_Common
-                      dynawo_DataInterface
                       )
 
 IF(LIBRARY_TYPE STREQUAL "SHARED")

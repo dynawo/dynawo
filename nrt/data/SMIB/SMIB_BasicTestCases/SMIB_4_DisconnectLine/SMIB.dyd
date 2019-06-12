@@ -24,11 +24,11 @@
     <dyn:connect id1="line2" var1="terminal2" id2="tfo" var2="terminal1"/>
   </dyn:modelicaModel>
   <!-- Generator -->
-  <dyn:blackBoxModel id="SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations.so" parFile="SMIB.par" parId="5"/>
+  <dyn:blackBoxModel id="SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="SMIB.par" parId="5"/>
   <!-- OmegaRef -->
-  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint.so" parFile="SMIB.par" parId="6"/>
+  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="SMIB.par" parId="6"/>
   <!-- Line opening -->
-  <dyn:blackBoxModel id="OpenLine" lib="EventSetPointBoolean.so" parFile="event.par" parId="1"/>
+  <dyn:blackBoxModel id="OpenLine" lib="EventSetPointBoolean" parFile="event.par" parId="1"/>
   <!-- Connections -->
   <dyn:connect id1="Network" var1="tfo_terminal2" id2="SM" var2="generator_terminal"/>
   <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="SM" var2="generator_omegaRefPu"/>

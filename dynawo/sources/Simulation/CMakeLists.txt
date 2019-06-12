@@ -69,6 +69,7 @@ TARGET_LINK_LIBRARIES(dynawo_Simulation
                       dynawo_DataInterface
                       ${libZIP_LIBRARY}
                       ${LibArchive_LIBRARY}
+                      ${ZLIB_LIBRARY}
                       ${Boost_SERIALIZATION_LIBRARY}
                       XMLSAXFormatter${LibXML_LINK_SUFFIX}
                       XMLSAXParser${LibXML_LINK_SUFFIX}

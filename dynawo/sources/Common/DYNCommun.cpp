@@ -31,6 +31,21 @@ using std::string;
 
 namespace DYN {
 
+const char* sharedLibraryExtension() {
+#ifdef _WIN32
+static const char extension[] = ".dll";
+#elif __APPLE__
+static const char extension[] = ".dylib";
+#elif __linux__
+static const char extension[] = ".so";
+#elif __unix__  // all unices not caught above
+static const char extension[] = ".so";
+#else
+#error "Unknown compiler"
+#endif
+  return extension;
+}
+
 bool vectorAreEquals(const std::vector<double> & y1, const std::vector<double> & y2) {
   if (y1.size() != y2.size())
     return false;

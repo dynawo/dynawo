@@ -30,6 +30,7 @@
 
 #include "DYNDynamicData.h"
 
+#include "DYNCommun.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
 #include "DYNIoDico.h"
@@ -66,7 +67,7 @@ int main(int argc, char ** argv) {
   bool useStandardPrecompiledModels = true;
   string recursivePrecompiledModelsDir = "";   // BDD
   string nonRecursivePrecompiledModelsDir = "";
-  string precompiledModelsExtension = "";
+  string precompiledModelsExtension = DYN::sharedLibraryExtension();
   bool useStandardModelicaModels = true;
   string recursiveModelicaModelsDir = "";
   string nonRecursiveModelicaModelsDir = "";
@@ -84,7 +85,6 @@ int main(int argc, char ** argv) {
           ("recursive-precompiled-models-dir", po::value<string>(&recursivePrecompiledModelsDir), "set precompiled models directory (default DYNAWO_DDB_DIR)")
           ("non-recursive-precompiled-models-dir", po::value<string>(&nonRecursivePrecompiledModelsDir),
               "set precompiled models directory (default DYNAWO_DDB_DIR)")
-          ("precompiled-models-extension", po::value<string>(&precompiledModelsExtension), "set precompiled models file extension (default .so)")
           ("use-standard-modelica-models", po::value<bool>(&useStandardModelicaModels), "use standard Modelica models (default true)")
           ("recursive-modelica-models-dir", po::value<string>(&recursiveModelicaModelsDir), "set Modelica models directory (default DYNAWO_DDB_DIR)")
           ("non-recursive-modelica-models-dir", po::value<string>(&nonRecursiveModelicaModelsDir), "set Modelica models directory (default DYNAWO_DDB_DIR)")
@@ -111,10 +111,6 @@ int main(int argc, char ** argv) {
     cout << "You need to give a model list." << endl;
     cout << desc << endl;
     return 1;
-  }
-
-  if (precompiledModelsExtension == "") {
-    precompiledModelsExtension = ".so";
   }
 
   if (modelicaModelsExtension == "") {
@@ -251,6 +247,7 @@ bool verifySharedObject(string modelname) {
   dlclose(handle);
 
   // verify links.
+  #ifdef __linux__
   string command = "ldd -r " + modelname + " | c++filt";
   string result = executeCommand1(command);
   boost::replace_all(result, "'", "\"");
@@ -258,6 +255,9 @@ bool verifySharedObject(string modelname) {
   string command2 = "echo \"" + result + "\"| c++filt | grep 'undefined'  | grep -v 'DYN::Timer::~Timer()' | grep -v \"DYN::Timer::Timer([^)]*)\"";
   int returnCode = system(command2.c_str());
   bool valid = (returnCode != 0);
+  #else
+  bool valid = true;
+  #endif
   return valid;
 }
 

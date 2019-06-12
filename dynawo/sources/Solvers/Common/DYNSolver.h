@@ -240,7 +240,7 @@ class Solver {
    * @param kused the integration method order used during the last internal step
    * @param hused the integration step size taken on the last internal step
    */
-  virtual void getLastConf(int64_t &nst, int &kused, double &hused) = 0;
+  virtual void getLastConf(long int &nst, int &kused, double &hused) = 0;
 
   class Impl;
 };

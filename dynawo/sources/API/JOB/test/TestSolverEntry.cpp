@@ -29,11 +29,11 @@ TEST(APIJOBTest, testSolverEntry) {
   ASSERT_EQ(solver->getParametersFile(), "");
   ASSERT_EQ(solver->getParametersId(), "");
 
-  solver->setLib("Solver.so");
+  solver->setLib("Solver");
   solver->setParametersFile("solver.par");
   solver->setParametersId("solver_par");
 
-  ASSERT_EQ(solver->getLib(), "Solver.so");
+  ASSERT_EQ(solver->getLib(), "Solver");
   ASSERT_EQ(solver->getParametersFile(), "solver.par");
   ASSERT_EQ(solver->getParametersId(), "solver_par");
 }

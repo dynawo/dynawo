@@ -281,7 +281,7 @@ SolverKIN::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   // Print the current residual norms, the first one is used as a stopping criterion
   double weightedInfNorm = weightedInfinityNorm(solv->F_, solv->indexF_, solv->fScaling_);
   double wL2Norm = weightedL2Norm(solv->F_, solv->indexF_, solv->fScaling_);
-  int64_t current_nni = 0;
+  long int current_nni = 0;
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
 #endif
@@ -511,7 +511,7 @@ SolverKIN::solve() {
   if (scalef != NULL) N_VDestroy_Serial(scalef);
 
   analyseFlag(flag);
-  int64_t nfevals;
+  long int nfevals;
   int flag1 = KINGetNumFuncEvals(KINMem_, &nfevals);
   if (flag1 < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINGetNumFuncEvals");

@@ -41,7 +41,7 @@ MACRO(DESC_SOLVER
                        DEPENDS ${SOLVER_NAME} dumpSolver
                        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
                        COMMAND
-                           ${sbindir}/dumpSolver -m ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.so -o ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.desc.xml \;
+                           ${sbindir}/dumpSolver -m ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX} -o ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.desc.xml \;
                        COMMENT "Generating ${SOLVER_NAME} description file"
                       )
 
@@ -54,7 +54,7 @@ MACRO(DESC_SOLVER
                           ${SOLVER_NAME}.desc.xml
                           CREATE_DDBDIR
                       COMMAND
-                          ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.so ${ddbdir}/lib${SOLVER_NAME}.so \;
+                          ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX} ${ddbdir}/lib${SOLVER_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX} \;
                           ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/lib${SOLVER_NAME}.desc.xml ${ddbdir}/lib${SOLVER_NAME}.desc.xml
                      )
 

@@ -85,7 +85,7 @@ TEST(APIDYDTest, ImporterStream) {
   std::istringstream goodInputStream(
     "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>"
     "<dyn:dynamicModelsArchitecture xmlns:dyn=\"http://www.rte-france.com/dynawo\">"
-    "<dyn:blackBoxModel id=\"BlackBoxModel\" staticId=\"bbmId\" lib=\"model.so\" parFile=\"parFile.par\" parId=\"1\">"
+    "<dyn:blackBoxModel id=\"BlackBoxModel\" staticId=\"bbmId\" lib=\"model\" parFile=\"parFile.par\" parId=\"1\">"
     "<dyn:staticRef var=\"M2S_P_value\" staticVar=\"p\"/>"
     "</dyn:blackBoxModel>"
     "<dyn:connect id1=\"BlackBoxModel\" var1=\"variable\" id2=\"externalModel\" var2=\"externalModel_variable\"/>"

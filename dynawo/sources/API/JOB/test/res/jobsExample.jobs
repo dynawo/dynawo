@@ -13,13 +13,13 @@
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="Job 1">
-    <dyn:solver lib="libdynawo_SolverSIM.so" parFile="solvers.par" parId="3"/>
+    <dyn:solver lib="libdynawo_SolverSIM" parFile="solvers.par" parId="3"/>
     <dyn:modeler compileDir="outputs1">
       <dyn:network iidmFile="myIIDM.iidm" parFile="myPAR.par" parId="1"/>
       <dyn:dynModels dydFile="myDYD.dyd"/>
       <dyn:dynModels dydFile="myDYD2.dyd"/>
       <dyn:initialState file="outputs1/finalState/outputState.dmp"/>
-      <dyn:precompiledModels useStandardModels="true" modelExtension=".so">
+      <dyn:precompiledModels useStandardModels="true">
           <dyn:directory path="." recursive="false"/>
           <dyn:directory path="/tmp/" recursive="true"/>
       </dyn:precompiledModels>
@@ -44,7 +44,7 @@
     </dyn:outputs>
   </dyn:job>
   <dyn:job name="Job 2">
-    <dyn:solver lib="libdynawo_SolverSIM.so" parFile="solvers.par" parId="3"/>
+    <dyn:solver lib="libdynawo_SolverSIM" parFile="solvers.par" parId="3"/>
     <dyn:modeler compileDir="outputs2">
       <dyn:network iidmFile="myIIDM.iidm" parFile="myPAR.par" parId="1"/>
       <dyn:dynModels dydFile="myDYD.dyd"/>

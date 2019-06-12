@@ -37,13 +37,16 @@ TARGET_LINK_LIBRARIES(dumpSolver
                       dynawo_SolverCommon
                       dynawo_SolverKINSOL
                       dynawo_API_TL
-                      "-Wl,--whole-archive"
-                      dynawo_Util
-                      "-Wl,--no-whole-archive"
                       ${Boost_PROGRAM_OPTIONS_LIBRARY}
                       pthread
                       ${Boost_THREAD_LIBRARY}
                       "-rdynamic"
                       )
+
+if (APPLE)
+  TARGET_LINK_LIBRARIES(dumpSolver "-force_load" dynawo_Util)
+else()
+  TARGET_LINK_LIBRARIES(dumpSolver "-Wl,--whole-archive" dynawo_Util "-Wl,--no-whole-archive")
+endif()
 
 INSTALL(TARGETS dumpSolver DESTINATION ${sbindir})

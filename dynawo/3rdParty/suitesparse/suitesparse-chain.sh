@@ -81,14 +81,19 @@ install_suitesparse() {
   if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
     cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config
     { make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" library && make CC="$DYNAWO_C_COMPILER $CC_FLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building SuiteSparse"
+    if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libsuitesparseconfig.dylib $INSTALL_DIR/lib/libsuitesparseconfig.dylib; fi
     cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/AMD
     { make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" library && make CC="$DYNAWO_C_COMPILER $CC_FLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building AMD"
+    if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libamd.dylib $INSTALL_DIR/lib/libamd.dylib; fi
     cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/COLAMD
     { make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" library && make CC="$DYNAWO_C_COMPILER $CC_FLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building COLAMD"
+    if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libcolamd.dylib $INSTALL_DIR/lib/libcolamd.dylib; fi
     cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/BTF
     { make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" library && make CC="$DYNAWO_C_COMPILER $CC_FLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building BTF"
+    if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libbtf.dylib $INSTALL_DIR/lib/libbtf.dylib; fi
     cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/KLU
     { make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" library && make CC="$DYNAWO_C_COMPILER $CC_FLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building KLU"
+    if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libklu.dylib $INSTALL_DIR/lib/libklu.dylib; fi
   else
     mkdir -p $INSTALL_DIR/lib
     mkdir -p $INSTALL_DIR/include

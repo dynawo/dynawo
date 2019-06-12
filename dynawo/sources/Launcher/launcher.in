@@ -144,7 +144,14 @@ VALGRIND_MASSIF)
   RETURN_CODE=$?
   ;;
 GDB)
-  gdb -q --args ${DYNAWO} ${ARGS}
+  if [ "`uname`" = "Linux" ]; then
+    gdb -q --args ${DYNAWO} ${ARGS}
+  elif [ "`uname`" = "Darwin" ]; then
+    lldb -- ${DYNAWO} ${ARGS}
+  else
+    echo "OS not supported."
+    exit 1
+  fi
   RETURN_CODE=$?
   ;;
 GENERATE_PREASSEMBLED)
@@ -152,7 +159,14 @@ GENERATE_PREASSEMBLED)
   RETURN_CODE=$?
   ;;
 GENERATE_PREASSEMBLED-GDB)
-  gdb -q --args ${GENERATE_PREASSEMBLED} ${ARGS}
+  if [ "`uname`" = "Linux" ]; then
+    gdb -q --args ${GENERATE_PREASSEMBLED} ${ARGS}
+  elif [ "`uname`" = "Darwin" ]; then
+    lldb -- ${GENERATE_PREASSEMBLED} ${ARGS}
+  else
+    echo "OS not supported."
+    exit 1
+  fi
   RETURN_CODE=$?
   ;;
 COMPILE)
@@ -164,7 +178,14 @@ DUMPMODEL)
   RETURN_CODE=$?
   ;;
 GDB-DUMPMODEL)
-  gdb -q --args ${DUMPMODELBIN} ${ARGS}
+  if [ "`uname`" = "Linux" ]; then
+    gdb -q --args ${DUMPMODELBIN} ${ARGS}
+  elif [ "`uname`" = "Darwin" ]; then
+    lldb -- ${DUMPMODELBIN} ${ARGS}
+  else
+    echo "OS not supported."
+    exit 1
+  fi
   RETURN_CODE=$?
   ;;
 VALGRIND-DUMPMODEL)

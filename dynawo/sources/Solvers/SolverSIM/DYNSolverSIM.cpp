@@ -427,8 +427,8 @@ SolverSIM::callSolverEulerKIN() {
     solverEulerKIN_->getValues(vYy_, vYp_);
 
   // Update statistics
-  int64_t nre;
-  int64_t nje;
+  long int nre;
+  long int nje;
   solverEulerKIN_->updateStatistics(nNewt_, nre, nje);
 
   stats_.nre_ += nre;
@@ -530,7 +530,7 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
 }
 
 void
-SolverSIM::getLastConf(int64_t &nst, int &kused, double & hused) {
+SolverSIM::getLastConf(long int& nst, int &kused, double & hused) {
   nst = stats_.nst_;
   kused = 1;
   hused = h_;

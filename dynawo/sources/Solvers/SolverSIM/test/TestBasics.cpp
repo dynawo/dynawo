@@ -65,7 +65,7 @@ namespace DYN {
 
 boost::shared_ptr<Solver> initSolver(const double& tStart, const double& tStop, const bool& recalculateStep, const int& maxRootRestart) {
   // Solver
-  boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("libdynawo_SolverSIM.so");
+  boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../libdynawo_SolverSIM" + std::string(sharedLibraryExtension()));
 
   boost::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newInstance("MySolverParam");
   params->addParameter(parameters::ParameterFactory::newParameter("hMin", 0.000001));
@@ -85,7 +85,7 @@ boost::shared_ptr<Solver> initSolver(const double& tStart, const double& tStop, 
 void compile(boost::shared_ptr<DynamicData> dyd) {
   bool preCompiledUseStandardModels = false;
   std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
-  std::string preCompiledModelsExtension = ".so";
+  std::string preCompiledModelsExtension = sharedLibraryExtension();
   bool modelicaUseStandardModels = false;
 
   std::vector <UserDefinedDirectory> modelicaModelsDirsAbsolute;

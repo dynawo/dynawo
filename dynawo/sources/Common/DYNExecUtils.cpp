@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
-#include <wait.h>   // waitpid
+#include <sys/wait.h>   // waitpid
 #include <cstring>
 #include <unistd.h>
 #include <fcntl.h>

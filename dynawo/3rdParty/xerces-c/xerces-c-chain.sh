@@ -79,20 +79,21 @@ install_xercesc() {
   else
     XERCESC_LIBRARY_TYPE_OPTION="--enable-static --disable-shared"
   fi
+  options="--disable-network --without-icu --disable-transcoder-macosunicodeconverter"
   if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     if [ "$BUILD_TYPE" = "Debug" ]; then
-      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0" ./configure $XERCESC_LIBRARY_TYPE_OPTION --disable-network --without-icu --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0" ./configure $XERCESC_LIBRARY_TYPE_OPTION $options --prefix=$INSTALL_DIR
     else
-      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER ./configure $XERCESC_LIBRARY_TYPE_OPTION --disable-network --without-icu --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER ./configure $XERCESC_LIBRARY_TYPE_OPTION $options --prefix=$INSTALL_DIR
     fi
   else
     if [ "$BUILD_TYPE" = "Debug" ]; then
-      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0 -std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --disable-network --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0 -std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION $options --disable-xmlch-char16_t --prefix=$INSTALL_DIR
     else
-      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION --disable-network --without-icu --disable-xmlch-char16_t --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-std=c++98" ./configure $XERCESC_LIBRARY_TYPE_OPTION $options --disable-xmlch-char16_t --prefix=$INSTALL_DIR
     fi
   fi
-  make -j $DYNAWO_NB_PROCESSORS_USED V=1 && make install
+  make -j $DYNAWO_NB_PROCESSORS_USED V=1 && make install && if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" -a "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libxerces-c.dylib $INSTALL_DIR/lib/libxerces-c.dylib; fi
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
