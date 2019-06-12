@@ -177,6 +177,8 @@ class TestCase:
         self.case_ = ""
         self.directory_ = case_name
         self.description_ = ""
+        self.status_ = ""
+        self.cmp_status_ = ""
         self.jobs_file_ = ""
         self.compared_files_ = []
         self.error_ = False
@@ -195,6 +197,8 @@ class TestCase:
             self.directory_ = case_info[0] + "/" + case_info[1]
             self.name_ = case_info[2]
             self.description_ = case_info[3]
+            self.status_ = case_info[4]
+            self.cmp_status_ = case_info[5].rstrip()
             # Second line : path to jobs file
             case_jobs_file = info_file.readline()
             self.jobs_file_ = case_jobs_file

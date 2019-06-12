@@ -328,14 +328,18 @@ class NonRegressionTest:
         file.write("<tr><td>simulation time</td><td>"+timeToString(test_case.time_)+"</td></tr>")
         file.write("<tr><td>return code</td><td>"+str(test_case.code_)+"</td></tr>")
         line = "<tr><td>return status</td>"
+        testcase_status = "OK"
         if( test_case.ok_ ):
             line += "<td class='ok'>OK</td></tr>"
         elif test_case.code_ == -150:
             line += "<td class='tooLong'>TOO LONG</td></tr>"
+            testcase_status = "tooLong"
         else:
             line += "<td class='nok'>NOK<br />Dynawo simulation failed.</td></tr>"
+            testcase_status = "KO"
         file.write(line)
 
+        diff_status = "NoReference"
         if (test_case.diff_ not in nrtDiff.diff_neutral_statuses()):
             diff_ok = nrtDiff.diff_ok_statuses (True)
             diff_warn = nrtDiff.diff_warn_statuses ()
@@ -343,10 +347,13 @@ class NonRegressionTest:
             line = "<tr><td>diff status</td><td class='"
             if (test_case.diff_ in diff_error):
                 line += "comparisonNOk"
+                diff_status = "KO"
             elif (test_case.diff_ in diff_warn):
                 line += "comparisonWarn"
+                diff_status = "Warn"
             elif (test_case.diff_ in diff_ok):
                 line += "comparisonOk"
+                diff_status = "OK"
             line += "'>" + nrtDiff.toString(test_case.diff_, True)
             if not (test_case.diff_ in diff_ok):
                 if len(test_case.diff_messages_) > 0: line += "<br/><br/>"
@@ -404,7 +411,8 @@ class NonRegressionTest:
             case_first_dir= case_dir.split(os.sep)[0]
             case_second_dir = case_dir.split(os.sep)[1]
             # first line: job identification infos
-            info_file.write(case_first_dir + '|' + case_second_dir + '|' + job.name_ + '|' + job.description_  +'\n')
+            info_file.write(case_first_dir + '|' + case_second_dir + '|' + job.name_ + '|' + job.description_ + \
+                            '|' + testcase_status + '|' + diff_status +'\n')
             # second line : path to jobs file
             info_file.write(job.file_)
             info_file.close()
