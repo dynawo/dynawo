@@ -25,6 +25,8 @@ INCLUDE_DIRECTORIES(../
                     ../../../Modeler/Common/
                     ../../../API/PAR/
                     ../../../API/TL
+                    ../../../API/DYD
+                    ../../../API/EXTVAR
                     )
 
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})

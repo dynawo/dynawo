@@ -27,6 +27,8 @@
 
 
 #include "DYNFileSystemUtils.h"
+#include "DYDMacroConnect.h"
+#include "EXTVARVariablesCollection.h"
 
 namespace dynamicdata {
 class BlackBoxModel;
@@ -169,6 +171,81 @@ class Compiler {
    */
   std::string modelicaModelVariableName(const std::string& rawVariableName, const std::string& modelId,
                                         const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> > & unitDynamicModels);
+
+ private:
+  /**
+  * @brief test if all the modelica models file required to compile a model are available and throws otherwise
+  * @param unitDynamicModels a map of unit dynamic models withint the model
+  */
+  void throwIfAllModelicaFilesAreNotAvailable(const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels) const;
+
+  /**
+   * @brief write concatenate model as modelica file (.mo)
+   * @param modelID modelica Model id
+   * @param modelicaModelDescription modelica Model Description to concatenate
+   * @param macroConnection modelica Model macro connections
+   * @param unitDynamicModels modelica Model modelica models map
+   * @param internalConnects modelica Model internal connections
+   */
+  void writeConcatModelicaFile(const std::string& modelID, const boost::shared_ptr<ModelDescription>& modelicaModelDescription,
+      const std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
+      const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
+      const std::vector<boost::shared_ptr<dynamicdata::Connector> >& internalConnects) const;
+
+  /**
+   * @brief write concatenate model extvar file
+   * @param modelicaModelDescription modelica Model Description to concatenate
+   * @param macroConnection modelica Model macro connections
+   * @param unitDynamicModels modelica Model modelica models map
+   * @param internalConnects modelica Model internal connections
+   * @param allExternalVariables concatenation of all external variables of the models
+   */
+  void writeExtvarFile(const boost::shared_ptr<ModelDescription>& modelicaModelDescription,
+        const std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
+        const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
+        const std::vector<boost::shared_ptr<dynamicdata::Connector> >& internalConnects,
+        const std::map<std::string, boost::shared_ptr<externalVariables::VariablesCollection> >& allExternalVariables) const;
+
+  /**
+   * @brief write concatenate initialization model as modelica file (.mo)
+   * @param modelicaModelDescription modelica Model Description to concatenate
+   * @param unitDynamicModels modelica Model modelica models map
+   * @param macroConnects modelica Model macro connections map
+   */
+  void writeInitFile(const boost::shared_ptr<ModelDescription>& modelicaModelDescription,
+      const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
+      const std::map<std::string, boost::shared_ptr<dynamicdata::MacroConnect> >& macroConnects) const;
+
+  /**
+   * @brief collect all macro connections of the model and stores it into a vector
+   * @param macroConnects modelica Model macro connections map
+   * @param macroConnection modelica Model macro connections
+   */
+  void collectMacroConnections(const std::map<std::string, boost::shared_ptr<dynamicdata::MacroConnect> >& macroConnects,
+      std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection) const;
+
+  /**
+     * @brief Collect the existing connected extvar
+     * @param index string that should be inserted if \@INDEX\@ is found in variableId
+     * @param name string that should be inserted if \@NAME\@ is found in variableId
+     * @param model1 name of the first model connected by this macro connection
+     * @param model2 name of the second model connected by this macro connection
+     * @param connector macro connection name
+     * @param variableId after calling this method, contains the variable id with name and index macros replaced
+     */
+  void replaceMacroInVariableId(const std::string& index, const std::string& name,
+      const std::string& model1, const std::string& model2, const std::string& connector, std::string& variableId) const;
+
+  /**
+   * @brief Collect the existing connected extvar
+   * @param itUnitDynamicModelName target unitDynamic model name
+   * @param macroConnection modelica Model macro connections
+   * @param internalConnects modelica Model internal connections
+   * @param extVarConnected after calling this method, contains the existing connected extvar
+   */
+  void collectConnectedExtVar(std::string itUnitDynamicModelName,
+      const std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
+      const std::vector<boost::shared_ptr<dynamicdata::Connector> >& internalConnects, std::set<std::string>& extVarConnected) const;
 
  private:
   boost::shared_ptr<DynamicData> dyd_;  ///< dynamic data instance where data of models are stored

@@ -21,6 +21,8 @@ INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
 
 INCLUDE_DIRECTORIES(../Common
                     ../../Common
+                    ../../API/DYD
+                    ../../API/EXTVAR
                     )
 
 ADD_EXECUTABLE(dumpModel ${DUMP_MODEL_SOURCES})

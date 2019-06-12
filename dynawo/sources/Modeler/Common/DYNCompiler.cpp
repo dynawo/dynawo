@@ -41,7 +41,6 @@
 #include "DYDBlackBoxModel.h"
 #include "DYDUnitDynamicModel.h"
 #include "DYDConnectorImpl.h"
-#include "DYDMacroConnect.h"
 #include "DYDMacroConnection.h"
 #include "DYDMacroConnector.h"
 #include "DYDStaticRef.h"
@@ -335,54 +334,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   // erase old version of the lib before compiling it.
   remove(createAbsolutePath(libName, compileDirPath_));
 
-  // Get needed Modelica Model Files list and needed Init ModelFiles list
-
-  map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUdm;
-  vector <string> requiredModelicaFiles;
-  for (itUdm = unitDynamicModels.begin(); itUdm != unitDynamicModels.end(); ++itUdm) {
-    string moFileName = itUdm->second->getDynamicFileName();
-    if ((!moFileName.empty()) && (std::find(requiredModelicaFiles.begin(), requiredModelicaFiles.end(), moFileName) == requiredModelicaFiles.end())) {
-      requiredModelicaFiles.push_back(moFileName);
-    }
-
-    if (itUdm->second->getInitFileName() != "") {
-      moFileName = itUdm->second->getInitFileName();
-      if ((!moFileName.empty()) && (std::find(requiredModelicaFiles.begin(), requiredModelicaFiles.end(), moFileName) == requiredModelicaFiles.end())) {
-        requiredModelicaFiles.push_back(moFileName);
-      }
-    }
-  }
-
-  vector <string> availableModelicaFiles;
-  for (std::map<string, string>::const_iterator itFile = moFilesAll_.begin(); itFile != moFilesAll_.end(); ++itFile) {
-    string moFileName = file_name(itFile->second);
-    if (std::find(availableModelicaFiles.begin(), availableModelicaFiles.end(), moFileName) == availableModelicaFiles.end()) {
-      availableModelicaFiles.push_back(moFileName);
-    }
-  }
-
-  std::sort(requiredModelicaFiles.begin(), requiredModelicaFiles.end());
-  std::sort(availableModelicaFiles.begin(), availableModelicaFiles.end());
-
-  // compute the vector of missing models as the difference between required models and available models
-  vector <string> missingModelicaModels;
-  std::set_difference(requiredModelicaFiles.begin(), requiredModelicaFiles.end(),
-          availableModelicaFiles.begin(), availableModelicaFiles.end(),
-          std::inserter(missingModelicaModels, missingModelicaModels.begin()));
-
-  if (missingModelicaModels.size() > 0) {
-    string missingFiles = "";
-    bool firstItem = true;
-    for (vector<string>::const_iterator itFile = missingModelicaModels.begin(); itFile != missingModelicaModels.end(); ++itFile) {
-      if (!firstItem) {
-        missingFiles += ",";
-      } else {
-        firstItem = false;
-      }
-      missingFiles += " " + (*itFile);
-    }
-    throw DYNError(Error::MODELER, UnknownModelFile, missingFiles);
-  }
+  throwIfAllModelicaFilesAreNotAvailable(unitDynamicModels);
 
   // Compilation and post-treatment on concatenated files
   string compileCommand = installDir + "/sbin/compileModelicaModel --model " + thisCompiledId + " --output-dir " + compileDirPath_ + " --lib " + libName;
@@ -442,6 +394,56 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 }
 
 void
+Compiler::throwIfAllModelicaFilesAreNotAvailable(const map<string, shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels) const {
+  // Get needed Modelica Model Files list and needed Init ModelFiles list
+  vector <string> requiredModelicaFiles;
+  for (map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUdm = unitDynamicModels.begin(); itUdm != unitDynamicModels.end(); ++itUdm) {
+    string moFileName = itUdm->second->getDynamicFileName();
+    if ((!moFileName.empty()) && (std::find(requiredModelicaFiles.begin(), requiredModelicaFiles.end(), moFileName) == requiredModelicaFiles.end())) {
+      requiredModelicaFiles.push_back(moFileName);
+    }
+
+    if (itUdm->second->getInitFileName() != "") {
+      moFileName = itUdm->second->getInitFileName();
+      if ((!moFileName.empty()) && (std::find(requiredModelicaFiles.begin(), requiredModelicaFiles.end(), moFileName) == requiredModelicaFiles.end())) {
+        requiredModelicaFiles.push_back(moFileName);
+      }
+    }
+  }
+
+  vector <string> availableModelicaFiles;
+  for (std::map<string, string>::const_iterator itFile = moFilesAll_.begin(); itFile != moFilesAll_.end(); ++itFile) {
+    string moFileName = file_name(itFile->second);
+    if (std::find(availableModelicaFiles.begin(), availableModelicaFiles.end(), moFileName) == availableModelicaFiles.end()) {
+      availableModelicaFiles.push_back(moFileName);
+    }
+  }
+
+  std::sort(requiredModelicaFiles.begin(), requiredModelicaFiles.end());
+  std::sort(availableModelicaFiles.begin(), availableModelicaFiles.end());
+
+  // compute the vector of missing models as the difference between required models and available models
+  vector <string> missingModelicaModels;
+  std::set_difference(requiredModelicaFiles.begin(), requiredModelicaFiles.end(),
+      availableModelicaFiles.begin(), availableModelicaFiles.end(),
+      std::inserter(missingModelicaModels, missingModelicaModels.begin()));
+
+  if (missingModelicaModels.size() > 0) {
+    string missingFiles = "";
+    bool firstItem = true;
+    for (vector<string>::const_iterator itFile = missingModelicaModels.begin(); itFile != missingModelicaModels.end(); ++itFile) {
+      if (!firstItem) {
+        missingFiles += ",";
+      } else {
+        firstItem = false;
+      }
+      missingFiles += " " + (*itFile);
+    }
+    throw DYNError(Error::MODELER, UnknownModelFile, missingFiles);
+  }
+}
+
+void
 Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescription) {
   if (modelicaModelDescription->getType() != dynamicdata::Model::MODELICA_MODEL &&
           modelicaModelDescription->getType() != dynamicdata::Model::MODEL_TEMPLATE) {
@@ -466,12 +468,9 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
     macroConnects = model->getMacroConnects();
   }
 
-  vector<shared_ptr<dynamicdata::Connector> > internalConnects;
   ///< all external variables (including ones which may have been internally connected)
   map<string, shared_ptr<externalVariables::VariablesCollection> > allExternalVariables;
   bool hasInit = false;
-  set<string> initModels;
-
   // Go through unit dynamic models to get init models and external variables files
   map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUnitDynamicModel;
   for (itUnitDynamicModel = unitDynamicModels.begin(); itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
@@ -494,8 +493,9 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
   }
 
   // Go through connects to keep only "internal" ones made at compile time
-  map<string, shared_ptr<dynamicdata::Connector> >::const_iterator itPinConnect;
-  for (itPinConnect = pinConnects.begin(); itPinConnect != pinConnects.end(); ++itPinConnect) {
+  vector<shared_ptr<dynamicdata::Connector> > internalConnects;
+  for (map<string, shared_ptr<dynamicdata::Connector> >::const_iterator itPinConnect = pinConnects.begin();
+      itPinConnect != pinConnects.end(); ++itPinConnect) {
     shared_ptr<dynamicdata::Connector> pinConnect = itPinConnect->second;
 
     set<string> internalModelsIDs;
@@ -509,7 +509,71 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
     }
   }
 
+  vector<shared_ptr<dynamicdata::Connector> > macroConnection;
+  collectMacroConnections(macroConnects, macroConnection);
   // .mo file generation
+  writeConcatModelicaFile(modelID, modelicaModelDescription, macroConnection,
+      unitDynamicModels, internalConnects);
+
+  // .extvar file generation
+  writeExtvarFile(modelicaModelDescription, macroConnection,
+      unitDynamicModels, internalConnects, allExternalVariables);
+
+  // _init.mo file generation
+  if (hasInit) {
+    writeInitFile(modelicaModelDescription, unitDynamicModels, macroConnects);
+  }
+}
+
+void
+Compiler::replaceMacroInVariableId(const string& index, const string& name,
+    const string& model1, const string& model2, const string& connector, string& variableId) const {
+  static const string indexLabel = "@INDEX@";
+  static const string nameLabel = "@NAME@";
+  // replace @INDEX@ in variableId
+  size_t pos = variableId.find(indexLabel);
+  if (pos != string::npos) {
+    if (index == "")
+      throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index");
+    variableId.replace(pos, indexLabel.size(), index);
+  }
+
+  // replace @NAME@ in variableId
+  pos = variableId.find(nameLabel);
+  if (pos != string::npos) {
+    if (name == "")
+      throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "name");
+    variableId.replace(pos, nameLabel.size(), name);
+  }
+}
+void
+Compiler::collectMacroConnections(const map<string, shared_ptr<dynamicdata::MacroConnect> >& macroConnects,
+    vector<shared_ptr<dynamicdata::Connector> >& macroConnection) const {
+  for (map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
+      itMC != macroConnects.end(); ++itMC) {
+    string connector = itMC->second->getConnector();
+    string model1 = itMC->second->getFirstModelId();
+    string model2 = itMC->second->getSecondModelId();
+
+    shared_ptr<dynamicdata::MacroConnector> macroConnector = dyd_->getDynamicModelsCollection()->findMacroConnector(connector);
+    // for each connect, create a system connect
+    map<string, shared_ptr<dynamicdata::MacroConnection> > connectors = macroConnector->getConnectors();
+    for (map<string, shared_ptr<dynamicdata::MacroConnection> >::const_iterator iter = connectors.begin();
+        iter != connectors.end(); ++iter) {
+      string var1 = iter->second->getFirstVariableId();
+      string var2 = iter->second->getSecondVariableId();
+      replaceMacroInVariableId(itMC->second->getIndex1(), itMC->second->getName1(), model1, model2, connector, var1);
+      replaceMacroInVariableId(itMC->second->getIndex2(), itMC->second->getName2(), model1, model2, connector, var2);
+
+      macroConnection.push_back(shared_ptr<dynamicdata::Connector>(new dynamicdata::Connector::Impl(model1, var1, model2, var2)));
+    }
+  }
+}
+void
+Compiler::writeConcatModelicaFile(const std::string& modelID, const shared_ptr<ModelDescription> & modelicaModelDescription,
+    const vector<shared_ptr<dynamicdata::Connector> >& macroConnection,
+    const map<string, shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
+    const vector<shared_ptr<dynamicdata::Connector> >& internalConnects) const {
   string modelConcatName = modelicaModelDescription->getCompiledModelId();
 
   string modelConcatFile = absolute(modelConcatName + ".mo", compileDirPath_);
@@ -519,103 +583,77 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
   fOut.open(modelConcatFile.c_str(), std::fstream::out);
   fOut << "model " << modelConcatName << std::endl;
 
-  for (itUnitDynamicModel = unitDynamicModels.begin(); itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
+  for (map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUnitDynamicModel =
+      unitDynamicModels.begin(); itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
     fOut << "  " << itUnitDynamicModel->second->getDynamicModelName() << " " << itUnitDynamicModel->first << "() ;" << std::endl;
     Trace::info("COMPILE") << itUnitDynamicModel->second->getDynamicModelName() << " " << itUnitDynamicModel->first << "() ;" << Trace::endline;
   }
   fOut << "equation" << std::endl;
 
-  vector<shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect;
-  for (itInternConnect = internalConnects.begin(); itInternConnect != internalConnects.end(); ++itInternConnect) {
+  for (vector<shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect = internalConnects.begin();
+      itInternConnect != internalConnects.end(); ++itInternConnect) {
     fOut << "  connect(" << (*itInternConnect)->getFirstModelId() << "." << (*itInternConnect)->getFirstVariableId()
-            << "," << (*itInternConnect)->getSecondModelId() << "." << (*itInternConnect)->getSecondVariableId() << ") ;" << std::endl;
+                  << "," << (*itInternConnect)->getSecondModelId() << "." << (*itInternConnect)->getSecondVariableId() << ") ;" << std::endl;
   }
 
-  static const string indexLabel = "@INDEX@";
-  static const string nameLabel = "@NAME@";
   // expand macro connect
-  vector<shared_ptr<dynamicdata::Connector> > macroConnection;
-  for (map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
-      itMC != macroConnects.end(); ++itMC) {
-    string connector = itMC->second->getConnector();
-    string model1 = itMC->second->getFirstModelId();
-    string model2 = itMC->second->getSecondModelId();
-
-    shared_ptr<dynamicdata::MacroConnector> macroConnector = dyd_->getDynamicModelsCollection()->findMacroConnector(connector);
-
-    // for each connect, create a system connect
-    map<string, shared_ptr<dynamicdata::MacroConnection> > connectors = macroConnector->getConnectors();
-    map<string, shared_ptr<dynamicdata::MacroConnection> >::const_iterator iter = connectors.begin();
-    for (; iter != connectors.end(); ++iter) {
-      string var1 = iter->second->getFirstVariableId();
-      string var2 = iter->second->getSecondVariableId();
-      // Greplace @INDEX@ in var1
-      if (var1.find(indexLabel) != string::npos) {
-        if (itMC->second->getIndex1() == "")
-          throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index1");
-        var1.replace(var1.find(indexLabel), indexLabel.size(), itMC->second->getIndex1());
-      }
-
-      // replace @INDEX@ in var2
-      if (var2.find(indexLabel) != string::npos) {
-        if (itMC->second->getIndex2() == "")
-          throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index2");
-        var2.replace(var2.find(indexLabel), indexLabel.size(), itMC->second->getIndex2());
-      }
-
-      // replace @NAME@ in var1
-      if (var1.find(nameLabel) != string::npos) {
-        if (itMC->second->getName1() == "")
-          throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "name1");
-        var1.replace(var1.find(nameLabel), nameLabel.size(), itMC->second->getName1());
-      }
-
-      // replace @NAME@ in var2
-      if (var2.find(nameLabel) != string::npos) {
-        if (itMC->second->getName2() == "")
-          throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index2");
-        var2.replace(var2.find(nameLabel), nameLabel.size(), itMC->second->getName2());
-      }
-
-      fOut << "  connect(" << model1 << "." << var1 << "," << model2 << "." << var2 << ");" << std::endl;
-      macroConnection.push_back(shared_ptr<dynamicdata::Connector>(new dynamicdata::Connector::Impl(model1, var1, model2, var2)));
-    }
+  for (vector<shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect = macroConnection.begin();
+      itInternConnect != macroConnection.end(); ++itInternConnect) {
+    fOut << "  connect(" << (*itInternConnect)->getFirstModelId() << "." << (*itInternConnect)->getFirstVariableId() << ","
+        << (*itInternConnect)->getSecondModelId() << "." << (*itInternConnect)->getSecondVariableId() << ");" << std::endl;
   }
   fOut << "end " << modelConcatName << ";" << std::endl;
   fOut.close();
+}
 
-  // .extvar file generation
+
+
+void
+Compiler::collectConnectedExtVar(string itUnitDynamicModelName,
+    const vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
+    const vector<boost::shared_ptr<dynamicdata::Connector> >& internalConnects, set<string>& extVarConnected) const {
+  for (vector<shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect = internalConnects.begin();
+      itInternConnect != internalConnects.end(); ++itInternConnect) {
+    if ((*itInternConnect)->getFirstModelId() == itUnitDynamicModelName)
+      extVarConnected.insert((*itInternConnect)->getFirstVariableId());
+    if ((*itInternConnect)->getSecondModelId() == itUnitDynamicModelName)
+      extVarConnected.insert((*itInternConnect)->getSecondVariableId());
+  }
+
+  for (vector<shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect = macroConnection.begin();
+      itInternConnect != macroConnection.end(); ++itInternConnect) {
+    if ((*itInternConnect)->getFirstModelId() ==  itUnitDynamicModelName)
+      extVarConnected.insert((*itInternConnect)->getFirstVariableId());
+    if ((*itInternConnect)->getSecondModelId() == itUnitDynamicModelName)
+      extVarConnected.insert((*itInternConnect)->getSecondVariableId());
+  }
+}
+
+void
+Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDescription,
+    const vector<shared_ptr<dynamicdata::Connector> >& macroConnection,
+    const map<string, shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
+    const vector<shared_ptr<dynamicdata::Connector> >& internalConnects,
+    const map<string, shared_ptr<externalVariables::VariablesCollection> >& allExternalVariables) const {
   // only keep external variables for which no internal connect has already been conducted
   shared_ptr<externalVariables::VariablesCollection> modelExternalvariables = externalVariables::VariablesCollectionFactory::newCollection();
   bool atLeastOneExternalVariable = false;
-  for (itUnitDynamicModel = unitDynamicModels.begin(); itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
-    std::string itUnitDynamicModelName = itUnitDynamicModel->first;
+  for (map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUnitDynamicModel = unitDynamicModels.begin();
+      itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
+    string itUnitDynamicModelName = itUnitDynamicModel->first;
     set<string> extVarConnected;
-    for (itInternConnect = internalConnects.begin(); itInternConnect != internalConnects.end(); ++itInternConnect) {
-      if ((*itInternConnect)->getFirstModelId() == itUnitDynamicModelName)
-        extVarConnected.insert((*itInternConnect)->getFirstVariableId());
-      if ((*itInternConnect)->getSecondModelId() == itUnitDynamicModelName)
-        extVarConnected.insert((*itInternConnect)->getSecondVariableId());
-    }
-
-    for (itInternConnect = macroConnection.begin(); itInternConnect != macroConnection.end(); ++itInternConnect) {
-      if ((*itInternConnect)->getFirstModelId() ==  itUnitDynamicModelName)
-        extVarConnected.insert((*itInternConnect)->getFirstVariableId());
-      if ((*itInternConnect)->getSecondModelId() == itUnitDynamicModelName)
-        extVarConnected.insert((*itInternConnect)->getSecondVariableId());
-    }
-
+    collectConnectedExtVar(itUnitDynamicModelName, macroConnection, internalConnects, extVarConnected);
 
     if (allExternalVariables.find(itUnitDynamicModelName) != allExternalVariables.end()) {
       boost::shared_ptr<externalVariables::VariablesCollection> unitModelExternalVariables = allExternalVariables.find(itUnitDynamicModelName)->second;
       for (externalVariables::variable_iterator itExternalVariable = unitModelExternalVariables->beginVariable();
-              itExternalVariable != unitModelExternalVariables->endVariable(); ++itExternalVariable) {
+          itExternalVariable != unitModelExternalVariables->endVariable(); ++itExternalVariable) {
         const string& variableName = (*itExternalVariable)->getId();
 
         // remove all sub-structures from the external variable identifier,
         // in order to retrieve the native Modelica (macro) object name
         string modelicaObjectName = variableName;
-        std::size_t found = variableName.find(".");
+        size_t found = variableName.find(".");
         if (found != string::npos) {
           modelicaObjectName = variableName.substr(0, found);
         }
@@ -631,86 +669,68 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
   }
 
   if (atLeastOneExternalVariable) {
+    string modelConcatName = modelicaModelDescription->getCompiledModelId();
     const string extVarFlatPath = absolute(modelConcatName + ".extvar", compileDirPath_);
     externalVariables::XmlExporter extVarExporter;
     extVarExporter.exportToFile(*modelExternalvariables, extVarFlatPath);
   }
+}
 
-  // _init.mo file generation
-  if (hasInit) {
-    string initConcatName = modelConcatName + "_INIT";
-    string initConcatFile = absolute(initConcatName + ".mo", compileDirPath_);
-    fOut.open(initConcatFile.c_str(), std::fstream::out);
-    fOut << "model " << initConcatName << std::endl;
-    for (itUnitDynamicModel = unitDynamicModels.begin(); itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
-      if (itUnitDynamicModel->second->getInitModelName() != "")
-        fOut << "  " << itUnitDynamicModel->second->getInitModelName() << " " << itUnitDynamicModel->first << "() ;" << std::endl;
-    }
-    fOut << "equation" << std::endl;
-    map<string, shared_ptr<dynamicdata::Connector> > initConnects;
-    if (modelicaModelDescription->getType() == dynamicdata::Model::MODELICA_MODEL) {
-      shared_ptr<dynamicdata::ModelicaModel> modelicaModel = dynamic_pointer_cast<dynamicdata::ModelicaModel> (modelicaModelDescription->getModel());
-      initConnects = modelicaModel->getInitConnectors();
-    } else {
-      shared_ptr<dynamicdata::ModelTemplate> modelicaModel = dynamic_pointer_cast<dynamicdata::ModelTemplate> (modelicaModelDescription->getModel());
-      initConnects = modelicaModel->getInitConnectors();
-    }
-    map<string, shared_ptr<dynamicdata::Connector> >::const_iterator itInitConnect;
-    for (itInitConnect = initConnects.begin(); itInitConnect != initConnects.end(); ++itInitConnect) {
-      fOut << "  connect(" << itInitConnect->second->getFirstModelId() << "." << itInitConnect->second->getFirstVariableId()
-              << "," << itInitConnect->second->getSecondModelId() << "." << itInitConnect->second->getSecondVariableId() << ") ;" << std::endl;
-    }
+void
+Compiler::writeInitFile(const shared_ptr<ModelDescription> & modelicaModelDescription,
+    const map<string, shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
+    const map<string, shared_ptr<dynamicdata::MacroConnect> >& macroConnects) const {
+  string modelConcatName = modelicaModelDescription->getCompiledModelId();
+  string initConcatName = modelConcatName + "_INIT";
+  string initConcatFile = absolute(initConcatName + ".mo", compileDirPath_);
 
-    // expand init macro connect
-    // expand macro connect
-    for (map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
-        itMC != macroConnects.end(); ++itMC) {
-      string connector = itMC->second->getConnector();
-      string model1 = itMC->second->getFirstModelId();
-      string model2 = itMC->second->getSecondModelId();
-
-      shared_ptr<dynamicdata::MacroConnector> macroConnector = dyd_->getDynamicModelsCollection()->findMacroConnector(connector);
-
-      // for each connect, create a system connect
-      map<string, shared_ptr<dynamicdata::MacroConnection> > connectors = macroConnector->getInitConnectors();
-      map<string, shared_ptr<dynamicdata::MacroConnection> >::const_iterator iter = connectors.begin();
-      for (; iter != connectors.end(); ++iter) {
-        string var1 = iter->second->getFirstVariableId();
-        string var2 = iter->second->getSecondVariableId();
-        // replace @INDEX@ in var1
-        if (var1.find(indexLabel) != string::npos) {
-          if (itMC->second->getIndex1() == "")
-            throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index1");
-          var1.replace(var1.find(indexLabel), indexLabel.size(), itMC->second->getIndex1());
-        }
-
-        // replace @INDEX@ in var2
-        if (var2.find(indexLabel) != string::npos) {
-          if (itMC->second->getIndex2() == "")
-            throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index2");
-          var2.replace(var2.find(indexLabel), indexLabel.size(), itMC->second->getIndex2());
-        }
-
-        // replace @NAME@ in var1
-        if (var1.find(nameLabel) != string::npos) {
-          if (itMC->second->getName1() == "")
-            throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "name1");
-          var1.replace(var1.find(nameLabel), nameLabel.size(), itMC->second->getName1());
-        }
-
-        // replace @NAME@ in var2
-        if (var2.find(nameLabel) != string::npos) {
-          if (itMC->second->getName2() == "")
-            throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "name2");
-          var2.replace(var2.find(nameLabel), nameLabel.size(), itMC->second->getName2());
-        }
-
-        fOut << "  connect(" << model1 << "." << var1 << "," << model2 << "." << var2 << ");" << std::endl;
-      }
-    }
-    fOut << "end " << initConcatName << ";" << std::endl;
-    fOut.close();
+  std::ofstream fOut;
+  fOut.open(initConcatFile.c_str(), std::fstream::out);
+  fOut << "model " << initConcatName << std::endl;
+  for (map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUnitDynamicModel = unitDynamicModels.begin();
+      itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
+    if (itUnitDynamicModel->second->getInitModelName() != "")
+      fOut << "  " << itUnitDynamicModel->second->getInitModelName() << " " << itUnitDynamicModel->first << "() ;" << std::endl;
   }
+  fOut << "equation" << std::endl;
+  map<string, shared_ptr<dynamicdata::Connector> > initConnects;
+  if (modelicaModelDescription->getType() == dynamicdata::Model::MODELICA_MODEL) {
+    shared_ptr<dynamicdata::ModelicaModel> modelicaModel = dynamic_pointer_cast<dynamicdata::ModelicaModel> (modelicaModelDescription->getModel());
+    initConnects = modelicaModel->getInitConnectors();
+  } else {
+    shared_ptr<dynamicdata::ModelTemplate> modelicaModel = dynamic_pointer_cast<dynamicdata::ModelTemplate> (modelicaModelDescription->getModel());
+    initConnects = modelicaModel->getInitConnectors();
+  }
+  for (map<string, shared_ptr<dynamicdata::Connector> >::const_iterator itInitConnect = initConnects.begin();
+      itInitConnect != initConnects.end(); ++itInitConnect) {
+    fOut << "  connect(" << itInitConnect->second->getFirstModelId() << "." << itInitConnect->second->getFirstVariableId()
+                << "," << itInitConnect->second->getSecondModelId() << "." << itInitConnect->second->getSecondVariableId() << ") ;" << std::endl;
+  }
+
+  // expand init macro connect
+  // expand macro connect
+  for (map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
+      itMC != macroConnects.end(); ++itMC) {
+    string connector = itMC->second->getConnector();
+    string model1 = itMC->second->getFirstModelId();
+    string model2 = itMC->second->getSecondModelId();
+
+    shared_ptr<dynamicdata::MacroConnector> macroConnector = dyd_->getDynamicModelsCollection()->findMacroConnector(connector);
+    // for each connect, create a system connect
+    map<string, shared_ptr<dynamicdata::MacroConnection> > connectors = macroConnector->getInitConnectors();
+    for (map<string, shared_ptr<dynamicdata::MacroConnection> >::const_iterator iter = connectors.begin();
+        iter != connectors.end(); ++iter) {
+      string var1 = iter->second->getFirstVariableId();
+      string var2 = iter->second->getSecondVariableId();
+
+      replaceMacroInVariableId(itMC->second->getIndex1(), itMC->second->getName1(), model1, model2, connector, var1);
+      replaceMacroInVariableId(itMC->second->getIndex2(), itMC->second->getName2(), model1, model2, connector, var2);
+
+      fOut << "  connect(" << model1 << "." << var1 << "," << model2 << "." << var2 << ");" << std::endl;
+    }
+  }
+  fOut << "end " << initConcatName << ";" << std::endl;
+  fOut.close();
 }
 
 void
