@@ -50,8 +50,8 @@
       <xs:element name="network" type="dyn:NetworkEntry" minOccurs="0"/>
       <xs:element name="dynModels" type="dyn:DynModelsEntry" maxOccurs="unbounded"/>
       <xs:element name="initialState" type="dyn:InitialStateEntry" minOccurs="0"/>
-      <xs:element name="precompiledModels" type="dyn:ModelsDirEntry"/>
-      <xs:element name="modelicaModels" type="dyn:ModelsDirEntry"/>
+      <xs:element name="precompiledModels" type="dyn:PrecompiledModelsDirEntry"/>
+      <xs:element name="modelicaModels" type="dyn:ModelicaModelsDirEntry"/>
     </xs:sequence>
     <xs:attribute name="compileDir" use="required" type="xs:string"/>
   </xs:complexType>
@@ -70,7 +70,14 @@
     <xs:attribute name="file" use="required" type="xs:string"/>
   </xs:complexType>
 
-  <xs:complexType name="ModelsDirEntry">
+  <xs:complexType name="PrecompiledModelsDirEntry">
+    <xs:sequence>
+      <xs:element name="directory" type="dyn:Directory" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="useStandardModels" use="required" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="ModelicaModelsDirEntry">
     <xs:sequence>
       <xs:element name="directory" type="dyn:Directory" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
