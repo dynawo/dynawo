@@ -396,14 +396,14 @@ ModelTwoWindingsTransformer::evalJt(SparseMatrix& jt, const double& /*cj*/, cons
     double ui1Val = ui1();
     double ur2Val = ur2();
     double ui2Val = ui2();
-    double ur1Term = (ir2_dUr1() * ir2(ur1Val, ui1Val, ur2Val, ui2Val) + ii2_dUr1() * ii2(ur1Val, ui1Val, ur2Val, ui2Val))
-           / i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
-    double ui1Term = (ir2_dUi1() * ir2(ur1Val, ui1Val, ur2Val, ui2Val) + ii2_dUi1() * ii2(ur1Val, ui1Val, ur2Val, ui2Val))
-               / i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
-    double ur2Term = (ir2_dUr2() * ir2(ur1Val, ui1Val, ur2Val, ui2Val) + ii2_dUr2() * ii2(ur1Val, ui1Val, ur2Val, ui2Val))
-               / i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
-    double ui2Term = (ir2_dUi2() * ir2(ur1Val, ui1Val, ur2Val, ui2Val) + ii2_dUi2() * ii2(ur1Val, ui1Val, ur2Val, ui2Val))
-               / i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
+    double ir2Val = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
+    double ii2Val = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
+    double i2Val = i2(ur1Val, ui1Val, ur2Val, ui2Val);
+
+    double ur1Term = (ir2_dUr1() * ir2Val + ii2_dUr1() * ii2Val) / i2Val * factorPuToASide2_;
+    double ui1Term = (ir2_dUi1() * ir2Val + ii2_dUi1() * ii2Val) / i2Val * factorPuToASide2_;
+    double ur2Term = (ir2_dUr2() * ir2Val + ii2_dUr2() * ii2Val) / i2Val * factorPuToASide2_;
+    double ui2Term = (ir2_dUi2() * ir2Val + ii2_dUi2() * ii2Val) / i2Val * factorPuToASide2_;
 
     // column for equations iSide2Var
     jt.changeCol();
