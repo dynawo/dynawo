@@ -129,16 +129,16 @@ check_tags() {
 
 checkout_openmodelica_repository() {
   if [ ! -d "$SRC_OPENMODELICA" ]; then
-    git clone --branch v${OPENMODELICA_VERSION//_/.} --depth 1 $DYNAWO_OPENMODELICA_GIT_URL $SRC_OPENMODELICA || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
+    git clone --branch v${OPENMODELICA_VERSION//_/.} $DYNAWO_OPENMODELICA_GIT_URL $SRC_OPENMODELICA || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
     if [ -d "$SRC_OPENMODELICA" ]; then
       cd "$SRC_OPENMODELICA"
       GIT_OPTION=""
       if check_git_version; then
         GIT_OPTION="--progress"
       fi
-      git submodule update --depth 1 --init $GIT_OPTION OMCompiler || error_exit "Git clone of OMCompiler in $SRC_OPENMODELICA failed."
-      (cd OMCompiler; git submodule update --depth 60 --init $GIT_OPTION 3rdParty;) || error_exit "Git clone of OMCompiler/3rdParty in $SRC_OPENMODELICA failed."
-      (cd OMCompiler; git submodule update --depth 50 --init $GIT_OPTION common;) || error_exit "Git clone of OMCompiler/common in $SRC_OPENMODELICA failed."
+      git submodule update --init $GIT_OPTION OMCompiler || error_exit "Git clone of OMCompiler in $SRC_OPENMODELICA failed."
+      (cd OMCompiler; git submodule update --init $GIT_OPTION 3rdParty;) || error_exit "Git clone of OMCompiler/3rdParty in $SRC_OPENMODELICA failed."
+      (cd OMCompiler; git submodule update --init $GIT_OPTION common;) || error_exit "Git clone of OMCompiler/common in $SRC_OPENMODELICA failed."
       git submodule update --init $GIT_OPTION --recursive libraries || error_exit "Git clone of libraries in $SRC_OPENMODELICA failed."
       git submodule update --init $GIT_OPTION --recursive common || error_exit "Git clone of common in $SRC_OPENMODELICA failed."
       if [ -d "$SRC_OPENMODELICA/libraries" ]; then
