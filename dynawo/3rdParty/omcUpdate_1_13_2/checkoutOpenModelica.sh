@@ -100,8 +100,8 @@ check_tag_openmodelica() {
 check_tag_omcompiler() {
   if [ -d "$SRC_OPENMODELICA/OMCompiler" ]; then
     cd $SRC_OPENMODELICA/OMCompiler
-    last_log_omcompiler=$(git log -1 --decorate | grep -o "v${OPENMODELICA_VERSION//_/.}")
-    if [ "$last_log_omcompiler" != "v${OPENMODELICA_VERSION//_/.}" ]; then
+    last_log_omcompiler=$(git log -1 --decorate | grep -o "tag: v${OPENMODELICA_VERSION//_/.}")
+    if [ "$last_log_omcompiler" != "tag: v${OPENMODELICA_VERSION//_/.}" ]; then
       return 1
     fi
   else
@@ -129,9 +129,10 @@ check_tags() {
 
 checkout_openmodelica_repository() {
   if [ ! -d "$SRC_OPENMODELICA" ]; then
-    git clone --branch v${OPENMODELICA_VERSION//_/.} $DYNAWO_OPENMODELICA_GIT_URL $SRC_OPENMODELICA || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
+    git clone $DYNAWO_OPENMODELICA_GIT_URL $SRC_OPENMODELICA || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
     if [ -d "$SRC_OPENMODELICA" ]; then
       cd "$SRC_OPENMODELICA"
+      git checkout tags/v${OPENMODELICA_VERSION//_/.} || error_exit "Git checkout tags/v${OPENMODELICA_VERSION//_/.} failed for OpenModelica in $SRC_OPENMODELICA."
       GIT_OPTION=""
       if check_git_version; then
         GIT_OPTION="--progress"
@@ -152,6 +153,10 @@ checkout_openmodelica_repository() {
     RETURN_CODE=$?
     if [[ "$RETURN_CODE" != 0 ]]; then
       cd $SRC_OPENMODELICA
+      git checkout tags/v${OPENMODELICA_VERSION//_/.} || error_exit "Git checkout tags/v${OPENMODELICA_VERSION//_/.} failed for OpenModelica in $SRC_OPENMODELICA."
+      if [ -d "$SRC_OPENMODELICA/OMCompiler" ]; then
+        pushd OMCompiler && git checkout tags/v${OPENMODELICA_VERSION//_/.} && popd || error_exit "Git checkout tags/v${OPENMODELICA_VERSION//_/.} failed for OMCompiler in $SRC_OPENMODELICA/OMCompiler."
+      fi
       if [ -d "$SRC_OPENMODELICA/libraries/Modelica" ]; then
         pushd libraries/Modelica && git checkout tags/v${MODELICA_LIB//_/.} && popd || error_exit "Git checkout tags/v${MODELICA_LIB//_/.} failed for Modelica Standard Library in $SRC_OPENMODELICA/libraries/Modelica."
       fi
@@ -165,5 +170,3 @@ checkout_openmodelica_repository() {
 
 check_configuration
 checkout_openmodelica_repository
-
-exit 0
