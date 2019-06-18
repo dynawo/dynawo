@@ -22,6 +22,10 @@ if [ -z "$DYNAWO_INSTALL_OPENMODELICA" ]; then
   echo "DYNAWO_INSTALL_OPENMODELICA environment variable should be set."
   exit 1
 fi
+if [ -z "$DYNAWO_OPENMODELICA_VERSION" ]; then
+  echo "DYNAWO_OPENMODELICA_VERSION environment variable should be set."
+  exit 1
+fi
 
 # Setting install path environment variables
 COMPILER_CMD=@CMAKE_CXX_COMPILER@
