@@ -22,9 +22,9 @@ function init {
   addedFile=(${SRC_OPENMODELICA}${ps}OMCompiler${ps}Compiler${ps}BackEnd${ps}XMLCreateDynawo.mo)
 
   for patchFile in "${patchFiles[@]}"; do
-    file=`echo $patchFile | sed 's|'"${DIR_RESOURCE}"'|'"${SRC_OPENMODELICA}"'|g'`
+    file=`echo $patchFile | sed "s|${DIR_RESOURCE}|${SRC_OPENMODELICA}|g"`
     patchFilesInOM+=($file)
-    patchedFile=`grep "+++" $patchFile |  awk '{print $2;}'`
+    patchedFile=`grep "+++" $patchFile | awk '{print $2}'`
     patchedFiles+=(${SRC_OPENMODELICA}${ps}${patchedFile})
   done
 }

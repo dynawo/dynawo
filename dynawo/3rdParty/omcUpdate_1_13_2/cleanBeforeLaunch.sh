@@ -35,9 +35,6 @@ while (($#)); do
 done
 
 ps="/"
-if [ \( ! -z "${OS}" \) -a \( "${OS}" = "Window_NT" \) ]; then
-  ps="\\"
-fi
 
 source utils.sh
 init
@@ -119,5 +116,3 @@ architecture_omc
 restore_files
 remove_created_files
 remove_patch_files
-
-exit 0
