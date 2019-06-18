@@ -41,6 +41,10 @@ options[('-b','--init')] = { 'action':"store_true",
                             'help': 'To indicate an init problem for the model',
                             'default': False}
 
+options[('-p','--package-name')] = { 'dest': 'packageName',
+                                    'help': 'To indicate a package name.',
+                                    'default': ''}
+
 options[('-a','--additionalHeaderList')] = { 'dest': 'additionalHeaderFilesStr',
                             'help': 'list of headers that should be included in the dynamic model files'}
 ##
@@ -52,6 +56,7 @@ if __name__ == '__main__':
     input_dir = ""
     output_dir = "."
     mod_name = ""
+    package_name = ""
 
     opt_parser = OptionParser()
     for param, option in options.items():
@@ -71,6 +76,7 @@ if __name__ == '__main__':
     init_pb = options.init_pb
     additional_header_files = []
     if options.additionalHeaderFilesStr is not None: additional_header_files = options.additionalHeaderFilesStr.split(" ")
+    if options.packageName: package_name = options.packageName
 
     ###########################################
     # Readers (init pb and dynamic pb)
@@ -157,7 +163,7 @@ if __name__ == '__main__':
     writer_init_pb = None # The file writer binds to the initialization template
 
     if init_pb:
-        writer_init_pb = ModelWriter(builder_init_pb, mod_name, output_dir, init_pb)
+        writer_init_pb = ModelWriter(builder_init_pb, mod_name, output_dir, package_name, init_pb)
 
         writer_init_pb.getHead()
         writer_init_pb.fill_initData()
@@ -208,7 +214,7 @@ if __name__ == '__main__':
     # Generation of files related to the dynamic model
     # -------------------------------------------------------
 
-    writer = ModelWriter(builder, mod_name, output_dir)
+    writer = ModelWriter(builder, mod_name, output_dir, package_name)
 
     # Fichier C
     writer.getHead()
@@ -260,7 +266,7 @@ if __name__ == '__main__':
     # -------------------------------------------------------
     # Generation of the files related to the complete model
     # -------------------------------------------------------
-    writer = ModelWriterManager( mod_name, output_dir,init_pb)
+    writer = ModelWriterManager( mod_name, output_dir, package_name, init_pb)
     writer.set_body()
     writer.write_file()
 

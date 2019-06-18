@@ -68,16 +68,17 @@ class ModelWriterManager(ModelWriterBase):
     # default constructor
     # @param self : object pointer
     # @param mod_name : name of the model
-    # @param output_dir : directory where files should be writtern
+    # @param output_dir : directory where files should be written
+    # @param package_name: name of the Modelica package containing the model
     # @param init_pb : @b True if the model has an init model
-    def __init__(self,mod_name,output_dir,init_pb):
-        ModelWriterBase.__init__(self,mod_name)
+    def __init__(self,mod_name,output_dir, package_name, init_pb):
+        ModelWriterBase.__init__(self,mod_name.replace(package_name, ''))
         ## name of the model to use in files
-        self.className = mod_name
+        self.className = mod_name.replace(package_name, '')
         ## canonical name of the cpp file
-        self.fileName = os.path.join (output_dir, mod_name + ".cpp")
+        self.fileName = os.path.join (output_dir, self.className + ".cpp")
         ## canonical name of the header file
-        self.fileName_h = os.path.join (output_dir, mod_name + ".h")
+        self.fileName_h = os.path.join (output_dir, self.className + ".h")
         ## indicates if the model has an init model
         self.hasInitPb = init_pb
         ## body of the cpp file
@@ -217,9 +218,10 @@ class ModelWriter(ModelWriterBase):
     # @param obj_factory : builder associated to the writer
     # @param mod_name : name of the model
     # @param output_dir : output directory where files should be written
+    # @param package_name: name of the Modelica package containing the model
     # @param init_pb : indicates if the model is an init model
-    def __init__(self, obj_factory, mod_name, output_dir, init_pb = False):
-        ModelWriterBase.__init__(self,mod_name)
+    def __init__(self, obj_factory, mod_name, output_dir, package_name, init_pb = False):
+        ModelWriterBase.__init__(self,mod_name.replace(package_name, ''))
         ## builder associated to the writer
         self.builder = obj_factory
         ## indicates if the model is an init model
@@ -227,9 +229,9 @@ class ModelWriter(ModelWriterBase):
         ## define the name of the class to use in cpp/h files
         self.className =""
         if init_pb:
-            self.className = mod_name + "_Init"
+            self.className = mod_name.replace(package_name, '') + "_Init"
         else:
-            self.className = mod_name + "_Dyn"
+            self.className = mod_name.replace(package_name, '') + "_Dyn"
 
         ## Cpp file to generate
         self.fileName = os.path.join(output_dir, self.className + ".cpp")
