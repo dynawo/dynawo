@@ -12,13 +12,13 @@
 //
 
 /**
- * @file  DYNCommun.h
+ * @file  DYNCommon.h
  *
  * @brief define common function that could be used
  *
  */
-#ifndef COMMON_DYNCOMMUN_H_
-#define COMMON_DYNCOMMUN_H_
+#ifndef COMMON_DYNCOMMON_H_
+#define COMMON_DYNCOMMON_H_
 
 #include <string>
 #include <vector>
@@ -145,4 +145,4 @@ namespace DYN {
   }
 }  // namespace DYN
 
-#endif  // COMMON_DYNCOMMUN_H_
+#endif  // COMMON_DYNCOMMON_H_

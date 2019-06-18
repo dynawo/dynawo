@@ -12,7 +12,7 @@
 //
 
 #include "gtest_dynawo.h"
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNExecUtils.h"
 #include "DYNCompiler.h"

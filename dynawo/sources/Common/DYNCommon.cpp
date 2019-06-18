@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNCommun.cpp
+ * @file  DYNCommon.cpp
  *
  * @brief  define common function that could be used
  *
@@ -24,7 +24,7 @@
 #include <cstdarg>
 #include <sstream>
 #include <iomanip>
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
 
 using std::string;

@@ -22,7 +22,7 @@
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/BasicTypes.h>
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNTwoWTransformerInterfaceIIDM.h"
 #include "DYNPhaseTapChangerInterfaceIIDM.h"
 #include "DYNRatioTapChangerInterfaceIIDM.h"

@@ -61,7 +61,7 @@
 #include "EXTVARVariablesCollectionFactory.h"
 #include "EXTVARVariable.h"
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 
 using std::list;
 using std::map;

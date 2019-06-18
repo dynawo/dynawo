@@ -30,7 +30,7 @@
 
 #include "DYNDynamicData.h"
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
 #include "DYNIoDico.h"

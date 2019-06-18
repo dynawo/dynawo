@@ -41,7 +41,7 @@
 #include "DYNElement.h"
 #include "DYNTimer.h"
 #include "DYNConnectorCalculatedVariable.h"
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNVariable.h"
 
 using std::min;

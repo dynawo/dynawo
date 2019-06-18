@@ -26,7 +26,7 @@
 #include <boost/optional.hpp>
 #include <boost/any.hpp>
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNParameter.h"
 
 namespace DYN {

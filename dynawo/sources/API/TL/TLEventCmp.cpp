@@ -18,7 +18,7 @@
  *
  */
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "TLEventCmp.h"
 #include "TLEvent.h"
 
