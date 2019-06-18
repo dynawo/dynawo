@@ -22,7 +22,7 @@
 #include <xml/sax/formatter/AttributeList.h>
 #include <xml/sax/formatter/Formatter.h>
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
 
 #include "FSXmlExporter.h"

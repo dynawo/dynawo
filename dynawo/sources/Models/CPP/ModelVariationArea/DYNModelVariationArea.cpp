@@ -32,7 +32,7 @@
 #include "DYNSparseMatrix.h"
 #include "DYNElement.h"
 #include "DYNCommonModeler.h"
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNVariableForModel.h"
 #include "DYNParameter.h"
 

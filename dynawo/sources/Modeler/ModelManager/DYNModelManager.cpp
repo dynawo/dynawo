@@ -29,7 +29,7 @@
 #include "PARParametersSetFactory.h"
 #include "PARParameter.h"
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
 #include "DYNElement.h"
 #include "DYNFileSystemUtils.h"

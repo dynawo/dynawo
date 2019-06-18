@@ -22,7 +22,7 @@
 #include <cmath>
 
 #include "gtest_dynawo.h"
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNError.h"
 #include "DYNError_keys.h"
@@ -31,7 +31,7 @@
 
 namespace DYN {
 
-TEST(CommonTest, testCommunVarC) {
+TEST(CommonTest, testCommonVarC) {
   // typeVarC2Str
   ASSERT_EQ(typeVarC2Str(VAR_TYPE_DOUBLE), "DOUBLE");
   ASSERT_EQ(typeVarC2Str(VAR_TYPE_STRING), "STRING");
@@ -52,7 +52,7 @@ TEST(CommonTest, testCommunVarC) {
   ASSERT_EQ(sign(0), 1);
 }
 
-TEST(CommonTest, testCommunVectorEqualityDifferentSize) {
+TEST(CommonTest, testCommonVectorEqualityDifferentSize) {
   std::vector<double> a;
   a.push_back(1.);
   a.push_back(2.);
@@ -62,7 +62,7 @@ TEST(CommonTest, testCommunVectorEqualityDifferentSize) {
   ASSERT_EQ(vectorAreEquals(a, b), false);
 }
 
-TEST(CommonTest, testCommunVectorEqualitySameSizeNotEqual) {
+TEST(CommonTest, testCommonVectorEqualitySameSizeNotEqual) {
   std::vector<double> a;
   a.push_back(1.);
   a.push_back(2.);
@@ -73,7 +73,7 @@ TEST(CommonTest, testCommunVectorEqualitySameSizeNotEqual) {
   ASSERT_EQ(vectorAreEquals(a, b), false);
 }
 
-TEST(CommonTest, testCommunVectorEqualitySameSizeEqual) {
+TEST(CommonTest, testCommonVectorEqualitySameSizeEqual) {
   std::vector<double> a;
   a.push_back(1.);
   a.push_back(2.);

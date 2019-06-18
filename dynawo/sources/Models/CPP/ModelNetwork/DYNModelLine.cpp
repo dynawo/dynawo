@@ -24,7 +24,7 @@
 
 #include "DYNModelLine.h"
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNModelConstants.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"

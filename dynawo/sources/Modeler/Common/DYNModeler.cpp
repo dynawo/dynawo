@@ -31,7 +31,7 @@
 #include "DYDModel.h"
 
 #include "DYNModeler.h"
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
 #include "DYNSubModel.h"
 #include "DYNConnectInterface.h"

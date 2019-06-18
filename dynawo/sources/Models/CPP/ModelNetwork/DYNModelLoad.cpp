@@ -23,7 +23,7 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelLoad.h"
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNCommonModeler.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"

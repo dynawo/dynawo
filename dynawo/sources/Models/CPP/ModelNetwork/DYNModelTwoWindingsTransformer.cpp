@@ -31,7 +31,7 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelTwoWindingsTransformer.h"
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNModelRatioTapChanger.h"
 #include "DYNModelPhaseTapChanger.h"
 #include "DYNModelTapChanger.h"

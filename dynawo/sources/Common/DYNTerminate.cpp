@@ -21,7 +21,7 @@
  */
 #include <sstream>
 #include <stdio.h>
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNTerminate.h"
 #include "DYNMessage.hpp"
 

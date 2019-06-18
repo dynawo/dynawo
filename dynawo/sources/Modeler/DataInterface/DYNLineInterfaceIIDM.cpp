@@ -22,7 +22,7 @@
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/BasicTypes.h>
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNLineInterfaceIIDM.h"
 #include "DYNVoltageLevelInterface.h"
 #include "DYNStateVariable.h"

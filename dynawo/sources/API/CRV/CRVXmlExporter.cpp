@@ -25,7 +25,7 @@
 
 #include "DYNMacrosMessage.h"
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 
 #include "CRVCurvesCollection.h"
 #include "CRVCurve.h"

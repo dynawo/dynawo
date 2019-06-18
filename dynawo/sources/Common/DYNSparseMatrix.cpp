@@ -27,7 +27,7 @@
 #include <cassert>
 #include <cmath>
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNSparseMatrix.h"

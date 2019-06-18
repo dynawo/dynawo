@@ -22,7 +22,7 @@
 
 #include <string>
 
-#include "DYNCommun.h"
+#include "DYNCommon.h"
 
 namespace DYN {
 
