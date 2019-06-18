@@ -19,11 +19,6 @@ remove useless dependencies
 
 - bug fix - report from OpenModelica master to keep calls to external C function (Timeline, assert, terminate) in DAE mode
 
-### libraries-Makefile ###
-
-This file is copied into OpenModelica sources to replace <OM sources>/libraries/Makefile
-Modification of Makefile of libraries folder to modify Modelica path - not in patch format as patch fails
-
 ### LoadCompilerSources-mos.patch ###
 
 register the XMLCreateDynawo.mo file as source file

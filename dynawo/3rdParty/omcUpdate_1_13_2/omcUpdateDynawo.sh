@@ -188,8 +188,6 @@ create_omc_dynawo() {
   cmd1="${MAKE} -j${NB_PROCESSORS_USED} omc"
   launch_command ${cmd1}
 
-  create_modelica_3_2_2
-
   cmd1="${MAKE} -j${NB_PROCESSORS_USED} omlibrary-all"
   launch_command ${cmd1}
 
@@ -198,21 +196,6 @@ create_omc_dynawo() {
 
   $CD ${INSTALL_OPENMODELICA}${ps}/bin
   ln -s -f omc omcDynawo
-}
-
-# Modelica sources version 3.2.2 creation
-# ----------------------------------------
-create_modelica_3_2_2() {
-  cd ${SRC_OPENMODELICA}/libraries/Modelica
-  $MKDIR 'Modelica 3.2.2'
-  cp -r Modelica/* 'Modelica 3.2.2'/
-  $MKDIR 'ModelicaReference 3.2.2'
-  cp -r ModelicaReference/* 'ModelicaReference 3.2.2'/
-  $MKDIR 'ModelicaServices 3.2.2'
-  cp -r ModelicaServices/* 'ModelicaServices 3.2.2'/
-  $MKDIR 'ModelicaTest 3.2.2'
-  cp -r ModelicaTest/* 'ModelicaTest 3.2.2'/
-  cd ${SRC_OPENMODELICA}
 }
 
 # Save file if it is not already saved
@@ -234,7 +217,6 @@ save_original_files() {
   for patchedFile in "${patchedFiles[@]}"; do
     save_file_if_not_exist ${patchedFile}
   done
-  save_file_if_not_exist ${SRC_OPENMODELICA}${ps}libraries${ps}Makefile
   save_file_if_not_exist ${SRC_OPENMODELICA}${ps}libraries${ps}Makefile.libs
 }
 
@@ -252,7 +234,6 @@ update_sources() {
     $CP ${patchFile} .
     patch -p0 < ${patchFile}
   done
-  $CP ${DIR_RESOURCE}${ps}libraries-Makefile ${SRC_OPENMODELICA}${ps}libraries${ps}Makefile
   $CP ${DIR_RESOURCE}${ps}Makefile.libs ${SRC_OPENMODELICA}${ps}libraries${ps}Makefile.libs
 }
 
