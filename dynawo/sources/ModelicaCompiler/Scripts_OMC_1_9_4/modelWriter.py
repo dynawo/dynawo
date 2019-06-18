@@ -33,9 +33,12 @@ class ModelWriterBase:
     # default constructor
     # @param self : object pointer
     # @param mod_name : model name to use when creating file
-    def __init__(self,mod_name):
+    # @param mod_name_without_package : model name without Modelica package prefix
+    def __init__(self,mod_name,mod_name_without_package):
         ##  model name to use when creating file
         self.mod_name = mod_name
+        ##  model name without Modelica package prefix
+        self.mod_name_without_package = mod_name_without_package
         ## data to print in cpp file
         self.file_content = []
         ## data to print in header file
@@ -72,9 +75,9 @@ class ModelWriterManager(ModelWriterBase):
     # @param package_name: name of the Modelica package containing the model
     # @param init_pb : @b True if the model has an init model
     def __init__(self,mod_name,output_dir, package_name, init_pb):
-        ModelWriterBase.__init__(self,mod_name.replace(package_name, ''))
+        ModelWriterBase.__init__(self,mod_name,mod_name.replace(package_name, ''))
         ## name of the model to use in files
-        self.className = mod_name.replace(package_name, '')
+        self.className = self.mod_name_without_package
         ## canonical name of the cpp file
         self.fileName = os.path.join (output_dir, self.className + ".cpp")
         ## canonical name of the header file
@@ -221,7 +224,7 @@ class ModelWriter(ModelWriterBase):
     # @param package_name: name of the Modelica package containing the model
     # @param init_pb : indicates if the model is an init model
     def __init__(self, obj_factory, mod_name, output_dir, package_name, init_pb = False):
-        ModelWriterBase.__init__(self,mod_name.replace(package_name, ''))
+        ModelWriterBase.__init__(self,mod_name,mod_name.replace(package_name, ''))
         ## builder associated to the writer
         self.builder = obj_factory
         ## indicates if the model is an init model
@@ -229,9 +232,9 @@ class ModelWriter(ModelWriterBase):
         ## define the name of the class to use in cpp/h files
         self.className =""
         if init_pb:
-            self.className = mod_name.replace(package_name, '') + "_Init"
+            self.className = self.mod_name_without_package + "_Init"
         else:
-            self.className = mod_name.replace(package_name, '') + "_Dyn"
+            self.className = self.mod_name_without_package + "_Dyn"
 
         ## Cpp file to generate
         self.fileName = os.path.join(output_dir, self.className + ".cpp")
