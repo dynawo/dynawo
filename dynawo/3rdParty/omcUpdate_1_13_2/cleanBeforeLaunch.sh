@@ -95,7 +95,6 @@ restore_files() {
   for patchedFile in "${patchedFiles[@]}"; do
     restore_original_file ${patchedFile}
   done
-  restore_original_file ${SRC_OPENMODELICA}${ps}libraries${ps}Makefile
   restore_original_file ${SRC_OPENMODELICA}${ps}libraries${ps}Makefile.libs
 }
 
