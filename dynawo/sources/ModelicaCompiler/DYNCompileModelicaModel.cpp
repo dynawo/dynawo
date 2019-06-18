@@ -112,6 +112,10 @@ int main(int argc, char ** argv) {
     inputDir = outputDir;
   }
 
+  if (packageName != "" && strcmp(&packageName.at(packageName.length() - 1), ".")) {
+    packageName += ".";
+  }
+
   // find the current installDir
   string currentPath = prettyPath(current_path());
   string argvs = prettyPath(string(argv[0]));
