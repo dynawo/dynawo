@@ -20,7 +20,7 @@ _dynawo() {
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
   local global_commands global_options propose_options
-  global_commands=$(TO_COMPLETE_DYNAWO_USER_SCRIPT_PATH help | sed -e '1,/=/d' | grep -v '==' | grep -v -e '^ *$'  | sed 's/^ *//g' | sed 's/(\[.*\])//g' | sed 's/\(\S*\) *\(.*\)/\1/g')
+  global_commands=$(TO_COMPLETE_DYNAWO_USER_SCRIPT_PATH help | sed -e '1,/=/d' | grep -v '==' | grep -v -e '^ *$'  | sed 's/^ *//g' | sed 's/(\[.*\])//g' | sed 's/\([^ ]*\) *\(.*\)/\1/g')
   global_options=""
   propose_options="no"
 
