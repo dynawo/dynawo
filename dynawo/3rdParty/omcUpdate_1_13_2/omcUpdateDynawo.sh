@@ -262,9 +262,6 @@ update_sources() {
 script=$0
 
 ps="/"
-if [ \( ! -z "${OS}" \) -a \( "${OS}" = "Window_NT" \) ]; then
-  ps="\\"
-fi
 
 #-----------------
 # 1- Presentation
@@ -287,12 +284,20 @@ save_original_files
 #-------------------------------------------------------
 update_sources
 
+if [ "`uname`" = "Darwin" ]; then
+  pushd $SRC_OPENMODELICA
+  if [ -x "$(command -v sed)" ]; then
+    if [ -z "$(sed --version 2>&1 | head -1 | grep GNU)" ]; then
+      echo "You need GNU version of sed to install OpenModelica. See https://www.gnu.org/software/sed/"
+      exit 1
+    fi
+  fi
+  sed -i 's/libstdc++/libc++/' OMCompiler/configure.ac || { echo "Error while updating OMC sources for Darwin."; exit 1; }
+  sed -i '/@APP@/d' Makefile.in || { echo "Error while updating OMC sources for Darwin."; exit 1; }
+  popd
+fi
+
 #---------------------------
 # 5- OMC binary creation
 #---------------------------
 create_omc_dynawo
-
-#--------
-# 7- End
-#--------
-exit 0
