@@ -13,6 +13,7 @@
 #
 
 RM_MODELS="false"
+PACKAGE_NAME=""
 while (($#)); do
   case $1 in
     --model=*)
@@ -26,6 +27,9 @@ while (($#)); do
       ;;
     --remove-model-files)
       RM_MODELS="true"
+      ;;
+    --package-name=*)
+      PACKAGE_NAME=`echo $1 | sed -e 's/--package-name=//g'`
       ;;
     *)
       break
@@ -55,79 +59,79 @@ if [ "$DEBUG" != "true" ]; then
     $RM "$MODEL".mo
   fi
   $RM "$MODEL".o
-  $RM "$MODEL".c
-  $RM "$MODEL".makefile
-  $RM "$MODEL"_01exo.c
-  $RM "$MODEL"_02nls.c
-  $RM "$MODEL"_03lsy.c
-  $RM "$MODEL"_04set.c
-  $RM "$MODEL"_05evt.c
-  $RM "$MODEL"_06inz.c
-  $RM "$MODEL"_07dly.c
-  $RM "$MODEL"_08bnd.c
-  $RM "$MODEL"_09alg.c
-  $RM "$MODEL"_10asr.c
-  $RM "$MODEL"_11mix.c
-  $RM "$MODEL"_11mix.h
-  $RM "$MODEL"_12jac.c
-  $RM "$MODEL"_12jac.h
-  $RM "$MODEL"_13opt.c
-  $RM "$MODEL"_13opt.h
-  $RM "$MODEL"_14lnz.c
-  $RM "$MODEL"_15syn.c
-  $RM "$MODEL"_16dae.c
-  $RM "$MODEL"_16dae.h
-  $RM "$MODEL"_17inl.c
+  $RM "$PACKAGE_NAME$MODEL".c
+  $RM "$PACKAGE_NAME$MODEL".makefile
+  $RM "$PACKAGE_NAME$MODEL"_01exo.c
+  $RM "$PACKAGE_NAME$MODEL"_02nls.c
+  $RM "$PACKAGE_NAME$MODEL"_03lsy.c
+  $RM "$PACKAGE_NAME$MODEL"_04set.c
+  $RM "$PACKAGE_NAME$MODEL"_05evt.c
+  $RM "$PACKAGE_NAME$MODEL"_06inz.c
+  $RM "$PACKAGE_NAME$MODEL"_07dly.c
+  $RM "$PACKAGE_NAME$MODEL"_08bnd.c
+  $RM "$PACKAGE_NAME$MODEL"_09alg.c
+  $RM "$PACKAGE_NAME$MODEL"_10asr.c
+  $RM "$PACKAGE_NAME$MODEL"_11mix.c
+  $RM "$PACKAGE_NAME$MODEL"_11mix.h
+  $RM "$PACKAGE_NAME$MODEL"_12jac.c
+  $RM "$PACKAGE_NAME$MODEL"_12jac.h
+  $RM "$PACKAGE_NAME$MODEL"_13opt.c
+  $RM "$PACKAGE_NAME$MODEL"_13opt.h
+  $RM "$PACKAGE_NAME$MODEL"_14lnz.c
+  $RM "$PACKAGE_NAME$MODEL"_15syn.c
+  $RM "$PACKAGE_NAME$MODEL"_16dae.c
+  $RM "$PACKAGE_NAME$MODEL"_16dae.h
+  $RM "$PACKAGE_NAME$MODEL"_17inl.c
   $RM "$MODEL"_Dyn.o
   $RM "$MODEL"_Dyn_external.o
-  $RM "$MODEL"_functions.c
-  $RM "$MODEL"_functions.h
-  $RM "$MODEL"_info.json
-  $RM "$MODEL"_init.xml
-  $RM "$MODEL"_variables.txt
+  $RM "$PACKAGE_NAME$MODEL"_functions.c
+  $RM "$PACKAGE_NAME$MODEL"_functions.h
+  $RM "$PACKAGE_NAME$MODEL"_info.json
+  $RM "$PACKAGE_NAME$MODEL"_init.xml
+  $RM "$PACKAGE_NAME$MODEL"_variables.txt
   $RM "$MODEL"_Init.o
-  $RM "$MODEL"_INIT.c
-  $RM "$MODEL"_INIT.makefile
+  $RM "$PACKAGE_NAME$MODEL"_INIT.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT.makefile
   if [ "$RM_MODELS" = "true" ]; then
     $RM "$MODEL"_INIT.mo
   fi
-  $RM "$MODEL"_INIT_01exo.c
-  $RM "$MODEL"_INIT_02nls.c
-  $RM "$MODEL"_INIT_03lsy.c
-  $RM "$MODEL"_INIT_04set.c
-  $RM "$MODEL"_INIT_05evt.c
-  $RM "$MODEL"_INIT_06inz.c
-  $RM "$MODEL"_INIT_07dly.c
-  $RM "$MODEL"_INIT_08bnd.c
-  $RM "$MODEL"_INIT_09alg.c
-  $RM "$MODEL"_INIT_10asr.c
-  $RM "$MODEL"_INIT_11mix.c
-  $RM "$MODEL"_INIT_11mix.h
-  $RM "$MODEL"_INIT_12jac.c
-  $RM "$MODEL"_INIT_12jac.h
-  $RM "$MODEL"_INIT_13opt.c
-  $RM "$MODEL"_INIT_13opt.h
-  $RM "$MODEL"_INIT_14lnz.c
-  $RM "$MODEL"_INIT_15syn.c
-  $RM "$MODEL"_INIT_16dae.c
-  $RM "$MODEL"_INIT_16dae.h
-  $RM "$MODEL"_INIT_17inl.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_01exo.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_02nls.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_03lsy.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_04set.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_05evt.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_06inz.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_07dly.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_08bnd.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_09alg.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_10asr.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_11mix.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_11mix.h
+  $RM "$PACKAGE_NAME$MODEL"_INIT_12jac.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_12jac.h
+  $RM "$PACKAGE_NAME$MODEL"_INIT_13opt.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_13opt.h
+  $RM "$PACKAGE_NAME$MODEL"_INIT_14lnz.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_15syn.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_16dae.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_16dae.h
+  $RM "$PACKAGE_NAME$MODEL"_INIT_17inl.c
   $RM "$MODEL"_Init_external.o
-  $RM "$MODEL"_INIT_functions.c
-  $RM "$MODEL"_INIT_functions.h
-  $RM "$MODEL"_INIT_info.json
-  $RM "$MODEL"_INIT_init.xml
-  $RM "$MODEL"_INIT_variables.txt
-  $RM "$MODEL"_INIT_records.c
-  $RM "$MODEL"_records.c
-  $RM "$MODEL"_structure.xml
+  $RM "$PACKAGE_NAME$MODEL"_INIT_functions.c
+  $RM "$PACKAGE_NAME$MODEL"_INIT_functions.h
+  $RM "$PACKAGE_NAME$MODEL"_INIT_info.json
+  $RM "$PACKAGE_NAME$MODEL"_INIT_init.xml
+  $RM "$PACKAGE_NAME$MODEL"_INIT_variables.txt
+  $RM "$PACKAGE_NAME$MODEL"_INIT_records.c
+  $RM "$PACKAGE_NAME$MODEL"_records.c
+  $RM "$PACKAGE_NAME$MODEL"_structure.xml
   $RM "$MODEL"-tmp.mo
   $RM createStructure-"$MODEL".mos
   $RM Complex__omc*.*
   $RM Modelica_ComplexMath__omc*.*
   $RM Modelica_ComplexMath_conj*.*
 
-  $RM "$MODEL"_model.h
+  $RM "$PACKAGE_NAME$MODEL"_model.h
   $RM "$MODEL".cpp
   $RM "$MODEL".h
   $RM "$MODEL"_Dyn.cpp
@@ -138,9 +142,11 @@ if [ "$DEBUG" != "true" ]; then
   $RM "$MODEL"_Init.h
   $RM "$MODEL"_Init_external.cpp
   $RM "$MODEL"_Init_literal.h
-  $RM "$MODEL"_INIT_model.h
-  $RM "$MODEL"_INIT_literals.h
-  $RM "$MODEL"_literals.h
+  $RM "$PACKAGE_NAME$MODEL"_INIT_model.h
+  $RM "$PACKAGE_NAME$MODEL"_INIT_literals.h
+  $RM "$PACKAGE_NAME$MODEL"_INIT_includes.h
+  $RM "$PACKAGE_NAME$MODEL"_literals.h
+  $RM "$PACKAGE_NAME$MODEL"_includes.h
   $RM compileModelicaToC-"$MODEL".mos
   $RM compileModelicaToC-"$MODEL"_INIT.mos
 fi
