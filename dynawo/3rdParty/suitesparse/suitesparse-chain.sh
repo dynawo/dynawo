@@ -67,6 +67,14 @@ download_suitesparse() {
   fi
 }
 
+echo_error_exit() {
+  echo "#!/bin/bash
+error_exit() {
+  echo \"\${1:-\"Unknown Error\"}\" 1>&2
+  exit -1
+}" > $BUILD_DIR/compile_suitesparse_dynawo.sh
+}
+
 install_suitesparse() {
   cd $SCRIPT_DIR
   if [ ! -d "$BUILD_DIR/$SUITE_SPARSE_DIRECTORY" ]; then
@@ -78,46 +86,49 @@ install_suitesparse() {
   else
     export CC_FLAG=""
   fi
+  echo_error_exit
   if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
-    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config
-    { make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" library && make CC="$DYNAWO_C_COMPILER $CC_FLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building SuiteSparse"
-    if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libsuitesparseconfig.dylib $INSTALL_DIR/lib/libsuitesparseconfig.dylib; fi
-    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/AMD
-    { make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" library && make CC="$DYNAWO_C_COMPILER $CC_FLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building AMD"
-    if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libamd.dylib $INSTALL_DIR/lib/libamd.dylib; fi
-    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/COLAMD
-    { make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" library && make CC="$DYNAWO_C_COMPILER $CC_FLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building COLAMD"
-    if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libcolamd.dylib $INSTALL_DIR/lib/libcolamd.dylib; fi
-    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/BTF
-    { make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" library && make CC="$DYNAWO_C_COMPILER $CC_FLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building BTF"
-    if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libbtf.dylib $INSTALL_DIR/lib/libbtf.dylib; fi
-    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/KLU
-    { make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" library && make CC="$DYNAWO_C_COMPILER $CC_FLAG" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit "Error while building KLU"
-    if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libklu.dylib $INSTALL_DIR/lib/libklu.dylib; fi
+    echo "cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config
+{ make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" library && make CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit \"Error while building SuiteSparse\"
+if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libsuitesparseconfig.dylib $INSTALL_DIR/lib/libsuitesparseconfig.dylib; fi
+cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/AMD
+{ make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" library && make CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit \"Error while building AMD\"
+if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libamd.dylib $INSTALL_DIR/lib/libamd.dylib; fi
+cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/COLAMD
+{ make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" library && make CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit \"Error while building COLAMD\"
+if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libcolamd.dylib $INSTALL_DIR/lib/libcolamd.dylib; fi
+cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/BTF
+{ make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" library && make CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit \"Error while building BTF\"
+if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libbtf.dylib $INSTALL_DIR/lib/libbtf.dylib; fi
+cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/KLU
+{ make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" library && make CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit \"Error while building KLU\"" >> $BUILD_DIR/compile_suitesparse_dynawo.sh
+if [ "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libklu.dylib $INSTALL_DIR/lib/libklu.dylib; fi
   else
-    mkdir -p $INSTALL_DIR/lib
-    mkdir -p $INSTALL_DIR/include
-    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config
-    make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" static || error_exit "Error while building SuiteSparse"
-    cp *.a $INSTALL_DIR/lib/ || error_exit "Error while building SuiteSparse"
-    cp SuiteSparse_config.h $INSTALL_DIR/include/ || error_exit "Error while building SuiteSparse"
-    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/AMD
-    make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" static || error_exit "Error while building AMD"
-    cp Lib/*.a $INSTALL_DIR/lib || error_exit "Error while building AMD"
-    cp Include/amd.h $INSTALL_DIR/include || error_exit "Error while building AMD"
-    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/COLAMD
-    make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" static || error_exit "Error while building COLAMD"
-    cp Lib/*.a $INSTALL_DIR/lib || error_exit "Error while building COLAMD"
-    cp Include/colamd.h $INSTALL_DIR/include || error_exit "Error while building COLAMD"
-    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/BTF
-    make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" static || error_exit "Error while building BTF"
-    cp Lib/*.a $INSTALL_DIR/lib || error_exit "Error while building BTF"
-    cp Include/btf.h $INSTALL_DIR/include || error_exit "Error while building BTF"
-    cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/KLU
-    make -j $DYNAWO_NB_PROCESSORS_USED CC="$DYNAWO_C_COMPILER $CC_FLAG" static || error_exit "Error while building KLU"
-    cp Lib/*.a $INSTALL_DIR/lib || error_exit "Error while building KLU"
-    cp Include/klu.h $INSTALL_DIR/include || error_exit "Error while building KLU"
+    echo "mkdir -p $INSTALL_DIR/lib
+mkdir -p $INSTALL_DIR/include
+cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config
+make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" static || error_exit \"Error while building SuiteSparse\"
+cp *.a $INSTALL_DIR/lib/ || error_exit \"Error while building SuiteSparse\"
+cp SuiteSparse_config.h $INSTALL_DIR/include/ || error_exit \"Error while building SuiteSparse\"
+cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/AMD
+make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" static || error_exit \"Error while building AMD\"
+cp Lib/*.a $INSTALL_DIR/lib || error_exit \"Error while building AMD\"
+cp Include/amd.h $INSTALL_DIR/include || error_exit \"Error while building AMD\"
+cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/COLAMD
+make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" static || error_exit \"Error while building COLAMD\"
+cp Lib/*.a $INSTALL_DIR/lib || error_exit \"Error while building COLAMD\"
+cp Include/colamd.h $INSTALL_DIR/include || error_exit \"Error while building COLAMD\"
+cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/BTF
+make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" static || error_exit \"Error while building BTF\"
+cp Lib/*.a $INSTALL_DIR/lib || error_exit \"Error while building BTF\"
+cp Include/btf.h $INSTALL_DIR/include || error_exit \"Error while building BTF\"
+cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/KLU
+make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" static || error_exit \"Error while building KLU\"
+cp Lib/*.a $INSTALL_DIR/lib || error_exit \"Error while building KLU\"
+cp Include/klu.h $INSTALL_DIR/include || error_exit \"Error while building KLU\"" >> $BUILD_DIR/compile_suitesparse_dynawo.sh
   fi
+  chmod +x $BUILD_DIR/compile_suitesparse_dynawo.sh
+  $BUILD_DIR/compile_suitesparse_dynawo.sh
 }
 
 while (($#)); do
