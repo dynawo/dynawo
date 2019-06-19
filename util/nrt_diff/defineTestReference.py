@@ -15,6 +15,7 @@
 
 import os
 import fnmatch
+import sys
 try:
     import lxml.etree
 except:
@@ -24,6 +25,11 @@ from shutil import copyfile
 from optparse import OptionParser
 
 from nrtDiff import TestCase, REFERENCE_DATA_DIRECTORY_NAME, namespaceDYN, CompareTwoFiles, LogsSeparator, IDENTICAL
+
+# No need to test DYNAWO_BRANCH_NAME as already done in nrtDiff
+if os.getenv("DYNAWO_NRT_DIR") is None:
+    print("environment variable DYNAWO_NRT_DIR needs to be defined")
+    sys.exit(1)
 
 branch_name = os.environ["DYNAWO_BRANCH_NAME"]
 output_dir_all_nrt = os.path.join(os.environ["DYNAWO_NRT_DIR"], "output")

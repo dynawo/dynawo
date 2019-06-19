@@ -73,6 +73,22 @@ def kill_subprocess(proc_pid):
         proc.kill()
     process.kill()
 
+if os.getenv("DYNAWO_NRT_DIR") is None:
+    print("environment variable DYNAWO_NRT_DIR needs to be defined")
+    sys.exit(1)
+
+if os.getenv("DYNAWO_BRANCH_NAME") is None:
+    print("environment variable DYNAWO_BRANCH_NAME needs to be defined")
+    sys.exit(1)
+
+if os.getenv("DYNAWO_ENV_DYNAWO") is None:
+    print("environment variable DYNAWO_ENV_DYNAWO needs to be defined")
+    sys.exit(1)
+
+if os.getenv("DYNAWO_CURVES_TO_HTML_DIR") is None:
+    print("environment variable DYNAWO_CURVES_TO_HTML_DIR needs to be defined")
+    sys.exit(1)
+
 # Non-regression tests configuration
 resources_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "resources")
 data_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "data")
