@@ -42,6 +42,7 @@
 #include "DYNDynamicData.h"
 
 #include "DYNError.h"
+#include "DYNErrorQueue.h"
 
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
@@ -812,11 +813,13 @@ TEST(ModelerCommonTest, testNoParFile) {
 
 TEST(ModelerCommonTest, testMissingParFile) {
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
-  ASSERT_THROW_DYNAWO(dyd->getParametersSet("MyModel", "", "2"), Error::API, KeyError_t::MissingParameterFile);
+  dyd->getParametersSet("MyModel", "", "2");
+  ASSERT_THROW_DYNAWO(DYN::DYNErrorQueue::get()->flush(), Error::API, KeyError_t::MissingParameterFile);
 }
 
 TEST(ModelerCommonTest, testMissingParId) {
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
-  ASSERT_THROW_DYNAWO(dyd->getParametersSet("MyModel", "MyFile.par", ""), Error::API, KeyError_t::MissingParameterId);
+  dyd->getParametersSet("MyModel", "MyFile.par", "");
+  ASSERT_THROW_DYNAWO(DYN::DYNErrorQueue::get()->flush(), Error::API, KeyError_t::MissingParameterId);
 }
 }  // namespace DYN
