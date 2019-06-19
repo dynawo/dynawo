@@ -19,6 +19,7 @@
 #include <boost/filesystem.hpp>
 #include <string>
 
+#include "DYNCommon.h"
 #include "DYNExecUtils.h"
 #include "DYNFileSystemUtils.h"
 
@@ -46,6 +47,19 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
   ASSERT_EQ(ssDiff.str(), "Executing command : diff ModelicaModel/reference res/\n");
   remove_all_in_directory("res");
   ASSERT_EQ(boost::filesystem::remove(fspath), true);
+}
+
+TEST(ModelicaCompilerTestSuite, TestPackageOption) {
+  std::string varExtCommand = "../compileModelicaModel --model Test --lib Test" + std::string(sharedLibraryExtension()) +
+          " --input-dir . --output-dir compilation --package-name Test";
+
+  remove_all_in_directory("compilation");
+  boost::filesystem::path fspath("compilation");
+  boost::filesystem::remove(fspath);
+  std::stringstream ssCompileModelicaModel;
+  executeCommand(varExtCommand, ssCompileModelicaModel);
+  std::cout << ssCompileModelicaModel.str() << std::endl;
+  ASSERT_EQ(boost::filesystem::exists("compilation/Test" + std::string(sharedLibraryExtension())), true);
 }
 
 }  // namespace DYN
