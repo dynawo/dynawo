@@ -34,6 +34,7 @@
 
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
+#include "DYNErrorQueue.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNModelDescription.h"
 #include "DYNDynamicData.h"
@@ -278,16 +279,21 @@ DynamicData::associateParameters() {
       }
     }
   }
+  DYNErrorQueue::get()->flush();
 }
 
 shared_ptr<ParametersSet>
 DynamicData::getParametersSet(const string& modelId, const string& parFile, const string& parId) {
   if (parFile == "" && parId == "")
     return shared_ptr<ParametersSet>();
-  if (parFile != "" && parId == "")
-    throw DYNError(Error::API, MissingParameterId, modelId);
-  if (parFile == "" && parId != "")
-    throw DYNError(Error::API, MissingParameterFile, modelId);
+  if (parFile != "" && parId == "") {
+    DYNErrorQueue::get()->push(DYNError(Error::API, MissingParameterId, modelId));
+    return shared_ptr<ParametersSet>();
+  }
+  if (parFile == "" && parId != "") {
+    DYNErrorQueue::get()->push(DYNError(Error::API, MissingParameterFile, modelId));
+    return shared_ptr<ParametersSet>();
+  }
 
   if (referenceParameters_.find(parFile) != referenceParameters_.end())
     return referenceParameters_[parFile]->getParametersSet(parId);
@@ -452,6 +458,7 @@ DynamicData::getNetworkParameters(const string & parFile, const string& parSet) 
     throw DYNError(Error::MODELER, UnknownParFile, parFile, rootDirectory_);
 
   shared_ptr<ParametersSet> parameters = getParametersSet("network", filePath, parSet);
+  DYNErrorQueue::get()->flush();
   setNetworkParameters(parameters);
 }
 
