@@ -1359,11 +1359,11 @@ nrt() {
 }
 
 nrt_diff() {
-  python $DYNAWO_NRT_DIFF_DIR/nrtDiff.py $1 $2 $3
+  python $DYNAWO_NRT_DIFF_DIR/nrtDiff.py $@
 }
 
 nrt_ref() {
-  python $DYNAWO_NRT_DIFF_DIR/defineTestReference.py $1 $2 $3 $4 $5
+  python $DYNAWO_NRT_DIFF_DIR/defineTestReference.py $@
 }
 
 check_coding_files() {

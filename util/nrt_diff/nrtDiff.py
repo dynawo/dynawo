@@ -60,6 +60,11 @@ DYN_NAMESPACE = "http://www.rte-france.com/dynawo"
 def namespaceDYN(tag):
     return "{" + DYN_NAMESPACE + "}" + tag
 
+
+if os.getenv("DYNAWO_BRANCH_NAME") is None:
+    print("environment variable DYNAWO_BRANCH_NAME needs to be defined")
+    sys.exit(1)
+
 # Output configuration
 branch_name = os.environ["DYNAWO_BRANCH_NAME"]
 resources_dir = os.path.join(os.path.dirname(__file__), "..", "..","nrt", "resources")
