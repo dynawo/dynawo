@@ -52,6 +52,8 @@ namespace DYN {
 
 ModelLoad::ModelLoad(const shared_ptr<LoadInterface>& load) :
 Impl(load->getID()),
+kp_(0.),
+kq_(0.),
 alpha_(1.),
 beta_(1.),
 isRestorative_(false),
@@ -61,7 +63,13 @@ Tq_(0.),
 zPMax_(0.),
 zQMax_(0.),
 alphaLong_(0.),
-betaLong_(0.) {
+betaLong_(0.),
+u0_(0.),
+yOffset_(0),
+DeltaPcYNum_(0),
+DeltaQcYNum_(0),
+zPYNum_(0),
+zQYNum_(0) {
   zP0_ = 1;
   zQ0_ = 1;
   zPprim0_ = 0;

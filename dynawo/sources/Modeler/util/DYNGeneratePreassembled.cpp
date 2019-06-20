@@ -215,15 +215,6 @@ int main(int argc, char ** argv) {
   } catch (const std::exception & exp) {
     Trace::error() << exp.what() << Trace::endline;
     return -1;
-  } catch (const char *s) {
-    Trace::error() << s << Trace::endline;
-    return -1;
-  } catch (const string& msg) {
-    Trace::error() << msg << Trace::endline;
-    return -1;
-  } catch (...) {
-    std::cerr << " Generation failed : Unexpected exception " << std::endl;
-    return -1;
   }
   return 0;
 }
@@ -247,7 +238,7 @@ bool verifySharedObject(string modelname) {
   dlclose(handle);
 
   // verify links.
-  #ifdef __linux__
+#ifdef __linux__
   string command = "ldd -r " + modelname + " | c++filt";
   string result = executeCommand1(command);
   boost::replace_all(result, "'", "\"");
@@ -255,9 +246,9 @@ bool verifySharedObject(string modelname) {
   string command2 = "echo \"" + result + "\"| c++filt | grep 'undefined'  | grep -v 'DYN::Timer::~Timer()' | grep -v \"DYN::Timer::Timer([^)]*)\"";
   int returnCode = system(command2.c_str());
   bool valid = (returnCode != 0);
-  #else
+#else
   bool valid = true;
-  #endif
+#endif
   return valid;
 }
 

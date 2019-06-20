@@ -418,6 +418,47 @@ class ConnectorContainer {
    */
   std::string getConnectorInfos(const std::string& prefix, const boost::shared_ptr<Connector> connector) const;
 
+  /**
+   * @brief merge the Y connectors after each one have been created
+   */
+  void mergeYConnector();
+
+  /**
+   * @brief merge the flow connectors after each one have been created
+   */
+  void mergeFlowConnector();
+
+  /**
+   * @brief merge the Z connectors after each one have been created
+   */
+  void mergeZConnector();
+
+  /**
+   * @brief print informations about the Y connector stored in the container
+   */
+  void printYConnectors() const;
+
+  /**
+   * @brief print informations about the flow connector stored in the container
+   */
+  void printFlowConnectors() const;
+
+  /**
+   * @brief print informations about the Z connector stored in the container
+   */
+  void printZConnectors() const;
+
+  /**
+   * @brief evaluate the initial value of each variables connected to another one for y connector
+   */
+  void getY0ConnectorForYConnector();
+
+  /**
+   * @brief evaluate the initial value of each variables connected to another one for z connector
+   */
+  void getY0ConnectorForZConnector();
+
+ private:
   std::vector<boost::shared_ptr<Connector> >yConnectorsDeclared_;  ///< continuous connectors before merge
   std::vector<boost::shared_ptr<Connector> >flowConnectorsDeclared_;  ///< flow connectors before merge
   std::vector<boost::shared_ptr<Connector> >zConnectorsDeclared_;  ///< discrete connectors before merge

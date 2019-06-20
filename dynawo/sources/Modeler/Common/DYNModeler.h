@@ -116,6 +116,13 @@ class Modeler {
   std::string findNodeConnectorName(const std::string& id);
 
  private:
+  /**
+   * @brief Initialization of parameters of a dynamic model
+   * @param modelDescription dynamic model
+   */
+  void initParamDescription(const boost::shared_ptr<ModelDescription>& modelDescription);
+
+ private:
   boost::shared_ptr<DataInterface> data_;  ///< data used to build the model multi
   boost::shared_ptr<DynamicData> dyd_;  ///< dynamic data used to build the model multi
   boost::shared_ptr<ModelMulti> model_;  ///< model created thanks to previous data

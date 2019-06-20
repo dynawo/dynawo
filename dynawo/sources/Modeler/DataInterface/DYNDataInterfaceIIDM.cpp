@@ -804,7 +804,7 @@ DataInterfaceIIDM::importLine(IIDM::Line& lineIIDM) {
      // permanent limit
     if (currentLimits.has_permanent_limit()) {
       shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.permanent_limit(), boost::none));
-      line->addCurrentLimitInterface1(cLimit);
+      line->addCurrentLimitInterface2(cLimit);
     }
 
     // temporary limit
@@ -813,7 +813,7 @@ DataInterfaceIIDM::importLine(IIDM::Line& lineIIDM) {
       bool fictitious = (it->fictitious) ? *(it->fictitious) : false;
       if (!fictitious) {
         shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(it->value, it->acceptableDuration));
-        line->addCurrentLimitInterface1(cLimit);
+        line->addCurrentLimitInterface2(cLimit);
       }
     }
   }

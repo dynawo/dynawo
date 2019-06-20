@@ -40,6 +40,7 @@
 #include "DYNDynamicData.h"
 #include "DYNDataInterface.h"
 #include "DYNConnectInterface.h"
+#include "DYNCommonModeler.h"
 
 // files in API_DYD
 #include "DYDDynamicModelsCollection.h"
@@ -374,34 +375,8 @@ DynamicData::createModelDescriptions() {
     for (; iter != connectors.end(); ++iter) {
       string var1 = iter->second->getFirstVariableId();
       string var2 = iter->second->getSecondVariableId();
-
-      // replace @INDEX@ in var1
-      if (var1.find(indexLabel) != string::npos) {
-        if ((*itMacroConnect)->getIndex1() == "")
-          throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index1");
-        var1.replace(var1.find(indexLabel), indexLabel.size(), (*itMacroConnect)->getIndex1());
-      }
-
-      // replace @INDEX@ in var2
-      if (var2.find(indexLabel) != string::npos) {
-        if ((*itMacroConnect)->getIndex2() == "")
-          throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index2");
-        var2.replace(var2.find(indexLabel), indexLabel.size(), (*itMacroConnect)->getIndex2());
-      }
-
-      // replace @NAME@ in var1
-      if (var1.find(nameLabel) != string::npos) {
-        if ((*itMacroConnect)->getName1() == "")
-          throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "name1");
-        var1.replace(var1.find(nameLabel), nameLabel.size(), (*itMacroConnect)->getName1());
-      }
-
-      // replace @NAME@ in var2
-      if (var2.find(nameLabel) != string::npos) {
-        if ((*itMacroConnect)->getName2() == "")
-          throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "name2");
-        var2.replace(var2.find(nameLabel), nameLabel.size(), (*itMacroConnect)->getName2());
-      }
+      replaceMacroInVariableId((*itMacroConnect)->getIndex1(), (*itMacroConnect)->getName1(), model1, model2, connector, var1);
+      replaceMacroInVariableId((*itMacroConnect)->getIndex2(), (*itMacroConnect)->getName2(), model1, model2, connector, var2);
 
       systemConnects_.push_back(shared_ptr<dynamicdata::Connector>(new dynamicdata::Connector::Impl(model1, var1, model2, var2)));
     }

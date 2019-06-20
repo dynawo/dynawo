@@ -47,6 +47,19 @@ namespace DYN {
    * @param mapElement: map associating name of element and element where the new sub element should be store
    */
   void addSubElement(const std::string& name, const std::string& elementName, const Element::typeElement& type, std::vector<Element> &elements,
-                     std::map<std::string, int>& mapElement);
+      std::map<std::string, int>& mapElement);
+
+  /**
+   * @brief Collect the existing connected extvar
+   * @param index string that should be inserted if \@INDEX\@ is found in variableId
+   * @param name string that should be inserted if \@NAME\@ is found in variableId
+   * @param model1 name of the first model connected by this macro connection
+   * @param model2 name of the second model connected by this macro connection
+   * @param connector macro connection name
+   * @param variableId after calling this method, contains the variable id with name and index macros replaced
+   */
+  void replaceMacroInVariableId(const std::string& index, const std::string& name,
+      const std::string& model1, const std::string& model2, const std::string& connector, std::string& variableId);
+
 }  // namespace DYN
 #endif  // MODELER_COMMON_DYNCOMMONMODELER_H_

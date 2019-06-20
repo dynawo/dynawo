@@ -110,44 +110,8 @@ Modeler::initModelDescription() {
         model->name((itModelDescription->second)->getID());
         model->staticId((itModelDescription->second)->getStaticId());
         shared_ptr<ParametersSet> params = (itModelDescription->second)->getParametersSet();
+        initParamDescription(itModelDescription->second);
 
-        // params can be a nullptr if no parFile was given for the model
-        if (params) {
-          // if there are references in external parameters, retrieve the parameters' value from IIDM or INIT
-          vector<string> referencesNames = params->getReferencesNames();
-
-          for (vector<string>::const_iterator itRef = referencesNames.begin(); itRef != referencesNames.end(); ++itRef) {
-            string refType = params->getReference(*itRef)->getType();
-            Reference::OriginData refOrigData_ = params->getReference(*itRef)->getOrigData();  // IIDM or INIT
-            string refOrigName = params->getReference(*itRef)->getOrigName();
-            string staticID = (itModelDescription->second)->getStaticId();
-            string componentID = params->getReference(*itRef)->getComponentId();
-            // if data_ origin is IIDM file, retrieve the value and add a parameter in the parameter set.
-            if (componentID != "")
-              staticID = componentID;  // when componentID exist, this id should be used to find the parameter value
-            if (refOrigData_ == Reference::IIDM) {
-              if (staticID.empty())
-                throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, params->getReference(*itRef)->getName(), itModelDescription->first);
-              if (refType == "DOUBLE") {
-                double value = data_->getStaticParameterDoubleValue(staticID, refOrigName);
-                params->createParameter(*itRef, value);
-                Trace::info("MODELER") << DYNLog(AddedRefParToSet, itModelDescription->first, *itRef, value) << Trace::endline;
-              } else if (refType == "INT") {
-                int value = data_->getStaticParameterIntValue(staticID, refOrigName);
-                params->createParameter(*itRef, value);
-                Trace::info("MODELER") << DYNLog(AddedRefParToSet, itModelDescription->first, *itRef, value) << Trace::endline;
-              } else if (refType == "BOOL") {
-                bool value = data_->getStaticParameterBoolValue(staticID, refOrigName);
-                params->createParameter(*itRef, value);
-                Trace::info("MODELER") << DYNLog(AddedRefParToSet, itModelDescription->first, *itRef, value) << Trace::endline;
-              } else {
-                throw DYNError(Error::MODELER, ParameterWrongTypeReference, *itRef);
-              }
-            } else {
-              throw DYNError(Error::MODELER, FunctionNotAvailable);
-            }
-          }
-        }
         model->setPARParameters(params);
         model->initFromData(data_);
         // add the submodel
@@ -165,6 +129,49 @@ Modeler::initModelDescription() {
       }
     } else {
       throw DYNError(Error::MODELER, CompileModel, (itModelDescription->second)->getID());
+    }
+  }
+}
+
+void
+Modeler::initParamDescription(const shared_ptr<ModelDescription>& modelDescription) {
+  shared_ptr<ParametersSet> params = modelDescription->getParametersSet();
+
+  // params can be a nullptr if no parFile was given for the model
+  if (params) {
+    // if there are references in external parameters, retrieve the parameters' value from IIDM or INIT
+    vector<string> referencesNames = params->getReferencesNames();
+
+    for (vector<string>::const_iterator itRef = referencesNames.begin(); itRef != referencesNames.end(); ++itRef) {
+      string refType = params->getReference(*itRef)->getType();
+      Reference::OriginData refOrigData_ = params->getReference(*itRef)->getOrigData();  // IIDM or INIT
+      string refOrigName = params->getReference(*itRef)->getOrigName();
+      string staticID = modelDescription->getStaticId();
+      string componentID = params->getReference(*itRef)->getComponentId();
+      // if data_ origin is IIDM file, retrieve the value and add a parameter in the parameter set.
+      if (componentID != "")
+        staticID = componentID;  // when componentID exist, this id should be used to find the parameter value
+      if (refOrigData_ == Reference::IIDM) {
+        if (staticID.empty())
+          throw DYNError(Error::MODELER, ParameterStaticIdNotFound, refOrigName, params->getReference(*itRef)->getName(), modelDescription->getID());
+        if (refType == "DOUBLE") {
+          double value = data_->getStaticParameterDoubleValue(staticID, refOrigName);
+          params->createParameter(*itRef, value);
+          Trace::info("MODELER") << DYNLog(AddedRefParToSet, modelDescription->getID(), *itRef, value) << Trace::endline;
+        } else if (refType == "INT") {
+          int value = data_->getStaticParameterIntValue(staticID, refOrigName);
+          params->createParameter(*itRef, value);
+          Trace::info("MODELER") << DYNLog(AddedRefParToSet, modelDescription->getID(), *itRef, value) << Trace::endline;
+        } else if (refType == "BOOL") {
+          bool value = data_->getStaticParameterBoolValue(staticID, refOrigName);
+          params->createParameter(*itRef, value);
+          Trace::info("MODELER") << DYNLog(AddedRefParToSet, modelDescription->getID(), *itRef, value) << Trace::endline;
+        } else {
+          throw DYNError(Error::MODELER, ParameterWrongTypeReference, *itRef);
+        }
+      } else {
+        throw DYNError(Error::MODELER, FunctionNotAvailable);
+      }
     }
   }
 }

@@ -985,67 +985,34 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
     }
   }
 
+  bool closed1 = getConnectionState() == CLOSED || getConnectionState() == CLOSED_1;
+  bool closed2 = getConnectionState() == CLOSED || getConnectionState() == CLOSED_2;
+
   double Ir1 = ir1(ur1, ui1, ur2, ui2);
   double Ii1 = ii1(ur1, ui1, ur2, ui2);
   double Ir2 = ir2(ur1, ui1, ur2, ui2);
   double Ii2 = ii2(ur1, ui1, ur2, ui2);
   switch (numCalculatedVar) {
-    case i1Num_: {
-      double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && !doubleIsZero(I1)) {
-        res[0] = (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;   // dI1/dUr1
-        res[1] = (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;   // dI1/dUi1
-        res[2] = (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;   // dI1/dUr2
-        res[3] = (ii1_dUi2_ * Ii1 + ir1_dUi2_ * Ir1) / I1;   // dI1/dUi2
-      } else {
-        res[0] = 0.;
-        res[1] = 0.;
-        res[2] = 0.;
-        res[3] = 0.;
-      }
-      break;
-    }
-    case iS1ToS2Side1Num_: {
-      double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
-      double P1 = Ir1 * ur1 + Ii1 * ui1;
-      int signP1 = sign(P1);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && !doubleIsZero(I1)) {
-        res[0] = signP1 * factorPuToASide1_ * (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;   // dI1/dUr1
-        res[1] = signP1 * factorPuToASide1_ * (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;   // dI1/dUi1
-        res[2] = signP1 * factorPuToASide1_ * (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;   // dI1/dUr2
-        res[3] = signP1 * factorPuToASide1_ * (ii1_dUi2_ * Ii1 + ir1_dUi2_ * Ir1) / I1;   // dI1/dUi2
-      } else {
-        res[0] = 0.;
-        res[1] = 0.;
-        res[2] = 0.;
-        res[3] = 0.;
-      }
-      break;
-    }
-    case iS2ToS1Side1Num_: {  // == -1* I1
-      double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
-      double P1 = Ir1 * ur1 + Ii1 * ui1;
-      int signP1 = sign(-1 * P1);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && !doubleIsZero(I1)) {
-        res[0] = signP1 * factorPuToASide1_ * (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;   // dI1/dUr1
-        res[1] = signP1 * factorPuToASide1_ * (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;   // dI1/dUi1
-        res[2] = signP1 * factorPuToASide1_ * (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;   // dI1/dUr2
-        res[3] = signP1 * factorPuToASide1_ * (ii1_dUi2_ * Ii1 + ir1_dUi2_ * Ir1) / I1;   // dI1/dUi2
-      } else {
-        res[0] = 0.;
-        res[1] = 0.;
-        res[2] = 0.;
-        res[3] = 0.;
-      }
-      break;
-    }
+    case i1Num_:
+    case iS1ToS2Side1Num_:
+    case iS2ToS1Side1Num_:
     case iSide1Num_: {
       double I1 = sqrt(Ii1 * Ii1 + Ir1 * Ir1);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) && !doubleIsZero(I1)) {
-        res[0] = factorPuToASide1_ * (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;   // dI1/dUr1
-        res[1] = factorPuToASide1_ * (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;   // dI1/dUi1
-        res[2] = factorPuToASide1_ * (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;   // dI1/dUr2
-        res[3] = factorPuToASide1_ * (ii1_dUi2_ * Ii1 + ir1_dUi2_ * Ir1) / I1;   // dI1/dUi2
+      double factor = 1.;
+      if (numCalculatedVar == iS1ToS2Side1Num_) {
+        double P1 = Ir1 * ur1 + Ii1 * ui1;
+        factor = sign(P1) * factorPuToASide1_;
+      } else if (numCalculatedVar == iS2ToS1Side1Num_) {
+        double P1 = Ir1 * ur1 + Ii1 * ui1;
+        factor = sign(-1 * P1) * factorPuToASide1_;
+      } else if (numCalculatedVar == iSide1Num_) {
+        factor = factorPuToASide1_;
+      }
+      if (closed1 && !doubleIsZero(I1)) {
+        res[0] = factor * (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;   // dI1/dUr1
+        res[1] = factor * (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;   // dI1/dUi1
+        res[2] = factor * (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;   // dI1/dUr2
+        res[3] = factor * (ii1_dUi2_ * Ii1 + ir1_dUi2_ * Ir1) / I1;   // dI1/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1054,62 +1021,26 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
       }
       break;
     }
-    case i2Num_: {
-      double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && !doubleIsZero(I2)) {
-        res[0] = (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;   // dI2/dUr1
-        res[1] = (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;   // dI2/dUi1
-        res[2] = (ii2_dUr2_ * Ii2 + ir2_dUr2_ * Ir2) / I2;   // dI2/dUr2
-        res[3] = (ii2_dUi2_ * Ii2 + ir2_dUi2_ * Ir2) / I2;   // dI2/dUi2
-      } else {
-        res[0] = 0.;
-        res[1] = 0.;
-        res[2] = 0.;
-        res[3] = 0.;
-      }
-      break;
-    }
-    case iS2ToS1Side2Num_: {
-      double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
-      double P2 = ur2 * Ir2 + ui2 * Ii2;
-      int signP2 = sign(P2);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && !doubleIsZero(I2)) {
-        res[0] = signP2 * factorPuToASide2_ * (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;   // dI2/dUr1
-        res[1] = signP2 * factorPuToASide2_ * (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;   // dI2/dUi1
-        res[2] = signP2 * factorPuToASide2_ * (ii2_dUr2_ * Ii2 + ir2_dUr2_ * Ir2) / I2;   // dI2/dUr2
-        res[3] = signP2 * factorPuToASide2_ * (ii2_dUi2_ * Ii2 + ir2_dUi2_ * Ir2) / I2;   // dI2/dUi2
-      } else {
-        res[0] = 0.;
-        res[1] = 0.;
-        res[2] = 0.;
-        res[3] = 0.;
-      }
-      break;
-    }
-    case iS1ToS2Side2Num_: {
-      double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
-      double P2 = ur2 * Ir2 + ui2 * Ii2;
-      int signP2 = sign(-1 * P2);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && !doubleIsZero(I2)) {
-        res[0] = signP2 * factorPuToASide2_ * (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;   // dI2/dUr1
-        res[1] = signP2 * factorPuToASide2_ * (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;   // dI2/dUi1
-        res[2] = signP2 * factorPuToASide2_ * (ii2_dUr2_ * Ii2 + ir2_dUr2_ * Ir2) / I2;   // dI2/dUr2
-        res[3] = signP2 * factorPuToASide2_ * (ii2_dUi2_ * Ii2 + ir2_dUi2_ * Ir2) / I2;   // dI2/dUi2
-      } else {
-        res[0] = 0.;
-        res[1] = 0.;
-        res[2] = 0.;
-        res[3] = 0.;
-      }
-      break;
-    }
+    case i2Num_:
+    case iS2ToS1Side2Num_:
+    case iS1ToS2Side2Num_:
     case iSide2Num_: {
       double I2 = sqrt(Ii2 * Ii2 + Ir2 * Ir2);
-      if ((getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) && !doubleIsZero(I2)) {
-        res[0] = factorPuToASide2_ * (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;   // dI2/dUr1
-        res[1] = factorPuToASide2_ * (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;   // dI2/dUi1
-        res[2] = factorPuToASide2_ * (ii2_dUr2_ * Ii2 + ir2_dUr2_ * Ir2) / I2;   // dI2/dUr2
-        res[3] = factorPuToASide2_ * (ii2_dUi2_ * Ii2 + ir2_dUi2_ * Ir2) / I2;   // dI2/dUi2
+      double factor = 1.;
+      if (numCalculatedVar == iS2ToS1Side2Num_) {
+        double P2 = ur2 * Ir2 + ui2 * Ii2;
+        factor = sign(P2) * factorPuToASide2_;
+      } else if (numCalculatedVar == iS1ToS2Side2Num_) {
+        double P2 = ur2 * Ir2 + ui2 * Ii2;
+        factor = sign(-1 * P2) * factorPuToASide2_;
+      } else if (numCalculatedVar == iSide2Num_) {
+        factor = factorPuToASide2_;
+      }
+      if (closed2 && !doubleIsZero(I2)) {
+        res[0] = factor * (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;   // dI2/dUr1
+        res[1] = factor * (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;   // dI2/dUi1
+        res[2] = factor * (ii2_dUr2_ * Ii2 + ir2_dUr2_ * Ir2) / I2;   // dI2/dUr2
+        res[3] = factor * (ii2_dUi2_ * Ii2 + ir2_dUi2_ * Ir2) / I2;   // dI2/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1119,7 +1050,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
       break;
     }
     case p1Num_: {
-      if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
+      if (closed1) {
         res[0] = Ir1 + ur1 * ir1_dUr1_ + ui1*ii1_dUr1_;   // dP1/dUr1
         res[1] = ur1 * ir1_dUi1_ + Ii1 + ui1*ii1_dUi1_;   // dP1/dUi1
         res[2] = ur1 * ir1_dUr2_ + ui1*ii1_dUr2_;   // dP1/dUr2
@@ -1133,7 +1064,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
       break;
     }
     case p2Num_: {
-      if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
+      if (closed2) {
         res[0] = ur2 * ir2_dUr1_ + ui2*ii2_dUr1_;   // dP2/dUr1
         res[1] = ur2 * ir2_dUi1_ + ui2*ii2_dUi1_;   // dP2/dUi1
         res[2] = Ir2 + ur2 * ir2_dUr2_ + ui2*ii2_dUr2_;   // dP2/dUr2
@@ -1147,7 +1078,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
       break;
     }
     case q1Num_: {
-      if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
+      if (closed1) {
         res[0] = ui1 * ir1_dUr1_ - Ii1 - ur1*ii1_dUr1_;   // dQ1/dUr1
         res[1] = Ir1 + ui1 * ir1_dUi1_ - ur1*ii1_dUi1_;   // dQ1/dUi1
         res[2] = ui1 * ir1_dUr2_ - ur1*ii1_dUr2_;   // dQ1/dUr2
@@ -1161,7 +1092,7 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* y
       break;
     }
     case q2Num_: {
-      if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
+      if (closed2) {
         res[0] = ui2 * ir2_dUr1_ - ur2*ii2_dUr1_;   // dQ2/dUr1
         res[1] = ui2 * ir2_dUi1_ - ur2*ii2_dUi1_;   // dQ2/dUi1
         res[2] = ui2 * ir2_dUr2_ - Ii2 - ur2*ii2_dUr2_;   // dQ2/dUr2

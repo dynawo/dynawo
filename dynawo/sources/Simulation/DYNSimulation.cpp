@@ -262,117 +262,133 @@ Simulation::configureSimulationOutputs() {
       setDumpLocalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpLocalInitValues());
       setDumpGlobalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpGlobalInitValues());
     }
+    configureConstraintsOutputs();
+    configureTimelineOutputs();
+    configureCurveOutputs();
+    configureFinalStateOutputs();
+  }
+}
 
-    // Constraints settings
-    if (jobEntry_->getOutputsEntry()->getConstraintsEntry()) {
-      string constraintsDir = createAbsolutePath("constraints", outputsDirectory_);
-      if (!is_directory(constraintsDir))
-        create_directory(constraintsDir);
+void
+Simulation::configureConstraintsOutputs() {
+  // Constraints settings
+  if (jobEntry_->getOutputsEntry()->getConstraintsEntry()) {
+    string constraintsDir = createAbsolutePath("constraints", outputsDirectory_);
+    if (!is_directory(constraintsDir))
+      create_directory(constraintsDir);
 
-      //---- exportMode ----
-      string exportMode = jobEntry_->getOutputsEntry()->getConstraintsEntry()->getExportMode();
-      Simulation::exportConstraintsMode_t exportModeFlag = Simulation::EXPORT_CONSTRAINTS_NONE;
-      string outputFile = "";
-      if (exportMode == "TXT") {
-        exportModeFlag = Simulation::EXPORT_CONSTRAINTS_TXT;
-        outputFile = createAbsolutePath("constraints.log", constraintsDir);
-      } else if (exportMode == "XML") {
-        exportModeFlag = Simulation::EXPORT_CONSTRAINTS_XML;
-        outputFile = createAbsolutePath("constraints.xml", constraintsDir);
-      } else {
-        throw DYNError(Error::MODELER, UnknownConstraintsExport, exportMode);
-      }
-
-      setConstraintsExportMode(exportModeFlag);
-      setConstraintsOutputFile(outputFile);
+    //---- exportMode ----
+    string exportMode = jobEntry_->getOutputsEntry()->getConstraintsEntry()->getExportMode();
+    Simulation::exportConstraintsMode_t exportModeFlag = Simulation::EXPORT_CONSTRAINTS_NONE;
+    string outputFile = "";
+    if (exportMode == "TXT") {
+      exportModeFlag = Simulation::EXPORT_CONSTRAINTS_TXT;
+      outputFile = createAbsolutePath("constraints.log", constraintsDir);
+    } else if (exportMode == "XML") {
+      exportModeFlag = Simulation::EXPORT_CONSTRAINTS_XML;
+      outputFile = createAbsolutePath("constraints.xml", constraintsDir);
     } else {
-      setConstraintsExportMode(Simulation::EXPORT_CONSTRAINTS_NONE);
+      throw DYNError(Error::MODELER, UnknownConstraintsExport, exportMode);
     }
 
-    // Timeline settings
-    if (jobEntry_->getOutputsEntry()->getTimelineEntry()) {
-      string timeLineDir = createAbsolutePath("timeLine", outputsDirectory_);
-      if (!is_directory(timeLineDir))
-        create_directory(timeLineDir);
+    setConstraintsExportMode(exportModeFlag);
+    setConstraintsOutputFile(outputFile);
+  } else {
+    setConstraintsExportMode(Simulation::EXPORT_CONSTRAINTS_NONE);
+  }
+}
 
-      //---- exportMode ----
-      string exportMode = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportMode();
-      Simulation::exportTimelineMode_t exportModeFlag = Simulation::EXPORT_TIMELINE_NONE;
-      string outputFile = "";
-      if (exportMode == "TXT") {
-        exportModeFlag = Simulation::EXPORT_TIMELINE_TXT;
-        outputFile = createAbsolutePath("timeline.log", timeLineDir);
-      } else if (exportMode == "CSV") {
-        exportModeFlag = Simulation::EXPORT_TIMELINE_CSV;
-        outputFile = createAbsolutePath("timeline.csv", timeLineDir);
-      } else if (exportMode == "XML") {
-        exportModeFlag = Simulation::EXPORT_TIMELINE_XML;
-        outputFile = createAbsolutePath("timeline.xml", timeLineDir);
-      } else {
-        throw DYNError(Error::MODELER, UnknownTimelineExport, exportMode);
-      }
-      setTimelineExportMode(exportModeFlag);
-      setTimelineOutputFile(outputFile);
+void
+Simulation::configureTimelineOutputs() {
+  // Timeline settings
+  if (jobEntry_->getOutputsEntry()->getTimelineEntry()) {
+    string timeLineDir = createAbsolutePath("timeLine", outputsDirectory_);
+    if (!is_directory(timeLineDir))
+      create_directory(timeLineDir);
+
+    //---- exportMode ----
+    string exportMode = jobEntry_->getOutputsEntry()->getTimelineEntry()->getExportMode();
+    Simulation::exportTimelineMode_t exportModeFlag = Simulation::EXPORT_TIMELINE_NONE;
+    string outputFile = "";
+    if (exportMode == "TXT") {
+      exportModeFlag = Simulation::EXPORT_TIMELINE_TXT;
+      outputFile = createAbsolutePath("timeline.log", timeLineDir);
+    } else if (exportMode == "CSV") {
+      exportModeFlag = Simulation::EXPORT_TIMELINE_CSV;
+      outputFile = createAbsolutePath("timeline.csv", timeLineDir);
+    } else if (exportMode == "XML") {
+      exportModeFlag = Simulation::EXPORT_TIMELINE_XML;
+      outputFile = createAbsolutePath("timeline.xml", timeLineDir);
     } else {
-      setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
+      throw DYNError(Error::MODELER, UnknownTimelineExport, exportMode);
+    }
+    setTimelineExportMode(exportModeFlag);
+    setTimelineOutputFile(outputFile);
+  } else {
+    setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
+  }
+}
+
+void
+Simulation::configureCurveOutputs() {
+  // Curves settings
+  if (jobEntry_->getOutputsEntry()->getCurvesEntry()) {
+    string curvesDir = createAbsolutePath("curves", outputsDirectory_);
+    if (!is_directory(curvesDir))
+      create_directory(curvesDir);
+
+    //---- inputFile ----
+    string curveInputFile = createAbsolutePath(jobEntry_->getOutputsEntry()->getCurvesEntry()->getInputFile(), context_->getInputDirectory());
+    if (!exists(curveInputFile))
+      throw DYNError(Error::MODELER, UnknownCurveFile, curveInputFile);
+    setCurvesInputFile(curveInputFile);
+    importCurvesRequest();
+
+    //---- outputFile ---
+    setCurvesOutputFile(jobEntry_->getOutputsEntry()->getCurvesEntry()->getOutputFile());
+
+    //---- exportMode ----
+    string exportMode = jobEntry_->getOutputsEntry()->getCurvesEntry()->getExportMode();
+    Simulation::exportCurvesMode_t exportModeFlag = Simulation::EXPORT_CURVES_NONE;
+    string outputFile = "";
+    if (exportMode == "CSV") {
+      exportModeFlag = Simulation::EXPORT_CURVES_CSV;
+      outputFile = createAbsolutePath("curves.csv", curvesDir);
+    } else if (exportMode == "XML") {
+      exportModeFlag = Simulation::EXPORT_CURVES_XML;
+      outputFile = createAbsolutePath("curves.xml", curvesDir);
+    } else {
+      throw DYNError(Error::MODELER, UnknownCurvesExport, exportMode);
+    }
+    setCurvesExportMode(exportModeFlag);
+    setCurvesOutputFile(outputFile);
+  } else {
+    setCurvesExportMode(Simulation::EXPORT_CURVES_NONE);
+  }
+}
+
+void
+Simulation::configureFinalStateOutputs() {
+  // Final state settings
+  if (jobEntry_->getOutputsEntry()->getFinalStateEntry()) {
+    string finalStateDir = createAbsolutePath("finalState", outputsDirectory_);
+    if (!is_directory(finalStateDir))
+      create_directory(finalStateDir);
+
+    // ---- exportDumpFile ----
+    if (jobEntry_->getOutputsEntry()->getFinalStateEntry()->getExportDumpFile()) {
+      activateDumpFinalState(true);
+      setDumpFinalStateFile(createAbsolutePath("outputState.dmp", finalStateDir));
+    } else {
+      activateDumpFinalState(false);
     }
 
-    // Curves settings
-    if (jobEntry_->getOutputsEntry()->getCurvesEntry()) {
-      string curvesDir = createAbsolutePath("curves", outputsDirectory_);
-      if (!is_directory(curvesDir))
-        create_directory(curvesDir);
-
-      //---- inputFile ----
-      string curveInputFile = createAbsolutePath(jobEntry_->getOutputsEntry()->getCurvesEntry()->getInputFile(), context_->getInputDirectory());
-      if (!exists(curveInputFile))
-        throw DYNError(Error::MODELER, UnknownCurveFile, curveInputFile);
-      setCurvesInputFile(curveInputFile);
-      importCurvesRequest();
-
-      //---- outputFile ---
-      setCurvesOutputFile(jobEntry_->getOutputsEntry()->getCurvesEntry()->getOutputFile());
-
-      //---- exportMode ----
-      string exportMode = jobEntry_->getOutputsEntry()->getCurvesEntry()->getExportMode();
-      Simulation::exportCurvesMode_t exportModeFlag = Simulation::EXPORT_CURVES_NONE;
-      string outputFile = "";
-      if (exportMode == "CSV") {
-        exportModeFlag = Simulation::EXPORT_CURVES_CSV;
-        outputFile = createAbsolutePath("curves.csv", curvesDir);
-      } else if (exportMode == "XML") {
-        exportModeFlag = Simulation::EXPORT_CURVES_XML;
-        outputFile = createAbsolutePath("curves.xml", curvesDir);
-      } else {
-        throw DYNError(Error::MODELER, UnknownCurvesExport, exportMode);
-      }
-      setCurvesExportMode(exportModeFlag);
-      setCurvesOutputFile(outputFile);
+    // --- exportIIDMFile ----
+    if (jobEntry_->getOutputsEntry()->getFinalStateEntry()->getExportIIDMFile()) {
+      activateExportIIDM(true);
+      setExportIIDMFile(createAbsolutePath("outputIIDM.xml", finalStateDir));
     } else {
-      setCurvesExportMode(Simulation::EXPORT_CURVES_NONE);
-    }
-
-    // Final state settings
-    if (jobEntry_->getOutputsEntry()->getFinalStateEntry()) {
-      string finalStateDir = createAbsolutePath("finalState", outputsDirectory_);
-      if (!is_directory(finalStateDir))
-        create_directory(finalStateDir);
-
-      // ---- exportDumpFile ----
-      if (jobEntry_->getOutputsEntry()->getFinalStateEntry()->getExportDumpFile()) {
-        activateDumpFinalState(true);
-        setDumpFinalStateFile(createAbsolutePath("outputState.dmp", finalStateDir));
-      } else {
-        activateDumpFinalState(false);
-      }
-
-      // --- exportIIDMFile ----
-      if (jobEntry_->getOutputsEntry()->getFinalStateEntry()->getExportIIDMFile()) {
-        activateExportIIDM(true);
-        setExportIIDMFile(createAbsolutePath("outputIIDM.xml", finalStateDir));
-      } else {
-        activateExportIIDM(false);
-      }
+      activateExportIIDM(false);
     }
   }
 }

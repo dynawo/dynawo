@@ -535,6 +535,27 @@ class Simulation {
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
   double lastTimeSimulated_;  ///< value of the latest time simulated
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
+
+ private:
+  /**
+   * @brief configure the constraints outputs
+   */
+  void configureConstraintsOutputs();
+
+  /**
+   * @brief configure the timeline outputs
+   */
+  void configureTimelineOutputs();
+
+  /**
+   * @brief configure the curve outputs
+   */
+  void configureCurveOutputs();
+
+  /**
+   * @brief configure the final state outputs
+   */
+  void configureFinalStateOutputs();
 };
 
 }  // end of namespace DYN
