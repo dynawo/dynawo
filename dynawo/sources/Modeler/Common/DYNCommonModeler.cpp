@@ -48,5 +48,26 @@ addSubElement(const string& name, const string& elementName, const Element::type
   }
 }
 
+void
+replaceMacroInVariableId(const string& index, const string& name,
+    const string& model1, const string& model2, const string& connector, string& variableId) {
+  static const string indexLabel = "@INDEX@";
+  static const string nameLabel = "@NAME@";
+  // replace @INDEX@ in variableId
+  size_t pos = variableId.find(indexLabel);
+  if (pos != string::npos) {
+    if (index == "")
+      throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index");
+    variableId.replace(pos, indexLabel.size(), index);
+  }
+
+  // replace @NAME@ in variableId
+  pos = variableId.find(nameLabel);
+  if (pos != string::npos) {
+    if (name == "")
+      throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "name");
+    variableId.replace(pos, nameLabel.size(), name);
+  }
+}
 
 }  // namespace DYN

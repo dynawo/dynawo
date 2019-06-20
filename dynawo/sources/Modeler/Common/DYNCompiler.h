@@ -225,18 +225,6 @@ class Compiler {
       std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection) const;
 
   /**
-     * @brief Collect the existing connected extvar
-     * @param index string that should be inserted if \@INDEX\@ is found in variableId
-     * @param name string that should be inserted if \@NAME\@ is found in variableId
-     * @param model1 name of the first model connected by this macro connection
-     * @param model2 name of the second model connected by this macro connection
-     * @param connector macro connection name
-     * @param variableId after calling this method, contains the variable id with name and index macros replaced
-     */
-  void replaceMacroInVariableId(const std::string& index, const std::string& name,
-      const std::string& model1, const std::string& model2, const std::string& connector, std::string& variableId) const;
-
-  /**
    * @brief Collect the existing connected extvar
    * @param itUnitDynamicModelName target unitDynamic model name
    * @param macroConnection modelica Model macro connections

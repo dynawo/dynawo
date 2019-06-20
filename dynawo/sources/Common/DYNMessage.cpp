@@ -25,6 +25,7 @@
 #include <sstream>
 #include "DYNMessage.hpp"
 #include "DYNIoDico.h"
+#include "DYNMacrosMessage.h"
 
 
 using std::stringstream;
@@ -52,7 +53,7 @@ Message::initialize(const std::string& dicoName, const std::string& key) {
       fmt = IoDicos::getIoDico(dicoName)->msg(key);
       hasFmt_ = true;
       fmt_ = boost::format(fmt.c_str());
-    } catch (...) {
+    } catch (const MessageError&) {
       std::cerr << "Could not load the message associated to key " << key << std::endl;
     }
   } else {

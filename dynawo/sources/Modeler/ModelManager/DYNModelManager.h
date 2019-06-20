@@ -27,6 +27,7 @@
 
 #include "DYNSubModel.h"
 #include "DYNModelManagerCommon.h"
+#include "DYNVariableAlias.h"
 
 #ifdef _ADEPT_
 #pragma GCC diagnostic ignored "-Wunused-parameter"
@@ -534,6 +535,27 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @brief associate modelica buffers to subModel buffers
    */
   void associateBuffers();
+
+  /**
+   * @brief set the values of y calculated parameters
+   * @param y continuous values to use
+   * @param reversedAlias reference variable name to alias variables map
+   */
+  void setYCalculatedParameters(std::vector<double>& y,
+      const std::map<std::string, std::vector< boost::shared_ptr <VariableAlias> > >& reversedAlias);
+
+  /**
+   * @brief set the values of z calculated parameters
+   * @param z discrete values to use
+   * @param reversedAlias reference variable name to alias variables map
+   */
+  void setZCalculatedParameters(std::vector<double>& z,
+      const std::map<std::string, std::vector< boost::shared_ptr <VariableAlias> > >& reversedAlias);
+
+  /**
+   * @brief set the values of initial parameters
+   */
+  void setInitialCalculatedParameters();
 
  private:
   /**

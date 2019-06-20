@@ -42,7 +42,6 @@
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
 #include "DYNTrace.h"
-#include "DYNVariableAlias.h"
 
 using std::ifstream;
 using std::map;
@@ -916,28 +915,26 @@ ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z) {
       }
     }
   }
-
   // Set calculated parameters
+  setYCalculatedParameters(y, reversedAlias);
+  setZCalculatedParameters(z, reversedAlias);
+  setInitialCalculatedParameters();
+}
+
+void
+ModelManager::setYCalculatedParameters(vector<double>& y,
+    const map<string, vector< shared_ptr <VariableAlias> > >& reversedAlias) {
   const vector<string>& xNamesInitial = xNamesInit();
-  const vector<string>& zNamesInitial = zNamesInit();
-  const boost::unordered_map<string, ParameterModeler>& parametersMap = getParametersInit();
-  // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
-  vector<ParameterModeler> parametersInitial(parametersMap.size(), ParameterModeler("TMP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
-    const ParameterModeler& currentParameter = it->second;
-    parametersInitial[currentParameter.getIndex()] = currentParameter;
-  }
-  const map<string, shared_ptr<Variable> >& initVariables = variablesByNameInit();
 
   assert(xNamesInitial.size() == y.size());
   for (unsigned int i = 0; i < xNamesInitial.size(); ++i) {
     setCalculatedParameter(xNamesInitial[i], y[i]);
     // Export alias
     if (reversedAlias.find(xNamesInitial[i]) != reversedAlias.end()) {
-      vector< shared_ptr <VariableAlias> > variables = reversedAlias[xNamesInitial[i]];
+      vector< shared_ptr <VariableAlias> > variables = reversedAlias.find(xNamesInitial[i])->second;
       for (vector< shared_ptr <VariableAlias> >::const_iterator it = variables.begin();
-              it != variables.end();
-              ++it) {
+          it != variables.end();
+          ++it) {
         if (!(*it)->getNegated()) {  // Usual alias
           setCalculatedParameter((*it)->getName(), y[i]);
           Trace::debug() << DYNLog(ParamSameValue, (*it)->getName(), xNamesInitial[i]) << Trace::endline;
@@ -948,6 +945,14 @@ ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z) {
       }
     }
   }
+}
+
+void
+ModelManager::setZCalculatedParameters(vector<double>& z,
+    const map<string, vector< shared_ptr <VariableAlias> > >& reversedAlias) {
+  const vector<string>& zNamesInitial = zNamesInit();
+
+  const map<string, shared_ptr<Variable> >& initVariables = variablesByNameInit();
 
   assert(zNamesInitial.size() == z.size());
   for (unsigned int i = 0; i < zNamesInitial.size(); ++i) {
@@ -958,10 +963,10 @@ ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z) {
     // check whether the variable is an alias (in order to determine whether it is a boolean variable)
     string varNameForCheck = varName;
     if ((initVariables.find(varName) == initVariables.end()) && (reversedAlias.find(varName) != reversedAlias.end())) {
-      vector< shared_ptr <VariableAlias> > variables = reversedAlias[varName];
+      vector< shared_ptr <VariableAlias> > variables = reversedAlias.find(varName)->second;
       for (vector< shared_ptr <VariableAlias> >::const_iterator it = variables.begin();
-              it != variables.end();
-              ++it) {
+          it != variables.end();
+          ++it) {
         const string& tmpVarName = (*it)->getName();
         if (initVariables.find(tmpVarName) != initVariables.end()) {
           varNameForCheck = tmpVarName;
@@ -990,10 +995,10 @@ ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z) {
 
     // Export alias
     if (reversedAlias.find(varName) != reversedAlias.end()) {
-      vector< shared_ptr <VariableAlias> > variables = reversedAlias[varName];
+      vector< shared_ptr <VariableAlias> > variables = reversedAlias.find(varName)->second;
       for (vector< shared_ptr <VariableAlias> >::const_iterator it = variables.begin();
-              it != variables.end();
-              ++it) {
+          it != variables.end();
+          ++it) {
         const double zVal = (*it)->getNegated() ? - z[i] : z[i];
         if (toConvertToBool) {
           setCalculatedParameter(varName, toNativeBool(zVal));
@@ -1011,7 +1016,17 @@ ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z) {
       }
     }
   }
+}
 
+void
+ModelManager::setInitialCalculatedParameters() {
+  const boost::unordered_map<string, ParameterModeler>& parametersMap = getParametersInit();
+  // We need ordered parameters as Modelica structures are ordered in a certain way and we want to stick to this order to recover the param
+  vector<ParameterModeler> parametersInitial(parametersMap.size(), ParameterModeler("TMP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  for (ParamIterator it = parametersMap.begin(), itEnd = parametersMap.end(); it != itEnd; ++it) {
+    const ParameterModeler& currentParameter = it->second;
+    parametersInitial[currentParameter.getIndex()] = currentParameter;
+  }
   // Copy init parameters
   assert(parametersInitial.size() == (unsigned int) (modelData()->nParametersReal + modelData()->nParametersBoolean + modelData()->nParametersInteger + modelData()->nParametersString));   // NOLINT(whitespace/line_length)
   for (unsigned int i = 0; i < modelData()->nParametersReal; ++i) {
@@ -1022,25 +1037,25 @@ ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z) {
       if (!parameter.isFullyInternal()) {
         // ternary operator does not work here (because the boolean would be implicitly converted to double, leading to a downstream parameter type error)
         switch (parameter.getValueType()) {
-          case VAR_TYPE_DOUBLE:
-          {
-            setCalculatedParameter(parName, simulationInfo()->realParameter[i]);
-            break;
-          }
-          case VAR_TYPE_INT:
-          {
-            setCalculatedParameter(parName, static_cast<int> (simulationInfo()->realParameter[i]));
-            break;
-          }
-          case VAR_TYPE_BOOL:
-          {
-            setCalculatedParameter(parName, toNativeBool(simulationInfo()->realParameter[i]));
-            break;
-          }
-          case VAR_TYPE_STRING:
-          {
-            throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, parName, typeVarC2Str(parameter.getValueType()), "DOUBLE");
-          }
+        case VAR_TYPE_DOUBLE:
+        {
+          setCalculatedParameter(parName, simulationInfo()->realParameter[i]);
+          break;
+        }
+        case VAR_TYPE_INT:
+        {
+          setCalculatedParameter(parName, static_cast<int> (simulationInfo()->realParameter[i]));
+          break;
+        }
+        case VAR_TYPE_BOOL:
+        {
+          setCalculatedParameter(parName, toNativeBool(simulationInfo()->realParameter[i]));
+          break;
+        }
+        case VAR_TYPE_STRING:
+        {
+          throw DYNError(Error::MODELER, ParameterInvalidTypeRequested, parName, typeVarC2Str(parameter.getValueType()), "DOUBLE");
+        }
         }
       }
     }

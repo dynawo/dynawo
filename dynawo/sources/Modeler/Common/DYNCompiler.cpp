@@ -32,6 +32,7 @@
 #include "DYNModelDescription.h"
 #include "DYNDynamicData.h"
 #include "DYNCompiler.h"
+#include "DYNCommonModeler.h"
 
 #include "DYDDynamicModelsCollection.h"
 #include "DYDModel.h"
@@ -366,15 +367,15 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   Trace::debug("COMPILE") << ss.str() << Trace::endline;
   string echoString = ss.str();
   boost::replace_all(echoString, "'", "\"");
-  #ifdef __linux__
+#ifdef __linux__
   // In case of static compilation it is expected that symbols about Timer are missing.
   string commandUndefined = "echo '" + echoString + "' | sed '1,/ldd -r/d' | c++filt | grep 'undefined' | grep -v 'DYN::Timer::~Timer()'"
           " | grep -v \"DYN::Timer::Timer([^)]*)\"";
   int returnCode = system(commandUndefined.c_str());
   bool hasUndefinedSymbol = (returnCode == 0);
-  #else
+#else
   bool hasUndefinedSymbol = false;
-  #endif
+#endif
 
   // testing if the lib was successfully compiled (test if it exists, and if no undefined symbol was noticed)
   if ((!exists(compileDirPath_ + "/" + libName)) || (hasUndefinedSymbol))
@@ -526,27 +527,6 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
 }
 
 void
-Compiler::replaceMacroInVariableId(const string& index, const string& name,
-    const string& model1, const string& model2, const string& connector, string& variableId) const {
-  static const string indexLabel = "@INDEX@";
-  static const string nameLabel = "@NAME@";
-  // replace @INDEX@ in variableId
-  size_t pos = variableId.find(indexLabel);
-  if (pos != string::npos) {
-    if (index == "")
-      throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "index");
-    variableId.replace(pos, indexLabel.size(), index);
-  }
-
-  // replace @NAME@ in variableId
-  pos = variableId.find(nameLabel);
-  if (pos != string::npos) {
-    if (name == "")
-      throw DYNError(Error::MODELER, IncompleteMacroConnection, model1, model2, connector, "name");
-    variableId.replace(pos, nameLabel.size(), name);
-  }
-}
-void
 Compiler::collectMacroConnections(const map<string, shared_ptr<dynamicdata::MacroConnect> >& macroConnects,
     vector<shared_ptr<dynamicdata::Connector> >& macroConnection) const {
   for (map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
@@ -569,6 +549,7 @@ Compiler::collectMacroConnections(const map<string, shared_ptr<dynamicdata::Macr
     }
   }
 }
+
 void
 Compiler::writeConcatModelicaFile(const std::string& modelID, const shared_ptr<ModelDescription> & modelicaModelDescription,
     const vector<shared_ptr<dynamicdata::Connector> >& macroConnection,

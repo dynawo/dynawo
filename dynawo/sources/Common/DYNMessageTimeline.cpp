@@ -23,6 +23,7 @@
 #include <boost/none.hpp>
 #include "DYNMessageTimeline.h"
 #include "DYNIoDico.h"
+#include "DYNMacrosMessage.h"
 
 using std::stringstream;
 using std::string;
@@ -49,7 +50,7 @@ MessageTimeline::initialize(const string& key) {
 #else
       priority_ = std::atoi(priority.c_str());
 #endif
-    } catch (...) {
+    } catch (const MessageError&) {
       std::cerr << "Could not load the message associated to key " << key << std::endl;
     }
   }

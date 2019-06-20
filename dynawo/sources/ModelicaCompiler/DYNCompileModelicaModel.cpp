@@ -445,7 +445,7 @@ bool verifySharedObject(const string& library) {
   dlclose(handle);
 
   // verify links.
-  #ifdef __linux__
+#ifdef __linux__
   string command1 = "ldd -r " + library + " | c++filt";
   bool doPrintLogs = true;
   string result = executeCommand(command1, doPrintLogs);
@@ -454,9 +454,9 @@ bool verifySharedObject(const string& library) {
   string command2 = "echo \"" + result + "\" | grep 'undefined' | c++filt | grep -v 'DYN::Timer::~Timer()' | grep -v \"DYN::Timer::Timer([^)]*)\"";
   int returnCode = system(command2.c_str());
   bool valid = (returnCode != 0);
-  #else
+#else
   bool valid = true;
-  #endif
+#endif
   return valid;
 }
 
