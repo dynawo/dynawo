@@ -78,9 +78,7 @@ def replace_var_names(line):
     ptrn_var = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
     ptrn_var_no_desc = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) \*\/')
     ptrn_pre_var = re.compile(r'data->simulationInfo->(?P<var>[\w\[\]]+)Pre\[(?P<dataIdx>[0-9]+)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
-    ptrn_pre_var_no_desc = re.compile(r'data->simulationInfo->(?P<var>[\w\[\]]+)Pre\[(?P<dataIdx>[0-9]+)\][[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) \*\/')
     ptrn_param = re.compile(r'data->simulationInfo->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
-    ptrn_param_no_desc = re.compile(r'data->simulationInfo->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) \*\/')
     ptrn_var_add = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w]+)\[(?P<varIdx>[0-9]+)\]')
     match = ptrn_var.findall(line)
     map_to_replace = {}
@@ -107,23 +105,7 @@ def replace_var_names(line):
             line = line.replace("data->simulationInfo->"+add+"Pre["+str(index)+"]", replacement_string)
             map_to_replace[replacement_string] = "data->simulationInfo->"+match2.group("var")+"Pre["+match2.group("varIdx")+"]"
             pattern_index +=1
-    match = ptrn_pre_var_no_desc.findall(line)
-    for add, index, name in match:
-        test_param_address(name)
-        match2 = re.search(ptrn_var_add, to_param_address(name))
-        if match2 != None:
-            replacement_string = "@@@" + str(pattern_index) + "@@@"
-            line = line.replace("data->simulationInfo->"+add+"Pre["+str(pattern_index)+"]", replacement_string)
-            map_to_replace[replacement_string] = "data->simulationInfo->"+match2.group("var")+"Pre["+match2.group("varIdx")+"]"
-            pattern_index +=1
     match = ptrn_param.findall(line)
-    for idx, name in match:
-        test_param_address(name)
-        replacement_string = "@@@" + str(pattern_index) + "@@@"
-        line = line.replace("data->simulationInfo->"+idx, replacement_string)
-        map_to_replace[replacement_string] = to_param_address(name)
-        pattern_index +=1
-    match = ptrn_param_no_desc.findall(line)
     for idx, name in match:
         test_param_address(name)
         replacement_string = "@@@" + str(pattern_index) + "@@@"
@@ -228,21 +210,6 @@ def find_key_in_map(a_map, the_value):
     return None
 
 ##
-# Look at a value in a map and return keys associated to the value
-#
-# @param a_map : map where the value should be found
-# @param the_value : value to find in the map
-#
-# @return : a list of keys associated to the value (empty list if the value does not exist)
-def find_keys_in_map(a_map, the_value):
-    list_keys = []
-    for key, value in a_map.iteritems():
-        if value == the_value:
-            list_keys.append( key )
-    return list_keys
-
-
-##
 # Find a division expression in a line
 # @param line line  to analize
 # @param start_pos : pointer in the line where the division begins
@@ -324,14 +291,10 @@ def sub_division_sim(line):
 # @returns new line expression
 def throw_stream_indexes(line):
     pattern = "throwStreamPrintWithEquationIndexes(threadData, equationIndexes"
-    pattern_bis = "throwStreamPrintWithEquationIndexes(data->threadData, equationIndexes"
     pattern1 = "throwStreamPrint("
-    pattern1_bis = "throwStreamPrint("
     line_to_return = line
     if pattern in line:
         line_to_return = line.replace(pattern,pattern1)
-    elif pattern_bis in line:
-        line_to_return = line.replace(pattern_bis, pattern1_bis)
 
     return line_to_return
 
@@ -412,15 +375,13 @@ class Transpose:
     # @param txt_list : expressions where var name should be replaced
     # @param auxiliary_vars_map : auxiliary vars
     # @param residual_vars_map : residual vars
-    def __init__(self, txt_list = None, auxiliary_vars_map = None, residual_vars_map = None):
+    def __init__(self, auxiliary_vars_map = None, residual_vars_map = None):
         ## pattern to intercept var name in expression
         self.ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]*\*\/')
         ## map associating var name to var value
         self.map = {}
         ## expressions where var name should be replaced
         self.txt_list = []
-        if txt_list is not None:
-            self.txt_list = txt_list
         if auxiliary_vars_map is not None:
             self.auxiliary_vars_map = auxiliary_vars_map
         if residual_vars_map is not None:
@@ -859,36 +820,6 @@ def convert_booleans_line (boolean_variables_names, line):
     return_string += line [line.find(";") : ]
 
     return return_string
-
-##
-# Split function arguments
-# @param line : a raw code line to process
-# @param function_name : the name of the function for which to extract arguments
-# @return the arguments as a list
-def split_function_arguments (line, function_name):
-    if (function_name not in line) or (';' not in line):
-        error_exit('failed to extract function arguments linked with ' + function_name + ' for ' + line)
-
-    # extract the content between the function name and ";"
-    end_name_index = line.find(function_name) + len (function_name)
-    semicolon_index = line.find (";", end_name_index)
-
-    # remove the opening and closing argument brackets
-    arguments_raw_content = line [end_name_index + 1 : semicolon_index - 1]
-    arguments = []
-
-    # individually extract each argument
-    end_position = 0
-    while (end_position < len (arguments_raw_content)):
-        argument, end_position = get_argument (arguments_raw_content, end_position)
-        argument = argument.strip()
-
-        arguments.append(argument)
-
-        # skip ","
-        end_position += 1
-
-    return arguments
 
 ##
 # Check whether equationIndexes is within a given line

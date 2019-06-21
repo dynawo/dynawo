@@ -194,8 +194,6 @@ class Factory:
         # Map of reinit equations for discrete variables
         self.map_eq_reinit_discrete = {}
 
-        ## List of all equations which does not evaluate variables
-        self.list_other_eq = []
         ## List of warnings
         self.list_warnings = []
         ## Number of equations of the system
@@ -271,13 +269,6 @@ class Factory:
         self.zc_filter = ZeroCrossingFilter(self.reader)
 
     ##
-    # Getter to obtain the list of system's variables
-    # @param self : object pointer
-    # @return list of system's variables
-    def get_vars_syst(self):
-        return self.list_vars_syst
-
-    ##
     # Getter to obtain the number of dynamic equations
     # @param self : object pointer
     # @return number of dynamic equations
@@ -307,13 +298,6 @@ class Factory:
     # @return list of equations
     def get_map_eq_reinit_discrete(self):
         return self.map_eq_reinit_discrete
-
-    ##
-    # Getter to obtain all equations not defining the model
-    # @param self : object pointer
-    # @return list of equations
-    def get_list_other_eq(self):
-        return self.list_other_eq
 
     ##
     # For each variables, give an index useful for omc array, initial value
@@ -493,13 +477,6 @@ class Factory:
         # ----------------------------------------------------------------------------------
         ## everything is done on reading
         self.list_elements = self.reader.list_elements
-
-    ##
-    # Build equation from functions found in main c file
-    # @param self : object pointer
-    # @return
-    def build_equations_from_main_c(self):
-        pass
 
     ##
     # Sort external function depending on where they are called:
@@ -963,7 +940,7 @@ class Factory:
     def prepare_for_setf(self):
         ptrn_f_name ="  // ----- %s -----\n"
         map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
-        for eq in self.get_list_eq_syst() + self.get_list_other_eq():
+        for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
             var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
             if var_name not in self.reader.fictive_continuous_vars_der:
@@ -1056,13 +1033,6 @@ class Factory:
             fequation_index = str(eq.get_num_dyn())
             if fequation_index != '-1' and index in map_fequation.keys():
                 linetoadd = "  fEquationIndex["+ fequation_index +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
-                self.listfor_setfequations.append(linetoadd)
-
-        for eq in self.get_list_other_eq():
-            index = str(eq.get_num_omc())
-            fequation_index = str(eq.get_num_dyn())
-            if fequation_index != '-1' and index in map_fequation.keys():
-                linetoadd = "  fEquationIndex["+ str(fequation_index) +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
                 self.listfor_setfequations.append(linetoadd)
         return self.listfor_setfequations
 
@@ -1473,7 +1443,7 @@ class Factory:
 
         # ... Transpose to translate
         #     vars [ var or der(var) ] --> [ x[i]  xd[i] ou rpar[i] ]
-        trans = Transpose(None, self.reader.auxiliary_vars_to_address_map, self.reader.derivative_residual_vars + self.reader.assign_residual_vars)
+        trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.derivative_residual_vars + self.reader.assign_residual_vars)
 
         map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
 
@@ -1772,92 +1742,8 @@ class Factory:
             index_aux_var+=1
 
         lines_to_write = variable_definitions
-
-#         item_types = ['Vars', 'Parameter']
-#         for item_type in item_types:
-#             items = None
-#             item_names = None
-#             item_external_offset = 0 # offset due to the fact that some items may already exist
-#             item_internal_offset = 0 # offset due to for loop iteration
-#             items_full_offsets = {} # map item identifier with its item index
-#
-#             if (item_type == 'Vars'):
-#                 items = self.list_vars_bool
-#             elif (item_type == 'Parameter'):
-#                 items = self.list_params_bool
-#
-#             new_type=''
-#             if (item_type == 'Vars'):
-#                 new_type='discrete'
-#             elif(item_type == 'Parameter'):
-#                 new_type='real'
-#
-#             item_names = [var.get_name() for var in items]
-#
-#             # sort item names in order to start with the longest one (to avoid taking varXY for varX)
-#             item_names.sort(key=len, reverse=True)
-#
-#             for line in variable_definitions:
-#                 if ('->'+ new_type + item_type in line):
-#                     sub_line = line [line.find ('->' + new_type + item_type) : ]
-#                     sub_line = sub_line [sub_line.find('[') + 1 : sub_line.find (']')].strip()
-#                     item_external_offset = max (item_external_offset, int (sub_line) + 1)
-#
-#             item_identification = '->boolean' + item_type # items for which to change the type
-#             # prefix and suffix to avoid taking one variable for another (superVar1 for Var1, var12 for var1, ...)
-#             allowed_suffixes = [' ', '(i)', '__varInfo']
-#             allowed_prefixes = [' ', ' _', '$P$PRE', '$P$ATTRIBUTE']
-#             for n, line in enumerate(lines_to_write):
-#                 # change boolean into (discrete) real
-#                 if (item_identification in line) and (any(var_name in line for var_name in item_names)):
-#
-#                     # find which item was found
-#                     item_found = None
-#                     for item_name in item_names:
-#                         if any(prefix + item_name + suffix in line for (prefix, suffix) in itertools.product (allowed_prefixes, allowed_suffixes)):
-#                            item_found = item_name
-#                            break
-#
-#                     # extract part of the line (without the offset declaration)
-#                     item_offset_index = line.find (item_name)
-#                     sub_line = line [item_offset_index : ]
-#
-#                     item_offset_index += sub_line.find(item_identification) + 1
-#                     sub_line = line [item_offset_index : ]
-#
-#                     item_offset_index += sub_line.find('[') + 1
-#                     item_offset_index_length = sub_line.find (']') - (sub_line.find('[') + 1)
-#                     sub_line = sub_line [sub_line.find('[') + 1 : sub_line.find (']')].strip()
-#
-#                     # compute the new item offset and update the OMC variable index
-#                     if (item_found not in items_full_offsets.keys()):
-#                         full_offset = item_external_offset + item_internal_offset
-#                         items_full_offsets [item_found] = full_offset
-#                         for search_item in items:
-#                             if (search_item.get_name() == item_found):
-#                                 search_item.set_num_omc (full_offset)
-#                                 break
-#                         item_internal_offset += 1
-#
-#                     item_offset_new = items_full_offsets [item_found]
-#
-#                     # remove the old offset, and replace it with the new one
-#                     new_line = line [ : item_offset_index].replace('boolean', new_type) + str(item_offset_new) + line [item_offset_index + item_offset_index_length :]
-#
-#                 else:
-#                     new_line = line
-#
-#                 # add line ending when relevant
-#                 line_ending = '\n'
-#                 if new_line [ - len(line_ending) : ] !=  line_ending:
-#                     new_line += line_ending
-#
-#                 lines_to_write [n] = new_line
 #
         self.list_for_definition_header.extend (lines_to_write)
-#         self.list_vars_bool.sort (cmp = cmp_num_omc_vars)
-#         self.list_all_vars_discr.sort(cmp = cmp_num_omc_vars)
-#         self.list_params_bool.sort(cmp = cmp_num_omc_vars)
 
 
     ##
