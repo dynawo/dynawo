@@ -368,8 +368,10 @@ ModelTwoWindingsTransformer::evalYMat() {
 
 void
 ModelTwoWindingsTransformer::init(int& yNum) {
+  assert(yNum >= 0 && "Model TwoWindingsTransformer: yNum < 0");
+
   if (!network_->isInitModel()) {
-    yOffset_ = (unsigned int) yNum;
+    yOffset_ = static_cast<unsigned int>(yNum);
     unsigned int localIndex = 0;
 
     if (modelPhaseChanger_) {
@@ -1479,7 +1481,6 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
 
   if (modelPhaseChanger_) {
     double iValue = y_[0];
-    DYN::Trace::debug() << "evalG iValue : " << iValue << DYN::Trace::endline;
     modelPhaseChanger_->evalG(t, iValue, false, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, connectionState_ == CLOSED);
   }
 }
