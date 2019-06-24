@@ -299,7 +299,7 @@ The current limit automaton monitoring line bus2-bus4 parameters are:
 \end{center}
 
 \subsection{Scenario}
-At $t=20s$, the following line disconnection is simulated:
+At $t=5s$, the following line disconnection is simulated:
 \begin{itemize}
 \item{the line connecting bus 1 to bus 5 is opened at its bus 5 end}
 \end{itemize}
@@ -316,7 +316,7 @@ The solver used is the variable time step solver IDA with the following paramete
 \newpage
 \subsection{Results}
 
-At t=20s, the line 1-5 is disconnected. Following this topology change, the current value on the line 2-5 monitored by the first current limit automaton becomes higher than its threshold $I_{Max}$=600 A. After the time delay (5s), and as the current didn't go back under $I_{Max}$, the automaton then opens line 2-5.
+At t=5s, the line 1-5 is disconnected. Following this topology change, the current value on the line 2-5 monitored by the first current limit automaton becomes higher than its threshold $I_{Max}$=600 A. After the time delay (5s), and as the current didn't go back under $I_{Max}$, the automaton then opens line 2-5.
 As a consequence, the transit on line 2-4 increases and exceeds the second current limit automaton threshold $I_{Max}$=1000 A . After the time delay (10s), and as the current didn't go back under $I_{Max}$, the automaton opens line 2-4. \\
 
 \begin{figure}[H]
