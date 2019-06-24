@@ -113,7 +113,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 #########################################
 
 case_name = "IEEE14 - Phase Shifter I"
-case_description = "IEEE14 with a phase shifter P monitoring bus5-bus6 transformer's current"
+case_description = "IEEE14 with a phase shifter I monitoring bus5-bus6 transformer's current"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE14_WithAutomata", "IEEE14_PhaseShifterI", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
