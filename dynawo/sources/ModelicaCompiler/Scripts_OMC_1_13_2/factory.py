@@ -61,7 +61,7 @@ class ZeroCrossingFilter:
     ##
     # remove fictitious when equations
     # @param self : object pointer
-    def remove_fictitious_gequation(self):
+    def create_function_zero_crossing_description_raw_func_and_detect_fictitious_root(self):
         # Filtering the body lines of the function
         def filter_desc_data(line):
             if "return res[i];" not in line \
@@ -92,6 +92,13 @@ class ZeroCrossingFilter:
                     new_line = line.replace("\"time > 999999.0\"","")
                     self.function_zero_crossing_description_raw_func.append(new_line)
             nb_zero_crossing_tot +=1
+        return indexes_to_filter
+
+    ##
+    # remove fictitious when equations
+    # @param self : object pointer
+    def remove_fictitious_gequation(self):
+        indexes_to_filter = self.create_function_zero_crossing_description_raw_func_and_detect_fictitious_root()
 
         # Filtering the body lines of the function
         def filter_eq_data(line):
@@ -209,8 +216,6 @@ class Factory:
         self.list_z_equations = []
         ## List of integer equations identified in the model
         self.list_int_equations = []
-        ## List of boolean equations identified in the model
-        self.list_bool_equations = []
 
         ## List of equations to add in setY0 function
         self.list_for_sety0 = []
@@ -228,6 +233,8 @@ class Factory:
         self.list_for_setupdatastruc = []
         ## List of equations to add in evalFAdept function
         self.list_for_evalfadept = []
+        ## List of external functions that should be redefined for adept
+        self.list_for_evalfadept_external_call = []
         ## List of equations to add in setSharedParamsDefault function
         self.list_for_setsharedparamsdefault = []
         ## List of equations to add in setParams function
@@ -254,14 +261,16 @@ class Factory:
         self.listfor_setfequations = []
         ## List of formula of root equations to define setGequations function
         self.list_for_setgequations = []
-        ## List of equations identified in main c file and in *_02nls.c
-        self.list_eq_maker_main_c_and_nls = []
+        ## List of equations identified in _16dae file
+        self.list_eq_maker_16dae = []
 
         ## List of variables definitions for generic header
         self.list_for_definition_header = []
 
         ## List of external call, called since setFomc
         self.list_call_for_setf =[]
+        ## List of external call, called since setFomc
+        self.list_additional_equations_from_call_for_setf =[]
         ## List of external call, called since setZomc
         self.list_call_for_setz =[]
 
@@ -488,15 +497,16 @@ class Factory:
     def build_call_functions(self):
         map_tags_num_eq = self.reader.get_map_tag_num_eq()
         list_omc_functions = self.reader.list_omc_functions
-        name_func_to_search = ["omc_assert", "omc_terminate"]
+        name_func_to_search = []
         for func in list_omc_functions:
             name_func_to_search.append(func.get_name())
 
         # Analysis of MainC functions => if external call => will be added to setFOMC
         list_body_to_analyse = []
-        body_to_add = []
+        list_body_to_append = []
+        list_body_to_append_to_z = []
 
-        for eq_mak in self.list_eq_maker_main_c_and_nls:
+        for eq_mak in self.list_eq_maker_16dae:
             tag = find_value_in_map( map_tags_num_eq, eq_mak.get_num_omc() )
             if eq_mak.get_evaluated_var() == "" and tag != 'when':
                 # call to a function and not evaluation of a variable
@@ -512,52 +522,195 @@ class Factory:
                         body_tmp.append(line)
 
                 list_body_to_analyse.append(body_tmp)
-                body_to_add.append(False)
+
+        global_pattern_index = 0
+        dic_var_name_to_temporary_name = {}
 
         # functions calling an external function ???
-        num_body = 0
         for body in list_body_to_analyse:
-            for name in name_func_to_search:
-                if any(name in line for line in body):
-                    body_to_add[num_body] = True
-                    break
+            new_body = []
+            is_discrete = False
+            found = False
+            for line in body:
+                for name in name_func_to_search:
+                    if name+"(" in line or name +" (" in line:
+                        for func in filter(lambda x: (x.get_name() == name), list_omc_functions):
+                            variables_set_by_omc_function = self.find_variables_set_by_omc_function(line, func, None)
+                            discrete_variables_set_by_omc_function = self.find_output_integer_double_vars(line, func)
 
-            num_body += 1
+                            ## Sanity check: cannot assign a value to both a continuous and a discrete variable
+                            if len(discrete_variables_set_by_omc_function) > 0 and len(discrete_variables_set_by_omc_function) < len(variables_set_by_omc_function):
+                                error_exit("    Error: Function " + name + " is used to assign a value to both continuous and discrete variables, which is forbidden.")
 
-        # Add the functions concerned
-        num_body = 0
-        for body in list_body_to_analyse:
-            if body_to_add[num_body]:
-                self.list_call_for_setf.append('  {\n')
+                            if len(discrete_variables_set_by_omc_function) > 0:
+                                is_discrete = True
+                            else:
+                                (line, dic_var_name_to_temporary_name_tmp, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_set_by_omc_function, global_pattern_index)
+                                dic_var_name_to_temporary_name.update(dic_var_name_to_temporary_name_tmp)
+                        found = True
+                if "omc_assert" in line or "omc_terminate" in line:
+                    found = True
+                new_body.append(line)
+            if found and is_discrete:
+                list_body_to_append.append("{\n")
+                list_body_to_append_to_z.append(body)
+                list_body_to_append.append("}\n\n")
+            elif found:
+                list_body_to_append.append("{\n")
+                list_body_to_append.append(new_body)
+                list_body_to_append.append("}\n\n")
+
+        if len(list_body_to_append) > 0:
+            for name in dic_var_name_to_temporary_name.keys():
+                test_param_address(name)
+                self.list_call_for_setf.append("  double " + dic_var_name_to_temporary_name[name]+ " = " + to_param_address(name) + " /* " + name + "*/;\n")
+
+            # Add the functions concerned
+            for body in list_body_to_append:
                 self.list_call_for_setf.extend(body)
-                self.list_call_for_setf.append('  }\n')
-            num_body +=1
+
+            for name in dic_var_name_to_temporary_name.keys():
+                test_param_address(name)
+                eq = Equation([to_param_address(name) + " /* " + name + "*/ = " + dic_var_name_to_temporary_name[name]+";"], \
+                              name, \
+                              to_param_address(name), \
+                              [], \
+                              "external_call_"+str(self.nb_eq_dyn), \
+                              -1 )
+                eq.set_num_dyn(self.nb_eq_dyn)
+                self.nb_eq_dyn += 1
+                self.list_additional_equations_from_call_for_setf.append(eq)
 
 
+        global_pattern_index = 0
         # Function analysis, if tag when: external call
-        for eq_mak in self.list_eq_maker_main_c_and_nls:
+        for eq_mak in self.list_eq_maker_16dae:
             tag = find_value_in_map( map_tags_num_eq, eq_mak.get_num_omc() )
             if (tag == 'when' and not eq_mak.get_is_modelica_reinit()):
                 body = eq_mak.get_body()
-                body_tmp = []
-                for line in body:
-                    if "threadData" in line:
-                        line = line.replace("threadData,", "")
-                        body_tmp.append(line)
-                    #removing of clean ifdef
-                    elif "#ifdef" not in line and "#endif" not in line \
-                            and "SIM_PROF_" not in line and "NORETCALL" not in line:
-                        body_tmp.append(line)
+                body_tmp = self.handle_body_for_discrete(body, name_func_to_search, global_pattern_index)
+
                 if any(ext in " ".join(body_tmp) for ext in self.list_when_eq_to_filter):
                     continue
                 self.list_call_for_setz.extend(body_tmp)
 
+        for body in list_body_to_append_to_z:
+            body_tmp = self.handle_body_for_discrete(body, name_func_to_search, global_pattern_index)
+            self.list_call_for_setz.extend(body_tmp)
+
+
+    def handle_body_for_discrete(self, body, name_func_to_search, global_pattern_index):
+        list_omc_functions = self.reader.list_omc_functions
+        list_bool_var_names = [item.get_name() for item in self.list_all_bool_items]
+        body_tmp = []
+        for line in body:
+            ## When an integer is set by passing a reference to into a function parameter,
+            ## need to use an intermediate modelica_integer var to set the double value on Dynawo side
+            found = False
+            for name in name_func_to_search:
+                if name+"(" in line or name +" (" in line:
+                    for func in filter(lambda x: (x.get_name() == name), list_omc_functions):
+                        variables_to_replace = self.find_output_integer_double_vars(line, func)
+                        dic_var_name_to_temporary_name = {}
+                        (line, dic_var_name_to_temporary_name, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_to_replace, global_pattern_index)
+
+                        for name in dic_var_name_to_temporary_name.keys():
+                            test_param_address(name)
+                            if "integerDoubleVars" in to_param_address(name):
+                                body_tmp.append("  modelica_integer " + dic_var_name_to_temporary_name[name]+ " = (modelica_integer)" + to_param_address(name) + " /* " + name + "*/;\n")
+                            elif name in list_bool_var_names:
+                                body_tmp.append("  modelica_boolean " + dic_var_name_to_temporary_name[name]+ " = fromNativeBool(" + to_param_address(name) + " /* " + name + "*/);\n")
+                            else:
+                                body_tmp.append("  modelica_real " + dic_var_name_to_temporary_name[name]+ " = " + to_param_address(name) + " /* " + name + "*/;\n")
+
+                        line = line.replace("threadData,", "")
+                        body_tmp.append(line)
+
+                        for key in dic_var_name_to_temporary_name.keys():
+                                    body_tmp.append("  "+to_param_address(key) + " /* " + key + " DISCRETE */ = " + dic_var_name_to_temporary_name[key]+";\n")
+                        found = True
+            if not found:
+                if "threadData" in line:
+                    line = line.replace("threadData,", "")
+                    body_tmp.append(line)
+                #removing of clean ifdef
+                elif "#ifdef" not in line and "#endif" not in line \
+                        and "SIM_PROF_" not in line and "NORETCALL" not in line:
+                    body_tmp.append(line)
+        return body_tmp
+
+    def find_output_integer_double_vars(self, line_with_call, func):
+
+        def filter_discrete_var(var_name):
+            return "integerDoubleVars" in to_param_address(var_name) or "discreteVars" in to_param_address(var_name)
+
+        return self.find_variables_set_by_omc_function(line_with_call, func, \
+                lambda var_name: filter_discrete_var(var_name))
+
+    def find_variables_set_by_omc_function(self, line_with_call, omc_raw_function, filter):
+        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+        match = re.match(ptrn_var_assigned, line_with_call)
+        variable_to_replace = {}
+        if match is not None:
+            variable_name = match.group("varName").replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
+            if filter is None or filter(variable_name):
+                variable_to_replace[variable_name] = -1
+            rhs = match.group("rhs").replace(omc_raw_function.get_name()+"(","").replace(omc_raw_function.get_name()+" (","")
+            rhs = rhs.replace(")","").replace(";","")
+            ptrn_var= re.compile(r'[ ]*[&]?data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
+
+            index = 0
+            for params in rhs.split(','):
+                param = omc_raw_function.get_param_types()[index]
+                if param.get_is_input():
+                    index+=1
+                    continue
+                match = re.match(ptrn_var, params)
+                if match is not None:
+                    param_variable_name = match.group("varName").replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
+                    if filter is None or filter(param_variable_name):
+                        variable_to_replace[param_variable_name] = index
+                index+=1
+        return variable_to_replace
+
     ##
-    # Take the equations found by the read and sort them
-    # Change their expression and transforms them in residual function
+    # Replace all variables by a temporary name
+    # @param self: object pointer
+    # @param line: line to analyse
+    # @return line to use
+    def replace_var_names_by_temporary_and_build_dictionary(self, line, variable_to_replace, global_pattern_index):
+        ptrn_var = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
+        ptrn_var_no_desc = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) \*\/')
+        match = ptrn_var.findall(line)
+        map_to_replace = {}
+
+        prefix_temporary_var = "external_call_tmp_"
+        dic_var_name_to_temporary_name = {}
+        for idx, add, name in match:
+            if name not in variable_to_replace.keys(): continue
+            replacement_string = "@@@" + str(global_pattern_index) + "@@@"
+            line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
+            map_to_replace[replacement_string] = prefix_temporary_var+str(global_pattern_index)
+            dic_var_name_to_temporary_name[name] = map_to_replace[replacement_string]
+            global_pattern_index +=1
+        match = ptrn_var_no_desc.findall(line)
+        for idx, add, name in match:
+            if name not in variable_to_replace.keys(): continue
+            replacement_string = "@@@" + str(global_pattern_index) + "@@@"
+            line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
+            map_to_replace[replacement_string] = prefix_temporary_var+str(global_pattern_index)
+            dic_var_name_to_temporary_name[name] = map_to_replace[replacement_string]
+            global_pattern_index +=1
+
+        for pattern_to_replace in map_to_replace:
+            line = line.replace(pattern_to_replace, map_to_replace[pattern_to_replace])
+        return (line, dic_var_name_to_temporary_name, global_pattern_index)
+
+##
+    # Take the equations from *_16dae.c file found by the read and create eq maker object from them
     # @param self : object pointer
     # @return
-    def build_equations(self):
+    def collect_eq_makers_from_16_dae(self):
         # Recovery of the map [var name evaluated] --> [ Func / Eq number in *_info.xml]
         # In the "equations" section of *_info.xml, each equation defines the value
         # of a var with respect to other vars. The name of the evaluated var is in the attribut "defines".
@@ -621,17 +774,19 @@ class Factory:
         for eq_mak in list_eq_maker_16dae_c:
             eq_mak.prepare_body_for_equation()
             self.list_all_equations.append( eq_mak.create_equation() )
-            self.list_eq_maker_main_c_and_nls.append(eq_mak)
-
-
+            self.list_eq_maker_16dae.append(eq_mak)
+    ##
+    # collect the equations defining the model and assigns them an unique id
+    # @param self : object pointer
+    # @return
+    def collect_eq_syst(self):
         ##########################################################
 
         # ---------------------------------------------------------------------
         # The equations of the system to solve (in DYNAWO)
         # ---------------------------------------------------------------------
         # We recover the equations which will be used to constitute the system to be solved
-
-        # ... We concatene the vars syst (state + alg) and the vars der (state),
+         # ... We concatene the vars syst (state + alg) and the vars der (state),
         # and we recover the equations associated with these vars, that is to say
         # the equations that evaluate these vars.
         for var_name in self.reader.auxiliary_var_to_keep:
@@ -668,7 +823,12 @@ class Factory:
                 eq.set_num_dyn (-1) # can detect bugs
         self.nb_eq_dyn = i
 
-        # ---------------------------------------------------------------------
+    ##
+    # collect the equations due to Modelica reinit command and assigns them an unique id
+    # @param self : object pointer
+    # @return
+    def collect_reinit_eq(self):
+         # ---------------------------------------------------------------------
         # Equations due to Modelica reinit commands
         # ---------------------------------------------------------------------
         # We retrieve all equations due to Modelica reinit commands
@@ -682,7 +842,7 @@ class Factory:
 
             # retrieve all Modelica reinit equations linked with the current variable
             for eq in filter(lambda x: x.get_is_modelica_reinit() \
-                             and ((x.get_evaluated_var() == var.get_name()) or (x.get_evaluated_var() == 'der(' + var.get_name() + ')')), self.list_eq_maker_main_c_and_nls):
+                             and ((x.get_evaluated_var() == var.get_name()) or (x.get_evaluated_var() == 'der(' + var.get_name() + ')')), self.list_eq_maker_16dae):
                 equation = Equation (eq.get_body(), eq.get_evaluated_var(), eq.get_depend_vars(), eq.get_num_omc())
                 if (num_dyn is not None):
                     equation.set_num_dyn(num_dyn)
@@ -698,37 +858,33 @@ class Factory:
                 else:
                     error_exit('bad Modelica reinit equation : ' + eq.get_body())
 
+    ##
+    # collect the integer equations
+    # @param self : object pointer
+    # @return
+    def collect_int_eq(self):
+        # List of function bodies evaluating integer vars
+        list_func_bodies_int_names = {}
 
-        # ---------------------------------------------------------------------
-        # The equations that evaluate Boolean vars of type whenCondition
-        # ---------------------------------------------------------------------
-        #... These variables (boolean) are in the main *.c file when when
-        #    are used in the *.mo.
-        #    They are "true" if the associated condition is true, "false" otherwise.
-        # To be able to build evalZ (setZomc) and evalG (setGomc),
-        # you need to link a relationship number, a condition and the value of
-        #    discret variables when this condition is met.
-        # To do this, you must:
-        # - Build a class containing these 3 elements and others:
-        # + numRelation,
-        # + expression of the condition
-        # + concatenation of body parts (in the evaluating functions
-        # the discrete vars) executes when the condition is checked
-        # + a relationship number for DYNAWO. This num starts at 0 -> nb relations
-        #    - Read in *_05evt every relation (not all are really useful)
-        # and put the result in a dico: {numRelation: expr condition}
-        # - Recover the eqMaker (not the equations, they do not include the
-        # good info) functions evaluating whencondition
-        # and, in the body of these functions, retrieve the relation number (4th arg
-        # of RELATIONHYSTERESIS (...)).
-        #      The list of whenCondition vars is already built above (in "build_variables()").
-        # At this point, we know which relations concern whenCondition (we can forget the others)
-        # and therefore knows the number of relationships to keep
-        #    - With this, we can create objects of type "Relations"
-        # - Then we recover the eqMaker (or eq?) Functions evaluating the discrete vars
-        #      and we send their body in the good "Relations" objects
-        #
+        for v in self.list_vars_int:
+            for eq_mak in self.list_eq_maker_16dae:
+                if (v.get_name() == eq_mak.get_evaluated_var()) and (not eq_mak.get_is_modelica_reinit()):
+                    list_func_bodies_int_names[v.get_name()]= eq_mak.get_body()
+                    break
 
+        # add integer equations to setZ
+        keys = list_func_bodies_int_names.keys()
+        for key in keys:
+            int_equation = INTEquation(key)
+            int_equation.set_body(list_func_bodies_int_names[key])
+            int_equation.prepare_body()
+            self.list_int_equations.append(int_equation)
+
+    ##
+    # create root objects for all discrete variables
+    # @param self : object pointer
+    # @return
+    def create_root_objects(self):
         # Creation of the rootObject list
 
         for v in self.list_vars_when :
@@ -738,26 +894,31 @@ class Factory:
             # For the current when variable, search for the body of the function
             # which evaluates the variable whenCondition (for, later, retrieve the number of relationship associated with the
             # var whenCondition)
-            for eq_mak in self.list_eq_maker_main_c_and_nls:
+            for eq_mak in self.list_eq_maker_16dae:
                 if r_obj.get_when_var_name() == eq_mak.get_evaluated_var():
                     r_obj.set_body_for_num_relation( eq_mak.get_raw_body() )
                     break
             r_obj.prepare_body()
-
+    ##
+    # collect the root equations
+    # @param self : object pointer
+    # @return
+    def collect_root_eq(self):
         # List of function fields evaluating discrete vars
         list_func_bodies_discr = []
         list_func_bodies_discr_names = {}
 
         list_vars_for_sys_build = itertools.chain(self.list_vars_syst, self.list_vars_der)
+        map_tags_num_eq = self.reader.get_map_tag_num_eq()
         for v in self.list_all_vars_discr:
-            for eq_mak in self.list_eq_maker_main_c_and_nls:
+            for eq_mak in self.list_eq_maker_16dae:
                 if v.get_name() == eq_mak.get_evaluated_var():
 
                     ## SANITY CHECK: cannot assign a continuous value to a discrete real outside of a when or a if
                     if is_discrete_real_var(v):
                         for real_var in list_vars_for_sys_build:
                             for depend_var in filter(lambda x: x == real_var.get_name(), eq_mak.get_depend_vars()):
-                                if self.reader.get_map_tag_num_eq()[eq_mak.get_num_omc()] != "when" and "if" not in str(eq_mak.get_body()):
+                                if map_tags_num_eq[eq_mak.get_num_omc()] != "when" and "if" not in str(eq_mak.get_body()):
                                     error_msg = "    Error: Found an equation (id:"+str(eq_mak.get_num_omc())+") that assigns the continuous variable " + depend_var+\
                                         " to the discrete real variable " + v.get_name() +\
                                         " outside of the scope of a when or a if. Please rewrite the equation or check that you didn't connect a zPin to a ImPin.\n"
@@ -765,17 +926,6 @@ class Factory:
 
                     list_func_bodies_discr.append( eq_mak.get_body() )
                     list_func_bodies_discr_names[v.get_name()]=eq_mak.get_body()
-                    break
-
-        # List of function bodies evaluating integer vars
-        list_func_bodies_int = []
-        list_func_bodies_int_names = {}
-
-        for v in self.list_vars_int:
-            for eq_mak in self.list_eq_maker_main_c_and_nls:
-                if (v.get_name() == eq_mak.get_evaluated_var()) and (not eq_mak.get_is_modelica_reinit()):
-                    list_func_bodies_int.append( eq_mak.get_body() )
-                    list_func_bodies_int_names[v.get_name()]= eq_mak.get_body()
                     break
 
         i = 0
@@ -820,28 +970,58 @@ class Factory:
                     continue
                 self.list_z_equations.append(z_equation)
 
-        # add integer equations to setZ
-        keys = list_func_bodies_int_names.keys()
-        for key in keys:
-            int_equation = INTEquation(key)
-            int_equation.set_body(list_func_bodies_int_names[key])
-            int_equation.prepare_body()
-            self.list_int_equations.append(int_equation)
+    ##
+    # Take the equations found by the read and sort them
+    # Change their expression and transforms them in residual function
+    # @param self : object pointer
+    # @return
+    def build_equations(self):
+        # ---------------------------------------------------------------------
+        # The equations of the system to solve (in DYNAWO)
+        # ---------------------------------------------------------------------
+        self.collect_eq_makers_from_16_dae()
+        self.collect_eq_syst()
+         # ---------------------------------------------------------------------
+        # Equations due to Modelica reinit commands
+        # ---------------------------------------------------------------------
+        self.collect_reinit_eq()
 
-        # preparation of the blocks for the assignment of the variables bool (except whenEquation)
-        list_func_bodies_bool_names={}
-        for v in self.list_vars_bool:
-            for eq_mak in self.list_eq_maker_main_c_and_nls:
-                if v.get_name() == eq_mak.get_evaluated_var():
-                    list_func_bodies_bool_names[v.get_name()]=eq_mak.get_body()
-                    break
+        # ---------------------------------------------------------------------
+        # The equations that evaluate Boolean vars of type whenCondition
+        # ---------------------------------------------------------------------
+        #... These variables (boolean) are in the main *.c file when when
+        #    are used in the *.mo.
+        #    They are "true" if the associated condition is true, "false" otherwise.
+        # To be able to build evalZ (setZomc) and evalG (setGomc),
+        # you need to link a relationship number, a condition and the value of
+        #    discret variables when this condition is met.
+        # To do this, you must:
+        # - Build a class containing these 3 elements and others:
+        # + numRelation,
+        # + expression of the condition
+        # + concatenation of body parts (in the evaluating functions
+        # the discrete vars) executes when the condition is checked
+        # + a relationship number for DYNAWO. This num starts at 0 -> nb relations
+        #    - Read in *_05evt every relation (not all are really useful)
+        # and put the result in a dico: {numRelation: expr condition}
+        # - Recover the eqMaker (not the equations, they do not include the
+        # good info) functions evaluating whencondition
+        # and, in the body of these functions, retrieve the relation number (4th arg
+        # of RELATIONHYSTERESIS (...)).
+        #      The list of whenCondition vars is already built above (in "build_variables()").
+        # At this point, we know which relations concern whenCondition (we can forget the others)
+        # and therefore knows the number of relationships to keep
+        #    - With this, we can create objects of type "Relations"
+        # - Then we recover the eqMaker (or eq?) Functions evaluating the discrete vars
+        #      and we send their body in the good "Relations" objects
+        #
 
-        keys =  list_func_bodies_bool_names.keys()
-        for key in keys:
-            bool_equation = BoolEquation(key)
-            bool_equation.set_body(list_func_bodies_bool_names[key])
-            bool_equation.prepare_body()
-            self.list_bool_equations.append(bool_equation)
+        # Creation of the rootObject list
+        self.create_root_objects()
+        self.collect_root_eq()
+
+        # List of function bodies evaluating integer vars
+        self.collect_int_eq()
 
 
     ##
@@ -945,11 +1125,43 @@ class Factory:
         return self.list_for_sety0
 
 
+    def filter_external_function_call(self):
+        body = []
+        if len(self.list_call_for_setf) > 0:
+            for line in self.list_call_for_setf:
+                if line.startswith("  {") or line.startswith("  }") : continue
+                line = mmc_strings_len1(line)
+                line = throw_stream_indexes(line)
+                line = replace_var_names(line)
+                if "MMC_DEFSTRINGLIT" in line:
+                    line = line.replace("static const MMC_DEFSTRINGLIT(","")
+                    line = line.replace(");","")
+                    words = line.split(",")
+                    name_var = words[0]
+                    nb_words = len(words)
+                    value =""
+                    for i in range(2,nb_words):
+                        value = value + words[i]
+                    value = value.replace("\n","")
+                    line_tmp = "  const modelica_string "+str(name_var)+" = "+str(value)+";\n"
+                    body.append(line_tmp)
+                elif "MMC_REFSTRINGLIT" in line:
+                    line = line.replace("MMC_REFSTRINGLIT","")
+                    body.append(line)
+                elif "modelica_metatype tmpMeta" in line:
+                    words = line.split()
+                    line_tmp = " modelica_string "+str(words[1])+";\n"
+                    body.append(line_tmp)
+                elif ("TRACE_PUSH" not in line) and ("TRACE_POP" not in line) and ("const int equationIndexes[2]" not in line):
+                    body.append(line)
+            body.append("\n\n")
+        return body
+
     ##
-    # prepare the lines that constitues the body of setF
+    # dump the lines of the system equation in the body of setF
     # @param self : object pointer
     # @return
-    def prepare_for_setf(self):
+    def dump_eq_syst_in_setf(self):
         ptrn_f_name ="  // ----- %s -----\n"
         map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
         for eq in self.get_list_eq_syst():
@@ -981,41 +1193,45 @@ class Factory:
                     self.list_for_setf.append("\n  }\n")
                 self.list_for_setf.append("\n\n")
 
+    ##
+    # dump the lines of the warning in the body of setF
+    # @param self : object pointer
+    # @return
+    def dump_warnings_in_setf(self):
         for warn in self.list_warnings:
             self.list_for_warnings.append("{\n")
             self.list_for_warnings.extend(warn.get_body_for_setf())
             self.list_for_warnings.append("\n\n")
             self.list_for_warnings.append("}\n")
 
+    ##
+    # dump the lines of the warning in the body of setF
+    # @param self : object pointer
+    # @return
+    def dump_external_calls_in_setf(self):
+        ptrn_f_name ="  // ----- %s -----\n"
         if len(self.list_call_for_setf) > 0:
             self.list_for_setf.append("  // -------------- call functions ----------\n")
-            for line in self.list_call_for_setf:
-                line = mmc_strings_len1(line)
-                line = throw_stream_indexes(line)
-                line = replace_var_names(line)
-                if "MMC_DEFSTRINGLIT" in line:
-                    line = line.replace("static const MMC_DEFSTRINGLIT(","")
-                    line = line.replace(");","")
-                    words = line.split(",")
-                    name_var = words[0]
-                    nb_words = len(words)
-                    value =""
-                    for i in range(2,nb_words):
-                        value = value + words[i]
-                    value = value.replace("\n","")
-                    line_tmp = "  const modelica_string "+str(name_var)+" = "+str(value)+";\n"
-                    self.list_for_setf.append(line_tmp)
-                elif "MMC_REFSTRINGLIT" in line:
-                    line = line.replace("MMC_REFSTRINGLIT","")
-                    self.list_for_setf.append(line)
-                elif "modelica_metatype tmpMeta" in line:
-                    words = line.split()
-                    line_tmp = " modelica_string "+str(words[1])+";\n"
-                    self.list_for_setf.append(line_tmp)
-                elif ("TRACE_PUSH" not in line) and ("TRACE_POP" not in line) and ("const int equationIndexes[2]" not in line):
-                    self.list_for_setf.append(line)
+            self.list_for_setf.extend(self.filter_external_function_call())
+
+            for eq in self.list_additional_equations_from_call_for_setf:
+                standard_eq_body = []
+                standard_eq_body.append (ptrn_f_name %(eq.get_src_fct_name()))
+                standard_eq_body.append ("  ")
+                standard_eq_body.extend(eq.get_body_for_setf())
+                standard_eq_body.append ("\n"  )
+                self.list_for_setf.extend(standard_eq_body)
 
             self.list_for_setf.append("\n\n")
+
+    ##
+    # prepare the lines that constitues the body of setF
+    # @param self : object pointer
+    # @return
+    def prepare_for_setf(self):
+        self.dump_eq_syst_in_setf()
+        self.dump_warnings_in_setf()
+        self.dump_external_calls_in_setf()
 
         # convert native boolean variables
         convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_setf)
@@ -1046,6 +1262,11 @@ class Factory:
             if fequation_index != '-1' and index in map_fequation.keys():
                 linetoadd = "  fEquationIndex["+ fequation_index +"] = \"" + map_fequation[index] + "\";//equation_index_omc:"+index+"\n"
                 self.listfor_setfequations.append(linetoadd)
+
+        for eq in self.list_additional_equations_from_call_for_setf:
+            fequation_index = str(eq.get_num_dyn())
+            linetoadd = "  fEquationIndex["+ fequation_index +"] = \"call to external function\";\n";
+            self.listfor_setfequations.append(linetoadd)
         return self.listfor_setfequations
 
     ##
@@ -1234,17 +1455,12 @@ class Factory:
     def get_list_for_setg(self):
         return self.list_for_setg
 
+
     ##
-    # prepare the lines that constitues the body of initRpar
+    # Dump the lines of the shared and external parameters in the body of initRpar
     # @param self : object pointer
     # @return
-    def prepare_for_initrpar(self):
-
-        # -----------------------------------------------------------
-        # Shared and external parameters
-        # (possibly set through *.mo, and updated by *.par/.iidm)
-        # -----------------------------------------------------------
-
+    def dump_shared_and_external_param_in_initrpar(self):
         self.list_for_initrpar.append("  /* Setting shared and external parameters */\n")
 
         # Pattern of the lines of the body of initRpar
@@ -1262,9 +1478,11 @@ class Factory:
 
             self.list_for_initrpar.append(affectation_line)
 
-        # -----------------------------------------------------------
-        # Parameters set in *.mo through a mathematical formula
-        # -----------------------------------------------------------
+    ##
+    # Dump the lines of the shared and external parameters in the body of initRpar
+    # @param self : object pointer
+    # @return
+    def dump_internal_param_in_initrpar(self):
         self.list_for_initrpar.append("\n  // Setting internal parameters \n")
 
         found_init_by_param_and_at_least2lines = False # to enhance readability
@@ -1320,6 +1538,22 @@ class Factory:
         keys.sort()
         for key in keys:
             self.list_for_initrpar +=  dict_line_par_by_param[key]
+
+    ##
+    # prepare the lines that constitues the body of initRpar
+    # @param self : object pointer
+    # @return
+    def prepare_for_initrpar(self):
+
+        # -----------------------------------------------------------
+        # Shared and external parameters
+        # (possibly set through *.mo, and updated by *.par/.iidm)
+        # -----------------------------------------------------------
+        self.dump_shared_and_external_param_in_initrpar()
+        # -----------------------------------------------------------
+        # Parameters set in *.mo through a mathematical formula
+        # -----------------------------------------------------------
+        self.dump_internal_param_in_initrpar()
 
         # convert native Modelica booleans
         convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_initrpar)
@@ -1426,11 +1660,57 @@ class Factory:
         return self.list_for_setupdatastruc
 
     ##
+    # prepare the lines that constitues the external function bodies for adept
+    # @param self : object pointer
+    # @param used_functions : functions used in the body of evalf adept
+    # @return
+    def prepare_for_evalfadept_external_call(self, used_functions):
+        functions_to_dump = []
+        functions_dumped = []
+        functions_to_dump.extend(used_functions)
+        list_omc_functions = self.reader.list_omc_functions
+        list_functions_body = []
+        while len(functions_to_dump) > 0:
+            func = functions_to_dump[0]
+            functions_to_dump.remove(func)
+            if func.get_return_type() != "modelica_real" or "omc_Modelica_" in func.get_name(): continue
+            if func in functions_dumped: continue
+            functions_dumped.append(func)
+            func_body = []
+            func_body.append("// " + func.get_name()+"\n")
+            func_body.append("adept::adouble " + func.get_name()+"_adept(")
+            for param in func.get_param_types():
+                type = param.get_type()
+                if type == "modelica_real":
+                    type = "adept::adouble"
+                last_char = ", "
+                if param.get_index() == len(func.get_param_types()) - 1 :
+                    last_char=") "
+                func_body.append(type + " " + param.get_name()+ last_char)
+            for line in func.get_corrected_body():
+                if "OMC_LABEL_UNUSED" in line: continue
+                if "omc_assert" in line or "omc_terminate" in line: continue
+                line = line.replace("modelica_real","adept::adouble").replace("threadData,","")
+                for func in list_omc_functions:
+                    if func.get_name() + "(" in line or func.get_name() + " (" in line:
+                        line = line.replace(func.get_name() + "(", func.get_name() + "_adept(")
+                        line = line.replace(func.get_name() + " (", func.get_name() + "_adept (")
+                        if func not in functions_dumped:
+                            functions_to_dump.append(func)
+                func_body.append(line)
+            func_body.append("\n\n")
+            list_functions_body.append(func_body)
+
+        # Need to dump in reversed order to put the functions called by other functions in first
+        for func_body in reversed(list_functions_body):
+            self.list_for_evalfadept_external_call.extend(func_body)
+    ##
     # prepare the lines that constitues the body of evalFAdept
     # @param self : object pointer
     # @return
     def prepare_for_evalfadept(self):
         # In comment, we give the correspondence name var -> expression in vectors x, xd or rpar
+        list_omc_functions = self.reader.list_omc_functions
         self.list_for_evalfadept.append("  /*\n")
         for v in self.list_vars_syst + self.list_vars_der:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
@@ -1460,6 +1740,7 @@ class Factory:
         map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
 
         num_ternary = 0
+        used_functions = []
         for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
             var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
@@ -1468,7 +1749,16 @@ class Factory:
                 self.list_for_evalfadept.append(line)
 
                 # We recover the text of the equations
-                standard_body = eq.get_body_for_evalf_adept()
+                standard_body_with_standard_external_call = eq.get_body_for_evalf_adept()
+                standard_body = []
+                for line in standard_body_with_standard_external_call:
+                    for func in list_omc_functions:
+                        if func.get_return_type() != "modelica_real" or "omc_Modelica_" in func.get_name(): continue
+                        if (func.get_name() + "(" in line or func.get_name() + " (" in line):
+                            line = line.replace(func.get_name() + "(", func.get_name() + "_adept(")
+                            line = line.replace(func.get_name() + " (", func.get_name() + "_adept (")
+                            used_functions.append(func)
+                    standard_body.append(line)
 
                 # Build the whole equation body as if clauses linked with reinit
                 # the standard equation body is written in the last else section
@@ -1516,6 +1806,41 @@ class Factory:
                 self.list_for_evalfadept.append("\n\n")
 
 
+
+        if len(self.list_call_for_setf) > 0:
+            self.list_for_evalfadept.append("  // -------------- call functions ----------\n")
+            external_function_call_body = self.filter_external_function_call()
+            trans.set_txt_list(external_function_call_body)
+            external_function_call_body = trans.translate()
+            transposed_function_call_body = []
+            for line in external_function_call_body:
+                for func in list_omc_functions:
+                    if func.get_name() + "(" in line or func.get_name() + " (" in line:
+                        line = line.replace(func.get_name() + "(", func.get_name() + "_adept(")
+                        line = line.replace(func.get_name() + " (", func.get_name() + "_adept (")
+                        used_functions.append(func)
+                if "double external_call_" in line:
+                    line = line.replace("double external_call_","adept::adouble external_call_")
+                transposed_function_call_body.append(line)
+
+            self.list_for_evalfadept.extend(transposed_function_call_body)
+
+            for eq in self.list_additional_equations_from_call_for_setf:
+                line = "  // ----- %s -----\n" % eq.get_src_fct_name()
+                self.list_for_evalfadept.append(line)
+
+                # We recover the text of the equations
+                standard_body = []
+                standard_body.append("  ")
+                standard_body.extend(eq.get_body_for_evalf_adept())
+                trans.set_txt_list(standard_body)
+                standard_body = trans.translate()
+                standard_body.append ("\n"  )
+                self.list_for_evalfadept.extend(standard_body)
+
+        self.prepare_for_evalfadept_external_call(used_functions)
+
+
     ##
     # returns the lines that constitues the body of evalFAdept
     # @param self : object pointer
@@ -1527,6 +1852,12 @@ class Factory:
                 line_tmp = transform_atan3_operator_evalf(line)
                 self.list_for_evalfadept [index] = line_tmp
         return self.list_for_evalfadept
+    ##
+    # returns the lines that contains a copy of the external functions for adept
+    # @param self : object pointer
+    # @return list of lines
+    def get_list_for_evalfadept_external_call(self):
+        return self.list_for_evalfadept_external_call
 
     ##
     # prepare the lines that constitues the body of externalCalls
@@ -1565,6 +1896,7 @@ class Factory:
                     line = line.replace("MMC_STRINGDATA","")
                     new_body.append(line)
             self.list_for_externalcalls.extend(new_body)
+            func.set_corrected_body(new_body)
 
 
     ##
@@ -1802,6 +2134,14 @@ class Factory:
                 self.list_for_setftype.append(line)
                 ind += 1
 
+        for eq in self.list_additional_equations_from_call_for_setf:
+            var_name = eq.get_evaluated_var()
+            if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
+                spin = "ALGEBRIC_EQ" # no derivatives in the equation
+                if eq.is_diff_eq() or var_name in self.reader.derivative_residual_vars: spin = "DIFFERENTIAL_EQ"
+                line = "   fType[ %s ] = %s;\n" % (str(ind), spin)
+                self.list_for_setftype.append(line)
+                ind += 1
     ##
     # returns the lines that constitues the body of setFType
     # @param self : object pointer
@@ -2061,6 +2401,8 @@ class Factory:
         self.zc_filter.remove_fictitious_gequation()
 
         # Concern the filling of the C file
+        self.prepare_for_externalcalls()
+        self.prepare_for_externalcalls_header()
         self.prepare_for_setf()
         self.prepare_for_evalmode()
         self.prepare_for_setz()
@@ -2077,6 +2419,4 @@ class Factory:
         self.prepare_for_evalfadept()
         self.prepare_for_setvariables()
         self.prepare_for_defineparameters()
-        self.prepare_for_externalcalls()
-        self.prepare_for_externalcalls_header()
         self.prepare_for_literalconstants()

@@ -889,6 +889,86 @@ class RawFunc:
         return str(self.__dict__)
 
 ##
+# class OmcFunctionParameter : store raw informations of parameters of omc function
+#
+class OmcFunctionParameter:
+    ##
+    # default constructor
+    # @param self : object pointer
+    # @param name : parameter name
+    # @param type : parameter type
+    # @param index : parameter index
+    # @param is_input :  if True, the parameter is an input of the function. Otherwise it is an output
+    def __init__(self, name, type, index, is_input):
+        ## Body of the function
+        self.name = name
+        ## type of the function in the header file
+        self.type = type
+        ## name of the function
+        self.index = index
+        ## if True, the parameter is an input of the function. Otherwise it is an output
+        self.is_input = is_input
+
+    ##
+    # Set the name of the parameter
+    # @param self : object pointer
+    # @param name : name of the parameter
+    # @return
+    def set_name(self, name):
+        self.name = name
+
+    ##
+    # Get the name of the parameter
+    # @param self : object pointer
+    # @return : the name of the parameter
+    def get_name(self):
+        return self.name
+
+    ##
+    # Set the type of the parameter
+    # @param self : object pointer
+    # @param type : type of the parameter
+    # @return
+    def set_type(self, type):
+        self.type = type
+
+    ##
+    # Get the type of the parameter
+    # @param self : object pointer
+    # @return : the type of the parameter
+    def get_type(self):
+        return self.type
+
+    ##
+    # Set the index of the parameter
+    # @param self : object pointer
+    # @param index : index of the parameter
+    # @return
+    def set_index(self, index):
+        self.index = index
+
+    ##
+    # Get the index of the parameter
+    # @param self : object pointer
+    # @return : the index of the parameter
+    def get_index(self):
+        return self.index
+
+    ##
+    # Set the input property of the parameter
+    # @param self : object pointer
+    # @param is_input : input property of the parameter
+    # @return
+    def set_is_input(self, is_input):
+        self.is_input = is_input
+
+    ##
+    # Get the input property of the parameter
+    # @param self : object pointer
+    # @return : the input property of the parameter
+    def get_is_input(self):
+        return self.is_input
+##
 # class Raw OpenModelicaCompiler Function : store raw informations of functions declares in
 # *_functions.h/.c
 #
@@ -904,6 +984,10 @@ class RawOmcFunctions:
         self.name = ""
         ## type of the object returned by the function
         self.return_type = ""
+        ##type of the parameters
+        self.param_types = []
+        ## List of lines that constitues the corrected body of the function
+        self.corrected_body = []
 
     ##
     # Set the name of the function
@@ -927,6 +1011,13 @@ class RawOmcFunctions:
     # @return
     def set_body(self,body):
         self.body.extend(body)
+    ##
+    # Set the corrected body of the function
+    # @param self : object pointer
+    # @param body : corrected body of the function
+    # @return
+    def set_corrected_body(self, corrected_body):
+        self.corrected_body.extend(corrected_body)
 
     ##
     # Get the body of the function
@@ -934,6 +1025,13 @@ class RawOmcFunctions:
     # @return : the body of the function
     def get_body(self):
         return self.body
+
+    ##
+    # Get the corrected body of the funtion
+    # @param self: object pointer
+    # @return the corrected body of the function
+    def get_corrected_body(self):
+        return self.corrected_body
 
     ##
     # Set the definition of the function in header file
@@ -964,6 +1062,21 @@ class RawOmcFunctions:
     # @return type returned by the function
     def get_return_type(self):
         return self.return_type
+
+    ##
+    # Add a parameter type
+    # @param self : object pointer
+    # @param param_type : parameter type
+    # @return
+    def add_param_types(self,param_type):
+        self.param_types.append(param_type)
+
+    ##
+    # Get the parameters types
+    # @param self: object pointer
+    # @return parameters types
+    def get_param_types(self):
+        return self.param_types
 
 ##
 # class Equation maker
@@ -1685,55 +1798,3 @@ class Warn:
     # @return body to print in setF
     def get_body_for_setf(self):
         return self.body_for_setf
-
-##
-# class Bool Equation : definition of a boolean variable
-#
-class BoolEquation:
-    ##
-    # default constructor
-    # @param self : object pointer
-    # @param name : name of the equation
-    def __init__(self,name):
-        ## body defining the equation
-        self.body=[]
-        ## name of the equation
-        self.name=name
-
-    ##
-    # Set the body of the equation
-    # @param self: object pointer
-    # @param body : body of the equation
-    # @return
-    def set_body(self,body):
-        self.body = body
-
-    ##
-    # Get the body of the equation
-    # @param self : object pointer
-    # @return body of the equation
-    def get_body(self):
-        return self.body
-
-    ##
-    # Get the name of the equation
-    # @param self: object pointer
-    # @return name of the equation
-    def get_name(self):
-        return self.name
-
-    ##
-    # Prepare the body of the equation to be print
-    # @param self : object pointer
-    # @return
-    def prepare_body(self):
-        tmp_body=[]
-        for line in self.body:
-            line = mmc_strings_len1(line)
-            line = replace_var_names(line)
-            if has_omc_trace (line) or has_omc_equation_indexes (line):
-                continue
-
-            tmp_body.append(line)
-
-        self.body=tmp_body
