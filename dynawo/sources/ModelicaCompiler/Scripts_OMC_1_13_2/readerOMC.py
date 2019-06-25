@@ -436,6 +436,13 @@ class ReaderOMC:
             for deps in map_dep[var]:
                 if self.is_auxiliary_vars(deps) and deps not in self.auxiliary_var_to_keep:
                     self.auxiliary_var_to_keep.append(deps)
+        for (index, tag) in self.map_tag_num_eq.items():
+            if tag == "algorithm" and index in self.map_equation_formula:
+                #self.auxiliary_vars_to_address_map
+                for aux_var_name in self.auxiliary_vars_to_address_map:
+                    if aux_var_name in self.map_equation_formula[index]:
+                        self.auxiliary_var_to_keep.append(aux_var_name)
+
 
 
     ##
@@ -1107,7 +1114,7 @@ class ReaderOMC:
         global nb_braces_opened
         global crossed_opening_braces
         global stop_at_next_call
-        ptrn_func = re.compile(r'^(?![\/]).* (?P<var>.*)\(.*\)')
+        ptrn_func = re.compile(r'^(?![\/]).* (?P<var>.*)\((?P<params>.*)\)')
         with open(file_to_read, 'r') as f:
             while True:
                 nb_braces_opened = 0
@@ -1125,6 +1132,14 @@ class ReaderOMC:
                     func.set_name(match.group('var'))
                     func.set_signature(next_iter)
                     func.set_return_type(next_iter.split()[0])
+                    index = 0
+                    for params in match.group('params').split(','):
+                        if(params.startswith("threadData_t")): continue
+                        type = params.split()[0]
+                        name = params.split()[1]
+                        is_input = not name.startswith("*out_")
+                        func.add_param_types(OmcFunctionParameter(name, type, index, is_input))
+                        index +=1
 
                     # "takewhile" only stops when the whole body of the function is read
                     func.set_body( list(itertools.takewhile(stop_reading_function, it)) )

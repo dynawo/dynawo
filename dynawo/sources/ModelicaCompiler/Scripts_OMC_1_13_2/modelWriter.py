@@ -559,6 +559,7 @@ class ModelWriter(ModelWriterBase):
     def fill_evalFAdept(self):
         self.addEmptyLine()
         self.addLine("#ifdef _ADEPT_\n")
+        self.addBody( self.builder.get_list_for_evalfadept_external_call() )
         self.addLine("void Model" + self.className + "::evalFAdept(const std::vector<adept::adouble> & x,\n")
         self.addLine("                              const std::vector<adept::adouble> & xd,\n")
         self.addLine("                              std::vector<adept::adouble> & res)\n")
