@@ -20,7 +20,7 @@
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
-    <dyn:simulation startTime="0" stopTime="100" activateCriteria="false"/>
+    <dyn:simulation startTime="0" stopTime="30" activateCriteria="false"/>
     <dyn:outputs directory="outputs">
       <dyn:curves inputFile="IEEE57.crv" exportMode="CSV"/>
       <dyn:logs>
@@ -38,7 +38,7 @@
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
-    <dyn:simulation startTime="0" stopTime="100" activateCriteria="false"/>
+    <dyn:simulation startTime="0" stopTime="30" activateCriteria="false"/>
     <dyn:outputs directory="outputsSIM">
       <dyn:curves inputFile="IEEE57.crv" exportMode="CSV"/>
       <dyn:logs>

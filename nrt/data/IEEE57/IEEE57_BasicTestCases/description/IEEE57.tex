@@ -119,7 +119,7 @@ The complete set of parameters used for the solvers are available into the solve
 \subsection{Load variation}
 \label{LoadVariation}
 
-At $t=20s$, the active and reactive power set points for the load on node 9 are doubled. The load value on node 9 is initially multiplied by 2 at $t=20s$ as expected and decreases in the next instants to stabilize at a lower value (due to the voltage-dependant model used). \\
+At $t=1s$, the active and reactive power set points for the load on node 9 are doubled. The load value on node 9 is initially multiplied by 2 at $t=1s$ as expected and decreases in the next instants to stabilize at a lower value (due to the voltage-dependant model used). \\
 
 The load increase induces an higher active power demand from the network to the generators and causes a speed decrease. The governor's proportional action limits this speed decrease by increasing the final active power delivered by the machines. Without the regulation action, the final active power delivered by the machines - after the transient behavior - would have been similar to the pre-event active power. \\
 
@@ -129,7 +129,7 @@ Regarding reactive power, it increases after the event to compensate for the loa
 \subfigure[Active load (MW)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 2in, xmax=40]
+    \begin{axis}[height = 2in]
         \addplot[color=blue!50]
         table[x=time, y expr= \thisrow{_LOAD____9_EC_load_PPu}*100]
         {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
@@ -139,7 +139,7 @@ Regarding reactive power, it increases after the event to compensate for the loa
 \subfigure[Reactive load (MVAr)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 2in, xmax=40]
+    \begin{axis}[height = 2in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{_LOAD____9_EC_load_QPu}*100]
         {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
@@ -149,7 +149,7 @@ Regarding reactive power, it increases after the event to compensate for the loa
 \subfigure[Network voltage (kV)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 2in, xmax=40]
+    \begin{axis}[height = 2in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{NETWORK__SALT___9_TN_Upu_value}*69]
         {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
@@ -163,7 +163,7 @@ Regarding reactive power, it increases after the event to compensate for the loa
 \subfigure[Active power (MW)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.5in, xmax=40]
+    \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
         table[x=time, y=GEN____9_SM_generator_PGen]
         {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
@@ -173,7 +173,7 @@ Regarding reactive power, it increases after the event to compensate for the loa
 \subfigure[Omega (p.u.)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.5in, xmax=40, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
+    \begin{axis}[height = 1.5in, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
         \addplot[color=blue!50]
         table[x=time, y=GEN____9_SM_generator_omegaPu]
         {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
@@ -183,7 +183,7 @@ Regarding reactive power, it increases after the event to compensate for the loa
 \subfigure[Reactive power (MVAr)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.5in, xmax=40]
+    \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
         table[x=time, y=GEN____9_SM_generator_QGen]
         {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
@@ -193,7 +193,7 @@ Regarding reactive power, it increases after the event to compensate for the loa
 \subfigure[Stator voltage (kV)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.5in, xmax=40]
+    \begin{axis}[height = 1.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{GEN____9_SM_generator_UStatorPu}*20]
         {../IEEE57_1_StepLoad/reference/outputs/curves/curves.csv};
@@ -207,13 +207,13 @@ Regarding reactive power, it increases after the event to compensate for the loa
 \subsection{Generator disconnection}
 \label{DisconnectGenerator}
 
-At $t=20s$, the generator connected to the node 12 is disconnected. To compensate for this disconnection, the other generators have to increase the active and reactive power delivered to the network in a similar way than for the load increase. It leads to a similar dynamic behavior than for the load increase: the control actions contribute to limit the speed and voltage deviations from the reference values.
+At $t=1s$, the generator connected to the node 12 is disconnected. To compensate for this disconnection, the other generators have to increase the active and reactive power delivered to the network in a similar way than for the load increase. It leads to a similar dynamic behavior than for the load increase: the control actions contribute to limit the speed and voltage deviations from the reference values.
 
 \begin{figure}[H]
 \subfigure[Active power (MW)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40]
+    \begin{axis}[height = 1.3in]
         \addplot[color=blue!50]
         table[x=time, y=GEN____1_SM_generator_PGen]
         {../IEEE57_2_DisconnectGroup/reference/outputs/curves/curves.csv};
@@ -223,7 +223,7 @@ At $t=20s$, the generator connected to the node 12 is disconnected. To compensat
 \subfigure[Omega (p.u.)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
+    \begin{axis}[height = 1.3in, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
         \addplot[color=blue!50]
         table[x=time, y=GEN____1_SM_generator_omegaPu]
         {../IEEE57_2_DisconnectGroup/reference/outputs/curves/curves.csv};
@@ -233,7 +233,7 @@ At $t=20s$, the generator connected to the node 12 is disconnected. To compensat
 \subfigure[Reactive power (MVAr)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40]
+    \begin{axis}[height = 1.3in]
         \addplot[color=blue!50]
         table[x=time, y=GEN____1_SM_generator_QGen]
         {../IEEE57_2_DisconnectGroup/reference/outputs/curves/curves.csv};
@@ -243,7 +243,7 @@ At $t=20s$, the generator connected to the node 12 is disconnected. To compensat
 \subfigure[Stator voltage (kV)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40]
+    \begin{axis}[height = 1.3in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{GEN____1_SM_generator_UStatorPu}*20]
         {../IEEE57_2_DisconnectGroup/reference/outputs/curves/curves.csv};
@@ -257,13 +257,13 @@ At $t=20s$, the generator connected to the node 12 is disconnected. To compensat
 \subsection{Line Opening}
 \label{DisconnectLine}
 
-At $t=20s$, we open the direct line between the nodes 6 and 8.We observe that the system is oscillating after the event but stabilizes after a few seconds. The active power is restored to its pre-event value and the generator speeds remains quasi-constant but the reactive power is changed in response to the stator voltage change (action of the voltage regulation).
+At $t=1s$, we open the direct line between the nodes 6 and 8.We observe that the system is oscillating after the event but stabilizes after a few seconds. The active power is restored to its pre-event value and the generator speeds remains quasi-constant but the reactive power is changed in response to the stator voltage change (action of the voltage regulation).
 
 \begin{figure}[H]
 \subfigure[Active power (MW)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40]
+    \begin{axis}[height = 1.3in]
         \addplot[color=blue!50]
         table[x=time, y=GEN____8_SM_generator_PGen]
         {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
@@ -273,7 +273,7 @@ At $t=20s$, we open the direct line between the nodes 6 and 8.We observe that th
 \subfigure[Omega (p.u.)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
+    \begin{axis}[height = 1.3in, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
         \addplot[color=blue!50]
         table[x=time, y=GEN____8_SM_generator_omegaPu]
         {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
@@ -283,7 +283,7 @@ At $t=20s$, we open the direct line between the nodes 6 and 8.We observe that th
 \subfigure[Reactive power (MVAr)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40]
+    \begin{axis}[height = 1.3in]
         \addplot[color=blue!50]
         table[x=time, y=GEN____8_SM_generator_QGen]
         {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
@@ -293,7 +293,7 @@ At $t=20s$, we open the direct line between the nodes 6 and 8.We observe that th
 \subfigure[Stator voltage (kV)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40]
+    \begin{axis}[height = 1.3in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{GEN____8_SM_generator_UStatorPu}*24]
         {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
@@ -309,7 +309,7 @@ When the simulation is done with the simplified solver, it naturally filters the
 \subfigure[Active power (MW)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40]
+    \begin{axis}[height = 1.3in]
         \addplot[color=blue!50]
         table[x=time, y=GEN____8_SM_generator_PGen]
         {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
@@ -319,7 +319,7 @@ When the simulation is done with the simplified solver, it naturally filters the
 \subfigure[Omega (p.u.)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
+    \begin{axis}[height = 1.3in, yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=3}]
         \addplot[color=blue!50]
         table[x=time, y=GEN____8_SM_generator_omegaPu]
         {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
@@ -329,7 +329,7 @@ When the simulation is done with the simplified solver, it naturally filters the
 \subfigure[Reactive power (MVAr)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40]
+    \begin{axis}[height = 1.3in]
         \addplot[color=blue!50]
         table[x=time, y=GEN____8_SM_generator_QGen]
         {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
@@ -339,7 +339,7 @@ When the simulation is done with the simplified solver, it naturally filters the
 \subfigure[Stator voltage (kV)]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 1.3in, xmax=40]
+    \begin{axis}[height = 1.3in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{GEN____8_SM_generator_UStatorPu}*24]
         {../IEEE57_3_DisconnectLine/reference/outputsSIM/curves/curves.csv};
@@ -355,7 +355,7 @@ This is also visible when superposing the active power going onto the lines 6-7 
 \subfigure[Active power on line 6-7]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 2.5in, xmax=40]
+    \begin{axis}[height = 2.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{NETWORK__BEAV___6-BUS____7-1_AC_P2_value}*100]
         {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
@@ -369,7 +369,7 @@ This is also visible when superposing the active power going onto the lines 6-7 
 \subfigure[Active power on line 7-8]
 {%
   \begin{tikzpicture}
-    \begin{axis}[height = 2.5in, xmax=40]
+    \begin{axis}[height = 2.5in]
         \addplot[color=blue!50]
         table[x=time, y expr=\thisrow{NETWORK__BUS____7-CLIN___8-1_AC_P1_value}*100]
         {../IEEE57_3_DisconnectLine/reference/outputs/curves/curves.csv};
