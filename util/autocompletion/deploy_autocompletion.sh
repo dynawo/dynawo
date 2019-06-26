@@ -47,6 +47,13 @@ deploy() {
   sed -i "s#TO_COMPLETE_DYNAWO_HOME#$DYNAWO_HOME#g" $USER_PERMANENT_PATH/_dynawo
 
   if [ "$USER_SHELL_TYPE" = "bash" ]; then
+    if [ -f "/etc/profile.d/bash_completion.sh" ]; then
+      if [ -z "$(grep "\[ -f /etc/profile.d/bash_completion.sh \] && source /etc/profile.d/bash_completion.sh" ~/.bashrc)" ]; then
+        echo -e "\n#Added by Dynawo\n[ -f /etc/profile.d/bash_completion.sh \] && source /etc/profile.d/bash_completion.sh" >> ~/.bashrc
+      fi
+    else
+      echo "Warning: Dynawo autocompletion rely on the bash-completion package. Please install it with your package manager (dnf install bash-completion or apt install bash-completion for example) and relaunch your command."
+    fi
     if [ -z "$(grep "\[ -f $USER_PERMANENT_PATH/_dynawo \] && source $USER_PERMANENT_PATH/_dynawo" ~/.bashrc)" ]; then
       echo -e "\n#Added by Dynawo\n[ -f $USER_PERMANENT_PATH/_dynawo ] && source $USER_PERMANENT_PATH/_dynawo" >> ~/.bashrc
     fi
