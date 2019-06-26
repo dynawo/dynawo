@@ -5,5 +5,5 @@ event_state2_value                                : z =           0.26
  ====== PARAMETERS VALUES ======
 event_stateEvent1                                  =           2.42
 event_stateEvent2                                  =           0.52
-event_tEvent                                       =             20
+event_tEvent                                       =              1
 event_nbEventVariables                             =              2
