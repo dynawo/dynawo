@@ -132,7 +132,6 @@ class ReaderOMC:
         self.map_vars_depend_vars = {}
 
         ## Association between var evaluated and index of the  function /equation in xml file
-        self.map_vars_num_eq = {}
         self.map_num_eq_vars_defined = {}
 
         ## Association between the tag of the equation (when,assign,...) and the index of the function/equation
@@ -388,9 +387,6 @@ class ReaderOMC:
                             self.map_num_eq_vars_defined [index] = []
                         self.map_num_eq_vars_defined [index].append(name)
 
-                        if name not in self.map_vars_num_eq.keys(): # if/else split in two in the json file
-                            self.map_vars_num_eq[name] = index
-
                 # Get map [calculated var] --> [vars on which the equation depends]
                 list_depend_vars=[]
                 if "uses" in keys:
@@ -448,13 +444,6 @@ class ReaderOMC:
     # @return the map associating variavles and variables used to evaluate them
     def get_map_dep_vars_for_func(self):
         return self.map_vars_depend_vars
-
-    ##
-    # getter for the map associating var evaluated and index of the function evaluating them
-    # @param self : object pointer
-    # @return the map associating var evaluated and index of the function evaluating them
-    def get_map_vars_num_eq(self):
-        return self.map_vars_num_eq
 
     def get_map_num_eq_vars_defined(self):
         return self.map_num_eq_vars_defined
