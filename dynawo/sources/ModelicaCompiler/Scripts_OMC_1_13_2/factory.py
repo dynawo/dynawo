@@ -566,7 +566,6 @@ class Factory:
         # Warning:
         # The case of linear and nonlinear systems is particular concerning the determination
         # of the evaluated var considering that several equations must leave a function (see + far).
-        map_vars_num_eq = self.reader.get_map_vars_num_eq()
         map_num_eq_vars_defined = self.reader.get_map_num_eq_vars_defined()
 
 
@@ -596,17 +595,18 @@ class Factory:
         map_dep = self.reader.get_map_dep_vars_for_func()
         for eq_mak in list_eq_maker_16dae_c:
             eq_mak_num_omc = eq_mak.get_num_omc()
-            name_var_eval = find_key_in_map( map_vars_num_eq, eq_mak_num_omc)
-            if name_var_eval is not None and self.reader.is_residual_vars(name_var_eval) and \
-                not self.reader.is_der_residual_vars(name_var_eval) and not self.reader.is_assign_residual_vars(name_var_eval):
-                continue
+            name_var_eval = None
 
             # for Modelica reinit equations, the evaluated var scan does not always work
             # a fallback is to look at the variable defined in this case
-            if (name_var_eval is None) and (eq_mak.get_is_modelica_reinit())\
-               and (eq_mak_num_omc in map_num_eq_vars_defined.keys()) \
-               and (len(map_num_eq_vars_defined[eq_mak_num_omc]) == 1):
+            if eq_mak_num_omc in map_num_eq_vars_defined.keys():
+                if len(map_num_eq_vars_defined[eq_mak_num_omc]) > 1:
+                    error_exit("   Error: Found an equation (id: " + eq_mak_num_omc+") defining multiple variables. This is not supported in Dynawo.")
                 name_var_eval = map_num_eq_vars_defined[eq_mak_num_omc] [0]
+
+            if name_var_eval is not None and self.reader.is_residual_vars(name_var_eval) and \
+                not self.reader.is_der_residual_vars(name_var_eval) and not self.reader.is_assign_residual_vars(name_var_eval):
+                continue
 
             list_depend = [] # list of vars on which depends the function
             if name_var_eval is not None:
