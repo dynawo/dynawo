@@ -183,7 +183,7 @@ SolverSIM::calculateIC() {
 
   model_->rotateBuffers();
 
-  solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 200, 10, 0, 30, 0);
+  solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 200, 10, 0, 0, 0);
 
   do {
     Trace::debug() << DYNLog(CalculateICIteration, counter) << Trace::endline;
@@ -501,7 +501,7 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
 
     // During the algebraic equation restoration, the system could have moved a lot from its previous state.
     // J updates and preconditioner calls must be done on a regular basis.
-    solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 1, 1, 30, 0);
+    solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 1, 1, 0, 0);
     solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
     solverKIN_->solve();
     solverKIN_->getValues(vYy_, vYp_);
