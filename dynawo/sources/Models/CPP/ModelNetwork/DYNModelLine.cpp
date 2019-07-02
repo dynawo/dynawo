@@ -1287,25 +1287,26 @@ NetworkComponent::StateChange_t
 ModelLine::evalState(const double& /*time*/) {
   StateChange_t state = NetworkComponent::NO_CHANGE;
 
-  if (static_cast<State>(z_[0]) != getConnectionState()) {
-    if ((State) z_[0] == CLOSED && knownBus_ != BUS1_BUS2) {
+  State currState = static_cast<State>(z_[0]);
+  if (currState != getConnectionState()) {
+    if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
       Trace::error() << DYNLog(UnableToCloseLine, id_) << Trace::endline;
       return state;
     }
 
-    if ((State) z_[0] == CLOSED_1 && knownBus_ == BUS2) {
+    if (currState == CLOSED_1 && knownBus_ == BUS2) {
       Trace::error() << DYNLog(UnableToCloseLineSide1, id_) << Trace::endline;
       return state;
     }
 
-    if ((State) z_[0] == CLOSED_2 && knownBus_ == BUS1) {
+    if (currState == CLOSED_2 && knownBus_ == BUS1) {
       Trace::error() << DYNLog(UnableToCloseLineSide2, id_) << Trace::endline;
       return state;
     }
 
     Trace::debug() << DYNLog(LineStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
 
-    switch ((State) z_[0]) {
+    switch (currState) {
       // z_[0] represents the actual state
       // getConnectionState() represents the previous state
       // compare them to know what happened, which timeline message to generate
@@ -1410,7 +1411,7 @@ ModelLine::evalState(const double& /*time*/) {
         throw DYNError(Error::MODELER, NoThirdSide, id_);
     }
 
-    setConnectionState((State) z_[0]);
+    setConnectionState(currState);
 
     state = NetworkComponent::TOPO_CHANGE;
   }

@@ -109,6 +109,10 @@ Ti_(0.005) {
     feedBackPrim0_ = 0.;
     vSetPoint_ = - Statism_ * Q0 * vNom_ + U0 * vNom_;  /// adapt vSetPoint to the model
   }
+  piInYNum_ = 0;
+  piOutYNum_ = 0;
+  bSvcYNum_ = 0;
+  feedBackYNum_ = 0;
 }
 
 void
@@ -438,7 +442,7 @@ ModelStaticVarCompensator::getY0() {
 void
 ModelStaticVarCompensator::evalZ(const double& /*t*/) {
   z_[1] = getConnected();
-  mode_ = (StaticVarCompensatorInterface::RegulationMode_t)z_[0];
+  mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(z_[0]);
 
   if (g_[0] == ROOT_UP && !isRunning_) {
     network_->addEvent(id_, DYNTimeline(SVarCRunning));
@@ -648,10 +652,11 @@ ModelStaticVarCompensator::defineElements(vector<Element> &elements, map<string,
 
 NetworkComponent::StateChange_t
 ModelStaticVarCompensator::evalState(const double& /*time*/) {
-  if ((State) z_[1] != getConnected()) {
+  State currState = static_cast<State>(z_[1]);
+  if (currState != getConnected()) {
     Trace::debug() << DYNLog(SVCStateChange, id_, getConnected(), z_[1]) << Trace::endline;
 
-    if ((State) z_[1] == OPEN) {
+    if (currState == OPEN) {
       network_->addEvent(id_, DYNTimeline(SVarCDisconnected));
       setConnected(OPEN);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());

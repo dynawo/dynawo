@@ -270,6 +270,36 @@ class Dictionary:
     # @param self : object pointer
     # @return
     def copy_delete_files(self):
+        self.copy_delete_cpp_h_files()
+
+        name = self.name_[3:]
+        mo_file = str(self.modelica_dir_)+'/'+str(name)+'Keys.mo'
+        tmp_mo_file = mo_file+'-tmp'
+
+        diff = False
+        if not os.path.exists(mo_file):
+            diff = True
+        else :
+            # file is different
+            if not filecmp.cmp(tmp_mo_file, mo_file):
+                diff = True
+
+        if diff:
+            if os.path.exists(mo_file):
+                os.chmod(mo_file, 0777)
+            shutil.copyfile(tmp_mo_file, mo_file)
+            os.chmod(mo_file, 0444)
+
+        # suppression fichier tmp
+        os.remove(tmp_mo_file)
+
+    ##
+    # to avoid regeneration of sources, tmp files are created
+    # if files exists and equals to tmp files, tmp files are deleted
+    # else tmp files are copied
+    # @param self : object pointer
+    # @return
+    def copy_delete_cpp_h_files(self):
         h_file = str(self.directory_)+'/'+str(self.name_)+'_keys.h'
         tmp_h_file = h_file+'-tmp'
         cpp_file = str(self.directory_)+'/'+str(self.name_)+'_keys.cpp'
@@ -302,28 +332,9 @@ class Dictionary:
             os.chmod(h_file,0444) # file only readable
             os.chmod(cpp_file,0444) # file only readable
 
-        name = self.name_[3:]
-        mo_file = str(self.modelica_dir_)+'/'+str(name)+'Keys.mo'
-        tmp_mo_file = mo_file+'-tmp'
-
-        diff = False
-        if not os.path.exists(mo_file):
-            diff = True
-        else :
-            # file is different
-            if not filecmp.cmp(tmp_mo_file, mo_file):
-                diff = True
-
-        if diff:
-            if os.path.exists(mo_file):
-                os.chmod(mo_file, 0777)
-            shutil.copyfile(tmp_mo_file, mo_file)
-            os.chmod(mo_file, 0444)
-
         # suppression fichier tmp
         os.remove(tmp_h_file)
         os.remove(tmp_cpp_file)
-        os.remove(tmp_mo_file)
 
 ##
 # Class defining status when parsing a dictionary file

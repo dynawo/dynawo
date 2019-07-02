@@ -286,9 +286,10 @@ ModelShuntCompensator::defineNonGenericParameters(vector<ParameterModeler>& para
 
 NetworkComponent::StateChange_t
 ModelShuntCompensator::evalState(const double& time) {
-  if ((State) z_[0] != getConnected()) {
+  State currState = static_cast<State>(z_[0]);
+  if (currState != getConnected()) {
     Trace::debug() << DYNLog(ShuntStateChange, id_, getConnected(), z_[0]) << Trace::endline;
-    if ((State) z_[0] == OPEN) {
+    if (currState == OPEN) {
       network_->addEvent(id_, DYNTimeline(ShuntDisconnected));
       tLastOpening_ = time;
       setConnected(OPEN);

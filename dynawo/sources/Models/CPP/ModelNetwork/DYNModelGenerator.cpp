@@ -61,6 +61,8 @@ Impl(generator->getID()) {
     ir0_ = 0.;
     ii0_ = 0.;
   }
+  P_ = 0.;
+  Q_ = 0.;
 }
 
 void
@@ -264,9 +266,10 @@ ModelGenerator::getY0() {
 
 NetworkComponent::StateChange_t
 ModelGenerator::evalState(const double& /*time*/) {
-  if ((State) z_[0] != getConnected()) {
+  State currState = static_cast<State>(z_[0]);
+  if (currState != getConnected()) {
     Trace::debug() << DYNLog(GeneratorStateChange, id_, getConnected(), z_[0]) << Trace::endline;
-    if ((State) z_[0] == OPEN) {
+    if (currState == OPEN) {
       network_->addEvent(id_, DYNTimeline(GeneratorDisconnected));
       setConnected(OPEN);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());

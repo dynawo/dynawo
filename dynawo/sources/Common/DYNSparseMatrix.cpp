@@ -50,9 +50,6 @@ SparseMatrix::SparseMatrix() {
   nbCol_ = 0;
   nbRow_ = 0;
   nbTerm_ = 0;
-  Ap_ = NULL;
-  Ai_ = NULL;
-  Ax_ = NULL;
 
   iAp_ = 0;
   iAi_ = 0;
@@ -100,11 +97,11 @@ SparseMatrix::init(const int& nbRow, const int& nbCol) {
   nbRow_ = nbRow;
   nbCol_ = nbCol;
   currentMaxTerm_ = MATRIX_BLOCK_LENGTH;
-  Ap_ = reinterpret_cast<int*> (malloc(sizeof (int)*(nbCol_ + 1)));
+  Ap_.resize(nbCol_ + 1);
   Ap_[0] = 0;
   // Allocation based on the Jacobian maximum size
-  Ai_ = reinterpret_cast<int*> (malloc(sizeof (int)*(currentMaxTerm_)));
-  Ax_ = reinterpret_cast<double*> (malloc(sizeof (double)*(currentMaxTerm_)));
+  Ai_.resize(currentMaxTerm_);
+  Ax_.resize(currentMaxTerm_);
 
   iAp_ = 0;
   iAi_ = 0;
@@ -124,11 +121,11 @@ SparseMatrix::reserve(const int& nbCol) {
   nbCol_ = 0;
   currentMaxTerm_ = MATRIX_BLOCK_LENGTH;
 
-  Ap_ = reinterpret_cast<int*> (malloc(sizeof (int)*(nbCol + 1)));
+  Ap_.resize(nbCol + 1);
   Ap_[0] = 0;
   // Allocation based on the Jacobian maximum size
-  Ai_ = reinterpret_cast<int*> (malloc(sizeof (int)*(currentMaxTerm_)));
-  Ax_ = reinterpret_cast<double*> (malloc(sizeof (double)*(currentMaxTerm_)));
+  Ai_.resize(currentMaxTerm_);
+  Ax_.resize(currentMaxTerm_);
 
   iAp_ = 0;
   iAi_ = 0;
@@ -139,31 +136,17 @@ SparseMatrix::reserve(const int& nbCol) {
 void
 SparseMatrix::increaseReserve() {
   currentMaxTerm_ += MATRIX_BLOCK_LENGTH;
-
-  int *new_Ai = reinterpret_cast<int*> (realloc(Ai_, currentMaxTerm_ * sizeof (int)));
-  if (new_Ai == NULL) {
-    throw DYNError(Error::GENERAL, CouldNotRealloc);
-  } else {
-    Ai_ = new_Ai;
-  }
-  double *new_Ax = reinterpret_cast<double*> (realloc(Ax_, currentMaxTerm_ * sizeof (double)));
-  if (new_Ax == NULL) {
-    throw DYNError(Error::GENERAL, CouldNotRealloc);
-  } else {
-    Ax_ = new_Ax;
-  }
+  Ai_.resize(currentMaxTerm_);
+  Ax_.resize(currentMaxTerm_);
 }
 
 void
 SparseMatrix::free() {
   nbRow_ = 0;
   nbCol_ = 0;
-  if (Ap_ != NULL) std::free(Ap_);
-  if (Ai_ != NULL) std::free(Ai_);
-  if (Ax_ != NULL) std::free(Ax_);
-  Ap_ = NULL;
-  Ai_ = NULL;
-  Ax_ = NULL;
+  Ap_.clear();
+  Ai_.clear();
+  Ax_.clear();
 
   iAp_ = 0;
   iAi_ = 0;
@@ -193,7 +176,7 @@ void SparseMatrix::printToFile(bool sparse) const {
     }
 
     for (int iCol = 0; iCol < nbCol_; ++iCol) {
-      for (int ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
+      for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
         int iRow = Ai_[ind];
         double val = Ax_[ind];
         matrix[iRow][iCol] = val;
@@ -211,7 +194,7 @@ void SparseMatrix::printToFile(bool sparse) const {
     }
   } else {
     for (int iCol = 0; iCol < nbCol_; ++iCol) {
-      for (int ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
+      for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
         int iRow = Ai_[ind];
         stringstream val;
         val << std::setprecision(16) << Ax_[ind];
@@ -226,7 +209,7 @@ void SparseMatrix::printToFile(bool sparse) const {
 
 void SparseMatrix::print() const {
   for (int iCol = 0; iCol < nbCol_; ++iCol) {
-    for (int ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
+    for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
       int iRow = Ai_[ind];
       Trace::debug() << "A(" << iRow << ";" << iCol << ")" << std::setprecision(16) << Ax_[ind] << Trace::endline;
     }
@@ -264,7 +247,7 @@ SparseMatrix::erase(const vector<int>& rows, const vector<int>& columns, SparseM
     itC = find(columns.begin(), columns.end(), iCol);
     if (itC == columns.end()) {
       M.changeCol();
-      for (int ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
+      for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
         int iRow = Ai_[ind];
         itL = find(rows.begin(), rows.end(), iRow);
 
@@ -293,7 +276,7 @@ double SparseMatrix::norm1() const {
   double colSum = 0.;
   for (int iCol = 0; iCol < nbCol_; ++iCol) {
     colSum = 0.;
-    for (int ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
+    for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
       colSum += std::fabs(Ax_[ind]);
     }
     if (colSum > norm1) {
@@ -309,7 +292,7 @@ double SparseMatrix::infinityNorm() const {
   for (int row = 0 ; row < nbRow_ ; ++row) {
     rowSum = 0.;
     for (int ind = 0; ind < nbTerm_ ; ++ind) {
-      if (Ai_[ind] == row) {
+      if (Ai_[ind] == static_cast<unsigned>(row)) {
         rowSum += std::fabs(Ax_[ind]);
       }
     }
@@ -322,10 +305,9 @@ double SparseMatrix::infinityNorm() const {
 
 void SparseMatrix::getRowColIndicesFromPosition(unsigned int position, int& iRow, int& jCol) const {
   assert(position < static_cast<unsigned int>(nbTerm_) && "Position must be lower than number ot terms");
-  std::vector<int> apVec(Ap_,  Ap_ + nbCol_ + 1);
-  std::vector<int>::iterator lower = std::upper_bound(apVec.begin(), apVec.end(), position);
+  std::vector<unsigned>::const_iterator lower = std::upper_bound(Ap_.begin(), Ap_.end(), position);
   iRow = Ai_[position];
-  jCol = (lower-apVec.begin()) - 1;
+  jCol = (lower-Ap_.begin()) - 1;
 }
 
 
