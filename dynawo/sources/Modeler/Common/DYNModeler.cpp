@@ -24,14 +24,23 @@
 #include <map>
 
 #include <boost/algorithm/string.hpp>
+#include <tr1/unordered_map>
 
 #include "PARParametersSet.h"
 #include "PARReference.h"
 #include "DYDConnector.h"
+#include "DYDMacroConnector.h"
+#include "DYDMacroConnect.h"
+#include "DYDMacroConnection.h"
+#include "DYDDynamicModelsCollection.h"
 #include "DYDModel.h"
+#include "DYDModelicaModel.h"
+#include "DYDModelTemplate.h"
 
 #include "DYNModeler.h"
 #include "DYNCommon.h"
+#include "DYNCommonModeler.h"
+#include "DYNVariable.h"
 #include "DYNMacrosMessage.h"
 #include "DYNSubModel.h"
 #include "DYNConnectInterface.h"
@@ -52,6 +61,7 @@ using std::map;
 using std::vector;
 
 using boost::shared_ptr;
+using boost::dynamic_pointer_cast;
 
 using parameters::ParametersSet;
 using parameters::Reference;
@@ -66,6 +76,7 @@ Modeler::initSystem() {
 
   initModelDescription();
   initConnects();
+  SanityCheckFlowConnection();
 }
 
 void
@@ -190,6 +201,38 @@ Modeler::initStaticRefs(const shared_ptr<SubModel>& model, const shared_ptr<Mode
   }
 }
 
+
+void
+Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& subModel1, string& var1,
+    const shared_ptr<SubModel>& subModel2, string& var2) const {
+  //  @todo add same mechanism for @NODE1@, @NODE2@, @NODE3@
+
+  // convention : if node inside a connector, the staticId of the component is before @NODE@
+  const string labelNode = "@NODE@";
+  const string labelStaticId = "@STATIC_ID@";
+
+  // so the name of the var is as follow : @STATIC_ID@@@NODE@_var
+  bool foundStaticIdInVar1 = (var1.find(labelStaticId) != string::npos);
+  bool foundStaticIdInVar2 = (var2.find(labelStaticId) != string::npos);
+  // in connector, use static id of the model where the connection should be connected
+  // replace @STATIC_ID@ by @id@
+  if (foundStaticIdInVar1)
+    var1.replace(var1.find(labelStaticId), labelStaticId.size(), "@" + subModel2->staticId() + "@");
+  if (foundStaticIdInVar2)
+    var2.replace(var2.find(labelStaticId), labelStaticId.size(), "@" + subModel1->staticId() + "@");
+
+  bool foundNodeInVar1 = (var1.find(labelNode) != string::npos);
+  bool foundNodeInVar2 = (var2.find(labelNode) != string::npos);
+
+  if (foundNodeInVar1 && foundNodeInVar2) {
+    throw DYNError(Error::MODELER, WrongConnectTwoUnknownNodes, subModel1->name(), var1, subModel2->name(), var2);
+  } else if (foundNodeInVar1) {
+    var1 = findNodeConnectorName(var1);
+  } else if (foundNodeInVar2) {
+    var2 = findNodeConnectorName(var2);
+  }
+}
+
 void
 Modeler::initConnects() {
   Trace::info("MODELER") << DYNLog(EnteringInitConnects) << Trace::endline;
@@ -210,34 +253,10 @@ Modeler::initConnects() {
       Trace::error() << DYNLog(NotInstancedModel) << Trace::endline;
       continue;
     }
-    //  @todo add same mechanism for @NODE1@, @NODE2@, @NODE3@
 
-    // convention : if node inside a connector, the staticId of the component is before @NODE@
-    const string labelNode = "@NODE@";
-    const string labelStaticId = "@STATIC_ID@";
+    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2);
 
-    // so the name of the var is as follow : @STATIC_ID@@@NODE@_var
-    bool foundStaticIdInVar1 = (var1.find(labelStaticId) != string::npos);
-    bool foundStaticIdInVar2 = (var2.find(labelStaticId) != string::npos);
-    // in connector, use static id of the model where the connection should be connected
-    // replace @STATIC_ID@ by @id@
-    if (foundStaticIdInVar1)
-      var1.replace(var1.find(labelStaticId), labelStaticId.size(), "@" + iter2->second->staticId() + "@");
-    if (foundStaticIdInVar2)
-      var2.replace(var2.find(labelStaticId), labelStaticId.size(), "@" + iter1->second->staticId() + "@");
-
-    bool foundNodeInVar1 = (var1.find(labelNode) != string::npos);
-    bool foundNodeInVar2 = (var2.find(labelNode) != string::npos);
-
-    if (foundNodeInVar1 && foundNodeInVar2) {
-      throw DYNError(Error::MODELER, WrongConnectTwoUnknownNodes, id1, var1, id2, var2);
-    } else if (foundNodeInVar1) {
-      var1 = findNodeConnectorName(var1);
-    } else if (foundNodeInVar2) {
-      var2 = findNodeConnectorName(var2);
-    }
-
-    Trace::debug("MODELER") << DYNLog(DynamicConnect, id1, var1, id2, var2) << Trace::endline;
+    Trace::debug() << DYNLog(DynamicConnect, id1, var1, id2, var2) << Trace::endline;
 
     model_->connectElements(iter1->second, var1, iter2->second, var2);
   }
@@ -246,7 +265,7 @@ Modeler::initConnects() {
 }
 
 string
-Modeler::findNodeConnectorName(const string& id) {
+Modeler::findNodeConnectorName(const string& id) const {
   // remove @NODE@
   string tmpId = id;
   const string labelNode = "@NODE@";
@@ -262,6 +281,149 @@ Modeler::findNodeConnectorName(const string& id) {
     tmpId.replace(tmpId.find(staticIdLabel), staticIdLabel.size(), busName);
   }
   return tmpId;
+}
+
+void
+Modeler::collectAllInternalConnections(shared_ptr<dynamicdata::ModelicaModel> model,
+    vector<std::pair<string, string> >& variablesConnectedInternally) const {
+
+  string modelId = model->getId();
+  map<string, shared_ptr<dynamicdata::Connector> > pinConnects = model->getConnectors();
+  map<string, shared_ptr<dynamicdata::UnitDynamicModel> > unitDynamicModels = model->getUnitDynamicModels();
+  map<string, shared_ptr<dynamicdata::MacroConnect> > macroConnects = model->getMacroConnects();
+  typedef map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator unitDynamicModelsConstItr;
+
+  map<string, shared_ptr<SubModel> >::const_iterator subModelIter = subModels_.find(modelId);
+  if (subModelIter == subModels_.end()) {
+    return;
+  }
+  shared_ptr<SubModel> subModel = subModelIter->second;
+
+  // Retrieve internal flow connection
+  typedef map<string, shared_ptr<Variable> >::const_iterator variableConstItr;
+  for (map<string, shared_ptr<dynamicdata::Connector> >::const_iterator itPinConnect = pinConnects.begin();
+      itPinConnect != pinConnects.end(); ++itPinConnect) {
+    shared_ptr<dynamicdata::Connector> pinConnect = itPinConnect->second;
+
+    if (unitDynamicModels.find(pinConnect->getFirstModelId()) != unitDynamicModels.end() &&
+        unitDynamicModels.find(pinConnect->getSecondModelId()) != unitDynamicModels.end()) {
+      string firstVarName = pinConnect->getFirstModelId()+"_"+pinConnect->getFirstVariableId();
+      std::replace(firstVarName.begin(), firstVarName.end(), '.', '_');
+      string secondVarName = pinConnect->getSecondModelId()+"_"+pinConnect->getSecondVariableId();
+      std::replace(secondVarName.begin(), secondVarName.end(), '.', '_');
+      model_->findVariablesConnectedBy(subModel, firstVarName, subModel, secondVarName, variablesConnectedInternally);
+    }
+  }
+
+
+  for (map<string, shared_ptr<dynamicdata::MacroConnect> >::const_iterator itMC = macroConnects.begin();
+      itMC != macroConnects.end(); ++itMC) {
+    string connector = itMC->second->getConnector();
+    string model1 = itMC->second->getFirstModelId();
+    string model2 = itMC->second->getSecondModelId();
+
+    shared_ptr<dynamicdata::MacroConnector> macroConnector = dyd_->getDynamicModelsCollection()->findMacroConnector(connector);
+    // for each connect, create a system connect
+    map<string, shared_ptr<dynamicdata::MacroConnection> > connectors = macroConnector->getConnectors();
+    for (map<string, shared_ptr<dynamicdata::MacroConnection> >::const_iterator iter = connectors.begin();
+        iter != connectors.end(); ++iter) {
+      string var1 = iter->second->getFirstVariableId();
+      string var2 = iter->second->getSecondVariableId();
+      replaceMacroInVariableId(itMC->second->getIndex1(), itMC->second->getName1(), model1, model2, connector, var1);
+      replaceMacroInVariableId(itMC->second->getIndex2(), itMC->second->getName2(), model1, model2, connector, var2);
+
+      string firstVarName = model1+"_"+var1;
+      std::replace(firstVarName.begin(), firstVarName.end(), '.', '_');
+      string secondVarName = model2+"_"+var2;
+      std::replace(secondVarName.begin(), secondVarName.end(), '.', '_');
+      model_->findVariablesConnectedBy(subModel, firstVarName, subModel, secondVarName, variablesConnectedInternally);
+    }
+  }
+}
+void
+Modeler::SanityCheckFlowConnection() const {
+  std::tr1::unordered_map<string, unsigned> flowVarId2ConnIndex;
+  unsigned connIndex = 0;
+  map<string, shared_ptr<ModelDescription> > modelDescriptions = dyd_->getModelDescriptions();
+  for (map<string, shared_ptr<ModelDescription> >::const_iterator itModelDescription = modelDescriptions.begin(),
+      itModelDescriptionEnd = modelDescriptions.end();
+      itModelDescription != itModelDescriptionEnd; ++itModelDescription) {
+    if (itModelDescription->second->getModel()->getType() != dynamicdata::Model::MODELICA_MODEL) {
+      continue;
+    }
+    shared_ptr<ModelDescription> modelDesc = (itModelDescription)->second;
+    string modelId = modelDesc->getID();
+    shared_ptr<dynamicdata::ModelicaModel> model = dynamic_pointer_cast<dynamicdata::ModelicaModel> (modelDesc->getModel());
+
+    map<string, shared_ptr<SubModel> >::const_iterator subModelIter = subModels_.find(modelId);
+    if (subModelIter == subModels_.end()) {
+      continue;
+    }
+    shared_ptr<SubModel> subModel = subModelIter->second;
+
+    // Find all flow variables connected internally to this model
+    vector<std::pair<string, string> > variablesConnectedInternally;
+    collectAllInternalConnections(model, variablesConnectedInternally);
+
+
+    // Assign an unique id for all flow connections
+    for (size_t i = 0, iEnd = variablesConnectedInternally.size(); i < iEnd; ++i) {
+      boost::shared_ptr <Variable> var = subModel->getVariable(variablesConnectedInternally[i].first);
+      if (var->getType() == FLOW) {
+        string firstVar = modelId+"_"+variablesConnectedInternally[i].first;
+        string secondVar = modelId+"_"+variablesConnectedInternally[i].second;
+        bool found = false;
+        if (flowVarId2ConnIndex.find(firstVar) != flowVarId2ConnIndex.end()) {
+          unsigned existingIndex = flowVarId2ConnIndex[firstVar];
+          flowVarId2ConnIndex[secondVar] = existingIndex;
+          found = true;
+        } else if (flowVarId2ConnIndex.find(secondVar) != flowVarId2ConnIndex.end()) {
+          unsigned existingIndex = flowVarId2ConnIndex[secondVar];
+          flowVarId2ConnIndex[firstVar] = existingIndex;
+          found = true;
+        }
+        if (!found) {
+          flowVarId2ConnIndex[firstVar] = connIndex;
+          flowVarId2ConnIndex[secondVar] = connIndex;
+          ++connIndex;
+        }
+      }
+    }
+  }
+
+  // Now compare to external flow connections
+  map<string, shared_ptr<ConnectInterface> > connects = dyd_->getConnectInterfaces();
+  for (map<string, shared_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
+      itConnector != connects.end(); ++itConnector) {
+    string id1 = (itConnector->second)->getConnectedModel1();
+    string id2 = (itConnector->second)->getConnectedModel2();
+    string var1 = (itConnector->second)->getModel1Var();
+    string var2 = (itConnector->second)->getModel2Var();
+
+    map<string, shared_ptr<SubModel> >::const_iterator iter1;
+    map<string, shared_ptr<SubModel> >::const_iterator iter2;
+    iter1 = subModels_.find(id1);
+    iter2 = subModels_.find(id2);
+    if (iter1 == subModels_.end() || iter2 == subModels_.end()) {
+      continue;
+    }
+    replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2);
+
+    vector<std::pair<string, string> > connectedVars;
+    model_->findVariablesConnectedBy(iter1->second, var1, iter2->second, var2, connectedVars);
+    for (size_t i = 0, iEnd = connectedVars.size(); i < iEnd; ++i) {
+      string firstVar = iter1->first+"_"+connectedVars[i].first;
+      string secondVar = iter2->first+"_"+connectedVars[i].second;
+      if (flowVarId2ConnIndex.find(firstVar) != flowVarId2ConnIndex.end()) {
+        throw DYNError(Error::MODELER, FlowConnectionMixedSystemAndInternal, id1, connectedVars[i].first,
+            id2, connectedVars[i].second);
+      }
+      if (flowVarId2ConnIndex.find(secondVar) != flowVarId2ConnIndex.end()) {
+        throw DYNError(Error::MODELER, FlowConnectionMixedSystemAndInternal, id1, connectedVars[i].first,
+            id2, connectedVars[i].second);
+      }
+    }
+  }
 }
 
 }  // namespace DYN

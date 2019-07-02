@@ -16,6 +16,7 @@
 #include "DYNFileSystemUtils.h"
 #include "DYNExecUtils.h"
 #include "DYNCompiler.h"
+#include "DYNModeler.h"
 #include "DYNDynamicData.h"
 
 namespace DYN {
@@ -45,6 +46,42 @@ TEST(CompilerTest, testMissingModelicaFile) {
             rmModels,
             getEnvVar("PWD"));
   ASSERT_THROW_DYNAWO(cf.compile(), Error::MODELER, KeyError_t::UnknownModelFile);
+}
+
+TEST(CompilerTest, testFlowConnectionWithinAndOutsideModelicaModel) {
+  boost::shared_ptr<DynamicData> dyd(new DynamicData());
+  std::vector <std::string> fileNames;
+  fileNames.push_back("jobs/testFlowConnections.dyd");
+  dyd->initFromDydFiles(fileNames);
+  bool preCompiledUseStandardModels = true;
+  std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
+  std::string preCompiledModelsExtension = sharedLibraryExtension();
+  bool modelicaUseStandardModels = true;
+  std::string ddb_dir = getEnvVar("DYNAWO_HOME") + "/dynawo/sources/Models/Modelica/Dynawo";
+  setenv("DYNAWO_DDB_DIR", ddb_dir.c_str(), 0);
+
+  std::vector <UserDefinedDirectory> modelicaModelsDirsAbsolute;
+  std::string modelicaModelsExtension = ".mo";
+  std::vector<std::string> additionalHeaderFiles;
+
+  const bool rmModels = true;
+  Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
+            precompiledModelsDirsAbsolute,
+            preCompiledModelsExtension,
+            modelicaUseStandardModels,
+            modelicaModelsDirsAbsolute,
+            modelicaModelsExtension,
+            additionalHeaderFiles,
+            rmModels,
+            getEnvVar("PWD"));
+  ASSERT_NO_THROW(cf.compile());
+  cf.concatConnects();
+
+
+  // Model
+  Modeler modeler;
+  modeler.setDynamicData(dyd);
+  ASSERT_THROW_DYNAWO(modeler.initSystem(), Error::MODELER, KeyError_t::FlowConnectionMixedSystemAndInternal);
 }
 
 }  // namespace DYN

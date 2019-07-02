@@ -24,6 +24,7 @@
 #include <map>
 
 #include <boost/shared_ptr.hpp>
+#include "DYDModelicaModel.h"
 
 namespace DYN {
 
@@ -113,7 +114,31 @@ class Modeler {
    * and replace \@NODE\@ by the name of the connection point
    * @return the id of the connector where \@static_id\@\@NODE\@ is replaced by the name of the connection point
    */
-  std::string findNodeConnectorName(const std::string& id);
+  std::string findNodeConnectorName(const std::string& id) const;
+
+  /**
+   * @brief Check for each flow connections that there is no mix of internal and system connections
+   */
+  void SanityCheckFlowConnection() const;
+
+  /**
+   * @brief collect internal connections for a modelica model
+   * @param model : model to analyze
+   * @param variablesConnectedInternally : output, at the end of the called will contain the connected variables of the model
+   */
+  void collectAllInternalConnections(boost::shared_ptr<dynamicdata::ModelicaModel> model,
+      std::vector<std::pair<std::string, std::string> >& variablesConnectedInternally) const;
+
+
+  /**
+   * @brief replace STATIC and NODE macros in a macro connection
+   * @param subModel1: first connected model
+   * @param var1: first connected variable
+   * @param subModel2: second connected model
+   * @param var2: second connected variable
+   */
+  void replaceStaticAndNodeMacroInVariableName(const boost::shared_ptr<SubModel>& subModel1, std::string& var1,
+      const boost::shared_ptr<SubModel>& subModel2, std::string& var2) const;
 
  private:
   /**

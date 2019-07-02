@@ -337,6 +337,18 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @param name2 name of the variable to connect inside the subModel 2
    */
   void connectElements(boost::shared_ptr<SubModel> &subModel1, const std::string &name1, boost::shared_ptr<SubModel> &subModel2, const std::string &name2);
+  /**
+
+   * @brief seek all variables that are connected by a connection
+   *
+   * @param subModel1 first subModel where the variable is located
+   * @param name1 name of the variable to connect inside the subModel 1
+   * @param subModel2 second subModel where the variable is located
+   * @param name2 name of the variable to connect inside the subModel 2
+   * @param variables outputs: after the call contains all couples variable1->variable2 connected by this connection
+   */
+  void findVariablesConnectedBy(const boost::shared_ptr<SubModel> &subModel1, const std::string &name1,
+      const boost::shared_ptr<SubModel> &subModel2, const std::string &name2, std::vector<std::pair<std::string, std::string> >& variables) const;
 
   /**
    * @brief find a sub model inside the model multi thanks to its name

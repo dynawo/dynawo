@@ -711,7 +711,7 @@ class SubModel {
    *
    * @return a map associating one variable and its name
    */
-  std::map<std::string, boost::shared_ptr<Variable> > getVariableByName() const {
+  const std::map<std::string, boost::shared_ptr<Variable> >& getVariableByName() const {
     return variablesByName_;
   }
 
