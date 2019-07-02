@@ -26,7 +26,9 @@ SET(MODELICA_PREASSEMBLED_MODELS
     GenericAutomaton.xml
     LoadAlphaBeta.xml
     LoadOneTransformer.xml
+    LoadOneTransformerTapChanger.xml
     LoadTwoTransformers.xml
+    LoadTwoTransformersTapChangers.xml
     NodeFault.xml
     GeneratorSynchronousFourWindingsProportionalRegulations.xml
     GeneratorSynchronousThreeWindingsProportionalRegulations.xml

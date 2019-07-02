@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!-- LoadAlphaBeta plus two transformers and associated tap changers-->
+  <dyn:modelicaModel id="LoadTwoTransformersTapChangers">
+    <dyn:unitDynamicModel id="load" name="Dynawo.Electrical.Loads.LoadAlphaBeta" initName="Dynawo.Electrical.Loads.LoadConnect_INIT"/>
+    <dyn:unitDynamicModel id="transformerD" name="Dynawo.Electrical.Transformers.TransformerVariableTap" initName="Dynawo.Electrical.Transformers.TransformerVariableTapI_INIT"/>
+    <dyn:unitDynamicModel id="transformerT" name="Dynawo.Electrical.Transformers.TransformerVariableTap" initName="Dynawo.Electrical.Transformers.TransformerVariableTapPQ_INIT"/>
+    <dyn:unitDynamicModel id="tapChangerD" name="Dynawo.Electrical.Controls.Transformers.TapChanger" initName="Dynawo.Electrical.Controls.Transformers.TapChangerWithTransformer_INIT"/>
+    <dyn:unitDynamicModel id="tapChangerT" name="Dynawo.Electrical.Controls.Transformers.TapChanger" initName="Dynawo.Electrical.Controls.Transformers.TapChangerWithTransformer_INIT"/>
+    <dyn:initConnect id1="load" var1="i0Pu" id2="transformerD" var2="i20Pu"/>
+    <dyn:initConnect id1="load" var1="u0Pu" id2="transformerD" var2="u20Pu"/>
+    <dyn:initConnect id1="transformerD" var1="i10Pu" id2="transformerT" var2="i20Pu"/>
+    <dyn:initConnect id1="transformerD" var1="u10Pu" id2="transformerT" var2="u20Pu"/>
+    <dyn:initConnect id1="tapChangerD" var1="tap0" id2="transformerD" var2="Tap0"/>
+    <dyn:initConnect id1="tapChangerD" var1="U0" id2="transformerD" var2="U20Pu"/>
+    <dyn:initConnect id1="tapChangerT" var1="tap0" id2="transformerT" var2="Tap0"/>
+    <dyn:initConnect id1="tapChangerT" var1="U0" id2="transformerT" var2="U20Pu"/>
+    <dyn:connect id1="load" var1="terminal" id2="transformerD" var2="terminal2"/>
+    <dyn:connect id1="transformerD" var1="terminal1" id2="transformerT" var2="terminal2"/>
+    <dyn:connect id1="tapChangerD" var1="tap" id2="transformerD" var2="tap"/>
+    <dyn:connect id1="tapChangerD" var1="UMonitored" id2="transformerD" var2="U2Pu"/>
+    <dyn:connect id1="tapChangerT" var1="tap" id2="transformerT" var2="tap"/>
+    <dyn:connect id1="tapChangerT" var1="UMonitored" id2="transformerT" var2="U2Pu"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>
