@@ -220,7 +220,8 @@ ModelLoad::setGequations(std::map<int, std::string>& /*gEquationIndex*/) {
 void
 ModelLoad::init(int& yNum) {
   if (!network_->isInitModel()) {
-    yOffset_ = (unsigned int) yNum;
+    assert(yNum >= 0);
+    yOffset_ = static_cast<unsigned int>(yNum);
     unsigned int localIndex = 0;
 
     if (isControllable_) {
@@ -798,10 +799,11 @@ ModelLoad::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
 
 NetworkComponent::StateChange_t
 ModelLoad::evalState(const double& /*time*/) {
-  if ((State) z_[0] != getConnected()) {
+  State currState = static_cast<State>(z_[0]);
+  if (currState != getConnected()) {
     Trace::debug() << DYNLog(LoadStateChange, id_, getConnected(), z_[0]) << Trace::endline;
 
-    if ((State) z_[0] == OPEN) {
+    if (currState == OPEN) {
       network_->addEvent(id_, DYNTimeline(LoadDisconnected));
       setConnected(OPEN);
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());

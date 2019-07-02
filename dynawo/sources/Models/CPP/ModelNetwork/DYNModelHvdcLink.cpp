@@ -431,9 +431,10 @@ ModelHvdcLink::evalDerivatives() {
 
 NetworkComponent::StateChange_t
 ModelHvdcLink::evalState(const double& /*time*/) {
-  if ((State) z_[0] != getConnected1()) {
+  State currState1 = static_cast<State>(z_[0]);
+  if (currState1 != getConnected1()) {
     Trace::debug() << DYNLog(Converter1StateChange, id_, getConnected1(), z_[0]) << Trace::endline;
-    if ((State) z_[0] == OPEN) {
+    if (currState1 == OPEN) {
       network_->addEvent(id_, DYNTimeline(Converter1SwitchOff));
       setConnected1(OPEN);
       modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
@@ -445,9 +446,10 @@ ModelHvdcLink::evalState(const double& /*time*/) {
     return NetworkComponent::STATE_CHANGE;
   }
 
-  if ((State) z_[1] != getConnected2()) {
+  State currState2 = static_cast<State>(z_[1]);
+  if (currState2 != getConnected2()) {
     Trace::debug() << DYNLog(Converter2StateChange, id_, getConnected2(), z_[1]) << Trace::endline;
-    if ((State) z_[1] == OPEN) {
+    if (currState2 == OPEN) {
       network_->addEvent(id_, DYNTimeline(Converter2SwitchOff));
       setConnected2(OPEN);
       modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());

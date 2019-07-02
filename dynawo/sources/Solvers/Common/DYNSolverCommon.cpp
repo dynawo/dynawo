@@ -49,7 +49,7 @@ copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunin
   SM_NNZ_S(JJ) = smj.nbElem();
 
   for (unsigned i = 0, iEnd = size + 1; i < iEnd; ++i) {
-    SM_INDEXPTRS_S(JJ)[i] = smj.Ap_[i];  //!!! implicit conversion from int to sunindextype
+    SM_INDEXPTRS_S(JJ)[i] = smj.Ap_[i];  //!!! implicit conversion from unsigned to sunindextype
   }
   for (unsigned i = 0, iEnd = smj.nbElem(); i < iEnd; ++i) {
     SM_INDEXVALS_S(JJ)[i] = smj.Ai_[i];  //!!! implicit conversion from int to sunindextype

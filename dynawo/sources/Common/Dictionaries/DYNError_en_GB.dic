@@ -172,7 +172,6 @@ VoltageLevelBBSError        =             VOLTAGE LEVEL %1% : error while lookin
 //--------------- GENERAL -----------------------------------------
 GZReadErrorOnFile           =             unexpected error while reading compressed file %1%
 InvalidSeverityLevel        =             severity level %1% invalid
-CouldNotRealloc             =             reallocation of memory for sparse matrix impossible: not enough memory
 CreateDirectoryFailed       =             unable to create directory %1%
 WrongDynamicCast            =             impossible dynamic cast
 FileSystemItemDoesNotExist  =             %1% does not exist

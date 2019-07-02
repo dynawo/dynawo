@@ -663,25 +663,16 @@ ModelManager::loadVariables(const string &variables) {
   if (cSumRead != cSum || cSumInitRead != cSumInit)
     throw DYNError(Error::MODELER, WrongCheckSum, variablesFileName().c_str());
 
-  if ((unsigned int) modelData()->nVariablesReal != valuesReal.size())
+  if (static_cast<unsigned>(modelData()->nVariablesReal) != valuesReal.size())
     throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
 
-  if ((unsigned int) modelData()->nVariablesInteger != valuesInt.size())
+  if (static_cast<unsigned>(modelData()->nVariablesInteger) != valuesInt.size())
     throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
 
-  if ((unsigned int) modelData()->nVariablesBoolean != valuesBool.size())
+  if (static_cast<unsigned>(modelData()->nVariablesBoolean) != valuesBool.size())
     throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
 
-  if ( (unsigned int) modelData()->nVariablesReal != valuesReal.size())
-    throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
-
-  if ( (unsigned int) modelData()->nVariablesInteger != valuesInt.size())
-    throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
-
-  if ( (unsigned int) modelData()->nVariablesBoolean != valuesBool.size())
-    throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
-
-  if ( (unsigned int) data()->nbZ != valuesDiscreteReal.size())
+  if (static_cast<unsigned>(data()->nbZ) != valuesDiscreteReal.size())
     throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
 
   std::copy(valuesReal.begin(), valuesReal.end(), data()->localData[0]->realVars);
@@ -722,16 +713,16 @@ ModelManager::loadParameters(const string & parameters) {
   if (cSumRead != cSum || cSumInitRead != cSumInit)
     throw DYNError(Error::MODELER, WrongCheckSum, parametersFileName().c_str());
 
-  if (parameterDoubleValues.size() != (unsigned int) modelData()->nParametersReal)
+  if (parameterDoubleValues.size() != static_cast<unsigned>(modelData()->nParametersReal))
     throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
 
-  if (parameterBoolValues.size() != (unsigned int) modelData()->nParametersBoolean)
+  if (parameterBoolValues.size() != static_cast<unsigned>(modelData()->nParametersBoolean))
     throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
 
-  if (parameterIntValues.size() != (unsigned int) modelData()->nParametersInteger)
+  if (parameterIntValues.size() != static_cast<unsigned>(modelData()->nParametersInteger))
     throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
 
-  if (parameterStringValues.size() != (unsigned int) modelData()->nParametersString)
+  if (parameterStringValues.size() != static_cast<unsigned>(modelData()->nParametersString))
     throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
 
   // loading of read parameters

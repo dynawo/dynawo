@@ -265,17 +265,19 @@ ConnectorContainer::getConnectorInfos(const int & globalFIndex, std::string & su
     return;
 
   localFIndex = globalFIndex - offsetModel_;
+  assert(localFIndex > 0);
+  unsigned uLocalFIndex = static_cast<unsigned>(localFIndex);
   // find first in yConnectors, then in flowConnectors, at last in zConnectors.
-  if ((unsigned int) localFIndex < nbYConnectors()) {
+  if (uLocalFIndex < nbYConnectors()) {
     subModelName = "Y Connector";
     fEquation = getYConnectorInfos(localFIndex);
-  } else if (((unsigned int) localFIndex >= nbYConnectors())
-          && ((unsigned int) localFIndex < nbYConnectors() + nbFlowConnectors())) {
+  } else if ((uLocalFIndex >= nbYConnectors())
+          && (uLocalFIndex < nbYConnectors() + nbFlowConnectors())) {
     unsigned int index = localFIndex - nbYConnectors();
     subModelName = "Flow Connector";
     fEquation = getFlowConnectorInfos(index);
-  } else if (((unsigned int) localFIndex >= nbYConnectors() + nbFlowConnectors())
-          && ((unsigned int) localFIndex < nbYConnectors() + nbFlowConnectors() + nbZConnectors())) {
+  } else if ((uLocalFIndex >= nbYConnectors() + nbFlowConnectors())
+          && (uLocalFIndex < nbYConnectors() + nbFlowConnectors() + nbZConnectors())) {
     unsigned int index = localFIndex - nbYConnectors() - nbFlowConnectors();
     subModelName = "Z Connector";
     fEquation = getZConnectorInfos(index);

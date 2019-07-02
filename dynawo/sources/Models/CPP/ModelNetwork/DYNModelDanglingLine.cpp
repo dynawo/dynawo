@@ -121,6 +121,26 @@ Impl(line->getID()) {
 
   urFict0_ = ur0 - (rpu * iLine_r - xpu * iLine_i);
   uiFict0_ = ui0 - (xpu * iLine_r + rpu * iLine_i);
+  ir1_dUiFict_ = 0.;
+  ir1_dUrFict_ = 0.;
+  ir2_dUiFict_ = 0.;
+  ir2_dUrFict_ = 0.;
+  ii1_dUi_ = 0.;
+  ii1_dUr_ = 0.;
+  ii2_dUr_ = 0.;
+  ir1_dUi_ = 0.;
+  ir1_dUr_ = 0.;
+  ir2_dUi_ = 0.;
+  ir2_dUr_ = 0.;
+  ii2_dUi_ = 0.;
+  ii1_dUiFict_ = 0.;
+  ii1_dUrFict_ = 0.;
+  ii2_dUiFict_ = 0.;
+  ii2_dUrFict_ = 0.;
+  urFictYNum_ = 0;
+  uiFictYNum_ = 0;
+  P_ = 0.;
+  Q_ = 0.;
 }
 
 void
@@ -803,8 +823,8 @@ ModelDanglingLine::evalState(const double& /*time*/) {
   StateChange_t state = NetworkComponent::NO_CHANGE;
   if (static_cast<State>(z_[0]) != connectionState_) {
     Trace::debug() << DYNLog(DanglingLineStateChange, id_, connectionState_, z_[0]) << Trace::endline;
-    connectionState_ = (State) z_[0];
-    if ((State) z_[0] == CLOSED) {
+    connectionState_ = static_cast<State>(z_[0]);
+    if (connectionState_ == CLOSED) {
       network_->addEvent(id_, DYNTimeline(DanglingLineConnected));
       modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
     } else {

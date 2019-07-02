@@ -51,6 +51,8 @@ inLoop_(false) {
     connectionState_ = CLOSED;
   ir0_ = 0;
   ii0_ = 0;
+  irYNum_ = 0;
+  iiYNum_ = 0;
 }
 
 boost::shared_ptr<ModelBus>
@@ -254,10 +256,11 @@ ModelSwitch::defineElements(std::vector<Element>& elements, std::map<std::string
 
 NetworkComponent::StateChange_t
 ModelSwitch::evalState(const double& /*time*/) {
-  if (static_cast<State>(z_[0]) != getConnectionState()) {
+  State currState = static_cast<State>(z_[0]);
+  if (currState != getConnectionState()) {
     Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
-    setConnectionState((State) z_[0]);
-    if ((State) z_[0] == CLOSED) {
+    setConnectionState(currState);
+    if (currState == CLOSED) {
       network_->addEvent(id_, DYNTimeline(SwitchClosed));
     } else {
       network_->addEvent(id_, DYNTimeline(SwitchOpened));
@@ -272,7 +275,7 @@ ModelSwitch::open() {
   z_[0] = OPEN;
   if (static_cast<State>(z_[0]) != getConnectionState())
     Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
-  setConnectionState((State) z_[0]);
+  setConnectionState(static_cast<State>(z_[0]));
 }
 
 void
@@ -280,7 +283,7 @@ ModelSwitch::close() {
   z_[0] = CLOSED;
   if (static_cast<State>(z_[0]) != getConnectionState())
     Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
-  setConnectionState((State) z_[0]);
+  setConnectionState(static_cast<State>(z_[0]));
 }
 
 void

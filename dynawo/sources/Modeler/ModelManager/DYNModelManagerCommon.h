@@ -137,7 +137,7 @@ template<typename T>
 T pow_dynawo(T a, T b) {
   T value = pow(a, b);
   if (std::isnan(value)) {
-    throw(DYN::Error(DYN::Error::TypeError_t(DYN::Error::NUMERICAL_ERROR), DYN::KeyError_t::NumericalErrorFunction, std::string(__FILE__), __LINE__, \
+    throw(DYN::Error(DYN::Error::NUMERICAL_ERROR, DYN::KeyError_t::NumericalErrorFunction, std::string(__FILE__), __LINE__, \
           (DYN::Message("ERROR", DYN::KeyError_t::names[DYN::KeyError_t::NumericalErrorFunction]), "pow")));
   }
   return value;

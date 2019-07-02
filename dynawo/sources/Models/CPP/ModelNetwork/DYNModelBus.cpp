@@ -164,6 +164,7 @@ Impl(bus->getID()) {
   busIndex_ = bus->getBusIndex();
   irConnection_ = 0.0;
   iiConnection_ = 0.0;
+  refIslands_ = 0;
   ir0_ = 0.0;
   ii0_ = 0.0;
   nodeFault_ = false;
@@ -181,6 +182,11 @@ Impl(bus->getID()) {
 
   ur0_ = u0_ * cos(angle0_);
   ui0_ = u0_ * sin(angle0_);
+
+  urYNum_ = 0;
+  uiYNum_ = 0;
+  iiYNum_ = 0;
+  irYNum_ = 0;
 
   uMax_ = bus->getVMax() / unom_;
   uMin_ = bus->getVMin() / unom_;
@@ -814,7 +820,7 @@ NetworkComponent::StateChange_t
 ModelBus::evalState(const double& /*time*/) {
   StateChange_t state = NetworkComponent::NO_CHANGE;
   if (static_cast<State>(z_[2]) != connectionState_) {
-    if ((State) z_[2] == OPEN) {
+    if (static_cast<State>(z_[2]) == OPEN) {
       switchOff();
       network_->addEvent(id_, DYNTimeline(NodeOff));
       connectionState_ = OPEN;

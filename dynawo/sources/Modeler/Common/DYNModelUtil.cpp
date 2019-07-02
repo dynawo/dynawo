@@ -51,8 +51,8 @@ void printStructureToFile(const boost::shared_ptr<Model>& model, const SparseMat
   int subModelIndexF = 0;
 
   for (int jCol = 0; jCol < matrix.nbCol(); ++jCol) {
-    for (int ind = matrix.Ap_[jCol]; ind < matrix.Ap_[jCol + 1]; ++ind) {
-      int iRow = matrix.Ai_[ind];
+    for (unsigned ind = matrix.Ap_[jCol]; ind < matrix.Ap_[jCol + 1]; ++ind) {
+      unsigned iRow = matrix.Ai_[ind];
       model->getFInfos(jCol, subModelName, subModelIndexF, fEquation);
       file << "(" << iRow << ", " << jCol << ") ";
       file << "F[" << jCol << "]" << " model:" << subModelName << " index: " << subModelIndexF << " equation: " << fEquation;
