@@ -218,7 +218,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::Impl::evalF()
    */
-  void evalF();
+  void evalF() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
@@ -314,12 +314,12 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::evalYType()
    */
-  void evalYType();
+  void evalYType() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalFType()
    */
-  void evalFType();
+  void evalFType() { /* not needed */ }
 
   /**
    * @brief evaluate the term of the jacobian
@@ -642,15 +642,6 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
    */
   double ui2() const;
 
-  /**
-   * @brief compute the global Y index inside the Y matrix
-   * @param localIndex the local variable index inside the model
-   * @return the global variable index
-   */
-  inline unsigned int globalYIndex(const unsigned int& localIndex) {
-    return yOffset_ + localIndex;
-  }
-
  private:
   KnownBus_t knownBus_;  ///< bus known
 
@@ -675,7 +666,6 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   double ii01_;  ///< initial imaginary part of the current at side 1
   double ir02_;  ///< initial real part of the current at side 2
   double ii02_;  ///< initial imaginary part of the current at side 2
-  double i0Side2Var_;  ///< initial module (kA) of the current at side 2
   boost::shared_ptr<ModelBus> modelBus1_;  ///< model for the bus on side 1
   boost::shared_ptr<ModelBus> modelBus2_;  ///< model for the bus on side 2
 
@@ -701,9 +691,6 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   double vNom1_;  ///< nominal voltage on side 1
   double vNom2_;  ///< nominal voltage on side 2
   int tapChangerIndex_;  ///< current tap index (for tap-changer)
-
-  unsigned int yOffset_;  ///< global Y offset at the beginning of the model
-  unsigned int iSide2YNum_;  ///< local Y index for iSide2
 };
 }  // namespace DYN
 
