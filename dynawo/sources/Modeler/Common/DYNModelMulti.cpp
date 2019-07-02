@@ -582,6 +582,17 @@ ModelMulti::loadVariables(const std::map< string, string >& mapVariables) {
 
 void
 ModelMulti::connectElements(shared_ptr<SubModel> &subModel1, const string &name1, shared_ptr<SubModel> &subModel2, const string &name2) {
+  vector<std::pair<string, string> > variablesToConnect;
+  findVariablesConnectedBy(subModel1, name1, subModel2, name2, variablesToConnect);
+  for (size_t i = 0, iEnd = variablesToConnect.size(); i < iEnd; ++i) {
+    createConnection(subModel1, variablesToConnect[i].first, subModel2, variablesToConnect[i].second);
+  }
+}
+
+
+void
+ModelMulti::findVariablesConnectedBy(const boost::shared_ptr<SubModel> &subModel1, const std::string &name1,
+    const boost::shared_ptr<SubModel> &subModel2, const std::string &name2, vector<std::pair<string, string> >& variables) const {
   vector<Element> elements1 = subModel1->getElements(name1);
   vector<Element> elements2 = subModel2->getElements(name2);
 
@@ -611,7 +622,7 @@ ModelMulti::connectElements(shared_ptr<SubModel> &subModel1, const string &name1
       msg << DYNLog(ImpossibleConnection, element.id(), name1, subModel2->name(), subModel2->modelType(), name2);
       throw DYNError(Error::MODELER, MultiIncorrectConnection, msg.str());
     }
-    createConnection(subModel1, element.id(), subModel2, elements2[j].id());
+    variables.push_back(std::make_pair(element.id(), elements2[j].id()));
   }
 }
 

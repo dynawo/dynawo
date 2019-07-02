@@ -73,7 +73,7 @@ def list_external_variables (external_variables_file_path):
     return (liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete)
 
 ##
-# Add fictious equation read in xml file
+# Add fictitious equation read in xml file
 def pre_compil():
 
     liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete = list_external_variables (file_var_ext_name)

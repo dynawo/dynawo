@@ -499,13 +499,8 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
       itPinConnect != pinConnects.end(); ++itPinConnect) {
     shared_ptr<dynamicdata::Connector> pinConnect = itPinConnect->second;
 
-    set<string> internalModelsIDs;
-    for (itUnitDynamicModel = unitDynamicModels.begin(); itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
-      internalModelsIDs.insert(itUnitDynamicModel->first);
-    }
-
-    if (internalModelsIDs.find(pinConnect->getFirstModelId()) != internalModelsIDs.end() &&
-            internalModelsIDs.find(pinConnect->getSecondModelId()) != internalModelsIDs.end()) {
+    if (unitDynamicModels.find(pinConnect->getFirstModelId()) != unitDynamicModels.end() &&
+        unitDynamicModels.find(pinConnect->getSecondModelId()) != unitDynamicModels.end()) {
       internalConnects.push_back(pinConnect);
     }
   }
