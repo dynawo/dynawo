@@ -61,7 +61,7 @@ equation
   end when;
 
   if running.value then
-    QGenPu = if pre(qStatus) == QStatus.AbsorptionMax then QMaxPu else if pre(qStatus) == QStatus.GenerationMax then QMinPu else QGenRefPu;
+    QGenPu = if qStatus == QStatus.AbsorptionMax then QMaxPu else if qStatus == QStatus.GenerationMax then QMinPu else QGenRefPu;
   else
     QGenPu = 0;
   end if;
