@@ -265,7 +265,7 @@ ConnectorContainer::getConnectorInfos(const int & globalFIndex, std::string & su
     return;
 
   localFIndex = globalFIndex - offsetModel_;
-  assert(localFIndex > 0);
+  assert(localFIndex >= 0);
   unsigned uLocalFIndex = static_cast<unsigned>(localFIndex);
   // find first in yConnectors, then in flowConnectors, at last in zConnectors.
   if (uLocalFIndex < nbYConnectors()) {
