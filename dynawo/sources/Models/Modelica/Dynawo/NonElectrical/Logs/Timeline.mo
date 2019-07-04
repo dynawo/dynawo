@@ -19,20 +19,20 @@ encapsulated package Timeline "Timeline logs"
 // --------------------------
   function logEvent1 "Print a log message in event file using the multi-language dictionary"
     input Integer key;
-    external "C" addLogEvent1(key);
+    external "C" addLogEvent1(key) annotation(Include = "#include \"logEvent.h\"");
   end logEvent1;
 
   function logEvent2 "Print a log message in event file using the multi-language dictionary"
     input Integer key;
     input String arg1;
-    external "C" addLogEvent2(key, arg1);
+    external "C" addLogEvent2(key, arg1) annotation(Include = "#include \"logEvent.h\"");
   end logEvent2;
 
   function logEvent3 "Print a log message in event file using the multi-language dictionary"
     input Integer key;
     input String arg1;
     input String arg2;
-    external "C" addLogEvent3(key, arg1, arg2);
+    external "C" addLogEvent3(key, arg1, arg2) annotation(Include = "#include \"logEvent.h\"");
   end logEvent3;
 
   function logEvent4 "Print a log message in event file using the multi-language dictionary"
@@ -40,7 +40,7 @@ encapsulated package Timeline "Timeline logs"
     input String arg1;
     input String arg2;
     input String arg3;
-    external "C" addLogEvent4(key, arg1, arg2, arg3);
+    external "C" addLogEvent4(key, arg1, arg2, arg3) annotation(Include = "#include \"logEvent.h\"");
   end logEvent4;
 
   function logEvent5 "Print a log message in event file using the multi-language dictionary"
@@ -49,13 +49,13 @@ encapsulated package Timeline "Timeline logs"
     input String arg2;
     input String arg3;
     input String arg4;
-    external "C" addLogEvent5(key, arg1, arg2, arg3, arg4);
+    external "C" addLogEvent5(key, arg1, arg2, arg3, arg4) annotation(Include = "#include \"logEvent.h\"");
   end logEvent5;
 
   function logEventRaw1
     input String key1;
 
-    external "C" addLogEventRaw1 (key1);
+    external "C" addLogEventRaw1 (key1) annotation(Include = "#include \"logEvent.h\"");
 
   end logEventRaw1;
 
@@ -63,7 +63,7 @@ encapsulated package Timeline "Timeline logs"
     input String key1;
     input String key2;
 
-    external "C" addLogEventRaw2 (key1, key2);
+    external "C" addLogEventRaw2 (key1, key2) annotation(Include = "#include \"logEvent.h\"");
 
   end logEventRaw2;
 
@@ -72,7 +72,7 @@ encapsulated package Timeline "Timeline logs"
     input String key2;
     input String key3;
 
-    external "C" addLogEventRaw3 (key1, key2, key3);
+    external "C" addLogEventRaw3 (key1, key2, key3) annotation(Include = "#include \"logEvent.h\"");
 
   end logEventRaw3;
 
@@ -82,7 +82,7 @@ encapsulated package Timeline "Timeline logs"
     input String key3;
     input String key4;
 
-    external "C" addLogEventRaw4 (key1, key2, key3, key4);
+    external "C" addLogEventRaw4 (key1, key2, key3, key4) annotation(Include = "#include \"logEvent.h\"");
 
   end logEventRaw4;
 
@@ -93,7 +93,7 @@ encapsulated package Timeline "Timeline logs"
     input String key4;
     input String key5;
 
-    external "C" addLogEventRaw5 (key1, key2, key3, key4, key5);
+    external "C" addLogEventRaw5 (key1, key2, key3, key4, key5) annotation(Include = "#include \"logEvent.h\"");
 
   end logEventRaw5;
 end Timeline;
