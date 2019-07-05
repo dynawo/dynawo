@@ -13,5 +13,4 @@
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
   <variable type="continuous" id="UMonitored.value"/>
-  <variable type="discrete" id="lockOrder.value" defaultValue="false"/>
 </external_variables>

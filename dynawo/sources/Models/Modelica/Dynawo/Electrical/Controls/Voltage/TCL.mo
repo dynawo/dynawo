@@ -29,7 +29,6 @@ model TCL "Tap Changer Lock (TCL)"
     parameter Types.Time tLagTransLockedD "Time to wait before sending lock event to low voltage transformers";
 
     Connectors.ImPin UMonitored (value (unit = "kV")) "Monitored voltage";
-    Connectors.BPin lockOrder (value (start = locked0)) "TCL lock order";
     Boolean lockedT (start = locked0) "High voltage transformers locked ?";
     Boolean lockedD (start = locked0) "Low voltage transformers locked ?";
 
@@ -46,22 +45,22 @@ model TCL "Tap Changer Lock (TCL)"
 
     // Check when the monitored voltage goes below UMin
     // If the TCL is manually locked we ignore the voltage related events. Might be reviewed later.
-    when UMonitored.value < UMin and UMonitored.value > 0  and not (lockOrder.value) then
+    when UMonitored.value < UMin and UMonitored.value > 0 then
       UUnderMin = true;
       tUnderUmin = time;
       Timeline.logEvent1(TimelineKeys.TapChangersArming);
-    elsewhen UMonitored.value > UMin and pre(UUnderMin) and not pre(lockOrder.value) then
+    elsewhen UMonitored.value > UMin and pre(UUnderMin) then
       UUnderMin = false;
       tUnderUmin = Constants.inf;
       Timeline.logEvent1(TimelineKeys.TapChangersUnarming);
     end when;
 
     // Lock order activation
-    when ( (UUnderMin and time - tUnderUmin >= tLagBeforeLocked) or lockOrder.value ) and (not pre(locked)) then
+    when (UUnderMin and time - tUnderUmin >= tLagBeforeLocked) and (not pre(locked)) then
       locked = true;
       tLocked = time;
       Timeline.logEvent1(TimelineKeys.TapChangersLocked);
-    elsewhen not(UUnderMin) and not(lockOrder.value) and (pre(locked)) then
+    elsewhen not(UUnderMin) and (pre(locked)) then
       locked = false;
       tLocked = Constants.inf;
       Timeline.logEvent1(TimelineKeys.TapChangersUnlocked);
