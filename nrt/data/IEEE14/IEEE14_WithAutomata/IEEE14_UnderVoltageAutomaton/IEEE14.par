@@ -309,8 +309,7 @@
   </set>
   <set id="21">
     <par type="DOUBLE" name="underVoltageAutomaton_UMinPu" value="0.85"/>
-    <par type="DOUBLE" name="underVoltageAutomaton_tLagAction" value="3"/>
-    <par type="DOUBLE" name="underVoltageAutomaton_tLagMeasure" value="2"/>
+    <par type="DOUBLE" name="underVoltageAutomaton_tLagAction" value="5"/>
     <par type="DOUBLE" name="underVoltageAutomaton_U0Pu" value="1"/>
   </set>
 </parametersSet>

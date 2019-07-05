@@ -54,13 +54,12 @@ Initial conditions are the same that in the IEEE 14-bus basic test cases.
 
 An under voltage automaton is added on the generator number 3. The role of the automaton is to disconnect the generator if its voltage drops too much. The generators regulations are removed for this test in order to simulate a deep voltage drop that can activate the under voltage automaton.\\
 
-The under voltage automaton measures the generator voltage (in this test at its network connection point) within the time $t_{Measure}$ and sends the disconnection order when the voltage has spent more than $t_{Action}$ seconds under $U_{Min}$.\\
+The under voltage automaton measures the generator voltage (in this test at its network connection point) and sends the disconnection order when the voltage has spent more than $t_{Action}$ seconds under $U_{Min}$.\\
 
 The under voltage automaton parameters are:
 \begin{center}
 \begin{tabular}{l|l}
-   $U_{Min_{Pu}}=0.85p.u$ & $t_{Measure}=2s$  \\
-    & $t_{Action}=3s$   \\
+   $U_{Min_{Pu}}=0.85p.u$ & $t_{Action}=5s$  \\
 \end{tabular}
 \end{center}
 
@@ -82,7 +81,7 @@ The solver used is the variable time step solver IDA with the following paramete
 \newpage
 \subsection{Results}
 
-The simulated load variations make the network voltage decrease at node 3, until achieving the minimum threshold of the automaton. 5 seconds later, the generator is disconnected, which corresponds to the addition of the measurement time and the action time.\\
+The simulated load variations make the network voltage decrease at node 3, until achieving the minimum threshold of the automaton. The generator is disconnected 5 seconds later, which corresponds to the action time.\\
 
 \begin{figure}[H]
 \subfigure[Generator 3 stator voltage (p.u)]

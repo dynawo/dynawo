@@ -25,7 +25,6 @@ model UVA "Under-Voltage Automaton"
 
   public
     parameter Types.VoltageModulePu UMinPu "Voltage threshold under which the automaton is activated in p.u. (base UNom network)";
-    parameter Types.Time tLagMeasure "Time-lag before deciding to trip in s";
     parameter Types.Time tLagAction "Time-lag due to the actual trip action in s";
     parameter Types.VoltageModulePu U0Pu  "Initial monitored voltage in p.u. (base UNom network)";
 
@@ -34,7 +33,6 @@ model UVA "Under-Voltage Automaton"
 
   protected
     Types.Time tThresholdReached (start = Constants.inf) "Time when the threshold was reached";
-    Types.Time tDelayReached (start = Constants.inf) "Time when the delay before acting was reached";
 
   equation
     // Voltage comparison with the minimum accepted value
@@ -47,12 +45,7 @@ model UVA "Under-Voltage Automaton"
     end when;
 
     // Delay before tripping the generator
-    when time - tThresholdReached >= tLagMeasure then
-      tDelayReached = time;
-    end when;
-
-    // Delay to account for the information delivery to the generator
-    when time - tDelayReached >= tLagAction then
+    when time - tThresholdReached >= tLagAction then
       switchOffSignal.value = true;
       Timeline.logEvent1(TimelineKeys.UVATripped);
     end when;
