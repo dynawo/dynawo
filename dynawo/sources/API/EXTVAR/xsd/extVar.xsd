@@ -42,6 +42,7 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="continuous"/>
       <xs:enumeration value="discrete"/>
+      <xs:enumeration value="boolean"/>
       <xs:enumeration value="continuousArray"/>
       <xs:enumeration value="discreteArray"/>
     </xs:restriction>

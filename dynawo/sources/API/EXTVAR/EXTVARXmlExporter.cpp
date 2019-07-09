@@ -82,6 +82,9 @@ XmlExporter::writeVariable(const shared_ptr<Variable>& variable, Formatter& form
     case Variable::DISCRETE:
       type = "discrete";
       break;
+    case Variable::BOOLEAN:
+      type = "boolean";
+      break;
     case Variable::CONTINUOUS_ARRAY:
       type = "continuousArray";
       break;

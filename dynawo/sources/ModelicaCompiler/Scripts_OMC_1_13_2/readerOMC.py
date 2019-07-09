@@ -559,12 +559,15 @@ class ReaderOMC:
             print ("Warning: extvar file of fictitious (external) variables does not exist...")
             return
 
-        list_var_ext_continuous, list_var_ext_optional_continuous, list_var_ext_discrete = scriptVarExt.list_external_variables (self.eq_fictive_xml_file)
+        list_var_ext_continuous, list_var_ext_optional_continuous, list_var_ext_discrete, liste_var_ext_boolean = scriptVarExt.list_external_variables (self.eq_fictive_xml_file)
 
         for variable_id, default_value in list_var_ext_continuous:
             self.fictive_continuous_vars.append (variable_id)
 
         for variable_id, default_value in list_var_ext_discrete:
+            self.fictive_discrete_vars.append (variable_id)
+
+        for variable_id, default_value in liste_var_ext_boolean:
             self.fictive_discrete_vars.append (variable_id)
 
         for variable_id, default_value in list_var_ext_optional_continuous:
