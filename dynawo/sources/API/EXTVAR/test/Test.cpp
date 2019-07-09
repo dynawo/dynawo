@@ -117,6 +117,43 @@ TEST(APIEXTVARTest, ExternalDiscreteVariable) {
   ASSERT_THROW_DYNAWO(variable->getDefaultValue(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
   ASSERT_EQ(variable->hasDefaultValue(), false);
 
+  const std::string defaultValue = "1";
+  variable->setDefaultValue(defaultValue);
+  ASSERT_EQ(variable->hasDefaultValue(), true);
+  ASSERT_NO_THROW(variable->getDefaultValue());
+  ASSERT_EQ(variable->getDefaultValue(), defaultValue);
+
+  ASSERT_EQ(variable->hasSize(), false);
+  ASSERT_THROW_DYNAWO(variable->setSize(3), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeOnlyForArray);
+  ASSERT_THROW_DYNAWO(variable->getSize(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
+
+  ASSERT_EQ(variable->hasOptional(), false);
+  ASSERT_THROW_DYNAWO(variable->setOptional(true), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeOnlyForArray);
+  ASSERT_THROW_DYNAWO(variable->getOptional(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
+}
+
+//-----------------------------------------------------
+// TEST build external discrete variable
+//-----------------------------------------------------
+
+TEST(APIEXTVARTest, ExternalBooleanVariable) {
+  boost::shared_ptr<VariablesCollection> collection = VariablesCollectionFactory::newCollection();
+
+  // create object
+  const std::string varId = "boolean_variable_1";
+  boost::shared_ptr<Variable> variable;
+  variable = VariableFactory::newVariable(varId, Variable::BOOLEAN);
+
+  collection->addVariable(variable);
+  ASSERT_THROW_DYNAWO(collection->addVariable(variable), DYN::Error::API,
+                      DYN::KeyError_t::ExternalVariableIDNotUnique);  /// variable with same name is not authorized
+
+  ASSERT_EQ(variable->getId(), varId);
+  ASSERT_EQ(variable->getType(), Variable::BOOLEAN);
+
+  ASSERT_THROW_DYNAWO(variable->getDefaultValue(), DYN::Error::API, DYN::KeyError_t::ExternalVariableAttributeNotDefined);
+  ASSERT_EQ(variable->hasDefaultValue(), false);
+
   const std::string defaultValue = "true";
   variable->setDefaultValue(defaultValue);
   ASSERT_EQ(variable->hasDefaultValue(), true);
@@ -247,7 +284,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   // discrete variable
   const std::string varId = "discrete_variable_1";
   boost::shared_ptr<Variable> variable;
-  const std::string defaultVal = "true";
+  const std::string defaultVal = "1";
   variable = VariableFactory::newVariable(varId, Variable::DISCRETE);
   variable->setDefaultValue(defaultVal);
   ASSERT_NO_THROW(variable->getDefaultValue());
@@ -276,6 +313,15 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   variable4->setSize(10);
   ASSERT_NO_THROW(collection->addVariable(variable4));
 
+  // boolean variable
+  const std::string varId5 = "boolean_variable_1";
+  boost::shared_ptr<Variable> variable5;
+  const std::string defaultValBool = "true";
+  variable5 = VariableFactory::newVariable(varId5, Variable::BOOLEAN);
+  variable5->setDefaultValue(defaultValBool);
+  ASSERT_NO_THROW(variable5->getDefaultValue());
+  collection->addVariable(variable5);
+
   // export
   const std::string fileName = "ExternalVariables.extvar";
   XmlExporter exporter;
@@ -295,6 +341,10 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
       ASSERT_EQ(variable->getId(), varId);
       ASSERT_EQ(variable->hasDefaultValue(), true);
       ASSERT_EQ(variable->getDefaultValue(), defaultVal);
+    } else if (variable->getType() == Variable::BOOLEAN) {
+      ASSERT_EQ(variable->getId(), varId5);
+      ASSERT_EQ(variable->hasDefaultValue(), true);
+      ASSERT_EQ(variable->getDefaultValue(), defaultValBool);
     } else if (variable->getType() == Variable::CONTINUOUS_ARRAY) {
       ASSERT_EQ(variable->getId(), varId3);
       ASSERT_EQ(variable->hasDefaultValue(), true);
@@ -315,7 +365,7 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
 
   for (variable_iterator itVariable = collection->beginVariable(); itVariable != collection->endVariable(); ++itVariable) {
     const boost::shared_ptr<Variable> variableLocal = *itVariable;
-    ASSERT_EQ(variableLocal->getId(), variable3->getId());
+    ASSERT_EQ(variableLocal->getId(), variable5->getId());
     break;
   }
 
@@ -332,16 +382,16 @@ TEST(APIEXTVARTest, ExternalVariableExportImport) {
   }
 
   variable_iterator itVariable(collection->beginVariable());
-  ASSERT_EQ((++itVariable)->get()->getId(), variable2->getId());
-  ASSERT_EQ((--itVariable)->get()->getId(), variable3->getId());
-  ASSERT_EQ((itVariable++)->get()->getId(), variable3->getId());
-  ASSERT_EQ((itVariable--)->get()->getId(), variable2->getId());
+  ASSERT_EQ((++itVariable)->get()->getId(), variable3->getId());
+  ASSERT_EQ((--itVariable)->get()->getId(), variable5->getId());
+  ASSERT_EQ((itVariable++)->get()->getId(), variable5->getId());
+  ASSERT_EQ((itVariable--)->get()->getId(), variable3->getId());
 
   variable_const_iterator itVariablec(itVariable);
-  ASSERT_EQ((++itVariablec)->get()->getId(), variable2->getId());
-  ASSERT_EQ((--itVariablec)->get()->getId(), variable3->getId());
-  ASSERT_EQ((itVariablec++)->get()->getId(), variable3->getId());
-  ASSERT_EQ((itVariablec--)->get()->getId(), variable2->getId());
+  ASSERT_EQ((++itVariablec)->get()->getId(), variable3->getId());
+  ASSERT_EQ((--itVariablec)->get()->getId(), variable5->getId());
+  ASSERT_EQ((itVariablec++)->get()->getId(), variable5->getId());
+  ASSERT_EQ((itVariablec--)->get()->getId(), variable3->getId());
 }
 
 }  // namespace externalVariables

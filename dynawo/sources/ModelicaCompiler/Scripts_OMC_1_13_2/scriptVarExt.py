@@ -42,11 +42,13 @@ def list_external_variables (external_variables_file_path):
     liste_var_ext_continuous = []
     liste_var_ext_discrete = []
     liste_var_optional_ext_continuous = []
+    liste_var_ext_boolean = []
 
     doc = parse (external_variables_file_path)
     for node in doc.getElementsByTagName("external_variables"):
         for variable in node.getElementsByTagName("variable"):
             default_value = "0"
+            default_value_bool = "true"
             size = 1
             optional = False
             if ( variable.hasAttribute("defaultValue") ):
@@ -60,6 +62,8 @@ def list_external_variables (external_variables_file_path):
                 liste_var_ext_continuous.append((variable.getAttribute("id"), default_value))
             elif (variable.getAttribute("type") == "discrete"):
                 liste_var_ext_discrete.append((variable.getAttribute("id"), default_value))
+            elif (variable.getAttribute("type") == "boolean"):
+                liste_var_ext_boolean.append((variable.getAttribute("id"), default_value_bool))
             elif (variable.getAttribute("type") == "continuousArray"):
               for i in range(1,size+1):
                 if not optional:
@@ -70,13 +74,13 @@ def list_external_variables (external_variables_file_path):
               for i in range(1,size+1):
                 liste_var_ext_discrete.append((variable.getAttribute("id")+"["+str(i)+"]", default_value))
 
-    return (liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete)
+    return (liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete, liste_var_ext_boolean)
 
 ##
 # Add fictitious equation read in xml file
 def pre_compil():
 
-    liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete = list_external_variables (file_var_ext_name)
+    liste_var_ext_continuous, liste_var_optional_ext_continuous, liste_var_ext_discrete, liste_var_ext_boolean = list_external_variables (file_var_ext_name)
 
     model_name = os.path.basename(file_name).replace(".mo", "")
     # modification of the .mo file
@@ -100,10 +104,13 @@ def pre_compil():
                 value = 'der(' + str(var) + ') =' + default_value + ';\n'
                 lines.append(value)
 
-            if len(liste_var_ext_discrete) > 0 :
+            if len(liste_var_ext_discrete) > 0 or len(liste_var_ext_boolean) > 0:
                 value = " when(time > 999999) then \n"
                 lines.append(value)
                 for (var, val) in liste_var_ext_discrete:
+                    value = "    " + str(var) + ' = ' + val + ';\n'
+                    lines.append(value)
+                for (var, val) in liste_var_ext_boolean:
                     value = "    " + str(var) + ' = ' + val + ';\n'
                     lines.append(value)
                 value = " end when;\n"

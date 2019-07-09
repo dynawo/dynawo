@@ -39,7 +39,8 @@ class __DYNAWO_EXTVAR_EXPORT Variable {
    */
   enum Type {
     CONTINUOUS,  ///< For continuous variables
-    DISCRETE,  ///< For discrete (discrete real or boolean) variables
+    DISCRETE,  ///< For discrete (discrete real) variables
+    BOOLEAN,  ///< For boolean variables
     CONTINUOUS_ARRAY,  ///< For continuous array variables
     DISCRETE_ARRAY  ///< For discrete array variables
   };

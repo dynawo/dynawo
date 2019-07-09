@@ -86,6 +86,12 @@ VariableHandler::create(attributes_type const& attributes) {
 #else
     variableType = Variable::DISCRETE;
 #endif
+  } else if (attributes["type"].as_string() == "boolean") {
+#ifdef LANG_CXX11
+    variableType = Variable::Type::BOOLEAN;
+#else
+    variableType = Variable::BOOLEAN;
+#endif
   } else if (attributes["type"].as_string() == "discreteArray") {
 #ifdef LANG_CXX11
     variableType = Variable::Type::DISCRETE_ARRAY;
