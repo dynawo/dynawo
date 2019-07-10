@@ -95,7 +95,7 @@ ComponentInterface::getStateVariableReference() {
         stateVariables_[i].setVariable(modelDyn_->getVariable(stateVariables_[i].getVariableId()));
       else  /// specific for network models
         stateVariables_[i].setVariable(modelDyn_->getVariable(stateVariables_[i].getModelId() + "_" + stateVariables_[i].getVariableId()));
-    } catch (...) {
+    } catch (const DYN::Error &) {
       throw DYNError(Error::MODELER, StateVariableNoReference, stateVariables_[i].getName(), getID());
     }
   }

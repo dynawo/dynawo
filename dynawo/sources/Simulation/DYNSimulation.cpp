@@ -516,22 +516,18 @@ void
 Simulation::setSolver() {
   // Creates solver
   string solverParFile = createAbsolutePath(jobEntry_->getSolverEntry()->getParametersFile(), context_->getInputDirectory());
-  try {
-    solver_ = SolverFactory::createSolverFromLib(jobEntry_->getSolverEntry()->getLib() + sharedLibraryExtension());
+  solver_ = SolverFactory::createSolverFromLib(jobEntry_->getSolverEntry()->getLib() + sharedLibraryExtension());
 
-    parameters::XmlImporter importer;
-    boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
-    string parId = jobEntry_->getSolverEntry()->getParametersId();
-    shared_ptr<ParametersSet> solverParams = ParametersSetFactory::copyInstance(parameters->getParametersSet(parId));
+  parameters::XmlImporter importer;
+  boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
+  string parId = jobEntry_->getSolverEntry()->getParametersId();
+  shared_ptr<ParametersSet> solverParams = ParametersSetFactory::copyInstance(parameters->getParametersSet(parId));
 
-    solver_->setParameters(solverParams);
+  solver_->setParameters(solverParams);
 
 #ifdef _DEBUG_
-    solver_->checkUnusedParameters(solverParams);
+  solver_->checkUnusedParameters(solverParams);
 #endif
-  } catch (const string& Msg) {
-    Trace::error() << Msg << Trace::endline;
-  }
 }
 
 void

@@ -983,7 +983,7 @@ ModelNetwork::initParams() {
   vector<shared_ptr<ModelVoltageLevel> >::const_iterator itComponentVL;
   for (itComponentVL = vLevelInitComponents_.begin(); itComponentVL != vLevelInitComponents_.end(); ++itComponentVL)
     (*itComponentVL)->setInitialSwitchCurrents();
-  } catch (...) {
+  } catch (const DYN::Error &) {
     Trace::warn() << DYNLog(NetworkInitSwitchCurrentsFailed) << Trace::endline;
   }
 

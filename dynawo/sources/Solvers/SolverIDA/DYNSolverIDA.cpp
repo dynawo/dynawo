@@ -447,7 +447,6 @@ SolverIDA::calculateIC() {
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
     if (rootFound) {
       g0_.assign(g1_.begin(), g1_.end());
-      bool discreteVariableChangeFound = false;
       change = evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
     }
 
