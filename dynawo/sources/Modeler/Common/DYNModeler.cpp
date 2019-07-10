@@ -90,19 +90,15 @@ Modeler::initNetwork() {
   }
   DDBDir = getEnvVar("DYNAWO_DDB_DIR");
 
-  try {
-    modelNetwork = SubModelFactory::createSubModelFromLib(DDBDir + "/DYNModelNetwork" + sharedLibraryExtension());
-    modelNetwork->initFromData(data_);
-    data_->setModelNetwork(modelNetwork);
-    modelNetwork->name("NETWORK");
-    shared_ptr<ParametersSet> networkParams = dyd_->getNetworkParameters();
-    modelNetwork->setPARParameters(networkParams);
+  modelNetwork = SubModelFactory::createSubModelFromLib(DDBDir + "/DYNModelNetwork" + sharedLibraryExtension());
+  modelNetwork->initFromData(data_);
+  data_->setModelNetwork(modelNetwork);
+  modelNetwork->name("NETWORK");
+  shared_ptr<ParametersSet> networkParams = dyd_->getNetworkParameters();
+  modelNetwork->setPARParameters(networkParams);
 
-    model_->addSubModel(modelNetwork, "DYNModelNetwork" + string(sharedLibraryExtension()));
-    subModels_["NETWORK"] = modelNetwork;
-  } catch (const string & msg) {
-    Trace::error() << msg << Trace::endline;
-  }
+  model_->addSubModel(modelNetwork, "DYNModelNetwork" + string(sharedLibraryExtension()));
+  subModels_["NETWORK"] = modelNetwork;
 }
 
 void
@@ -116,27 +112,22 @@ Modeler::initModelDescription() {
 
     if ((itModelDescription->second)->hasCompiledModel()) {
       shared_ptr<SubModel> model;
-      try {
-        model = SubModelFactory::createSubModelFromLib(itModelDescription->second->getLib());
-        model->name((itModelDescription->second)->getID());
-        model->staticId((itModelDescription->second)->getStaticId());
-        shared_ptr<ParametersSet> params = (itModelDescription->second)->getParametersSet();
-        initParamDescription(itModelDescription->second);
+      model = SubModelFactory::createSubModelFromLib(itModelDescription->second->getLib());
+      model->name((itModelDescription->second)->getID());
+      model->staticId((itModelDescription->second)->getStaticId());
+      shared_ptr<ParametersSet> params = (itModelDescription->second)->getParametersSet();
+      initParamDescription(itModelDescription->second);
 
-        model->setPARParameters(params);
-        model->initFromData(data_);
-        // add the submodel
-        model_->addSubModel(model, itModelDescription->second->getLib());
-        subModels_[(itModelDescription->second)->getID()] = model;
-        (itModelDescription->second)->setSubModel(model);
-        // reference static
-        if ((itModelDescription->second)->getStaticId() != "") {
-          data_->setDynamicModel((itModelDescription->second)->getStaticId(), model);
-          initStaticRefs(model, (itModelDescription->second));
-        }
-      } catch (const string & msg) {
-        Trace::error() << msg << Trace::endline;
-        throw DYNError(Error::MODELER, CompileModel, (itModelDescription->second)->getID());
+      model->setPARParameters(params);
+      model->initFromData(data_);
+      // add the submodel
+      model_->addSubModel(model, itModelDescription->second->getLib());
+      subModels_[(itModelDescription->second)->getID()] = model;
+      (itModelDescription->second)->setSubModel(model);
+      // reference static
+      if ((itModelDescription->second)->getStaticId() != "") {
+        data_->setDynamicModel((itModelDescription->second)->getStaticId(), model);
+        initStaticRefs(model, (itModelDescription->second));
       }
     } else {
       throw DYNError(Error::MODELER, CompileModel, (itModelDescription->second)->getID());
@@ -291,7 +282,6 @@ Modeler::collectAllInternalConnections(shared_ptr<dynamicdata::ModelicaModel> mo
   map<string, shared_ptr<dynamicdata::Connector> > pinConnects = model->getConnectors();
   map<string, shared_ptr<dynamicdata::UnitDynamicModel> > unitDynamicModels = model->getUnitDynamicModels();
   map<string, shared_ptr<dynamicdata::MacroConnect> > macroConnects = model->getMacroConnects();
-  typedef map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator unitDynamicModelsConstItr;
 
   map<string, shared_ptr<SubModel> >::const_iterator subModelIter = subModels_.find(modelId);
   if (subModelIter == subModels_.end()) {
@@ -300,7 +290,6 @@ Modeler::collectAllInternalConnections(shared_ptr<dynamicdata::ModelicaModel> mo
   shared_ptr<SubModel> subModel = subModelIter->second;
 
   // Retrieve internal flow connection
-  typedef map<string, shared_ptr<Variable> >::const_iterator variableConstItr;
   for (map<string, shared_ptr<dynamicdata::Connector> >::const_iterator itPinConnect = pinConnects.begin();
       itPinConnect != pinConnects.end(); ++itPinConnect) {
     shared_ptr<dynamicdata::Connector> pinConnect = itPinConnect->second;

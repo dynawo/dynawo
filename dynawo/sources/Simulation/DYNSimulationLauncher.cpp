@@ -73,7 +73,10 @@ void launchSimu(const std::string& jobsFileName) {
         simulation->activateExportIIDM(false);
       simulation->terminate();
       throw;
-    } catch (...) {
+    } catch (const DYN::Terminate&) {
+      simulation->terminate();
+      throw;
+    } catch (const DYN::MessageError&) {
       simulation->terminate();
       throw;
     }
