@@ -129,7 +129,13 @@ def readCurvesToHtml(jobs_file, withoutOffset, showpoints, htmlBrowser):
                         continue
 
                     # open the html file
-                    webbrowser.get(htmlBrowser).open_new_tab(htmlFilePath)
+                    try:
+                        webbrowser.get(htmlBrowser).open_new_tab(htmlFilePath)
+                    except Exception:
+                        try:
+                            os.system(htmlBrowser + " " + htmlFilePath)
+                        except Exception as os_error:
+                            raise os_error
                     print("... End of generating curves visualization page for job <" + current_job.jobName_ + ">")
 
                 except Exception as exc:
