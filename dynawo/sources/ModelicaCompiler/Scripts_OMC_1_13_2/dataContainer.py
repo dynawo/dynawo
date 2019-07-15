@@ -985,7 +985,7 @@ class RawOmcFunctions:
         ## type of the object returned by the function
         self.return_type = ""
         ##type of the parameters
-        self.param_types = []
+        self.params = []
         ## List of lines that constitues the corrected body of the function
         self.corrected_body = []
 
@@ -1064,19 +1064,19 @@ class RawOmcFunctions:
         return self.return_type
 
     ##
-    # Add a parameter type
+    # Add a parameter
     # @param self : object pointer
-    # @param param_type : parameter type
+    # @param param : parameter (of type OmcFunctionParameter)
     # @return
-    def add_param_types(self,param_type):
-        self.param_types.append(param_type)
+    def add_params(self,param):
+        self.params.append(param)
 
     ##
-    # Get the parameters types
+    # Get the parameters
     # @param self: object pointer
-    # @return parameters types
-    def get_param_types(self):
-        return self.param_types
+    # @return parameters list
+    def get_params(self):
+        return self.params
 
 ##
 # class Equation maker
@@ -1474,6 +1474,31 @@ class Equation(EquationBase):
             else:
                 text_to_return.append( self.ptrn_evaluated_var.sub(r'res[%d] = data->localData\g<1> /* \g<2> */ - ( \g<3> );' % self.get_num_dyn(), line_tmp) )
         return text_to_return
+
+##
+# class EquationBasedOnExternalCall
+#
+class EquationBasedOnExternalCall(Equation):
+    ##
+    # default constructor
+    # @param self : object pointer
+    # @param body : body of the equation
+    # @param function_name : name of the function used in this equation
+    # @param eval_var : variable evaluated by the equation
+    # @param evaluated_var_address : variable evaluated by the equation (in the form data->localData[0]->...)
+    # @param depend_vars : variables used in the equation
+    # @param comes_from : name of the function using the equation
+    # @param num_omc : index of the equation in omc arrays
+    def __init__(self, function_name, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None):
+        Equation.__init__(self, body, eval_var, evaluated_var_address, depend_vars, comes_from, num_omc)
+        self.function_name = function_name
+
+    ##
+    # get the name of the function used in this equation
+    # @param self : object pointer
+    # @return the name of the function used in this equation
+    def get_function_name(self):
+        return self.function_name
 
 ##
 # class Root Object: defining a when equation

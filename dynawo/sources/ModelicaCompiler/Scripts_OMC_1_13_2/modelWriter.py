@@ -559,7 +559,6 @@ class ModelWriter(ModelWriterBase):
     def fill_evalFAdept(self):
         self.addEmptyLine()
         self.addLine("#ifdef _ADEPT_\n")
-        self.addBody( self.builder.get_list_for_evalfadept_external_call() )
         self.addLine("void Model" + self.className + "::evalFAdept(const std::vector<adept::adouble> & x,\n")
         self.addLine("                              const std::vector<adept::adouble> & xd,\n")
         self.addLine("                              std::vector<adept::adouble> & res)\n")
@@ -596,6 +595,12 @@ class ModelWriter(ModelWriterBase):
             if "__fill_model_name__" in line:
                 line = line.replace("__fill_model_name__", "Model" + self.className)
             body_tmp.append(line)
+
+        external_call_body = self.builder.get_list_for_evalfadept_external_call()
+        if len(external_call_body) > 0:
+            body_tmp.append("#ifdef _ADEPT_\n")
+            body_tmp.extend( external_call_body )
+            body_tmp.append("#endif\n")
         self.addBody_external(body_tmp)
 
     ##

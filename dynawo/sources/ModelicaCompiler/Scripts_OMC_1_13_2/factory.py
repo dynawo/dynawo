@@ -531,13 +531,14 @@ class Factory:
             new_body = []
             is_discrete = False
             found = False
+            function_name = ""
             for line in body:
                 for name in name_func_to_search:
                     if name+"(" in line or name +" (" in line:
                         for func in filter(lambda x: (x.get_name() == name), list_omc_functions):
                             variables_set_by_omc_function = self.find_variables_set_by_omc_function(line, func, None)
-                            discrete_variables_set_by_omc_function = self.find_output_integer_double_vars(line, func)
-
+                            discrete_variables_set_by_omc_function = self.find_discrete_variables_set_by_omc_function(line, func)
+                            function_name = name
                             ## Sanity check: cannot assign a value to both a continuous and a discrete variable
                             if len(discrete_variables_set_by_omc_function) > 0 and len(discrete_variables_set_by_omc_function) < len(variables_set_by_omc_function):
                                 error_exit("    Error: Function " + name + " is used to assign a value to both continuous and discrete variables, which is forbidden.")
@@ -552,9 +553,9 @@ class Factory:
                     found = True
                 new_body.append(line)
             if found and is_discrete:
-                list_body_to_append.append("{\n")
+                list_body_to_append_to_z.append("{\n")
                 list_body_to_append_to_z.append(body)
-                list_body_to_append.append("}\n\n")
+                list_body_to_append_to_z.append("}\n\n")
             elif found:
                 list_body_to_append.append("{\n")
                 list_body_to_append.append(new_body)
@@ -571,7 +572,9 @@ class Factory:
 
             for name in dic_var_name_to_temporary_name.keys():
                 test_param_address(name)
-                eq = Equation([to_param_address(name) + " /* " + name + "*/ = " + dic_var_name_to_temporary_name[name]+";"], \
+                eq = EquationBasedOnExternalCall(
+                              function_name,
+                              [to_param_address(name) + " /* " + name + "*/ = " + dic_var_name_to_temporary_name[name]+";"], \
                               name, \
                               to_param_address(name), \
                               [], \
@@ -610,7 +613,7 @@ class Factory:
             for name in name_func_to_search:
                 if name+"(" in line or name +" (" in line:
                     for func in filter(lambda x: (x.get_name() == name), list_omc_functions):
-                        variables_to_replace = self.find_output_integer_double_vars(line, func)
+                        variables_to_replace = self.find_discrete_variables_set_by_omc_function(line, func)
                         dic_var_name_to_temporary_name = {}
                         (line, dic_var_name_to_temporary_name, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_to_replace, global_pattern_index)
 
@@ -639,7 +642,7 @@ class Factory:
                     body_tmp.append(line)
         return body_tmp
 
-    def find_output_integer_double_vars(self, line_with_call, func):
+    def find_discrete_variables_set_by_omc_function(self, line_with_call, func):
 
         def filter_discrete_var(var_name):
             return "integerDoubleVars" in to_param_address(var_name) or "discreteVars" in to_param_address(var_name)
@@ -650,18 +653,18 @@ class Factory:
     def find_variables_set_by_omc_function(self, line_with_call, omc_raw_function, filter):
         ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
         match = re.match(ptrn_var_assigned, line_with_call)
-        variable_to_replace = {}
+        variables_to_replace = {}
         if match is not None:
             variable_name = match.group("varName").replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
             if filter is None or filter(variable_name):
-                variable_to_replace[variable_name] = -1
+                variables_to_replace[variable_name] = -1
             rhs = match.group("rhs").replace(omc_raw_function.get_name()+"(","").replace(omc_raw_function.get_name()+" (","")
             rhs = rhs.replace(")","").replace(";","")
             ptrn_var= re.compile(r'[ ]*[&]?data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
 
             index = 0
             for params in rhs.split(','):
-                param = omc_raw_function.get_param_types()[index]
+                param = omc_raw_function.get_params()[index]
                 if param.get_is_input():
                     index+=1
                     continue
@@ -669,16 +672,16 @@ class Factory:
                 if match is not None:
                     param_variable_name = match.group("varName").replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
                     if filter is None or filter(param_variable_name):
-                        variable_to_replace[param_variable_name] = index
+                        variables_to_replace[param_variable_name] = index
                 index+=1
-        return variable_to_replace
+        return variables_to_replace
 
     ##
     # Replace all variables by a temporary name
     # @param self: object pointer
     # @param line: line to analyse
     # @return line to use
-    def replace_var_names_by_temporary_and_build_dictionary(self, line, variable_to_replace, global_pattern_index):
+    def replace_var_names_by_temporary_and_build_dictionary(self, line, variables_to_replace, global_pattern_index):
         ptrn_var = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
         ptrn_var_no_desc = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) \*\/')
         match = ptrn_var.findall(line)
@@ -687,7 +690,7 @@ class Factory:
         prefix_temporary_var = "external_call_tmp_"
         dic_var_name_to_temporary_name = {}
         for idx, add, name in match:
-            if name not in variable_to_replace.keys(): continue
+            if name not in variables_to_replace.keys(): continue
             replacement_string = "@@@" + str(global_pattern_index) + "@@@"
             line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
             map_to_replace[replacement_string] = prefix_temporary_var+str(global_pattern_index)
@@ -695,7 +698,7 @@ class Factory:
             global_pattern_index +=1
         match = ptrn_var_no_desc.findall(line)
         for idx, add, name in match:
-            if name not in variable_to_replace.keys(): continue
+            if name not in variables_to_replace.keys(): continue
             replacement_string = "@@@" + str(global_pattern_index) + "@@@"
             line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
             map_to_replace[replacement_string] = prefix_temporary_var+str(global_pattern_index)
@@ -1265,7 +1268,7 @@ class Factory:
 
         for eq in self.list_additional_equations_from_call_for_setf:
             fequation_index = str(eq.get_num_dyn())
-            linetoadd = "  fEquationIndex["+ fequation_index +"] = \"call to external function\";\n";
+            linetoadd = "  fEquationIndex["+ fequation_index +"] = \"call to external function " + eq.get_function_name() + " \";\n";
             self.listfor_setfequations.append(linetoadd)
         return self.listfor_setfequations
 
@@ -1679,12 +1682,12 @@ class Factory:
             func_body = []
             func_body.append("// " + func.get_name()+"\n")
             func_body.append("adept::adouble " + func.get_name()+"_adept(")
-            for param in func.get_param_types():
+            for param in func.get_params():
                 type = param.get_type()
                 if type == "modelica_real":
                     type = "adept::adouble"
                 last_char = ", "
-                if param.get_index() == len(func.get_param_types()) - 1 :
+                if param.get_index() == len(func.get_params()) - 1 :
                     last_char=") "
                 func_body.append(type + " " + param.get_name()+ last_char)
             for line in func.get_corrected_body():

@@ -440,7 +440,7 @@ class ReaderOMC:
             if tag == "algorithm" and index in self.map_equation_formula:
                 #self.auxiliary_vars_to_address_map
                 for aux_var_name in self.auxiliary_vars_to_address_map:
-                    if aux_var_name in self.map_equation_formula[index]:
+                    if aux_var_name in self.map_equation_formula[index] and deps not in self.auxiliary_var_to_keep:
                         self.auxiliary_var_to_keep.append(aux_var_name)
 
 
@@ -1138,7 +1138,7 @@ class ReaderOMC:
                         type = params.split()[0]
                         name = params.split()[1]
                         is_input = not name.startswith("*out_")
-                        func.add_param_types(OmcFunctionParameter(name, type, index, is_input))
+                        func.add_params(OmcFunctionParameter(name, type, index, is_input))
                         index +=1
 
                     # "takewhile" only stops when the whole body of the function is read
