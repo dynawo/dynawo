@@ -41,7 +41,7 @@ get_absolute_path() {
 SUNDIALS_VERSION=4.1.0
 SUNDIALS_ARCHIVE=sundials-${SUNDIALS_VERSION}.tar.gz
 SUNDIALS_DIRECTORY=sundials-${SUNDIALS_VERSION}
-export_var_env DYNAWO_SUNDIALS_DOWNLOAD_URL=https://computation.llnl.gov/projects/sundials/download
+export_var_env DYNAWO_SUNDIALS_DOWNLOAD_URL=https://github.com/LLNL/sundials/releases/download/v$SUNDIALS_VERSION
 
 HERE=$PWD
 
