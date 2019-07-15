@@ -599,7 +599,10 @@ class ModelWriter(ModelWriterBase):
         external_call_body = self.builder.get_list_for_evalfadept_external_call()
         if len(external_call_body) > 0:
             body_tmp.append("#ifdef _ADEPT_\n")
-            body_tmp.extend( external_call_body )
+            for line in external_call_body:
+                if "__fill_model_name__" in line:
+                    line = line.replace("__fill_model_name__", "Model" + self.className)
+                body_tmp.append(line)
             body_tmp.append("#endif\n")
         self.addBody_external(body_tmp)
 
@@ -757,11 +760,16 @@ class ModelWriter(ModelWriterBase):
         for n, line in enumerate(self.file_content_h):
             if "__fill_internal_functions__" in line:
                 file_content_tmp = []
-                if len(self.builder.get_list_for_externalcalls_header())> 0 :
+                if len(self.builder.get_list_for_externalcalls_header())> 0 or len(self.builder.get_list_for_evalfadept_external_call_headers())> 0:
                     file_content_tmp.append("   //External Calls\n")
                     for line in self.builder.get_list_for_externalcalls_header():
                         file_content_tmp.append("     "+line)
                     file_content_tmp.append("\n")
+                    if len(self.builder.get_list_for_evalfadept_external_call_headers())> 0 :
+                        file_content_tmp.append("#ifdef _ADEPT_\n")
+                        for line in self.builder.get_list_for_evalfadept_external_call_headers():
+                            file_content_tmp.append("     "+line)
+                        file_content_tmp.append("#endif\n")
                 else:
                     file_content_tmp.append("   // No External Calls\n")
 
