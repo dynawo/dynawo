@@ -235,6 +235,8 @@ class Factory:
         self.list_for_evalfadept = []
         ## List of external functions that should be redefined for adept
         self.list_for_evalfadept_external_call = []
+        ## List of external functions that should be redefined for adept
+        self.list_for_evalfadept_external_call_headers = []
         ## List of equations to add in setSharedParamsDefault function
         self.list_for_setsharedparamsdefault = []
         ## List of equations to add in setParams function
@@ -1681,7 +1683,7 @@ class Factory:
             functions_dumped.append(func)
             func_body = []
             func_body.append("// " + func.get_name()+"\n")
-            func_body.append("adept::adouble " + func.get_name()+"_adept(")
+            func_header = "adept::adouble " + func.get_name()+"_adept("
             for param in func.get_params():
                 type = param.get_type()
                 if type == "modelica_real":
@@ -1689,7 +1691,10 @@ class Factory:
                 last_char = ", "
                 if param.get_index() == len(func.get_params()) - 1 :
                     last_char=") "
-                func_body.append(type + " " + param.get_name()+ last_char)
+                func_header+=type + " " + param.get_name()+ last_char
+            func_body.append(func_header.replace(func.get_name()+"_adept(", "__fill_model_name__::"+func.get_name()+"_adept("))
+            func_header+= ";\n"
+            self.list_for_evalfadept_external_call_headers.append(func_header)
             for line in func.get_corrected_body():
                 if "OMC_LABEL_UNUSED" in line: continue
                 if "omc_assert" in line or "omc_terminate" in line: continue
@@ -1861,6 +1866,12 @@ class Factory:
     # @return list of lines
     def get_list_for_evalfadept_external_call(self):
         return self.list_for_evalfadept_external_call
+    ##
+    # returns the lines that contains a copy of the external functions headers for adept
+    # @param self : object pointer
+    # @return list of lines
+    def get_list_for_evalfadept_external_call_headers(self):
+        return self.list_for_evalfadept_external_call_headers
 
     ##
     # prepare the lines that constitues the body of externalCalls
