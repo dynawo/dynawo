@@ -621,13 +621,13 @@ is_omcDynawo_installed() {
     if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary" ]; then
       return 1
     else
-      if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/Modelica $DYNAWO_MODELICA_LIB" ]; then
+      if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/Modelica" ]; then
         return 1
       fi
-      if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/ModelicaServices $DYNAWO_MODELICA_LIB" ]; then
+      if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/ModelicaServices" ]; then
         return 1
       fi
-      if [ ! -f "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/Complex $DYNAWO_MODELICA_LIB.mo" ]; then
+      if [ ! -f "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/Complex.mo" ]; then
         return 1
       fi
     fi
@@ -1225,7 +1225,7 @@ install_jquery() {
     fi
     if [ -f "$JQUERY_BUILD_DIR/${JQUERY_ARCHIVE}" ]; then
       if [ ! -d "$JQUERY_BUILD_DIR/jquery-$JQUERY_VERSION" ]; then
-        tar xzf $JQUERY_BUILD_DIR/${JQUERY_ARCHIVE} -C $JQUERY_BUILD_DIR
+        tar xzf $JQUERY_BUILD_DIR/${JQUERY_ARCHIVE} -C $JQUERY_BUILD_DIR || error_exit "Error while tar Jquery."
       fi
       if [ -d "$JQUERY_BUILD_DIR/jquery-$JQUERY_VERSION" ]; then
         cp "$JQUERY_BUILD_DIR/jquery-$JQUERY_VERSION/jquery.js" "$DYNAWO_HOME/util/curvesToHtml/resources/jquery.js"
@@ -1240,17 +1240,17 @@ install_jquery() {
         if [ -x "$(command -v wget)" ]; then
           wget --timeout 10 --tries 3 ${DYNAWO_FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} -P $JQUERY_BUILD_DIR || error_exit "Error while downloading Flot."
         elif [ -x "$(command -v curl)" ]; then
-          curl --connect-timeout 10 --retry 2 ${DYNAWO_FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} --output $JQUERY_BUILD_DIR/${FLOT_ARCHIVE} || error_exit "Error while downloading Flot."
+          curl -L --connect-timeout 10 --retry 2 ${DYNAWO_FLOT_DOWNLOAD_URL}/${FLOT_ARCHIVE} --output $JQUERY_BUILD_DIR/${FLOT_ARCHIVE} || error_exit "Error while downloading Flot."
         else
           error_exit "You need to install either wget or curl."
         fi
       fi
       if [ -f "$JQUERY_BUILD_DIR/${FLOT_ARCHIVE}" ]; then
         if [ ! -d "flot-$FLOT_VERSION" ]; then
-          tar xzf $JQUERY_BUILD_DIR/${FLOT_ARCHIVE} -C $JQUERY_BUILD_DIR
+          tar xzf $JQUERY_BUILD_DIR/${FLOT_ARCHIVE} -C $JQUERY_BUILD_DIR || error_exit "Error while tar Flot."
         fi
         if [ -d "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION" ]; then
-          if expr match "$file" "arrow-.*" >/dev/null; then
+          if `expr $file : "arrow-.*" > /dev/null`; then
             cp "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION/examples/$file" "$DYNAWO_HOME/util/curvesToHtml/resources/$file"
           else
             cp "$JQUERY_BUILD_DIR/flot-$FLOT_VERSION/$file" "$DYNAWO_HOME/util/curvesToHtml/resources/$file"
@@ -1271,7 +1271,7 @@ jobs_with_curves() {
 
 curves_visu() {
   verify_browser
-  python $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$(python -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser=$DYNAWO_BROWSER || return 1
+  python $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$(python -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
 
 dump_model() {
