@@ -326,6 +326,10 @@ SubModel::getVariableValue(const boost::shared_ptr <Variable> variable) const {
           value = 0;
         break;
       }
+      case UNDEFINED_TYPE:
+      {
+        throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
+      }
       default:
       {
         throw DYNError(Error::MODELER, SubModelUnknownVariable, name(), modelType(), variable->getName());
@@ -359,6 +363,11 @@ SubModel::getVariableIndexGlobal(const shared_ptr <Variable> variable) const {
     case BOOLEAN:
     case INTEGER: {  // Z vector contains DISCRETE variables and then INTEGER variables
       return zDeb() + varNum;
+    }
+    case UNDEFINED_TYPE:
+    default:
+    {
+      throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
     }
   }
   throw DYNError(Error::MODELER, SubModelBadVariableTypeForVariableIndex, name(), modelType(), variable->getName());
@@ -395,6 +404,10 @@ SubModel::defineVariables() {
           throw DYNError(Error::MODELER, AliasNotFound, name(), variable->getReferenceVariableName());
         } else {
           variable->setReferenceVariable(dynamic_pointer_cast<VariableNative> (iter->second));
+          if (iter->second->isState() && (iter->second->getType() == DISCRETE || iter->second->getType() == BOOLEAN))
+            zAliasesNames_.push_back(std::make_pair(variable->getName(), iter->first));
+          else if (iter->second->isState() && (iter->second->getType() == CONTINUOUS || iter->second->getType() == FLOW))
+            xAliasesNames_.push_back(std::make_pair(variable->getName(), iter->first));
         }
       }
     }
@@ -676,6 +689,11 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
           integer_variables.push_back(make_pair(name, i));
           break;
         }
+        case UNDEFINED_TYPE:
+        default:
+        {
+          throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
+        }
       }
       // only set non-integer variables (integer variables will be set later on)
       if (type != INTEGER)
@@ -884,6 +902,11 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
         curve->setCurveType(Curve::DISCRETE_VARIABLE);
         curve->setGlobalIndex(zDeb() + varNum);
         break;
+      }
+      case UNDEFINED_TYPE:
+      default:
+      {
+        throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
       }
     }
   }

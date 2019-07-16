@@ -209,6 +209,42 @@ class ModelModelica {
    * @return a parameters set filled with default values
    */
   virtual boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues() = 0;
+
+  /**
+   * @brief compute the value of calculated variables
+   *
+   * @param calculatedVars calculated variables vector
+   */
+  virtual void evalCalculatedVars(std::vector<double>& calculatedVars) = 0;
+  /**
+   * @brief evaluate the value of a calculated variable
+   *
+   * @param iCalculatedVar index of the calculated variable
+   * @param y values of the variables used to calculate the variable
+   * @param yp values of the derivatives used to calculate the variable
+   *
+   * @return value of the calculated variable
+   */
+  virtual double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp) = 0;
+
+  /**
+   * @brief evaluate the jacobian associated to a calculated variable
+   *
+   * @param iCalculatedVar index of the calculated variable
+   * @param y value of the variable used to calculate the jacobian
+   * @param yp value of the derivatives of variable used to calculate the jacobian
+   * @param res values of the jacobian
+   */
+  virtual void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res) = 0;
+
+  /**
+   * @brief get the index of variables used to define the jacobian associated to a calculated variable
+   *
+   * @param iCalculatedVar index of the calculated variable
+   *
+   * @return index of variables used to define the jacobian
+   */
+  virtual std::vector<int> getDefJCalculatedVarI(int iCalculatedVar) = 0;
 };
 }  // namespace DYN
 

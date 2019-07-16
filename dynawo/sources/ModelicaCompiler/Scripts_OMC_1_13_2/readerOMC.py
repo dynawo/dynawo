@@ -174,13 +174,6 @@ class ReaderOMC:
 
 
         # ---------------------------------------
-        # Attribute for reading *_model.h file
-        # ---------------------------------------
-        ## Map associating var name and index in omc
-        self.map_vars_num_omc = {}
-
-
-        # ---------------------------------------
         # Attribute for reading main c file
         # ---------------------------------------
         ## Root name for functions to extract
@@ -275,6 +268,7 @@ class ReaderOMC:
         self.nb_real_vars = 0
         self.nb_discrete_vars = 0
         self.nb_bool_vars = 0
+        self.nb_integer = 0
         self.external_objects = []
 
     ##
@@ -506,6 +500,8 @@ class ReaderOMC:
                         print ("pb : read_init_xml real on variable " + var.get_name())
                         sys.exit()
                 start = list_real[0].getAttribute('start')
+                fixed = list_real[0].getAttribute('fixed')
+                var.set_fixed(fixed == "true")
                 if start != '':
                     var.set_start_text( [start] )
                     var.set_use_start(list_real[0].getAttribute('useStart'))
@@ -518,6 +514,8 @@ class ReaderOMC:
                     print ("pb: read_init_xml int on variable " + var.get_name())
                     sys.exit()
                 start = list_integer[0].getAttribute('start')
+                fixed = list_integer[0].getAttribute('fixed')
+                var.set_fixed(fixed == "true")
                 if start != '':
                     var.set_start_text( [start] )
                     var.set_use_start(list_integer[0].getAttribute('useStart'))
@@ -530,6 +528,8 @@ class ReaderOMC:
                     print ("pb : read_init_xml bool on variable " + var.get_name())
                     sys.exit()
                 start = list_boolean[0].getAttribute('start')
+                fixed = list_boolean[0].getAttribute('fixed')
+                var.set_fixed(fixed == "true")
                 if start != '':
                     var.set_start_text( [start] )
                     var.set_use_start(list_boolean[0].getAttribute('useStart'))
@@ -542,6 +542,8 @@ class ReaderOMC:
                     print ("pb : read_init_xml string on variable " + var.get_name())
                     sys.exit()
                 start = list_string[0].getAttribute('start')
+                fixed = list_string[0].getAttribute('fixed')
+                var.set_fixed(fixed == "true")
                 if start != '':
                     var.set_start_text( [start] )
                     var.set_use_start(list_string[0].getAttribute('useStart'))
@@ -551,6 +553,23 @@ class ReaderOMC:
             # Vars after the read of *_init.xml
             self.list_vars.append(var)
 
+        ## Need to go over again to propagate fixed property: an alias on a fixed variable should be set as fixed
+        modified = True
+        while modified:
+            modified = False
+            for var in self.list_vars:
+                if var.get_alias_name() != "":
+                    alias_list = filter(lambda x: (x.get_name() == var.get_alias_name()), self.list_vars)
+                    assert(len(alias_list) == 1)
+                    alias_var = alias_list[0]
+                    if alias_var.is_fixed() and not var.is_fixed():
+                        var.set_fixed(True)
+                        modified = True
+                    if is_discrete_real_var(var) and (is_real_var(alias_var) or is_der_real_var(alias_var)):
+                        error_msg = "    Error: Found an alias that assigns the continuous variable " + alias_var.get_name()+\
+                            " to the discrete real variable " + var.get_name() +\
+                            " outside of the scope of a when or a if. Please rewrite the equation or check that you didn't connect a zPin to a ImPin.\n"
+                        error_exit(error_msg)
 
     ##
     # Read the *.extvar defining the fictitious equations
@@ -581,16 +600,6 @@ class ReaderOMC:
 
         for name in self.fictive_optional_continuous_vars:
           self.fictive_continuous_vars_der.append("der(%s)" % name)
-
-    ##
-    # Give an omx index to variables stored in list_vars
-    # @param self : object pointer
-    # @return
-    def give_num_omc_to_vars(self):
-       for var in self.list_vars:
-            name = var.get_name()
-            val = find_value_in_map(self.map_vars_num_omc, name)
-            if val is not None : var.set_num_omc(val)
 
     ##
     # Read the main c file
@@ -695,6 +704,10 @@ class ReaderOMC:
                             self.var_init_val_06inz[ var ] = list_body
                             self.var_num_init_val_06inz[var] = num_function
                             break
+
+                for line in list_body:
+                    if 'omc_assert_warning' in line:
+                        self.warnings.append(list_body)
 
         ptrn_comments = re.compile(r'equation index:[ ]*(?P<index>.*)[ ]*\n')
         comments_opening = "/*"
@@ -1058,6 +1071,7 @@ class ReaderOMC:
 
     ##
     # Read *_literals.h file and store all string declaration with type '_OMC_LIT'
+    # Requires self.list_vars to be ready
     # @param self : object pointer
     # @return
     def read_variables_txt_file(self):
@@ -1065,13 +1079,8 @@ class ReaderOMC:
         if not os.path.isfile(file_to_read):
             return
 
+        index_extobjs = 0
         ptrn_var = re.compile(r'type: (?P<type>.*) index: (?P<index>.*): (?P<name>.*) \(.* valueType: (?P<valueType>.*) initial:.*')
-        index_real_var = 0
-        index_derivative_var = 0
-        index_discrete_var = 0
-        index_boolean_vars = 0
-        index_real_param= 0
-        index_aux_var= 0
         with open(file_to_read,'r') as f:
             while True:
                 it = itertools.dropwhile(lambda line: (ptrn_var.search(line) is None), f)
@@ -1081,48 +1090,137 @@ class ReaderOMC:
                 type = match.group("type")
                 index = match.group("index")
                 name = match.group("name")
+                var_list = filter(lambda x: (x.get_name() == name),self.list_vars)
+                assert(len(var_list) <= 1)
+                var = None
+                if len(var_list) == 1:
+                    var = var_list[0]
                 if "$cse" in name:
-                    map_var_name_2_addresses[name]= "data->simulationInfo->daeModeData->auxiliaryVars["+str(index_aux_var)+"]"
-                    index_aux_var+=1
-                    self.auxiliary_vars_to_address_map[name.replace("$cse","cse")] = map_var_name_2_addresses[name]
-                    self.auxiliary_vars_counted_as_variables.append(name)
+                    map_var_name_2_addresses[name]= "auxiliaryVars"
                 elif re.search(r'stateVars \([0-9]+\)',type) or re.search(r'algVars \([0-9]+\)',type):
-                    map_var_name_2_addresses[name]= "data->localData[0]->realVars["+str(index_real_var)+"]"
-                    index_real_var+=1
+                    if not var.is_fixed():
+                        map_var_name_2_addresses[name]= "realVars"
+                    else:
+                        map_var_name_2_addresses[name]= "constVars"
                 elif type == "discreteAlgVars":
-                    map_var_name_2_addresses[name]= "data->localData[0]->discreteVars["+str(index_discrete_var)+"]"
-                    index_discrete_var+=1
+                    map_var_name_2_addresses[name]= "discreteVars"
                 elif type == "derivativeVars":
-                    map_var_name_2_addresses[name]= "data->localData[0]->derivativesVars["+str(index_derivative_var)+"]"
+                    map_var_name_2_addresses[name]= "derivativesVars"
                     map_var_name_2_addresses[name.replace("$DER.","der(")+")"]= map_var_name_2_addresses[name]
-                    index_derivative_var+=1
                 elif type == "constVars":
                     map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
                 elif type == "intAlgVars":
-                    map_var_name_2_addresses[name]= "data->localData[0]->integerDoubleVars["+index+"]"
+                    map_var_name_2_addresses[name]= "integerDoubleVars"
                 elif type == "boolAlgVars":
                     if "$whenCondition" in name:
-                        map_var_name_2_addresses[name]= "data->localData[0]->booleanVars["+str(index_boolean_vars)+"]"
-                        index_boolean_vars+=1
+                        map_var_name_2_addresses[name]= "booleanVars"
                     else:
-                        map_var_name_2_addresses[name]= "data->localData[0]->discreteVars["+str(index_discrete_var)+"]"
-                        index_discrete_var+=1
+                        map_var_name_2_addresses[name]= "discreteVars"
+                elif type == "aliasVars":
+                    if is_discrete_real_var(var) and var.is_fixed():
+                        map_var_name_2_addresses[name]= "discreteVars"
+                    elif not var.is_fixed():
+                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
+                    else:
+                        map_var_name_2_addresses[name]= "constVars"
+                elif type == "intAliasVars":
+                    if var.is_fixed():
+                        map_var_name_2_addresses[name]= "integerDoubleVars"
+                    else:
+                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
+                elif type == "boolAliasVars":
+                    if var.is_fixed():
+                        map_var_name_2_addresses[name]= "discreteVars"
+                    else:
+                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
                 elif type == "paramVars" or type == "boolParamVars":
-                    map_var_name_2_addresses[name]= "data->simulationInfo->realParameter["+str(index_real_param)+"]"
-                    index_real_param+=1
+                    map_var_name_2_addresses[name]= "realParameter"
                 elif type == "intParamVars":
-                    map_var_name_2_addresses[name]= "data->simulationInfo->integerParameter["+index+"]"
+                    map_var_name_2_addresses[name]= "integerParameter"
                 elif type == "stringParamVars":
-                    map_var_name_2_addresses[name]= "data->simulationInfo->stringParameter["+index+"]"
+                    map_var_name_2_addresses[name]= "stringParameter"
                 elif type == "extObjVars":
-                    map_var_name_2_addresses[name]= "data->simulationInfo->extObjs["+index+"]"
+                    map_var_name_2_addresses[name]= "data->simulationInfo->extObjs["+str(index_extobjs)+"]"
+                    index_extobjs+=1
                     ext = Variable();
                     ext.set_name(name)
                     self.external_objects.append(ext)
                 test_param_address(name)
+
+        # Attribution of indexes done in a second time to make sure the order is the same as in defineVariables and defineParameters methods
+        index_real_var = 0
+        index_derivative_var = 0
+        index_discrete_var = 0
+        index_boolean_vars = 0
+        index_real_param= 0
+        index_integer_param= 0
+        index_string_param= 0
+        index_aux_var= 0
+        index_integer_double = 0
+        for var in self.list_vars:
+            name = var.get_name()
+            test_param_address(name)
+            address = map_var_name_2_addresses[name]
+            if "auxiliaryVars" in address:
+                map_var_name_2_addresses[name]= "data->simulationInfo->daeModeData->auxiliaryVars["+str(index_aux_var)+"]"
+                index_aux_var+=1
+                self.auxiliary_vars_to_address_map[name.replace("$cse","cse")] = map_var_name_2_addresses[name]
+                self.auxiliary_vars_counted_as_variables.append(name)
+            elif "realVars" in address:
+                map_var_name_2_addresses[name]= "data->localData[0]->realVars["+str(index_real_var)+"]"
+                index_real_var+=1
+            elif "discreteVars" in address:
+                map_var_name_2_addresses[name]= "data->localData[0]->discreteVars["+str(index_discrete_var)+"]"
+                index_discrete_var+=1
+            elif "derivativesVars" in address:
+                map_var_name_2_addresses[name]= "data->localData[0]->derivativesVars["+str(index_derivative_var)+"]"
+                map_var_name_2_addresses[name.replace("$DER.","der(")+")"]= map_var_name_2_addresses[name]
+                map_var_name_2_addresses[name.replace("der(","$DER.")[:-1]]= map_var_name_2_addresses[name]
+                index_derivative_var+=1
+            elif "integerDoubleVars" in address:
+                map_var_name_2_addresses[name]= "data->localData[0]->integerDoubleVars["+str(index_integer_double)+"]"
+                index_integer_double+=1
+            elif "booleanVars" in address:
+                map_var_name_2_addresses[name]= "data->localData[0]->booleanVars["+str(index_boolean_vars)+"]"
+                index_boolean_vars+=1
+            elif "realParameter" in address:
+                map_var_name_2_addresses[name]= "data->simulationInfo->realParameter["+str(index_real_param)+"]"
+                index_real_param+=1
+            elif "integerParameter" in address:
+                map_var_name_2_addresses[name]= "data->simulationInfo->integerParameter["+str(index_integer_param)+"]"
+                index_integer_param+=1
+            elif "stringParameter" in address:
+                map_var_name_2_addresses[name]= "data->simulationInfo->stringParameter["+str(index_string_param)+"]"
+                index_string_param+=1
+
         self.nb_real_vars = index_real_var
         self.nb_discrete_vars = index_discrete_var
         self.nb_bool_vars = index_boolean_vars
+        self.nb_integer = index_integer_double
+
+    ##
+    # Find the effective value of a constant real variable
+    # @param self : object pointer
+    # @return
+    def find_constant_value_of(self, var):
+        if var.is_alias() :
+            if to_param_address(var.get_alias_name()) == "constVars":
+                alias_list = filter(lambda x : x.get_name() == var.get_alias_name(), self.list_vars)
+                assert(len(alias_list) == 1)
+                return self.find_constant_value_of(alias_list[0])
+            else:
+                if var.get_alias_negated():
+                    return to_param_address(var.get_alias_name())
+                else:
+                    return "-("+to_param_address(var.get_alias_name())+")"
+        elif var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
+            init_val = var.get_start_text()[0]
+            if init_val == "":
+                init_val = "0.0"
+            return init_val
+        return None
+
+
 
     ##
     # Read *_functions.c file and store all functions' body declared

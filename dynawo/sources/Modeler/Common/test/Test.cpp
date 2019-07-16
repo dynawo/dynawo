@@ -638,10 +638,11 @@ TEST(ModelerCommonTest, VariableAlias) {
 
   ASSERT_NO_THROW(variableAlias1 = VariableAliasFactory::create(aliasName1, varNameInt));
   ASSERT_THROW_DYNAWO(variableAlias1->getIndex(), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasRefNotSet);
-  ASSERT_THROW_DYNAWO(variableAlias1->getType(), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasRefNotSet);
   ASSERT_THROW_DYNAWO(variableAlias1->getNegated(), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasRefNotSet);
   ASSERT_EQ(variableAlias1->getName(), aliasName1);
   ASSERT_EQ(variableAlias1->getReferenceVariableName(), varNameInt);
+  ASSERT_THROW_DYNAWO(variableAlias1->getType(), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasRefNotSet);
+  ASSERT_EQ(variableAlias1->getLocalType(), UNDEFINED_TYPE);
 
   ASSERT_EQ(variableAlias1->referenceVariableSet(), false);
 
@@ -651,13 +652,15 @@ TEST(ModelerCommonTest, VariableAlias) {
   ASSERT_EQ(variableAlias1->referenceVariableSet(), true);
   ASSERT_THROW_DYNAWO(variableAlias1->getIndex(), DYN::Error::MODELER, DYN::KeyError_t::VariableNativeIndexNotSet);
   ASSERT_EQ(variableAlias1->getType(), INTEGER);
+  ASSERT_EQ(variableAlias1->getLocalType(), INTEGER);
   ASSERT_EQ(variableAlias1->isState(), isState);
   ASSERT_EQ(variableAlias1->getNegated(), varIsNegated);
 
-  ASSERT_NO_THROW(variableAlias2 = VariableAliasFactory::create(aliasName2, variableInt, true));
+  ASSERT_NO_THROW(variableAlias2 = VariableAliasFactory::create(aliasName2, variableInt, DISCRETE, true));
   ASSERT_THROW_DYNAWO(variableAlias2->getIndex(), DYN::Error::MODELER, DYN::KeyError_t::VariableNativeIndexNotSet);
   ASSERT_EQ(variableAlias2->getName(), aliasName2);
   ASSERT_EQ(variableAlias2->getType(), INTEGER);
+  ASSERT_EQ(variableAlias2->getLocalType(), DISCRETE);
   ASSERT_EQ(variableAlias2->getNegated(), !varIsNegated);
   ASSERT_EQ(variableAlias2->isState(), isState);
   ASSERT_EQ(variableAlias2->getReferenceVariableName(), varNameInt);
@@ -671,14 +674,15 @@ TEST(ModelerCommonTest, VariableAlias) {
   ASSERT_NO_THROW(variableAlias2->getIndex());
   ASSERT_EQ(variableAlias2->getIndex(), varIndex);
 
-  ASSERT_NO_THROW(variableAlias3 = VariableAliasFactory::create(aliasName3, variableInt, false));
+  ASSERT_NO_THROW(variableAlias3 = VariableAliasFactory::create(aliasName3, variableInt, DISCRETE, false));
   ASSERT_EQ(variableAlias3->getName(), aliasName3);
   ASSERT_EQ(variableAlias3->getReferenceVariableName(), varNameInt);
   ASSERT_EQ(variableAlias3->getType(), INTEGER);
+  ASSERT_EQ(variableAlias3->getLocalType(), DISCRETE);
   ASSERT_EQ(variableAlias3->getNegated(), true);
   ASSERT_EQ(variableAlias3->getIndex(), varIndex);
 
-  EXPECT_ASSERT_DYNAWO(VariableAliasFactory::create(aliasName3, dynamic_pointer_cast<VariableNative> (variableAlias2)));
+  EXPECT_ASSERT_DYNAWO(VariableAliasFactory::create(aliasName3, dynamic_pointer_cast<VariableNative> (variableAlias2), DISCRETE));
 }
 
 //-----------------------------------------------------

@@ -19,6 +19,7 @@ import re
 import os
 import sys
 import itertools
+import traceback
 
 ##
 # Indicates whether is the variable a derivative variable
@@ -63,6 +64,7 @@ def to_param_address(var_name):
 # @return
 def test_param_address(var_name):
     if to_param_address(var_name) == None:
+        traceback.print_stack()
         error_exit('Could not find the address of ' + var_name)
 
 
@@ -606,43 +608,56 @@ def analyse_and_replace_ternary(line,body,num_ternary):
    match_t2 = re.search(pattern_ternary2,line)
 
    if match_t2 is not None:
-       ternary = analyse_bracket(str(match_t2.group('var')))
+       ternary = analyse_bracket("(("+str(match_t2.group('var')))
        ternary_type = 2
    elif match_t is not None:
-       ternary = analyse_bracket(str(match_t.group('var')))
+       ternary = analyse_bracket("( ("+str(match_t.group('var')))
        ternary_type = 1
    else:
        match_t = re.search(pattern_ternary,line)
        if match_t is not None:
-           ternary = analyse_bracket(str(match_t.group('var')))
+           ternary = analyse_bracket("( "+str(match_t.group('var')))
    assert (ternary != "")
    if re.search(pattern_aux_var, ternary) is not None:
        body.append(line)
        return
 
+   #Remove potential useless part
+   nb_opening = 0
+   nb_closing = 0
+   filtered_ternary = ""
+   for char in ternary:
+        if char == '(':
+           nb_opening+=1
+        if char == ')':
+           nb_closing+=1
+        filtered_ternary+=char
+        if nb_opening == nb_closing:
+            break
+
    # look for the condition of the operator
    if ternary_type == 1:
-       match = re.search(pattern_cond1,line)
+       match = re.search(pattern_cond1,filtered_ternary)
        if match is not None:
            cond = analyse_bracket(str(match.group('var')))
    elif ternary_type == 2:
-       match = re.search(pattern_cond2,line)
+       match = re.search(pattern_cond2,filtered_ternary)
        if match is not None:
            cond = analyse_bracket(str(match.group('var')))
    else:
-       match = re.search(pattern_cond,line)
+       match = re.search(pattern_cond,filtered_ternary)
        if match is not None:
            cond = analyse_bracket(str(match.group('var')))
    assert (cond != "")
 
    # look for possibility 1
-   match1 = re.search(pattern_var1,line)
+   match1 = re.search(pattern_var1,filtered_ternary)
    if match1 is not None:
        var1 = analyse_bracket(match1.group('var1'))
    assert (var1 != "")
 
    # look for possibility 2
-   match2 = re.search(pattern_var2,line)
+   match2 = re.search(pattern_var2,filtered_ternary)
    if match2 is not None:
        var2 = analyse_bracket(match2.group('var2'))
    assert (var2 != "")
@@ -659,7 +674,7 @@ def analyse_and_replace_ternary(line,body,num_ternary):
    body.append(blanck+"{\n")
    body.append(blanck+"    tmpTernary"+str(num_ternary)+" = "+var2.replace("@@@@","adept::")+";\n")
    body.append(blanck+"}\n")
-   new_line = line.replace(ternary,"tmpTernary"+str(num_ternary))
+   new_line = line.replace(filtered_ternary,"tmpTernary"+str(num_ternary))
    body.append(new_line)
 
 ##

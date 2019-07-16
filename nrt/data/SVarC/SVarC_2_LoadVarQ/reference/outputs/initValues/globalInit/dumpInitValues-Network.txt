@@ -1,16 +1,17 @@
  ====== INIT VARIABLES VALUES ======
 line_terminal2_V_im                               : y =              0 yp =              0
 line_terminal2_V_re                               : y =              1 yp =              0
-busInf_terminal_V_im                              : y =              0 yp =              0
-busInf_terminal_V_re                              : y =              1 yp =              0
 busInf_terminal_i_im                              : y =              0 yp =              0
-busInf_terminal_i_re                              : y =             -0 yp =              0
-line_terminal1_V_im                               : y =              0 yp =              0
-line_terminal1_V_re                               : y =              1 yp =              0
-line_terminal1_i_im                               : y =              0 yp =              0
-line_terminal1_i_re                               : y =              0 yp =              0
+busInf_terminal_i_re                              : y =              0 yp =              0
 line_terminal2_i_im                               : y =              0 yp =              0
 line_terminal2_i_re                               : y =              0 yp =              0
+line_terminal1_i_im                               : alias of busInf_terminal_i_im
+line_terminal1_i_re                               : alias of busInf_terminal_i_re
+ ====== INIT CALCULATED VARIABLES VALUES ======
+busInf_terminal_V_im                              : y =              0
+busInf_terminal_V_re                              : y =              1
+line_terminal1_V_im                               : y =              0
+line_terminal1_V_re                               : y =              1
  ====== INIT DISCRETE VARIABLES VALUES ======
 line_running_value                                : z =              1
 line_switchOffSignal1_value                       : z =             -1

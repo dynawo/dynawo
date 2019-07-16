@@ -86,11 +86,11 @@ if __name__ == '__main__':
     if init_pb:
         reader_init = ReaderOMC(mod_name_init, input_dir, is_init_pb = True)
 
-        reader_init.read_variables_txt_file()        # Read *_variables.txt
         #reader_init.readInfoXml()            # Read *_info.xml
         reader_init.read_16dae_h_file()       # Read *_16dae.h
         reader_init.read_info_json()          # Read *_info.json
         reader_init.read_init_xml()           # Read *_init.xml
+        reader_init.read_variables_txt_file() # Read *_variables.txt
         reader_init.read_main_c()             # Read *.c principal
         reader_init.read_06inz_c_file()       # Read *_06inz.c
         reader_init.read_08bnd_c_file()       # Read *_08bnd.c
@@ -154,6 +154,10 @@ if __name__ == '__main__':
         writer_init_pb.fill_setGequations()
         writer_init_pb.fill_setYType_omc()
         writer_init_pb.fill_setFType_omc()
+        writer_init_pb.fill_evalCalculatedVars()
+        writer_init_pb.fill_evalCalculatedVarI()
+        writer_init_pb.fill_evalJCalculatedVarI()
+        writer_init_pb.fill_getDefJCalculatedVarI()
         writer_init_pb.fill_tail()
 
         writer_init_pb.write_file()
@@ -186,11 +190,11 @@ if __name__ == '__main__':
     # Reader for dynamic pb
     reader = ReaderOMC(mod_name, input_dir, is_init_pb = False)
 
-    reader.read_variables_txt_file()        # Read *_variables.txt
     #reader.readInfoXml()            # Read *_info.xml
     reader.read_16dae_h_file()           # Read *_16dae.h
     reader.read_info_json()              # Read *_info.json
     reader.read_init_xml()            # Read *_init.xml
+    reader.read_variables_txt_file()  # Read *_variables.txt
     reader.read_main_c()              # Read *.c principal
     reader.read_06inz_c_file()              # Read *_06inz.c
     reader.read_08bnd_c_file()              # Read *_08bnd.c
@@ -249,6 +253,10 @@ if __name__ == '__main__':
     writer.fill_warnings()
     writer.fill_setFequations()
     writer.fill_setGequations()
+    writer.fill_evalCalculatedVars()
+    writer.fill_evalCalculatedVarI()
+    writer.fill_evalJCalculatedVarI()
+    writer.fill_getDefJCalculatedVarI()
     writer.fill_tail()
 
     writer.write_file()

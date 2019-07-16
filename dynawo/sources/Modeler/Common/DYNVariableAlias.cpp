@@ -28,17 +28,23 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-VariableAlias::VariableAlias(const string& name, const string& refName, bool negated) :
+VariableAlias::VariableAlias(const string& name, const string& refName, const typeVar_t& type, bool negated) :
 Variable(name, true),
 referenceName_(refName),
-negated_(negated) {
+negated_(negated),
+type_(type) {
 }
 
-VariableAlias::VariableAlias(const string& name, const shared_ptr<VariableNative> refVar, bool negated) :
+VariableAlias::VariableAlias(const string& name, const shared_ptr<VariableNative> refVar, const typeVar_t& type, bool negated) :
 Variable(name, true),
 referenceName_(refVar->getName()),
 negated_(negated),
+type_(type),
 referenceVariable_(refVar) {
+  if (referenceVariable_ && type_ == UNDEFINED_TYPE) {
+    type_ = refVar->getType();
+    checkTypeCompatibility();
+  }
 }
 
 VariableAlias::~VariableAlias() {
@@ -56,11 +62,20 @@ VariableAlias::setReferenceVariable(const shared_ptr<VariableNative> refVar) {
     throw DYNError(Error::MODELER, VariableAliasRefIncoherent, getName(), referenceName_, refVar->getName());
   }
   referenceVariable_ = refVar;
+  if (type_ == UNDEFINED_TYPE) {
+    type_ = refVar->getType();
+    checkTypeCompatibility();
+  }
 }
 
 typeVar_t
 VariableAlias::getType() const {
   return getReferenceVariable()->getType();
+}
+
+typeVar_t
+VariableAlias::getLocalType() const {
+  return type_;
 }
 
 bool
@@ -94,4 +109,16 @@ VariableAlias::getReferenceVariable() const {
 
   return referenceVariable_.value();
 }
+
+void
+VariableAlias::checkTypeCompatibility() const {
+  typeVar_t refType = getReferenceVariable()->getType();
+  if (referenceVariableSet() && type_ != refType) {
+    if ((type_ == FLOW && refType != CONTINUOUS) || (type_ == CONTINUOUS && refType != FLOW))
+      throw DYNError(Error::MODELER, VariableAliasIncoherentType, getName(), typeVar2Str(type_), getReferenceVariableName(), typeVar2Str(refType));
+    if ((type_ == DISCRETE && refType != INTEGER) || (type_ == INTEGER && refType != DISCRETE))
+      throw DYNError(Error::MODELER, VariableAliasIncoherentType, getName(), typeVar2Str(type_), getReferenceVariableName(), typeVar2Str(refType));
+  }
+}
+
 }  // namespace DYN

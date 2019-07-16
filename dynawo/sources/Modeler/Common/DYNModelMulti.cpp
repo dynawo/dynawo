@@ -43,6 +43,7 @@
 #include "DYNConnectorCalculatedVariable.h"
 #include "DYNCommon.h"
 #include "DYNVariable.h"
+#include "DYNVariableAlias.h"
 
 using std::min;
 using std::max;
@@ -626,7 +627,13 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
   int num1 = variable1->getIndex();
   int num2 = variable2->getIndex();
   typeVar_t typeVar1 = variable1->getType();
+  // Use local type as the connection was made with the aliased variable that might have a different type from the reference variable
+  if (variable1->isAlias())
+    typeVar1 = dynamic_pointer_cast<VariableAlias> (variable1)->getLocalType();
   typeVar_t typeVar2 = variable2->getType();
+  // Use local type as the connection was made with the aliased variable that might have a different type from the reference variable
+  if (variable2->isAlias())
+    typeVar2 = dynamic_pointer_cast<VariableAlias> (variable2)->getLocalType();
   bool negated1 = variable1->getNegated();
   bool negated2 = variable2->getNegated();
   bool isState1 = variable1->isState();
@@ -638,7 +645,7 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
   }
 
   // connection to a calculated variable
-  // at least one of the connected variables should be a state variale
+  // at least one of the connected variables should be a state variable
   // (a calculated variable is a non-state variable)
   if ((!isState1) && (!isState2)) {
     throw DYNError(Error::MODELER, ConnectorCalculatedVariables, subModel1->name(), name1, subModel2->name(), name2);
@@ -669,6 +676,7 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
         connectorContainer_->addDiscreteConnector(connector);
         break;
       }
+      case UNDEFINED_TYPE:
       default:
       {
         throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
@@ -688,14 +696,14 @@ ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, 
   vector<int> numVars = subModel1->getDefJCalculatedVarI(numVar);
   int col1stYModelExt = connector->col1stYModelExt();
 
-  vector<string> xNamesConnector = subModelConnector->xNames();
-  vector<string> xNamesModel = subModel1->xNames();
+  const vector<string>& xNamesConnector = subModelConnector->xNames();
+  const vector<string>& xNamesModel = subModel1->xNames();
 
   for (unsigned int i = 0; i < numVars.size(); ++i) {
     createConnection(subModelConnector, xNamesConnector[col1stYModelExt + i], subModel1, xNamesModel[numVars[i]], true);
   }
 
-  vector<string> xNames = subModel2->xNames();
+  const vector<string>& xNames = subModel2->xNames();
   createConnection(subModel2, xNames[yNum], subModelConnector, string("connector_" + calculatedVarName1));
 }
 

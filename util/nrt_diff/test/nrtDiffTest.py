@@ -67,7 +67,10 @@ class TestnrtDiffDirectoryDiff(unittest.TestCase):
         (diff_statuses, return_message_str, file_names, left_paths, right_paths, diff_messages) = nrtDiff.DirectoryDiff (os.path.join(dir_path, "initValues"), os.path.join(dir_path, "initValues2"), True)
         for status in diff_statuses:
             self.assertEqual(status, nrtDiff.DIFFERENT)
-        self.assertEqual(return_message_str, "globalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (Problem with dumpInitValues-GEN____1_SM.txt)\nglobalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (Problem with dumpInitValues-_LOAD___2_EC.txt)\n(all other files are identical)\n")
+        if return_message_str.startswith("globalInit/dumpInitValues-GEN____1_SM.txt") :
+            self.assertEqual(return_message_str, "globalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (Problem with dumpInitValues-GEN____1_SM.txt)\nglobalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (Problem with dumpInitValues-_LOAD___2_EC.txt)\n(all other files are identical)\n")
+        else:
+            self.assertEqual(return_message_str, "globalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (Problem with dumpInitValues-_LOAD___2_EC.txt)\nglobalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (Problem with dumpInitValues-GEN____1_SM.txt)\n(all other files are identical)\n")
         i = 0
         for file in file_names:
             if i == 0:

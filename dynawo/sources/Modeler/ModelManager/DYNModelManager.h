@@ -136,7 +136,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @copydoc SubModel::evalCalculatedVars()
    */
-  void evalCalculatedVars() { /* no variable */ }
+  void evalCalculatedVars();
 
   /**
    * @copydoc SubModel::evalFType()
@@ -360,8 +360,9 @@ class ModelManager : public SubModel, private boost::noncopyable {
    *
    * @param y continuous values to use
    * @param z discrete values to use
+   * @param calculatedVars calculated variables values to use
    */
-  void setCalculatedParameters(std::vector<double>& y, std::vector<double>& z);
+  void setCalculatedParameters(std::vector<double>& y, std::vector<double>& z, const std::vector<double>& calculatedVars);
 
   /**
    * @brief set the value of a given calculated parameter
@@ -551,6 +552,12 @@ class ModelManager : public SubModel, private boost::noncopyable {
    */
   void setZCalculatedParameters(std::vector<double>& z,
       const std::map<std::string, std::vector< boost::shared_ptr <VariableAlias> > >& reversedAlias);
+
+  /**
+   * @brief read calculated variables and create calculated parameters from them
+   * @param calculatedVars calculated variables values to use
+   */
+  void createCalculatedParametersFromInitialCalculatedVariables(const std::vector<double>& calculatedVars);
 
   /**
    * @brief set the values of initial parameters

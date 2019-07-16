@@ -42,9 +42,9 @@ void ModelGeneratorPQ_Init::setupDataStruc()
   data->modelData->nParametersString = 0;
   data->modelData->nInputVars = 0;
   data->modelData->nOutputVars = 0;
-  data->modelData->nAliasReal = 0;
-  data->modelData->nAliasInteger = 0;
-  data->modelData->nAliasBoolean = 0;
+  data->modelData->nAliasReal = 0 - 0 /* Remove const aliases */;
+  data->modelData->nAliasInteger = 0 - 0 /* Remove const aliases */;
+  data->modelData->nAliasBoolean = 0 - 0 /* Remove const aliases */;
   data->modelData->nAliasString = 0;
   data->modelData->nZeroCrossings = 0 + 0 + 0;
   data->modelData->nSamples = 0;
@@ -70,6 +70,9 @@ void ModelGeneratorPQ_Init::setupDataStruc()
   data->nbF = 8;
   data->nbModes = 0;
   data->nbZ = 0;
+  data->nbCalculatedVars = 0;
+
+  constVars_.resize(0, 0.);
 }
 
 void ModelGeneratorPQ_Init::initializeDataStruc()
@@ -489,6 +492,25 @@ void ModelGeneratorPQ_Init::setFType_omc(propertyF_t* fType)
    fType[ 5 ] = ALGEBRIC_EQ;
    fType[ 6 ] = ALGEBRIC_EQ;
    fType[ 7 ] = ALGEBRIC_EQ;
+}
+
+void ModelGeneratorPQ_Init::evalCalculatedVars(std::vector<double>& calculatedVars)
+{
+}
+
+double ModelGeneratorPQ_Init::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
+{
+  return 0;
+}
+
+void ModelGeneratorPQ_Init::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res)
+{
+  // not needed
+}
+
+std::vector<int> ModelGeneratorPQ_Init::getDefJCalculatedVarI(int iCalculatedVar)
+{
+  return std::vector<int>();
 }
 
 }

@@ -105,7 +105,7 @@ Index: OMCompiler/Compiler/SimCode/SimCodeUtil.mo
  
  public function printVarLstCrefs
      input list<SimCodeVar.SimVar> inVars;
-@@ -7336,6 +7364,56 @@ algorithm
+@@ -7336,6 +7364,58 @@ algorithm
    dumpFunctions(functions);
  end dumpModelInfo;
  
@@ -124,6 +124,7 @@ Index: OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 +  list<SimCodeVar.SimVar> boolAlgVars;
 +  list<SimCodeVar.SimVar> aliasVars;
 +  list<SimCodeVar.SimVar> intAliasVars;
++  list<SimCodeVar.SimVar> boolAliasVars;
 +  list<SimCodeVar.SimVar> paramVars;
 +  list<SimCodeVar.SimVar> boolParamVars;
 +  list<SimCodeVar.SimVar> intParamVars;
@@ -137,7 +138,7 @@ Index: OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 +algorithm
 +  File.open(file,Absyn.pathString(modelInfo.name)+"_variables.txt",File.Mode.Write);
 +  SimCode.MODELINFO(vars=simVars, varInfo=varInfo, functions=functions) := modelInfo;
-+  SimCodeVar.SIMVARS(stateVars=stateVars,derivativeVars=derivativeVars,algVars=algVars,boolAlgVars=boolAlgVars,intAlgVars=intAlgVars,discreteAlgVars=discreteAlgVars,aliasVars=aliasVars,intAliasVars=intAliasVars,
++  SimCodeVar.SIMVARS(stateVars=stateVars,derivativeVars=derivativeVars,algVars=algVars,boolAlgVars=boolAlgVars,intAlgVars=intAlgVars,discreteAlgVars=discreteAlgVars,aliasVars=aliasVars,intAliasVars=intAliasVars,boolAliasVars=boolAliasVars,
 +  paramVars=paramVars,intParamVars=intParamVars,boolParamVars=boolParamVars, stringParamVars=stringParamVars, extObjVars=extObjVars,constVars=constVars,intConstVars=intConstVars,stringConstVars=stringConstVars) := simVars;
 +  SimCode.VARINFO(numStateVars=nsv,numAlgVars=nalgv) := varInfo;
 +  dumpVarLstFile(stateVars,"stateVars ("+intString(nsv)+")", file);
@@ -148,6 +149,7 @@ Index: OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 +  dumpVarLstFile(boolAlgVars,"boolAlgVars", file);
 +  dumpVarLstFile(aliasVars,"aliasVars", file);
 +  dumpVarLstFile(intAliasVars,"intAliasVars", file);
++  dumpVarLstFile(boolAliasVars,"boolAliasVars", file);
 +  dumpVarLstFile(paramVars,"paramVars", file);
 +  dumpVarLstFile(intParamVars,"intParamVars", file);
 +  dumpVarLstFile(boolParamVars,"boolParamVars", file);
@@ -162,7 +164,7 @@ Index: OMCompiler/Compiler/SimCode/SimCodeUtil.mo
  protected function dumpFunctions
    input list<SimCodeFunction.Function> functions;
  algorithm
-@@ -7523,7 +7601,6 @@ algorithm
+@@ -7523,7 +7603,6 @@ algorithm
          s = s +dumpWhenOps(whenStmtLst);
          if isSome(elseWhen) then
            s = s + " ELSEWHEN: ";
@@ -170,7 +172,7 @@ Index: OMCompiler/Compiler/SimCode/SimCodeUtil.mo
            s = s + simEqSystemString(Util.getOption(elseWhen));
          end if;
        then s;
-@@ -7843,6 +7920,7 @@ algorithm
+@@ -7843,6 +7922,7 @@ algorithm
    List.map_0(jacObs,dumpJacobianMatrix);
    print("\nmodelInfo: \n" + UNDERLINE + "\n");
    dumpModelInfo(simCode.modelInfo);

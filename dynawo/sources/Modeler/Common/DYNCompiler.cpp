@@ -789,7 +789,7 @@ Compiler::modelicaModelVariableName(const string& rawVariableName, const string&
 
 void
 Compiler::concatConnects() {
-  vector <shared_ptr<dynamicdata::Connector> > systemConnects = dyd_->getSystemConnects();
+  const vector <shared_ptr<dynamicdata::Connector> >& systemConnects = dyd_->getSystemConnects();
   for (vector <shared_ptr<dynamicdata::Connector> >::const_iterator itConnector = systemConnects.begin();
           itConnector != systemConnects.end(); ++itConnector) {
     shared_ptr<dynamicdata::Connector> connector = *itConnector;

@@ -54,7 +54,8 @@ typedef enum {
   CONTINUOUS,  ///< The variable is a continuous variable
   FLOW,  ///< The variable is a flow variable
   INTEGER,  ///< The variable is an integer variable
-  BOOLEAN  ///< The variable is a boolean variable
+  BOOLEAN,  ///< The variable is a boolean variable
+  UNDEFINED_TYPE  ///< Undefined type
 } typeVar_t;
 
 /**

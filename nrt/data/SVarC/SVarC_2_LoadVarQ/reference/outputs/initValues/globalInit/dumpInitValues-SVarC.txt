@@ -4,104 +4,103 @@ control_regulation_limitations_limIntegratorMax_y : y =         1.0678 yp =     
 control_regulation_limitations_limIntegratorMin_y : y =        -1.0466 yp =             -8
 injector_terminal_V_im                            : y =              0 yp =              0
 injector_terminal_V_re                            : y =              1 yp =              0
-URef_setPoint_value                               : y =            225 yp =              0
 control_BPu                                       : y =              0 yp =              0
 control_GPu                                       : y =              0 yp =              0
-control_GPuCst_y                                  : y =              0 yp =              0
-control_PuConversion_u                            : y =              0 yp =              0
 control_PuConversion_y                            : y =              0 yp =              0
 control_QInjPu                                    : y =              0 yp =              0
 control_UPu                                       : y =              1 yp =              0
-control_URef                                      : y =            225 yp =              0
-control_calculBG_BPu                              : y =              0 yp =              0
 control_calculBG_BVarPu                           : y =              0 yp =              0
-control_calculBG_GCstPu                           : y =              0 yp =              0
-control_calculBG_GPu                              : y =              0 yp =              0
-control_division1_u1                              : y =              0 yp =              0
-control_division1_u2                              : y =              1 yp =              0
 control_division1_y                               : y =              0 yp =              0
-control_modeHandling_UPu                          : y =              1 yp =              0
-control_modeHandling_URef                         : y =            225 yp =              0
 control_modeHandling_URefPu                       : y =              1 yp =              0
-control_regulation_BVarPu                         : y =              0 yp =              0
-control_regulation_IPu                            : y =              0 yp =              0
-control_regulation_QPu                            : y =              0 yp =              0
-control_regulation_UPu                            : y =              1 yp =              0
-control_regulation_URefPu                         : y =              1 yp =              0
-control_regulation_add1_u1                        : y =              1 yp =              0
 control_regulation_add1_u2                        : y =              1 yp =              0
 control_regulation_add1_y                         : y =              0 yp =              0
-control_regulation_add2_u1                        : y =              1 yp =              0
 control_regulation_add2_u2                        : y =              0 yp =              0
-control_regulation_add2_y                         : y =              1 yp =              0
 control_regulation_add3_u1                        : y =              0 yp =              0
-control_regulation_add3_u2                        : y =              0 yp =              0
 control_regulation_add3_y                         : y =              0 yp =              0
 control_regulation_firstOrder_u                   : y =              0 yp =              0
-control_regulation_gain_u                         : y =              0 yp =              0
-control_regulation_gain_y                         : y =              0 yp =              0
-control_regulation_lambda_u                       : y =              0 yp =              0
-control_regulation_lambda_y                       : y =              0 yp =              0
 control_regulation_limitations_BVarMaxPu          : y =         1.0678 yp =              0
 control_regulation_limitations_BVarMinPu          : y =        -1.0466 yp =              0
-control_regulation_limitations_IPu                : y =              0 yp =              0
-control_regulation_limitations_add1_u1            : y =              1 yp =              0
-control_regulation_limitations_add1_u2            : y =              0 yp =              0
 control_regulation_limitations_add1_y             : y =              1 yp =              0
-control_regulation_limitations_add2_u1            : y =              0 yp =              0
-control_regulation_limitations_add2_u2            : y =             -1 yp =              0
 control_regulation_limitations_add2_y             : y =             -1 yp =              0
-control_regulation_limitations_bMaxPu_y           : y =         1.0678 yp =              0
-control_regulation_limitations_bMinPu_y           : y =        -1.0466 yp =              0
-control_regulation_limitations_iMaxPu_y           : y =              1 yp =              0
-control_regulation_limitations_iMinPu_y           : y =             -1 yp =              0
-control_regulation_limitations_limIntegratorMax_local_set: y =              0 yp =              0
-control_regulation_limitations_limIntegratorMax_u : y =              1 yp =              0
-control_regulation_limitations_limIntegratorMin_local_set: y =              0 yp =              0
-control_regulation_limitations_limIntegratorMin_u : y =             -1 yp =              0
-control_regulation_limitations_max_u1             : y =        -1.0466 yp =              0
-control_regulation_limitations_max_u2             : y =        -1.0466 yp =              0
-control_regulation_limitations_max_y              : y =        -1.0466 yp =              0
-control_regulation_limitations_min_u1             : y =         1.0678 yp =              0
-control_regulation_limitations_min_u2             : y =         1.0678 yp =              0
-control_regulation_limitations_min_y              : y =         1.0678 yp =              0
-control_regulation_switch_u1                      : y =              0 yp =              0
-control_regulation_switch_u3                      : y =              0 yp =              0
-control_regulation_switch_y                       : y =              0 yp =              0
-control_regulation_variableLimiter_limit1         : y =         1.0678 yp =              0
-control_regulation_variableLimiter_limit2         : y =        -1.0466 yp =              0
-control_regulation_variableLimiter_simplifiedExpr : y =              0 yp =              0
-control_regulation_variableLimiter_u              : y =              0 yp =              0
-control_regulation_variableLimiter_y              : y =              0 yp =              0
-control_regulation_zero_y                         : y =              0 yp =              0
-injector_BPu                                      : y =              0 yp =              0
 injector_BPuSnRef                                 : y =              0 yp =              0
-injector_GPu                                      : y =              0 yp =              0
 injector_GPuSnRef                                 : y =              0 yp =              0
 injector_PInjPu                                   : y =              0 yp =              0
-injector_QInjPu                                   : y =              0 yp =              0
-injector_UPu                                      : y =              1 yp =              0
-injector_YPuSnRef_im                              : y =              0 yp =              0
-injector_YPuSnRef_re                              : y =              0 yp =              0
 injector_terminal_i_im                            : y =              0 yp =              0
 injector_terminal_i_re                            : y =              0 yp =              0
+control_PuConversion_u                            : alias of control_QInjPu
+control_calculBG_BPu                              : alias of control_BPu
+control_calculBG_GPu                              : alias of control_GPu
+control_division1_u1                              : alias of control_PuConversion_y
+control_division1_u2                              : alias of control_UPu
+control_modeHandling_UPu                          : alias of control_UPu
+control_regulation_BVarPu                         : alias of control_calculBG_BVarPu
+control_regulation_IPu                            : alias of control_division1_y
+control_regulation_QPu                            : alias of control_PuConversion_y
+control_regulation_UPu                            : alias of control_UPu
+control_regulation_URefPu                         : alias of control_modeHandling_URefPu
+control_regulation_add1_u1                        : alias of control_modeHandling_URefPu
+control_regulation_add2_u1                        : alias of control_UPu
+control_regulation_add2_y                         : alias of control_regulation_add1_u2
+control_regulation_add3_u2                        : alias of control_regulation_firstOrder_y
+control_regulation_gain_u                         : alias of control_regulation_add1_y
+control_regulation_gain_y                         : alias of control_regulation_add3_u1
+control_regulation_lambda_u                       : alias of control_PuConversion_y
+control_regulation_lambda_y                       : alias of control_regulation_add2_u2
+control_regulation_limitations_IPu                : alias of control_division1_y
+control_regulation_limitations_add1_u2            : alias of control_division1_y
+control_regulation_limitations_add2_u1            : alias of control_division1_y
+control_regulation_limitations_limIntegratorMax_u : alias of control_regulation_limitations_add1_y
+control_regulation_limitations_limIntegratorMin_u : alias of control_regulation_limitations_add2_y
+control_regulation_limitations_max_u1             : alias of control_regulation_limitations_limIntegratorMin_y
+control_regulation_limitations_max_y              : alias of control_regulation_limitations_BVarMinPu
+control_regulation_limitations_min_u2             : alias of control_regulation_limitations_limIntegratorMax_y
+control_regulation_limitations_min_y              : alias of control_regulation_limitations_BVarMaxPu
+control_regulation_switch_u3                      : alias of control_regulation_firstOrder_u
+control_regulation_switch_y                       : alias of control_calculBG_BVarPu
+control_regulation_variableLimiter_limit1         : alias of control_regulation_limitations_BVarMaxPu
+control_regulation_variableLimiter_limit2         : alias of control_regulation_limitations_BVarMinPu
+control_regulation_variableLimiter_simplifiedExpr : alias of control_regulation_add3_y
+control_regulation_variableLimiter_u              : alias of control_regulation_add3_y
+control_regulation_variableLimiter_y              : alias of control_regulation_firstOrder_u
+injector_BPu                                      : alias of control_BPu
+injector_GPu                                      : alias of control_GPu
+injector_QInjPu                                   : alias of control_QInjPu
+injector_UPu                                      : alias of control_UPu
+injector_YPuSnRef_im                              : alias of injector_BPuSnRef
+injector_YPuSnRef_re                              : alias of injector_GPuSnRef
+ ====== INIT CALCULATED VARIABLES VALUES ======
+control_regulation_limitations_limIntegratorMax_local_set: y =              0
+control_regulation_limitations_limIntegratorMin_local_set: y =              0
+URef_setPoint_value                               : y =            225
+control_GPuCst_y                                  : y =              0
+control_URef                                      : y =            225
+control_calculBG_GCstPu                           : y =              0
+control_modeHandling_URef                         : y =            225
+control_regulation_limitations_add1_u1            : y =              1
+control_regulation_limitations_add2_u2            : y =             -1
+control_regulation_limitations_bMaxPu_y           : y =         1.0678
+control_regulation_limitations_bMinPu_y           : y =        -1.0466
+control_regulation_limitations_iMaxPu_y           : y =              1
+control_regulation_limitations_iMinPu_y           : y =             -1
+control_regulation_limitations_max_u2             : y =        -1.0466
+control_regulation_limitations_min_u1             : y =         1.0678
+control_regulation_switch_u1                      : y =              0
+control_regulation_zero_y                         : y =              0
  ====== INIT DISCRETE VARIABLES VALUES ======
 control_modeHandling_URefAuto                     : z =            225
 control_modeHandling_timerModeChangeDown          : z =          1e+60
 control_modeHandling_timerModeChangeUp            : z =          1e+60
 control_modeHandling_blocked                      : z =             -1
-control_modeHandling_selectModeAuto               : z =              1
-control_regulation_blocked                        : z =             -1
 control_regulation_limitations_limIntegratorMax_local_reset: z =             -1
 control_regulation_limitations_limIntegratorMin_local_reset: z =             -1
-control_regulation_switch_u2                      : z =             -1
 control_selectModeAuto                            : z =              1
 control_calculBG_mode_value                       : z =              2
-control_modeHandling_mode_value                   : z =              2
 control_modeHandling_modeAuto_value               : z =              2
 control_modeHandling_modeManual_value             : z =              2
-control_modeHandling_setModeManual                : z =              2
 control_setModeManual                             : z =              2
+control_modeHandling_selectModeAuto               : alias of control_selectModeAuto
+control_regulation_blocked                        : alias of control_modeHandling_blocked
+control_regulation_switch_u2                      : alias of control_modeHandling_blocked
  ====== PARAMETERS VALUES ======
 URef_Value0                                        =            225
 control_B0Pu                                       =              0

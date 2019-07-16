@@ -1,32 +1,33 @@
  ====== INIT VARIABLES VALUES ======
 tfo_terminal2_V_im                                : y =       0.474565 yp =              0
 tfo_terminal2_V_re                                : y =       0.880236 yp =              0
-busInf_terminal_V_im                              : y =              0 yp =              0
-busInf_terminal_V_re                              : y =        0.90081 yp =              0
 busInf_terminal_i_im                              : y =       0.961514 yp =              0
 busInf_terminal_i_re                              : y =         22.179 yp =              0
-line1_terminal1_V_im                              : y =              0 yp =              0
-line1_terminal1_V_re                              : y =        0.90081 yp =              0
 line1_terminal1_i_im                              : y =      -0.625315 yp =              0
 line1_terminal1_i_re                              : y =        -14.424 yp =              0
 line1_terminal2_V_im                              : y =       0.324857 yp =              0
 line1_terminal2_V_re                              : y =       0.886727 yp =              0
 line1_terminal2_i_im                              : y =       0.625315 yp =              0
 line1_terminal2_i_re                              : y =         14.424 yp =              0
-line2_terminal1_V_im                              : y =              0 yp =              0
-line2_terminal1_V_re                              : y =        0.90081 yp =              0
 line2_terminal1_i_im                              : y =      -0.336198 yp =              0
 line2_terminal1_i_re                              : y =         -7.755 yp =              0
-line2_terminal2_V_im                              : y =       0.324857 yp =              0
-line2_terminal2_V_re                              : y =       0.886727 yp =              0
 line2_terminal2_i_im                              : y =       0.336198 yp =              0
 line2_terminal2_i_re                              : y =          7.755 yp =              0
-tfo_terminal1_V_im                                : y =       0.324857 yp =              0
-tfo_terminal1_V_re                                : y =       0.886727 yp =              0
 tfo_terminal1_i_im                                : y =      -0.961514 yp =              0
 tfo_terminal1_i_re                                : y =        -22.179 yp =              0
 tfo_terminal2_i_im                                : y =       0.961514 yp =              0
 tfo_terminal2_i_re                                : y =         22.179 yp =              0
+line2_terminal2_V_im                              : alias of line1_terminal2_V_im
+line2_terminal2_V_re                              : alias of line1_terminal2_V_re
+tfo_terminal1_V_im                                : alias of line1_terminal2_V_im
+tfo_terminal1_V_re                                : alias of line1_terminal2_V_re
+ ====== INIT CALCULATED VARIABLES VALUES ======
+busInf_terminal_V_im                              : y =              0
+busInf_terminal_V_re                              : y =        0.90081
+line1_terminal1_V_im                              : y =              0
+line1_terminal1_V_re                              : y =        0.90081
+line2_terminal1_V_im                              : y =              0
+line2_terminal1_V_re                              : y =        0.90081
  ====== INIT DISCRETE VARIABLES VALUES ======
 line1_running_value                               : z =              1
 line1_switchOffSignal1_value                      : z =             -1

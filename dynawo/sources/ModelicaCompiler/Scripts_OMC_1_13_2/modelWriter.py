@@ -470,7 +470,7 @@ class ModelWriter(ModelWriterBase):
     ##
     # Add the body of setupDataStruc in the cpp file
     # @param self : object pointer
-    # @return
+    # @return/
     def fill_setupDataStruc(self):
         self.addEmptyLine()
         self.addLine("void Model" + self.className + "::setupDataStruc()\n")
@@ -482,7 +482,10 @@ class ModelWriter(ModelWriterBase):
         self.addLine("  data->nbVars ="+str(len(self.builder.list_vars_syst) - len(self.builder.reader.auxiliary_vars_counted_as_variables))+";\n")
         self.addLine("  data->nbF = "+str(self.builder.get_nb_eq_dyn()) +";\n")
         self.addLine("  data->nbModes = " +str(self.builder.get_nb_modes()) + ";\n")
-        self.addLine("  data->nbZ = "+str(len(self.builder.list_all_vars_discr))+";\n")
+        self.addLine("  data->nbZ = "+str(self.builder.nb_z)+";\n")
+        self.addLine("  data->nbCalculatedVars = "+str(self.builder.get_nb_calculated_variables())+";\n")
+        self.addLine("\n")
+        self.addLine("  constVars_.resize("+str(self.builder.get_nb_const_variables())+", 0.);\n")
         self.addLine("}\n")
 
     ##
@@ -685,6 +688,58 @@ class ModelWriter(ModelWriterBase):
         self.addLine("void Model"+ self.className +"::setGequations(std::map<int,std::string>& gEquationIndex)\n")
         self.addLine("{\n")
         self.addBody( self.builder.get_list_for_setg_equations() )
+        self.addLine("}\n")
+
+
+    ##
+    # Add the body of evalCalculatedVars in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_evalCalculatedVars(self):
+        self.addEmptyLine()
+        self.addLine("void Model" + self.className + "::evalCalculatedVars(std::vector<double>& calculatedVars)\n")
+        self.addLine("{\n")
+
+        self.addBody(self.builder.get_list_for_evalcalculatedvars())
+        self.addLine("}\n")
+
+
+    ##
+    # Add the body of evalCalculatedVars in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_evalCalculatedVarI(self):
+        self.addEmptyLine()
+        self.addLine("double Model" + self.className + "::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)\n")
+        self.addLine("{\n")
+
+        self.addBody(self.builder.get_list_for_evalcalculatedvari())
+        self.addLine("}\n")
+
+
+    ##
+    # Add the body of evalCalculatedVars in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_evalJCalculatedVarI(self):
+        self.addEmptyLine()
+        self.addLine("void Model" + self.className + "::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res)\n")
+        self.addLine("{\n")
+
+        self.addBody(self.builder.get_list_for_evaljcalculatedvar())
+        self.addLine("}\n")
+
+
+    ##
+    # Add the body of evalCalculatedVars in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_getDefJCalculatedVarI(self):
+        self.addEmptyLine()
+        self.addLine("std::vector<int> Model" + self.className + "::getDefJCalculatedVarI(int iCalculatedVar)\n")
+        self.addLine("{\n")
+
+        self.addBody(self.builder.get_list_for_getdefjcalculatedvari())
         self.addLine("}\n")
 
     ##

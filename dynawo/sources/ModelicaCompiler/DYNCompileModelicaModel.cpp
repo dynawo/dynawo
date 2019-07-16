@@ -324,7 +324,7 @@ mosRunFile(const string& mosFilePath) {
 string
 runOptions() {
   return "simCodeTarget=C +showErrorMessages -g=Modelica "
-      "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode +numProcs=1 +daeMode";
+      "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls +numProcs=1 +daeMode";
 }
 
 string

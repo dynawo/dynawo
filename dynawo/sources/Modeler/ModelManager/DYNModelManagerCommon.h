@@ -223,6 +223,7 @@ class DYNDATA : public DATA {
   int nbF;  ///< number of residual functions
   int nbModes;  ///< number of modes
   int nbZ;  ///< number of discrete variables
+  int nbCalculatedVars;  ///< number of calculated variables
 };
 
 namespace DYN {

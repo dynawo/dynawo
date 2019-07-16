@@ -108,6 +108,7 @@ AliasNotFound               =             model (%1%): alias %2% not found
 VariableAliasRefNotSet      =             failed to retrieve reference variable %2% for alias %1%
 VariableAliasRefNotNative   =             failed to set reference variable for alias %1% : the %2% reference is not a native variable
 VariableAliasRefIncoherent  =             failed to set reference variable for alias %1% : expected %2% but got %3% instead
+VariableAliasIncoherentType =             type %1% of alias %2% is not compatible with type %3% of reference variable %4%
 VariableCardinalityNotSet   =             failed to retrieve multiple variable's cardinality for %1% : the %2% cardinality parameter is not set
 VariableMultipleHasNoIndex  =             failed to retrieve index for %1% : multiple variables have no index
 VariableNativeIndexAlreadySet=            failed to set native variable %1% index : it is already set

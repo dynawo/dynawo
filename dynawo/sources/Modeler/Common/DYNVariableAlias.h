@@ -44,18 +44,20 @@ class VariableAlias : public Variable {
    *
    * @param name name of the variable
    * @param refName name of the variable towards which the alias points
+   * @param type Type of the variable
    * @param negated @b if the alias is negated
    */
-  VariableAlias(const std::string& name, const std::string& refName, bool negated);
+  VariableAlias(const std::string& name, const std::string& refName, const typeVar_t& type, bool negated);
 
   /**
    * @brief Constructor
    *
    * @param name name of the variable
    * @param refVar the variable towards which the alias points
+   * @param type Type of the variable
    * @param negated @b if the alias is negated
    */
-  VariableAlias(const std::string& name, const boost::shared_ptr<VariableNative> refVar, bool negated);
+  VariableAlias(const std::string& name, const boost::shared_ptr<VariableNative> refVar, const typeVar_t& type, bool negated);
 
   /**
    * @brief Destructor
@@ -75,6 +77,13 @@ class VariableAlias : public Variable {
    * @return variable's type
    */
   typeVar_t getType() const;
+
+  /**
+   * @brief Getter for variable's local type (type the variable would have if it was not an alias)
+   *
+   * @return variable's type
+   */
+  typeVar_t getLocalType() const;
 
   /**
    * @brief Getter for variable's negated attribute
@@ -123,8 +132,15 @@ class VariableAlias : public Variable {
 
   VariableAlias();  ///< Private default constructor
 
+  /**
+   * @brief Sanity check: make sure local variable type is compatible with reference variable type
+   * Otherwise throws an exception
+   */
+  void checkTypeCompatibility() const;
+
   const std::string referenceName_;  ///< the name of the (native) variable towards which the variable points
   const bool negated_;  ///< @b whether the variable is negated
+  typeVar_t type_;  ///< Type of the variable (might be different of the reference variable, e.g. CONTINUOUS AND FLOW are both real values)
 
   boost::optional<boost::shared_ptr<VariableNative> > referenceVariable_;  ///< the native variable towards which the alias is pointing
 };
