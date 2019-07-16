@@ -217,6 +217,9 @@ ModelManager::getSize() {
   sizeG_ = modelData()->nZeroCrossings;
   sizeMode_ = data()->nbModes;
   sizeY_ = data()->nbVars;
+  sizeCalculatedVar_ = data()->nbCalculatedVars;
+  if (calculatedVars_.empty() && !modelInitUsed_)
+    calculatedVars_.assign(sizeCalculatedVar_, 0);
 }
 
 void
@@ -473,6 +476,7 @@ ModelManager::initParams() {
   associateBuffers();
   // call the parameter calculation method
   solveParameters();
+  checkDataCoherence(getCurrentTime());
 
   modelInitUsed_ = false;
 }
@@ -777,7 +781,6 @@ void
 ModelManager::solveParameters() {
   Timer timer("ModelManager::solveParameters");
   Trace::debug("MODELER") << " ====== " << DYNLog(SolveParameters, name()) << " ====== " << Trace::endline;
-  modelInitUsed_ = true;
 
   // values recovery and modes initialization
   double t0 = getCurrentTime();
@@ -873,19 +876,20 @@ ModelManager::solveParameters() {
   } while (!stableRoot || zChange);
 
   // copy of computed values in the parameters
-  setCalculatedParameters(yLocalInit_, zLocalInit_);
+  vector<double> calculatedVars(sizeCalculatedVar_, 0);
+  modelModelica()->evalCalculatedVars(calculatedVars);
+  setCalculatedParameters(yLocalInit_, zLocalInit_, calculatedVars);
   solver.clean();
-  modelInitUsed_ = false;
 
   Trace::debug("MODELER") << " ====================================== " << Trace::endline;
 }
 
 void
-ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z) {
+ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z, const vector<double>& calculatedVars) {
   // Creates reversed alias map
   map<string, vector< shared_ptr <VariableAlias> > > reversedAlias;
-  for (map<string, shared_ptr<Variable> >::const_iterator it = variablesByName_.begin();
-          it != variablesByName_.end();
+  for (map<string, shared_ptr<Variable> >::const_iterator it = variablesByNameInit_.begin();
+          it != variablesByNameInit_.end();
           ++it) {
     // map of nativeVarName -> aliasNames
     if (it->second->isAlias()) {
@@ -903,6 +907,7 @@ ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z) {
   // Set calculated parameters
   setYCalculatedParameters(y, reversedAlias);
   setZCalculatedParameters(z, reversedAlias);
+  createCalculatedParametersFromInitialCalculatedVariables(calculatedVars);
   setInitialCalculatedParameters();
 }
 
@@ -986,11 +991,11 @@ ModelManager::setZCalculatedParameters(vector<double>& z,
           ++it) {
         const double zVal = (*it)->getNegated() ? - z[i] : z[i];
         if (toConvertToBool) {
-          setCalculatedParameter(varName, toNativeBool(zVal));
+          setCalculatedParameter((*it)->getName(), toNativeBool(zVal));
         } else if (toConvertToInt) {
-          setCalculatedParameter(varName, static_cast<int> (zVal));
+          setCalculatedParameter((*it)->getName(), static_cast<int> (zVal));
         } else {
-          setCalculatedParameter(varName, zVal);
+          setCalculatedParameter((*it)->getName(), zVal);
         }
 
         if ((*it)->getNegated()) {
@@ -1080,6 +1085,16 @@ ModelManager::setInitialCalculatedParameters() {
 }
 
 void
+ModelManager::createCalculatedParametersFromInitialCalculatedVariables(const vector<double>& calculatedVars) {
+  const vector<string>& calcVarInitial = getCalculatedVarNamesInit();
+
+  assert(calcVarInitial.size() == calculatedVars.size());
+  for (unsigned int i = 0; i < calcVarInitial.size(); ++i) {
+    setCalculatedParameter(calcVarInitial[i], calculatedVars[i]);
+  }
+}
+
+void
 ModelManager::printInitValues(const string & directory) {
   const string& fileName = absolute("dumpInitValues-" + name() + ".txt", directory);
 
@@ -1090,10 +1105,25 @@ ModelManager::printInitValues(const string & directory) {
   for (unsigned int i = 0; i < sizeY(); ++i)
     file << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << yLocal_[i] << " yp =" << std::setw(15) << ypLocal_[i] << "\n";
 
+  const vector<std::pair<string, string> >& xAliasesNames = (*this).xAliasesNames();
+  for (unsigned int i = 0, iEnd = xAliasesNames.size(); i < iEnd; ++i)
+    file << std::setw(50) << std::left << xAliasesNames[i].first << std::right << ": alias of " << xAliasesNames[i].second << "\n";
+
+  if (sizeCalculatedVar() > 0) {
+    file << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
+    const vector<string>& calculatedVarNames = (*this).getCalculatedVarNames();
+    for (unsigned int i = 0, iEnd = sizeCalculatedVar(); i < iEnd; ++i)
+      file << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y =" << std::setw(15) << getCalculatedVar(i) << "\n";
+  }
+
   const vector<string>& zNames = (*this).zNames();
   file << " ====== INIT DISCRETE VARIABLES VALUES ======\n";
   for (unsigned int i = 0; i < sizeZ(); ++i)
     file << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << zLocal_[i] << "\n";
+
+  const vector<std::pair<string, string> >& zAliasesNames = (*this).zAliasesNames();
+  for (unsigned int i = 0, iEnd = zAliasesNames.size(); i < iEnd; ++i)
+    file << std::setw(50) << std::left << zAliasesNames[i].first << std::right << ": alias of " << zAliasesNames[i].second << "\n";
 
   file << " ====== PARAMETERS VALUES ======\n";
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
@@ -1208,19 +1238,24 @@ ModelManager::getManagerTime() const {
   return data()->localData[0]->timeValue;
 }
 
+void
+ModelManager::evalCalculatedVars() {
+  modelModelica()->evalCalculatedVars(calculatedVars_);
+}
+
 double
-ModelManager::evalCalculatedVarI(int /*iCalculatedVar*/, double* /*y*/, double* /*yp*/) {
-  return 0;
+ModelManager::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp) {
+  return modelModelica()->evalCalculatedVarI(iCalculatedVar, y, yp);
 }
 
 void
-ModelManager::evalJCalculatedVarI(int /*iCalculatedVar*/, double* /*y*/, double* /*yp*/, std::vector<double>& /*res*/) {
-  // not needed
+ModelManager::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res) {
+  modelModelica()->evalJCalculatedVarI(iCalculatedVar, y, yp, res);
 }
 
 vector<int>
-ModelManager::getDefJCalculatedVarI(int /*iCalculatedVar*/) {
-  return vector<int> ();
+ModelManager::getDefJCalculatedVarI(int iCalculatedVar) {
+  return modelModelica()->getDefJCalculatedVarI(iCalculatedVar);
 }
 
 void

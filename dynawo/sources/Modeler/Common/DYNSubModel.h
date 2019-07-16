@@ -1065,6 +1065,24 @@ class SubModel {
   }
 
   /**
+   * @brief get the names of all continuous aliases variables of the dynamic model
+   *
+   * @return names of all continuous aliases variables
+   */
+  inline const std::vector<std::pair<std::string, std::string> >& xAliasesNames() {
+    return xAliasesNames_;
+  }
+
+  /**
+   * @brief get the names of all discrete aliases variables of the dynamic model
+   *
+   * @return names of all discrete aliases variables
+   */
+  inline const std::vector<std::pair<std::string, std::string> >& zAliasesNames() {
+    return zAliasesNames_;
+  }
+
+  /**
    * @brief get the initial model variables (indexed by name)
    *
    * @return map (name, variable)
@@ -1089,6 +1107,16 @@ class SubModel {
    */
   inline const std::vector<std::string>& xNamesInit() {
     return xNamesInit_;
+  }
+
+  /**
+   * @brief get the names of all calculated variables (values calculated thanks to other variables
+   * for the init model
+   *
+   * @return names of all calculated variables
+   */
+  inline const std::vector<std::string>& getCalculatedVarNamesInit() {
+    return calculatedVarNamesInit_;
   }
 
   /**
@@ -1384,6 +1412,8 @@ class SubModel {
   std::vector<std::string> zNames_;  ///< vector of the discretes variables name
   std::vector<std::string> xNames_;  ///< vector of the continuous variables names
   std::vector<std::string> calculatedVarNames_;  ///< vector of sub-model calculated variables names
+  std::vector<std::pair<std::string, std::string> > xAliasesNames_;  ///< vector of the continuous aliases variables names
+  std::vector<std::pair<std::string, std::string> > zAliasesNames_;  ///< vector of the discrete aliases variables names
 
   std::vector<std::string> zNamesInit_;  ///< name of the discrete variables of the init model
   std::vector<std::string> xNamesInit_;  ///< name of the continuous variables of the init model

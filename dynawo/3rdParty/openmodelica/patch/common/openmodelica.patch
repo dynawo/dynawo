@@ -25,97 +25,6 @@ index bb1afc643..c48a18fd5 100644
    if exec then execStat("DAEmode: created system:  " + intString(BackendDAEUtil.systemSize(retSystem)) + ": " );  end if;
  
    syst := retSystem;
-diff --git a/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo b/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
-index a92b5d8ef..28cc85b5b 100644
---- a/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
-+++ b/OMCompiler/Compiler/BackEnd/RemoveSimpleEquations.mo
-@@ -962,46 +962,46 @@ algorithm
-       Boolean b;
-       BackendDAE.EquationAttributes eqAttr;
- 
--    case (BackendDAE.EQUATION(exp=e1, scalar=e2, source=source, attr=eqAttr), _)
--      equation
--        if Flags.isSet(Flags.DEBUG_ALIAS) then
--          BackendDump.debugStrExpStrExpStr("Found Equation ", e1, " = ", e2, " to handle.\n");
--        end if;
--      then
--        simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
--
--    case (BackendDAE.ARRAY_EQUATION(left=e1, right=e2, source=source, attr=eqAttr), _)
--      equation
--        if Flags.isSet(Flags.DEBUG_ALIAS) then
--          BackendDump.debugStrExpStrExpStr("Found Array Equation ", e1, " = ", e2, " to handle.\n");
--        end if;
--      then
--        simpleArrayEquationAcausal(e1, e2, Expression.typeof(e1), (source, eqAttr), inTpl);
--
--    case (BackendDAE.SOLVED_EQUATION(componentRef=cr, exp=e2, source=source, attr=eqAttr), _)
--      equation
--        e1 = Expression.crefExp(cr);
--        if Flags.isSet(Flags.DEBUG_ALIAS) then
--          BackendDump.debugStrExpStrExpStr("Found Solved Equation ", e1, " = ", e2, " to handle.\n");
--        end if;
--      then
--        simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
--
--    case (BackendDAE.RESIDUAL_EQUATION(exp=e1, source=source, attr=eqAttr), _)
--      equation
--        if Flags.isSet(Flags.DEBUG_ALIAS) then
--          BackendDump.debugStrExpStr("Found Residual Equation ", e1, " to handle.\n");
--        end if;
--      then
--        simpleExpressionAcausal(e1, (source, eqAttr), false, inTpl);
--
--    case (BackendDAE.COMPLEX_EQUATION(left=e1, right=e2, source=source, attr=eqAttr), _)
--      equation
--        if Flags.isSet(Flags.DEBUG_ALIAS) then
--          BackendDump.debugStrExpStrExpStr("Found Complex Equation ", e1, " = ", e2, " to handle.\n");
--        end if;
--      then
--        simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
-+    // case (BackendDAE.EQUATION(exp=e1, scalar=e2, source=source, attr=eqAttr), _)
-+    //   equation
-+    //     if Flags.isSet(Flags.DEBUG_ALIAS) then
-+    //       BackendDump.debugStrExpStrExpStr("Found Equation ", e1, " = ", e2, " to handle.\n");
-+    //     end if;
-+    //   then
-+    //     simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
-+
-+    // case (BackendDAE.ARRAY_EQUATION(left=e1, right=e2, source=source, attr=eqAttr), _)
-+    //   equation
-+    //     if Flags.isSet(Flags.DEBUG_ALIAS) then
-+    //       BackendDump.debugStrExpStrExpStr("Found Array Equation ", e1, " = ", e2, " to handle.\n");
-+    //     end if;
-+    //   then
-+    //     simpleArrayEquationAcausal(e1, e2, Expression.typeof(e1), (source, eqAttr), inTpl);
-+
-+    // case (BackendDAE.SOLVED_EQUATION(componentRef=cr, exp=e2, source=source, attr=eqAttr), _)
-+    //   equation
-+    //     e1 = Expression.crefExp(cr);
-+    //     if Flags.isSet(Flags.DEBUG_ALIAS) then
-+    //       BackendDump.debugStrExpStrExpStr("Found Solved Equation ", e1, " = ", e2, " to handle.\n");
-+    //     end if;
-+    //   then
-+    //     simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
-+
-+    // case (BackendDAE.RESIDUAL_EQUATION(exp=e1, source=source, attr=eqAttr), _)
-+    //   equation
-+    //     if Flags.isSet(Flags.DEBUG_ALIAS) then
-+    //       BackendDump.debugStrExpStr("Found Residual Equation ", e1, " to handle.\n");
-+    //     end if;
-+    //   then
-+    //     simpleExpressionAcausal(e1, (source, eqAttr), false, inTpl);
-+
-+    // case (BackendDAE.COMPLEX_EQUATION(left=e1, right=e2, source=source, attr=eqAttr), _)
-+    //   equation
-+    //     if Flags.isSet(Flags.DEBUG_ALIAS) then
-+    //       BackendDump.debugStrExpStrExpStr("Found Complex Equation ", e1, " = ", e2, " to handle.\n");
-+    //     end if;
-+    //   then
-+    //     simpleEquationAcausal(e1, e2, (source, eqAttr), false, inTpl);
- 
-     case (_, (v, s, eqns, seqns, index, mT, b))
-       then ((v, s, eqn::eqns, seqns, index, mT, b));
 diff --git a/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo b/OMCompiler/Compiler/BackEnd/XMLCreateDynawo.mo
 new file mode 100644
 index 000000000..d9c2e1570
@@ -2676,11 +2585,11 @@ index ec38761ad..e2313c9ad 100644
  protected function applyRewriteRulesOnBackend
    input BackendDAE.BackendDAE inBackendDAE;
    output BackendDAE.BackendDAE outBackendDAE;
-diff --git a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
-index 0a490c796..7949dd8f9 100644
---- a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
+diff --git a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo.orig b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
+index 0a490c796..6aa6d60d9 100644
+--- a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo.orig
 +++ b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
-@@ -7194,35 +7194,49 @@ algorithm
+@@ -7194,36 +7194,50 @@ algorithm
      SimCodeVar.AliasVariable aliasvar;
      String s1, s2, s3, sProt, sRes;
      list<String> numArrayElement;
@@ -2720,6 +2629,7 @@ index 0a490c796..7949dd8f9 100644
     end match;
  end simVarString;
  
+-
 +public function DaeTypeToStr
 +  input DAE.Type type_;
 +  output String s;
@@ -2733,9 +2643,10 @@ index 0a490c796..7949dd8f9 100644
 +    else then "others";
 +    end match;
 +end DaeTypeToStr;
- 
++ 
  protected function printVarIndx
    input Option<Integer> i;
+   output String s;
 @@ -7246,6 +7260,20 @@ algorithm
    end if;
  end dumpVarLst;
@@ -2757,7 +2668,7 @@ index 0a490c796..7949dd8f9 100644
  
  public function printVarLstCrefs
      input list<SimCodeVar.SimVar> inVars;
-@@ -7336,6 +7364,56 @@ algorithm
+@@ -7336,6 +7364,58 @@ algorithm
    dumpFunctions(functions);
  end dumpModelInfo;
  
@@ -2776,6 +2687,7 @@ index 0a490c796..7949dd8f9 100644
 +  list<SimCodeVar.SimVar> boolAlgVars;
 +  list<SimCodeVar.SimVar> aliasVars;
 +  list<SimCodeVar.SimVar> intAliasVars;
++  list<SimCodeVar.SimVar> boolAliasVars;
 +  list<SimCodeVar.SimVar> paramVars;
 +  list<SimCodeVar.SimVar> boolParamVars;
 +  list<SimCodeVar.SimVar> intParamVars;
@@ -2789,7 +2701,7 @@ index 0a490c796..7949dd8f9 100644
 +algorithm
 +  File.open(file,Absyn.pathString(modelInfo.name)+"_variables.txt",File.Mode.Write);
 +  SimCode.MODELINFO(vars=simVars, varInfo=varInfo, functions=functions) := modelInfo;
-+  SimCodeVar.SIMVARS(stateVars=stateVars,derivativeVars=derivativeVars,algVars=algVars,boolAlgVars=boolAlgVars,intAlgVars=intAlgVars,discreteAlgVars=discreteAlgVars,aliasVars=aliasVars,intAliasVars=intAliasVars,
++  SimCodeVar.SIMVARS(stateVars=stateVars,derivativeVars=derivativeVars,algVars=algVars,boolAlgVars=boolAlgVars,intAlgVars=intAlgVars,discreteAlgVars=discreteAlgVars,aliasVars=aliasVars,intAliasVars=intAliasVars,boolAliasVars=boolAliasVars,
 +  paramVars=paramVars,intParamVars=intParamVars,boolParamVars=boolParamVars, stringParamVars=stringParamVars, extObjVars=extObjVars,constVars=constVars,intConstVars=intConstVars,stringConstVars=stringConstVars) := simVars;
 +  SimCode.VARINFO(numStateVars=nsv,numAlgVars=nalgv) := varInfo;
 +  dumpVarLstFile(stateVars,"stateVars ("+intString(nsv)+")", file);
@@ -2800,6 +2712,7 @@ index 0a490c796..7949dd8f9 100644
 +  dumpVarLstFile(boolAlgVars,"boolAlgVars", file);
 +  dumpVarLstFile(aliasVars,"aliasVars", file);
 +  dumpVarLstFile(intAliasVars,"intAliasVars", file);
++  dumpVarLstFile(boolAliasVars,"boolAliasVars", file);
 +  dumpVarLstFile(paramVars,"paramVars", file);
 +  dumpVarLstFile(intParamVars,"intParamVars", file);
 +  dumpVarLstFile(boolParamVars,"boolParamVars", file);
@@ -2814,7 +2727,7 @@ index 0a490c796..7949dd8f9 100644
  protected function dumpFunctions
    input list<SimCodeFunction.Function> functions;
  algorithm
-@@ -7523,7 +7601,6 @@ algorithm
+@@ -7523,7 +7603,6 @@ algorithm
          s = s +dumpWhenOps(whenStmtLst);
          if isSome(elseWhen) then
            s = s + " ELSEWHEN: ";
@@ -2822,7 +2735,7 @@ index 0a490c796..7949dd8f9 100644
            s = s + simEqSystemString(Util.getOption(elseWhen));
          end if;
        then s;
-@@ -7843,6 +7920,7 @@ algorithm
+@@ -7843,6 +7922,7 @@ algorithm
    List.map_0(jacObs,dumpJacobianMatrix);
    print("\nmodelInfo: \n" + UNDERLINE + "\n");
    dumpModelInfo(simCode.modelInfo);

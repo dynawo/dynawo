@@ -101,7 +101,7 @@ class DynamicData {
    * @brief get all system-wide (i.e. not within Modelica model) connects
    * @return list of connects
    */
-  inline std::vector <boost::shared_ptr<dynamicdata::Connector> > getSystemConnects() const {
+  inline const std::vector <boost::shared_ptr<dynamicdata::Connector> >& getSystemConnects() const {
     return systemConnects_;
   }
 

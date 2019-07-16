@@ -1,6 +1,6 @@
  ====== INIT VARIABLES VALUES ======
 tapChanger_UMonitored_value                       : y =       0.992375 yp =              0
-tapChanger_valueToMonitor_value                   : y =       0.992375 yp =              0
+tapChanger_valueToMonitor_value                   : alias of tapChanger_UMonitored_value
  ====== INIT DISCRETE VARIABLES VALUES ======
 tapChanger_tTapDown                               : z =          1e+60
 tapChanger_tTapUp                                 : z =          1e+60
@@ -16,10 +16,10 @@ tapChanger_lookingToIncreaseTap                   : z =             -1
 tapChanger_running_value                          : z =              1
 tapChanger_switchOffSignal1_value                 : z =             -1
 tapChanger_valueAboveMax                          : z =             -1
-tapChanger_valueAboveMin                          : z =              1
-tapChanger_valueUnderMax                          : z =              1
 tapChanger_valueUnderMin                          : z =             -1
 tapChanger_state                                  : z =              4
+tapChanger_valueAboveMin                          : alias of tapChanger_valueUnderMin
+tapChanger_valueUnderMax                          : alias of tapChanger_valueAboveMax
  ====== PARAMETERS VALUES ======
 tapChanger_U0                                      =              1
 tapChanger_UDeadBand                               =           0.01

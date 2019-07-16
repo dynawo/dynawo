@@ -75,6 +75,8 @@ typeVar2Str(const typeVar_t& type) {
       return "INTEGER";
     case BOOLEAN:
       return "BOOLEAN";
+    case UNDEFINED_TYPE:
+      return "UNDEFINED";
     default:
       assert(0 && "TypeVar should be one of the enum values");
   }
@@ -91,6 +93,8 @@ typeVarC_t toCTypeVar(const typeVar_t& type) {
       return VAR_TYPE_INT;
     case BOOLEAN:
       return VAR_TYPE_BOOL;
+    case UNDEFINED_TYPE:
+      assert(0 && "TypeVar undefined");
     default:
       assert(0 && "TypeVar should be one of the enum values");
   }

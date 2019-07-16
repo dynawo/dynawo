@@ -21,6 +21,7 @@
 #define MODELER_COMMON_DYNVARIABLEALIASFACTORY_H_
 
 #include <boost/shared_ptr.hpp>
+#include "DYNEnumUtils.h"
 
 namespace DYN {
 class VariableAlias;
@@ -40,20 +41,24 @@ class VariableAliasFactory {
    *
    * @param[in] name name of the new VariableAlias instance
    * @param[in] refName name of the VariableNative towards which to point
+   * @param[in] type Type of the variable
    * @param[in] negated @b whether the reference is negated
    * @returns Shared pointer to a new @p VariableAlias with given name, reference name, and negated attributes
    */
-  static boost::shared_ptr<VariableAlias> create(const std::string& name, const std::string& refName, bool negated = false);
+  static boost::shared_ptr<VariableAlias> create(const std::string& name, const std::string& refName,
+      const typeVar_t& type = UNDEFINED_TYPE, bool negated = false);
 
   /**
    * @brief Create new VariableAlias instance
    *
    * @param[in] name name of the new VariableAlias instance
    * @param[in] refVar the VariableNative towards which to point
+   * @param[in] type Type of the variable
    * @param[in] negated @b whether the reference is negated
    * @returns Shared pointer to a new @p VariableAlias with given name, reference variable, and negated attributes
    */
-  static boost::shared_ptr<VariableAlias> create(const std::string& name, const boost::shared_ptr<VariableNative> refVar, bool negated = false);
+  static boost::shared_ptr<VariableAlias> create(const std::string& name, const boost::shared_ptr<VariableNative> refVar,
+      const typeVar_t& type = UNDEFINED_TYPE, bool negated = false);
 };
 
 }  // namespace DYN

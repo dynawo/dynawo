@@ -42,9 +42,9 @@ void ModelGeneratorPQ_Dyn::setupDataStruc()
   data->modelData->nParametersString = 0;
   data->modelData->nInputVars = 0;
   data->modelData->nOutputVars = 0;
-  data->modelData->nAliasReal = 0;
-  data->modelData->nAliasInteger = 0;
-  data->modelData->nAliasBoolean = 0;
+  data->modelData->nAliasReal = 0 - 0 /* Remove const aliases */;
+  data->modelData->nAliasInteger = 0 - 0 /* Remove const aliases */;
+  data->modelData->nAliasBoolean = 0 - 0 /* Remove const aliases */;
   data->modelData->nAliasString = 0;
   data->modelData->nZeroCrossings = 7 + 2 + 0;
   data->modelData->nSamples = 0;
@@ -70,6 +70,9 @@ void ModelGeneratorPQ_Dyn::setupDataStruc()
   data->nbF = 8;
   data->nbModes = 3;
   data->nbZ = 4;
+  data->nbCalculatedVars = 0;
+
+  constVars_.resize(0, 0.);
 }
 
 void ModelGeneratorPQ_Dyn::initializeDataStruc()
@@ -1016,6 +1019,25 @@ void ModelGeneratorPQ_Dyn::setGequations(std::map<int,std::string>& gEquationInd
   // ------------- $whenCondition7 ------------
   gEquationIndex[8] = " $whenCondition7:  data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))); " ;
  
+}
+
+void ModelGeneratorPQ_Dyn::evalCalculatedVars(std::vector<double>& calculatedVars)
+{
+}
+
+double ModelGeneratorPQ_Dyn::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
+{
+  return 0;
+}
+
+void ModelGeneratorPQ_Dyn::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res)
+{
+  // not needed
+}
+
+std::vector<int> ModelGeneratorPQ_Dyn::getDefJCalculatedVarI(int iCalculatedVar)
+{
+  return std::vector<int>();
 }
 
 }

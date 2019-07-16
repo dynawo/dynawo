@@ -40,6 +40,10 @@ namespace DYN {
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
     void defineParameters(std::vector<ParameterModeler>& parameters);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
+    void evalCalculatedVars(std::vector<double>& calculatedVars);
+    double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp);
+    void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res);
+    std::vector<int> getDefJCalculatedVarI(int iCalculatedVar);
 
 #ifdef _ADEPT_
     void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F);
@@ -52,13 +56,14 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("d3e82239ecdb3661bb5537fb6ab4b023"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("f4d024cb05637c3e45a9a861dc5ee0ca"); }
 
     private:
     DYNDATA * data;
     ModelManager * modelManager_;
     bool dataStructIsInitialized_;
     std::string modelType_;
+    std::vector<double> constVars_;
 
     private:
     std::string modelType() const { return modelType_; }

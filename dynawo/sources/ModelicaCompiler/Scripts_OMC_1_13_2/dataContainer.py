@@ -39,9 +39,9 @@ def is_syst_var(var):
 
     right_var_type = (type_var in ["rSta", "rAlg"])
     is_continuous = (variability == "continuous")
-    within_system = True
+    is_fixed = (var.is_fixed())
 
-    return is_continuous and right_var_type and within_system
+    return is_continuous and right_var_type and not is_fixed
 
 ##
 # Check whether the variable is a variable of the system or not
@@ -55,11 +55,10 @@ def is_var(var):
     type_var = var.get_type()
     variability = var.get_variability()
     # iAlg is for Integer variable
-    right_var_type = (type_var in ["rSta", "rAlg", "rAli", "iAlg", "bAlg"])
+    right_var_type = (type_var in ["rSta", "rAlg", "rAli", "iAlg", "iAli", "bAlg","bAli"])
     is_continuous = (variability in ["continuous","discrete"])
-    within_system = True
 
-    return is_continuous and right_var_type and within_system
+    return is_continuous and right_var_type
 
 ##
 # Check whether the variable is an algebraic variable of the system or not
@@ -71,10 +70,17 @@ def is_alg_var(var):
 
     right_var_type = (type_var in ["rAlg"])
     is_continuous = (variability == "continuous")
-    within_system = True
 
-    return is_continuous and right_var_type and within_system
+    return is_continuous and right_var_type
 
+##
+# Check whether the variable is a continuous variable of the system or not
+# @param var : variable to test
+# @return @b True if the variable is a continuous variable of the system
+def is_real_var(var):
+    type_var = var.get_type()
+    variability = var.get_variability()
+    return variability == "continuous" and (type_var == "rAlg" or type_var == "rAli") and not var.is_fixed()
 ##
 # Check whether the variable is a discrete variable of the system or not
 # @param var : variable to test
@@ -82,7 +88,7 @@ def is_alg_var(var):
 def is_discrete_real_var(var):
     type_var = var.get_type()
     variability = var.get_variability()
-    return variability == "discrete" and type_var == "rAlg"
+    return variability == "discrete" and (type_var == "rAlg" or type_var == "rAli")
 
 ##
 # Check whether the variable is an integer variable of the system or not
@@ -91,7 +97,73 @@ def is_discrete_real_var(var):
 def is_integer_var(var):
     type_var = var.get_type()
     variability = var.get_variability()
-    return variability == "discrete" and type_var == "iAlg"
+    return variability == "discrete" and (type_var == "iAlg" or type_var =="iAli")
+##
+# Check whether the variable is a discrete variable of the system or not
+# @param var : variable to test
+# @return @b True if the variable is a discrete variable of the system
+def is_discrete_var(var):
+    return is_integer_var(var) or is_discrete_real_var(var) or is_bool_var(var)
+
+##
+# Check whether the variable is a continue const variable of the system or not
+# @param var : variable to test
+# @return @b True if the variable is const variable of the system
+def is_real_const_var(var):
+    type_var = var.get_type()
+    variability = var.get_variability()
+
+    right_var_type = (type_var in ["rAlg", "rAli"])
+    is_continuous = (variability in ["continuous"])
+    return right_var_type and is_continuous and var.is_fixed()
+
+##
+# Check whether the variable is a discrete reak const variable of the system or not
+# @param var : variable to test
+# @return @b True if the variable is const variable of the system
+def is_discrete_real_const_var(var):
+    type_var = var.get_type()
+    variability = var.get_variability()
+
+    right_var_type = (type_var in ["rAlg", "rAli"])
+    is_discrete = (variability in ["discrete"])
+    return right_var_type and is_discrete and var.is_fixed()
+
+##
+# Check whether the variable is an integer const variable of the system or not
+# @param var : variable to test
+# @return @b True if the variable is const variable of the system
+def is_integer_const_var(var):
+    type_var = var.get_type()
+    variability = var.get_variability()
+
+    right_var_type = (type_var in ["iAlg", "iAli"])
+    is_discrete = (variability in ["discrete"])
+    return right_var_type and is_discrete and var.is_fixed()
+
+##
+# Check whether the variable is a boolean const variable of the system or not
+# @param var : variable to test
+# @return @b True if the variable is const variable of the system
+def is_boolean_const_var(var):
+    type_var = var.get_type()
+    variability = var.get_variability()
+
+    right_var_type = (type_var in ["bAlg", "bAli"])
+    is_discrete = (variability in ["discrete"])
+    return right_var_type and is_discrete and var.is_fixed() and not is_when_var(var)
+##
+# Check whether the variable is a discrete const variable of the system or not
+# @param var : variable to test
+# @return @b True if the variable is discrete const variable of the system
+def is_discrete_const_var(var):
+    return is_integer_const_var(var) or is_boolean_const_var(var) or is_discrete_real_const_var(var)
+##
+# Check whether the variable is a const variable of the system or not
+# @param var : variable to test
+# @return @b True if the variable is const variable of the system
+def is_const_var(var):
+    return is_discrete_const_var(var) or is_real_const_var(var)
 
 EXTERNAL_PARAMETER, SHARED_PARAMETER, INTERNAL_PARAMETER = range(3)
 
@@ -222,12 +294,19 @@ def is_param_with_private_equation(par):
     return par.get_init_by_param() or par.get_init_by_param_in_06inz()
 
 ##
+# Check whether the variable is a parameter
+# @param par : parameter to test
+# @return @b True if the variable is a  parameter
+def is_param_var(par):
+    return is_param_bool(par) or is_param_integer(par) or is_param_real(par) or is_param_string(par)
+
+##
 # Check whether the variable is a boolean variable
 # @param var : variable to test
 # @return @b True if the variable is a boolean variable
 def is_bool_var(var):
     type_var = var.get_type()
-    return type_var == "bAlg"
+    return (type_var == "bAlg" or type_var == "bAli")
 
 ##
 # Check whether the variable is derivative variable
@@ -246,7 +325,8 @@ def is_der_real_var(var):
 # @param var : variable to test
 # @return @b True if the variable is used to define a when equation
 def is_when_var(var):
-    return is_bool_var(var) and ("$whenCondition" in var.get_name())
+    type_var = var.get_type()
+    return (type_var == "bAlg" or type_var == "bAli") and ("$whenCondition" in var.get_name())
 
 ##
 # Check if the variable is a dummy variable
@@ -254,18 +334,6 @@ def is_when_var(var):
 # @return @b True if the variable is a dummy variable
 def is_dummy_var(var):
     return "$dummy" in var.get_name() and "der(" not in var.get_name()
-
-##
-# Compare two variables thanks to their index in omc arrays
-# @param var1 : first variable to compare
-# @param var2 : second variable to compare
-# @return 1 if var1 > var2, 0 if var1 = var2, -1 otherwise
-def cmp_num_omc_vars(var1, var2):
-    num_omc1, num_omc2 = int(var1.get_num_omc()), int(var2.get_num_omc())
-    if num_omc1 > num_omc2: res = 1
-    elif num_omc1 < num_omc2: res = -1
-    else: res = 0
-    return res
 
 ##
 # Compare two variables thanks to the way they are initialised
@@ -330,13 +398,15 @@ class Variable:
         self.start_text_06inz = []
         ## Start text declared in 08bnd file to initialize the variable
         self.start_text = [""]
+        ## Is a fixed variable
+        self.fixed = False
         ## Is the initial value of the variable declared in the mo file
         self.internal = False
 
         ## Name of the variable used in dynawo sources (x[i],xd[i],z[i],rpar[i])
         self.dynawo_name = ""
         ## Index of the variable in omc arrays
-        self.num_omc = -1
+        self.index = -1
         ## Index of the init function in 06Inz file
         self.num_func_06inz = -1
 
@@ -449,6 +519,14 @@ class Variable:
         self.start_text = start_text
 
     ##
+    # Set the fixed attribute
+    # @param self : object pointer
+    # @param fixed : fixed attribute
+    # @return
+    def set_fixed(self, fixed):
+        self.fixed = fixed
+
+    ##
     # Set if the initial value is set in the mo file
     # @param self : object pointer
     # @param internal : @b true if the initial value is set in the mo file
@@ -467,10 +545,10 @@ class Variable:
     ##
     # Set the index of the variable in omc arrays
     # @param self : object pointer
-    # @param num_omc : variable's index
+    # @param index : variable's index
     # @return
-    def set_num_omc(self, num_omc):
-        self.num_omc = num_omc
+    def set_index(self, index):
+        self.index = index
 
     ##
     # Set the index of the function used to initialize the variable in the 06inz file
@@ -494,6 +572,13 @@ class Variable:
     # @return : name of the variable
     def get_name(self):
        return self.name
+
+    ##
+    # return true if this variable is an alias
+    # @param self : object pointer
+    # @return true if this variable is an alias
+    def is_alias(self):
+       return self.get_alias_name() != ""
 
     ##
     # Get the alias name of the variable
@@ -601,6 +686,14 @@ class Variable:
         return self.start_text
 
     ##
+    # Get the fixed attribute
+    # @param self : object pointer
+    # @return the fixed attribute
+    def is_fixed(self):
+        return self.fixed
+
+
+    ##
     # Get the start text used to initialized the variable in 06inz file
     # @param self : object pointer
     # @return the start text used to initialized the variable in 06inz file
@@ -615,11 +708,11 @@ class Variable:
        return self.internal
 
     ##
-    # Get the index of the variable in omc arrays
+    # Get the index of the variable in array
     # @param self : object pointer
-    # @return the index in omc arrays
-    def get_num_omc(self):
-       return self.num_omc
+    # @return the index in array
+    def get_index(self):
+       return self.index
 
     ##
     # Get the index of the function used in 06inz file to initialize the variable
@@ -1810,6 +1903,8 @@ class Warn:
             line = mmc_strings_len1(line)
             line = line.replace("MMC_STRINGDATA","")
             line = replace_var_names(line)
+            line = line.replace("threadData, ","")
+            line = sub_division_sim(line)
             if has_omc_trace (line) or has_omc_equation_indexes (line) or "infoStreamPrint" in line:
                 continue
             elif "MMC_DEFSTRINGLIT" in line:
@@ -1959,6 +2054,7 @@ class Modes:
             z_aff = to_param_address(z)
             z_pre = z_aff.replace("localData[0]->discreteVars", "simulationInfo->discreteVarsPre")
             z_pre = z_pre.replace("localData[0]->integerDoubleVars", "simulationInfo->integerDoubleVarsPre")
+            if z_aff == z_pre: continue
             text_to_return.append("  if (doubleNotEquals(" + z_aff + ", " + z_pre +")) {\n")
             if discrete_mode.type == "ALG":
                 if discrete_mode.boolean == False:

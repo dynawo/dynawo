@@ -16,6 +16,7 @@ import itertools
 import re
 from dataContainer import *
 from utils import *
+from collections import OrderedDict
 
 ##
 # ZeroCrossingFilter class : take G data, read and prepare them to be used in factory
@@ -155,6 +156,8 @@ class Factory:
         self.list_vars_discr = []
         ## List of ALL discrete variables (including booleans)
         self.list_all_vars_discr = []
+        ## List of ALL discrete variables (including booleans)
+        self.nb_z = 0
         ## List of internal variables
         self.list_vars_int = []
         ## List of real parameters (external and internal)
@@ -175,6 +178,10 @@ class Factory:
         self.list_vars_when = []
         ## List of dummy variables
         self.list_vars_dummy = []
+        ## List of calculated variables
+        self.list_calculated_vars = OrderedDict()
+        ## List of const real variables with a complex initialization
+        self.list_complex_const_vars = []
 
         ## List of name of discrete variables
         self.list_name_discrete_vars = []
@@ -263,6 +270,14 @@ class Factory:
         self.list_for_setgequations = []
         ## List of equations identified in _16dae file
         self.list_eq_maker_16dae = []
+        ## List of equations to add in evalCalculatedVars
+        self.list_for_evalcalculatedvars = []
+        ## List of equations to add in evalCalculatedVarI
+        self.list_for_evalcalculatedvari = []
+        ## List of equations to add in evalJCalculatedVarI
+        self.list_for_evaljcalculatedvar = []
+        ## List of equations to add in getDefJCalculatedVarI
+        self.list_for_getdefjcalculatedvari = []
 
         ## List of variables definitions for generic header
         self.list_for_definition_header = []
@@ -290,6 +305,20 @@ class Factory:
     # @return number of dynamic equations
     def get_nb_eq_dyn(self):
         return self.nb_eq_dyn
+
+    ##
+    # Getter to obtain the number of dynamic equations
+    # @param self : object pointer
+    # @return number of dynamic equations
+    def get_nb_calculated_variables(self):
+        return len(self.list_calculated_vars)
+
+    ##
+    # Getter to obtain the number of dynamic equations
+    # @param self : object pointer
+    # @return number of dynamic equations
+    def get_nb_const_variables(self):
+        return len(self.list_complex_const_vars)
 
     ##
     # Getter to obtain all the equations defining the model
@@ -344,9 +373,6 @@ class Factory:
         # Warning: the treatments done by these 3 functions (of the reader) could be put back here, they do not belong
         # in the reader.
 
-        # We assign an omc index to each var (thanks to *_model.h)
-        self.reader.give_num_omc_to_vars()
-
         # We initialize vars of self.list_vars with initial values found in *_06inz.c
         self.reader.set_start_value_for_syst_vars_06inz()
 
@@ -375,6 +401,34 @@ class Factory:
         self.list_vars_bool = filter(is_bool_var, list_vars_read) # Vars booleennes
         self.list_vars_when = filter(is_when_var, list_vars_read) # Vars when (bool & "$whenCondition")
         self.list_vars_dummy = filter(is_dummy_var, list_vars_read)
+        for var in list_vars_read:
+            test_param_address(var.get_name())
+            if "constVars" in to_param_address(var.get_name()):
+                map_var_name_2_addresses[var.get_name()] = self.reader.find_constant_value_of(var)
+                # We keep a specific structure for const real variables that have a complex initialization to avoid always recalculating it
+                if to_param_address(var.get_name()) == None:
+                    map_var_name_2_addresses[var.get_name()] = "constVars_["+str(len(self.list_complex_const_vars))+"]"
+                    self.list_complex_const_vars.append(var)
+
+        for var in list_vars_read:
+            if var in self.list_complex_const_vars:
+                test_param_address(var.get_name())
+                self.list_calculated_vars[var] = to_param_address(var.get_name())
+            elif not var.is_alias() and is_real_const_var(var):
+                test_param_address(var.get_name())
+                self.list_calculated_vars[var] = to_param_address(var.get_name())
+            elif var.is_alias():
+                alias_list = filter(lambda x: (x.get_name() == var.get_alias_name()), list_vars_read)
+                assert(len(alias_list) == 1)
+                alias_var = alias_list[0]
+                if var.get_variability() == "continuous" and (is_integer_var(alias_var) or is_discrete_real_var(alias_var)):
+                    test_param_address(var.get_alias_name())
+                    negated = "-" if var.get_alias_negated() else ""
+                    self.list_calculated_vars[var] = negated + to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
+                if is_real_const_var(var):
+                    test_param_address(var.get_alias_name())
+                    negated = "-" if var.get_alias_negated() else ""
+                    self.list_calculated_vars[var] = negated+to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
 
         self.list_params_real = filter(is_param_real, list_vars_read) # Real Params (all)
 
@@ -420,6 +474,7 @@ class Factory:
                 tmp_list.append(var)
         self.list_all_vars = tmp_list
         self.list_all_vars_discr = self.list_vars_discr + self.list_vars_bool
+        self.nb_z = self.reader.nb_discrete_vars
 
         ## type of each variables
         self.var_by_type = {}
@@ -427,20 +482,7 @@ class Factory:
             type_var = var.get_type()
             self.var_by_type[var.get_name()] = type_var
 
-        # ----------------------------------------------
-        # Order: according to the their number in *_model.h
-        # ----------------------------------------------
-        self.list_params_real.sort(cmp = cmp_num_omc_vars)
-        self.list_params_bool.sort(cmp = cmp_num_omc_vars)
-        self.list_params_integer.sort(cmp = cmp_num_omc_vars)
-        self.list_params_string.sort(cmp = cmp_num_omc_vars)
-        self.list_vars_bool.sort(cmp = cmp_num_omc_vars)
-        self.list_vars_der.sort(cmp = cmp_num_omc_vars)
-        self.list_all_vars_discr.sort(cmp = cmp_num_omc_vars)
-        self.list_vars_int.sort(cmp = cmp_num_omc_vars)
-        self.list_vars_syst.sort(cmp = cmp_num_omc_vars)
-
-        self.list_all_bool_items = sorted (self.list_vars_bool + self.list_params_bool, cmp = cmp_num_omc_vars)
+        self.list_all_bool_items = self.list_vars_bool + self.list_params_bool
 
         # ------------------------------------------------------------------
         # We gather the var --> x[i], xd[i]
@@ -486,10 +528,11 @@ class Factory:
 
         # Assignement of the type "FLOW" to certain vars thanks to information from the reader
         list_flow_vars = self.reader.list_flow_vars
-        for v in self.list_vars_discr + self.list_vars_syst :
+        for v in self.list_all_vars :
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
             var_name = v.get_name()
-            if var_name in list_flow_vars : v.set_flow_dyn_type()
+            if var_name in list_flow_vars :
+                v.set_flow_dyn_type()
 
         # List of names of discrete vars
         for v in self.list_all_vars_discr:
@@ -557,20 +600,21 @@ class Factory:
             function_name = ""
             for line in body:
                 for name in name_func_to_search:
-                    if name+"(" in line or name +" (" in line:
-                        for func in filter(lambda x: (x.get_name() == name), list_omc_functions):
-                            variables_set_by_omc_function = self.find_variables_set_by_omc_function(line, func, None)
-                            discrete_variables_set_by_omc_function = self.find_discrete_variables_set_by_omc_function(line, func)
-                            function_name = name
-                            ## Sanity check: cannot assign a value to both a continuous and a discrete variable
-                            if len(discrete_variables_set_by_omc_function) > 0 and len(discrete_variables_set_by_omc_function) < len(variables_set_by_omc_function):
-                                error_exit("    Error: Function " + name + " is used to assign a value to both continuous and discrete variables, which is forbidden.")
+                    ptrn_function = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+name+'[ ]*\((?P<rhs>[^;]+);')
+                    match = re.match(ptrn_function, line)
+                    if match is not None:
+                        variables_set_by_omc_function = self.find_variables_set_by_omc_function(line, name, None)
+                        discrete_variables_set_by_omc_function = self.find_discrete_variables_set_by_omc_function(line, name)
+                        function_name = name
+                        ## Sanity check: cannot assign a value to both a continuous and a discrete variable
+                        if len(discrete_variables_set_by_omc_function) > 0 and len(discrete_variables_set_by_omc_function) < len(variables_set_by_omc_function):
+                            error_exit("    Error: Function " + name + " is used to assign a value to both continuous and discrete variables, which is forbidden.")
 
-                            if len(discrete_variables_set_by_omc_function) > 0:
-                                is_discrete = True
-                            else:
-                                (line, dic_var_name_to_temporary_name_tmp, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_set_by_omc_function, global_pattern_index)
-                                dic_var_name_to_temporary_name.update(dic_var_name_to_temporary_name_tmp)
+                        if len(discrete_variables_set_by_omc_function) > 0:
+                            is_discrete = True
+                        else:
+                            (line, dic_var_name_to_temporary_name_tmp, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_set_by_omc_function, global_pattern_index)
+                            dic_var_name_to_temporary_name.update(dic_var_name_to_temporary_name_tmp)
                         found = True
                 if "omc_assert" in line or "omc_terminate" in line:
                     found = True
@@ -636,26 +680,25 @@ class Factory:
             found = False
             for name in name_func_to_search:
                 if name+"(" in line or name +" (" in line:
-                    for func in filter(lambda x: (x.get_name() == name), list_omc_functions):
-                        variables_to_replace = self.find_discrete_variables_set_by_omc_function(line, func)
-                        dic_var_name_to_temporary_name = {}
-                        (line, dic_var_name_to_temporary_name, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_to_replace, global_pattern_index)
+                    variables_to_replace = self.find_discrete_variables_set_by_omc_function(line, name)
+                    dic_var_name_to_temporary_name = {}
+                    (line, dic_var_name_to_temporary_name, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_to_replace, global_pattern_index)
 
-                        for name in dic_var_name_to_temporary_name.keys():
-                            test_param_address(name)
-                            if "integerDoubleVars" in to_param_address(name):
-                                body_tmp.append("  modelica_integer " + dic_var_name_to_temporary_name[name]+ " = (modelica_integer)" + to_param_address(name) + " /* " + name + "*/;\n")
-                            elif name in list_bool_var_names:
-                                body_tmp.append("  modelica_boolean " + dic_var_name_to_temporary_name[name]+ " = fromNativeBool(" + to_param_address(name) + " /* " + name + "*/);\n")
-                            else:
-                                body_tmp.append("  modelica_real " + dic_var_name_to_temporary_name[name]+ " = " + to_param_address(name) + " /* " + name + "*/;\n")
+                    for name in dic_var_name_to_temporary_name.keys():
+                        test_param_address(name)
+                        if "integerDoubleVars" in to_param_address(name):
+                            body_tmp.append("  modelica_integer " + dic_var_name_to_temporary_name[name]+ " = (modelica_integer)" + to_param_address(name) + " /* " + name + "*/;\n")
+                        elif name in list_bool_var_names:
+                            body_tmp.append("  modelica_boolean " + dic_var_name_to_temporary_name[name]+ " = fromNativeBool(" + to_param_address(name) + " /* " + name + "*/);\n")
+                        else:
+                            body_tmp.append("  modelica_real " + dic_var_name_to_temporary_name[name]+ " = " + to_param_address(name) + " /* " + name + "*/;\n")
 
-                        line = line.replace("threadData,", "")
-                        body_tmp.append(line)
+                    line = line.replace("threadData,", "")
+                    body_tmp.append(line)
 
-                        for key in dic_var_name_to_temporary_name.keys():
-                                    body_tmp.append("  "+to_param_address(key) + " /* " + key + " DISCRETE */ = " + dic_var_name_to_temporary_name[key]+";\n")
-                        found = True
+                    for key in dic_var_name_to_temporary_name.keys():
+                        body_tmp.append("  "+to_param_address(key) + " /* " + key + " DISCRETE */ = " + dic_var_name_to_temporary_name[key]+";\n")
+                    found = True
             if not found:
                 if "threadData" in line:
                     line = line.replace("threadData,", "")
@@ -666,38 +709,28 @@ class Factory:
                     body_tmp.append(line)
         return body_tmp
 
-    def find_discrete_variables_set_by_omc_function(self, line_with_call, func):
+    def find_discrete_variables_set_by_omc_function(self, line_with_call, omc_function_name):
 
         def filter_discrete_var(var_name):
             return "integerDoubleVars" in to_param_address(var_name) or "discreteVars" in to_param_address(var_name)
 
-        return self.find_variables_set_by_omc_function(line_with_call, func, \
+        return self.find_variables_set_by_omc_function(line_with_call, omc_function_name, \
                 lambda var_name: filter_discrete_var(var_name))
 
-    def find_variables_set_by_omc_function(self, line_with_call, omc_raw_function, filter):
-        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+    def find_variables_set_by_omc_function(self, line_with_call, omc_function_name, filter):
+        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+omc_function_name+'[ ]*\((?P<rhs>[^;]+);')
         match = re.match(ptrn_var_assigned, line_with_call)
-        variables_to_replace = {}
+        variables_to_replace = []
         if match is not None:
             variable_name = match.group("varName").replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
             if filter is None or filter(variable_name):
-                variables_to_replace[variable_name] = -1
-            rhs = match.group("rhs").replace(omc_raw_function.get_name()+"(","").replace(omc_raw_function.get_name()+" (","")
-            rhs = rhs.replace(")","").replace(";","")
-            ptrn_var= re.compile(r'[ ]*[&]?data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
-
-            index = 0
-            for params in rhs.split(','):
-                param = omc_raw_function.get_params()[index]
-                if param.get_is_input():
-                    index+=1
-                    continue
-                match = re.match(ptrn_var, params)
-                if match is not None:
-                    param_variable_name = match.group("varName").replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
-                    if filter is None or filter(param_variable_name):
-                        variables_to_replace[param_variable_name] = index
-                index+=1
+                variables_to_replace.append(variable_name)
+            ptrn_var= re.compile(r'[ ]*&data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
+            variables = re.findall(ptrn_var, match.group("rhs"))
+            for output_param in variables:
+                param_variable_name = output_param[1].replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
+                if filter is None or filter(param_variable_name):
+                    variables_to_replace.append(param_variable_name)
         return variables_to_replace
 
     ##
@@ -714,7 +747,7 @@ class Factory:
         prefix_temporary_var = "external_call_tmp_"
         dic_var_name_to_temporary_name = {}
         for idx, add, name in match:
-            if name not in variables_to_replace.keys(): continue
+            if name not in variables_to_replace: continue
             replacement_string = "@@@" + str(global_pattern_index) + "@@@"
             line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
             map_to_replace[replacement_string] = prefix_temporary_var+str(global_pattern_index)
@@ -722,7 +755,7 @@ class Factory:
             global_pattern_index +=1
         match = ptrn_var_no_desc.findall(line)
         for idx, add, name in match:
-            if name not in variables_to_replace.keys(): continue
+            if name not in variables_to_replace: continue
             replacement_string = "@@@" + str(global_pattern_index) + "@@@"
             line = line.replace("data->localData["+str(idx)+"]->"+add, replacement_string)
             map_to_replace[replacement_string] = prefix_temporary_var+str(global_pattern_index)
@@ -1201,6 +1234,14 @@ class Factory:
                         continue
                     self.modes.modes_discretes[var].add_eq(eq.get_src_fct_name())
 
+        for var in self.list_calculated_vars :
+            if var.get_alias_name() != "":
+                if (not var.get_name() in self.modes.modes_discretes):
+                    self.modes.modes_discretes[var.get_alias_name()] = ModeDiscrete("ALG", False)
+                else:
+                    self.modes.modes_discretes[var.get_alias_name()].set_type("ALG")
+
+
     ##
     # Change the expression of warnings and assert in order to add them to evalF
     # @param self : object pointer
@@ -1221,14 +1262,15 @@ class Factory:
     def prepare_for_sety0(self):
         # In addition to system vars, discrete vars (bool or not) must be initialized as well
         # We concatenate system vars and discrete vars
-        list_vars = itertools.chain(self.list_vars_syst, self.list_all_vars_discr, self.list_vars_int, self.reader.external_objects)
+        list_vars = itertools.chain(self.list_vars_syst, self.list_all_vars_discr, self.list_vars_int, self.reader.external_objects, self.list_complex_const_vars)
         found_init_by_param_and_at_least2lines = False # for reading comfort when printing
 
         # sort by taking init function number read in *06inz.c
         list_vars = sorted(list_vars,cmp = cmp_num_init_vars)
         # We prepare the results to print in setY0omc
-        for var in list_vars:
-            if var.get_use_start():
+        for var in list_vars :
+            if var.is_alias() and  (to_param_address(var.get_name()) == "SHOULD NOT BE USED"): continue
+            if var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
                 init_val = var.get_start_text()[0]
                 if init_val == "":
                     init_val = "0.0"
@@ -1272,7 +1314,14 @@ class Factory:
                 self.list_for_sety0.append("  }\n")
 
                 if len(var.get_start_text_06inz()) > 1 : self.list_for_sety0.append("\n") # reading comfort
-
+            elif is_const_var(var) and var.is_alias():
+                test_param_address(var.get_name())
+                alias_name = var.get_alias_name()
+                test_param_address(alias_name)
+                negated = "-" if var.get_alias_negated() else ""
+                line = "  %s = %s;\n" % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , negated + to_param_address(alias_name) + " /* " + alias_name + " */" )
+                line = replace_var_names(line)
+                self.list_for_sety0.append(line)
             else:
                 init_val = var.get_start_text()[0]
                 if init_val == "":
@@ -1287,7 +1336,6 @@ class Factory:
 
         # convert native boolean variables
         convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], self.list_for_sety0)
-
     ##
     # return the list of lines that constitues the body of setY0
     # @param self : object pointer
@@ -1431,8 +1479,9 @@ class Factory:
 
     def transform_in_relation(self, line, index_relation):
         tmp_to_define = re.findall(r'tmp[0-9]+', line)[0]
-        comparator = re.findall(r'[a-z]*[A-Z].*?\*\/.*,', line)[0].split("(")[0]
-        variable_1 = re.findall(r'[a-z]*[A-Z].*?\*\/.*,', line)[0].split("(")[1].split(",")[0]
+        parenthesis_split = re.findall(r'[a-z]*[A-Z].*?\*\/.*,', line)[0].split("(")
+        comparator = parenthesis_split[0]
+        variable_1 = '('.join(parenthesis_split[1:]).split(",")[0]
         variable_2 = re.findall(r',.*?;', line)[0].rsplit(")", 1)[0]
         line = line.split("tmp")[0] + "RELATIONHYSTERESIS(" + tmp_to_define + ", " + variable_1 + variable_2 + "," + str(index_relation) + "," + comparator + ");\n"
         return line
@@ -1832,6 +1881,9 @@ class Factory:
             if "data->modelData->nDiscreteReal" in line:
                 line = line [ :line.find("=") ] + "= " + str(self.reader.nb_discrete_vars)+";\n"
                 filtered_func[n] = line
+            if "data->modelData->nVariablesInteger" in line:
+                line = line [ :line.find("=") ] + "= " + str(self.reader.nb_integer)+";\n"
+                filtered_func[n] = line
             if "data->modelData->nVariablesBoolean" in line:
                 line = line [ :line.find("=") ] + "= " + str(self.reader.nb_bool_vars)+";\n"
                 filtered_func[n] = line
@@ -1840,6 +1892,15 @@ class Factory:
                 filtered_func[n] = line
             if "daeModeData->nAuxiliaryVars" in line:
                 line = line [ :line.find("=") ] + "= " + str(len(self.reader.auxiliary_var_to_keep) + len(self.reader.auxiliary_vars_counted_as_variables))+";\n"
+                filtered_func[n] = line
+            if "data->modelData->nAliasReal" in line:
+                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and (is_real_const_var(x) or is_discrete_real_const_var(x))), self.list_all_vars))) + " /* Remove const aliases */" + line[ line.find(";") : ]
+                filtered_func[n] = line
+            if "data->modelData->nAliasInteger" in line:
+                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and is_integer_const_var(x)), self.list_vars_int))) + " /* Remove const aliases */" + line[ line.find(";") : ]
+                filtered_func[n] = line
+            if "data->modelData->nAliasBoolean" in line:
+                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and is_boolean_const_var(x)), self.list_vars_bool))) + " /* Remove const aliases */" + line[ line.find(";") : ]
                 filtered_func[n] = line
             if "daeModeData->" in line:
                 line = line.replace("daeModeData", "data->simulationInfo->daeModeData")
@@ -2038,6 +2099,7 @@ class Factory:
             for line in external_function_call_body:
                 for func in list_omc_functions:
                     if func.get_name() + "(" in line or func.get_name() + " (" in line:
+                        if func.get_return_type() != "modelica_real" or "omc_Modelica_" in func.get_name(): continue
                         line = line.replace(func.get_name() + "(", func.get_name() + "_adept(")
                         line = line.replace(func.get_name() + " (", func.get_name() + "_adept (")
                         used_functions.append(func)
@@ -2386,25 +2448,33 @@ class Factory:
     def prepare_for_setvariables(self):
         line_ptrn_native_state = '  variables.push_back (VariableNativeFactory::createState ("%s", %s, %s));\n'
         line_ptrn_native_calculated = '  variables.push_back (VariableNativeFactory::createCalculated ("%s", %s, %s));\n'
-        line_ptrn_alias =  '  variables.push_back (VariableAliasFactory::create ("%s", "%s", %s));\n'
+        line_ptrn_alias =  '  variables.push_back (VariableAliasFactory::create ("%s", "%s", %s, %s));\n'
 
         # System vars
         for v in self.list_all_vars:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
+            if v in self.list_calculated_vars: continue # will be done in a second time to make sure we first declare the const variables and then the others
+            if is_when_var(v): continue
             name = to_compile_name(v.get_name())
             is_state = True
             negated = "true" if v.get_alias_negated() else "false"
+            is_fixed = v.is_fixed()
             line = ""
-            if v.get_alias_name() != '':
+            if is_real_const_var(v):
+                line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), "false") # never negated as the value given in Y0 is already the good one
+            elif is_const_var(v):
+                line = line_ptrn_native_state % ( name, v.get_dyn_type(), "false")
+            elif v.is_alias():
                 alias_name = to_compile_name(v.get_alias_name())
-                line = line_ptrn_alias % ( name, alias_name, negated)
-
+                line = line_ptrn_alias % ( name, alias_name, v.get_dyn_type(), negated)
             elif is_state:
                 line = line_ptrn_native_state % ( name, v.get_dyn_type(), negated)
             else:
                 line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), negated)
-
-
+            self.list_for_setvariables.append(line)
+        for v in self.list_calculated_vars:
+            name = to_compile_name(v.get_name())
+            line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), "false")
             self.list_for_setvariables.append(line)
 
     ##
@@ -2508,6 +2578,73 @@ class Factory:
 
                 self.list_for_literalconstants.append(var)
 
+    ##
+    # prepare the lines that constitues the body for evalCalculatedVars
+    # @param self : object pointer
+    # @return
+    def prepare_for_evalcalculatedvars(self):
+        index = 0
+        for var, expr in self.list_calculated_vars.items():
+            self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(index)+"] /* " + var.get_name() + "*/ = " + expr+";\n")
+            index += 1
+
+
+    ##
+    # return the list of lines that constitues the body of evalCalculatedVars
+    # @param self : object pointer
+    # @return list of lines
+    def get_list_for_evalcalculatedvars(self):
+        return self.list_for_evalcalculatedvars
+
+    ##
+    # prepare the lines that constitues the body for evalCalculatedVars
+    # @param self : object pointer
+    # @return
+    def prepare_for_evalcalculatedvari(self):
+        index = 0
+        for var, expr in self.list_calculated_vars.items():
+            self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */\n")
+            self.list_for_evalcalculatedvari.append("    return "+ expr+";\n")
+            index += 1
+        self.list_for_evalcalculatedvari.append("  return 0;\n")
+
+
+    ##
+    # return the list of lines that constitues the body of evalCalculatedVars
+    # @param self : object pointer
+    # @return list of lines
+    def get_list_for_evalcalculatedvari(self):
+        return self.list_for_evalcalculatedvari
+
+    ##
+    # prepare the lines that constitues the body for evalCalculatedVars
+    # @param self : object pointer
+    # @return
+    def prepare_for_evaljcalculatedvar(self):
+        self.list_for_evaljcalculatedvar.append("  // not needed\n")
+
+
+    ##
+    # return the list of lines that constitues the body of evalCalculatedVars
+    # @param self : object pointer
+    # @return list of lines
+    def get_list_for_evaljcalculatedvar(self):
+        return self.list_for_evaljcalculatedvar
+
+    ##
+    # prepare the lines that constitues the body for evalCalculatedVars
+    # @param self : object pointer
+    # @return
+    def prepare_for_getdefjcalculatedvari(self):
+        self.list_for_getdefjcalculatedvari.append("  return std::vector<int>();\n")
+
+
+    ##
+    # return the list of lines that constitues the body of evalCalculatedVars
+    # @param self : object pointer
+    # @return list of lines
+    def get_list_for_getdefjcalculatedvari(self):
+        return self.list_for_getdefjcalculatedvari
 
     ##
     # returns the lines that constitues the defines for literal constants
@@ -2672,3 +2809,7 @@ class Factory:
         self.prepare_for_setvariables()
         self.prepare_for_defineparameters()
         self.prepare_for_literalconstants()
+        self.prepare_for_evalcalculatedvars()
+        self.prepare_for_evalcalculatedvari()
+        self.prepare_for_evaljcalculatedvar()
+        self.prepare_for_getdefjcalculatedvari()

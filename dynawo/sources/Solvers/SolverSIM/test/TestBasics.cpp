@@ -260,16 +260,15 @@ TEST(SimulationTest, testSolverSIMTestBeta) {
 
   solver->calculateIC();
 
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeF(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeG(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeZ(), 1);
+  ASSERT_EQ(model->sizeY(), 1);
+  ASSERT_EQ(model->sizeF(), 1);
+  ASSERT_EQ(model->sizeG(), 2);
+  ASSERT_EQ(model->sizeZ(), 1);
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
   std::vector<double> z0(model->sizeZ());
   model->getY0(tStart, y0, yp0, z0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y0[0], -2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y0[1], -1);
   // At the initialization step, only the algebraic equations are considered - yp() = 0.
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z0[0], -1);
@@ -283,19 +282,16 @@ TEST(SimulationTest, testSolverSIMTestBeta) {
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
 
   solver->solve(tStop, tCurrent, y, yp);
   ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 
@@ -303,7 +299,6 @@ TEST(SimulationTest, testSolverSIMTestBeta) {
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 }
@@ -333,12 +328,10 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
   solver->solve(tStop, tCurrent, y, yp);
   ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 
@@ -355,8 +348,8 @@ TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
 
   solver->calculateIC();
 
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeF(), 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeF(), 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeG(), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeZ(), 1);
   std::vector<double> y0(model->sizeY());
@@ -364,7 +357,6 @@ TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
   std::vector<double> z0(model->sizeZ());
   model->getY0(tStart, y0, yp0, z0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y0[0], -2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y0[1], -1);
   // At the initialization step, only the algebraic equations are considered - yp() = 0.
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z0[0], -1);
@@ -377,19 +369,16 @@ TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
 
   solver->solve(tStop, tCurrent, y, yp);
   ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 
@@ -399,7 +388,6 @@ TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 }
@@ -413,12 +401,12 @@ TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
 
   solver->calculateIC();
 
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 0);
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
   std::vector<double> z0(model->sizeZ());
   model->getY0(tStart, y0, yp0, z0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y0[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z0[0], 1);
 
   double tCurrent = tStart;
   std::vector<double> y(y0);
@@ -428,21 +416,19 @@ TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
 
   solver->solve(tStop, tCurrent, y, yp);
   ASSERT_EQ(solver->getState().noFlagSet(), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1);
 
   // Divergence at t=2, reduce the time step and resolve at t=1.5
   solver->solve(tStop, tCurrent, y, yp);
   ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(solver->getCurrentZ()[0], 0.8);
   // Does not diverge as sundials forces a reevaluation of the jacobian
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2);
 
   solver->solve(tStop, tCurrent, y, yp);
   ASSERT_EQ(solver->getState().noFlagSet(), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0.8);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 0.8);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(solver->getCurrentZ()[0], 0.8);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 3);
 }
 

@@ -1,9 +1,11 @@
-0.036548 | GEN____3_SM | PMIN : activation
-0.971046 | GEN____3_SM | PMIN : deactivation
+0.0365595 | GEN____3_SM | PMIN : activation
+0.961847 | GEN____3_SM | PMIN : deactivation
 20.0089 | GEN____8_SM | PMIN : activation
 20.0181 | GEN____6_SM | PMIN : activation
-20.4171 | GEN____6_SM | PMIN : deactivation
-20.4812 | GEN____3_SM | PMIN : activation
-20.6564 | GEN____6_SM | PMIN : activation
+20.4077 | GEN____6_SM | PMIN : deactivation
+20.5076 | GEN____3_SM | PMIN : activation
+20.7001 | GEN____6_SM | PMIN : activation
+20.7001 | GEN____6_SM | PMIN : activation
+20.7001 | GEN____6_SM | PMIN : deactivation
 80 | _BUS____5-BUS____6-1_PT | Tap +1
 90 | _BUS____5-BUS____6-1_PT | Tap +1

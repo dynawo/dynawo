@@ -3,11 +3,11 @@ load_terminal_V_im                                : y =      -0.285998 yp =     
 load_terminal_V_re                                : y =       0.995394 yp =              0
 load_PPu                                          : y =       0.148782 yp =              0
 load_QPu                                          : y =       0.049878 yp =              0
-load_SPu_im                                       : y =       0.049878 yp =              0
-load_SPu_re                                       : y =       0.148782 yp =              0
 load_UPu_value                                    : y =        1.03567 yp =              0
 load_terminal_i_im                                : y =     -0.0859586 yp =              0
 load_terminal_i_re                                : y =       0.124773 yp =              0
+load_SPu_im                                       : alias of load_QPu
+load_SPu_re                                       : alias of load_PPu
  ====== INIT DISCRETE VARIABLES VALUES ======
 load_PRefPu_value                                 : z =          0.149
 load_QRefPu_value                                 : z =           0.05
