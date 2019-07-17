@@ -210,7 +210,7 @@ SolverSIM::calculateIC() {
 
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;
 
-  model_->modeChange(false);
+  model_->setModeChangeType(modeChangeType_t::NO_MODE);
   solverKIN_->clean();
 }
 
@@ -387,7 +387,8 @@ SolverSIM::solve(bool& discreteVariableChangeFound) {
       }
 
       // Algebraic mode change
-      if (model_->modeChangeAlg()) {
+      modeChangeType_t modeChangeType = model_->getModeChangeType();
+      if (modeChangeType == modeChangeType_t::ALGEBRAIC_MODE || modeChangeType == modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE) {
         return (ROOT_ALG);
       } else if (modelChange) {  // Z change
         return (ROOT);
@@ -489,9 +490,10 @@ SolverSIM::restoreInitialValues(bool zRestoration, bool rootRestoration) {
 void
 SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::vector<double> &zNxt) {
   int counter = 0;
+  modeChangeType_t modeChangeType;
 
   do {
-    model_->modeChangeAlg(false);
+    model_->setModeChangeType(modeChangeType_t::NO_MODE);
     model_->rotateBuffers();
 
     // Call to solver KIN to find new algebraic variables' values
@@ -518,12 +520,13 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
       evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
     }
 
+    modeChangeType = model_->getModeChangeType();
     counter++;
     if (counter >= 10)
       throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
-  } while (model_->modeChangeAlg());
+  } while (modeChangeType == modeChangeType_t::ALGEBRAIC_MODE || modeChangeType == modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE);
 
-  model_->modeChange(false);
+  model_->setModeChangeType(modeChangeType_t::NO_MODE);
 
   // saving the new step
   yNxt = vYy_;

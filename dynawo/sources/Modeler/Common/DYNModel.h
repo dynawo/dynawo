@@ -149,14 +149,7 @@ class Model {
   virtual void getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0, std::vector<double> &z0) = 0;
 
   /**
-   * @brief set mode change information
-   *
-   * @param modeChange @b true if one mode of the model has change
-   */
-  virtual void modeChange(bool modeChange) = 0;
-
-  /**
-   * @brief  retrieve mode change information
+   * @brief retrieve mode change information
    *
    *
    * @return @b true if one mode of the model has change
@@ -164,19 +157,18 @@ class Model {
   virtual bool modeChange() const = 0;
 
   /**
-   * @brief retrieve mode change information for algebraic equation
+   * @brief get the overall system mode change type
    *
-   *
-   * @return  @b true if one mode of the model has change
+   * @return mode change type for the overall system
    */
-  virtual bool modeChangeAlg() const = 0;
+  virtual modeChangeType_t getModeChangeType() const = 0;
 
   /**
-   * @brief set mode change information for algebraic equation
+   * @brief set the overall system mode change type
    *
-   * @param modeChange @b true if one mode of the sub model has change
+   * @param modeChangeType overall system mode change type
    */
-  virtual void modeChangeAlg(bool modeChange) = 0;
+  virtual void setModeChangeType(const modeChangeType_t& modeChangeType) = 0;
 
   /**
    * @brief set information that one discrete variables has changed

@@ -90,7 +90,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @copydoc SubModel::evalMode(const double &t);
    */
   //--------------------------------------------------------------------
-  void evalMode(const double & t);
+  modeChangeType_t evalMode(const double & t);
 
   /**
    * @copydoc SubModel::evalJt(const double &t,const double & cj, SparseMatrix& Jt, const int& rowOffset)

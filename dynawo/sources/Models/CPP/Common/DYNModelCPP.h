@@ -172,15 +172,10 @@ class ModelCPP : public SubModel {
   virtual void evalJtPrim(const double & t, const double & cj, SparseMatrix& jt, const int& rowOffset) = 0;
 
   /**
-   * @brief  CPP Model modes' evaluation
-   *
-   * Set the modes' value depending on current simulation instant and
-   * current state variables values. Modes are considered to be member
-   * variables.
-   * @param[in] t Simulation instant
+   * @copydoc SubModel::evalMode(const double& t)
    */
   //--------------------------------------------------------------------
-  virtual void evalMode(const double & t) = 0;
+  virtual modeChangeType_t evalMode(const double & t) = 0;
 
   /**
    * @brief  CPP Model initial state variables' evaluation

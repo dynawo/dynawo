@@ -170,14 +170,14 @@ class SubModel {
   virtual void evalJtPrim(const double & t, const double & cj, SparseMatrix& Jt, const int& rowOffset) = 0;
 
   /**
-   * @brief Model modes' evaluation
+   * @brief Model mode change type evaluation
    *
-   * Set the modes' value depending on current simulation instant and
-   * current state variables values. Modes are considered to be member
-   * variables.
+   * Set the mode change type value depending on current simulation instant and
+   * current state variables values.
    * @param[in] t Simulation instant
+   * @return mode change type value
    */
-  virtual void evalMode(const double & t) = 0;
+  virtual modeChangeType_t evalMode(const double & t) = 0;
 
   /**
    * @brief Coherence check on data (asserts, min/max values, sanity checks)
@@ -430,14 +430,15 @@ class SubModel {
   void evalJtPrimSub(const double & t, const double & cj, SparseMatrix& jt, int& rowOffset);
 
   /**
-   * @brief Model modes' evaluation
+   * @brief Model mode change type evaluation
    *
-   * Set the modes' value depending on current simulation instant and
+   * Set the mode change type value depending on current simulation instant and
    * current state variables values.
    * @param t Simulation instant
+   * @return mode change type
    */
   //--------------------------------------------------------------------
-  void evalModeSub(const double & t);
+  modeChangeType_t evalModeSub(const double & t);
 
   /**
    * @brief Coherence check on data (asserts, min/max values, sanity checks)
@@ -1184,42 +1185,6 @@ class SubModel {
   }
 
   /**
-   * @brief retrieve mode change information
-   *
-   * @return @b true if one mode of the sub model has change
-   */
-  inline bool modeChange() const {
-    return modeChange_;
-  }
-
-  /**
-   * @brief set mode change information
-   *
-   * @param modeChange @b true if one mode of the sub model has change
-   */
-  inline void modeChange(bool modeChange) {
-    modeChange_ = modeChange;
-  }
-
-  /**
-   * @brief retrieve mode change information for algebraic equation
-   *
-   * @return @b true if one mode of the sub model has change
-   */
-  inline bool modeChangeAlg() const {
-    return modeChangeAlg_;
-  }
-
-  /**
-   * @brief set mode change information for algebraic equation
-   *
-   * @param modeChange @b true if one mode of the sub model has change
-   */
-  inline void modeChangeAlg(bool modeChange) {
-    modeChangeAlg_ = modeChange;
-  }
-
-  /**
    * @brief get equation string for debug log
    *
    * @param index WARNING index is local index in this submodel, not global index
@@ -1318,9 +1283,6 @@ class SubModel {
 
  protected:
   boost::shared_ptr<parameters::ParametersSet> readPARParameters_;  ///< parameters set read from PAR file
-
-  bool modeChange_;  ///< @b true if a  mode change
-  bool modeChangeAlg_;  ///< @b true if an algebric mode change
 
   // size of subModel
   unsigned int sizeF_;  ///< size of the local F function

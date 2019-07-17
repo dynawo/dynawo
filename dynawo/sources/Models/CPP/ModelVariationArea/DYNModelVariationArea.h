@@ -126,14 +126,9 @@ class ModelVariationArea : public ModelCPP::Impl {
    */
   void evalZ(const double & t);
   /**
-   * @brief  VariationArea modes' evaluation
-   *
-   * Set the modes' value depending on current simulation instant and
-   * current state variables values. Modes are considered to be member
-   * variables.
-   * @param[in] t Simulation instant
+   * @copydoc ModelCPP::evalMode(const double& t)
    */
-  void evalMode(const double & t);
+  modeChangeType_t evalMode(const double & t);
   /**
    * @brief calculate calculated variables
    */

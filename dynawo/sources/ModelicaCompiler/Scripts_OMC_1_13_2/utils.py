@@ -880,7 +880,7 @@ def format_for_modelica_reinit_evalmode(body):
     exited_if = False
     nb_opened_brackets = 0
     need_to_iterate_pattern = "data->simulationInfo->needToIterate = 1;"
-    mode_change_line = "return true;"
+    mode_change_line = "return modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE;"
     for line in body:
         line = mmc_strings_len1(line)
 

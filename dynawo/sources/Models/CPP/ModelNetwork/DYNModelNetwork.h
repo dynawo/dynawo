@@ -147,10 +147,9 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
   void evalJtPrim(const double& t, const double & cj, SparseMatrix& jt, const int& rowOffset);
 
   /**
-   * @brief evaluate mode
-   * @param t time
+   * @copydoc ModelCPP::evalMode(const double& t)
    */
-  void evalMode(const double& t);
+  modeChangeType_t evalMode(const double& t);
 
   /**
    * @copydoc ModelCPP::getY0()

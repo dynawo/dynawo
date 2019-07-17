@@ -84,7 +84,7 @@ class ConnectorCalculatedVariable : public SubModel {
   /**
    * @copydoc SubModel::evalMode(const double & t)
    */
-  void evalMode(const double& t);
+  modeChangeType_t evalMode(const double& t);
 
   /**
    * @copydoc SubModel::evalCalculatedVars()

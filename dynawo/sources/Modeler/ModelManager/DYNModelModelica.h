@@ -88,7 +88,7 @@ class ModelModelica {
    * @param t the time for which to check
    * @return @b true if a mode has been trigered, @b false otherwise (for use by ModelManager)
    */
-  virtual bool evalMode(const double & t) const = 0;
+  virtual modeChangeType_t evalMode(const double & t) const = 0;
 
   /**
    * @brief calculates the discretes values of the model

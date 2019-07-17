@@ -71,6 +71,8 @@ ModelMulti::ModelMulti() {
   sizeCalculatedVar_ = 0;
   offsetFOptional_ = 0;
   zChange_ = false;
+  modeChangeType_ = modeChangeType_t::NO_MODE;
+  modeChange_ = false;
   connectorContainer_.reset(new ConnectorContainer());
   fLocal_ = NULL;
   yLocal_ = NULL;
@@ -287,46 +289,6 @@ ModelMulti::printInitValues(const string& directory) {
 }
 
 bool
-ModelMulti::modeChangeAlg() const {
-  bool modeChangeAlg = false;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    if (subModels_[i]->modeChangeAlg()) {
-      modeChangeAlg = true;
-      Trace::debug() << DYNLog(AlgebraicModeChange, subModels_[i]->name()) << Trace::endline;
-      break;
-    }
-  }
-
-  return modeChangeAlg;
-}
-
-void
-ModelMulti::modeChangeAlg(bool modeChange) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->modeChangeAlg(modeChange);
-}
-
-bool
-ModelMulti::modeChange() const {
-  Timer timer("ModelMulti::modeChange");
-  bool modeChange = false;
-  for (unsigned int i = 0; i < subModels_.size(); ++i) {
-    if (subModels_[i]->modeChange()) {
-      modeChange = true;
-      Trace::debug() << DYNLog(ModeChange, i) << Trace::endline;
-      break;
-    }
-  }
-  return modeChange;
-}
-
-void
-ModelMulti::modeChange(bool modeChange) {
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->modeChange(modeChange);
-}
-
-bool
 ModelMulti::zChange() const {
   Timer timer("ModelMulti::zChange");
   return zChange_;
@@ -463,8 +425,18 @@ ModelMulti::evalMode(const double & t, const vector<double> &y, const vector<dou
   std::copy(y.begin(), y.end(), yLocal_);
   std::copy(yp.begin(), yp.end(), ypLocal_);
   std::copy(z.begin(), z.end(), zLocal_);
-  for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->evalModeSub(t);
+
+  modeChange_ = false;
+  modeChangeType_t modeChangeType = modeChangeType_t::NO_MODE;
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    modeChangeType_t modeChangeTypeSub = subModels_[i]->evalModeSub(t);
+    if (modeChangeTypeSub > modeChangeType) {
+      modeChangeType = modeChangeTypeSub;
+      modeChange_ = true;
+    }
+  }
+  if (modeChangeType > modeChangeType_)
+    modeChangeType_ = modeChangeType;
 }
 
 void

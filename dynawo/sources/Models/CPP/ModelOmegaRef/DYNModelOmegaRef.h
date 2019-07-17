@@ -128,15 +128,9 @@ class ModelOmegaRef : public ModelCPP::Impl {
    */
   void evalZ(const double & t);
   /**
-   * @brief Reference frequency modes' evaluation
-   *
-   * Set the modes' value depending on current simulation instant and
-   * current state variables values. For this model, the mode changes when the number
-   * of subNetwork changes
-   *
-   * @param t Simulation instant
+   * @copydoc ModelCPP::evalMode(const double& t)
    */
-  void evalMode(const double &t);
+  modeChangeType_t evalMode(const double &t);
   /**
    * @brief Reference frequency transposed jacobian evaluation
    *

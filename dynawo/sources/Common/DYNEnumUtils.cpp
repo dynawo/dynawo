@@ -27,6 +27,24 @@ using std::string;
 namespace DYN {
 
 string
+modeChangeType2Str(const modeChangeType_t& modeChangeType) {
+  string string2Return;
+  switch (modeChangeType) {
+    case NO_MODE:
+      string2Return = "No mode change";
+      break;
+    case DIFFERENTIAL_MODE:
+      string2Return = "Differential mode change";
+      break;
+    case ALGEBRAIC_MODE:
+    case ALGEBRAIC_J_UPDATE_MODE:
+      string2Return = "Algebraic mode change";
+      break;
+  }
+  return string2Return;
+}
+
+string
 propertyVar2Str(const propertyContinuousVar_t& property) {
   string string2Return;
   switch (property) {

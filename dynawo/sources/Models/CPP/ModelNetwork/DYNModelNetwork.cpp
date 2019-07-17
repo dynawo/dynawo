@@ -836,16 +836,15 @@ ModelNetwork::evalZ(const double& t) {
     (*itComponent)->evalZ(t);
 }
 
-void
+modeChangeType_t
 ModelNetwork::evalMode(const double& t) {
-  modeChange(false);
-
   /* Two kinds of events are controlled:
    *     1. State or topological change on the network (given by the evalState method)
    *     2. Short-circuit on a bus (given by the evalNodeFault method)
    */
   bool topoChange = false;
   bool stateChange = false;
+  modeChangeType_t modeChangeType = modeChangeType_t::NO_MODE;
 
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
@@ -863,17 +862,20 @@ ModelNetwork::evalMode(const double& t) {
 
   // recalculate admittance matrix and reevaluate connectivity
   if (topoChange) {
-    modeChangeAlg_ = true;
+    modeChangeType = modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE;
     breakModelSwitchLoops();
     evalYMat();
     computeComponents();
     analyseComponents();
   } else if (stateChange) {
     evalYMat();
+    modeChangeType = modeChangeType_t::ALGEBRAIC_MODE;
   }
 
   if (busContainer_->evalNodeFault())
-    modeChangeAlg_ = true;
+    modeChangeType = modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE;
+
+  return modeChangeType;
 }
 
 void

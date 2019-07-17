@@ -100,8 +100,6 @@ SubModel::SubModel() {
   isInitProcess_ = false;
   sizeMode_ = 0;
   sizeModeSave_ = 0;
-  modeChange_ = false;
-  modeChangeAlg_ = false;
   currentTime_ = 0.;
 }
 
@@ -172,10 +170,6 @@ SubModel::initSub(const double& t0) {
     initParams();
     restoreData();
   }
-
-  // fonctions root
-  modeChange_ = false;
-  modeChangeAlg_ = false;
 
   init(t0);
 
@@ -798,11 +792,14 @@ SubModel::evalJtPrimSub(const double & t, const double & cj, SparseMatrix& Jt, i
   rowOffset += sizeY();
 }
 
-void
+modeChangeType_t
 SubModel::evalModeSub(const double & t) {
   setCurrentTime(t);
   // evaluation of the submodel modes
-  evalMode(t);
+  modeChangeType_t modeChangeType = evalMode(t);
+  if (modeChangeType != modeChangeType_t::NO_MODE)
+    Trace::debug() << DYNLog(ModeChange, modeChangeType2Str(modeChangeType), name_) << Trace::endline;
+  return modeChangeType;
 }
 
 // check data coherence for a sub-model
