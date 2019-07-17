@@ -89,6 +89,8 @@
       <xs:field xpath="@connector"/>
       <xs:field xpath="@id1"/>
       <xs:field xpath="@id2"/>
+      <xs:field xpath="@index1"/>
+      <xs:field xpath="@index2"/>
     </xs:unique>
 
   </xs:element>
@@ -111,7 +113,7 @@
           <xs:element name="initConnect" type="dyn:Connect" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="macroConnect" type="dyn:MacroConnect" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="staticRef" type="dyn:StaticRef" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="macroStaticRef" type="MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="macroStaticRef" type="dyn:MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
         </xs:choice>
         <xs:attribute name="staticId" type="xs:string"/>
       </xs:extension>
@@ -127,7 +129,7 @@
           <xs:element name="initConnect" type="dyn:Connect" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="macroConnect" type="dyn:MacroConnect" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="staticRef" type="dyn:StaticRef" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="macroStaticRef" type="MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="macroStaticRef" type="dyn:MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
         </xs:choice>
       </xs:extension>
     </xs:complexContent>
@@ -138,7 +140,7 @@
       <xs:extension base="dyn:Identifiable">
         <xs:sequence>
           <xs:element name="staticRef" type="dyn:StaticRef" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="macroStaticRef" type="MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="macroStaticRef" type="dyn:MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="staticId" type="xs:string"/>
         <xs:attribute name="lib" use="required" type="xs:string"/>
@@ -153,7 +155,7 @@
       <xs:extension base="dyn:IdentifiableModel">
         <xs:sequence>
           <xs:element name="staticRef" type="dyn:StaticRef" minOccurs="0" maxOccurs="unbounded"/>
-          <xs:element name="macroStaticRef" type="MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="macroStaticRef" type="dyn:MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="staticId" type="xs:string"/>
         <xs:attribute name="templateId" use="required" type="dyn:IdString"/>
@@ -216,11 +218,14 @@
       <xs:element name="initConnect" type="dyn:MacroConnection" minOccurs="0" maxOccurs="unbounded"/>
     </xs:choice>
     <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="index1" type="xs:boolean"/>
+    <xs:attribute name="index2" type="xs:boolean"/>
+    <xs:attribute name="name2" type="xs:boolean"/>
   </xs:complexType>
 
   <xs:complexType name="MacroStaticReference">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="staticRef" type="StaticRef" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="staticRef" type="dyn:StaticRef" minOccurs="0" maxOccurs="unbounded"/>
     </xs:choice>
     <xs:attribute name="id" use="required" type="xs:string"/>
   </xs:complexType>
