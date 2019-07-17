@@ -241,13 +241,13 @@ void ModelGeneratorPQ_Init::setFomc(double * f)
 
 }
 
-bool ModelGeneratorPQ_Init::evalMode(const double & t) const
+modeChangeType_t ModelGeneratorPQ_Init::evalMode(const double & t) const
 {
   // modes may either be due to
   // - a change in network topology (currently forbidden for Modelica models)
   // - a Modelica reinit command
-  // no mode triggered => return false
-  return false;
+  // no mode triggered => return NO_MODE
+  return modeChangeType_t::NO_MODE;
 }
 
 void ModelGeneratorPQ_Init::setGomc(state_g * gout)

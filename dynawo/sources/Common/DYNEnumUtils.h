@@ -67,6 +67,27 @@ typedef enum {
   SHARED_PARAMETER,  ///< The parameter has a default internal value, which may be externally updated
   INTERNAL_PARAMETER  ///< The parameter only computes its own value internally
 } parameterScope_t;
+
+/**
+ * @brief mode change type for function
+ * A mode change type can be a differential mode change, an algebraic mode change requiring a Jacobian update or not.
+ * The enum is ordered and the order is used to detect what is the most critical change at a certain time step. Order modification
+ * will change the simulation tool behavior.
+ */
+typedef enum {
+  NO_MODE = 0,  ///< No function change
+  DIFFERENTIAL_MODE,  ///< Mode change on a differential function
+  ALGEBRAIC_MODE,  ///< Mode change on an algebraic function not requiring a Jacobian update
+  ALGEBRAIC_J_UPDATE_MODE  ///< Mode change on an algebraic function requiring a Jacobian update
+} modeChangeType_t;
+
+/**
+ * @brief return the string associated to the mode change type
+ * @param modeChangeType mode change type as an enum
+ * @return the string associated to the mode change type
+ */
+std::string modeChangeType2Str(const modeChangeType_t& modeChangeType);
+
 /**
  * @brief type definition for state of G (zero crossing? )
  */

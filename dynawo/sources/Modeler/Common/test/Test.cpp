@@ -36,6 +36,7 @@
 #include "DYNConnector.h"
 
 #include "DYNElement.h"
+#include "DYNModelMulti.h"
 #include "DYNSubModel.h"
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
@@ -52,7 +53,7 @@ using parameters::ParametersSetFactory;
 
 namespace DYN {
 
-class SubModelMock : public SubModel {
+class SubModelMockBase : public SubModel {
   void init(const double& t0) {
     // Dummy class used for testing
   }
@@ -105,9 +106,7 @@ class SubModelMock : public SubModel {
     // Dummy class used for testing
   }
 
-  void evalMode(const double & t) {
-    // Dummy class used for testing
-  }
+  virtual modeChangeType_t evalMode(const double & t) = 0;
 
   void checkDataCoherence(const double & t) {
     // Dummy class used for testing
@@ -211,6 +210,27 @@ class SubModelMock : public SubModel {
 
   void initParams() {
     // Dummy class used for testing
+  }
+};
+
+class SubModelMock : public SubModelMockBase {
+  modeChangeType_t evalMode(const double& t) {
+    // Dummy class used for testing
+    return modeChangeType_t::NO_MODE;
+  }
+};
+
+class SubModelMode : public SubModelMockBase {
+  modeChangeType_t evalMode(const double& t) {
+    if (doubleEquals(t, 1))
+      return modeChangeType_t::DIFFERENTIAL_MODE;
+    else if (doubleEquals(t, 2))
+      return modeChangeType_t::ALGEBRAIC_MODE;
+    else if (doubleEquals(t, 3))
+      return modeChangeType_t::DIFFERENTIAL_MODE;
+    else if (doubleEquals(t, 4))
+      return modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE;
+  return modeChangeType_t::NO_MODE;
   }
 };
 //-----------------------------------------------------
@@ -802,6 +822,12 @@ TEST(ModelerCommonTest, ModelerCommonUtilities) {
   // fromNativeBool
   ASSERT_EQ(fromNativeBool(true), 1.0);
   ASSERT_EQ(fromNativeBool(false), -1.0);
+
+  // modeChangeType2Str
+  ASSERT_EQ(modeChangeType2Str(NO_MODE), "No mode change");
+  ASSERT_EQ(modeChangeType2Str(DIFFERENTIAL_MODE), "Differential mode change");
+  ASSERT_EQ(modeChangeType2Str(ALGEBRAIC_MODE), "Algebraic mode change");
+  ASSERT_EQ(modeChangeType2Str(ALGEBRAIC_J_UPDATE_MODE), "Algebraic mode change");
 }
 
 TEST(ModelerCommonTest, testNoParFile) {
@@ -821,5 +847,49 @@ TEST(ModelerCommonTest, testMissingParId) {
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   dyd->getParametersSet("MyModel", "MyFile.par", "");
   ASSERT_THROW_DYNAWO(DYN::DYNErrorQueue::get()->flush(), Error::API, KeyError_t::MissingParameterId);
+}
+
+//-----------------------------------------------------
+// TEST Model mode handling
+//-----------------------------------------------------
+TEST(ModelerCommonTest, testModeHandling) {
+  // Create model multi
+  boost::shared_ptr<ModelMulti> modelMulti(new ModelMulti());
+
+  // Create a submodel
+  boost::shared_ptr<SubModelMode> subModelMode(new SubModelMode());
+  subModelMode->name("SubModelName");
+  boost::shared_ptr<SubModel> subModel = boost::dynamic_pointer_cast<SubModel> (subModelMode);
+  modelMulti->addSubModel(subModel, "SubModelMode");
+
+  std::vector<double> y, yp, z;
+  double time = 0;
+  modelMulti->evalMode(time, y, yp, z);
+  ASSERT_EQ(modelMulti->modeChange(), false);
+  ASSERT_EQ(modelMulti->getModeChangeType(), modeChangeType_t::NO_MODE);
+
+  time = 1;
+  modelMulti->evalMode(time, y, yp, z);
+  ASSERT_EQ(modelMulti->modeChange(), true);
+  ASSERT_EQ(modelMulti->getModeChangeType(), modeChangeType_t::DIFFERENTIAL_MODE);
+
+  time = 2;
+  modelMulti->evalMode(time, y, yp, z);
+  ASSERT_EQ(modelMulti->modeChange(), true);
+  ASSERT_EQ(modelMulti->getModeChangeType(), modeChangeType_t::ALGEBRAIC_MODE);
+
+  time = 3;
+  modelMulti->evalMode(time, y, yp, z);
+  ASSERT_EQ(modelMulti->modeChange(), true);
+  ASSERT_EQ(modelMulti->getModeChangeType(), modeChangeType_t::ALGEBRAIC_MODE);
+  ASSERT_EQ(subModel->evalModeSub(time), DIFFERENTIAL_MODE);
+
+  time = 4;
+  modelMulti->evalMode(time, y, yp, z);
+  ASSERT_EQ(modelMulti->modeChange(), true);
+  ASSERT_EQ(modelMulti->getModeChangeType(), modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE);
+
+  modelMulti->setModeChangeType(modeChangeType_t::NO_MODE);
+  ASSERT_EQ(modelMulti->getModeChangeType(), modeChangeType_t::NO_MODE);
 }
 }  // namespace DYN

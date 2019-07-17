@@ -179,9 +179,6 @@ ModelManager::init(const double& t0) {
   getSize();
 
   setManagerTime(t0);
-
-  modeChange_ = false;
-  modeChangeAlg_ = false;
 }
 
 void
@@ -379,10 +376,9 @@ ModelManager::evalZ(const double &t) {
   }
 }
 
-void
+modeChangeType_t
 ModelManager::evalMode(const double & t) {
-  const bool algebrModeTriggered = modelModelicaDynamic()->evalMode(t);
-  modeChangeAlg_ = algebrModeTriggered;
+  return modelModelicaDynamic()->evalMode(t);
 }
 
 void
@@ -817,7 +813,6 @@ ModelManager::solveParameters() {
     zSave = zLocalInit_;
     if (sizeMode() > 0)
       evalMode(t0);
-    modeChange(false);
 
     setBufferG(&g0[0], 0);
     evalG(t0);

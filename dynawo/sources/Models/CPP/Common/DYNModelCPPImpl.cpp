@@ -35,14 +35,10 @@ using std::vector;
 namespace DYN {
 
 ModelCPP::Impl::Impl() {
-  modeChange_ = false;
-  modeChangeAlg_ = false;
 }
 
 ModelCPP::Impl::Impl(std::string modelType) :
 modelType_(modelType) {
-  modeChange_ = false;
-  modeChangeAlg_ = false;
 }
 
 void

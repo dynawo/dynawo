@@ -459,7 +459,7 @@ SolverIDA::calculateIC() {
   } while (change);
 
   // reinit output
-  model_->modeChange(false);
+  model_->setModeChangeType(modeChangeType_t::NO_MODE);
   flagInit_ = false;
   solverKIN_->clean();
 }
@@ -663,7 +663,8 @@ SolverIDA::solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& disc
     updateStatistics();
 
     // Dealing with the impact of the root change
-    if (model_->modeChangeAlg()) {
+    modeChangeType_t modeChangeType = model_->getModeChangeType();
+    if (modeChangeType == modeChangeType_t::ALGEBRAIC_MODE || modeChangeType == modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE) {
       algebraicModeFound = true;
     } else if (change) {
       int flag0 = IDAReInit(IDAMem_, tNxt, yy_, yp_);  // required to relaunch the simulation
@@ -739,10 +740,11 @@ SolverIDA::solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& disc
 void
 SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::vector<double> &zNxt) {
   int counter = 0;
+  modeChangeType_t modeChangeType;
 
   do {
      model_->rotateBuffers();
-     model_->modeChangeAlg(false);
+     model_->setModeChangeType(modeChangeType_t::NO_MODE);
       // Call to solver KIN to find new algebraic variables' values
       for (unsigned int i = 0; i < vYId_.size(); i++)
         if (vYId_[i] != DYN::DIFFERENTIAL)
@@ -775,13 +777,14 @@ SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
     bool discreteVariableChangeFound = false;
     evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
 
+    modeChangeType = model_->getModeChangeType();
     counter++;
     if (counter >= 10)
       throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
-  } while (model_->modeChangeAlg());
+  } while (modeChangeType == modeChangeType_t::ALGEBRAIC_MODE || modeChangeType == modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE);
 
   // Reinitializing the output
-  model_->modeChange(false);
+  model_->setModeChangeType(modeChangeType_t::NO_MODE);
 
   int flag0 = IDAReInit(IDAMem_, tSolve_, yy_, yp_);  // required to relaunch the simulation
   if (flag0 < 0)

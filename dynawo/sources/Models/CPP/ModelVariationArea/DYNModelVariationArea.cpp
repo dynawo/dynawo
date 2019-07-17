@@ -196,9 +196,9 @@ ModelVariationArea::evalZ(const double& /*t*/) {
 
 // evaluation of modes (alternatives) of F(t,y,y') functions
 
-void
+modeChangeType_t
 ModelVariationArea::evalMode(const double& /*t*/) {
-  // no mode
+  return modeChangeType_t::NO_MODE;
 }
 
 void

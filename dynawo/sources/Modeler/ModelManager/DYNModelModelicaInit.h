@@ -63,7 +63,7 @@ class ModelModelicaInit : public ModelModelica {
   /**
    * @copydoc ModelModelica::evalMode(const double & t)const
    */
-  virtual bool evalMode(const double & t) const = 0;
+  virtual modeChangeType_t evalMode(const double & t) const = 0;
 
   /**
    * @copydoc ModelModelica::setZomc()

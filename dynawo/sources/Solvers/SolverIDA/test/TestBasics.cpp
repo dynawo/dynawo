@@ -217,15 +217,15 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   std::vector<double> yp(yp0);
   std::vector<double> z(z0);
   solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicModeFound, false);
+  ASSERT_EQ(algebraicModeFound, false);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
   solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicModeFound, false);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(discreteVariableChangeFound, false);
+  ASSERT_EQ(algebraicModeFound, false);
+  ASSERT_EQ(discreteVariableChangeFound, false);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -236,8 +236,8 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   // IDA will thus stop just after t = 2 which explains that we have two steps around 2 s.
   solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
 
-  ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicModeFound, false);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(discreteVariableChangeFound, false);
+  ASSERT_EQ(algebraicModeFound, false);
+  ASSERT_EQ(discreteVariableChangeFound, false);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -280,16 +280,16 @@ TEST(SimulationTest, testSolverIDATestBeta) {
   std::vector<double> z(z0);
   solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
   z = solver->getCurrentZ();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicModeFound, false);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(discreteVariableChangeFound, false);
+  ASSERT_EQ(algebraicModeFound, false);
+  ASSERT_EQ(discreteVariableChangeFound, false);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
 
   solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
   z = solver->getCurrentZ();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicModeFound, false);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(discreteVariableChangeFound, false);
+  ASSERT_EQ(algebraicModeFound, false);
+  ASSERT_EQ(discreteVariableChangeFound, false);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
@@ -299,8 +299,8 @@ TEST(SimulationTest, testSolverIDATestBeta) {
   // IDA will thus stop just after t = 2 which explains that we have two steps around 2 s.
   solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
   z = solver->getCurrentZ();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicModeFound, false);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(discreteVariableChangeFound, false);
+  ASSERT_EQ(algebraicModeFound, false);
+  ASSERT_EQ(discreteVariableChangeFound, false);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
@@ -329,8 +329,8 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   std::vector<double> z(z0);
 
   solver->solve(tStop, tCurrent, y, yp, algebraicMode, discreteVariableChangeFound);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicMode, false);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(discreteVariableChangeFound, false);
+  ASSERT_EQ(algebraicMode, false);
+  ASSERT_EQ(discreteVariableChangeFound, false);
   // Checking the voltage values at extreme nodes - Infinite node and F21 bus
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
@@ -348,13 +348,13 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
 
   // Algebraic mode detection - line opening in the network
   solver->solve(tStop, tCurrent, y, yp, algebraicMode, discreteVariableChangeFound);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicMode, true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(discreteVariableChangeFound, true);
+  ASSERT_EQ(algebraicMode, true);
+  ASSERT_EQ(discreteVariableChangeFound, true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->modeChangeAlg(), true);
+  ASSERT_EQ(model->getModeChangeType(), modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.95214618832553821193);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.);
   for (size_t i = 0; i < z.size(); ++i) {
@@ -374,7 +374,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045162421);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->modeChangeAlg(), false);
+  ASSERT_EQ(model->getModeChangeType(), modeChangeType_t::NO_MODE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.93468597466729808065);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.);
   for (size_t i = 0; i < z.size(); ++i) {
@@ -392,8 +392,8 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   }
 
   solver->solve(tStop, tCurrent, y, yp, algebraicMode, discreteVariableChangeFound);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(algebraicMode, false);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(discreteVariableChangeFound, false);
+  ASSERT_EQ(algebraicMode, false);
+  ASSERT_EQ(discreteVariableChangeFound, false);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239374639887377);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482837234209295);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);

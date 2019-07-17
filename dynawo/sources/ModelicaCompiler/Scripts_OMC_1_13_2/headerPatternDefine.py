@@ -59,7 +59,7 @@ class HeaderPatternDefine:
     void initRpar();
     void setFomc(double * f);
     void setGomc(state_g * g);
-    bool evalMode(const double & t) const;
+    modeChangeType_t evalMode(const double & t) const;
     void setZomc();
     void setOomc();
     void setY0omc();
@@ -138,7 +138,7 @@ namespace DYN {
     void initRpar();
     void setFomc(double * f);
     void setGomc(state_g * g);
-    bool evalMode(const double & t) const;
+    modeChangeType_t evalMode(const double & t) const;
     void setZomc();
     void setY0omc();
     void setYType_omc(propertyContinuousVar_t* yType);

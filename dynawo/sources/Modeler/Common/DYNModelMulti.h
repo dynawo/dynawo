@@ -96,34 +96,25 @@ class ModelMulti : public Model, private boost::noncopyable {
   void getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0, std::vector<double> &z0);
 
   /**
-   * @brief set mode change information
-   *
-   * @param modeChange @b true if one mode of the model has change
+   * @copydoc Model::modeChange()
    */
-  void modeChange(bool modeChange);
+  inline bool modeChange() const {
+    return modeChange_;
+  }
 
   /**
-   * @brief  retrieve mode change information
-   *
-   *
-   * @return @b true if one mode of the model has change
+   * @copydoc Model::getModeChangeType()
    */
-  bool modeChange() const;
+  inline modeChangeType_t getModeChangeType() const {
+    return modeChangeType_;
+  }
 
   /**
-   * @brief retrieve mode change information for algebraic equation
-   *
-   *
-   * @return  @b true if one mode of the model has change
+   * @copydoc Model::setModeChangeType(const modeChangeType_t& modeChangeType)
    */
-  bool modeChangeAlg() const;
-
-  /**
-   * @brief set mode change information for algebraic equation
-   *
-   * @param modeChange @b true if one mode of the sub model has change
-   */
-  void modeChangeAlg(bool modeChange);
+  inline void setModeChangeType(const modeChangeType_t& modeChangeType) {
+    modeChangeType_ = modeChangeType;
+  }
 
   /**
    * @copydoc Model::zChange(bool zChange)
@@ -492,7 +483,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   int sizeMode_;  ///< number of mode
   int sizeY_;  ///< number of continuous values
   int sizeCalculatedVar_;  ///< number of calculated variables
-  bool zChange_;  ///< @b true if one discrete value has changer
+  bool zChange_;  ///< @b true if one discrete value has changed
+  bool modeChange_;  ///< @b true if one mode has changed
+  modeChangeType_t modeChangeType_;  ///< type of mode change (No_Change, Differential, Algebraic, Algebraic_J_Update)
 
   unsigned int offsetFOptional_;  ///< offset in whole F buffer for optional equations
   std::set<int> numVarsOptional_;  ///< index of optional variables

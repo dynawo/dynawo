@@ -96,7 +96,7 @@ class ModelCPP::Impl : public ModelCPP {
   /**
    * @copydoc ModelCPP::evalMode()
    */
-  virtual void evalMode(const double & t) = 0;
+  virtual modeChangeType_t evalMode(const double & t) = 0;
 
   /**
    * @copydoc ModelCPP::getY0()
