@@ -174,7 +174,6 @@ class ModelCPP : public SubModel {
   /**
    * @copydoc SubModel::evalMode(const double& t)
    */
-  //--------------------------------------------------------------------
   virtual modeChangeType_t evalMode(const double & t) = 0;
 
   /**

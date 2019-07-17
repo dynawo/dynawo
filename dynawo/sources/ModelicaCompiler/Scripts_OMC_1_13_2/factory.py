@@ -591,7 +591,8 @@ class Factory:
         # Function analysis, if tag when: external call
         for eq_mak in self.list_eq_maker_16dae:
             tag = find_value_in_map( map_tags_num_eq, eq_mak.get_num_omc() )
-            if (tag == 'when' and not eq_mak.get_is_modelica_reinit()):
+            # Do not dump again when equations, reinit equations and equations that assigns a discrete variable
+            if (tag == 'when' and not eq_mak.get_is_modelica_reinit() and len(filter(lambda x: (x.get_name() == eq_mak.get_evaluated_var()),self.list_all_vars_discr+self.list_vars_int)) == 0):
                 body = eq_mak.get_body()
                 body_tmp = self.handle_body_for_discrete(body, name_func_to_search, global_pattern_index)
 
@@ -895,6 +896,22 @@ class Factory:
         for v in self.list_vars_when :
             self.list_root_objects.append( RootObject(v.get_name()) )
 
+        list_continuous_vars_and_params = []
+        list_continuous_vars_and_params.extend(self.list_vars_syst)
+        list_continuous_vars_and_params.extend(self.list_vars_der)
+        list_continuous_vars_and_params.extend(self.list_params_real)
+
+        # Get zero crossing function description
+        filtered_func = list(self.zc_filter.get_function_zero_crossing_description_raw_func())
+        filtered_func = filtered_func[1:-1] # remove last and first elements which are "}" and "{"
+        index  = 0
+        for line in filtered_func:
+            result = re.search('\"(.*)\"', line)
+            if result is not None:
+                filtered_func[index] = result.group(1)
+            index +=1
+
+        map_equation = self.reader.get_map_equation_formula()
         for r_obj in self.list_root_objects:
             # For the current when variable, search for the body of the function
             # which evaluates the variable whenCondition (for, later, retrieve the number of relationship associated with the
@@ -902,6 +919,10 @@ class Factory:
             for eq_mak in self.list_eq_maker_16dae:
                 if r_obj.get_when_var_name() == eq_mak.get_evaluated_var():
                     r_obj.set_body_for_num_relation( eq_mak.get_raw_body() )
+                    if len(filtered_func) > 0:
+                        eq = map_equation[eq_mak.get_num_omc()]
+                        eq = eq.replace(r_obj.get_when_var_name() + " = ","").replace("(*","/*").replace("*)","*/")
+                        r_obj.set_duplicated_in_zero_crossing(eq in filtered_func)
                     break
             r_obj.prepare_body()
     ##
@@ -936,9 +957,11 @@ class Factory:
         i = 0
         self.nb_root_objects = 0
         self.list_when_eq_to_filter = []
+        # we first assign a DYNAWO number to whenConditions not duplicated in the zero crossings functions (and thus that will be evaluated in G)
         for r_obj in self.list_root_objects:
             # we assign a DYNAWO number (from 0 -> nb vars whenCondition) to each variable whenCondition
-            r_obj.set_num_dyn(i)
+            if not r_obj.get_duplicated_in_zero_crossing():
+                r_obj.set_num_dyn(i)
 
 
             # For each RootObject (or each var whenCondition), we review the bodies
@@ -952,8 +975,15 @@ class Factory:
                 continue
 
             #r_obj.printWhenEquation()
-            self.nb_root_objects += 1
-            i += 1
+            if not r_obj.get_duplicated_in_zero_crossing():
+                self.nb_root_objects += 1
+                i += 1
+
+        # we then assign a DYNAWO number to the remaining whenConditions
+        for r_obj in self.list_root_objects:
+            if r_obj.get_duplicated_in_zero_crossing() and (str(r_obj.get_when_var_name())+" ") not in self.list_when_eq_to_filter:
+                r_obj.set_num_dyn(i)
+                i += 1
 
         # preparation of blocks for setZ
         keys = list_func_bodies_discr_names.keys()
@@ -981,6 +1011,7 @@ class Factory:
     # @param self : object pointer
     # @return
     def build_equations(self):
+        self.zc_filter.remove_fictitious_gequation()
         # ---------------------------------------------------------------------
         # The equations of the system to solve (in DYNAWO)
         # ---------------------------------------------------------------------
@@ -1299,7 +1330,7 @@ class Factory:
 
         line_when_ptrn = "  // ------------- %s ------------\n"
         for r_obj in self.list_root_objects:
-            if r_obj.get_num_dyn() == -1:
+            if r_obj.get_num_dyn() == -1 or r_obj.get_duplicated_in_zero_crossing():
                 continue
             index = str(r_obj.get_num_dyn()) + " + " + str(nb_zero_crossing)
             self.list_for_setgequations.append(line_when_ptrn %(r_obj.get_when_var_name()))
@@ -1355,6 +1386,13 @@ class Factory:
     # @return
     def prepare_for_setz(self):
         ptrn_name="\n  // -------------------- %s ---------------------\n"
+        for r_obj in self.list_root_objects:
+            if r_obj.get_num_dyn() == -1 or not r_obj.get_duplicated_in_zero_crossing():
+                continue
+            self.list_for_setz.append(ptrn_name %(r_obj.get_when_var_name()))
+            self.list_for_setz.extend(r_obj.get_body_for_num_relation())
+            self.list_for_setz.append(" \n")
+
         for z_equation in self.list_z_equations:
             self.list_for_setz.append(ptrn_name %(z_equation.get_name()))
             self.list_for_setz.extend(z_equation.get_body())
@@ -1417,7 +1455,7 @@ class Factory:
         line_ptrn = "  gout[%s] = ( %s ) ? ROOT_UP : ROOT_DOWN;\n"
         line_when_ptrn = "  // ------------- %s ------------\n"
         for r_obj in self.list_root_objects:
-            if r_obj.get_num_dyn() == -1:
+            if r_obj.get_num_dyn() == -1 or r_obj.get_duplicated_in_zero_crossing():
                 continue
             self.list_for_setg.append(line_when_ptrn %(r_obj.get_when_var_name()))
             self.list_for_setg.extend(r_obj.get_body_for_num_relation())
@@ -1443,7 +1481,7 @@ class Factory:
                 nb_zero_crossing +=1
 
         for r_obj in self.list_root_objects:
-            if r_obj.get_num_dyn() == -1:
+            if r_obj.get_num_dyn() == -1 or r_obj.get_duplicated_in_zero_crossing():
                 continue
             index = str(r_obj.get_num_dyn()) + " + " + str(nb_zero_crossing)
             if to_param_address(r_obj.get_when_var_name()) == None:
@@ -2411,8 +2449,6 @@ class Factory:
         # Concern the filling of the _definition.h file
         # To do first, because modifies some variables (Boolean -> real discrete)
         self.prepare_for_definitions_for_h()
-
-        self.zc_filter.remove_fictitious_gequation()
 
         # Concern the filling of the C file
         self.prepare_for_externalcalls()
