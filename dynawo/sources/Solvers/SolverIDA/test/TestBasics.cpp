@@ -256,7 +256,7 @@ TEST(SimulationTest, testSolverIDATestBeta) {
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeF(), 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeG(), 4);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeG(), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeZ(), 1);
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());

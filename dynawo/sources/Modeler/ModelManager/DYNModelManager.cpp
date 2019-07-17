@@ -388,7 +388,6 @@ ModelManager::getY0() {
   setManagerTime(getCurrentTime());
 
   if (!withLoadedVariables_) {
-    modelModelica()->setZomc();
     modelModelica()->setY0omc();
   }
   simulationInfo()->initial = false;

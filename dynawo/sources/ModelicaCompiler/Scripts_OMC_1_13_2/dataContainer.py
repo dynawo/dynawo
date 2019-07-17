@@ -1515,7 +1515,7 @@ class RootObject:
         ## body of the function evaluating the when condition
         self.body_for_num_relation = []
         ## index of the object in dynawo arrays
-        self.num_dyn = "-1"
+        self.num_dyn = -1
 
         ## index of the relation
         self.num_relation = "-1"
@@ -1525,6 +1525,9 @@ class RootObject:
 
         ## Equations to evaluate if the condition is true
         self.blocks_when_cond_is_true = []
+
+        ## true only if this root is also present in the zero crossings detected by OpenModelica
+        self.duplicated_in_zero_crossing = False
 
         if when_var_name is not None:
             self.when_var_name = when_var_name
@@ -1578,6 +1581,21 @@ class RootObject:
     # @return : body of the function
     def get_body_for_num_relation(self):
         return self.body_for_num_relation
+
+    ##
+    # Set the property duplicated_in_zero_crossing
+    # @param self : object pointer
+    # @param duplicated_in_zero_crossing : true only if if this root is also present in the zero crossings detected by OpenModelica
+    # @return
+    def set_duplicated_in_zero_crossing(self, duplicated_in_zero_crossing):
+        self.duplicated_in_zero_crossing = duplicated_in_zero_crossing
+
+    ##
+    # Get the property duplicated_in_zero_crossing
+    # @param self : object pointer
+    # @return : true only if this root is also present in the zero crossings detected by OpenModelica
+    def get_duplicated_in_zero_crossing(self):
+        return self.duplicated_in_zero_crossing
 
     ##
     # Prepare the body of the object to be print

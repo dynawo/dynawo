@@ -45,7 +45,7 @@ void ModelGeneratorPQ_Dyn::setupDataStruc()
   data->modelData->nAliasInteger = 0;
   data->modelData->nAliasBoolean = 0;
   data->modelData->nAliasString = 0;
-  data->modelData->nZeroCrossings = 7 + 9;
+  data->modelData->nZeroCrossings = 7 + 2;
   data->modelData->nSamples = 0;
   data->modelData->nRelations = 9;
   data->modelData->nMathEvents = 0;
@@ -333,6 +333,50 @@ modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double & t) const
 void ModelGeneratorPQ_Dyn::setZomc()
 {
 
+  // -------------------- $whenCondition10 ---------------------
+  modelica_boolean tmp3;
+  RELATIONHYSTERESIS(tmp3, data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, 5, GreaterEq);
+  data->localData[0]->booleanVars[1] /* $whenCondition10 DISCRETE */ = (tmp3 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 2));
+ 
+
+  // -------------------- $whenCondition2 ---------------------
+  modelica_boolean tmp20;
+  RELATIONHYSTERESIS(tmp20, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */, 4, Less);
+  data->localData[0]->booleanVars[2] /* $whenCondition2 DISCRETE */ = (tmp20 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 3));
+ 
+
+  // -------------------- $whenCondition3 ---------------------
+  modelica_boolean tmp18;
+  RELATIONHYSTERESIS(tmp18, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */, 3, Greater);
+  data->localData[0]->booleanVars[3] /* $whenCondition3 DISCRETE */ = (tmp18 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 2));
+ 
+
+  // -------------------- $whenCondition4 ---------------------
+  modelica_boolean tmp16;
+  RELATIONHYSTERESIS(tmp16, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */, 2, LessEq);
+  data->localData[0]->booleanVars[4] /* $whenCondition4 DISCRETE */ = (tmp16 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 2));
+ 
+
+  // -------------------- $whenCondition5 ---------------------
+  modelica_boolean tmp14;
+  RELATIONHYSTERESIS(tmp14, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */, 1, GreaterEq);
+  data->localData[0]->booleanVars[5] /* $whenCondition5 DISCRETE */ = (tmp14 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 3));
+ 
+
+  // -------------------- $whenCondition8 ---------------------
+  modelica_boolean tmp7;
+  modelica_boolean tmp9;
+  RELATIONHYSTERESIS(tmp7, data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, 7, Less);
+  RELATIONHYSTERESIS(tmp9, data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, 8, Greater);
+  data->localData[0]->booleanVars[8] /* $whenCondition8 DISCRETE */ = ((tmp7 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 2)) || (tmp9 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 3)));
+ 
+
+  // -------------------- $whenCondition9 ---------------------
+  modelica_boolean tmp5;
+  RELATIONHYSTERESIS(tmp5, data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, 6, LessEq);
+  data->localData[0]->booleanVars[9] /* $whenCondition9 DISCRETE */ = (tmp5 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 3));
+ 
+
   // -------------------- generator.running.value ---------------------
   if((data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ && !data->simulationInfo->booleanVarsPre[6] /* $whenCondition6 DISCRETE */ /* edge */))
   {
@@ -382,50 +426,6 @@ void ModelGeneratorPQ_Dyn::setZomc()
 {
   if((data->localData[0]->booleanVars[1] /* $whenCondition10 DISCRETE */ && !data->simulationInfo->booleanVarsPre[1] /* $whenCondition10 DISCRETE */ /* edge */))
   {
-    data->localData[0]->integerDoubleVars[1] /* generator.qStatus DISCRETE */ = 2;
-  }
-  else if((data->localData[0]->booleanVars[9] /* $whenCondition9 DISCRETE */ && !data->simulationInfo->booleanVarsPre[9] /* $whenCondition9 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[1] /* generator.qStatus DISCRETE */ = 3;
-  }
-  else if((data->localData[0]->booleanVars[8] /* $whenCondition8 DISCRETE */ && !data->simulationInfo->booleanVarsPre[8] /* $whenCondition8 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[1] /* generator.qStatus DISCRETE */ = 1;
-  }
-}
-{
-  if((data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ && !data->simulationInfo->booleanVarsPre[6] /* $whenCondition6 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */ = fromNativeBool ( 0);
-  }
-}
-{
-  if((data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ && !data->simulationInfo->booleanVarsPre[7] /* $whenCondition7 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[2] /* generator.state DISCRETE */ = 1;
-  }
-}
-{
-  if((data->localData[0]->booleanVars[5] /* $whenCondition5 DISCRETE */ && !data->simulationInfo->booleanVarsPre[5] /* $whenCondition5 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ = 3;
-  }
-  else if((data->localData[0]->booleanVars[4] /* $whenCondition4 DISCRETE */ && !data->simulationInfo->booleanVarsPre[4] /* $whenCondition4 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ = 2;
-  }
-  else if((data->localData[0]->booleanVars[3] /* $whenCondition3 DISCRETE */ && !data->simulationInfo->booleanVarsPre[3] /* $whenCondition3 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ = 1;
-  }
-  else if((data->localData[0]->booleanVars[2] /* $whenCondition2 DISCRETE */ && !data->simulationInfo->booleanVarsPre[2] /* $whenCondition2 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[0] /* generator.pStatus DISCRETE */ = 1;
-  }
-}
-{
-  if((data->localData[0]->booleanVars[1] /* $whenCondition10 DISCRETE */ && !data->simulationInfo->booleanVarsPre[1] /* $whenCondition10 DISCRETE */ /* edge */))
-  {
     omc_Dynawo_NonElectrical_Logs_Timeline_logEvent1( ((modelica_integer) 58));
   }
   else if((data->localData[0]->booleanVars[9] /* $whenCondition9 DISCRETE */ && !data->simulationInfo->booleanVarsPre[9] /* $whenCondition9 DISCRETE */ /* edge */))
@@ -467,48 +467,11 @@ void ModelGeneratorPQ_Dyn::setZomc()
 
 void ModelGeneratorPQ_Dyn::setGomc(state_g * gout)
 {
-  // ------------- $whenCondition10 ------------
-  modelica_boolean tmp3;
-  RELATIONHYSTERESIS(tmp3, data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, 5, GreaterEq);
-  data->localData[0]->booleanVars[1] /* $whenCondition10 DISCRETE */ = (tmp3 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 2));
- 
-  // ------------- $whenCondition2 ------------
-  modelica_boolean tmp20;
-  RELATIONHYSTERESIS(tmp20, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */, 4, Less);
-  data->localData[0]->booleanVars[2] /* $whenCondition2 DISCRETE */ = (tmp20 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 3));
- 
-  // ------------- $whenCondition3 ------------
-  modelica_boolean tmp18;
-  RELATIONHYSTERESIS(tmp18, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */, 3, Greater);
-  data->localData[0]->booleanVars[3] /* $whenCondition3 DISCRETE */ = (tmp18 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 2));
- 
-  // ------------- $whenCondition4 ------------
-  modelica_boolean tmp16;
-  RELATIONHYSTERESIS(tmp16, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */, 2, LessEq);
-  data->localData[0]->booleanVars[4] /* $whenCondition4 DISCRETE */ = (tmp16 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 2));
- 
-  // ------------- $whenCondition5 ------------
-  modelica_boolean tmp14;
-  RELATIONHYSTERESIS(tmp14, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */, 1, GreaterEq);
-  data->localData[0]->booleanVars[5] /* $whenCondition5 DISCRETE */ = (tmp14 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 3));
- 
   // ------------- $whenCondition6 ------------
   data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ = (((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)) || (toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */))));
  
   // ------------- $whenCondition7 ------------
   data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */)));
- 
-  // ------------- $whenCondition8 ------------
-  modelica_boolean tmp7;
-  modelica_boolean tmp9;
-  RELATIONHYSTERESIS(tmp7, data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, 7, Less);
-  RELATIONHYSTERESIS(tmp9, data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, 8, Greater);
-  data->localData[0]->booleanVars[8] /* $whenCondition8 DISCRETE */ = ((tmp7 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 2)) || (tmp9 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 3)));
- 
-  // ------------- $whenCondition9 ------------
-  modelica_boolean tmp5;
-  RELATIONHYSTERESIS(tmp5, data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, 6, LessEq);
-  data->localData[0]->booleanVars[9] /* $whenCondition9 DISCRETE */ = (tmp5 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 3));
  
   modelica_boolean tmp_zc1;
   modelica_boolean tmp_zc3;
@@ -536,15 +499,8 @@ void ModelGeneratorPQ_Dyn::setGomc(state_g * gout)
   gout[4] = ((tmp_zc9 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 2))) ? ROOT_UP : ROOT_DOWN;
   gout[5] = ((tmp_zc11 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 3))) ? ROOT_UP : ROOT_DOWN;
   gout[6] = (((tmp_zc13 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 2)) || (tmp_zc15 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 3)))) ? ROOT_UP : ROOT_DOWN;
-  gout[0 + 7] = ( data->localData[0]->booleanVars[1] ) ? ROOT_UP : ROOT_DOWN;
-  gout[1 + 7] = ( data->localData[0]->booleanVars[2] ) ? ROOT_UP : ROOT_DOWN;
-  gout[2 + 7] = ( data->localData[0]->booleanVars[3] ) ? ROOT_UP : ROOT_DOWN;
-  gout[3 + 7] = ( data->localData[0]->booleanVars[4] ) ? ROOT_UP : ROOT_DOWN;
-  gout[4 + 7] = ( data->localData[0]->booleanVars[5] ) ? ROOT_UP : ROOT_DOWN;
-  gout[5 + 7] = ( data->localData[0]->booleanVars[6] ) ? ROOT_UP : ROOT_DOWN;
-  gout[6 + 7] = ( data->localData[0]->booleanVars[7] ) ? ROOT_UP : ROOT_DOWN;
-  gout[7 + 7] = ( data->localData[0]->booleanVars[8] ) ? ROOT_UP : ROOT_DOWN;
-  gout[8 + 7] = ( data->localData[0]->booleanVars[9] ) ? ROOT_UP : ROOT_DOWN;
+  gout[0 + 7] = ( data->localData[0]->booleanVars[6] ) ? ROOT_UP : ROOT_DOWN;
+  gout[1 + 7] = ( data->localData[0]->booleanVars[7] ) ? ROOT_UP : ROOT_DOWN;
 }
 
 void ModelGeneratorPQ_Dyn::setY0omc()
@@ -1016,32 +972,11 @@ void ModelGeneratorPQ_Dyn::setGequations(std::map<int,std::string>& gEquationInd
   gEquationIndex[5] =  res[5]  ;
   gEquationIndex[6] =  res[6]  ;
 // -----------------------------
-  // ------------- $whenCondition10 ------------
-  gEquationIndex[0 + 7] = " $whenCondition10:  modelica_boolean tmp3;  RELATIONHYSTERESIS(tmp3, data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, 5, GreaterEq);  data->localData[0]->booleanVars[1] /* $whenCondition10 DISCRETE */ = (tmp3 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 2)); " ;
- 
-  // ------------- $whenCondition2 ------------
-  gEquationIndex[1 + 7] = " $whenCondition2:  modelica_boolean tmp20;  RELATIONHYSTERESIS(tmp20, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */, 4, Less);  data->localData[0]->booleanVars[2] /* $whenCondition2 DISCRETE */ = (tmp20 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 3)); " ;
- 
-  // ------------- $whenCondition3 ------------
-  gEquationIndex[2 + 7] = " $whenCondition3:  modelica_boolean tmp18;  RELATIONHYSTERESIS(tmp18, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */, 3, Greater);  data->localData[0]->booleanVars[3] /* $whenCondition3 DISCRETE */ = (tmp18 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 2)); " ;
- 
-  // ------------- $whenCondition4 ------------
-  gEquationIndex[3 + 7] = " $whenCondition4:  modelica_boolean tmp16;  RELATIONHYSTERESIS(tmp16, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[3] /* generator.PMinPu PARAM */, 2, LessEq);  data->localData[0]->booleanVars[4] /* $whenCondition4 DISCRETE */ = (tmp16 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 2)); " ;
- 
-  // ------------- $whenCondition5 ------------
-  gEquationIndex[4 + 7] = " $whenCondition5:  modelica_boolean tmp14;  RELATIONHYSTERESIS(tmp14, data->localData[0]->realVars[4] /* generator.PGenRawPu variable */, data->simulationInfo->realParameter[2] /* generator.PMaxPu PARAM */, 1, GreaterEq);  data->localData[0]->booleanVars[5] /* $whenCondition5 DISCRETE */ = (tmp14 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 3)); " ;
- 
   // ------------- $whenCondition6 ------------
-  gEquationIndex[5 + 7] = " $whenCondition6:  data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ = (((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)) || (toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))); " ;
+  gEquationIndex[0 + 7] = " $whenCondition6:  data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ = (((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)) || (toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))); " ;
  
   // ------------- $whenCondition7 ------------
-  gEquationIndex[6 + 7] = " $whenCondition7:  data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))); " ;
- 
-  // ------------- $whenCondition8 ------------
-  gEquationIndex[7 + 7] = " $whenCondition8:  modelica_boolean tmp7;  modelica_boolean tmp9;  RELATIONHYSTERESIS(tmp7, data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, 7, Less);  RELATIONHYSTERESIS(tmp9, data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, 8, Greater);  data->localData[0]->booleanVars[8] /* $whenCondition8 DISCRETE */ = ((tmp7 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 2)) || (tmp9 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 3))); " ;
- 
-  // ------------- $whenCondition9 ------------
-  gEquationIndex[8 + 7] = " $whenCondition9:  modelica_boolean tmp5;  RELATIONHYSTERESIS(tmp5, data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, 6, LessEq);  data->localData[0]->booleanVars[9] /* $whenCondition9 DISCRETE */ = (tmp5 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 3)); " ;
+  gEquationIndex[1 + 7] = " $whenCondition7:  data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))); " ;
  
 }
 
