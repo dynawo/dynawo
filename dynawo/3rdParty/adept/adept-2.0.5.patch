@@ -7,7 +7,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 diff -urpN adept-2.0.5/include/adept/Active.h adept-2.0.5_patched/include/adept/Active.h
 --- adept-2.0.5/include/adept/Active.h	2018-02-06 22:41:30.000000000 +0100
-+++ adept-2.0.5_patched/include/adept/Active.h	2019-07-17 10:00:02.143900831 +0200
++++ adept-2.0.5_patched/include/adept/Active.h	2019-07-18 09:33:45.110656508 +0200
 @@ -491,8 +491,8 @@ namespace adept {
      { return val_; }
      
@@ -41,7 +41,7 @@ diff -urpN adept-2.0.5/include/adept/Active.h adept-2.0.5_patched/include/adept/
  			const MyType& multiplier) const {
 diff -urpN adept-2.0.5/include/adept/BinaryOperation.h adept-2.0.5_patched/include/adept/BinaryOperation.h
 --- adept-2.0.5/include/adept/BinaryOperation.h	2018-02-06 23:52:55.000000000 +0100
-+++ adept-2.0.5_patched/include/adept/BinaryOperation.h	2019-07-17 10:02:12.227014034 +0200
++++ adept-2.0.5_patched/include/adept/BinaryOperation.h	2019-07-18 09:34:39.979126051 +0200
 @@ -793,7 +793,7 @@ namespace adept {
  
        // Calculate the gradient of the right-hand argument
@@ -51,9 +51,18 @@ diff -urpN adept-2.0.5/include/adept/BinaryOperation.h adept-2.0.5_patched/inclu
  			       const ScratchVector<NScratch>& scratch) const {
          right.template calc_gradient_<MyArrayNum+L::n_arrays, MyScratchNum+L::n_scratch+store_result>(stack, loc, scratch);
        }
+@@ -835,7 +835,7 @@ namespace adept {
+ 
+       // Calculate the gradient of the right-hand argument
+       template <int MyArrayNum, int MyScratchNum, int NArrays, int NScratch, class L, class R>
+-      void calc_right(Stack& stack, const L& left, const R& right, const ExpressionSize<NArrays>& loc,
++      void calc_right(Stack& stack, const L&, const R& right, const ExpressionSize<NArrays>& loc,
+ 			       const ScratchVector<NScratch>& scratch) const {
+         right.template calc_gradient_<MyArrayNum+L::n_arrays, MyScratchNum+L::n_scratch+store_result>(stack, loc, scratch, -1.0);
+       }
 diff -urpN adept-2.0.5/include/adept/Expression.h adept-2.0.5_patched/include/adept/Expression.h
 --- adept-2.0.5/include/adept/Expression.h	2017-10-29 08:02:20.000000000 +0100
-+++ adept-2.0.5_patched/include/adept/Expression.h	2019-07-17 10:00:02.143900831 +0200
++++ adept-2.0.5_patched/include/adept/Expression.h	2019-07-18 09:33:45.111656516 +0200
 @@ -152,7 +152,7 @@ namespace adept {
      }
    
