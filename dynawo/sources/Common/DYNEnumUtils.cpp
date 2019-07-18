@@ -28,100 +28,71 @@ namespace DYN {
 
 string
 modeChangeType2Str(const modeChangeType_t& modeChangeType) {
-  string string2Return;
   switch (modeChangeType) {
     case NO_MODE:
-      string2Return = "No mode change";
-      break;
+      return "No mode change";
     case DIFFERENTIAL_MODE:
-      string2Return = "Differential mode change";
-      break;
+      return "Differential mode change";
     case ALGEBRAIC_MODE:
     case ALGEBRAIC_J_UPDATE_MODE:
-      string2Return = "Algebraic mode change";
-      break;
+      return "Algebraic mode change";
   }
-  return string2Return;
 }
 
 string
 propertyVar2Str(const propertyContinuousVar_t& property) {
-  string string2Return;
   switch (property) {
     case DIFFERENTIAL:
-      string2Return = "DIFFERENTIAL";
-      break;
+      return "DIFFERENTIAL";
     case ALGEBRIC:
-      string2Return = "ALGEBRIC";
-      break;
+      return "ALGEBRIC";
     case EXTERNAL:
-      string2Return = "EXTERNAL";
-      break;
+      return "EXTERNAL";
     case OPTIONAL_EXTERNAL:
-      string2Return = "OPTIONAL_EXTERNAL";
-      break;
+      return "OPTIONAL_EXTERNAL";
     case UNDEFINED_PROPERTY:
-      string2Return = "UNDEFINED";
-      break;
+      return "UNDEFINED";
   }
-  return string2Return;
 }
 
 string
 typeVar2Str(const typeVar_t& type) {
-  string string2Return;
   switch (type) {
     case DISCRETE:
-      string2Return = "DISCRETE";
-      break;
+      return "DISCRETE";
     case CONTINUOUS:
-      string2Return = "CONTINUOUS";
-      break;
+      return "CONTINUOUS";
     case FLOW:
-      string2Return = "FLOW";
-      break;
+      return "FLOW";
     case INTEGER:
-      string2Return = "INTEGER";
-      break;
+      return "INTEGER";
     case BOOLEAN:
-      string2Return = "BOOLEAN";
-      break;
+      return "BOOLEAN";
   }
-  return string2Return;
 }
 
 typeVarC_t toCTypeVar(const typeVar_t& type) {
-  typeVarC_t typeVar = VAR_TYPE_DOUBLE;
   switch (type) {
     case DISCRETE:
     case CONTINUOUS:
     case FLOW:
-      typeVar = VAR_TYPE_DOUBLE;
-      break;
+      return VAR_TYPE_DOUBLE;
     case INTEGER:
-      typeVar = VAR_TYPE_INT;
-      break;
+      return VAR_TYPE_INT;
     case BOOLEAN:
-      typeVar = VAR_TYPE_BOOL;
-      break;
+      return VAR_TYPE_BOOL;
   }
-  return typeVar;
 }
 
 string paramScope2Str(const parameterScope_t& scope) {
-  string paramScopeStr;
   switch (scope) {
     case EXTERNAL_PARAMETER:
-      paramScopeStr = "external parameter";
-      break;
+      return "external parameter";
     case SHARED_PARAMETER:
-      paramScopeStr = "shared parameter";
-      break;
+      return "shared parameter";
     case INTERNAL_PARAMETER:
-      paramScopeStr = "internal parameter";
-      break;
+      return "internal parameter";
   }
-  return paramScopeStr;
 }
 
 }  // namespace DYN

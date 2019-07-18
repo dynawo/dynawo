@@ -426,6 +426,11 @@ ModelMulti::evalMode(const double & t, const vector<double> &y, const vector<dou
   std::copy(yp.begin(), yp.end(), ypLocal_);
   std::copy(z.begin(), z.end(), zLocal_);
 
+  /* modeChange_ has to be set at each evalMode call
+   *  -> it indicates if there has been a mode change for this call
+   * modeChangeType_ is the worst mode change for a complete time step (possibly several evalMode calls)
+   *   -> it is reinitialized by the solvers at the end of the time step
+  */
   modeChange_ = false;
   modeChangeType_t modeChangeType = modeChangeType_t::NO_MODE;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
