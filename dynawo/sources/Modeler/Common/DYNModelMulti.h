@@ -485,7 +485,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   int sizeCalculatedVar_;  ///< number of calculated variables
   bool zChange_;  ///< @b true if one discrete value has changed
   bool modeChange_;  ///< @b true if one mode has changed
-  modeChangeType_t modeChangeType_;  ///< type of mode change (No_Change, Differential, Algebraic, Algebraic_J_Update)
+  modeChangeType_t modeChangeType_;  ///< type of mode change
 
   unsigned int offsetFOptional_;  ///< offset in whole F buffer for optional equations
   std::set<int> numVarsOptional_;  ///< index of optional variables
