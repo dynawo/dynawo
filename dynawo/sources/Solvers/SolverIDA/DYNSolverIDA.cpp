@@ -458,7 +458,7 @@ SolverIDA::calculateIC() {
   } while (change);
 
   // reinit output
-  model_->setModeChangeType(modeChangeType_t::NO_MODE);
+  model_->setModeChangeType(NO_MODE);
   flagInit_ = false;
   solverKIN_->clean();
 }
@@ -663,7 +663,7 @@ SolverIDA::solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& disc
 
     // Dealing with the impact of the root change
     modeChangeType_t modeChangeType = model_->getModeChangeType();
-    if (modeChangeType == modeChangeType_t::ALGEBRAIC_MODE || modeChangeType == modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE) {
+    if (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
       algebraicModeFound = true;
     } else if (change) {
       int flag0 = IDAReInit(IDAMem_, tNxt, yy_, yp_);  // required to relaunch the simulation
@@ -743,7 +743,7 @@ SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
 
   do {
      model_->rotateBuffers();
-     model_->setModeChangeType(modeChangeType_t::NO_MODE);
+     model_->setModeChangeType(NO_MODE);
       // Call to solver KIN to find new algebraic variables' values
       for (unsigned int i = 0; i < vYId_.size(); i++)
         if (vYId_[i] != DYN::DIFFERENTIAL)
@@ -780,10 +780,10 @@ SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
     counter++;
     if (counter >= 10)
       throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
-  } while (modeChangeType == modeChangeType_t::ALGEBRAIC_MODE || modeChangeType == modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE);
+  } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
 
   // Reinitializing the output
-  model_->setModeChangeType(modeChangeType_t::NO_MODE);
+  model_->setModeChangeType(NO_MODE);
 
   int flag0 = IDAReInit(IDAMem_, tSolve_, yy_, yp_);  // required to relaunch the simulation
   if (flag0 < 0)

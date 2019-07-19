@@ -354,7 +354,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
-  ASSERT_EQ(model->getModeChangeType(), modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE);
+  ASSERT_EQ(model->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.95214618832553821193);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.);
   for (size_t i = 0; i < z.size(); ++i) {
@@ -374,7 +374,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045162421);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
-  ASSERT_EQ(model->getModeChangeType(), modeChangeType_t::NO_MODE);
+  ASSERT_EQ(model->getModeChangeType(), NO_MODE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.93468597466729808065);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.);
   for (size_t i = 0; i < z.size(); ++i) {

@@ -797,7 +797,7 @@ SubModel::evalModeSub(const double & t) {
   setCurrentTime(t);
   // evaluation of the submodel modes
   modeChangeType_t modeChangeType = evalMode(t);
-  if (modeChangeType != modeChangeType_t::NO_MODE)
+  if (modeChangeType != NO_MODE)
     Trace::debug() << DYNLog(ModeChange, modeChangeType2Str(modeChangeType), name_) << Trace::endline;
   return modeChangeType;
 }

@@ -1335,7 +1335,7 @@ class Factory:
                     self.list_for_evalmode.append("\n")
 
         self.list_for_evalmode.append("  // no mode triggered => return NO_MODE")
-        self.list_for_evalmode.append("\n  return modeChangeType_t::NO_MODE;")
+        self.list_for_evalmode.append("\n  return NO_MODE;")
 
         self.list_for_evalmode.append("\n")
 

@@ -71,7 +71,7 @@ ModelMulti::ModelMulti() {
   sizeCalculatedVar_ = 0;
   offsetFOptional_ = 0;
   zChange_ = false;
-  modeChangeType_ = modeChangeType_t::NO_MODE;
+  modeChangeType_ = NO_MODE;
   modeChange_ = false;
   connectorContainer_.reset(new ConnectorContainer());
   fLocal_ = NULL;
@@ -432,7 +432,7 @@ ModelMulti::evalMode(const double & t, const vector<double> &y, const vector<dou
    *   -> it is reinitialized by the solvers at the end of the time step
   */
   modeChange_ = false;
-  modeChangeType_t modeChangeType = modeChangeType_t::NO_MODE;
+  modeChangeType_t modeChangeType = NO_MODE;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     modeChangeType_t modeChangeTypeSub = subModels_[i]->evalModeSub(t);
     if (modeChangeTypeSub > modeChangeType) {

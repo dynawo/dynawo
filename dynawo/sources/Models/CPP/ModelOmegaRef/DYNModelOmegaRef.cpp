@@ -343,13 +343,13 @@ ModelOmegaRef::evalMode(const double& /*t*/) {
   } else if (!std::equal(numCCNode_.begin(), numCCNode_.end(), numCCNodeOld_.begin())) {
     numCCNodeOld_.assign(numCCNode_.begin(), numCCNode_.end());
     sortGenByCC();
-    return modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE;
+    return ALGEBRAIC_J_UPDATE_MODE;
   } else if (!std::equal(runningGrp_.begin(), runningGrp_.end(), runningGrpOld_.begin())) {
     runningGrpOld_.assign(runningGrp_.begin(), runningGrp_.end());
     sortGenByCC();
-    return modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE;
+    return ALGEBRAIC_J_UPDATE_MODE;
   }
-  return modeChangeType_t::NO_MODE;
+  return NO_MODE;
 }
 
 /**
