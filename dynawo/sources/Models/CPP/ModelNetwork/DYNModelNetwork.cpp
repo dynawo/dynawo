@@ -844,7 +844,7 @@ ModelNetwork::evalMode(const double& t) {
    */
   bool topoChange = false;
   bool stateChange = false;
-  modeChangeType_t modeChangeType = modeChangeType_t::NO_MODE;
+  modeChangeType_t modeChangeType = NO_MODE;
 
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
@@ -862,18 +862,18 @@ ModelNetwork::evalMode(const double& t) {
 
   // recalculate admittance matrix and reevaluate connectivity
   if (topoChange) {
-    modeChangeType = modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE;
+    modeChangeType = ALGEBRAIC_J_UPDATE_MODE;
     breakModelSwitchLoops();
     evalYMat();
     computeComponents();
     analyseComponents();
   } else if (stateChange) {
     evalYMat();
-    modeChangeType = modeChangeType_t::ALGEBRAIC_MODE;
+    modeChangeType = ALGEBRAIC_MODE;
   }
 
   if (busContainer_->evalNodeFault())
-    modeChangeType = modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE;
+    modeChangeType = ALGEBRAIC_J_UPDATE_MODE;
 
   return modeChangeType;
 }

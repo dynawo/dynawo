@@ -247,7 +247,7 @@ modeChangeType_t ModelGeneratorPQ_Init::evalMode(const double & t) const
   // - a change in network topology (currently forbidden for Modelica models)
   // - a Modelica reinit command
   // no mode triggered => return NO_MODE
-  return modeChangeType_t::NO_MODE;
+  return NO_MODE;
 }
 
 void ModelGeneratorPQ_Init::setGomc(state_g * gout)

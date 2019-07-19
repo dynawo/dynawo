@@ -218,7 +218,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
   bool zChange = false;
   bool modeChange = false;
   bool change = false;
-  model_->setModeChangeType(modeChangeType_t::NO_MODE);
+  model_->setModeChangeType(NO_MODE);
 
   for (int i = 0; i < 10; ++i) {
     // evalZ

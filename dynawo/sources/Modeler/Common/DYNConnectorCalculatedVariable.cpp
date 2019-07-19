@@ -114,7 +114,7 @@ ConnectorCalculatedVariable::evalZ(const double& /*t*/) {
 modeChangeType_t
 ConnectorCalculatedVariable::evalMode(const double& /*t*/) {
   // no modes, F has always the same formula
-  return modeChangeType_t::NO_MODE;
+  return NO_MODE;
 }
 
 void

@@ -210,7 +210,7 @@ SolverSIM::calculateIC() {
 
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;
 
-  model_->setModeChangeType(modeChangeType_t::NO_MODE);
+  model_->setModeChangeType(NO_MODE);
   solverKIN_->clean();
 }
 
@@ -388,7 +388,7 @@ SolverSIM::solve(bool& discreteVariableChangeFound) {
 
       // Algebraic mode change
       modeChangeType_t modeChangeType = model_->getModeChangeType();
-      if (modeChangeType == modeChangeType_t::ALGEBRAIC_MODE || modeChangeType == modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE) {
+      if (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
         return (ROOT_ALG);
       } else if (modelChange) {  // Z change
         return (ROOT);
@@ -493,7 +493,7 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
   modeChangeType_t modeChangeType;
 
   do {
-    model_->setModeChangeType(modeChangeType_t::NO_MODE);
+    model_->setModeChangeType(NO_MODE);
     model_->rotateBuffers();
 
     // Call to solver KIN to find new algebraic variables' values
@@ -524,9 +524,9 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::ve
     counter++;
     if (counter >= 10)
       throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
-  } while (modeChangeType == modeChangeType_t::ALGEBRAIC_MODE || modeChangeType == modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE);
+  } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
 
-  model_->setModeChangeType(modeChangeType_t::NO_MODE);
+  model_->setModeChangeType(NO_MODE);
 
   // saving the new step
   yNxt = vYy_;

@@ -198,7 +198,7 @@ ModelVariationArea::evalZ(const double& /*t*/) {
 
 modeChangeType_t
 ModelVariationArea::evalMode(const double& /*t*/) {
-  return modeChangeType_t::NO_MODE;
+  return NO_MODE;
 }
 
 void

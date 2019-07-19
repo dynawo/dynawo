@@ -513,7 +513,7 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[11], 1);
-  ASSERT_EQ(model->getModeChangeType(), modeChangeType_t::ALGEBRAIC_J_UPDATE_MODE);
+  ASSERT_EQ(model->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2.);
   for (size_t i = 0; i < z.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
@@ -531,7 +531,7 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045165197);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[11], 1);
-  ASSERT_EQ(model->getModeChangeType(), modeChangeType_t::NO_MODE);
+  ASSERT_EQ(model->getModeChangeType(), NO_MODE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2.);
   for (size_t i = 0; i < z.size(); ++i) {
     if (i == 15 || i == 19)
