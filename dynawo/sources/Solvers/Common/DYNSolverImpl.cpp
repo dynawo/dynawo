@@ -198,13 +198,11 @@ Solver::Impl::resetStats() {
 }
 
 void
-Solver::Impl::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt,
-                    bool &algebraicModeFound, bool& discreteVariableChangeFound) {
+Solver::Impl::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt) {
   // Solving
-  algebraicModeFound = false;
-  discreteVariableChangeFound = false;
+  state_ = NoChange;
   model_->rotateBuffers();
-  solve(tAim, tNxt, algebraicModeFound, discreteVariableChangeFound);
+  solve(tAim, tNxt);
 
   // Updating values
   yNxt = vYy_;
@@ -213,10 +211,11 @@ Solver::Impl::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::v
 }
 
 bool
-Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double & time, bool& discreteVariableChangeFound) {
+Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double & time) {
   Timer timer("SolverIMPL::evalZMode");
   bool zChange = false;
   bool modeChange = false;
+  bool stableRoot = true;
   bool change = false;
   model_->setModeChangeType(NO_MODE);
 
@@ -224,19 +223,32 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
     // evalZ
     model_->evalZ(time, vYy_, vYp_, vYz_);
     zChange = model_->zChange();
-    discreteVariableChangeFound |= zChange;
 
     // evalMode
     model_->evalMode(time, vYy_, vYp_, vYz_);
     modeChange = model_->modeChange();
 
     // evaluate G and compare with previous values
-    bool stableRoot = detectUnstableRoot(G0, G1, time);
+    stableRoot = detectUnstableRoot(G0, G1, time);
 
-    if (!zChange && !modeChange && stableRoot)
-      return change;
-    else
+    if (zChange && modeChange) {
+      state_ = ModeAndZChange;
       change = true;
+    } else if (zChange) {
+      change = true;
+      if (state_ == ModeChange || state_ == ModeAndZChange)
+        state_ = ModeAndZChange;
+      else
+        state_ = ZChange;
+    } else if (modeChange) {
+        change = true;
+        if (state_ == ZChange || state_ == ModeAndZChange)
+          state_ = ModeAndZChange;
+        else
+          state_ = ModeChange;
+    } else if (stableRoot) {
+      return change;
+    }
   }
 
   throw DYNError(Error::SOLVER_ALGO, SolverUnstableZMode);

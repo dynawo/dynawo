@@ -209,35 +209,30 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[1], 0);
 
-
-  bool algebraicModeFound = false;
-  bool discreteVariableChangeFound = false;
   double tCurrent = tStart;
   std::vector<double> y(y0);
   std::vector<double> yp(yp0);
   std::vector<double> z(z0);
-  solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
-  ASSERT_EQ(algebraicModeFound, false);
+  solver->solve(tStop, tCurrent, y, yp);
+  ASSERT_EQ(solver->getState(), NoChange);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
-  solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
-  ASSERT_EQ(algebraicModeFound, false);
-  ASSERT_EQ(discreteVariableChangeFound, false);
+  solver->solve(tStop, tCurrent, y, yp);
+  ASSERT_EQ(solver->getState(), NoChange);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
-  solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
+  solver->solve(tStop, tCurrent, y, yp);
   // The event in the model is written as if (x <= 0) which means that the root is detected just after t = 2 (2 + epsilon).
   // IDA will thus stop just after t = 2 which explains that we have two steps around 2 s.
-  solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
+  solver->solve(tStop, tCurrent, y, yp);
 
-  ASSERT_EQ(algebraicModeFound, false);
-  ASSERT_EQ(discreteVariableChangeFound, false);
+  ASSERT_EQ(solver->getState(), NoChange);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -271,36 +266,30 @@ TEST(SimulationTest, testSolverIDATestBeta) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z0[0], -1);
 
-
-  bool algebraicModeFound = false;
-  bool discreteVariableChangeFound = false;
   double tCurrent = tStart;
   std::vector<double> y(y0);
   std::vector<double> yp(yp0);
   std::vector<double> z(z0);
-  solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
+  solver->solve(tStop, tCurrent, y, yp);
   z = solver->getCurrentZ();
-  ASSERT_EQ(algebraicModeFound, false);
-  ASSERT_EQ(discreteVariableChangeFound, false);
+  ASSERT_EQ(solver->getState(), NoChange);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
 
-  solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
+  solver->solve(tStop, tCurrent, y, yp);
   z = solver->getCurrentZ();
-  ASSERT_EQ(algebraicModeFound, false);
-  ASSERT_EQ(discreteVariableChangeFound, false);
+  ASSERT_EQ(solver->getState(), NoChange);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
 
-  solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
+  solver->solve(tStop, tCurrent, y, yp);
   // The event in the model is written as when (x <= 0) which means that the root is detected just after t = 2 (2 + epsilon).
   // IDA will thus stop just after t = 2 which explains that we have two steps around 2 s.
-  solver->solve(tStop, tCurrent, y, yp, algebraicModeFound, discreteVariableChangeFound);
+  solver->solve(tStop, tCurrent, y, yp);
   z = solver->getCurrentZ();
-  ASSERT_EQ(algebraicModeFound, false);
-  ASSERT_EQ(discreteVariableChangeFound, false);
+  ASSERT_EQ(solver->getState(), NoChange);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
@@ -321,16 +310,13 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   std::vector<double> z0(model->sizeZ());
   model->getY0(tStart, y0, yp0, z0);
 
-  bool algebraicMode = false;
-  bool discreteVariableChangeFound = false;
   double tCurrent = tStart;
   std::vector<double> y(y0);
   std::vector<double> yp(yp0);
   std::vector<double> z(z0);
 
-  solver->solve(tStop, tCurrent, y, yp, algebraicMode, discreteVariableChangeFound);
-  ASSERT_EQ(algebraicMode, false);
-  ASSERT_EQ(discreteVariableChangeFound, false);
+  solver->solve(tStop, tCurrent, y, yp);
+  ASSERT_EQ(solver->getState(), NoChange);
   // Checking the voltage values at extreme nodes - Infinite node and F21 bus
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
@@ -347,9 +333,8 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   }
 
   // Algebraic mode detection - line opening in the network
-  solver->solve(tStop, tCurrent, y, yp, algebraicMode, discreteVariableChangeFound);
-  ASSERT_EQ(algebraicMode, true);
-  ASSERT_EQ(discreteVariableChangeFound, true);
+  solver->solve(tStop, tCurrent, y, yp);
+  ASSERT_EQ(solver->getState(), ModeAndZChange);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
@@ -369,7 +354,8 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   }
 
   // Algebraic equations restoration
-  solver->reinit(y, yp, z);
+  solver->reinit(y, yp);
+  z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239292330972138);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045162421);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
@@ -383,17 +369,9 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
     else
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
   }
-  z = solver->getCurrentZ();
-  for (size_t i = 0; i < z.size(); ++i) {
-    if (i == 15 || i == 19)
-      ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], 1);  // bus state == OPEN
-    else
-      ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
-  }
 
-  solver->solve(tStop, tCurrent, y, yp, algebraicMode, discreteVariableChangeFound);
-  ASSERT_EQ(algebraicMode, false);
-  ASSERT_EQ(discreteVariableChangeFound, false);
+  solver->solve(tStop, tCurrent, y, yp);
+  ASSERT_EQ(solver->getState(), NoChange);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239374639887377);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482837234209295);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);

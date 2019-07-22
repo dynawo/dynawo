@@ -471,10 +471,8 @@ class Simulation {
 
   /**
    * @brief do an iteration of the simulation
-   * @param algebraicModeDetection @b true is an algebraic mode is found during the iteration
-   * @param discreteVariableChangeFound @b true if a modification of a discrete variable has been found at tNxt
    */
-  void iterate(bool& algebraicModeDetection, bool& discreteVariableChangeFound);
+  void iterate();
 
   /**
    * @brief add an event to the timeline

@@ -78,6 +78,20 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual ~Impl();
 
   /**
+   * @copydoc Solver::setState(const State& state)
+   */
+  inline void setState(const State& state) {
+    state_ = state;
+  }
+
+  /**
+   * @copydoc Solver::getState()
+   */
+  inline State& getState() {
+    return state_;
+  }
+
+  /**
    * @copydoc Solver::setParameters(const boost::shared_ptr<parameters::ParametersSet> &params)
    */
   void setParameters(const boost::shared_ptr<parameters::ParametersSet> &params);
@@ -138,20 +152,19 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void calculateIC() = 0;
 
   /**
-   * @copydoc Solver::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound)
+   * @copydoc Solver::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt)
    */
-  void solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt,
-                     bool &algebraicModeFound, bool& discreteVariableChangeFound);
+  void solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt);
 
   /**
-   * @copydoc Solver::solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound)
+   * @copydoc Solver::solve(double tAim, double &tNxt)
    */
-  virtual void solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound) = 0;
+  virtual void solve(double tAim, double &tNxt) = 0;
 
   /**
-   * @copydoc Solver::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::vector<double> &zNxt)
+   * @copydoc Solver::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt)
    */
-  virtual void reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::vector<double> &zNxt) = 0;
+  virtual void reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) = 0;
 
   /**
    * @copydoc Solver::printSolve()
@@ -246,11 +259,10 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @param G0 previous value of zero crossing functions
    * @param G1 new value of zero crossing functions
    * @param time time to use to evaluate these values
-   * @param discreteVariableChangeFound @b true if a modification of a discrete variable has been found at time
    *
    * @return @b true zero crossing functions or discretes variables have changed
    */
-  bool evalZMode(std::vector<state_g> &G0, std::vector<state_g> &G1, const double &time, bool& discreteVariableChangeFound);
+  bool evalZMode(std::vector<state_g> &G0, std::vector<state_g> &G1, const double &time);
 
   /**
    * @brief detect if one zero crossing functions have changed its value
@@ -282,6 +294,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
 
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver
+  State state_;  ///< current state value of the solver
 };
 
 }  // end of namespace DYN
