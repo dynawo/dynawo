@@ -38,11 +38,10 @@ namespace DYN {
  * @brief Status of the current numerical resolution
  */
 typedef enum {
-  SolveOk,  ///< Satisfactory solution found
-  RootFound,  ///< Root found
-  StopTimeReached,  ///< stop time is reached
-  NonConv,  ///< Non convergence
-  Other  ///< Unknown state
+  NoChange = 0,
+  ModeChange,
+  ZChange,
+  ModeAndZChange
 } State;
 
 /**
@@ -70,6 +69,18 @@ class Solver {
    *
    */
   virtual ~Solver() { }
+
+  /**
+   * @brief set the solver's state
+   * @param state: new solver state
+   */
+  virtual void setState(const State& state) = 0;
+
+  /**
+   * @brief get the current solver's state
+   * @return solver state
+   */
+  virtual State& getState() = 0;
 
   /**
    * @brief set the solver's parameters
@@ -163,30 +174,24 @@ class Solver {
    * @param tNxt the time reached by the solver
    * @param yNxt the compute solution vector y
    * @param ypNxt the compute solution vector yp
-   * @param algebraicModeFound @b true if an algebraic mode has been found at tNxt
-   * @param discreteVariableChangeFound @b true if a modification of a discrete variable has been found at tNxt
    */
-  virtual void solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt,
-                     bool &algebraicModeFound, bool& discreteVariableChangeFound) = 0;
+  virtual void solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt) = 0;
 
   /**
-   * @brief Integrate the DAE over an interval in t and determines if an algebraic mode has been found
+   * @brief Integrate the DAE over an interval in t
    *
    * @param tAim the next time at which a computed solution is desired
    * @param tNxt the time reached by the solver
-   * @param algebraicModeFound @b true if an algebraic mode has been found at tNxt
-   * @param discreteVariableChangeFound @b true if a modification of a discrete variable has been found at tNxt
    */
-  virtual void solve(double tAim, double &tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound) = 0;
+  virtual void solve(double tAim, double &tNxt) = 0;
 
   /**
    * @brief Restore the equations after an algebraic mode - reinitialize the DAE problem (new initial point)
    *
    * @param yNxt new compute solution vector y
    * @param ypNxt new compute solution vector yp
-   * @param zNxt new compute solution vector z
    */
-  virtual void reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::vector<double> &zNxt) = 0;
+  virtual void reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) = 0;
 
   /**
    * @brief print the latest step made by the solver (i.e solution)

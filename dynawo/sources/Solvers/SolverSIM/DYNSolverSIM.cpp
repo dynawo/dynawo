@@ -178,8 +178,7 @@ SolverSIM::calculateIC() {
 
   // Updating discrete variable values and mode
   model_->evalG(tSolve_, vYy_, vYp_, vYz_, g0_);
-  bool discreteVariableChangeFound = false;
-  evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
+  evalZMode(g0_, g1_, tSolve_);
 
   model_->rotateBuffers();
 
@@ -198,7 +197,7 @@ SolverSIM::calculateIC() {
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
     if (rootFound) {
       g0_.assign(g1_.begin(), g1_.end());
-      change = evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
+      change = evalZMode(g0_, g1_, tSolve_);
     }
 
     ++counter;
@@ -214,17 +213,96 @@ SolverSIM::calculateIC() {
   solverKIN_->clean();
 }
 
-void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound, bool& discreteVariableChangeFound) {
-  bool redoStep = true;
+void SolverSIM::solve(double /*tAim*/, double& tNxt) {
+  if (recalculateStep_)
+    solveWithStepRecalculation(tNxt);
+  else
+    solveWithoutStepRecalculation(tNxt);
+}
+
+void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
   int counter = 0;
-
-  // Save the initial values before the step
   saveInitialValues();
+  bool redoStep = false;
 
+  do {
+    // If we have more than maxNewtonTry consecutive divergence or root changes, the simulation is stopped
+    ++counter;
+    if (counter >= maxNewtonTry_)
+      throw DYNError(Error::SOLVER_ALGO, SolverSIMConvFail, maxNewtonTry_);
+
+    // New time step value
+    h_ = hNew_;
+
+    // Call the Newton-Raphson solver and analyze the root evolution
+    SolverStatus_t status = solve();
+
+    switch (status) {
+      /* NON_CONV: the Newton-Raphson algorithm fails to converge
+       *   => The time step is decreased
+       *   => The LU decomposition is forced for the next time steps
+       *   => The initial point for the next time step (h = h/2) is the initial point from the previous accepted time step
+      */
+      case NON_CONV: {
+        if (doubleEquals(h_, hMin_)) {
+          throw DYNError(Error::SOLVER_ALGO, SolverSIMConvFailMin);   // Divergence or unstable root at minimum step length, fail to resolve problem
+        }
+        factorizationForced_ = true;
+        redoStep = true;
+        updateStepDivergence();
+        restoreInitialValues(true, true);
+        break;
+      }
+      /*
+       * CONV: the Newton-Rapshon algorithm converges and there is no discrete value or mode change
+       * => The time step is increased (if possible)
+       * => The LU decomposition is avoided for the next time steps (we have come back to a stabilized situation)
+      */
+      case CONV: {
+        factorizationForced_ = false;
+        redoStep = false;
+        updateStepConvergence();
+        break;
+      }
+      /*
+       * ROOT_ALG: algebraic change
+       * => a restoration of the algebraic variables will be called by the simulation
+       * => The current time step is accepted.
+       * => The next time step will be done with the current time step (neither increase nor decrease)
+      */
+      case ROOT_ALG: {
+        factorizationForced_ = true;
+        redoStep = false;
+        break;
+      }
+      /*
+       * ROOT: a root has been detected (discrete variable change at the moment)
+       * => The current time step is not recalculated
+       * => The LU decomposition status is kept constant or not (depending on the overall strategy - recalculateStep parameter)
+       * => The next time step will be done with the current time step (neither increase nor decrease)
+      */
+      case ROOT: {
+        redoStep = false;
+        factorizationForced_ = false;
+        break;
+      }
+    }
+  } while (redoStep);
+
+    // Limitation to end up the simulation at tEnd
+    hNew_ = min(hNew_, tEnd_ - (tSolve_ + hNew_));
+    tNxt = tSolve_ + h_;
+    ++stats_.nst_;
+  }
+
+void SolverSIM::solveWithStepRecalculation(double& tNxt) {
+  int counter = 0;
+  saveInitialValues();
+  bool redoStep = false;
   // Save the initial number of events in the timeline in case we need to come back in the past
   int initialEventsSize = 0;
   int finalEventsSize = 0;
-  if (recalculateStep_ && timeline_)
+  if (timeline_)
     initialEventsSize = timeline_->getSizeEvents();
 
   do {
@@ -237,7 +315,7 @@ void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound, b
     h_ = hNew_;
 
     // Call the Newton-Raphson solver and analyze the root evolution
-    SolverStatus_t status = solve(discreteVariableChangeFound);
+    SolverStatus_t status = solve();
 
     switch (status) {
       /* NON_CONV: the Newton-Raphson algorithm fails to converge
@@ -256,26 +334,12 @@ void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound, b
         updateStepDivergence();
         restoreInitialValues(true, true);
 
-        // Erase timeline messages (if necessary) that could have been added between the previous accepted time step and the non convergence
-        if (recalculateStep_ && timeline_) {
+        // Erase timeline messages that could have been added between the previous accepted time step and the non convergence
+        if (timeline_) {
           finalEventsSize = timeline_->getSizeEvents();
           if (finalEventsSize != initialEventsSize)
             timeline_->eraseEvents(finalEventsSize - initialEventsSize, timeline_->cendEvent());
         }
-        break;
-      }
-      /* ROOT_INSTAB : there are more than maxRootRestart root changes for the current time step.
-       *  => The current time step is accepted (we hope that things will be better in next time step).
-       *  => The next time step will be done with the current time step (neither increase nor decrease)
-       *  => The LU decomposition is forced for the next time step.
-       */
-      case ROOT_INSTAB: {
-        if (doubleEquals(h_, hMin_)) {
-          throw DYNError(Error::SOLVER_ALGO, SolverSIMConvFailMin);   // Divergence or unstable root at minimum step length, fail to resolve problem
-        }
-        countRestart_ = 0;
-        factorizationForced_ = true;
-        redoStep = false;
         break;
       }
       /*
@@ -290,36 +354,35 @@ void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound, b
         updateStepConvergence();
         break;
       }
-
       /*
        * ROOT_ALG: algebraic change
        * => a restoration of the algebraic variables will be called by the simulation
        * => The current time step is accepted.
        * => The next time step will be done with the current time step (neither increase nor decrease)
        */
-      case ROOT_ALG:
+      case ROOT_ALG: {
         countRestart_ = 0;
         factorizationForced_ = true;
         redoStep = false;
-        algebraicModeFound = true;
         break;
-
+      }
       /*
        * ROOT: a root has been detected (discrete variable change at the moment)
-       * => The current time step is recalculated or not (depending on the overall strategy - recalculateStep parameter)
+       * => The current time step is recalculated
        * => The LU decomposition status is kept constant or not (depending on the overall strategy - recalculateStep parameter)
        * => The next time step will be done with the current time step (neither increase nor decrease)
        */
       case ROOT: {
-        if (recalculateStep_) {
-          countRestart_++;
-          redoStep = true;
-          restoreInitialValues(false, false);
-        } else {
-          countRestart_ = 0;
-          redoStep = false;
-          factorizationForced_ = false;
-        }
+          // Number of discrete variable values / mode change greater than maxRootRestart
+          if (countRestart_ >= maxRootRestart_) {
+            countRestart_ = 0;
+            factorizationForced_ = true;
+            redoStep = false;
+          } else {
+            countRestart_++;
+            redoStep = true;
+            restoreInitialValues(false, false);
+          }
         break;
       }
     }
@@ -333,7 +396,7 @@ void SolverSIM::solve(double /*tAim*/, double& tNxt, bool &algebraicModeFound, b
 }
 
 SolverSIM::SolverStatus_t
-SolverSIM::solve(bool& discreteVariableChangeFound) {
+SolverSIM::solve() {
   /*
    * Call the Newton-Raphson solver for the time step
    * Returns y and yp updated values
@@ -379,12 +442,7 @@ SolverSIM::solve(bool& discreteVariableChangeFound) {
        * Calculate the propagation of discrete variable value changes and mode changes
        */
       g0_.assign(g1_.begin(), g1_.end());
-      bool modelChange = evalZMode(g0_, g1_, tSolve_ + h_, discreteVariableChangeFound);
-
-      // Number of discrete variable values / mode change greater than maxRootRestart
-      if (countRestart_ >= maxRootRestart_) {
-        return (ROOT_INSTAB);
-      }
+      bool modelChange = evalZMode(g0_, g1_, tSolve_ + h_);
 
       // Algebraic mode change
       modeChangeType_t modeChangeType = model_->getModeChangeType();
@@ -487,51 +545,55 @@ SolverSIM::restoreInitialValues(bool zRestoration, bool rootRestoration) {
     g0_.assign(gSave_.begin(), gSave_.end());
 }
 
+/*
+ * This routine deals with the possible actions due to a mode change.
+ * In the simplified solver, in case of a mode change, depending on the types of mode, either there is an algebraic equation restoration or nothing is done.
+ */
 void
-SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt, std::vector<double> &zNxt) {
+SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
   int counter = 0;
   modeChangeType_t modeChangeType;
 
-  do {
-    model_->setModeChangeType(NO_MODE);
-    model_->rotateBuffers();
+  if (model_->getModeChangeType() != DIFFERENTIAL_MODE) {
+    do {
+      model_->setModeChangeType(NO_MODE);
+      model_->rotateBuffers();
 
-    // Call to solver KIN to find new algebraic variables' values
-    for (unsigned int i = 0; i < vYId_.size(); i++)
-      if (vYId_[i] != DYN::DIFFERENTIAL)
-        vYp_[i] = 0;
+      // Call to solver KIN to find new algebraic variables' values
+      for (unsigned int i = 0; i < vYId_.size(); i++)
+        if (vYId_[i] != DYN::DIFFERENTIAL)
+          vYp_[i] = 0;
 
-    // During the algebraic equation restoration, the system could have moved a lot from its previous state.
-    // J updates and preconditioner calls must be done on a regular basis.
-    solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 1, 1, 0, 0);
-    solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
-    solverKIN_->solve();
-    solverKIN_->getValues(vYy_, vYp_);
-    solverKIN_->clean();
+      // During the algebraic equation restoration, the system could have moved a lot from its previous state.
+      // J updates and preconditioner calls must be done on a regular basis.
+      solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 1, 1, 0, 0);
+      solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
+      solverKIN_->solve();
+      solverKIN_->getValues(vYy_, vYp_);
+      solverKIN_->clean();
 
-    // Root stabilization - tSolve_ has been updated in the solve method to the current time
-    model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
-    ++stats_.nge_;
+      // Root stabilization - tSolve_ has been updated in the solve method to the current time
+      model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
+      ++stats_.nge_;
 
-    bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
-    if (rootFound) {
-      g0_.assign(g1_.begin(), g1_.end());
-      bool discreteVariableChangeFound = false;
-      evalZMode(g0_, g1_, tSolve_, discreteVariableChangeFound);
-    }
+      bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
+      if (rootFound) {
+        g0_.assign(g1_.begin(), g1_.end());
+        evalZMode(g0_, g1_, tSolve_);
+      }
 
-    modeChangeType = model_->getModeChangeType();
-    counter++;
-    if (counter >= 10)
-      throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
-  } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
+      modeChangeType = model_->getModeChangeType();
+      counter++;
+      if (counter >= 10)
+        throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
+    } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
+  }
 
   model_->setModeChangeType(NO_MODE);
 
   // saving the new step
   yNxt = vYy_;
   ypNxt = vYp_;
-  zNxt = vYz_;
 }
 
 void

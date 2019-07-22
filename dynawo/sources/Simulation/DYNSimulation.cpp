@@ -737,8 +737,6 @@ Simulation::simulate() {
   const bool updateCalculatedVariable = false;
   updateCurves(updateCalculatedVariable);  // initial curves
 
-  bool algebraicModeFound = false;
-  bool discreteVariableChangeFound = false;
   bool criteriaChecked = true;
   try {
     if (data_ && (exportIIDM_ || activateCriteria_)) {  // no need to update state variable if the IIDM final state is not exported (same for criteria check)
@@ -749,18 +747,19 @@ Simulation::simulate() {
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       bool isCheckCriteriaIter = data_ && activateCriteria_ && currentIterNb % criteriaStep_ == 0;
 
-      iterate(algebraicModeFound, discreteVariableChangeFound);
+      iterate();
       solver_->printSolve();
 
-      if (discreteVariableChangeFound)
-        updateCurves(true);
-      zCurrent_ = solver_->getCurrentZ();
-      if (algebraicModeFound) {
-        // When there is an algebraic mode, curves are updated before checking the criteria (so calculated variables haven't been updated)
+      State solverState = solver_->getState();
+      if (solverState == ModeAndZChange || solverState == ModeChange) {
         updateCurves(true);
         Trace::debug() << DYNLog(NewStartPoint) << Trace::endline;
-        solver_->reinit(yCurrent_, ypCurrent_, zCurrent_);
+        solver_->reinit(yCurrent_, ypCurrent_);
+        zCurrent_ = solver_->getCurrentZ();
         solver_->printSolve();
+      } else if (solverState == ZChange) {
+        updateCurves(true);
+        zCurrent_ = solver_->getCurrentZ();
       }
 
       if (isCheckCriteriaIter)
@@ -847,10 +846,10 @@ Simulation::updateParametersValues() {
 }
 
 void
-Simulation::iterate(bool &algebraicModeFound, bool& discreteVariableChangeFound) {
+Simulation::iterate() {
   double tVise = tStop_;
 
-  solver_->solve(tVise, tCurrent_, yCurrent_, ypCurrent_, algebraicModeFound, discreteVariableChangeFound);
+  solver_->solve(tVise, tCurrent_, yCurrent_, ypCurrent_);
 
   if (std::abs(tCurrent_ - lastTimeSimulated_) < 1e-6)
     ++nbLastTimeSimulated_;
