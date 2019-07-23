@@ -80,7 +80,7 @@ class Solver {
    * @brief get the current solver's state
    * @return solver state
    */
-  virtual State& getState() = 0;
+  virtual const State& getState() const = 0;
 
   /**
    * @brief set the solver's parameters

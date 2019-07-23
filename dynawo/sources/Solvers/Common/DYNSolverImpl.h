@@ -87,7 +87,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::getState()
    */
-  inline State& getState() {
+  inline const State& getState() const {
     return state_;
   }
 
