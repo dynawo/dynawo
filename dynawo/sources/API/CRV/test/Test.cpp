@@ -71,16 +71,16 @@ TEST(APICRVTest, test1) {
   }
 
   // export the curves in xml format
-  XmlExporter xmlExporter;
-  ASSERT_NO_THROW(xmlExporter.exportToFile(curves, "testXmlCurvesExport.crv"));
+  boost::shared_ptr<XmlExporter> xmlExporter = boost::shared_ptr<XmlExporter>(new XmlExporter());
+  ASSERT_NO_THROW(xmlExporter->exportToFile(curves, "testXmlCurvesExport.crv"));
 
   // export the curves in xml format
-  CsvExporter csvExporter;
-  ASSERT_NO_THROW(csvExporter.exportToFile(curves, "testCsvCurvesExport.csv"));
+  boost::shared_ptr<CsvExporter> csvExporter = boost::shared_ptr<CsvExporter>(new CsvExporter());
+  ASSERT_NO_THROW(csvExporter->exportToFile(curves, "testCsvCurvesExport.csv"));
 
   // throw
-  ASSERT_THROW_DYNAWO(csvExporter.exportToFile(curves, ""), DYN::Error::API, DYN::KeyError_t::FileGenerationFailed);
-  ASSERT_THROW_DYNAWO(xmlExporter.exportToFile(curves, ""), DYN::Error::API, DYN::KeyError_t::FileGenerationFailed);
+  ASSERT_THROW_DYNAWO(csvExporter->exportToFile(curves, ""), DYN::Error::API, DYN::KeyError_t::FileGenerationFailed);
+  ASSERT_THROW_DYNAWO(xmlExporter->exportToFile(curves, ""), DYN::Error::API, DYN::KeyError_t::FileGenerationFailed);
 }
 
 }  // namespace curves

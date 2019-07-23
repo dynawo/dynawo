@@ -38,6 +38,7 @@ TEST(APICRVTest, Curve) {
   ASSERT_EQ(curve1->getFoundVariableName(), "");
   ASSERT_EQ(curve1->getAvailable(), false);
   ASSERT_EQ(curve1->isParameterCurve(), false);
+  ASSERT_EQ(curve1->getCurveType(), Curve::UNDEFINED);
 
   // set attributes
   curve1->setModelName("model1");
@@ -46,6 +47,7 @@ TEST(APICRVTest, Curve) {
   curve1->setAvailable(true);
   curve1->setNegated(false);
   curve1->setAsParameterCurve(true);
+  curve1->setCurveType(Curve::DISCRETE_VARIABLE);
   std::vector<double> variables;
   variables.assign(2, 1);
   curve1->setBuffer(&variables[0]);
@@ -58,6 +60,7 @@ TEST(APICRVTest, Curve) {
   ASSERT_EQ(curve1->getNegated(), false);
   ASSERT_EQ(curve1->isParameterCurve(), true);
   ASSERT_EQ(curve1->getBuffer(), &variables[0]);
+  ASSERT_EQ(curve1->getCurveType(), Curve::DISCRETE_VARIABLE);
 }
 
 TEST(APICRVTest, CurveUpdate) {
