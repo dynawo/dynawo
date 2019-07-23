@@ -112,8 +112,8 @@ check_tag_omcompiler() {
 check_tag_modelica_library() {
   if [ -d "$SRC_OPENMODELICA/libraries/Modelica" ]; then
     cd $SRC_OPENMODELICA/libraries/Modelica
-    last_log_modelica_lib=$(git log -1 --decorate | grep -o "tag: v${MODELICA_LIB//_/.}")
-    if [ "$last_log_modelica_lib" != "tag: v${MODELICA_LIB//_/.}" ]; then
+    last_log_modelica_lib=$(git log -1 --decorate | grep -o "v${MODELICA_LIB//_/.}")
+    if [ "$last_log_modelica_lib" != "v${MODELICA_LIB//_/.}" ]; then
       return 1
     fi
   else
@@ -128,11 +128,15 @@ check_tags() {
 }
 
 checkout_openmodelica_repository() {
+  CHECKOUT_FORCE=""
+  if check_git_version; then
+    CHECKOUT_FORCE="-f"
+  fi
   if [ ! -d "$SRC_OPENMODELICA" ]; then
     git clone $DYNAWO_OPENMODELICA_GIT_URL $SRC_OPENMODELICA || error_exit "Git clone of OpenModelica in $SRC_OPENMODELICA failed."
     if [ -d "$SRC_OPENMODELICA" ]; then
       cd "$SRC_OPENMODELICA"
-      git checkout tags/v${OPENMODELICA_VERSION//_/.} || error_exit "Git checkout tags/v${OPENMODELICA_VERSION//_/.} failed for OpenModelica in $SRC_OPENMODELICA."
+      git checkout $CHECKOUT_FORCE tags/v${OPENMODELICA_VERSION//_/.} || error_exit "Git checkout tags/v${OPENMODELICA_VERSION//_/.} failed for OpenModelica in $SRC_OPENMODELICA."
       GIT_OPTION=""
       if check_git_version; then
         GIT_OPTION="--progress"
@@ -153,7 +157,7 @@ checkout_openmodelica_repository() {
     RETURN_CODE=$?
     if [[ "$RETURN_CODE" != 0 ]]; then
       cd $SRC_OPENMODELICA
-      git checkout tags/v${OPENMODELICA_VERSION//_/.} || error_exit "Git checkout tags/v${OPENMODELICA_VERSION//_/.} failed for OpenModelica in $SRC_OPENMODELICA."
+      git checkout $CHECKOUT_FORCE tags/v${OPENMODELICA_VERSION//_/.} || error_exit "Git checkout tags/v${OPENMODELICA_VERSION//_/.} failed for OpenModelica in $SRC_OPENMODELICA."
       if [ -d "$SRC_OPENMODELICA/OMCompiler" ]; then
         pushd OMCompiler && git checkout tags/v${OPENMODELICA_VERSION//_/.} && popd || error_exit "Git checkout tags/v${OPENMODELICA_VERSION//_/.} failed for OMCompiler in $SRC_OPENMODELICA/OMCompiler."
       fi

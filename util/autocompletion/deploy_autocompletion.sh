@@ -49,7 +49,7 @@ deploy() {
   if [ "$USER_SHELL_TYPE" = "bash" ]; then
     if [ -f "/etc/profile.d/bash_completion.sh" ]; then
       if [ -z "$(grep "\[ -f /etc/profile.d/bash_completion.sh \] && source /etc/profile.d/bash_completion.sh" ~/.bashrc)" ]; then
-        echo -e "\n#Added by Dynawo\n[ -f /etc/profile.d/bash_completion.sh \] && source /etc/profile.d/bash_completion.sh" >> ~/.bashrc
+        echo -e "\n#Added by Dynawo\n[ -f /etc/profile.d/bash_completion.sh ] && source /etc/profile.d/bash_completion.sh" >> ~/.bashrc
       fi
     else
       echo "Warning: Dynawo autocompletion rely on the bash-completion package. Please install it with your package manager (dnf install bash-completion or apt install bash-completion for example) and relaunch your command."
