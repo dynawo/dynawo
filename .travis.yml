@@ -35,7 +35,7 @@ env:
     - DYNAWO_HOME=/home/dynawo_travis/dynawo;
     - DYNAWO_INSTALL_OPENMODELICA=/opt/OpenModelica/Install
     - DYNAWO_SRC_OPENMODELICA=/opt/OpenModelica/Source
-    - DYNAWO_NB_PROCESSORS_USED=2
+    - DYNAWO_NB_PROCESSORS_USED=$(grep -c \^processor /proc/cpuinfo)
     - DYNAWO_RESULTS_SHOW="false"
     - DYNAWO_BUILD_TYPE=Debug
     - DYNAWO_CXX11_ENABLED=YES
