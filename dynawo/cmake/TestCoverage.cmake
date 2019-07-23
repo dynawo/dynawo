@@ -57,7 +57,8 @@ else()
   separate_arguments(VERSION)
   list(GET VERSION -1 VERSION_NUMBER)
 
-  set(GENHTML_OPTIONS "--no-function-coverage" )
+  LIST(APPEND GENHTML_OPTIONS "--no-function-coverage")
+  LIST(APPEND GENHTML_OPTIONS "--no-branch-coverage")
 endif()
 
 find_program(LCOV_PATH lcov)
