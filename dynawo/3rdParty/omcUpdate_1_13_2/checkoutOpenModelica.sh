@@ -129,7 +129,7 @@ check_tags() {
 
 checkout_openmodelica_repository() {
   CHECKOUT_FORCE=""
-  if check_git_version; then
+  if ! check_git_version; then
     CHECKOUT_FORCE="-f"
   fi
   if [ ! -d "$SRC_OPENMODELICA" ]; then
