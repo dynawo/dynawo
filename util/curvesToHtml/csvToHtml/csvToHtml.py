@@ -76,7 +76,8 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
     jsDst=os.path.join(full_path,"curves.js")
     htmlDst=os.path.join(full_path,"curves.html")
 
-    dataToPrint=""
+    dataToPrint=[]
+    dataToPrintBody=[]
     titleToPrint=""
     timeSerie=datas[timeIndex].serie()
 
@@ -87,25 +88,29 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
         for i in range(0,len(timeSerie)):
             timeSerie[i] = str(float(timeSerie[i]) - float(minTime))
 
-    for data in datas:
-        dataToPrint = dataToPrint + "\n"
-        dataToPrint = dataToPrint +"\tvar "+cleanIdForJS(data.name())+"=[];\n"
-        serie = data.serie()
-        for i in range(0,len(serie)):
-            dataToPrint = dataToPrint + "\t"+cleanIdForJS(data.name())+".push(["+timeSerie[i]+","+serie[i]+"]);\n"
-
-    dataToPrint += "\n\tdatasRead=[\n"
     index = 0
     for data in datas:
-        dataToPrint +="\t{\n"
-        dataToPrint +='\t\tlabel:"'+data.name()+'",\n'
-        dataToPrint +="\t\tdata:"+cleanIdForJS(data.name())+"\n"
+        dataToPrint.append("")
+        text = "\n"
+        name = cleanIdForJS(data.name())
+        text += "\tvar "+name+"=[];\n"
+        serie = data.serie()
+        for i in range(0,len(serie)):
+            text += "\t"+name+".push(["+timeSerie[i]+","+serie[i]+"]);\n"
+        dataToPrint[index] = text
+
+        dataToPrintBody.append("")
+        textBody ="\t{\n"
+        textBody +='\t\tlabel:"'+data.name()+'",\n'
+        textBody +="\t\tdata:"+name+"\n"
         if(index < len(datas)-1):
-            dataToPrint +="\t},\n"
+            textBody +="\t},\n"
         else:
-            dataToPrint +="\t}\n"
-        index += 1
-    dataToPrint += "\t];\n"
+            textBody +="\t}\n"
+        dataToPrintBody[index] = textBody
+
+        index +=1
+
 
     titleToPrint = os.path.basename(csv_file)
     ## javascript file
@@ -116,7 +121,13 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
 
     for line in lines:
         if (line.find("@DATA_TO_PRINT@")!=-1):
-            line=line.replace("@DATA_TO_PRINT@",dataToPrint)
+            for data in dataToPrint:
+                fileDst.write(data)
+            fileDst.write("\n\tdatasRead=[\n")
+            for data in dataToPrintBody:
+                fileDst.write(data)
+            fileDst.write("\t];\n")
+            continue
         elif(line.find("@TITLE_TO_READ@")!=-1):
             line=line.replace("@TITLE_TO_READ@",titleToPrint)
         elif(line.find("@SHOW_POINTS@")!=-1):
