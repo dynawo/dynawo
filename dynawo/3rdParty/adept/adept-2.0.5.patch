@@ -95,3 +95,57 @@ diff -urpN adept-2.0.5/include/adept/Expression.h adept-2.0.5_patched/include/ad
        internal::ScratchVector<A::n_scratch> scratch;
        ExpressionSize<0> dummy_index;
        Type val = cast().template value_at_location_store_<0,0>(dummy_index, scratch);
+diff -urpN adept-2.0.5/include/adept/UnaryOperation.h adept-2.0.5_patched/include/adept/UnaryOperation.h
+--- adept-2.0.5/include/adept/UnaryOperation.h	2018-01-10 11:24:08.000000000 +0100
++++ adept-2.0.5_patched/include/adept/UnaryOperation.h	2019-07-23 09:41:36.635081010 +0200
+@@ -226,6 +226,39 @@ namespace adept {
+ 				   adept::internal::NAME, R>(r.cast()); \
+   }
+ 
++#define ADEPT_DEF_UNARY_FUNC_FIXED_DERIVATIVE(NAME, FUNC, RAWFUNC, STRING, DERIVATIVE, \
++           ISVEC)         \
++  namespace internal {              \
++    template <typename Type>            \
++    struct NAME  {              \
++      static const bool is_operator = false;        \
++      static const bool is_vectorized = ISVEC;        \
++      const char* operation_string() const { return STRING; }   \
++      template <typename T>           \
++      T operation(const T& val) const {         \
++  using RAWFUNC;              \
++  return FUNC(val);           \
++      }                 \
++      Type derivative(const Type&, const Type&) const {  \
++  using std::sin;             \
++  using std::cos;             \
++  using std::sqrt;            \
++  using std::cosh;            \
++  using std::sinh;            \
++  using std::exp;             \
++  return DERIVATIVE;            \
++      }                 \
++      Type fast_sqr(Type val) const { return val*val; }     \
++    };                  \
++  } /* End namespace internal */          \
++  template <class Type, class R>          \
++  inline                \
++  adept::internal::UnaryOperation<Type, adept::internal::NAME, R> \
++  FUNC(const adept::Expression<Type, R>& r) {     \
++    return adept::internal::UnaryOperation<Type,      \
++           adept::internal::NAME, R>(r.cast()); \
++  }
++
+   // Functions y(x) whose derivative depends on the argument of the
+   // function, i.e. dy(x)/dx = f(x)
+   ADEPT_DEF_UNARY_FUNC(Log,   log,   std::log,   "log",   1.0/val, false)
+@@ -248,8 +281,8 @@ namespace adept {
+   ADEPT_DEF_UNARY_FUNC(Tanh,  tanh,  std::tanh,  "tanh",  1.0 - result*result, false)
+ 
+   // Functions with zero derivative
+-  ADEPT_DEF_UNARY_FUNC(Ceil,  ceil,  std::ceil,  "ceil",  0.0, false)
+-  ADEPT_DEF_UNARY_FUNC(Floor, floor, std::floor, "floor", 0.0, false)
++  ADEPT_DEF_UNARY_FUNC_FIXED_DERIVATIVE(Ceil,  ceil,  std::ceil,  "ceil",  0.0, false)
++  ADEPT_DEF_UNARY_FUNC_FIXED_DERIVATIVE(Floor, floor, std::floor, "floor", 0.0, false)
+   
+   // Functions defined in the std namespace in C++11 but only in the
+   // global namespace before that
