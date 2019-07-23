@@ -137,11 +137,10 @@ class SolverSIM : public Solver::Impl {
 
  private:
   /**
-   * @brief find the solution of the problem for t+h (h is the step)
-   *
-   * @return the current status of the solver
+   * @brief integrate the DAE over an interval and recalculate it in case of a z change
+   * @param tNxt next time step
    */
-  SolverStatus_t solve();
+  void solveWithStepRecalculation(double &tNxt);
 
   /**
    * @brief integrate the DAE over an interval without recalculting the step in case of a z change
@@ -150,10 +149,22 @@ class SolverSIM : public Solver::Impl {
   void solveWithoutStepRecalculation(double &tNxt);
 
   /**
-   * @brief integrate the DAE over an interval and recalculate it in case of a z change
-   * @param tNxt next time step
+   * @brief save the initial values of roots, y, yp and z before the time step
    */
-  void solveWithStepRecalculation(double &tNxt);
+  void saveInitialValues();
+
+  /**
+   * @brief increment the counter of NR tries and stop the simulation if it is higher than a threshold
+   * @param counter the current number of tries
+   */
+  void handleMaximumTries(int& counter);
+
+  /**
+   * @brief find the solution of the problem for t+h (h is the step)
+   *
+   * @return the current status of the solver
+   */
+  SolverStatus_t solve();
 
   /**
    * @brief find the solution of f(u(t+h))
@@ -163,16 +174,6 @@ class SolverSIM : public Solver::Impl {
   int SIMCorrection();
 
   /**
-   * @brief calculate the new step to use after convergence
-   */
-  void updateStepConvergence();
-
-  /**
-   * @brief calculate the new step to use after divergence
-   */
-  void updateStepDivergence();
-
-  /**
    * @brief call the euler kin solver to find the solution
    *
    * @return @b 0 if the solver found a solution
@@ -180,9 +181,15 @@ class SolverSIM : public Solver::Impl {
   int callSolverEulerKIN();
 
   /**
-   * @brief save the initial values of roots, y, yp and z before the time step
+   * @brief update the solver attributes and strategy following a divergence
+   * @param redoStep indicates if the step has to be recalculated or not
    */
-  void saveInitialValues();
+  void handleDivergence(bool& redoStep);
+
+  /**
+   * @brief calculate the new step to use after divergence
+   */
+  void updateStepDivergence();
 
   /**
    * @brief restore y, yp and possibly z and roots to their initial values
@@ -191,6 +198,29 @@ class SolverSIM : public Solver::Impl {
    * @param rootRestoration @b 1 if the root values also have to be restored to their initial values
    */
   void restoreInitialValues(bool zRestoration, bool rootRestoration);
+
+  /**
+   * @brief update the solver attributes and strategy following a convergence
+   * @param redoStep indicates if the step has to be recalculated or not
+   */
+  void handleConvergence(bool& redoStep);
+
+  /**
+   * @brief calculate the new step to use after convergence
+   */
+  void updateStepConvergence();
+
+  /**
+   * @brief update the solver attributes and strategu following an algebraic root detection
+   * @param redoStep indicates if the step has to be recalculated or not
+   */
+  void handleAlgebraicRoot(bool& redoStep);
+
+  /**
+   * @brief update the time step at the end of the current step
+   * @param tNxt current time step calculated
+   */
+  void updateTimeStep(double& tNxt);
 
  private:
   boost::shared_ptr<SolverEulerKIN> solverEulerKIN_;  ///< Backward Euler solver
