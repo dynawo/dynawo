@@ -18,6 +18,8 @@
 #include <IIDM/extensions/remoteMeasurements/xml/RemoteMeasurementsHandler.h>
 #include <IIDM/extensions/RemoteMeasurements.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 #include <iostream>
 
@@ -49,7 +51,8 @@ void TapPositionHandler::do_startElement(elementName_type const& element, attrib
 
 
 std::string RemoteMeasurementsHandler::xsd_path() {
-  return IIDM_EXT_REMOTEMEASUREMENTS_XML_XSD_PATH + std::string("remoteMeasurements.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_REMOTEMEASUREMENTS_XML_XSD_PATH");
+  return xsdPath + std::string("remoteMeasurements.xsd");
 }
 
 RemoteMeasurementsHandler::elementName_type const RemoteMeasurementsHandler::root (

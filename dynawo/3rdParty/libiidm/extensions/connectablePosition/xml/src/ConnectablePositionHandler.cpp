@@ -18,6 +18,8 @@
 #include <IIDM/extensions/connectablePosition/xml/ConnectablePositionHandler.h>
 #include <IIDM/extensions/ConnectablePosition.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include <boost/phoenix/core.hpp>
 #include <boost/phoenix/operator/self.hpp>
 #include <boost/phoenix/bind.hpp>
@@ -51,7 +53,8 @@ void FeederHandler::do_startElement(elementName_type const& /*name*/, attributes
 }
 
 std::string ConnectablePositionHandler::xsd_path() {
-  return IIDM_EXT_CONNECTABLEPOSITION_XML_XSD_PATH + std::string("connectablePosition.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_CONNECTABLEPOSITION_XML_XSD_PATH");
+  return xsdPath + std::string("connectablePosition.xsd");
 }
 
 ConnectablePositionHandler::elementName_type const ConnectablePositionHandler::root(

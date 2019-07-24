@@ -19,16 +19,4 @@
 
 #include <IIDM/xml/config.h>
 
-//cmake generated constants.
-
-#ifndef IIDM_TESTING
-//release builds use xsd in installation path
-#define IIDM_XML_XSD_PATH "@CMAKE_INSTALL_PREFIX@/@IIDM_SHARE_PATH@/xsd/"
-
-#else
-//testing builds use xsd in build path
-#define IIDM_XML_XSD_PATH "@CMAKE_BINARY_DIR@/@IIDM_SHARE_PATH@/xsd/"
-
-#endif
-
 #endif

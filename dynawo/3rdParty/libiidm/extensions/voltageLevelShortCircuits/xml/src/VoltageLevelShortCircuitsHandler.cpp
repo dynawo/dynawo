@@ -18,6 +18,8 @@
 #include <IIDM/extensions/voltageLevelShortCircuits/xml/VoltageLevelShortCircuitsHandler.h>
 #include <IIDM/extensions/VoltageLevelShortCircuits.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -28,7 +30,8 @@ namespace voltagelevelshortcircuits {
 namespace xml {
 
 std::string VoltageLevelShortCircuitsHandler::xsd_path() {
-  return IIDM_EXT_VOLTAGELEVELSHORTCIRCUITS_XML_XSD_PATH + std::string("voltageLevelShortCircuits.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_VOLTAGELEVELSHORTCIRCUITS_XML_XSD_PATH");
+  return xsdPath + std::string("voltageLevelShortCircuits.xsd");
 }
 
 VoltageLevelShortCircuitsHandler::elementName_type const VoltageLevelShortCircuitsHandler::root(

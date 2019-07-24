@@ -18,6 +18,8 @@
 #include <IIDM/extensions/hvdcOperatorActivePowerRange/xml/HvdcOperatorActivePowerRangeHandler.h>
 #include <IIDM/extensions/HvdcOperatorActivePowerRange.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -28,7 +30,8 @@ namespace hvdcoperatoractivepowerrange {
 namespace xml {
 
 std::string HvdcOperatorActivePowerRangeHandler::xsd_path() {
-    return IIDM_EXT_HVDCOPERATORACTIVEPOWERRANGE_XML_XSD_PATH + std::string("hvdcOperatorActivePowerRange.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_HVDCOPERATORACTIVEPOWERRANGE_XML_XSD_PATH");
+  return xsdPath + std::string("hvdcOperatorActivePowerRange.xsd");
 }
 
 HvdcOperatorActivePowerRangeHandler::elementName_type const HvdcOperatorActivePowerRangeHandler::root(

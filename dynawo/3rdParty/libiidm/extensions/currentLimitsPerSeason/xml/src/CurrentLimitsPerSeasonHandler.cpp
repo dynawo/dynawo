@@ -17,6 +17,8 @@
 
 #include <IIDM/extensions/currentLimitsPerSeason/xml/CurrentLimitsPerSeasonHandler.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 #include <boost/bind.hpp>
@@ -40,7 +42,8 @@ namespace xml {
 // ************ class CurrentLimitsPerSeasonHandler ************ //
 
 std::string CurrentLimitsPerSeasonHandler::xsd_path() {
-  return IIDM_EXT_CURRENTLIMITSPERSEASON_XML_XSD_PATH + std::string("currentLimitsPerSeason.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_CURRENTLIMITSPERSEASON_XML_XSD_PATH");
+  return xsdPath + std::string("currentLimitsPerSeason.xsd");
 }
 
 CurrentLimitsPerSeasonHandler::elementName_type const CurrentLimitsPerSeasonHandler::root(

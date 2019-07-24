@@ -18,6 +18,8 @@
 #include <IIDM/extensions/generatorEntsoeCategory/xml/GeneratorEntsoeCategoryHandler.h>
 #include <IIDM/extensions/GeneratorEntsoeCategory.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -28,7 +30,8 @@ namespace generator_entsoe_category {
 namespace xml {
 
 std::string GeneratorEntsoeCategoryHandler::xsd_path() {
-  return IIDM_EXT_GENERATORENTSOECATEGORY_XML_XSD_PATH + std::string("generatorEntsoeCategory.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_GENERATORENTSOECATEGORY_XML_XSD_PATH");
+  return xsdPath + std::string("generatorEntsoeCategory.xsd");
 }
 
 GeneratorEntsoeCategoryHandler::elementName_type const GeneratorEntsoeCategoryHandler::root(

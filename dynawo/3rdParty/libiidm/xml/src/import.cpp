@@ -16,6 +16,7 @@
  */
 
 #include <IIDM/xml/import.h>
+#include "IIDM/xml/ExecUtils.h"
 
 #include <xml/sax/parser/Parser.h>
 #include <xml/sax/parser/ParserException.h>
@@ -43,7 +44,8 @@ void xml_parser::register_extension(extension_uri const& uri, ExtensionHandlerFa
 
 parser::ParserPtr xml_parser::make_parser(bool validating) {
   parser::ParserPtr parser = parser_factory.createParser();
-  if (validating) parser->addXmlSchema( IIDM_XML_XSD_PATH + std::string("iidm.xsd") );
+  const std::string xsdPath = getEnvVar("IIDM_XML_XSD_PATH");
+  if (validating) parser->addXmlSchema( xsdPath + std::string("iidm.xsd") );
 
   return parser;
 }

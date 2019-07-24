@@ -18,6 +18,8 @@
 #include <IIDM/extensions/hvdcAngleDroopActivePowerControl/xml/HvdcAngleDroopActivePowerControlHandler.h>
 #include <IIDM/extensions/HvdcAngleDroopActivePowerControl.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -28,7 +30,8 @@ namespace hvdcangledroopactivepowercontrol {
 namespace xml {
 
 std::string HvdcAngleDroopActivePowerControlHandler::xsd_path() {
-    return IIDM_EXT_HVDCANGLEDROOPACTIVEPOWERCONTROL_XML_XSD_PATH + std::string("hvdcAngleDroopActivePowerControl.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_HVDCANGLEDROOPACTIVEPOWERCONTROL_XML_XSD_PATH");
+  return xsdPath + std::string("hvdcAngleDroopActivePowerControl.xsd");
 }
 
 HvdcAngleDroopActivePowerControlHandler::elementName_type const HvdcAngleDroopActivePowerControlHandler::root(
