@@ -41,6 +41,7 @@ class Timeline;
 
 namespace DYN {
 
+
 /**
  * @brief Structure for storing solver statistics
  */
@@ -78,16 +79,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual ~Impl();
 
   /**
-   * @copydoc Solver::setState(const State& state)
-   */
-  inline void setState(const State& state) {
-    state_ = state;
-  }
-
-  /**
    * @copydoc Solver::getState()
    */
-  inline const State& getState() const {
+  inline const BitMask& getState() const {
     return state_;
   }
 
@@ -294,7 +288,8 @@ class Solver::Impl : public Solver, private boost::noncopyable {
 
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver
-  State state_;  ///< current state value of the solver
+
+  BitMask state_;  ///< current state value of the solver
 };
 
 }  // end of namespace DYN

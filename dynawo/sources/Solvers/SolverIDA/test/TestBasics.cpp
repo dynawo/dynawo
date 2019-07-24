@@ -214,14 +214,14 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   std::vector<double> yp(yp0);
   std::vector<double> z(z0);
   solver->solve(tStop, tCurrent, y, yp);
-  ASSERT_EQ(solver->getState(), NoChange);
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
   solver->solve(tStop, tCurrent, y, yp);
-  ASSERT_EQ(solver->getState(), NoChange);
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -232,7 +232,7 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   // IDA will thus stop just after t = 2 which explains that we have two steps around 2 s.
   solver->solve(tStop, tCurrent, y, yp);
 
-  ASSERT_EQ(solver->getState(), NoChange);
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -272,14 +272,14 @@ TEST(SimulationTest, testSolverIDATestBeta) {
   std::vector<double> z(z0);
   solver->solve(tStop, tCurrent, y, yp);
   z = solver->getCurrentZ();
-  ASSERT_EQ(solver->getState(), NoChange);
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
 
   solver->solve(tStop, tCurrent, y, yp);
   z = solver->getCurrentZ();
-  ASSERT_EQ(solver->getState(), NoChange);
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
@@ -289,7 +289,7 @@ TEST(SimulationTest, testSolverIDATestBeta) {
   // IDA will thus stop just after t = 2 which explains that we have two steps around 2 s.
   solver->solve(tStop, tCurrent, y, yp);
   z = solver->getCurrentZ();
-  ASSERT_EQ(solver->getState(), NoChange);
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
@@ -316,7 +316,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   std::vector<double> z(z0);
 
   solver->solve(tStop, tCurrent, y, yp);
-  ASSERT_EQ(solver->getState(), NoChange);
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
   // Checking the voltage values at extreme nodes - Infinite node and F21 bus
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
@@ -334,7 +334,8 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
 
   // Algebraic mode detection - line opening in the network
   solver->solve(tStop, tCurrent, y, yp);
-  ASSERT_EQ(solver->getState(), ModeAndZChange);
+  ASSERT_EQ(solver->getState().getFlags(ZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.09225375878818535547);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
@@ -371,7 +372,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   }
 
   solver->solve(tStop, tCurrent, y, yp);
-  ASSERT_EQ(solver->getState(), NoChange);
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239374639887377);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482837234209295);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
