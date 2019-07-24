@@ -25,6 +25,8 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
+#include "DYNBitMask.h"
+
 namespace parameters {
 class ParametersSet;
 }
@@ -34,15 +36,15 @@ class Timeline;
 }  // namespace timeline
 
 namespace DYN {
+
 /**
- * @brief Status of the current numerical resolution
+ * @brief Flags of the current numerical resolution
  */
 typedef enum {
-  NoChange = 0,
-  ModeChange,
-  ZChange,
-  ModeAndZChange
-} State;
+  NoChange = 0x00,
+  ModeChange = 0x01,
+  ZChange = 0x02
+} StateFlags;
 
 /**
  * @brief Identifier of the current solver used
@@ -71,16 +73,10 @@ class Solver {
   virtual ~Solver() { }
 
   /**
-   * @brief set the solver's state
-   * @param state: new solver state
-   */
-  virtual void setState(const State& state) = 0;
-
-  /**
    * @brief get the current solver's state
    * @return solver state
    */
-  virtual const State& getState() const = 0;
+  virtual const BitMask& getState() const = 0;
 
   /**
    * @brief set the solver's parameters

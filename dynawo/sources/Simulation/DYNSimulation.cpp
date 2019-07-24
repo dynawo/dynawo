@@ -122,6 +122,7 @@
 #include "DYNExecUtils.h"
 #include "DYNSignalHandler.h"
 #include "DYNDataInterfaceIIDM.h"
+#include "DYNBitMask.h"
 
 using std::ofstream;
 using std::fstream;
@@ -750,14 +751,14 @@ Simulation::simulate() {
       iterate();
       solver_->printSolve();
 
-      State solverState = solver_->getState();
-      if (solverState == ModeAndZChange || solverState == ModeChange) {
+      BitMask solverState = solver_->getState();
+      if (solverState.getFlags(ModeChange)) {
         updateCurves(true);
         Trace::debug() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit(yCurrent_, ypCurrent_);
         zCurrent_ = solver_->getCurrentZ();
         solver_->printSolve();
-      } else if (solverState == ZChange) {
+      } else if (solverState.getFlags(ZChange)) {
         updateCurves(true);
         zCurrent_ = solver_->getCurrentZ();
       }

@@ -73,6 +73,7 @@ model_() {
   yp_ = NULL;
   yz_ = NULL;
   yId_ = NULL;
+  tSolve_ = 0.;
 }
 
 Solver::Impl::~Impl() {
@@ -200,7 +201,7 @@ Solver::Impl::resetStats() {
 void
 Solver::Impl::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt) {
   // Solving
-  state_ = NoChange;
+  state_.reset();
   model_->rotateBuffers();
   solve(tAim, tNxt);
 
@@ -232,20 +233,14 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
     stableRoot = detectUnstableRoot(G0, G1, time);
 
     if (zChange && modeChange) {
-      state_ = ModeAndZChange;
+      state_.setFlags(ModeChange | ZChange);
       change = true;
     } else if (zChange) {
       change = true;
-      if (state_ == ModeChange || state_ == ModeAndZChange)
-        state_ = ModeAndZChange;
-      else
-        state_ = ZChange;
+      state_.setFlags(ZChange);
     } else if (modeChange) {
-        change = true;
-        if (state_ == ZChange || state_ == ModeAndZChange)
-          state_ = ModeAndZChange;
-        else
-          state_ = ModeChange;
+      change = true;
+      state_.setFlags(ModeChange);
     } else if (stableRoot) {
       return change;
     }

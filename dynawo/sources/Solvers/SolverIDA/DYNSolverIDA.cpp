@@ -661,11 +661,11 @@ SolverIDA::solve(double tAim, double &tNxt) {
     updateStatistics();
 
     // Dealing with the impact of the root change
-    if (state_ == ZChange) {
+    if (state_.getFlags(ZChange)) {
       int flag0 = IDAReInit(IDAMem_, tNxt, yy_, yp_);  // required to relaunch the simulation
       if (flag0 < 0)
         throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
-    } else if (state_ == NoChange) {
+    } else if (state_.noFlagSet()) {
       /* At the moment, there isn't a proper detection of mode changes in Modelica models (evalMode always returns NO_MODE).
        *
        * In this case, due to the call to IDAReinit, the next time step will be the initial time step

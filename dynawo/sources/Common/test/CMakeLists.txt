@@ -11,6 +11,7 @@
 SET(MODULE_NAME COMMON_unittest)
 
 SET(MODULE_SOURCES
+    TestBitMask.cpp
     TestGraph.cpp
     TestParameter.cpp
     TestErrorQueue.cpp
