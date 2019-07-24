@@ -7,7 +7,16 @@
 # SPDX-License-Identifier: BSD-3-Clause
 diff -urpN adept-2.0.5/include/adept/Active.h adept-2.0.5_patched/include/adept/Active.h
 --- adept-2.0.5/include/adept/Active.h	2018-02-06 22:41:30.000000000 +0100
-+++ adept-2.0.5_patched/include/adept/Active.h	2019-07-22 13:39:35.199730672 +0200
++++ adept-2.0.5_patched/include/adept/Active.h	2019-07-24 10:14:14.447121144 +0200
+@@ -78,7 +78,7 @@ namespace adept {
+     //   aReal x(1.0);
+     template <typename PType>
+     Active(const PType& rhs,
+-	   typename enable_if<is_not_expression<PType>::value>::type* dummy = 0)
++	   typename enable_if<is_not_expression<PType>::value>::type* = 0)
+       : val_(rhs), gradient_index_(ADEPT_ACTIVE_STACK->register_gradient())
+     {
+       // By pushing this to the statement stack without pushing
 @@ -491,27 +491,27 @@ namespace adept {
      { return val_; }
      
