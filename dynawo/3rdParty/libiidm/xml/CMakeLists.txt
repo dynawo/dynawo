@@ -37,6 +37,8 @@ set(IIDM_XML_SOURCES
   src/export/attributes_helper.cpp
   src/export/export_functions.cpp
 
+  src/ExecUtils.cpp
+
   src/import.cpp
   src/import/IIDMDocumentHandler.cpp
 

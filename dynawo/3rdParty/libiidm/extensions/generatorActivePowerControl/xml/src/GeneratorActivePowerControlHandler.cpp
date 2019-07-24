@@ -18,6 +18,8 @@
 #include <IIDM/extensions/generatorActivePowerControl/xml/GeneratorActivePowerControlHandler.h>
 #include <IIDM/extensions/GeneratorActivePowerControl.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -28,7 +30,8 @@ namespace generatoractivepowercontrol {
 namespace xml {
 
 std::string GeneratorActivePowerControlHandler::xsd_path() {
-  return IIDM_EXT_GENERATORACTIVEPOWERCONTROL_XML_XSD_PATH + std::string("generatorActivePowerControl.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_GENERATORACTIVEPOWERCONTROL_XML_XSD_PATH");
+  return xsdPath + std::string("generatorActivePowerControl.xsd");
 }
 
 GeneratorActivePowerControlHandler::elementName_type const GeneratorActivePowerControlHandler::root(

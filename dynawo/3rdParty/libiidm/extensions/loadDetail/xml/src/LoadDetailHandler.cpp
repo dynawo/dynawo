@@ -18,6 +18,8 @@
 #include <IIDM/extensions/loadDetail/xml/LoadDetailHandler.h>
 #include <IIDM/extensions/LoadDetail.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -28,7 +30,8 @@ namespace load_detail {
 namespace xml {
 
 std::string LoadDetailHandler::xsd_path() {
-  return IIDM_EXT_LOADDETAIL_XML_XSD_PATH + std::string("loadDetail.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_LOADDETAIL_XML_XSD_PATH");
+  return xsdPath + std::string("loadDetail.xsd");
 }
 
 LoadDetailHandler::elementName_type const LoadDetailHandler::root(

@@ -18,6 +18,8 @@
 #include <IIDM/extensions/generatorStartup/xml/GeneratorStartupHandler.h>
 #include <IIDM/extensions/GeneratorStartup.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -28,7 +30,8 @@ namespace generator_startup {
 namespace xml {
 
 std::string GeneratorStartupHandler::xsd_path() {
-  return IIDM_EXT_GENERATORSTARTUP_XML_XSD_PATH + std::string("generatorStartup.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_GENERATORSTARTUP_XML_XSD_PATH");
+  return xsdPath + std::string("generatorStartup.xsd");
 }
 
 GeneratorStartupHandler::elementName_type const GeneratorStartupHandler::root(

@@ -18,6 +18,8 @@
 #include <IIDM/extensions/generatorShortCircuits/xml/GeneratorShortCircuitsHandler.h>
 #include <IIDM/extensions/GeneratorShortCircuits.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -28,7 +30,8 @@ namespace generatorshortcircuits {
 namespace xml {
 
 std::string GeneratorShortCircuitsHandler::xsd_path() {
-  return IIDM_EXT_GENERATORSHORTCIRCUITS_XML_XSD_PATH + std::string("generatorShortCircuits.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_GENERATORSHORTCIRCUITS_XML_XSD_PATH");
+  return xsdPath + std::string("generatorShortCircuits.xsd");
 }
 
 GeneratorShortCircuitsHandler::elementName_type const GeneratorShortCircuitsHandler::root(

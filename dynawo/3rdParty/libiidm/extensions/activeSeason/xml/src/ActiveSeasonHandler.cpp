@@ -17,6 +17,8 @@
 
 #include <IIDM/extensions/activeSeason/xml/ActiveSeasonHandler.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -27,7 +29,8 @@ namespace activeseason {
 namespace xml {
 
 std::string ActiveSeasonHandler::xsd_path() {
-  return IIDM_EXT_ACTIVESEASON_XML_XSD_PATH + std::string("activeSeason.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_ACTIVESEASON_XML_XSD_PATH");
+  return xsdPath + std::string("activeSeason.xsd");
 }
 
 ActiveSeasonHandler::elementName_type const ActiveSeasonHandler::root(

@@ -19,9 +19,4 @@
 
 #include <IIDM/version.h>
 
-//cmake generated constants.
-
-#define IIDM_INSTALL_PATH "@CMAKE_INSTALL_PREFIX@"
-#define IIDM_RESOURCE_PATH "@CMAKE_INSTALL_PREFIX@/@IIDM_SHARE_PATH@/"
-
 #endif

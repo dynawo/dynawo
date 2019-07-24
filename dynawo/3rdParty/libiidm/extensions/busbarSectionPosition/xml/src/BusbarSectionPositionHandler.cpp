@@ -18,6 +18,8 @@
 #include <IIDM/extensions/busbarSectionPosition/xml/BusbarSectionPositionHandler.h>
 #include <IIDM/extensions/BusbarSectionPosition.h>
 
+#include <IIDM/xml/ExecUtils.h>
+
 #include "internals/config.h"
 
 namespace parser = ::xml::sax::parser;
@@ -28,7 +30,8 @@ namespace busbarsection_position {
 namespace xml {
 
 std::string BusbarSectionPositionHandler::xsd_path() {
-  return IIDM_EXT_BUSBARSECTIONPOSITION_XML_XSD_PATH + std::string("busbarSectionPosition.xsd");
+  const std::string xsdPath = getEnvVar("IIDM_EXT_BUSBARSECTIONPOSITION_XML_XSD_PATH");
+  return xsdPath + std::string("busbarSectionPosition.xsd");
 }
 
 BusbarSectionPositionHandler::elementName_type const BusbarSectionPositionHandler::root(
