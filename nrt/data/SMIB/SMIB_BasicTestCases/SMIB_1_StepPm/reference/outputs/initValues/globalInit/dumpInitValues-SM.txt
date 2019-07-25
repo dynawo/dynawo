@@ -11,13 +11,15 @@ Pm_step_value                                     : y =          0.903 yp =     
 URef_setPoint_value                               : y =        1.12104 yp =              0
 avr_EfdPu                                         : y =        2.42046 yp =              0
 avr_EfdPuPin_value                                : y =        2.42046 yp =              0
-avr_UcEfdPu                                       : y =        1.12104 yp =              0
 avr_UsPu                                          : y =        1.00001 yp =              0
+avr_UsRefPu                                       : y =        1.12104 yp =              0
 avr_feedback_u1                                   : y =        1.12104 yp =              0
 avr_feedback_u2                                   : y =        1.00001 yp =              0
 avr_feedback_y                                    : y =       0.121023 yp =              0
 avr_gain_u                                        : y =       0.121023 yp =              0
 avr_gain_y                                        : y =        2.42046 yp =              0
+avr_limUsRef_u                                    : y =        1.12104 yp =              0
+avr_limUsRef_y                                    : y =        1.12104 yp =              0
 avr_limiterWithLag_u                              : y =        2.42046 yp =              0
 avr_limiterWithLag_y                              : y =        2.42046 yp =              0
 gen_IRotorPu_value                                : y =        2.42068 yp =              0
@@ -95,9 +97,13 @@ avr_EfdMinPu                                       =             -5
 avr_Gain                                           =             20
 avr_LagEfdMax                                      =              0
 avr_LagEfdMin                                      =              0
-avr_UcEfd0Pu                                       =        1.12104
 avr_Us0Pu                                          =              1
+avr_UsRef0Pu                                       =        1.12104
+avr_UsRefMaxPu                                     =            1.2
+avr_UsRefMinPu                                     =            0.8
 avr_gain_k                                         =             20
+avr_limUsRef_uMax                                  =            1.2
+avr_limUsRef_uMin                                  =            0.8
 avr_limiterWithLag_LagMax                          =              0
 avr_limiterWithLag_LagMin                          =              0
 avr_limiterWithLag_UMax                            =              5
@@ -192,6 +198,8 @@ gover_limiter_uMax                                 =              1
 gover_limiter_uMin                                 =              0
 gover_omegaRefPu_k                                 =              1
 omegaRef_Value0                                    =              1
+avr_limUsRef_limitsAtInit                          =              1
+avr_limUsRef_strict                                =             -1
 gover_limiter_limitsAtInit                         =              1
 gover_limiter_strict                               =             -1
 gen_ExcitationPu                                   =              1
