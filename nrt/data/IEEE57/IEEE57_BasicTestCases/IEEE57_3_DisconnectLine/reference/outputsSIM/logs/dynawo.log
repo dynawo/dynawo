@@ -1,159 +1,159 @@
-2019-09-10 16:25:16 | DEBUG |  ============================================================ 
-2019-09-10 16:25:16 | DEBUG | DYNAWO VERSION  :     1.0.1
-2019-09-10 16:25:16 | DEBUG | DYNAWO REVISION :  401_network_connection-6ac65f1
-2019-09-10 16:25:16 | DEBUG |  ============================================================ 
-2019-09-10 16:25:17 | DEBUG | connecting DisconnectLine_event_state1 with NETWORK__BEAV___6-CLIN___8-1_AC_state
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omega_grp_3 with GEN___12_SM_generator_omegaPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omegaRef_grp_3 with GEN___12_SM_generator_omegaRefPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_running_grp_3 with GEN___12_SM_generator_running
-2019-09-10 16:25:17 | DEBUG | connecting GEN___12_SM_generator_switchOffSignal1 with NETWORK__GLEN__12_TN_switchOff
-2019-09-10 16:25:17 | DEBUG | connecting GEN___12_SM_generator_terminal with NETWORK__GLEN__12_TN_ACPIN
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omega_grp_2 with GEN____1_SM_generator_omegaPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omegaRef_grp_2 with GEN____1_SM_generator_omegaRefPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_running_grp_2 with GEN____1_SM_generator_running
-2019-09-10 16:25:17 | DEBUG | connecting GEN____1_SM_generator_switchOffSignal1 with NETWORK__KANA___1_TN_switchOff
-2019-09-10 16:25:17 | DEBUG | connecting GEN____1_SM_generator_terminal with NETWORK__KANA___1_TN_ACPIN
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omega_grp_6 with GEN____2_SM_generator_omegaPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omegaRef_grp_6 with GEN____2_SM_generator_omegaRefPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_running_grp_6 with GEN____2_SM_generator_running
-2019-09-10 16:25:17 | DEBUG | connecting GEN____2_SM_generator_switchOffSignal1 with NETWORK__TURN___2_TN_switchOff
-2019-09-10 16:25:17 | DEBUG | connecting GEN____2_SM_generator_terminal with NETWORK__TURN___2_TN_ACPIN
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omega_grp_4 with GEN____3_SM_generator_omegaPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omegaRef_grp_4 with GEN____3_SM_generator_omegaRefPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_running_grp_4 with GEN____3_SM_generator_running
-2019-09-10 16:25:17 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal1 with NETWORK__LOGA___3_TN_switchOff
-2019-09-10 16:25:17 | DEBUG | connecting GEN____3_SM_generator_terminal with NETWORK__LOGA___3_TN_ACPIN
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omega_grp_0 with GEN____6_SM_generator_omegaPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omegaRef_grp_0 with GEN____6_SM_generator_omegaRefPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_running_grp_0 with GEN____6_SM_generator_running
-2019-09-10 16:25:17 | DEBUG | connecting GEN____6_SM_generator_switchOffSignal1 with NETWORK__BEAV___6_TN_switchOff
-2019-09-10 16:25:17 | DEBUG | connecting GEN____6_SM_generator_terminal with NETWORK__BEAV___6_TN_ACPIN
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omega_grp_5 with GEN____8_SM_generator_omegaPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omegaRef_grp_5 with GEN____8_SM_generator_omegaRefPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_running_grp_5 with GEN____8_SM_generator_running
-2019-09-10 16:25:17 | DEBUG | connecting GEN____8_SM_generator_switchOffSignal1 with NETWORK__CLIN___8_TN_switchOff
-2019-09-10 16:25:17 | DEBUG | connecting GEN____8_SM_generator_terminal with NETWORK__CLIN___8_TN_ACPIN
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omega_grp_1 with GEN____9_SM_generator_omegaPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_omegaRef_grp_1 with GEN____9_SM_generator_omegaRefPu
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_running_grp_1 with GEN____9_SM_generator_running
-2019-09-10 16:25:17 | DEBUG | connecting GEN____9_SM_generator_switchOffSignal1 with NETWORK__SALT___9_TN_switchOff
-2019-09-10 16:25:17 | DEBUG | connecting GEN____9_SM_generator_terminal with NETWORK__SALT___9_TN_ACPIN
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_numcc_node_3 with NETWORK__GLEN__12_TN_numcc
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_numcc_node_2 with NETWORK__KANA___1_TN_numcc
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_numcc_node_6 with NETWORK__TURN___2_TN_numcc
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_numcc_node_4 with NETWORK__LOGA___3_TN_numcc
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_numcc_node_0 with NETWORK__BEAV___6_TN_numcc
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_numcc_node_5 with NETWORK__CLIN___8_TN_numcc
-2019-09-10 16:25:17 | DEBUG | connecting OMEGA_REF_numcc_node_1 with NETWORK__SALT___9_TN_numcc
-2019-09-10 16:25:17 | INFO | adding curve : Id: NETWORK; curve: _KANA___1_TN_Upu_value found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: NETWORK; curve: _TURN___2_TN_Upu_value found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: NETWORK; curve: _LOGA___3_TN_Upu_value found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: NETWORK; curve: _BEAV___6_TN_Upu_value found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: NETWORK; curve: _CLIN___8_TN_Upu_value found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: NETWORK; curve: _SALT___9_TN_Upu_value found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: NETWORK; curve: _GLEN__12_TN_Upu_value found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____9_SM; curve: generator_PGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN___12_SM; curve: generator_PGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____9_SM; curve: generator_QGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN___12_SM; curve: generator_QGen found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____9_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN___12_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____1_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____2_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____3_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____6_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____8_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN____9_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: GEN___12_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2019-09-10 16:25:17 | INFO | adding curve : Id: NETWORK; curve: _BEAV___6-BUS____7-1_AC_P2_value found. (exact name)
-2019-09-10 16:25:17 | INFO | adding curve : Id: NETWORK; curve: _BUS____7-CLIN___8-1_AC_P1_value found. (exact name)
-2019-09-10 16:25:17 | DEBUG | nbSubNetwork = 1 nbsub = 1
-2019-09-10 16:25:17 | DEBUG | subNetwork[0] nbBus = 57
-2019-09-10 16:25:17 | DEBUG | keep SubNetworks num : 0
-2019-09-10 16:25:17 | DEBUG | calculate initial condition of the DAE
-2019-09-10 16:25:17 | DEBUG | initial condition iteration 0
-2019-09-10 16:25:17 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-09-10 16:25:17 | DEBUG | end of calculate initial condition of the DAE
-2019-09-10 16:25:17 | DEBUG | -----------------------------------------------------------------------
-2019-09-10 16:25:17 | DEBUG | number of continuous variables : 666 (display limited to 4 variables)
-2019-09-10 16:25:17 | DEBUG | number of discrete variables : 592
-2019-09-10 16:25:17 | DEBUG | -----------------------------------------------------------------------
-2019-09-10 16:25:17 | DEBUG |     t              y1            y2            y3            y4      | nst k      h
-2019-09-10 16:25:17 | DEBUG | -----------------------------------------------------------------------
-2019-09-10 16:25:17 | DEBUG |        0.000  9.687858e-01 -1.477579e-01 -5.082042e-04 -9.206685e-03 |   0 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-09-10 16:25:17 | DEBUG | Algebraic mode change for model GEN____2_SM
-2019-09-10 16:25:17 | DEBUG | state of Line _BEAV___6-CLIN___8-1_AC change from 4 to 2
-2019-09-10 16:25:17 | DEBUG | nbSubNetwork = 1 nbsub = 1
-2019-09-10 16:25:17 | DEBUG | subNetwork[0] nbBus = 57
-2019-09-10 16:25:17 | DEBUG | keep SubNetworks num : 0
-2019-09-10 16:25:17 | DEBUG | Algebraic mode (with J recalculation) change for model NETWORK
-2019-09-10 16:25:17 | DEBUG |        1.000  9.687746e-01 -1.477848e-01 -1.328025e-03 -8.988984e-03 |   1 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG | calculation of the new starting point of the simulation.
-2019-09-10 16:25:17 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-09-10 16:25:17 | DEBUG |        1.000  9.647423e-01 -1.568048e-01  2.515578e-01 -1.195362e-01 |   1 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-09-10 16:25:17 | DEBUG | Algebraic mode change for model GEN____2_SM
-2019-09-10 16:25:17 | DEBUG | Algebraic mode change for model GEN____9_SM
-2019-09-10 16:25:17 | DEBUG |        2.000  9.573503e-01 -1.720240e-01 -1.426551e-03 -9.483667e-02 |   2 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG | calculation of the new starting point of the simulation.
-2019-09-10 16:25:17 | DEBUG |        2.000  9.573503e-01 -1.720240e-01 -1.426512e-03 -9.483661e-02 |   2 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-09-10 16:25:17 | DEBUG | Algebraic mode change for model GEN____9_SM
-2019-09-10 16:25:17 | DEBUG |        3.000  9.562623e-01 -1.732082e-01 -2.220920e-02 -8.742471e-02 |   3 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG | calculation of the new starting point of the simulation.
-2019-09-10 16:25:17 | DEBUG |        3.000  9.562623e-01 -1.732082e-01 -2.220907e-02 -8.742467e-02 |   3 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-09-10 16:25:17 | DEBUG |        4.000  9.562702e-01 -1.727852e-01 -1.569441e-02 -8.559588e-02 |   4 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |        5.000  9.562833e-01 -1.726842e-01 -1.387775e-02 -8.527263e-02 |   5 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |        6.000  9.562760e-01 -1.726959e-01 -1.387010e-02 -8.522692e-02 |   6 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |        7.000  9.562715e-01 -1.727077e-01 -1.394556e-02 -8.521933e-02 |   7 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |        8.000  9.562700e-01 -1.727126e-01 -1.395878e-02 -8.521822e-02 |   8 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |        9.000  9.562694e-01 -1.727150e-01 -1.395872e-02 -8.521860e-02 |   9 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       10.000  9.562691e-01 -1.727164e-01 -1.395879e-02 -8.521910e-02 |  10 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       11.000  9.562689e-01 -1.727172e-01 -1.395914e-02 -8.521943e-02 |  11 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       12.000  9.562689e-01 -1.727177e-01 -1.395937e-02 -8.521963e-02 |  12 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       13.000  9.562688e-01 -1.727179e-01 -1.395950e-02 -8.521975e-02 |  13 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       14.000  9.562688e-01 -1.727181e-01 -1.395956e-02 -8.521983e-02 |  14 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       15.000  9.562688e-01 -1.727182e-01 -1.395960e-02 -8.521987e-02 |  15 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       16.000  9.562688e-01 -1.727182e-01 -1.395962e-02 -8.521990e-02 |  16 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       17.000  9.562688e-01 -1.727183e-01 -1.395963e-02 -8.521992e-02 |  17 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       18.000  9.562688e-01 -1.727183e-01 -1.395964e-02 -8.521993e-02 |  18 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       19.000  9.562688e-01 -1.727183e-01 -1.395964e-02 -8.521994e-02 |  19 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       20.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521994e-02 |  20 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       21.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521994e-02 |  21 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       22.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  22 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       23.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  23 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       24.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  24 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       25.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  25 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       26.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  26 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       27.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  27 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       28.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  28 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       29.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  29 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG |       30.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  30 1 1.000000e+00 
-2019-09-10 16:25:17 | DEBUG | 
-2019-09-10 16:25:17 | DEBUG | execution Stats :
-2019-09-10 16:25:17 | DEBUG | 
-2019-09-10 16:25:17 | DEBUG | number of iterations                     = 30
-2019-09-10 16:25:17 | DEBUG | number of Residual evaluations           = 66
-2019-09-10 16:25:17 | DEBUG | number of Jacobian evaluations           = 4
-2019-09-10 16:25:17 | DEBUG | number of Nonlinear iterations           = 36
-2019-09-10 16:25:17 | DEBUG | number of error test failures            = 0
-2019-09-10 16:25:17 | DEBUG | number of Nonlinear convergence failures = 0
-2019-09-10 16:25:17 | DEBUG | number of root functions evaluations     = 45
-2019-09-10 16:25:17 | DEBUG | end of job 'IEEE57 - Disconnect line 6-8 - Simplified solver'
+2019-10-01 15:41:04 | DEBUG |  ============================================================ 
+2019-10-01 15:41:04 | DEBUG | DYNAWO VERSION  :     1.0.1
+2019-10-01 15:41:04 | DEBUG | DYNAWO REVISION :  383_Modelica_3_2_3-9812f9b
+2019-10-01 15:41:04 | DEBUG |  ============================================================ 
+2019-10-01 15:41:04 | DEBUG | connecting DisconnectLine_event_state1 with NETWORK__BEAV___6-CLIN___8-1_AC_state
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omega_grp_3 with GEN___12_SM_generator_omegaPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omegaRef_grp_3 with GEN___12_SM_generator_omegaRefPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_running_grp_3 with GEN___12_SM_generator_running
+2019-10-01 15:41:04 | DEBUG | connecting GEN___12_SM_generator_switchOffSignal1 with NETWORK__GLEN__12_TN_switchOff
+2019-10-01 15:41:04 | DEBUG | connecting GEN___12_SM_generator_terminal with NETWORK__GLEN__12_TN_ACPIN
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omega_grp_2 with GEN____1_SM_generator_omegaPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omegaRef_grp_2 with GEN____1_SM_generator_omegaRefPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_running_grp_2 with GEN____1_SM_generator_running
+2019-10-01 15:41:04 | DEBUG | connecting GEN____1_SM_generator_switchOffSignal1 with NETWORK__KANA___1_TN_switchOff
+2019-10-01 15:41:04 | DEBUG | connecting GEN____1_SM_generator_terminal with NETWORK__KANA___1_TN_ACPIN
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omega_grp_6 with GEN____2_SM_generator_omegaPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omegaRef_grp_6 with GEN____2_SM_generator_omegaRefPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_running_grp_6 with GEN____2_SM_generator_running
+2019-10-01 15:41:04 | DEBUG | connecting GEN____2_SM_generator_switchOffSignal1 with NETWORK__TURN___2_TN_switchOff
+2019-10-01 15:41:04 | DEBUG | connecting GEN____2_SM_generator_terminal with NETWORK__TURN___2_TN_ACPIN
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omega_grp_4 with GEN____3_SM_generator_omegaPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omegaRef_grp_4 with GEN____3_SM_generator_omegaRefPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_running_grp_4 with GEN____3_SM_generator_running
+2019-10-01 15:41:04 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal1 with NETWORK__LOGA___3_TN_switchOff
+2019-10-01 15:41:04 | DEBUG | connecting GEN____3_SM_generator_terminal with NETWORK__LOGA___3_TN_ACPIN
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omega_grp_0 with GEN____6_SM_generator_omegaPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omegaRef_grp_0 with GEN____6_SM_generator_omegaRefPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_running_grp_0 with GEN____6_SM_generator_running
+2019-10-01 15:41:04 | DEBUG | connecting GEN____6_SM_generator_switchOffSignal1 with NETWORK__BEAV___6_TN_switchOff
+2019-10-01 15:41:04 | DEBUG | connecting GEN____6_SM_generator_terminal with NETWORK__BEAV___6_TN_ACPIN
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omega_grp_5 with GEN____8_SM_generator_omegaPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omegaRef_grp_5 with GEN____8_SM_generator_omegaRefPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_running_grp_5 with GEN____8_SM_generator_running
+2019-10-01 15:41:04 | DEBUG | connecting GEN____8_SM_generator_switchOffSignal1 with NETWORK__CLIN___8_TN_switchOff
+2019-10-01 15:41:04 | DEBUG | connecting GEN____8_SM_generator_terminal with NETWORK__CLIN___8_TN_ACPIN
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omega_grp_1 with GEN____9_SM_generator_omegaPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_omegaRef_grp_1 with GEN____9_SM_generator_omegaRefPu
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_running_grp_1 with GEN____9_SM_generator_running
+2019-10-01 15:41:04 | DEBUG | connecting GEN____9_SM_generator_switchOffSignal1 with NETWORK__SALT___9_TN_switchOff
+2019-10-01 15:41:04 | DEBUG | connecting GEN____9_SM_generator_terminal with NETWORK__SALT___9_TN_ACPIN
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_numcc_node_3 with NETWORK__GLEN__12_TN_numcc
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_numcc_node_2 with NETWORK__KANA___1_TN_numcc
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_numcc_node_6 with NETWORK__TURN___2_TN_numcc
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_numcc_node_4 with NETWORK__LOGA___3_TN_numcc
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_numcc_node_0 with NETWORK__BEAV___6_TN_numcc
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_numcc_node_5 with NETWORK__CLIN___8_TN_numcc
+2019-10-01 15:41:04 | DEBUG | connecting OMEGA_REF_numcc_node_1 with NETWORK__SALT___9_TN_numcc
+2019-10-01 15:41:04 | INFO | adding curve : Id: NETWORK; curve: _KANA___1_TN_Upu_value found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: NETWORK; curve: _TURN___2_TN_Upu_value found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: NETWORK; curve: _LOGA___3_TN_Upu_value found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: NETWORK; curve: _BEAV___6_TN_Upu_value found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: NETWORK; curve: _CLIN___8_TN_Upu_value found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: NETWORK; curve: _SALT___9_TN_Upu_value found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: NETWORK; curve: _GLEN__12_TN_Upu_value found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____9_SM; curve: generator_PGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN___12_SM; curve: generator_PGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____9_SM; curve: generator_QGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN___12_SM; curve: generator_QGen found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____9_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN___12_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____1_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____2_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____3_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____6_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____8_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN____9_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: GEN___12_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2019-10-01 15:41:04 | INFO | adding curve : Id: NETWORK; curve: _BEAV___6-BUS____7-1_AC_P2_value found. (exact name)
+2019-10-01 15:41:04 | INFO | adding curve : Id: NETWORK; curve: _BUS____7-CLIN___8-1_AC_P1_value found. (exact name)
+2019-10-01 15:41:04 | DEBUG | nbSubNetwork = 1 nbsub = 1
+2019-10-01 15:41:04 | DEBUG | subNetwork[0] nbBus = 57
+2019-10-01 15:41:04 | DEBUG | keep SubNetworks num : 0
+2019-10-01 15:41:04 | DEBUG | calculate initial condition of the DAE
+2019-10-01 15:41:04 | DEBUG | initial condition iteration 0
+2019-10-01 15:41:04 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-10-01 15:41:04 | DEBUG | end of calculate initial condition of the DAE
+2019-10-01 15:41:04 | DEBUG | -----------------------------------------------------------------------
+2019-10-01 15:41:04 | DEBUG | number of continuous variables : 680 (display limited to 4 variables)
+2019-10-01 15:41:04 | DEBUG | number of discrete variables : 592
+2019-10-01 15:41:04 | DEBUG | -----------------------------------------------------------------------
+2019-10-01 15:41:04 | DEBUG |     t              y1            y2            y3            y4      | nst k      h
+2019-10-01 15:41:04 | DEBUG | -----------------------------------------------------------------------
+2019-10-01 15:41:04 | DEBUG |        0.000  9.687858e-01 -1.477579e-01 -5.082042e-04 -9.206685e-03 |   0 1 1.000000e+00 
+2019-10-01 15:41:04 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-10-01 15:41:04 | DEBUG | Algebraic mode change for model GEN____2_SM
+2019-10-01 15:41:04 | DEBUG | state of Line _BEAV___6-CLIN___8-1_AC change from 4 to 2
+2019-10-01 15:41:04 | DEBUG | nbSubNetwork = 1 nbsub = 1
+2019-10-01 15:41:04 | DEBUG | subNetwork[0] nbBus = 57
+2019-10-01 15:41:04 | DEBUG | keep SubNetworks num : 0
+2019-10-01 15:41:04 | DEBUG | Algebraic mode (with J recalculation) change for model NETWORK
+2019-10-01 15:41:04 | DEBUG |        1.000  9.687746e-01 -1.477848e-01 -1.328025e-03 -8.988984e-03 |   1 1 1.000000e+00 
+2019-10-01 15:41:04 | DEBUG | calculation of the new starting point of the simulation.
+2019-10-01 15:41:04 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-10-01 15:41:04 | DEBUG |        1.000  9.647423e-01 -1.568048e-01  2.515578e-01 -1.195362e-01 |   1 1 1.000000e+00 
+2019-10-01 15:41:04 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-10-01 15:41:04 | DEBUG | Algebraic mode change for model GEN____2_SM
+2019-10-01 15:41:04 | DEBUG | Algebraic mode change for model GEN____9_SM
+2019-10-01 15:41:04 | DEBUG |        2.000  9.573503e-01 -1.720240e-01 -1.426551e-03 -9.483667e-02 |   2 1 1.000000e+00 
+2019-10-01 15:41:04 | DEBUG | calculation of the new starting point of the simulation.
+2019-10-01 15:41:04 | DEBUG |        2.000  9.573503e-01 -1.720240e-01 -1.426512e-03 -9.483661e-02 |   2 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-10-01 15:41:05 | DEBUG | Algebraic mode change for model GEN____9_SM
+2019-10-01 15:41:05 | DEBUG |        3.000  9.562623e-01 -1.732082e-01 -2.220920e-02 -8.742471e-02 |   3 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG | calculation of the new starting point of the simulation.
+2019-10-01 15:41:05 | DEBUG |        3.000  9.562623e-01 -1.732082e-01 -2.220907e-02 -8.742467e-02 |   3 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-10-01 15:41:05 | DEBUG |        4.000  9.562702e-01 -1.727852e-01 -1.569441e-02 -8.559588e-02 |   4 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |        5.000  9.562833e-01 -1.726842e-01 -1.387775e-02 -8.527263e-02 |   5 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |        6.000  9.562760e-01 -1.726959e-01 -1.387010e-02 -8.522692e-02 |   6 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |        7.000  9.562715e-01 -1.727077e-01 -1.394556e-02 -8.521933e-02 |   7 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |        8.000  9.562700e-01 -1.727126e-01 -1.395878e-02 -8.521822e-02 |   8 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |        9.000  9.562694e-01 -1.727150e-01 -1.395872e-02 -8.521860e-02 |   9 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       10.000  9.562691e-01 -1.727164e-01 -1.395879e-02 -8.521910e-02 |  10 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       11.000  9.562689e-01 -1.727172e-01 -1.395914e-02 -8.521943e-02 |  11 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       12.000  9.562689e-01 -1.727177e-01 -1.395937e-02 -8.521963e-02 |  12 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       13.000  9.562688e-01 -1.727179e-01 -1.395950e-02 -8.521975e-02 |  13 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       14.000  9.562688e-01 -1.727181e-01 -1.395956e-02 -8.521983e-02 |  14 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       15.000  9.562688e-01 -1.727182e-01 -1.395960e-02 -8.521987e-02 |  15 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       16.000  9.562688e-01 -1.727182e-01 -1.395962e-02 -8.521990e-02 |  16 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       17.000  9.562688e-01 -1.727183e-01 -1.395963e-02 -8.521992e-02 |  17 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       18.000  9.562688e-01 -1.727183e-01 -1.395964e-02 -8.521993e-02 |  18 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       19.000  9.562688e-01 -1.727183e-01 -1.395964e-02 -8.521994e-02 |  19 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       20.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521994e-02 |  20 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       21.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521994e-02 |  21 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       22.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  22 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       23.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  23 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       24.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  24 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       25.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  25 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       26.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  26 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       27.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  27 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       28.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  28 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       29.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  29 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG |       30.000  9.562688e-01 -1.727183e-01 -1.395965e-02 -8.521995e-02 |  30 1 1.000000e+00 
+2019-10-01 15:41:05 | DEBUG | 
+2019-10-01 15:41:05 | DEBUG | execution Stats :
+2019-10-01 15:41:05 | DEBUG | 
+2019-10-01 15:41:05 | DEBUG | number of iterations                     = 30
+2019-10-01 15:41:05 | DEBUG | number of Residual evaluations           = 66
+2019-10-01 15:41:05 | DEBUG | number of Jacobian evaluations           = 4
+2019-10-01 15:41:05 | DEBUG | number of Nonlinear iterations           = 36
+2019-10-01 15:41:05 | DEBUG | number of error test failures            = 0
+2019-10-01 15:41:05 | DEBUG | number of Nonlinear convergence failures = 0
+2019-10-01 15:41:05 | DEBUG | number of root functions evaluations     = 45
+2019-10-01 15:41:05 | DEBUG | end of job 'IEEE57 - Disconnect line 6-8 - Simplified solver'

@@ -18,6 +18,7 @@ avr_feedback_u2                                   : y =        1.00001 yp =     
 avr_feedback_y                                    : y =       0.121023 yp =              0
 avr_gain_u                                        : y =       0.121023 yp =              0
 avr_gain_y                                        : y =        2.42046 yp =              0
+avr_limUsRef_simplifiedExpr                       : y =        1.12104 yp =              0
 avr_limUsRef_u                                    : y =        1.12104 yp =              0
 avr_limUsRef_y                                    : y =        1.12104 yp =              0
 avr_limiterWithLag_u                              : y =        2.42046 yp =              0
@@ -67,6 +68,7 @@ gover_feedback_u2                                 : y =              1 yp =     
 gover_feedback_y                                  : y =    -8.9327e-12 yp =              0
 gover_gain_u                                      : y =    -8.9327e-12 yp =              0
 gover_gain_y                                      : y =   -4.46635e-11 yp =              0
+gover_limiter_simplifiedExpr                      : y =          0.903 yp =              0
 gover_limiter_u                                   : y =          0.903 yp =              0
 gover_limiter_y                                   : y =          0.903 yp =              0
 gover_omegaPu_value                               : y =              1 yp =              0
@@ -202,6 +204,8 @@ avr_limUsRef_limitsAtInit                          =              1
 avr_limUsRef_strict                                =             -1
 gover_limiter_limitsAtInit                         =              1
 gover_limiter_strict                               =             -1
+avr_limUsRef_homotopyType                          =              2
 gen_ExcitationPu                                   =              1
 gen_NbSwitchOffSignals                             =              3
 gen_State0                                         =              2
+gover_limiter_homotopyType                         =              2

@@ -382,7 +382,7 @@ set_environment() {
 
   # OpenModelica config
   export_var_env_force DYNAWO_OPENMODELICA_VERSION=1_13_2
-  export_var_env_force DYNAWO_MODELICA_LIB=3.2.2
+  export_var_env_force DYNAWO_MODELICA_LIB=3.2.3
   export_var_env DYNAWO_SRC_OPENMODELICA=UNDEFINED
   export_var_env DYNAWO_INSTALL_OPENMODELICA=UNDEFINED
 
@@ -1475,16 +1475,23 @@ deploy_dynawo() {
   cd $DYNAWO_DEPLOY_DIR
   mkdir -p lib
 
+  echo "deploying Sundials libraries"
   cp -P $DYNAWO_SUNDIALS_INSTALL_DIR/lib*/*.* lib/
+  echo "deploying Adept libraries"
   cp -P $DYNAWO_ADEPT_INSTALL_DIR/lib/*.* lib/
+  echo "deploying SuiteSparse libraries"
   cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/lib/*.* lib/
   if [ -d "$DYNAWO_NICSLU_INSTALL_DIR/lib" ]; then
     if [ ! -z "$(ls -A $DYNAWO_NICSLU_INSTALL_DIR/lib)" ]; then
+      echo "deploying Nicslu libraries"
       cp -P $DYNAWO_NICSLU_INSTALL_DIR/lib/*.* lib/
     fi
   fi
+  echo "deploying libzip libraries"
   cp -P $DYNAWO_LIBZIP_HOME/lib/*.* lib/
+  echo "deploying libxml libraries"
   cp -P $DYNAWO_LIBXML_HOME/lib/*.* lib/
+  echo "deploying libiidm libraries"
   cp -P $DYNAWO_LIBIIDM_HOME/lib/*.* lib/
 
   if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
@@ -1493,16 +1500,23 @@ deploy_dynawo() {
   cd $DYNAWO_DEPLOY_DIR
 
   mkdir -p include
+  echo "deploying Sundials include folder"
   cp -n -R -P $DYNAWO_SUNDIALS_INSTALL_DIR/include/* include/
+  echo "deploying Adept include folder"
   cp -n -R $DYNAWO_ADEPT_INSTALL_DIR/include/* include/
+  echo "deploying SuiteSparse include folder"
   cp -n -P $DYNAWO_SUITESPARSE_INSTALL_DIR/include/*.* include/
   if [ -d "$DYNAWO_NICSLU_INSTALL_DIR/include" ]; then
     if [ ! -z "$(ls -A $DYNAWO_NICSLU_INSTALL_DIR/include)" ]; then
+      echo "deploying Nicslu include folder"
       cp -n -P $DYNAWO_NICSLU_INSTALL_DIR/include/*.* include/
     fi
   fi
+  echo "deploying libzip include folder"
   cp -n -R -P $DYNAWO_LIBZIP_HOME/include/libzip include/
+  echo "deploying libxml include folder"
   cp -n -R -P $DYNAWO_LIBXML_HOME/include/xml include/
+  echo "deploying libiidm include folder"
   cp -n -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM include/
 
   mkdir -p share
@@ -1523,6 +1537,7 @@ deploy_dynawo() {
     sed -i "s|$DYNAWO_LIBXML_HOME|$DYNAWO_DEPLOY_DIR|" $file
   done
 
+  echo "deploying OpenModelica"
   mkdir -p OpenModelica/bin/
   mkdir -p OpenModelica/include/
   mkdir -p OpenModelica/lib/omc/
@@ -1541,6 +1556,7 @@ deploy_dynawo() {
   fi
 
   # BOOST
+  echo "deploying boost"
   if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
     boost_system_folder=$DYNAWO_BOOST_HOME/lib
     boost_system_folder_include=$DYNAWO_BOOST_HOME/include
@@ -1561,10 +1577,12 @@ deploy_dynawo() {
   cp -n -P -R $boost_system_folder_include/boost include/
 
   # XERCESC
+  echo "deploying XercesC"
   cp -P $DYNAWO_XERCESC_INSTALL_DIR/lib/libxerces-c*.* lib/
   cp -n -r $DYNAWO_XERCESC_INSTALL_DIR/include/* include/
 
   # ZLIB
+  echo "deploying zlib"
   if [ $DYNAWO_ZLIB_HOME_DEFAULT != true ]; then
     cp -P $DYNAWO_ZLIB_HOME/lib/libz.$LIBRARY_SUFFIX* lib/
     cp -n $DYNAWO_ZLIB_HOME/include/zconf.h include/
@@ -1578,6 +1596,7 @@ deploy_dynawo() {
   fi
 
   # LIBARCHIVE
+  echo "deploying libArchive"
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     cp -P $DYNAWO_LIBARCHIVE_HOME/lib/libarchive*.$LIBRARY_SUFFIX* lib/
     cp -n $DYNAWO_LIBARCHIVE_HOME/include/archive_entry.h include/
@@ -1591,6 +1610,7 @@ deploy_dynawo() {
   fi
 
   # DYNAWO
+  echo "deploying Dynawo"
   mkdir -p bin
   cp -r $DYNAWO_INSTALL_DIR/bin/* bin/
   cp -r $DYNAWO_INSTALL_DIR/lib/* lib/
@@ -1604,6 +1624,7 @@ deploy_dynawo() {
   popd
 
   mkdir -p sbin
+  echo "deploying Dynawo utils"
   cp $DYNAWO_INSTALL_DIR/sbin/*.py sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/cleanCompileModelicaModel sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/compileCppModelicaModelInDynamicLib sbin/
