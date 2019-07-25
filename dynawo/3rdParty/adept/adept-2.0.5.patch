@@ -7,7 +7,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 diff -urpN adept-2.0.5/include/adept/Active.h adept-2.0.5_patched/include/adept/Active.h
 --- adept-2.0.5/include/adept/Active.h	2018-02-06 22:41:30.000000000 +0100
-+++ adept-2.0.5_patched/include/adept/Active.h	2019-07-24 10:14:14.447121144 +0200
++++ adept-2.0.5_patched/include/adept/Active.h	2019-07-25 09:31:55.708768622 +0200
 @@ -78,7 +78,7 @@ namespace adept {
      //   aReal x(1.0);
      template <typename PType>
@@ -17,7 +17,12 @@ diff -urpN adept-2.0.5/include/adept/Active.h adept-2.0.5_patched/include/adept/
        : val_(rhs), gradient_index_(ADEPT_ACTIVE_STACK->register_gradient())
      {
        // By pushing this to the statement stack without pushing
-@@ -491,27 +491,27 @@ namespace adept {
+@@ -487,31 +487,31 @@ namespace adept {
+     void advance_location_(ExpressionSize<NArrays>& loc) const { } 
+ 
+     template <int MyArrayNum, int NArrays>
+-    Type value_at_location_(const ExpressionSize<NArrays>& loc) const
++    Type value_at_location_(const ExpressionSize<NArrays>&) const
      { return val_; }
      
      template <int MyArrayNum, int MyScratchNum, int NArrays, int NScratch>
@@ -57,7 +62,7 @@ diff -urpN adept-2.0.5/include/adept/Active.h adept-2.0.5_patched/include/adept/
      }
 diff -urpN adept-2.0.5/include/adept/BinaryOperation.h adept-2.0.5_patched/include/adept/BinaryOperation.h
 --- adept-2.0.5/include/adept/BinaryOperation.h	2018-02-06 23:52:55.000000000 +0100
-+++ adept-2.0.5_patched/include/adept/BinaryOperation.h	2019-07-22 13:40:04.219979017 +0200
++++ adept-2.0.5_patched/include/adept/BinaryOperation.h	2019-07-25 09:16:53.060165680 +0200
 @@ -786,14 +786,14 @@ namespace adept {
        
        // Calculate the gradient of the left-hand argument
@@ -92,6 +97,24 @@ diff -urpN adept-2.0.5/include/adept/BinaryOperation.h adept-2.0.5_patched/inclu
  			       const ScratchVector<NScratch>& scratch) const {
          right.template calc_gradient_<MyArrayNum+L::n_arrays, MyScratchNum+L::n_scratch+store_result>(stack, loc, scratch, -1.0);
        }
+@@ -924,7 +924,7 @@ namespace adept {
+       
+       // Calculate the gradient of the left-hand argument
+       template <int MyArrayNum, int MyScratchNum, int NArrays, int NScratch, class L, class R>
+-      void calc_left(Stack& stack, const L& left, const R& right, const ExpressionSize<NArrays>& loc,
++      void calc_left(Stack& stack, const L& left, const R&, const ExpressionSize<NArrays>& loc,
+ 			       const ScratchVector<NScratch>& scratch) const {
+ 	// If f(a,b) = a/b then df/da = 1/b
+ 	// If store_result==1 then do this:
+@@ -937,7 +937,7 @@ namespace adept {
+ 
+       // Calculate the gradient of the right-hand argument
+       template <int MyArrayNum, int MyScratchNum, int NArrays, int NScratch, class L, class R>
+-      void calc_right(Stack& stack, const L& left, const R& right, const ExpressionSize<NArrays>& loc,
++      void calc_right(Stack& stack, const L&, const R& right, const ExpressionSize<NArrays>& loc,
+ 			       const ScratchVector<NScratch>& scratch) const {
+ 	// If f(a,b) = a/b then df/db = -a/(b*b) = -f/b
+ 	// If store_result==1 then do this:
 diff -urpN adept-2.0.5/include/adept/Expression.h adept-2.0.5_patched/include/adept/Expression.h
 --- adept-2.0.5/include/adept/Expression.h	2017-10-29 08:02:20.000000000 +0100
 +++ adept-2.0.5_patched/include/adept/Expression.h	2019-07-18 09:33:45.111656516 +0200
