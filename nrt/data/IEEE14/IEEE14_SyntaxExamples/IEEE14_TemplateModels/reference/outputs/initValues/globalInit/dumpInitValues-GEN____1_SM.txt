@@ -7,7 +7,7 @@ generator_omegaPu_value                           : y =              1 yp =    8
 generator_omegaRefPu_value                        : y =              1 yp =              0
 generator_terminal_V_im                           : y =    5.04164e-06 yp =              0
 generator_terminal_V_re                           : y =        1.06002 yp =              0
-generator_theta                                   : y =       0.387017 yp =     6.5786e-10
+generator_theta                                   : y =       0.387017 yp =    6.69935e-10
 Pm_setPoint_value                                 : y =       0.213301 yp =              0
 URef_setPoint_value                               : y =        1.12279 yp =              0
 generator_IRotorPu_value                          : y =        1.11287 yp =              0
@@ -46,14 +46,15 @@ generator_ufPu                                    : y =    0.000481452 yp =     
 generator_uqPu                                    : y =       0.981621 yp =              0
 governor_PmPu_value                               : y =       0.213301 yp =              0
 governor_PmRawPu_u1                               : y =       0.213301 yp =              0
-governor_PmRawPu_u2                               : y =   -1.05734e-11 yp =              0
+governor_PmRawPu_u2                               : y =    -1.0768e-11 yp =              0
 governor_PmRawPu_y                                : y =       0.213301 yp =              0
 governor_PmRefPu_value                            : y =       0.213301 yp =              0
 governor_feedback_u1                              : y =              1 yp =              0
 governor_feedback_u2                              : y =              1 yp =              0
-governor_feedback_y                               : y =   -2.11469e-12 yp =              0
-governor_gain_u                                   : y =   -2.11469e-12 yp =              0
-governor_gain_y                                   : y =   -1.05734e-11 yp =              0
+governor_feedback_y                               : y =    -2.1536e-12 yp =              0
+governor_gain_u                                   : y =    -2.1536e-12 yp =              0
+governor_gain_y                                   : y =    -1.0768e-11 yp =              0
+governor_limiter_simplifiedExpr                   : y =       0.213301 yp =              0
 governor_limiter_u                                : y =       0.213301 yp =              0
 governor_limiter_y                                : y =       0.213301 yp =              0
 governor_omegaPu_value                            : y =              1 yp =              0
@@ -67,6 +68,7 @@ voltageRegulator_feedback_u2                      : y =         1.0671 yp =     
 voltageRegulator_feedback_y                       : y =      0.0556914 yp =              0
 voltageRegulator_gain_u                           : y =      0.0556914 yp =              0
 voltageRegulator_gain_y                           : y =        1.11383 yp =              0
+voltageRegulator_limUsRef_simplifiedExpr          : y =        1.12279 yp =              0
 voltageRegulator_limUsRef_u                       : y =        1.12279 yp =              0
 voltageRegulator_limUsRef_y                       : y =        1.12279 yp =              0
 voltageRegulator_limiterWithLag_u                 : y =        1.11383 yp =              0
@@ -201,3 +203,5 @@ voltageRegulator_limUsRef_strict                   =             -1
 generator_ExcitationPu                             =              1
 generator_NbSwitchOffSignals                       =              3
 generator_State0                                   =              2
+governor_limiter_homotopyType                      =              2
+voltageRegulator_limUsRef_homotopyType             =              2
