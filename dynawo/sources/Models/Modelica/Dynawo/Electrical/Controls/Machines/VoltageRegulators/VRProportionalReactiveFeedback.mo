@@ -40,7 +40,7 @@ model VRProportionalReactiveFeedback
 
   Blocks.Math.Gain gainU(k = Gain) annotation(
     Placement(visible = true, transformation(origin = {-42, -38}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Interfaces.RealInput UcEfdPu(start = UcEfd0Pu) annotation(
+  Blocks.Interfaces.RealInput UsRefPu(start = UsRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {-176, -38}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-176, -38}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Blocks.Interfaces.RealInput UsPu(start = Us0Pu) annotation(
     Placement(visible = true, transformation(origin = {-136, -96}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-56, -40}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -69,7 +69,7 @@ model VRProportionalReactiveFeedback
 // Here, UsMin and UsMax don't play a symetric role, to be checked
 protected
   parameter Types.ReactivePowerPu Qs0Pu "Initial stator reactive power";
-  parameter Types.VoltageModulePu UcEfd0Pu "Initial control voltage"; // p.u. = Unom
+  parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage"; // p.u. = Unom
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage"; // p.u. = Unom
   parameter Types.VoltageModulePu Efd0Pu "Initial Efd";
 
@@ -106,7 +106,7 @@ equation
     Line(points = {{-2, -38}, {-17, -38}, {-17, -38}, {-34, -38}, {-34, -38}, {-31, -38}, {-31, -38}, {-30, -38}}, color = {0, 0, 127}));
   connect(limiterEfd.y, EfdPu) annotation(
     Line(points = {{21, -38}, {59, -38}, {59, -38}, {65, -38}}, color = {0, 0, 127}));
-  connect(UcEfdPu, error.u2) annotation(
+  connect(UsRefPu, error.u2) annotation(
     Line(points = {{-176, -38}, {-110, -38}}, color = {0, 0, 127}));
   connect(gainU.u, error.y) annotation(
     Line(points = {{-54, -38}, {-88, -38}, {-88, -38}, {-86, -38}}, color = {0, 0, 127}));

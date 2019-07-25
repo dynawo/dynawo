@@ -33,14 +33,14 @@
     <dyn:unitDynamicModel id="omegaRef" name="Dynawo.Electrical.Controls.Basics.SetPoint" parFile="SMIB.par" parId="10"/>
     <dyn:initConnect id1="gover" var1="Pm0Pu" id2="Pm" var2="Value0"/>
     <dyn:initConnect id1="gen" var1="Pm0Pu" id2="gover" var2="Pm0Pu"/>
-    <dyn:initConnect id1="avr" var1="UcEfd0Pu" id2="URef" var2="Value0"/>
+    <dyn:initConnect id1="avr" var1="UsRef0Pu" id2="URef" var2="Value0"/>
     <dyn:initConnect id1="avr" var1="Efd0PuLF" id2="gen" var2="Efd0Pu"/>
     <dyn:initConnect id1="avr" var1="u0.re" id2="gen" var2="uStator0Pu.re"/>
     <dyn:initConnect id1="avr" var1="u0.im" id2="gen" var2="uStator0Pu.im"/>
     <dyn:connect id1="gover" var1="PmRefPu" id2="Pm" var2="step"/>
     <dyn:connect id1="gen" var1="PmPu" id2="gover" var2="PmPu"/>
     <dyn:connect id1="gen" var1="omegaPu" id2="gover" var2="omegaPu"/>
-    <dyn:connect id1="avr" var1="UcEfdPu" id2="URef" var2="setPoint.value"/>
+    <dyn:connect id1="avr" var1="UsRefPu" id2="URef" var2="setPoint.value"/>
     <dyn:connect id1="avr" var1="UsPu" id2="gen" var2="UStatorPu.value"/>
     <dyn:connect id1="avr" var1="EfdPuPin" id2="gen" var2="efdPu"/>
     <dyn:connect id1="gen" var1="omegaRefPu" id2="omegaRef" var2="setPoint"/>

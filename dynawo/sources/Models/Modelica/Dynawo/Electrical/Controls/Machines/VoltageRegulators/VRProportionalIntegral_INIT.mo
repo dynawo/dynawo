@@ -26,7 +26,7 @@ model VRProportionalIntegral_INIT "Proportional Integral Voltage Regulator INIT 
     Types.VoltageModulePu Efd0PuLF "Initial Efd from loadflow";
     Types.VoltageModulePu Efd0Pu "Initial Efd";
     Types.PerUnit yIntegrator0 "Initial control before saturation";
-    Types.VoltageModulePu UcEfd0Pu "Initial voltage set-point, p.u. = Unom";
+    Types.VoltageModulePu UsRef0Pu "Initial voltage set-point, p.u. = Unom";
     Types.VoltageModulePu Us0Pu "Initial stator voltage, p.u. = Unom";
 
   protected
@@ -47,8 +47,8 @@ model VRProportionalIntegral_INIT "Proportional Integral Voltage Regulator INIT 
 
     limiterWithLag.y0LF = Efd0PuLF;
     Efd0Pu = limiterWithLag.y0;
-    yIntegrator0 =  limiterWithLag.u0 - Gain*(UcEfd0Pu - Us0Pu);
+    yIntegrator0 =  limiterWithLag.u0 - Gain*(UsRef0Pu - Us0Pu);
     Us0Pu = ComplexMath.'abs'(u0);
-    UcEfd0Pu - Us0Pu = limiterWithLag.u0 - limiterWithLag.y0; // Because init in steadystate
+    UsRef0Pu - Us0Pu = limiterWithLag.u0 - limiterWithLag.y0; // Because init in steadystate
 
 end VRProportionalIntegral_INIT;

@@ -132,6 +132,8 @@
     <par type="DOUBLE" name="voltageRegulator_LagEfdMin" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
     <par type="DOUBLE" name="governor_KGover" value="5"/>
     <par type="DOUBLE" name="governor_PMin" value="0"/>
@@ -176,6 +178,8 @@
     <par type="DOUBLE" name="voltageRegulator_LagEfdMin" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
     <par type="DOUBLE" name="governor_KGover" value="5"/>
     <par type="DOUBLE" name="governor_PMin" value="0"/>
@@ -220,6 +224,8 @@
     <par type="DOUBLE" name="voltageRegulator_LagEfdMin" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
     <par type="DOUBLE" name="governor_KGover" value="5"/>
     <par type="DOUBLE" name="governor_PMin" value="0"/>
@@ -262,6 +268,8 @@
     <par type="DOUBLE" name="voltageRegulator_LagEfdMin" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
     <par type="DOUBLE" name="governor_KGover" value="5"/>
     <par type="DOUBLE" name="governor_PMin" value="0"/>
@@ -304,6 +312,8 @@
     <par type="DOUBLE" name="voltageRegulator_LagEfdMin" value="0"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
     <par type="DOUBLE" name="governor_KGover" value="5"/>
     <par type="DOUBLE" name="governor_PMin" value="0"/>

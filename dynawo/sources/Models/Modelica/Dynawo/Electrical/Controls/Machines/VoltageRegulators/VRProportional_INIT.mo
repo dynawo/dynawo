@@ -25,7 +25,7 @@ public
 
   Types.VoltageModulePu Efd0PuLF "Initial Efd from LoadFlow";
   Types.VoltageModulePu Efd0Pu "Computed initial Efd";
-  Types.VoltageModulePu UcEfd0Pu "Initial voltage set-point, p.u. = Unom";
+  Types.VoltageModulePu UsRef0Pu "Initial voltage set-point, p.u. = Unom";
   Types.VoltageModulePu Us0Pu "Initial stator voltage, p.u. = Unom";
 
 protected
@@ -46,6 +46,6 @@ equation
   limiterWithLag.y0LF = Efd0PuLF;
   Efd0Pu = limiterWithLag.y0;
   Us0Pu = ComplexMath.'abs'(u0);
-  limiterWithLag.u0 = (UcEfd0Pu - Us0Pu)*Gain;
+  limiterWithLag.u0 = (UsRef0Pu - Us0Pu)*Gain;
 
 end VRProportional_INIT;

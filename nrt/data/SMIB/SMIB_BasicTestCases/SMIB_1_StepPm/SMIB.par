@@ -70,7 +70,7 @@
     <par type="DOUBLE" name="Q0Pu" value="-9.68"/>
     <par type="DOUBLE" name="U0Pu" value="1"/>
     <par type="DOUBLE" name="UPhase0" value="0.494451"/>
-   </set>
+  </set>
   <!-- Gover -->
   <set id="6">
     <par type="DOUBLE" name="PNom" value="2220"/>
@@ -83,6 +83,8 @@
     <par type="DOUBLE" name="Gain" value="20"/>
     <par type="DOUBLE" name="EfdMinPu" value="-5"/>
     <par type="DOUBLE" name="EfdMaxPu" value="5"/>
+    <par type="DOUBLE" name="UsRefMinPu" value="0.8"/>
+    <par type="DOUBLE" name="UsRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="LagEfdMin" value="0"/>
     <par type="DOUBLE" name="LagEfdMax" value="0"/>
   </set>
