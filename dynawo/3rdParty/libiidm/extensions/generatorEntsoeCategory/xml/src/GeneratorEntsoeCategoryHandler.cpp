@@ -30,7 +30,7 @@ namespace generator_entsoe_category {
 namespace xml {
 
 std::string GeneratorEntsoeCategoryHandler::xsd_path() {
-  const std::string xsdPath = getEnvVar("IIDM_EXT_GENERATORENTSOECATEGORY_XML_XSD_PATH");
+  const std::string xsdPath = getEnvVar("IIDM_XML_XSD_PATH");
   return xsdPath + std::string("generatorEntsoeCategory.xsd");
 }
 
