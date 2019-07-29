@@ -30,7 +30,7 @@ namespace busbarsection_position {
 namespace xml {
 
 std::string BusbarSectionPositionHandler::xsd_path() {
-  const std::string xsdPath = getEnvVar("IIDM_EXT_BUSBARSECTIONPOSITION_XML_XSD_PATH");
+  const std::string xsdPath = getEnvVar("IIDM_XML_XSD_PATH");
   return xsdPath + std::string("busbarSectionPosition.xsd");
 }
 

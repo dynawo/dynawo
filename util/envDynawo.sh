@@ -1421,6 +1421,7 @@ deploy_dynawo() {
   mkdir -p extraLibs/LIBARCHIVE/lib/
   mkdir -p extraLibs/LIBZIP/lib
   mkdir -p extraLibs/LIBXML/lib
+  mkdir -p extraLibs/LIBIIDM/lib
   cp -P $DYNAWO_SUNDIALS_INSTALL_DIR/lib*/*.* 3rdParty/sundials/lib/
   cp -P $DYNAWO_ADEPT_INSTALL_DIR/lib/*.* 3rdParty/adept/lib/
   cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/lib/*.* 3rdParty/suitesparse/lib/
@@ -1431,6 +1432,7 @@ deploy_dynawo() {
   fi
   cp -P $DYNAWO_LIBZIP_HOME/lib/*.* extraLibs/LIBZIP/lib/
   cp -P $DYNAWO_LIBXML_HOME/lib/*.* extraLibs/LIBXML/lib/
+  cp -P $DYNAWO_LIBIIDM_HOME/lib/*.* extraLibs/LIBIIDM/lib/
 
   if [ ! -d "$DYNAWO_THIRD_PARTY_SRC_DIR/libiidm" ]; then
     error_exit "$DYNAWO_THIRD_PARTY_SRC_DIR/libiidm does not exist."
@@ -1447,15 +1449,6 @@ deploy_dynawo() {
     GTEST_OPTION=""
   fi
 
-  bash libiidm-chain.sh --build-dir=$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM/build \
-    --install-dir=$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM \
-    --build-type=$DYNAWO_BUILD_TYPE \
-    --libxml-install-dir=$DYNAWO_LIBXML_INSTALL_DIR \
-    $BOOST_OPTION \
-    $GTEST_OPTION
-
-  rm -rf $DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM/build
-
   if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
     error_exit "$DYNAWO_DEPLOY_DIR does not exist."
   fi
@@ -1469,6 +1462,7 @@ deploy_dynawo() {
   mkdir -p extraLibs/LIBARCHIVE/include
   mkdir -p extraLibs/LIBZIP/include
   mkdir -p extraLibs/LIBXML/include
+  mkdir -p extraLibs/LIBIIDM/include
   cp -R -P $DYNAWO_SUNDIALS_INSTALL_DIR/include/* 3rdParty/sundials/include/
   cp -R -P $DYNAWO_ADEPT_INSTALL_DIR/include/* 3rdParty/adept/include/
   cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/include/*.* 3rdParty/suitesparse/include/
@@ -1479,9 +1473,26 @@ deploy_dynawo() {
   fi
   cp -R -P $DYNAWO_LIBZIP_HOME/include/libzip extraLibs/LIBZIP/include/
   cp -R -P $DYNAWO_LIBXML_HOME/include/xml extraLibs/LIBXML/include/
+  cp -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM extraLibs/LIBIIDM/include/
 
   mkdir -p extraLibs/LIBXML/share
+  mkdir -p extraLibs/LIBIIDM/share
   cp -R -P $DYNAWO_LIBXML_HOME/share/cmake extraLibs/LIBXML/share/
+  cp -R -P $DYNAWO_LIBIIDM_HOME/share/cmake extraLibs/LIBIIDM/share/
+  cp -R -P $DYNAWO_LIBIIDM_HOME/share/iidm extraLibs/LIBIIDM/share/
+
+  for file in $(grep -rl $DYNAWO_LIBXML_HOME extraLibs/LIBXML/share/cmake/*); do
+    sed -i "s|$DYNAWO_LIBXML_HOME|$DYNAWO_DEPLOY_DIR/extraLibs/LIBXML|" $file
+  done
+  for file in $(grep -rl $DYNAWO_XERCESC_INSTALL_DIR extraLibs/LIBXML/share/cmake/*); do
+    sed -i "s|$DYNAWO_XERCESC_INSTALL_DIR|$DYNAWO_DEPLOY_DIR/extraLibs/XERCESC|" $file
+  done
+  for file in $(grep -rl $DYNAWO_LIBIIDM_HOME extraLibs/LIBIIDM/share/cmake/*); do
+    sed -i "s|$DYNAWO_LIBIIDM_HOME|$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM|" $file
+  done
+  for file in $(grep -rl $DYNAWO_LIBXML_HOME extraLibs/LIBIIDM/share/cmake/*); do
+    sed -i "s|$DYNAWO_LIBXML_HOME|$DYNAWO_DEPLOY_DIR/extraLibs/LIBXML|" $file
+  done
 
   mkdir -p 3rdParty/openmodelica/bin/
   mkdir -p 3rdParty/openmodelica/include/

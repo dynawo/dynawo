@@ -30,7 +30,7 @@ namespace standbyautomaton {
 namespace xml {
 
 std::string StandbyAutomatonHandler::xsd_path() {
-  const std::string xsdPath = getEnvVar("IIDM_EXT_STANDBYAUTOMATON_XML_XSD_PATH");
+  const std::string xsdPath = getEnvVar("IIDM_XML_XSD_PATH");
   return xsdPath + std::string("standbyAutomaton.xsd");
 }
 
