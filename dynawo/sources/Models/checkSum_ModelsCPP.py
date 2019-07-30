@@ -16,6 +16,7 @@
 from optparse import OptionParser
 import os
 import sys
+import platform
 from subprocess import Popen, PIPE
 
 options = {}
@@ -28,7 +29,11 @@ def exist_file(file_name):
         sys.exit(1)
 
 def get_checksum(path):
-    md5sum_pipe = Popen(["md5sum",path],stdout = PIPE)
+    current_platform = platform.system()
+    if current_platform == 'Linux':
+        md5sum_pipe = Popen(["md5sum",path],stdout = PIPE)
+    elif current_platform == 'Darwin':
+        md5sum_pipe = Popen(["md5",path],stdout = PIPE)
     check_sum = md5sum_pipe.communicate()[0].split()[0]
     return check_sum
 

@@ -24,7 +24,7 @@
 #include <map>
 
 #include <boost/algorithm/string.hpp>
-#include <tr1/unordered_map>
+#include <boost/unordered_map.hpp>
 
 #include "PARParametersSet.h"
 #include "PARReference.h"
@@ -331,7 +331,7 @@ Modeler::collectAllInternalConnections(shared_ptr<dynamicdata::ModelicaModel> mo
 }
 void
 Modeler::SanityCheckFlowConnection() const {
-  std::tr1::unordered_map<string, unsigned> flowVarId2ConnIndex;
+  boost::unordered_map<string, unsigned> flowVarId2ConnIndex;
   unsigned connIndex = 0;
   map<string, shared_ptr<ModelDescription> > modelDescriptions = dyd_->getModelDescriptions();
   for (map<string, shared_ptr<ModelDescription> >::const_iterator itModelDescription = modelDescriptions.begin(),

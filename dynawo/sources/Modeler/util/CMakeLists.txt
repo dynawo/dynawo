@@ -39,7 +39,12 @@ TARGET_LINK_LIBRARIES(dumpModel
                       pthread
                       ${Boost_THREAD_LIBRARY}
                       "-rdynamic"
-                      )
+                    )
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  target_link_libraries(dumpModel "-lrt")
+endif()
+
 if (APPLE)
   TARGET_LINK_LIBRARIES(dumpModel "-force_load" dynawo_Util)
   # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
@@ -81,6 +86,11 @@ TARGET_LINK_LIBRARIES(generate-preassembled
                       ${Boost_SYSTEM_LIBRARY}
                       "-rdynamic"
                      )
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  target_link_libraries(generate-preassembled "-lrt")
+endif()
+
 if (APPLE)
   TARGET_LINK_LIBRARIES(generate-preassembled "-force_load" dynawo_Util)
   # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737

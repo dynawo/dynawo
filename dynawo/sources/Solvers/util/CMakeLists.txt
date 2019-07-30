@@ -41,7 +41,11 @@ TARGET_LINK_LIBRARIES(dumpSolver
                       pthread
                       ${Boost_THREAD_LIBRARY}
                       "-rdynamic"
-                      )
+                    )
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  target_link_libraries(dumpSolver "-lrt")
+endif()
 
 if (APPLE)
   TARGET_LINK_LIBRARIES(dumpSolver "-force_load" dynawo_Util)

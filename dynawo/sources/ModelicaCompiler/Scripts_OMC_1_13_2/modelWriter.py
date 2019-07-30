@@ -15,6 +15,7 @@
 
 import sys
 import os
+import platform
 
 from utils import *
 from headerPatternDefine import HeaderPatternDefine
@@ -719,7 +720,11 @@ class ModelWriter(ModelWriterBase):
     # @return
     def insert_checkSum(self,input_dir):
         file_name = os.path.join (input_dir, self.className + ".cpp")
-        md5sum_pipe = Popen(["md5sum",file_name],stdout = PIPE)
+        current_platform = platform.system()
+        if current_platform == 'Linux':
+            md5sum_pipe = Popen(["md5sum",file_name],stdout = PIPE)
+        elif current_platform == 'Darwin':
+            md5sum_pipe = Popen(["md5",file_name],stdout = PIPE)
         check_sum = md5sum_pipe.communicate()[0].split()[0]
 
         for n, line in enumerate(self.file_content_h):
