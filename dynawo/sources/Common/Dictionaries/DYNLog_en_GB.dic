@@ -212,8 +212,10 @@ KinFirstSysFuncErr            =             the system function failed recoverab
 KinReptdSysfuncErr            =             the system function had repeated recoverable errors
 KinLargestErrors              =             largest errors (truncated to the first %1%) during divergence at time step (%2%)
 // --> others...
-LaunchingJob                  =             launching job %1%
-EndOfJob                      =             end of job %1%
+LaunchingJob                  =             launching job '%1%'
+EndOfJob                      =             end of job '%1%'
+JobSuccess                    =             job '%1%' succeeded
+ResultFolder                  =             results are available in %1%
 SwitchOffBus                  =             switch Off bus : %1%
 SwitchOnBus                   =             switch ON bus : %1%
 XmlParsingError               =             error while parsing file %1% : %2%

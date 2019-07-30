@@ -34,6 +34,7 @@
 #include "JOBIterators.h"
 #include "JOBJobsCollection.h"
 #include "JOBJobEntry.h"
+#include "JOBOutputsEntry.h"
 
 namespace parser = xml::sax::parser;
 
@@ -49,11 +50,11 @@ void launchSimu(const std::string& jobsFileName) {
   std::string prefixJobFile = absolute(remove_file_name(jobsFileName));
   if (jobsCollection->begin() == jobsCollection->end())
     throw DYNError(DYN::Error::SIMULATION, NoJobDefined);
+  Trace::init();
 
   for (job::job_iterator itJobEntry = jobsCollection->begin();
       itJobEntry != jobsCollection->end();
       ++itJobEntry) {
-    Trace::init();
     Trace::debug() << DYNLog(LaunchingJob, (*itJobEntry)->getName()) << Trace::endline;
 
     boost::shared_ptr<SimulationContext> context = boost::shared_ptr<SimulationContext>(new SimulationContext());
@@ -83,5 +84,11 @@ void launchSimu(const std::string& jobsFileName) {
     simulation->clean();
     Trace::debug() << DYNLog(EndOfJob, (*itJobEntry)->getName()) << Trace::endline;
     Trace::resetCustomAppenders();
+    Trace::init();
+    Trace::debug() << DYNLog(JobSuccess, (*itJobEntry)->getName()) << Trace::endline;
+    if ((*itJobEntry)->getOutputsEntry()) {
+      std::string outputsDirectory = createAbsolutePath((*itJobEntry)->getOutputsEntry()->getOutputsDirectory(), context->getWorkingDirectory());
+      Trace::debug() << DYNLog(ResultFolder, outputsDirectory) << Trace::endline;
+    }
   }
 }
