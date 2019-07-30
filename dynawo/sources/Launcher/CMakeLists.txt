@@ -41,7 +41,11 @@ TARGET_LINK_LIBRARIES(dynawo
                       ${LibArchive_LIBRARY}
                       ${ZLIB_LIBRARY}
                       "-rdynamic"
-                      )
+                    )
+
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  target_link_libraries(dynawo "-lrt")
+endif()
 
 if (APPLE)
   TARGET_LINK_LIBRARIES(dynawo "-force_load" dynawo_Util)

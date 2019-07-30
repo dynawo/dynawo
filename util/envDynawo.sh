@@ -228,10 +228,14 @@ export_git_branch() {
     error_exit "$DYNAWO_HOME does not exist."
   fi
   cd $DYNAWO_HOME
-  branch_name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
-  if [[ "${branch_name}" == "" ]]; then
-    branch_ref=$(git rev-parse --short HEAD)
-    branch_name="detached_"${branch_ref}
+  if [ -e ".git" ]; then
+    branch_name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+    if [[ "${branch_name}" == "" ]]; then
+      branch_ref=$(git rev-parse --short HEAD)
+      branch_name="detached_"${branch_ref}
+    fi
+  else
+    branch_name="no-branch"
   fi
   export_var_env_force DYNAWO_BRANCH_NAME=${branch_name}
   cd $current_dir
@@ -312,8 +316,10 @@ set_environment() {
   export_var_env DYNAWO_DEBUG_COMPILER_OPTION="-O1"
 
   # External libs
+  export_var_env_default DYNAWO_ZLIB_HOME=UNDEFINED
   export_var_env_default DYNAWO_LIBARCHIVE_HOME=UNDEFINED
   export_var_env_default DYNAWO_BOOST_HOME=UNDEFINED
+  export_var_env DYNAWO_BOOST_USE_STATIC=OFF
   export_var_env_default DYNAWO_GTEST_HOME=UNDEFINED
   export_var_env_default DYNAWO_GMOCK_HOME=UNDEFINED
 
@@ -454,6 +460,10 @@ set_standard_environment_variables() {
   ld_library_path_prepend $DYNAWO_XERCESC_INSTALL_DIR/lib
   ld_library_path_prepend $DYNAWO_INSTALL_DIR/lib
 
+  if [ $DYNAWO_ZLIB_HOME_DEFAULT != true ]; then
+    ld_library_path_prepend $DYNAWO_ZLIB_HOME/lib
+  fi
+
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     ld_library_path_prepend $DYNAWO_LIBARCHIVE_HOME/lib
   fi
@@ -462,13 +472,15 @@ set_standard_environment_variables() {
     ld_library_path_prepend $DYNAWO_BOOST_HOME/lib
   fi
 
-  if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
-    if [ -d "$DYNAWO_GTEST_HOME/lib64" ]; then
-      ld_library_path_prepend $DYNAWO_GTEST_HOME/lib64
-    elif [ -d "$DYNAWO_GTEST_HOME/lib" ]; then
-      ld_library_path_prepend $DYNAWO_GTEST_HOME/lib
-    else
-      error_exit "Not enable to find GoogleTest library directory for runtime."
+  if [ "$DYNAWO_BUILD_TYPE" = "Debug" -o "$DYNAWO_BUILD_TYPE" = "Tests" -o "$DYNAWO_BUILD_TYPE" = "TestCoverage" ]; then
+    if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
+      if [ -d "$DYNAWO_GTEST_HOME/lib64" ]; then
+        ld_library_path_prepend $DYNAWO_GTEST_HOME/lib64
+      elif [ -d "$DYNAWO_GTEST_HOME/lib" ]; then
+        ld_library_path_prepend $DYNAWO_GTEST_HOME/lib
+      else
+        error_exit "Not enable to find GoogleTest library directory for runtime."
+      fi
     fi
   fi
 
@@ -570,8 +582,10 @@ git diff-index --check --cached HEAD -- ':(exclude)*/reference/*' ':(exclude)*.p
     fi
   fi
 
-  if [ "$(git config --get core.commentchar)" = "#" ]; then
-    git config core.commentchar % || error_exit "You need to change git config commentchar from # to %."
+  if [ -e "$DYNAWO_HOME/.git" ]; then
+    if [ "$(git config --get core.commentchar)" = "#" ]; then
+      git config core.commentchar % || error_exit "You need to change git config commentchar from # to %."
+    fi
   fi
 }
 
@@ -821,6 +835,9 @@ config_dynawo() {
   if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONNAL="-DBOOST_ROOT=$DYNAWO_BOOST_HOME"
   fi
+  if [ $DYNAWO_ZLIB_HOME_DEFAULT != true ]; then
+    CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DZLIB_ROOT=$DYNAWO_ZLIB_HOME"
+  fi
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
   fi
@@ -848,6 +865,7 @@ config_dynawo() {
     -DOPENMODELICA_VERSION:STRING=$DYNAWO_OPENMODELICA_VERSION \
     -DCXX11_ENABLED:BOOL=$DYNAWO_CXX11_ENABLED \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
+    -DBOOST_USE_STATIC=$DYNAWO_BOOST_USE_STATIC \
     -DDYNAWO_DEBUG_COMPILER_OPTION:STRING=$DYNAWO_DEBUG_COMPILER_OPTION \
     -DADEPT_HOME=$DYNAWO_ADEPT_INSTALL_DIR \
     -DSUNDIALS_HOME=$DYNAWO_SUNDIALS_INSTALL_DIR \
@@ -1378,27 +1396,47 @@ find_lib_system_path() {
   if [ -z "$1" ]; then
     error_exit "You need to give the name of the library to search."
   fi
+  local path
   if [ ! -f "$DYNAWO_INSTALL_DIR/bin/dynawo" ]; then
     error_exit "Dynawo binary should exist to deploy and find system library used to link against it."
   fi
-  if [ "`uname`" = "Linux" ]; then
-    ldd $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | cut -d '>' -f 2 | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq
-  elif [ "`uname`" = "Darwin" ]; then
-    otool -L $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq
+  if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
+    if [ "`uname`" = "Linux" ]; then
+      path=$(ldd $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | cut -d '>' -f 2 | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq)
+    elif [ "`uname`" = "Darwin" ]; then
+      path=$(otool -L $DYNAWO_INSTALL_DIR/bin/dynawo | grep "$1" | awk '{print $1}' | sed "s/lib$1.*//g"  | uniq)
+    else
+      echo "OS not supported."
+      exit 1
+    fi
+  elif [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
+    LIBRARY_SUFFIX="a"
+    if [ ! -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
+      error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine include system paths used during compilation."
+    fi
+    path=$(cat $DYNAWO_BUILD_DIR/CMakeCache.txt | grep -i "${1}_LIBRARY_DIR_RELEASE:PATH" | cut -d '=' -f 2)
   else
-    echo "OS not supported."
-    exit 1
+    error_exit "Wrong type of library build: $DYNAWO_LIBRARY_TYPE, either SHARED or STATIC."
   fi
+  if [ -z "$path" ]; then
+    error_exit "Could not find any path for $1 library, it should not happen so an issue must be addressed to the Dynawo team."
+  fi
+  echo -n $path
 }
 
 find_include_system_path() {
   if [ -z "$1" ]; then
     error_exit "You need to give the name of the library to search."
   fi
+  local path
   if [ ! -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
     error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine include system paths used during compilation."
   fi
-  cat $DYNAWO_BUILD_DIR/CMakeCache.txt | grep "$1":PATH | cut -d '=' -f 2
+  path=$(cat $DYNAWO_BUILD_DIR/CMakeCache.txt | grep "$1":PATH | cut -d '=' -f 2)
+  if [ -z "$path" ]; then
+    error_exit "Could not find any path for $1 library, it should not happen so an issue must be addressed to the Dynawo team."
+  fi
+  echo -n $path
 }
 
 deploy_dynawo() {
@@ -1412,27 +1450,19 @@ deploy_dynawo() {
   current_dir=$PWD
   mkdir -p $DYNAWO_DEPLOY_DIR || error_exit "Impossible to create $DYNAWO_DEPLOY_DIR."
   cd $DYNAWO_DEPLOY_DIR
-  mkdir -p 3rdParty/sundials/lib
-  mkdir -p 3rdParty/adept/lib
-  mkdir -p 3rdParty/suitesparse/lib
-  mkdir -p 3rdParty/nicslu/lib
-  mkdir -p extraLibs/BOOST/lib/
-  mkdir -p extraLibs/XERCESC/lib/
-  mkdir -p extraLibs/LIBARCHIVE/lib/
-  mkdir -p extraLibs/LIBZIP/lib
-  mkdir -p extraLibs/LIBXML/lib
-  mkdir -p extraLibs/LIBIIDM/lib
-  cp -P $DYNAWO_SUNDIALS_INSTALL_DIR/lib*/*.* 3rdParty/sundials/lib/
-  cp -P $DYNAWO_ADEPT_INSTALL_DIR/lib/*.* 3rdParty/adept/lib/
-  cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/lib/*.* 3rdParty/suitesparse/lib/
+  mkdir -p lib
+
+  cp -P $DYNAWO_SUNDIALS_INSTALL_DIR/lib*/*.* lib/
+  cp -P $DYNAWO_ADEPT_INSTALL_DIR/lib/*.* lib/
+  cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/lib/*.* lib/
   if [ -d "$DYNAWO_NICSLU_INSTALL_DIR/lib" ]; then
     if [ ! -z "$(ls -A $DYNAWO_NICSLU_INSTALL_DIR/lib)" ]; then
-      cp -P $DYNAWO_NICSLU_INSTALL_DIR/lib/*.* 3rdParty/nicslu/lib/
+      cp -P $DYNAWO_NICSLU_INSTALL_DIR/lib/*.* lib/
     fi
   fi
-  cp -P $DYNAWO_LIBZIP_HOME/lib/*.* extraLibs/LIBZIP/lib/
-  cp -P $DYNAWO_LIBXML_HOME/lib/*.* extraLibs/LIBXML/lib/
-  cp -P $DYNAWO_LIBIIDM_HOME/lib/*.* extraLibs/LIBIIDM/lib/
+  cp -P $DYNAWO_LIBZIP_HOME/lib/*.* lib/
+  cp -P $DYNAWO_LIBXML_HOME/lib/*.* lib/
+  cp -P $DYNAWO_LIBIIDM_HOME/lib/*.* lib/
 
   if [ ! -d "$DYNAWO_THIRD_PARTY_SRC_DIR/libiidm" ]; then
     error_exit "$DYNAWO_THIRD_PARTY_SRC_DIR/libiidm does not exist."
@@ -1454,86 +1484,113 @@ deploy_dynawo() {
   fi
   cd $DYNAWO_DEPLOY_DIR
 
-  mkdir -p 3rdParty/sundials/include
-  mkdir -p 3rdParty/adept/include
-  mkdir -p 3rdParty/suitesparse/include
-  mkdir -p 3rdParty/nicslu/include
-  mkdir -p extraLibs/BOOST/include
-  mkdir -p extraLibs/LIBARCHIVE/include
-  mkdir -p extraLibs/LIBZIP/include
-  mkdir -p extraLibs/LIBXML/include
-  mkdir -p extraLibs/LIBIIDM/include
-  cp -R -P $DYNAWO_SUNDIALS_INSTALL_DIR/include/* 3rdParty/sundials/include/
-  cp -R -P $DYNAWO_ADEPT_INSTALL_DIR/include/* 3rdParty/adept/include/
-  cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/include/*.* 3rdParty/suitesparse/include/
+  mkdir -p include
+  cp -R -P $DYNAWO_SUNDIALS_INSTALL_DIR/include/* include/
+  cp -R -P $DYNAWO_ADEPT_INSTALL_DIR/include/* include/
+  cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/include/*.* include/
   if [ -d "$DYNAWO_NICSLU_INSTALL_DIR/include" ]; then
     if [ ! -z "$(ls -A $DYNAWO_NICSLU_INSTALL_DIR/include)" ]; then
-      cp -P $DYNAWO_NICSLU_INSTALL_DIR/include/*.* 3rdParty/nicslu/include/
+      cp -P $DYNAWO_NICSLU_INSTALL_DIR/include/*.* include/
     fi
   fi
-  cp -R -P $DYNAWO_LIBZIP_HOME/include/libzip extraLibs/LIBZIP/include/
-  cp -R -P $DYNAWO_LIBXML_HOME/include/xml extraLibs/LIBXML/include/
-  cp -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM extraLibs/LIBIIDM/include/
+  cp -R -P $DYNAWO_LIBZIP_HOME/include/libzip include/
+  cp -R -P $DYNAWO_LIBXML_HOME/include/xml include/
+  cp -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM include/
 
-  mkdir -p extraLibs/LIBXML/share
-  mkdir -p extraLibs/LIBIIDM/share
-  cp -R -P $DYNAWO_LIBXML_HOME/share/cmake extraLibs/LIBXML/share/
-  cp -R -P $DYNAWO_LIBIIDM_HOME/share/cmake extraLibs/LIBIIDM/share/
-  cp -R -P $DYNAWO_LIBIIDM_HOME/share/iidm extraLibs/LIBIIDM/share/
+  mkdir -p share
+  cp -R -P $DYNAWO_LIBXML_HOME/share/cmake share/
+  cp -R -P $DYNAWO_LIBIIDM_HOME/share/cmake share/
+  cp -R -P $DYNAWO_LIBIIDM_HOME/share/iidm share/
 
-  for file in $(grep -rl $DYNAWO_LIBXML_HOME extraLibs/LIBXML/share/cmake/*); do
-    sed -i "s|$DYNAWO_LIBXML_HOME|$DYNAWO_DEPLOY_DIR/extraLibs/LIBXML|" $file
+  for file in $(grep -rl $DYNAWO_LIBXML_HOME share/cmake/*); do
+    sed -i "s|$DYNAWO_LIBXML_HOME|$DYNAWO_DEPLOY_DIR|" $file
   done
-  for file in $(grep -rl $DYNAWO_XERCESC_INSTALL_DIR extraLibs/LIBXML/share/cmake/*); do
-    sed -i "s|$DYNAWO_XERCESC_INSTALL_DIR|$DYNAWO_DEPLOY_DIR/extraLibs/XERCESC|" $file
+  for file in $(grep -rl $DYNAWO_XERCESC_INSTALL_DIR share/cmake/*); do
+    sed -i "s|$DYNAWO_XERCESC_INSTALL_DIR|$DYNAWO_DEPLOY_DIR|" $file
   done
-  for file in $(grep -rl $DYNAWO_LIBIIDM_HOME extraLibs/LIBIIDM/share/cmake/*); do
-    sed -i "s|$DYNAWO_LIBIIDM_HOME|$DYNAWO_DEPLOY_DIR/extraLibs/LIBIIDM|" $file
+  for file in $(grep -rl $DYNAWO_LIBIIDM_HOME share/cmake/*); do
+    sed -i "s|$DYNAWO_LIBIIDM_HOME|$DYNAWO_DEPLOY_DIR|" $file
   done
-  for file in $(grep -rl $DYNAWO_LIBXML_HOME extraLibs/LIBIIDM/share/cmake/*); do
-    sed -i "s|$DYNAWO_LIBXML_HOME|$DYNAWO_DEPLOY_DIR/extraLibs/LIBXML|" $file
+  for file in $(grep -rl $DYNAWO_LIBXML_HOME share/cmake/*); do
+    sed -i "s|$DYNAWO_LIBXML_HOME|$DYNAWO_DEPLOY_DIR|" $file
   done
 
-  mkdir -p 3rdParty/openmodelica/bin/
-  mkdir -p 3rdParty/openmodelica/include/
-  mkdir -p 3rdParty/openmodelica/lib/omc/
-  cp -P $DYNAWO_INSTALL_OPENMODELICA/bin/omc* 3rdParty/openmodelica/bin
-  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/include/omc 3rdParty/openmodelica/include/
-  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/* 3rdParty/openmodelica/lib/
-  cp -P $DYNAWO_INSTALL_OPENMODELICA/lib/omc/*.mo 3rdParty/openmodelica/lib/omc/
-  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary 3rdParty/openmodelica/lib/
+  mkdir -p OpenModelica/bin/
+  mkdir -p OpenModelica/include/
+  mkdir -p OpenModelica/lib/omc/
+  cp -P $DYNAWO_INSTALL_OPENMODELICA/bin/omc* OpenModelica/bin
+  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/include/omc OpenModelica/include/
+  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/* OpenModelica/lib/
+  cp -P $DYNAWO_INSTALL_OPENMODELICA/lib/omc/*.mo OpenModelica/lib/omc/
+  cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary OpenModelica/lib/
+
+  if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
+    LIBRARY_SUFFIX=$DYNAWO_SHARED_LIBRARY_SUFFIX
+  elif [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
+    LIBRARY_SUFFIX="a"
+  else
+    error_exit "Wrong type of library build: $DYNAWO_LIBRARY_TYPE, either SHARED or STATIC."
+  fi
 
   # BOOST
   if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
-    cp -P $DYNAWO_BOOST_HOME/lib/libboost_*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/BOOST/lib/
-    cp -P -R $DYNAWO_BOOST_HOME/include/boost extraLibs/BOOST/include/
+    boost_system_folder=$DYNAWO_BOOST_HOME/lib
+    boost_system_folder_include=$DYNAWO_BOOST_HOME/include
   else
-    boost_system_folder=$(find_lib_system_path boost)
-    cp -P ${boost_system_folder}libboost_*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/BOOST/lib/
-    boost_system_folder_include=$(find_include_system_path Boost_INCLUDE_DIR)
-    cp -P -R $boost_system_folder_include/boost extraLibs/BOOST/include/
+    boost_system_folder=$(find_lib_system_path boost) || error_exit "Path for boost could not be found for deploy."
+    boost_system_folder_include=$(find_include_system_path Boost_INCLUDE_DIR) || error_exit "Path for boost include could not be found for deploy."
   fi
+  cp -P ${boost_system_folder}/libboost_atomic.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_chrono.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_date_time.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_filesystem.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_iostreams.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_log.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_log_setup.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_program_options.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_regex.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_serialization.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_system.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_thread.$LIBRARY_SUFFIX* lib/
+  cp -P ${boost_system_folder}/libboost_wserialization.$LIBRARY_SUFFIX* lib/
+  cp -P -R $boost_system_folder_include/boost include/
 
   # XERCESC
-  cp -P $DYNAWO_XERCESC_INSTALL_DIR/lib/libxerces-c*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/XERCESC/lib/
-  cp -r $DYNAWO_XERCESC_INSTALL_DIR/include extraLibs/XERCESC/.
+  cp -P $DYNAWO_XERCESC_INSTALL_DIR/lib/libxerces-c*.* lib/
+  cp -r $DYNAWO_XERCESC_INSTALL_DIR/include/* include/
+
+  # ZLIB
+  if [ $DYNAWO_ZLIB_HOME_DEFAULT != true ]; then
+    cp -P $DYNAWO_ZLIB_HOME/lib/libz.$LIBRARY_SUFFIX* lib/
+    cp $DYNAWO_ZLIB_HOME/include/zconf.h include/
+    cp $DYNAWO_ZLIB_HOME/include/zlib.h include/
+  else
+    zlib_system_folder=$(find_lib_system_path z[.]) || error_exit "Path for zlib could not be found for deploy."
+    cp -P ${zlib_system_folder}/libz.$LIBRARY_SUFFIX* lib/
+    zlib_system_folder_include=$(find_include_system_path ZLIB_INCLUDE_DIR) || error_exit "Path for zlib include could not be found for deploy."
+    cp $zlib_system_folder_include/zconf.h include/
+    cp $zlib_system_folder_include/zlib.h include/
+  fi
 
   # LIBARCHIVE
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
-    cp -P $DYNAWO_LIBARCHIVE_HOME/lib/libarchive*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/LIBARCHIVE/lib/
-    cp $DYNAWO_LIBARCHIVE_HOME/include/archive_entry.h extraLibs/LIBARCHIVE/include/
-    cp $DYNAWO_LIBARCHIVE_HOME/include/archive.h extraLibs/LIBARCHIVE/include/
+    cp -P $DYNAWO_LIBARCHIVE_HOME/lib/libarchive*.$LIBRARY_SUFFIX* lib/
+    cp $DYNAWO_LIBARCHIVE_HOME/include/archive_entry.h include/
+    cp $DYNAWO_LIBARCHIVE_HOME/include/archive.h include/
   else
-    libarchive_system_folder=$(find_lib_system_path archive)
-    cp -P ${libarchive_system_folder}libarchive*.$DYNAWO_SHARED_LIBRARY_SUFFIX* extraLibs/LIBARCHIVE/lib/
-    libarchive_system_folder_include=$(find_include_system_path LibArchive_INCLUDE_DIR)
-    cp $libarchive_system_folder_include/archive_entry.h extraLibs/LIBARCHIVE/include/
-    cp $libarchive_system_folder_include/archive.h extraLibs/LIBARCHIVE/include/
+    libarchive_system_folder=$(find_lib_system_path archive) || error_exit "Path for libarchive could not be found for deploy."
+    cp -P ${libarchive_system_folder}/libarchive*.$LIBRARY_SUFFIX* lib/
+    libarchive_system_folder_include=$(find_include_system_path LibArchive_INCLUDE_DIR) || error_exit "Path for libarchive include could not be found for deploy."
+    cp $libarchive_system_folder_include/archive_entry.h include/
+    cp $libarchive_system_folder_include/archive.h include/
   fi
 
   # DYNAWO
-  cp -r $DYNAWO_INSTALL_DIR/bin $DYNAWO_INSTALL_DIR/lib $DYNAWO_INSTALL_DIR/include $DYNAWO_INSTALL_DIR/share .
-  mkdir -p ddb/
+  mkdir -p bin
+  cp -r $DYNAWO_INSTALL_DIR/bin/* bin/
+  cp -r $DYNAWO_INSTALL_DIR/lib/* lib/
+  cp -r $DYNAWO_INSTALL_DIR/include/* include/
+  cp -r $DYNAWO_INSTALL_DIR/share/* share/
   cp -r $DYNAWO_INSTALL_DIR/ddb .
 
   mkdir -p sbin
@@ -1552,18 +1609,34 @@ deploy_dynawo() {
     cp $DYNAWO_INSTALL_DIR/doxygen/Dynawo.tag doxygen/.
   fi
 
-  cp -r $DYNAWO_CURVES_TO_HTML_DIR sbin/.
-  mkdir -p sbin/nrt
-  cp -r $DYNAWO_HOME/util/nrt_diff sbin/nrt/.
+  mkdir -p sbin/curvesToHtml/csvToHtml sbin/curvesToHtml/resources sbin/curvesToHtml/xmlToHtml
+  cp -r $DYNAWO_CURVES_TO_HTML_DIR/*.py sbin/curvesToHtml/
+  cp -r $DYNAWO_CURVES_TO_HTML_DIR/resources/* sbin/curvesToHtml/resources/
+  cp -r $DYNAWO_CURVES_TO_HTML_DIR/csvToHtml/*.py sbin/curvesToHtml/csvToHtml/
+  cp -r $DYNAWO_CURVES_TO_HTML_DIR/xmlToHtml/*.py sbin/curvesToHtml/xmlToHtml/
+  mkdir -p sbin/nrt/nrt_diff
+  cp -r $DYNAWO_HOME/util/nrt_diff/*.py sbin/nrt/nrt_diff
   cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
+
+  rm -f lib/*.la
+  find OpenModelica/lib -name "*.la" -exec rm {} \;
 
   cd $current_dir
 }
 
+copy_sources() {
+  mkdir -p $DYNAWO_DEPLOY_DIR/sources || error_exit "Impossible to create $DYNAWO_DEPLOY_DIR."
+  if [ -e "$DYNAWO_HOME/.git" ]; then
+    for file in $(git ls-files); do
+      tar cf - $file | (cd $DYNAWO_DEPLOY_DIR/sources && tar xf -)
+    done
+  fi
+}
+
 create_distrib_with_omc() {
-   # Set Dynawo distrib version
-  DYNAWO_VERSION=$(version)
+  # Set Dynawo distrib version
+  DYNAWO_VERSION=$(version) || error_exit "Error with version."
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
 
   ZIP_FILE=Dynawo_omc_V$version.zip
@@ -1574,8 +1647,69 @@ create_distrib_with_omc() {
   # Deploy Dynawo
   deploy_dynawo
 
+  if [ "$DYNAWO_COMPILER" = "GCC" ]; then
+    gcc_version=$($DYNAWO_C_COMPILER -dumpversion)
+    if [ $(echo $gcc_version | cut -d '.' -f 1) -lt 5 ]; then
+      sed -i 's/FLAGS="$FLAGS -std=c++98"/FLAGS="$FLAGS -std=c++98 -D_GLIBCXX_USE_CXX11_ABI=0"/' $DYNAWO_DEPLOY_DIR/sbin/compileCppModelicaModelInDynamicLib
+    elif [ $(echo $gcc_version | cut -d '.' -f 1) -eq 5 -a $(echo $gcc_version | cut -d '.' -f 2) -lt 1 ]; then
+      sed -i 's/FLAGS="$FLAGS -std=c++98"/FLAGS="$FLAGS -std=c++98 -D_GLIBCXX_USE_CXX11_ABI=0"/' $DYNAWO_DEPLOY_DIR/sbin/compileCppModelicaModelInDynamicLib
+    fi
+  fi
+
+  copy_sources
+
   if [ ! -x "$(command -v zip)" ]; then
     error_exit "You need to install zip command line utility."
+  fi
+
+  if [ "`uname`" = "Linux" ]; then
+    if [ -x "$(command -v chrpath)" ]; then
+      if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
+        chrpath -d $DYNAWO_DEPLOY_DIR/lib/libamd.so
+        chrpath -d $DYNAWO_DEPLOY_DIR/lib/libbtf.so
+        chrpath -d $DYNAWO_DEPLOY_DIR/lib/libcolamd.so
+        chrpath -d $DYNAWO_DEPLOY_DIR/lib/libklu.so
+        chrpath -d $DYNAWO_DEPLOY_DIR/lib/libsuitesparseconfig.so
+      fi
+    fi
+  fi
+
+  if [ "`uname`" = "Darwin" ]; then
+    version=$($DYNAWO_DEPLOY_DIR/bin/dynawo --version | cut -d ' ' -f 1)
+    bins=("bin/dynawo" "bin/dynawo-$version" "sbin/dumpModel" "sbin/compileModelicaModel" "sbin/dumpSolver" "sbin/generate-preassembled" "sbin/generate-preassembled-$version")
+
+    for bin in ${bins[@]}; do
+      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep `id -n -u` | grep path | awk '{print $2}'); do
+        install_name_tool -delete_rpath $lib_path $DYNAWO_DEPLOY_DIR/$bin
+      done
+
+      install_name_tool -add_rpath @loader_path/../lib $DYNAWO_DEPLOY_DIR/$bin 2> /dev/null
+
+      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep `id -n -u` | grep name | awk '{print $2}'); do
+        install_name_tool -change $lib_path @rpath/$(echo $lib_path | awk -F'/' '{print $(NF)}') $DYNAWO_DEPLOY_DIR/$bin
+      done
+    done
+
+    for lib in $(find $DYNAWO_DEPLOY_DIR/lib -name "*.dylib"); do
+      for lib_path in $(otool -l $lib | grep `id -n -u` | grep path | awk '{print $2}'); do
+        install_name_tool -delete_rpath $lib_path $lib
+      done
+    done
+
+    for lib in $(find $DYNAWO_DEPLOY_DIR/OpenModelica/lib -name "*.dylib"); do
+      for lib_path in $(otool -l $lib | grep `id -n -u` | grep name | awk '{print $2}'); do
+        omc_lib_path=$DYNAWO_DEPLOY_DIR/OpenModelica/$(otool -l $DYNAWO_DEPLOY_DIR/OpenModelica/bin/omc | grep "@loader_path" | grep -o "lib/.*" | cut -d ' ' -f 1)
+        if [ ! -d "$omc_lib_path" ]; then
+          error_exit "Directory $omc_lib_path does not exist."
+        fi
+        cp $lib_path $omc_lib_path || error_exit "Copy of $lib_path into $omc_lib_path failed."
+        for lib_path_dylib in $(otool -l $omc_lib_path/$(basename $lib_path) | grep `id -n -u` | grep name | awk '{print $2}'); do
+          install_name_tool -change $lib_path_dylib @rpath/$(echo $lib_path_dylib | awk -F'/' '{print $(NF)}') $omc_lib_path/$(basename $lib_path)
+        done
+        install_name_tool -id @rpath/$(basename $lib_path) $omc_lib_path/$(basename $lib_path)
+        install_name_tool -change $lib_path @rpath/$(echo $lib_path | awk -F'/' '{print $(NF)}') $lib
+      done
+    done
   fi
 
   # create distribution
@@ -1583,17 +1717,14 @@ create_distrib_with_omc() {
     error_exit "$DYNAWO_DEPLOY_DIR does not exist."
   fi
   cd $DYNAWO_DEPLOY_DIR
-  zip -r -y $ZIP_FILE bin/ lib/ share/
+  zip -r -y $ZIP_FILE bin/ lib/ sources/
+
+  zip -r -y $ZIP_FILE share/iidm share/xsd share/*.dic share/*.par
 
   # need with omc binary
   zip -r -g -y $ZIP_FILE ddb/ include/ sbin/
 
-  zip -r -g -y $ZIP_FILE 3rdParty/*/lib -x \*.a
-  zip -r -g -y $ZIP_FILE 3rdParty/adept/include -x \*.a
-  zip -r -g -y $ZIP_FILE 3rdParty/openmodelica/bin -x \*.a
-  zip -r -g -y $ZIP_FILE 3rdParty/openmodelica/include -x \*.a
-  zip -r -g -y $ZIP_FILE extraLibs/*/lib -x \*.a
-  zip -r -g -y $ZIP_FILE extraLibs/BOOST/include -x \*.a
+  zip -r -g -y $ZIP_FILE OpenModelica
 
   # move distribution in distribution directory
   DISTRIB_DIR=$DYNAWO_HOME/distributions
@@ -1603,7 +1734,7 @@ create_distrib_with_omc() {
 
 create_distrib() {
   # Set Dynawo distrib version
-  DYNAWO_VERSION=$(version)
+  DYNAWO_VERSION=$(version) || error_exit "Error with version."
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
 
   ZIP_FILE=Dynawo_V$version.zip
@@ -1614,27 +1745,38 @@ create_distrib() {
   # Deploy Dynawo
   deploy_dynawo
 
+  copy_sources
+
+  if [ "`uname`" = "Darwin" ]; then
+    version=$($DYNAWO_DEPLOY_DIR/bin/dynawo --version | cut -d ' ' -f 1)
+    bins=("bin/dynawo" "bin/dynawo-$version" "sbin/dumpModel" "sbin/compileModelicaModel" "sbin/dumpSolver" "sbin/generate-preassembled" "sbin/generate-preassembled-$version")
+
+    for bin in ${bins[@]}; do
+      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep `id -n -u` | grep path | awk '{print $2}'); do
+        install_name_tool -delete_rpath $lib_path $DYNAWO_DEPLOY_DIR/$bin
+      done
+
+      install_name_tool -add_rpath @loader_path/../lib $DYNAWO_DEPLOY_DIR/$bin 2> /dev/null
+
+      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep `id -n -u` | grep name | awk '{print $2}'); do
+        install_name_tool -change $lib_path @rpath/$(echo $lib_path | awk -F'/' '{print $(NF)}') $DYNAWO_DEPLOY_DIR/$bin
+      done
+    done
+
+    for lib in $(find $DYNAWO_DEPLOY_DIR/lib -name "*.dylib"); do
+      for lib_path in $(otool -l $lib | grep `id -n -u` | grep path | awk '{print $2}'); do
+        install_name_tool -delete_rpath $lib_path $lib
+      done
+    done
+  fi
+
   # create distribution
   if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
     error_exit "$DYNAWO_DEPLOY_DIR does not exist."
   fi
   cd $DYNAWO_DEPLOY_DIR
-  zip -r -y $ZIP_FILE bin/ lib/ share/
+  zip -r -y $ZIP_FILE bin/ lib/ share/ sources/
   zip -r -g -y $ZIP_FILE ddb/*.$DYNAWO_SHARED_LIBRARY_SUFFIX ddb/*.desc.xml
-
-  # Add lib to zip file
-  zip -r -g -y $ZIP_FILE 3rdParty/adept/lib -x \*.a
-  zip -r -g -y $ZIP_FILE 3rdParty/suitesparse/lib -x \*.a
-  zip -r -g -y $ZIP_FILE 3rdParty/sundials/lib -x \*.a
-  if [ -d "3rdParty/nicslu/lib" ]; then
-    zip -r -g -y $ZIP_FILE 3rdParty/nicslu/lib -x \*.a
-  fi
-  zip -r -g -y $ZIP_FILE extraLibs/LIBZIP/lib -x \*.a
-  zip -r -g -y $ZIP_FILE extraLibs/LIBXML/lib -x \*.a
-  zip -r -g -y $ZIP_FILE extraLibs/LIBIIDM/lib -x \*.a
-  zip -r -g -y $ZIP_FILE extraLibs/LIBARCHIVE/lib -x \*.a
-  zip -r -g -y $ZIP_FILE extraLibs/XERCESC/lib -x \*.a
-  zip -r -g -y $ZIP_FILE extraLibs/BOOST/lib -x \*.a
 
   # move distribution in distribution directory
   DISTRIB_DIR=$DYNAWO_HOME/distributions
@@ -1757,6 +1899,7 @@ reset_environment_variables() {
   ld_library_path_remove $DYNAWO_ADEPT_INSTALL_DIR/lib
   ld_library_path_remove $DYNAWO_XERCESC_INSTALL_DIR/lib
   ld_library_path_remove $DYNAWO_INSTALL_DIR/lib
+  ld_library_path_remove $DYNAWO_ZLIB_HOME/lib
   ld_library_path_remove $DYNAWO_LIBARCHIVE_HOME/lib
   ld_library_path_remove $DYNAWO_BOOST_HOME/lib
   ld_library_path_remove $DYNAWO_GTEST_HOME/lib64
@@ -1765,7 +1908,7 @@ reset_environment_variables() {
   python_path_remove $DYNAWO_SCRIPTS_DIR
 
   do_not_unset="DYNAWO_BUILD_TYPE DYNAWO_COMPILER DYNAWO_CXX11_ENABLED DYNAWO_HOME DYNAWO_LIBRARY_TYPE DYNAWO_INSTALL_OPENMODELICA \
-DYNAWO_SRC_OPENMODELICA DYNAWO_LIBARCHIVE_HOME DYNAWO_BOOST_HOME DYNAWO_GTEST_HOME DYNAWO_GMOCK_HOME"
+DYNAWO_SRC_OPENMODELICA DYNAWO_ZLIB_HOME DYNAWO_LIBARCHIVE_HOME DYNAWO_BOOST_HOME DYNAWO_GTEST_HOME DYNAWO_GMOCK_HOME"
 
   for var in $(printenv | grep DYNAWO_ | cut -d '=' -f 1); do
     if ! `echo $do_not_unset | grep -w $var > /dev/null`; then
@@ -1783,6 +1926,7 @@ reset_environment_variables_full() {
   unset DYNAWO_INSTALL_OPENMODELICA
   unset DYNAWO_LIBRARY_TYPE
   unset DYNAWO_SRC_OPENMODELICA
+  unset DYNAWO_ZLIB_HOME
   unset DYNAWO_LIBARCHIVE_HOME
   unset DYNAWO_BOOST_HOME
   unset DYNAWO_GTEST_HOME

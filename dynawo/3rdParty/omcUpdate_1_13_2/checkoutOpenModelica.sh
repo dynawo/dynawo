@@ -41,6 +41,8 @@ check_git_version() {
       if [ $(echo $GIT_VERSION | cut -d '.' -f 2) -ge 11 ]; then
         return 0
       fi
+    elif [ $(echo $GIT_VERSION | cut -d '.' -f 1) -gt 2 ]; then
+      return 0
     fi
   else
     error_exit "You need to install git command line utility."
