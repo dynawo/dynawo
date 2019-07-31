@@ -44,7 +44,7 @@ TARGET_LINK_LIBRARIES(dynawo
                     )
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  target_link_libraries(dynawo "-lrt")
+  TARGET_LINK_LIBRARIES(dynawo "-lrt")
 endif()
 
 if (APPLE)
