@@ -51,11 +51,11 @@ IF(${NICSLU_FOUND})
   TARGET_LINK_LIBRARIES(dynawo_SolverIDA ${NICSLU_LIBRARIES})
 ENDIF()
 
-if (APPLE)
+IF (APPLE)
   IF(LIBRARY_TYPE STREQUAL "STATIC")
     TARGET_LINK_LIBRARIES(dynawo_SolverIDA "-flat_namespace -undefined warning")
   ENDIF()
-endif()
+ENDIF()
 
 SET_TARGET_PROPERTIES(dynawo_SolverIDA PROPERTIES VERSION ${SOLVER_IDA_VERSION_STRING}
                                            SOVERSION ${SOLVER_IDA_VERSION_MAJOR})

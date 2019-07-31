@@ -99,7 +99,7 @@ MACRO(INSTALL_MODEL_FILE
     # Run xmllint on external variable files in order to include possible sub-model external variables
     string (TOLOWER ${SHORT_EXTENSION} SHORT_EXTENSION_LOWER)
     set (EXTERNAL_VARIABLES_EXTENSION ".extvar")
-    if (${SHORT_EXTENSION_LOWER} STREQUAL ${EXTERNAL_VARIABLES_EXTENSION})
+    IF (${SHORT_EXTENSION_LOWER} STREQUAL ${EXTERNAL_VARIABLES_EXTENSION})
         SET (TARGET_PROCESSING_NAME "${TARGET_NAME}_EXTVAR_FLATTENING")
         ADD_CUSTOM_TARGET(${TARGET_PROCESSING_NAME}
                       DEPENDS MODEL_FILES_INSTALL
@@ -114,7 +114,7 @@ MACRO(INSTALL_MODEL_FILE
                             COMMAND rm -rf "${TMP_FILE_PATH}")
 
         ADD_DEPENDENCIES(EXTERNAL_VARIABLES_FLATTENING ${TARGET_PROCESSING_NAME})
-    endif()
+    ENDIF()
 
     ADD_DEPENDENCIES(MODEL_FILES_INSTALL ${TARGET_NAME})
 
@@ -239,11 +239,11 @@ MACRO(COMPILE_CPP_MODEL
                           ${Boost_REGEX_LIBRARY}
                           ${Boost_CHRONO_LIBRARY}
                          )
-    if (APPLE)
+    IF (APPLE)
       IF(LIBRARY_TYPE STREQUAL "STATIC")
         TARGET_LINK_LIBRARIES(${CPP_MODEL} "-flat_namespace -undefined warning")
       ENDIF()
-    endif()
+    ENDIF()
 
     IF(LIBRARY_TYPE STREQUAL "SHARED")
       TARGET_LINK_LIBRARIES(${CPP_MODEL} dynawo_Util)
