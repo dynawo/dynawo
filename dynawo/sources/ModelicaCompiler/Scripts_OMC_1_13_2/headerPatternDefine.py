@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -272,4 +270,3 @@ __fill_variables_definitions__h
     # @return pattern to define header defintions file of init model
     def get_init_definitions(self):
         return self.pattern_init_definitions_
-

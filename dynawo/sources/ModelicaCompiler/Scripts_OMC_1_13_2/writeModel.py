@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -282,4 +280,3 @@ if __name__ == '__main__':
 
     writer.setBodyHeader()
     writer.write_header_file()
-
