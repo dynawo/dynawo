@@ -1634,6 +1634,46 @@ copy_sources() {
   fi
 }
 
+binary_rpath_for_darwin() {
+  if [ "`uname`" = "Darwin" ]; then
+    version=$($DYNAWO_DEPLOY_DIR/bin/dynawo --version | cut -d ' ' -f 1)
+    bins=("bin/dynawo" "bin/dynawo-$version" "sbin/dumpModel" "sbin/compileModelicaModel" "sbin/dumpSolver" "sbin/generate-preassembled" "sbin/generate-preassembled-$version")
+
+    for bin in ${bins[@]}; do
+      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep `id -n -u` | grep path | awk '{print $2}'); do
+        install_name_tool -delete_rpath $lib_path $DYNAWO_DEPLOY_DIR/$bin
+      done
+
+      install_name_tool -add_rpath @loader_path/../lib $DYNAWO_DEPLOY_DIR/$bin 2> /dev/null
+
+      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep `id -n -u` | grep name | awk '{print $2}'); do
+        install_name_tool -change $lib_path @rpath/$(echo $lib_path | awk -F'/' '{print $(NF)}') $DYNAWO_DEPLOY_DIR/$bin
+      done
+    done
+
+    for lib in $(find $DYNAWO_DEPLOY_DIR/lib -name "*.dylib"); do
+      for lib_path in $(otool -l $lib | grep `id -n -u` | grep path | awk '{print $2}'); do
+        install_name_tool -delete_rpath $lib_path $lib
+      done
+    done
+
+    for lib in $(find $DYNAWO_DEPLOY_DIR/OpenModelica/lib -name "*.dylib"); do
+      for lib_path in $(otool -l $lib | grep `id -n -u` | grep name | awk '{print $2}'); do
+        omc_lib_path=$DYNAWO_DEPLOY_DIR/OpenModelica/$(otool -l $DYNAWO_DEPLOY_DIR/OpenModelica/bin/omc | grep "@loader_path" | grep -o "lib/.*" | cut -d ' ' -f 1)
+        if [ ! -d "$omc_lib_path" ]; then
+          error_exit "Directory $omc_lib_path does not exist."
+        fi
+        cp $lib_path $omc_lib_path || error_exit "Copy of $lib_path into $omc_lib_path failed."
+        for lib_path_dylib in $(otool -l $omc_lib_path/$(basename $lib_path) | grep `id -n -u` | grep name | awk '{print $2}'); do
+          install_name_tool -change $lib_path_dylib @rpath/$(echo $lib_path_dylib | awk -F'/' '{print $(NF)}') $omc_lib_path/$(basename $lib_path)
+        done
+        install_name_tool -id @rpath/$(basename $lib_path) $omc_lib_path/$(basename $lib_path)
+        install_name_tool -change $lib_path @rpath/$(echo $lib_path | awk -F'/' '{print $(NF)}') $lib
+      done
+    done
+  fi
+}
+
 create_distrib_with_omc() {
   # Set Dynawo distrib version
   DYNAWO_VERSION=$(version) || error_exit "Error with version."
@@ -1674,43 +1714,7 @@ create_distrib_with_omc() {
     fi
   fi
 
-  if [ "`uname`" = "Darwin" ]; then
-    version=$($DYNAWO_DEPLOY_DIR/bin/dynawo --version | cut -d ' ' -f 1)
-    bins=("bin/dynawo" "bin/dynawo-$version" "sbin/dumpModel" "sbin/compileModelicaModel" "sbin/dumpSolver" "sbin/generate-preassembled" "sbin/generate-preassembled-$version")
-
-    for bin in ${bins[@]}; do
-      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep `id -n -u` | grep path | awk '{print $2}'); do
-        install_name_tool -delete_rpath $lib_path $DYNAWO_DEPLOY_DIR/$bin
-      done
-
-      install_name_tool -add_rpath @loader_path/../lib $DYNAWO_DEPLOY_DIR/$bin 2> /dev/null
-
-      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep `id -n -u` | grep name | awk '{print $2}'); do
-        install_name_tool -change $lib_path @rpath/$(echo $lib_path | awk -F'/' '{print $(NF)}') $DYNAWO_DEPLOY_DIR/$bin
-      done
-    done
-
-    for lib in $(find $DYNAWO_DEPLOY_DIR/lib -name "*.dylib"); do
-      for lib_path in $(otool -l $lib | grep `id -n -u` | grep path | awk '{print $2}'); do
-        install_name_tool -delete_rpath $lib_path $lib
-      done
-    done
-
-    for lib in $(find $DYNAWO_DEPLOY_DIR/OpenModelica/lib -name "*.dylib"); do
-      for lib_path in $(otool -l $lib | grep `id -n -u` | grep name | awk '{print $2}'); do
-        omc_lib_path=$DYNAWO_DEPLOY_DIR/OpenModelica/$(otool -l $DYNAWO_DEPLOY_DIR/OpenModelica/bin/omc | grep "@loader_path" | grep -o "lib/.*" | cut -d ' ' -f 1)
-        if [ ! -d "$omc_lib_path" ]; then
-          error_exit "Directory $omc_lib_path does not exist."
-        fi
-        cp $lib_path $omc_lib_path || error_exit "Copy of $lib_path into $omc_lib_path failed."
-        for lib_path_dylib in $(otool -l $omc_lib_path/$(basename $lib_path) | grep `id -n -u` | grep name | awk '{print $2}'); do
-          install_name_tool -change $lib_path_dylib @rpath/$(echo $lib_path_dylib | awk -F'/' '{print $(NF)}') $omc_lib_path/$(basename $lib_path)
-        done
-        install_name_tool -id @rpath/$(basename $lib_path) $omc_lib_path/$(basename $lib_path)
-        install_name_tool -change $lib_path @rpath/$(echo $lib_path | awk -F'/' '{print $(NF)}') $lib
-      done
-    done
-  fi
+  binary_rpath_for_darwin
 
   # create distribution
   if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
