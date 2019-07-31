@@ -43,14 +43,14 @@ TARGET_LINK_LIBRARIES(dumpSolver
                       "-rdynamic"
                     )
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  target_link_libraries(dumpSolver "-lrt")
-endif()
+IF ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  TARGET_LINK_LIBRARIES(dumpSolver "-lrt")
+ENDIF()
 
-if (APPLE)
+IF (APPLE)
   TARGET_LINK_LIBRARIES(dumpSolver "-force_load" dynawo_Util)
-else()
+ELSE()
   TARGET_LINK_LIBRARIES(dumpSolver "-Wl,--whole-archive" dynawo_Util "-Wl,--no-whole-archive")
-endif()
+ENDIF()
 
 INSTALL(TARGETS dumpSolver DESTINATION ${sbindir})

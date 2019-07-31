@@ -56,11 +56,11 @@ IF(${NICSLU_FOUND})
   TARGET_LINK_LIBRARIES(dynawo_SolverSIM ${NICSLU_LIBRARIES})
 ENDIF()
 
-if (APPLE)
+IF (APPLE)
   IF(LIBRARY_TYPE STREQUAL "STATIC")
     TARGET_LINK_LIBRARIES(dynawo_SolverSIM "-flat_namespace -undefined warning")
   ENDIF()
-endif()
+ENDIF()
 
 SET_TARGET_PROPERTIES(dynawo_SolverSIM PROPERTIES VERSION ${SOLVER_SIM_VERSION_STRING}
                                            SOVERSION ${SOLVER_SIM_VERSION_MAJOR})
