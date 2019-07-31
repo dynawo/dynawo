@@ -1485,17 +1485,17 @@ deploy_dynawo() {
   cd $DYNAWO_DEPLOY_DIR
 
   mkdir -p include
-  cp -R -P $DYNAWO_SUNDIALS_INSTALL_DIR/include/* include/
-  cp -R -P $DYNAWO_ADEPT_INSTALL_DIR/include/* include/
-  cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/include/*.* include/
+  cp -n -R -P $DYNAWO_SUNDIALS_INSTALL_DIR/include/* include/
+  cp -n -R $DYNAWO_ADEPT_INSTALL_DIR/include/* include/
+  cp -n -P $DYNAWO_SUITESPARSE_INSTALL_DIR/include/*.* include/
   if [ -d "$DYNAWO_NICSLU_INSTALL_DIR/include" ]; then
     if [ ! -z "$(ls -A $DYNAWO_NICSLU_INSTALL_DIR/include)" ]; then
-      cp -P $DYNAWO_NICSLU_INSTALL_DIR/include/*.* include/
+      cp -n -P $DYNAWO_NICSLU_INSTALL_DIR/include/*.* include/
     fi
   fi
-  cp -R -P $DYNAWO_LIBZIP_HOME/include/libzip include/
-  cp -R -P $DYNAWO_LIBXML_HOME/include/xml include/
-  cp -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM include/
+  cp -n -R -P $DYNAWO_LIBZIP_HOME/include/libzip include/
+  cp -n -R -P $DYNAWO_LIBXML_HOME/include/xml include/
+  cp -n -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM include/
 
   mkdir -p share
   cp -R -P $DYNAWO_LIBXML_HOME/share/cmake share/
@@ -1547,43 +1547,43 @@ deploy_dynawo() {
   else
     error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine boost libraries used during compilation."
   fi
-  cp -P -R $boost_system_folder_include/boost include/
+  cp -n -P -R $boost_system_folder_include/boost include/
 
   # XERCESC
   cp -P $DYNAWO_XERCESC_INSTALL_DIR/lib/libxerces-c*.* lib/
-  cp -r $DYNAWO_XERCESC_INSTALL_DIR/include/* include/
+  cp -n -r $DYNAWO_XERCESC_INSTALL_DIR/include/* include/
 
   # ZLIB
   if [ $DYNAWO_ZLIB_HOME_DEFAULT != true ]; then
     cp -P $DYNAWO_ZLIB_HOME/lib/libz.$LIBRARY_SUFFIX* lib/
-    cp $DYNAWO_ZLIB_HOME/include/zconf.h include/
-    cp $DYNAWO_ZLIB_HOME/include/zlib.h include/
+    cp -n $DYNAWO_ZLIB_HOME/include/zconf.h include/
+    cp -n $DYNAWO_ZLIB_HOME/include/zlib.h include/
   else
     zlib_system_folder=$(find_lib_system_path z[.]) || error_exit "Path for zlib could not be found for deploy."
     cp -P ${zlib_system_folder}/libz.$LIBRARY_SUFFIX* lib/
     zlib_system_folder_include=$(find_include_system_path ZLIB_INCLUDE_DIR) || error_exit "Path for zlib include could not be found for deploy."
-    cp $zlib_system_folder_include/zconf.h include/
-    cp $zlib_system_folder_include/zlib.h include/
+    cp -n $zlib_system_folder_include/zconf.h include/
+    cp -n $zlib_system_folder_include/zlib.h include/
   fi
 
   # LIBARCHIVE
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     cp -P $DYNAWO_LIBARCHIVE_HOME/lib/libarchive*.$LIBRARY_SUFFIX* lib/
-    cp $DYNAWO_LIBARCHIVE_HOME/include/archive_entry.h include/
-    cp $DYNAWO_LIBARCHIVE_HOME/include/archive.h include/
+    cp -n $DYNAWO_LIBARCHIVE_HOME/include/archive_entry.h include/
+    cp -n $DYNAWO_LIBARCHIVE_HOME/include/archive.h include/
   else
     libarchive_system_folder=$(find_lib_system_path archive) || error_exit "Path for libarchive could not be found for deploy."
     cp -P ${libarchive_system_folder}/libarchive*.$LIBRARY_SUFFIX* lib/
     libarchive_system_folder_include=$(find_include_system_path LibArchive_INCLUDE_DIR) || error_exit "Path for libarchive include could not be found for deploy."
-    cp $libarchive_system_folder_include/archive_entry.h include/
-    cp $libarchive_system_folder_include/archive.h include/
+    cp -n $libarchive_system_folder_include/archive_entry.h include/
+    cp -n $libarchive_system_folder_include/archive.h include/
   fi
 
   # DYNAWO
   mkdir -p bin
   cp -r $DYNAWO_INSTALL_DIR/bin/* bin/
   cp -r $DYNAWO_INSTALL_DIR/lib/* lib/
-  cp -r $DYNAWO_INSTALL_DIR/include/* include/
+  cp -n -r $DYNAWO_INSTALL_DIR/include/* include/
   cp -r $DYNAWO_INSTALL_DIR/share/* share/
   cp -r $DYNAWO_INSTALL_DIR/ddb .
 
