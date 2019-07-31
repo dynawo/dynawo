@@ -1540,19 +1540,13 @@ deploy_dynawo() {
     boost_system_folder=$(find_lib_system_path boost) || error_exit "Path for boost could not be found for deploy."
     boost_system_folder_include=$(find_include_system_path Boost_INCLUDE_DIR) || error_exit "Path for boost include could not be found for deploy."
   fi
-  cp -P ${boost_system_folder}/libboost_atomic.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_chrono.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_date_time.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_filesystem.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_iostreams.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_log.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_log_setup.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_program_options.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_regex.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_serialization.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_system.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_thread.$LIBRARY_SUFFIX* lib/
-  cp -P ${boost_system_folder}/libboost_wserialization.$LIBRARY_SUFFIX* lib/
+  if [ -f "$DYNAWO_BUILD_DIR/CMakeCache.txt" ]; then
+    for lib_boost in $(grep -o "libboost.*.$LIBRARY_SUFFIX" $DYNAWO_BUILD_DIR/CMakeCache.txt | tr ';' '\n' | grep -o "libboost.*.$LIBRARY_SUFFIX" | sort | uniq); do
+      cp -P ${boost_system_folder}/$lib_boost lib/
+    done
+  else
+    error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine boost libraries used during compilation."
+  fi
   cp -P -R $boost_system_folder_include/boost include/
 
   # XERCESC
