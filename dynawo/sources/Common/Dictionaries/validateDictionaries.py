@@ -286,9 +286,9 @@ class Dictionary:
 
         if diff:
             if os.path.exists(mo_file):
-                os.chmod(mo_file, 0777)
+                os.chmod(mo_file, 0o777)
             shutil.copyfile(tmp_mo_file, mo_file)
-            os.chmod(mo_file, 0444)
+            os.chmod(mo_file, 0o444)
 
         # suppression fichier tmp
         os.remove(tmp_mo_file)
@@ -324,13 +324,13 @@ class Dictionary:
 
         if diff_cpp_h :
             if os.path.exists(h_file):
-                os.chmod(h_file,0777) # change before copy
+                os.chmod(h_file,0o777) # change before copy
             if os.path.exists(cpp_file):
-                os.chmod(cpp_file,0777)
+                os.chmod(cpp_file,0o777)
             shutil.copyfile(tmp_h_file, h_file)
             shutil.copyfile(tmp_cpp_file, cpp_file)
-            os.chmod(h_file,0444) # file only readable
-            os.chmod(cpp_file,0444) # file only readable
+            os.chmod(h_file,0o444) # file only readable
+            os.chmod(cpp_file,0o444) # file only readable
 
         # suppression fichier tmp
         os.remove(tmp_h_file)
