@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # -*- coding: utf-8 -*-
 
 # Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -1175,5 +1173,3 @@ class ReaderOMC:
     # @return True if the variable is a residual (not fictive) assignment var
     def is_assign_residual_vars(self, var_name):
         return var_name in self.assign_residual_vars
-
-

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
