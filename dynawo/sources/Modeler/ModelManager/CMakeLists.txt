@@ -41,6 +41,7 @@ INCLUDE_DIRECTORIES(../../API/PAR
                     ../Common
                     ../../Solvers/Common
                     ../../Solvers/SolverSubModel
+                    ModelicaExternalC
                     )
 
 ADD_LIBRARY(dynawo_ModelManager ${LIBRARY_TYPE} ${MODEL_MANAGER_SOURCES})
@@ -61,3 +62,5 @@ ENDIF(USE_ADEPT)
 
 INSTALL(TARGETS dynawo_ModelManager DESTINATION ${libdir})
 INSTALL(FILES ${MODEL_MANAGER_INCLUDE_HEADERS} DESTINATION ${includedir})
+
+ADD_SUBDIRECTORY(ModelicaExternalC)

@@ -275,6 +275,7 @@ class ReaderOMC:
         self.nb_real_vars = 0
         self.nb_discrete_vars = 0
         self.nb_bool_vars = 0
+        self.external_objects = []
 
     ##
     # Read a function in a file and try to identify a function thanks to a pattern
@@ -821,6 +822,7 @@ class ReaderOMC:
         ptrn_param = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
         ptrn_param_boolean_test = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*==[^;]*;')
         ptrn_assign_auxiliary_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[^;]*;')
+        ptrn_assign_extObjs = re.compile(r'^[ ]*data->simulationInfo->extObjs\[(?P<var>[0-9]+)\][ ]*=[^;]*;$')
 
         with open(self._08bnd_c_file, 'r') as f:
             while True:
@@ -848,6 +850,13 @@ class ReaderOMC:
                         match = re.search(ptrn_assign_auxiliary_var, line)
                         var = match.group('varName')
                         self.var_init_val[ var ] = list_body
+                    if ptrn_assign_extObjs.search(line) is not None:
+                        match = re.search(ptrn_assign_extObjs, line)
+                        var_add = "data->simulationInfo->extObjs["+match.group('var')+"]"
+                        for var_name, address in map_var_name_2_addresses.items():
+                            if address == var_add:
+                                self.var_init_val[ var_name ] = list_body
+                                break
 
                 for line in list_body:
                     if 'omc_assert_warning_withEquationIndexes(' in line:
@@ -875,7 +884,7 @@ class ReaderOMC:
     # @return
     def set_start_value_for_syst_vars(self):
         for key, value in self.var_init_val.iteritems():
-            for var in self.list_vars:
+            for var in self.list_vars + self.external_objects:
                 if var.get_name() == key:
                     var.set_start_text(value)
                     var.set_init_by_param(True) # Indicates that the var is initialized with a param
@@ -1105,6 +1114,11 @@ class ReaderOMC:
                     map_var_name_2_addresses[name]= "data->simulationInfo->integerParameter["+index+"]"
                 elif type == "stringParamVars":
                     map_var_name_2_addresses[name]= "data->simulationInfo->stringParameter["+index+"]"
+                elif type == "extObjVars":
+                    map_var_name_2_addresses[name]= "data->simulationInfo->extObjs["+index+"]"
+                    ext = Variable();
+                    ext.set_name(name)
+                    self.external_objects.append(ext)
                 test_param_address(name)
         self.nb_real_vars = index_real_var
         self.nb_discrete_vars = index_discrete_var

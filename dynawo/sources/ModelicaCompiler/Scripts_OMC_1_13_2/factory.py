@@ -1224,7 +1224,7 @@ class Factory:
     def prepare_for_sety0(self):
         # In addition to system vars, discrete vars (bool or not) must be initialized as well
         # We concatenate system vars and discrete vars
-        list_vars = itertools.chain(self.list_vars_syst, self.list_all_vars_discr, self.list_vars_int)
+        list_vars = itertools.chain(self.list_vars_syst, self.list_all_vars_discr, self.list_vars_int, self.reader.external_objects)
         found_init_by_param_and_at_least2lines = False # for reading comfort when printing
 
         # sort by taking init function number read in *06inz.c
@@ -2118,6 +2118,8 @@ class Factory:
                 signature = signature.replace(return_type, new_return_type, 1)
 
             signature = signature.replace('threadData_t *threadData,','')
+            if "combiTable1Ds1" in signature:
+                signature = signature.replace('modelica_real _tableAvailable','modelica_real /*_tableAvailable*/')
 
             self.list_for_externalcalls.append(signature)
             new_body = []
@@ -2550,6 +2552,9 @@ class Factory:
   nb = (data->modelData->nVariablesInteger > 0) ? data->modelData->nVariablesInteger : 0;
   data->simulationInfo->integerDoubleVarsPre = (modelica_real*) calloc(nb, sizeof(modelica_real));
 
+  nb = (data->modelData->nExtObjs > 0) ? data->modelData->nExtObjs : 0;
+  data->simulationInfo->extObjs = (void**) calloc(nb, sizeof(void*));
+
 
   // buffer for all parameters values
   nb = (data->modelData->nParametersReal > 0) ? data->modelData->nParametersReal : 0;
@@ -2564,6 +2569,7 @@ class Factory:
   nb = (data->modelData->nParametersString > 0) ? data->modelData->nParametersString : 0;
   data->simulationInfo->stringParameter = (modelica_string*) calloc(nb, sizeof(modelica_string));
 
+  // buffer for DAE mode data structures
   nb = (data->simulationInfo->daeModeData->nResidualVars > 0) ? data->simulationInfo->daeModeData->nResidualVars : 0;
   data->simulationInfo->daeModeData->residualVars = (modelica_real*) calloc(nb, sizeof(modelica_real));
 
@@ -2607,11 +2613,21 @@ class Factory:
   free(data->simulationInfo->booleanVarsPre);
   free(data->simulationInfo->integerDoubleVarsPre);
   free(data->simulationInfo->discreteVarsPre);
+"""
+        if (len(self.reader.external_objects) > 0):
+            body += """
+  for (size_t i = 0, iEnd = data->modelData->nExtObjs; i < iEnd; ++i) {
+    omc_Modelica_Blocks_Types_ExternalCombiTable1D_destructor(data->simulationInfo->extObjs[0]);
+  }
+  free(data->simulationInfo->extObjs);
+"""
+        body += """
   // buffer for all parameters values
   free(data->simulationInfo->realParameter);
   free(data->simulationInfo->booleanParameter);
   free(data->simulationInfo->integerParameter);
   free(data->simulationInfo->stringParameter);
+  // buffer for DAE mode data structures
   free(data->simulationInfo->daeModeData->residualVars);
   free(data->simulationInfo->daeModeData->auxiliaryVars);
   free(data->simulationInfo->daeModeData);

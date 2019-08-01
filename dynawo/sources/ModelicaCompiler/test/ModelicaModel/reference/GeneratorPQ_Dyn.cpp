@@ -97,6 +97,9 @@ void ModelGeneratorPQ_Dyn::initializeDataStruc()
   nb = (data->modelData->nVariablesInteger > 0) ? data->modelData->nVariablesInteger : 0;
   data->simulationInfo->integerDoubleVarsPre = (modelica_real*) calloc(nb, sizeof(modelica_real));
 
+  nb = (data->modelData->nExtObjs > 0) ? data->modelData->nExtObjs : 0;
+  data->simulationInfo->extObjs = (void**) calloc(nb, sizeof(void*));
+
 
   // buffer for all parameters values
   nb = (data->modelData->nParametersReal > 0) ? data->modelData->nParametersReal : 0;
@@ -111,6 +114,7 @@ void ModelGeneratorPQ_Dyn::initializeDataStruc()
   nb = (data->modelData->nParametersString > 0) ? data->modelData->nParametersString : 0;
   data->simulationInfo->stringParameter = (modelica_string*) calloc(nb, sizeof(modelica_string));
 
+  // buffer for DAE mode data structures
   nb = (data->simulationInfo->daeModeData->nResidualVars > 0) ? data->simulationInfo->daeModeData->nResidualVars : 0;
   data->simulationInfo->daeModeData->residualVars = (modelica_real*) calloc(nb, sizeof(modelica_real));
 
@@ -147,11 +151,13 @@ void ModelGeneratorPQ_Dyn::deInitializeDataStruc()
   free(data->simulationInfo->booleanVarsPre);
   free(data->simulationInfo->integerDoubleVarsPre);
   free(data->simulationInfo->discreteVarsPre);
+
   // buffer for all parameters values
   free(data->simulationInfo->realParameter);
   free(data->simulationInfo->booleanParameter);
   free(data->simulationInfo->integerParameter);
   free(data->simulationInfo->stringParameter);
+  // buffer for DAE mode data structures
   free(data->simulationInfo->daeModeData->residualVars);
   free(data->simulationInfo->daeModeData->auxiliaryVars);
   free(data->simulationInfo->daeModeData);

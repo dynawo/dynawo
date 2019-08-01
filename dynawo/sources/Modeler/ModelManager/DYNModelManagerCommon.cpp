@@ -241,12 +241,12 @@ modelica_string enumToModelicaString_(modelica_integer nr, const char *e[]) {
   return e[nr - 1];
 }
 
-modelica_integer sizeOffArray_(const modelica_integer array[]) {
+modelica_integer sizeOffArray_(const modelica_integer array[], modelica_integer dim) {
   modelica_integer size;
   if (array == NULL) {
     size = 0;
   } else {
-    size = (sizeof (*array) / sizeof (array[0])) + 1;  // + 1 added because otherwise the formula has an offset of -1
+    size = array[dim];
   }
 
   return size;
