@@ -410,7 +410,10 @@ class Transpose:
                 ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
                 match = ptrn_real_var.search(name)
                 if match is not None:
-                    line_tmp = line_tmp.replace(name, "xd[" + match.group('varId')+"]")
+                    if "= modelica_real_to_modelica_string(" in line_tmp:
+                        line_tmp = line_tmp.replace(name, "xd[" + match.group('varId')+"].value()")
+                    else:
+                        line_tmp = line_tmp.replace(name, "xd[" + match.group('varId')+"]")
             for name in match_global:
                 if 'derivativesVars' in name:
                     continue
@@ -418,7 +421,10 @@ class Transpose:
                 ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
                 match = ptrn_real_var.search(name)
                 if match is not None:
-                    line_tmp = line_tmp.replace(name, "x[" + match.group('varId')+"]")
+                    if "= modelica_real_to_modelica_string(" in line_tmp:
+                        line_tmp = line_tmp.replace(name, "x[" + match.group('varId')+"].value()")
+                    else:
+                        line_tmp = line_tmp.replace(name, "x[" + match.group('varId')+"]")
 
             for name in self.auxiliary_vars_map.keys():
                 line_tmp = line_tmp.replace("$P"+name, name)
