@@ -49,7 +49,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("e986e20871f7ce771d904a18cd763eea"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("b190873957bda4ccedaa26aabc202100"); }
 
     private:
     DYNDATA * data;

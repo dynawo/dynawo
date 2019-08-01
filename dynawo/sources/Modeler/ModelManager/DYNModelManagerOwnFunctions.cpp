@@ -25,6 +25,8 @@
 #include <cstdlib>
 #include <cstdarg>
 #include <cassert>
+#include <cstring>
+#include <cctype>
 #include "DYNModelManagerOwnFunctions.h"
 
 static inline void real_set_(real_array_t *a, size_t i, modelica_real r) {
@@ -233,6 +235,47 @@ void* generic_array_element_addr(const base_array_t* source, size_t sze, int ndi
   tmp = generic_ptrget(source, calc_base_index_va(source, ndims, ap), sze);
   va_end(ap);
   return tmp;
+}
+
+void pack_integer_array(integer_array_t *a) {
+  if (sizeof(int) != sizeof(modelica_integer)) {
+    int * int_data = reinterpret_cast<int*>(a->data);
+    size_t n = base_array_nr_of_elements(*a);
+
+    for (size_t i = 0; i < n; ++i) {
+      int_data[i] = static_cast<int>(integer_get(*a, i));
+    }
+  }
+}
+
+void put_real_matrix_element(modelica_real value, int r, int c, real_array_t* dest) {
+    /* Assert that dest hast correct dimension */
+    /* Assert that r and c are valid indices */
+    real_set(dest, (r * dest->dim_size[1]) + c, value);
+    /* printf("Index %d\n",r*dest->dim_size[1]+c); */
+}
+
+void array_alloc_scalar_integer_array(integer_array_t* dest, int n,
+                                      modelica_integer first, ...) {
+    int i;
+    va_list ap;
+    simple_alloc_1d_integer_array(dest, n);
+    va_start(ap, first);
+    put_integer_element(first, 0, dest);
+    for (i = 1; i < n; ++i) {
+        put_integer_element(va_arg(ap, m_integer), i, dest);
+    }
+    va_end(ap);
+}
+
+void simple_alloc_1d_integer_array(integer_array_t* dest, int n) {
+    simple_alloc_1d_base_array(dest, n, integer_alloc(n));
+}
+
+void put_integer_element(modelica_integer value, int i1, integer_array_t* dest) {
+    /* Assert that dest has correct dimension */
+    /* Assert that i1 is a valid index */
+    integer_set(dest, i1, value);
 }
 
 #ifdef __clang__

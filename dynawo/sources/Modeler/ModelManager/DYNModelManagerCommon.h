@@ -34,12 +34,20 @@
 #define REAL_ARRAY_H_   ///< to avoid definition of real_array functions/types
 #define INTEGER_ARRAY_H_   ///< to avoid definition of integer_array functions/types
 
+#define __ATTR_SAL  ///< to properly define the signatures of modelica functions
+#define _In_ const  ///< to properly define the signatures of modelica functions
+#define _In_z_  ///< to properly define the signatures of modelica functions
+#define _Inout_  ///< to properly define the signatures of modelica functions
+#define _Out_  ///< to properly define the signatures of modelica functions
+
 #include "DYNError.h"
 #include "DYNMessage.hpp"
 #include "DYNMessageTimeline.h"
 #include "DYNTimeline_keys.h"
 #include "DYNModelManagerOwnTypes.h"  ///< redefinition of local own types : should be before simulation_data.h
 #include "simulation_data.h"
+#include "ModelicaStandardTables.h"
+#include "ModelicaStrings.h"
 #include "DYNModelManagerOwnFunctions.h"  ///< redefinition of local own functions
 
 /**
@@ -194,7 +202,7 @@ T pow_dynawo(T a, T b) {
 
 #define stringEqual(x, y) compareString_(std::string(x), std::string(y))
 
-#define size_of_dimension_base_array(x, y) sizeOffArray_ (x.dim_size)
+#define size_of_dimension_base_array(x, y) sizeOffArray_ (x.dim_size, y - 1)
 
 #define MMC_STRINGDATA(x) x
 
@@ -505,9 +513,10 @@ const modelica_integer* integerArrayElementAddress1_(const modelica_integer * so
  * @brief compute the size of an integer array
  *
  * @param array the integer array
+ * @param dim the dimension to analyze (0 = nb rows, 1 = nb columns)
  * @return the size of the array (0 for an empty array)
  */
-modelica_integer sizeOffArray_(const modelica_integer array[]);
+modelica_integer sizeOffArray_(const modelica_integer array[], modelica_integer dim);
 
 /**
  * @brief convert an enum value to string

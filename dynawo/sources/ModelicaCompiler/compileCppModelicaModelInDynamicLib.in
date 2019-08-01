@@ -127,7 +127,7 @@ fi
 # Flags for compilation
 FLAGS="@CMAKE_CXX_FLAGS@"
 INCLUDE_FLAGS="-I$DYNAWO_INCLUDE_DIR -I$OMC_INCLUDE_DIR $BOOST_INCLUDE_DIR_OPTION $DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED"
-LIB_FLAGS="-L$DYNAWO_LIB_DIR $BOOST_LIB_DIR_OPTION -ldynawo_API_PAR -ldynawo_ModelManager -ldynawo_ModelerCommon \
+LIB_FLAGS="-L$DYNAWO_LIB_DIR $BOOST_LIB_DIR_OPTION -ldynawo_API_PAR -lModelica_externalC -ldynawo_ModelManager -ldynawo_ModelerCommon \
 -ldynawo_DataInterface -ldynawo_SolverKINSOL -ldynawo_SolverSubModel -ldynawo_SolverCommon -ldynawo_Common $DYNAWO_ADDITIONAL_LIBRARY_FOR_PREASSEMBLED \
 -lboost_serialization -lboost_log -lboost_chrono -lboost_date_time -lboost_regex -lboost_atomic -lboost_filesystem -pthread -lboost_thread -lboost_system \
 $SUNDIALS_LIBRARIES $SUITESPARSE_LIBRARIES $SUNDIALS_NICSLU_LIBRARY $NICSLU_LIBRARIES"

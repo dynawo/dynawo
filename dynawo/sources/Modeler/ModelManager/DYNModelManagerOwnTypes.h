@@ -67,6 +67,7 @@ typedef base_array_t real_array_t;
 
 typedef m_integer modelica_integer;
 typedef base_array_t integer_array_t;
+typedef integer_array_t integer_array;
 
 typedef real_array_t real_array;
 typedef string_array_t string_array;
