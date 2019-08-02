@@ -787,12 +787,15 @@ def convert_booleans_line (boolean_variables_names, line):
             reading_side = reading_side.replace (pattern, replacement)
 
         # check that the right variable name (i.e. not part of another variable name) was found
+        offset = 0
         for m in find_all_in_str (var_name, reading_side):
+            m+=offset
             right_variable = (reading_side [m - 1] in allowed_containers) \
                              and (m + len(var_name) < len(reading_side)) and (reading_side [m + len(var_name)] in allowed_containers)
 
             if right_variable:
                 reading_side = reading_side [ : m] + "(toNativeBool (" + var_name + "))" + reading_side [ m + len(var_name): ]
+                offset += len("(toNativeBool (") + len("))")
 
         # put back quoted names
         for replacement, pattern in patterns_to_avoid.iteritems():

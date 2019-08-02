@@ -31,7 +31,7 @@ public
   Real outputs[GenericAutomatonConstants.outputsMaxSize] "Outputs got from the automaton";
 
 equation
-when time >= pre(t0) + SamplingTime or pre(initialize) == true then
+when time >= pre(t0) + SamplingTime or pre(initialize) then
   t0 = time;
   initialize = false;
   outputs = Functions.Automaton.functionAutomaton(Command, t0, inputs, InputsName, NbInputs, GenericAutomatonConstants.inputsMaxSize, OutputsName, NbOutputs,GenericAutomatonConstants.outputsMaxSize);
