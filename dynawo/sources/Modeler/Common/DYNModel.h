@@ -171,6 +171,12 @@ class Model {
   virtual void setModeChangeType(const modeChangeType_t& modeChangeType) = 0;
 
   /**
+   * @brief reinitialize the mode change and mode change type values to default values (for ModelMulti and each SubModel)
+   *
+   */
+  virtual void reinitMode() = 0;
+
+  /**
    * @brief set information that one discrete variables has changed
    *
    * @param zChange @b true if one mode of the sub model has change

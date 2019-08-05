@@ -134,7 +134,8 @@ SolverIDA::SolverIDA() {
   LS_ = NULL;
   // KINSOL solver Init
   //-----------------------
-  solverKIN_.reset(new SolverKIN());
+  solverKINNormal_.reset(new SolverKIN());
+  solverKINYPrim_.reset(new SolverKIN());
 
   lastRowVals_ = NULL;
   order_ = 0;
@@ -144,6 +145,7 @@ SolverIDA::SolverIDA() {
   absAccuracy_ = 0.;
   relAccuracy_ = 0.;
   flagInit_ = false;
+  previousReinit_ = None;
 }
 
 void
@@ -395,16 +397,18 @@ SolverIDA::calculateIC() {
   evalZMode(g0_, g1_, tSolve_);
 
   model_->rotateBuffers();
+  state_.reset();
+  model_->reinitMode();
 
   // loops until a stable state is found
   bool change(true);
   int counter = 0;
-  solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 10, 0, 0, 0);
+  solverKINNormal_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 10, 0, 0, 0);
   do {
     // call to solver KIN in order to find the new (adequate) algebraic variables's values
-    solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
-    solverKIN_->solve();
-    solverKIN_->getValues(vYy_, vYp_);
+    solverKINNormal_->setInitialValues(tSolve_, vYy_, vYp_);
+    solverKINNormal_->solve();
+    solverKINNormal_->getValues(vYy_, vYp_);
 
     // Reinitialization (forced to start over with a small time step)
     // -------------------------------------------------------
@@ -450,6 +454,8 @@ SolverIDA::calculateIC() {
     }
 
     model_->rotateBuffers();
+    state_.reset();
+    model_->reinitMode();
 
     ++counter;
     if (counter >= 100)
@@ -457,9 +463,8 @@ SolverIDA::calculateIC() {
   } while (change);
 
   // reinit output
-  model_->setModeChangeType(NO_MODE);
   flagInit_ = false;
-  solverKIN_->clean();
+  solverKINNormal_->clean();
 }
 
 void
@@ -657,24 +662,6 @@ SolverIDA::solve(double tAim, double &tNxt) {
     model_->evalG(tNxt, vYy_, vYp_, vYz_, g0_);
     ++stats_.nge_;
     evalZMode(g0_, g1_, tNxt);
-
-    updateStatistics();
-
-    // Dealing with the impact of the root change
-    if (state_.getFlags(ZChange)) {
-      int flag0 = IDAReInit(IDAMem_, tNxt, yy_, yp_);  // required to relaunch the simulation
-      if (flag0 < 0)
-        throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
-    } else if (state_.noFlagSet()) {
-      /* At the moment, there isn't a proper detection of mode changes in Modelica models (evalMode always returns NO_MODE).
-       *
-       * In this case, due to the call to IDAReinit, the next time step will be the initial time step
-       *
-       */
-      int flag0 = IDAReInit(IDAMem_, tNxt, yy_, yp_);  // required to relaunch the simulation
-      if (flag0 < 0)
-        throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
-    }
   }
 
 #ifdef _DEBUG_
@@ -740,53 +727,78 @@ SolverIDA::solve(double tAim, double &tNxt) {
 void
 SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
   int counter = 0;
-  modeChangeType_t modeChangeType;
+  modeChangeType_t modeChangeType = model_->getModeChangeType();
 
-  // If the mode is only a differential mode, no reinitialization is done.
-  if (model_->getModeChangeType() != DIFFERENTIAL_MODE) {
+  if (modeChangeType != DIFFERENTIAL_MODE) {
     do {
-       model_->rotateBuffers();
-       model_->setModeChangeType(NO_MODE);
-       // Call to solver KIN to find new algebraic variables' values
-       for (unsigned int i = 0; i < vYId_.size(); i++)
-         if (vYId_[i] != DYN::DIFFERENTIAL)
-           vYp_[i] = 0;
+      model_->rotateBuffers();
+      state_.reset();
+      model_->reinitMode();
 
-       // During the algebraic equation restoration, the system could have moved a lot from its previous state.
-       // J updates and preconditioner calls must be done on a regular basis.
-       solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 1, 1, 0, 0);
-       solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
-       solverKIN_->solve();
-       solverKIN_->getValues(vYy_, vYp_);
-       solverKIN_->clean();
+      // During the algebraic equation restoration, the system could have moved a lot from its previous state.
+      // J updates and preconditioner calls must be done on a regular basis.
+      bool noInitSetup = false;
+      if (modeChangeType == ALGEBRAIC_MODE) {
+        if (previousReinit_ == None) {
+          solverKINNormal_->init(model_, SolverKIN::KIN_NORMAL, 1e-4, 1e-4, 30, 1, 10, 100000, 0);
+          solverKINYPrim_->init(model_, SolverKIN::KIN_YPRIM, 1e-4, 1e-4, 30, 1, 10, 100000, 0);
+          previousReinit_ = Algebraic;
+        } else if (previousReinit_ == AlgebraicWithJUpdate) {
+          solverKINNormal_->modifySettings(1e-4, 1e-4, 30, 10, 100000, 0);
+          solverKINYPrim_->modifySettings(1e-4, 1e-4, 30, 10, 100000, 0);
+          previousReinit_ = Algebraic;
+        }
+        noInitSetup = true;
+      } else {
+        if (previousReinit_ == None) {
+          solverKINNormal_->init(model_, SolverKIN::KIN_NORMAL, 1e-4, 1e-4, 30, 1, 1, 100000, 0);
+          solverKINYPrim_->init(model_, SolverKIN::KIN_YPRIM, 1e-4, 1e-4, 30, 1, 1, 100000, 0);
+          previousReinit_ = AlgebraicWithJUpdate;
+        } else if (previousReinit_ == Algebraic) {
+          solverKINNormal_->modifySettings(1e-4, 1e-4, 30, 1, 100000, 0);
+          solverKINYPrim_->modifySettings(1e-4, 1e-4, 30, 1, 100000, 0);
+          previousReinit_ = AlgebraicWithJUpdate;
+        }
+      }
 
-       // Recomputation of differential variables' values
-       for (unsigned int i = 0; i < vYId_.size(); i++)
-         if (vYId_[i] != DYN::DIFFERENTIAL)
-           vYp_[i] = 0;
+      // Call to solver KIN to find new algebraic variables' values
+      for (unsigned int i = 0; i < vYId_.size(); i++)
+        if (vYId_[i] != DYN::DIFFERENTIAL)
+          vYp_[i] = 0;
 
-       // During the algebraic equation restoration, the system could have moved a lot from its previous state.
-       // J updates and preconditioner calls must be done on a regular basis.
-       solverKIN_->init(model_, SolverKIN::KIN_YPRIM, 1e-5, 1e-5, 30, 1, 1, 0, 0);
-       solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
-       solverKIN_->solve();
-       solverKIN_->getValues(vYy_, vYp_);
-       solverKIN_->clean();
+      solverKINNormal_->setInitialValues(tSolve_, vYy_, vYp_);
+      solverKINNormal_->solve(noInitSetup);
+      solverKINNormal_->getValues(vYy_, vYp_);
 
-       // Root stabilization
-       model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
-       ++stats_.nge_;
-       evalZMode(g0_, g1_, tSolve_);
+      // Recomputation of differential variables' values
+      for (unsigned int i = 0; i < vYId_.size(); i++)
+        if (vYId_[i] != DYN::DIFFERENTIAL)
+          vYp_[i] = 0;
 
-       modeChangeType = model_->getModeChangeType();
-       counter++;
-       if (counter >= 10)
+      solverKINYPrim_->setInitialValues(tSolve_, vYy_, vYp_);
+      solverKINYPrim_->solve(noInitSetup);
+      solverKINYPrim_->getValues(vYy_, vYp_);
+
+      // Root stabilization
+      model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
+      ++stats_.nge_;
+      bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
+      if (rootFound) {
+        g0_.assign(g1_.begin(), g1_.end());
+        evalZMode(g0_, g1_, tSolve_);
+        modeChangeType = model_->getModeChangeType();
+      } else {
+        modeChangeType = NO_MODE;
+      }
+
+      counter++;
+      if (counter >= 10)
         throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
     } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
+
+    updateStatistics();
   }
 
-  // Reinitializing the output
-  model_->setModeChangeType(NO_MODE);
 
   int flag0 = IDAReInit(IDAMem_, tSolve_, yy_, yp_);  // required to relaunch the simulation
   if (flag0 < 0)

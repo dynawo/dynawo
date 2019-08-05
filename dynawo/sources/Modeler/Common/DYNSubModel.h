@@ -441,6 +441,33 @@ class SubModel {
   modeChangeType_t evalModeSub(const double & t);
 
   /**
+  * @brief Get the mode change value
+  *
+  * @return mode change value
+  */
+  inline bool modeChange() const {
+    return modeChange_;
+  }
+
+  /**
+  * @brief Set the mode change value
+  *
+  * @param modeChange mode change value
+  */
+  inline void modeChange(const bool& modeChange) {
+    modeChange_ = modeChange;
+  }
+
+ /**
+  * @brief Set the mode change type value
+  *
+  * @param modeChangeType mode change type
+  */
+  inline void setModeChangeType(const modeChangeType_t& modeChangeType) {
+    modeChangeType_ = modeChangeType;
+  }
+
+  /**
    * @brief Coherence check on data (asserts, min/max values, sanity checks)
    *
    *
@@ -1345,6 +1372,8 @@ class SubModel {
   double* ypLocalSave_;  ///< save of the local buffer for the derivative of continuous variables
   double* zLocalSave_;  ///< save of the local buffer for discretes variables
 
+  bool modeChange_;  ///< @b true if one mode has changed
+  modeChangeType_t modeChangeType_;  ///< type of mode change
 
   bool initialized_;  ///< whether is the model initialized
   std::string name_;  ///< name of the model

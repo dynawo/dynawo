@@ -228,16 +228,21 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
   solver->solve(tStop, tCurrent, y, yp);
+  ASSERT_EQ(solver->getPreviousReinit(), None);
   // The event in the model is written as if (x <= 0) which means that the root is detected just after t = 2 (2 + epsilon).
-  // IDA will thus stop just after t = 2 which explains that we have two steps around 2 s.
+  // IDA will thus stop just after t = 2 and is reinitialized (thus the next time step will be t = 3)
+  ASSERT_NO_THROW(solver->reinit(y, yp));
+  ASSERT_EQ(solver->getPreviousReinit(), Algebraic);
   solver->solve(tStop, tCurrent, y, yp);
 
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
-  // The derivative is calculated as y[t-h] - y[t] / h. As y jumps from -1 to 1, its derivative is equal to 2 at this time step.
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
+
+  solver->setPreviousReinit(AlgebraicWithJUpdate);
+  ASSERT_EQ(solver->getPreviousReinit(), AlgebraicWithJUpdate);
 
   ASSERT_EQ(solver->solverType(), "IDASolver");
   solver->printHeader();
@@ -286,11 +291,11 @@ TEST(SimulationTest, testSolverIDATestBeta) {
 
   solver->solve(tStop, tCurrent, y, yp);
   // The event in the model is written as when (x <= 0) which means that the root is detected just after t = 2 (2 + epsilon).
-  // IDA will thus stop just after t = 2 which explains that we have two steps around 2 s.
+  // IDA will thus stop just after t = 2 but is no reinitialized thus the time step goes increasing and the next time step is at t = 4 s.
   solver->solve(tStop, tCurrent, y, yp);
   z = solver->getCurrentZ();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 2.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 }
@@ -356,6 +361,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
 
   // Algebraic equations restoration
   solver->reinit(y, yp);
+  ASSERT_EQ(solver->getPreviousReinit(), AlgebraicWithJUpdate);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239292330972138);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045162421);

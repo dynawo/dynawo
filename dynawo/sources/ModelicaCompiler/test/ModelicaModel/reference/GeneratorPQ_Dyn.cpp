@@ -1,6 +1,7 @@
 #include <limits>
 #include <cassert>
 #include <set>
+#include <iostream>
 #include <string>
 #include <vector>
 #include <math.h>
@@ -45,9 +46,9 @@ void ModelGeneratorPQ_Dyn::setupDataStruc()
   data->modelData->nAliasInteger = 0;
   data->modelData->nAliasBoolean = 0;
   data->modelData->nAliasString = 0;
-  data->modelData->nZeroCrossings = 7 + 2;
+  data->modelData->nZeroCrossings = 7 + 2 + 0;
   data->modelData->nSamples = 0;
-  data->modelData->nRelations = 9;
+  data->modelData->nRelations = 9 + 0;
   data->modelData->nMathEvents = 0;
   data->modelData->nExtObjs = 0;
   data->modelData->nMixedSystems = 0;
@@ -67,7 +68,7 @@ void ModelGeneratorPQ_Dyn::setupDataStruc()
 
   data->nbVars =11;
   data->nbF = 8;
-  data->nbModes = 0; 
+  data->nbModes = 3;
   data->nbZ = 4;
 }
 
@@ -121,6 +122,13 @@ void ModelGeneratorPQ_Dyn::initializeDataStruc()
   for (unsigned i = 0; i < data->simulationInfo->daeModeData->nResidualVars; ++i)
     data->simulationInfo->daeModeData->residualVars[i] = 0;
 
+  // buffer for all relation values
+  nb = (data->modelData->nRelations > 0) ? data->modelData->nRelations : 0;
+  data->simulationInfo->relations = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
+  data->simulationInfo->relationsPre = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
+
+  data->simulationInfo->discreteCall = 0;
+ 
 }
 
 void ModelGeneratorPQ_Dyn::deInitializeDataStruc()
@@ -147,6 +155,9 @@ void ModelGeneratorPQ_Dyn::deInitializeDataStruc()
   free(data->simulationInfo->daeModeData->residualVars);
   free(data->simulationInfo->daeModeData->auxiliaryVars);
   free(data->simulationInfo->daeModeData);
+  // buffer for all relation values
+  free(data->simulationInfo->relations);
+  free(data->simulationInfo->relationsPre);
   free(data->simulationInfo);
   free(data->modelData);
 
@@ -323,15 +334,35 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f)
 
 modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double & t) const
 {
-  // modes may either be due to
-  // - a change in network topology (currently forbidden for Modelica models)
-  // - a Modelica reinit command
-  // no mode triggered => return NO_MODE
-  return NO_MODE;
+  modeChangeType_t modeChangeType = NO_MODE;
+ 
+
+  // ----- Mode for GeneratorPQ_eqFunction_90 --------- 
+  if (data->localData[0]->integerDoubleVars[0] != data->simulationInfo->integerDoubleVarsPre[0])
+  {
+      modeChangeType = ALGEBRAIC_MODE;
+  }
+
+  // ----- Mode for GeneratorPQ_eqFunction_81 --------- 
+  // ----- Mode for GeneratorPQ_eqFunction_90 --------- 
+  // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
+  if (data->localData[0]->discreteVars[0] != data->simulationInfo->discreteVarsPre[0])
+  {
+    return ALGEBRAIC_J_UPDATE_MODE;
+  }
+
+  // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
+  if (data->localData[0]->integerDoubleVars[1] != data->simulationInfo->integerDoubleVarsPre[1])
+  {
+      modeChangeType = ALGEBRAIC_MODE;
+  }
+
+  return modeChangeType;
 }
 
 void ModelGeneratorPQ_Dyn::setZomc()
 {
+  data->simulationInfo->discreteCall = 1;
 
   // -------------------- $whenCondition10 ---------------------
   modelica_boolean tmp3;
@@ -463,10 +494,12 @@ void ModelGeneratorPQ_Dyn::setZomc()
 }
 
 
+  data->simulationInfo->discreteCall = 0;
 }
 
 void ModelGeneratorPQ_Dyn::setGomc(state_g * gout)
 {
+  data->simulationInfo->discreteCall = 1;
   // ------------- $whenCondition6 ------------
   data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ = (((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)) || (toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */))));
  
@@ -492,6 +525,7 @@ void ModelGeneratorPQ_Dyn::setGomc(state_g * gout)
   tmp_zc13 = LessZC(data->localData[0]->realVars[8] /* generator.UPu variable */, -0.0001 + data->simulationInfo->realParameter[8] /* generator.UMaxPu PARAM */, data->simulationInfo->storedRelations[7]);
   tmp_zc15 = GreaterZC(data->localData[0]->realVars[8] /* generator.UPu variable */, 0.0001 + data->simulationInfo->realParameter[9] /* generator.UMinPu PARAM */, data->simulationInfo->storedRelations[8]);
   
+
   gout[0] = ((tmp_zc1 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 3))) ? ROOT_UP : ROOT_DOWN;
   gout[1] = ((tmp_zc3 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ != 2))) ? ROOT_UP : ROOT_DOWN;
   gout[2] = ((tmp_zc5 && (data->simulationInfo->integerDoubleVarsPre[0] /* generator.pStatus DISCRETE */ == 2))) ? ROOT_UP : ROOT_DOWN;
@@ -499,8 +533,9 @@ void ModelGeneratorPQ_Dyn::setGomc(state_g * gout)
   gout[4] = ((tmp_zc9 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 2))) ? ROOT_UP : ROOT_DOWN;
   gout[5] = ((tmp_zc11 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ != 3))) ? ROOT_UP : ROOT_DOWN;
   gout[6] = (((tmp_zc13 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 2)) || (tmp_zc15 && (data->simulationInfo->integerDoubleVarsPre[1] /* generator.qStatus DISCRETE */ == 3)))) ? ROOT_UP : ROOT_DOWN;
-  gout[0 + 7] = ( data->localData[0]->booleanVars[6] ) ? ROOT_UP : ROOT_DOWN;
-  gout[1 + 7] = ( data->localData[0]->booleanVars[7] ) ? ROOT_UP : ROOT_DOWN;
+  gout[7] = ( data->localData[0]->booleanVars[6] ) ? ROOT_UP : ROOT_DOWN;
+  gout[8] = ( data->localData[0]->booleanVars[7] ) ? ROOT_UP : ROOT_DOWN;
+  data->simulationInfo->discreteCall = 0;
 }
 
 void ModelGeneratorPQ_Dyn::setY0omc()
@@ -973,10 +1008,10 @@ void ModelGeneratorPQ_Dyn::setGequations(std::map<int,std::string>& gEquationInd
   gEquationIndex[6] =  res[6]  ;
 // -----------------------------
   // ------------- $whenCondition6 ------------
-  gEquationIndex[0 + 7] = " $whenCondition6:  data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ = (((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)) || (toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))); " ;
+  gEquationIndex[7] = " $whenCondition6:  data->localData[0]->booleanVars[6] /* $whenCondition6 DISCRETE */ = (((toNativeBool (data->localData[0]->discreteVars[1] /* generator.switchOffSignal1.value DISCRETE */)) || (toNativeBool (data->localData[0]->discreteVars[2] /* generator.switchOffSignal2.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[3] /* generator.switchOffSignal3.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[0] /* generator.running.value DISCRETE */)))); " ;
  
   // ------------- $whenCondition7 ------------
-  gEquationIndex[1 + 7] = " $whenCondition7:  data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))); " ;
+  gEquationIndex[8] = " $whenCondition7:  data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */))); " ;
  
 }
 

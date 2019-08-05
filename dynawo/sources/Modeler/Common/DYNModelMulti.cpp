@@ -409,9 +409,8 @@ void
 ModelMulti::copieResultZ(vector<double> & z) {
   vector<int> indicesDiff;
   for (unsigned int i = 0; i < z.size(); ++i) {
-    if (doubleNotEquals(z[i], zSave_[i])) {
+    if (doubleNotEquals(z[i], zSave_[i]))
       indicesDiff.push_back(i);
-    }
   }
 
   connectorContainer_->propagateZDiff(indicesDiff, z);
@@ -435,13 +434,22 @@ ModelMulti::evalMode(const double & t, const vector<double> &y, const vector<dou
   modeChangeType_t modeChangeType = NO_MODE;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     modeChangeType_t modeChangeTypeSub = subModels_[i]->evalModeSub(t);
-    if (modeChangeTypeSub > modeChangeType) {
+    if (modeChangeTypeSub > modeChangeType)
       modeChangeType = modeChangeTypeSub;
+    if (subModels_[i]->modeChange())
       modeChange_ = true;
-    }
   }
   if (modeChangeType > modeChangeType_)
     modeChangeType_ = modeChangeType;
+}
+
+void
+ModelMulti::reinitMode() {
+  modeChangeType_ = NO_MODE;
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    subModels_[i]->modeChange(false);
+    subModels_[i]->setModeChangeType(NO_MODE);
+  }
 }
 
 void

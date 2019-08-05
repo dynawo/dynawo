@@ -47,6 +47,15 @@ typedef enum {
 } StateFlags;
 
 /**
+ * @brief Status of the previous reinitialization scheme
+ */
+typedef enum {
+  None = 0,
+  Algebraic,
+  AlgebraicWithJUpdate
+} PreviousReinit;
+
+/**
  * @brief Identifier of the current solver used
  */
 typedef enum {
@@ -77,6 +86,18 @@ class Solver {
    * @return solver state
    */
   virtual const BitMask& getState() const = 0;
+
+  /**
+   * @brief set the previous reinitialization status
+   * @param previousReinit : new previous reinitialization status
+   */
+  virtual void setPreviousReinit(const PreviousReinit& previousReinit) = 0;
+
+  /**
+   * @brief get the previous reinitialization status
+   * @return previous reinitialization status
+   */
+  virtual const PreviousReinit& getPreviousReinit() const = 0;
 
   /**
    * @brief set the solver's parameters

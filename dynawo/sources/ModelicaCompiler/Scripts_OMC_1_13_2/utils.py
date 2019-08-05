@@ -360,7 +360,17 @@ def make_various_treatments(txt_list):
 
     return txt_list_to_return
 
-
+def add_tmp_update_relations(tmp, tmps_assignment, tmps_to_add):
+    tmps_to_add_depend = []
+    if not tmp in tmps_to_add:
+        tmps_to_add.append(tmp)
+        for tmp_assignment in tmps_assignment:
+            if tmp in tmp_assignment:
+                tmp_depend_tmps = re.findall(r'tmp[0-9]+', tmp_assignment)
+                for tmp_depend in tmp_depend_tmps:
+                    tmps_to_add_depend = add_tmp_update_relations(tmp_depend, tmps_assignment, tmps_to_add)
+                    tmps_to_add.extend(tmps_to_add_depend)
+    return tmps_to_add_depend
 
 ##
 # Class containing a map associated name variable with its reference in x,xd list

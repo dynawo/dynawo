@@ -378,7 +378,7 @@ ModelManager::evalZ(const double &t) {
 
 modeChangeType_t
 ModelManager::evalMode(const double & t) {
-  return modelModelicaDynamic()->evalMode(t);
+  return modelModelica()->evalMode(t);
 }
 
 void
@@ -1148,6 +1148,9 @@ ModelManager::rotateBuffers() {
   if ( modelData()->nVariablesInteger > 0)
     memcpy(simulationInfo()->integerDoubleVarsPre, data()->localData[0]->integerDoubleVars,
            sizeof (data()->localData[0]->integerDoubleVars[0]) * modelData()->nVariablesInteger);
+
+  if (modelData()->nRelations > 0)
+    memcpy(simulationInfo()->relationsPre, simulationInfo()->relations, sizeof (simulationInfo()->relations[0]) * modelData()->nRelations);
 }
 
 void

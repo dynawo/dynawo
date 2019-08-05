@@ -233,6 +233,10 @@ class ReaderOMC:
         self.function_zero_crossings_raw_func = None
         self.function_zero_crossing_description_raw_func = None
 
+        # ---------------------------------------------
+        # reading updateRelations func in *_05evt.c file
+        # ----------------------------------------------
+        self.function_update_relations_raw_func = None
 
         # ----------------------------------------------------------------------
         # Attribute for reading *_structure.xml file (containing elements and structures)
@@ -877,7 +881,7 @@ class ReaderOMC:
                     var.set_init_by_param(True) # Indicates that the var is initialized with a param
 
     ##
-    # Read *_05evt.c file, and try to find declarations of zeroCrossing functions :
+    # Read *_05evt.c file, and try to find declarations of zeroCrossing and updateRelation functions :
     # @param self : object pointer
     # @return
     def read_05evt_c_file(self):
@@ -892,6 +896,9 @@ class ReaderOMC:
         ptrn_func_to_read = re.compile(r'%s[ ]+[*]+%s\(.*\)[^;]$' % ("const char", function_name))
         self.function_zero_crossing_description_raw_func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
+        function_name = self.mod_name + "_function_updateRelations"
+        ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", function_name))
+        self.function_update_relations_raw_func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
     ##
     # read _structure.xml file
