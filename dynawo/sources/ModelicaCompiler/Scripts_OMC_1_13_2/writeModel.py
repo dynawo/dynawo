@@ -112,6 +112,7 @@ if __name__ == '__main__':
 
         builder_init_pb.build_variables()
         builder_init_pb.build_equations()
+        builder_init_pb.build_modes()
         builder_init_pb.build_warnings()
         builder_init_pb.build_call_functions()
         builder_init_pb.prepare_for_print()
@@ -214,6 +215,7 @@ if __name__ == '__main__':
     builder.build_elements()
 
     builder.build_equations()
+    builder.build_modes()
     builder.build_warnings()
     builder.build_call_functions()
     builder.prepare_for_print()

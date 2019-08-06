@@ -232,6 +232,13 @@ TEST(SimulationTest, testSolverSIMTestAlpha) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
   solver->solve(tStop, tCurrent, y, yp);
+  ASSERT_EQ(solver->getState().noFlagSet(), false);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange), true);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
+  solver->reinit(y, yp);
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
@@ -280,11 +287,8 @@ TEST(SimulationTest, testSolverSIMTestBeta) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
 
-  // At this stage, z has been updated but y has not yet been updated with the current strategy
-  // Indeed, the algebraic and differential continuous variables are calculated at the time step beginning.
-  // Then there is the discrete variable update that is done but algebraic and differential continuous variables aren't refreshed.
   solver->solve(tStop, tCurrent, y, yp);
-  ASSERT_EQ(solver->getState().getFlags(ZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -327,7 +331,7 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
 
   // Max root restart hit at t = 2s. Accept the time step in the current strategy.
   solver->solve(tStop, tCurrent, y, yp);
-  ASSERT_EQ(solver->getState().getFlags(ZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -378,14 +382,14 @@ TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
 
   solver->solve(tStop, tCurrent, y, yp);
-  ASSERT_EQ(solver->getState().getFlags(ZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 
@@ -429,15 +433,16 @@ TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
 
   // Divergence at t=2, reduce the time step and resolve at t=1.5
   solver->solve(tStop, tCurrent, y, yp);
-  ASSERT_EQ(solver->getState().getFlags(ZChange), true);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0.8);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 0.8);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
   // Does not diverge as sundials forces a reevaluation of the jacobian
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2);
 
   solver->solve(tStop, tCurrent, y, yp);
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0.8);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 0.8);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 3);
 }
 
@@ -498,7 +503,9 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
   }
 
+  ASSERT_EQ(solver->getPreviousReinit(), None);
   solver->reinit(y, yp);
+  ASSERT_EQ(solver->getPreviousReinit(), AlgebraicWithJUpdate);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239292330972138);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045165197);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[10], 0);
@@ -533,6 +540,9 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
     else
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
   }
+
+  solver->setPreviousReinit(Algebraic);
+  ASSERT_EQ(solver->getPreviousReinit(), Algebraic);
 }
 
 }  // namespace DYN

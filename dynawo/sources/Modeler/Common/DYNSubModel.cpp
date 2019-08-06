@@ -101,6 +101,8 @@ SubModel::SubModel() {
   sizeMode_ = 0;
   sizeModeSave_ = 0;
   currentTime_ = 0.;
+  modeChange_ = false;
+  modeChangeType_ = NO_MODE;
 }
 
 SubModel::~SubModel() {
@@ -796,9 +798,13 @@ modeChangeType_t
 SubModel::evalModeSub(const double & t) {
   setCurrentTime(t);
   // evaluation of the submodel modes
+  modeChange_ = false;
   modeChangeType_t modeChangeType = evalMode(t);
-  if (modeChangeType != NO_MODE)
+  if (modeChangeType > modeChangeType_) {
+    modeChange_ = true;
+    modeChangeType_ = modeChangeType;
     Trace::debug() << DYNLog(ModeChange, modeChangeType2Str(modeChangeType), name_) << Trace::endline;
+  }
   return modeChangeType;
 }
 

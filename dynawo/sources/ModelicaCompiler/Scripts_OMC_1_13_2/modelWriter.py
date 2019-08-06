@@ -322,6 +322,7 @@ class ModelWriter(ModelWriterBase):
         self.file_content.append("#include <limits>\n")
         self.file_content.append("#include <cassert>\n")
         self.file_content.append("#include <set>\n")
+        self.file_content.append("#include <iostream>\n")
         self.file_content.append("#include <string>\n")
         self.file_content.append("#include <vector>\n")
         self.file_content.append("#include <math.h>\n")
@@ -393,7 +394,10 @@ class ModelWriter(ModelWriterBase):
         self.addLine("void Model" + self.className + "::setZomc()\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.get_list_for_setz())
+        if (len(self.builder.get_list_for_setz()) > 0):
+            self.addLine("  data->simulationInfo->discreteCall = 1;\n")
+            self.addBody(self.builder.get_list_for_setz())
+            self.addLine("  data->simulationInfo->discreteCall = 0;\n")
         self.addLine("}\n")
 
     ##
@@ -406,7 +410,10 @@ class ModelWriter(ModelWriterBase):
         self.addLine("void Model" + self.className + "::setGomc(state_g * gout)\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.get_list_for_setg())
+        if (len(self.builder.get_list_for_setg()) > 0):
+            self.addLine("  data->simulationInfo->discreteCall = 1;\n")
+            self.addBody(self.builder.get_list_for_setg())
+            self.addLine("  data->simulationInfo->discreteCall = 0;\n")
         self.addLine("}\n")
 
 
@@ -474,7 +481,7 @@ class ModelWriter(ModelWriterBase):
 
         self.addLine("  data->nbVars ="+str(len(self.builder.list_vars_syst) - len(self.builder.reader.auxiliary_vars_counted_as_variables))+";\n")
         self.addLine("  data->nbF = "+str(self.builder.get_nb_eq_dyn()) +";\n")
-        self.addLine("  data->nbModes = 0; \n")
+        self.addLine("  data->nbModes = " +str(self.builder.get_nb_modes()) + ";\n")
         self.addLine("  data->nbZ = "+str(len(self.builder.list_all_vars_discr))+";\n")
         self.addLine("}\n")
 

@@ -827,7 +827,7 @@ TEST(ModelerCommonTest, ModelerCommonUtilities) {
   ASSERT_EQ(modeChangeType2Str(NO_MODE), "No mode change");
   ASSERT_EQ(modeChangeType2Str(DIFFERENTIAL_MODE), "Differential mode change");
   ASSERT_EQ(modeChangeType2Str(ALGEBRAIC_MODE), "Algebraic mode change");
-  ASSERT_EQ(modeChangeType2Str(ALGEBRAIC_J_UPDATE_MODE), "Algebraic mode change");
+  ASSERT_EQ(modeChangeType2Str(ALGEBRAIC_J_UPDATE_MODE), "Algebraic mode (with J recalculation) change");
 }
 
 TEST(ModelerCommonTest, testNoParFile) {
@@ -868,28 +868,60 @@ TEST(ModelerCommonTest, testModeHandling) {
   ASSERT_EQ(modelMulti->modeChange(), false);
   ASSERT_EQ(modelMulti->getModeChangeType(), NO_MODE);
 
+  modelMulti->reinitMode();
   time = 1;
   modelMulti->evalMode(time, y, yp, z);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), DIFFERENTIAL_MODE);
+  // Emulating the behavior in the evalZMode method (calling the method several times without reinitializing the modes)
+  time = 2;
+  modelMulti->evalMode(time, y, yp, z);
+  ASSERT_EQ(modelMulti->modeChange(), true);
+  ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
+  time = 5;
+  modelMulti->evalMode(time, y, yp, z);
+  ASSERT_EQ(modelMulti->modeChange(), false);
+  ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
+  ASSERT_EQ(subModel->evalModeSub(time), NO_MODE);
+  ASSERT_EQ(subModel->modeChange(), false);
+  time = 1;
+  modelMulti->evalMode(time, y, yp, z);
+  ASSERT_EQ(modelMulti->modeChange(), false);
+  ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
+  ASSERT_EQ(subModel->evalModeSub(time), DIFFERENTIAL_MODE);
+  ASSERT_EQ(subModel->modeChange(), false);
+  time = 4;
+  modelMulti->evalMode(time, y, yp, z);
+  ASSERT_EQ(modelMulti->modeChange(), true);
+  ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
+  ASSERT_EQ(subModel->modeChange(), true);
+  ASSERT_EQ(subModel->evalModeSub(time), ALGEBRAIC_J_UPDATE_MODE);
+  ASSERT_EQ(subModel->modeChange(), false);
 
+  modelMulti->reinitMode();
   time = 2;
   modelMulti->evalMode(time, y, yp, z);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
 
+  modelMulti->reinitMode();
   time = 3;
   modelMulti->evalMode(time, y, yp, z);
   ASSERT_EQ(modelMulti->modeChange(), true);
-  ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
+  ASSERT_EQ(modelMulti->getModeChangeType(), DIFFERENTIAL_MODE);
+  ASSERT_EQ(subModel->modeChange(), true);
   ASSERT_EQ(subModel->evalModeSub(time), DIFFERENTIAL_MODE);
 
+  modelMulti->reinitMode();
   time = 4;
   modelMulti->evalMode(time, y, yp, z);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
 
-  modelMulti->setModeChangeType(NO_MODE);
+  modelMulti->reinitMode();
   ASSERT_EQ(modelMulti->getModeChangeType(), NO_MODE);
+  ASSERT_EQ(subModel->modeChange(), false);
+  modelMulti->setModeChangeType(DIFFERENTIAL_MODE);
+  ASSERT_EQ(modelMulti->getModeChangeType(), DIFFERENTIAL_MODE);
 }
 }  // namespace DYN

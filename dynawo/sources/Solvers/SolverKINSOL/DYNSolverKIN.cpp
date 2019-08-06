@@ -249,6 +249,42 @@ SolverKIN::init(const shared_ptr<Model>& model, modeKin_t mode, double scsteptol
   assert(indexF_.size() == indexY_.size());
 }
 
+void
+SolverKIN::modifySettings(double scsteptol, double fnormtol,
+                int mxiter, int msbset, int mxnstepin, int printfl) {
+  if (nbF_ == 0)
+    return;
+
+  // Modify tolerances
+  int flag = KINSetFuncNormTol(KINMem_, fnormtol);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetFuncNormTol");
+
+  flag = KINSetScaledStepTol(KINMem_, scsteptol);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetScaledStepTol");
+
+  // Modify the maximum number of nonlinear iterations allowed
+  flag = KINSetNumMaxIters(KINMem_, mxiter);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNumMaxIters");
+
+  // Modify the maximum number of iteration without preconditionner call (passing 0 means keeping the KINSOL default value, currently 10)
+  flag = KINSetMaxSetupCalls(KINMem_, msbset);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetMaxSetupCalls");
+
+  // Modify the maximum allowable scaled step length
+  flag = KINSetMaxNewtonStep(KINMem_, mxnstepin);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetMaxNewtonStep");
+
+  // Modify the options for error/info messages
+  flag = KINSetPrintLevel(KINMem_, printfl);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetPrintLevel");
+}
+
 int
 SolverKIN::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   SolverKIN * solv = reinterpret_cast<SolverKIN*> (data);
@@ -426,14 +462,14 @@ SolverKIN::analyseFlag(const int & flag) {
       msg << DYNLog(KinReptdSysfuncErr);
       break;
     default:
-#ifdef _DEBUG_
+#ifdef __DEBUG__
       Trace::debug() << DYNLog(SolverKINUnknownError) << Trace::endline;
 #endif
       throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
   }
 
   if (flag < 0) {
-#ifdef _DEBUG_
+#ifdef __DEBUG__
     Trace::debug() << msg.str() << Trace::endline;
 #endif
     throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
@@ -441,9 +477,13 @@ SolverKIN::analyseFlag(const int & flag) {
 }
 
 void
-SolverKIN::solve() {
+SolverKIN::solve(bool noInitSetup) {
   if (nbF_ == 0)
     return;
+
+  int flag = KINSetNoInitSetup(KINMem_, noInitSetup);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
 
   // first evaluation of F in order to fill the scaling vector
   model_->evalF(t0_, &y0_[0], &yp0_[0], &F_[0]);
@@ -486,7 +526,7 @@ SolverKIN::solve() {
   if (scaley == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverScalingErrorKINSOL);
 
-  int flag = KINSol(KINMem_, yy_, KIN_NONE, scaley, scalef);
+  flag = KINSol(KINMem_, yy_, KIN_NONE, scaley, scalef);
 
 #ifdef _DEBUG_
   // Printing the largest residuals at the end of the iteration

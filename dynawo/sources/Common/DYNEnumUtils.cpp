@@ -34,8 +34,9 @@ modeChangeType2Str(const modeChangeType_t& modeChangeType) {
     case DIFFERENTIAL_MODE:
       return "Differential mode change";
     case ALGEBRAIC_MODE:
-    case ALGEBRAIC_J_UPDATE_MODE:
       return "Algebraic mode change";
+    case ALGEBRAIC_J_UPDATE_MODE:
+      return "Algebraic mode (with J recalculation) change";
     default:
       assert(0 && "Mode change type should be one of the enum values");
   }

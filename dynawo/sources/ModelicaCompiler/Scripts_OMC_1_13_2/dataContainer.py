@@ -1366,9 +1366,16 @@ class EquationBase:
         return is_modelica_reinit_body (self.body)
 
     ##
-    # Get the body of the equation
+    # Get the body of the equation as stored
     # @param self: object pointer
     # @return : body of the equation
+    def get_body(self):
+        return self.body
+
+    ##
+    # Get the raw body of the equation
+    # @param self: object pointer
+    # @return : raw body (as a text) of the equation
     def get_raw_body(self):
         text_to_return = ""
         for line in self.body : text_to_return += line
@@ -1839,3 +1846,188 @@ class Warn:
     # @return body to print in setF
     def get_body_for_setf(self):
         return self.body_for_setf
+
+##
+# Class Modes: used to store all information related to mode change conditions
+##
+class Modes:
+    def __init__(self):
+        self.body_for_tmps = []
+        self.body_for_tmps_created_relations = []
+        self.relations = []
+        self.created_relations = []
+        self.modes_discretes = {}
+
+    ##
+    # Add a line to the body necessary to define and assign values for auxiliary tmps
+    # @param self : object pointer
+    # @param line : line to add to the body for tmps
+    def add_to_body_for_tmps(self, line):
+        self.body_for_tmps.append(line)
+
+    ##
+    # Add a line to the body necessary to define and assign values for auxiliary tmps for created relations
+    # @param self : object pointer
+    # @param line : line to add to the body for tmps associated to created relations
+    def add_to_body_for_tmps_created_relations(self, line):
+        self.body_for_tmps_created_relations.append(line)
+
+    ##
+    # Add a relation to the list of relations
+    # @param self : object pointer
+    # @param relation  :relation to add
+    def add_relation(self, relation):
+        self.relations.append(relation)
+
+    ##
+    # Add a created relation to the list of the created relations
+    # @param self : object pointer
+    # @param created_relation : created relation to add
+    def add_created_relation(self, created_relation):
+        self.created_relations.append(created_relation)
+
+    ##
+    # Get the body for the evalg for tmps
+    # @param self : object pointer
+    # @return body to print for evalg for tmps
+    def get_body_for_evalg_tmps(self):
+        text_to_return = []
+        for line in self.body_for_tmps_created_relations:
+            text_to_return.append(line)
+        for relation in self.created_relations:
+            text_to_return.append(relation.body_definition)
+        text_to_return.append("\n")
+        return text_to_return
+
+    ##
+    # Get the body for the evalg assignments for tmps
+    # @param self : object pointer
+    # @param index : index of the g equation
+    # @return body for evalg assignments
+    def get_body_for_evalg_assignments(self, index):
+        text_to_return = []
+        for relation in self.created_relations:
+            text_to_return.append("  gout[" + str(index) + "] = (data->simulationInfo->relations[" + str(relation.index) + "] != data->simulationInfo->relationsPre[" + str(relation.index) + "]) ? ROOT_UP : ROOT_DOWN;\n")
+            index += 1
+        return text_to_return
+
+    ##
+    # Get the body for the setgequations
+    # @param self : object pointer
+    # @param index : index of the g equation
+    # @return the body to print for setgequations
+    def get_body_for_setgequations(self, index):
+        text_to_return = []
+        for relation in self.created_relations:
+            gequation = "Zero crossing for condition change in relation " + str(relation.index) + ": " + relation.condition
+            text_to_return.append('  gEquationIndex[' + str(index) + '] = "' + gequation + '";\n')
+            index += 1
+        return text_to_return
+
+    ##
+    # Get the body for the evalmode
+    # @param self : object pointer
+    # @return body to print for evalmode
+    def get_body_for_evalmode(self):
+        text_to_return = []
+        body_tmps = self.body_for_tmps + self.body_for_tmps_created_relations
+        for line in body_tmps:
+            text_to_return.append(line)
+        text_to_return.append("\n")
+        relations = self.relations + self.created_relations
+        for relation in relations:
+            for eq in relation.eqs:
+                text_to_return.append("  // ----- Mode for " + str(eq) + " --------- \n")
+            text_to_return.append(relation.body_definition)
+            text_to_return.append("  if (data->simulationInfo->relations[" + str(relation.index) + "] != data->simulationInfo->relationsPre[" + str(relation.index) + "]) \n")
+            text_to_return.append("  {\n")
+            if relation.type == "ALG":
+                text_to_return.append("    modeChangeType = ALGEBRAIC_MODE;\n")
+            elif relation.type == "DIFF":
+                text_to_return.append("    if (modeChangeType == NO_MODE)\n")
+                text_to_return.append("      modeChangeType = DIFFERENTIAL_MODE;\n")
+            else:
+                print "Mode not handled"
+            text_to_return.append("  }\n")
+            text_to_return.append("\n")
+        for z in self.modes_discretes:
+            discrete_mode = self.modes_discretes[z]
+            for eq in discrete_mode.eqs:
+                text_to_return.append("  // ----- Mode for " + str(eq) + " --------- \n")
+            zAff = to_param_address(z)
+            zPre = zAff.replace("localData[0]->discreteVars", "simulationInfo->discreteVarsPre")
+            zPre = zPre.replace("localData[0]->integerDoubleVars", "simulationInfo->integerDoubleVarsPre")
+            text_to_return.append("  if (" + zAff + " != " + zPre +")\n")
+            text_to_return.append("  {\n")
+            if discrete_mode.type == "ALG":
+                if discrete_mode.boolean == False:
+                    text_to_return.append("      modeChangeType = ALGEBRAIC_MODE;\n")
+                else:
+                    text_to_return.append("    return ALGEBRAIC_J_UPDATE_MODE;\n")
+            else:
+                text_to_return.append("    if (modeChangeType == NO_MODE)\n")
+                text_to_return.append("      modeChangeType = DIFFERENTIAL_MODE;\n")
+            text_to_return.append("  }\n\n")
+        return text_to_return
+
+##
+#  class ModeDiscrete : use to store specific information for mode change related to discrete variable changes
+##
+class ModeDiscrete:
+    def __init__(self, type, boolean):
+        self.type = type
+        self.boolean = boolean
+        self.eqs = []
+
+    ##
+    # Set the type of influenced equation
+    # @param self : object pointer
+    # @param type : discrete mode type
+    def set_type(self, type):
+        self.type = type
+
+    ##
+    # Add an equation to the list of equations influenced by the discrete variable change
+    # @param self : object pointer
+    # @param eq : equation to add
+    def add_eq(self, eq):
+        self.eqs.append(eq)
+
+##
+#  class Relation : use to store specific information for mode change related to a relation
+##
+class Relation:
+    def __init__(self, index, type):
+        self.index = index
+        self.type = type
+        self.eqs = []
+        self.body_definition = []
+        self.condition = ""
+
+    ##
+    # Add an equation to the list of equations influenced by the relation change
+    # @param self : object pointer
+    # @param eq_to_add : equation to add
+    def add_eq(self, eq_to_add):
+        self.eqs.append(eq_to_add)
+
+    ##
+    # Set body definition for the relation
+    # @param self : object pointer
+    # @param body_definition : body_definition to add
+    def set_body_definition(self, body_definition):
+        self.body_definition = body_definition
+
+    ##
+    # Set the type of equation influenced
+    # @param self : object pointer
+    # @param type : type of equation influenced
+    def set_type(self, type):
+        self.type = type
+
+    ##
+    # Set the condition and replace the end line symbol as well as useless whitespaces
+    # @param self : object pointer
+    # @param condition : condition to set
+    def set_condition(self, condition):
+        self.condition = condition.replace("\n","").replace("  ","")
