@@ -43,16 +43,21 @@
 #include "DYNModelManagerOwnFunctions.h"  ///< redefinition of local own functions
 
 /**
- * definition of hysteris function
+ * definition of hysteresis function
  *
  * @param res result of the function
  * @param exp1 first operand
  * @param exp2 second operand
- * @param unused unused parameter
+ * @param index position of the relation in the relationsPre map
  * @param op_w operator to used
  */
-#define RELATIONHYSTERESIS(res, exp1, exp2, unused, op_w) { \
-  res = ((op_w)((exp1), (exp2))); \
+#define RELATIONHYSTERESIS(res, exp1, exp2, index, op_w) { \
+  if (data->simulationInfo->discreteCall == 0) { \
+    res = data->simulationInfo->relationsPre[index]; \
+  } else { \
+    res = ((op_w)((exp1), (exp2))); \
+    data->simulationInfo->relations[index] = res; \
+  } \
 }
 
 /**

@@ -70,9 +70,24 @@ class SolverKIN : private boost::noncopyable{
             int mxiter, int nnz, int msbset, int mxnstepin, int printfl);
 
   /**
-   * @brief solve the equations of F(u) = 0 to find the new value of u
+   * @brief modify the solver settings
+   *
+   * @param scsteptol scaled step length tolerance
+   * @param fnormtol stopping tolerance on L2-norm of function value
+   * @param mxiter maximum number of nonlinear iterations
+   * @param msbset maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+   * @param mxnstepin maximum allowable scaled step length
+   * @param printfl level of verbosity of output
    */
-  void solve();
+  void modifySettings(double scsteptol, double fnormtol,
+            int mxiter, int msbset, int mxnstepin, int printfl);
+
+  /**
+   * @brief solve the equations of F(u) = 0 to find the new value of u
+   *
+   * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
+   */
+  void solve(bool noInitSetup = true);
 
   /**
    * @brief getter for the model currently simulated

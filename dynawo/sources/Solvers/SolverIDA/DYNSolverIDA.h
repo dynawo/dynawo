@@ -221,7 +221,8 @@ class SolverIDA : public Solver::Impl {
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver LS_;  ///< Linear Solver pointer
   SUNMatrix M_;  ///< sparse SUNMatrix
-  boost::shared_ptr<SolverKIN> solverKIN_;  ///< Newton Raphson solver for the algebraic variables restoration
+  boost::shared_ptr<SolverKIN> solverKINNormal_;  ///< Newton Raphson solver for the algebraic variables restoration
+  boost::shared_ptr<SolverKIN> solverKINYPrim_;  ///< Newton-Raphson solver for the derivatives of the differential variables restoration
 
   // parameters
   int order_;  ///< maximum order to use in the integration method

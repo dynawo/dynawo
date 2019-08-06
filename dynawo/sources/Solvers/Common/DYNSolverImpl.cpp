@@ -202,6 +202,7 @@ void
 Solver::Impl::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt) {
   // Solving
   state_.reset();
+  model_->reinitMode();
   model_->rotateBuffers();
   solve(tAim, tNxt);
 
@@ -218,7 +219,6 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
   bool modeChange = false;
   bool stableRoot = true;
   bool change = false;
-  model_->setModeChangeType(NO_MODE);
 
   for (int i = 0; i < 10; ++i) {
     // evalZ

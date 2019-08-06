@@ -1,6 +1,7 @@
 #include <limits>
 #include <cassert>
 #include <set>
+#include <iostream>
 #include <string>
 #include <vector>
 #include <math.h>
@@ -45,9 +46,9 @@ void ModelGeneratorPQ_Init::setupDataStruc()
   data->modelData->nAliasInteger = 0;
   data->modelData->nAliasBoolean = 0;
   data->modelData->nAliasString = 0;
-  data->modelData->nZeroCrossings = 0 + 0;
+  data->modelData->nZeroCrossings = 0 + 0 + 0;
   data->modelData->nSamples = 0;
-  data->modelData->nRelations = 0;
+  data->modelData->nRelations = 0 + 0;
   data->modelData->nMathEvents = 0;
   data->modelData->nExtObjs = 0;
   data->modelData->nMixedSystems = 0;
@@ -67,7 +68,7 @@ void ModelGeneratorPQ_Init::setupDataStruc()
 
   data->nbVars =8;
   data->nbF = 8;
-  data->nbModes = 0; 
+  data->nbModes = 0;
   data->nbZ = 0;
 }
 
@@ -121,6 +122,13 @@ void ModelGeneratorPQ_Init::initializeDataStruc()
   for (unsigned i = 0; i < data->simulationInfo->daeModeData->nResidualVars; ++i)
     data->simulationInfo->daeModeData->residualVars[i] = 0;
 
+  // buffer for all relation values
+  nb = (data->modelData->nRelations > 0) ? data->modelData->nRelations : 0;
+  data->simulationInfo->relations = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
+  data->simulationInfo->relationsPre = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
+
+  data->simulationInfo->discreteCall = 0;
+ 
 }
 
 void ModelGeneratorPQ_Init::deInitializeDataStruc()
@@ -147,6 +155,9 @@ void ModelGeneratorPQ_Init::deInitializeDataStruc()
   free(data->simulationInfo->daeModeData->residualVars);
   free(data->simulationInfo->daeModeData->auxiliaryVars);
   free(data->simulationInfo->daeModeData);
+  // buffer for all relation values
+  free(data->simulationInfo->relations);
+  free(data->simulationInfo->relationsPre);
   free(data->simulationInfo);
   free(data->modelData);
 
@@ -243,18 +254,20 @@ void ModelGeneratorPQ_Init::setFomc(double * f)
 
 modeChangeType_t ModelGeneratorPQ_Init::evalMode(const double & t) const
 {
-  // modes may either be due to
-  // - a change in network topology (currently forbidden for Modelica models)
-  // - a Modelica reinit command
-  // no mode triggered => return NO_MODE
-  return NO_MODE;
+  modeChangeType_t modeChangeType = NO_MODE;
+ 
+
+  return modeChangeType;
 }
 
 void ModelGeneratorPQ_Init::setGomc(state_g * gout)
 {
+  data->simulationInfo->discreteCall = 1;
   
   
   
+
+  data->simulationInfo->discreteCall = 0;
 }
 
 void ModelGeneratorPQ_Init::setZomc()

@@ -86,6 +86,19 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   }
 
   /**
+   * @copydoc Solver::setPreviousReinit(const PreviousReinit& previousReinit)
+   */
+  inline void setPreviousReinit(const PreviousReinit& previousReinit) {
+    previousReinit_ = previousReinit;
+  }
+
+  /**
+   * @copydoc Solver::getPreviousReinit()
+   */
+  inline const PreviousReinit& getPreviousReinit() const {
+    return previousReinit_;
+  }
+  /**
    * @copydoc Solver::setParameters(const boost::shared_ptr<parameters::ParametersSet> &params)
    */
   void setParameters(const boost::shared_ptr<parameters::ParametersSet> &params);
@@ -288,8 +301,8 @@ class Solver::Impl : public Solver, private boost::noncopyable {
 
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver
-
   BitMask state_;  ///< current state value of the solver
+  PreviousReinit previousReinit_;  ///< previous reinitialization status of the solver
 };
 
 }  // end of namespace DYN

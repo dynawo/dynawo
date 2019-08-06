@@ -151,6 +151,7 @@ SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double 
   nNewt_ = 0;
   countRestart_ = 0;
   factorizationForced_ = false;
+  previousReinit_ = None;
 
   if (model->sizeY() != 0) {
     solverEulerKIN_.reset(new SolverEulerKIN());
@@ -181,6 +182,8 @@ SolverSIM::calculateIC() {
   evalZMode(g0_, g1_, tSolve_);
 
   model_->rotateBuffers();
+  state_.reset();
+  model_->reinitMode();
 
   solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 200, 10, 0, 0, 0);
 
@@ -205,11 +208,12 @@ SolverSIM::calculateIC() {
       throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
 
     model_->rotateBuffers();
+    state_.reset();
+    model_->reinitMode();
   } while (change);
 
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;
 
-  model_->setModeChangeType(NO_MODE);
   solverKIN_->clean();
 }
 
@@ -296,6 +300,8 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
             countRestart_++;
             redoStep = true;
             restoreInitialValues(false, false);
+            state_.reset();
+            model_->reinitMode();
           }
         break;
       }
@@ -441,14 +447,8 @@ SolverSIM::solve() {
         return (ROOT_ALG);
       } else if (modelChange) {  // Z change
         return (ROOT);
-      } else {  // Root change without any z change
-        /* At the moment, there isn't a proper detection of mode changes (evalMode always returns false).
-         * Thus it is necessary to potentially recalculate the step even when the root change could have been without any effect on the problem to solve
-         * (for example Secondary Voltage Control timer in steady state)
-         * Further development on the modeling side should enable to avoid this and so to speed up performances for strategies in which the current state is recalculated
-         * following zero crossing detections.
-         */
-        return (ROOT);
+      } else {  // Root change without any z or mode change
+        return (CONV);
       }
     }
   }
@@ -543,7 +543,8 @@ SolverSIM::updateStepConvergence() {
 }
 
 void SolverSIM::handleAlgebraicRoot(bool& redoStep) {
-  factorizationForced_ = true;
+  if (model_->getModeChangeType() == ALGEBRAIC_J_UPDATE_MODE)
+    factorizationForced_ = true;
   redoStep = false;
 }
 
@@ -560,44 +561,63 @@ void SolverSIM::updateTimeStep(double& tNxt) {
 void
 SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
   int counter = 0;
-  modeChangeType_t modeChangeType;
+  modeChangeType_t modeChangeType = model_->getModeChangeType();
 
-  if (model_->getModeChangeType() != DIFFERENTIAL_MODE) {
-    do {
-      model_->setModeChangeType(NO_MODE);
-      model_->rotateBuffers();
+  if (modeChangeType == DIFFERENTIAL_MODE)
+    return;
 
-      // Call to solver KIN to find new algebraic variables' values
-      for (unsigned int i = 0; i < vYId_.size(); i++)
-        if (vYId_[i] != DYN::DIFFERENTIAL)
-          vYp_[i] = 0;
+  do {
+    model_->rotateBuffers();
+    state_.reset();
+    model_->reinitMode();
 
-      // During the algebraic equation restoration, the system could have moved a lot from its previous state.
-      // J updates and preconditioner calls must be done on a regular basis.
-      solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 1, 1, 0, 0);
-      solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
-      solverKIN_->solve();
-      solverKIN_->getValues(vYy_, vYp_);
-      solverKIN_->clean();
+    // Call to solver KIN to find new algebraic variables' values
+    for (unsigned int i = 0; i < vYId_.size(); i++)
+      if (vYId_[i] != DYN::DIFFERENTIAL)
+        vYp_[i] = 0;
 
-      // Root stabilization - tSolve_ has been updated in the solve method to the current time
-      model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
-      ++stats_.nge_;
-
-      bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
-      if (rootFound) {
-        g0_.assign(g1_.begin(), g1_.end());
-        evalZMode(g0_, g1_, tSolve_);
+    // During the algebraic equation restoration, the system could have moved a lot from its previous state.
+    // J updates and preconditioner calls must be done on a regular basis.
+    bool noInitSetup = false;
+    if (modeChangeType == ALGEBRAIC_MODE) {
+      if (previousReinit_ == None) {
+        solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-4, 1e-4, 30, 1, 10, 100000, 0);
+        previousReinit_ = Algebraic;
+      } else if (previousReinit_ == AlgebraicWithJUpdate) {
+        solverKIN_->modifySettings(1e-4, 1e-4, 30, 10, 100000, 0);
+        previousReinit_ = Algebraic;
       }
+      noInitSetup = true;
+    } else {
+      if (previousReinit_ == None) {
+        solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-4, 1e-4, 30, 1, 1, 100000, 0);
+        previousReinit_ = AlgebraicWithJUpdate;
+      } else if (previousReinit_ == Algebraic) {
+        solverKIN_->modifySettings(1e-4, 1e-4, 30, 1, 100000, 0);
+        previousReinit_ = AlgebraicWithJUpdate;
+      }
+    }
 
+    solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
+    solverKIN_->solve(noInitSetup);
+    solverKIN_->getValues(vYy_, vYp_);
+
+    // Root stabilization - tSolve_ has been updated in the solve method to the current time
+    model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
+    ++stats_.nge_;
+    bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
+    if (rootFound) {
+      g0_.assign(g1_.begin(), g1_.end());
+      evalZMode(g0_, g1_, tSolve_);
       modeChangeType = model_->getModeChangeType();
-      counter++;
-      if (counter >= 10)
-        throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
-    } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
-  }
+    } else {
+      modeChangeType = NO_MODE;
+    }
 
-  model_->setModeChangeType(NO_MODE);
+    counter++;
+    if (counter >= 10)
+      throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
+  } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
 
   // saving the new step
   yNxt = vYy_;

@@ -117,6 +117,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   }
 
   /**
+   * @copydoc Model::reinitMode()
+   */
+  void reinitMode();
+
+  /**
    * @copydoc Model::zChange(bool zChange)
    */
   void zChange(bool zChange);
