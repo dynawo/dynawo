@@ -462,14 +462,14 @@ SolverKIN::analyseFlag(const int & flag) {
       msg << DYNLog(KinReptdSysfuncErr);
       break;
     default:
-#ifdef __DEBUG__
+#ifdef _DEBUG_
       Trace::debug() << DYNLog(SolverKINUnknownError) << Trace::endline;
 #endif
       throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
   }
 
   if (flag < 0) {
-#ifdef __DEBUG__
+#ifdef _DEBUG_
     Trace::debug() << msg.str() << Trace::endline;
 #endif
     throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
