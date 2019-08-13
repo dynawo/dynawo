@@ -23,6 +23,10 @@ SET(MODELICA_PREASSEMBLED_MODELS
     GeneratorPV.xml
     GeneratorSynchronousFourWindings.xml
     GeneratorSynchronousThreeWindings.xml
+    GeneratorSynchronousFourWindingsProportionalRegulations.xml
+    GeneratorSynchronousThreeWindingsProportionalRegulations.xml
+    GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
+    GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
     GenericAutomaton.xml
     LoadAlphaBeta.xml
     LoadOneTransformer.xml
@@ -30,8 +34,6 @@ SET(MODELICA_PREASSEMBLED_MODELS
     LoadTwoTransformers.xml
     LoadTwoTransformersTapChangers.xml
     NodeFault.xml
-    GeneratorSynchronousFourWindingsProportionalRegulations.xml
-    GeneratorSynchronousThreeWindingsProportionalRegulations.xml
     PhaseShifterI.xml
     PhaseShifterP.xml
     SetPoint.xml
