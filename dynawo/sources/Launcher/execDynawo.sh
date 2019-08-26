@@ -33,7 +33,8 @@ export_var_env() {
 usage="Usage: `basename $0` [option] -- program to deal with Dynawo
 
 where [option] can be:
-    jobs ([args])              call Dynawo's launcher with given arguments setting LD_LIBRARY_PATH correctly
+    jobs ([args])              call Dynawo's launcher with given arguments
+    jobs-with-curves ([args])  call Dynawo simulation and print curves
     version                    show dynawo version
     help                       show this message"
 
@@ -54,6 +55,8 @@ set_environment() {
   export_var_env DYNAWO_LOCALE=en_GB
   export_var_env DYNAWO_USE_XSD_VALIDATION=false
 
+  export_var_env DYNAWO_BROWSER=firefox
+
   export PATH=$DYNAWO_INSTALL_OPENMODELICA/bin:$PATH
   export PATH=$DYNAWO_INSTALL_DIR/sbin:$PATH
 }
@@ -63,6 +66,29 @@ jobs() {
 
   # launch dynawo
   $DYNAWO_INSTALL_DIR/bin/launcher $@
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
+verify_browser() {
+  if [ ! -x "$(command -v $DYNAWO_BROWSER)" ]; then
+    error_exit "Specified browser DYNAWO_BROWSER=$DYNAWO_BROWSER not found. Use export DYNAWO_BROWSER="
+  fi
+}
+
+curves_visu() {
+  verify_browser
+  python $DYNAWO_INSTALL_DIR/sbin/curvesToHtml/curvesToHtml.py --jobsFile=$(python -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
+}
+
+jobs_with_curves() {
+  set_environment
+
+  # launch dynawo
+  $DYNAWO_INSTALL_DIR/bin/launcher $@ || error_exit "Dynawo job failed."
+  echo "Generating curves visualization pages"
+  curves_visu $@ || error_exit "Error during curves visualisation page generation"
+  echo "End of generating curves visualization pages"
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -77,6 +103,11 @@ while (($#)); do
     jobs)
       shift
       jobs $@ || error_exit "Dynawo execution failed"
+      break
+      ;;
+    jobs-with-curves)
+      shift
+      jobs_with_curves $@ || error_exit "Dynawo execution failed"
       break
       ;;
     version)
