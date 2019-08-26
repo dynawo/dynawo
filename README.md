@@ -23,6 +23,7 @@ This repository contains Dyna&omega;o's simulation tool code.
 ## Table of Contents
 
 - [About Dyna&omega;o](#about)
+- [Dyna&omega;o Distribution](#distribution)
 - [Building requirements on Unix/Linux](#requirements)
 - [Building Dyna&omega;o](#build)
 - [Launch Dyna&omega;o](#launch)
@@ -46,15 +47,55 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 **Dyna&omega;o's primary focus has been on RMS simulations and most of the tests done until now have been for long-term and short-term stability studies.** However, the simulation tool structure offers great flexibility and makes it also possible to run other types of power system simulations, as long as the user provides the necessary models and solvers. Different initiatives are under discussion or submission to test the possibility to use Dyna&omega;o for EMT simulations or multi-system simulations.
 **Only validated models are included into the library that is still under construction.** We plan to be able to release a new set of models in the near future, with for example HVDC, wind and solar power plants models or more different standard regulation models, etc.
 
+<a name="distribution"></a>
+## Dyna&omega;o Distribution
+
+You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux** and **MacOS**:
+- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.0.1/Dynawo_Linux_v1.0.1.zip)
+- [MacOS](https://github.com/dynawo/dynawo/releases/download/v1.0.1/Dynawo_MacOS_v1.0.1.zip)
+
+### Linux Requirements for Distribution
+
+- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++98 or C++11 compatible for C++ standard
+- Python
+- Binary utilities: [curl](https://curl.haxx.se/) and unzip
+- Libraries: [BLAS](http://www.netlib.org/blas/index.html) and [LAPACK](http://www.netlib.org/lapack/index.html)
+
+You can install the dependencies for Ubuntu or Fedora with:
+
+``` bash
+$> apt install -y g++ unzip curl python liblapacke
+$> dnf install -y gcc-c++ unzip curl python lapack
+```
+
+### MacOS Requirements for Distribution
+
+- Xcode
+- Command Line Tools (with `xcode-select --install`)
+
+### Using a distribution
+
+You can launch the following commands to download and test the latest distribution for **Linux**:
+
+``` bash
+$> curl -L $(curl -s -L -X GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep "Dynawo_Linux" | grep url | cut -d '"' -f 4) -o Dynawo_Linux_latest.zip
+$> unzip Dynawo_Linux_latest.zip -d Dynawo_Linux_latest
+$> Dynawo_Linux_latest/bin/execDynawo.sh jobs-with-curves Dynawo_Linux_latest/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_ModelicaModel/IEEE14.jobs
+$> Dynawo_Linux_latest/bin/execDynawo.sh help
+$> Dynawo_Linux_latest/bin/execDynawo.sh jobs --help
+```
+
 <a name="requirements"></a>
 ## Building requirements on Unix/Linux
 
-Dyna&omega;o has be tested on **Linux** platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distributions. It has also been tested on **macOS** (only on Mojave 10.14.5) and works, a complete procedure to help non-developers install it on this platform will be available soon. For **Windows** users we provide a [Docker](https://github.com/dynawo/dynawo-docker) solution (also on [Docker Hub](https://hub.docker.com/r/dynawo/dynawo)) to either download a [pre-build image](https://github.com/dynawo/dynawo-docker#users) with Dyna&omega;o embedded or create your [own image](https://github.com/dynawo/dynawo-docker#developer) for developers. We plan to provide compilation compatibility for Windows. If you have any issue building Dyna&omega;o don't hesitate to send us an [email](mailto:rte-des-simulation-dynamique@rte-france.com) with your errors and we will try to answer you back quickly.
+You can also build Dyna&omega;o from sources. Dyna&omega;o has be tested on **Linux** platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distributions. It has also been tested on **macOS** (only on Mojave 10.14.5) and works, a complete procedure to help non-developers install it on this platform will be available soon. <br>
+For **Windows** users we provide a [Docker](https://github.com/dynawo/dynawo-docker) solution (also on [Docker Hub](https://hub.docker.com/r/dynawo/dynawo)) to either download a [pre-build image](https://github.com/dynawo/dynawo-docker#users) with Dyna&omega;o embedded or create your [own image](https://github.com/dynawo/dynawo-docker#developer) for developers. We plan to provide compilation compatibility for Windows. <br>
+If you have any issue building Dyna&omega;o don't hesitate to send us an [email](mailto:rte-des-simulation-dynamique@rte-france.com) with your errors and we will try to answer you back quickly.
 
 In the following we give a list of requirements needed to build Dyna&omega;o and its dependencies.
 
 ### Global
-- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), c++98 or c++11 compatible for C++ standard
+- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++98 or C++11 compatible for C++ standard
 
 ### OpenModelica Compiler
 - Compiler: Fortran ([gfortran](https://gcc.gnu.org/fortran/))
@@ -150,6 +191,7 @@ $> ./myEnvDynawo.sh deploy-autocompletion --deploy --shell-type zsh
 Then you can launch:
 ``` bash
 $> dynawo help
+$> dynawo jobs-with-curves nrt/data/IEEE14/IEEE14_BasicTestCases/IEEE14_DisconnectLine/IEEE14.jobs
 ```
 
 <a name="documentation"></a>

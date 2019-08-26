@@ -1692,6 +1692,8 @@ create_distrib_with_omc() {
 
   copy_sources
 
+  ln -s $DYNAWO_DEPLOY_DIR/sources/nrt/data $DYNAWO_DEPLOY_DIR/data
+
   if [ ! -x "$(command -v zip)" ]; then
     error_exit "You need to install zip command line utility."
   fi
@@ -1715,7 +1717,7 @@ create_distrib_with_omc() {
     error_exit "$DYNAWO_DEPLOY_DIR does not exist."
   fi
   cd $DYNAWO_DEPLOY_DIR
-  zip -r -y $ZIP_FILE bin/ lib/ sources/
+  zip -r -y $ZIP_FILE bin/ lib/ sources/ data/
 
   zip -r -y $ZIP_FILE share/iidm share/xsd share/*.dic share/*.par
 
