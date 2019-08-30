@@ -95,10 +95,13 @@ install_adept() {
   if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "no" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "false" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "off" ]; then
     CXX_STD="-std=c++98"
   fi
+  if [ "`uname`" = "Darwin" ]; then
+    export CC_FLAG="-isysroot $(xcrun --show-sdk-path)"
+  fi
   if [ "$BUILD_TYPE" = "Debug" ]; then
-    ./configure "CXXFLAGS=-g -O0 -fPIC $CXX_STD" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp --with-blas=no $ADEPT_LIBRARY_TYPE_OPTION
+    ./configure "CXXFLAGS=$CC_FLAG -g -O0 -fPIC $CXX_STD" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp --with-blas=no $ADEPT_LIBRARY_TYPE_OPTION
   else
-    ./configure "CXXFLAGS=-O3 -fPIC $CXX_STD" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp --with-blas=no $ADEPT_LIBRARY_TYPE_OPTION
+    ./configure "CXXFLAGS=$CC_FLAG -O3 -fPIC $CXX_STD" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp --with-blas=no $ADEPT_LIBRARY_TYPE_OPTION
   fi
   make -j $DYNAWO_NB_PROCESSORS_USED && make install && if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" -a "`uname`" = "Darwin" ]; then install_name_tool -id @rpath/libadept.dylib $INSTALL_DIR/lib/libadept.dylib; fi
   RETURN_CODE=$?

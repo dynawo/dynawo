@@ -29,7 +29,7 @@ error() {
 }
 
 define_options() {
-  export_var_env DYNAWO_USAGE="Usage: `basename $0` [option] -- program to deal with Dynawo debugging environment
+  export_var_env DYNAWO_USAGE="Usage: `basename $0` [option] -- program to deal with Dynawo
 
 where [option] can be:"
 
@@ -599,9 +599,9 @@ set_cpplint() {
 
   if [ ! -f "$CPPLINT_DIR/$CPPLINT_FILE" ]; then
     if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${DYNAWO_CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} -P "$CPPLINT_DIR" || error_exit "Error while downloading cpplint."
+      wget --timeout 10 --tries 3 ${DYNAWO_CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} -P "$CPPLINT_DIR" > /dev/null 2>&1 || error_exit "Error while downloading cpplint."
     elif [ -x "$(command -v curl)" ]; then
-      curl -L --connect-timeout 10 --retry 2 ${DYNAWO_CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} --output "$CPPLINT_DIR/$CPPLINT_ARCHIVE" || error_exit "Error while downloading cpplint."
+      curl -L --connect-timeout 10 --retry 2 ${DYNAWO_CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} --output "$CPPLINT_DIR/$CPPLINT_ARCHIVE" > /dev/null 2>&1 || error_exit "Error while downloading cpplint."
     else
       error_exit "You need to install either wget or curl."
     fi
@@ -1464,21 +1464,6 @@ deploy_dynawo() {
   cp -P $DYNAWO_LIBXML_HOME/lib/*.* lib/
   cp -P $DYNAWO_LIBIIDM_HOME/lib/*.* lib/
 
-  if [ ! -d "$DYNAWO_THIRD_PARTY_SRC_DIR/libiidm" ]; then
-    error_exit "$DYNAWO_THIRD_PARTY_SRC_DIR/libiidm does not exist."
-  fi
-  cd $DYNAWO_THIRD_PARTY_SRC_DIR/libiidm
-  if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
-    BOOST_OPTION="--boost-install-dir=$DYNAWO_BOOST_HOME"
-  else
-    BOOST_OPTION=""
-  fi
-  if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
-    GTEST_OPTION="--gtest-install-dir=$DYNAWO_GTEST_HOME"
-  else
-    GTEST_OPTION=""
-  fi
-
   if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
     error_exit "$DYNAWO_DEPLOY_DIR does not exist."
   fi
@@ -1629,6 +1614,9 @@ copy_sources() {
 }
 
 binary_rpath_for_darwin() {
+  if [ "`id -n -u`" = "dynawo" ]; then
+    error_exit "Your username cannot be dynawo to deploy a binary."
+  fi
   if [ "`uname`" = "Darwin" ]; then
     version=$($DYNAWO_DEPLOY_DIR/bin/dynawo --version | cut -d ' ' -f 1)
     bins=("bin/dynawo" "bin/dynawo-$version" "sbin/dumpModel" "sbin/compileModelicaModel" "sbin/dumpSolver" "sbin/generate-preassembled" "sbin/generate-preassembled-$version")

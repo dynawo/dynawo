@@ -20,7 +20,11 @@
 
 #include <IIDM/xml/ExecUtils.h>
 
+namespace IIDM {
+
 std::string getEnvVar(std::string const& key) {
   char const* val = getenv(key.c_str());
   return val == NULL ? std::string() : std::string(val);
 }
+
+} // end of namespace IIDM::
