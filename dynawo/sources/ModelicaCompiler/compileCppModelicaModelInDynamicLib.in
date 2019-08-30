@@ -162,6 +162,10 @@ else
   FLAGS="$FLAGS -O3 -fPIC -D_OMC_${DYNAWO_OPENMODELICA_VERSION}"
 fi
 
+if [ "`uname`" = "Darwin" ]; then
+  FLAGS="$FLAGS -isysroot $(xcrun --show-sdk-path)"
+fi
+
 if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "no" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "false" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "off" ]; then
   FLAGS="$FLAGS -std=c++98"
 fi

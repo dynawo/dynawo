@@ -86,6 +86,9 @@ install_suitesparse() {
   else
     export CC_FLAG=""
   fi
+  if [ "`uname`" = "Darwin" ]; then
+    export CC_FLAG="$CC_FLAG -isysroot $(xcrun --show-sdk-path)"
+  fi
   echo_error_exit
   if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
     echo "cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config

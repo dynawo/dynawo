@@ -22,6 +22,8 @@
 
 #include <string>
 
+namespace IIDM {
+
 /**
  * @brief retrieve a given environment variable
  *
@@ -32,3 +34,5 @@
 std::string getEnvVar(std::string const& key);
 
 #endif  // LIBIIDM_XML_INTERNALS_IMPORT_GUARD_EXECUTILS_H
+
+} // end of namespace IIDM::

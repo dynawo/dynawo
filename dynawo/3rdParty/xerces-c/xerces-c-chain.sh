@@ -80,11 +80,14 @@ install_xercesc() {
     XERCESC_LIBRARY_TYPE_OPTION="--enable-static --disable-shared"
   fi
   options="--disable-network --without-icu --disable-transcoder-macosunicodeconverter"
+  if [ "`uname`" = "Darwin" ]; then
+    export CC_FLAG="-isysroot $(xcrun --show-sdk-path)"
+  fi
   if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     if [ "$BUILD_TYPE" = "Debug" ]; then
-      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CXXFLAGS="-g -O0" ./configure $XERCESC_LIBRARY_TYPE_OPTION $options --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CFLAGS="$CC_FLAG" CXXFLAGS="$CC_FLAG -g -O0" ./configure $XERCESC_LIBRARY_TYPE_OPTION $options --prefix=$INSTALL_DIR
     else
-      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER ./configure $XERCESC_LIBRARY_TYPE_OPTION $options --prefix=$INSTALL_DIR
+      CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER CFLAGS="$CC_FLAG" CXXFLAGS="$CC_FLAG" ./configure $XERCESC_LIBRARY_TYPE_OPTION $options --prefix=$INSTALL_DIR
     fi
   else
     if [ "$BUILD_TYPE" = "Debug" ]; then
