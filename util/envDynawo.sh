@@ -1614,10 +1614,10 @@ copy_sources() {
 }
 
 binary_rpath_for_darwin() {
-  if [ "`id -n -u`" = "dynawo" ]; then
-    error_exit "Your username cannot be dynawo to deploy a binary."
-  fi
   if [ "`uname`" = "Darwin" ]; then
+    if [ "`id -n -u`" = "dynawo" ]; then
+      error_exit "Your username cannot be dynawo to deploy a binary."
+    fi
     version=$($DYNAWO_DEPLOY_DIR/bin/dynawo --version | cut -d ' ' -f 1)
     bins=("bin/dynawo" "bin/dynawo-$version" "sbin/dumpModel" "sbin/compileModelicaModel" "sbin/dumpSolver" "sbin/generate-preassembled" "sbin/generate-preassembled-$version")
 
