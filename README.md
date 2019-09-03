@@ -70,7 +70,6 @@ $> dnf install -y gcc-c++ unzip curl python lapack
 
 ### MacOS Requirements for Distribution
 
-- Xcode
 - Command Line Tools (with `xcode-select --install`)
 
 ### Using a distribution
@@ -80,7 +79,7 @@ You can launch the following commands to download and test the latest distributi
 ``` bash
 $> curl -L $(curl -s -L -X GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep "Dynawo_Linux" | grep url | cut -d '"' -f 4) -o Dynawo_Linux_latest.zip
 $> unzip Dynawo_Linux_latest.zip -d Dynawo_Linux_latest
-$> Dynawo_Linux_latest/bin/execDynawo.sh jobs-with-curves Dynawo_Linux_latest/data/IEEE14/IEEE14_SyntaxExamples/IEEE14_ModelicaModel/IEEE14.jobs
+$> Dynawo_Linux_latest/bin/execDynawo.sh jobs-with-curves Dynawo_Linux_latest/testcases/IEEE14/IEEE14_SyntaxExamples/IEEE14_ModelicaModel/IEEE14.jobs
 $> Dynawo_Linux_latest/bin/execDynawo.sh help
 $> Dynawo_Linux_latest/bin/execDynawo.sh jobs --help
 ```
