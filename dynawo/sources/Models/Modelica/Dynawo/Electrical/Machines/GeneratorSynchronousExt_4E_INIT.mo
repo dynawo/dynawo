@@ -18,23 +18,34 @@ model GeneratorSynchronousExt_4E_INIT "Synchronous machine with 4 windings - Ini
 
   public
 
+    parameter Types.PerUnit XpqPu "Quadrature axis transient reactance in p.u.";
+    parameter Types.Time Tpq0 "Open circuit quadrature axis transient time constant";
     parameter Types.PerUnit XppqPu "Quadrature axis sub-transient reactance in p.u.";
     parameter Types.Time Tppq0 "Open circuit quadrature axis sub-transient time constant";
 
   protected
 
     // Auxiliary parameters: quadrature axis
+    Types.Time Tpq;
     Types.Time Tppq;
 
+    Types.PerUnit T1qPu;
+    Types.PerUnit T4qPu;
     Types.PerUnit T3qPu;
     Types.PerUnit T6qPu;
 
 equation
 
+  Tpq = Tpq0 * XpqPu / XqPu;
   Tppq = Tppq0 * XppqPu / XpqPu;
 
+  T1qPu = Tpq0  * SystemBase.omegaNom;
+  T4qPu = Tpq   * SystemBase.omegaNom;
   T3qPu = Tppq0 * SystemBase.omegaNom;
   T6qPu = Tppq  * SystemBase.omegaNom;
+
+  LQ1Pu * (MqPu + LqPu) * (T1qPu - T4qPu) = (MqPu + LqPu) * MqPu * T4qPu - MqPu * LqPu * T1qPu;
+  RQ1Pu * T1qPu = MqPu + LQ1Pu;
 
   LQ2Pu * (MqPu + LQ1Pu) * (T3qPu - T6qPu) = MqPu * LQ1Pu * (T6qPu - T3qPu * (MqPu + LQ1Pu) * LqPu / (MqPu * LqPu + MqPu * LQ1Pu + LqPu * LQ1Pu));
   RQ2Pu * T3qPu = LQ2Pu + MqPu * LQ1Pu / (MqPu + LQ1Pu);

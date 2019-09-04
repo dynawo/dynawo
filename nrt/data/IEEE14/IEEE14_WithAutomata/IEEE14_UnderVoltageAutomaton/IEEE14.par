@@ -126,8 +126,8 @@
     <par type="DOUBLE" name="generator_UBaseLV" value="24"/>
     <par type="DOUBLE" name="generator_RTfPu" value="0.0"/>
     <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
-    <par type="DOUBLE" name="excitationVoltage_ValueIn" value="0"/>
-    <par type="DOUBLE" name="mechanicalPower_ValueIn" value="0"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
@@ -166,8 +166,8 @@
     <par type="DOUBLE" name="voltageRegulator_UsRefMinPu" value="0.8"/>
     <par type="DOUBLE" name="voltageRegulator_UsRefMaxPu" value="1.2"/>
     <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
-    <par type="DOUBLE" name="excitationVoltage_ValueIn" value="0"/>
-    <par type="DOUBLE" name="mechanicalPower_ValueIn" value="0"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
@@ -200,8 +200,8 @@
     <par type="DOUBLE" name="generator_UBaseLV" value="20"/>
     <par type="DOUBLE" name="generator_RTfPu" value="0.0"/>
     <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
-    <par type="DOUBLE" name="excitationVoltage_ValueIn" value="0"/>
-    <par type="DOUBLE" name="mechanicalPower_ValueIn" value="0"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
@@ -219,8 +219,8 @@
     <par type="DOUBLE" name="generator_Tpd0" value="3"/>
     <par type="DOUBLE" name="generator_Tppd0" value="0.04"/>
     <par type="DOUBLE" name="generator_XqPu" value="0.45"/>
-    <par type="DOUBLE" name="generator_XpqPu" value="0.2"/>
-    <par type="DOUBLE" name="generator_Tpq0" value="0.04"/>
+    <par type="DOUBLE" name="generator_XppqPu" value="0.2"/>
+    <par type="DOUBLE" name="generator_Tppq0" value="0.04"/>
     <par type="DOUBLE" name="generator_UNom" value="15"/>
     <par type="DOUBLE" name="generator_PNom" value="74.4"/>
     <par type="DOUBLE" name="generator_SNom" value="80"/>
@@ -231,8 +231,8 @@
     <par type="DOUBLE" name="generator_UBaseLV" value="15"/>
     <par type="DOUBLE" name="generator_RTfPu" value="0.0"/>
     <par type="DOUBLE" name="generator_XTfPu" value="0.0"/>
-    <par type="DOUBLE" name="excitationVoltage_ValueIn" value="0"/>
-    <par type="DOUBLE" name="mechanicalPower_ValueIn" value="0"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
@@ -250,8 +250,8 @@
     <par type="DOUBLE" name="generator_Tpd0" value="8.4"/>
     <par type="DOUBLE" name="generator_Tppd0" value="0.096"/>
     <par type="DOUBLE" name="generator_XqPu" value="0.99"/>
-    <par type="DOUBLE" name="generator_XpqPu" value="0.58"/>
-    <par type="DOUBLE" name="generator_Tpq0" value="0.56"/>
+    <par type="DOUBLE" name="generator_XppqPu" value="0.58"/>
+    <par type="DOUBLE" name="generator_Tppq0" value="0.56"/>
     <par type="DOUBLE" name="generator_UNom" value="18"/>
     <par type="DOUBLE" name="generator_PNom" value="228"/>
     <par type="DOUBLE" name="generator_SNom" value="250"/>
@@ -262,8 +262,8 @@
     <par type="DOUBLE" name="generator_UBaseLV" value="18"/>
     <par type="DOUBLE" name="generator_RTfPu" value="0.0"/>
     <par type="DOUBLE" name="generator_XTfPu" value="0.1"/>
-    <par type="DOUBLE" name="excitationVoltage_ValueIn" value="0"/>
-    <par type="DOUBLE" name="mechanicalPower_ValueIn" value="0"/>
+    <par type="DOUBLE" name="URef_ValueIn" value="0"/>
+    <par type="DOUBLE" name="Pm_ValueIn" value="0"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
