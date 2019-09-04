@@ -16,7 +16,25 @@ model GeneratorSynchronousExt_3E_INIT "Synchronous machine with 3 windings - Ini
 
   extends BaseClasses_INIT.BaseGeneratorSynchronousExt_INIT;
 
+    parameter Types.PerUnit XppqPu "Quadrature axis sub-transient reactance in p.u.";
+    parameter Types.Time Tppq0 "Open circuit quadrature axis sub-transient time constant";
+
+  protected
+
+    Types.Time Tppq;
+
+    Types.PerUnit T3qPu;
+    Types.PerUnit T6qPu;
+
 equation
+
+  Tppq = Tppq0 * XppqPu / XqPu;
+
+  T3qPu = Tppq0 * SystemBase.omegaNom;
+  T6qPu = Tppq  * SystemBase.omegaNom;
+
+  LQ1Pu * (MqPu + LqPu) * (T3qPu - T6qPu) = (MqPu + LqPu) * MqPu * T6qPu - MqPu * LqPu * T3qPu;
+  RQ1Pu * T3qPu = MqPu + LQ1Pu;
 
   RQ2Pu = 0;
   LQ2Pu = 100000;

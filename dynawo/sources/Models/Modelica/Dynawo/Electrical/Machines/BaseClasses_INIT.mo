@@ -215,8 +215,6 @@ partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for sy
     parameter Types.Time Tpd0 "Direct axis, open circuit transient time constant";
     parameter Types.Time Tppd0 "Direct axis, open circuit sub-transient time constant";
     parameter Types.PerUnit XqPu "Quadrature axis reactance in p.u.";
-    parameter Types.PerUnit XpqPu "Quadrature axis transient reactance in p.u.";
-    parameter Types.Time Tpq0 "Open circuit quadrature axis transient time constant";
 
   protected
 
@@ -245,10 +243,7 @@ partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for sy
     Types.PerUnit T6dPu;
 
     // Auxiliary parameters: quadrature axis (see Kundur implementation, p143)
-    Types.Time Tpq;
-
-    Types.PerUnit T1qPu;
-    Types.PerUnit T4qPu;
+    // see subclasses
 
 equation
 
@@ -275,14 +270,6 @@ equation
   // Quadrature axis
   LqPu = XlPu;
   MqPu + LqPu = XqPu;
-
-  Tpq = Tpq0 * XpqPu / XqPu;
-
-  T1qPu = Tpq0  * SystemBase.omegaNom;
-  T4qPu = Tpq   * SystemBase.omegaNom;
-
-  LQ1Pu * (MqPu + LqPu) * (T1qPu - T4qPu) = (MqPu + LqPu) * MqPu * T4qPu - MqPu * LqPu * T1qPu;
-  RQ1Pu * T1qPu = MqPu + LQ1Pu;
 
 end BaseGeneratorSynchronousExt_INIT;
 
