@@ -19,6 +19,7 @@ import re
 import os
 import sys
 import itertools
+#import traceback
 
 ##
 # Indicates whether is the variable a derivative variable
@@ -63,6 +64,7 @@ def to_param_address(var_name):
 # @return
 def test_param_address(var_name):
     if to_param_address(var_name) == None:
+        #traceback.print_stack()
         error_exit('Could not find the address of ' + var_name)
 
 

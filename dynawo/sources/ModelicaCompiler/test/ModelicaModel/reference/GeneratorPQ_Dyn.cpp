@@ -344,22 +344,19 @@ modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double & t) const
  
 
   // ----- Mode for GeneratorPQ_eqFunction_90 --------- 
-  if (data->localData[0]->integerDoubleVars[0] != data->simulationInfo->integerDoubleVarsPre[0])
-  {
+  if (doubleNotEquals(data->localData[0]->integerDoubleVars[0], data->simulationInfo->integerDoubleVarsPre[0])) {
       modeChangeType = ALGEBRAIC_MODE;
   }
 
   // ----- Mode for GeneratorPQ_eqFunction_81 --------- 
   // ----- Mode for GeneratorPQ_eqFunction_90 --------- 
   // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
-  if (data->localData[0]->discreteVars[0] != data->simulationInfo->discreteVarsPre[0])
-  {
+  if (doubleNotEquals(data->localData[0]->discreteVars[0], data->simulationInfo->discreteVarsPre[0])) {
     return ALGEBRAIC_J_UPDATE_MODE;
   }
 
   // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
-  if (data->localData[0]->integerDoubleVars[1] != data->simulationInfo->integerDoubleVarsPre[1])
-  {
+  if (doubleNotEquals(data->localData[0]->integerDoubleVars[1], data->simulationInfo->integerDoubleVarsPre[1])) {
       modeChangeType = ALGEBRAIC_MODE;
   }
 

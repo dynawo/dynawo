@@ -670,8 +670,7 @@ class Variable:
 
             match = ptrn_assign_var.search(line_tmp)
             if match is not None:
-                if to_param_address(self.get_name()) == None:
-                    error_exit('Could not find the address of the variable : ' + self.get_name())
+                test_param_address(self.get_name())
                 txt_tmp.append(to_param_address(self.get_name()) + " /* " + self.get_name() + " */ = " + match.group('initVal')+";\n")
             else :
                 txt_tmp.append(line_tmp)
@@ -1950,18 +1949,17 @@ class Modes:
                 text_to_return.append("    if (modeChangeType == NO_MODE)\n")
                 text_to_return.append("      modeChangeType = DIFFERENTIAL_MODE;\n")
             else:
-                print "Mode not handled"
+                print("Mode not handled")
             text_to_return.append("  }\n")
             text_to_return.append("\n")
         for z in self.modes_discretes:
             discrete_mode = self.modes_discretes[z]
             for eq in discrete_mode.eqs:
                 text_to_return.append("  // ----- Mode for " + str(eq) + " --------- \n")
-            zAff = to_param_address(z)
-            zPre = zAff.replace("localData[0]->discreteVars", "simulationInfo->discreteVarsPre")
-            zPre = zPre.replace("localData[0]->integerDoubleVars", "simulationInfo->integerDoubleVarsPre")
-            text_to_return.append("  if (" + zAff + " != " + zPre +")\n")
-            text_to_return.append("  {\n")
+            z_aff = to_param_address(z)
+            z_pre = z_aff.replace("localData[0]->discreteVars", "simulationInfo->discreteVarsPre")
+            z_pre = z_pre.replace("localData[0]->integerDoubleVars", "simulationInfo->integerDoubleVarsPre")
+            text_to_return.append("  if (doubleNotEquals(" + z_aff + ", " + z_pre +")) {\n")
             if discrete_mode.type == "ALG":
                 if discrete_mode.boolean == False:
                     text_to_return.append("      modeChangeType = ALGEBRAIC_MODE;\n")
