@@ -1101,10 +1101,8 @@ class Factory:
                     map_relations[index_relation] = ["DIFF", eq.get_src_fct_name()]
                 else:
                     map_relations[index_relation] = ["ALG", eq.get_src_fct_name()]
-                text_to_return = []
         # bulding relations objects
         tmps_to_add = []
-        relations_to_add = []
         content_to_analyze = transform_rawbody_to_string(self.reader.function_update_relations_raw_func.get_body()).split("else")[0];
         tmps_definition = re.findall(r'modelica_[a-z]+ tmp[0-9]+?;', content_to_analyze)
         tmps_assignment = re.findall(r'tmp[0-9]+ = [a-zA-Z]*.*?\;', content_to_analyze)
@@ -1113,7 +1111,6 @@ class Factory:
         for relation in relations_found:
             index_relation = (relation.split("[")[1]).split("]")[0]
             if (index_relation in map_relations):
-                relations_to_add.append((relation, index_relation))
                 tmps_relation = re.findall(r'tmp[0-9]+', relation)
                 for tmp in tmps_relation:
                     tmps_to_add.extend(add_tmp_update_relations(tmp, tmps_assignment, tmps_to_add))
@@ -1191,11 +1188,11 @@ class Factory:
                     for var_bool in self.list_vars_bool:
                         if var_bool.name == var:
                             boolean = True
-                    evaluatedVar = eq.get_evaluated_var()
-                    if (eq.is_diff_eq() or evaluatedVar in self.reader.derivative_residual_vars):
+                    evaluated_var = eq.get_evaluated_var()
+                    if (eq.is_diff_eq() or evaluated_var in self.reader.derivative_residual_vars):
                         if (not var in self.modes.modes_discretes):
                             self.modes.modes_discretes[var] = ModeDiscrete("DIFF", boolean)
-                    elif (not(evaluatedVar) in self.list_name_discrete_vars and not(evaluatedVar) in self.list_name_integer_vars):
+                    elif (not(evaluated_var) in self.list_name_discrete_vars and not(evaluated_var) in self.list_name_integer_vars):
                         if (not var in self.modes.modes_discretes):
                             self.modes.modes_discretes[var] = ModeDiscrete("ALG", boolean)
                         else:
@@ -1494,7 +1491,6 @@ class Factory:
         for r_obj in self.list_root_objects:
             if r_obj.get_num_dyn() == -1 or r_obj.get_duplicated_in_zero_crossing():
                 continue
-            index = str(r_obj.get_num_dyn()) + " + " + str(nb_zero_crossing)
             self.list_for_setgequations.append(line_when_ptrn %(r_obj.get_when_var_name()))
             when_string = r_obj.get_when_var_name() + ":" + transform_rawbody_to_string(r_obj.get_body_for_num_relation())
             self.list_for_setgequations.append( line_ptrn % (nb_root, when_string ) )
@@ -1650,9 +1646,7 @@ class Factory:
         for r_obj in self.list_root_objects:
             if r_obj.get_num_dyn() == -1 or r_obj.get_duplicated_in_zero_crossing():
                 continue
-            index = str(r_obj.get_num_dyn()) + " + " + str(nb_zero_crossing)
-            if to_param_address(r_obj.get_when_var_name()) == None:
-                    error_exit('Could not find the address of the variable : ' + r_obj.get_when_var_name())
+            test_param_address(r_obj.get_when_var_name())
             self.list_for_setg.append( line_ptrn % (nb_root, to_param_address(r_obj.get_when_var_name())) )
             nb_root += 1
 
@@ -1983,10 +1977,9 @@ class Factory:
                             line = line.replace(func.get_name() + "(", func.get_name() + "_adept(")
                             line = line.replace(func.get_name() + " (", func.get_name() + "_adept (")
                             used_functions.append(func)
-                    if self.create_additional_relations():
-                        if (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
-                            line = self.transform_in_relation(line, index_relation)
-                            index_relation += 1
+                    if self.create_additional_relations() and (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
+                        line = self.transform_in_relation(line, index_relation)
+                        index_relation += 1
                     standard_body.append(line)
 
                 # Build the whole equation body as if clauses linked with reinit
