@@ -48,7 +48,8 @@ namespace DYN {
 ModelShuntCompensator::ModelShuntCompensator(const shared_ptr<ShuntCompensatorInterface>& shunt) :
 Impl(shunt->getID()),
 modelBus_(),
-noReclosingDelay_(0.) {
+noReclosingDelay_(0.),
+stateModified_(false) {
   // init data
   suscepPerSect_ = shunt->getBPerSection();
   currentSection_ = shunt->getCurrentSection();
@@ -220,10 +221,27 @@ ModelShuntCompensator::evalG(const double& t) {
 
 void
 ModelShuntCompensator::evalZ(const double& t) {
-  z_[0] = getConnected();
   z_[1] = isCapacitor() ? 1. : 0.;
   z_[2] = isAvailable(t) ? 1. : 0.;
   z_[3] = getCurrentSection();
+
+  State currState = static_cast<State>(z_[0]);
+  if (currState != getConnected()) {
+    stateModified_ = true;
+    Trace::debug() << DYNLog(ShuntStateChange, id_, currState, getConnected()) << Trace::endline;
+    if (currState == OPEN) {
+      network_->addEvent(id_, DYNTimeline(ShuntDisconnected));
+      tLastOpening_ = t;
+      currentSection_ = 0;
+      modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+    } else if (currState == CLOSED) {
+      network_->addEvent(id_, DYNTimeline(ShuntConnected));
+      currentSection_ = maximumSection_;
+      modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+    }
+    suscepPu_ = (suscepPerSect_ * currentSection_) * vNom_ * vNom_ / SNREF;
+    setConnected(currState);
+  }
 }
 
 void
@@ -285,23 +303,9 @@ ModelShuntCompensator::defineNonGenericParameters(vector<ParameterModeler>& para
 }
 
 NetworkComponent::StateChange_t
-ModelShuntCompensator::evalState(const double& time) {
-  State currState = static_cast<State>(z_[0]);
-  if (currState != getConnected()) {
-    Trace::debug() << DYNLog(ShuntStateChange, id_, getConnected(), z_[0]) << Trace::endline;
-    if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(ShuntDisconnected));
-      tLastOpening_ = time;
-      setConnected(OPEN);
-      currentSection_ = 0;
-      modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
-    } else {
-      network_->addEvent(id_, DYNTimeline(ShuntConnected));
-      setConnected(CLOSED);
-      currentSection_ = maximumSection_;
-      modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
-    }
-    suscepPu_ = (suscepPerSect_ * currentSection_) * vNom_ * vNom_ / SNREF;
+ModelShuntCompensator::evalState(const double& /*time*/) {
+  if (stateModified_) {
+    stateModified_ = false;
     return NetworkComponent::STATE_CHANGE;
   }
   return NetworkComponent::NO_CHANGE;

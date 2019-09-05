@@ -455,7 +455,8 @@ class ModelLine : public NetworkComponent::Impl {
 
   boost::shared_ptr<ModelBus> modelBus1_;  ///< model bus  1
   boost::shared_ptr<ModelBus> modelBus2_;  ///< model bus 2
-  State connectionState_;  ///< connection status
+  State connectionState_;  ///< "internal" connection status, evaluated at the end of evalZ to detect if the state was modified by another component
+  bool topologyModified_;  ///< true if some nodes were closed or opened
   double currentLimitsDesactivate_;  ///< current limit desactivate
 
   double admittance_;  ///< admittance

@@ -43,6 +43,7 @@ namespace DYN {
 
 ModelSwitch::ModelSwitch(const shared_ptr<SwitchInterface>& sw) :
 Impl(sw->getID()),
+topologyModified_(false),
 inLoop_(false) {
   // init data
   if (sw->isOpen())
@@ -112,12 +113,22 @@ ModelSwitch::evalNodeInjection() {
 
 void
 ModelSwitch::evalZ(const double& /*t*/) {
-  z_[0] = connectionState_;
+  State currState = static_cast<State>(z_[0]);
+  if (currState != getConnectionState()) {
+    topologyModified_ = true;
+    Trace::debug() << DYNLog(SwitchStateChange, id_, currState, getConnectionState()) << Trace::endline;
+    if (currState == CLOSED) {
+      network_->addEvent(id_, DYNTimeline(SwitchClosed));
+    } else if (currState == OPEN) {
+      network_->addEvent(id_, DYNTimeline(SwitchOpened));
+    }
+    setConnectionState(currState);
+  }
 }
 
 void
 ModelSwitch::evalF() {
-  if (connectionState_ == CLOSED && !modelBus1_->getSwitchOff()) {
+  if (getConnectionState() == CLOSED && !modelBus1_->getSwitchOff()) {
     if (inLoop_) {
       // 1 is the default value for the current in a loop
       f_[0] = y_[0] - 1.;
@@ -132,14 +143,14 @@ ModelSwitch::evalF() {
   }
 #ifdef _DEBUG_
   if (sqrt(f_[0] * f_[0]) > 0.001) {
-    if (connectionState_ == CLOSED) {
+    if (getConnectionState() == CLOSED) {
       Trace::debug("NETWORK") << id_ << " Fswitch_ir = " << f_[0] << Trace::endline;
     } else {
       Trace::debug("NETWORK") << id_ << " Fswitch_ur = " << f_[0] << Trace::endline;
     }
   }
   if (sqrt(f_[1] * f_[1]) > 0.001) {
-    if (connectionState_ == CLOSED) {
+    if (getConnectionState() == CLOSED) {
       Trace::debug("NETWORK") << id_ << " Fswitch_ii =" << f_[1] << Trace::endline;
     } else {
       Trace::debug("NETWORK") << id_ << " Fswitch_ui =" << f_[1] << Trace::endline;
@@ -150,7 +161,7 @@ ModelSwitch::evalF() {
 
 void
 ModelSwitch::setFequations(std::map<int, std::string>& fEquationIndex) {
-  if (connectionState_ == CLOSED && !modelBus1_->getSwitchOff()) {
+  if (getConnectionState() == CLOSED && !modelBus1_->getSwitchOff()) {
     if (inLoop_) {
       // 1 is the default value for the current in a loop
       fEquationIndex[0] = std::string("y_[irNum_] - 1 localModel:").append(id());
@@ -210,7 +221,7 @@ ModelSwitch::setInitialCurrents() {
 void
 ModelSwitch::evalDerivatives() {
   Timer timer3("ModelSwitch::evalDerivatives");
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, irYNum_, 1.);
     modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, iiYNum_, 1.);
 
@@ -256,15 +267,8 @@ ModelSwitch::defineElements(std::vector<Element>& elements, std::map<std::string
 
 NetworkComponent::StateChange_t
 ModelSwitch::evalState(const double& /*time*/) {
-  State currState = static_cast<State>(z_[0]);
-  if (currState != getConnectionState()) {
-    Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
-    setConnectionState(currState);
-    if (currState == CLOSED) {
-      network_->addEvent(id_, DYNTimeline(SwitchClosed));
-    } else {
-      network_->addEvent(id_, DYNTimeline(SwitchOpened));
-    }
+  if (topologyModified_) {
+    topologyModified_ = false;
     return NetworkComponent::TOPO_CHANGE;
   }
   return NetworkComponent::NO_CHANGE;
@@ -275,7 +279,6 @@ ModelSwitch::open() {
   z_[0] = OPEN;
   if (static_cast<State>(z_[0]) != getConnectionState())
     Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
-  setConnectionState(static_cast<State>(z_[0]));
 }
 
 void
@@ -283,7 +286,6 @@ ModelSwitch::close() {
   z_[0] = CLOSED;
   if (static_cast<State>(z_[0]) != getConnectionState())
     Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
-  setConnectionState(static_cast<State>(z_[0]));
 }
 
 void
@@ -343,7 +345,7 @@ ModelSwitch::evalJtPrim(SparseMatrix& jt, const int& /*rowOffset*/) {
 
 void
 ModelSwitch::evalCalculatedVars() {
-  calculatedVars_[swStateNum_] = connectionState_;
+  calculatedVars_[swStateNum_] = getConnectionState();
 }
 
 void
@@ -372,7 +374,7 @@ ModelSwitch::evalCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*y
   double output = 0;
   switch (numCalculatedVar) {
     case swStateNum_:
-      output = connectionState_;
+      output = getConnectionState();
       break;
     default:
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);

@@ -355,7 +355,8 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   double bMax_;  ///< maximum susceptance
   double vSetPoint_;  ///< voltage set-point
   double vNom_;  ///< nominal voltage
-  State connectionState_;  ///< connection status
+  State connectionState_;  ///< "internal" connection status, evaluated at the end of evalZ to detect if the state was modified by another component
+  bool stateModified_;  ///< true if some nodes were closed or opened
   StaticVarCompensatorInterface::RegulationMode_t mode_;  ///< regulation mode
   double uMinActivation_;  ///< voltage limit inf to activate running mode when in standby
   double uMaxActivation_;  ///< voltage limit sup to activate running mode when in standby

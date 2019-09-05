@@ -298,7 +298,8 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
  private:
   boost::shared_ptr<ModelBus> modelBus1_;  ///< bus at end 1 of the switch
   boost::shared_ptr<ModelBus> modelBus2_;  ///< bus at end 2 of the switch
-  State connectionState_;  ///< current switch connection state
+  State connectionState_;  ///< "internal" connection status, evaluated at the end of evalZ to detect if the state was modified by another component
+  bool topologyModified_;  ///< true if some nodes were closed or opened
   bool inLoop_;  ///< inLoop
   double ir0_;  ///< initial current (real part)
   double ii0_;  ///< initial current (imaginary part)

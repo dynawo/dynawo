@@ -52,6 +52,7 @@ namespace DYN {
 
 ModelLoad::ModelLoad(const shared_ptr<LoadInterface>& load) :
 Impl(load->getID()),
+stateModified_(false),
 kp_(0.),
 kq_(0.),
 alpha_(1.),
@@ -699,7 +700,19 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
 
 void
 ModelLoad::evalZ(const double& /*t*/) {
-  z_[0] = getConnected();
+  State currState = static_cast<State>(z_[0]);
+  if (currState != getConnected()) {
+    Trace::debug() << DYNLog(LoadStateChange, id_, z_[0], getConnected()) << Trace::endline;
+    if (currState == OPEN) {
+      network_->addEvent(id_, DYNTimeline(LoadDisconnected));
+      modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+    } else {
+      network_->addEvent(id_, DYNTimeline(LoadConnected));
+      modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+    }
+    stateModified_ = true;
+    setConnected(currState);
+  }
 }
 
 void
@@ -799,19 +812,8 @@ ModelLoad::defineNonGenericParameters(vector<ParameterModeler>& parameters) {
 
 NetworkComponent::StateChange_t
 ModelLoad::evalState(const double& /*time*/) {
-  State currState = static_cast<State>(z_[0]);
-  if (currState != getConnected()) {
-    Trace::debug() << DYNLog(LoadStateChange, id_, getConnected(), z_[0]) << Trace::endline;
-
-    if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(LoadDisconnected));
-      setConnected(OPEN);
-      modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
-    } else {
-      network_->addEvent(id_, DYNTimeline(LoadConnected));
-      setConnected(CLOSED);
-      modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
-    }
+  if (stateModified_) {
+    stateModified_ = false;
     return NetworkComponent::STATE_CHANGE;
   }
   return NetworkComponent::NO_CHANGE;

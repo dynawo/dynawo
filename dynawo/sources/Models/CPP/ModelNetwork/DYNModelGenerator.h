@@ -325,7 +325,8 @@ class ModelGenerator : public NetworkComponent::Impl {
   double ii0_;  ///< initial current imaginary part
   double P_;  ///< active power in pu (SNREF)
   double Q_;  ///< reactive power in pu (SNREF)
-  State connectionState_;  ///< whether the generator is connected to the network
+  State connectionState_;  ///< "internal" connection status, evaluated at the end of evalZ to detect if the state was modified by another component
+  bool stateModified_;  ///< true if some nodes were closed or opened
   boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
 };
 }  // namespace DYN

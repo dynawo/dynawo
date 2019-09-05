@@ -441,6 +441,12 @@ ModelMulti::evalMode(const double & t, const vector<double> &y, const vector<dou
   }
   if (modeChangeType > modeChangeType_)
     modeChangeType_ = modeChangeType;
+#ifdef _DEBUG_
+  // Make sure evalMode does not modify discrete variables as side effect
+  for (unsigned i = 0, iEnd = sizeZ(); i < iEnd; ++i) {
+    assert (doubleEquals(z[i], zLocal_[i]));
+  }
+#endif
 }
 
 void

@@ -430,7 +430,8 @@ class ModelLoad : public NetworkComponent::Impl {
   }
 
   boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
-  State connectionState_;  ///< connection status
+  State connectionState_;  ///< "internal" connection status, evaluated at the end of evalZ to detect if the state was modified by another component
+  bool stateModified_;  ///< true if some nodes were closed or opened
   double kp_;  ///< gain kp
   double kq_;  ///< gain kq
   double P0_;  ///< initial active power

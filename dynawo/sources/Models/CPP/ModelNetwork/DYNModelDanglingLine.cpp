@@ -50,7 +50,8 @@ using std::string;
 namespace DYN {
 
 ModelDanglingLine::ModelDanglingLine(const shared_ptr<DanglingLineInterface>& line) :
-Impl(line->getID()) {
+Impl(line->getID()),
+stateModified_(false) {
   // init data
   double vNom = line->getVNom();
   double r = line->getR();
@@ -678,14 +679,30 @@ ModelDanglingLine::defineElements(std::vector<Element> &elements, std::map<std::
 
 void
 ModelDanglingLine::evalZ(const double& t) {
-  z_[0] = static_cast<double> (connectionState_);
-  z_[1] = currentLimitsDesactivate_;
+  if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {
+    setCurrentLimitsDesactivate(z_[1]);
+    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
+  }
 
   if (currentLimits_) {
     ModelCurrentLimits::state_t currentLimitState;
     currentLimitState = currentLimits_->evalZ(id(), t, &(g_[0]), network_, currentLimitsDesactivate_);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
+  }
+
+  State currState = static_cast<State>(z_[0]);
+  if (currState != connectionState_) {
+    Trace::debug() << DYNLog(DanglingLineStateChange, id_, connectionState_, currState) << Trace::endline;
+    stateModified_ = true;
+    if (connectionState_ == CLOSED) {
+      network_->addEvent(id_, DYNTimeline(DanglingLineConnected));
+      modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+    } else if (connectionState_ == OPEN) {
+      network_->addEvent(id_, DYNTimeline(DanglingLineDisconnected));
+      modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+    }
+    connectionState_ = static_cast<State>(z_[0]);
   }
 }
 
@@ -821,22 +838,9 @@ ModelDanglingLine::getY0() {
 NetworkComponent::StateChange_t
 ModelDanglingLine::evalState(const double& /*time*/) {
   StateChange_t state = NetworkComponent::NO_CHANGE;
-  if (static_cast<State>(z_[0]) != connectionState_) {
-    Trace::debug() << DYNLog(DanglingLineStateChange, id_, connectionState_, z_[0]) << Trace::endline;
-    connectionState_ = static_cast<State>(z_[0]);
-    if (connectionState_ == CLOSED) {
-      network_->addEvent(id_, DYNTimeline(DanglingLineConnected));
-      modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
-    } else {
-      network_->addEvent(id_, DYNTimeline(DanglingLineDisconnected));
-      modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
-    }
+  if (stateModified_) {
+    stateModified_ = false;
     state = NetworkComponent::STATE_CHANGE;
-  }
-
-  if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {
-    setCurrentLimitsDesactivate(z_[1]);
-    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
   return state;
 }

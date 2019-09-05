@@ -89,12 +89,12 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   } CalculatedVariables_t;  // enumeration of calculated variables which can be retrieved for this model
 
   /**
-   * @brief set the connexion state (open, closed on one side, ...)
+   * @brief set the connection state (open, closed on one side, ...)
    * @param state
    */
   void setConnectionState(State state) {
     connectionState_ = state;
-  }  // set the connexion state (open, closed on one side, ...)
+  }  // set the connection state (open, closed on one side, ...)
 
   /**
    * @brief set the tap-changer model used along with the transformer
@@ -131,12 +131,12 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   }
 
   /**
-   * @brief get the connexion state (open, closed on one side, ...)
+   * @brief get the connection state (open, closed on one side, ...)
    * @return state
    */
   State getConnectionState() const {
     return connectionState_;
-  }  ///< get the connexion state (open, closed on one side, ...)
+  }  ///< get the connection state (open, closed on one side, ...)
 
   /**
    * @brief get the ratio tap-changer model used along with the transformer
@@ -669,8 +669,11 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   boost::shared_ptr<ModelBus> modelBus1_;  ///< model for the bus on side 1
   boost::shared_ptr<ModelBus> modelBus2_;  ///< model for the bus on side 2
 
-  State connectionState_;  ///< connection state for the transformer
-  double currentLimitsDesactivate_;  ///< whether the current limit acutomaton is deactivated
+  // evaluated at the end of evalZ to detect if the state was modified by another component
+  State connectionState_;  ///< "internal" connection state for the transformer
+  bool topologyModified_;  ///< true if some nodes were closed or opened
+  bool stateIndexModified_;  ///< true if some nodes were closed or opened
+  double currentLimitsDesactivate_;  ///< whether the current limit automaton is deactivated
   double disableInternalTapChanger_;  ///< whether an external (or internal) model is used for the tap-changer
   double tapChangerLocked_;  ///< whether the tap-changer is locked
   boost::shared_ptr<ModelRatioTapChanger> modelRatioChanger_;  ///< model used for the ratio tap-changer
