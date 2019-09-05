@@ -50,7 +50,8 @@ Impl(svc->getID()),
 Statism_(0.01),
 kG_(4),
 kP_(1),
-Ti_(0.005) {
+Ti_(0.005),
+stateModified_(false) {
   // init data
   vNom_ = svc->getVNom();
   vSetPoint_ = svc->getVSetPoint();
@@ -441,7 +442,6 @@ ModelStaticVarCompensator::getY0() {
 
 void
 ModelStaticVarCompensator::evalZ(const double& /*t*/) {
-  z_[1] = getConnected();
   mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(z_[0]);
 
   if (g_[0] == ROOT_UP && !isRunning_) {
@@ -470,6 +470,20 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
       z_[0] = StaticVarCompensatorInterface::RUNNING_V;
       z_[2] = uSetPointMax_;
     }
+  }
+
+  State currState = static_cast<State>(z_[1]);
+  if (currState != getConnected()) {
+    Trace::debug() << DYNLog(SVCStateChange, id_, getConnected(), z_[1]) << Trace::endline;
+    if (currState == OPEN) {
+      network_->addEvent(id_, DYNTimeline(SVarCDisconnected));
+      modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+    } else {
+      network_->addEvent(id_, DYNTimeline(SVarCConnected));
+      modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+    }
+    stateModified_ = true;
+    setConnected(currState);
   }
 }
 
@@ -652,19 +666,8 @@ ModelStaticVarCompensator::defineElements(vector<Element> &elements, map<string,
 
 NetworkComponent::StateChange_t
 ModelStaticVarCompensator::evalState(const double& /*time*/) {
-  State currState = static_cast<State>(z_[1]);
-  if (currState != getConnected()) {
-    Trace::debug() << DYNLog(SVCStateChange, id_, getConnected(), z_[1]) << Trace::endline;
-
-    if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(SVarCDisconnected));
-      setConnected(OPEN);
-      modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
-    } else {
-      network_->addEvent(id_, DYNTimeline(SVarCConnected));
-      setConnected(CLOSED);
-      modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
-    }
+  if (stateModified_) {
+    stateModified_ = false;
     return NetworkComponent::STATE_CHANGE;
   }
   return NetworkComponent::NO_CHANGE;

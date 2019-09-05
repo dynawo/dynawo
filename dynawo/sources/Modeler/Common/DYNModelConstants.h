@@ -36,12 +36,12 @@ static const int HV_THRESHOLD = 50;  ///< lower voltage threshold (in kV) for th
 typedef enum {
   // Enumeration in Modelica always begins from 1.
   // To be consistent with Modelica constant in Constants.mo, OPEN=1 instead of 0
+  UNDEFINED_STATE = 0,  ///< component status is undefined
   OPEN = 1,  ///< component is disconnected
   CLOSED = 2,  ///< component is connected
   CLOSED_1 = 3,  ///< component is connected at side 1
   CLOSED_2 = 4,  ///< component is connected at side 2
-  CLOSED_3 = 5,  ///< component is connected at side 3
-  UNDEFINED = 6  ///< component status is undefined
+  CLOSED_3 = 5  ///< component is connected at side 3
 } State;
 }  // namespace DYN
 

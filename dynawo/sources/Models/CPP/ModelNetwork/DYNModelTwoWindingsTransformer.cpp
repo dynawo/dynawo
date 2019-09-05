@@ -82,6 +82,8 @@ ii2_dUr1_(0.),
 ii2_dUi1_(0.),
 ii2_dUr2_(0.),
 ii2_dUi2_(0.),
+topologyModified_(false),
+stateIndexModified_(false),
 tapChangerIndex_(0) {
   // init data
   // ---------
@@ -535,10 +537,10 @@ ModelTwoWindingsTransformer::ir1_dUr1() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     double G1 = admittance * sin(lossAngle) + g;
     ir1_dUr1 = rho * rho * G1;
-  } else if (connectionState_ == CLOSED_1) {
+  } else if (getConnectionState() == CLOSED_1) {
     ir1_dUr1 = rho * rho * g;
   }
   return ir1_dUr1;
@@ -556,10 +558,10 @@ ModelTwoWindingsTransformer::ir1_dUi1() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     double B1 = b - admittance * cos(lossAngle);
     ir1_dUi1 = -rho * rho * B1;
-  } else if (connectionState_ == CLOSED_1) {
+  } else if (getConnectionState() == CLOSED_1) {
     ir1_dUi1 = -rho * rho*b;
   }
   return ir1_dUi1;
@@ -577,7 +579,7 @@ ModelTwoWindingsTransformer::ir1_dUr2() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ir1_dUr2 = -rho * admittance * sin(lossAngle - alpha);
   }
   return ir1_dUr2;
@@ -596,7 +598,7 @@ ModelTwoWindingsTransformer::ir1_dUi2() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ir1_dUi2 = -rho * admittance * cos(lossAngle - alpha);
   }
   return ir1_dUi2;
@@ -614,10 +616,10 @@ ModelTwoWindingsTransformer::ii1_dUr1() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     double B1 = b - admittance * cos(lossAngle);
     ii1_dUr1 = rho * rho * B1;
-  } else if (connectionState_ == CLOSED_1) {
+  } else if (getConnectionState() == CLOSED_1) {
     ii1_dUr1 = rho * rho * b;
   }
   return ii1_dUr1;
@@ -635,10 +637,10 @@ ModelTwoWindingsTransformer::ii1_dUi1() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     double G1 = admittance * sin(lossAngle) + g;
     ii1_dUi1 = rho * rho * G1;
-  } else if (connectionState_ == CLOSED_1) {
+  } else if (getConnectionState() == CLOSED_1) {
     ii1_dUi1 = rho * rho * g;
   }
 
@@ -657,7 +659,7 @@ ModelTwoWindingsTransformer::ii1_dUr2() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ii1_dUr2 = rho * admittance * cos(lossAngle - alpha);
   }
   return ii1_dUr2;
@@ -675,7 +677,7 @@ ModelTwoWindingsTransformer::ii1_dUi2() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ii1_dUi2 = -rho * admittance * sin(lossAngle - alpha);
   }
   return ii1_dUi2;
@@ -693,7 +695,7 @@ ModelTwoWindingsTransformer::ir2_dUr1() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ir2_dUr1 = -rho * admittance * sin(alpha + lossAngle);
   }
   return ir2_dUr1;
@@ -711,7 +713,7 @@ ModelTwoWindingsTransformer::ir2_dUi1() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ir2_dUi1 = -rho * admittance * cos(alpha + lossAngle);
   }
   return ir2_dUi1;
@@ -729,9 +731,9 @@ ModelTwoWindingsTransformer::ir2_dUr2() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ir2_dUr2 = admittance * sin(lossAngle);
-  } else if (connectionState_ == CLOSED_2) {
+  } else if (getConnectionState() == CLOSED_2) {
     double G = admittance * sin(lossAngle) + g;
     double B = b - admittance * cos(lossAngle);
     double denom = G * G + B * B;
@@ -755,9 +757,9 @@ ModelTwoWindingsTransformer::ir2_dUi2() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ir2_dUi2 = admittance * cos(lossAngle);
-  } else if (connectionState_ == CLOSED_2) {
+  } else if (getConnectionState() == CLOSED_2) {
     double G = admittance * sin(lossAngle) + g;
     double B = b - admittance * cos(lossAngle);
     double denom = G * G + B * B;
@@ -780,7 +782,7 @@ ModelTwoWindingsTransformer::ii2_dUr1() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ii2_dUr1 = rho * admittance * cos(alpha + lossAngle);
   }
   return ii2_dUr1;
@@ -798,7 +800,7 @@ ModelTwoWindingsTransformer::ii2_dUi1() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ii2_dUi1 = -rho * admittance * sin(alpha + lossAngle);
   }
   return ii2_dUi1;
@@ -816,9 +818,9 @@ ModelTwoWindingsTransformer::ii2_dUr2() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ii2_dUr2 = -admittance * cos(lossAngle);
-  } else if (connectionState_ == CLOSED_2) {
+  } else if (getConnectionState() == CLOSED_2) {
     double G = admittance * sin(lossAngle) + g;
     double B = b - admittance * cos(lossAngle);
     double denom = G * G + B * B;
@@ -842,9 +844,9 @@ ModelTwoWindingsTransformer::ii2_dUi2() const {
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
-  if (connectionState_ == CLOSED) {
+  if (getConnectionState() == CLOSED) {
     ii2_dUi2 = admittance * sin(lossAngle);
-  } else if (connectionState_ == CLOSED_2) {
+  } else if (getConnectionState() == CLOSED_2) {
     double G = admittance * sin(lossAngle) + g;
     double B = b - admittance * cos(lossAngle);
     double denom = G * G + B * B;
@@ -1200,13 +1202,6 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
 
 void
 ModelTwoWindingsTransformer::evalZ(const double& t) {
-  z_[0] = connectionState_;
-  z_[1] = getCurrentStepIndex();
-  z_[2] = currentLimitsDesactivate_;
-  // respect the order of z declaration
-  z_[3] = disableInternalTapChanger_;
-  z_[4] = tapChangerLocked_;
-
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
@@ -1226,7 +1221,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
 
   if (modelRatioChanger_ && modelBusMonitored_) {
     modelRatioChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
-                              connectionState_ == CLOSED);
+        getConnectionState() == CLOSED);
     offsetRoot += modelRatioChanger_->sizeG();
   }
 
@@ -1238,7 +1233,156 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     double pSide1 = P1(ur1Val, ui1Val, ur2Val, ui2Val);
     double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
     bool P1SupP2 = (pSide1 > pSide2);
-    modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, connectionState_ == CLOSED);
+    modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
+  }
+
+  State currState = static_cast<State>(z_[0]);
+  if (currState != connectionState_) {
+    if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
+      Trace::error() << DYNLog(UnableToCloseTfo, id_) << Trace::endline;
+    } else if (currState == CLOSED_1 && knownBus_ == BUS2) {
+      Trace::error() << DYNLog(UnableToCloseTfoSide1, id_) << Trace::endline;
+    } else if (currState == CLOSED_2 && knownBus_ == BUS1) {
+      Trace::error() << DYNLog(UnableToCloseTfoSide2, id_) << Trace::endline;
+    } else {
+      topologyModified_ = true;
+      Trace::debug() << DYNLog(TfoStateChange, id_, currState, getConnectionState()) << Trace::endline;
+      switch (currState) {
+      // z_[0] represents the actual state
+      // getConnectionState() represents the previous state
+      // compare them to know what happened, which timeline message to generate
+      // and which topology action to take
+      case UNDEFINED_STATE:
+        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+      case OPEN:
+        switch (getConnectionState()) {
+        case OPEN:
+          break;
+        case CLOSED:
+          network_->addEvent(id_, DYNTimeline(TwoWTFOOpen));
+          modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+          modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+          break;
+        case CLOSED_1:
+          network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
+          modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+          break;
+        case CLOSED_2:
+          network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
+          modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+          break;
+        case CLOSED_3:
+          throw DYNError(Error::MODELER, NoThirdSide, id_);
+        case UNDEFINED_STATE:
+          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+        }
+        break;
+        case CLOSED:
+          switch (getConnectionState()) {
+          case OPEN:
+            network_->addEvent(id_, DYNTimeline(TwoWTFOClosed));
+            modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+            modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+            break;
+          case CLOSED:
+            break;
+          case CLOSED_1:
+            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
+            modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+            break;
+          case CLOSED_2:
+            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
+            modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+            break;
+          case CLOSED_3:
+            throw DYNError(Error::MODELER, NoThirdSide, id_);
+          case UNDEFINED_STATE:
+            throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+          }
+          break;
+          case CLOSED_1:
+            switch (getConnectionState()) {
+            case OPEN:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
+              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              break;
+            case CLOSED:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
+              modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+              break;
+            case CLOSED_1:
+              break;
+            case CLOSED_2:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
+              network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
+              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+              break;
+            case CLOSED_3:
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            case UNDEFINED_STATE:
+              throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+            }
+            break;
+            case CLOSED_2:
+              switch (getConnectionState()) {
+              case OPEN:
+                network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                break;
+              case CLOSED:
+                network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                break;
+              case CLOSED_1:
+                network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
+                network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
+                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+                break;
+              case CLOSED_2:
+                break;
+              case CLOSED_3:
+                throw DYNError(Error::MODELER, NoThirdSide, id_);
+              case UNDEFINED_STATE:
+                throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+              }
+              break;
+              case CLOSED_3:
+                throw DYNError(Error::MODELER, NoThirdSide, id_);
+      }
+      setConnectionState(static_cast<State>(z_[0]));
+    }
+  }
+
+  int currStateIndex = static_cast<int>(z_[1]);
+  if (currStateIndex != getCurrentStepIndex()) {
+    if (disableInternalTapChanger_ > 0.) {
+      // external automaton
+      Trace::debug() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[1]) << Trace::endline;
+    } else {
+      // internal automaton
+      Trace::debug() << DYNLog(TfoTapChange, id_, z_[1], getCurrentStepIndex()) << Trace::endline;
+      z_[1] = getCurrentStepIndex();
+    }
+    stateIndexModified_ = true;
+    setCurrentStepIndex(static_cast<int>(z_[1]));
+  }
+
+  if (doubleNotEquals(z_[2], getCurrentLimitsDesactivate())) {
+    setCurrentLimitsDesactivate(z_[2]);
+    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
+  }
+
+  if (doubleNotEquals(z_[3], getDisableInternalTapChanger())) {
+    setDisableInternalTapChanger(z_[3]);
+    Trace::debug() << DYNLog(DisableInternalTapChanger, id_) << Trace::endline;
+  }
+
+  if (doubleNotEquals(z_[4], getTapChangerLocked())) {
+    setTapChangerLocked(z_[4]);
+    if (z_[4] > 0)
+      Trace::debug() << DYNLog(TapChangerLocked, id_) << Trace::endline;
   }
 }
 
@@ -1316,7 +1460,7 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
       vValue = modelBusMonitored_->getCurrentV();
       nodeOff = modelBusMonitored_->getSwitchOff();
     }
-    modelRatioChanger_->evalG(t, vValue, nodeOff, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, connectionState_ == CLOSED);
+    modelRatioChanger_->evalG(t, vValue, nodeOff, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED);
     offset += modelRatioChanger_->sizeG();
   }
 
@@ -1326,7 +1470,7 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
     double ur2Val = ur2();
     double ui2Val = ui2();
     double iValue = i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
-    modelPhaseChanger_->evalG(t, iValue, false, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, connectionState_ == CLOSED);
+    modelPhaseChanger_->evalG(t, iValue, false, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED);
   }
 }
 
@@ -1407,7 +1551,7 @@ ModelTwoWindingsTransformer::evalCalculatedVars() {
 
   calculatedVars_[iSide1Num_] = std::max(calculatedVars_[iS1ToS2Side1Num_], calculatedVars_[iS2ToS1Side1Num_]);
   calculatedVars_[iSide2Num_] = std::max(calculatedVars_[iS1ToS2Side2Num_], calculatedVars_[iS1ToS2Side2Num_]);
-  calculatedVars_[twtStateNum_] = connectionState_;
+  calculatedVars_[twtStateNum_] = getConnectionState();
 }
 
 void
@@ -1529,7 +1673,7 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(int numCalculatedVar, double* y,
       output = (ui2 * Ir2 - ur2 * Ii2);
       break;
     case twtStateNum_:
-      output = connectionState_;
+      output = getConnectionState();
       break;
     default:
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
@@ -1551,168 +1695,16 @@ ModelTwoWindingsTransformer::getY0() {
 NetworkComponent::StateChange_t
 ModelTwoWindingsTransformer::evalState(const double& /*time*/) {
   NetworkComponent::StateChange_t state = NetworkComponent::NO_CHANGE;
-  State currState = static_cast<State>(z_[0]);
-
-  if (currState!= getConnectionState()) {
-    if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
-      Trace::error() << DYNLog(UnableToCloseTfo, id_) << Trace::endline;
-      return state;
-    }
-
-    if (currState == CLOSED_1 && knownBus_ == BUS2) {
-      Trace::error() << DYNLog(UnableToCloseTfoSide1, id_) << Trace::endline;
-      return state;
-    }
-
-    if (currState == CLOSED_2 && knownBus_ == BUS1) {
-      Trace::error() << DYNLog(UnableToCloseTfoSide2, id_) << Trace::endline;
-      return state;
-    }
-
-    Trace::debug() << DYNLog(TfoStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
-
-    switch (currState) {
-      // z_[0] represents the actual state
-      // getConnectionState() represents the previous state
-      // compare them to know what happened, which timeline message to generate
-      // and which topology action to take
-      case UNDEFINED:
-        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
-      case OPEN:
-        switch (getConnectionState()) {
-          case OPEN:
-            break;
-          case CLOSED:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOOpen));
-            modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-            modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
-            break;
-          case CLOSED_1:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
-            modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-            break;
-          case CLOSED_2:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
-            modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
-            break;
-          case CLOSED_3:
-            throw DYNError(Error::MODELER, NoThirdSide, id_);
-          case UNDEFINED:
-            throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-          }
-        break;
-      case CLOSED:
-        switch (getConnectionState()) {
-          case OPEN:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOClosed));
-            modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-            modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-            break;
-          case CLOSED:
-            break;
-          case CLOSED_1:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
-            modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-            break;
-          case CLOSED_2:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
-            modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-            break;
-          case CLOSED_3:
-            throw DYNError(Error::MODELER, NoThirdSide, id_);
-          case UNDEFINED:
-            throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-          }
-        break;
-      case CLOSED_1:
-        switch (getConnectionState()) {
-          case OPEN:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
-            modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-            break;
-          case CLOSED:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
-            modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
-            break;
-          case CLOSED_1:
-            break;
-          case CLOSED_2:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
-            network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
-            modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-            modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
-            break;
-          case CLOSED_3:
-            throw DYNError(Error::MODELER, NoThirdSide, id_);
-          case UNDEFINED:
-            throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-          }
-        break;
-      case CLOSED_2:
-        switch (getConnectionState()) {
-          case OPEN:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
-            modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-            break;
-          case CLOSED:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
-            modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-            break;
-          case CLOSED_1:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
-            network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
-            modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-            modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-            break;
-          case CLOSED_2:
-            break;
-          case CLOSED_3:
-            throw DYNError(Error::MODELER, NoThirdSide, id_);
-          case UNDEFINED:
-            throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-          }
-        break;
-      case CLOSED_3:
-        throw DYNError(Error::MODELER, NoThirdSide, id_);
-    }
-
-    setConnectionState(currState);
-
+  if (topologyModified_) {
     state = NetworkComponent::TOPO_CHANGE;
+    topologyModified_ = false;
   }
-
-  // external automaton
-  if (static_cast<int>(z_[1]) != getCurrentStepIndex() && (disableInternalTapChanger_ > 0.)) {
-    Trace::debug() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[1]) << Trace::endline;
-    setCurrentStepIndex(z_[1]);
-    if (state != NetworkComponent::TOPO_CHANGE)
+  if (stateIndexModified_) {
+    if (state != NetworkComponent::TOPO_CHANGE) {
       state = NetworkComponent::STATE_CHANGE;
+    }
+    stateIndexModified_ = false;
   }
-
-  // internal automaton
-  if (static_cast<int>(z_[1]) != getCurrentStepIndex() && !(disableInternalTapChanger_ > 0.)) {
-    Trace::debug() << DYNLog(TfoTapChange, id_, z_[1], getCurrentStepIndex()) << Trace::endline;
-    z_[1] = getCurrentStepIndex();
-    if (state != NetworkComponent::TOPO_CHANGE)
-      state = NetworkComponent::STATE_CHANGE;
-  }
-
-  if (doubleNotEquals(z_[2], getCurrentLimitsDesactivate())) {
-    setCurrentLimitsDesactivate(z_[2]);
-    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
-  }
-
-  if (doubleNotEquals(z_[3], getDisableInternalTapChanger())) {
-    setDisableInternalTapChanger(z_[3]);
-    Trace::debug() << DYNLog(DisableInternalTapChanger, id_) << Trace::endline;
-  }
-
-  if (doubleNotEquals(z_[4], getTapChangerLocked())) {
-    setTapChangerLocked(z_[4]);
-    if (z_[4] > 0)
-      Trace::debug() << DYNLog(TapChangerLocked, id_) << Trace::endline;
-  }
-
   return state;
 }
 

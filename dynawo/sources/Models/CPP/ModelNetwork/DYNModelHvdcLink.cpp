@@ -50,7 +50,8 @@ namespace DYN {
 
 ModelHvdcLink::ModelHvdcLink(const shared_ptr<VscConverterInterface>& vsc1, const shared_ptr<VscConverterInterface>& vsc2,
                              const shared_ptr<HvdcLineInterface>& dcLine) :
-Impl(dcLine->getID()) {
+Impl(dcLine->getID()),
+stateModified_(false) {
   // retrieve data from VscConverterInterface and HvdcLineInterface (iidm)
   setAttributes(vsc1, vsc2, dcLine);
 
@@ -193,8 +194,33 @@ ModelHvdcLink::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
 void
 ModelHvdcLink::evalZ(const double& /*t*/) {
   // evaluation of the discrete variables current values
-  z_[0] = getConnected1();
-  z_[1] = getConnected2();
+  State currState1 = static_cast<State>(z_[0]);
+  if (currState1 != getConnected1()) {
+    Trace::debug() << DYNLog(Converter1StateChange, id_, getConnected1(), z_[0]) << Trace::endline;
+    if (currState1 == OPEN) {
+      network_->addEvent(id_, DYNTimeline(Converter1SwitchOff));
+      modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
+    } else {
+      network_->addEvent(id_, DYNTimeline(Converter1Connected));
+      modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+    }
+    setConnected1(currState1);
+    stateModified_ = true;
+  }
+
+  State currState2 = static_cast<State>(z_[1]);
+  if (currState2 != getConnected2()) {
+    Trace::debug() << DYNLog(Converter2StateChange, id_, getConnected2(), z_[1]) << Trace::endline;
+    if (currState2 == OPEN) {
+      network_->addEvent(id_, DYNTimeline(Converter2SwitchOff));
+      modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+    } else {
+      network_->addEvent(id_, DYNTimeline(Converter2Connected));
+      modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
+    }
+    setConnected2(currState2);
+    stateModified_ = true;
+  }
 }
 
 void
@@ -431,36 +457,10 @@ ModelHvdcLink::evalDerivatives() {
 
 NetworkComponent::StateChange_t
 ModelHvdcLink::evalState(const double& /*time*/) {
-  State currState1 = static_cast<State>(z_[0]);
-  if (currState1 != getConnected1()) {
-    Trace::debug() << DYNLog(Converter1StateChange, id_, getConnected1(), z_[0]) << Trace::endline;
-    if (currState1 == OPEN) {
-      network_->addEvent(id_, DYNTimeline(Converter1SwitchOff));
-      setConnected1(OPEN);
-      modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-    } else {
-      network_->addEvent(id_, DYNTimeline(Converter1Connected));
-      setConnected1(CLOSED);
-      modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-    }
+  if (stateModified_) {
+    stateModified_ = false;
     return NetworkComponent::STATE_CHANGE;
   }
-
-  State currState2 = static_cast<State>(z_[1]);
-  if (currState2 != getConnected2()) {
-    Trace::debug() << DYNLog(Converter2StateChange, id_, getConnected2(), z_[1]) << Trace::endline;
-    if (currState2 == OPEN) {
-      network_->addEvent(id_, DYNTimeline(Converter2SwitchOff));
-      setConnected2(OPEN);
-      modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
-    } else {
-      network_->addEvent(id_, DYNTimeline(Converter2Connected));
-      setConnected2(CLOSED);
-      modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-    }
-    return NetworkComponent::STATE_CHANGE;
-  }
-
   return NetworkComponent::NO_CHANGE;
 }
 

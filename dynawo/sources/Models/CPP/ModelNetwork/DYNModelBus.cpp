@@ -157,7 +157,8 @@ ModelBusContainer::evalNodeFault() {
 }
 
 ModelBus::ModelBus(const shared_ptr<BusInterface>& bus) :
-Impl(bus->getID()) {
+Impl(bus->getID()),
+topologyModified_(false) {
   neighbors_.clear();
   busBarSectionNames_.clear();
   busBarSectionNames_ = bus->getBusBarSectionNames();
@@ -623,7 +624,6 @@ void
 ModelBus::evalZ(const double& /*t*/) {
   z_[0] = numSubNetwork();
   z_[1] = fromNativeBool(switchOff_);
-  z_[2] = connectionState_;
   z_[3] = fromNativeBool(nodeFault_);
 
   if (g_[0] == ROOT_UP && !stateUmax_ && !switchOff_) {
@@ -644,6 +644,23 @@ ModelBus::evalZ(const double& /*t*/) {
   if (g_[3] == ROOT_UP && stateUmin_) {
     network_->addConstraint(id_, false, DYNConstraint(UInfUmin));
     stateUmin_ = false;
+  }
+
+  State currState = static_cast<State>(z_[2]);
+  if (currState != connectionState_) {
+    topologyModified_ = true;
+    if (currState == OPEN) {
+      switchOff();
+      network_->addEvent(id_, DYNTimeline(NodeOff));
+      // open all switch connected to this node
+      for (unsigned int i = 0; i < connectableSwitches_.size(); ++i) {
+        connectableSwitches_[i].lock()->open();
+      }
+    } else if (currState == CLOSED) {
+      switchOn();
+      network_->addEvent(id_, DYNTimeline(NodeOn));
+    }
+    connectionState_ = static_cast<State>(z_[2]);
   }
 }
 
@@ -819,20 +836,8 @@ ModelBus::evalJtPrim(SparseMatrix& jt, const int& /*rowOffset*/) {
 NetworkComponent::StateChange_t
 ModelBus::evalState(const double& /*time*/) {
   StateChange_t state = NetworkComponent::NO_CHANGE;
-  if (static_cast<State>(z_[2]) != connectionState_) {
-    if (static_cast<State>(z_[2]) == OPEN) {
-      switchOff();
-      network_->addEvent(id_, DYNTimeline(NodeOff));
-      connectionState_ = OPEN;
-      // open all switch connected to this node
-      for (unsigned int i = 0; i < connectableSwitches_.size(); ++i) {
-        connectableSwitches_[i].lock()->open();
-      }
-    } else {
-      switchOn();
-      network_->addEvent(id_, DYNTimeline(NodeOn));
-      connectionState_ = CLOSED;
-    }
+  if (topologyModified_) {
+    topologyModified_ = false;
     state = NetworkComponent::TOPO_CHANGE;
   }
   return state;

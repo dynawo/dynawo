@@ -319,7 +319,8 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   double noReclosingDelay_;  ///< The non reclosing delay of the shunt compensator in seconds
 
   // State variables
-  State connectionState_;  ///< The connection status of the shunt compensator: CLOSED=2 if connected, OPEN=1 otherwise
+  State connectionState_;  ///< "internal" connection status, evaluated at the end of evalZ to detect if the state was modified by another component
+  bool stateModified_;  ///< true if some nodes were closed or opened
 
   // Calculated variables
   double ir0_;  ///< initial real part of the current

@@ -43,7 +43,8 @@ using std::string;
 namespace DYN {
 
 ModelGenerator::ModelGenerator(const shared_ptr<GeneratorInterface>& generator) :
-Impl(generator->getID()) {
+Impl(generator->getID()),
+stateModified_(false) {
   // init data
   Pc_ = -1. * generator->getP();
   Qc_ = -1. * generator->getQ();
@@ -250,9 +251,29 @@ ModelGenerator::defineElements(std::vector<Element> &elements, std::map<std::str
 
 void
 ModelGenerator::evalZ(const double& /*t*/) {
-  z_[0] = getConnected();
-  z_[1] = Pc_;
-  z_[2] = Qc_;
+  State currState = static_cast<State>(z_[0]);
+  if (currState != getConnected()) {
+    Trace::debug() << DYNLog(GeneratorStateChange, id_, getConnected(), z_[0]) << Trace::endline;
+    if (currState == OPEN) {
+      network_->addEvent(id_, DYNTimeline(GeneratorDisconnected));
+      modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
+    } else {
+      network_->addEvent(id_, DYNTimeline(GeneratorConnected));
+      modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
+    }
+    stateModified_ = true;
+    setConnected(currState);
+  }
+
+  if (doubleNotEquals(z_[1], Pc_)) {
+    network_->addEvent(id_, DYNTimeline(GeneratorTargetP, z_[1]));
+    Pc_ = z_[1];
+  }
+
+  if (doubleNotEquals(z_[2], Qc_)) {
+    network_->addEvent(id_, DYNTimeline(GeneratorTargetQ, z_[2]));
+    Qc_ = z_[2];
+  }
 }
 
 void
@@ -266,29 +287,9 @@ ModelGenerator::getY0() {
 
 NetworkComponent::StateChange_t
 ModelGenerator::evalState(const double& /*time*/) {
-  State currState = static_cast<State>(z_[0]);
-  if (currState != getConnected()) {
-    Trace::debug() << DYNLog(GeneratorStateChange, id_, getConnected(), z_[0]) << Trace::endline;
-    if (currState == OPEN) {
-      network_->addEvent(id_, DYNTimeline(GeneratorDisconnected));
-      setConnected(OPEN);
-      modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
-    } else {
-      network_->addEvent(id_, DYNTimeline(GeneratorConnected));
-      setConnected(CLOSED);
-      modelBus_->getVoltageLevel()->connectNode(modelBus_->getBusIndex());
-    }
+  if (stateModified_) {
+    stateModified_ = false;
     return NetworkComponent::STATE_CHANGE;
-  }
-
-  if (doubleNotEquals(z_[1], Pc_)) {
-    network_->addEvent(id_, DYNTimeline(GeneratorTargetP, z_[1]));
-    Pc_ = z_[1];
-  }
-
-  if (doubleNotEquals(z_[2], Qc_)) {
-    network_->addEvent(id_, DYNTimeline(GeneratorTargetQ, z_[2]));
-    Qc_ = z_[2];
   }
   return NetworkComponent::NO_CHANGE;
 }
