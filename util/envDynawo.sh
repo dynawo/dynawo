@@ -158,15 +158,15 @@ help_dynawo_user() {
 }
 
 export_var_env_force() {
-  local var=$@
+  local var="$@"
   local name=${var%%=*}
-  local value=${var#*=}
+  local value="${var#*=}"
 
   if ! `expr $name : "DYNAWO_.*" > /dev/null`; then
     error_exit "You must export variables with DYNAWO prefix for $name."
   fi
 
-  if eval "[ \$$name ]"; then
+  if eval "[ \"\$$name\" ]"; then
     unset $name
     export $name="$value"
     return
@@ -179,15 +179,15 @@ export_var_env_force() {
 }
 
 export_var_env() {
-  local var=$@
+  local var="$@"
   local name=${var%%=*}
-  local value=${var#*=}
+  local value="${var#*=}"
 
   if ! `expr $name : "DYNAWO_.*" > /dev/null`; then
     error_exit "You must export variables with DYNAWO prefix for $name."
   fi
 
-  if eval "[ \$$name ]"; then
+  if eval "[ \"\$$name\" ]"; then
     eval "value=\${$name}"
     ##echo "Environment variable for $name already set : $value"
     return
@@ -200,16 +200,16 @@ export_var_env() {
 }
 
 export_var_env_default() {
-  local var=$@
+  local var="$@"
   local name=${var%%=*}
-  local value=${var#*=}
+  local value="${var#*=}"
 
   if ! `expr $name : "DYNAWO_.*" > /dev/null`; then
     error_exit "You must export variables with DYNAWO prefix for $name."
   fi
 
   if [ "$value" = UNDEFINED ]; then
-    if eval "[ \$$name ]"; then
+    if eval "[ \"\$$name\" ]"; then
       eval "value=\${$name}"
       export_var_env ${name}_DEFAULT=false
     else
@@ -866,7 +866,7 @@ config_dynawo() {
     -DCXX11_ENABLED:BOOL=$DYNAWO_CXX11_ENABLED \
     -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
     -DBOOST_USE_STATIC=$DYNAWO_BOOST_USE_STATIC \
-    -DDYNAWO_DEBUG_COMPILER_OPTION:STRING=$DYNAWO_DEBUG_COMPILER_OPTION \
+    -DDYNAWO_DEBUG_COMPILER_OPTION:STRING="$DYNAWO_DEBUG_COMPILER_OPTION" \
     -DADEPT_HOME=$DYNAWO_ADEPT_INSTALL_DIR \
     -DSUNDIALS_HOME=$DYNAWO_SUNDIALS_INSTALL_DIR \
     -DSUITESPARSE_HOME=$DYNAWO_SUITESPARSE_INSTALL_DIR \

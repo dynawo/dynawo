@@ -24,8 +24,8 @@ def filterGitName(filename, status):
         return filename
 
 def filterFilename(filename):
-    source_file = filename.endswith(b".cpp") and "dynawo/3rdParty" not in filename
-    header_file = (filename.endswith(b".h") or filename.endswith(b".hpp") or filename.endswith(b".hxx")) and "dynawo/3rdParty" not in filename
+    source_file = filename.endswith(b".cpp") and ("dynawo/3rdParty" and "ModelicaExternalC") not in filename
+    header_file = (filename.endswith(b".h") or filename.endswith(b".hpp") or filename.endswith(b".hxx")) and ("dynawo/3rdParty" and "ModelicaExternalC") not in filename
 
     return source_file or header_file
 
