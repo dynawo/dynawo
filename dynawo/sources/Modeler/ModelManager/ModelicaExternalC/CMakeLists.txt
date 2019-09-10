@@ -42,5 +42,9 @@ INCLUDE_DIRECTORIES(..)
 
 ADD_LIBRARY(Modelica_externalC ${LIBRARY_TYPE} ${MODELICA_SOURCES})
 
+TARGET_LINK_LIBRARIES(Modelica_externalC
+                      dynawo_Common
+                      )
+
 INSTALL(TARGETS Modelica_externalC DESTINATION ${libdir})
 INSTALL(FILES ${MODELICA_INCLUDE_HEADERS} DESTINATION ${includedir})

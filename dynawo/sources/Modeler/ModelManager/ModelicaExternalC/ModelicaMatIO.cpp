@@ -54,6 +54,8 @@
                    The hdf5 (>= v1.8) library is required.
 */
 
+#include <utility>
+
 #if !defined(NO_FILE_SYSTEM)
 #if defined(__gnu_linux__)
 #define _GNU_SOURCE 1
