@@ -63,7 +63,7 @@
 #define __USE_MINGW_ANSI_STDIO 1
 #endif
 #include <stdarg.h>
-#include "ModelicaUtilities.h"
+#include "DYNModelicaUtilities.h"
 
 /* -------------------------------
  * ---------- endian.c

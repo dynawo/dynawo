@@ -94,7 +94,7 @@
 #include <math.h>
 #include <string.h>
 #include "ModelicaInternal.h"
-#include "ModelicaUtilities.h"
+#include "DYNModelicaUtilities.h"
 #include "gconstructor.h"
 
 /* The standard way to detect POSIX is to check _POSIX_VERSION,

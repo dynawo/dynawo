@@ -73,7 +73,7 @@
 
 #include "ModelicaIO.h"
 #include <string.h>
-#include "ModelicaUtilities.h"
+#include "DYNModelicaUtilities.h"
 
 #ifdef NO_FILE_SYSTEM
 MODELICA_NORETURN static void ModelicaNotExistError(const char* name) MODELICA_NORETURNATTR;

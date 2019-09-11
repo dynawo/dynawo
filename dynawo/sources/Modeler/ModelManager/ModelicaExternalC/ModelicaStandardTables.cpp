@@ -141,8 +141,9 @@
 */
 
 #include "ModelicaStandardTables.h"
+
+#include "DYNModelicaUtilities.h"
 #include "ModelicaIO.h"
-#include "ModelicaUtilities.h"
 #if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
 #define uthash_strlen(s) key_strlen(s)
 #include "uthash.h"
@@ -1709,9 +1710,9 @@ double ModelicaStandardTables_CombiTimeTable_read(void* _tableID, int force,
 
 void* ModelicaStandardTables_CombiTable1D_init(_In_z_ const char* tableName,
                                                _In_z_ const char* fileName,
-                                               _In_ double* table, size_t nRow,
+                                               _In_ const double* table, size_t nRow,
                                                size_t nColumn,
-                                               _In_ int* cols,
+                                               _In_ const int* cols,
                                                size_t nCols, int smoothness) {
     return ModelicaStandardTables_CombiTable1D_init2(fileName, tableName,
         table, nRow, nColumn, cols, nCols, smoothness, LAST_TWO_POINTS,
@@ -1720,9 +1721,9 @@ void* ModelicaStandardTables_CombiTable1D_init(_In_z_ const char* tableName,
 
 void* ModelicaStandardTables_CombiTable1D_init2(_In_z_ const char* fileName,
                                                 _In_z_ const char* tableName,
-                                                _In_ double* table, size_t nRow,
+                                                _In_ const double* table, size_t nRow,
                                                 size_t nColumn,
-                                                _In_ int* cols,
+                                                _In_ const int* cols,
                                                 size_t nCols, int smoothness,
                                                 int extrapolation,
                                                 int verbose) {

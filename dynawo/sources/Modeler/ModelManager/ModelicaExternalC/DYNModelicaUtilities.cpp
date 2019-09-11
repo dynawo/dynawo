@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "ModelicaUtilities.h"
+#include "DYNModelicaUtilities.h"
 #include "DYNTrace.h"
 
 void ModelicaVFormatMessage(const char *string, va_list args) {
