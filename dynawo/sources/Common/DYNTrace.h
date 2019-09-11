@@ -47,7 +47,7 @@ class Trace {
    * Trace appender class is used to configure an appender for trace
    * system. Appenders are created after trace configuration file parsing.
    * Default trace appender (before any configuration) puts all traces in
-   * std::cout excepted errors that are put into std::cerr.
+   * std::clog excepted errors that are put into std::cerr.
    */
   class TraceAppender {
    public:
