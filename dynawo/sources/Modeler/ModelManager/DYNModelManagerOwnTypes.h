@@ -72,61 +72,6 @@ typedef integer_array_t integer_array;
 typedef real_array_t real_array;
 typedef string_array_t string_array;
 
-#ifdef _OMC_1_9_4
-typedef enum {
-  ERROR_UNKOWN = 0,
-  ERROR_SIMULATION,
-  ERROR_INTEGRATOR,
-  ERROR_NONLINEARSOLVER,
-  ERROR_EVENTSEARCH,
-  ERROR_OPTIMIZE,
-  ERROR_MAX
-} errorStage;
-
-#include <setjmp.h>
-
-/* Thread-specific data passed around in most functions.
- * It is also possible to fetch it using pthread_getspecific (mostly for external functions that were not passed the pointer) */
-enum {
-  LOCAL_ROOT_USER_DEFINED_0,
-  LOCAL_ROOT_USER_DEFINED_1,
-  LOCAL_ROOT_USER_DEFINED_2,
-  LOCAL_ROOT_USER_DEFINED_3,
-  LOCAL_ROOT_USER_DEFINED_4,
-  LOCAL_ROOT_USER_DEFINED_5,
-  LOCAL_ROOT_USER_DEFINED_6,
-  LOCAL_ROOT_USER_DEFINED_7,
-  LOCAL_ROOT_USER_DEFINED_8,
-  LOCAL_ROOT_ERROR_MO,
-  LOCAL_ROOT_PRINT_MO,
-  LOCAL_ROOT_SYSTEM_MO,
-  MAX_LOCAL_ROOTS
-};
-#define MAX_LOCAL_ROOTS 16
-
-/**
- * struct threadData_s
- */
-typedef struct threadData_s {
-  jmp_buf *mmc_jumper;  ///< ??
-  jmp_buf *mmc_stack_overflow_jumper;  ///< ??
-  jmp_buf *mmc_thread_work_exit;  ///< ??
-  void *localRoots[MAX_LOCAL_ROOTS];  ///< ??
-  /*
-   * simulationJumpBufer:
-   *  Jump-buffer to handle simulation error
-   *  like asserts or divisions by zero.
-   *
-   * currentJumpStage:
-   *   define which simulation jump buffer
-   *   is currently used.
-   */
-  jmp_buf *globalJumpBuffer;  ///< ??
-  jmp_buf *simulationJumpBuffer;  ///< ??
-  errorStage currentErrorStage;  ///< ??
-} threadData_t;
-#endif  // _OMC_1_9_4
-
 #endif  // DOXYGEN_SHOULD_SKIP_THIS
 
 #endif  // MODELER_MODELMANAGER_DYNMODELMANAGEROWNTYPES_H_

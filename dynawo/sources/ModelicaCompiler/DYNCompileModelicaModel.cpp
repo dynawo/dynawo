@@ -323,8 +323,6 @@ mosRunFile(const string& mosFilePath) {
 
 string
 runOptions() {
-  if (getEnvVar("DYNAWO_OPENMODELICA_VERSION") == "1_9_4")
-    return "+simCodeTarget=C +showErrorMessages +g=Modelica +d=initialization +d=disableSingleFlowEq +d=failtrace --numProcs=1";
   return "simCodeTarget=C +showErrorMessages -g=Modelica "
       "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode +numProcs=1 +daeMode";
 }

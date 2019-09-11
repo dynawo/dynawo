@@ -381,10 +381,7 @@ set_environment() {
   fi
 
   # OpenModelica config
-  export_var_env DYNAWO_OPENMODELICA_VERSION=1_13_2
-  if [ "$DYNAWO_OPENMODELICA_VERSION" != "1_9_4" ] && [ "$DYNAWO_OPENMODELICA_VERSION" != "1_13_2" ]; then
-    error_exit "OpenModelica version ($DYNAWO_OPENMODELICA_VERSION) should be 1_9_4 or 1_13_2"
-  fi
+  export_var_env_force DYNAWO_OPENMODELICA_VERSION=1_13_2
   export_var_env_force DYNAWO_MODELICA_LIB=3.2.2
   export_var_env DYNAWO_SRC_OPENMODELICA=UNDEFINED
   export_var_env DYNAWO_INSTALL_OPENMODELICA=UNDEFINED
