@@ -8,19 +8,12 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(Controls)
-ADD_SUBDIRECTORY(Events)
-ADD_SUBDIRECTORY(Buses)
-ADD_SUBDIRECTORY(Loads)
-ADD_SUBDIRECTORY(Machines)
-ADD_SUBDIRECTORY(Transformers)
-ADD_SUBDIRECTORY(Lines)
-ADD_SUBDIRECTORY(Injectors)
-
 SET(MODEL_FILES
+    # Electrical Lines models
     package.mo
-    SystemBase.mo
-    Constants.mo
+    InjectorBG.mo
+    InjectorBG.extvar
+    InjectorBG_INIT.mo
     )
 
 #
