@@ -15,7 +15,7 @@
   <dyn:job name="IEEE57 - Step on the load connected at node 9">
     <dyn:solver lib="libdynawo_SolverIDA" parFile="solvers.par" parId="2"/>
     <dyn:modeler compileDir="outputs/compilation">
-      <dyn:network iidmFile="IEEE57.iidm" parFile="IEEE57.par" parId="51"/>
+      <dyn:network iidmFile="IEEE57.iidm" parFile="IEEE57.par" parId="10"/>
       <dyn:dynModels dydFile="IEEE57.dyd"/>
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
