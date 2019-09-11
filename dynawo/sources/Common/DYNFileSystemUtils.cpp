@@ -78,7 +78,8 @@ void searchFilesAccordingToExtensions(const string & directoryToScan, const vect
       for (fs::directory_iterator it(root); it != fs::directory_iterator(); ++it) {
         if (fs::is_directory(*it)) {
           bool shouldScanThisDirectory = searchInSubDirs &&
-              (std::find(forbiddenDirectories.begin(), forbiddenDirectories.end(), *it) == forbiddenDirectories.end());
+              (std::find(forbiddenDirectories.begin(), forbiddenDirectories.end(), *it) == forbiddenDirectories.end()) &&
+              (*it).path().extension() != ".dSYM";
           if (shouldScanThisDirectory) {
             searchFilesAccordingToExtensions((*it).path().string(), fileExtensionsAllowed, fileExtensionsForbidden, searchInSubDirs, filesFound);
           }

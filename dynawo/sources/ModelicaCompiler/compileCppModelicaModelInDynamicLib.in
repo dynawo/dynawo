@@ -164,6 +164,9 @@ fi
 
 if [ "`uname`" = "Darwin" ]; then
   FLAGS="$FLAGS -isysroot $(xcrun --show-sdk-path)"
+  if [ ! -z "$MACOSX_DEPLOYMENT_TARGET" ]; then
+    FLAGS="$FLAGS -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
+  fi
 fi
 
 if [ "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "no" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "false" -o "$(echo "$CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "off" ]; then

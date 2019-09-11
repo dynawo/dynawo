@@ -96,7 +96,10 @@ install_adept() {
     CXX_STD="-std=c++98"
   fi
   if [ "`uname`" = "Darwin" ]; then
-    export CC_FLAG="-isysroot $(xcrun --show-sdk-path)"
+    CC_FLAG="-isysroot $(xcrun --show-sdk-path)"
+    if [ ! -z "$MACOSX_DEPLOYMENT_TARGET" ]; then
+      CC_FLAG="$CC_FLAG -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
+    fi
   fi
   if [ "$BUILD_TYPE" = "Debug" ]; then
     ./configure "CXXFLAGS=$CC_FLAG -g -O0 -fPIC $CXX_STD" --prefix=$INSTALL_DIR CC=$DYNAWO_C_COMPILER CXX=$DYNAWO_CXX_COMPILER --disable-openmp --with-blas=no $ADEPT_LIBRARY_TYPE_OPTION

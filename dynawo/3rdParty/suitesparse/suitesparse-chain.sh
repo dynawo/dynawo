@@ -81,15 +81,20 @@ install_suitesparse() {
     tar -xzf $SUITE_SPARSE_ARCHIVE -C $BUILD_DIR
   fi
   if [ "${BUILD_TYPE}" = "Debug" ]; then
-    export CC_FLAG="-g"
-    export OPTIMIZATION="-O0"
+    CC_FLAG="-g"
   else
-    export CC_FLAG=""
+    CC_FLAG=""
   fi
   if [ "`uname`" = "Darwin" ]; then
-    export CC_FLAG="$CC_FLAG -isysroot $(xcrun --show-sdk-path)"
+    CC_FLAG="$CC_FLAG -isysroot $(xcrun --show-sdk-path)"
+    if [ ! -z "$MACOSX_DEPLOYMENT_TARGET" ]; then
+      CC_FLAG="$CC_FLAG -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
+    fi
   fi
   echo_error_exit
+  if [ "${BUILD_TYPE}" = "Debug" ]; then
+    echo 'export OPTIMIZATION="-O0"' >> $BUILD_DIR/compile_suitesparse_dynawo.sh
+  fi
   if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
     echo "cd $BUILD_DIR/$SUITE_SPARSE_DIRECTORY/SuiteSparse_config
 { make -j $DYNAWO_NB_PROCESSORS_USED CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" library && make CC=\"$DYNAWO_C_COMPILER $CC_FLAG\" INSTALL_LIB=$INSTALL_DIR/lib INSTALL_INCLUDE=$INSTALL_DIR/include install; } || error_exit \"Error while building SuiteSparse\"

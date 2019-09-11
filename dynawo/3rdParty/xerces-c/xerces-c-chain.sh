@@ -81,7 +81,10 @@ install_xercesc() {
   fi
   options="--disable-network --without-icu --disable-transcoder-macosunicodeconverter"
   if [ "`uname`" = "Darwin" ]; then
-    export CC_FLAG="-isysroot $(xcrun --show-sdk-path)"
+    CC_FLAG="-isysroot $(xcrun --show-sdk-path)"
+    if [ ! -z "$MACOSX_DEPLOYMENT_TARGET" ]; then
+      CC_FLAG="$CC_FLAG -mmacosx-version-min=$MACOSX_DEPLOYMENT_TARGET"
+    fi
   fi
   if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
     if [ "$BUILD_TYPE" = "Debug" ]; then
