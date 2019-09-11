@@ -24,6 +24,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
+#include "PARParametersSetFactory.h"
 #include "DYDModel.h"
 
 namespace parameters {
@@ -147,7 +148,7 @@ class ModelDescription {
    * @param params : set of parameters associated to the model
    */
   inline void setParametersSet(const boost::shared_ptr<parameters::ParametersSet>& params) {
-    parameters_ = params;
+    parameters_ = parameters::ParametersSetFactory::copyInstance(params);
   }
 
   /**

@@ -32,7 +32,6 @@ TARGET_LINK_LIBRARIES(dumpModel
                       dynawo_Common
                       dynawo_ModelerCommon
                       dynawo_ModelManager
-                      Modelica_externalC
                       dynawo_DataInterface
                       dynawo_SolverCommon
                       dynawo_SolverSubModel

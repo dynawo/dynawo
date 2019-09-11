@@ -13,56 +13,56 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="_LOAD____6_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD____6_EC"/>
-  <dyn:blackBoxModel id="_LOAD___51_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="2" staticId="_LOAD___51_EC"/>
-  <dyn:blackBoxModel id="_LOAD___10_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="3" staticId="_LOAD___10_EC"/>
-  <dyn:blackBoxModel id="_LOAD___49_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="4" staticId="_LOAD___49_EC"/>
-  <dyn:blackBoxModel id="_LOAD___13_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="5" staticId="_LOAD___13_EC"/>
-  <dyn:blackBoxModel id="_LOAD___14_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="6" staticId="_LOAD___14_EC"/>
-  <dyn:blackBoxModel id="_LOAD___15_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="7" staticId="_LOAD___15_EC"/>
-  <dyn:blackBoxModel id="_LOAD___16_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="8" staticId="_LOAD___16_EC"/>
-  <dyn:blackBoxModel id="_LOAD___17_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="9" staticId="_LOAD___17_EC"/>
-  <dyn:blackBoxModel id="_LOAD___19_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="10" staticId="_LOAD___19_EC"/>
-  <dyn:blackBoxModel id="_LOAD___20_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="11" staticId="_LOAD___20_EC"/>
-  <dyn:blackBoxModel id="_LOAD___23_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="12" staticId="_LOAD___23_EC"/>
-  <dyn:blackBoxModel id="_LOAD___25_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="13" staticId="_LOAD___25_EC"/>
-  <dyn:blackBoxModel id="_LOAD___27_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="14" staticId="_LOAD___27_EC"/>
-  <dyn:blackBoxModel id="_LOAD___28_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="15" staticId="_LOAD___28_EC"/>
-  <dyn:blackBoxModel id="_LOAD___30_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="16" staticId="_LOAD___30_EC"/>
-  <dyn:blackBoxModel id="_LOAD___31_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="17" staticId="_LOAD___31_EC"/>
-  <dyn:blackBoxModel id="_LOAD___33_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="18" staticId="_LOAD___33_EC"/>
-  <dyn:blackBoxModel id="_LOAD___32_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="19" staticId="_LOAD___32_EC"/>
-  <dyn:blackBoxModel id="_LOAD___35_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="20" staticId="_LOAD___35_EC"/>
-  <dyn:blackBoxModel id="_LOAD___38_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="21" staticId="_LOAD___38_EC"/>
-  <dyn:blackBoxModel id="_LOAD___57_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="22" staticId="_LOAD___57_EC"/>
-  <dyn:blackBoxModel id="_LOAD___56_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="23" staticId="_LOAD___56_EC"/>
-  <dyn:blackBoxModel id="_LOAD___42_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="24" staticId="_LOAD___42_EC"/>
-  <dyn:blackBoxModel id="_LOAD___44_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="25" staticId="_LOAD___44_EC"/>
-  <dyn:blackBoxModel id="_LOAD___47_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="26" staticId="_LOAD___47_EC"/>
-  <dyn:blackBoxModel id="_LOAD___50_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="27" staticId="_LOAD___50_EC"/>
-  <dyn:blackBoxModel id="_LOAD___52_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="28" staticId="_LOAD___52_EC"/>
-  <dyn:blackBoxModel id="_LOAD___53_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="29" staticId="_LOAD___53_EC"/>
-  <dyn:blackBoxModel id="_LOAD___54_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="30" staticId="_LOAD___54_EC"/>
-  <dyn:blackBoxModel id="_LOAD____5_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="31" staticId="_LOAD____5_EC"/>
-  <dyn:blackBoxModel id="_LOAD___29_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="32" staticId="_LOAD___29_EC"/>
-  <dyn:blackBoxModel id="_LOAD____8_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="33" staticId="_LOAD____8_EC"/>
-  <dyn:blackBoxModel id="_LOAD___12_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="34" staticId="_LOAD___12_EC"/>
-  <dyn:blackBoxModel id="_LOAD____1_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="35" staticId="_LOAD____1_EC"/>
-  <dyn:blackBoxModel id="_LOAD____3_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="36" staticId="_LOAD____3_EC"/>
-  <dyn:blackBoxModel id="_LOAD____9_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="37" staticId="_LOAD____9_EC"/>
-  <dyn:blackBoxModel id="_LOAD___55_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="38" staticId="_LOAD___55_EC"/>
-  <dyn:blackBoxModel id="_LOAD___18_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="39" staticId="_LOAD___18_EC"/>
-  <dyn:blackBoxModel id="_LOAD___43_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="40" staticId="_LOAD___43_EC"/>
-  <dyn:blackBoxModel id="_LOAD___41_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="41" staticId="_LOAD___41_EC"/>
-  <dyn:blackBoxModel id="_LOAD____2_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="42" staticId="_LOAD____2_EC"/>
-  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="43" staticId="_GEN____6_SM"/>
-  <dyn:blackBoxModel id="GEN____9_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="44" staticId="_GEN____9_SM"/>
-  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="45" staticId="_GEN____1_SM"/>
-  <dyn:blackBoxModel id="GEN___12_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="46" staticId="_GEN___12_SM"/>
-  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="47" staticId="_GEN____3_SM"/>
-  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="48" staticId="_GEN____8_SM"/>
-  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="49" staticId="_GEN____2_SM"/>
+  <dyn:blackBoxModel id="_LOAD___51_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___51_EC"/>
+  <dyn:blackBoxModel id="_LOAD___10_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___10_EC"/>
+  <dyn:blackBoxModel id="_LOAD___49_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___49_EC"/>
+  <dyn:blackBoxModel id="_LOAD___13_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___13_EC"/>
+  <dyn:blackBoxModel id="_LOAD___14_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___14_EC"/>
+  <dyn:blackBoxModel id="_LOAD___15_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___15_EC"/>
+  <dyn:blackBoxModel id="_LOAD___16_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___16_EC"/>
+  <dyn:blackBoxModel id="_LOAD___17_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___17_EC"/>
+  <dyn:blackBoxModel id="_LOAD___19_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___19_EC"/>
+  <dyn:blackBoxModel id="_LOAD___20_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___20_EC"/>
+  <dyn:blackBoxModel id="_LOAD___23_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___23_EC"/>
+  <dyn:blackBoxModel id="_LOAD___25_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___25_EC"/>
+  <dyn:blackBoxModel id="_LOAD___27_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___27_EC"/>
+  <dyn:blackBoxModel id="_LOAD___28_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___28_EC"/>
+  <dyn:blackBoxModel id="_LOAD___30_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___30_EC"/>
+  <dyn:blackBoxModel id="_LOAD___31_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___31_EC"/>
+  <dyn:blackBoxModel id="_LOAD___33_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___33_EC"/>
+  <dyn:blackBoxModel id="_LOAD___32_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___32_EC"/>
+  <dyn:blackBoxModel id="_LOAD___35_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___35_EC"/>
+  <dyn:blackBoxModel id="_LOAD___38_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___38_EC"/>
+  <dyn:blackBoxModel id="_LOAD___57_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___57_EC"/>
+  <dyn:blackBoxModel id="_LOAD___56_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___56_EC"/>
+  <dyn:blackBoxModel id="_LOAD___42_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___42_EC"/>
+  <dyn:blackBoxModel id="_LOAD___44_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___44_EC"/>
+  <dyn:blackBoxModel id="_LOAD___47_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___47_EC"/>
+  <dyn:blackBoxModel id="_LOAD___50_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___50_EC"/>
+  <dyn:blackBoxModel id="_LOAD___52_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___52_EC"/>
+  <dyn:blackBoxModel id="_LOAD___53_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___53_EC"/>
+  <dyn:blackBoxModel id="_LOAD___54_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___54_EC"/>
+  <dyn:blackBoxModel id="_LOAD____5_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD____5_EC"/>
+  <dyn:blackBoxModel id="_LOAD___29_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___29_EC"/>
+  <dyn:blackBoxModel id="_LOAD____8_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD____8_EC"/>
+  <dyn:blackBoxModel id="_LOAD___12_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___12_EC"/>
+  <dyn:blackBoxModel id="_LOAD____1_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD____1_EC"/>
+  <dyn:blackBoxModel id="_LOAD____3_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD____3_EC"/>
+  <dyn:blackBoxModel id="_LOAD____9_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD____9_EC"/>
+  <dyn:blackBoxModel id="_LOAD___55_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___55_EC"/>
+  <dyn:blackBoxModel id="_LOAD___18_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___18_EC"/>
+  <dyn:blackBoxModel id="_LOAD___43_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___43_EC"/>
+  <dyn:blackBoxModel id="_LOAD___41_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD___41_EC"/>
+  <dyn:blackBoxModel id="_LOAD____2_EC" lib="LoadAlphaBeta" parFile="IEEE57.par" parId="1" staticId="_LOAD____2_EC"/>
+  <dyn:blackBoxModel id="GEN____6_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="2" staticId="_GEN____6_SM"/>
+  <dyn:blackBoxModel id="GEN____9_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="3" staticId="_GEN____9_SM"/>
+  <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="4" staticId="_GEN____1_SM"/>
+  <dyn:blackBoxModel id="GEN___12_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="5" staticId="_GEN___12_SM"/>
+  <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="6" staticId="_GEN____3_SM"/>
+  <dyn:blackBoxModel id="GEN____8_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="7" staticId="_GEN____8_SM"/>
+  <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE57.par" parId="8" staticId="_GEN____2_SM"/>
   <dyn:blackBoxModel id="LoadVariation" lib="EventSetPointDoubleReal" parFile="event.par" parId="1"/>
-  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE57.par" parId="50"/>
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="IEEE57.par" parId="9"/>
   <dyn:connect id1="OMEGA_REF" var1="omega_grp_0" id2="GEN____6_SM" var2="generator_omegaPu"/>
   <dyn:connect id1="OMEGA_REF" var1="omegaRef_grp_0" id2="GEN____6_SM" var2="generator_omegaRefPu"/>
   <dyn:connect id1="OMEGA_REF" var1="numcc_node_0" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_numcc"/>

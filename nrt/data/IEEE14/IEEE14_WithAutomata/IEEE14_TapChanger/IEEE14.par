@@ -38,78 +38,6 @@
     <reference type="DOUBLE" name="transformer_U1Phase0" origData="IIDM" origName="angle_pu"/>
   </set>
   <set id="3">
-    <par type="DOUBLE" name="load_alpha" value="1.5"/>
-    <par type="DOUBLE" name="load_beta" value="2.5"/>
-    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
-    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
-    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
-    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
-  </set>
-  <set id="4">
-    <par type="DOUBLE" name="load_alpha" value="1.5"/>
-    <par type="DOUBLE" name="load_beta" value="2.5"/>
-    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
-    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
-    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
-    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
-  </set>
-  <set id="5">
-    <par type="DOUBLE" name="load_alpha" value="1.5"/>
-    <par type="DOUBLE" name="load_beta" value="2.5"/>
-    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
-    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
-    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
-    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
-  </set>
-  <set id="6">
-    <par type="DOUBLE" name="load_alpha" value="1.5"/>
-    <par type="DOUBLE" name="load_beta" value="2.5"/>
-    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
-    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
-    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
-    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
-  </set>
-  <set id="7">
-    <par type="DOUBLE" name="load_alpha" value="1.5"/>
-    <par type="DOUBLE" name="load_beta" value="2.5"/>
-    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
-    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
-    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
-    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
-  </set>
-  <set id="8">
-    <par type="DOUBLE" name="load_alpha" value="1.5"/>
-    <par type="DOUBLE" name="load_beta" value="2.5"/>
-    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
-    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
-    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
-    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
-  </set>
-  <set id="9">
-    <par type="DOUBLE" name="load_alpha" value="1.5"/>
-    <par type="DOUBLE" name="load_beta" value="2.5"/>
-    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
-    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
-    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
-    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
-  </set>
-  <set id="10">
-    <par type="DOUBLE" name="load_alpha" value="1.5"/>
-    <par type="DOUBLE" name="load_beta" value="2.5"/>
-    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
-    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
-    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
-    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
-  </set>
-  <set id="11">
-    <par type="DOUBLE" name="load_alpha" value="1.5"/>
-    <par type="DOUBLE" name="load_beta" value="2.5"/>
-    <reference type="DOUBLE" name="load_P0Pu" origData="IIDM" origName="p_pu"/>
-    <reference type="DOUBLE" name="load_Q0Pu" origData="IIDM" origName="q_pu"/>
-    <reference type="DOUBLE" name="load_U0Pu" origData="IIDM" origName="v_pu"/>
-    <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
-  </set>
-  <set id="12">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
     <par type="DOUBLE" name="generator_H" value="5.4000000000000004"/>
@@ -153,7 +81,7 @@
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
-  <set id="13">
+  <set id="4">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
     <par type="DOUBLE" name="generator_H" value="6.2999999999999998"/>
@@ -197,7 +125,7 @@
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
-  <set id="14">
+  <set id="5">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
     <par type="DOUBLE" name="generator_H" value="5.625"/>
@@ -241,7 +169,7 @@
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
-  <set id="15">
+  <set id="6">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
     <par type="DOUBLE" name="generator_H" value="4.9750000000000001"/>
@@ -283,7 +211,7 @@
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
-  <set id="16">
+  <set id="7">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
     <par type="DOUBLE" name="generator_H" value="2.748"/>
@@ -325,7 +253,7 @@
     <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
-  <set id="17">
+  <set id="8">
     <par type="INT" name="nbGen" value="5"/>
     <par type="DOUBLE" name="weight_gen_0" value="1211"/>
     <par type="DOUBLE" name="weight_gen_1" value="1120"/>
@@ -333,7 +261,7 @@
     <par type="DOUBLE" name="weight_gen_3" value="80"/>
     <par type="DOUBLE" name="weight_gen_4" value="250"/>
   </set>
-  <set id="18">
+  <set id="9">
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
     <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
     <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
@@ -355,12 +283,12 @@
     <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
     <par type="DOUBLE" name="transformer_tolV" value="0.014999999700000001"/>
   </set>
-  <set id="19">
+  <set id="10">
     <par type="DOUBLE" name="event_tEvent" value="20"/>
     <par type="DOUBLE" name="event_stateEvent1" value="0.217"/>
     <par type="DOUBLE" name="event_stateEvent2" value="2"/>
   </set>
-  <set id="20">
+  <set id="11">
     <par type="BOOL" name="tapChanger_regulating0" value="true"/>
     <par type="DOUBLE" name="tapChanger_t1st" value="60"/>
     <par type="DOUBLE" name="tapChanger_tNext" value="10"/>
