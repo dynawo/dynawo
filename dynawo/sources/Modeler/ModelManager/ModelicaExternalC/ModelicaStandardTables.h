@@ -228,9 +228,9 @@ MODELICA_EXPORT double ModelicaStandardTables_CombiTimeTable_read(void* tableID,
 
 MODELICA_EXPORT void* ModelicaStandardTables_CombiTable1D_init(_In_z_ const char* tableName,
                                                _In_z_ const char* fileName,
-                                               _In_ double* table, size_t nRow,
+                                               _In_ const double* table, size_t nRow,
                                                size_t nColumn,
-                                               _In_ int* columns,
+                                               _In_ const int* columns,
                                                size_t nCols, int smoothness) MODELICA_NONNULLATTR;
   /* Same as ModelicaStandardTables_CombiTable1D_init2, but without extrapolation and
      verbose arguments
@@ -238,9 +238,9 @@ MODELICA_EXPORT void* ModelicaStandardTables_CombiTable1D_init(_In_z_ const char
 
 MODELICA_EXPORT void* ModelicaStandardTables_CombiTable1D_init2(_In_z_ const char* fileName,
                                                 _In_z_ const char* tableName,
-                                                _In_ double* table, size_t nRow,
+                                                _In_ const double* table, size_t nRow,
                                                 size_t nColumn,
-                                                _In_ int* columns,
+                                                _In_ const int* columns,
                                                 size_t nCols, int smoothness,
                                                 int extrapolation,
                                                 int verbose) MODELICA_NONNULLATTR;

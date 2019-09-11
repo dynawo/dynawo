@@ -106,7 +106,8 @@
 
 #include "ModelicaInternal.h"
 #include <string.h>
-#include "ModelicaUtilities.h"
+
+#include "DYNModelicaUtilities.h"
 
 /* The standard way to detect POSIX is to check _POSIX_VERSION,
  * which is defined in <unistd.h>

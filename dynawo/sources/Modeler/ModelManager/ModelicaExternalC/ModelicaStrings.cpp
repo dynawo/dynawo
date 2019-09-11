@@ -82,7 +82,7 @@
 #include <locale.h>
 #endif
 
-#include "ModelicaUtilities.h"
+#include "DYNModelicaUtilities.h"
 #define HASH_FUNCTION HASH_AP
 #include "uthash.h"
 #undef uthash_fatal /* Ensure that nowhere in this file uses uthash_fatal by accident */

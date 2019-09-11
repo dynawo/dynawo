@@ -34,12 +34,6 @@
 #define REAL_ARRAY_H_   ///< to avoid definition of real_array functions/types
 #define INTEGER_ARRAY_H_   ///< to avoid definition of integer_array functions/types
 
-#define __ATTR_SAL  ///< to properly define the signatures of modelica functions
-#define _In_ const  ///< to properly define the signatures of modelica functions
-#define _In_z_  ///< to properly define the signatures of modelica functions
-#define _Inout_  ///< to properly define the signatures of modelica functions
-#define _Out_  ///< to properly define the signatures of modelica functions
-
 #include "DYNError.h"
 #include "DYNMessage.hpp"
 #include "DYNMessageTimeline.h"

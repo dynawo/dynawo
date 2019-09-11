@@ -16,7 +16,7 @@ SET(MODELICA_SOURCES
     ModelicaIO.cpp
     ModelicaStrings.cpp
     ModelicaMatIO.cpp
-    ModelicaUtilities.cpp
+    DYNModelicaUtilities.cpp
     )
 
 SET(MODELICA_INCLUDE_HEADERS
@@ -29,7 +29,7 @@ SET(MODELICA_INCLUDE_HEADERS
    ModelicaStrings.h
    ModelicaMatIO.h
    uthash.h
-   ModelicaUtilities.h
+   DYNModelicaUtilities.h
    )
 
 SET_SOURCE_FILES_PROPERTIES(
