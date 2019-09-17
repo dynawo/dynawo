@@ -252,7 +252,7 @@ MACRO(COMPILE_CPP_MODEL
     ADD_CUSTOM_COMMAND(OUTPUT ${CPP_MODEL}.desc.xml
                        DEPENDS ${CPP_MODEL} dumpModel
                        COMMAND
-                           ${bindir}/launcher --dump-model -m ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}${CMAKE_SHARED_LIBRARY_SUFFIX} -o ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml \;
+                           ${bindir}/launcher --dump-model -m $<TARGET_FILE_DIR:${CPP_MODEL}>/${CPP_MODEL}${CMAKE_SHARED_LIBRARY_SUFFIX} -o ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml \;
                        COMMENT "Building ${CPP_MODEL} description file"
                       )
 
@@ -262,7 +262,7 @@ MACRO(COMPILE_CPP_MODEL
                           ${CPP_MODEL}.desc.xml
                           CREATE_DDBDIR
                       COMMAND
-                          ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}${CMAKE_SHARED_LIBRARY_SUFFIX} ${ddbdir}/${CPP_MODEL}${CMAKE_SHARED_LIBRARY_SUFFIX} \;
+                          ${CMAKE_COMMAND} -E copy $<TARGET_FILE_DIR:${CPP_MODEL}>/${CPP_MODEL}${CMAKE_SHARED_LIBRARY_SUFFIX} ${ddbdir}/${CPP_MODEL}${CMAKE_SHARED_LIBRARY_SUFFIX} \;
                           ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${CPP_MODEL}.desc.xml ${ddbdir}/${CPP_MODEL}.desc.xml
                      )
 

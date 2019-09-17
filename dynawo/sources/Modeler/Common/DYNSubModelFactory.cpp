@@ -76,7 +76,7 @@ boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::st
   if (factories_.end(iter)) {
     // load the library
     void* handle;
-    handle = dlopen(lib.c_str(), RTLD_NOW);
+    handle = dlopen(lib.c_str(), RTLD_NOW | RTLD_LOCAL);
     if (!handle) {
       stringstream msg;
       msg << "Load error :" << dlerror();
