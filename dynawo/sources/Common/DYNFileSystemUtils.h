@@ -38,14 +38,6 @@ struct UserDefinedDirectory {
 };
 
 /**
- * @brief Give a list of source control directories names
- *
- * @return a vector of directories which are not relevant for sub-directories,
- * because they are designed for source-control purposes
- */
-std::vector <std::string> sourceControlDirectoriesNames();
-
-/**
  * @brief Search for a file within a directory
  *
  * @param[in] name : the path to the file relative to the root name (or one of the root subdirectories)

@@ -31,14 +31,6 @@ using std::vector;
 
 namespace fs = boost::filesystem;
 
-vector <string> sourceControlDirectoriesNames() {
-  vector <string> sourceControlDirectories;
-  sourceControlDirectories.push_back(".svn");
-  sourceControlDirectories.push_back(".git");
-
-  return sourceControlDirectories;
-}
-
 string searchFile(const string & pathFromDirectory, const string & rootPath, const bool searchInSubDirs) {
   fs::path root = rootPath;
   string filePathName = "";
@@ -69,17 +61,18 @@ string searchFile(const string & pathFromDirectory, const string & rootPath, con
   return filePathName;
 }
 
+bool scanThisDirectory(fs::path name) {
+  return (name != ".git" && name != ".svn" && name.extension() != ".dSYM");
+}
+
 void searchFilesAccordingToExtensions(const string & directoryToScan, const vector<string> & fileExtensionsAllowed,
                                       const vector<string> & fileExtensionsForbidden, const bool searchInSubDirs, vector<string> & filesFound) {
   fs::path root = directoryToScan;
-  vector<string> forbiddenDirectories = sourceControlDirectoriesNames();
   try {
     if (exists(root)) {
       for (fs::directory_iterator it(root); it != fs::directory_iterator(); ++it) {
         if (fs::is_directory(*it)) {
-          bool shouldScanThisDirectory = searchInSubDirs &&
-              (std::find(forbiddenDirectories.begin(), forbiddenDirectories.end(), *it) == forbiddenDirectories.end()) &&
-              (*it).path().extension() != ".dSYM";
+          bool shouldScanThisDirectory = searchInSubDirs && scanThisDirectory((*it).path().filename());
           if (shouldScanThisDirectory) {
             searchFilesAccordingToExtensions((*it).path().string(), fileExtensionsAllowed, fileExtensionsForbidden, searchInSubDirs, filesFound);
           }
@@ -201,9 +194,9 @@ void searchModelicaModels(const std::string& directoryToScan, const std::string&
 
        // scan current subdirectories to look for Modelica models
       if (searchInSubDirs) {
-        vector <string> forbiddenDirectories = sourceControlDirectoriesNames();
+        vector <string> forbiddenDirectories;
         for (fs::directory_iterator it(root); it != fs::directory_iterator(); ++it) {
-          if ((fs::is_directory(*it)) && (std::find(forbiddenDirectories.begin(), forbiddenDirectories.end(), *it) == forbiddenDirectories.end())) {
+          if ((fs::is_directory(*it)) && scanThisDirectory((*it).path().filename())) {
             searchModelicaModels((*it).path().string(), fileExtension, searchInSubDirs, filesFound);
           }
         }

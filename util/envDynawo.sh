@@ -366,6 +366,13 @@ set_environment() {
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
+  export_var_env DYNAWO_CMAKE_GENERATOR="Unix Makefiles"
+  CMAKE_VERSION=$(cmake --version | head -1 | awk '{print $(NF)}')
+  CMAKE_BUILD_OPTION=""
+  if [ $(echo $CMAKE_VERSION | cut -d '.' -f 1) -ge 3 -a $(echo $CMAKE_VERSION | cut -d '.' -f 2) -ge 12 ]; then
+    CMAKE_BUILD_OPTION="-j $DYNAWO_NB_PROCESSORS_USED"
+  fi
+  export_var_env DYNAWO_CMAKE_BUILD_OPTION="$CMAKE_BUILD_OPTION"
 
   # Only used until now by nrt
   export_var_env DYNAWO_NB_PROCESSORS_USED=1
@@ -873,7 +880,7 @@ config_dynawo() {
     -DNICSLU_HOME=$DYNAWO_NICSLU_INSTALL_DIR \
     -DLIBZIP_HOME=$DYNAWO_LIBZIP_INSTALL_DIR \
     $CMAKE_OPTIONNAL \
-    -G "Unix Makefiles" \
+    -G "$DYNAWO_CMAKE_GENERATOR" \
     "-DCMAKE_PREFIX_PATH=$DYNAWO_LIBXML_HOME;$DYNAWO_LIBIIDM_HOME" \
     $DYNAWO_SRC_DIR
 
@@ -908,8 +915,12 @@ build_dynawo_core() {
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     error_exit "$DYNAWO_BUILD_DIR does not exist."
   fi
-  cd $DYNAWO_BUILD_DIR
-  make -j$DYNAWO_NB_PROCESSORS_USED && make -j$DYNAWO_NB_PROCESSORS_USED install
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED && make -j $DYNAWO_NB_PROCESSORS_USED install
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --config $DYNAWO_BUILD_TYPE && cmake --build $DYNAWO_BUILD_DIR --target install --config $DYNAWO_BUILD_TYPE
+  fi
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -918,24 +929,36 @@ build_dynawo_models_cpp() {
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     error_exit "$DYNAWO_BUILD_DIR does not exist."
   fi
-  cd $DYNAWO_BUILD_DIR
-  make -j$DYNAWO_NB_PROCESSORS_USED models-cpp || error_exit "Error during make models-cpp."
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED models-cpp || error_exit "Error during make models-cpp."
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target models-cpp --config $DYNAWO_BUILD_TYPE || error_exit "Error during build models-cpp."
+  fi
 }
 
 build_dynawo_models() {
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     error_exit "$DYNAWO_BUILD_DIR does not exist."
   fi
-  cd $DYNAWO_BUILD_DIR
-  make -j$DYNAWO_NB_PROCESSORS_USED models || error_exit "Error during make models."
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED models || error_exit "Error during make models."
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target models --config $DYNAWO_BUILD_TYPE || error_exit "Error during build models."
+  fi
 }
 
 build_dynawo_solvers() {
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     error_exit "$DYNAWO_BUILD_DIR does not exist."
   fi
-  cd $DYNAWO_BUILD_DIR
-  make -j$DYNAWO_NB_PROCESSORS_USED solvers || error_exit "Error during make solvers."
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j$DYNAWO_NB_PROCESSORS_USED solvers || error_exit "Error during make solvers."
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --target solvers --config $DYNAWO_BUILD_TYPE || error_exit "Error during build solvers."
+  fi
 }
 
 # Compile Dynawo (core + models)
@@ -976,9 +999,9 @@ build_tests() {
 
   tests=$@
   if [ -z "$tests" ]; then
-    make tests
+    cmake --build $DYNAWO_BUILD_DIR --target tests --config Tests
   else
-    make ${tests}
+    cmake --build $DYNAWO_BUILD_DIR --target ${tests} --config Tests
   fi
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -990,7 +1013,11 @@ list_tests() {
   echo " List of available unittests target"
   echo "===================================="
   config_dynawo > /dev/null 2>&1 || error_exit "Error during config_dynawo."
-  make help | grep -Ei 'tests' | grep -Eiv 'pre-tests'
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cmake --build $DYNAWO_BUILD_DIR --target help | grep -Ei 'tests' | grep -Eiv 'pre-tests'
+  else
+    error_exit "Option not available with $DYNAWO_CMAKE_GENERATOR CMake generator. Use Unix Makefiles."
+  fi
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1012,15 +1039,15 @@ build_tests_coverage() {
 
   tests=$@
 
-  make reset-coverage || error_exit "Error during make reset-coverage."
+  cmake --build $DYNAWO_BUILD_DIR --target reset-coverage --config TestCoverage || error_exit "Error during make reset-coverage."
   if [ -z "$tests" ]; then
-    make tests-coverage || error_exit "Error during make tests-coverage."
+    cmake --build $DYNAWO_BUILD_DIR --target tests-coverage --config TestCoverage || error_exit "Error during make tests-coverage."
   else
     for test in ${tests}; do
-      make ${test}-coverage || error_exit "Error during make ${test}-coverage."
+      cmake --build $DYNAWO_BUILD_DIR --target ${test}-coverage --config TestCoverage || error_exit "Error during make ${test}-coverage."
     done
   fi
-  make export-coverage
+  cmake --build $DYNAWO_BUILD_DIR --target export-coverage --config TestCoverage
   RETURN_CODE=$?
   if [ ${RETURN_CODE} -ne 0 ]; then
     exit ${RETURN_CODE}
@@ -1134,16 +1161,15 @@ build_doxygen_doc() {
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     error_exit "You need to build Dynawo first to build doxygen documentation."
   fi
-  cd $DYNAWO_BUILD_DIR
   mkdir -p $DYNAWO_INSTALL_DIR/doxygen/
-  make -j $DYNAWO_NB_PROCESSORS_USED doc
+  cmake --build $DYNAWO_BUILD_DIR --target doc
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 test_doxygen_doc() {
   if [ -f "$DYNAWO_INSTALL_DIR/doxygen/warnings.txt"  ] ; then
-    nb_warnings=$(wc -l $DYNAWO_INSTALL_DIR/doxygen/warnings.txt | cut -f1 -d' ')
+    nb_warnings=$(wc -l $DYNAWO_INSTALL_DIR/doxygen/warnings.txt | awk '{print $1}')
     if [ ${nb_warnings} -ne 0 ]; then
       echo "===================================="
       echo "| Result of doxygen doc generation |"
@@ -1618,42 +1644,44 @@ copy_sources() {
 
 binary_rpath_for_darwin() {
   if [ "`uname`" = "Darwin" ]; then
-    if [ "`id -n -u`" = "dynawo" ]; then
-      error_exit "Your username cannot be dynawo to deploy a binary."
-    fi
     version=$($DYNAWO_DEPLOY_DIR/bin/dynawo --version | cut -d ' ' -f 1)
     bins=("bin/dynawo" "bin/dynawo-$version" "sbin/dumpModel" "sbin/compileModelicaModel" "sbin/dumpSolver" "sbin/generate-preassembled" "sbin/generate-preassembled-$version")
 
     for bin in ${bins[@]}; do
-      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep `id -n -u` | grep path | awk '{print $2}'); do
+      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep RPATH -A2 | grep path | awk '{print $2}' | grep -v "@.*path"); do
         install_name_tool -delete_rpath $lib_path $DYNAWO_DEPLOY_DIR/$bin
       done
 
       install_name_tool -add_rpath @loader_path/../lib $DYNAWO_DEPLOY_DIR/$bin 2> /dev/null
 
-      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep `id -n -u` | grep name | awk '{print $2}'); do
+      for lib_path in $(otool -l $DYNAWO_DEPLOY_DIR/$bin | grep -A2 LC_LOAD_DYLIB | grep dylib | grep name |awk '{print $2}' | grep -v "@.*path" | grep -v "^/usr/lib/" | grep -v "^/usr/local/lib/" | grep -v "^/System"); do
         install_name_tool -change $lib_path @rpath/$(echo $lib_path | awk -F'/' '{print $(NF)}') $DYNAWO_DEPLOY_DIR/$bin
       done
     done
 
     for lib in $(find $DYNAWO_DEPLOY_DIR/lib -name "*.dylib"); do
-      for lib_path in $(otool -l $lib | grep `id -n -u` | grep path | awk '{print $2}'); do
+      for lib_path in $(otool -l $lib | grep RPATH -A2 | grep path | awk '{print $2}' | grep -v "@.*path"); do
         install_name_tool -delete_rpath $lib_path $lib
       done
     done
 
     for lib in $(find $DYNAWO_DEPLOY_DIR/OpenModelica/lib -name "*.dylib"); do
-      for lib_path in $(otool -l $lib | grep `id -n -u` | grep name | awk '{print $2}'); do
+      install_name_tool -id @rpath/$(basename $lib) $lib
+      for lib_path in $(otool -l $lib | grep -A2 LC_LOAD_DYLIB | grep dylib | grep name |awk '{print $2}' | grep -v "@.*path" | grep -v "^/usr/lib/" | grep -v "^/usr/local/lib/" | grep -v "^/System"); do
         omc_lib_path=$DYNAWO_DEPLOY_DIR/OpenModelica/$(otool -l $DYNAWO_DEPLOY_DIR/OpenModelica/bin/omc | grep "@loader_path" | grep -o "lib/.*" | cut -d ' ' -f 1)
         if [ ! -d "$omc_lib_path" ]; then
           error_exit "Directory $omc_lib_path does not exist."
         fi
-        cp $lib_path $omc_lib_path || error_exit "Copy of $lib_path into $omc_lib_path failed."
-        for lib_path_dylib in $(otool -l $omc_lib_path/$(basename $lib_path) | grep `id -n -u` | grep name | awk '{print $2}'); do
-          install_name_tool -change $lib_path_dylib @rpath/$(echo $lib_path_dylib | awk -F'/' '{print $(NF)}') $omc_lib_path/$(basename $lib_path)
-        done
-        install_name_tool -id @rpath/$(basename $lib_path) $omc_lib_path/$(basename $lib_path)
-        install_name_tool -change $lib_path @rpath/$(echo $lib_path | awk -F'/' '{print $(NF)}') $lib
+        if [ -f "$lib_path" ]; then
+          cp $lib_path $omc_lib_path || error_exit "Copy of $lib_path into $omc_lib_path failed."
+          for lib_path_dylib in $(otool -l $omc_lib_path/$(basename $lib_path) | grep -A2 LC_LOAD_DYLIB | grep dylib | grep name |awk '{print $2}' | grep -v "@.*path" | grep -v "^/usr/lib/" | grep -v "^/usr/local/lib/" | grep -v "^/System"); do
+            install_name_tool -change $lib_path_dylib @rpath/$(echo $lib_path_dylib | awk -F'/' '{print $(NF)}') $omc_lib_path/$(basename $lib_path)
+          done
+          install_name_tool -id @rpath/$(basename $lib_path) $omc_lib_path/$(basename $lib_path)
+          install_name_tool -change $lib_path @rpath/$(echo $lib_path | awk -F'/' '{print $(NF)}') $lib
+        else
+          echo "Warning: could not find $lib_path, you may have issues with this library at runtime."
+        fi
       done
     done
   fi
@@ -1828,12 +1856,12 @@ open_pdf() {
         error_exit "Pdf file $1 you try to open does not exist."
       fi
     else
-      error_exit "$DYNAWO_PDFVIEWER seems not to be executable."
+      error_exit "pdfviewer $DYNAWO_PDFVIEWER seems not to be executable."
     fi
   elif [ -x "$(command -v xdg-open)" ]; then
       xdg-open $1
   else
-    error_exit "Cannot determine how to open pdf document from command line. Use DYNAWO_PDFVIEWER environemnt variable."
+    error_exit "Cannot determine how to open pdf document from command line. Use DYNAWO_PDFVIEWER environment variable."
   fi
 }
 
