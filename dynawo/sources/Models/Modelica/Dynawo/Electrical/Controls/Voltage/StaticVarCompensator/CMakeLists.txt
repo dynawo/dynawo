@@ -8,13 +8,20 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(StaticVarCompensator)
+
 
 SET(MODEL_FILES
     # Voltage control models
     package.mo
-    TCL.mo
-    TCL.extvar
+    SVarCControl.mo
+    SVarCControl.extvar
+    SVarCControl_INIT.mo
+    Parameters.mo
+    CalculBG.mo
+    Regulation.mo
+    Limitations.mo
+    ModeHandling.mo
+    ModeConnector.mo
     )
 
 #

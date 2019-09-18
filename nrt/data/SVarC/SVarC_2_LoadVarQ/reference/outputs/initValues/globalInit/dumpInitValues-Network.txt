@@ -1,0 +1,31 @@
+ ====== INIT VARIABLES VALUES ======
+line_terminal2_V_im                               : y =              0 yp =              0
+line_terminal2_V_re                               : y =              1 yp =              0
+busInf_terminal_V_im                              : y =              0 yp =              0
+busInf_terminal_V_re                              : y =              1 yp =              0
+busInf_terminal_i_im                              : y =              0 yp =              0
+busInf_terminal_i_re                              : y =             -0 yp =              0
+line_terminal1_V_im                               : y =              0 yp =              0
+line_terminal1_V_re                               : y =              1 yp =              0
+line_terminal1_i_im                               : y =              0 yp =              0
+line_terminal1_i_re                               : y =              0 yp =              0
+line_terminal2_i_im                               : y =              0 yp =              0
+line_terminal2_i_re                               : y =              0 yp =              0
+ ====== INIT DISCRETE VARIABLES VALUES ======
+line_running_value                                : z =              1
+line_switchOffSignal1_value                       : z =             -1
+line_switchOffSignal2_value                       : z =             -1
+line_state                                        : z =              2
+ ====== PARAMETERS VALUES ======
+busInf_UPhase                                      =              0
+busInf_UPu                                         =              1
+line_BPu                                           =              0
+line_GPu                                           =              0
+line_RPu                                           =              0
+line_XPu                                           =       0.027654
+line_YPu_im                                        =              0
+line_YPu_re                                        =              0
+line_ZPu_im                                        =       0.027654
+line_ZPu_re                                        =              0
+line_NbSwitchOffSignals                            =              2
+line_State0                                        =              2

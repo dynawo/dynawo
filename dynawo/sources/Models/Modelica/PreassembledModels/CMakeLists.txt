@@ -37,6 +37,7 @@ SET(MODELICA_PREASSEMBLED_MODELS
     PhaseShifterI.xml
     PhaseShifterP.xml
     SetPoint.xml
+    StaticVarCompensator.xml
     TapChangerAutomaton.xml
     TapChangerBlockingArea.xml
     UnderVoltageAutomaton.xml
