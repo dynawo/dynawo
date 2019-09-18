@@ -13,6 +13,8 @@ SET(MODEL_FILES
     package.mo
     InfiniteBus.mo
     InfiniteBus.extvar
+    Bus.mo
+    Bus.extvar
     )
 
 #

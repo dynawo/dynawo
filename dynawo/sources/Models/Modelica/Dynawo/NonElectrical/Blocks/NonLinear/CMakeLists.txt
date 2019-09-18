@@ -10,6 +10,10 @@
 
 SET(MODEL_FILES
     package.mo
+    FirstOrderWithNonWindUpLimiter.mo
+    FirstOrderWithNonWindUpLimiter_INIT.mo
+    LeadLag.mo
+    LeadLag_INIT.mo
     LimiterWithLag.mo
     LimiterWithLag_INIT.mo
     MaxThresholdSwitch.mo

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terTestCase1 of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systeTestCase1.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="Generator" variable="generator_cePu"/>
+  <curve model="Generator" variable="generator_PePu"/>
+  <curve model="Generator" variable="generator_cmPu"/>
+  <curve model="Generator" variable="generator_PmPu"/>
+  <curve model="Generator" variable="generator_ufPu"/>
+  <curve model="Generator" variable="generator_efdPu"/>
+  <curve model="Generator" variable="generator_omegaPu"/>
+  <curve model="Generator" variable="generator_theta"/>
+  <curve model="Generator" variable="generator_PGenPu"/>
+  <curve model="Generator" variable="generator_QGenPu"/>
+  <curve model="Generator" variable="generator_PGen"/>
+  <curve model="Generator" variable="generator_QGen"/>
+  <curve model="Generator" variable="generator_UPu"/>
+  <curve model="Generator" variable="generator_IStatorPu"/>
+  <curve model="Generator" variable="generator_IRotorPu"/>
+  <curve model="Generator" variable="generator_UStatorPu"/>
+  <curve model="Generator" variable="generator_QStatorPu"/>
+  <curve model="Generator" variable="generator_thetaInternal"/>
+
+  <curve model="Generator" variable="voltageRegulator_VrefPu"/>
+  <curve model="Generator" variable="voltageRegulator_VsPu"/>
+  <curve model="Generator" variable="voltageRegulator_VcPu"/>
+
+  <curve model="Generator" variable="governor_RefLPu"/>
+  <curve model="Generator" variable="governor_omegaPu"/>
+  <curve model="Generator" variable="governor_PmPu"/>
+
+  <curve model="Load" variable="LoadPQ_terminal_i_re"/>
+  <curve model="Load" variable="LoadPQ_terminal_i_im"/>
+  <curve model="Load" variable="LoadPQ_PRef"/>
+  <curve model="Load" variable="LoadPQ_QRef"/>
+</curvesInput>

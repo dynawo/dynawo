@@ -726,6 +726,7 @@ SolverIDA::solve(double tAim, double &tNxt) {
  */
 void
 SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
+  Trace::debug() << "Romain   SolverIDA::reinit" << Trace::endline;
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
 

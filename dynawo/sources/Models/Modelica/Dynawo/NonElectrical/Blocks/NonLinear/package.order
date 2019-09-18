@@ -2,3 +2,7 @@ LimiterWithLag
 LimiterWithLag_INIT
 MaxThresholdSwitch
 MinThresholdSwitch
+FirstOrderWithNonWindUpLimiter
+FirstOrderWithNonWindUpLimiter_INIT
+LeadLag
+LeadLag_INIT

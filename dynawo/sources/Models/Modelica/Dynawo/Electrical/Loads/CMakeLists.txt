@@ -15,6 +15,8 @@ SET(MODEL_FILES
     BaseClasses_INIT.mo
     LoadAlphaBeta.mo
     LoadAlphaBeta.extvar
+    LoadImpedancePQ.mo
+    LoadImpedancePQ.extvar
     LoadPQ.mo
     LoadPQ.extvar
     Load_INIT.mo

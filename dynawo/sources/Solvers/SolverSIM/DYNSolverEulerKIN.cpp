@@ -233,6 +233,8 @@ SolverEulerKIN::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
     // YP[i] = (y[i]-yprec[i])/h for each differential variable
     for (unsigned int i = 0; i < diffVar.size(); ++i) {
       solv->YP_[diffVar[i]] = (iyy[diffVar[i]] - solv->y0_[diffVar[i]]) / solv->h0_;
+      std::cout << "Adrien++ - valeur de YP " << solv->YP_[diffVar[i]] <<
+      "pour " << mod->getVariableName(diffVar[i]) << " a t " << solv->t0_ + solv->h0_ << std::endl;
     }
 
     try {

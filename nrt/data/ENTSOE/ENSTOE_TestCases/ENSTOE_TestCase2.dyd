@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="Load">
+    <dyn:unitDynamicModel id="LoadPQ" name="Dynawo.Electrical.Loads.LoadImpedancePQ" initName="Dynawo.Electrical.Loads.Load_INIT" parFile="ENSTOE_TestCase2.par" parId="2"/>
+    <dyn:unitDynamicModel id="Pref" name="Dynawo.Electrical.Controls.Basics.Step" parFile="ENSTOE_TestCase2.par" parId="3"/>
+    <dyn:unitDynamicModel id="Qref" name="Dynawo.Electrical.Controls.Basics.SetPoint" parFile="ENSTOE_TestCase2.par" parId="31"/>
+    <dyn:connect id1="Qref" var1="setPoint" id2="LoadPQ" var2="QRef"/>
+    <dyn:connect id1="Pref" var1="step" id2="LoadPQ" var2="PRef"/>
+  </dyn:modelicaModel>
+  <!-- Generator four windings with ENSTOE Regulations -->
+  <dyn:blackBoxModel id="Generator" lib="GeneratorSynchronousFourWindingsENSTOERegulationsWithoutPSS" parFile="ENSTOE_TestCase2.par" parId="1"/>
+  <dyn:connect id1="Generator" var1="generator_terminal" id2="Load" var2="LoadPQ_terminal"/>
+</dyn:dynamicModelsArchitecture>

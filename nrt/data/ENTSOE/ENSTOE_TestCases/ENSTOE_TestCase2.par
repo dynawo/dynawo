@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+  <!-- omegaRefPu SetPoint-->
+    <par type="DOUBLE" name="omegaRefPu_Value0" value="1"/>
+
+  <!-- Synchronous machine external parameters -->
+    <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_H" value="4"/>
+    <par type="DOUBLE" name="generator_DPu" value="0.0"/>
+    <par type="DOUBLE" name="generator_RaPu" value="0.00"/>
+    <par type="DOUBLE" name="generator_XlPu" value="0.15"/>
+    <par type="DOUBLE" name="generator_XdPu" value="2"/>
+    <par type="DOUBLE" name="generator_XpdPu" value="0.35"/>
+    <par type="DOUBLE" name="generator_XppdPu" value="0.25"/>
+    <par type="DOUBLE" name="generator_Tpd0" value="5.143"/>
+    <par type="DOUBLE" name="generator_Tppd0" value="0.042"/>
+    <par type="DOUBLE" name="generator_XqPu" value="1.8"/>
+    <par type="DOUBLE" name="generator_XpqPu" value="0.5"/>
+    <par type="DOUBLE" name="generator_XppqPu" value="0.3"/>
+    <par type="DOUBLE" name="generator_Tpq0" value="2.16"/>
+    <par type="DOUBLE" name="generator_Tppq0" value="0.083"/>
+    <par type="DOUBLE" name="generator_UNom" value="21"/>
+    <par type="DOUBLE" name="generator_SNom" value="475"/>
+    <par type="DOUBLE" name="generator_PNom" value="475"/>
+    <par type="DOUBLE" name="generator_SnTfo" value="475"/>
+    <par type="DOUBLE" name="generator_UNomHV" value="21"/>
+    <par type="DOUBLE" name="generator_UNomLV" value="21"/>
+    <par type="DOUBLE" name="generator_UBaseHV" value="21"/>
+    <par type="DOUBLE" name="generator_UBaseLV" value="21"/>
+    <par type="DOUBLE" name="generator_RTfPu" value="0"/>
+    <par type="DOUBLE" name="generator_XTfPu" value="0"/>
+    <par type="DOUBLE" name="generator_P0Pu" value="-3.8"/>
+    <par type="DOUBLE" name="generator_Q0Pu" value="0.0"/>
+    <par type="DOUBLE" name="generator_U0Pu" value="1"/>
+    <par type="DOUBLE" name="generator_UPhase0" value="0"/>
+
+  <!-- RefLPu SetPoint - valueIn is overwritten by init -->
+    <par type="DOUBLE" name="RefLPu_ValueIn" value="0"/>
+
+  <!-- VrefPu SetPoint - valueIn is overwritten by init -->
+    <par type="DOUBLE" name="VrefPu_ValueIn" value="0"/>
+    <par type="DOUBLE" name="VrefPu_Height" value="0.05"/>
+    <par type="DOUBLE" name="VrefPu_tStep" value="9999"/>
+
+  <!-- VsPu SetPoint -->
+    <par type="DOUBLE" name="VsPu_Value0" value="0"/>
+
+  <!-- AVR -->
+    <par type="DOUBLE" name="voltageRegulator_Ka" value="200"/>
+    <par type="DOUBLE" name="voltageRegulator_Ta" value="0.05"/>
+    <par type="DOUBLE" name="voltageRegulator_Tb" value="10"/>
+    <par type="DOUBLE" name="voltageRegulator_Tc" value="3"/>
+    <par type="DOUBLE" name="voltageRegulator_VrMax" value="4"/>
+    <par type="DOUBLE" name="voltageRegulator_VrMin" value="0"/>
+
+  <!-- Governor -->
+    <par type="DOUBLE" name="governor_VMax" value="1"/>
+    <par type="DOUBLE" name="governor_VMin" value="0"/>
+    <par type="DOUBLE" name="governor_R" value="0.05"/>
+    <par type="DOUBLE" name="governor_Dt" value="0"/>
+    <par type="DOUBLE" name="governor_T1" value="0.5"/>
+    <par type="DOUBLE" name="governor_T2" value="3"/>
+    <par type="DOUBLE" name="governor_T3" value="10"/>
+  </set>
+
+  <!-- PQLoad -->
+  <set id="2">
+    <par type="DOUBLE" name="P0Pu" value="3.8"/>
+    <par type="DOUBLE" name="Q0Pu" value="0"/>
+    <par type="DOUBLE" name="U0Pu" value="1"/>
+    <par type="DOUBLE" name="UPhase0" value="0.0"/>
+
+    <par type="DOUBLE" name="URef" value="1"/>
+  </set>
+
+  <!-- Load PRef-->
+  <set id="3">
+    <par type="DOUBLE" name="ValueIn" value="0"/>
+    <par type="DOUBLE" name="Value0" value="3.8"/>
+    <par type="DOUBLE" name="Height" value="0.2375"/>
+    <par type="DOUBLE" name="tStep" value="40.1"/>
+  </set>
+  <!-- Load QRef-->
+  <set id="31">
+    <par type="DOUBLE" name="ValueIn" value="0"/>
+    <par type="DOUBLE" name="Value0" value="0"/>
+  </set>
+</parametersSet>

@@ -1,0 +1,280 @@
+%% Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, you can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+%%
+%% This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
+
+\documentclass[a4paper, 12pt]{report}
+
+\input{../../../../documentation/latex_setup.tex}
+\pgfkeys{
+/pgf/number format/read comma as period
+}
+\begin{document}
+
+\chapter{ENSTOE}
+
+
+
+\section{Results}
+
+
+
+
+\subsection{Test 1}
+
+
+\begin{figure}[H]
+  \caption{Generator stator voltage (kV)}
+  \begin{tikzpicture}
+    \begin{axis} [xmin = 0, xmax = 2, legend pos = south east]
+        \addplot[color=red!50]
+        table[x expr=\thisrow{time}-40, y=Generator_generator_UPu]
+        {../reference/outputs_ENSTOE_TestCase1_IDA4/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x expr=\thisrow{time}-40, y=Generator_generator_UPu]
+        {../reference/outputs_ENSTOE_TestCase1_IDA6/curves/curves.csv};
+        \addplot[color=green!50]
+        table[x expr=\thisrow{time}-40, y=Generator_generator_UPu]
+        {../reference/outputs_ENSTOE_TestCase1_IDAorder1/curves/curves.csv};
+        \addplot[color=orange!50]
+        table[x expr=\thisrow{time}-40, y=Generator_generator_UPu]
+       {../reference/outputs_ENSTOE_TestCase1_SIM_fixedStep_truncated/curves/curves.csv};
+    \legend{${Dynawo_{IDA4}}$,${Dynawo_{IDA6}}$,${Dynawo_{IDAorder1}}$,${Dynawo_{SIMfixedStep}}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+
+
+
+\begin{figure}[H]
+  \caption{Generator stator voltage (kV)}
+  \begin{tikzpicture}
+    \begin{axis} [xmin = 0, xmax = 2, legend pos = south east]
+        \addplot[dashed, color=red!50]
+        table[x expr=\thisrow{time}-40, y=Generator_generator_UPu]
+        {../reference/outputs_ENSTOE_TestCase1_IDA4/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Eurostag.csv};
+        \addplot[color=green!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_PowerFactory.csv};
+        \addplot[color=orange!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Netomac.csv};
+        \addplot[color=purple!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_PSSE.csv};
+        \addplot[color=cyan!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Modes.csv};
+    \legend{${Dynawo_{IDA4}}$,${Eurostag}$,${PowerFactory}$,${Netomac}$,${PSSE}$,${Modes}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+
+\begin{figure}[H]
+  \caption{Generator stator voltage (kV)}
+  \begin{tikzpicture}
+    \begin{axis} [xmin = 0, xmax = 2, legend pos = south east]
+
+        \addplot[dashed, color=red!50]
+        table[x expr=\thisrow{time}-40, y=Generator_generator_UPu]
+        {../reference/outputs_ENSTOE_TestCase1_IDA6/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Eurostag.csv};
+        \addplot[color=green!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_PowerFactory.csv};
+        \addplot[color=orange!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Netomac.csv};
+        \addplot[color=purple!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_PSSE.csv};
+        \addplot[color=cyan!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Modes.csv};
+    \legend{${Dynawo_{IDA6}}$,${Eurostag}$,${PowerFactory}$,${Netomac}$,${PSSE}$,${Modes}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+
+\begin{figure}[H]
+  \caption{Generator stator voltage (kV)}
+  \begin{tikzpicture}
+    \begin{axis} [xmin = 0, xmax = 2, legend pos = south east]
+
+        \addplot[dashed, color=red!50]
+        table[x expr=\thisrow{time}-40, y=Generator_generator_UPu]
+        {../reference/outputs_ENSTOE_TestCase1_IDAorder1/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Eurostag.csv};
+        \addplot[color=green!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_PowerFactory.csv};
+        \addplot[color=orange!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Netomac.csv};
+        \addplot[color=purple!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_PSSE.csv};
+        \addplot[color=cyan!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Modes.csv};
+    \legend{${Dynawo_{IDAorder1}}$,${Eurostag}$,${PowerFactory}$,${Netomac}$,${PSSE}$,${Modes}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+
+\begin{figure}[H]
+  \caption{Generator stator voltage (kV)}
+  \begin{tikzpicture}
+    \begin{axis} [xmin = 0, xmax = 2, legend pos = south east]
+
+        \addplot[dashed, color=red!50]
+        table[x expr=\thisrow{time}-40, y=Generator_generator_UPu]
+       {../reference/outputs_ENSTOE_TestCase1_SIM_fixedStep_truncated/curves/curves.csv};
+        \addplot[color=blue!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Eurostag.csv};
+        \addplot[color=green!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_PowerFactory.csv};
+        \addplot[color=orange!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Netomac.csv};
+        \addplot[color=purple!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_PSSE.csv};
+        \addplot[color=cyan!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase1_Modes.csv};
+    \legend{${Dynawo_{SIMfixedStep}}$,${Eurostag}$,${PowerFactory}$,${Netomac}$,${PSSE}$,${Modes}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+
+
+
+
+
+\newpage
+\subsection{Test 2}
+
+\begin{figure}[H]
+  \caption{Generator stator voltage (pu)}
+  \begin{tikzpicture}
+    \begin{axis}[yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, xmin = 40, xmax = 55, legend pos = south east]
+        \addplot[color=red!50]
+        table[x expr=\thisrow{time}, y=Generator_generator_UPu]
+       {../reference/outputs_ENSTOE_TestCase2_IDA4/curves/curves.csv};
+    \legend{${Dynawo_{IDA4}}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+\begin{figure}[H]
+  \caption{Generator active power (pu SNom)}
+  \begin{tikzpicture}
+    \begin{axis}[yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, xmin = 40, xmax = 55, legend pos = south east]
+        \addplot[color=red!50]
+        table[x expr=\thisrow{time}, y expr=\thisrow{Generator_generator_PGen}/475]
+       {../reference/outputs_ENSTOE_TestCase2_IDA4/curves/curves.csv};
+    \legend{${Dynawo_{IDA4}}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+\begin{figure}[H]
+  \caption{Generator mechanical power (pu SNom)}
+  \begin{tikzpicture}
+    \begin{axis}[yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, xmin = 40, xmax = 55, legend pos = south east]
+        \addplot[color=red!50]
+        table[x expr=\thisrow{time}, y=Generator_generator_PmPu]
+       {../reference/outputs_ENSTOE_TestCase2_IDA4/curves/curves.csv};
+    \legend{${Dynawo_{IDA4}}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+
+
+\newpage
+\subsection{Test 3}
+
+\begin{figure}[H]
+  \caption{Generator stator voltage (pu)}
+  \begin{tikzpicture}
+    \begin{axis}[yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, xmin = 0, xmax = 5, legend pos = south east]
+       \addplot[color=red!50]
+        table[x expr=\thisrow{time}-40, y=Generator_generator_UPu]
+       {../reference/outputs_ENSTOE_TestCase3_SIMfixedStep_truncated/curves/curves.csv};
+        \addplot[dashed, color=blue!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase3_Eurostag.csv};
+
+        \if false
+        \addplot[dashed, color=blue!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase3_PowerFactory.csv};
+        \addplot[dashed, color=blue!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase3_Netomac.csv};
+        \addplot[dashed, color=blue!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase3_PSSE.csv};
+        \addplot[dashed, color=blue!50]
+        table[x=Time, y=U_NGEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase3_Modes.csv};
+        \fi
+
+    \legend{${Dynawo_{SIMfixedStep}}$,${Eurostag}$,${PowerFactory}$,${Netomac}$,${PSSE}$,${Modes}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+\begin{figure}[H]
+  \caption{Generator active power (pu SNom)}
+  \begin{tikzpicture}
+    \begin{axis}[yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, xmin = 0, xmax = 5, legend pos = south east]
+        \addplot[color=red!50]
+        table[x expr=\thisrow{time}-40, y expr=\thisrow{Generator_generator_PGen}]
+       {../reference/outputs_ENSTOE_TestCase3_SIMfixedStep_truncated/curves/curves.csv};
+       \addplot[dashed, color=blue!50]
+        table[x=Time, y expr=\thisrow{P_GEN}*475]
+        {../ReferenceOtherTools/ENSTOE_TestCase3_Eurostag.csv};
+    \legend{${Dynawo_{SIMfixedStep}}$,${Eurostag}$,${PowerFactory}$,${Netomac}$,${PSSE}$,${Modes}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+\begin{figure}[H]
+  \caption{Generator frequency (pu)}
+  \begin{tikzpicture}
+    \begin{axis}[yticklabel style={/pgf/number format/.cd,fixed zerofill,precision=5}, xmin = 0, xmax = 5, legend pos = south east]
+        \addplot[color=red!50]
+        table[x expr=\thisrow{time}-40, y=Generator_generator_omegaPu]
+       {../reference/outputs_ENSTOE_TestCase3_SIMfixedStep_truncated/curves/curves.csv};
+       \addplot[dashed, color=blue!50]
+        table[x=Time, y=w_GEN]
+        {../ReferenceOtherTools/ENSTOE_TestCase3_Eurostag.csv};
+    \legend{${Dynawo_{SIMfixedStep}}$,${Eurostag}$,${PowerFactory}$,${Netomac}$,${PSSE}$,${Modes}$}
+    \end{axis}
+  \end{tikzpicture}
+\end{figure}
+
+
+
+\end{document}

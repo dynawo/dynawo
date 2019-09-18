@@ -34,6 +34,8 @@ SET(MODELICA_PREASSEMBLED_MODELS
     LoadTwoTransformers.xml
     LoadTwoTransformersTapChangers.xml
     NodeFault.xml
+    GeneratorSynchronousFourWindingsENSTOERegulationsWithPSS.xml
+    GeneratorSynchronousFourWindingsENSTOERegulationsWithoutPSS.xml
     PhaseShifterI.xml
     PhaseShifterP.xml
     SetPoint.xml

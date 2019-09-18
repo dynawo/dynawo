@@ -3,3 +3,8 @@ VRProportional_INIT
 VRProportionalIntegral
 VRProportionalIntegral_INIT
 VRProportionalReactiveFeedback
+IEEE_AC4A
+IEEE_AC4A_INIT
+IEEE_AC4A_INIT_WithoutPSS
+IEEE_PSS2A
+IEEE_PSS2A_INIT

@@ -20,6 +20,11 @@ SET(MODEL_FILES
     VRProportionalIntegral_INIT.mo
     VRProportionalReactiveFeedback.extvar
     VRProportionalReactiveFeedback.mo
+    IEEE_PSS2A.mo
+    IEEE_PSS2A_INIT.mo
+    IEEE_AC4A.mo
+    IEEE_AC4A_INIT.mo
+    IEEE_AC4A_INIT_WithoutPSS.mo
     )
 
 #
