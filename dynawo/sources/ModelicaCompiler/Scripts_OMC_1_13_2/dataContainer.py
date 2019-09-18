@@ -1956,6 +1956,7 @@ class Modes:
             discrete_mode = self.modes_discretes[z]
             for eq in discrete_mode.eqs:
                 text_to_return.append("  // ----- Mode for " + str(eq) + " --------- \n")
+            test_param_address(z)
             z_aff = to_param_address(z)
             z_pre = z_aff.replace("localData[0]->discreteVars", "simulationInfo->discreteVarsPre")
             z_pre = z_pre.replace("localData[0]->integerDoubleVars", "simulationInfo->integerDoubleVarsPre")
