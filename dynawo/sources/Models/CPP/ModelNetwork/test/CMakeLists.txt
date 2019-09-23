@@ -11,7 +11,10 @@
 SET(MODULE_NAME MODELS_MODELNETWORK_unittest)
 
 SET(MODULE_SOURCES
-    Test.cpp
+    TestIIDMInitializationFlow.cpp
+    TestDerivatives.cpp
+    TestSwitch.cpp
+    TestDanglingLine.cpp
 )
 
 INCLUDE_DIRECTORIES(SYSTEM ${UNITTEST_INCLUDE_DIRS}
@@ -25,6 +28,7 @@ INCLUDE_DIRECTORIES(../
           ../../../../Modeler/DataInterface
           ../../../../Modeler/Common
           ../../../CPP/Common
+          ../../../../API/TL
           )
 
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
@@ -38,6 +42,7 @@ TARGET_LINK_LIBRARIES(${MODULE_NAME}
     dynawo_DataInterface
     dynawo_ModelerCommon
     dynawo_Util
+    DYNModelNetwork
     pthread
     ${Boost_THREAD_LIBRARY}
     )

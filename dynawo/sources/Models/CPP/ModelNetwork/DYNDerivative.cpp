@@ -39,14 +39,10 @@ void
 BusDerivatives::reset() {
   irDerivatives_.reset();
   iiDerivatives_.reset();
-  empty_ = true;
 }
 
 void
 BusDerivatives::addDerivative(typeDerivative_t type, const int& numVar, const double& value) {
-  if (empty_)
-    empty_ = false;
-
   switch (type) {
     case IR_DERIVATIVE:
       irDerivatives_.addValue(numVar, value);
@@ -59,14 +55,13 @@ BusDerivatives::addDerivative(typeDerivative_t type, const int& numVar, const do
   }
 }
 
-std::map<int, double>
+const std::map<int, double>&
 BusDerivatives::getValues(typeDerivative_t type) const {
   if (type == IR_DERIVATIVE)
     return irDerivatives_.getValues();
   else if (type == II_DERIVATIVE)
     return iiDerivatives_.getValues();
-
-  return std::map<int, double> ();
+  throw DYNError(Error::MODELER, InvalidDerivativeType, type);
 }
 
 }  // namespace DYN

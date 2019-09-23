@@ -105,6 +105,14 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   }
 
   /**
+   * @brief get inloop
+   * @return inLoop
+   */
+  bool isInLoop() const {
+    return inLoop_;
+  }
+
+  /**
    * @brief compute value
    * @return value
    */

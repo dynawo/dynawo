@@ -98,11 +98,6 @@ ModelSwitch::evalNodeInjection() {
     modelBus1_->iiAdd(ii0_);
     modelBus2_->irAdd(-ir0_);
     modelBus2_->iiAdd(-ii0_);
-  } else if (network_->isInitModel()) {
-    modelBus1_->irAdd(y_[0]);
-    modelBus1_->iiAdd(y_[1]);
-    modelBus2_->irAdd(-y_[0]);
-    modelBus2_->iiAdd(-y_[1]);
   } else {
     modelBus1_->irAdd(y_[0]);
     modelBus1_->iiAdd(y_[1]);

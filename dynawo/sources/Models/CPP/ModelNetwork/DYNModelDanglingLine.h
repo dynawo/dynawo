@@ -69,11 +69,28 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   }
 
   /**
+   * @brief get the bus to which the dangling line is connected
+   *
+   * @return model of the bus
+   */
+  const boost::shared_ptr<ModelBus>& getModelBus() {
+    return modelBus_;
+  }
+
+  /**
    * @brief get connection state
    * @return state
    */
   State getConnectionState() const {
     return connectionState_;
+  }
+
+  /**
+   * @brief set connection state
+   * @param state
+   */
+  void setConnectionState(State state) {
+    connectionState_ = state;
   }
 
   /**

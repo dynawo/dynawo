@@ -256,6 +256,14 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
   }
 
   /**
+   * @brief get whether the current model is the init one
+   * @param isInitModel whether the current model is the init one
+   */
+  inline void setIsInitModel(bool isInitModel) {
+    isInitModel_ = isInitModel;
+  }
+
+  /**
    * @copydoc ModelCPP::initParams()
    */
   void initParams();
