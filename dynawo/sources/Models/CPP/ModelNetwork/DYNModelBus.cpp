@@ -800,7 +800,7 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
     // ----------------------------------
     // Switching column
     jt.changeCol();
-    map<int, double> irDerivativesValues = derivatives_->getValues(IR_DERIVATIVE);
+    const map<int, double>& irDerivativesValues = derivatives_->getValues(IR_DERIVATIVE);
     map<int, double>::const_iterator iter = irDerivativesValues.begin();
     for (; iter != irDerivativesValues.end(); ++iter) {
       jt.addTerm(iter->first + rowOffset, iter->second);
@@ -813,7 +813,7 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
     // ---------------------------------------
     // Switching column
     jt.changeCol();
-    map<int, double> iiDerivativesValues = derivatives_->getValues(II_DERIVATIVE);
+    const map<int, double>& iiDerivativesValues = derivatives_->getValues(II_DERIVATIVE);
     iter = iiDerivativesValues.begin();
     for (; iter != iiDerivativesValues.end(); ++iter) {
       jt.addTerm(iter->first + rowOffset, iter->second);

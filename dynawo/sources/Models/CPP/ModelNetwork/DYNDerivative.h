@@ -54,8 +54,16 @@ class Derivatives {
    * @brief get values
    * @return map of varibles' values
    */
-  inline std::map<int, double> getValues() const {
+  inline const std::map<int, double>& getValues() const {
     return values_;
+  }
+
+  /**
+   * @brief state whether empty
+   * @return @b empty
+   */
+  inline bool empty() const {
+    return values_.empty();
   }
 
  private:
@@ -87,20 +95,19 @@ class BusDerivatives {
    * @param type type of derivatives
    * @return map of varibles' values
    */
-  std::map<int, double> getValues(typeDerivative_t type) const;
+  const std::map<int, double>& getValues(typeDerivative_t type) const;
 
   /**
    * @brief state whether empty
    * @return @b empty_
    */
   inline bool empty() const {
-    return empty_;
+    return irDerivatives_.empty() && iiDerivatives_.empty();
   }
 
  private:
   Derivatives irDerivatives_;  ///< ir derivative
   Derivatives iiDerivatives_;  ///< ii derivative
-  bool empty_;  ///< empty state
 };  ///< Class for Derivative elements of Bus Model
 
 }  // namespace DYN
