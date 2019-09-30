@@ -148,7 +148,7 @@ export DYNAWO_LOCALE=en_GB
 export DYNAWO_RESULTS_SHOW=true
 export DYNAWO_BROWSER=xdg-open
 
-export DYNAWO_NB_PROCESSORS_USED=$(($(nproc --all)/2))
+export DYNAWO_NB_PROCESSORS_USED=1
 
 export DYNAWO_BUILD_TYPE=Release
 export DYNAWO_CXX11_ENABLED=YES
