@@ -1597,6 +1597,11 @@ deploy_dynawo() {
   cp -n -r $DYNAWO_INSTALL_DIR/include/* include/
   cp -r $DYNAWO_INSTALL_DIR/share/* share/
   cp -r $DYNAWO_INSTALL_DIR/ddb .
+  # create zipped Dynawo library for OM users
+  DYNAWO_LIB_ZIP_FILE=Dynawo_library_V$version.zip
+  pushd ddb
+  zip -r -y $DYNAWO_LIB_ZIP_FILE Dynawo/
+  popd
 
   mkdir -p sbin
   cp $DYNAWO_INSTALL_DIR/sbin/*.py sbin/
