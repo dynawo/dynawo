@@ -468,8 +468,8 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   bool switchOff_;  ///< whether the bus was switched off
   bool nodeFault_;  ///< whether a short-circuit is applied to the bus or not
   // equivalent to switchOff_ but with discrete variable, to be able to switch off a node thanks to an outside event
-  State connectionState_;  ///< "internal" connection status, evaluated at the end of evalZ to detect if the state was modified by another component
-  bool topologyModified_;  ///< true if some nodes were closed or opened
+  State connectionState_;  ///< "internal" bus connection status, evaluated at the end of evalZ to detect if the state was modified by another component
+  bool topologyModified_;  ///< true if the bus connection state was modified
   double irConnection_;  ///< real current injected
   double iiConnection_;  ///< imaginary current injected
   int refIslands_;  ///< island reference (used to compute switch loops)
