@@ -258,10 +258,11 @@ bool verifySharedObject(string modelname) {
 std::string verifyModelListFile(const string & modelList, const string & outputPath) {
   string dydFileName = absolute(replace_extension(file_name(modelList), "dyd"), outputPath);
   string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
+  string pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
 
   // scriptVerifyModelList.py
   std::cout << "Create file: " << dydFileName << std::endl;
-  string verifymodellistcommand = "python " + scriptsDir1 + "/scriptVerifyModelList.py --dyd=" + dydFileName + " --model=" + modelList;
+  string verifymodellistcommand = pythonCmd + " " + scriptsDir1 + "/scriptVerifyModelList.py --dyd=" + dydFileName + " --model=" + modelList;
   executeCommand1(verifymodellistcommand);
   return dydFileName;
 }

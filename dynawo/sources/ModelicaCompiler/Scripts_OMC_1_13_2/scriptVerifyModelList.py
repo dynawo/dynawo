@@ -65,7 +65,7 @@ def main():
 
     print (dyd_file_name, model_list_file)
     if( os.path.isfile(options.modelListfile) ):
-      dyd = open(dyd_file_name,"w")
+      dyd = open(dyd_file_name,"wb")
       modellist = open(model_list_file,"r")
     else:
       print ("Error: modelListfile not valid.")

@@ -412,6 +412,7 @@ set_environment() {
     fi
     export_var_env_force DYNAWO_CMAKE_BUILD_OPTION="$CMAKE_BUILD_OPTION"
   fi
+  export_var_env DYNAWO_PYTHON_COMMAND="python"
 
   # Only used until now by nrt
   export_var_env DYNAWO_NB_PROCESSORS_USED=1
@@ -798,6 +799,7 @@ config_dynawo() {
     -DLIBXML_HOME=$DYNAWO_LIBXML_INSTALL_DIR \
     -DLIBIIDM_HOME=$DYNAWO_LIBIIDM_INSTALL_DIR \
     -DXERCESC_HOME=$DYNAWO_XERCESC_INSTALL_DIR \
+    -DDYNAWO_PYTHON_COMMAND="$DYNAWO_PYTHON_COMMAND" \
     $CMAKE_OPTIONAL \
     -G "$DYNAWO_CMAKE_GENERATOR" \
     $DYNAWO_SRC_DIR
@@ -1242,7 +1244,7 @@ jobs_with_curves() {
 
 curves_visu() {
   verify_browser
-  python $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$(python -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$(python -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
 
 dump_model() {
@@ -1305,7 +1307,7 @@ nrt() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
-  python -u $DYNAWO_NRT_DIR/nrt.py $@
+  $DYNAWO_PYTHON_COMMAND -u $DYNAWO_NRT_DIR/nrt.py $@
   FAILED_CASES_NUM=$?
 
   jenkins_mode=$(printenv | grep "DYNAWO_JENKINS_MODE" | wc -l)
@@ -1442,11 +1444,11 @@ run_documentation_test() {
 
 
 nrt_diff() {
-  python $DYNAWO_NRT_DIFF_DIR/nrtDiff.py $@
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_NRT_DIFF_DIR/nrtDiff.py $@
 }
 
 nrt_ref() {
-  python $DYNAWO_NRT_DIFF_DIR/defineTestReference.py $@
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_NRT_DIFF_DIR/defineTestReference.py $@
 }
 
 check_coding_files() {
