@@ -449,8 +449,8 @@ class ModelDanglingLine : public NetworkComponent::Impl {
 
 
   boost::shared_ptr<ModelBus> modelBus_;  ///< bus
-  State connectionState_;  ///< "internal" connection status, evaluated at the end of evalZ to detect if the state was modified by another component
-  bool stateModified_;  ///< true if some nodes were closed or opened
+  State connectionState_;  ///< "internal" line connection status, evaluated at the end of evalZ to detect if the state was modified by another component
+  bool stateModified_;  ///< true if the line connection state was modified
   double currentLimitsDesactivate_;  ///< current limits
   double admittance_;  ///< admittance
   double lossAngle_;  ///< loss angle

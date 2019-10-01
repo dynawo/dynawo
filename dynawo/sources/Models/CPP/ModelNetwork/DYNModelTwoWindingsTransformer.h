@@ -670,9 +670,9 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   boost::shared_ptr<ModelBus> modelBus2_;  ///< model for the bus on side 2
 
   // evaluated at the end of evalZ to detect if the state was modified by another component
-  State connectionState_;  ///< "internal" connection state for the transformer
-  bool topologyModified_;  ///< true if some nodes were closed or opened
-  bool stateIndexModified_;  ///< true if some nodes were closed or opened
+  State connectionState_;  ///< "internal" 2wt connection state for the transformer
+  bool topologyModified_;  ///< true if the 2wt connection state was modified
+  bool stateIndexModified_;  ///< true if the 2wt state index was modified
   double currentLimitsDesactivate_;  ///< whether the current limit automaton is deactivated
   double disableInternalTapChanger_;  ///< whether an external (or internal) model is used for the tap-changer
   double tapChangerLocked_;  ///< whether the tap-changer is locked

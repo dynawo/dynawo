@@ -679,11 +679,6 @@ ModelDanglingLine::defineElements(std::vector<Element> &elements, std::map<std::
 
 void
 ModelDanglingLine::evalZ(const double& t) {
-  if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {
-    setCurrentLimitsDesactivate(z_[1]);
-    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
-  }
-
   if (currentLimits_) {
     ModelCurrentLimits::state_t currentLimitState;
     currentLimitState = currentLimits_->evalZ(id(), t, &(g_[0]), network_, currentLimitsDesactivate_);
@@ -703,6 +698,11 @@ ModelDanglingLine::evalZ(const double& t) {
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     }
     connectionState_ = static_cast<State>(z_[0]);
+  }
+
+  if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {
+    setCurrentLimitsDesactivate(z_[1]);
+    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
 }
 

@@ -475,9 +475,9 @@ class ModelHvdcLink : public NetworkComponent::Impl {
 
   double rdc_;  ///< resistance of the dc line in Ohm
 
-  State connectionState1_;  ///< "internal" connection status at point of common coupling 1
-  State connectionState2_;  ///< "internal" connection status at point of common coupling 2
-  bool stateModified_;  ///< true if some nodes were closed or opened
+  State connectionState1_;  ///< "internal" link connection status at point of common coupling 1
+  State connectionState2_;  ///< "internal" link connection status at point of common coupling 2
+  bool stateModified_;  ///< true if at least one of the link connection states was modified
 
   double P01_;  ///< initial active power at point of commom coupling 1 in pu (generator convention)
   double P02_;  ///< initial active power at point of commom coupling 2 in pu (generator convention)
