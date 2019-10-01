@@ -100,7 +100,7 @@ compile_libiidm() {
 }
 
 compile_xercesc() {
-  cd $SCRIPT_DIR/xerces-c
+  cd $SCRIPT_DIR/xercesc
   bash xerces-c-chain.sh --build-dir=$XERCESC_BUILD_DIR --install-dir=$XERCESC_INSTALL_DIR --build-type=$BUILD_TYPE
   RETURN_CODE=$?
   return ${RETURN_CODE}

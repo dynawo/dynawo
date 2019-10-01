@@ -1,0 +1,251 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..567609b
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1 @@
++build/
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+new file mode 100644
+index 0000000..bbcf0da
+--- /dev/null
++++ b/CMakeLists.txt
+@@ -0,0 +1,33 @@
++cmake_minimum_required(VERSION 3.4.3 FATAL_ERROR)
++
++project(adept)
++
++include(CTest)
++
++file(READ "include/adept/base.h" _file_content)
++string(REGEX MATCH "#define[ \t]+ADEPT_VERSION_STR[ \t]+\"(([0-9]+)\\.[0-9]+\\.[0-9]+)" _ ${_file_content})
++set(ADEPT_VERSION_STRING ${CMAKE_MATCH_1})
++set(ADEPT_VERSION_MAJOR  ${CMAKE_MATCH_2})
++message("ADEPT_VERSION_STRING=${ADEPT_VERSION_STRING}")
++
++option(BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of static ones (.lib/.a)" ON)
++
++set(INCLUDE_INSTALL_DIR "include")
++set(LIB_INSTALL_DIR     "lib")
++set(BIN_INSTALL_DIR     "bin")
++set(CONFIG_INSTALL_DIR  "cmake")
++
++add_subdirectory(adept)
++add_subdirectory(test EXCLUDE_FROM_ALL)
++add_subdirectory(benchmark EXCLUDE_FROM_ALL)
++
++install(DIRECTORY include/
++    DESTINATION ${INCLUDE_INSTALL_DIR}
++    FILES_MATCHING PATTERN "*.h"
++    )
++
++install(EXPORT adept-targets
++    NAMESPACE Adept::
++    FILE adept-config.cmake
++    DESTINATION ${CONFIG_INSTALL_DIR}
++    )
+diff --git a/adept/CMakeLists.txt b/adept/CMakeLists.txt
+new file mode 100644
+index 0000000..dac21a2
+--- /dev/null
++++ b/adept/CMakeLists.txt
+@@ -0,0 +1,67 @@
++set(ADEPT_SOURCES
++    Array.cpp Stack.cpp
++    StackStorageOrig.cpp
++    Storage.cpp
++    cppblas.cpp
++    #cpplapack.h
++    index.cpp
++    inv.cpp
++    jacobian.cpp
++    settings.cpp
++    solve.cpp
++    vector_utilities.cpp
++    )
++
++add_library(adept ${ADEPT_SOURCES})
++
++set_target_properties(adept PROPERTIES
++    OUTPUT_NAME adept
++    SOVERSION ${ADEPT_VERSION_MAJOR}
++    VERSION ${ADEPT_VERSION_STRING}
++    WINDOWS_EXPORT_ALL_SYMBOLS TRUE
++    )
++
++include(GenerateExportHeader)
++generate_export_header(adept)
++install(FILES ${CMAKE_CURRENT_BINARY_DIR}/adept_export.h
++    DESTINATION ${INCLUDE_INSTALL_DIR}
++    )
++
++if(EXISTS "${CMAKE_SOURCE_DIR}/config.h")
++    set(_compile_definitions HAVE_CONFIG_H)
++    install(FILES ${CMAKE_SOURCE_DIR}/config.h
++        DESTINATION ${INCLUDE_INSTALL_DIR}
++        )
++else()
++    string(TOUPPER ${CMAKE_BUILD_TYPE} _build_type)
++    set(_compile_definitions CXXFLAGS="${CMAKE_CXX_FLAGS_${_build_type}}")
++endif()
++message("COMPILE_DEFINITIONS=[${_compile_definitions}]")
++
++target_compile_definitions(adept PUBLIC ${_compile_definitions})
++
++if(NOT BUILD_SHARED_LIBS)
++    target_compile_definitions(adept PUBLIC ADEPT_STATIC_DEFINE)
++endif()
++
++target_include_directories(adept
++    PUBLIC
++    $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
++    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
++    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
++    $<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>
++    )
++
++add_library(adept-nolib INTERFACE)
++target_include_directories(adept-nolib
++    INTERFACE
++    $<TARGET_PROPERTY:adept,INCLUDE_DIRECTORIES>
++    )
++target_compile_definitions(adept-nolib INTERFACE ${_compile_definitions} ADEPT_STATIC_DEFINE)
++
++install(TARGETS adept adept-nolib
++    EXPORT adept-targets
++    ARCHIVE DESTINATION ${LIB_INSTALL_DIR}
++    LIBRARY DESTINATION ${LIB_INSTALL_DIR}
++    RUNTIME DESTINATION ${BIN_INSTALL_DIR}
++    )
+diff --git a/benchmark/CMakeLists.txt b/benchmark/CMakeLists.txt
+new file mode 100644
+index 0000000..23e789f
+--- /dev/null
++++ b/benchmark/CMakeLists.txt
+@@ -0,0 +1,15 @@
++macro(add_bench_adept _bench)
++    add_executable(${_bench} ${_bench}.cpp)
++    target_link_libraries(${_bench} adept)
++    add_dependencies(build-bench ${_bench})
++endmacro()
++
++add_custom_target(build-bench)
++
++add_dependencies(check build-bench)
++
++add_bench_adept(autodiff_benchmark)
++
++add_bench_adept(animate)
++
++add_bench_adept(matrix_benchmark)
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+new file mode 100644
+index 0000000..bc01218
+--- /dev/null
++++ b/test/CMakeLists.txt
+@@ -0,0 +1,105 @@
++# Uncomment the following to check what happens if thread safety disabled
++# add_definitions(-DADEPT_STACK_THREAD_UNSAFE)
++
++add_library(algorithm OBJECT algorithm.cpp)
++target_link_libraries(algorithm adept)
++
++# The no-automatic-differentiation version of the algorithm: uses the
++# -DADEPT_NO_AUTOMATIC_DIFFERENTIATION to produce a version of the
++# algorithm that takes double rather than adouble arguments
++add_library(algorithm_noad OBJECT algorithm.cpp)
++target_compile_definitions(algorithm_noad PRIVATE ADEPT_NO_AUTOMATIC_DIFFERENTIATION)
++target_link_libraries(algorithm_noad adept)
++
++macro(add_test_adept _test)
++    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_test}.cpp")
++        add_executable(${_test} ${_test}.cpp ${ARGN})
++    else()
++        add_executable(${_test} ${ARGN})
++    endif()
++    target_link_libraries(${_test} adept)
++    add_dependencies(build-test ${_test})
++    add_test(NAME ${_test} COMMAND ${_test})
++    set_tests_properties(${_test} PROPERTIES ENVIRONMENT "PATH=$<TARGET_FILE_DIR:adept>")
++endmacro()
++
++add_custom_target(build-test)
++
++add_custom_target(check
++    ${CMAKE_MAKE_PROGRAM} test
++    DEPENDS build-test
++    )
++
++
++# Test program 1
++add_test_adept(test_adept $<TARGET_OBJECTS:algorithm>)
++
++# Test program 2
++add_test_adept(test_adept_with_and_without_ad $<TARGET_OBJECTS:algorithm> $<TARGET_OBJECTS:algorithm_noad>)
++
++# Test program 3
++add_test_adept(test_radiances simulate_radiances.cpp)
++
++# Test program 4
++find_package(GSL QUIET)
++if(GSL_FOUND)
++    add_test_adept(test_gsl_interface state.cpp rosenbrock_banana_function.cpp)
++    target_link_libraries(test_gsl_interface GSL::gsl)
++else()
++    message( "The executable test_gsl_interface will not be created because GSL library was not found")
++endif()
++
++# Test program 5
++add_test_adept(test_misc $<TARGET_OBJECTS:algorithm>)
++
++# Test program 6
++add_test_adept(test_checkpoint)
++
++# Test program 7
++add_test_adept(test_thread_safe)
++
++# Test program 8 (note that it is not linked against the Adept library, it needs only include directories)
++add_executable(test_no_lib test_no_lib.cpp algorithm.cpp)
++target_link_libraries(test_no_lib adept-nolib)
++add_dependencies(build-test test_no_lib)
++add_test(NAME test_no_lib COMMAND test_no_lib)
++
++# Test program 9a
++add_test_adept(test_arrays)
++
++# Test program 9b
++add_test_adept(test_arrays_active test_arrays.cpp)
++target_compile_definitions(test_arrays_active PRIVATE ALL_ACTIVE)
++
++# Test program 9c
++add_test_adept(test_arrays_active_pausable test_arrays.cpp)
++target_compile_definitions(test_arrays_active_pausable PRIVATE ADEPT_RECORDING_PAUSABLE ALL_ACTIVE)
++
++# Test program 9d
++add_test_adept(test_complex_arrays test_arrays.cpp)
++target_compile_definitions(test_complex_arrays PRIVATE ALL_COMPLEX)
++
++# Test program 10
++add_test_adept(test_array_speed)
++
++# Test program 11
++add_test_adept(test_radiances_array simulate_radiances.cpp)
++
++# Test program 12a
++add_test_adept(test_fixed_arrays)
++
++# Test program 12b
++add_test_adept(test_fixed_arrays_active test_fixed_arrays.cpp)
++target_compile_definitions(test_fixed_arrays_active PRIVATE ALL_ACTIVE)
++
++# Test program 13
++add_test_adept(test_constructors)
++
++# Test program 14
++add_test_adept(test_derivatives)
++
++# Test program 15
++add_test_adept(test_array_derivatives)
++
++# Test program 16
++add_test_adept(test_thread_safe_arrays)
