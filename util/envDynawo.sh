@@ -51,6 +51,7 @@ where [option] can be:"
         build-omcDynawo                       build the OpenModelica compiler for Dynawo
         build-3rd-party                       build 3rd party softwares for all compilation environments (Release/Debug, C++98/11) for a compiler in shared or static
         build-3rd-party-version               build 3rd party softwares
+        build-3rd-party-version-cmake         build 3rd party softwares
         config-dynawo                         configure Dynawo's compiling environment using CMake
         build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
         build-dynawo-core                     build Dynawo without models
@@ -769,6 +770,50 @@ build_3rd_party_version() {
   fi
 }
 
+build_3rd_party_version_cmake() {
+  CMAKE_OPTIONAL=""
+  if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
+    CMAKE_OPTIONAL="-DBOOST_ROOT=$DYNAWO_BOOST_HOME"
+  fi
+  if [ $DYNAWO_ZLIB_HOME_DEFAULT != true ]; then
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DZLIB_ROOT=$DYNAWO_ZLIB_HOME"
+  fi
+  if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
+  fi
+  case $DYNAWO_BUILD_TYPE in
+    Tests|TestCoverage)
+      if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
+        CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGTEST_ROOT=$DYNAWO_GTEST_HOME"
+      fi
+      if [ $DYNAWO_GMOCK_HOME_DEFAULT != true ]; then
+        CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGMOCK_HOME=$DYNAWO_GMOCK_HOME"
+      fi
+      ;;
+    *)
+      ;;
+  esac
+
+  mkdir -p $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build
+  cd $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build
+  cmake $DYNAWO_SRC_DIR/3rdParty \
+    -DCMAKE_INSTALL_PREFIX=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION \
+    -DDOWNLOAD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/src \
+    -DTMP_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/tmp \
+    -DCMAKE_C_COMPILER=$DYNAWO_C_COMPILER \
+    -DCMAKE_CXX_COMPILER=$DYNAWO_CXX_COMPILER \
+    -DCXX11_ENABLED=$DYNAWO_CXX11_ENABLED \
+    -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE \
+    -DOPENMODELICA_INSTALL=$DYNAWO_INSTALL_OPENMODELICA \
+    -DOPENMODELICA_SRC=$DYNAWO_SRC_OPENMODELICA \
+    -DBUILD_SHARED_LIBS=$(if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then echo -n "ON"; else echo -n "OFF"; fi) \
+    -G "$DYNAWO_CMAKE_GENERATOR" \
+    $CMAKE_OPTIONAL || return 1
+  make -j $DYNAWO_NB_PROCESSORS_USED
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
 # Very simple check to see if each third party has installed something or not
 is_3rd_party_version_installed() {
   third_party_folders=(adept libiidm libxml libzip suitesparse sundials xerces-c)
@@ -835,23 +880,23 @@ config_dynawo() {
   fi
   cd $DYNAWO_BUILD_DIR
 
-  CMAKE_OPTIONNAL=""
+  CMAKE_OPTIONAL=""
   if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
-    CMAKE_OPTIONNAL="-DBOOST_ROOT=$DYNAWO_BOOST_HOME"
+    CMAKE_OPTIONAL="-DBOOST_ROOT=$DYNAWO_BOOST_HOME"
   fi
   if [ $DYNAWO_ZLIB_HOME_DEFAULT != true ]; then
-    CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DZLIB_ROOT=$DYNAWO_ZLIB_HOME"
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DZLIB_ROOT=$DYNAWO_ZLIB_HOME"
   fi
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
-    CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
   fi
   case $DYNAWO_BUILD_TYPE in
     Tests|TestCoverage)
       if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
-        CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DGTEST_ROOT=$DYNAWO_GTEST_HOME"
+        CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGTEST_ROOT=$DYNAWO_GTEST_HOME"
       fi
       if [ $DYNAWO_GMOCK_HOME_DEFAULT != true ]; then
-        CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DGMOCK_HOME=$DYNAWO_GMOCK_HOME"
+        CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGMOCK_HOME=$DYNAWO_GMOCK_HOME"
       fi
       ;;
     *)
@@ -876,7 +921,7 @@ config_dynawo() {
     -DSUITESPARSE_HOME=$DYNAWO_SUITESPARSE_INSTALL_DIR \
     -DNICSLU_HOME=$DYNAWO_NICSLU_INSTALL_DIR \
     -DLIBZIP_HOME=$DYNAWO_LIBZIP_INSTALL_DIR \
-    $CMAKE_OPTIONNAL \
+    $CMAKE_OPTIONAL \
     -G "$DYNAWO_CMAKE_GENERATOR" \
     "-DCMAKE_PREFIX_PATH=$DYNAWO_LIBXML_HOME;$DYNAWO_LIBIIDM_HOME" \
     $DYNAWO_SRC_DIR
@@ -1989,6 +2034,10 @@ case $MODE in
 
   build-3rd-party-version)
     build_3rd_party_version || error_exit "Error while building 3rd party version"
+    ;;
+
+  build-3rd-party-version-cmake)
+    build_3rd_party_version_cmake || error_exit "Error while building 3rd party version cmake"
     ;;
 
   build-all)

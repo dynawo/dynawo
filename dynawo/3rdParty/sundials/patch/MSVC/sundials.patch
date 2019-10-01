@@ -1,0 +1,89 @@
+diff -urpN sundials-4.1.0/CMakeLists.txt sundials-4.1.0.patch/CMakeLists.txt
+--- sundials-4.1.0/CMakeLists.txt	2019-02-12 19:50:51.000000000 +0100
++++ sundials-4.1.0.patch/CMakeLists.txt	2019-10-09 10:37:49.799923108 +0200
+@@ -22,6 +22,12 @@
+ # Require a fairly recent cmake version
+ cmake_minimum_required(VERSION 3.1.3)
+ 
++if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
++  if(POLICY CMP0091)
++    cmake_policy(SET CMP0091 NEW)
++  endif()
++endif()
++
+ # Libraries linked via full path no longer produce linker search paths
+ # Allows examples to build
+ if(COMMAND cmake_policy)
+@@ -42,6 +48,15 @@ endif()
+ # sets PROJECT_SOURCE_DIR and PROJECT_BINARY_DIR variables
+ PROJECT(sundials C)
+ 
++SET(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
++if(MSVC)
++  if(BUILD_STATIC_LIBS)
++	if(MSVC_STATIC_RUNTIME_LIBRARY)
++      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
++	endif()
++  endif()
++endif()
++
+ # Set some variables with info on the SUNDIALS project
+ SET(PACKAGE_BUGREPORT "woodward6@llnl.gov")
+ SET(PACKAGE_NAME "SUNDIALS")
+diff -urpN sundials-4.1.0/src/sunlinsol/klu/sunlinsol_klu.c sundials-4.1.0.patch/src/sunlinsol/klu/sunlinsol_klu.c
+--- sundials-4.1.0/src/sunlinsol/klu/sunlinsol_klu.c	2019-02-12 19:50:52.000000000 +0100
++++ sundials-4.1.0.patch/src/sunlinsol/klu/sunlinsol_klu.c	2019-10-08 13:43:26.527338629 +0200
+@@ -53,7 +53,7 @@ sunindextype GlobalVectorLength_KLU(N_Ve
+  */
+ 
+ #if defined(SUNDIALS_INT64_T)
+-#define KLU_INDEXTYPE long int
++#define KLU_INDEXTYPE SuiteSparse_long
+ #else
+ #define KLU_INDEXTYPE int
+ #endif
+@@ -159,7 +159,7 @@ SUNLinearSolver SUNLinSol_KLU(N_Vector y
+ #endif
+   content->symbolic = NULL;
+   content->numeric = NULL;
+-  flag = sun_klu_defaults(&(content->common));
++  flag = (int)sun_klu_defaults(&(content->common));
+   if (flag == 0) { free(content); free(ops); free(S); return(NULL); }
+   (content->common).ordering = SUNKLU_ORDERING_DEFAULT;
+   
+@@ -296,7 +296,7 @@ int SUNLinSolSetup_KLU(SUNLinearSolver S
+ 
+   } else {   /* not the first decomposition, so just refactor */
+ 
+-    retval = sun_klu_refactor((KLU_INDEXTYPE*) SUNSparseMatrix_IndexPointers(A), 
++    retval = (int)sun_klu_refactor((KLU_INDEXTYPE*) SUNSparseMatrix_IndexPointers(A), 
+                               (KLU_INDEXTYPE*) SUNSparseMatrix_IndexValues(A), 
+                               SUNSparseMatrix_Data(A), 
+                               SYMBOLIC(S),
+@@ -313,7 +313,7 @@ int SUNLinSolSetup_KLU(SUNLinearSolver S
+       the prior numeric factorization and recompute it.
+       -----------------------------------------------------------*/
+     
+-    retval = sun_klu_rcond(SYMBOLIC(S), NUMERIC(S), &COMMON(S));
++    retval = (int)sun_klu_rcond(SYMBOLIC(S), NUMERIC(S), &COMMON(S));
+     if (retval == 0) {
+       LASTFLAG(S) = SUNLS_PACKAGE_FAIL_REC;
+       return(LASTFLAG(S));
+@@ -323,7 +323,7 @@ int SUNLinSolSetup_KLU(SUNLinearSolver S
+       
+       /* Condition number may be getting large.  
+ 	 Compute more accurate estimate */
+-      retval = sun_klu_condest((KLU_INDEXTYPE*) SUNSparseMatrix_IndexPointers(A), 
++      retval = (int)sun_klu_condest((KLU_INDEXTYPE*) SUNSparseMatrix_IndexPointers(A), 
+                                SUNSparseMatrix_Data(A), 
+                                SYMBOLIC(S),
+                                NUMERIC(S),
+@@ -378,7 +378,7 @@ int SUNLinSolSolve_KLU(SUNLinearSolver S
+   }
+   
+   /* Call KLU to solve the linear system */
+-  flag = SOLVE(S)(SYMBOLIC(S), NUMERIC(S), 
++  flag = (int)SOLVE(S)(SYMBOLIC(S), NUMERIC(S), 
+                   SUNSparseMatrix_NP(A), 1, xdata, 
+                   &COMMON(S));
+   if (flag == 0) {

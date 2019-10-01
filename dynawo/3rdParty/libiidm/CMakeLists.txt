@@ -9,6 +9,14 @@
 
 cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 
+if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
+  if(POLICY CMP0091)
+    cmake_policy(SET CMP0091 NEW)
+  endif()
+endif()
+
+project(libiidm)
+
 # This project has a core component: libiidm.so
 # It also provide some extensions, like libiidm-xml.so
 
@@ -27,6 +35,8 @@ option(BUILD_SAMPLES "enables the building of the samples (only those related to
 # making an option allow "shared" to be the default value
 option(IIDM_BUILD_SHARED "build shared libraries instead of static ones" ON)
 
+set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
+
 if(NOT IIDM_BUILD_SHARED)
   set(LibXML_USE_STATIC_LIBS True)
 endif()
@@ -39,6 +49,14 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "build type, one of (Release, Debug, RelWithDebInfo)" FORCE)
 else()
   set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} CACHE STRING "build type, one of (Release, Debug, RelWithDebInfo)")
+endif()
+
+if(MSVC)
+  if(NOT IIDM_BUILD_SHARED)
+    if(MSVC_STATIC_RUNTIME_LIBRARY)
+      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    endif()
+  endif()
 endif()
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")

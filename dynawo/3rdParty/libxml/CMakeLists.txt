@@ -9,6 +9,14 @@
 
 cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR)
 
+if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
+  if(POLICY CMP0091)
+    cmake_policy(SET CMP0091 NEW)
+  endif()
+endif()
+
+project(libxml)
+
 # temporary only effectively supports g++ in versions starting 4.8.2.
 
 SET(LIBXML_VERSION_MAJOR 0)
@@ -27,6 +35,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(LibXML_SAX_BUILD_SHARED TRUE CACHE BOOL "Build LibXML_SAX as shared library.")
 set(LibXML_SAX_BUILD_STATIC TRUE CACHE BOOL "Build LibXML_SAX as static library.")
 
+SET(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
+
 if(NOT LibXML_SAX_BUILD_SHARED AND NOT LibXML_SAX_BUILD_STATIC)
   message(FATAL_ERROR "At least one of LibXML_SAX_BUILD_SHARED and LibXML_SAX_BUILD_STATIC must be true")
 endif()
@@ -34,6 +44,14 @@ endif()
 set(CXX11_ENABLED OFF CACHE BOOL "activates the C++11 compilation")
 
 set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build: Debug Release RelWithDebInfo MinSizeRel")
+
+if(MSVC)
+  if(LibXML_SAX_BUILD_STATIC)
+    if(MSVC_STATIC_RUNTIME_LIBRARY)
+      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    endif()
+  endif()
+endif()
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 

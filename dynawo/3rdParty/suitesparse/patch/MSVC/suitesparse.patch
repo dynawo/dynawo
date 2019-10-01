@@ -1,0 +1,47 @@
+diff -urpN SuiteSparse/CMakeLists.txt SuiteSparse.patch/CMakeLists.txt
+--- SuiteSparse/CMakeLists.txt	2019-10-08 13:37:10.745154612 +0200
++++ SuiteSparse.patch/CMakeLists.txt	2019-10-09 10:37:06.523791858 +0200
+@@ -1,8 +1,22 @@
+ cmake_minimum_required(VERSION 3.4.3 FATAL_ERROR)
+ 
++if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
++  if(POLICY CMP0091)
++    cmake_policy(SET CMP0091 NEW)
++  endif()
++endif()
++
+ project(suitesparse)
+ 
+ option(BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of static ones (.lib/.a)" ON)
++SET(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
++if(MSVC)
++  if(NOT BUILD_SHARED_LIBS)
++	if(MSVC_STATIC_RUNTIME_LIBRARY)
++      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
++	endif()
++  endif()
++endif()
+ 
+ set(INCLUDE_INSTALL_DIR "include")
+ set(LIB_INSTALL_DIR     "lib")
+diff -urpN SuiteSparse/SuiteSparse_config/SuiteSparse_config.h SuiteSparse.patch/SuiteSparse_config/SuiteSparse_config.h
+--- SuiteSparse/SuiteSparse_config/SuiteSparse_config.h	2016-12-08 20:40:57.000000000 +0100
++++ SuiteSparse.patch/SuiteSparse_config/SuiteSparse_config.h	2019-10-08 13:37:23.188094481 +0200
+@@ -45,6 +45,8 @@ extern "C" {
+ #include <limits.h>
+ #include <stdlib.h>
+ 
++#include <suitesparse_export.h>
++
+ /* ========================================================================== */
+ /* === SuiteSparse_long ===================================================== */
+ /* ========================================================================== */
+@@ -93,7 +95,7 @@ struct SuiteSparse_config_struct
+     int (*divcomplex_func) (double, double, double, double, double *, double *);
+ } ;
+ 
+-extern struct SuiteSparse_config_struct SuiteSparse_config ;
++extern SUITESPARSE_EXPORT struct SuiteSparse_config_struct SuiteSparse_config ;
+ 
+ void SuiteSparse_start ( void ) ;   /* called to start SuiteSparse */
+ 

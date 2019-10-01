@@ -1,0 +1,269 @@
+diff -urpN adept-2.0.5/benchmark/animate.cpp adept-2.0.5.patch/benchmark/animate.cpp
+--- adept-2.0.5/benchmark/animate.cpp	2015-07-09 23:39:41.000000000 +0200
++++ adept-2.0.5.patch/benchmark/animate.cpp	2019-10-08 12:18:24.421492600 +0200
+@@ -10,7 +10,12 @@
+ 
+ #include <string>
+ #include <iostream>
++#ifdef _MSC_VER
++#define NOMINMAX
++#include <windows.h>
++#else
+ #include <time.h>
++#endif
+ 
+ #include "advection_schemes.h"
+ 
+@@ -37,9 +42,11 @@ main(int argc, char** argv)
+   std::string line;
+   line.resize(NX);
+ 
++#ifndef _MSC_VER
+   timespec t;
+   t.tv_sec = 0;
+   t.tv_nsec = 20000000;
++#endif
+ 
+   for (int i = 0; i < NX; i++) q1[i] = (0.5+0.5*sin((i*2.0*pi)/(NX-1.5)))+0.0001;
+   for (int k = 0; k < cycles*NX/(nt*dt); k++) {
+@@ -74,7 +81,11 @@ main(int argc, char** argv)
+       std::cout << line << "\n";
+       std::cout.flush();
+     }
++#ifdef _MSC_VER
++	Sleep(20);
++#else
+     nanosleep(&t, 0);
++#endif
+     //toon(nt, dt, q1, q2);
+     lax_wendroff(nt, dt, q1, q2);
+     double* tmp = q1;
+diff -urpN adept-2.0.5/CMakeLists.txt adept-2.0.5.patch/CMakeLists.txt
+--- adept-2.0.5/CMakeLists.txt	2019-10-08 12:17:46.751573706 +0200
++++ adept-2.0.5.patch/CMakeLists.txt	2019-10-09 10:34:57.338989567 +0200
+@@ -1,7 +1,15 @@
+ cmake_minimum_required(VERSION 3.4.3 FATAL_ERROR)
+ 
++if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
++  if(POLICY CMP0091)
++    cmake_policy(SET CMP0091 NEW)
++  endif()
++endif()
++
+ project(adept)
+ 
++SET(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
++
+ include(CTest)
+ 
+ file(READ "include/adept/base.h" _file_content)
+@@ -12,6 +20,14 @@ message("ADEPT_VERSION_STRING=${ADEPT_VE
+ 
+ option(BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of static ones (.lib/.a)" ON)
+ 
++if(MSVC)
++  IF(NOT BUILD_SHARED_LIBS)
++	if(MSVC_STATIC_RUNTIME_LIBRARY)
++      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
++	endif()
++  ENDIF()
++endif()
++
+ set(INCLUDE_INSTALL_DIR "include")
+ set(LIB_INSTALL_DIR     "lib")
+ set(BIN_INSTALL_DIR     "bin")
+diff -urpN adept-2.0.5/include/adept/Array.h adept-2.0.5.patch/include/adept/Array.h
+--- adept-2.0.5/include/adept/Array.h	2018-02-06 22:33:33.000000000 +0100
++++ adept-2.0.5.patch/include/adept/Array.h	2019-10-08 12:18:24.422492598 +0200
+@@ -75,27 +75,27 @@ namespace adept {
+ 
+     // This is "true" by default: row-major is the normal C/C++
+     // convention
+-    extern bool array_row_major_order;
++    extern ADEPT_EXPORT bool array_row_major_order;
+ 
+     // When arrays are sent to a stream the dimensions can be grouped
+     // with curly brackets
+     //    extern bool array_print_curly_brackets;
+ 
+     // Variables describing how arrays are written to a stream
+-    extern ArrayPrintStyle array_print_style;
+-    extern std::string vector_separator;
+-    extern std::string vector_print_before;
+-    extern std::string vector_print_after;
+-    extern std::string array_opening_bracket;
+-    extern std::string array_closing_bracket;
+-    extern std::string array_contiguous_separator;
+-    extern std::string array_non_contiguous_separator;
+-    extern std::string array_print_before;
+-    extern std::string array_print_after;
+-    extern std::string array_print_empty_before;
+-    extern std::string array_print_empty_after;
+-    extern bool array_print_indent;
+-    extern bool array_print_empty_rank;
++    extern ADEPT_EXPORT ArrayPrintStyle array_print_style;
++    extern ADEPT_EXPORT std::string vector_separator;
++    extern ADEPT_EXPORT std::string vector_print_before;
++    extern ADEPT_EXPORT std::string vector_print_after;
++    extern ADEPT_EXPORT std::string array_opening_bracket;
++    extern ADEPT_EXPORT std::string array_closing_bracket;
++    extern ADEPT_EXPORT std::string array_contiguous_separator;
++    extern ADEPT_EXPORT std::string array_non_contiguous_separator;
++    extern ADEPT_EXPORT std::string array_print_before;
++    extern ADEPT_EXPORT std::string array_print_after;
++    extern ADEPT_EXPORT std::string array_print_empty_before;
++    extern ADEPT_EXPORT std::string array_print_empty_after;
++    extern ADEPT_EXPORT bool array_print_indent;
++    extern ADEPT_EXPORT bool array_print_empty_rank;
+ 
+     // Forward declaration to enable Array::where()
+     //    template <class A, class B> class Where;
+@@ -437,8 +437,12 @@ namespace adept {
+       }
+       return *this;
+     }
+-
+-    friend void swap(Array& l, Array& r) noexcept {
++#ifdef _MSC_VER
++    static
++#else
++	friend
++#endif
++    void swap(Array& l, Array& r) noexcept {
+ #ifdef ADEPT_VERBOSE_FUNCTIONS
+       std::cout << "  running swap(Array&,Array&)\n";
+ #endif
+@@ -448,7 +452,13 @@ namespace adept {
+       Storage<Type>* tmp_storage = l.storage_;
+       l.storage_ = r.storage_;
+       r.storage_ = tmp_storage;
++#ifdef _MSC_VER
++	  ExpressionSize<Rank>::
++#endif
+       swap(l.dimensions_, r.dimensions_);
++#ifdef _MSC_VER
++	  ExpressionSize<Rank>::
++#endif
+       swap(l.offset_, r.offset_);
+       static_cast<GradientIndex<IsActive>&>(l).swap(static_cast<GradientIndex<IsActive>&>(r));
+     }
+diff -urpN adept-2.0.5/include/adept/base.h adept-2.0.5.patch/include/adept/base.h
+--- adept-2.0.5/include/adept/base.h	2018-01-28 20:15:00.000000000 +0100
++++ adept-2.0.5.patch/include/adept/base.h	2019-10-08 12:18:24.423492596 +0200
+@@ -15,6 +15,7 @@
+ 
+ #include <cstddef>
+ 
++#include <adept_export.h>
+ 
+ // ---------------------------------------------------------------------
+ // 0: Adept version number
+@@ -165,6 +166,12 @@
+ // you cannot get the code to compile, then you can make an empty
+ // declaration here.
+ //#define ADEPT_THREAD_LOCAL thread_local
++#if defined(_MSC_VER) && !defined(ADEPT_STATIC_DEFINE)
++// Thread-local storage does not work with DLL on Windows so we turn
++// it off and provide a blank definition of ADEPT_THREAD_LOCAL
++#define ADEPT_STACK_THREAD_UNSAFE 1
++#define ADEPT_THREAD_LOCAL
++#endif
+ 
+ // Define the following if you wish to use OpenMP to accelerate array
+ // expressions
+diff -urpN adept-2.0.5/include/adept/ExpressionSize.h adept-2.0.5.patch/include/adept/ExpressionSize.h
+--- adept-2.0.5/include/adept/ExpressionSize.h	2018-02-06 21:58:08.000000000 +0100
++++ adept-2.0.5.patch/include/adept/ExpressionSize.h	2019-10-08 12:18:24.422492598 +0200
+@@ -153,7 +153,12 @@ namespace adept {
+     }
+ 
+ #ifdef ADEPT_MOVE_SEMANTICS
+-    friend void swap(ExpressionSize<Rank>& l, 
++#ifdef _MSC_VER
++    static
++#else
++	friend
++#endif
++    void swap(ExpressionSize<Rank>& l, 
+ 		     ExpressionSize<Rank>& r) noexcept {
+       for (int i = 0; i < Rank; ++i) {
+ 	Index tmp = l.dim[i];
+diff -urpN adept-2.0.5/include/adept/RangeIndex.h adept-2.0.5.patch/include/adept/RangeIndex.h
+--- adept-2.0.5/include/adept/RangeIndex.h	2018-01-03 17:26:57.000000000 +0100
++++ adept-2.0.5.patch/include/adept/RangeIndex.h	2019-10-08 12:18:24.423492596 +0200
+@@ -360,10 +360,10 @@ namespace adept {
+   // User-accessible functions and objects
+ 
+   // The actual end object is held in a source file
+-  extern ::adept::internal::EndIndex end;
++  extern ADEPT_EXPORT ::adept::internal::EndIndex end;
+ 
+   // The actual "__" object is held in a source file
+-  extern ::adept::internal::AllIndex __;
++  extern ADEPT_EXPORT ::adept::internal::AllIndex __;
+ 
+   // Return a RangeIndex object representing all the integers between
+   // "begin" and "end"; the inputs can either be Expressions or ints
+diff -urpN adept-2.0.5/include/adept/Stack.h adept-2.0.5.patch/include/adept/Stack.h
+--- adept-2.0.5/include/adept/Stack.h	2017-10-21 09:41:20.000000000 +0200
++++ adept-2.0.5.patch/include/adept/Stack.h	2019-10-08 12:18:24.423492596 +0200
+@@ -49,8 +49,8 @@ namespace adept {
+   // Declare a thread-safe and a thread-unsafe global pointer to the
+   // current stack
+   class Stack;
+-  extern ADEPT_THREAD_LOCAL Stack* _stack_current_thread;
+-  extern Stack* _stack_current_thread_unsafe;
++  extern ADEPT_EXPORT ADEPT_THREAD_LOCAL Stack* _stack_current_thread;
++  extern ADEPT_EXPORT Stack* _stack_current_thread_unsafe;
+ 
+   // Define ADEPT_ACTIVE_STACK to be the currently active version
+   // regardless of whether we are in thread safe or unsafe mode
+diff -urpN adept-2.0.5/include/adept/Storage.h adept-2.0.5.patch/include/adept/Storage.h
+--- adept-2.0.5/include/adept/Storage.h	2017-09-29 23:19:11.000000000 +0200
++++ adept-2.0.5.patch/include/adept/Storage.h	2019-10-08 12:18:24.423492596 +0200
+@@ -39,8 +39,8 @@ namespace adept {
+   namespace internal {
+     // To check for memory leaks, we keep a running total of the number
+     // of Storage objects that are created and destroyed
+-    extern Index n_storage_objects_created_;
+-    extern Index n_storage_objects_deleted_;
++    extern ADEPT_EXPORT Index n_storage_objects_created_;
++    extern ADEPT_EXPORT Index n_storage_objects_deleted_;
+   }
+ 
+   // -------------------------------------------------------------------
+diff -urpN adept-2.0.5/include/Timer.h adept-2.0.5.patch/include/Timer.h
+--- adept-2.0.5/include/Timer.h	2017-09-18 22:32:47.000000000 +0200
++++ adept-2.0.5.patch/include/Timer.h	2019-10-08 12:18:24.422492598 +0200
+@@ -12,6 +12,7 @@
+ #define Timer_H 1
+ 
+ #ifdef _WIN32
++#define NOMINMAX
+ #include <windows.h>
+ #include <time.h>
+ #else
+diff -urpN adept-2.0.5/test/test_array_speed.cpp adept-2.0.5.patch/test/test_array_speed.cpp
+--- adept-2.0.5/test/test_array_speed.cpp	2017-10-18 22:03:01.000000000 +0200
++++ adept-2.0.5.patch/test/test_array_speed.cpp	2019-10-08 12:18:24.424492594 +0200
+@@ -13,7 +13,7 @@ int main()
+ {
+   Timer timer;
+   timer.print_on_exit();
+-  int n = 128;
++  const int n = 128;
+ 
+   static const int rep = 10000;
+   //  static const int rep = 10;
+diff -urpN adept-2.0.5/test/test_derivatives.cpp adept-2.0.5.patch/test/test_derivatives.cpp
+--- adept-2.0.5/test/test_derivatives.cpp	2017-10-14 21:49:40.000000000 +0200
++++ adept-2.0.5.patch/test/test_derivatives.cpp	2019-10-08 12:18:24.424492594 +0200
+@@ -20,7 +20,7 @@
+     aVector x = x_save;					\
+     stack.new_recording();					\
+     aVector y = FUNC(x);					\
+-    Vector dy_dx_num  = (FUNC(x_save+dx)-FUNC(x_save)) / dx;	\
++    Vector dy_dx_num  = (FUNC(x_save+dx)- FUNC(x_save)) / dx;	\
+     Vector dy_dx_adept(N);					\
+     for (int i = 0; i < N; ++i) {				\
+       x[i].set_gradient(1.0);					\
