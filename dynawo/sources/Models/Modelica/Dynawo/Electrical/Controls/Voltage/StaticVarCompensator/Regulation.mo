@@ -14,7 +14,6 @@ within Dynawo.Electrical.Controls.Voltage.StaticVarCompensator;
 
 model Regulation "Variable susceptance calculation"
   import Modelica;
-  import Dynawo.Electrical.Controls.Voltage.StaticVarCompensator.Parameters;
 
   extends Parameters.Params_Regulation;
   extends Parameters.Params_Limitations;
@@ -39,7 +38,7 @@ model Regulation "Variable susceptance calculation"
     Placement(visible = true, transformation(origin = {-96, -36}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain lambda(k = Lambda)  annotation(
     Placement(visible = true, transformation(origin = {-134, -72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain(k = KG)  annotation(
+  Modelica.Blocks.Math.Gain gain(k = Kg)  annotation(
     Placement(visible = true, transformation(origin = {-16, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add3(k1 = Kp, k2 = 1) annotation(
     Placement(visible = true, transformation(origin = {20, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

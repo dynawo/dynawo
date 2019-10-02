@@ -14,7 +14,6 @@ within Dynawo.Electrical.Controls.Voltage.StaticVarCompensator;
 
 model CalculBG "Final calculation of the susceptance and the conductance"
   import Modelica;
-  import Dynawo.Electrical.Controls.Voltage.StaticVarCompensator.Parameters;
 
   extends Parameters.Params_CalculBG;
 
@@ -33,9 +32,16 @@ model CalculBG "Final calculation of the susceptance and the conductance"
 
 equation
 
-  BPu = if mode.value == Mode.RUNNING_V then BVarPu + BShuntPu elseif mode.value == Mode.STANDBY then BShuntPu else 0;
-
-  GPu = if mode.value == Mode.OFF then 0 else GCstPu;
+if mode.value == Mode.RUNNING_V then
+  BPu = BVarPu + BShuntPu;
+  GPu = GCstPu;
+elseif mode.value == Mode.STANDBY then
+  BPu = BShuntPu;
+  GPu = GCstPu;
+else
+  BPu = 0;
+  GPu = 0;
+end if;
 
 annotation(
     Diagram(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 1}, extent = {{-60, 21}, {94, -23}}, textString = "CalculBG")}, coordinateSystem(initialScale = 0.1)),

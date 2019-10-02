@@ -1,4 +1,4 @@
-time;Test_svarc_UPu;Test_svarc_BPu;Test_svarc_GPu;Test_svarc_PInjPu;Test_svarc_QInjPu;Test_svarcControl_modeHandling_mode;Test_svarcControl_modeHandling_URefPu;Test_svarcControl_modeHandling_setMode;Test_svarcControl_modeHandling_selectModeAuto;
+time;Test_svarc_UPu;Test_svarc_BPu;Test_svarc_GPu;Test_svarc_PInjPu;Test_svarc_QInjPu;Test_svarcControl_modeHandling_mode;Test_svarcControl_modeHandling_URefPu;Test_svarcControl_modeHandling_setModeManual;Test_svarcControl_modeHandling_selectModeAuto;
 0;1;0;0;0;0;3;1;3;1;
 1.28867e-17;1;0;0;0;0;3;1;3;1;
 1.28867e-17;1;0;0;0;0;3;1;3;1;
