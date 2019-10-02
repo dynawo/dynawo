@@ -72,6 +72,15 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   } IndexVariable_t;
 
   /**
+   * @brief index discrete variable
+   */
+  typedef enum {
+    numSubNetworkNum_ = 0,
+    switchOffNum_ = 1,
+    connectionStateNum_ = 2
+  } IndexDiscreteVariable_t;
+
+  /**
    * @brief add a bus to the neighbors
    * @param bus bus to add
    */
@@ -224,12 +233,6 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @return state change type
    */
   NetworkComponent::StateChange_t evalState(const double& time);
-
-  /**
-   * @brief evaluate if a short-circuit is appearing or being cleared on the bus
-   * @return @b true if a short-circuit is appearing or being cleared on the bus, @b false otherwise
-   */
-  bool evalNodeFault();
 
   /**
    * @brief addBusNeighbors
@@ -466,8 +469,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   bool stateUmin_;  ///< whether U < Umin
 
   bool switchOff_;  ///< whether the bus was switched off
-  bool nodeFault_;  ///< whether a short-circuit is applied to the bus or not
-  // equivalent to switchOff_ but with discrete variable, to be able to switch off a node thanks to an outside event
+  // equivalent to switchOff but with discrete variable, to be able to switch off a node thanks to an outside event
   State connectionState_;  ///< "internal" bus connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool topologyModified_;  ///< true if the bus connection state was modified
   double irConnection_;  ///< real current injected
@@ -647,12 +649,6 @@ class ModelBusContainer {
    * @param rowOffset row offset to use to find the first row to fill
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
-
-  /**
-   * @brief evaluate if a short-circuit is appearing or being cleared on one bus of the network
-   * @return @b true if a short-circuit is appearing or being cleared on one bus of the network, @b false otherwise
-   */
-  bool evalNodeFault();
 
  private:
   std::vector<boost::shared_ptr<ModelBus> > models_;  ///< model bus

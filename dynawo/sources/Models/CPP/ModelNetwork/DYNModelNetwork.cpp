@@ -872,9 +872,6 @@ ModelNetwork::evalMode(const double& t) {
     modeChangeType = ALGEBRAIC_MODE;
   }
 
-  if (busContainer_->evalNodeFault())
-    modeChangeType = ALGEBRAIC_J_UPDATE_MODE;
-
   return modeChangeType;
 }
 

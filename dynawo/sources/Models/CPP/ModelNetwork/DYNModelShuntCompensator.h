@@ -57,6 +57,16 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   } ShuntType_t;
 
   /**
+   * @brief index discrete variable
+   */
+  typedef enum {
+    connectionStateNum_ = 0,
+    isCapacitorNum_ = 1,
+    isAvailableNum_ = 2,
+    currentSectionNum_ = 3
+  } IndexDiscreteVariable_t;
+
+  /**
    * @brief set connection status
    * @param state
    */

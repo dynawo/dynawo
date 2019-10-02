@@ -222,10 +222,10 @@ ModelShuntCompensator::evalG(const double& t) {
 void
 ModelShuntCompensator::evalZ(const double& t) {
   z_[1] = isCapacitor() ? 1. : 0.;
-  z_[2] = isAvailable(t) ? 1. : 0.;
+  z_[isAvailableNum_] = isAvailable(t) ? 1. : 0.;
   z_[3] = getCurrentSection();
 
-  State currState = static_cast<State>(z_[0]);
+  State currState = static_cast<State>(z_[connectionStateNum_]);
   if (currState != getConnected()) {
     stateModified_ = true;
     Trace::debug() << DYNLog(ShuntStateChange, id_, currState, getConnected()) << Trace::endline;
@@ -247,10 +247,10 @@ ModelShuntCompensator::evalZ(const double& t) {
 void
 ModelShuntCompensator::getY0() {
   if (!network_->isInitModel()) {
-    z_[0] = getConnected();
-    z_[1] = isCapacitor() ? 1. : 0.;
-    z_[2] = 1.;  // always available at the beginning of the simulation
-    z_[3] = getCurrentSection();
+    z_[connectionStateNum_] = getConnected();
+    z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
+    z_[isAvailableNum_] = 1.;  // always available at the beginning of the simulation
+    z_[currentSectionNum_] = getCurrentSection();
   }
 }
 
