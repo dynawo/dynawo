@@ -144,18 +144,6 @@ ModelBusContainer::initDerivatives() {
     (*itModelBus)->initDerivatives();
 }
 
-bool
-ModelBusContainer::evalNodeFault() {
-  bool nodeFault = false;
-  vector<shared_ptr<ModelBus> >::iterator itModelBus;
-  for (itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
-    if ((*itModelBus)->evalNodeFault())
-      nodeFault = true;
-  }
-
-  return nodeFault;
-}
-
 ModelBus::ModelBus(const shared_ptr<BusInterface>& bus) :
 Impl(bus->getID()),
 topologyModified_(false) {
@@ -168,7 +156,6 @@ topologyModified_(false) {
   refIslands_ = 0;
   ir0_ = 0.0;
   ii0_ = 0.0;
-  nodeFault_ = false;
   stateUmax_ = false;
   stateUmin_ = false;
   switchOff_ = false;
@@ -225,7 +212,7 @@ ModelBus::initSize() {
     sizeY_ = 2;
     if (hasConnection_)
       sizeY_ = 4;
-    sizeZ_ = 4;  // numCC, switchOff, state, nodeFault
+    sizeZ_ = 3;  // numCC, switchOff, state
     sizeG_ = 4;  // U> Umax or U< Umin
     sizeMode_ = 0;
     sizeCalculatedVar_ = nbCalculatedVariables_;
@@ -234,7 +221,7 @@ ModelBus::initSize() {
 
 double
 ModelBus::ur() const {
-  if (!switchOff_) {
+  if (!getSwitchOff()) {
     if (network_->isInit())
       return ur0_;
     else
@@ -246,7 +233,7 @@ ModelBus::ur() const {
 
 double
 ModelBus::ui() const {
-  if (!switchOff_) {
+  if (!getSwitchOff()) {
     if (network_->isInit())
       return ui0_;
     else
@@ -306,7 +293,7 @@ ModelBus::evalF() {
     f_[0] = ir0_;
     f_[1] = ii0_;
   } else {
-    if (switchOff_) {
+    if (getSwitchOff()) {
       f_[0] = y_[urNum_];
       f_[1] = y_[uiNum_];
     } else {
@@ -330,7 +317,7 @@ ModelBus::evalF() {
 
 void
 ModelBus::setFequations(std::map<int, std::string>& fEquationIndex) {
-  if (switchOff_) {
+  if (getSwitchOff()) {
     fEquationIndex[0] = std::string(":y_[urNum_] localModel:").append(id());
     fEquationIndex[1] = std::string(":y_[uiNum_] localModel:").append(id());
   } else {
@@ -393,7 +380,7 @@ ModelBus::evalFType() {
 
 void
 ModelBus::evalCalculatedVars() {
-  if (switchOff_) {
+  if (getSwitchOff()) {
     calculatedVars_[upuNum_] = 0.;
     calculatedVars_[phipuNum_] = 0.;
     calculatedVars_[uNum_] = 0.;
@@ -436,7 +423,7 @@ ModelBus::init(int& yNum) {
 void
 ModelBus::getY0() {
   if (network_->isInitModel()) {
-    if (switchOff_) {
+    if (getSwitchOff()) {
       y_[0] = 0.0;
       y_[1] = 0.0;
     } else {
@@ -444,7 +431,7 @@ ModelBus::getY0() {
       y_[1] = ui0_;
     }
   } else {
-    if (switchOff_) {
+    if (getSwitchOff()) {
       y_[0] = 0.0;
       y_[1] = 0.0;
     } else {
@@ -461,10 +448,9 @@ ModelBus::getY0() {
       yp_[3] = 0.0;
     }
 
-    z_[0] = numSubNetwork();
-    z_[1] = fromNativeBool(switchOff_);
-    z_[2] = connectionState_;
-    z_[3] = fromNativeBool(nodeFault_);
+    z_[numSubNetworkNum_] = numSubNetwork();
+    z_[switchOffNum_] = fromNativeBool(switchOff_);
+    z_[connectionStateNum_] = connectionState_;
   }
 }
 
@@ -487,7 +473,6 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState(id_ + "_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_nodeFault_value", BOOLEAN));
 
   for (unsigned int i = 0; i < busBarSectionNames_.size(); ++i) {
     std::string busBarSectionId = busBarSectionNames_[i];
@@ -508,7 +493,6 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_numcc_value", id_ + "_numcc_value"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_switchOff_value", id_ + "_switchOff_value"));
     variables.push_back(VariableAliasFactory::create(busBarSectionId + "_state_value", id_ + "_state_value"));
-    variables.push_back(VariableAliasFactory::create(busBarSectionId + "_nodeFault_value", id_ + "_nodeFault_value"));
   }
 }
 
@@ -540,7 +524,6 @@ ModelBus::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_switchOff_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_nodeFault_value", BOOLEAN));
 }
 
 void
@@ -613,25 +596,19 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
   name = id + string("_state");
   addElement(name, Element::STRUCTURE, elements, mapElement);
   addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== Node fault ======
-  name = id + string("_nodeFault");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
 }
 
 void
 ModelBus::evalZ(const double& /*t*/) {
-  z_[0] = numSubNetwork();
-  z_[1] = fromNativeBool(switchOff_);
-  z_[3] = fromNativeBool(nodeFault_);
+  z_[numSubNetworkNum_] = numSubNetwork();
+  z_[switchOffNum_] = fromNativeBool(switchOff_);
 
-  if (g_[0] == ROOT_UP && !stateUmax_ && !switchOff_) {
+  if (g_[0] == ROOT_UP && !stateUmax_ && !getSwitchOff()) {
     network_->addConstraint(id_, true, DYNConstraint(USupUmax));
     stateUmax_ = true;
   }
 
-  if (g_[1] == ROOT_UP && !stateUmin_ && !switchOff_) {
+  if (g_[1] == ROOT_UP && !stateUmin_ && !getSwitchOff()) {
     network_->addConstraint(id_, true, DYNConstraint(UInfUmin));
     stateUmin_ = true;
   }
@@ -646,7 +623,7 @@ ModelBus::evalZ(const double& /*t*/) {
     stateUmin_ = false;
   }
 
-  State currState = static_cast<State>(z_[2]);
+  State currState = static_cast<State>(z_[connectionStateNum_]);
   if (currState != connectionState_) {
     topologyModified_ = true;
     if (currState == OPEN) {
@@ -660,7 +637,7 @@ ModelBus::evalZ(const double& /*t*/) {
       switchOn();
       network_->addEvent(id_, DYNTimeline(NodeOn));
     }
-    connectionState_ = static_cast<State>(z_[2]);
+    connectionState_ = static_cast<State>(z_[connectionStateNum_]);
   }
 }
 
@@ -668,9 +645,9 @@ void
 ModelBus::evalG(const double& /*t*/) {
   double upu = sqrt(y_[urNum_] * y_[urNum_] + y_[uiNum_] * y_[uiNum_]);
   g_[0] = (upu - uMax_ > 0) ? ROOT_UP : ROOT_DOWN;  // U > Umax
-  g_[1] = (uMin_ - upu > 0 && !switchOff_) ? ROOT_UP : ROOT_DOWN;  // U < Umin
+  g_[1] = (uMin_ - upu > 0 && !getSwitchOff()) ? ROOT_UP : ROOT_DOWN;  // U < Umin
   g_[2] = (uMax_ - upu > 0) ? ROOT_UP : ROOT_DOWN;  // U < Umax
-  g_[3] = (upu - uMin_ > 0 || switchOff_) ? ROOT_UP : ROOT_DOWN;  // U > Umin ; end constraint if node switch off
+  g_[3] = (upu - uMin_ > 0 || getSwitchOff()) ? ROOT_UP : ROOT_DOWN;  // U > Umin ; end constraint if node switch off
 }
 
 void
@@ -702,7 +679,7 @@ ModelBus::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, v
   double ui = y[1];
   switch (numCalculatedVar) {
     case upuNum_: {
-      if (switchOff_) {
+      if (getSwitchOff()) {
         res[0] = 0.0;
         res[1] = 0.0;
       } else {
@@ -712,7 +689,7 @@ ModelBus::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, v
       break;
     }
     case phipuNum_: {
-      if (switchOff_) {
+      if (getSwitchOff()) {
         res[0] = 0.0;
         res[1] = 0.0;
       } else {
@@ -724,7 +701,7 @@ ModelBus::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, v
       break;
     }
     case uNum_: {
-      if (switchOff_) {
+      if (getSwitchOff()) {
         res[0] = 0.0;
         res[1] = 0.0;
       } else {
@@ -734,7 +711,7 @@ ModelBus::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, v
       break;
     }
     case phiNum_: {
-      if (switchOff_) {
+      if (getSwitchOff()) {
         res[0] = 0.0;
         res[1] = 0.0;
       } else {
@@ -755,25 +732,25 @@ ModelBus::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
   double ui = y[1];
   switch (numCalculatedVar) {
     case upuNum_:
-      if (switchOff_)
+      if (getSwitchOff())
         output = 0.0;
       else
         output = sqrt(ur * ur + ui * ui);  // Voltage module in pu
       break;
     case phipuNum_:
-      if (switchOff_)
+      if (getSwitchOff())
         output = 0.0;
       else
         output = atan2(ui, ur);  // Voltage angle in pu
       break;
     case uNum_:
-      if (switchOff_)
+      if (getSwitchOff())
         output = 0.0;
       else
         output = sqrt(ur * ur + ui * ui) * unom_;  // Voltage module in kV
       break;
     case phiNum_:
-      if (switchOff_)
+      if (getSwitchOff())
         output = 0.0;
       else
         output = atan2(ui, ur) * RAD_TO_DEG;  // Voltage angle in degree
@@ -784,7 +761,7 @@ ModelBus::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
 
 void
 ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
-  if (switchOff_) {
+  if (getSwitchOff()) {
     jt.changeCol();
     jt.addTerm(urYNum() + rowOffset, 1.0);
     jt.changeCol();
@@ -841,15 +818,6 @@ ModelBus::evalState(const double& /*time*/) {
     state = NetworkComponent::TOPO_CHANGE;
   }
   return state;
-}
-
-bool
-ModelBus::evalNodeFault() {
-  if (doubleNotEquals(z_[3], fromNativeBool(nodeFault_))) {
-    nodeFault_ = toNativeBool(z_[3]);
-    return true;
-  }
-  return false;
 }
 
 void
