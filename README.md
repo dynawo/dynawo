@@ -89,7 +89,7 @@ $> Dynawo_Linux_latest/bin/execDynawo.sh jobs --help
 
 You can also build Dyna&omega;o from sources. Dyna&omega;o has be tested on **Linux** platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distributions. It has also been tested on **macOS** (only on Mojave 10.14.5) and works, a complete procedure to help non-developers install it on this platform will be available soon. <br>
 For **Windows** users we provide a [Docker](https://github.com/dynawo/dynawo-docker) solution (also on [Docker Hub](https://hub.docker.com/r/dynawo/dynawo)) to either download a [pre-build image](https://github.com/dynawo/dynawo-docker#users) with Dyna&omega;o embedded or create your [own image](https://github.com/dynawo/dynawo-docker#developer) for developers. We plan to provide compilation compatibility for Windows. <br>
-If you have any issue building Dyna&omega;o don't hesitate to send us an [email](mailto:rte-des-simulation-dynamique@rte-france.com) with your errors and we will try to answer you back quickly.
+If you have any issue building Dyna&omega;o don't hesitate to send us an [email](mailto:rte-dynawo@rte-france.com) with your errors and we will try to answer you back quickly.
 
 In the following we give a list of requirements needed to build Dyna&omega;o and its dependencies.
 
@@ -202,7 +202,7 @@ You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dyn
 
 Dyna&omega;o is an open-source project and as such, questions, discussions, contributions and feedbacks are very welcome. It is also an ongoing project and we are actively working on improving it and making it better so we encourage you to regularly check the project status and progresses.
 
-Regarding contributions, the final details, methodology and testing procedures for accepting a contribution is still under discussion. Until it is defined, we recommend to proceed in the following way: first report the problem or explain the planned modifications in an e-mail to [rte-des-simulation-dynamique@rte-france.com](mailto:rte-des-simulation-dynamique@rte-france.com) in order to get a first feedback from us (we will check if efforts are already conducted on the topic on our side and if your proposition is in phase with the project evolution) and then submit a pull-request that will serve as the basis for final discussions and review.
+Regarding contributions, the final details, methodology and testing procedures for accepting a contribution is still under discussion. Until it is defined, we recommend to proceed in the following way: first report the problem or explain the planned modifications in an e-mail to [rte-dynawo@rte-france.com](mailto:rte-dynawo@rte-france.com) in order to get a first feedback from us (we will check if efforts are already conducted on the topic on our side and if your proposition is in phase with the project evolution) and then submit a pull-request that will serve as the basis for final discussions and review.
 
 <a name="quoting"></a>
 ## Quoting Dyna&omega;o
@@ -236,7 +236,7 @@ Dyna&omega;o is currently maintained by the following people in RTE:
 * Florentine Rosiere, [florentine.rosiere@rte-france.com](mailto:florentine.rosiere@rte-france.com)
 * Marianne Saugier, [marianne.saugier@rte-france.com](mailto:marianne.saugier@rte-france.com)
 
-In case of questions or issues, you can also send an e-mail to rte-des-simulation-dynamique@rte-france.com.
+In case of questions or issues, you can also send an e-mail to [rte-dynawo@rte-france.com](mailto:rte-dynawo@rte-france.com).
 
 <a name="roadmap"></a>
 ## Roadmap
@@ -264,4 +264,4 @@ Below are the major development axis identified for Dyna&omega;o for the next fe
 For more information about Dyna&omega;o:
 
 * Consult [Dyna&omega;o website](http://dynawo.org)
-* Contact us at [rte-des-simulation-dynamique@rte-france.com](mailto:rte-des-simulation-dynamique@rte-france.com)
+* Contact us at [rte-dynawo@rte-france.com](mailto:rte-dynawo@rte-france.com)
