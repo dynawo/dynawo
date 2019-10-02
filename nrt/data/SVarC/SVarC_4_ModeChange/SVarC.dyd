@@ -32,7 +32,7 @@
     <dyn:connect id1="busInf" var1="terminal" id2="line" var2="terminal1"/>
     <dyn:connect id1="line" var1="terminal2" id2="svarc" var2="terminal"/>
     <dyn:connect id1="URef" var1="step.value" id2="svarcControl" var2="URef"/>
-    <dyn:connect id1="modeChange" var1="setMode" id2="svarcControl" var2="setMode"/>
+    <dyn:connect id1="modeChange" var1="setModeManual" id2="svarcControl" var2="setModeManual"/>
     <dyn:connect id1="modeChange" var1="selectModeAuto" id2="svarcControl" var2="selectModeAuto"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

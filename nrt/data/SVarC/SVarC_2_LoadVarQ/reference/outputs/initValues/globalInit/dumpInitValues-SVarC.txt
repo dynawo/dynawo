@@ -1,13 +1,13 @@
  ====== INIT VARIABLES VALUES ======
 control_regulation_firstOrder_y                   : y =              0 yp =              0
-control_regulation_limitations_limIntegrator1_y   : y =         1.0678 yp =              8
-control_regulation_limitations_limIntegrator2_y   : y =        -1.0466 yp =             -8
+control_regulation_limitations_limIntegratorMax_y : y =         1.0678 yp =              8
+control_regulation_limitations_limIntegratorMin_y : y =        -1.0466 yp =             -8
 injector_terminal_V_im                            : y =              0 yp =              0
 injector_terminal_V_re                            : y =              1 yp =              0
 URef_setPoint_value                               : y =            225 yp =              0
 control_BPu                                       : y =              0 yp =              0
 control_GPu                                       : y =              0 yp =              0
-control_GPu_cst_y                                 : y =              0 yp =              0
+control_GPuCst_y                                  : y =              0 yp =              0
 control_PuConversion_u                            : y =              0 yp =              0
 control_PuConversion_y                            : y =              0 yp =              0
 control_QInjPu                                    : y =              0 yp =              0
@@ -55,8 +55,8 @@ control_regulation_limitations_bMaxPu_y           : y =         1.0678 yp =     
 control_regulation_limitations_bMinPu_y           : y =        -1.0466 yp =              0
 control_regulation_limitations_iMaxPu_y           : y =              1 yp =              0
 control_regulation_limitations_iMinPu_y           : y =             -1 yp =              0
-control_regulation_limitations_limIntegrator1_u   : y =              1 yp =              0
-control_regulation_limitations_limIntegrator2_u   : y =             -1 yp =              0
+control_regulation_limitations_limIntegratorMax_u : y =              1 yp =              0
+control_regulation_limitations_limIntegratorMin_u : y =             -1 yp =              0
 control_regulation_limitations_max_u1             : y =        -1.0466 yp =              0
 control_regulation_limitations_max_u2             : y =        -1.0466 yp =              0
 control_regulation_limitations_max_y              : y =        -1.0466 yp =              0
@@ -83,7 +83,7 @@ injector_YPuSnRef_re                              : y =              0 yp =     
 injector_terminal_i_im                            : y =              0 yp =              0
 injector_terminal_i_re                            : y =              0 yp =              0
  ====== INIT DISCRETE VARIABLES VALUES ======
-control_modeHandling_URef_auto                    : z =            225
+control_modeHandling_URefAuto                     : z =            225
 control_modeHandling_timerModeChangeDown          : z =          1e+60
 control_modeHandling_timerModeChangeUp            : z =          1e+60
 control_modeHandling_blocked                      : z =             -1
@@ -93,10 +93,10 @@ control_regulation_switch_u2                      : z =             -1
 control_selectModeAuto                            : z =              1
 control_calculBG_mode_value                       : z =              2
 control_modeHandling_mode_value                   : z =              2
-control_modeHandling_mode_auto_value              : z =              2
-control_modeHandling_mode_manual_value            : z =              2
-control_modeHandling_setMode                      : z =              2
-control_setMode                                   : z =              2
+control_modeHandling_modeAuto_value               : z =              2
+control_modeHandling_modeManual_value             : z =              2
+control_modeHandling_setModeManual                : z =              2
+control_setModeManual                             : z =              2
  ====== PARAMETERS VALUES ======
 URef_Value0                                        =            225
 control_B0Pu                                       =              0
@@ -105,11 +105,11 @@ control_BMinPu                                     =        -1.0466
 control_BShuntPu                                   =              0
 control_BVar0Pu                                    =              0
 control_G0Pu                                       =              0
-control_GPu_cst_k                                  =              0
+control_GPuCst_k                                   =              0
 control_IMaxPu                                     =              1
 control_IMinPu                                     =             -1
 control_KCurrentLimiter                            =              8
-control_KG                                         =             25
+control_Kg                                         =             25
 control_Kp                                         =           0.07
 control_Lambda                                     =           0.01
 control_PuConversion_k                             =            0.4
@@ -118,24 +118,34 @@ control_SNom                                       =            250
 control_Ti                                         =          0.006
 control_U0Pu                                       =              1
 control_UBlock                                     =              5
-control_UDeblockDown                               =            180
-control_UDeblockUp                                 =            270
+control_UBlockPu                                   =      0.0222222
 control_UNom                                       =            225
 control_URef0                                      =            225
 control_URefDown                                   =            220
 control_URefUp                                     =            230
 control_UThresholdDown                             =            218
+control_UThresholdDownPu                           =       0.968889
 control_UThresholdUp                               =            240
+control_UThresholdUpPu                             =        1.06667
+control_UUnblockDown                               =            180
+control_UUnblockDownPu                             =            0.8
+control_UUnblockUp                                 =            270
+control_UUnblockUpPu                               =            1.2
 control_calculBG_BShuntPu                          =              0
 control_modeHandling_UBlock                        =              5
-control_modeHandling_UDeblockDown                  =            180
-control_modeHandling_UDeblockUp                    =            270
+control_modeHandling_UBlockPu                      =      0.0222222
 control_modeHandling_UNom                          =            225
 control_modeHandling_URef0                         =            225
 control_modeHandling_URefDown                      =            220
 control_modeHandling_URefUp                        =            230
 control_modeHandling_UThresholdDown                =            218
+control_modeHandling_UThresholdDownPu              =       0.968889
 control_modeHandling_UThresholdUp                  =            240
+control_modeHandling_UThresholdUpPu                =        1.06667
+control_modeHandling_UUnblockDown                  =            180
+control_modeHandling_UUnblockDownPu                =            0.8
+control_modeHandling_UUnblockUp                    =            270
+control_modeHandling_UUnblockUpPu                  =            1.2
 control_modeHandling_tThresholdDown                =              0
 control_modeHandling_tThresholdUp                  =             60
 control_regulation_BMaxPu                          =         1.0678
@@ -144,7 +154,7 @@ control_regulation_BVar0Pu                         =              0
 control_regulation_IMaxPu                          =              1
 control_regulation_IMinPu                          =             -1
 control_regulation_KCurrentLimiter                 =              8
-control_regulation_KG                              =             25
+control_regulation_Kg                              =             25
 control_regulation_Kp                              =           0.07
 control_regulation_Lambda                          =           0.01
 control_regulation_SNom                            =            250
@@ -173,14 +183,14 @@ control_regulation_limitations_bMaxPu_k            =         1.0678
 control_regulation_limitations_bMinPu_k            =        -1.0466
 control_regulation_limitations_iMaxPu_k            =              1
 control_regulation_limitations_iMinPu_k            =             -1
-control_regulation_limitations_limIntegrator1_k    =              8
-control_regulation_limitations_limIntegrator1_outMax =         1.0678
-control_regulation_limitations_limIntegrator1_outMin =              0
-control_regulation_limitations_limIntegrator1_y_start =         1.0678
-control_regulation_limitations_limIntegrator2_k    =              8
-control_regulation_limitations_limIntegrator2_outMax =              0
-control_regulation_limitations_limIntegrator2_outMin =        -1.0466
-control_regulation_limitations_limIntegrator2_y_start =        -1.0466
+control_regulation_limitations_limIntegratorMax_k  =              8
+control_regulation_limitations_limIntegratorMax_outMax =         1.0678
+control_regulation_limitations_limIntegratorMax_outMin =              0
+control_regulation_limitations_limIntegratorMax_y_start =         1.0678
+control_regulation_limitations_limIntegratorMin_k  =              8
+control_regulation_limitations_limIntegratorMin_outMax =              0
+control_regulation_limitations_limIntegratorMin_outMin =        -1.0466
+control_regulation_limitations_limIntegratorMin_y_start =        -1.0466
 control_regulation_zero_k                          =              0
 control_tThresholdDown                             =              0
 control_tThresholdUp                               =             60
@@ -196,14 +206,16 @@ injector_s0Pu_im                                   =              0
 injector_s0Pu_re                                   =              0
 injector_u0Pu_im                                   =              0
 injector_u0Pu_re                                   =              1
-control_regulation_limitations_limIntegrator1_limitsAtInit =              1
-control_regulation_limitations_limIntegrator1_strict =             -1
-control_regulation_limitations_limIntegrator2_limitsAtInit =              1
-control_regulation_limitations_limIntegrator2_strict =             -1
+control_regulation_limitations_limIntegratorMax_limitsAtInit =              1
+control_regulation_limitations_limIntegratorMax_strict =             -1
+control_regulation_limitations_limIntegratorMin_limitsAtInit =              1
+control_regulation_limitations_limIntegratorMin_strict =             -1
 control_regulation_variableLimiter_limitsAtInit    =              1
 control_regulation_variableLimiter_strict          =             -1
+control_selectModeAuto0                            =              1
 control_Mode0                                      =              2
 control_modeHandling_Mode0                         =              2
 control_regulation_firstOrder_initType             =              1
-control_regulation_limitations_limIntegrator1_initType =              3
-control_regulation_limitations_limIntegrator2_initType =              3
+control_regulation_limitations_limIntegratorMax_initType =              3
+control_regulation_limitations_limIntegratorMin_initType =              3
+control_setModeManual0                             =              2

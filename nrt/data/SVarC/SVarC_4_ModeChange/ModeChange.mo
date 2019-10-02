@@ -12,7 +12,7 @@
 
 model ModeChange
 
-  Integer setMode(start = 3);
+  Integer setModeManual(start = 3);
   Boolean selectModeAuto(start = true);
 
 equation
@@ -24,9 +24,9 @@ equation
   end when;
 
   when time >= 3 then
-    setMode = 1;
+    setModeManual = 1;
   elsewhen time >= 4 then
-    setMode = 3;
+    setModeManual = 3;
   end when;
 
 end ModeChange;

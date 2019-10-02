@@ -14,7 +14,6 @@ within Dynawo.Electrical.Controls.Voltage.StaticVarCompensator;
 
 model Limitations "Variable susceptance limits computation"
   import Modelica.Blocks;
-  import Dynawo.Electrical.Controls.Voltage.StaticVarCompensator.Parameters;
 
   extends Parameters.Params_Limitations;
 
@@ -34,9 +33,9 @@ model Limitations "Variable susceptance limits computation"
     Placement(visible = true, transformation(origin = {16, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Sources.Constant bMinPu(k = BMinPu) annotation(
     Placement(visible = true, transformation(origin = {18, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.LimIntegrator limIntegrator1(k = KCurrentLimiter, outMax = BMaxPu, outMin = 0, y_start = BMaxPu)  annotation(
+  Blocks.Continuous.LimIntegrator limIntegratorMax(k = KCurrentLimiter, outMax = BMaxPu, outMin = 0, y_start = BMaxPu)  annotation(
     Placement(visible = true, transformation(origin = {18, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.LimIntegrator limIntegrator2(k = KCurrentLimiter, outMax = 0, outMin = BMinPu, y_start = BMinPu)  annotation(
+  Blocks.Continuous.LimIntegrator limIntegratorMin(k = KCurrentLimiter, outMax = 0, outMin = BMinPu, y_start = BMinPu)  annotation(
     Placement(visible = true, transformation(origin = {16, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Add add1(k1 = 1, k2 = -1)  annotation(
     Placement(visible = true, transformation(origin = {-24, 34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -56,17 +55,17 @@ equation
     Line(points = {{-120, 0}, {-74, 0}, {-74, 28}, {-36, 28}}, color = {0, 0, 127}));
   connect(IPu, add2.u1) annotation(
     Line(points = {{-120, 0}, {-74, 0}, {-74, -28}, {-34, -28}}, color = {0, 0, 127}));
-  connect(limIntegrator1.y, min.u2) annotation(
+  connect(limIntegratorMax.y, min.u2) annotation(
     Line(points = {{29, 34}, {47, 34}, {47, 34}, {49, 34}}, color = {0, 0, 127}));
   connect(min.y, BVarMaxPu) annotation(
     Line(points = {{73, 40}, {110, 40}}, color = {0, 0, 127}));
-  connect(limIntegrator2.y, max.u1) annotation(
+  connect(limIntegratorMin.y, max.u1) annotation(
     Line(points = {{27, -34}, {47, -34}, {47, -34}, {49, -34}}, color = {0, 0, 127}));
   connect(max.y, BVarMinPu) annotation(
     Line(points = {{73, -40}, {110, -40}}, color = {0, 0, 127}));
-  connect(add1.y, limIntegrator1.u) annotation(
+  connect(add1.y, limIntegratorMax.u) annotation(
     Line(points = {{-13, 34}, {5, 34}, {5, 34}, {5, 34}}, color = {0, 0, 127}));
-  connect(add2.y, limIntegrator2.u) annotation(
+  connect(add2.y, limIntegratorMin.u) annotation(
     Line(points = {{-11, -34}, {3, -34}, {3, -34}, {3, -34}}, color = {0, 0, 127}));
   connect(iMinPu.y, add2.u2) annotation(
     Line(points = {{-53, -50}, {-47, -50}, {-47, -40}, {-35, -40}, {-35, -40}}, color = {0, 0, 127}));

@@ -19,6 +19,6 @@
   <curve model="Test" variable="svarc_QInjPu"/>
   <curve model="Test" variable="svarcControl_modeHandling_mode"/>
   <curve model="Test" variable="svarcControl_modeHandling_URefPu"/>
-  <curve model="Test" variable="svarcControl_modeHandling_setMode"/>
+  <curve model="Test" variable="svarcControl_modeHandling_setModeManual"/>
   <curve model="Test" variable="svarcControl_modeHandling_selectModeAuto"/>
 </curvesInput>

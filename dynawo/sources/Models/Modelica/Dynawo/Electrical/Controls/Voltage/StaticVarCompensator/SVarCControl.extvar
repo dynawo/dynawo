@@ -12,6 +12,6 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <variable type="discrete" id="setMode"/>
+  <variable type="discrete" id="setModeManual"/>
   <variable type="discrete" id="selectModeAuto" defaultValue="true"/>
 </external_variables>
