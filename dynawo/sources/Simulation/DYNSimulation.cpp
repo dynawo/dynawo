@@ -722,12 +722,12 @@ void
 Simulation::simulate() {
   Timer timer("Simulation::simulate()");
 
-  string tmpDir(getEnvVar("TMPDIR"));
-  if (tmpDir == "")
-    tmpDir = context_->getWorkingDirectory();
+  string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
+  if (!is_directory(outputsDirectory))
+    create_directory(outputsDirectory);
 
   stringstream fileName;
-  fileName << tmpDir << "/.dynawoexec-" << pid_;
+  fileName << outputsDirectory << "/.dynawoexec-" << pid_;
 
   // Printing out the initial solution
   solver_->printSolve();
