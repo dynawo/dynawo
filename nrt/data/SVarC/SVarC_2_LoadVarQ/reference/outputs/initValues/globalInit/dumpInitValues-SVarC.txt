@@ -55,7 +55,9 @@ control_regulation_limitations_bMaxPu_y           : y =         1.0678 yp =     
 control_regulation_limitations_bMinPu_y           : y =        -1.0466 yp =              0
 control_regulation_limitations_iMaxPu_y           : y =              1 yp =              0
 control_regulation_limitations_iMinPu_y           : y =             -1 yp =              0
+control_regulation_limitations_limIntegratorMax_local_set: y =              0 yp =              0
 control_regulation_limitations_limIntegratorMax_u : y =              1 yp =              0
+control_regulation_limitations_limIntegratorMin_local_set: y =              0 yp =              0
 control_regulation_limitations_limIntegratorMin_u : y =             -1 yp =              0
 control_regulation_limitations_max_u1             : y =        -1.0466 yp =              0
 control_regulation_limitations_max_u2             : y =        -1.0466 yp =              0
@@ -68,6 +70,7 @@ control_regulation_switch_u3                      : y =              0 yp =     
 control_regulation_switch_y                       : y =              0 yp =              0
 control_regulation_variableLimiter_limit1         : y =         1.0678 yp =              0
 control_regulation_variableLimiter_limit2         : y =        -1.0466 yp =              0
+control_regulation_variableLimiter_simplifiedExpr : y =              0 yp =              0
 control_regulation_variableLimiter_u              : y =              0 yp =              0
 control_regulation_variableLimiter_y              : y =              0 yp =              0
 control_regulation_zero_y                         : y =              0 yp =              0
@@ -89,6 +92,8 @@ control_modeHandling_timerModeChangeUp            : z =          1e+60
 control_modeHandling_blocked                      : z =             -1
 control_modeHandling_selectModeAuto               : z =              1
 control_regulation_blocked                        : z =             -1
+control_regulation_limitations_limIntegratorMax_local_reset: z =             -1
+control_regulation_limitations_limIntegratorMin_local_reset: z =             -1
 control_regulation_switch_u2                      : z =             -1
 control_selectModeAuto                            : z =              1
 control_calculBG_mode_value                       : z =              2
@@ -191,6 +196,7 @@ control_regulation_limitations_limIntegratorMin_k  =              8
 control_regulation_limitations_limIntegratorMin_outMax =              0
 control_regulation_limitations_limIntegratorMin_outMin =        -1.0466
 control_regulation_limitations_limIntegratorMin_y_start =        -1.0466
+control_regulation_variableLimiter_ySimplified     =              0
 control_regulation_zero_k                          =              0
 control_tThresholdDown                             =              0
 control_tThresholdUp                               =             60
@@ -208,8 +214,12 @@ injector_u0Pu_im                                   =              0
 injector_u0Pu_re                                   =              1
 control_regulation_limitations_limIntegratorMax_limitsAtInit =              1
 control_regulation_limitations_limIntegratorMax_strict =             -1
+control_regulation_limitations_limIntegratorMax_use_reset =             -1
+control_regulation_limitations_limIntegratorMax_use_set =             -1
 control_regulation_limitations_limIntegratorMin_limitsAtInit =              1
 control_regulation_limitations_limIntegratorMin_strict =             -1
+control_regulation_limitations_limIntegratorMin_use_reset =             -1
+control_regulation_limitations_limIntegratorMin_use_set =             -1
 control_regulation_variableLimiter_limitsAtInit    =              1
 control_regulation_variableLimiter_strict          =             -1
 control_selectModeAuto0                            =              1
@@ -218,4 +228,5 @@ control_modeHandling_Mode0                         =              2
 control_regulation_firstOrder_initType             =              1
 control_regulation_limitations_limIntegratorMax_initType =              3
 control_regulation_limitations_limIntegratorMin_initType =              3
+control_regulation_variableLimiter_homotopyType    =              2
 control_setModeManual0                             =              2
