@@ -75,7 +75,8 @@
 
 % Draws func­tion plots (based on pgf/tikz)
 \usepackage{pgfplots}
-\pgfplotsset{enlarge x limits=false, xlabel={\begin{small}$time$ (s)\end{small}}, height=0.6\textwidth, width=1\textwidth}
+\pgfplotsset{enlarge x limits=false, xlabel={\begin{small}$time$ (s)\end{small}}, height=0.6\textwidth, width=1\textwidth,
+yticklabel style={text width={width("$-0.6$")},align=right}}
 \pgfplotstableset{col sep=semicolon}
 
 % Define colors

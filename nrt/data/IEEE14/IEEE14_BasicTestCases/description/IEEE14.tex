@@ -393,6 +393,64 @@ We observe that the reactive load variation triggers a sudden voltage drop at bu
 \caption{Generator 1 response to the load variation}
 \end{figure}
 
+\newpage
+\subsection{Three-phase fault}
+\label{Fault}
+
+At $t=1s$, a three-phase fault is applied at the Generator 2 terminal. The fault is cleared at $t=1.1s$. \\
+
+For this test we focus on the response of generator 2.\\
+
+We observe that the voltage at the node 2 falls to zero. As the voltage is zero during the fault, the generator can't evacuate its active power anymore: it falls to zero too. When the fault is cleared the voltage is restored as well as the active power, which stabilizes a few seconds after the fault clearance.\\
+
+\begin{figure}[H]
+\subfigure[Bus 2 voltage (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time,y expr=\thisrow{NETWORK__BUS____2_TN_Upu_value}*69]
+        {../IEEE14_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Active power of generator 2(MW)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____2_SM_generator_PGen]
+        {../IEEE14_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Generator 2 response to the three-phase fault}
+\end{figure}
+
+
+\begin{figure}[H]
+\subfigure[Omega (p.u.)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____2_SM_generator_omegaPu]
+        {../IEEE14_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\subfigure[Reactive power (MVAr)]
+{%
+  \begin{tikzpicture}
+    \begin{axis}[height = 2in]
+        \addplot[color=blue!50]
+        table[x=time, y=GEN____2_SM_generator_QGen]
+        {../IEEE14_Fault/reference/outputs/curves/curves.csv};
+    \end{axis}
+  \end{tikzpicture}
+}
+\caption{Generator 2 response to the three-phase fault}
+\end{figure}
 
 
 \end{document}
