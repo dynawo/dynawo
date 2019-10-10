@@ -221,9 +221,9 @@ ModelShuntCompensator::evalG(const double& t) {
 
 void
 ModelShuntCompensator::evalZ(const double& t) {
-  z_[1] = isCapacitor() ? 1. : 0.;
+  z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
   z_[isAvailableNum_] = isAvailable(t) ? 1. : 0.;
-  z_[3] = getCurrentSection();
+  z_[currentSectionNum_] = getCurrentSection();
 
   State currState = static_cast<State>(z_[connectionStateNum_]);
   if (currState != getConnected()) {
