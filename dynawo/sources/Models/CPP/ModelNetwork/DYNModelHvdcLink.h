@@ -119,10 +119,9 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
 
   /**
-   * @brief evalution Z
-   * @param t time
+   * @copydoc NetworkComponent::Impl::evalZ()
    */
-  void evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
    * @copydoc NetworkComponent::setGequations( std::map<int,std::string>& gEquationIndex )

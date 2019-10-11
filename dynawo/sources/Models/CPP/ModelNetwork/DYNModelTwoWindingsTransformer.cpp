@@ -1200,7 +1200,7 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
   addSubElement("value", name, Element::TERMINAL, elements, mapElement);
 }
 
-void
+NetworkComponent::StateChange_t
 ModelTwoWindingsTransformer::evalZ(const double& t) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
@@ -1384,6 +1384,11 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     if (z_[4] > 0)
       Trace::debug() << DYNLog(TapChangerLocked, id_) << Trace::endline;
   }
+  if (topologyModified_)
+    return NetworkComponent::TOPO_CHANGE;
+  else if (stateIndexModified_)
+    return NetworkComponent::STATE_CHANGE;
+  return NetworkComponent::NO_CHANGE;
 }
 
 double

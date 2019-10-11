@@ -698,7 +698,7 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
   addSubElement("value", name, Element::TERMINAL, elements, mapElement);
 }
 
-void
+NetworkComponent::StateChange_t
 ModelLoad::evalZ(const double& /*t*/) {
   State currState = static_cast<State>(z_[0]);
   if (currState != getConnected()) {
@@ -713,6 +713,7 @@ ModelLoad::evalZ(const double& /*t*/) {
     stateModified_ = true;
     setConnected(currState);
   }
+  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

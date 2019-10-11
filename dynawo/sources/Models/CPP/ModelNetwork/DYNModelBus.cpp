@@ -183,10 +183,8 @@ topologyModified_(false) {
 
 bool
 ModelBus::numSubNetworkSet() const {
-  if (numSubNetwork_)
-    return true;
-  else
-    return false;
+  assert(z_ != NULL);
+  return doubleNotEquals(z_[numSubNetworkNum_], -1.);
 }
 
 // currentV can be called during one iteration of the simulation
@@ -447,8 +445,6 @@ ModelBus::getY0() {
       yp_[2] = 0.0;
       yp_[3] = 0.0;
     }
-
-    z_[numSubNetworkNum_] = numSubNetwork();
     z_[switchOffNum_] = fromNativeBool(switchOff_);
     z_[connectionStateNum_] = connectionState_;
   }
@@ -598,9 +594,8 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
   addSubElement("value", name, Element::TERMINAL, elements, mapElement);
 }
 
-void
+NetworkComponent::StateChange_t
 ModelBus::evalZ(const double& /*t*/) {
-  z_[numSubNetworkNum_] = numSubNetwork();
   z_[switchOffNum_] = fromNativeBool(switchOff_);
 
   if (g_[0] == ROOT_UP && !stateUmax_ && !getSwitchOff()) {
@@ -639,6 +634,7 @@ ModelBus::evalZ(const double& /*t*/) {
     }
     connectionState_ = static_cast<State>(z_[connectionStateNum_]);
   }
+  return (topologyModified_)? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
 }
 
 void

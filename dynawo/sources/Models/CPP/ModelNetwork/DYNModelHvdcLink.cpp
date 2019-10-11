@@ -191,7 +191,7 @@ ModelHvdcLink::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
   // no jacobian transpose derivative evaluation because no equation
 }
 
-void
+NetworkComponent::StateChange_t
 ModelHvdcLink::evalZ(const double& /*t*/) {
   // evaluation of the discrete variables current values
   State currState1 = static_cast<State>(z_[0]);
@@ -221,6 +221,7 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
     setConnected2(currState2);
     stateModified_ = true;
   }
+  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

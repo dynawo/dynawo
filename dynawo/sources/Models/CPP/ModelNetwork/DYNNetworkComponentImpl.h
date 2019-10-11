@@ -93,7 +93,7 @@ class NetworkComponent::Impl : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalZ(const double& t)
    */
-  virtual void evalZ(const double& t) = 0;
+  virtual NetworkComponent::StateChange_t evalZ(const double& t) = 0;
 
   /**
    * @copydoc NetworkComponent::evalCalculatedVars()

@@ -219,7 +219,7 @@ ModelShuntCompensator::evalG(const double& t) {
   g_[0] = (t >= tLastOpening_ + noReclosingDelay_) ? ROOT_UP : ROOT_DOWN;
 }
 
-void
+NetworkComponent::StateChange_t
 ModelShuntCompensator::evalZ(const double& t) {
   z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
   z_[isAvailableNum_] = isAvailable(t) ? 1. : 0.;
@@ -242,6 +242,7 @@ ModelShuntCompensator::evalZ(const double& t) {
     suscepPu_ = (suscepPerSect_ * currentSection_) * vNom_ * vNom_ / SNREF;
     setConnected(currState);
   }
+  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

@@ -106,7 +106,7 @@ ModelSwitch::evalNodeInjection() {
   }
 }
 
-void
+NetworkComponent::StateChange_t
 ModelSwitch::evalZ(const double& /*t*/) {
   State currState = static_cast<State>(z_[0]);
   if (currState != getConnectionState()) {
@@ -119,6 +119,7 @@ ModelSwitch::evalZ(const double& /*t*/) {
     }
     setConnectionState(currState);
   }
+  return (topologyModified_) ? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
 }
 
 void

@@ -125,8 +125,9 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief evalution Z
    * @param t time
+   * @return the potential state change type
    */
-  virtual void evalZ(const double& t) = 0;
+  virtual NetworkComponent::StateChange_t evalZ(const double& t) = 0;
 
   /**
    * @brief evalution calculated variables (for outpus)

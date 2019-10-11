@@ -831,9 +831,29 @@ ModelNetwork::evalG(const double& t) {
 void
 ModelNetwork::evalZ(const double& t) {
   Timer timer3("ModelNetwork::evalZ");
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalZ(t);
+  bool topoChange = false;
+  bool stateChange = false;
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator  itComponent = getComponents().begin(), itEnd = getComponents().end();
+      itComponent != itEnd; ++itComponent) {
+    switch ((*itComponent)->evalZ(t)) {
+    case NetworkComponent::TOPO_CHANGE:
+      topoChange = true;
+      break;
+    case NetworkComponent::STATE_CHANGE:
+      stateChange = true;
+      break;
+    case NetworkComponent::NO_CHANGE:
+      break;
+    }
+  }
+  if (topoChange) {
+    breakModelSwitchLoops();
+    evalYMat();
+    computeComponents();
+    analyseComponents();
+  } else if (stateChange) {
+    evalYMat();
+  }
 }
 
 modeChangeType_t
@@ -863,12 +883,7 @@ ModelNetwork::evalMode(const double& t) {
   // recalculate admittance matrix and reevaluate connectivity
   if (topoChange) {
     modeChangeType = ALGEBRAIC_J_UPDATE_MODE;
-    breakModelSwitchLoops();
-    evalYMat();
-    computeComponents();
-    analyseComponents();
   } else if (stateChange) {
-    evalYMat();
     modeChangeType = ALGEBRAIC_MODE;
   }
 

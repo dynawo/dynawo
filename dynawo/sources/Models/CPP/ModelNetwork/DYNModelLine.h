@@ -175,11 +175,12 @@ class ModelLine : public NetworkComponent::Impl {
    * @brief evalution F
    */
   void evalF() { /* not needed */ }  // get the (empty) local F function
+
   /**
-   * @brief evalution Z
-   * @param t time
-   */
-  void evalZ(const double& t);  // get the local Z function for time t
+  * @copydoc NetworkComponent::Impl::evalZ()
+  */
+  NetworkComponent::StateChange_t evalZ(const double& t);  // get the local Z function for time t
+
   /**
    * @brief evalution G
    * @param t time
