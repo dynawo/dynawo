@@ -337,6 +337,30 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   }  // get information about whether the bus is switched off
 
   /**
+   * @brief get information about whether the bus is opened or closed
+   * @return current state of the bus
+   */
+  inline State getConnectionState() const {
+    return connectionState_;
+  }
+
+  /**
+   * @brief get information about the minimum voltage
+   * @return current minimum voltage
+   */
+  inline double getUMin() const {
+    return uMin_;
+  }
+
+  /**
+   * @brief get information about the maximum voltage
+   * @return current maximum voltage
+   */
+  inline double getUMax() const {
+    return uMax_;
+  }
+
+  /**
    * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)
    */
   void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
@@ -531,10 +555,19 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
   }
 
   /**
+   * @brief get num
+   * @return num
+   */
+  inline int getNum() const {
+    return num_;
+  }
+
+  /**
    * @brief  add a bus to the sub-network
    * @param bus
    */
   inline void addBus(const boost::shared_ptr<ModelBus>& bus) {
+    assert(bus && "Undefined bus");
     bus_.push_back(bus);
   }   // add a bus to the sub-network
 
@@ -552,6 +585,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
    * @return bus
    */
   inline boost::shared_ptr<ModelBus> bus(int num) const {
+    assert(num < bus_.size() && "Bus index unknown");
     return bus_[num];
   }
   /**

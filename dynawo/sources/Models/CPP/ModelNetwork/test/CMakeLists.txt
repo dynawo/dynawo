@@ -13,8 +13,11 @@ SET(MODULE_NAME MODELS_MODELNETWORK_unittest)
 SET(MODULE_SOURCES
     TestIIDMInitializationFlow.cpp
     TestDerivatives.cpp
+    TestBus.cpp
     TestSwitch.cpp
     TestDanglingLine.cpp
+    TestCurrentLimits.cpp
+    TestGenerator.cpp
 )
 
 INCLUDE_DIRECTORIES(SYSTEM ${UNITTEST_INCLUDE_DIRS}
@@ -29,6 +32,7 @@ INCLUDE_DIRECTORIES(../
           ../../../../Modeler/Common
           ../../../CPP/Common
           ../../../../API/TL
+          ../../../../API/CSTR
           )
 
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})

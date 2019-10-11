@@ -670,6 +670,8 @@ ModelBus::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
       numVars.push_back(urYNum_);
       numVars.push_back(uiYNum_);
       break;
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
@@ -721,6 +723,8 @@ ModelBus::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, v
         res[1] = v3 * v2*RAD_TO_DEG;
       }
       break;
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
     }
   }
 }
@@ -755,6 +759,8 @@ ModelBus::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
       else
         output = atan2(ui, ur) * RAD_TO_DEG;  // Voltage angle in degree
       break;
+    default:
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
   return output;
 }
@@ -766,13 +772,10 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
     jt.addTerm(urYNum() + rowOffset, 1.0);
     jt.changeCol();
     jt.addTerm(uiYNum() + rowOffset, 1.0);
+  } else if (derivatives_->empty()) {  // Disconnected bus
+    jt.changeCol();
+    jt.changeCol();
   } else {
-    if (derivatives_->empty()) {  // Disconnected bus
-      jt.changeCol();
-      jt.changeCol();
-      return;
-    }
-
     // Column for the real part of the node current
     // ----------------------------------
     // Switching column

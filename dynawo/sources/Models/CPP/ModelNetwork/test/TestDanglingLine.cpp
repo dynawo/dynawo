@@ -414,7 +414,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
   y[ModelDanglingLine::urFictNum_] = 4.;
   y[ModelDanglingLine::uiFictNum_] = 1.5;
   SparseMatrix smj;
-  int size = dl->sizeY();
+  int size = dl->sizeF();
   smj.init(size, size);
   dl->evalJt(smj, 1., 0);
   ASSERT_EQ(smj.nbElem(), 8);

@@ -221,22 +221,6 @@ class ModelGenerator : public NetworkComponent::Impl {
   void initSize();
 
   /**
-   * @brief get p
-   * @return p
-   */
-  inline double getP() const {
-    return P_;
-  }  ///< get active power
-
-  /**
-   * @brief get q
-   * @return q
-   */
-  inline double getQ() const {
-    return Q_;
-  }  ///< get reactive power
-
-  /**
    * @brief  check whether the generator is connected to the network
    * @return connection state
    */
@@ -252,7 +236,6 @@ class ModelGenerator : public NetworkComponent::Impl {
     return (connectionState_ == CLOSED);
   }
 
- private:
   /**
    * @brief calculate the active power setpoint in pu (SNREF)
    * @return the active power setpoint in pu (SNREF)
@@ -265,6 +248,7 @@ class ModelGenerator : public NetworkComponent::Impl {
    */
   double Qc() const;
 
+ private:
   /**
    * @brief get the real part of the current
    * @param ur real part of the voltage
@@ -323,8 +307,6 @@ class ModelGenerator : public NetworkComponent::Impl {
   double Qc_;  ///< reactive power target in MVar
   double ir0_;  ///< initial current real part
   double ii0_;  ///< initial current imaginary part
-  double P_;  ///< active power in pu (SNREF)
-  double Q_;  ///< reactive power in pu (SNREF)
   State connectionState_;  ///< "internal" generator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the generator connection state was modified
   boost::shared_ptr<ModelBus> modelBus_;  ///< model bus
