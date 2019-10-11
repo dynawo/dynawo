@@ -585,7 +585,7 @@ class SubNetwork {  ///< sub-network gathering buses connected by AC components
    * @return bus
    */
   inline boost::shared_ptr<ModelBus> bus(int num) const {
-    assert(num < bus_.size() && "Bus index unknown");
+    assert(num >= 0 && static_cast<size_t>(num) < bus_.size() && "Bus index unknown");
     return bus_[num];
   }
   /**
