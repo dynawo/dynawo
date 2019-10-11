@@ -62,8 +62,6 @@ stateModified_(false) {
     ir0_ = 0.;
     ii0_ = 0.;
   }
-  P_ = 0.;
-  Q_ = 0.;
 }
 
 void
@@ -321,6 +319,8 @@ ModelGenerator::getDefJCalculatedVarI(int numCalculatedVar, std::vector<int> & n
     }
     case genStateNum_:
       break;
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
@@ -353,6 +353,8 @@ ModelGenerator::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*y
     }
     case genStateNum_:
       break;
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
@@ -383,6 +385,8 @@ ModelGenerator::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp
     }
     case genStateNum_:
       return connectionState_;
+    default:
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
   return 0.;
 }

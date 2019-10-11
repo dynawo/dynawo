@@ -84,6 +84,10 @@ ModelCurrentLimits::addAcceptableDuration(const int& acceptableDuration) {
 
 void
 ModelCurrentLimits::evalG(const string& /*componentName*/, const double& t, const double& current, state_g* g, const double& desactivate) {
+  assert(limits_.size() == nbLimits_ && "Mismatching number of limits and vector sizes");
+  assert(limitActivated_.size() == nbLimits_ && "Mismatching number of limits and vector sizes");
+  assert(acceptableDurations_.size() == nbLimits_ && "Mismatching number of limits and vector sizes");
+  assert(openingAuthorized_.size() == nbLimits_ && "Mismatching number of limits and vector sizes");
   for (int i = 0; i < nbLimits_; ++i) {
     // ================== DUE to IIDM convention ============
     double limit = limits_[i];
@@ -103,6 +107,10 @@ ModelCurrentLimits::evalG(const string& /*componentName*/, const double& t, cons
 
 ModelCurrentLimits::state_t
 ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g* g, ModelNetwork* network, const double& desactivate) {
+  assert(limits_.size() == nbLimits_ && "Mismatching number of limits and vector sizes");
+  assert(limitActivated_.size() == nbLimits_ && "Mismatching number of limits and vector sizes");
+  assert(acceptableDurations_.size() == nbLimits_ && "Mismatching number of limits and vector sizes");
+  assert(openingAuthorized_.size() == nbLimits_ && "Mismatching number of limits and vector sizes");
   state_t state = ModelCurrentLimits::COMPONENT_CLOSE;
 
   for (int i = 0; i < nbLimits_; ++i) {
