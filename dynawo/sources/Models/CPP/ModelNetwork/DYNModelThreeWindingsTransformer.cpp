@@ -122,9 +122,9 @@ ModelThreeWindingsTransformer::defineElements(vector<Element>& /*elements*/, map
   // not needed
 }
 
-void
+NetworkComponent::StateChange_t
 ModelThreeWindingsTransformer::evalZ(const double& /*t*/) {
-  // not needed
+  return NetworkComponent::NO_CHANGE;
 }
 
 void

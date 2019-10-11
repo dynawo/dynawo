@@ -127,10 +127,9 @@ class ModelGenerator : public NetworkComponent::Impl {
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @brief evalution Z
-   * @param t time
+   * @copydoc NetworkComponent::Impl::evalZ()
    */
-  void evalZ(const double& t);  ///< compute local Z function
+  NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
    * @brief evalution G

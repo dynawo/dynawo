@@ -208,7 +208,7 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::evalZ(const double& t)
    */
-  void evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
    * @copydoc NetworkComponent::evalState(const double& time)

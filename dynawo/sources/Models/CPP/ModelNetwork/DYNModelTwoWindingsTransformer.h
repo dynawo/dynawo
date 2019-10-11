@@ -267,10 +267,9 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @brief evalution Z
-   * @param t time
+   * @copydoc NetworkComponent::evalZ(const double& t)
    */
-  void evalZ(const double& t);  // compute the Z function
+  NetworkComponent::StateChange_t evalZ(const double& t);  // compute the Z function
 
   /**
    * @brief evalution G

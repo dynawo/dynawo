@@ -677,7 +677,7 @@ ModelDanglingLine::defineElements(std::vector<Element> &elements, std::map<std::
   addSubElement("value", name, Element::TERMINAL, elements, mapElement);
 }
 
-void
+NetworkComponent::StateChange_t
 ModelDanglingLine::evalZ(const double& t) {
   if (currentLimits_) {
     ModelCurrentLimits::state_t currentLimitState;
@@ -704,6 +704,7 @@ ModelDanglingLine::evalZ(const double& t) {
     setCurrentLimitsDesactivate(z_[1]);
     Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
+  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

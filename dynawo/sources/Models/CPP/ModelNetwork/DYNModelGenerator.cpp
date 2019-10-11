@@ -247,7 +247,7 @@ ModelGenerator::defineElements(std::vector<Element> &elements, std::map<std::str
   addSubElement("value", name, Element::TERMINAL, elements, mapElement);
 }
 
-void
+NetworkComponent::StateChange_t
 ModelGenerator::evalZ(const double& /*t*/) {
   State currState = static_cast<State>(z_[0]);
   if (currState != getConnected()) {
@@ -272,6 +272,7 @@ ModelGenerator::evalZ(const double& /*t*/) {
     network_->addEvent(id_, DYNTimeline(GeneratorTargetQ, z_[2]));
     Qc_ = z_[2];
   }
+  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

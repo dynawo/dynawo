@@ -407,11 +407,28 @@ ModelVoltageLevel::setGequations(map<int, string>& gEquationIndex) {
   }
 }
 
-void
+NetworkComponent::StateChange_t
 ModelVoltageLevel::evalZ(const double& t) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalZ(t);
+  bool topoChange = false;
+  bool stateChange = false;
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(), itEnd = components_.end();
+      itComponent != itEnd; ++itComponent) {
+    switch ((*itComponent)->evalZ(t)) {
+    case NetworkComponent::TOPO_CHANGE:
+      topoChange = true;
+      break;
+    case NetworkComponent::STATE_CHANGE:
+      stateChange = true;
+      break;
+    case NetworkComponent::NO_CHANGE:
+      break;
+    }
+  }
+  if (topoChange)
+    return NetworkComponent::TOPO_CHANGE;
+  else if (stateChange)
+    return NetworkComponent::STATE_CHANGE;
+  return NetworkComponent::NO_CHANGE;
 }
 
 NetworkComponent::StateChange_t

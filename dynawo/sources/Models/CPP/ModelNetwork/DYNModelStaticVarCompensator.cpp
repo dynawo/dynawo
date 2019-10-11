@@ -440,7 +440,7 @@ ModelStaticVarCompensator::getY0() {
   }
 }
 
-void
+NetworkComponent::StateChange_t
 ModelStaticVarCompensator::evalZ(const double& /*t*/) {
   mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(z_[0]);
 
@@ -485,6 +485,7 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
     stateModified_ = true;
     setConnected(currState);
   }
+  return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
 
 void

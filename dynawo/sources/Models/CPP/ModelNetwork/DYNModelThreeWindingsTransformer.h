@@ -140,7 +140,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::Impl::evalZ()
    */
-  void evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
    * @copydoc NetworkComponent::Impl::evalG()

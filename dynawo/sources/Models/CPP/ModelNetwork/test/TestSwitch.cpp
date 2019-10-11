@@ -246,7 +246,6 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
 
   shared_ptr<ModelBus> bus1 = sw->getModelBus1();
   bus1->initSize();
-  bus1->numSubNetwork(2);
   std::vector<double> y1(bus1->sizeY(), 0.);
   std::vector<double> yp1(bus1->sizeY(), 0.);
   std::vector<double> f1(bus1->sizeF(), 0.);
@@ -255,10 +254,10 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   bus1->setReferenceG(&g1[0], 0);
   bus1->setReferenceZ(&z1[0], 0);
   bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
+  bus1->numSubNetwork(2);
 
   shared_ptr<ModelBus> bus2 = sw->getModelBus2();
   bus2->initSize();
-  bus2->numSubNetwork(2);
   std::vector<double> y2(bus2->sizeY(), 0.);
   std::vector<double> yp2(bus2->sizeY(), 0.);
   std::vector<double> f2(bus2->sizeF(), 0.);
@@ -267,6 +266,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchBuses) {
   bus2->setReferenceG(&g2[0], 0);
   bus2->setReferenceZ(&z2[0], 0);
   bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
+  bus2->numSubNetwork(2);
 
   const unsigned indexConnectionStateBus = 2;
   sw->close();

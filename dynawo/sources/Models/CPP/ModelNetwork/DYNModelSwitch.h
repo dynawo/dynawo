@@ -189,11 +189,11 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
    * @brief evaluate F
    */
   void evalF();  ///< compute the local F function
+
   /**
-   * @brief evaluate Z
-   * @param t time
-   */
-  void evalZ(const double& t);  ///< compute the local Z function
+  * @copydoc NetworkComponent::Impl::evalZ()
+  */
+  NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
    * @brief evaluate G

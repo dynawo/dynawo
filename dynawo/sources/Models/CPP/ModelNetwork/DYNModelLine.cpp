@@ -700,7 +700,7 @@ ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, 
   addSubElement("value", name, Element::TERMINAL, elements, mapElement);
 }
 
-void
+NetworkComponent::StateChange_t
 ModelLine::evalZ(const double& t) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
@@ -841,6 +841,8 @@ ModelLine::evalZ(const double& t) {
     setCurrentLimitsDesactivate(z_[1]);
     Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
+
+  return (topologyModified_)? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
 }
 
 void

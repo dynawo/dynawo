@@ -155,10 +155,9 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   void evalF();
 
   /**
-   * @brief evalution Z
-   * @param t time
+   * @copydoc NetworkComponent::Impl::evalZ()
    */
-  void evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
    * @brief evalution G

@@ -147,10 +147,9 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void evalF();
 
   /**
-   * @brief compute the local Z function
-   * @param t time
+   * @copydoc NetworkComponent::Impl::evalZ()
    */
-  void evalZ(const double& t);
+  NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
    * @brief compute the local G function
@@ -403,7 +402,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @param num number of the sub network
    */
   inline void numSubNetwork(int num) {
-    numSubNetwork_ = num;
+    z_[numSubNetworkNum_] = num;
   }  // set the number of independent sub networks
 
   /**
@@ -416,7 +415,8 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @brief clear the sub-network index
    */
   inline void clearNumSubNetwork() {
-    numSubNetwork_.reset();
+    assert(z_ != NULL);
+    z_[numSubNetworkNum_] = -1.;
   }
 
   /**
@@ -424,7 +424,9 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @return numSubNetwork_
    */
   inline int numSubNetwork() const {
-    return numSubNetwork_.value();
+    assert(z_ != NULL);
+    assert(doubleNotEquals(z_[numSubNetworkNum_], -1.));
+    return z_[numSubNetworkNum_];
   }  // get the number of independent sub networks
 
   /**
@@ -513,8 +515,6 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   int busIndex_;  ///< index of bus in its voltage level
   bool hasConnection_;  ///< whether has connection
-
-  boost::optional<int> numSubNetwork_;  ///< number of subnetworks
 
   double unom_;  ///< nominal voltage
   double u0_;  ///< initial voltage
