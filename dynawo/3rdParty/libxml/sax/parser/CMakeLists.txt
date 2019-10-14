@@ -21,7 +21,7 @@ find_package(XercesC REQUIRED)
 
 # disabling some gcc warnings with old XercesC.
 if(XercesC_VERSION VERSION_LESS "3.0.0")
-  if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU')
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-overflow -Wno-cast-qual")
   endif()
 endif()
@@ -50,32 +50,30 @@ set(PARSER_SOURCES
   src/XercescStreamInputSource.cpp
 )
 
-# see README
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-parentheses -Wno-sign-compare")
-
+if(NOT MSVC)
+  # see README
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-parentheses -Wno-sign-compare")
+endif()
 
 if (LibXML_SAX_BUILD_SHARED)
   add_library(XMLSAXParser${LINK_SUFFIX_SHARED} SHARED ${PARSER_SOURCES})
 
   target_include_directories(XMLSAXParser${LINK_SUFFIX_SHARED}
     PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${XML_common_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibXML_INSTALL_INCLUDE}>
-    ${Boost_INCLUDE_DIRS}
-    PRIVATE
-    ${XercesC_INCLUDE_DIRS}
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+      $<BUILD_INTERFACE:${XML_common_SOURCE_DIR}/include>
+      $<INSTALL_INTERFACE:${LibXML_INSTALL_INCLUDE}>
+      $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
-  target_link_libraries(XMLSAXParser${LINK_SUFFIX_SHARED}
-    ${XercesC_LIBRARIES}
-
-  )
+  target_link_libraries(XMLSAXParser${LINK_SUFFIX_SHARED} XercesC::XercesC)
 
   set_target_properties(XMLSAXParser${LINK_SUFFIX_SHARED}
     PROPERTIES
+      OUTPUT_NAME XMLSAXParser
       SOVERSION ${LIBXML_VERSION_MAJOR}
       VERSION ${LIBXML_VERSION}
+      WINDOWS_EXPORT_ALL_SYMBOLS TRUE
   )
 
   install(TARGETS XMLSAXParser${LINK_SUFFIX_SHARED} EXPORT XMLSAXParser${LINK_SUFFIX_SHARED}-config
@@ -116,23 +114,19 @@ if (LibXML_SAX_BUILD_STATIC)
 
   target_include_directories(XMLSAXParser${LINK_SUFFIX_STATIC}
     PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<BUILD_INTERFACE:${XML_common_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibXML_INSTALL_INCLUDE}>
-    ${Boost_INCLUDE_DIRS}
-    PRIVATE
-    ${XercesC_INCLUDE_DIRS}
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+      $<BUILD_INTERFACE:${XML_common_SOURCE_DIR}/include>
+      $<INSTALL_INTERFACE:${LibXML_INSTALL_INCLUDE}>
+      $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
   )
+
+  target_link_libraries(XMLSAXParser${LINK_SUFFIX_STATIC} XercesC::XercesC)
 
   set_target_properties(XMLSAXParser${LINK_SUFFIX_STATIC}
     PROPERTIES
-      OUTPUT_NAME XMLParser
+      OUTPUT_NAME XMLSAXParser
       SOVERSION ${LIBXML_VERSION_MAJOR}
       VERSION ${LIBXML_VERSION}
-  )
-
-  target_link_libraries(XMLSAXParser${LINK_SUFFIX_STATIC}
-    ${XercesC_LIBRARIES}
   )
 
   install(TARGETS XMLSAXParser${LINK_SUFFIX_STATIC} EXPORT XMLSAXParser${LINK_SUFFIX_STATIC}-config

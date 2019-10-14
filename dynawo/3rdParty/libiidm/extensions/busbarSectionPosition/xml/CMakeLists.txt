@@ -38,7 +38,6 @@ add_library(iidm-ext-busbarsectionposition-xml ${IIDM_EXT_BUSBARSECTIONPOSITION_
 target_include_directories(iidm-ext-busbarsectionposition-xml
   PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibIIDM_INSTALL_INCLUDE}>
 )
 
 target_link_libraries(iidm-ext-busbarsectionposition-xml
@@ -50,6 +49,7 @@ set_target_properties(iidm-ext-busbarsectionposition-xml
   PROPERTIES
     VERSION ${IIDM_VERSION_STRING}
     SOVERSION ${IIDM_VERSION_MAJOR}
+    WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
 install(TARGETS iidm-ext-busbarsectionposition-xml EXPORT iidm-ext-busbarsectionposition-xml-config
@@ -120,7 +120,6 @@ if(BUILD_SAMPLES)
 
   target_include_directories(iidm-ext-busbarsectionposition-xml-testing
     PUBLIC
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   )
 
@@ -133,6 +132,7 @@ if(BUILD_SAMPLES)
     PROPERTIES
       VERSION ${IIDM_VERSION_STRING}
       SOVERSION ${IIDM_VERSION_MAJOR}
+      WINDOWS_EXPORT_ALL_SYMBOLS TRUE
   )
 
   add_custom_command(TARGET iidm-ext-busbarsectionposition-xml-testing PRE_BUILD

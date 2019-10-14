@@ -21,7 +21,6 @@
 #include <string>
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/IdentifiableBuilder.h>
 
@@ -34,7 +33,7 @@ namespace builders {
  * @class SubstationBuilder
  * @brief IIDM::Substation builder
  */
-class IIDM_EXPORT SubstationBuilder: public IdentifiableBuilder<IIDM::Substation, SubstationBuilder> {
+class SubstationBuilder: public IdentifiableBuilder<IIDM::Substation, SubstationBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(SubstationBuilder, std::string, country)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(SubstationBuilder, std::string, tso)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(SubstationBuilder, std::string, geographicalTags)

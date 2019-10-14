@@ -27,8 +27,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
 
-#include "PARExport.h"
-
 namespace parameters {
 
 class Parameter;
@@ -41,7 +39,7 @@ class Reference;
  * ParametersSet objects describe a set of parameters.
  * Available types are those availables in @p Parameter class
  */
-class __DYNAWO_PAR_EXPORT ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
+class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
  public:
   /**
    * @brief Destructor

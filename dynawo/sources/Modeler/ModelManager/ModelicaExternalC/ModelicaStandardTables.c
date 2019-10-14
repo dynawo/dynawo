@@ -1,6 +1,6 @@
 /* ModelicaStandardTables.c - External table functions
 
-   Copyright (C) 2013-2017, Modelica Association, DLR, and ESI ITI GmbH
+   Copyright (C) 2013-2019, Modelica Association and contributors
    All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
@@ -12,6 +12,10 @@
    2. Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
+
+   3. Neither the name of the copyright holder nor the names of its
+      contributors may be used to endorse or promote products derived from
+      this software without specific prior written permission.
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -34,6 +38,17 @@
       Modelica.Blocks.Tables.CombiTable2D
 
    Release Notes:
+      Oct. 04, 2018: by Thomas Beutlich, ESI ITI GmbH
+                     Fixed event detection of CombiTimeTable (ticket #2724)
+                     Fixed left extrapolation of CombiTimeTable (ticket #2724)
+
+      Jan. 03, 2018: by Thomas Beutlich, ESI ITI GmbH
+                     Improved reentrancy of CombiTimeTable (ticket #2411)
+
+      Oct. 23, 2017: by Thomas Beutlich, ESI ITI GmbH
+                     Utilized non-fatal hash insertion, called by HASH_ADD_KEYPTR
+                     in function readTable (ticket #2097)
+
       Aug. 25, 2017: by Thomas Beutlich, ESI ITI GmbH
                      Added support for extrapolation in CombiTable2D (ticket #1839)
 
@@ -49,7 +64,6 @@
                      Revised initialization of CombiTimeTable, CombiTable1D
                      and CombiTable2D (ticket #1899)
                      - Already read table in the initialization functions
-                     - Removed the implementation of the read functions
 
       Apr. 07, 2017: by Thomas Beutlich, ESI ITI GmbH
                      Added support for shift time (independent of start time)
@@ -61,10 +75,6 @@
 
       Mar. 08, 2017: by Thomas Beutlich, ESI ITI GmbH
                      Moved file I/O functions to ModelicaIO (ticket #2192)
-
-      Feb. 26, 2017: by Thomas Beutlich, ESI ITI GmbH
-                     Fixed definition of uthash_fatal, called by HASH_ADD_KEYPTR
-                     in function readTable (ticket #2097)
 
       Feb. 25, 2017: by Thomas Beutlich, ESI ITI GmbH
                      Added support for extrapolation in CombiTable1D (ticket #1839)
@@ -125,7 +135,7 @@
       May 21, 2014:  by Thomas Beutlich, ITI GmbH
                      Fixed bivariate Akima-spline extrapolation (ticket #1465)
                      Improved error message in case of trailing numbers when parsing
-                     a line of an external ASCII text file (ticket #1494)
+                     a line of a text file (ticket #1494)
 
       Oct. 17, 2013: by Thomas Beutlich, ITI GmbH
                      Added support of 2D tables that actually degrade to 1D tables
@@ -141,13 +151,12 @@
 */
 
 #include "ModelicaStandardTables.h"
-
-#include "DYNModelicaUtilities.h"
 #include "ModelicaIO.h"
+#include "ModelicaUtilities.h"
 #if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
 #define uthash_strlen(s) key_strlen(s)
+#define HASH_NONFATAL_OOM 1
 #include "uthash.h"
-#undef uthash_fatal /* Ensure that nowhere in this file uses uthash_fatal by accident */
 #include "gconstructor.h"
 #endif
 #include <float.h>
@@ -359,7 +368,7 @@ typedef struct TableShare {
 /* ----- Static variables ----- */
 
 static TableShare* tableShare = NULL;
-#if defined(_POSIX_)
+#if defined(_POSIX_) && !defined(NO_MUTEX)
 #include <pthread.h>
 #if defined(G_HAS_CONSTRUCTORS)
 static pthread_mutex_t m;
@@ -387,17 +396,17 @@ static pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 #include <windows.h>
 static CRITICAL_SECTION cs;
 #ifdef G_DEFINE_CONSTRUCTOR_NEEDS_PRAGMA
-#pragma G_DEFINE_CONSTRUCTOR_PRAGMA_ARGS(initializeCS)
+#pragma G_DEFINE_CONSTRUCTOR_PRAGMA_ARGS(ModelicaStandardTables_initializeCS)
 #endif
-G_DEFINE_CONSTRUCTOR(initializeCS)
-static void initializeCS(void) {
+G_DEFINE_CONSTRUCTOR(ModelicaStandardTables_initializeCS)
+static void ModelicaStandardTables_initializeCS(void) {
     InitializeCriticalSection(&cs);
 }
 #ifdef G_DEFINE_DESTRUCTOR_NEEDS_PRAGMA
-#pragma G_DEFINE_DESTRUCTOR_PRAGMA_ARGS(deleteCS)
+#pragma G_DEFINE_DESTRUCTOR_PRAGMA_ARGS(ModelicaStandardTables_deleteCS)
 #endif
-G_DEFINE_DESTRUCTOR(deleteCS)
-static void deleteCS(void) {
+G_DEFINE_DESTRUCTOR(ModelicaStandardTables_deleteCS)
+static void ModelicaStandardTables_deleteCS(void) {
     DeleteCriticalSection(&cs);
 }
 #define MUTEX_LOCK() EnterCriticalSection(&cs)
@@ -471,7 +480,7 @@ static size_t key_strlen(_In_z_ const char *s);
   /* Special strlen for key consisting of concatenated names of file and table */
 #endif
 
-#if defined(TABLE_SHARE)
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
 #define READ_RESULT TableShare*
 #else
 #define READ_RESULT double*
@@ -479,7 +488,7 @@ static size_t key_strlen(_In_z_ const char *s);
 static READ_RESULT readTable(_In_z_ const char* fileName, _In_z_ const char* tableName,
                              _Inout_ size_t* nRow, _Inout_ size_t* nCol, int verbose,
                              int force) MODELICA_NONNULLATTR;
-  /* Read a table from an ASCII text or MATLAB MAT-file
+  /* Read a table from a text or MATLAB MAT-file
 
      <- RETURN: Pointer to TableShare structure or
         pointer to array (row-wise storage) of table values
@@ -532,10 +541,10 @@ static void spline2DClose(CubicHermite2D** spline);
 
 void* ModelicaStandardTables_CombiTimeTable_init(_In_z_ const char* tableName,
                                                  _In_z_ const char* fileName,
-                                                 _In_ double* table, size_t nRow,
+                                                 _In_ const double* table, size_t nRow,
                                                  size_t nColumn,
                                                  double startTime,
-                                                 _In_ int* cols,
+                                                 _In_ const int* cols,
                                                  size_t nCols, int smoothness,
                                                  int extrapolation) {
     return ModelicaStandardTables_CombiTimeTable_init2(fileName,
@@ -545,17 +554,17 @@ void* ModelicaStandardTables_CombiTimeTable_init(_In_z_ const char* tableName,
 
 void* ModelicaStandardTables_CombiTimeTable_init2(_In_z_ const char* fileName,
                                                   _In_z_ const char* tableName,
-                                                  _In_ double* table, size_t nRow,
+                                                  _In_ const double* table, size_t nRow,
                                                   size_t nColumn,
                                                   double startTime,
-                                                  _In_ int* cols,
+                                                  _In_ const int* cols,
                                                   size_t nCols, int smoothness,
                                                   int extrapolation,
                                                   double shiftTime,
                                                   int timeEvents,
                                                   int verbose) {
     CombiTimeTable* tableID;
-#if defined(TABLE_SHARE)
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
     TableShare* file = NULL;
     char* keyFile = NULL;
 #endif
@@ -566,7 +575,7 @@ void* ModelicaStandardTables_CombiTimeTable_init2(_In_z_ const char* fileName,
 
     /* Read table from file before any other heap allocation */
     if (TABLESOURCE_FILE == source) {
-#if defined(TABLE_SHARE)
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
         file = readTable(fileName, tableName, &nRowFile, &nColFile, verbose, 0);
         if (NULL != file) {
             keyFile = file->key;
@@ -585,22 +594,16 @@ void* ModelicaStandardTables_CombiTimeTable_init2(_In_z_ const char* fileName,
 
     tableID = (CombiTimeTable*)calloc(1, sizeof(CombiTimeTable));
     if (NULL == tableID) {
-#if defined(TABLE_SHARE)
-        if (NULL != keyFile) {
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
+        if (NULL != file) {
             MUTEX_LOCK();
             if (--file->refCount == 0) {
-                free(file->table);
+                ModelicaIO_freeRealTable(file->table);
                 free(file->key);
                 HASH_DEL(tableShare, file);
                 free(file);
             }
             MUTEX_UNLOCK();
-        }
-        else {
-            /* Should not be possible to get here */
-            if (NULL != tableFile) {
-                free(tableFile);
-            }
         }
 #else
         if (NULL != tableFile) {
@@ -623,7 +626,7 @@ void* ModelicaStandardTables_CombiTimeTable_init2(_In_z_ const char* fileName,
 
     switch (tableID->source) {
         case TABLESOURCE_FILE:
-#if defined(TABLE_SHARE)
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
             tableID->key = keyFile;
 #else
             {
@@ -768,7 +771,7 @@ void ModelicaStandardTables_CombiTimeTable_close(void* _tableID) {
             if (NULL != file) {
                 /* Share hit */
                 if (--file->refCount == 0) {
-                    free(file->table);
+                    ModelicaIO_freeRealTable(file->table);
                     free(file->key);
                     HASH_DEL(tableShare, file);
                     free(file);
@@ -830,6 +833,7 @@ double ModelicaStandardTables_CombiTimeTable_getValue(void* _tableID, int iCol,
                 enum PointInterval extrapolate = IN_TABLE;
                 const double tMin = TABLE_ROW0(0);
                 const double tMax = TABLE_COL0(nRow - 1);
+                size_t last;
                 /* Shift time */
                 const double tOld = t;
                 t -= tableID->shiftTime;
@@ -882,13 +886,13 @@ double ModelicaStandardTables_CombiTimeTable_getValue(void* _tableID, int iCol,
                                 t -= T;
                             } while (t > tMax);
                         }
-                        tableID->last = findRowIndex(
-                            table, nRow, nCol, tableID->last, t);
+                        last = findRowIndex(table, nRow, nCol, tableID->last, t);
+                        tableID->last = last;
                         /* Event interval correction */
-                        if (tableID->last < i0) {
+                        if (last < i0) {
                             t = TABLE_COL0(i0);
                         }
-                        if (tableID->last >= i1) {
+                        if (last >= i1) {
                             if (tableID->eventInterval == 1) {
                                 t = TABLE_COL0(i0);
                             }
@@ -912,7 +916,6 @@ double ModelicaStandardTables_CombiTimeTable_getValue(void* _tableID, int iCol,
                 }
 
                 if (extrapolate == IN_TABLE) {
-                    size_t last;
                     if (tableID->extrapolation == PERIODIC) {
                         last = findRowIndex(table, nRow, nCol,
                             tableID->last, t);
@@ -940,6 +943,7 @@ double ModelicaStandardTables_CombiTimeTable_getValue(void* _tableID, int iCol,
                             else {
                                 last = findRowIndex(table, nRow, nCol,
                                     tableID->last, t);
+                                tableID->last = last;
                             }
                             y = TABLE(last, col);
                             return y;
@@ -1008,21 +1012,19 @@ double ModelicaStandardTables_CombiTimeTable_getValue(void* _tableID, int iCol,
                 else {
                     /* Extrapolation */
                     switch (tableID->extrapolation) {
-                        case LAST_TWO_POINTS: {
-                            const size_t last =
-                                (extrapolate == RIGHT) ? nRow - 2 : 0;
-
+                        case LAST_TWO_POINTS:
+                            last = (extrapolate == RIGHT) ? nRow - 2 : 0;
                             switch(tableID->smoothness) {
                                 case LINEAR_SEGMENTS:
                                 case CONSTANT_SEGMENTS: {
                                     const double t0 = TABLE_COL0(last);
                                     const double t1 = TABLE_COL0(last + 1);
+                                    const double y0 = TABLE(last, col);
                                     const double y1 = TABLE(last + 1, col);
                                     if (isNearlyEqual(t0, t1)) {
-                                        y = y1;
+                                        y = (extrapolate == RIGHT) ? y1 : y0;
                                     }
                                     else {
-                                        const double y0 = TABLE(last, col);
                                         LINEAR(t, t0, t1, y0, y1);
                                     }
                                     break;
@@ -1050,7 +1052,6 @@ double ModelicaStandardTables_CombiTimeTable_getValue(void* _tableID, int iCol,
                                     return y;
                             }
                             break;
-                        }
 
                         case HOLD_LAST_POINT:
                             y = (extrapolate == RIGHT) ? TABLE(nRow - 1, col) :
@@ -1151,13 +1152,14 @@ double ModelicaStandardTables_CombiTimeTable_getDerValue(void* _tableID, int iCo
                                 t -= T;
                             } while (t > tMax);
                         }
-                        tableID->last = findRowIndex(
+                        last = findRowIndex(
                             table, nRow, nCol, tableID->last, t);
+                        tableID->last = last;
                         /* Event interval correction */
-                        if (tableID->last < i0) {
+                        if (last < i0) {
                             t = TABLE_COL0(i0);
                         }
-                        if (tableID->last >= i1) {
+                        if (last >= i1) {
                             if (tableID->eventInterval == 1) {
                                 t = TABLE_COL0(i0);
                             }
@@ -1438,7 +1440,7 @@ double ModelicaStandardTables_CombiTimeTable_nextTimeEvent(void* _tableID,
                             tableID->intervals[eventInterval][1] = i + 1;
                         }
                     }
-                    else if (tableID->timeEvents == AT_DISCONT) {
+                    else /* if (tableID->timeEvents == AT_DISCONT) */ {
                         if (t1 > tEvent) {
                             if (isNearlyEqual(t0, t1)) {
                                 tEvent = t1;
@@ -1593,7 +1595,7 @@ double ModelicaStandardTables_CombiTimeTable_nextTimeEvent(void* _tableID,
                     else {
                         nextTimeEvent = DBL_MAX;
                     }
-                } while (nextTimeEvent < t);
+                } while (nextTimeEvent <= t);
             }
         }
 
@@ -1728,7 +1730,7 @@ void* ModelicaStandardTables_CombiTable1D_init2(_In_z_ const char* fileName,
                                                 int extrapolation,
                                                 int verbose) {
     CombiTable1D* tableID;
-#if defined(TABLE_SHARE)
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
     TableShare* file = NULL;
     char* keyFile = NULL;
 #endif
@@ -1739,7 +1741,7 @@ void* ModelicaStandardTables_CombiTable1D_init2(_In_z_ const char* fileName,
 
     /* Read table from file before any other heap allocation */
     if (TABLESOURCE_FILE == source) {
-#if defined(TABLE_SHARE)
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
         file = readTable(fileName, tableName, &nRowFile, &nColFile, verbose, 0);
         if (NULL != file) {
             keyFile = file->key;
@@ -1758,22 +1760,16 @@ void* ModelicaStandardTables_CombiTable1D_init2(_In_z_ const char* fileName,
 
     tableID = (CombiTable1D*)calloc(1, sizeof(CombiTable1D));
     if (NULL == tableID) {
-#if defined(TABLE_SHARE)
-        if (NULL != keyFile) {
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
+        if (NULL != file) {
             MUTEX_LOCK();
             if (--file->refCount == 0) {
-                free(file->table);
+                ModelicaIO_freeRealTable(file->table);
                 free(file->key);
                 HASH_DEL(tableShare, file);
                 free(file);
             }
             MUTEX_UNLOCK();
-        }
-        else {
-            /* Should not be possible to get here */
-            if (NULL != tableFile) {
-                free(tableFile);
-            }
         }
 #else
         if (NULL != tableFile) {
@@ -1791,7 +1787,7 @@ void* ModelicaStandardTables_CombiTable1D_init2(_In_z_ const char* fileName,
 
     switch (tableID->source) {
         case TABLESOURCE_FILE:
-#if defined(TABLE_SHARE)
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
             tableID->key = keyFile;
 #else
             {
@@ -1936,7 +1932,7 @@ void ModelicaStandardTables_CombiTable1D_close(void* _tableID) {
             if (NULL != file) {
                 /* Share hit */
                 if (--file->refCount == 0) {
-                    free(file->table);
+                    ModelicaIO_freeRealTable(file->table);
                     free(file->key);
                     HASH_DEL(tableShare, file);
                     free(file);
@@ -2354,7 +2350,7 @@ double ModelicaStandardTables_CombiTable1D_read(void* _tableID, int force,
 
 void* ModelicaStandardTables_CombiTable2D_init(_In_z_ const char* tableName,
                                                _In_z_ const char* fileName,
-                                               _In_ double* table, size_t nRow,
+                                               _In_ const double* table, size_t nRow,
                                                size_t nColumn, int smoothness) {
     return ModelicaStandardTables_CombiTable2D_init2(fileName, tableName,
         table, nRow, nColumn, smoothness, LAST_TWO_POINTS, 1 /* verbose */);
@@ -2362,12 +2358,12 @@ void* ModelicaStandardTables_CombiTable2D_init(_In_z_ const char* tableName,
 
 void* ModelicaStandardTables_CombiTable2D_init2(_In_z_ const char* fileName,
                                                 _In_z_ const char* tableName,
-                                                _In_ double* table, size_t nRow,
+                                                _In_ const double* table, size_t nRow,
                                                 size_t nColumn, int smoothness,
                                                 int extrapolation,
                                                 int verbose) {
     CombiTable2D* tableID;
-#if defined(TABLE_SHARE)
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
     TableShare* file = NULL;
     char* keyFile = NULL;
 #endif
@@ -2378,7 +2374,7 @@ void* ModelicaStandardTables_CombiTable2D_init2(_In_z_ const char* fileName,
 
     /* Read table from file before any other heap allocation */
     if (TABLESOURCE_FILE == source) {
-#if defined(TABLE_SHARE)
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
         file = readTable(fileName, tableName, &nRowFile, &nColFile, verbose, 0);
         if (NULL != file) {
             keyFile = file->key;
@@ -2397,22 +2393,16 @@ void* ModelicaStandardTables_CombiTable2D_init2(_In_z_ const char* fileName,
 
     tableID = (CombiTable2D*)calloc(1, sizeof(CombiTable2D));
     if (NULL == tableID) {
-#if defined(TABLE_SHARE)
-        if (NULL != keyFile) {
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
+        if (NULL != file) {
             MUTEX_LOCK();
             if (--file->refCount == 0) {
-                free(file->table);
+                ModelicaIO_freeRealTable(file->table);
                 free(file->key);
                 HASH_DEL(tableShare, file);
                 free(file);
             }
             MUTEX_UNLOCK();
-        }
-        else {
-            /* Should not be possible to get here */
-            if (NULL != tableFile) {
-                free(tableFile);
-            }
         }
 #else
         if (NULL != tableFile) {
@@ -2429,7 +2419,7 @@ void* ModelicaStandardTables_CombiTable2D_init2(_In_z_ const char* fileName,
 
     switch (tableID->source) {
         case TABLESOURCE_FILE:
-#if defined(TABLE_SHARE)
+#if defined(TABLE_SHARE) && !defined(NO_FILE_SYSTEM)
             tableID->key = keyFile;
 #else
             {
@@ -2544,7 +2534,7 @@ void ModelicaStandardTables_CombiTable2D_close(void* _tableID) {
             if (NULL != file) {
                 /* Share hit */
                 if (--file->refCount == 0) {
-                    free(file->table);
+                    ModelicaIO_freeRealTable(file->table);
                     free(file->key);
                     HASH_DEL(tableShare, file);
                     free(file);
@@ -4611,7 +4601,7 @@ static int isValidCombiTimeTable(CombiTimeTable* tableID,
         const size_t nRow = tableID->nRow;
         const size_t nCol = tableID->nCol;
         const char* tableDummyName = "NoName";
-        const char* tableName = (0 < strlen(_tableName)) ? _tableName : tableDummyName;
+        const char* tableName = _tableName[0] != '\0' ? _tableName : tableDummyName;
         size_t iCol;
 
         /* Check dimensions */
@@ -4652,7 +4642,7 @@ static int isValidCombiTimeTable(CombiTimeTable* tableID,
                         ModelicaStandardTables_CombiTimeTable_close(tableID);
                     }
                     ModelicaFormatError(
-                        "Table matrix \"%s\" does not have a positive period/cylce "
+                        "Table matrix \"%s\" does not have a positive period/cycle "
                         "time for time interpolation with periodic "
                         "extrapolation.\n", tableName);
                     isValid = 0;
@@ -4718,7 +4708,7 @@ static int isValidCombiTable1D(CombiTable1D* tableID,
         const size_t nRow = tableID->nRow;
         const size_t nCol = tableID->nCol;
         const char* tableDummyName = "NoName";
-        const char* tableName = (0 < strlen(_tableName)) ? _tableName : tableDummyName;
+        const char* tableName = _tableName[0] != '\0' ? _tableName : tableDummyName;
         size_t iCol;
 
         /* Check dimensions */
@@ -4781,7 +4771,7 @@ static int isValidCombiTable2D(CombiTable2D* tableID,
         const size_t nRow = tableID->nRow;
         const size_t nCol = tableID->nCol;
         const char* tableDummyName = "NoName";
-        const char* tableName = (0 < strlen(_tableName)) ? _tableName : tableDummyName;
+        const char* tableName = _tableName[0] != '\0' ? _tableName : tableDummyName;
 
         /* Check dimensions */
         if (nRow < 2 || nCol < 2) {
@@ -4886,7 +4876,7 @@ static CubicHermite1D* akimaSpline1DInit(_In_ const double* table, size_t nRow,
 
      Hiroshi Akima. A new method of interpolation and smooth curve fitting
      based on local procedures. Journal of the ACM, 17(4), 589-602, Oct. 1970.
-     (http://dx.doi.org/10.1145/321607.321609)
+     (https://dx.doi.org/10.1145/321607.321609)
   */
 
     CubicHermite1D* spline = NULL;
@@ -4966,7 +4956,7 @@ static CubicHermite1D* fritschButlandSpline1DInit(_In_ const double* table,
      Frederick N. Fritsch and Judy Butland. A method for constructing local
      monotone piecewise cubic interpolants. SIAM Journal on Scientific and
      Statistical Computing, 5(2), 300-304, June 1984.
-     (http://dx.doi.org/10.1137/0905021)
+     (https://dx.doi.org/10.1137/0905021)
   */
 
     CubicHermite1D* spline = NULL;
@@ -5034,8 +5024,8 @@ static CubicHermite1D* steffenSpline1DInit(_In_ const double* table,
   /* Reference:
 
      Matthias Steffen. A simple method for monotonic interpolation in one
-     dimension. Astronomy and Astrophysic, 239, 443-450, August 1990.
-     (https://trac.modelica.org/Modelica/attachment/ticket/1814/1990_Astronomy_and_Astrophysic_239_443S.pdf)
+     dimension. Astronomy and Astrophysics, 239, 443-450, Nov. 1990.
+     (https://ui.adsabs.harvard.edu/#abs/1990A&A...239..443S)
   */
 
     CubicHermite1D* spline = NULL;
@@ -5595,12 +5585,6 @@ static READ_RESULT readTable(_In_z_ const char* fileName, _In_z_ const char* tab
                              int force) {
 #if !defined(NO_FILE_SYSTEM)
 #if defined(TABLE_SHARE)
-#define uthash_fatal(msg) do { \
-    MUTEX_UNLOCK(); \
-    ModelicaFormatMessage("Error in uthash: %s\n" \
-        "Hash table for table cache may be left in corrupt state.\n", msg); \
-    return file; \
-} while (0)
     TableShare* file = NULL;
 #endif
     double* table = NULL;
@@ -5615,22 +5599,30 @@ static READ_RESULT readTable(_In_z_ const char* fileName, _In_z_ const char* tab
             MUTEX_LOCK();
             HASH_FIND_STR(tableShare, key, file);
             if (NULL == file || force) {
-                /* Release lock since ModelicaIO_readRealTable may fail with
+                /* Release resources since ModelicaIO_readRealTable may fail with
                    ModelicaError
                 */
                 MUTEX_UNLOCK();
+                free(key);
 #endif
                 table = ModelicaIO_readRealTable(fileName, tableName,
                     nRow, nCol, verbose);
                 if (NULL == table) {
 #if defined(TABLE_SHARE)
-                    free(key);
                     return file;
 #else
                     return table;
 #endif
                 }
 #if defined(TABLE_SHARE)
+                /* Again allocate and set key */
+                key = (char*)malloc((lenFileName + strlen(tableName) + 2) * sizeof(char));
+                if (NULL == key) {
+                    ModelicaIO_freeRealTable(table);
+                    return file;
+                }
+                strcpy(key, fileName);
+                strcpy(key + lenFileName + 1, tableName);
                 /* Again ask for lock and search in hash table share */
                 MUTEX_LOCK();
                 HASH_FIND_STR(tableShare, key, file);
@@ -5646,9 +5638,18 @@ static READ_RESULT readTable(_In_z_ const char* fileName, _In_z_ const char* tab
                     file->nCol = *nCol;
                     file->table = table;
                     HASH_ADD_KEYPTR(hh, tableShare, key, lenKey, file);
+                    if (NULL == file->hh.tbl) {
+                        free(key);
+                        free(file);
+                        ModelicaIO_freeRealTable(table);
+                        MUTEX_UNLOCK();
+                        return NULL;
+                    }
                 }
                 else {
                     free(key);
+                    ModelicaIO_freeRealTable(table);
+                    MUTEX_UNLOCK();
                     return file;
                 }
             }
@@ -5658,7 +5659,7 @@ static READ_RESULT readTable(_In_z_ const char* fileName, _In_z_ const char* tab
                 */
                 free(key);
                 if (file->refCount == 1) {
-                    free(file->table);
+                    ModelicaIO_freeRealTable(file->table);
                     file->nRow = *nRow;
                     file->nCol = *nCol;
                     file->table = table;
@@ -5673,7 +5674,7 @@ static READ_RESULT readTable(_In_z_ const char* fileName, _In_z_ const char* tab
                 */
                 free(key);
                 if (NULL != table) {
-                    free(table);
+                    ModelicaIO_freeRealTable(table);
                 }
                 file->refCount++;
                 *nRow = file->nRow;
@@ -5689,7 +5690,6 @@ static READ_RESULT readTable(_In_z_ const char* fileName, _In_z_ const char* tab
 #endif
     }
 #if defined(TABLE_SHARE)
-#undef uthash_fatal
     return file;
 #else
     return table;
@@ -5698,11 +5698,3 @@ static READ_RESULT readTable(_In_z_ const char* fileName, _In_z_ const char* tab
     return NULL;
 #endif /* #if !defined(NO_FILE_SYSTEM) */
 }
-
-#if defined(DUMMY_FUNCTION_USERTAB)
-int usertab(char* tableName, int nipo, int dim[], int* colWise,
-            double** table) {
-    ModelicaError("Function \"usertab\" is not implemented\n");
-    return 1; /* Error */
-}
-#endif /* #if defined(DUMMY_FUNCTION_USERTAB) */

@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class UnitDynamicModel;
 
@@ -34,7 +32,7 @@ class UnitDynamicModel;
  * UnitDynamicModelFactory encapsulate methods for creating new
  * @p UnitDynamicModel objects.
  */
-class __DYNAWO_DYD_EXPORT UnitDynamicModelFactory {
+class UnitDynamicModelFactory {
  public:
   /**
    * @brief Create new UnitDynamicModel instance

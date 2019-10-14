@@ -23,8 +23,6 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
-#include "FSExport.h"
-
 namespace finalState {
 class Variable;
 class variable_const_iterator;
@@ -38,7 +36,7 @@ class model_iterator;
  *
  * Interface class for model object. Model is a container of variable or submodels
  */
-class __DYNAWO_FS_EXPORT Model {
+class Model {
  public:
   /**
    * @brief Destructor

@@ -29,7 +29,6 @@
 #include <boost/iterator/indirect_iterator.hpp>
 
 #include <IIDM/cpp11_type_traits.h>
-#include <IIDM/Export.h>
 
 
 namespace IIDM {

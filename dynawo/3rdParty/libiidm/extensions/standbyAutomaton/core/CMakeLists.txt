@@ -31,7 +31,6 @@ add_library(iidm-ext-standbyautomaton
 target_include_directories(iidm-ext-standbyautomaton
   PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibIIDM_INSTALL_INCLUDE}>
 )
 
 target_link_libraries(iidm-ext-standbyautomaton
@@ -42,6 +41,7 @@ set_target_properties(iidm-ext-standbyautomaton
   PROPERTIES
     VERSION ${IIDM_VERSION_STRING}
     SOVERSION ${IIDM_VERSION_MAJOR}
+    WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
 install(TARGETS iidm-ext-standbyautomaton EXPORT iidm-ext-standbyautomaton-config

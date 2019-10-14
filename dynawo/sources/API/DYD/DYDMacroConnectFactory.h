@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class MacroConnect;
 
@@ -34,7 +32,7 @@ class MacroConnect;
  * MacroConnectFactory encapsulate methods for creating new
  * @p MacroConnect objects.
  */
-class __DYNAWO_DYD_EXPORT MacroConnectFactory {
+class MacroConnectFactory {
  public:
   /**
    * @brief Create new MacroConnect instance

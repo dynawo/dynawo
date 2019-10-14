@@ -20,7 +20,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -38,7 +38,7 @@ class ShuntCompensatorBuilder;
 /**
  * @brief ShuntCompensator in the network
  */
-class IIDM_EXPORT ShuntCompensator:  public Identifiable, public Injection<ShuntCompensator>, public ContainedIn<VoltageLevel> {
+class ShuntCompensator:  public Identifiable, public Injection<ShuntCompensator>, public ContainedIn<VoltageLevel> {
 public:
   //aliases of parent()
   ///tells if a parent is specified

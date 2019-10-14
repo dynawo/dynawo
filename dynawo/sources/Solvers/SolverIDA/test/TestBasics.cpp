@@ -64,7 +64,7 @@ namespace DYN {
 
 boost::shared_ptr<Solver> initSolver() {
   // Solver
-  boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../libdynawo_SolverIDA" + std::string(sharedLibraryExtension()));
+  boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverIDA" + std::string(sharedLibraryExtension()));
 
   boost::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newInstance("MySolverParam");
   params->addParameter(parameters::ParameterFactory::newParameter("order", 2));

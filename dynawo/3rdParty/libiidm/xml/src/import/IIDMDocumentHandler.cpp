@@ -83,7 +83,11 @@ IIDMDocumentHandler::ActualExtensionHandler::ActualExtensionHandler(IIDMDocument
 {
   onStartElement(
     iidm_ns("extension"),
+#ifdef _MSC_VER
+    [this](parser::ElementName const&, parser::Attributes const& attrs) { id = attrs["id"].as_string(); }
+#else
     lambda::ref(id) = lambda::bind(&attributes_type::SearchedAttribute::as_string, lambda_args::arg2["id"])
+#endif
   );
 }
 

@@ -22,7 +22,6 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/components/Identifiable.h>
 #include <IIDM/components/ContainedIn.h>
@@ -42,7 +41,7 @@ class SubstationBuilder;
 
 
 //note: Contains<*> are inherited privately to hide non controlling add overloads.
-class IIDM_EXPORT Substation:
+class Substation:
   public Identifiable,
   public ContainedIn<Network>,
   public Contains<VoltageLevel>,

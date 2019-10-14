@@ -22,8 +22,6 @@
 
 #include <string>
 
-#include "EXTVARExport.h"
-
 namespace externalVariables {
 
 /**
@@ -32,7 +30,7 @@ namespace externalVariables {
  *
  * Variable is a virtual base class for all model types
  */
-class __DYNAWO_EXTVAR_EXPORT Variable {
+class Variable {
  public:
   /**
    * @brief Available model types enum

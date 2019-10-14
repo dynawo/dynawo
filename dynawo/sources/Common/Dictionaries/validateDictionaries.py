@@ -160,7 +160,7 @@ class Dictionary:
     # @param self : object pointer
     # @return
     def generate_header(self):
-        file_name = str(self.directory_)+'/'+str(self.name_)+'_keys.h-tmp'
+        file_name = os.path.join(str(self.directory_),str(self.name_)+'_keys.h-tmp')
         tag = str(self.name_).upper()  + '_KEYS_H'
         header_file = open(file_name,'w')
         name = self.name_[ 3:]
@@ -192,7 +192,12 @@ class Dictionary:
             key_to_print = key1.ljust(70)
             header_file.write('      '+str(key_to_print)+'\t///< '+self.get_message(key)+'\n')
         header_file.write("    };\n\n")
-        header_file.write("    static const char* const names[]; ///< names associated to the enum \n")
+        header_file.write("    /**\n")
+        header_file.write("    * @brief Return the name associated to the enum.\n")
+        header_file.write("    *\n")
+        header_file.write("    * @return The name associated to the enum.\n")
+        header_file.write("    */\n")
+        header_file.write("    static const char* names(const value&); ///< names associated to the enum \n")
         header_file.write("  };\n")
         header_file.write("} //namespace DYN\n")
         header_file.write("#endif\n")
@@ -203,7 +208,7 @@ class Dictionary:
     # @param self : object pointer
     # @return
     def generate_cpp(self):
-        file_name = str(self.directory_)+'/'+str(self.name_)+'_keys.cpp-tmp'
+        file_name = os.path.join(str(self.directory_),str(self.name_)+'_keys.cpp-tmp')
         cpp_file = open(file_name,'w')
         name = self.name_[ 3:]
         cpp_file.write('''//
@@ -220,10 +225,13 @@ class Dictionary:
 ''')
         cpp_file.write('#include "'+ str(self.name_)+'_keys.h"\n')
         cpp_file.write("namespace DYN {\n\n")
-        cpp_file.write("const char* const Key"+name+"_t::names[] = {\n")
+        cpp_file.write("const char* Key"+name+"_t::names(const value& v) {\n")
+        cpp_file.write("  static const char* names[] = {\n")
         list_keys = self.keys()
         for key in list_keys:
-            cpp_file.write('  "'+str(key)+'",\n')
+            cpp_file.write('    "'+str(key)+'",\n')
+        cpp_file.write("  };\n")
+        cpp_file.write("  return names[v];\n")
         cpp_file.write("};\n")
         cpp_file.write("} //namespace DYN\n")
         cpp_file.close()
@@ -238,7 +246,7 @@ class Dictionary:
             print ("Modelica directory :"+str(self.modelica_dir_)+" does not exist")
             exit(1)
         name = self.name_[3:]
-        file_name = str(self.modelica_dir_)+'/'+str(name)+'Keys.mo-tmp'
+        file_name = os.path.join(str(self.modelica_dir_),str(name)+'Keys.mo-tmp')
         mo_file = open(file_name,'w')
         mo_file.write('''/*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -271,7 +279,7 @@ class Dictionary:
         self.copy_delete_cpp_h_files()
 
         name = self.name_[3:]
-        mo_file = str(self.modelica_dir_)+'/'+str(name)+'Keys.mo'
+        mo_file = os.path.join(str(self.modelica_dir_), str(name)+'Keys.mo')
         tmp_mo_file = mo_file+'-tmp'
 
         diff = False
@@ -298,9 +306,9 @@ class Dictionary:
     # @param self : object pointer
     # @return
     def copy_delete_cpp_h_files(self):
-        h_file = str(self.directory_)+'/'+str(self.name_)+'_keys.h'
+        h_file = os.path.join(str(self.directory_),str(self.name_)+'_keys.h')
         tmp_h_file = h_file+'-tmp'
-        cpp_file = str(self.directory_)+'/'+str(self.name_)+'_keys.cpp'
+        cpp_file = os.path.join(str(self.directory_),str(self.name_)+'_keys.cpp')
         tmp_cpp_file = cpp_file+'-tmp'
 
         diff_cpp_h = False
@@ -375,8 +383,7 @@ def read_line(line,dictionary,check_capital_letters):
 def create_dictionary(file_2_read):
     # create a dictionary
     dictionary = Dictionary()
-    names = file_2_read.split("/")
-    dictionary_name = names.pop()
+    dictionary_name = os.path.split(file_2_read)[1]
     dictionary_name = (dictionary_name.split(".")[0]).split("_")[0] # dictionary name is like : name_en_GB.dic
     dictionary.set_name(dictionary_name)
     dictionary.set_full_name(file_2_read)
@@ -440,7 +447,8 @@ def main():
         if len(input_dir) == 0:
             continue
         dic_mapping_name = os.environ.get('DYNAWO_DICTIONARIES',"")+".dic"
-        for path in glob.glob(str(input_dir)+'/*.dic'):
+
+        for path in glob.glob(os.path.join(str(input_dir), '*.dic')):
             if os.path.basename(path) != "dictionaries_mapping.dic" and  os.path.basename(path) !=  dic_mapping_name:
                 files.append(path)
 

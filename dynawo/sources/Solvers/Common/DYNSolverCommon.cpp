@@ -32,7 +32,7 @@
 namespace DYN {
 
 bool
-copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype * lastRowVals) {
+SolverCommon::copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype * lastRowVals) {
   bool matrixStructChange = false;
   if (SM_NNZ_S(JJ) < smj.nbElem()) {
     free(SM_INDEXPTRS_S(JJ));
@@ -68,7 +68,7 @@ copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunin
 }
 
 void
-printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shared_ptr<Model>& model,
+SolverCommon::printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shared_ptr<Model>& model,
                    int nbErr, double tolerance) {
   std::sort(fErr.begin(), fErr.end(), mapcompabs());
 
@@ -88,7 +88,7 @@ printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shar
   }
 }
 
-double weightedInfinityNorm(const std::vector<double>& vec, const std::vector<double>& weights) {
+double SolverCommon::weightedInfinityNorm(const std::vector<double>& vec, const std::vector<double>& weights) {
   assert(vec.size() == weights.size() && "Vectors must have same length.");
   double norm = 0.;
   double product = 0.;
@@ -101,7 +101,7 @@ double weightedInfinityNorm(const std::vector<double>& vec, const std::vector<do
   return norm;
 }
 
-double weightedL2Norm(const std::vector<double>& vec, const std::vector<double>& weights) {
+double SolverCommon::weightedL2Norm(const std::vector<double>& vec, const std::vector<double>& weights) {
   assert(vec.size() == weights.size() && "Vectors must have same length.");
   double squared_norm = 0.;
   for (unsigned int i = 0; i < vec.size(); ++i) {
@@ -110,7 +110,7 @@ double weightedL2Norm(const std::vector<double>& vec, const std::vector<double>&
   return std::sqrt(squared_norm);
 }
 
-double weightedInfinityNorm(const std::vector<double>& vec, const std::vector<int>& vec_index, const std::vector<double>& weights) {
+double SolverCommon::weightedInfinityNorm(const std::vector<double>& vec, const std::vector<int>& vec_index, const std::vector<double>& weights) {
   assert(vec_index.size() == weights.size() && "Weights and indices must have same length.");
   double norm = 0.;
   double product = 0.;
@@ -123,7 +123,7 @@ double weightedInfinityNorm(const std::vector<double>& vec, const std::vector<in
   return norm;
 }
 
-double weightedL2Norm(const std::vector<double>& vec, const std::vector<int>& vec_index, const std::vector<double>& weights) {
+double SolverCommon::weightedL2Norm(const std::vector<double>& vec, const std::vector<int>& vec_index, const std::vector<double>& weights) {
   assert(vec_index.size() == weights.size() && "Weights and indices must have same length.");
   double squared_norm = 0.;
   for (unsigned int i = 0; i < vec_index.size(); ++i) {
@@ -132,4 +132,4 @@ double weightedL2Norm(const std::vector<double>& vec, const std::vector<int>& ve
   return std::sqrt(squared_norm);
 }
 
-}  // fin namespace DYN
+}  // namespace DYN

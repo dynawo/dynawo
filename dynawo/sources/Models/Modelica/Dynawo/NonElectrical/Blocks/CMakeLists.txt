@@ -8,7 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(NonLinear)
+ADD_SUBDIRECTORY(NonLinear N)
 
 SET(MODEL_FILES
     package.mo

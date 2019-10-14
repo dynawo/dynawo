@@ -22,12 +22,10 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "JOBExport.h"
-
 namespace job {
 class JobsCollection;
 
-class __DYNAWO_JOB_EXPORT JobsCollectionFactory {
+class JobsCollectionFactory {
  public:
   /**
    * @brief create a new instance of jobs collection

@@ -23,8 +23,6 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
-#include "CRVExport.h"
-
 namespace curves {
 class Point;
 
@@ -34,7 +32,7 @@ class Point;
  *
  * Interface class for curve object.
  */
-class __DYNAWO_CRV_EXPORT Curve {
+class Curve {
  public:
 /**
 * defined type of variables

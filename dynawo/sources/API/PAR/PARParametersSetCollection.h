@@ -24,8 +24,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "PARExport.h"
-
 namespace parameters {
 
 class ParametersSet;
@@ -36,7 +34,7 @@ class ParametersSet;
  *
  * ParametersSetCollection objects describe collection parameters' set.
  */
-class __DYNAWO_PAR_EXPORT ParametersSetCollection {
+class ParametersSetCollection {
  public:
   /**
    * @brief Destructor

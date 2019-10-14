@@ -22,7 +22,7 @@
 
 namespace IIDM {
 
-class IIDM_EXPORT Network;
+class Network;
 
 inline Network * network_of(Network & network) { return &network; }
 inline Network const* network_of(Network const& network) { return &network; }

@@ -141,10 +141,10 @@ used. \\
 
 \begin{lstlisting}[language=bash,deletekeywords={jobs,help}]
 $> cd /path/to/Test.mo
-$> dynawo compileModelicaModel --model Test --lib Test.so --output-dir compilation --input-dir .
+$> dynawo compileModelicaModel --model Test --lib Test.so --compilation-dir compilation --model-dir .
 \end{lstlisting}
 
-The options \lstinline[language=bash]{--output-dir} and \lstinline[language=bash]{--input-dir} are optional and by default they are taken as the working directory. In the compilation folder you will find the output model library Test.so. \\
+The options \lstinline[language=bash]{--compilation-dir} and \lstinline[language=bash]{--model-dir} are optional and by default they are taken as the working directory. In the compilation folder you will find the output model library Test.so. \\
 
 To only generate the C++ files used to compile the model .so library, the user can call the same command without the \lstinline[language=bash]{--lib} argument.
 This will only generate the C++ model files used to generate the library:

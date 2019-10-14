@@ -57,19 +57,22 @@ std::string ConnectablePositionHandler::xsd_path() {
   return xsdPath + std::string("connectablePosition.xsd");
 }
 
-ConnectablePositionHandler::elementName_type const ConnectablePositionHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/connectable_position/1_0"), "position"
-);
+ConnectablePositionHandler::elementName_type const& ConnectablePositionHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/connectable_position/1_0"), "position"
+  );
+  return root;
+}
 
 ConnectablePositionHandler::ConnectablePositionHandler()
         : m_feederHandler(),
           m_feeder1Handler(),
           m_feeder2Handler(),
           m_feeder3Handler() {
-    onElement(root + elementName_type(root.ns, "feeder"), m_feederHandler);
-    onElement(root + elementName_type(root.ns, "feeder1"), m_feeder1Handler);
-    onElement(root + elementName_type(root.ns, "feeder2"), m_feeder2Handler);
-    onElement(root + elementName_type(root.ns, "feeder3"), m_feeder3Handler);
+    onElement(root() + elementName_type(root().ns, "feeder"), m_feederHandler);
+    onElement(root() + elementName_type(root().ns, "feeder1"), m_feeder1Handler);
+    onElement(root() + elementName_type(root().ns, "feeder2"), m_feeder2Handler);
+    onElement(root() + elementName_type(root().ns, "feeder3"), m_feeder3Handler);
 }
 
 ConnectablePosition* ConnectablePositionHandler::do_make() {

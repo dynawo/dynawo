@@ -23,8 +23,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "FSExport.h"
-
 namespace finalState {
 class FinalStateCollection;
 
@@ -34,7 +32,7 @@ class FinalStateCollection;
  *
  * Import class for final state collection.
  */
-class __DYNAWO_FS_EXPORT Importer {
+class Importer {
  public:
   /**
    * @brief Destructor

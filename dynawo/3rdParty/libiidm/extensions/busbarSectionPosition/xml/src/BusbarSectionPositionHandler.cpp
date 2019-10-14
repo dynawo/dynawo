@@ -34,9 +34,12 @@ std::string BusbarSectionPositionHandler::xsd_path() {
   return xsdPath + std::string("busbarSectionPosition.xsd");
 }
 
-BusbarSectionPositionHandler::elementName_type const BusbarSectionPositionHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/busbarsectionposition/1_0"), "busbarSectionPosition"
-);
+BusbarSectionPositionHandler::elementName_type const& BusbarSectionPositionHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/busbarsectionposition/1_0"), "busbarSectionPosition"
+  );
+  return root;
+}
 
 BusbarSectionPosition* BusbarSectionPositionHandler::do_make() {
   return BusbarSectionPositionBuilder()

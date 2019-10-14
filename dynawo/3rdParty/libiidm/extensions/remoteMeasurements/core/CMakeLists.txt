@@ -31,7 +31,6 @@ add_library(iidm-ext-remotemeasurements
 target_include_directories(iidm-ext-remotemeasurements
   PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibIIDM_INSTALL_INCLUDE}>
 )
 
 target_link_libraries(iidm-ext-remotemeasurements
@@ -42,6 +41,7 @@ set_target_properties(iidm-ext-remotemeasurements
   PROPERTIES
     VERSION ${IIDM_VERSION_STRING}
     SOVERSION ${IIDM_VERSION_MAJOR}
+    WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
 install(TARGETS iidm-ext-remotemeasurements EXPORT iidm-ext-remotemeasurements-config

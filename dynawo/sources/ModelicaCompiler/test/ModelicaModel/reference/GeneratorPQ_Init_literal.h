@@ -1,6 +1,6 @@
 
-#ifndef __fill_model_name____Init_Literals_h
-#define __fill_model_name____Init_Literals_h
+#ifndef GeneratorPQ__Init_Literals_h
+#define GeneratorPQ__Init_Literals_h
 
 namespace DYN {
 const std::string _OMC_LIT0 =  "Angle" ;

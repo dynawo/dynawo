@@ -20,15 +20,13 @@
 #ifndef API_JOB_JOBINITVALUESENTRY_H_
 #define API_JOB_JOBINITVALUESENTRY_H_
 
-#include "JOBExport.h"
-
 namespace job {
 
 /**
  * @brief InitValuesEntry
  * @brief Init values entries container class
  */
-class __DYNAWO_JOB_EXPORT InitValuesEntry {
+class InitValuesEntry {
  public:
   /**
    * @brief Destructor

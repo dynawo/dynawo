@@ -22,7 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "PARExport.h"
 #include "PARParameter.h"
 
 namespace parameters {
@@ -35,7 +34,7 @@ class Parameter;
  * ParameterFactory encapsulates methods for creating new
  * @p Parameter objects.
  */
-class __DYNAWO_PAR_EXPORT ParameterFactory {
+class ParameterFactory {
  public:
   /**
    * @brief Create new Parameter instance

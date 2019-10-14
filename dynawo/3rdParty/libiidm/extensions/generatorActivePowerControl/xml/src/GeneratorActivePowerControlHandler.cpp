@@ -34,9 +34,12 @@ std::string GeneratorActivePowerControlHandler::xsd_path() {
   return xsdPath + std::string("generatorActivePowerControl.xsd");
 }
 
-GeneratorActivePowerControlHandler::elementName_type const GeneratorActivePowerControlHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/generator_active_power_control/1_0"), "generatorActivePowerControl"
-);
+GeneratorActivePowerControlHandler::elementName_type const& GeneratorActivePowerControlHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/generator_active_power_control/1_0"), "generatorActivePowerControl"
+  );
+  return root;
+}
 
 GeneratorActivePowerControl* GeneratorActivePowerControlHandler::do_make() {
   return GeneratorActivePowerControlBuilder()

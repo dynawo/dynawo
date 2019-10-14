@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "EXTVARExport.h"
-
 namespace externalVariables {
 
 class Variable;
@@ -38,7 +36,7 @@ class variable_iterator;
  * for which (C++) connections will be conducted later on,
  * leading to fictitious equations for preassembled models compilation
  */
-class __DYNAWO_EXTVAR_EXPORT VariablesCollection {
+class VariablesCollection {
  public:
   /**
    * @brief Destructor

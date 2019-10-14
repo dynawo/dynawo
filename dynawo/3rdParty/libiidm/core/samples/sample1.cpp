@@ -43,7 +43,7 @@ int main() {
 
   SubstationBuilder substation_fr_builder;
   SubstationBuilder substation_be_builder;
-  substation_fr_builder.country("FR").tso("RTE");
+  substation_fr_builder.country("FR").tso(std::string("RTE"));
   substation_be_builder.country("BE");
 
 //a few builder to ease network building
@@ -147,7 +147,7 @@ int main() {
           .x (0)
           .g (0)
           .b (0)
-          .ucte_xNodeCode("N")
+          .ucte_xNodeCode(std::string("N"))
           .currentLimits(CurrentLimits(9999).add("CL1", 1200, 600).add("CL2", 1800, 300))
         .build("DL2"),
         at("S2V1B1", connected)
@@ -202,38 +202,38 @@ int main() {
         </voltageLevel>
     </substation>
   */
-  nodenet1.add( SubstationBuilder().country("ES").tso("RTE").name(".BENO").build(".BENO") )
-    .add(VoltageLevelBuilder().name(".BENOP5").nominalV(150).mode(VoltageLevel::node_breaker).node_count(5).build(".BENOP5") )
-      .add(BusBarSectionBuilder().node(0).name("1").build(".BENOP5_1_1_0") )
+  nodenet1.add( SubstationBuilder().country("ES").tso(std::string("RTE")).name(std::string(".BENO")).build(".BENO") )
+    .add(VoltageLevelBuilder().name(std::string(".BENOP5")).nominalV(150).mode(VoltageLevel::node_breaker).node_count(5).build(".BENOP5") )
+      .add(BusBarSectionBuilder().node(0).name(std::string("1")).build(".BENOP5_1_1_0") )
       .add(
         SwitchBuilder()
-          .type(Switch::disconnector).retained(false).opened(false).name(".BENO5L.OO .1SA.1F")
+          .type(Switch::disconnector).retained(false).opened(false).name(std::string(".BENO5L.OO .1SA.1F"))
         .build(".BENO5L.OO .1SA.1F"),
         0, 3
       )
 
       .add(
         SwitchBuilder()
-          .type(Switch::disconnector).retained(false).opened(false).name(".BENO5CONSOSA.1F")
+          .type(Switch::disconnector).retained(false).opened(false).name(std::string(".BENO5CONSOSA.1F"))
         .build(".BENO5CONSOSA.1F"),
         0, 1
       )
 
       .add(
         SwitchBuilder()
-          .type(Switch::breaker).retained(true).opened(false).name(".BENO5CONSODJF")
+          .type(Switch::breaker).retained(true).opened(false).name(std::string(".BENO5CONSODJF"))
         .build(".BENO5CONSODJF"),
         1, 2
       )
 
       .add(
         SwitchBuilder()
-          .type(Switch::breaker).retained(true).opened(true).name(".BENO5L.OO .1DJ")
+          .type(Switch::breaker).retained(true).opened(true).name(std::string(".BENO5L.OO .1DJ"))
         .build(".BENO5L.OO .1DJ"),
         3, 4
       )
       .add(
-        LoadBuilder().type(Load::type_undefined).p0(0).q0(0).p(0).q(0).name(".BENO5CONSO").build(".BENO5CONSO"),
+        LoadBuilder().type(Load::type_undefined).p0(0).q0(0).p(0).q(0).name(std::string(".BENO5CONSO")).build(".BENO5CONSO"),
         at(2)
       )
   ;

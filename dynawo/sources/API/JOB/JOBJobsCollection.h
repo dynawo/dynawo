@@ -23,8 +23,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "JOBExport.h"
-
 namespace job {
 class JobEntry;
 class job_const_iterator;
@@ -36,7 +34,7 @@ class job_iterator;
  *
  * Interface class for jobs collection object. This a container for jobs description
  */
-class __DYNAWO_JOB_EXPORT JobsCollection {
+class JobsCollection {
  public:
   /**
    * @brief Destructor

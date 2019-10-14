@@ -78,10 +78,7 @@ add_library(iidm-xml ${IIDM_XML_SOURCES})
 
 target_include_directories(iidm-xml
   PUBLIC
-  ${Boost_INCLUDE_DIR}
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibIIDM_INSTALL_INCLUDE}>
-  ${LibXML_INCLUDE_DIR}
 )
 
 target_link_libraries(iidm-xml
@@ -94,6 +91,7 @@ set_target_properties(iidm-xml
   PROPERTIES
     VERSION ${IIDM_VERSION_STRING}
     SOVERSION ${IIDM_SOVERSION}
+    WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
 install(TARGETS iidm-xml EXPORT libiidm-xml-config
@@ -161,9 +159,6 @@ if( BUILD_SAMPLES )
   target_include_directories(iidm-xml-testing
     PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibIIDM_INSTALL_INCLUDE}>
-    PRIVATE
-    ${LibXML_INCLUDE_DIR}
   )
 
   target_link_libraries(iidm-xml-testing
@@ -176,6 +171,7 @@ if( BUILD_SAMPLES )
     PROPERTIES
       VERSION ${IIDM_VERSION_STRING}
       SOVERSION ${IIDM_VERSION_MAJOR}
+      WINDOWS_EXPORT_ALL_SYMBOLS TRUE
   )
 
   add_custom_command(TARGET iidm-xml-testing PRE_BUILD

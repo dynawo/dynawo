@@ -160,7 +160,7 @@ SolverEulerKIN::init(const shared_ptr<Model>& model, const std::string& linearSo
   // (6) Solver choice
   // -------------------
   // Here CSR has nothing to do with how the matrix is stored but rather how to solve the linear system using the matrix (CSC_MAT) or its transpose (CSR_MAT)
-  M_ = SUNSparseMatrix(sizeY, sizeY, 10., CSR_MAT);
+  M_ = SUNSparseMatrix(sizeY, sizeY, 10, CSR_MAT);
   if (M_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
   if (linearSolverName_ == "KLU") {
@@ -254,8 +254,8 @@ SolverEulerKIN::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   if (!solv->getFirstIteration()) {
     memcpy(&solv->F_[0], irr, solv->F_.size() * sizeof(solv->F_[0]));
   }
-  double weightedInfNorm = weightedInfinityNorm(solv->F_, solv->vFscale_);
-  double wL2Norm = weightedL2Norm(solv->F_, solv->vFscale_);
+  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solv->F_, solv->vFscale_);
+  double wL2Norm = SolverCommon::weightedL2Norm(solv->F_, solv->vFscale_);
   long int current_nni = 0;
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
@@ -289,7 +289,7 @@ SolverEulerKIN::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
   smj.init(size, size);
   model->evalJt(solv->t0_ + solv->h0_, iyy, &solv->YP_[0], cj, smj);
 
-  bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
+  bool matrixStructChange = SolverCommon::copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
 
   if (matrixStructChange) {
     Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
@@ -436,7 +436,7 @@ SolverEulerKIN::solve(bool noInitSetup) {
   }
   if (fErr.size() > 0) {
     Trace::debug() << DYNLog(KinLargestErrors, nbErr, t0_ + h0_) << Trace::endline;
-    printLargestErrors(fErr, model_, nbErr, tolerance);
+    SolverCommon::printLargestErrors(fErr, model_, nbErr, tolerance);
   }
 
   // Destroying the specific data structures

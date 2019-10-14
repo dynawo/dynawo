@@ -13,56 +13,34 @@
 #################################
 SET(MODEL_NAME
   DYNModelNetwork
-)
+  )
 
 SET(MODEL_SOURCES
-    DYNDerivative.cpp
-    DYNNetworkComponentImpl.cpp
-    DYNModelBus.cpp
-    DYNModelGenerator.cpp
-    DYNModelSwitch.cpp
-    DYNModelLine.cpp
-    DYNModelLoad.cpp
-    DYNModelShuntCompensator.cpp
-    DYNModelStaticVarCompensator.cpp
-    DYNModelTapChanger.cpp
-    DYNModelThreeWindingsTransformer.cpp
-    DYNModelTwoWindingsTransformer.cpp
-    DYNModelDanglingLine.cpp
-    DYNModelNetwork.cpp
-    DYNModelCurrentLimits.cpp
-    DYNModelTapChangerStep.cpp
-    DYNModelRatioTapChanger.cpp
-    DYNModelPhaseTapChanger.cpp
-    DYNModelHvdcLink.cpp
-    DYNModelVoltageLevel.cpp
-    )
+  DYNDerivative.cpp
+  DYNNetworkComponentImpl.cpp
+  DYNModelBus.cpp
+  DYNModelGenerator.cpp
+  DYNModelSwitch.cpp
+  DYNModelLine.cpp
+  DYNModelLoad.cpp
+  DYNModelShuntCompensator.cpp
+  DYNModelStaticVarCompensator.cpp
+  DYNModelTapChanger.cpp
+  DYNModelThreeWindingsTransformer.cpp
+  DYNModelTwoWindingsTransformer.cpp
+  DYNModelDanglingLine.cpp
+  DYNModelNetwork.cpp
+  DYNModelCurrentLimits.cpp
+  DYNModelTapChangerStep.cpp
+  DYNModelRatioTapChanger.cpp
+  DYNModelPhaseTapChanger.cpp
+  DYNModelHvdcLink.cpp
+  DYNModelVoltageLevel.cpp
+  )
 
-INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
-                    ${SUNDIALS_INCLUDE_DIR}
-                    ${KLU_INCLUDE_DIR}
-                    )
+COMPILE_CPP_MODEL(${MODEL_NAME} "${MODEL_SOURCES}")
 
-INCLUDE_DIRECTORIES(../../../API/PAR
-                    ../../../Solvers/Common
-                    ../../../Common
-                    ../../../Modeler/DataInterface
-                    ../../../Solvers/SolverSubModel
-                    ../../../Modeler/Common
-                    ../Common
-                  )
-
-SET(MODEL_LINKED_LIBRARIES
-    dynawo_CPPModelsCommon
-    dynawo_API_PAR
-    dynawo_Common
-    dynawo_ModelerCommon
-    dynawo_DataInterface
-    dynawo_SolverCommon
-    dynawo_SolverSubModel
-    )
-
-COMPILE_CPP_MODEL(${MODEL_NAME}
-                  "${MODEL_SOURCES}"
-                  "${MODEL_LINKED_LIBRARIES}"
-                 )
+TARGET_LINK_LIBRARIES(${MODEL_NAME}
+  dynawo_DataInterface
+  dynawo_SolverSubModel
+)

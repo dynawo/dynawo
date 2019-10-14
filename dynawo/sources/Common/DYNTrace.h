@@ -275,7 +275,13 @@ class Trace {
    */
   static TraceStream error(const std::string& tag = "");
 
-  static TraceStream::tspf endline;  ///< End of line function pointer for stream-like logging
+  /**
+   * @brief Print end of line in trace.
+   *
+   * @param os: Trace to add end of line.
+   * @return The TraceStream with the end of line added.
+   */
+  static TraceStream& endline(TraceStream& os);  ///< End of line function for stream-like logging
 
  private:
   /**
@@ -291,7 +297,6 @@ class Trace {
    */
   static void log(SeverityLevel slv, const std::string& tag, const std::string& message);
 
-  static std::vector< TraceAppender > appenders_;  ///< Current appenders for Trace system
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
 };
 

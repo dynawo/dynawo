@@ -22,7 +22,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -43,7 +43,7 @@ class GeneratorBuilder;
 /**
  * @brief Generator in the network
  */
-class IIDM_EXPORT Generator: public Identifiable, public Injection<Generator>, public ContainedIn<VoltageLevel> {
+class Generator: public Identifiable, public Injection<Generator>, public ContainedIn<VoltageLevel> {
 public:
   //aliases of parent()
   ///tells if a parent is specified

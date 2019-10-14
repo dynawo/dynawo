@@ -22,8 +22,6 @@
 
 #include <string>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class DynamicModelsCollection;
 
@@ -33,7 +31,7 @@ class DynamicModelsCollection;
  *
  * Exporter class for dynamic models collections.
  */
-class __DYNAWO_DYD_EXPORT Exporter {
+class Exporter {
  public:
   /**
    * @brief Destructor

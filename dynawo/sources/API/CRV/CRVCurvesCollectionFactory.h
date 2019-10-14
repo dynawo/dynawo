@@ -22,7 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "CRVExport.h"
 
 namespace curves {
 class CurvesCollection;
@@ -34,7 +33,7 @@ class CurvesCollection;
  * CurvesCollectionFactory encapsulate methods for creating new
  * @p CurvesCollection objects.
  */
-class __DYNAWO_CRV_EXPORT CurvesCollectionFactory {
+class CurvesCollectionFactory {
  public:
   /**
    * @brief Create new CurvesCollection instance

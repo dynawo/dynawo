@@ -23,8 +23,6 @@
 #include <string>
 #include <xml/sax/parser/ParserFactory.h>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class DynamicModelsCollection;
 class XmlHandler;
@@ -35,7 +33,7 @@ class XmlHandler;
  *
  * Import class for dynamic models collections.
  */
-class __DYNAWO_DYD_EXPORT Importer {
+class Importer {
  public:
   /**
    * @brief Destructor

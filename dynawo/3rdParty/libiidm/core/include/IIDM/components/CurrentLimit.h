@@ -23,7 +23,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -34,7 +34,7 @@ namespace IIDM {
 /**
  * @brief a temporary limit in a current limits specification.
  */
-struct IIDM_EXPORT CurrentLimit {
+struct CurrentLimit {
   std::string name;
 
   boost::optional<double> value;///<limit value
@@ -49,7 +49,7 @@ struct IIDM_EXPORT CurrentLimit {
 /**
  * @brief a current limits specification.
  */
-class IIDM_EXPORT CurrentLimits {
+class CurrentLimits {
 private:
   typedef std::vector<CurrentLimit> temporary_limits_type;
 public:

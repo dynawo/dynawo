@@ -13,7 +13,7 @@
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="SVarC - Step Uref">
-      <dyn:solver lib="libdynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+      <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
       <dyn:modeler compileDir="outputs/compilation">
         <dyn:dynModels dydFile="SVarC.dyd"/>
         <dyn:precompiledModels useStandardModels="true"/>

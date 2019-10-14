@@ -41,7 +41,7 @@ protected:
   p::ComposableDocumentHandler doc;
 
   TestParser() {
-    doc.onElement(ns::empty("root/value"), value_handler);
+    doc.onElement(ns::uri::empty("root/value"), value_handler);
   }
 };
 

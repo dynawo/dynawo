@@ -33,9 +33,12 @@ std::string ActiveSeasonHandler::xsd_path() {
   return xsdPath + std::string("activeSeason.xsd");
 }
 
-ActiveSeasonHandler::elementName_type const ActiveSeasonHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/active-season/1_0"), "activeSeason"
-);
+ActiveSeasonHandler::elementName_type const& ActiveSeasonHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/active-season/1_0"), "activeSeason"
+  );
+  return root;
+}
 
 ActiveSeason* ActiveSeasonHandler::do_make() {
   return new ActiveSeason(data());

@@ -12,31 +12,11 @@
 #          DYNModelVariationArea         #
 ##########################################
 SET(MODEL_NAME
-    DYNModelVariationArea
-   )
+  DYNModelVariationArea
+  )
 
 SET(MODEL_SOURCES
-    DYNModelVariationArea.cpp
-    )
+  DYNModelVariationArea.cpp
+  )
 
-INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR})
-
-INCLUDE_DIRECTORIES(../../../API/PAR
-                    ../../../Modeler/Common
-                    ../../../Common
-                    ../../../Solvers/Common
-                    ../Common
-                   )
-
-SET(MODEL_LINKED_LIBRARIES
-    dynawo_CPPModelsCommon
-    dynawo_API_PAR
-    dynawo_Common
-    dynawo_SolverCommon
-    dynawo_ModelerCommon
-   )
-
-COMPILE_CPP_MODEL(${MODEL_NAME}
-                  ${MODEL_SOURCES}
-                  "${MODEL_LINKED_LIBRARIES}"
-                 )
+COMPILE_CPP_MODEL(${MODEL_NAME} "${MODEL_SOURCES}")

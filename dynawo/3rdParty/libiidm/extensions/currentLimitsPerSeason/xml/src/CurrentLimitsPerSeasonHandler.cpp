@@ -46,16 +46,19 @@ std::string CurrentLimitsPerSeasonHandler::xsd_path() {
   return xsdPath + std::string("currentLimitsPerSeason.xsd");
 }
 
-CurrentLimitsPerSeasonHandler::elementName_type const CurrentLimitsPerSeasonHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/current-limits-per-season/1_0"), "currentLimitsPerSeason"
-);
+CurrentLimitsPerSeasonHandler::elementName_type const& CurrentLimitsPerSeasonHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/current-limits-per-season/1_0"), "currentLimitsPerSeason"
+  );
+  return root;
+}
 
 CurrentLimitsPerSeasonHandler::CurrentLimitsPerSeasonHandler():
-  season_handler( elementName_type(root.ns, "season"), root )
+  season_handler( elementName_type(root().ns, "season"), root() )
 {
-  onStartElement(root, boost::bind(&CurrentLimitsPerSeasonHandler::clear, boost::ref(*this)) );
+  onStartElement(root(), boost::bind(&CurrentLimitsPerSeasonHandler::clear, boost::ref(*this)) );
 
-  onElement( root + elementName_type(root.ns, "season"), season_handler );
+  onElement( root() + elementName_type(root().ns, "season"), season_handler );
   season_handler.onEnd( boost::bind(&CurrentLimitsPerSeasonHandler::add_season, boost::ref(*this)) );
 }
 

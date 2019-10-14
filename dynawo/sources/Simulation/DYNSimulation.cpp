@@ -24,6 +24,9 @@
 #include <cstdlib>
 #include <sstream>
 #include <fstream>
+#ifdef _MSC_VER
+  #include <process.h>
+#endif
 
 
 #include <boost/archive/binary_iarchive.hpp>
@@ -186,7 +189,11 @@ lastTimeSimulated_(-1),
 nbLastTimeSimulated_(0) {
   SignalHandler::setSignalHandlers();
 
+#ifdef _MSC_VER
+  pid_ = _getpid();
+#else
   pid_ = getpid();
+#endif
   stringstream pid_string;
   pid_string << pid_;
   timeline_ = TimelineFactory::newInstance("Simulation_" + pid_string.str());
@@ -496,7 +503,7 @@ Simulation::loadDynamicData() {
       data_.reset(new DataInterfaceIIDM(networkIIDM));
       boost::dynamic_pointer_cast<DataInterfaceIIDM>(data_)->initFromIIDM();
     } catch (const xml::sax::parser::ParserException& exp) {
-      throw DYNError(Error::GENERAL, XmlParsingError, iidmFile_, exp.what());
+      throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFile_, exp.what());
     }
 
     data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.

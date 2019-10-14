@@ -28,7 +28,7 @@ using ns::uri;
 using p::ElementName;
 
 TEST(TestUri, Basic) {
-  EXPECT_EQ( uri(), ns::empty );
+  EXPECT_EQ( uri(), uri::empty() );
   EXPECT_EQ( uri("name").name(), "name" );
   EXPECT_EQ( uri("name"), std::string("name") );
   EXPECT_EQ( static_cast<std::string>(uri("name")), "name" );
@@ -75,10 +75,10 @@ TEST(TestUri, Compare) {
 
 TEST(TestElementName, Basic) {
   const ElementName element("name");
-  EXPECT_EQ( element, ElementName(ns::empty, "name") );
+  EXPECT_EQ( element, ElementName(uri::empty(), "name") );
 
   EXPECT_EQ( element.name, "name" );
-  EXPECT_EQ( element.ns, ns::empty );
+  EXPECT_EQ( element.ns, uri::empty() );
   EXPECT_EQ( element, std::string("name") );
 
   const uri basic("http://exemple.net/xsd/basic.xsd");

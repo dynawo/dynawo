@@ -22,7 +22,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/BasicTypes.h>
@@ -75,11 +75,8 @@ public:
   ///Gets the low tap position.
   int lowTapPosition() const { return m_lowTapPosition; }
 
-
   ///Gets the tap position.
   int tapPosition() const { return m_tapPosition; }
-
-  void tapPosition(int tapPosition) { m_tapPosition = tapPosition; }
 
   ///Gets the number of taps.
   int tapCount() const { return m_steps.size(); }
@@ -92,7 +89,7 @@ public:
    * @throw std::runtime_error if position is invalid.
    * @param position the new tap position
    */
-  TapChanger_type& tapPosition(int position) const {
+  TapChanger_type& tapPosition(int position) {
     if (position<lowTapPosition() || position >= lowTapPosition()+tapCount() ) throw std::runtime_error("invalid tap position");
     m_tapPosition = position;
     return static_cast<TapChanger_type&>(*this);

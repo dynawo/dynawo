@@ -16,7 +16,7 @@ set(UNIT_TEST_SOURCES
     test2.cpp)
 
 add_executable(unittest ${UNIT_TEST_SOURCES})
-target_link_libraries(unittest pthread ${GTEST_BOTH_LIBRARIES})
+target_link_libraries(unittest $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread> ${GTEST_BOTH_LIBRARIES})
 if (LIBZIP_BUILD_SHARED)
   target_link_libraries(unittest ${CMAKE_PROJECT_NAME})
 elseif(LIBZIP_BUILD_STATIC)

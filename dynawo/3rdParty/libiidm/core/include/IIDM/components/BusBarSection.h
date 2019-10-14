@@ -20,7 +20,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -37,7 +37,7 @@ class BusBarSectionBuilder;
 /**
  * @brief BusBarSection
  */
-class IIDM_EXPORT BusBarSection: public Identifiable, public ContainedIn<VoltageLevel> {
+class BusBarSection: public Identifiable, public ContainedIn<VoltageLevel> {
 public:
   //aliases of parent()
   ///tells if a parent is specified

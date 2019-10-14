@@ -17,13 +17,12 @@ error_exit() {
 }
 
 export_var_env() {
-  var=$@
-  name=${var%%=*}
-  value=${var#*=}
+  local var="$@"
+  local name=${var%%=*}
+  local value="${var#*=}"
 
-  if eval "[ \$$name ]"; then
+  if eval "[ \"\$$name\" ]"; then
     eval "value=\${$name}"
-    ##echo "Environment variable for $name already set : $value"
     return
   fi
 

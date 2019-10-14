@@ -122,20 +122,20 @@ public:
     h_review  (builder.review  )
   {
     typedef attributes_type::value_type(attributes_type::* getMethod)(const attributes_type::name_type&) const;
-    using parser::ns::empty;
-    onStartElement( empty("book"),
+    using parser::ns::uri;
+    onStartElement( uri::empty("book"),
       (
         lambda::bind(&BookBuilder::clear, builder),
         lambda::ref(builder.id) = lambda::bind(static_cast<getMethod>(&attributes_type::get<attributes_type::value_type>), lambda::placeholders::_2, std::string("id"))
       )
     );
 
-    onElement(empty("book/title")   , h_title   );
-    onElement(empty("book/author")  , h_author  );
-    onElement(empty("book/genre")   , h_genre   );
-    onElement(empty("book/price")   , h_price   );
-    onElement(empty("book/pub_date"), h_pub_date);
-    onElement(empty("book/review")  , h_review  );
+    onElement(uri::empty("book/title")   , h_title   );
+    onElement(uri::empty("book/author")  , h_author  );
+    onElement(uri::empty("book/genre")   , h_genre   );
+    onElement(uri::empty("book/price")   , h_price   );
+    onElement(uri::empty("book/pub_date"), h_pub_date);
+    onElement(uri::empty("book/review")  , h_review  );
   }
 
   sample::data::Book build() {return builder.build();}

@@ -20,7 +20,6 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/IdentifiableBuilder.h>
 
@@ -33,7 +32,7 @@ namespace builders {
  * @class BusBarSectionBuilder
  * @brief IIDM::BusBarSection builder
  */
-class IIDM_EXPORT BusBarSectionBuilder: public IdentifiableBuilder<IIDM::BusBarSection, BusBarSectionBuilder> {
+class BusBarSectionBuilder: public IdentifiableBuilder<IIDM::BusBarSection, BusBarSectionBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(BusBarSectionBuilder, node_type, node)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(BusBarSectionBuilder, double, v)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(BusBarSectionBuilder, double, angle)

@@ -24,8 +24,6 @@
 #include <iostream>
 #include <boost/shared_ptr.hpp>
 
-#include "TLExport.h"
-
 namespace timeline {
 class Timeline;
 
@@ -35,7 +33,7 @@ class Timeline;
  *
  * Exporter class for timeline
  */
-class __DYNAWO_TL_EXPORT Exporter {
+class Exporter {
  public:
   /**
    * @brief Destructor

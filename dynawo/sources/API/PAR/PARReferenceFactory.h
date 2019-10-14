@@ -22,7 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "PARExport.h"
 #include "PARReference.h"
 
 namespace parameters {
@@ -35,7 +34,7 @@ class Reference;
  * ReferenceFactory encapsulates methods for creating new
  * @p Reference objects.
  */
-class __DYNAWO_PAR_EXPORT ReferenceFactory {
+class ReferenceFactory {
  public:
   /**
    * @brief Create new Reference instance

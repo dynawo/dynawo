@@ -17,29 +17,48 @@
  * @brief implementation of utility function
  */
 #include <stdlib.h>
+
+#ifndef _MSC_VER
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>   // waitpid
-#include <cstring>
 #include <unistd.h>
 #include <fcntl.h>
 #include <cerrno>
+#endif
+
+#include <cstring>
 #include <sstream>
 
+#include "DYNExecUtils.h"
+#include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
+#include "DYNFileSystemUtils.h"
+
+#include <boost/filesystem.hpp>
+#ifdef _MSC_VER
+#include <boost/process.hpp>
+namespace ps = boost::process;
+#endif
 
 using std::string;
 using std::stringstream;
 
+namespace fs = boost::filesystem;
+
 string
 prettyPath(const std::string & path) {
-  // only works if the file or the path exists !!!
-  char *real_path = realpath(path.c_str(), NULL);
-  string prettyPath(real_path);
-  free(real_path);
+  string prettyPath = "";
+  try {
+    // only works if the file or the path exists !!!
+    prettyPath = canonical(path);
+  } catch (const fs::filesystem_error& ex) {
+    DYN::Trace::warn() << ex.what() << DYN::Trace::endline;
+  }
   return prettyPath;
 }
 
+#ifndef _MSC_VER
 void parentProcess(int fd[2], std::stringstream & ss) {
   char buferr[256];
   struct timeval tv;
@@ -77,11 +96,27 @@ void parentProcess(int fd[2], std::stringstream & ss) {
   if (strbuf.size() != 0)
     ss << strbuf << std::endl;
 }
+#endif
+
 void
-executeCommand(const std::string & command, std::stringstream & ss) {
+executeCommand(const std::string & command, std::stringstream & ss, const std::string & start_dir) {
   ss << "Executing command : " << command << std::endl;
+
+#ifdef _MSC_VER
+  ps::ipstream ips;
+  ps::child child(command, ps::shell, ps::start_dir(start_dir == "" ? "." : start_dir), (ps::std_out & ps::std_err) > ips);
+
+  string line;
+  while (ips && std::getline(ips, line))
+    ss << line << std::endl;
+
+  child.wait();
+#else
   char buferr[256];
-  std::string command1 = command + " 2>&1";
+  std::string command1;
+  if (start_dir != "")
+      command1 = "cd " + start_dir + " && ";
+  command1 += command + " 2>&1";
 
   // Creation of a pipe between the exit and the entry
   // fd[0]entry and fd[1] exit
@@ -132,6 +167,7 @@ executeCommand(const std::string & command, std::stringstream & ss) {
     execl("/bin/bash", "/bin/bash", "-c", command1.c_str(), reinterpret_cast<char*> (NULL));
     _exit(EXIT_FAILURE);
   }
+#endif
 }
 
 bool hasEnvVar(std::string const& key) {

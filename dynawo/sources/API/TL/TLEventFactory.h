@@ -22,7 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "TLExport.h"
 
 namespace timeline {
 class Event;
@@ -34,7 +33,7 @@ class Event;
  * EventFactory encapsulate methods for creating new
  * @p Event objects.
  */
-class __DYNAWO_TL_EXPORT EventFactory {
+class EventFactory {
  public:
   /**
    * @brief Create new Event instance

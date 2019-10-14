@@ -24,15 +24,13 @@
 #include <vector>
 #include "DYNFileSystemUtils.h"
 
-#include "JOBExport.h"
-
 namespace job {
 
 /**
  * @class ModelsDirEntry
  * @brief ModelsDir entries container class
  */
-class __DYNAWO_JOB_EXPORT ModelsDirEntry {
+class ModelsDirEntry {
  public:
   /**
    * @brief Destructor

@@ -1236,7 +1236,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
   }
 
-  State currState = static_cast<State>(z_[0]);
+  State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != connectionState_) {
     if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
       Trace::error() << DYNLog(UnableToCloseTfo, id_) << Trace::endline;
@@ -1351,11 +1351,11 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
               case CLOSED_3:
                 throw DYNError(Error::MODELER, NoThirdSide, id_);
       }
-      setConnectionState(static_cast<State>(z_[0]));
+      setConnectionState(static_cast<State>(static_cast<int>(z_[0])));
     }
   }
 
-  int currStateIndex = static_cast<int>(z_[1]);
+  int currStateIndex = static_cast<int>(static_cast<int>(z_[1]));
   if (currStateIndex != getCurrentStepIndex()) {
     if (disableInternalTapChanger_ > 0.) {
       // external automaton

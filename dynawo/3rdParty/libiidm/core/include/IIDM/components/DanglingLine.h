@@ -22,7 +22,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -42,7 +42,7 @@ class DanglingLineBuilder;
 /**
  * @brief DanglingLine in the network
  */
-class IIDM_EXPORT DanglingLine: public Identifiable, public Injection<DanglingLine>, public ContainedIn<VoltageLevel> {
+class DanglingLine: public Identifiable, public Injection<DanglingLine>, public ContainedIn<VoltageLevel> {
 public:
   //aliases of parent()
   ///tells if a parent is specified

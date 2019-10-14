@@ -18,13 +18,12 @@ error_exit() {
 }
 
 export_var_env() {
-  var=$@
-  name=${var%%=*}
-  value=${var#*=}
+  local var="$@"
+  local name=${var%%=*}
+  local value="${var#*=}"
 
-  if eval "[ \$$name ]"; then
+  if eval "[ \"\$$name\" ]"; then
     eval "value=\${$name}"
-    ##echo "Environment variable for $name already set : $value"
     return
   fi
 
@@ -78,7 +77,7 @@ compile_adept() {
 compile_libzip() {
   cd $SCRIPT_DIR/libzip
   bash libzip-chain.sh --build-dir=$LIBZIP_BUILD_DIR --install-dir=$LIBZIP_INSTALL_DIR --build-type=$BUILD_TYPE \
-    $LIBARCHIVE_OPTION $BOOST_OPTION $GTEST_OPTION
+    $LIBARCHIVE_OPTION $ZLIB_OPTION $BOOST_OPTION $GTEST_OPTION
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -93,7 +92,7 @@ compile_libxml() {
 
 compile_libiidm() {
   cd $SCRIPT_DIR/libiidm
-  bash libiidm-chain.sh --build-dir=$LIBIIDM_BUILD_DIR --install-dir=$LIBIIDM_INSTALL_DIR --build-type=$BUILD_TYPE --libxml-install-dir=$LIBXML_INSTALL_DIR \
+  bash libiidm-chain.sh --build-dir=$LIBIIDM_BUILD_DIR --install-dir=$LIBIIDM_INSTALL_DIR --build-type=$BUILD_TYPE --libxml-install-dir=$LIBXML_INSTALL_DIR --xercesc-install-dir=$XERCESC_INSTALL_DIR \
     $BOOST_OPTION $GTEST_OPTION
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -182,6 +181,9 @@ while (($#)); do
       ;;
     --libarchive-install-dir=*)
       LIBARCHIVE_HOME=`echo $1 | sed -e 's/--libarchive-install-dir=//g'`
+      ;;
+    --zlib-install-dir=*)
+      ZLIB_HOME=`echo $1 | sed -e 's/--zlib-install-dir=//g'`
       ;;
     --gtest-install-dir=*)
       GTEST_HOME=`echo $1 | sed -e 's/--gtest-install-dir=//g'`
@@ -324,6 +326,11 @@ if [ ! -z "$LIBARCHIVE_HOME" ]; then
   LIBARCHIVE_OPTION="--libarchive-install-dir=$LIBARCHIVE_HOME"
 else
   LIBARCHIVE_OPTION=""
+fi
+if [ ! -z "$ZLIB_HOME" ]; then
+  ZLIB_OPTION="--zlib-install-dir=$ZLIB_HOME"
+else
+  ZLIB_OPTION=""
 fi
 if [ ! -z "$GTEST_HOME" ]; then
   GTEST_OPTION="--gtest-install-dir=$GTEST_HOME"

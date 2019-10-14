@@ -25,7 +25,7 @@
 #include <boost/type_index.hpp>
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/BasicTypes.h>
 #include <IIDM/Extension.h>
 #include <IIDM/pointers.h>
@@ -35,7 +35,7 @@ namespace IIDM {
 /**
  * @brief Carries an identifier expected to be unique in some scope, and an optional name.
  */
-struct IIDM_EXPORT Identifier {
+struct Identifier {
 public:
   ///constructs an unnamed Identifier
   Identifier(const char * id): m_id(id) {}
@@ -82,7 +82,7 @@ private:
  *
  * An object that is part of the network model and that is uniquely identified by an id.
  */
-class IIDM_EXPORT Identifiable {
+class Identifiable {
 public:
   ///type of a property identifier
   typedef std::string property_id_type;

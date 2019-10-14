@@ -14,13 +14,11 @@
 
 #include <string>
 
-#include <libzip/ZipExport.h>
-
 struct archive_entry;
 
 namespace zip {
 
-class __LIBZIP_EXPORT ZipEntry {
+class ZipEntry {
 public:
     virtual struct archive_entry* getInfo() const = 0;
 

@@ -29,6 +29,11 @@ class SparseMatrix;
 class Model;
 
 /**
+ * @brief SolverCommon static class
+ */
+class SolverCommon {
+ public:
+/**
  * @brief Copy one sparse matrix to the KINSOL structure
  *
  * @param smj Sparse matrix to copy to the KINSOL structure
@@ -38,7 +43,7 @@ class Model;
  *
  * @return @b true if the matrix structure has changed, @b false else
  */
-bool copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype * lastRowVals);
+static bool copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype * lastRowVals);
 
 /**
  * @brief Print the largest residuals errors
@@ -48,7 +53,7 @@ bool copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, 
  * @param nbErrors maximum number of errors to be displayed
  * @param tolerance tolerance over which an error is displayed
  */
-void printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shared_ptr<Model>& model, int nbErrors, double tolerance);
+static void printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shared_ptr<Model>& model, int nbErrors, double tolerance);
 
 /**
  * @brief Compute the weighted infinity norm of a vector
@@ -59,7 +64,7 @@ void printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost:
  * @return value of the weighted infinity-norm of the vector
  *
  */
-double weightedInfinityNorm(const std::vector<double>& vec, const std::vector<double>& weights);
+static double weightedInfinityNorm(const std::vector<double>& vec, const std::vector<double>& weights);
 
 /**
  * @brief Compute the weighted l2 norm of a vector
@@ -70,7 +75,7 @@ double weightedInfinityNorm(const std::vector<double>& vec, const std::vector<do
  * @return value of the weighted l2 norm of the vector
  *
  */
-double weightedL2Norm(const std::vector<double>& vec, const std::vector<double>& weights);
+static double weightedL2Norm(const std::vector<double>& vec, const std::vector<double>& weights);
 
 /**
  * @brief Compute the weighted infinity norm of a sub vector
@@ -82,7 +87,7 @@ double weightedL2Norm(const std::vector<double>& vec, const std::vector<double>&
  * @return value of the weighted infinity-norm of the sub vector
  *
  */
-double weightedInfinityNorm(const std::vector<double>& vec, const std::vector<int>& vec_index, const std::vector<double>& weights);
+static double weightedInfinityNorm(const std::vector<double>& vec, const std::vector<int>& vec_index, const std::vector<double>& weights);
 
 /**
  * @brief Compute the weighted l2 norm of a sub vector
@@ -94,7 +99,7 @@ double weightedInfinityNorm(const std::vector<double>& vec, const std::vector<in
  * @return value of the weighted l2 norm of the sub vector
  *
  */
-double weightedL2Norm(const std::vector<double>& vec, const std::vector<int>& vec_index, const std::vector<double>& weights);
+static double weightedL2Norm(const std::vector<double>& vec, const std::vector<int>& vec_index, const std::vector<double>& weights);
 
 /**
  * @brief structure use for sorting pairs in a vector
@@ -109,6 +114,7 @@ struct mapcompabs {
   bool operator()(const std::pair<double, int>& p1, const std::pair<double, int>& p2) const {
     return fabs(p1.first) > fabs(p2.first);
   }
+};
 };
 
 }  // end of namespace DYN

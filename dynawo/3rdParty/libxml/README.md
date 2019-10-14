@@ -1,10 +1,10 @@
 # Build libXML in a Linux environment
 
-Recommanded commands:
+Recommended commands:
 ```
 $> mkdir <build-prefix>
 $> cd <build-prefix>
-$> ccmake <libXML-src-path> -DBOOST_ROOT:PATH=<boost-root> -DXERCESC_HOME:PATH=<xerces-root> -DGTEST_ROOT:PATH=<gtest-root>
+$> cmake <libXML-src-path> -DBOOST_ROOT:PATH=<boost-root> -DXERCESC_HOME:PATH=<xerces-root> -DGTEST_ROOT:PATH=<gtest-root>
 ```
 Configure the various option, especially *CMAKE_BUILD_TYPE* and *CMAKE_INSTALL_PREFIX*
 ```
@@ -33,6 +33,16 @@ $> cd <build-prefix>
 $> cmake -DBUILD_PARSER=ON <libXML-src-path> -DCMAKE_INSTALL_PREFIX=<install path> -DBOOST_ROOT:PATH=<boost-root> -DXERCESC_HOME:PATH=<xerces-root>
 $> make
 $> make install
+```
+
+# Build libXML in a Windows environment
+
+Open a "*Invite des commandes des outils natifs x64 de VS2015*"
+```
+> md <build-prefix>
+> cd <build-prefix>
+> cmake <libXML-src-path> -G "NMake Makefiles" -DCMAKE_INSTALL_PREFIX=<install path> -DBOOST_ROOT:PATH=<boost-root> -DXERCESC_HOME:PATH=<xerces-root> -DGTEST_ROOT:PATH=<gtest-root>
+> nmake install
 ```
 
 

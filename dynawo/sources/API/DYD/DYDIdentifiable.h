@@ -21,8 +21,6 @@
 
 #include <string>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 
 /**
@@ -31,7 +29,7 @@ namespace dynamicdata {
  *
  * Store the id of a model or unit dynamic model
  */
-class __DYNAWO_DYD_EXPORT Identifiable {
+class Identifiable {
  public:
   /**
    * @brief Destructor

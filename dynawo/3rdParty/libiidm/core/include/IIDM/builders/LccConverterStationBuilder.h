@@ -21,7 +21,6 @@
 #include <string>
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/InjectionBuilder.h>
 
@@ -34,7 +33,7 @@ namespace builders {
  * @class LccConverterStationBuilder
  * @brief IIDM::LccConverterStation builder
  */
-class IIDM_EXPORT LccConverterStationBuilder: public InjectionBuilder<LccConverterStation, LccConverterStationBuilder> {
+class LccConverterStationBuilder: public InjectionBuilder<LccConverterStation, LccConverterStationBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(LccConverterStationBuilder, double, lossFactor)
   MACRO_IIDM_BUILDER_PROPERTY(LccConverterStationBuilder, double, powerFactor)
 

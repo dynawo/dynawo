@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "FSExport.h"
-
 namespace finalState {
 class Variable;
 
@@ -34,7 +32,7 @@ class Variable;
  * VariableFactory encapsulates methods for creating new
  * @p Variable objects
  */
-class __DYNAWO_FS_EXPORT VariableFactory {
+class VariableFactory {
  public:
   /**
    * @brief create a new Variable instance

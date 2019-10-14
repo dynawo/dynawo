@@ -131,8 +131,8 @@ _dynawo_compileModelicaModel() {
       "-h[display help and exit]:help" \
     - set2 \
       "--model[set the model name of the file to compile (model.mo needs to be in output-dir)]:set the model name of the file to compile (model.mo needs to be in output-dir):_files -g '*.mo'" \
-      "--input-dir[set input directory (default\: output directory)]:set input directory (default\: output directory):_files -/" \
-      "--output-dir[set output directory (default\: current directory)]:set output directory (default\: current directory):_files -/" \
+      "--model-dir[set input directory (default\: output directory)]:set input directory (default\: output directory):_files -/" \
+      "--compilation-dir[set output directory (default\: current directory)]:set output directory (default\: current directory):_files -/" \
       "--moFiles[modelica files to use for expansion]:modelica files to use for expansion:_files -g '*.mo'" \
       "--initFiles[init files to use for expansion]:init files to use for expansion:_files -g '*.mo'" \
       "--lib[set the name of the output lib]:set the name of the output lib: " \

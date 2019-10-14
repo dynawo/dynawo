@@ -13,7 +13,7 @@
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="IEEE57 - Disconnect line 6-8 - IDA Solver">
-    <dyn:solver lib="libdynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+    <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
     <dyn:modeler compileDir="outputs/compilation">
       <dyn:network iidmFile="IEEE57.iidm" parFile="IEEE57.par" parId="51"/>
       <dyn:dynModels dydFile="IEEE57.dyd"/>
@@ -31,7 +31,7 @@
     </dyn:outputs>
   </dyn:job>
   <dyn:job name="IEEE57 - Disconnect line 6-8 - Simplified solver">
-    <dyn:solver lib="libdynawo_SolverSIM" parFile="solvers.par" parId="3"/>
+    <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="3"/>
     <dyn:modeler compileDir="outputsSIM/compilation">
       <dyn:network iidmFile="IEEE57.iidm" parFile="IEEE57.par" parId="51"/>
       <dyn:dynModels dydFile="IEEE57.dyd"/>

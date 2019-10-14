@@ -75,8 +75,8 @@ inline std::string type2Str(const DYN::Error::TypeError_t& type) {
  *
  * @return key of the error as a string
  */
-inline std::string key2Str(const int & key) {
-  return DYN::KeyError_t::names[key];
+inline std::string key2Str(const int key) {
+  return DYN::KeyError_t::names(static_cast<DYN::KeyError_t::value>(key));
 }
 
 

@@ -22,15 +22,13 @@
 
 #include <string>
 
-#include "JOBExport.h"
-
 namespace job {
 
 /**
  * @class ConstraintsEntry
  * @brief Constraints entries container class
  */
-class __DYNAWO_JOB_EXPORT ConstraintsEntry {
+class ConstraintsEntry {
  public:
   /**
    * @brief Destructor

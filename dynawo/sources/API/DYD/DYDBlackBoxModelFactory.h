@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class BlackBoxModel;
 /**
@@ -33,7 +31,7 @@ class BlackBoxModel;
  * BlackBoxModelFactory encapsulate methods for creating new
  * @p BlackBoxModel objects.
  */
-class __DYNAWO_DYD_EXPORT BlackBoxModelFactory {
+class BlackBoxModelFactory {
  public:
   /**
    * @brief Create new BlackBoxModel instance

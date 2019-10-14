@@ -24,8 +24,6 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
-#include "CSTRExport.h"
-
 namespace constraints {
 class ConstraintsCollection;
 
@@ -35,7 +33,7 @@ class ConstraintsCollection;
  *
  * Exporter class for ConstraintsCollection
  */
-class __DYNAWO_CSTR_EXPORT Exporter {
+class Exporter {
  public:
   /**
    * @brief Destructor

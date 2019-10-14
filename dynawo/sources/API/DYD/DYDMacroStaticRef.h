@@ -22,8 +22,6 @@
 
 #include <string>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 
 /**
@@ -31,7 +29,7 @@ namespace dynamicdata {
  * @brief MacroStaticRef interface class
  *
  */
-class __DYNAWO_DYD_EXPORT MacroStaticRef {
+class MacroStaticRef {
  public:
   /**
    * @brief Destructor

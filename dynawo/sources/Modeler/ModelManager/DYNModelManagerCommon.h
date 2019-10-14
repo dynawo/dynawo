@@ -34,6 +34,10 @@
 #define REAL_ARRAY_H_   ///< to avoid definition of real_array functions/types
 #define INTEGER_ARRAY_H_   ///< to avoid definition of integer_array functions/types
 
+#ifdef _MSC_VER
+#define OMC_NO_THREADS   ///< to avoid inclusion of pthread.h
+#endif
+
 #include "DYNError.h"
 #include "DYNMessage.hpp"
 #include "DYNMessageTimeline.h"
@@ -43,6 +47,11 @@
 #include "ModelicaStandardTables.h"
 #include "ModelicaStrings.h"
 #include "DYNModelManagerOwnFunctions.h"  ///< redefinition of local own functions
+
+#ifdef _MSC_VER
+#undef isnan    // undef macros defined in omc.msvc.h !
+#undef isinf
+#endif
 
 /**
  * definition of hysteresis function
@@ -145,7 +154,7 @@ T pow_dynawo(T a, T b) {
   T value = pow(a, b);
   if (std::isnan(value)) {
     throw(DYN::Error(DYN::Error::NUMERICAL_ERROR, DYN::KeyError_t::NumericalErrorFunction, std::string(__FILE__), __LINE__, \
-          (DYN::Message("ERROR", DYN::KeyError_t::names[DYN::KeyError_t::NumericalErrorFunction]), "pow")));
+          (DYN::Message("ERROR", DYN::KeyError_t::names(DYN::KeyError_t::NumericalErrorFunction)), "pow")));
   }
   return value;
 }
@@ -156,14 +165,16 @@ T pow_dynawo(T a, T b) {
 #define  GreaterZC(a, b, direction) Greater(a, b)
 #define  GreaterEqZC(a, b, direction) GreaterEq(a, b)
 
-#define addLogConstraintBegin(key) addLogConstraintBegin_((this)->getModelManager(), (Message("CONSTRAINT", DYN::KeyConstraint_t::names[key])))
-#define addLogConstraintEnd(key) addLogConstraintEnd_((this)->getModelManager(), (Message("CONSTRAINT", DYN::KeyConstraint_t::names[key])))
+#define addLogConstraintBegin(key) \
+  addLogConstraintBegin_((this)->getModelManager(), (Message("CONSTRAINT", DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::value(key)))))
+#define addLogConstraintEnd(key) \
+  addLogConstraintEnd_((this)->getModelManager(), (Message("CONSTRAINT", DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::value(key)))))
 
 /**
  * @brief Macro to define a timeline message from a Modelica model
  * @param key key to find the message
  */
-#define DYNTimelineFromModelica(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names[key]), ##__VA_ARGS__ )
+#define DYNTimelineFromModelica(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::value(key))), ##__VA_ARGS__ )
 
 #define addLogEvent1(key) addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key))
 #define addLogEvent2(key, arg1) addLogEvent_((this)->getModelManager(), DYNTimelineFromModelica(key, arg1))

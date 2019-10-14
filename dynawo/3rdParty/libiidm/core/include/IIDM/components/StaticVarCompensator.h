@@ -20,7 +20,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -39,7 +39,7 @@ class StaticVarCompensatorBuilder;
 /**
  * @brief StaticVarCompensator in the network
  */
-class IIDM_EXPORT StaticVarCompensator: public Identifiable, public Injection<StaticVarCompensator>, public ContainedIn<VoltageLevel> {
+class StaticVarCompensator: public Identifiable, public Injection<StaticVarCompensator>, public ContainedIn<VoltageLevel> {
 public:
   //aliases of parent()
   ///tells if a parent is specified

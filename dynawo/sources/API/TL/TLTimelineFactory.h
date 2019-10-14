@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "TLExport.h"
-
 namespace timeline {
 class Timeline;
 
@@ -34,7 +32,7 @@ class Timeline;
  * TimelineFactory encapsulate methods for creating new
  * @p Timeline objects.
  */
-class __DYNAWO_TL_EXPORT TimelineFactory {
+class TimelineFactory {
  public:
   /**
    * @brief Create new Timeline instance

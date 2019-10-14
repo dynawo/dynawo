@@ -21,7 +21,6 @@
 #include <string>
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/InjectionBuilder.h>
 
@@ -34,7 +33,7 @@ namespace builders {
  * @class VscConverterStationBuilder
  * @brief IIDM::VscConverterStation builder
  */
-class IIDM_EXPORT VscConverterStationBuilder: public InjectionBuilder<VscConverterStation, VscConverterStationBuilder> {
+class VscConverterStationBuilder: public InjectionBuilder<VscConverterStation, VscConverterStationBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(VscConverterStationBuilder, double, lossFactor)
   MACRO_IIDM_BUILDER_PROPERTY(VscConverterStationBuilder, bool, regulating)
 

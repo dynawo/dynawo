@@ -18,7 +18,6 @@
 #ifndef LIBIIDM_COMPONENTS_GUARD_TERMINALREFERENCE_H
 #define LIBIIDM_COMPONENTS_GUARD_TERMINALREFERENCE_H
 
-#include <IIDM/Export.h>
 
 #include <IIDM/BasicTypes.h>
 
@@ -26,7 +25,7 @@ namespace IIDM {
 /**
  * @brief represents a reference to a Terminal.
  */
-struct IIDM_EXPORT TerminalReference {
+struct TerminalReference {
   ///id of the referenced terminal.
   id_type id;
   ///specific side (might be side_end)

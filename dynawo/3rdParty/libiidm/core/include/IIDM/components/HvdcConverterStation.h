@@ -18,7 +18,7 @@
 #ifndef LIBIIDM_COMPONENTS_GUARD_HVDCCONVERTERSTATION_H
 #define LIBIIDM_COMPONENTS_GUARD_HVDCCONVERTERSTATION_H
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -34,7 +34,7 @@ class VoltageLevel;
  * @tparam CRTP_ConverterStation the actual converter station class
  */
 template <typename CRTP_ConverterStation>
-class IIDM_EXPORT HvdcConverterStation: public Identifiable, public Injection<CRTP_ConverterStation>, public ContainedIn<VoltageLevel> {
+class HvdcConverterStation: public Identifiable, public Injection<CRTP_ConverterStation>, public ContainedIn<VoltageLevel> {
 public:
   //aliases of parent()
   ///tells if a parent is specified

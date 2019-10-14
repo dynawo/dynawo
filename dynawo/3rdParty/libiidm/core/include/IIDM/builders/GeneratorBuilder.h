@@ -21,7 +21,6 @@
 #include <string>
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/InjectionBuilder.h>
 
@@ -34,7 +33,7 @@ namespace builders {
  * @class GeneratorBuilder
  * @brief IIDM::Generator builder
  */
-class IIDM_EXPORT GeneratorBuilder: public InjectionBuilder<Generator, GeneratorBuilder> {
+class GeneratorBuilder: public InjectionBuilder<Generator, GeneratorBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(GeneratorBuilder, Generator::energy_source_enum, energySource)
   MACRO_IIDM_BUILDER_PROPERTY(GeneratorBuilder, bool, regulating)
   MACRO_IIDM_BUILDER_PROPERTY(GeneratorBuilder, double, pmin)

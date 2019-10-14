@@ -22,15 +22,13 @@
 
 #include <string>
 
-#include "JOBExport.h"
-
 namespace job {
 
 /**
  * @class InitialStateEntry
  * @brief Initial state entries container class
  */
-class __DYNAWO_JOB_EXPORT InitialStateEntry {
+class InitialStateEntry {
  public:
   /**
    * @brief Destructor

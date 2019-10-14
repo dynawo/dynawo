@@ -34,9 +34,12 @@ std::string VoltageLevelShortCircuitsHandler::xsd_path() {
   return xsdPath + std::string("voltageLevelShortCircuits.xsd");
 }
 
-VoltageLevelShortCircuitsHandler::elementName_type const VoltageLevelShortCircuitsHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/voltagelevel_short_circuits/1_0"), "voltageLevelShortCircuits"
-);
+VoltageLevelShortCircuitsHandler::elementName_type const& VoltageLevelShortCircuitsHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/voltagelevel_short_circuits/1_0"), "voltageLevelShortCircuits"
+  );
+  return root;
+}
 
 VoltageLevelShortCircuits* VoltageLevelShortCircuitsHandler::do_make() {
   return VoltageLevelShortCircuitsBuilder()

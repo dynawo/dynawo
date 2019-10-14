@@ -17,13 +17,12 @@ error_exit() {
 }
 
 export_var_env() {
-  var=$@
-  name=${var%%=*}
-  value=${var#*=}
+  local var="$@"
+  local name=${var%%=*}
+  local value="${var#*=}"
 
-  if eval "[ \$$name ]"; then
+  if eval "[ \"\$$name\" ]"; then
     eval "value=\${$name}"
-    ##echo "Environment variable for $name already set : $value"
     return
   fi
 
@@ -44,6 +43,7 @@ BUILD_DIR=$HERE
 INSTALL_DIR=$SOURCE_DIR/install
 BOOST_INSTALL_DIR=""
 LIBARCHIVE_INSTALL_DIR=""
+ZLIB_INSTALL_DIR=""
 GTEST_INSTALL_DIR=""
 BUILD_TYPE=Debug
 export_var_env DYNAWO_C_COMPILER=$(command -v gcc)
@@ -61,6 +61,9 @@ install_libzip() {
   fi
   if [ ! -z "$LIBARCHIVE_INSTALL_DIR" ]; then
     CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DLIBARCHIVE_HOME=$LIBARCHIVE_INSTALL_DIR"
+  fi
+  if [ ! -z "$ZLIB_INSTALL_DIR" ]; then
+    CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DZLIB_ROOT=$ZLIB_INSTALL_DIR"
   fi
   if [ ! -z "$GTEST_INSTALL_DIR" ]; then
     CMAKE_OPTIONNAL="$CMAKE_OPTIONNAL -DGTEST_ROOT=$GTEST_INSTALL_DIR"
@@ -111,6 +114,9 @@ while (($#)); do
       ;;
     --libarchive-install-dir=*)
       LIBARCHIVE_INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--libarchive-install-dir=//g'`)
+      ;;
+    --zlib-install-dir=*)
+      ZLIB_INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--zlib-install-dir=//g'`)
       ;;
     --gtest-install-dir=*)
       GTEST_INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--gtest-install-dir=//g'`)

@@ -18,7 +18,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include <libzip/ZipExport.h>
 #include <libzip/ZipFlattenPolicy.h>
 
 namespace zip {
@@ -26,7 +25,7 @@ namespace zip {
 class ZipEntry;
 
 
-class __LIBZIP_EXPORT ZipFile {
+class ZipFile {
 public:
     virtual unsigned long size() const = 0;
 

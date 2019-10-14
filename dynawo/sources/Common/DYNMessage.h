@@ -39,15 +39,28 @@ namespace DYN {
  */
 class Message {
  public:
-  static const char TIMELINE_KEY[];  ///< Key used to store timeline dictionary
-  static const char ERROR_KEY[];  ///< Key used to store error dictionary
-  static const char CONSTRAINT_KEY[];  ///< Key used to store constraint dictionary
-  static const char LOG_KEY[];  ///< Key used to store log dictionary
+  ///< enum of possible key for dictionaries
+  enum dictionaryKey {
+    TIMELINE_KEY,    ///< Key used to store timeline dictionary
+    ERROR_KEY,       ///< Key used to store error dictionary
+    CONSTRAINT_KEY,  ///< Key used to store constraint dictionary
+    LOG_KEY,         ///< Key used to store log dictionary
+  };
+
   /**
    * @brief Constructor
    *
    *
-   * @param dicoName name of the dictionnary where the message is described
+   * @param dicoKey key of the dictionary where the message is described
+   * @param key key to access to the message description
+   */
+  Message(const dictionaryKey& dicoKey, const std::string& key);
+
+  /**
+   * @brief Constructor
+   *
+   *
+   * @param dicoName name of the dictionary where the message is described
    * @param key key to access to the message description
    */
   Message(const std::string& dicoName, const std::string& key);

@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 
   HvdcLineBuilder hvdcline_builder = HvdcLineBuilder().r(0).nominalV(0).activePowerSetpoint(0).maxP(10);
 
-  SubstationBuilder substation_fr_builder = SubstationBuilder().country("FR").tso("RTE");
+  SubstationBuilder substation_fr_builder = SubstationBuilder().country("FR").tso(std::string("RTE"));
   SubstationBuilder substation_be_builder = SubstationBuilder().country("BE");
 
 
@@ -234,11 +234,11 @@ int main(int argc, char** argv) {
           at("CT_dlines", connected)
         )
         .add(
-          dlines.clone().currentLimits( basic_current_limits ).ucte_xNodeCode("N").build("CT_dline2"),
+          dlines.clone().currentLimits( basic_current_limits ).ucte_xNodeCode(std::string("N")).build("CT_dline2"),
           at("CT_dlines", connected)
         )
         .add(
-          dlines.clone().ucte_xNodeCode("N").build("CT_dline3"),
+          dlines.clone().ucte_xNodeCode(std::string("N")).build("CT_dline3"),
           at("CT_dlines", connected)
         )
         .add(

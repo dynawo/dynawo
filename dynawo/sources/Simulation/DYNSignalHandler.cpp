@@ -40,23 +40,35 @@ SignalHandler::setExitSignal(bool exitSignal) {
 void
 SignalHandler::exitSignalHandler(int signal) {
   switch (signal) {
+#ifdef SIGTERM
     case SIGTERM:
       setExitSignal(true);
       break;
+#endif
+#ifdef SIGINT
     case SIGINT:
       setExitSignal(true);
       break;
+#endif
+#ifdef SIGQUIT
     case SIGQUIT:
       setExitSignal(true);
       break;
+#endif
   }
 }
 
 void
 SignalHandler::setSignalHandlers() {
+#ifdef SIGTERM
   signal(SIGTERM, SignalHandler::exitSignalHandler);
+#endif
+#ifdef SIGINT
   signal(SIGINT, SignalHandler::exitSignalHandler);
+#endif
+#ifdef SIGQUIT
   signal(SIGQUIT, SignalHandler::exitSignalHandler);
+#endif
 }
 
 }  // namespace DYN

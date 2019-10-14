@@ -24,7 +24,6 @@
 #include <map>
 #include <vector>
 
-#include "DYDExport.h"
 #include "DYDModel.h"
 
 
@@ -38,7 +37,7 @@ namespace dynamicdata {
  * objects connected with other models through
  */
 
-class __DYNAWO_DYD_EXPORT ModelTemplateExpansion : public Model {
+class ModelTemplateExpansion : public Model {
  public:
   /**
    * @brief Destructor

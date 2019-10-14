@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class MacroStaticReference;
 
@@ -34,7 +32,7 @@ class MacroStaticReference;
  * MacroStaticReferenceFactory encapsulates methods for creating new
  * @p MacroStaticReference objects.
  */
-class __DYNAWO_DYD_EXPORT MacroStaticReferenceFactory {
+class MacroStaticReferenceFactory {
  public:
   /**
    * @brief Create new MacroStaticReference instance

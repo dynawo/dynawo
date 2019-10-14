@@ -93,7 +93,7 @@ TEST(SimulationCommonTest, testSolverCommon) {
   SM_DATA_S(JJ)[0] = 1;
   SM_DATA_S(JJ)[1] = 2;
 
-  ASSERT_EQ(copySparseToKINSOL(smj, JJ, 3, NULL), true);
+  ASSERT_EQ(SolverCommon::copySparseToKINSOL(smj, JJ, 3, NULL), true);
   ASSERT_EQ(SM_NNZ_S(JJ), 4);
   ASSERT_EQ(SM_INDEXPTRS_S(JJ)[0], 0);
   ASSERT_EQ(SM_INDEXPTRS_S(JJ)[1], 1);
@@ -133,10 +133,10 @@ TEST(SimulationCommonTest, testNormVectors) {
   sub_weights.push_back(1.);
   sub_weights.push_back(2.);
 
-  ASSERT_DOUBLE_EQ(weightedInfinityNorm(vec, weights), 9.);
-  ASSERT_DOUBLE_EQ(weightedL2Norm(vec, weights), 12.72792206135785519905);
-  ASSERT_DOUBLE_EQ(weightedInfinityNorm(vec, indices, sub_weights), 16.);
-  ASSERT_DOUBLE_EQ(weightedL2Norm(vec, indices, sub_weights), 16.52271164185830443216);
+  ASSERT_DOUBLE_EQ(SolverCommon::weightedInfinityNorm(vec, weights), 9.);
+  ASSERT_DOUBLE_EQ(SolverCommon::weightedL2Norm(vec, weights), 12.72792206135785519905);
+  ASSERT_DOUBLE_EQ(SolverCommon::weightedInfinityNorm(vec, indices, sub_weights), 16.);
+  ASSERT_DOUBLE_EQ(SolverCommon::weightedL2Norm(vec, indices, sub_weights), 16.52271164185830443216);
 }
 
 }  // namespace DYN

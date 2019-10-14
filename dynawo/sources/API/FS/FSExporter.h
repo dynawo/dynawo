@@ -24,8 +24,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "FSExport.h"
-
 namespace finalState {
 class FinalStateCollection;
 
@@ -35,7 +33,7 @@ class FinalStateCollection;
  *
  * Exporter class for finalState
  */
-class __DYNAWO_FS_EXPORT Exporter {
+class Exporter {
  public:
   /**
    * @brief Destructor

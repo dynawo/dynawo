@@ -28,10 +28,17 @@ set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-find_package(LibArchive 2.8.0 REQUIRED)
 find_package(Boost 1.39 REQUIRED)
 if (LIBZIP_BUILD_TESTS)
-  find_package(GTest)
+    # workaround to find GTest 1.8.1 even in Debug
+    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+      find_package(GTest QUIET)
+      if(NOT GTEST_FOUND)
+        set(GTEST_LIBRARY ${GTEST_LIBRARY_DEBUG})
+        set(GTEST_MAIN_LIBRARY ${GTEST_MAIN_LIBRARY_DEBUG})
+      endif()
+    endif()
+    find_package(GTest)
 endif ()
 
 if (NOT CMAKE_BUILD_TYPE)
@@ -46,6 +53,7 @@ if(MSVC)
   endif()
 endif()
 
+if(NOT MSVC)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror")
@@ -67,6 +75,7 @@ if (CXX11_ENABLED)
 else ()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
 endif ()
+endif()
 
 set(BIN_INSTALL_DIR "bin" CACHE PATH "The directory the executables are installed in.")
 set(INCLUDE_INSTALL_DIR "include" CACHE PATH "The directory the headers are installed in.")
@@ -91,7 +100,6 @@ endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${Boost_INCLUDE_DIRS})
-include_directories(${LibArchive_INCLUDE_DIRS})
 if (LIBZIP_BUILD_TESTS)
   include_directories(${GTEST_INCLUDE_DIRS})
 endif ()

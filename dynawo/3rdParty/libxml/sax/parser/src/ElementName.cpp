@@ -25,7 +25,14 @@ namespace parser {
 
 namespace ns {
 
-uri const empty;
+uri const uri::empty() {
+  static const uri empty_;
+  return empty_;
+}
+
+XmlPath const uri::empty(std::string const& element_sequence) {
+  return empty()(element_sequence);
+}
 
 XmlPath uri::operator() (std::string const& element_sequence) const {
   XmlPath path;

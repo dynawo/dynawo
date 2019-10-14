@@ -18,7 +18,7 @@
 #ifndef LIBIIDM_COMPONENTS_GUARD_HVDCLINE_H
 #define LIBIIDM_COMPONENTS_GUARD_HVDCLINE_H
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -35,7 +35,7 @@ class HvdcLineBuilder;
 /**
  * @brief Line in the network
  */
-class IIDM_EXPORT HvdcLine: public Identifiable, public ContainedIn<Network> {
+class HvdcLine: public Identifiable, public ContainedIn<Network> {
 public:
   //aliases of parent()
   ///tells if a parent network is specified

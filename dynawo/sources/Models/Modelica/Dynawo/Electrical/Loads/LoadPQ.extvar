@@ -16,5 +16,6 @@
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="discrete" id="PRefPu.value"/>
   <variable type="discrete" id="QRefPu.value"/>
-  <xi:include href="./SwitchOffLoad.extvar" xpointer="xmlns(dyn=http://www.rte-france.com/dynawo)xpointer(//dyn:external_variables/*)"/>
+  <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
+  <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
 </external_variables>

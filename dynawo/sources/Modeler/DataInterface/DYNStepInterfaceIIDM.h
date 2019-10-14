@@ -25,8 +25,8 @@
 #include "DYNStepInterface.h"
 
 namespace IIDM {
-class PhaseTapChangerStep;
-class RatioTapChangerStep;
+struct PhaseTapChangerStep;
+struct RatioTapChangerStep;
 }
 
 namespace DYN {

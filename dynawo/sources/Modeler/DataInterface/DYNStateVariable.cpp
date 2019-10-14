@@ -189,7 +189,7 @@ StateVariable::setValue(const double& value) {
   switch (type_) {
   case BOOL :
 #ifdef _DEBUG_
-    if (value != 0. && value != 1. && value != -1.)
+    if (!doubleEquals(value, 0.) && !doubleEquals(value, 1.) && !doubleEquals(value, -1.))
       throw DYNError(Error::MODELER, StateVariableWrongType, name_, typeAsString(type_), "bool");
 #endif
     value_ = (value > 0);
@@ -199,7 +199,7 @@ StateVariable::setValue(const double& value) {
     break;
   case INT :
 #ifdef _DEBUG_
-    if (((value > 0) ? std::floor(value) : std::ceil(value)) != value) {  // Test to check if this is an integer
+    if (!doubleEquals(((value > 0) ? std::floor(value) : std::ceil(value)), value)) {  // Test to check if this is an integer
       throw DYNError(Error::MODELER, StateVariableWrongType, name_, typeAsString(type_), "double");
     }
 #endif

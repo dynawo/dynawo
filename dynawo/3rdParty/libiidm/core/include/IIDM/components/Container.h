@@ -18,7 +18,7 @@
 #ifndef LIBIIDM_COMPONENTS_GUARD_CONTAINER_H
 #define LIBIIDM_COMPONENTS_GUARD_CONTAINER_H
 
-#include <IIDM/Export.h>
+
 #include <IIDM/BasicTypes.h>
 #include <IIDM/components/Identifiable.h>
 
@@ -36,7 +36,7 @@ namespace IIDM {
  * add is only protected, to allow public inheritance (which is required to set the parent)
  */
 template <typename T>
-class IIDM_EXPORT Contains {
+class Contains {
 private:
   typedef linked_map<id_type, T> contents_type;
   contents_type contents;

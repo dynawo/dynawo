@@ -18,7 +18,7 @@
 #ifndef LIBIIDM_COMPONENTS_GUARD_LCCCONVERTERSTATION_H
 #define LIBIIDM_COMPONENTS_GUARD_LCCCONVERTERSTATION_H
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/HvdcConverterStation.h>
@@ -36,7 +36,7 @@ class LccConverterStationBuilder;
 /**
  * @brief LccConverterStation in the network
  */
-class IIDM_EXPORT LccConverterStation: public HvdcConverterStation<LccConverterStation> {
+class LccConverterStation: public HvdcConverterStation<LccConverterStation> {
 public:
   double powerFactor() const { return m_powerFactor; }
 

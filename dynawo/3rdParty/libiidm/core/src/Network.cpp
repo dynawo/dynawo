@@ -17,7 +17,7 @@
 
 #include <IIDM/Network.h>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11_type_traits.h>
 
 #include <IIDM/BasicTypes.h>

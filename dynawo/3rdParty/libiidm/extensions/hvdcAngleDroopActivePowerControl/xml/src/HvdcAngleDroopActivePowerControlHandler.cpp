@@ -34,9 +34,12 @@ std::string HvdcAngleDroopActivePowerControlHandler::xsd_path() {
   return xsdPath + std::string("hvdcAngleDroopActivePowerControl.xsd");
 }
 
-HvdcAngleDroopActivePowerControlHandler::elementName_type const HvdcAngleDroopActivePowerControlHandler::root(
+HvdcAngleDroopActivePowerControlHandler::elementName_type const& HvdcAngleDroopActivePowerControlHandler::root() {
+    static elementName_type const root(
         parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/hvdc_angle_droop_active_power_control/1_0"), "hvdcAngleDroopActivePowerControl"
-);
+    );
+    return root;
+}
 
 HvdcAngleDroopActivePowerControl* HvdcAngleDroopActivePowerControlHandler::do_make() {
     return HvdcAngleDroopActivePowerControlBuilder()

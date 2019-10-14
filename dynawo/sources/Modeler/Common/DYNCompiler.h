@@ -19,6 +19,7 @@
 #define MODELER_COMMON_DYNCOMPILER_H_
 
 #include <map>
+#include <set>
 #include <vector>
 #include <string>
 #include <sstream>
@@ -90,7 +91,7 @@ class Compiler {
   useStandardModelicaModels_(useStandardModelicaModels),
   modelicaModelsDirsPaths_(modelicaModelsDirs),
   modelicaModelsExtension_(modelicaModelsExtension),
-  compileDirPath_(outputDir),
+  modelDirPath_(outputDir),
   additionalHeaderFiles_(additionalHeaderFiles),
   rmModels_(rmModels) { }
 
@@ -186,8 +187,9 @@ class Compiler {
    * @param macroConnection modelica Model macro connections
    * @param unitDynamicModels modelica Model modelica models map
    * @param internalConnects modelica Model internal connections
+   * @returns the the path to the model concat file
    */
-  void writeConcatModelicaFile(const std::string& modelID, const boost::shared_ptr<ModelDescription>& modelicaModelDescription,
+  const std::string writeConcatModelicaFile(const std::string& modelID, const boost::shared_ptr<ModelDescription>& modelicaModelDescription,
       const std::vector<boost::shared_ptr<dynamicdata::Connector> >& macroConnection,
       const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
       const std::vector<boost::shared_ptr<dynamicdata::Connector> >& internalConnects) const;
@@ -211,8 +213,9 @@ class Compiler {
    * @param modelicaModelDescription modelica Model Description to concatenate
    * @param unitDynamicModels modelica Model modelica models map
    * @param macroConnects modelica Model macro connections map
+   * @returns the the path to the init concat file
    */
-  void writeInitFile(const boost::shared_ptr<ModelDescription>& modelicaModelDescription,
+  const std::string writeInitFile(const boost::shared_ptr<ModelDescription>& modelicaModelDescription,
       const std::map<std::string, boost::shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
       const std::map<std::string, boost::shared_ptr<dynamicdata::MacroConnect> >& macroConnects) const;
 
@@ -250,7 +253,9 @@ class Compiler {
   std::vector <UserDefinedDirectory> modelicaModelsDirsPaths_;  ///< absolute paths to Modelica models directories
   std::string modelicaModelsExtension_;  ///< file extension to discriminate Modelica models
 
-  std::string compileDirPath_;  ///< compiled files' directory
+  std::string modelDirPath_;  ///< model files' directory
+  std::string modelConcatFile_;  ///< concat model file
+  std::string initConcatFile_;  ///< concat init file
 
   // Available models listing
   std::map<std::string, std::string> extVarFiles_;  ///< files gathering "external" variables (connected to C++ models)

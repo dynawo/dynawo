@@ -316,29 +316,17 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   Trace::info("COMPILE") << "|" << std::setw(50 + l) << id << std::setw(50 - l - 1) << "|" << Trace::endline;
   Trace::info("COMPILE") << "|                                                                                                  |" << Trace::endline;
   Trace::info("COMPILE") << "====================================================================================================" << Trace::endline;
-  string installDir = prettyPath(getEnvVar("DYNAWO_INSTALL_DIR"));
-
-  // remove old files
-  string cleanCommand = installDir + "/sbin/cleanCompileModelicaModel --model=" + thisCompiledId + " --directory=" + compileDirPath_;
-  if (rmModels_)
-    cleanCommand += " --remove-model-files";
-#ifdef _DEBUG_
-  cleanCommand += " --debug";
-#endif
-  stringstream ssClean;
-  executeCommand(cleanCommand, ssClean);
-  Trace::debug("COMPILE") << ssClean.str() << Trace::endline;
 
   // concat models
   concatModel(modelDescription);  // for .mo, .extvar, -init.mo
 
-  // erase old version of the lib before compiling it.
-  remove(createAbsolutePath(libName, compileDirPath_));
-
   throwIfAllModelicaFilesAreNotAvailable(unitDynamicModels);
 
   // Compilation and post-treatment on concatenated files
-  string compileCommand = installDir + "/sbin/compileModelicaModel --model " + thisCompiledId + " --output-dir " + compileDirPath_ + " --lib " + libName;
+  string installDir = getEnvVar("DYNAWO_INSTALL_DIR");
+  string compileDirPath = createAbsolutePath(thisCompiledId, modelDirPath_);
+  string compileCommand = prettyPath(installDir + "/sbin")
+    + "/compileModelicaModel --model " + thisCompiledId + " --model-dir " + modelDirPath_ + " --compilation-dir " + compileDirPath + " --lib " + libName;
 
   if (moFilesCompilation_.size() > 0) {
     string moFilesList = "";
@@ -357,17 +345,16 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 
     compileCommand += " --additionalHeaderList" + additionalHeaderList;
   }
-  if (rmModels_)
-    compileCommand += " --remove-model-files true";
 
   Trace::info("COMPILE") << DYNLog(CompileCommmand, compileCommand) << Trace::endline;
 
   stringstream ss;
   executeCommand(compileCommand, ss);
   Trace::debug("COMPILE") << ss.str() << Trace::endline;
+
+#ifdef __linux__
   string echoString = ss.str();
   boost::replace_all(echoString, "'", "\"");
-#ifdef __linux__
   // In case of static compilation it is expected that symbols about Timer are missing.
   string commandUndefined = "echo '" + echoString + "' | sed '1,/ldd -r/d' | c++filt | grep 'undefined' | grep -v 'DYN::Timer::~Timer()'"
           " | grep -v \"DYN::Timer::Timer([^)]*)\"";
@@ -378,10 +365,18 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 #endif
 
   // testing if the lib was successfully compiled (test if it exists, and if no undefined symbol was noticed)
-  if ((!exists(compileDirPath_ + "/" + libName)) || (hasUndefinedSymbol))
+  string lib = modelDirPath_ + "/" + libName;
+  if ((!exists(lib)) || (hasUndefinedSymbol))
     throw DYNError(Error::MODELER, CompilationFailed, libName);
 
-  string lib = compileDirPath_ + "/" + libName;
+#ifndef _DEBUG_
+  // remove .mo, -init.mo
+  if (rmModels_) {
+    remove(modelConcatFile_);
+    remove(initConcatFile_);
+  }
+#endif
+
   Trace::info("COMPILE") << DYNLog(SetLib, modelID, lib) << Trace::endline;
   modelDescription->setLib(lib);
 
@@ -508,7 +503,7 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
   vector<shared_ptr<dynamicdata::Connector> > macroConnection;
   collectMacroConnections(macroConnects, macroConnection);
   // .mo file generation
-  writeConcatModelicaFile(modelID, modelicaModelDescription, macroConnection,
+  modelConcatFile_ = writeConcatModelicaFile(modelID, modelicaModelDescription, macroConnection,
       unitDynamicModels, internalConnects);
 
   // .extvar file generation
@@ -516,8 +511,9 @@ Compiler::concatModel(const shared_ptr<ModelDescription> & modelicaModelDescript
       unitDynamicModels, internalConnects, allExternalVariables);
 
   // _init.mo file generation
+  initConcatFile_ = "";
   if (hasInit) {
-    writeInitFile(modelicaModelDescription, unitDynamicModels, macroConnects);
+    initConcatFile_ = writeInitFile(modelicaModelDescription, unitDynamicModels, macroConnects);
   }
 }
 
@@ -545,14 +541,14 @@ Compiler::collectMacroConnections(const map<string, shared_ptr<dynamicdata::Macr
   }
 }
 
-void
+const string
 Compiler::writeConcatModelicaFile(const std::string& modelID, const shared_ptr<ModelDescription> & modelicaModelDescription,
     const vector<shared_ptr<dynamicdata::Connector> >& macroConnection,
     const map<string, shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
     const vector<shared_ptr<dynamicdata::Connector> >& internalConnects) const {
   string modelConcatName = modelicaModelDescription->getCompiledModelId();
 
-  string modelConcatFile = absolute(modelConcatName + ".mo", compileDirPath_);
+  string modelConcatFile = absolute(modelConcatName + ".mo", modelDirPath_);
   Trace::info("COMPILE") << DYNLog(GenerateModelicaConcatFile, modelConcatFile, modelID, modelicaModelDescription->getID()) << Trace::endline;
   std::ofstream fOut;
 
@@ -580,9 +576,9 @@ Compiler::writeConcatModelicaFile(const std::string& modelID, const shared_ptr<M
   }
   fOut << "end " << modelConcatName << ";" << std::endl;
   fOut.close();
+
+  return modelConcatFile;
 }
-
-
 
 void
 Compiler::collectConnectedExtVar(string itUnitDynamicModelName,
@@ -646,19 +642,19 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
 
   if (atLeastOneExternalVariable) {
     string modelConcatName = modelicaModelDescription->getCompiledModelId();
-    const string extVarFlatPath = absolute(modelConcatName + ".extvar", compileDirPath_);
+    const string extVarFlatPath = absolute(modelConcatName + ".extvar", modelDirPath_);
     externalVariables::XmlExporter extVarExporter;
     extVarExporter.exportToFile(*modelExternalvariables, extVarFlatPath);
   }
 }
 
-void
+const string
 Compiler::writeInitFile(const shared_ptr<ModelDescription> & modelicaModelDescription,
     const map<string, shared_ptr<dynamicdata::UnitDynamicModel> >& unitDynamicModels,
     const map<string, shared_ptr<dynamicdata::MacroConnect> >& macroConnects) const {
   string modelConcatName = modelicaModelDescription->getCompiledModelId();
   string initConcatName = modelConcatName + "_INIT";
-  string initConcatFile = absolute(initConcatName + ".mo", compileDirPath_);
+  string initConcatFile = absolute(initConcatName + ".mo", modelDirPath_);
 
   std::ofstream fOut;
   fOut.open(initConcatFile.c_str(), std::fstream::out);
@@ -707,6 +703,8 @@ Compiler::writeInitFile(const shared_ptr<ModelDescription> & modelicaModelDescri
   }
   fOut << "end " << initConcatName << ";" << std::endl;
   fOut.close();
+
+  return initConcatFile;
 }
 
 void

@@ -108,7 +108,7 @@ ModelSwitch::evalNodeInjection() {
 
 NetworkComponent::StateChange_t
 ModelSwitch::evalZ(const double& /*t*/) {
-  State currState = static_cast<State>(z_[0]);
+  State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnectionState()) {
     topologyModified_ = true;
     Trace::debug() << DYNLog(SwitchStateChange, id_, currState, getConnectionState()) << Trace::endline;
@@ -273,14 +273,14 @@ ModelSwitch::evalState(const double& /*time*/) {
 void
 ModelSwitch::open() {
   z_[0] = OPEN;
-  if (static_cast<State>(z_[0]) != getConnectionState())
+  if (static_cast<State>(static_cast<int>(z_[0])) != getConnectionState())
     Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
 }
 
 void
 ModelSwitch::close() {
   z_[0] = CLOSED;
-  if (static_cast<State>(z_[0]) != getConnectionState())
+  if (static_cast<State>(static_cast<int>(z_[0])) != getConnectionState())
     Trace::debug() << DYNLog(SwitchStateChange, id_, getConnectionState(), z_[0]) << Trace::endline;
 }
 

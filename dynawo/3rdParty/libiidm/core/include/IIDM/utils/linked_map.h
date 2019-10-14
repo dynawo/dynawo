@@ -30,7 +30,6 @@
 #include <iterator>
 
 #include <IIDM/cpp11_type_traits.h>
-#include <IIDM/Export.h>
 
 namespace IIDM {
 
@@ -40,7 +39,7 @@ namespace IIDM {
  * @tparam Value type of attached value.
  */
 template <typename Key, typename Value>
-class IIDM_EXPORT linked_map {
+class linked_map {
 private:
   /*
   according to std::list documentation:

@@ -24,7 +24,7 @@
 
 #include <boost/variant.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/BasicTypes.h>
 
 namespace IIDM {
@@ -38,7 +38,7 @@ struct port_error: public std::runtime_error {
 
  * This class is copiable because it is immuable
  */
-class IIDM_EXPORT Port {
+class Port {
 private:
   // structure to represent a bus connection, which can be electrically connected or not.
   struct bus_port {
@@ -172,7 +172,7 @@ public:
  *
  * This class is copiable because it is immuable
  */
-class IIDM_EXPORT ConnectionPoint {
+class ConnectionPoint {
 private:
   id_type voltageLevel_id;
 
@@ -265,7 +265,7 @@ public:
 
 //only ConnectionProvider is able to create ActualConnectionPoint
 //this means ActualConnectionPoint may be guarantied by ConnectionProvider to match an existing point
-class IIDM_EXPORT ActualConnectionPoint: public ConnectionPoint {
+class ActualConnectionPoint: public ConnectionPoint {
 public:
   ActualConnectionPoint(ActualConnectionPoint const& other): ConnectionPoint(other) {}
 

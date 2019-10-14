@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "EXTVARExport.h"
-
 namespace externalVariables {
 class VariablesCollection;
 
@@ -34,7 +32,7 @@ class VariablesCollection;
  * VariablesCollectionFactory encapsulate methods for creating new
  * @p VariablesCollection objects.
  */
-class __DYNAWO_EXTVAR_EXPORT VariablesCollectionFactory {
+class VariablesCollectionFactory {
  public:
   /**
    * @brief Create new VariablesCollection instance

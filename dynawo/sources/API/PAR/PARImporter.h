@@ -22,8 +22,6 @@
 
 #include <string>
 
-#include "PARExport.h"
-
 namespace parameters {
 class ParametersSetCollection;
 
@@ -33,7 +31,7 @@ class ParametersSetCollection;
  *
  * Import class for parameters collections.
  */
-class __DYNAWO_PAR_EXPORT Importer {
+class Importer {
  public:
   /**
    * @brief Destructor

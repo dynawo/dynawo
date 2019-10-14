@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class Connector;
 
@@ -34,7 +32,7 @@ class Connector;
  * ConnectorFactory encapsulate methods for creating new
  * @p Connector objects.
  */
-class __DYNAWO_DYD_EXPORT ConnectorFactory {
+class ConnectorFactory {
  public:
   /**
    * @brief Create new Connector instance

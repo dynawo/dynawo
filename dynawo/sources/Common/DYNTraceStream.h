@@ -25,6 +25,10 @@
 #include <sstream>
 #include <string>
 
+#ifdef _MSC_VER
+#undef ERROR   // avoid conflict with macro ERROR defined somewhere on Windows !
+#endif
+
 namespace DYN {
 
 /**

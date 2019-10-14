@@ -22,7 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "EXTVARExport.h"
 #include "EXTVARVariable.h"
 
 namespace externalVariables {
@@ -34,7 +33,7 @@ namespace externalVariables {
  * VariableFactory encapsulates methods for creating new
  * @p Variable objects.
  */
-class __DYNAWO_EXTVAR_EXPORT VariableFactory {
+class VariableFactory {
  public:
   /**
    * @brief Create new Variable instance

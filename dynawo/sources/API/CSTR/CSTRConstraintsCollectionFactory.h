@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "CSTRExport.h"
-
 namespace constraints {
 class ConstraintsCollection;
 
@@ -34,7 +32,7 @@ class ConstraintsCollection;
  * ConstraintsFactory encapsulate methods for creating new
  * @p ConstraintsCollection objects.
  */
-class __DYNAWO_CSTR_EXPORT ConstraintsCollectionFactory {
+class ConstraintsCollectionFactory {
  public:
   /**
    * @brief Create new ConstraintsCollection instance

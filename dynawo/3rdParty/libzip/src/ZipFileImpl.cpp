@@ -13,7 +13,21 @@
 
 #include <sstream>
 
+#if __GNUC__ >= 8
+#   pragma GCC diagnostic push
+#   pragma GCC diagnostic ignored "-Wparentheses"
 #include <boost/algorithm/string.hpp>
+#   pragma GCC diagnostic pop
+#elif __clang_major__ >= 7
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunused-local-typedef"
+#   include <boost/algorithm/string.hpp>
+#   pragma clang diagnostic pop
+#else
+#   include <boost/algorithm/string.hpp>
+#endif
+
+#include <archive_entry.h>
 
 #include <libzip/ZipInputStream.h>
 
@@ -136,6 +150,16 @@ void ZipFile::Impl::flattenZip(const ZipFlattenPolicy& policy) {
             addZippedFile(internalZip, policy);
         }
     } while (hasInternalZips);
+
+    std::map<std::string, boost::shared_ptr<ZipEntry> >::iterator itE = m_entries.begin();
+    while (itE != m_entries.end()) {
+        if (archive_entry_filetype(itE->second->getInfo()) == AE_IFDIR ) {
+            std::map<std::string, boost::shared_ptr<ZipEntry> >::iterator itErr=itE++;
+            m_entries.erase(itErr);
+        } else {
+            ++itE;
+        }
+    }
 }
 
 /**
@@ -166,7 +190,7 @@ std::vector<std::string> ZipFile::Impl::getIncludedZips() {
     for (std::map<std::string, boost::shared_ptr<ZipEntry> >::const_iterator itE = m_entries.begin();
          itE != m_entries.end(); ++itE) {
         const std::string& fileName = itE->first;
-        if (boost::iequals(fileName.substr(fileName.size() - 4), ".zip")) {
+        if ( fileName.size() > 3 && boost::iequals(fileName.substr(fileName.size() - 4), ".zip")) {
             internalZips.push_back(fileName);
         }
     }

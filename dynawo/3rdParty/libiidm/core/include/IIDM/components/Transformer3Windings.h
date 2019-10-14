@@ -20,7 +20,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -42,7 +42,7 @@ class Transformer3WindingsBuilder;
 /**
  * @brief 3 windings transformer in the network
  */
-class IIDM_EXPORT Transformer3Windings: public Identifiable, public Connectable<Transformer3Windings, side_3>, public ContainedIn<Substation> {
+class Transformer3Windings: public Identifiable, public Connectable<Transformer3Windings, side_3>, public ContainedIn<Substation> {
 public:
   //aliases of parent()
   ///tells if a parent substation is specified

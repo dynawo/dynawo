@@ -20,7 +20,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -40,7 +40,7 @@ class LineBuilder;
 /**
  * @brief Line in the network
  */
-class IIDM_EXPORT Line: public Identifiable, public Connectable<Line, side_2>, public ContainedIn<Network> {
+class Line: public Identifiable, public Connectable<Line, side_2>, public ContainedIn<Network> {
 public:
   //aliases of parent()
   ///tells if a parent network is specified

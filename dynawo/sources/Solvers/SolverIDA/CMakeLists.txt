@@ -12,55 +12,32 @@ SET(SOLVER_IDA_VERSION_STRING ${DYNAWO_VERSION_STRING})
 SET(SOLVER_IDA_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 SET(SOLVER_IDA_SOURCES
-    DYNSolverIDA.cpp
-    )
+  DYNSolverIDA.cpp
+  )
 
 SET(SOLVER_IDA_INCLUDE_HEADERS
-    DYNSolverIDA.h
-    )
-
-INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
-                    ${KLU_INCLUDE_DIR}
-                    ${SUNDIALS_INCLUDE_DIR}
-                    )
-
-INCLUDE_DIRECTORIES(../../API/PAR
-                    ../../Common
-                    ../../Modeler/Common
-                    ../Common
-                    ../SolverKINSOL
-                    )
+  DYNSolverIDA.h
+  )
 
 ADD_LIBRARY(dynawo_SolverIDA SHARED ${SOLVER_IDA_SOURCES})
 
+TARGET_INCLUDE_DIRECTORIES(dynawo_SolverIDA
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+)
+
 TARGET_LINK_LIBRARIES(dynawo_SolverIDA
-                      dynawo_API_PAR
-                      dynawo_Common
-                      dynawo_SolverCommon
-                      dynawo_SolverKINSOL
-                      ${SUNDIALS_IDA_LIBRARY}
-                      ${SUNDIALS_NVECSERIAL_LIBRARY}
-                      ${SUITESPARSE_LIBRARIES}
-                      ${Boost_ATOMIC_LIBRARY}
-                      ${Boost_DATE_TIME_LIBRARY}
-                      ${Boost_REGEX_LIBRARY}
-                      ${Boost_CHRONO_LIBRARY}
-                      )
-
-IF(${NICSLU_FOUND})
-  TARGET_LINK_LIBRARIES(dynawo_SolverIDA ${NICSLU_LIBRARIES})
-ENDIF()
-
-IF (APPLE)
-  IF(LIBRARY_TYPE STREQUAL "STATIC")
-    TARGET_LINK_LIBRARIES(dynawo_SolverIDA "-flat_namespace -undefined warning")
-  ENDIF()
-ENDIF()
+  PUBLIC
+    dynawo_SolverKINSOL
+    Sundials::Sundials_IDA
+)
 
 SET_TARGET_PROPERTIES(dynawo_SolverIDA PROPERTIES VERSION ${SOLVER_IDA_VERSION_STRING}
-                                           SOVERSION ${SOLVER_IDA_VERSION_MAJOR})
+                                                SOVERSION ${SOLVER_IDA_VERSION_MAJOR}
+                                                   PREFIX "")
 
-INSTALL(TARGETS dynawo_SolverIDA DESTINATION ${libdir})
-INSTALL(FILES ${SOLVER_IDA_INCLUDE_HEADERS} DESTINATION ${includedir})
+INSTALL(TARGETS dynawo_SolverIDA EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+INSTALL(FILES ${SOLVER_IDA_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 DESC_SOLVER(dynawo_SolverIDA)

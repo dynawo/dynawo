@@ -55,11 +55,9 @@ def getModifiedFiles(root_directory):
 
 def cpplint(root_directory, filename):
     # Prepare cpplint command line
-    cpplint_path = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), "cpplint.py"))
-    cpplint_options = ['--quiet']
-    cpplint_command = [cpplint_path] + cpplint_options
+    cpplint_path = os.path.abspath(os.path.join(os.path.split(__file__)[0], "cpplint.py"))
 
-    process = subprocess.Popen(cpplint_command + [filename], stdout=subprocess.PIPE, cwd=root_directory)
+    process = subprocess.Popen(["python", cpplint_path, "--quiet", filename], stdout=subprocess.PIPE, cwd=root_directory)
     process.wait()
 
     return process.returncode

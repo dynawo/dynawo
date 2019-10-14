@@ -23,7 +23,7 @@
 #include <boost/optional.hpp>
 #include <utility>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -44,7 +44,7 @@ class SwitchBuilder;
  * @class Switch
  * @brief a switch must and can only contain two bus or two node.
  */
-class IIDM_EXPORT Switch: public Identifiable, public ContainedIn<VoltageLevel> {
+class Switch: public Identifiable, public ContainedIn<VoltageLevel> {
 public:
   //aliases of parent()
   ///tells if a parent is specified

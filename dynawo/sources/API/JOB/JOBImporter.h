@@ -23,8 +23,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "JOBExport.h"
-
 namespace job {
 class JobsCollection;
 
@@ -34,7 +32,7 @@ class JobsCollection;
  *
  * Import class for job collection.
  */
-class __DYNAWO_JOB_EXPORT Importer {
+class Importer {
  public:
   /**
    * @brief Destructor

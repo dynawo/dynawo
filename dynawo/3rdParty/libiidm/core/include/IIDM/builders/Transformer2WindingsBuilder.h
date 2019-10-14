@@ -20,7 +20,6 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/IdentifiableBuilder.h>
 
@@ -35,7 +34,7 @@ namespace builders {
 /**
  * @brief IIDM::Transformer2 builder
  */
-class IIDM_EXPORT Transformer2WindingsBuilder: public IdentifiableBuilder<IIDM::Transformer2Windings, Transformer2WindingsBuilder> {
+class Transformer2WindingsBuilder: public IdentifiableBuilder<IIDM::Transformer2Windings, Transformer2WindingsBuilder> {
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(Transformer2WindingsBuilder, PhaseTapChanger, phaseTapChanger)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(Transformer2WindingsBuilder, RatioTapChanger, ratioTapChanger)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(Transformer2WindingsBuilder, CurrentLimits, currentLimits1)

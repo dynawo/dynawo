@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "FSExport.h"
-
 namespace finalState {
 class Model;
 
@@ -34,7 +32,7 @@ class Model;
  * ModelFactory encapsulates methods for creating new
  * @p Model objects
  */
-class __DYNAWO_FS_EXPORT ModelFactory {
+class ModelFactory {
  public:
   /**
    * @brief create a new Model instance

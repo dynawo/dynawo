@@ -188,10 +188,17 @@ ModelManager::associateBuffers() {
     ypLocalInit_.resize(dataInit_->nbVars);
     zLocalInit_.resize(dataInit_->nbZ + dataInit_->modelData->nVariablesInteger);
     fLocalInit_.resize(dataInit_->nbF);
-    dataInit_->localData[0]->realVars = &(yLocalInit_[0]);
 
-    dataInit_->localData[0]->derivativesVars = &(ypLocalInit_[0]);
-    dataInit_->localData[0]->discreteVars = &(zLocalInit_[0]);
+    dataInit_->localData[0]->realVars = static_cast<modelica_real*>(0);
+    dataInit_->localData[0]->derivativesVars = static_cast<modelica_real*>(0);
+    dataInit_->localData[0]->discreteVars = static_cast<modelica_real*>(0);
+
+    if (!yLocalInit_.empty())
+      dataInit_->localData[0]->realVars = &(yLocalInit_[0]);
+    if (!ypLocalInit_.empty())
+      dataInit_->localData[0]->derivativesVars = &(ypLocalInit_[0]);
+    if (!zLocalInit_.empty())
+      dataInit_->localData[0]->discreteVars = &(zLocalInit_[0]);
 
     if (dataInit_->modelData->nVariablesInteger > 0) {
       int offset = dataInit_->nbZ;
@@ -274,7 +281,7 @@ ModelManager::evalF(const double & t, const vector<adept::adouble> &y,
 #ifdef _DEBUG_
   for (unsigned int i = 0; i < sizeF(); i++) {
     double term = f[i].value();
-    if ((term != term) || isinf(term)) {
+    if (isnan(term) || isinf(term)) {
        throw DYNError(Error::MODELER, ResidualWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i));  // i is local index
     }
   }
@@ -320,7 +327,7 @@ ModelManager::evalJtAdept(const double & t, double *y, double * yp, const double
         int indice = i + j * sizeY();
         double term = coeff * jac[indice] + cj * jac[indice + offsetJPrim];
 #ifdef _DEBUG_
-        if ((term != term) || isinf(term)) {
+        if (isnan(term) || isinf(term)) {
           throw DYNError(Error::MODELER, JacobianWithNanInf, name(), modelType(), staticId(), i, getFequationByLocalIndex(i), j);   // i is local index
         }
 #endif
@@ -785,15 +792,33 @@ ModelManager::solveParameters() {
   // values recovery and modes initialization
   double t0 = getCurrentTime();
   vector<double> zSave(sizeZ(), 0.);
-  setBufferY(&yLocalInit_[0], &ypLocalInit_[0], 0);
-  setBufferZ(&zLocalInit_[0], 0);
-  setBufferF(&fLocalInit_[0], 0);
+  double* y = static_cast<double*>(0);
+  double* yp = static_cast<double*>(0);
+  double* z = static_cast<double*>(0);
+  double* f = static_cast<double*>(0);
+  if (!yLocalInit_.empty())
+    y = &yLocalInit_[0];
+  if (!ypLocalInit_.empty())
+    yp = &ypLocalInit_[0];
+  if (!zLocalInit_.empty())
+    z = &zLocalInit_[0];
+  if (!fLocalInit_.empty())
+    f = &fLocalInit_[0];
+  setBufferY(y, yp, 0);
+  setBufferZ(z, 0);
+  setBufferF(f, 0);
   getY0();
 
   // computation of initial jroot, allow to find the correct value initial value of Z
   vector<state_g> g0(sizeG(), NO_ROOT);
   vector<state_g> g1(sizeG(), NO_ROOT);
-  setBufferG(&g0[0], 0);
+  state_g* g0Safe = static_cast<state_g*>(0);
+  state_g* g1Safe = static_cast<state_g*>(0);
+  if (!g0.empty())
+    g0Safe = &g0[0];
+  if (!g1.empty())
+    g1Safe = &g1[0];
+  setBufferG(g0Safe, 0);
 
   evalG(t0);
 
@@ -810,13 +835,13 @@ ModelManager::solveParameters() {
     throw DYNError(Error::MODELER, SolverSubModelYvsF, name(), sizeY(), sizeF());
 
   SolverSubModel solver;
-  solver.init(this, t0, &yLocalInit_[0], &fLocalInit_[0]);
+  solver.init(this, t0, y, f);
   do {
     zSave = zLocalInit_;
     if (sizeMode() > 0)
       evalMode(t0);
 
-    setBufferG(&g0[0], 0);
+    setBufferG(g0Safe, 0);
     evalG(t0);
 
     try {
@@ -833,7 +858,7 @@ ModelManager::solveParameters() {
     }
 
     // Detection of potential root crossing
-    setBufferG(&g1[0], 0);
+    setBufferG(g1Safe, 0);
     // Root evaluation after reinitialization
     // ---------------------------------------------
     evalG(t0);
@@ -846,7 +871,8 @@ ModelManager::solveParameters() {
       vector<state_g>::const_iterator iG0(g0.begin());
       vector<state_g>::const_iterator iG1(g1.begin());
       int i = 0;
-      for (; iG0 < g0.end(); ++iG0, ++iG1, ++i) {
+      for (; iG0 < g0.end(); ++iG0, ++iG1) {
+        ++i;
         if ((*iG0) != (*iG1)) {
           Trace::debug("MODELER") << DYNLog(UnstableRoot, i) << Trace::endline;
         }

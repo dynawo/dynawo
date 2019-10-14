@@ -21,7 +21,7 @@ an exemple of builder:
 namespace IIDM {
 namespace builders {
 
-class IIDM_EXPORT Builder {
+class Builder {
 public:
   typedef B builded_type;
 

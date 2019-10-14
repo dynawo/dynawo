@@ -35,7 +35,7 @@ namespace builders {
  * @see IdentifiableBuilder
  */
 template <typename T, typename CRTP_BUILDER>
-class IIDM_EXPORT InjectionBuilder: public IdentifiableBuilder<T, CRTP_BUILDER> {
+class InjectionBuilder: public IdentifiableBuilder<T, CRTP_BUILDER> {
 protected:
   typedef IdentifiableBuilder<T, CRTP_BUILDER> identifiable_builder_type;
 

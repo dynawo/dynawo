@@ -20,7 +20,6 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/InjectionBuilder.h>
 
@@ -34,7 +33,7 @@ namespace builders {
  * @class ShuntCompensatorBuilder
  * @brief IIDM::ShuntCompensator builder
  */
-class IIDM_EXPORT ShuntCompensatorBuilder: public InjectionBuilder<IIDM::ShuntCompensator, ShuntCompensatorBuilder> {
+class ShuntCompensatorBuilder: public InjectionBuilder<IIDM::ShuntCompensator, ShuntCompensatorBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(ShuntCompensatorBuilder, builded_type::section_id, section_current)
   MACRO_IIDM_BUILDER_PROPERTY(ShuntCompensatorBuilder, builded_type::section_id, section_max)
   MACRO_IIDM_BUILDER_PROPERTY(ShuntCompensatorBuilder, double, b_per_section)

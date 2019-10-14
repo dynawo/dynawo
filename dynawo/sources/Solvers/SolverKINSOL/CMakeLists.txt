@@ -12,40 +12,45 @@ SET(SOLVER_KINSOL_VERSION_STRING ${DYNAWO_VERSION_STRING})
 SET(SOLVER_KINSOL_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 SET(SOLVER_KINSOL_SOURCES
-    DYNSolverKIN.cpp
-    )
+  DYNSolverKIN.cpp
+)
 
 SET(SOLVER_KINSOL_INCLUDE_HEADERS
-    DYNSolverKIN.h
-    )
-
-INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
-                    ${KLU_INCLUDE_DIR}
-                    ${SUNDIALS_INCLUDE_DIR}
-                    )
-
-INCLUDE_DIRECTORIES(../../Common
-                    ../../Solvers/Common
-                    ../../Modeler/Common
-                    )
+  DYNSolverKIN.h
+)
 
 ADD_LIBRARY(dynawo_SolverKINSOL ${LIBRARY_TYPE} ${SOLVER_KINSOL_SOURCES})
 
+TARGET_INCLUDE_DIRECTORIES(dynawo_SolverKINSOL
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+)
+
 TARGET_LINK_LIBRARIES(dynawo_SolverKINSOL
-                      dynawo_Common
-                      dynawo_SolverCommon
-                      ${SUNDIALS_KINSOL_LIBRARY}
-                      ${SUNDIALS_NVECSERIAL_LIBRARY}
-                      ${SUNDIALS_SUNLINSOLKLU_LIBRARY}
-                      ${SUITESPARSE_LIBRARIES}
-                      )
+  PUBLIC
+    dynawo_SolverCommon
+    Sundials::Sundials_SUNLINSOLKLU
+    Sundials::Sundials_KINSOL
+    SuiteSparse::SuiteSparse_KLU
+    SuiteSparse::SuiteSparse_AMD
+    SuiteSparse::SuiteSparse_COLAMD
+    SuiteSparse::SuiteSparse_BTF
+    SuiteSparse::SuiteSparse_Config
+)
 
 IF(${NICSLU_FOUND})
-  TARGET_LINK_LIBRARIES(dynawo_SolverKINSOL ${NICSLU_LIBRARIES})
+  TARGET_LINK_LIBRARIES(dynawo_SolverKINSOL
+    PUBLIC
+      Sundials::Sundials_SUNLINSOLNICSLU
+      Sundials::Sundials_SUNMATRIXSPARSE
+      NICSLU::NICSLU
+      NICSLU::NICSLU_Util
+  )
 ENDIF()
 
 SET_TARGET_PROPERTIES(dynawo_SolverKINSOL PROPERTIES VERSION ${SOLVER_KINSOL_VERSION_STRING}
-                                              SOVERSION ${SOLVER_KINSOL_VERSION_MAJOR})
+                                                   SOVERSION ${SOLVER_KINSOL_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_SolverKINSOL DESTINATION ${libdir})
-INSTALL(FILES ${SOLVER_KINSOL_INCLUDE_HEADERS} DESTINATION ${includedir})
+INSTALL(TARGETS dynawo_SolverKINSOL EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+INSTALL(FILES ${SOLVER_KINSOL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

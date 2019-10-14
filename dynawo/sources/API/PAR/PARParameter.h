@@ -26,8 +26,6 @@
 #include <boost/static_assert.hpp>
 #endif
 
-#include "PARExport.h"
-
 namespace parameters {
 
 /**
@@ -37,7 +35,7 @@ namespace parameters {
  * Interface class for parameter objects. These are containers for parameters
  * that can be of three c++ native types : bool, int, double and string
  */
-class __DYNAWO_PAR_EXPORT Parameter {
+class Parameter {
  public:
   /**
    * @brief Available parameter types enum

@@ -20,15 +20,13 @@
 #ifndef API_JOB_JOBSIMULATIONENTRY_H_
 #define API_JOB_JOBSIMULATIONENTRY_H_
 
-#include "JOBExport.h"
-
 namespace job {
 
 /**
  * @class SimulationEntry
  * @brief Simulation entries container class
  */
-class __DYNAWO_JOB_EXPORT SimulationEntry {
+class SimulationEntry {
  public:
   /**
    * @brief Destructor
