@@ -26,10 +26,10 @@
 namespace finalState {
 class Model;
 class Variable;
-class variable_const_iterator;
-class model_const_iterator;
-class variable_iterator;
-class model_iterator;
+class finalStateVariable_const_iterator;
+class finalStateModel_const_iterator;
+class finalStateVariable_iterator;
+class finalStateModel_iterator;
 
 /**
  * @class FinalStateCollection
@@ -62,49 +62,49 @@ class FinalStateCollection {
    * @brief Get a const_iterator to the beginning of the variables' vector
    * @return a const_iterator to the beginning of the variables' vector
    */
-  virtual variable_const_iterator cbeginVariable() const = 0;
+  virtual finalStateVariable_const_iterator cbeginVariable() const = 0;
 
   /**
    * @brief Get a const_iterator to the end of the variables' vector
    * @return a const_iterator to the end of the variables' vector
    */
-  virtual variable_const_iterator cendVariable() const = 0;
+  virtual finalStateVariable_const_iterator cendVariable() const = 0;
 
   /**
    * @brief Get a const_iterator to the beginning of the models' vector
    * @return a const_iterator to the beginning of the models' vector
    */
-  virtual model_const_iterator cbeginModel() const = 0;
+  virtual finalStateModel_const_iterator cbeginModel() const = 0;
 
   /**
    * @brief Get a const_iterator to the end of the models' vector
    * @return a const_iterator to the end of the models' vector
    */
-  virtual model_const_iterator cendModel() const = 0;
+  virtual finalStateModel_const_iterator cendModel() const = 0;
 
   /**
    * @brief Get an iterator to the beginning of the variables' vector
    * @return an iterator to the beginning of the variables' vector
    */
-  virtual variable_iterator beginVariable() = 0;
+  virtual finalStateVariable_iterator beginVariable() = 0;
 
   /**
    * @brief Get an iterator to the end of the variables' vector
    * @return an iterator to the end of the variables' vector
    */
-  virtual variable_iterator endVariable() = 0;
+  virtual finalStateVariable_iterator endVariable() = 0;
 
   /**
    * @brief Get an iterator to the beginning of the models' vector
    * @return an iterator to the beginning of the models' vector
    */
-  virtual model_iterator beginModel() = 0;
+  virtual finalStateModel_iterator beginModel() = 0;
 
   /**
    * @brief Get an iterator to the end of the models' vector
    * @return an iterator to the end of the models' vector
    */
-  virtual model_iterator endModel() = 0;
+  virtual finalStateModel_iterator endModel() = 0;
 
   class Impl;  // Implementation class
 };

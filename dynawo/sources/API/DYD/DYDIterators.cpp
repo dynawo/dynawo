@@ -26,25 +26,25 @@ using boost::shared_ptr;
 
 namespace dynamicdata {
 
-model_const_iterator::model_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) {
+dynamicModel_const_iterator::dynamicModel_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) {
   impl_ = new ModelConstIteratorImpl(iterated, begin);
 }
 
-model_const_iterator::model_const_iterator(const model_const_iterator& original) {
+dynamicModel_const_iterator::dynamicModel_const_iterator(const dynamicModel_const_iterator& original) {
   impl_ = new ModelConstIteratorImpl(*(original.impl_));
 }
 
-model_const_iterator::model_const_iterator(const model_iterator& original) {
+dynamicModel_const_iterator::dynamicModel_const_iterator(const dynamicModel_iterator& original) {
   impl_ = new ModelConstIteratorImpl(*(original.impl()));
 }
 
-model_const_iterator::~model_const_iterator() {
+dynamicModel_const_iterator::~dynamicModel_const_iterator() {
   delete impl_;
   impl_ = NULL;
 }
 
-model_const_iterator&
-model_const_iterator::operator=(const model_const_iterator& other) {
+dynamicModel_const_iterator&
+dynamicModel_const_iterator::operator=(const THIS& other) {
   if (this == &other)
     return *this;
   delete impl_;
@@ -52,49 +52,49 @@ model_const_iterator::operator=(const model_const_iterator& other) {
   return *this;
 }
 
-model_const_iterator&
-model_const_iterator::operator++() {
+dynamicModel_const_iterator&
+dynamicModel_const_iterator::operator++() {
   ++(*impl_);
   return *this;
 }
 
-model_const_iterator
-model_const_iterator::operator++(int) {
-  model_const_iterator previous = *this;
+dynamicModel_const_iterator
+dynamicModel_const_iterator::operator++(int) {
+  THIS previous = *this;
   (*impl_)++;
   return previous;
 }
 
-model_const_iterator&
-model_const_iterator::operator--() {
+dynamicModel_const_iterator&
+dynamicModel_const_iterator::operator--() {
   --(*impl_);
   return *this;
 }
 
-model_const_iterator
-model_const_iterator::operator--(int) {
-  model_const_iterator previous = *this;
+dynamicModel_const_iterator
+dynamicModel_const_iterator::operator--(int) {
+  THIS previous = *this;
   (*impl_)--;
   return previous;
 }
 
 bool
-model_const_iterator::operator==(const model_const_iterator& other) const {
+dynamicModel_const_iterator::operator==(const THIS& other) const {
   return *impl_ == *(other.impl_);
 }
 
 bool
-model_const_iterator::operator!=(const model_const_iterator& other) const {
+dynamicModel_const_iterator::operator!=(const THIS& other) const {
   return *impl_ != *(other.impl_);
 }
 
 const shared_ptr<Model>&
-model_const_iterator::operator*() const {
+dynamicModel_const_iterator::operator*() const {
   return *(*impl_);
 }
 
 const shared_ptr<Model>*
-model_const_iterator::operator->() const {
+dynamicModel_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
@@ -170,21 +170,21 @@ connector_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-model_iterator::model_iterator(DynamicModelsCollection::Impl* iterated, bool begin) {
+dynamicModel_iterator::dynamicModel_iterator(DynamicModelsCollection::Impl* iterated, bool begin) {
   impl_ = new ModelIteratorImpl(iterated, begin);
 }
 
-model_iterator::model_iterator(const model_iterator& original) {
+dynamicModel_iterator::dynamicModel_iterator(const THIS& original) {
   impl_ = new ModelIteratorImpl(*(original.impl_));
 }
 
-model_iterator::~model_iterator() {
+dynamicModel_iterator::~dynamicModel_iterator() {
   delete impl_;
   impl_ = NULL;
 }
 
-model_iterator&
-model_iterator::operator=(const model_iterator& other) {
+dynamicModel_iterator&
+dynamicModel_iterator::operator=(const THIS& other) {
   if (this == &other)
     return *this;
   delete impl_;
@@ -192,54 +192,54 @@ model_iterator::operator=(const model_iterator& other) {
   return *this;
 }
 
-model_iterator&
-model_iterator::operator++() {
+dynamicModel_iterator&
+dynamicModel_iterator::operator++() {
   ++(*impl_);
   return *this;
 }
 
-model_iterator
-model_iterator::operator++(int) {
-  model_iterator previous = *this;
+dynamicModel_iterator
+dynamicModel_iterator::operator++(int) {
+  THIS previous = *this;
   (*impl_)++;
   return previous;
 }
 
-model_iterator&
-model_iterator::operator--() {
+dynamicModel_iterator&
+dynamicModel_iterator::operator--() {
   --(*impl_);
   return *this;
 }
 
-model_iterator
-model_iterator::operator--(int) {
-  model_iterator previous = *this;
+dynamicModel_iterator
+dynamicModel_iterator::operator--(int) {
+  THIS previous = *this;
   (*impl_)--;
   return previous;
 }
 
 bool
-model_iterator::operator==(const model_iterator& other) const {
+dynamicModel_iterator::operator==(const THIS& other) const {
   return *impl_ == *(other.impl_);
 }
 
 bool
-model_iterator::operator!=(const model_iterator& other) const {
+dynamicModel_iterator::operator!=(const THIS& other) const {
   return *impl_ != *(other.impl_);
 }
 
 shared_ptr<Model>&
-model_iterator::operator*() const {
+dynamicModel_iterator::operator*() const {
   return *(*impl_);
 }
 
 shared_ptr<Model>*
-model_iterator::operator->() const {
+dynamicModel_iterator::operator->() const {
   return impl_->operator->();
 }
 
 ModelIteratorImpl*
-model_iterator::impl() const {
+dynamicModel_iterator::impl() const {
   return impl_;
 }
 

@@ -84,7 +84,7 @@ void XmlExporter::exportToStream(const boost::shared_ptr<DynamicModelsCollection
     writeMacroStaticReference(*itMSR, *formatter);
   }
 
-  for (model_iterator itModel = collection->beginModel();
+  for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
     writeModel(*itModel, *formatter);

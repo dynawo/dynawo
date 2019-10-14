@@ -42,13 +42,17 @@ class MacroStaticReferenceConstIteratorImpl;
 class MacroStaticReferenceIteratorImpl;
 
 /**
- * @class model_iterator
+ * @class dynamicModel_iterator
  * @brief iterator over models
  *
  * iterator over models stored in dynamic models collection
  */
-class model_iterator {
+class dynamicModel_iterator {
  public:
+  /**
+   * @brief this
+   */
+  typedef dynamicModel_iterator THIS;
   /**
    * @brief Constructor
    *
@@ -61,18 +65,18 @@ class model_iterator {
    * or the end of the models' container.
    * @returns Created model_iterator.
    */
-  model_iterator(DynamicModelsCollection::Impl* iterated, bool begin);
+  dynamicModel_iterator(DynamicModelsCollection::Impl* iterated, bool begin);
 
   /**
    * @brief Copy constructor
    * @param original : the model iterator to copy
    */
-  model_iterator(const model_iterator& original);
+  dynamicModel_iterator(const dynamicModel_iterator& original);
 
   /**
    * @brief Destructor
    */
-  ~model_iterator();
+  ~dynamicModel_iterator();
 
   /**
    * @brief assignment
@@ -80,35 +84,35 @@ class model_iterator {
    *
    * @returns Reference to this model_iterator
    */
-  model_iterator& operator=(const model_iterator& other);
+  THIS& operator=(const THIS& other);
 
   /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this model_iterator
    */
-  model_iterator& operator++();
+  THIS& operator++();
 
   /**
    * @brief Postfix-increment operator
    *
    * @returns Copy of this model_iterator
    */
-  model_iterator operator++(int);
+  THIS operator++(int);
 
   /**
    * @brief Prefix-decrement operator
    *
    * @returns Reference to this model_iterator
    */
-  model_iterator& operator--();
+  THIS& operator--();
 
   /**
    * @brief Postfix-decrement operator
    *
    * @returns Copy of this model_iterator
    */
-  model_iterator operator--(int);
+  THIS operator--(int);
 
   /**
    * @brief Equal to operator
@@ -116,7 +120,7 @@ class model_iterator {
    * @param other Iterator to be compared with this
    * @returns true if model_iterators are equals, else false
    */
-  bool operator==(const model_iterator& other) const;
+  bool operator==(const THIS& other) const;
 
   /**
    * @brief Not equal to operator
@@ -124,7 +128,7 @@ class model_iterator {
    * @param other Iterator to be compared with this
    * @returns true if model_iterators are different, else false
    */
-  bool operator!=(const model_iterator& other) const;
+  bool operator!=(const THIS& other) const;
 
   /**
    * @brief Indirection operator
@@ -151,13 +155,17 @@ class model_iterator {
 };
 
 /**
- * @class model_const_iterator
+ * @class dynamicModel_const_iterator
  * @brief const iterator over models
  *
  * const iterator over models stored in dynamic models collection
  */
-class model_const_iterator {
+class dynamicModel_const_iterator {
  public:
+  /**
+   * @brief this
+   */
+  typedef dynamicModel_const_iterator THIS;
   /**
    * @brief Constructor
    *
@@ -170,13 +178,13 @@ class model_const_iterator {
    * or the end of the models' container.
    * @returns Created model_const_iterator.
    */
-  model_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin);
+  dynamicModel_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin);
 
   /**
    * @brief Copy constructor
    * @param original : the model const iterator to copy
    */
-  model_const_iterator(const model_const_iterator& original);
+  dynamicModel_const_iterator(const dynamicModel_const_iterator& original);
 
   /**
    * @brief Constructor
@@ -184,12 +192,12 @@ class model_const_iterator {
    * @param original current iterator
    * @returns Created model_const_iterator
    */
-  explicit model_const_iterator(const model_iterator& original);
+  explicit dynamicModel_const_iterator(const dynamicModel_iterator& original);
 
   /**
    * @brief Destructor
    */
-  ~model_const_iterator();
+  ~dynamicModel_const_iterator();
 
   /**
    * @brief assignment
@@ -197,35 +205,35 @@ class model_const_iterator {
    *
    * @returns Reference to this model_const_iterator
    */
-  model_const_iterator& operator=(const model_const_iterator& other);
+  THIS& operator=(const THIS& other);
 
   /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this model_const_iterator
    */
-  model_const_iterator& operator++();
+  THIS& operator++();
 
   /**
    * @brief Postfix-increment operator
    *
    * @returns Copy of this model_const_iterator
    */
-  model_const_iterator operator++(int);
+  THIS operator++(int);
 
   /**
    * @brief Prefix-decrement operator
    *
    * @returns Reference to this model_const_iterator
    */
-  model_const_iterator& operator--();
+  THIS& operator--();
 
   /**
    * @brief Postfix-decrement operator
    *
    * @returns Copy of this model_const_iterator
    */
-  model_const_iterator operator--(int);
+  THIS operator--(int);
 
   /**
    * @brief Equal to operator
@@ -233,7 +241,7 @@ class model_const_iterator {
    * @param other Iterator to be compared with this
    * @returns true if model_const_iterators are equals, else false
    */
-  bool operator==(const model_const_iterator& other) const;
+  bool operator==(const THIS& other) const;
 
   /**
    * @brief Not equal to operator
@@ -241,7 +249,7 @@ class model_const_iterator {
    * @param other Iterator to be compared with this
    * @returns true if model_const_iterators are different, else false
    */
-  bool operator!=(const model_const_iterator& other) const;
+  bool operator!=(const THIS& other) const;
 
   /**
    * @brief Indirection operator

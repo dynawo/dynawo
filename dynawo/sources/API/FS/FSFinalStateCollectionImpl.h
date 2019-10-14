@@ -61,49 +61,49 @@ class FinalStateCollection::Impl : public FinalStateCollection {
    * @brief  Get a const_iterator to the beginning of the models' vector
    * @return a const_iterator to the beginning of the models' vector
    */
-  virtual model_const_iterator cbeginModel() const;
+  virtual finalStateModel_const_iterator cbeginModel() const;
 
   /**
    * @brief Get a const_iterator to the end of the models' vector
    * @return a const_iterator to the end of the models' vector
    */
-  virtual model_const_iterator cendModel() const;
+  virtual finalStateModel_const_iterator cendModel() const;
 
   /**
    * @brief Get a const_iterator to the beginning of the variables' vector
    * @return a const_iterator to the beginning of the variables' vector
    */
-  virtual variable_const_iterator cbeginVariable() const;
+  virtual finalStateVariable_const_iterator cbeginVariable() const;
 
   /**
    * @brief Get a const_iterator to the end of the variables' vector
    * @return a const_iterator to the end of the variables' vector
    */
-  virtual variable_const_iterator cendVariable() const;
+  virtual finalStateVariable_const_iterator cendVariable() const;
 
   /**
    * @brief Get an iterator to the beginning of the models' vector
    * @return an iterator to the beginning of the models' vector
    */
-  virtual model_iterator beginModel();
+  virtual finalStateModel_iterator beginModel();
 
   /**
    * @brief Get an iterator to the end of the models' vector
    * @return an iterator to the end of the models' vector
    */
-  virtual model_iterator endModel();
+  virtual finalStateModel_iterator endModel();
 
   /**
    * @brief Get an iterator to the beginning of the variables' vector
    * @return an iterator to the beginning of the variables' vector
    */
-  virtual variable_iterator beginVariable();
+  virtual finalStateVariable_iterator beginVariable();
 
   /**
    * @brief Get an iterator to the end of the variables' vector
    * @return an iterator to the end of the variables' vector
    */
-  virtual variable_iterator endVariable();
+  virtual finalStateVariable_iterator endVariable();
 
 
   friend class ModelConstIteratorImpl;

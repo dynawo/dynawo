@@ -42,10 +42,10 @@ using xml::sax::formatter::FormatterPtr;
 namespace finalState {
 
 void
-exportModel(FormatterPtr& formatter, model_iterator& itModel) {
+exportModel(FormatterPtr& formatter, finalStateModel_iterator& itModel) {
   AttributeList attrs;
 
-  for (model_iterator itModel1 = (*itModel)->beginModel();
+  for (finalStateModel_iterator itModel1 = (*itModel)->beginModel();
           itModel1 != (*itModel)->endModel();
           ++itModel1) {
     attrs.clear();
@@ -55,7 +55,7 @@ exportModel(FormatterPtr& formatter, model_iterator& itModel) {
     formatter->endElement();   // model
   }
 
-  for (variable_iterator itVariable = (*itModel)->beginVariable();
+  for (finalStateVariable_iterator itVariable = (*itModel)->beginVariable();
           itVariable != (*itModel)->endVariable();
           ++itVariable) {
     attrs.clear();
@@ -90,7 +90,7 @@ XmlExporter::exportToStream(const boost::shared_ptr<FinalStateCollection>& final
   AttributeList attrs;
   formatter->startElement("finalState", attrs);
 
-  for (model_iterator itModel = finalState->beginModel();
+  for (finalStateModel_iterator itModel = finalState->beginModel();
           itModel != finalState->endModel();
           ++itModel) {
     attrs.clear();
@@ -100,7 +100,7 @@ XmlExporter::exportToStream(const boost::shared_ptr<FinalStateCollection>& final
     formatter->endElement();   // model
   }
 
-  for (variable_iterator itVariable = finalState->beginVariable();
+  for (finalStateVariable_iterator itVariable = finalState->beginVariable();
           itVariable != finalState->endVariable();
           ++itVariable) {
     attrs.clear();

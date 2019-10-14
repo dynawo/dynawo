@@ -3,7 +3,7 @@
 #define GeneratorPQ__Dyn_h
 
 
-#include "DYNModelModelicaDyn.h"
+#include "DYNModelModelica.h"
 #include "DYNModelManagerCommon.h"
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
@@ -17,7 +17,7 @@
 
 namespace DYN {
 
-  class ModelGeneratorPQ_Dyn : public ModelModelicaDyn
+  class ModelGeneratorPQ_Dyn : public ModelModelica
   {
     public:
     ModelGeneratorPQ_Dyn() {dataStructIsInitialized_ = false;}

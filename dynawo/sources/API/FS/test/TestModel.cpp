@@ -55,7 +55,7 @@ TEST(APIFSTest, ModelAddVariable) {
 
   // test const iterator
   int nbVariables = 0;
-  for (variable_const_iterator itVariable = model->cbeginVariable();
+  for (finalStateVariable_const_iterator itVariable = model->cbeginVariable();
           itVariable != model->cendVariable();
           ++itVariable)
     ++nbVariables;
@@ -63,7 +63,7 @@ TEST(APIFSTest, ModelAddVariable) {
 
   // test iterator
   nbVariables = 0;
-  for (variable_iterator itVariable = model->beginVariable();
+  for (finalStateVariable_iterator itVariable = model->beginVariable();
           itVariable != model->endVariable();
           ++itVariable)
     ++nbVariables;
@@ -85,7 +85,7 @@ TEST(APIFSTest, ModelAddSubModel) {
 
   // test const iterator
   int nbModels = 0;
-  for (model_const_iterator itModel = model->cbeginModel();
+  for (finalStateModel_const_iterator itModel = model->cbeginModel();
           itModel != model->cendModel();
           ++itModel)
     ++nbModels;
@@ -93,7 +93,7 @@ TEST(APIFSTest, ModelAddSubModel) {
 
   // test iterator
   nbModels = 0;
-  for (model_iterator itModel = model->beginModel();
+  for (finalStateModel_iterator itModel = model->beginModel();
           itModel != model->endModel();
           ++itModel)
     ++nbModels;
