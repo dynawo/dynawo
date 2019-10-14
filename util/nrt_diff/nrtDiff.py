@@ -999,14 +999,16 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
     file_right = open (path_right, "rb")
     lines_to_compare_left = []
     lines_to_compare_right = []
+    file_name = os.path.splitext(os.path.basename(path_left))[0]
+    file_extension = os.path.splitext(os.path.basename(path_left))[1]
     for line_left in file_left:
         # skip some lines when needed
-        if (LineToCompare (line_left)):
+        if (LineToCompare (line_left) or file_name == "timeline" or file_extension == ".xml"):
             lines_to_compare_left.append(line_left)
 
     for line_right in file_right:
         # skip some lines when needed
-        if (LineToCompare (line_right)):
+        if (LineToCompare (line_right) or file_name == "timeline" or file_extension == ".xml"):
             lines_to_compare_right.append(line_right)
 
     file_left.close()
