@@ -56,8 +56,8 @@ using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
 using timeline::Timeline;
 using curves::Curve;
-using finalState::model_iterator;
-using finalState::variable_iterator;
+using finalState::finalStateModel_iterator;
+using finalState::finalStateVariable_iterator;
 using constraints::ConstraintsCollection;
 using std::fstream;
 
@@ -949,7 +949,7 @@ ModelMulti::fillVariables(boost::shared_ptr<finalState::Model>& model) {
   const string id = model->getId();
   const shared_ptr<SubModel>& subModel = findSubModelByName(id);
   if (subModel) {  // found model id in the composed models
-    for (variable_iterator itVariable = model->beginVariable();
+    for (finalStateVariable_iterator itVariable = model->beginVariable();
             itVariable != model->endVariable();
             ++itVariable) {
       const string name = (*itVariable)->getId();
@@ -958,11 +958,11 @@ ModelMulti::fillVariables(boost::shared_ptr<finalState::Model>& model) {
       }
     }
 
-    for (model_iterator itModel1 = model->beginModel();
+    for (finalStateModel_iterator itModel1 = model->beginModel();
             itModel1 != model->endModel();
             ++itModel1) {
       string id1 = (*itModel1)->getId();
-      for (variable_iterator itVariable = (*itModel1)->beginVariable();
+      for (finalStateVariable_iterator itVariable = (*itModel1)->beginVariable();
               itVariable != (*itModel1)->endVariable();
               ++itVariable) {
         string name = id1 + "_" + (*itVariable)->getId();

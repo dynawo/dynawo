@@ -43,43 +43,43 @@ FinalStateCollection::Impl::addVariable(const shared_ptr<Variable>& variable) {
   variables_.push_back(variable);
 }
 
-model_const_iterator
+finalStateModel_const_iterator
 FinalStateCollection::Impl::cbeginModel() const {
-  return model_const_iterator(this, true);
+  return finalStateModel_const_iterator(this, true);
 }
 
-model_const_iterator
+finalStateModel_const_iterator
 FinalStateCollection::Impl::cendModel() const {
-  return model_const_iterator(this, false);
+  return finalStateModel_const_iterator(this, false);
 }
 
-variable_const_iterator
+finalStateVariable_const_iterator
 FinalStateCollection::Impl::cbeginVariable() const {
-  return variable_const_iterator(this, true);
+  return finalStateVariable_const_iterator(this, true);
 }
 
-variable_const_iterator
+finalStateVariable_const_iterator
 FinalStateCollection::Impl::cendVariable() const {
-  return variable_const_iterator(this, false);
+  return finalStateVariable_const_iterator(this, false);
 }
 
-model_iterator
+finalStateModel_iterator
 FinalStateCollection::Impl::beginModel() {
-  return model_iterator(this, true);
+  return finalStateModel_iterator(this, true);
 }
 
-model_iterator
+finalStateModel_iterator
 FinalStateCollection::Impl::endModel() {
-  return model_iterator(this, false);
+  return finalStateModel_iterator(this, false);
 }
 
-variable_iterator
+finalStateVariable_iterator
 FinalStateCollection::Impl::beginVariable() {
-  return variable_iterator(this, true);
+  return finalStateVariable_iterator(this, true);
 }
 
-variable_iterator
+finalStateVariable_iterator
 FinalStateCollection::Impl::endVariable() {
-  return variable_iterator(this, false);
+  return finalStateVariable_iterator(this, false);
 }
 }  // namespace finalState

@@ -62,7 +62,7 @@ TEST(APIFSTest, FinalStateCollectionAddVariable) {
 
   // test const iterator
   int nbVariables = 0;
-  for (variable_const_iterator itVariable = collection->cbeginVariable();
+  for (finalStateVariable_const_iterator itVariable = collection->cbeginVariable();
           itVariable != collection->cendVariable();
           ++itVariable)
     ++nbVariables;
@@ -70,19 +70,19 @@ TEST(APIFSTest, FinalStateCollectionAddVariable) {
 
   // test iterator
   nbVariables = 0;
-  for (variable_iterator itVariable = collection->beginVariable();
+  for (finalStateVariable_iterator itVariable = collection->beginVariable();
           itVariable != collection->endVariable();
           ++itVariable)
     ++nbVariables;
   ASSERT_EQ(nbVariables, 2);
 
-  variable_iterator itVariable(collection->beginVariable());
+  finalStateVariable_iterator itVariable(collection->beginVariable());
   ASSERT_EQ((++itVariable)->get()->getId(), variable2->getId());
   ASSERT_EQ((--itVariable)->get()->getId(), variable1->getId());
   ASSERT_EQ((itVariable++)->get()->getId(), variable1->getId());
   ASSERT_EQ((itVariable--)->get()->getId(), variable2->getId());
 
-  variable_const_iterator itVariablec(itVariable);
+  finalStateVariable_const_iterator itVariablec(itVariable);
   ASSERT_EQ((++itVariablec)->get()->getId(), variable2->getId());
   ASSERT_EQ((--itVariablec)->get()->getId(), variable1->getId());
   ASSERT_EQ((itVariablec++)->get()->getId(), variable1->getId());
@@ -119,7 +119,7 @@ TEST(APIFSTest, FinalStateCollectionAddModel) {
 
   // test const iterator
   int nbModels = 0;
-  for (model_const_iterator itModel = collection->cbeginModel();
+  for (finalStateModel_const_iterator itModel = collection->cbeginModel();
           itModel != collection->cendModel();
           ++itModel)
     ++nbModels;
@@ -127,19 +127,19 @@ TEST(APIFSTest, FinalStateCollectionAddModel) {
 
   // test iterator
   nbModels = 0;
-  for (model_iterator itModel = collection->beginModel();
+  for (finalStateModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel)
     ++nbModels;
   ASSERT_EQ(nbModels, 2);
 
-  model_iterator itVariable(collection->beginModel());
+  finalStateModel_iterator itVariable(collection->beginModel());
   ASSERT_EQ((++itVariable)->get()->getId(), model2->getId());
   ASSERT_EQ((--itVariable)->get()->getId(), model1->getId());
   ASSERT_EQ((itVariable++)->get()->getId(), model1->getId());
   ASSERT_EQ((itVariable--)->get()->getId(), model2->getId());
 
-  model_const_iterator itVariablec(itVariable);
+  finalStateModel_const_iterator itVariablec(itVariable);
   ASSERT_EQ((++itVariablec)->get()->getId(), model2->getId());
   ASSERT_EQ((--itVariablec)->get()->getId(), model1->getId());
   ASSERT_EQ((itVariablec++)->get()->getId(), model1->getId());

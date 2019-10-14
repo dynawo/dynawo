@@ -53,13 +53,13 @@ TEST(APIDYDTest, CollectionCreate) {
   collection->addModel(model);
   collection->addModel(model1);
   int nbModels = 0;
-  for (model_iterator itModel = collection->beginModel();
+  for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel)
     ++nbModels;
 
   ASSERT_EQ(nbModels, 2);
-  model_iterator itModel(collection->beginModel());
+  dynamicModel_iterator itModel(collection->beginModel());
   ASSERT_EQ((++itModel)->get()->getId(), model1.get()->getId());
   ASSERT_EQ((--itModel)->get()->getId(), model.get()->getId());
   ASSERT_EQ((*itModel++)->getId(), model.get()->getId());
@@ -80,7 +80,7 @@ TEST(APIDYDTest, CollectionCopy) {
   collection1 = DynamicModelsCollectionFactory::copyCollection(collection);
 
   int nbModels = 0;
-  for (model_iterator itModel = collection1->beginModel();
+  for (dynamicModel_iterator itModel = collection1->beginModel();
           itModel != collection1->endModel();
           ++itModel)
     ++nbModels;
@@ -88,13 +88,13 @@ TEST(APIDYDTest, CollectionCopy) {
   ASSERT_EQ(nbModels, 2);
 
   nbModels = 0;
-  for (model_const_iterator itModel = collection1->cbeginModel();
+  for (dynamicModel_const_iterator itModel = collection1->cbeginModel();
       itModel != collection1->cendModel();
       ++itModel)
     ++nbModels;
 
   ASSERT_EQ(nbModels, 2);
-  model_const_iterator itModel(collection1->beginModel());
+  dynamicModel_const_iterator itModel(collection1->beginModel());
   ASSERT_EQ((++itModel)->get()->getId(), model1.get()->getId());
   ASSERT_EQ((--itModel)->get()->getId(), model.get()->getId());
   ASSERT_EQ((*itModel++)->getId(), model.get()->getId());

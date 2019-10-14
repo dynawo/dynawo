@@ -145,8 +145,8 @@ using curves::CurvesCollection;
 using curves::CurvesCollectionFactory;
 
 using finalState::FinalStateCollectionFactory;
-using finalState::model_iterator;
-using finalState::variable_iterator;
+using finalState::finalStateModel_iterator;
+using finalState::finalStateVariable_iterator;
 
 using constraints::ConstraintsCollectionFactory;
 
@@ -999,13 +999,13 @@ Simulation::printFinalState(std::ostream& stream) const {
       model_->evalCalculatedVariables(tCurrent_, yCurrent_, ypCurrent_, zCurrent_);
 
       // association between requested variables and model variables
-      for (model_iterator itModel = finalStateCollection_->beginModel();
+      for (finalStateModel_iterator itModel = finalStateCollection_->beginModel();
               itModel != finalStateCollection_->endModel();
               ++itModel) {
         model_->fillVariables(*itModel);
       }
 
-      for (variable_iterator itVariable = finalStateCollection_->beginVariable();
+      for (finalStateVariable_iterator itVariable = finalStateCollection_->beginVariable();
               itVariable != finalStateCollection_->endVariable();
               ++itVariable) {
         model_->fillVariable(*itVariable);

@@ -27,7 +27,7 @@ class HeaderPatternDefine:
 #define __fill_model_name____Dyn_h
 
 
-#include "DYNModelModelicaDyn.h"
+#include "DYNModelModelica.h"
 #include "DYNModelManagerCommon.h"
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
@@ -45,7 +45,7 @@ class HeaderPatternDefine:
         self.pattern_dyn_+="\n"
         self.pattern_dyn_+="""namespace DYN {
 
-  class Model__fill_model_name___Dyn : public ModelModelicaDyn
+  class Model__fill_model_name___Dyn : public ModelModelica
   {
     public:
     Model__fill_model_name___Dyn() {dataStructIsInitialized_ = false;}
@@ -114,7 +114,7 @@ class HeaderPatternDefine:
 #ifndef __fill_model_name___Init_h
 #define __fill_model_name___Init_h
 
-#include "DYNModelModelicaInit.h"
+#include "DYNModelModelica.h"
 #include "DYNModelManagerCommon.h"
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
@@ -128,7 +128,7 @@ class HeaderPatternDefine:
 
 namespace DYN {
 
-  class Model__fill_model_name___Init : public ModelModelicaInit
+  class Model__fill_model_name___Init : public ModelModelica
   {
     public:
     Model__fill_model_name___Init() {dataStructIsInitialized_ = false;}

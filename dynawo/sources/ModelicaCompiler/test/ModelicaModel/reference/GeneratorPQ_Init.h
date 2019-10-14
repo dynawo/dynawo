@@ -2,7 +2,7 @@
 #ifndef GeneratorPQ_Init_h
 #define GeneratorPQ_Init_h
 
-#include "DYNModelModelicaInit.h"
+#include "DYNModelModelica.h"
 #include "DYNModelManagerCommon.h"
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
@@ -16,7 +16,7 @@
 
 namespace DYN {
 
-  class ModelGeneratorPQ_Init : public ModelModelicaInit
+  class ModelGeneratorPQ_Init : public ModelModelica
   {
     public:
     ModelGeneratorPQ_Init() {dataStructIsInitialized_ = false;}

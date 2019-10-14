@@ -26,8 +26,8 @@ namespace dynamicdata {
 
 class connector_const_iterator;
 class connector_iterator;
-class model_const_iterator;
-class model_iterator;
+class dynamicModel_const_iterator;
+class dynamicModel_iterator;
 class macroConnector_const_iterator;
 class macroConnector_iterator;
 class macroConnect_const_iterator;
@@ -105,13 +105,13 @@ class DynamicModelsCollection {
    * @brief model iterator : begin of model
    * @return beginning of model
    */
-  virtual model_const_iterator cbeginModel() const = 0;
+  virtual dynamicModel_const_iterator cbeginModel() const = 0;
 
   /**
    * @brief model iterator : end of model
    * @return end of model
    */
-  virtual model_const_iterator cendModel() const = 0;
+  virtual dynamicModel_const_iterator cendModel() const = 0;
 
   /**
    * @brief connector iterator ;beginning of connector
@@ -165,13 +165,13 @@ class DynamicModelsCollection {
    * @brief model iterator: beginning of model
    * @return beginning of model
    */
-  virtual model_iterator beginModel() = 0;
+  virtual dynamicModel_iterator beginModel() = 0;
 
   /**
    * @brief model iterator: end of model
    * @return end of model
    */
-  virtual model_iterator endModel() = 0;
+  virtual dynamicModel_iterator endModel() = 0;
 
   /**
    * @brief connector iterator : beginning of connector

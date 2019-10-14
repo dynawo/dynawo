@@ -82,11 +82,11 @@ class DynamicModelsCollection::Impl : public DynamicModelsCollection {
   /**
    * @copydoc DynamicModelsCollection::cbeginModel() const
    */
-  model_const_iterator cbeginModel() const;
+  dynamicModel_const_iterator cbeginModel() const;
   /**
    * @copydoc DynamicModelsCollection::cendModel() const
    */
-  model_const_iterator cendModel() const;
+  dynamicModel_const_iterator cendModel() const;
 
   /**
    * @copydoc DynamicModelsCollection::cbeginConnector() const
@@ -130,12 +130,12 @@ class DynamicModelsCollection::Impl : public DynamicModelsCollection {
   /**
    * @copydoc DynamicModelsCollection::beginModel()
    */
-  model_iterator beginModel();
+  dynamicModel_iterator beginModel();
 
   /**
    * @copydoc DynamicModelsCollection::endModel()
    */
-  model_iterator endModel();
+  dynamicModel_iterator endModel();
 
   /**
    * @copydoc DynamicModelsCollection::beginConnector()

@@ -25,8 +25,6 @@ SET(MODEL_MANAGER_INCLUDE_HEADERS
     DYNModelManagerCommon.h
     DYNModelManagerOwnTypes.h
     DYNModelModelica.h
-    DYNModelModelicaInit.h
-    DYNModelModelicaDyn.h
     DYNModelManagerOwnFunctions.h
     )
 

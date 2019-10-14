@@ -105,14 +105,14 @@ DynamicModelsCollection::Impl::addMacroStaticReference(const boost::shared_ptr<M
     throw DYNError(DYN::Error::API, MacroStaticReferenceNotUnique, id);
 }
 
-model_const_iterator
+dynamicModel_const_iterator
 DynamicModelsCollection::Impl::cbeginModel() const {
-  return model_const_iterator(this, true);
+  return dynamicModel_const_iterator(this, true);
 }
 
-model_const_iterator
+dynamicModel_const_iterator
 DynamicModelsCollection::Impl::cendModel() const {
-  return model_const_iterator(this, false);
+  return dynamicModel_const_iterator(this, false);
 }
 
 connector_const_iterator
@@ -155,14 +155,14 @@ DynamicModelsCollection::Impl::cendMacroStaticReference() const {
   return macroStaticReference_const_iterator(this, false);
 }
 
-model_iterator
+dynamicModel_iterator
 DynamicModelsCollection::Impl::beginModel() {
-  return model_iterator(this, true);
+  return dynamicModel_iterator(this, true);
 }
 
-model_iterator
+dynamicModel_iterator
 DynamicModelsCollection::Impl::endModel() {
-  return model_iterator(this, false);
+  return dynamicModel_iterator(this, false);
 }
 
 connector_iterator

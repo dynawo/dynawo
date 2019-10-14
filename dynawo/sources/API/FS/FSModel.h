@@ -25,10 +25,10 @@
 
 namespace finalState {
 class Variable;
-class variable_const_iterator;
-class model_const_iterator;
-class variable_iterator;
-class model_iterator;
+class finalStateVariable_const_iterator;
+class finalStateModel_const_iterator;
+class finalStateVariable_iterator;
+class finalStateModel_iterator;
 
 /**
  * @class Model
@@ -73,49 +73,49 @@ class Model {
    * @brief Get a variable_const_iterator to the beginning of variables' container
    * @return begin of variable
    */
-  virtual variable_const_iterator cbeginVariable() const = 0;
+  virtual finalStateVariable_const_iterator cbeginVariable() const = 0;
 
   /**
    * @brief Get a variable_const_iterator to the end of variables' container
    * @return end of variable
    */
-  virtual variable_const_iterator cendVariable() const = 0;
+  virtual finalStateVariable_const_iterator cendVariable() const = 0;
 
   /**
    * @brief Get a model_const_iterator to the beginning of models' container
    * @return begin of model
    */
-  virtual model_const_iterator cbeginModel() const = 0;
+  virtual finalStateModel_const_iterator cbeginModel() const = 0;
 
   /**
    * @brief Get a model_const_iterator to the end of models' container
    * @return end of model
    */
-  virtual model_const_iterator cendModel() const = 0;
+  virtual finalStateModel_const_iterator cendModel() const = 0;
 
   /**
    * @brief Get an iterator to the beginning of the variables' vector
    * @return begin of variable
    */
-  virtual variable_iterator beginVariable() = 0;
+  virtual finalStateVariable_iterator beginVariable() = 0;
 
   /**
    * @brief Get an iterator to the end of the variables' vector
    * @return end of variable
    */
-  virtual variable_iterator endVariable() = 0;
+  virtual finalStateVariable_iterator endVariable() = 0;
 
   /**
    * @brief Get an iterator to the beginning of the models' vector
    * @return begin of model
    */
-  virtual model_iterator beginModel() = 0;
+  virtual finalStateModel_iterator beginModel() = 0;
 
   /**
    * @brief Get an iterator to the end of the models' vector
    * @return end of model
    */
-  virtual model_iterator endModel() = 0;
+  virtual finalStateModel_iterator endModel() = 0;
 };
 
 }  // namespace finalState

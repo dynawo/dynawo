@@ -139,7 +139,7 @@ TEST(APIDYDTest, ModelicaModel_1UDM_EqualsFromXml) {
 
   std::vector<boost::shared_ptr<ModelicaModel> >models;
 
-  for (model_iterator itModel = collection->beginModel();
+  for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
     models.push_back(boost::dynamic_pointer_cast<ModelicaModel>(*itModel));
@@ -165,7 +165,7 @@ TEST(APIDYDTest, ModelicaModel_1UDM_DifferentFromXml) {
 
   std::vector<boost::shared_ptr<ModelicaModel> >models;
 
-  for (model_iterator itModel = collection->beginModel();
+  for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
     models.push_back(boost::dynamic_pointer_cast<ModelicaModel>(*itModel));
@@ -191,7 +191,7 @@ TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_EqualsFromXml) {
 
   std::vector<boost::shared_ptr<ModelicaModel> >models;
 
-  for (model_iterator itModel = collection->beginModel();
+  for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
     models.push_back(boost::dynamic_pointer_cast<ModelicaModel>(*itModel));
@@ -217,7 +217,7 @@ TEST(APIDYDTest, ModelicaModel_3UDMsNoConnections_DifferentFromXml) {
 
   std::vector<boost::shared_ptr<ModelicaModel> >models;
 
-  for (model_iterator itModel = collection->beginModel();
+  for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
     models.push_back(boost::dynamic_pointer_cast<ModelicaModel>(*itModel));
@@ -243,7 +243,7 @@ TEST(APIDYDTest, ModelicaModelSameModelFromXml) {
 
   std::vector<boost::shared_ptr<ModelicaModel> >models;
 
-  for (model_iterator itModel = collection->beginModel();
+  for (dynamicModel_iterator itModel = collection->beginModel();
           itModel != collection->endModel();
           ++itModel) {
     models.push_back(boost::dynamic_pointer_cast<ModelicaModel>(*itModel));

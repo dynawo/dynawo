@@ -32,13 +32,17 @@ class VariableConstIteratorImpl;
 class VariableIteratorImpl;
 
 /**
- * @class model_const_iterator
+ * @class finalStateModel_const_iterator
  * @brief const iterator over models
  *
  * const iterator over models stored in final state collection or in models
  */
-class model_const_iterator {
+class finalStateModel_const_iterator {
  public:
+  /**
+   * @brief this
+   */
+  typedef finalStateModel_const_iterator THIS;
   /**
    * @brief Constructor
    *
@@ -51,7 +55,7 @@ class model_const_iterator {
    * or the end of the models' container.
    * @returns Created model_const_iterator.
    */
-  model_const_iterator(const FinalStateCollection::Impl* iterated, bool begin);
+  finalStateModel_const_iterator(const FinalStateCollection::Impl* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -65,13 +69,13 @@ class model_const_iterator {
    * or the end of the models' container.
    * @returns Created model_const_iterator.
    */
-  model_const_iterator(const Model::Impl* iterated, bool begin);
+  finalStateModel_const_iterator(const Model::Impl* iterated, bool begin);
 
   /**
    * @brief Copy constructor
    * @param original : model const iterator to copy
    */
-  model_const_iterator(const model_const_iterator& original);
+  finalStateModel_const_iterator(const finalStateModel_const_iterator& original);
 
   /**
    * @brief Constructor
@@ -79,12 +83,12 @@ class model_const_iterator {
    * @param original current iterator
    * @returns Created model_const_iterator
    */
-  explicit model_const_iterator(const model_iterator& original);
+  explicit finalStateModel_const_iterator(const finalStateModel_iterator& original);
 
   /**
    * @brief Destructor
    */
-  ~model_const_iterator();
+  ~finalStateModel_const_iterator();
 
   /**
    * @brief assignment
@@ -92,35 +96,35 @@ class model_const_iterator {
    *
    * @returns Reference to this model_const_iterator
    */
-  model_const_iterator& operator=(const model_const_iterator& other);
+  THIS& operator=(const THIS& other);
 
   /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this model_const_iterator
    */
-  model_const_iterator& operator++();
+  THIS& operator++();
 
   /**
    * @brief Postfix-increment operator
    *
    * @returns Copy of this model_const_iterator
    */
-  model_const_iterator operator++(int);
+  THIS operator++(int);
 
   /**
    * @brief Prefix-decrement operator
    *
    * @returns Reference to this model_const_iterator
    */
-  model_const_iterator& operator--();
+  THIS& operator--();
 
   /**
    * @brief Postfix-decrement operator
    *
    * @returns Copy of this model_const_iterator
    */
-  model_const_iterator operator--(int);
+  THIS operator--(int);
 
   /**
    * @brief Equal to operator
@@ -128,7 +132,7 @@ class model_const_iterator {
    * @param other Iterator to be compared with this
    * @returns true if model_const_iterators are equals, else false
    */
-  bool operator==(const model_const_iterator& other) const;
+  bool operator==(const THIS& other) const;
 
   /**
    * @brief Not equal to operator
@@ -136,7 +140,7 @@ class model_const_iterator {
    * @param other Iterator to be compared with this
    * @returns true if model_const_iterators are different, else false
    */
-  bool operator!=(const model_const_iterator& other) const;
+  bool operator!=(const THIS& other) const;
 
   /**
    * @brief Indirection operator
@@ -157,13 +161,17 @@ class model_const_iterator {
 };
 
 /**
- * @class model_iterator
+ * @class finalStateModel_iterator
  * @brief iterator over models
  *
  * iterator over models stored in final state collection or in models
  */
-class model_iterator {
+class finalStateModel_iterator {
  public:
+  /**
+   * @brief this
+   */
+  typedef finalStateModel_iterator THIS;
   /**
    * @brief Constructor
    *
@@ -176,7 +184,7 @@ class model_iterator {
    * or the end of the models' container.
    * @returns Created model_iterator.
    */
-  model_iterator(FinalStateCollection::Impl* iterated, bool begin);
+  finalStateModel_iterator(FinalStateCollection::Impl* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -190,18 +198,18 @@ class model_iterator {
    * or the end of the models' container.
    * @returns Created model_iterator.
    */
-  model_iterator(Model::Impl* iterated, bool begin);
+  finalStateModel_iterator(Model::Impl* iterated, bool begin);
 
   /**
    * @brief Copy constructor
    * @param original: model iterator to copy
    */
-  model_iterator(const model_iterator& original);
+  finalStateModel_iterator(const finalStateModel_iterator& original);
 
   /**
    * @brief Destructor
    */
-  ~model_iterator();
+  ~finalStateModel_iterator();
 
   /**
    * @brief assignment
@@ -209,35 +217,35 @@ class model_iterator {
    *
    * @returns Reference to this model_iterator
    */
-  model_iterator& operator=(const model_iterator& other);
+  THIS& operator=(const THIS& other);
 
   /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this model_iterator
    */
-  model_iterator& operator++();
+  THIS& operator++();
 
   /**
    * @brief Postfix-increment operator
    *
    * @returns Copy of this model_iterator
    */
-  model_iterator operator++(int);
+  THIS operator++(int);
 
   /**
    * @brief Prefix-decrement operator
    *
    * @returns Reference to this model_iterator
    */
-  model_iterator& operator--();
+  THIS& operator--();
 
   /**
    * @brief Postfix-decrement operator
    *
    * @returns Copy of this model_iterator
    */
-  model_iterator operator--(int);
+  THIS operator--(int);
 
   /**
    * @brief Equal to operator
@@ -245,7 +253,7 @@ class model_iterator {
    * @param other Iterator to be compared with this
    * @returns true if model_iterators are equals, else false
    */
-  bool operator==(const model_iterator& other) const;
+  bool operator==(const THIS& other) const;
 
   /**
    * @brief Not equal to operator
@@ -253,7 +261,7 @@ class model_iterator {
    * @param other Iterator to be compared with this
    * @returns true if model_iterators are different, else false
    */
-  bool operator!=(const model_iterator& other) const;
+  bool operator!=(const THIS& other) const;
 
   /**
    * @brief Indirection operator
@@ -280,13 +288,17 @@ class model_iterator {
 };
 
 /**
- * @class variable_const_iterator
+ * @class finalStateVariable_const_iterator
  * @brief const iterator over variables
  *
  * const iterator over variables stored in final state collection or in models
  */
-class variable_const_iterator {
+class finalStateVariable_const_iterator {
  public:
+  /**
+   * @brief this
+   */
+  typedef finalStateVariable_const_iterator THIS;
   /**
    * @brief Constructor
    *
@@ -299,7 +311,7 @@ class variable_const_iterator {
    * or the end of the variables' container.
    * @returns Created variable_const_iterator.
    */
-  variable_const_iterator(const FinalStateCollection::Impl* iterated, bool begin);
+  finalStateVariable_const_iterator(const FinalStateCollection::Impl* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -313,13 +325,13 @@ class variable_const_iterator {
    * or the end of the variables' container.
    * @returns Created variable_const_iterator.
    */
-  variable_const_iterator(const Model::Impl* iterated, bool begin);
+  finalStateVariable_const_iterator(const Model::Impl* iterated, bool begin);
 
   /**
    * @brief Copy constructor
    * @param original : variable const iterator to copy
    */
-  variable_const_iterator(const variable_const_iterator& original);
+  finalStateVariable_const_iterator(const finalStateVariable_const_iterator& original);
 
   /**
    * @brief Constructor
@@ -327,12 +339,12 @@ class variable_const_iterator {
    * @param original current iterator
    * @returns Created model_const_iterator
    */
-  explicit variable_const_iterator(const variable_iterator& original);
+  explicit finalStateVariable_const_iterator(const finalStateVariable_iterator& original);
 
   /**
    * @brief Destructor
    */
-  ~variable_const_iterator();
+  ~finalStateVariable_const_iterator();
 
   /**
    * @brief assignment
@@ -340,35 +352,35 @@ class variable_const_iterator {
    *
    * @returns Reference to this variable_const_iterator
    */
-  variable_const_iterator& operator=(const variable_const_iterator& other);
+  THIS& operator=(const THIS& other);
 
   /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this variable_const_iterator
    */
-  variable_const_iterator& operator++();
+  THIS& operator++();
 
   /**
    * @brief Postfix-increment operator
    *
    * @returns Copy of this variable_const_iterator
    */
-  variable_const_iterator operator++(int);
+  THIS operator++(int);
 
   /**
    * @brief Prefix-decrement operator
    *
    * @returns Reference to this variable_const_iterator
    */
-  variable_const_iterator& operator--();
+  THIS& operator--();
 
   /**
    * @brief Postfix-decrement operator
    *
    * @returns Copy of this variable_const_iterator
    */
-  variable_const_iterator operator--(int);
+  THIS operator--(int);
 
   /**
    * @brief Equal to operator
@@ -376,7 +388,7 @@ class variable_const_iterator {
    * @param other Iterator to be compared with this
    * @returns true if variable_const_iterators are equals, else false
    */
-  bool operator==(const variable_const_iterator& other) const;
+  bool operator==(const THIS& other) const;
 
   /**
    * @brief Not equal to operator
@@ -384,7 +396,7 @@ class variable_const_iterator {
    * @param other Iterator to be compared with this
    * @returns true if variable_const_iterators are different, else false
    */
-  bool operator!=(const variable_const_iterator& other) const;
+  bool operator!=(const THIS& other) const;
 
   /**
    * @brief Indirection operator
@@ -405,13 +417,17 @@ class variable_const_iterator {
 };
 
 /**
- * @class variable_iterator
+ * @class finalStateVariable_iterator
  * @brief iterator over variables
  *
  * iterator over variables stored in final state collection or in models
  */
-class variable_iterator {
+class finalStateVariable_iterator {
  public:
+  /**
+   * @brief this
+   */
+  typedef finalStateVariable_iterator THIS;
   /**
    * @brief Constructor
    *
@@ -424,7 +440,7 @@ class variable_iterator {
    * or the end of the variables' container.
    * @returns Created variable_iterator.
    */
-  variable_iterator(FinalStateCollection::Impl* iterated, bool begin);
+  finalStateVariable_iterator(FinalStateCollection::Impl* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -438,18 +454,18 @@ class variable_iterator {
    * or the end of the variables' container.
    * @returns Created variable_iterator.
    */
-  variable_iterator(Model::Impl* iterated, bool begin);
+  finalStateVariable_iterator(Model::Impl* iterated, bool begin);
 
   /**
    * @brief Copy constructor
    * @param original : variable iterator to copy
    */
-  variable_iterator(const variable_iterator& original);
+  finalStateVariable_iterator(const finalStateVariable_iterator& original);
 
   /**
    * @brief Destructor
    */
-  ~variable_iterator();
+  ~finalStateVariable_iterator();
 
   /**
    * @brief assignment
@@ -457,35 +473,35 @@ class variable_iterator {
    *
    * @returns Reference to this variable_iterator
    */
-  variable_iterator& operator=(const variable_iterator& other);
+  THIS& operator=(const THIS& other);
 
   /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this variable_iterator
    */
-  variable_iterator& operator++();
+  THIS& operator++();
 
   /**
    * @brief Postfix-increment operator
    *
    * @returns Copy of this variable_iterator
    */
-  variable_iterator operator++(int);
+  THIS operator++(int);
 
   /**
    * @brief Prefix-decrement operator
    *
    * @returns Reference to this variable_iterator
    */
-  variable_iterator& operator--();
+  THIS& operator--();
 
   /**
    * @brief Postfix-decrement operator
    *
    * @returns Copy of this variable_iterator
    */
-  variable_iterator operator--(int);
+  THIS operator--(int);
 
   /**
    * @brief Equal to operator
@@ -493,7 +509,7 @@ class variable_iterator {
    * @param other Iterator to be compared with this
    * @returns true if variable_iterators are equals, else false
    */
-  bool operator==(const variable_iterator& other) const;
+  bool operator==(const THIS& other) const;
 
   /**
    * @brief Not equal to operator
@@ -501,7 +517,7 @@ class variable_iterator {
    * @param other Iterator to be compared with this
    * @returns true if variable_iterators are different, else false
    */
-  bool operator!=(const variable_iterator& other) const;
+  bool operator!=(const THIS& other) const;
 
   /**
    * @brief Indirection operator

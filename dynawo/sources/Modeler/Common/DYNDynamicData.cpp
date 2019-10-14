@@ -315,7 +315,7 @@ DynamicData::getParametersSet(const string& modelId, const string& parFile, cons
 
 void
 DynamicData::createModelDescriptions() {
-  for (dynamicdata::model_iterator itModel = dynamicModelsCollection_->beginModel();
+  for (dynamicdata::dynamicModel_iterator itModel = dynamicModelsCollection_->beginModel();
           itModel != dynamicModelsCollection_->endModel();
           ++itModel) {
     shared_ptr<ModelDescription> model = shared_ptr<ModelDescription>(new ModelDescription(*itModel));
