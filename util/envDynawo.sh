@@ -1045,6 +1045,16 @@ build_tests() {
   else
     cmake --build $DYNAWO_BUILD_DIR --target ${tests} --config Tests
   fi
+
+  RETURN_CODE=$?
+  if [ ${RETURN_CODE} -ne 0 ]; then
+    return ${RETURN_CODE}
+  fi
+
+  echo "#######################"
+  echo "Running python tests"
+  echo "#######################"
+  python $DYNAWO_NRT_DIFF_DIR/test/nrtDiffTest.py
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1691,7 +1701,7 @@ deploy_dynawo() {
   cp -r $DYNAWO_CURVES_TO_HTML_DIR/csvToHtml/*.py sbin/curvesToHtml/csvToHtml/
   cp -r $DYNAWO_CURVES_TO_HTML_DIR/xmlToHtml/*.py sbin/curvesToHtml/xmlToHtml/
   mkdir -p sbin/nrt/nrt_diff
-  cp -r $DYNAWO_HOME/util/nrt_diff/*.py sbin/nrt/nrt_diff
+  cp -r $DYNAWO_NRT_DIFF_DIR/*.py sbin/nrt/nrt_diff
   cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
 
