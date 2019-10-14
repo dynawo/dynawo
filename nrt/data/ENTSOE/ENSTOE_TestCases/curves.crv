@@ -34,6 +34,39 @@
   <curve model="Generator" variable="voltageRegulator_VrefPu"/>
   <curve model="Generator" variable="voltageRegulator_VsPu"/>
   <curve model="Generator" variable="voltageRegulator_VcPu"/>
+<curve model="Generator" variable="voltageRegulator_firstOrderLim_G_u"/>
+<curve model="Generator" variable="voltageRegulator_firstOrderLim_G_y"/>
+<curve model="Generator" variable="voltageRegulator_firstOrderLim_Gk_u"/>
+<curve model="Generator" variable="voltageRegulator_firstOrderLim_Gk_y"/>
+<curve model="Generator" variable="voltageRegulator_firstOrderLim_I_u"/>
+<curve model="Generator" variable="voltageRegulator_firstOrderLim_feedback_u1"/>
+<curve model="Generator" variable="voltageRegulator_firstOrderLim_feedback_u2"/>
+<curve model="Generator" variable="voltageRegulator_firstOrderLim_feedback_y"/>
+<curve model="Generator" variable="voltageRegulator_EfdPuPin_value"/>
+<curve model="Generator" variable="voltageRegulator_firstOrderLim_u"/>
+<curve model="Generator" variable="voltageRegulator_firstOrderLim_y"/>
+
+<curve model="Generator" variable="PSS_Vsi2Pu"/>
+<curve model="Generator" variable="PSS_Vsi1Pu"/>
+<curve model="Generator" variable="PSS_VstPu"/>
+<curve model="Generator" variable="PSS_add1_y"/>
+<curve model="Generator" variable="PSS_add2_y"/>
+<curve model="Generator" variable="PSS_deltaPu_y"/>
+<curve model="Generator" variable="PSS_limiterVst_u"/>
+<curve model="Generator" variable="PSS_limiterVst_y"/>
+<curve model="Generator" variable="PSS_leadLag1_y"/>
+<curve model="Generator" variable="PSS_leadLag1_u"/>
+
+<curve model="Generator" variable="PSS_firstOrderVsi1_y"/>
+<curve model="Generator" variable="PSS_firstOrderVsi2_y"/>
+<curve model="Generator" variable="PSS_firstWashoutVsi2_x"/>
+<curve model="Generator" variable="PSS_firstWashoutVsi1_x"/>
+<curve model="Generator" variable="PSS_leadLag1_firstOrder_y"/>
+<curve model="Generator" variable="PSS_leadLag2_firstOrder_y"/>
+<curve model="Generator" variable="PSS_secondWashoutVsi1_x"/>
+
+
+
 
   <curve model="Generator" variable="governor_RefLPu"/>
   <curve model="Generator" variable="governor_omegaPu"/>

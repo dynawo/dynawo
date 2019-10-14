@@ -49,7 +49,7 @@
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>
--->
+
   <dyn:job name="ENSTOE_TestCase1_SIM_fixedStep">
       <dyn:solver lib="libdynawo_SolverSIM" parFile="solvers.par" parId="3"/>
       <dyn:modeler compileDir="outputs_ENSTOE_TestCase1_SIM_fixedStep/compilation">
@@ -68,7 +68,7 @@
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>
-
+-->
 <!--
   <dyn:job name="ENSTOE_TestCase1_IDA4">
       <dyn:solver lib="libdynawo_SolverIDA" parFile="solvers.par" parId="2"/>
@@ -88,7 +88,7 @@
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>
--->
+
 
   <dyn:job name="ENSTOE_TestCase2">
       <dyn:solver lib="libdynawo_SolverIDA" parFile="solvers.par" parId="2"/>
@@ -109,8 +109,7 @@
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>
-
-  <!--
+-->
   <dyn:job name="ENSTOE_TestCase3">
       <dyn:solver lib="libdynawo_SolverIDA" parFile="solvers.par" parId="2"/>
       <dyn:modeler compileDir="outputs_ENSTOE_TestCase3/compilation">
@@ -120,7 +119,7 @@
           <dyn:directory path="." recursive="false"/>
         </dyn:modelicaModels>
       </dyn:modeler>
-      <dyn:simulation startTime="0" stopTime="60"/>
+      <dyn:simulation startTime="0" stopTime="40"/>
       <dyn:outputs directory="outputs_ENSTOE_TestCase3">
         <dyn:dumpInitValues local="true" global="true"/>
         <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
@@ -130,5 +129,4 @@
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>
-  -->
 </dyn:jobs>
