@@ -34,9 +34,12 @@ std::string LoadDetailHandler::xsd_path() {
   return xsdPath + std::string("loadDetail.xsd");
 }
 
-LoadDetailHandler::elementName_type const LoadDetailHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/load_detail/1_0"), "detail"
-);
+LoadDetailHandler::elementName_type const& LoadDetailHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/load_detail/1_0"), "detail"
+  );
+  return root;
+}
 
 LoadDetail* LoadDetailHandler::do_make() {
   boost::optional<float> subLoad1ActivePower = attribute("subLoad1ActivePower");

@@ -8,8 +8,8 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(Blocks)
-ADD_SUBDIRECTORY(Logs)
+ADD_SUBDIRECTORY(Blocks B)
+ADD_SUBDIRECTORY(Logs L)
 
 SET(MODEL_FILES
     package.mo

@@ -30,19 +30,19 @@ namespace DYN {
  *
  * @return a log message Terminate
  */
-#define DYNLog(key, ...) (DYN::Message(DYN::Message::LOG_KEY, DYN::KeyLog_t::names[DYN::KeyLog_t::key]), ##__VA_ARGS__ )
+#define DYNLog(key, ...) (DYN::Message(DYN::Message::LOG_KEY, DYN::KeyLog_t::names(DYN::KeyLog_t::key)), ##__VA_ARGS__ )
 
 /**
  * @brief Macro to define a timeline message
  * @param key key to find the message
  */
-#define DYNTimeline(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names[DYN::KeyTimeline_t::key]), ##__VA_ARGS__ )
+#define DYNTimeline(key, ...) (DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__ )
 
 /**
  * @brief Macro to define a constraint message
  * @param key key to find the message
  */
-#define DYNConstraint(key, ...) (DYN::Message(DYN::Message::CONSTRAINT_KEY, DYN::KeyConstraint_t::names[DYN::KeyConstraint_t::key]), ##__VA_ARGS__ )
+#define DYNConstraint(key, ...) (DYN::Message(DYN::Message::CONSTRAINT_KEY, DYN::KeyConstraint_t::names(DYN::KeyConstraint_t::key)), ##__VA_ARGS__ )
 
 /**
  * @brief Macro description to have a shortcut.
@@ -56,7 +56,7 @@ namespace DYN {
  * @return an Error
  */
 #define DYNError(type, key, ...) DYN::Error(DYN::Error::TypeError_t(type), DYN::KeyError_t::key, std::string(__FILE__), __LINE__, \
-                                            (DYN::Message(DYN::Message::ERROR_KEY, DYN::KeyError_t::names[DYN::KeyError_t::key]), ##__VA_ARGS__))
+                                            (DYN::Message(DYN::Message::ERROR_KEY, DYN::KeyError_t::names(DYN::KeyError_t::key)), ##__VA_ARGS__))
 
 /**
  * @brief Macro description to have a shortcut.
@@ -67,7 +67,7 @@ namespace DYN {
  *
  * @return a Terminate
  */
-#define DYNTerminate(key, ...) DYN::Terminate((DYN::MessageTimeline(DYN::KeyTimeline_t::names[DYN::KeyTimeline_t::key]), ##__VA_ARGS__))
+#define DYNTerminate(key, ...) DYN::Terminate((DYN::MessageTimeline(DYN::KeyTimeline_t::names(DYN::KeyTimeline_t::key)), ##__VA_ARGS__))
 
 }  // namespace DYN
 

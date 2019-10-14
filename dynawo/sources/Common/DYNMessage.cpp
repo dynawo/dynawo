@@ -33,10 +33,26 @@ using std::string;
 
 namespace DYN {
 
-const char Message::TIMELINE_KEY[] = "TIMELINE";
-const char Message::ERROR_KEY[] = "ERROR";
-const char Message::CONSTRAINT_KEY[] = "CONSTRAINT";
-const char Message::LOG_KEY[] = "LOG";
+Message::Message(const dictionaryKey& dicoKey, const std::string& key) {
+  std::string dicoName;
+  switch (dicoKey) {
+    case TIMELINE_KEY:
+      dicoName = "TIMELINE";
+      break;
+    case ERROR_KEY:
+      dicoName = "ERROR";
+      break;
+    case CONSTRAINT_KEY:
+      dicoName = "CONSTRAINT";
+      break;
+    case LOG_KEY:
+      dicoName = "LOG";
+      break;
+    default:
+      break;
+  }
+  initialize(dicoName, key);
+}
 
 Message::Message(const std::string& dicoName, const std::string& key) {
   initialize(dicoName, key);

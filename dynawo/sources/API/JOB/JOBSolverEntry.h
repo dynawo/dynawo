@@ -22,15 +22,13 @@
 
 #include <string>
 
-#include "JOBExport.h"
-
 namespace job {
 
 /**
  * @class SolverEntry
  * @brief Solver entries container class
  */
-class __DYNAWO_JOB_EXPORT SolverEntry {
+class SolverEntry {
  public:
   /**
    * @brief Destructor

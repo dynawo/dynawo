@@ -17,13 +17,11 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include <libzip/ZipExport.h>
-
 namespace zip {
 
 class ZipFile;
 
-class __LIBZIP_EXPORT ZipInputStream {
+class ZipInputStream {
 public:
     static boost::shared_ptr<ZipFile> read(const std::string& filename);
 

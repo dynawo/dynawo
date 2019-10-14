@@ -23,7 +23,6 @@
 #include <map>
 #include <vector>
 
-#include "DYDExport.h"
 #include "DYDModel.h"
 
 
@@ -36,7 +35,7 @@ namespace dynamicdata {
  * BlackBoxModel objects describe black box models
  * objects connected with other models through
  */
-class __DYNAWO_DYD_EXPORT BlackBoxModel : public Model {
+class BlackBoxModel : public Model {
  public:
   /**
    * @brief Destructor

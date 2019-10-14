@@ -24,8 +24,6 @@
 #include <map>
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 
 class MacroConnection;
@@ -34,7 +32,7 @@ class MacroConnection;
  * @class MacroConnector
  * @brief Macro connector interface class
  */
-class __DYNAWO_DYD_EXPORT MacroConnector {
+class MacroConnector {
  public:
   /**
    * @brief Destructor

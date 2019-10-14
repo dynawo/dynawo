@@ -31,7 +31,7 @@ _dynawo() {
   build_tests_options="tests CRV_unittest-tests DYD_unittest-tests EXTVAR_unittest-tests PAR_unittest-tests TL_unittest-tests CSTR_unittest-tests FS_unittest-tests JOB_unittest-tests COMMON_unittest-tests MODELER_COMMON_unittest-tests MODELER_DATAINTERFACE_unittest-tests MODELS_MODELNETWORK_unittest-tests SOLVERCOMMON_unittest-tests SOLVERIDA_unittest-tests SOLVERSIM_unittest-tests MODELICACOMPILER_unittest-tests"
   unittest_options="SOLVERCOMMON_unittest SOLVERSIM_unittest SOLVERIDA_unittest COMMON_unittest MODELS_MODELNETWORK_unittest CRV_unittest DYD_unittest JOB_unittest TL_unittest EXTVAR_unittest PAR_unittest CSTR_unittest FS_unittest MODELICACOMPILER_unittest MODELER_COMMON_unittest MODELER_DATAINTERFACE_unittest"
   dump_model_options="-h -m -o"
-  compileModelicaModel_options="-h --model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
+  compileModelicaModel_options="-h --model --model-dir --compilation-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
   generate_preassembled_options="-h --model-list --use-standard-precompiled-models --recursive-precompiled-models-dir --non-recursive-precompiled-models-dir --precompiled-models-extension --use-standard-modelica-models --recursive-modelica-models-dir --non-recursive-modelica-models-dir --modelica-models-extension --output-dir --additional-header-files"
   compileCppModelicaModelInDynamicLib_options_equal="--model-name --directory --lib-name"
   compileCppModelicaModelInDynamicLib_options_debug="--debug"
@@ -156,7 +156,7 @@ _dynawo() {
           return 0
           ;;
         -m)
-          _filedir '@(so)'
+          _filedir '@(so|dylib)'
           return 0
           ;;
         -o)
@@ -167,13 +167,17 @@ _dynawo() {
           options="-o"
           propose_options="yes"
           ;;
+        *.dylib)
+          options="-o"
+          propose_options="yes"
+          ;;
         dump-model|dump-model-gdb|dump-model-valgrind)
           options="$dump_model_options"
           propose_options="yes"
           ;;
         *)
           if [[ -z ${COMP_WORDS[2]} ]]; then
-            dump_model_commands="dump-model"
+            dump_model_commands="dump-model dump-model-gdb dump-model-valgrind"
             commands=$dump_model_commands
           else
             commands=""
@@ -296,13 +300,13 @@ _dynawo() {
 }
 
 _handle_compileModelicaModel_options() {
-  compileModelicaModel_options=(--model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList)
-  compileModelicaModel_options_echo="--model --input-dir --output-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
+  compileModelicaModel_options=(--model --model-dir --compilation-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList)
+  compileModelicaModel_options_echo="--model --model-dir --compilation-dir --moFiles --initFiles --lib --remove-model-files --additionalHeaderList"
 
   case "${prev}" in
     --model) COMPREPLY=(); return 0;;
-    --input-dir) _filedir; return 0;;
-    --output-dir) _filedir; return 0;;
+    --model-dir) _filedir; return 0;;
+    --compilation-dir) _filedir; return 0;;
     --moFiles) _filedir '@(mo)'; return 0;;
     --initFiles) _filedir '@(mo)'; return 0;;
     --lib) COMPREPLY=(); return 0;;

@@ -59,7 +59,7 @@ if(MSVC)
   endif()
 endif()
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set(BOOST_ROOT ${BOOST_ROOT} CACHE STRING "Boost library install directory")
 
@@ -85,32 +85,37 @@ set(LibIIDM_INSTALL_LIBRARIES lib)
 set(LibIIDM_INSTALL_BINARIES bin)
 set(LibIIDM_INSTALL_INCLUDE include)
 
-# see http://stackoverflow.com/a/25836953
-if(CXX11_ENABLED)
-  # Test if a C++11 flag is supported
-  include(CheckCXXCompilerFlag)
-  check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-  check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
-  check_cxx_compiler_flag("-std=c++14" COMPILER_SUPPORTS_CXX14)
-  if(COMPILER_SUPPORTS_CXX14)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-    add_definitions(-DLANG_CXX14)
-  elseif(COMPILER_SUPPORTS_CXX11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    add_definitions(-DLANG_CXX11)
-  elseif(COMPILER_SUPPORTS_CXX0X)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-    add_definitions(-DLANG_CXX0X)
+add_definitions(-DBOOST_NO_LONG_LONG)
+
+if(NOT MSVC)
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+
+  # see http://stackoverflow.com/a/25836953
+  if(CXX11_ENABLED)
+    # Test if a C++11 flag is supported
+    include(CheckCXXCompilerFlag)
+    check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+    check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
+    check_cxx_compiler_flag("-std=c++14" COMPILER_SUPPORTS_CXX14)
+    if(COMPILER_SUPPORTS_CXX14)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+      add_definitions(-DLANG_CXX14)
+    elseif(COMPILER_SUPPORTS_CXX11)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+      add_definitions(-DLANG_CXX11)
+    elseif(COMPILER_SUPPORTS_CXX0X)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+      add_definitions(-DLANG_CXX0X)
+    else()
+      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Disabling C++11.")
+    endif()
   else()
-    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Disabling C++11.")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
   endif()
-else()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
 endif()
 
-
 # Add specific options for gcc
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU')
   if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.8)
     message(STATUS "Use of GCC version greater than 4.8: activate specific options")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-local-typedefs")
@@ -141,8 +146,6 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   # quality
     # '-Wzero-as-null-pointer-constant', #disabled since problems in boost
     # '-Wold-style-cast', #disabled since problems in boost
-
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_NO_LONG_LONG")
 
   # also add a few extra check
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wvla -Wredundant-decls")
@@ -189,7 +192,6 @@ set(CPACK_COMPONENTS_ALL iidm-core)
 set(CPACK_COMPONENT_GROUP_EXTENSIONS_DESCRIPTION "All the extension libraries.")
 set(CPACK_COMPONENT_GROUP_EXTENSIONS_EXPANDED ON)
 
-
 # Boost is required for core and all extensions.
 find_package(Boost 1.59 REQUIRED)
 
@@ -202,6 +204,7 @@ add_custom_target(extensions)
 add_custom_target(install-extensions)
 
 if( BUILD_XML )
+  find_package(XercesC REQUIRED)
   find_package(libXML ${LibIIDM_LibXML_REQUIRED_VERSION} REQUIRED)
   add_subdirectory(xml)
 endif()

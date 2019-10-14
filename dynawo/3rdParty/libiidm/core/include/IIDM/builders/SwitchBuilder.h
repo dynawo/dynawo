@@ -20,7 +20,6 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/IdentifiableBuilder.h>
 #include <IIDM/components/ConnectionPoint.h>
@@ -34,7 +33,7 @@ namespace builders {
  * @class SwitchBuilder
  * @brief IIDM::Switch builder
  */
-class IIDM_EXPORT SwitchBuilder: public IdentifiableBuilder<IIDM::Switch, SwitchBuilder> {
+class SwitchBuilder: public IdentifiableBuilder<IIDM::Switch, SwitchBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(SwitchBuilder, builded_type::e_type, type)
   MACRO_IIDM_BUILDER_PROPERTY(SwitchBuilder, bool, retained)
   MACRO_IIDM_BUILDER_PROPERTY(SwitchBuilder, bool, opened)

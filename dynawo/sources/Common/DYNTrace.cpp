@@ -87,7 +87,9 @@ BOOST_LOG_ATTRIBUTE_KEYWORD(severity, "Severity", SeverityLevel)
 BOOST_LOG_ATTRIBUTE_KEYWORD(tag_attr, "Tag", std::string)
 #pragma GCC diagnostic error "-Wmissing-field-initializers"
 
-TraceStream::tspf Trace::endline = &eol;
+TraceStream& Trace::endline(TraceStream& os) {
+  return eol(os);
+}
 
 void Trace::init() {
   // Setup the formatters for the sinks

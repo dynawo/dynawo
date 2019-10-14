@@ -22,8 +22,6 @@
 
 #include <string>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 
 /**
@@ -33,7 +31,7 @@ namespace dynamicdata {
  * UnitDynamicModel objects describe a device's dynamic modelisation
  * composed of a Modelica file associated with an adapted set of parameters
  */
-class __DYNAWO_DYD_EXPORT UnitDynamicModel {
+class UnitDynamicModel {
  public:
   /**
    * @brief Destructor

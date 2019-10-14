@@ -23,7 +23,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/BasicTypes.h>
@@ -39,7 +39,7 @@ namespace IIDM {
  the general implementation is not defined, only specialization for some side_id are provided
  */
 template <typename CRTP_COMPONENT, side_id Sides>
-class IIDM_EXPORT Connectable;
+class Connectable;
 
 
 namespace details {
@@ -56,7 +56,7 @@ namespace details {
  *   a connected bus
  *   a connectable bus
  */
-class IIDM_EXPORT ConnectableBase {
+class ConnectableBase {
 public:
   ///map of connections by side.
   typedef std::map<side_id, Connection> connections_type;
@@ -259,7 +259,7 @@ private:
  @tparam CRTP_COMPONENT the actual type of this Connectable inheriter
  */
 template <typename CRTP_COMPONENT>
-class IIDM_EXPORT Connectable<CRTP_COMPONENT, side_1> {
+class Connectable<CRTP_COMPONENT, side_1> {
 public:
   typedef CRTP_COMPONENT component_type;
 
@@ -396,7 +396,7 @@ private:
  @tparam CRTP_COMPONENT the actual type of this Connectable inheriter
  */
 template <typename CRTP_COMPONENT>
-class IIDM_EXPORT Connectable<CRTP_COMPONENT, side_2> : public details::ConnectableBase {
+class Connectable<CRTP_COMPONENT, side_2> : public details::ConnectableBase {
 public:
   typedef CRTP_COMPONENT component_type;
 
@@ -426,7 +426,7 @@ public:
  @tparam CRTP_COMPONENT the actual type of this Connectable inheriter
  */
 template <typename CRTP_COMPONENT>
-class IIDM_EXPORT Connectable<CRTP_COMPONENT, side_3> : public details::ConnectableBase {
+class Connectable<CRTP_COMPONENT, side_3> : public details::ConnectableBase {
 public:
   typedef CRTP_COMPONENT component_type;
 

@@ -26,8 +26,6 @@
 #include <boost/none.hpp>
 #include <boost/shared_ptr.hpp>
 
-#include "TLExport.h"
-
 namespace timeline {
 
 class Event;
@@ -38,7 +36,7 @@ class Event;
  *
  * Interface class for timeline object. This a container for events
  */
-class __DYNAWO_TL_EXPORT Timeline {
+class Timeline {
  public:
   /**
    * @brief Destructor

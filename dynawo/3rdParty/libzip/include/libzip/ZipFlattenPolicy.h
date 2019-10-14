@@ -14,13 +14,11 @@
 
 #include <string>
 
-#include <libzip/ZipExport.h>
-
 namespace zip {
 
 class ZipFile;
 
-class __LIBZIP_EXPORT ZipFlattenPolicy {
+class ZipFlattenPolicy {
 public:
     virtual ~ZipFlattenPolicy();
 
@@ -28,7 +26,7 @@ public:
 
 };
 
-class __LIBZIP_EXPORT ZipThrowPolicy : public ZipFlattenPolicy {
+class ZipThrowPolicy : public ZipFlattenPolicy {
 public:
     virtual ~ZipThrowPolicy();
 
@@ -36,7 +34,7 @@ public:
 
 };
 
-class __LIBZIP_EXPORT ZipPostFixPolicy : public ZipFlattenPolicy {
+class ZipPostFixPolicy : public ZipFlattenPolicy {
 public:
     virtual ~ZipPostFixPolicy();
 

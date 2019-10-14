@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class ModelicaModel;
 
@@ -34,7 +32,7 @@ class ModelicaModel;
  * ModelicaModelFactory encapsulate methods for creating new
  * @p ModelicaModel objects.
  */
-class __DYNAWO_DYD_EXPORT ModelicaModelFactory {
+class ModelicaModelFactory {
  public:
   /**
    * @brief Create new ModelicaModel instance

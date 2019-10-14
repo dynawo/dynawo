@@ -54,17 +54,18 @@ public:
   XmlPath operator() (std::string const& element_sequence) const;
 
   int compare(uri const& other) const { return m_uri.compare(other.m_uri); }
+
+  /**
+   * @brief empty namespace uri.
+   *
+   * An empty namespace uri to be used on instead of uri default constructor.
+   */
+  static uri const empty();
+  static XmlPath const empty(std::string const& element_sequence);
 };
 
 inline bool operator == (uri const& a, uri const& b) { return a.name() == b.name(); }
 inline bool operator <  (uri const& a, uri const& b) { return a.name() < b.name(); }
-
-/**
- * @brief empty namespace uri.
- *
- * An empty namespace uri to be used on instead of uri default constructor.
- */
-extern uri const empty;
 
 inline std::ostream& operator<<(std::ostream& stream, uri const& u) { return stream << u.name(); }
 

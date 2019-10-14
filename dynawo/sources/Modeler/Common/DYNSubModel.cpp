@@ -734,33 +734,47 @@ SubModel::evalZSub(const double & t) {
 
 void
 SubModel::setBufferFType(propertyF_t* fType, const int & offsetFType) {
-  fType_ = &(fType[offsetFType]);
+  fType_ = static_cast<propertyF_t*>(0);
+  if (fType)
+    fType_ = &(fType[offsetFType]);
 }
 
 void
 SubModel::setBufferYType(propertyContinuousVar_t* yType, const int & offsetYType) {
-  yType_ = &(yType[offsetYType]);
+  yType_ = static_cast<propertyContinuousVar_t*>(0);
+  if (yType)
+    yType_ = &(yType[offsetYType]);
 }
 
 void
 SubModel::setBufferF(double* f, const int & offsetF) {
-  fLocal_ = &(f[offsetF]);
+  fLocal_ = static_cast<double*>(0);
+  if (f)
+    fLocal_ = &(f[offsetF]);
 }
 
 void
 SubModel::setBufferG(state_g* g, const int & offsetG) {
-  gLocal_ = &(g[offsetG]);
+  gLocal_ = static_cast<state_g*>(0);
+  if (g)
+    gLocal_ = &(g[offsetG]);
 }
 
 void
 SubModel::setBufferY(double* y, double* yp, const int & offsetY) {
-  yLocal_ = &(y[offsetY]);
-  ypLocal_ = &(yp[offsetY]);
+  yLocal_ = static_cast<double*>(0);
+  if (y)
+    yLocal_ = &(y[offsetY]);
+  ypLocal_ = static_cast<double*>(0);
+  if (yp)
+    ypLocal_ = &(yp[offsetY]);
 }
 
 void
 SubModel::setBufferZ(double* z, const int & offsetZ) {
-  zLocal_ = &(z[offsetZ]);
+  zLocal_ = static_cast<double*>(0);
+  if (z)
+    zLocal_ = &(z[offsetZ]);
 }
 
 void
@@ -772,7 +786,7 @@ SubModel::evalFSub(const double & t) {
 #ifdef _DEBUG_
   // test NAN
   for (unsigned int i = 0; i < sizeF(); ++i) {
-    if (fLocal_[i] != fLocal_[i]) {
+    if (std::isnan(fLocal_[i])) {
       throw DYNError(Error::MODELER, NanValue, i, name());
     }
   }

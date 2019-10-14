@@ -39,7 +39,7 @@ using namespace IIDM::extensions::voltagelevelshortcircuits::xml;
 
 int main(int argc, char** argv) {
   //creating the network
-  SubstationBuilder substation_builder = SubstationBuilder().country("FR").tso("RTE");
+  SubstationBuilder substation_builder = SubstationBuilder().country("FR").tso(std::string("RTE"));
   VoltageLevelBuilder bus_voltagelevel_builder = VoltageLevelBuilder().mode(VoltageLevel::bus_breaker).nominalV(50);
   BusBuilder bus_builder = BusBuilder().v(0).angle(10);
 

@@ -34,9 +34,12 @@ std::string GeneratorEntsoeCategoryHandler::xsd_path() {
   return xsdPath + std::string("generatorEntsoeCategory.xsd");
 }
 
-GeneratorEntsoeCategoryHandler::elementName_type const GeneratorEntsoeCategoryHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/generator_entsoe_category/1_0"), "entsoeCategory"
-);
+GeneratorEntsoeCategoryHandler::elementName_type const& GeneratorEntsoeCategoryHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/generator_entsoe_category/1_0"), "entsoeCategory"
+  );
+  return root;
+}
 
 GeneratorEntsoeCategory* GeneratorEntsoeCategoryHandler::do_make() {
   return GeneratorEntsoeCategoryBuilder()

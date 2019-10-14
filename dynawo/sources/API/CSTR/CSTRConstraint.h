@@ -22,7 +22,6 @@
 
 #include <string>
 
-#include "CSTRExport.h"
 #include "CSTRConstraintCommon.h"
 
 namespace constraints {
@@ -30,7 +29,7 @@ namespace constraints {
 /**
  * class Constraint
  */
-class __DYNAWO_CSTR_EXPORT Constraint {
+class Constraint {
  public:
   virtual ~Constraint() { }
 

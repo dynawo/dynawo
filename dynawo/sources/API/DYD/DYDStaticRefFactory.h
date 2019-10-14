@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class StaticRef;
 
@@ -34,7 +32,7 @@ class StaticRef;
  * StaticRefFactory encapsulate methods for creating new
  * @p StaticRef objects.
  */
-class __DYNAWO_DYD_EXPORT StaticRefFactory {
+class StaticRefFactory {
  public:
   /**
    * @brief Create new StaticRef instance

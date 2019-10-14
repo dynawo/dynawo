@@ -609,7 +609,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   smj.init(size, size);
   model->evalJt(tt, iyy, iyp, cj, smj);
 
-  bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
+  bool matrixStructChange = SolverCommon::copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
 
   if (matrixStructChange) {
     SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
@@ -701,7 +701,7 @@ SolverIDA::solve(double tAim, double &tNxt) {
       yErr.push_back(std::pair<double, int>(errors[i], i));
     }
   }
-  std::sort(yErr.begin(), yErr.end(), mapcompabs());
+  std::sort(yErr.begin(), yErr.end(), SolverCommon::mapcompabs());
 
   Trace::debug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
   vector<std::pair<double, int> >::iterator it;

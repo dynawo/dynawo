@@ -11,20 +11,20 @@
 SET(MODULE_NAME DYD_unittest)
 
 SET(MODULE_SOURCES
-    Test.cpp
-    TestCollection.cpp
-    TestBlackBoxModel.cpp
-    TestMacroConnect.cpp
-    TestMacroConnection.cpp
-    TestMacroConnector.cpp
-    TestModelTemplate.cpp
-    TestModelTemplateExpansion.cpp
-    TestModelicaModel.cpp
-    TestConnector.cpp
-    TestUnitDynamicModel.cpp
-    TestStaticRef.cpp
-    TestMacroStaticReference.cpp
-    TestMacroStaticRef.cpp
+  Test.cpp
+  TestCollection.cpp
+  TestBlackBoxModel.cpp
+  TestMacroConnect.cpp
+  TestMacroConnection.cpp
+  TestMacroConnector.cpp
+  TestModelTemplate.cpp
+  TestModelTemplateExpansion.cpp
+  TestModelicaModel.cpp
+  TestConnector.cpp
+  TestUnitDynamicModel.cpp
+  TestStaticRef.cpp
+  TestMacroStaticReference.cpp
+  TestMacroStaticRef.cpp
 )
 
 INCLUDE_DIRECTORIES(SYSTEM ${UNITTEST_INCLUDE_DIRS}

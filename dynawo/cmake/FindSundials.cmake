@@ -16,15 +16,15 @@
 #  SUNDIALS_FOUND       - True if Sundials found.
 
 IF(NOT SUNDIALS_HOME AND NOT $ENV{SUNDIALS_HOME} STREQUAL "")
-    SET(SUNDIALS_HOME $ENV{SUNDIALS_HOME})
+  SET(SUNDIALS_HOME $ENV{SUNDIALS_HOME})
 ENDIF()
 
 IF(NOT SUNDIALS_HOME AND NOT $ENV{SUNDIALS_ROOT} STREQUAL "")
-    SET(SUNDIALS_HOME $ENV{SUNDIALS_ROOT})
+  SET(SUNDIALS_HOME $ENV{SUNDIALS_ROOT})
 ENDIF()
 
 IF(NOT SUNDIALS_HOME AND NOT $ENV{SUNDIALS_INSTALL_DIR} STREQUAL "")
-    SET(SUNDIALS_HOME $ENV{SUNDIALS_INSTALL_DIR})
+  SET(SUNDIALS_HOME $ENV{SUNDIALS_INSTALL_DIR})
 ENDIF()
 
 FIND_PATH(SUNDIALS_INCLUDE_DIR NAME sundials/sundials_config.h HINTS ${SUNDIALS_HOME}/include)
@@ -46,11 +46,11 @@ MARK_AS_ADVANCED(SUNDIALS_NVECSERIAL_LIBRARY)
 FIND_LIBRARY(SUNDIALS_SUNLINSOLKLU_LIBRARY NAME sundials_sunlinsolklu libsundials_sunlinsolklu HINTS ${SUNDIALS_HOME}/lib)
 MARK_AS_ADVANCED(SUNDIALS_SUNLINSOLKLU_LIBRARY)
 
-# Searching for sundials sunmatrixsparse
-FIND_LIBRARY(SUNDIALS_SUNMATRIXSPARSE_LIBRARY NAME sundials_sunmatrixsparse libsundials_sunmatrixsparse HINTS ${SUNDIALS_HOME}/lib)
-MARK_AS_ADVANCED(SUNDIALS_SUNMATRIXSPARSE_LIBRARY)
-
 IF(NICSLU_FOUND)
+  # Searching for sundials sunmatrixsparse
+  FIND_LIBRARY(SUNDIALS_SUNMATRIXSPARSE_LIBRARY NAME sundials_sunmatrixsparse libsundials_sunmatrixsparse HINTS ${SUNDIALS_HOME}/lib)
+  MARK_AS_ADVANCED(SUNDIALS_SUNMATRIXSPARSE_LIBRARY)
+
   # Searching for sundials sunlinsolnicslu
   FIND_LIBRARY(SUNDIALS_SUNLINSOLNICSLU_LIBRARY NAME sundials_sunlinsolnicslu libsundials_sunlinsolnicslu HINTS ${SUNDIALS_HOME}/lib)
   MARK_AS_ADVANCED(SUNDIALS_SUNLINSOLNICSLU_LIBRARY)
@@ -63,3 +63,88 @@ ENDIF()
 #  not provide it.  The older CMake also does not have CMAKE_CURRENT_LIST_DIR.)
 INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(Sundials "Found Sundials suite" SUNDIALS_IDA_LIBRARY SUNDIALS_KINSOL_LIBRARY SUNDIALS_NVECSERIAL_LIBRARY SUNDIALS_INCLUDE_DIR)
+
+if(Sundials_FOUND)
+  set(Sundials_INCLUDE_DIRS "${SUNDIALS_INCLUDE_DIR}")
+
+  if(NOT TARGET Sundials::Sundials_IDA)
+    add_library(Sundials::Sundials_IDA UNKNOWN IMPORTED)
+    if(Sundials_INCLUDE_DIRS)
+      set_target_properties(Sundials::Sundials_IDA PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${Sundials_INCLUDE_DIRS}")
+    endif()
+    if(EXISTS "${SUNDIALS_IDA_LIBRARY}")
+      set_target_properties(Sundials::Sundials_IDA PROPERTIES
+        IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+        IMPORTED_LOCATION "${SUNDIALS_IDA_LIBRARY}")
+    endif()
+  endif()
+
+  if(NOT TARGET Sundials::Sundials_KINSOL)
+    add_library(Sundials::Sundials_KINSOL UNKNOWN IMPORTED)
+    if(Sundials_INCLUDE_DIRS)
+      set_target_properties(Sundials::Sundials_KINSOL PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${Sundials_INCLUDE_DIRS}")
+    endif()
+    if(EXISTS "${SUNDIALS_KINSOL_LIBRARY}")
+      set_target_properties(Sundials::Sundials_KINSOL PROPERTIES
+        IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+        IMPORTED_LOCATION "${SUNDIALS_KINSOL_LIBRARY}")
+    endif()
+  endif()
+
+  if(NOT TARGET Sundials::Sundials_NVECSERIAL)
+    add_library(Sundials::Sundials_NVECSERIAL UNKNOWN IMPORTED)
+    if(Sundials_INCLUDE_DIRS)
+      set_target_properties(Sundials::Sundials_NVECSERIAL PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${Sundials_INCLUDE_DIRS}")
+    endif()
+    if(EXISTS "${SUNDIALS_NVECSERIAL_LIBRARY}")
+      set_target_properties(Sundials::Sundials_NVECSERIAL PROPERTIES
+        IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+        IMPORTED_LOCATION "${SUNDIALS_NVECSERIAL_LIBRARY}")
+    endif()
+  endif()
+
+  if(NOT TARGET Sundials::Sundials_SUNLINSOLKLU)
+    add_library(Sundials::Sundials_SUNLINSOLKLU UNKNOWN IMPORTED)
+    if(Sundials_INCLUDE_DIRS)
+      set_target_properties(Sundials::Sundials_SUNLINSOLKLU PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${Sundials_INCLUDE_DIRS}")
+    endif()
+    if(EXISTS "${SUNDIALS_SUNLINSOLKLU_LIBRARY}")
+      set_target_properties(Sundials::Sundials_SUNLINSOLKLU PROPERTIES
+        IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+        IMPORTED_LOCATION "${SUNDIALS_SUNLINSOLKLU_LIBRARY}")
+    endif()
+  endif()
+
+  IF(NICSLU_FOUND)
+    if(NOT TARGET Sundials::Sundials_SUNLINSOLNICSLU)
+      add_library(Sundials::Sundials_SUNLINSOLNICSLU UNKNOWN IMPORTED)
+      if(Sundials_INCLUDE_DIRS)
+        set_target_properties(Sundials::Sundials_SUNLINSOLNICSLU PROPERTIES
+          INTERFACE_INCLUDE_DIRECTORIES "${Sundials_INCLUDE_DIRS}")
+      endif()
+      if(EXISTS "${SUNDIALS_SUNLINSOLNICSLU_LIBRARY}")
+        set_target_properties(Sundials::Sundials_SUNLINSOLNICSLU PROPERTIES
+          IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+          IMPORTED_LOCATION "${SUNDIALS_SUNLINSOLNICSLU_LIBRARY}")
+      endif()
+    endif()
+
+    if(NOT TARGET Sundials::Sundials_SUNMATRIXSPARSE)
+      add_library(Sundials::Sundials_SUNMATRIXSPARSE UNKNOWN IMPORTED)
+      if(Sundials_INCLUDE_DIRS)
+        set_target_properties(Sundials::Sundials_SUNMATRIXSPARSE PROPERTIES
+          INTERFACE_INCLUDE_DIRECTORIES "${Sundials_INCLUDE_DIRS}")
+      endif()
+      if(EXISTS "${SUNDIALS_SUNMATRIXSPARSE_LIBRARY}")
+        set_target_properties(Sundials::Sundials_SUNMATRIXSPARSE PROPERTIES
+          IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+          IMPORTED_LOCATION "${SUNDIALS_SUNMATRIXSPARSE_LIBRARY}")
+      endif()
+    endif()
+  endif()
+
+endif()

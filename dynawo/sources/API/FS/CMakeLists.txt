@@ -13,11 +13,11 @@ SET(API_FS_VERSION_STRING ${DYNAWO_VERSION_STRING})
 SET(API_FS_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 SET(API_FS_SHARED
-  xsd/finalStateInput.xsd
-  xsd/finalStateOutput.xsd
-  )
+    xsd/finalStateInput.xsd
+    xsd/finalStateOutput.xsd
+    )
 
-INSTALL(FILES ${API_FS_SHARED} DESTINATION ${sharedir}/xsd/)
+INSTALL(FILES ${API_FS_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
 SET(API_FS_SOURCES
     FSFinalStateCollectionImpl.cpp
@@ -40,7 +40,6 @@ SET(API_FS_INCLUDE_HEADERS
     FSModelFactory.h
     FSVariable.h
     FSVariableFactory.h
-    FSExport.h
     FSImporter.h
     FSXmlExporter.h
     FSIterators.h
@@ -48,22 +47,22 @@ SET(API_FS_INCLUDE_HEADERS
     FSXmlImporter.h
     )
 
-INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
-                    ${LibXML_INCLUDE_DIR}
-                    )
-
-INCLUDE_DIRECTORIES(../../Common)
-
 ADD_LIBRARY(dynawo_API_FS ${LIBRARY_TYPE} ${API_FS_SOURCES})
 
+TARGET_INCLUDE_DIRECTORIES(dynawo_API_FS
+    INTERFACE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    )
 
 TARGET_LINK_LIBRARIES(dynawo_API_FS
-  XMLSAXFormatter${LibXML_LINK_SUFFIX}
-  XMLSAXParser${LibXML_LINK_SUFFIX}
-  dynawo_Common
-  )
-SET_TARGET_PROPERTIES(dynawo_API_FS PROPERTIES VERSION ${API_FS_VERSION_STRING}
-                                                  SOVERSION ${API_FS_VERSION_MAJOR})
+    XMLSAXFormatter${LibXML_LINK_SUFFIX}
+    XMLSAXParser${LibXML_LINK_SUFFIX}
+    dynawo_Common
+    )
 
-INSTALL(TARGETS dynawo_API_FS DESTINATION ${libdir})
-INSTALL(FILES ${API_FS_INCLUDE_HEADERS} DESTINATION ${includedir})
+SET_TARGET_PROPERTIES(dynawo_API_FS PROPERTIES VERSION ${API_FS_VERSION_STRING}
+                                             SOVERSION ${API_FS_VERSION_MAJOR})
+
+INSTALL(TARGETS dynawo_API_FS EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+INSTALL(FILES ${API_FS_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

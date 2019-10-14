@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class ModelTemplateExpansion;
 
@@ -34,7 +32,7 @@ class ModelTemplateExpansion;
  * ModelTemplateExpansionFactory encapsulate methods for creating new
  * @p ModelTemplateExpansion objects.
  */
-class __DYNAWO_DYD_EXPORT ModelTemplateExpansionFactory {
+class ModelTemplateExpansionFactory {
  public:
   /**
    * @brief Create new ModelTemplateExpansion instance

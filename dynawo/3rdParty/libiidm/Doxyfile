@@ -73,7 +73,7 @@ PROJECT_LOGO           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = core/includes/IIDM/Export.h \
+INPUT                  = \
   core/includes/IIDM/BasicTypes.h \
   core/includes/IIDM/cpp11.h \
   core/includes/IIDM/components/ConnectionPoint.h \

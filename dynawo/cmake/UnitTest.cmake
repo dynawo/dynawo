@@ -12,7 +12,7 @@ if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "Tests")
     message(WARNING "Unit tests should be launched with debug or tests configuration")
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -D_DEBUG_")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0")
 
 function(add_test test-target)

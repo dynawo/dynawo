@@ -22,15 +22,13 @@
 
 #include <string>
 
-#include "JOBExport.h"
-
 namespace job {
 
 /**
  * @class DynModelsEntry
  * @brief Dynamic models entries container class
  */
-class __DYNAWO_JOB_EXPORT DynModelsEntry {
+class DynModelsEntry {
  public:
   /**
    * @brief Destructor

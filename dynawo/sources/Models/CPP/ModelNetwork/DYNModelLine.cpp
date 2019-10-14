@@ -718,7 +718,7 @@ ModelLine::evalZ(const double& t) {
       z_[0] = OPEN;
   }
 
-  State currState = static_cast<State>(z_[0]);
+  State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnectionState()) {
     if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
       Trace::error() << DYNLog(UnableToCloseLine, id_) << Trace::endline;
@@ -834,7 +834,7 @@ ModelLine::evalZ(const double& t) {
                 throw DYNError(Error::MODELER, NoThirdSide, id_);
       }
     }
-    setConnectionState(static_cast<State>(z_[0]));
+    setConnectionState(static_cast<State>(static_cast<int>(z_[0])));
   }
 
   if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {

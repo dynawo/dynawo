@@ -16,6 +16,6 @@
 //  LIBZIP_VERSION / 100 % 1000 is the minor version
 //  LIBZIP_VERSION / 100000 is the major version
 
-#define LIBZIP_VERSION 100400
+#define LIBZIP_VERSION 100401
 
 #endif /* __ZIP_VERSION_H__ */

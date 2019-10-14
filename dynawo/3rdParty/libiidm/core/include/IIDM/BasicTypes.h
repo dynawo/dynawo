@@ -19,7 +19,6 @@
 #define LIBIIDM_GUARD_BASICTYPES_H
 
 #include <string>
-#include <IIDM/Export.h>
 
 /**
  * @brief the global namespace of libIIDM

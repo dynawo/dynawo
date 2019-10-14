@@ -38,7 +38,6 @@ add_library(iidm-ext-loaddetail-xml ${IIDM_EXT_LOADDETAIL_XML_SOURCES})
 target_include_directories(iidm-ext-loaddetail-xml
   PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibIIDM_INSTALL_INCLUDE}>
 )
 
 target_link_libraries(iidm-ext-loaddetail-xml
@@ -50,6 +49,7 @@ set_target_properties(iidm-ext-loaddetail-xml
   PROPERTIES
     VERSION ${IIDM_VERSION_STRING}
     SOVERSION ${IIDM_VERSION_MAJOR}
+    WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
 install(TARGETS iidm-ext-loaddetail-xml EXPORT iidm-ext-loaddetail-xml-config
@@ -120,7 +120,6 @@ if(BUILD_SAMPLES)
 
   target_include_directories(iidm-ext-loaddetail-xml-testing
     PUBLIC
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   )
 
@@ -133,6 +132,7 @@ if(BUILD_SAMPLES)
     PROPERTIES
       VERSION ${IIDM_VERSION_STRING}
       SOVERSION ${IIDM_VERSION_MAJOR}
+      WINDOWS_EXPORT_ALL_SYMBOLS TRUE
   )
 
   add_custom_command(TARGET iidm-ext-loaddetail-xml-testing PRE_BUILD

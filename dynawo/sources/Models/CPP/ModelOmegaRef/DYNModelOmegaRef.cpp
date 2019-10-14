@@ -93,7 +93,9 @@ int ModelOmegaRef::col1stOmegaRefGrp_;
  */
 ModelOmegaRef::ModelOmegaRef() :
 Impl("omegaRef"),
-firstState_(true) {
+firstState_(true),
+nbGen_(0),
+nbOmega_(0) {
 }
 
 /**

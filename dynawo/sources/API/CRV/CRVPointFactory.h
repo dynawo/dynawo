@@ -23,8 +23,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "CRVExport.h"
-
 namespace curves {
 class Point;
 
@@ -35,7 +33,7 @@ class Point;
  * PointFactory encapsulates methods for creating new
  * @p Point objects.
  */
-class __DYNAWO_CRV_EXPORT PointFactory {
+class PointFactory {
  public:
   /**
    * @brief Create new Point instance

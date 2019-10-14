@@ -94,8 +94,8 @@ TEST(DataInterfaceTest, testStateVariable) {
   ASSERT_THROW_DYNAWO(intVariable.getValue<double>(), Error::MODELER, KeyError_t::StateVariableBadCast);
   ASSERT_THROW_DYNAWO(intVariable.getValue<bool>(), Error::MODELER, KeyError_t::StateVariableBadCast);
 
-  ASSERT_NO_THROW(intVariable.setValue(2.5));
-  ASSERT_EQ(intVariable.getValue<int>(), 2);
+  ASSERT_THROW_DYNAWO(intVariable.setValue(2.5), Error::MODELER, KeyError_t::StateVariableWrongType);
+  ASSERT_EQ(intVariable.getValue<int>(), 1);
 
   intVariable.setModelId("ModelIntVariable");
   intVariable.setVariableId("variableIntVariable");
@@ -168,7 +168,7 @@ TEST(DataInterfaceTest, testStateVariable) {
   ASSERT_EQ(var3.getType(), StateVariable::INT);
   ASSERT_EQ(var3.getName(), "intVariable");
   ASSERT_EQ(var3.valueAffected(), true);
-  ASSERT_EQ(var3.getValue<int>(), 2);
+  ASSERT_EQ(var3.getValue<int>(), 1);
   ASSERT_EQ(var3.getModelId(), "ModelIntVariable");
   ASSERT_EQ(var3.getVariableId(), "variableIntVariable");
   ASSERT_EQ(var3.getVariable(), variableForInt);

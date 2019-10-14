@@ -22,7 +22,7 @@
 #include <iosfwd>
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11_type_traits.h>
 
 #include <IIDM/BasicTypes.h>
@@ -60,7 +60,7 @@ class VoltageLevelBuilder;
  * A voltage level is either bus or node oriented.
  * in node mode, nodes are in the [0, node_count) range
  */
-class IIDM_EXPORT VoltageLevel:
+class VoltageLevel:
   public Identifiable,
   public ContainedIn<Substation>,
   public Contains<Bus>,

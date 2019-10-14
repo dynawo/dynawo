@@ -39,7 +39,7 @@ using namespace IIDM::extensions::activeseason::xml;
 
 int main(int argc, char** argv) {
   //creating the network
-  SubstationBuilder substation_builder = SubstationBuilder().country("FR").tso("RTE");
+  SubstationBuilder substation_builder = SubstationBuilder().country("FR").tso(std::string("RTE"));
   VoltageLevelBuilder bus_voltagelevel_builder = VoltageLevelBuilder().mode(VoltageLevel::bus_breaker).nominalV(50);
   BusBuilder bus_builder = BusBuilder().v(0).angle(10);
   LoadBuilder load_builder = LoadBuilder().p0(0).q0(0).p(0).q(0).p(2);

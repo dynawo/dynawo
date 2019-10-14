@@ -13,7 +13,7 @@
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="SMIB_StepPm">
-      <dyn:solver lib="libdynawo_SolverIDA" parFile="solvers.par" parId="5"/>
+      <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="5"/>
       <dyn:modeler compileDir="outputs/compilation">
         <dyn:dynModels dydFile="SMIB.dyd"/>
         <dyn:precompiledModels useStandardModels="true"/>

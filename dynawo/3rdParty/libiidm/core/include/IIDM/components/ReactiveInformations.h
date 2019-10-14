@@ -20,11 +20,10 @@
 
 #include <vector>
 
-#include <IIDM/Export.h>
 
 namespace IIDM {
 
-class IIDM_EXPORT MinMaxReactiveLimits {
+class MinMaxReactiveLimits {
 public:
   MinMaxReactiveLimits(double min, double max): m_min(min), m_max(max) {}
 
@@ -35,7 +34,7 @@ private:
   double m_min, m_max;
 };
 
-class IIDM_EXPORT ReactiveCapabilityCurve {
+class ReactiveCapabilityCurve {
 public:
   struct point {
     double p, qmin, qmax;

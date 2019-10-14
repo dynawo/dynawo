@@ -25,6 +25,7 @@
 
 // files in API parameter
 #include "PARParametersSet.h"
+#include "PARParametersSetImpl.h"
 #include "PARParameter.h"
 #include "PARParametersSetFactory.h"
 #include "PARParametersSetCollection.h"
@@ -285,8 +286,9 @@ DynamicData::associateParameters() {
 
 shared_ptr<ParametersSet>
 DynamicData::getParametersSet(const string& modelId, const string& parFile, const string& parId) {
-  if (parFile == "" && parId == "")
+  if (parFile == "" && parId == "") {
     return shared_ptr<ParametersSet>();
+  }
   if (parFile != "" && parId == "") {
     DYNErrorQueue::get()->push(DYNError(Error::API, MissingParameterId, modelId));
     return shared_ptr<ParametersSet>();
@@ -307,7 +309,7 @@ DynamicData::getParametersSet(const string& modelId, const string& parFile, cons
     referenceParameters_[parFile] = parametersSetCollection;
     return parametersSetCollection->getParametersSet(parId);
   } catch (const xml::sax::parser::ParserException& exp) {
-    throw DYNError(Error::MODELER, XmlParsingError, parFile, exp.what());
+    throw DYNError(Error::MODELER, XmlFileParsingError, parFile, exp.what());
   }
 }
 

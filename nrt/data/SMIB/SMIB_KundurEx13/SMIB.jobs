@@ -13,7 +13,7 @@
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="SMIB_AVR_SetPoint">
-      <dyn:solver lib="libdynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+      <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
       <dyn:modeler compileDir="outputs_AVR_SetPoint/compilation">
         <dyn:dynModels dydFile="SMIB_AVR_SetPoint.dyd"/>
         <dyn:precompiledModels useStandardModels="true"/>
@@ -31,7 +31,7 @@
       </dyn:outputs>
   </dyn:job>
   <dyn:job name="SMIB_AVR_NoPSS">
-      <dyn:solver lib="libdynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+      <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
       <dyn:modeler compileDir="outputs_AVR_NoPSS/compilation">
         <dyn:dynModels dydFile="SMIB_AVR_NoPSS.dyd"/>
         <dyn:precompiledModels useStandardModels="true"/>
@@ -50,7 +50,7 @@
       </dyn:outputs>
   </dyn:job>
   <dyn:job name="SMIB_AVR_PSS">
-      <dyn:solver lib="libdynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+      <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
       <dyn:modeler compileDir="outputs_AVR_PSS/compilation">
         <dyn:dynModels dydFile="SMIB_AVR_PSS.dyd"/>
         <dyn:precompiledModels useStandardModels="true"/>

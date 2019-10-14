@@ -8,7 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(Functions)
+ADD_SUBDIRECTORY(Functions F)
 
 SET(MODEL_FILES
     # Generic automaton

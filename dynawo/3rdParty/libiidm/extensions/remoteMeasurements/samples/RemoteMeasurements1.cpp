@@ -40,7 +40,7 @@ using namespace IIDM::extensions::remotemeasurements::xml;
 
 int main(int argc, char** argv) {
   //creating the network
-  SubstationBuilder substation_builder = SubstationBuilder().country("FR").tso("RTE");
+  SubstationBuilder substation_builder = SubstationBuilder().country("FR").tso(std::string("RTE"));
   RemoteMeasurementsBuilder remotemeasurements_builder = RemoteMeasurementsBuilder();
 
   Network network = NetworkBuilder().sourceFormat("handcrafted").caseDate("2000-01-01T00:00:00").forecastDistance(0).build("network");

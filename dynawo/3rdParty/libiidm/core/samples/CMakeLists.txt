@@ -14,12 +14,6 @@ add_executable(sample0
 target_link_libraries(sample0
   iidm
 )
-target_include_directories(
-  sample0
-  PRIVATE ${Boost_INCLUDE_DIRS}
-  PRIVATE ${PROJECT_SOURCE_DIR}/core/includes
-)
-
 
 add_executable(sample1
   sample1.cpp
@@ -28,19 +22,10 @@ add_executable(sample1
 target_link_libraries(sample1
   iidm
 )
-target_include_directories(sample1
-  PRIVATE ${Boost_INCLUDE_DIR}
-  PRIVATE ${PROJECT_SOURCE_DIR}/core/includes
-)
-
 
 add_executable(sample_extensions
   sample_extensions.cpp
 )
 target_link_libraries(sample_extensions
   iidm
-)
-target_include_directories(sample_extensions
-  PRIVATE ${Boost_INCLUDE_DIR}
-  PRIVATE ${PROJECT_SOURCE_DIR}/core/includes
 )

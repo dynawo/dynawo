@@ -38,8 +38,9 @@ std::string prettyPath(const std::string & path);
  *
  * @param command command to execute
  * @param ss log from the executed command
+ * @param start_dir optional starting directory (current dir by default)
  */
-void executeCommand(const std::string & command, std::stringstream & ss);
+void executeCommand(const std::string & command, std::stringstream & ss, const std::string & start_dir = "");
 
 /**
  * @brief retrieve a given environment variable

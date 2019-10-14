@@ -442,7 +442,7 @@ ModelStaticVarCompensator::getY0() {
 
 NetworkComponent::StateChange_t
 ModelStaticVarCompensator::evalZ(const double& /*t*/) {
-  mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(z_[0]);
+  mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[0]));
 
   if (g_[0] == ROOT_UP && !isRunning_) {
     network_->addEvent(id_, DYNTimeline(SVarCRunning));
@@ -472,7 +472,7 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
     }
   }
 
-  State currState = static_cast<State>(z_[1]);
+  State currState = static_cast<State>(static_cast<int>(z_[1]));
   if (currState != getConnected()) {
     Trace::debug() << DYNLog(SVCStateChange, id_, getConnected(), z_[1]) << Trace::endline;
     if (currState == OPEN) {

@@ -41,15 +41,6 @@ SET(DATA_INTERFACE_SOURCES
     DYNHvdcLineInterfaceIIDM.cpp
     )
 
-INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
-                    ${LibIIDM_CORE_INCLUDE_DIR}
-                    ${LibIIDM_EXT_STANDBYAUTOMATON_INCLUDE_DIR}
-                    )
-
-INCLUDE_DIRECTORIES(../../Common
-                    ../Common
-                    )
-
 SET(DATA_INTERFACE_INCLUDE_HEADERS
     DYNDataInterface.h
     DYNDataInterfaceIIDM.h
@@ -57,20 +48,30 @@ SET(DATA_INTERFACE_INCLUDE_HEADERS
 
 ADD_LIBRARY(dynawo_DataInterface ${LIBRARY_TYPE} ${DATA_INTERFACE_SOURCES})
 
-TARGET_LINK_LIBRARIES(dynawo_DataInterface
-                      dynawo_Common
-                      dynawo_ModelerCommon
-                      iidm
-                      iidm-ext-standbyautomaton
-                   )
+TARGET_INCLUDE_DIRECTORIES(dynawo_DataInterface
+    INTERFACE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    )
 
-IF(LIBRARY_TYPE STREQUAL "SHARED")
-  TARGET_LINK_LIBRARIES(dynawo_DataInterface dynawo_Util)
-ENDIF()
+TARGET_LINK_LIBRARIES(dynawo_DataInterface
+    dynawo_ModelerCommon
+    iidm-ext-activeseason-xml
+    iidm-ext-busbarsectionposition-xml
+    iidm-ext-connectableposition-xml
+    iidm-ext-currentlimitsperseason-xml
+    iidm-ext-generatoractivepowercontrol-xml
+    iidm-ext-generatorentsoecategory-xml
+    iidm-ext-generatorstartup-xml
+    iidm-ext-hvdcangledroopactivepowercontrol-xml
+    iidm-ext-hvdcoperatoractivepowerrange-xml
+    iidm-ext-loaddetail-xml
+    iidm-ext-standbyautomaton-xml
+    )
 
 
 SET_TARGET_PROPERTIES(dynawo_DataInterface PROPERTIES VERSION ${DATA_INTERFACE_VERSION_STRING}
-                                               SOVERSION ${DATA_INTERFACE_VERSION_MAJOR})
+                                                    SOVERSION ${DATA_INTERFACE_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_DataInterface DESTINATION ${libdir})
-INSTALL(FILES ${DATA_INTERFACE_INCLUDE_HEADERS} DESTINATION ${includedir})
+INSTALL(TARGETS dynawo_DataInterface EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+INSTALL(FILES ${DATA_INTERFACE_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

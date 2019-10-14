@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 
 class connector_const_iterator;
@@ -48,7 +46,7 @@ class Model;
  * DynamicModelsCollection objects describe a set of dynamic models for
  * Dynawo that can be blackbox models or Modelica models
  */
-class __DYNAWO_DYD_EXPORT DynamicModelsCollection {
+class DynamicModelsCollection {
  public:
   /**
    * @brief Destructor

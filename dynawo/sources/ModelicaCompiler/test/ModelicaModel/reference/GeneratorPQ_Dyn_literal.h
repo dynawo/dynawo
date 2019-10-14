@@ -1,6 +1,6 @@
 
-#ifndef __fill_model_name____Dyn_Literals_h
-#define __fill_model_name____Dyn_Literals_h
+#ifndef GeneratorPQ__Dyn_Literals_h
+#define GeneratorPQ__Dyn_Literals_h
 
 namespace DYN {
 const std::string _OMC_LIT0 =  "'p" ;

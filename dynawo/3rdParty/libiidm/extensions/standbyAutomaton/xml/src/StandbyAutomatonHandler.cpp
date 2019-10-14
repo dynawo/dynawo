@@ -34,9 +34,12 @@ std::string StandbyAutomatonHandler::xsd_path() {
   return xsdPath + std::string("standbyAutomaton.xsd");
 }
 
-StandbyAutomatonHandler::elementName_type const StandbyAutomatonHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/standby_automaton/1_0"), "standbyAutomaton"
-);
+StandbyAutomatonHandler::elementName_type const& StandbyAutomatonHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/standby_automaton/1_0"), "standbyAutomaton"
+  );
+  return root;
+}
 
 StandbyAutomaton* StandbyAutomatonHandler::do_make() {
   return StandbyAutomatonBuilder()

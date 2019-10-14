@@ -51,7 +51,7 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
 
 TEST(ModelicaCompilerTestSuite, TestPackageOption) {
   std::string varExtCommand = "../compileModelicaModel --model Test --lib Test" + std::string(sharedLibraryExtension()) +
-          " --input-dir . --output-dir compilation --package-name Test";
+          " --model-dir . --compilation-dir compilation --package-name Test";
 
   remove_all_in_directory("compilation");
   boost::filesystem::path fspath("compilation");
@@ -59,7 +59,7 @@ TEST(ModelicaCompilerTestSuite, TestPackageOption) {
   std::stringstream ssCompileModelicaModel;
   executeCommand(varExtCommand, ssCompileModelicaModel);
   std::cout << ssCompileModelicaModel.str() << std::endl;
-  ASSERT_EQ(boost::filesystem::exists("compilation/Test" + std::string(sharedLibraryExtension())), true);
+  ASSERT_EQ(boost::filesystem::exists("Test" + std::string(sharedLibraryExtension())), true);
 }
 
 }  // namespace DYN

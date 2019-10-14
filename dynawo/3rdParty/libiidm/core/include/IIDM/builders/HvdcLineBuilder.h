@@ -20,7 +20,6 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/IdentifiableBuilder.h>
 
@@ -33,7 +32,7 @@ namespace builders {
  * @class LineBuilder
  * @brief IIDM::Line builder
  */
-class IIDM_EXPORT HvdcLineBuilder: public IdentifiableBuilder<IIDM::HvdcLine, HvdcLineBuilder> {
+class HvdcLineBuilder: public IdentifiableBuilder<IIDM::HvdcLine, HvdcLineBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(HvdcLineBuilder, double, r)
   MACRO_IIDM_BUILDER_PROPERTY(HvdcLineBuilder, double, nominalV)
   MACRO_IIDM_BUILDER_PROPERTY(HvdcLineBuilder, double, activePowerSetpoint)

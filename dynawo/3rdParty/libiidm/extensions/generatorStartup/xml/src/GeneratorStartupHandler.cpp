@@ -34,9 +34,12 @@ std::string GeneratorStartupHandler::xsd_path() {
   return xsdPath + std::string("generatorStartup.xsd");
 }
 
-GeneratorStartupHandler::elementName_type const GeneratorStartupHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/generator_startup/1_0"), "startup"
-);
+GeneratorStartupHandler::elementName_type const& GeneratorStartupHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/generator_startup/1_0"), "startup"
+  );
+  return root;
+}
 
 GeneratorStartup* GeneratorStartupHandler::do_make() {
   return GeneratorStartupBuilder()

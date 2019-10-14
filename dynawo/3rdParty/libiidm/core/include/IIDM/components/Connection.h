@@ -20,7 +20,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/BasicTypes.h>
 
 #include <IIDM/components/ConnectionPoint.h>
@@ -33,7 +33,7 @@ namespace IIDM {
  * Includes a potential voltage level id
  * This class is copiable because it is immuable
  */
-class IIDM_EXPORT Connection {
+class Connection {
 public:
   ///constructs a connection
   Connection(Port const&, side_id);
@@ -128,39 +128,39 @@ private:
 };
 
 ///creates a connection
-inline IIDM_EXPORT Connection at(Port const& port, side_id s = side_1) {
+inline Connection at(Port const& port, side_id s = side_1) {
   return Connection(port, s);
 }
 
 ///creates a connection
-inline IIDM_EXPORT Connection at(id_type const& bus, connection_status_t status, side_id s = side_1) {
+inline Connection at(id_type const& bus, connection_status_t status, side_id s = side_1) {
   return Connection(Port(bus, status), s);
 }
 
 ///creates a connection
-inline IIDM_EXPORT Connection at(node_type const& node, side_id s = side_1) {
+inline Connection at(node_type const& node, side_id s = side_1) {
   return Connection(Port(node), s);
 }
 
 
 ///creates a full connection
-inline IIDM_EXPORT Connection at(id_type const& voltageLevel, Port const& port, side_id s = side_1) {
+inline Connection at(id_type const& voltageLevel, Port const& port, side_id s = side_1) {
   return Connection(voltageLevel, port, s);
 }
 
 ///creates a full connection
-inline IIDM_EXPORT Connection at(id_type const& voltageLevel, id_type const& bus, connection_status_t status, side_id s = side_1) {
+inline Connection at(id_type const& voltageLevel, id_type const& bus, connection_status_t status, side_id s = side_1) {
   return Connection(voltageLevel, Port(bus, status), s);
 }
 
 ///creates a full connection
-inline IIDM_EXPORT Connection at(id_type const& voltageLevel, node_type const& node, side_id s = side_1) {
+inline Connection at(id_type const& voltageLevel, node_type const& node, side_id s = side_1) {
   return Connection(voltageLevel, Port(node), s);
 }
 
 
 ///creates a full connection from a connection point (voltagelevel and port), a status and an optional side
-inline IIDM_EXPORT Connection at(ConnectionPoint const& cp, side_id s = side_1) {
+inline Connection at(ConnectionPoint const& cp, side_id s = side_1) {
   return Connection(cp, s);
 }
 

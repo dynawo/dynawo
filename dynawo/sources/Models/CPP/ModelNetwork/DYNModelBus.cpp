@@ -617,7 +617,7 @@ ModelBus::evalZ(const double& /*t*/) {
     stateUmin_ = false;
   }
 
-  State currState = static_cast<State>(z_[connectionStateNum_]);
+  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != connectionState_) {
     topologyModified_ = true;
     if (currState == OPEN) {
@@ -631,7 +631,7 @@ ModelBus::evalZ(const double& /*t*/) {
       switchOn();
       network_->addEvent(id_, DYNTimeline(NodeOn));
     }
-    connectionState_ = static_cast<State>(z_[connectionStateNum_]);
+    connectionState_ = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   }
   return (topologyModified_)? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
 }

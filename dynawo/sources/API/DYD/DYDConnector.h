@@ -22,8 +22,6 @@
 
 #include <string>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 
 class Model;
@@ -34,7 +32,7 @@ class Model;
  *
  * Connector objects describe a dynamic connection between two models
  */
-class __DYNAWO_DYD_EXPORT Connector {
+class Connector {
  public:
   /**
    * @brief Destructor

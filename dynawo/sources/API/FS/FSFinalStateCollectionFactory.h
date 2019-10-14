@@ -22,12 +22,10 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "FSExport.h"
-
 namespace finalState {
 class FinalStateCollection;
 
-class __DYNAWO_FS_EXPORT FinalStateCollectionFactory {
+class FinalStateCollectionFactory {
  public:
   /**
    * @brief create a new instance of final stat collection

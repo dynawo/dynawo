@@ -38,7 +38,6 @@ add_library(iidm-ext-activeseason-xml ${IIDM_EXT_ACTIVESEASON_XML_SOURCES})
 target_include_directories(iidm-ext-activeseason-xml
   PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibIIDM_INSTALL_INCLUDE}>
 )
 
 target_link_libraries(iidm-ext-activeseason-xml
@@ -50,6 +49,7 @@ set_target_properties(iidm-ext-activeseason-xml
   PROPERTIES
     VERSION ${IIDM_VERSION_STRING}
     SOVERSION ${IIDM_VERSION_MAJOR}
+    WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
 install(TARGETS iidm-ext-activeseason-xml EXPORT iidm-ext-activeseason-xml-config
@@ -120,12 +120,11 @@ if(BUILD_SAMPLES)
 
   target_include_directories(iidm-ext-activeseason-xml-testing
     PUBLIC
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   )
 
   target_link_libraries(iidm-ext-activeseason-xml-testing
-    iidm-ext-activeseason
+    iidm-ext-activeseason-xml
     iidm-xml-testing
   )
 
@@ -133,6 +132,7 @@ if(BUILD_SAMPLES)
     PROPERTIES
       VERSION ${IIDM_VERSION_STRING}
       SOVERSION ${IIDM_VERSION_MAJOR}
+      WINDOWS_EXPORT_ALL_SYMBOLS TRUE
   )
 
   add_custom_command(TARGET iidm-ext-activeseason-xml-testing PRE_BUILD

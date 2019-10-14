@@ -22,7 +22,6 @@
 
 #include <string>
 #include <boost/shared_ptr.hpp>
-#include "CRVExport.h"
 
 namespace curves {
 class CurvesCollection;
@@ -33,7 +32,7 @@ class CurvesCollection;
  *
  * Exporter class for curves
  */
-class __DYNAWO_CRV_EXPORT Exporter {
+class Exporter {
  public:
   /**
    * @brief Destructor

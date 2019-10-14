@@ -23,8 +23,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "CRVExport.h"
-
 namespace curves {
 class Curve;
 
@@ -35,7 +33,7 @@ class Curve;
  * CurveFactory encapsulates methods for creating new
  * @p Curve objects.
  */
-class __DYNAWO_CRV_EXPORT CurveFactory {
+class CurveFactory {
  public:
   /**
    * @brief Create new Curve instance

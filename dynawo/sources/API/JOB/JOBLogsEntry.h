@@ -23,8 +23,6 @@
 #include <string>
 #include <vector>
 
-#include "JOBExport.h"
-
 namespace job {
 class AppenderEntry;
 
@@ -32,7 +30,7 @@ class AppenderEntry;
  * @class LogsEntry
  * @brief Logs entries container class
  */
-class __DYNAWO_JOB_EXPORT LogsEntry {
+class LogsEntry {
  public:
   /**
    * @brief Destructor

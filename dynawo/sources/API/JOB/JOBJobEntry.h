@@ -24,8 +24,6 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
-#include "JOBExport.h"
-
 namespace job {
 class ModelerEntry;
 class SolverEntry;
@@ -37,7 +35,7 @@ class OutputsEntry;
  * @class JobEntry
  * @brief Job entries container class
  */
-class __DYNAWO_JOB_EXPORT JobEntry {
+class JobEntry {
  public:
   /**
    * @brief Destructor

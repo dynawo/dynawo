@@ -37,7 +37,6 @@ add_library(iidm-ext-standbyautomaton-xml ${IIDM_EXT_STANDBYAUTOMATON_XML_SOURCE
 
 target_include_directories(iidm-ext-standbyautomaton-xml
   PUBLIC
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${LibIIDM_INSTALL_INCLUDE}>
 )
 
@@ -50,6 +49,7 @@ set_target_properties(iidm-ext-standbyautomaton-xml
   PROPERTIES
     VERSION ${IIDM_VERSION_STRING}
     SOVERSION ${IIDM_VERSION_MAJOR}
+    WINDOWS_EXPORT_ALL_SYMBOLS TRUE
 )
 
 install(TARGETS iidm-ext-standbyautomaton-xml EXPORT iidm-ext-standbyautomaton-xml-config
@@ -120,7 +120,6 @@ if(BUILD_SAMPLES)
 
   target_include_directories(iidm-ext-standbyautomaton-xml-testing
     PUBLIC
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   )
 
@@ -133,6 +132,7 @@ if(BUILD_SAMPLES)
     PROPERTIES
       VERSION ${IIDM_VERSION_STRING}
       SOVERSION ${IIDM_VERSION_MAJOR}
+      WINDOWS_EXPORT_ALL_SYMBOLS TRUE
   )
 
   add_custom_command(TARGET iidm-ext-standbyautomaton-xml-testing PRE_BUILD

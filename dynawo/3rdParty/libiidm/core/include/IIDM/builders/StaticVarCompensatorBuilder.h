@@ -20,7 +20,6 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/InjectionBuilder.h>
 
@@ -34,7 +33,7 @@ namespace builders {
  * @class StaticVarCompensatorBuilder
  * @brief IIDM::StaticVarCompensator builder
  */
-class IIDM_EXPORT StaticVarCompensatorBuilder: public InjectionBuilder<IIDM::StaticVarCompensator, StaticVarCompensatorBuilder> {
+class StaticVarCompensatorBuilder: public InjectionBuilder<IIDM::StaticVarCompensator, StaticVarCompensatorBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(StaticVarCompensatorBuilder, builded_type::e_regulation_mode, regulationMode)
   MACRO_IIDM_BUILDER_PROPERTY(StaticVarCompensatorBuilder, double, bmin)
   MACRO_IIDM_BUILDER_PROPERTY(StaticVarCompensatorBuilder, double, bmax)

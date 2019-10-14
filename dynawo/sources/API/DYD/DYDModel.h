@@ -26,8 +26,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class staticRef_const_iterator;
 class staticRef_iterator;
@@ -43,7 +41,7 @@ class MacroStaticRef;
  *
  * Model is a virtual base class for all model types
  */
-class __DYNAWO_DYD_EXPORT Model {
+class Model {
  public:
   /**
    * @brief Available model types enum

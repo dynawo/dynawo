@@ -20,7 +20,6 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/IdentifiableBuilder.h>
 #include <IIDM/components/VoltageLevel.h>
@@ -32,7 +31,7 @@ namespace builders {
  * @class VoltageLevelBuilder
  * @brief IIDM::VoltageLevel builder
  */
-class IIDM_EXPORT VoltageLevelBuilder: public IdentifiableBuilder<IIDM::VoltageLevel, VoltageLevelBuilder> {
+class VoltageLevelBuilder: public IdentifiableBuilder<IIDM::VoltageLevel, VoltageLevelBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(VoltageLevelBuilder, builded_type::e_mode, mode)
   MACRO_IIDM_BUILDER_PROPERTY(VoltageLevelBuilder, double, nominalV)
   MACRO_IIDM_BUILDER_PROPERTY(VoltageLevelBuilder, node_type, node_count)

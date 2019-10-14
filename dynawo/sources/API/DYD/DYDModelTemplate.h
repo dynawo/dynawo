@@ -25,7 +25,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
 #include "DYDModel.h"
 
 
@@ -40,7 +39,7 @@ class MacroConnect;
  * @brief Model template interface class
  *
  */
-class __DYNAWO_DYD_EXPORT ModelTemplate : public Model {
+class ModelTemplate : public Model {
  public:
   /**
    * @brief Destructor

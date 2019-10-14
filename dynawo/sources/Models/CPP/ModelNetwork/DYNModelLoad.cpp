@@ -700,7 +700,7 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
 
 NetworkComponent::StateChange_t
 ModelLoad::evalZ(const double& /*t*/) {
-  State currState = static_cast<State>(z_[0]);
+  State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != getConnected()) {
     Trace::debug() << DYNLog(LoadStateChange, id_, getConnected(), z_[0]) << Trace::endline;
     if (currState == OPEN) {

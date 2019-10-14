@@ -34,9 +34,12 @@ std::string HvdcOperatorActivePowerRangeHandler::xsd_path() {
   return xsdPath + std::string("hvdcOperatorActivePowerRange.xsd");
 }
 
-HvdcOperatorActivePowerRangeHandler::elementName_type const HvdcOperatorActivePowerRangeHandler::root(
+HvdcOperatorActivePowerRangeHandler::elementName_type const& HvdcOperatorActivePowerRangeHandler::root() {
+    static elementName_type const root(
         parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/hvdc_operator_active_power_range/1_0"), "hvdcOperatorActivePowerRange"
-);
+    );
+    return root;
+}
 
 HvdcOperatorActivePowerRange* HvdcOperatorActivePowerRangeHandler::do_make() {
     return HvdcOperatorActivePowerRangeBuilder()

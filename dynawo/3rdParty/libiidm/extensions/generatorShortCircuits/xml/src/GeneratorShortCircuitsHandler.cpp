@@ -34,9 +34,12 @@ std::string GeneratorShortCircuitsHandler::xsd_path() {
   return xsdPath + std::string("generatorShortCircuits.xsd");
 }
 
-GeneratorShortCircuitsHandler::elementName_type const GeneratorShortCircuitsHandler::root(
-  parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/generator_short_circuits/1_0"), "generatorShortCircuits"
-);
+GeneratorShortCircuitsHandler::elementName_type const& GeneratorShortCircuitsHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/generator_short_circuits/1_0"), "generatorShortCircuits"
+  );
+  return root;
+}
 
 GeneratorShortCircuits* GeneratorShortCircuitsHandler::do_make() {
   return GeneratorShortCircuitsBuilder()

@@ -23,7 +23,6 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
-#include "JOBExport.h"
 #include "DYNFileSystemUtils.h"
 
 namespace job {
@@ -36,7 +35,7 @@ class ModelsDirEntry;
  * @class ModelerEntry
  * @brief Modeler entries container class
  */
-class __DYNAWO_JOB_EXPORT ModelerEntry {
+class ModelerEntry {
  public:
   /**
    * @brief Destructor

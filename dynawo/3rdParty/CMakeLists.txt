@@ -88,7 +88,7 @@ set(zlib_name            zlib-${zlib_version}.tar.gz)
 set(zlib_url             https://sourceforge.net/projects/libpng/files/zlib/${zlib_version}/${zlib_name})
 set(zlib_md5             1C9F62F0778697A09D36121EAD88E08E)
 
-if(MSVC)
+if(MSVC OR APPLE)
   set(boost_version        1.70.0)
   set(boost_md5            fea771fe8176828fabf9c09242ee8c26)
 else()
@@ -141,10 +141,10 @@ set(openmodelica_version 1.13.2)
 set(openmodelica_git     https://github.com/OpenModelica/OpenModelica.git )
 set(openmodelica_tag     v${openmodelica_version})
 
-set(modelicalib_version  3.2.2)
+set(modelicalib_version  3.2.3)
 set(modelicalib_name     ModelicaStandardLibrary-${modelicalib_version}.tar.gz)
 set(modelicalib_url      https://github.com/modelica/ModelicaStandardLibrary/archive/v${modelicalib_version}.tar.gz)
-set(modelicalib_md5      74B340521C8518BBF318A834ECC218A1)
+set(modelicalib_md5      3ccc266305a0eeab365932688bce011f)
 
 # Get patch command for a project
 # There may be a common patch and/or a patch for a specific compiler
@@ -158,7 +158,7 @@ function(GetPatchCommand projectName)
   set(commonPatchFile "${CMAKE_CURRENT_SOURCE_DIR}/${projectName}/patch/common/${projectName}.patch")
   if(EXISTS ${commonPatchFile})
     if (UNIX)
-      set(commonPatchCommand patch -p1 --batch -i ${commonPatchFile} 2> ${nullFile})
+      set(commonPatchCommand patch -p1 --batch -i ${commonPatchFile})
     else()
       set(commonPatchCommand git apply -p1 ${commonPatchFile} --reverse --check 2> ${nullFile} || git apply --ignore-whitespace --whitespace=nowarn -p1 ${commonPatchFile})
     endif()
@@ -166,17 +166,20 @@ function(GetPatchCommand projectName)
   set(compilerPatchFile "${CMAKE_CURRENT_SOURCE_DIR}/${projectName}/patch/${CMAKE_CXX_COMPILER_ID}/${projectName}.patch")
   if(EXISTS ${compilerPatchFile})
     if (UNIX)
-      set(compilerPatchCommand patch -p1 --batch -i ${compilerPatchFile} 2> ${nullFile})
+      set(compilerPatchCommand patch -p1 --batch -i ${compilerPatchFile})
     else()
       set(compilerPatchCommand git apply -p1 ${compilerPatchFile} --reverse --check 2> ${nullFile} || git apply --ignore-whitespace --whitespace=nowarn -p1 ${compilerPatchFile})
     endif()
   endif()
-  if(NOT DEFINED commonPatchCommand)
-    set(${projectName}_patch ${compilerPatchCommand} PARENT_SCOPE)
-  elseif(NOT DEFINED compilerPatchCommand)
-    set(${projectName}_patch ${commonPatchCommand} PARENT_SCOPE)
+  if(DEFINED commonPatchCommand)
+    set(${projectName}_patch_common ${commonPatchCommand} PARENT_SCOPE)
   else()
-    set(${projectName}_patch (${commonPatchCommand} || ${CMAKE_COMMAND} -E echo_append) && (${compilerPatchCommand} || ${CMAKE_COMMAND} -E echo_append) PARENT_SCOPE)
+    set(${projectName}_patch_common ${CMAKE_COMMAND} -E echo No common patch. PARENT_SCOPE)
+  endif()
+  if(DEFINED compilerPatchCommand)
+    set(${projectName}_patch_compiler ${compilerPatchCommand} PARENT_SCOPE)
+  else()
+    set(${projectName}_patch_compiler ${CMAKE_COMMAND} -E echo No compiler patch. PARENT_SCOPE)
   endif()
 endfunction()
 
@@ -184,7 +187,7 @@ endfunction()
 find_package(PythonInterp REQUIRED)
 
 # Build system thirparties if not available
-if(LIBZIP_BUILD_TESTS OR LIBXML_BUILD_TESTS)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   # clear cache variables to force find
   unset(GTEST_INCLUDE_DIR CACHE)
   unset(GTEST_LIBRARY CACHE)
@@ -215,7 +218,7 @@ if(LIBZIP_BUILD_TESTS OR LIBXML_BUILD_TESTS)
       DOWNLOAD_NAME       ${googletest_name}
       URL                 ${googletest_url}
       URL_MD5             ${googletest_md5}
-      CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -Dgtest_force_shared_crt:BOOL=ON
+      CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS=ON -Dgtest_force_shared_crt:BOOL=ON -DCMAKE_MACOSX_RPATH=True -DCMAKE_SKIP_BUILD_RPATH=False -DCMAKE_BUILD_WITH_INSTALL_RPATH=False -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/googletest/lib -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
       )
     ExternalProject_Get_Property(googletest install_dir)
     set(GTEST_ROOT ${install_dir} CACHE PATH "Path to GoogleTest installation" FORCE)
@@ -269,7 +272,8 @@ else()
       STAMP_DIR           ${DOWNLOAD_DIR}/zlib-stamp
       SOURCE_DIR          ${DOWNLOAD_DIR}/zlib
       BINARY_DIR          ${DOWNLOAD_DIR}/zlib-build
-      PATCH_COMMAND       ${zlib_patch}
+      PATCH_COMMAND       ${zlib_patch_common}
+      COMMAND             ${zlib_patch_compiler}
       URL                 ${zlib_url}
       URL_MD5             ${zlib_md5}
       CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER} -DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-fPIC>
@@ -291,10 +295,17 @@ else()
     DOWNLOAD_NAME       ${libarchive_name}
     URL                 ${libarchive_url}
     URL_MD5             ${libarchive_md5}
-    PATCH_COMMAND       ${libarchive_patch}
+    PATCH_COMMAND       ${libarchive_patch_common}
+    COMMAND             ${libarchive_patch_compiler}
     CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER} "-DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-w -fPIC>"
-    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DZLIB_ROOT:PATH=${ZLIB_ROOT} -DBZIP2_INCLUDE_DIR= -DENABLE_TEST:BOOL=OFF -DENABLE_OPENSSL:BOOL=OFF -Wno-dev -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
+    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DZLIB_ROOT:PATH=${ZLIB_ROOT} -DENABLE_TEST:BOOL=OFF -DENABLE_OPENSSL:BOOL=OFF -Wno-dev -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY} -DENABLE_LIBXML2=OFF -DENABLE_EXPAT=OFF -DENABLE_BZip2=OFF -DENABLE_LZMA=OFF -DENABLE_ICONV=OFF -DCMAKE_MACOSX_RPATH=True -DCMAKE_SKIP_BUILD_RPATH=False -DCMAKE_BUILD_WITH_INSTALL_RPATH=False -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/libarchive/lib -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
     )
+  if(APPLE)
+    ExternalProject_Add_Step(libarchive install-macos
+      DEPENDEES install
+      COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/libarchive/rpath.sh ${CMAKE_INSTALL_PREFIX}/libarchive
+    )
+  endif()
   ExternalProject_Get_Property(libarchive install_dir)
   set(LIBARCHIVE_HOME ${install_dir} CACHE PATH "Path to LibArchive installation" FORCE)
 endif()
@@ -324,17 +335,23 @@ else()
     URL                 ${boost_url}
     URL_MD5             ${boost_md5}
     BUILD_IN_SOURCE     1
-    CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.$<IF:$<BOOL:${UNIX}>,sh,bat> --without-icu --with-libraries=filesystem,program_options,serialization,system,log,iostreams
-    BUILD_COMMAND       <SOURCE_DIR>/b2 -j${NUMBER_OF_PROCESSORS} -sNO_BZIP2=1 $<$<BOOL:${UNIX}>:cxxflags=-fPIC> install --prefix=<INSTALL_DIR> --disable-icu --with-filesystem --with-program_options --with-serialization --with-system --with-log --with-iostreams $<$<BOOL:${MSVC}>:architecture=x86> $<$<BOOL:${MSVC}>:address-model=64> variant=$<IF:$<CONFIG:Debug>,debug,release> link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static> runtime-link=$<IF:${MSVC},$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,static,shared>>,shared> stage
+    CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.$<IF:$<BOOL:${UNIX}>,sh,bat> $<IF:$<BOOL:CXX11_ENABLED>,cxxstd=11,> --without-icu --with-libraries=filesystem,program_options,serialization,system,log,iostreams
+    BUILD_COMMAND       <SOURCE_DIR>/b2 -j${NUMBER_OF_PROCESSORS} -sNO_BZIP2=1 $<$<BOOL:${UNIX}>:cxxflags=-fPIC> install --prefix=<INSTALL_DIR> --disable-icu $<$<BOOL:${MSVC}>:architecture=x86> $<$<BOOL:${MSVC}>:address-model=64> variant=$<IF:$<CONFIG:Debug>,debug,release> link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static> $<IF:$<BOOL:${APPLE}>,cxxflags=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET},> $<IF:$<BOOL:CXX11_ENABLED>,cxxflags=-std=c++11,>  runtime-link=$<IF:$<BOOL:${MSVC}>,$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,static,shared>>,shared> stage
     INSTALL_COMMAND     ""
     )
+  if(APPLE)
+    ExternalProject_Add_Step(boost install-macos
+      DEPENDEES install
+      COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/boost/rpath.sh ${CMAKE_INSTALL_PREFIX}/boost
+    )
+  endif()
   ExternalProject_Get_Property(boost install_dir)
   set(BOOST_ROOT ${install_dir} CACHE PATH "Path to Boost installation" FORCE)
 endif()
 
 # Build COTS thirdparties
 GetPatchCommand(adept)
-if(MSVC)
+if(MSVC OR APPLE)
   ExternalProject_Add(adept
     INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/adept
     DOWNLOAD_DIR        ${DOWNLOAD_DIR}
@@ -344,7 +361,8 @@ if(MSVC)
     BINARY_DIR          ${DOWNLOAD_DIR}/adept-build
     URL                 ${adept_url}
     URL_MD5             ${adept_md5}
-    PATCH_COMMAND       ${adept_patch}
+    PATCH_COMMAND       ${adept_patch_common}
+    COMMAND             ${adept_patch_compiler}
     CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCMAKE_CXX_FLAGS_INIT:STRING=${CXX_STDFLAG}
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
     )
@@ -357,7 +375,8 @@ else()
     SOURCE_DIR          ${DOWNLOAD_DIR}/adept
     URL                 ${adept_url}
     URL_MD5             ${adept_md5}
-    PATCH_COMMAND       ${adept_patch}
+    PATCH_COMMAND       ${adept_patch_common}
+    COMMAND             ${adept_patch_compiler}
     BUILD_IN_SOURCE     1
     CONFIGURE_COMMAND   <SOURCE_DIR>/configure "CXX=${CMAKE_CXX_COMPILER}" "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>" --prefix=<INSTALL_DIR> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared> --disable-openmp --without-blas --without-lapack
     )
@@ -375,7 +394,8 @@ ExternalProject_Add(suitesparse
   BINARY_DIR          ${DOWNLOAD_DIR}/suitesparse-build
   URL                 ${suitesparse_url}
   URL_MD5             ${suitesparse_md5}
-  PATCH_COMMAND       ${suitesparse_patch}
+  PATCH_COMMAND       ${suitesparse_patch_common}
+  COMMAND             ${suitesparse_patch_compiler}
   CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
   CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
   )
@@ -394,7 +414,8 @@ ExternalProject_Add(sundials
   TMP_DIR             ${TMP_DIR}
   URL                 ${sundials_url}
   URL_MD5             ${sundials_md5}
-  PATCH_COMMAND       ${sundials_patch}
+  PATCH_COMMAND       ${sundials_patch_common}
+  COMMAND             ${sundials_patch_compiler}
   # workaround on Linux: add -lm to check correctly that KLU is functional
   CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER} -DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-lm> -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
   CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DBUILD_STATIC_LIBS:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>> -DEXAMPLES_INSTALL:BOOL=OFF -DEXAMPLES_ENABLE_C:BOOL=OFF -DBUILD_CVODES:BOOL=OFF -DBUILD_CVODE:BOOL=OFF -DBUILD_ARKODE:BOOL=OFF -DBUILD_IDAS:BOOL=OFF -DKLU_ENABLE:BOOL=ON -DKLU_INCLUDE_DIR:PATH=${SUITESPARSE_HOME}/include -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
@@ -426,7 +447,8 @@ else()
       BINARY_DIR          ${DOWNLOAD_DIR}/xerces-c-build
       URL                 ${xercesc_url}
       URL_MD5             ${xercesc_md5}
-      PATCH_COMMAND       ${xercesc_patch}
+      PATCH_COMMAND       ${xercesc_patch_common}
+      COMMAND             ${xercesc_patch_compiler}
       CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER} -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCMAKE_CXX_FLAGS_INIT:STRING=/D_CRT_SECURE_NO_WARNINGS\ /D_CRT_NONSTDC_NO_DEPRECATE
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -Dnetwork:BOOL=OFF -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
       )
@@ -441,8 +463,14 @@ else()
       URL                 ${xercesc_url}
       URL_MD5             ${xercesc_md5}
       BUILD_IN_SOURCE     1
-      CONFIGURE_COMMAND   <SOURCE_DIR>/configure "CC=${CMAKE_C_COMPILER}" "CXX=${CMAKE_CXX_COMPILER}" "CXXFLAGS=${CXX_STDFLAG} $<$<CONFIG:Debug>:-O0>" --prefix=<INSTALL_DIR> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared> --disable-network --without-icu $<IF:$<BOOL:CXX11_ENABLED>,,--disable-xmlch-char16_t>
+      CONFIGURE_COMMAND   <SOURCE_DIR>/configure "CC=${CMAKE_C_COMPILER}" "CXX=${CMAKE_CXX_COMPILER}" "CXXFLAGS=${CXX_STDFLAG} $<$<CONFIG:Debug>:-O0>" --prefix=<INSTALL_DIR> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared> --disable-network --without-icu $<IF:$<BOOL:CXX11_ENABLED>,,--disable-xmlch-char16_t> --disable-transcoder-macosunicodeconverter
       )
+    if(APPLE)
+      ExternalProject_Add_Step(xercesc install-macos
+        DEPENDEES install
+        COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/xercesc/rpath.sh ${CMAKE_INSTALL_PREFIX}/xerces-c
+      )
+    endif()
   endif()
   ExternalProject_Get_Property(xercesc install_dir)
   set(XERCESC_HOME ${install_dir} CACHE PATH "Path to XercesC installation" FORCE)
@@ -460,7 +488,8 @@ if(MSVC)
     DOWNLOAD_NAME       ${dlfcnwin32_name}
     URL                 ${dlfcnwin32_url}
     URL_MD5             ${dlfcnwin32_md5}
-    PATCH_COMMAND       ${dlfcnwin32_patch}
+    PATCH_COMMAND       ${dlfcnwin32_patch_common}
+    COMMAND             ${dlfcnwin32_patch_compiler}
     CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
     CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
     )
@@ -512,7 +541,8 @@ if(NOT OMCompiler)
       GIT_SUBMODULES      common;libraries;OMCompiler
       GIT_SHALLOW         1
       UPDATE_DISCONNECTED 1
-      PATCH_COMMAND       ${openmodelica_patch}
+      PATCH_COMMAND       ${openmodelica_patch_common}
+      COMMAND             ${openmodelica_patch_compiler}
       BUILD_IN_SOURCE     1
       # the first call to bash initialize the login profile: at this step, errors like permission denied can be ignored !
       CONFIGURE_COMMAND   ${CMAKE_COMMAND} -E env "OMDEV=${OMDEV_HOME}" ${OMDEV_HOME}/SETUP_OMDEV.bat && ${OMDEV_HOME}/tools/msys/usr/bin/bash.exe --login -c exit
@@ -534,7 +564,8 @@ if(NOT OMCompiler)
       GIT_SUBMODULES      common;libraries;OMCompiler
       GIT_SHALLOW         1
       UPDATE_DISCONNECTED 1
-      PATCH_COMMAND       ${openmodelica_patch}
+      PATCH_COMMAND       ${openmodelica_patch_common}
+      COMMAND             ${openmodelica_patch_compiler}
       BUILD_IN_SOURCE     1
       CONFIGURE_COMMAND   autoreconf
                 COMMAND   <SOURCE_DIR>/configure "CC=${CMAKE_C_COMPILER}" "CXX=${CMAKE_CXX_COMPILER}" --prefix=<INSTALL_DIR> --disable-modelica3d --disable-omnotebook --disable-omshell-terminal --with-qwt=NO
@@ -608,7 +639,7 @@ ExternalProject_Add(libiidm
     DOWNLOAD_COMMAND    ""
     SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libiidm
     CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
-    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DIIDM_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DBUILD_XML:BOOL=ON -DBUILD_SAMPLES:BOOL=$<BOOL:${LIBIIDM_BUILD_SAMPLES}> -DCMAKE_PREFIX_PATH:PATH=${LIBXML_HOME} -DBOOST_ROOT:PATH=${BOOST_ROOT} -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
+    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DIIDM_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DBUILD_XML:BOOL=ON -DBUILD_SAMPLES:BOOL=$<BOOL:${LIBIIDM_BUILD_SAMPLES}> -DCMAKE_PREFIX_PATH:PATH=${LIBXML_HOME} -DXERCESC_HOME:PATH=${XERCESC_HOME} -DBOOST_ROOT:PATH=${BOOST_ROOT} -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
     )
 ExternalProject_Get_Property(libiidm install_dir)
 set(LIBIIDM_HOME ${install_dir})

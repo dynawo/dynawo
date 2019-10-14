@@ -9,40 +9,52 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 SET(MODELICA_SOURCES
-    ModelicaFFT.cpp
-    ModelicaRandom.cpp
-    ModelicaInternal.cpp
-    ModelicaStandardTables.cpp
-    ModelicaIO.cpp
-    ModelicaStrings.cpp
-    ModelicaMatIO.cpp
     DYNModelicaUtilities.cpp
+    ModelicaFFT.c
+    ModelicaInternal.c
+    ModelicaRandom.c
+    ModelicaStrings.c
+    ModelicaIO.c
+    ModelicaMatIO.c
+    snprintf.c
+    ModelicaStandardTables.c
+    ModelicaStandardTablesUsertab.c
     )
 
 SET(MODELICA_INCLUDE_HEADERS
-   gconstructor.h
-   ModelicaFFT.h
-   ModelicaRandom.h
-   ModelicaInternal.h
-   ModelicaStandardTables.h
-   ModelicaIO.h
-   ModelicaStrings.h
-   ModelicaMatIO.h
-   uthash.h
-   DYNModelicaUtilities.h
-   )
+    ModelicaFFT.h
+    ModelicaInternal.h
+    ModelicaRandom.h
+    ModelicaStrings.h
+    ModelicaIO.h
+    ModelicaMatIO.h
+    ModelicaStandardTables.h
+    )
 
-SET_SOURCE_FILES_PROPERTIES(
-  ${MODELICA_SOURCES}
-  PROPERTIES
-  COMPILE_FLAGS "-w"
-)
+# these remaining five files are for internal used only :
+#ModelicaUtilities.h
+#gconstructor.h
+#uthash.h
+#win32_dirent.c
+#win32_dirent.h
+
+#SET_SOURCE_FILES_PROPERTIES(${MODELICA_SOURCES} PROPERTIES LANGUAGE CXX)
 
 ADD_LIBRARY(Modelica_externalC ${LIBRARY_TYPE} ${MODELICA_SOURCES})
 
-TARGET_LINK_LIBRARIES(Modelica_externalC
-                      dynawo_Common
-                      )
+TARGET_COMPILE_OPTIONS(Modelica_externalC PRIVATE -w)
 
-INSTALL(TARGETS Modelica_externalC DESTINATION ${libdir})
-INSTALL(FILES ${MODELICA_INCLUDE_HEADERS} DESTINATION ${includedir})
+TARGET_COMPILE_DEFINITIONS(Modelica_externalC PRIVATE #[[TABLE_SHARE]] DUMMY_FUNCTION_USERTAB)
+
+TARGET_INCLUDE_DIRECTORIES(Modelica_externalC
+    INTERFACE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    )
+
+TARGET_LINK_LIBRARIES(Modelica_externalC
+    dynawo_Common
+    )
+
+INSTALL(TARGETS Modelica_externalC EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+INSTALL(FILES ${MODELICA_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

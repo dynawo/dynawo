@@ -54,7 +54,7 @@ namespace po = boost::program_options;
 namespace fs = boost::filesystem;
 
 bool verifySharedObject(string modelname);
-std::string verifyModelListFile(std::string modelList);
+std::string verifyModelListFile(const string & modelList, const string & outputPath);
 std::string executeCommand1(const string & command);
 
 /**
@@ -126,7 +126,7 @@ int main(int argc, char ** argv) {
 
   string dydFileName = "";
   try {
-    dydFileName = verifyModelListFile(modelList);   // verify the model list file
+    dydFileName = verifyModelListFile(modelList, absOutputDir);   // verify the model list file
 
     // Initializes logs, parsers & dictionnaries for Dynawo
     Trace::init();
@@ -256,9 +256,8 @@ bool verifySharedObject(string modelname) {
  * @brief Verify model list format
  * use script python: scriptVerifyModelList.py
  */
-std::string verifyModelListFile(std::string modelList) {
-  string dydFileName = "";
-  dydFileName = modelList + "_bak";
+std::string verifyModelListFile(const string & modelList, const string & outputPath) {
+  string dydFileName = absolute(replace_extension(file_name(modelList), "dyd"), outputPath);
   string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
 
   // scriptVerifyModelList.py

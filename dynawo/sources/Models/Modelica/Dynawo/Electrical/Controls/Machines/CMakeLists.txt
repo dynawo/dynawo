@@ -8,9 +8,9 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(Protections)
-ADD_SUBDIRECTORY(VoltageRegulators)
-ADD_SUBDIRECTORY(Governors)
+ADD_SUBDIRECTORY(Protections P)
+ADD_SUBDIRECTORY(VoltageRegulators V)
+ADD_SUBDIRECTORY(Governors G)
 
 SET(MODEL_FILES
     # Machines control models

@@ -106,6 +106,12 @@ export USER_SHELL_TYPE="bash"
 export DYNAWO_USER_SCRIPT_NAME=myEnvDynawo.sh
 export USER_PERMANENT_PATH=$DYNAWO_HOME/util/autocompletion
 
+if [ $# -eq 0 ]; then
+  echo "$1: invalid option."
+  usage
+  exit 1
+fi
+
 while (($#)); do
   case "$1" in
     --deploy)

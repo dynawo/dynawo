@@ -315,8 +315,8 @@ SolverKIN::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
 
 #ifdef _DEBUG_
   // Print the current residual norms, the first one is used as a stopping criterion
-  double weightedInfNorm = weightedInfinityNorm(solv->F_, solv->indexF_, solv->fScaling_);
-  double wL2Norm = weightedL2Norm(solv->F_, solv->indexF_, solv->fScaling_);
+  double weightedInfNorm = SolverCommon::weightedInfinityNorm(solv->F_, solv->indexF_, solv->fScaling_);
+  double wL2Norm = SolverCommon::weightedL2Norm(solv->F_, solv->indexF_, solv->fScaling_);
   long int current_nni = 0;
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
@@ -351,7 +351,7 @@ SolverKIN::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
 
-  bool matrixStructChange = copySparseToKINSOL(smjKin, JJ, size, solv->lastRowVals_);
+  bool matrixStructChange = SolverCommon::copySparseToKINSOL(smjKin, JJ, size, solv->lastRowVals_);
 
   if (matrixStructChange) {
     Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
@@ -392,7 +392,7 @@ SolverKIN::evalJPrim_KIN(N_Vector yy, N_Vector /*rr*/,
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
 
-  bool matrixStructChange = copySparseToKINSOL(smjKin, JJ, size, solv->lastRowVals_);
+  bool matrixStructChange = SolverCommon::copySparseToKINSOL(smjKin, JJ, size, solv->lastRowVals_);
 
   if (matrixStructChange) {
     SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
@@ -539,11 +539,11 @@ SolverKIN::solve(bool noInitSetup) {
       fErr.push_back(std::pair<double, int>(F_[indexF_[i]], i));
     }
   }
-  std::sort(fErr.begin(), fErr.end(), mapcompabs());
+  std::sort(fErr.begin(), fErr.end(), SolverCommon::mapcompabs());
 
   if (fErr.size() > 0) {
     Trace::debug() << DYNLog(SolverKINLargestErrors, nbErr) << Trace::endline;
-    printLargestErrors(fErr, model_, nbErr, tolerance);
+    SolverCommon::printLargestErrors(fErr, model_, nbErr, tolerance);
   }
 #endif
 

@@ -22,7 +22,6 @@
 
 #include <string>
 #include <boost/optional.hpp>
-#include "TLExport.h"
 
 namespace timeline {
 
@@ -34,7 +33,7 @@ namespace timeline {
  * during simulation:  for describing an event, there is three field: time of event,
  * model name in which event's occurs and message to describe the event
  */
-class __DYNAWO_TL_EXPORT Event {
+class Event {
  public:
   virtual ~Event() { }
 

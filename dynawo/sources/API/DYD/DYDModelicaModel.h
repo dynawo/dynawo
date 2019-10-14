@@ -25,7 +25,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
 #include "DYDModel.h"
 
 
@@ -43,7 +42,7 @@ class MacroConnect;
  * Connected together. It also declares ports for external
  * connections.
  */
-class __DYNAWO_DYD_EXPORT ModelicaModel : public Model {
+class ModelicaModel : public Model {
  public:
   /**
    * @brief Destructor

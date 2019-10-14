@@ -20,8 +20,6 @@
 #ifndef API_CRV_CRVPOINT_H_
 #define API_CRV_CRVPOINT_H_
 
-#include "CRVExport.h"
-
 namespace curves {
 
 /**
@@ -32,7 +30,7 @@ namespace curves {
  * during simulation:  for describing a point, there is two fields: time of the point,
  * and value of the point.
  */
-class __DYNAWO_CRV_EXPORT Point {
+class Point {
  public:
   virtual ~Point() { }
 

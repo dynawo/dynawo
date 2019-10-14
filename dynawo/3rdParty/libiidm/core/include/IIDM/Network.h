@@ -18,7 +18,7 @@
 #ifndef LIBIIDM_GUARD_NETWORK_H
 #define LIBIIDM_GUARD_NETWORK_H
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11_type_traits.h>
 
 #include <IIDM/BasicTypes.h>
@@ -48,7 +48,7 @@ class NetworkBuilder;
  * @class Network
  * @brief Network description
  */
-class IIDM_EXPORT Network:
+class Network:
   public Contains<Substation>,
   public Contains<Line>,
   public Contains<TieLine>,

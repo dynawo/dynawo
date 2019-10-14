@@ -17,7 +17,6 @@
  * @brief IoDico class implementation
  *
  */
-#include <unistd.h>
 #include <limits.h>
 #include <stdlib.h>
 #include <sstream>

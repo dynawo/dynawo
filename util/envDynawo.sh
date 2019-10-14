@@ -106,6 +106,8 @@ where [option] can be:"
 
         =========== Utilities
         generate-preassembled-gdb             generate a preassembled model with debugger
+        dump-model-gdb                        dump model with debugger
+        dump-model-valgrind                   dump model with valgrind
         compileCppModelicaModelInDynamicLib   compile Modelica Model generated for Dynawo
         flat-model ([args])                   generate and display the (full) flat Modelica model"
 
@@ -317,6 +319,27 @@ set_environment() {
   fi
   export_var_env DYNAWO_DEBUG_COMPILER_OPTION="-O1"
 
+  # Third parties
+  export_var_env_force DYNAWO_THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
+  export_var_env DYNAWO_THIRD_PARTY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
+  export_var_env DYNAWO_THIRD_PARTY_INSTALL_DIR=$DYNAWO_HOME/install/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
+  export_var_env_force DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION=$DYNAWO_THIRD_PARTY_BUILD_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
+  export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_THIRD_PARTY_INSTALL_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
+
+  if [ "`uname`" = "Darwin" ]; then
+    export_var_env DYNAWO_LIBARCHIVE_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive
+    export_var_env DYNAWO_BOOST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost
+    if [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
+      if [ "$DYNAWO_BOOST_HOME" = "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost" ]; then
+        export_var_env DYNAWO_BOOST_USE_STATIC=ON
+      fi
+    fi
+    if [ "$DYNAWO_BUILD_TYPE" = "TestCoverage" -o "$DYNAWO_BUILD_TYPE" = "Tests" ]; then
+      export_var_env DYNAWO_GTEST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
+      export_var_env DYNAWO_GMOCK_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
+    fi
+  fi
+
   # External libs
   export_var_env_default DYNAWO_ZLIB_HOME=UNDEFINED
   export_var_env_default DYNAWO_LIBARCHIVE_HOME=UNDEFINED
@@ -324,13 +347,6 @@ set_environment() {
   export_var_env DYNAWO_BOOST_USE_STATIC=OFF
   export_var_env_default DYNAWO_GTEST_HOME=UNDEFINED
   export_var_env_default DYNAWO_GMOCK_HOME=UNDEFINED
-
-  # Third parties
-  export_var_env_force DYNAWO_THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
-  export_var_env DYNAWO_THIRD_PARTY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
-  export_var_env DYNAWO_THIRD_PARTY_INSTALL_DIR=$DYNAWO_HOME/install/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
-  export_var_env_force DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION=$DYNAWO_THIRD_PARTY_BUILD_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
-  export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_THIRD_PARTY_INSTALL_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
 
   export_var_env_force DYNAWO_SUITESPARSE_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/suitesparse
   export_var_env_force DYNAWO_NICSLU_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/nicslu
@@ -405,8 +421,6 @@ set_environment() {
   set_standard_environment_variables
 
   set_commit_hook
-
-  set_cpplint
 }
 
 ld_library_path_remove() {
@@ -595,33 +609,6 @@ git diff-index --check --cached HEAD -- ':(exclude)*/reference/*' ':(exclude)*.p
   fi
 }
 
-set_cpplint() {
-  export_var_env DYNAWO_CPPLINT_DOWNLOAD_URL=https://github.com/cpplint/cpplint/archive
-  CPPLINT_VERSION=1.3.0
-  CPPLINT_ARCHIVE=$CPPLINT_VERSION.tar.gz
-
-  CPPLINT_FILE=cpplint.py
-  CPPLINT_DIR=$DYNAWO_HOME/cpplint
-
-  if [ ! -f "$CPPLINT_DIR/$CPPLINT_FILE" ]; then
-    if [ -x "$(command -v wget)" ]; then
-      wget --timeout 10 --tries 3 ${DYNAWO_CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} -P "$CPPLINT_DIR" > /dev/null 2>&1 || error_exit "Error while downloading cpplint."
-    elif [ -x "$(command -v curl)" ]; then
-      curl -L --connect-timeout 10 --retry 2 ${DYNAWO_CPPLINT_DOWNLOAD_URL}/${CPPLINT_ARCHIVE} --output "$CPPLINT_DIR/$CPPLINT_ARCHIVE" > /dev/null 2>&1 || error_exit "Error while downloading cpplint."
-    else
-      error_exit "You need to install either wget or curl."
-    fi
-    if [ -x "$(command -v tar)" ]; then
-      tar xzf "$CPPLINT_DIR/$CPPLINT_ARCHIVE" -C $CPPLINT_DIR
-      cp "$CPPLINT_DIR/cpplint-$CPPLINT_VERSION/$CPPLINT_FILE" "$CPPLINT_DIR/$CPPLINT_FILE"
-      rm -rf "$CPPLINT_DIR/cpplint-$CPPLINT_VERSION"
-      rm -f "$CPPLINT_DIR/$CPPLINT_ARCHIVE"
-    else
-      error_exit "You need to install tar command line utility."
-    fi
-  fi
-}
-
 display_environment_variables() {
   printenv | grep DYNAWO_ | sort
   echo PATH $PATH
@@ -734,6 +721,11 @@ build_3rd_party_version() {
     else
       LIBARCHIVE_OPTION=""
     fi
+    if [ $DYNAWO_ZLIB_HOME_DEFAULT != true ]; then
+      ZLIB_OPTION="--zlib-install-dir=$DYNAWO_ZLIB_HOME"
+    else
+      ZLIB_OPTION=""
+    fi
     case "$DYNAWO_BUILD_TYPE_THIRD_PARTY" in
       Debug)
         if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
@@ -764,7 +756,7 @@ build_3rd_party_version() {
       --libxml-build-dir=$DYNAWO_LIBXML_BUILD_DIR \
       --libiidm-build-dir=$DYNAWO_LIBIIDM_BUILD_DIR \
       --xercesc-build-dir=$DYNAWO_XERCESC_BUILD_DIR \
-      $BOOST_OPTION $LIBARCHIVE_OPTION $GTEST_OPTION
+      $BOOST_OPTION $LIBARCHIVE_OPTION $ZLIB_OPTION $GTEST_OPTION
 
     RETURN_CODE=$?
     return ${RETURN_CODE}
@@ -922,9 +914,11 @@ config_dynawo() {
     -DSUITESPARSE_HOME=$DYNAWO_SUITESPARSE_INSTALL_DIR \
     -DNICSLU_HOME=$DYNAWO_NICSLU_INSTALL_DIR \
     -DLIBZIP_HOME=$DYNAWO_LIBZIP_INSTALL_DIR \
+    -DLIBXML_HOME=$DYNAWO_LIBXML_INSTALL_DIR \
+    -DLIBIIDM_HOME=$DYNAWO_LIBIIDM_INSTALL_DIR \
+    -DXERCESC_HOME=$DYNAWO_XERCESC_INSTALL_DIR \
     $CMAKE_OPTIONAL \
     -G "$DYNAWO_CMAKE_GENERATOR" \
-    "-DCMAKE_PREFIX_PATH=$DYNAWO_LIBXML_HOME;$DYNAWO_LIBIIDM_HOME" \
     $DYNAWO_SRC_DIR
 
   RETURN_CODE=$?
@@ -1800,8 +1794,8 @@ deploy_dynawo() {
   mkdir -p sbin
   echo "deploying Dynawo utils"
   cp $DYNAWO_INSTALL_DIR/sbin/*.py sbin/
-  cp $DYNAWO_INSTALL_DIR/sbin/cleanCompileModelicaModel sbin/
-  cp $DYNAWO_INSTALL_DIR/sbin/compileCppModelicaModelInDynamicLib sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/compileCppModelicaModelInDynamicLib.cmake sbin/
+  cp $DYNAWO_INSTALL_DIR/sbin/PreloadCache.cmake sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/compileModelicaModel sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/dumpModel sbin/
   cp $DYNAWO_INSTALL_DIR/sbin/generate-preassembled sbin/
@@ -2075,7 +2069,11 @@ unittest_gdb() {
     build_dynawo_core || error_exit
     build_dynawo_models_cpp || error_exit
   fi
-  list_of_tests=($(find $DYNAWO_BUILD_DIR/sources -executable -type f -exec basename {} \; | grep test))
+  if [ "`uname`" = "Darwin" ]; then
+    list_of_tests=($(find $DYNAWO_BUILD_DIR/sources -perm +111 -type f -exec basename {} \; | grep test))
+  else
+    list_of_tests=($(find $DYNAWO_BUILD_DIR/sources -executable -type f -exec basename {} \; | grep test))
+  fi
   if [[ ${#list_of_tests[@]} == 0 ]]; then
     echo "The list of tests is empty. This should not happen."
     exit 1
@@ -2101,7 +2099,11 @@ unittest_gdb() {
     error_exit "$(dirname $unittest_exe) does not exist."
   fi
   cd $(dirname $unittest_exe)
-  gdb -q --args $unittest_exe
+  if [ "`uname`" = "Darwin" ]; then
+    lldb -- $unittest_exe
+  else
+    gdb -q --args $unittest_exe
+  fi
 }
 
 reset_environment_variables() {
@@ -2451,5 +2453,6 @@ case $MODE in
   *)
     echo "$1 is an invalid option"
     help_dynawo_user
+    exit 1
     ;;
 esac

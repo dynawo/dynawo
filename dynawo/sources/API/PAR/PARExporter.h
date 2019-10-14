@@ -23,8 +23,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "PARExport.h"
-
 namespace parameters {
 class ParametersSetCollection;
 
@@ -34,7 +32,7 @@ class ParametersSetCollection;
  *
  * Exporter class for parameters collections.
  */
-class __DYNAWO_PAR_EXPORT Exporter {
+class Exporter {
  public:
   /**
    * @brief Destructor

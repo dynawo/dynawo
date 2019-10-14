@@ -23,6 +23,10 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 
+#ifdef _MSC_VER
+  typedef int pid_t;
+#endif
+
 #include "DYNSignalHandler.h"
 
 namespace timeline {

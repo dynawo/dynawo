@@ -17,13 +17,12 @@ error_exit() {
 }
 
 export_var_env() {
-  var=$@
-  name=${var%=*}
-  value=${var##*=}
+  local var="$@"
+  local name=${var%%=*}
+  local value="${var#*=}"
 
-  if eval "[ \$$name ]"; then
+  if eval "[ \"\$$name\" ]"; then
     eval "value=\${$name}"
-    ##echo "Environment variable for $name already set : $value"
     return
   fi
 
@@ -70,6 +69,7 @@ install_libiidm() {
     -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE \
     -DCMAKE_C_COMPILER=$DYNAWO_C_COMPILER \
     -DCMAKE_CXX_COMPILER=$DYNAWO_CXX_COMPILER \
+    -DXERCESC_HOME=$XERCESC_INSTALL_DIR \
     -DCXX11_ENABLED=$DYNAWO_CXX11_ENABLED \
     $CMAKE_OPTIONNAL \
     $SOURCE_DIR
@@ -98,6 +98,9 @@ while (($#)); do
     --libxml-install-dir=*)
       LIBXML_INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--libxml-install-dir=//g'`)
       ;;
+    --xercesc-install-dir=*)
+      XERCESC_INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--xercesc-install-dir=//g'`)
+      ;;
     --boost-install-dir=*)
       BOOST_INSTALL_DIR=$(get_absolute_path `echo $1 | sed -e 's/--boost-install-dir=//g'`)
       ;;
@@ -110,6 +113,11 @@ done
 
 if [ -z "$LIBXML_INSTALL_DIR" ]; then
   echo "Need to set LIBXML_INSTALL_DIR"
+  exit 1
+fi
+
+if [ -z "$XERCESC_INSTALL_DIR" ]; then
+  echo "Need to set XERCESC_INSTALL_DIR"
   exit 1
 fi
 

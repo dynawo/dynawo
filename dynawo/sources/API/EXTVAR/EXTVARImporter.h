@@ -22,8 +22,6 @@
 
 #include <string>
 
-#include "EXTVARExport.h"
-
 namespace externalVariables {
 class VariablesCollection;
 
@@ -33,7 +31,7 @@ class VariablesCollection;
  *
  * Import class for dynamic models collections.
  */
-class __DYNAWO_EXTVAR_EXPORT Importer {
+class Importer {
  public:
   /**
    * @brief Destructor

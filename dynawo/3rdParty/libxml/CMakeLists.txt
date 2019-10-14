@@ -53,8 +53,6 @@ if(MSVC)
   endif()
 endif()
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
-
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 set(LIBXML_VERSION "${LIBXML_VERSION_MAJOR}.${LIBXML_VERSION_MINOR}.${LIBXML_VERSION_PATCH}")
@@ -69,31 +67,35 @@ set(LibXML_INSTALL_LIBRARIES lib)
 set(LibXML_INSTALL_BINARIES bin)
 set(LibXML_INSTALL_INCLUDE include)
 
-if (CXX11_ENABLED)
+if(NOT MSVC)
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+
+  if(CXX11_ENABLED)
   # Test if a C++11 flag is supported
-  include(CheckCXXCompilerFlag)
-  check_cxx_compiler_flag("-std=c++14" COMPILER_SUPPORTS_CXX14)
-  if(COMPILER_SUPPORTS_CXX14)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-  else()
-    check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
-    if(COMPILER_SUPPORTS_CXX11)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    include(CheckCXXCompilerFlag)
+    check_cxx_compiler_flag("-std=c++14" COMPILER_SUPPORTS_CXX14)
+    if(COMPILER_SUPPORTS_CXX14)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
     else()
-      check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
-      if(COMPILER_SUPPORTS_CXX0X)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+      check_cxx_compiler_flag("-std=c++11" COMPILER_SUPPORTS_CXX11)
+      if(COMPILER_SUPPORTS_CXX11)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
       else()
-        message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Disabling C++11.")
+        check_cxx_compiler_flag("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+        if(COMPILER_SUPPORTS_CXX0X)
+          set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+        else()
+          message(STATUS "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Disabling C++11.")
+        endif()
       endif()
     endif()
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
   endif()
-else()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
-endif ()
+endif()
 
 # Add specific options for gcc
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU')
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic -Wall -Wextra")
 
   if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.8)
@@ -182,14 +184,14 @@ set(LINK_SUFFIX_STATIC "-static")
 # prepare a few custom targets
 if (LibXML_BUILD_TESTS)
   add_custom_target(tests)
+endif ()
 
-  # tests are compiled against SHARED libraries if possible, against STATIC otherwise.
+# tests and samples are compiled against SHARED libraries if possible, against STATIC otherwise.
   if (LibXML_SAX_BUILD_STATIC AND NOT LibXML_SAX_BUILD_SHARED)
     set(LINK_SUFFIX_TEST ${LINK_SUFFIX_STATIC})
   else ()
     set(LINK_SUFFIX_TEST ${LINK_SUFFIX_SHARED})
   endif ()
-endif ()
 
 # include sub directories
 

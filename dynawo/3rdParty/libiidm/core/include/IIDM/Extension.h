@@ -18,7 +18,7 @@
 #ifndef LIBIIDM_GUARD_EXTENSION_H
 #define LIBIIDM_GUARD_EXTENSION_H
 
-#include <IIDM/Export.h>
+
 #include <IIDM/pointers.h>
 #include <boost/type_index.hpp>
 
@@ -27,7 +27,7 @@ namespace IIDM {
 /**
  * @brief Tagging base class for extensions.
  */
-class IIDM_EXPORT Extension {
+class Extension {
 public:
   BOOST_TYPE_INDEX_REGISTER_CLASS
 

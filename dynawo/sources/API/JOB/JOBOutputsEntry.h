@@ -23,8 +23,6 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
-#include "JOBExport.h"
-
 namespace job {
 class InitValuesEntry;
 class ConstraintsEntry;
@@ -37,7 +35,7 @@ class LogsEntry;
  * @class OutputsEntry
  * @brief Outputs entries container class
  */
-class __DYNAWO_JOB_EXPORT OutputsEntry {
+class OutputsEntry {
  public:
   /**
    * @brief Destructor

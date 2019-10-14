@@ -55,25 +55,26 @@ std::string RemoteMeasurementsHandler::xsd_path() {
   return xsdPath + std::string("remoteMeasurements.xsd");
 }
 
-RemoteMeasurementsHandler::elementName_type const RemoteMeasurementsHandler::root (
-    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/remotemeasurements/1_0"), "remoteMeasurements");
-
-
-
+RemoteMeasurementsHandler::elementName_type const& RemoteMeasurementsHandler::root() {
+  static elementName_type const root(
+    parser::namespace_uri("http://www.itesla_project.eu/schema/iidm/ext/remotemeasurements/1_0"), "remoteMeasurements"
+  );
+  return root;
+}
 
 
 RemoteMeasurementsHandler::RemoteMeasurementsHandler() :
   m_pHandler(), m_qHandler(), m_p1Handler(), m_q1Handler(), m_p2Handler(), m_q2Handler(),
   m_vHandler(), m_tapPositionHandler()
 {
-  onElement(root + elementName_type(root.ns, "p"),            m_pHandler);
-  onElement(root + elementName_type(root.ns, "q"),            m_qHandler);
-  onElement(root + elementName_type(root.ns, "p1"),           m_p1Handler);
-  onElement(root + elementName_type(root.ns, "q1"),           m_q1Handler);
-  onElement(root + elementName_type(root.ns, "p2"),           m_p2Handler);
-  onElement(root + elementName_type(root.ns, "q2"),           m_q2Handler);
-  onElement(root + elementName_type(root.ns, "v"),            m_vHandler);
-  onElement(root + elementName_type(root.ns, "tapPosition"),  m_tapPositionHandler);
+  onElement(root() + elementName_type(root().ns, "p"),            m_pHandler);
+  onElement(root() + elementName_type(root().ns, "q"),            m_qHandler);
+  onElement(root() + elementName_type(root().ns, "p1"),           m_p1Handler);
+  onElement(root() + elementName_type(root().ns, "q1"),           m_q1Handler);
+  onElement(root() + elementName_type(root().ns, "p2"),           m_p2Handler);
+  onElement(root() + elementName_type(root().ns, "q2"),           m_q2Handler);
+  onElement(root() + elementName_type(root().ns, "v"),            m_vHandler);
+  onElement(root() + elementName_type(root().ns, "tapPosition"),  m_tapPositionHandler);
 }
 
 

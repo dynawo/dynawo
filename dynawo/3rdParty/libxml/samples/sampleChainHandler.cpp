@@ -130,16 +130,16 @@ public:
     h_pub_date(builder.pub_date),
     h_review  (builder.review  )
   {
-    using parser::ns::empty;
+    using parser::ns::uri;
 
-    onStartElement(empty("book"), newBookAction(builder));
+    onStartElement(uri::empty("book"), newBookAction(builder));
 
-    onElement(empty("book/title")   , h_title   );
-    onElement(empty("book/author")  , h_author  );
-    onElement(empty("book/genre")   , h_genre   );
-    onElement(empty("book/price")   , h_price   );
-    onElement(empty("book/pub_date"), h_pub_date);
-    onElement(empty("book/review")  , h_review  );
+    onElement(uri::empty("book/title")   , h_title   );
+    onElement(uri::empty("book/author")  , h_author  );
+    onElement(uri::empty("book/genre")   , h_genre   );
+    onElement(uri::empty("book/price")   , h_price   );
+    onElement(uri::empty("book/pub_date"), h_pub_date);
+    onElement(uri::empty("book/review")  , h_review  );
   }
 
   sample::data::Book build() {return builder.build();}

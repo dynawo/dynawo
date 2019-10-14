@@ -16,11 +16,10 @@
 #include <string>
 
 #include <libzip/ZipErrorCode.h>
-#include <libzip/ZipExport.h>
 
 namespace zip {
 
-class __LIBZIP_EXPORT ZipException : public std::exception {
+class ZipException : public std::exception {
 public:
     virtual const Error::Code& getErrorCode() const = 0;
 

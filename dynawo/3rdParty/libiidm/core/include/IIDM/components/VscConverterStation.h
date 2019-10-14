@@ -22,7 +22,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/HvdcConverterStation.h>
@@ -40,7 +40,7 @@ class VscConverterStationBuilder;
 /**
  * @brief VscConverterStation in the network
  */
-class IIDM_EXPORT VscConverterStation: public HvdcConverterStation<VscConverterStation> {
+class VscConverterStation: public HvdcConverterStation<VscConverterStation> {
 public:
   bool voltageRegulatorOn() const { return m_regulating; }
 

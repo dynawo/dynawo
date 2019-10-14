@@ -12,6 +12,14 @@ project(XML_formatter_test CXX)
 set(CPACK_COMPONENT_SAX-FORMATTER-TESTS_DISPLAY_NAME "XML formatter library tests")
 set(CPACK_COMPONENT_SAX-FORMATTER-TESTS_DEPENDS sax-common sax-formatter)
 
+# workaround to find GTest 1.8.1 even in Debug
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  find_package(GTest QUIET)
+  if(NOT GTEST_FOUND)
+    set(GTEST_LIBRARY ${GTEST_LIBRARY_DEBUG})
+    set(GTEST_MAIN_LIBRARY ${GTEST_MAIN_LIBRARY_DEBUG})
+  endif()
+endif()
 find_package(GTest REQUIRED)
 
 # tests programs.
@@ -32,7 +40,7 @@ add_custom_target(tests-sax-formatter)
 add_dependencies(tests tests-sax-formatter)
 
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+if('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'GNU')
   if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.9)
     # those are gtest 1.8 warnings in g++ 4.8.5
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-long-long -Wno-variadic-macros -Wno-pedantic")
@@ -49,7 +57,7 @@ foreach(TEST IN LISTS FORMATTER_TESTS)
   target_include_directories(${TEST}
     PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../common/tests/include>
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/${LibXML_INSTALL_INCLUDE}>
+    $<INSTALL_INTERFACE:${LibXML_INSTALL_INCLUDE}>
     ${Boost_INCLUDE_DIRS}
     ${GTEST_INCLUDE_DIRS}
   )
@@ -57,7 +65,7 @@ foreach(TEST IN LISTS FORMATTER_TESTS)
   target_link_libraries(${TEST}
     XMLSAXFormatter${LINK_SUFFIX_TEST}
     ${GTEST_BOTH_LIBRARIES}
-    pthread
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
   )
 
   add_custom_target(test-${TEST}

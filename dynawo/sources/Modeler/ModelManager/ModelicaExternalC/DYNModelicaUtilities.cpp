@@ -10,12 +10,12 @@
 // This file is part of Dynawo, an hybrid C++/Modelica open source time domain
 // simulation tool for power systems.
 //
+#include "ModelicaUtilities.h"
+#include "DYNTrace.h"
+
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "DYNModelicaUtilities.h"
-#include "DYNTrace.h"
 
 void ModelicaVFormatMessage(const char *string, va_list args) {
   char buff[100];

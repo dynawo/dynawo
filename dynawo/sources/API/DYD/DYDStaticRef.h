@@ -22,8 +22,6 @@
 
 #include <string>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 
 /**
@@ -32,7 +30,7 @@ namespace dynamicdata {
  *
  * StaticRef objects describe a dynamic connection between two models
  */
-class __DYNAWO_DYD_EXPORT StaticRef {
+class StaticRef {
  public:
   /**
    * @brief Destructor

@@ -21,7 +21,6 @@
 #include <string>
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/InjectionBuilder.h>
 
@@ -36,7 +35,7 @@ namespace builders {
  * @class DanglingLineBuilder
  * @brief IIDM::DanglingLine builder
  */
-class IIDM_EXPORT DanglingLineBuilder: public InjectionBuilder<IIDM::DanglingLine, DanglingLineBuilder> {
+class DanglingLineBuilder: public InjectionBuilder<IIDM::DanglingLine, DanglingLineBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(DanglingLineBuilder, double, p0)
   MACRO_IIDM_BUILDER_PROPERTY(DanglingLineBuilder, double, q0)
   MACRO_IIDM_BUILDER_PROPERTY(DanglingLineBuilder, double, r )

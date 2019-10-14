@@ -44,13 +44,13 @@ protected:
 
 class ConnectablePositionHandler: public IIDM::xml::ExtensionHandler, private ::xml::sax::parser::ComposableElementHandler {
 public:
-  static const elementName_type root;
+  static elementName_type const& root();
 
-  static std::string const& uri() { return root.ns; }
+  static std::string const& uri() { return root().ns; }
 
   static std::string xsd_path();
 
-  virtual elementName_type const& root_element() const IIDM_OVERRIDE IIDM_FINAL { return root; }
+  virtual elementName_type const& root_element() const IIDM_OVERRIDE IIDM_FINAL { return root(); }
 
   ConnectablePositionHandler();
 

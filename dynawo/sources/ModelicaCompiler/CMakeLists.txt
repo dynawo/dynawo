@@ -13,47 +13,23 @@ SET(COMPILER_MODELICA_OMC_SOURCES
     DYNCompileModelicaModel.cpp
     )
 
-INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
-                   )
-
-INCLUDE_DIRECTORIES(../Common
-                   )
-
 ADD_EXECUTABLE(compileModelicaModel ${COMPILER_MODELICA_OMC_SOURCES})
 
 TARGET_LINK_LIBRARIES(compileModelicaModel
-                      dynawo_ModelerCommon
-                      dynawo_Common
-                      dynawo_SolverCommon
-                      dynawo_SolverSubModel
-                      ${Boost_PROGRAM_OPTIONS_LIBRARY}
-                      dl
-                      pthread
-                      ${Boost_THREAD_LIBRARY}
-                      "-rdynamic"
-                    )
+    dynawo_Common
+    ${CMAKE_DL_LIBS}
+    )
 
-IF ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  TARGET_LINK_LIBRARIES(compileModelicaModel "-lrt")
+IF(APPLE)
+    # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
+    SET_TARGET_PROPERTIES(compileModelicaModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
 ENDIF()
 
-IF (APPLE)
-  TARGET_LINK_LIBRARIES(compileModelicaModel "-force_load" dynawo_Util)
-  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
-  SET_TARGET_PROPERTIES(compileModelicaModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-ELSE()
-  TARGET_LINK_LIBRARIES(compileModelicaModel "-Wl,--whole-archive" dynawo_Util "-Wl,--no-whole-archive")
-ENDIF()
+INSTALL(TARGETS compileModelicaModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
 
-INSTALL(TARGETS compileModelicaModel DESTINATION ${sbindir})
-
-#compileCppModelicaModelInDynamicLib
-CONFIGURE_FILE(compileCppModelicaModelInDynamicLib.in ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib @ONLY)
-
-INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib DESTINATION ${sbindir})
-
-#cleanCompileModelicaModel
-INSTALL(PROGRAMS cleanCompileModelicaModel DESTINATION ${sbindir})
+CONFIGURE_FILE(compileCppModelicaModelInDynamicLib.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib.cmake @ONLY)
+CONFIGURE_FILE(PreloadCache.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/PreloadCache.cmake @ONLY)
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib.cmake ${CMAKE_CURRENT_BINARY_DIR}/PreloadCache.cmake DESTINATION ${SBINDIR_NAME})
 
 #Add post processing scripts
 ADD_SUBDIRECTORY(Scripts_OMC_${OPENMODELICA_VERSION})

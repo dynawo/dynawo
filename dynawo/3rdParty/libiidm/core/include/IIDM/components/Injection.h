@@ -21,7 +21,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 #include <IIDM/cpp11_type_traits.h>
 
@@ -40,7 +40,7 @@ class InjectionBuilder;
  * @tparam CRTP_INJECTION the actual type of the inheriter
  */
 template <typename CRTP_INJECTION>
-class IIDM_EXPORT Injection: public Connectable<CRTP_INJECTION, side_1> {
+class Injection: public Connectable<CRTP_INJECTION, side_1> {
 public:
   typedef CRTP_INJECTION injection_type;
 protected:
@@ -99,7 +99,7 @@ public:
  * and at runtime via a side argument
  */
 template <typename CRTP_BRANCH, side_id Sides>
-class IIDM_EXPORT Branch: public Connectable<CRTP_BRANCH, Sides> {
+class Branch: public Connectable<CRTP_BRANCH, Sides> {
 public:
   typedef CRTP_BRANCH branch_type;
 

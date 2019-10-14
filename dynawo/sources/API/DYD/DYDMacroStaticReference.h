@@ -25,8 +25,6 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class staticRef_const_iterator;
 class staticRef_iterator;
@@ -36,7 +34,7 @@ class StaticRef;
  * @class MacroStaticReference
  * @brief MacroStaticReference interface class
  */
-class __DYNAWO_DYD_EXPORT MacroStaticReference {
+class MacroStaticReference {
  public:
   /**
    * @brief Destructor

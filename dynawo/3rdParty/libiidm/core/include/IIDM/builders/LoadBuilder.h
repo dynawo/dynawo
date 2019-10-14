@@ -20,7 +20,6 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/InjectionBuilder.h>
 
@@ -34,7 +33,7 @@ namespace builders {
  * @class LoadBuilder
  * @brief IIDM::Load builder
  */
-class IIDM_EXPORT LoadBuilder: public InjectionBuilder<IIDM::Load, LoadBuilder> {
+class LoadBuilder: public InjectionBuilder<IIDM::Load, LoadBuilder> {
   MACRO_IIDM_BUILDER_PROPERTY(LoadBuilder, double, p0)
   MACRO_IIDM_BUILDER_PROPERTY(LoadBuilder, double, q0)
   MACRO_IIDM_BUILDER_PROPERTY(LoadBuilder, builded_type::e_type, type)

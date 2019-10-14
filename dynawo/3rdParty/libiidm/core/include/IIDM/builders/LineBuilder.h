@@ -20,7 +20,6 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/IdentifiableBuilder.h>
 
@@ -35,7 +34,7 @@ namespace builders {
  * @class LineBuilder
  * @brief IIDM::Line builder
  */
-class IIDM_EXPORT LineBuilder: public IdentifiableBuilder<IIDM::Line, LineBuilder> {
+class LineBuilder: public IdentifiableBuilder<IIDM::Line, LineBuilder> {
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(LineBuilder, CurrentLimits, currentLimits1)
   MACRO_IIDM_BUILDER_OPTIONAL_PROPERTY(LineBuilder, CurrentLimits, currentLimits2)
 

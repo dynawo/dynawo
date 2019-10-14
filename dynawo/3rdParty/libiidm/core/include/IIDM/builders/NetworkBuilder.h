@@ -20,7 +20,6 @@
 
 #include <string>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/builders/builders_utils.h>
 #include <IIDM/BasicTypes.h>
@@ -34,7 +33,7 @@ namespace builders {
  * @class NetworkBuilder
  * @brief IIDM::Network builder
  */
-class IIDM_EXPORT NetworkBuilder {
+class NetworkBuilder {
 public:
   typedef IIDM::Network builded_type;
 

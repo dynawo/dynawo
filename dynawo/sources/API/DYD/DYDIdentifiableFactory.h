@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class Identifiable;
 
@@ -34,7 +32,7 @@ class Identifiable;
  * IdentifiableFactory encapsulate methods for creating new
  * @p Identifiable objects.
  */
-class __DYNAWO_DYD_EXPORT IdentifiableFactory {
+class IdentifiableFactory {
  public:
   /**
    * @brief Create new Identifiable instance

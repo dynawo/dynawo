@@ -225,7 +225,7 @@ ModelShuntCompensator::evalZ(const double& t) {
   z_[isAvailableNum_] = isAvailable(t) ? 1. : 0.;
   z_[currentSectionNum_] = getCurrentSection();
 
-  State currState = static_cast<State>(z_[connectionStateNum_]);
+  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != getConnected()) {
     stateModified_ = true;
     Trace::debug() << DYNLog(ShuntStateChange, id_, getConnected(), currState) << Trace::endline;

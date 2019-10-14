@@ -20,7 +20,7 @@
 
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 #include <IIDM/components/Identifiable.h>
@@ -38,7 +38,7 @@ class LoadBuilder;
 /**
  * @brief Load in the network
  */
-class IIDM_EXPORT Load: public Identifiable, public Injection<Load>, public ContainedIn<VoltageLevel> {
+class Load: public Identifiable, public Injection<Load>, public ContainedIn<VoltageLevel> {
 public:
   //aliases of parent()
   ///tells if a parent is specified

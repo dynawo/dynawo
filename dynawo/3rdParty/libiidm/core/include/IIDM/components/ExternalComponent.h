@@ -18,7 +18,6 @@
 #ifndef LIBIIDM_COMPONENTS_GUARD_EXTERNALCOMPONENT_H
 #define LIBIIDM_COMPONENTS_GUARD_EXTERNALCOMPONENT_H
 
-#include <IIDM/Export.h>
 
 #include <IIDM/components/Identifiable.h>
 #include <IIDM/components/ContainedIn.h>
@@ -28,7 +27,7 @@ namespace IIDM {
 class Network;
 
 
-class IIDM_EXPORT ExternalComponent: public Identifiable, public ContainedIn<Network> {
+class ExternalComponent: public Identifiable, public ContainedIn<Network> {
   /* ********* data interface ********* */
 public:
   //aliases of parent()

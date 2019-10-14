@@ -20,35 +20,21 @@ SET(MODULE_SOURCES
     TestGenerator.cpp
 )
 
-INCLUDE_DIRECTORIES(SYSTEM ${UNITTEST_INCLUDE_DIRS}
-          ${Boost_INCLUDE_DIR}
-          ${LibIIDM_CORE_INCLUDE_DIR}
-          ${LibIIDM_EXT_STANDBYAUTOMATON_INCLUDE_DIR}
-          )
-
-INCLUDE_DIRECTORIES(../
-          ../../../../Common/
-          ../../../../Modeler/DataInterface
-          ../../../../Modeler/Common
-          ../../../CPP/Common
-          ../../../../API/TL
-          ../../../../API/CSTR
-          )
+INCLUDE_DIRECTORIES(..
+${UNITTEST_INCLUDE_DIRS})
 
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
+TARGET_INCLUDE_DIRECTORIES(${MODULE_NAME}
+    INTERFACE
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    )
+
 TARGET_LINK_LIBRARIES(${MODULE_NAME}
     ${UNITTEST_LIBRARIES}
-    ${Boost_SERIALIZATION_LIBRARY}
-    dynawo_Common
-    iidm
-    iidm-ext-standbyautomaton
     dynawo_DataInterface
-    dynawo_ModelerCommon
-    dynawo_Util
     DYNModelNetwork
-    pthread
-    ${Boost_THREAD_LIBRARY}
+    dynawo_API_CSTR
     )
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-tests ${MODULE_NAME}

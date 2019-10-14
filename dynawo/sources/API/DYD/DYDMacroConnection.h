@@ -22,8 +22,6 @@
 
 #include <string>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 
 /**
@@ -32,7 +30,7 @@ namespace dynamicdata {
  *
  * MacroConnection objects describe a partial description of a connection between two models
  */
-class __DYNAWO_DYD_EXPORT MacroConnection {
+class MacroConnection {
  public:
   /**
    * @brief Destructor

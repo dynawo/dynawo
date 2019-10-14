@@ -181,15 +181,15 @@ A jobs file can contain several jobs. For each job, the description is the same 
 
 The jobs file specifies the solver library to use for the simulation. In \Dynawo two solvers are available:
 \begin{itemize}
-\item the simplified solver (fixed time step solver): library libdynawo\_SolverSIM.so;
-\item the IDA solver (variable time step solver): library libdynawo\_SolverIDA.so;
+\item the simplified solver (fixed time step solver): library dynawo\_SolverSIM.so;
+\item the IDA solver (variable time step solver): library dynawo\_SolverIDA.so;
 \end{itemize}
 
 For IDA solver, IDA order 1 and IDA order 2 can be used (fill the value for the parameter ``order'' in the par file).
 
 \begin{lstlisting}[language=XML, morekeywords={lib}]
 <job name="MyJOB">
-  <solver lib="libdynawo_SolverIDA.so" parFile="MyPAR.xml" parId="0"/>
+  <solver lib="dynawo_SolverIDA.so" parFile="MyPAR.xml" parId="0"/>
   ...
 </job>
 \end{lstlisting}

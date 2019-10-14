@@ -61,7 +61,8 @@ public:
   path& remove_end() { if (!empty()) m_path.pop_back(); return *this; }
 
   path parent() const {
-    return path(m_path.begin(), --m_path.end());
+    if (!empty()) return path(m_path.begin(), --m_path.end());
+    else return path();
   }
 
   bool empty() const { return m_path.empty(); }

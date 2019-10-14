@@ -686,7 +686,7 @@ ModelDanglingLine::evalZ(const double& t) {
       z_[0] = OPEN;
   }
 
-  State currState = static_cast<State>(z_[0]);
+  State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != connectionState_) {
     Trace::debug() << DYNLog(DanglingLineStateChange, id_, connectionState_, currState) << Trace::endline;
     stateModified_ = true;
@@ -697,7 +697,7 @@ ModelDanglingLine::evalZ(const double& t) {
       network_->addEvent(id_, DYNTimeline(DanglingLineDisconnected));
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
     }
-    connectionState_ = static_cast<State>(z_[0]);
+    connectionState_ = static_cast<State>(static_cast<int>(z_[0]));
   }
 
   if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {

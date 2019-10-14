@@ -26,8 +26,6 @@
 #include <boost/static_assert.hpp>
 #endif
 
-#include "PARExport.h"
-
 namespace parameters {
 
 /**
@@ -37,7 +35,7 @@ namespace parameters {
  * Interface class for reference objects. These are containers for references
  *
  */
-class __DYNAWO_PAR_EXPORT Reference {
+class Reference {
  public:
   /**
    * @brief Available reference origin data sets

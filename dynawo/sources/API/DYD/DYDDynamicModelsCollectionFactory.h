@@ -22,8 +22,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-#include "DYDExport.h"
-
 namespace dynamicdata {
 class DynamicModelsCollection;
 
@@ -34,7 +32,7 @@ class DynamicModelsCollection;
  * DynamicModelsCollectionFactory encapsulate methods for creating new
  * @p DynamicModelsCollection objects.
  */
-class __DYNAWO_DYD_EXPORT DynamicModelsCollectionFactory {
+class DynamicModelsCollectionFactory {
  public:
   /**
    * @brief Create new DynamicModelsCollection instance

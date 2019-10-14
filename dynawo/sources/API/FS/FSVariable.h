@@ -22,8 +22,6 @@
 
 #include <string>
 
-#include "FSExport.h"
-
 namespace finalState {
 
 /**
@@ -32,7 +30,7 @@ namespace finalState {
  *
  * Variable is a container for a final state requested variable
  */
-class __DYNAWO_FS_EXPORT Variable {
+class Variable {
  public:
   /**
    * @brief Destructor

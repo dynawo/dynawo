@@ -21,7 +21,6 @@
 #include <string>
 #include <boost/optional.hpp>
 
-#include <IIDM/Export.h>
 
 #include <IIDM/BasicTypes.h>
 #include <IIDM/builders/builders_utils.h>
@@ -42,7 +41,7 @@ namespace builders {
  *    builded_type build(Id const&) const
  */
 template <typename T, typename CRTP_BUILDER>
-class IIDM_EXPORT IdentifiableBuilder {
+class IdentifiableBuilder {
 public:
   typedef T builded_type;
   typedef CRTP_BUILDER builder_type;

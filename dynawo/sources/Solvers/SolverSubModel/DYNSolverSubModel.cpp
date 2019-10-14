@@ -217,14 +217,14 @@ SolverSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
     }
   }
 
-  std::sort(fErr.begin(), fErr.end(), mapcompabs());
+  std::sort(fErr.begin(), fErr.end(), SolverCommon::mapcompabs());
 
   if (fErr.size() > 0) {
     vector<std::pair<double, int> >::iterator it;
     int i = 0;
     for (it = fErr.begin(); it != fErr.end(); ++it) {
       Trace::debug("MODELER") << DYNLog(SolveParametersError, tolerance, it->second, irr[it->second],
-                                 subModel->getFequationByLocalIndex(it->second)) << Trace::endline;
+                                 "" /*FIXME: subModel->getFequationByLocalIndex(it->second)*/) << Trace::endline;
 
       if (i >= nbErr) {
         Trace::debug("MODELER") << " =================================================================" << Trace::endline;
@@ -258,7 +258,7 @@ SolverSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   double cj = 1;
   subModel->evalJt(solv->t0_, cj, smj, 0);
 
-  bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
+  bool matrixStructChange = SolverCommon::copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
 
   if (matrixStructChange) {
     SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation

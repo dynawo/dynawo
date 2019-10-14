@@ -18,20 +18,20 @@
 #ifndef LIBIIDM_COMPONENTS_GUARD_CONTAINEDIN_H
 #define LIBIIDM_COMPONENTS_GUARD_CONTAINEDIN_H
 
-#include <IIDM/Export.h>
+
 #include <IIDM/cpp11.h>
 
 namespace IIDM {
 
 template <typename T>
-class IIDM_EXPORT Contains;
+class Contains;
 
 /**
  * @brief Base class for object having a parent container.
  * @tparam CRTP_Parent the class of the expected container. CRTP_Parent shall inherit from ContainedIn<CRTP_Parent>
  */
 template <typename CRTP_Parent>
-class IIDM_EXPORT ContainedIn {
+class ContainedIn {
 public:
   ///alias to the type of the parent
   typedef CRTP_Parent parent_type;

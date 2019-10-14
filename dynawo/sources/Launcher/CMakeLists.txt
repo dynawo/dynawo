@@ -11,60 +11,39 @@
 # Dynawo
 SET(DYNAWO_SOURCES
     main.cpp
-   )
+    )
 
-INSTALL(FILES ${DYNAWO_HEADERS} DESTINATION ${includedir})
-
-
-INCLUDE_DIRECTORIES(SYSTEM ${Boost_INCLUDE_DIR}
-                   )
-
-INCLUDE_DIRECTORIES(../Common
-                    ../
-                    ../Simulation
-                   )
+INSTALL(FILES ${DYNAWO_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 ADD_EXECUTABLE(dynawo ${DYNAWO_SOURCES})
 
 TARGET_LINK_LIBRARIES(dynawo
-                      dynawo_Common
-                      dynawo_API_PAR
-                      dynawo_ModelerCommon
-                      dynawo_DataInterface
-                      dynawo_Simulation
-                      dynawo_SolverCommon
-                      dynawo_SolverKINSOL
-                      dynawo_SolverSubModel
-                      ${Boost_PROGRAM_OPTIONS_LIBRARY}
-                      pthread
-                      ${Boost_THREAD_LIBRARY}
-                      ${LibArchive_LIBRARY}
-                      ${ZLIB_LIBRARY}
-                      "-rdynamic"
-                    )
+    dynawo_Simulation
+    )
 
-IF ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  TARGET_LINK_LIBRARIES(dynawo "-lrt")
-ENDIF()
-
-IF (APPLE)
-  TARGET_LINK_LIBRARIES(dynawo "-force_load" dynawo_Util)
+IF(APPLE)
   # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
   SET_TARGET_PROPERTIES(dynawo PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-ELSE()
-  TARGET_LINK_LIBRARIES(dynawo "-Wl,--whole-archive" dynawo_Util "-Wl,--no-whole-archive")
 ENDIF()
 
 SET_TARGET_PROPERTIES(dynawo PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
-INSTALL(TARGETS dynawo DESTINATION ${bindir})
 
-# Launcher
-CONFIGURE_FILE(launcher.in launcher @ONLY)
+INSTALL(TARGETS dynawo DESTINATION ${BINDIR_NAME})
 
-INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/launcher DESTINATION ${bindir})
+IF(NOT MSVC)
+  # Launcher
+  CONFIGURE_FILE(launcher.in launcher @ONLY)
 
-# execution script for distribution
-SET(EXEC_DYNAWO
-  execDynawo.sh)
+  INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/launcher DESTINATION ${BINDIR_NAME})
 
-INSTALL(PROGRAMS ${EXEC_DYNAWO} DESTINATION ${bindir})
+  # execution script for distribution
+  SET(EXEC_DYNAWO
+      execDynawo.sh
+      )
+
+  INSTALL(PROGRAMS ${EXEC_DYNAWO} DESTINATION ${BINDIR_NAME})
+ELSE()
+  # Launcher
+  CONFIGURE_FILE(dynawo.cmd.in dynawo.cmd @ONLY)
+  INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/dynawo.cmd DESTINATION /)
+ENDIF()
