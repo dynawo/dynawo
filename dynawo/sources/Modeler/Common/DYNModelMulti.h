@@ -236,9 +236,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void initBuffers();
 
   /**
-   * @copydoc Model::printModele()
+   * @copydoc Model::printModel()
    */
-  void printModele();
+  void printModel();
 
   /**
    * @copydoc Model::printInitValues(const std::string & directory)

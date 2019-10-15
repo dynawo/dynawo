@@ -88,6 +88,9 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
   shared_ptr<ModelBus> bus = p.first;
   sub.addBus(bus);
+  bus->initSize();
+  std::vector<double> z(bus->sizeZ(), 0.);
+  bus->setReferenceZ(&z[0], 0);
   ASSERT_EQ(sub.nbBus(), 1);
   ASSERT_EQ(bus, sub.bus(0));
 
@@ -101,6 +104,9 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
 TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
   shared_ptr<ModelBus> bus = p.first;
+  bus->initSize();
+  std::vector<double> z(bus->sizeZ(), 0.);
+  bus->setReferenceZ(&z[0], 0);
   ASSERT_EQ(bus->id(), "MyBus1");
   ASSERT_FALSE(bus->getSwitchOff());
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getAngle0(), M_PI/2);
@@ -253,14 +259,11 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[2], CLOSED);
 
   z[0] = 42;
-  z[1] = fromNativeBool(!bus->getSwitchOff());
   z[2] = OPEN;
-  ASSERT_FALSE(bus->getSwitchOff());
   ASSERT_EQ(bus->getConnectionState(), CLOSED);
   g[0] = ROOT_UP;
   g[1] = ROOT_UP;
   bus->evalZ(0.);
-  ASSERT_TRUE(bus->getSwitchOff());
   ASSERT_EQ(bus->getConnectionState(), OPEN);
   unsigned i = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
@@ -431,8 +434,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;
-  ASSERT_NO_THROW(bus->setFequations(fEquationIndex));
-  ASSERT_EQ(fEquationIndex.size(), nbF);
+  EXPECT_ASSERT_DYNAWO(bus->setFequations(fEquationIndex));  // bus->z_ is null as nbZ == 0
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {

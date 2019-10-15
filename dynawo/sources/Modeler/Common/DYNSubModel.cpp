@@ -946,7 +946,7 @@ SubModel::addParameterCurve(shared_ptr<curves::Curve>& curve) {
 }
 
 void
-SubModel::printModele() {
+SubModel::printModel() {
   Trace::debug("MODELER") << DYNLog(ModelName) << std::setw(25) << std::left << modelType() << "=>" << name() << Trace::endline;
   Trace::debug("MODELER") << "         Y : [" << std::setw(6) << yDeb_ << " ; " << std::setw(6) << yDeb_ + sizeY() << "[" << Trace::endline;
   Trace::debug("MODELER") << "         F : [" << std::setw(6) << fDeb_ << " ; " << std::setw(6) << fDeb_ + sizeF() << "[" << Trace::endline;

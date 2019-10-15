@@ -1246,7 +1246,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
       Trace::error() << DYNLog(UnableToCloseTfoSide2, id_) << Trace::endline;
     } else {
       topologyModified_ = true;
-      Trace::debug() << DYNLog(TfoStateChange, id_, currState, getConnectionState()) << Trace::endline;
+      Trace::debug() << DYNLog(TfoStateChange, id_, getConnectionState(), currState) << Trace::endline;
       switch (currState) {
       // z_[0] represents the actual state
       // getConnectionState() represents the previous state
