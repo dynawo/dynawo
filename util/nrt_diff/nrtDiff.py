@@ -836,13 +836,12 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
     if os.environ['DYNAWO_BUILD_TYPE'] == "Debug" :
         return (IDENTICAL, "")
 
-    identical = filecmp.cmp (path_left, path_right)
+    identical = filecmp.cmp (path_left, path_right, shallow=False)
     message = ""
 
     return_value = None
     if (identical):
         return_value = IDENTICAL
-
     else:
         if (file_extension == ".log" or file_extension == ".xml"):
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
