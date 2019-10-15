@@ -106,8 +106,6 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getAngle0(), M_PI/2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getU0(), 20.);
   ASSERT_EQ(bus->getRefIslands(), 0);
-  ASSERT_FALSE(bus->numSubNetworkSet());
-  ASSERT_THROW(bus->numSubNetwork(), boost::bad_optional_access);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getVNom(), 5.);
   ASSERT_FALSE(bus->hasBBS());
   ASSERT_EQ(bus->getBusIndex(), 0);
@@ -583,28 +581,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   bus3->setNetwork(network);
   bus3->setVoltageLevel(vl);
 
-
-  bus1->addNeighbor(bus2);
-
-
   ModelBusContainer container;
   container.add(bus1);
   container.add(bus2);
   container.add(bus3);
-
-  ASSERT_FALSE(bus1->numSubNetworkSet());
-  ASSERT_FALSE(bus2->numSubNetworkSet());
-  ASSERT_FALSE(bus3->numSubNetworkSet());
-  container.exploreNeighbors();
-  ASSERT_EQ(bus1->numSubNetwork(), 0);
-  ASSERT_EQ(bus2->numSubNetwork(), 0);
-  ASSERT_EQ(bus3->numSubNetwork(), 1);
-  ASSERT_EQ(container.getSubNetworks().size(), 2);
-  container.resetSubNetwork();
-  ASSERT_FALSE(bus1->numSubNetworkSet());
-  ASSERT_FALSE(bus2->numSubNetworkSet());
-  ASSERT_FALSE(bus3->numSubNetworkSet());
-  ASSERT_EQ(container.getSubNetworks().size(), 0);
 
   bus1->evalDerivatives();
   bus1->initSize();
@@ -641,6 +621,22 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   bus3->evalYMat();
   bus3->irAdd(0.3);
   bus3->iiAdd(0.03);
+
+  container.resetSubNetwork();
+  bus1->addNeighbor(bus2);
+  ASSERT_FALSE(bus1->numSubNetworkSet());
+  ASSERT_FALSE(bus2->numSubNetworkSet());
+  ASSERT_FALSE(bus3->numSubNetworkSet());
+  container.exploreNeighbors();
+  ASSERT_EQ(bus1->numSubNetwork(), 0);
+  ASSERT_EQ(bus2->numSubNetwork(), 0);
+  ASSERT_EQ(bus3->numSubNetwork(), 1);
+  ASSERT_EQ(container.getSubNetworks().size(), 2);
+  container.resetSubNetwork();
+  ASSERT_FALSE(bus1->numSubNetworkSet());
+  ASSERT_FALSE(bus2->numSubNetworkSet());
+  ASSERT_FALSE(bus3->numSubNetworkSet());
+  ASSERT_EQ(container.getSubNetworks().size(), 0);
 
   container.evalF();
   ASSERT_DOUBLE_EQUALS_DYNAWO(f1[0], 0.1);
