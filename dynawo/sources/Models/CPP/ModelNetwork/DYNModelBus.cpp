@@ -158,7 +158,6 @@ topologyModified_(false) {
   ii0_ = 0.0;
   stateUmax_ = false;
   stateUmin_ = false;
-  switchOff_ = false;
   hasConnection_ = bus->hasConnection();
 
   derivatives_.reset(new BusDerivatives());
@@ -445,7 +444,9 @@ ModelBus::getY0() {
       yp_[2] = 0.0;
       yp_[3] = 0.0;
     }
-    z_[switchOffNum_] = fromNativeBool(switchOff_);
+    // We assume here that z_[numSubNetworkNum_] was already initialized!!
+    if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.))
+      z_[switchOffNum_] = fromNativeBool(false);
     z_[connectionStateNum_] = connectionState_;
   }
 }
@@ -596,8 +597,6 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
 
 NetworkComponent::StateChange_t
 ModelBus::evalZ(const double& /*t*/) {
-  z_[switchOffNum_] = fromNativeBool(switchOff_);
-
   if (g_[0] == ROOT_UP && !stateUmax_ && !getSwitchOff()) {
     network_->addConstraint(id_, true, DYNConstraint(USupUmax));
     stateUmax_ = true;
@@ -821,7 +820,8 @@ ModelBus::evalState(const double& /*time*/) {
 
 void
 ModelBus::switchOff() {
-  switchOff_ = true;
+  assert(z_!= NULL);
+  z_[switchOffNum_] = fromNativeBool(true);
   // force Ur and Ui to be equals to zero (easier to solve)
   if (y_ != NULL) {
     y_[urNum_] = 0.0;

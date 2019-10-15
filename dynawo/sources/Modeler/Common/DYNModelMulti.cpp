@@ -249,10 +249,24 @@ ModelMulti::initBuffers() {
 void
 ModelMulti::init(const double& t0) {
   Timer timer1("ModelMulti::init");
+
+  zSave_.resize(sizeZ(), 0.);
+  zSave_.assign(zLocal_, zLocal_ + sizeZ());
+
   // (1) initialising each sub-model
   //----------------------------------------
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->initSub(t0);
+
+  // Detect if some discrete variable was modified during the initialization (e.g. subnetwork detection)
+  std::vector<double> z(sizeZ());
+  z.assign(zLocal_, zLocal_ + sizeZ());
+  vector<int> indicesDiff;
+  for (unsigned int i = 0; i < z.size(); ++i) {
+    if (doubleNotEquals(z[i], zSave_[i])) {
+      indicesDiff.push_back(i);
+    }
+  }
 
   // (2) initialising init values
   //-------------------------------
@@ -260,13 +274,41 @@ ModelMulti::init(const double& t0) {
   vector<double> yp0(sizeY(), 0.);
   vector<double> z0(sizeZ(), 0.);
   getY0(t0, y0, yp0, z0);
+
+  // Propagate the potential modifications of discrete variables. Needed here as otherwise
+  // the next evalZ will not detect the modifications.
+  if (!indicesDiff.empty()) {
+    for (size_t i = 0; i < indicesDiff.size(); ++i) {
+      zLocal_[indicesDiff[i]] = z[indicesDiff[i]];
+    }
+    z.assign(zLocal_, zLocal_ + sizeZ());
+
+    connectorContainer_->propagateZDiff(indicesDiff, z);
+
+    std::copy(z.begin(), z.end(), zLocal_);
+    zSave_.assign(zLocal_, zLocal_ + sizeZ());
+
+    for (unsigned int i = 0; i < subModels_.size(); ++i)
+      subModels_[i]->evalZSub(t0);
+    z.assign(zLocal_, zLocal_ + sizeZ());
+
+    for (unsigned i = 0; i < 10 && !vectorAreEquals(zSave_, z); ++i) {
+      copieResultZ(z);
+      std::copy(z.begin(), z.end(), zLocal_);
+      for (unsigned int i = 0; i < subModels_.size(); ++i)
+        subModels_[i]->evalGSub(t0);
+      for (unsigned int i = 0; i < subModels_.size(); ++i)
+        subModels_[i]->evalZSub(t0);
+      z.assign(zLocal_, zLocal_ + sizeZ());
+    }
+  }
 }
 
 void
-ModelMulti::printModele() {
-  Timer timer("ModelMulti::printModele");
+ModelMulti::printModel() {
+  Timer timer("ModelMulti::printModel");
   for (unsigned int i = 0; i < subModels_.size(); ++i)
-    subModels_[i]->printModele();
+    subModels_[i]->printModel();
 
   connectorContainer_->printConnectors();
 }

@@ -1152,7 +1152,7 @@ Simulation::loadState(const string & fileName) {
 
 void
 Simulation::printDebugInfo() {
-  model_->printModele();
+  model_->printModel();
   Trace::debug() << DYNLog(NbVar, model_->sizeY()) << Trace::endline;
   Trace::debug() << DYNLog(NbRootFunctions, model_->sizeG()) << Trace::endline;
 }

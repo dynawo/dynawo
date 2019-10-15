@@ -324,7 +324,8 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @brief switch on the bus
    */
   inline void switchOn() {
-    switchOff_ = false;
+    assert(z_!= NULL);
+    z_[switchOffNum_] = fromNativeBool(false);
   }  // switch on the bus
 
   /**
@@ -332,7 +333,8 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @return @b true if the bus is switched off, @b false otherwise
    */
   inline bool getSwitchOff() const {
-    return switchOff_;
+    assert(z_ != NULL);
+    return toNativeBool(z_[switchOffNum_]);
   }  // get information about whether the bus is switched off
 
   /**
@@ -494,8 +496,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   bool stateUmax_;  ///< whether U > UMax
   bool stateUmin_;  ///< whether U < UMin
 
-  bool switchOff_;  ///< whether the bus was switched off
-  // equivalent to switchOff but with discrete variable, to be able to switch off a node thanks to an outside event
+  // equivalent to z_[switchOffNum_] but with discrete variable, to be able to switch off a node thanks to an outside event
   State connectionState_;  ///< "internal" bus connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool topologyModified_;  ///< true if the bus connection state was modified
   double irConnection_;  ///< real current injected

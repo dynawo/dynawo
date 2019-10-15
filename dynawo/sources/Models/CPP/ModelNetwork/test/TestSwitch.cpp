@@ -432,6 +432,25 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchDefineInstantiate) {
 TEST(ModelsModelNetwork, ModelNetworkSwitchJt) {
   shared_ptr<ModelSwitch> sw = createModelSwitch(false, false);
   sw->initSize();
+
+  shared_ptr<ModelBus> bus1 = sw->getModelBus1();
+  bus1->initSize();
+  std::vector<double> y1(bus1->sizeY(), 0.);
+  std::vector<double> yp1(bus1->sizeY(), 0.);
+  std::vector<double> f1(bus1->sizeF(), 0.);
+  std::vector<double> z1(bus1->sizeZ(), 0.);
+  bus1->setReferenceZ(&z1[0], 0);
+  bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
+
+  shared_ptr<ModelBus> bus2 = sw->getModelBus2();
+  bus2->initSize();
+  std::vector<double> y2(bus2->sizeY(), 0.);
+  std::vector<double> yp2(bus2->sizeY(), 0.);
+  std::vector<double> f2(bus2->sizeF(), 0.);
+  std::vector<double> z2(bus2->sizeZ(), 0.);
+  bus2->setReferenceZ(&z2[0], 0);
+  bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
+
   SparseMatrix smj;
   int size = sw->sizeY();
   smj.init(size, size);

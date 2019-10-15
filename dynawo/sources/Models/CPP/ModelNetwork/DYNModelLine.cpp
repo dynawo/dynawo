@@ -728,7 +728,7 @@ ModelLine::evalZ(const double& t) {
       Trace::error() << DYNLog(UnableToCloseLineSide2, id_) << Trace::endline;
     } else {
       topologyModified_ = true;
-      Trace::debug() << DYNLog(LineStateChange, id_, currState, getConnectionState()) << Trace::endline;
+      Trace::debug() << DYNLog(LineStateChange, id_, getConnectionState(), currState) << Trace::endline;
       switch (currState) {
       // z_[0] represents the actual state
       // getConnectionState() represents the previous state

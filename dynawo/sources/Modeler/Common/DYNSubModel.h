@@ -551,7 +551,7 @@ class SubModel {
    * @brief print some data for the subModel (size,index, etc...)
    *
    */
-  void printModele();
+  void printModel();
 
   /**
    * @brief load parameters from a previous save

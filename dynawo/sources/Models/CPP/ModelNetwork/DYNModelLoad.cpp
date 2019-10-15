@@ -702,7 +702,7 @@ NetworkComponent::StateChange_t
 ModelLoad::evalZ(const double& /*t*/) {
   State currState = static_cast<State>(z_[0]);
   if (currState != getConnected()) {
-    Trace::debug() << DYNLog(LoadStateChange, id_, z_[0], getConnected()) << Trace::endline;
+    Trace::debug() << DYNLog(LoadStateChange, id_, getConnected(), z_[0]) << Trace::endline;
     if (currState == OPEN) {
       network_->addEvent(id_, DYNTimeline(LoadDisconnected));
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
