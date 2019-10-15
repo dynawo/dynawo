@@ -822,7 +822,7 @@ class ReaderOMC:
         ptrn_param = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[^;]*;')
         ptrn_param_boolean_test = re.compile(r'data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*==[^;]*;')
         ptrn_assign_auxiliary_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[^;]*;')
-        ptrn_assign_extObjs = re.compile(r'^[ ]*data->simulationInfo->extObjs\[(?P<var>[0-9]+)\][ ]*=[^;]*;$')
+        ptrn_assign_extobjs = re.compile(r'^[ ]*data->simulationInfo->extObjs\[(?P<var>[0-9]+)\][ ]*=[^;]*;$')
 
         with open(self._08bnd_c_file, 'r') as f:
             while True:
@@ -850,8 +850,8 @@ class ReaderOMC:
                         match = re.search(ptrn_assign_auxiliary_var, line)
                         var = match.group('varName')
                         self.var_init_val[ var ] = list_body
-                    if ptrn_assign_extObjs.search(line) is not None:
-                        match = re.search(ptrn_assign_extObjs, line)
+                    if ptrn_assign_extobjs.search(line) is not None:
+                        match = re.search(ptrn_assign_extobjs, line)
                         var_add = "data->simulationInfo->extObjs["+match.group('var')+"]"
                         for var_name, address in map_var_name_2_addresses.items():
                             if address == var_add:

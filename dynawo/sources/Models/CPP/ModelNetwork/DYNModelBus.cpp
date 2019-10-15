@@ -719,9 +719,9 @@ ModelBus::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, v
         res[1] = v3 * v2*RAD_TO_DEG;
       }
       break;
+    }
     default:
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
-    }
   }
 }
 

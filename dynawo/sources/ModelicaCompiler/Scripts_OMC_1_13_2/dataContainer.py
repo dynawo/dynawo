@@ -660,9 +660,8 @@ class Variable:
             line_tmp = sub_division_sim(line) # hard to process using a regex
             if "threadData" in line_tmp:
                 line_tmp=line_tmp.replace("threadData,", "")
-            if "omc_Modelica_Blocks_Types_ExternalCombiTable1D_constructor" in line_tmp:
-                if "_OMC_LIT0" in line_tmp:
-                    line_tmp=line_tmp.replace("_OMC_LIT0", "_OMC_LIT0.c_str()")
+            if "omc_Modelica_Blocks_Types_ExternalCombiTable1D_constructor" in line_tmp and "_OMC_LIT0" in line_tmp:
+                line_tmp=line_tmp.replace("_OMC_LIT0", "_OMC_LIT0.c_str()")
             if "throwStream" in line_tmp:
                 line_tmp = throw_stream_indexes(line_tmp)
             if "omc_assert_warning" in line_tmp:
