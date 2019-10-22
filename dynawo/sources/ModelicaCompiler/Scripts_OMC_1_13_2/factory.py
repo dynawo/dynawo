@@ -156,7 +156,7 @@ class Factory:
         self.list_vars_discr = []
         ## List of ALL discrete variables (including booleans)
         self.list_all_vars_discr = []
-        ## List of ALL discrete variables (including booleans)
+        ## Number of discrete variables
         self.nb_z = 0
         ## List of internal variables
         self.list_vars_int = []
@@ -275,7 +275,7 @@ class Factory:
         ## List of equations to add in evalCalculatedVarI
         self.list_for_evalcalculatedvari = []
         ## List of equations to add in evalJCalculatedVarI
-        self.list_for_evaljcalculatedvar = []
+        self.list_for_evaljcalculatedvari = []
         ## List of equations to add in getDefJCalculatedVarI
         self.list_for_getdefjcalculatedvari = []
 
@@ -307,16 +307,16 @@ class Factory:
         return self.nb_eq_dyn
 
     ##
-    # Getter to obtain the number of dynamic equations
+    # Getter to obtain the number of calculated variables
     # @param self : object pointer
-    # @return number of dynamic equations
+    # @return number of calculated variables
     def get_nb_calculated_variables(self):
         return len(self.list_calculated_vars)
 
     ##
-    # Getter to obtain the number of dynamic equations
+    # Getter to obtain the number of constant variables
     # @param self : object pointer
-    # @return number of dynamic equations
+    # @return number of constant variables
     def get_nb_const_variables(self):
         return len(self.list_complex_const_vars)
 
@@ -1882,7 +1882,7 @@ class Factory:
                 line = line [ :line.find("=") ] + "= " + str(self.reader.nb_discrete_vars)+";\n"
                 filtered_func[n] = line
             if "data->modelData->nVariablesInteger" in line:
-                line = line [ :line.find("=") ] + "= " + str(self.reader.nb_integer)+";\n"
+                line = line [ :line.find("=") ] + "= " + str(self.reader.nb_integer_vars)+";\n"
                 filtered_func[n] = line
             if "data->modelData->nVariablesBoolean" in line:
                 line = line [ :line.find("=") ] + "= " + str(self.reader.nb_bool_vars)+";\n"
@@ -2458,7 +2458,6 @@ class Factory:
             name = to_compile_name(v.get_name())
             is_state = True
             negated = "true" if v.get_alias_negated() else "false"
-            is_fixed = v.is_fixed()
             line = ""
             if is_real_const_var(v):
                 line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), "false") # never negated as the value given in Y0 is already the good one
@@ -2606,7 +2605,7 @@ class Factory:
             self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */\n")
             self.list_for_evalcalculatedvari.append("    return "+ expr+";\n")
             index += 1
-        self.list_for_evalcalculatedvari.append("  return 0;\n")
+        self.list_for_evalcalculatedvari.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
 
 
     ##
@@ -2617,22 +2616,22 @@ class Factory:
         return self.list_for_evalcalculatedvari
 
     ##
-    # prepare the lines that constitues the body for evalCalculatedVars
+    # prepare the lines that constitues the body for evalJCalculatedVarI
     # @param self : object pointer
     # @return
     def prepare_for_evaljcalculatedvar(self):
-        self.list_for_evaljcalculatedvar.append("  // not needed\n")
+        self.list_for_evaljcalculatedvari.append("  // not needed\n")
 
 
     ##
-    # return the list of lines that constitues the body of evalCalculatedVars
+    # return the list of lines that constitues the body of evalJCalculatedVarI
     # @param self : object pointer
     # @return list of lines
-    def get_list_for_evaljcalculatedvar(self):
-        return self.list_for_evaljcalculatedvar
+    def get_list_for_evaljcalculatedvari(self):
+        return self.list_for_evaljcalculatedvari
 
     ##
-    # prepare the lines that constitues the body for evalCalculatedVars
+    # prepare the lines that constitues the body for getDefJCalculatedVarI
     # @param self : object pointer
     # @return
     def prepare_for_getdefjcalculatedvari(self):
@@ -2640,7 +2639,7 @@ class Factory:
 
 
     ##
-    # return the list of lines that constitues the body of evalCalculatedVars
+    # return the list of lines that constitues the body of getDefJCalculatedVarI
     # @param self : object pointer
     # @return list of lines
     def get_list_for_getdefjcalculatedvari(self):

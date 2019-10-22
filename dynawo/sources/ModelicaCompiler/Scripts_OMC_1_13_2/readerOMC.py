@@ -268,7 +268,7 @@ class ReaderOMC:
         self.nb_real_vars = 0
         self.nb_discrete_vars = 0
         self.nb_bool_vars = 0
-        self.nb_integer = 0
+        self.nb_integer_vars = 0
         self.external_objects = []
 
     ##
@@ -565,7 +565,7 @@ class ReaderOMC:
                     if alias_var.is_fixed() and not var.is_fixed():
                         var.set_fixed(True)
                         modified = True
-                    if is_discrete_real_var(var) and (is_real_var(alias_var) or is_der_real_var(alias_var)):
+                    if is_discrete_real_var(var) and ((is_real_var(alias_var)  and not alias_var.is_fixed()) or is_der_real_var(alias_var)):
                         error_msg = "    Error: Found an alias that assigns the continuous variable " + alias_var.get_name()+\
                             " to the discrete real variable " + var.get_name() +\
                             " outside of the scope of a when or a if. Please rewrite the equation or check that you didn't connect a zPin to a ImPin.\n"
@@ -1117,10 +1117,13 @@ class ReaderOMC:
                     else:
                         map_var_name_2_addresses[name]= "discreteVars"
                 elif type == "aliasVars":
+                    # fixed discrete real vars are not aliased and are initialized in Y0
                     if is_discrete_real_var(var) and var.is_fixed():
                         map_var_name_2_addresses[name]= "discreteVars"
+                    # Aliased non-fixed vars should never be used in equations independently from their type
                     elif not var.is_fixed():
                         map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
+                    # fixed real vars goes into the const var mechanism (either replaced by their alias if they are in the form a = b, or initialized in Y0 if more complex)
                     else:
                         map_var_name_2_addresses[name]= "constVars"
                 elif type == "intAliasVars":
@@ -1196,7 +1199,7 @@ class ReaderOMC:
         self.nb_real_vars = index_real_var
         self.nb_discrete_vars = index_discrete_var
         self.nb_bool_vars = index_boolean_vars
-        self.nb_integer = index_integer_double
+        self.nb_integer_vars = index_integer_double
 
     ##
     # Find the effective value of a constant real variable
@@ -1210,9 +1213,9 @@ class ReaderOMC:
                 return self.find_constant_value_of(alias_list[0])
             else:
                 if var.get_alias_negated():
-                    return to_param_address(var.get_alias_name())
-                else:
                     return "-("+to_param_address(var.get_alias_name())+")"
+                else:
+                    return to_param_address(var.get_alias_name())
         elif var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
             init_val = var.get_start_text()[0]
             if init_val == "":

@@ -705,7 +705,7 @@ class ModelWriter(ModelWriterBase):
 
 
     ##
-    # Add the body of evalCalculatedVars in the cpp file
+    # Add the body of evalCalculatedVarI in the cpp file
     # @param self : object pointer
     # @return
     def fill_evalCalculatedVarI(self):
@@ -718,7 +718,7 @@ class ModelWriter(ModelWriterBase):
 
 
     ##
-    # Add the body of evalCalculatedVars in the cpp file
+    # Add the body of evalJCalculatedVarI in the cpp file
     # @param self : object pointer
     # @return
     def fill_evalJCalculatedVarI(self):
@@ -726,12 +726,12 @@ class ModelWriter(ModelWriterBase):
         self.addLine("void Model" + self.className + "::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res)\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.get_list_for_evaljcalculatedvar())
+        self.addBody(self.builder.get_list_for_evaljcalculatedvari())
         self.addLine("}\n")
 
 
     ##
-    # Add the body of evalCalculatedVars in the cpp file
+    # Add the body of getDefJCalculatedVarI in the cpp file
     # @param self : object pointer
     # @return
     def fill_getDefJCalculatedVarI(self):

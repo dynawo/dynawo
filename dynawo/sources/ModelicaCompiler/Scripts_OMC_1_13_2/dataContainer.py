@@ -80,7 +80,7 @@ def is_alg_var(var):
 def is_real_var(var):
     type_var = var.get_type()
     variability = var.get_variability()
-    return variability == "continuous" and (type_var == "rAlg" or type_var == "rAli") and not var.is_fixed()
+    return variability == "continuous" and (type_var == "rAlg" or type_var == "rAli")
 ##
 # Check whether the variable is a discrete variable of the system or not
 # @param var : variable to test
@@ -106,7 +106,7 @@ def is_discrete_var(var):
     return is_integer_var(var) or is_discrete_real_var(var) or is_bool_var(var)
 
 ##
-# Check whether the variable is a continue const variable of the system or not
+# Check whether the variable is a continuous const variable of the system or not
 # @param var : variable to test
 # @return @b True if the variable is const variable of the system
 def is_real_const_var(var):
@@ -118,7 +118,7 @@ def is_real_const_var(var):
     return right_var_type and is_continuous and var.is_fixed()
 
 ##
-# Check whether the variable is a discrete reak const variable of the system or not
+# Check whether the variable is a discrete real const variable of the system or not
 # @param var : variable to test
 # @return @b True if the variable is const variable of the system
 def is_discrete_real_const_var(var):
