@@ -1027,7 +1027,7 @@ void ModelGeneratorPQ_Dyn::evalCalculatedVars(std::vector<double>& calculatedVar
 
 double ModelGeneratorPQ_Dyn::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
 {
-  return 0;
+  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 
 void ModelGeneratorPQ_Dyn::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res)

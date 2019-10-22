@@ -626,7 +626,10 @@ TEST(ModelerCommonTest, VariableAlias) {
   boost::shared_ptr<VariableNative> variableInt;
   ASSERT_NO_THROW(variableInt = VariableNativeFactory::createState(varNameInt, INTEGER, varIsNegated));
 
-  const boost::shared_ptr<VariableNative> anotherVar = VariableNativeFactory::createState("anotherVar", CONTINUOUS, varIsNegated);
+  const boost::shared_ptr<VariableNative> continuousVar = VariableNativeFactory::createState("continuousVar", CONTINUOUS, varIsNegated);
+  const boost::shared_ptr<VariableNative> discreteVar = VariableNativeFactory::createState("discreteVar", DISCRETE, varIsNegated);
+  const boost::shared_ptr<VariableNative> flowVar = VariableNativeFactory::createState("flowVar", FLOW, varIsNegated);
+  const boost::shared_ptr<VariableNative> boolVar = VariableNativeFactory::createState("boolVar", BOOLEAN, varIsNegated);
 
   const std::string aliasName1 = "alias1";
   const std::string aliasName2 = "alias2";
@@ -646,7 +649,7 @@ TEST(ModelerCommonTest, VariableAlias) {
 
   ASSERT_EQ(variableAlias1->referenceVariableSet(), false);
 
-  ASSERT_THROW_DYNAWO(variableAlias1->setReferenceVariable(anotherVar), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasRefIncoherent);
+  ASSERT_THROW_DYNAWO(variableAlias1->setReferenceVariable(continuousVar), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasRefIncoherent);
   ASSERT_NO_THROW(variableAlias1->setReferenceVariable(variableInt));
 
   ASSERT_EQ(variableAlias1->referenceVariableSet(), true);
@@ -683,6 +686,38 @@ TEST(ModelerCommonTest, VariableAlias) {
   ASSERT_EQ(variableAlias3->getIndex(), varIndex);
 
   EXPECT_ASSERT_DYNAWO(VariableAliasFactory::create(aliasName3, dynamic_pointer_cast<VariableNative> (variableAlias2), DISCRETE));
+
+
+  // Test types compatibility
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", continuousVar, CONTINUOUS));
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", continuousVar, FLOW));
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", continuousVar, DISCRETE), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", continuousVar, INTEGER), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", continuousVar, BOOLEAN), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", flowVar, CONTINUOUS));
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", flowVar, FLOW));
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", flowVar, DISCRETE), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", flowVar, INTEGER), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", flowVar, BOOLEAN), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", discreteVar, CONTINUOUS), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", discreteVar, FLOW), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", discreteVar, DISCRETE));
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", discreteVar, INTEGER));
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", discreteVar, BOOLEAN));
+
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", variableInt, CONTINUOUS), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", variableInt, FLOW), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", variableInt, DISCRETE));
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", variableInt, INTEGER));
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", variableInt, BOOLEAN));
+
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", boolVar, CONTINUOUS), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+  ASSERT_THROW_DYNAWO(VariableAliasFactory::create("MyName", boolVar, FLOW), DYN::Error::MODELER, DYN::KeyError_t::VariableAliasIncoherentType);
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", boolVar, DISCRETE));
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", boolVar, INTEGER));
+  ASSERT_NO_THROW(VariableAliasFactory::create("MyName", boolVar, BOOLEAN));
 }
 
 //-----------------------------------------------------

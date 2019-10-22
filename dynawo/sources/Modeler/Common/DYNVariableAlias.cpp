@@ -43,8 +43,9 @@ type_(type),
 referenceVariable_(refVar) {
   if (referenceVariable_ && type_ == UNDEFINED_TYPE) {
     type_ = refVar->getType();
-    checkTypeCompatibility();
   }
+  if (referenceVariable_)
+    checkTypeCompatibility();
 }
 
 VariableAlias::~VariableAlias() {
@@ -64,8 +65,8 @@ VariableAlias::setReferenceVariable(const shared_ptr<VariableNative> refVar) {
   referenceVariable_ = refVar;
   if (type_ == UNDEFINED_TYPE) {
     type_ = refVar->getType();
-    checkTypeCompatibility();
   }
+  checkTypeCompatibility();
 }
 
 typeVar_t
@@ -116,7 +117,9 @@ VariableAlias::checkTypeCompatibility() const {
   if (referenceVariableSet() && type_ != refType) {
     if ((type_ == FLOW && refType != CONTINUOUS) || (type_ == CONTINUOUS && refType != FLOW))
       throw DYNError(Error::MODELER, VariableAliasIncoherentType, getName(), typeVar2Str(type_), getReferenceVariableName(), typeVar2Str(refType));
-    if ((type_ == DISCRETE && refType != INTEGER) || (type_ == INTEGER && refType != DISCRETE))
+    if ((type_ == DISCRETE && refType != INTEGER && refType != BOOLEAN)
+        || (type_ == INTEGER && refType != DISCRETE && refType != BOOLEAN)
+        || (type_ == BOOLEAN && refType != DISCRETE && refType != INTEGER))
       throw DYNError(Error::MODELER, VariableAliasIncoherentType, getName(), typeVar2Str(type_), getReferenceVariableName(), typeVar2Str(refType));
   }
 }

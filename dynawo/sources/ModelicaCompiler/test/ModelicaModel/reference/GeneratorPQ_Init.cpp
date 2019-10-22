@@ -500,7 +500,7 @@ void ModelGeneratorPQ_Init::evalCalculatedVars(std::vector<double>& calculatedVa
 
 double ModelGeneratorPQ_Init::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
 {
-  return 0;
+  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 
 void ModelGeneratorPQ_Init::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res)
