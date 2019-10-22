@@ -102,6 +102,7 @@ where [option] can be:"
         nrt-ref ([args])                      define or redefine automatically the non-regression tests references
         version-validation                    clean all built items, then build them all and run non-regression tests
         list-tests                            print all available unittest target
+        run-doc-tests                         run all tests provided in the documentation
 
         =========== Utilities
         generate-preassembled-gdb             generate a preassembled model with debugger
@@ -1454,6 +1455,124 @@ nrt() {
   fi
 }
 
+run_documentation_test() {
+  if ! is_launcher_installed; then
+    install_launcher || error_exit "Error during launcher installation."
+  fi
+
+  DYNAWO_DOCUMENTATION_DIR="$DYNAWO_HOME/documentation"
+
+  # compile_Modelica_Model
+  # First example: Modelica model with no external variables
+  pushd $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/Basic > /dev/null
+  compile_Modelica_Model --model Test --output-dir compilation --input-dir . || error_exit "Error during example 1 of compile_Modelica_Model (c++ files generation)"
+  if [ ! -f "compilation/Test_Dyn.cpp" ]; then
+    error_exit "Error during example 1 of compile_Modelica_Model (c++ files generation): cannot find expected output"
+  fi
+  rm -rf $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/Basic/compilation
+
+  compile_Modelica_Model --model Test --lib Test.so || error_exit "Error during example 1 of compile_Modelica_Model (model compilation)"
+  if [ ! -f "Test.so" ]; then
+    error_exit "Error during example 1 of compile_Modelica_Model (model compilation): cannot find expected output"
+  fi
+
+  mv Test.so BlackBox/.
+  mv Test_Dyn_definition.h BlackBox/.
+  pushd BlackBox  > /dev/null
+  launch_jobs Test.jobs  || error_exit "Error during example 1 of compile_Modelica_Model (dynawo simulation with blackbox)"
+  if [ ! -f "outputs/curves/curves.csv" ]; then
+    error_exit "Error during example 1 of compile_Modelica_Model (dynawo simulation with blackbox): cannot find expected output"
+  fi
+  rm -rf Test.so
+  rm -rf Test_Dyn_definition.h
+  rm -rf outputs
+  popd > /dev/null #BlackBox
+
+  launch_jobs Test.jobs  || error_exit "Error during example 1 of compile_Modelica_Model (dynawo simulation with model compilation)"
+  if [ ! -f "outputs/curves/curves.csv" ]; then
+    error_exit "Error during example 1 of compile_Modelica_Model (dynawo simulation with model compilation): cannot find expected output"
+  fi
+  rm -rf outputs
+  popd > /dev/null #$DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/Basic
+
+  # Second example: Modelica model with external variables
+  pushd $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/ExternalVariables > /dev/null
+  compile_Modelica_Model --model Test --lib Test.so || error_exit "Error during example 2 of compile_Modelica_Model (model compilation)"
+  if [ ! -f "Test.so" ]; then
+    error_exit "Error during example 2 of compile_Modelica_Model (model compilation): cannot find expected output"
+  fi
+  rm -rf Test.so
+  rm -rf Test_Dyn_definition.h
+  popd > /dev/null #$DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/ExternalVariables
+
+  # generate-preassembled
+  # First example: Model with fully connected external variables
+  pushd $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestPreassembledNoExternal > /dev/null
+  generate_preassembled --model-list Test.xml --non-recursive-modelica-models-dir . || error_exit "Error during example 1 of generate-preassembled (model compilation no external)"
+    if [ ! -f "Test.so" ]; then
+    error_exit "Error during example 1 of generate-preassembled (model compilation no external): cannot find expected output"
+  fi
+  if [ ! -f "Test.mo" ]; then
+    error_exit "Error during example 1 of generate-preassembled (model compilation no external): cannot find expected output"
+  fi
+  if [ ! -f "Test_Dyn_definition.h" ]; then
+    error_exit "Error during example 1 of generate-preassembled (model compilation no external): cannot find expected output"
+  fi
+  mv Test.so SimulationCompiledLib/.
+  mv Test_Dyn_definition.h SimulationCompiledLib/.
+  mv Test.mo SimulationCompiledLib/.
+  pushd SimulationCompiledLib  > /dev/null
+  launch_jobs Test.jobs  || error_exit "Error during example 1 of generate-preassembled (dynawo simulation with blackbox)"
+  if [ ! -f "outputs/curves/curves.csv" ]; then
+    error_exit "Error during example 1 of generate-preassembled (dynawo simulation with blackbox): cannot find expected output"
+  fi
+  rm -rf Test.so
+  rm -rf Test.mo
+  rm -rf Test_Dyn_definition.h
+  rm -rf outputs
+  popd > /dev/null #SimulationCompiledLib
+
+  pushd Simulation  > /dev/null
+  launch_jobs Test.jobs  || error_exit "Error during example 1 of generate-preassembled (dynawo simulation with model compilation)"
+  if [ ! -f "outputs/curves/curves.csv" ]; then
+    error_exit "Error during example 1 of generate-preassembled (dynawo simulation with model compilation): cannot find expected output"
+  fi
+  rm -rf outputs
+  popd > /dev/null #Simulation
+  popd > /dev/null #$DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestPreassembledNoExternal
+
+  # Second example: Model with partially connected external variables
+  pushd $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestPreassembled > /dev/null
+  generate_preassembled --model-list Test.xml --non-recursive-modelica-models-dir . || error_exit "Error during example 2 of generate-preassembled (model compilation)"
+  if [ ! -f "Test.so" ]; then
+    error_exit "Error during example 2 of generate-preassembled (model compilation): cannot find expected output"
+  fi
+  if [ ! -f "Test.mo" ]; then
+    error_exit "Error during example 2 of generate-preassembled (model compilation): cannot find expected output"
+  fi
+  if [ ! -f "Test.extvar" ]; then
+    error_exit "Error during example 2 of generate-preassembled (model compilation): cannot find expected output"
+  fi
+  rm -rf Test.so
+  rm -rf Test.mo
+  rm -rf Test.extvar
+  rm -rf Test_Dyn_definition.h
+  popd > /dev/null #$DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestPreassembled
+
+  # dump-model
+  pushd $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/Basic > /dev/null
+  compile_Modelica_Model --model Test --lib Test.so || error_exit "Error during example 1 of dump-model (model compilation)"
+  dump_model -m ./Test.so -o Test.desc.xml || error_exit "Error during example 1 of dump-model (dump-model)"
+  if [ ! -f "Test.desc.xml" ]; then
+    error_exit "Error during example 1 of dump-model: cannot find expected output"
+  fi
+  rm -rf Test.so
+  rm -rf Test.desc.xml
+  rm -rf Test_Dyn_definition.h
+  popd > /dev/null #$DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/Basic
+}
+
+
 nrt_diff() {
   python $DYNAWO_NRT_DIFF_DIR/nrtDiff.py $@
 }
@@ -2295,6 +2414,10 @@ case $MODE in
 
   nrt-doc)
     open_nrt_doc || error_exit "Error during the opening of Dynawo nrt documentation"
+    ;;
+
+  run-doc-tests)
+    run_documentation_test || error_exit "Error in the documentation tests"
     ;;
 
   reset-environment)
