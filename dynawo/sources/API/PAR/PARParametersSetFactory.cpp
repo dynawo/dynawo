@@ -33,7 +33,9 @@ ParametersSetFactory::newInstance(string id) {
 
 boost::shared_ptr<ParametersSet>
 ParametersSetFactory::copyInstance(boost::shared_ptr<ParametersSet> original) {
-  return boost::shared_ptr<ParametersSet>(new ParametersSet::Impl(dynamic_cast<ParametersSet::Impl&> (*original)));
+  if (original)
+    return boost::shared_ptr<ParametersSet>(new ParametersSet::Impl(dynamic_cast<ParametersSet::Impl&> (*original)));
+  return boost::shared_ptr<ParametersSet>();
 }
 
 boost::shared_ptr<ParametersSet>

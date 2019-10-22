@@ -49,6 +49,7 @@ TEST(APIPARTest, ParametersSetFactory) {
   // Copy this parameters set in another parameters set
   shared_ptr<ParametersSet> parametersSet2;
   ASSERT_NO_THROW(parametersSet2 = ParametersSetFactory::copyInstance(parametersSet1));
+  ASSERT_NO_THROW(parametersSet2 = ParametersSetFactory::copyInstance(shared_ptr<ParametersSet>()));
 
   // Copy this parameters set in another parameters set (through reference)
   shared_ptr<ParametersSet> parametersSet3;
