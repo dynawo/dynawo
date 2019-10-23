@@ -16,7 +16,6 @@ import itertools
 import re
 from dataContainer import *
 from utils import *
-from collections import OrderedDict
 
 ##
 # ZeroCrossingFilter class : take G data, read and prepare them to be used in factory
@@ -179,7 +178,8 @@ class Factory:
         ## List of dummy variables
         self.list_vars_dummy = []
         ## List of calculated variables
-        self.list_calculated_vars = OrderedDict()
+        self.list_calculated_vars = []
+        self.dic_calculated_vars_values = {}
         ## List of const real variables with a complex initialization
         self.list_complex_const_vars = []
 
@@ -413,10 +413,12 @@ class Factory:
         for var in list_vars_read:
             if var in self.list_complex_const_vars:
                 test_param_address(var.get_name())
-                self.list_calculated_vars[var] = to_param_address(var.get_name())
+                self.list_calculated_vars.append(var)
+                self.dic_calculated_vars_values[var.get_name()] = to_param_address(var.get_name())
             elif not var.is_alias() and is_real_const_var(var):
                 test_param_address(var.get_name())
-                self.list_calculated_vars[var] = to_param_address(var.get_name())
+                self.list_calculated_vars.append(var)
+                self.dic_calculated_vars_values[var.get_name()] = to_param_address(var.get_name())
             elif var.is_alias():
                 alias_list = filter(lambda x: (x.get_name() == var.get_alias_name()), list_vars_read)
                 assert(len(alias_list) == 1)
@@ -424,11 +426,13 @@ class Factory:
                 if var.get_variability() == "continuous" and (is_integer_var(alias_var) or is_discrete_real_var(alias_var)):
                     test_param_address(var.get_alias_name())
                     negated = "-" if var.get_alias_negated() else ""
-                    self.list_calculated_vars[var] = negated + to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
+                    self.list_calculated_vars.append(var)
+                    self.dic_calculated_vars_values[var.get_name()] = negated + to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
                 if is_real_const_var(var):
                     test_param_address(var.get_alias_name())
                     negated = "-" if var.get_alias_negated() else ""
-                    self.list_calculated_vars[var] = negated+to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
+                    self.list_calculated_vars.append(var)
+                    self.dic_calculated_vars_values[var.get_name()] = negated+to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
 
         self.list_params_real = filter(is_param_real, list_vars_read) # Real Params (all)
 
@@ -2583,7 +2587,8 @@ class Factory:
     # @return
     def prepare_for_evalcalculatedvars(self):
         index = 0
-        for var, expr in self.list_calculated_vars.items():
+        for var in self.list_calculated_vars:
+            expr = self.dic_calculated_vars_values[var.get_name()]
             self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(index)+"] /* " + var.get_name() + "*/ = " + expr+";\n")
             index += 1
 
@@ -2601,7 +2606,8 @@ class Factory:
     # @return
     def prepare_for_evalcalculatedvari(self):
         index = 0
-        for var, expr in self.list_calculated_vars.items():
+        for var in self.list_calculated_vars:
+            expr = self.dic_calculated_vars_values[var.get_name()]
             self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */\n")
             self.list_for_evalcalculatedvari.append("    return "+ expr+";\n")
             index += 1
