@@ -53,12 +53,12 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed : is the transformer connected ?
    */
-  void evalG(const double& t, const double& uValue, bool nodeOff, state_g* g, const double& disable, const double& locked, bool tfoClosed);
+  void evalG(double t, double uValue, bool nodeOff, state_g* g, double disable, double locked, bool tfoClosed);
 
   /**
-   * @copydoc ModelTapChanger::evalZ(const double& t, state_g* rootFound, ModelNetwork* network, const double& disable, bool nodeOff, const double& locked, bool tfoClosed)
+   * @copydoc ModelTapChanger::evalZ(double t, state_g* rootFound, ModelNetwork* network, double disable, bool nodeOff, double locked, bool tfoClosed)
    */
-  void evalZ(const double& t, state_g* g, ModelNetwork* network, const double& disable, bool nodeOff, const double& locked, bool tfoClosed);
+  void evalZ(double t, state_g* g, ModelNetwork* network, double disable, bool nodeOff, double locked, bool tfoClosed);
 
   /**
    * @brief  get the size of the local G function
@@ -91,6 +91,15 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @return value of the current dead band
    */
   double getTolV() const;
+
+  /**
+   * @brief set the reference side
+   *
+   * @param side reference side
+   */
+  void setSide(std::string side) {
+    side_ = side;
+  }
 
  private:
   /**

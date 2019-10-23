@@ -411,11 +411,7 @@ class Factory:
                     self.list_complex_const_vars.append(var)
 
         for var in list_vars_read:
-            if var in self.list_complex_const_vars:
-                test_param_address(var.get_name())
-                self.list_calculated_vars.append(var)
-                self.dic_calculated_vars_values[var.get_name()] = to_param_address(var.get_name())
-            elif not var.is_alias() and is_real_const_var(var):
+            if var in self.list_complex_const_vars or (not var.is_alias() and is_real_const_var(var)):
                 test_param_address(var.get_name())
                 self.list_calculated_vars.append(var)
                 self.dic_calculated_vars_values[var.get_name()] = to_param_address(var.get_name())
@@ -675,7 +671,6 @@ class Factory:
 
 
     def handle_body_for_discrete(self, body, name_func_to_search, global_pattern_index):
-        list_omc_functions = self.reader.list_omc_functions
         list_bool_var_names = [item.get_name() for item in self.list_all_bool_items]
         body_tmp = []
         for line in body:

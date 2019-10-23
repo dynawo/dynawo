@@ -277,6 +277,8 @@ ModelHvdcLink::getDefJCalculatedVarI(int numCalculatedVar, std::vector<int> & nu
       }
       break;
     }
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
@@ -299,8 +301,8 @@ ModelHvdcLink::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp
     }
     case p2Num_: {
       if (isConnected1() && isConnected2()) {
-        double ur2 = y[2];
-        double ui2 = y[3];
+        double ur2 = y[0];
+        double ui2 = y[1];
         double U2_2 = ur2 * ur2 + ui2 * ui2;
         // P2 = -( ur2 * ir2 + ui2 * ii2 ) (generator convention)
         res[0] = -(ir2(ur2, ui2, U2_2) + ur2 * ir2_dUr(ur2, ui2, U2_2) + ui2 * ii2_dUr(ur2, ui2, U2_2));  // @P2/@ur2
@@ -327,8 +329,8 @@ ModelHvdcLink::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp
     }
     case q2Num_: {
       if (isConnected2()) {
-        double ur2 = y[2];
-        double ui2 = y[3];
+        double ur2 = y[0];
+        double ui2 = y[1];
         double U2_2 = ur2 * ur2 + ui2 * ui2;
         // Q2 = -( ui2 * ir2 - ur2 * ii2 ) (generator convention)
         res[0] = -(ui2 * ir2_dUr(ur2, ui2, U2_2) - (ii2(ur2, ui2, U2_2) + ur2 * ii2_dUr(ur2, ui2, U2_2)));  // @Q2/@ur2
@@ -339,6 +341,8 @@ ModelHvdcLink::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp
       }
       break;
     }
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
@@ -399,6 +403,8 @@ ModelHvdcLink::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*
       }
       break;
     }
+    default:
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
   return 0.;
 }

@@ -288,12 +288,30 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   }
 
   /**
+   * @brief get the bus to which the converter1 is connected
+   *
+   * @return model model of the bus
+   */
+  inline const boost::shared_ptr<ModelBus>& getModelBus1() {
+    return modelBus1_;
+  }
+
+  /**
    * @brief set the bus to which the converter2 is connected
    *
    * @param model model of the bus
    */
   void setModelBus2(const boost::shared_ptr<ModelBus>& model) {
     modelBus2_ = model;
+  }
+
+  /**
+   * @brief get the bus to which the converter2 is connected
+   *
+   * @return model model of the bus
+   */
+  inline const boost::shared_ptr<ModelBus>& getModelBus2() {
+    return modelBus2_;
   }
 
  protected:
