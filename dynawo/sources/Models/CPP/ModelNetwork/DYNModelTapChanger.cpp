@@ -53,12 +53,17 @@ ModelTapChanger::getCurrentStepIndex() const {
   return currentStepIndex_;
 }
 
-TapChangerStep
-ModelTapChanger::getCurrentStep() const {
-  if (steps_.find(currentStepIndex_) != steps_.end())
-    return steps_.find(currentStepIndex_)->second;
+const TapChangerStep&
+ModelTapChanger::getStep(int key) const {
+  if (steps_.find(key) != steps_.end())
+    return steps_.find(key)->second;
   else
-    throw DYNError(Error::MODELER, UndefinedStep, currentStepIndex_, id_);
+    throw DYNError(Error::MODELER, UndefinedStep, key, id_);
+}
+
+const TapChangerStep&
+ModelTapChanger::getCurrentStep() const {
+  return getStep(currentStepIndex_);
 }
 
 void
@@ -87,13 +92,13 @@ ModelTapChanger::setTNext(const double& time) {
 }
 
 void
-ModelTapChanger::evalG(const double& /*t*/, const double& /*valueMonitored*/, bool /*nodeOff*/, state_g* /*g*/, const double& /*disable*/,
-                       const double& /*locked*/, bool /*tfoClosed*/) {
+ModelTapChanger::evalG(double /*t*/, double /*valueMonitored*/, bool /*nnodeOff*/, state_g* /*g*/, double /*disable*/,
+                       double /*locked*/, bool /*tfoClosed*/) {
   // not needed
 }
 
 void
-ModelTapChanger::evalZ(const double& /*t*/, state_g* /*g*/, ModelNetwork* /*network*/, const double& /*disable*/, bool /*nodeOff*/, const double& /*locked*/,
+ModelTapChanger::evalZ(double /*t*/, state_g* /*g*/, ModelNetwork* /*network*/, double /*disable*/, bool /*nodeOff*/, double /*locked*/,
                      bool /*tfoClosed*/) {
   // not needed
 }

@@ -1088,7 +1088,6 @@ class ReaderOMC:
                 if next_iter is None: break # If we reach the end of the file, exit loop
                 match = re.search(ptrn_var, next_iter)
                 type = match.group("type")
-                index = match.group("index")
                 name = match.group("name")
                 var_list = filter(lambda x: (x.get_name() == name),self.list_vars)
                 assert(len(var_list) <= 1)

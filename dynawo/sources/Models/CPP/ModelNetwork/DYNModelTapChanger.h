@@ -46,17 +46,42 @@ class ModelTapChanger {
    * @brief destructor
    */
   virtual ~ModelTapChanger();
+
+  /**
+   * @brief  return the name of the tap changer
+   * @return name of the tap changer
+   */
+  inline std::string id() const {
+    return id_;
+  }
+
+  /**
+   * @brief  return the step associated to the index
+   * @param key associated to the index
+   * @return step associated to the index
+   */
+  const TapChangerStep& getStep(int key) const;
+
   /**
    * @brief  add a new TapChangerStep to the steps vector
    * @param index
    * @param step
    */
   void addStep(int index, const TapChangerStep& step);
+
   /**
    * @brief  get the current TapChangerStep object
    * @return tap changer step
    */
-  TapChangerStep getCurrentStep() const;
+  const TapChangerStep& getCurrentStep() const;
+
+  /**
+   * @brief  return the name of the tap changer
+   * @return name of the tap changer
+   */
+  inline size_t size() const {
+    return steps_.size();
+  }
 
   /**
    * @brief  set the current step to a new index
@@ -70,15 +95,38 @@ class ModelTapChanger {
   int getCurrentStepIndex() const;
 
   /**
+   * @brief   get the lowest step index
+   * @return index
+   */
+  inline int getLowStepIndex() const {
+    return lowStepIndex_;
+  }
+
+  /**
    * @brief   set the lowest step index
    * @param index
    */
   void setLowStepIndex(const int& index);
+
+  /**
+   * @brief   get the highest step index
+   * @return index
+   */
+  inline int getHighStepIndex() const {
+    return highStepIndex_;
+  }
   /**
    * @brief  set the highest step index
    * @param index
    */
   void setHighStepIndex(const int& index);
+  /**
+   * @brief   get if the tap changer is regulating
+   * @return regulating
+   */
+  inline bool getRegulating() const {
+    return regulating_;
+  }
   /**
    * @brief   set if the tap changer is regulating
    * @param regulating
@@ -86,10 +134,26 @@ class ModelTapChanger {
   void setRegulating(bool regulating);
 
   /**
+   * @brief   get the time to wait before changing of step for the first time
+   * @return time
+   */
+  inline double getTFirst() const {
+    return tFirst_;
+  }
+
+  /**
    * @brief   set the time to wait before changing of step for the first time
    * @param time
    */
   void setTFirst(const double& time);
+
+  /**
+   * @brief   get the time to wait before changing of step if it's not the first time
+   * @return time
+   */
+  inline double getTNext() const {
+    return tNext_;
+  }
   /**
    * @brief  set the time to wait before changing of step if it's not the first time
    * @param time
@@ -107,7 +171,7 @@ class ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed : is the transformer connected ?
    */
-  virtual void evalG(const double& t, const double& valueMonitored, bool nodeOff, state_g* g, const double & disable, const double& locked,
+  virtual void evalG(double t, double valueMonitored, bool nodeOff, state_g* g, double disable, double locked,
                      bool tfoClosed);
 
   /**
@@ -120,7 +184,7 @@ class ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed :is the transformer connected ?
    */
-  virtual void evalZ(const double& t, state_g* g, ModelNetwork* network, const double& disable, bool nodeOff, const double& locked,
+  virtual void evalZ(double t, state_g* g, ModelNetwork* network, double disable, bool nodeOff, double locked,
                      bool tfoClosed);
 
   /**
@@ -139,7 +203,7 @@ class ModelTapChanger {
     return 0;
   }
 
- protected:
+ private:
   std::string id_;  ///< id of the tap changer
   std::map<int, TapChangerStep> steps_;  ///< map of TapChangerStep : index -> step
   int currentStepIndex_;  ///< index of the current step

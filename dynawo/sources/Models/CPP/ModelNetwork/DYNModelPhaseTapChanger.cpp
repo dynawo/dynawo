@@ -60,8 +60,8 @@ ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) {
   // decide whether we should increase/decrease tap depending on tap description and power flow
   bool increaseTap = false;
   bool increasePhase = false;
-  if (steps_.size() > 1)
-    increasePhase = (steps_[lowStepIndex_].getAlpha() < steps_[lowStepIndex_ + 1].getAlpha());
+  if (size() > 1)
+    increasePhase = (getStep(getLowStepIndex()).getAlpha() < getStep(getLowStepIndex() + 1).getAlpha());
 
   if (!P1SupP2) {
     if (increasePhase)
@@ -78,40 +78,44 @@ ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) {
 }
 
 void
-ModelPhaseTapChanger::evalG(const double& t, const double& iValue, bool /*nodeOff*/, state_g* g, const double& disable, const double& locked, bool tfoClosed) {
+ModelPhaseTapChanger::evalG(double t, double iValue, bool /*nodeOff*/, state_g* g, double disable, double locked, bool tfoClosed) {
   g[0] = (iValue >= thresholdI_ && !(disable > 0.) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // I > IThreshold
   g[1] = (iValue < thresholdI_) ? ROOT_UP : ROOT_DOWN;
 
 
-  g[2] = (moveUp_ && (t - whenUp_ >= tFirst_) && currentStepIndex_ < highStepIndex_ && !(locked > 0.) && regulating_ && currentStepIndex_ == tapRefUp_
+  g[2] = (moveUp_ && (t - whenUp_ >= getTFirst()) && getCurrentStepIndex() < getHighStepIndex()
+      && !(locked > 0.) && getRegulating() && getCurrentStepIndex() == tapRefUp_
           && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // first tap Up
-  g[3] = (moveUp_ && (t - whenLastTap_ >= tNext_) && currentStepIndex_ < highStepIndex_ && !(locked > 0.) && regulating_ && currentStepIndex_ != tapRefUp_
+  g[3] = (moveUp_ && (t - whenLastTap_ >= getTNext()) && getCurrentStepIndex() < getHighStepIndex()
+      && !(locked > 0.) && getRegulating() && getCurrentStepIndex() != tapRefUp_
           && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // next tap Up
 
-  g[4] = (moveDown_ && (t - whenDown_ >= tFirst_) && currentStepIndex_ > lowStepIndex_ && !(locked > 0.) && regulating_ && currentStepIndex_ == tapRefDown_
+  g[4] = (moveDown_ && (t - whenDown_ >= getTFirst()) && getCurrentStepIndex() > getLowStepIndex()
+      && !(locked > 0.) && getRegulating() && getCurrentStepIndex() == tapRefDown_
           && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // first tap down
-  g[5] = (moveDown_ && (t - whenLastTap_ >= tNext_) && currentStepIndex_ > lowStepIndex_ && !(locked > 0.) && regulating_ && currentStepIndex_ != tapRefDown_
+  g[5] = (moveDown_ && (t - whenLastTap_ >= getTNext()) && getCurrentStepIndex() > getLowStepIndex()
+      && !(locked > 0.) && getRegulating() && getCurrentStepIndex() != tapRefDown_
           && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // next tap down
 }
 
 void
-ModelPhaseTapChanger::evalZ(const double& t, state_g* g, ModelNetwork* network, const double& disable, bool P1SupP2, const double& locked, bool tfoClosed) {
+ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double disable, bool P1SupP2, double locked, bool tfoClosed) {
   if (!(disable > 0.) && !(locked > 0.) && tfoClosed) {
     if (g[0] == ROOT_UP && !currentOverThresholdState_) {  // I > IThreshold
       if (getIncreaseTap(P1SupP2)) {
         whenUp_ = t;
         moveUp_ = true;
-        tapRefUp_ = currentStepIndex_;
+        tapRefUp_ = getCurrentStepIndex();
         whenDown_ = VALDEF;
         moveDown_ = false;
-        tapRefDown_ = highStepIndex_;
+        tapRefDown_ = getHighStepIndex();
       } else {
         whenDown_ = t;
         moveDown_ = true;
-        tapRefDown_ = currentStepIndex_;
+        tapRefDown_ = getCurrentStepIndex();
         whenUp_ = VALDEF;
         moveUp_ = false;
-        tapRefUp_ = lowStepIndex_;
+        tapRefUp_ = getLowStepIndex();
       }
       currentOverThresholdState_ = true;
     }
@@ -119,23 +123,23 @@ ModelPhaseTapChanger::evalZ(const double& t, state_g* g, ModelNetwork* network, 
     if (g[1] == ROOT_UP && currentOverThresholdState_) {  // I < IThreshold
       whenUp_ = VALDEF;
       moveUp_ = false;
-      tapRefUp_ = lowStepIndex_;
+      tapRefUp_ = getLowStepIndex();
       whenDown_ = VALDEF;
       moveDown_ = false;
-      tapRefDown_ = highStepIndex_;
+      tapRefDown_ = getHighStepIndex();
       currentOverThresholdState_ = false;
     }
 
     if (g[2] == ROOT_UP || g[3] == ROOT_UP) {  // increase tap
-      currentStepIndex_ += 1;
+      setCurrentStepIndex(getCurrentStepIndex() + 1);
       whenLastTap_ = t;
-      network->addEvent(id_, DYNTimeline(TapUp));
+      network->addEvent(id(), DYNTimeline(TapUp));
     }
 
     if (g[4] == ROOT_UP || g[5] == ROOT_UP) {  // decrease tap
-      currentStepIndex_ -= 1;
+      setCurrentStepIndex(getCurrentStepIndex() - 1);
       whenLastTap_ = t;
-      network->addEvent(id_, DYNTimeline(TapDown));
+      network->addEvent(id(), DYNTimeline(TapDown));
     }
   }
 }

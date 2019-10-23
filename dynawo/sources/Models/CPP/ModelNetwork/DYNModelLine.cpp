@@ -735,6 +735,7 @@ ModelLine::evalZ(const double& t) {
       // compare them to know what happened, which timeline message to generate
       // and which topology action to take
       case UNDEFINED_STATE:
+        topologyModified_ = false;
         throw DYNError(Error::MODELER, UndefinedComponentState, id_);
       case OPEN:
         switch (getConnectionState()) {
@@ -754,8 +755,10 @@ ModelLine::evalZ(const double& t) {
           modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
           break;
         case CLOSED_3:
+          topologyModified_ = false;
           throw DYNError(Error::MODELER, NoThirdSide, id_);
         case UNDEFINED_STATE:
+          topologyModified_ = false;
           throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
         }
         break;
@@ -777,8 +780,10 @@ ModelLine::evalZ(const double& t) {
             modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
             break;
           case CLOSED_3:
+            topologyModified_ = false;
             throw DYNError(Error::MODELER, NoThirdSide, id_);
           case UNDEFINED_STATE:
+            topologyModified_ = false;
             throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
           }
           break;
@@ -801,8 +806,10 @@ ModelLine::evalZ(const double& t) {
               modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
               break;
             case CLOSED_3:
+              topologyModified_ = false;
               throw DYNError(Error::MODELER, NoThirdSide, id_);
             case UNDEFINED_STATE:
+              topologyModified_ = false;
               throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
             }
             break;
@@ -825,12 +832,15 @@ ModelLine::evalZ(const double& t) {
               case CLOSED_2:
                 break;
               case CLOSED_3:
+                topologyModified_ = false;
                 throw DYNError(Error::MODELER, NoThirdSide, id_);
               case UNDEFINED_STATE:
+                topologyModified_ = false;
                 throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
               }
               break;
               case CLOSED_3:
+                topologyModified_ = false;
                 throw DYNError(Error::MODELER, NoThirdSide, id_);
       }
     }
@@ -1231,11 +1241,11 @@ ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
     case u2Num_: {
       switch (knownBus_) {
         case BUS1_BUS2:
-        case BUS1:
+        case BUS2:
           ur2 = y[0];
           ui2 = y[1];
           break;
-        case BUS2:
+        case BUS1:
           break;
       }
       if (closed2) {
@@ -1250,8 +1260,6 @@ ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
     break;
     case lineStateNum_:
       break;
-    default:
-      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
@@ -1302,7 +1310,7 @@ ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
   case lineStateNum_:
     break;
   default:
-    throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
+    throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
 
   double Ir1 = ir1(ur1, ui1, ur2, ui2);
@@ -1393,8 +1401,6 @@ ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
     case lineStateNum_:
       output = connectionState_;
       break;
-    default:
-      throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
   return output;
 }

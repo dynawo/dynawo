@@ -81,9 +81,9 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
   sub.setNum(8);
   ASSERT_EQ(sub.getNum(), 8);
   ASSERT_EQ(sub.nbBus(), 0);
-  ASSERT_DEATH(sub.bus(1), "Bus index unknown");
+  EXPECT_ASSERT_DYNAWO(sub.bus(1));
 
-  ASSERT_DEATH(sub.addBus(shared_ptr<ModelBus>()), "Undefined bus");
+  EXPECT_ASSERT_DYNAWO(sub.addBus(shared_ptr<ModelBus>()));
 
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
   shared_ptr<ModelBus> bus = p.first;

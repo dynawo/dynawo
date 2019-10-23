@@ -718,7 +718,6 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
         break;
       }
       case UNDEFINED_TYPE:
-      default:
       {
         throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
       }

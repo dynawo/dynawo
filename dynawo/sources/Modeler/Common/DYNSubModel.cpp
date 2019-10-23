@@ -326,12 +326,10 @@ SubModel::getVariableValue(const boost::shared_ptr <Variable> variable) const {
           value = 0;
         break;
       }
-      case UNDEFINED_TYPE:
-      {
+      case UNDEFINED_TYPE: {
         throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
       }
-      default:
-      {
+      default: {
         throw DYNError(Error::MODELER, SubModelUnknownVariable, name(), modelType(), variable->getName());
       }
     }
@@ -365,7 +363,6 @@ SubModel::getVariableIndexGlobal(const shared_ptr <Variable> variable) const {
       return zDeb() + varNum;
     }
     case UNDEFINED_TYPE:
-    default:
     {
       throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
     }
@@ -690,7 +687,6 @@ void SubModel::defineNamesImpl(vector<shared_ptr<Variable> >& variables, vector<
           break;
         }
         case UNDEFINED_TYPE:
-        default:
         {
           throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
         }
@@ -918,7 +914,6 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
         break;
       }
       case UNDEFINED_TYPE:
-      default:
       {
         throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
       }

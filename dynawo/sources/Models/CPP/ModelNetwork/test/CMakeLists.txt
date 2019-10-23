@@ -18,6 +18,9 @@ SET(MODULE_SOURCES
     TestDanglingLine.cpp
     TestCurrentLimits.cpp
     TestGenerator.cpp
+    TestHvdcLink.cpp
+    TestLine.cpp
+    TestTapChanger.cpp
 )
 
 INCLUDE_DIRECTORIES(..
