@@ -214,14 +214,12 @@ int main(int argc, char ** argv) {
   formatter->startElement("variables", attrs);
 
   for (std::map<std::string, boost::shared_ptr<DYN::Variable> >::const_iterator itVar = mapVariable.begin(); itVar != mapVariable.end(); ++itVar) {
-    if (!itVar->second->isAlias()) {
-      const boost::shared_ptr<DYN::Variable> itVariable = itVar->second;
-      attrs.clear();
-      attrs.add("name", itVariable->getName());
-      attrs.add("valueType", typeVarC2Str(toCTypeVar(itVariable->getType())));
-      formatter->startElement("variable", attrs);
-      formatter->endElement();   // variable
-    }
+    const boost::shared_ptr<DYN::Variable> itVariable = itVar->second;
+    attrs.clear();
+    attrs.add("name", itVariable->getName());
+    attrs.add("valueType", typeVarC2Str(toCTypeVar(itVariable->getType())));
+    formatter->startElement("variable", attrs);
+    formatter->endElement();   // variable
   }
   formatter->endElement();   // variables
   formatter->endElement();   // elements
