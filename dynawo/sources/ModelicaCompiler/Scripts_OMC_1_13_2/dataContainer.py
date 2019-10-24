@@ -1897,6 +1897,12 @@ class Warn:
         self.body.pop(0)
         self.body.pop()
 
+        with_throw = False
+        for line in self.body:
+            if "throwStreamPrint" in line:
+                with_throw = True
+                break
+
         #################
         for line in self.body:
             line = throw_stream_indexes(line)
@@ -1929,8 +1935,9 @@ class Warn:
             elif "FILE_INFO info" in line:
                 continue;
             elif "omc_assert_warning" in line:
-                line_tmp = line.replace("info, ","")
-                tmp_body.append(line_tmp)
+                if not with_throw:
+                    line_tmp = line.replace("info, ","")
+                    tmp_body.append(line_tmp)
             else:
                 tmp_body.append(line)
 
