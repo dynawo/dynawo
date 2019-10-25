@@ -71,7 +71,6 @@ sizeZ_(0),
 sizeG_(0),
 sizeMode_(0),
 sizeY_(0),
-sizeCalculatedVar_(0),
 zChange_(false),
 modeChange_(false),
 modeChangeType_(NO_MODE),
@@ -137,7 +136,7 @@ ModelMulti::setWorkingDirectory(const string& workingDirectory) {
 }
 
 void
-ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& libName) {
+ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& /*libName*/) {
   Trace::debug("PARAMETERS") << "------------------------------" << Trace::endline;
   Trace::debug("PARAMETERS") << "SubModel " << sub->name() << Trace::endline;
   Trace::debug("PARAMETERS") << "------------------------------" << Trace::endline;
@@ -158,10 +157,7 @@ ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& libName) {
   sub->defineNames();
   sub->defineElements();
 
-  subModelByName_[sub->name()] = sub;
-  if (libName != "") {
-    subModelByLib_[libName].push_back(sub);
-  }
+  subModelByName_[sub->name()] = subModels_.size();
   subModels_.push_back(sub);
 }
 
@@ -691,8 +687,14 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
   if ((!isState1) && (!isState2)) {
     throw DYNError(Error::MODELER, ConnectorCalculatedVariables, subModel1->name(), name1, subModel2->name(), name2);
   } else if ((!isState1) && (isState2)) {  // when one variable is a state variable and the other one isn't, use a specific connection
+    if (typeVar2 != CONTINUOUS && typeVar2 != FLOW) {
+      throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
+    }
     createCalculatedVariableConnection(subModel1, num1, subModel2, num2);
   } else if ((isState1) && (!isState2)) {
+    if (typeVar1 != CONTINUOUS && typeVar1 != FLOW) {
+      throw DYNError(Error::MODELER, ConnectorFail, subModel1->modelType(), name1, typeVar2Str(typeVar1), subModel2->modelType(), name2, typeVar2Str(typeVar2));
+    }
     createCalculatedVariableConnection(subModel2, num2, subModel1, num1);
   } else {  // both variables are state variables
     if (typeVar2 != typeVar1) {
@@ -728,41 +730,41 @@ ModelMulti::createConnection(shared_ptr<SubModel> &subModel1, const string & nam
 void
 ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, const int & numVar, shared_ptr<SubModel> &subModel2, const int &yNum) {
   string calculatedVarName1 = subModel1->getCalculatedVarName(numVar);
-  shared_ptr<ConnectorCalculatedVariable> connector(new ConnectorCalculatedVariable());
-  connector->name(calculatedVarName1);
-  connector->setParams(subModel1, numVar);
-  shared_ptr<SubModel> subModelConnector = dynamic_pointer_cast<SubModel> (connector);
-  addSubModel(subModelConnector, "");  // no library for connectors
-  vector<int> numVars = subModel1->getDefJCalculatedVarI(numVar);
-  int col1stYModelExt = connector->col1stYModelExt();
+  shared_ptr<ConnectorCalculatedVariable> connector;
+  string name = subModel1->name()+"_"+calculatedVarName1;
+  boost::shared_ptr<SubModel> subModelConnector = findSubModelByName(name);
+  int col1stYModelExt;
+  if (!subModelConnector) {
+    connector = shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable());
+    connector->name(name);
+    connector->setVariableName(calculatedVarName1);
+    connector->setParams(subModel1, numVar);
+    subModelConnector = dynamic_pointer_cast<SubModel> (connector);
+    col1stYModelExt = connector->col1stYModelExt();
+    addSubModel(subModelConnector, "");  // no library for connectors
+    vector<int> numVars = subModel1->getDefJCalculatedVarI(numVar);
 
-  const vector<string>& xNamesConnector = subModelConnector->xNames();
-  const vector<string>& xNamesModel = subModel1->xNames();
+    const vector<string>& xNamesConnector = subModelConnector->xNames();
+    const vector<string>& xNamesModel = subModel1->xNames();
 
-  for (unsigned int i = 0; i < numVars.size(); ++i) {
-    createConnection(subModelConnector, xNamesConnector[col1stYModelExt + i], subModel1, xNamesModel[numVars[i]], true);
+    for (unsigned int i = 0; i < numVars.size(); ++i) {
+      createConnection(subModelConnector, xNamesConnector[col1stYModelExt + i], subModel1, xNamesModel[numVars[i]], true);
+    }
+  } else {
+    col1stYModelExt = dynamic_pointer_cast<ConnectorCalculatedVariable> (subModelConnector)->col1stYModelExt();
   }
 
   const vector<string>& xNames = subModel2->xNames();
-  createConnection(subModel2, xNames[yNum], subModelConnector, string("connector_" + calculatedVarName1));
+  createConnection(subModel2, xNames[yNum], subModelConnector, string("connector_" + name));
 }
 
 boost::shared_ptr<SubModel>
 ModelMulti::findSubModelByName(const string& name) {
-  std::map<string, shared_ptr<SubModel> >::const_iterator iter = subModelByName_.find(name);
+  std::map<string, size_t >::const_iterator iter = subModelByName_.find(name);
   if (iter == subModelByName_.end())
     return (shared_ptr<SubModel>());
   else
-    return iter->second;
-}
-
-vector<boost::shared_ptr<SubModel> >
-ModelMulti::findSubModelByLib(const string& libName) {
-  std::map<string, vector<shared_ptr<SubModel> > >::const_iterator iter = subModelByLib_.find(libName);
-  if (iter == subModelByLib_.end())
-    return (vector<shared_ptr<SubModel> >());
-  else
-    return iter->second;
+    return subModels_[iter->second];
 }
 
 bool
@@ -934,7 +936,7 @@ ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollect
     boost::shared_ptr<Curve> curve = *itCurve;
     shared_ptr<SubModel> subModel = findSubModel(curve->getModelName(), curve->getVariable()).subModel_;
     if (subModel) {
-      subModel->updateCalculatedVarForCurve(curve, &y[0], &yp[0]);
+      subModel->updateCalculatedVarForCurve(curve, &y[subModel->getOffsetY()], &yp[subModel->getOffsetY()]);
     }
   }
 }

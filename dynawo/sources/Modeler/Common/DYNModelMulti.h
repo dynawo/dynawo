@@ -211,13 +211,6 @@ class ModelMulti : public Model, private boost::noncopyable {
   }
 
   /**
-   * @copydoc Model::sizeCalculatedVar() const
-   */
-  inline int sizeCalculatedVar() const {
-    return sizeCalculatedVar_;
-  }
-
-  /**
    * @copydoc Model::getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation)
    */
   void getFInfos(const int globalFIndex, std::string& subModelName, int& localFIndex, std::string& fEquation);
@@ -363,15 +356,6 @@ class ModelMulti : public Model, private boost::noncopyable {
   boost::shared_ptr<SubModel> findSubModelByName(const std::string& name);
 
   /**
-   * @brief find all subModels created from a library thanks to its name
-   *
-   * @param libName name of the library used to create subModels
-   *
-   * @return vector of subModels created from the library (if there is some subModels), empty vector otherwise
-   */
-  std::vector<boost::shared_ptr<SubModel> > findSubModelByLib(const std::string& libName);
-
-  /**
    * @brief check for each submodels, if each external variables is connected
    * to another variable
    *
@@ -483,8 +467,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
   std::vector<std::string> yNames_;  ///< names of all variables y
   std::vector<boost::shared_ptr<SubModel> > subModels_;  ///< list of each sub models
-  std::map<std::string, boost::shared_ptr<SubModel> > subModelByName_;  ///< map associating a sub model to its name
-  std::map<std::string, std::vector<boost::shared_ptr<SubModel> > > subModelByLib_;  ///< map associating a lib and each instance of subModels created with it
+  std::map<std::string, size_t > subModelByName_;  ///< map associating a sub model to its name
   boost::shared_ptr<ConnectorContainer> connectorContainer_;  ///< list of each connector
   std::vector<double> zSave_;  ///< save of the last discretes values
   propertyF_t* fType_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)
@@ -495,7 +478,6 @@ class ModelMulti : public Model, private boost::noncopyable {
   int sizeG_;  ///< number of root functions
   int sizeMode_;  ///< number of mode
   int sizeY_;  ///< number of continuous values
-  int sizeCalculatedVar_;  ///< number of calculated variables
   bool zChange_;  ///< @b true if one discrete value has changed
   bool modeChange_;  ///< @b true if one mode has changed
   modeChangeType_t modeChangeType_;  ///< type of mode change

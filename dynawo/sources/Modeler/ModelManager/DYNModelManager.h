@@ -556,8 +556,10 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @brief read calculated variables and create calculated parameters from them
    * @param calculatedVars calculated variables values to use
+   * @param reversedAlias reference variable name to alias variables map
    */
-  void createCalculatedParametersFromInitialCalculatedVariables(const std::vector<double>& calculatedVars);
+  void createCalculatedParametersFromInitialCalculatedVariables(const std::vector<double>& calculatedVars,
+      const std::map<std::string, std::vector< boost::shared_ptr <VariableAlias> > >& reversedAlias);
 
   /**
    * @brief set the values of initial parameters

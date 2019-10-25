@@ -140,12 +140,6 @@ class ReaderOMC:
         ## Association between the tag of the equation (when,assign,...) and the index of the function/equation
         self.map_tag_num_eq ={}
 
-        ## List of number associated to linear equation
-        self.linear_eq_nums = []
-
-        ## List of number associated to non linear equation
-        self.non_linear_eq_nums = []
-
         ## List of variables defined by initial equation
         self.initial_defined = []
 
@@ -156,6 +150,14 @@ class ReaderOMC:
         ## List of auxiliary variables which are used in a variable equation
         self.auxiliary_var_to_keep = []
         self.auxiliary_vars_counted_as_variables = []
+
+        ## List of calculated variables
+        self.list_calculated_vars = []
+        self.dic_calculated_vars_values = {}
+        ## List of const real variables with a complex initialization
+        self.list_complex_const_vars = []
+        ## Dictionary of calculated variables depending on others variables to the associated function
+        self.list_complex_calculated_vars = {}
 
 
         # ---------------------------------------
@@ -369,15 +371,7 @@ class ReaderOMC:
                 if "display" in keys:
                     display = equation["display"]
 
-                # Retrieving numbers from linear equations
-                if display == "linear":
-                    self.linear_eq_nums.append(index)
-
                 self.map_tag_num_eq[index]=str(tag_eq)
-
-                # Retrieving numbers from nonlinear equations
-                if display == "non-linear":
-                    self.non_linear_eq_nums.append(index)
 
                 # Get map [calculated var] --> [Func num / Eq in .xml]
                 list_defined_vars=[]
@@ -399,13 +393,11 @@ class ReaderOMC:
 
                 for name in list_defined_vars :
                     if self.is_residual_vars(name):
-                        if "source" in keys:
-                            source = equation["source"]
-                            if "operations" in source.keys():
-                                operations = source["operations"]
-                                if "differentiate d/dtime" in str(operations):
-                                    self.derivative_residual_vars.append(name)
-                                    continue
+                        if "equation" in keys:
+                            eq = equation["equation"]
+                            if "der(" in str(eq) or "der (" in str(eq):
+                                self.derivative_residual_vars.append(name)
+                                continue
                         self.assign_residual_vars.append(name)
             elif type_eq == "initial":
                 list_defined_vars=[]
@@ -1102,6 +1094,9 @@ class ReaderOMC:
                     var = var_list[0]
                 if "$cse" in name:
                     map_var_name_2_addresses[name]= "auxiliaryVars"
+                elif type == "derivativeVars" or "$DER" in name:
+                    map_var_name_2_addresses[name]= "derivativesVars"
+                    map_var_name_2_addresses[name.replace(alternative_way_to_declare_der,"der(")+")"]= map_var_name_2_addresses[name]
                 elif re.search(r'stateVars \([0-9]+\)',type) or re.search(r'algVars \([0-9]+\)',type):
                     if not var.is_fixed():
                         map_var_name_2_addresses[name]= "realVars"
@@ -1109,9 +1104,6 @@ class ReaderOMC:
                         map_var_name_2_addresses[name]= "constVars"
                 elif type == "discreteAlgVars":
                     map_var_name_2_addresses[name]= "discreteVars"
-                elif type == "derivativeVars":
-                    map_var_name_2_addresses[name]= "derivativesVars"
-                    map_var_name_2_addresses[name.replace(alternative_way_to_declare_der,"der(")+")"]= map_var_name_2_addresses[name]
                 elif type == "constVars":
                     map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
                 elif type == "intAlgVars":
@@ -1155,7 +1147,14 @@ class ReaderOMC:
                     self.external_objects.append(ext)
                 test_param_address(name)
 
-        # Attribution of indexes done in a second time to make sure the order is the same as in defineVariables and defineParameters methods
+    def assign_variables_indexes(self):
+        # We initialize vars of self.list_vars with initial values found in *_06inz.c
+        self.set_start_value_for_syst_vars_06inz()
+
+        # We initialize vars of self.list_vars with initial values found in *_08bnd.c
+        self.set_start_value_for_syst_vars()
+        self.detect_non_const_real_calculated_variables()
+        # Attribution of indexes done independently to make sure the order is the same as in defineVariables and defineParameters methods
         index_real_var = 0
         index_derivative_var = 0
         index_discrete_var = 0
@@ -1165,6 +1164,7 @@ class ReaderOMC:
         index_string_param= 0
         index_aux_var= 0
         index_integer_double = 0
+        alternative_way_to_declare_der = "$DER."
         for var in self.list_vars:
             name = var.get_name()
             test_param_address(name)
@@ -1205,6 +1205,130 @@ class ReaderOMC:
         self.nb_discrete_vars = index_discrete_var
         self.nb_bool_vars = index_boolean_vars
         self.nb_integer_vars = index_integer_double
+        self.find_calculated_variables()
+
+    def detect_non_const_real_calculated_variables(self):
+        map_dep = self.get_map_dep_vars_for_func()
+        map_num_eq_vars_defined = self.get_map_num_eq_vars_defined()
+        name_func_to_search = {}
+        for func in self.list_omc_functions:
+            if "omc_Modelica_" in func.get_name() and not "Table1D" in func.get_name(): continue
+            name_func_to_search[func.get_name()] = func
+
+        # dictionary that stores the number of equations that depends on a specific variable
+        variable_to_equation_dependencies = {}
+        function_to_eval_variable = {}
+        for f in self.list_func_16dae_c:
+            f_num_omc = f.get_num_omc()
+            name_var_eval = None
+
+            # for Modelica reinit equations, the evaluated var scan does not always work
+            # a fallback is to look at the variable defined in this case
+            if f_num_omc in map_num_eq_vars_defined.keys():
+                if len(map_num_eq_vars_defined[f_num_omc]) > 1:
+                    error_exit("   Error: Found an equation (id: " + eq_mak_num_omc+") defining multiple variables. This is not supported in Dynawo.")
+                name_var_eval = map_num_eq_vars_defined[f_num_omc] [0]
+
+            if name_var_eval is not None and self.is_residual_vars(name_var_eval) and \
+                not self.is_der_residual_vars(name_var_eval) and not self.is_assign_residual_vars(name_var_eval):
+                continue
+
+            list_depend = [] # list of vars on which depends the function
+            is_elligible = True
+            for line in f.get_body():
+                if "STATE_DER" in line:
+                    is_elligible = False
+                for func_name in name_func_to_search:
+                    if func_name +"("  in line or func_name +" (" in line:
+                        is_elligible = False
+                        func = name_func_to_search[func_name]
+                        outputs = func.find_outputs_from_call(line)
+                        if(len(outputs) >= 1):
+                            name_var_eval = outputs[0]
+                        inputs = func.find_inputs_from_call(line)
+                        list_depend.extend(inputs)
+            if name_var_eval is not None:
+                list_depend.append(name_var_eval) # The / equation function depends on the var it evaluates
+                if name_var_eval in map_dep.keys():
+                    list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
+                if is_elligible:
+                    function_to_eval_variable[f] = name_var_eval
+                for var_name in list_depend:
+                    if var_name == "time": continue
+                    if self.is_residual_vars(var_name) : continue
+                    var_list = filter(lambda x: (x.get_name() == var_name),self.list_vars)
+                    assert(len(var_list) <= 1)
+                    var = None
+                    if len(var_list) == 1:
+                        var = var_list[0]
+                    if (var is None): continue
+                    if is_discrete_real_var(var): continue
+                    if is_integer_var(var): continue
+                    if is_bool_var(var): continue
+                    if "$whenCondition" in var_name : continue
+                    if not var_name in variable_to_equation_dependencies:
+                        variable_to_equation_dependencies[var_name] = []
+                    variable_to_equation_dependencies[var_name].append(f_num_omc)
+
+        function_to_remove = []
+        for f in function_to_eval_variable:
+            var_name = function_to_eval_variable[f]
+            if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1:
+                var_list = filter(lambda x: (x.get_name() == var_name),self.list_vars)
+                assert(len(var_list) <= 1)
+                var = None
+                if len(var_list) == 1:
+                    var = var_list[0]
+                assert(var != None)
+                self.list_complex_calculated_vars[var] = f
+                function_to_remove.append(f)
+                map_var_name_2_addresses[var_name]= "SHOULD NOT BE USED"
+        for f in function_to_remove:
+            self.list_func_16dae_c.remove(f)
+
+    def find_calculated_variables(self):
+        for var in self.list_vars:
+            test_param_address(var.get_name())
+            if "constVars" in to_param_address(var.get_name()):
+                map_var_name_2_addresses[var.get_name()] = self.find_constant_value_of(var)
+                # We keep a specific structure for const real variables that have a complex initialization to avoid always recalculating it
+                if to_param_address(var.get_name()) == None:
+                    map_var_name_2_addresses[var.get_name()] = "data->constCalcVars["+str(len(self.list_complex_const_vars))+"]"
+                    self.list_complex_const_vars.append(var)
+
+        ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+        for var in self.list_vars:
+            if var in self.list_complex_calculated_vars:
+                self.list_calculated_vars.append(var)
+                body = []
+                for line in self.list_complex_calculated_vars[var].get_body():
+                    if has_omc_trace (line) or has_omc_equation_indexes (line) :
+                        continue
+                    if re.search(ptrn_evaluated_var, line) is not None:
+                        line = ptrn_evaluated_var.sub(r'  return \g<3>;', line)
+                    line=line.replace("threadData,", "")
+                    line = sub_division_sim(line)
+                    body.append("  "+line)
+                self.dic_calculated_vars_values[var.get_name()] = body
+            elif var in self.list_complex_const_vars or (not var.is_alias() and is_real_const_var(var)):
+                test_param_address(var.get_name())
+                self.list_calculated_vars.append(var)
+                self.dic_calculated_vars_values[var.get_name()] = to_param_address(var.get_name())
+            elif var.is_alias():
+                alias_list = filter(lambda x: (x.get_name() == var.get_alias_name()), self.list_vars)
+                assert(len(alias_list) == 1)
+                alias_var = alias_list[0]
+                if var.get_variability() == "continuous" and (is_integer_var(alias_var) or is_discrete_real_var(alias_var)):
+                    test_param_address(var.get_alias_name())
+                    negated = "-" if var.get_alias_negated() else ""
+                    self.list_calculated_vars.append(var)
+                    self.dic_calculated_vars_values[var.get_name()] = negated + to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
+                if is_real_const_var(var):
+                    test_param_address(var.get_alias_name())
+                    negated = "-" if var.get_alias_negated() else ""
+                    self.list_calculated_vars.append(var)
+                    self.dic_calculated_vars_values[var.get_name()] = negated+to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
+
 
     ##
     # Find the effective value of a constant real variable

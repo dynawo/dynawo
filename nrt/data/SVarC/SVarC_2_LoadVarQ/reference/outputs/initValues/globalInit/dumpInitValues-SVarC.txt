@@ -24,7 +24,6 @@ control_regulation_limitations_add1_y             : y =       1.000000 yp =     
 control_regulation_limitations_add2_y             : y =      -1.000000 yp =       0.000000
 injector_BPuSnRef                                 : y =       0.000000 yp =       0.000000
 injector_GPuSnRef                                 : y =       0.000000 yp =       0.000000
-injector_PInjPu                                   : y =       0.000000 yp =       0.000000
 injector_terminal_i_im                            : y =       0.000000 yp =       0.000000
 injector_terminal_i_re                            : y =       0.000000 yp =       0.000000
 control_PuConversion_u                            : alias of control_QInjPu
@@ -71,6 +70,7 @@ injector_YPuSnRef_re                              : alias of injector_GPuSnRef
  ====== INIT CALCULATED VARIABLES VALUES ======
 control_regulation_limitations_limIntegratorMax_local_set: y =       0.000000
 control_regulation_limitations_limIntegratorMin_local_set: y =       0.000000
+injector_PInjPu                                   : y =      -0.000000
 URef_setPoint_value                               : y =     225.000000
 control_GPuCst_y                                  : y =       0.000000
 control_URef                                      : y =     225.000000

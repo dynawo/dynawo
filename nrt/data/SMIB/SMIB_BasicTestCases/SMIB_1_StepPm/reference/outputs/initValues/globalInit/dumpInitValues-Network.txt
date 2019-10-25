@@ -1,8 +1,6 @@
  ====== INIT VARIABLES VALUES ======
 tfo_terminal2_V_im                                : y =       0.474565 yp =       0.000000
 tfo_terminal2_V_re                                : y =       0.880236 yp =       0.000000
-busInf_terminal_i_im                              : y =       0.961514 yp =       0.000000
-busInf_terminal_i_re                              : y =      22.178988 yp =       0.000000
 line1_terminal1_i_im                              : y =      -0.625315 yp =       0.000000
 line1_terminal1_i_re                              : y =     -14.423986 yp =       0.000000
 line1_terminal2_V_im                              : y =       0.324857 yp =       0.000000
@@ -15,8 +13,6 @@ line2_terminal2_i_im                              : y =       0.336198 yp =     
 line2_terminal2_i_re                              : y =       7.755002 yp =       0.000000
 tfo_terminal1_i_im                                : y =      -0.961514 yp =       0.000000
 tfo_terminal1_i_re                                : y =     -22.178988 yp =       0.000000
-tfo_terminal2_i_im                                : y =       0.961514 yp =       0.000000
-tfo_terminal2_i_re                                : y =      22.178988 yp =       0.000000
 line2_terminal2_V_im                              : alias of line1_terminal2_V_im
 line2_terminal2_V_re                              : alias of line1_terminal2_V_re
 tfo_terminal1_V_im                                : alias of line1_terminal2_V_im
@@ -24,6 +20,10 @@ tfo_terminal1_V_re                                : alias of line1_terminal2_V_r
  ====== INIT CALCULATED VARIABLES VALUES ======
 busInf_terminal_V_im                              : y =       0.000000
 busInf_terminal_V_re                              : y =       0.900810
+busInf_terminal_i_im                              : y =       0.961514
+busInf_terminal_i_re                              : y =      22.178988
+tfo_terminal2_i_im                                : y =       0.961514
+tfo_terminal2_i_re                                : y =      22.178988
 line1_terminal1_V_im                              : y =       0.000000
 line1_terminal1_V_re                              : y =       0.900810
 line2_terminal1_V_im                              : y =       0.000000

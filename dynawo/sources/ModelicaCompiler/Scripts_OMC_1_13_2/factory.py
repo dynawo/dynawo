@@ -177,11 +177,6 @@ class Factory:
         self.list_vars_when = []
         ## List of dummy variables
         self.list_vars_dummy = []
-        ## List of calculated variables
-        self.list_calculated_vars = []
-        self.dic_calculated_vars_values = {}
-        ## List of const real variables with a complex initialization
-        self.list_complex_const_vars = []
 
         ## List of name of discrete variables
         self.list_name_discrete_vars = []
@@ -274,8 +269,8 @@ class Factory:
         self.list_for_evalcalculatedvars = []
         ## List of equations to add in evalCalculatedVarI
         self.list_for_evalcalculatedvari = []
-        ## List of equations to add in evalJCalculatedVarI
-        self.list_for_evaljcalculatedvari = []
+        ## List of equations to add in evalCalculatedVarIAdept
+        self.list_for_evalcalculatedvariadept = []
         ## List of equations to add in getDefJCalculatedVarI
         self.list_for_getdefjcalculatedvari = []
 
@@ -316,14 +311,14 @@ class Factory:
     # @param self : object pointer
     # @return number of calculated variables
     def get_nb_calculated_variables(self):
-        return len(self.list_calculated_vars)
+        return len(self.reader.list_calculated_vars)
 
     ##
     # Getter to obtain the number of constant variables
     # @param self : object pointer
     # @return number of constant variables
     def get_nb_const_variables(self):
-        return len(self.list_complex_const_vars)
+        return len(self.reader.list_complex_const_vars)
 
     ##
     # Getter to obtain all the equations defining the model
@@ -378,12 +373,6 @@ class Factory:
         # Warning: the treatments done by these 3 functions (of the reader) could be put back here, they do not belong
         # in the reader.
 
-        # We initialize vars of self.list_vars with initial values found in *_06inz.c
-        self.reader.set_start_value_for_syst_vars_06inz()
-
-        # We initialize vars of self.list_vars with initial values found in *_08bnd.c
-        self.reader.set_start_value_for_syst_vars()
-
         # Set if the variables is internal or not
         initial_defined = self.reader.initial_defined
 
@@ -406,34 +395,6 @@ class Factory:
         self.list_vars_bool = filter(is_bool_var, list_vars_read) # Vars booleennes
         self.list_vars_when = filter(is_when_var, list_vars_read) # Vars when (bool & "$whenCondition")
         self.list_vars_dummy = filter(is_dummy_var, list_vars_read)
-        for var in list_vars_read:
-            test_param_address(var.get_name())
-            if "constVars" in to_param_address(var.get_name()):
-                map_var_name_2_addresses[var.get_name()] = self.reader.find_constant_value_of(var)
-                # We keep a specific structure for const real variables that have a complex initialization to avoid always recalculating it
-                if to_param_address(var.get_name()) == None:
-                    map_var_name_2_addresses[var.get_name()] = "data->constCalcVars["+str(len(self.list_complex_const_vars))+"]"
-                    self.list_complex_const_vars.append(var)
-
-        for var in list_vars_read:
-            if var in self.list_complex_const_vars or (not var.is_alias() and is_real_const_var(var)):
-                test_param_address(var.get_name())
-                self.list_calculated_vars.append(var)
-                self.dic_calculated_vars_values[var.get_name()] = to_param_address(var.get_name())
-            elif var.is_alias():
-                alias_list = filter(lambda x: (x.get_name() == var.get_alias_name()), list_vars_read)
-                assert(len(alias_list) == 1)
-                alias_var = alias_list[0]
-                if var.get_variability() == "continuous" and (is_integer_var(alias_var) or is_discrete_real_var(alias_var)):
-                    test_param_address(var.get_alias_name())
-                    negated = "-" if var.get_alias_negated() else ""
-                    self.list_calculated_vars.append(var)
-                    self.dic_calculated_vars_values[var.get_name()] = negated + to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
-                if is_real_const_var(var):
-                    test_param_address(var.get_alias_name())
-                    negated = "-" if var.get_alias_negated() else ""
-                    self.list_calculated_vars.append(var)
-                    self.dic_calculated_vars_values[var.get_name()] = negated+to_param_address(var.get_alias_name()) + " /* " + var.get_alias_name() + "*/"
 
         self.list_params_real = filter(is_param_real, list_vars_read) # Real Params (all)
 
@@ -472,6 +433,11 @@ class Factory:
         #
 
         self.list_vars_syst = filter(is_syst_var, list_vars_read)
+        tmp_list = []
+        for var in self.list_vars_syst:
+            if var not in self.reader.list_calculated_vars:
+                tmp_list.append(var)
+        self.list_vars_syst = tmp_list
         self.list_all_vars = filter(is_var, list_vars_read)
         tmp_list = []
         for var in self.list_all_vars:
@@ -568,9 +534,9 @@ class Factory:
     def build_call_functions(self):
         map_tags_num_eq = self.reader.get_map_tag_num_eq()
         list_omc_functions = self.reader.list_omc_functions
-        name_func_to_search = []
+        name_func_to_search = {}
         for func in list_omc_functions:
-            name_func_to_search.append(func.get_name())
+            name_func_to_search[func.get_name()] = func
 
         # Analysis of MainC functions => if external call => will be added to setFOMC
         list_body_to_analyse = []
@@ -608,8 +574,8 @@ class Factory:
                     ptrn_function = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+name+'[ ]*\((?P<rhs>[^;]+);')
                     match = re.match(ptrn_function, line)
                     if match is not None:
-                        variables_set_by_omc_function = self.find_variables_set_by_omc_function(line, name, None)
-                        discrete_variables_set_by_omc_function = self.find_discrete_variables_set_by_omc_function(line, name)
+                        variables_set_by_omc_function = self.find_variables_set_by_omc_function(line, name_func_to_search[name], None)
+                        discrete_variables_set_by_omc_function = self.find_discrete_variables_set_by_omc_function(line, name_func_to_search[name])
                         function_name = name
                         ## Sanity check: cannot assign a value to both a continuous and a discrete variable
                         if len(discrete_variables_set_by_omc_function) > 0 and len(discrete_variables_set_by_omc_function) < len(variables_set_by_omc_function):
@@ -684,7 +650,7 @@ class Factory:
             found = False
             for name in name_func_to_search:
                 if name+"(" in line or name +" (" in line:
-                    variables_to_replace = self.find_discrete_variables_set_by_omc_function(line, name)
+                    variables_to_replace = self.find_discrete_variables_set_by_omc_function(line, name_func_to_search[name])
                     dic_var_name_to_temporary_name = {}
                     (line, dic_var_name_to_temporary_name, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_to_replace, global_pattern_index)
 
@@ -713,28 +679,20 @@ class Factory:
                     body_tmp.append(line)
         return body_tmp
 
-    def find_discrete_variables_set_by_omc_function(self, line_with_call, omc_function_name):
+    def find_discrete_variables_set_by_omc_function(self, line_with_call, func):
 
         def filter_discrete_var(var_name):
             return "integerDoubleVars" in to_param_address(var_name) or "discreteVars" in to_param_address(var_name)
 
-        return self.find_variables_set_by_omc_function(line_with_call, omc_function_name, \
+        return self.find_variables_set_by_omc_function(line_with_call, func, \
                 lambda var_name: filter_discrete_var(var_name))
 
-    def find_variables_set_by_omc_function(self, line_with_call, omc_function_name, filter):
-        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+omc_function_name+'[ ]*\((?P<rhs>[^;]+);')
-        match = re.match(ptrn_var_assigned, line_with_call)
+    def find_variables_set_by_omc_function(self, line_with_call, func, filter):
+        outputs = func.find_outputs_from_call(line_with_call)
         variables_to_replace = []
-        if match is not None:
-            variable_name = match.group("varName").replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
-            if filter is None or filter(variable_name):
-                variables_to_replace.append(variable_name)
-            ptrn_var= re.compile(r'[ ]*&data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
-            variables = re.findall(ptrn_var, match.group("rhs"))
-            for output_param in variables:
-                param_variable_name = output_param[1].replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
-                if filter is None or filter(param_variable_name):
-                    variables_to_replace.append(param_variable_name)
+        for var_name in outputs:
+            if filter is None or filter(var_name):
+                variables_to_replace.append(var_name)
         return variables_to_replace
 
     ##
@@ -792,19 +750,13 @@ class Factory:
         # List of equations from main *.c file
         list_eq_maker_16dae_c = []
 
-        # index of functions calling the resolution of LS or NLS in main *.c file
-        list_num_func_to_remove = []
-
-        # Removing functions involving linear or non-linear
-        # systems in the list of functions read in the main *.c file
-        # These functions are covered later.
-        list_num_func_to_remove = self.reader.linear_eq_nums + self.reader.non_linear_eq_nums
-
         # Build the eqMaker for functions of the dae *.c file
         for f in self.reader.list_func_16dae_c:
-            if f.get_num_omc() not in list_num_func_to_remove:
-                eq_maker = EqMaker(f)
-                list_eq_maker_16dae_c.append( eq_maker )
+            eq_maker = EqMaker(f)
+            list_eq_maker_16dae_c.append( eq_maker )
+
+        # dictionary that stores the number of equations that depends on a specific variable
+        variable_to_equation_dependencies = {}
 
         # Find, for each function of the main *.c file :
         # - the variable it evaluates
@@ -833,6 +785,7 @@ class Factory:
                     list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
 
                 eq_mak.set_depend_vars(list_depend)
+                eq_mak.set_diff_eq(name_var_eval in self.reader.derivative_residual_vars or len(filter(lambda x : x.get_name() == name_var_eval, self.list_vars_der)) > 0)
 
         # Build an equation for each function in the dae *.c file
         for eq_mak in list_eq_maker_16dae_c:
@@ -907,7 +860,8 @@ class Factory:
             # retrieve all Modelica reinit equations linked with the current variable
             for eq in filter(lambda x: x.get_is_modelica_reinit() \
                              and ((x.get_evaluated_var() == var.get_name()) or (x.get_evaluated_var() == 'der(' + var.get_name() + ')')), self.list_eq_maker_16dae):
-                equation = Equation (eq.get_body(), eq.get_evaluated_var(), eq.get_depend_vars(), eq.get_num_omc())
+                equation = Equation(eq.get_body(), eq.get_evaluated_var(), eq.get_depend_vars(), "", eq.get_num_omc(), var.get_name() in self.reader.derivative_residual_vars
+                                    or "der(" in var.get_name())
                 if (num_dyn is not None):
                     equation.set_num_dyn(num_dyn)
 
@@ -1134,7 +1088,7 @@ class Factory:
             for relation in relations_found:
                 index_relation = relation.split(", ")[3]
                 var_name = eq.get_evaluated_var()
-                if eq.is_diff_eq() or var_name in self.reader.derivative_residual_vars:
+                if eq.get_is_diff_eq():
                     map_relations[index_relation] = ["DIFF", eq.get_src_fct_name()]
                 else:
                     map_relations[index_relation] = ["ALG", eq.get_src_fct_name()]
@@ -1178,7 +1132,7 @@ class Factory:
                         index_additional_relation += 1
                         relation_to_create = Relation(index_relation_to_create, "ALG")
                         var_name = eq.get_evaluated_var()
-                        if eq.is_diff_eq() or var_name in self.reader.derivative_residual_vars:
+                        if eq.get_is_diff_eq():
                             relation_to_create.set_type("DIFF")
                         relation_to_create.set_condition(line)
                         relation_to_create.add_eq(eq.get_src_fct_name())
@@ -1226,7 +1180,7 @@ class Factory:
                         if var_bool.name == var:
                             boolean = True
                     evaluated_var = eq.get_evaluated_var()
-                    if (eq.is_diff_eq() or evaluated_var in self.reader.derivative_residual_vars):
+                    if (eq.get_is_diff_eq()):
                         if (not var in self.modes.modes_discretes):
                             self.modes.modes_discretes[var] = ModeDiscrete("DIFF", boolean)
                     elif (not(evaluated_var) in self.list_name_discrete_vars and not(evaluated_var) in self.list_name_integer_vars):
@@ -1238,7 +1192,7 @@ class Factory:
                         continue
                     self.modes.modes_discretes[var].add_eq(eq.get_src_fct_name())
 
-        for var in self.list_calculated_vars :
+        for var in self.reader.list_calculated_vars :
             if var.get_alias_name() != "":
                 if (not var.get_name() in self.modes.modes_discretes):
                     self.modes.modes_discretes[var.get_alias_name()] = ModeDiscrete("ALG", False)
@@ -1266,7 +1220,7 @@ class Factory:
     def prepare_for_sety0(self):
         # In addition to system vars, discrete vars (bool or not) must be initialized as well
         # We concatenate system vars and discrete vars
-        list_vars = itertools.chain(self.list_vars_syst, self.list_all_vars_discr, self.list_vars_int, self.reader.external_objects, self.list_complex_const_vars)
+        list_vars = itertools.chain(self.list_vars_syst, self.list_all_vars_discr, self.list_vars_int, self.reader.external_objects, self.reader.list_complex_const_vars)
         found_init_by_param_and_at_least2lines = False # for reading comfort when printing
 
         # sort by taking init function number read in *06inz.c
@@ -1274,6 +1228,7 @@ class Factory:
         # We prepare the results to print in setY0omc
         for var in list_vars :
             if var.is_alias() and  (to_param_address(var.get_name()) == "SHOULD NOT BE USED"): continue
+            if var in self.reader.list_complex_calculated_vars: continue
             if var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
                 init_val = var.get_start_text()[0]
                 if init_val == "":
@@ -2388,6 +2343,7 @@ class Factory:
         ind = 0
         for v in self.list_vars_syst:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
+            if v in self.reader.list_calculated_vars : continue
             spin = "DIFFERENTIAL"
             var_ext = ""
             if is_alg_var(v) : spin = "ALGEBRIC"
@@ -2419,7 +2375,8 @@ class Factory:
             var_name = eq.get_evaluated_var()
             if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
                 spin = "ALGEBRIC_EQ" # no derivatives in the equation
-                if eq.is_diff_eq() or var_name in self.reader.derivative_residual_vars: spin = "DIFFERENTIAL_EQ"
+                if eq.get_is_diff_eq():
+                    spin = "DIFFERENTIAL_EQ"
                 line = "   fType[ %s ] = %s;\n" % (str(ind), spin)
                 self.list_for_setftype.append(line)
                 ind += 1
@@ -2428,7 +2385,7 @@ class Factory:
             var_name = eq.get_evaluated_var()
             if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
                 spin = "ALGEBRIC_EQ" # no derivatives in the equation
-                if eq.is_diff_eq() or var_name in self.reader.derivative_residual_vars: spin = "DIFFERENTIAL_EQ"
+                if eq.get_is_diff_eq(): spin = "DIFFERENTIAL_EQ"
                 line = "   fType[ %s ] = %s;\n" % (str(ind), spin)
                 self.list_for_setftype.append(line)
                 ind += 1
@@ -2451,7 +2408,7 @@ class Factory:
         # System vars
         for v in self.list_all_vars:
             if v.get_name() in self.reader.auxiliary_vars_counted_as_variables : continue
-            if v in self.list_calculated_vars: continue # will be done in a second time to make sure we first declare the const variables and then the others
+            if v in self.reader.list_calculated_vars: continue # will be done in a second time to make sure we first declare the const variables and then the others
             if is_when_var(v): continue
             name = to_compile_name(v.get_name())
             is_state = True
@@ -2469,7 +2426,7 @@ class Factory:
             else:
                 line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), negated)
             self.list_for_setvariables.append(line)
-        for v in self.list_calculated_vars:
+        for v in self.reader.list_calculated_vars:
             name = to_compile_name(v.get_name())
             line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), "false")
             self.list_for_setvariables.append(line)
@@ -2581,10 +2538,27 @@ class Factory:
     # @return
     def prepare_for_evalcalculatedvars(self):
         index = 0
-        for var in self.list_calculated_vars:
-            expr = self.dic_calculated_vars_values[var.get_name()]
-            self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(index)+"] /* " + var.get_name() + "*/ = " + expr+";\n")
+        self.list_for_evalcalculatedvars.append("  data->simulationInfo->discreteCall = 1;\n")
+        for var in self.reader.list_calculated_vars:
+            expr = self.reader.dic_calculated_vars_values[var.get_name()]
+            if type(expr)==list:
+                body = []
+                for line in expr:
+                    if "return " in line:
+                        line = line.replace("return ",  "calculatedVars[" + str(index)+"] /* " + var.get_name() + "*/ = ")
+                    line = mmc_strings_len1(line)
+                    line_tmp = line
+                    line_tmp = transform_atan3_operator(line_tmp)
+                    line_tmp = sub_division_sim(line_tmp)
+                    line_tmp = replace_var_names(line_tmp)
+                    body.append(line_tmp)
+                # convert native boolean variables
+                convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
+                self.list_for_evalcalculatedvars.extend(body)
+            else:
+                self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(index)+"] /* " + var.get_name() + "*/ = " + expr+";\n")
             index += 1
+        self.list_for_evalcalculatedvars.append("  data->simulationInfo->discreteCall = 0;\n")
 
 
     ##
@@ -2600,11 +2574,47 @@ class Factory:
     # @return
     def prepare_for_evalcalculatedvari(self):
         index = 0
-        for var in self.list_calculated_vars:
-            expr = self.dic_calculated_vars_values[var.get_name()]
+        trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.derivative_residual_vars + self.reader.assign_residual_vars)
+        ptrn_vars = re.compile(r'x\[(?P<varId>[0-9]+)\]')
+        self.list_for_evalcalculatedvari.append("  data->simulationInfo->discreteCall = 1;\n")
+        for var in self.reader.list_calculated_vars:
+            expr = self.reader.dic_calculated_vars_values[var.get_name()]
             self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */\n")
-            self.list_for_evalcalculatedvari.append("    return "+ expr+";\n")
+            if type(expr)==list:
+                body = []
+                for line in self.reader.dic_calculated_vars_values[var.get_name()]:
+                    line = mmc_strings_len1(line)
+                    line_tmp = line
+                    line_tmp = transform_atan3_operator(line_tmp)
+                    line_tmp = sub_division_sim(line_tmp)
+                    line_tmp = replace_var_names(line_tmp)
+                    body.append(line_tmp)
+                trans.set_txt_list(body)
+                body_translated = trans.translate()
+                # convert native boolean variables
+                convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
+                body = []
+                sorted_indexes = []
+                for line in body_translated:
+                    match_global = ptrn_vars.findall(line)
+                    for val in match_global:
+                        if int(val) not in sorted_indexes:
+                            sorted_indexes.append(int(val))
+                    assert("xd[" not in line)
+                sorted_indexes.sort()
+                for line in body_translated:
+                    index_var = 0
+                    for val in sorted_indexes:
+                        line = line.replace("x["+str(val)+"]", "y["+str(index_var)+"]")
+                        index_var += 1
+                    if "return" in line:
+                         body.append("    data->simulationInfo->discreteCall = 0;\n")
+                    body.append(line)
+                self.list_for_evalcalculatedvari.extend(body)
+            else:
+                self.list_for_evalcalculatedvari.append("    return "+ expr+";\n")
             index += 1
+        self.list_for_evalcalculatedvari.append("  data->simulationInfo->discreteCall = 0;\n")
         self.list_for_evalcalculatedvari.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
 
 
@@ -2616,26 +2626,119 @@ class Factory:
         return self.list_for_evalcalculatedvari
 
     ##
-    # prepare the lines that constitues the body for evalJCalculatedVarI
+    # prepare the lines that constitues the body for evalCalculatedVarIAdept
     # @param self : object pointer
     # @return
-    def prepare_for_evaljcalculatedvar(self):
-        self.list_for_evaljcalculatedvari.append("  // not needed\n")
+    def prepare_for_evalcalculatedvariadept(self):
+        trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.derivative_residual_vars + self.reader.assign_residual_vars)
+        ptrn_vars = re.compile(r'x\[(?P<varId>[0-9]+)\]')
+        self.list_for_evalcalculatedvariadept.append("  data->simulationInfo->discreteCall = 1;\n")
+
+        num_ternary = 0
+        index = 0
+        for var in self.reader.list_calculated_vars:
+            body = None
+            if var in self.reader.list_complex_calculated_vars:
+                body = []
+                for line in self.reader.dic_calculated_vars_values[var.get_name()]:
+                    line = mmc_strings_len1(line)
+                    line_tmp = line
+                    line_tmp = transform_atan3_operator(line_tmp)
+                    line_tmp = line_tmp.replace("modelica_real", "adept::adouble")
+                    line_tmp = line_tmp.replace("Greater(", "Greater<adept::adouble>(")
+                    line_tmp = line_tmp.replace("Less(", "Less<adept::adouble>(")
+                    line_tmp = line_tmp.replace("GreaterEq(", "GreaterEq<adept::adouble>(")
+                    line_tmp = line_tmp.replace("LessEq(", "LessEq<adept::adouble>(")
+                    line_tmp = line_tmp.replace("Greater)", "Greater<adept::adouble>)")
+                    line_tmp = line_tmp.replace("Less)", "Less<adept::adouble>)")
+                    line_tmp = line_tmp.replace("GreaterEq)", "GreaterEq<adept::adouble>)")
+                    line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
+                    line_tmp = sub_division_sim(line_tmp)
+                    line_tmp = replace_var_names(line_tmp)
+                    body.append(line_tmp)
+            else:
+                body = "     return " + self.reader.dic_calculated_vars_values[var.get_name()]+";"
+            assert (body != None)
+            trans.set_txt_list(body)
+            body_translated = trans.translate()
+
+            # transformation of ternary operators:
+            body_to_transform = False
+            for line in body_translated:
+                if "?" in line:
+                    body_to_transform = True
+                    break
+
+            if body_to_transform:
+                body_translated = transform_ternary_operator(body_translated,num_ternary)
+                num_ternary += 1
+
+            # convert native boolean variables
+            convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
+            body = []
+            sorted_indexes = []
+            for line in body_translated:
+                match_global = ptrn_vars.findall(line)
+                for val in match_global:
+                    if int(val) not in sorted_indexes:
+                        sorted_indexes.append(int(val))
+                assert("xd[" not in line)
+            sorted_indexes.sort()
+            for line in body_translated:
+                index_var = 0
+                for val in sorted_indexes:
+                    line = line.replace("x["+str(val)+"]", "x["+str(index_var)+"]")
+                    index_var += 1
+                if "return" in line:
+                    body.append("    data->simulationInfo->discreteCall = 0;\n")
+                body.append(line)
+
+
+            self.list_for_evalcalculatedvariadept.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */\n")
+            self.list_for_evalcalculatedvariadept.extend(body)
+            index += 1
+
+            self.list_for_evalcalculatedvariadept.append("\n\n")
+        self.list_for_evalcalculatedvariadept.append("  data->simulationInfo->discreteCall = 0;\n")
+        self.list_for_evalcalculatedvariadept.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
 
 
     ##
-    # return the list of lines that constitues the body of evalJCalculatedVarI
+    # return the list of lines that constitues the body of evalCalculatedVarIAdept
     # @param self : object pointer
     # @return list of lines
-    def get_list_for_evaljcalculatedvari(self):
-        return self.list_for_evaljcalculatedvari
+    def get_list_for_evalcalculatedvariadept(self):
+        return self.list_for_evalcalculatedvariadept
 
     ##
     # prepare the lines that constitues the body for getDefJCalculatedVarI
     # @param self : object pointer
     # @return
     def prepare_for_getdefjcalculatedvari(self):
-        self.list_for_getdefjcalculatedvari.append("  return std::vector<int>();\n")
+        self.list_for_getdefjcalculatedvari.append("  std::vector<int> res;\n")
+        map_dep = self.reader.get_map_dep_vars_for_func()
+        index = 0
+        for var in self.reader.list_calculated_vars:
+            if var in self.reader.list_complex_calculated_vars:
+                var_name = var.get_name()
+                list_depend = map_dep[var_name]
+                list_of_indexes = []
+                for dependency in list_depend:
+                    for syst_var in self.list_vars_syst:
+                        if syst_var.get_dynawo_name() is None or  syst_var.get_dynawo_name() == "": continue
+                        if syst_var.get_name() == dependency:
+                            dependency_index = int(syst_var.get_dynawo_name().replace("]","").replace("x[",""))
+                            if dependency_index not in list_of_indexes:
+                                list_of_indexes.append(dependency_index)
+                if len(list_of_indexes) > 0:
+                    self.list_for_getdefjcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */ {\n")
+                    list_of_indexes.sort()
+                    for dependency_index in list_of_indexes:
+                        self.list_for_getdefjcalculatedvari.append("    res.push_back(" + str(dependency_index) + ");\n")
+                    self.list_for_getdefjcalculatedvari.append("  }\n")
+            index+=1
+
+        self.list_for_getdefjcalculatedvari.append("  return res;\n")
 
 
     ##
@@ -2810,5 +2913,5 @@ class Factory:
         self.prepare_for_literalconstants()
         self.prepare_for_evalcalculatedvars()
         self.prepare_for_evalcalculatedvari()
-        self.prepare_for_evaljcalculatedvar()
+        self.prepare_for_evalcalculatedvariadept()
         self.prepare_for_getdefjcalculatedvari()

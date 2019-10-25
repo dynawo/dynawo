@@ -208,8 +208,8 @@ TEST(SimulationTest, testSolverSIMTestAlpha) {
 
   solver->calculateIC();
 
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeF(), 2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeY(), 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeF(), 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeG(), 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(model->sizeZ(), 0);
   std::vector<double> y0(model->sizeY());
@@ -217,10 +217,8 @@ TEST(SimulationTest, testSolverSIMTestAlpha) {
   std::vector<double> z0(model->sizeZ());
   model->getY0(tStart, y0, yp0, z0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y0[0], -2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y0[1], -1);
   // At the initialization step, only the algebraic equations are considered - yp() = 0.
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[1], 0);
 
   double tCurrent = tStart;
   std::vector<double> y(y0);
@@ -231,36 +229,27 @@ TEST(SimulationTest, testSolverSIMTestAlpha) {
   yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().noFlagSet(), false);
-  ASSERT_EQ(solver->getState().getFlags(ModeChange), true);
+  ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
   solver->reinit();
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
   ASSERT_EQ(solver->solverType(), "SimplifiedSolver");
   ASSERT_NE(solver->solverType(), "IDA");

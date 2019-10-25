@@ -99,6 +99,7 @@ if __name__ == '__main__':
         reader_init.read_functions_header()      # Read *_functions.h
         reader_init.read_functions_c_file()       # Read *_functions.c
         reader_init.read_literals_h_file()        # Read *_literals.h
+        reader_init.assign_variables_indexes()
         reader_init.remove_fictitious_fequation()
 
     #################################
@@ -156,7 +157,7 @@ if __name__ == '__main__':
         writer_init_pb.fill_setFType_omc()
         writer_init_pb.fill_evalCalculatedVars()
         writer_init_pb.fill_evalCalculatedVarI()
-        writer_init_pb.fill_evalJCalculatedVarI()
+        writer_init_pb.fill_evalCalculatedVarIAdept()
         writer_init_pb.fill_getDefJCalculatedVarI()
         writer_init_pb.fill_tail()
 
@@ -205,6 +206,7 @@ if __name__ == '__main__':
     reader.read_functions_header()      # Read *_functions.h
     reader.read_functions_c_file()       # Read *_functions.c
     reader.read_literals_h_file()        # Read *_literals.h
+    reader.assign_variables_indexes()
     reader.remove_fictitious_fequation()
 
     #################################
@@ -255,7 +257,7 @@ if __name__ == '__main__':
     writer.fill_setGequations()
     writer.fill_evalCalculatedVars()
     writer.fill_evalCalculatedVarI()
-    writer.fill_evalJCalculatedVarI()
+    writer.fill_evalCalculatedVarIAdept()
     writer.fill_getDefJCalculatedVarI()
     writer.fill_tail()
 

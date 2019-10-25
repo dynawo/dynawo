@@ -199,7 +199,7 @@ class ConnectorCalculatedVariable : public SubModel {
   /**
    * @copydoc SubModel::setFequations()
    */
-  void setFequations() { /*no F equation*/ }
+  void setFequations();
 
   /**
    * @copydoc SubModel::setGequations()
@@ -269,9 +269,19 @@ class ConnectorCalculatedVariable : public SubModel {
    */
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
+   /**
+    * @brief setter for the variable name
+    *
+    * @param variableName name of the calculated variable in the reference model
+    */
+  void setVariableName(std::string variableName) {
+    variableName_ = variableName;
+  }
+
  private:
   // !!! We assume that the model variables starts at yLocal_[1] and ypLocal_[1]
   boost::shared_ptr<SubModel> model_;  ///< Model where the calculated variable is located.
+  std::string variableName_;  ///< Name of the calculated variable from the model
   int indexCalculatedVariable_;  ///< Index of the calculated variable inside the list calculated variables in the model
   int nbVarExt_;  ///< Number of variables of which depends the calculated variable
 

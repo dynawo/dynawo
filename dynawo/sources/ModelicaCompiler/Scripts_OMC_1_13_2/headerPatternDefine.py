@@ -70,11 +70,10 @@ class HeaderPatternDefine:
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp);
-    void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res);
     std::vector<int> getDefJCalculatedVarI(int iCalculatedVar);
-
 #ifdef _ADEPT_
     void evalFAdept(const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F);
+    adept::adouble evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp);
 #endif
 
     void checkDataCoherence ();
@@ -152,10 +151,10 @@ namespace DYN {
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
     double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp);
-    void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res);
     std::vector<int> getDefJCalculatedVarI(int iCalculatedVar);
 #ifdef _ADEPT_
     void evalFAdept( const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F);
+    adept::adouble evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp);
 #endif
 
     void checkDataCoherence ();

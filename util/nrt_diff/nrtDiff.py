@@ -846,6 +846,9 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
         if file_name == "curves" and file_extension == ".xml":
             (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different) = XMLCloseEnough (path_left, path_right)
             maximum_curves_names_displayed = 5
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
             if (nb_err_absolute > 0) or (nb_err_relative > 0):
                 return_value = DIFFERENT
 
@@ -896,6 +899,9 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
         elif (file_extension == ".csv"):
             (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different) = CSVCloseEnough (path_left, path_right, True)
             maximum_curves_names_displayed = 5
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
             if (nb_err_absolute > 0) or (nb_err_relative > 0):
                 return_value = DIFFERENT
 

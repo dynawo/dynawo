@@ -946,7 +946,7 @@ ModelManager::setCalculatedParameters(vector<double>& y, vector<double>& z, cons
   // Set calculated parameters
   setYCalculatedParameters(y, reversedAlias);
   setZCalculatedParameters(z, reversedAlias);
-  createCalculatedParametersFromInitialCalculatedVariables(calculatedVars);
+  createCalculatedParametersFromInitialCalculatedVariables(calculatedVars, reversedAlias);
   setInitialCalculatedParameters();
 }
 
@@ -1124,12 +1124,28 @@ ModelManager::setInitialCalculatedParameters() {
 }
 
 void
-ModelManager::createCalculatedParametersFromInitialCalculatedVariables(const vector<double>& calculatedVars) {
+ModelManager::createCalculatedParametersFromInitialCalculatedVariables(const vector<double>& calculatedVars,
+    const map<string, vector< shared_ptr <VariableAlias> > >& reversedAlias) {
   const vector<string>& calcVarInitial = getCalculatedVarNamesInit();
 
   assert(calcVarInitial.size() == calculatedVars.size());
   for (unsigned int i = 0; i < calcVarInitial.size(); ++i) {
     setCalculatedParameter(calcVarInitial[i], calculatedVars[i]);
+    // Export alias
+    if (reversedAlias.find(calcVarInitial[i]) != reversedAlias.end()) {
+      vector< shared_ptr <VariableAlias> > variables = reversedAlias.find(calcVarInitial[i])->second;
+      for (vector< shared_ptr <VariableAlias> >::const_iterator it = variables.begin();
+          it != variables.end();
+          ++it) {
+        if (!(*it)->getNegated()) {  // Usual alias
+          setCalculatedParameter((*it)->getName(), calculatedVars[i]);
+          Trace::debug() << DYNLog(ParamSameValue, (*it)->getName(), calcVarInitial[i]) << Trace::endline;
+        } else {  // Negated alias
+          setCalculatedParameter((*it)->getName(), -calculatedVars[i]);
+          Trace::debug() << DYNLog(ParamOppositeValue, (*it)->getName(), calcVarInitial[i]) << Trace::endline;
+        }
+      }
+    }
   }
 }
 
@@ -1150,6 +1166,7 @@ ModelManager::printInitValues(const string & directory) {
     file << std::setw(50) << std::left << xAliasesNames[i].first << std::right << ": alias of " << xAliasesNames[i].second << "\n";
 
   if (sizeCalculatedVar() > 0) {
+    evalCalculatedVars();
     file << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
     const vector<string>& calculatedVarNames = (*this).getCalculatedVarNames();
     for (unsigned int i = 0, iEnd = sizeCalculatedVar(); i < iEnd; ++i)
@@ -1292,12 +1309,43 @@ ModelManager::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp) {
 
 void
 ModelManager::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res) {
-  modelModelica()->evalJCalculatedVarI(iCalculatedVar, y, yp, res);
+#if _ADEPT_
+  try {
+    size_t size = getDefJCalculatedVarI(iCalculatedVar).size();
+    size_t nbInput = size;
+
+    adept::Stack stack;
+    stack.activate();
+    vector<adept::adouble> x(nbInput);
+    adept::set_values(&x[0], nbInput, y);
+
+    vector<adept::adouble> xp(nbInput);
+    adept::set_values(&xp[0], nbInput, yp);
+
+    stack.new_recording();
+    adept::adouble output = modelModelica()->evalCalculatedVarIAdept(iCalculatedVar, x, xp);
+    output.set_gradient(1.0);
+    stack.compute_adjoint();
+    for (size_t i = 0; i < size; ++i) {
+      res[i] = x[i].get_gradient();
+    }
+    stack.pause_recording();
+  } catch (adept::stack_already_active & e) {
+    std::cerr << "Error :" << e.what() << std::endl;
+    throw DYNError(DYN::Error::MODELER, AdeptFailure);
+  } catch (adept::autodiff_exception & e) {
+    std::cerr << "Error :" << e.what() << std::endl;
+    throw DYNError(DYN::Error::MODELER, AdeptFailure);
+  }
+#else
+  // Assert when Adept wasn't used
+  assert(0 && "evalJCalculatedVarI : Adept not used");
+#endif
 }
 
 vector<int>
 ModelManager::getDefJCalculatedVarI(int iCalculatedVar) {
-  return modelModelica()->getDefJCalculatedVarI(iCalculatedVar);
+  return  modelModelica()->getDefJCalculatedVarI(iCalculatedVar);
 }
 
 void
