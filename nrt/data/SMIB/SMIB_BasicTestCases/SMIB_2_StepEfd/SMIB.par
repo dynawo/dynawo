@@ -42,6 +42,7 @@
   <!-- Synchronous machine external parameters -->
   <set id="5">
     <par type="INT" name="ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="MdPuEfd" value="0"/>
     <par type="DOUBLE" name="H" value="3.5"/>
     <par type="DOUBLE" name="DPu" value="0.0"/>
     <par type="DOUBLE" name="RaPu" value="0.003"/>

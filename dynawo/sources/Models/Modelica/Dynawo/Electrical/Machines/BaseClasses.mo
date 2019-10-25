@@ -100,7 +100,8 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
   public
 
     type ExcitationPuType = enumeration(NominalStatorVoltageNoLoad "1 p.u. gives nominal air-gap stator voltage at no load",
-                                        Kundur "Base voltage as per Kundur, Power System Stability and Control");
+                                        Kundur "Base voltage as per Kundur, Power System Stability and Control",
+                                        UserBase "User defined base for the excitation voltage");
 
     // Start values given as inputs of the initialization process
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
@@ -178,7 +179,8 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     parameter Types.PerUnit RQ2PPu "Quadrature axis 2nd damper resistance in p.u.";
 
     // p.u factor for excitation voltage
-    final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 else RfPPu / MdPPu "Scaling factor for excitation p.u. voltage";
+    parameter Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
+    final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd else RfPPu / MdPPu "Scaling factor for excitation p.u. voltage";
 
     // Start values calculated by the initialization model
     parameter Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef)";

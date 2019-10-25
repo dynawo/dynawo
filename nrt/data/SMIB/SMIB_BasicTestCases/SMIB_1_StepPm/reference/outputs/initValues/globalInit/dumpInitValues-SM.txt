@@ -141,6 +141,7 @@ gen_LdPPu                                          =           0.15
 gen_LfPPu                                          =       0.164901
 gen_LqPPu                                          =           0.15
 gen_MdPPu                                          =           1.66
+gen_MdPPuEfd                                       =              0
 gen_MqPPu                                          =           1.61
 gen_MrcPPu                                         =              0
 gen_P0Pu                                           =         -19.98

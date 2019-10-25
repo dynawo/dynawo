@@ -75,6 +75,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.PerUnit XqPPu "Quadrature axis reactance in p.u.";
 
     // Start values calculated by the initialization model
+    Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
     Types.PerUnit Kuf "Scaling factor for excitation p.u voltage";
 
     Types.ComplexApparentPowerPu sStator0Pu "Start value of complex apparent power at stator side in p.u (base SnRef)";
@@ -124,7 +125,8 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.Angle ThetaInternal0 "Start value of internal angle";
 
 equation
-  Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 else RfPPu / MdPPu;
+  MdPPuEfd = MdPuEfd  * rTfoPu * rTfoPu;
+  Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd else RfPPu / MdPPu;
 
   // Used for initialization of theta
   XqPPu = MqPPu + (LqPPu + XTfoPu);
@@ -215,6 +217,7 @@ partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for sy
     parameter Types.Time Tpd0 "Direct axis, open circuit transient time constant";
     parameter Types.Time Tppd0 "Direct axis, open circuit sub-transient time constant";
     parameter Types.PerUnit XqPu "Quadrature axis reactance in p.u.";
+    parameter Types.PerUnit MdPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
 
   protected
 

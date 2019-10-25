@@ -33,5 +33,6 @@ model GeneratorSynchronousInt_INIT "Synchronous machine - Initialization model f
     parameter Types.PerUnit RQ1Pu "Quadrature axis 1st damper resistance in p.u.";
     parameter Types.PerUnit LQ2Pu "Quadrature axis 2nd damper leakage in p.u.";
     parameter Types.PerUnit RQ2Pu "Quadrature axis 2nd damper resistance in p.u.";
+    parameter Types.PerUnit MdPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
 
 end GeneratorSynchronousInt_INIT;
