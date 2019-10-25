@@ -114,6 +114,7 @@ generator_LdPPu                                    =          0.102
 generator_LfPPu                                    =       0.151817
 generator_LqPPu                                    =          0.102
 generator_MdPPu                                    =          0.648
+generator_MdPPuEfd                                 =              0
 generator_MqPPu                                    =          0.348
 generator_MrcPPu                                   =              0
 generator_P0Pu                                     =             -0

@@ -42,6 +42,7 @@
   <!-- Synchronous machine external parameters -->
   <set id="5">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_H" value="3.5"/>
     <par type="DOUBLE" name="generator_DPu" value="0.0"/>
     <par type="DOUBLE" name="generator_RaPu" value="0.003"/>
