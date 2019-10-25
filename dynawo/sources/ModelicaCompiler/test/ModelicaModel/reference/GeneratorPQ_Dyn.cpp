@@ -1025,21 +1025,30 @@ void ModelGeneratorPQ_Dyn::setGequations(std::map<int,std::string>& gEquationInd
 
 void ModelGeneratorPQ_Dyn::evalCalculatedVars(std::vector<double>& calculatedVars)
 {
+  data->simulationInfo->discreteCall = 1;
+  data->simulationInfo->discreteCall = 0;
 }
 
 double ModelGeneratorPQ_Dyn::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
 {
+  data->simulationInfo->discreteCall = 1;
+  data->simulationInfo->discreteCall = 0;
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 
-void ModelGeneratorPQ_Dyn::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res)
+#ifdef _ADEPT_
+adept::adouble ModelGeneratorPQ_Dyn::evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)
 {
-  // not needed
+  data->simulationInfo->discreteCall = 1;
+  data->simulationInfo->discreteCall = 0;
+  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
+#endif
 
 std::vector<int> ModelGeneratorPQ_Dyn::getDefJCalculatedVarI(int iCalculatedVar)
 {
-  return std::vector<int>();
+  std::vector<int> res;
+  return res;
 }
 
 }

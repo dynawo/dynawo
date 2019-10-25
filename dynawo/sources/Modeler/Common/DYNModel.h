@@ -269,14 +269,6 @@ class Model {
    */
   virtual int sizeY() const = 0;
 
-  /**
-   * @brief get the number of calculated variables
-   *
-   *
-   * @return number of calculated variables
-   */
-  virtual int sizeCalculatedVar() const = 0;
-
   // infos
 
   /**

@@ -130,7 +130,7 @@ TEST(AlgebraicSolvers, testInit) {
 TEST(AlgebraicSolvers, testModifySettings) {
   boost::shared_ptr<Model> model = initModelFromDyd("dyd/solverTestAlpha.dyd");
   boost::shared_ptr<SolverKINAlgRestoration> solver(new SolverKINAlgRestoration());
-  ASSERT_NO_THROW(solver->init(model, SolverKINAlgRestoration::KIN_NORMAL, 1, 1, 1, 1, 1, 1, 1));
+  ASSERT_NO_THROW(solver->init(model, SolverKINAlgRestoration::KIN_YPRIM, 1, 1, 1, 1, 1, 1, 1));
 
   // KINSetFuncNormTol
   ASSERT_THROW_DYNAWO(solver->modifySettings(-1, 1, 1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);

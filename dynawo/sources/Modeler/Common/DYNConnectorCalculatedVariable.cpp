@@ -78,6 +78,10 @@ ConnectorCalculatedVariable::evalF(const double& /*t*/) {
 }
 
 void
+ConnectorCalculatedVariable::setFequations() {
+  fEquationIndex_[0] = "Calculated variable connector for variable " + name();
+}
+void
 ConnectorCalculatedVariable::evalG(const double& /*t*/) {
   // no root function for now
 }
@@ -103,7 +107,7 @@ void
 ConnectorCalculatedVariable::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& Jt, const int& /*rowOffset*/) {
   // only one equation : 0 = calculatedVariable  -y
   Jt.changeCol();
-  // @todo : to be improve if one calculated variable depends on a derivative
+  // We assume that calculated variables do not depend on derivatives.
 }
 
 void
@@ -183,7 +187,9 @@ ConnectorCalculatedVariable::evalFType() {
 
 void
 ConnectorCalculatedVariable::defineVariables(vector<boost::shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createState("connector_" + name(), CONTINUOUS));
+  typeVar_t type = model_->getVariable(variableName_)->getType();
+  assert(type == CONTINUOUS || type == FLOW);
+  variables.push_back(VariableNativeFactory::createState("connector_" + name(), type));
 
   for (int i = 0; i < nbVarExt_; ++i) {
     std::stringstream var;

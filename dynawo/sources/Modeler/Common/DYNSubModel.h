@@ -1271,6 +1271,12 @@ class SubModel {
    */
   virtual void getSubModelParameterValue(const std::string & nameParameter, double & value, bool & found);
 
+  /**
+   * @brief get index of this submodel in the global continuous variable table
+   * @return index of this submodel in the global continuous variable table
+   */
+  int getOffsetY() const {return offsetY_;}
+
  protected:
   /**
    * @brief get the name of the file where parameters should be dumped
@@ -1352,6 +1358,7 @@ class SubModel {
   double* fLocal_;  ///< local buffer to fill when calculating residual functions
   state_g* gLocal_;  ///< local buffer to fill when calculating root functions
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
+  int offsetY_;  ///< index in the global variable table
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
 
@@ -1399,6 +1406,7 @@ class SubModel {
   double* yLocalSave_;  ///< save of the local buffer for continuous variables
   double* ypLocalSave_;  ///< save of the local buffer for the derivative of continuous variables
   double* zLocalSave_;  ///< save of the local buffer for discretes variables
+  int offsetYSave_;  ///< save of index in the global variable table
 
   bool modeChange_;  ///< @b true if one mode has changed
   modeChangeType_t modeChangeType_;  ///< type of mode change

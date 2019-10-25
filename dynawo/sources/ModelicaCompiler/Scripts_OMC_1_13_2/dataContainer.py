@@ -1168,6 +1168,44 @@ class RawOmcFunctions:
     def get_params(self):
         return self.params
 
+
+    ##
+    # find the parameters set by a call of this function
+    # @param self: object pointer
+    # @param line_with_call: line to analyze
+    # @return outputs variable list
+    def find_outputs_from_call(self, line_with_call):
+        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
+        match = re.match(ptrn_var_assigned, line_with_call)
+        outputs = []
+        if match is not None:
+            variable_name = match.group("varName").replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
+            outputs.append(variable_name)
+            ptrn_var= re.compile(r'[ ]*&data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
+            variables = re.findall(ptrn_var, match.group("rhs"))
+            for output_param in variables:
+                param_variable_name = output_param[1].replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
+                outputs.append(param_variable_name)
+        return outputs
+
+
+    ##
+    # find the variables used as inputs in a call of this function
+    # @param self: object pointer
+    # @param line_with_call: line to analyze
+    # @return inputs variable list
+    def find_inputs_from_call(self, line_with_call):
+        ptrn_var_assigned = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+self.name+'[ ]*\((?P<rhs>[^;]+);')
+        match = re.match(ptrn_var_assigned, line_with_call)
+        inputs = []
+        if match is not None:
+            ptrn_var= re.compile(r'[ ]*[^&]data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
+            variables = re.findall(ptrn_var, match.group("rhs"))
+            for input_param in variables:
+                param_variable_name = input_param[1].replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
+                inputs.append(param_variable_name)
+        return inputs
+
 ##
 # class Equation maker
 #
@@ -1191,6 +1229,8 @@ class EqMaker():
         self.evaluated_var_address = ""
         ## List of variables needed to build the equation
         self.depend_vars = []
+        ## whether this equation is differential or not
+        self.is_diff_eq = False
 
         ## For whenCondition, index of the relation associated to this equation
         self.num_relation = ""
@@ -1248,6 +1288,12 @@ class EqMaker():
     def set_depend_vars(self, list_vars):
         self.depend_vars = list_vars
 
+    ##
+    # set whether the equation defines a differential equation
+    # @param self : object pointer
+    # @param is_diff_eq whether the equation defined a differential equation
+    def set_diff_eq(self, is_diff_eq):
+        self.is_diff_eq = is_diff_eq
 
     ##
     # Get the name of the equation maker
@@ -1339,7 +1385,8 @@ class EqMaker():
                          self.evaluated_var_address, \
                          self.get_depend_vars(), \
                          self.name, \
-                         self.num_omc )
+                         self.num_omc,
+                         self.is_diff_eq )
 
 
 ##
@@ -1355,7 +1402,7 @@ class EquationBase:
     # @param depend_vars : variables used in the equation
     # @param comes_from : name of the function using the equation
     # @param num_omc : index of the equation in omc arrays
-    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None):
+    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, is_diff_eq = False):
         ## pattern to identify the variable evaluated
         self.ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
         ## pattern to identify the residual variable evaluated
@@ -1375,6 +1422,8 @@ class EquationBase:
         self.num_dyn = -1
         ## body of the equation
         self.body = []
+        ## whether this equation is differential or not
+        self.is_diff_eq = is_diff_eq
 
 
         if body is not None:
@@ -1474,14 +1523,18 @@ class EquationBase:
         return text_to_return
 
     ##
+    # set whether the equation defines a differential equation
+    # @param self : object pointer
+    # @param is_diff_eq whether the equation defined a differential equation
+    def set_diff_eq(self, is_diff_eq):
+        self.is_diff_eq = is_diff_eq
+
+    ##
     # get if the equation defined a differential equation
     # @param self : object pointer
     # @return @b true if the equation defined a differential equation
-    def is_diff_eq(self):
-        # Does it takes part in a derivative?
-        for name in self.depend_vars:
-            if is_der(name): return True
-        return False
+    def get_is_diff_eq(self):
+        return self.is_diff_eq
 
 ##
 # class Equation
@@ -1496,8 +1549,8 @@ class Equation(EquationBase):
     # @param depend_vars : variables used in the equation
     # @param comes_from : name of the function using the equation
     # @param num_omc : index of the equation in omc arrays
-    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None):
-        EquationBase.__init__(self, body, eval_var, evaluated_var_address, depend_vars, comes_from, num_omc)
+    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, is_diff_eq = False):
+        EquationBase.__init__(self, body, eval_var, evaluated_var_address, depend_vars, comes_from, num_omc, is_diff_eq)
 
     ##
     # retrieve the body formatted for Modelica reinit affectation

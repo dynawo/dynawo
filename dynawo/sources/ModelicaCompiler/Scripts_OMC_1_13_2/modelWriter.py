@@ -703,7 +703,6 @@ class ModelWriter(ModelWriterBase):
         self.addEmptyLine()
         self.addLine(self.void_function_prefix+ self.className + "::evalCalculatedVars(std::vector<double>& calculatedVars)\n")
         self.addLine("{\n")
-
         self.addBody(self.builder.get_list_for_evalcalculatedvars())
         self.addLine("}\n")
 
@@ -716,7 +715,6 @@ class ModelWriter(ModelWriterBase):
         self.addEmptyLine()
         self.addLine("double Model" + self.className + "::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)\n")
         self.addLine("{\n")
-
         self.addBody(self.builder.get_list_for_evalcalculatedvari())
         self.addLine("}\n")
 
@@ -725,13 +723,14 @@ class ModelWriter(ModelWriterBase):
     # Add the body of evalJCalculatedVarI in the cpp file
     # @param self : object pointer
     # @return
-    def fill_evalJCalculatedVarI(self):
+    def fill_evalCalculatedVarIAdept(self):
         self.addEmptyLine()
-        self.addLine(self.void_function_prefix+ self.className + "::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res)\n")
+        self.addLine("#ifdef _ADEPT_\n")
+        self.addLine("adept::adouble Model" + self.className + "::evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)\n")
         self.addLine("{\n")
-
-        self.addBody(self.builder.get_list_for_evaljcalculatedvari())
+        self.addBody(self.builder.get_list_for_evalcalculatedvariadept())
         self.addLine("}\n")
+        self.addLine("#endif\n")
 
 
     ##
