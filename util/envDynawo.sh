@@ -2416,12 +2416,12 @@ case $MODE in
     open_nrt_doc || error_exit "Error during the opening of Dynawo nrt documentation"
     ;;
 
-  run-doc-tests)
-    run_documentation_test || error_exit "Error in the documentation tests"
-    ;;
-
   reset-environment)
     reset_environment_variables_full || error_exit "Failed to reset environment variables"
+    ;;
+
+  run-doc-tests)
+    run_documentation_test || error_exit "Error in the documentation tests"
     ;;
 
   uninstall-3rd-party)
