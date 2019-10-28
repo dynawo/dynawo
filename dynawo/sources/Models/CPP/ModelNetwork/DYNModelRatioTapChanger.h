@@ -67,8 +67,8 @@ class ModelRatioTapChanger : public ModelTapChanger {
   int sizeG() const;
 
   /**
-   * @brief  get size of discretes variables
-   * @return number of discretes variables
+   * @brief  get size of discrete variables
+   * @return number of discrete variables
    */
   int sizeZ() const;
 

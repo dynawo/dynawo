@@ -132,7 +132,7 @@ class ModelLine : public NetworkComponent::Impl {
   void evalNodeInjection();
 
   /**
-   * @brief  add bus neighbours
+   * @brief  add bus neighbors
    *
    */
   void addBusNeighbors();
@@ -172,7 +172,7 @@ class ModelLine : public NetworkComponent::Impl {
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @brief evalution F
+   * @brief evaluation F
    */
   void evalF() { /* not needed */ }  // get the (empty) local F function
 
@@ -182,12 +182,12 @@ class ModelLine : public NetworkComponent::Impl {
   NetworkComponent::StateChange_t evalZ(const double& t);  // get the local Z function for time t
 
   /**
-   * @brief evalution G
+   * @brief evaluation G
    * @param t time
    */
   void evalG(const double& t);  // get the local G function for time G
   /**
-   * @brief evalution calculated variables (for outpus)
+   * @brief evalaution calculated variables (for outputs)
    */
   void evalCalculatedVars();  // compute calculated variables (for outputs)
 
@@ -315,7 +315,7 @@ class ModelLine : public NetworkComponent::Impl {
   double ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
 
   /**
-   * @brief comppute the magnitude of the current on side 1
+   * @brief compute the magnitude of the current on side 1
    * @param ur1 real part of the voltage on side 1
    * @param ui1 imaginary part of the voltage on side 1
    * @param ur2 real part of the voltage on side 2
@@ -325,7 +325,7 @@ class ModelLine : public NetworkComponent::Impl {
   double i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const;
 
   /**
-   * @brief comppute the magnitude of the current on side 2
+   * @brief compute the magnitude of the current on side 2
    * @param ur1 real part of the voltage on side 1
    * @param ui1 imaginary part of the voltage on side 1
    * @param ur2 real part of the voltage on side 2

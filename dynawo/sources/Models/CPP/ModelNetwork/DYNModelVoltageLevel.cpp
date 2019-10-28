@@ -106,7 +106,7 @@ ModelVoltageLevel::setInitialSwitchCurrents() {
 
 void
 ModelVoltageLevel::computeLoops() {
-//  We are searching for switch loops whithin a substation
+//  We are searching for switch loops within a substation
 //  Example: we have a loop if all four switches are closed in the representation below
 //
 //  -------------sw-------------- busbar1

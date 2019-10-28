@@ -360,7 +360,7 @@ ModelStaticVarCompensator::evalJt(SparseMatrix& jt, const double& cj, const int&
   int uiYNum = modelBus_->uiYNum();
   double U = sqrt(ur * ur + ui * ui);
 
-  // colonne pour équations piIn
+  // column for equation piIn
   jt.changeCol();
 
   if (isRunning_ && isConnected() && !modelBus_->getSwitchOff()) {
@@ -381,7 +381,7 @@ ModelStaticVarCompensator::evalJt(SparseMatrix& jt, const double& cj, const int&
     jt.addTerm(piInYNum_ + rowOffset, 1.0);
   }
 
-  // colonne pour équations piOut
+  // column for equation piOut
   jt.changeCol();
 
   // @f[1]/@piOut, @f[1]/@piIn, @f[1]/@feedBack, @f[1]/@ur, @f[1]/@ui
@@ -389,7 +389,7 @@ ModelStaticVarCompensator::evalJt(SparseMatrix& jt, const double& cj, const int&
   jt.addTerm(piInYNum_ + rowOffset, -kP_);
   jt.addTerm(feedBackYNum_ + rowOffset, -1.);
 
-  // colonne pour équations bSvc
+  // column for equation bSvc
   jt.changeCol();
 
   // @f[2]/@bSvc, @f[2]/@piOut
@@ -405,7 +405,7 @@ ModelStaticVarCompensator::evalJt(SparseMatrix& jt, const double& cj, const int&
   jt.addTerm(bSvcYNum_ + rowOffset, termBSvc);
   jt.addTerm(piOutYNum_ + rowOffset, termPiOut);
 
-  // colonne pour équations feedBack
+  // column for equation feedBack
   jt.changeCol();
 
   // @f[3]/@feedBack, @f[3]/@bSvc
@@ -420,7 +420,7 @@ ModelStaticVarCompensator::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
   jt.changeCol();
 
   jt.changeCol();
-  // colonne pour équations feedBack
+  // column for equation feedBack
   double T = kP_ * Ti_;
   jt.addTerm(feedBackYNum_ + rowOffset, T);
 }
@@ -495,9 +495,9 @@ ModelStaticVarCompensator::evalG(const double& /*t*/) {
 
   double b = piOut();
   g_[2] = (bMin_ - b > 0.) ? ROOT_UP : ROOT_DOWN;  // B < BMin
-  g_[3] = (b - bMax_ > 0.) ? ROOT_UP : ROOT_DOWN;  // B > Bmax
+  g_[3] = (b - bMax_ > 0.) ? ROOT_UP : ROOT_DOWN;  // B > BMax
   g_[4] = (b - bMin_ > 0.) ? ROOT_UP : ROOT_DOWN;  // B > BMin
-  g_[5] = (bMax_ - b > 0.) ? ROOT_UP : ROOT_DOWN;  // B < Bmax
+  g_[5] = (bMax_ - b > 0.) ? ROOT_UP : ROOT_DOWN;  // B < BMax
 
   if (hasStandByAutomaton_) {
     g_[6] = ((uMinActivation_ - modelBus_->getCurrentV() > 0.) && mode_ == StaticVarCompensatorInterface::STANDBY) ? ROOT_UP : ROOT_DOWN;
@@ -552,13 +552,13 @@ ModelStaticVarCompensator::setGequations(map<int, string>& gEquationIndex) {
   gEquationIndex[0] = "SVC is running";
   gEquationIndex[1] = "SVC is OFF";
   gEquationIndex[2] = "B < BMin";
-  gEquationIndex[3] = "B > Bmax";
+  gEquationIndex[3] = "B > BMax";
   gEquationIndex[4] = "B > BMin";
-  gEquationIndex[5] = "B < Bmax";
+  gEquationIndex[5] = "B < BMax";
 
   if (hasStandByAutomaton_) {
-    gEquationIndex[6] = "U < Umin";
-    gEquationIndex[7] = "U > Umax";
+    gEquationIndex[6] = "U < UMin";
+    gEquationIndex[7] = "U > UMax";
   }
 
   assert(gEquationIndex.size() == (unsigned int) sizeG() && "Model Static Var Compensator: gEquationIndex.size() != g_.size()");

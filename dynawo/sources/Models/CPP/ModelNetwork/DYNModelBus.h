@@ -287,16 +287,16 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void exploreNeighbors(const int& numComponent, const boost::shared_ptr<SubNetwork>& subNetwork);  // scan a subnetwork to find all neighbouring buses
 
   /**
-   * @brief set refislands
-   * @param refIsland
+   * @brief set refIslands
+   * @param refIslands
    */
   inline void setRefIslands(int refIsland) {
     refIslands_ = refIsland;
   }
 
   /**
-   * @brief get refislande
-   * @return refisland
+   * @brief get refIslands
+   * @return refIslands
    */
   inline int getRefIslands() const {
     return refIslands_;
@@ -491,8 +491,8 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   double uMin_;  ///< minimum allowed voltage
   double uMax_;  ///< maximum allowed voltage
-  bool stateUmax_;  ///< whether U > Umax
-  bool stateUmin_;  ///< whether U < Umin
+  bool stateUmax_;  ///< whether U > UMax
+  bool stateUmin_;  ///< whether U < UMin
 
   bool switchOff_;  ///< whether the bus was switched off
   // equivalent to switchOff but with discrete variable, to be able to switch off a node thanks to an outside event
@@ -504,8 +504,8 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   boost::shared_ptr<BusDerivatives> derivatives_;  ///< derivatives
   double ur0_;  ///< initial real voltage
   double ui0_;  ///< initial imaginary voltage
-  double ir0_;  ///< residual real current
-  double ii0_;  ///< residual imaginary current
+  double ir0_;  ///< initial real current
+  double ii0_;  ///< initial imaginary current
 
   // index inside the whole Jacobian
   int urYNum_;  ///< index ur
@@ -656,7 +656,7 @@ class ModelBusContainer {
   void initDerivatives();
 
   /**
-   * @brief evaluate the residual functions for each buses
+   * @brief evaluate the residual functions for each bus
    *
    */
   void evalF();

@@ -129,13 +129,13 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   void setGequations(std::map<int, std::string>& gEquationIndex);
 
   /**
-   * @brief evalution G
+   * @brief evaluation G
    * @param t time
    */
   void evalG(const double& t);
 
   /**
-   * @brief evalution calculated variables (for outpus)
+   * @brief evaluation calculated variables (for outputs)
    */
   void evalCalculatedVars();
 
@@ -478,8 +478,8 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   State connectionState2_;  ///< "internal" link connection status at point of common coupling 2
   bool stateModified_;  ///< true if at least one of the link connection states was modified
 
-  double P01_;  ///< initial active power at point of commom coupling 1 in pu (generator convention)
-  double P02_;  ///< initial active power at point of commom coupling 2 in pu (generator convention)
+  double P01_;  ///< initial active power at point of common coupling 1 in pu (generator convention)
+  double P02_;  ///< initial active power at point of common coupling 2 in pu (generator convention)
   double Q01_;  ///< initial reactive power at point of common coupling 1 in pu (generator convention)
   double Q02_;  ///< initial reactive power at point of common coupling 1 in pu (generator convention)
   double ir01_;  ///< initial current real part at point of common coupling 1
@@ -490,13 +490,13 @@ class ModelHvdcLink : public NetworkComponent::Impl {
 
 template <class T>
 void ModelHvdcLink::setAttributes(const boost::shared_ptr<T>& conv1, const boost::shared_ptr<T>& conv2, const boost::shared_ptr<HvdcLineInterface>& dcLine) {
-  // retrieve data from VscConverterInterface or LccConverterInterface (iidm)
+  // retrieve data from VscConverterInterface or LccConverterInterface (IIDM)
   lossFactor1_ = conv1->getLossFactor() / 100.;
   lossFactor2_ = conv2->getLossFactor() / 100.;
   connectionState1_ = conv1->getInitialConnected() ? CLOSED : OPEN;
   connectionState2_ = conv2->getInitialConnected() ? CLOSED : OPEN;
 
-  // retrieve data from HvdcLineInterface (iidm)
+  // retrieve data from HvdcLineInterface (IIDM)
   vdcNom_ = dcLine->getVNom();
   pSetPoint_ = dcLine->getActivePowerSetpoint();
   converterMode_ = dcLine->getConverterMode();
@@ -506,7 +506,7 @@ void ModelHvdcLink::setAttributes(const boost::shared_ptr<T>& conv1, const boost
 template <class T>
 void ModelHvdcLink::setConvertersActivePower(const boost::shared_ptr<T>& conv1, const boost::shared_ptr<T>& conv2) {
   if (conv1->hasP() && conv2->hasP()) {
-    // retrieve active power at the two points of common coupling from load flow data in iidm file
+    // retrieve active power at the two points of common coupling from load flow data in IIDM file
     P01_ = -conv1->getP() / SNREF;
     P02_ = -conv2->getP() / SNREF;
   } else {

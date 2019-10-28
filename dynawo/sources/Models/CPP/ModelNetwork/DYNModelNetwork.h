@@ -214,7 +214,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
   std::string getCheckSum() const;
 
   /**
-   * @brief initialise the static (IIDM) data
+   * @brief initialize the static (IIDM) data
    */
   void initializeStaticData();
 

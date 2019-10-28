@@ -132,13 +132,13 @@ class ModelGenerator : public NetworkComponent::Impl {
   NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
-   * @brief evalution G
+   * @brief evaluation G
    * @param t time
    */
   void evalG(const double& t);
 
   /**
-   * @brief evalution calculated variables (for outpus)
+   * @brief evaluation calculated variables (for outputs)
    */
   void evalCalculatedVars();  ///< compute calculated variables (for outputs)
   /**
@@ -236,14 +236,14 @@ class ModelGenerator : public NetworkComponent::Impl {
   }
 
   /**
-   * @brief calculate the active power setpoint in pu (SNREF)
-   * @return the active power setpoint in pu (SNREF)
+   * @brief calculate the active power set point in pu (SNREF)
+   * @return the active power set point in pu (SNREF)
    */
   double Pc() const;
 
   /**
-   * @brief calculate the reactive power setpoint in pu (SNREF)
-   * @return the reactive power setpoint in pu (SNREF)
+   * @brief calculate the reactive power set point in pu (SNREF)
+   * @return the reactive power set point in pu (SNREF)
    */
   double Qc() const;
 

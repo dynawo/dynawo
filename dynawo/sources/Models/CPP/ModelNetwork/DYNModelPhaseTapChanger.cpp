@@ -79,7 +79,7 @@ ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) {
 
 void
 ModelPhaseTapChanger::evalG(const double& t, const double& iValue, bool /*nodeOff*/, state_g* g, const double& disable, const double& locked, bool tfoClosed) {
-  g[0] = (iValue >= thresholdI_ && !(disable > 0.) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // I > Iseuil
+  g[0] = (iValue >= thresholdI_ && !(disable > 0.) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // I > IThreshold
   g[1] = (iValue < thresholdI_) ? ROOT_UP : ROOT_DOWN;
 
 
@@ -97,7 +97,7 @@ ModelPhaseTapChanger::evalG(const double& t, const double& iValue, bool /*nodeOf
 void
 ModelPhaseTapChanger::evalZ(const double& t, state_g* g, ModelNetwork* network, const double& disable, bool P1SupP2, const double& locked, bool tfoClosed) {
   if (!(disable > 0.) && !(locked > 0.) && tfoClosed) {
-    if (g[0] == ROOT_UP && !currentOverThresholdState_) {  // I > Iseuil
+    if (g[0] == ROOT_UP && !currentOverThresholdState_) {  // I > IThreshold
       if (getIncreaseTap(P1SupP2)) {
         whenUp_ = t;
         moveUp_ = true;
@@ -116,7 +116,7 @@ ModelPhaseTapChanger::evalZ(const double& t, state_g* g, ModelNetwork* network, 
       currentOverThresholdState_ = true;
     }
 
-    if (g[1] == ROOT_UP && currentOverThresholdState_) {  // I < Iseuil
+    if (g[1] == ROOT_UP && currentOverThresholdState_) {  // I < IThreshold
       whenUp_ = VALDEF;
       moveUp_ = false;
       tapRefUp_ = lowStepIndex_;

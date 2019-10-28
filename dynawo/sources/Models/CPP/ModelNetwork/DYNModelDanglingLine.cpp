@@ -68,7 +68,7 @@ stateModified_(false) {
   P0_ = line->getP0() / SNREF;
   Q0_ = line->getQ0() / SNREF;
 
-  // R, X, G, B en valeur reelle dans IIDM
+  // R, X, G, B in SI units in IIDM
   double coeff = vNom * vNom / SNREF;
   double ad = 1. / sqrt(r * r + x * x);
   double ap = atan2(r, x);
@@ -102,7 +102,7 @@ stateModified_(false) {
   }
 
 
-  // calculate voltage at the fictive node
+  // calculate voltage at the fictitious node
   // node attributes
   double uNode = line->getBusInterface()->getV0();
   double tetaNode = line->getBusInterface()->getAngle0();
@@ -164,8 +164,8 @@ ModelDanglingLine::initSize() {
     sizeMode_ = 0;
     sizeCalculatedVar_ = 0;
   } else {
-    sizeF_ = 2;  // fictive node
-    sizeY_ = 2;  // voltage of fictive node
+    sizeF_ = 2;  // fictitious node
+    sizeY_ = 2;  // voltage of fictitious node
     sizeZ_ = 2;  // connectionState
     sizeG_ = 0;
     sizeMode_ = 2;
@@ -200,14 +200,14 @@ ModelDanglingLine::evalYMat() {
 
 void
 ModelDanglingLine::evalYType() {
-  yType_[0] = ALGEBRIC;  // ur fictive node
-  yType_[1] = ALGEBRIC;  // ui fictive node
+  yType_[0] = ALGEBRIC;  // ur fictitious node
+  yType_[1] = ALGEBRIC;  // ui fictitious node
 }
 
 void
 ModelDanglingLine::evalFType() {
-  fType_[0] = ALGEBRIC_EQ;  // sum of ir in fictive node
-  fType_[1] = ALGEBRIC_EQ;  // sum of ii in fictive node
+  fType_[0] = ALGEBRIC_EQ;  // sum of ir in fictitious node
+  fType_[1] = ALGEBRIC_EQ;  // sum of ii in fictitious node
 }
 
 void
@@ -576,7 +576,7 @@ ModelDanglingLine::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& row
   int ui1YNum = modelBus_->uiYNum();
 
   if (connectionState_ == CLOSED && !modelBus_->getSwitchOff()) {
-    // colonne pour equations SUM(IR) = 0 fictive node
+    // column for equations SUM(IR) = 0 fictitious node
     jt.changeCol();
 
     // @f[0]/@ur @f[0]/@ui @f[0]/@urFict @f[0]/@uiFict
@@ -585,7 +585,7 @@ ModelDanglingLine::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& row
     jt.addTerm(urFictYNum_ + rowOffset, ir2_dUrFict_ + irLoad_dUrFict);
     jt.addTerm(uiFictYNum_ + rowOffset, ir2_dUiFict_ + irLoad_dUiFict);
 
-    // colonne pour equations SUM(II) = 0 fictive node
+    // column for equations SUM(II) = 0 fictitious node
     jt.changeCol();
 
     // @f[1]/@ur @f[1]/@ui @f[1]/@urFict @f[1]/@uiFict
@@ -716,7 +716,7 @@ ModelDanglingLine::evalCalculatedVars() {
   double irBus = ir1(ur1, ui1, urFict, uiFict);
   double iiBus = ii1(ur1, ui1, urFict, uiFict);
 
-  calculatedVars_[iNum_] = sqrt(irBus * irBus + iiBus * iiBus);  // iorigine
+  calculatedVars_[iNum_] = sqrt(irBus * irBus + iiBus * iiBus);
   calculatedVars_[pNum_] = ur1 * irBus + ui1*iiBus;
   calculatedVars_[qNum_] = ui1 * irBus - ur1*iiBus;
 }

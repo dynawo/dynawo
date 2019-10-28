@@ -148,7 +148,7 @@ class ModelThreeWindingsTransformer : public NetworkComponent::Impl {
   void evalG(const double& t);
 
   /**
-   * @brief evalution calculated variables (for outpus)
+   * @brief evaluation calculated variables (for outputs)
    */
   void evalCalculatedVars();
 

@@ -52,7 +52,7 @@ ModelHvdcLink::ModelHvdcLink(const shared_ptr<VscConverterInterface>& vsc1, cons
                              const shared_ptr<HvdcLineInterface>& dcLine) :
 Impl(dcLine->getID()),
 stateModified_(false) {
-  // retrieve data from VscConverterInterface and HvdcLineInterface (iidm)
+  // retrieve data from VscConverterInterface and HvdcLineInterface (IIDM)
   setAttributes(vsc1, vsc2, dcLine);
 
   // calculate active power at the two points of common coupling
@@ -100,7 +100,7 @@ stateModified_(false) {
 ModelHvdcLink::ModelHvdcLink(const shared_ptr<LccConverterInterface>& lcc1, const shared_ptr<LccConverterInterface>& lcc2,
                              const shared_ptr<HvdcLineInterface>& dcLine) :
 Impl(dcLine->getID()) {
-  // retrieve data from LccConverterInterface and HvdcLineInterface (iidm)
+  // retrieve data from LccConverterInterface and HvdcLineInterface (IIDM)
   setAttributes(lcc1, lcc2, dcLine);
 
   // calculate active power at the two points of common coupling
@@ -535,11 +535,11 @@ ModelHvdcLink::addBusNeighbors() {
 void
 ModelHvdcLink::setConvertersReactivePowerVsc(const shared_ptr<VscConverterInterface>& vsc1, const shared_ptr<VscConverterInterface>& vsc2) {
   if (vsc1->hasQ() && vsc2->hasQ()) {
-    // retrieve reactive power at the two points of common coupling from load flow data in iidm file
+    // retrieve reactive power at the two points of common coupling from load flow data in IIDM file
     Q01_ = -vsc1->getQ() / SNREF;
     Q02_ = -vsc2->getQ() / SNREF;
   } else {
-    // calculate reactive power at the two points of common coupling from setpoints
+    // calculate reactive power at the two points of common coupling from set points
     double qSetPoint1 = vsc1->getReactivePowerSetpoint();  // in MVar (generator convention)
     double qSetPoint2 = vsc2->getReactivePowerSetpoint();  // in MVar (generator convention)
     Q01_ = qSetPoint1 / SNREF;
@@ -550,7 +550,7 @@ ModelHvdcLink::setConvertersReactivePowerVsc(const shared_ptr<VscConverterInterf
 void
 ModelHvdcLink::setConvertersReactivePowerLcc(const shared_ptr<LccConverterInterface>& lcc1, const shared_ptr<LccConverterInterface>& lcc2) {
   if (lcc1->hasQ() && lcc2->hasQ()) {
-    // retrieve reactive power at the two points of common coupling from load flow data in iidm file
+    // retrieve reactive power at the two points of common coupling from load flow data in IIDM file
     Q01_ = -lcc1->getQ() / SNREF;
     Q02_ = -lcc2->getQ() / SNREF;
   } else {

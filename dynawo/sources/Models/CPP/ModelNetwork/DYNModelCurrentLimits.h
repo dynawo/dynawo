@@ -88,7 +88,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @brief add a new current limit
    * @param limit
    */
-  void addLimit(const double& limit);  // add a new current limit (p.u. base Unom, base SNRef)
+  void addLimit(const double& limit);  // add a new current limit (p.u. base UNom, base SNRef)
   /**
    * @brief add a maximum duration above the limit
    * @param acceptableDuration
@@ -127,9 +127,9 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
 
   double maxTimeOperation_;  ///< maximum time operation, if limits duration is over this time, the current limit does not operate
 
-  std::vector<double> limits_;  ///< vector of current limits (p.u. base Unom, base SNRef)
+  std::vector<double> limits_;  ///< vector of current limits (p.u. base UNom, base SNRef)
   std::vector<double> acceptableDurations_;  ///< vector of limits duration (unit : s)
-  std::vector<bool> limitActivated_;  ///< vector describing whether each limit is activatd
+  std::vector<bool> limitActivated_;  ///< vector describing whether each limit is activated
   std::vector<bool> openingAuthorized_;  ///< whether opening is authorized
   std::vector<double> tLimitReached_;  ///< last time the limit was reached
   std::vector<bool> activated_;  ///< state of activation

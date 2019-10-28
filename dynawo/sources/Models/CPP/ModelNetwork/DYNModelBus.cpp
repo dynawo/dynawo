@@ -648,10 +648,10 @@ ModelBus::evalG(const double& /*t*/) {
 
 void
 ModelBus::setGequations(std::map<int, std::string>& gEquationIndex) {
-  gEquationIndex[0] = "U > Umax";
-  gEquationIndex[1] = "U < Umin";
-  gEquationIndex[2] = "U < Umax";
-  gEquationIndex[3] = "U > Umin";
+  gEquationIndex[0] = "U > UMax";
+  gEquationIndex[1] = "U < UMin";
+  gEquationIndex[2] = "U < UMax";
+  gEquationIndex[3] = "U > UMin";
 
   assert(gEquationIndex.size() == (unsigned int) sizeG() && "Model Bus: gEquationIndex.size() != g_.size()");
 }

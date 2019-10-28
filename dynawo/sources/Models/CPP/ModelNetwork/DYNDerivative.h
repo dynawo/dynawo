@@ -52,7 +52,7 @@ class Derivatives {
 
   /**
    * @brief get values
-   * @return map of varibles' values
+   * @return map of variables' values
    */
   inline const std::map<int, double>& getValues() const {
     return values_;
@@ -93,7 +93,7 @@ class BusDerivatives {
   /**
    * @brief get values
    * @param type type of derivatives
-   * @return map of varibles' values
+   * @return map of variables' values
    */
   const std::map<int, double>& getValues(typeDerivative_t type) const;
 
