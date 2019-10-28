@@ -37,7 +37,7 @@ class TapChangerStep {
    * @brief Constructor
    *
    * @param rho step conversion ratio
-   * @param alpha step dephasage
+   * @param alpha step phase shift
    * @param r step resistance
    * @param x step reactance
    * @param g step conductance
@@ -54,8 +54,8 @@ class TapChangerStep {
   double getRho() const;
 
   /**
-   * @brief Get the step dephasage
-   * @return The dephasage of the step
+   * @brief Get the step phase shift
+   * @return The phase shift of the step
    */
   double getAlpha() const;
 
@@ -85,7 +85,7 @@ class TapChangerStep {
 
  private:
   double rho_;  ///< conversion ratio
-  double alpha_;  ///< dephasage
+  double alpha_;  ///< phase shift
   double r_;  ///< resistance
   double x_;  ///< reactance
   double g_;  ///< conductance

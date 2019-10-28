@@ -32,7 +32,7 @@ class ModelDanglingLine : public NetworkComponent::Impl {
  public:
   /**
    * @brief default constructor
-   * @param line : danglinge line data interface
+   * @param line : dangling line data interface
    */
   explicit ModelDanglingLine(const boost::shared_ptr<DanglingLineInterface>& line);
 
@@ -150,7 +150,7 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
   /**
    *
-   * @brief evalution F
+   * @brief evaluation F
    */
   void evalF();
 
@@ -160,13 +160,13 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
-   * @brief evalution G
+   * @brief evaluation G
    * @param t time
    */
   void evalG(const double& t);
 
   /**
-   * @brief evalution calculated variables (for outpus)
+   * @brief evaluation calculated variables (for outputs)
    */
   void evalCalculatedVars();
 
@@ -287,7 +287,7 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   }
 
  private:
-  boost::shared_ptr<ModelCurrentLimits> currentLimits_;  ///< currrent limit
+  boost::shared_ptr<ModelCurrentLimits> currentLimits_;  ///< current limit
   /**
    * @brief get value
    * @return value

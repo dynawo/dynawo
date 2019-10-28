@@ -145,7 +145,7 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
-   * @brief evalution G
+   * @brief evaluation G
    * @param t time
    */
   void evalG(const double& t);
@@ -273,7 +273,7 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   }
 
   /**
-   * @brief return true if the shunt is available to be connected (i.e : time > last time deconnection + noReclosingdelay
+   * @brief return true if the shunt is available to be connected (i.e : time > last time disconnection + noReclosingdelay)
    * and the closest bus bar section is not switched off)
    * @param time
    * @return available or not
@@ -334,7 +334,7 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   // Calculated variables
   double ir0_;  ///< initial real part of the current
   double ii0_;  ///< initial imaginary part of the current
-};  ///< Genetic model for Shunt compensator in network
+};  ///< Generic model for Shunt compensator in network
 }  // namespace DYN
 
 #endif  // MODELS_CPP_MODELNETWORK_DYNMODELSHUNTCOMPENSATOR_H_

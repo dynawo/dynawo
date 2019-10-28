@@ -1542,12 +1542,12 @@ ModelTwoWindingsTransformer::evalCalculatedVars() {
   int signP1 = sign(P1);
   int signP2 = sign(P2);
 
-  calculatedVars_[i1Num_] = sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);  // iorigine
-  calculatedVars_[i2Num_] = sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);  // iextremite
-  calculatedVars_[p1Num_] = P1;  // Porigine
-  calculatedVars_[p2Num_] = P2;  // Pextremite
-  calculatedVars_[q1Num_] = (irBus1 * ui1Val - iiBus1 * ur1Val);  // Qorigine
-  calculatedVars_[q2Num_] = (irBus2 * ui2Val - iiBus2 * ur2Val);  // Qextremite
+  calculatedVars_[i1Num_] = sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);  // Current side 1
+  calculatedVars_[i2Num_] = sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);  // Current side 2
+  calculatedVars_[p1Num_] = P1;  // Active power side 1
+  calculatedVars_[p2Num_] = P2;  // Active power side 2
+  calculatedVars_[q1Num_] = (irBus1 * ui1Val - iiBus1 * ur1Val);  // Reactive power side 1
+  calculatedVars_[q2Num_] = (irBus2 * ui2Val - iiBus2 * ur2Val);  // Reactive power side 2
 
   calculatedVars_[iS1ToS2Side1Num_] = signP1 * calculatedVars_[i1Num_] * factorPuToASide1_;
   calculatedVars_[iS2ToS1Side1Num_] = -1. * calculatedVars_[iS1ToS2Side1Num_];

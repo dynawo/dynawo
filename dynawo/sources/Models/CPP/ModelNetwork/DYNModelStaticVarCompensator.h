@@ -225,7 +225,7 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   void initSize();
 
   /**
-   * @brief evaluate jacobien \f$( J = @F/@x + cj * @F/@x')\f$
+   * @brief evaluate jacobian \f$( J = @F/@x + cj * @F/@x')\f$
    * @param jt sparse matrix to fill
    * @param cj jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
@@ -233,7 +233,7 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
 
   /**
-   * @brief  evaluate jacobien \f$( J =  @F/@x')\f$
+   * @brief  evaluate jacobian \f$( J =  @F/@x')\f$
    *
    * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
@@ -357,10 +357,10 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   State connectionState_;  ///< "internal" compensator connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool stateModified_;  ///< true if the compensator connection state was modified
   StaticVarCompensatorInterface::RegulationMode_t mode_;  ///< regulation mode
-  double uMinActivation_;  ///< voltage limit inf to activate running mode when in standby
-  double uMaxActivation_;  ///< voltage limit sup to activate running mode when in standby
-  double uSetPointMin_;  ///< new target when Umin has been reached
-  double uSetPointMax_;  ///< new target when Umax has been reached
+  double uMinActivation_;  ///< lower voltage limit to activate running mode when in standby
+  double uMaxActivation_;  ///< higher voltage limit to activate running mode when in standby
+  double uSetPointMin_;  ///< new target when UMin has been reached
+  double uSetPointMax_;  ///< new target when UMax has been reached
   double hasStandByAutomaton_;  ///< check if extension StandByAutomaton is loaded
   bool isStandBy_;  ///< svc is standby or not
   double bShunt_;  ///< constant susceptance
@@ -370,7 +370,7 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
 
   // variables
   double piIn0_;  ///< input regulator PI
-  double piOut0_;  ///< before B limitor in regulator PI
+  double piOut0_;  ///< before B limiter in regulator PI
   double feedBack0_;  ///< output of simple-lag block
   double feedBackPrim0_;  ///< derivative of output of simple-lag block
   int piInYNum_;  ///< piInYNum_

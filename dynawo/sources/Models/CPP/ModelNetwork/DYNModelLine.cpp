@@ -108,7 +108,7 @@ ii2_dUi2_(0.) {
   // init data
   factorPuToA_ = 1000 * SNREF / (sqrt(3) * vNom);
 
-  // R, X, G, B en valeur reelle dans IIDM
+  // R, X, G, B in SI units in IIDM
   double coeff = vNom * vNom / SNREF;
   double ad = 1. / sqrt(r * r + x * x);
   double ap = atan2(r, x);
@@ -905,12 +905,12 @@ ModelLine::evalCalculatedVars() {
   int signP1 = sign(P1);
   int signP2 = sign(P2);
 
-  calculatedVars_[i1Num_] = sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);  // iorigine
-  calculatedVars_[i2Num_] = sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);  // iextremite
-  calculatedVars_[p1Num_] = P1;  // Porigine
-  calculatedVars_[p2Num_] = P2;  // Pextremite
-  calculatedVars_[q1Num_] = irBus1 * ui1Val - iiBus1 * ur1Val;  // Qorigine
-  calculatedVars_[q2Num_] = irBus2 * ui2Val - iiBus2 * ur2Val;  // Qextremite
+  calculatedVars_[i1Num_] = sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);  // Current side 1
+  calculatedVars_[i2Num_] = sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);  // Current side 2
+  calculatedVars_[p1Num_] = P1;  // Active power side 1
+  calculatedVars_[p2Num_] = P2;  // Active power side 2
+  calculatedVars_[q1Num_] = irBus1 * ui1Val - iiBus1 * ur1Val;  // Reactive power side 1
+  calculatedVars_[q2Num_] = irBus2 * ui2Val - iiBus2 * ur2Val;  // Reactive power side 2
   calculatedVars_[iS1ToS2Side1Num_] = signP1 * calculatedVars_[i1Num_] * factorPuToA_;
   calculatedVars_[iS2ToS1Side1Num_] = -1. * calculatedVars_[iS1ToS2Side1Num_];
   calculatedVars_[iS2ToS1Side2Num_] = signP2 * calculatedVars_[i2Num_] * factorPuToA_;

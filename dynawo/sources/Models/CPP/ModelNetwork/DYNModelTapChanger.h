@@ -101,7 +101,7 @@ class ModelTapChanger {
    * @brief evaluate the zero crossing functions
    * @param t time to use during the evaluation
    * @param valueMonitored : value monitored by the tap changer
-   * @param nodeOff : is the node monitored byt the tap changer off ?
+   * @param nodeOff : is the node monitored by the tap changer off ?
    * @param g : value of the zero crossing function
    * @param disable : is the tap changer disabled ?
    * @param locked : is the tap changer locked ?
@@ -111,12 +111,12 @@ class ModelTapChanger {
                      bool tfoClosed);
 
   /**
-   * @brief  evaluate discretes values
+   * @brief  evaluate discrete values
    * @param t time to use during the evaluation
    * @param g: root values
    * @param network : network of the transformer
    * @param disable : is the tap changer disabled ?
-   * @param nodeOff : is the node monitored byt the tap changer off ?
+   * @param nodeOff : is the node monitored by the tap changer off ?
    * @param locked : is the tap changer locked ?
    * @param tfoClosed :is the transformer connected ?
    */
@@ -132,8 +132,8 @@ class ModelTapChanger {
   }
 
   /**
-   * @brief  get size of discretes variables
-   * @return number of discretes variables
+   * @brief  get size of discrete variables
+   * @return number of discrete variables
    */
   virtual int sizeZ() const {
     return 0;

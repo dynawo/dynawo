@@ -30,7 +30,7 @@ namespace DYN {
 class ModelPhaseTapChanger : public ModelTapChanger {
  public:
   /**
-   * @brief default constructo
+   * @brief default constructor
    *
    * @param id : name of the tap changer
    */
@@ -55,7 +55,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
   void evalG(const double& t, const double& iValue, bool nodeOff, state_g* g, const double& disable, const double& locked, bool tfoClosed);
 
   /**
-   * @brief  evaluate discretes values
+   * @brief  evaluate discrete values
    * @param t time to use during the evaluation
    * @param g: root values
    * @param network : network of the transformer

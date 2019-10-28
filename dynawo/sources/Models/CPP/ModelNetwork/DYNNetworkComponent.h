@@ -102,7 +102,7 @@ class NetworkComponent {  ///< Base class for network component models
   virtual void evalF() = 0;
 
   /**
-   * @brief evaluate jacobien \f$( J = @F/@x + cj * @F/@x')\f$
+   * @brief evaluate jacobian \f$( J = @F/@x + cj * @F/@x')\f$
    * @param jt sparse matrix to fill
    * @param cj jacobian prime coefficient
    * @param rowOffset row offset to use to find the first row to fill
@@ -110,27 +110,27 @@ class NetworkComponent {  ///< Base class for network component models
   virtual void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) = 0;
 
   /**
-   * @brief evaluate jacobien \f$( J =  @F/@x')\f$
+   * @brief evaluate jacobian \f$( J =  @F/@x')\f$
    * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
    */
   virtual void evalJtPrim(SparseMatrix& jt, const int& rowOffset) = 0;
 
   /**
-   * @brief evalution G
+   * @brief evaluation G
    * @param t time
    */
   virtual void evalG(const double& t) = 0;
 
   /**
-   * @brief evalution Z
+   * @brief evaluation Z
    * @param t time
    * @return the potential state change type
    */
   virtual NetworkComponent::StateChange_t evalZ(const double& t) = 0;
 
   /**
-   * @brief evalution calculated variables (for outpus)
+   * @brief evaluation calculated variables (for outputs)
    */
   virtual void evalCalculatedVars() = 0;
 

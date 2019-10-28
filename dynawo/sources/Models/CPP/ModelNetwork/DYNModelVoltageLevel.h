@@ -112,7 +112,7 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   /**
    * @brief find the closest bus bar section of a bus in a voltage level
    * @param node: the index of the bus for which to look for the closest bus bar section
-   * @return a pair with the closest bus bar section index and the list of switch names that seperate the bus bar section from the initial bus
+   * @return a pair with the closest bus bar section index and the list of switch names that separate the bus bar section from the initial bus
    */
   std::pair<unsigned int, std::vector<std::string> > findClosestBBS(const unsigned int node);
 
@@ -129,12 +129,12 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void setInitialSwitchCurrents();
 
   /**
-   * @brief evalution F
+   * @brief evaluation F
    */
   void evalF();
 
   /**
-   * @brief evaluate jacobien \f$( J = @F/@x + cj * @F/@x')\f$
+   * @brief evaluate jacobian \f$( J = @F/@x + cj * @F/@x')\f$
    * @param jt sparse matrix to fill
    * @param cj
    * @param rowOffset row offset to use to find the first row to fill
@@ -142,7 +142,7 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset);
 
   /**
-   * @brief evaluate jacobien \f$( J =  @F/@x')\f$
+   * @brief evaluate jacobian \f$( J =  @F/@x')\f$
    * @param jt sparse matrix to fill
    * @param rowOffset row offset to use to find the first row to fill
    */

@@ -49,7 +49,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
  public:
   /**
    * @brief default constructor
-   * @param tfo : two windings tranformer data interface used to build the model
+   * @param tfo : two windings transformer data interface used to build the model
    */
   explicit ModelTwoWindingsTransformer(const boost::shared_ptr<TwoWTransformerInterface>& tfo);
 
@@ -272,13 +272,13 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   NetworkComponent::StateChange_t evalZ(const double& t);  // compute the Z function
 
   /**
-   * @brief evalution G
+   * @brief evaluation G
    * @param t time
    */
   void evalG(const double& t);  // compute the G function
 
   /**
-   * @brief evalution calculated variables (for outpus)
+   * @brief evaluation calculated variables (for outputs)
    */
   void evalCalculatedVars();  // compute calculated variables (for outputs)
 

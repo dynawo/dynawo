@@ -97,7 +97,7 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   }
 
   /**
-   * @brief inloop or not
+   * @brief inLoop or not
    * @param inLoop
    */
   void inLoop(bool inLoop) {
@@ -105,7 +105,7 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   }
 
   /**
-   * @brief get inloop
+   * @brief get inLoop
    * @return inLoop
    */
   bool isInLoop() const {

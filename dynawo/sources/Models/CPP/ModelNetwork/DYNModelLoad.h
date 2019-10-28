@@ -54,12 +54,12 @@ class ModelLoad : public NetworkComponent::Impl {
   } CalculatedVariables_t;
 
   /**
-   * @brief set the load connexion status
+   * @brief set the load connection status
    * @param state
    */
   void setConnected(State state) {
     connectionState_ = state;
-  }  // set the load connexion status
+  }  // set the load connection status
 
   /**
    * @brief set the bus to which the load is connected
@@ -112,7 +112,7 @@ class ModelLoad : public NetworkComponent::Impl {
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @brief evalution F
+   * @brief evaluation F
    */
   void evalF();  // compute the local F function
 
@@ -122,13 +122,13 @@ class ModelLoad : public NetworkComponent::Impl {
   NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
-   * @brief evalution G
+   * @brief evaluation G
    * @param t time
    */
   void evalG(const double& t);
 
   /**
-   * @brief evalution calculated variables (for outpus)
+   * @brief evaluation calculated variables (for outputs)
    */
   void evalCalculatedVars();
 
@@ -438,7 +438,7 @@ class ModelLoad : public NetworkComponent::Impl {
   double ir0_;  ///< initial real part of the current
   double ii0_;  ///< initial imaginary part of the current
 
-  // Parametres
+  // Parameters
   double alpha_;  ///< active power exponential sensitivity to voltage
   double beta_;  ///< reactive power exponential sensitivity to voltage
   bool isRestorative_;  ///< whether the consumed energy remains constant
@@ -451,7 +451,7 @@ class ModelLoad : public NetworkComponent::Impl {
   double betaLong_;  ///< beta
   double u0_;  ///< initial voltage
 
-  // variables
+  // Variables
   double DeltaPc0_;  ///< delta pc0
   double DeltaQc0_;  ///< delta qc0
   double zP0_;  ///< zP0

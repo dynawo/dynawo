@@ -39,7 +39,7 @@ ModelCurrentLimits::~ModelCurrentLimits() {
 
 int
 ModelCurrentLimits::sizeG() const {
-  return 3 * nbLimits_;  // I> Imax, t-tLim> tempo, I< Imax
+  return 3 * nbLimits_;  // I> IMax, t-tLim> delay, I< IMax
 }
 
 int
@@ -89,7 +89,7 @@ ModelCurrentLimits::evalG(const string& /*componentName*/, const double& t, cons
   assert(acceptableDurations_.size() == static_cast<size_t>(nbLimits_) && "Mismatching number of limits and vector sizes");
   assert(openingAuthorized_.size() == static_cast<size_t>(nbLimits_) && "Mismatching number of limits and vector sizes");
   for (int i = 0; i < nbLimits_; ++i) {
-    // ================== DUE to IIDM convention ============
+    // ================== Due to IIDM convention ============
     double limit = limits_[i];
     bool limitActivated = limitActivated_[i];
     if (i > 0) {
@@ -116,7 +116,7 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
   for (int i = 0; i < nbLimits_; ++i) {
     if (!(desactivate > 0)) {
       if (g[0 + 3 * i] == ROOT_UP && !activated_[i]) {
-        if (openingAuthorized_[i]) {  // tempo is specified => temporary limit
+        if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
           network->addConstraint(componentName, true, DYNConstraint(OverloadUp, acceptableDurations_[i], side_));
         } else {
           network->addConstraint(componentName, true, DYNConstraint(IMAP, side_));
@@ -132,7 +132,7 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
       }
 
       if (g[2 + 3 * i] == ROOT_UP && activated_[i]) {
-        if (openingAuthorized_[i]) {  // tempo is specified => temporary limit
+        if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
           network->addConstraint(componentName, false, DYNConstraint(OverloadUp, acceptableDurations_[i], side_));
         } else {
           network->addConstraint(componentName, false, DYNConstraint(IMAP, side_));
