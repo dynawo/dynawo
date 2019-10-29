@@ -1,84 +1,56 @@
-0.0365595 | GEN____3_SM | PMIN : activation
-0.961847 | GEN____3_SM | PMIN : deactivation
+0.0365635 | GEN____3_SM | PMIN : activation
+0.994313 | GEN____3_SM | PMIN : deactivation
 1 | FAULT_GEN_2 | Fault (node) : beginning
-1 | GEN____1_SM | Voltage regulator : lower limit reached
-1 | GEN____2_SM | Voltage regulator : lower limit reached
-1 | GEN____3_SM | Voltage regulator : lower limit reached
+1 | GEN____1_SM | Voltage regulator : upper limit reached
+1 | GEN____2_SM | Voltage regulator : upper limit reached
 1 | GEN____6_SM | Voltage regulator : upper limit reached
 1.1 | FAULT_GEN_2 | Fault (node) : end
 1.1 | GEN____1_SM | Voltage regulator : back to regulation
 1.1 | GEN____2_SM | Voltage regulator : back to regulation
-1.1 | GEN____2_SM | Voltage regulator : upper limit reached
-1.1 | GEN____3_SM | Voltage regulator : back to regulation
 1.1 | GEN____6_SM | Voltage regulator : back to regulation
-1.15403 | GEN____2_SM | Voltage regulator : back to regulation
-1.15403 | GEN____2_SM | Voltage regulator : upper limit reached
-1.15403 | GEN____2_SM | Voltage regulator : back to regulation
-1.27852 | GEN____6_SM | PMIN : activation
-1.41482 | GEN____8_SM | PMIN : activation
-1.41482 | GEN____8_SM | PMIN : activation
-1.41482 | GEN____8_SM | PMIN : deactivation
-1.64953 | GEN____6_SM | PMIN : deactivation
-1.66196 | GEN____3_SM | PMIN : activation
-1.84462 | GEN____8_SM | PMIN : deactivation
-2.10524 | GEN____6_SM | PMIN : activation
-2.17855 | GEN____3_SM | PMIN : deactivation
-2.38385 | GEN____8_SM | PMIN : activation
-2.42936 | GEN____6_SM | PMIN : deactivation
-2.82594 | GEN____8_SM | PMIN : deactivation
-2.8303 | GEN____6_SM | PMIN : activation
-3.12793 | GEN____6_SM | PMIN : deactivation
-3.21626 | GEN____3_SM | PMIN : activation
-3.37328 | GEN____8_SM | PMIN : activation
-3.62087 | GEN____6_SM | PMIN : activation
-3.69194 | GEN____3_SM | PMIN : deactivation
-3.79228 | GEN____8_SM | PMIN : deactivation
-3.97158 | GEN____6_SM | PMIN : activation
-3.97158 | GEN____6_SM | PMIN : deactivation
-3.97158 | GEN____6_SM | PMIN : deactivation
-4.38408 | GEN____8_SM | PMIN : activation
-4.38408 | GEN____8_SM | PMIN : activation
-4.38408 | GEN____8_SM | PMIN : activation
-4.38408 | GEN____8_SM | PMIN : deactivation
-4.38408 | GEN____8_SM | PMIN : deactivation
-4.45602 | GEN____6_SM | PMIN : activation
-4.45602 | GEN____6_SM | PMIN : activation
-4.45602 | GEN____6_SM | PMIN : deactivation
-4.82978 | GEN____8_SM | PMIN : deactivation
-4.83347 | GEN____6_SM | PMIN : deactivation
-4.86268 | GEN____3_SM | PMIN : activation
-5.29196 | GEN____3_SM | PMIN : activation
-5.29196 | GEN____3_SM | PMIN : deactivation
-5.29196 | GEN____3_SM | PMIN : deactivation
-5.36486 | GEN____6_SM | PMIN : activation
-5.36486 | GEN____6_SM | PMIN : activation
-5.36486 | GEN____6_SM | PMIN : deactivation
-5.46594 | GEN____8_SM | PMIN : activation
-5.46594 | GEN____8_SM | PMIN : activation
-5.46594 | GEN____8_SM | PMIN : deactivation
-5.72627 | GEN____6_SM | PMIN : deactivation
-5.91121 | GEN____8_SM | PMIN : deactivation
-6.49606 | GEN____3_SM | PMIN : activation
-6.49606 | GEN____3_SM | PMIN : activation
-6.49606 | GEN____3_SM | PMIN : deactivation
-6.49672 | GEN____8_SM | PMIN : activation
-6.76561 | GEN____3_SM | PMIN : deactivation
-6.91061 | GEN____8_SM | PMIN : deactivation
-7.54046 | GEN____8_SM | PMIN : activation
-7.98869 | GEN____8_SM | PMIN : deactivation
-8.19047 | GEN____3_SM | PMIN : activation
-8.39612 | GEN____3_SM | PMIN : activation
-8.39612 | GEN____3_SM | PMIN : deactivation
-8.39612 | GEN____3_SM | PMIN : deactivation
-8.64366 | GEN____8_SM | PMIN : activation
-8.64366 | GEN____8_SM | PMIN : activation
-8.64366 | GEN____8_SM | PMIN : deactivation
-8.84733 | GEN____6_SM | PMIN : activation
-8.84733 | GEN____6_SM | PMIN : activation
-8.84733 | GEN____6_SM | PMIN : deactivation
-9.00364 | GEN____6_SM | PMIN : activation
-9.00364 | GEN____6_SM | PMIN : deactivation
-9.00364 | GEN____6_SM | PMIN : deactivation
-9.05143 | GEN____8_SM | PMIN : deactivation
-9.80925 | GEN____8_SM | PMIN : activation
-10.1531 | GEN____8_SM | PMIN : deactivation
+1.25354 | GEN____6_SM | PMIN : activation
+1.37588 | GEN____8_SM | PMIN : activation
+1.37588 | GEN____8_SM | PMIN : activation
+1.37588 | GEN____8_SM | PMIN : activation
+1.37588 | GEN____8_SM | PMIN : deactivation
+1.37588 | GEN____8_SM | PMIN : deactivation
+1.59845 | GEN____6_SM | PMIN : deactivation
+1.72853 | GEN____8_SM | PMIN : deactivation
+2.0955 | GEN____6_SM | PMIN : activation
+2.0955 | GEN____6_SM | PMIN : activation
+2.0955 | GEN____6_SM | PMIN : deactivation
+2.33442 | GEN____8_SM | PMIN : activation
+2.40742 | GEN____6_SM | PMIN : deactivation
+2.72682 | GEN____8_SM | PMIN : deactivation
+2.93299 | GEN____6_SM | PMIN : activation
+2.93299 | GEN____6_SM | PMIN : activation
+2.93299 | GEN____6_SM | PMIN : deactivation
+3.05699 | GEN____6_SM | PMIN : activation
+3.05699 | GEN____6_SM | PMIN : deactivation
+3.05699 | GEN____6_SM | PMIN : deactivation
+3.32417 | GEN____8_SM | PMIN : activation
+3.32417 | GEN____8_SM | PMIN : activation
+3.32417 | GEN____8_SM | PMIN : deactivation
+3.6558 | GEN____6_SM | PMIN : activation
+3.6558 | GEN____6_SM | PMIN : activation
+3.6558 | GEN____6_SM | PMIN : deactivation
+3.6876 | GEN____8_SM | PMIN : deactivation
+3.9058 | GEN____6_SM | PMIN : deactivation
+4.33876 | GEN____8_SM | PMIN : activation
+4.48113 | GEN____6_SM | PMIN : activation
+4.66969 | GEN____8_SM | PMIN : deactivation
+4.75637 | GEN____6_SM | PMIN : activation
+4.75637 | GEN____6_SM | PMIN : deactivation
+4.75637 | GEN____6_SM | PMIN : deactivation
+5.37726 | GEN____6_SM | PMIN : activation
+5.43302 | GEN____8_SM | PMIN : activation
+5.43302 | GEN____8_SM | PMIN : activation
+5.43302 | GEN____8_SM | PMIN : deactivation
+5.64984 | GEN____6_SM | PMIN : deactivation
+5.74541 | GEN____8_SM | PMIN : activation
+5.74541 | GEN____8_SM | PMIN : deactivation
+5.74541 | GEN____8_SM | PMIN : deactivation
+6.56929 | GEN____8_SM | PMIN : activation
+6.56929 | GEN____8_SM | PMIN : activation
+6.56929 | GEN____8_SM | PMIN : deactivation
+6.79035 | GEN____8_SM | PMIN : deactivation

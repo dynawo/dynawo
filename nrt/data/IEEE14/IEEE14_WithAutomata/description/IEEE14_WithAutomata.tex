@@ -383,7 +383,7 @@ The tap-changer parameters are:
 \subsection{Scenario}
 At $t=20s$, the following load variation is simulated:
 \begin{itemize}
-\item{the reactive power of load 2 is changed from $Q=12.7MVar$ to $Q=200MVar$}
+\item{the reactive power of load 3 is changed from $Q=12.7MVar$ to $Q=30MVar$}
 \end{itemize}
 
 \subsection{Solver}
@@ -476,7 +476,7 @@ Note: As we use the default C++ ratio tap-changer model, no information is added
 \subsection{Scenario}
 At $t=20s$, the following load variation is simulated:
 \begin{itemize}
-\item{the reactive power of load 5 is changed from $Q=1.6MVar$ to $Q=70MVar$}
+\item{the reactive power of load 5 is changed from $Q=1.6MVar$ to $Q=84MVar$}
 \end{itemize}
 
 \subsection{Solver}
@@ -538,7 +538,7 @@ The tap-changer lock automaton activates a lock order if the monitored voltage g
 The tap-changer lock automaton parameters are:
 \begin{center}
 \begin{tabular}{l|l}
-   $U_{Min}=0.955p.u$ & $t_{TransLockedT}=10s$ \\
+   $U_{Min}=0.9824p.u$ & $t_{TransLockedT}=10s$ \\
    $t_{BeforeLocked}=20s$  & $t_{TransLockedD}=10s$ \\
 \end{tabular}
 \end{center}
@@ -546,8 +546,8 @@ The tap-changer lock automaton parameters are:
 \subsection{Scenario}
 At $t=20s$, the following load variations are simulated:
 \begin{itemize}
-\item{the reactive power of load 2 is changed from $Q=12.08MVar$ to $Q=100MVar$}
-\item{the reactive power of load 3 is changed from $Q=12.7MVar$ to $Q=100MVar$}
+\item{the reactive power of load 2 is changed from $Q=12.08MVar$ to $Q=200MVar$}
+\item{the reactive power of load 3 is changed from $Q=12.7MVar$ to $Q=200MVar$}
 \end{itemize}
 
 \subsection{Solver}
@@ -594,7 +594,7 @@ The simulated load variations make the network voltage drop at node 2 and 3 (mon
 \caption{Voltages at the loads transformers primary and secondary sides}
 \end{figure}
 
-At $t=90s$,the tap-changer lock automaton monitored voltage reaches $U_{Min}$. The lock order of the tap-changer lock automaton is activated 20 seconds after that, and received by the load transformer 10 seconds later. The load transformers then stop to change taps and the network voltage stops decreasing.
+At $t=100s$,the tap-changer lock automaton monitored voltage crosses $U_{Min}$ permanently. The lock order of the tap-changer lock automaton is activated 20 seconds after that, and received by the load transformer 10 seconds later. The load transformers then stop to change taps and the network voltage stops decreasing.
 
 \begin{figure}[H]
 \subfigure[Tap-Changer Lock automaton monitored voltage (kV)]

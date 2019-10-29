@@ -81,7 +81,7 @@ equation
     QGen = QGenPu*SystemBase.SnRef;
 
     // Stator complex variables
-    uStatorPu = 1 / rTfoPu * (terminal.V - terminal.i * Complex(RTfoPu, XTfoPu));
+    uStatorPu = 1 / rTfoPu * (terminal.V - terminal.i * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
     iStatorPu = rTfoPu * terminal.i;
     sStatorPu = uStatorPu * ComplexMath.conj(iStatorPu);
 
