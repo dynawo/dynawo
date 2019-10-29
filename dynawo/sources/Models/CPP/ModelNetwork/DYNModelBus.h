@@ -288,7 +288,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   /**
    * @brief set refIslands
-   * @param refIslands
+   * @param refIsland
    */
   inline void setRefIslands(int refIsland) {
     refIslands_ = refIsland;
