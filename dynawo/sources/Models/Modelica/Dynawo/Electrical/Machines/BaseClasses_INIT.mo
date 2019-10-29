@@ -163,7 +163,7 @@ equation
   QGen0Pu = -Q0Pu;
 
 // Apparent power, voltage and current at stator side in p.u (base SnRef, UNom)
-  uStator0Pu = 1 / rTfoPu * (u0Pu - i0Pu * Complex(RTfoPu, XTfoPu));
+  uStator0Pu = 1 / rTfoPu * (u0Pu - i0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
   iStator0Pu = rTfoPu * i0Pu ;
   sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
 

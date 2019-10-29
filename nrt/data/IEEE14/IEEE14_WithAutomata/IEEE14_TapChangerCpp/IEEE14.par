@@ -274,6 +274,6 @@
   <set id="9">
     <par type="DOUBLE" name="event_tEvent" value="20"/>
     <par type="DOUBLE" name="event_stateEvent1" value="0.076"/>
-    <par type="DOUBLE" name="event_stateEvent2" value="0.65"/>
+    <par type="DOUBLE" name="event_stateEvent2" value="0.84"/>
   </set>
 </parametersSet>

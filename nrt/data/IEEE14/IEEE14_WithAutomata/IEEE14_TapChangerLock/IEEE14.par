@@ -308,12 +308,12 @@
   <set id="11">
     <par type="DOUBLE" name="event_tEvent" value="20"/>
     <par type="DOUBLE" name="event_stateEvent1" value="0.217"/>
-    <par type="DOUBLE" name="event_stateEvent2" value="1"/>
+    <par type="DOUBLE" name="event_stateEvent2" value="2"/>
   </set>
   <set id="12">
     <par type="DOUBLE" name="event_tEvent" value="20"/>
     <par type="DOUBLE" name="event_stateEvent1" value="0.942"/>
-    <par type="DOUBLE" name="event_stateEvent2" value="1"/>
+    <par type="DOUBLE" name="event_stateEvent2" value="2"/>
   </set>
   <set id="13">
     <par type="BOOL" name="tapChanger_regulating0" value="true"/>
@@ -327,7 +327,7 @@
     <par type="INT" name="tapChanger_tap0" value="5"/>
   </set>
   <set id="14">
-    <par type="DOUBLE" name="tapChangerLock_UMin" value="65.895"/>
+    <par type="DOUBLE" name="tapChangerLock_UMin" value="68.240"/>
     <par type="DOUBLE" name="tapChangerLock_tLagBeforeLocked" value="20"/>
     <par type="DOUBLE" name="tapChangerLock_tLagTransLockedT" value="10"/>
     <par type="DOUBLE" name="tapChangerLock_tLagTransLockedD" value="10"/>
