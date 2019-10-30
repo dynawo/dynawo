@@ -72,10 +72,10 @@ equation
     Line(points = {{-106, -48}, {-106, -48}, {-106, -8}, {-106, -8}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, feedback.u1) annotation(
     Line(points = {{-154, 0}, {-114, 0}, {-114, 0}, {-114, 0}}, color = {0, 0, 127}));
-  when PmRawPu.y >= PMaxPu then
+  when PmRawPu.y >= PMaxPu  and pre(state) <> status.LimitPMax then
     state = status.LimitPMax;
     Timeline.logEvent1(TimelineKeys.ActivatePMAX);
-  elsewhen PmRawPu.y <= PMinPu then
+  elsewhen PmRawPu.y <= PMinPu and pre(state) <> status.LimitPMin then
     state = status.LimitPMin;
     Timeline.logEvent1(TimelineKeys.ActivatePMIN);
   elsewhen PmRawPu.y > PMinPu and PmRawPu.y < PMaxPu and pre(state) == status.LimitPMin then

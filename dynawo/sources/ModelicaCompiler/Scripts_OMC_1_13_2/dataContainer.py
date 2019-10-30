@@ -2062,6 +2062,7 @@ class Modes:
             z_pre = z_aff.replace("localData[0]->discreteVars", "simulationInfo->discreteVarsPre")
             z_pre = z_pre.replace("localData[0]->integerDoubleVars", "simulationInfo->integerDoubleVarsPre")
             if z_aff == z_pre: continue
+            text_to_return.append("  // " + z + " != pre(" +z+")\n")
             text_to_return.append("  if (doubleNotEquals(" + z_aff + ", " + z_pre +")) {\n")
             if discrete_mode.type == "ALG":
                 if discrete_mode.boolean == False:

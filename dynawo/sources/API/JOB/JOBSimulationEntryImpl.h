@@ -81,11 +81,22 @@ class SimulationEntry::Impl : public SimulationEntry {
    */
   int getCriteriaStep() const;
 
+  /**
+   * @copydoc SimulationEntry::setPrecision()
+   */
+  void setPrecision(double precision);
+
+  /**
+   * @copydoc SimulationEntry::getPrecision()
+   */
+  double getPrecision() const;
+
  private:
   double startTime_;  ///< Start time of the simulation
   double stopTime_;  ///< Stop time of the simulation
   bool activateCriteria_;  ///< Whether to activate the verification of criteria
   int criteriaStep_;  ///< criteria verification time step
+  double precision_;  ///< precision of the simulation
 };
 
 }  // namespace job

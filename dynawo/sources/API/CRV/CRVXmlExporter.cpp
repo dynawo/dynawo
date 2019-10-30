@@ -74,8 +74,8 @@ XmlExporter::exportToStream(const boost::shared_ptr<CurvesCollection>& curves, o
               itPoint != (*itCurve)->cend();
               ++itPoint) {
         attrs.clear();
-        attrs.add("time", DYN::double2String((*itPoint)->getTime(), 5));
-        attrs.add("value", DYN::double2String((*itPoint)->getValue(), 5));
+        attrs.add("time", DYN::double2String((*itPoint)->getTime()));
+        attrs.add("value", DYN::double2String((*itPoint)->getValue()));
         formatter->startElement("point", attrs);
         formatter->endElement();   // point
       }

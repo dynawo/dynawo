@@ -22,6 +22,7 @@
 #include <sstream>
 
 #include "DYNMacrosMessage.h"
+#include "DYNCommon.h"
 
 #include "CRVCurvesCollection.h"
 #include "CRVCurve.h"
@@ -100,7 +101,7 @@ CsvExporter::exportToStream(const boost::shared_ptr<CurvesCollection>& curves, o
             itCurve != curves->end();
             ++itCurve) {
       if ((*itCurve)->getAvailable()) {
-        stream << (*((*itCurve)->at(i)))->getValue() << CSVEXPORTER_SEPARATOR;
+        stream << DYN::double2String((*((*itCurve)->at(i)))->getValue()) << CSVEXPORTER_SEPARATOR;
       }
     }
     stream << "\n";

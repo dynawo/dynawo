@@ -216,6 +216,8 @@ SimulationHandler::create(attributes_type const& attributes) {
     simulation_->setActivateCriteria(attributes["activateCriteria"]);
   if (attributes.has("criteriaStep"))
     simulation_->setCriteriaStep(attributes["criteriaStep"]);
+  if (attributes.has("precision"))
+    simulation_->setPrecision(attributes["precision"]);
 }
 
 shared_ptr<SimulationEntry>

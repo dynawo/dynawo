@@ -28,14 +28,17 @@ class ParameterCommonMock : public ParameterCommon {
 
   boost::any getAnyValue() const {
     // unused
+    return boost::any();
   }
 
   bool hasValue() const {
     // unused
+    return false;
   }
 
   Error::TypeError_t getTypeError() const {
     // unused
+    return Error::UNDEFINED;
   }
 };
 

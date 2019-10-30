@@ -25,7 +25,8 @@ SimulationEntry::Impl::Impl():
 startTime_(0),
 stopTime_(0),
 activateCriteria_(true),
-criteriaStep_(10) {
+criteriaStep_(10),
+precision_(1e-6) {
 }
 
 SimulationEntry::Impl::~Impl() {
@@ -69,6 +70,16 @@ SimulationEntry::Impl::setCriteriaStep(const int & criteriaStep) {
 int
 SimulationEntry::Impl::getCriteriaStep() const {
   return criteriaStep_;
+}
+
+void
+SimulationEntry::Impl::setPrecision(double precision) {
+  precision_ = precision;
+}
+
+double
+SimulationEntry::Impl::getPrecision() const {
+  return precision_;
 }
 
 }  // namespace job

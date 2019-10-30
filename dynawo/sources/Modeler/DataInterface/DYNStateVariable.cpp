@@ -147,7 +147,6 @@ StateVariable::setVariable(const boost::shared_ptr<Variable>& variable) {
       break;
     }
     case UNDEFINED_TYPE:
-    default:
     {
       throw DYNError(Error::MODELER, ModelFuncError, "Unsupported variable type");
     }

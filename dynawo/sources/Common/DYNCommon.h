@@ -47,11 +47,10 @@ namespace DYN {
    * @brief transforms a double number to a string
    *
    * @param value : double to transform
-   * @param nbDecimal : number of decimal to use in string format
    *
    * @return the value with string format
    */
-  std::string double2String(const double& value, const int& nbDecimal = 5);
+  std::string double2String(const double& value);
 
   /**
    * @brief determines the sign of a double number
@@ -86,6 +85,23 @@ namespace DYN {
    */
   typeVarC_t str2TypeVarC(const std::string& typeStr);
 
+
+  /**
+   * @brief return the current precision in the form 1e-n
+   * @return the current precision in the form 1e-n
+   */
+  double getCurrentPrecision();
+  /**
+   * @brief set the current precision with the form 1e-n
+   * @param precision precision with the form 1e-n
+   */
+  void setCurrentPrecision(double precision);
+  /**
+   * @brief return the current precision in the form of the number of decimals
+   * @return the current precision in the form of the number of decimals
+   */
+  unsigned getPrecisionAsNbDecimal();
+
   /**
    * @brief convert native bool to Real (aka Dynawo boolean)
    *
@@ -106,8 +122,9 @@ namespace DYN {
    * @return return true if a == b
    */
   static inline bool doubleEquals(const double& a, const double& b) {
-    return std::fabs(a-b) < std::numeric_limits<double>::epsilon() * std::fabs(a+b) * 1000
-            || std::fabs(a-b) < std::numeric_limits<double>::min();
+    if (std::isinf(a) || std::isinf(b)) return false;
+    if (std::isnan(a) || std::isnan(b)) return false;
+    return std::fabs(a-b) <= std::max(std::fabs(a), std::fabs(b))*getCurrentPrecision()/5;  // Error factor used to add more leeway
   }
 
   /**

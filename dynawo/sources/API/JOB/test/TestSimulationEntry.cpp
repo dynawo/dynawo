@@ -29,16 +29,19 @@ TEST(APIJOBTest, testSimulationEntry) {
   ASSERT_EQ(simulation->getStopTime(), 0);
   ASSERT_EQ(simulation->getActivateCriteria(), true);
   ASSERT_EQ(simulation->getCriteriaStep(), 10);
+  ASSERT_EQ(simulation->getPrecision(), 1e-6);
 
   simulation->setStartTime(10);
   simulation->setStopTime(100);
   simulation->setActivateCriteria(false);
   simulation->setCriteriaStep(15);
+  simulation->setPrecision(1e-8);
 
   ASSERT_EQ(simulation->getStartTime(), 10);
   ASSERT_EQ(simulation->getStopTime(), 100);
   ASSERT_EQ(simulation->getActivateCriteria(), false);
   ASSERT_EQ(simulation->getCriteriaStep(), 15);
+  ASSERT_EQ(simulation->getPrecision(), 1e-8);
 }
 
 }  // namespace job

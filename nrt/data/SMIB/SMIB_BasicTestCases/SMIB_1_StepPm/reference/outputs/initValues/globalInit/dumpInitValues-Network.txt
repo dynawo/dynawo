@@ -1,73 +1,73 @@
  ====== INIT VARIABLES VALUES ======
-tfo_terminal2_V_im                                : y =       0.474565 yp =              0
-tfo_terminal2_V_re                                : y =       0.880236 yp =              0
-busInf_terminal_i_im                              : y =       0.961514 yp =              0
-busInf_terminal_i_re                              : y =         22.179 yp =              0
-line1_terminal1_i_im                              : y =      -0.625315 yp =              0
-line1_terminal1_i_re                              : y =        -14.424 yp =              0
-line1_terminal2_V_im                              : y =       0.324857 yp =              0
-line1_terminal2_V_re                              : y =       0.886727 yp =              0
-line1_terminal2_i_im                              : y =       0.625315 yp =              0
-line1_terminal2_i_re                              : y =         14.424 yp =              0
-line2_terminal1_i_im                              : y =      -0.336198 yp =              0
-line2_terminal1_i_re                              : y =         -7.755 yp =              0
-line2_terminal2_i_im                              : y =       0.336198 yp =              0
-line2_terminal2_i_re                              : y =          7.755 yp =              0
-tfo_terminal1_i_im                                : y =      -0.961514 yp =              0
-tfo_terminal1_i_re                                : y =        -22.179 yp =              0
-tfo_terminal2_i_im                                : y =       0.961514 yp =              0
-tfo_terminal2_i_re                                : y =         22.179 yp =              0
+tfo_terminal2_V_im                                : y =       0.474565 yp =       0.000000
+tfo_terminal2_V_re                                : y =       0.880236 yp =       0.000000
+busInf_terminal_i_im                              : y =       0.961514 yp =       0.000000
+busInf_terminal_i_re                              : y =      22.178988 yp =       0.000000
+line1_terminal1_i_im                              : y =      -0.625315 yp =       0.000000
+line1_terminal1_i_re                              : y =     -14.423986 yp =       0.000000
+line1_terminal2_V_im                              : y =       0.324857 yp =       0.000000
+line1_terminal2_V_re                              : y =       0.886727 yp =       0.000000
+line1_terminal2_i_im                              : y =       0.625315 yp =       0.000000
+line1_terminal2_i_re                              : y =      14.423986 yp =       0.000000
+line2_terminal1_i_im                              : y =      -0.336198 yp =       0.000000
+line2_terminal1_i_re                              : y =      -7.755002 yp =       0.000000
+line2_terminal2_i_im                              : y =       0.336198 yp =       0.000000
+line2_terminal2_i_re                              : y =       7.755002 yp =       0.000000
+tfo_terminal1_i_im                                : y =      -0.961514 yp =       0.000000
+tfo_terminal1_i_re                                : y =     -22.178988 yp =       0.000000
+tfo_terminal2_i_im                                : y =       0.961514 yp =       0.000000
+tfo_terminal2_i_re                                : y =      22.178988 yp =       0.000000
 line2_terminal2_V_im                              : alias of line1_terminal2_V_im
 line2_terminal2_V_re                              : alias of line1_terminal2_V_re
 tfo_terminal1_V_im                                : alias of line1_terminal2_V_im
 tfo_terminal1_V_re                                : alias of line1_terminal2_V_re
  ====== INIT CALCULATED VARIABLES VALUES ======
-busInf_terminal_V_im                              : y =              0
-busInf_terminal_V_re                              : y =        0.90081
-line1_terminal1_V_im                              : y =              0
-line1_terminal1_V_re                              : y =        0.90081
-line2_terminal1_V_im                              : y =              0
-line2_terminal1_V_re                              : y =        0.90081
+busInf_terminal_V_im                              : y =       0.000000
+busInf_terminal_V_re                              : y =       0.900810
+line1_terminal1_V_im                              : y =       0.000000
+line1_terminal1_V_re                              : y =       0.900810
+line2_terminal1_V_im                              : y =       0.000000
+line2_terminal1_V_re                              : y =       0.900810
  ====== INIT DISCRETE VARIABLES VALUES ======
-line1_running_value                               : z =              1
-line1_switchOffSignal1_value                      : z =             -1
-line1_switchOffSignal2_value                      : z =             -1
-line2_running_value                               : z =              1
-line2_switchOffSignal1_value                      : z =             -1
-line2_switchOffSignal2_value                      : z =             -1
-tfo_running_value                                 : z =              1
-tfo_switchOffSignal1_value                        : z =             -1
-line1_state                                       : z =              2
-line2_state                                       : z =              2
-tfo_state                                         : z =              2
+line1_running_value                               : z =       1.000000
+line1_switchOffSignal1_value                      : z =      -1.000000
+line1_switchOffSignal2_value                      : z =      -1.000000
+line2_running_value                               : z =       1.000000
+line2_switchOffSignal1_value                      : z =      -1.000000
+line2_switchOffSignal2_value                      : z =      -1.000000
+tfo_running_value                                 : z =       1.000000
+tfo_switchOffSignal1_value                        : z =      -1.000000
+line1_state                                       : z =       2.000000
+line2_state                                       : z =       2.000000
+tfo_state                                         : z =       2.000000
  ====== PARAMETERS VALUES ======
-busInf_UPhase                                      =              0
-busInf_UPu                                         =        0.90081
-line1_BPu                                          =              0
-line1_GPu                                          =              0
-line1_RPu                                          =              0
+busInf_UPhase                                      =       0.000000
+busInf_UPu                                         =       0.900810
+line1_BPu                                          =       0.000000
+line1_GPu                                          =       0.000000
+line1_RPu                                          =       0.000000
 line1_XPu                                          =       0.022522
-line1_YPu_im                                       =              0
-line1_YPu_re                                       =              0
+line1_YPu_im                                       =       0.000000
+line1_YPu_re                                       =       0.000000
 line1_ZPu_im                                       =       0.022522
-line1_ZPu_re                                       =              0
-line2_BPu                                          =              0
-line2_GPu                                          =              0
-line2_RPu                                          =              0
-line2_XPu                                          =        0.04189
-line2_YPu_im                                       =              0
-line2_YPu_re                                       =              0
-line2_ZPu_im                                       =        0.04189
-line2_ZPu_re                                       =              0
-tfo_BPu                                            =              0
-tfo_GPu                                            =              0
-tfo_RPu                                            =              0
-tfo_XPu                                            =        0.00675
-tfo_YPu_im                                         =              0
-tfo_YPu_re                                         =              0
-tfo_ZPu_im                                         =        0.00675
-tfo_ZPu_re                                         =              0
-tfo_rTfoPu                                         =              1
+line1_ZPu_re                                       =       0.000000
+line2_BPu                                          =       0.000000
+line2_GPu                                          =       0.000000
+line2_RPu                                          =       0.000000
+line2_XPu                                          =       0.041890
+line2_YPu_im                                       =       0.000000
+line2_YPu_re                                       =       0.000000
+line2_ZPu_im                                       =       0.041890
+line2_ZPu_re                                       =       0.000000
+tfo_BPu                                            =       0.000000
+tfo_GPu                                            =       0.000000
+tfo_RPu                                            =       0.000000
+tfo_XPu                                            =       0.006750
+tfo_YPu_im                                         =       0.000000
+tfo_YPu_re                                         =       0.000000
+tfo_ZPu_im                                         =       0.006750
+tfo_ZPu_re                                         =       0.000000
+tfo_rTfoPu                                         =       1.000000
 line1_NbSwitchOffSignals                           =              2
 line1_State0                                       =              2
 line2_NbSwitchOffSignals                           =              2
