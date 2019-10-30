@@ -20,12 +20,11 @@
 #ifndef API_TL_TLTIMELINEIMPL_H_
 #define API_TL_TLTIMELINEIMPL_H_
 
-#include <set>
+#include <vector>
 
 #include <boost/shared_ptr.hpp>
 
 #include "TLTimeline.h"
-#include "TLEventCmp.h"
 
 namespace timeline {
 class Event;
@@ -72,9 +71,9 @@ class Timeline::Impl : public Timeline {
   virtual event_const_iterator cendEvent() const;
 
   /**
-   * @copydoc Timeline::eraseEvents(int nbEvents, event_const_iterator lastEventPosition)
+   * @copydoc Timeline::eraseEvents(int nbEvents)
    */
-  void eraseEvents(int nbEvents, Timeline::event_const_iterator lastEventPosition);
+  void eraseEvents(int nbEvents);
 
   friend class Timeline::BaseIteratorImpl;
 
@@ -88,7 +87,17 @@ class Timeline::Impl : public Timeline {
   Impl();
 #endif
 
-  std::set<boost::shared_ptr<Event>, EventCmp > events_;  ///< Set of events
+  /**
+   * @brief compare two events
+   *
+   * @param left first event to compare
+   * @param right second event to compare
+   * @return true if left is the same event as right
+   */
+  bool eventEquals(const Event& left, const Event& right) const;
+
+ private:
+  std::vector<boost::shared_ptr<Event> > events_;  ///< Array of events
   std::string id_;  ///< Timeline's id
 };
 
@@ -175,7 +184,7 @@ class Timeline::BaseIteratorImpl {
   const boost::shared_ptr<Event>* operator->() const;
 
  private:
-  std::set<boost::shared_ptr<Event>, EventCmp >::const_iterator current_;  ///< current set iterator
+  std::vector<boost::shared_ptr<Event> >::const_iterator current_;  ///< current set iterator
 };
 
 }  // namespace timeline

@@ -1,35 +1,41 @@
-0.0399497 | GEN____3_SM | PMIN : activation
-0.526438 | GEN____3_SM | PMIN : deactivation
+0.0365635 | GEN____3_SM | PMIN : activation
+0.994313 | GEN____3_SM | PMIN : deactivation
 5 | _BUS____1-BUS____5-1_AC | LINE : opening on side 2
-5.26068 | CLA_2_5 | CLA : arming by over-current constraint
-5.4489 | GEN____6_SM | PMIN : activation
-5.56652 | GEN____8_SM | PMIN : activation
-5.87914 | GEN____6_SM | PMIN : deactivation
-5.93821 | GEN____3_SM | PMIN : activation
-6.06168 | GEN____8_SM | PMIN : deactivation
-6.48885 | GEN____3_SM | PMIN : deactivation
-6.63374 | GEN____8_SM | PMIN : activation
-6.63374 | GEN____8_SM | PMIN : deactivation
-7.07362 | GEN____8_SM | PMIN : deactivation
-7.74539 | GEN____8_SM | PMIN : activation
-8.03853 | GEN____8_SM | PMIN : activation
-8.03853 | GEN____8_SM | PMIN : deactivation
-10.2607 | CLA_2_5 | CLA : order to change topology
-10.2607 | _BUS____2-BUS____5-1_AC | LINE : opening both sides
-10.4535 | CLA_2_4 | CLA : arming by over-current constraint
-10.7467 | GEN____6_SM | PMIN : activation
-10.882 | GEN____8_SM | PMIN : activation
-11.1057 | GEN____6_SM | PMIN : deactivation
-11.3173 | GEN____8_SM | PMIN : deactivation
-11.962 | GEN____8_SM | PMIN : activation
-12.2941 | GEN____8_SM | PMIN : deactivation
-20.4535 | CLA_2_4 | CLA : order to change topology
-20.4535 | _BUS____2-BUS____4-1_AC | LINE : opening on side 2
-21.2394 | GEN____8_SM | PMIN : activation
-21.6362 | GEN____8_SM | PMIN : deactivation
-21.9339 | GEN____3_SM | PMIN : activation
-21.9339 | GEN____3_SM | PMIN : deactivation
-22.098 | GEN____3_SM | PMIN : deactivation
-22.2673 | GEN____8_SM | PMIN : activation
-22.586 | GEN____8_SM | PMIN : activation
-22.586 | GEN____8_SM | PMIN : deactivation
+5.26051 | CLA_2_5 | CLA : arming by over-current constraint
+5.44936 | GEN____6_SM | PMIN : activation
+5.56622 | GEN____8_SM | PMIN : activation
+5.88109 | GEN____6_SM | PMIN : deactivation
+5.93211 | GEN____3_SM | PMIN : activation
+5.93211 | GEN____3_SM | PMIN : deactivation
+5.93211 | GEN____3_SM | PMIN : activation
+6.0641 | GEN____8_SM | PMIN : deactivation
+6.49719 | GEN____3_SM | PMIN : deactivation
+6.63305 | GEN____8_SM | PMIN : activation
+7.07687 | GEN____8_SM | PMIN : deactivation
+7.74091 | GEN____8_SM | PMIN : activation
+7.74091 | GEN____8_SM | PMIN : deactivation
+7.74091 | GEN____8_SM | PMIN : activation
+7.96514 | GEN____6_SM | PMIN : activation
+8.03677 | GEN____6_SM | PMIN : deactivation
+8.04302 | GEN____8_SM | PMIN : deactivation
+10.2605 | CLA_2_5 | CLA : order to change topology
+10.2605 | _BUS____2-BUS____5-1_AC | LINE : opening both sides
+10.2605 | CLA_2_5 | CLA : order to change topology
+10.4532 | CLA_2_4 | CLA : arming by over-current constraint
+10.7477 | GEN____6_SM | PMIN : activation
+10.8832 | GEN____8_SM | PMIN : activation
+11.1107 | GEN____6_SM | PMIN : deactivation
+11.321 | GEN____8_SM | PMIN : deactivation
+11.9628 | GEN____8_SM | PMIN : activation
+12.2994 | GEN____8_SM | PMIN : deactivation
+20.4532 | CLA_2_4 | CLA : order to change topology
+20.4532 | _BUS____2-BUS____4-1_AC | LINE : opening on side 2
+20.4532 | CLA_2_4 | CLA : order to change topology
+21.2386 | GEN____8_SM | PMIN : activation
+21.6368 | GEN____8_SM | PMIN : deactivation
+21.9276 | GEN____3_SM | PMIN : activation
+22.1048 | GEN____3_SM | PMIN : deactivation
+22.1048 | GEN____3_SM | PMIN : activation
+22.1048 | GEN____3_SM | PMIN : deactivation
+22.2674 | GEN____8_SM | PMIN : activation
+22.5882 | GEN____8_SM | PMIN : deactivation

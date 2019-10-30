@@ -90,14 +90,21 @@ TEST(APITLTest, TimelineEraseEvents) {
   timeline->addEvent(10, "model1", "event1 at 10s", priorityNone);
   timeline->addEvent(10, "model1", "event2 at 10s", priority2);  // same time, same model, different message
   timeline->addEvent(10, "model2", "event3 at 10s", priority4);  // same time, different model
+  timeline->addEvent(10, "model2", "event3 at 10s", priority4);  // same event
   timeline->addEvent(20, "model2", "event2 at 20s", priorityNone);  // different time
   Timeline::event_const_iterator endingEvent = timeline->cendEvent();
 
   // remove events 2 and 3 from the timeline
-  timeline->eraseEvents(2, --endingEvent);
-  ASSERT_EQ(2, timeline->getSizeEvents());
+  ASSERT_EQ(4, timeline->getSizeEvents());
   Timeline::event_const_iterator startingEvent = timeline->cbeginEvent();
   ASSERT_EQ(startingEvent->get()->getMessage(), "event1 at 10s");
+  ASSERT_EQ((++startingEvent)->get()->getMessage(), "event2 at 10s");
+  ASSERT_EQ((++startingEvent)->get()->getMessage(), "event3 at 10s");
   ASSERT_EQ((++startingEvent)->get()->getMessage(), "event2 at 20s");
+  timeline->eraseEvents(2);
+  ASSERT_EQ(2, timeline->getSizeEvents());
+  startingEvent = timeline->cbeginEvent();
+  ASSERT_EQ(startingEvent->get()->getMessage(), "event1 at 10s");
+  ASSERT_EQ((++startingEvent)->get()->getMessage(), "event2 at 10s");
 }
 }  // namespace timeline
