@@ -81,6 +81,18 @@ class SimulationEntry {
    */
   virtual int getCriteriaStep() const = 0;
 
+  /**
+   * @brief precision setter
+   * @param precision : double precision for the job
+   */
+  virtual void setPrecision(double precision) = 0;
+
+  /**
+   * @brief precision getter
+   * @return precision for the job
+   */
+  virtual double getPrecision() const = 0;
+
   class Impl;  ///< Implemented class
 };
 

@@ -876,7 +876,7 @@ build_user() {
 
 # Compile Dynawo and its dependencies
 build_all() {
-  build_3rd_party || error_exit "Error during build_3rd_party."
+  build_3rd_party_version_cmake || error_exit "Error during build_3rd_party."
   config_dynawo || error_exit "Error during config_dynawo."
   build_dynawo || error_exit "Error during build_dynawo."
   build_test_doxygen_doc || error_exit "Error during build_test_doxygen_doc."

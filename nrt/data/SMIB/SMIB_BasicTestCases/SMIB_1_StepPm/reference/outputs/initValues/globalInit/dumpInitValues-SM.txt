@@ -1,52 +1,53 @@
  ====== INIT VARIABLES VALUES ======
-gen_lambdaDPu                                     : y =       0.885353 yp =    0.000394094
-gen_lambdaQ1Pu                                    : y =      -0.612268 yp =   -9.34115e-07
-gen_lambdaQ2Pu                                    : y =      -0.612268 yp =   -2.07202e-05
-gen_lambdafPu                                     : y =        1.12582 yp =    -3.0166e-05
-gen_omegaPu_value                                 : y =              1 yp =    6.14683e-06
-gen_terminal_V_im                                 : y =       0.474565 yp =              0
-gen_terminal_V_re                                 : y =       0.880236 yp =              0
-gen_theta                                         : y =          1.224 yp =    7.47238e-10
-avr_EfdPu                                         : y =        2.42046 yp =              0
-avr_UsPu                                          : y =        1.00001 yp =              0
-avr_feedback_y                                    : y =       0.121023 yp =              0
-avr_gain_y                                        : y =        2.42046 yp =              0
-gen_IRotorPu_value                                : y =        2.42068 yp =              0
-gen_IStatorPu_value                               : y =        22.1998 yp =              0
-gen_PGen                                          : y =        1997.91 yp =              0
-gen_PGenPu                                        : y =        19.9791 yp =              0
-gen_PePu                                          : y =       0.902957 yp =              0
-gen_QGen                                          : y =        967.902 yp =              0
-gen_QGenPu                                        : y =        9.67902 yp =              0
-gen_QStatorPu_value                               : y =        9.67902 yp =              0
-gen_UPu                                           : y =        1.00001 yp =              0
-gen_cePu                                          : y =       0.902957 yp =              0
-gen_cmPu                                          : y =          0.903 yp =              0
-gen_iDPu                                          : y =   -3.67822e-05 yp =              0
-gen_iQ1Pu                                         : y =     4.0001e-07 yp =              0
-gen_iQ2Pu                                         : y =    2.32066e-06 yp =              0
-gen_iStatorPu_im                                  : y =      -0.961514 yp =              0
-gen_iStatorPu_re                                  : y =        -22.179 yp =              0
-gen_idPu                                          : y =      -0.924857 yp =              0
-gen_ifPu                                          : y =        1.45824 yp =              0
-gen_iqPu                                          : y =      -0.380294 yp =              0
-gen_lambdadPu                                     : y =       0.746631 yp =              0
-gen_lambdaqPu                                     : y =      -0.669312 yp =              0
-gen_sStatorPu_im                                  : y =       -9.67902 yp =              0
-gen_sStatorPu_re                                  : y =       -19.9791 yp =              0
-gen_terminal_i_im                                 : y =      -0.961514 yp =              0
-gen_terminal_i_re                                 : y =        -22.179 yp =              0
-gen_thetaInternal_value                           : y =       0.729542 yp =              0
-gen_uStatorPu_im                                  : y =       0.474565 yp =              0
-gen_uStatorPu_re                                  : y =       0.880236 yp =              0
-gen_udPu                                          : y =       0.666538 yp =              0
-gen_ufPu                                          : y =     0.00105874 yp =              0
-gen_uqPu                                          : y =        0.74549 yp =              0
-gover_PmRawPu_u1                                  : y =          0.903 yp =              0
-gover_PmRawPu_u2                                  : y =   -1.18927e-11 yp =              0
-gover_PmRawPu_y                                   : y =          0.903 yp =              0
-gover_feedback_y                                  : y =   -2.37853e-12 yp =              0
-gover_limiter_y                                   : y =          0.903 yp =              0
+gen_lambdaDPu                                     : y =       0.885353 yp =       0.000394
+gen_lambdaQ1Pu                                    : y =      -0.612268 yp =      -0.000001
+gen_lambdaQ2Pu                                    : y =      -0.612268 yp =      -0.000021
+gen_lambdafPu                                     : y =       1.125825 yp =      -0.000030
+gen_omegaPu_value                                 : y =       1.000000 yp =       0.000006
+gen_terminal_V_im                                 : y =       0.474565 yp =       0.000000
+gen_terminal_V_re                                 : y =       0.880236 yp =       0.000000
+gen_theta                                         : y =       1.224005 yp =       0.000000
+avr_EfdPu                                         : y =       2.420464 yp =       0.000000
+avr_UsPu                                          : y =       1.000014 yp =       0.000000
+avr_feedback_y                                    : y =       0.121023 yp =       0.000000
+avr_gain_y                                        : y =       2.420464 yp =       0.000000
+gen_IRotorPu_value                                : y =       2.420683 yp =       0.000000
+gen_IStatorPu_value                               : y =      22.199820 yp =       0.000000
+gen_PGen                                          : y =    1997.905435 yp =       0.000000
+gen_PGenPu                                        : y =      19.979054 yp =       0.000000
+gen_PePu                                          : y =       0.902957 yp =       0.000000
+gen_QGen                                          : y =     967.901650 yp =       0.000000
+gen_QGenPu                                        : y =       9.679016 yp =       0.000000
+gen_QStatorPu_value                               : y =       9.679016 yp =       0.000000
+gen_QStatorPuQNom_value                           : y =       3.255406 yp =       0.000000
+gen_UPu                                           : y =       1.000014 yp =       0.000000
+gen_cePu                                          : y =       0.902957 yp =       0.000000
+gen_cmPu                                          : y =       0.903000 yp =       0.000000
+gen_iDPu                                          : y =      -0.000037 yp =       0.000000
+gen_iQ1Pu                                         : y =       0.000000 yp =       0.000000
+gen_iQ2Pu                                         : y =       0.000002 yp =       0.000000
+gen_iStatorPu_im                                  : y =      -0.961514 yp =       0.000000
+gen_iStatorPu_re                                  : y =     -22.178988 yp =       0.000000
+gen_idPu                                          : y =      -0.924857 yp =       0.000000
+gen_ifPu                                          : y =       1.458243 yp =       0.000000
+gen_iqPu                                          : y =      -0.380294 yp =       0.000000
+gen_lambdadPu                                     : y =       0.746631 yp =       0.000000
+gen_lambdaqPu                                     : y =      -0.669312 yp =       0.000000
+gen_sStatorPu_im                                  : y =      -9.679016 yp =       0.000000
+gen_sStatorPu_re                                  : y =     -19.979054 yp =       0.000000
+gen_terminal_i_im                                 : y =      -0.961514 yp =       0.000000
+gen_terminal_i_re                                 : y =     -22.178988 yp =       0.000000
+gen_thetaInternal_value                           : y =       0.729542 yp =       0.000000
+gen_uStatorPu_im                                  : y =       0.474565 yp =       0.000000
+gen_uStatorPu_re                                  : y =       0.880236 yp =       0.000000
+gen_udPu                                          : y =       0.666538 yp =       0.000000
+gen_ufPu                                          : y =       0.001059 yp =       0.000000
+gen_uqPu                                          : y =       0.745490 yp =       0.000000
+gover_PmRawPu_u1                                  : y =       0.903000 yp =       0.000000
+gover_PmRawPu_u2                                  : y =      -0.000000 yp =       0.000000
+gover_PmRawPu_y                                   : y =       0.903000 yp =       0.000000
+gover_feedback_y                                  : y =      -0.000000 yp =       0.000000
+gover_limiter_y                                   : y =       0.903000 yp =       0.000000
 Pm_step_value                                     : alias of gover_PmRawPu_u1
 avr_EfdPuPin_value                                : alias of avr_EfdPu
 avr_feedback_u2                                   : alias of avr_UsPu
@@ -65,148 +66,150 @@ gover_limiter_simplifiedExpr                      : alias of gover_PmRawPu_y
 gover_limiter_u                                   : alias of gover_PmRawPu_y
 gover_omegaPu_value                               : alias of gen_omegaPu_value
  ====== INIT CALCULATED VARIABLES VALUES ======
-avr_feedback_u1                                   : y =        1.12104
-URef_setPoint_value                               : y =        1.12104
-avr_UsRefPu                                       : y =        1.12104
-avr_limUsRef_simplifiedExpr                       : y =        1.12104
-avr_limUsRef_u                                    : y =        1.12104
-avr_limUsRef_y                                    : y =        1.12104
-gen_omegaRefPu_value                              : y =              1
-gover_feedback_u1                                 : y =              1
-gover_omegaRefPu_y                                : y =              1
-omegaRef_setPoint_value                           : y =              1
+avr_feedback_u1                                   : y =       1.121037
+URef_setPoint_value                               : y =       1.121037
+avr_UsRefPu                                       : y =       1.121037
+avr_limUsRef_simplifiedExpr                       : y =       1.121037
+avr_limUsRef_u                                    : y =       1.121037
+avr_limUsRef_y                                    : y =       1.121037
+gen_omegaRefPu_value                              : y =       1.000000
+gover_feedback_u1                                 : y =       1.000000
+gover_omegaRefPu_y                                : y =       1.000000
+omegaRef_setPoint_value                           : y =       1.000000
  ====== INIT DISCRETE VARIABLES VALUES ======
-avr_limiterWithLag_tUMaxReached                   : z =          1e+60
-avr_limiterWithLag_tUMinReached                   : z =          1e+60
-avr_limitationDown_value                          : z =             -1
-avr_limitationUp_value                            : z =             -1
-avr_limiterWithLag_initSaturatedMax               : z =             -1
-avr_limiterWithLag_initSaturatedMin               : z =             -1
-gen_running_value                                 : z =              1
-gen_switchOffSignal1_value                        : z =             -1
-gen_switchOffSignal2_value                        : z =             -1
-gen_switchOffSignal3_value                        : z =             -1
-gen_state                                         : z =              2
-gover_state                                       : z =              1
+avr_limiterWithLag_tUMaxReached                   : z =   1.000000e+60
+avr_limiterWithLag_tUMinReached                   : z =   1.000000e+60
+avr_limitationDown_value                          : z =      -1.000000
+avr_limitationUp_value                            : z =      -1.000000
+avr_limiterWithLag_initSaturatedMax               : z =      -1.000000
+avr_limiterWithLag_initSaturatedMin               : z =      -1.000000
+gen_running_value                                 : z =       1.000000
+gen_switchOffSignal1_value                        : z =      -1.000000
+gen_switchOffSignal2_value                        : z =      -1.000000
+gen_switchOffSignal3_value                        : z =      -1.000000
+gen_state                                         : z =       2.000000
+gover_state                                       : z =       1.000000
  ====== PARAMETERS VALUES ======
-Pm_Height                                          =           0.02
-Pm_Value0                                          =          0.903
-Pm_tStep                                           =              1
-URef_Value0                                        =        1.12104
-avr_Efd0Pu                                         =        2.42075
-avr_Efd0PuLF                                       =        2.42075
-avr_EfdMaxPu                                       =              5
-avr_EfdMinPu                                       =             -5
-avr_Gain                                           =             20
-avr_LagEfdMax                                      =              0
-avr_LagEfdMin                                      =              0
-avr_Us0Pu                                          =              1
-avr_UsRef0Pu                                       =        1.12104
-avr_UsRefMaxPu                                     =            1.2
-avr_UsRefMinPu                                     =            0.8
-avr_gain_k                                         =             20
-avr_limUsRef_uMax                                  =            1.2
-avr_limUsRef_uMin                                  =            0.8
-avr_limiterWithLag_LagMax                          =              0
-avr_limiterWithLag_LagMin                          =              0
-avr_limiterWithLag_UMax                            =              5
-avr_limiterWithLag_UMin                            =             -5
-avr_limiterWithLag_tUMaxReached0                   =          1e+60
-avr_limiterWithLag_tUMinReached0                   =          1e+60
-avr_limiterWithLag_u0                              =        2.42075
-avr_limiterWithLag_y0                              =        2.42075
-avr_tEfdMaxReached0                                =          1e+60
-avr_tEfdMinReached0                                =          1e+60
-gen_Ce0Pu                                          =          0.903
-gen_Cm0Pu                                          =          0.903
-gen_DPu                                            =              0
-gen_Efd0Pu                                         =        2.42075
-gen_H                                              =            3.5
-gen_IRotor0Pu                                      =        2.42075
-gen_IStator0Pu                                     =        22.2014
+Pm_Height                                          =       0.020000
+Pm_Value0                                          =       0.903000
+Pm_tStep                                           =       1.000000
+URef_Value0                                        =       1.121037
+avr_Efd0Pu                                         =       2.420747
+avr_Efd0PuLF                                       =       2.420747
+avr_EfdMaxPu                                       =       5.000000
+avr_EfdMinPu                                       =      -5.000000
+avr_Gain                                           =      20.000000
+avr_LagEfdMax                                      =       0.000000
+avr_LagEfdMin                                      =       0.000000
+avr_Us0Pu                                          =       1.000000
+avr_UsRef0Pu                                       =       1.121037
+avr_UsRefMaxPu                                     =       1.200000
+avr_UsRefMinPu                                     =       0.800000
+avr_gain_k                                         =      20.000000
+avr_limUsRef_uMax                                  =       1.200000
+avr_limUsRef_uMin                                  =       0.800000
+avr_limiterWithLag_LagMax                          =       0.000000
+avr_limiterWithLag_LagMin                          =       0.000000
+avr_limiterWithLag_UMax                            =       5.000000
+avr_limiterWithLag_UMin                            =      -5.000000
+avr_limiterWithLag_tUMaxReached0                   =   1.000000e+60
+avr_limiterWithLag_tUMinReached0                   =   1.000000e+60
+avr_limiterWithLag_u0                              =       2.420747
+avr_limiterWithLag_y0                              =       2.420747
+avr_tEfdMaxReached0                                =   1.000000e+60
+avr_tEfdMinReached0                                =   1.000000e+60
+gen_Ce0Pu                                          =       0.903000
+gen_Cm0Pu                                          =       0.903000
+gen_DPu                                            =       0.000000
+gen_Efd0Pu                                         =       2.420747
+gen_H                                              =       3.500000
+gen_IRotor0Pu                                      =       2.420747
+gen_IStator0Pu                                     =      22.201414
 gen_Id0Pu                                          =      -0.924936
-gen_If0Pu                                          =        1.45828
+gen_If0Pu                                          =       1.458281
 gen_Iq0Pu                                          =      -0.380291
-gen_Kuf                                            =    0.000437413
+gen_Kuf                                            =       0.000437
 gen_LDPPu                                          =       0.171429
 gen_LQ1PPu                                         =       0.725225
-gen_LQ2PPu                                         =          0.125
+gen_LQ2PPu                                         =       0.125000
 gen_LambdaD0Pu                                     =       0.885353
 gen_LambdaQ10Pu                                    =      -0.612268
 gen_LambdaQ20Pu                                    =      -0.612268
 gen_Lambdad0Pu                                     =       0.746613
-gen_Lambdaf0Pu                                     =        1.12582
+gen_Lambdaf0Pu                                     =       1.125825
 gen_Lambdaq0Pu                                     =      -0.669312
-gen_LdPPu                                          =           0.15
+gen_LdPPu                                          =       0.150000
 gen_LfPPu                                          =       0.164901
-gen_LqPPu                                          =           0.15
-gen_MdPPu                                          =           1.66
-gen_MdPPuEfd                                       =              0
-gen_MqPPu                                          =           1.61
-gen_MrcPPu                                         =              0
-gen_P0Pu                                           =         -19.98
-gen_PGen0Pu                                        =          19.98
-gen_PNomAlt                                        =           2220
-gen_PNomTurb                                       =           2220
-gen_Pm0Pu                                          =          0.903
-gen_Q0Pu                                           =          -9.68
-gen_QGen0Pu                                        =           9.68
-gen_QStator0Pu                                     =           9.68
-gen_RDPPu                                          =      0.0341046
-gen_RQ1PPu                                         =     0.00743325
-gen_RQ2PPu                                         =      0.0284205
-gen_RTfPu                                          =              0
-gen_RTfoPu                                         =              0
-gen_RaPPu                                          =          0.003
-gen_RfPPu                                          =    0.000726105
-gen_SNom                                           =           2220
-gen_SnTfo                                          =           2220
-gen_Theta0                                         =          1.224
-gen_ThetaInternal0                                 =          1.224
-gen_U0Pu                                           =              1
-gen_UBaseHV                                        =            400
-gen_UBaseLV                                        =             24
-gen_UNom                                           =             24
-gen_UNomHV                                         =            400
-gen_UNomLV                                         =             24
+gen_LqPPu                                          =       0.150000
+gen_MdPPu                                          =       1.660000
+gen_MdPPuEfd                                       =       0.000000
+gen_MqPPu                                          =       1.610000
+gen_MrcPPu                                         =       0.000000
+gen_P0Pu                                           =     -19.980000
+gen_PGen0Pu                                        =      19.980000
+gen_PNomAlt                                        =    2200.000000
+gen_PNomTurb                                       =    2220.000000
+gen_Pm0Pu                                          =       0.903000
+gen_Q0Pu                                           =      -9.680000
+gen_QGen0Pu                                        =       9.680000
+gen_QNomAlt                                        =     297.321375
+gen_QStator0Pu                                     =       9.680000
+gen_QStator0PuQNom                                 =       3.255736
+gen_RDPPu                                          =       0.034105
+gen_RQ1PPu                                         =       0.007433
+gen_RQ2PPu                                         =       0.028421
+gen_RTfPu                                          =       0.000000
+gen_RTfoPu                                         =       0.000000
+gen_RaPPu                                          =       0.003000
+gen_RfPPu                                          =       0.000726
+gen_SNom                                           =    2220.000000
+gen_SnTfo                                          =    2220.000000
+gen_Theta0                                         =       1.224005
+gen_ThetaInternal0                                 =       1.224005
+gen_U0Pu                                           =       1.000000
+gen_UBaseHV                                        =     400.000000
+gen_UBaseLV                                        =      24.000000
+gen_UNom                                           =      24.000000
+gen_UNomHV                                         =     400.000000
+gen_UNomLV                                         =      24.000000
 gen_UPhase0                                        =       0.494451
-gen_UStator0Pu                                     =              1
+gen_UStator0Pu                                     =       1.000000
 gen_Ud0Pu                                          =       0.666537
-gen_Uf0Pu                                          =     0.00105887
+gen_Uf0Pu                                          =       0.001059
 gen_Uq0Pu                                          =       0.745472
-gen_XTfPu                                          =              0
-gen_XTfoPu                                         =              0
+gen_XTfPu                                          =       0.000000
+gen_XTfoPu                                         =       0.000000
 gen_i0Pu_im                                        =      -0.960858
-gen_i0Pu_re                                        =       -22.1806
+gen_i0Pu_re                                        =     -22.180612
 gen_iStator0Pu_im                                  =      -0.960858
-gen_iStator0Pu_re                                  =       -22.1806
-gen_rTfoPu                                         =              1
-gen_s0Pu_im                                        =          -9.68
-gen_s0Pu_re                                        =         -19.98
-gen_sStator0Pu_im                                  =          -9.68
-gen_sStator0Pu_re                                  =         -19.98
+gen_iStator0Pu_re                                  =     -22.180612
+gen_rTfoPu                                         =       1.000000
+gen_s0Pu_im                                        =      -9.680000
+gen_s0Pu_re                                        =     -19.980000
+gen_sStator0Pu_im                                  =      -9.680000
+gen_sStator0Pu_re                                  =     -19.980000
 gen_u0Pu_im                                        =       0.474548
 gen_u0Pu_re                                        =       0.880229
 gen_uStator0Pu_im                                  =       0.474548
 gen_uStator0Pu_re                                  =       0.880229
-gover_KGover                                       =              5
-gover_PMax                                         =           2220
-gover_PMaxPu                                       =              1
-gover_PMin                                         =              0
-gover_PMinPu                                       =              0
-gover_PNom                                         =           2220
-gover_Pm0Pu                                        =          0.903
-gover_PmRawPu_k1                                   =              1
-gover_PmRawPu_k2                                   =              1
-gover_gain_k                                       =              5
-gover_limiter_uMax                                 =              1
-gover_limiter_uMin                                 =              0
-gover_omegaRefPu_k                                 =              1
-omegaRef_Value0                                    =              1
-avr_limUsRef_limitsAtInit                          =              1
-avr_limUsRef_strict                                =             -1
-gover_limiter_limitsAtInit                         =              1
-gover_limiter_strict                               =             -1
+gover_KGover                                       =       5.000000
+gover_PMax                                         =    2200.000000
+gover_PMaxPu                                       =       1.000000
+gover_PMin                                         =       0.000000
+gover_PMinPu                                       =       0.000000
+gover_PNom                                         =    2200.000000
+gover_Pm0Pu                                        =       0.903000
+gover_PmRawPu_k1                                   =       1.000000
+gover_PmRawPu_k2                                   =       1.000000
+gover_gain_k                                       =       5.000000
+gover_limiter_uMax                                 =       1.000000
+gover_limiter_uMin                                 =       0.000000
+gover_omegaRefPu_k                                 =       1.000000
+omegaRef_Value0                                    =       1.000000
+avr_limUsRef_limitsAtInit                          =       1.000000
+avr_limUsRef_strict                                =      -1.000000
+gover_limiter_limitsAtInit                         =       1.000000
+gover_limiter_strict                               =      -1.000000
 avr_limUsRef_homotopyType                          =              2
 gen_ExcitationPu                                   =              1
 gen_NbSwitchOffSignals                             =              3

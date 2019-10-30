@@ -1,0 +1,73 @@
+ ====== INIT VARIABLES VALUES ======
+transformer_terminal1_V_im                        : y =      -0.222538 yp =       0.000000
+transformer_terminal1_V_re                        : y =       0.985182 yp =       0.000000
+load_PPu                                          : y =       0.942004 yp =       0.000000
+load_QPu                                          : y =       0.064396 yp =       0.000000
+load_UPu_value                                    : y =       0.992375 yp =       0.000000
+load_terminal_V_im                                : y =      -0.343014 yp =       0.000000
+load_terminal_V_re                                : y =       0.931209 yp =       0.000000
+load_terminal_i_im                                : y =      -0.388996 yp =       0.000000
+load_terminal_i_re                                : y =       0.868305 yp =       0.000000
+transformer_P1Pu_value                            : y =       0.942004 yp =       0.000000
+transformer_Q1Pu_value                            : y =       0.190001 yp =       0.000000
+transformer_U1Pu_value                            : y =       1.010003 yp =       0.000000
+transformer_U2Pu_value                            : y =       0.992375 yp =       0.000000
+transformer_rTfoPu                                : y =       1.000000 yp =       0.000000
+transformer_terminal1_i_im                        : y =      -0.388996 yp =       0.000000
+transformer_terminal1_i_re                        : y =       0.868305 yp =       0.000000
+load_SPu_im                                       : alias of load_QPu
+load_SPu_re                                       : alias of load_PPu
+transformer_terminal2_V_im                        : alias of load_terminal_V_im
+transformer_terminal2_V_re                        : alias of load_terminal_V_re
+transformer_terminal2_i_im                        : alias of load_terminal_i_im
+transformer_terminal2_i_re                        : alias of load_terminal_i_re
+ ====== INIT DISCRETE VARIABLES VALUES ======
+load_PRefPu_value                                 : z =       0.942000
+load_QRefPu_value                                 : z =       0.064395
+transformer_tap_value                             : z =       5.000000
+load_running_value                                : z =       1.000000
+load_switchOffSignal1_value                       : z =      -1.000000
+load_switchOffSignal2_value                       : z =      -1.000000
+transformer_running_value                         : z =       1.000000
+transformer_switchOffSignal1_value                : z =      -1.000000
+load_state                                        : z =       2.000000
+transformer_state                                 : z =       2.000000
+ ====== PARAMETERS VALUES ======
+load_alpha                                         =       1.500000
+load_beta                                          =       2.500000
+load_i0Pu_im                                       =      -0.389016
+load_i0Pu_re                                       =       0.868294
+load_s0Pu_im                                       =       0.064395
+load_s0Pu_re                                       =       0.942000
+load_u0Pu_im                                       =      -0.343035
+load_u0Pu_re                                       =       0.931198
+transformer_B                                      =       0.000000
+transformer_G                                      =       0.000000
+transformer_P10Pu                                  =       0.942000
+transformer_Q10Pu                                  =       0.190000
+transformer_R                                      =       0.000000
+transformer_SNom                                   =     144.145551
+transformer_U10Pu                                  =       1.010000
+transformer_U20Pu                                  =       0.992372
+transformer_X                                      =      20.000000
+transformer_YPu_im                                 =       0.000000
+transformer_YPu_re                                 =       0.000000
+transformer_ZPu_im                                 =       0.138749
+transformer_ZPu_re                                 =       0.000000
+transformer_i10Pu_im                               =      -0.389016
+transformer_i10Pu_re                               =       0.868294
+transformer_i20Pu_im                               =       0.389016
+transformer_i20Pu_re                               =      -0.868294
+transformer_rTfo0Pu                                =       1.000000
+transformer_rTfoMaxPu                              =       1.100000
+transformer_rTfoMinPu                              =       0.900000
+transformer_u10Pu_im                               =      -0.222561
+transformer_u10Pu_re                               =       0.985173
+transformer_u20Pu_im                               =      -0.343035
+transformer_u20Pu_re                               =       0.931198
+load_NbSwitchOffSignals                            =              2
+load_State0                                        =              2
+transformer_NbSwitchOffSignals                     =              1
+transformer_NbTap                                  =             11
+transformer_State0                                 =              2
+transformer_Tap0                                   =              5

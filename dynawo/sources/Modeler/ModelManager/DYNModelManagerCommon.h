@@ -39,6 +39,7 @@
 #endif
 
 #include "DYNError.h"
+#include "DYNCommon.h"
 #include "DYNMessage.hpp"
 #include "DYNMessageTimeline.h"
 #include "DYNTimeline_keys.h"
@@ -79,7 +80,7 @@
  */
 template<typename T>
 T FMIN(T exp1, T exp2) {
-  if (exp1 > exp2)
+  if (Greater(exp1, exp2))
     return exp2;
   else
     return exp1;
@@ -93,14 +94,14 @@ T FMIN(T exp1, T exp2) {
  */
 template<typename T>
 T FMAX(T exp1, T exp2) {
-  if (exp1 > exp2)
+  if (Greater(exp1, exp2))
     return exp1;
   else
     return exp2;
 }
 
 /**
- * less operator for boolean
+ * generic less operator
  * @param a first operand
  * @param b second operand
  * @return  @b true if a is less than b, @b false otherwise
@@ -111,7 +112,7 @@ modelica_boolean Less(T a, T b) {
 }
 
 /**
- * greater operator for boolean
+ * generic greater operator
  * @param a first operand
  * @param b second operand
  * @return  @b true if a is greater than b, @b b otherwise
@@ -122,7 +123,7 @@ modelica_boolean Greater(T a, T b) {
 }
 
 /**
- * less-equal operator for boolean
+ * generic less-equal operator
  * @param a first operand
  * @param b second operand
  * @return  @b true if a is less or equal to b, @b false otherwise
@@ -133,7 +134,7 @@ modelica_boolean LessEq(T a, T b) {
 }
 
 /**
- * greater-equal operator for boolean
+ * generic greater-equal operator
  * @param a first operand
  * @param b second operand
  * @return  @b true if a is greater or equal to b, @b false otherwise
@@ -141,6 +142,50 @@ modelica_boolean LessEq(T a, T b) {
 template<typename T>
 modelica_boolean GreaterEq(T a, T b) {
   return a >= b;
+}
+
+/**
+ * specialization of less operator for double
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less than b, @b false otherwise
+ */
+template<>
+inline modelica_boolean Less<double>(double a, double b) {
+  return DYN::doubleNotEquals(a, b) && a < b;
+}
+
+/**
+ * specialization of greater operator for double
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater than b, @b b otherwise
+ */
+template<>
+inline modelica_boolean Greater<double>(double a, double b) {
+  return DYN::doubleNotEquals(a, b) && a > b;
+}
+
+/**
+ * specialization of less-equal operator for double
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is less or equal to b, @b false otherwise
+ */
+template<>
+inline modelica_boolean LessEq<double>(double a, double b) {
+  return DYN::doubleEquals(a, b) || a < b;
+}
+
+/**
+ * specialization of greater-equal operator for double
+ * @param a first operand
+ * @param b second operand
+ * @return  @b true if a is greater or equal to b, @b false otherwise
+ */
+template<>
+inline modelica_boolean GreaterEq<double>(double a, double b) {
+  return DYN::doubleEquals(a, b) || a > b;
 }
 
 /**

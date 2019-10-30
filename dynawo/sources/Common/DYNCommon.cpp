@@ -55,9 +55,12 @@ bool vectorAreEquals(const std::vector<double> & y1, const std::vector<double> &
   return false;
 }
 
-std::string double2String(const double& value, const int& nbDecimal) {
+std::string double2String(const double& value) {
   std::stringstream ss("");
-  ss << std::setprecision(nbDecimal) << std::fixed << value;
+  if (value > std::pow(10, getPrecisionAsNbDecimal()))
+    ss << std::setprecision(getPrecisionAsNbDecimal()) << std::scientific << value;
+  else
+    ss << std::setprecision(getPrecisionAsNbDecimal()) << std::fixed << value;
   return ss.str();
 }
 
@@ -95,6 +98,18 @@ typeVarC_t str2TypeVarC(const std::string& typeStr) {
 
 int sign(const double& value) {
   return (value < 0.) ? -1 : 1;
+}
+
+
+static double MAXIMUM_PRECISION = 1e-6;  ///< maximum precision
+double getCurrentPrecision() {
+  return MAXIMUM_PRECISION;
+}
+void setCurrentPrecision(double precision) {
+  MAXIMUM_PRECISION = precision;
+}
+unsigned getPrecisionAsNbDecimal() {
+  return -std::log10(MAXIMUM_PRECISION);
 }
 
 }  // namespace DYN

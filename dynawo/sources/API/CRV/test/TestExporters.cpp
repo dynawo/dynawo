@@ -72,7 +72,7 @@ TEST(APICRVTest, CurvesCollectionCsvExporter) {
   CsvExporter exporter;
   std::stringstream ss;
   exporter.exportToStream(curvesCollection1, ss);
-  ASSERT_EQ(ss.str(), "time;_variable1;_variable2;\n0;5;7;\n1;5;7;\n2;5;7;\n");
+  ASSERT_EQ(ss.str(), "time;_variable1;_variable2;\n0;5.000000;7.000000;\n1;5.000000;7.000000;\n2;5.000000;7.000000;\n");
 }
 
 TEST(APICRVTest, CurvesCollectionXmlExporter) {
@@ -117,13 +117,13 @@ TEST(APICRVTest, CurvesCollectionXmlExporter) {
   exporter.exportToStream(curvesCollection1, ss);
   ASSERT_EQ(ss.str(), "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>\n<curvesOutput "
       "xmlns=\"http://www.rte-france.com/dynawo\">\n  <curve model=\"\" variable=\"variable1\">\n    "
-      "<point time=\"0.00000\" value=\"5.00000\"/>\n    "
-      "<point time=\"1.00000\" value=\"5.00000\"/>\n    "
-      "<point time=\"2.00000\" value=\"5.00000\"/>\n  "
+      "<point time=\"0.000000\" value=\"5.000000\"/>\n    "
+      "<point time=\"1.000000\" value=\"5.000000\"/>\n    "
+      "<point time=\"2.000000\" value=\"5.000000\"/>\n  "
       "</curve>\n  <curve model=\"\" variable=\"variable2\">\n    "
-      "<point time=\"0.00000\" value=\"7.00000\"/>\n    "
-      "<point time=\"1.00000\" value=\"7.00000\"/>\n    "
-      "<point time=\"2.00000\" value=\"7.00000\"/>\n  "
+      "<point time=\"0.000000\" value=\"7.000000\"/>\n    "
+      "<point time=\"1.000000\" value=\"7.000000\"/>\n    "
+      "<point time=\"2.000000\" value=\"7.000000\"/>\n  "
       "</curve>\n"
       "</curvesOutput>\n");
 }

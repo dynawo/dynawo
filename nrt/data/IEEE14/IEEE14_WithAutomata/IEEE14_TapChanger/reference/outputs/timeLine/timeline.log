@@ -4,10 +4,8 @@
 20.0008 | GEN____3_SM | PMIN : activation
 20.081 | GEN____8_SM | PMIN : activation
 20.2534 | GEN____6_SM | PMIN : activation
-20.2534 | GEN____6_SM | PMIN : activation
-20.2534 | GEN____6_SM | PMIN : deactivation
-80 | TAP_CHANGER_LOAD_3 | Tap +1
-90 | TAP_CHANGER_LOAD_3 | Tap +1
-98.4453 | GEN____6_SM | PMIN : deactivation
-99.6143 | GEN____8_SM | PMIN : deactivation
-99.8941 | GEN____3_SM | PMIN : deactivation
+79.9999 | TAP_CHANGER_LOAD_3 | Tap +1
+89.9999 | TAP_CHANGER_LOAD_3 | Tap +1
+98.4452 | GEN____6_SM | PMIN : deactivation
+99.6142 | GEN____8_SM | PMIN : deactivation
+99.894 | GEN____3_SM | PMIN : deactivation

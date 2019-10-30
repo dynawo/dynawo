@@ -1129,7 +1129,8 @@ ModelManager::printInitValues(const string & directory) {
   file << " ====== INIT VARIABLES VALUES ======\n";
   const vector<string>& xNames = (*this).xNames();
   for (unsigned int i = 0; i < sizeY(); ++i)
-    file << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << yLocal_[i] << " yp =" << std::setw(15) << ypLocal_[i] << "\n";
+    file << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocal_[i])
+      << " yp =" << std::setw(15) << DYN::double2String(ypLocal_[i]) << "\n";
 
   const vector<std::pair<string, string> >& xAliasesNames = (*this).xAliasesNames();
   for (unsigned int i = 0, iEnd = xAliasesNames.size(); i < iEnd; ++i)
@@ -1139,13 +1140,14 @@ ModelManager::printInitValues(const string & directory) {
     file << " ====== INIT CALCULATED VARIABLES VALUES ======\n";
     const vector<string>& calculatedVarNames = (*this).getCalculatedVarNames();
     for (unsigned int i = 0, iEnd = sizeCalculatedVar(); i < iEnd; ++i)
-      file << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y =" << std::setw(15) << getCalculatedVar(i) << "\n";
+      file << std::setw(50) << std::left << calculatedVarNames[i] << std::right << ": y ="
+        << std::setw(15) << DYN::double2String(getCalculatedVar(i)) << "\n";
   }
 
   const vector<string>& zNames = (*this).zNames();
   file << " ====== INIT DISCRETE VARIABLES VALUES ======\n";
   for (unsigned int i = 0; i < sizeZ(); ++i)
-    file << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << zLocal_[i] << "\n";
+    file << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << DYN::double2String(zLocal_[i]) << "\n";
 
   const vector<std::pair<string, string> >& zAliasesNames = (*this).zAliasesNames();
   for (unsigned int i = 0, iEnd = zAliasesNames.size(); i < iEnd; ++i)
@@ -1162,7 +1164,8 @@ ModelManager::printInitValues(const string & directory) {
 
   // In Modelica models, parameters are ordered as follows : real, then boolean, integer and string
   for (unsigned int i = 0; i < modelData()->nParametersReal; ++i)
-    file << std::setw(50) << std::left << parameters[i].getName() << std::right << " =" << std::setw(15) << simulationInfo()->realParameter[i] << "\n";
+    file << std::setw(50) << std::left << parameters[i].getName() << std::right << " =" << std::setw(15)
+      << DYN::double2String(simulationInfo()->realParameter[i]) << "\n";
 
   int offset = modelData()->nParametersReal;
 

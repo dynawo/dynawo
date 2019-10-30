@@ -95,6 +95,7 @@
     <xs:attribute name="stopTime" use="required" type="xs:float"/>
     <xs:attribute name="activateCriteria" type="xs:boolean"/>
     <xs:attribute name="criteriaStep" type="xs:int"/>
+    <xs:attribute name="precision" type="xs:float"/>
   </xs:complexType>
 
   <xs:complexType name="OutputsEntry">

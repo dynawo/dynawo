@@ -52,6 +52,28 @@ TEST(CommonTest, testCommonVarC) {
   ASSERT_EQ(sign(0), 1);
 }
 
+TEST(CommonTest, testCommonDynawoDoublesEquality) {
+  ASSERT_TRUE(doubleEquals(0.1, 0.10000001));
+  ASSERT_FALSE(doubleEquals(0.1, 0.1000001));
+  ASSERT_FALSE(doubleEquals(0.1, 0.100001));
+  ASSERT_FALSE(doubleNotEquals(0.1, 0.10000001));
+  ASSERT_TRUE(doubleNotEquals(0.1, 0.1000001));
+  ASSERT_TRUE(doubleNotEquals(0.1, 0.100001));
+  ASSERT_EQ(getPrecisionAsNbDecimal(), 6);
+  ASSERT_EQ(getCurrentPrecision(), 1e-6);
+  setCurrentPrecision(1e-7);
+  ASSERT_EQ(getPrecisionAsNbDecimal(), 7);
+  ASSERT_EQ(getCurrentPrecision(), 1e-7);
+  ASSERT_TRUE(doubleEquals(0.1, 0.100000001));
+  ASSERT_FALSE(doubleEquals(0.1, 0.10000001));
+  ASSERT_FALSE(doubleEquals(0.1, 0.1000001));
+  ASSERT_FALSE(doubleEquals(0.1, 0.100001));
+  ASSERT_FALSE(doubleNotEquals(0.1, 0.100000001));
+  ASSERT_TRUE(doubleNotEquals(0.1, 0.10000001));
+  ASSERT_TRUE(doubleNotEquals(0.1, 0.1000001));
+  ASSERT_TRUE(doubleNotEquals(0.1, 0.100001));
+}
+
 TEST(CommonTest, testCommonVectorEqualityDifferentSize) {
   std::vector<double> a;
   a.push_back(1.);

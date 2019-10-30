@@ -347,7 +347,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
   ASSERT_EQ(model->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.95214618832553821193);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.0000002);
   for (size_t i = 0; i < z.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
   }
@@ -369,7 +369,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[13], 1);
   ASSERT_EQ(model->getModeChangeType(), NO_MODE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[9], 0.93468597466729808065);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1.0000002);
   for (size_t i = 0; i < z.size(); ++i) {
     if (i == 12 || i == 16)
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], 1);  // bus state == OPEN
