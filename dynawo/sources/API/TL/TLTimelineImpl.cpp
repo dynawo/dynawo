@@ -21,6 +21,7 @@
 #include <iostream>
 #include <vector>
 #include <boost/none.hpp>
+#include "DYNCommon.h"
 #include "TLTimelineImpl.h"
 #include "TLEvent.h"
 #include "TLEventFactory.h"
@@ -47,12 +48,19 @@ Timeline::Impl::addEvent(const double& time, const string& modelName,
   event->setModelName(modelName);
   event->setMessage(message);
   event->setPriority(priority);
-#ifdef LANG_CXX11
-  events_.emplace(event);
-#else
-  events_.insert(event);
-#endif
+  if (events_.empty() || !eventEquals(*event, *events_.back()))
+    events_.push_back(event);
 }
+
+bool
+Timeline::Impl::eventEquals(const Event& left, const Event& right) const {
+  return DYN::doubleEquals(left.getTime(), right.getTime()) &&
+      left.getModelName() == right.getModelName() &&
+      left.hasPriority() == right.hasPriority() &&
+      (!left.hasPriority() || !right.hasPriority() || left.getPriority() == right.getPriority()) &&
+      left.getMessage() == right.getMessage();
+}
+
 
 int
 Timeline::Impl::getSizeEvents() {
@@ -70,17 +78,11 @@ Timeline::Impl::cendEvent() const {
 }
 
 void
-Timeline::Impl::eraseEvents(int nbEvents, Timeline::event_const_iterator lastEventPosition) {
-  Timeline::event_const_iterator firstPosition = lastEventPosition;
+Timeline::Impl::eraseEvents(int nbEvents) {
+  std::vector<boost::shared_ptr<Event> >::iterator firstPosition = events_.end();
   for (int i = 0; i < nbEvents; i++)
     firstPosition--;
-
-  vector<shared_ptr<Event> > eventsToErase;
-  for (Timeline::event_const_iterator iE = firstPosition; iE != lastEventPosition; iE++)
-    eventsToErase.push_back(*iE);
-
-  for (vector<shared_ptr<Event> >::const_iterator iV = eventsToErase.begin(); iV != eventsToErase.end(); iV++)
-    events_.erase(*iV);
+  events_.erase(firstPosition, events_.end());
 }
 
 Timeline::BaseIteratorImpl::BaseIteratorImpl(const Timeline::Impl* iterated, bool begin) :

@@ -308,7 +308,7 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
         if (timeline_) {
           finalEventsSize = timeline_->getSizeEvents();
           if (finalEventsSize != initialEventsSize)
-            timeline_->eraseEvents(finalEventsSize - initialEventsSize, timeline_->cendEvent());
+            timeline_->eraseEvents(finalEventsSize - initialEventsSize);
         }
         break;
       }

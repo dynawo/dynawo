@@ -1,3 +1,6 @@
-26.9282 | UVA | Under-voltage automaton for generator arming
-31.9282 | GEN____3_SM | GENERATOR : disconnecting
-31.9282 | UVA | Under-voltage generator trip
+26.9238 | UVA | Under-voltage automaton for generator arming
+31.9238 | UVA | Under-voltage generator trip
+31.9238 | GEN____3_SM | GENERATOR : disconnecting
+31.9238 | UVA | Under-voltage generator trip
+31.9238 | GEN____3_SM | GENERATOR : disconnecting
+31.9238 | UVA | Under-voltage generator trip

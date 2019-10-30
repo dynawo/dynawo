@@ -23,7 +23,6 @@ set(API_TL_SOURCES
     TLTimelineImpl.cpp
     TLTimelineFactory.cpp
     TLEventImpl.cpp
-    TLEventCmp.cpp
     TLEventFactory.cpp
     TLTxtExporter.cpp
     TLCsvExporter.cpp

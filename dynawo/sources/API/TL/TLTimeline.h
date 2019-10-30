@@ -184,11 +184,10 @@ class Timeline {
   /**
    * @brief Erase the nbEvents in the timeline being before lastEventPosition
    *
-   * @param nbEvents number of events to delete from the timeline
-   * @param lastEventPosition iterator on the last element to delete
+   * @param nbEvents number of events to delete from the timeline starting from last event
    */
 
-  virtual void eraseEvents(int nbEvents, Timeline::event_const_iterator lastEventPosition) = 0;
+  virtual void eraseEvents(int nbEvents) = 0;
 };
 
 }  // namespace timeline
