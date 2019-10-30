@@ -250,7 +250,6 @@ void
 ModelMulti::init(const double& t0) {
   Timer timer1("ModelMulti::init");
 
-  zSave_.resize(sizeZ(), 0.);
   zSave_.assign(zLocal_, zLocal_ + sizeZ());
 
   // (1) initialising each sub-model
