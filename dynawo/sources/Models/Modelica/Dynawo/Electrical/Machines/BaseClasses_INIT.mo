@@ -126,7 +126,14 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 
 equation
   MdPPuEfd = MdPuEfd  * rTfoPu * rTfoPu;
-  Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd else RfPPu / MdPPu;
+  if ExcitationPu == ExcitationPuType.Kundur then
+    Kuf = 1;
+  elseif ExcitationPu == ExcitationPuType.UserBase then
+    assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
+    Kuf = RfPPu / MdPPuEfd;
+  else
+    Kuf = RfPPu / MdPPu;
+  end if;
 
   // Used for initialization of theta
   XqPPu = MqPPu + (LqPPu + XTfoPu);
