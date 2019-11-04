@@ -59,7 +59,8 @@
     <par type="DOUBLE" name="Tppq0" value="0.07"/>
     <par type="DOUBLE" name="UNom" value="24"/>
     <par type="DOUBLE" name="SNom" value="2220"/>
-    <par type="DOUBLE" name="PNom" value="2220"/>
+    <par type="DOUBLE" name="PNomTurb" value="2220"/>
+    <par type="DOUBLE" name="PNomAlt" value="2220"/>
     <par type="DOUBLE" name="SnTfo" value="2220"/>
     <par type="DOUBLE" name="UNomHV" value="400"/>
     <par type="DOUBLE" name="UNomLV" value="24"/>

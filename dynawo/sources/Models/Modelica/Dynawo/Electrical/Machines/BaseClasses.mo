@@ -112,7 +112,8 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
     // General parameters of the synchronous machine
     parameter Types.VoltageModule UNom "Nominal voltage in kV";
     parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-    parameter Types.ActivePower PNom "Nominal active (turbine) power in MW";
+    parameter Types.ActivePower PNomTurb "Nominal active (turbine) power in MW";
+    parameter Types.ActivePower PNomAlt "Nominal active (alternator) power in MW";
     parameter ExcitationPuType ExcitationPu "Choice of excitation base voltage";
     parameter Types.Time H "Kinetic constant = kinetic energy / rated power";
     parameter Types.PerUnit DPu "Damping coefficient of the swing equation in p.u.";
@@ -151,7 +152,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
 
     // Input variables
     Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Reference frequency in p.u";
-    Connectors.ImPin PmPu(value(start = Pm0Pu)) "Mechanical power in p.u (base PNom)";
+    Connectors.ImPin PmPu(value(start = Pm0Pu)) "Mechanical power in p.u (base PNomTurb)";
     Connectors.ImPin efdPu(value(start = Efd0Pu)) "Input voltage of exciter winding in p.u (user-selected base voltage)";
 
     // Output variables
@@ -205,8 +206,8 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     parameter Types.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
 
     parameter Types.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/OmegaNom)";
-    parameter Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNom/OmegaNom)";
-    parameter Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNom/OmegaNom)";
+    parameter Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNomTurb/OmegaNom)";
+    parameter Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNomTurb/OmegaNom)";
 
     // d-q axis p.u. variables (base UNom, SNom)
     Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in p.u";
@@ -229,7 +230,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
 
     // Other variables
     Types.Angle theta(start = Theta0) "Rotor angle: angle between machine rotor frame and port phasor frame";
-    Types.PerUnit cmPu(start = Cm0Pu) "Mechanical torque in p.u (base PNom/OmegaNom)";
+    Types.PerUnit cmPu(start = Cm0Pu) "Mechanical torque in p.u (base PNomTurb/OmegaNom)";
     Types.PerUnit cePu(start = Ce0Pu) "Electrical torque in p.u (base SNom/OmegaNom)";
     Types.PerUnit PePu(start = Ce0Pu*SystemBase.omega0Pu) "Electrical active power in p.u (base SNom)";
 
@@ -261,7 +262,7 @@ equation
 
     // Mechanical equations
     der(theta) = (omegaPu.value - omegaRefPu.value) * SystemBase.omegaNom;
-    2*H*der(omegaPu.value) = (cmPu*PNom/SNom - cePu) - DPu*(omegaPu.value - omegaRefPu.value);
+    2*H*der(omegaPu.value) = (cmPu*PNomTurb/SNom - cePu) - DPu*(omegaPu.value - omegaRefPu.value);
     cePu = lambdaqPu*idPu - lambdadPu*iqPu;
     PePu = cePu*omegaPu.value;
     PmPu.value = cmPu*omegaPu.value;
