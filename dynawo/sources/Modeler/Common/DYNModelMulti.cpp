@@ -291,7 +291,7 @@ ModelMulti::init(const double& t0) {
       subModels_[i]->evalZSub(t0);
     z.assign(zLocal_, zLocal_ + sizeZ());
 
-    for (unsigned i = 0; i < 10 && !vectorAreEquals(zSave_, z); ++i) {
+    for (unsigned j = 0; j < 10 && !vectorAreEquals(zSave_, z); ++j) {
       copieResultZ(z);
       std::copy(z.begin(), z.end(), zLocal_);
       for (unsigned int i = 0; i < subModels_.size(); ++i)
