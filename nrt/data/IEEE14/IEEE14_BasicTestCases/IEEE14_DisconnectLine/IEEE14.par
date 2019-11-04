@@ -39,7 +39,8 @@
     <par type="DOUBLE" name="generator_Tppq0" value="0.084000000000000005"/>
     <par type="DOUBLE" name="generator_UNom" value="24"/>
     <par type="DOUBLE" name="generator_SNom" value="1211"/>
-    <par type="DOUBLE" name="generator_PNom" value="1090"/>
+    <par type="DOUBLE" name="generator_PNomTurb" value="1090"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="1090"/>
     <par type="DOUBLE" name="generator_SnTfo" value="1211"/>
     <par type="DOUBLE" name="generator_UNomHV" value="69"/>
     <par type="DOUBLE" name="generator_UNomLV" value="24"/>
@@ -84,7 +85,8 @@
     <par type="DOUBLE" name="generator_Tppq0" value="0.059999999999999998"/>
     <par type="DOUBLE" name="generator_UNom" value="24"/>
     <par type="DOUBLE" name="generator_SNom" value="1120"/>
-    <par type="DOUBLE" name="generator_PNom" value="1008"/>
+    <par type="DOUBLE" name="generator_PNomTurb" value="1008"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="1008"/>
     <par type="DOUBLE" name="generator_SnTfo" value="1120"/>
     <par type="DOUBLE" name="generator_UNomHV" value="69"/>
     <par type="DOUBLE" name="generator_UNomLV" value="24"/>
@@ -128,7 +130,8 @@
     <par type="DOUBLE" name="generator_Tpq0" value="1.22"/>
     <par type="DOUBLE" name="generator_Tppq0" value="0.094"/>
     <par type="DOUBLE" name="generator_UNom" value="20"/>
-    <par type="DOUBLE" name="generator_PNom" value="1485"/>
+    <par type="DOUBLE" name="generator_PNomTurb" value="1485"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="1485"/>
     <par type="DOUBLE" name="generator_SNom" value="1650"/>
     <par type="DOUBLE" name="generator_SnTfo" value="1650"/>
     <par type="DOUBLE" name="generator_UNomHV" value="69"/>
@@ -171,7 +174,8 @@
     <par type="DOUBLE" name="generator_XppqPu" value="0.2"/>
     <par type="DOUBLE" name="generator_Tppq0" value="0.04"/>
     <par type="DOUBLE" name="generator_UNom" value="15"/>
-    <par type="DOUBLE" name="generator_PNom" value="74.4"/>
+    <par type="DOUBLE" name="generator_PNomTurb" value="74.4"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="74.4"/>
     <par type="DOUBLE" name="generator_SNom" value="80"/>
     <par type="DOUBLE" name="generator_SnTfo" value="80"/>
     <par type="DOUBLE" name="generator_UNomHV" value="15"/>
@@ -214,7 +218,8 @@
     <par type="DOUBLE" name="generator_XppqPu" value="0.58"/>
     <par type="DOUBLE" name="generator_Tppq0" value="0.56"/>
     <par type="DOUBLE" name="generator_UNom" value="18"/>
-    <par type="DOUBLE" name="generator_PNom" value="228"/>
+    <par type="DOUBLE" name="generator_PNomTurb" value="228"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="228"/>
     <par type="DOUBLE" name="generator_SNom" value="250"/>
     <par type="DOUBLE" name="generator_SnTfo" value="250"/>
     <par type="DOUBLE" name="generator_UNomHV" value="13.8"/>

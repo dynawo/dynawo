@@ -115,8 +115,8 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
 
     Types.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/omegaNom)";
-    Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNom/omegaNom)";
-    Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNom/omegaNom)";
+    Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNomTurb/omegaNom)";
+    Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNomTurb/omegaNom)";
 
     Types.VoltageModulePu UStator0Pu "Start value of stator voltage amplitude in p.u (base UNom)";
     Types.CurrentModulePu IStator0Pu "Start value of stator current amplitude in p.u (base SnRef)";
@@ -197,7 +197,7 @@ equation
 
 // Mechanical equations
   Ce0Pu = Lambdaq0Pu*Id0Pu - Lambdad0Pu*Iq0Pu;
-  Cm0Pu = Ce0Pu/PNom*SNom;
+  Cm0Pu = Ce0Pu/PNomTurb*SNom;
   Pm0Pu = Cm0Pu*SystemBase.omega0Pu;
 
 // Output variables for external controlers
