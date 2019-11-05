@@ -353,13 +353,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   Trace::debug("COMPILE") << ss.str() << Trace::endline;
 
 #ifdef __linux__
-  string echoString = ss.str();
-  boost::replace_all(echoString, "'", "\"");
-  // In case of static compilation it is expected that symbols about Timer are missing.
-  string commandUndefined = "echo '" + echoString + "' | sed '1,/ldd -r/d' | c++filt | grep 'undefined' | grep -v 'DYN::Timer::~Timer()'"
-          " | grep -v \"DYN::Timer::Timer([^)]*)\"";
-  int returnCode = system(commandUndefined.c_str());
-  bool hasUndefinedSymbol = (returnCode == 0);
+    bool hasUndefinedSymbol = (ss.str().find("undefined symbol") != string::npos);
 #else
   bool hasUndefinedSymbol = false;
 #endif
