@@ -22,6 +22,8 @@
 10.2605 | _BUS____2-BUS____5-1_AC | LINE : opening both sides
 10.4532 | CLA_2_4 | CLA : arming by over-current constraint
 10.7477 | GEN____6_SM | PMIN : activation
+10.7477 | GEN____6_SM | PMIN : activation
+10.7477 | GEN____6_SM | PMIN : deactivation
 10.8832 | GEN____8_SM | PMIN : activation
 11.1107 | GEN____6_SM | PMIN : deactivation
 11.321 | GEN____8_SM | PMIN : deactivation
