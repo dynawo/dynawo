@@ -225,26 +225,26 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
     model_->evalZ(time, vYy_, vYp_, vYz_);
     zChange = model_->zChange();
 
-    // evalMode
-    model_->evalMode(time, vYy_, vYp_, vYz_);
-    modeChange = model_->modeChange();
-
     // evaluate G and compare with previous values
     stableRoot = detectUnstableRoot(G0, G1, time);
 
-    if (zChange && modeChange) {
-      state_.setFlags(ModeChange | ZChange);
-      change = true;
-    } else if (zChange) {
+    if (zChange) {
       change = true;
       state_.setFlags(ZChange);
-    } else if (modeChange) {
-      change = true;
-      state_.setFlags(ModeChange);
     } else if (stableRoot) {
-      return change;
+      break;
     }
   }
+
+  // evalMode
+  model_->evalMode(time, vYy_, vYp_, vYz_);
+  modeChange = model_->modeChange();
+  if (modeChange) {
+    change = true;
+    state_.setFlags(ModeChange);
+  }
+  if (stableRoot)
+    return change;
 
   throw DYNError(Error::SOLVER_ALGO, SolverUnstableZMode);
 }
