@@ -22,7 +22,7 @@ model VRProportional "Simple Proportional Voltage Regulator"
 
   parameter Real Gain "Control gain";
   parameter Types.VoltageModulePu UsRefMaxPu "Maximum stator reference voltage in p.u (base UNom)";
-  parameter Types.VoltageModulePu UsRefMinPu "Maximum stator reference voltage in p.u (base UNom)";
+  parameter Types.VoltageModulePu UsRefMinPu "Minimum stator reference voltage in p.u (base UNom)";
   parameter Types.VoltageModulePu EfdMinPu "Minimum allowed EfdPu";
   parameter Types.VoltageModulePu EfdMaxPu "Maximum allowed EfdPu";
   parameter Types.Time LagEfdMin "Time lag before taking action when going below EfdMin";
