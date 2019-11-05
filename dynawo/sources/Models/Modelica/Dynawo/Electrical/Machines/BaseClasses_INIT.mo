@@ -121,6 +121,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.VoltageModulePu UStator0Pu "Start value of stator voltage amplitude in p.u (base UNom)";
     Types.CurrentModulePu IStator0Pu "Start value of stator current amplitude in p.u (base SnRef)";
     Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power generated in p.u (base SnRef)";
+    Types.ReactivePowerPu QStator0PuQNom "Start value of stator reactive power generated in p.u (base QNomAlt)";
     Types.CurrentModulePu IRotor0Pu "Start value of rotor current in p.u (base SNom)";
     Types.Angle ThetaInternal0 "Start value of internal angle";
 
@@ -204,6 +205,7 @@ equation
   UStator0Pu = ComplexMath.'abs' (uStator0Pu);
   IStator0Pu = rTfoPu * I0Pu *SNom/SystemBase.SnRef;
   QStator0Pu = - ComplexMath.imag(sStator0Pu);
+  QStator0PuQNom = QStator0Pu * SystemBase.SnRef / QNomAlt;
   IRotor0Pu = MdPPu / rTfoPu * If0Pu;
   ThetaInternal0 = Theta0;
 

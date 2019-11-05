@@ -114,6 +114,7 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
     parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
     parameter Types.ActivePower PNomTurb "Nominal active (turbine) power in MW";
     parameter Types.ActivePower PNomAlt "Nominal active (alternator) power in MW";
+    final parameter Types.ReactivePower QNomAlt = sqrt(SNom*SNom - PNomAlt*PNomAlt) "Nominal reactive (alternator) power in MVar";
     parameter ExcitationPuType ExcitationPu "Choice of excitation base voltage";
     parameter Types.Time H "Kinetic constant = kinetic energy / rated power";
     parameter Types.PerUnit DPu "Damping coefficient of the swing equation in p.u.";
@@ -235,6 +236,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     Types.PerUnit PePu(start = Ce0Pu*SystemBase.omega0Pu) "Electrical active power in p.u (base SNom)";
 
 equation
+  assert(SNom<>PNomAlt, "The alternator nominal active power should be different from the nominal apparent power");
 
   if running.value then
 

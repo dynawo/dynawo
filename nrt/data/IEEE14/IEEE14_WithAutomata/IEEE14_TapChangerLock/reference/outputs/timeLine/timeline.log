@@ -5,8 +5,6 @@
 20 | TAP_CHANGER_LOCK | TCL : tap changers lock arming (U < UMin)
 20.0003 | GEN____3_SM | PMIN : activation
 20.1021 | GEN____8_SM | PMIN : activation
-20.1021 | GEN____8_SM | PMIN : activation
-20.1021 | GEN____8_SM | PMIN : deactivation
 20.2046 | GEN____6_SM | PMIN : activation
 21.8129 | TAP_CHANGER_LOCK | TCL : tap changers lock disarming (U > UMin)
 80 | TAP_CHANGER_LOAD_2 | Tap +1
