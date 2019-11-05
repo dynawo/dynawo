@@ -205,6 +205,13 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
               "DYNAWO_RESOURCES_DIR=${sharedir}"
               "DYNAWO_DICTIONARIES=dictionaries_mapping"
               "DYNAWO_XSD_DIR=${sharedir}/xsd/"
+              "DYNAWO_ADEPT_INSTALL_DIR=${ADEPT_HOME}"
+              "DYNAWO_INSTALL_OPENMODELICA=${INSTALL_OPENMODELICA}"
+              "DYNAWO_XERCESC_INSTALL_DIR=${XERCESC_HOME}"
+              "DYNAWO_SUITESPARSE_INSTALL_DIR=${SUITESPARSE_HOME}"
+              "DYNAWO_SUNDIALS_INSTALL_DIR=${SUNDIALS_HOME}"
+              "DYNAWO_BOOST_HOME=${BOOST_ROOT}"
+              "DYNAWO_LIBXML_HOME=${LIBXML_HOME}"
                 $<TARGET_FILE:generate-preassembled> --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} --remove-model-files true >> ${MODEL_NAME}.log 2>&1 ||
                 (echo "*** [${MODEL_NAME}] Error : for more information please see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
         COMMENT "Building ${MODEL_NAME}"

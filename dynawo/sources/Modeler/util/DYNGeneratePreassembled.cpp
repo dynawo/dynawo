@@ -239,13 +239,11 @@ bool verifySharedObject(string modelname) {
 
   // verify links.
 #ifdef __linux__
-  string command = "ldd -r " + modelname + " | c++filt";
+  string command = "ldd -r " + modelname;
   string result = executeCommand1(command);
-  boost::replace_all(result, "'", "\"");
-  // In case of static compilation it is expected that symbols about Timer are missing.
-  string command2 = "echo \"" + result + "\"| c++filt | grep 'undefined'  | grep -v 'DYN::Timer::~Timer()' | grep -v \"DYN::Timer::Timer([^)]*)\"";
-  int returnCode = system(command2.c_str());
-  bool valid = (returnCode != 0);
+  bool valid = true;
+  if (result.find("undefinded symbol") != std::string::npos)
+    valid = false;
 #else
   bool valid = true;
 #endif
