@@ -6,7 +6,7 @@ gen_lambdafPu                                     : y =        1.12582 yp =    -
 gen_omegaPu_value                                 : y =              1 yp =    6.14683e-06
 gen_terminal_V_im                                 : y =       0.474565 yp =              0
 gen_terminal_V_re                                 : y =       0.880236 yp =              0
-gen_theta                                         : y =          1.224 yp =    7.47239e-10
+gen_theta                                         : y =          1.224 yp =    7.47238e-10
 avr_EfdPu                                         : y =        2.42046 yp =              0
 avr_UsPu                                          : y =        1.00001 yp =              0
 avr_feedback_y                                    : y =       0.121023 yp =              0
@@ -19,7 +19,6 @@ gen_PePu                                          : y =       0.902957 yp =     
 gen_QGen                                          : y =        967.902 yp =              0
 gen_QGenPu                                        : y =        9.67902 yp =              0
 gen_QStatorPu_value                               : y =        9.67902 yp =              0
-gen_QStatorPuQNom_value                           : y =        3.25541 yp =              0
 gen_UPu                                           : y =        1.00001 yp =              0
 gen_cePu                                          : y =       0.902957 yp =              0
 gen_cmPu                                          : y =          0.903 yp =              0
@@ -147,14 +146,12 @@ gen_MqPPu                                          =           1.61
 gen_MrcPPu                                         =              0
 gen_P0Pu                                           =         -19.98
 gen_PGen0Pu                                        =          19.98
-gen_PNomAlt                                        =           2200
+gen_PNomAlt                                        =           2220
 gen_PNomTurb                                       =           2220
 gen_Pm0Pu                                          =          0.903
 gen_Q0Pu                                           =          -9.68
 gen_QGen0Pu                                        =           9.68
-gen_QNomAlt                                        =        297.321
 gen_QStator0Pu                                     =           9.68
-gen_QStator0PuQNom                                 =        3.25574
 gen_RDPPu                                          =      0.0341046
 gen_RQ1PPu                                         =     0.00743325
 gen_RQ2PPu                                         =      0.0284205
@@ -193,11 +190,11 @@ gen_u0Pu_re                                        =       0.880229
 gen_uStator0Pu_im                                  =       0.474548
 gen_uStator0Pu_re                                  =       0.880229
 gover_KGover                                       =              5
-gover_PMax                                         =           2200
+gover_PMax                                         =           2220
 gover_PMaxPu                                       =              1
 gover_PMin                                         =              0
 gover_PMinPu                                       =              0
-gover_PNom                                         =           2200
+gover_PNom                                         =           2220
 gover_Pm0Pu                                        =          0.903
 gover_PmRawPu_k1                                   =              1
 gover_PmRawPu_k2                                   =              1
