@@ -158,6 +158,11 @@ while (($#)); do
   esac
 done
 
+if [ ! -x "$(command -v find)" ]; then
+  echo "You need to install find command line utility."
+  exit 1
+fi
+
 if [ ! -f "$(find "$DYNAWO_HOME" -name "$DYNAWO_USER_SCRIPT_NAME")" ]; then
   echo "The specified script $DYNAWO_USER_SCRIPT_NAME was not found in your DYNAWO_HOME ($DYNAWO_HOME)."
   exit 1

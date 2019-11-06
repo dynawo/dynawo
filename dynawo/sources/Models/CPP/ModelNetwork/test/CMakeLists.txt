@@ -23,22 +23,18 @@ SET(MODULE_SOURCES
     TestTapChanger.cpp
 )
 
-INCLUDE_DIRECTORIES(..
-${UNITTEST_INCLUDE_DIRS})
-
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
 TARGET_INCLUDE_DIRECTORIES(${MODULE_NAME}
-    INTERFACE
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    )
+        PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
+        )
 
 TARGET_LINK_LIBRARIES(${MODULE_NAME}
-    ${UNITTEST_LIBRARIES}
-    dynawo_DataInterface
-    DYNModelNetwork
-    dynawo_API_CSTR
-    )
+        dynawo_DataInterface
+        DYNModelNetwork
+        dynawo_API_CSTR
+        dynawo_Test)
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-tests ${MODULE_NAME}
   DEPENDS

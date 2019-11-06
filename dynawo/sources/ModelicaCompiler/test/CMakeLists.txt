@@ -14,24 +14,11 @@ SET(MODULE_SOURCES
     Test.cpp
 )
 
-INCLUDE_DIRECTORIES(SYSTEM ${UNITTEST_INCLUDE_DIRS}
-          SYSTEM ${Boost_INCLUDE_DIR}
-          )
-
-INCLUDE_DIRECTORIES(../
-          ../../Common
-          )
-
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
 TARGET_LINK_LIBRARIES(${MODULE_NAME}
-    ${UNITTEST_LIBRARIES}
-    ${Boost_SYSTEM_LIBRARY}
-    ${Boost_FILESYSTEM_LIBRARY}
-    dynawo_Common
-    pthread
-    ${Boost_THREAD_LIBRARY}
-    )
+        dynawo_Common
+        dynawo_Test)
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-tests ${MODULE_NAME}
   DEPENDS

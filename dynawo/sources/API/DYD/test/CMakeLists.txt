@@ -27,18 +27,11 @@ SET(MODULE_SOURCES
   TestMacroStaticRef.cpp
 )
 
-INCLUDE_DIRECTORIES(SYSTEM ${UNITTEST_INCLUDE_DIRS}
-                    ${libXML_INCLUDE_DIR}
-                    ${Boost_INCLUDE_DIR}
-                    )
-
-INCLUDE_DIRECTORIES(../
-                    ../../../Common/
-                   )
-
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
-TARGET_LINK_LIBRARIES(${MODULE_NAME} dynawo_API_DYD ${UNITTEST_LIBRARIES} ${Boost_IOSTREAMS_LIBRARY})
+TARGET_LINK_LIBRARIES(${MODULE_NAME}
+        dynawo_API_DYD
+        dynawo_Test)
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res

@@ -49,9 +49,7 @@ where [option] can be:"
   export_var_env DYNAWO_DEVELOPER_OPTIONS="    =========== Dynawo Developer
         =========== Build
         build-omcDynawo                       build the OpenModelica compiler for Dynawo
-        build-3rd-party                       build 3rd party softwares for all compilation environments (Release/Debug, C++98/11) for a compiler in shared or static
-        build-3rd-party-version               build 3rd party softwares
-        build-3rd-party-version-cmake         build 3rd party softwares
+        build-3rd-party                       build 3rd party softwares
         config-dynawo                         configure Dynawo's compiling environment using CMake
         build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
         build-dynawo-core                     build Dynawo without models
@@ -63,7 +61,6 @@ where [option] can be:"
         build-tests-coverage ([args])         build/launch Dynawo's unittest and generate code coverage report (launch all tests if [args] is empty)
 
         =========== Clean
-        clean-omcDynawo                       remove the OpenModelica compiler for dynawo
         clean-3rd-party                       remove all 3rd party softwares objects
         clean-dynawo                          remove Dynawo's objects
         clean-all                             call clean-3rd-party, clean-dynawo
@@ -317,7 +314,7 @@ set_environment() {
     export_var_env DYNAWO_BUILD_DIR=$DYNAWO_HOME/build/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
     export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
   fi
-  export_var_env DYNAWO_DEBUG_COMPILER_OPTION="-O1"
+  export_var_env DYNAWO_DEBUG_COMPILER_OPTION="-O0"
 
   # Third parties
   export_var_env_force DYNAWO_THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
@@ -328,24 +325,29 @@ set_environment() {
 
   if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost" ]; then
     export_var_env DYNAWO_BOOST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost
+    unset DYNAWO_BOOST_HOME_DEFAULT
     if [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
       if [ "$DYNAWO_BOOST_HOME" = "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost" ]; then
-        export_var_env DYNAWO_BOOST_USE_STATIC=ON
+        export_var_env_force DYNAWO_BOOST_USE_STATIC=ON
       fi
     fi
   fi
 
   if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive" ]; then
     export_var_env DYNAWO_LIBARCHIVE_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive
+    unset DYNAWO_LIBARCHIVE_HOME_DEFAULT
   fi
 
   if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib" ]; then
     export_var_env DYNAWO_ZLIB_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib
+    unset DYNAWO_ZLIB_HOME_DEFAULT
   fi
 
   if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest" ]; then
     export_var_env DYNAWO_GTEST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
     export_var_env DYNAWO_GMOCK_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
+    unset DYNAWO_GTEST_HOME_DEFAULT
+    unset DYNAWO_GMOCK_HOME_DEFAULT
   fi
 
   # External libs
@@ -393,6 +395,9 @@ set_environment() {
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
   export_var_env DYNAWO_CMAKE_GENERATOR="Unix Makefiles"
+  if [ ! -x "$(command -v cmake)" ]; then
+    error_exit "You need to install cmake command line utility."
+  fi
   CMAKE_VERSION=$(cmake --version | head -1 | awk '{print $(NF)}')
   CMAKE_BUILD_OPTION=""
   if [ $(echo $CMAKE_VERSION | cut -d '.' -f 1) -ge 3 -a $(echo $CMAKE_VERSION | cut -d '.' -f 2) -ge 12 ]; then
@@ -624,154 +629,7 @@ display_environment_variables() {
   echo LD_LIBRARY_PATH $LD_LIBRARY_PATH
 }
 
-is_omcDynawo_installed() {
-  if [ ! -x "$DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo" ]; then
-    return 1
-  elif [ -x "$DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo" ]; then
-    $DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo --version > /dev/null 2>&1 || return 1
-    installed_version=$($DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo --version | cut -d ' ' -f2 | tr -d 'v')
-    if [ "$installed_version" != ${DYNAWO_OPENMODELICA_VERSION//_/.} ]; then
-      return 1
-    fi
-    if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary" ]; then
-      return 1
-    else
-      if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/Modelica" ]; then
-        return 1
-      fi
-      if [ ! -d "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/ModelicaServices" ]; then
-        return 1
-      fi
-      if [ ! -f "$DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary/Complex.mo" ]; then
-        return 1
-      fi
-    fi
-  fi
-  return 0
-}
-
-# Build openModelica compiler
-build_omcDynawo() {
-  if ! is_omcDynawo_installed; then
-    if [ ! -d "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION" ]; then
-      error_exit "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION does not exist."
-    fi
-    cd $DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION
-    bash checkoutOpenModelica.sh --openmodelica-dir=$DYNAWO_SRC_OPENMODELICA --openmodelica-version=$DYNAWO_OPENMODELICA_VERSION --modelica-version=$DYNAWO_MODELICA_LIB || error_exit "OpenModelica source code is not well checked-out. Delete your current source folder and relaunch command."
-    bash cleanBeforeLaunch.sh --openmodelica-dir=$DYNAWO_SRC_OPENMODELICA || error_exit "Cleaning of OpenModelica source folder did not work. Delete your current source folder and relaunch command."
-    bash omcUpdateDynawo.sh --openmodelica-dir=$DYNAWO_SRC_OPENMODELICA --openmodelica-install=$DYNAWO_INSTALL_OPENMODELICA --nbProcessors=$DYNAWO_NB_PROCESSORS_USED || error_exit "Building of OpenModelica did not work. Delete your current source folder and relaunch command."
-  else
-    echo "OpenModelica for Dynawo is already installed."
-    echo "You can re-install it by launching clean-omcDynawo command first."
-  fi
-}
-
-# Clean openModelica compiler
-clean_omcDynawo() {
-  if [ ! -d "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION" ]; then
-    error_exit "$DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION does not exist."
-  fi
-  cd $DYNAWO_SRC_DIR/3rdParty/omcUpdate_$DYNAWO_OPENMODELICA_VERSION
-  bash cleanBeforeLaunch.sh --openmodelica-dir=$DYNAWO_SRC_OPENMODELICA --openmodelica-install=$DYNAWO_INSTALL_OPENMODELICA
-}
-
-# Build third parties
-build_3rd_party() {
-  # Save DYNAWO_BUILD_TYPE and DYNAWO_CXX11_ENABLED as I force it to change to build all 3rd party combination
-  INITIAL_BUILD_TYPE=$DYNAWO_BUILD_TYPE
-  INITIAL_CXX11_ENABLED=$DYNAWO_CXX11_ENABLED
-
-  export_var_env_force DYNAWO_BUILD_TYPE=Release
-  export_var_env_force DYNAWO_CXX11_ENABLED=NO
-  set_environment "No-Mode"
-  build_3rd_party_version || error_exit "Error during 3rd parties build in Release and c++98."
-
-  export_var_env_force DYNAWO_CXX11_ENABLED=YES
-  set_environment "No-Mode"
-  build_3rd_party_version || error_exit "Error during 3rd parties build in Release and c++11."
-
-  export_var_env_force DYNAWO_BUILD_TYPE=Debug
-  export_var_env_force DYNAWO_CXX11_ENABLED=NO
-  set_environment "No-Mode"
-  build_3rd_party_version || error_exit "Error during 3rd parties build in Debug and c++98."
-
-  export_var_env_force DYNAWO_CXX11_ENABLED=YES
-  set_environment "No-Mode"
-  build_3rd_party_version || error_exit "Error during 3rd parties build in Debug and c++11."
-
-  # Come back to initial environement
-  export_var_env_force DYNAWO_BUILD_TYPE=$INITIAL_BUILD_TYPE
-  export_var_env_force DYNAWO_CXX11_ENABLED=$INITIAL_CXX11_ENABLED
-  set_environment $MODE
-
-  NICSLU_ARCHIVE=_nicslu301.zip
-  if [ ! -f "$DYNAWO_SRC_DIR/3rdParty/nicslu/$NICSLU_ARCHIVE" ]; then
-    echo ""
-    echo "Nicslu was not installed. You can download it from http://nicslu.weebly.com/ and copy/paste the zip obtained in $DYNAWO_SRC_DIR/3rdParty/nicslu."
-    echo ""
-  fi
-}
-
-# Build a speficic version of third party libraries
-build_3rd_party_version() {
-  if ! is_3rd_party_version_installed; then
-    if [ ! -d "$DYNAWO_SRC_DIR/3rdParty" ]; then
-      error_exit "$DYNAWO_SRC_DIR/3rdParty does not exist."
-    fi
-    cd $DYNAWO_SRC_DIR/3rdParty
-    if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
-      BOOST_OPTION="--boost-install-dir=$DYNAWO_BOOST_HOME"
-    else
-      BOOST_OPTION=""
-    fi
-    if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
-      LIBARCHIVE_OPTION="--libarchive-install-dir=$DYNAWO_LIBARCHIVE_HOME"
-    else
-      LIBARCHIVE_OPTION=""
-    fi
-    if [ $DYNAWO_ZLIB_HOME_DEFAULT != true ]; then
-      ZLIB_OPTION="--zlib-install-dir=$DYNAWO_ZLIB_HOME"
-    else
-      ZLIB_OPTION=""
-    fi
-    case "$DYNAWO_BUILD_TYPE_THIRD_PARTY" in
-      Debug)
-        if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
-          GTEST_OPTION="--gtest-install-dir=$DYNAWO_GTEST_HOME"
-        else
-          GTEST_OPTION=""
-        fi
-        ;;
-      *)
-        GTEST_OPTION=""
-        ;;
-    esac
-
-    bash toolchain.sh --build-type=$DYNAWO_BUILD_TYPE_THIRD_PARTY \
-      --sundials-install-dir=$DYNAWO_SUNDIALS_INSTALL_DIR \
-      --suitesparse-install-dir=$DYNAWO_SUITESPARSE_INSTALL_DIR \
-      --adept-install-dir=$DYNAWO_ADEPT_INSTALL_DIR \
-      --nicslu-install-dir=$DYNAWO_NICSLU_INSTALL_DIR \
-      --libzip-install-dir=$DYNAWO_LIBZIP_INSTALL_DIR \
-      --libxml-install-dir=$DYNAWO_LIBXML_INSTALL_DIR \
-      --libiidm-install-dir=$DYNAWO_LIBIIDM_INSTALL_DIR \
-      --xercesc-install-dir=$DYNAWO_XERCESC_INSTALL_DIR \
-      --sundials-build-dir=$DYNAWO_SUNDIALS_BUILD_DIR \
-      --suitesparse-build-dir=$DYNAWO_SUITESPARSE_BUILD_DIR \
-      --nicslu-build-dir=$DYNAWO_NICSLU_BUILD_DIR \
-      --adept-build-dir=$DYNAWO_ADEPT_BUILD_DIR \
-      --libzip-build-dir=$DYNAWO_LIBZIP_BUILD_DIR \
-      --libxml-build-dir=$DYNAWO_LIBXML_BUILD_DIR \
-      --libiidm-build-dir=$DYNAWO_LIBIIDM_BUILD_DIR \
-      --xercesc-build-dir=$DYNAWO_XERCESC_BUILD_DIR \
-      $BOOST_OPTION $LIBARCHIVE_OPTION $ZLIB_OPTION $GTEST_OPTION
-
-    RETURN_CODE=$?
-    return ${RETURN_CODE}
-  fi
-}
-
-build_3rd_party_version_cmake() {
+config_3rd_party() {
   CMAKE_OPTIONAL=""
   if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONAL="-DBOOST_ROOT=$DYNAWO_BOOST_HOME"
@@ -787,9 +645,6 @@ build_3rd_party_version_cmake() {
       if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
         CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGTEST_ROOT=$DYNAWO_GTEST_HOME"
       fi
-      if [ $DYNAWO_GMOCK_HOME_DEFAULT != true ]; then
-        CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGMOCK_HOME=$DYNAWO_GMOCK_HOME"
-      fi
       ;;
     *)
       ;;
@@ -804,51 +659,42 @@ build_3rd_party_version_cmake() {
     -DCMAKE_C_COMPILER=$DYNAWO_C_COMPILER \
     -DCMAKE_CXX_COMPILER=$DYNAWO_CXX_COMPILER \
     -DCXX11_ENABLED=$DYNAWO_CXX11_ENABLED \
-    -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE \
+    -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE_THIRD_PARTY \
     -DOPENMODELICA_INSTALL=$DYNAWO_INSTALL_OPENMODELICA \
     -DOPENMODELICA_SRC=$DYNAWO_SRC_OPENMODELICA \
     -DBUILD_SHARED_LIBS=$(if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then echo -n "ON"; else echo -n "OFF"; fi) \
     -G "$DYNAWO_CMAKE_GENERATOR" \
-    $CMAKE_OPTIONAL || return 1
-  make -j $DYNAWO_NB_PROCESSORS_USED
+    $CMAKE_OPTIONAL
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
-# Very simple check to see if each third party has installed something or not
-is_3rd_party_version_installed() {
-  third_party_folders=(adept libiidm libxml libzip suitesparse sundials xerces-c)
-  for folder in ${third_party_folders[*]}; do
-    if [ ! -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder" ]; then
-      return 1
-    fi
-    if [[ ! -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib" && ! -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib64" ]]; then
-      return 1
-    fi
-    if [ ! -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include" ]; then
-      return 1
-    fi
-    if [[ -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib \( -name "*.$DYNAWO_SHARED_LIBRARY_SUFFIX" -o -name "*.a" \) 2> /dev/null)" && -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/lib64 \( -name "*.$DYNAWO_SHARED_LIBRARY_SUFFIX" -o -name "*.a" \) 2> /dev/null)" ]]; then
-      return 1
-    fi
-    if [[ -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.h")" && -z "$(find $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/$folder/include -name "*.hpp")" ]]; then
-      return 1
-    fi
-  done
-  return 0
+build_3rd_party() {
+  config_3rd_party || error_exit "Error with 3rd parties configuration."
+  make -j $DYNAWO_NB_PROCESSORS_USED
+  RETURN_CODE=$?
+  set_environment
+  return ${RETURN_CODE}
+}
+
+build_omcDynawo() {
+  config_3rd_party || error_exit "Error with 3rd parties configuration."
+  make -j $DYNAWO_NB_PROCESSORS_USED openmodelica
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
 }
 
 # clean third parties
 clean_3rd_party() {
-  if [ -d "$DYNAWO_THIRD_PARTY_BUILD_DIR" ]; then
-    rm -rf $DYNAWO_THIRD_PARTY_BUILD_DIR
+  if [ -d "$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION" ]; then
+    rm -rf $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION
   fi
 }
 
 # uninstall third parties
 uninstall_3rd_party() {
-  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR" ]; then
-    rm -rf $DYNAWO_THIRD_PARTY_INSTALL_DIR
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION" ]; then
+    rm -rf $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION
   fi
 }
 
@@ -942,7 +788,7 @@ is_launcher_installed() {
 }
 
 install_launcher() {
-  build_3rd_party_version || error_exit "Error during 3rd parties installation."
+  build_3rd_party || error_exit "Error during 3rd parties installation."
   config_dynawo || error_exit "Error during Dynawo configuration."
   build_dynawo || error_exit "Error during Dynawo installation."
 }
@@ -1021,7 +867,6 @@ build_dynawo() {
 }
 
 build_user() {
-  build_omcDynawo || error_exit "Error during OpenModelica installation."
   install_launcher || error_exit "Error during Dynawo installation."
 }
 
@@ -1034,7 +879,7 @@ build_all() {
 }
 
 build_tests() {
-  build_3rd_party_version || error_exit "Error during build_3rd_party_version."
+  build_3rd_party || error_exit "Error during build_3rd_party."
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     config_dynawo || error_exit "Error during config_dynawo."
   fi
@@ -1063,7 +908,7 @@ build_tests() {
 }
 
 list_tests() {
-  build_3rd_party_version > /dev/null 2>&1 || error_exit "Error during build_3rd_party_version."
+  build_3rd_party > /dev/null 2>&1 || error_exit "Error during build_3rd_party."
   echo "===================================="
   echo " List of available unittests target"
   echo "===================================="
@@ -1084,7 +929,7 @@ verify_browser() {
 }
 
 build_tests_coverage() {
-  build_3rd_party_version || error_exit "Error during build_3rd_party_version."
+  build_3rd_party || error_exit "Error during build_3rd_party."
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
     config_dynawo || error_exit "Error during config_dynawo."
   fi
@@ -2072,7 +1917,7 @@ unittest_gdb() {
   reset_environment_variables
   set_environment build-tests
   if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
-    build_3rd_party_version || error_exit
+    build_3rd_party || error_exit
     config_dynawo || error_exit
     build_dynawo_core || error_exit
     build_dynawo_models_cpp || error_exit
@@ -2197,14 +2042,6 @@ case $MODE in
     build_3rd_party || error_exit "Error while building 3rd parties"
     ;;
 
-  build-3rd-party-version)
-    build_3rd_party_version || error_exit "Error while building 3rd party version"
-    ;;
-
-  build-3rd-party-version-cmake)
-    build_3rd_party_version_cmake || error_exit "Error while building 3rd party version cmake"
-    ;;
-
   build-all)
     build_all || error_exit "Error while building all"
     ;;
@@ -2296,10 +2133,6 @@ case $MODE in
 
   clean-old-branches)
     clean_old_branches || error_exit "Error during the cleaning of old branches build/install/nrt"
-    ;;
-
-  clean-omcDynawo)
-    clean_omcDynawo || error_exit "Error during the cleaning of omcDynawo"
     ;;
 
   clean-tests)

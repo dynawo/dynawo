@@ -15,25 +15,11 @@ SET(MODULE_SOURCES
     CompilerTest.cpp
 )
 
-INCLUDE_DIRECTORIES(${UNITTEST_INCLUDE_DIRS}
-                    ${Boost_INCLUDE_DIR}
-                    )
-
-INCLUDE_DIRECTORIES(../
-                    ../../../Common/
-                    ../../../API/PAR
-                    ../../../API/DYD
-                    ../../../API/EXTVAR
-                   )
-
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
 TARGET_LINK_LIBRARIES(${MODULE_NAME}
-    dynawo_ModelerCommon
-    dynawo_Util
-    ${UNITTEST_LIBRARIES}
-    pthread
-    ${Boost_THREAD_LIBRARY})
+        dynawo_ModelerCommon
+        dynawo_Test)
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-tests ${MODULE_NAME}
   DEPENDS

@@ -191,9 +191,28 @@ ENDIF()
 IF(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
   SET(BUILD_TESTS true)
   FIND_PACKAGE(GTest REQUIRED)
+
+  if(NOT TARGET GTest::gtest AND TARGET GTest::GTest)
+    add_library(GTest::gtest UNKNOWN IMPORTED)
+    if(EXISTS "${GTEST_LIBRARY}")
+      set_target_properties(GTest::gtest PROPERTIES
+              IMPORTED_LOCATION "${GTEST_LIBRARY}")
+    endif()
+  endif()
+  if(NOT TARGET GTest::gtest_main AND TARGET GTest::Main)
+    add_library(GTest::gtest_main UNKNOWN IMPORTED)
+    if(EXISTS "${GTEST_MAIN_LIBRARY}")
+      set_target_properties(GTest::gtest_main PROPERTIES
+              IMPORTED_LOCATION "${GTEST_MAIN_LIBRARY}")
+    endif()
+  endif()
   FIND_PACKAGE(GMock REQUIRED)
-  SET(UNITTEST_INCLUDE_DIRS ${GMOCK_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS})
-  SET(UNITTEST_LIBRARIES ${GMOCK_BOTH_LIBRARIES} ${GTEST_BOTH_LIBRARIES})
+
+  ADD_LIBRARY(dynawo_Test INTERFACE)
+  TARGET_LINK_LIBRARIES(dynawo_Test INTERFACE
+          GTest::gmock_main
+          GTest::gtest_main
+          Boost::iostreams)
 ENDIF()
 
 # For compatibility with old makefiles

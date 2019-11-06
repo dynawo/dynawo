@@ -14,26 +14,13 @@ SET(MODULE_SOURCES
     TestBasics.cpp
 )
 
-INCLUDE_DIRECTORIES(SYSTEM ${UNITTEST_INCLUDE_DIRS}
-                    SYSTEM ${Boost_INCLUDE_DIR}
-                    SYSTEM ${SUNDIALS_INCLUDE_DIR}
-                    )
-
-INCLUDE_DIRECTORIES(../
-                  ../../../Common/
-                  )
-
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
 TARGET_LINK_LIBRARIES(${MODULE_NAME}
-                      dynawo_SolverCommon
-                      dynawo_ModelerCommon
-                      dynawo_Util
-                      ${UNITTEST_LIBRARIES}
-                      dl
-                      ${SUNDIALS_KINSOL_LIBRARY}
-                      pthread
-                      ${Boost_THREAD_LIBRARY})
+        dynawo_SolverCommon
+        dynawo_ModelerCommon
+        Sundials::Sundials_KINSOL
+        dynawo_Test)
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-tests ${MODULE_NAME}
   DEPENDS
