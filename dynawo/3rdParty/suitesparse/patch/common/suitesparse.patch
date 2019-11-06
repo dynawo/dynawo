@@ -1,18 +1,6 @@
-diff --git a/.gitignore b/.gitignore
-index 8505bed..1518359 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -1,3 +1,5 @@
-+build/
-+
- # Ignore these files:
- *.o
- *.so.*
-diff --git a/AMD/CMakeLists.txt b/AMD/CMakeLists.txt
-new file mode 100644
-index 0000000..29dbeeb
---- /dev/null
-+++ b/AMD/CMakeLists.txt
+diff -urpN SuiteSparse/AMD/CMakeLists.txt SuiteSparse.patch/AMD/CMakeLists.txt
+--- SuiteSparse/AMD/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
++++ SuiteSparse.patch/AMD/CMakeLists.txt	2019-11-06 12:04:23.625796280 +0100
 @@ -0,0 +1,58 @@
 +file(READ "Include/amd.h" _file_content)
 +string(REGEX REPLACE ".*#define[ \t]+AMD_MAIN_VERSION[ \t]+([0-9]+).*"   "\\1" AMD_VERSION_MAJOR "${_file_content}")
@@ -72,11 +60,9 @@ index 0000000..29dbeeb
 +    DESTINATION ${INCLUDE_INSTALL_DIR}
 +    FILES_MATCHING PATTERN "*.h"
 +    )
-diff --git a/BTF/CMakeLists.txt b/BTF/CMakeLists.txt
-new file mode 100644
-index 0000000..33f8bef
---- /dev/null
-+++ b/BTF/CMakeLists.txt
+diff -urpN SuiteSparse/BTF/CMakeLists.txt SuiteSparse.patch/BTF/CMakeLists.txt
+--- SuiteSparse/BTF/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
++++ SuiteSparse.patch/BTF/CMakeLists.txt	2019-11-06 12:04:23.625796280 +0100
 @@ -0,0 +1,47 @@
 +file(READ "Include/btf.h" _file_content)
 +string(REGEX REPLACE ".*#define[ \t]+BTF_MAIN_VERSION[ \t]+([0-9]+).*"   "\\1" BTF_VERSION_MAJOR "${_file_content}")
@@ -125,11 +111,9 @@ index 0000000..33f8bef
 +    DESTINATION ${INCLUDE_INSTALL_DIR}
 +    FILES_MATCHING PATTERN "*.h"
 +    )
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-new file mode 100644
-index 0000000..ae4068d
---- /dev/null
-+++ b/CMakeLists.txt
+diff -urpN SuiteSparse/CMakeLists.txt SuiteSparse.patch/CMakeLists.txt
+--- SuiteSparse/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
++++ SuiteSparse.patch/CMakeLists.txt	2019-11-06 12:04:23.625796280 +0100
 @@ -0,0 +1,24 @@
 +cmake_minimum_required(VERSION 3.4.3 FATAL_ERROR)
 +
@@ -155,11 +139,9 @@ index 0000000..ae4068d
 +    FILE suitesparse-config.cmake
 +    DESTINATION ${CONFIG_INSTALL_DIR}
 +    )
-diff --git a/COLAMD/CMakeLists.txt b/COLAMD/CMakeLists.txt
-new file mode 100644
-index 0000000..db843f5
---- /dev/null
-+++ b/COLAMD/CMakeLists.txt
+diff -urpN SuiteSparse/COLAMD/CMakeLists.txt SuiteSparse.patch/COLAMD/CMakeLists.txt
+--- SuiteSparse/COLAMD/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
++++ SuiteSparse.patch/COLAMD/CMakeLists.txt	2019-11-06 12:04:23.625796280 +0100
 @@ -0,0 +1,45 @@
 +file(READ "Include/colamd.h" _file_content)
 +string(REGEX REPLACE ".*#define[ \t]+COLAMD_MAIN_VERSION[ \t]+([0-9]+).*"   "\\1" COLAMD_VERSION_MAJOR "${_file_content}")
@@ -206,11 +188,9 @@ index 0000000..db843f5
 +    DESTINATION ${INCLUDE_INSTALL_DIR}
 +    FILES_MATCHING PATTERN "*.h"
 +    )
-diff --git a/KLU/CMakeLists.txt b/KLU/CMakeLists.txt
-new file mode 100644
-index 0000000..35174ee
---- /dev/null
-+++ b/KLU/CMakeLists.txt
+diff -urpN SuiteSparse/KLU/CMakeLists.txt SuiteSparse.patch/KLU/CMakeLists.txt
+--- SuiteSparse/KLU/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
++++ SuiteSparse.patch/KLU/CMakeLists.txt	2019-11-06 12:04:23.625796280 +0100
 @@ -0,0 +1,80 @@
 +file(READ "Include/klu.h" _file_content)
 +string(REGEX REPLACE ".*#define[ \t]+KLU_MAIN_VERSION[ \t]+([0-9]+).*"   "\\1" KLU_VERSION_MAJOR "${_file_content}")
@@ -292,12 +272,10 @@ index 0000000..35174ee
 +    DESTINATION ${INCLUDE_INSTALL_DIR}
 +    FILES_MATCHING PATTERN "*.h"
 +    )
-diff --git a/SuiteSparse_config/CMakeLists.txt b/SuiteSparse_config/CMakeLists.txt
-new file mode 100644
-index 0000000..c9f7285
---- /dev/null
-+++ b/SuiteSparse_config/CMakeLists.txt
-@@ -0,0 +1,41 @@
+diff -urpN SuiteSparse/SuiteSparse_config/CMakeLists.txt SuiteSparse.patch/SuiteSparse_config/CMakeLists.txt
+--- SuiteSparse/SuiteSparse_config/CMakeLists.txt	1970-01-01 01:00:00.000000000 +0100
++++ SuiteSparse.patch/SuiteSparse_config/CMakeLists.txt	2019-11-06 12:05:07.732293598 +0100
+@@ -0,0 +1,43 @@
 +file(READ "SuiteSparse_config.h" _file_content)
 +string(REGEX REPLACE ".*#define[ \t]+SUITESPARSE_MAIN_VERSION[ \t]+([0-9]+).*"   "\\1" SUITESPARSE_VERSION_MAJOR "${_file_content}")
 +string(REGEX REPLACE ".*#define[ \t]+SUITESPARSE_SUB_VERSION[ \t]+([0-9]+).*"    "\\1" SUITESPARSE_VERSION_MINOR "${_file_content}")
@@ -328,6 +306,8 @@ index 0000000..c9f7285
 +    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 +    $<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>
 +    )
++
++target_link_libraries(suitesparseconfig $<$<CXX_COMPILER_ID:GNU>:rt>)
 +
 +install(TARGETS suitesparseconfig
 +    EXPORT suitesparse-targets

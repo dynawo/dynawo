@@ -326,18 +326,26 @@ set_environment() {
   export_var_env_force DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION=$DYNAWO_THIRD_PARTY_BUILD_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
   export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_THIRD_PARTY_INSTALL_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
 
-  if [ "`uname`" = "Darwin" ]; then
-    export_var_env DYNAWO_LIBARCHIVE_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost" ]; then
     export_var_env DYNAWO_BOOST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost
     if [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
       if [ "$DYNAWO_BOOST_HOME" = "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost" ]; then
         export_var_env DYNAWO_BOOST_USE_STATIC=ON
       fi
     fi
-    if [ "$DYNAWO_BUILD_TYPE" = "TestCoverage" -o "$DYNAWO_BUILD_TYPE" = "Tests" ]; then
-      export_var_env DYNAWO_GTEST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
-      export_var_env DYNAWO_GMOCK_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
-    fi
+  fi
+
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive" ]; then
+    export_var_env DYNAWO_LIBARCHIVE_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive
+  fi
+
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib" ]; then
+    export_var_env DYNAWO_ZLIB_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib
+  fi
+
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest" ]; then
+    export_var_env DYNAWO_GTEST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
+    export_var_env DYNAWO_GMOCK_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
   fi
 
   # External libs

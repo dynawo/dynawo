@@ -83,7 +83,7 @@ endif()
 include(ExternalProject)
 
 # Sources of external projects
-set(zlib_version         1.2.11)
+set(zlib_version         1.2.3)
 set(zlib_name            zlib-${zlib_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_ZLIB_DOWNLOAD_URL})
   set(zlib_prefix_url $ENV{DYNAWO_ZLIB_DOWNLOAD_URL})
@@ -391,7 +391,7 @@ else()
     URL_MD5             ${boost_md5}
     BUILD_IN_SOURCE     1
     CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.$<IF:$<BOOL:${UNIX}>,sh,bat> --without-icu --with-libraries=filesystem,program_options,serialization,system,log,iostreams
-    BUILD_COMMAND       <SOURCE_DIR>/b2 -j${NUMBER_OF_PROCESSORS} -sNO_BZIP2=1 $<$<BOOL:${UNIX}>:cxxflags=-fPIC> install --prefix=<INSTALL_DIR> --disable-icu $<$<BOOL:${MSVC}>:architecture=x86> $<$<BOOL:${MSVC}>:address-model=64> variant=$<IF:$<CONFIG:Debug>,debug,release> link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static> $<IF:$<BOOL:${APPLE}>,cxxflags=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET},> $<IF:$<BOOL:CXX11_ENABLED>,cxxstd=11,> runtime-link=$<IF:$<BOOL:${MSVC}>,$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,static,shared>>,shared> stage
+    BUILD_COMMAND       <SOURCE_DIR>/b2 -j${NUMBER_OF_PROCESSORS} -sNO_BZIP2=1 $<$<BOOL:${UNIX}>:cxxflags=-fPIC> install --prefix=<INSTALL_DIR> --disable-icu $<$<BOOL:${MSVC}>:architecture=x86> $<$<BOOL:${MSVC}>:address-model=64> variant=$<IF:$<CONFIG:Debug>,debug,release> link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static> $<IF:$<BOOL:${APPLE}>,cxxflags=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET},> runtime-link=$<IF:$<BOOL:${MSVC}>,$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,static,shared>>,shared> stage
     INSTALL_COMMAND     ""
     )
   if(APPLE)
