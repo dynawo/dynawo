@@ -69,7 +69,7 @@
     <par type="DOUBLE" name="generator_UNom" value="24"/>
     <par type="DOUBLE" name="generator_SNom" value="2220"/>
     <par type="DOUBLE" name="generator_PNomTurb" value="2220"/>
-    <par type="DOUBLE" name="generator_PNomAlt" value="2200"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="2220"/>
     <par type="DOUBLE" name="generator_SnTfo" value="2220"/>
     <par type="DOUBLE" name="generator_UNomHV" value="400"/>
     <par type="DOUBLE" name="generator_UNomLV" value="24"/>
@@ -81,9 +81,9 @@
     <par type="DOUBLE" name="generator_Q0Pu" value="-9.68"/>
     <par type="DOUBLE" name="generator_U0Pu" value="1"/>
     <par type="DOUBLE" name="generator_UPhase0" value="0.494451"/>
-    <par type="DOUBLE" name="governor_PNom" value="2200"/>
+    <par type="DOUBLE" name="governor_PNom" value="2220"/>
     <par type="DOUBLE" name="governor_PMin" value="0"/>
-    <par type="DOUBLE" name="governor_PMax" value="2200"/>
+    <par type="DOUBLE" name="governor_PMax" value="2220"/>
     <par type="DOUBLE" name="governor_KGover" value="5"/>
     <par type="DOUBLE" name="voltageRegulator_Gain" value="20"/>
     <par type="DOUBLE" name="voltageRegulator_EfdMinPu" value="-5"/>
