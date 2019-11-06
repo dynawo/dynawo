@@ -19,20 +19,11 @@ SET(MODULE_SOURCES
     TestIoDico.cpp
 )
 
-INCLUDE_DIRECTORIES(SYSTEM ${UNITTEST_INCLUDE_DIRS}
-                    ${Boost_INCLUDE_DIR}
-                    )
-
-INCLUDE_DIRECTORIES(../ )
-
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
 TARGET_LINK_LIBRARIES(${MODULE_NAME}
-    dynawo_Common
-    dynawo_Util
-    ${UNITTEST_LIBRARIES}
-    pthread
-    ${Boost_THREAD_LIBRARY})
+        dynawo_Common
+        dynawo_Test)
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-tests ${MODULE_NAME}
   DEPENDS

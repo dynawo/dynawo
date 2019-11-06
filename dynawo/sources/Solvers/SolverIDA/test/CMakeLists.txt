@@ -14,37 +14,16 @@ SET(MODULE_SOURCES
     TestBasics.cpp
 )
 
-INCLUDE_DIRECTORIES(SYSTEM ${UNITTEST_INCLUDE_DIRS}
-                    ${Boost_INCLUDE_DIR}
-                    )
-
-INCLUDE_DIRECTORIES(../
-                    ../../../Common/
-                    ../../Common/
-                    ../../../Modeler/DataInterface
-                    ../../../Modeler/Common/
-                    ../../../API/PAR/
-                    ../../../API/TL
-                    ../../../API/DYD
-                    ../../../API/EXTVAR
-                    )
-
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
-TARGET_LINK_LIBRARIES(
-                    ${MODULE_NAME}
-                    dynawo_SolverIDA
-                    dynawo_SolverCommon
-                    dynawo_API_DYD
-                    iidm-xml
-                    dynawo_ModelerCommon
-                    dynawo_DataInterface
-                    dynawo_Util
-                    ${Boost_SERIALIZATION_LIBRARY}
-                    dynawo_CPPModelsCommon
-                    ${UNITTEST_LIBRARIES}
-                    )
-
+TARGET_LINK_LIBRARIES(${MODULE_NAME}
+        dynawo_SolverIDA
+        dynawo_SolverCommon
+        dynawo_API_DYD
+        iidm-xml
+        dynawo_DataInterface
+        dynawo_CPPModelsCommon
+        dynawo_Test)
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-tests ${MODULE_NAME}
   DEPENDS

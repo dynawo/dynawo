@@ -16,22 +16,11 @@ SET(MODULE_SOURCES
     TestExporter.cpp
 )
 
-INCLUDE_DIRECTORIES(SYSTEM ${UNITTEST_INCLUDE_DIRS}
-                    ${Boost_INCLUDE_DIR}
-                    )
-
-INCLUDE_DIRECTORIES(../
-                    ../../../Common/
-                    )
-
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
 
 TARGET_LINK_LIBRARIES(${MODULE_NAME}
-    dynawo_API_TL
-    ${UNITTEST_LIBRARIES}
-    ${Boost_IOSTREAMS_LIBRARY}
-    pthread
-    ${Boost_THREAD_LIBRARY})
+        dynawo_API_TL
+        dynawo_Test)
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res

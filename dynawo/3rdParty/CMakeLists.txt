@@ -83,7 +83,8 @@ endif()
 include(ExternalProject)
 
 # Sources of external projects
-set(zlib_version         1.2.3)
+set(zlib_version_required 1.2.3)
+set(zlib_version         1.2.11)
 set(zlib_name            zlib-${zlib_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_ZLIB_DOWNLOAD_URL})
   set(zlib_prefix_url $ENV{DYNAWO_ZLIB_DOWNLOAD_URL})
@@ -213,7 +214,7 @@ function(GetPatchCommand projectName)
   set(commonPatchFile "${CMAKE_CURRENT_SOURCE_DIR}/${projectName}/patch/common/${projectName}.patch")
   if(EXISTS ${commonPatchFile})
     if (UNIX)
-      set(commonPatchCommand patch -p1 --batch -i ${commonPatchFile})
+      set(commonPatchCommand patch -p1 --forward --no-backup-if-mismatch -r ${nullFile} -i ${commonPatchFile} || echo -n)
     else()
       set(commonPatchCommand git apply -p1 ${commonPatchFile} --reverse --check 2> ${nullFile} || git apply --ignore-whitespace --whitespace=nowarn -p1 ${commonPatchFile})
     endif()
@@ -221,7 +222,7 @@ function(GetPatchCommand projectName)
   set(compilerPatchFile "${CMAKE_CURRENT_SOURCE_DIR}/${projectName}/patch/${CMAKE_CXX_COMPILER_ID}/${projectName}.patch")
   if(EXISTS ${compilerPatchFile})
     if (UNIX)
-      set(compilerPatchCommand patch -p1 --batch -i ${compilerPatchFile})
+      set(compilerPatchCommand patch -p1 --forward --no-backup-if-mismatch -r ${nullFile} -i ${compilerPatchFile} || echo -n)
     else()
       set(compilerPatchCommand git apply -p1 ${compilerPatchFile} --reverse --check 2> ${nullFile} || git apply --ignore-whitespace --whitespace=nowarn -p1 ${compilerPatchFile})
     endif()
@@ -265,16 +266,28 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     # GoogleTest is always built as static library
     ExternalProject_Add(googletest
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/googletest
-      DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+      DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/googletest
       TMP_DIR             ${TMP_DIR}
       STAMP_DIR           ${DOWNLOAD_DIR}/googletest-stamp
       SOURCE_DIR          ${DOWNLOAD_DIR}/googletest
-      BINARY_DIR          ${DOWNLOAD_DIR}/googletest-build
+      BINARY_DIR          ${DOWNLOAD_DIR}/googletest-build-release
       DOWNLOAD_NAME       ${googletest_name}
       URL                 ${googletest_url}
       URL_MD5             ${googletest_md5}
-      CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS=ON -Dgtest_force_shared_crt:BOOL=ON -DCMAKE_MACOSX_RPATH=True -DCMAKE_SKIP_BUILD_RPATH=False -DCMAKE_BUILD_WITH_INSTALL_RPATH=False -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/googletest/lib -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
+      CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=Release -DBUILD_SHARED_LIBS=ON -Dgtest_force_shared_crt:BOOL=ON -DCMAKE_MACOSX_RPATH=True -DCMAKE_SKIP_BUILD_RPATH=False -DCMAKE_BUILD_WITH_INSTALL_RPATH=False -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/googletest/lib -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
       )
+    ExternalProject_Add(googletest_debug
+            INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/googletest
+            DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/googletest
+            TMP_DIR             ${TMP_DIR}
+            STAMP_DIR           ${DOWNLOAD_DIR}/googletest-stamp
+            SOURCE_DIR          ${DOWNLOAD_DIR}/googletest
+            BINARY_DIR          ${DOWNLOAD_DIR}/googletest-build-debug
+            DOWNLOAD_NAME       ${googletest_name}
+            URL                 ${googletest_url}
+            URL_MD5             ${googletest_md5}
+            CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=Debug -DBUILD_SHARED_LIBS=ON -Dgtest_force_shared_crt:BOOL=ON -DCMAKE_MACOSX_RPATH=True -DCMAKE_SKIP_BUILD_RPATH=False -DCMAKE_BUILD_WITH_INSTALL_RPATH=False -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/googletest/lib -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
+            )
     ExternalProject_Get_Property(googletest install_dir)
     set(GTEST_ROOT ${install_dir} CACHE PATH "Path to GoogleTest installation" FORCE)
   endif()
@@ -314,7 +327,7 @@ else()
       set(CMAKE_FIND_LIBRARY_SUFFIXES "static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
     endif()
   endif()
-  find_package(ZLIB ${zlib_version} QUIET)
+  find_package(ZLIB ${zlib_required_version} QUIET)
   set(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
 
   if(ZLIB_FOUND)
@@ -322,7 +335,7 @@ else()
   else()
     ExternalProject_Add(zlib
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/zlib
-      DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+      DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/zlib
       TMP_DIR             ${TMP_DIR}
       STAMP_DIR           ${DOWNLOAD_DIR}/zlib-stamp
       SOURCE_DIR          ${DOWNLOAD_DIR}/zlib
@@ -342,7 +355,7 @@ else()
   ExternalProject_Add(libarchive
     DEPENDS             zlib
     INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libarchive
-    DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/libarchive
     TMP_DIR             ${TMP_DIR}
     STAMP_DIR           ${DOWNLOAD_DIR}/libarchive-stamp
     SOURCE_DIR          ${DOWNLOAD_DIR}/libarchive
@@ -383,7 +396,7 @@ if(Boost_FOUND)
 else()
   ExternalProject_Add(boost
     INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/boost
-    DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/boost
     TMP_DIR             ${TMP_DIR}
     STAMP_DIR           ${DOWNLOAD_DIR}/boost-stamp
     SOURCE_DIR          ${DOWNLOAD_DIR}/boost
@@ -409,7 +422,7 @@ GetPatchCommand(adept)
 if(MSVC OR APPLE)
   ExternalProject_Add(adept
     INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/adept
-    DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/adept
     TMP_DIR             ${TMP_DIR}
     STAMP_DIR           ${DOWNLOAD_DIR}/adept-stamp
     SOURCE_DIR          ${DOWNLOAD_DIR}/adept
@@ -424,7 +437,7 @@ if(MSVC OR APPLE)
 else()
   ExternalProject_Add(adept
     INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/adept
-    DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/adept
     TMP_DIR             ${TMP_DIR}
     STAMP_DIR           ${DOWNLOAD_DIR}/adept-stamp
     SOURCE_DIR          ${DOWNLOAD_DIR}/adept
@@ -442,7 +455,7 @@ set(ADEPT_HOME ${install_dir})
 GetPatchCommand(suitesparse)
 ExternalProject_Add(suitesparse
   INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/suitesparse
-  DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+  DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/suitesparse
   TMP_DIR             ${TMP_DIR}
   STAMP_DIR           ${DOWNLOAD_DIR}/suitesparse-stamp
   SOURCE_DIR          ${DOWNLOAD_DIR}/suitesparse
@@ -462,7 +475,7 @@ GetPatchCommand(sundials)
 ExternalProject_Add(sundials
   DEPENDS             suitesparse
   INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/sundials
-  DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+  DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/sundials
   STAMP_DIR           ${DOWNLOAD_DIR}/sundials-stamp
   SOURCE_DIR          ${DOWNLOAD_DIR}/sundials
   BINARY_DIR          ${DOWNLOAD_DIR}/sundials-build
@@ -495,7 +508,7 @@ else()
   if(MSVC)
     ExternalProject_Add(xercesc
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/xerces-c
-      DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+      DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/xercesc
       TMP_DIR             ${TMP_DIR}
       STAMP_DIR           ${DOWNLOAD_DIR}/xerces-c-stamp
       SOURCE_DIR          ${DOWNLOAD_DIR}/xerces-c
@@ -509,9 +522,8 @@ else()
       )
   else()
     ExternalProject_Add(xercesc
-      EXCLUDE_FROM_ALL    1
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/xerces-c
-      DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+      DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/xercesc
       TMP_DIR             ${TMP_DIR}
       STAMP_DIR           ${DOWNLOAD_DIR}/xerces-c-stamp
       SOURCE_DIR          ${DOWNLOAD_DIR}/xerces-c
@@ -535,7 +547,7 @@ GetPatchCommand(dlfcnwin32)
 if(MSVC)
   ExternalProject_Add(dlfcnwin32
     INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/dlfcnwin32
-    DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/dlfcnwin32
     TMP_DIR             ${TMP_DIR}
     STAMP_DIR           ${DOWNLOAD_DIR}/dlfcnwin32-stamp
     SOURCE_DIR          ${DOWNLOAD_DIR}/dlfcnwin32
@@ -614,15 +626,13 @@ if(NOT OMCompiler)
       TMP_DIR             ${TMP_DIR}
       STAMP_DIR           ${DOWNLOAD_DIR}/openmodelica-stamp
       SOURCE_DIR          ${OPENMODELICA_SRC}
-      GIT_REPOSITORY      ${openmodelica_git}
-      GIT_TAG             ${openmodelica_tag}
-      GIT_SUBMODULES      common;libraries;OMCompiler
-      GIT_SHALLOW         1
+      DOWNLOAD_COMMAND    ${CMAKE_CURRENT_SOURCE_DIR}/openmodelica/checkoutOpenModelica.sh --openmodelica-version=${openmodelica_version} --openmodelica-dir=${OPENMODELICA_SRC}
       UPDATE_DISCONNECTED 1
       PATCH_COMMAND       ${openmodelica_patch_common}
       COMMAND             ${openmodelica_patch_compiler}
       BUILD_IN_SOURCE     1
-      CONFIGURE_COMMAND   autoreconf
+      CONFIGURE_COMMAND   make clean > /dev/null 2>&1 || echo "Fisrt checkout, no clean needed."
+                COMMAND   autoreconf
                 COMMAND   <SOURCE_DIR>/configure "CC=${CMAKE_C_COMPILER}" "CXX=${CMAKE_CXX_COMPILER}" --prefix=<INSTALL_DIR> --disable-modelica3d --disable-omnotebook --disable-omshell-terminal --with-qwt=NO
       BUILD_COMMAND       make -j ${NUMBER_OF_PROCESSORS} omc
       INSTALL_COMMAND     make install
@@ -634,7 +644,7 @@ if(NOT OMCompiler)
 
   ExternalProject_Add(modelicalib
     INSTALL_DIR         ${OPENMODELICA_INSTALL}/lib/omlibrary
-    DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/modelicalib
     TMP_DIR             ${TMP_DIR}
     STAMP_DIR           ${DOWNLOAD_DIR}/modelicalib-stamp
     SOURCE_DIR          ${DOWNLOAD_DIR}/modelicalib
