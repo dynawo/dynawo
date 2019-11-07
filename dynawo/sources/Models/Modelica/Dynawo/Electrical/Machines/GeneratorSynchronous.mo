@@ -44,6 +44,7 @@ model GeneratorSynchronous "Synchronous machine"
     Connectors.ImPin UStatorPu(value(start = UStator0Pu)) "Stator voltage amplitude in p.u (base UNom)";
     Connectors.ImPin IStatorPu(value(start = IStator0Pu)) "Stator current amplitude in p.u (base UNom, SnRef)";
     Connectors.ImPin QStatorPu(value(start = QStator0Pu)) "Stator reactive power generated in p.u (base SnRef)";
+    Connectors.ImPin QStatorPuQNom(value(start = QStator0PuQNom)) "Stator reactive power generated in p.u (base QNomAlt)";
     Connectors.ImPin IRotorPu(value(start = IRotor0Pu)) "Rotor current in p.u (base UNom, SNom)";
     Connectors.ImPin thetaInternal(value(start = ThetaInternal0)) "Internal angle in rad";
 
@@ -60,6 +61,7 @@ model GeneratorSynchronous "Synchronous machine"
     parameter Types.VoltageModulePu UStator0Pu "Start value of stator voltage amplitude in p.u (base UNom)";
     parameter Types.CurrentModulePu IStator0Pu "Start value of stator current amplitude in p.u (base UNom, SnRef)";
     parameter Types.ReactivePowerPu QStator0Pu "Start value of stator reactive power generated in p.u (base SnRef)";
+    parameter Types.ReactivePowerPu QStator0PuQNom "Start value of stator reactive power generated in p.u (base QNomAlt)";
     parameter Types.CurrentModulePu IRotor0Pu "Start value of rotor current in p.u (base SNom)";
     parameter Types.Angle ThetaInternal0 "Start value of internal angle in rad";
 
@@ -89,6 +91,7 @@ equation
     UStatorPu.value = ComplexMath.'abs' (uStatorPu);
     IStatorPu.value = ComplexMath.'abs' (iStatorPu);
     QStatorPu.value = - ComplexMath.imag(sStatorPu);
+    QStatorPuQNom.value = QStatorPu.value * SystemBase.SnRef / QNomAlt;
     IRotorPu.value = MdPPu / rTfoPu * ifPu;
     thetaInternal.value = ComplexMath.arg(Complex(uqPu, udPu));
 
@@ -103,6 +106,7 @@ equation
     UStatorPu.value = 0;
     IStatorPu.value = 0;
     QStatorPu.value = 0;
+    QStatorPuQNom.value = 0;
     IRotorPu.value = 0;
     thetaInternal.value = 0;
   end if;
