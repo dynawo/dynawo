@@ -60,7 +60,7 @@
     <par type="DOUBLE" name="UNom" value="24"/>
     <par type="DOUBLE" name="SNom" value="2220"/>
     <par type="DOUBLE" name="PNomTurb" value="2220"/>
-    <par type="DOUBLE" name="PNomAlt" value="2220"/>
+    <par type="DOUBLE" name="PNomAlt" value="2200"/>
     <par type="DOUBLE" name="SnTfo" value="2220"/>
     <par type="DOUBLE" name="UNomHV" value="400"/>
     <par type="DOUBLE" name="UNomLV" value="24"/>
@@ -75,9 +75,9 @@
   </set>
   <!-- Gover -->
   <set id="6">
-    <par type="DOUBLE" name="PNom" value="2220"/>
+    <par type="DOUBLE" name="PNom" value="2200"/>
     <par type="DOUBLE" name="PMin" value="0"/>
-    <par type="DOUBLE" name="PMax" value="2220"/>
+    <par type="DOUBLE" name="PMax" value="2200"/>
     <par type="DOUBLE" name="KGover" value="5"/>
   </set>
   <!-- Voltage regulator -->
