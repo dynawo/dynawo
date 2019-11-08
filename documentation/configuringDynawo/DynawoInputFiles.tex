@@ -83,7 +83,10 @@ The jobs file gathers information about the solver to use, the models to use, th
 Here is an example on a jobs file:
 \lstinputlisting[language=XML, morekeywords={solver, modeler, simulation, outputs},title=jobs file example]{../resources/exampleIEEE14/IEEE14.jobs}
 
-In this example, we want to simulate a 100 second scenario on IIDM network IEEE14.iidm described by dynamic models included in IEEE14.dyd. The models compiled by \Dynawo will be exported in \path{outputs/compilation} directory. Network parameters are stored in IEEE14.par file, set 18. \\
+In this example, we want to simulate a 100 second scenario on IIDM network
+IEEE14.iidm described by dynamic models included in IEEE14.dyd with a precision
+of $10^{-6}$.
+The models compiled by \Dynawo will be exported in \path{outputs/compilation} directory. Network parameters are stored in IEEE14.par file, set 18. \\
 
 The solver used is the simplified solver, and its parameters are described in solvers.par file, set 1. \\
 

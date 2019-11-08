@@ -16,7 +16,6 @@ generator_PePu                                    : y =       0.280190 yp =     
 generator_QGen                                    : y =     128.851085 yp =       0.000000
 generator_QGenPu                                  : y =       1.288511 yp =       0.000000
 generator_QStatorPu_value                         : y =       1.421380 yp =       0.000000
-generator_QStatorPuQNom_value                     : y =       0.190694 yp =       0.000000
 generator_UPu                                     : y =       1.039999 yp =       0.000000
 generator_cePu                                    : y =       0.280190 yp =       0.000000
 generator_cmPu                                    : y =       0.311303 yp =       0.000000
@@ -125,9 +124,7 @@ generator_PNomTurb                                 =    1539.000000
 generator_Pm0Pu                                    =       0.311303
 generator_Q0Pu                                     =      -1.288500
 generator_QGen0Pu                                  =       1.288500
-generator_QNomAlt                                  =     745.371719
 generator_QStator0Pu                               =       1.421354
-generator_QStator0PuQNom                           =       0.190691
 generator_RDPPu                                    =       0.021010
 generator_RQ1PPu                                   =       0.007499
 generator_RQ2PPu                                   =       0.018707
