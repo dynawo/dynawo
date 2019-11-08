@@ -1,597 +1,597 @@
-2019-11-06 11:50:38 | DEBUG |  ============================================================ 
-2019-11-06 11:50:38 | DEBUG | DYNAWO VERSION  :     1.0.1
-2019-11-06 11:50:38 | DEBUG | DYNAWO REVISION :  504_dynawo_precision-fa91b12
-2019-11-06 11:50:38 | DEBUG |  ============================================================ 
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_omega_grp_0 with GEN____1_SM_generator_omegaPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_omegaRef_grp_0 with GEN____1_SM_generator_omegaRefPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_running_grp_0 with GEN____1_SM_generator_running
-2019-11-06 11:50:39 | DEBUG | connecting GEN____1_SM_generator_switchOffSignal1 with NETWORK__BUS____1_TN_switchOff
-2019-11-06 11:50:39 | DEBUG | connecting GEN____1_SM_generator_terminal with NETWORK__BUS____1_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_omega_grp_1 with GEN____2_SM_generator_omegaPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_omegaRef_grp_1 with GEN____2_SM_generator_omegaRefPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_running_grp_1 with GEN____2_SM_generator_running
-2019-11-06 11:50:39 | DEBUG | connecting GEN____2_SM_generator_switchOffSignal1 with NETWORK__BUS____2_TN_switchOff
-2019-11-06 11:50:39 | DEBUG | connecting GEN____2_SM_generator_terminal with NETWORK__BUS____2_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_omega_grp_2 with GEN____3_SM_generator_omegaPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_omegaRef_grp_2 with GEN____3_SM_generator_omegaRefPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_running_grp_2 with GEN____3_SM_generator_running
-2019-11-06 11:50:39 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal1 with NETWORK__BUS____3_TN_switchOff
-2019-11-06 11:50:39 | DEBUG | connecting GEN____3_SM_generator_terminal with NETWORK__BUS____3_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_omega_grp_3 with GEN____6_SM_generator_omegaPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_omegaRef_grp_3 with GEN____6_SM_generator_omegaRefPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_running_grp_3 with GEN____6_SM_generator_running
-2019-11-06 11:50:39 | DEBUG | connecting GEN____6_SM_generator_switchOffSignal1 with NETWORK__BUS____6_TN_switchOff
-2019-11-06 11:50:39 | DEBUG | connecting GEN____6_SM_generator_terminal with NETWORK__BUS____6_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_omega_grp_4 with GEN____8_SM_generator_omegaPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_omegaRef_grp_4 with GEN____8_SM_generator_omegaRefPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_running_grp_4 with GEN____8_SM_generator_running
-2019-11-06 11:50:39 | DEBUG | connecting GEN____8_SM_generator_switchOffSignal1 with NETWORK__BUS____8_TN_switchOff
-2019-11-06 11:50:39 | DEBUG | connecting GEN____8_SM_generator_terminal with NETWORK__BUS____8_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting LOADVAR_LOAD2_event_state1 with _LOAD___2_EC_load_PRefPu
-2019-11-06 11:50:39 | DEBUG | connecting LOADVAR_LOAD2_event_state2 with _LOAD___2_EC_load_QRefPu
-2019-11-06 11:50:39 | DEBUG | connecting LOADVAR_LOAD3_event_state1 with _LOAD___3_EC_load_PRefPu
-2019-11-06 11:50:39 | DEBUG | connecting LOADVAR_LOAD3_event_state2 with _LOAD___3_EC_load_QRefPu
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_numcc_node_0 with NETWORK__BUS____1_TN_numcc
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_numcc_node_1 with NETWORK__BUS____2_TN_numcc
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_numcc_node_2 with NETWORK__BUS____3_TN_numcc
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_numcc_node_3 with NETWORK__BUS____6_TN_numcc
-2019-11-06 11:50:39 | DEBUG | connecting OMEGA_REF_numcc_node_4 with NETWORK__BUS____8_TN_numcc
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD__10_EC_load_terminal with NETWORK__BUS___10_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD__11_EC_load_terminal with NETWORK__BUS___11_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD__12_EC_load_terminal with NETWORK__BUS___12_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD__13_EC_load_terminal with NETWORK__BUS___13_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD__14_EC_load_terminal with NETWORK__BUS___14_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD___2_EC_transformer_terminal1 with NETWORK__BUS____2_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD___3_EC_transformer_terminal1 with NETWORK__BUS____3_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting TAP_CHANGER_LOCK_tapChangerLock_UMonitored with NETWORK__BUS____3_TN_U
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD___4_EC_load_terminal with NETWORK__BUS____4_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD___5_EC_load_terminal with NETWORK__BUS____5_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD___6_EC_load_terminal with NETWORK__BUS____6_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD___9_EC_load_terminal with NETWORK__BUS____9_TN_ACPIN
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD___2_EC_transformer_U2Pu with TAP_CHANGER_LOAD_2_tapChanger_UMonitored
-2019-11-06 11:50:39 | DEBUG | connecting TAP_CHANGER_LOCK_tapChangerLock_lockedT with TAP_CHANGER_LOAD_2_tapChanger_locked
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD___2_EC_transformer_tap with TAP_CHANGER_LOAD_2_tapChanger_tap
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD___3_EC_transformer_U2Pu with TAP_CHANGER_LOAD_3_tapChanger_UMonitored
-2019-11-06 11:50:39 | DEBUG | connecting TAP_CHANGER_LOCK_tapChangerLock_lockedT with TAP_CHANGER_LOAD_3_tapChanger_locked
-2019-11-06 11:50:39 | DEBUG | connecting _LOAD___3_EC_transformer_tap with TAP_CHANGER_LOAD_3_tapChanger_tap
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS____1_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS____2_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS____3_TN_U_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS____3_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS____4_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS____5_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS____6_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS____7_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS____8_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS____9_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS___10_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS___11_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS___12_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS___13_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: NETWORK; curve: _BUS___14_TN_Upu_value found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___2_EC; curve: load_PPu found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___2_EC; curve: load_QPu found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___2_EC; output: load_UPu found.( load_UPu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___2_EC; output: transformer_U1Pu found.( transformer_U1Pu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___2_EC; output: transformer_U2Pu found.( transformer_U2Pu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___2_EC; output: transformer_tap found.( transformer_tap_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___3_EC; curve: load_PPu found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___3_EC; curve: load_QPu found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___3_EC; output: load_UPu found.( load_UPu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___3_EC; output: transformer_U1Pu found.( transformer_U1Pu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___3_EC; output: transformer_U2Pu found.( transformer_U2Pu_value )
-2019-11-06 11:50:39 | INFO | adding curve : Id: _LOAD___3_EC; output: transformer_tap found.( transformer_tap_value )
-2019-11-06 11:50:39 | INFO | adding parameter curve: Id: TAP_CHANGER_LOAD_2; parameter curve: tapChanger_valueMin found. (exact name)
-2019-11-06 11:50:39 | INFO | adding parameter curve: Id: TAP_CHANGER_LOAD_2; parameter curve: tapChanger_valueMax found. (exact name)
-2019-11-06 11:50:39 | INFO | adding parameter curve: Id: TAP_CHANGER_LOAD_3; parameter curve: tapChanger_valueMin found. (exact name)
-2019-11-06 11:50:39 | INFO | adding parameter curve: Id: TAP_CHANGER_LOAD_3; parameter curve: tapChanger_valueMax found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: TAP_CHANGER_LOCK; curve: tapChangerLock_locked found. (exact name)
-2019-11-06 11:50:39 | INFO | adding curve : Id: TAP_CHANGER_LOCK; curve: tapChangerLock_lockedT found. (exact name)
-2019-11-06 11:50:39 | INFO | adding parameter curve: Id: TAP_CHANGER_LOCK; parameter curve: tapChangerLock_UMin found. (exact name)
-2019-11-06 11:50:39 | DEBUG | nbSubNetwork = 1 nbsub = 1
-2019-11-06 11:50:39 | DEBUG | subNetwork[0] nbBus = 14
-2019-11-06 11:50:39 | DEBUG | keep SubNetworks num : 0
-2019-11-06 11:50:39 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2019-11-06 11:50:39 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2019-11-06 11:50:39 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2019-11-06 11:50:39 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2019-11-06 11:50:39 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2019-11-06 11:50:39 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2019-11-06 11:50:39 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2019-11-06 11:50:39 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2019-11-06 11:50:39 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2019-11-06 11:50:39 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2019-11-06 11:50:39 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2019-11-06 11:50:39 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2019-11-06 11:50:39 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2019-11-06 11:50:39 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2019-11-06 11:50:39 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2019-11-06 11:50:39 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2019-11-06 11:50:39 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2019-11-06 11:50:39 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2019-11-06 11:50:39 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2019-11-06 11:50:39 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2019-11-06 11:50:39 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2019-11-06 11:50:39 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2019-11-06 11:50:39 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2019-11-06 11:50:39 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2019-11-06 11:50:39 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2019-11-06 11:50:39 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2019-11-06 11:50:39 | DEBUG | transformer_i20Pu_im opposite value of load_i0Pu_im
-2019-11-06 11:50:39 | DEBUG | transformer_i20Pu_re opposite value of load_i0Pu_re
-2019-11-06 11:50:39 | DEBUG | transformer_u20Pu_im same value as load_u0Pu_im
-2019-11-06 11:50:39 | DEBUG | transformer_u20Pu_re same value as load_u0Pu_re
-2019-11-06 11:50:39 | DEBUG | transformer_i20Pu_im opposite value of load_i0Pu_im
-2019-11-06 11:50:39 | DEBUG | transformer_i20Pu_re opposite value of load_i0Pu_re
-2019-11-06 11:50:39 | DEBUG | transformer_u20Pu_im same value as load_u0Pu_im
-2019-11-06 11:50:39 | DEBUG | transformer_u20Pu_re same value as load_u0Pu_re
-2019-11-06 11:50:39 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-11-06 11:50:39 | DEBUG | -----------------------------------------------------------------------
-2019-11-06 11:50:39 | DEBUG | number of continuous variables : 430 (display limited to 4 variables)
-2019-11-06 11:50:39 | DEBUG | number of discrete variables : 282
-2019-11-06 11:50:39 | DEBUG | -----------------------------------------------------------------------
-2019-11-06 11:50:39 | DEBUG |     t              y1            y2            y3            y4      | nst k      h
-2019-11-06 11:50:39 | DEBUG | -----------------------------------------------------------------------
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   0 0 3.278719e-04 
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559010e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830819e-02  7.559010e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |        0.001  1.014791e+00 -2.737274e-01 -6.830819e-02  7.559009e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |        0.001  1.014791e+00 -2.737274e-01 -6.830819e-02  7.559008e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |        0.002  1.014791e+00 -2.737273e-01 -6.830817e-02  7.559006e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |        0.004  1.014790e+00 -2.737273e-01 -6.830815e-02  7.559002e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |        0.008  1.014789e+00 -2.737273e-01 -6.830812e-02  7.558995e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |        0.016  1.014788e+00 -2.737273e-01 -6.830806e-02  7.558986e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |        0.033  1.014787e+00 -2.737276e-01 -6.830800e-02  7.558979e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model GEN____3_SM
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |        0.038  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558980e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |        0.039  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558980e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |        0.041  1.014787e+00 -2.737278e-01 -6.830798e-02  7.558981e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |        0.045  1.014787e+00 -2.737279e-01 -6.830798e-02  7.558983e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |        0.053  1.014787e+00 -2.737282e-01 -6.830798e-02  7.558989e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |        0.069  1.014789e+00 -2.737290e-01 -6.830798e-02  7.559004e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |        0.102  1.014792e+00 -2.737306e-01 -6.830800e-02  7.559041e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG |        0.168  1.014799e+00 -2.737344e-01 -6.830803e-02  7.559122e-02 |  18 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG |        0.299  1.014811e+00 -2.737421e-01 -6.830795e-02  7.559264e-02 |  19 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |        0.561  1.014817e+00 -2.737529e-01 -6.830748e-02  7.559397e-02 |  20 1 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model GEN____3_SM
-2019-11-06 11:50:39 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |  21 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |        0.995  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |        0.995  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |        0.995  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |        0.996  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |        0.998  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |        1.002  1.014819e+00 -2.737567e-01 -6.830732e-02  7.559444e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |        1.011  1.014819e+00 -2.737568e-01 -6.830731e-02  7.559446e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |        1.027  1.014819e+00 -2.737570e-01 -6.830730e-02  7.559448e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |        1.060  1.014819e+00 -2.737574e-01 -6.830729e-02  7.559452e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG |        1.125  1.014820e+00 -2.737579e-01 -6.830726e-02  7.559459e-02 |  18 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG |        1.256  1.014820e+00 -2.737583e-01 -6.830725e-02  7.559464e-02 |  19 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |        1.519  1.014821e+00 -2.737573e-01 -6.830733e-02  7.559459e-02 |  20 2 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |        2.043  1.014821e+00 -2.737558e-01 -6.830744e-02  7.559448e-02 |  21 2 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |        3.091  1.014820e+00 -2.737585e-01 -6.830724e-02  7.559466e-02 |  22 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |        5.189  1.014819e+00 -2.737606e-01 -6.830708e-02  7.559480e-02 |  23 1 2.097152e+00 
-2019-11-06 11:50:39 | DEBUG |        9.383  1.014819e+00 -2.737617e-01 -6.830700e-02  7.559487e-02 |  24 1 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG |       17.771  1.014819e+00 -2.737621e-01 -6.830696e-02  7.559490e-02 |  25 1 8.388608e+00 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___2_EC
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___3_EC
-2019-11-06 11:50:39 | DEBUG |       20.000  1.014819e+00 -2.737621e-01 -6.830696e-02  7.559490e-02 |  26 1 1.000000e+01 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999766e-01 -2.701518e-01 -6.798904e-02  7.430016e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999761e-01 -2.701517e-01 -6.798902e-02  7.430012e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999761e-01 -2.701517e-01 -6.798902e-02  7.430012e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999759e-01 -2.701517e-01 -6.798902e-02  7.430010e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999756e-01 -2.701516e-01 -6.798901e-02  7.430007e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999749e-01 -2.701515e-01 -6.798899e-02  7.430002e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999736e-01 -2.701512e-01 -6.798896e-02  7.429991e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999709e-01 -2.701507e-01 -6.798889e-02  7.429969e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999656e-01 -2.701497e-01 -6.798876e-02  7.429925e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999549e-01 -2.701477e-01 -6.798849e-02  7.429837e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model GEN____3_SM
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999549e-01 -2.701477e-01 -6.798849e-02  7.429837e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999549e-01 -2.701477e-01 -6.798849e-02  7.429837e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999548e-01 -2.701477e-01 -6.798849e-02  7.429836e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999547e-01 -2.701477e-01 -6.798849e-02  7.429835e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999545e-01 -2.701476e-01 -6.798848e-02  7.429834e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999542e-01 -2.701476e-01 -6.798848e-02  7.429831e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999535e-01 -2.701474e-01 -6.798846e-02  7.429826e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999522e-01 -2.701472e-01 -6.798843e-02  7.429815e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999496e-01 -2.701467e-01 -6.798836e-02  7.429793e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.000  9.999443e-01 -2.701457e-01 -6.798823e-02  7.429749e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.001  9.999337e-01 -2.701436e-01 -6.798796e-02  7.429662e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |       20.001  9.999127e-01 -2.701396e-01 -6.798744e-02  7.429489e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |       20.001  9.998712e-01 -2.701316e-01 -6.798641e-02  7.429146e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |       20.002  9.997902e-01 -2.701157e-01 -6.798441e-02  7.428474e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.004  9.996355e-01 -2.700847e-01 -6.798063e-02  7.427186e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.008  9.993540e-01 -2.700256e-01 -6.797394e-02  7.424818e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.017  9.988893e-01 -2.699191e-01 -6.796345e-02  7.420835e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.033  9.982715e-01 -2.697530e-01 -6.795107e-02  7.415328e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |       20.049  9.979839e-01 -2.696451e-01 -6.794727e-02  7.412504e-02 |  17 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |       20.082  9.979695e-01 -2.695629e-01 -6.795201e-02  7.411702e-02 |  18 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model GEN____8_SM
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982026e-01 -2.695792e-01 -6.795966e-02  7.413381e-02 |  19 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982026e-01 -2.695791e-01 -6.795966e-02  7.413381e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982027e-01 -2.695791e-01 -6.795966e-02  7.413381e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982027e-01 -2.695791e-01 -6.795966e-02  7.413381e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982027e-01 -2.695791e-01 -6.795967e-02  7.413381e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982028e-01 -2.695791e-01 -6.795967e-02  7.413382e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982030e-01 -2.695792e-01 -6.795967e-02  7.413383e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982033e-01 -2.695792e-01 -6.795968e-02  7.413386e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982039e-01 -2.695793e-01 -6.795970e-02  7.413391e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982052e-01 -2.695795e-01 -6.795974e-02  7.413400e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.102  9.982078e-01 -2.695798e-01 -6.795981e-02  7.413420e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |       20.103  9.982129e-01 -2.695805e-01 -6.795996e-02  7.413460e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |       20.103  9.982232e-01 -2.695819e-01 -6.796025e-02  7.413540e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |       20.104  9.982440e-01 -2.695847e-01 -6.796084e-02  7.413702e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.106  9.982859e-01 -2.695907e-01 -6.796202e-02  7.414030e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.110  9.983714e-01 -2.696037e-01 -6.796438e-02  7.414706e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.119  9.985482e-01 -2.696332e-01 -6.796908e-02  7.416127e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.135  9.989184e-01 -2.697036e-01 -6.797837e-02  7.419176e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |       20.168  9.996903e-01 -2.698698e-01 -6.799648e-02  7.425702e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model GEN____6_SM
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000555e+00 -2.700537e-01 -6.801690e-02  7.432998e-02 |  18 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000555e+00 -2.700538e-01 -6.801689e-02  7.432999e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000555e+00 -2.700538e-01 -6.801689e-02  7.432999e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000555e+00 -2.700538e-01 -6.801689e-02  7.432999e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000555e+00 -2.700538e-01 -6.801689e-02  7.433000e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000555e+00 -2.700538e-01 -6.801690e-02  7.433000e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000556e+00 -2.700538e-01 -6.801690e-02  7.433002e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000556e+00 -2.700539e-01 -6.801691e-02  7.433005e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000557e+00 -2.700541e-01 -6.801693e-02  7.433012e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000558e+00 -2.700545e-01 -6.801696e-02  7.433026e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000561e+00 -2.700552e-01 -6.801703e-02  7.433053e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |       20.205  1.000568e+00 -2.700567e-01 -6.801717e-02  7.433107e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |       20.206  1.000580e+00 -2.700596e-01 -6.801744e-02  7.433214e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |       20.207  1.000605e+00 -2.700655e-01 -6.801799e-02  7.433429e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.209  1.000655e+00 -2.700772e-01 -6.801910e-02  7.433858e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.213  1.000754e+00 -2.701002e-01 -6.802130e-02  7.434709e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.221  1.000949e+00 -2.701450e-01 -6.802571e-02  7.436388e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |       20.237  1.001332e+00 -2.702283e-01 -6.803461e-02  7.439634e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |       20.270  1.002064e+00 -2.703613e-01 -6.805331e-02  7.445620e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG |       20.336  1.003412e+00 -2.704432e-01 -6.809819e-02  7.455247e-02 |  18 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG |       20.401  1.004629e+00 -2.702443e-01 -6.815621e-02  7.461610e-02 |  19 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG |       20.532  1.006769e+00 -2.691010e-01 -6.830917e-02  7.466032e-02 |  20 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       20.663  1.008506e+00 -2.673704e-01 -6.848467e-02  7.462778e-02 |  21 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       20.794  1.009788e+00 -2.656588e-01 -6.864192e-02  7.456690e-02 |  22 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       20.926  1.010587e+00 -2.644420e-01 -6.874952e-02  7.451623e-02 |  23 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.057  1.010955e+00 -2.638733e-01 -6.879961e-02  7.449210e-02 |  24 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.188  1.011027e+00 -2.637772e-01 -6.880853e-02  7.448867e-02 |  25 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.319  1.010989e+00 -2.638009e-01 -6.880563e-02  7.448807e-02 |  26 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.450  1.011006e+00 -2.636164e-01 -6.881806e-02  7.447345e-02 |  27 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.581  1.011170e+00 -2.630702e-01 -6.885907e-02  7.443779e-02 |  28 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.712  1.011476e+00 -2.622230e-01 -6.892452e-02  7.438588e-02 |  29 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.813  1.011751e+00 -2.615110e-01 -6.898016e-02  7.434346e-02 |  30 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.813  1.011751e+00 -2.615093e-01 -6.898030e-02  7.434336e-02 |  30 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.813  1.011751e+00 -2.615093e-01 -6.898030e-02  7.434336e-02 |  30 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.843  1.011840e+00 -2.612877e-01 -6.899771e-02  7.433034e-02 |  30 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       21.974  1.012154e+00 -2.605145e-01 -6.905871e-02  7.428530e-02 |  31 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       22.105  1.012337e+00 -2.600780e-01 -6.909340e-02  7.426025e-02 |  32 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       22.236  1.012368e+00 -2.600121e-01 -6.909880e-02  7.425663e-02 |  33 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       22.367  1.012285e+00 -2.602106e-01 -6.908313e-02  7.426800e-02 |  34 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       22.498  1.012168e+00 -2.604833e-01 -6.906143e-02  7.428345e-02 |  35 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       22.629  1.012100e+00 -2.606381e-01 -6.904901e-02  7.429212e-02 |  36 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       22.761  1.012131e+00 -2.605547e-01 -6.905545e-02  7.428708e-02 |  37 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       22.892  1.012259e+00 -2.602229e-01 -6.908134e-02  7.426736e-02 |  38 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       23.154  1.012556e+00 -2.593764e-01 -6.914638e-02  7.421492e-02 |  39 2 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |       23.416  1.012662e+00 -2.589463e-01 -6.917773e-02  7.418525e-02 |  40 1 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |       23.678  1.012668e+00 -2.588463e-01 -6.918434e-02  7.417713e-02 |  41 1 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |       23.940  1.012680e+00 -2.588022e-01 -6.918757e-02  7.417413e-02 |  42 1 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |       24.464  1.012749e+00 -2.586265e-01 -6.920135e-02  7.416376e-02 |  43 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |       24.989  1.012812e+00 -2.584469e-01 -6.921513e-02  7.415264e-02 |  44 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |       26.037  1.012891e+00 -2.582157e-01 -6.923279e-02  7.413816e-02 |  45 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |       27.086  1.012943e+00 -2.580724e-01 -6.924386e-02  7.412942e-02 |  46 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |       28.134  1.012979e+00 -2.579805e-01 -6.925106e-02  7.412400e-02 |  47 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |       30.232  1.013029e+00 -2.578612e-01 -6.926053e-02  7.411717e-02 |  48 2 2.097152e+00 
-2019-11-06 11:50:39 | DEBUG |       32.329  1.013055e+00 -2.578096e-01 -6.926478e-02  7.411451e-02 |  49 2 2.097152e+00 
-2019-11-06 11:50:39 | DEBUG |       36.523  1.013081e+00 -2.577671e-01 -6.926843e-02  7.411258e-02 |  50 2 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG |       40.717  1.013087e+00 -2.577628e-01 -6.926894e-02  7.411266e-02 |  51 2 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG |       44.912  1.013088e+00 -2.577650e-01 -6.926884e-02  7.411291e-02 |  52 2 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG |       49.106  1.013088e+00 -2.577666e-01 -6.926873e-02  7.411303e-02 |  53 2 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG |       57.495  1.013088e+00 -2.577674e-01 -6.926867e-02  7.411308e-02 |  54 2 8.388608e+00 
-2019-11-06 11:50:39 | DEBUG |       67.495  1.013087e+00 -2.577676e-01 -6.926864e-02  7.411307e-02 |  55 1 1.000000e+01 
-2019-11-06 11:50:39 | DEBUG |       77.495  1.013087e+00 -2.577678e-01 -6.926862e-02  7.411307e-02 |  56 1 1.000000e+01 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___2_EC
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___3_EC
-2019-11-06 11:50:39 | DEBUG |       80.000  1.013087e+00 -2.577678e-01 -6.926862e-02  7.411307e-02 |  57 1 1.000000e+01 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012670e+00 -2.577771e-01 -6.925257e-02  7.408586e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012671e+00 -2.577771e-01 -6.925259e-02  7.408590e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012671e+00 -2.577771e-01 -6.925259e-02  7.408590e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012671e+00 -2.577771e-01 -6.925259e-02  7.408590e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012671e+00 -2.577772e-01 -6.925259e-02  7.408590e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012671e+00 -2.577772e-01 -6.925259e-02  7.408590e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012671e+00 -2.577772e-01 -6.925258e-02  7.408590e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012671e+00 -2.577772e-01 -6.925258e-02  7.408590e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012670e+00 -2.577772e-01 -6.925257e-02  7.408589e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012670e+00 -2.577773e-01 -6.925255e-02  7.408588e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |       80.000  1.012669e+00 -2.577775e-01 -6.925252e-02  7.408585e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |       80.001  1.012668e+00 -2.577779e-01 -6.925245e-02  7.408580e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |       80.002  1.012666e+00 -2.577787e-01 -6.925231e-02  7.408570e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |       80.004  1.012661e+00 -2.577801e-01 -6.925204e-02  7.408550e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |       80.008  1.012652e+00 -2.577828e-01 -6.925155e-02  7.408515e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |       80.016  1.012638e+00 -2.577874e-01 -6.925072e-02  7.408458e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |       80.033  1.012618e+00 -2.577948e-01 -6.924951e-02  7.408388e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |       80.066  1.012602e+00 -2.578066e-01 -6.924815e-02  7.408378e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG |       80.131  1.012612e+00 -2.578259e-01 -6.924731e-02  7.408615e-02 |  18 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG |       80.262  1.012677e+00 -2.578535e-01 -6.924795e-02  7.409285e-02 |  19 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       80.524  1.012774e+00 -2.578553e-01 -6.925143e-02  7.409952e-02 |  20 1 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |       81.049  1.012832e+00 -2.578909e-01 -6.925132e-02  7.410647e-02 |  21 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |       81.573  1.012844e+00 -2.579399e-01 -6.924865e-02  7.411146e-02 |  22 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |       82.621  1.012840e+00 -2.579910e-01 -6.924524e-02  7.411557e-02 |  23 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |       84.719  1.012831e+00 -2.580266e-01 -6.924264e-02  7.411801e-02 |  24 1 2.097152e+00 
-2019-11-06 11:50:39 | DEBUG |       88.913  1.012824e+00 -2.580459e-01 -6.924114e-02  7.411917e-02 |  25 1 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___2_EC
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___3_EC
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012823e+00 -2.580469e-01 -6.924106e-02  7.411922e-02 |  26 1 8.388608e+00 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012402e+00 -2.580554e-01 -6.922489e-02  7.409164e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409168e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409168e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409167e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409167e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409167e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409167e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922489e-02  7.409167e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012402e+00 -2.580556e-01 -6.922488e-02  7.409166e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012402e+00 -2.580557e-01 -6.922486e-02  7.409165e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |       90.000  1.012401e+00 -2.580559e-01 -6.922483e-02  7.409162e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |       90.001  1.012400e+00 -2.580563e-01 -6.922476e-02  7.409157e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |       90.002  1.012397e+00 -2.580570e-01 -6.922461e-02  7.409147e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |       90.004  1.012393e+00 -2.580585e-01 -6.922435e-02  7.409127e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |       90.008  1.012384e+00 -2.580611e-01 -6.922385e-02  7.409091e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |       90.016  1.012369e+00 -2.580658e-01 -6.922302e-02  7.409033e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |       90.033  1.012349e+00 -2.580733e-01 -6.922179e-02  7.408962e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |       90.066  1.012333e+00 -2.580851e-01 -6.922042e-02  7.408952e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG |       90.131  1.012343e+00 -2.581048e-01 -6.921957e-02  7.409191e-02 |  18 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG |       90.262  1.012408e+00 -2.581329e-01 -6.922019e-02  7.409870e-02 |  19 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |       90.524  1.012506e+00 -2.581348e-01 -6.922370e-02  7.410544e-02 |  20 1 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |       91.049  1.012565e+00 -2.581708e-01 -6.922358e-02  7.411245e-02 |  21 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |       91.573  1.012577e+00 -2.582203e-01 -6.922087e-02  7.411748e-02 |  22 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |       92.463  1.012573e+00 -2.582643e-01 -6.921792e-02  7.412099e-02 |  23 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |       92.471  1.012573e+00 -2.582647e-01 -6.921790e-02  7.412103e-02 |  23 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |       92.471  1.012573e+00 -2.582647e-01 -6.921790e-02  7.412103e-02 |  23 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |       92.621  1.012573e+00 -2.582721e-01 -6.921740e-02  7.412162e-02 |  23 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |       94.719  1.012563e+00 -2.583086e-01 -6.921472e-02  7.412409e-02 |  24 1 2.097152e+00 
-2019-11-06 11:50:39 | DEBUG |       98.913  1.012555e+00 -2.583289e-01 -6.921312e-02  7.412528e-02 |  25 1 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___2_EC
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___3_EC
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012554e+00 -2.583299e-01 -6.921303e-02  7.412533e-02 |  26 1 8.388608e+00 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012128e+00 -2.583377e-01 -6.919673e-02  7.409737e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919673e-02  7.409740e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012128e+00 -2.583379e-01 -6.919672e-02  7.409740e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012128e+00 -2.583380e-01 -6.919670e-02  7.409738e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |      100.000  1.012127e+00 -2.583382e-01 -6.919667e-02  7.409736e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |      100.001  1.012126e+00 -2.583386e-01 -6.919659e-02  7.409730e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |      100.002  1.012123e+00 -2.583393e-01 -6.919645e-02  7.409720e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |      100.004  1.012118e+00 -2.583408e-01 -6.919618e-02  7.409700e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |      100.008  1.012110e+00 -2.583434e-01 -6.919569e-02  7.409663e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |      100.016  1.012095e+00 -2.583481e-01 -6.919485e-02  7.409604e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |      100.033  1.012075e+00 -2.583556e-01 -6.919361e-02  7.409532e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |      100.066  1.012058e+00 -2.583674e-01 -6.919224e-02  7.409521e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG |      100.131  1.012069e+00 -2.583871e-01 -6.919138e-02  7.409762e-02 |  18 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG |      100.262  1.012135e+00 -2.584153e-01 -6.919203e-02  7.410445e-02 |  19 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |      100.524  1.012234e+00 -2.584166e-01 -6.919562e-02  7.411121e-02 |  20 1 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |      101.049  1.012293e+00 -2.584518e-01 -6.919559e-02  7.411823e-02 |  21 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |      101.573  1.012305e+00 -2.585010e-01 -6.919291e-02  7.412325e-02 |  22 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |      102.621  1.012301e+00 -2.585525e-01 -6.918946e-02  7.412737e-02 |  23 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |      104.719  1.012291e+00 -2.585887e-01 -6.918679e-02  7.412981e-02 |  24 1 2.097152e+00 
-2019-11-06 11:50:39 | DEBUG |      108.913  1.012283e+00 -2.586091e-01 -6.918519e-02  7.413100e-02 |  25 1 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___2_EC
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___3_EC
-2019-11-06 11:50:39 | DEBUG |      110.000  1.012283e+00 -2.586102e-01 -6.918510e-02  7.413105e-02 |  26 1 8.388608e+00 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011852e+00 -2.586172e-01 -6.916866e-02  7.410273e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011852e+00 -2.586172e-01 -6.916868e-02  7.410276e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011852e+00 -2.586172e-01 -6.916868e-02  7.410276e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011852e+00 -2.586172e-01 -6.916867e-02  7.410276e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011852e+00 -2.586173e-01 -6.916868e-02  7.410276e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011852e+00 -2.586173e-01 -6.916867e-02  7.410276e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011852e+00 -2.586173e-01 -6.916867e-02  7.410275e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011852e+00 -2.586173e-01 -6.916867e-02  7.410275e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011852e+00 -2.586173e-01 -6.916866e-02  7.410274e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011851e+00 -2.586174e-01 -6.916864e-02  7.410273e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |      110.000  1.011851e+00 -2.586176e-01 -6.916860e-02  7.410270e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |      110.001  1.011849e+00 -2.586180e-01 -6.916853e-02  7.410265e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |      110.002  1.011847e+00 -2.586188e-01 -6.916839e-02  7.410254e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |      110.004  1.011842e+00 -2.586202e-01 -6.916812e-02  7.410234e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |      110.008  1.011833e+00 -2.586229e-01 -6.916762e-02  7.410197e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |      110.016  1.011818e+00 -2.586275e-01 -6.916677e-02  7.410137e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |      110.033  1.011798e+00 -2.586350e-01 -6.916553e-02  7.410063e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |      110.066  1.011781e+00 -2.586468e-01 -6.916415e-02  7.410051e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG |      110.131  1.011792e+00 -2.586665e-01 -6.916330e-02  7.410293e-02 |  18 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG |      110.262  1.011858e+00 -2.586948e-01 -6.916397e-02  7.410982e-02 |  19 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |      110.524  1.011959e+00 -2.586954e-01 -6.916765e-02  7.411660e-02 |  20 1 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |      111.049  1.012019e+00 -2.587298e-01 -6.916771e-02  7.412361e-02 |  21 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |      111.573  1.012032e+00 -2.587786e-01 -6.916506e-02  7.412863e-02 |  22 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |      112.621  1.012028e+00 -2.588296e-01 -6.916166e-02  7.413272e-02 |  23 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |      114.719  1.012018e+00 -2.588654e-01 -6.915902e-02  7.413513e-02 |  24 1 2.097152e+00 
-2019-11-06 11:50:39 | DEBUG |      118.913  1.012010e+00 -2.588857e-01 -6.915742e-02  7.413631e-02 |  25 1 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___2_EC
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___3_EC
-2019-11-06 11:50:39 | DEBUG |      120.000  1.012009e+00 -2.588868e-01 -6.915732e-02  7.413636e-02 |  26 1 8.388608e+00 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011574e+00 -2.588930e-01 -6.914076e-02  7.410767e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914078e-02  7.410770e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914078e-02  7.410770e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914077e-02  7.410769e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914077e-02  7.410769e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914077e-02  7.410769e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914077e-02  7.410769e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914077e-02  7.410769e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011574e+00 -2.588932e-01 -6.914076e-02  7.410768e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011573e+00 -2.588933e-01 -6.914074e-02  7.410767e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |      120.000  1.011573e+00 -2.588935e-01 -6.914070e-02  7.410764e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |      120.001  1.011571e+00 -2.588939e-01 -6.914063e-02  7.410758e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |      120.002  1.011569e+00 -2.588946e-01 -6.914049e-02  7.410748e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |      120.004  1.011564e+00 -2.588961e-01 -6.914021e-02  7.410727e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |      120.008  1.011555e+00 -2.588987e-01 -6.913971e-02  7.410689e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |      120.016  1.011540e+00 -2.589033e-01 -6.913886e-02  7.410628e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |      120.033  1.011519e+00 -2.589108e-01 -6.913762e-02  7.410553e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |      120.066  1.011502e+00 -2.589226e-01 -6.913623e-02  7.410540e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG |      120.131  1.011513e+00 -2.589423e-01 -6.913538e-02  7.410783e-02 |  18 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG |      120.262  1.011581e+00 -2.589706e-01 -6.913608e-02  7.411477e-02 |  19 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |      120.524  1.011682e+00 -2.589706e-01 -6.913984e-02  7.412158e-02 |  20 1 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |      121.049  1.011744e+00 -2.590041e-01 -6.913999e-02  7.412858e-02 |  21 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |      121.573  1.011757e+00 -2.590525e-01 -6.913739e-02  7.413359e-02 |  22 1 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |      122.621  1.011753e+00 -2.591030e-01 -6.913403e-02  7.413765e-02 |  23 1 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |      124.719  1.011743e+00 -2.591384e-01 -6.913141e-02  7.414004e-02 |  24 1 2.097152e+00 
-2019-11-06 11:50:39 | DEBUG |      128.913  1.011735e+00 -2.591585e-01 -6.912982e-02  7.414120e-02 |  25 1 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___2_EC
-2019-11-06 11:50:39 | DEBUG | Algebraic mode change for model _LOAD___3_EC
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |  26 1 8.388608e+00 
-2019-11-06 11:50:39 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   0 0 0.000000e+00 
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   1 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   2 1 1.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   3 2 2.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   4 2 4.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   5 2 8.000000e-06 
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   6 2 1.600000e-05 
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   7 2 3.200000e-05 
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   8 2 6.400000e-05 
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   9 2 1.280000e-04 
-2019-11-06 11:50:39 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |  10 2 2.560000e-04 
-2019-11-06 11:50:39 | DEBUG |      130.001  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |  11 2 5.120000e-04 
-2019-11-06 11:50:39 | DEBUG |      130.002  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |  12 2 1.024000e-03 
-2019-11-06 11:50:39 | DEBUG |      130.004  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |  13 2 2.048000e-03 
-2019-11-06 11:50:39 | DEBUG |      130.008  1.011734e+00 -2.591597e-01 -6.912973e-02  7.414125e-02 |  14 2 4.096000e-03 
-2019-11-06 11:50:39 | DEBUG |      130.016  1.011734e+00 -2.591597e-01 -6.912972e-02  7.414125e-02 |  15 2 8.192000e-03 
-2019-11-06 11:50:39 | DEBUG |      130.033  1.011734e+00 -2.591598e-01 -6.912972e-02  7.414126e-02 |  16 2 1.638400e-02 
-2019-11-06 11:50:39 | DEBUG |      130.066  1.011734e+00 -2.591599e-01 -6.912971e-02  7.414127e-02 |  17 2 3.276800e-02 
-2019-11-06 11:50:39 | DEBUG |      130.131  1.011734e+00 -2.591602e-01 -6.912969e-02  7.414128e-02 |  18 2 6.553600e-02 
-2019-11-06 11:50:39 | DEBUG |      130.262  1.011734e+00 -2.591607e-01 -6.912965e-02  7.414131e-02 |  19 2 1.310720e-01 
-2019-11-06 11:50:39 | DEBUG |      130.524  1.011734e+00 -2.591616e-01 -6.912957e-02  7.414136e-02 |  20 2 2.621440e-01 
-2019-11-06 11:50:39 | DEBUG |      131.049  1.011733e+00 -2.591631e-01 -6.912945e-02  7.414144e-02 |  21 2 5.242880e-01 
-2019-11-06 11:50:39 | DEBUG |      132.097  1.011732e+00 -2.591652e-01 -6.912928e-02  7.414154e-02 |  22 2 1.048576e+00 
-2019-11-06 11:50:39 | DEBUG |      134.194  1.011730e+00 -2.591675e-01 -6.912907e-02  7.414164e-02 |  23 2 2.097152e+00 
-2019-11-06 11:50:39 | DEBUG |      138.389  1.011729e+00 -2.591696e-01 -6.912888e-02  7.414171e-02 |  24 2 4.194304e+00 
-2019-11-06 11:50:39 | DEBUG |      146.777  1.011728e+00 -2.591708e-01 -6.912876e-02  7.414175e-02 |  25 2 8.388608e+00 
-2019-11-06 11:50:39 | DEBUG |      156.777  1.011728e+00 -2.591704e-01 -6.912880e-02  7.414173e-02 |  26 1 1.000000e+01 
-2019-11-06 11:50:39 | DEBUG |      166.777  1.011728e+00 -2.591703e-01 -6.912881e-02  7.414172e-02 |  27 1 1.000000e+01 
-2019-11-06 11:50:39 | DEBUG |      170.000  1.011728e+00 -2.591702e-01 -6.912881e-02  7.414172e-02 |  28 1 3.222810e+00 
-2019-11-06 11:50:39 | DEBUG | get parameter value in model multi : tapChanger_valueMin value: 0.99 in submodel: TAP_CHANGER_LOAD_2
-2019-11-06 11:50:39 | INFO | parameter curve:TAP_CHANGER_LOAD_2 curve variable:tapChanger_valueMin updated.
-2019-11-06 11:50:39 | DEBUG | get parameter value in model multi : tapChanger_valueMax value: 1.01 in submodel: TAP_CHANGER_LOAD_2
-2019-11-06 11:50:39 | INFO | parameter curve:TAP_CHANGER_LOAD_2 curve variable:tapChanger_valueMax updated.
-2019-11-06 11:50:39 | DEBUG | get parameter value in model multi : tapChanger_valueMin value: 0.99 in submodel: TAP_CHANGER_LOAD_3
-2019-11-06 11:50:39 | INFO | parameter curve:TAP_CHANGER_LOAD_3 curve variable:tapChanger_valueMin updated.
-2019-11-06 11:50:39 | DEBUG | get parameter value in model multi : tapChanger_valueMax value: 1.01 in submodel: TAP_CHANGER_LOAD_3
-2019-11-06 11:50:39 | INFO | parameter curve:TAP_CHANGER_LOAD_3 curve variable:tapChanger_valueMax updated.
-2019-11-06 11:50:39 | DEBUG | get parameter value in model multi : tapChangerLock_UMin value: 68.24 in submodel: TAP_CHANGER_LOCK
-2019-11-06 11:50:39 | INFO | parameter curve:TAP_CHANGER_LOCK curve variable:tapChangerLock_UMin updated.
-2019-11-06 11:50:39 | DEBUG | 
-2019-11-06 11:50:39 | DEBUG | execution Stats :
-2019-11-06 11:50:39 | DEBUG | 
-2019-11-06 11:50:39 | DEBUG | number of iterations                     = 326
-2019-11-06 11:50:39 | DEBUG | number of Residual evaluations           = 475
-2019-11-06 11:50:39 | DEBUG | number of Jacobian evaluations           = 261
-2019-11-06 11:50:39 | DEBUG | number of Nonlinear iterations           = 473
-2019-11-06 11:50:39 | DEBUG | number of error test failures            = 0
-2019-11-06 11:50:39 | DEBUG | number of Nonlinear convergence failures = 0
-2019-11-06 11:50:39 | DEBUG | number of root functions evaluations     = 1107
-2019-11-06 11:50:39 | DEBUG | end of job 'IEEE14 - TapChangerLock'
+2019-11-08 15:19:21 | DEBUG |  ============================================================ 
+2019-11-08 15:19:21 | DEBUG | DYNAWO VERSION  :     1.0.1
+2019-11-08 15:19:21 | DEBUG | DYNAWO REVISION :  504_dynawo_precision-570368c
+2019-11-08 15:19:21 | DEBUG |  ============================================================ 
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_omega_grp_0 with GEN____1_SM_generator_omegaPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_omegaRef_grp_0 with GEN____1_SM_generator_omegaRefPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_running_grp_0 with GEN____1_SM_generator_running
+2019-11-08 15:19:21 | DEBUG | connecting GEN____1_SM_generator_switchOffSignal1 with NETWORK__BUS____1_TN_switchOff
+2019-11-08 15:19:21 | DEBUG | connecting GEN____1_SM_generator_terminal with NETWORK__BUS____1_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_omega_grp_1 with GEN____2_SM_generator_omegaPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_omegaRef_grp_1 with GEN____2_SM_generator_omegaRefPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_running_grp_1 with GEN____2_SM_generator_running
+2019-11-08 15:19:21 | DEBUG | connecting GEN____2_SM_generator_switchOffSignal1 with NETWORK__BUS____2_TN_switchOff
+2019-11-08 15:19:21 | DEBUG | connecting GEN____2_SM_generator_terminal with NETWORK__BUS____2_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_omega_grp_2 with GEN____3_SM_generator_omegaPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_omegaRef_grp_2 with GEN____3_SM_generator_omegaRefPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_running_grp_2 with GEN____3_SM_generator_running
+2019-11-08 15:19:21 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal1 with NETWORK__BUS____3_TN_switchOff
+2019-11-08 15:19:21 | DEBUG | connecting GEN____3_SM_generator_terminal with NETWORK__BUS____3_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_omega_grp_3 with GEN____6_SM_generator_omegaPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_omegaRef_grp_3 with GEN____6_SM_generator_omegaRefPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_running_grp_3 with GEN____6_SM_generator_running
+2019-11-08 15:19:21 | DEBUG | connecting GEN____6_SM_generator_switchOffSignal1 with NETWORK__BUS____6_TN_switchOff
+2019-11-08 15:19:21 | DEBUG | connecting GEN____6_SM_generator_terminal with NETWORK__BUS____6_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_omega_grp_4 with GEN____8_SM_generator_omegaPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_omegaRef_grp_4 with GEN____8_SM_generator_omegaRefPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_running_grp_4 with GEN____8_SM_generator_running
+2019-11-08 15:19:21 | DEBUG | connecting GEN____8_SM_generator_switchOffSignal1 with NETWORK__BUS____8_TN_switchOff
+2019-11-08 15:19:21 | DEBUG | connecting GEN____8_SM_generator_terminal with NETWORK__BUS____8_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting LOADVAR_LOAD2_event_state1 with _LOAD___2_EC_load_PRefPu
+2019-11-08 15:19:21 | DEBUG | connecting LOADVAR_LOAD2_event_state2 with _LOAD___2_EC_load_QRefPu
+2019-11-08 15:19:21 | DEBUG | connecting LOADVAR_LOAD3_event_state1 with _LOAD___3_EC_load_PRefPu
+2019-11-08 15:19:21 | DEBUG | connecting LOADVAR_LOAD3_event_state2 with _LOAD___3_EC_load_QRefPu
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_numcc_node_0 with NETWORK__BUS____1_TN_numcc
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_numcc_node_1 with NETWORK__BUS____2_TN_numcc
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_numcc_node_2 with NETWORK__BUS____3_TN_numcc
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_numcc_node_3 with NETWORK__BUS____6_TN_numcc
+2019-11-08 15:19:21 | DEBUG | connecting OMEGA_REF_numcc_node_4 with NETWORK__BUS____8_TN_numcc
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD__10_EC_load_terminal with NETWORK__BUS___10_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD__11_EC_load_terminal with NETWORK__BUS___11_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD__12_EC_load_terminal with NETWORK__BUS___12_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD__13_EC_load_terminal with NETWORK__BUS___13_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD__14_EC_load_terminal with NETWORK__BUS___14_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD___2_EC_transformer_terminal1 with NETWORK__BUS____2_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD___3_EC_transformer_terminal1 with NETWORK__BUS____3_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting TAP_CHANGER_LOCK_tapChangerLock_UMonitored with NETWORK__BUS____3_TN_U
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD___4_EC_load_terminal with NETWORK__BUS____4_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD___5_EC_load_terminal with NETWORK__BUS____5_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD___6_EC_load_terminal with NETWORK__BUS____6_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD___9_EC_load_terminal with NETWORK__BUS____9_TN_ACPIN
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD___2_EC_transformer_U2Pu with TAP_CHANGER_LOAD_2_tapChanger_UMonitored
+2019-11-08 15:19:21 | DEBUG | connecting TAP_CHANGER_LOCK_tapChangerLock_lockedT with TAP_CHANGER_LOAD_2_tapChanger_locked
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD___2_EC_transformer_tap with TAP_CHANGER_LOAD_2_tapChanger_tap
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD___3_EC_transformer_U2Pu with TAP_CHANGER_LOAD_3_tapChanger_UMonitored
+2019-11-08 15:19:21 | DEBUG | connecting TAP_CHANGER_LOCK_tapChangerLock_lockedT with TAP_CHANGER_LOAD_3_tapChanger_locked
+2019-11-08 15:19:21 | DEBUG | connecting _LOAD___3_EC_transformer_tap with TAP_CHANGER_LOAD_3_tapChanger_tap
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS____1_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS____2_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS____3_TN_U_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS____3_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS____4_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS____5_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS____6_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS____7_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS____8_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS____9_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS___10_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS___11_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS___12_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS___13_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: NETWORK; curve: _BUS___14_TN_Upu_value found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___2_EC; curve: load_PPu found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___2_EC; curve: load_QPu found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___2_EC; output: load_UPu found.( load_UPu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___2_EC; output: transformer_U1Pu found.( transformer_U1Pu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___2_EC; output: transformer_U2Pu found.( transformer_U2Pu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___2_EC; output: transformer_tap found.( transformer_tap_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___3_EC; curve: load_PPu found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___3_EC; curve: load_QPu found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___3_EC; output: load_UPu found.( load_UPu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___3_EC; output: transformer_U1Pu found.( transformer_U1Pu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___3_EC; output: transformer_U2Pu found.( transformer_U2Pu_value )
+2019-11-08 15:19:21 | INFO | adding curve : Id: _LOAD___3_EC; output: transformer_tap found.( transformer_tap_value )
+2019-11-08 15:19:21 | INFO | adding parameter curve: Id: TAP_CHANGER_LOAD_2; parameter curve: tapChanger_valueMin found. (exact name)
+2019-11-08 15:19:21 | INFO | adding parameter curve: Id: TAP_CHANGER_LOAD_2; parameter curve: tapChanger_valueMax found. (exact name)
+2019-11-08 15:19:21 | INFO | adding parameter curve: Id: TAP_CHANGER_LOAD_3; parameter curve: tapChanger_valueMin found. (exact name)
+2019-11-08 15:19:21 | INFO | adding parameter curve: Id: TAP_CHANGER_LOAD_3; parameter curve: tapChanger_valueMax found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: TAP_CHANGER_LOCK; curve: tapChangerLock_locked found. (exact name)
+2019-11-08 15:19:21 | INFO | adding curve : Id: TAP_CHANGER_LOCK; curve: tapChangerLock_lockedT found. (exact name)
+2019-11-08 15:19:21 | INFO | adding parameter curve: Id: TAP_CHANGER_LOCK; parameter curve: tapChangerLock_UMin found. (exact name)
+2019-11-08 15:19:21 | DEBUG | nbSubNetwork = 1 nbsub = 1
+2019-11-08 15:19:21 | DEBUG | subNetwork[0] nbBus = 14
+2019-11-08 15:19:21 | DEBUG | keep SubNetworks num : 0
+2019-11-08 15:19:21 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2019-11-08 15:19:21 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2019-11-08 15:19:21 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2019-11-08 15:19:21 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2019-11-08 15:19:21 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2019-11-08 15:19:21 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2019-11-08 15:19:21 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2019-11-08 15:19:21 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2019-11-08 15:19:21 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2019-11-08 15:19:21 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2019-11-08 15:19:21 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2019-11-08 15:19:21 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2019-11-08 15:19:21 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2019-11-08 15:19:21 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2019-11-08 15:19:21 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2019-11-08 15:19:21 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2019-11-08 15:19:21 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2019-11-08 15:19:21 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2019-11-08 15:19:21 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2019-11-08 15:19:21 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2019-11-08 15:19:21 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2019-11-08 15:19:21 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2019-11-08 15:19:21 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2019-11-08 15:19:21 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2019-11-08 15:19:21 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2019-11-08 15:19:21 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2019-11-08 15:19:21 | DEBUG | transformer_i20Pu_im opposite value of load_i0Pu_im
+2019-11-08 15:19:21 | DEBUG | transformer_i20Pu_re opposite value of load_i0Pu_re
+2019-11-08 15:19:21 | DEBUG | transformer_u20Pu_im same value as load_u0Pu_im
+2019-11-08 15:19:21 | DEBUG | transformer_u20Pu_re same value as load_u0Pu_re
+2019-11-08 15:19:21 | DEBUG | transformer_i20Pu_im opposite value of load_i0Pu_im
+2019-11-08 15:19:21 | DEBUG | transformer_i20Pu_re opposite value of load_i0Pu_re
+2019-11-08 15:19:21 | DEBUG | transformer_u20Pu_im same value as load_u0Pu_im
+2019-11-08 15:19:21 | DEBUG | transformer_u20Pu_re same value as load_u0Pu_re
+2019-11-08 15:19:21 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-11-08 15:19:21 | DEBUG | -----------------------------------------------------------------------
+2019-11-08 15:19:21 | DEBUG | number of continuous variables : 425 (display limited to 4 variables)
+2019-11-08 15:19:21 | DEBUG | number of discrete variables : 282
+2019-11-08 15:19:21 | DEBUG | -----------------------------------------------------------------------
+2019-11-08 15:19:21 | DEBUG |     t              y1            y2            y3            y4      | nst k      h
+2019-11-08 15:19:21 | DEBUG | -----------------------------------------------------------------------
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   0 0 3.259601e-04 
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559011e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830820e-02  7.559010e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |        0.000  1.014792e+00 -2.737274e-01 -6.830819e-02  7.559010e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |        0.001  1.014791e+00 -2.737274e-01 -6.830819e-02  7.559009e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |        0.001  1.014791e+00 -2.737274e-01 -6.830819e-02  7.559008e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |        0.002  1.014791e+00 -2.737273e-01 -6.830817e-02  7.559006e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |        0.004  1.014790e+00 -2.737273e-01 -6.830815e-02  7.559002e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |        0.008  1.014789e+00 -2.737273e-01 -6.830812e-02  7.558995e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |        0.016  1.014788e+00 -2.737273e-01 -6.830806e-02  7.558986e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |        0.033  1.014787e+00 -2.737276e-01 -6.830800e-02  7.558979e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model GEN____3_SM
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |        0.037  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558979e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |        0.038  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558980e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |        0.039  1.014787e+00 -2.737277e-01 -6.830799e-02  7.558980e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |        0.041  1.014787e+00 -2.737278e-01 -6.830798e-02  7.558981e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |        0.045  1.014787e+00 -2.737279e-01 -6.830798e-02  7.558983e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |        0.053  1.014787e+00 -2.737282e-01 -6.830798e-02  7.558989e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |        0.069  1.014789e+00 -2.737290e-01 -6.830798e-02  7.559004e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |        0.102  1.014792e+00 -2.737306e-01 -6.830800e-02  7.559041e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG |        0.168  1.014799e+00 -2.737344e-01 -6.830803e-02  7.559122e-02 |  18 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG |        0.299  1.014811e+00 -2.737421e-01 -6.830795e-02  7.559264e-02 |  19 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |        0.561  1.014817e+00 -2.737529e-01 -6.830748e-02  7.559397e-02 |  20 1 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model GEN____3_SM
+2019-11-08 15:19:21 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |  21 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |        0.994  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |        0.995  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |        0.995  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |        0.995  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |        0.996  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |        0.998  1.014819e+00 -2.737566e-01 -6.830732e-02  7.559443e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |        1.002  1.014819e+00 -2.737567e-01 -6.830732e-02  7.559444e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |        1.011  1.014819e+00 -2.737568e-01 -6.830731e-02  7.559446e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |        1.027  1.014819e+00 -2.737570e-01 -6.830730e-02  7.559448e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |        1.060  1.014819e+00 -2.737574e-01 -6.830729e-02  7.559452e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG |        1.125  1.014820e+00 -2.737579e-01 -6.830726e-02  7.559459e-02 |  18 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG |        1.256  1.014820e+00 -2.737583e-01 -6.830725e-02  7.559464e-02 |  19 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |        1.519  1.014821e+00 -2.737573e-01 -6.830733e-02  7.559459e-02 |  20 2 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |        2.043  1.014821e+00 -2.737558e-01 -6.830744e-02  7.559448e-02 |  21 2 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |        3.091  1.014820e+00 -2.737585e-01 -6.830724e-02  7.559466e-02 |  22 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |        5.189  1.014819e+00 -2.737606e-01 -6.830708e-02  7.559480e-02 |  23 1 2.097152e+00 
+2019-11-08 15:19:21 | DEBUG |        9.383  1.014819e+00 -2.737617e-01 -6.830700e-02  7.559487e-02 |  24 1 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG |       17.771  1.014819e+00 -2.737621e-01 -6.830696e-02  7.559490e-02 |  25 1 8.388608e+00 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___2_EC
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___3_EC
+2019-11-08 15:19:21 | DEBUG |       20.000  1.014819e+00 -2.737621e-01 -6.830696e-02  7.559490e-02 |  26 1 1.000000e+01 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999766e-01 -2.701518e-01 -6.798904e-02  7.430016e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999761e-01 -2.701517e-01 -6.798902e-02  7.430012e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999761e-01 -2.701517e-01 -6.798902e-02  7.430012e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999759e-01 -2.701517e-01 -6.798902e-02  7.430010e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999756e-01 -2.701516e-01 -6.798901e-02  7.430007e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999749e-01 -2.701515e-01 -6.798899e-02  7.430002e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999736e-01 -2.701512e-01 -6.798896e-02  7.429991e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999709e-01 -2.701507e-01 -6.798889e-02  7.429969e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999656e-01 -2.701497e-01 -6.798876e-02  7.429925e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999549e-01 -2.701477e-01 -6.798849e-02  7.429837e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model GEN____3_SM
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999549e-01 -2.701477e-01 -6.798849e-02  7.429837e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999549e-01 -2.701477e-01 -6.798849e-02  7.429837e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999548e-01 -2.701477e-01 -6.798849e-02  7.429836e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999547e-01 -2.701477e-01 -6.798849e-02  7.429835e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999545e-01 -2.701476e-01 -6.798848e-02  7.429834e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999542e-01 -2.701476e-01 -6.798848e-02  7.429831e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999535e-01 -2.701474e-01 -6.798846e-02  7.429826e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999522e-01 -2.701472e-01 -6.798843e-02  7.429815e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999496e-01 -2.701467e-01 -6.798836e-02  7.429793e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.000  9.999443e-01 -2.701457e-01 -6.798823e-02  7.429749e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.001  9.999337e-01 -2.701436e-01 -6.798796e-02  7.429662e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |       20.001  9.999127e-01 -2.701396e-01 -6.798744e-02  7.429489e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |       20.001  9.998712e-01 -2.701316e-01 -6.798641e-02  7.429146e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |       20.002  9.997902e-01 -2.701157e-01 -6.798441e-02  7.428474e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.004  9.996355e-01 -2.700847e-01 -6.798063e-02  7.427186e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.008  9.993540e-01 -2.700256e-01 -6.797394e-02  7.424818e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.017  9.988893e-01 -2.699191e-01 -6.796345e-02  7.420835e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.033  9.982715e-01 -2.697530e-01 -6.795107e-02  7.415328e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |       20.049  9.979839e-01 -2.696451e-01 -6.794727e-02  7.412504e-02 |  17 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |       20.082  9.979695e-01 -2.695629e-01 -6.795201e-02  7.411702e-02 |  18 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model GEN____8_SM
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982026e-01 -2.695792e-01 -6.795966e-02  7.413381e-02 |  19 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982026e-01 -2.695791e-01 -6.795966e-02  7.413381e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982027e-01 -2.695791e-01 -6.795966e-02  7.413381e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982027e-01 -2.695791e-01 -6.795966e-02  7.413381e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982027e-01 -2.695791e-01 -6.795967e-02  7.413381e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982028e-01 -2.695791e-01 -6.795967e-02  7.413382e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982030e-01 -2.695792e-01 -6.795967e-02  7.413383e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982033e-01 -2.695792e-01 -6.795968e-02  7.413386e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982039e-01 -2.695793e-01 -6.795970e-02  7.413391e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982052e-01 -2.695795e-01 -6.795974e-02  7.413400e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.102  9.982078e-01 -2.695798e-01 -6.795981e-02  7.413420e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |       20.103  9.982129e-01 -2.695805e-01 -6.795996e-02  7.413460e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |       20.103  9.982232e-01 -2.695819e-01 -6.796025e-02  7.413540e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |       20.104  9.982440e-01 -2.695847e-01 -6.796084e-02  7.413702e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.106  9.982859e-01 -2.695907e-01 -6.796202e-02  7.414030e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.110  9.983714e-01 -2.696037e-01 -6.796438e-02  7.414706e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.119  9.985482e-01 -2.696332e-01 -6.796908e-02  7.416127e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.135  9.989184e-01 -2.697036e-01 -6.797837e-02  7.419176e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |       20.168  9.996903e-01 -2.698698e-01 -6.799648e-02  7.425702e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model GEN____6_SM
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000555e+00 -2.700537e-01 -6.801690e-02  7.432998e-02 |  18 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000555e+00 -2.700538e-01 -6.801689e-02  7.432999e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000555e+00 -2.700538e-01 -6.801689e-02  7.432999e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000555e+00 -2.700538e-01 -6.801689e-02  7.432999e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000555e+00 -2.700538e-01 -6.801689e-02  7.433000e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000555e+00 -2.700538e-01 -6.801690e-02  7.433000e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000556e+00 -2.700538e-01 -6.801690e-02  7.433002e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000556e+00 -2.700539e-01 -6.801691e-02  7.433005e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000557e+00 -2.700541e-01 -6.801693e-02  7.433012e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000558e+00 -2.700545e-01 -6.801696e-02  7.433026e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000561e+00 -2.700552e-01 -6.801703e-02  7.433053e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |       20.205  1.000568e+00 -2.700567e-01 -6.801717e-02  7.433107e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |       20.206  1.000580e+00 -2.700596e-01 -6.801744e-02  7.433214e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |       20.207  1.000605e+00 -2.700655e-01 -6.801799e-02  7.433429e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.209  1.000655e+00 -2.700772e-01 -6.801910e-02  7.433858e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.213  1.000754e+00 -2.701002e-01 -6.802130e-02  7.434709e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.221  1.000949e+00 -2.701450e-01 -6.802571e-02  7.436388e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |       20.237  1.001332e+00 -2.702283e-01 -6.803461e-02  7.439634e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |       20.270  1.002064e+00 -2.703613e-01 -6.805331e-02  7.445620e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG |       20.336  1.003412e+00 -2.704432e-01 -6.809819e-02  7.455247e-02 |  18 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG |       20.401  1.004629e+00 -2.702443e-01 -6.815621e-02  7.461610e-02 |  19 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG |       20.532  1.006769e+00 -2.691010e-01 -6.830917e-02  7.466032e-02 |  20 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       20.663  1.008506e+00 -2.673704e-01 -6.848467e-02  7.462778e-02 |  21 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       20.794  1.009788e+00 -2.656588e-01 -6.864192e-02  7.456690e-02 |  22 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       20.926  1.010587e+00 -2.644420e-01 -6.874952e-02  7.451623e-02 |  23 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.057  1.010955e+00 -2.638733e-01 -6.879961e-02  7.449210e-02 |  24 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.188  1.011027e+00 -2.637772e-01 -6.880853e-02  7.448867e-02 |  25 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.319  1.010989e+00 -2.638009e-01 -6.880563e-02  7.448807e-02 |  26 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.450  1.011006e+00 -2.636164e-01 -6.881806e-02  7.447345e-02 |  27 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.581  1.011170e+00 -2.630702e-01 -6.885907e-02  7.443779e-02 |  28 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.712  1.011476e+00 -2.622230e-01 -6.892452e-02  7.438588e-02 |  29 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.813  1.011751e+00 -2.615110e-01 -6.898016e-02  7.434346e-02 |  30 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.813  1.011751e+00 -2.615093e-01 -6.898030e-02  7.434336e-02 |  30 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.813  1.011751e+00 -2.615093e-01 -6.898030e-02  7.434336e-02 |  30 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.843  1.011840e+00 -2.612877e-01 -6.899771e-02  7.433034e-02 |  30 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       21.974  1.012154e+00 -2.605145e-01 -6.905871e-02  7.428530e-02 |  31 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       22.105  1.012337e+00 -2.600780e-01 -6.909340e-02  7.426025e-02 |  32 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       22.236  1.012368e+00 -2.600121e-01 -6.909880e-02  7.425663e-02 |  33 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       22.367  1.012285e+00 -2.602106e-01 -6.908313e-02  7.426800e-02 |  34 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       22.498  1.012168e+00 -2.604833e-01 -6.906143e-02  7.428345e-02 |  35 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       22.629  1.012100e+00 -2.606381e-01 -6.904901e-02  7.429212e-02 |  36 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       22.761  1.012131e+00 -2.605547e-01 -6.905545e-02  7.428708e-02 |  37 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       22.892  1.012259e+00 -2.602229e-01 -6.908134e-02  7.426736e-02 |  38 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       23.154  1.012556e+00 -2.593764e-01 -6.914638e-02  7.421492e-02 |  39 2 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |       23.416  1.012662e+00 -2.589463e-01 -6.917773e-02  7.418525e-02 |  40 1 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |       23.678  1.012668e+00 -2.588463e-01 -6.918434e-02  7.417713e-02 |  41 1 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |       23.940  1.012680e+00 -2.588022e-01 -6.918757e-02  7.417413e-02 |  42 1 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |       24.464  1.012749e+00 -2.586265e-01 -6.920135e-02  7.416376e-02 |  43 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |       24.989  1.012812e+00 -2.584469e-01 -6.921513e-02  7.415264e-02 |  44 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |       26.037  1.012891e+00 -2.582157e-01 -6.923279e-02  7.413816e-02 |  45 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |       27.086  1.012943e+00 -2.580724e-01 -6.924386e-02  7.412942e-02 |  46 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |       28.134  1.012979e+00 -2.579805e-01 -6.925106e-02  7.412400e-02 |  47 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |       30.232  1.013029e+00 -2.578612e-01 -6.926053e-02  7.411717e-02 |  48 2 2.097152e+00 
+2019-11-08 15:19:21 | DEBUG |       32.329  1.013055e+00 -2.578096e-01 -6.926478e-02  7.411451e-02 |  49 2 2.097152e+00 
+2019-11-08 15:19:21 | DEBUG |       36.523  1.013081e+00 -2.577671e-01 -6.926843e-02  7.411258e-02 |  50 2 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG |       40.717  1.013087e+00 -2.577628e-01 -6.926894e-02  7.411266e-02 |  51 2 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG |       44.912  1.013088e+00 -2.577650e-01 -6.926884e-02  7.411291e-02 |  52 2 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG |       49.106  1.013088e+00 -2.577666e-01 -6.926873e-02  7.411303e-02 |  53 2 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG |       57.495  1.013088e+00 -2.577674e-01 -6.926867e-02  7.411308e-02 |  54 2 8.388608e+00 
+2019-11-08 15:19:21 | DEBUG |       67.495  1.013087e+00 -2.577676e-01 -6.926864e-02  7.411307e-02 |  55 1 1.000000e+01 
+2019-11-08 15:19:21 | DEBUG |       77.495  1.013087e+00 -2.577678e-01 -6.926862e-02  7.411307e-02 |  56 1 1.000000e+01 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___2_EC
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___3_EC
+2019-11-08 15:19:21 | DEBUG |       80.000  1.013087e+00 -2.577678e-01 -6.926862e-02  7.411307e-02 |  57 1 1.000000e+01 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012670e+00 -2.577771e-01 -6.925257e-02  7.408586e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012671e+00 -2.577771e-01 -6.925259e-02  7.408590e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012671e+00 -2.577771e-01 -6.925259e-02  7.408590e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012671e+00 -2.577771e-01 -6.925259e-02  7.408590e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012671e+00 -2.577772e-01 -6.925259e-02  7.408590e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012671e+00 -2.577772e-01 -6.925259e-02  7.408590e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012671e+00 -2.577772e-01 -6.925258e-02  7.408590e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012671e+00 -2.577772e-01 -6.925258e-02  7.408590e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012670e+00 -2.577772e-01 -6.925257e-02  7.408589e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012670e+00 -2.577773e-01 -6.925255e-02  7.408588e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |       80.000  1.012669e+00 -2.577775e-01 -6.925252e-02  7.408585e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |       80.001  1.012668e+00 -2.577779e-01 -6.925245e-02  7.408580e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |       80.002  1.012666e+00 -2.577787e-01 -6.925231e-02  7.408570e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |       80.004  1.012661e+00 -2.577801e-01 -6.925204e-02  7.408550e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |       80.008  1.012652e+00 -2.577828e-01 -6.925155e-02  7.408515e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |       80.016  1.012638e+00 -2.577874e-01 -6.925072e-02  7.408458e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |       80.033  1.012618e+00 -2.577948e-01 -6.924951e-02  7.408388e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |       80.066  1.012602e+00 -2.578066e-01 -6.924815e-02  7.408378e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG |       80.131  1.012612e+00 -2.578259e-01 -6.924731e-02  7.408615e-02 |  18 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG |       80.262  1.012677e+00 -2.578535e-01 -6.924795e-02  7.409285e-02 |  19 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       80.524  1.012774e+00 -2.578553e-01 -6.925143e-02  7.409952e-02 |  20 1 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |       81.049  1.012832e+00 -2.578909e-01 -6.925132e-02  7.410647e-02 |  21 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |       81.573  1.012844e+00 -2.579399e-01 -6.924865e-02  7.411146e-02 |  22 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |       82.621  1.012840e+00 -2.579910e-01 -6.924524e-02  7.411557e-02 |  23 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |       84.719  1.012831e+00 -2.580266e-01 -6.924264e-02  7.411801e-02 |  24 1 2.097152e+00 
+2019-11-08 15:19:21 | DEBUG |       88.913  1.012824e+00 -2.580459e-01 -6.924114e-02  7.411917e-02 |  25 1 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___2_EC
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___3_EC
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012823e+00 -2.580469e-01 -6.924106e-02  7.411922e-02 |  26 1 8.388608e+00 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012402e+00 -2.580554e-01 -6.922489e-02  7.409164e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409168e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409168e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409167e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409167e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409167e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922490e-02  7.409167e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012402e+00 -2.580555e-01 -6.922489e-02  7.409167e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012402e+00 -2.580556e-01 -6.922488e-02  7.409166e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012402e+00 -2.580557e-01 -6.922486e-02  7.409165e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |       90.000  1.012401e+00 -2.580559e-01 -6.922483e-02  7.409162e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |       90.001  1.012400e+00 -2.580563e-01 -6.922476e-02  7.409157e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |       90.002  1.012397e+00 -2.580570e-01 -6.922461e-02  7.409147e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |       90.004  1.012393e+00 -2.580585e-01 -6.922435e-02  7.409127e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |       90.008  1.012384e+00 -2.580611e-01 -6.922385e-02  7.409091e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |       90.016  1.012369e+00 -2.580658e-01 -6.922302e-02  7.409033e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |       90.033  1.012349e+00 -2.580733e-01 -6.922179e-02  7.408962e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |       90.066  1.012333e+00 -2.580851e-01 -6.922042e-02  7.408952e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG |       90.131  1.012343e+00 -2.581048e-01 -6.921957e-02  7.409191e-02 |  18 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG |       90.262  1.012408e+00 -2.581329e-01 -6.922019e-02  7.409870e-02 |  19 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |       90.524  1.012506e+00 -2.581348e-01 -6.922370e-02  7.410544e-02 |  20 1 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |       91.049  1.012565e+00 -2.581708e-01 -6.922358e-02  7.411245e-02 |  21 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |       91.573  1.012577e+00 -2.582203e-01 -6.922087e-02  7.411748e-02 |  22 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |       92.463  1.012573e+00 -2.582643e-01 -6.921792e-02  7.412099e-02 |  23 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |       92.471  1.012573e+00 -2.582647e-01 -6.921790e-02  7.412103e-02 |  23 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |       92.471  1.012573e+00 -2.582647e-01 -6.921790e-02  7.412103e-02 |  23 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |       92.621  1.012573e+00 -2.582721e-01 -6.921740e-02  7.412162e-02 |  23 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |       94.719  1.012563e+00 -2.583086e-01 -6.921472e-02  7.412409e-02 |  24 1 2.097152e+00 
+2019-11-08 15:19:21 | DEBUG |       98.913  1.012555e+00 -2.583289e-01 -6.921312e-02  7.412528e-02 |  25 1 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___2_EC
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___3_EC
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012554e+00 -2.583299e-01 -6.921303e-02  7.412533e-02 |  26 1 8.388608e+00 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012128e+00 -2.583377e-01 -6.919673e-02  7.409737e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919674e-02  7.409741e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012128e+00 -2.583378e-01 -6.919673e-02  7.409740e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012128e+00 -2.583379e-01 -6.919672e-02  7.409740e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012128e+00 -2.583380e-01 -6.919670e-02  7.409738e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |      100.000  1.012127e+00 -2.583382e-01 -6.919667e-02  7.409736e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |      100.001  1.012126e+00 -2.583386e-01 -6.919659e-02  7.409730e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |      100.002  1.012123e+00 -2.583393e-01 -6.919645e-02  7.409720e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |      100.004  1.012118e+00 -2.583408e-01 -6.919618e-02  7.409700e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |      100.008  1.012110e+00 -2.583434e-01 -6.919569e-02  7.409663e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |      100.016  1.012095e+00 -2.583481e-01 -6.919485e-02  7.409604e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |      100.033  1.012075e+00 -2.583556e-01 -6.919361e-02  7.409532e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |      100.066  1.012058e+00 -2.583674e-01 -6.919224e-02  7.409521e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG |      100.131  1.012069e+00 -2.583871e-01 -6.919138e-02  7.409762e-02 |  18 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG |      100.262  1.012135e+00 -2.584153e-01 -6.919203e-02  7.410445e-02 |  19 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |      100.524  1.012234e+00 -2.584166e-01 -6.919562e-02  7.411121e-02 |  20 1 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |      101.049  1.012293e+00 -2.584518e-01 -6.919559e-02  7.411823e-02 |  21 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |      101.573  1.012305e+00 -2.585010e-01 -6.919291e-02  7.412325e-02 |  22 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |      102.621  1.012301e+00 -2.585525e-01 -6.918946e-02  7.412737e-02 |  23 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |      104.719  1.012291e+00 -2.585887e-01 -6.918679e-02  7.412981e-02 |  24 1 2.097152e+00 
+2019-11-08 15:19:21 | DEBUG |      108.913  1.012283e+00 -2.586091e-01 -6.918519e-02  7.413100e-02 |  25 1 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___2_EC
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___3_EC
+2019-11-08 15:19:21 | DEBUG |      110.000  1.012283e+00 -2.586102e-01 -6.918510e-02  7.413105e-02 |  26 1 8.388608e+00 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011852e+00 -2.586172e-01 -6.916866e-02  7.410273e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011852e+00 -2.586172e-01 -6.916868e-02  7.410276e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011852e+00 -2.586172e-01 -6.916868e-02  7.410276e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011852e+00 -2.586172e-01 -6.916867e-02  7.410276e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011852e+00 -2.586173e-01 -6.916868e-02  7.410276e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011852e+00 -2.586173e-01 -6.916867e-02  7.410276e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011852e+00 -2.586173e-01 -6.916867e-02  7.410275e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011852e+00 -2.586173e-01 -6.916867e-02  7.410275e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011852e+00 -2.586173e-01 -6.916866e-02  7.410274e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011851e+00 -2.586174e-01 -6.916864e-02  7.410273e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |      110.000  1.011851e+00 -2.586176e-01 -6.916860e-02  7.410270e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |      110.001  1.011849e+00 -2.586180e-01 -6.916853e-02  7.410265e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |      110.002  1.011847e+00 -2.586188e-01 -6.916839e-02  7.410254e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |      110.004  1.011842e+00 -2.586202e-01 -6.916812e-02  7.410234e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |      110.008  1.011833e+00 -2.586229e-01 -6.916762e-02  7.410197e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |      110.016  1.011818e+00 -2.586275e-01 -6.916677e-02  7.410137e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |      110.033  1.011798e+00 -2.586350e-01 -6.916553e-02  7.410063e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |      110.066  1.011781e+00 -2.586468e-01 -6.916415e-02  7.410051e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG |      110.131  1.011792e+00 -2.586665e-01 -6.916330e-02  7.410293e-02 |  18 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG |      110.262  1.011858e+00 -2.586948e-01 -6.916397e-02  7.410982e-02 |  19 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |      110.524  1.011959e+00 -2.586954e-01 -6.916765e-02  7.411660e-02 |  20 1 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |      111.049  1.012019e+00 -2.587298e-01 -6.916771e-02  7.412361e-02 |  21 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |      111.573  1.012032e+00 -2.587786e-01 -6.916506e-02  7.412863e-02 |  22 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |      112.621  1.012028e+00 -2.588296e-01 -6.916166e-02  7.413272e-02 |  23 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |      114.719  1.012018e+00 -2.588654e-01 -6.915902e-02  7.413513e-02 |  24 1 2.097152e+00 
+2019-11-08 15:19:21 | DEBUG |      118.913  1.012010e+00 -2.588857e-01 -6.915742e-02  7.413631e-02 |  25 1 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___2_EC
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___3_EC
+2019-11-08 15:19:21 | DEBUG |      120.000  1.012009e+00 -2.588868e-01 -6.915732e-02  7.413636e-02 |  26 1 8.388608e+00 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011574e+00 -2.588930e-01 -6.914076e-02  7.410767e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914078e-02  7.410770e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914078e-02  7.410770e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914077e-02  7.410769e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914077e-02  7.410769e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914077e-02  7.410769e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914077e-02  7.410769e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011574e+00 -2.588931e-01 -6.914077e-02  7.410769e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011574e+00 -2.588932e-01 -6.914076e-02  7.410768e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011573e+00 -2.588933e-01 -6.914074e-02  7.410767e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |      120.000  1.011573e+00 -2.588935e-01 -6.914070e-02  7.410764e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |      120.001  1.011571e+00 -2.588939e-01 -6.914063e-02  7.410758e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |      120.002  1.011569e+00 -2.588946e-01 -6.914049e-02  7.410748e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |      120.004  1.011564e+00 -2.588961e-01 -6.914021e-02  7.410727e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |      120.008  1.011555e+00 -2.588987e-01 -6.913971e-02  7.410689e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |      120.016  1.011540e+00 -2.589033e-01 -6.913886e-02  7.410628e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |      120.033  1.011519e+00 -2.589108e-01 -6.913762e-02  7.410553e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |      120.066  1.011502e+00 -2.589226e-01 -6.913623e-02  7.410540e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG |      120.131  1.011513e+00 -2.589423e-01 -6.913538e-02  7.410783e-02 |  18 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG |      120.262  1.011581e+00 -2.589706e-01 -6.913608e-02  7.411477e-02 |  19 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |      120.524  1.011682e+00 -2.589706e-01 -6.913984e-02  7.412158e-02 |  20 1 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |      121.049  1.011744e+00 -2.590041e-01 -6.913999e-02  7.412858e-02 |  21 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |      121.573  1.011757e+00 -2.590525e-01 -6.913739e-02  7.413359e-02 |  22 1 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |      122.621  1.011753e+00 -2.591030e-01 -6.913403e-02  7.413765e-02 |  23 1 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |      124.719  1.011743e+00 -2.591384e-01 -6.913141e-02  7.414004e-02 |  24 1 2.097152e+00 
+2019-11-08 15:19:21 | DEBUG |      128.913  1.011735e+00 -2.591585e-01 -6.912982e-02  7.414120e-02 |  25 1 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___2_EC
+2019-11-08 15:19:21 | DEBUG | Algebraic mode change for model _LOAD___3_EC
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |  26 1 8.388608e+00 
+2019-11-08 15:19:21 | DEBUG | calculation of the new starting point of the simulation.
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   0 0 0.000000e+00 
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   1 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   2 1 1.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   3 2 2.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   4 2 4.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   5 2 8.000000e-06 
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   6 2 1.600000e-05 
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   7 2 3.200000e-05 
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   8 2 6.400000e-05 
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |   9 2 1.280000e-04 
+2019-11-08 15:19:21 | DEBUG |      130.000  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |  10 2 2.560000e-04 
+2019-11-08 15:19:21 | DEBUG |      130.001  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |  11 2 5.120000e-04 
+2019-11-08 15:19:21 | DEBUG |      130.002  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |  12 2 1.024000e-03 
+2019-11-08 15:19:21 | DEBUG |      130.004  1.011734e+00 -2.591596e-01 -6.912973e-02  7.414125e-02 |  13 2 2.048000e-03 
+2019-11-08 15:19:21 | DEBUG |      130.008  1.011734e+00 -2.591597e-01 -6.912973e-02  7.414125e-02 |  14 2 4.096000e-03 
+2019-11-08 15:19:21 | DEBUG |      130.016  1.011734e+00 -2.591597e-01 -6.912972e-02  7.414125e-02 |  15 2 8.192000e-03 
+2019-11-08 15:19:21 | DEBUG |      130.033  1.011734e+00 -2.591598e-01 -6.912972e-02  7.414126e-02 |  16 2 1.638400e-02 
+2019-11-08 15:19:21 | DEBUG |      130.066  1.011734e+00 -2.591599e-01 -6.912971e-02  7.414127e-02 |  17 2 3.276800e-02 
+2019-11-08 15:19:21 | DEBUG |      130.131  1.011734e+00 -2.591602e-01 -6.912969e-02  7.414128e-02 |  18 2 6.553600e-02 
+2019-11-08 15:19:21 | DEBUG |      130.262  1.011734e+00 -2.591607e-01 -6.912965e-02  7.414131e-02 |  19 2 1.310720e-01 
+2019-11-08 15:19:21 | DEBUG |      130.524  1.011734e+00 -2.591616e-01 -6.912957e-02  7.414136e-02 |  20 2 2.621440e-01 
+2019-11-08 15:19:21 | DEBUG |      131.049  1.011733e+00 -2.591631e-01 -6.912945e-02  7.414144e-02 |  21 2 5.242880e-01 
+2019-11-08 15:19:21 | DEBUG |      132.097  1.011732e+00 -2.591652e-01 -6.912928e-02  7.414154e-02 |  22 2 1.048576e+00 
+2019-11-08 15:19:21 | DEBUG |      134.194  1.011730e+00 -2.591675e-01 -6.912907e-02  7.414164e-02 |  23 2 2.097152e+00 
+2019-11-08 15:19:21 | DEBUG |      138.389  1.011729e+00 -2.591696e-01 -6.912888e-02  7.414171e-02 |  24 2 4.194304e+00 
+2019-11-08 15:19:21 | DEBUG |      146.777  1.011728e+00 -2.591708e-01 -6.912876e-02  7.414175e-02 |  25 2 8.388608e+00 
+2019-11-08 15:19:21 | DEBUG |      156.777  1.011728e+00 -2.591704e-01 -6.912880e-02  7.414173e-02 |  26 1 1.000000e+01 
+2019-11-08 15:19:21 | DEBUG |      166.777  1.011728e+00 -2.591703e-01 -6.912881e-02  7.414172e-02 |  27 1 1.000000e+01 
+2019-11-08 15:19:21 | DEBUG |      170.000  1.011728e+00 -2.591702e-01 -6.912881e-02  7.414172e-02 |  28 1 3.222810e+00 
+2019-11-08 15:19:21 | DEBUG | get parameter value in model multi : tapChanger_valueMin value: 0.99 in submodel: TAP_CHANGER_LOAD_2
+2019-11-08 15:19:21 | INFO | parameter curve:TAP_CHANGER_LOAD_2 curve variable:tapChanger_valueMin updated.
+2019-11-08 15:19:21 | DEBUG | get parameter value in model multi : tapChanger_valueMax value: 1.01 in submodel: TAP_CHANGER_LOAD_2
+2019-11-08 15:19:21 | INFO | parameter curve:TAP_CHANGER_LOAD_2 curve variable:tapChanger_valueMax updated.
+2019-11-08 15:19:21 | DEBUG | get parameter value in model multi : tapChanger_valueMin value: 0.99 in submodel: TAP_CHANGER_LOAD_3
+2019-11-08 15:19:21 | INFO | parameter curve:TAP_CHANGER_LOAD_3 curve variable:tapChanger_valueMin updated.
+2019-11-08 15:19:21 | DEBUG | get parameter value in model multi : tapChanger_valueMax value: 1.01 in submodel: TAP_CHANGER_LOAD_3
+2019-11-08 15:19:21 | INFO | parameter curve:TAP_CHANGER_LOAD_3 curve variable:tapChanger_valueMax updated.
+2019-11-08 15:19:21 | DEBUG | get parameter value in model multi : tapChangerLock_UMin value: 68.24 in submodel: TAP_CHANGER_LOCK
+2019-11-08 15:19:21 | INFO | parameter curve:TAP_CHANGER_LOCK curve variable:tapChangerLock_UMin updated.
+2019-11-08 15:19:21 | DEBUG | 
+2019-11-08 15:19:21 | DEBUG | execution Stats :
+2019-11-08 15:19:21 | DEBUG | 
+2019-11-08 15:19:21 | DEBUG | number of iterations                     = 326
+2019-11-08 15:19:21 | DEBUG | number of Residual evaluations           = 475
+2019-11-08 15:19:21 | DEBUG | number of Jacobian evaluations           = 261
+2019-11-08 15:19:21 | DEBUG | number of Nonlinear iterations           = 473
+2019-11-08 15:19:21 | DEBUG | number of error test failures            = 0
+2019-11-08 15:19:21 | DEBUG | number of Nonlinear convergence failures = 0
+2019-11-08 15:19:21 | DEBUG | number of root functions evaluations     = 1102
+2019-11-08 15:19:21 | DEBUG | end of job 'IEEE14 - TapChangerLock'

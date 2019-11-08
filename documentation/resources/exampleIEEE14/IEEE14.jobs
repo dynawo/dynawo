@@ -8,7 +8,7 @@
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
-    <dyn:simulation startTime="0" stopTime="100" activateCriteria="false"/>
+    <dyn:simulation startTime="0" stopTime="100" activateCriteria="false" precision="1e-6"/>
     <dyn:outputs directory="outputs">
       <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>
       <dyn:timeline exportMode="TXT"/>
