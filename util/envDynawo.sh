@@ -1316,7 +1316,7 @@ run_documentation_test() {
   # compile_Modelica_Model
   # First example: Modelica model with no external variables
   pushd $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestCompile/Basic > /dev/null
-  compile_Modelica_Model --model Test --output-dir compilation --input-dir . || error_exit "Error during example 1 of compile_Modelica_Model (c++ files generation)"
+  compile_Modelica_Model --model Test --compilation-dir compilation --model-dir . || error_exit "Error during example 1 of compile_Modelica_Model (c++ files generation)"
   if [ ! -f "compilation/Test_Dyn.cpp" ]; then
     error_exit "Error during example 1 of compile_Modelica_Model (c++ files generation): cannot find expected output"
   fi
@@ -1361,12 +1361,6 @@ run_documentation_test() {
   pushd $DYNAWO_DOCUMENTATION_DIR/resources/exampleExecutables/TestPreassembledNoExternal > /dev/null
   generate_preassembled --model-list Test.xml --non-recursive-modelica-models-dir . || error_exit "Error during example 1 of generate-preassembled (model compilation no external)"
     if [ ! -f "Test.so" ]; then
-    error_exit "Error during example 1 of generate-preassembled (model compilation no external): cannot find expected output"
-  fi
-  if [ ! -f "Test.mo" ]; then
-    error_exit "Error during example 1 of generate-preassembled (model compilation no external): cannot find expected output"
-  fi
-  if [ ! -f "Test_Dyn_definition.h" ]; then
     error_exit "Error during example 1 of generate-preassembled (model compilation no external): cannot find expected output"
   fi
   mv Test.so SimulationCompiledLib/.
