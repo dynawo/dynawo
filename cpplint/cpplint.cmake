@@ -10,7 +10,7 @@
 set(CPPLINT_PATH ${DYNAWO_HOME}/cpplint/cpplint-wrapper.py)
 
 add_custom_target(cpplint_download ALL
-  COMMAND ${PYTHON_EXECUTABLE} -m pip install cpplint -t ${DYNAWO_HOME}/cpplint)
+  COMMAND ${PYTHON_EXECUTABLE} -m pip install ${CPPLINT_INSTALL_URL} -t ${DYNAWO_HOME}/cpplint)
 
 add_custom_target(cpplint ALL
   DEPENDS cpplint_download
