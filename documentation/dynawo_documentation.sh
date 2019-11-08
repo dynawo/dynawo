@@ -68,7 +68,7 @@ for folder in ${licenses_folders[*]}; do
   done
 done
 
-license_name=('\Dynawo' '\Dynawo Documentation' 'OpenModelica' 'SUNDIALS' 'SuiteSparse' 'Adept' 'Xerces-C++' 'NICSLU' 'jQuery MIT' 'jQuery GPL' 'ccplint')
+license_name=('\Dynawo' '\Dynawo Documentation' 'OpenModelica' 'SUNDIALS' 'SuiteSparse' 'Adept' 'Xerces-C++' 'NICSLU' 'jQuery MIT' 'jQuery GPL' 'cpplint')
 
 i=0
 j=1

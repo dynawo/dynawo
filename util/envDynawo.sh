@@ -421,6 +421,9 @@ set_environment() {
   export_var_env DYNAWO_JQUERY_DOWNLOAD_URL=https://github.com/jquery/jquery/archive
   export_var_env DYNAWO_FLOT_DOWNLOAD_URL=https://github.com/flot/flot/archive
 
+  # CPPLINT config
+  export_var_env DYNAWO_CPPLINT_INSTALL_URL="cpplint"
+
   if [ "`uname`" = "Linux" ]; then
     export_var_env_force DYNAWO_SHARED_LIBRARY_SUFFIX="so"
   elif [ "`uname`" = "Darwin" ]; then
@@ -771,6 +774,7 @@ config_dynawo() {
     -DLIBXML_HOME=$DYNAWO_LIBXML_INSTALL_DIR \
     -DLIBIIDM_HOME=$DYNAWO_LIBIIDM_INSTALL_DIR \
     -DXERCESC_HOME=$DYNAWO_XERCESC_INSTALL_DIR \
+    -DCPPLINT_INSTALL_URL=$DYNAWO_CPPLINT_INSTALL_URL \
     $CMAKE_OPTIONAL \
     -G "$DYNAWO_CMAKE_GENERATOR" \
     $DYNAWO_SRC_DIR
