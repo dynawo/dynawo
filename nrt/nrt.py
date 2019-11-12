@@ -14,6 +14,7 @@
 import datetime
 import glob
 import imp
+import sys
 try:
     import lxml.etree
 except:
@@ -26,7 +27,6 @@ import re
 import signal
 import shutil
 import subprocess
-import sys
 import time
 
 try:

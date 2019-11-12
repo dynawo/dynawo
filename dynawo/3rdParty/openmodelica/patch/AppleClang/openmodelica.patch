@@ -1,0 +1,204 @@
+# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Patch for OpenModelica 1.13.2 (https://www.openmodelica.org)
+#
+# All rights reserved.
+#
+# THIS PROGRAM IS PROVIDED UNDER THE TERMS OF GPL VERSION 3 LICENSE OR
+# THIS OSMC PUBLIC LICENSE (OSMC-PL) VERSION 1.2.
+# ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS PROGRAM CONSTITUTES RECIPIENT'S ACCEPTANCE
+# OF THE OSMC PUBLIC LICENSE OR THE GPL VERSION 3, ACCORDING TO RECIPIENTS CHOICE.
+#
+# The OpenModelica software and the Open Source Modelica
+# Consortium (OSMC) Public License (OSMC-PL) are obtained
+# from OSMC, either from the above address,
+# from the URLs: http://www.ida.liu.se/projects/OpenModelica or
+# http://www.openmodelica.org, and in the OpenModelica distribution.
+# GNU version 3 is obtained from: http://www.gnu.org/copyleft/gpl.html.
+#
+# This program is distributed WITHOUT ANY WARRANTY; without
+# even the implied warranty of  MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE, EXCEPT AS EXPRESSLY SET FORTH
+# IN THE BY RECIPIENT SELECTED SUBSIDIARY LICENSE CONDITIONS OF OSMC-PL.
+#
+# See the full OSMC Public License conditions for more details.
+# SPDX-License-Identifier: GPL-3.0 OR LicenseRef-OSMC-PL
+diff --git a/lpsolve/configure.ac b/lpsolve/configure.ac
+index 896b90354..851572bf6 100644
+--- a/OMCompiler/3rdParty/lpsolve/configure.ac.orig
++++ b/OMCompiler/3rdParty/lpsolve/configure.ac
+@@ -5,6 +5,7 @@ AC_CANONICAL_HOST
+ 
+ SHARED_LIB=liblpsolve55.so
+ SO=.so
++
+ case $host_os in
+   hp*|HP*)
+     DEF=-ldld
+@@ -21,7 +22,11 @@ case $host_os in
+   linux)
+     CCSHARED="-fPIC";;
+   apple-darwin)
+-    DEF=-ldl -idirafter /usr/include/sys -DINTEGERTIME -Wno-long-double
++    DEF="-ldl -idirafter /usr/include/sys -DINTEGERTIME -Wno-long-double"
++    ;;
++  *darwin*)
++    SO=.dylib
++    SHARED_LIB=liblpsolve55.dylib
+     ;;
+   OpenUNIX*|UnixWare*)
+     DEF='-dy -DNOLONGLONG'
+diff --git a/lpsolve/Makefile.in b/lpsolve/Makefile.in
+index 72f2cb481..ebaa0e59e 100644
+--- a/OMCompiler/3rdParty/lpsolve/Makefile.in.orig
++++ b/OMCompiler/3rdParty/lpsolve/Makefile.in
+@@ -101,7 +101,7 @@ liblpsolve55.a: $(SOURCES)
+ 
+ liblpsolve55@SO@: $(SOURCES)
+ 	$(CC) $(CCSHARED) -s -c $(INCLUDES) $(CFLAGS) $(DEFINES) $(SOURCES)
+-	$(CC) -shared -Wl,-Bsymbolic -Wl,-soname,$@ -o $@ `echo $(SOURCES)|sed s/[.]c/.o/g|sed 's/[^ ]*\///g'` $(LIBS)
++	$(CC) -shared `echo @SO@ | grep -q dylib || echo -Wl,-Bsymbolic -Wl,-soname,$@` -o $@ `echo $(SOURCES)|sed s/[.]c/.o/g|sed 's/[^ ]*\///g'` $(LIBS)
+ 
+ install: install-HEADERS install-LIBRARIES
+
+diff --git a/Makefile.common b/Makefile.common
+index 0db3868a55..e2fc1b9466 100644
+--- a/OMCompiler/Makefile.common.orig
++++ b/OMCompiler/Makefile.common
+@@ -477,6 +477,7 @@ $(builddir_lib_omc)/liblpsolve55.a: 3rdParty/lpsolve/Makefile
+ 	$(MAKE) -C 3rdParty/lpsolve/ install CC="$(CC)" CXX="$(CXX)" CFLAGS="$(CFLAGS)" CPPFLAGS="$(CPPFLAGS)" -j1
+ 	cp -pf 3rdParty/lpsolve/build/lib/liblpsolve55* $(builddir_lib_omc)
+ 	cp -prf 3rdParty/lpsolve/build/include/* $(builddir_inc)/
++	test ! `uname` = Darwin || install_name_tool -id @rpath/liblpsolve55.dylib "$(builddir_lib_omc)/liblpsolve55.dylib"
+ 3rdParty/lpsolve/Makefile: 3rdParty/lpsolve/configure.ac
+ 	(cd 3rdParty/lpsolve && autoreconf -vif && ./configure --prefix="`pwd`/build" "--host=$(host)" CC="$(CC)" CXX="$(CXX)" CFLAGS="$(CFLAGS)" CPPFLAGS="$(CPPFLAGS)")
+ clean-lpsolve:
+diff --git graphstream/gs-netstream/c++/src/netstream-socket.cpp b/graphstream/gs-netstream/c++/src/netstream-socket.c
+index c1137b48d..44c80dcd2 100644
+--- a/OMCompiler/3rdParty/graphstream/gs-netstream/c++/src/netstream-socket.cpp.orig
++++ b/OMCompiler/3rdParty/graphstream/gs-netstream/c++/src/netstream-socket.cpp
+@@ -257,7 +257,7 @@ namespace netstream
+ 			self.sin_addr.s_addr = htonl(INADDR_ANY);
+ 
+ 			// Assign a port number to the socket
+-			if ( bind(server_socket_, (struct sockaddr*)&self, sizeof(self)) != 0 )
++			if ( ::bind(server_socket_, (struct sockaddr*)&self, sizeof(self)) != 0 )
+ 				BailOnNetStreamSocketError("netstream::NetStreamSocket::accept() Unable to create listening socket");
+
+
+diff --git a/configure.ac b/configure.ac
+index 03df9fa183..bb49cd2719 100644
+--- a/OMCompiler/configure.ac.orig
++++ b/OMCompiler/configure.ac
+@@ -558,29 +558,51 @@ SUNDIALS_LDFLAGS="-lsundials_idas -lsundials_kinsol -lsundials_nvecserial $LD_LA
+ FINAL_MESSAGES="$FINAL_MESSAGES\nSimulations may use sundials suite: Yes"
+ SUNDIALS_TARGET="sundials"
+ 
+-AC_CHECK_HEADERS(locale.h libintl.h,[
+-AC_MSG_CHECKING([gettext linking])
+-AC_TRY_LINK([
+-#include <libintl.h>
+-], [
++AC_CHECK_HEADERS(locale.h libintl.h,[],[HAVE_GETTEXT="#define NO_GETTEXT 1"])
++
++if test -z "$HAVE_GETTEXT"; then
++  AC_MSG_CHECKING([gettext linking])
++
++  AC_TRY_LINK([
++    #include <libintl.h>
++  ], [
+   gettext("");
+-], [AC_MSG_RESULT([in C-library])],
++  ], [AC_MSG_RESULT([in C-library])],
+   [
+-  LIBS="-lintl";
++    LIBS="-lintl";
++    AC_TRY_LINK([
++      #include <libintl.h>
++    ], [
++      gettext("");
++    ], [AC_MSG_RESULT([in intl]); GETTEXT_LIBS="-lintl"], [HAVE_GETTEXT="#define NO_GETTEXT 1"])
++  ])
++
++  LIBS=""
++
++  if test -z "$HAVE_GETTEXT$GETTEXT_LIBS"; then
++
++  AC_MSG_CHECKING([setlocale linking])
++
+   AC_TRY_LINK([
+     #include <libintl.h>
+   ], [
+-      gettext("");
+-  ], [AC_MSG_RESULT([in intl]);RT_LDFLAGS_OPTIONAL="$RT_LDFLAGS_OPTIONAL $LIBS"],
+-      [
+-        HAVE_GETTEXT="#define NO_GETTEXT 1"
+-        AC_MSG_RESULT([no])
+-      ])
+-])
+-],[
+-  HAVE_GETTEXT="#define NO_GETTEXT 1"
+-  AC_MSG_RESULT([gettext headers not found])
+-])
++    setlocale(LC_ALL, "");
++  ], [AC_MSG_RESULT([in C-library])],
++  [
++    LIBS="-lintl";
++    AC_TRY_LINK([
++      #include <libintl.h>
++    ], [
++      setlocale(LC_ALL, "");
++    ], [AC_MSG_RESULT([in intl]); GETTEXT_LIBS="-lintl"], [AC_MSG_RESULT([no]); HAVE_GETTEXT="#define NO_GETTEXT 1"])
++  ])
++
++  fi
++
++  if test -z "$HAVE_GETTEXT"; then
++    RT_LDFLAGS_OPTIONAL="$RT_LDFLAGS_OPTIONAL $GETTEXT_LIBS"
++  fi
++fi
+ 
+ AC_ARG_WITH(hwloc,  [  --without-hwloc        (default to looking for it)],[
+   LIBS=""
+@@ -678,7 +700,7 @@ if test "$DARWIN" = "1"; then
+   RT_LDFLAGS_GENERATED_CODE_SIM="$LDFLAGS -lSimulationRuntimeC $LD_LAPACK -lm -lomcgc"
+   RT_LDFLAGS_GENERATED_CODE_SOURCE_FMU="$LDFLAGS $LD_LAPACK -lm$LD_NOUNDEFINED"
+   RT_LDFLAGS_SHARED=
+-  OMCRUNTIME_SHARED_LDFLAGS="$RT_LDFLAGS -Wl,-undefined -Wl,dynamic_lookup $LIBLPSOLVE55 -lzmq $LIBUUID"
++  OMCRUNTIME_SHARED_LDFLAGS="$RT_LDFLAGS -Wl,-undefined -Wl,dynamic_lookup $LIBLPSOLVE55 -lzmq $LIBUUID $RT_LDFLAGS_OPTIONAL"
+   LINK="cp -fr"
+   RPATH="-Wl,-rpath,'@loader_path/../lib/$host_short/omc/'"
+   RPATH_QMAKE="-Wl,-rpath,'@loader_path/../../../../lib/$host_short/omc',-rpath,'@loader_path/../../../../lib/',-rpath,'$PREFIX/lib/$host_short/omc',-rpath,'$PREFIX/lib/'"
+
+diff --git a/configure.ac b/configure.ac
+index 5886a2acf..161d088ed 100644
+--- a/OMCompiler/configure.ac
++++ b/OMCompiler/configure.ac
+@@ -271,7 +271,7 @@ else # Is Darwin
+ 
+ AC_LANG_PUSH([C++])
+ OLD_CXXFLAGS=$CXXFLAGS
+-for flag in -stdlib=libstdc++; do
++for flag in -stdlib=libc++; do
+   CXXFLAGS="$OLD_CXXFLAGS $flag"
+   AC_TRY_LINK([], [return 0;], [LDFLAGS_LIBSTDCXX="$flag"],[CXXFLAGS="$OLD_CXXFLAGS"])
+ done
+diff --git a/Makefile.in b/Makefile.in
+index 6eccb4f..8bd8253 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -103,7 +103,6 @@ INSTALL_LOCALEDIR  = ${DESTDIR}${datadir}/locale
+ 
+ install-dirs:
+ 	@test ! "${DESTDIR}/@prefix@" -ef "@OMBUILDDIR@" || (echo Error: Install and build dirs are the same && false)
+-	if [ "@APP@" = ".app" ]; then mkdir -p ${INSTALL_APPDIR}; fi
+ 	mkdir -p ${INSTALL_BINDIR}
+ 	mkdir -p ${INSTALL_LIBDIR}
+ 	mkdir -p ${INSTALL_INCLUDEDIR}/omc
+@@ -119,7 +118,6 @@ install-dirs:
+ install: install-dirs
+ 	echo Installing OpenModelica...
+ 	# Application directory (OSX)
+-	if [ "@APP@" = ".app" ]; then cp -a "@OMBUILDDIR@"/Applications/* $(INSTALL_APPDIR); fi
+ 	# Binaries
+ 	cp -a "@OMBUILDDIR@"/bin/* ${INSTALL_BINDIR}
+ 	# Libraries

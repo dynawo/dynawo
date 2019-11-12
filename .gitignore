@@ -79,6 +79,9 @@ dynawo/3rdParty/sundials/sundials-2.7.0.tar.gz
 dynawo/3rdParty/sundials/sundials-4.0.2.tar.gz
 dynawo/3rdParty/sundials/sundials-4.1.0.tar.gz
 dynawo/3rdParty/xercesc/xerces-c-3.2.2.tar.gz
+dynawo/3rdParty/libarchive/libarchive-2.8.0.tar.gz
+dynawo/3rdParty/zlib/zlib-1.2.11.tar.gz
+dynawo/3rdParty/modelicalib/ModelicaStandardLibrary-3.2.3.tar.gz
 util/curvesToHtml/resources/arrow-down.gif
 util/curvesToHtml/resources/arrow-left.gif
 util/curvesToHtml/resources/arrow-right.gif
@@ -89,6 +92,8 @@ util/curvesToHtml/resources/jquery.flot.navigate.js
 util/curvesToHtml/resources/jquery.flot.selection.js
 util/curvesToHtml/resources/jquery.js
 cpplint/cpplint.py
+cpplint/bin/
+cpplint/cpplint-1.4.4-py2.7.egg-info/
 dynawo/3rdParty/libxml/sax/formatter/include/xml/sax/formatter/FormatterVersion.h
 dynawo/3rdParty/libxml/sax/parser/include/xml/sax/parser/ParserVersion.h
 **/version.h
