@@ -53,9 +53,10 @@ MESSAGE("-- libZIP version : ${libZIP_VERSION}")
 IF(libZIP_FIND_VERSION)
   IF("${libZIP_VERSION}" VERSION_LESS "${libZIP_FIND_VERSION}")
     MESSAGE("\n\tDetected version of libZIP is too old. Requested version was ${libZIP_FIND_VERSION}.\n")
-  SET(libZIP_FOUND FALSE)
+    SET(libZIP_FOUND FALSE)
+  ELSE()
+    SET(libZIP_FOUND TRUE)
   ENDIF()
-  SET(libZIP_FOUND TRUE)
 ELSE()
   # Handle the QUIETLY and REQUIRED arguments and set libZIP_FOUND
   # to TRUE if all listed variables are TRUE.

@@ -30,6 +30,9 @@ if(POLICY CMP0074)
   cmake_policy(SET CMP0074 NEW)
 endif()
 
+# Add custom cmake modules to the path
+SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../cmake")
+
 project(Dynawo-3rd-parties CXX C) # language is required to identify compiler ID and version
 
 if(MSVC)
@@ -418,42 +421,59 @@ else()
 endif()
 
 # Build COTS thirdparties
+set(ADEPT_HOME ${CMAKE_INSTALL_PREFIX}/adept)
+find_package(Adept QUIET)
+unset(ADEPT_HOME)
+
 GetPatchCommand(adept)
-if(MSVC OR APPLE)
-  ExternalProject_Add(adept
-    INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/adept
-    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/adept
-    TMP_DIR             ${TMP_DIR}
-    STAMP_DIR           ${DOWNLOAD_DIR}/adept-stamp
-    SOURCE_DIR          ${DOWNLOAD_DIR}/adept
-    BINARY_DIR          ${DOWNLOAD_DIR}/adept-build
-    URL                 ${adept_url}
-    URL_MD5             ${adept_md5}
-    PATCH_COMMAND       ${adept_patch_common}
-    COMMAND             ${adept_patch_compiler}
-    CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCMAKE_CXX_FLAGS_INIT:STRING=${CXX_STDFLAG}
-    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
-    )
+if(Adept_FOUND)
+  add_custom_target(adept)
+  set(ADEPT_HOME ${CMAKE_INSTALL_PREFIX}/adept)
 else()
-  ExternalProject_Add(adept
-    INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/adept
-    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/adept
-    TMP_DIR             ${TMP_DIR}
-    STAMP_DIR           ${DOWNLOAD_DIR}/adept-stamp
-    SOURCE_DIR          ${DOWNLOAD_DIR}/adept
-    URL                 ${adept_url}
-    URL_MD5             ${adept_md5}
-    PATCH_COMMAND       ${adept_patch_common}
-    COMMAND             ${adept_patch_compiler}
-    BUILD_IN_SOURCE     1
-    CONFIGURE_COMMAND   <SOURCE_DIR>/configure "CXX=${CMAKE_CXX_COMPILER}" "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>" --prefix=<INSTALL_DIR> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared> --disable-openmp --without-blas --without-lapack
-    )
+  if(MSVC OR APPLE)
+    ExternalProject_Add(adept
+      INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/adept
+      DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/adept
+      TMP_DIR             ${TMP_DIR}
+      STAMP_DIR           ${DOWNLOAD_DIR}/adept-stamp
+      SOURCE_DIR          ${DOWNLOAD_DIR}/adept
+      BINARY_DIR          ${DOWNLOAD_DIR}/adept-build
+      URL                 ${adept_url}
+      URL_MD5             ${adept_md5}
+      PATCH_COMMAND       ${adept_patch_common}
+      COMMAND             ${adept_patch_compiler}
+      CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCMAKE_CXX_FLAGS_INIT:STRING=${CXX_STDFLAG}
+      CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
+      )
+  else()
+    ExternalProject_Add(adept
+      INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/adept
+      DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/adept
+      TMP_DIR             ${TMP_DIR}
+      STAMP_DIR           ${DOWNLOAD_DIR}/adept-stamp
+      SOURCE_DIR          ${DOWNLOAD_DIR}/adept
+      URL                 ${adept_url}
+      URL_MD5             ${adept_md5}
+      PATCH_COMMAND       ${adept_patch_common}
+      COMMAND             ${adept_patch_compiler}
+      BUILD_IN_SOURCE     1
+      CONFIGURE_COMMAND   <SOURCE_DIR>/configure "CXX=${CMAKE_CXX_COMPILER}" "CXXFLAGS=${CXX_STDFLAG} -fPIC $<IF:$<CONFIG:Release>,-O3,-O0>" --prefix=<INSTALL_DIR> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static> $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared> --disable-openmp --without-blas --without-lapack
+      )
+  endif()
+  ExternalProject_Get_Property(adept install_dir)
+  set(ADEPT_HOME ${install_dir})
 endif()
-ExternalProject_Get_Property(adept install_dir)
-set(ADEPT_HOME ${install_dir})
+
+set(SUITESPARSE_HOME ${CMAKE_INSTALL_PREFIX}/suitesparse)
+find_package(SuiteSparse QUIET)
+unset(SUITESPARSE_HOME)
 
 GetPatchCommand(suitesparse)
-ExternalProject_Add(suitesparse
+if(SuiteSparse_FOUND)
+  add_custom_target(suitesparse)
+  set(SUITESPARSE_HOME ${CMAKE_INSTALL_PREFIX}/suitesparse)
+else()
+  ExternalProject_Add(suitesparse
   INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/suitesparse
   DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/suitesparse
   TMP_DIR             ${TMP_DIR}
@@ -467,29 +487,38 @@ ExternalProject_Add(suitesparse
   CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER}
   CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
   )
-ExternalProject_Get_Property(suitesparse install_dir)
-set(SUITESPARSE_HOME ${install_dir})
+  ExternalProject_Get_Property(suitesparse install_dir)
+  set(SUITESPARSE_HOME ${install_dir})
+endif()
 
+set(SUNDIALS_HOME ${CMAKE_INSTALL_PREFIX}/sundials)
+find_package(Sundials QUIET)
+unset(SUNDIALS_HOME)
 
 GetPatchCommand(sundials)
-ExternalProject_Add(sundials
-  DEPENDS             suitesparse
-  INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/sundials
-  DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/sundials
-  STAMP_DIR           ${DOWNLOAD_DIR}/sundials-stamp
-  SOURCE_DIR          ${DOWNLOAD_DIR}/sundials
-  BINARY_DIR          ${DOWNLOAD_DIR}/sundials-build
-  TMP_DIR             ${TMP_DIR}
-  URL                 ${sundials_url}
-  URL_MD5             ${sundials_md5}
-  PATCH_COMMAND       ${sundials_patch_common}
-  COMMAND             ${sundials_patch_compiler}
-  # workaround on Linux: add -lm to check correctly that KLU is functional
-  CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER} -DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-lm> -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
-  CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DBUILD_STATIC_LIBS:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>> -DEXAMPLES_INSTALL:BOOL=OFF -DEXAMPLES_ENABLE_C:BOOL=OFF -DBUILD_CVODES:BOOL=OFF -DBUILD_CVODE:BOOL=OFF -DBUILD_ARKODE:BOOL=OFF -DBUILD_IDAS:BOOL=OFF -DKLU_ENABLE:BOOL=ON -DKLU_INCLUDE_DIR:PATH=${SUITESPARSE_HOME}/include -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
-  )
-ExternalProject_Get_Property(sundials install_dir)
-set(SUNDIALS_HOME ${install_dir})
+if(Sundials_FOUND)
+  add_custom_target(sundials DEPENDS suitesparse)
+  set(SUNDIALS_HOME ${CMAKE_INSTALL_PREFIX}/sundials)
+else()
+  ExternalProject_Add(sundials
+    DEPENDS             suitesparse
+    INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/sundials
+    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/sundials
+    STAMP_DIR           ${DOWNLOAD_DIR}/sundials-stamp
+    SOURCE_DIR          ${DOWNLOAD_DIR}/sundials
+    BINARY_DIR          ${DOWNLOAD_DIR}/sundials-build
+    TMP_DIR             ${TMP_DIR}
+    URL                 ${sundials_url}
+    URL_MD5             ${sundials_md5}
+    PATCH_COMMAND       ${sundials_patch_common}
+    COMMAND             ${sundials_patch_compiler}
+    # workaround on Linux: add -lm to check correctly that KLU is functional
+    CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER} -DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-lm> -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DBUILD_STATIC_LIBS:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>> -DEXAMPLES_INSTALL:BOOL=OFF -DEXAMPLES_ENABLE_C:BOOL=OFF -DBUILD_CVODES:BOOL=OFF -DBUILD_CVODE:BOOL=OFF -DBUILD_ARKODE:BOOL=OFF -DBUILD_IDAS:BOOL=OFF -DKLU_ENABLE:BOOL=ON -DKLU_INCLUDE_DIR:PATH=${SUITESPARSE_HOME}/include -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
+    )
+  ExternalProject_Get_Property(sundials install_dir)
+  set(SUNDIALS_HOME ${install_dir})
+endif()
 
 # clear cache variables to force find
 unset(XercesC_INCLUDE_DIR CACHE)
@@ -499,11 +528,14 @@ unset(XercesC_LIBRARY_RELEASE CACHE)
 # FindXercesC.cmake doesn't know a XERCESC_HOME
 list(APPEND CMAKE_PREFIX_PATH ${XERCESC_HOME})
 
+set(XERCESC_HOME ${CMAKE_INSTALL_PREFIX}/xerces-c)
 find_package(XercesC ${xercesc_version} QUIET)
+unset(XERCESC_HOME)
 
 GetPatchCommand(xercesc)
 if(XercesC_FOUND)
   add_custom_target(xercesc)
+  set(XERCESC_HOME ${CMAKE_INSTALL_PREFIX}/xerces-c)
 else()
   if(MSVC)
     ExternalProject_Add(xercesc
@@ -663,48 +695,75 @@ else()
   add_custom_target(openmodelica)
 endif()
 
-# Build Dynawo thirdparties
-ExternalProject_Add(libzip
-    DEPENDS             libarchive boost googletest
-    INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libzip
-    DOWNLOAD_DIR        ${DOWNLOAD_DIR}
-    TMP_DIR             ${TMP_DIR}
-    STAMP_DIR           ${DOWNLOAD_DIR}/libzip-stamp
-    BINARY_DIR          ${DOWNLOAD_DIR}/libzip-build
-    DOWNLOAD_COMMAND    ""
-    SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libzip
-    CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
-    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DLIBZIP_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DLIBZIP_BUILD_STATIC:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>> -DLIBZIP_BUILD_TESTS:BOOL=$<BOOL:${LIBZIP_BUILD_TESTS}> -DLIBZIP_BUILD_SAMPLES:BOOL=$<BOOL:${LIBZIP_BUILD_SAMPLES}> -DLIBARCHIVE_HOME:PATH=${LIBARCHIVE_HOME} -DBOOST_ROOT:PATH=${BOOST_ROOT} -DCMAKE_PREFIX_PATH:PATH=${ZLIB_ROOT} $<$<BOOL:${LIBZIP_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}> -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
-    )
-ExternalProject_Get_Property(libzip install_dir)
-set(LIBZIP_HOME ${install_dir})
+set(LIBZIP_HOME ${CMAKE_INSTALL_PREFIX}/libzip)
+find_package(libZIP 1.3.0 QUIET)
+unset(LIBZIP_HOME)
 
-ExternalProject_Add(libxml
-    DEPENDS             xercesc boost googletest
-    INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libxml
-    DOWNLOAD_DIR        ${DOWNLOAD_DIR}
-    TMP_DIR             ${TMP_DIR}
-    STAMP_DIR           ${DOWNLOAD_DIR}/libxml-stamp
-    BINARY_DIR          ${DOWNLOAD_DIR}/libxml-build
-    DOWNLOAD_COMMAND    ""
-    SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libxml
-    CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
-    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DLibXML_SAX_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DLibXML_SAX_BUILD_STATIC:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>> -DLibXML_BUILD_TESTS:BOOL=$<BOOL:${LIBXML_BUILD_TESTS}> -DLibXML_SAX_BUILD_SAMPLES:BOOL=$<BOOL:${LIBXML_BUILD_SAMPLES}> -DXERCESC_HOME:PATH=${XERCESC_HOME} -DBOOST_ROOT:PATH=${BOOST_ROOT} $<$<BOOL:${LIBXML_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}> -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
-    )
-ExternalProject_Get_Property(libxml install_dir)
-set(LIBXML_HOME ${install_dir})
+if(libZIP_FOUND)
+  add_custom_target(libzip DEPENDS libarchive boost googletest)
+  set(LIBZIP_HOME ${CMAKE_INSTALL_PREFIX}/libzip)
+else()
+  # Build Dynawo thirdparties
+  ExternalProject_Add(libzip
+      DEPENDS             libarchive boost googletest
+      INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libzip
+      DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+      TMP_DIR             ${TMP_DIR}
+      STAMP_DIR           ${DOWNLOAD_DIR}/libzip-stamp
+      BINARY_DIR          ${DOWNLOAD_DIR}/libzip-build
+      DOWNLOAD_COMMAND    ""
+      SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libzip
+      CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
+      CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DLIBZIP_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DLIBZIP_BUILD_STATIC:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>> -DLIBZIP_BUILD_TESTS:BOOL=$<BOOL:${LIBZIP_BUILD_TESTS}> -DLIBZIP_BUILD_SAMPLES:BOOL=$<BOOL:${LIBZIP_BUILD_SAMPLES}> -DLIBARCHIVE_HOME:PATH=${LIBARCHIVE_HOME} -DBOOST_ROOT:PATH=${BOOST_ROOT} -DCMAKE_PREFIX_PATH:PATH=${ZLIB_ROOT} $<$<BOOL:${LIBZIP_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}> -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
+      )
+  ExternalProject_Get_Property(libzip install_dir)
+  set(LIBZIP_HOME ${install_dir})
+endif()
 
-ExternalProject_Add(libiidm
-    DEPENDS             libxml boost
-    INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libiidm
-    DOWNLOAD_DIR        ${DOWNLOAD_DIR}
-    TMP_DIR             ${TMP_DIR}
-    STAMP_DIR           ${DOWNLOAD_DIR}/libiidm-stamp
-    BINARY_DIR          ${DOWNLOAD_DIR}/libiidm-build
-    DOWNLOAD_COMMAND    ""
-    SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libiidm
-    CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
-    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DIIDM_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DBUILD_XML:BOOL=ON -DBUILD_SAMPLES:BOOL=$<BOOL:${LIBIIDM_BUILD_SAMPLES}> -DCMAKE_PREFIX_PATH:PATH=${LIBXML_HOME} -DXERCESC_HOME:PATH=${XERCESC_HOME} -DBOOST_ROOT:PATH=${BOOST_ROOT} -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
-    )
-ExternalProject_Get_Property(libiidm install_dir)
-set(LIBIIDM_HOME ${install_dir})
+set(LIBXML_HOME ${CMAKE_INSTALL_PREFIX}/libxml)
+find_package(libXML 0.2.4 QUIET)
+unset(LIBXML_HOME)
+
+if(libXML_FOUND)
+  add_custom_target(libxml DEPENDS xercesc boost googletest)
+  set(LIBXML_HOME ${CMAKE_INSTALL_PREFIX}/libxml)
+else()
+  ExternalProject_Add(libxml
+      DEPENDS             xercesc boost googletest
+      INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libxml
+      DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+      TMP_DIR             ${TMP_DIR}
+      STAMP_DIR           ${DOWNLOAD_DIR}/libxml-stamp
+      BINARY_DIR          ${DOWNLOAD_DIR}/libxml-build
+      DOWNLOAD_COMMAND    ""
+      SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libxml
+      CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
+      CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DLibXML_SAX_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DLibXML_SAX_BUILD_STATIC:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>> -DLibXML_BUILD_TESTS:BOOL=$<BOOL:${LIBXML_BUILD_TESTS}> -DLibXML_SAX_BUILD_SAMPLES:BOOL=$<BOOL:${LIBXML_BUILD_SAMPLES}> -DXERCESC_HOME:PATH=${XERCESC_HOME} -DBOOST_ROOT:PATH=${BOOST_ROOT} $<$<BOOL:${LIBXML_BUILD_TESTS}>:-DGTEST_ROOT:PATH=${GTEST_ROOT}> -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
+      )
+  ExternalProject_Get_Property(libxml install_dir)
+  set(LIBXML_HOME ${install_dir})
+endif()
+
+set(LIBIIDM_HOME ${CMAKE_INSTALL_PREFIX}/libiidm)
+find_package(libIIDM 0.2.8 QUIET)
+unset(LIBIIDM_HOME)
+
+if(libIIDM_FOUND)
+  add_custom_target(libiidm DEPENDS libxml boost)
+  set(LIBIIDM_HOME ${CMAKE_INSTALL_PREFIX}/libiidm)
+else()
+  ExternalProject_Add(libiidm
+          DEPENDS             libxml boost
+          INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/libiidm
+          DOWNLOAD_DIR        ${DOWNLOAD_DIR}
+          TMP_DIR             ${TMP_DIR}
+          STAMP_DIR           ${DOWNLOAD_DIR}/libiidm-stamp
+          BINARY_DIR          ${DOWNLOAD_DIR}/libiidm-build
+          DOWNLOAD_COMMAND    ""
+          SOURCE_DIR          ${CMAKE_CURRENT_SOURCE_DIR}/libiidm
+          CMAKE_CACHE_ARGS    -DCMAKE_CXX_COMPILER:STRING=${CMAKE_CXX_COMPILER} -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
+          CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DIIDM_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DBUILD_XML:BOOL=ON -DBUILD_SAMPLES:BOOL=$<BOOL:${LIBIIDM_BUILD_SAMPLES}> -DCMAKE_PREFIX_PATH:PATH=${LIBXML_HOME} -DXERCESC_HOME:PATH=${XERCESC_HOME} -DBOOST_ROOT:PATH=${BOOST_ROOT} -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
+          )
+  ExternalProject_Get_Property(libiidm install_dir)
+  set(LIBIIDM_HOME ${install_dir})
+endif()
