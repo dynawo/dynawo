@@ -395,15 +395,15 @@ set_environment() {
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
   export_var_env DYNAWO_CMAKE_GENERATOR="Unix Makefiles"
-  if [ ! -x "$(command -v cmake)" ]; then
-    error_exit "You need to install cmake command line utility."
+  export_var_env DYNAWO_CMAKE_BUILD_OPTION=""
+  if [ -x "$(command -v cmake)" ]; then
+    CMAKE_VERSION=$(cmake --version | head -1 | awk '{print $(NF)}')
+    CMAKE_BUILD_OPTION=""
+    if [ $(echo $CMAKE_VERSION | cut -d '.' -f 1) -ge 3 -a $(echo $CMAKE_VERSION | cut -d '.' -f 2) -ge 12 ]; then
+      CMAKE_BUILD_OPTION="-j $DYNAWO_NB_PROCESSORS_USED"
+    fi
+    export_var_env_force DYNAWO_CMAKE_BUILD_OPTION="$CMAKE_BUILD_OPTION"
   fi
-  CMAKE_VERSION=$(cmake --version | head -1 | awk '{print $(NF)}')
-  CMAKE_BUILD_OPTION=""
-  if [ $(echo $CMAKE_VERSION | cut -d '.' -f 1) -ge 3 -a $(echo $CMAKE_VERSION | cut -d '.' -f 2) -ge 12 ]; then
-    CMAKE_BUILD_OPTION="-j $DYNAWO_NB_PROCESSORS_USED"
-  fi
-  export_var_env DYNAWO_CMAKE_BUILD_OPTION="$CMAKE_BUILD_OPTION"
 
   # Only used until now by nrt
   export_var_env DYNAWO_NB_PROCESSORS_USED=1
@@ -420,9 +420,6 @@ set_environment() {
   # JQuery config
   export_var_env DYNAWO_JQUERY_DOWNLOAD_URL=https://github.com/jquery/jquery/archive
   export_var_env DYNAWO_FLOT_DOWNLOAD_URL=https://github.com/flot/flot/archive
-
-  # CPPLINT config
-  export_var_env DYNAWO_CPPLINT_INSTALL_URL="cpplint"
 
   if [ "`uname`" = "Linux" ]; then
     export_var_env_force DYNAWO_SHARED_LIBRARY_SUFFIX="so"
@@ -774,7 +771,6 @@ config_dynawo() {
     -DLIBXML_HOME=$DYNAWO_LIBXML_INSTALL_DIR \
     -DLIBIIDM_HOME=$DYNAWO_LIBIIDM_INSTALL_DIR \
     -DXERCESC_HOME=$DYNAWO_XERCESC_INSTALL_DIR \
-    -DCPPLINT_INSTALL_URL=$DYNAWO_CPPLINT_INSTALL_URL \
     $CMAKE_OPTIONAL \
     -G "$DYNAWO_CMAKE_GENERATOR" \
     $DYNAWO_SRC_DIR
