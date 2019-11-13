@@ -9,8 +9,12 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 set(CPPLINT_PATH ${DYNAWO_HOME}/cpplint/cpplint-wrapper.py)
 
-add_custom_target(cpplint_download ALL
-  COMMAND ${PYTHON_EXECUTABLE} -m pip install ${CPPLINT_INSTALL_URL} -t ${DYNAWO_HOME}/cpplint)
+if(NOT EXISTS "${DYNAWO_HOME}/cpplint/cpplint.py")
+  add_custom_target(cpplint_download ALL
+    COMMAND ${PYTHON_EXECUTABLE} -m pip install cpplint -t ${DYNAWO_HOME}/cpplint)
+else()
+  add_custom_target(cpplint_download ALL)
+endif()
 
 add_custom_target(cpplint ALL
   DEPENDS cpplint_download
