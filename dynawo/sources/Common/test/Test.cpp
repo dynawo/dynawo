@@ -140,7 +140,7 @@ TEST(CommonTest, testFileSystemUtilsSearchFilesAccordingToExtensionsExistingFile
   std::vector<std::string> filesFound;
   searchFilesAccordingToExtensions("res", fileExtensionsAllowed,
       fileExtensionsForbidden,  true, filesFound);
-  ASSERT_EQ(filesFound.size(), 3);
+  ASSERT_EQ(filesFound.size(), 4);
 }
 
 TEST(CommonTest, testFileSystemUtilsSearchModelicaModelsFileNotFound) {
@@ -152,17 +152,21 @@ TEST(CommonTest, testFileSystemUtilsSearchModelicaModelsFileNotFound) {
 TEST(CommonTest, testFileSystemUtilsSearchModelicaModelsExistingFile) {
   std::vector<std::string> filesFound;
   searchModelicaModels("res", "mo", true, filesFound);
-  ASSERT_EQ(filesFound.size(), 2);
-  std::size_t pos = filesFound[0].find("MyModel.mo");
-  ASSERT_EQ(filesFound[0].substr(pos), "MyModel.mo");
-  pos = filesFound[1].find("package.mo");
-  ASSERT_EQ(filesFound[1].substr(pos), "package.mo");
+  ASSERT_EQ(filesFound.size(), 3);
+  std::size_t pos = filesFound[0].find("folder/MyModel.mo");
+  ASSERT_EQ(filesFound[0].substr(pos), "folder/MyModel.mo");
+  pos = filesFound[1].find("folder/folder3/MyModel.mo");
+  ASSERT_EQ(filesFound[1].substr(pos), "folder/folder3/MyModel.mo");
+  pos = filesFound[2].find("folder/folder2/package.mo");
+  ASSERT_EQ(filesFound[2].substr(pos), "folder/folder2/package.mo");
 }
 
 TEST(CommonTest, testFileSystemUtilsSearchModelsFiles) {
   std::vector<std::string> fileExtensionsForbidden;
   std::map<std::string, std::string> filesFound;
-  searchModelsFiles("res", ".mo", fileExtensionsForbidden, true, true, false, filesFound);
+  boost::unordered_set<boost::filesystem::path> pathsToIgnore;
+  pathsToIgnore.insert(boost::filesystem::path("res/folder/folder3"));
+  searchModelsFiles("res", ".mo", fileExtensionsForbidden, pathsToIgnore, true, true, false, filesFound);
   ASSERT_EQ(filesFound.size(), 3);
   assert(filesFound.find("MyModel") != filesFound.end());
   assert(filesFound.find("folder2") != filesFound.end());
@@ -217,7 +221,7 @@ TEST(CommonTest, testFileSystemUtilsCreateDirectoryAndThenDeleteIt) {
 
 TEST(CommonTest, testFileSystemUtilsExtensionListDirectory) {
   std::list<std::string> res = list_directory("res/folder/");
-  ASSERT_EQ(res.size(), 3);
+  ASSERT_EQ(res.size(), 4);
 }
 
 TEST(CommonTest, testFileSystemUtilsExtensionRemoveFileName) {

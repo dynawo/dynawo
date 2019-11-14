@@ -18,8 +18,6 @@
  *
  */
 
-#include <boost/filesystem.hpp>
-
 #include "DYNTrace.h"
 #include "DYNMacrosMessage.h"
 #include "DYNFileSystemUtils.h"
@@ -102,14 +100,15 @@ void searchFilesAccordingToExtension(const string & directoryToScan, const strin
 }
 
 void searchModelsFiles(const std::string& directoryToScan, const std::string& fileExtension, const vector<string>& fileExtensionsForbidden,
-                       const bool searchInSubDirs, const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
+                       const boost::unordered_set<fs::path>& pathsToIgnore, const bool searchInSubDirs,
+                       const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
                        std::map<std::string, std::string>& filesFound) {
   // initialise recursion variables
   bool isPackage = false;
   std::vector<std::string> namespaces;
 
   // then run recursive function
-  searchModelsFilesRec(directoryToScan, fileExtension, fileExtensionsForbidden, searchInSubDirs, isPackage,
+  searchModelsFilesRec(directoryToScan, fileExtension, fileExtensionsForbidden, pathsToIgnore, searchInSubDirs, isPackage,
                        packageForcesSubDirsSearch, stopWhenSeePackage, namespaces, filesFound);
 }
 
@@ -129,8 +128,9 @@ std::string getFullModelName(std::string fileName, const std::vector <std::strin
 }
 
 void searchModelsFilesRec(const std::string& directoryToScan, const std::string& fileExtension, const vector <std::string>& fileExtensionsForbidden,
-                          const bool searchInSubDirs, const bool /*isPackage*/, const bool packageForcesSubDirsSearch,
-                          const bool stopWhenSeePackage, const std::vector<std::string>& namespaces, std::map<std::string, std::string>& filesFound) {
+                          const boost::unordered_set<fs::path>& pathsToIgnore, const bool searchInSubDirs,
+                          const bool /*isPackage*/, const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
+                          const std::vector<std::string>& namespaces, std::map<std::string, std::string>& filesFound) {
   fs::path root = directoryToScan;
   static std::string packageFileName = "package.mo";
   bool isPackageLocal = exists(absolute(packageFileName, root));
@@ -147,8 +147,16 @@ void searchModelsFilesRec(const std::string& directoryToScan, const std::string&
     for (fs::directory_iterator it(root); it != fs::directory_iterator(); ++it) {
       // folders scanning
       if (fs::is_directory(*it)) {
-        if (searchInSubDirsLocal) {
-          searchModelsFilesRec((*it).path().string(), fileExtension, fileExtensionsForbidden, searchInSubDirsLocal, isPackageLocal,
+        bool ignoredPath = false;
+        for (boost::unordered_set<fs::path>::const_iterator pathIt = pathsToIgnore.begin(), pathItEnd = pathsToIgnore.end();
+            pathIt != pathItEnd; ++pathIt) {
+          if (boost::filesystem::equivalent((*it).path(), *pathIt)) {
+            ignoredPath = true;
+            break;
+          }
+        }
+        if (searchInSubDirsLocal && !ignoredPath) {
+          searchModelsFilesRec((*it).path().string(), fileExtension, fileExtensionsForbidden, pathsToIgnore,  searchInSubDirsLocal, isPackageLocal,
               packageForcesSubDirsSearch, stopWhenSeePackage, namespacesLocal, filesFound);
         }
       } else if (doScan || (file_name((*it).path().string()) == packageFileName)) {  // files scanning : usually scan everything. When not, only scan package

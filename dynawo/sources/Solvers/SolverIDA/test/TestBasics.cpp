@@ -98,12 +98,14 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
   }
 
   const bool rmModels = true;
+  boost::unordered_set<boost::filesystem::path> pathsToIgnore;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
             precompiledModelsDirsAbsolute,
             preCompiledModelsExtension,
             modelicaUseStandardModels,
             modelicaModelsDirsAbsolute,
             modelicaModelsExtension,
+            pathsToIgnore,
             additionalHeaderFiles,
             rmModels,
             getEnvVar("PWD") +"/jobs");

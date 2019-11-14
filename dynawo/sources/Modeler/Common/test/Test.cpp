@@ -60,6 +60,7 @@ class SubModelMockBase : public SubModel {
 
   std::string modelType() const {
     // Dummy class used for testing
+    return "";
   }
 
   void dumpParameters(std::map< std::string, std::string > & mapParameters) {
@@ -194,6 +195,7 @@ class SubModelMockBase : public SubModel {
 
   std::vector<int> getDefJCalculatedVarI(int iCalculatedVar) {
     // Dummy class used for testing
+    return std::vector<int>();
   }
 
   void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res) {
@@ -202,6 +204,7 @@ class SubModelMockBase : public SubModel {
 
   double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp) {
     // Dummy class used for testing
+    return 0.;
   }
 
   void setSubModelParameters() {

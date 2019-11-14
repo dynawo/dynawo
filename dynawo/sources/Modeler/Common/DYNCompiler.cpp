@@ -173,22 +173,28 @@ Compiler::getDDB() {
   // look for Modelica models and external variable files
   if (useStandardModelicaModels_) {
     // scan for files required by OMC (i.e. only keep parent package.mo for packages)
-    searchModelsFiles(DDBDir, ".mo", noFileExtensionsForbidden, searchInSubDirsStandardModels, !packageNeedsRecursive, stopWhenSeePackage, moFilesCompilation_);
+    searchModelsFiles(DDBDir, ".mo", noFileExtensionsForbidden, pathsToIgnore_,
+        searchInSubDirsStandardModels, !packageNeedsRecursive, stopWhenSeePackage, moFilesCompilation_);
 
     // scan for all .mo files (for sanity checks purposes)
-    searchModelsFiles(DDBDir, ".mo", noFileExtensionsForbidden, searchInSubDirsStandardModels, packageNeedsRecursive, !stopWhenSeePackage, moFilesAll_);
+    searchModelsFiles(DDBDir, ".mo", noFileExtensionsForbidden, pathsToIgnore_,
+        searchInSubDirsStandardModels, packageNeedsRecursive, !stopWhenSeePackage, moFilesAll_);
 
     // scan for all .extvar (external variables files)
-    searchModelsFiles(DDBDir, ".extvar", fileExtensionsForbiddenXML, searchInSubDirsStandardModels, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
+    searchModelsFiles(DDBDir, ".extvar", fileExtensionsForbiddenXML, pathsToIgnore_,
+        searchInSubDirsStandardModels, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
   }
 
   for (vector<UserDefinedDirectory>::const_iterator itDir = modelicaModelsDirsPaths_.begin(); itDir != modelicaModelsDirsPaths_.end(); ++itDir) {
-    searchModelsFiles(itDir->path, modelicaModelsExtension_, noFileExtensionsForbidden, itDir->isRecursive, !packageNeedsRecursive, stopWhenSeePackage,
+    searchModelsFiles(itDir->path, modelicaModelsExtension_, noFileExtensionsForbidden, pathsToIgnore_,
+        itDir->isRecursive, !packageNeedsRecursive, stopWhenSeePackage,
             moFilesCompilation_);
 
-    searchModelsFiles(itDir->path, modelicaModelsExtension_, noFileExtensionsForbidden, itDir->isRecursive, packageNeedsRecursive, !stopWhenSeePackage,
+    searchModelsFiles(itDir->path, modelicaModelsExtension_, noFileExtensionsForbidden, pathsToIgnore_,
+        itDir->isRecursive, packageNeedsRecursive, !stopWhenSeePackage,
             moFilesAll_);
-    searchModelsFiles(itDir->path, ".extvar", fileExtensionsForbiddenXML, itDir->isRecursive, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
+    searchModelsFiles(itDir->path, ".extvar", fileExtensionsForbiddenXML, pathsToIgnore_,
+        itDir->isRecursive, packageNeedsRecursive, !stopWhenSeePackage, extVarFiles_);
   }
   Trace::info("COMPILE") << DYNLog(CompileFiles) << Trace::endline;
   for (std::map<string, string>::const_iterator itFile = moFilesCompilation_.begin(); itFile != moFilesCompilation_.end(); ++itFile) {
