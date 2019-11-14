@@ -4,27 +4,29 @@
 20 | _BUS____9-BUS___10-1_AC | LINE : opening on side 2
 20.0058 | GEN____8_SM | PMIN : activation
 20.0095 | GEN____3_SM | PMIN : activation
-20.4662 | GEN____8_SM | PMIN : deactivation
-20.4667 | GEN____6_SM | PMIN : activation
-20.694 | GEN____3_SM | PMIN : deactivation
+20.4664 | GEN____8_SM | PMIN : deactivation
+20.4669 | GEN____6_SM | PMIN : activation
+20.6939 | GEN____3_SM | PMIN : activation
+20.6939 | GEN____3_SM | PMIN : deactivation
 20.8033 | GEN____6_SM | PMIN : deactivation
-20.9998 | GEN____8_SM | PMIN : activation
-21.3725 | GEN____6_SM | PMIN : activation
-21.3725 | GEN____6_SM | PMIN : deactivation
-21.4338 | GEN____8_SM | PMIN : deactivation
+21 | GEN____8_SM | PMIN : activation
+21 | GEN____8_SM | PMIN : deactivation
+21.3728 | GEN____6_SM | PMIN : activation
+21.3728 | GEN____6_SM | PMIN : deactivation
+21.4339 | GEN____8_SM | PMIN : deactivation
 21.6595 | GEN____6_SM | PMIN : deactivation
 30 | PhaseShifter | Tap +1
-30.5443 | GEN____6_SM | PMIN : activation
+30.5444 | GEN____6_SM | PMIN : activation
 30.8312 | GEN____6_SM | PMIN : deactivation
 35 | PhaseShifter | Tap +1
 35.0154 | PhaseShifter | Phase-shifter : above maximum allowed value
-35.5571 | GEN____6_SM | PMIN : activation
+35.5574 | GEN____6_SM | PMIN : activation
 35.8225 | GEN____6_SM | PMIN : deactivation
 45.0154 | PhaseShifter | Tap +1
 45.152 | PhaseShifter | Phase-shifter : above maximum allowed value
-45.5875 | GEN____6_SM | PMIN : activation
+45.5879 | GEN____6_SM | PMIN : activation
 45.793 | GEN____6_SM | PMIN : deactivation
 55.152 | PhaseShifter | Phase-shifter : below minimum allowed value
 55.152 | PhaseShifter | Tap +1
-55.7387 | GEN____6_SM | PMIN : activation
+55.7393 | GEN____6_SM | PMIN : activation
 55.9202 | GEN____6_SM | PMIN : deactivation

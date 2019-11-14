@@ -19,6 +19,7 @@ gen_PePu                                          : y =       0.902957 yp =     
 gen_QGen                                          : y =     967.901650 yp =       0.000000
 gen_QGenPu                                        : y =       9.679016 yp =       0.000000
 gen_QStatorPu_value                               : y =       9.679016 yp =       0.000000
+gen_QStatorPuQNom_value                           : y =       3.255406 yp =       0.000000
 gen_UPu                                           : y =       1.000014 yp =       0.000000
 gen_cePu                                          : y =       0.902957 yp =       0.000000
 gen_cmPu                                          : y =       0.903000 yp =       0.000000
@@ -146,12 +147,14 @@ gen_MqPPu                                          =       1.610000
 gen_MrcPPu                                         =       0.000000
 gen_P0Pu                                           =     -19.980000
 gen_PGen0Pu                                        =      19.980000
-gen_PNomAlt                                        =    2220.000000
+gen_PNomAlt                                        =    2200.000000
 gen_PNomTurb                                       =    2220.000000
 gen_Pm0Pu                                          =       0.903000
 gen_Q0Pu                                           =      -9.680000
 gen_QGen0Pu                                        =       9.680000
+gen_QNomAlt                                        =     297.321375
 gen_QStator0Pu                                     =       9.680000
+gen_QStator0PuQNom                                 =       3.255736
 gen_RDPPu                                          =       0.034105
 gen_RQ1PPu                                         =       0.007433
 gen_RQ2PPu                                         =       0.028421
@@ -190,11 +193,11 @@ gen_u0Pu_re                                        =       0.880229
 gen_uStator0Pu_im                                  =       0.474548
 gen_uStator0Pu_re                                  =       0.880229
 gover_KGover                                       =       5.000000
-gover_PMax                                         =    2220.000000
+gover_PMax                                         =    2200.000000
 gover_PMaxPu                                       =       1.000000
 gover_PMin                                         =       0.000000
 gover_PMinPu                                       =       0.000000
-gover_PNom                                         =    2220.000000
+gover_PNom                                         =    2200.000000
 gover_Pm0Pu                                        =       0.903000
 gover_PmRawPu_k1                                   =       1.000000
 gover_PmRawPu_k2                                   =       1.000000
