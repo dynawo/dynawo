@@ -68,6 +68,7 @@ class Compiler {
    * @param useStandardModelicaModels: whether to use standard modelica models
    * @param modelicaModelsDirs modelica models directories
    * @param modelicaModelsExtension: modelica models extension
+   * @param pathsToIgnore : paths that shouldn't be explored
    * @param additionalHeaderFiles: list of headers that should be included in the dynamic model files
    * @param rmModels: remove .mo model
    * @param outputDir: output directory
@@ -79,6 +80,7 @@ class Compiler {
           const bool useStandardModelicaModels,
           const std::vector <UserDefinedDirectory>& modelicaModelsDirs,
           const std::string& modelicaModelsExtension,
+          const boost::unordered_set<boost::filesystem::path>& pathsToIgnore,
           const std::vector <std::string>& additionalHeaderFiles,
           const bool rmModels,
           std::string outputDir) :
@@ -90,6 +92,7 @@ class Compiler {
   precompiledModelsExtension_(precompiledModelsExtension),
   useStandardModelicaModels_(useStandardModelicaModels),
   modelicaModelsDirsPaths_(modelicaModelsDirs),
+  pathsToIgnore_(pathsToIgnore),
   modelicaModelsExtension_(modelicaModelsExtension),
   modelDirPath_(outputDir),
   additionalHeaderFiles_(additionalHeaderFiles),
@@ -251,6 +254,7 @@ class Compiler {
   std::string precompiledModelsExtension_;  ///< file extension to discriminate precompiled models
   bool useStandardModelicaModels_;  ///< whether to rely on DDB Modelica models
   std::vector <UserDefinedDirectory> modelicaModelsDirsPaths_;  ///< absolute paths to Modelica models directories
+  boost::unordered_set<boost::filesystem::path> pathsToIgnore_;  ///< paths to ignore during exploration
   std::string modelicaModelsExtension_;  ///< file extension to discriminate Modelica models
 
   std::string modelDirPath_;  ///< model files' directory

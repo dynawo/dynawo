@@ -173,9 +173,10 @@ int main(int argc, char ** argv) {
       dir.isRecursive = false;
       modelicaModelsDirs.push_back(dir);
     }
+    const boost::unordered_set<fs::path> pathsToIgnore;
 
     Compiler cf = Compiler(dyd, useStandardPrecompiledModels, precompiledModelsDirs, precompiledModelsExtension,
-            useStandardModelicaModels, modelicaModelsDirs, modelicaModelsExtension, additionalHeaderFiles, rmModels, outputDir);
+            useStandardModelicaModels, modelicaModelsDirs, modelicaModelsExtension, pathsToIgnore, additionalHeaderFiles, rmModels, outputDir);
     cf.compile();
 
     fs::remove(dydFileName);

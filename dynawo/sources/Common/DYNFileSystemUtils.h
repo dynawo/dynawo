@@ -24,6 +24,8 @@
 #include <list>
 #include <map>
 #include <vector>
+#include <boost/unordered_set.hpp>
+#include <boost/filesystem.hpp>
 
 /**
  * @struct UserDefinedDirectory
@@ -85,6 +87,7 @@ void searchFilesAccordingToExtension(const std::string & directoryToScan, const 
  * @param[in] directoryToScan : the directory to scan
  * @param[in] fileExtension : the allowed file extension
  * @param[in] fileExtensionsForbidden : the forbidden file extension
+ * @param[in] pathsToIgnore : paths that shouldn't be explored
  * @param[in] searchInSubDirs : whether to search in subdirectories, or to only search in the root directory
  * @param[in] packageForcesSubDirsSearch : true if for a package we have to look for models in subdirectories
  * @param[in] stopWhenSeePackage : true if for a package we don't want to look for models in subdirectories
@@ -93,7 +96,8 @@ void searchFilesAccordingToExtension(const std::string & directoryToScan, const 
  * call searchModelsFilesRec
  */
 void searchModelsFiles(const std::string & directoryToScan, const std::string& fileExtension, const std::vector<std::string>& fileExtensionsForbidden,
-                       const bool searchInSubDirs, const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
+                       const boost::unordered_set<boost::filesystem::path>& pathsToIgnore, const bool searchInSubDirs,
+                       const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
                        std::map<std::string, std::string>& filesFound);  // search for models data in a given directory;
 
 /**
@@ -102,6 +106,7 @@ void searchModelsFiles(const std::string & directoryToScan, const std::string& f
  * @param[in] directoryToScan : the directory to scan
  * @param[in] fileExtension : the allowed file extension
  * @param[in] fileExtensionsForbidden : the forbidden file extension
+ * @param[in] pathsToIgnore : paths that shouldn't be explored
  * @param[in] searchInSubDirs : whether to search in subdirectories, or to only search in the root directory
  * @param[in] isPackage : true if the current directory is a package
  * @param[in] packageForcesSubDirsSearch : true if for a package we have to look for models in subdirectories
@@ -112,7 +117,8 @@ void searchModelsFiles(const std::string & directoryToScan, const std::string& f
  * throw an exception when the rootPath does not exist
  */
 void searchModelsFilesRec(const std::string& directoryToScan, const std::string& fileExtension, const std::vector<std::string> & fileExtensionsForbidden,
-                          const bool searchInSubDirs, const bool isPackage, const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
+                          const boost::unordered_set<boost::filesystem::path>& pathsToIgnore, const bool searchInSubDirs,
+                          const bool isPackage, const bool packageForcesSubDirsSearch, const bool stopWhenSeePackage,
                           const std::vector <std::string>& namespaces, std::map<std::string, std::string>& filesFound);
 
 /**
