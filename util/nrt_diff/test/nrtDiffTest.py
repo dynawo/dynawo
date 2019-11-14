@@ -52,14 +52,18 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
     def test_timeline_log(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "timeline.log"), '|', os.path.join(dir_path, "timeline2.log"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "timeline.log"), '|', os.path.join(dir_path, "timeline3.log"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(message, "nrt_diff/test/timeline.log: 9 differences")
+        self.assertEqual(message, "nrt_diff/test/timeline.log: 1 difference")
 
     def test_timeline_xml(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "timeline.xml"), '|', os.path.join(dir_path, "timeline2.xml"), '|')
+        self.assertEqual(return_value, nrtDiff.IDENTICAL)
+        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "timeline.xml"), '|', os.path.join(dir_path, "timeline3.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(message, "nrt_diff/test/timeline.xml: 7 differences")
+        self.assertEqual(message, "nrt_diff/test/timeline.xml: 1 difference")
 
 class TestnrtDiffDirectoryDiff(unittest.TestCase):
     def test_directory_diff(self):

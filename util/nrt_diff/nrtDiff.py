@@ -921,20 +921,29 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
 
     return (return_value, message)
 
+TYPE_LOG, TYPE_TIMELINE, TYPE_CURVES = range(3)
 
 ## Check whether to keep a line for log comparison
 # @param line : the line to study as a string
+# @param type : type of the file
 # @return : a boolean describing whether it is relevant to compare the line
-def LineToCompare (line):
-    lines_to_avoid = settings.logs_pattern_to_avoid
-
-    # if a line should be avoided, then no comparison is needed
-    for pattern in lines_to_avoid:
-        if pattern in line:
-            return False
-
-    if ("number of" in line and "variables" in line) or "ERROR" in line or ("WARN" in line and "KINSOL" not in line):
+def LineToCompare (line, file_type):
+    if file_type == TYPE_CURVES:
         return True
+    elif file_type == TYPE_LOG:
+        lines_to_avoid = settings.logs_pattern_to_avoid
+
+        # if a line should be avoided, then no comparison is needed
+        for pattern in lines_to_avoid:
+            if pattern in line:
+                return False
+
+        if ("number of" in line and "variables" in line) or "ERROR" in line or ("WARN" in line and "KINSOL" not in line):
+            return True
+    elif file_type == TYPE_TIMELINE:
+        # We filter those lines as they are very unstable
+        if ("PMIN : deactivation" not in line and "PMIN : activation" not in line and "PMAX : deactivation" not in line and "PMAX : activation" not in line):
+            return True
 
     # everything went fine => the line should be compared
     return False
@@ -1000,14 +1009,19 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
     lines_to_compare_right = []
     file_name = os.path.splitext(os.path.basename(path_left))[0]
     file_extension = os.path.splitext(os.path.basename(path_left))[1]
+    file_type = TYPE_LOG
+    if "timeline" in file_name:
+        file_type = TYPE_TIMELINE
+    elif "curves" in file_name:
+        file_type = TYPE_CURVES
     for line_left in file_left:
         # skip some lines when needed
-        if (LineToCompare (line_left) or file_name == "timeline" or file_extension == ".xml"):
+        if (LineToCompare (line_left, file_type)):
             lines_to_compare_left.append(line_left)
 
     for line_right in file_right:
         # skip some lines when needed
-        if (LineToCompare (line_right) or file_name == "timeline" or file_extension == ".xml"):
+        if (LineToCompare (line_right, file_type)):
             lines_to_compare_right.append(line_right)
 
     file_left.close()

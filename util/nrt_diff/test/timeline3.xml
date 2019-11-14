@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<timeline xmlns="http://www.rte-france.com/dynawo">
+  <event time="0" modelName="DM_CHIN2T 1" message="PMAX : activation"/>
+  <event time="0" modelName="DM_CHIN2T 2" message="PMAX : activation"/>
+  <event time="0" modelName="DM_CHIN2T 3" message="PMAX : activation"/>
+  <event time="0" modelName="DM_CHIN2T 4" message="PMAX : activation"/>
+  <event time="0" modelName="DM_CIVAUT 1" message="PMAX : activation"/>
+  <event time="0" modelName="DM_CIVAUT 2" message="PMAX : activation"/>
+  <event time="0" modelName="DM_GOLF5T 2" message="PMAX : activation"/>
+  <event time="0" modelName="I.JOUIN3" message="GENERATOR : change of active power target (-0)"/>
+</timeline>
