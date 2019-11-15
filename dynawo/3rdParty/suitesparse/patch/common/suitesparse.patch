@@ -307,7 +307,7 @@ diff -urpN SuiteSparse/SuiteSparse_config/CMakeLists.txt SuiteSparse.patch/Suite
 +    $<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>
 +    )
 +
-+target_link_libraries(suitesparseconfig $<$<CXX_COMPILER_ID:GNU>:rt>)
++target_link_libraries(suitesparseconfig $<$<CXX_COMPILER_ID:GNU>:rt> $<$<CXX_COMPILER_ID:GNU>:m>)
 +
 +install(TARGETS suitesparseconfig
 +    EXPORT suitesparse-targets

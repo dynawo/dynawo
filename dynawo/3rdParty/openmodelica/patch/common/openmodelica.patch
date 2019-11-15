@@ -2585,9 +2585,9 @@ index ec38761ad..e2313c9ad 100644
  protected function applyRewriteRulesOnBackend
    input BackendDAE.BackendDAE inBackendDAE;
    output BackendDAE.BackendDAE outBackendDAE;
-diff --git a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo.orig b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
+diff --git a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 index 0a490c796..6aa6d60d9 100644
---- a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo.orig
+--- a/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 +++ b/OMCompiler/Compiler/SimCode/SimCodeUtil.mo
 @@ -7194,36 +7194,50 @@ algorithm
      SimCodeVar.AliasVariable aliasvar;
