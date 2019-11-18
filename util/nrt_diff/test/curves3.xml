@@ -10,7 +10,7 @@
     <point time="6.00000" value="405.92476"/>
     <point time="7.00000" value="405.92482"/>
     <point time="8.00000" value="405.92463"/>
-    <point time="9.00000" value="405.92419"/>
+    <point time="9.00000" value="405.924191"/>
     <point time="10.00000" value="405.92379"/>
   </curve>
   <curve model="NETWORK" variable="BELLAP41_U_value">
