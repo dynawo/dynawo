@@ -271,7 +271,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/googletest
       DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/googletest
       TMP_DIR             ${TMP_DIR}
-      STAMP_DIR           ${DOWNLOAD_DIR}/googletest-stamp
+      STAMP_DIR           ${DOWNLOAD_DIR}/googletest-stamp-release
       SOURCE_DIR          ${DOWNLOAD_DIR}/googletest
       BINARY_DIR          ${DOWNLOAD_DIR}/googletest-build-release
       DOWNLOAD_NAME       ${googletest_name}
@@ -283,7 +283,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
             INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/googletest
             DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/googletest
             TMP_DIR             ${TMP_DIR}
-            STAMP_DIR           ${DOWNLOAD_DIR}/googletest-stamp
+            STAMP_DIR           ${DOWNLOAD_DIR}/googletest-stamp-debug
             SOURCE_DIR          ${DOWNLOAD_DIR}/googletest
             BINARY_DIR          ${DOWNLOAD_DIR}/googletest-build-debug
             DOWNLOAD_NAME       ${googletest_name}
