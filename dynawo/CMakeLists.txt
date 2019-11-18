@@ -179,6 +179,44 @@ ENDIF()
 # Python Interpreter
 FIND_PACKAGE(PythonInterp REQUIRED)
 
+# Boost
+IF(BOOST_ROOT_DEFAULT STREQUAL "true")
+  SET(Boost_NO_SYSTEM_PATHS FALSE)
+ELSE()
+  SET(Boost_NO_SYSTEM_PATHS TRUE)
+ENDIF()
+
+IF(BOOST_USE_STATIC)
+  SET(Boost_USE_STATIC_LIBS TRUE)
+ELSE()
+  ADD_DEFINITIONS(-DBOOST_ALL_DYN_LINK)
+ENDIF()
+# Tell BOOST to disable auto linking
+ADD_DEFINITIONS(-DBOOST_ALL_NO_LIB)
+
+IF(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+  FIND_PACKAGE(Boost 1.64 REQUIRED
+          COMPONENTS
+          filesystem
+          program_options
+          serialization
+          system
+          log
+          log_setup
+          iostreams
+          )
+ELSE()
+  FIND_PACKAGE(Boost 1.64 REQUIRED
+          COMPONENTS
+          filesystem
+          program_options
+          serialization
+          system
+          log
+          log_setup
+          )
+ENDIF()
+
 SET(BUILD_TESTS ${BUILD_TESTS} CACHE BOOL "Build tests.")
 IF(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
   INCLUDE(TestCoverage)
@@ -249,42 +287,6 @@ FIND_PACKAGE(ZLIB 1.2.3 REQUIRED)
 if(MSVC)
   SET(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
 endif()
-
-# Boost
-IF(BOOST_ROOT_DEFAULT STREQUAL "true")
-  SET(Boost_NO_SYSTEM_PATHS FALSE)
-ELSE()
-  SET(Boost_NO_SYSTEM_PATHS TRUE)
-ENDIF()
-
-IF(BOOST_USE_STATIC)
-  SET(Boost_USE_STATIC_LIBS TRUE)
-ELSE()
-  ADD_DEFINITIONS(-DBOOST_ALL_DYN_LINK)
-ENDIF()
-# Tell BOOST to disable auto linking
-ADD_DEFINITIONS(-DBOOST_ALL_NO_LIB)
-
-IF(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-  FIND_PACKAGE(Boost 1.64 REQUIRED
-    COMPONENTS
-      filesystem
-      program_options
-      serialization
-      system
-      log
-      iostreams
-    )
-ELSE()
-  FIND_PACKAGE(Boost 1.64 REQUIRED
-    COMPONENTS
-      filesystem
-      program_options
-      serialization
-      system
-      log
-    )
-ENDIF()
 
 # SUITESPARSE
 FIND_PACKAGE(SuiteSparse REQUIRED)

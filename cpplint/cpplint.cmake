@@ -10,8 +10,29 @@
 set(CPPLINT_PATH ${DYNAWO_HOME}/cpplint/cpplint-wrapper.py)
 
 if(NOT EXISTS "${DYNAWO_HOME}/cpplint/cpplint.py")
-  add_custom_target(cpplint_download ALL
-    COMMAND ${PYTHON_EXECUTABLE} -m pip install cpplint -t ${DYNAWO_HOME}/cpplint)
+  include(ExternalProject)
+
+  set(cpplint_version 1.4.4)
+  set(cpplint_md5 77a0f3c2469a737e899443ef2d29f498)
+  if(DEFINED ENV{DYNAWO_CPPLINT_DOWNLOAD_URL})
+    set(cpplint_prefix_url $ENV{DYNAWO_CPPLINT_DOWNLOAD_URL})
+  else()
+    set(cpplint_prefix_url https://github.com/cpplint/cpplint/archive)
+  endif()
+
+  ExternalProject_Add(cpplint_download
+    INSTALL_DIR         ${DYNAWO_HOME}/cpplint
+    DOWNLOAD_DIR        ${DYNAWO_HOME}/cpplint
+    TMP_DIR             ${CMAKE_CURRENT_BINARY_DIR}/cpplint-tmp
+    STAMP_DIR           ${CMAKE_CURRENT_BINARY_DIR}/cpplint-stamp
+    SOURCE_DIR          ${CMAKE_CURRENT_BINARY_DIR}/cpplint
+    BINARY_DIR          ${CMAKE_CURRENT_BINARY_DIR}/cpplint-build
+    URL                 ${cpplint_prefix_url}/${cpplint_version}.tar.gz
+    URL_MD5             ${cpplint_md5}
+    CONFIGURE_COMMAND   ""
+    BUILD_COMMAND       ""
+    INSTALL_COMMAND     ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/cpplint.py <INSTALL_DIR>/cpplint.py
+    )
 else()
   add_custom_target(cpplint_download ALL)
 endif()
