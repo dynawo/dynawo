@@ -24,9 +24,10 @@ This repository contains Dyna&omega;o's simulation tool code.
 
 - [About Dyna&omega;o](#about)
 - [Dyna&omega;o Distribution](#distribution)
-- [Building requirements on Unix/Linux](#requirements)
+- [Building requirements](#requirements)
 - [Building Dyna&omega;o](#build)
 - [Launch Dyna&omega;o](#launch)
+- [Docker Dyna&omega;o](#docker)
 - [Dyna&omega;o Documentation](#documentation)
 - [Get involved](#contributions)
 - [Quoting Dyna&omega;o](#quoting)
@@ -50,16 +51,18 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 <a name="distribution"></a>
 ## Dyna&omega;o Distribution
 
-You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux** and **MacOS**:
+You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux**, **MacOS** and **Windows**:
 - [Linux](https://github.com/dynawo/dynawo/releases/download/v1.0.1/Dynawo_Linux_v1.0.1.zip)
 - [MacOS](https://github.com/dynawo/dynawo/releases/download/v1.0.1/Dynawo_MacOS_v1.0.1.zip)
+- [Windows (Soon)](#)
 
 ### Linux Requirements for Distribution
 
 - Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++98 or C++11 compatible for C++ standard
-- Python
+- Python2
 - Binary utilities: [curl](https://curl.haxx.se/) and unzip
 - Libraries: [BLAS](http://www.netlib.org/blas/index.html) and [LAPACK](http://www.netlib.org/lapack/index.html)
+- [CMake](https://cmake.org/)
 
 You can install the dependencies for Ubuntu or Fedora with:
 
@@ -71,10 +74,21 @@ $> dnf install -y gcc-c++ unzip curl python lapack
 ### MacOS Requirements for Distribution
 
 - Command Line Tools (with `xcode-select --install`)
+- [CMake](https://cmake.org/)
+
+### Windows Requirements for Distribution
+
+On Windows you can either run Dyna&omega;o with pre-built models and in this case nothing is required. If you want to be able to add new models you will need:
+
+- [Visual Studio 2019](https://visualstudio.microsoft.com)
+- [CMake](https://cmake.org/)
+- [Python2](https://www.python.org/ftp/python/2.7/python-2.7.amd64.msi)
 
 ### Using a distribution
 
-You can launch the following commands to download and test the latest distribution for **Linux**:
+#### Linux and MacOS
+
+You can launch the following commands to download and test the latest distribution:
 
 ``` bash
 $> curl -L $(curl -s -L -X GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep "Dynawo_Linux" | grep url | cut -d '"' -f 4) -o Dynawo_Linux_latest.zip
@@ -84,19 +98,28 @@ $> Dynawo_Linux_latest/bin/execDynawo.sh help
 $> Dynawo_Linux_latest/bin/execDynawo.sh jobs --help
 ```
 
-<a name="requirements"></a>
-## Building requirements on Unix/Linux
+#### Windows
 
-You can also build Dyna&omega;o from sources. Dyna&omega;o has be tested on **Linux** platforms (Centos and Debian based) and provided that you can install system packages there should be no problem on other Linux distributions. It has also been tested on **macOS** (only on Mojave 10.14.5) and works, a complete procedure to help non-developers install it on this platform will be available soon. <br>
-For **Windows** users we provide a [Docker](https://github.com/dynawo/dynawo-docker) solution (also on [Docker Hub](https://hub.docker.com/r/dynawo/dynawo)) to either download a [pre-build image](https://github.com/dynawo/dynawo-docker#users) with Dyna&omega;o embedded or create your [own image](https://github.com/dynawo/dynawo-docker#developer) for developers. We plan to provide compilation compatibility for Windows. <br>
+Download the zip of the distribution and unzip it somewhere. Then open either `Command Prompt` or `x64 Native Tools Command Prompt for VS2019` (to be able to use your own models) and use `cd` to go into the directory you previously unzip. You should see a `dynawo.cmd` file at the top of the folder. You can then launch a simulation with:
+
+``` batch
+> dynawo --jobs-file testcases\IEEE14\IEEE14_BasicTestCases\IEEE14_LoadVariation\IEEE14.jobs
+```
+
+<a name="requirements"></a>
+## Building requirements
+
+You can also build Dyna&omega;o from sources. Dyna&omega;o is a cross-platform software and has been tested on **Linux** platforms (Centos and Debian based), for other distributions don't hesitate to contact us if you run in problems. It has also been tested on **MacOS** (only on Mojave), a complete procedure to help non-developers install it on this platform will be available soon. We recently added **Windows** compatibility and you can now completly build and develop Dynawo on it. <br>
 If you have any issue building Dyna&omega;o don't hesitate to send us an [email](mailto:rte-dynawo@rte-france.com) with your errors and we will try to answer you back quickly.
 
 In the following we give a list of requirements needed to build Dyna&omega;o and its dependencies.
 
-### Global
-- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++98 or C++11 compatible for C++ standard
+### Unix (Linux and MacOS)
 
-### OpenModelica Compiler
+#### Global
+- Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/), [clang](https://clang.llvm.org/) or Apple Clang with Xcode or Command Line Tools), C++98 or C++11 compatible for C++ standard
+
+#### OpenModelica Compiler
 - Compiler: Fortran ([gfortran](https://gcc.gnu.org/fortran/))
 - Build systems: [autoconf](https://www.gnu.org/software/autoconf/), [automake](https://www.gnu.org/software/autoconf/), [libtool](https://www.gnu.org/software/libtool/), [pkgconf](http://pkgconf.org/), make, [CMake](https://cmake.org/)
 - Binary utilities: [xz](https://tukaani.org/xz/), patch, [GNU sed](https://www.gnu.org/software/sed/), msgfmt from [gettext](https://www.gnu.org/software/gettext/), [rsync](https://rsync.samba.org/)
@@ -104,23 +127,27 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 - Libraries: [expat](https://libexpat.github.io/), [BLAS](http://www.netlib.org/blas/index.html), [LAPACK](http://www.netlib.org/lapack/index.html)
 - [lpsolve55](http://lpsolve.sourceforge.net/) or [bison](https://www.gnu.org/software/bison/) and [flex](https://www.gnu.org/software/flex/) (to let OpenModelica compiles lpsolve itself)
 
-### Dyna&omega;o user
+#### Dyna&omega;o user
 - [CMake](https://cmake.org/): minimum version 3.9.6 (last version to compile with c++98 compiler)
-- Libraries:
-  * [libarchive](https://www.libarchive.org/): minimum version 2.8.0, latest 3.3.3 version has been tested and works fine
-  * [Boost](https://www.boost.org/): minimum version 1.59, up to 1.69 multiple versions have been tested and work fine
-- Python
+- Python2
 - Python packages: [lxml](https://lxml.de/)
 - Binary utilities: [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/), [xmllint](http://xmlsoft.org/xmllint.html)
 
-### Dyna&omega;o developer
+#### Dyna&omega;o developer
 - [Doxygen](http://www.doxygen.nl/): minimum version 1.8, [Graphviz](https://graphviz.readthedocs.io/en/stable/) and LaTeX to build full documentation
 - Python packages: [psutil](https://psutil.readthedocs.io/en/latest/)
-- [GoogleTest](https://github.com/google/googletest): minimum version 1.5.0, latest 1.8.1 version has been tested and works fine on recent OS
 - [LCOV](http://ltp.sourceforge.net/coverage/lcov.php): 1.7 to 1.13 versions work fine
+
+### Windows
+
+- [Visual Studio 2019](https://visualstudio.microsoft.com/), Visual Studio 2015 was also tested
+- [CMake](https://cmake.org/)
+- [Python2](https://www.python.org/ftp/python/2.7/python-2.7.amd64.msi)
 
 <a name="build"></a>
 ## Building Dyna&omega;o
+
+### Linux
 
 You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu:
 
@@ -168,8 +195,72 @@ $> export no_proxy=localhost,127.0.0.0/8,::1
 $> export HTTP_PROXY=$http_proxy;export HTTPS_PROXY=$https_proxy;export NO_PROXY=$no_proxy;
 ```
 
+### Windows
+
+Open `x64 Native Tools Command Prompt for VS2019` and run the following commands:
+
+``` batch
+> git config --global core.eol lf
+> git config --global core.autocrlf input
+> git clone https://github.com/dynawo/dynawo.git dynawo
+> cd dynawo
+> cmake -S dynawo/3rdParty -B b-3-p -DCMAKE_INSTALL_PREFIX=../d-3-p -DOPENMODELICA_INSTALL=../OpenModelica/Install -DOPENMODELICA_SRC=../OpenModelica/Source -DOMDEV_HOME=../OMDev -G "NMake Makefiles"
+> cmake --build b-3-p
+> cmake -S dynawo -B b -DCMAKE_INSTALL_PREFIX=../d-i -DDYNAWO_HOME=.. -DINSTALL_OPENMODELICA=../../OpenModelica/Install -DDYNAWO_THIRD_PARTY_DIR=../../d-3-p -G "NMake Makefiles
+> cmake --build b --target install
+> cmake --build b --target models
+> cmake --build b --target solvers
+```
+
+**Warning** We try to limit as far as possible the name of the build and install folders (for example d-i instead of dynawo-install or b-3-p for build-3rd-parties) because of Windows limitation of length of path for folders. We know it causes problems and the only solution is to install Dyna&omega;o in a shorter length directory path.
+
+**Warning** Only the build directories (b and b-3-p) can be located in the `dynawo` folder, the install (d-i and d-3-p), OMDev and OpenModelica folders should be located outside to avoid problems with CMake.
+
+### MacOS
+
+The difficult part of building Dyna&omega;o on MacOS is the compilation of OpenModelica. We propose two solutions, one with pre-built binaries for OpenModelica and one with building OpenModelica.
+
+#### With pre-built OpenModelica
+
+We provide on Github MacOS binaries of Dyna&omega;o, part of those are OpenModelica Compiler binaries built for Dynawo. You can download those binaries and use them to build Dyna&omega;o. You can launch the following commands in a terminal:
+
+``` bash
+$> curl -L $(curl -s -L -X GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep "Dynawo_MacOS" | grep url | cut -d '"' -f 4) -o $HOME/Dynawo_MacOS_latest.zip
+$> unzip $HOME/Dynawo_MacOS_latest.zip -d $HOME/Dynawo_MacOS_latest
+$> git clone https://github.com/dynawo/dynawo.git dynawo
+$> cd dynawo
+$> mkdir OpenModelica
+$> mv $HOME/Dynawo_MacOS_latest/OpenModelica OpenModelica/Install
+$> rm -rf $HOME/Dynawo_MacOS_latest*
+$> echo '#!/bin/bash
+export DYNAWO_HOME=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+export DYNAWO_SRC_OPENMODELICA=$DYNAWO_HOME/OpenModelica/Source
+export DYNAWO_INSTALL_OPENMODELICA=$DYNAWO_HOME/OpenModelica/Install
+
+export DYNAWO_LOCALE=en_GB
+export DYNAWO_RESULTS_SHOW=true
+export DYNAWO_BROWSER="open -a Safari"
+export DYNAWO_NB_PROCESSORS_USED=1
+
+export DYNAWO_BUILD_TYPE=Release
+export DYNAWO_CXX11_ENABLED=YES
+export DYNAWO_COMPILER=CLANG
+
+export PATH="$(dirname $(xcrun -f llvm-cov))":$PATH
+$DYNAWO_HOME/util/envDynawo.sh $@' > myEnvDynawo.sh
+$> chmod +x myEnvDynawo.sh
+$> ./myEnvDynawo.sh build-user
+```
+
+#### With building OpenModelica
+
+A solution has been develop but it is not yet available on Github and we advise you to [contact us](mailto:rte-dynawo@rte-france.com) so we can provide you with it. This solution should be available soon once it is completely stable.
+
 <a name="launch"></a>
 ## Launch Dyna&omega;o
+
+### Linux and MacOS
 
 Once you have build Dyna&omega;o you can start launching a simulation with the command:
 ``` bash
@@ -192,6 +283,26 @@ Then you can launch:
 $> dynawo help
 $> dynawo jobs-with-curves nrt/data/IEEE14/IEEE14_BasicTestCases/IEEE14_DisconnectLine/IEEE14.jobs
 ```
+
+### Windows
+
+Once you have build Dyna&omega;o you can start launching a simulation with the command:
+
+``` batch
+> cd ..\d-i
+> dynawo --jobs-file ..\dynawo\nrt\data\IEEE14\IEEE14_BasicTestCases\IEEE14_DisconnectLine\IEEE14.jobs
+```
+
+<a name="docker"></a>
+## Docker
+
+We provide on [Docker Hub](https://hub.docker.com/r/dynawo/dynawo) an image of Dyna&omega;o master. You can use it by launching the following command:
+
+``` bash
+$> docker run -it dynawo/dynawo
+```
+
+You can have more information on how to use Docker to build and try Dyna&omega;o [here](https://github.com/dynawo/dynawo-docker).
 
 <a name="documentation"></a>
 ## Dyna&omega;o Documentation
