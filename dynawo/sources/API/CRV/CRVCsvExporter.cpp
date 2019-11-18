@@ -96,7 +96,7 @@ CsvExporter::exportToStream(const boost::shared_ptr<CurvesCollection>& curves, o
   }
   // for each time point ,print value for all the curves.
   for (unsigned int i = 0; i < time.size(); ++i) {
-    stream << time[i] << CSVEXPORTER_SEPARATOR;
+    stream <<  DYN::double2String(time[i]) << CSVEXPORTER_SEPARATOR;
     for (CurvesCollection::iterator itCurve = curves->begin();
             itCurve != curves->end();
             ++itCurve) {

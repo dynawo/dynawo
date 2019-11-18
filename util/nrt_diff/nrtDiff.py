@@ -843,7 +843,35 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
     if (identical):
         return_value = IDENTICAL
     else:
-        if (file_extension == ".log" or file_extension == ".xml"):
+        if file_name == "curves" and file_extension == ".xml":
+            (nb_points, nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_err_absolute, nb_err_relative, curves_different) = XMLCloseEnough (path_left, path_right)
+            maximum_curves_names_displayed = 5
+            if (nb_err_absolute > 0) or (nb_err_relative > 0):
+                return_value = DIFFERENT
+
+                if (nb_err_absolute > 0):
+                    message += str(nb_err_absolute) + " absolute errors"
+
+                if (nb_err_relative > 0):
+                    if (message != ""):
+                        message += " and "
+                    message += str(nb_err_relative) + " relative errors"
+
+
+                if (len (curves_different) <= maximum_curves_names_displayed):
+                    for curve in curves_different:
+                        message += " , " + curve
+                else:
+                    message += " coming from more than " + str(maximum_curves_names_displayed) + " curves"
+
+            elif (nb_differences > 0):
+                return_value = WITHIN_TOLERANCE
+                message = str(nb_points) + " data points compared for each curve"
+
+            else:
+                return_value = IDENTICAL
+
+        elif (file_extension == ".log" or file_extension == ".xml"):
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
             message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
@@ -921,16 +949,14 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
 
     return (return_value, message)
 
-TYPE_LOG, TYPE_TIMELINE, TYPE_CURVES = range(3)
+TYPE_LOG, TYPE_TIMELINE = range(2)
 
 ## Check whether to keep a line for log comparison
 # @param line : the line to study as a string
 # @param type : type of the file
 # @return : a boolean describing whether it is relevant to compare the line
 def LineToCompare (line, file_type):
-    if file_type == TYPE_CURVES:
-        return True
-    elif file_type == TYPE_LOG:
+    if file_type == TYPE_LOG:
         lines_to_avoid = settings.logs_pattern_to_avoid
 
         # if a line should be avoided, then no comparison is needed
@@ -1012,8 +1038,6 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
     file_type = TYPE_LOG
     if "timeline" in file_name:
         file_type = TYPE_TIMELINE
-    elif "curves" in file_name:
-        file_type = TYPE_CURVES
     for line_left in file_left:
         # skip some lines when needed
         if (LineToCompare (line_left, file_type)):
@@ -1052,7 +1076,87 @@ def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separ
 
     return (nb_lines_compared, nb_lines_identical_but_timestamp, nb_lines_different_within_tolerance, nb_lines_different)
 
+# Check whether two xml curve files are close enough
+# @param path_left : the absolute path to the left-side file
+# @param path_right : the absolute path to the right-side file
+def XMLCloseEnough (path_left, path_right):
+    left_file_content = ImportXMLFile(path_left)
+    right_file_content = ImportXMLFile(path_right)
+    current_curve = ""
 
+    times_left = []
+    left_curve = {}
+    for item in left_file_content.iter('*'):
+        if item.tag == NamespaceDYD('curve'):
+            current_curve = item.get("model")+"_"+item.get("variable")
+            left_curve[current_curve] = {}
+        elif item.tag == NamespaceDYD('point'):
+            left_curve[current_curve][item.get("time")] = item.get("value")
+            if(item.get("time") not in times_left):
+                times_left.append(item.get("time"))
+    right_curve = {}
+    times_right = []
+    for item in right_file_content.iter('*'):
+        if item.tag == NamespaceDYD('curve'):
+            current_curve = item.get("model")+"_"+item.get("variable")
+            right_curve[current_curve] = {}
+        elif item.tag == NamespaceDYD('point'):
+            right_curve[current_curve][item.get("time")] = item.get("value")
+            if(item.get("time") not in times_right):
+                times_right.append(item.get("time"))
+
+
+    times = []
+    for t in sorted(times_left):
+        if (t in times_right):
+            times.append(t)
+
+    curves_different = set([])
+    curves = {}
+    nb_curves_only_in_left_file = 0
+    nb_curves_only_in_right_file = 0
+
+    for curve in sorted (left_curve.keys()):
+        if (curve in right_curve.keys()):
+            curves [curve] = (left_curve [curve], right_curve [curve])
+        else:
+            nb_curves_only_in_left_file += 1
+            curves_different.add (curve)
+
+    for curve in sorted (right_curve.keys()):
+        if (not curve in left_curve.keys()):
+            nb_curves_only_in_right_file += 1
+            curves_different.add (curve)
+
+    nb_differences = 0
+    nb_differences_absolute = 0
+    nb_differences_relative = 0
+    for curve in curves.keys():
+        (curve_left, curve_right) = curves [curve]
+
+        for t in times:
+            data_point_left = float (left_curve[curve][t])
+            data_point_right = float (right_curve[curve][t])
+            error = abs(data_point_left - data_point_right)
+
+            # If we are below the target precision do not compare the numbers
+            if (abs(data_point_left) < settings.error_absolute and abs (data_point_right) < settings.error_absolute):
+                continue
+
+            if (error > 0):
+                nb_differences += 1
+
+            if (settings.error_relative is not None):
+                if (error > settings.error_relative * min (abs(data_point_left), abs (data_point_right))):
+                    nb_differences_relative += 1
+                    curves_different.add (curve)
+
+            if (settings.error_absolute is not None):
+                if (error > settings.error_absolute):
+                    nb_differences_absolute += 1
+                    curves_different.add (curve)
+
+    return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
 # Check whether two csv files are close enough
 # @param path_left : the absolute path to the left-side file
 # @param path_right : the absolute path to the right-side file
