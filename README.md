@@ -82,7 +82,7 @@ On Windows you can either run Dyna&omega;o with distribution models and in this 
 
 - [Visual Studio 2019](https://visualstudio.microsoft.com)
 - [CMake](https://cmake.org/)
-- [Python2](https://www.python.org/ftp/python/2.7/python-2.7.amd64.msi)
+- [Python2](https://www.python.org/ftp/python/2.7.17/python-2.7.17.amd64.msi)
 
 ### Using a distribution
 
@@ -142,7 +142,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 
 - [Visual Studio 2019](https://visualstudio.microsoft.com/), Visual Studio 2015 was also tested
 - [CMake](https://cmake.org/)
-- [Python2](https://www.python.org/ftp/python/2.7/python-2.7.amd64.msi)
+- [Python2](https://www.python.org/ftp/python/2.7.17/python-2.7.17.amd64.msi)
 
 <a name="build"></a>
 ## Building Dyna&omega;o
