@@ -153,12 +153,33 @@ TEST(CommonTest, testFileSystemUtilsSearchModelicaModelsExistingFile) {
   std::vector<std::string> filesFound;
   searchModelicaModels("res", "mo", true, filesFound);
   ASSERT_EQ(filesFound.size(), 3);
-  std::size_t pos = filesFound[0].find("folder/MyModel.mo");
-  ASSERT_EQ(filesFound[0].substr(pos), "folder/MyModel.mo");
-  pos = filesFound[1].find("folder/folder3/MyModel.mo");
-  ASSERT_EQ(filesFound[1].substr(pos), "folder/folder3/MyModel.mo");
-  pos = filesFound[2].find("folder/folder2/package.mo");
-  ASSERT_EQ(filesFound[2].substr(pos), "folder/folder2/package.mo");
+  unsigned found = 0;
+  for (size_t i = 0; i < filesFound.size(); ++i) {
+    std::size_t pos = filesFound[i].find("folder/MyModel.mo");
+    if (pos != std::string::npos) {
+      ASSERT_EQ(filesFound[i].substr(pos), "folder/MyModel.mo");
+      ++found;
+    }
+  }
+  ASSERT_EQ(found, 1);
+  found = 0;
+  for (size_t i = 0; i < filesFound.size(); ++i) {
+    std::size_t pos = filesFound[i].find("folder/folder3/MyModel.mo");
+    if (pos != std::string::npos) {
+      ASSERT_EQ(filesFound[i].substr(pos), "folder/folder3/MyModel.mo");
+      ++found;
+    }
+  }
+  ASSERT_EQ(found, 1);
+  found = 0;
+  for (size_t i = 0; i < filesFound.size(); ++i) {
+    std::size_t pos = filesFound[i].find("folder/folder2/package.mo");
+    if (pos != std::string::npos) {
+      ASSERT_EQ(filesFound[i].substr(pos), "folder/folder2/package.mo");
+      ++found;
+    }
+  }
+  ASSERT_EQ(found, 1);
 }
 
 TEST(CommonTest, testFileSystemUtilsSearchModelsFiles) {
