@@ -91,7 +91,6 @@ class HeaderPatternDefine:
     ModelManager * modelManager_;
     bool dataStructIsInitialized_;
     std::string modelType_;
-    std::vector<double> constVars_;
 
     private:
     std::string modelType() const { return modelType_; }
@@ -173,7 +172,6 @@ namespace DYN {
     ModelManager * modelManager_;
     bool dataStructIsInitialized_;
     std::string modelType_;
-    std::vector<double> constVars_;
 
     private:
     std::string modelType() const { return modelType_; }
