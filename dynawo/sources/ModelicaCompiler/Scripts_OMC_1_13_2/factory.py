@@ -407,7 +407,7 @@ class Factory:
                 map_var_name_2_addresses[var.get_name()] = self.reader.find_constant_value_of(var)
                 # We keep a specific structure for const real variables that have a complex initialization to avoid always recalculating it
                 if to_param_address(var.get_name()) == None:
-                    map_var_name_2_addresses[var.get_name()] = "constVars_["+str(len(self.list_complex_const_vars))+"]"
+                    map_var_name_2_addresses[var.get_name()] = "data->constCalcVars["+str(len(self.list_complex_const_vars))+"]"
                     self.list_complex_const_vars.append(var)
 
         for var in list_vars_read:

@@ -625,6 +625,9 @@ ModelManager::dumpVariables(map< string, string > & mapVariables) {
   vector<double> valuesDiscreteReal(nb, 0.);
   std::copy(data()->localData[0]->discreteVars, data()->localData[0]->discreteVars + nb, valuesDiscreteReal.begin());
 
+  vector<double> constCalcVars(data()->constCalcVars.size(), 0.);
+  std::copy(data()->constCalcVars.begin(), data()->constCalcVars.end(), constCalcVars.begin());
+
   os << cSum;
   os << cSumInit;
   os << valuesReal;
@@ -632,6 +635,7 @@ ModelManager::dumpVariables(map< string, string > & mapVariables) {
   os << valuesInt;
   os << valuesDiscreteReal;
   os << valuesDerivatives;
+  os << constCalcVars;
 
   mapVariables[ variablesFileName() ] = values.str();
 }
@@ -651,6 +655,7 @@ ModelManager::loadVariables(const string &variables) {
   vector<double> valuesInt;
   vector<double> valuesDiscreteReal;
   vector<double> valuesDerivatives;
+  vector<double> constCalcVars;
 
   is >> cSumRead;
   is >> cSumInitRead;
@@ -660,6 +665,7 @@ ModelManager::loadVariables(const string &variables) {
   is >> valuesInt;
   is >> valuesDiscreteReal;
   is >> valuesDerivatives;
+  is >> constCalcVars;
 
   if (hasInit()) {
     modelModelicaInit()->checkSum(cSumInit);
@@ -681,11 +687,15 @@ ModelManager::loadVariables(const string &variables) {
   if (static_cast<unsigned>(data()->nbZ) != valuesDiscreteReal.size())
     throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
 
+  if (data()->constCalcVars.size() != constCalcVars.size())
+    throw DYNError(Error::MODELER, WrongDataNum, variablesFileName().c_str());
+
   std::copy(valuesReal.begin(), valuesReal.end(), data()->localData[0]->realVars);
   std::copy(valuesDerivatives.begin(), valuesDerivatives.end(), data()->localData[0]->derivativesVars);
   std::copy(valuesInt.begin(), valuesInt.end(), data()->localData[0]->integerDoubleVars);
   std::copy(valuesBool.begin(), valuesBool.end(), data()->localData[0]->booleanVars);
   std::copy(valuesDiscreteReal.begin(), valuesDiscreteReal.end(), data()->localData[0]->discreteVars);
+  std::copy(constCalcVars.begin(), constCalcVars.end(), data()->constCalcVars.begin());
 }
 
 void

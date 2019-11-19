@@ -280,6 +280,7 @@ class DYNDATA : public DATA {
   int nbModes;  ///< number of modes
   int nbZ;  ///< number of discrete variables
   int nbCalculatedVars;  ///< number of calculated variables
+  std::vector<double> constCalcVars;  ///< values of constant calculated variables with complex initialization
 };
 
 namespace DYN {

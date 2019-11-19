@@ -71,8 +71,7 @@ void ModelGeneratorPQ_Dyn::setupDataStruc()
   data->nbModes = 3;
   data->nbZ = 4;
   data->nbCalculatedVars = 0;
-
-  constVars_.resize(0, 0.);
+  data->constCalcVars.resize(0, 0.);
 }
 
 void ModelGeneratorPQ_Dyn::initializeDataStruc()
