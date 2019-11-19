@@ -324,30 +324,38 @@ set_environment() {
   export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_THIRD_PARTY_INSTALL_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
 
   if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost" ]; then
-    export_var_env DYNAWO_BOOST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost
-    unset DYNAWO_BOOST_HOME_DEFAULT
-    if [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
-      if [ "$DYNAWO_BOOST_HOME" = "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost" ]; then
-        export_var_env_force DYNAWO_BOOST_USE_STATIC=ON
+    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost)" ]; then
+      export_var_env DYNAWO_BOOST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost
+      unset DYNAWO_BOOST_HOME_DEFAULT
+      if [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
+        if [ "$DYNAWO_BOOST_HOME" = "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost" ]; then
+          export_var_env_force DYNAWO_BOOST_USE_STATIC=ON
+        fi
       fi
     fi
   fi
 
   if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive" ]; then
-    export_var_env DYNAWO_LIBARCHIVE_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive
-    unset DYNAWO_LIBARCHIVE_HOME_DEFAULT
+    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive)" ]; then
+      export_var_env DYNAWO_LIBARCHIVE_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive
+      unset DYNAWO_LIBARCHIVE_HOME_DEFAULT
+    fi
   fi
 
   if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib" ]; then
-    export_var_env DYNAWO_ZLIB_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib
-    unset DYNAWO_ZLIB_HOME_DEFAULT
+    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib)" ]; then
+      export_var_env DYNAWO_ZLIB_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib
+      unset DYNAWO_ZLIB_HOME_DEFAULT
+    fi
   fi
 
   if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest" ]; then
-    export_var_env DYNAWO_GTEST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
-    export_var_env DYNAWO_GMOCK_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
-    unset DYNAWO_GTEST_HOME_DEFAULT
-    unset DYNAWO_GMOCK_HOME_DEFAULT
+    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest)" ]; then
+      export_var_env DYNAWO_GTEST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
+      export_var_env DYNAWO_GMOCK_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
+      unset DYNAWO_GTEST_HOME_DEFAULT
+      unset DYNAWO_GMOCK_HOME_DEFAULT
+    fi
   fi
 
   # External libs
@@ -671,7 +679,20 @@ config_3rd_party() {
 
 build_3rd_party() {
   config_3rd_party || error_exit "Error with 3rd parties configuration."
-  make -j $DYNAWO_NB_PROCESSORS_USED
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build
+    available_cmd=($(make help | fgrep '...' | awk '{print $2}'))
+    for cmd in "$@"; do
+      if ! echo ${available_cmd[*]} | grep -w "$cmd" > /dev/null; then
+        echo "$cmd is not a 3rd party target."
+        make help
+        exit 1
+      fi
+    done
+    make -j $DYNAWO_NB_PROCESSORS_USED $@
+  else
+    cmake --build $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build $DYNAWO_CMAKE_BUILD_OPTION --target $@
+  fi
   RETURN_CODE=$?
   set_environment
   return ${RETURN_CODE}
@@ -679,6 +700,12 @@ build_3rd_party() {
 
 build_omcDynawo() {
   config_3rd_party || error_exit "Error with 3rd parties configuration."
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build
+    make -j $DYNAWO_NB_PROCESSORS_USED openmodelica
+  else
+    cmake --build $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build $DYNAWO_CMAKE_BUILD_OPTION --target openmodelica
+  fi
   make -j $DYNAWO_NB_PROCESSORS_USED openmodelica
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -1787,6 +1814,9 @@ create_distrib_with_omc() {
   DISTRIB_DIR=$DYNAWO_HOME/distributions
   mkdir -p $DISTRIB_DIR
   mv $ZIP_FILE $DISTRIB_DIR
+
+  DYNAWO_LIB_ZIP_FILE=Dynawo_Modelica_library_V$version.zip
+  mv "$DYNAWO_DEPLOY_DIR/ddb/$DYNAWO_LIB_ZIP_FILE" $DISTRIB_DIR
 }
 
 create_distrib() {
@@ -1839,6 +1869,9 @@ create_distrib() {
   DISTRIB_DIR=$DYNAWO_HOME/distributions
   mkdir -p $DISTRIB_DIR
   mv $ZIP_FILE $DISTRIB_DIR
+
+  DYNAWO_LIB_ZIP_FILE=Dynawo_Modelica_library_V$version.zip
+  mv "$DYNAWO_DEPLOY_DIR/ddb/$DYNAWO_LIB_ZIP_FILE" $DISTRIB_DIR
 }
 
 deploy_dynawo_autocompletion() {
@@ -2033,7 +2066,7 @@ fi
 ## launch command
 case $MODE in
   build-3rd-party)
-    build_3rd_party || error_exit "Error while building 3rd parties"
+    build_3rd_party ${ARGS} || error_exit "Error while building 3rd parties"
     ;;
 
   build-all)
