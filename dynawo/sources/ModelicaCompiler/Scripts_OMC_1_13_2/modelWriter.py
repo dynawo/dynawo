@@ -163,9 +163,9 @@ namespace DYN {
                 line_tmp = line.replace("__fill_model_name__",self.mod_name)
                 self.file_content.append(line_tmp)
             elif "__fill_model_include_header__" in line:
-                self.file_content.append("#include \""+ self.mod_name+"_Dyn.h\"\n")
+                self.file_content.append(HASHTAG_INCLUDE+ self.mod_name+"_Dyn.h\"\n")
                 if self.hasInitPb:
-                    self.file_content.append("#include \""+ self.mod_name+"_Init.h\"\n")
+                    self.file_content.append(HASHTAG_INCLUDE+ self.mod_name+"_Init.h\"\n")
             elif "__fill_model_constructor__" in line:
                 self.file_content.append("  modelType_ = std::string(\"" +self.mod_name +"\");\n")
                 self.file_content.append("  modelDyn_ = NULL;\n")
@@ -252,6 +252,9 @@ class ModelWriter(ModelWriterBase):
         ## data to print header literals file
         self.file_content_literals_h = []
 
+        ## constant used for void method declaration
+        self.void_function_prefix = "void Model"
+
     ##
     # Add an empty line in external file
     # @param self : object pointer
@@ -307,10 +310,10 @@ class ModelWriter(ModelWriterBase):
         self.file_content_external.append("#include <math.h>\n")
         self.file_content_external.append("#include \"DYNModelManager.h\"\n") # DYN_assert overload
         if self.init_pb_:
-            self.file_content_external.append("#include \"" + self.mod_name + "_Init_literal.h\"\n")
+            self.file_content_external.append(HASHTAG_INCLUDE + self.mod_name + "_Init_literal.h\"\n")
         else:
-            self.file_content_external.append("#include \"" + self.mod_name + "_Dyn_literal.h\"\n")
-        self.file_content_external.append("#include \"" + self.className + ".h\"\n")
+            self.file_content_external.append(HASHTAG_INCLUDE + self.mod_name + "_Dyn_literal.h\"\n")
+        self.file_content_external.append(HASHTAG_INCLUDE + self.className + ".h\"\n")
         self.file_content_external.append("namespace DYN {\n")
         self.file_content_external.append("\n")
 
@@ -329,13 +332,13 @@ class ModelWriter(ModelWriterBase):
         self.file_content.append("\n")
         self.file_content.append("#include \"DYNElement.h\"\n")
         self.file_content.append("\n")
-        self.file_content.append("#include \"" + self.className + ".h\"\n")
+        self.file_content.append(HASHTAG_INCLUDE + self.className + ".h\"\n")
         if self.init_pb_:
-            self.file_content.append("#include \"" + self.mod_name + "_Init_definition.h\"\n")
-            self.file_content.append("#include \"" + self.mod_name + "_Init_literal.h\"\n")
+            self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Init_definition.h\"\n")
+            self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Init_literal.h\"\n")
         else:
-            self.file_content.append("#include \"" + self.mod_name + "_Dyn_definition.h\"\n")
-            self.file_content.append("#include \"" + self.mod_name + "_Dyn_literal.h\"\n")
+            self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Dyn_definition.h\"\n")
+            self.file_content.append(HASHTAG_INCLUDE + self.mod_name + "_Dyn_literal.h\"\n")
         self.file_content.append("\n")
         self.file_content.append("\n")
         self.file_content.append("namespace DYN {\n")
@@ -365,7 +368,7 @@ class ModelWriter(ModelWriterBase):
     def fill_setFomc(self):
         self.addEmptyLine()
 
-        self.addLine("void Model" + self.className + "::setFomc(double * f)\n")
+        self.addLine(self.void_function_prefix+ self.className + "::setFomc(double * f)\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_setf())
@@ -391,7 +394,7 @@ class ModelWriter(ModelWriterBase):
     def fill_setZomc(self):
         self.addEmptyLine()
 
-        self.addLine("void Model" + self.className + "::setZomc()\n")
+        self.addLine(self.void_function_prefix+ self.className + "::setZomc()\n")
         self.addLine("{\n")
 
         if (len(self.builder.get_list_for_setz()) > 0):
@@ -407,7 +410,7 @@ class ModelWriter(ModelWriterBase):
     def fill_setGomc(self):
         self.addEmptyLine()
 
-        self.addLine("void Model" + self.className + "::setGomc(state_g * gout)\n")
+        self.addLine(self.void_function_prefix+ self.className + "::setGomc(state_g * gout)\n")
         self.addLine("{\n")
 
         if (len(self.builder.get_list_for_setg()) > 0):
@@ -423,7 +426,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_setY0omc(self):
         self.addEmptyLine()
-        self.addLine("void Model" + self.className + "::setY0omc()\n")
+        self.addLine(self.void_function_prefix+ self.className + "::setY0omc()\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_sety0())
@@ -435,7 +438,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_setVariables(self):
         self.addEmptyLine()
-        self.addLine("void Model" + self.className + "::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)\n")
+        self.addLine(self.void_function_prefix+ self.className + "::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_setvariables())
@@ -447,7 +450,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_defineParameters(self):
         self.addEmptyLine()
-        self.addLine("void Model" + self.className + "::defineParameters(std::vector<ParameterModeler>& parameters)\n")
+        self.addLine(self.void_function_prefix+ self.className + "::defineParameters(std::vector<ParameterModeler>& parameters)\n")
         self.addLine("{\n")
         self.addBody(self.builder.get_list_for_defineparameters())
         self.addLine("}\n")
@@ -458,7 +461,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_initRpar(self):
         self.addEmptyLine()
-        self.addLine("void Model" + self.className + "::initRpar()\n")
+        self.addLine(self.void_function_prefix+ self.className + "::initRpar()\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_initrpar())
@@ -473,7 +476,7 @@ class ModelWriter(ModelWriterBase):
     # @return/
     def fill_setupDataStruc(self):
         self.addEmptyLine()
-        self.addLine("void Model" + self.className + "::setupDataStruc()\n")
+        self.addLine(self.void_function_prefix+ self.className + "::setupDataStruc()\n")
         self.addLine("{\n")
         self.addEmptyLine()
 
@@ -494,9 +497,9 @@ class ModelWriter(ModelWriterBase):
     def fill_setYType_omc(self):
         self.addEmptyLine()
         if self.init_pb_ and len(self.builder.get_list_for_setytype()) == 0:
-          self.addLine("void Model" + self.className + "::setYType_omc(propertyContinuousVar_t* /*yType*/)\n")
+          self.addLine(self.void_function_prefix+ self.className + "::setYType_omc(propertyContinuousVar_t* /*yType*/)\n")
         else:
-          self.addLine("void Model" + self.className + "::setYType_omc(propertyContinuousVar_t* yType)\n")
+          self.addLine(self.void_function_prefix+ self.className + "::setYType_omc(propertyContinuousVar_t* yType)\n")
 
         self.addLine("{\n")
 
@@ -511,9 +514,9 @@ class ModelWriter(ModelWriterBase):
     def fill_setFType_omc(self):
         self.addEmptyLine()
         if self.init_pb_ and len(self.builder.get_list_for_setftype()) == 0:
-          self.addLine("void Model" + self.className + "::setFType_omc(propertyF_t* /*fType*/)\n")
+          self.addLine(self.void_function_prefix+ self.className + "::setFType_omc(propertyF_t* /*fType*/)\n")
         else:
-          self.addLine("void Model" + self.className + "::setFType_omc(propertyF_t* fType)\n")
+          self.addLine(self.void_function_prefix+ self.className + "::setFType_omc(propertyF_t* fType)\n")
 
         self.addLine("{\n")
 
@@ -528,9 +531,9 @@ class ModelWriter(ModelWriterBase):
     def fill_defineElements(self):
         self.addEmptyLine()
         if self.init_pb_ and len(self.builder.get_list_for_defelem()) == 0:
-          self.addLine("void Model" + self.className + "::defineElements(std::vector<Element>& /*elements*/, std::map<std::string, int >& /*mapElement*/)\n")
+          self.addLine(self.void_function_prefix+ self.className + "::defineElements(std::vector<Element>& /*elements*/, std::map<std::string, int >& /*mapElement*/)\n")
         else:
-          self.addLine("void Model" + self.className + "::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)\n")
+          self.addLine(self.void_function_prefix+ self.className + "::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)\n")
         self.addLine("{\n")
 
         self.addBody( self.builder.get_list_for_defelem() )
@@ -542,7 +545,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_setParameters(self):
         self.addEmptyLine()
-        self.addLine("void Model" + self.className + "::setParameters( boost::shared_ptr<parameters::ParametersSet> params )\n")
+        self.addLine(self.void_function_prefix+ self.className + "::setParameters( boost::shared_ptr<parameters::ParametersSet> params )\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_setparams())
@@ -567,7 +570,7 @@ class ModelWriter(ModelWriterBase):
     def fill_evalFAdept(self):
         self.addEmptyLine()
         self.addLine("#ifdef _ADEPT_\n")
-        self.addLine("void Model" + self.className + "::evalFAdept(const std::vector<adept::adouble> & x,\n")
+        self.addLine(self.void_function_prefix+ self.className + "::evalFAdept(const std::vector<adept::adouble> & x,\n")
         self.addLine("                              const std::vector<adept::adouble> & xd,\n")
         self.addLine("                              std::vector<adept::adouble> & res)\n")
         self.addLine("{\n")
@@ -698,7 +701,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_evalCalculatedVars(self):
         self.addEmptyLine()
-        self.addLine("void Model" + self.className + "::evalCalculatedVars(std::vector<double>& calculatedVars)\n")
+        self.addLine(self.void_function_prefix+ self.className + "::evalCalculatedVars(std::vector<double>& calculatedVars)\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_evalcalculatedvars())
@@ -724,7 +727,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_evalJCalculatedVarI(self):
         self.addEmptyLine()
-        self.addLine("void Model" + self.className + "::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res)\n")
+        self.addLine(self.void_function_prefix+ self.className + "::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res)\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_evaljcalculatedvari())

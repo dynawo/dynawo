@@ -123,6 +123,11 @@ class ReaderOMC:
         ## Full name of the _literals.h file
         self._variables_file = os.path.join (input_dir, self.mod_name + "_variables.txt")
 
+        ## Regular expression to identify functions
+        self.regular_expr_function_name = r'%s[ ]+%s\(.*\)[^;]$'
+        ## Regular expression to identify equation index given in comments above omc functions
+        self.regular_expr_equation_index = r'equation index:[ ]*(?P<index>.*)[ ]*\n'
+
         # ---------------------------------------
         # Attribute for reading *_info.json file
         # ---------------------------------------
@@ -609,13 +614,13 @@ class ReaderOMC:
         # Reading the function ..._setupDataStruc(...)
         file_to_read = self.main_c_file
         function_name = self.mod_name + "_setupDataStruc"
-        ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("void", function_name))
+        ptrn_func_to_read = re.compile(self.regular_expr_function_name % ("void", function_name))
         self.setup_data_struc_raw_func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
         # Reading function ..._functionDAE(...)
         file_to_read = self.main_c_file
         function_name = self.mod_name + "_functionDAE"
-        ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", function_name))
+        ptrn_func_to_read = re.compile(self.regular_expr_function_name % ("int", function_name))
         self.function_dae_raw_func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
     ##
@@ -626,7 +631,7 @@ class ReaderOMC:
         # Reading of functions "..._eqFunction_${num}(...)"
         self.list_func_16dae_c = self.read_functions(self._16dae_c_file, self.ptrn_func_decl_main_c, self.functions_root_name)
 
-        ptrn_comments = re.compile(r'equation index:[ ]*(?P<index>.*)[ ]*\n')
+        ptrn_comments = re.compile(self.regular_expr_equation_index)
         comment_opening = "/*"
         comments_end = "*/"
         with open(self._16dae_c_file, 'r') as f:
@@ -646,7 +651,7 @@ class ReaderOMC:
         # Reading the function ..._setupDataStruc(...)
         file_to_read = self._16dae_c_file
         function_name = self.mod_name + "_initializeDAEmodeData"
-        ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", function_name))
+        ptrn_func_to_read = re.compile(self.regular_expr_function_name % ("int", function_name))
         self.setup_dae_data_struc_raw_func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
 
@@ -709,7 +714,7 @@ class ReaderOMC:
                     if 'omc_assert_warning' in line:
                         self.warnings.append(list_body)
 
-        ptrn_comments = re.compile(r'equation index:[ ]*(?P<index>.*)[ ]*\n')
+        ptrn_comments = re.compile(self.regular_expr_equation_index)
         comments_opening = "/*"
         comments_end = "*/"
         with open(self._06inz_c_file, 'r') as f:
@@ -786,7 +791,7 @@ class ReaderOMC:
                         new_line = line [:line.index(extend_assign_var)] + var + " = " + assignment + ";"
                         self.var_init_val_06_extend [var] = new_line
 
-        ptrn_comments = re.compile(r'equation index:[ ]*(?P<index>.*)[ ]*\n')
+        ptrn_comments = re.compile(self.regular_expr_equation_index)
         with open(self._06inz_c_file, 'r') as f:
             while True:
                 it = itertools.dropwhile(lambda line: comments_opening not in line, f)
@@ -911,7 +916,7 @@ class ReaderOMC:
         file_to_read = self._05evt_c_file
         function_name = self.mod_name + "_function_ZeroCrossings"
 
-        ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", function_name))
+        ptrn_func_to_read = re.compile(self.regular_expr_function_name % ("int", function_name))
         self.function_zero_crossings_raw_func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
         function_name = self.mod_name + "_zeroCrossingDescription"
@@ -919,7 +924,7 @@ class ReaderOMC:
         self.function_zero_crossing_description_raw_func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
         function_name = self.mod_name + "_function_updateRelations"
-        ptrn_func_to_read = re.compile(r'%s[ ]+%s\(.*\)[^;]$' % ("int", function_name))
+        ptrn_func_to_read = re.compile(self.regular_expr_function_name % ("int", function_name))
         self.function_update_relations_raw_func = self.read_function(file_to_read, ptrn_func_to_read, function_name)
 
     ##
@@ -1081,6 +1086,7 @@ class ReaderOMC:
 
         index_extobjs = 0
         ptrn_var = re.compile(r'type: (?P<type>.*) index: (?P<index>.*): (?P<name>.*) \(.* valueType: (?P<valueType>.*) initial:.*')
+        alternative_way_to_declare_der = "$DER."
         with open(file_to_read,'r') as f:
             while True:
                 it = itertools.dropwhile(lambda line: (ptrn_var.search(line) is None), f)
@@ -1105,7 +1111,7 @@ class ReaderOMC:
                     map_var_name_2_addresses[name]= "discreteVars"
                 elif type == "derivativeVars":
                     map_var_name_2_addresses[name]= "derivativesVars"
-                    map_var_name_2_addresses[name.replace("$DER.","der(")+")"]= map_var_name_2_addresses[name]
+                    map_var_name_2_addresses[name.replace(alternative_way_to_declare_der,"der(")+")"]= map_var_name_2_addresses[name]
                 elif type == "constVars":
                     map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
                 elif type == "intAlgVars":
@@ -1176,8 +1182,8 @@ class ReaderOMC:
                 index_discrete_var+=1
             elif "derivativesVars" in address:
                 map_var_name_2_addresses[name]= "data->localData[0]->derivativesVars["+str(index_derivative_var)+"]"
-                map_var_name_2_addresses[name.replace("$DER.","der(")+")"]= map_var_name_2_addresses[name]
-                map_var_name_2_addresses[name.replace("der(","$DER.")[:-1]]= map_var_name_2_addresses[name]
+                map_var_name_2_addresses[name.replace(alternative_way_to_declare_der,"der(")+")"]= map_var_name_2_addresses[name]
+                map_var_name_2_addresses[name.replace("der(",alternative_way_to_declare_der)[:-1]]= map_var_name_2_addresses[name]
                 index_derivative_var+=1
             elif "integerDoubleVars" in address:
                 map_var_name_2_addresses[name]= "data->localData[0]->integerDoubleVars["+str(index_integer_double)+"]"

@@ -22,6 +22,8 @@ from utils import *
 ### Variables ##################
 ################################
 
+DUMMY_VARIABLE_NAME = "$dummy"
+INFO_OMC_PARAM = "info, "
 """
 Filter variables. To use in argument of the primitive "filter" for example .
 """
@@ -32,7 +34,7 @@ Filter variables. To use in argument of the primitive "filter" for example .
 def is_syst_var(var):
     # if it's a var $dummy for omc, it does not count
     name_var = var.get_name()
-    if "$dummy" in name_var : return False
+    if DUMMY_VARIABLE_NAME in name_var : return False
 
     type_var = var.get_type()
     variability = var.get_variability()
@@ -50,7 +52,7 @@ def is_syst_var(var):
 def is_var(var):
     # if it's a var $dummy for omc, it does not count
     name_var = var.get_name()
-    if "$dummy" in name_var : return False
+    if DUMMY_VARIABLE_NAME in name_var : return False
 
     type_var = var.get_type()
     variability = var.get_variability()
@@ -315,7 +317,7 @@ def is_bool_var(var):
 def is_der_real_var(var):
     # if it's a var $dummy for omc, it does not count
     name_var = var.get_name()
-    if "$dummy" in name_var : return False
+    if DUMMY_VARIABLE_NAME in name_var : return False
 
     type_var = var.get_type()
     return type_var == "rDer"
@@ -333,7 +335,7 @@ def is_when_var(var):
 # @param var : variable to test
 # @return @b True if the variable is a dummy variable
 def is_dummy_var(var):
-    return "$dummy" in var.get_name() and "der(" not in var.get_name()
+    return DUMMY_VARIABLE_NAME in var.get_name() and "der(" not in var.get_name()
 
 ##
 # Compare two variables thanks to the way they are initialised
@@ -751,14 +753,14 @@ class Variable:
             if "tmp" in line:
                 line = line.replace("tmp","tmp_"+to_compile_name(self.get_name()))
             line_tmp = sub_division_sim(line) # hard to process using a regex
-            if "threadData" in line_tmp:
-                line_tmp=line_tmp.replace("threadData,", "")
+            if THREAD_DATA_OMC_PARAM in line_tmp:
+                line_tmp=line_tmp.replace(THREAD_DATA_OMC_PARAM, "")
             if "omc_Modelica_Blocks_Types_ExternalCombiTable1D_constructor" in line_tmp and "_OMC_LIT0" in line_tmp:
                 line_tmp=line_tmp.replace("_OMC_LIT0", "_OMC_LIT0.c_str()")
             if "throwStream" in line_tmp:
                 line_tmp = throw_stream_indexes(line_tmp)
             if "omc_assert_warning" in line_tmp:
-                line_tmp = line_tmp.replace("info, ","")
+                line_tmp = line_tmp.replace(INFO_OMC_PARAM,"")
 
             match = ptrn_assign_var.search(line_tmp)
             if match is not None:
@@ -796,14 +798,10 @@ class Variable:
                 line_tmp = sub_division_sim(line)
                 line_tmp = throw_stream_indexes(line_tmp)
 
-                # in case the parameter is initialized by an external function
-                # if "threadData" in line_tmp:
-                #     line_tmp=line_tmp.replace("threadData", "data->threadData")
-                #     txt_tmp.append(line_tmp)
-                if "threadData" in line:
-                    line=line.replace("threadData,", "")
+                if THREAD_DATA_OMC_PARAM in line:
+                    line=line.replace(THREAD_DATA_OMC_PARAM, "")
                     txt_tmp.append(line)
-                elif "#ifdef" not in line_tmp and "#endif" not in line_tmp \
+                elif HASHTAG_IFDEF not in line_tmp and HASHTAG_ENDIF not in line_tmp \
                         and "SIM_PROF_" not in line_tmp and "NORETCALL" not in line_tmp:
                     txt_tmp.append(line_tmp)
 
@@ -1319,11 +1317,11 @@ class EqMaker():
         for line in self.body_func:
             line_tmp = mmc_strings_len1(line)
             if "threadData" in line_tmp:
-                line_tmp=line_tmp.replace("threadData,", "")
+                line_tmp=line_tmp.replace(THREAD_DATA_OMC_PARAM, "")
             elif "throwStream" in line_tmp:
                 line_tmp = throw_stream_indexes(line_tmp)
             if "omc_assert_warning" in line_tmp:
-                line_tmp = line_tmp.replace("info, ","")
+                line_tmp = line_tmp.replace(INFO_OMC_PARAM,"")
             body_tmp.append(line_tmp)
         self.body_func = body_tmp
 
@@ -1804,11 +1802,11 @@ class INTEquation:
             line = mmc_strings_len1(line)
             line = replace_var_names(line)
             if not has_omc_equation_indexes (line):
-                if "threadData" in line:
-                    line=line.replace("threadData,", "")
+                if THREAD_DATA_OMC_PARAM in line:
+                    line=line.replace(THREAD_DATA_OMC_PARAM, "")
                     tmp_body.append(line)
                     #removing of clean ifdef
-                elif "#ifdef" not in line and "#endif" not in line \
+                elif HASHTAG_IFDEF not in line and HASHTAG_ENDIF not in line \
                      and "SIM_PROF_" not in line and "NORETCALL" not in line \
                      and not has_omc_trace (line):
                     tmp_body.append(line)
@@ -1862,11 +1860,11 @@ class ZEquation:
             line = mmc_strings_len1(line)
             line = replace_var_names(line)
             if not has_omc_equation_indexes (line):
-                if "threadData" in line:
-                    line=line.replace("threadData,", "")
+                if THREAD_DATA_OMC_PARAM in line:
+                    line=line.replace(THREAD_DATA_OMC_PARAM, "")
                     tmp_body.append(line)
                     #removing of clean ifdef
-                elif "#ifdef" not in line and "#endif" not in line \
+                elif HASHTAG_IFDEF not in line and HASHTAG_ENDIF not in line \
                      and "SIM_PROF_" not in line and "NORETCALL" not in line \
                      and not has_omc_trace (line):
                     tmp_body.append(line)
@@ -1928,15 +1926,13 @@ class Warn:
             elif "MMC_REFSTRINGLIT" in line:
                 line = line.replace("MMC_REFSTRINGLIT","")
                 tmp_body.append(line)
-            elif "modelica_metatype tmpMeta" in line:
-                words = line.split()
-                line_tmp = " modelica_string "+str(words[1])+";\n"
-                tmp_body.append(line_tmp)
+            elif OMC_METATYPE_TMPMETA in line:
+                tmp_body.append(replace_modelica_strings(line))
             elif "FILE_INFO info" in line:
                 continue;
             elif "omc_assert_warning" in line:
                 if not with_throw:
-                    line_tmp = line.replace("info, ","")
+                    line_tmp = line.replace(INFO_OMC_PARAM,"")
                     tmp_body.append(line_tmp)
             else:
                 tmp_body.append(line)
