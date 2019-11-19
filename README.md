@@ -78,7 +78,7 @@ $> dnf install -y gcc-c++ unzip curl python lapack
 
 ### Windows Requirements for Distribution
 
-On Windows you can either run Dyna&omega;o with pre-built models and in this case nothing is required. If you want to be able to add new models you will need:
+On Windows you can either run Dyna&omega;o with distribution models and in this case nothing is required. If you want to be able to add new models you will need:
 
 - [Visual Studio 2019](https://visualstudio.microsoft.com)
 - [CMake](https://cmake.org/)
@@ -100,7 +100,7 @@ $> Dynawo_Linux_latest/bin/execDynawo.sh jobs --help
 
 #### Windows
 
-Download the zip of the distribution and unzip it somewhere. Then open either `Command Prompt` or `x64 Native Tools Command Prompt for VS2019` (to be able to use your own models) and use `cd` to go into the directory you previously unzip. You should see a `dynawo.cmd` file at the top of the folder. You can then launch a simulation with:
+Download the zip of the distribution and unzip it somewhere. Then open either `Command Prompt` or `x64 Native Tools Command Prompt for VS2019` (to be able to use your own models) and use `cd` to go into the directory you previously unzipped. You should see a `dynawo.cmd` file at the top of the folder. You can then launch a simulation with:
 
 ``` batch
 > dynawo --jobs-file testcases\IEEE14\IEEE14_BasicTestCases\IEEE14_LoadVariation\IEEE14.jobs
@@ -222,7 +222,7 @@ The difficult part of building Dyna&omega;o on MacOS is the compilation of OpenM
 
 #### With pre-built OpenModelica
 
-We provide on Github MacOS binaries of Dyna&omega;o, part of those are OpenModelica Compiler binaries built for Dynawo. You can download those binaries and use them to build Dyna&omega;o. You can launch the following commands in a terminal:
+Use the following commands in a terminal to download those binaries and use them to build Dyna&omega;o:
 
 ``` bash
 $> curl -L $(curl -s -L -X GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep "Dynawo_MacOS" | grep url | cut -d '"' -f 4) -o $HOME/Dynawo_MacOS_latest.zip
@@ -248,6 +248,7 @@ export DYNAWO_CXX11_ENABLED=YES
 export DYNAWO_COMPILER=CLANG
 
 export PATH="$(dirname $(xcrun -f llvm-cov))":$PATH
+
 $DYNAWO_HOME/util/envDynawo.sh $@' > myEnvDynawo.sh
 $> chmod +x myEnvDynawo.sh
 $> ./myEnvDynawo.sh build-user
