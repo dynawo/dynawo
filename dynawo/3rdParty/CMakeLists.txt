@@ -407,7 +407,7 @@ else()
     URL_MD5             ${boost_md5}
     BUILD_IN_SOURCE     1
     CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.$<IF:$<BOOL:${UNIX}>,sh,bat> --without-icu --with-libraries=filesystem,program_options,serialization,system,log,iostreams
-    BUILD_COMMAND       <SOURCE_DIR>/b2 -j${NUMBER_OF_PROCESSORS} -sNO_BZIP2=1 $<$<BOOL:${UNIX}>:cxxflags=-fPIC> install --prefix=<INSTALL_DIR> --disable-icu $<$<BOOL:${MSVC}>:architecture=x86> $<$<BOOL:${MSVC}>:address-model=64> variant=$<IF:$<CONFIG:Debug>,debug,release> link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static> $<IF:$<BOOL:${APPLE}>,cxxflags=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET},> runtime-link=$<IF:$<BOOL:${MSVC}>,$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,static,shared>>,shared> stage
+    BUILD_COMMAND       <SOURCE_DIR>/b2 -j${NUMBER_OF_PROCESSORS} -sNO_BZIP2=1 $<$<BOOL:${UNIX}>:cxxflags=-fPIC> install --prefix=<INSTALL_DIR> $<IF:$<BOOL:${APPLE}>,toolset=clang,> --disable-icu $<$<BOOL:${MSVC}>:architecture=x86> $<$<BOOL:${MSVC}>:address-model=64> variant=$<IF:$<CONFIG:Debug>,debug,release> link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static> $<IF:$<BOOL:${APPLE}>,cxxflags=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET},> runtime-link=$<IF:$<BOOL:${MSVC}>,$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,static,shared>>,shared> stage
     INSTALL_COMMAND     ""
     )
   if(APPLE)
