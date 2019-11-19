@@ -114,7 +114,7 @@ class ZeroCrossingFilter:
         for line in filtered_func :
             if "gout" in line:
                 if nb_zero_crossing_tot in indexes_to_filter:
-                    variable_to_filter.extend(re.findall(r'tmp[0-9]+', line))
+                    variable_to_filter.extend(find_all_temporary_variable_in_line(line))
                 nb_zero_crossing_tot +=1
         nb_zero_crossing_tot = 0;
         current_index = 0;
@@ -298,6 +298,11 @@ class Factory:
         self.nb_existing_relations = 0
         ## number of relations created by the Python scripts
         self.nb_created_relations = 0
+
+        ## constant used to dump a line with an assignment
+        self.assignment_format = "  %s = %s;\n"
+        ## constant used to dump a comment with a omc function name
+        self.ptrn_f_name ="  // ----- %s -----\n"
 
     ##
     # Getter to obtain the number of dynamic equations
@@ -579,11 +584,11 @@ class Factory:
                 body = eq_mak.get_body()
                 body_tmp=[]
                 for line in body:
-                    if "threadData" in line:
-                        line=line.replace("threadData,", "")
+                    if THREAD_DATA_OMC_PARAM in line:
+                        line=line.replace(THREAD_DATA_OMC_PARAM, "")
                         body_tmp.append(line)
                     #removing of clean ifdef
-                    elif "#ifdef" not in line and "#endif" not in line \
+                    elif HASHTAG_IFDEF not in line and HASHTAG_ENDIF not in line \
                             and "SIM_PROF_" not in line and "NORETCALL" not in line:
                         body_tmp.append(line)
 
@@ -692,18 +697,18 @@ class Factory:
                         else:
                             body_tmp.append("  modelica_real " + dic_var_name_to_temporary_name[name]+ " = " + to_param_address(name) + " /* " + name + "*/;\n")
 
-                    line = line.replace("threadData,", "")
+                    line = line.replace(THREAD_DATA_OMC_PARAM, "")
                     body_tmp.append(line)
 
                     for key in dic_var_name_to_temporary_name.keys():
                         body_tmp.append("  "+to_param_address(key) + " /* " + key + " DISCRETE */ = " + dic_var_name_to_temporary_name[key]+";\n")
                     found = True
             if not found:
-                if "threadData" in line:
-                    line = line.replace("threadData,", "")
+                if THREAD_DATA_OMC_PARAM in line:
+                    line = line.replace(THREAD_DATA_OMC_PARAM, "")
                     body_tmp.append(line)
                 #removing of clean ifdef
-                elif "#ifdef" not in line and "#endif" not in line \
+                elif HASHTAG_IFDEF not in line and HASHTAG_ENDIF not in line \
                         and "SIM_PROF_" not in line and "NORETCALL" not in line:
                     body_tmp.append(line)
         return body_tmp
@@ -1143,7 +1148,7 @@ class Factory:
         for relation in relations_found:
             index_relation = (relation.split("[")[1]).split("]")[0]
             if (index_relation in map_relations):
-                tmps_relation = re.findall(r'tmp[0-9]+', relation)
+                tmps_relation = find_all_temporary_variable_in_line(relation)
                 for tmp in tmps_relation:
                     tmps_to_add.extend(add_tmp_update_relations(tmp, tmps_assignment, tmps_to_add))
                 relation_to_add = Relation(index_relation, map_relations[index_relation][0])
@@ -1166,7 +1171,7 @@ class Factory:
                     if (re.search(r'tmp[0-9]+ = [a-zA-Z]*.*?\;', line)):
                         tmps_assignment.append(str(line).replace("  ", ""))
                     if (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
-                        tmps_relation = re.findall(r'tmp[0-9]+', line)
+                        tmps_relation = find_all_temporary_variable_in_line(line)
                         for tmp in tmps_relation:
                             tmps_to_add.extend(add_tmp_update_relations(tmp, tmps_assignment, tmps_to_add))
                         index_relation_to_create = index_additional_relation + self.nb_existing_relations
@@ -1193,7 +1198,7 @@ class Factory:
         tmps_to_add.sort()
         for tmp_to_add in tmps_to_add:
             for tmp_definition in tmps_definition:
-                if re.findall(r'tmp[0-9]+', tmp_definition)[0] == tmp_to_add:
+                if find_all_temporary_variable_in_line(tmp_definition)[0] == tmp_to_add:
                     if created_relation_tmp:
                         tmp_definition = tmp_definition.replace("tmp", "tmp_cr")
                         self.modes.add_to_body_for_tmps_created_relations("  " + tmp_definition)
@@ -1201,7 +1206,7 @@ class Factory:
                         tmp_definition = tmp_definition + "\n"
                         self.modes.add_to_body_for_tmps("  " + tmp_definition)
             for tmp_assignment in tmps_assignment:
-                if re.findall(r'tmp[0-9]+', tmp_assignment)[0] == tmp_to_add:
+                if find_all_temporary_variable_in_line(tmp_assignment)[0] == tmp_to_add:
                     if created_relation_tmp:
                         tmp_assignment = replace_var_names(tmp_assignment).replace("tmp", "tmp_cr")
                         self.modes.add_to_body_for_tmps_created_relations("  " + tmp_assignment)
@@ -1274,7 +1279,7 @@ class Factory:
                 if init_val == "":
                     init_val = "0.0"
                 test_param_address(var.get_name())
-                line = "  %s = %s;\n" % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , init_val )
+                line = self.assignment_format % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , init_val )
                 line = replace_var_names(line)
                 self.list_for_sety0.append(line)
 
@@ -1318,7 +1323,7 @@ class Factory:
                 alias_name = var.get_alias_name()
                 test_param_address(alias_name)
                 negated = "-" if var.get_alias_negated() else ""
-                line = "  %s = %s;\n" % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , negated + to_param_address(alias_name) + " /* " + alias_name + " */" )
+                line = self.assignment_format % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , negated + to_param_address(alias_name) + " /* " + alias_name + " */" )
                 line = replace_var_names(line)
                 self.list_for_sety0.append(line)
             else:
@@ -1326,7 +1331,7 @@ class Factory:
                 if init_val == "":
                     init_val = "0.0"
                 test_param_address(var.get_name())
-                line = "  %s = %s;\n" % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , init_val )
+                line = self.assignment_format % ( to_param_address(var.get_name()) + " /* " + var.get_name() + " */" , init_val )
                 line = replace_var_names(line)
                 self.list_for_sety0.append(line)
 
@@ -1372,10 +1377,8 @@ class Factory:
                 elif "MMC_REFSTRINGLIT" in line:
                     line = line.replace("MMC_REFSTRINGLIT","")
                     body.append(line)
-                elif "modelica_metatype tmpMeta" in line:
-                    words = line.split()
-                    line_tmp = " modelica_string "+str(words[1])+";\n"
-                    body.append(line_tmp)
+                elif OMC_METATYPE_TMPMETA in line:
+                    body.append(replace_modelica_strings(line))
                 elif ("TRACE_PUSH" not in line) and ("TRACE_POP" not in line) and ("const int equationIndexes[2]" not in line):
                     body.append(line)
             body.append("\n\n")
@@ -1386,7 +1389,6 @@ class Factory:
     # @param self : object pointer
     # @return
     def dump_eq_syst_in_setf(self):
-        ptrn_f_name ="  // ----- %s -----\n"
         map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
         index_relation = self.nb_existing_relations
         for eq in self.get_list_eq_syst():
@@ -1394,7 +1396,7 @@ class Factory:
             var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
             if var_name not in self.reader.fictive_continuous_vars_der:
                 standard_eq_body = []
-                standard_eq_body.append (ptrn_f_name %(eq.get_src_fct_name()))
+                standard_eq_body.append (self.ptrn_f_name %(eq.get_src_fct_name()))
                 eq_body = (eq.get_body_for_setf())
                 if self.create_additional_relations():
                     index = 0
@@ -1442,14 +1444,13 @@ class Factory:
     # @param self : object pointer
     # @return
     def dump_external_calls_in_setf(self):
-        ptrn_f_name ="  // ----- %s -----\n"
         if len(self.list_call_for_setf) > 0:
             self.list_for_setf.append("  // -------------- call functions ----------\n")
             self.list_for_setf.extend(self.filter_external_function_call())
 
             for eq in self.list_additional_equations_from_call_for_setf:
                 standard_eq_body = []
-                standard_eq_body.append (ptrn_f_name %(eq.get_src_fct_name()))
+                standard_eq_body.append (self.ptrn_f_name %(eq.get_src_fct_name()))
                 standard_eq_body.append ("  ")
                 standard_eq_body.extend(eq.get_body_for_setf())
                 standard_eq_body.append ("\n"  )
@@ -1477,7 +1478,7 @@ class Factory:
                 self.list_for_setf [index] = replace_pow(line)
 
     def transform_in_relation(self, line, index_relation):
-        tmp_to_define = re.findall(r'tmp[0-9]+', line)[0]
+        tmp_to_define = find_all_temporary_variable_in_line(line)[0]
         parenthesis_split = re.findall(r'[a-z]*[A-Z].*?\*\/.*,', line)[0].split("(")
         comparator = parenthesis_split[0]
         variable_1 = '('.join(parenthesis_split[1:]).split(",")[0]
@@ -1627,9 +1628,8 @@ class Factory:
                     line = line.replace("MMC_REFSTRINGLIT","")
                     line = replace_var_names(line)
                     self.list_for_setz.append(line)
-                elif "modelica_metatype tmpMeta" in line:
-                    words = line.split()
-                    line_tmp = " modelica_string "+str(words[1])+";\n"
+                elif OMC_METATYPE_TMPMETA in line:
+                    line_tmp = replace_modelica_strings(line)
                     line_tmp = replace_var_names(line_tmp)
                     self.list_for_setz.append(line_tmp)
                 elif ("TRACE_PUSH" not in line)  and ("TRACE_POP" not in line) \
@@ -1721,7 +1721,7 @@ class Factory:
         self.list_for_initrpar.append("  /* Setting shared and external parameters */\n")
 
         # Pattern of the lines of the body of initRpar
-        motif = "  %s = %s;\n"
+        motif = self.assignment_format
         motif_string = "%s = %s.c_str();\n"
 
         for par in filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_real + self.list_params_bool + self.list_params_integer + self.list_params_string):
@@ -1866,6 +1866,7 @@ class Factory:
         filtered_func = list(filtered_iter)
         filtered_func += list(filtered_iter_dae)
 
+        remove_const_alias_comment = " /* Remove const aliases */"
         # Change the number of zeroCrossings, real/discrete/bool vars
         for n, line in enumerate(filtered_func):
             if "data->modelData->nZeroCrossings" in line:
@@ -1893,13 +1894,13 @@ class Factory:
                 line = line [ :line.find("=") ] + "= " + str(len(self.reader.auxiliary_var_to_keep) + len(self.reader.auxiliary_vars_counted_as_variables))+";\n"
                 filtered_func[n] = line
             if "data->modelData->nAliasReal" in line:
-                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and (is_real_const_var(x) or is_discrete_real_const_var(x))), self.list_all_vars))) + " /* Remove const aliases */" + line[ line.find(";") : ]
+                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and (is_real_const_var(x) or is_discrete_real_const_var(x))), self.list_all_vars))) + remove_const_alias_comment + line[ line.find(";") : ]
                 filtered_func[n] = line
             if "data->modelData->nAliasInteger" in line:
-                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and is_integer_const_var(x)), self.list_vars_int))) + " /* Remove const aliases */" + line[ line.find(";") : ]
+                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and is_integer_const_var(x)), self.list_vars_int))) + remove_const_alias_comment + line[ line.find(";") : ]
                 filtered_func[n] = line
             if "data->modelData->nAliasBoolean" in line:
-                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and is_boolean_const_var(x)), self.list_vars_bool))) + " /* Remove const aliases */" + line[ line.find(";") : ]
+                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and is_boolean_const_var(x)), self.list_vars_bool))) + remove_const_alias_comment + line[ line.find(";") : ]
                 filtered_func[n] = line
             if "daeModeData->" in line:
                 line = line.replace("daeModeData", "data->simulationInfo->daeModeData")
@@ -1953,7 +1954,7 @@ class Factory:
             functions_dumped.append(func)
             func_body = []
             func_body.append("// " + func.get_name()+"\n")
-            func_header = "adept::adouble " + func.get_name()+"_adept("
+            func_header = "adept::adouble " + get_adept_function_name(func)
             for param in func.get_params():
                 type = param.get_type()
                 if type == "modelica_real":
@@ -1962,17 +1963,17 @@ class Factory:
                 if param.get_index() == len(func.get_params()) - 1 :
                     last_char=") "
                 func_header+=type + " " + param.get_name()+ last_char
-            func_body.append(func_header.replace(func.get_name()+"_adept(", "__fill_model_name__::"+func.get_name()+"_adept("))
+            func_body.append(func_header.replace(get_adept_function_name(func), MODEL_NAME_NAMESPACE +get_adept_function_name(func)))
             func_header+= ";\n"
             self.list_for_evalfadept_external_call_headers.append(func_header)
             for line in func.get_corrected_body():
                 if "OMC_LABEL_UNUSED" in line: continue
                 if "omc_assert" in line or "omc_terminate" in line: continue
-                line = line.replace("modelica_real","adept::adouble").replace("threadData,","")
+                line = line.replace("modelica_real","adept::adouble").replace(THREAD_DATA_OMC_PARAM,"")
                 for func in list_omc_functions:
                     if func.get_name() + "(" in line or func.get_name() + " (" in line:
-                        line = line.replace(func.get_name() + "(", func.get_name() + "_adept(")
-                        line = line.replace(func.get_name() + " (", func.get_name() + "_adept (")
+                        line = line.replace(func.get_name() + "(", get_adept_function_name(func))
+                        line = line.replace(func.get_name() + " (", get_adept_function_name(func))
                         if func not in functions_dumped:
                             functions_to_dump.append(func)
                 func_body.append(line)
@@ -2024,7 +2025,7 @@ class Factory:
             var_name = eq.get_evaluated_var()
             var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
             if var_name not in self.reader.fictive_continuous_vars_der:
-                line = "  // ----- %s -----\n" % eq.get_src_fct_name()
+                line = self.ptrn_f_name % eq.get_src_fct_name()
                 self.list_for_evalfadept.append(line)
 
                 # We recover the text of the equations
@@ -2034,8 +2035,8 @@ class Factory:
                     for func in list_omc_functions:
                         if func.get_return_type() != "modelica_real" or "omc_Modelica_" in func.get_name(): continue
                         if (func.get_name() + "(" in line or func.get_name() + " (" in line):
-                            line = line.replace(func.get_name() + "(", func.get_name() + "_adept(")
-                            line = line.replace(func.get_name() + " (", func.get_name() + "_adept (")
+                            line = line.replace(func.get_name() + "(", get_adept_function_name(func))
+                            line = line.replace(func.get_name() + " (", get_adept_function_name(func))
                             used_functions.append(func)
                     if self.create_additional_relations() and (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
                         line = self.transform_in_relation(line, index_relation)
@@ -2099,8 +2100,8 @@ class Factory:
                 for func in list_omc_functions:
                     if func.get_name() + "(" in line or func.get_name() + " (" in line:
                         if func.get_return_type() != "modelica_real" or "omc_Modelica_" in func.get_name(): continue
-                        line = line.replace(func.get_name() + "(", func.get_name() + "_adept(")
-                        line = line.replace(func.get_name() + " (", func.get_name() + "_adept (")
+                        line = line.replace(func.get_name() + "(", get_adept_function_name(func))
+                        line = line.replace(func.get_name() + " (", get_adept_function_name(func))
                         used_functions.append(func)
                 if "double external_call_" in line:
                     line = line.replace("double external_call_","adept::adouble external_call_")
@@ -2109,7 +2110,7 @@ class Factory:
             self.list_for_evalfadept.extend(transposed_function_call_body)
 
             for eq in self.list_additional_equations_from_call_for_setf:
-                line = "  // ----- %s -----\n" % eq.get_src_fct_name()
+                line = self.ptrn_f_name % eq.get_src_fct_name()
                 self.list_for_evalfadept.append(line)
 
                 # We recover the text of the equations
@@ -2162,13 +2163,13 @@ class Factory:
 
             self.list_for_externalcalls.append("\n")
             signature = func.get_signature()
-            name_to_fill = "__fill_model_name__::"+name
+            name_to_fill = MODEL_NAME_NAMESPACE+name
             signature = signature.replace(name, name_to_fill)
 
             return_type = func.get_return_type()
             # type is not a predefined type
             if (return_type !="void" and return_type[0:9] != 'modelica_' and return_type[0:10] != 'real_array'):
-                new_return_type ="__fill_model_name__::"+return_type
+                new_return_type =MODEL_NAME_NAMESPACE+return_type
                 signature = signature.replace(return_type, new_return_type, 1)
 
             signature = signature.replace('threadData_t *threadData,','')
@@ -2178,12 +2179,10 @@ class Factory:
             self.list_for_externalcalls.append(signature)
             new_body = []
             for line in func.get_body():
-                if "modelica_metatype tmpMeta" in line:
-                    words = line.split()
-                    line_tmp = "  modelica_string " + str(words[1]) + ";\n"
-                    new_body.append(line_tmp)
+                if OMC_METATYPE_TMPMETA in line:
+                    new_body.append(replace_modelica_strings(line))
                 elif "FILE_INFO info" not in line:
-                    line = line.replace("threadData," ,"")
+                    line = line.replace(THREAD_DATA_OMC_PARAM ,"")
                     line = line.replace("MMC_STRINGDATA","")
                     new_body.append(line)
             self.list_for_externalcalls.extend(new_body)

@@ -12,6 +12,7 @@
 # simulation tool for power systems.
 
 import os.path
+import sys
 from optparse import OptionParser
 try:
     from lxml import etree

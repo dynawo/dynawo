@@ -12,6 +12,7 @@
 # simulation tool for power systems.
 
 import os
+import sys
 try:
     import lxml.etree
 except:

@@ -21,6 +21,15 @@ import sys
 import itertools
 import traceback
 
+THREAD_DATA_OMC_PARAM = "threadData,"
+HASHTAG_IFDEF = "#ifdef"
+HASHTAG_ENDIF = "#endif"
+HASHTAG_INCLUDE = "#include \""
+OMC_METATYPE_TMPMETA = "modelica_metatype tmpMeta"
+MODEL_NAME_NAMESPACE = "__fill_model_name__::"
+ADEPT_NAMESPACE = "adept::"
+REGULAR_EXPR_ATAN3 = r'omc_Modelica_Math_atan3\(\s*(?P<var1>.*)\s*,\s*(?P<var2>.*)\s*,\s*0.0\)'
+NEED_TO_ITERATE_ACTIVATION= "data->simulationInfo->needToIterate = 1;"
 ##
 # Indicates whether is the variable a derivative variable
 #
@@ -80,6 +89,7 @@ def replace_var_names(line):
     ptrn_pre_var = re.compile(r'data->simulationInfo->(?P<var>[\w\[\]]+)Pre\[(?P<dataIdx>[0-9]+)\][ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
     ptrn_param = re.compile(r'data->simulationInfo->(?P<var>[\w\[\]]+)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
     ptrn_var_add = re.compile(r'data->localData\[(?P<localDataIdx>[0-9]+)\]->(?P<var>[\w]+)\[(?P<varIdx>[0-9]+)\]')
+    data_simulation_info = "data->simulationInfo->"
     match = ptrn_var.findall(line)
     map_to_replace = {}
     pattern_index  = 0
@@ -102,14 +112,14 @@ def replace_var_names(line):
         match2 = re.search(ptrn_var_add, to_param_address(name))
         if match2 != None:
             replacement_string = "@@@" + str(pattern_index) + "@@@"
-            line = line.replace("data->simulationInfo->"+add+"Pre["+str(index)+"]", replacement_string)
-            map_to_replace[replacement_string] = "data->simulationInfo->"+match2.group("var")+"Pre["+match2.group("varIdx")+"]"
+            line = line.replace(data_simulation_info+add+"Pre["+str(index)+"]", replacement_string)
+            map_to_replace[replacement_string] = data_simulation_info+match2.group("var")+"Pre["+match2.group("varIdx")+"]"
             pattern_index +=1
     match = ptrn_param.findall(line)
     for idx, name in match:
         test_param_address(name)
         replacement_string = "@@@" + str(pattern_index) + "@@@"
-        line = line.replace("data->simulationInfo->"+idx, replacement_string)
+        line = line.replace(data_simulation_info+idx, replacement_string)
         map_to_replace[replacement_string] = to_param_address(name)
         pattern_index +=1
 
@@ -362,17 +372,36 @@ def make_various_treatments(txt_list):
 
     return txt_list_to_return
 
+##
+# Retrieve all variable with name tmp<number> in the line
+# @param line the line to analyse
+def find_all_temporary_variable_in_line(line):
+    return re.findall(r'tmp[0-9]+', line)
+
 def add_tmp_update_relations(tmp, tmps_assignment, tmps_to_add):
     tmps_to_add_depend = []
     if not tmp in tmps_to_add:
         tmps_to_add.append(tmp)
         for tmp_assignment in tmps_assignment:
             if tmp in tmp_assignment:
-                tmp_depend_tmps = re.findall(r'tmp[0-9]+', tmp_assignment)
+                tmp_depend_tmps = find_all_temporary_variable_in_line(tmp_assignment)
                 for tmp_depend in tmp_depend_tmps:
                     tmps_to_add_depend = add_tmp_update_relations(tmp_depend, tmps_assignment, tmps_to_add)
                     tmps_to_add.extend(tmps_to_add_depend)
     return tmps_to_add_depend
+
+##
+# Retrieve all variables with type modelica_metatype tmpMeta by modelica_strings
+# @param line the line to analyse
+def replace_modelica_strings(line):
+    words = line.split()
+    return " modelica_string "+str(words[1])+";\n"
+
+##
+# Return the adept equivalent of a function
+# @param func function
+def get_adept_function_name(func):
+    return func.get_name()+"_adept("
 
 ##
 # Class containing a map associated name variable with its reference in x,xd list
@@ -597,7 +626,7 @@ def analyse_and_replace_ternary(line,body,num_ternary):
    var1=""
    var2=""
    ternary_type= 0
-   line = line.replace("adept::","@@@@")
+   line = line.replace(ADEPT_NAMESPACE,"@@@@")
 
    if 'omc_assert_warning' in line: # ternary operator in assert, nothing to do
        body.append(line)
@@ -668,11 +697,11 @@ def analyse_and_replace_ternary(line,body,num_ternary):
    body.append(blanck+"adept::adouble tmpTernary"+str(num_ternary)+";\n")
    body.append(blanck+"if("+cond+")\n")
    body.append(blanck+"{\n")
-   body.append(blanck+"    tmpTernary"+str(num_ternary)+" = "+var1.replace("@@@@","adept::")+";\n")
+   body.append(blanck+"    tmpTernary"+str(num_ternary)+" = "+var1.replace("@@@@",ADEPT_NAMESPACE)+";\n")
    body.append(blanck+"}\n")
    body.append(blanck+"else\n")
    body.append(blanck+"{\n")
-   body.append(blanck+"    tmpTernary"+str(num_ternary)+" = "+var2.replace("@@@@","adept::")+";\n")
+   body.append(blanck+"    tmpTernary"+str(num_ternary)+" = "+var2.replace("@@@@",ADEPT_NAMESPACE)+";\n")
    body.append(blanck+"}\n")
    new_line = line.replace(filtered_ternary,"tmpTernary"+str(num_ternary))
    body.append(new_line)
@@ -700,10 +729,10 @@ def transform_ternary_operator(body,num_ternary):
 # @return line transformed
 def transform_atan3_operator(line):
     line = line.replace('threadData,','')
-    atan3_ptrn = re.compile(r'omc_Modelica_Math_atan3\(\s*(?P<var1>.*)\s*,\s*(?P<var2>.*)\s*,\s*0.0\)')
+    atan3_ptrn = re.compile(REGULAR_EXPR_ATAN3)
     line_tmp = atan3_ptrn.sub('atan2(\g<var1>,\g<var2>)',line)
 
-    atan3_ptrn_bis = re.compile(r'omc_Modelica_Math_atan3\(\s*(?P<var1>.*)\s*,\s*(?P<var2>.*)\s*,\s*0.0\)')
+    atan3_ptrn_bis = re.compile(REGULAR_EXPR_ATAN3)
     line_tmp_bis = atan3_ptrn_bis.sub('atan2(\g<var1>,\g<var2>)',line_tmp)
 
     return line_tmp_bis
@@ -714,10 +743,10 @@ def transform_atan3_operator(line):
 # @return line transformed
 def transform_atan3_operator_evalf(line):
     line = line.replace('threadData,','')
-    atan3_ptrn = re.compile(r'omc_Modelica_Math_atan3\(\s*(?P<var1>.*)\s*,\s*(?P<var2>.*)\s*,\s*0.0\)')
+    atan3_ptrn = re.compile(REGULAR_EXPR_ATAN3)
     line_tmp = atan3_ptrn.sub('atan(\g<var1>/\g<var2>)',line)
 
-    atan3_ptrn_bis = re.compile(r'omc_Modelica_Math_atan3\(\s*(?P<var1>.*)\s*,\s*(?P<var2>.*)\s*,\s*0.0\)')
+    atan3_ptrn_bis = re.compile(REGULAR_EXPR_ATAN3)
     line_tmp_bis = atan3_ptrn_bis.sub('atan(\g<var1>/\g<var2>)',line_tmp)
 
     return line_tmp_bis
@@ -878,7 +907,7 @@ def has_omc_trace (line):
 # @param body : a body of lines
 # @return whether the body of lines is linked with a Modelica reinit
 def is_modelica_reinit_body(body):
-    pattern_to_look_for = "data->simulationInfo->needToIterate = 1;"
+    pattern_to_look_for = NEED_TO_ITERATE_ACTIVATION
     return any(pattern_to_look_for in line for line in body)
 
 
@@ -888,7 +917,7 @@ def is_modelica_reinit_body(body):
 # @return the formatted body
 def format_for_modelica_reinit_affectation(body):
     text_to_return = []
-    need_to_iterate_pattern = "data->simulationInfo->needToIterate = 1;"
+    need_to_iterate_pattern = NEED_TO_ITERATE_ACTIVATION
     for line in body:
         line = mmc_strings_len1(line)
 
@@ -911,7 +940,7 @@ def format_for_modelica_reinit_evalmode(body):
     entered_if = False
     exited_if = False
     nb_opened_brackets = 0
-    need_to_iterate_pattern = "data->simulationInfo->needToIterate = 1;"
+    need_to_iterate_pattern = NEED_TO_ITERATE_ACTIVATION
     mode_change_line = "return ALGEBRAIC_J_UPDATE_MODE;"
     for line in body:
         line = mmc_strings_len1(line)
