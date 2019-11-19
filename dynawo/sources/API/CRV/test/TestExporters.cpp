@@ -72,7 +72,7 @@ TEST(APICRVTest, CurvesCollectionCsvExporter) {
   CsvExporter exporter;
   std::stringstream ss;
   exporter.exportToStream(curvesCollection1, ss);
-  ASSERT_EQ(ss.str(), "time;_variable1;_variable2;\n0;5.000000;7.000000;\n1;5.000000;7.000000;\n2;5.000000;7.000000;\n");
+  ASSERT_EQ(ss.str(), "time;_variable1;_variable2;\n0.000000;5.000000;7.000000;\n1.000000;5.000000;7.000000;\n2.000000;5.000000;7.000000;\n");
 }
 
 TEST(APICRVTest, CurvesCollectionXmlExporter) {
