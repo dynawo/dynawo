@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="ThermalPowerPlants">
+    <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT"/>
+    <dyn:unitDynamicModel id="governor" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
+    <dyn:unitDynamicModel id="exciterAvrPssOel" name="ExciterAvrPssOelNordic32" moFile="ExciterAvrPssOelNordic32.mo" initName="ExciterAvrPssOelNordic32_INIT" initFile="ExciterAvrPssOelNordic32_INIT.mo"/>
+    <dyn:initConnect id1="exciterAvrPssOel" var1="Efd0Pu" id2="generator" var2="Efd0Pu"/>
+    <dyn:initConnect id1="exciterAvrPssOel" var1="UStator0Pu" id2="generator" var2="UStator0Pu"/>
+    <dyn:initConnect id1="exciterAvrPssOel" var1="If0Pu" id2="generator" var2="IRotor0Pu"/>
+    <dyn:initConnect id1="governor" var1="Value0" id2="generator" var2="Pm0Pu"/>
+    <dyn:connect id1="exciterAvrPssOel" var1="efdPuPin" id2="generator" var2="efdPu"/>
+    <dyn:connect id1="exciterAvrPssOel" var1="UStatorPu" id2="generator" var2="UStatorPu.value"/>
+    <dyn:connect id1="exciterAvrPssOel" var1="ifPu" id2="generator" var2="IRotorPu.value"/>
+    <dyn:connect id1="exciterAvrPssOel" var1="omegaPu" id2="generator" var2="omegaPu.value"/>
+    <dyn:connect id1="governor" var1="setPoint" id2="generator" var2="PmPu"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

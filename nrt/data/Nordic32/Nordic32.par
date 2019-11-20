@@ -1,0 +1,1173 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
+    <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="load_Tp" value="90"/>
+    <par type="DOUBLE" name="load_Tq" value="90"/>
+    <par type="DOUBLE" name="load_alpha" value="1"/>
+    <par type="DOUBLE" name="load_alphaLong" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="2"/>
+    <par type="DOUBLE" name="load_betaLong" value="0"/>
+    <par type="BOOL" name="load_isControllable" value="false"/>
+    <par type="BOOL" name="load_isRestorative" value="false"/>
+    <par type="DOUBLE" name="load_zPMax" value="100"/>
+    <par type="DOUBLE" name="load_zQMax" value="100"/>
+    <par type="DOUBLE" name="reactance_no_reclosing_delay" value="0"/>
+    <par type="DOUBLE" name="transformer_currentLimit_maxTimeOperation" value="90"/>
+    <par type="DOUBLE" name="transformer_t1st_HT" value="30"/>
+    <par type="DOUBLE" name="transformer_t1st_THT" value="30"/>
+    <par type="DOUBLE" name="transformer_tNext_HT" value="10"/>
+    <par type="DOUBLE" name="transformer_tNext_THT" value="10"/>
+    <par type="DOUBLE" name="transformer_tolV" value="0.01"/>
+  </set>
+  <set id="2">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="3">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="4">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="5">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="6">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="7">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="8">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="9">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="10">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="11">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="12">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="13">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="14">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="15">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="16">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="17">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="18">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="19">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="20">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="21">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="22">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="23">
+    <reference name="load_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <reference name="load_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <reference name="load_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <reference name="load_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="load_alpha" type="DOUBLE" value="1"/>
+    <par name="load_beta" type="DOUBLE" value="2"/>
+  </set>
+  <set id="24">
+    <par name="nbGen" type="INT" value="20"/>
+    <par name="weight_gen_0" type="DOUBLE" value="1"/>
+    <par name="weight_gen_1" type="DOUBLE" value="1"/>
+    <par name="weight_gen_2" type="DOUBLE" value="1"/>
+    <par name="weight_gen_3" type="DOUBLE" value="1"/>
+    <par name="weight_gen_4" type="DOUBLE" value="1"/>
+    <par name="weight_gen_5" type="DOUBLE" value="1"/>
+    <par name="weight_gen_6" type="DOUBLE" value="1"/>
+    <par name="weight_gen_7" type="DOUBLE" value="1"/>
+    <par name="weight_gen_8" type="DOUBLE" value="1"/>
+    <par name="weight_gen_9" type="DOUBLE" value="1"/>
+    <par name="weight_gen_10" type="DOUBLE" value="1"/>
+    <par name="weight_gen_11" type="DOUBLE" value="1"/>
+    <par name="weight_gen_12" type="DOUBLE" value="1"/>
+    <par name="weight_gen_13" type="DOUBLE" value="1"/>
+    <par name="weight_gen_14" type="DOUBLE" value="1"/>
+    <par name="weight_gen_15" type="DOUBLE" value="1"/>
+    <par name="weight_gen_16" type="DOUBLE" value="1"/>
+    <par name="weight_gen_17" type="DOUBLE" value="1"/>
+    <par name="weight_gen_18" type="DOUBLE" value="1"/>
+    <par name="weight_gen_19" type="DOUBLE" value="1"/>
+  </set>
+  <set id="25">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="950"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="950"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="1000"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="1000"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.04"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-11"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="26">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="760"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="760"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="800"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="800"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.04"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-11"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="27">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="760"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="760"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="800"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="800"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.04"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-11"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="28">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="237.5"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="237.5"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="250"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="250"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.04"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-11"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="29">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="332.5"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="332.5"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="350"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="350"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.04"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-20"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="30">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="285"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="285"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="300"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="300"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.04"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-20"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="31">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="2"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="300"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="295"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="300"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="300"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="7"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.55"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.3"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="1"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="50"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-17"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="2.9579"/>
+  </set>
+  <set id="32">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="6"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="630"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="630"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="700"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="700"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="7"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tpq0" type="DOUBLE" value="1.5"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="2.2"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.3"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XpqPu" type="DOUBLE" value="0.4"/>
+    <par name="generator_XqPu" type="DOUBLE" value="2"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="120"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="12.5"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.22"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.012"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-18"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="3.0618"/>
+  </set>
+  <set id="33">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="6"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="1080"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="1080"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="1200"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="1200"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="7"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tpq0" type="DOUBLE" value="1.5"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="2.2"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.3"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XpqPu" type="DOUBLE" value="0.4"/>
+    <par name="generator_XqPu" type="DOUBLE" value="2"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="120"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="12.5"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.22"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.012"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-18"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="3.0618"/>
+  </set>
+  <set id="34">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="6"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="630"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="630"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="700"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="700"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="7"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tpq0" type="DOUBLE" value="1.5"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="2.2"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.3"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XpqPu" type="DOUBLE" value="0.4"/>
+    <par name="generator_XqPu" type="DOUBLE" value="2"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="120"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="12.5"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.22"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.012"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-18"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="3.0618"/>
+  </set>
+  <set id="35">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="6"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="540"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="540"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="700"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="700"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="7"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tpq0" type="DOUBLE" value="1.5"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="2.2"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.3"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XpqPu" type="DOUBLE" value="0.4"/>
+    <par name="generator_XqPu" type="DOUBLE" value="2"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="120"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="12.5"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="150"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.22"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.012"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-18"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="3.0618"/>
+  </set>
+  <set id="36">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="6"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="1080"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="1080"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="1200"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="1200"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="7"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tpq0" type="DOUBLE" value="1.5"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="2.2"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.3"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XpqPu" type="DOUBLE" value="0.4"/>
+    <par name="generator_XqPu" type="DOUBLE" value="2"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="120"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="12.5"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="150"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.22"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.012"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-18"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="3.0618"/>
+  </set>
+  <set id="37">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="475"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="475"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="500"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="500"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.08"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-11"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="38">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="4275"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="4275"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="4500"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="4500"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.08"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-11"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="39">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="570"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="570"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="600"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="600"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.04"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-11"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="40">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="665"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="665"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="700"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="700"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.04"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-11"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="41">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="570"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="570"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="600"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="600"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.04"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="150"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-11"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="42">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="6"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="360"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="360"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="400"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="400"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="7"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tpq0" type="DOUBLE" value="1.5"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="2.2"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.3"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XpqPu" type="DOUBLE" value="0.4"/>
+    <par name="generator_XqPu" type="DOUBLE" value="2"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="120"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="12.5"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.22"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.012"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-20"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="3.0618"/>
+  </set>
+  <set id="43">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="6"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="180"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="180"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="200"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="200"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="7"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tpq0" type="DOUBLE" value="1.5"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="2.2"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.3"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XpqPu" type="DOUBLE" value="0.4"/>
+    <par name="generator_XqPu" type="DOUBLE" value="2"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="120"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="12.5"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="5"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.22"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.012"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-20"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="3.0618"/>
+  </set>
+  <set id="44">
+    <reference name="excitationVoltage_ValueIn" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_DPu" type="DOUBLE" value="0"/>
+    <par name="generator_ExcitationPu" type="INT" value="1"/>
+    <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
+    <par name="generator_H" type="DOUBLE" value="3"/>
+    <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
+    <par name="generator_PNomTurb" type="DOUBLE" value="807.5"/>
+    <par type="DOUBLE" name="generator_PNomAlt" value="807.5"/>
+    <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
+    <par name="generator_RTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_RaPu" type="DOUBLE" value="0"/>
+    <par name="generator_SNom" type="DOUBLE" value="850"/>
+    <par name="generator_SnTfo" type="DOUBLE" value="850"/>
+    <par name="generator_Tpd0" type="DOUBLE" value="5"/>
+    <par name="generator_Tppd0" type="DOUBLE" value="0.05"/>
+    <par name="generator_Tppq0" type="DOUBLE" value="0.10"/>
+    <reference name="generator_U0Pu" origData="IIDM" origName="v_pu" type="DOUBLE"/>
+    <par name="generator_UBaseHV" type="DOUBLE" value="15"/>
+    <par name="generator_UBaseLV" type="DOUBLE" value="15"/>
+    <par name="generator_UNom" type="DOUBLE" value="15"/>
+    <par name="generator_UNomHV" type="DOUBLE" value="15"/>
+    <par name="generator_UNomLV" type="DOUBLE" value="15"/>
+    <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
+    <par name="generator_XTfPu" type="DOUBLE" value="0"/>
+    <par name="generator_XdPu" type="DOUBLE" value="1.1"/>
+    <par name="generator_XlPu" type="DOUBLE" value="0.15"/>
+    <par name="generator_XpdPu" type="DOUBLE" value="0.25"/>
+    <par name="generator_XppdPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XppqPu" type="DOUBLE" value="0.2"/>
+    <par name="generator_XqPu" type="DOUBLE" value="0.7"/>
+    <par name="governor_ValueIn" type="DOUBLE" value="0"/>
+    <par name="governor_sigma" type="DOUBLE" value="0.04"/>
+    <par name="exciterAvrPssOel_G" type="DOUBLE" value="70"/>
+    <par name="exciterAvrPssOel_Ta" type="DOUBLE" value="10"/>
+    <par name="exciterAvrPssOel_Tb" type="DOUBLE" value="20"/>
+    <par name="exciterAvrPssOel_L2" type="DOUBLE" value="4"/>
+    <par name="exciterAvrPssOel_Kp" type="DOUBLE" value="75"/>
+    <par name="exciterAvrPssOel_Tw" type="DOUBLE" value="15"/>
+    <par name="exciterAvrPssOel_T1" type="DOUBLE" value="0.20"/>
+    <par name="exciterAvrPssOel_T2" type="DOUBLE" value="0.010"/>
+    <par name="exciterAvrPssOel_L1" type="DOUBLE" value="-11"/>
+    <par name="exciterAvrPssOel_f" type="DOUBLE" value="0"/>
+    <par name="exciterAvrPssOel_r" type="DOUBLE" value="1"/>
+    <par name="exciterAvrPssOel_IfLimPu" type="DOUBLE" value="1.8991"/>
+  </set>
+  <set id="45">
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.0001"/>
+    <par type="DOUBLE" name="fault_tBegin" value="1"/>
+    <par type="DOUBLE" name="fault_tEnd" value="1.1"/>
+  </set>
+  <set id="46">
+    <par type="DOUBLE" name="event_tEvent" value="1.1"/>
+    <par type="BOOL" name="event_disconnectOrigin" value="true"/>
+    <par type="BOOL" name="event_disconnectExtremity" value="true"/>
+  </set>
+</parametersSet>

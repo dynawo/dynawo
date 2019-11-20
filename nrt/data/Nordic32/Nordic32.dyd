@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="11_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="2" staticId="11_1"/>
+  <dyn:blackBoxModel id="12_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="3" staticId="12_1"/>
+  <dyn:blackBoxModel id="13_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="4" staticId="13_1"/>
+  <dyn:blackBoxModel id="22_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="5" staticId="22_1"/>
+  <dyn:blackBoxModel id="01_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="6" staticId="01_1"/>
+  <dyn:blackBoxModel id="02_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="7" staticId="02_1"/>
+  <dyn:blackBoxModel id="03_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="8" staticId="03_1"/>
+  <dyn:blackBoxModel id="04_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="9" staticId="04_1"/>
+  <dyn:blackBoxModel id="05_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="10" staticId="05_1"/>
+  <dyn:blackBoxModel id="31_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="11" staticId="31_1"/>
+  <dyn:blackBoxModel id="32_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="12" staticId="32_1"/>
+  <dyn:blackBoxModel id="41_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="13" staticId="41_1"/>
+  <dyn:blackBoxModel id="42_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="14" staticId="42_1"/>
+  <dyn:blackBoxModel id="43_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="15" staticId="43_1"/>
+  <dyn:blackBoxModel id="46_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="16" staticId="46_1"/>
+  <dyn:blackBoxModel id="47_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="17" staticId="47_1"/>
+  <dyn:blackBoxModel id="51_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="18" staticId="51_1"/>
+  <dyn:blackBoxModel id="61_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="19" staticId="61_1"/>
+  <dyn:blackBoxModel id="62_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="20" staticId="62_1"/>
+  <dyn:blackBoxModel id="63_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="21" staticId="63_1"/>
+  <dyn:blackBoxModel id="71_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="22" staticId="71_1"/>
+  <dyn:blackBoxModel id="72_1" lib="LoadAlphaBeta" parFile="Nordic32.par" parId="23" staticId="72_1"/>
+  <dyn:blackBoxModel id="OMEGA_REF" lib="DYNModelOmegaRef" parFile="Nordic32.par" parId="24"/>
+  <dyn:blackBoxModel id="g09" lib="HydroPowerPlants" parFile="Nordic32.par" parId="25" staticId="g09"/>
+  <dyn:blackBoxModel id="g01" lib="HydroPowerPlants" parFile="Nordic32.par" parId="26" staticId="g01"/>
+  <dyn:blackBoxModel id="g10" lib="HydroPowerPlants" parFile="Nordic32.par" parId="27" staticId="g10"/>
+  <dyn:blackBoxModel id="g05" lib="HydroPowerPlants" parFile="Nordic32.par" parId="28" staticId="g05"/>
+  <dyn:blackBoxModel id="g12" lib="HydroPowerPlants" parFile="Nordic32.par" parId="29" staticId="g12"/>
+  <dyn:blackBoxModel id="g11" lib="HydroPowerPlants" parFile="Nordic32.par" parId="30" staticId="g11"/>
+  <dyn:blackBoxModel id="g13" lib="SynchronousCondenser" parFile="Nordic32.par" parId="31" staticId="g13"/>
+  <dyn:blackBoxModel id="g14" lib="ThermalPowerPlants" parFile="Nordic32.par" parId="32" staticId="g14"/>
+  <dyn:blackBoxModel id="g15" lib="ThermalPowerPlants" parFile="Nordic32.par" parId="33" staticId="g15"/>
+  <dyn:blackBoxModel id="g16" lib="ThermalPowerPlants" parFile="Nordic32.par" parId="34" staticId="g16"/>
+  <dyn:blackBoxModel id="g17" lib="ThermalPowerPlants" parFile="Nordic32.par" parId="35" staticId="g17"/>
+  <dyn:blackBoxModel id="g18" lib="ThermalPowerPlants" parFile="Nordic32.par" parId="36" staticId="g18"/>
+  <dyn:blackBoxModel id="g19" lib="HydroPowerPlants" parFile="Nordic32.par" parId="37" staticId="g19"/>
+  <dyn:blackBoxModel id="g20" lib="HydroPowerPlants" parFile="Nordic32.par" parId="38" staticId="g20"/>
+  <dyn:blackBoxModel id="g02" lib="HydroPowerPlants" parFile="Nordic32.par" parId="39" staticId="g02"/>
+  <dyn:blackBoxModel id="g03" lib="HydroPowerPlants" parFile="Nordic32.par" parId="40" staticId="g03"/>
+  <dyn:blackBoxModel id="g04" lib="HydroPowerPlants" parFile="Nordic32.par" parId="41" staticId="g04"/>
+  <dyn:blackBoxModel id="g06" lib="ThermalPowerPlants" parFile="Nordic32.par" parId="42" staticId="g06"/>
+  <dyn:blackBoxModel id="g07" lib="ThermalPowerPlants" parFile="Nordic32.par" parId="43" staticId="g07"/>
+  <dyn:blackBoxModel id="g08" lib="HydroPowerPlants" parFile="Nordic32.par" parId="44" staticId="g08"/>
+  <dyn:blackBoxModel id="DisconnectLine" lib="EventQuadripoleDisconnection" parFile="Nordic32.par" parId="46"/>
+  <dyn:connect id1="11_1" id2="NETWORK" var1="load_terminal" var2="@11_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="12_1" id2="NETWORK" var1="load_terminal" var2="@12_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="13_1" id2="NETWORK" var1="load_terminal" var2="@13_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="22_1" id2="NETWORK" var1="load_terminal" var2="@22_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="01_1" id2="NETWORK" var1="load_terminal" var2="@01_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="02_1" id2="NETWORK" var1="load_terminal" var2="@02_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="03_1" id2="NETWORK" var1="load_terminal" var2="@03_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="04_1" id2="NETWORK" var1="load_terminal" var2="@04_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="05_1" id2="NETWORK" var1="load_terminal" var2="@05_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="31_1" id2="NETWORK" var1="load_terminal" var2="@31_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="32_1" id2="NETWORK" var1="load_terminal" var2="@32_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="41_1" id2="NETWORK" var1="load_terminal" var2="@41_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="42_1" id2="NETWORK" var1="load_terminal" var2="@42_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="43_1" id2="NETWORK" var1="load_terminal" var2="@43_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="46_1" id2="NETWORK" var1="load_terminal" var2="@46_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="47_1" id2="NETWORK" var1="load_terminal" var2="@47_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="51_1" id2="NETWORK" var1="load_terminal" var2="@51_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="61_1" id2="NETWORK" var1="load_terminal" var2="@61_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="62_1" id2="NETWORK" var1="load_terminal" var2="@62_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="63_1" id2="NETWORK" var1="load_terminal" var2="@63_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="71_1" id2="NETWORK" var1="load_terminal" var2="@71_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="72_1" id2="NETWORK" var1="load_terminal" var2="@72_1@@NODE@_ACPIN"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_0" var2="@g09@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g09" var1="omega_grp_0" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g09" var1="omegaRef_grp_0" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g09" var1="running_grp_0" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_1" var2="@g01@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g01" var1="omega_grp_1" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g01" var1="omegaRef_grp_1" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g01" var1="running_grp_1" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_2" var2="@g10@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g10" var1="omega_grp_2" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g10" var1="omegaRef_grp_2" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g10" var1="running_grp_2" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_3" var2="@g02@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g02" var1="omega_grp_3" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g02" var1="omegaRef_grp_3" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g02" var1="running_grp_3" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_4" var2="@g03@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g03" var1="omega_grp_4" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g03" var1="omegaRef_grp_4" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g03" var1="running_grp_4" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_5" var2="@g04@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g04" var1="omega_grp_5" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g04" var1="omegaRef_grp_5" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g04" var1="running_grp_5" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_6" var2="@g05@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g05" var1="omega_grp_6" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g05" var1="omegaRef_grp_6" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g05" var1="running_grp_6" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_7" var2="@g06@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g06" var1="omega_grp_7" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g06" var1="omegaRef_grp_7" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g06" var1="running_grp_7" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_8" var2="@g07@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g07" var1="omega_grp_8" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g07" var1="omegaRef_grp_8" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g07" var1="running_grp_8" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_9" var2="@g12@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g12" var1="omega_grp_9" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g12" var1="omegaRef_grp_9" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g12" var1="running_grp_9" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_10" var2="@g08@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g08" var1="omega_grp_10" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g08" var1="omegaRef_grp_10" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g08" var1="running_grp_10" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_11" var2="@g11@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g11" var1="omega_grp_11" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g11" var1="omegaRef_grp_11" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g11" var1="running_grp_11" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_12" var2="@g13@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g13" var1="omega_grp_12" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g13" var1="omegaRef_grp_12" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g13" var1="running_grp_12" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_13" var2="@g14@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g14" var1="omega_grp_13" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g14" var1="omegaRef_grp_13" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g14" var1="running_grp_13" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_14" var2="@g15@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g15" var1="omega_grp_14" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g15" var1="omegaRef_grp_14" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g15" var1="running_grp_14" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_15" var2="@g16@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g16" var1="omega_grp_15" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g16" var1="omegaRef_grp_15" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g16" var1="running_grp_15" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_16" var2="@g17@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g17" var1="omega_grp_16" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g17" var1="omegaRef_grp_16" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g17" var1="running_grp_16" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_17" var2="@g18@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g18" var1="omega_grp_17" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g18" var1="omegaRef_grp_17" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g18" var1="running_grp_17" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_18" var2="@g19@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g19" var1="omega_grp_18" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g19" var1="omegaRef_grp_18" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g19" var1="running_grp_18" var2="generator_running"/>
+  <dyn:connect id1="OMEGA_REF" id2="NETWORK" var1="numcc_node_19" var2="@g20@@NODE@_numcc"/>
+  <dyn:connect id1="OMEGA_REF" id2="g20" var1="omega_grp_19" var2="generator_omegaPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g20" var1="omegaRef_grp_19" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="OMEGA_REF" id2="g20" var1="running_grp_19" var2="generator_running"/>
+  <dyn:connect id1="g09" id2="NETWORK" var1="generator_terminal" var2="@g09@@NODE@_ACPIN"/>
+  <dyn:connect id1="g09" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g09@@NODE@_switchOff"/>
+  <dyn:connect id1="g01" id2="NETWORK" var1="generator_terminal" var2="@g01@@NODE@_ACPIN"/>
+  <dyn:connect id1="g01" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g01@@NODE@_switchOff"/>
+  <dyn:connect id1="g10" id2="NETWORK" var1="generator_terminal" var2="@g10@@NODE@_ACPIN"/>
+  <dyn:connect id1="g10" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g10@@NODE@_switchOff"/>
+  <dyn:connect id1="g02" id2="NETWORK" var1="generator_terminal" var2="@g02@@NODE@_ACPIN"/>
+  <dyn:connect id1="g02" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g02@@NODE@_switchOff"/>
+  <dyn:connect id1="g03" id2="NETWORK" var1="generator_terminal" var2="@g03@@NODE@_ACPIN"/>
+  <dyn:connect id1="g03" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g03@@NODE@_switchOff"/>
+  <dyn:connect id1="g04" id2="NETWORK" var1="generator_terminal" var2="@g04@@NODE@_ACPIN"/>
+  <dyn:connect id1="g04" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g04@@NODE@_switchOff"/>
+  <dyn:connect id1="g05" id2="NETWORK" var1="generator_terminal" var2="@g05@@NODE@_ACPIN"/>
+  <dyn:connect id1="g05" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g05@@NODE@_switchOff"/>
+  <dyn:connect id1="g06" id2="NETWORK" var1="generator_terminal" var2="@g06@@NODE@_ACPIN"/>
+  <dyn:connect id1="g06" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g06@@NODE@_switchOff"/>
+  <dyn:connect id1="g07" id2="NETWORK" var1="generator_terminal" var2="@g07@@NODE@_ACPIN"/>
+  <dyn:connect id1="g07" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g07@@NODE@_switchOff"/>
+  <dyn:connect id1="g12" id2="NETWORK" var1="generator_terminal" var2="@g12@@NODE@_ACPIN"/>
+  <dyn:connect id1="g12" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g12@@NODE@_switchOff"/>
+  <dyn:connect id1="g08" id2="NETWORK" var1="generator_terminal" var2="@g08@@NODE@_ACPIN"/>
+  <dyn:connect id1="g08" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g08@@NODE@_switchOff"/>
+  <dyn:connect id1="g11" id2="NETWORK" var1="generator_terminal" var2="@g11@@NODE@_ACPIN"/>
+  <dyn:connect id1="g11" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g11@@NODE@_switchOff"/>
+  <dyn:connect id1="g13" id2="NETWORK" var1="generator_terminal" var2="@g13@@NODE@_ACPIN"/>
+  <dyn:connect id1="g13" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g13@@NODE@_switchOff"/>
+  <dyn:connect id1="g14" id2="NETWORK" var1="generator_terminal" var2="@g14@@NODE@_ACPIN"/>
+  <dyn:connect id1="g14" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g14@@NODE@_switchOff"/>
+  <dyn:connect id1="g15" id2="NETWORK" var1="generator_terminal" var2="@g15@@NODE@_ACPIN"/>
+  <dyn:connect id1="g15" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g15@@NODE@_switchOff"/>
+  <dyn:connect id1="g16" id2="NETWORK" var1="generator_terminal" var2="@g16@@NODE@_ACPIN"/>
+  <dyn:connect id1="g16" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g16@@NODE@_switchOff"/>
+  <dyn:connect id1="g17" id2="NETWORK" var1="generator_terminal" var2="@g17@@NODE@_ACPIN"/>
+  <dyn:connect id1="g17" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g17@@NODE@_switchOff"/>
+  <dyn:connect id1="g18" id2="NETWORK" var1="generator_terminal" var2="@g18@@NODE@_ACPIN"/>
+  <dyn:connect id1="g18" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g18@@NODE@_switchOff"/>
+  <dyn:connect id1="g19" id2="NETWORK" var1="generator_terminal" var2="@g19@@NODE@_ACPIN"/>
+  <dyn:connect id1="g19" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g19@@NODE@_switchOff"/>
+  <dyn:connect id1="g20" id2="NETWORK" var1="generator_terminal" var2="@g20@@NODE@_ACPIN"/>
+  <dyn:connect id1="g20" id2="NETWORK" var1="generator_switchOffSignal1" var2="@g20@@NODE@_switchOff"/>
+  <dyn:connect id1="DisconnectLine" var1="event_state1_value" id2="NETWORK" var2="L4032-4044_state_value"/>
+</dyn:dynamicModelsArchitecture>

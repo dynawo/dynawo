@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terSM of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systeSM.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="4032_401_Upu_value"/>
+  <curve model="NETWORK" variable="1041_131_Upu_value"/>
+  <curve model="NETWORK" variable="1042_131_Upu_value"/>
+  <curve model="NETWORK" variable="4012_401_Upu_value"/>
+  <curve model="NETWORK" variable="4062_401_Upu_value"/>
+  <curve model="g12" variable="generator_ifPu"/>
+  <curve model="g14" variable="generator_ifPu"/>
+  <curve model="g07" variable="generator_ifPu"/>
+  <curve model="g11" variable="generator_ifPu"/>
+  <curve model="g06" variable="generator_ifPu"/>
+  <curve model="g15" variable="generator_ifPu"/>
+  <curve model="g16" variable="generator_ifPu"/>
+  <curve model="g08" variable="generator_ifPu"/>
+  <curve model="g18" variable="generator_ifPu"/>
+  <curve model="g09" variable="generator_ifPu"/>
+  <curve model="g06" variable="generator_UStatorPu"/>
+  <curve model="g07" variable="generator_UStatorPu"/>
+  <curve model="g06" variable="generator_omegaPu"/>
+  <curve model="g07" variable="generator_omegaPu"/>
+  <curve model="g17" variable="generator_omegaPu"/>
+  <curve model="g20" variable="generator_omegaPu"/>
+  <curve model="g06" variable="generator_theta"/>
+  <curve model="g07" variable="generator_theta"/>
+  <curve model="g17" variable="generator_theta"/>
+  <curve model="g20" variable="generator_theta"/>
+  <curve model="g12" variable="generator_IRotorPu"/>
+  <curve model="g14" variable="generator_IRotorPu"/>
+  <curve model="g07" variable="generator_IRotorPu"/>
+  <curve model="g11" variable="generator_IRotorPu"/>
+  <curve model="g06" variable="generator_IRotorPu"/>
+  <curve model="g15" variable="generator_IRotorPu"/>
+  <curve model="g16" variable="generator_IRotorPu"/>
+  <curve model="g08" variable="generator_IRotorPu"/>
+  <curve model="g18" variable="generator_IRotorPu"/>
+  <curve model="g09" variable="generator_IRotorPu"/>
+  <curve model="g12" variable="exciterAvrPssOel_limiter1_y"/>
+  <curve model="g14" variable="exciterAvrPssOel_limiter1_y"/>
+  <curve model="g07" variable="exciterAvrPssOel_limiter1_y"/>
+  <curve model="g11" variable="exciterAvrPssOel_limiter1_y"/>
+  <curve model="g06" variable="exciterAvrPssOel_limiter1_y"/>
+  <curve model="g15" variable="exciterAvrPssOel_limiter1_y"/>
+  <curve model="g16" variable="exciterAvrPssOel_limiter1_y"/>
+  <curve model="g08" variable="exciterAvrPssOel_limiter1_y"/>
+  <curve model="g18" variable="exciterAvrPssOel_limiter1_y"/>
+  <curve model="g09" variable="exciterAvrPssOel_limiter1_y"/>
+  <curve model="g12" variable="exciterAvrPssOel_switch1_u1"/>
+  <curve model="g12" variable="exciterAvrPssOel_switch1_u2"/>
+  <curve model="g12" variable="exciterAvrPssOel_switch1_u3"/>
+  <curve model="g12" variable="exciterAvrPssOel_switch1_y"/>
+  <curve model="g12" variable="exciterAvrPssOel_oELFunction1_u"/>
+  <curve model="g12" variable="exciterAvrPssOel_oELFunction1_y"/>
+  <curve model="g12" variable="exciterAvrPssOel_limIntegrator1_u"/>
+  <curve model="g12" variable="exciterAvrPssOel_limIntegrator1_y"/>
+</curvesInput>
