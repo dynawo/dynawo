@@ -11,6 +11,8 @@
 SET(MODEL_FILES
     # Electrical Buses models
     package.mo
+    Bus.mo
+    Bus.extvar
     InfiniteBus.mo
     InfiniteBus.extvar
     )
