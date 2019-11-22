@@ -965,7 +965,10 @@ build_tests_coverage() {
   ## for unit test, no need to generate modelica models
   build_dynawo_core || error_exit "Error during build_dynawo_core."
   build_dynawo_models_cpp || error_exit "Error during build_dynawo_models_cpp."
-
+  if ${DYNAWO_PYTHON_COMMAND} -c "import coverage" &> /dev/null; then
+    DYNAWO_PYTHON_COMMAND_SAVE=${DYNAWO_PYTHON_COMMAND}
+    export_var_env_force DYNAWO_PYTHON_COMMAND="coverage run"
+  fi
   tests=$@
 
   cmake --build $DYNAWO_BUILD_DIR --target reset-coverage --config TestCoverage || error_exit "Error during make reset-coverage."
@@ -997,6 +1000,17 @@ build_tests_coverage() {
     gcov -pb $cpp_file -o $file > /dev/null
   done
   find $DYNAWO_HOME/build/coverage-sonar -type f -not -name "*dynawo*" -exec rm -f {} \;
+  if ${DYNAWO_PYTHON_COMMAND_SAVE} -c "import coverage" &> /dev/null; then
+    echo "### Generating python coverage"
+    PYTHON_COVERAGE_FILES=""
+    for file in $(find $DYNAWO_BUILD_DIR -name ".coverage"); do
+     PYTHON_COVERAGE_FILES="$file $PYTHON_COVERAGE_FILES"
+    done
+    coverage combine $PYTHON_COVERAGE_FILES || error_exit "Impossible to combine coverage files $PYTHON_COVERAGE_FILES"
+    mkdir -p $DYNAWO_HOME/build/coverage-sonar/coverage-python || error_exit "Impossible to create $DYNAWO_HOME/build/coverage-sonar/coverage-python."
+    coverage xml -o $DYNAWO_HOME/build/coverage-sonar/coverage-python/coverage.xml|| error_exit "Impossible to generate python XML coverage file."
+    export_var_env_force DYNAWO_PYTHON_COMMAND=${DYNAWO_PYTHON_COMMAND_SAVE}
+  fi
 }
 
 clean_tests() {
