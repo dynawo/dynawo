@@ -1270,8 +1270,11 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
         (curve_left, curve_right) = curves [curve]
         data_left = reader_left [curve_left]
         data_right = reader_right [curve_right]
+        number_of_consecutive_time_steps_with_absolute_error = 0
+        curves_different_found_during_consecutive_time_steps_with_absolute_error = set([])
 
-        for t in times.keys():
+        last_time = sorted(times.keys())[-1]
+        for t in sorted(times.keys()):
             (t_left, t_right) = times [t]
             data_point_left = float (data_left [t_left] .strip())
             data_point_right = float (data_right [t_right] .strip())
@@ -1285,14 +1288,33 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
                 nb_differences += 1
 
             if (settings.error_relative is not None):
-                if (error > settings.error_relative * min (abs(data_point_left), abs (data_point_right))):
+                if (min (abs(data_point_left), abs (data_point_right)) > 0.1 \
+                    and error > settings.error_relative * min (abs(data_point_left), abs (data_point_right))):
                     nb_differences_relative += 1
                     curves_different.add (curve)
 
             if (settings.error_absolute is not None):
-                if (error > settings.error_absolute):
-                    nb_differences_absolute += 1
-                    curves_different.add (curve)
+                if t == last_time:
+                    if (error > settings.error_absolute_final_step):
+                        nb_differences_absolute += 1
+                        curves_different.add (curve)
+                elif (error > settings.error_absolute):
+                    number_of_consecutive_time_steps_with_absolute_error+=1
+                    curves_different_found_during_consecutive_time_steps_with_absolute_error.add (curve)
+                else:
+                    if settings.maximum_number_of_consecutive_time_steps_with_abs_error is not None \
+                    and number_of_consecutive_time_steps_with_absolute_error > settings.maximum_number_of_consecutive_time_steps_with_abs_error:
+                        nb_differences_absolute += number_of_consecutive_time_steps_with_absolute_error
+                        for curve in curves_different_found_during_consecutive_time_steps_with_absolute_error:
+                            curves_different.add (curve)
+                    number_of_consecutive_time_steps_with_absolute_error = 0
+                    curves_different_found_during_consecutive_time_steps_with_absolute_error.clear()
+
+        if settings.maximum_number_of_consecutive_time_steps_with_abs_error is not None \
+        and number_of_consecutive_time_steps_with_absolute_error > settings.maximum_number_of_consecutive_time_steps_with_abs_error:
+            nb_differences_absolute += number_of_consecutive_time_steps_with_absolute_error
+            for curve in curves_different_found_during_consecutive_time_steps_with_absolute_error:
+                curves_different.add (curve)
 
     file_left.close()
     file_right.close()
