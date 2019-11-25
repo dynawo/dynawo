@@ -1274,6 +1274,7 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
         curves_different_found_during_consecutive_time_steps_with_absolute_error = set([])
 
         last_time = sorted(times.keys())[-1]
+        average_first_three_errors = 0.
         for t in sorted(times.keys()):
             (t_left, t_right) = times [t]
             data_point_left = float (data_left [t_left] .strip())
@@ -1298,9 +1299,14 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
                     if (error > settings.error_absolute_final_step):
                         nb_differences_absolute += 1
                         curves_different.add (curve)
-                elif (error > settings.error_absolute):
+                elif (error > settings.error_absolute and  \
+                      (number_of_consecutive_time_steps_with_absolute_error <= settings.maximum_number_of_consecutive_time_steps_with_abs_error or error > average_first_three_errors*1.1)):
                     number_of_consecutive_time_steps_with_absolute_error+=1
                     curves_different_found_during_consecutive_time_steps_with_absolute_error.add (curve)
+                    if number_of_consecutive_time_steps_with_absolute_error <= settings.maximum_number_of_consecutive_time_steps_with_abs_error:
+                        average_first_three_errors += error
+                    if number_of_consecutive_time_steps_with_absolute_error == settings.maximum_number_of_consecutive_time_steps_with_abs_error:
+                        average_first_three_errors /= settings.maximum_number_of_consecutive_time_steps_with_abs_error
                 else:
                     if settings.maximum_number_of_consecutive_time_steps_with_abs_error is not None \
                     and number_of_consecutive_time_steps_with_absolute_error > settings.maximum_number_of_consecutive_time_steps_with_abs_error:
@@ -1308,6 +1314,7 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
                         for curve in curves_different_found_during_consecutive_time_steps_with_absolute_error:
                             curves_different.add (curve)
                     number_of_consecutive_time_steps_with_absolute_error = 0
+                    average_first_three_errors = 0.
                     curves_different_found_during_consecutive_time_steps_with_absolute_error.clear()
 
         if settings.maximum_number_of_consecutive_time_steps_with_abs_error is not None \
