@@ -35,33 +35,13 @@ class TestnrtDiffCompareTwoFiles(unittest.TestCase):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves2.csv"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(message, "1 relative errors , NETWORK__BUS____1_TN_Upu_value")
-
-    def test_curves_within_tolerance(self):
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves3.csv"), '|')
-        self.assertEqual(return_value, nrtDiff.WITHIN_TOLERANCE)
-        self.assertEqual(message, "349 data points compared for each curve")
-
-    def test_curves_with_last_time_step_error(self):
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves4.csv"), '|')
-        self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(message, "1 absolute errors and 1 relative errors , NETWORK__BUS____1_TN_Upu_value")
-
-    def test_curves_with_more_than_3_steps_error(self):
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.csv"), '|', os.path.join(dir_path, "curves5.csv"), '|')
-        self.assertEqual(return_value, nrtDiff.DIFFERENT)
-        self.assertEqual(message, "4 absolute errors , NETWORK__BUS____1_TN_Upu_value")
+        self.assertEqual(message, "5 absolute errors , GEN____8_SM_generator_UStatorPu , GEN____6_SM_voltageRegulator_EfdPu , GEN____8_SM_voltageRegulator_EfdPu , GEN____1_SM_voltageRegulator_EfdPu , GEN____2_SM_voltageRegulator_EfdPu")
 
     def test_curves_xml(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves2.xml"), '|')
         self.assertEqual(return_value, nrtDiff.DIFFERENT)
         self.assertEqual(message, "1 absolute errors , NETWORK_BELLAP41_U_value")
-        (return_value, message) = nrtDiff.CompareTwoFiles(os.path.join(dir_path, "curves.xml"), '|', os.path.join(dir_path, "curves3.xml"), '|')
-        self.assertEqual(return_value, nrtDiff.WITHIN_TOLERANCE)
 
     def test_timeline_log(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))

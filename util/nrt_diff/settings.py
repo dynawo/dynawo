@@ -22,10 +22,7 @@ files_excluded = []
 # comparison
 logs_default_separator = "|"
 logs_pattern_to_avoid = ['| DYNAWO VERSION  :     ', '| DYNAWO REVISION :', '=====================================', 'REVISION DYNAWO :'] # logs file patterns to avoid
-error_absolute = 0.001 # None to avoid checking
-error_absolute_final_step = 0.1 # None to avoid checking
-maximum_number_of_consecutive_time_steps_with_abs_error = 3 # None to avoid checking
-error_relative = 0.01 # None to avoid checking
+max_DTW = 0.1 # None to avoid checking
 
 # strict maximum number of threads
 maximum_threads_nb = 4

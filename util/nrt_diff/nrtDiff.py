@@ -1133,30 +1133,43 @@ def XMLCloseEnough (path_left, path_right):
     nb_differences_relative = 0
     for curve in curves.keys():
         (curve_left, curve_right) = curves [curve]
-
-        for t in times:
-            data_point_left = float (left_curve[curve][t])
-            data_point_right = float (right_curve[curve][t])
-            error = abs(data_point_left - data_point_right)
-
-            # If we are below the target precision do not compare the numbers
-            if (abs(data_point_left) < settings.error_absolute and abs (data_point_right) < settings.error_absolute):
-                continue
-
-            if (error > 0):
+        left = []
+        right = []
+        for t in sorted(times_left):
+            left.append(float (left_curve[curve][t]))
+        for t in sorted(times_right):
+            right.append(float (right_curve[curve][t]))
+        if settings.max_DTW is not None:
+           distance = DTWDistance(left, right)
+           if distance > settings.max_DTW:
                 nb_differences += 1
-
-            if (settings.error_relative is not None):
-                if (error > settings.error_relative * min (abs(data_point_left), abs (data_point_right))):
-                    nb_differences_relative += 1
-                    curves_different.add (curve)
-
-            if (settings.error_absolute is not None):
-                if (error > settings.error_absolute):
-                    nb_differences_absolute += 1
-                    curves_different.add (curve)
+                nb_differences_absolute += 1
+                curves_different.add (curve)
 
     return (len(times), nb_curves_only_in_left_file, nb_curves_only_in_right_file, nb_differences, nb_differences_absolute, nb_differences_relative, curves_different)
+
+
+# Comparison of 2 curves based on the Dynamic Time Warping distance
+# @param left : list of left values
+# @param right : list of right values
+# @return distance between left and right curves
+def DTWDistance(left, right) :
+    n = len(left)
+    m = len(right)
+    DTW = [[0 for j in range(m+1)] for i in range(n+1)]
+
+    for i in range(1, n+1):
+        for j in range (1, m+1):
+            DTW[i][j] = 999999
+    DTW[0][0] = 0
+
+    for i in range(1, n+1):
+        for j in range (1, m+1):
+            cost= abs(left[i-1] - right[j-1])
+            DTW[i][j] = cost + min(min(DTW[i-1][j],DTW[i][j-1]), DTW[i-1][j-1])
+
+    return DTW[n][m]
+
 # Check whether two csv files are close enough
 # @param path_left : the absolute path to the left-side file
 # @param path_right : the absolute path to the right-side file
@@ -1216,6 +1229,7 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
 
         row_index += 1
 
+
     times_right = {}
     curves_right = {}
     row_index = 0
@@ -1270,57 +1284,17 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
         (curve_left, curve_right) = curves [curve]
         data_left = reader_left [curve_left]
         data_right = reader_right [curve_right]
-        number_of_consecutive_time_steps_with_absolute_error = 0
-        curves_different_found_during_consecutive_time_steps_with_absolute_error = set([])
-
-        last_time = sorted(times.keys())[-1]
-        average_first_three_errors = 0.
-        for t in sorted(times.keys()):
-            (t_left, t_right) = times [t]
-            data_point_left = float (data_left [t_left] .strip())
-            data_point_right = float (data_right [t_right] .strip())
-            error = abs(data_point_left - data_point_right)
-
-            # If we are below the target precision do not compare the numbers
-            if (abs(data_point_left) < settings.error_absolute and abs (data_point_right) < settings.error_absolute):
-                continue
-
-            if (error > 0):
+        left = []
+        right = []
+        for t in sorted(times_left.keys()):
+            left.append(float (data_left [times_left[t]] .strip()))
+        for t in sorted(times_right.keys()):
+            right.append(float (data_right [times_right[t]] .strip()))
+        if settings.max_DTW is not None:
+            distance = DTWDistance(left, right)
+            if distance > settings.max_DTW:
                 nb_differences += 1
-
-            if (settings.error_relative is not None):
-                if (min (abs(data_point_left), abs (data_point_right)) > 0.1 \
-                    and error > settings.error_relative * min (abs(data_point_left), abs (data_point_right))):
-                    nb_differences_relative += 1
-                    curves_different.add (curve)
-
-            if (settings.error_absolute is not None):
-                if t == last_time:
-                    if (error > settings.error_absolute_final_step):
-                        nb_differences_absolute += 1
-                        curves_different.add (curve)
-                elif (error > settings.error_absolute and  \
-                      (number_of_consecutive_time_steps_with_absolute_error <= settings.maximum_number_of_consecutive_time_steps_with_abs_error or error > average_first_three_errors*1.1)):
-                    number_of_consecutive_time_steps_with_absolute_error+=1
-                    curves_different_found_during_consecutive_time_steps_with_absolute_error.add (curve)
-                    if number_of_consecutive_time_steps_with_absolute_error <= settings.maximum_number_of_consecutive_time_steps_with_abs_error:
-                        average_first_three_errors += error
-                    if number_of_consecutive_time_steps_with_absolute_error == settings.maximum_number_of_consecutive_time_steps_with_abs_error:
-                        average_first_three_errors /= settings.maximum_number_of_consecutive_time_steps_with_abs_error
-                else:
-                    if settings.maximum_number_of_consecutive_time_steps_with_abs_error is not None \
-                    and number_of_consecutive_time_steps_with_absolute_error > settings.maximum_number_of_consecutive_time_steps_with_abs_error:
-                        nb_differences_absolute += number_of_consecutive_time_steps_with_absolute_error
-                        for curve in curves_different_found_during_consecutive_time_steps_with_absolute_error:
-                            curves_different.add (curve)
-                    number_of_consecutive_time_steps_with_absolute_error = 0
-                    average_first_three_errors = 0.
-                    curves_different_found_during_consecutive_time_steps_with_absolute_error.clear()
-
-        if settings.maximum_number_of_consecutive_time_steps_with_abs_error is not None \
-        and number_of_consecutive_time_steps_with_absolute_error > settings.maximum_number_of_consecutive_time_steps_with_abs_error:
-            nb_differences_absolute += number_of_consecutive_time_steps_with_absolute_error
-            for curve in curves_different_found_during_consecutive_time_steps_with_absolute_error:
+                nb_differences_absolute += 1
                 curves_different.add (curve)
 
     file_left.close()
