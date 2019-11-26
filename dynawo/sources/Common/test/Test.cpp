@@ -334,7 +334,11 @@ TEST(CommonTest, testSparseMatrix) {
   SparseMatrix smj;
   smj.init(3, 3);
   smj.changeCol();
+#ifndef _MSC_VER
   smj.addTerm(1, 1./0.);
+#else
+  smj.addTerm(1, 1.);
+#endif
   smj.changeCol();
   smj.addTerm(0, 2.);
   smj.addTerm(2, 3.);

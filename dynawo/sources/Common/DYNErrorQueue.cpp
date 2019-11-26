@@ -21,7 +21,11 @@
 namespace DYN {
 
 boost::shared_ptr<DYNErrorQueue> DYNErrorQueue::errorQueue = boost::shared_ptr<DYNErrorQueue>();
-const size_t DYNErrorQueue::MaxDisplayedError = 100;
+
+size_t DYNErrorQueue::getMaxDisplayedError() {
+  static const size_t maxDisplayedError = 100;
+  return maxDisplayedError;
+}
 
 boost::shared_ptr<DYNErrorQueue>&
 DYNErrorQueue::get() {
@@ -37,6 +41,7 @@ DYNErrorQueue::push(const DYN::Error& exception) {
 
 void
 DYNErrorQueue::flush() {
+  size_t maxDisplayedError = getMaxDisplayedError();
   size_t nbErrors = exceptionQueue_.size();
   if (nbErrors == 1) {
     const DYN::Error e = exceptionQueue_.front();
@@ -44,16 +49,17 @@ DYNErrorQueue::flush() {
     throw e;
   }
   for (size_t nbErrorDisplayed = 0;
-      !exceptionQueue_.empty() && nbErrorDisplayed < MaxDisplayedError; ++nbErrorDisplayed, exceptionQueue_.pop()) {
+      !exceptionQueue_.empty() && nbErrorDisplayed < maxDisplayedError; ++nbErrorDisplayed, exceptionQueue_.pop()) {
     const DYN::Error e = exceptionQueue_.front();
     Trace::error() << e.what() << Trace::endline;
   }
-  for (;!exceptionQueue_.empty(); exceptionQueue_.pop());
+  for (; !exceptionQueue_.empty(); exceptionQueue_.pop())
+    continue;
 
-  if (nbErrors > 0 && nbErrors <= MaxDisplayedError)
+  if (nbErrors > 0 && nbErrors <= maxDisplayedError)
     throw DYNError(DYN::Error::GENERAL, MultipleErrors, boost::lexical_cast<std::string>(nbErrors));
-  if (nbErrors > MaxDisplayedError)
-    throw DYNError(DYN::Error::GENERAL, MultipleAndHiddenErrors, boost::lexical_cast<std::string>(MaxDisplayedError));
+  if (nbErrors > maxDisplayedError)
+    throw DYNError(DYN::Error::GENERAL, MultipleAndHiddenErrors, boost::lexical_cast<std::string>(maxDisplayedError));
 }
 
 } /* namespace DYN */

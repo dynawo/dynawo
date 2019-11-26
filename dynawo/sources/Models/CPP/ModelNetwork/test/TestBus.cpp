@@ -81,9 +81,11 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
   sub.setNum(8);
   ASSERT_EQ(sub.getNum(), 8);
   ASSERT_EQ(sub.nbBus(), 0);
+#ifndef _MSC_VER
   EXPECT_ASSERT_DYNAWO(sub.bus(1));
 
   EXPECT_ASSERT_DYNAWO(sub.addBus(shared_ptr<ModelBus>()));
+#endif
 
   std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
   shared_ptr<ModelBus> bus = p.first;
@@ -434,7 +436,9 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;
+#ifndef _MSC_VER
   EXPECT_ASSERT_DYNAWO(bus->setFequations(fEquationIndex));  // bus->z_ is null as nbZ == 0
+#endif
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {

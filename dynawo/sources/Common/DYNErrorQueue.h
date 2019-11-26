@@ -28,8 +28,6 @@ namespace DYN {
  */
 class DYNErrorQueue  : private boost::noncopyable{
  public:
-  static const size_t MaxDisplayedError;  ///< maximum number of errors that can be displayed in the log
-
   ~DYNErrorQueue() {}
 
   /**
@@ -50,6 +48,13 @@ class DYNErrorQueue  : private boost::noncopyable{
    * @brief throw errors if the queue is not empty, otherwise do nothing
    */
   void flush();
+
+  /**
+   * @brief Get the maximum number of errors displayed
+   *
+   * @return maximum number of errors displayed
+   */
+  size_t getMaxDisplayedError();
 
  private:
   DYNErrorQueue() {}

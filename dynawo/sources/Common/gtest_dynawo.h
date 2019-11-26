@@ -21,7 +21,9 @@
 #define COMMON_GTEST_DYNAWO_H_
 
 #include <sstream>
+#ifndef _MSC_VER
 #include <cxxabi.h>
+#endif
 #include <cstdlib>
 #include <gtest/gtest.h>
 #include "gmock/gmock.h"
@@ -88,6 +90,7 @@ inline std::string key2Str(const int key) {
  * @param ERROR_KEY key of the error expected
  *
  */
+#ifndef _MSC_VER
 #define ASSERT_THROW_DYNAWO(F, ERROR_TYPE, ERROR_KEY)                                            \
   try                                                                                            \
   {                                                                                              \
@@ -116,7 +119,34 @@ inline std::string key2Str(const int key) {
     oss << "  Actual: it throws an exception of unknown type";                                   \
     GTEST_FATAL_FAILURE_(oss.str().c_str());                                                     \
   }
-
+#else
+#define ASSERT_THROW_DYNAWO(F, ERROR_TYPE, ERROR_KEY)                                            \
+  try                                                                                            \
+  {                                                                                              \
+    F;                                                                                           \
+    FAIL();                                                                                      \
+  }                                                                                              \
+  catch(const DYN::Error& e)                                                                     \
+  {                                                                                              \
+    EXPECT_EQ(type2Str(ERROR_TYPE), type2Str(e.type()));                                         \
+    EXPECT_EQ(key2Str(ERROR_KEY), key2Str(e.key()));                                             \
+  }                                                                                              \
+  catch (const std::exception& e) {                                                              \
+    int status = -1;                                                                             \
+    std::ostringstream oss;                                                                      \
+    oss << "Expected: " << #F << " throws an exception of type DYN::Error" << std::endl;         \
+    oss << "  Actual: it throws an exception of type ";                                          \
+    oss << typeid(e).name();                                                                     \
+    GTEST_FATAL_FAILURE_(oss.str().c_str());                                                     \
+  }                                                                                              \
+  catch (...) {                                                                                  \
+    int status;                                                                                  \
+    std::ostringstream oss;                                                                      \
+    oss << "Expected: " << #F << " throws an exception of type DYN::Error" << std::endl;         \
+    oss << "  Actual: it throws an exception of unknown type";                                   \
+    GTEST_FATAL_FAILURE_(oss.str().c_str());                                                     \
+  }
+#endif
 
 /**
  * @brief macro to test if the function returns an assert
