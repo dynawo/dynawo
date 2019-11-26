@@ -999,8 +999,8 @@ Simulation::printFinalState(std::ostream& stream) const {
       model_->evalCalculatedVariables(tCurrent_, yCurrent_, ypCurrent_, zCurrent_);
 
       // association between requested variables and model variables
-      for (finalStateModel_iterator itModel = finalStateCollection_->beginModel();
-              itModel != finalStateCollection_->endModel();
+      for (finalStateModel_iterator itModel = finalStateCollection_->beginFinalStateModel();
+              itModel != finalStateCollection_->endFinalStateModel();
               ++itModel) {
         model_->fillVariables(*itModel);
       }

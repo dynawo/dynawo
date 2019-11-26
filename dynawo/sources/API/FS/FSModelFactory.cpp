@@ -25,9 +25,9 @@ using std::string;
 
 namespace finalState {
 
-boost::shared_ptr<Model>
+boost::shared_ptr<FinalStateModel>
 ModelFactory::newModel(const string& id) {
-  return boost::shared_ptr<Model>(new Model::Impl(id));
+  return boost::shared_ptr<FinalStateModel>(new FinalStateModel::Impl(id));
 }
 
 }  // namespace finalState

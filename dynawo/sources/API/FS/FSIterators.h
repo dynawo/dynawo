@@ -69,7 +69,7 @@ class finalStateModel_const_iterator {
    * or the end of the models' container.
    * @returns Created model_const_iterator.
    */
-  finalStateModel_const_iterator(const Model::Impl* iterated, bool begin);
+  finalStateModel_const_iterator(const FinalStateModel::Impl* iterated, bool begin);
 
   /**
    * @brief Copy constructor
@@ -147,14 +147,14 @@ class finalStateModel_const_iterator {
    *
    * @returns Model pointed to by this
    */
-  const boost::shared_ptr<Model>& operator*() const;
+  const boost::shared_ptr<FinalStateModel>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Model pointed to by this
    */
-  const boost::shared_ptr<Model>* operator->() const;
+  const boost::shared_ptr<FinalStateModel>* operator->() const;
 
  private:
   ModelConstIteratorImpl* impl_;  ///< Pointer to the implementation of the model const iterator;
@@ -198,7 +198,7 @@ class finalStateModel_iterator {
    * or the end of the models' container.
    * @returns Created model_iterator.
    */
-  finalStateModel_iterator(Model::Impl* iterated, bool begin);
+  finalStateModel_iterator(FinalStateModel::Impl* iterated, bool begin);
 
   /**
    * @brief Copy constructor
@@ -268,14 +268,14 @@ class finalStateModel_iterator {
    *
    * @returns Model pointed to by this
    */
-  boost::shared_ptr<Model>& operator*() const;
+  boost::shared_ptr<FinalStateModel>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Model pointed to by this
    */
-  boost::shared_ptr<Model>* operator->() const;
+  boost::shared_ptr<FinalStateModel>* operator->() const;
 
   /**
    * @brief Get the implementation ot the iterator
@@ -325,7 +325,7 @@ class finalStateVariable_const_iterator {
    * or the end of the variables' container.
    * @returns Created variable_const_iterator.
    */
-  finalStateVariable_const_iterator(const Model::Impl* iterated, bool begin);
+  finalStateVariable_const_iterator(const FinalStateModel::Impl* iterated, bool begin);
 
   /**
    * @brief Copy constructor
@@ -454,7 +454,7 @@ class finalStateVariable_iterator {
    * or the end of the variables' container.
    * @returns Created variable_iterator.
    */
-  finalStateVariable_iterator(Model::Impl* iterated, bool begin);
+  finalStateVariable_iterator(FinalStateModel::Impl* iterated, bool begin);
 
   /**
    * @brief Copy constructor

@@ -24,7 +24,7 @@
 #include <boost/shared_ptr.hpp>
 
 namespace finalState {
-class Model;
+class FinalStateModel;
 class Variable;
 class finalStateVariable_const_iterator;
 class finalStateModel_const_iterator;
@@ -49,7 +49,7 @@ class FinalStateCollection {
    *
    * @param model model to add to the structure
    */
-  virtual void addModel(const boost::shared_ptr<Model>& model) = 0;
+  virtual void addFinalStateModel(const boost::shared_ptr<FinalStateModel>& model) = 0;
 
   /**
    * @brief add a variable to the final state structure
@@ -74,13 +74,13 @@ class FinalStateCollection {
    * @brief Get a const_iterator to the beginning of the models' vector
    * @return a const_iterator to the beginning of the models' vector
    */
-  virtual finalStateModel_const_iterator cbeginModel() const = 0;
+  virtual finalStateModel_const_iterator cbeginFinalStateModel() const = 0;
 
   /**
    * @brief Get a const_iterator to the end of the models' vector
    * @return a const_iterator to the end of the models' vector
    */
-  virtual finalStateModel_const_iterator cendModel() const = 0;
+  virtual finalStateModel_const_iterator cendFinalStateModel() const = 0;
 
   /**
    * @brief Get an iterator to the beginning of the variables' vector
@@ -98,13 +98,13 @@ class FinalStateCollection {
    * @brief Get an iterator to the beginning of the models' vector
    * @return an iterator to the beginning of the models' vector
    */
-  virtual finalStateModel_iterator beginModel() = 0;
+  virtual finalStateModel_iterator beginFinalStateModel() = 0;
 
   /**
    * @brief Get an iterator to the end of the models' vector
    * @return an iterator to the end of the models' vector
    */
-  virtual finalStateModel_iterator endModel() = 0;
+  virtual finalStateModel_iterator endFinalStateModel() = 0;
 
   class Impl;  // Implementation class
 };

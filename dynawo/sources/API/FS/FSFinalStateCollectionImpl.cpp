@@ -34,7 +34,7 @@ FinalStateCollection::Impl::~Impl() {
 }
 
 void
-FinalStateCollection::Impl::addModel(const shared_ptr<Model>& model) {
+FinalStateCollection::Impl::addFinalStateModel(const shared_ptr<FinalStateModel>& model) {
   models_.push_back(model);
 }
 
@@ -44,12 +44,12 @@ FinalStateCollection::Impl::addVariable(const shared_ptr<Variable>& variable) {
 }
 
 finalStateModel_const_iterator
-FinalStateCollection::Impl::cbeginModel() const {
+FinalStateCollection::Impl::cbeginFinalStateModel() const {
   return finalStateModel_const_iterator(this, true);
 }
 
 finalStateModel_const_iterator
-FinalStateCollection::Impl::cendModel() const {
+FinalStateCollection::Impl::cendFinalStateModel() const {
   return finalStateModel_const_iterator(this, false);
 }
 
@@ -64,12 +64,12 @@ FinalStateCollection::Impl::cendVariable() const {
 }
 
 finalStateModel_iterator
-FinalStateCollection::Impl::beginModel() {
+FinalStateCollection::Impl::beginFinalStateModel() {
   return finalStateModel_iterator(this, true);
 }
 
 finalStateModel_iterator
-FinalStateCollection::Impl::endModel() {
+FinalStateCollection::Impl::endFinalStateModel() {
   return finalStateModel_iterator(this, false);
 }
 

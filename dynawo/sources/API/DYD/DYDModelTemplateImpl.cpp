@@ -198,16 +198,6 @@ ModelTemplate::Impl::addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& 
   Model::Impl::addMacroStaticRef(macroStaticRef);
 }
 
-staticRef_const_iterator
-ModelTemplate::Impl::cbeginStaticRef() const {
-  return Model::Impl::cbeginStaticRef();
-}
-
-staticRef_const_iterator
-ModelTemplate::Impl::cendStaticRef() const {
-  return Model::Impl::cendStaticRef();
-}
-
 macroStaticRef_const_iterator
 ModelTemplate::Impl::cbeginMacroStaticRef() const {
   return Model::Impl::cbeginMacroStaticRef();
@@ -226,6 +216,16 @@ ModelTemplate::Impl::beginStaticRef() {
 staticRef_iterator
 ModelTemplate::Impl::endStaticRef() {
   return Model::Impl::endStaticRef();
+}
+
+staticRef_const_iterator
+ModelTemplate::Impl::cbeginStaticRef() const {
+  return Model::Impl::cbeginStaticRef();
+}
+
+staticRef_const_iterator
+ModelTemplate::Impl::cendStaticRef() const {
+  return Model::Impl::cendStaticRef();
 }
 
 macroStaticRef_iterator

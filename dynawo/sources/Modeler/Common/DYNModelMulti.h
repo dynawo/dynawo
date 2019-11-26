@@ -306,9 +306,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void initCurves(boost::shared_ptr<curves::Curve>& curve);
 
   /**
-   * @copydoc Model::fillVariables(boost::shared_ptr<finalState::Model>& model)
+   * @copydoc Model::fillVariables(boost::shared_ptr<finalState::FinalStateModel>& model)
    */
-  void fillVariables(boost::shared_ptr<finalState::Model>& model);
+  void fillVariables(boost::shared_ptr<finalState::FinalStateModel>& model);
 
   /**
    * @copydoc Model::fillVariable(boost::shared_ptr<finalState::Variable>& variable)

@@ -28,7 +28,7 @@ ModelConstIteratorImpl::ModelConstIteratorImpl(const FinalStateCollection::Impl*
   current_ = (begin ? iterated->models_.begin() : iterated->models_.end());
 }
 
-ModelConstIteratorImpl::ModelConstIteratorImpl(const Model::Impl* iterated, bool begin) {
+ModelConstIteratorImpl::ModelConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin) {
   current_ = (begin ? iterated->subModels_.begin() : iterated->subModels_.end());
 }
 
@@ -75,12 +75,12 @@ ModelConstIteratorImpl::operator!=(const ModelConstIteratorImpl& other) const {
   return current_ != other.current_;
 }
 
-const shared_ptr<Model>&
+const shared_ptr<FinalStateModel>&
 ModelConstIteratorImpl::operator*() const {
   return *current_;
 }
 
-const shared_ptr<Model>*
+const shared_ptr<FinalStateModel>*
 ModelConstIteratorImpl::operator->() const {
   return &(*current_);
 }
@@ -89,7 +89,7 @@ VariableConstIteratorImpl::VariableConstIteratorImpl(const FinalStateCollection:
   current_ = (begin ? iterated->variables_.begin() : iterated->variables_.end());
 }
 
-VariableConstIteratorImpl::VariableConstIteratorImpl(const Model::Impl* iterated, bool begin) {
+VariableConstIteratorImpl::VariableConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin) {
   current_ = (begin ? iterated->variables_.begin() : iterated->variables_.end());
 }
 
@@ -150,7 +150,7 @@ ModelIteratorImpl::ModelIteratorImpl(FinalStateCollection::Impl* iterated, bool 
   current_ = (begin ? iterated->models_.begin() : iterated->models_.end());
 }
 
-ModelIteratorImpl::ModelIteratorImpl(Model::Impl* iterated, bool begin) {
+ModelIteratorImpl::ModelIteratorImpl(FinalStateModel::Impl* iterated, bool begin) {
   current_ = (begin ? iterated->subModels_.begin() : iterated->subModels_.end());
 }
 
@@ -193,17 +193,17 @@ ModelIteratorImpl::operator!=(const ModelIteratorImpl& other) const {
   return current_ != other.current_;
 }
 
-shared_ptr<Model>&
+shared_ptr<FinalStateModel>&
 ModelIteratorImpl::operator*() const {
   return *current_;
 }
 
-shared_ptr<Model>*
+shared_ptr<FinalStateModel>*
 ModelIteratorImpl::operator->() const {
   return &(*current_);
 }
 
-vector<shared_ptr<Model> >::iterator
+vector<shared_ptr<FinalStateModel> >::iterator
 ModelIteratorImpl::current() const {
   return current_;
 }
@@ -212,7 +212,7 @@ VariableIteratorImpl::VariableIteratorImpl(FinalStateCollection::Impl* iterated,
   current_ = (begin ? iterated->variables_.begin() : iterated->variables_.end());
 }
 
-VariableIteratorImpl::VariableIteratorImpl(Model::Impl* iterated, bool begin) {
+VariableIteratorImpl::VariableIteratorImpl(FinalStateModel::Impl* iterated, bool begin) {
   current_ = (begin ? iterated->variables_.begin() : iterated->variables_.end());
 }
 

@@ -45,8 +45,8 @@ void
 exportModel(FormatterPtr& formatter, finalStateModel_iterator& itModel) {
   AttributeList attrs;
 
-  for (finalStateModel_iterator itModel1 = (*itModel)->beginModel();
-          itModel1 != (*itModel)->endModel();
+  for (finalStateModel_iterator itModel1 = (*itModel)->beginFinalStateModel();
+          itModel1 != (*itModel)->endFinalStateModel();
           ++itModel1) {
     attrs.clear();
     attrs.add("id", (*itModel1)->getId());
@@ -90,8 +90,8 @@ XmlExporter::exportToStream(const boost::shared_ptr<FinalStateCollection>& final
   AttributeList attrs;
   formatter->startElement("finalState", attrs);
 
-  for (finalStateModel_iterator itModel = finalState->beginModel();
-          itModel != finalState->endModel();
+  for (finalStateModel_iterator itModel = finalState->beginFinalStateModel();
+          itModel != finalState->endFinalStateModel();
           ++itModel) {
     attrs.clear();
     attrs.add("id", (*itModel)->getId());
