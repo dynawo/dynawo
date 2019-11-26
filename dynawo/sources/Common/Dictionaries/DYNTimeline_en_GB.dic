@@ -64,6 +64,8 @@ OverloadOpen              =             Overload %1% : opening line
 // --> NodeFault
 NodeFaultEnd              =             Fault (node) : end
 NodeFaultBegin            =             Fault (node) : beginning
+// --> Ideal Switch
+IdealSwitchSwitchOff      =             Ideal switch opened
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off

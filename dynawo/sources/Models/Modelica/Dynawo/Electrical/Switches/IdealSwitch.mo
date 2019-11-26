@@ -14,8 +14,8 @@ within Dynawo.Electrical.Switches;
 
 model IdealSwitch "Ideal switch"
   /*
-    When the switch is closed, the voltage on both terminals are equal and the current is going through the switch.
-    When the switch is open, the current going through the switch is equal to zero.
+    When the switch is closed (running = true), the voltage on both terminals are equal and the current is going through the switch.
+    When the switch is open (running = false), the current going through the switch is equal to zero.
 
     Equivalent circuit and conventions:
 
@@ -25,15 +25,17 @@ model IdealSwitch "Ideal switch"
   */
 
   import Dynawo.Connectors;
+  import Dynawo.Electrical.Controls.Basics.SwitchOff;
+
+  extends SwitchOff.SwitchOffIdealSwitch;
 
   Connectors.ACPower terminal1 "Switch side 1";
   Connectors.ACPower terminal2 "Switch side 2";
-  Connectors.BPin closed (value(start = true)) "True when the switch is closed, false otherwise";
 
 equation
 
   // When the switch is closed, V and i are equal on both sides. Otherwise, the currents are zero.
-  if (closed.value) then
+  if (running.value) then
     terminal1.V = terminal2.V;
     terminal1.i = - terminal2.i;
   else
