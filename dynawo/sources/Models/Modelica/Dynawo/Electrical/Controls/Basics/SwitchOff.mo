@@ -154,7 +154,7 @@ partial model SwitchOffTransformer "Switch-off signal for a transformer"
   extends SwitchOffLogic(NbSwitchOffSignals = 1);
 
   public
-    Constants.state state (start = State0) "Load connection state";
+    Constants.state state (start = State0) "Transformer connection state";
 
   protected
     parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
@@ -166,5 +166,27 @@ partial model SwitchOffTransformer "Switch-off signal for a transformer"
     end when;
 
 end SwitchOffTransformer;
+
+partial model SwitchOffIdealSwitch "Switch-off signal for an ideal switch"
+  /* The only possible/expected switch-off signal for an ideal switch is:
+     - a switch-off signal coming from the outside (event or controller)
+  */
+  import Dynawo.Electrical.Constants;
+
+  extends SwitchOffLogic(NbSwitchOffSignals = 1);
+
+  public
+    Constants.state state (start = State0) "Ideal switch connection state";
+
+  protected
+    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+
+  equation
+    when not(running.value) then
+      Timeline.logEvent1 (TimelineKeys.IdealSwitchSwitchOff);
+      state = Constants.state.Open;
+    end when;
+
+end SwitchOffIdealSwitch;
 
 end SwitchOff;

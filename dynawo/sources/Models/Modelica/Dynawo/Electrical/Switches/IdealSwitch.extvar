@@ -16,5 +16,5 @@
   <variable type="continuous" id="terminal1.i.im"/>
   <variable type="continuous" id="terminal2.i.re"/>
   <variable type="continuous" id="terminal2.i.im"/>
-  <variable type="discrete" defaultValue="true" id="closed.value"/>
+  <variable type="discrete" defaultValue="false" id="switchOffSignal1.value"/>
 </external_variables>
