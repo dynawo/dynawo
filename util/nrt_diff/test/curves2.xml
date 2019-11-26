@@ -14,55 +14,16 @@
     <point time="10.00000" value="405.92379"/>
   </curve>
   <curve model="NETWORK" variable="BELLAP41_U_value">
-    <point time="0.00000" value="93.76482"/>
-    <point time="1.00000" value="93.77864"/>
-    <point time="2.00000" value="93.78248"/>
-    <point time="3.00000" value="93.78381"/>
-    <point time="4.00000" value="93.78322"/>
-    <point time="5.00000" value="93.78123"/>
-    <point time="6.00000" value="93.77937"/>
-    <point time="7.00000" value="93.77877"/>
-    <point time="8.00000" value="93.77900"/>
-    <point time="9.00000" value="93.77945"/>
-    <point time="10.00000" value="93.78010"/>
-  </curve>
-  <curve model="NETWORK" variable="I.JOUIN4_P_value">
-    <point time="0.00000" value="-0.00000"/>
-    <point time="1.00000" value="-0.00000"/>
-    <point time="2.00000" value="-0.00000"/>
-    <point time="3.00000" value="-0.00000"/>
-    <point time="4.00000" value="-0.00000"/>
-    <point time="5.00000" value="-0.00000"/>
-    <point time="6.00000" value="-0.00000"/>
-    <point time="7.00000" value="-0.00000"/>
-    <point time="8.00000" value="-0.00000"/>
-    <point time="9.00000" value="-0.00000"/>
-    <point time="10.00000" value="-0.00000"/>
-  </curve>
-  <curve model="NETWORK" variable="BELLAL41MAURE_P1_value">
-    <point time="0.00000" value="0.02800"/>
-    <point time="1.00000" value="0.02803"/>
-    <point time="2.00000" value="0.02801"/>
-    <point time="3.00000" value="0.02801"/>
-    <point time="4.00000" value="0.02801"/>
-    <point time="5.00000" value="0.02801"/>
-    <point time="6.00000" value="0.02802"/>
-    <point time="7.00000" value="0.02803"/>
-    <point time="8.00000" value="0.02804"/>
-    <point time="9.00000" value="0.02804"/>
-    <point time="10.00000" value="0.02805"/>
-  </curve>
-  <curve model="NETWORK" variable="BELLAL41MAURE_P2_value">
-    <point time="0.00000" value="-0.02794"/>
-    <point time="1.00000" value="-0.02797"/>
-    <point time="2.00000" value="-0.02795"/>
-    <point time="3.00000" value="-0.02795"/>
-    <point time="4.00000" value="-0.02795"/>
-    <point time="5.00000" value="-0.02795"/>
-    <point time="6.00000" value="-0.02796"/>
-    <point time="7.00000" value="-0.02797"/>
-    <point time="8.00000" value="-0.02798"/>
-    <point time="9.00000" value="-0.02798"/>
-    <point time="10.00000" value="-0.02799"/>
+    <point time="0.00000" value="98.26482"/>
+    <point time="1.00000" value="98.27864"/>
+    <point time="2.00000" value="98.28248"/>
+    <point time="3.00000" value="98.28381"/>
+    <point time="4.00000" value="98.28322"/>
+    <point time="5.00000" value="98.28123"/>
+    <point time="6.00000" value="98.27937"/>
+    <point time="7.00000" value="98.27877"/>
+    <point time="8.00000" value="98.27900"/>
+    <point time="9.00000" value="98.27945"/>
+    <point time="10.00000" value="98.28010"/>
   </curve>
 </curvesOutput>
