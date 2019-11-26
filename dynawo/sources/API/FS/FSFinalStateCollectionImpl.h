@@ -48,9 +48,9 @@ class FinalStateCollection::Impl : public FinalStateCollection {
   virtual ~Impl();
 
   /**
-   * @copydoc FinalStateCollection::addModel(const boost::shared_ptr<Model>& model)
+   * @copydoc FinalStateCollection::addFinalStateModel(const boost::shared_ptr<FinalStateModel>& model)
    */
-  void addModel(const boost::shared_ptr<Model>& model);
+  void addFinalStateModel(const boost::shared_ptr<FinalStateModel>& model);
 
   /**
    * @copydoc FinalStateCollection::addVariable(const boost::shared_ptr<Variable>& variable)
@@ -61,13 +61,13 @@ class FinalStateCollection::Impl : public FinalStateCollection {
    * @brief  Get a const_iterator to the beginning of the models' vector
    * @return a const_iterator to the beginning of the models' vector
    */
-  virtual finalStateModel_const_iterator cbeginModel() const;
+  virtual finalStateModel_const_iterator cbeginFinalStateModel() const;
 
   /**
    * @brief Get a const_iterator to the end of the models' vector
    * @return a const_iterator to the end of the models' vector
    */
-  virtual finalStateModel_const_iterator cendModel() const;
+  virtual finalStateModel_const_iterator cendFinalStateModel() const;
 
   /**
    * @brief Get a const_iterator to the beginning of the variables' vector
@@ -85,13 +85,13 @@ class FinalStateCollection::Impl : public FinalStateCollection {
    * @brief Get an iterator to the beginning of the models' vector
    * @return an iterator to the beginning of the models' vector
    */
-  virtual finalStateModel_iterator beginModel();
+  virtual finalStateModel_iterator beginFinalStateModel();
 
   /**
    * @brief Get an iterator to the end of the models' vector
    * @return an iterator to the end of the models' vector
    */
-  virtual finalStateModel_iterator endModel();
+  virtual finalStateModel_iterator endFinalStateModel();
 
   /**
    * @brief Get an iterator to the beginning of the variables' vector
@@ -122,7 +122,7 @@ class FinalStateCollection::Impl : public FinalStateCollection {
 #endif
 
   std::string id_;  ///< Collection id
-  std::vector<boost::shared_ptr<Model> > models_;  ///< model structure of researched final state
+  std::vector<boost::shared_ptr<FinalStateModel> > models_;  ///< model structure of researched final state
   std::vector<boost::shared_ptr<Variable> > variables_;  ///< top variable requested for final state
 };
 

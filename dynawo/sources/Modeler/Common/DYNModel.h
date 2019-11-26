@@ -35,7 +35,7 @@ class ConstraintsCollection;
 }  // namespace constraints
 
 namespace finalState {
-class Model;
+class FinalStateModel;
 class Variable;
 }  // namespace finalState
 
@@ -418,7 +418,7 @@ class Model {
    *
    * @param model final state model where variables are stored
    */
-  virtual void fillVariables(boost::shared_ptr<finalState::Model>& model) = 0;
+  virtual void fillVariables(boost::shared_ptr<finalState::FinalStateModel>& model) = 0;
 
   /**
    * @brief fill variable with the current value

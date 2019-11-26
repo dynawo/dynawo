@@ -100,10 +100,10 @@ TEST(APIFSTest, FinalStateCollectionAddModel) {
   boost::shared_ptr<FinalStateCollection> collection = FinalStateCollectionFactory::newInstance("collection");
 
   // add models
-  boost::shared_ptr<Model> model1 = ModelFactory::newModel("model1");
+  boost::shared_ptr<FinalStateModel> model1 = ModelFactory::newModel("model1");
   // add subModels
-  boost::shared_ptr<Model> subModel1 = ModelFactory::newModel("subModel1");
-  boost::shared_ptr<Model> subModel2 = ModelFactory::newModel("subModel2");
+  boost::shared_ptr<FinalStateModel> subModel1 = ModelFactory::newModel("subModel1");
+  boost::shared_ptr<FinalStateModel> subModel2 = ModelFactory::newModel("subModel2");
   model1->addSubModel(subModel1);
   model1->addSubModel(subModel2);
   // add variables to submodel
@@ -113,27 +113,27 @@ TEST(APIFSTest, FinalStateCollectionAddModel) {
   subModel1->addVariable(variable1);
   subModel1->addVariable(variable2);
   // add second model
-  boost::shared_ptr<Model> model2 = ModelFactory::newModel("model2");
-  collection->addModel(model1);
-  collection->addModel(model2);
+  boost::shared_ptr<FinalStateModel> model2 = ModelFactory::newModel("model2");
+  collection->addFinalStateModel(model1);
+  collection->addFinalStateModel(model2);
 
   // test const iterator
   int nbModels = 0;
-  for (finalStateModel_const_iterator itModel = collection->cbeginModel();
-          itModel != collection->cendModel();
+  for (finalStateModel_const_iterator itModel = collection->cbeginFinalStateModel();
+          itModel != collection->cendFinalStateModel();
           ++itModel)
     ++nbModels;
   ASSERT_EQ(nbModels, 2);
 
   // test iterator
   nbModels = 0;
-  for (finalStateModel_iterator itModel = collection->beginModel();
-          itModel != collection->endModel();
+  for (finalStateModel_iterator itModel = collection->beginFinalStateModel();
+          itModel != collection->endFinalStateModel();
           ++itModel)
     ++nbModels;
   ASSERT_EQ(nbModels, 2);
 
-  finalStateModel_iterator itVariable(collection->beginModel());
+  finalStateModel_iterator itVariable(collection->beginFinalStateModel());
   ASSERT_EQ((++itVariable)->get()->getId(), model2->getId());
   ASSERT_EQ((--itVariable)->get()->getId(), model1->getId());
   ASSERT_EQ((itVariable++)->get()->getId(), model1->getId());

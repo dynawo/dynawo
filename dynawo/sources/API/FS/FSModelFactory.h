@@ -23,7 +23,7 @@
 #include <boost/shared_ptr.hpp>
 
 namespace finalState {
-class Model;
+class FinalStateModel;
 
 /**
  * @class ModelFactory
@@ -40,7 +40,7 @@ class ModelFactory {
    * @param[in] id: model's id
    * @return shared pointer to a new @p Model
    */
-  static boost::shared_ptr<Model> newModel(const std::string& id);
+  static boost::shared_ptr<FinalStateModel> newModel(const std::string& id);
 };
 
 }  // namespace finalState

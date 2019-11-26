@@ -24,7 +24,7 @@
 #include "FSModelImpl.h"
 
 namespace finalState {
-class Model;
+class FinalStateModel;
 class Variable;
 
 /**
@@ -57,7 +57,7 @@ class ModelIteratorImpl {
    * or the end of the models' container.
    * @returns Created implementation object
    */
-  ModelIteratorImpl(Model::Impl* iterated, bool begin);
+  ModelIteratorImpl(FinalStateModel::Impl* iterated, bool begin);
 
   /**
    * @brief Destructor
@@ -113,24 +113,24 @@ class ModelIteratorImpl {
    *
    * @returns Model pointed to by this
    */
-  boost::shared_ptr<Model>& operator*() const;
+  boost::shared_ptr<FinalStateModel>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Pointer to the Model pointed to by this
    */
-  boost::shared_ptr<Model>* operator->() const;
+  boost::shared_ptr<FinalStateModel>* operator->() const;
 
   /**
    * @brief Get the current iterator
    *
    * @returns Current iterator
    */
-  std::vector<boost::shared_ptr<Model> >::iterator current() const;
+  std::vector<boost::shared_ptr<FinalStateModel> >::iterator current() const;
 
  private:
-  std::vector<boost::shared_ptr<Model> >::iterator current_;  ///< current vector iterator
+  std::vector<boost::shared_ptr<FinalStateModel> >::iterator current_;  ///< current vector iterator
 };
 
 /**
@@ -163,7 +163,7 @@ class ModelConstIteratorImpl {
    * or the end of the models' container.
    * @returns Created implementation object
    */
-  ModelConstIteratorImpl(const Model::Impl* iterated, bool begin);
+  ModelConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -227,17 +227,17 @@ class ModelConstIteratorImpl {
    *
    * @returns Model pointed to by this
    */
-  const boost::shared_ptr<Model>& operator*() const;
+  const boost::shared_ptr<FinalStateModel>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
    * @returns Pointer to the Model pointed to by this
    */
-  const boost::shared_ptr<Model>* operator->() const;
+  const boost::shared_ptr<FinalStateModel>* operator->() const;
 
  private:
-  std::vector<boost::shared_ptr<Model> >::const_iterator current_;  ///< current vector const iterator
+  std::vector<boost::shared_ptr<FinalStateModel> >::const_iterator current_;  ///< current vector const iterator
 };
 
 /**
@@ -270,7 +270,7 @@ class VariableIteratorImpl {
    * or the end of the variables' container.
    * @returns Created implementation object
    */
-  VariableIteratorImpl(Model::Impl* iterated, bool begin);
+  VariableIteratorImpl(FinalStateModel::Impl* iterated, bool begin);
 
   /**
    * @brief Destructor
@@ -376,7 +376,7 @@ class VariableConstIteratorImpl {
    * or the end of the variables' container.
    * @returns Created implementation object
    */
-  VariableConstIteratorImpl(const Model::Impl* iterated, bool begin);
+  VariableConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin);
 
   /**
    * @brief Constructor

@@ -25,70 +25,70 @@ using boost::shared_ptr;
 
 namespace finalState {
 
-Model::Impl::Impl(const string& id) :
+FinalStateModel::Impl::Impl(const string& id) :
 id_(id) {
 }
 
-Model::Impl::~Impl() {
+FinalStateModel::Impl::~Impl() {
 }
 
 void
-Model::Impl::setId(const string& id) {
+FinalStateModel::Impl::setId(const string& id) {
   id_ = id;
 }
 
 string
-Model::Impl::getId() const {
+FinalStateModel::Impl::getId() const {
   return id_;
 }
 
 void
-Model::Impl::addSubModel(const shared_ptr<Model>& model) {
+FinalStateModel::Impl::addSubModel(const shared_ptr<FinalStateModel>& model) {
   subModels_.push_back(model);
 }
 
 void
-Model::Impl::addVariable(const shared_ptr<Variable>& variable) {
+FinalStateModel::Impl::addVariable(const shared_ptr<Variable>& variable) {
   variables_.push_back(variable);
 }
 
 finalStateModel_const_iterator
-Model::Impl::cbeginModel() const {
+FinalStateModel::Impl::cbeginFinalStateModel() const {
   return finalStateModel_const_iterator(this, true);
 }
 
 finalStateModel_const_iterator
-Model::Impl::cendModel() const {
+FinalStateModel::Impl::cendFinalStateModel() const {
   return finalStateModel_const_iterator(this, false);
 }
 
 finalStateVariable_const_iterator
-Model::Impl::cbeginVariable() const {
+FinalStateModel::Impl::cbeginVariable() const {
   return finalStateVariable_const_iterator(this, true);
 }
 
 finalStateVariable_const_iterator
-Model::Impl::cendVariable() const {
+FinalStateModel::Impl::cendVariable() const {
   return finalStateVariable_const_iterator(this, false);
 }
 
 finalStateModel_iterator
-Model::Impl::beginModel() {
+FinalStateModel::Impl::beginFinalStateModel() {
   return finalStateModel_iterator(this, true);
 }
 
 finalStateModel_iterator
-Model::Impl::endModel() {
+FinalStateModel::Impl::endFinalStateModel() {
   return finalStateModel_iterator(this, false);
 }
 
 finalStateVariable_iterator
-Model::Impl::beginVariable() {
+FinalStateModel::Impl::beginVariable() {
   return finalStateVariable_iterator(this, true);
 }
 
 finalStateVariable_iterator
-Model::Impl::endVariable() {
+FinalStateModel::Impl::endVariable() {
   return finalStateVariable_iterator(this, false);
 }
 

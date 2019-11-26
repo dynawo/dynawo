@@ -116,16 +116,6 @@ class ModelTemplate::Impl : public ModelTemplate, public Model::Impl {
   void addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef);
 
   /**
-   * @copydoc Model::cbeginStaticRef() const
-   */
-  staticRef_const_iterator cbeginStaticRef() const;
-
-  /**
-   * @copydoc Model::cendStaticRef() const
-   */
-  staticRef_const_iterator cendStaticRef() const;
-
-  /**
    * @copydoc Model::cbeginMacroStaticRef() const
    */
   macroStaticRef_const_iterator cbeginMacroStaticRef() const;
@@ -144,6 +134,16 @@ class ModelTemplate::Impl : public ModelTemplate, public Model::Impl {
    * @copydoc Model::endStaticRef()
    */
   staticRef_iterator endStaticRef();
+
+  /**
+   * @copydoc Model::cbeginStaticRef() const
+   */
+  staticRef_const_iterator cbeginStaticRef() const;
+
+  /**
+   * @copydoc Model::cendStaticRef() const
+   */
+  staticRef_const_iterator cendStaticRef() const;
 
   /**
    * @copydoc Model::beginMacroStaticRef()

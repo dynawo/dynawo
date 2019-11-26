@@ -33,7 +33,7 @@ namespace finalState {
 //-----------------------------------------------------
 
 TEST(APIFSTest, Model) {
-  boost::shared_ptr<Model> model = ModelFactory::newModel("model");
+  boost::shared_ptr<FinalStateModel> model = ModelFactory::newModel("model");
 
   ASSERT_EQ(model->getId(), "model");
   model->setId("model2");
@@ -45,7 +45,7 @@ TEST(APIFSTest, Model) {
 //-----------------------------------------------------
 
 TEST(APIFSTest, ModelAddVariable) {
-  boost::shared_ptr<Model> model = ModelFactory::newModel("model");
+  boost::shared_ptr<FinalStateModel> model = ModelFactory::newModel("model");
 
   // add variables
   boost::shared_ptr<Variable> variable1 = VariableFactory::newVariable("var1");
@@ -75,26 +75,26 @@ TEST(APIFSTest, ModelAddVariable) {
 //-----------------------------------------------------
 
 TEST(APIFSTest, ModelAddSubModel) {
-  boost::shared_ptr<Model> model = ModelFactory::newModel("model");
+  boost::shared_ptr<FinalStateModel> model = ModelFactory::newModel("model");
 
   // add subModels
-  boost::shared_ptr<Model> subModel1 = ModelFactory::newModel("subModel1");
-  boost::shared_ptr<Model> subModel2 = ModelFactory::newModel("subModel2");
+  boost::shared_ptr<FinalStateModel> subModel1 = ModelFactory::newModel("subModel1");
+  boost::shared_ptr<FinalStateModel> subModel2 = ModelFactory::newModel("subModel2");
   model->addSubModel(subModel1);
   model->addSubModel(subModel2);
 
   // test const iterator
   int nbModels = 0;
-  for (finalStateModel_const_iterator itModel = model->cbeginModel();
-          itModel != model->cendModel();
+  for (finalStateModel_const_iterator itModel = model->cbeginFinalStateModel();
+          itModel != model->cendFinalStateModel();
           ++itModel)
     ++nbModels;
   ASSERT_EQ(nbModels, 2);
 
   // test iterator
   nbModels = 0;
-  for (finalStateModel_iterator itModel = model->beginModel();
-          itModel != model->endModel();
+  for (finalStateModel_iterator itModel = model->beginFinalStateModel();
+          itModel != model->endFinalStateModel();
           ++itModel)
     ++nbModels;
   ASSERT_EQ(nbModels, 2);

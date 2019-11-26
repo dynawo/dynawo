@@ -687,26 +687,6 @@ ModelicaModel::Impl::addMacroStaticRef(const shared_ptr<MacroStaticRef>& macroSt
   Model::Impl::addMacroStaticRef(macroStaticRef);
 }
 
-staticRef_const_iterator
-ModelicaModel::Impl::cbeginStaticRef() const {
-  return Model::Impl::cbeginStaticRef();
-}
-
-staticRef_const_iterator
-ModelicaModel::Impl::cendStaticRef() const {
-  return Model::Impl::cendStaticRef();
-}
-
-macroStaticRef_const_iterator
-ModelicaModel::Impl::cbeginMacroStaticRef() const {
-  return Model::Impl::cbeginMacroStaticRef();
-}
-
-macroStaticRef_const_iterator
-ModelicaModel::Impl::cendMacroStaticRef() const {
-  return Model::Impl::cendMacroStaticRef();
-}
-
 staticRef_iterator
 ModelicaModel::Impl::beginStaticRef() {
   return Model::Impl::beginStaticRef();
@@ -725,6 +705,26 @@ ModelicaModel::Impl::beginMacroStaticRef() {
 macroStaticRef_iterator
 ModelicaModel::Impl::endMacroStaticRef() {
   return Model::Impl::endMacroStaticRef();
+}
+
+staticRef_const_iterator
+ModelicaModel::Impl::cbeginStaticRef() const {
+  return Model::Impl::cbeginStaticRef();
+}
+
+staticRef_const_iterator
+ModelicaModel::Impl::cendStaticRef() const {
+  return Model::Impl::cendStaticRef();
+}
+
+macroStaticRef_const_iterator
+ModelicaModel::Impl::cbeginMacroStaticRef() const {
+  return Model::Impl::cbeginMacroStaticRef();
+}
+
+macroStaticRef_const_iterator
+ModelicaModel::Impl::cendMacroStaticRef() const {
+  return Model::Impl::cendMacroStaticRef();
 }
 
 const shared_ptr<StaticRef>&

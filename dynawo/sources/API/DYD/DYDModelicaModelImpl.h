@@ -134,26 +134,6 @@ class ModelicaModel::Impl : public ModelicaModel, public Model::Impl {
   void addMacroStaticRef(const boost::shared_ptr<MacroStaticRef>& macroStaticRef);
 
   /**
-   * @copydoc Model::cbeginStaticRef() const
-   */
-  staticRef_const_iterator cbeginStaticRef() const;
-
-  /**
-   * @copydoc Model::cendStaticRef() const
-   */
-  staticRef_const_iterator cendStaticRef() const;
-
-  /**
-   * @copydoc Model::cbeginMacroStaticRef() const
-   */
-  macroStaticRef_const_iterator cbeginMacroStaticRef() const;
-
-  /**
-   * @copydoc Model::cendMacroStaticRef() const
-   */
-  macroStaticRef_const_iterator cendMacroStaticRef() const;
-
-  /**
    * @copydoc Model::beginStaticRef()
    */
   staticRef_iterator beginStaticRef();
@@ -172,6 +152,26 @@ class ModelicaModel::Impl : public ModelicaModel, public Model::Impl {
    * @copydoc Model::endMacroStaticRef()
    */
   macroStaticRef_iterator endMacroStaticRef();
+
+  /**
+   * @copydoc Model::cbeginStaticRef() const
+   */
+  staticRef_const_iterator cbeginStaticRef() const;
+
+  /**
+   * @copydoc Model::cendStaticRef() const
+   */
+  staticRef_const_iterator cendStaticRef() const;
+
+  /**
+   * @copydoc Model::cbeginMacroStaticRef() const
+   */
+  macroStaticRef_const_iterator cbeginMacroStaticRef() const;
+
+  /**
+   * @copydoc Model::cendMacroStaticRef() const
+   */
+  macroStaticRef_const_iterator cendMacroStaticRef() const;
 
   /**
    * @copydoc Model::findStaticRef()

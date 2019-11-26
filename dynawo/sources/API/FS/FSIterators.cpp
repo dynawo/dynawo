@@ -29,7 +29,7 @@ finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateC
   impl_ = new ModelConstIteratorImpl(iterated, begin);
 }
 
-finalStateModel_const_iterator::finalStateModel_const_iterator(const Model::Impl* iterated, bool begin) {
+finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateModel::Impl* iterated, bool begin) {
   impl_ = new ModelConstIteratorImpl(iterated, begin);
 }
 
@@ -91,12 +91,12 @@ finalStateModel_const_iterator::operator!=(const THIS& other) const {
   return *impl_ != *(other.impl_);
 }
 
-const shared_ptr<Model>&
+const shared_ptr<FinalStateModel>&
 finalStateModel_const_iterator::operator*() const {
   return *(*impl_);
 }
 
-const shared_ptr<Model>*
+const shared_ptr<FinalStateModel>*
 finalStateModel_const_iterator::operator->() const {
   return impl_->operator->();
 }
@@ -105,7 +105,7 @@ finalStateVariable_const_iterator::finalStateVariable_const_iterator(const Final
   impl_ = new VariableConstIteratorImpl(iterated, begin);
 }
 
-finalStateVariable_const_iterator::finalStateVariable_const_iterator(const Model::Impl* iterated, bool begin) {
+finalStateVariable_const_iterator::finalStateVariable_const_iterator(const FinalStateModel::Impl* iterated, bool begin) {
   impl_ = new VariableConstIteratorImpl(iterated, begin);
 }
 
@@ -181,7 +181,7 @@ finalStateModel_iterator::finalStateModel_iterator(FinalStateCollection::Impl* i
   impl_ = new ModelIteratorImpl(iterated, begin);
 }
 
-finalStateModel_iterator::finalStateModel_iterator(Model::Impl* iterated, bool begin) {
+finalStateModel_iterator::finalStateModel_iterator(FinalStateModel::Impl* iterated, bool begin) {
   impl_ = new ModelIteratorImpl(iterated, begin);
 }
 
@@ -239,12 +239,12 @@ finalStateModel_iterator::operator!=(const THIS& other) const {
   return *impl_ != *(other.impl_);
 }
 
-shared_ptr<Model>&
+shared_ptr<FinalStateModel>&
 finalStateModel_iterator::operator*() const {
   return *(*impl_);
 }
 
-shared_ptr<Model>*
+shared_ptr<FinalStateModel>*
 finalStateModel_iterator::operator->() const {
   return impl_->operator->();
 }
@@ -258,7 +258,7 @@ finalStateVariable_iterator::finalStateVariable_iterator(FinalStateCollection::I
   impl_ = new VariableIteratorImpl(iterated, begin);
 }
 
-finalStateVariable_iterator::finalStateVariable_iterator(Model::Impl* iterated, bool begin) {
+finalStateVariable_iterator::finalStateVariable_iterator(FinalStateModel::Impl* iterated, bool begin) {
   impl_ = new VariableIteratorImpl(iterated, begin);
 }
 

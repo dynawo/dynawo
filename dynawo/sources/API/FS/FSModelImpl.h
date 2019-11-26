@@ -29,12 +29,12 @@ namespace finalState {
 class Variable;
 
 /**
- * @class Model::Impl
+ * @class FinalStateModel::Impl
  * @brief final state model implemented class
  *
  * Interface class for model object. Model is a container of variable or submodels
  */
-class Model::Impl : public Model {
+class FinalStateModel::Impl : public FinalStateModel {
  public:
   /**
    * @brief Constructor
@@ -49,42 +49,42 @@ class Model::Impl : public Model {
   ~Impl();
 
   /**
-   * @copydoc Model::setId(const std::string& id)
+   * @copydoc FinalStateModel::setId(const std::string& id)
    */
   void setId(const std::string& id);
 
   /**
-   * @copydoc Model::addSubModel(const boost::shared_ptr<Model>& model)
+   * @copydoc FinalStateModel::addSubModel(const boost::shared_ptr<FinalStateModel>& model)
    */
-  void addSubModel(const boost::shared_ptr<Model>& model);
+  void addSubModel(const boost::shared_ptr<FinalStateModel>& model);
 
   /**
-   * @copydoc Model::addVariable(const boost::shared_ptr<Variable>& variable)
+   * @copydoc FinalStateModel::addVariable(const boost::shared_ptr<Variable>& variable)
    */
   void addVariable(const boost::shared_ptr<Variable>& variable);
 
   /**
-   * @copydoc Model::getId()
+   * @copydoc FinalStateModel::getId()
    */
   std::string getId() const;
 
   /**
-   * @copydoc Model::cbeginModel()
+   * @copydoc FinalStateModel::cbeginFinalStateModel()
    */
-  virtual finalStateModel_const_iterator cbeginModel() const;
+  virtual finalStateModel_const_iterator cbeginFinalStateModel() const;
 
   /**
-   * @copydoc Model::cendModel()
+   * @copydoc FinalStateModel::cendFinalStateModel()
    */
-  virtual finalStateModel_const_iterator cendModel() const;
+  virtual finalStateModel_const_iterator cendFinalStateModel() const;
 
   /**
-   * @copydoc Model::cbeginVariable()
+   * @copydoc FinalStateModel::cbeginVariable()
    */
   virtual finalStateVariable_const_iterator cbeginVariable() const;
 
   /**
-   * @copydoc Model::cendVariable()
+   * @copydoc FinalStateModel::cendVariable()
    */
   virtual finalStateVariable_const_iterator cendVariable() const;
 
@@ -92,13 +92,13 @@ class Model::Impl : public Model {
    * @brief Get an iterator to the beginning of the models' vector
    * @return an iterator to the beginning of the models' vector
    */
-  virtual finalStateModel_iterator beginModel();
+  virtual finalStateModel_iterator beginFinalStateModel();
 
   /**
    * @brief Get an iterator to the end of the models' vector
    * @return an iterator to the end of the models' vector
    */
-  virtual finalStateModel_iterator endModel();
+  virtual finalStateModel_iterator endFinalStateModel();
 
   /**
    * @brief Get an iterator to the beginning of the variables' vector
@@ -128,7 +128,7 @@ class Model::Impl : public Model {
 #endif
 
   std::string id_;  ///< model's id
-  std::vector<boost::shared_ptr<Model> > subModels_;  ///< vector of each subModels contained in this model
+  std::vector<boost::shared_ptr<FinalStateModel> > subModels_;  ///< vector of each subModels contained in this model
   std::vector<boost::shared_ptr<Variable> > variables_;  ///< vector of each variables of this model
 };
 

@@ -53,9 +53,9 @@ level_(0) {
   onElement(fs_ns("finalStateInput/model"), modelHandler_);
   onElement(fs_ns("finalStateInput/variable"), variableHandler_);
 
-  modelHandler_.onStart(lambda::bind(&XmlHandler::beginModel, lambda::ref(*this)));
-  modelHandler_.onEnd(lambda::bind(&XmlHandler::endModel, lambda::ref(*this)));
-  modelHandler_.onEnd(lambda::bind(&XmlHandler::addModel, lambda::ref(*this)));
+  modelHandler_.onStart(lambda::bind(&XmlHandler::beginFinalStateModel, lambda::ref(*this)));
+  modelHandler_.onEnd(lambda::bind(&XmlHandler::endFinalStateModel, lambda::ref(*this)));
+  modelHandler_.onEnd(lambda::bind(&XmlHandler::addFinalStateModel, lambda::ref(*this)));
   variableHandler_.onEnd(lambda::bind(&XmlHandler::addVariable, lambda::ref(*this)));
 }
 
@@ -68,12 +68,12 @@ XmlHandler::getFinalStateCollection() {
 }
 
 void
-XmlHandler::beginModel() {
+XmlHandler::beginFinalStateModel() {
   ++level_;
 }
 
 void
-XmlHandler::endModel() {
+XmlHandler::endFinalStateModel() {
   level_--;
   if (level_ == 0) {
     modelByLevel_.clear();
@@ -83,11 +83,11 @@ XmlHandler::endModel() {
 }
 
 void
-XmlHandler::addModel() {
+XmlHandler::addFinalStateModel() {
   if (level_ > 1) {
     parsedModel_->addSubModel(modelHandler_.get());
   } else {
-    finalStateCollection_->addModel(modelHandler_.get());
+    finalStateCollection_->addFinalStateModel(modelHandler_.get());
   }
 
   modelByLevel_[level_] = modelHandler_.get();
@@ -112,7 +112,7 @@ ModelHandler::create(attributes_type const & attributes) {
   modelRead_ = ModelFactory::newModel(attributes["id"]);
 }
 
-shared_ptr<Model>
+shared_ptr<FinalStateModel>
 ModelHandler::get() const {
   return modelRead_;
 }

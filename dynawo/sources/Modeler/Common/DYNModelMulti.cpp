@@ -940,7 +940,7 @@ ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollect
 }
 
 void
-ModelMulti::fillVariables(boost::shared_ptr<finalState::Model>& model) {
+ModelMulti::fillVariables(boost::shared_ptr<finalState::FinalStateModel>& model) {
   // warning: modelmulti is only composed of submodels
   // excepted network model, submodels have no submodels
   // variables are researched in submodels
@@ -958,8 +958,8 @@ ModelMulti::fillVariables(boost::shared_ptr<finalState::Model>& model) {
       }
     }
 
-    for (finalStateModel_iterator itModel1 = model->beginModel();
-            itModel1 != model->endModel();
+    for (finalStateModel_iterator itModel1 = model->beginFinalStateModel();
+            itModel1 != model->endFinalStateModel();
             ++itModel1) {
       string id1 = (*itModel1)->getId();
       for (finalStateVariable_iterator itVariable = (*itModel1)->beginVariable();
