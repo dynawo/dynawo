@@ -688,8 +688,9 @@ TEST(ModelerCommonTest, VariableAlias) {
   ASSERT_EQ(variableAlias3->getNegated(), true);
   ASSERT_EQ(variableAlias3->getIndex(), varIndex);
 
+#ifndef _MSC_VER
   EXPECT_ASSERT_DYNAWO(VariableAliasFactory::create(aliasName3, dynamic_pointer_cast<VariableNative> (variableAlias2), DISCRETE));
-
+#endif
 
   // Test types compatibility
   ASSERT_NO_THROW(VariableAliasFactory::create("MyName", continuousVar, CONTINUOUS));

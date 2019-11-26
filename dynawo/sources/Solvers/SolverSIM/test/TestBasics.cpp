@@ -154,8 +154,11 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   data->mapConnections();
 
   std::string ddb_dir = getEnvVar("PWD") + "/../../../Models/CPP/ModelNetwork/";
+#ifndef _MSC_VER
   setenv("DYNAWO_DDB_DIR", ddb_dir.c_str(), 0);
-  // Model
+#else
+  _putenv_s("DYNAWO_DDB_DIR", ddb_dir.c_str());
+#endif  // Model
   Modeler modeler;
   modeler.setDataInterface(data);
   modeler.setDynamicData(dyd);

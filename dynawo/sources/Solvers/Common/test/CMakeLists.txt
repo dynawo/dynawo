@@ -22,7 +22,8 @@ TARGET_LINK_LIBRARIES(${MODULE_NAME}
         Sundials::Sundials_KINSOL
         dynawo_Test)
 
-ADD_CUSTOM_TARGET(${MODULE_NAME}-tests ${MODULE_NAME}
+ADD_CUSTOM_TARGET(${MODULE_NAME}-tests
+  COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS
     ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")

@@ -9,11 +9,16 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 if (NOT (CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL "Tests"))
-    message(WARNING "Unit tests should be launched with debug or tests configuration")
+  message(WARNING "Unit tests should be launched with debug or tests configuration")
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -D_DEBUG_")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0")
+IF(MSVC)
+  add_definitions(-D_DEBUG_)
+  add_definitions(-DGTEST_LINKED_AS_SHARED_LIBRARY)
+else()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -D_DEBUG_")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0")
+endif()
 
 function(add_test test-target)
   add_dependencies(tests ${test-target})

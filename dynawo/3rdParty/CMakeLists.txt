@@ -397,19 +397,35 @@ endif()
 if(Boost_FOUND)
   add_custom_target(boost)
 else()
-  ExternalProject_Add(boost
-    INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/boost
-    DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/boost
-    TMP_DIR             ${TMP_DIR}
-    STAMP_DIR           ${DOWNLOAD_DIR}/boost-stamp
-    SOURCE_DIR          ${DOWNLOAD_DIR}/boost
-    URL                 ${boost_url}
-    URL_MD5             ${boost_md5}
-    BUILD_IN_SOURCE     1
-    CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.$<IF:$<BOOL:${UNIX}>,sh,bat> --without-icu --with-libraries=filesystem,program_options,serialization,system,log,iostreams
-    BUILD_COMMAND       <SOURCE_DIR>/b2 -j${NUMBER_OF_PROCESSORS} -sNO_BZIP2=1 $<$<BOOL:${UNIX}>:cxxflags=-fPIC> install --prefix=<INSTALL_DIR> $<IF:$<BOOL:${APPLE}>,toolset=clang,> --disable-icu $<$<BOOL:${MSVC}>:architecture=x86> $<$<BOOL:${MSVC}>:address-model=64> variant=$<IF:$<CONFIG:Debug>,debug,release> link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static> $<IF:$<BOOL:${APPLE}>,cxxflags=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET},> runtime-link=$<IF:$<BOOL:${MSVC}>,$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,static,shared>>,shared> stage
-    INSTALL_COMMAND     ""
-    )
+  if(MSVC)
+    ExternalProject_Add(boost
+      INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/boost
+      DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/boost
+      TMP_DIR             ${TMP_DIR}
+      STAMP_DIR           ${DOWNLOAD_DIR}/boost-stamp
+      SOURCE_DIR          ${DOWNLOAD_DIR}/boost
+      URL                 ${boost_url}
+      URL_MD5             ${boost_md5}
+      BUILD_IN_SOURCE     1
+      CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.bat msvc
+      BUILD_COMMAND       <SOURCE_DIR>/b2 -j${NUMBER_OF_PROCESSORS} -sNO_BZIP2=1 install --prefix=<INSTALL_DIR> --disable-icu --layout=system architecture=x86 address-model=64 variant=$<IF:$<CONFIG:Debug>,debug,release> link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static> runtime-link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,static,shared>> stage
+      INSTALL_COMMAND     ""
+      )
+  else()
+    ExternalProject_Add(boost
+      INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/boost
+      DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/boost
+      TMP_DIR             ${TMP_DIR}
+      STAMP_DIR           ${DOWNLOAD_DIR}/boost-stamp
+      SOURCE_DIR          ${DOWNLOAD_DIR}/boost
+      URL                 ${boost_url}
+      URL_MD5             ${boost_md5}
+      BUILD_IN_SOURCE     1
+      CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.sh --without-icu --with-libraries=filesystem,program_options,serialization,system,log,iostreams
+      BUILD_COMMAND       <SOURCE_DIR>/b2 -j${NUMBER_OF_PROCESSORS} -sNO_BZIP2=1 cxxflags=-fPIC install --prefix=<INSTALL_DIR> $<$<BOOL:${APPLE}>:toolset=clang> --disable-icu variant=$<IF:$<CONFIG:Debug>,debug,release> link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static> $<$<BOOL:${APPLE}>:cxxflags=-mmacosx-version-min=${CMAKE_OSX_DEPLOYMENT_TARGET}> stage
+      INSTALL_COMMAND     ""
+      )
+  endif()
   if(APPLE)
     ExternalProject_Add_Step(boost install-macos
       DEPENDEES install
