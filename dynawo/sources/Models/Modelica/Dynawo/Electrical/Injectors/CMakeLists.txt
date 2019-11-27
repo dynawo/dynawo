@@ -14,6 +14,9 @@ SET(MODEL_FILES
     InjectorBG.mo
     InjectorBG.extvar
     InjectorBG_INIT.mo
+	InjectorIDQ.mo
+    InjectorIDQ.extvar
+    InjectorIDQ_INIT.mo
     )
 
 #
