@@ -182,9 +182,9 @@ echo set OPENMODELICA_HOME=%%DYNAWO_INSTALL_DIR%%OpenModelica>> %deploy_dir%\dyn
 echo.>> %deploy_dir%\dynawo.cmd
 echo set oldpath=%%path%%>> %deploy_dir%\dynawo.cmd
 echo.>> %deploy_dir%\dynawo.cmd
-echo PATH=%%PATH%%;%%OPENMODELICA_HOME%%\bin;%%DYNAWO_INSTALL_DIR%%ddb;%%DYNAWO_INSTALL_DIR%%lib>> %deploy_dir%\dynawo.cmd
-echo PATH=%%PATH%%;%%DLFCNWIN32_ROOT%%\bin;%%LIBXML_HOME%%\bin>> %deploy_dir%\dynawo.cmd
-echo PATH=%%PATH%%;%%BOOST_PATH%%\lib;%%LIBARCHIVE_HOME%%\bin;%%ZLIB_ROOT%%\bin;%%LIBIIDM_HOME%%\bin;%%LIBZIP_HOME%%\bin;%%ADEPT_HOME%%\bin;%%SUITESPARSE_HOME%%\bin;%%SUNDIALS_HOME%%\lib;%%XERCESC_HOME%%\bin>> %deploy_dir%\dynawo.cmd
+echo PATH=%%OPENMODELICA_HOME%%\bin;%%DYNAWO_INSTALL_DIR%%ddb;%%DYNAWO_INSTALL_DIR%%lib;%%PATH%%>> %deploy_dir%\dynawo.cmd
+echo PATH=%%DLFCNWIN32_ROOT%%\bin;%%LIBXML_HOME%%\bin,%%PATH%%>> %deploy_dir%\dynawo.cmd
+echo PATH=%%BOOST_PATH%%\lib;%%LIBARCHIVE_HOME%%\bin;%%ZLIB_ROOT%%\bin;%%LIBIIDM_HOME%%\bin;%%LIBZIP_HOME%%\bin;%%ADEPT_HOME%%\bin;%%SUITESPARSE_HOME%%\bin;%%SUNDIALS_HOME%%\lib;%%XERCESC_HOME%%\bin;%%PATH%%>> %deploy_dir%\dynawo.cmd
 echo.>> %deploy_dir%\dynawo.cmd
 echo :: To compile Modelica models>> %deploy_dir%\dynawo.cmd
 echo set DYNAWO_ADEPT_INSTALL_DIR=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd

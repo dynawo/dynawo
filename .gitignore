@@ -218,3 +218,5 @@ documentation/advancedDoc/advancedDoc.synctex.gz
 documentation/advancedDoc/advancedDoc.toc
 util/autocompletion/_dynawo
 .DS_Store
+util/curvesToHtml/resources/1.3.2.tar.gz
+util/curvesToHtml/resources/v0.6.0.tar.gz
