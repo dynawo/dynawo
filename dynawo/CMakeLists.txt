@@ -378,6 +378,7 @@ ELSE() # Linux
 ENDIF()
 
 INCLUDE(../cpplint/cpplint.cmake)
+INCLUDE(3rdParty/jquery/jquery.cmake)
 
 ADD_SUBDIRECTORY(sources)
 ADD_SUBDIRECTORY(sources/Common)
