@@ -12,7 +12,7 @@ within Dynawo.Electrical.Injectors;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model InjectorIDQ_INIT "Injector controlled by d and q current components idPu and iqPu"
+model InjectorIDQ_INIT "Initialisation model for the injector controlled by d and q current components idPu and iqPu"
 
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
 
@@ -21,11 +21,11 @@ model InjectorIDQ_INIT "Injector controlled by d and q current components idPu a
   parameter Types.ActivePowerPu P0Pu  "Start value of active power in p.u (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
 
-  protected
+protected
 
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in p.u (base UNom)";
-  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
+  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at injector terminal in p.u (base SnRef) (receptor convention)";
+  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in p.u (base UNom, SnRef) (receptor convention)";
 
   Types.PerUnit Id0Pu "Start value of id in p.u (base SNom)";
   Types.PerUnit Iq0Pu "Start value of iq in p.u (base SNom)";
