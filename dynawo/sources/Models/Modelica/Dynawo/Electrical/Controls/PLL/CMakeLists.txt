@@ -8,21 +8,17 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(Current C)
-add_subdirectory(Machines M)
-add_subdirectory(Voltage V)
-add_subdirectory(Generic G)
-add_subdirectory(Transformers T)
-add_subdirectory(Basics B)
-add_subdirectory(PLL P)
-
-set(MODEL_FILES
+SET(MODEL_FILES
+    # Electrical Lines models
     package.mo
+    PLL.mo
+    PLL.extvar
+    PLL_INIT.mo
     )
 
 #
 # Modelica models install
 #
-foreach( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_file(${MODEL_FILE})
-endforeach( MODEL_FILE )
+FOREACH( MODEL_FILE ${MODEL_FILES} )
+    INSTALL_MODEL_FILE(${MODEL_FILE})
+ENDFOREACH( MODEL_FILE )
