@@ -54,7 +54,7 @@ class DYNErrorQueue  : private boost::noncopyable{
    *
    * @return maximum number of errors displayed
    */
-  size_t getMaxDisplayedError();
+  size_t getMaxDisplayedError() const;
 
  private:
   DYNErrorQueue() {}
