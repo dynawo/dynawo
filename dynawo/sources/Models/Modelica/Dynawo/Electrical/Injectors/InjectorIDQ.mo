@@ -38,12 +38,13 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   // Outputs:
   Blocks.Interfaces.RealOutput UPu (start = U0Pu) "Magnitude voltage at inverter terminal (pu base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 89}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin =  {102, 80}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput QInjPu (start = -Q0Pu) "injected reactive power (pu base SNom)" annotation(
+  Blocks.Interfaces.RealOutput QInjPu (start = -Q0Pu) "Injected reactive power (pu base SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, 21}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin =  {102, 20}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  Blocks.Interfaces.RealOutput PInjPu (start = -P0Pu) "injected active power (pu base SNom)" annotation(
+  Blocks.Interfaces.RealOutput PInjPu (start = -P0Pu) "Injected active power (pu base SNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -19}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin =  {102, -20}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  ComplexBlocks.Interfaces.ComplexOutput uPu (re(start = u0Pu.re), im(start=u0Pu.im)) "complex inverter terminal voltage" annotation(
+  ComplexBlocks.Interfaces.ComplexOutput uPu (re(start = u0Pu.re), im(start=u0Pu.im)) "Complex inverter terminal voltage, used as complex conector instead of terminal connector, terminal only used for physical connection" annotation(
     Placement(visible = true, transformation(origin = {110, 59}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin =  {102, 50}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
+  
   // Internal variables:
   Types.Angle UPhase (start = UPhase0) "Rotor angle: angle between machine rotor frame and port phasor frame";  
 
@@ -65,7 +66,7 @@ equation
 
   UPhase = ComplexMath.arg(terminal.V);
   UPu = ComplexMath.'abs'(terminal.V);
-  uPu = terminal.V; // The variable uPu is used in stead of a terminal connection for components that need the voltage phasor.
+  uPu = terminal.V; 
   
   // Park's transformations dq-currents in injector convention, -> receptor convention for terminal
   terminal.i.re = -1 * (cos(UPhase) * idPu - sin(UPhase) * iqPu) * (SNom/SystemBase.SnRef);
