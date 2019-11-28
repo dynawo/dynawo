@@ -14,20 +14,20 @@ within Dynawo.Electrical.Injectors;
 
 model InjectorIDQ "Injector controlled by d and q current components idPu and iqPu"
 
-  import Modelica.Blocks;
-  import Modelica.SIunits;
-  import Modelica.ComplexMath;
+  import Modelica.Blocks;  
   import Modelica.ComplexBlocks;
+  import Modelica.ComplexMath;
+  import Modelica.SIunits;
   
   import Dynawo.Connectors;  
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Types;
   
-  // terminal connection
+  // Terminal connection
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(origin = {101, -61}, extent = {{-9, -9}, {9, 9}}, rotation = 0), iconTransformation(origin = {101, -59}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));  
 
-parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+  parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
  
   // Inputs: d-q axis p.u. variables (base UNom, SNom)
   Blocks.Interfaces.RealInput idPu (start = Id0Pu) "Injected d-axis current (pu base SNom)" annotation(
@@ -58,20 +58,20 @@ protected
   parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at injector terminal in p.u (base SnRef) (receptor convention)";
   parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at injector terminal in p.u (base UNom, SnRef) (receptor convention)";
     
-  parameter Types.PerUnit Id0Pu "Start value of id in p.u (base SNom)";
-  parameter Types.PerUnit Iq0Pu "Start value of iq in p.u (base SNom)";
+  parameter Types.CurrentModulePu Id0Pu "Start value of id in p.u (base SNom)";
+  parameter Types.CurrentModulePu Iq0Pu "Start value of iq in p.u (base SNom)";
       
 equation
 
   UPhase = ComplexMath.arg(terminal.V);
   UPu = ComplexMath.'abs'(terminal.V);
-  uPu = terminal.V;
+  uPu = terminal.V; // The variable uPu is used in stead of a terminal connection for components that need the voltage phasor.
   
   // Park's transformations dq-currents in injector convention, -> receptor convention for terminal
   terminal.i.re = -1 * (cos(UPhase) * idPu - sin(UPhase) * iqPu) * (SNom/SystemBase.SnRef);
   terminal.i.im = -1 * (sin(UPhase) * idPu + cos(UPhase) * iqPu) * (SNom/SystemBase.SnRef);
   
-  // active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef
+  // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef
   QInjPu = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom; //
   PInjPu = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom; //
 
