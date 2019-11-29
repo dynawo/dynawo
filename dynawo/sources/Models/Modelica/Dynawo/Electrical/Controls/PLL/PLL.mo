@@ -5,24 +5,24 @@ model PLL "Phase-Locked Loop"
   import Modelica.Blocks;
   import Modelica.ComplexBlocks;
   import Modelica.Constants;
-  import Modelica.SIunits;  
     
   import Dynawo.Connectors;
+  import Dynawo.Types;
 
-  parameter SIunits.PerUnit Kp "PLL voltage calculation proportional gain";
-  parameter SIunits.PerUnit Ki "PLL voltage calculation integrator";
-  parameter SIunits.PerUnit fmin "Lower frequency limit (only positive values!)";
-  parameter SIunits.PerUnit fmax "Upper frequency limit";
-  parameter SIunits.PerUnit fref "Frequency refence value";
+  parameter Types.PerUnit Kp "PLL voltage calculation proportional gain";
+  parameter Types.PerUnit Ki "PLL voltage calculation integrator gain";
+  parameter Types.PerUnit OmegaMinPu "Lower frequency limit (only positive values!)";
+  parameter Types.PerUnit OmegaMaxPu "Upper frequency limit";
+  parameter Types.PerUnit OmegaRefPu "Frequency refence value";
 
   // Inputs:
   ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at PCC (pu base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-116, 29}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {-101, 51}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  Blocks.Interfaces.RealInput OmegaRefPu(start = Omega0Pu) "Reference frequency of the system. Either connected to the reference machine or the center of inertia frequency or set be constant 1." annotation(
+  Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) "Reference frequency of the system. Either connected to the reference machine or the center of inertia frequency or set be constant 1." annotation(
     Placement(visible = true, transformation(origin = {-117, -70}, extent = {{-18, -18}, {18, 18}}, rotation = 0), iconTransformation(origin = {-101, -47}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   
   // Outputs:
-  Blocks.Interfaces.RealOutput fmeas "Measured Frequency, PLL (pu)" annotation(
+  Blocks.Interfaces.RealOutput omegaPLLPu "Measured Frequency, PLL (pu)" annotation(
     Placement(visible = true, transformation(origin = {160, -63}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {106, 50}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Blocks.Interfaces.RealOutput sinphi "sin(phi) aligned with terminal voltage phasor" annotation(
     Placement(visible = true, transformation(origin = {160, 53}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {106, -80}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
@@ -38,7 +38,7 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {-42, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Gain K(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {0, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.LimIntegrator I(initType = Modelica.Blocks.Types.Init.SteadyState, k = Ki, outMax = fmax - fref, outMin =fref - fmin) annotation(
+  Blocks.Continuous.LimIntegrator I(initType = Modelica.Blocks.Types.Init.SteadyState, k = Ki, outMax = OmegaMaxPu - OmegaRefPu, outMin = OmegaRefPu - OmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {0, 8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Add dOmega(k1 = +1, k2 = +1) annotation(
     Placement(visible = true, transformation(origin = {40, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -50,15 +50,16 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {116, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Add OmegaRad(k1 = +1, k2 = +1) annotation(
     Placement(visible = true, transformation(origin = {78, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 protected
 
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage in p.u (base UNom)";
   parameter Types.PerUnit Omega0Pu "Start value of angular speed";
 
 equation
-  connect(OmegaRad.y, fmeas) annotation(
+  connect(OmegaRad.y, omegaPLLPu) annotation(
     Line(points = {{90, -64}, {148, -64}, {148, -62}, {160, -62}}, color = {0, 0, 127}));
-  connect(OmegaRefPu, OmegaRad.u2) annotation(
+  connect(omegaRefPu, OmegaRad.u2) annotation(
     Line(points = {{-116, -70}, {64, -70}, {64, -70}, {66, -70}}, color = {0, 0, 127}));
   connect(dOmega.y, OmegaRad.u1) annotation(
     Line(points = {{52, 28}, {54, 28}, {54, -58}, {66, -58}}, color = {0, 0, 127}));

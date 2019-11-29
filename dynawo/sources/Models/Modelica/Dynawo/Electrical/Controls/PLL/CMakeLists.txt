@@ -9,7 +9,6 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 SET(MODEL_FILES
-    # Electrical Lines models
     package.mo
     PLL.mo
     PLL.extvar
