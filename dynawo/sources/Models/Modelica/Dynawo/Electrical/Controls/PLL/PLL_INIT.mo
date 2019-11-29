@@ -12,15 +12,15 @@ within Dynawo.Electrical.Controls.PLL;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model PLL_INIT ""
+model PLL_INIT "Initial model of phase locked loop"
 
-  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in p.u (base UNom)";
-  parameter Types.Angle UPhase0  "Start value of voltage angle at injector terminal (in rad)";
-  parameter Types.PerUnit Omega0Pu "Start value of angular speed";
+  parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at PLL terminal in p.u (base UNom)";
+  parameter Types.Angle UPhase0  "Start value of voltage angle at PLL terminal in rad";
+  parameter Types.PerUnit Omega0Pu "Start value of angular speed in p.u.";
   
 protected
 
-  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in p.u (base UNom)";
+  Types.ComplexVoltagePu u0Pu "Start value of complex voltage at PLL terminal in p.u (base UNom)";
   
 equation
 
