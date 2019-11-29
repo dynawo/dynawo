@@ -38,11 +38,11 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {-42, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Gain K(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {0, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.LimIntegrator I(initType = Modelica.Blocks.Types.Init.SteadyState, k = Ki, outMax = (fmax-fref)*2*Constants.pi, outMin =(fref-fmin)*2*Constants.pi) annotation(
+  Blocks.Continuous.LimIntegrator I(initType = Modelica.Blocks.Types.Init.SteadyState, k = Ki, outMax = fmax - fref, outMin =fref - fmin) annotation(
     Placement(visible = true, transformation(origin = {0, 8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Add dOmega(k1 = +1, k2 = +1) annotation(
     Placement(visible = true, transformation(origin = {40, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.Integrator Phi(initType = Modelica.Blocks.Types.Init.SteadyState, k = 1) annotation(
+  Blocks.Continuous.Integrator Phi(initType = Modelica.Blocks.Types.Init.SteadyState, k = SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {76, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Sin sinPhi annotation(
     Placement(visible = true, transformation(origin = {116, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -50,25 +50,18 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {116, 4}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Add OmegaRad(k1 = +1, k2 = +1) annotation(
     Placement(visible = true, transformation(origin = {78, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Math.Gain fPu(k = 1 / (2 * Constants.pi)) annotation(
-    Placement(visible = true, transformation(origin = {122, -64}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Math.Gain OmegaRefRad(k = 2 * Constants.pi) annotation(
-    Placement(visible = true, transformation(origin = {-2, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
 protected
 
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage in p.u (base UNom)";
   parameter Types.PerUnit Omega0Pu "Start value of angular speed";
 
 equation
+  connect(OmegaRad.y, fmeas) annotation(
+    Line(points = {{90, -64}, {148, -64}, {148, -62}, {160, -62}}, color = {0, 0, 127}));
+  connect(OmegaRefPu, OmegaRad.u2) annotation(
+    Line(points = {{-116, -70}, {64, -70}, {64, -70}, {66, -70}}, color = {0, 0, 127}));
   connect(dOmega.y, OmegaRad.u1) annotation(
     Line(points = {{52, 28}, {54, 28}, {54, -58}, {66, -58}}, color = {0, 0, 127}));
-  connect(OmegaRad.y, fPu.u) annotation(
-    Line(points = {{89, -64}, {110, -64}}, color = {0, 0, 127}));
-  connect(OmegaRefRad.y, OmegaRad.u2) annotation(
-    Line(points = {{10, -70}, {66, -70}}, color = {0, 0, 127}));
-  connect(OmegaRefPu, OmegaRefRad.u) annotation(
-    Line(points = {{-116, -70}, {-16, -70}, {-16, -70}, {-14, -70}}, color = {0, 0, 127}));
   connect(uPu.re, ur_x_sinPhi.u2) annotation(
     Line(points = {{-116, 29}, {-94, 29}, {-94, 62}, {-84, 62}}, color = {85, 170, 255}));
   connect(uPu.im, ui_x_cosPhi.u1) annotation(
@@ -81,8 +74,6 @@ equation
     Line(points = {{128, 52}, {132, 52}, {132, 92}, {-94, 92}, {-94, 74}, {-84, 74}}, color = {0, 0, 127}));
   connect(cosPhi.y, ui_x_cosPhi.u2) annotation(
     Line(points = {{128, 4}, {132, 4}, {132, -36}, {-94, -36}, {-94, -22}, {-84, -22}}, color = {0, 0, 127}));
-  connect(fPu.y, fmeas) annotation(
-    Line(points = {{133, -64}, {150, -64}, {150, -62}, {160, -62}}, color = {0, 0, 127}));
   connect(uq.y, I.u) annotation(
     Line(points = {{-31, 28}, {-22, 28}, {-22, 8}, {-12, 8}}, color = {0, 0, 127}));
   connect(I.y, dOmega.u2) annotation(
