@@ -133,8 +133,14 @@ int main(int argc, char ** argv) {
   // Launch the compile of the model
   try {
     boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getEnvVar("DYNAWO_RESOURCES_DIR"));
-    dicos->addDicos(getEnvVar("DYNAWO_DICTIONARIES"));
+    if (hasEnvVar("DYNAWO_RESOURCES_DIR"))
+      dicos->addPath(getEnvVar("DYNAWO_RESOURCES_DIR"));
+    else
+      throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_RESOURCES_DIR");
+    if (hasEnvVar("DYNAWO_DICTIONARIES"))
+      dicos->addDicos(getEnvVar("DYNAWO_DICTIONARIES"));
+    else
+      throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_DICTIONARIES");
 
     // Create .c, .h and .xml files from .mo
     bool withInitFile = false;
@@ -200,8 +206,12 @@ void
 modelicaCompile(const string& modelName, const string& compilationDir,
         const vector<string>&  initFiles, const vector<string>& moFiles, bool& withInitFile, const string& packageName, bool noInit) {
   string compilationDir1 = prettyPath(compilationDir);
+  if (!hasEnvVar("DYNAWO_SCRIPTS_DIR"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_SCRIPTS_DIR");
   string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
-  string pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
+  string pythonCmd = "python";
+  if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
+    pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
 
   // input FILES
   string moFile = absolute(modelName + ".mo", compilationDir1);
@@ -364,8 +374,12 @@ compileModelicaToXML(const string& modelName, const string& fileToCompile, const
 
 void
 generateModelFile(const string& modelName, const string& compilationDir, bool& withInitFile, const string& additionalHeaderList, const string& packageName) {
+  if (!hasEnvVar("DYNAWO_SCRIPTS_DIR"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_SCRIPTS_DIR");
   string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
-  string pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
+  string pythonCmd = "python";
+  if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
+    pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
   string varExtCommand = pythonCmd + " " + scriptsDir1 + "/writeModel.py -m " + packageName + modelName + " -i " + compilationDir + " -o " + compilationDir;
   if (!additionalHeaderList.empty())
     varExtCommand += " -a " + additionalHeaderList;
@@ -380,7 +394,24 @@ generateModelFile(const string& modelName, const string& compilationDir, bool& w
 
 void
 compileLib(const string& modelName, const string& compilationDir) {
+  if (!hasEnvVar("DYNAWO_SCRIPTS_DIR"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_SCRIPTS_DIR");
   string scriptsDir = prettyPath(getEnvVar("DYNAWO_SCRIPTS_DIR"));
+
+  if (!hasEnvVar("DYNAWO_INSTALL_DIR"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_INSTALL_DIR");
+  if (!hasEnvVar("DYNAWO_ADEPT_INSTALL_DIR"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_ADEPT_INSTALL_DIR");
+  if (!hasEnvVar("DYNAWO_SUITESPARSE_INSTALL_DIR"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_SUITESPARSE_INSTALL_DIR");
+  if (!hasEnvVar("DYNAWO_SUNDIALS_INSTALL_DIR"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_SUNDIALS_INSTALL_DIR");
+  if (!hasEnvVar("DYNAWO_INSTALL_OPENMODELICA"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_INSTALL_OPENMODELICA");
+  if (!hasEnvVar("DYNAWO_XERCESC_INSTALL_DIR"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_XERCESC_INSTALL_DIR");
+  if (!hasEnvVar("DYNAWO_LIBXML_HOME"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_LIBXML_HOME");
 
   ofstream cmakeFile(absolute("CMakeLists.txt", compilationDir).c_str(), ios::out | ios::trunc);
 

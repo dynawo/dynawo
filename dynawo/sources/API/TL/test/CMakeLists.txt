@@ -28,7 +28,7 @@ ADD_CUSTOM_TARGET(${MODULE_NAME}-pre-tests
   )
 
 ADD_CUSTOM_TARGET(${MODULE_NAME}-tests
-  COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>
+  COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_XSD_DIR=./" $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS
     ${MODULE_NAME}-pre-tests
     ${MODULE_NAME}

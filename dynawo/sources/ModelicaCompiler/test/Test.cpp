@@ -31,7 +31,9 @@ using boost::shared_ptr;
 namespace DYN {
 
 TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
-  std::string pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
+  std::string pythonCmd = "python";
+  if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
+    pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
   std::string varExtCommand = pythonCmd + " Scripts_OMC_1_13_2/writeModel.py -m GeneratorPQ  -i ModelicaModel/ -o res/ --init";
 
   remove_all_in_directory("res");
