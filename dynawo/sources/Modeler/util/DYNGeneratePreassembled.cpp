@@ -131,8 +131,14 @@ int main(int argc, char ** argv) {
     // Initializes logs, parsers & dictionnaries for Dynawo
     Trace::init();
     shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getEnvVar("DYNAWO_RESOURCES_DIR"));
-    dicos->addDicos(getEnvVar("DYNAWO_DICTIONARIES"));
+    if (hasEnvVar("DYNAWO_RESOURCES_DIR"))
+      dicos->addPath(getEnvVar("DYNAWO_RESOURCES_DIR"));
+    else
+      throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_RESOURCES_DIR");
+    if (hasEnvVar("DYNAWO_DICTIONARIES"))
+      dicos->addDicos(getEnvVar("DYNAWO_DICTIONARIES"));
+    else
+      throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_DICTIONARIES");
 
     // Dynamic data import
     shared_ptr<DYN::DynamicData> dyd(new DYN::DynamicData());
@@ -257,8 +263,12 @@ bool verifySharedObject(string modelname) {
  */
 std::string verifyModelListFile(const string & modelList, const string & outputPath) {
   string dydFileName = absolute(replace_extension(file_name(modelList), "dyd"), outputPath);
+  if (!hasEnvVar("DYNAWO_SCRIPTS_DIR"))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_SCRIPTS_DIR");
   string scriptsDir1 = getEnvVar("DYNAWO_SCRIPTS_DIR");
-  string pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
+  string pythonCmd = "python";
+  if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
+    pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
 
   // scriptVerifyModelList.py
   std::cout << "Create file: " << dydFileName << std::endl;

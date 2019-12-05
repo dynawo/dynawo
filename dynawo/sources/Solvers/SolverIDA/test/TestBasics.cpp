@@ -59,6 +59,7 @@
 #include "PARParametersSetFactory.h"
 #include "DYNTrace.h"
 #include "TLTimelineFactory.h"
+#include "DYNMacrosMessage.h"
 
 namespace DYN {
 
@@ -86,6 +87,8 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
 
   std::vector <UserDefinedDirectory> modelicaModelsDirsAbsolute;
   UserDefinedDirectory modelicaModel;
+  if (!hasEnvVar("PWD"))
+    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "PWD");
   modelicaModel.path = getEnvVar("PWD") +"/jobs/";
   modelicaModel.isRecursive = false;
   modelicaModelsDirsAbsolute.push_back(modelicaModel);
@@ -139,6 +142,8 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(networkIIDM));
   boost::dynamic_pointer_cast<DataInterfaceIIDM>(data)->initFromIIDM();
   dyd->setDataInterface(data);
+  if (!hasEnvVar("PWD"))
+    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "PWD");
   dyd->setRootDirectory(getEnvVar("PWD"));
   dyd->getNetworkParameters(parFileName, "0");
 

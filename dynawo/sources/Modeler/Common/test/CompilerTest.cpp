@@ -18,6 +18,7 @@
 #include "DYNCompiler.h"
 #include "DYNModeler.h"
 #include "DYNDynamicData.h"
+#include "DYNMacrosMessage.h"
 
 namespace DYN {
 
@@ -35,6 +36,8 @@ TEST(CompilerTest, testMissingModelicaFile) {
   std::string modelicaModelsExtension = ".mo";
   std::vector<std::string> additionalHeaderFiles;
 
+  if (!hasEnvVar("PWD"))
+    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "PWD");
   const bool rmModels = true;
   boost::unordered_set<boost::filesystem::path> pathsToIgnore;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
@@ -59,6 +62,8 @@ TEST(CompilerTest, testFlowConnectionWithinAndOutsideModelicaModel) {
   std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
   std::string preCompiledModelsExtension = sharedLibraryExtension();
   bool modelicaUseStandardModels = true;
+  if (!hasEnvVar("DYNAWO_HOME"))
+    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_HOME");
   std::string ddb_dir = getEnvVar("DYNAWO_HOME") + "/dynawo/sources/Models/Modelica/Dynawo";
 #ifndef _MSC_VER
   setenv("DYNAWO_DDB_DIR", ddb_dir.c_str(), 0);
@@ -69,6 +74,8 @@ TEST(CompilerTest, testFlowConnectionWithinAndOutsideModelicaModel) {
   std::string modelicaModelsExtension = ".mo";
   std::vector<std::string> additionalHeaderFiles;
 
+  if (!hasEnvVar("PWD"))
+    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "PWD");
   const bool rmModels = true;
   boost::unordered_set<boost::filesystem::path> pathsToIgnore;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,

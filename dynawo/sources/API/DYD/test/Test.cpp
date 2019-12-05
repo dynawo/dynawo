@@ -26,6 +26,7 @@
 #include "DYDMacroStaticReference.h"
 #include "DYDStaticRef.h"
 #include "DYNExecUtils.h"
+#include "DYNMacrosMessage.h"
 
 #include "TestUtil.h"
 
@@ -78,6 +79,8 @@ TEST(APIDYDTest, ImporterStream) {
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
   bool xsdValidation = false;
   if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {
+    if (!hasEnvVar("DYNAWO_XSD_DIR"))
+      throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_XSD_DIR");
     std::string dydXsdPath = getEnvVar("DYNAWO_XSD_DIR") + std::string("dyd.xsd");
     parser->addXmlSchema(dydXsdPath);
     xsdValidation = true;

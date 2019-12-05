@@ -329,6 +329,8 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   throwIfAllModelicaFilesAreNotAvailable(unitDynamicModels);
 
   // Compilation and post-treatment on concatenated files
+  if (!hasEnvVar("DYNAWO_INSTALL_DIR"))
+    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_INSTALL_DIR");
   string installDir = getEnvVar("DYNAWO_INSTALL_DIR");
   string compileDirPath = createAbsolutePath(thisCompiledId, modelDirPath_);
   string compileCommand = prettyPath(installDir + "/sbin")
