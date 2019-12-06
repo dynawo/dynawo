@@ -78,18 +78,18 @@ ModelThreeWindingsTransformer::evalCalculatedVars() {
 }
 
 void
-ModelThreeWindingsTransformer::getDefJCalculatedVarI(int /*numCalculatedVar*/, vector<int>& /*numVars*/) {
-  // not needed
+ModelThreeWindingsTransformer::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& /*numVars*/) {
+  throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
 }
 
 void
-ModelThreeWindingsTransformer::evalJCalculatedVarI(int /*numCalculatedVar*/, double* /*y*/, double* /*yp*/, vector<double>& /*res*/) {
-  // not needed
+ModelThreeWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*yp*/, vector<double>& /*res*/) {
+  throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
 }
 
 double
-ModelThreeWindingsTransformer::evalCalculatedVarI(int /*numCalculatedVar*/, double* /*y*/, double* /*yp*/) {
-  return 0;
+ModelThreeWindingsTransformer::evalCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*yp*/) {
+  throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
 }
 
 NetworkComponent::StateChange_t
