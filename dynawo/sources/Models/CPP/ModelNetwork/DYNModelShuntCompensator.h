@@ -272,14 +272,6 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
     return type_ == CAPACITOR;
   }
 
-  /**
-   * @brief return true if the shunt is available to be connected (i.e : time > last time disconnection + noReclosingdelay)
-   * and the closest bus bar section is not switched off)
-   * @param time
-   * @return available or not
-   */
-  bool isAvailable(const double& time) const;
-
  private:
   /**
    * @brief compute value
@@ -313,6 +305,14 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
    * @return value
    */
   double ii_dUi() const;
+
+  /**
+   * @brief return true if the shunt is available to be connected (i.e : time > last time disconnection + noReclosingdelay)
+   * and the closest bus bar section is not switched off)
+   * @param time
+   * @return available or not
+   */
+  bool isAvailable(const double& time) const;
 
   double suscepPerSect_;  ///< The shunt susceptance per section in Siemens
   int currentSection_;  ///< The current number of connected section of the shunt compensator

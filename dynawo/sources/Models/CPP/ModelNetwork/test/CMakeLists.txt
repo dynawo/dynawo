@@ -20,7 +20,10 @@ SET(MODULE_SOURCES
     TestGenerator.cpp
     TestHvdcLink.cpp
     TestLine.cpp
+    TestLoad.cpp
     TestTapChanger.cpp
+    TestShuntCompensator.cpp
+    TestThreeWindingsTransformer.cpp
 )
 
 ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})

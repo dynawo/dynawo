@@ -71,6 +71,15 @@ class ModelLoad : public NetworkComponent::Impl {
   }
 
   /**
+   * @brief get the bus to which the load is connected
+   *
+   * @return model of the bus
+   */
+  const boost::shared_ptr<ModelBus>& getModelBus() const {
+    return modelBus_;
+  }
+
+  /**
    * @brief evaluate node injection
    */
   void evalNodeInjection();

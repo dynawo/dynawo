@@ -883,6 +883,8 @@ ModelLoad::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
     break;
     case loadStateNum_:
       break;
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
@@ -969,6 +971,8 @@ ModelLoad::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
     break;
     case loadStateNum_:
       break;
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
@@ -1035,6 +1039,8 @@ ModelLoad::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
     case loadStateNum_:
       output = connectionState_;
       break;
+    default:
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
   return (output);
 }

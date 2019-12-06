@@ -333,6 +333,8 @@ ModelShuntCompensator::getDefJCalculatedVarI(int numCalculatedVar, std::vector<i
       }
       break;
     }
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
@@ -349,6 +351,8 @@ ModelShuntCompensator::evalJCalculatedVarI(int numCalculatedVar, double* y, doub
       }
       break;
     }
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
@@ -365,6 +369,8 @@ ModelShuntCompensator::evalCalculatedVarI(int numCalculatedVar, double* y, doubl
       }
       break;
     }
+    default:
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
   return 0.;
 }
