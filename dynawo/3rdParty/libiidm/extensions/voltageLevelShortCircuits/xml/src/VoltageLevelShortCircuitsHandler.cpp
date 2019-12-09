@@ -30,7 +30,7 @@ namespace voltagelevelshortcircuits {
 namespace xml {
 
 std::string VoltageLevelShortCircuitsHandler::xsd_path() {
-  const std::string xsdPath = getEnvVar("IIDM_XML_XSD_PATH");
+  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
   return xsdPath + std::string("voltageLevelShortCircuits.xsd");
 }
 

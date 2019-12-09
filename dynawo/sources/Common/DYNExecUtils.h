@@ -52,6 +52,15 @@ void executeCommand(const std::string & command, std::stringstream & ss, const s
 std::string getEnvVar(std::string const& key);
 
 /**
+ * @brief retrieve a given mandatory environment variable
+ *
+ * @param key key of the mandatory environment variable
+ *
+ * @return value of the mandatory environment variable
+ */
+std::string getMandatoryEnvVar(std::string const& key);
+
+/**
  * @brief check whether a given environment variable exists
  *
  * @param key  key of the environment variable

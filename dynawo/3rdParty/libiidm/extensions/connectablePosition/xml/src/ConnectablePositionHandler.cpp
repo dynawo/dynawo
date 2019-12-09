@@ -53,7 +53,7 @@ void FeederHandler::do_startElement(elementName_type const& /*name*/, attributes
 }
 
 std::string ConnectablePositionHandler::xsd_path() {
-  const std::string xsdPath = getEnvVar("IIDM_XML_XSD_PATH");
+  const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
   return xsdPath + std::string("connectablePosition.xsd");
 }
 

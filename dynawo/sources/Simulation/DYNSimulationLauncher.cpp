@@ -58,14 +58,8 @@ void launchSimu(const std::string& jobsFileName) {
     Trace::debug() << DYNLog(LaunchingJob, (*itJobEntry)->getName()) << Trace::endline;
 
     boost::shared_ptr<SimulationContext> context = boost::shared_ptr<SimulationContext>(new SimulationContext());
-    if (hasEnvVar("DYNAWO_RESOURCES_DIR"))
-      context->setResourcesDirectory(getEnvVar("DYNAWO_RESOURCES_DIR"));
-    else
-      throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_RESOURCES_DIR");
-    if (hasEnvVar("DYNAWO_LOCALE"))
-      context->setLocale(getEnvVar("DYNAWO_LOCALE"));
-    else
-      throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_LOCALE");
+    context->setResourcesDirectory(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    context->setLocale(getMandatoryEnvVar("DYNAWO_LOCALE"));
     context->setInputDirectory(prefixJobFile);
     context->setWorkingDirectory(prefixJobFile);
 
