@@ -22,6 +22,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
+#include <boost/unordered_set.hpp>
 #include <sundials/sundials_nvector.h>
 #include "DYNEnumUtils.h"
 
@@ -206,8 +207,8 @@ class SolverKIN : private boost::noncopyable{
   std::vector<double> yp0_;  ///< initial values of derivative variables
   std::vector<DYN::propertyContinuousVar_t> vId_;  ///< property of variables (algebraic/differential)
   std::vector<DYN::propertyF_t> fType_;  ///< property of equations (algebraic /differential)
-  std::vector<int> ignoreF_;  ///< equations to erase from the initial set of equations
-  std::vector<int> ignoreY_;  ///< variables to erase form the initial set of variables
+  boost::unordered_set<int> ignoreF_;  ///< equations to erase from the initial set of equations
+  boost::unordered_set<int> ignoreY_;  ///< variables to erase form the initial set of variables
   std::vector<int> indexF_;  ///< equations to keep from the initial set of equations
   std::vector<int> indexY_;  ///< variables to keep form the initial set of variables
   std::vector<double> F_;  ///< current values of residual function

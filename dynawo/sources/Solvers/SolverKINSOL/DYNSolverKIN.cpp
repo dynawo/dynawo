@@ -219,12 +219,12 @@ SolverKIN::init(const shared_ptr<Model>& model, modeKin_t mode, double scsteptol
     case KIN_NORMAL: {
       for (int i = 0; i < model_->sizeF(); ++i) {
         if (fType_[i] > 0)
-          ignoreF_.push_back(i);
+          ignoreF_.insert(i);
         else
           indexF_.push_back(i);
 
         if (vId_[i] > 0)
-          ignoreY_.push_back(i);
+          ignoreY_.insert(i);
         else
           indexY_.push_back(i);
       }
@@ -233,12 +233,12 @@ SolverKIN::init(const shared_ptr<Model>& model, modeKin_t mode, double scsteptol
     case KIN_YPRIM: {
       for (int i = 0; i < model_->sizeF(); ++i) {
         if (fType_[i] < 0)
-          ignoreF_.push_back(i);
+          ignoreF_.insert(i);
         else
           indexF_.push_back(i);
 
         if (vId_[i] < 0)
-          ignoreY_.push_back(i);
+          ignoreY_.insert(i);
         else
           indexY_.push_back(i);
       }
