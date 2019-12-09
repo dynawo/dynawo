@@ -179,3 +179,9 @@ std::string getEnvVar(std::string const& key) {
   char const* val = getenv(key.c_str());
   return val == NULL ? std::string() : std::string(val);
 }
+
+std::string getMandatoryEnvVar(std::string const& key) {
+  if (!hasEnvVar(key))
+    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, key);
+  return getEnvVar(key);
+}

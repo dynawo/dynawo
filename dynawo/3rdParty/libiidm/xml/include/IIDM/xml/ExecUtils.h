@@ -25,13 +25,13 @@
 namespace IIDM {
 
 /**
- * @brief retrieve a given environment variable
+ * @brief retrieve a given mandatory environment variable
  *
- * @param key key of the environment variable
+ * @param key key of the mandatory environment variable
  *
- * @return value of the environment variable
+ * @return value of the mandatory environment variable
  */
-std::string getEnvVar(std::string const& key);
+std::string getMandatoryEnvVar(std::string const& key);
 
 #endif  // LIBIIDM_XML_INTERNALS_IMPORT_GUARD_EXECUTILS_H
 

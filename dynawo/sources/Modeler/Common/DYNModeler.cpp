@@ -84,11 +84,7 @@ Modeler::initNetwork() {
   // network model from an IIDM situation
   // --------------------------------------------
   shared_ptr<SubModel> modelNetwork;
-  string DDBDir = "";
-  if (!hasEnvVar("DYNAWO_DDB_DIR")) {
-    throw DYNError(Error::MODELER, MissingDDBDir);
-  }
-  DDBDir = getEnvVar("DYNAWO_DDB_DIR");
+  string DDBDir = getMandatoryEnvVar("DYNAWO_DDB_DIR");
 
   modelNetwork = SubModelFactory::createSubModelFromLib(DDBDir + "/DYNModelNetwork" + sharedLibraryExtension());
   modelNetwork->initFromData(data_);

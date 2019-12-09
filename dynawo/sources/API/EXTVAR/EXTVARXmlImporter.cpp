@@ -56,9 +56,7 @@ boost::shared_ptr<VariablesCollection> XmlImporter::importFromStream(std::istrea
   try {
     bool xsdValidation = false;
     if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {
-      if (!hasEnvVar("DYNAWO_XSD_DIR"))
-        throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_XSD_DIR");
-      string extvarXsdPath = getEnvVar("DYNAWO_XSD_DIR") + string("extVar.xsd");
+      string extvarXsdPath = getMandatoryEnvVar("DYNAWO_XSD_DIR") + string("extVar.xsd");
       parser->addXmlSchema(extvarXsdPath);
       xsdValidation = true;
     }

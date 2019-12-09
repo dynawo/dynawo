@@ -131,10 +131,7 @@ Compiler::getDDB() {
   // check that the DDB environment variable was set when it is used
   string DDBDir = "";
   if (useStandardPrecompiledModels_ || useStandardModelicaModels_) {
-    if (!hasEnvVar("DYNAWO_DDB_DIR")) {
-      throw DYNError(Error::MODELER, MissingDDBDir);
-    }
-    DDBDir = getEnvVar("DYNAWO_DDB_DIR");
+    DDBDir = getMandatoryEnvVar("DYNAWO_DDB_DIR");
   }
 
   // look for precompiled libs
@@ -329,9 +326,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   throwIfAllModelicaFilesAreNotAvailable(unitDynamicModels);
 
   // Compilation and post-treatment on concatenated files
-  if (!hasEnvVar("DYNAWO_INSTALL_DIR"))
-    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_INSTALL_DIR");
-  string installDir = getEnvVar("DYNAWO_INSTALL_DIR");
+  string installDir = getMandatoryEnvVar("DYNAWO_INSTALL_DIR");
   string compileDirPath = createAbsolutePath(thisCompiledId, modelDirPath_);
   string compileCommand = prettyPath(installDir + "/sbin")
     + "/compileModelicaModel --model " + thisCompiledId + " --model-dir " + modelDirPath_ + " --compilation-dir " + compileDirPath + " --lib " + libName;

@@ -87,9 +87,7 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
 
   std::vector <UserDefinedDirectory> modelicaModelsDirsAbsolute;
   UserDefinedDirectory modelicaModel;
-  if (!hasEnvVar("PWD"))
-    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "PWD");
-  modelicaModel.path = getEnvVar("PWD") +"/jobs/";
+  modelicaModel.path = getMandatoryEnvVar("PWD") +"/jobs/";
   modelicaModel.isRecursive = false;
   modelicaModelsDirsAbsolute.push_back(modelicaModel);
   std::string modelicaModelsExtension = ".mo";
@@ -142,9 +140,7 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   boost::shared_ptr<DataInterface> data(new DataInterfaceIIDM(networkIIDM));
   boost::dynamic_pointer_cast<DataInterfaceIIDM>(data)->initFromIIDM();
   dyd->setDataInterface(data);
-  if (!hasEnvVar("PWD"))
-    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "PWD");
-  dyd->setRootDirectory(getEnvVar("PWD"));
+  dyd->setRootDirectory(getMandatoryEnvVar("PWD"));
   dyd->getNetworkParameters(parFileName, "0");
 
   std::vector <std::string> fileNames;

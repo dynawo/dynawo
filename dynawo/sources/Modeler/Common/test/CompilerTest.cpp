@@ -36,8 +36,6 @@ TEST(CompilerTest, testMissingModelicaFile) {
   std::string modelicaModelsExtension = ".mo";
   std::vector<std::string> additionalHeaderFiles;
 
-  if (!hasEnvVar("PWD"))
-    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "PWD");
   const bool rmModels = true;
   boost::unordered_set<boost::filesystem::path> pathsToIgnore;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
@@ -49,7 +47,7 @@ TEST(CompilerTest, testMissingModelicaFile) {
             pathsToIgnore,
             additionalHeaderFiles,
             rmModels,
-            getEnvVar("PWD"));
+            getMandatoryEnvVar("PWD"));
   ASSERT_THROW_DYNAWO(cf.compile(), Error::MODELER, KeyError_t::UnknownModelFile);
 }
 
@@ -62,9 +60,7 @@ TEST(CompilerTest, testFlowConnectionWithinAndOutsideModelicaModel) {
   std::vector <UserDefinedDirectory> precompiledModelsDirsAbsolute;
   std::string preCompiledModelsExtension = sharedLibraryExtension();
   bool modelicaUseStandardModels = true;
-  if (!hasEnvVar("DYNAWO_HOME"))
-    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_HOME");
-  std::string ddb_dir = getEnvVar("DYNAWO_HOME") + "/dynawo/sources/Models/Modelica/Dynawo";
+  std::string ddb_dir = getMandatoryEnvVar("DYNAWO_HOME") + "/dynawo/sources/Models/Modelica/Dynawo";
 #ifndef _MSC_VER
   setenv("DYNAWO_DDB_DIR", ddb_dir.c_str(), 0);
 #else
@@ -74,8 +70,6 @@ TEST(CompilerTest, testFlowConnectionWithinAndOutsideModelicaModel) {
   std::string modelicaModelsExtension = ".mo";
   std::vector<std::string> additionalHeaderFiles;
 
-  if (!hasEnvVar("PWD"))
-    throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "PWD");
   const bool rmModels = true;
   boost::unordered_set<boost::filesystem::path> pathsToIgnore;
   Compiler cf = Compiler(dyd, preCompiledUseStandardModels,
@@ -87,7 +81,7 @@ TEST(CompilerTest, testFlowConnectionWithinAndOutsideModelicaModel) {
             pathsToIgnore,
             additionalHeaderFiles,
             rmModels,
-            getEnvVar("PWD"));
+            getMandatoryEnvVar("PWD"));
   ASSERT_NO_THROW(cf.compile());
   cf.concatConnects();
 

@@ -44,8 +44,10 @@ void xml_parser::register_extension(extension_uri const& uri, ExtensionHandlerFa
 
 parser::ParserPtr xml_parser::make_parser(bool validating) {
   parser::ParserPtr parser = parser_factory.createParser();
-  const std::string xsdPath = getEnvVar("IIDM_XML_XSD_PATH");
-  if (validating) parser->addXmlSchema( xsdPath + std::string("iidm.xsd") );
+  if (validating) {
+    const std::string xsdPath = getMandatoryEnvVar("IIDM_XML_XSD_PATH");
+    parser->addXmlSchema(xsdPath + std::string("iidm.xsd"));
+  }
 
   return parser;
 }

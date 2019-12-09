@@ -110,14 +110,8 @@ int main(int argc, char ** argv) {
     }
 
     boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    if (hasEnvVar("DYNAWO_RESOURCES_DIR"))
-      dicos->addPath(getEnvVar("DYNAWO_RESOURCES_DIR"));
-    else
-      throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_RESOURCES_DIR");
-    if (hasEnvVar("DYNAWO_RESOURCES_DIR"))
-      dicos->addDicos(getEnvVar("DYNAWO_DICTIONARIES"));
-    else
-      throw DYNError(Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_DICTIONARIES");
+    dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
     if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") != "true")
       cout << "[INFO] xsd validation will not be used" << endl;
 
