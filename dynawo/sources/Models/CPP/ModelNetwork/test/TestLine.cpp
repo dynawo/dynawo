@@ -144,6 +144,7 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     bus1->setReferenceY(y1, yp1, f1, 0, 0);
     y1[ModelBus::urNum_] = 3.5;
     y1[ModelBus::uiNum_] = 2;
+    z1[ModelBus::switchOffNum_] = -1;
     bus1->init(offset);
   }
   if (closed2) {
@@ -161,6 +162,7 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     bus2->setReferenceY(y2, yp2, f2, 0, 0);
     y2[ModelBus::urNum_] = 4.;
     y2[ModelBus::uiNum_] = 1.5;
+    z2[ModelBus::switchOffNum_] = -1;
     bus2->init(offset);
   }
   return std::make_pair(dl, vl);
@@ -228,7 +230,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::iSide2Num_], 75998.37047473331);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::u1Num_], 4.0311288741492746);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::u2Num_], 4.2720018726587652);
-  ASSERT_EQ(calculatedVars[ModelLine::lineStateNum_],CLOSED);
+  ASSERT_EQ(calculatedVars[ModelLine::lineStateNum_], CLOSED);
   std::vector<double> yI(4, 0.);
   yI[0] = 3.5;
   yI[1] = 2;
@@ -471,7 +473,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed2) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::iSide2Num_], 77936.457105476948);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::u1Num_], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::u2Num_], 4.2720018726587652);
-  ASSERT_EQ(calculatedVars[ModelLine::lineStateNum_],CLOSED_2);
+  ASSERT_EQ(calculatedVars[ModelLine::lineStateNum_], CLOSED_2);
   std::vector<double> yI(2, 0.);
   yI[0] = 4.;
   yI[1] = 1.5;
@@ -697,7 +699,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed1) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::iSide2Num_], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::u1Num_], 4.0311288741492746);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::u2Num_], 0.);
-  ASSERT_EQ(calculatedVars[ModelLine::lineStateNum_],CLOSED_1);
+  ASSERT_EQ(calculatedVars[ModelLine::lineStateNum_], CLOSED_1);
   std::vector<double> yI(2, 0.);
   yI[0] = 3.5;
   yI[1] = 2;

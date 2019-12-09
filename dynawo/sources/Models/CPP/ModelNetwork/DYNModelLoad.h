@@ -338,23 +338,17 @@ class ModelLoad : public NetworkComponent::Impl {
    */
   double deltaPc() const;
   /**
-   * @brief compute value
+   * @brief compute the current real and imaginary values
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U voltage
    * @param U2 voltage square
+   * @param ir output: real current
+   * @param ii output: imaginary current
    * @return value
    */
-  double ir(const double& ur, const double& ui, const double& U, const double& U2) const;  // compute the real current
-  /**
-   * @brief compute value
-   * @param ur real part of the voltage
-   * @param ui imaginary part of the voltage
-   * @param U voltage
-   * @param U2 voltage square
-   * @return value
-   */
-  double ii(const double& ur, const double& ui, const double& U, const double& U2) const;  // compute the imaginary current
+  void getI(double ur, double ui, double U, double U2, double& ir, double& ii) const;  // compute the real current
+
   /**
    * @brief compute value
    * @param ur real part of the voltage

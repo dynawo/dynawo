@@ -424,10 +424,10 @@ TEST(CommonTest, testSparseMatrix) {
   remove("tmpMat");
 
   // erase
-  std::vector<int> rows;
-  rows.push_back(0);
-  std::vector<int> columns;
-  columns.push_back(1);
+  boost::unordered_set<int> rows;
+  rows.insert(0);
+  boost::unordered_set<int> columns;
+  columns.insert(1);
   SparseMatrix M;
   M.init(2, 2);
   smj3.erase(rows, columns, M);

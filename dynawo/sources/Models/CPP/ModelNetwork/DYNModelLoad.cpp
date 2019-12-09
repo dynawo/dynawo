@@ -151,40 +151,36 @@ ModelLoad::evalF() {
     double ur = modelBus_->ur();
     double ui = modelBus_->ui();
     double U = sqrt(ur * ur + ui * ui);
+    bool busSwitchOff = modelBus_->getSwitchOff();
+    bool running = isRunning();
 
-    double zPprimValue = 0.;
-    if (!modelBus_->getSwitchOff()) {
-      double zp = zP();
-      double zPdiff = pow(U / u0_, alphaLong_) - zp * pow(U, alpha_) * kp_;
-      if (zp > 0. && zp < zPMax_)
-        zPprimValue = zPdiff;
-      else if (zp <= 0. && zPdiff > 0.)
-        zPprimValue = zPdiff;
-      else if (zp >= zPMax_ && zPdiff < 0.)
-        zPprimValue = zPdiff;
-    }
-
-    if (!doubleIsZero(Tp_) && isRunning())
+    if (!doubleIsZero(Tp_) && running) {
+      double zPprimValue = 0.;
+      if (!busSwitchOff) {
+        double zp = zP();
+        double zPdiff = pow(U / u0_, alphaLong_) - zp * pow(U, alpha_) * kp_;
+        if ((zp > 0. && zp < zPMax_) || (zp <= 0. && zPdiff > 0.) || (zp >= zPMax_ && zPdiff < 0.)) {
+          zPprimValue = zPdiff;
+        }
+      }
       f_[0] = Tp_ * zPPrim() - zPprimValue;
-    else
+    } else {
       f_[0] = zPPrim();  // z is constant
-
-    double zQprimValue = 0.;
-    if (!modelBus_->getSwitchOff()) {
-      double zq = zQ();
-      double zQdiff = (pow(U / u0_, betaLong_) - zq * pow(U, beta_) * kq_);
-      if (zq > 0. && zQ() < zQMax_)
-        zQprimValue = zQdiff;
-      else if (zq <= 0. && zQdiff > 0.)
-        zQprimValue = zQdiff;
-      else if (zq >= zQMax_ && zQdiff < 0.)
-        zQprimValue = zQdiff;
     }
 
-    if (!doubleIsZero(Tq_) && isRunning())
+    if (!doubleIsZero(Tq_) && running) {
+      double zQprimValue = 0.;
+      if (!busSwitchOff) {
+        double zq = zQ();
+        double zQdiff = (pow(U / u0_, betaLong_) - zq * pow(U, beta_) * kq_);
+        if ((zq > 0. && zQ() < zQMax_) || (zq <= 0. && zQdiff > 0.) || (zq >= zQMax_ && zQdiff < 0.)) {
+          zQprimValue = zQdiff;
+        }
+      }
       f_[1] = Tq_ * zQPrim() - zQprimValue;
-    else
+    } else {
       f_[1] = zQPrim();  // z is constant
+    }
   }
 }
 
@@ -419,22 +415,16 @@ ModelLoad::deltaPc() const {
     return y_[DeltaPcYNum_];
 }
 
-double
-ModelLoad::ir(const double& ur, const double& ui, const double& U, const double& U2) const {
-  double ir = 0.;
+void
+ModelLoad::getI(double ur, double ui, double U, double U2, double& ir, double& ii) const {
+  ir = 0.;
+  ii = 0.;
   if (isRunning() && !doubleIsZero(U2)) {
-    ir = (P(ur, ui, U) * ur + Q(ur, ui, U) * ui) / U2;
+    double p = P(ur, ui, U);
+    double q = Q(ur, ui, U);
+    ii = (p * ui - q * ur) / U2;
+    ir = (p * ur + q * ui) / U2;
   }
-  return ir;
-}
-
-double
-ModelLoad::ii(const double& ur, const double& ui, const double& U, const double& U2) const {
-  double ii = 0.;
-  if (isRunning() && !doubleIsZero(U2)) {
-    ii = (P(ur, ui, U) * ui - Q(ur, ui, U) * ur) / U2;
-  }
-  return ii;
 }
 
 double
@@ -579,8 +569,11 @@ ModelLoad::evalNodeInjection() {
       double ui = modelBus_->ui();
       double U2 = ur * ur + ui * ui;
       double U = sqrt(U2);
-      modelBus_->irAdd(ir(ur, ui, U, U2));
-      modelBus_->iiAdd(ii(ur, ui, U, U2));
+      double ii;
+      double ir;
+      getI(ur, ui, U, U2, ir, ii);
+      modelBus_->irAdd(ir);
+      modelBus_->iiAdd(ii);
     }
   }
 }

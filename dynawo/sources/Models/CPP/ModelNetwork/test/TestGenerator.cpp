@@ -88,6 +88,7 @@ createModelGenerator(bool open, bool initModel) {
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
   y1[ModelBus::urNum_] = 0.35;
   y1[ModelBus::uiNum_] = 0.02;
+  z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
   bus1->init(offset);
   return std::make_pair(gen, vl);

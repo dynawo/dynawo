@@ -217,7 +217,7 @@ void SparseMatrix::print() const {
 }
 
 void
-SparseMatrix::erase(const vector<int>& rows, const vector<int>& columns, SparseMatrix& M) {
+SparseMatrix::erase(const boost::unordered_set<int>& rows, const boost::unordered_set<int>& columns, SparseMatrix& M) {
   // Modifying the rows and columns numbers in the matrixes
   // However, the size allocated by KINSOL isn't modified
   M.nbRow_ = nbRow_ - rows.size();
@@ -227,7 +227,7 @@ SparseMatrix::erase(const vector<int>& rows, const vector<int>& columns, SparseM
   map<int, int> correspondance;
   int num = 0;
   for (int i = 0; i < nbRow_; ++i) {
-    vector<int>::const_iterator itL = std::find(rows.begin(), rows.end(), i);
+    boost::unordered_set<int>::const_iterator itL = rows.find(i);
     if (itL != rows.end()) {
       correspondance[i] = -1;  // Won't serve later on
     } else {
@@ -241,15 +241,15 @@ SparseMatrix::erase(const vector<int>& rows, const vector<int>& columns, SparseM
   M.iAp_ = 0;
   M.iAi_ = 0;
   M.iAx_ = 0;
-  vector<int>::const_iterator itC = columns.end();
-  vector<int>::const_iterator itL = rows.end();
+  boost::unordered_set<int>::const_iterator itC = columns.end();
+  boost::unordered_set<int>::const_iterator itL = rows.end();
   for (int iCol = 0; iCol < nbCol_; ++iCol) {
-    itC = find(columns.begin(), columns.end(), iCol);
+    itC = columns.find(iCol);
     if (itC == columns.end()) {
       M.changeCol();
       for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
         int iRow = Ai_[ind];
-        itL = find(rows.begin(), rows.end(), iRow);
+        itL = rows.find(iRow);
 
         if (itL == rows.end()) {
           // New line number
