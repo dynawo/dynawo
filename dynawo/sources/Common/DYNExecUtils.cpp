@@ -18,7 +18,7 @@
  */
 #include <stdlib.h>
 
-#ifndef _MSC_VER
+#ifndef LANG_CXX11
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/wait.h>   // waitpid
@@ -36,7 +36,7 @@
 #include "DYNFileSystemUtils.h"
 
 #include <boost/filesystem.hpp>
-#ifdef _MSC_VER
+#ifdef LANG_CXX11
 #include <boost/process.hpp>
 namespace ps = boost::process;
 #endif
@@ -58,7 +58,7 @@ prettyPath(const std::string & path) {
   return prettyPath;
 }
 
-#ifndef _MSC_VER
+#ifndef LANG_CXX11
 void parentProcess(int fd[2], std::stringstream & ss) {
   char buferr[256];
   struct timeval tv;
@@ -98,13 +98,36 @@ void parentProcess(int fd[2], std::stringstream & ss) {
 }
 #endif
 
+std::string
+getOptionPrefix() {
+#ifdef _WIN32
+  std::string prefix = "/";
+#else
+  std::string prefix = "-";
+#endif
+  return prefix;
+}
+
+std::string
+getShellTool() {
+#ifdef _WIN32
+  std::string tool = "cmd";
+#else
+  std::string tool = "sh";
+#endif
+  return tool;
+}
+
 void
 executeCommand(const std::string & command, std::stringstream & ss, const std::string & start_dir) {
   ss << "Executing command : " << command << std::endl;
 
-#ifdef _MSC_VER
+#ifdef LANG_CXX11
+  std::string prefix = getOptionPrefix();
+  std::string tool = getShellTool();
+  std::vector<std::string> args { prefix+"c", command };
   ps::ipstream ips;
-  ps::child child(command, ps::shell, ps::start_dir(start_dir == "" ? "." : start_dir), (ps::std_out & ps::std_err) > ips);
+  ps::child child(ps::search_path(tool), args, ps::shell, ps::start_dir(start_dir == "" ? "." : start_dir), (ps::std_out & ps::std_err) > ips);
 
   string line;
   while (ips && std::getline(ips, line))
@@ -112,6 +135,7 @@ executeCommand(const std::string & command, std::stringstream & ss, const std::s
 
   child.wait();
 #else
+  // @todo : remove all of this whenever compilation in CPP98 is dropped
   char buferr[256];
   std::string command1;
   if (start_dir != "")
