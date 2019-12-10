@@ -20,7 +20,6 @@
 #ifndef API_TL_TLEVENTIMPL_H_
 #define API_TL_TLEVENTIMPL_H_
 
-#include <typeinfo>
 #include "TLEvent.h"
 
 namespace timeline {
