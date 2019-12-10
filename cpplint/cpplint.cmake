@@ -37,6 +37,12 @@ else()
   add_custom_target(cpplint_download ALL)
 endif()
 
-add_custom_target(cpplint ALL
-  DEPENDS cpplint_download
-  COMMAND ${PYTHON_EXECUTABLE} ${CPPLINT_PATH} --modified ${DYNAWO_HOME})
+if(MSVC)
+  add_custom_target(cpplint ALL
+    DEPENDS cpplint_download
+    COMMAND ${PYTHON_EXECUTABLE} ${CPPLINT_PATH} --modified --filter=-build/header_guard ${DYNAWO_HOME})
+else()
+  add_custom_target(cpplint ALL
+    DEPENDS cpplint_download
+    COMMAND ${PYTHON_EXECUTABLE} ${CPPLINT_PATH} --modified ${DYNAWO_HOME})
+endif()
