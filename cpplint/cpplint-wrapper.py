@@ -53,36 +53,43 @@ def getModifiedFiles(root_directory):
 
     return files
 
-def cpplint(root_directory, filename):
+def cpplint(root_directory, filename, filter):
     # Prepare cpplint command line
     cpplint_path = os.path.abspath(os.path.join(os.path.split(__file__)[0], "cpplint.py"))
 
-    process = subprocess.Popen(["python", cpplint_path, "--quiet", filename], stdout=subprocess.PIPE, cwd=root_directory)
+    options = ["python", cpplint_path, "--quiet", filename]
+    if filter != None:
+        options = ["python", cpplint_path, "--quiet", "--filter", filter, filename]
+    process = subprocess.Popen(options, stdout=subprocess.PIPE, cwd=root_directory)
     process.wait()
 
     return process.returncode
 
 def usage(exitStatus):
-    print >> sys.stderr, "Usage: %s [--modified | --all] <git-root-folder>" %(os.path.basename(sys.argv[0]))
+    print >> sys.stderr, "Usage: %s [--modified | --all] --filter=<comma separated filters> <git-root-folder>" %(os.path.basename(sys.argv[0]))
     print >> sys.stderr, "--modified       Check only modified (track and untracked files)"
     print >> sys.stderr, "--all:           Check all files"
+    print >> sys.stderr, "--filter:        category-filters to apply"
 
     sys.exit(exitStatus)
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "h", ["modified", "all", "help"])
+        opts, args = getopt.getopt(sys.argv[1:], "h", ["modified", "all", "filter=", "help"])
     except getopt.GetoptError as err:
         print >> sys.stderr, str(err)
         usage(1)
 
     process_modified_files = False
     process_all_files = False
+    filter = None
     for option,value in opts:
         if option == '--modified':
             process_modified_files = True
         elif option == '--all':
             process_all_files = True
+        elif option == '--filter':
+            filter = value
         elif option in ('-h', '--help'):
             usage(0)
         else:
@@ -100,7 +107,7 @@ def main():
     exitStatus = 0
     files = getAllFiles(root_directory) if process_all_files else getModifiedFiles(root_directory)
     for file in files:
-        exitStatus += cpplint(root_directory, file)
+        exitStatus += cpplint(root_directory, file, filter)
     sys.exit(exitStatus)
 
 if __name__ == '__main__':

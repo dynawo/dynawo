@@ -11,8 +11,8 @@
 // simulation tool for power systems.
 //
 
-#ifndef DYNAWO_SOURCES_COMMON_DYNBITMASK_H_
-#define DYNAWO_SOURCES_COMMON_DYNBITMASK_H_
+#ifndef COMMON_DYNBITMASK_H_
+#define COMMON_DYNBITMASK_H_
 
 namespace DYN {
 
@@ -22,7 +22,7 @@ namespace DYN {
  *
  */
 class BitMask {
-public:
+ public:
   /**
    * @brief constructor
    * initially all flags are false
@@ -65,10 +65,10 @@ public:
    */
   bool getFlags(const unsigned char& flag) const;
 
-private:
+ private:
   unsigned char bitmask_;  ///< current mask
 };
 
 } /* namespace DYN */
 
-#endif /* DYNAWO_SOURCES_COMMON_DYNBITMASK_H_ */
+#endif  // COMMON_DYNBITMASK_H_

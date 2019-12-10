@@ -11,8 +11,8 @@
 // simulation tool for power systems.
 //
 
-#ifndef DYNAWO_SOURCES_MODELER_DATAINTERFACE_DYNCONVERTERINTERFACE_H_
-#define DYNAWO_SOURCES_MODELER_DATAINTERFACE_DYNCONVERTERINTERFACE_H_
+#ifndef MODELER_DATAINTERFACE_DYNCONVERTERINTERFACE_H_
+#define MODELER_DATAINTERFACE_DYNCONVERTERINTERFACE_H_
 
 #include "DYNComponentInterface.hpp"
 
@@ -21,7 +21,7 @@ class BusInterface;
 class VoltageLevelInterface;
 
 class ConverterInterface : public ComponentInterface {
-public:
+ public:
   /**
    * @brief Destructor
    */
@@ -92,9 +92,8 @@ public:
    * @return The loss factor of the converter
    */
   virtual double getLossFactor() const = 0;
-
 };  ///< common interface class for converters
 }  // namespace DYN
 
 
-#endif /* DYNAWO_SOURCES_MODELER_DATAINTERFACE_DYNCONVERTERINTERFACE_H_ */
+#endif  // MODELER_DATAINTERFACE_DYNCONVERTERINTERFACE_H_
