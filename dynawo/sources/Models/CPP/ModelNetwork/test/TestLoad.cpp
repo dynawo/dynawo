@@ -88,6 +88,7 @@ createModelLoad(bool open, bool initModel) {
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
+  z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
   bus1->init(offset);
   return std::make_pair(load, vl);
@@ -231,7 +232,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 6.4112209774999709);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 42.4743389759373);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 30.890428346136222);
-  res.resize(1,0);
+  res.resize(1, 0);
   ASSERT_NO_THROW(load->evalJCalculatedVarI(ModelLoad::pcNum_, &yI[0], &yp[0], res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 2.1000000000000001);
   ASSERT_NO_THROW(load->evalJCalculatedVarI(ModelLoad::qcNum_, &yI[0], &yp[0], res));
