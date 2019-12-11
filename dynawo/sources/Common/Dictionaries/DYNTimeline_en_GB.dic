@@ -66,6 +66,8 @@ NodeFaultEnd              =             Fault (node) : end
 NodeFaultBegin            =             Fault (node) : beginning
 // --> Ideal Switch
 IdealSwitchSwitchOff      =             Ideal switch opened
+// --> HVDC Line
+DCLineOpen                =             DC line open
 //-------------  C++ models ----------------------------------------------
 // --> BUS
 NodeOff                   =             BUS : switch off
