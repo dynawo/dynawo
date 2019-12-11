@@ -35,6 +35,7 @@
 #include "DYDStaticRef.h"
 #include "DYDMacroConnect.h"
 #include "DYDUnitDynamicModel.h"
+#include "DYDWhiteBoxModelCommon.h"
 
 
 using std::map;
@@ -95,20 +96,7 @@ ModelTemplate::Impl::addUnitDynamicModel(const shared_ptr<UnitDynamicModel>& mod
 ModelTemplate&
 ModelTemplate::Impl::addConnect(const string& model1, const string& var1,
         const string& model2, const string& var2) {
-  if (unitDynamicModelsMap_.find(model1) == unitDynamicModelsMap_.end())
-    throw DYNError(DYN::Error::API, ConnectorNotPartofModel, model1, model2, getId());
-  if (unitDynamicModelsMap_.find(model2) == unitDynamicModelsMap_.end())
-    throw DYNError(DYN::Error::API, ConnectorNotPartofModel, model2, model1, getId());
-
-  string pc_first = model1 + '_' + var1;
-  string pc_second = model2 + '_' + var2;
-  // To build the connector Id, sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2
-  string pc_Id;
-  if (pc_first < pc_second)
-    pc_Id = pc_first + '_' + pc_second;
-  else
-    pc_Id = pc_second + '_' + pc_first;
-
+  string pc_Id = getConnectionId(model1, var1, model2, var2, getId(), unitDynamicModelsMap_);
   // Used instead of map_[pc_Id] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
   std::pair<std::map<std::string, boost::shared_ptr<Connector> >::iterator, bool> ret;
@@ -118,28 +106,14 @@ ModelTemplate::Impl::addConnect(const string& model1, const string& var1,
   ret = connectorsMap_.insert(std::make_pair(pc_Id, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2))));
 #endif
   if (!ret.second)
-    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, pc_first, pc_second);
+    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, model1 + '_' + var1, model2 + '_' + var2);
   return *this;
 }
 
 ModelTemplate&
 ModelTemplate::Impl::addInitConnect(const string& model1, const string& var1,
         const string& model2, const string& var2) {
-  if (unitDynamicModelsMap_.find(model1) == unitDynamicModelsMap_.end())
-    throw DYNError(DYN::Error::API, ConnectorNotPartofModel, model1, model2, getId());
-  if (unitDynamicModelsMap_.find(model2) == unitDynamicModelsMap_.end())
-    throw DYNError(DYN::Error::API, ConnectorNotPartofModel, model2, model1, getId());
-
-  string ic_first;
-  string ic_second;
-  string ic_Id;
-  ic_first = model1 + '_' + var1;
-  ic_second = model2 + '_' + var2;
-  // To build the connector Id, sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2
-  if (ic_first < ic_second)
-    ic_Id = ic_first + '_' + ic_second;
-  else
-    ic_Id = ic_second + '_' + ic_first;
+  string ic_Id = getConnectionId(model1, var1, model2, var2, getId(), unitDynamicModelsMap_);
   // Used instead of initConnectorsMap_[ic_Id] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
   std::pair<std::map<std::string, boost::shared_ptr<Connector> >::iterator, bool> ret;
@@ -149,24 +123,13 @@ ModelTemplate::Impl::addInitConnect(const string& model1, const string& var1,
   ret = initConnectorsMap_.insert(std::make_pair(ic_Id, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2))));
 #endif
   if (!ret.second)
-    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, ic_first, ic_second);
+    throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, model1 + '_' + var1, model2 + '_' + var2);
   return *this;
 }
 
 ModelTemplate&
 ModelTemplate::Impl::addMacroConnect(const boost::shared_ptr<MacroConnect>& macroConnect) {
-  string model1 = macroConnect->getFirstModelId();
-  string model2 = macroConnect->getSecondModelId();
-  if (unitDynamicModelsMap_.find(model1) == unitDynamicModelsMap_.end())
-    throw DYNError(DYN::Error::API, MacroConnectNotPartofModel, model1, model2, getId());
-  if (unitDynamicModelsMap_.find(model2) == unitDynamicModelsMap_.end())
-    throw DYNError(DYN::Error::API, MacroConnectNotPartofModel, model2, model1, getId());
-
-  string id;
-  if (model1 < model2)
-    id = model1 + '_' + model2;
-  else
-    id = model2 + '_' + model1;
+  string id = getMacroConnectionId(macroConnect->getFirstModelId(), macroConnect->getSecondModelId(), getId(), unitDynamicModelsMap_);
   std::pair<std::map<std::string, boost::shared_ptr<MacroConnect> >::iterator, bool> ret;
 #ifdef LANG_CXX11
   ret = macroConnectsMap_.emplace(id, macroConnect);

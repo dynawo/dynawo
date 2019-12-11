@@ -37,7 +37,6 @@
 #include "DYNModelTapChanger.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"
-#include "DYNCommonModeler.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNTimer.h"
@@ -1109,95 +1108,24 @@ ModelTwoWindingsTransformer::defineVariables(vector<shared_ptr<Variable> >& vari
 void
 ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   string twtName = id();
-  // ===== I1 =====
-  string name = twtName + string("_i1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== I2 =====
-  name = twtName + string("_i2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== P1 =====
-  name = twtName + string("_P1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== P2 =====
-  name = twtName + string("_P2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== Q1 =====
-  name = twtName + string("_Q1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== Q2 =====
-  name = twtName + string("_Q2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== IS1_To_S2_Side1 =====
-  name = twtName + string("_iS1ToS2Side1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== IS2_To_S1_Side1 =====
-  name = twtName + string("_iS2ToS1Side1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== IS1_To_S2_Side2 =====
-  name = twtName + string("_iS1ToS2Side2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== IS2_To_S1_Side2 =====
-  name = twtName + string("_iS2ToS1Side2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== ISide1 =====
-  name = twtName + string("_iSide1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== ISide2 =====
-  name = twtName + string("_iSide2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========  twt STATE ======
-  name = twtName + string("_twtState");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========  CONNECTION STATE ======
-  name = twtName + string("_state");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========  CURRENT STEP ======
-  name = twtName + string("_step");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========= Desactivate_current_limit
-  name = twtName + string("_desactivate_currentLimits");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========= Disable internal tap changer
-  name = twtName + string("_disable_internal_tapChanger");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========= tap changer locked
-  name = twtName + string("_TAP_CHANGER_locked");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(twtName + string("_i1"), elements, mapElement);
+  addElementWithValue(twtName + string("_i2"), elements, mapElement);
+  addElementWithValue(twtName + string("_P1"), elements, mapElement);
+  addElementWithValue(twtName + string("_P2"), elements, mapElement);
+  addElementWithValue(twtName + string("_Q1"), elements, mapElement);
+  addElementWithValue(twtName + string("_Q12"), elements, mapElement);
+  addElementWithValue(twtName + string("_iS1ToS2Side1"), elements, mapElement);
+  addElementWithValue(twtName + string("_iS2ToS1Side1"), elements, mapElement);
+  addElementWithValue(twtName + string("_iS1ToS2Side2"), elements, mapElement);
+  addElementWithValue(twtName + string("_iS2ToS1Side2"), elements, mapElement);
+  addElementWithValue(twtName + string("_iSide1"), elements, mapElement);
+  addElementWithValue(twtName + string("_iSide2"), elements, mapElement);
+  addElementWithValue(twtName + string("_twtState"), elements, mapElement);
+  addElementWithValue(twtName + string("_state"), elements, mapElement);
+  addElementWithValue(twtName + string("_step"), elements, mapElement);
+  addElementWithValue(twtName + string("_desactivate_currentLimits"), elements, mapElement);
+  addElementWithValue(twtName + string("_disable_internal_tapChanger"), elements, mapElement);
+  addElementWithValue(twtName + string("_TAP_CHANGER_locked"), elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

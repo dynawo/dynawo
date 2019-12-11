@@ -81,78 +81,22 @@ shared_ptr<ParametersSet> ParametersSet::Impl::createAlias(const string& aliasNa
 
 shared_ptr<ParametersSet>
 ParametersSet::Impl::createParameter(const string& name, bool value, const string& row, const string& column) {
-  const vector<string>& parNames = tableParameterNames(name, row, column);
-  std::string firstParName;
-  bool isFirstParName = true;
-  for (vector<string>::const_iterator itName = parNames.begin(); itName != parNames.end(); ++itName) {
-    const std::string itParName = *itName;
-    if (isFirstParName) {
-      createParameter(itParName, value);
-      firstParName = itParName;
-      isFirstParName = false;
-    } else {
-      createAlias(itParName, firstParName);
-    }
-  }
-
-  return shared_from_this();
+  return addParameter<bool>(name, value, row, column);
 }
 
 shared_ptr<ParametersSet>
 ParametersSet::Impl::createParameter(const string& name, int value, const string& row, const string& column) {
-  const vector<string>& parNames = tableParameterNames(name, row, column);
-  std::string firstParName;
-  bool isFirstParName = true;
-  for (vector<string>::const_iterator itName = parNames.begin(); itName != parNames.end(); ++itName) {
-    const std::string itParName = *itName;
-    if (isFirstParName) {
-      createParameter(itParName, value);
-      firstParName = itParName;
-      isFirstParName = false;
-    } else {
-      createAlias(itParName, firstParName);
-    }
-  }
-
-  return shared_from_this();
+  return addParameter<int>(name, value, row, column);
 }
 
 shared_ptr<ParametersSet>
 ParametersSet::Impl::createParameter(const string& name, double value, const string& row, const string& column) {
-  const vector<string>& parNames = tableParameterNames(name, row, column);
-  std::string firstParName;
-  bool isFirstParName = true;
-  for (vector<string>::const_iterator itName = parNames.begin(); itName != parNames.end(); ++itName) {
-    const std::string itParName = *itName;
-    if (isFirstParName) {
-      createParameter(itParName, value);
-      firstParName = itParName;
-      isFirstParName = false;
-    } else {
-      createAlias(itParName, firstParName);
-    }
-  }
-
-  return shared_from_this();
+  return addParameter<double>(name, value, row, column);
 }
 
 shared_ptr<ParametersSet>
 ParametersSet::Impl::createParameter(const string& name, const string& value, const string& row, const string& column) {
-  const vector<string>& parNames = tableParameterNames(name, row, column);
-  std::string firstParName;
-  bool isFirstParName = true;
-  for (vector<string>::const_iterator itName = parNames.begin(); itName != parNames.end(); ++itName) {
-    const std::string itParName = *itName;
-    if (isFirstParName) {
-      createParameter(itParName, value);
-      firstParName = itParName;
-      isFirstParName = false;
-    } else {
-      createAlias(itParName, firstParName);
-    }
-  }
-
-  return shared_from_this();
+  return addParameter<string>(name, value, row, column);
 }
 
 shared_ptr<ParametersSet>

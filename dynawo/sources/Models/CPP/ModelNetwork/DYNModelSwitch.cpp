@@ -22,7 +22,6 @@
 
 #include "DYNModelSwitch.h"
 #include "DYNModelBus.h"
-#include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
@@ -250,15 +249,8 @@ ModelSwitch::defineParameters(vector<ParameterModeler>& /*parameters*/) {
 void
 ModelSwitch::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   string switchName = id_;
-  // ========  CONNECTION STATE ======
-  string name = switchName + string("_state");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========  sw STATE ======
-  name = switchName + string("_swState");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(switchName + string("_state"), elements, mapElement);
+  addElementWithValue(switchName + string("_swState"), elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

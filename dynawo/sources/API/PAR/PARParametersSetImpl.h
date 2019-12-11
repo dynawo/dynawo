@@ -102,6 +102,28 @@ class ParametersSet::Impl : public ParametersSet {
   boost::shared_ptr<ParametersSet> createParameter(const std::string& name, const std::string& value, const std::string& row, const std::string& column);
 
   /**
+   * @copydoc ParametersSet::createParameter(const std::string& name, const std::string& value, const std::string& row, const std::string& column)
+   */
+  template<typename T>
+  boost::shared_ptr<ParametersSet> addParameter(const std::string& name, T value, const std::string& row, const std::string& column) {
+    const std::vector<std::string>& parNames = tableParameterNames(name, row, column);
+    std::string firstParName;
+    bool isFirstParName = true;
+    for (std::vector<std::string>::const_iterator itName = parNames.begin(); itName != parNames.end(); ++itName) {
+      const std::string itParName = *itName;
+      if (isFirstParName) {
+        createParameter(itParName, value);
+        firstParName = itParName;
+        isFirstParName = false;
+      } else {
+        createAlias(itParName, firstParName);
+      }
+    }
+
+    return shared_from_this();
+  }
+
+  /**
    * @copydoc ParametersSet::addParameter(const boost::shared_ptr<Parameter>& param)
    */
   boost::shared_ptr<ParametersSet> addParameter(const boost::shared_ptr<Parameter>& param);

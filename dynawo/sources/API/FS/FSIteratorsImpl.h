@@ -28,10 +28,10 @@ class FinalStateModel;
 class Variable;
 
 /**
- * @class ModelIteratorImpl
+ * @class FinalStateModelIteratorImpl
  * @brief Implementation class for iterators' functions
  */
-class ModelIteratorImpl {
+class FinalStateModelIteratorImpl {
  public:
   /**
    * @brief Constructor
@@ -44,7 +44,7 @@ class ModelIteratorImpl {
    * or the end of the models' container.
    * @returns Created implementation object
    */
-  ModelIteratorImpl(FinalStateCollection::Impl* iterated, bool begin);
+  FinalStateModelIteratorImpl(FinalStateCollection::Impl* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -57,40 +57,40 @@ class ModelIteratorImpl {
    * or the end of the models' container.
    * @returns Created implementation object
    */
-  ModelIteratorImpl(FinalStateModel::Impl* iterated, bool begin);
+  FinalStateModelIteratorImpl(FinalStateModel::Impl* iterated, bool begin);
 
   /**
    * @brief Destructor
    */
-  ~ModelIteratorImpl();
+  ~FinalStateModelIteratorImpl();
 
   /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this iterator
    */
-  ModelIteratorImpl& operator++();
+  FinalStateModelIteratorImpl& operator++();
 
   /**
    * @brief Postfix-increment operator
    *
    * @returns Copy of this iterator
    */
-  ModelIteratorImpl operator++(int);
+  FinalStateModelIteratorImpl operator++(int);
 
   /**
    * @brief Prefix-decrement operator
    *
    * @returns Copy of this iterator
    */
-  ModelIteratorImpl& operator--();
+  FinalStateModelIteratorImpl& operator--();
 
   /**
    * @brief Postfix-decrement operator
    *
    * @returns Copy of this iterator
    */
-  ModelIteratorImpl operator--(int);
+  FinalStateModelIteratorImpl operator--(int);
 
   /**
    * @brief Equal to operator
@@ -98,7 +98,7 @@ class ModelIteratorImpl {
    * @param other Iterator to be compared with this
    * @returns true if iterators are equals, else false
    */
-  bool operator==(const ModelIteratorImpl& other)const;
+  bool operator==(const FinalStateModelIteratorImpl& other)const;
 
   /**
    * @brief Not equal to operator
@@ -106,7 +106,7 @@ class ModelIteratorImpl {
    * @param other Iterator to be compared with this
    * @returns true if iterators are different, else false
    */
-  bool operator!=(const ModelIteratorImpl& other)const;
+  bool operator!=(const FinalStateModelIteratorImpl& other)const;
 
   /**
    * @brief Indirection operator
@@ -134,10 +134,10 @@ class ModelIteratorImpl {
 };
 
 /**
- * @class ModelConstIteratorImpl
+ * @class FinalStateModelConstIteratorImpl
  * @brief Implementation class for const iterators' functions
  */
-class ModelConstIteratorImpl {
+class FinalStateModelConstIteratorImpl {
  public:
   /**
    * @brief Constructor
@@ -150,7 +150,7 @@ class ModelConstIteratorImpl {
    * or the end of the models' container.
    * @returns Created implementation object
    */
-  ModelConstIteratorImpl(const FinalStateCollection::Impl* iterated, bool begin);
+  FinalStateModelConstIteratorImpl(const FinalStateCollection::Impl* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -163,7 +163,7 @@ class ModelConstIteratorImpl {
    * or the end of the models' container.
    * @returns Created implementation object
    */
-  ModelConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin);
+  FinalStateModelConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin);
 
   /**
    * @brief Constructor
@@ -171,40 +171,40 @@ class ModelConstIteratorImpl {
    * @param iterator current iterator on the vector
    * @returns Created constant iterator
    */
-  explicit ModelConstIteratorImpl(const ModelIteratorImpl& iterator);
+  explicit FinalStateModelConstIteratorImpl(const FinalStateModelIteratorImpl& iterator);
 
   /**
    * @brief Destructor
    */
-  ~ModelConstIteratorImpl();
+  ~FinalStateModelConstIteratorImpl();
 
   /**
    * @brief Prefix-increment operator
    *
    * @returns Reference to this iterator
    */
-  ModelConstIteratorImpl& operator++();
+  FinalStateModelConstIteratorImpl& operator++();
 
   /**
    * @brief Postfix-increment operator
    *
    * @returns Copy of this iterator
    */
-  ModelConstIteratorImpl operator++(int);
+  FinalStateModelConstIteratorImpl operator++(int);
 
   /**
    * @brief Prefix-decrement operator
    *
    * @returns Copy of this iterator
    */
-  ModelConstIteratorImpl& operator--();
+  FinalStateModelConstIteratorImpl& operator--();
 
   /**
    * @brief Postfix-decrement operator
    *
    * @returns Copy of this iterator
    */
-  ModelConstIteratorImpl operator--(int);
+  FinalStateModelConstIteratorImpl operator--(int);
 
   /**
    * @brief Equal to operator
@@ -212,7 +212,7 @@ class ModelConstIteratorImpl {
    * @param other Iterator to be compared with this
    * @returns true if iterators are equals, else false
    */
-  bool operator==(const ModelConstIteratorImpl& other)const;
+  bool operator==(const FinalStateModelConstIteratorImpl& other)const;
 
   /**
    * @brief Not equal to operator
@@ -220,7 +220,7 @@ class ModelConstIteratorImpl {
    * @param other Iterator to be compared with this
    * @returns true if iterators are different, else false
    */
-  bool operator!=(const ModelConstIteratorImpl& other)const;
+  bool operator!=(const FinalStateModelConstIteratorImpl& other)const;
 
   /**
    * @brief Indirection operator

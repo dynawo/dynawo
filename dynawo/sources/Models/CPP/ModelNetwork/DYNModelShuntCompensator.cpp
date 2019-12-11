@@ -22,7 +22,6 @@
 #include "PARParametersSet.h"
 
 #include "DYNModelBus.h"
-#include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNTimer.h"
 #include "DYNVariableForModel.h"
@@ -187,30 +186,11 @@ ModelShuntCompensator::defineVariables(vector<shared_ptr<Variable> >& variables)
 void
 ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   string shName = id_;
-  // ========  CONNECTION STATE ======
-  string name = shName + string("_state");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ======== IS CAPACITOR =========
-  name = shName + string("_isCapacitor");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ======== IS Available =========
-  name = shName + string("_isAvailable");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========  CURRENT SECTION ======
-  name = shName + string("_currentSection");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ======== Q value ===============
-  name = shName + string("_Q");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(shName + string("_state"), elements, mapElement);
+  addElementWithValue(shName + string("_isCapacitor"), elements, mapElement);
+  addElementWithValue(shName + string("_isAvailable"), elements, mapElement);
+  addElementWithValue(shName + string("_currentSection"), elements, mapElement);
+  addElementWithValue(shName + string("_Q"), elements, mapElement);
 }
 
 void

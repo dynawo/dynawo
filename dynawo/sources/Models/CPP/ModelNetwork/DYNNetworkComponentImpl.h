@@ -297,6 +297,14 @@ class NetworkComponent::Impl : public NetworkComponent {
   template <typename T> T getParameterDynamicNoThrow(const boost::unordered_map<std::string, ParameterModeler>& params,
       const std::string& id, bool& foundParam, const std::vector<std::string>& ids = std::vector<std::string>()) const;
 
+  /**
+   * @brief add an element along a value subelement
+   * @param elementName element to add
+   * @param elements vector of elements to fill with new elements defined
+   * @param mapElement map of elements to fill with new elements
+   */
+  void addElementWithValue(std::string elementName, std::vector<Element>& elements, std::map<std::string, int>& mapElement);
+
  private:
   /**
    * @brief get the value of a given parameter

@@ -29,7 +29,7 @@ using std::string;
 using std::stringstream;
 
 namespace DYN {
-typedef SubModelFactory* getFactory_t();
+typedef SubModelFactory* getSubModelFactory_t();
 
 SubModelFactories SubModelFactory::factories_;
 
@@ -87,7 +87,7 @@ boost::shared_ptr<SubModel> SubModelFactory::createSubModelFromLib(const std::st
     // reset errors
     dlerror();
 
-    getFactory_t* getFactory = reinterpret_cast<getFactory_t*> (dlsym(handle, "getFactory"));
+    getSubModelFactory_t* getFactory = reinterpret_cast<getSubModelFactory_t*> (dlsym(handle, "getFactory"));
     const char* dlsym_error = dlerror();
     if (dlsym_error) {
       stringstream msg;

@@ -28,7 +28,6 @@
 #include "DYNModelConstants.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"
-#include "DYNCommonModeler.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNVariableForModel.h"
@@ -612,90 +611,23 @@ ModelLine::defineVariables(vector<shared_ptr<Variable> >& variables) {
 void
 ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   string lineName = id_;
-  // ===== I1 =====
-  string name = lineName + string("_i1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== I2 =====
-  name = lineName + string("_i2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== P1 =====
-  name = lineName + string("_P1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== P2 =====
-  name = lineName + string("_P2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== Q1 =====
-  name = lineName + string("_Q1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== Q2 =====
-  name = lineName + string("_Q2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== IS1_To_S2_Side1 =====
-  name = lineName + string("_iS1ToS2Side1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== IS2_To_S1_Side1 =====
-  name = lineName + string("_iS2ToS1Side1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== IS1_To_S2_Side2 =====
-  name = lineName + string("_iS1ToS2Side2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== IS2_To_S1_Side2 =====
-  name = lineName + string("_iS2ToS1Side2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== ISide1 =====
-  name = lineName + string("_iSide1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== ISide2 =====
-  name = lineName + string("_iSide2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== U1 =====
-  name = lineName + string("_U1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== U2 =====
-  name = lineName + string("_U2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========  line STATE ======
-  name = lineName + string("_lineState");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========  CONNECTION STATE ======
-  name = lineName + string("_state");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========= Desactivate_current_limit
-  name = lineName + string("_desactivate_currentLimits");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(lineName + string("_i1"), elements, mapElement);
+  addElementWithValue(lineName + string("_i2"), elements, mapElement);
+  addElementWithValue(lineName + string("_P1"), elements, mapElement);
+  addElementWithValue(lineName + string("_P2"), elements, mapElement);
+  addElementWithValue(lineName + string("_Q1"), elements, mapElement);
+  addElementWithValue(lineName + string("_Q2"), elements, mapElement);
+  addElementWithValue(lineName + string("_iS1ToS2Side1"), elements, mapElement);
+  addElementWithValue(lineName + string("_iS2ToS1Side1"), elements, mapElement);
+  addElementWithValue(lineName + string("_iS1ToS2Side2"), elements, mapElement);
+  addElementWithValue(lineName + string("_iS2ToS1Side2"), elements, mapElement);
+  addElementWithValue(lineName + string("_iSide1"), elements, mapElement);
+  addElementWithValue(lineName + string("_iSide2"), elements, mapElement);
+  addElementWithValue(lineName + string("_U1"), elements, mapElement);
+  addElementWithValue(lineName + string("_U2"), elements, mapElement);
+  addElementWithValue(lineName + string("_lineState"), elements, mapElement);
+  addElementWithValue(lineName + string("_state"), elements, mapElement);
+  addElementWithValue(lineName + string("_desactivate_currentLimits"), elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

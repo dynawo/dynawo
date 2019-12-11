@@ -556,43 +556,15 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
   }
 
   // Calculated variables addition
-
-  // ===== Upu =====
-  string name = id + string("_Upu");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== PHIpu =====
-  name = id + string("_phipu");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== U =====
-  name = id + string("_U");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== PHI =====
-  name = id + string("_phi");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(id + string("_Upu"), elements, mapElement);
+  addElementWithValue(id + string("_phipu"), elements, mapElement);
+  addElementWithValue(id + string("_U"), elements, mapElement);
+  addElementWithValue(id + string("_phi"), elements, mapElement);
 
   // Discrete variables addition
-
-  // ===== Connectivity =====
-  name = id + string("_numcc");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== Switch off ======
-  name = id + string("_switchOff");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== State ===========
-  name = id + string("_state");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(id + string("_numcc"), elements, mapElement);
+  addElementWithValue(id + string("_switchOff"), elements, mapElement);
+  addElementWithValue(id + string("_state"), elements, mapElement);
 }
 
 NetworkComponent::StateChange_t
