@@ -144,6 +144,29 @@ partial model SwitchOffLine "Switch-off signal for a line"
 
 end SwitchOffLine;
 
+partial model SwitchOffDCLine "Switch-off signal for a DC line"
+  /* The two possible/expected switch-off signals for a DC line are:
+     - a switch-off signal coming from the node in case of a node disconnection
+     - a switch-off signal coming from the user (event)
+  */
+  import Dynawo.Electrical.Constants;
+
+  extends SwitchOffLogic(NbSwitchOffSignals = 2);
+
+  public
+    Constants.state state (start = State0) "DC Line connection state";
+
+  protected
+    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+
+  equation
+    when not(running.value) then
+      Timeline.logEvent1 (TimelineKeys.DCLineOpen);
+      state = Constants.state.Open;
+    end when;
+
+end SwitchOffDCLine;
+
 
 partial model SwitchOffTransformer "Switch-off signal for a transformer"
   /* The only possible/expected switch-off signal for a transformer is:
