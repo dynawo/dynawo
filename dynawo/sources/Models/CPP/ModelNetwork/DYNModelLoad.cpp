@@ -24,7 +24,6 @@
 
 #include "DYNModelLoad.h"
 #include "DYNCommon.h"
-#include "DYNCommonModeler.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
@@ -641,54 +640,19 @@ ModelLoad::defineElements(std::vector<Element>& elements, std::map<std::string, 
   string name;
   // ======= STATE VARIABLES ========
   if (isControllable_) {
-    name = loadName + string("_DeltaPc");
-    addElement(name, Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-    name = loadName + string("_DeltaQc");
-    addElement(name, Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+    addElementWithValue(loadName + string("_DeltaPc"), elements, mapElement);
+    addElementWithValue(loadName + string("_DeltaQc"), elements, mapElement);
   }
-
   if (isRestorative_) {
-    name = loadName + string("_zP");
-    addElement(name, Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-    name = loadName + string("_zQ");
-    addElement(name, Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+    addElementWithValue(loadName + string("_zP"), elements, mapElement);
+    addElementWithValue(loadName + string("_zQ"), elements, mapElement);
   }
-
-  // ========  CONNECTION STATE ======
-  name = loadName + string("_state");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== P =====
-  name = loadName + string("_P");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== Q =====
-  name = loadName + string("_Q");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== Pc =====
-  name = loadName + string("_Pc");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== Qc =====
-  name = loadName + string("_Qc");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ===== loadState =====
-  name = loadName + string("_loadState");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(loadName + string("_state"), elements, mapElement);
+  addElementWithValue(loadName + string("_P"), elements, mapElement);
+  addElementWithValue(loadName + string("_Q"), elements, mapElement);
+  addElementWithValue(loadName + string("_Pc"), elements, mapElement);
+  addElementWithValue(loadName + string("_Qc"), elements, mapElement);
+  addElementWithValue(loadName + string("_loadState"), elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

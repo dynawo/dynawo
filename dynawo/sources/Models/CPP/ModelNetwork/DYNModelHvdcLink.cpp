@@ -24,7 +24,6 @@
 #include "DYNModelHvdcLink.h"
 
 #include "DYNModelBus.h"
-#include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
@@ -501,33 +500,21 @@ ModelHvdcLink::defineElements(std::vector<Element> &elements, std::map<std::stri
   string name;
   // ========  CONNECTION STATE ======
   // at point of common coupling 1
-  name = hvdcName + string("_state1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(hvdcName + string("_state1"), elements, mapElement);
   // at point of common coupling 2
-  name = hvdcName + string("_state2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(hvdcName + string("_state2"), elements, mapElement);
 
   // ========  P VALUE  ======
   // at point of common coupling 1
-  name = hvdcName + string("_P1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(hvdcName + string("_P1"), elements, mapElement);
   // at point of common coupling 2
-  name = hvdcName + string("_P2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(hvdcName + string("_P2"), elements, mapElement);
 
   // ========  Q VALUE  ======
   // at point of common coupling 1
-  name = hvdcName + string("_Q1");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(hvdcName + string("_Q1"), elements, mapElement);
   // at point of common coupling 2
-  name = hvdcName + string("_Q2");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(hvdcName + string("_Q2"), elements, mapElement);
 }
 
 void

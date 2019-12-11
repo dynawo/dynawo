@@ -545,151 +545,149 @@ DataInterfaceIIDM::importStaticVarCompensator(IIDM::StaticVarCompensator& svcIID
 }
 
 shared_ptr<TwoWTransformerInterface>
-DataInterfaceIIDM::importTwoWindingsTransformer(IIDM::Transformer2Windings & twoWTfo) {
-  shared_ptr<TwoWTransformerInterfaceIIDM> tfo(new TwoWTransformerInterfaceIIDM(twoWTfo));
+DataInterfaceIIDM::importTwoWindingsTransformer(IIDM::Transformer2Windings & twoWTfoIIDM) {
+  shared_ptr<TwoWTransformerInterfaceIIDM> twoWTfo(new TwoWTransformerInterfaceIIDM(twoWTfoIIDM));
 
   // add phase tapChanger and steps if exists
-  if (twoWTfo.has_phaseTapChanger()) {
-    shared_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(twoWTfo.phaseTapChanger()));
+  if (twoWTfoIIDM.has_phaseTapChanger()) {
+    shared_ptr<PhaseTapChangerInterfaceIIDM> tapChanger(new PhaseTapChangerInterfaceIIDM(twoWTfoIIDM.phaseTapChanger()));
 
-    IIDM::PhaseTapChanger::const_iterator itStep = twoWTfo.phaseTapChanger().begin();
-    for (; itStep != twoWTfo.phaseTapChanger().end(); ++itStep) {
+    IIDM::PhaseTapChanger::const_iterator itStep = twoWTfoIIDM.phaseTapChanger().begin();
+    for (; itStep != twoWTfoIIDM.phaseTapChanger().end(); ++itStep) {
       shared_ptr<StepInterfaceIIDM> step(new StepInterfaceIIDM(*itStep));
       tapChanger->addStep(step);
     }
-    tfo->setPhaseTapChanger(tapChanger);
+    twoWTfo->setPhaseTapChanger(tapChanger);
   }
   // add ratio tapChanger and steps if exists
-  if (twoWTfo.has_ratioTapChanger()) {
-    shared_ptr<RatioTapChangerInterfaceIIDM> tapChanger(new RatioTapChangerInterfaceIIDM(twoWTfo.ratioTapChanger(), twoWTfo.id()));
-    IIDM::RatioTapChanger::const_iterator itStep = twoWTfo.ratioTapChanger().begin();
-    for (; itStep != twoWTfo.ratioTapChanger().end(); ++itStep) {
+  if (twoWTfoIIDM.has_ratioTapChanger()) {
+    shared_ptr<RatioTapChangerInterfaceIIDM> tapChanger(new RatioTapChangerInterfaceIIDM(twoWTfoIIDM.ratioTapChanger(), twoWTfoIIDM.id()));
+    IIDM::RatioTapChanger::const_iterator itStep = twoWTfoIIDM.ratioTapChanger().begin();
+    for (; itStep != twoWTfoIIDM.ratioTapChanger().end(); ++itStep) {
       shared_ptr<StepInterfaceIIDM> step(new StepInterfaceIIDM(*itStep));
       tapChanger->addStep(step);
     }
-    tfo->setRatioTapChanger(tapChanger);
+    twoWTfo->setRatioTapChanger(tapChanger);
   }
 
 
   // reference to bus interface
-  if (twoWTfo.connection(IIDM::side_1)) {
-    string voltageLevel = twoWTfo.connection(IIDM::side_1)->connectionPoint().voltageLevel();
-    if (twoWTfo.connection(IIDM::side_1)->connectionPoint().is_bus()) {
-      string id1 = twoWTfo.connection(IIDM::side_1)->connectionPoint().bus_id();
-      tfo->setBusInterface1(findBusInterface(id1));
-    } else if (twoWTfo.connection(IIDM::side_1)->connectionPoint().is_node()) {
-      int node = twoWTfo.connection(IIDM::side_1)->connectionPoint().node();
-      tfo->setBusInterface1(findCalculatedBusInterface(voltageLevel, node));
+  if (twoWTfoIIDM.connection(IIDM::side_1)) {
+    string voltageLevel = twoWTfoIIDM.connection(IIDM::side_1)->connectionPoint().voltageLevel();
+    if (twoWTfoIIDM.connection(IIDM::side_1)->connectionPoint().is_bus()) {
+      string id1 = twoWTfoIIDM.connection(IIDM::side_1)->connectionPoint().bus_id();
+      twoWTfo->setBusInterface1(findBusInterface(id1));
+    } else if (twoWTfoIIDM.connection(IIDM::side_1)->connectionPoint().is_node()) {
+      int node = twoWTfoIIDM.connection(IIDM::side_1)->connectionPoint().node();
+      twoWTfo->setBusInterface1(findCalculatedBusInterface(voltageLevel, node));
     }
-    tfo->setVoltageLevelInterface1(findVoltageLevelInterface(voltageLevel));
+    twoWTfo->setVoltageLevelInterface1(findVoltageLevelInterface(voltageLevel));
   }
 
-  if (twoWTfo.connection(IIDM::side_2)) {
-    string voltageLevel = twoWTfo.connection(IIDM::side_2)->connectionPoint().voltageLevel();
-    if (twoWTfo.connection(IIDM::side_2)->connectionPoint().is_bus()) {
-      string id2 = twoWTfo.connection(IIDM::side_2)->connectionPoint().bus_id();
-      tfo->setBusInterface2(findBusInterface(id2));
-    } else if (twoWTfo.connection(IIDM::side_2)->connectionPoint().is_node()) {
-      int node = twoWTfo.connection(IIDM::side_2)->connectionPoint().node();
-      tfo->setBusInterface2(findCalculatedBusInterface(voltageLevel, node));
+  if (twoWTfoIIDM.connection(IIDM::side_2)) {
+    string voltageLevel = twoWTfoIIDM.connection(IIDM::side_2)->connectionPoint().voltageLevel();
+    if (twoWTfoIIDM.connection(IIDM::side_2)->connectionPoint().is_bus()) {
+      string id2 = twoWTfoIIDM.connection(IIDM::side_2)->connectionPoint().bus_id();
+      twoWTfo->setBusInterface2(findBusInterface(id2));
+    } else if (twoWTfoIIDM.connection(IIDM::side_2)->connectionPoint().is_node()) {
+      int node = twoWTfoIIDM.connection(IIDM::side_2)->connectionPoint().node();
+      twoWTfo->setBusInterface2(findCalculatedBusInterface(voltageLevel, node));
     }
-    tfo->setVoltageLevelInterface2(findVoltageLevelInterface(voltageLevel));
+    twoWTfo->setVoltageLevelInterface2(findVoltageLevelInterface(voltageLevel));
   }
 
-  if (twoWTfo.has_currentLimits1()) {
-    IIDM::CurrentLimits currentLimits = twoWTfo.currentLimits1();
+  if (twoWTfoIIDM.has_currentLimits1()) {
+    IIDM::CurrentLimits currentLimits = twoWTfoIIDM.currentLimits1();
 
      // permanent limit
     if (currentLimits.has_permanent_limit()) {
       shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.permanent_limit(), boost::none));
-      tfo->addCurrentLimitInterface1(cLimit);
+      twoWTfo->addCurrentLimitInterface1(cLimit);
     }
 
     // temporary limit
-    IIDM::CurrentLimits::const_iterator it = currentLimits.begin();
-    for (; it != currentLimits.end(); ++it) {
+    for (IIDM::CurrentLimits::const_iterator it = currentLimits.begin(); it != currentLimits.end(); ++it) {
       bool fictitious = (it->fictitious) ? *(it->fictitious) : false;
       if (!fictitious) {
         shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(it->value, it->acceptableDuration));
-        tfo->addCurrentLimitInterface1(cLimit);
+        twoWTfo->addCurrentLimitInterface1(cLimit);
       }
     }
   }
 
-  if (twoWTfo.has_currentLimits2()) {
-    IIDM::CurrentLimits currentLimits = twoWTfo.currentLimits2();
+  if (twoWTfoIIDM.has_currentLimits2()) {
+    IIDM::CurrentLimits currentLimits = twoWTfoIIDM.currentLimits2();
 
      // permanent limit
     if (currentLimits.has_permanent_limit()) {
       shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.permanent_limit(), boost::none));
-      tfo->addCurrentLimitInterface1(cLimit);
+      twoWTfo->addCurrentLimitInterface2(cLimit);
     }
 
     // temporary limit
-    IIDM::CurrentLimits::const_iterator it = currentLimits.begin();
-    for (; it != currentLimits.end(); ++it) {
+    for (IIDM::CurrentLimits::const_iterator it = currentLimits.begin(); it != currentLimits.end(); ++it) {
       bool fictitious = (it->fictitious) ? *(it->fictitious) : false;
       if (!fictitious) {
         shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(it->value, it->acceptableDuration));
-        tfo->addCurrentLimitInterface1(cLimit);
+        twoWTfo->addCurrentLimitInterface2(cLimit);
       }
     }
   }
 #ifdef LANG_CXX11
-  return std::move(tfo);
+  return std::move(twoWTfo);
 #else
-  return tfo;
+  return twoWTfo;
 #endif
 }
 
 shared_ptr<ThreeWTransformerInterface>
-DataInterfaceIIDM::importThreeWindingsTransformer(IIDM::Transformer3Windings & threeWTfo) {
-  shared_ptr<ThreeWTransformerInterfaceIIDM> tfo(new ThreeWTransformerInterfaceIIDM(threeWTfo));
+DataInterfaceIIDM::importThreeWindingsTransformer(IIDM::Transformer3Windings & threeWTfoIIDM) {
+  shared_ptr<ThreeWTransformerInterfaceIIDM> threeWTfo(new ThreeWTransformerInterfaceIIDM(threeWTfoIIDM));
 
   // reference to bus interface
-  if (threeWTfo.connection(IIDM::side_1)) {
-    string voltageLevel = threeWTfo.connection(IIDM::side_1)->connectionPoint().voltageLevel();
-    if (threeWTfo.connection(IIDM::side_1)->connectionPoint().is_bus()) {
-      string id1 = threeWTfo.connection(IIDM::side_1)->connectionPoint().bus_id();
-      tfo->setBusInterface1(findBusInterface(id1));
-    } else if (threeWTfo.connection(IIDM::side_1)->connectionPoint().is_node()) {
-      int node = threeWTfo.connection(IIDM::side_1)->connectionPoint().node();
-      tfo->setBusInterface1(findCalculatedBusInterface(voltageLevel, node));
+  if (threeWTfoIIDM.connection(IIDM::side_1)) {
+    string voltageLevel = threeWTfoIIDM.connection(IIDM::side_1)->connectionPoint().voltageLevel();
+    if (threeWTfoIIDM.connection(IIDM::side_1)->connectionPoint().is_bus()) {
+      string id1 = threeWTfoIIDM.connection(IIDM::side_1)->connectionPoint().bus_id();
+      threeWTfo->setBusInterface1(findBusInterface(id1));
+    } else if (threeWTfoIIDM.connection(IIDM::side_1)->connectionPoint().is_node()) {
+      int node = threeWTfoIIDM.connection(IIDM::side_1)->connectionPoint().node();
+      threeWTfo->setBusInterface1(findCalculatedBusInterface(voltageLevel, node));
     }
-    tfo->setVoltageLevelInterface1(findVoltageLevelInterface(voltageLevel));
+    threeWTfo->setVoltageLevelInterface1(findVoltageLevelInterface(voltageLevel));
   }
 
-  if (threeWTfo.connection(IIDM::side_2)) {
-    string voltageLevel = threeWTfo.connection(IIDM::side_2)->connectionPoint().voltageLevel();
-    if (threeWTfo.connection(IIDM::side_2)->connectionPoint().is_bus()) {
-      string id2 = threeWTfo.connection(IIDM::side_2)->connectionPoint().bus_id();
-      tfo->setBusInterface2(findBusInterface(id2));
-    } else if (threeWTfo.connection(IIDM::side_2)->connectionPoint().is_node()) {
-      int node = threeWTfo.connection(IIDM::side_2)->connectionPoint().node();
-      tfo->setBusInterface2(findCalculatedBusInterface(voltageLevel, node));
+  if (threeWTfoIIDM.connection(IIDM::side_2)) {
+    string voltageLevel = threeWTfoIIDM.connection(IIDM::side_2)->connectionPoint().voltageLevel();
+    if (threeWTfoIIDM.connection(IIDM::side_2)->connectionPoint().is_bus()) {
+      string id2 = threeWTfoIIDM.connection(IIDM::side_2)->connectionPoint().bus_id();
+      threeWTfo->setBusInterface2(findBusInterface(id2));
+    } else if (threeWTfoIIDM.connection(IIDM::side_2)->connectionPoint().is_node()) {
+      int node = threeWTfoIIDM.connection(IIDM::side_2)->connectionPoint().node();
+      threeWTfo->setBusInterface2(findCalculatedBusInterface(voltageLevel, node));
     }
-    tfo->setVoltageLevelInterface2(findVoltageLevelInterface(voltageLevel));
+    threeWTfo->setVoltageLevelInterface2(findVoltageLevelInterface(voltageLevel));
   }
 
-  if (threeWTfo.connection(IIDM::side_3)) {
-    string voltageLevel = threeWTfo.connection(IIDM::side_3)->connectionPoint().voltageLevel();
-    if (threeWTfo.connection(IIDM::side_3)->connectionPoint().is_bus()) {
-      string id3 = threeWTfo.connection(IIDM::side_3)->connectionPoint().bus_id();
-      tfo->setBusInterface3(findBusInterface(id3));
-    } else if (threeWTfo.connection(IIDM::side_3)->connectionPoint().is_node()) {
-      int node = threeWTfo.connection(IIDM::side_3)->connectionPoint().node();
-      tfo->setBusInterface3(findCalculatedBusInterface(voltageLevel, node));
+  if (threeWTfoIIDM.connection(IIDM::side_3)) {
+    string voltageLevel = threeWTfoIIDM.connection(IIDM::side_3)->connectionPoint().voltageLevel();
+    if (threeWTfoIIDM.connection(IIDM::side_3)->connectionPoint().is_bus()) {
+      string id3 = threeWTfoIIDM.connection(IIDM::side_3)->connectionPoint().bus_id();
+      threeWTfo->setBusInterface3(findBusInterface(id3));
+    } else if (threeWTfoIIDM.connection(IIDM::side_3)->connectionPoint().is_node()) {
+      int node = threeWTfoIIDM.connection(IIDM::side_3)->connectionPoint().node();
+      threeWTfo->setBusInterface3(findCalculatedBusInterface(voltageLevel, node));
     }
-    tfo->setVoltageLevelInterface3(findVoltageLevelInterface(voltageLevel));
+    threeWTfo->setVoltageLevelInterface3(findVoltageLevelInterface(voltageLevel));
   }
 
-  if (threeWTfo.has_currentLimits1()) {
-    IIDM::CurrentLimits currentLimits = threeWTfo.currentLimits1();
+  if (threeWTfoIIDM.has_currentLimits1()) {
+    IIDM::CurrentLimits currentLimits = threeWTfoIIDM.currentLimits1();
 
      // permanent limit
     if (currentLimits.has_permanent_limit()) {
       shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.permanent_limit(), boost::none));
-      tfo->addCurrentLimitInterface1(cLimit);
+      threeWTfo->addCurrentLimitInterface1(cLimit);
     }
 
     // temporary limit
@@ -698,18 +696,18 @@ DataInterfaceIIDM::importThreeWindingsTransformer(IIDM::Transformer3Windings & t
       bool fictitious = (it->fictitious) ? *(it->fictitious) : false;
       if (!fictitious) {
         shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(it->value, it->acceptableDuration));
-        tfo->addCurrentLimitInterface1(cLimit);
+        threeWTfo->addCurrentLimitInterface1(cLimit);
       }
     }
   }
 
-  if (threeWTfo.has_currentLimits2()) {
-    IIDM::CurrentLimits currentLimits = threeWTfo.currentLimits2();
+  if (threeWTfoIIDM.has_currentLimits2()) {
+    IIDM::CurrentLimits currentLimits = threeWTfoIIDM.currentLimits2();
 
      // permanent limit
     if (currentLimits.has_permanent_limit()) {
       shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.permanent_limit(), boost::none));
-      tfo->addCurrentLimitInterface2(cLimit);
+      threeWTfo->addCurrentLimitInterface2(cLimit);
     }
 
     // temporary limit
@@ -718,18 +716,18 @@ DataInterfaceIIDM::importThreeWindingsTransformer(IIDM::Transformer3Windings & t
       bool fictitious = (it->fictitious) ? *(it->fictitious) : false;
       if (!fictitious) {
         shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(it->value, it->acceptableDuration));
-        tfo->addCurrentLimitInterface2(cLimit);
+        threeWTfo->addCurrentLimitInterface2(cLimit);
       }
     }
   }
 
-  if (threeWTfo.has_currentLimits3()) {
-    IIDM::CurrentLimits currentLimits = threeWTfo.currentLimits3();
+  if (threeWTfoIIDM.has_currentLimits3()) {
+    IIDM::CurrentLimits currentLimits = threeWTfoIIDM.currentLimits3();
 
      // permanent limit
     if (currentLimits.has_permanent_limit()) {
       shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(currentLimits.permanent_limit(), boost::none));
-      tfo->addCurrentLimitInterface3(cLimit);
+      threeWTfo->addCurrentLimitInterface3(cLimit);
     }
 
     // temporary limit
@@ -738,14 +736,14 @@ DataInterfaceIIDM::importThreeWindingsTransformer(IIDM::Transformer3Windings & t
       bool fictitious = (it->fictitious) ? *(it->fictitious) : false;
       if (!fictitious) {
         shared_ptr<CurrentLimitInterfaceIIDM> cLimit(new CurrentLimitInterfaceIIDM(it->value, it->acceptableDuration));
-        tfo->addCurrentLimitInterface3(cLimit);
+        threeWTfo->addCurrentLimitInterface3(cLimit);
       }
     }
   }
 #ifdef LANG_CXX11
-  return std::move(tfo);
+  return std::move(threeWTfo);
 #else
-  return tfo;
+  return threeWTfo;
 #endif
 }
 

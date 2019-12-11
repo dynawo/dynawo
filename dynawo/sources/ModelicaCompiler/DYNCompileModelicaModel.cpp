@@ -387,20 +387,18 @@ compileLib(const string& modelName, const string& compilationDir) {
   string scriptsDir = prettyPath(getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR"));
 
   // Check some environment variables that are mandatory for CMake compilation
-  if (!hasEnvVar("DYNAWO_INSTALL_DIR"))
-    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_INSTALL_DIR");
-  if (!hasEnvVar("DYNAWO_ADEPT_INSTALL_DIR"))
-    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_ADEPT_INSTALL_DIR");
-  if (!hasEnvVar("DYNAWO_SUITESPARSE_INSTALL_DIR"))
-    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_SUITESPARSE_INSTALL_DIR");
-  if (!hasEnvVar("DYNAWO_SUNDIALS_INSTALL_DIR"))
-    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_SUNDIALS_INSTALL_DIR");
-  if (!hasEnvVar("DYNAWO_INSTALL_OPENMODELICA"))
-    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_INSTALL_OPENMODELICA");
-  if (!hasEnvVar("DYNAWO_XERCESC_INSTALL_DIR"))
-    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_XERCESC_INSTALL_DIR");
-  if (!hasEnvVar("DYNAWO_LIBXML_HOME"))
-    throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, "DYNAWO_LIBXML_HOME");
+  vector<string> envVariableToCheck;
+  envVariableToCheck.push_back("DYNAWO_INSTALL_DIR");
+  envVariableToCheck.push_back("DYNAWO_ADEPT_INSTALL_DIR");
+  envVariableToCheck.push_back("DYNAWO_SUITESPARSE_INSTALL_DIR");
+  envVariableToCheck.push_back("DYNAWO_SUNDIALS_INSTALL_DIR");
+  envVariableToCheck.push_back("DYNAWO_INSTALL_OPENMODELICA");
+  envVariableToCheck.push_back("DYNAWO_XERCESC_INSTALL_DIR");
+  envVariableToCheck.push_back("DYNAWO_LIBXML_HOME");
+  for (size_t i = 0, iEnd = envVariableToCheck.size(); i < iEnd; ++i) {
+    if (!hasEnvVar(envVariableToCheck[i]))
+      throw DYNError(DYN::Error::GENERAL, MissingEnvironmentVariable, envVariableToCheck[i]);
+  }
 
   ofstream cmakeFile(absolute("CMakeLists.txt", compilationDir).c_str(), ios::out | ios::trunc);
 

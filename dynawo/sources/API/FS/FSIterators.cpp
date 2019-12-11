@@ -26,19 +26,19 @@ using boost::shared_ptr;
 namespace finalState {
 
 finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateCollection::Impl* iterated, bool begin) {
-  impl_ = new ModelConstIteratorImpl(iterated, begin);
+  impl_ = new FinalStateModelConstIteratorImpl(iterated, begin);
 }
 
 finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateModel::Impl* iterated, bool begin) {
-  impl_ = new ModelConstIteratorImpl(iterated, begin);
+  impl_ = new FinalStateModelConstIteratorImpl(iterated, begin);
 }
 
 finalStateModel_const_iterator::finalStateModel_const_iterator(const THIS& original) {
-  impl_ = new ModelConstIteratorImpl(*(original.impl_));
+  impl_ = new FinalStateModelConstIteratorImpl(*(original.impl_));
 }
 
 finalStateModel_const_iterator::finalStateModel_const_iterator(const finalStateModel_iterator& original) {
-  impl_ = new ModelConstIteratorImpl(*(original.impl()));
+  impl_ = new FinalStateModelConstIteratorImpl(*(original.impl()));
 }
 
 finalStateModel_const_iterator::~finalStateModel_const_iterator() {
@@ -51,7 +51,7 @@ finalStateModel_const_iterator::operator=(const THIS& other) {
   if (this == &other)
     return *this;
   delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new ModelConstIteratorImpl(*(other.impl_));
+  impl_ = (other.impl_ == NULL)?NULL:new FinalStateModelConstIteratorImpl(*(other.impl_));
   return *this;
 }
 
@@ -178,15 +178,15 @@ finalStateVariable_const_iterator::operator->() const {
 }
 
 finalStateModel_iterator::finalStateModel_iterator(FinalStateCollection::Impl* iterated, bool begin) {
-  impl_ = new ModelIteratorImpl(iterated, begin);
+  impl_ = new FinalStateModelIteratorImpl(iterated, begin);
 }
 
 finalStateModel_iterator::finalStateModel_iterator(FinalStateModel::Impl* iterated, bool begin) {
-  impl_ = new ModelIteratorImpl(iterated, begin);
+  impl_ = new FinalStateModelIteratorImpl(iterated, begin);
 }
 
 finalStateModel_iterator::finalStateModel_iterator(const THIS& original) {
-  impl_ = new ModelIteratorImpl(*(original.impl_));
+  impl_ = new FinalStateModelIteratorImpl(*(original.impl_));
 }
 
 finalStateModel_iterator::~finalStateModel_iterator() {
@@ -199,7 +199,7 @@ finalStateModel_iterator::operator=(const THIS& other) {
   if (this == &other)
     return *this;
   delete impl_;
-  impl_ = (other.impl_ == NULL)?NULL:new ModelIteratorImpl(*(other.impl_));
+  impl_ = (other.impl_ == NULL)?NULL:new FinalStateModelIteratorImpl(*(other.impl_));
   return *this;
 }
 
@@ -249,7 +249,7 @@ finalStateModel_iterator::operator->() const {
   return impl_->operator->();
 }
 
-ModelIteratorImpl*
+FinalStateModelIteratorImpl*
 finalStateModel_iterator::impl() const {
   return impl_;
 }

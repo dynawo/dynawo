@@ -106,8 +106,8 @@ class FinalStateCollection::Impl : public FinalStateCollection {
   virtual finalStateVariable_iterator endVariable();
 
 
-  friend class ModelConstIteratorImpl;
-  friend class ModelIteratorImpl;
+  friend class FinalStateModelConstIteratorImpl;
+  friend class FinalStateModelIteratorImpl;
   friend class VariableConstIteratorImpl;
   friend class VariableIteratorImpl;
 

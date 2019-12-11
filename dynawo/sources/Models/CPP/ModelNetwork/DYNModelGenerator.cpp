@@ -22,7 +22,6 @@
 
 #include "DYNModelGenerator.h"
 #include "DYNModelBus.h"
-#include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNTimer.h"
 #include "DYNVariableForModel.h"
@@ -217,34 +216,22 @@ void
 ModelGenerator::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   string genName = id_;
   // ========  CONNECTION STATE ======
-  string name = genName + string("_state");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(genName + string("_state"), elements, mapElement);
 
   // ========  Active power target ======
-  name = genName + string("_Pc");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(genName + string("_Pc"), elements, mapElement);
 
   // ========  Reactive power target ======
-  name = genName + string("_Qc");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(genName + string("_Qc"), elements, mapElement);
 
   // ========  P VALUE  ======
-  name = genName + string("_P");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(genName + string("_P"), elements, mapElement);
 
   // ========  Q VALUE  ======
-  name = genName + string("_Q");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(genName + string("_Q"), elements, mapElement);
 
   // ========  state VALUE as continuous variable ======
-  name = genName + string("_genState");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(genName + string("_genState"), elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

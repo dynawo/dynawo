@@ -112,9 +112,9 @@ class FinalStateModel::Impl : public FinalStateModel {
    */
   virtual finalStateVariable_iterator endVariable();
 
-  friend class ModelConstIteratorImpl;
+  friend class FinalStateModelConstIteratorImpl;
   friend class VariableConstIteratorImpl;
-  friend class ModelIteratorImpl;
+  friend class FinalStateModelIteratorImpl;
   friend class VariableIteratorImpl;
 
  private:

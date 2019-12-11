@@ -26,7 +26,6 @@
 #include "DYNModelConstants.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"
-#include "DYNCommonModeler.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 #include "DYNTimer.h"
@@ -652,29 +651,19 @@ void
 ModelDanglingLine::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   string lineName = id_;
   // ===== OUTPUT_I =====
-  string name = lineName + string("_i");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(lineName + string("_i"), elements, mapElement);
 
   // ===== OUTPUT_P =====
-  name = lineName + string("_P");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(lineName + string("_P"), elements, mapElement);
 
   // ===== OUTPUT_Q =====
-  name = lineName + string("_Q");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(lineName + string("_Q"), elements, mapElement);
 
   // ========  CONNECTION STATE ======
-  name = lineName + string("_state");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(lineName + string("_state"), elements, mapElement);
 
   // ========= Desactivate_current_limit
-  name = lineName + string("_desactivate_currentLimits");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(lineName + string("_desactivate_currentLimits"), elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

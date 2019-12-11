@@ -24,10 +24,10 @@
 #include "FSModelImpl.h"
 
 namespace finalState {
-class Model;
+class FinalStateModel;
 class Variable;
-class ModelConstIteratorImpl;
-class ModelIteratorImpl;
+class FinalStateModelConstIteratorImpl;
+class FinalStateModelIteratorImpl;
 class VariableConstIteratorImpl;
 class VariableIteratorImpl;
 
@@ -157,7 +157,7 @@ class finalStateModel_const_iterator {
   const boost::shared_ptr<FinalStateModel>* operator->() const;
 
  private:
-  ModelConstIteratorImpl* impl_;  ///< Pointer to the implementation of the model const iterator;
+  FinalStateModelConstIteratorImpl* impl_;  ///< Pointer to the implementation of the model const iterator;
 };
 
 /**
@@ -281,10 +281,10 @@ class finalStateModel_iterator {
    * @brief Get the implementation ot the iterator
    * @return the implementation ot the iterator
    */
-  ModelIteratorImpl* impl() const;
+  FinalStateModelIteratorImpl* impl() const;
 
  private:
-  ModelIteratorImpl* impl_;  ///< Pointer to the implementation of the model iterator;
+  FinalStateModelIteratorImpl* impl_;  ///< Pointer to the implementation of the model iterator;
 };
 
 /**

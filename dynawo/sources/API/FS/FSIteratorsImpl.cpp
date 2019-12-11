@@ -24,64 +24,64 @@ using std::vector;
 
 namespace finalState {
 
-ModelConstIteratorImpl::ModelConstIteratorImpl(const FinalStateCollection::Impl* iterated, bool begin) {
+FinalStateModelConstIteratorImpl::FinalStateModelConstIteratorImpl(const FinalStateCollection::Impl* iterated, bool begin) {
   current_ = (begin ? iterated->models_.begin() : iterated->models_.end());
 }
 
-ModelConstIteratorImpl::ModelConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin) {
+FinalStateModelConstIteratorImpl::FinalStateModelConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin) {
   current_ = (begin ? iterated->subModels_.begin() : iterated->subModels_.end());
 }
 
-ModelConstIteratorImpl::ModelConstIteratorImpl(const ModelIteratorImpl& iterator) {
+FinalStateModelConstIteratorImpl::FinalStateModelConstIteratorImpl(const FinalStateModelIteratorImpl& iterator) {
   current_ = iterator.current();
 }
 
-ModelConstIteratorImpl::~ModelConstIteratorImpl() {
+FinalStateModelConstIteratorImpl::~FinalStateModelConstIteratorImpl() {
 }
 
-ModelConstIteratorImpl&
-ModelConstIteratorImpl::operator++() {
+FinalStateModelConstIteratorImpl&
+FinalStateModelConstIteratorImpl::operator++() {
   ++current_;
   return *this;
 }
 
-ModelConstIteratorImpl
-ModelConstIteratorImpl::operator++(int) {
-  ModelConstIteratorImpl previous = *this;
+FinalStateModelConstIteratorImpl
+FinalStateModelConstIteratorImpl::operator++(int) {
+  FinalStateModelConstIteratorImpl previous = *this;
   current_++;
   return previous;
 }
 
-ModelConstIteratorImpl&
-ModelConstIteratorImpl::operator--() {
+FinalStateModelConstIteratorImpl&
+FinalStateModelConstIteratorImpl::operator--() {
   --current_;
   return *this;
 }
 
-ModelConstIteratorImpl
-ModelConstIteratorImpl::operator--(int) {
-  ModelConstIteratorImpl previous = *this;
+FinalStateModelConstIteratorImpl
+FinalStateModelConstIteratorImpl::operator--(int) {
+  FinalStateModelConstIteratorImpl previous = *this;
   current_--;
   return previous;
 }
 
 bool
-ModelConstIteratorImpl::operator==(const ModelConstIteratorImpl& other) const {
+FinalStateModelConstIteratorImpl::operator==(const FinalStateModelConstIteratorImpl& other) const {
   return current_ == other.current_;
 }
 
 bool
-ModelConstIteratorImpl::operator!=(const ModelConstIteratorImpl& other) const {
+FinalStateModelConstIteratorImpl::operator!=(const FinalStateModelConstIteratorImpl& other) const {
   return current_ != other.current_;
 }
 
 const shared_ptr<FinalStateModel>&
-ModelConstIteratorImpl::operator*() const {
+FinalStateModelConstIteratorImpl::operator*() const {
   return *current_;
 }
 
 const shared_ptr<FinalStateModel>*
-ModelConstIteratorImpl::operator->() const {
+FinalStateModelConstIteratorImpl::operator->() const {
   return &(*current_);
 }
 
@@ -146,65 +146,65 @@ VariableConstIteratorImpl::operator->() const {
   return &(*current_);
 }
 
-ModelIteratorImpl::ModelIteratorImpl(FinalStateCollection::Impl* iterated, bool begin) {
+FinalStateModelIteratorImpl::FinalStateModelIteratorImpl(FinalStateCollection::Impl* iterated, bool begin) {
   current_ = (begin ? iterated->models_.begin() : iterated->models_.end());
 }
 
-ModelIteratorImpl::ModelIteratorImpl(FinalStateModel::Impl* iterated, bool begin) {
+FinalStateModelIteratorImpl::FinalStateModelIteratorImpl(FinalStateModel::Impl* iterated, bool begin) {
   current_ = (begin ? iterated->subModels_.begin() : iterated->subModels_.end());
 }
 
-ModelIteratorImpl::~ModelIteratorImpl() {
+FinalStateModelIteratorImpl::~FinalStateModelIteratorImpl() {
 }
 
-ModelIteratorImpl&
-ModelIteratorImpl::operator++() {
+FinalStateModelIteratorImpl&
+FinalStateModelIteratorImpl::operator++() {
   ++current_;
   return *this;
 }
 
-ModelIteratorImpl
-ModelIteratorImpl::operator++(int) {
-  ModelIteratorImpl previous = *this;
+FinalStateModelIteratorImpl
+FinalStateModelIteratorImpl::operator++(int) {
+  FinalStateModelIteratorImpl previous = *this;
   current_++;
   return previous;
 }
 
-ModelIteratorImpl&
-ModelIteratorImpl::operator--() {
+FinalStateModelIteratorImpl&
+FinalStateModelIteratorImpl::operator--() {
   --current_;
   return *this;
 }
 
-ModelIteratorImpl
-ModelIteratorImpl::operator--(int) {
-  ModelIteratorImpl previous = *this;
+FinalStateModelIteratorImpl
+FinalStateModelIteratorImpl::operator--(int) {
+  FinalStateModelIteratorImpl previous = *this;
   current_--;
   return previous;
 }
 
 bool
-ModelIteratorImpl::operator==(const ModelIteratorImpl& other) const {
+FinalStateModelIteratorImpl::operator==(const FinalStateModelIteratorImpl& other) const {
   return current_ == other.current_;
 }
 
 bool
-ModelIteratorImpl::operator!=(const ModelIteratorImpl& other) const {
+FinalStateModelIteratorImpl::operator!=(const FinalStateModelIteratorImpl& other) const {
   return current_ != other.current_;
 }
 
 shared_ptr<FinalStateModel>&
-ModelIteratorImpl::operator*() const {
+FinalStateModelIteratorImpl::operator*() const {
   return *current_;
 }
 
 shared_ptr<FinalStateModel>*
-ModelIteratorImpl::operator->() const {
+FinalStateModelIteratorImpl::operator->() const {
   return &(*current_);
 }
 
 vector<shared_ptr<FinalStateModel> >::iterator
-ModelIteratorImpl::current() const {
+FinalStateModelIteratorImpl::current() const {
   return current_;
 }
 

@@ -24,7 +24,6 @@
 #include "DYNModelStaticVarCompensator.h"
 
 #include "DYNModelBus.h"
-#include "DYNCommonModeler.h"
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
@@ -628,41 +627,18 @@ void
 ModelStaticVarCompensator::defineElements(vector<Element> &elements, map<string, int>& mapElement) {
   string svcName = id_;
   // ======= STATE VARIABLES ========
-  string name = svcName + string("_piIn");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  name = svcName + string("_piOut");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  name = svcName + string("_bSvc");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  name = svcName + string("_feedBack");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(svcName + string("_piIn"), elements, mapElement);
+  addElementWithValue(svcName + string("_piOut"), elements, mapElement);
+  addElementWithValue(svcName + string("_bSvc"), elements, mapElement);
+  addElementWithValue(svcName + string("_feedBack"), elements, mapElement);
 
   // ========  CALCULATED VARIABLE ======
-  name = svcName + string("_QProduced");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  addElementWithValue(svcName + string("_QProduced"), elements, mapElement);
 
-  // ========  MODE ======
-  name = svcName + string("_mode");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========  CONNECTION STATE ======
-  name = svcName + string("_state");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
-
-  // ========  U SET POINT ======
-  name = svcName + string("_uSetPoint");
-  addElement(name, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", name, Element::TERMINAL, elements, mapElement);
+  // ========  DISCRETE VARIABLE ======
+  addElementWithValue(svcName + string("_mode"), elements, mapElement);
+  addElementWithValue(svcName + string("_state"), elements, mapElement);
+  addElementWithValue(svcName + string("_uSetPoint"), elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

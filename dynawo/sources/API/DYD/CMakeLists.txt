@@ -51,6 +51,7 @@ SET(API_DYD_SOURCES
     DYDMacroStaticReferenceFactory.cpp
     DYDUnitDynamicModelFactory.cpp
     DYDUnitDynamicModelImpl.cpp
+    DYDWhiteBoxModelCommon.cpp
     DYDXmlExporter.cpp
     )
 
@@ -89,6 +90,7 @@ SET(API_DYD_INCLUDE_HEADERS
     DYDMacroStaticReferenceFactory.h
     DYDUnitDynamicModel.h
     DYDUnitDynamicModelFactory.h
+    DYDWhiteBoxModelCommon.h
     )
 
 ADD_LIBRARY(dynawo_API_DYD ${LIBRARY_TYPE} ${API_DYD_SOURCES})

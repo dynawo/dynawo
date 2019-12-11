@@ -24,6 +24,8 @@
 #include "DYNModelNetwork.h"
 #include "DYNMacrosMessage.h"
 #include "DYNParameter.h"
+#include "DYNElement.h"
+#include "DYNCommonModeler.h"
 
 using std::vector;
 using std::string;
@@ -164,6 +166,12 @@ std::string NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unor
   std::string value = "";
   findParameterDynamicNoThrow<std::string>(params, id, foundParam, ids, value);
   return value;
+}
+
+void
+NetworkComponent::Impl::addElementWithValue(string elementName, vector<Element>& elements, std::map<string, int>& mapElement) {
+  addElement(elementName, Element::STRUCTURE, elements, mapElement);
+  addSubElement("value", elementName, Element::TERMINAL, elements, mapElement);
 }
 
 }  // namespace DYN
