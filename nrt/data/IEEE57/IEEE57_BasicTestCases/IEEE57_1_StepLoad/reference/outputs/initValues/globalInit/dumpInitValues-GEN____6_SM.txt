@@ -1,53 +1,53 @@
  ====== INIT VARIABLES VALUES ======
-generator_lambdaDPu                               : y =       0.980253 yp =      -0.000087
-generator_lambdaQ1Pu                              : y =      -0.000000 yp =      -0.000065
-generator_lambdaQ2Pu                              : y =      -0.000000 yp =      -0.000310
-generator_lambdafPu                               : y =       1.065615 yp =       0.000016
+generator_lambdaDPu                               : y =       0.980253 yp =      -0.000119
+generator_lambdaQ1Pu                              : y =      -0.000000 yp =      -0.000066
+generator_lambdaQ2Pu                              : y =      -0.000000 yp =      -0.000316
+generator_lambdafPu                               : y =       1.065615 yp =       0.000022
 generator_omegaPu_value                           : y =       1.000000 yp =      -0.000007
 generator_omegaRefPu_value                        : y =       1.000000 yp =       0.000000
 generator_terminal_V_im                           : y =      -0.147758 yp =       0.000000
-generator_terminal_V_re                           : y =       0.968786 yp =       0.000000
+generator_terminal_V_re                           : y =       0.968782 yp =       0.000000
 generator_theta                                   : y =      -0.151323 yp =      -0.000000
-generator_IRotorPu_value                          : y =       0.982141 yp =       0.000000
-generator_IStatorPu_value                         : y =       0.009221 yp =       0.000000
-generator_PGen                                    : y =       0.086802 yp =       0.000000
-generator_PGenPu                                  : y =       0.000868 yp =       0.000000
-generator_PePu                                    : y =       0.000078 yp =       0.000000
-generator_QGen                                    : y =       0.899439 yp =       0.000000
-generator_QGenPu                                  : y =       0.008994 yp =       0.000000
-generator_QStatorPu_value                         : y =       0.008995 yp =       0.000000
-generator_QStatorPuQNom_value                     : y =       0.001843 yp =       0.000000
-generator_UPu                                     : y =       0.979989 yp =       0.000000
-generator_cePu                                    : y =       0.000078 yp =       0.000000
+generator_IRotorPu_value                          : y =       0.982150 yp =       0.000000
+generator_IStatorPu_value                         : y =       0.009331 yp =       0.000000
+generator_PGen                                    : y =       0.088664 yp =       0.000000
+generator_PGenPu                                  : y =       0.000887 yp =       0.000000
+generator_PePu                                    : y =       0.000079 yp =       0.000000
+generator_QGen                                    : y =       0.910145 yp =       0.000000
+generator_QGenPu                                  : y =       0.009101 yp =       0.000000
+generator_QStatorPu_value                         : y =       0.009102 yp =       0.000000
+generator_QStatorPuQNom_value                     : y =       0.001864 yp =       0.000000
+generator_UPu                                     : y =       0.979985 yp =       0.000000
+generator_cePu                                    : y =       0.000079 yp =       0.000000
 generator_cmPu                                    : y =       0.000000 yp =       0.000000
-generator_iDPu                                    : y =       0.000015 yp =       0.000000
+generator_iDPu                                    : y =       0.000021 yp =       0.000000
 generator_iQ1Pu                                   : y =       0.000025 yp =       0.000000
-generator_iQ2Pu                                   : y =       0.000051 yp =       0.000000
-generator_iStatorPu_im                            : y =       0.009207 yp =       0.000000
-generator_iStatorPu_re                            : y =       0.000508 yp =       0.000000
-generator_idPu                                    : y =      -0.000819 yp =       0.000000
-generator_ifPu                                    : y =       0.417755 yp =       0.000000
-generator_iqPu                                    : y =      -0.000079 yp =       0.000000
-generator_lambdadPu                               : y =       0.979989 yp =       0.000000
+generator_iQ2Pu                                   : y =       0.000053 yp =       0.000000
+generator_iStatorPu_im                            : y =       0.009318 yp =       0.000000
+generator_iStatorPu_re                            : y =       0.000506 yp =       0.000000
+generator_idPu                                    : y =      -0.000829 yp =       0.000000
+generator_ifPu                                    : y =       0.417759 yp =       0.000000
+generator_iqPu                                    : y =      -0.000081 yp =       0.000000
+generator_lambdadPu                               : y =       0.979985 yp =       0.000000
 generator_lambdaqPu                               : y =      -0.000032 yp =       0.000000
-generator_sStatorPu_im                            : y =      -0.008995 yp =       0.000000
-generator_sStatorPu_re                            : y =      -0.000868 yp =       0.000000
-generator_terminal_i_im                           : y =       0.009207 yp =       0.000000
-generator_terminal_i_re                           : y =       0.000508 yp =       0.000000
-generator_thetaInternal_value                     : y =       0.000029 yp =       0.000000
-generator_uStatorPu_im                            : y =      -0.147762 yp =       0.000000
-generator_uStatorPu_re                            : y =       0.968868 yp =       0.000000
+generator_sStatorPu_im                            : y =      -0.009102 yp =       0.000000
+generator_sStatorPu_re                            : y =      -0.000887 yp =       0.000000
+generator_terminal_i_im                           : y =       0.009318 yp =       0.000000
+generator_terminal_i_re                           : y =       0.000506 yp =       0.000000
+generator_thetaInternal_value                     : y =       0.000030 yp =       0.000000
+generator_uStatorPu_im                            : y =      -0.147763 yp =       0.000000
+generator_uStatorPu_re                            : y =       0.968865 yp =       0.000000
 generator_udPu                                    : y =       0.000029 yp =       0.000000
 generator_ufPu                                    : y =       0.000352 yp =       0.000000
-generator_uqPu                                    : y =       0.979989 yp =       0.000000
+generator_uqPu                                    : y =       0.979985 yp =       0.000000
 governor_PmRawPu_u2                               : y =       0.000000 yp =       0.000000
 governor_PmRawPu_y                                : y =       0.000000 yp =       0.000000
 governor_feedback_y                               : y =       0.000000 yp =       0.000000
 governor_limiter_y                                : y =       0.000000 yp =       0.000000
-voltageRegulator_EfdPu                            : y =       0.982283 yp =       0.000000
-voltageRegulator_UsPu                             : y =       0.980071 yp =       0.000000
-voltageRegulator_feedback_y                       : y =       0.049114 yp =       0.000000
-voltageRegulator_gain_y                           : y =       0.982283 yp =       0.000000
+voltageRegulator_EfdPu                            : y =       0.982342 yp =       0.000000
+voltageRegulator_UsPu                             : y =       0.980068 yp =       0.000000
+voltageRegulator_feedback_y                       : y =       0.049117 yp =       0.000000
+voltageRegulator_gain_y                           : y =       0.982342 yp =       0.000000
 generator_PmPu_value                              : alias of governor_limiter_y
 generator_UStatorPu_value                         : alias of voltageRegulator_UsPu
 generator_efdPu_value                             : alias of voltageRegulator_EfdPu
@@ -110,7 +110,7 @@ generator_LambdaQ10Pu                              =      -0.000000
 generator_LambdaQ20Pu                              =      -0.000000
 generator_Lambdad0Pu                               =       0.980000
 generator_Lambdaf0Pu                               =       1.065615
-generator_Lambdaq0Pu                               =      -0.000000
+generator_Lambdaq0Pu                               =       0.000000
 generator_LdPPu                                    =       0.219000
 generator_LfPPu                                    =       0.204340
 generator_LqPPu                                    =       0.219000

@@ -67,27 +67,6 @@ SolverCommon::copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const in
   return matrixStructChange;
 }
 
-void
-SolverCommon::printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shared_ptr<Model>& model,
-                   int nbErr, double tolerance) {
-  std::sort(fErr.begin(), fErr.end(), mapcompabs());
-
-  std::vector<std::pair<double, int> >::iterator it;
-  int i = 0;
-  for (it = fErr.begin(); it != fErr.end(); ++it) {
-    std::string subModelName("");
-    int subModelIndexF = 0;
-    std::string fEquation("");
-    model->getFInfos(it->second, subModelName, subModelIndexF, fEquation);
-
-    Trace::debug() << DYNLog(SolverKINErrorValue, tolerance, it->second, it->first,
-                             subModelName, subModelIndexF, fEquation) << Trace::endline;
-    if (i >= nbErr)
-      break;
-    ++i;
-  }
-}
-
 double SolverCommon::weightedInfinityNorm(const std::vector<double>& vec, const std::vector<double>& weights) {
   assert(vec.size() == weights.size() && "Vectors must have same length.");
   double norm = 0.;

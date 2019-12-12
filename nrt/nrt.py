@@ -569,7 +569,7 @@ class TestCase:
             # Get solver
             for solver in job.iter(namespaceDYN("solver")):
                 libSolver = solver.get("lib")
-                if libSolver == "libdynawo_SolverSIM":
+                if libSolver == "dynawo_SolverSIM":
                     current_job.solver_="Solver SIM"
                 else:
                     current_job.solver_="Solver IDA"

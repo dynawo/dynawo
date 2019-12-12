@@ -34,8 +34,8 @@ class ParametersSet;
 }
 
 namespace DYN {
-class SolverEulerKIN;
-class SolverKIN;
+class SolverKINEuler;
+class SolverKINAlgRestoration;
 
 /**
  * @brief SolverSIM factory class
@@ -178,7 +178,7 @@ class SolverSIM : public Solver::Impl {
    *
    * @return @b 0 if the solver found a solution
    */
-  int callSolverEulerKIN();
+  int callSolverKINEuler();
 
   /**
    * @brief update the solver attributes and strategy following a divergence
@@ -223,8 +223,8 @@ class SolverSIM : public Solver::Impl {
   void updateTimeStep(double& tNxt);
 
  private:
-  boost::shared_ptr<SolverEulerKIN> solverEulerKIN_;  ///< Backward Euler solver
-  boost::shared_ptr<SolverKIN> solverKIN_;  ///< Newton Raphson solver for the algebraic variables restoration
+  boost::shared_ptr<SolverKINEuler> solverKINEuler_;  ///< Backward Euler solver
+  boost::shared_ptr<SolverKINAlgRestoration> solverKINAlgRestoration_;  ///< Newton Raphson solver for the algebraic variables restoration
 
   // Generic and alterable parameters
   double hMin_;  ///< minimum time-step
@@ -234,7 +234,6 @@ class SolverSIM : public Solver::Impl {
   int nDeadband_;  ///< deadband (iterations number) to avoid too frequent step size variations
   int maxRootRestart_;  ///< maximum number of Newton resolutions leading to root changes for one time-step
   int maxNewtonTry_;  ///< maximum number of Newton resolutions for one time-step
-  std::string linearSolverName_;  ///< name of the linear solver (KLU or NICSLU at the moment)
   bool recalculateStep_;  ///< step recalculation in case of root detection
 
   double tEnd_;  ///< simulation end time
@@ -243,6 +242,31 @@ class SolverSIM : public Solver::Impl {
   long int nNewt_;  ///< number of newton iterations since the beginning of the simulation
   int countRestart_;  ///< current number of consecutive Newton resolutions leading to root changes
   bool factorizationForced_;  ///< force the Jacobian calculation due to an algebraic mode or a non convergence of the previous NR
+
+  // Parameters for the algebraic resolution at each time step
+  std::string linearSolverName_;  ///< name of the linear solver (KLU or NICSLU at the moment)
+  double fnormtol_;  ///< stopping tolerance on L2-norm of residual function
+  double scsteptol_;  ///< scaled step length tolerance
+  double mxnewtstep_;  ///< maximum allowable scaled step length
+  int msbset_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+  int mxiter_;  ///< maximum number of nonlinear iterations
+  int printfl_;  ///< level of verbosity of output
+
+  // Parameters for the algebraic restoration
+  double fnormtolAlg_;  ///< stopping tolerance on L2-norm of residual function
+  double scsteptolAlg_;  ///< scaled step length tolerance
+  double mxnewtstepAlg_;  ///< maximum allowable scaled step length
+  int msbsetAlg_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+  int mxiterAlg_;  ///< maximum number of nonlinear iterations
+  int printflAlg_;  ///< level of verbosity of output
+
+  // Parameters for the algebraic restoration with J recalculation
+  double fnormtolAlgJ_;  ///< stopping tolerance on L2-norm of residual function
+  double scsteptolAlgJ_;  ///< scaled step length tolerance
+  double mxnewtstepAlgJ_;  ///< maximum allowable scaled step length
+  int msbsetAlgJ_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+  int mxiterAlgJ_;  ///< maximum number of nonlinear iterations
+  int printflAlgJ_;  ///< level of verbosity of output
 
   std::vector<double> ySave_;  ///< values of state variables before step
   std::vector<double> ypSave_;  ///< values of derivative variables before step

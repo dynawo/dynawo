@@ -1,11 +1,11 @@
  ====== INIT VARIABLES VALUES ======
-load_terminal_V_im                                : y =      -0.090752 yp =       0.000000
-load_terminal_V_re                                : y =       1.041103 yp =       0.000000
-load_PPu                                          : y =       0.216993 yp =       0.000000
-load_QPu                                          : y =       0.126993 yp =       0.000000
-load_UPu_value                                    : y =       1.045051 yp =       0.000000
-load_terminal_i_im                                : y =      -0.139091 yp =       0.000000
-load_terminal_i_re                                : y =       0.196302 yp =       0.000000
+load_terminal_V_im                                : y =      -0.090748 yp =       0.000000
+load_terminal_V_re                                : y =       1.041071 yp =       0.000000
+load_PPu                                          : y =       0.216983 yp =       0.000000
+load_QPu                                          : y =       0.126984 yp =       0.000000
+load_UPu_value                                    : y =       1.045019 yp =       0.000000
+load_terminal_i_im                                : y =      -0.139085 yp =       0.000000
+load_terminal_i_re                                : y =       0.196299 yp =       0.000000
 load_SPu_im                                       : alias of load_QPu
 load_SPu_re                                       : alias of load_PPu
  ====== INIT DISCRETE VARIABLES VALUES ======

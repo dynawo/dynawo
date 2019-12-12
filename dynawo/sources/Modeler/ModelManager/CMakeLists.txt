@@ -40,7 +40,7 @@ TARGET_INCLUDE_DIRECTORIES(dynawo_ModelManager
 TARGET_LINK_LIBRARIES(dynawo_ModelManager
   PUBLIC
     dynawo_ModelerCommon
-    dynawo_SolverSubModel
+    dynawo_SolverKINSOL
     Modelica_externalC
 )
 

@@ -74,6 +74,18 @@ boost::shared_ptr<Solver> initSolver() {
   params->addParameter(parameters::ParameterFactory::newParameter("maxStep", 10.));
   params->addParameter(parameters::ParameterFactory::newParameter("absAccuracy", 1e-4));
   params->addParameter(parameters::ParameterFactory::newParameter("relAccuracy", 1e-4));
+  params->addParameter(parameters::ParameterFactory::newParameter("fnormtolAlg", 1e-4));
+  params->addParameter(parameters::ParameterFactory::newParameter("scsteptolAlg", 1e-4));
+  params->addParameter(parameters::ParameterFactory::newParameter("mxnewtstepAlg", 100000.));
+  params->addParameter(parameters::ParameterFactory::newParameter("msbsetAlg", 5));
+  params->addParameter(parameters::ParameterFactory::newParameter("mxiterAlg", 30));
+  params->addParameter(parameters::ParameterFactory::newParameter("printflAlg", 0));
+  params->addParameter(parameters::ParameterFactory::newParameter("fnormtolAlgJ", 1e-4));
+  params->addParameter(parameters::ParameterFactory::newParameter("scsteptolAlgJ", 1e-4));
+  params->addParameter(parameters::ParameterFactory::newParameter("mxnewtstepAlgJ", 100000.));
+  params->addParameter(parameters::ParameterFactory::newParameter("msbsetAlgJ", 1));
+  params->addParameter(parameters::ParameterFactory::newParameter("mxiterAlgJ", 50));
+  params->addParameter(parameters::ParameterFactory::newParameter("printflAlgJ", 0));
   solver->setParameters(params);
 
   return solver;
@@ -115,7 +127,7 @@ void compile(boost::shared_ptr<DynamicData> dyd) {
   cf.concatRefs();
 }
 
-boost::shared_ptr<Model> initModel(const double& tStart, Modeler modeler) {
+boost::shared_ptr<Model> initModel(Modeler modeler, const double& tStart = 0) {
   boost::shared_ptr<Model> model = modeler.getModel();
   model->initBuffers();
   model->setIsInitProcess(true);
@@ -163,17 +175,15 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   modeler.setDynamicData(dyd);
   modeler.initSystem();
 
-  boost::shared_ptr<Model> model = initModel(tStart, modeler);
+  boost::shared_ptr<Model> model = initModel(modeler, tStart);
 
   solver->init(model, tStart, tStop);
 
   return std::make_pair(solver, model);
 }
 
-std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
- const double& tStart, const double& tStop) {
-  boost::shared_ptr<Solver> solver = initSolver();
-  // DYD
+boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
+// DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
   fileNames.push_back(dydFileName);
@@ -187,8 +197,14 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
   modeler.setDynamicData(dyd);
   modeler.initSystem();
 
-  boost::shared_ptr<Model> model = initModel(tStart, modeler);
+  boost::shared_ptr<Model> model = initModel(modeler);
+  return model;
+}
 
+std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
+ const double& tStart, const double& tStop) {
+  boost::shared_ptr<Solver> solver = initSolver();
+  boost::shared_ptr<Model> model = initModelFromDyd(dydFileName);
   solver->init(model, tStart, tStop);
 
   return std::make_pair(solver, model);
@@ -407,5 +423,53 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   }
 }
 
+TEST(SimulationTest, testSolverIDAInit) {
+  boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverIDA" + std::string(sharedLibraryExtension()));
+  boost::shared_ptr<Model> model = initModelFromDyd("jobs/solverTestAlpha.dyd");
+
+  // IDASVtolerances
+  boost::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newInstance("MySolverParam");
+  params->addParameter(parameters::ParameterFactory::newParameter("order", 2));
+  params->addParameter(parameters::ParameterFactory::newParameter("initStep", 1.));
+  params->addParameter(parameters::ParameterFactory::newParameter("minStep", 1.));
+  params->addParameter(parameters::ParameterFactory::newParameter("maxStep", 10.));
+  params->addParameter(parameters::ParameterFactory::newParameter("absAccuracy", 1e-4));
+  params->addParameter(parameters::ParameterFactory::newParameter("relAccuracy", -1.));
+  solver->setParameters(params);
+  ASSERT_THROW_DYNAWO(solver->init(model, 0, 0), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorIDA);
+
+  // IDASetMinStep
+  boost::shared_ptr<parameters::ParametersSet> params2 = parameters::ParametersSetFactory::newInstance("MySolverParam");
+  params2->addParameter(parameters::ParameterFactory::newParameter("order", 2));
+  params2->addParameter(parameters::ParameterFactory::newParameter("initStep", 1.));
+  params2->addParameter(parameters::ParameterFactory::newParameter("minStep", -1.));
+  params2->addParameter(parameters::ParameterFactory::newParameter("maxStep", 10.));
+  params2->addParameter(parameters::ParameterFactory::newParameter("absAccuracy", 1e-4));
+  params2->addParameter(parameters::ParameterFactory::newParameter("relAccuracy", 1.));
+  solver->setParameters(params2);
+  ASSERT_THROW_DYNAWO(solver->init(model, 0, 0), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorIDA);
+
+  // IDASetMaxStep
+  boost::shared_ptr<parameters::ParametersSet> params3 = parameters::ParametersSetFactory::newInstance("MySolverParam");
+  params3->addParameter(parameters::ParameterFactory::newParameter("order", 2));
+  params3->addParameter(parameters::ParameterFactory::newParameter("initStep", 1.));
+  params3->addParameter(parameters::ParameterFactory::newParameter("minStep", 1.));
+  params3->addParameter(parameters::ParameterFactory::newParameter("maxStep", -10.));
+  params3->addParameter(parameters::ParameterFactory::newParameter("absAccuracy", 1e-4));
+  params3->addParameter(parameters::ParameterFactory::newParameter("relAccuracy", 1.));
+  solver->setParameters(params3);
+  ASSERT_THROW_DYNAWO(solver->init(model, 0, 0), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorIDA);
+
+  // IDASetMaxOrder
+  boost::shared_ptr<parameters::ParametersSet> params4 = parameters::ParametersSetFactory::newInstance("MySolverParam");
+  params4->addParameter(parameters::ParameterFactory::newParameter("order", -2));
+  params4->addParameter(parameters::ParameterFactory::newParameter("initStep", 1.));
+  params4->addParameter(parameters::ParameterFactory::newParameter("minStep", 1.));
+  params4->addParameter(parameters::ParameterFactory::newParameter("maxStep", 10.));
+  params4->addParameter(parameters::ParameterFactory::newParameter("absAccuracy", 1e-4));
+  params4->addParameter(parameters::ParameterFactory::newParameter("relAccuracy", 1.));
+  solver->setParameters(params4);
+  ASSERT_THROW_DYNAWO(solver->init(model, 0, 0), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorIDA);
+}
 
 }  // namespace DYN

@@ -38,7 +38,7 @@
 #include "DYNParameterModeler.h"
 #include "DYNModelManagerCommon.h"
 #include "DYNModelModelica.h"
-#include "DYNSolverSubModel.h"
+#include "DYNSolverKINSubModel.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTimer.h"
 #include "DYNTrace.h"
@@ -844,7 +844,7 @@ ModelManager::solveParameters() {
   if (sizeY() != sizeF())
     throw DYNError(Error::MODELER, SolverSubModelYvsF, name(), sizeY(), sizeF());
 
-  SolverSubModel solver;
+  SolverKINSubModel solver;
   solver.init(this, t0, y, f);
   do {
     zSave = zLocalInit_;

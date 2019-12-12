@@ -42,5 +42,5 @@ COMPILE_CPP_MODEL(${MODEL_NAME} "${MODEL_SOURCES}")
 
 TARGET_LINK_LIBRARIES(${MODEL_NAME}
   dynawo_DataInterface
-  dynawo_SolverSubModel
+  dynawo_SolverKINSOL
 )

@@ -187,12 +187,9 @@ CalculateIC                   =             calculate initial condition of the D
 EndCalculateIC                =             end of calculate initial condition of the DAE
 CalculateICIteration          =             initial condition iteration %1%
 // --> DYNSolverKIN
-SolverKINLargestErrors        =             largest errors (truncated to the first %1%)
-SolverKINErrorValue           =             error > %1% : F[%2%]=%3% (model=%4% index=%5% equation:%6%)
 SolverKINUnknownError         =             unknown error during KINSOL Solve
 SolverKINResidualNorm         =             newton iteration %1% : ||F(y_%1%)*Weight||_Infinity = %2% and ||F(y_%1%)*Weight||_2 = %3%
 MatrixStructureChange         =             call of SolverReInit ie a new symbolic and numerical factorization will be performed
-// --> DYNSolverEulerKIN
 KinsolSucceeded               =             KINSOL succeeded
 KinInitialGuessOk             =             the Initial user-supplied guess already satisfies the stopping criterion
 KinStepLtStpTol               =             the stopping tolerance on scaled step length was satisfied
@@ -210,7 +207,6 @@ KinLsolveFail                 =             the linear solver's solve function f
 KinSysFuncFail                =             the system function failed in an unrecoverable manner
 KinFirstSysFuncErr            =             the system function failed recoverably at the first call
 KinReptdSysfuncErr            =             the system function had repeated recoverable errors
-KinLargestErrors              =             largest errors (truncated to the first %1%) during divergence at time step (%2%)
 // --> others...
 LaunchingJob                  =             launching job '%1%'
 EndOfJob                      =             end of job '%1%'
