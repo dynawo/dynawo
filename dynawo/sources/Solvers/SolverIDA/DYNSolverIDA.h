@@ -33,7 +33,7 @@ class ParametersSet;
 }
 
 namespace DYN {
-class SolverKIN;
+class SolverKINAlgRestoration;
 /**
  * @brief SolverIDA factory class
  *
@@ -221,16 +221,32 @@ class SolverIDA : public Solver::Impl {
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver LS_;  ///< Linear Solver pointer
   SUNMatrix M_;  ///< sparse SUNMatrix
-  boost::shared_ptr<SolverKIN> solverKINNormal_;  ///< Newton Raphson solver for the algebraic variables restoration
-  boost::shared_ptr<SolverKIN> solverKINYPrim_;  ///< Newton-Raphson solver for the derivatives of the differential variables restoration
+  boost::shared_ptr<SolverKINAlgRestoration> solverKINNormal_;  ///< Newton Raphson solver for the algebraic variables restoration
+  boost::shared_ptr<SolverKINAlgRestoration> solverKINYPrim_;  ///< Newton-Raphson solver for the derivatives of the differential variables restoration
 
-  // parameters
+  // Time-domain parameters
   int order_;  ///< maximum order to use in the integration method
   double initStep_;  ///< initial step size
   double minStep_;  ///< minimal step size
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
+
+  // Parameters for the algebraic restoration
+  double fnormtolAlg_;  ///< stopping tolerance on L2-norm of residual function
+  double scsteptolAlg_;  ///< scaled step length tolerance
+  double mxnewtstepAlg_;  ///< maximum allowable scaled step length
+  int msbsetAlg_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+  int mxiterAlg_;  ///< maximum number of nonlinear iterations
+  int printflAlg_;  ///< level of verbosity of output
+
+  // Parameters for the algebraic restoration with J recalculation
+  double fnormtolAlgJ_;  ///< stopping tolerance on L2-norm of residual function
+  double scsteptolAlgJ_;  ///< scaled step length tolerance
+  double mxnewtstepAlgJ_;  ///< maximum allowable scaled step length
+  int msbsetAlgJ_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+  int mxiterAlgJ_;  ///< maximum number of nonlinear iterations
+  int printflAlgJ_;  ///< level of verbosity of output
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
 

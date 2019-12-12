@@ -69,7 +69,7 @@
 #include "DYNTrace.h"
 #include "DYNTimer.h"
 #include "DYNElement.h"
-#include "DYNSolverSubModel.h"
+#include "DYNSolverKINSubModel.h"
 
 
 using boost::shared_ptr;
@@ -986,11 +986,10 @@ ModelNetwork::initParams() {
   getY0();
 
   // solve initial problem
-  SolverSubModel solver;
-  solver.init(this, 0, &yLocalInit_[0], &fLocalInit_[0]);
+  SolverKINSubModel solver;
+  solver.init(this, 0, &yLocalInit_[0], &fLocalInit_[0], 5);
   /// generally, if the input is a network after a load flow, 5 iterations are enough to converge
   // otherwise, the network is not balanced, and the global init of the model would be necessary to compute switches currents
-  solver.setNbMaxIterations(5);
 
   try {
   solver.solve();

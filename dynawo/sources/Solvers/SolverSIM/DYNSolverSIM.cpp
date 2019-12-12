@@ -43,8 +43,8 @@
 
 #include "DYNMacrosMessage.h"
 #include "DYNSparseMatrix.h"
-#include "DYNSolverEulerKIN.h"
-#include "DYNSolverKIN.h"
+#include "DYNSolverKINEuler.h"
+#include "DYNSolverKINAlgRestoration.h"
 #include "DYNTrace.h"
 #include "DYNModel.h"
 
@@ -105,7 +105,7 @@ SolverSIMFactory::~SolverSIMFactory() {
 }
 
 SolverSIM::SolverSIM() {
-  solverKIN_.reset(new SolverKIN());
+  solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
 }
 
 SolverSIM::~SolverSIM() {
@@ -113,6 +113,7 @@ SolverSIM::~SolverSIM() {
 
 void
 SolverSIM::defineParameters() {
+  // Time-domain part parameters
   parameters_.insert(make_pair("hMin", ParameterSolver("hMin", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("hMax", ParameterSolver("hMax", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("kReduceStep", ParameterSolver("kReduceStep", VAR_TYPE_DOUBLE)));
@@ -120,8 +121,32 @@ SolverSIM::defineParameters() {
   parameters_.insert(make_pair("nDeadband", ParameterSolver("nDeadband", VAR_TYPE_INT)));
   parameters_.insert(make_pair("maxRootRestart", ParameterSolver("maxRootRestart", VAR_TYPE_INT)));
   parameters_.insert(make_pair("maxNewtonTry", ParameterSolver("maxNewtonTry", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("linearSolverName", ParameterSolver("linearSolverName", VAR_TYPE_STRING)));
   parameters_.insert(make_pair("recalculateStep", ParameterSolver("recalculateStep", VAR_TYPE_BOOL)));
+
+  // Parameters for the algebraic resolution at each time step
+  parameters_.insert(make_pair("linearSolverName", ParameterSolver("linearSolverName", VAR_TYPE_STRING)));
+  parameters_.insert(make_pair("fnormtol", ParameterSolver("fnormtol", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("scsteptol", ParameterSolver("scsteptol", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("mxnewtstep", ParameterSolver("mxnewtstep", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("msbset", ParameterSolver("msbset", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("mxiter", ParameterSolver("mxiter", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("printfl", ParameterSolver("printfl", VAR_TYPE_INT)));
+
+  // Parameters for the algebraic restoration
+  parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("scsteptolAlg", ParameterSolver("scsteptolAlg", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("mxnewtstepAlg", ParameterSolver("mxnewtstepAlg", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("msbsetAlg", ParameterSolver("msbsetAlg", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("mxiterAlg", ParameterSolver("mxiterAlg", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("printflAlg", ParameterSolver("printflAlg", VAR_TYPE_INT)));
+
+  // Parameters for the algebraic restoration with J recalculation
+  parameters_.insert(make_pair("fnormtolAlgJ", ParameterSolver("fnormtolAlgJ", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("scsteptolAlgJ", ParameterSolver("scsteptolAlgJ", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("mxnewtstepAlgJ", ParameterSolver("mxnewtstepAlgJ", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("msbsetAlgJ", ParameterSolver("msbsetAlgJ", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT)));
 }
 
 void
@@ -133,8 +158,65 @@ SolverSIM::setSolverParameters() {
   nDeadband_ = findParameter("nDeadband").getValue<int>();
   maxRootRestart_ = findParameter("maxRootRestart").getValue<int>();
   maxNewtonTry_ =  findParameter("maxNewtonTry").getValue<int>();
-  linearSolverName_ = findParameter("linearSolverName").getValue<std::string>();
   recalculateStep_ = findParameter("recalculateStep").getValue<bool>();
+
+  linearSolverName_ = findParameter("linearSolverName").getValue<std::string>();
+  fnormtol_ = 1e-4;
+  if (findParameter("fnormtol").hasValue())
+    fnormtol_ = findParameter("fnormtol").getValue<double>();
+  scsteptol_ = 1e-4;
+  if (findParameter("scsteptol").hasValue())
+    scsteptol_ = findParameter("scsteptol").getValue<double>();
+  mxnewtstep_ = 100000;
+  if (findParameter("mxnewtstep").hasValue())
+    mxnewtstep_ = findParameter("mxnewtstep").getValue<double>();
+  msbset_ = 0;
+  if (findParameter("msbset").hasValue())
+    msbset_ = findParameter("msbset").getValue<int>();
+  mxiter_ = 15;
+  if (findParameter("mxiter").hasValue())
+    mxiter_ = findParameter("mxiter").getValue<int>();
+  printfl_ = 0;
+  if (findParameter("printfl").hasValue())
+    printfl_ = findParameter("printfl").getValue<int>();
+
+  fnormtolAlg_ = 1e-4;
+  if (findParameter("fnormtolAlg").hasValue())
+    fnormtolAlg_ = findParameter("fnormtolAlg").getValue<double>();
+  scsteptolAlg_ = 1e-4;
+  if (findParameter("scsteptolAlg").hasValue())
+    scsteptolAlg_ = findParameter("scsteptolAlg").getValue<double>();
+  mxnewtstepAlg_ = 100000;
+  if (findParameter("mxnewtstepAlg").hasValue())
+    mxnewtstepAlg_ = findParameter("mxnewtstepAlg").getValue<double>();
+  msbsetAlg_ = 5;
+  if (findParameter("msbsetAlg").hasValue())
+    msbsetAlg_ = findParameter("msbsetAlg").getValue<int>();
+  mxiterAlg_ = 30;
+  if (findParameter("mxiterAlg").hasValue())
+    mxiterAlg_ = findParameter("mxiterAlg").getValue<int>();
+  printflAlg_ = 0;
+  if (findParameter("printflAlg").hasValue())
+    printflAlg_ = findParameter("printflAlg").getValue<int>();
+
+  fnormtolAlgJ_ = 1e-4;
+  if (findParameter("fnormtolAlgJ").hasValue())
+    fnormtolAlgJ_ = findParameter("fnormtolAlgJ").getValue<double>();
+  scsteptolAlgJ_ = 1e-4;
+  if (findParameter("scsteptolAlgJ").hasValue())
+    scsteptolAlgJ_ = findParameter("scsteptolAlgJ").getValue<double>();
+  mxnewtstepAlgJ_ = 100000;
+  if (findParameter("mxnewtstepAlgJ").hasValue())
+    mxnewtstepAlgJ_ = findParameter("mxnewtstepAlgJ").getValue<double>();
+  msbsetAlgJ_ = 1;
+  if (findParameter("msbsetAlgJ").hasValue())
+    msbsetAlgJ_ = findParameter("msbsetAlgJ").getValue<int>();
+  mxiterAlgJ_ = 50;
+  if (findParameter("mxiterAlgJ").hasValue())
+    mxiterAlgJ_ = findParameter("mxiterAlgJ").getValue<int>();
+  printflAlgJ_ = 0;
+  if (findParameter("printflAlgJ").hasValue())
+    printflAlgJ_ = findParameter("printflAlgJ").getValue<int>();
 }
 
 std::string
@@ -154,9 +236,9 @@ SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double 
   previousReinit_ = None;
 
   if (model->sizeY() != 0) {
-    solverEulerKIN_.reset(new SolverEulerKIN());
-    solverEulerKIN_->init(model, linearSolverName_);
-    solverEulerKIN_->setIdVars();
+    solverKINEuler_.reset(new SolverKINEuler());
+    solverKINEuler_->init(model, linearSolverName_, fnormtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_);
+    solverKINEuler_->setIdVars();
   }
 
   Solver::Impl::init(t0, model);
@@ -185,15 +267,15 @@ SolverSIM::calculateIC() {
   state_.reset();
   model_->reinitMode();
 
-  solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 200, 10, 0, 0, 0);
+  solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
 
   do {
     Trace::debug() << DYNLog(CalculateICIteration, counter) << Trace::endline;
 
     // Global initialization
-    solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
-    solverKIN_->solve();
-    solverKIN_->getValues(vYy_, vYp_);
+    solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
+    solverKINAlgRestoration_->solve();
+    solverKINAlgRestoration_->getValues(vYy_, vYp_);
 
     change = false;
     model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
@@ -214,7 +296,7 @@ SolverSIM::calculateIC() {
 
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;
 
-  solverKIN_->clean();
+  solverKINAlgRestoration_->clean();
 }
 
 void SolverSIM::solve(double /*tAim*/, double& tNxt) {
@@ -456,14 +538,14 @@ SolverSIM::solve() {
 
 int
 SolverSIM::SIMCorrection() {
-  int flag = callSolverEulerKIN();
+  int flag = callSolverKINEuler();
   return flag;
 }
 
 int
-SolverSIM::callSolverEulerKIN() {
+SolverSIM::callSolverKINEuler() {
   // Step initialization
-  solverEulerKIN_->setInitialValues(tSolve_, h_, vYy_);
+  solverKINEuler_->setInitialValues(tSolve_, h_, vYy_);
 
   // Forcing the Jacobian calculation for the next Newton-Raphson resolution
   bool noInitSetup = true;
@@ -471,16 +553,16 @@ SolverSIM::callSolverEulerKIN() {
     noInitSetup = false;
 
   // Call the solving method in Backward Euler method (Newton-Raphson resolution)
-  int flag = solverEulerKIN_->solve(noInitSetup);
+  int flag = solverKINEuler_->solve(noInitSetup);
 
   // Get updated y and yp values
   if (flag >= 0)
-    solverEulerKIN_->getValues(vYy_, vYp_);
+    solverKINEuler_->getValues(vYy_, vYp_);
 
   // Update statistics
   long int nre;
   long int nje;
-  solverEulerKIN_->updateStatistics(nNewt_, nre, nje);
+  solverKINEuler_->updateStatistics(nNewt_, nre, nje);
 
   stats_.nre_ += nre;
   stats_.nni_ += nNewt_;
@@ -581,26 +663,28 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
     bool noInitSetup = false;
     if (modeChangeType == ALGEBRAIC_MODE) {
       if (previousReinit_ == None) {
-        solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-4, 1e-4, 30, 1, 10, 100000, 0);
+        solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
+                                       scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
         previousReinit_ = Algebraic;
       } else if (previousReinit_ == AlgebraicWithJUpdate) {
-        solverKIN_->modifySettings(1e-4, 1e-4, 30, 10, 100000, 0);
+        solverKINAlgRestoration_->modifySettings(fnormtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
         previousReinit_ = Algebraic;
       }
       noInitSetup = true;
     } else {
       if (previousReinit_ == None) {
-        solverKIN_->init(model_, SolverKIN::KIN_NORMAL, 1e-4, 1e-4, 30, 1, 1, 100000, 0);
+        solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlgJ_,
+                                       scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
         previousReinit_ = AlgebraicWithJUpdate;
       } else if (previousReinit_ == Algebraic) {
-        solverKIN_->modifySettings(1e-4, 1e-4, 30, 1, 100000, 0);
+        solverKINAlgRestoration_->modifySettings(fnormtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
         previousReinit_ = AlgebraicWithJUpdate;
       }
     }
 
-    solverKIN_->setInitialValues(tSolve_, vYy_, vYp_);
-    solverKIN_->solve(noInitSetup);
-    solverKIN_->getValues(vYy_, vYp_);
+    solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
+    solverKINAlgRestoration_->solve(noInitSetup);
+    solverKINAlgRestoration_->getValues(vYy_, vYp_);
 
     // Root stabilization - tSolve_ has been updated in the solve method to the current time
     model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);

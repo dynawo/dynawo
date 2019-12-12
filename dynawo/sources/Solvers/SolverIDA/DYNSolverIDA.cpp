@@ -30,7 +30,6 @@
 
 #include <boost/shared_ptr.hpp>
 
-
 #include <ida/ida.h>
 #include <nvector/nvector_serial.h>
 #include <sundials/sundials_types.h>
@@ -45,7 +44,7 @@
 #include "DYNMacrosMessage.h"
 #include "DYNSparseMatrix.h"
 #include "DYNSolverIDA.h"
-#include "DYNSolverKIN.h"
+#include "DYNSolverKINAlgRestoration.h"
 #include "DYNTrace.h"
 #include "DYNTimer.h"
 #include "DYNSolverCommon.h"
@@ -134,8 +133,8 @@ SolverIDA::SolverIDA() {
   LS_ = NULL;
   // KINSOL solver Init
   //-----------------------
-  solverKINNormal_.reset(new SolverKIN());
-  solverKINYPrim_.reset(new SolverKIN());
+  solverKINNormal_.reset(new SolverKINAlgRestoration());
+  solverKINYPrim_.reset(new SolverKINAlgRestoration());
 
   lastRowVals_ = NULL;
   order_ = 0;
@@ -174,12 +173,29 @@ SolverIDA::~SolverIDA() {
 
 void
 SolverIDA::defineParameters() {
+  // Time-domain part parameters
   parameters_.insert(make_pair("order", ParameterSolver("order", VAR_TYPE_INT)));
   parameters_.insert(make_pair("initStep", ParameterSolver("initStep", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("minStep", ParameterSolver("minStep", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("maxStep", ParameterSolver("maxStep", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("absAccuracy", ParameterSolver("absAccuracy", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE)));
+
+  // Parameters for the algebraic restoration
+  parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("scsteptolAlg", ParameterSolver("scsteptolAlg", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("mxnewtstepAlg", ParameterSolver("mxnewtstepAlg", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("msbsetAlg", ParameterSolver("msbsetAlg", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("mxiterAlg", ParameterSolver("mxiterAlg", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("printflAlg", ParameterSolver("printflAlg", VAR_TYPE_INT)));
+
+  // Parameters for the algebraic restoration with J recalculation
+  parameters_.insert(make_pair("fnormtolAlgJ", ParameterSolver("fnormtolAlgJ", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("scsteptolAlgJ", ParameterSolver("scsteptolAlgJ", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("mxnewtstepAlgJ", ParameterSolver("mxnewtstepAlgJ", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("msbsetAlgJ", ParameterSolver("msbsetAlgJ", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT)));
 }
 
 void
@@ -190,6 +206,44 @@ SolverIDA::setSolverParameters() {
   maxStep_ = findParameter("maxStep").getValue<double>();
   absAccuracy_ = findParameter("absAccuracy").getValue<double>();
   relAccuracy_ = findParameter("relAccuracy").getValue<double>();
+
+  fnormtolAlg_ = 1e-4;
+  if (findParameter("fnormtolAlg").hasValue())
+    fnormtolAlg_ = findParameter("fnormtolAlg").getValue<double>();
+  scsteptolAlg_ = 1e-4;
+  if (findParameter("scsteptolAlg").hasValue())
+    scsteptolAlg_ = findParameter("scsteptolAlg").getValue<double>();
+  mxnewtstepAlg_ = 100000;
+  if (findParameter("mxnewtstepAlg").hasValue())
+    mxnewtstepAlg_ = findParameter("mxnewtstepAlg").getValue<double>();
+  msbsetAlg_ = 5;
+  if (findParameter("msbsetAlg").hasValue())
+    msbsetAlg_ = findParameter("msbsetAlg").getValue<int>();
+  mxiterAlg_ = 30;
+  if (findParameter("mxiterAlg").hasValue())
+    mxiterAlg_ = findParameter("mxiterAlg").getValue<int>();
+  printflAlg_ = 0;
+  if (findParameter("printflAlg").hasValue())
+    printflAlg_ = findParameter("printflAlg").getValue<int>();
+
+  fnormtolAlgJ_ = 1e-4;
+  if (findParameter("fnormtolAlgJ").hasValue())
+    fnormtolAlgJ_ = findParameter("fnormtolAlgJ").getValue<double>();
+  scsteptolAlgJ_ = 1e-4;
+  if (findParameter("scsteptolAlgJ").hasValue())
+    scsteptolAlgJ_ = findParameter("scsteptolAlgJ").getValue<double>();
+  mxnewtstepAlgJ_ = 100000;
+  if (findParameter("mxnewtstepAlgJ").hasValue())
+    mxnewtstepAlgJ_ = findParameter("mxnewtstepAlgJ").getValue<double>();
+  msbsetAlgJ_ = 1;
+  if (findParameter("msbsetAlgJ").hasValue())
+    msbsetAlgJ_ = findParameter("msbsetAlgJ").getValue<int>();
+  mxiterAlgJ_ = 50;
+  if (findParameter("mxiterAlgJ").hasValue())
+    mxiterAlgJ_ = findParameter("mxiterAlgJ").getValue<int>();
+  printflAlgJ_ = 0;
+  if (findParameter("printflAlgJ").hasValue())
+    printflAlgJ_ = findParameter("printflAlgJ").getValue<int>();
 }
 
 std::string
@@ -403,7 +457,7 @@ SolverIDA::calculateIC() {
   // loops until a stable state is found
   bool change(true);
   int counter = 0;
-  solverKINNormal_->init(model_, SolverKIN::KIN_NORMAL, 1e-5, 1e-5, 30, 10, 0, 0, 0);
+  solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
   do {
     // call to solver KIN in order to find the new (adequate) algebraic variables's values
     solverKINNormal_->setInitialValues(tSolve_, vYy_, vYp_);
@@ -740,23 +794,27 @@ SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
       bool noInitSetup = false;
       if (modeChangeType == ALGEBRAIC_MODE) {
         if (previousReinit_ == None) {
-          solverKINNormal_->init(model_, SolverKIN::KIN_NORMAL, 1e-4, 1e-4, 30, 1, 10, 100000, 0);
-          solverKINYPrim_->init(model_, SolverKIN::KIN_YPRIM, 1e-4, 1e-4, 30, 1, 10, 100000, 0);
+          solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
+                                 scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+          solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_YPRIM, fnormtolAlg_,
+                                scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
           previousReinit_ = Algebraic;
         } else if (previousReinit_ == AlgebraicWithJUpdate) {
-          solverKINNormal_->modifySettings(1e-4, 1e-4, 30, 10, 100000, 0);
-          solverKINYPrim_->modifySettings(1e-4, 1e-4, 30, 10, 100000, 0);
+          solverKINNormal_->modifySettings(fnormtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+          solverKINYPrim_->modifySettings(fnormtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
           previousReinit_ = Algebraic;
         }
         noInitSetup = true;
       } else {
         if (previousReinit_ == None) {
-          solverKINNormal_->init(model_, SolverKIN::KIN_NORMAL, 1e-4, 1e-4, 30, 1, 1, 100000, 0);
-          solverKINYPrim_->init(model_, SolverKIN::KIN_YPRIM, 1e-4, 1e-4, 30, 1, 1, 100000, 0);
+          solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlgJ_,
+                                 scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+          solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_YPRIM, fnormtolAlgJ_,
+                               scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
           previousReinit_ = AlgebraicWithJUpdate;
         } else if (previousReinit_ == Algebraic) {
-          solverKINNormal_->modifySettings(1e-4, 1e-4, 30, 1, 100000, 0);
-          solverKINYPrim_->modifySettings(1e-4, 1e-4, 30, 1, 100000, 0);
+          solverKINNormal_->modifySettings(fnormtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+          solverKINYPrim_->modifySettings(fnormtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
           previousReinit_ = AlgebraicWithJUpdate;
         }
       }

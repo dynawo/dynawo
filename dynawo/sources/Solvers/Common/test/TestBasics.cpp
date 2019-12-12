@@ -33,28 +33,28 @@ namespace DYN {
 
 TEST(SimulationCommonTest, testParameterSolver) {
   ParameterSolver psd("MyDoubleParam", VAR_TYPE_DOUBLE);
-  psd.setValue<double>(42.);
+  ASSERT_NO_THROW(psd.setValue<double>(42.));
   ASSERT_THROW_DYNAWO(psd.setValue<bool>(true), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psd.setValue<int>(4), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psd.setValue<std::string>("MyString"), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_DOUBLE_EQUALS_DYNAWO(42., psd.getDoubleValue());
 
   ParameterSolver psb("MyBoolParam", VAR_TYPE_BOOL);
-  psb.setValue<bool>(true);
+  ASSERT_NO_THROW(psb.setValue<bool>(true));
   ASSERT_THROW_DYNAWO(psb.setValue<double>(42.), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psb.setValue<int>(4), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psd.setValue<std::string>("MyString"), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_DOUBLE_EQUALS_DYNAWO(1., psb.getDoubleValue());
 
   ParameterSolver psi("MyIntParam", VAR_TYPE_INT);
-  psi.setValue<int>(4);
+  ASSERT_NO_THROW(psi.setValue<int>(4));
   ASSERT_THROW_DYNAWO(psi.setValue<double>(42.), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psi.setValue<bool>(true), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psd.setValue<std::string>("MyString"), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_DOUBLE_EQUALS_DYNAWO(4., psi.getDoubleValue());
 
   ParameterSolver pss("MyStringParam", VAR_TYPE_STRING);
-  pss.setValue<std::string>("MyString");
+  ASSERT_NO_THROW(pss.setValue<std::string>("MyString"));
   ASSERT_THROW_DYNAWO(pss.setValue<double>(42.), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(pss.setValue<bool>(true), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psb.setValue<int>(4), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);

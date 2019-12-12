@@ -46,16 +46,6 @@ class SolverCommon {
 static bool copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype * lastRowVals);
 
 /**
- * @brief Print the largest residuals errors
- *
- * @param fErr vector containing a pair with the residual function value and the global index of the residual function
- * @param model model currently simulated
- * @param nbErrors maximum number of errors to be displayed
- * @param tolerance tolerance over which an error is displayed
- */
-static void printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shared_ptr<Model>& model, int nbErrors, double tolerance);
-
-/**
  * @brief Compute the weighted infinity norm of a vector
  *
  * @param vec vector which norm is to be computed

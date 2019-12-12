@@ -24,7 +24,6 @@ ADD_CUSTOM_COMMAND(TARGET revisiontag COMMAND ${CMAKE_COMMAND}
    -DGIT_SOURCE_DIR=${DYNAWO_HOME}
    -P ${CMAKE_MODULE_PATH}/getgitheadrevision.cmake)
 
-
 IF(BUILD_TESTS)
   ADD_SUBDIRECTORY(API/CRV/test)
   ADD_SUBDIRECTORY(API/DYD/test)
@@ -39,6 +38,7 @@ IF(BUILD_TESTS)
   ADD_SUBDIRECTORY(Modeler/DataInterface/test)
   ADD_SUBDIRECTORY(Models/CPP/ModelNetwork/test)
   ADD_SUBDIRECTORY(Solvers/Common/test)
+  ADD_SUBDIRECTORY(Solvers/AlgebraicSolvers/test)
   ADD_SUBDIRECTORY(Solvers/SolverIDA/test)
   ADD_SUBDIRECTORY(Solvers/SolverSIM/test)
   ADD_SUBDIRECTORY(ModelicaCompiler/test)
