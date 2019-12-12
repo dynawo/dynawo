@@ -148,7 +148,7 @@ TEST(CommonTest, testFileSystemUtilsSearchModelicaModelsFileNotFound) {
   searchModelicaModels("res", "mo", false, filesFound);
   ASSERT_EQ(filesFound.empty(), true);
 }
-/*
+
 TEST(CommonTest, testFileSystemUtilsSearchModelicaModelsExistingFile) {
   std::vector<std::string> filesFound;
   searchModelicaModels("res", "mo", true, filesFound);
@@ -181,7 +181,7 @@ TEST(CommonTest, testFileSystemUtilsSearchModelicaModelsExistingFile) {
   }
   ASSERT_EQ(found, 1);
 }
-*/
+
 TEST(CommonTest, testFileSystemUtilsSearchModelsFiles) {
   std::vector<std::string> fileExtensionsForbidden;
   std::map<std::string, std::string> filesFound;
