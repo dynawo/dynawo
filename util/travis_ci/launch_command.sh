@@ -7,7 +7,7 @@ elif [ "$TRAVIS_EVENT_TYPE" = "push" ]; then
 elif [ "$TRAVIS_EVENT_TYPE" = "pull_request" ]; then
   PULL_REQUEST_NUM=$TRAVIS_PULL_REQUEST;
   SONAR_OPTIONS="-Dsonar.pullrequest.key=$PULL_REQUEST_NUM -Dsonar.pullrequest.branch=$TRAVIS_PULL_REQUEST_BRANCH -Dsonar.pullrequest.base=master -Donar.pullrequest.provider=GitHub -Dsonar.pullrequest.github.repository=dynawo/dynawo -Dsonar.pullrequest.github.endpoint=https://api.github.com/ -Dsonar.pullrequest.github.token.secured=$GITHUB_ACCESS_TOKEN"
-  echo -n "cd dynawo;/opt/sonar/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output ./util/envDynawo.sh build-tests-coverage;RETURN_CODE=\$?;if [ \${RETURN_CODE} -ne 0 ]; then exit \${RETURN_CODE}; fi;/opt/sonar/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner $SONAR_OPTIONS;"
+  echo -n "export DYNAWO_RESULTS_SHOW="false";cd dynawo;/opt/sonar/build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output ./util/envDynawo.sh build-tests-coverage;RETURN_CODE=\$?;if [ \${RETURN_CODE} -ne 0 ]; then exit \${RETURN_CODE}; fi;/opt/sonar/sonar-scanner-3.3.0.1492-linux/bin/sonar-scanner $SONAR_OPTIONS;"
 else
   echo -n "exit 1"
 fi
