@@ -29,12 +29,12 @@ getConnectionId(const string& model1, const string& var1,
   if (unitDynamicModelsMap.find(model2) == unitDynamicModelsMap.end())
     throw DYNError(DYN::Error::API, ConnectorNotPartofModel, model2, model1, id);
 
-  string pc_first = model1 + '_' + var1;
-  string pc_second = model2 + '_' + var2;
+  string connectionFirst = model1 + '_' + var1;
+  string connectionSecond = model2 + '_' + var2;
   // To build the connector Id, sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2
-  if (pc_first < pc_second)
-    return pc_first + '_' + pc_second;
-  return pc_second + '_' + pc_first;
+  if (connectionFirst < connectionSecond)
+    return connectionFirst + '_' + connectionSecond;
+  return connectionSecond + '_' + connectionFirst;
 }
 
 

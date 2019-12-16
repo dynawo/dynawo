@@ -54,39 +54,39 @@ MacroConnector::Impl::getConnectors() const {
 MacroConnector&
 MacroConnector::Impl::addConnect(const string& var1, const string& var2) {
   // To build the connector Id, sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2
-  string pc_Id;
+  string connectionId;
   if (var1 < var2)
-    pc_Id = var1 + '_' + var2;
+    connectionId = var1 + '_' + var2;
   else
-    pc_Id = var2 + '_' + var1;
+    connectionId = var2 + '_' + var1;
 
   // to avoid necessity to create MacroConnection::Impl default constructor
   std::pair<std::map<std::string, boost::shared_ptr<MacroConnection> >::iterator, bool> ret;
 #ifdef LANG_CXX11
-  ret = connectorsMap_.emplace(pc_Id, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2)));
+  ret = connectorsMap_.emplace(connectionId, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2)));
 #else
-  ret = connectorsMap_.insert(std::make_pair(pc_Id, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2))));
+  ret = connectorsMap_.insert(std::make_pair(connectionId, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2))));
 #endif
   if (!ret.second)
-    throw DYNError(DYN::Error::API, MacroConnectionIDNotUnique, pc_Id);
+    throw DYNError(DYN::Error::API, MacroConnectionIDNotUnique, connectionId);
   return *this;
 }
 
 MacroConnector&
 MacroConnector::Impl::addInitConnect(const string& var1, const string& var2) {
   // To build the connector Id, sort the string so as 1st_Model_ID is smaller than 2nd_Model_ID. EX: ID_1 < ID_2
-  string pc_Id;
+  string connectionId;
   if (var1 < var2)
-    pc_Id = var1 + '_' + var2;
+    connectionId = var1 + '_' + var2;
   else
-    pc_Id = var2 + '_' + var1;
+    connectionId = var2 + '_' + var1;
 
   // to avoid necessity to create MacroConnection::Impl default constructor
   std::pair<std::map<std::string, boost::shared_ptr<MacroConnection> >::iterator, bool> ret;
 #ifdef LANG_CXX11
-  ret = initConnectorsMap_.emplace(pc_Id, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2)));
+  ret = initConnectorsMap_.emplace(connectionId, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2)));
 #else
-  ret = initConnectorsMap_.insert(std::make_pair(pc_Id, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2))));
+  ret = initConnectorsMap_.insert(std::make_pair(connectionId, shared_ptr<MacroConnection>(MacroConnectionFactory::newMacroConnection(var1, var2))));
 #endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, MacroConnectionIDNotUnique, id_, var1, var2);
