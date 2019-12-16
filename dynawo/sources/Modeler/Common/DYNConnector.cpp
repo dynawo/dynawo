@@ -565,7 +565,7 @@ ConnectorContainer::evalJtPrimConnector(SparseMatrix& jt) {
     if (yc->connectedSubModels().empty()) {
       throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
     }
-    for (unsigned i = 0, iEnd = yc->connectedSubModels().size() - 1; i < iEnd; ++i) {
+    for (unsigned j = 0, jEnd = yc->connectedSubModels().size() - 1; j < jEnd; ++j) {
       jt.changeCol();
     }
   }
@@ -670,7 +670,7 @@ ConnectorContainer::evalFType() const {
     if (yc->connectedSubModels().empty()) {
       throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
     }
-    for (unsigned i = 0, iEnd = yc->connectedSubModels().size() - 1; i < iEnd; ++i) {
+    for (unsigned j = 0, jEnd = yc->connectedSubModels().size() - 1; j < jEnd; ++j) {
       fType_[offset] = ALGEBRIC_EQ;  // no differential equation in connector
       ++offset;
     }

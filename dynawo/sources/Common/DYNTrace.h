@@ -238,7 +238,6 @@ class Trace {
    * @code Trace::debug("MyTag") << "Hello world!" << Trace::endline; @endcode
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @return A TraceStream that can be used for stream-like logging.
-   * @todo Rename after removing old Trace functions.
    */
   static TraceStream debug(const std::string& tag = "");
 
@@ -249,7 +248,6 @@ class Trace {
    * @code Trace::info("MyTag") << "Hello world!" << Trace::endline; @endcode
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @return A TraceStream that can be used for stream-like logging.
-   * @todo Rename after removing old Trace functions.
    */
   static TraceStream info(const std::string& tag = "");
 
@@ -260,7 +258,6 @@ class Trace {
    * @code Trace::warn("MyTag") << "Hello world!" << Trace::endline; @endcode
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @return A TraceStream that can be used for stream-like logging.
-   * @todo Rename after removing old Trace functions.
    */
   static TraceStream warn(const std::string& tag = "");
 
@@ -271,7 +268,6 @@ class Trace {
    * @code Trace::error("MyTag") << "Hello world!" << Trace::endline; @endcode
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @return A TraceStream that can be used for stream-like logging.
-   * @todo Rename after removing old Trace functions.
    */
   static TraceStream error(const std::string& tag = "");
 
