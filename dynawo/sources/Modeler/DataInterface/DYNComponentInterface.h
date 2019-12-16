@@ -20,10 +20,10 @@
 #ifndef MODELER_DATAINTERFACE_DYNCOMPONENTINTERFACE_H_
 #define MODELER_DATAINTERFACE_DYNCOMPONENTINTERFACE_H_
 
-#include <map>
 #include <string>
 #include <vector>
 #include <boost/shared_ptr.hpp>
+#include <boost/unordered_map.hpp>
 
 namespace DYN {
 
@@ -192,7 +192,7 @@ class ComponentInterface {
 
  protected:
   std::vector<StateVariable> stateVariables_;  ///< state variable
-  std::map<std::string, StaticParameter> staticParameters_;  ///< static parameter by name, from iidm data
+  boost::unordered_map<std::string, StaticParameter> staticParameters_;  ///< static parameter by name, from iidm data
 
  private:
   bool hasDynamicModel_;  ///< @b true is component has a dynamic model (other than c++ one), @b false else

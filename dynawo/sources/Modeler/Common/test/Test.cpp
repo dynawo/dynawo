@@ -907,34 +907,46 @@ TEST(ModelerCommonTest, testModeHandling) {
 
   std::vector<double> y, yp, z;
   double time = 0;
-  modelMulti->evalMode(time, y, yp, z);
+  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), false);
   ASSERT_EQ(modelMulti->getModeChangeType(), NO_MODE);
 
   modelMulti->reinitMode();
   time = 1;
-  modelMulti->evalMode(time, y, yp, z);
+  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), DIFFERENTIAL_MODE);
   // Emulating the behavior in the evalZMode method (calling the method several times without reinitializing the modes)
   time = 2;
-  modelMulti->evalMode(time, y, yp, z);
+  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
   time = 5;
-  modelMulti->evalMode(time, y, yp, z);
+  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), false);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
   ASSERT_EQ(subModel->evalModeSub(time), NO_MODE);
   ASSERT_EQ(subModel->modeChange(), false);
   time = 1;
-  modelMulti->evalMode(time, y, yp, z);
+  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), false);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
   ASSERT_EQ(subModel->evalModeSub(time), DIFFERENTIAL_MODE);
   ASSERT_EQ(subModel->modeChange(), false);
   time = 4;
-  modelMulti->evalMode(time, y, yp, z);
+  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
   ASSERT_EQ(subModel->modeChange(), true);
@@ -943,13 +955,17 @@ TEST(ModelerCommonTest, testModeHandling) {
 
   modelMulti->reinitMode();
   time = 2;
-  modelMulti->evalMode(time, y, yp, z);
+  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_MODE);
 
   modelMulti->reinitMode();
   time = 3;
-  modelMulti->evalMode(time, y, yp, z);
+  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), DIFFERENTIAL_MODE);
   ASSERT_EQ(subModel->modeChange(), true);
@@ -957,7 +973,9 @@ TEST(ModelerCommonTest, testModeHandling) {
 
   modelMulti->reinitMode();
   time = 4;
-  modelMulti->evalMode(time, y, yp, z);
+  modelMulti->copyContinuousVariables(&y[0], &yp[0]);
+  modelMulti->copyDiscreteVariables(&z[0]);
+  modelMulti->evalMode(time);
   ASSERT_EQ(modelMulti->modeChange(), true);
   ASSERT_EQ(modelMulti->getModeChangeType(), ALGEBRAIC_J_UPDATE_MODE);
 

@@ -80,26 +80,25 @@ ModelVoltageLevel::addSwitch(const shared_ptr<ModelSwitch>& sw) {
 void
 ModelVoltageLevel::defineGraph() {
   graph_ = Graph();
+  weights1_.clear();
 
   // add vertex to voltage level graph
-  map<int, shared_ptr<ModelBus> >::const_iterator itBus;
-  for (itBus = busesByIndex_.begin(); itBus != busesByIndex_.end(); ++itBus) {
+  for (map<int, shared_ptr<ModelBus> >::const_iterator  itBus = busesByIndex_.begin(); itBus != busesByIndex_.end(); ++itBus) {
     graph_->addVertex(itBus->first);
   }
 
   // add edges to voltage level graph
-  vector<shared_ptr<ModelSwitch> >::const_iterator itSw;
-  for (itSw = switches_.begin(); itSw != switches_.end(); ++itSw) {
+  for (vector<shared_ptr<ModelSwitch> >::const_iterator itSw = switches_.begin(); itSw != switches_.end(); ++itSw) {
     int node1 = (*itSw)->getModelBus1()->getBusIndex();
     int node2 = (*itSw)->getModelBus2()->getBusIndex();
     graph_->addEdge(node1, node2, (*itSw)->id());
+    weights1_[(*itSw)->id()] = 1;
   }
 }
 
 void
 ModelVoltageLevel::setInitialSwitchCurrents() {
-  vector<shared_ptr<ModelSwitch> >::const_iterator itSw;
-  for (itSw = switches_.begin(); itSw != switches_.end(); ++itSw) {
+  for (vector<shared_ptr<ModelSwitch> >::const_iterator itSw = switches_.begin(); itSw != switches_.end(); ++itSw) {
     (*itSw)->setInitialCurrents();
   }
 }
@@ -125,8 +124,7 @@ ModelVoltageLevel::computeLoops() {
   map< int, vector< shared_ptr<ModelBus> > > busByRefIslands;
 
   // iterate on all the voltage levels switches
-  vector<shared_ptr<ModelSwitch> >::const_iterator itSwitch;
-  for (itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
+  for (vector<shared_ptr<ModelSwitch> >::const_iterator itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
     // init
     (*itSwitch)->inLoop(false);
     // If the switch is closed we get the island index of its nodes and we compare them
@@ -167,8 +165,8 @@ ModelVoltageLevel::computeLoops() {
   }
 }
 
-pair<unsigned int, vector<string> >
-ModelVoltageLevel::findClosestBBS(const unsigned int node) {
+unsigned int
+ModelVoltageLevel::findClosestBBS(const unsigned int node, vector<string>& shortestPath) {
   // This method should return the index of the closest bus bar section and the path to it
   // this function should not be called if not in node breaker topology
   if (topologyKind_ != VoltageLevelInterface::NODE_BREAKER)
@@ -179,20 +177,12 @@ ModelVoltageLevel::findClosestBBS(const unsigned int node) {
     defineGraph();
   }
 
-  // define a weight of 1 for each switch inside the voltage level
-  map<string, float> weights;
-  vector<shared_ptr<ModelSwitch> >::const_iterator itSwitch;
-  for (itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
-    weights[(*itSwitch)->id()] = 1;
-  }
-
   // find the shortest path between the node and the bus bar section
   unsigned int nodeClosestBBS = std::numeric_limits<unsigned>::max();
-  vector<string> shortestPath;
-  vector<boost::shared_ptr<ModelBus> >::const_iterator itBBS;
-  for (itBBS = busesWithBBS_.begin(); itBBS != busesWithBBS_.end(); ++itBBS) {
+  for (vector<boost::shared_ptr<ModelBus> >::const_iterator itBBS = busesWithBBS_.begin(); itBBS != busesWithBBS_.end(); ++itBBS) {
     int nodeBBS = (*itBBS)->getBusIndex();
-    vector<string> ret = graph_->shortestPath(node, nodeBBS, weights);
+    vector<string> ret;
+    graph_->shortestPath(node, nodeBBS, weights1_, ret);
     for (unsigned int i = 0; i < ret.size(); ++i) {
       if (!ret.empty() && (ret.size() < shortestPath.size() || shortestPath.size() == 0)) {
         nodeClosestBBS = nodeBBS;
@@ -200,7 +190,7 @@ ModelVoltageLevel::findClosestBBS(const unsigned int node) {
       }
     }
   }
-  return pair<unsigned int, vector<string> >(nodeClosestBBS, shortestPath);
+  return nodeClosestBBS;
 }
 
 bool
@@ -215,7 +205,8 @@ ModelVoltageLevel::isClosestBBSSwitchedOff(const shared_ptr<ModelBus>& bus) {
       return bus->getSwitchOff();
     } else {              // if the bus has no bus bar section, find the closest one and check if it is switched off
       const unsigned int node = bus->getBusIndex();
-      const unsigned int nodeBBS = findClosestBBS(node).first;
+      vector<string> shortestPath;
+      const unsigned int nodeBBS = findClosestBBS(node, shortestPath);
 
       map<int, shared_ptr<ModelBus> >::const_iterator itBus = busesByIndex_.find(nodeBBS);
       if (itBus == busesByIndex_.end())
@@ -234,11 +225,11 @@ ModelVoltageLevel::connectNode(const unsigned int nodeToConnect) {
 //  This method should do nothing if not in node breaker topology
   if (topologyKind_ == VoltageLevelInterface::NODE_BREAKER) {
     // find the shortest path between the node to connect and the bus bar section
-    vector<string> shortestPath = findClosestBBS(nodeToConnect).second;
+    vector<string> shortestPath;
+    findClosestBBS(nodeToConnect, shortestPath);
 
     // iterate on the shortest path found and close identified switches
-    vector<string>::iterator itSwitchName;
-    for (itSwitchName = shortestPath.begin(); itSwitchName != shortestPath.end(); ++itSwitchName) {
+    for (vector<string>::const_iterator itSwitchName = shortestPath.begin(); itSwitchName != shortestPath.end(); ++itSwitchName) {
       shared_ptr<ModelSwitch> sw = switchesById_.find(*itSwitchName)->second;
       sw->close();
     }
@@ -257,23 +248,21 @@ ModelVoltageLevel::disconnectNode(const unsigned int nodeToDisconnect) {
     vector<shared_ptr<ModelBus> >::const_iterator itBBS;
     for (itBBS = busesWithBBS_.begin(); itBBS != busesWithBBS_.end(); ++itBBS) {
       // define a weight for each switch inside the voltage level depending on their connection state
-      map<string, float> weights;
-      vector<shared_ptr<ModelSwitch> >::const_iterator itSwitch;
-      for (itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
+      boost::unordered_map<string, float> weights;
+      for (vector<shared_ptr<ModelSwitch> >::const_iterator itSwitch = switches_.begin(); itSwitch != switches_.end(); ++itSwitch) {
         weights[(*itSwitch)->id()] = ((*itSwitch)->getConnectionState() == OPEN) ? 0 : 1;
       }
 
       // find all path between the node to disconnect and the closest bus bar section
       int nodeBBS = (*itBBS)->getBusIndex();
-      list<vector<string> > paths = graph_->findAllPaths(nodeToDisconnect, nodeBBS, weights);
+      list<vector<string> > paths;
+      graph_->findAllPaths(nodeToDisconnect, nodeBBS, weights, paths);
 
       // iterate on the paths found, then open first identified switch
-      list<vector<string> >::const_iterator iter;
-      for (iter = paths.begin(); iter != paths.end(); ++iter) {
-        vector<string> path = *iter;
-        vector<string>::iterator itSwitchName = path.begin();
-        if (itSwitchName != path.end()) {
-          shared_ptr<ModelSwitch> sw = switchesById_.find(*itSwitchName)->second;
+      for (list<vector<string> >::const_iterator iter = paths.begin(); iter != paths.end(); ++iter) {
+        const vector<string>& path = *iter;
+        if (!path.empty()) {
+          shared_ptr<ModelSwitch> sw = switchesById_.find(*path.begin())->second;
           sw->open();
         }
       }

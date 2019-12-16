@@ -231,7 +231,9 @@ ModelManager::getSize() {
 
 void
 ModelManager::evalF(const double & t) {
+#ifdef _DEBUG_
   Timer timer("ModelManager::evalF");
+#endif
   setManagerTime(t);
 
   modelModelica()->setFomc(fLocal_);
@@ -239,7 +241,9 @@ ModelManager::evalF(const double & t) {
 
 void
 ModelManager::checkDataCoherence(const double & t) {
+#ifdef _DEBUG_
   Timer timer("ModelManager::checkDataCoherence");
+#endif
 
   setManagerTime(t);
 

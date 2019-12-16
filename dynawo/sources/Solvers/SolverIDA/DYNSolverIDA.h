@@ -99,14 +99,9 @@ class SolverIDA : public Solver::Impl {
   void init(const boost::shared_ptr<Model> & model, const double & t0, const double & tEnd);
 
   /**
-   * @copydoc Solver::solve(double tAim, double &tNxt)
+   * @copydoc Solver::reinit()
    */
-  void solve(double tAim, double &tNxt);
-
-  /**
-   * @copydoc Solver::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt)
-   */
-  void reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt);
+  void reinit();
 
   /**
    * @copydoc Solver::calculateIC()
@@ -234,6 +229,12 @@ class SolverIDA : public Solver::Impl {
    * @param flag flag to analyse
    */
   void analyseFlag(const int & flag);
+
+ protected:
+  /**
+   * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
+   */
+  void solveStep(double tAim, double &tNxt);
 
  private:
   void* IDAMem_;  ///< IDA internal memory structure

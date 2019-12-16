@@ -393,7 +393,9 @@ SolverIDA::calculateIC() {
   ySave.assign(vYy_.begin(), vYy_.end());
 
   // Updating discrete variable values and mode
-  model_->evalG(tSolve_, vYy_, vYp_, vYz_, g0_);
+  model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+  model_->copyDiscreteVariables(&vYz_[0]);
+  model_->evalG(tSolve_, g0_);
   evalZMode(g0_, g1_, tSolve_);
 
   model_->rotateBuffers();
@@ -446,7 +448,9 @@ SolverIDA::calculateIC() {
 #endif
     // Root stabilization
     change = false;
-    model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
+    model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+    model_->copyDiscreteVariables(&vYz_[0]);
+    model_->evalG(tSolve_, g1_);
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
     if (rootFound) {
       g0_.assign(g1_.begin(), g1_.end());
@@ -568,17 +572,14 @@ SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype *gout,
 #endif
   realtype *iyy = NV_DATA_S(yy);
   realtype *iyp = NV_DATA_S(yp);
-  int yL = NV_LENGTH_S(yy);
-  int ypL = NV_LENGTH_S(yp);
-  // transmitted to a vector
-  vector<double> Y(iyy, iyy + yL);
-  vector<double> YP(iyp, iyp + ypL);
   // the current z is needed to evaluate g
   // however, the method is static -> we use mod
   vector<double> Z = solv->getCurrentZ();
   vector<state_g> G(model->sizeG());
 
-  model->evalG(tres, Y, YP, Z, G);
+  model->copyContinuousVariables(iyy, iyp);
+  model->copyDiscreteVariables(&Z[0]);
+  model->evalG(tres, G);
 
   vector<double> gIDA(G.begin(), G.end());
   // copy to be accessible by sundials
@@ -607,14 +608,15 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   SparseMatrix smj;
   int size = model->sizeY();
   smj.init(size, size);
-  model->evalJt(tt, iyy, iyp, cj, smj);
+  model->copyContinuousVariables(iyy, iyp);
+  model->evalJt(tt, cj, smj);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, solv->lastRowVals_, solv->LS_, "KLU", true);
 
   return (0);
 }
 
 void
-SolverIDA::solve(double tAim, double &tNxt) {
+SolverIDA::solveStep(double tAim, double &tNxt) {
   int flag = IDASolve(IDAMem_, tAim, &tNxt, yy_, yp_, IDA_ONE_STEP);
 
   string msg;
@@ -649,7 +651,9 @@ SolverIDA::solve(double tAim, double &tNxt) {
 #endif
 
     // Propagating the root change
-    model_->evalG(tNxt, vYy_, vYp_, vYz_, g0_);
+    model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+    model_->copyDiscreteVariables(&vYz_[0]);
+    model_->evalG(tNxt, g0_);
     ++stats_.nge_;
     evalZMode(g0_, g1_, tNxt);
   }
@@ -715,7 +719,7 @@ SolverIDA::solve(double tAim, double &tNxt) {
  * a simple reinitialization of the solver.
  */
 void
-SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
+SolverIDA::reinit() {
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
 
@@ -774,7 +778,9 @@ SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
       solverKINYPrim_->getValues(vYy_, vYp_);
 
       // Root stabilization
-      model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
+      model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+      model_->copyDiscreteVariables(&vYz_[0]);
+      model_->evalG(tSolve_, g1_);
       ++stats_.nge_;
       bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
       if (rootFound) {
@@ -797,10 +803,6 @@ SolverIDA::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
   int flag0 = IDAReInit(IDAMem_, tSolve_, yy_, yp_);  // required to relaunch the simulation
   if (flag0 < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAReinit");
-
-  // saving the new step
-  yNxt = vYy_;
-  ypNxt = vYp_;
 }
 
 vector<state_g>

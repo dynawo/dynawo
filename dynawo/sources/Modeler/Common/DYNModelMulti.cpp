@@ -341,11 +341,24 @@ ModelMulti::zChange(bool /*zChange*/) {
   // not yet coded .. is this function necessary?
 }
 
+
 void
-ModelMulti::evalF(const double t, double* y, double* yp, double* f) {
-  Timer timer("ModelMulti::evalF");
+ModelMulti::copyContinuousVariables(double* y, double* yp) {
   std::copy(y, y + sizeY() , yLocal_);
   std::copy(yp, yp + sizeY(), ypLocal_);
+}
+
+void
+ModelMulti::copyDiscreteVariables(double* z) {
+  std::copy(z, z + sizeZ(), zLocal_);
+}
+
+void
+ModelMulti::evalF(const double t, double* y, double* yp, double* f) {
+#ifdef _DEBUG_
+  Timer timer("ModelMulti::evalF");
+#endif
+  copyContinuousVariables(y, yp);
 
   Timer * timer2 = new Timer("ModelMulti::evalF_subModels");
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
@@ -362,14 +375,10 @@ ModelMulti::evalF(const double t, double* y, double* yp, double* f) {
 }
 
 void
-ModelMulti::evalG(const double & t, const vector<double> &y, const vector<double> &yp,
-        const vector<double> &z, vector<state_g> &g) {
+ModelMulti::evalG(double t, vector<state_g> &g) {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::evalG");
-
-  std::copy(y.begin(), y.end(), yLocal_);
-  std::copy(yp.begin(), yp.end(), ypLocal_);
-  std::copy(z.begin(), z.end(), zLocal_);
-
+#endif
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->evalGSub(t);
 
@@ -377,11 +386,10 @@ ModelMulti::evalG(const double & t, const vector<double> &y, const vector<double
 }
 
 void
-ModelMulti::evalJt(const double t, double* y, double* yp, const double cj, SparseMatrix& Jt) {
-  std::copy(y, y + sizeY() , yLocal_);
-  std::copy(yp, yp + sizeY(), ypLocal_);
-
+ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::evalJt");
+#endif
   int rowOffset = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     subModels_[i]->evalJtSub(t, cj, Jt, rowOffset);
@@ -401,10 +409,7 @@ ModelMulti::evalJt(const double t, double* y, double* yp, const double cj, Spars
 }
 
 void
-ModelMulti::evalJtPrim(const double t, double* y, double* yp, const double cj, SparseMatrix& JtPrim) {
-  std::copy(y, y + sizeY() , yLocal_);
-  std::copy(yp, yp + sizeY(), ypLocal_);
-
+ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) {
   int rowOffset = 0;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     subModels_[i]->evalJtPrimSub(t, cj, JtPrim, rowOffset);
@@ -420,13 +425,12 @@ ModelMulti::evalJtPrim(const double t, double* y, double* yp, const double cj, S
 }
 
 void
-ModelMulti::evalZ(const double & t, const vector<double> &y, const vector<double> &yp,
-        vector<double> &z) {
+ModelMulti::evalZ(double t, vector<double> &z) {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::evalZ");
+#endif
   if (sizeZ() == 0) return;
 
-  std::copy(y.begin(), y.end(), yLocal_);
-  std::copy(yp.begin(), yp.end(), ypLocal_);
   std::copy(z.begin(), z.end(), zLocal_);
 
   // calculate Z by model
@@ -460,18 +464,17 @@ ModelMulti::copieResultZ(vector<double> & z) {
 }
 
 void
-ModelMulti::evalMode(const double & t, const vector<double> &y, const vector<double> &yp,
-        const vector<double> &z) {
+ModelMulti::evalMode(double t) {
   Timer timer("ModelMulti::evalMode");
-  std::copy(y.begin(), y.end(), yLocal_);
-  std::copy(yp.begin(), yp.end(), ypLocal_);
-  std::copy(z.begin(), z.end(), zLocal_);
-
   /* modeChange_ has to be set at each evalMode call
    *  -> it indicates if there has been a mode change for this call
    * modeChangeType_ is the worst mode change for a complete time step (possibly several evalMode calls)
    *   -> it is reinitialized by the solvers at the end of the time step
   */
+#ifdef _DEBUG_
+  std::vector<double> z(sizeZ());
+  std::copy(zLocal_, zLocal_ + sizeZ(), z.begin());
+#endif
   modeChange_ = false;
   modeChangeType_t modeChangeType = NO_MODE;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {

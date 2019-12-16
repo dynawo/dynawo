@@ -489,6 +489,9 @@ class ModelLine : public NetworkComponent::Impl {
   double ii01_;  ///< initial imaginary part of the current at side 1
   double ir02_;  ///< initial real part of the current at side 2
   double ii02_;  ///< initial imaginary part of the current at side 2
+
+  const std::string idSide1_;  ///< id at side 1
+  const std::string idSide2_;  ///< id at side 1
 };
 }  // namespace DYN
 #endif  // MODELS_CPP_MODELNETWORK_DYNMODELLINE_H_

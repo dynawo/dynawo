@@ -89,7 +89,7 @@ typedef enum {
    * @brief Setter for curve's buffer
    * @param buffer buffer where the curve should find the value to store
    */
-  virtual void setBuffer(double* buffer) = 0;
+  virtual void setBuffer(const double* buffer) = 0;
 
   /**
    * @brief Setter for curve's index in global table
@@ -137,7 +137,7 @@ typedef enum {
    * @brief Getter for curve's buffer
    * @return buffer where the curve should find the value to store
    */
-  virtual double* getBuffer() const = 0;
+  virtual const double* getBuffer() const = 0;
 
   /**
    * @brief curve is for variable or for parameter

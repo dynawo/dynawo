@@ -48,32 +48,39 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalF(const double t, double* y, double* yp, double* f);
 
   /**
-   * @copydoc Model::evalG(const double & t, const std::vector<double> &y, const std::vector<double> &yp, const std::vector<double> &z, std::vector<state_g> &g)
+   * @copydoc Model::copyContinuousVariables(double* y, double* yp)
    */
-  void evalG(const double & t, const std::vector<double> &y, const std::vector<double> &yp,
-          const std::vector<double> &z, std::vector<state_g> &g);
+  void copyContinuousVariables(double* y, double* yp);
 
   /**
-   * @copydoc Model::evalZ(const double & t, const std::vector<double> &y, const std::vector<double> &yp, std::vector<double> &z)
+   * @copydoc Model::copyDiscreteVariables(double* z)
    */
-  void evalZ(const double & t, const std::vector<double> &y, const std::vector<double> &yp,
-          std::vector<double> &z);
+  void copyDiscreteVariables(double* z);
 
   /**
-   * @copydoc Model::evalMode(const double & t, const std::vector<double> &y, const std::vector<double> &yp, const std::vector<double> &z)
+   * @copydoc Model::evalG(double t, std::vector<state_g> &g)
    */
-  void evalMode(const double & t, const std::vector<double> &y, const std::vector<double> &yp,
-          const std::vector<double> &z);
+  void evalG(double t, std::vector<state_g> &g);
 
   /**
-   * @copydoc Model::evalJt(const double t, double* y, double* yp, const double cj, SparseMatrix& Jt)
+   * @copydoc Model::evalZ(double t, std::vector<double> &z)
    */
-  void evalJt(const double t, double* y, double* yp, const double cj, SparseMatrix& Jt);
+  void evalZ(double t, std::vector<double> &z);
 
   /**
-   * @copydoc Model::evalJtPrim(const double t, double* y, double* yp, const double cj, SparseMatrix& JtPrim)
+   * @copydoc Model::evalMode(double t)
    */
-  void evalJtPrim(const double t, double* y, double* yp, const double cj, SparseMatrix& JtPrim);
+  void evalMode(double t);
+
+  /**
+   * @copydoc Model::evalJt(const double t, const double cj, SparseMatrix& Jt)
+   */
+  void evalJt(const double t, const double cj, SparseMatrix& Jt);
+
+  /**
+   * @copydoc Model::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim)
+   */
+  void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim);
 
   /**
    * @copydoc Model::checkDataCoherence(const double & t)

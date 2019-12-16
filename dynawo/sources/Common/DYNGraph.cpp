@@ -46,7 +46,7 @@ Graph::~Graph() {
 }
 
 void
-Graph::addVertex(const unsigned int& indexVertex) {
+Graph::addVertex(unsigned indexVertex) {
   vertices_[indexVertex] = add_vertex(internalGraph_);
 }
 
@@ -66,31 +66,31 @@ Graph::addEdge(const unsigned int& indexVertex1, const unsigned int& indexVertex
 }
 
 void
-Graph::setEdgesWeight(const map<string, float>& edgeWeights) {
-  map<string, float>::const_iterator iter = edgeWeights.begin();
-  for (; iter != edgeWeights.end(); ++iter) {
+Graph::setEdgesWeight(const boost::unordered_map<string, float>& edgeWeights) {
+  for (boost::unordered_map<string, float>::const_iterator iter = edgeWeights.begin(); iter != edgeWeights.end(); ++iter) {
     Edge edge = edges_[iter->first];
     put(boost::edge_weight_t(), internalGraph_, edge, iter->second);
   }
 }
 
 bool
-Graph::pathExist(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, const map<string, float> & edgeWeights) {
+Graph::pathExist(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, const boost::unordered_map<string, float> & edgeWeights) {
   if (vertexOrigin == vertexExtremity)
     return true;
-  return ( !findAllPaths(vertexOrigin, vertexExtremity, edgeWeights, true).empty());
+  std::list<PathDescription> paths;
+  findAllPaths(vertexOrigin, vertexExtremity, edgeWeights, paths, true);
+  return (!paths.empty());
 }
 
-list<PathDescription>
-Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, const map<string, float> & edgeWeights,
-                    bool stopWhenExtremityReached) {
+void
+Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, const boost::unordered_map<string, float> & edgeWeights,
+    std::list<PathDescription>& paths, bool stopWhenExtremityReached) {
   if (vertexOrigin == vertexExtremity)
-    return list<PathDescription>();
+    return;
 
   setEdgesWeight(edgeWeights);
   positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
   FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
-  list<PathDescription> paths;
   if (hasVertex(vertexOrigin) && hasVertex(vertexExtremity)) {
     // explore graph thanks to AdjacentVertices
     adjacency_iterator_filtered neighbourIt;
@@ -117,7 +117,6 @@ Graph::findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertex
     }
   }
   paths.sort(path_length_is_shorter);
-  return paths;  // sorted by length of paths
 }
 
 bool
@@ -162,24 +161,25 @@ Graph::findAllPaths(const string& edgeId, const unsigned int& vertex, const unsi
   return false;
 }
 
-PathDescription
-Graph::shortestPath(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, const map<string, float> & edgeWeights) {
-  PathDescription emptyPath;
+void
+Graph::shortestPath(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
+    const boost::unordered_map<string, float> & edgeWeights, PathDescription& path) {
   if (vertexOrigin == vertexExtremity)
-    return emptyPath;
+    return;
 
-  list<PathDescription> allPaths = findAllPaths(vertexOrigin, vertexExtremity, edgeWeights);
+  list<PathDescription> allPaths;
+  findAllPaths(vertexOrigin, vertexExtremity, edgeWeights, allPaths);
 
   // case of no paths
   if (allPaths.empty())
-    return emptyPath;
+    return;
 
   // paths sorted by size
-  return *allPaths.begin();
+  path = *allPaths.begin();
 }
 
 std::pair<unsigned int, vector<unsigned int> >
-Graph::calculateComponents(const map<string, float>& edgeWeights) {
+Graph::calculateComponents(const boost::unordered_map<string, float>& edgeWeights) {
   setEdgesWeight(edgeWeights);
   positive_edge_weight<EdgeWeightMap> filter(get(boost::edge_weight_t(), internalGraph_));
   FilteredBoostGraph filteredGraph = FilteredBoostGraph(internalGraph_, filter);
@@ -190,7 +190,7 @@ Graph::calculateComponents(const map<string, float>& edgeWeights) {
 }
 
 bool
-Graph::hasVertex(const unsigned int& index) {
+Graph::hasVertex(unsigned int index) {
   return (vertices_.find(index) != vertices_.end());
 }
 

@@ -652,20 +652,6 @@ Simulation::init() {
   model_->setTimeline(timeline_);
   model_->setConstraints(constraintsCollection_);
 
-  zCurrent_.assign(model_->sizeZ(), 0.);
-  yCurrent_.assign(model_->sizeY(), 0.);
-  for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
-          itCurve != curvesCollection_->end();
-          ++itCurve) {
-    shared_ptr<curves::Curve>& curve = *itCurve;
-    model_->initCurves(curve);
-    if (curve->getCurveType() == curves::Curve::DISCRETE_VARIABLE) {
-      curve->setBuffer(&(zCurrent_[curve->getGlobalIndex()]));
-    } else if (curve->getCurveType() == curves::Curve::CONTINUOUS_VARIABLE) {
-      curve->setBuffer(&(yCurrent_[curve->getGlobalIndex()]));
-    }
-  }
-
 #ifdef _DEBUG_
   model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
   model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
@@ -682,7 +668,22 @@ Simulation::init() {
   // however, the NETWORK model could be different from the one in dumpfile,
   // like number of parameters, number of variables, type of models etc.,
   // therefore a calculateIC() is always necessary.
+  zCurrent_.assign(model_->sizeZ(), 0.);
   calculateIC();
+
+  // Initialize curves
+  const std::vector<double>& y = solver_->getCurrentY();
+  for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
+          itCurve != curvesCollection_->end();
+          ++itCurve) {
+    shared_ptr<curves::Curve>& curve = *itCurve;
+    model_->initCurves(curve);
+    if (curve->getCurveType() == curves::Curve::DISCRETE_VARIABLE) {
+      curve->setBuffer(&(zCurrent_[curve->getGlobalIndex()]));
+    } else if (curve->getCurveType() == curves::Curve::CONTINUOUS_VARIABLE) {
+      curve->setBuffer(&(y[curve->getGlobalIndex()]));
+    }
+  }
 
   // if no dump to load t0 should be equal to zero
   // if dump loaded, t0 should be equal to the current time loaded
@@ -716,7 +717,6 @@ Simulation::calculateIC() {
   solver_->init(model_, tStart_, tStop_);
   solver_->calculateIC();
   zCurrent_ = solver_->getCurrentZ();
-  yCurrent_ = solver_->getCurrentY();
 
   if (dumpGlobalInitValues_) {
     string globalInitDir = createAbsolutePath("initValues/globalInit", outputsDirectory_);
@@ -744,7 +744,7 @@ Simulation::simulate() {
   solver_->printSolve();
   if (exportCurvesMode_ != EXPORT_CURVES_NONE) {
     // This is a workaround to update the calculated variables with initial values of y and yp as they are not accessible at this level
-    model_->evalCalculatedVariables(tCurrent_, yCurrent_, ypCurrent_, zCurrent_);
+    model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
   }
   const bool updateCalculatedVariable = false;
   updateCurves(updateCalculatedVariable);  // initial curves
@@ -766,7 +766,7 @@ Simulation::simulate() {
       if (solverState.getFlags(ModeChange)) {
         updateCurves(true);
         Trace::debug() << DYNLog(NewStartPoint) << Trace::endline;
-        solver_->reinit(yCurrent_, ypCurrent_);
+        solver_->reinit();
         zCurrent_ = solver_->getCurrentZ();
         solver_->printSolve();
       } else if (solverState.getFlags(ZChange)) {
@@ -775,7 +775,7 @@ Simulation::simulate() {
       }
 
       if (isCheckCriteriaIter)
-        model_->evalCalculatedVariables(tCurrent_, yCurrent_, ypCurrent_, zCurrent_);
+        model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
       updateCurves(!isCheckCriteriaIter);
 
       model_->checkDataCoherence(tCurrent_);
@@ -790,7 +790,7 @@ Simulation::simulate() {
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here for the IIDM file export
     if (exportIIDM_ && (exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_))
-      model_->evalCalculatedVariables(tCurrent_, yCurrent_, ypCurrent_, zCurrent_);
+      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
 
     if (SignalHandler::gotExitSignal() && !end()) {
       addEvent(DYNTimeline(SignalReceived));
@@ -861,7 +861,7 @@ void
 Simulation::iterate() {
   double tVise = tStop_;
 
-  solver_->solve(tVise, tCurrent_, yCurrent_, ypCurrent_);
+  solver_->solve(tVise, tCurrent_);
 
   if (std::abs(tCurrent_ - lastTimeSimulated_) < 1e-6)
     ++nbLastTimeSimulated_;
@@ -878,7 +878,7 @@ Simulation::updateCurves(bool updateCalculateVariable) {
     return;
 
   if (updateCalculateVariable)
-    model_->updateCalculatedVarForCurves(curvesCollection_, yCurrent_, ypCurrent_);
+    model_->updateCalculatedVarForCurves(curvesCollection_, solver_->getCurrentY(), solver_->getCurrentYP());
 
   curvesCollection_->updateCurves(tCurrent_);
 }
@@ -996,7 +996,7 @@ Simulation::printFinalState(std::ostream& stream) const {
       break;
     case EXPORT_FINALSTATE_XML: {
       // update calculated variables
-      model_->evalCalculatedVariables(tCurrent_, yCurrent_, ypCurrent_, zCurrent_);
+      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), solver_->getCurrentZ());
 
       // association between requested variables and model variables
       for (finalStateModel_iterator itModel = finalStateCollection_->beginFinalStateModel();

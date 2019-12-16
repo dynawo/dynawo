@@ -250,7 +250,8 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
 
   SparseMatrix smj;
   smj.init(model->sizeY(), model->sizeY());
-  model->evalJt(solv->t0_, &Y[0], &solv->yp0_[0], cj, smj);
+  model->copyContinuousVariables(&Y[0], &solv->yp0_[0]);
+  model->evalJt(solv->t0_, cj, smj);
 
   // Erase useless values in the jacobian
   SparseMatrix smjKin;
@@ -281,7 +282,8 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector yy, N_Vector /*rr*/,
 
   SparseMatrix smj;
   smj.init(model->sizeY(), model->sizeY());
-  model->evalJtPrim(solv->t0_, &solv->y0_[0], &YP[0], cj, smj);
+  model->copyContinuousVariables(&solv->y0_[0], &YP[0]);
+  model->evalJtPrim(solv->t0_, cj, smj);
 
   // Erase useless values in the jacobian
   SparseMatrix smjKin;

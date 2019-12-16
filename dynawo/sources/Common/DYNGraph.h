@@ -31,6 +31,7 @@
 #include <boost/graph/iteration_macros.hpp>
 #include <boost/graph/properties.hpp>
 #include <boost/graph/connected_components.hpp>
+#include <boost/unordered_map.hpp>
 
 
 // definitions of typedef alias to hide boost types
@@ -96,7 +97,7 @@ class Graph {
    *
    * @param indexVertex index of the vertex
    */
-  void addVertex(const unsigned int& indexVertex);
+  void addVertex(unsigned int indexVertex);
 
   /**
    * @brief add an edge between two vertices
@@ -113,7 +114,7 @@ class Graph {
    * @param index index of the vertex to check
    * @return @b true if the vertex exists, @b false otherwise
    */
-  bool hasVertex(const unsigned int & index);
+  bool hasVertex(unsigned int index);
 
   /**
    * @brief check if a path exist between two vertices
@@ -123,7 +124,7 @@ class Graph {
    * @param edgeWeights weights/masks of each edge to filter the graph
    * @return @b true if a path exists, @b false otherwise
    */
-  bool pathExist(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, const std::map<std::string, float>& edgeWeights);
+  bool pathExist(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, const boost::unordered_map<std::string, float>& edgeWeights);
 
   /**
    * @brief find the shortest path between two vertices
@@ -131,10 +132,11 @@ class Graph {
    * @param vertexOrigin index of the first vertex
    * @param vertexExtremity index of the second vertex
    * @param edgeWeights weights/masks of each edge to filter the graph
-   * @return a list of edge's id encountered between origin and extremity of the path
+   * @param path a list of edge's id encountered between origin and extremity of the path
    * this list is empty if there is no path or if the vertexOrigin and extremity are the same
    */
-  PathDescription shortestPath(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity, const std::map<std::string, float>& edgeWeights);
+  void shortestPath(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
+      const boost::unordered_map<std::string, float>& edgeWeights, PathDescription& path);
 
   /**
    * @brief find all path between two vertices
@@ -142,11 +144,12 @@ class Graph {
    * @param vertexOrigin index of the first vertex
    * @param vertexExtremity index of the second vertex
    * @param edgeWeights weights/masks of each edge to filter the graph
+   * @param paths resulting list of pathDescription
    * @param stopWhenExtremityReached : stop the research when the vertexExtremity is reached
-   * @return a list of pathDescription
    */
-  std::list<PathDescription> findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
-                                          const std::map<std::string, float>& edgeWeights, bool stopWhenExtremityReached = false);
+  void findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
+      const boost::unordered_map<std::string, float>& edgeWeights,
+      std::list<PathDescription>& paths, bool stopWhenExtremityReached = false);
 
   /**
    * @brief calculate connected components of a graph
@@ -154,7 +157,7 @@ class Graph {
    * @param edgeWeights weights/masks of each edge to filter the graph
    * @return number of components and component per vertices
    */
-  std::pair<unsigned int, std::vector<unsigned int> > calculateComponents(const std::map<std::string, float>& edgeWeights);
+  std::pair<unsigned int, std::vector<unsigned int> > calculateComponents(const boost::unordered_map<std::string, float>& edgeWeights);
 
  private:
   /**
@@ -162,7 +165,7 @@ class Graph {
    *
    * @param weights weight to associate to each edge
    */
-  void setEdgesWeight(const std::map<std::string, float>& weights);
+  void setEdgesWeight(const boost::unordered_map<std::string, float>& weights);
   /**
    * @brief find all path between two vertices
    *
@@ -177,8 +180,8 @@ class Graph {
    * @return @b true if the vertexExtremity is reached
    */
   bool findAllPaths(const unsigned int& vertexOrigin, const unsigned int& vertexExtremity,
-                    PathDescription &currentPath, std::vector<bool> &encountered, std::list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
-                    bool stopWhenExtremityReached);
+      PathDescription &currentPath, std::vector<bool> &encountered, std::list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
+      bool stopWhenExtremityReached);
 
   /**
    * @brief find if the current edge reach the vertexExtremity
@@ -195,13 +198,13 @@ class Graph {
    * @return @b true if the vertexExtremity is reached
    */
   bool findAllPaths(const std::string& edgeId, const unsigned int& vertex, const unsigned int& vertexExtremity,
-                    PathDescription &currentPath, std::vector<bool> &encountered, std::list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
-                    bool stopWhenExtremityReached);
+      PathDescription &currentPath, std::vector<bool> &encountered, std::list<PathDescription> &paths, FilteredBoostGraph & filteredGraph,
+      bool stopWhenExtremityReached);
 
  private:
   BoostGraph internalGraph_;  ///< graph description
-  std::map<unsigned int, Vertex> vertices_;  ///< association between vertices and their index
-  std::map<std::string, Edge> edges_;  ///< association between edges and their id
+  boost::unordered_map<unsigned, Vertex> vertices_;  ///< association between vertices and their index
+  boost::unordered_map<std::string, Edge> edges_;  ///< association between edges and their id
 };
 
 }  // namespace DYN

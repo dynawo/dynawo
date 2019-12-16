@@ -97,7 +97,7 @@ Curve::Impl::setNegated(bool negated) {
 }
 
 void
-Curve::Impl::setBuffer(double* buffer) {
+Curve::Impl::setBuffer(const double* buffer) {
   buffer_ = buffer;
 }
 
@@ -136,7 +136,7 @@ Curve::Impl::getNegated() const {
   return negated_;
 }
 
-double*
+const double*
 Curve::Impl::getBuffer() const {
   return buffer_;
 }

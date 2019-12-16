@@ -447,7 +447,9 @@ class ModelLoad : public NetworkComponent::Impl {
   bool isRestorative_;  ///< whether the consumed energy remains constant
   bool isControllable_;  ///< whether the load can be controlled
   double Tp_;  ///< time constant Tp
+  bool TpIsZero_;  ///< true if Tp == 0
   double Tq_;  ///< time constant Tq
+  bool TqIsZero_;  ///< true if Tp == 0
   double zPMax_;  ///< zPmax
   double zQMax_;  ///< zQMax
   double alphaLong_;  ///< alpha

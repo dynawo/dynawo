@@ -533,8 +533,6 @@ class Simulation {
   int  criteriaStep_;  ///< if activated, this number will be the number of iterations between two criteria checks
   bool dumpLocalInitValues_;  ///< whether to export the results from the local initialisation
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
-  std::vector<double> yCurrent_;  ///< current values of the model's variables
-  std::vector<double> ypCurrent_;  ///< current values of the model's derivative variables
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
   double lastTimeSimulated_;  ///< value of the latest time simulated
   int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)

@@ -87,6 +87,7 @@ model_() {
   msbsetAlgJ_ = 1;
   mxiterAlgJ_ = 50;
   printflAlgJ_ = 0;
+  previousReinit_ = None;
 }
 
 Solver::Impl::~Impl() {
@@ -207,16 +208,14 @@ Solver::Impl::resetStats() {
 }
 
 void
-Solver::Impl::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt) {
+Solver::Impl::solve(double tAim, double &tNxt) {
   // Solving
   state_.reset();
   model_->reinitMode();
   model_->rotateBuffers();
-  solve(tAim, tNxt);
+  solveStep(tAim, tNxt);
 
   // Updating values
-  yNxt = vYy_;
-  ypNxt = vYp_;
   tSolve_ = tNxt;
 }
 
@@ -230,7 +229,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
 
   for (int i = 0; i < 10; ++i) {
     // evalZ
-    model_->evalZ(time, vYy_, vYp_, vYz_);
+    model_->evalZ(time, vYz_);
     zChange = model_->zChange();
 
     // evaluate G and compare with previous values
@@ -245,7 +244,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
   }
 
   // evalMode
-  model_->evalMode(time, vYy_, vYp_, vYz_);
+  model_->evalMode(time);
   modeChange = model_->modeChange();
   if (modeChange) {
     change = true;
@@ -263,7 +262,7 @@ Solver::Impl::detectUnstableRoot(vector<state_g> &vGout0, vector<state_g> &vGout
 
   // Evaluate roots after propagation of previous changes
   // ----------------------------------------------------
-  model_->evalG(time, vYy_, vYp_, vYz_, vGout1);
+  model_->evalG(time, vGout1);
   ++stats_.nge_;
 
   // Find if some roots appears/disappears

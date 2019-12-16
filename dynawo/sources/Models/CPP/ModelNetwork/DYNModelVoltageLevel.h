@@ -112,9 +112,10 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   /**
    * @brief find the closest bus bar section of a bus in a voltage level
    * @param node: the index of the bus for which to look for the closest bus bar section
-   * @return a pair with the closest bus bar section index and the list of switch names that separate the bus bar section from the initial bus
+   * @param shortestPath: list of switch names that separate the bus bar section from the initial bus
+   * @return the closest bus bar section index
    */
-  std::pair<unsigned int, std::vector<std::string> > findClosestBBS(const unsigned int node);
+  unsigned int findClosestBBS(const unsigned int node, std::vector<std::string>& shortestPath);
 
   /**
    * @brief return true if the closest bus bar section is switched off
@@ -297,6 +298,7 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void defineGraph();
 
   boost::optional<Graph> graph_;  ///< topology graph to find node connection
+  boost::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
   VoltageLevelInterface::VoltageLevelTopologyKind_t topologyKind_;  ///< voltage level topology (bus breaker or node breaker)
   std::vector<boost::shared_ptr<NetworkComponent> > components_;  ///< all components in a voltage level
   std::map<int, boost::shared_ptr<ModelBus> > busesByIndex_;  ///< map of voltage level buses with their index
