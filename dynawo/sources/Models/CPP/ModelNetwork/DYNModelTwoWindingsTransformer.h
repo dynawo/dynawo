@@ -678,6 +678,8 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   boost::shared_ptr<ModelRatioTapChanger> modelRatioChanger_;  ///< model used for the ratio tap-changer
   std::string terminalRefId_;  ///< id of the terminal where the voltage is measured
   std::string side_;  ///< side of the terminal where the voltage is measured
+  std::string side1_;  ///< side 1 name
+  std::string side2_;  ///< side 2 name
   boost::shared_ptr<ModelBus> modelBusMonitored_;  ///< model of the bus where the voltage is measured
 
   boost::shared_ptr<ModelPhaseTapChanger> modelPhaseChanger_;  ///< model used for the phase tap changer

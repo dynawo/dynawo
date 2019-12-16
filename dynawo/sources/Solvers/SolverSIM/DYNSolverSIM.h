@@ -111,15 +111,11 @@ class SolverSIM : public Solver::Impl {
    * @copydoc Solver::init(const boost::shared_ptr<Model> & model, const double & t0, const double & tEnd)
    */
   void init(const boost::shared_ptr<Model> &model, const double & t0, const double & tEnd);
-  /**
-   * @copydoc Solver::solve(double tAim, double &tNxt)
-   */
-  void solve(double tAim, double &tNxt);
 
   /**
-   * @copydoc Solver::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt)
+   * @copydoc Solver::reinit()
    */
-  void reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt);
+  void reinit();
 
   /**
    * @copydoc Solver::calculateIC()
@@ -231,6 +227,12 @@ class SolverSIM : public Solver::Impl {
    * @param tNxt current time step calculated
    */
   void updateTimeStep(double& tNxt);
+
+ protected:
+  /**
+   * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
+   */
+  void solveStep(double tAim, double &tNxt);
 
  private:
   boost::shared_ptr<SolverKINEuler> solverKINEuler_;  ///< Backward Euler solver

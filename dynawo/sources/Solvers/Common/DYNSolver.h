@@ -209,26 +209,13 @@ class Solver {
    *
    * @param tAim the next time at which a computed solution is desired
    * @param tNxt the time reached by the solver
-   * @param yNxt the compute solution vector y
-   * @param ypNxt the compute solution vector yp
-   */
-  virtual void solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt) = 0;
-
-  /**
-   * @brief Integrate the DAE over an interval in t
-   *
-   * @param tAim the next time at which a computed solution is desired
-   * @param tNxt the time reached by the solver
    */
   virtual void solve(double tAim, double &tNxt) = 0;
 
   /**
    * @brief Restore the equations after an algebraic mode - reinitialize the DAE problem (new initial point)
-   *
-   * @param yNxt new compute solution vector y
-   * @param ypNxt new compute solution vector yp
    */
-  virtual void reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) = 0;
+  virtual void reinit() = 0;
 
   /**
    * @brief print the latest step made by the solver (i.e solution)

@@ -211,6 +211,7 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   std::map< std::string, boost::shared_ptr<SwitchInterface> > switchesById_;  ///< switch interface by Id
   std::map< boost::shared_ptr<SwitchInterface>, double > switchState_;  ///< state to apply to switch (due to topology change)
   Graph graph_;  ///< topology graph to find node connection
+  boost::unordered_map<std::string, float> weights1_;  ///< weight of 1 for each edge in the graph
   std::vector<boost::shared_ptr<BusInterface> > buses_;  ///< bus interface created
   std::vector<boost::shared_ptr<SwitchInterface> > switches_;  ///< switch interface created
   std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > calculatedBus_;  ///< vector of calculated bus created from the node view

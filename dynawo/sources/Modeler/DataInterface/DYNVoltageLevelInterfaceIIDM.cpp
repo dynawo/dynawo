@@ -55,16 +55,17 @@ voltageLevelIIDM_(voltageLevel),
 graph_() {
   isNodeBreakerTopology_ = (voltageLevelIIDM_.mode() == IIDM::VoltageLevel::node_breaker);
   if (voltageLevelIIDM_.mode() == IIDM::VoltageLevel::node_breaker) {
-    for (int i = 0; i < voltageLevelIIDM_.node_count(); ++i) {
+    for (int i = 0, iEnd = voltageLevelIIDM_.node_count(); i < iEnd; ++i) {
       graph_.addVertex(i);
     }
 
     // Add edges
-    IIDM::Contains<IIDM::Switch>::const_iterator itSwitch = voltageLevelIIDM_.switches().begin();
-    for (; itSwitch != voltageLevelIIDM_.switches().end(); ++itSwitch) {
+    for (IIDM::Contains<IIDM::Switch>::const_iterator itSwitch = voltageLevelIIDM_.switches().begin();
+        itSwitch != voltageLevelIIDM_.switches().end(); ++itSwitch) {
       int node1 = itSwitch->port1().port().node();
       int node2 = itSwitch->port2().port().node();
       graph_.addEdge(node1, node2, itSwitch->id());
+      weights1_[itSwitch->id()] = 1;
     }
   }
 }
@@ -191,14 +192,14 @@ VoltageLevelInterfaceIIDM::isNodeConnected(const unsigned int& nodeToCheck) {
   assert(voltageLevelIIDM_.mode() == IIDM::VoltageLevel::node_breaker);
 
   // Change weight of edges
-  map<string, float> weights;
-  IIDM::Contains<IIDM::Switch>::const_iterator itSwitch = voltageLevelIIDM_.switches().begin();
-  for (; itSwitch != voltageLevelIIDM_.switches().end(); ++itSwitch) {
+  boost::unordered_map<string, float> weights;
+  for (IIDM::Contains<IIDM::Switch>::const_iterator itSwitch = voltageLevelIIDM_.switches().begin();
+      itSwitch != voltageLevelIIDM_.switches().end(); ++itSwitch) {
     weights[itSwitch->id()] = itSwitch->opened() ? 0 : 1;
   }
 
-  IIDM::Contains<IIDM::BusBarSection>::iterator itBBS = voltageLevelIIDM_.busBarSections().begin();
-  for (; itBBS != voltageLevelIIDM_.busBarSections().end(); ++itBBS) {
+  for (IIDM::Contains<IIDM::BusBarSection>::iterator itBBS = voltageLevelIIDM_.busBarSections().begin();
+      itBBS != voltageLevelIIDM_.busBarSections().end(); ++itBBS) {
     int nodeBBS = itBBS->node();
     if (graph_.pathExist(nodeToCheck, nodeBBS, weights)) {
       return true;
@@ -214,17 +215,12 @@ VoltageLevelInterfaceIIDM::connectNode(const unsigned int& nodeToConnect) {
   assert(voltageLevelIIDM_.mode() == IIDM::VoltageLevel::node_breaker);
 
   // close the shortest path to one bus bar section
-  map<string, float> weights;
-  IIDM::Contains<IIDM::Switch>::const_iterator itSwitch = voltageLevelIIDM_.switches().begin();
-  for (; itSwitch != voltageLevelIIDM_.switches().end(); ++itSwitch) {
-    weights[itSwitch->id()] = 1;  // weight is the same for every edge
-  }
-
   vector<string> shortestPath;
-  IIDM::Contains<IIDM::BusBarSection>::iterator itBBS = voltageLevelIIDM_.busBarSections().begin();
-  for (; itBBS != voltageLevelIIDM_.busBarSections().end(); ++itBBS) {
+  for (IIDM::Contains<IIDM::BusBarSection>::iterator itBBS = voltageLevelIIDM_.busBarSections().begin();
+      itBBS != voltageLevelIIDM_.busBarSections().end(); ++itBBS) {
     int nodeBBS = itBBS->node();
-    vector<string> ret = graph_.shortestPath(nodeToConnect, nodeBBS, weights);
+    vector<string> ret;
+    graph_.shortestPath(nodeToConnect, nodeBBS, weights1_, ret);
     if (!ret.empty() && ( ret.size() < shortestPath.size() || shortestPath.size() == 0) )
       shortestPath = ret;
   }
@@ -249,19 +245,19 @@ VoltageLevelInterfaceIIDM::disconnectNode(const unsigned int& nodeToDisconnect) 
   // open all paths to bus bar section
   IIDM::Contains<IIDM::BusBarSection>::iterator itBBS = voltageLevelIIDM_.busBarSections().begin();
   for (; itBBS != voltageLevelIIDM_.busBarSections().end(); ++itBBS) {
-    map<string, float> weights;
+    boost::unordered_map<string, float> weights;
     for (IIDM::Contains<IIDM::Switch>::const_iterator itSwitch = voltageLevelIIDM_.switches().begin();
         itSwitch != voltageLevelIIDM_.switches().end(); ++itSwitch) {
       weights[itSwitch->id()] = !itSwitch->opened() ? 1 : 0;
     }
 
     int node = itBBS->node();
-    list<vector<string> > paths = graph_.findAllPaths(nodeToDisconnect, node, weights);
+    list<vector<string> > paths;
+    graph_.findAllPaths(nodeToDisconnect, node, weights, paths);
 
-    list<vector<string> >::const_iterator iter = paths.begin();
-    for (; iter != paths.end(); ++iter) {
-      vector<string> path = *iter;
-      for (vector<string>::iterator itSwitch = path.begin(); itSwitch != path.end(); ++itSwitch) {
+    for (list<vector<string> >::const_iterator iter = paths.begin(); iter != paths.end(); ++iter) {
+      const vector<string>& path = *iter;
+      for (vector<string>::const_iterator itSwitch = path.begin(); itSwitch != path.end(); ++itSwitch) {
         string switchID = *itSwitch;
         IIDM::Switch sw = *(voltageLevelIIDM_.switches().find(switchID));
         if (sw.type() == IIDM::Switch::breaker) {
@@ -295,11 +291,13 @@ VoltageLevelInterfaceIIDM::exportSwitchesState() {
 
 void
 VoltageLevelInterfaceIIDM::calculateBusTopology() {
-  map<string, float> topologicalWeights;  // weight to use for edge to analyse graph and find nodes on the same topological node (switch not open,not retained)
-  map<string, float> electricalWeights;  // weight to use for edge to analyse graph and find nodes on the same electrical node (switch not open)
+  // weight to use for edge to analyse graph and find nodes on the same topological node (switch not open,not retained)
+  boost::unordered_map<string, float> topologicalWeights;
+  // weight to use for edge to analyse graph and find nodes on the same electrical node (switch not open)
+  boost::unordered_map<string, float> electricalWeights;
 
-  IIDM::Contains<IIDM::Switch>::const_iterator itSwitch = voltageLevelIIDM_.switches().begin();
-  for (; itSwitch != voltageLevelIIDM_.switches().end(); ++itSwitch) {
+  for (IIDM::Contains<IIDM::Switch>::const_iterator itSwitch = voltageLevelIIDM_.switches().begin();
+      itSwitch != voltageLevelIIDM_.switches().end(); ++itSwitch) {
     string id = itSwitch->id();
     bool open = itSwitch->opened();
     bool retained = itSwitch->retained();

@@ -59,7 +59,9 @@ beta_(1.),
 isRestorative_(false),
 isControllable_(false),
 Tp_(0.),
+TpIsZero_(true),
 Tq_(0.),
+TqIsZero_(true),
 zPMax_(0.),
 zQMax_(0.),
 alphaLong_(0.),
@@ -153,7 +155,7 @@ ModelLoad::evalF() {
     bool busSwitchOff = modelBus_->getSwitchOff();
     bool running = isRunning();
 
-    if (!doubleIsZero(Tp_) && running) {
+    if (!TpIsZero_ && running) {
       double zPprimValue = 0.;
       if (!busSwitchOff) {
         double zp = zP();
@@ -167,7 +169,7 @@ ModelLoad::evalF() {
       f_[0] = zPPrim();  // z is constant
     }
 
-    if (!doubleIsZero(Tq_) && running) {
+    if (!TqIsZero_ && running) {
       double zQprimValue = 0.;
       if (!busSwitchOff) {
         double zq = zQ();
@@ -191,14 +193,14 @@ ModelLoad::setFequations(std::map<int, std::string>& fEquationIndex) {
   unsigned int index = 0;
 
   if (isRestorative_) {
-    if (!doubleIsZero(Tp_) && isRunning())
+    if (!TpIsZero_ && isRunning())
       fEquationIndex[index] = std::string("Tp_*zPPrim() - zPprimValue localModel:").append(id());
     else
       fEquationIndex[index] = std::string("zPPrim() localModel:").append(id());  // z is constant
     ++index;
 
 
-    if (!doubleIsZero(Tq_) && isRunning())
+    if (!TqIsZero_ && isRunning())
       fEquationIndex[index] = std::string("Tq_*zQPrim() - zQprimValue localModel:").append(id());
     else
       fEquationIndex[index] = std::string("zQPrim() localModel:").append(id());  // z is constant
@@ -271,7 +273,7 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
       termUi = dZpdiff_dUi;
     }
 
-    if (!doubleIsZero(Tp_) && isRunning()) {
+    if (!TpIsZero_ && isRunning()) {
       jt.addTerm(globalYIndex(zPYNum_) + rowOffset, -termZp + cj * Tp_);
       jt.addTerm(urYNum + rowOffset, -termUr);
       jt.addTerm(uiYNum + rowOffset, -termUi);
@@ -300,7 +302,7 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
       termUi = dZqdiff_dUi;
     }
 
-    if (!doubleIsZero(Tq_) && isRunning()) {
+    if (!TqIsZero_ && isRunning()) {
       jt.addTerm(globalYIndex(zQYNum_) + rowOffset, - termZq + cj * Tq_);
       jt.addTerm(urYNum + rowOffset, -termUr);
       jt.addTerm(uiYNum + rowOffset, -termUi);
@@ -418,7 +420,7 @@ void
 ModelLoad::getI(double ur, double ui, double U, double U2, double& ir, double& ii) const {
   ir = 0.;
   ii = 0.;
-  if (isRunning() && !doubleIsZero(U2)) {
+  if (!doubleIsZero(U2)) {
     double p = P(ur, ui, U);
     double q = Q(ur, ui, U);
     ii = (p * ui - q * ur) / U2;
@@ -716,7 +718,9 @@ ModelLoad::setSubModelParameters(const boost::unordered_map<std::string, Paramet
     isControllable_ = getParameterDynamic<bool>(params, "isControllable", ids);
     if (isRestorative_) {
       Tp_ = getParameterDynamic<double>(params, "Tp", ids);
+      TpIsZero_ = doubleIsZero(Tp_);
       Tq_ = getParameterDynamic<double>(params, "Tq", ids);
+      TqIsZero_ = doubleIsZero(Tq_);
       zPMax_ = getParameterDynamic<double>(params, "zPMax", ids);
       zQMax_ = getParameterDynamic<double>(params, "zQMax", ids);
       alphaLong_ = getParameterDynamic<double>(params, "alphaLong", ids);

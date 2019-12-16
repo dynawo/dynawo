@@ -65,59 +65,60 @@ class Model {
   virtual void evalF(const double t, double* y, double* yp, double* f) = 0;
 
   /**
-   * @brief evaluate the root functions of the model
+   * @brief get the current value of the continuous variables
    *
-   * @param t current time
    * @param y current values of continuous variables
    * @param yp current values of the derivative of the continuous variables
+   */
+  virtual void copyContinuousVariables(double* y, double* yp) = 0;
+
+  /**
+   * @brief get the current value of the discrete variables
+   *
    * @param z current values of discrete variables
+   */
+  virtual void copyDiscreteVariables(double* z) = 0;
+
+  /**
+   * @brief evaluate the root functions of the model based on the variable values contained in the model
+   *
+   * @param t current time
    * @param g values of the root functions
    */
-  virtual void evalG(const double &t, const std::vector<double> &y, const std::vector<double> &yp,
-          const std::vector<double> &z, std::vector<state_g> &g) = 0;
+  virtual void evalG(double t, std::vector<state_g> &g) = 0;
 
   /**
-   * @brief evaluate the discrete variables of the model
+   * @brief evaluate the discrete variables of the model based on the variable values contained in the model
    *
    * @param t current time
-   * @param y current values of continuous variables
-   * @param yp current values of the derivative of the continuous variables
    * @param z values of the discrete variables
    */
-  virtual void evalZ(const double & t, const std::vector<double> &y, const std::vector<double> &yp,
-          std::vector<double> &z) = 0;
+  virtual void evalZ(double t, std::vector<double> &z) = 0;
 
   /**
-   * @brief evaluate the mode of the model
+   * @brief evaluate the mode of the model based on the variable values contained in the model
    *
    * @param t current time
-   * @param y current values of continuous variables
-   * @param yp current values of the derivative of the continuous variables
-   * @param z current values of discrete variables
    */
-  virtual void evalMode(const double & t, const std::vector<double> &y, const std::vector<double> &yp, const std::vector<double> &z) = 0;
+  virtual void evalMode(double t) = 0;
 
   /**
-   * @brief compute the transpose jacobian of the sub model \f$ J = @F/@x + cj * @F/@x' \f$
+   * @brief compute the transpose jacobian of the sub model \f$ J = @F/@x + cj * @F/@x' \f$  based on the variable values contained in the model
    *
    * @param t time to use for the evaluation
-   * @param y current values of continuous variables
-   * @param yp current values of the derivative of the continuous variables
    * @param cj Jacobian prime coefficient
    * @param Jt jacobian matrix to fullfill
    */
-  virtual void evalJt(const double t, double* y, double* yp, const double cj, SparseMatrix& Jt) = 0;
+  virtual void evalJt(const double t, const double cj, SparseMatrix& Jt) = 0;
 
   /**
-   * @brief compute the transpose prim jacobian of the sub model \f$ J'= @F/@x' \f$
+   * @brief compute the transpose prim jacobian of the sub model \f$ J'= @F/@x' \f$  based on the variable values contained in the model
    *
    * @param t time to use for the evaluation
-   * @param y current values of continuous variables
-   * @param yp current values of the derivative of the continuous variables
    * @param cj Jacobian prime coefficient
    * @param JtPrim jacobian matrix to fullfill
    */
-  virtual void evalJtPrim(const double t, double* y, double* yp, const double cj, SparseMatrix& JtPrim) = 0;
+  virtual void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) = 0;
 
   /**
    * @brief ensure data coherence (asserts, min/max, sanity checks ....)

@@ -336,14 +336,18 @@ TwoWTransformerInterfaceIIDM::getQ2() {
 void
 TwoWTransformerInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
-  staticParameters_["p1_pu"] = StaticParameter("p1_pu", StaticParameter::DOUBLE).setValue(getP1() / SNREF);
-  staticParameters_["p2_pu"] = StaticParameter("p2_pu", StaticParameter::DOUBLE).setValue(getP2() / SNREF);
-  staticParameters_["q1_pu"] = StaticParameter("q1_pu", StaticParameter::DOUBLE).setValue(getQ1() / SNREF);
-  staticParameters_["q2_pu"] = StaticParameter("q2_pu", StaticParameter::DOUBLE).setValue(getQ2() / SNREF);
-  staticParameters_["p1"] = StaticParameter("p1", StaticParameter::DOUBLE).setValue(getP1());
-  staticParameters_["p2"] = StaticParameter("p2", StaticParameter::DOUBLE).setValue(getP2());
-  staticParameters_["q1"] = StaticParameter("q1", StaticParameter::DOUBLE).setValue(getQ1());
-  staticParameters_["q2"] = StaticParameter("q2", StaticParameter::DOUBLE).setValue(getQ2());
+  double P1 = getP1();
+  double P2 = getP2();
+  double Q1 = getQ1();
+  double Q2 = getQ2();
+  staticParameters_.insert(std::make_pair("p1_pu", StaticParameter("p1_pu", StaticParameter::DOUBLE).setValue(P1 / SNREF)));
+  staticParameters_.insert(std::make_pair("p2_pu", StaticParameter("p2_pu", StaticParameter::DOUBLE).setValue(P2 / SNREF)));
+  staticParameters_.insert(std::make_pair("q1_pu", StaticParameter("q1_pu", StaticParameter::DOUBLE).setValue(Q1 / SNREF)));
+  staticParameters_.insert(std::make_pair("q2_pu", StaticParameter("q2_pu", StaticParameter::DOUBLE).setValue(Q2 / SNREF)));
+  staticParameters_.insert(std::make_pair("p1", StaticParameter("p1", StaticParameter::DOUBLE).setValue(P1)));
+  staticParameters_.insert(std::make_pair("p2", StaticParameter("p2", StaticParameter::DOUBLE).setValue(P2)));
+  staticParameters_.insert(std::make_pair("q1", StaticParameter("q1", StaticParameter::DOUBLE).setValue(Q1)));
+  staticParameters_.insert(std::make_pair("q2", StaticParameter("q2", StaticParameter::DOUBLE).setValue(Q2)));
 
   double i1 = 0;
   if (getInitialConnected1() && !doubleIsZero(busInterface1_->getV0())) {
@@ -351,8 +355,8 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
     double teta = busInterface1_->getAngle0();
     double ur = V * cos(teta);
     double ui = V * sin(teta);
-    double ir = 1 / SNREF * (ur * getP1() + ui * getQ1()) / (V * V);
-    double ii = 1 / SNREF * (ui * getP1() - ur * getQ1()) / (V * V);
+    double ir = 1 / SNREF * (ur * P1 + ui * Q1) / (V * V);
+    double ii = 1 / SNREF * (ui * P1 - ur * Q1) / (V * V);
     i1 = sqrt(ir * ir + ii * ii);
   }
 
@@ -362,12 +366,12 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
     double teta = busInterface2_->getAngle0();
     double ur = V * cos(teta);
     double ui = V * sin(teta);
-    double ir = 1 / SNREF * (ur * getP2() + ui * getQ2()) / (V * V);
-    double ii = 1 / SNREF * (ui * getP2() - ur * getQ2()) / (V * V);
+    double ir = 1 / SNREF * (ur * P2 + ui * Q2) / (V * V);
+    double ii = 1 / SNREF * (ui * P2 - ur * Q2) / (V * V);
     i2 = sqrt(ir * ir + ii * ii);
   }
-  staticParameters_["i1"] = StaticParameter("i1", StaticParameter::DOUBLE).setValue(i1);
-  staticParameters_["i2"] = StaticParameter("i2", StaticParameter::DOUBLE).setValue(i2);
+  staticParameters_.insert(std::make_pair("i1", StaticParameter("i1", StaticParameter::DOUBLE).setValue(i1)));
+  staticParameters_.insert(std::make_pair("i2", StaticParameter("i2", StaticParameter::DOUBLE).setValue(i2)));
 
   int tap0 = 0;
   int tapMin = 0;
@@ -378,25 +382,26 @@ TwoWTransformerInterfaceIIDM::importStaticParameters() {
     tapMax = tapMin - 1 + getPhaseTapChanger()->getNbTap();
     double thresholdI = getPhaseTapChanger()->getThresholdI();
     double factorAToPu = sqrt(3) * getVNom1() / (1000 * SNREF);
-    staticParameters_["iMax"] = StaticParameter("iMax", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu);
-    staticParameters_["iStop"] = StaticParameter("iStop", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu);
-    staticParameters_["regulating"] = StaticParameter("regulating", StaticParameter::BOOL).setValue(getPhaseTapChanger()->getRegulating());
+    staticParameters_.insert(std::make_pair("iMax", StaticParameter("iMax", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu)));
+    staticParameters_.insert(std::make_pair("iStop", StaticParameter("iStop", StaticParameter::DOUBLE).setValue(thresholdI * factorAToPu)));
+    staticParameters_.insert(std::make_pair("regulating",
+        StaticParameter("regulating", StaticParameter::BOOL).setValue(getPhaseTapChanger()->getRegulating())));
     vector<shared_ptr<StepInterface> > taps = getPhaseTapChanger()->getSteps();
 
     double phaseTapMin = taps[0]->getAlpha();
     double phaseTapMax = taps[taps.size() - 1]->getAlpha();
     int increasePhase = phaseTapMin < phaseTapMax ? 1 : -1;
 
-    staticParameters_["increasePhase"] = StaticParameter("increasePhase", StaticParameter::INT).setValue(increasePhase);
+    staticParameters_.insert(std::make_pair("increasePhase", StaticParameter("increasePhase", StaticParameter::INT).setValue(increasePhase)));
   } else if (getRatioTapChanger()) {
     tap0 = getRatioTapChanger()->getCurrentPosition();
     tapMin = getRatioTapChanger()->getLowPosition();
     tapMax = tapMin - 1 + getRatioTapChanger()->getNbTap();
   }
 
-  staticParameters_["tapPosition"] = StaticParameter("tapPosition", StaticParameter::INT).setValue(tap0);
-  staticParameters_["lowTapPosition"] = StaticParameter("lowTapPosition", StaticParameter::INT).setValue(tapMin);
-  staticParameters_["highTapPosition"] = StaticParameter("highTapPosition", StaticParameter::INT).setValue(tapMax);
+  staticParameters_.insert(std::make_pair("tapPosition", StaticParameter("tapPosition", StaticParameter::INT).setValue(tap0)));
+  staticParameters_.insert(std::make_pair("lowTapPosition", StaticParameter("lowTapPosition", StaticParameter::INT).setValue(tapMin)));
+  staticParameters_.insert(std::make_pair("highTapPosition", StaticParameter("highTapPosition", StaticParameter::INT).setValue(tapMax)));
   // attention to sign (+/-) convention
 }
 

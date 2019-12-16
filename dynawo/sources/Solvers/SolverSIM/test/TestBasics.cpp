@@ -226,28 +226,36 @@ TEST(SimulationTest, testSolverSIMTestAlpha) {
   std::vector<double> y(y0);
   std::vector<double> yp(yp0);
   std::vector<double> z(z0);
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), false);
   ASSERT_EQ(solver->getState().getFlags(ModeChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
-  solver->reinit(y, yp);
+  solver->reinit();
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
@@ -288,14 +296,18 @@ TEST(SimulationTest, testSolverSIMTestBeta) {
   std::vector<double> y(y0);
   std::vector<double> yp(yp0);
   std::vector<double> z(z0);
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
 
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -305,7 +317,9 @@ TEST(SimulationTest, testSolverSIMTestBeta) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
@@ -332,10 +346,14 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
   std::vector<double> y(y0);
   std::vector<double> yp(yp0);
   std::vector<double> z(z0);
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
 
   // Max root restart hit at t = 2s. Accept the time step in the current strategy.
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -346,7 +364,7 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2);
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
 }
 
 TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
@@ -375,14 +393,18 @@ TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
   std::vector<double> y(y0);
   std::vector<double> yp(yp0);
   std::vector<double> z(z0);
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
 
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -394,7 +416,9 @@ TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
 
   // At this stage, contrary to the scheme without recalculation, algebraic and differential variables are recalculated.
   // It explains why we get here z = 1 and y = 1.
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   z = solver->getCurrentZ();
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
@@ -424,19 +448,25 @@ TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
   std::vector<double> z(z0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 0);
 
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 1);
 
   // Divergence at t=2, reduce the time step and resolve at t=1.5
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(solver->getCurrentZ()[0], 0.8);
   // Does not diverge as sundials forces a reevaluation of the jacobian
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2);
 
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(solver->getCurrentZ()[0], 0.8);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 3);
@@ -462,7 +492,9 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   std::vector<double> yp(yp0);
   std::vector<double> z(z0);
 
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   // Checking the voltage values at extreme nodes - Infinite node and F21 bus
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
@@ -479,7 +511,9 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   }
 
   // Here we detect the algebraic mode change that occurs at t=2.
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().getFlags(ZChange), true);
   ASSERT_EQ(solver->getState().getFlags(ModeChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
@@ -500,7 +534,9 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   }
 
   ASSERT_EQ(solver->getPreviousReinit(), None);
-  solver->reinit(y, yp);
+  solver->reinit();
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getPreviousReinit(), AlgebraicWithJUpdate);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239292330972138);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045165197);
@@ -516,7 +552,9 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
   }
 
-  solver->solve(tStop, tCurrent, y, yp);
+  solver->solve(tStop, tCurrent);
+  y = solver->getCurrentY();
+  yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239292330972138);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045165197);

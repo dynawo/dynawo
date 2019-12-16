@@ -121,6 +121,12 @@ SolverSIM::SolverSIM() {
   msbset_ = 0;
   mxiter_ = 15;
   printfl_ = 0;
+  factorizationForced_ = false;
+  countRestart_ = 0;
+  nNewt_ = 0;
+  hNew_ = 0.;
+  h_ = 0.;
+  tEnd_ = 0.;
 }
 
 SolverSIM::~SolverSIM() {
@@ -215,7 +221,9 @@ SolverSIM::calculateIC() {
   bool change = true;
 
   // Updating discrete variable values and mode
-  model_->evalG(tSolve_, vYy_, vYp_, vYz_, g0_);
+  model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+  model_->copyDiscreteVariables(&vYz_[0]);
+  model_->evalG(tSolve_, g0_);
   evalZMode(g0_, g1_, tSolve_);
 
   model_->rotateBuffers();
@@ -233,7 +241,9 @@ SolverSIM::calculateIC() {
     solverKINAlgRestoration_->getValues(vYy_, vYp_);
 
     change = false;
-    model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
+    model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+    model_->copyDiscreteVariables(&vYz_[0]);
+    model_->evalG(tSolve_, g1_);
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
     if (rootFound) {
       g0_.assign(g1_.begin(), g1_.end());
@@ -254,7 +264,7 @@ SolverSIM::calculateIC() {
   solverKINAlgRestoration_->clean();
 }
 
-void SolverSIM::solve(double /*tAim*/, double& tNxt) {
+void SolverSIM::solveStep(double /*tAim*/, double& tNxt) {
   if (recalculateStep_)
     solveWithStepRecalculation(tNxt);
   else
@@ -447,7 +457,9 @@ SolverSIM::solve() {
     // Dealing with discrete variable value and mode changes
 
     // Evaluate root values after the time step (using updated y and yp)
-    model_->evalG(tSolve_ + h_, vYy_, vYp_, vYz_, g1_);
+    model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+    model_->copyDiscreteVariables(&vYz_[0]);
+    model_->evalG(tSolve_ + h_, g1_);
     ++stats_.nge_;
 
     // Check if there has been any root change
@@ -596,7 +608,7 @@ void SolverSIM::updateTimeStep(double& tNxt) {
  * In the simplified solver, in case of a mode change, depending on the types of mode, either there is an algebraic equation restoration or nothing is done.
  */
 void
-SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
+SolverSIM::reinit() {
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
 
@@ -642,7 +654,9 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
     solverKINAlgRestoration_->getValues(vYy_, vYp_);
 
     // Root stabilization - tSolve_ has been updated in the solve method to the current time
-    model_->evalG(tSolve_, vYy_, vYp_, vYz_, g1_);
+    model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+    model_->copyDiscreteVariables(&vYz_[0]);
+    model_->evalG(tSolve_, g1_);
     ++stats_.nge_;
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
     if (rootFound) {
@@ -657,10 +671,6 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
     if (counter >= 10)
       throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
   } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
-
-  // saving the new step
-  yNxt = vYy_;
-  ypNxt = vYp_;
 }
 
 void

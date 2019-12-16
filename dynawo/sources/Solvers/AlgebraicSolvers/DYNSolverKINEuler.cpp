@@ -102,7 +102,7 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
     memcpy(irr, &solv->F_[0], solv->F_.size() * sizeof(solv->F_[0]));
   } else {  // update of F
     realtype *iyy = NV_DATA_S(yy);
-    vector<int> diffVar = solv->differentialVars_;
+    const vector<int>& diffVar = solv->differentialVars_;
 
     // YP[i] = (y[i]-yprec[i])/h for each differential variable
     for (unsigned int i = 0; i < diffVar.size(); ++i) {
@@ -153,7 +153,7 @@ SolverKINEuler::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
   shared_ptr<Model> model = solv->getModel();
 
   realtype* iyy = NV_DATA_S(yy);
-  vector<int> diffVar = solv->differentialVars_;
+  const vector<int>& diffVar = solv->differentialVars_;
 
   // YP[i] = (y[i]-yprec[i])/h for each differential variable
   for (unsigned int i = 0; i < diffVar.size(); ++i) {
@@ -168,7 +168,8 @@ SolverKINEuler::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
   SparseMatrix smj;
   int size = model->sizeY();
   smj.init(size, size);
-  model->evalJt(solv->t0_ + solv->h0_, iyy, &solv->YP_[0], cj, smj);
+  model->copyContinuousVariables(iyy, &solv->YP_[0]);
+  model->evalJt(solv->t0_ + solv->h0_, cj, smj);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
   return (0);

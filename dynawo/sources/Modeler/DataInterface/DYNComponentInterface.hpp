@@ -28,7 +28,7 @@ namespace DYN {
 
 template <typename T>
 T ComponentInterface::getStaticParameterValue(const std::string& name) const {
-  std::map<std::string, StaticParameter>::const_iterator iter = staticParameters_.find(name);
+  boost::unordered_map<std::string, StaticParameter>::const_iterator iter = staticParameters_.find(name);
   if (iter != staticParameters_.end()) {
     StaticParameter::StaticParameterType type = iter->second.getType();
     if (!iter->second.valueAffected()) {

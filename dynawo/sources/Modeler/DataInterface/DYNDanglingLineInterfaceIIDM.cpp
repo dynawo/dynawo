@@ -86,10 +86,10 @@ DanglingLineInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
 void
 DanglingLineInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
-  staticParameters_["p_pu"] = StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(getP() / SNREF);
-  staticParameters_["q_pu"] = StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(getQ() / SNREF);
-  staticParameters_["p"] = StaticParameter("p", StaticParameter::DOUBLE).setValue(getP());
-  staticParameters_["q"] = StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ());
+  staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(getP() / SNREF)));
+  staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(getQ() / SNREF)));
+  staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(getP())));
+  staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ())));
   // attention to sign (+/-) convention
 }
 

@@ -55,9 +55,10 @@ bool vectorAreEquals(const std::vector<double> & y1, const std::vector<double> &
   return false;
 }
 
+static double MAXIMUM_VALUE_FIXED = 1000000;  ///< maximum precision
 std::string double2String(const double& value) {
   std::stringstream ss("");
-  if (value > std::pow(10, getPrecisionAsNbDecimal()))
+  if (value > MAXIMUM_VALUE_FIXED)
     ss << std::setprecision(getPrecisionAsNbDecimal()) << std::scientific << value;
   else
     ss << std::setprecision(getPrecisionAsNbDecimal()) << std::fixed << value;
@@ -102,14 +103,17 @@ int sign(const double& value) {
 
 
 static double MAXIMUM_PRECISION = 1e-6;  ///< maximum precision
+static double MAXIMUM_PRECISION_AS_NB_DECIMAL = 6;  ///< maximum precision
 double getCurrentPrecision() {
   return MAXIMUM_PRECISION;
 }
 void setCurrentPrecision(double precision) {
   MAXIMUM_PRECISION = precision;
+  MAXIMUM_PRECISION_AS_NB_DECIMAL =  -std::log10(MAXIMUM_PRECISION);
+  MAXIMUM_VALUE_FIXED = std::pow(10, MAXIMUM_PRECISION_AS_NB_DECIMAL);
 }
 unsigned getPrecisionAsNbDecimal() {
-  return -std::log10(MAXIMUM_PRECISION);
+  return MAXIMUM_PRECISION_AS_NB_DECIMAL;
 }
 
 }  // namespace DYN

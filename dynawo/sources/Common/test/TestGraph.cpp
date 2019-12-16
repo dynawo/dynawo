@@ -89,8 +89,8 @@ Graph defineGraph() {
   return graph;
 }
 
-std::map<std::string, float> defineWeights() {
-  std::map<std::string, float> weights;
+boost::unordered_map<string, float> defineWeights() {
+  boost::unordered_map<string, float> weights;
   weights["0-1"] = 1;
   weights["0-2"] = 1;
   weights["0-3"] = 1;
@@ -115,7 +115,7 @@ TEST(CommonTest, testPathExistGraph) {
   graph.addVertex(10);
 
   // use all edge : weights equals to 1
-  std::map<std::string, float> weights = defineWeights();
+  boost::unordered_map<string, float> weights = defineWeights();
 
   ASSERT_EQ(graph.pathExist(1, 1, weights), true);
   ASSERT_EQ(graph.pathExist(1, 5, weights), true);
@@ -130,22 +130,26 @@ TEST(CommonTest, testFindAllPathsGraph) {
   graph.addVertex(10);
 
   // use all edge : weights equals to 1
-  std::map<std::string, float> weights = defineWeights();
+  boost::unordered_map<string, float> weights = defineWeights();
 
   // shortest path between 0 -0 : empty path
-  list<vector<string> >paths0 = graph.findAllPaths(0, 0, weights);
+  list<vector<string> >paths0;
+  graph.findAllPaths(0, 0, weights, paths0);
   ASSERT_EQ(paths0.empty(), true);
 
   // all path between 0-5 : 0->3->5, 0->2->4->5, 0->1->4->5, 0->6->8->9->5, 0->7->8->9->5
-  list<vector<string> >paths1 = graph.findAllPaths(0, 5, weights);
+  list<vector<string> >paths1;
+  graph.findAllPaths(0, 5, weights, paths1);
   ASSERT_EQ(paths1.size(), 5);
 
   // return the first path
-  list<vector<string> >paths1bis = graph.findAllPaths(0, 5, weights, true);
+  list<vector<string> >paths1bis;
+  graph.findAllPaths(0, 5, weights, paths1bis, true);
   ASSERT_EQ(paths1bis.size(), 1);
 
   // return the first path for vertices which are neighbours
-  list<vector<string> >paths1ter = graph.findAllPaths(0, 1, weights, true);
+  list<vector<string> >paths1ter;
+  graph.findAllPaths(0, 1, weights, paths1ter, true);
   ASSERT_EQ(paths1ter.size(), 1);
 
   // restore edge
@@ -156,7 +160,8 @@ TEST(CommonTest, testFindAllPathsGraph) {
   weights["0-1"] = 0;
   weights["0-2"] = 0;
   weights["0-3"] = 0;
-  paths1 = graph.findAllPaths(0, 4, weights);
+  paths1.clear();
+  graph.findAllPaths(0, 4, weights, paths1);
   ASSERT_EQ(paths1.size(), 2);
   vector<string> firstPath = paths1.front();
   vector<string> secondPath = paths1.back();
@@ -166,7 +171,8 @@ TEST(CommonTest, testFindAllPathsGraph) {
   ASSERT_EQ(secondPath[2], "8-9");
 
   // shortest path between 0 and 10 : empty path
-  list<vector<string> >paths2 = graph.findAllPaths(0, 10, weights);
+  list<vector<string> >paths2;
+  graph.findAllPaths(0, 10, weights, paths2);
   ASSERT_EQ(paths2.empty(), true);
 }
 
@@ -177,26 +183,30 @@ TEST(CommonTest, testshortestPathGraph) {
   graph.addVertex(10);
 
   // use all edge : weights equals to 1
-  std::map<std::string, float> weights = defineWeights();
+  boost::unordered_map<string, float> weights = defineWeights();
 
   // shortest path between 0 -0 : empty path
-  vector<string> path0 = graph.shortestPath(0, 0, weights);
+  vector<string> path0;
+  graph.shortestPath(0, 0, weights, path0);
   ASSERT_EQ(path0.empty(), true);
 
   // shortest path between 0-5 : 0->3->5
-  vector<string> path1 = graph.shortestPath(0, 5, weights);
+  vector<string> path1;
+  graph.shortestPath(0, 5, weights, path1);
   ASSERT_EQ(path1.size(), 2);
   ASSERT_EQ(path1[0], "0-3");
   ASSERT_EQ(path1[1], "3-5");
 
   // shortest path between 0-3 : 0->3
-  path1 = graph.shortestPath(0, 3, weights);
+  path1.clear();
+  graph.shortestPath(0, 3, weights, path1);
   ASSERT_EQ(path1.size(), 1);
   ASSERT_EQ(path1[0], "0-3");
 
   // open edge between 0-3; shortest path between 0-5 : 0->1->4->5
   weights["0-3"] = 0;
-  path1 = graph.shortestPath(0, 5, weights);
+  path1.clear();
+  graph.shortestPath(0, 5, weights, path1);
   ASSERT_EQ(path1.size(), 3);
   ASSERT_EQ(path1[0], "0-1");
   ASSERT_EQ(path1[1], "1-4");
@@ -206,14 +216,15 @@ TEST(CommonTest, testshortestPathGraph) {
   weights["0-3"] = 1;
 
   // shortest path between 0 and 10 : empty path
-  vector<string> path2 = graph.shortestPath(0, 10, weights);
+  vector<string> path2;
+  graph.shortestPath(0, 10, weights, path2);
   ASSERT_EQ(path2.empty(), true);
 }
 
 TEST(CommonTest, testComponentGraph) {
   Graph graph = defineGraph();
   // use all edge : weights equals to 1
-  std::map<std::string, float> weights = defineWeights();
+  boost::unordered_map<string, float> weights = defineWeights();
 
   std::pair<unsigned int, std::vector<unsigned int> > components = graph.calculateComponents(weights);
   ASSERT_EQ(components.first, 1);
@@ -263,7 +274,7 @@ TEST(CommonTest, testGraphWithLoop) {
   graph.addEdge(3, 5, "3-5");
   graph.addEdge(6, 0, "6-0");
 
-  std::map<std::string, float> weights;
+  boost::unordered_map<string, float> weights;
   weights["0-1"] = 1;
   weights["0-2"] = 1;
   weights["0-3"] = 1;
@@ -274,7 +285,8 @@ TEST(CommonTest, testGraphWithLoop) {
   weights["6-0"] = 1;
 
 
-  list<vector<string> >paths = graph.findAllPaths(4, 6, weights);
+  list<vector<string> >paths;
+  graph.findAllPaths(4, 6, weights, paths);
   ASSERT_EQ(paths.size(), 3);  // paths : 4->1->0->6, 4->2->0->6, 4->5->3->0->6
   vector<string> path = paths.front();
   ASSERT_EQ(path.size(), 3);  // edges : "1-4" "0-1" 6-0"

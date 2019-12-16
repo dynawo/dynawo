@@ -926,8 +926,8 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
 
 void
 SubModel::updateCalculatedVarForCurve(boost::shared_ptr<curves::Curve>& curve, double* y, double* yp) {
-  Timer timer("SubModel::updateCalculatedVarForCurve");
 #ifdef _DEBUG_
+  Timer timer("SubModel::updateCalculatedVarForCurve");
   assert(curve);
 #endif
   if (curve->getCurveType() != Curve::CALCULATED_VARIABLE) return;

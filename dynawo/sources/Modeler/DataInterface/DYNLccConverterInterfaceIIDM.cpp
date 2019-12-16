@@ -84,23 +84,23 @@ LccConverterInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
 void
 LccConverterInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
-  staticParameters_["p_pu"] = StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(-1 * getP() / SNREF);
-  staticParameters_["q_pu"] = StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(-1 * getQ() / SNREF);
-  staticParameters_["p"] = StaticParameter("p", StaticParameter::DOUBLE).setValue(-1 * getP());
-  staticParameters_["q"] = StaticParameter("q", StaticParameter::DOUBLE).setValue(-1 * getQ());
+  staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(-1 * getP() / SNREF)));
+  staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(-1 * getQ() / SNREF)));
+  staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(-1 * getP())));
+  staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(-1 * getQ())));
   if (busInterface_) {
     double U0 = busInterface_->getV0();
     double vNom = lccConverterIIDM_.voltageLevel().nominalV();
     double teta = busInterface_->getAngle0();
-    staticParameters_["v_pu"] = StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom);
-    staticParameters_["angle_pu"] = StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180);
-    staticParameters_["v"] = StaticParameter("v", StaticParameter::DOUBLE).setValue(U0);
-    staticParameters_["angle"] = StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta);
+    staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(U0)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
   } else {
-    staticParameters_["v_pu"] = StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.);
-    staticParameters_["angle_pu"] = StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.);
-    staticParameters_["v"] = StaticParameter("v", StaticParameter::DOUBLE).setValue(0.);
-    staticParameters_["angle"] = StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.);
+    staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.)));
   }
 }
 

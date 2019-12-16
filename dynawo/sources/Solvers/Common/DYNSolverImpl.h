@@ -179,19 +179,14 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void calculateIC() = 0;
 
   /**
-   * @copydoc Solver::solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt)
-   */
-  void solve(double tAim, double &tNxt, std::vector<double> &yNxt, std::vector<double> &ypNxt);
-
-  /**
    * @copydoc Solver::solve(double tAim, double &tNxt)
    */
-  virtual void solve(double tAim, double &tNxt) = 0;
+  void solve(double tAim, double &tNxt);
 
   /**
-   * @copydoc Solver::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt)
+   * @copydoc Solver::reinit()
    */
-  virtual void reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) = 0;
+  virtual void reinit() = 0;
 
   /**
    * @copydoc Solver::printSolve() const
@@ -297,6 +292,14 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   bool detectUnstableRoot(std::vector<state_g> &vGout0, std::vector<state_g> &vGout1, const double &time);
 
  protected:
+  /**
+   * @brief Integrate the DAE over an interval in t
+   *
+   * @param tAim the next time at which a computed solution is desired
+   * @param tNxt the time reached by the solver
+   */
+  virtual void solveStep(double tAim, double &tNxt) = 0;
+
   std::map<std::string, ParameterSolver> parameters_;  ///< map between parameters and parameters' names
   boost::shared_ptr<Model> model_;  ///< model currently simulated
   boost::shared_ptr<timeline::Timeline> timeline_;  ///< timeline where event messages should be added or removed

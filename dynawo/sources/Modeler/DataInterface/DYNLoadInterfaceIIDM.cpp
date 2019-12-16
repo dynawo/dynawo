@@ -106,12 +106,12 @@ LoadInterfaceIIDM::importStaticParameters() {
   SN = 1.5 * sqrt(P * P + Q * Q);
   SN = (SN < SNREF ? SNREF : SN);
 
-  staticParameters_["p_pu"] = StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(getP() / SNREF);
-  staticParameters_["q_pu"] = StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(getQ() / SNREF);
-  staticParameters_["sn_pu"] = StaticParameter("sn_pu", StaticParameter::DOUBLE).setValue(SN / SNREF);
-  staticParameters_["p"] = StaticParameter("p", StaticParameter::DOUBLE).setValue(getP());
-  staticParameters_["q"] = StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ());
-  staticParameters_["sn"] = StaticParameter("sn", StaticParameter::DOUBLE).setValue(SN);
+  staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(P / SNREF)));
+  staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(Q / SNREF)));
+  staticParameters_.insert(std::make_pair("sn_pu", StaticParameter("sn_pu", StaticParameter::DOUBLE).setValue(SN / SNREF)));
+  staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(P)));
+  staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(Q)));
+  staticParameters_.insert(std::make_pair("sn", StaticParameter("sn", StaticParameter::DOUBLE).setValue(SN)));
 
   if (busInterface_ && loadIIDM_.has_voltageLevel()) {
     v0_ = busInterface_->getV0();
@@ -120,17 +120,17 @@ LoadInterfaceIIDM::importStaticParameters() {
     else
       throw DYNError(Error::MODELER, UndefinedNominalV, loadIIDM_.voltageLevel().id());
     double teta = busInterface_->getAngle0();
-    staticParameters_["v_pu"] = StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(v0_ / vNom_);
-    staticParameters_["angle_pu"] = StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180);
-    staticParameters_["v"] = StaticParameter("v", StaticParameter::DOUBLE).setValue(v0_);
-    staticParameters_["angle"] = StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta);
+    staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(v0_ / vNom_)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(v0_)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
   } else {
     v0_ = 0;
     vNom_ = 0;
-    staticParameters_["v_pu"] = StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.);
-    staticParameters_["angle_pu"] = StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.);
-    staticParameters_["v"] = StaticParameter("v", StaticParameter::DOUBLE).setValue(0.);
-    staticParameters_["angle"] = StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.);
+    staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.)));
   }
   // attention to sign convention
 }

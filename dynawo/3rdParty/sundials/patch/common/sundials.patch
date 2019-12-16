@@ -1,5 +1,5 @@
 diff --git a/include/ida/ida.h b/include/ida/ida.h
-index bdfa9ef..1ce3ce8 100644
+index bdfa9efc..1ce3ce84 100644
 --- a/include/ida/ida.h
 +++ b/include/ida/ida.h
 @@ -134,6 +134,7 @@ SUNDIALS_EXPORT int IDASetUserData(void *ida_mem, void *user_data);
@@ -11,7 +11,7 @@ index bdfa9ef..1ce3ce8 100644
  SUNDIALS_EXPORT int IDASetStopTime(void *ida_mem, realtype tstop);
  SUNDIALS_EXPORT int IDASetNonlinConvCoef(void *ida_mem, realtype epcon);
 diff --git a/include/kinsol/kinsol.h b/include/kinsol/kinsol.h
-index fa8a372..f5ac23b 100644
+index fa8a372a..f5ac23bb 100644
 --- a/include/kinsol/kinsol.h
 +++ b/include/kinsol/kinsol.h
 @@ -137,6 +137,8 @@ SUNDIALS_EXPORT int KINGetNumBacktrackOps(void *kinmem, long int *nbacktr);
@@ -24,7 +24,7 @@ index fa8a372..f5ac23b 100644
  /* Free function */
  SUNDIALS_EXPORT void KINFree(void **kinmem);
 diff --git a/src/ida/ida.c b/src/ida/ida.c
-index c950af8..5e966ce 100644
+index c950af8a..9baa4bb5 100644
 --- a/src/ida/ida.c
 +++ b/src/ida/ida.c
 @@ -298,6 +298,7 @@ void *IDACreate(void)
@@ -103,7 +103,7 @@ index c950af8..5e966ce 100644
        if (IDA_mem->ida_iroots[i] == 1)
          IDA_mem->ida_glo[i] = IDA_mem->ida_ghi[i];
 diff --git a/src/ida/ida_impl.h b/src/ida/ida_impl.h
-index 93b1458..10bd182 100644
+index 93b14585..10bd182a 100644
 --- a/src/ida/ida_impl.h
 +++ b/src/ida/ida_impl.h
 @@ -176,6 +176,7 @@ typedef struct IDAMemRec {
@@ -123,7 +123,7 @@ index 93b1458..10bd182 100644
  #define MSG_BAD_CONSTR     "Illegal values in constraints vector."
  #define MSG_BAD_EPICCON    "epiccon <= 0.0 illegal."
 diff --git a/src/ida/ida_io.c b/src/ida/ida_io.c
-index 5c1868f..0186b4b 100644
+index 5c1868f8..b9a19ff9 100644
 --- a/src/ida/ida_io.c
 +++ b/src/ida/ida_io.c
 @@ -167,6 +167,32 @@ int IDASetInitStep(void *ida_mem, realtype hin)
@@ -154,13 +154,26 @@ index 5c1868f..0186b4b 100644
 +  return (IDA_SUCCESS);
 +}
 +
-+/*----------------------------END IDASetMinStep-------------------------------------*/
++/*-----------------------------------------------------------------*/
 +
  int IDASetMaxStep(void *ida_mem, realtype hmax)
  {
    IDAMem IDA_mem;
+diff --git a/src/kinsol/kinsol.c b/src/kinsol/kinsol.c
+index a9ad2e95..02e0c135 100644
+--- a/src/kinsol/kinsol.c
++++ b/src/kinsol/kinsol.c
+@@ -1111,7 +1111,7 @@ static int KINSolInit(KINMem kin_mem)
+   }
+ 
+   fmax = KINScFNorm(kin_mem, kin_mem->kin_fval, kin_mem->kin_fscale);
+-  if (fmax <= (POINT01 * kin_mem->kin_fnormtol)) {
++  if (fmax <= (POINT1 * kin_mem->kin_fnormtol)) {
+     kin_mem->kin_fnorm = N_VWL2Norm(kin_mem->kin_fval, kin_mem->kin_fscale);
+     return(KIN_INITIAL_GUESS_OK);
+   }
 diff --git a/src/kinsol/kinsol_io.c b/src/kinsol/kinsol_io.c
-index 5a5138f..31468ae 100644
+index 5a5138fb..31468ae0 100644
 --- a/src/kinsol/kinsol_io.c
 +++ b/src/kinsol/kinsol_io.c
 @@ -835,6 +835,8 @@ int KINSetSysFunc(void *kinmem, KINSysFn func)
@@ -213,7 +226,7 @@ index 5a5138f..31468ae 100644
 +  return(KIN_SUCCESS);
 +}
 diff --git a/src/kinsol/kinsol_ls.c b/src/kinsol/kinsol_ls.c
-index 8f5f611..c337984 100644
+index 8f5f611e..c337984d 100644
 --- a/src/kinsol/kinsol_ls.c
 +++ b/src/kinsol/kinsol_ls.c
 @@ -224,6 +224,7 @@ int KINSetJacFn(void *kinmem, KINLsJacFn jac)
