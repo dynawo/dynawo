@@ -19,7 +19,6 @@
  * For more details about Boost.Log, see library
  * <A HREF="http://boost-log.sourceforge.net/libs/log/doc/html/index.html"> documentation</A>
  *
- * @todo Remove deprecated functions after entire code migration
  */
 #include <fstream>
 #include <ostream>

@@ -12,12 +12,11 @@
 //
 
 #include "DYDWhiteBoxModelCommon.h"
+#include "DYNMacrosMessage.h"
 
 using std::string;
 using std::map;
 using boost::shared_ptr;
-
-#include "DYNMacrosMessage.h"
 
 namespace dynamicdata {
 string

@@ -141,7 +141,6 @@ class ParametersSet::Impl : public ParametersSet {
    * @param name : Name of the parameter
    * @returns Shared pointer to the parameter
    * @throws API exception if the parameter is not found
-   * @todo copydoc does not work here
    */
   const boost::shared_ptr<Parameter> getParameter(const std::string& name) const;
 
@@ -153,7 +152,6 @@ class ParametersSet::Impl : public ParametersSet {
    * @param name : Name of the reference
    * @returns Shared pointer to the reference
    * @throws API exception if the reference is not found
-   * @todo copydoc does not work here
    */
   const boost::shared_ptr<Reference> getReference(const std::string& name) const;
 

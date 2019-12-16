@@ -1005,6 +1005,7 @@ build_tests_coverage() {
     PYTHON_COVERAGE_FILES=""
     for file in $(find $DYNAWO_BUILD_DIR -name ".coverage"); do
      PYTHON_COVERAGE_FILES="$file $PYTHON_COVERAGE_FILES"
+     echo "   Found: $file"
     done
     coverage combine $PYTHON_COVERAGE_FILES || error_exit "Impossible to combine coverage files $PYTHON_COVERAGE_FILES"
     mkdir -p $DYNAWO_HOME/build/coverage-sonar/coverage-python || error_exit "Impossible to create $DYNAWO_HOME/build/coverage-sonar/coverage-python."
