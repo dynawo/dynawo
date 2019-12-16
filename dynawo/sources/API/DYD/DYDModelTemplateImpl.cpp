@@ -96,14 +96,14 @@ ModelTemplate::Impl::addUnitDynamicModel(const shared_ptr<UnitDynamicModel>& mod
 ModelTemplate&
 ModelTemplate::Impl::addConnect(const string& model1, const string& var1,
         const string& model2, const string& var2) {
-  string pc_Id = getConnectionId(model1, var1, model2, var2, getId(), unitDynamicModelsMap_);
-  // Used instead of map_[pc_Id] = Connector::Impl(model1, var1, model2, var2)
+  string connectionId = getConnectionId(model1, var1, model2, var2, getId(), unitDynamicModelsMap_);
+  // Used instead of map_[connectionId] = Connector::Impl(model1, var1, model2, var2)
   // to avoid necessity to create Connector::Impl default constructor
   std::pair<std::map<std::string, boost::shared_ptr<Connector> >::iterator, bool> ret;
 #ifdef LANG_CXX11
-  ret = connectorsMap_.emplace(pc_Id, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2)));
+  ret = connectorsMap_.emplace(connectionId, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2)));
 #else
-  ret = connectorsMap_.insert(std::make_pair(pc_Id, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2))));
+  ret = connectorsMap_.insert(std::make_pair(connectionId, shared_ptr<Connector>(ConnectorFactory::newConnector(model1, var1, model2, var2))));
 #endif
   if (!ret.second)
     throw DYNError(DYN::Error::API, ConnectorIDNotUnique, id_, model1 + '_' + var1, model2 + '_' + var2);

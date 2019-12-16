@@ -225,8 +225,8 @@ MacroConnectNotPartofModel  =             impossible to create macroConnect betw
 MacroConnectIDNotUnique     =             macro connect id (%1%) is not unique
 MacroConnectorIDNotUnique   =             macro connector id (%1%) is not unique
 MacroConnectorUndefined     =             macro connector id (%1%) is not defined
-MacroConnectionIDNotUnique  =             macro connection pc_Id (%1%) is not unique
-ConnectorIDNotUnique        =             connectorID for model %1% (pc_first = "%2%", pc_second = "%3%") is not unique
+MacroConnectionIDNotUnique  =             macro connection %1% is not unique
+ConnectorIDNotUnique        =             connectorID for model %1% (first = "%2%", second = "%3%") is not unique
 StaticRefNotUnique          =             staticRef for model %1% (var = "%2%", staticVar = "%3%") is not unique
 StaticRefNotUniqueInMacro   =             staticRef for macroStaticReference %1% (var = "%2%", staticVar = "%3%") is not unique
 StaticRefUndefined          =             staticRef (%1%) is not defined
