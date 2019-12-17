@@ -815,12 +815,12 @@ SolverIDA::getRootsFound() const {
 }
 
 void
-SolverIDA::printHeaderSpecific(std::stringstream& ss) {
+SolverIDA::printHeaderSpecific(std::stringstream& ss) const {
   ss << "| nst k      h";
 }
 
 void
-SolverIDA::getLastConf(long int &nst, int & kused, double & hused) {
+SolverIDA::getLastConf(long int &nst, int & kused, double & hused) const {
   // number of used intern iterations
   if (IDAGetNumSteps(IDAMem_, &nst) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumSteps");
@@ -836,7 +836,7 @@ SolverIDA::getLastConf(long int &nst, int & kused, double & hused) {
 }
 
 void
-SolverIDA::printSolveSpecific(std::stringstream& msg) {
+SolverIDA::printSolveSpecific(std::stringstream& msg) const {
   long int nst;
   int kused;
   double hused;

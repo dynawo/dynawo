@@ -664,12 +664,12 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
 }
 
 void
-SolverSIM::printHeaderSpecific(std::stringstream& ss) {
+SolverSIM::printHeaderSpecific(std::stringstream& ss) const {
   ss << "| nst   nni   nje  h";
 }
 
 void
-SolverSIM::printSolveSpecific(std::stringstream& msg) {
+SolverSIM::printSolveSpecific(std::stringstream& msg) const {
   msg << "| " << setw(3) << stats_.nst_ << " "
           << setw(4) << stats_.nni_ << " "
           << setw(3) << stats_.nje_ << " "

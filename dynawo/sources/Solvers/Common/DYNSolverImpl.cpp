@@ -153,7 +153,7 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
 }
 
 void
-Solver::Impl::printHeader() {
+Solver::Impl::printHeader() const {
   Trace::debug() << "-----------------------------------------------------------------------" << Trace::endline;
   stringstream ss;
   ss << DYNLog(SolverNbYVar, model_->sizeY());
@@ -177,7 +177,7 @@ Solver::Impl::printHeader() {
 }
 
 void
-Solver::Impl::printSolve() {
+Solver::Impl::printSolve() const {
   std::stringstream msg;
   std::streamsize precision = msg.precision();
   msg << setfill(' ') << setw(12) << std::fixed << std::setprecision(3) << getTSolve() << " ";

@@ -194,24 +194,24 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) = 0;
 
   /**
-   * @copydoc Solver::printSolve()
+   * @copydoc Solver::printSolve() const
    */
-  void printSolve();
+  void printSolve() const;
 
   /**
-   * @copydoc Solver::printSolveSpecific(std::stringstream& msg)
+   * @copydoc Solver::printSolveSpecific(std::stringstream& msg) const
    */
-  virtual void printSolveSpecific(std::stringstream& msg) = 0;
+  virtual void printSolveSpecific(std::stringstream& msg) const = 0;
 
   /**
-   * @copydoc Solver::printHeader()
+   * @copydoc Solver::printHeader() const
    */
-  void printHeader();
+  void printHeader() const;
 
   /**
-   * @copydoc Solver::printHeaderSpecific(std::stringstream& ss)
+   * @copydoc Solver::printHeaderSpecific(std::stringstream& ss) const
    */
-  virtual void printHeaderSpecific(std::stringstream& ss) = 0;
+  virtual void printHeaderSpecific(std::stringstream& ss) const = 0;
 
   /**
    * @copydoc Solver::printEnd()

@@ -233,26 +233,26 @@ class Solver {
   /**
    * @brief print the latest step made by the solver (i.e solution)
    */
-  virtual void printSolve() = 0;
+  virtual void printSolve() const = 0;
 
   /**
    * @brief print specific info regarding the latest step made by the solver (i.e solution)
    *
    * @param msg stringstream to modify
    */
-  virtual void printSolveSpecific(std::stringstream& msg) = 0;
+  virtual void printSolveSpecific(std::stringstream& msg) const = 0;
 
   /**
    * @brief print introduction information about the solver
    */
-  virtual void printHeader() = 0;
+  virtual void printHeader() const = 0;
 
   /**
    * @brief print solver specific introduction information
    *
    * @param ss stringstream to modify
    */
-  virtual void printHeaderSpecific(std::stringstream& ss) = 0;
+  virtual void printHeaderSpecific(std::stringstream& ss) const = 0;
 
   /**
    * @brief print a summary of the execution statistics of the solver
