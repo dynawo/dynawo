@@ -668,6 +668,7 @@ config_3rd_party() {
     -DCMAKE_C_COMPILER=$DYNAWO_C_COMPILER \
     -DCMAKE_CXX_COMPILER=$DYNAWO_CXX_COMPILER \
     -DCXX11_ENABLED=$DYNAWO_CXX11_ENABLED \
+    -DBOOST_ROOT_DEFAULT:STRING=$DYNAWO_BOOST_HOME_DEFAULT \
     -DCMAKE_BUILD_TYPE=$DYNAWO_BUILD_TYPE_THIRD_PARTY \
     -DOPENMODELICA_INSTALL=$DYNAWO_INSTALL_OPENMODELICA \
     -DOPENMODELICA_SRC=$DYNAWO_SRC_OPENMODELICA \
@@ -2193,6 +2194,10 @@ case $MODE in
 
   compileModelicaModel)
     compile_Modelica_Model ${ARGS} || error_exit "Failed to compile Modelica model"
+    ;;
+
+  config-3rd-party)
+    config_3rd_party || error_exit "Error while configuring Dynawo 3rd Parties"
     ;;
 
   config-dynawo)
