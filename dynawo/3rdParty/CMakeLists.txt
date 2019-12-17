@@ -23,6 +23,12 @@ ELSE()
   SET(Boost_NO_SYSTEM_PATHS TRUE)
 ENDIF()
 
+if (APPLE)
+  if (NOT DEFINED CMAKE_OSX_DEPLOYMENT_TARGET)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Variable to specify -mmacosx-version-min flag.")
+  endif()
+endif()
+
 if(NOT DEFINED OPENMODELICA_INSTALL)
   message(FATAL_ERROR "You must define OPENMODELICA_INSTALL variable.")
 endif()
