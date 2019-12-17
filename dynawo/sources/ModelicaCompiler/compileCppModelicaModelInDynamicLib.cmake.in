@@ -31,6 +31,10 @@ if(NOT DEFINED ENV{DYNAWO_XERCESC_INSTALL_DIR})
   MESSAGE(FATAL_ERROR "You need to define DYNAWO_XERCESC_INSTALL_DIR environment variable.")
 endif()
 
+if(NOT DEFINED ENV{DYNAWO_LIBXML_HOME})
+  MESSAGE(FATAL_ERROR "You need to define DYNAWO_LIBXML_HOME environment variable.")
+endif()
+
 if(NOT DEFINED ENV{DYNAWO_SUITESPARSE_INSTALL_DIR})
   MESSAGE(FATAL_ERROR "You need to define DYNAWO_SUITESPARSE_INSTALL_DIR environment variable.")
 endif()
