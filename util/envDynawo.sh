@@ -1010,8 +1010,9 @@ build_tests_coverage() {
     done
     coverage combine $PYTHON_COVERAGE_FILES || error_exit "Impossible to combine coverage files $PYTHON_COVERAGE_FILES"
     mkdir -p $DYNAWO_HOME/build/coverage-sonar/coverage-python || error_exit "Impossible to create $DYNAWO_HOME/build/coverage-sonar/coverage-python."
-    coverage xml -o $DYNAWO_HOME/build/coverage-sonar/coverage-python/coverage.xml|| error_exit "Impossible to generate python XML coverage file."
+    coverage xml -o $DYNAWO_HOME/build/coverage-sonar/coverage-python/coverage.xml || error_exit "Impossible to generate python XML coverage file."
     export_var_env_force DYNAWO_PYTHON_COMMAND=${DYNAWO_PYTHON_COMMAND_SAVE}
+    ${DYNAWO_PYTHON_COMMAND} $DYNAWO_HOME/util/travis_ci/correctCoberturaPaths.py
   fi
 }
 
