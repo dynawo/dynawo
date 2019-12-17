@@ -127,14 +127,14 @@ class SolverSIM : public Solver::Impl {
   void calculateIC();
 
   /**
-   * @copydoc Solver::Impl::printHeaderSpecific(std::stringstream& ss)
+   * @copydoc Solver::Impl::printHeaderSpecific(std::stringstream& ss) const
    */
-  void printHeaderSpecific(std::stringstream& ss);
+  void printHeaderSpecific(std::stringstream& ss) const;
 
   /**
-   * @copydoc Solver::Impl::printSolveSpecific(std::stringstream& msg)
+   * @copydoc Solver::Impl::printSolveSpecific(std::stringstream& msg) const
    */
-  void printSolveSpecific(std::stringstream& msg);
+  void printSolveSpecific(std::stringstream& msg) const;
 
   /**
    * @brief print a summary of the execution statistics of the solver

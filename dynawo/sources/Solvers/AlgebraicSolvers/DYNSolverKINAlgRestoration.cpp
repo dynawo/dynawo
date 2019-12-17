@@ -72,8 +72,8 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
   fType_.resize(model->sizeF());
   std::copy(model_->getFType(), model_->getFType() + model->sizeF(), fType_.begin());
 
-  vId_.resize(model->sizeF());
-  std::copy(model_->getYType(), model_->getYType() + model->sizeF(), vId_.begin());
+  vId_.resize(model->sizeY());
+  std::copy(model_->getYType(), model_->getYType() + model->sizeY(), vId_.begin());
   switch (mode) {
     case KIN_NORMAL:
       nbF_ = count(fType_.begin(), fType_.end(), DYN::ALGEBRIC_EQ);  // Only algebraic equation

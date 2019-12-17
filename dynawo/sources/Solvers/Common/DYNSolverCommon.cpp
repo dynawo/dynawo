@@ -37,7 +37,7 @@
 namespace DYN {
 
 bool
-SolverCommon::copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype * lastRowVals) {
+SolverCommon::copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype * lastRowVals) {
   bool matrixStructChange = false;
   if (SM_NNZ_S(JJ) < smj.nbElem()) {
     free(SM_INDEXPTRS_S(JJ));
@@ -72,8 +72,8 @@ SolverCommon::copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const in
   return matrixStructChange;
 }
 
-void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype* lastRowVals,
-                                                          SUNLinearSolver LS, const std::string& linearSolverName, bool log) {
+void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix& JJ, const int& size, sunindextype* lastRowVals,
+                                                          SUNLinearSolver& LS, const std::string& linearSolverName, bool log) {
   bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, lastRowVals);
 
   if (matrixStructChange) {
@@ -101,19 +101,15 @@ SolverCommon::printLargestErrors(std::vector<std::pair<double, int> >& fErr, con
                    int nbErr) {
   std::sort(fErr.begin(), fErr.end(), mapcompabs());
 
-  std::vector<std::pair<double, int> >::iterator it;
-  int i = 0;
-  for (it = fErr.begin(); it != fErr.end(); ++it) {
+  for (int i = 0; i < nbErr; ++i) {
     std::string subModelName("");
     int subModelIndexF = 0;
     std::string fEquation("");
-    model->getFInfos(it->second, subModelName, subModelIndexF, fEquation);
+    std::pair<double, int> currentErr = fErr[i];
+    model->getFInfos(currentErr.second, subModelName, subModelIndexF, fEquation);
 
-    Trace::debug() << DYNLog(KinErrorValue, it->second, it->first,
+    Trace::debug() << DYNLog(KinErrorValue, currentErr.second, currentErr.first,
                              subModelName, subModelIndexF, fEquation) << Trace::endline;
-    if (i >= nbErr)
-      break;
-    ++i;
   }
 }
 
