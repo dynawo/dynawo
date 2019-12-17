@@ -42,7 +42,19 @@ TARGET_LINK_LIBRARIES(dynawo_SolverCommon
     dynawo_Util
     dynawo_API_TL
     Sundials::Sundials_NVECSERIAL
+    Sundials::Sundials_SUNLINSOLKLU
+    SuiteSparse::SuiteSparse_KLU
 )
+
+IF(${NICSLU_FOUND})
+  TARGET_LINK_LIBRARIES(dynawo_SolverCommon
+    PUBLIC
+      Sundials::Sundials_SUNLINSOLNICSLU
+      Sundials::Sundials_SUNMATRIXSPARSE
+      NICSLU::NICSLU
+      NICSLU::NICSLU_Util
+  )
+ENDIF()
 
 SET_TARGET_PROPERTIES(dynawo_SolverCommon PROPERTIES VERSION ${SOLVER_COMMON_VERSION_STRING}
                                                    SOVERSION ${SOLVER_COMMON_VERSION_MAJOR})

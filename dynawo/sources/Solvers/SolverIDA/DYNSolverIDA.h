@@ -79,14 +79,14 @@ class SolverIDA : public Solver::Impl {
   ~SolverIDA();
 
   /**
-   * @copydoc Solver::Impl::defineParameters()
+   * @copydoc Solver::Impl::defineSpecificParameters()
    */
-  void defineParameters();
+  void defineSpecificParameters();
 
   /**
-   * @copydoc Solver::Impl::setSolverParameters()
+   * @copydoc Solver::Impl::setSolverSpecificParameters()
    */
-  void setSolverParameters();
+  void setSolverSpecificParameters();
 
   /**
    * @copydoc Solver::Impl::solverType()
@@ -114,9 +114,14 @@ class SolverIDA : public Solver::Impl {
   void calculateIC();
 
   /**
-   * @copydoc Solver::Impl::getLastConf(long int &nst, int & kused, double & hused)
+   * @copydoc Solver::Impl::printHeaderSpecific(std::stringstream& ss)
    */
-  void getLastConf(long int &nst, int & kused, double & hused);
+  void printHeaderSpecific(std::stringstream& ss);
+
+  /**
+   * @copydoc Solver::Impl::printSolveSpecific(std::stringstream& msg)
+   */
+  void printSolveSpecific(std::stringstream& msg);
 
   /**
    * @brief print a summary of the execution statistics of the solver
@@ -136,6 +141,15 @@ class SolverIDA : public Solver::Impl {
    * @brief update statistics of execution of the solver
    */
   void updateStatistics();
+
+  /**
+   * @brief getter for the last configuration used by the solver
+   *
+   * @param nst cumulative number of internal steps taken by the solver
+   * @param kused the integration method order used during the last internal step
+   * @param hused the integration step size taken on the last internal step
+   */
+  void getLastConf(long int &nst, int & kused, double & hused);
 
   /**
    * @brief indicates which root was activated
@@ -231,22 +245,6 @@ class SolverIDA : public Solver::Impl {
   double maxStep_;  ///< maximum step size
   double absAccuracy_;  ///< relative error tolerance
   double relAccuracy_;  ///< absolute error tolerance
-
-  // Parameters for the algebraic restoration
-  double fnormtolAlg_;  ///< stopping tolerance on L2-norm of residual function
-  double scsteptolAlg_;  ///< scaled step length tolerance
-  double mxnewtstepAlg_;  ///< maximum allowable scaled step length
-  int msbsetAlg_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
-  int mxiterAlg_;  ///< maximum number of nonlinear iterations
-  int printflAlg_;  ///< level of verbosity of output
-
-  // Parameters for the algebraic restoration with J recalculation
-  double fnormtolAlgJ_;  ///< stopping tolerance on L2-norm of residual function
-  double scsteptolAlgJ_;  ///< scaled step length tolerance
-  double mxnewtstepAlgJ_;  ///< maximum allowable scaled step length
-  int msbsetAlgJ_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
-  int mxiterAlgJ_;  ///< maximum number of nonlinear iterations
-  int printflAlgJ_;  ///< level of verbosity of output
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
 

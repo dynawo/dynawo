@@ -34,7 +34,7 @@ class Model;
  * @brief class Solver KINSOL for algebraic equations restoration and initialization
  * Generic class for KINSOL solver
  */
-class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyable{
+class SolverKINAlgRestoration : public SolverKINCommon{
  public:
   /**
    * @brief default constructor

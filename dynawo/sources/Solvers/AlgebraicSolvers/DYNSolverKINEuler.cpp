@@ -94,6 +94,7 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   SolverKINEuler* solv = reinterpret_cast<SolverKINEuler*> (data);
   shared_ptr<Model> mod = solv->getModel();
 
+  // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
   realtype *irr = NV_DATA_S(rr);
   if (solv->getFirstIteration()) {
     solv->setFirstIteration(false);
@@ -132,6 +133,13 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
   long int current_nni = 0;
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+
+  const int nbErr = 10;
+  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+  vector<std::pair<double, int> > fErr;
+  for (int i = 0; i < solv->F_.size(); ++i)
+    fErr.push_back(std::pair<double, int>(solv->F_[i], i));
+  SolverCommon::printLargestErrors(fErr, mod, nbErr);
 #endif
 
   return (0);
@@ -161,26 +169,7 @@ SolverKINEuler::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
   int size = model->sizeY();
   smj.init(size, size);
   model->evalJt(solv->t0_ + solv->h0_, iyy, &solv->YP_[0], cj, smj);
-
-  bool matrixStructChange = SolverCommon::copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
-
-  if (matrixStructChange) {
-    Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
-    if (solv->getLinearSolverName() == "KLU") {
-      SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
-#ifdef WITH_NICSLU
-    } else if (solv->getLinearSolverName() == "NICSLU") {
-      SUNLinSol_NICSLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
-    }
-#else
-  }
-#endif
-    if (solv->lastRowVals_ != NULL) {
-      free(solv->lastRowVals_);
-    }
-    solv->lastRowVals_ = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
-    memcpy(solv->lastRowVals_, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
-  }
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
   return (0);
 }
@@ -192,9 +181,8 @@ SolverKINEuler::solve(bool noInitSetup) {
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
 
-  firstIteration_ = true;
-
   Timer* scaling = new Timer("SolverKINEuler::scaling");
+  firstIteration_ = true;
   model_->evalF(t0_ + h0_ , &y0_[0], &YP_[0], &F_[0]);
 
   fScale_.assign(nbF_, 1.0);

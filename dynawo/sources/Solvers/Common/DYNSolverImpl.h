@@ -106,7 +106,17 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   /**
    * @copydoc Solver::defineParameters()
    */
-  virtual void defineParameters() = 0;
+  void defineParameters();
+
+  /**
+   * @copydoc Solver::defineCommonParameters()
+   */
+  void defineCommonParameters();
+
+  /**
+   * @copydoc Solver::defineSpecificParameters()
+   */
+  virtual void defineSpecificParameters() = 0;
 
   /**
    * @copydoc Solver::solverType()
@@ -144,9 +154,19 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   void setParametersFromPARFile(const boost::shared_ptr<parameters::ParametersSet> &params);
 
   /**
-   * @brief set the solver parameters value
+   * @copydoc Solver::setSolverParameters()
    */
-  virtual void setSolverParameters() = 0;
+  void setSolverParameters();
+
+  /**
+   * @copydoc Solver::setSolverCommonParameters()
+   */
+  void setSolverCommonParameters();
+
+  /**
+   * @copydoc Solver::setSolverSpecificParameters()
+   */
+  virtual void setSolverSpecificParameters() = 0;
 
   /**
    * @copydoc Solver::init(const boost::shared_ptr<Model> &model, const double &t0, const double &tEnd)
@@ -179,9 +199,19 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   void printSolve();
 
   /**
+   * @copydoc Solver::printSolveSpecific(std::stringstream& msg)
+   */
+  virtual void printSolveSpecific(std::stringstream& msg) = 0;
+
+  /**
    * @copydoc Solver::printHeader()
    */
   void printHeader();
+
+  /**
+   * @copydoc Solver::printHeaderSpecific(std::stringstream& ss)
+   */
+  virtual void printHeaderSpecific(std::stringstream& ss) = 0;
 
   /**
    * @copydoc Solver::printEnd()
@@ -220,12 +250,6 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @copydoc Solver::setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline)
    */
   void setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline);
-
-  /**
-   * @copydoc Solver::getLastConf(long int &nst, int &kused, double &hused)
-   */
-
-  virtual void getLastConf(long int &nst, int &kused, double &hused) = 0;
 
  protected:
   /**
@@ -298,6 +322,22 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   std::vector<double> vYp_;  ///< derivative of variables
   std::vector<double> vYz_;  ///< discrete variables values
   std::vector<DYN::propertyContinuousVar_t> vYId_;  ///< property of variables (algebraic/differential)
+
+  // Parameters for the algebraic restoration
+  double fnormtolAlg_;  ///< stopping tolerance on L2-norm of residual function
+  double scsteptolAlg_;  ///< scaled step length tolerance
+  double mxnewtstepAlg_;  ///< maximum allowable scaled step length
+  int msbsetAlg_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+  int mxiterAlg_;  ///< maximum number of nonlinear iterations
+  int printflAlg_;  ///< level of verbosity of output
+
+  // Parameters for the algebraic restoration with J recalculation
+  double fnormtolAlgJ_;  ///< stopping tolerance on L2-norm of residual function
+  double scsteptolAlgJ_;  ///< scaled step length tolerance
+  double mxnewtstepAlgJ_;  ///< maximum allowable scaled step length
+  int msbsetAlgJ_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
+  int mxiterAlgJ_;  ///< maximum number of nonlinear iterations
+  int printflAlgJ_;  ///< level of verbosity of output
 
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver

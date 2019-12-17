@@ -93,14 +93,14 @@ class SolverSIM : public Solver::Impl {
   ~SolverSIM();
 
   /**
-   * @copydoc Solver::Impl::defineParameters()
+   * @copydoc Solver::Impl::defineSpecificParameters()
    */
-  void defineParameters();
+  void defineSpecificParameters();
 
   /**
-   * @copydoc Solver::Impl::setSolverParameters()
+   * @copydoc Solver::Impl::setSolverSpecificParameters()
    */
-  void setSolverParameters();
+  void setSolverSpecificParameters();
 
   /**
    * @copydoc Solver::Impl::solverType()
@@ -125,10 +125,16 @@ class SolverSIM : public Solver::Impl {
    * @copydoc Solver::calculateIC()
    */
   void calculateIC();
+
   /**
-   * @copydoc Solver::Impl::getLastConf(long int &nst, int & kused, double & hused)
+   * @copydoc Solver::Impl::printHeaderSpecific(std::stringstream& ss)
    */
-  void getLastConf(long int &nst, int & kused, double & hused);
+  void printHeaderSpecific(std::stringstream& ss);
+
+  /**
+   * @copydoc Solver::Impl::printSolveSpecific(std::stringstream& msg)
+   */
+  void printSolveSpecific(std::stringstream& msg);
 
   /**
    * @brief print a summary of the execution statistics of the solver
@@ -251,22 +257,6 @@ class SolverSIM : public Solver::Impl {
   int msbset_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
   int mxiter_;  ///< maximum number of nonlinear iterations
   int printfl_;  ///< level of verbosity of output
-
-  // Parameters for the algebraic restoration
-  double fnormtolAlg_;  ///< stopping tolerance on L2-norm of residual function
-  double scsteptolAlg_;  ///< scaled step length tolerance
-  double mxnewtstepAlg_;  ///< maximum allowable scaled step length
-  int msbsetAlg_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
-  int mxiterAlg_;  ///< maximum number of nonlinear iterations
-  int printflAlg_;  ///< level of verbosity of output
-
-  // Parameters for the algebraic restoration with J recalculation
-  double fnormtolAlgJ_;  ///< stopping tolerance on L2-norm of residual function
-  double scsteptolAlgJ_;  ///< scaled step length tolerance
-  double mxnewtstepAlgJ_;  ///< maximum allowable scaled step length
-  int msbsetAlgJ_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
-  int mxiterAlgJ_;  ///< maximum number of nonlinear iterations
-  int printflAlgJ_;  ///< level of verbosity of output
 
   std::vector<double> ySave_;  ///< values of state variables before step
   std::vector<double> ypSave_;  ///< values of derivative variables before step

@@ -191,6 +191,7 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   vector<double> Y(solv->y0_.begin(), solv->y0_.end());
   vector<double> YP(model->sizeY(), 0.);
 
+  // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
   if (solv->getFirstIteration()) {
     solv->setFirstIteration(false);
   } else {
@@ -219,6 +220,13 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   long int current_nni = 0;
   KINGetNumNonlinSolvIters(solv->KINMem_, &current_nni);
   Trace::debug() << DYNLog(SolverKINResidualNorm, current_nni, weightedInfNorm, wL2Norm) << Trace::endline;
+
+  const int nbErr = 10;
+  Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
+  vector<std::pair<double, int> > fErr;
+  for (unsigned int i = 0; i < solv->indexF_.size(); ++i)
+    fErr.push_back(std::pair<double, int>(solv->F_[solv->indexF_[i]], i));
+  SolverCommon::printLargestErrors(fErr, model, nbErr);
 #endif
   return (0);
 }
@@ -249,18 +257,8 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
   int size = solv->indexY_.size();
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
-  bool matrixStructChange = SolverCommon::copySparseToKINSOL(smjKin, JJ, size, solv->lastRowVals_);
-
-  if (matrixStructChange) {
-    Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
-    SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
-    if (solv->lastRowVals_ != NULL) {
-      free(solv->lastRowVals_);
-    }
-    solv->lastRowVals_ = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
-    memcpy(solv->lastRowVals_, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
-  }
   return (0);
 }
 
@@ -290,17 +288,7 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector yy, N_Vector /*rr*/,
   int size = solv->indexY_.size();
   smjKin.reserve(size);
   smj.erase(solv->ignoreY_, solv->ignoreF_, smjKin);
-
-  bool matrixStructChange = SolverCommon::copySparseToKINSOL(smjKin, JJ, size, solv->lastRowVals_);
-
-  if (matrixStructChange) {
-    SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
-    if (solv->lastRowVals_ != NULL) {
-      free(solv->lastRowVals_);
-    }
-    solv->lastRowVals_ = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
-    memcpy(solv->lastRowVals_, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
-  }
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smjKin, JJ, size, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
   return (0);
 }
@@ -315,20 +303,14 @@ SolverKINAlgRestoration::solve(bool noInitSetup) {
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
 
   // first evaluation of F in order to fill the scaling vector
+  firstIteration_ = true;
   model_->evalF(t0_, &y0_[0], &yp0_[0], &F_[0]);
 
   // fScale
   fScale_.assign(indexF_.size(), 1.0);
-  if (mode_ == KIN_NORMAL) {
-    for (unsigned int i = 0; i < indexF_.size(); ++i) {
-      if ( std::abs(F_[indexF_[i]]) > RCONST(1.0))
-        fScale_[i] = 1. / std::abs(F_[indexF_[i]]);
-    }
-  } else if (mode_ == KIN_YPRIM) {
-    for (unsigned int i = 0; i < indexF_.size(); ++i) {
-      if ( std::abs(F_[indexF_[i]]) > RCONST(1.0))
-        fScale_[i] = 1. / std::abs(F_[indexF_[i]]);
-    }
+  for (unsigned int i = 0; i < indexF_.size(); ++i) {
+    if ( std::abs(F_[indexF_[i]]) > RCONST(1.0))
+      fScale_[i] = 1. / std::abs(F_[indexF_[i]]);
   }
 
   // yScale

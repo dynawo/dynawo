@@ -107,9 +107,19 @@ class Solver {
   virtual void setParameters(const boost::shared_ptr<parameters::ParametersSet> &params) = 0;
 
   /**
-   * @brief define each parameters of the model
+   * @brief define each parameters of the solver
    */
   virtual void defineParameters() = 0;
+
+  /**
+   * @brief define common parameters for all solvers
+   */
+  virtual void defineCommonParameters() = 0;
+
+  /**
+   * @brief define parameters specific to each solver
+   */
+  virtual void defineSpecificParameters() = 0;
 
   /**
    * @brief get the type of the solver
@@ -118,7 +128,7 @@ class Solver {
   virtual std::string solverType() const = 0;
 
   /**
-   * @brief check whether the parameter is available within the sub-model
+   * @brief check whether the parameter is available within the solver
    *
    * @param nameParameter name of the parameter
    * @return @b true if the parameter exists inside the solver
@@ -169,6 +179,16 @@ class Solver {
   */
   virtual void setSolverParameters() = 0;
 
+  /**
+   * @brief set the solver common parameters value
+   */
+  virtual void setSolverCommonParameters() = 0;
+
+  /**
+   * @brief set the solver specific parameters value
+   */
+  virtual void setSolverSpecificParameters() = 0;
+
 
   /**
    * @brief initialize the solver
@@ -216,9 +236,23 @@ class Solver {
   virtual void printSolve() = 0;
 
   /**
+   * @brief print specific info regarding the latest step made by the solver (i.e solution)
+   *
+   * @param msg stringstream to modify
+   */
+  virtual void printSolveSpecific(std::stringstream& msg) = 0;
+
+  /**
    * @brief print introduction information about the solver
    */
   virtual void printHeader() = 0;
+
+  /**
+   * @brief print solver specific introduction information
+   *
+   * @param ss stringstream to modify
+   */
+  virtual void printHeaderSpecific(std::stringstream& ss) = 0;
 
   /**
    * @brief print a summary of the execution statistics of the solver
@@ -255,15 +289,6 @@ class Solver {
    * @param timeline timeline to use
    */
   virtual void setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline) = 0;
-
-  /**
-   * @brief getter for the last configuration used by the solver
-   *
-   * @param nst cumulative number of internal steps taken by the solver
-   * @param kused the integration method order used during the last internal step
-   * @param hused the integration step size taken on the last internal step
-   */
-  virtual void getLastConf(long int &nst, int &kused, double &hused) = 0;
 
   class Impl;
 };

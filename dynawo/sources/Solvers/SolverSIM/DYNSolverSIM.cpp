@@ -106,13 +106,28 @@ SolverSIMFactory::~SolverSIMFactory() {
 
 SolverSIM::SolverSIM() {
   solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
+  hMin_ = 0;
+  hMax_ = 0;
+  kReduceStep_ = 0;
+  nEff_ = 0;
+  nDeadband_ = 0;
+  maxRootRestart_ = 0;
+  maxNewtonTry_ = 0;
+  recalculateStep_ = false;
+  linearSolverName_ = "";
+  fnormtol_ = 1e-4;
+  scsteptol_ = 1e-4;
+  mxnewtstep_ = 100000;
+  msbset_ = 0;
+  mxiter_ = 15;
+  printfl_ = 0;
 }
 
 SolverSIM::~SolverSIM() {
 }
 
 void
-SolverSIM::defineParameters() {
+SolverSIM::defineSpecificParameters() {
   // Time-domain part parameters
   parameters_.insert(make_pair("hMin", ParameterSolver("hMin", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("hMax", ParameterSolver("hMax", VAR_TYPE_DOUBLE)));
@@ -131,26 +146,10 @@ SolverSIM::defineParameters() {
   parameters_.insert(make_pair("msbset", ParameterSolver("msbset", VAR_TYPE_INT)));
   parameters_.insert(make_pair("mxiter", ParameterSolver("mxiter", VAR_TYPE_INT)));
   parameters_.insert(make_pair("printfl", ParameterSolver("printfl", VAR_TYPE_INT)));
-
-  // Parameters for the algebraic restoration
-  parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("scsteptolAlg", ParameterSolver("scsteptolAlg", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("mxnewtstepAlg", ParameterSolver("mxnewtstepAlg", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("msbsetAlg", ParameterSolver("msbsetAlg", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("mxiterAlg", ParameterSolver("mxiterAlg", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("printflAlg", ParameterSolver("printflAlg", VAR_TYPE_INT)));
-
-  // Parameters for the algebraic restoration with J recalculation
-  parameters_.insert(make_pair("fnormtolAlgJ", ParameterSolver("fnormtolAlgJ", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("scsteptolAlgJ", ParameterSolver("scsteptolAlgJ", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("mxnewtstepAlgJ", ParameterSolver("mxnewtstepAlgJ", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("msbsetAlgJ", ParameterSolver("msbsetAlgJ", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT)));
 }
 
 void
-SolverSIM::setSolverParameters() {
+SolverSIM::setSolverSpecificParameters() {
   hMin_ = findParameter("hMin").getValue<double>();
   hMax_ = findParameter("hMax").getValue<double>();
   kReduceStep_ = findParameter("kReduceStep").getValue<double>();
@@ -161,62 +160,18 @@ SolverSIM::setSolverParameters() {
   recalculateStep_ = findParameter("recalculateStep").getValue<bool>();
 
   linearSolverName_ = findParameter("linearSolverName").getValue<std::string>();
-  fnormtol_ = 1e-4;
   if (findParameter("fnormtol").hasValue())
     fnormtol_ = findParameter("fnormtol").getValue<double>();
-  scsteptol_ = 1e-4;
   if (findParameter("scsteptol").hasValue())
     scsteptol_ = findParameter("scsteptol").getValue<double>();
-  mxnewtstep_ = 100000;
   if (findParameter("mxnewtstep").hasValue())
     mxnewtstep_ = findParameter("mxnewtstep").getValue<double>();
-  msbset_ = 0;
   if (findParameter("msbset").hasValue())
     msbset_ = findParameter("msbset").getValue<int>();
-  mxiter_ = 15;
   if (findParameter("mxiter").hasValue())
     mxiter_ = findParameter("mxiter").getValue<int>();
-  printfl_ = 0;
   if (findParameter("printfl").hasValue())
     printfl_ = findParameter("printfl").getValue<int>();
-
-  fnormtolAlg_ = 1e-4;
-  if (findParameter("fnormtolAlg").hasValue())
-    fnormtolAlg_ = findParameter("fnormtolAlg").getValue<double>();
-  scsteptolAlg_ = 1e-4;
-  if (findParameter("scsteptolAlg").hasValue())
-    scsteptolAlg_ = findParameter("scsteptolAlg").getValue<double>();
-  mxnewtstepAlg_ = 100000;
-  if (findParameter("mxnewtstepAlg").hasValue())
-    mxnewtstepAlg_ = findParameter("mxnewtstepAlg").getValue<double>();
-  msbsetAlg_ = 5;
-  if (findParameter("msbsetAlg").hasValue())
-    msbsetAlg_ = findParameter("msbsetAlg").getValue<int>();
-  mxiterAlg_ = 30;
-  if (findParameter("mxiterAlg").hasValue())
-    mxiterAlg_ = findParameter("mxiterAlg").getValue<int>();
-  printflAlg_ = 0;
-  if (findParameter("printflAlg").hasValue())
-    printflAlg_ = findParameter("printflAlg").getValue<int>();
-
-  fnormtolAlgJ_ = 1e-4;
-  if (findParameter("fnormtolAlgJ").hasValue())
-    fnormtolAlgJ_ = findParameter("fnormtolAlgJ").getValue<double>();
-  scsteptolAlgJ_ = 1e-4;
-  if (findParameter("scsteptolAlgJ").hasValue())
-    scsteptolAlgJ_ = findParameter("scsteptolAlgJ").getValue<double>();
-  mxnewtstepAlgJ_ = 100000;
-  if (findParameter("mxnewtstepAlgJ").hasValue())
-    mxnewtstepAlgJ_ = findParameter("mxnewtstepAlgJ").getValue<double>();
-  msbsetAlgJ_ = 1;
-  if (findParameter("msbsetAlgJ").hasValue())
-    msbsetAlgJ_ = findParameter("msbsetAlgJ").getValue<int>();
-  mxiterAlgJ_ = 50;
-  if (findParameter("mxiterAlgJ").hasValue())
-    mxiterAlgJ_ = findParameter("mxiterAlgJ").getValue<int>();
-  printflAlgJ_ = 0;
-  if (findParameter("printflAlgJ").hasValue())
-    printflAlgJ_ = findParameter("printflAlgJ").getValue<int>();
 }
 
 std::string
@@ -709,11 +664,16 @@ SolverSIM::reinit(std::vector<double> &yNxt, std::vector<double> &ypNxt) {
 }
 
 void
-SolverSIM::getLastConf(long int& nst, int &kused, double & hused) {
-  nst = stats_.nst_;
-  kused = 1;
-  hused = h_;
-  return;
+SolverSIM::printHeaderSpecific(std::stringstream& ss) {
+  ss << "| nst   nni   nje  h";
+}
+
+void
+SolverSIM::printSolveSpecific(std::stringstream& msg) {
+  msg << "| " << setw(3) << stats_.nst_ << " "
+          << setw(4) << stats_.nni_ << " "
+          << setw(3) << stats_.nje_ << " "
+          << setw(3) << h_ << " ";
 }
 
 void

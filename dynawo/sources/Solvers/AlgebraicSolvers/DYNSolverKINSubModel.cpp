@@ -90,6 +90,7 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
   SolverKINSubModel * solv = reinterpret_cast<SolverKINSubModel*> (data);
   SubModel* subModel = solv->getSubModel();
 
+  // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
   if (solv->getFirstIteration()) {
     solv->setFirstIteration(false);
   } else {  // update of F
@@ -155,17 +156,7 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   // Arbitrary value for cj
   double cj = 1;
   subModel->evalJt(solv->t0_, cj, smj, 0);
-
-  bool matrixStructChange = SolverCommon::copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
-
-  if (matrixStructChange) {
-    SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
-    if (solv->lastRowVals_ != NULL) {
-      free(solv->lastRowVals_);
-    }
-    solv->lastRowVals_ = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
-    memcpy(solv->lastRowVals_, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
-  }
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, false);
 
   return (0);
 }
@@ -176,11 +167,10 @@ SolverKINSubModel::solve() {
   if (nbF_ == 0)
     return;
 
-  firstIteration_ = true;
-
   SubModel* subModel = getSubModel();
 
   subModel->evalF(t0_);
+  firstIteration_ = true;
 
   fScale_.assign(subModel->sizeF(), 1.0);
   for (unsigned int i = 0; i < nbF_; ++i) {

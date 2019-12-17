@@ -20,6 +20,7 @@
 #ifndef SOLVERS_COMMON_DYNSOLVERCOMMON_H_
 #define SOLVERS_COMMON_DYNSOLVERCOMMON_H_
 
+#include <sundials/sundials_linearsolver.h>
 #include <sunmatrix/sunmatrix_band.h>
 #include <sunmatrix/sunmatrix_sparse.h>
 #include <cmath>
@@ -44,6 +45,30 @@ class SolverCommon {
  * @return @b true if the matrix structure has changed, @b false else
  */
 static bool copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype * lastRowVals);
+
+/**
+ *
+ * @brief propagate the matrix structure change to KINSOL structure
+ *
+ * @param smj Sparse matrix to copy to the KINSOL structure
+ * @param JJ KINSOL structure where to copy the matrix
+ * @param size size of the square matrix (nb columns)
+ * @param lastRowVals pointer to the latest value of the previous matrix
+ * @param LS linear solver pointer
+ * @param linearSolverName name of the linear solver name (KLU / NICSLU)
+ * @param log @b true if a log should be added if a complete re-initialization is done
+ */
+static void propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size,
+                                                   sunindextype* lastRowVals, SUNLinearSolver LS, const std::string& linearSolverName, bool log);
+
+/**
+ * @brief Print the largest residuals errors
+ *
+ * @param fErr vector containing a pair with the residual function value and the global index of the residual function
+ * @param model model currently simulated
+ * @param nbErrors maximum number of errors to be displayed
+ */
+static void printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shared_ptr<Model>& model, int nbErrors);
 
 /**
  * @brief Compute the weighted infinity norm of a vector

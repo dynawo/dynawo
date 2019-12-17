@@ -986,10 +986,11 @@ ModelNetwork::initParams() {
   getY0();
 
   // solve initial problem
-  SolverKINSubModel solver;
-  solver.init(this, 0, &yLocalInit_[0], &fLocalInit_[0], 5);
-  /// generally, if the input is a network after a load flow, 5 iterations are enough to converge
+  // generally, if the input is a network after a load flow, 5 iterations are enough to converge
   // otherwise, the network is not balanced, and the global init of the model would be necessary to compute switches currents
+  SolverKINSubModel solver;
+  const int nbMaxIter = 5;
+  solver.init(this, 0, &yLocalInit_[0], &fLocalInit_[0], nbMaxIter);
 
   try {
   solver.solve();

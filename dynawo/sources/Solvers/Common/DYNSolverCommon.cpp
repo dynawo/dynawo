@@ -22,6 +22,11 @@
 #include <stdlib.h>
 #include <cmath>
 #include <sunmatrix/sunmatrix_sparse.h>
+#include <sunlinsol/sunlinsol_klu.h>
+
+#ifdef WITH_NICSLU
+#include <sunlinsol/sunlinsol_nicslu.h>
+#endif
 
 #include "DYNMacrosMessage.h"
 #include "DYNModel.h"
@@ -65,6 +70,51 @@ SolverCommon::copySparseToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const in
   }
 
   return matrixStructChange;
+}
+
+void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNMatrix JJ, const int& size, sunindextype* lastRowVals,
+                                                          SUNLinearSolver LS, const std::string& linearSolverName, bool log) {
+  bool matrixStructChange = copySparseToKINSOL(smj, JJ, size, lastRowVals);
+
+  if (matrixStructChange) {
+    if (linearSolverName == "KLU") {
+      SUNLinSol_KLUReInit(LS, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
+#ifdef WITH_NICSLU
+    } else if (linearSolverName == "NICSLU") {
+      SUNLinSol_NICSLUReInit(LS, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
+    }
+#else
+  }
+#endif
+    if (lastRowVals != NULL) {
+      free(lastRowVals);
+    }
+    lastRowVals = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
+    memcpy(lastRowVals, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
+    if (log)
+      Trace::debug() << DYNLog(MatrixStructureChange) << Trace::endline;
+  }
+}
+
+void
+SolverCommon::printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shared_ptr<Model>& model,
+                   int nbErr) {
+  std::sort(fErr.begin(), fErr.end(), mapcompabs());
+
+  std::vector<std::pair<double, int> >::iterator it;
+  int i = 0;
+  for (it = fErr.begin(); it != fErr.end(); ++it) {
+    std::string subModelName("");
+    int subModelIndexF = 0;
+    std::string fEquation("");
+    model->getFInfos(it->second, subModelName, subModelIndexF, fEquation);
+
+    Trace::debug() << DYNLog(KinErrorValue, it->second, it->first,
+                             subModelName, subModelIndexF, fEquation) << Trace::endline;
+    if (i >= nbErr)
+      break;
+    ++i;
+  }
 }
 
 double SolverCommon::weightedInfinityNorm(const std::vector<double>& vec, const std::vector<double>& weights) {
