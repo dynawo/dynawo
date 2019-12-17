@@ -53,6 +53,7 @@ set DYNAWO_XERCESC_INSTALL_DIR=%thirdPartyInstallPath%\xerces-c
 set DYNAWO_SUITESPARSE_INSTALL_DIR=%thirdPartyInstallPath%\suitesparse
 set DYNAWO_SUNDIALS_INSTALL_DIR=%thirdPartyInstallPath%\sundials
 set DYNAWO_BOOST_HOME=%thirdPartyInstallPath%\boost
+set DYNAWO_LIBXML_HOME=%thirdPartyInstallPath%\libxml
 
 "%DYNAWO_INSTALL_DIR%"bin\dynawo %*
 

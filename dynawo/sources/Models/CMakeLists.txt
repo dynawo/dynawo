@@ -176,6 +176,8 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
         COMMAND
           ${CMAKE_COMMAND} -E echo "set DYNAWO_BOOST_HOME=${BOOST_ROOT}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
         COMMAND
+          ${CMAKE_COMMAND} -E echo "set DYNAWO_LIBXML_HOME=${LIBXML_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        COMMAND
           ${CMAKE_COMMAND} -E echo "%*" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
         COMMAND
             ${CMAKE_COMMAND} -E env
