@@ -54,6 +54,7 @@ SolverKINCommon::SolverKINCommon() {
   nbF_ = 0;
   t0_ = 0.;
   firstIteration_ = false;
+  linearSolverName_ = "";
 }
 
 SolverKINCommon::~SolverKINCommon() {
@@ -122,7 +123,8 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
   // (6) Solver choice
   // -------------------
   // Here CSR has nothing to do with how the matrix is stored but rather how to solve the linear system using the matrix (CSC_MAT) or its transpose (CSR_MAT)
-  M_ = SUNSparseMatrix(nbF_, nbF_, 10, CSR_MAT);
+  const int nnz = 0.01 * nbF_ * nbF_;  // This will be adjusted later on
+  M_ = SUNSparseMatrix(nbF_, nbF_, nnz, CSR_MAT);
   if (M_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
   if (linearSolverName_ == "KLU") {
@@ -259,8 +261,6 @@ SolverKINCommon::analyseFlag(const int & flag) {
 
   if (flag < 0)
     Trace::warn() << msg.str() << Trace::endline;
-  else
-    Trace::debug() << msg.str() << Trace::endline;
 }
 
 void

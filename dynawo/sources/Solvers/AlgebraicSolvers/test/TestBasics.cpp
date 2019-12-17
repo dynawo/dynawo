@@ -105,8 +105,8 @@ boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
 }
 
 TEST(AlgebraicSolvers, testInit) {
-  SolverKINCommon solver = SolverKINCommon();
-  ASSERT_THROW_DYNAWO(solver.initCommon("KLU", 1, 1, 1, 1, 1, 1, NULL, NULL), Error::SUNDIALS_ERROR, KeyError_t::SolverEmptyYVector);
+  boost::shared_ptr<SolverKINCommon> solver(new SolverKINCommon());
+  ASSERT_THROW_DYNAWO(solver->initCommon("KLU", 1, 1, 1, 1, 1, 1, NULL, NULL), Error::SUNDIALS_ERROR, KeyError_t::SolverEmptyYVector);
 
   boost::shared_ptr<Model> model = initModelFromDyd("dyd/solverTestAlpha.dyd");
   boost::shared_ptr<SolverKINEuler> solverEuler(new SolverKINEuler());
@@ -146,46 +146,46 @@ TEST(AlgebraicSolvers, testModifySettings) {
 }
 
 TEST(AlgebraicSolvers, testAnalyseFlag) {
-  SolverKINCommon solver = SolverKINCommon();
+  boost::shared_ptr<SolverKINCommon> solver(new SolverKINCommon());
 
   // KIN_SUCCESS
-  ASSERT_NO_THROW(solver.analyseFlag(0));
+  ASSERT_NO_THROW(solver->analyseFlag(0));
   // KIN_INITIAL_GUESS_OK
-  ASSERT_NO_THROW(solver.analyseFlag(1));
+  ASSERT_NO_THROW(solver->analyseFlag(1));
   // KIN_STEP_LT_STPTOL
-  ASSERT_NO_THROW(solver.analyseFlag(2));
+  ASSERT_NO_THROW(solver->analyseFlag(2));
   // Positive number not corresponding to any expected message
-  ASSERT_THROW_DYNAWO(solver.analyseFlag(3), Error::SUNDIALS_ERROR, KeyError_t::SolverSolveErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solver->analyseFlag(3), Error::SUNDIALS_ERROR, KeyError_t::SolverSolveErrorKINSOL);
   // KIN_MEM_NULL
-  ASSERT_NO_THROW(solver.analyseFlag(-1));
+  ASSERT_NO_THROW(solver->analyseFlag(-1));
   // KIN_ILL_INPUT
-  ASSERT_NO_THROW(solver.analyseFlag(-2));
+  ASSERT_NO_THROW(solver->analyseFlag(-2));
   // KIN_NO_MALLOC
-  ASSERT_NO_THROW(solver.analyseFlag(-3));
+  ASSERT_NO_THROW(solver->analyseFlag(-3));
   // KIN_LINESEARCH_NONCONV
-  ASSERT_NO_THROW(solver.analyseFlag(-5));
+  ASSERT_NO_THROW(solver->analyseFlag(-5));
   // KIN_MAXITER_REACHED
-  ASSERT_NO_THROW(solver.analyseFlag(-6));
+  ASSERT_NO_THROW(solver->analyseFlag(-6));
   // KIN_MXNEWT_5X_EXCEEDED
-  ASSERT_NO_THROW(solver.analyseFlag(-7));
+  ASSERT_NO_THROW(solver->analyseFlag(-7));
   // KIN_LINESEARCH_BCFAIL
-  ASSERT_NO_THROW(solver.analyseFlag(-8));
+  ASSERT_NO_THROW(solver->analyseFlag(-8));
   // KIN_LINSOLV_NO_RECOVERY
-  ASSERT_NO_THROW(solver.analyseFlag(-9));
+  ASSERT_NO_THROW(solver->analyseFlag(-9));
   // KIN_LINIT_FAIL
-  ASSERT_NO_THROW(solver.analyseFlag(-10));
+  ASSERT_NO_THROW(solver->analyseFlag(-10));
   // KIN_LSETUP_FAIL
-  ASSERT_NO_THROW(solver.analyseFlag(-11));
+  ASSERT_NO_THROW(solver->analyseFlag(-11));
   // KIN_LSOLVE_FAIL
-  ASSERT_NO_THROW(solver.analyseFlag(-12));
+  ASSERT_NO_THROW(solver->analyseFlag(-12));
   // KIN_SYSFUNC_FAIL
-  ASSERT_NO_THROW(solver.analyseFlag(-13));
+  ASSERT_NO_THROW(solver->analyseFlag(-13));
   // KIN_FIRST_SYSFUNC_ERR
-  ASSERT_NO_THROW(solver.analyseFlag(-14));
+  ASSERT_NO_THROW(solver->analyseFlag(-14));
   // KIN_REPTD_SYSFUNC_ERR
-  ASSERT_NO_THROW(solver.analyseFlag(-15));
+  ASSERT_NO_THROW(solver->analyseFlag(-15));
   // Negative number not corresponding to any expected message
-  ASSERT_THROW_DYNAWO(solver.analyseFlag(-16), Error::SUNDIALS_ERROR, KeyError_t::SolverSolveErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solver->analyseFlag(-16), Error::SUNDIALS_ERROR, KeyError_t::SolverSolveErrorKINSOL);
 }
 
 }  // namespace DYN

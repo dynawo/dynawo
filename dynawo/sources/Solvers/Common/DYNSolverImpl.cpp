@@ -37,6 +37,7 @@
 #include "TLTimeline.h"
 
 using std::endl;
+using std::make_pair;
 using std::map;
 using std::min;
 using std::ofstream;
@@ -74,6 +75,18 @@ model_() {
   yz_ = NULL;
   yId_ = NULL;
   tSolve_ = 0.;
+  fnormtolAlg_ = 1e-4;
+  scsteptolAlg_ = 1e-4;
+  mxnewtstepAlg_ = 100000;
+  msbsetAlg_ = 5;
+  mxiterAlg_ = 30;
+  printflAlg_ = 0;
+  fnormtolAlgJ_ = 1e-4;
+  scsteptolAlgJ_ = 1e-4;
+  mxnewtstepAlgJ_ = 100000;
+  msbsetAlgJ_ = 1;
+  mxiterAlgJ_ = 50;
+  printflAlgJ_ = 0;
 }
 
 Solver::Impl::~Impl() {
@@ -157,17 +170,14 @@ Solver::Impl::printHeader() {
     if (i >= vYy_.size()) break;
     ss << "      y" << i + 1 << "      ";
   }
-  ss << "| nst k      h";
+
+  printHeaderSpecific(ss);
   Trace::debug() << ss.str() << Trace::endline;
   Trace::debug() << "-----------------------------------------------------------------------" << Trace::endline;
 }
 
 void
 Solver::Impl::printSolve() {
-  long int nst;
-  int kused;
-  double hused;
-  getLastConf(nst, kused, hused);
   std::stringstream msg;
   std::streamsize precision = msg.precision();
   msg << setfill(' ') << setw(12) << std::fixed << std::setprecision(3) << getTSolve() << " ";
@@ -178,9 +188,7 @@ Solver::Impl::printSolve() {
     msg << std::setprecision(precision) << std::scientific << setw(13) << val << " ";
   }
 
-  msg << "| " << setw(3) << nst << " "
-          << setw(1) << kused << " "
-          << setw(12) << hused << " ";
+  printSolveSpecific(msg);
 
   Trace::debug() << msg.str() << Trace::endline;
 }
@@ -295,6 +303,30 @@ Solver::Impl::checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet>
   }
 }
 
+void Solver::Impl::defineParameters() {
+  defineCommonParameters();
+  defineSpecificParameters();
+}
+
+void
+Solver::Impl::defineCommonParameters() {
+  // Parameters for the algebraic restoration
+  parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("scsteptolAlg", ParameterSolver("scsteptolAlg", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("mxnewtstepAlg", ParameterSolver("mxnewtstepAlg", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("msbsetAlg", ParameterSolver("msbsetAlg", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("mxiterAlg", ParameterSolver("mxiterAlg", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("printflAlg", ParameterSolver("printflAlg", VAR_TYPE_INT)));
+
+  // Parameters for the algebraic restoration with J recalculation
+  parameters_.insert(make_pair("fnormtolAlgJ", ParameterSolver("fnormtolAlgJ", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("scsteptolAlgJ", ParameterSolver("scsteptolAlgJ", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("mxnewtstepAlgJ", ParameterSolver("mxnewtstepAlgJ", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("msbsetAlgJ", ParameterSolver("msbsetAlgJ", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT)));
+}
+
 bool
 Solver::Impl::hasParameter(const string & nameParameter) {
   map<string, ParameterSolver>::iterator it = parameters_.find(nameParameter);
@@ -358,6 +390,52 @@ Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr
   } else {
     throw DYNError(Error::GENERAL, ParameterNotReadFromOrigin, origin2Str(PAR), parName);
   }
+}
+
+void Solver::Impl::setSolverParameters() {
+  setSolverCommonParameters();
+  setSolverSpecificParameters();
+}
+
+void Solver::Impl::setSolverCommonParameters() {
+  fnormtolAlg_ = 1e-4;
+  scsteptolAlg_ = 1e-4;
+  mxnewtstepAlg_ = 100000;
+  msbsetAlg_ = 5;
+  mxiterAlg_ = 30;
+  printflAlg_ = 0;
+  fnormtolAlgJ_ = 1e-4;
+  scsteptolAlgJ_ = 1e-4;
+  mxnewtstepAlgJ_ = 100000;
+  msbsetAlgJ_ = 1;
+  mxiterAlgJ_ = 50;
+  printflAlgJ_ = 0;
+
+  if (findParameter("fnormtolAlg").hasValue())
+    fnormtolAlg_ = findParameter("fnormtolAlg").getValue<double>();
+  if (findParameter("scsteptolAlg").hasValue())
+    scsteptolAlg_ = findParameter("scsteptolAlg").getValue<double>();
+  if (findParameter("mxnewtstepAlg").hasValue())
+    mxnewtstepAlg_ = findParameter("mxnewtstepAlg").getValue<double>();
+  if (findParameter("msbsetAlg").hasValue())
+    msbsetAlg_ = findParameter("msbsetAlg").getValue<int>();
+  if (findParameter("mxiterAlg").hasValue())
+    mxiterAlg_ = findParameter("mxiterAlg").getValue<int>();
+  if (findParameter("printflAlg").hasValue())
+    printflAlg_ = findParameter("printflAlg").getValue<int>();
+
+  if (findParameter("fnormtolAlgJ").hasValue())
+    fnormtolAlgJ_ = findParameter("fnormtolAlgJ").getValue<double>();
+  if (findParameter("scsteptolAlgJ").hasValue())
+    scsteptolAlgJ_ = findParameter("scsteptolAlgJ").getValue<double>();
+  if (findParameter("mxnewtstepAlgJ").hasValue())
+    mxnewtstepAlgJ_ = findParameter("mxnewtstepAlgJ").getValue<double>();
+  if (findParameter("msbsetAlgJ").hasValue())
+    msbsetAlgJ_ = findParameter("msbsetAlgJ").getValue<int>();
+  if (findParameter("mxiterAlgJ").hasValue())
+    mxiterAlgJ_ = findParameter("mxiterAlgJ").getValue<int>();
+  if (findParameter("printflAlgJ").hasValue())
+    printflAlgJ_ = findParameter("printflAlgJ").getValue<int>();
 }
 
 void

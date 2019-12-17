@@ -40,7 +40,7 @@ class Model;
  * SolverKINEuler is the implementation of a solver with euler method based on
  * KINSOL solver.
  */
-class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
+class SolverKINEuler : public SolverKINCommon{
  public:
   /**
    * @brief Default constructor

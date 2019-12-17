@@ -23,6 +23,7 @@
 #include <kinsol/kinsol.h>
 #include <sundials/sundials_nvector.h>
 #include <boost/shared_ptr.hpp>
+#include <boost/core/noncopyable.hpp>
 
 namespace DYN {
 
@@ -30,7 +31,7 @@ namespace DYN {
  * @brief class SolverKINCommon: common part of all the KINSOL-based solvers
  * Generic class for KINSOL-based solver
  */
-class SolverKINCommon {
+class SolverKINCommon : private boost::noncopyable{
  public:
   /**
    * @brief default constructor

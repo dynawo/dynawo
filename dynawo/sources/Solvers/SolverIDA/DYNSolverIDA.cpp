@@ -172,7 +172,7 @@ SolverIDA::~SolverIDA() {
 }
 
 void
-SolverIDA::defineParameters() {
+SolverIDA::defineSpecificParameters() {
   // Time-domain part parameters
   parameters_.insert(make_pair("order", ParameterSolver("order", VAR_TYPE_INT)));
   parameters_.insert(make_pair("initStep", ParameterSolver("initStep", VAR_TYPE_DOUBLE)));
@@ -180,70 +180,16 @@ SolverIDA::defineParameters() {
   parameters_.insert(make_pair("maxStep", ParameterSolver("maxStep", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("absAccuracy", ParameterSolver("absAccuracy", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE)));
-
-  // Parameters for the algebraic restoration
-  parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("scsteptolAlg", ParameterSolver("scsteptolAlg", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("mxnewtstepAlg", ParameterSolver("mxnewtstepAlg", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("msbsetAlg", ParameterSolver("msbsetAlg", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("mxiterAlg", ParameterSolver("mxiterAlg", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("printflAlg", ParameterSolver("printflAlg", VAR_TYPE_INT)));
-
-  // Parameters for the algebraic restoration with J recalculation
-  parameters_.insert(make_pair("fnormtolAlgJ", ParameterSolver("fnormtolAlgJ", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("scsteptolAlgJ", ParameterSolver("scsteptolAlgJ", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("mxnewtstepAlgJ", ParameterSolver("mxnewtstepAlgJ", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("msbsetAlgJ", ParameterSolver("msbsetAlgJ", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT)));
 }
 
 void
-SolverIDA::setSolverParameters() {
+SolverIDA::setSolverSpecificParameters() {
   order_ = findParameter("order").getValue<int>();
   initStep_ = findParameter("initStep").getValue<double>();
   minStep_ = findParameter("minStep").getValue<double>();
   maxStep_ = findParameter("maxStep").getValue<double>();
   absAccuracy_ = findParameter("absAccuracy").getValue<double>();
   relAccuracy_ = findParameter("relAccuracy").getValue<double>();
-
-  fnormtolAlg_ = 1e-4;
-  if (findParameter("fnormtolAlg").hasValue())
-    fnormtolAlg_ = findParameter("fnormtolAlg").getValue<double>();
-  scsteptolAlg_ = 1e-4;
-  if (findParameter("scsteptolAlg").hasValue())
-    scsteptolAlg_ = findParameter("scsteptolAlg").getValue<double>();
-  mxnewtstepAlg_ = 100000;
-  if (findParameter("mxnewtstepAlg").hasValue())
-    mxnewtstepAlg_ = findParameter("mxnewtstepAlg").getValue<double>();
-  msbsetAlg_ = 5;
-  if (findParameter("msbsetAlg").hasValue())
-    msbsetAlg_ = findParameter("msbsetAlg").getValue<int>();
-  mxiterAlg_ = 30;
-  if (findParameter("mxiterAlg").hasValue())
-    mxiterAlg_ = findParameter("mxiterAlg").getValue<int>();
-  printflAlg_ = 0;
-  if (findParameter("printflAlg").hasValue())
-    printflAlg_ = findParameter("printflAlg").getValue<int>();
-
-  fnormtolAlgJ_ = 1e-4;
-  if (findParameter("fnormtolAlgJ").hasValue())
-    fnormtolAlgJ_ = findParameter("fnormtolAlgJ").getValue<double>();
-  scsteptolAlgJ_ = 1e-4;
-  if (findParameter("scsteptolAlgJ").hasValue())
-    scsteptolAlgJ_ = findParameter("scsteptolAlgJ").getValue<double>();
-  mxnewtstepAlgJ_ = 100000;
-  if (findParameter("mxnewtstepAlgJ").hasValue())
-    mxnewtstepAlgJ_ = findParameter("mxnewtstepAlgJ").getValue<double>();
-  msbsetAlgJ_ = 1;
-  if (findParameter("msbsetAlgJ").hasValue())
-    msbsetAlgJ_ = findParameter("msbsetAlgJ").getValue<int>();
-  mxiterAlgJ_ = 50;
-  if (findParameter("mxiterAlgJ").hasValue())
-    mxiterAlgJ_ = findParameter("mxiterAlgJ").getValue<int>();
-  printflAlgJ_ = 0;
-  if (findParameter("printflAlgJ").hasValue())
-    printflAlgJ_ = findParameter("printflAlgJ").getValue<int>();
 }
 
 std::string
@@ -662,17 +608,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
   int size = model->sizeY();
   smj.init(size, size);
   model->evalJt(tt, iyy, iyp, cj, smj);
-
-  bool matrixStructChange = SolverCommon::copySparseToKINSOL(smj, JJ, size, solv->lastRowVals_);
-
-  if (matrixStructChange) {
-    SUNLinSol_KLUReInit(solv->LS_, JJ, SM_NNZ_S(JJ), 2);  // reinit symbolic factorisation
-    if (solv->lastRowVals_ != NULL) {
-      free(solv->lastRowVals_);
-    }
-    solv->lastRowVals_ = reinterpret_cast<sunindextype*> (malloc(sizeof (sunindextype)*SM_NNZ_S(JJ)));
-    memcpy(solv->lastRowVals_, SM_INDEXVALS_S(JJ), sizeof (sunindextype)*SM_NNZ_S(JJ));
-  }
+  SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, solv->lastRowVals_, solv->LS_, "KLU", true);
 
   return (0);
 }
@@ -879,6 +815,11 @@ SolverIDA::getRootsFound() const {
 }
 
 void
+SolverIDA::printHeaderSpecific(std::stringstream& ss) {
+  ss << "| nst k      h";
+}
+
+void
 SolverIDA::getLastConf(long int &nst, int & kused, double & hused) {
   // number of used intern iterations
   if (IDAGetNumSteps(IDAMem_, &nst) < 0)
@@ -892,6 +833,17 @@ SolverIDA::getLastConf(long int &nst, int & kused, double & hused) {
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetLastStep");
 
   return;
+}
+
+void
+SolverIDA::printSolveSpecific(std::stringstream& msg) {
+  long int nst;
+  int kused;
+  double hused;
+  getLastConf(nst, kused, hused);
+  msg << "| " << setw(3) << nst << " "
+          << setw(1) << kused << " "
+          << setw(12) << hused << " ";
 }
 
 void
