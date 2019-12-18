@@ -12,21 +12,21 @@
 # Custom target for installing Dynawo precompiled models
 # Includes C++ models and Modelica models
 #
-ADD_CUSTOM_TARGET(models
+add_custom_target(models
                   DEPENDS
                     models-mo
                     models-cpp
                   COMMENT "Building models for Dynawo"
                  )
 
-ADD_CUSTOM_TARGET(models-mo
+add_custom_target(models-mo
                   DEPENDS
                     MODEL_FILES_INSTALL
                     PREASSEMBLED_MODEL_FILES_INSTALL
                   COMMENT "Building modelica models for Dynawo"
                  )
 
-ADD_CUSTOM_TARGET(models-cpp
+add_custom_target(models-cpp
                   DEPENDS
                     CPP_FILES_INSTALL
                   COMMENT "Building cpp models for Dynawo"
@@ -36,14 +36,14 @@ ADD_CUSTOM_TARGET(models-cpp
 # Target used to install Modelica model files in ddbdir
 # (.mo or .xml only)
 #
-ADD_CUSTOM_TARGET(MODEL_FILES_INSTALL
+add_custom_target(MODEL_FILES_INSTALL
                   COMMENT "Installing Modelica models"
                  )
 
 #
 # Flatten external variable files (in order to process includes)
 #
-ADD_CUSTOM_TARGET(EXTERNAL_VARIABLES_FLATTENING
+add_custom_target(EXTERNAL_VARIABLES_FLATTENING
                   DEPENDS
                     MODEL_FILES_INSTALL
                   COMMENT "Flattening external variables files (processing includes)"
@@ -54,7 +54,7 @@ ADD_CUSTOM_TARGET(EXTERNAL_VARIABLES_FLATTENING
 # Target used to install Modelica preassembled models files in ddbdir
 # (.so and .desc.xml)
 #
-ADD_CUSTOM_TARGET(PREASSEMBLED_MODEL_FILES_INSTALL
+add_custom_target(PREASSEMBLED_MODEL_FILES_INSTALL
                   COMMENT "Installing preassembled models"
                  )
 
@@ -62,49 +62,49 @@ ADD_CUSTOM_TARGET(PREASSEMBLED_MODEL_FILES_INSTALL
 # Target used to install C++ models files in ddbdir
 # (.so and .desc.xml)
 #
-ADD_CUSTOM_TARGET(CPP_FILES_INSTALL
+add_custom_target(CPP_FILES_INSTALL
                   COMMENT "Installing C++ models"
                  )
 
-SET(EXTERNAL_VARIABLES_EXTENSION ".extvar")
-SET(DESCRIPTION_XML_EXTENSION ".desc.xml")
+set(EXTERNAL_VARIABLES_EXTENSION ".extvar")
+set(DESCRIPTION_XML_EXTENSION ".desc.xml")
 
 #
 # Macro called to install a .mo or .extvar file
 # to ddbdir. Automatically adds the dependencies
 # to the main targets.
 #
-MACRO(INSTALL_MODEL_FILE
+macro(INSTALL_MODEL_FILE
   FILE_TO_INSTALL
 )
-  FILE(RELATIVE_PATH RELATIVE_MODELICA_MODEL_DIR ${DYNAWO_MODELICA_MODELS_ROOT} ${CMAKE_CURRENT_SOURCE_DIR})
+  file(RELATIVE_PATH RELATIVE_MODELICA_MODEL_DIR ${DYNAWO_MODELICA_MODELS_ROOT} ${CMAKE_CURRENT_SOURCE_DIR})
 
   # Generate a target name for the model
-  STRING(REPLACE "/" "_" TARGET_NAME "${RELATIVE_MODELICA_MODEL_DIR}/${FILE_TO_INSTALL}")
+  string(REPLACE "/" "_" TARGET_NAME "${RELATIVE_MODELICA_MODEL_DIR}/${FILE_TO_INSTALL}")
 
   # Extract the (short) file extension
-  STRING(FIND ${FILE_TO_INSTALL} "." SHORT_EXTENSION_INDEX REVERSE)
-  STRING(SUBSTRING ${FILE_TO_INSTALL} ${SHORT_EXTENSION_INDEX} -1 SHORT_EXTENSION)
-  STRING(TOLOWER ${SHORT_EXTENSION} SHORT_EXTENSION_LOWER)
+  string(FIND ${FILE_TO_INSTALL} "." SHORT_EXTENSION_INDEX REVERSE)
+  string(SUBSTRING ${FILE_TO_INSTALL} ${SHORT_EXTENSION_INDEX} -1 SHORT_EXTENSION)
+  string(TOLOWER ${SHORT_EXTENSION} SHORT_EXTENSION_LOWER)
 
-  SET(OUTPUT_FILE_NAME "${FILE_TO_INSTALL}")
-  SET(OUTPUT_FILE_PATH ${ddbdir}/${RELATIVE_MODELICA_MODEL_DIR}/${OUTPUT_FILE_NAME})
+  set(OUTPUT_FILE_NAME "${FILE_TO_INSTALL}")
+  set(OUTPUT_FILE_PATH ${ddbdir}/${RELATIVE_MODELICA_MODEL_DIR}/${OUTPUT_FILE_NAME})
 
-  ADD_CUSTOM_TARGET(${TARGET_NAME}
+  add_custom_target(${TARGET_NAME}
     DEPENDS CREATE_DDBDIR
     COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/${FILE_TO_INSTALL} ${OUTPUT_FILE_PATH}
     )
 
   # Run xmllint on external variable files in order to include possible sub-model external variables
-  IF(UNIX AND ${SHORT_EXTENSION_LOWER} STREQUAL ${EXTERNAL_VARIABLES_EXTENSION})
-    SET(TARGET_PROCESSING_NAME "${TARGET_NAME}_EXTVAR_FLATTENING")
-    ADD_CUSTOM_TARGET(${TARGET_PROCESSING_NAME}
+  if(UNIX AND ${SHORT_EXTENSION_LOWER} STREQUAL ${EXTERNAL_VARIABLES_EXTENSION})
+    set(TARGET_PROCESSING_NAME "${TARGET_NAME}_EXTVAR_FLATTENING")
+    add_custom_target(${TARGET_PROCESSING_NAME}
       DEPENDS MODEL_FILES_INSTALL
       COMMENT "Processing external variable files for includes"
       )
 
-    SET(TMP_FILE_PATH ${OUTPUT_FILE_PATH}.tmp)
-    ADD_CUSTOM_COMMAND(
+    set(TMP_FILE_PATH ${OUTPUT_FILE_PATH}.tmp)
+    add_custom_command(
       TARGET ${TARGET_PROCESSING_NAME}
       PRE_BUILD
       COMMAND xmllint --nofixup-base-uris --nowarning --xinclude "${OUTPUT_FILE_PATH}" --output "${TMP_FILE_PATH}" 2>&1 || ((echo "*** Failed to include external variable files") && exit -1)
@@ -112,12 +112,12 @@ MACRO(INSTALL_MODEL_FILE
       COMMAND rm -rf "${TMP_FILE_PATH}"
       )
 
-    ADD_DEPENDENCIES(EXTERNAL_VARIABLES_FLATTENING ${TARGET_PROCESSING_NAME})
-  ENDIF()
+    add_dependencies(EXTERNAL_VARIABLES_FLATTENING ${TARGET_PROCESSING_NAME})
+  endif()
 
-  ADD_DEPENDENCIES(MODEL_FILES_INSTALL ${TARGET_NAME})
+  add_dependencies(MODEL_FILES_INSTALL ${TARGET_NAME})
 
-ENDMACRO(INSTALL_MODEL_FILE)
+endmacro(INSTALL_MODEL_FILE)
 
 #
 # Macro called to preassemble a modelica model with its description
@@ -125,10 +125,10 @@ ENDMACRO(INSTALL_MODEL_FILE)
 # to the main targets.
 #
 
-MACRO(COMPILE_PREASSEMBLED_MODEL
+macro(COMPILE_PREASSEMBLED_MODEL
        PREASSEMBLED_MODEL
      )
-  GET_FILENAME_COMPONENT(MODEL_NAME ${PREASSEMBLED_MODEL} NAME_WE)
+  get_filename_component(MODEL_NAME ${PREASSEMBLED_MODEL} NAME_WE)
 
     #
     # Builds the preassembled model if .dep file shows
@@ -137,7 +137,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     # We have to do a different command for Windows because of the limitation of numbers of characters on a command line...
     #
     if (MSVC)
-      ADD_CUSTOM_COMMAND(
+      add_custom_command(
         OUTPUT ${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
         DEPENDS
             ${PREASSEMBLED_MODEL}
@@ -187,7 +187,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
         COMMENT "Building ${MODEL_NAME}"
         )
     else()
-      ADD_CUSTOM_COMMAND(
+      add_custom_command(
         OUTPUT ${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
         DEPENDS
             ${PREASSEMBLED_MODEL}
@@ -223,7 +223,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     #
     # Generates .desc.xml file for the preassembled model
     #
-    ADD_CUSTOM_COMMAND(
+    add_custom_command(
         OUTPUT ${MODEL_NAME}${DESCRIPTION_XML_EXTENSION}
         DEPENDS ${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
         COMMAND
@@ -237,7 +237,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
     #
     # Install built library and generated .desc.xml file into bdddir
     #
-    ADD_CUSTOM_TARGET(${MODEL_NAME}
+    add_custom_target(${MODEL_NAME}
         DEPENDS
             ${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
             ${MODEL_NAME}${DESCRIPTION_XML_EXTENSION}
@@ -249,7 +249,7 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
             ${CMAKE_COMMAND} -E copy ${MODEL_NAME}${DESCRIPTION_XML_EXTENSION} ${ddbdir}/
         )
 
-    ADD_CUSTOM_TARGET(${MODEL_NAME}${EXTERNAL_VARIABLES_EXTENSION}
+    add_custom_target(${MODEL_NAME}${EXTERNAL_VARIABLES_EXTENSION}
         DEPENDS
             ${MODEL_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}
             CREATE_DDBDIR
@@ -259,21 +259,21 @@ MACRO(COMPILE_PREASSEMBLED_MODEL
         COMMENT "Install ${MODEL_NAME}${EXTERNAL_VARIABLES_EXTENSION} external variables description file"
         )
 
-    ADD_DEPENDENCIES(PREASSEMBLED_MODEL_FILES_INSTALL ${MODEL_NAME})
-    ADD_DEPENDENCIES(PREASSEMBLED_MODEL_FILES_INSTALL ${MODEL_NAME}${EXTERNAL_VARIABLES_EXTENSION})
-ENDMACRO(COMPILE_PREASSEMBLED_MODEL)
+    add_dependencies(PREASSEMBLED_MODEL_FILES_INSTALL ${MODEL_NAME})
+    add_dependencies(PREASSEMBLED_MODEL_FILES_INSTALL ${MODEL_NAME}${EXTERNAL_VARIABLES_EXTENSION})
+endmacro(COMPILE_PREASSEMBLED_MODEL)
 
 #
 # Macro called to install a C++ model and its description
 # file into ddbdir. Automatically adds the dependencies
 # to the main targets.
 #
-MACRO(COMPILE_CPP_MODEL
+macro(COMPILE_CPP_MODEL
           CPP_MODEL
           CPP_SOURCES
      )
 
-    ADD_CUSTOM_TARGET(${CPP_MODEL}_HPP
+    add_custom_target(${CPP_MODEL}_HPP
         COMMAND
             ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_SOURCE_DIR}/${CPP_MODEL}.hpp
         COMMAND
@@ -282,15 +282,15 @@ MACRO(COMPILE_CPP_MODEL
         COMMENT "Creating checkSum for ${CPP_MODEL}"
         )
 
-    ADD_LIBRARY(${CPP_MODEL} SHARED EXCLUDE_FROM_ALL ${CPP_SOURCES})
+    add_library(${CPP_MODEL} SHARED EXCLUDE_FROM_ALL ${CPP_SOURCES})
 
-    SET_TARGET_PROPERTIES(${CPP_MODEL} PROPERTIES PREFIX "")
+    set_target_properties(${CPP_MODEL} PROPERTIES PREFIX "")
 
-    ADD_DEPENDENCIES(${CPP_MODEL} ${CPP_MODEL}_HPP)
+    add_dependencies(${CPP_MODEL} ${CPP_MODEL}_HPP)
 
-    TARGET_LINK_LIBRARIES(${CPP_MODEL} dynawo_CPPModelsCommon)
+    target_link_libraries(${CPP_MODEL} dynawo_CPPModelsCommon)
 
-    ADD_CUSTOM_COMMAND(
+    add_custom_command(
         OUTPUT ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}
         DEPENDS ${CPP_MODEL}
         COMMAND
@@ -301,7 +301,7 @@ MACRO(COMPILE_CPP_MODEL
         COMMENT "Building ${CPP_MODEL} description file"
         )
 
-    ADD_CUSTOM_TARGET(${CPP_MODEL}_INSTALL
+    add_custom_target(${CPP_MODEL}_INSTALL
         DEPENDS
             ${CPP_MODEL}
             ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}
@@ -312,16 +312,16 @@ MACRO(COMPILE_CPP_MODEL
             ${CMAKE_COMMAND} -E copy ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION} ${ddbdir}/
         )
 
-    ADD_DEPENDENCIES(CPP_FILES_INSTALL ${CPP_MODEL}_INSTALL)
-ENDMACRO(COMPILE_CPP_MODEL)
+    add_dependencies(CPP_FILES_INSTALL ${CPP_MODEL}_INSTALL)
+endmacro(COMPILE_CPP_MODEL)
 
 # PYTHON scripts for models
-SET(PYTHON_SCRIPTS_MODELS
+set(PYTHON_SCRIPTS_MODELS
   checkSum_ModelsCPP.py
   )
 
-INSTALL(PROGRAMS ${PYTHON_SCRIPTS_MODELS} DESTINATION ${SBINDIR_NAME})
+install(PROGRAMS ${PYTHON_SCRIPTS_MODELS} DESTINATION ${SBINDIR_NAME})
 
 # List of model subdirectories
-ADD_SUBDIRECTORY(CPP)
-ADD_SUBDIRECTORY(Modelica)
+add_subdirectory(CPP)
+add_subdirectory(Modelica)

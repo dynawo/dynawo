@@ -9,27 +9,27 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 #CompileModelicaModel
-SET(COMPILER_MODELICA_OMC_SOURCES
+set(COMPILER_MODELICA_OMC_SOURCES
     DYNCompileModelicaModel.cpp
     )
 
-ADD_EXECUTABLE(compileModelicaModel ${COMPILER_MODELICA_OMC_SOURCES})
+add_executable(compileModelicaModel ${COMPILER_MODELICA_OMC_SOURCES})
 
-TARGET_LINK_LIBRARIES(compileModelicaModel
+target_link_libraries(compileModelicaModel
     dynawo_Common
     ${CMAKE_DL_LIBS}
     )
 
-IF(APPLE)
+if(APPLE)
     # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
-    SET_TARGET_PROPERTIES(compileModelicaModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-ENDIF()
+    set_target_properties(compileModelicaModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
+endif()
 
-INSTALL(TARGETS compileModelicaModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
+install(TARGETS compileModelicaModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
 
-CONFIGURE_FILE(compileCppModelicaModelInDynamicLib.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib.cmake @ONLY)
-CONFIGURE_FILE(PreloadCache.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/PreloadCache.cmake @ONLY)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib.cmake ${CMAKE_CURRENT_BINARY_DIR}/PreloadCache.cmake DESTINATION ${SBINDIR_NAME})
+configure_file(compileCppModelicaModelInDynamicLib.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib.cmake @ONLY)
+configure_file(PreloadCache.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/PreloadCache.cmake @ONLY)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/compileCppModelicaModelInDynamicLib.cmake ${CMAKE_CURRENT_BINARY_DIR}/PreloadCache.cmake DESTINATION ${SBINDIR_NAME})
 
 #Add post processing scripts
-ADD_SUBDIRECTORY(Scripts_OMC_${OPENMODELICA_VERSION})
+add_subdirectory(Scripts_OMC_${OPENMODELICA_VERSION})

@@ -8,7 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(DYNAWO_MODELICA_MODELS_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+set(DYNAWO_MODELICA_MODELS_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
-ADD_SUBDIRECTORY(Dynawo D)
-ADD_SUBDIRECTORY(PreassembledModels P)
+add_subdirectory(Dynawo D)
+add_subdirectory(PreassembledModels P)

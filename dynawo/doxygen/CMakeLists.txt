@@ -8,16 +8,16 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(SRC_DIR ${PROJECT_SOURCE_DIR})
-SET(DOC_DIR ${docdir})
+set(SRC_DIR ${PROJECT_SOURCE_DIR})
+set(DOC_DIR ${docdir})
 
 # add a target to generate API documentation with Doxygen
-FIND_PACKAGE(Doxygen 1.8)
-IF(DOXYGEN_FOUND)
-    CONFIGURE_FILE(doxygen.cfg.in ${CMAKE_CURRENT_BINARY_DIR}/doxygen.cfg @ONLY)
-    ADD_CUSTOM_TARGET(doc
+find_package(Doxygen 1.8)
+if(DOXYGEN_FOUND)
+    configure_file(doxygen.cfg.in ${CMAKE_CURRENT_BINARY_DIR}/doxygen.cfg @ONLY)
+    add_custom_target(doc
                       ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/doxygen.cfg
                       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
                       COMMENT "Generating Dynawo documentation with Doxygen" VERBATIM
                       )
-ENDIF(DOXYGEN_FOUND)
+endif(DOXYGEN_FOUND)

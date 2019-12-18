@@ -8,17 +8,17 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(SOLVER_COMMON_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(SOLVER_COMMON_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(SOLVER_COMMON_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(SOLVER_COMMON_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(SOLVER_COMMON_SOURCES
+set(SOLVER_COMMON_SOURCES
     DYNSolverImpl.cpp
     DYNSolverFactory.cpp
     DYNSolverCommon.cpp
     DYNParameterSolver.cpp
     )
 
-SET(SOLVER_COMMON_INCLUDE_HEADERS
+set(SOLVER_COMMON_INCLUDE_HEADERS
     DYNSolver.h
     DYNSolverFactory.h
     DYNSolverCommon.h
@@ -26,9 +26,9 @@ SET(SOLVER_COMMON_INCLUDE_HEADERS
     DYNParameterSolver.hpp
     )
 
-ADD_LIBRARY(dynawo_SolverCommon ${LIBRARY_TYPE} ${SOLVER_COMMON_SOURCES})
+add_library(dynawo_SolverCommon ${LIBRARY_TYPE} ${SOLVER_COMMON_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_SolverCommon
+target_include_directories(dynawo_SolverCommon
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
@@ -37,7 +37,7 @@ TARGET_INCLUDE_DIRECTORIES(dynawo_SolverCommon
     $<TARGET_PROPERTY:dynawo_API_PAR,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
-TARGET_LINK_LIBRARIES(dynawo_SolverCommon
+target_link_libraries(dynawo_SolverCommon
   PUBLIC
     dynawo_Util
     dynawo_API_TL
@@ -46,22 +46,22 @@ TARGET_LINK_LIBRARIES(dynawo_SolverCommon
     SuiteSparse::SuiteSparse_KLU
 )
 
-IF(${NICSLU_FOUND})
-  TARGET_LINK_LIBRARIES(dynawo_SolverCommon
+if(${NICSLU_FOUND})
+  target_link_libraries(dynawo_SolverCommon
     PUBLIC
       Sundials::Sundials_SUNLINSOLNICSLU
       Sundials::Sundials_SUNMATRIXSPARSE
       NICSLU::NICSLU
       NICSLU::NICSLU_Util
   )
-ENDIF()
+endif()
 
-SET_TARGET_PROPERTIES(dynawo_SolverCommon PROPERTIES VERSION ${SOLVER_COMMON_VERSION_STRING}
+set_target_properties(dynawo_SolverCommon PROPERTIES VERSION ${SOLVER_COMMON_VERSION_STRING}
                                                    SOVERSION ${SOLVER_COMMON_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_SolverCommon EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${SOLVER_COMMON_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_SolverCommon EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${SOLVER_COMMON_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
-SET(SOLVER_SHARED solvers.par)
+set(SOLVER_SHARED solvers.par)
 
-INSTALL(FILES ${SOLVER_SHARED} DESTINATION ${SHAREDIR_NAME})
+install(FILES ${SOLVER_SHARED} DESTINATION ${SHAREDIR_NAME})

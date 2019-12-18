@@ -9,16 +9,16 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # API Version
-SET(API_CSTR_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(API_CSTR_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(API_CSTR_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(API_CSTR_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(API_CSTR_SHARED
+set(API_CSTR_SHARED
     xsd/constraints.xsd
     )
 
-INSTALL(FILES ${API_CSTR_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
+install(FILES ${API_CSTR_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
-SET(API_CSTR_SOURCES
+set(API_CSTR_SOURCES
     CSTRConstraintImpl.cpp
     CSTRConstraintFactory.cpp
     CSTRConstraintsCollection.cpp
@@ -28,7 +28,7 @@ SET(API_CSTR_SOURCES
     CSTRTxtExporter.cpp
     )
 
-SET(API_CSTR_INCLUDE_HEADERS
+set(API_CSTR_INCLUDE_HEADERS
     CSTRConstraint.h
     CSTRConstraintFactory.h
     CSTRConstraintCommon.h
@@ -39,21 +39,21 @@ SET(API_CSTR_INCLUDE_HEADERS
     CSTRTxtExporter.h
     )
 
-ADD_LIBRARY(dynawo_API_CSTR ${LIBRARY_TYPE} ${API_CSTR_SOURCES})
+add_library(dynawo_API_CSTR ${LIBRARY_TYPE} ${API_CSTR_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_API_CSTR
+target_include_directories(dynawo_API_CSTR
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
-TARGET_LINK_LIBRARIES(dynawo_API_CSTR
+target_link_libraries(dynawo_API_CSTR
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     dynawo_Common
     )
 
-SET_TARGET_PROPERTIES(dynawo_API_CSTR PROPERTIES VERSION ${API_CSTR_VERSION_STRING}
+set_target_properties(dynawo_API_CSTR PROPERTIES VERSION ${API_CSTR_VERSION_STRING}
                                                SOVERSION ${API_CSTR_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_API_CSTR EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${API_CSTR_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_API_CSTR EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${API_CSTR_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

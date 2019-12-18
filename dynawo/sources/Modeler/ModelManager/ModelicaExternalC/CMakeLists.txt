@@ -8,7 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(MODELICA_SOURCES
+set(MODELICA_SOURCES
     DYNModelicaUtilities.cpp
     ModelicaFFT.c
     ModelicaInternal.c
@@ -21,7 +21,7 @@ SET(MODELICA_SOURCES
     ModelicaStandardTablesUsertab.c
     )
 
-SET(MODELICA_INCLUDE_HEADERS
+set(MODELICA_INCLUDE_HEADERS
     ModelicaFFT.h
     ModelicaInternal.h
     ModelicaRandom.h
@@ -38,23 +38,23 @@ SET(MODELICA_INCLUDE_HEADERS
 #win32_dirent.c
 #win32_dirent.h
 
-#SET_SOURCE_FILES_PROPERTIES(${MODELICA_SOURCES} PROPERTIES LANGUAGE CXX)
+#set_source_files_properties(${MODELICA_SOURCES} PROPERTIES LANGUAGE CXX)
 
-ADD_LIBRARY(Modelica_externalC ${LIBRARY_TYPE} ${MODELICA_SOURCES})
+add_library(Modelica_externalC ${LIBRARY_TYPE} ${MODELICA_SOURCES})
 
-TARGET_COMPILE_OPTIONS(Modelica_externalC PRIVATE -w)
+target_compile_options(Modelica_externalC PRIVATE -w)
 
-TARGET_COMPILE_DEFINITIONS(Modelica_externalC PRIVATE #[[TABLE_SHARE]] DUMMY_FUNCTION_USERTAB)
+target_compile_definitions(Modelica_externalC PRIVATE #[[TABLE_SHARE]] DUMMY_FUNCTION_USERTAB)
 
-TARGET_INCLUDE_DIRECTORIES(Modelica_externalC
+target_include_directories(Modelica_externalC
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
-TARGET_LINK_LIBRARIES(Modelica_externalC
+target_link_libraries(Modelica_externalC
     dynawo_Common
     )
 
-INSTALL(TARGETS Modelica_externalC EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${MODELICA_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS Modelica_externalC EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${MODELICA_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

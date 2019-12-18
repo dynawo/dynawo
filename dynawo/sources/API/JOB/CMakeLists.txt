@@ -9,16 +9,16 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # API version
-SET(API_JOB_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(API_JOB_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(API_JOB_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(API_JOB_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(API_JOB_SHARED
+set(API_JOB_SHARED
     xsd/jobs.xsd
     )
 
-INSTALL(FILES ${API_JOB_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
+install(FILES ${API_JOB_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
-SET(API_JOB_SOURCES
+set(API_JOB_SOURCES
     JOBXmlHandler.cpp
     JOBXmlImporter.cpp
     JOBAppenderEntryImpl.cpp
@@ -43,7 +43,7 @@ SET(API_JOB_SOURCES
     JOBModelsDirEntryImpl.cpp
     )
 
-SET(API_JOB_INCLUDE_HEADERS
+set(API_JOB_INCLUDE_HEADERS
     JOBXmlHandler.h
     JOBXmlImporter.h
     JOBAppenderEntry.h
@@ -69,21 +69,21 @@ SET(API_JOB_INCLUDE_HEADERS
     JOBModelsDirEntry.h
     )
 
-ADD_LIBRARY(dynawo_API_JOB ${LIBRARY_TYPE} ${API_JOB_SOURCES})
+add_library(dynawo_API_JOB ${LIBRARY_TYPE} ${API_JOB_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_API_JOB
+target_include_directories(dynawo_API_JOB
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
-TARGET_LINK_LIBRARIES(dynawo_API_JOB
+target_link_libraries(dynawo_API_JOB
     XMLSAXParser${LibXML_LINK_SUFFIX}
     dynawo_Common
     )
 
-SET_TARGET_PROPERTIES(dynawo_API_JOB PROPERTIES VERSION ${API_JOB_VERSION_STRING}
+set_target_properties(dynawo_API_JOB PROPERTIES VERSION ${API_JOB_VERSION_STRING}
                                               SOVERSION ${API_JOB_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_API_JOB EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${API_JOB_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_API_JOB EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${API_JOB_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

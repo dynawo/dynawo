@@ -8,38 +8,38 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(DYNAWO_INCLUDE_HEADERS
+set(DYNAWO_INCLUDE_HEADERS
     config.h
     )
 
-INSTALL(FILES ${DYNAWO_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(FILES ${DYNAWO_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 #obtain git revision
 # a custom target that is always built
-ADD_CUSTOM_TARGET(revisiontag ALL)
+add_custom_target(revisiontag ALL)
 
 # creates gitversion.h using cmake script
-ADD_CUSTOM_COMMAND(TARGET revisiontag COMMAND ${CMAKE_COMMAND}
+add_custom_command(TARGET revisiontag COMMAND ${CMAKE_COMMAND}
    -DOUTPUT_DIR=${CMAKE_CURRENT_SOURCE_DIR}
    -DGIT_SOURCE_DIR=${DYNAWO_HOME}
    -P ${CMAKE_MODULE_PATH}/getgitheadrevision.cmake)
 
-IF(BUILD_TESTS)
-  ADD_SUBDIRECTORY(API/CRV/test)
-  ADD_SUBDIRECTORY(API/DYD/test)
-  ADD_SUBDIRECTORY(API/EXTVAR/test)
-  ADD_SUBDIRECTORY(API/PAR/test)
-  ADD_SUBDIRECTORY(API/TL/test)
-  ADD_SUBDIRECTORY(API/CSTR/test)
-  ADD_SUBDIRECTORY(API/FS/test)
-  ADD_SUBDIRECTORY(API/JOB/test)
-  ADD_SUBDIRECTORY(Common/test)
-  ADD_SUBDIRECTORY(Modeler/Common/test)
-  ADD_SUBDIRECTORY(Modeler/DataInterface/test)
-  ADD_SUBDIRECTORY(Models/CPP/ModelNetwork/test)
-  ADD_SUBDIRECTORY(Solvers/Common/test)
-  ADD_SUBDIRECTORY(Solvers/AlgebraicSolvers/test)
-  ADD_SUBDIRECTORY(Solvers/SolverIDA/test)
-  ADD_SUBDIRECTORY(Solvers/SolverSIM/test)
-  ADD_SUBDIRECTORY(ModelicaCompiler/test)
-ENDIF()
+if(BUILD_TESTS)
+  add_subdirectory(API/CRV/test)
+  add_subdirectory(API/DYD/test)
+  add_subdirectory(API/EXTVAR/test)
+  add_subdirectory(API/PAR/test)
+  add_subdirectory(API/TL/test)
+  add_subdirectory(API/CSTR/test)
+  add_subdirectory(API/FS/test)
+  add_subdirectory(API/JOB/test)
+  add_subdirectory(Common/test)
+  add_subdirectory(Modeler/Common/test)
+  add_subdirectory(Modeler/DataInterface/test)
+  add_subdirectory(Models/CPP/ModelNetwork/test)
+  add_subdirectory(Solvers/Common/test)
+  add_subdirectory(Solvers/AlgebraicSolvers/test)
+  add_subdirectory(Solvers/SolverIDA/test)
+  add_subdirectory(Solvers/SolverSIM/test)
+  add_subdirectory(ModelicaCompiler/test)
+endif()

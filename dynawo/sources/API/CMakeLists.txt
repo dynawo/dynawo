@@ -8,11 +8,11 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(PAR)
-ADD_SUBDIRECTORY(TL)
-ADD_SUBDIRECTORY(CRV)
-ADD_SUBDIRECTORY(FS)
-ADD_SUBDIRECTORY(CSTR)
-ADD_SUBDIRECTORY(DYD)
-ADD_SUBDIRECTORY(EXTVAR)
-ADD_SUBDIRECTORY(JOB)
+add_subdirectory(PAR)
+add_subdirectory(TL)
+add_subdirectory(CRV)
+add_subdirectory(FS)
+add_subdirectory(CSTR)
+add_subdirectory(DYD)
+add_subdirectory(EXTVAR)
+add_subdirectory(JOB)

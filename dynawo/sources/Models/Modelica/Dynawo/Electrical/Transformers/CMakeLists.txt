@@ -10,7 +10,7 @@
 
 # Transformers models
 
-SET(MODEL_FILES
+set(MODEL_FILES
     package.mo
     BaseClasses_INIT.mo
     TransformerFixedRatio.mo
@@ -24,6 +24,6 @@ SET(MODEL_FILES
 #
 # Modelica models install
 #
-FOREACH( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_FILE(${MODEL_FILE})
-ENDFOREACH( MODEL_FILE )
+foreach( MODEL_FILE ${MODEL_FILES} )
+    INSTALL_MODEL_file(${MODEL_FILE})
+endforeach( MODEL_FILE )

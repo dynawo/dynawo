@@ -11,12 +11,12 @@
 ##########################################
 #          DYNModelVariationArea         #
 ##########################################
-SET(MODEL_NAME
+set(MODEL_NAME
   DYNModelVariationArea
   )
 
-SET(MODEL_SOURCES
+set(MODEL_SOURCES
   DYNModelVariationArea.cpp
   )
 
-COMPILE_CPP_MODEL(${MODEL_NAME} "${MODEL_SOURCES}")
+compile_cpp_model(${MODEL_NAME} "${MODEL_SOURCES}")

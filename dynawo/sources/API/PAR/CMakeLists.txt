@@ -9,16 +9,16 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # API version
-SET(API_PAR_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(API_PAR_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(API_PAR_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(API_PAR_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(API_PAR_SHARED
+set(API_PAR_SHARED
     xsd/parameters.xsd
     )
 
-INSTALL(FILES ${API_PAR_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
+install(FILES ${API_PAR_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
-SET(API_PAR_SOURCES
+set(API_PAR_SOURCES
     PARParameterImpl.cpp
     PARParameterFactory.cpp
     PARReferenceImpl.cpp
@@ -34,7 +34,7 @@ SET(API_PAR_SOURCES
     PARXmlImporter.cpp
     )
 
-SET(API_PAR_INCLUDE_HEADERS
+set(API_PAR_INCLUDE_HEADERS
     PARParameter.h
     PARParameterFactory.h
     PARReference.h
@@ -49,22 +49,22 @@ SET(API_PAR_INCLUDE_HEADERS
     PARImporter.h
     )
 
-ADD_LIBRARY(dynawo_API_PAR ${LIBRARY_TYPE} ${API_PAR_SOURCES})
+add_library(dynawo_API_PAR ${LIBRARY_TYPE} ${API_PAR_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_API_PAR
+target_include_directories(dynawo_API_PAR
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
-TARGET_LINK_LIBRARIES(dynawo_API_PAR
+target_link_libraries(dynawo_API_PAR
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     XMLSAXParser${LibXML_LINK_SUFFIX}
     dynawo_Common
     )
 
-SET_TARGET_PROPERTIES(dynawo_API_PAR PROPERTIES VERSION ${API_PAR_VERSION_STRING}
+set_target_properties(dynawo_API_PAR PROPERTIES VERSION ${API_PAR_VERSION_STRING}
                                               SOVERSION ${API_PAR_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_API_PAR EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${API_PAR_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_API_PAR EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${API_PAR_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

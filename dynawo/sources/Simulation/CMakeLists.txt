@@ -8,22 +8,22 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(SIM_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(SIM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(SIM_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(SIM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(SIM_SOURCES
+set(SIM_SOURCES
     DYNSimulation.cpp
     DYNSimulationLauncher.cpp
     )
 
-SET(SIM_INCLUDE_HEADERS
+set(SIM_INCLUDE_HEADERS
     DYNSimulation.h
     DYNSimulationLauncher.h
     )
 
-ADD_LIBRARY(dynawo_Simulation ${LIBRARY_TYPE} ${SIM_SOURCES})
+add_library(dynawo_Simulation ${LIBRARY_TYPE} ${SIM_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_Simulation
+target_include_directories(dynawo_Simulation
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     PUBLIC
@@ -31,7 +31,7 @@ TARGET_INCLUDE_DIRECTORIES(dynawo_Simulation
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
-TARGET_LINK_LIBRARIES(dynawo_Simulation
+target_link_libraries(dynawo_Simulation
     PUBLIC
       dynawo_SimulationCommon
       dynawo_API_CSTR
@@ -43,36 +43,36 @@ TARGET_LINK_LIBRARIES(dynawo_Simulation
       ZLIB::ZLIB
     )
 
-SET_TARGET_PROPERTIES(dynawo_Simulation PROPERTIES VERSION ${SIM_VERSION_STRING}
+set_target_properties(dynawo_Simulation PROPERTIES VERSION ${SIM_VERSION_STRING}
                                                  SOVERSION ${SIM_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_Simulation EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${SIM_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_Simulation EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${SIM_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 
-SET(SIMCOMMON_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(SIMCOMMON_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(SIMCOMMON_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(SIMCOMMON_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(SIMCOMMON_SOURCES
+set(SIMCOMMON_SOURCES
     DYNSignalHandler.cpp
     DYNSimulationContext.cpp
     )
 
-SET(SIMCOMMON_INCLUDE_HEADERS
+set(SIMCOMMON_INCLUDE_HEADERS
     DYNSignalHandler.h
     DYNSimulationContext.h
     )
 
-ADD_LIBRARY(dynawo_SimulationCommon ${LIBRARY_TYPE} ${SIMCOMMON_SOURCES})
+add_library(dynawo_SimulationCommon ${LIBRARY_TYPE} ${SIMCOMMON_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_SimulationCommon
+target_include_directories(dynawo_SimulationCommon
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
-SET_TARGET_PROPERTIES(dynawo_SimulationCommon PROPERTIES VERSION ${SIMCOMMON_VERSION_STRING}
+set_target_properties(dynawo_SimulationCommon PROPERTIES VERSION ${SIMCOMMON_VERSION_STRING}
                                                        SOVERSION ${SIMCOMMON_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_SimulationCommon EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${SIMCOMMON_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_SimulationCommon EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${SIMCOMMON_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

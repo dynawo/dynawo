@@ -9,16 +9,16 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # API version
-SET(API_DYD_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(API_DYD_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(API_DYD_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(API_DYD_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(API_DYD_SHARED
+set(API_DYD_SHARED
     xsd/dyd.xsd
     )
 
-INSTALL(FILES ${API_DYD_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
+install(FILES ${API_DYD_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
-SET(API_DYD_SOURCES
+set(API_DYD_SOURCES
     DYDBlackBoxModelFactory.cpp
     DYDBlackBoxModelImpl.cpp
     DYDConnectorFactory.cpp
@@ -55,7 +55,7 @@ SET(API_DYD_SOURCES
     DYDXmlExporter.cpp
     )
 
-SET(API_DYD_INCLUDE_HEADERS
+set(API_DYD_INCLUDE_HEADERS
     DYDBlackBoxModel.h
     DYDBlackBoxModelFactory.h
     DYDConnector.h
@@ -93,22 +93,22 @@ SET(API_DYD_INCLUDE_HEADERS
     DYDWhiteBoxModelCommon.h
     )
 
-ADD_LIBRARY(dynawo_API_DYD ${LIBRARY_TYPE} ${API_DYD_SOURCES})
+add_library(dynawo_API_DYD ${LIBRARY_TYPE} ${API_DYD_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_API_DYD
+target_include_directories(dynawo_API_DYD
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
-TARGET_LINK_LIBRARIES(dynawo_API_DYD
+target_link_libraries(dynawo_API_DYD
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     XMLSAXParser${LibXML_LINK_SUFFIX}
     dynawo_Common
     )
 
-SET_TARGET_PROPERTIES(dynawo_API_DYD PROPERTIES VERSION ${API_DYD_VERSION_STRING}
+set_target_properties(dynawo_API_DYD PROPERTIES VERSION ${API_DYD_VERSION_STRING}
                                               SOVERSION ${API_DYD_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_API_DYD EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${API_DYD_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_API_DYD EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${API_DYD_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

@@ -11,16 +11,16 @@
 #################################
 #        dumpSolver              #
 #################################
-SET(DUMP_SOLVER_SOURCES
+set(DUMP_SOLVER_SOURCES
     DYNDumpSolver.cpp
     )
 
-ADD_EXECUTABLE(dumpSolver ${DUMP_SOLVER_SOURCES})
+add_executable(dumpSolver ${DUMP_SOLVER_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dumpSolver PRIVATE ${SUNDIALS_INCLUDE_DIR})
+target_include_directories(dumpSolver PRIVATE ${SUNDIALS_INCLUDE_DIR})
 
-TARGET_LINK_LIBRARIES(dumpSolver
+target_link_libraries(dumpSolver
     dynawo_SolverCommon
     )
 
-INSTALL(TARGETS dumpSolver EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
+install(TARGETS dumpSolver EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})

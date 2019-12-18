@@ -19,9 +19,9 @@ project(libxml)
 
 # temporary only effectively supports g++ in versions starting 4.8.2.
 
-SET(LIBXML_VERSION_MAJOR 0)
-SET(LIBXML_VERSION_MINOR 2)
-SET(LIBXML_VERSION_PATCH 4)
+set(LIBXML_VERSION_MAJOR 0)
+set(LIBXML_VERSION_MINOR 2)
+set(LIBXML_VERSION_PATCH 4)
 
 # Project options
 option(LibXML_SAX_BUILD_FORMATTER "Set to OFF to disable XML SAX formatter build" ON)
@@ -35,7 +35,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(LibXML_SAX_BUILD_SHARED TRUE CACHE BOOL "Build LibXML_SAX as shared library.")
 set(LibXML_SAX_BUILD_STATIC TRUE CACHE BOOL "Build LibXML_SAX as static library.")
 
-SET(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
+set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
 
 if(NOT LibXML_SAX_BUILD_SHARED AND NOT LibXML_SAX_BUILD_STATIC)
   message(FATAL_ERROR "At least one of LibXML_SAX_BUILD_SHARED and LibXML_SAX_BUILD_STATIC must be true")

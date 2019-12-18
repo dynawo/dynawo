@@ -11,10 +11,10 @@
 #####################################
 #              libData              #
 #####################################
-SET(DATA_INTERFACE_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(DATA_INTERFACE_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(DATA_INTERFACE_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(DATA_INTERFACE_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(DATA_INTERFACE_SOURCES
+set(DATA_INTERFACE_SOURCES
     DYNBusInterfaceIIDM.cpp
     DYNCalculatedBusInterfaceIIDM.cpp
     DYNSwitchInterfaceIIDM.cpp
@@ -41,20 +41,20 @@ SET(DATA_INTERFACE_SOURCES
     DYNHvdcLineInterfaceIIDM.cpp
     )
 
-SET(DATA_INTERFACE_INCLUDE_HEADERS
+set(DATA_INTERFACE_INCLUDE_HEADERS
     DYNDataInterface.h
     DYNDataInterfaceIIDM.h
     )
 
-ADD_LIBRARY(dynawo_DataInterface ${LIBRARY_TYPE} ${DATA_INTERFACE_SOURCES})
+add_library(dynawo_DataInterface ${LIBRARY_TYPE} ${DATA_INTERFACE_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_DataInterface
+target_include_directories(dynawo_DataInterface
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
-TARGET_LINK_LIBRARIES(dynawo_DataInterface
+target_link_libraries(dynawo_DataInterface
     dynawo_ModelerCommon
     iidm-ext-activeseason-xml
     iidm-ext-busbarsectionposition-xml
@@ -70,8 +70,8 @@ TARGET_LINK_LIBRARIES(dynawo_DataInterface
     )
 
 
-SET_TARGET_PROPERTIES(dynawo_DataInterface PROPERTIES VERSION ${DATA_INTERFACE_VERSION_STRING}
+set_target_properties(dynawo_DataInterface PROPERTIES VERSION ${DATA_INTERFACE_VERSION_STRING}
                                                     SOVERSION ${DATA_INTERFACE_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_DataInterface EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${DATA_INTERFACE_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_DataInterface EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${DATA_INTERFACE_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

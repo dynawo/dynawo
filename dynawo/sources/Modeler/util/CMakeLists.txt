@@ -11,42 +11,42 @@
 #################################
 #        dumpModel              #
 #################################
-SET(DUMP_MODEL_SOURCES
+set(DUMP_MODEL_SOURCES
     DYNDumpModel.cpp
     )
 
-ADD_EXECUTABLE(dumpModel ${DUMP_MODEL_SOURCES})
+add_executable(dumpModel ${DUMP_MODEL_SOURCES})
 
-TARGET_LINK_LIBRARIES(dumpModel
+target_link_libraries(dumpModel
     dynawo_ModelerCommon
     )
 
-IF(APPLE)
+if(APPLE)
     # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
-    SET_TARGET_PROPERTIES(dumpModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-ENDIF()
+    set_target_properties(dumpModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
+endif()
 
-INSTALL(TARGETS dumpModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
+install(TARGETS dumpModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
 
 #################################
 #     generate-preassembled     #
 #################################
 # Generate Dyd Library from dyd file
-SET(DYD_LIB_GENERATION_SOURCES
+set(DYD_LIB_GENERATION_SOURCES
     DYNGeneratePreassembled.cpp
     )
 
-ADD_EXECUTABLE(generate-preassembled ${DYD_LIB_GENERATION_SOURCES})
+add_executable(generate-preassembled ${DYD_LIB_GENERATION_SOURCES})
 
-TARGET_LINK_LIBRARIES(generate-preassembled
+target_link_libraries(generate-preassembled
     dynawo_ModelerCommon
     )
 
-IF(APPLE)
+if(APPLE)
   # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
-  SET_TARGET_PROPERTIES(generate-preassembled PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-ENDIF()
+  set_target_properties(generate-preassembled PROPERTIES INSTALL_RPATH "@loader_path/../lib")
+endif()
 
-SET_TARGET_PROPERTIES(generate-preassembled PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
+set_target_properties(generate-preassembled PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 
-INSTALL(TARGETS generate-preassembled EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
+install(TARGETS generate-preassembled EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})

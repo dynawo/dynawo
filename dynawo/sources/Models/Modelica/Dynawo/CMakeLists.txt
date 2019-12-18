@@ -8,7 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(MODEL_FILES
+set(MODEL_FILES
     package.mo
     Types.mo
     )
@@ -16,14 +16,14 @@ SET(MODEL_FILES
 #
 # Modelica models install
 #
-FOREACH( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_FILE(${MODEL_FILE})
-ENDFOREACH( MODEL_FILE )
+foreach( MODEL_FILE ${MODEL_FILES} )
+    INSTALL_MODEL_file(${MODEL_FILE})
+endforeach( MODEL_FILE )
 
-GET_FILENAME_COMPONENT(modelRoot ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Resources DESTINATION ${DDBDIR_NAME}/${modelRoot}/)
+get_filename_component(modelRoot ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Resources DESTINATION ${DDBDIR_NAME}/${modelRoot}/)
 
 
-ADD_SUBDIRECTORY(Connectors C)
-ADD_SUBDIRECTORY(Electrical E)
-ADD_SUBDIRECTORY(NonElectrical N)
+add_subdirectory(Connectors C)
+add_subdirectory(Electrical E)
+add_subdirectory(NonElectrical N)

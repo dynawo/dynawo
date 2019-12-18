@@ -8,9 +8,9 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(MODULE_NAME COMMON_unittest)
+set(MODULE_NAME COMMON_unittest)
 
-SET(MODULE_SOURCES
+set(MODULE_SOURCES
     TestBitMask.cpp
     TestGraph.cpp
     TestParameter.cpp
@@ -19,30 +19,30 @@ SET(MODULE_SOURCES
     TestIoDico.cpp
 )
 
-ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
+add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
-TARGET_LINK_LIBRARIES(${MODULE_NAME}
+target_link_libraries(${MODULE_NAME}
         dynawo_Common
         dynawo_Test)
 
-ADD_CUSTOM_TARGET(${MODULE_NAME}-tests 
+add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS
     ${MODULE_NAME}-pre-tests
     ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
 
-ADD_CUSTOM_TARGET(${MODULE_NAME}-pre-tests
+add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res2 ${CMAKE_CURRENT_BINARY_DIR}/res2
   )
 
-IF(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-  SET(EXTRACT_PATTERNS "'*/sources/Common/DYN*'")
+if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+  set(EXTRACT_PATTERNS "'*/sources/Common/DYN*'")
 
-  ADD_TEST_COVERAGE(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
-ENDIF()
+  add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
+endif()
 
-IF(CMAKE_BUILD_TYPE STREQUAL "Tests")
-  ADD_TEST(${MODULE_NAME}-tests)
-ENDIF()
+if(CMAKE_BUILD_TYPE STREQUAL "Tests")
+  add_test(${MODULE_NAME}-tests)
+endif()
