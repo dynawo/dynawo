@@ -8,34 +8,34 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(COMMON_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(COMMON_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(COMMON_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(COMMON_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(UTIL_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(UTIL_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(UTIL_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(UTIL_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(DYNAWO_DICTIONARIES
+set(DYNAWO_DICTIONARIES
   Dictionaries/DYNError_en_GB.dic
   Dictionaries/DYNTimeline_en_GB.dic
   Dictionaries/DYNConstraint_en_GB.dic
   Dictionaries/DYNLog_en_GB.dic
   )
 
-SET(DYNAWO_DICTIONARIES_MAPPING
+set(DYNAWO_DICTIONARIES_MAPPING
   Dictionaries/dictionaries_mapping.dic
   )
 
 # custom target to generate files associated to dictionnaries
-ADD_CUSTOM_TARGET(create_keys_files ALL DEPENDS ${DYNAWO_DICTIONARIES})
+add_custom_target(create_keys_files ALL DEPENDS ${DYNAWO_DICTIONARIES})
 
-ADD_CUSTOM_COMMAND(TARGET create_keys_files
+add_custom_command(TARGET create_keys_files
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
   COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Dictionaries/validateDictionaries.py --inputDir=${CMAKE_CURRENT_SOURCE_DIR}/Dictionaries,${CMAKE_DYN_DICTIONARY_PATHS} --outputDir=${CMAKE_CURRENT_SOURCE_DIR} --modelicaPackage=Dynawo.NonElectrical.Logs --modelicaDir=${CMAKE_CURRENT_SOURCE_DIR}/../Models/Modelica/Dynawo/NonElectrical/Logs/
   COMMENT "Generate key files for dictionnaries"
   )
 
 # Find keys.cpp files (generated files)
-SET(CPP_KEYS
+set(CPP_KEYS
   DYNTimeline_keys.cpp
   DYNConstraint_keys.cpp
   DYNError_keys.cpp
@@ -43,19 +43,19 @@ SET(CPP_KEYS
   )
 
 # Find keys.h files  (generated files)
-SET(INCLUDE_KEYS
+set(INCLUDE_KEYS
   DYNTimeline_keys.h
   DYNConstraint_keys.h
   DYNError_keys.h
   DYNLog_keys.h
   )
 
-SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/DYNTimeline_keys.cpp PROPERTIES GENERATED 1)
-SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/DYNConstraint_keys.cpp PROPERTIES GENERATED 1)
-SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/DYNError_keys.cpp PROPERTIES GENERATED 1)
-SET_SOURCE_FILES_PROPERTIES(${CMAKE_CURRENT_SOURCE_DIR}/DYNLog_keys.cpp PROPERTIES GENERATED 1)
+set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/DYNTimeline_keys.cpp PROPERTIES GENERATED 1)
+set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/DYNConstraint_keys.cpp PROPERTIES GENERATED 1)
+set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/DYNError_keys.cpp PROPERTIES GENERATED 1)
+set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/DYNLog_keys.cpp PROPERTIES GENERATED 1)
 
-SET(COMMON_SOURCES
+set(COMMON_SOURCES
   DYNBitMask.cpp
   DYNCommon.cpp
   DYNError.cpp
@@ -75,7 +75,7 @@ SET(COMMON_SOURCES
   ${CPP_KEYS}
   )
 
-SET(COMMON_INCLUDE_HEADERS
+set(COMMON_INCLUDE_HEADERS
   DYNBitMask.h
   DYNCommon.h
   DYNError.h
@@ -100,25 +100,25 @@ SET(COMMON_INCLUDE_HEADERS
   ${INCLUDE_KEYS}
   )
 
-SET(UTIL_SOURCES
+set(UTIL_SOURCES
   DYNTimer.cpp
   )
 
-SET(UTIL_INCLUDE_HEADERS
+set(UTIL_INCLUDE_HEADERS
   DYNTimer.h
   )
 
-ADD_LIBRARY(dynawo_Interface INTERFACE)
+add_library(dynawo_Interface INTERFACE)
 
-TARGET_COMPILE_DEFINITIONS(dynawo_Interface INTERFACE _OMC_${OPENMODELICA_VERSION} $<$<BOOL:${USE_ADEPT}>:_ADEPT_> $<$<CONFIG:Debug>:_DEBUG_>)
+target_compile_definitions(dynawo_Interface INTERFACE _OMC_${OPENMODELICA_VERSION} $<$<BOOL:${USE_ADEPT}>:_ADEPT_> $<$<CONFIG:Debug>:_DEBUG_>)
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_Interface
+target_include_directories(dynawo_Interface
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
 )
 
-TARGET_LINK_LIBRARIES(dynawo_Interface INTERFACE
+target_link_libraries(dynawo_Interface INTERFACE
   Boost::filesystem
   Boost::program_options
   Boost::serialization
@@ -132,31 +132,31 @@ TARGET_LINK_LIBRARIES(dynawo_Interface INTERFACE
   $<$<CXX_COMPILER_ID:GNU>:rt>
   $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>)
 
-ADD_LIBRARY(dynawo_Common ${LIBRARY_TYPE} ${COMMON_SOURCES})
+add_library(dynawo_Common ${LIBRARY_TYPE} ${COMMON_SOURCES})
 
-ADD_DEPENDENCIES(dynawo_Common create_keys_files)
+add_dependencies(dynawo_Common create_keys_files)
 
-TARGET_LINK_LIBRARIES(dynawo_Common dynawo_Interface)
+target_link_libraries(dynawo_Common dynawo_Interface)
 
-SET_TARGET_PROPERTIES(dynawo_Common PROPERTIES VERSION ${COMMON_VERSION_STRING}
+set_target_properties(dynawo_Common PROPERTIES VERSION ${COMMON_VERSION_STRING}
                                              SOVERSION ${COMMON_VERSION_MAJOR})
 
-ADD_LIBRARY(dynawo_Util ${LIBRARY_TYPE} ${UTIL_SOURCES})
+add_library(dynawo_Util ${LIBRARY_TYPE} ${UTIL_SOURCES})
 
-TARGET_LINK_LIBRARIES(dynawo_Util
+target_link_libraries(dynawo_Util
   dynawo_Interface
   ${CMAKE_DL_LIBS}
 )
 
-SET_TARGET_PROPERTIES(dynawo_Util PROPERTIES VERSION ${UTIL_VERSION_STRING}
+set_target_properties(dynawo_Util PROPERTIES VERSION ${UTIL_VERSION_STRING}
                                            SOVERSION ${UTIL_VERSION_MAJOR})
 
 # PYTHON scripts for models
-SET(PYTHON_SCRIPTS_COMMON
+set(PYTHON_SCRIPTS_COMMON
   Dictionaries/validateDictionaries.py
 )
 
-INSTALL(TARGETS dynawo_Interface dynawo_Common dynawo_Util EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${COMMON_INCLUDE_HEADERS} ${UTIL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
-INSTALL(FILES ${DYNAWO_DICTIONARIES} ${DYNAWO_DICTIONARIES_MAPPING} DESTINATION ${SHAREDIR_NAME})
-INSTALL(PROGRAMS ${PYTHON_SCRIPTS_COMMON} DESTINATION ${SBINDIR_NAME})
+install(TARGETS dynawo_Interface dynawo_Common dynawo_Util EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${COMMON_INCLUDE_HEADERS} ${UTIL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(FILES ${DYNAWO_DICTIONARIES} ${DYNAWO_DICTIONARIES_MAPPING} DESTINATION ${SHAREDIR_NAME})
+install(PROGRAMS ${PYTHON_SCRIPTS_COMMON} DESTINATION ${SBINDIR_NAME})

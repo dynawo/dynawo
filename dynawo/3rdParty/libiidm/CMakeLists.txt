@@ -22,9 +22,9 @@ project(libiidm)
 
 # temporary only effectively supports g++ in versions starting 4.8.2.
 
-SET(IIDM_VERSION_MAJOR 0)
-SET(IIDM_VERSION_MINOR 2)
-SET(IIDM_VERSION_PATCH 8)
+set(IIDM_VERSION_MAJOR 0)
+set(IIDM_VERSION_MINOR 2)
+set(IIDM_VERSION_PATCH 8)
 
 # Project options
 option(BUILD_XML "enables the XML support." OFF)

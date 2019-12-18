@@ -8,36 +8,36 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(SOLVER_IDA_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(SOLVER_IDA_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(SOLVER_IDA_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(SOLVER_IDA_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(SOLVER_IDA_SOURCES
+set(SOLVER_IDA_SOURCES
   DYNSolverIDA.cpp
   )
 
-SET(SOLVER_IDA_INCLUDE_HEADERS
+set(SOLVER_IDA_INCLUDE_HEADERS
   DYNSolverIDA.h
   )
 
-ADD_LIBRARY(dynawo_SolverIDA SHARED ${SOLVER_IDA_SOURCES})
+add_library(dynawo_SolverIDA SHARED ${SOLVER_IDA_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_SolverIDA
+target_include_directories(dynawo_SolverIDA
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
 )
 
-TARGET_LINK_LIBRARIES(dynawo_SolverIDA
+target_link_libraries(dynawo_SolverIDA
   PUBLIC
     dynawo_SolverKINSOL
     Sundials::Sundials_IDA
 )
 
-SET_TARGET_PROPERTIES(dynawo_SolverIDA PROPERTIES VERSION ${SOLVER_IDA_VERSION_STRING}
+set_target_properties(dynawo_SolverIDA PROPERTIES VERSION ${SOLVER_IDA_VERSION_STRING}
                                                 SOVERSION ${SOLVER_IDA_VERSION_MAJOR}
                                                    PREFIX "")
 
-INSTALL(TARGETS dynawo_SolverIDA EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${SOLVER_IDA_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_SolverIDA EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${SOLVER_IDA_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
-DESC_SOLVER(dynawo_SolverIDA)
+desc_solver(dynawo_SolverIDA)

@@ -17,11 +17,11 @@ option(CXX11_ENABLED "Enable support of C++11 standard" TRUE)
 set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
 set(BOOST_ROOT_DEFAULT "true" CACHE STRING "Enable to find boost in system path or not.")
 
-IF(BOOST_ROOT_DEFAULT STREQUAL "true")
-  SET(Boost_NO_SYSTEM_PATHS FALSE)
-ELSE()
-  SET(Boost_NO_SYSTEM_PATHS TRUE)
-ENDIF()
+if(BOOST_ROOT_DEFAULT STREQUAL "true")
+  set(Boost_NO_SYSTEM_PATHS FALSE)
+else()
+  set(Boost_NO_SYSTEM_PATHS TRUE)
+endif()
 
 if (APPLE)
   if (NOT DEFINED CMAKE_OSX_DEPLOYMENT_TARGET)
@@ -44,7 +44,7 @@ if(POLICY CMP0074)
 endif()
 
 # Add custom cmake modules to the path
-SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../cmake")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../cmake")
 
 project(Dynawo-3rd-parties CXX C) # language is required to identify compiler ID and version
 

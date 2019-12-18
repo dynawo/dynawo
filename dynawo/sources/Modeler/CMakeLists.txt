@@ -8,7 +8,7 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(Common)
-ADD_SUBDIRECTORY(DataInterface)
-ADD_SUBDIRECTORY(ModelManager)
-ADD_SUBDIRECTORY(util)
+add_subdirectory(Common)
+add_subdirectory(DataInterface)
+add_subdirectory(ModelManager)
+add_subdirectory(util)

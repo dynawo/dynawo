@@ -8,17 +8,17 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(Controls C)
-ADD_SUBDIRECTORY(Events E)
-ADD_SUBDIRECTORY(Buses B)
-ADD_SUBDIRECTORY(Loads L)
-ADD_SUBDIRECTORY(Machines M)
-ADD_SUBDIRECTORY(Transformers T)
-ADD_SUBDIRECTORY(Lines N)
-ADD_SUBDIRECTORY(Injectors I)
-ADD_SUBDIRECTORY(Switches S)
+add_subdirectory(Controls C)
+add_subdirectory(Events E)
+add_subdirectory(Buses B)
+add_subdirectory(Loads L)
+add_subdirectory(Machines M)
+add_subdirectory(Transformers T)
+add_subdirectory(Lines N)
+add_subdirectory(Injectors I)
+add_subdirectory(Switches S)
 
-SET(MODEL_FILES
+set(MODEL_FILES
     package.mo
     SystemBase.mo
     Constants.mo
@@ -27,6 +27,6 @@ SET(MODEL_FILES
 #
 # Modelica models install
 #
-FOREACH( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_FILE(${MODEL_FILE})
-ENDFOREACH( MODEL_FILE )
+foreach( MODEL_FILE ${MODEL_FILES} )
+    INSTALL_MODEL_file(${MODEL_FILE})
+endforeach( MODEL_FILE )

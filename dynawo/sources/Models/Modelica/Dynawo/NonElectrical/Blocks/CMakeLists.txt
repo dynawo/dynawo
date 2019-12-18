@@ -8,15 +8,15 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(NonLinear N)
+add_subdirectory(NonLinear N)
 
-SET(MODEL_FILES
+set(MODEL_FILES
     package.mo
     )
 
 #
 # Modelica models install
 #
-FOREACH( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_FILE(${MODEL_FILE})
-ENDFOREACH( MODEL_FILE )
+foreach( MODEL_FILE ${MODEL_FILES} )
+    INSTALL_MODEL_file(${MODEL_FILE})
+endforeach( MODEL_FILE )

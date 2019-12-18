@@ -9,16 +9,16 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # API version
-SET(API_TL_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(API_TL_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(API_TL_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(API_TL_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(API_TL_SHARED
+set(API_TL_SHARED
     xsd/timeline.xsd
     )
 
-INSTALL(FILES ${API_TL_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
+install(FILES ${API_TL_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
-SET(API_TL_SOURCES
+set(API_TL_SOURCES
     TLTimeline.cpp
     TLTimelineImpl.cpp
     TLTimelineFactory.cpp
@@ -30,7 +30,7 @@ SET(API_TL_SOURCES
     TLXmlExporter.cpp
     )
 
-SET(API_TL_INCLUDE_HEADERS
+set(API_TL_INCLUDE_HEADERS
     TLEvent.h
     TLEventFactory.h
     TLTimeline.h
@@ -41,21 +41,21 @@ SET(API_TL_INCLUDE_HEADERS
     TLXmlExporter.h
     )
 
-ADD_LIBRARY(dynawo_API_TL ${LIBRARY_TYPE} ${API_TL_SOURCES})
+add_library(dynawo_API_TL ${LIBRARY_TYPE} ${API_TL_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_API_TL
+target_include_directories(dynawo_API_TL
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
-TARGET_LINK_LIBRARIES(dynawo_API_TL
+target_link_libraries(dynawo_API_TL
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     dynawo_Common
     )
 
-SET_TARGET_PROPERTIES(dynawo_API_TL PROPERTIES VERSION ${API_TL_VERSION_STRING}
+set_target_properties(dynawo_API_TL PROPERTIES VERSION ${API_TL_VERSION_STRING}
                                              SOVERSION ${API_TL_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_API_TL EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${API_TL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_API_TL EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${API_TL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

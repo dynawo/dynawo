@@ -11,16 +11,16 @@
 #################################
 #         libModelManager       #
 #################################
-SET(MODEL_MANAGER_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(MODEL_MANAGER_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(MODEL_MANAGER_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(MODEL_MANAGER_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(MODEL_MANAGER_SOURCES
+set(MODEL_MANAGER_SOURCES
     DYNModelManager.cpp
     DYNModelManagerCommon.cpp
     DYNModelManagerOwnFunctions.cpp
     )
 
-SET(MODEL_MANAGER_INCLUDE_HEADERS
+set(MODEL_MANAGER_INCLUDE_HEADERS
     DYNModelManager.h
     DYNModelManagerCommon.h
     DYNModelManagerOwnTypes.h
@@ -28,30 +28,30 @@ SET(MODEL_MANAGER_INCLUDE_HEADERS
     DYNModelManagerOwnFunctions.h
     )
 
-ADD_LIBRARY(dynawo_ModelManager ${LIBRARY_TYPE} ${MODEL_MANAGER_SOURCES})
+add_library(dynawo_ModelManager ${LIBRARY_TYPE} ${MODEL_MANAGER_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_ModelManager PRIVATE ${OMC_INCLUDE_DIR} ${SUNDIALS_INCLUDE_DIR})
-TARGET_INCLUDE_DIRECTORIES(dynawo_ModelManager
+target_include_directories(dynawo_ModelManager PRIVATE ${OMC_INCLUDE_DIR} ${SUNDIALS_INCLUDE_DIR})
+target_include_directories(dynawo_ModelManager
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
 )
 
-TARGET_LINK_LIBRARIES(dynawo_ModelManager
+target_link_libraries(dynawo_ModelManager
   PUBLIC
     dynawo_ModelerCommon
     dynawo_SolverKINSOL
     Modelica_externalC
 )
 
-SET_TARGET_PROPERTIES(dynawo_ModelManager PROPERTIES VERSION ${MODEL_MANAGER_VERSION_STRING}
+set_target_properties(dynawo_ModelManager PROPERTIES VERSION ${MODEL_MANAGER_VERSION_STRING}
                                                    SOVERSION ${MODEL_MANAGER_VERSION_MAJOR})
 
-IF(USE_ADEPT)
-  TARGET_LINK_LIBRARIES(dynawo_ModelManager PUBLIC Adept::Adept)
-ENDIF(USE_ADEPT)
+if(USE_ADEPT)
+  target_link_libraries(dynawo_ModelManager PUBLIC Adept::Adept)
+endif(USE_ADEPT)
 
-INSTALL(TARGETS dynawo_ModelManager EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${MODEL_MANAGER_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_ModelManager EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${MODEL_MANAGER_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
-ADD_SUBDIRECTORY(ModelicaExternalC)
+add_subdirectory(ModelicaExternalC)

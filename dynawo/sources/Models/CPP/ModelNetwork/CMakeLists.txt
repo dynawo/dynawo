@@ -11,11 +11,11 @@
 #################################
 #         ModelNetwork          #
 #################################
-SET(MODEL_NAME
+set(MODEL_NAME
   DYNModelNetwork
   )
 
-SET(MODEL_SOURCES
+set(MODEL_SOURCES
   DYNDerivative.cpp
   DYNNetworkComponentImpl.cpp
   DYNModelBus.cpp
@@ -38,9 +38,9 @@ SET(MODEL_SOURCES
   DYNModelVoltageLevel.cpp
   )
 
-COMPILE_CPP_MODEL(${MODEL_NAME} "${MODEL_SOURCES}")
+compile_cpp_model(${MODEL_NAME} "${MODEL_SOURCES}")
 
-TARGET_LINK_LIBRARIES(${MODEL_NAME}
+target_link_libraries(${MODEL_NAME}
   dynawo_DataInterface
   dynawo_SolverKINSOL
 )

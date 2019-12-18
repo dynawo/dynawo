@@ -9,41 +9,41 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # Dynawo
-SET(DYNAWO_SOURCES
+set(DYNAWO_SOURCES
     main.cpp
     )
 
-INSTALL(FILES ${DYNAWO_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(FILES ${DYNAWO_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
-ADD_EXECUTABLE(dynawo ${DYNAWO_SOURCES})
+add_executable(dynawo ${DYNAWO_SOURCES})
 
-TARGET_LINK_LIBRARIES(dynawo
+target_link_libraries(dynawo
     dynawo_Simulation
     )
 
-IF(APPLE)
+if(APPLE)
   # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
-  SET_TARGET_PROPERTIES(dynawo PROPERTIES INSTALL_RPATH "@loader_path/../lib")
-ENDIF()
+  set_target_properties(dynawo PROPERTIES INSTALL_RPATH "@loader_path/../lib")
+endif()
 
-SET_TARGET_PROPERTIES(dynawo PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
+set_target_properties(dynawo PROPERTIES VERSION ${DYNAWO_VERSION_STRING})
 
-INSTALL(TARGETS dynawo DESTINATION ${BINDIR_NAME})
+install(TARGETS dynawo DESTINATION ${BINDIR_NAME})
 
-IF(NOT MSVC)
+if(NOT MSVC)
   # Launcher
-  CONFIGURE_FILE(launcher.in launcher @ONLY)
+  configure_file(launcher.in launcher @ONLY)
 
-  INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/launcher DESTINATION ${BINDIR_NAME})
+  install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/launcher DESTINATION ${BINDIR_NAME})
 
   # execution script for distribution
-  SET(EXEC_DYNAWO
+  set(EXEC_DYNAWO
       execDynawo.sh
       )
 
-  INSTALL(PROGRAMS ${EXEC_DYNAWO} DESTINATION ${BINDIR_NAME})
-ELSE()
+  install(PROGRAMS ${EXEC_DYNAWO} DESTINATION ${BINDIR_NAME})
+else()
   # Launcher
-  CONFIGURE_FILE(dynawo.cmd.in dynawo.cmd @ONLY)
-  INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/dynawo.cmd DESTINATION /)
-ENDIF()
+  configure_file(dynawo.cmd.in dynawo.cmd @ONLY)
+  install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/dynawo.cmd DESTINATION /)
+endif()

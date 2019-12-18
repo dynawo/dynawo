@@ -11,12 +11,12 @@
 #################################
 #        DYNModelOmegaRef       #
 #################################
-SET(MODEL_NAME
+set(MODEL_NAME
   DYNModelOmegaRef
   )
 
-SET(MODEL_SOURCES
+set(MODEL_SOURCES
   DYNModelOmegaRef.cpp
   )
 
-COMPILE_CPP_MODEL(${MODEL_NAME} "${MODEL_SOURCES}")
+compile_cpp_model(${MODEL_NAME} "${MODEL_SOURCES}")

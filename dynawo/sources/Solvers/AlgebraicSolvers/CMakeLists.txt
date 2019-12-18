@@ -8,32 +8,32 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(SOLVER_KINSOL_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(SOLVER_KINSOL_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(SOLVER_KINSOL_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(SOLVER_KINSOL_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(SOLVER_KINSOL_SOURCES
+set(SOLVER_KINSOL_SOURCES
   DYNSolverKINCommon.cpp
   DYNSolverKINAlgRestoration.cpp
   DYNSolverKINEuler.cpp
   DYNSolverKINSubModel.cpp
 )
 
-SET(SOLVER_KINSOL_INCLUDE_HEADERS
+set(SOLVER_KINSOL_INCLUDE_HEADERS
   DYNSolverKINCommon.h
   DYNSolverKINAlgRestoration.h
   DYNSolverKINEuler.h
   DYNSolverKINSubModel.h
 )
 
-ADD_LIBRARY(dynawo_SolverKINSOL ${LIBRARY_TYPE} ${SOLVER_KINSOL_SOURCES})
+add_library(dynawo_SolverKINSOL ${LIBRARY_TYPE} ${SOLVER_KINSOL_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_SolverKINSOL
+target_include_directories(dynawo_SolverKINSOL
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
 )
 
-TARGET_LINK_LIBRARIES(dynawo_SolverKINSOL
+target_link_libraries(dynawo_SolverKINSOL
   PUBLIC
     dynawo_SolverCommon
     Sundials::Sundials_SUNLINSOLKLU
@@ -45,18 +45,18 @@ TARGET_LINK_LIBRARIES(dynawo_SolverKINSOL
     SuiteSparse::SuiteSparse_Config
 )
 
-IF(${NICSLU_FOUND})
-  TARGET_LINK_LIBRARIES(dynawo_SolverKINSOL
+if(${NICSLU_FOUND})
+  target_link_libraries(dynawo_SolverKINSOL
     PUBLIC
       Sundials::Sundials_SUNLINSOLNICSLU
       Sundials::Sundials_SUNMATRIXSPARSE
       NICSLU::NICSLU
       NICSLU::NICSLU_Util
   )
-ENDIF()
+endif()
 
-SET_TARGET_PROPERTIES(dynawo_SolverKINSOL PROPERTIES VERSION ${SOLVER_KINSOL_VERSION_STRING}
+set_target_properties(dynawo_SolverKINSOL PROPERTIES VERSION ${SOLVER_KINSOL_VERSION_STRING}
                                                    SOVERSION ${SOLVER_KINSOL_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_SolverKINSOL EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${SOLVER_KINSOL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_SolverKINSOL EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${SOLVER_KINSOL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

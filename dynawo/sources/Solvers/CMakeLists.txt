@@ -11,7 +11,7 @@
 #
 # Custom target for describing solvers
 #
-ADD_CUSTOM_TARGET(solvers
+add_custom_target(solvers
     DEPENDS SOLVERS_FILES_INSTALL
     COMMENT "Describing solvers for Dynawo"
     )
@@ -20,7 +20,7 @@ ADD_CUSTOM_TARGET(solvers
 # Target used to install solvers files in ddbdir
 # (.so and .desc.xml)
 #
-ADD_CUSTOM_TARGET(SOLVERS_FILES_INSTALL
+add_custom_target(SOLVERS_FILES_INSTALL
     COMMENT "Installing solvers"
     )
 
@@ -29,11 +29,11 @@ ADD_CUSTOM_TARGET(SOLVERS_FILES_INSTALL
 # file into ddbdir. Automatically adds the dependencies
 # to the main targets.
 #
-MACRO(DESC_SOLVER SOLVER_NAME)
+macro(DESC_SOLVER SOLVER_NAME)
     #
     # Generates .desc.xml file for the solver
     #
-    ADD_CUSTOM_COMMAND(
+    add_custom_command(
         OUTPUT ${SOLVER_NAME}.desc.xml
         DEPENDS ${SOLVER_NAME} dumpSolver
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
@@ -48,7 +48,7 @@ MACRO(DESC_SOLVER SOLVER_NAME)
     #
     # Install built library and generated .desc.xml file into ddbdir
     #
-    ADD_CUSTOM_TARGET(${SOLVER_NAME}.desc
+    add_custom_target(${SOLVER_NAME}.desc
         DEPENDS
             ${SOLVER_NAME}
             ${SOLVER_NAME}.desc.xml
@@ -59,11 +59,11 @@ MACRO(DESC_SOLVER SOLVER_NAME)
             ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/${SOLVER_NAME}.desc.xml ${ddbdir}/
         )
 
-    ADD_DEPENDENCIES(SOLVERS_FILES_INSTALL ${SOLVER_NAME}.desc)
-ENDMACRO(DESC_SOLVER)
+    add_dependencies(SOLVERS_FILES_INSTALL ${SOLVER_NAME}.desc)
+endmacro(DESC_SOLVER)
 
-ADD_SUBDIRECTORY(Common)
-ADD_SUBDIRECTORY(AlgebraicSolvers)
-ADD_SUBDIRECTORY(SolverIDA)
-ADD_SUBDIRECTORY(SolverSIM)
-ADD_SUBDIRECTORY(util)
+add_subdirectory(Common)
+add_subdirectory(AlgebraicSolvers)
+add_subdirectory(SolverIDA)
+add_subdirectory(SolverSIM)
+add_subdirectory(util)

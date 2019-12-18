@@ -9,7 +9,7 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # PYTHON scripts for OMC backend
-SET(PYTHON_SCRIPTS_OMC
+set(PYTHON_SCRIPTS_OMC
   scriptVarExt.py
   dataContainer.py
   factory.py
@@ -20,4 +20,4 @@ SET(PYTHON_SCRIPTS_OMC
   modelWriter.py
   scriptVerifyModelList.py
   )
-INSTALL(PROGRAMS ${PYTHON_SCRIPTS_OMC} DESTINATION ${SBINDIR_NAME})
+install(PROGRAMS ${PYTHON_SCRIPTS_OMC} DESTINATION ${SBINDIR_NAME})

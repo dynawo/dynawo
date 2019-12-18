@@ -9,17 +9,17 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # API version
-SET(API_FS_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(API_FS_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(API_FS_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(API_FS_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(API_FS_SHARED
+set(API_FS_SHARED
     xsd/finalStateInput.xsd
     xsd/finalStateOutput.xsd
     )
 
-INSTALL(FILES ${API_FS_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
+install(FILES ${API_FS_SHARED} DESTINATION ${SHAREDIR_NAME}/xsd/)
 
-SET(API_FS_SOURCES
+set(API_FS_SOURCES
     FSFinalStateCollectionImpl.cpp
     FSFinalStateCollectionFactory.cpp
     FSModelImpl.cpp
@@ -33,7 +33,7 @@ SET(API_FS_SOURCES
     FSIteratorsImpl.cpp
     )
 
-SET(API_FS_INCLUDE_HEADERS
+set(API_FS_INCLUDE_HEADERS
     FSFinalStateCollection.h
     FSFinalStateCollectionFactory.h
     FSModel.h
@@ -47,22 +47,22 @@ SET(API_FS_INCLUDE_HEADERS
     FSXmlImporter.h
     )
 
-ADD_LIBRARY(dynawo_API_FS ${LIBRARY_TYPE} ${API_FS_SOURCES})
+add_library(dynawo_API_FS ${LIBRARY_TYPE} ${API_FS_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_API_FS
+target_include_directories(dynawo_API_FS
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
-TARGET_LINK_LIBRARIES(dynawo_API_FS
+target_link_libraries(dynawo_API_FS
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     XMLSAXParser${LibXML_LINK_SUFFIX}
     dynawo_Common
     )
 
-SET_TARGET_PROPERTIES(dynawo_API_FS PROPERTIES VERSION ${API_FS_VERSION_STRING}
+set_target_properties(dynawo_API_FS PROPERTIES VERSION ${API_FS_VERSION_STRING}
                                              SOVERSION ${API_FS_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_API_FS EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${API_FS_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_API_FS EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${API_FS_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

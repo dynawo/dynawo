@@ -11,10 +11,10 @@
 #################################
 #          libModeler           #
 #################################
-SET(MODELER_VERSION_STRING ${DYNAWO_VERSION_STRING})
-SET(MODELER_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
+set(MODELER_VERSION_STRING ${DYNAWO_VERSION_STRING})
+set(MODELER_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
-SET(MODELER_SOURCES
+set(MODELER_SOURCES
     DYNCommonModeler.cpp
     DYNConnector.cpp
     DYNConnectorCalculatedVariable.cpp
@@ -35,7 +35,7 @@ SET(MODELER_SOURCES
     DYNModelUtil.cpp
     )
 
-SET(MODELER_INCLUDE_HEADERS
+set(MODELER_INCLUDE_HEADERS
     DYNConnectInterface.h
     DYNDynamicData.h
     DYNElement.h
@@ -65,11 +65,11 @@ SET(MODELER_INCLUDE_HEADERS
     DYNStaticRefInterface.h
     )
 
-ADD_LIBRARY(dynawo_ModelerCommon ${LIBRARY_TYPE} ${MODELER_SOURCES})
+add_library(dynawo_ModelerCommon ${LIBRARY_TYPE} ${MODELER_SOURCES})
 
-TARGET_COMPILE_DEFINITIONS(dynawo_ModelerCommon PUBLIC $<$<BOOL:${MSVC}>:_USE_MATH_DEFINES>)
+target_compile_definitions(dynawo_ModelerCommon PUBLIC $<$<BOOL:${MSVC}>:_USE_MATH_DEFINES>)
 
-TARGET_INCLUDE_DIRECTORIES(dynawo_ModelerCommon
+target_include_directories(dynawo_ModelerCommon
     INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
@@ -79,7 +79,7 @@ TARGET_INCLUDE_DIRECTORIES(dynawo_ModelerCommon
         $<TARGET_PROPERTY:dynawo_DataInterface,INTERFACE_INCLUDE_DIRECTORIES>
     )
 
-TARGET_LINK_LIBRARIES(dynawo_ModelerCommon
+target_link_libraries(dynawo_ModelerCommon
     dynawo_API_PAR
     dynawo_API_CRV
     dynawo_API_FS
@@ -88,8 +88,8 @@ TARGET_LINK_LIBRARIES(dynawo_ModelerCommon
     dynawo_Util
     )
 
-SET_TARGET_PROPERTIES(dynawo_ModelerCommon PROPERTIES VERSION ${MODELER_VERSION_STRING}
+set_target_properties(dynawo_ModelerCommon PROPERTIES VERSION ${MODELER_VERSION_STRING}
                                                     SOVERSION ${MODELER_VERSION_MAJOR})
 
-INSTALL(TARGETS dynawo_ModelerCommon EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
-INSTALL(FILES ${MODELER_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
+install(TARGETS dynawo_ModelerCommon EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(FILES ${MODELER_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

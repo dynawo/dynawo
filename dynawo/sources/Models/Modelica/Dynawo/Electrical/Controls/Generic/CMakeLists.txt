@@ -8,9 +8,9 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-ADD_SUBDIRECTORY(Functions F)
+add_subdirectory(Functions F)
 
-SET(MODEL_FILES
+set(MODEL_FILES
     # Generic automaton
     package.mo
     GenericAutomaton.mo
@@ -21,6 +21,6 @@ SET(MODEL_FILES
 #
 # Modelica models install
 #
-FOREACH( MODEL_FILE ${MODEL_FILES} )
-    INSTALL_MODEL_FILE(${MODEL_FILE})
-ENDFOREACH( MODEL_FILE )
+foreach( MODEL_FILE ${MODEL_FILES} )
+    INSTALL_MODEL_file(${MODEL_FILE})
+endforeach( MODEL_FILE )
