@@ -122,8 +122,9 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
 
   // (6) Solver choice
   // -------------------
-  // Here CSR has nothing to do with how the matrix is stored but rather how to solve the linear system using the matrix (CSC_MAT) or its transpose (CSR_MAT)
-  const int nnz = 0.01 * nbF_ * nbF_;  // This will be adjusted later on
+  // Passing CSR_MAT indicates that we solve A'x = B - linear system using the matrix transpose -
+  // and not Ax = B (see sunlinsol_klu.c:149)
+  const int nnz = 0.01 * nbF_ * nbF_;  // This value will be adjusted later on in the process
   M_ = SUNSparseMatrix(nbF_, nbF_, nnz, CSR_MAT);
   if (M_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");

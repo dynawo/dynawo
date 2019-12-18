@@ -109,7 +109,7 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
   indexY_.clear();  // variables to keep
   indexF_.clear();  // equations to keep
 
-  // small improve here : size of F and Y should be equal by construction, consequently we merged 2 for loops in one
+  // As sizeF and sizeY are equal, it is possible to fill F and Y vectors in the same loop
   switch (mode_) {
     case KIN_NORMAL: {
       for (int i = 0; i < model_->sizeF(); ++i) {
