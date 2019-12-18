@@ -23,10 +23,17 @@ This repository contains Dyna&omega;o's simulation tool code.
 ## Table of Contents
 
 - [About Dyna&omega;o](#about)
-- [Dyna&omega;o Distribution](#distribution)
+- [Dyna&omega;o Binaries](#distribution)
 - [Building requirements](#requirements)
+  * [Linux and MacOS](#requirements_linux)
+  * [Windows](#requirements_windows)
 - [Building Dyna&omega;o](#build)
+  * [Linux](#build_linux)
+  * [Windows](#build_windows)
+  * [MacOS](#build_macos)
 - [Launch Dyna&omega;o](#launch)
+  * [Linux and MacOS](#launch_linux)
+  * [Windows](#launch_windows)
 - [Docker Dyna&omega;o](#docker)
 - [Dyna&omega;o Documentation](#documentation)
 - [Get involved](#contributions)
@@ -114,6 +121,7 @@ If you have any issue building Dyna&omega;o don't hesitate to send us an [email]
 
 In the following we give a list of requirements needed to build Dyna&omega;o and its dependencies.
 
+<a name="requirements_linux"></a>
 ### Unix (Linux and MacOS)
 
 #### Global
@@ -138,6 +146,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 - Python packages: [psutil](https://psutil.readthedocs.io/en/latest/)
 - [LCOV](http://ltp.sourceforge.net/coverage/lcov.php): 1.7 to 1.13 versions work fine
 
+<a name="requirements_windows"></a>
 ### Windows
 
 - [Visual Studio 2019](https://visualstudio.microsoft.com/), Visual Studio 2015 was also tested
@@ -147,6 +156,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 <a name="build"></a>
 ## Building Dyna&omega;o
 
+<a name="build_linux"></a>
 ### Linux
 
 You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu:
@@ -195,6 +205,7 @@ $> export no_proxy=localhost,127.0.0.0/8,::1
 $> export HTTP_PROXY=$http_proxy;export HTTPS_PROXY=$https_proxy;export NO_PROXY=$no_proxy;
 ```
 
+<a name="build_windows"></a>
 ### Windows
 
 Open `x64 Native Tools Command Prompt for VS2019` and run the following commands:
@@ -218,6 +229,7 @@ Open `x64 Native Tools Command Prompt for VS2019` and run the following commands
 
 **Warning** Only the build directories (b and b-3-p) can be located in the `dynawo` folder, the install (d-i and d-3-p), OMDev and OpenModelica folders should be located outside to avoid problems with CMake.
 
+<a name="build_macos"></a>
 ### MacOS
 
 The difficult part of building Dyna&omega;o on MacOS is the compilation of OpenModelica. We propose two solutions, one with pre-built binaries for OpenModelica and one with building OpenModelica.
@@ -263,6 +275,7 @@ A solution has been develop but it is not yet available on Github and we advise 
 <a name="launch"></a>
 ## Launch Dyna&omega;o
 
+<a name="launch_linux"></a>
 ### Linux and MacOS
 
 Once you have build Dyna&omega;o you can start launching a simulation with the command:
@@ -287,6 +300,7 @@ $> dynawo help
 $> dynawo jobs-with-curves nrt/data/IEEE14/IEEE14_BasicTestCases/IEEE14_DisconnectLine/IEEE14.jobs
 ```
 
+<a name="launch_windows"></a>
 ### Windows
 
 Once you have build Dyna&omega;o you can start launching a simulation with the command:
