@@ -17,8 +17,8 @@
  * @brief Solver based on sundials/KINSOL solver : solve f(u) = 0. Used for algebraic equations restoration and initialization.
  *
  */
-#ifndef SOLVERS_SOLVERKINSOL_DYNSOLVERKINALGRESTORATION_H_
-#define SOLVERS_SOLVERKINSOL_DYNSOLVERKINALGRESTORATION_H_
+#ifndef SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINALGRESTORATION_H_
+#define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINALGRESTORATION_H_
 
 #include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
@@ -34,7 +34,7 @@ class Model;
  * @brief class Solver KINSOL for algebraic equations restoration and initialization
  * Generic class for KINSOL solver
  */
-class SolverKINAlgRestoration : public SolverKINCommon{
+class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyable{
  public:
   /**
    * @brief default constructor
@@ -177,4 +177,4 @@ class SolverKINAlgRestoration : public SolverKINCommon{
 
 }  // end of namespace DYN
 
-#endif  // SOLVERS_SOLVERKINSOL_DYNSOLVERKINALGRESTORATION_H_
+#endif  // SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINALGRESTORATION_H_
