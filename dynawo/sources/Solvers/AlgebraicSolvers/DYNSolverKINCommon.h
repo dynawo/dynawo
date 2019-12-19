@@ -17,13 +17,12 @@
  * @brief Common class for all algebraic solvers based on sundials/KINSOL.
  *
  */
-#ifndef SOLVERS_SolverKINSOL_DYNSolverKINCommon_H_
-#define SOLVERS_SolverKINSOL_DYNSolverKINCommon_H_
+#ifndef SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINCOMMON_H_
+#define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINCOMMON_H_
 
 #include <kinsol/kinsol.h>
 #include <sundials/sundials_nvector.h>
 #include <boost/shared_ptr.hpp>
-#include <boost/core/noncopyable.hpp>
 
 namespace DYN {
 
@@ -31,7 +30,7 @@ namespace DYN {
  * @brief class SolverKINCommon: common part of all the KINSOL-based solvers
  * Generic class for KINSOL-based solver
  */
-class SolverKINCommon : private boost::noncopyable{
+class SolverKINCommon {
  public:
   /**
    * @brief default constructor
@@ -153,4 +152,4 @@ class SolverKINCommon : private boost::noncopyable{
 
 }  // end of namespace DYN
 
-#endif  // SOLVERS_SolverKINSOL_DYNSolverKINCommon_H_
+#endif  // SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINCOMMON_H_

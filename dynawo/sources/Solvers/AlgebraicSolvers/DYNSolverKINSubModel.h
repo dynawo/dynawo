@@ -18,8 +18,8 @@
  * This solver is based on sundials/KINSOL solver : solve f(u) = 0
  *
  */
-#ifndef SOLVERS_SOLVERKINSOL_DYNSOLVERKINSUBMODEL_H_
-#define SOLVERS_SOLVERKINSOL_DYNSOLVERKINSUBMODEL_H_
+#ifndef SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINSUBMODEL_H_
+#define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINSUBMODEL_H_
 
 #include <boost/core/noncopyable.hpp>
 
@@ -30,7 +30,7 @@
 namespace DYN {
 class SubModel;
 
-class SolverKINSubModel : public SolverKINCommon{
+class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable{
  public:
   /**
    * @brief default constructor
@@ -115,4 +115,4 @@ class SolverKINSubModel : public SolverKINCommon{
 
 }  // namespace DYN
 
-#endif  // SOLVERS_SOLVERKINSOL_DYNSOLVERKINSUBMODEL_H_
+#endif  // SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINSUBMODEL_H_

@@ -19,8 +19,8 @@
  * SolverKINEuler is the implementation of a solver with euler method based on
  * KINSOL solver.
  */
-#ifndef SOLVERS_SOLVERKINSOL_DYNSOLVERKINEULER_H_
-#define SOLVERS_SOLVERKINSOL_DYNSOLVERKINEULER_H_
+#ifndef SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINEULER_H_
+#define SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINEULER_H_
 
 #include <boost/shared_ptr.hpp>
 #include <boost/core/noncopyable.hpp>
@@ -40,7 +40,7 @@ class Model;
  * SolverKINEuler is the implementation of a solver with euler method based on
  * KINSOL solver.
  */
-class SolverKINEuler : public SolverKINCommon{
+class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
  public:
   /**
    * @brief Default constructor
@@ -150,4 +150,4 @@ class SolverKINEuler : public SolverKINCommon{
 
 }  // namespace DYN
 
-#endif  // SOLVERS_SOLVERKINSOL_DYNSOLVERKINEULER_H_
+#endif  // SOLVERS_ALGEBRAICSOLVERS_DYNSOLVERKINEULER_H_

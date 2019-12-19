@@ -545,7 +545,8 @@ TEST(ParametersTest, testParameters) {
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverSIM" + std::string(sharedLibraryExtension()));
   solver->defineParameters();
   // Throw if no PAR file
-  ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(NULL), Error::GENERAL, KeyError_t::ParameterNotReadFromOrigin);
+  boost::shared_ptr<parameters::ParametersSet> nullSet;
+  ASSERT_THROW_DYNAWO(solver->setParametersFromPARFile(nullSet), Error::GENERAL, KeyError_t::ParameterNotReadFromOrigin);
   // Adding parameters from a PAR file
   boost::shared_ptr<parameters::ParametersSet> params = parameters::ParametersSetFactory::newInstance("MySolverParam");
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
