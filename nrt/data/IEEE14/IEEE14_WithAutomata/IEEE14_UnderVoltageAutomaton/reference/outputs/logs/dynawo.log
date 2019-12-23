@@ -1,324 +1,394 @@
-2019-12-11 17:22:21 | DEBUG |  ============================================================ 
-2019-12-11 17:22:21 | DEBUG | DYNAWO VERSION  :     1.0.1
-2019-12-11 17:22:21 | DEBUG | DYNAWO REVISION :  174_Solvers-e6866f1a
-2019-12-11 17:22:21 | DEBUG |  ============================================================ 
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_omega_grp_0 with GEN____1_SM_generator_omegaPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_omegaRef_grp_0 with GEN____1_SM_generator_omegaRefPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_running_grp_0 with GEN____1_SM_generator_running
-2019-12-11 17:22:22 | DEBUG | connecting GEN____1_SM_generator_switchOffSignal1 with NETWORK__BUS____1_TN_switchOff
-2019-12-11 17:22:22 | DEBUG | connecting GEN____1_SM_generator_terminal with NETWORK__BUS____1_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_omega_grp_1 with GEN____2_SM_generator_omegaPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_omegaRef_grp_1 with GEN____2_SM_generator_omegaRefPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_running_grp_1 with GEN____2_SM_generator_running
-2019-12-11 17:22:22 | DEBUG | connecting GEN____2_SM_generator_switchOffSignal1 with NETWORK__BUS____2_TN_switchOff
-2019-12-11 17:22:22 | DEBUG | connecting GEN____2_SM_generator_terminal with NETWORK__BUS____2_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting GEN____3_SM_generator_UPu with UVA_underVoltageAutomaton_UPu_value
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_omega_grp_2 with GEN____3_SM_generator_omegaPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_omegaRef_grp_2 with GEN____3_SM_generator_omegaRefPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_running_grp_2 with GEN____3_SM_generator_running
-2019-12-11 17:22:22 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal1 with NETWORK__BUS____3_TN_switchOff
-2019-12-11 17:22:22 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal3 with UVA_underVoltageAutomaton_switchOffSignal
-2019-12-11 17:22:22 | DEBUG | connecting GEN____3_SM_generator_terminal with NETWORK__BUS____3_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_omega_grp_3 with GEN____6_SM_generator_omegaPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_omegaRef_grp_3 with GEN____6_SM_generator_omegaRefPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_running_grp_3 with GEN____6_SM_generator_running
-2019-12-11 17:22:22 | DEBUG | connecting GEN____6_SM_generator_switchOffSignal1 with NETWORK__BUS____6_TN_switchOff
-2019-12-11 17:22:22 | DEBUG | connecting GEN____6_SM_generator_terminal with NETWORK__BUS____6_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_omega_grp_4 with GEN____8_SM_generator_omegaPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_omegaRef_grp_4 with GEN____8_SM_generator_omegaRefPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_running_grp_4 with GEN____8_SM_generator_running
-2019-12-11 17:22:22 | DEBUG | connecting GEN____8_SM_generator_switchOffSignal1 with NETWORK__BUS____8_TN_switchOff
-2019-12-11 17:22:22 | DEBUG | connecting GEN____8_SM_generator_terminal with NETWORK__BUS____8_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting LOADVAR_LOAD2_event_state1 with _LOAD___2_EC_load_PRefPu
-2019-12-11 17:22:22 | DEBUG | connecting LOADVAR_LOAD2_event_state2 with _LOAD___2_EC_load_QRefPu
-2019-12-11 17:22:22 | DEBUG | connecting LOADVAR_LOAD3_event_state1 with _LOAD___3_EC_load_PRefPu
-2019-12-11 17:22:22 | DEBUG | connecting LOADVAR_LOAD3_event_state2 with _LOAD___3_EC_load_QRefPu
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_numcc_node_0 with NETWORK__BUS____1_TN_numcc
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_numcc_node_1 with NETWORK__BUS____2_TN_numcc
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_numcc_node_2 with NETWORK__BUS____3_TN_numcc
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_numcc_node_3 with NETWORK__BUS____6_TN_numcc
-2019-12-11 17:22:22 | DEBUG | connecting OMEGA_REF_numcc_node_4 with NETWORK__BUS____8_TN_numcc
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD__10_EC_load_terminal with NETWORK__BUS___10_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD__11_EC_load_terminal with NETWORK__BUS___11_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD__12_EC_load_terminal with NETWORK__BUS___12_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD__13_EC_load_terminal with NETWORK__BUS___13_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD__14_EC_load_terminal with NETWORK__BUS___14_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD___2_EC_load_terminal with NETWORK__BUS____2_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD___3_EC_load_terminal with NETWORK__BUS____3_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD___4_EC_load_terminal with NETWORK__BUS____4_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD___5_EC_load_terminal with NETWORK__BUS____5_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD___6_EC_load_terminal with NETWORK__BUS____6_TN_ACPIN
-2019-12-11 17:22:22 | DEBUG | connecting _LOAD___9_EC_load_terminal with NETWORK__BUS____9_TN_ACPIN
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS____1_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS____2_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS____3_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS____4_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS____5_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS____6_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS____7_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS____8_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS____9_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS___10_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS___11_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS___12_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS___13_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: NETWORK; curve: _BUS___14_TN_Upu_value found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: GEN____3_SM; output: generator_running found.( generator_running_value )
-2019-12-11 17:22:22 | INFO | adding curve : Id: _LOAD___2_EC; curve: load_PPu found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: _LOAD___2_EC; curve: load_QPu found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: _LOAD___3_EC; curve: load_PPu found. (exact name)
-2019-12-11 17:22:22 | INFO | adding curve : Id: _LOAD___3_EC; curve: load_QPu found. (exact name)
-2019-12-11 17:22:22 | INFO | adding parameter curve: Id: UVA; parameter curve: underVoltageAutomaton_UMinPu found. (exact name)
-2019-12-11 17:22:22 | DEBUG | nbSubNetwork = 1 nbsub = 1
-2019-12-11 17:22:22 | DEBUG | subNetwork[0] nbBus = 14
-2019-12-11 17:22:22 | DEBUG | keep SubNetworks num : 0
-2019-12-11 17:22:22 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2019-12-11 17:22:22 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2019-12-11 17:22:22 | DEBUG | generator_Efd0Pu same value as URef_Value0
-2019-12-11 17:22:22 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2019-12-11 17:22:22 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2019-12-11 17:22:22 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2019-12-11 17:22:22 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2019-12-11 17:22:22 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2019-12-11 17:22:22 | DEBUG | generator_Efd0Pu same value as URef_Value0
-2019-12-11 17:22:22 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2019-12-11 17:22:22 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2019-12-11 17:22:22 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2019-12-11 17:22:22 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2019-12-11 17:22:22 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2019-12-11 17:22:22 | DEBUG | generator_Efd0Pu same value as URef_Value0
-2019-12-11 17:22:22 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2019-12-11 17:22:22 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2019-12-11 17:22:22 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2019-12-11 17:22:22 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2019-12-11 17:22:22 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2019-12-11 17:22:22 | DEBUG | generator_Efd0Pu same value as URef_Value0
-2019-12-11 17:22:22 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2019-12-11 17:22:22 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2019-12-11 17:22:22 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2019-12-11 17:22:22 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2019-12-11 17:22:22 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2019-12-11 17:22:22 | DEBUG | generator_Efd0Pu same value as URef_Value0
-2019-12-11 17:22:22 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2019-12-11 17:22:22 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2019-12-11 17:22:22 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2019-12-11 17:22:22 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-12-11 17:22:22 | DEBUG | -----------------------------------------------------------------------
-2019-12-11 17:22:22 | DEBUG | number of continuous variables : 372 (display limited to 4 variables)
-2019-12-11 17:22:22 | DEBUG | number of discrete variables : 202
-2019-12-11 17:22:22 | DEBUG | -----------------------------------------------------------------------
-2019-12-11 17:22:22 | DEBUG |     t              y1            y2            y3            y4      | nst k      h
-2019-12-11 17:22:22 | DEBUG | -----------------------------------------------------------------------
-2019-12-11 17:22:22 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   0 0 3.049590e-04 
-2019-12-11 17:22:22 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   1 1 1.000000e-06 
-2019-12-11 17:22:22 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   2 1 1.000000e-06 
-2019-12-11 17:22:22 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   3 2 2.000000e-06 
-2019-12-11 17:22:22 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   4 2 4.000000e-06 
-2019-12-11 17:22:22 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   5 2 8.000000e-06 
-2019-12-11 17:22:22 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   6 2 1.600000e-05 
-2019-12-11 17:22:22 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   7 2 3.200000e-05 
-2019-12-11 17:22:22 | DEBUG |        0.000  1.014781e+00 -2.737271e-01 -6.830783e-02  7.558939e-02 |   8 2 6.400000e-05 
-2019-12-11 17:22:22 | DEBUG |        0.000  1.014781e+00 -2.737271e-01 -6.830782e-02  7.558938e-02 |   9 2 1.280000e-04 
-2019-12-11 17:22:22 | DEBUG |        0.001  1.014781e+00 -2.737271e-01 -6.830782e-02  7.558938e-02 |  10 2 2.560000e-04 
-2019-12-11 17:22:22 | DEBUG |        0.001  1.014781e+00 -2.737271e-01 -6.830781e-02  7.558936e-02 |  11 2 5.120000e-04 
-2019-12-11 17:22:22 | DEBUG |        0.002  1.014780e+00 -2.737271e-01 -6.830780e-02  7.558933e-02 |  12 2 1.024000e-03 
-2019-12-11 17:22:22 | DEBUG |        0.004  1.014780e+00 -2.737270e-01 -6.830777e-02  7.558927e-02 |  13 2 2.048000e-03 
-2019-12-11 17:22:22 | DEBUG |        0.008  1.014778e+00 -2.737269e-01 -6.830773e-02  7.558916e-02 |  14 2 4.096000e-03 
-2019-12-11 17:22:22 | DEBUG |        0.016  1.014776e+00 -2.737267e-01 -6.830765e-02  7.558898e-02 |  15 2 8.192000e-03 
-2019-12-11 17:22:22 | DEBUG |        0.033  1.014772e+00 -2.737264e-01 -6.830754e-02  7.558872e-02 |  16 2 1.638400e-02 
-2019-12-11 17:22:22 | DEBUG |        0.066  1.014768e+00 -2.737258e-01 -6.830743e-02  7.558842e-02 |  17 2 3.276800e-02 
-2019-12-11 17:22:22 | DEBUG |        0.131  1.014766e+00 -2.737253e-01 -6.830738e-02  7.558821e-02 |  18 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |        0.262  1.014767e+00 -2.737265e-01 -6.830734e-02  7.558838e-02 |  19 1 1.310720e-01 
-2019-12-11 17:22:22 | DEBUG |        0.524  1.014764e+00 -2.737339e-01 -6.830675e-02  7.558881e-02 |  20 1 2.621440e-01 
-2019-12-11 17:22:22 | DEBUG |        1.049  1.014757e+00 -2.737373e-01 -6.830627e-02  7.558864e-02 |  21 1 5.242880e-01 
-2019-12-11 17:22:22 | DEBUG |        2.097  1.014751e+00 -2.737319e-01 -6.830640e-02  7.558778e-02 |  22 1 1.048576e+00 
-2019-12-11 17:22:22 | DEBUG |        4.194  1.014747e+00 -2.737285e-01 -6.830649e-02  7.558724e-02 |  23 1 2.097152e+00 
-2019-12-11 17:22:22 | DEBUG |        8.389  1.014744e+00 -2.737259e-01 -6.830655e-02  7.558682e-02 |  24 1 4.194304e+00 
-2019-12-11 17:22:22 | DEBUG |       16.777  1.014735e+00 -2.737218e-01 -6.830646e-02  7.558583e-02 |  25 1 8.388608e+00 
-2019-12-11 17:22:22 | DEBUG | Algebraic mode change for model _LOAD___2_EC
-2019-12-11 17:22:22 | DEBUG | Algebraic mode change for model _LOAD___3_EC
-2019-12-11 17:22:22 | DEBUG |       20.000  1.014730e+00 -2.737203e-01 -6.830637e-02  7.558538e-02 |  26 1 1.000000e+01 
-2019-12-11 17:22:22 | DEBUG | calculation of the new starting point of the simulation.
-2019-12-11 17:22:22 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-12-11 17:22:22 | DEBUG |       20.000  9.936408e-01 -2.804995e-01 -6.708559e-02  7.477261e-02 |   0 0 0.000000e+00 
-2019-12-11 17:22:22 | DEBUG |       20.000  9.936402e-01 -2.804995e-01 -6.708555e-02  7.477257e-02 |   1 1 1.000000e-06 
-2019-12-11 17:22:22 | DEBUG |       20.000  9.936400e-01 -2.804996e-01 -6.708554e-02  7.477257e-02 |   2 1 1.000000e-06 
-2019-12-11 17:22:22 | DEBUG |       20.000  9.936397e-01 -2.804998e-01 -6.708552e-02  7.477257e-02 |   3 2 2.000000e-06 
-2019-12-11 17:22:22 | DEBUG |       20.000  9.936390e-01 -2.805002e-01 -6.708547e-02  7.477256e-02 |   4 2 4.000000e-06 
-2019-12-11 17:22:22 | DEBUG |       20.000  9.936377e-01 -2.805011e-01 -6.708536e-02  7.477255e-02 |   5 2 8.000000e-06 
-2019-12-11 17:22:22 | DEBUG |       20.000  9.936351e-01 -2.805027e-01 -6.708516e-02  7.477252e-02 |   6 2 1.600000e-05 
-2019-12-11 17:22:22 | DEBUG |       20.000  9.936299e-01 -2.805061e-01 -6.708475e-02  7.477247e-02 |   7 2 3.200000e-05 
-2019-12-11 17:22:22 | DEBUG |       20.000  9.936196e-01 -2.805127e-01 -6.708393e-02  7.477236e-02 |   8 2 6.400000e-05 
-2019-12-11 17:22:22 | DEBUG |       20.000  9.935989e-01 -2.805260e-01 -6.708230e-02  7.477215e-02 |   9 2 1.280000e-04 
-2019-12-11 17:22:22 | DEBUG |       20.001  9.935576e-01 -2.805523e-01 -6.707905e-02  7.477172e-02 |  10 2 2.560000e-04 
-2019-12-11 17:22:22 | DEBUG |       20.001  9.934756e-01 -2.806045e-01 -6.707261e-02  7.477085e-02 |  11 2 5.120000e-04 
-2019-12-11 17:22:22 | DEBUG |       20.002  9.933142e-01 -2.807067e-01 -6.705997e-02  7.476908e-02 |  12 2 1.024000e-03 
-2019-12-11 17:22:22 | DEBUG |       20.004  9.930005e-01 -2.809027e-01 -6.703557e-02  7.476543e-02 |  13 2 2.048000e-03 
-2019-12-11 17:22:22 | DEBUG |       20.008  9.924077e-01 -2.812645e-01 -6.699001e-02  7.475781e-02 |  14 2 4.096000e-03 
-2019-12-11 17:22:22 | DEBUG |       20.016  9.913421e-01 -2.818893e-01 -6.690973e-02  7.474202e-02 |  15 2 8.192000e-03 
-2019-12-11 17:22:22 | DEBUG |       20.033  9.895838e-01 -2.828650e-01 -6.678077e-02  7.471141e-02 |  16 2 1.638400e-02 
-2019-12-11 17:22:22 | DEBUG |       20.049  9.882152e-01 -2.835841e-01 -6.668294e-02  7.468428e-02 |  17 2 1.638400e-02 
-2019-12-11 17:22:22 | DEBUG |       20.066  9.871194e-01 -2.841540e-01 -6.660496e-02  7.466218e-02 |  18 2 1.638400e-02 
-2019-12-11 17:22:22 | DEBUG |       20.082  9.862119e-01 -2.846404e-01 -6.653940e-02  7.464521e-02 |  19 2 1.638400e-02 
-2019-12-11 17:22:22 | DEBUG |       20.098  9.854344e-01 -2.850802e-01 -6.648172e-02  7.463271e-02 |  20 2 1.638400e-02 
-2019-12-11 17:22:22 | DEBUG |       20.131  9.840958e-01 -2.858984e-01 -6.637840e-02  7.461660e-02 |  21 2 3.276800e-02 
-2019-12-11 17:22:22 | DEBUG |       20.164  9.829579e-01 -2.866580e-01 -6.628636e-02  7.460854e-02 |  22 2 3.276800e-02 
-2019-12-11 17:22:22 | DEBUG |       20.229  9.809051e-01 -2.880811e-01 -6.611677e-02  7.459889e-02 |  23 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.295  9.790220e-01 -2.893726e-01 -6.596196e-02  7.458916e-02 |  24 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.360  9.772081e-01 -2.905175e-01 -6.581916e-02  7.457155e-02 |  25 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.426  9.754523e-01 -2.914934e-01 -6.568944e-02  7.454339e-02 |  26 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.492  9.737765e-01 -2.922938e-01 -6.557406e-02  7.450541e-02 |  27 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.557  9.722055e-01 -2.929387e-01 -6.547272e-02  7.446088e-02 |  28 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.623  9.707539e-01 -2.934757e-01 -6.538285e-02  7.441479e-02 |  29 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.688  9.694215e-01 -2.939741e-01 -6.529996e-02  7.437311e-02 |  30 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.754  9.681940e-01 -2.945127e-01 -6.521836e-02  7.434172e-02 |  31 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.819  9.670458e-01 -2.951669e-01 -6.513218e-02  7.432550e-02 |  32 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.885  9.659443e-01 -2.959959e-01 -6.503628e-02  7.432755e-02 |  33 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       20.950  9.648546e-01 -2.970352e-01 -6.492704e-02  7.434872e-02 |  34 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       21.081  9.625720e-01 -2.996963e-01 -6.466623e-02  7.443555e-02 |  35 2 1.310720e-01 
-2019-12-11 17:22:22 | DEBUG |       21.195  9.604440e-01 -3.024639e-01 -6.440390e-02  7.454190e-02 |  36 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       21.308  9.581618e-01 -3.053741e-01 -6.412586e-02  7.465151e-02 |  37 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       21.422  9.557896e-01 -3.081129e-01 -6.385517e-02  7.474123e-02 |  38 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       21.535  9.534353e-01 -3.103960e-01 -6.361479e-02  7.479307e-02 |  39 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       21.648  9.512162e-01 -3.120098e-01 -6.342343e-02  7.479565e-02 |  40 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       21.762  9.492237e-01 -3.128443e-01 -6.329208e-02  7.474485e-02 |  41 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       21.875  9.474909e-01 -3.129072e-01 -6.322158e-02  7.464319e-02 |  42 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       21.989  9.459835e-01 -3.123311e-01 -6.320191e-02  7.449989e-02 |  43 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       22.102  9.446132e-01 -3.113511e-01 -6.321408e-02  7.432988e-02 |  44 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       22.215  9.432675e-01 -3.102776e-01 -6.323325e-02  7.415322e-02 |  45 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       22.329  9.418441e-01 -3.094261e-01 -6.323468e-02  7.399116e-02 |  46 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       22.442  9.402816e-01 -3.090432e-01 -6.319977e-02  7.386154e-02 |  47 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       22.556  9.385739e-01 -3.092446e-01 -6.312069e-02  7.377422e-02 |  48 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       22.669  9.367686e-01 -3.099892e-01 -6.300194e-02  7.372867e-02 |  49 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       22.782  9.349487e-01 -3.111006e-01 -6.285832e-02  7.371462e-02 |  50 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       22.896  9.332038e-01 -3.123284e-01 -6.270978e-02  7.371565e-02 |  51 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       23.009  9.315996e-01 -3.134275e-01 -6.257505e-02  7.371424e-02 |  52 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       23.123  9.301566e-01 -3.142267e-01 -6.246629e-02  7.369656e-02 |  53 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       23.236  9.288461e-01 -3.146638e-01 -6.238655e-02  7.365533e-02 |  54 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       23.349  9.276045e-01 -3.147798e-01 -6.233069e-02  7.359022e-02 |  55 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       23.463  9.263596e-01 -3.146775e-01 -6.228909e-02  7.350585e-02 |  56 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       23.576  9.250579e-01 -3.144678e-01 -6.225233e-02  7.340870e-02 |  57 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       23.690  9.236824e-01 -3.142248e-01 -6.221483e-02  7.330426e-02 |  58 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       23.803  9.222560e-01 -3.139678e-01 -6.217621e-02  7.319561e-02 |  59 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       23.916  9.208289e-01 -3.136729e-01 -6.214000e-02  7.308369e-02 |  60 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       24.030  9.194572e-01 -3.133060e-01 -6.211066e-02  7.296884e-02 |  61 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       24.143  9.181796e-01 -3.128575e-01 -6.209032e-02  7.285252e-02 |  62 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       24.257  9.170033e-01 -3.123642e-01 -6.207685e-02  7.273837e-02 |  63 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       24.370  9.159017e-01 -3.119069e-01 -6.206389e-02  7.263191e-02 |  64 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       24.483  9.148264e-01 -3.115858e-01 -6.204292e-02  7.253908e-02 |  65 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       24.597  9.137257e-01 -3.114842e-01 -6.200644e-02  7.246415e-02 |  66 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       24.710  9.125640e-01 -3.116350e-01 -6.195088e-02  7.240794e-02 |  67 2 1.134028e-01 
-2019-12-11 17:22:22 | DEBUG |       24.937  9.100949e-01 -3.123575e-01 -6.180614e-02  7.232433e-02 |  68 2 2.268056e-01 
-2019-12-11 17:22:22 | DEBUG |       25.141  9.078422e-01 -3.130495e-01 -6.167176e-02  7.225134e-02 |  69 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       25.345  9.057290e-01 -3.132836e-01 -6.157295e-02  7.214648e-02 |  70 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       25.549  9.038139e-01 -3.129137e-01 -6.152170e-02  7.200021e-02 |  71 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       25.754  9.020479e-01 -3.121059e-01 -6.150512e-02  7.182394e-02 |  72 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       25.958  9.003285e-01 -3.111839e-01 -6.149776e-02  7.164035e-02 |  73 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       26.162  8.985785e-01 -3.104469e-01 -6.147685e-02  7.147153e-02 |  74 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       26.366  8.967823e-01 -3.100421e-01 -6.143213e-02  7.132973e-02 |  75 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       26.570  8.949761e-01 -3.099409e-01 -6.136696e-02  7.121451e-02 |  76 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       26.774  8.932113e-01 -3.100043e-01 -6.129251e-02  7.111652e-02 |  77 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       26.920  8.919995e-01 -3.100549e-01 -6.124087e-02  7.104992e-02 |  78 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       26.978  8.915200e-01 -3.100766e-01 -6.122031e-02  7.102374e-02 |  78 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       27.182  8.899020e-01 -3.100507e-01 -6.115742e-02  7.092659e-02 |  79 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       27.387  8.883339e-01 -3.098863e-01 -6.110554e-02  7.082015e-02 |  80 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       27.591  8.867909e-01 -3.095938e-01 -6.106300e-02  7.070391e-02 |  81 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       27.795  8.852628e-01 -3.092090e-01 -6.102704e-02  7.058044e-02 |  82 2 2.041250e-01 
-2019-12-11 17:22:22 | DEBUG |       28.203  8.822906e-01 -3.083929e-01 -6.096133e-02  7.033460e-02 |  83 2 4.082500e-01 
-2019-12-11 17:22:22 | DEBUG |       28.611  8.795040e-01 -3.078021e-01 -6.088799e-02  7.011998e-02 |  84 1 4.082500e-01 
-2019-12-11 17:22:22 | DEBUG |       29.020  8.768165e-01 -3.073922e-01 -6.080653e-02  6.992765e-02 |  85 1 4.082500e-01 
-2019-12-11 17:22:22 | DEBUG |       29.428  8.742111e-01 -3.070241e-01 -6.072532e-02  6.974427e-02 |  86 1 4.082500e-01 
-2019-12-11 17:22:22 | DEBUG |       30.244  8.694165e-01 -3.061679e-01 -6.058723e-02  6.939133e-02 |  87 1 8.165001e-01 
-2019-12-11 17:22:22 | DEBUG |       31.061  8.649672e-01 -3.053357e-01 -6.046073e-02  6.906157e-02 |  88 1 8.165001e-01 
-2019-12-11 17:22:22 | DEBUG |       31.877  8.608275e-01 -3.045604e-01 -6.034249e-02  6.875548e-02 |  89 1 8.165001e-01 
-2019-12-11 17:22:22 | DEBUG | Algebraic mode (with J recalculation) change for model GEN____3_SM
-2019-12-11 17:22:22 | DEBUG | Algebraic mode (with J recalculation) change for model OMEGA_REF
-2019-12-11 17:22:22 | DEBUG |       31.920  8.606193e-01 -3.045214e-01 -6.033653e-02  6.874010e-02 |  90 2 1.633000e+00 
-2019-12-11 17:22:22 | DEBUG | calculation of the new starting point of the simulation.
-2019-12-11 17:22:22 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-12-11 17:22:22 | DEBUG |       31.920  8.358347e-01 -2.958388e-01 -5.987876e-02  6.655559e-02 |   0 0 0.000000e+00 
-2019-12-11 17:22:22 | DEBUG |       31.920  8.358339e-01 -2.958386e-01 -5.987874e-02  6.655554e-02 |   1 1 1.000000e-06 
-2019-12-11 17:22:22 | DEBUG |       31.920  8.358338e-01 -2.958386e-01 -5.987874e-02  6.655553e-02 |   2 1 1.000000e-06 
-2019-12-11 17:22:22 | DEBUG |       31.920  8.358337e-01 -2.958386e-01 -5.987873e-02  6.655552e-02 |   3 2 2.000000e-06 
-2019-12-11 17:22:22 | DEBUG |       31.920  8.358332e-01 -2.958385e-01 -5.987872e-02  6.655549e-02 |   4 2 4.000000e-06 
-2019-12-11 17:22:22 | DEBUG |       31.920  8.358324e-01 -2.958384e-01 -5.987869e-02  6.655543e-02 |   5 2 8.000000e-06 
-2019-12-11 17:22:22 | DEBUG |       31.920  8.358308e-01 -2.958382e-01 -5.987864e-02  6.655532e-02 |   6 2 1.600000e-05 
-2019-12-11 17:22:22 | DEBUG |       31.920  8.358276e-01 -2.958378e-01 -5.987854e-02  6.655510e-02 |   7 2 3.200000e-05 
-2019-12-11 17:22:22 | DEBUG |       31.920  8.358212e-01 -2.958368e-01 -5.987833e-02  6.655467e-02 |   8 2 6.400000e-05 
-2019-12-11 17:22:22 | DEBUG |       31.920  8.358085e-01 -2.958350e-01 -5.987791e-02  6.655379e-02 |   9 2 1.280000e-04 
-2019-12-11 17:22:22 | DEBUG |       31.920  8.357831e-01 -2.958314e-01 -5.987709e-02  6.655205e-02 |  10 2 2.560000e-04 
-2019-12-11 17:22:22 | DEBUG |       31.921  8.357328e-01 -2.958242e-01 -5.987546e-02  6.654858e-02 |  11 2 5.120000e-04 
-2019-12-11 17:22:22 | DEBUG |       31.922  8.356338e-01 -2.958099e-01 -5.987226e-02  6.654176e-02 |  12 2 1.024000e-03 
-2019-12-11 17:22:22 | DEBUG |       31.924  8.354425e-01 -2.957812e-01 -5.986613e-02  6.652849e-02 |  13 2 2.048000e-03 
-2019-12-11 17:22:22 | DEBUG |       31.928  8.350842e-01 -2.957249e-01 -5.985484e-02  6.650339e-02 |  14 2 4.096000e-03 
-2019-12-11 17:22:22 | DEBUG |       31.936  8.344512e-01 -2.956172e-01 -5.983540e-02  6.645832e-02 |  15 2 8.192000e-03 
-2019-12-11 17:22:22 | DEBUG |       31.952  8.334367e-01 -2.954272e-01 -5.980534e-02  6.638455e-02 |  16 2 1.638400e-02 
-2019-12-11 17:22:22 | DEBUG |       31.969  8.326766e-01 -2.952733e-01 -5.978355e-02  6.632824e-02 |  17 2 1.638400e-02 
-2019-12-11 17:22:22 | DEBUG |       32.001  8.315453e-01 -2.950603e-01 -5.975003e-02  6.624597e-02 |  18 2 3.276800e-02 
-2019-12-11 17:22:22 | DEBUG |       32.034  8.307437e-01 -2.949494e-01 -5.972366e-02  6.619136e-02 |  19 2 3.276800e-02 
-2019-12-11 17:22:22 | DEBUG |       32.067  8.300893e-01 -2.949084e-01 -5.969891e-02  6.615135e-02 |  20 2 3.276800e-02 
-2019-12-11 17:22:22 | DEBUG |       32.100  8.294949e-01 -2.949104e-01 -5.967386e-02  6.611864e-02 |  21 2 3.276800e-02 
-2019-12-11 17:22:22 | DEBUG |       32.165  8.283607e-01 -2.949497e-01 -5.962373e-02  6.605951e-02 |  22 2 6.553600e-02 
-2019-12-11 17:22:22 | DEBUG |       32.253  8.271064e-01 -2.947591e-01 -5.958341e-02  6.597279e-02 |  23 1 1.310720e-01 
-2019-12-11 17:22:22 | DEBUG |       32.296  8.264831e-01 -2.946644e-01 -5.956337e-02  6.592969e-02 |  23 1 1.310720e-01 
-2019-12-11 17:22:22 | DEBUG |       32.394  8.252626e-01 -2.941765e-01 -5.954365e-02  6.581764e-02 |  24 1 9.785357e-02 
-2019-12-11 17:22:22 | DEBUG |       32.492  8.241980e-01 -2.934804e-01 -5.954391e-02  6.569508e-02 |  25 1 9.785357e-02 
-2019-12-11 17:22:22 | DEBUG |       32.590  8.232437e-01 -2.926673e-01 -5.955631e-02  6.556785e-02 |  26 1 9.785357e-02 
-2019-12-11 17:22:22 | DEBUG |       32.688  8.223475e-01 -2.918361e-01 -5.957226e-02  6.544214e-02 |  27 1 9.785357e-02 
-2019-12-11 17:22:22 | DEBUG |       32.883  8.205380e-01 -2.905084e-01 -5.958163e-02  6.522051e-02 |  28 1 1.957071e-01 
-2019-12-11 17:22:22 | DEBUG |       33.060  8.188427e-01 -2.896365e-01 -5.956622e-02  6.504713e-02 |  29 1 1.761364e-01 
-2019-12-11 17:22:22 | DEBUG |       33.236  8.171057e-01 -2.890079e-01 -5.953322e-02  6.489398e-02 |  30 1 1.761364e-01 
-2019-12-11 17:22:22 | DEBUG |       33.412  8.153799e-01 -2.885138e-01 -5.949190e-02  6.475395e-02 |  31 1 1.761364e-01 
-2019-12-11 17:22:22 | DEBUG |       33.739  8.123866e-01 -2.877379e-01 -5.941472e-02  6.451884e-02 |  32 1 3.522728e-01 
-2019-12-11 17:22:22 | DEBUG |       33.764  8.121586e-01 -2.876788e-01 -5.940884e-02  6.450093e-02 |  32 1 3.522728e-01 
-2019-12-11 17:22:22 | DEBUG |       34.116  8.091554e-01 -2.869491e-01 -5.932787e-02  6.427000e-02 |  33 1 3.522728e-01 
-2019-12-11 17:22:22 | DEBUG |       34.469  8.063220e-01 -2.863476e-01 -5.924557e-02  6.406054e-02 |  34 1 3.522728e-01 
-2019-12-11 17:22:22 | DEBUG |       35.173  8.011854e-01 -2.855705e-01 -5.907555e-02  6.371089e-02 |  35 1 7.045457e-01 
-2019-12-11 17:22:22 | DEBUG |       35.878  7.965229e-01 -2.850749e-01 -5.890678e-02  6.341434e-02 |  36 1 7.045457e-01 
-2019-12-11 17:22:22 | DEBUG |       35.970  7.959708e-01 -2.850345e-01 -5.888553e-02  6.338107e-02 |  37 1 7.045457e-01 
-2019-12-11 17:22:22 | DEBUG |       36.582  7.922840e-01 -2.847650e-01 -5.874363e-02  6.315896e-02 |  37 1 7.045457e-01 
-2019-12-11 17:22:22 | DEBUG |       37.991  7.846644e-01 -2.844165e-01 -5.843551e-02  6.272184e-02 |  38 2 1.409091e+00 
-2019-12-11 17:22:22 | DEBUG |       39.401  7.782594e-01 -2.843763e-01 -5.815850e-02  6.238117e-02 |  39 2 1.409091e+00 
-2019-12-11 17:22:22 | DEBUG |       42.219  7.683173e-01 -2.846322e-01 -5.770501e-02  6.188758e-02 |  40 2 2.818183e+00 
-2019-12-11 17:22:22 | DEBUG |       44.755  7.620019e-01 -2.850558e-01 -5.739814e-02  6.160238e-02 |  41 2 2.536364e+00 
-2019-12-11 17:22:22 | DEBUG |       46.915  7.580104e-01 -2.854238e-01 -5.719711e-02  6.143282e-02 |  42 2 2.536364e+00 
-2019-12-11 17:22:22 | DEBUG |       47.291  7.574448e-01 -2.854886e-01 -5.716773e-02  6.141015e-02 |  42 2 2.536364e+00 
-2019-12-11 17:22:22 | DEBUG |       49.828  7.541767e-01 -2.858724e-01 -5.699716e-02  6.128032e-02 |  43 2 2.536364e+00 
-2019-12-11 17:22:22 | DEBUG |       52.364  7.518423e-01 -2.861950e-01 -5.687187e-02  6.119279e-02 |  44 2 2.536364e+00 
-2019-12-11 17:22:22 | DEBUG |       54.901  7.501856e-01 -2.864599e-01 -5.678048e-02  6.113439e-02 |  45 2 2.536364e+00 
-2019-12-11 17:22:22 | DEBUG |       57.437  7.490216e-01 -2.866752e-01 -5.671432e-02  6.109628e-02 |  46 2 2.536364e+00 
-2019-12-11 17:22:22 | DEBUG |       62.510  7.475740e-01 -2.870011e-01 -5.662809e-02  6.105477e-02 |  47 2 5.072729e+00 
-2019-12-11 17:22:22 | DEBUG |       67.582  7.469577e-01 -2.872221e-01 -5.658612e-02  6.104482e-02 |  48 2 5.072729e+00 
-2019-12-11 17:22:22 | DEBUG |       72.655  7.468038e-01 -2.873778e-01 -5.656917e-02  6.105190e-02 |  49 2 5.072729e+00 
-2019-12-11 17:22:22 | DEBUG |       77.728  7.468897e-01 -2.874945e-01 -5.656551e-02  6.106731e-02 |  50 2 5.072729e+00 
-2019-12-11 17:22:22 | DEBUG |       82.801  7.470904e-01 -2.875885e-01 -5.656849e-02  6.108631e-02 |  51 2 5.072729e+00 
-2019-12-11 17:22:22 | DEBUG |       92.801  7.475651e-01 -2.877432e-01 -5.657988e-02  6.112483e-02 |  52 2 1.000000e+01 
-2019-12-11 17:22:22 | DEBUG |      100.000  7.479394e-01 -2.878294e-01 -5.659117e-02  6.115179e-02 |  53 1 7.199480e+00 
-2019-12-11 17:22:22 | DEBUG | get parameter value in model multi : underVoltageAutomaton_UMinPu value: 0.85 in submodel: UVA
-2019-12-11 17:22:22 | INFO | parameter curve:UVA curve variable:underVoltageAutomaton_UMinPu updated.
-2019-12-11 17:22:22 | DEBUG | 
-2019-12-11 17:22:22 | DEBUG | execution Stats :
-2019-12-11 17:22:22 | DEBUG | 
-2019-12-11 17:22:22 | DEBUG | number of iterations                     = 169
-2019-12-11 17:22:22 | DEBUG | number of Residual evaluations           = 269
-2019-12-11 17:22:22 | DEBUG | number of Jacobian evaluations           = 67
-2019-12-11 17:22:22 | DEBUG | number of Nonlinear iterations           = 267
-2019-12-11 17:22:22 | DEBUG | number of error test failures            = 0
-2019-12-11 17:22:22 | DEBUG | number of Nonlinear convergence failures = 0
-2019-12-11 17:22:22 | DEBUG | number of root functions evaluations     = 506
-2019-12-11 17:22:22 | DEBUG | end of job 'IEEE14 - UnderVoltageAutomaton'
+2019-12-23 11:07:30 | DEBUG |  ============================================================ 
+2019-12-23 11:07:30 | DEBUG | DYNAWO VERSION  :     1.0.1
+2019-12-23 11:07:30 | DEBUG | DYNAWO REVISION :  590_OmegaRef-f29d8f1a
+2019-12-23 11:07:30 | DEBUG |  ============================================================ 
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_omega_grp_0 with GEN____1_SM_generator_omegaPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_omegaRef_grp_0 with GEN____1_SM_generator_omegaRefPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_running_grp_0 with GEN____1_SM_generator_running
+2019-12-23 11:07:30 | DEBUG | connecting GEN____1_SM_generator_switchOffSignal1 with NETWORK__BUS____1_TN_switchOff
+2019-12-23 11:07:30 | DEBUG | connecting GEN____1_SM_generator_terminal with NETWORK__BUS____1_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_omega_grp_1 with GEN____2_SM_generator_omegaPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_omegaRef_grp_1 with GEN____2_SM_generator_omegaRefPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_running_grp_1 with GEN____2_SM_generator_running
+2019-12-23 11:07:30 | DEBUG | connecting GEN____2_SM_generator_switchOffSignal1 with NETWORK__BUS____2_TN_switchOff
+2019-12-23 11:07:30 | DEBUG | connecting GEN____2_SM_generator_terminal with NETWORK__BUS____2_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting GEN____3_SM_generator_UPu with UVA_underVoltageAutomaton_UPu_value
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_omega_grp_2 with GEN____3_SM_generator_omegaPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_omegaRef_grp_2 with GEN____3_SM_generator_omegaRefPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_running_grp_2 with GEN____3_SM_generator_running
+2019-12-23 11:07:30 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal1 with NETWORK__BUS____3_TN_switchOff
+2019-12-23 11:07:30 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal3 with UVA_underVoltageAutomaton_switchOffSignal
+2019-12-23 11:07:30 | DEBUG | connecting GEN____3_SM_generator_terminal with NETWORK__BUS____3_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_omega_grp_3 with GEN____6_SM_generator_omegaPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_omegaRef_grp_3 with GEN____6_SM_generator_omegaRefPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_running_grp_3 with GEN____6_SM_generator_running
+2019-12-23 11:07:30 | DEBUG | connecting GEN____6_SM_generator_switchOffSignal1 with NETWORK__BUS____6_TN_switchOff
+2019-12-23 11:07:30 | DEBUG | connecting GEN____6_SM_generator_terminal with NETWORK__BUS____6_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_omega_grp_4 with GEN____8_SM_generator_omegaPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_omegaRef_grp_4 with GEN____8_SM_generator_omegaRefPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_running_grp_4 with GEN____8_SM_generator_running
+2019-12-23 11:07:30 | DEBUG | connecting GEN____8_SM_generator_switchOffSignal1 with NETWORK__BUS____8_TN_switchOff
+2019-12-23 11:07:30 | DEBUG | connecting GEN____8_SM_generator_terminal with NETWORK__BUS____8_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting LOADVAR_LOAD2_event_state1 with _LOAD___2_EC_load_PRefPu
+2019-12-23 11:07:30 | DEBUG | connecting LOADVAR_LOAD2_event_state2 with _LOAD___2_EC_load_QRefPu
+2019-12-23 11:07:30 | DEBUG | connecting LOADVAR_LOAD3_event_state1 with _LOAD___3_EC_load_PRefPu
+2019-12-23 11:07:30 | DEBUG | connecting LOADVAR_LOAD3_event_state2 with _LOAD___3_EC_load_QRefPu
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_numcc_node_0 with NETWORK__BUS____1_TN_numcc
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_numcc_node_1 with NETWORK__BUS____2_TN_numcc
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_numcc_node_2 with NETWORK__BUS____3_TN_numcc
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_numcc_node_3 with NETWORK__BUS____6_TN_numcc
+2019-12-23 11:07:30 | DEBUG | connecting OMEGA_REF_numcc_node_4 with NETWORK__BUS____8_TN_numcc
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD__10_EC_load_terminal with NETWORK__BUS___10_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD__11_EC_load_terminal with NETWORK__BUS___11_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD__12_EC_load_terminal with NETWORK__BUS___12_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD__13_EC_load_terminal with NETWORK__BUS___13_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD__14_EC_load_terminal with NETWORK__BUS___14_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD___2_EC_load_terminal with NETWORK__BUS____2_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD___3_EC_load_terminal with NETWORK__BUS____3_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD___4_EC_load_terminal with NETWORK__BUS____4_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD___5_EC_load_terminal with NETWORK__BUS____5_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD___6_EC_load_terminal with NETWORK__BUS____6_TN_ACPIN
+2019-12-23 11:07:30 | DEBUG | connecting _LOAD___9_EC_load_terminal with NETWORK__BUS____9_TN_ACPIN
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS____1_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS____2_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS____3_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS____4_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS____5_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS____6_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS____7_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS____8_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS____9_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS___10_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS___11_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS___12_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS___13_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: NETWORK; curve: _BUS___14_TN_Upu_value found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: GEN____3_SM; output: generator_running found.( generator_running_value )
+2019-12-23 11:07:30 | INFO | adding curve : Id: _LOAD___2_EC; curve: load_PPu found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: _LOAD___2_EC; curve: load_QPu found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: _LOAD___3_EC; curve: load_PPu found. (exact name)
+2019-12-23 11:07:30 | INFO | adding curve : Id: _LOAD___3_EC; curve: load_QPu found. (exact name)
+2019-12-23 11:07:30 | INFO | adding parameter curve: Id: UVA; parameter curve: underVoltageAutomaton_UMinPu found. (exact name)
+2019-12-23 11:07:30 | DEBUG | nbSubNetwork = 1 nbsub = 1
+2019-12-23 11:07:30 | DEBUG | subNetwork[0] nbBus = 14
+2019-12-23 11:07:30 | DEBUG | keep SubNetworks num : 0
+2019-12-23 11:07:30 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2019-12-23 11:07:30 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2019-12-23 11:07:30 | DEBUG | generator_Efd0Pu same value as URef_Value0
+2019-12-23 11:07:30 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2019-12-23 11:07:30 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2019-12-23 11:07:30 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2019-12-23 11:07:30 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2019-12-23 11:07:30 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2019-12-23 11:07:30 | DEBUG | generator_Efd0Pu same value as URef_Value0
+2019-12-23 11:07:30 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2019-12-23 11:07:30 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2019-12-23 11:07:30 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2019-12-23 11:07:30 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2019-12-23 11:07:30 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2019-12-23 11:07:30 | DEBUG | generator_Efd0Pu same value as URef_Value0
+2019-12-23 11:07:30 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2019-12-23 11:07:30 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2019-12-23 11:07:30 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2019-12-23 11:07:30 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2019-12-23 11:07:30 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2019-12-23 11:07:30 | DEBUG | generator_Efd0Pu same value as URef_Value0
+2019-12-23 11:07:30 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2019-12-23 11:07:30 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2019-12-23 11:07:30 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2019-12-23 11:07:30 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2019-12-23 11:07:30 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2019-12-23 11:07:30 | DEBUG | generator_Efd0Pu same value as URef_Value0
+2019-12-23 11:07:30 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2019-12-23 11:07:30 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2019-12-23 11:07:30 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG | -----------------------------------------------------------------------
+2019-12-23 11:07:30 | DEBUG | number of continuous variables : 362 (display limited to 4 variables)
+2019-12-23 11:07:30 | DEBUG | number of discrete variables : 202
+2019-12-23 11:07:30 | DEBUG | -----------------------------------------------------------------------
+2019-12-23 11:07:30 | DEBUG |     t              y1            y2            y3            y4      | nst k      h
+2019-12-23 11:07:30 | DEBUG | -----------------------------------------------------------------------
+2019-12-23 11:07:30 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   0 0 1.000000e-02 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   1 1 1.000000e-06 
+2019-12-23 11:07:30 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   2 1 1.000000e-06 
+2019-12-23 11:07:30 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   3 2 2.000000e-06 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   4 2 4.000000e-06 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   5 2 8.000000e-06 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   6 2 1.600000e-05 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.000  1.014781e+00 -2.737272e-01 -6.830783e-02  7.558939e-02 |   7 2 3.200000e-05 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.000  1.014781e+00 -2.737271e-01 -6.830783e-02  7.558939e-02 |   8 2 6.400000e-05 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.000  1.014781e+00 -2.737271e-01 -6.830782e-02  7.558938e-02 |   9 2 1.280000e-04 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.001  1.014781e+00 -2.737271e-01 -6.830782e-02  7.558938e-02 |  10 2 2.560000e-04 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.001  1.014781e+00 -2.737271e-01 -6.830781e-02  7.558936e-02 |  11 2 5.120000e-04 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.002  1.014780e+00 -2.737271e-01 -6.830780e-02  7.558933e-02 |  12 2 1.024000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.004  1.014780e+00 -2.737270e-01 -6.830777e-02  7.558927e-02 |  13 2 2.048000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.008  1.014778e+00 -2.737269e-01 -6.830773e-02  7.558916e-02 |  14 2 4.096000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.016  1.014776e+00 -2.737267e-01 -6.830765e-02  7.558898e-02 |  15 2 8.192000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.033  1.014772e+00 -2.737264e-01 -6.830754e-02  7.558872e-02 |  16 2 1.638400e-02 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.066  1.014768e+00 -2.737258e-01 -6.830743e-02  7.558842e-02 |  17 2 3.276800e-02 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.131  1.014766e+00 -2.737253e-01 -6.830738e-02  7.558821e-02 |  18 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.262  1.014767e+00 -2.737265e-01 -6.830734e-02  7.558838e-02 |  19 1 1.310720e-01 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        0.524  1.014764e+00 -2.737339e-01 -6.830675e-02  7.558881e-02 |  20 1 2.621440e-01 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        1.049  1.014757e+00 -2.737373e-01 -6.830627e-02  7.558864e-02 |  21 1 5.242880e-01 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        2.097  1.014751e+00 -2.737319e-01 -6.830640e-02  7.558778e-02 |  22 1 1.048576e+00 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        4.194  1.014747e+00 -2.737285e-01 -6.830649e-02  7.558724e-02 |  23 1 2.097152e+00 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |        8.389  1.014744e+00 -2.737259e-01 -6.830655e-02  7.558682e-02 |  24 1 4.194304e+00 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       16.777  1.014735e+00 -2.737218e-01 -6.830646e-02  7.558583e-02 |  25 1 8.388608e+00 
+2019-12-23 11:07:30 | DEBUG | Algebraic mode change for model _LOAD___2_EC
+2019-12-23 11:07:30 | DEBUG | Algebraic mode change for model _LOAD___3_EC
+2019-12-23 11:07:30 | DEBUG |       20.000  1.014730e+00 -2.737203e-01 -6.830637e-02  7.558538e-02 |  26 1 1.000000e+01 
+2019-12-23 11:07:30 | DEBUG | calculation of the new starting point of the simulation.
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.000  9.936408e-01 -2.804995e-01 -6.708559e-02  7.477261e-02 |   0 0 0.000000e+00 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.000  9.936402e-01 -2.804995e-01 -6.708555e-02  7.477257e-02 |   1 1 1.000000e-06 
+2019-12-23 11:07:30 | DEBUG |       20.000  9.936400e-01 -2.804996e-01 -6.708554e-02  7.477257e-02 |   2 1 1.000000e-06 
+2019-12-23 11:07:30 | DEBUG |       20.000  9.936397e-01 -2.804998e-01 -6.708552e-02  7.477257e-02 |   3 2 2.000000e-06 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.000  9.936390e-01 -2.805002e-01 -6.708547e-02  7.477256e-02 |   4 2 4.000000e-06 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.000  9.936377e-01 -2.805011e-01 -6.708536e-02  7.477255e-02 |   5 2 8.000000e-06 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.000  9.936351e-01 -2.805027e-01 -6.708516e-02  7.477252e-02 |   6 2 1.600000e-05 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.000  9.936299e-01 -2.805061e-01 -6.708475e-02  7.477247e-02 |   7 2 3.200000e-05 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.000  9.936196e-01 -2.805127e-01 -6.708393e-02  7.477236e-02 |   8 2 6.400000e-05 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.000  9.935989e-01 -2.805260e-01 -6.708230e-02  7.477215e-02 |   9 2 1.280000e-04 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.001  9.935576e-01 -2.805523e-01 -6.707905e-02  7.477172e-02 |  10 2 2.560000e-04 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.001  9.934756e-01 -2.806045e-01 -6.707261e-02  7.477085e-02 |  11 2 5.120000e-04 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.002  9.933142e-01 -2.807067e-01 -6.705997e-02  7.476908e-02 |  12 2 1.024000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.004  9.930005e-01 -2.809027e-01 -6.703557e-02  7.476543e-02 |  13 2 2.048000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.008  9.924077e-01 -2.812645e-01 -6.699001e-02  7.475781e-02 |  14 2 4.096000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.016  9.913421e-01 -2.818893e-01 -6.690973e-02  7.474202e-02 |  15 2 8.192000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.033  9.895838e-01 -2.828650e-01 -6.678077e-02  7.471141e-02 |  16 2 1.638400e-02 
+2019-12-23 11:07:30 | DEBUG |       20.049  9.882152e-01 -2.835841e-01 -6.668294e-02  7.468428e-02 |  17 2 1.638400e-02 
+2019-12-23 11:07:30 | DEBUG |       20.066  9.871194e-01 -2.841540e-01 -6.660496e-02  7.466218e-02 |  18 2 1.638400e-02 
+2019-12-23 11:07:30 | DEBUG |       20.082  9.862119e-01 -2.846404e-01 -6.653940e-02  7.464521e-02 |  19 2 1.638400e-02 
+2019-12-23 11:07:30 | DEBUG |       20.098  9.854344e-01 -2.850802e-01 -6.648172e-02  7.463271e-02 |  20 2 1.638400e-02 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.131  9.840958e-01 -2.858984e-01 -6.637840e-02  7.461660e-02 |  21 2 3.276800e-02 
+2019-12-23 11:07:30 | DEBUG |       20.164  9.829579e-01 -2.866580e-01 -6.628636e-02  7.460854e-02 |  22 2 3.276800e-02 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       20.229  9.809051e-01 -2.880811e-01 -6.611677e-02  7.459889e-02 |  23 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.295  9.790220e-01 -2.893726e-01 -6.596196e-02  7.458916e-02 |  24 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.360  9.772081e-01 -2.905175e-01 -6.581916e-02  7.457155e-02 |  25 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.426  9.754523e-01 -2.914934e-01 -6.568944e-02  7.454339e-02 |  26 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.492  9.737765e-01 -2.922938e-01 -6.557406e-02  7.450541e-02 |  27 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.557  9.722055e-01 -2.929387e-01 -6.547272e-02  7.446088e-02 |  28 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.623  9.707539e-01 -2.934757e-01 -6.538285e-02  7.441479e-02 |  29 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.688  9.694215e-01 -2.939741e-01 -6.529996e-02  7.437311e-02 |  30 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.754  9.681940e-01 -2.945127e-01 -6.521836e-02  7.434172e-02 |  31 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.819  9.670458e-01 -2.951669e-01 -6.513218e-02  7.432550e-02 |  32 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.885  9.659443e-01 -2.959959e-01 -6.503628e-02  7.432755e-02 |  33 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG |       20.950  9.648546e-01 -2.970352e-01 -6.492704e-02  7.434872e-02 |  34 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       21.081  9.625720e-01 -2.996963e-01 -6.466623e-02  7.443555e-02 |  35 2 1.310720e-01 
+2019-12-23 11:07:30 | DEBUG |       21.194  9.604540e-01 -3.024514e-01 -6.440510e-02  7.454144e-02 |  36 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       21.307  9.581827e-01 -3.053495e-01 -6.412827e-02  7.465069e-02 |  37 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       21.420  9.558213e-01 -3.080804e-01 -6.385853e-02  7.474038e-02 |  38 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       21.533  9.534761e-01 -3.103624e-01 -6.361856e-02  7.479268e-02 |  39 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       21.646  9.512631e-01 -3.119835e-01 -6.342697e-02  7.479626e-02 |  40 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       21.759  9.492738e-01 -3.128323e-01 -6.329478e-02  7.474691e-02 |  41 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       21.872  9.475424e-01 -3.129140e-01 -6.322311e-02  7.464696e-02 |  42 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       21.984  9.460366e-01 -3.123560e-01 -6.320230e-02  7.450534e-02 |  43 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       22.097  9.446703e-01 -3.113878e-01 -6.321385e-02  7.433660e-02 |  44 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       22.210  9.433322e-01 -3.103151e-01 -6.323327e-02  7.416048e-02 |  45 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       22.323  9.419201e-01 -3.094512e-01 -6.323595e-02  7.399803e-02 |  46 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       22.436  9.403712e-01 -3.090445e-01 -6.320313e-02  7.386716e-02 |  47 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       22.549  9.386768e-01 -3.092165e-01 -6.312650e-02  7.377808e-02 |  48 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       22.662  9.368818e-01 -3.099338e-01 -6.300996e-02  7.373076e-02 |  49 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       22.775  9.350675e-01 -3.110275e-01 -6.286774e-02  7.371547e-02 |  50 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       22.888  9.333231e-01 -3.122515e-01 -6.271947e-02  7.371618e-02 |  51 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       23.000  9.317160e-01 -3.133607e-01 -6.258397e-02  7.371547e-02 |  52 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       23.113  9.302694e-01 -3.141798e-01 -6.247376e-02  7.369930e-02 |  53 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       23.226  9.289578e-01 -3.146402e-01 -6.239245e-02  7.366003e-02 |  54 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       23.339  9.277197e-01 -3.147765e-01 -6.233538e-02  7.359691e-02 |  55 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       23.452  9.264830e-01 -3.146883e-01 -6.229317e-02  7.351426e-02 |  56 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       23.565  9.251924e-01 -3.144866e-01 -6.225632e-02  7.341848e-02 |  57 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       23.678  9.238280e-01 -3.142485e-01 -6.221894e-02  7.331512e-02 |  58 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       23.791  9.224095e-01 -3.139968e-01 -6.218028e-02  7.320742e-02 |  59 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       23.904  9.209854e-01 -3.137102e-01 -6.214365e-02  7.309639e-02 |  60 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       24.016  9.196117e-01 -3.133533e-01 -6.211357e-02  7.298230e-02 |  61 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       24.129  9.183294e-01 -3.129130e-01 -6.209252e-02  7.286642e-02 |  62 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       24.242  9.171490e-01 -3.124209e-01 -6.207881e-02  7.275212e-02 |  63 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       24.355  9.160470e-01 -3.119538e-01 -6.206649e-02  7.264477e-02 |  64 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       24.468  9.149768e-01 -3.116112e-01 -6.204714e-02  7.255034e-02 |  65 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       24.581  9.138866e-01 -3.114799e-01 -6.201303e-02  7.247341e-02 |  66 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG |       24.694  9.127381e-01 -3.116000e-01 -6.196002e-02  7.241526e-02 |  67 2 1.128890e-01 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       24.920  9.102885e-01 -3.122938e-01 -6.181796e-02  7.233025e-02 |  68 2 2.257779e-01 
+2019-12-23 11:07:30 | DEBUG |       25.123  9.080400e-01 -3.130048e-01 -6.168250e-02  7.225915e-02 |  69 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       25.326  9.059195e-01 -3.132902e-01 -6.158003e-02  7.215837e-02 |  70 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       25.529  9.039957e-01 -3.129735e-01 -6.152493e-02  7.201629e-02 |  71 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       25.732  9.022283e-01 -3.121972e-01 -6.150624e-02  7.184272e-02 |  72 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       25.936  9.005167e-01 -3.112744e-01 -6.149926e-02  7.165950e-02 |  73 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       26.139  8.987792e-01 -3.105111e-01 -6.148059e-02  7.148907e-02 |  74 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       26.342  8.969942e-01 -3.100716e-01 -6.143861e-02  7.134483e-02 |  75 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       26.545  8.951938e-01 -3.099438e-01 -6.137544e-02  7.122757e-02 |  76 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       26.748  8.934295e-01 -3.099970e-01 -6.130169e-02  7.112868e-02 |  77 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       26.920  8.919957e-01 -3.100611e-01 -6.124031e-02  7.105026e-02 |  78 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       26.952  8.917366e-01 -3.100749e-01 -6.122907e-02  7.103628e-02 |  78 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       27.155  8.901180e-01 -3.100642e-01 -6.116516e-02  7.094045e-02 |  79 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       27.358  8.885522e-01 -3.099180e-01 -6.111219e-02  7.083574e-02 |  80 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       27.561  8.870134e-01 -3.096418e-01 -6.106876e-02  7.072118e-02 |  81 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG |       27.764  8.854894e-01 -3.092687e-01 -6.103220e-02  7.059898e-02 |  82 2 2.032001e-01 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       28.171  8.825209e-01 -3.084572e-01 -6.096636e-02  7.035374e-02 |  83 2 4.064002e-01 
+2019-12-23 11:07:30 | DEBUG |       28.577  8.797367e-01 -3.078492e-01 -6.089427e-02  7.013769e-02 |  84 1 4.064002e-01 
+2019-12-23 11:07:30 | DEBUG |       28.984  8.770527e-01 -3.074298e-01 -6.081360e-02  6.994467e-02 |  85 1 4.064002e-01 
+2019-12-23 11:07:30 | DEBUG |       29.390  8.744501e-01 -3.070615e-01 -6.073253e-02  6.976140e-02 |  86 1 4.064002e-01 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       30.203  8.696581e-01 -3.062116e-01 -6.059417e-02  6.940913e-02 |  87 1 8.128005e-01 
+2019-12-23 11:07:30 | DEBUG |       31.016  8.652105e-01 -3.053811e-01 -6.046767e-02  6.907957e-02 |  88 1 8.128005e-01 
+2019-12-23 11:07:30 | DEBUG |       31.828  8.610714e-01 -3.046061e-01 -6.034947e-02  6.877350e-02 |  89 1 8.128005e-01 
+2019-12-23 11:07:30 | DEBUG | Algebraic mode (with J recalculation) change for model GEN____3_SM
+2019-12-23 11:07:30 | DEBUG | Algebraic mode (with J recalculation) change for model OMEGA_REF
+2019-12-23 11:07:30 | DEBUG |       31.920  8.606189e-01 -3.045212e-01 -6.033653e-02  6.874006e-02 |  90 2 1.625601e+00 
+2019-12-23 11:07:30 | DEBUG | calculation of the new starting point of the simulation.
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.920  8.358343e-01 -2.958386e-01 -5.987876e-02  6.655555e-02 |   0 0 0.000000e+00 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.920  8.358335e-01 -2.958385e-01 -5.987874e-02  6.655550e-02 |   1 1 1.000000e-06 
+2019-12-23 11:07:30 | DEBUG |       31.920  8.358334e-01 -2.958384e-01 -5.987873e-02  6.655549e-02 |   2 1 1.000000e-06 
+2019-12-23 11:07:30 | DEBUG |       31.920  8.358333e-01 -2.958384e-01 -5.987873e-02  6.655548e-02 |   3 2 2.000000e-06 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.920  8.358328e-01 -2.958384e-01 -5.987871e-02  6.655545e-02 |   4 2 4.000000e-06 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.920  8.358320e-01 -2.958382e-01 -5.987869e-02  6.655539e-02 |   5 2 8.000000e-06 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.920  8.358304e-01 -2.958380e-01 -5.987863e-02  6.655528e-02 |   6 2 1.600000e-05 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.920  8.358272e-01 -2.958376e-01 -5.987853e-02  6.655506e-02 |   7 2 3.200000e-05 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.920  8.358208e-01 -2.958367e-01 -5.987832e-02  6.655463e-02 |   8 2 6.400000e-05 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.920  8.358081e-01 -2.958349e-01 -5.987791e-02  6.655375e-02 |   9 2 1.280000e-04 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.920  8.357827e-01 -2.958313e-01 -5.987708e-02  6.655201e-02 |  10 2 2.560000e-04 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.921  8.357323e-01 -2.958240e-01 -5.987545e-02  6.654854e-02 |  11 2 5.120000e-04 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.922  8.356334e-01 -2.958097e-01 -5.987225e-02  6.654172e-02 |  12 2 1.024000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.924  8.354420e-01 -2.957810e-01 -5.986613e-02  6.652845e-02 |  13 2 2.048000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.928  8.350837e-01 -2.957247e-01 -5.985483e-02  6.650335e-02 |  14 2 4.096000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.936  8.344508e-01 -2.956170e-01 -5.983540e-02  6.645828e-02 |  15 2 8.192000e-03 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       31.953  8.334363e-01 -2.954270e-01 -5.980534e-02  6.638451e-02 |  16 2 1.638400e-02 
+2019-12-23 11:07:30 | DEBUG |       31.969  8.326762e-01 -2.952731e-01 -5.978354e-02  6.632820e-02 |  17 2 1.638400e-02 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       32.002  8.315449e-01 -2.950601e-01 -5.975002e-02  6.624593e-02 |  18 2 3.276800e-02 
+2019-12-23 11:07:30 | DEBUG |       32.035  8.307433e-01 -2.949492e-01 -5.972366e-02  6.619132e-02 |  19 2 3.276800e-02 
+2019-12-23 11:07:30 | DEBUG |       32.067  8.300889e-01 -2.949082e-01 -5.969890e-02  6.615131e-02 |  20 2 3.276800e-02 
+2019-12-23 11:07:30 | DEBUG |       32.100  8.294945e-01 -2.949103e-01 -5.967385e-02  6.611860e-02 |  21 2 3.276800e-02 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       32.166  8.283602e-01 -2.949495e-01 -5.962373e-02  6.605947e-02 |  22 2 6.553600e-02 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       32.253  8.271065e-01 -2.947590e-01 -5.958342e-02  6.597278e-02 |  23 1 1.310720e-01 
+2019-12-23 11:07:30 | DEBUG |       32.297  8.264826e-01 -2.946642e-01 -5.956337e-02  6.592964e-02 |  23 1 1.310720e-01 
+2019-12-23 11:07:30 | DEBUG |       32.394  8.252695e-01 -2.941809e-01 -5.954366e-02  6.581842e-02 |  24 1 9.718877e-02 
+2019-12-23 11:07:30 | DEBUG |       32.491  8.242106e-01 -2.934911e-01 -5.954375e-02  6.569676e-02 |  25 1 9.718877e-02 
+2019-12-23 11:07:30 | DEBUG |       32.588  8.232617e-01 -2.926839e-01 -5.955599e-02  6.557036e-02 |  26 1 9.718877e-02 
+2019-12-23 11:07:30 | DEBUG |       32.685  8.223712e-01 -2.918567e-01 -5.957192e-02  6.544534e-02 |  27 1 9.718877e-02 
+2019-12-23 11:07:30 | DEBUG |       32.880  8.205757e-01 -2.905297e-01 -5.958184e-02  6.522454e-02 |  28 1 1.943775e-01 
+2019-12-23 11:07:30 | DEBUG |       33.055  8.188934e-01 -2.896559e-01 -5.956710e-02  6.505170e-02 |  29 1 1.749398e-01 
+2019-12-23 11:07:30 | DEBUG |       33.230  8.171681e-01 -2.890261e-01 -5.953469e-02  6.489908e-02 |  30 1 1.749398e-01 
+2019-12-23 11:07:30 | DEBUG |       33.405  8.154522e-01 -2.885327e-01 -5.949375e-02  6.475964e-02 |  31 1 1.749398e-01 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       33.739  8.123866e-01 -2.877373e-01 -5.941476e-02  6.451878e-02 |  32 1 3.498796e-01 
+2019-12-23 11:07:30 | DEBUG |       33.755  8.122459e-01 -2.877008e-01 -5.941114e-02  6.450772e-02 |  32 1 3.498796e-01 
+2019-12-23 11:07:30 | DEBUG |       34.104  8.092566e-01 -2.869719e-01 -5.933072e-02  6.427761e-02 |  33 1 3.498796e-01 
+2019-12-23 11:07:30 | DEBUG |       34.454  8.064363e-01 -2.863690e-01 -5.924909e-02  6.406871e-02 |  34 1 3.498796e-01 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       35.154  8.013209e-01 -2.855875e-01 -5.908028e-02  6.371976e-02 |  35 1 6.997591e-01 
+2019-12-23 11:07:30 | DEBUG |       35.854  7.966748e-01 -2.850877e-01 -5.891251e-02  6.342367e-02 |  36 1 6.997591e-01 
+2019-12-23 11:07:30 | DEBUG |       35.970  7.959705e-01 -2.850354e-01 -5.888546e-02  6.338115e-02 |  37 1 6.997591e-01 
+2019-12-23 11:07:30 | DEBUG |       36.554  7.924486e-01 -2.847740e-01 -5.875017e-02  6.316856e-02 |  37 1 6.997591e-01 
+2019-12-23 11:07:30 | DEBUG |       37.953  7.848472e-01 -2.844185e-01 -5.844334e-02  6.273169e-02 |  38 2 1.399518e+00 
+2019-12-23 11:07:30 | DEBUG |       39.353  7.784510e-01 -2.843728e-01 -5.816711e-02  6.239088e-02 |  39 2 1.399518e+00 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       42.152  7.685082e-01 -2.846212e-01 -5.771414e-02  6.189643e-02 |  40 2 2.799036e+00 
+2019-12-23 11:07:30 | DEBUG |       44.664  7.621923e-01 -2.850404e-01 -5.740758e-02  6.161069e-02 |  41 2 2.512749e+00 
+2019-12-23 11:07:30 | DEBUG |       46.919  7.580095e-01 -2.854260e-01 -5.719692e-02  6.143299e-02 |  42 2 2.512749e+00 
+2019-12-23 11:07:30 | DEBUG |       47.177  7.576204e-01 -2.854706e-01 -5.717670e-02  6.141740e-02 |  42 2 2.512749e+00 
+2019-12-23 11:07:30 | DEBUG |       49.690  7.543307e-01 -2.858535e-01 -5.700526e-02  6.128634e-02 |  43 2 2.512749e+00 
+2019-12-23 11:07:30 | DEBUG |       52.203  7.519724e-01 -2.861763e-01 -5.687890e-02  6.119760e-02 |  44 2 2.512749e+00 
+2019-12-23 11:07:30 | DEBUG |       54.715  7.502923e-01 -2.864422e-01 -5.678641e-02  6.113809e-02 |  45 2 2.512749e+00 
+2019-12-23 11:07:30 | DEBUG |       57.228  7.491064e-01 -2.866588e-01 -5.671918e-02  6.109899e-02 |  46 2 2.512749e+00 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       62.254  7.476228e-01 -2.869873e-01 -5.663117e-02  6.105591e-02 |  47 2 5.025499e+00 
+2019-12-23 11:07:30 | DEBUG |       67.279  7.469796e-01 -2.872107e-01 -5.658785e-02  6.104483e-02 |  48 2 5.025499e+00 
+2019-12-23 11:07:30 | DEBUG |       72.305  7.468067e-01 -2.873680e-01 -5.656993e-02  6.105112e-02 |  49 2 5.025499e+00 
+2019-12-23 11:07:30 | DEBUG |       77.330  7.468798e-01 -2.874859e-01 -5.656562e-02  6.106599e-02 |  50 2 5.025499e+00 
+2019-12-23 11:07:30 | DEBUG |       82.356  7.470720e-01 -2.875804e-01 -5.656818e-02  6.108462e-02 |  51 2 5.025499e+00 
+2019-12-23 11:07:30 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2019-12-23 11:07:30 | DEBUG |       92.356  7.475412e-01 -2.877370e-01 -5.657920e-02  6.112304e-02 |  52 2 1.000000e+01 
+2019-12-23 11:07:30 | DEBUG |      100.000  7.479383e-01 -2.878287e-01 -5.659116e-02  6.115167e-02 |  53 1 7.644341e+00 
+2019-12-23 11:07:30 | DEBUG | get parameter value in model multi : underVoltageAutomaton_UMinPu value: 0.85 in submodel: UVA
+2019-12-23 11:07:30 | INFO | parameter curve:UVA curve variable:underVoltageAutomaton_UMinPu updated.
+2019-12-23 11:07:30 | DEBUG | 
+2019-12-23 11:07:30 | DEBUG | execution Stats :
+2019-12-23 11:07:30 | DEBUG | 
+2019-12-23 11:07:30 | DEBUG | number of iterations                     = 169
+2019-12-23 11:07:30 | DEBUG | number of Residual evaluations           = 273
+2019-12-23 11:07:30 | DEBUG | number of Jacobian evaluations           = 67
+2019-12-23 11:07:30 | DEBUG | number of Nonlinear iterations           = 271
+2019-12-23 11:07:30 | DEBUG | number of error test failures            = 0
+2019-12-23 11:07:30 | DEBUG | number of Nonlinear convergence failures = 0
+2019-12-23 11:07:30 | DEBUG | number of root functions evaluations     = 509
+2019-12-23 11:07:30 | DEBUG | end of job 'IEEE14 - UnderVoltageAutomaton'

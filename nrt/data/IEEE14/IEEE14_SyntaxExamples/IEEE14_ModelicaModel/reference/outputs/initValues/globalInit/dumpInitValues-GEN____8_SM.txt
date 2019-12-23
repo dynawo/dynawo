@@ -13,7 +13,7 @@ generator_IStatorPu_value                         : y =       0.161209 yp =     
 generator_PGen                                    : y =      -0.005655 yp =       0.000000
 generator_PGenPu                                  : y =      -0.000057 yp =       0.000000
 generator_PePu                                    : y =      -0.000006 yp =       0.000000
-generator_QGen                                    : y =      17.570613 yp =       0.000000
+generator_QGen                                    : y =      17.570615 yp =       0.000000
 generator_QGenPu                                  : y =       0.175706 yp =       0.000000
 generator_QStatorPu_value                         : y =       0.176746 yp =       0.000000
 generator_QStatorPuQNom_value                     : y =       0.172355 yp =       0.000000

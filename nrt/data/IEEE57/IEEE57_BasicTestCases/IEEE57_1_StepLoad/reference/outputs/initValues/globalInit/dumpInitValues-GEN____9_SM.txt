@@ -10,7 +10,7 @@ generator_terminal_V_re                           : y =       0.966322 yp =     
 generator_theta                                   : y =      -0.167207 yp =      -0.000000
 generator_IRotorPu_value                          : y =       0.984129 yp =       0.000000
 generator_IStatorPu_value                         : y =       0.023556 yp =       0.000000
-generator_PGen                                    : y =       0.140598 yp =       0.000000
+generator_PGen                                    : y =       0.140594 yp =       0.000000
 generator_PGenPu                                  : y =       0.001406 yp =       0.000000
 generator_PePu                                    : y =       0.000085 yp =       0.000000
 generator_QGen                                    : y =       2.304205 yp =       0.000000
