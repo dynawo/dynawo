@@ -10,13 +10,13 @@ generator_terminal_V_re                           : y =       1.041071 yp =     
 generator_theta                                   : y =      -0.007481 yp =      -0.000000
 generator_IRotorPu_value                          : y =       1.148119 yp =       0.000000
 generator_IStatorPu_value                         : y =       0.566372 yp =       0.000000
-generator_PGen                                    : y =      40.081551 yp =       0.000000
+generator_PGen                                    : y =      40.081550 yp =       0.000000
 generator_PGenPu                                  : y =       0.400816 yp =       0.000000
 generator_PePu                                    : y =       0.035796 yp =       0.000000
-generator_QGen                                    : y =      43.549501 yp =       0.000000
+generator_QGen                                    : y =      43.549504 yp =       0.000000
 generator_QGenPu                                  : y =       0.435495 yp =       0.000000
 generator_QStatorPu_value                         : y =       0.438359 yp =       0.000000
-generator_QStatorPuQNom_value                     : y =       0.089791 yp =       0.000000
+generator_QStatorPuQNom_value                     : y =       0.089792 yp =       0.000000
 generator_UPu                                     : y =       1.045019 yp =       0.000000
 generator_cePu                                    : y =       0.035796 yp =       0.000000
 generator_cmPu                                    : y =       0.039650 yp =       0.000000

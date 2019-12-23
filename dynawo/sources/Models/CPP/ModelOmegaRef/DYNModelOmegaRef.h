@@ -247,7 +247,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
   /**
    * @copydoc ModelCPP::setFequations()
    */
-  void setFequations() { /* not needed */ }
+  void setFequations();
 
   /**
    * @copydoc ModelCPP::setGequations()
@@ -274,7 +274,6 @@ class ModelOmegaRef : public ModelCPP::Impl {
 
  private:
   static int col1stOmegaRef_;  ///< offset to find the first row the residual functions about omegaRef
-  static int col1stTetaRef_;  ///< offset to find the first row the residual functions about tetaRef
   static int col1stOmega_;  ///< offset to find the first row the residual functions about omega
   static int col1stOmegaRefGrp_;  ///< offset to find the first row the residual functions about omegaRef for each generators
 
@@ -284,7 +283,6 @@ class ModelOmegaRef : public ModelCPP::Impl {
   std::vector<int> numCCNode_;  ///< index of the network for each generators
   std::vector<double> runningGrp_;  ///< @b true if the generator is on
   std::vector<double> omegaRef0_;  ///< initial values for omegaref
-  std::vector<double> tetaRef0_;  ///< initial values for tetaref
   std::map<int, double > sumWeightByCC_;  ///< sum of weight for each network
   std::map<int, std::vector<int> >genByCC_;  ///< list of generators for each network
   std::vector<int> numCCNodeOld_;  ///< save of the index of the network for each generators

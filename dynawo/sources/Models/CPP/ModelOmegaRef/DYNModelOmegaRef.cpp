@@ -82,7 +82,6 @@ namespace DYN {
 static const int nbMaxCC = 10;  ///< max number of subNewtork where omegaRef is calculated
 
 int ModelOmegaRef::col1stOmegaRef_;
-int ModelOmegaRef::col1stTetaRef_;
 int ModelOmegaRef::col1stOmega_;
 int ModelOmegaRef::col1stOmegaRefGrp_;
 
@@ -109,8 +108,7 @@ ModelOmegaRef::init(const double& /*t0*/) {
   nbCC_ = 0;
 
   ModelOmegaRef::col1stOmegaRef_ = 0;
-  ModelOmegaRef::col1stTetaRef_ = ModelOmegaRef::col1stOmegaRef_ + nbMaxCC;
-  ModelOmegaRef::col1stOmega_ = ModelOmegaRef::col1stTetaRef_ + nbMaxCC;
+  ModelOmegaRef::col1stOmega_ = ModelOmegaRef::col1stOmegaRef_ + nbMaxCC;
   ModelOmegaRef::col1stOmegaRefGrp_ = ModelOmegaRef::col1stOmega_ + nbOmega_;
 }
 
@@ -128,8 +126,8 @@ ModelOmegaRef::initializeFromData(const boost::shared_ptr<DataInterface>& /*data
  */
 void
 ModelOmegaRef::getSize() {
-  sizeF_ = 2 * nbMaxCC + nbGen_;  // nbMaxCC*2 eq (omegaref/tetaref) + one equation by generator
-  sizeY_ = 2 * nbMaxCC + nbGen_ + nbOmega_;  // (omegaref/tetaref)*nbMaxCC + omegaRef by grp + omega_ for grp with weight > 0
+  sizeF_ = nbMaxCC + nbGen_;  // nbMaxCC eq (omegaref) + one equation by generator
+  sizeY_ = nbMaxCC + nbGen_ + nbOmega_;  // (omegaref)*nbMaxCC + omegaRef by grp + omega_ for grp with weight > 0
   sizeZ_ = nbGen_ * 2;   // num cc for each connection node of generators + stateOff of each generators
   sizeG_ = 0;
   sizeMode_ = 1;  // change of CC organisation
@@ -169,27 +167,21 @@ ModelOmegaRef::evalF(const double& /*t*/) {
       std::vector<int> numGen = iterGen->second;
       for (unsigned int j = 0; j < numGen.size(); ++j) {
         if (toNativeBool(runningGrp_[numGen[j]]) && weights_[numGen[j]] > 0) {
-          fLocal_[i] += yLocal_[2 * nbMaxCC + indexOmega_[numGen[j]]] * weights_[numGen[j]] / iterWeight->second;
+          fLocal_[i] += yLocal_[nbMaxCC + indexOmega_[numGen[j]]] * weights_[numGen[j]] / iterWeight->second;
         }
       }
     }
   }
 
-  // II: equation nbMaxCC to 2*nbMaxCC :
-  // for each connected component i, 0 = d(tetaRef[i])/dt - omegaRef[i]
-  for (int i = 0; i < nbMaxCC; ++i) {
-    fLocal_[nbMaxCC + i] = ypLocal_[nbMaxCC + i] - yLocal_[i];
-  }
-
-  // III: equation 2*nbMaxCC to nbGen_+2*nbMaxCC :
+  // II: equation nbMaxCC to nbGen_ + nbMaxCC :
   // for each generator k, and the connected component i which contains this generator k:
   // 0 = omegaRef[i] - omegaRefGrp[k]
   // the index i is given by numCCNode_[k]
   for (int k = 0; k < nbGen_; ++k) {
     if (toNativeBool(runningGrp_[k])) {
-      fLocal_[2 * nbMaxCC + k] = yLocal_[numCCNode_[k]] - yLocal_[2 * nbMaxCC + nbOmega_ + k];
+      fLocal_[nbMaxCC + k] = yLocal_[numCCNode_[k]] - yLocal_[nbMaxCC + nbOmega_ + k];
     } else {
-      fLocal_[2 * nbMaxCC + k] = 1 - yLocal_[2 * nbMaxCC + nbOmega_ + k];
+      fLocal_[nbMaxCC + k] = 1 - yLocal_[nbMaxCC + nbOmega_ + k];
     }
   }
 }
@@ -217,15 +209,12 @@ ModelOmegaRef::evalG(const double& /*t*/) {
  * @param rowOffset
  */
 void
-ModelOmegaRef::evalJt(const double& /*t*/, const double& cj, SparseMatrix& jt, const int& rowOffset) {
+ModelOmegaRef::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& rowOffset) {
   // Equations:
   // I: for each connected component i, for generator k in this cc i:
   // 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])
 
-  // II: equation nbMaxCC to 2*nbMaxCC :
-  // for each connected component i, 0 = d(tetaRef[i])/dt - omegaRef[i]
-
-  // III: equation 2*nbMaxCC to nbGen_+2*nbMaxCC :
+  // II: equation nbMaxCC to nbGen_ + nbMaxCC :
   // for each generator k, and the connected component i which contains this generator k:
   // 0 = omegaRef[i] - omegaRefGrp[k]
   // the index i is given by numCCNode_[k]
@@ -252,17 +241,10 @@ ModelOmegaRef::evalJt(const double& /*t*/, const double& cj, SparseMatrix& jt, c
     }
   }
 
-
-  for (int i = 0; i < nbMaxCC; ++i) {
-    jt.changeCol();
-    jt.addTerm(col1stOmegaRef_ + i + rowOffset, dMOne);  // d(f)/d(omegaRef[i]) = -1;
-    jt.addTerm(col1stTetaRef_ + i + rowOffset, cj);  // d(f)/d(tetaRef[i]) = cj;
-  }
-
   for (int i = 0; i < nbGen_; ++i) {
     jt.changeCol();
     if (runningGrp_[i] > 0.5) {
-      jt.addTerm(col1stOmegaRef_ + numCCNode_[i] + rowOffset, dPOne);   // d(f)/d(omegaRef[0]) =1:
+      jt.addTerm(col1stOmegaRef_ + numCCNode_[i] + rowOffset, dPOne);   // d(f)/d(omegaRef[0]) = 1:
       jt.addTerm(i + col1stOmegaRefGrp_ + rowOffset, dMOne);   // d(f)/d(omegaRefGrp[i]) = -1
     } else {
       jt.addTerm(i + col1stOmegaRefGrp_ + rowOffset, dMOne);   // d(f)/d(omegaRefGrp[i]) = -1
@@ -281,31 +263,21 @@ ModelOmegaRef::evalJt(const double& /*t*/, const double& cj, SparseMatrix& jt, c
  * @param rowOffset
  */
 void
-ModelOmegaRef::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& rowOffset) {
+ModelOmegaRef::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& /*rowOffset*/) {
   // Equations:
   // I: for each connected component i, for generator k in this cc i:
   // 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])
 
-  // II: equation nbMaxCC to 2*nbMaxCC :
-  // for each connected component i, 0 = d(tetaRef[i])/dt - omegaRef[i]
-
-  // III: equation 2*nbMaxCC to nbGen_+2*nbMaxCC :
+  // II: equation nbMaxCC to nbGen_ + nbMaxCC :
   // for each generator k, and the connected component i which contains this generator k:
   // 0 = omegaRef[i] - omegaRefGrp[k]
   // the index i is given by numCCNode_[k]
-  static double dPOne = 1;
 
   // equation 0 to nbMaxCC : no differential variable
   for (int i = 0; i < nbMaxCC; ++i)
     jt.changeCol();
 
-  // equation nbMaxCC to 2*nbMaxCC : one differential variable
-  for (int i = 0; i < nbMaxCC; ++i) {
-    jt.changeCol();
-    jt.addTerm(col1stTetaRef_ + i + rowOffset, dPOne);  // d(f2)/d(tetaRef'[i]) = 1;
-  }
-
-  // equation 2 to nbGen + 2 : no differential variable
+  // equation nbMaxCC to nbGen + nbMaxCC : no differential variable
   for (int i = 0; i < nbGen_; ++i)
     jt.changeCol();
 }
@@ -400,28 +372,24 @@ void
 ModelOmegaRef::getY0() {
   sortGenByCC();  // need to sort generator by subnetwork
 
+  // OmegaRef by cc (I)
   for (int i = 0; i < nbMaxCC; ++i) {
     yLocal_[i] = omegaRef0_[i];
     ypLocal_[i] = 0.;
   }
 
-  for (int i = 0; i < nbMaxCC; ++i) {
-    yLocal_[i + nbMaxCC] = tetaRef0_[i];
-    ypLocal_[i + nbMaxCC] = omegaRef0_[i];
-  }
-
-  // External variables
+  // External variables (omega by generator)
   for (int i = 0; i < nbGen_; ++i) {
     if (weights_[i] > 0) {
-      yLocal_[i + 2*nbMaxCC] = 1.;
-      ypLocal_[i + 2*nbMaxCC] = 0.;
+      yLocal_[i + nbMaxCC] = 1.;
+      ypLocal_[i + nbMaxCC] = 0.;
     }
   }
 
-  //
+  // OmegaRef for each generator (II)
   for (int i = 0; i < nbGen_; ++i) {
-    yLocal_[i + 2*nbMaxCC + nbOmega_] = omegaRef0_[numCCNode_[i]];
-    ypLocal_[i + 2*nbMaxCC + nbOmega_] = 0.;
+    yLocal_[i + nbMaxCC + nbOmega_] = omegaRef0_[numCCNode_[i]];
+    ypLocal_[i + nbMaxCC + nbOmega_] = 0.;
   }
 
   // External variables
@@ -432,9 +400,8 @@ ModelOmegaRef::getY0() {
 void
 ModelOmegaRef::evalYType() {
   std::fill(yType_, yType_ + nbMaxCC, ALGEBRIC);  // omegaRef[i] is an algebraic variable
-  std::fill(yType_ + nbMaxCC, yType_ + 2 * nbMaxCC, DIFFERENTIAL);   // tetaRef[i] is a differential variable
-  std::fill(yType_+ 2 * nbMaxCC, yType_ + 2 * nbMaxCC + nbOmega_, EXTERNAL);  // omega[i] is an external variable
-  std::fill(yType_ + 2 * nbMaxCC + nbOmega_, yType_ + sizeY_, ALGEBRIC);  // omegaRefGrp[i] is an algebraic variable
+  std::fill(yType_+ nbMaxCC, yType_ + nbMaxCC + nbOmega_, EXTERNAL);  // omega[i] is an external variable
+  std::fill(yType_ + nbMaxCC + nbOmega_, yType_ + sizeY_, ALGEBRIC);  // omegaRefGrp[i] is an algebraic variable
 }
 
 void
@@ -443,13 +410,9 @@ ModelOmegaRef::evalFType() {
   // ----------------------
   std::fill(fType_, fType_ + nbMaxCC, ALGEBRIC_EQ);  // no differential variable
 
-  // equation nbMaxCC to 2*nbMaxCC are differential equations
-  // ------------------------------------------------------------------
-  std::fill(fType_ + nbMaxCC, fType_ + 2 * nbMaxCC, DIFFERENTIAL_EQ);  // one differential variable
-
-  // equation 2*nbMaxCC to nbGen_+2*nbMaxCC =  omegaRef - omegaRefGrp[i]
+  // equation nbMaxCC to nbGen_ + nbMaxCC =  omegaRef - omegaRefGrp[i]
   // -------------------------------------------------------------------
-  std::fill(fType_ + 2 * nbMaxCC, fType_ + 2 * nbMaxCC + nbGen_, ALGEBRIC_EQ);  // no differential variable
+  std::fill(fType_ + nbMaxCC, fType_ + nbMaxCC + nbGen_, ALGEBRIC_EQ);  // no differential variable
 
   return;
 }
@@ -464,11 +427,6 @@ ModelOmegaRef::defineVariables(vector<shared_ptr<Variable> >& variables) {
   for (int i = 0; i < nbMaxCC; ++i) {
     std::stringstream name;
     name << "omegaRef_" << i << "_value";
-    variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
-  }
-  for (int i = 0; i < nbMaxCC; ++i) {
-    std::stringstream name;
-    name << "tetaRef_" << i << "_value";
     variables.push_back(VariableNativeFactory::createState(name.str(), CONTINUOUS));
   }
   for (int k = 0; k < nbGen_; ++k) {
@@ -523,7 +481,6 @@ ModelOmegaRef::setSubModelParameters() {
   }
 
   omegaRef0_.assign(nbMaxCC, 1.);
-  tetaRef0_.assign(nbMaxCC, 0.);
 }
 
 /**
@@ -566,6 +523,23 @@ ModelOmegaRef::defineElements(std::vector<Element> &elements, std::map<std::stri
     addElement(name3.str(), Element::STRUCTURE, elements, mapElement);
     addSubElement("value", name3.str(), Element::TERMINAL, elements, mapElement);
   }
+}
+
+void
+ModelOmegaRef::setFequations() {
+  for (int i = 0; i < nbMaxCC; ++i) {
+    std::stringstream f;
+    f << "Synchronous area " << i << " : 0 = sum_k (omega[k] * weight[k]) - omegaRef[i] * sum_k (weight[k])";
+    fEquationIndex_[i] =  f.str();
+  }
+
+  for (int k = 0; k < nbGen_; ++k) {
+    std::stringstream f;
+    f << "Generator " << k << " : 0 = omegaRef[CC] - omegaRefGrp[k]";
+    fEquationIndex_[k + nbMaxCC] = f.str();
+  }
+
+  assert(fEquationIndex_.size() == (unsigned int) sizeF() && "ModelOmegaRef:fEquationIndex_.size() != f_.size()");
 }
 
 }  // namespace DYN
