@@ -12,15 +12,15 @@ within Dynawo.Electrical.Machines;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GeneratorSynchronousExt_3E_INIT "Synchronous machine with 3 windings - Initialization model from external parameters"
+model GeneratorSynchronousExtTfo_3E_INIT "Synchronous machine with 3 windings - Initialization model from external parameters"
 
   extends BaseClasses_INIT.BaseGeneratorSynchronousExt_INIT;
 
-    // Start values given as inputs of the initialization process
-    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
-    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
+    // Start values from transformer
+    Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
+    Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
+    Types.Angle UPhase0 "Start value of voltage angle in rad";
 
     parameter Types.PerUnit XppqPu "Quadrature axis sub-transient reactance in p.u.";
     parameter Types.Time Tppq0 "Open circuit quadrature axis sub-transient time constant";
@@ -45,4 +45,4 @@ equation
   RQ2Pu = 0;
   LQ2Pu = 100000;
 
-end GeneratorSynchronousExt_3E_INIT;
+end GeneratorSynchronousExtTfo_3E_INIT;

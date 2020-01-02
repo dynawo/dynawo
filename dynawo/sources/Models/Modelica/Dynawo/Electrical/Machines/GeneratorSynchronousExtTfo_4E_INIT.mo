@@ -12,17 +12,17 @@ within Dynawo.Electrical.Machines;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GeneratorSynchronousExt_4E_INIT "Synchronous machine with 4 windings - Initialization model from external parameters"
+model GeneratorSynchronousExtTfo_4E_INIT "Synchronous machine with 4 windings - Initialization model from external parameters"
 
   extends BaseClasses_INIT.BaseGeneratorSynchronousExt_INIT;
 
   public
 
-    // Start values given as inputs of the initialization process
-    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
-    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
+    // Start values from transformer
+    Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
+    Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
+    Types.Angle UPhase0 "Start value of voltage angle in rad";
 
     parameter Types.PerUnit XpqPu "Quadrature axis transient reactance in p.u.";
     parameter Types.Time Tpq0 "Open circuit quadrature axis transient time constant";
@@ -56,4 +56,4 @@ equation
   LQ2Pu * (MqPu + LQ1Pu) * (T3qPu - T6qPu) = MqPu * LQ1Pu * (T6qPu - T3qPu * (MqPu + LQ1Pu) * LqPu / (MqPu * LqPu + MqPu * LQ1Pu + LqPu * LQ1Pu));
   RQ2Pu * T3qPu = LQ2Pu + MqPu * LQ1Pu / (MqPu + LQ1Pu);
 
-end GeneratorSynchronousExt_4E_INIT;
+end GeneratorSynchronousExtTfo_4E_INIT;

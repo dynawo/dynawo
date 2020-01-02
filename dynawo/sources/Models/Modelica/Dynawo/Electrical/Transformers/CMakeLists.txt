@@ -19,6 +19,9 @@ set(MODEL_FILES
     TransformerVariableTap.extvar
     TransformerVariableTapPQ_INIT.mo
     TransformerVariableTapI_INIT.mo
+    GeneratorTransformer.mo
+    GeneratorTransformer.extvar
+    GeneratorTransformer_INIT.mo
     )
 
 #

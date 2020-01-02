@@ -3,3 +3,5 @@ TransformerFixedRatio
 TransformerVariableTap
 TransformerVariableTapPQ_INIT
 TransformerVariableTapI_INIT
+GeneratorTransformer
+GeneratorTransformer_INIT

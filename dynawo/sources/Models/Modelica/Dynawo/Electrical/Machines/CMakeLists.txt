@@ -28,6 +28,9 @@ set(MODEL_FILES
     GeneratorSynchronousInt_INIT.mo
     GeneratorSynchronousExt_4E_INIT.mo
     GeneratorSynchronousExt_3E_INIT.mo
+    GeneratorSynchronousIntTfo_INIT.mo
+    GeneratorSynchronousExtTfo_4E_INIT.mo
+    GeneratorSynchronousExtTfo_3E_INIT.mo
     SwitchOffGenerator.extvar
     )
 

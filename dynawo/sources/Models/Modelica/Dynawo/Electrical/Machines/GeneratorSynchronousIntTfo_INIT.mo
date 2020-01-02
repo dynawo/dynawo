@@ -12,15 +12,15 @@ within Dynawo.Electrical.Machines;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GeneratorSynchronousInt_INIT "Synchronous machine - Initialization model from internal parameters"
+model GeneratorSynchronousIntTfo_INIT "Synchronous machine - Initialization model from internal parameters"
 
   extends BaseClasses_INIT.BaseGeneratorSynchronous_INIT;
 
-    // Start values given as inputs of the initialization process
-    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
-    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
+    // Start values from transformer
+    Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
+    Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
+    Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
+    Types.Angle UPhase0 "Start value of voltage angle in rad";
 
     // Internal parameters of the synchronous machine given as parameters
     parameter Types.PerUnit RaPu "Armature resistance in p.u.";
@@ -39,4 +39,4 @@ model GeneratorSynchronousInt_INIT "Synchronous machine - Initialization model f
     parameter Types.PerUnit RQ2Pu "Quadrature axis 2nd damper resistance in p.u.";
     parameter Types.PerUnit MdPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
 
-end GeneratorSynchronousInt_INIT;
+end GeneratorSynchronousIntTfo_INIT;

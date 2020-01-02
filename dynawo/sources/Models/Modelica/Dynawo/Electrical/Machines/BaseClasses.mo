@@ -103,12 +103,6 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
                                         Kundur "Base voltage as per Kundur, Power System Stability and Control",
                                         UserBase "User defined base for the excitation voltage");
 
-    // Start values given as inputs of the initialization process
-    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
-    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
-    parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
-
     // General parameters of the synchronous machine
     parameter Types.VoltageModule UNom "Nominal voltage in kV";
     parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
@@ -160,6 +154,12 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     Connectors.ImPin omegaPu(value(start = SystemBase.omega0Pu)) "Angular frequency in p.u.";
 
   protected
+
+    // Start values given as inputs of the initialization process
+    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
+    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
 
     // Internal parameters of the synchronous machine in p.u (base UNom, SNom)
     // These parameters are calculated at the initialization stage from the inputs parameters (internal or external)
