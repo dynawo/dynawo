@@ -199,19 +199,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   void printSolve() const;
 
   /**
-   * @copydoc Solver::printSolveSpecific(std::stringstream& msg) const
-   */
-  virtual void printSolveSpecific(std::stringstream& msg) const = 0;
-
-  /**
    * @copydoc Solver::printHeader() const
    */
   void printHeader() const;
-
-  /**
-   * @copydoc Solver::printHeaderSpecific(std::stringstream& ss) const
-   */
-  virtual void printHeaderSpecific(std::stringstream& ss) const = 0;
 
   /**
    * @copydoc Solver::printEnd()
