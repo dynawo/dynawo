@@ -114,12 +114,16 @@ class SolverIDA : public Solver::Impl {
   void calculateIC();
 
   /**
-   * @copydoc Solver::Impl::printHeaderSpecific(std::stringstream& ss) const
+   * @brief print solver specific introduction information
+   *
+   * @param ss stringstream to modify
    */
   void printHeaderSpecific(std::stringstream& ss) const;
 
   /**
-   * @copydoc Solver::Impl::printSolveSpecific(std::stringstream& msg) const
+   * @brief print specific info regarding the latest step made by the solver (i.e solution)
+   *
+   * @param msg stringstream to modify
    */
   void printSolveSpecific(std::stringstream& msg) const;
 
