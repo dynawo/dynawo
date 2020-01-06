@@ -24,13 +24,11 @@ using boost::shared_ptr;
 
 namespace constraints {
 
-ConstraintsCollection::const_iterator::const_iterator(const ConstraintsCollection::Impl* iterated, bool begin) {
-  impl_ = new BaseIteratorImpl(iterated, begin);
-}
+ConstraintsCollection::const_iterator::const_iterator(const ConstraintsCollection::Impl* iterated, bool begin):
+impl_(new BaseIteratorImpl(iterated, begin)) { }
 
-ConstraintsCollection::const_iterator::const_iterator(const ConstraintsCollection::const_iterator& original) {
-  impl_ = new BaseIteratorImpl(*(original.impl_));
-}
+ConstraintsCollection::const_iterator::const_iterator(const ConstraintsCollection::const_iterator& original):
+impl_(new BaseIteratorImpl(*(original.impl_))) { }
 
 ConstraintsCollection::const_iterator::~const_iterator() {
   delete impl_;

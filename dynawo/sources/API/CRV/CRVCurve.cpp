@@ -25,17 +25,14 @@ using boost::shared_ptr;
 
 namespace curves {
 
-Curve::const_iterator::const_iterator(const Curve::Impl* iterated, bool begin) {
-  impl_ = new BaseConstIteratorImpl(iterated, begin);
-}
+Curve::const_iterator::const_iterator(const Curve::Impl* iterated, bool begin) :
+impl_(new BaseConstIteratorImpl(iterated, begin)) { }
 
-Curve::const_iterator::const_iterator(const Curve::Impl* iterated, bool begin, int i) {
-  impl_ = new BaseConstIteratorImpl(iterated, begin, i);
-}
+Curve::const_iterator::const_iterator(const Curve::Impl* iterated, bool begin, int i) :
+impl_(new BaseConstIteratorImpl(iterated, begin, i))  { }
 
-Curve::const_iterator::const_iterator(const Curve::const_iterator& original) {
-  impl_ = new BaseConstIteratorImpl(*(original.impl_));
-}
+Curve::const_iterator::const_iterator(const Curve::const_iterator& original) :
+impl_(new BaseConstIteratorImpl(*(original.impl_))) { }
 
 Curve::const_iterator::~const_iterator() {
   delete impl_;

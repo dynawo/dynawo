@@ -25,12 +25,7 @@ namespace dynamicdata {
 
 UnitDynamicModel::Impl::Impl(const string& id, const string& name) :
 id_(id),
-parFile_(),
-parId_(),
-dynamicModelName_(name),
-dynamicFileName_(),
-initModelName_(),
-initFileName_() {
+dynamicModelName_(name) {
 }
 
 UnitDynamicModel::Impl::~Impl() {

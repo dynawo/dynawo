@@ -83,9 +83,8 @@ Timeline::Impl::eraseEvents(int nbEvents, Timeline::event_const_iterator lastEve
     events_.erase(*iV);
 }
 
-Timeline::BaseIteratorImpl::BaseIteratorImpl(const Timeline::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->events_.begin() : iterated->events_.end());
-}
+Timeline::BaseIteratorImpl::BaseIteratorImpl(const Timeline::Impl* iterated, bool begin) :
+current_((begin ? iterated->events_.begin() : iterated->events_.end())) { }
 
 Timeline::BaseIteratorImpl::~BaseIteratorImpl() {
 }

@@ -234,9 +234,8 @@ ParametersSet::Impl::cendReference() const {
   return ParametersSet::reference_const_iterator(this, false);
 }
 
-ParametersSet::BaseIteratorImpl::BaseIteratorImpl(const ParametersSet::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->parameters_.begin() : iterated->parameters_.end());
-}
+ParametersSet::BaseIteratorImpl::BaseIteratorImpl(const ParametersSet::Impl* iterated, bool begin) :
+current_((begin ? iterated->parameters_.begin() : iterated->parameters_.end())) { }
 
 ParametersSet::BaseIteratorImpl::~BaseIteratorImpl() {
 }
@@ -289,9 +288,8 @@ ParametersSet::BaseIteratorImpl::operator->() const {
 
 // for Reference
 
-ParametersSet::BaseIteratorRefImpl::BaseIteratorRefImpl(const ParametersSet::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->references_.begin() : iterated->references_.end());
-}
+ParametersSet::BaseIteratorRefImpl::BaseIteratorRefImpl(const ParametersSet::Impl* iterated, bool begin) :
+current_((begin ? iterated->references_.begin() : iterated->references_.end())) { }
 
 ParametersSet::BaseIteratorRefImpl::~BaseIteratorRefImpl() {
 }

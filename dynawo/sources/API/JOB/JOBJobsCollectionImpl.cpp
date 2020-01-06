@@ -27,8 +27,7 @@ using boost::shared_ptr;
 
 namespace job {
 
-JobsCollection::Impl::Impl() :
-jobs_() {
+JobsCollection::Impl::Impl() {
 }
 
 

@@ -24,13 +24,11 @@ using std::vector;
 
 namespace job {
 
-JobConstIteratorImpl::JobConstIteratorImpl(const JobsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->jobs_.begin() : iterated->jobs_.end());
-}
+JobConstIteratorImpl::JobConstIteratorImpl(const JobsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->jobs_.begin() : iterated->jobs_.end())) { }
 
-JobConstIteratorImpl::JobConstIteratorImpl(const JobIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+JobConstIteratorImpl::JobConstIteratorImpl(const JobIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 JobConstIteratorImpl::~JobConstIteratorImpl() {
 }
@@ -81,9 +79,8 @@ JobConstIteratorImpl::operator->() const {
   return &(*current_);
 }
 
-JobIteratorImpl::JobIteratorImpl(JobsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->jobs_.begin() : iterated->jobs_.end());
-}
+JobIteratorImpl::JobIteratorImpl(JobsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->jobs_.begin() : iterated->jobs_.end())) { }
 
 JobIteratorImpl::~JobIteratorImpl() {
 }

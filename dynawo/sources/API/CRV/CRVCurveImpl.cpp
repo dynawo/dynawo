@@ -163,9 +163,8 @@ Curve::BaseConstIteratorImpl::BaseConstIteratorImpl(const Curve::Impl* iterated,
     current_ = iterated->points_.end() - i;
 }
 
-Curve::BaseConstIteratorImpl::BaseConstIteratorImpl(const Curve::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->points_.begin() : iterated->points_.end());
-}
+Curve::BaseConstIteratorImpl::BaseConstIteratorImpl(const Curve::Impl* iterated, bool begin) :
+current_((begin ? iterated->points_.begin() : iterated->points_.end())) { }
 
 Curve::BaseConstIteratorImpl::~BaseConstIteratorImpl() {
 }

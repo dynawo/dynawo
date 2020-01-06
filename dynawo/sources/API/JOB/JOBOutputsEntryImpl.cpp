@@ -22,13 +22,7 @@
 namespace job {
 
 OutputsEntry::Impl::Impl() :
-outputsDirectory_(""),
-initValuesEntry_(),
-constraintsEntry_(),
-timelineEntry_(),
-finalStateEntry_(),
-curvesEntry_(),
-logsEntry_() {
+outputsDirectory_("") {
 }
 
 OutputsEntry::Impl::~Impl() {

@@ -25,13 +25,11 @@ using boost::shared_ptr;
 
 namespace timeline {
 
-Timeline::event_const_iterator::event_const_iterator(const Timeline::Impl* iterated, bool begin) {
-  impl_ = new BaseIteratorImpl(iterated, begin);
-}
+Timeline::event_const_iterator::event_const_iterator(const Timeline::Impl* iterated, bool begin) :
+impl_(new BaseIteratorImpl(iterated, begin)) { }
 
-Timeline::event_const_iterator::event_const_iterator(const Timeline::event_const_iterator& original) {
-  impl_ = new BaseIteratorImpl(*(original.impl_));
-}
+Timeline::event_const_iterator::event_const_iterator(const Timeline::event_const_iterator& original) :
+impl_(new BaseIteratorImpl(*(original.impl_))) { }
 
 Timeline::event_const_iterator::~event_const_iterator() {
   delete impl_;

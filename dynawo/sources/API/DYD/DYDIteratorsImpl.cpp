@@ -26,13 +26,11 @@ using std::string;
 
 namespace dynamicdata {
 
-ModelConstIteratorImpl::ModelConstIteratorImpl(const DynamicModelsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->models_.begin() : iterated->models_.end());
-}
+ModelConstIteratorImpl::ModelConstIteratorImpl(const DynamicModelsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->models_.begin() : iterated->models_.end())) { }
 
-ModelConstIteratorImpl::ModelConstIteratorImpl(const ModelIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+ModelConstIteratorImpl::ModelConstIteratorImpl(const ModelIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 ModelConstIteratorImpl::~ModelConstIteratorImpl() {
 }
@@ -83,13 +81,11 @@ ModelConstIteratorImpl::operator->() const {
   return &(current_->second);
 }
 
-ConnectorConstIteratorImpl::ConnectorConstIteratorImpl(const DynamicModelsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->connectors_.begin() : iterated->connectors_.end());
-}
+ConnectorConstIteratorImpl::ConnectorConstIteratorImpl(const DynamicModelsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->connectors_.begin() : iterated->connectors_.end())) { }
 
-ConnectorConstIteratorImpl::ConnectorConstIteratorImpl(const ConnectorIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+ConnectorConstIteratorImpl::ConnectorConstIteratorImpl(const ConnectorIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 ConnectorConstIteratorImpl::~ConnectorConstIteratorImpl() {
 }
@@ -140,9 +136,8 @@ ConnectorConstIteratorImpl::operator->() const {
   return &(*current_);
 }
 
-ModelIteratorImpl::ModelIteratorImpl(DynamicModelsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->models_.begin() : iterated->models_.end());
-}
+ModelIteratorImpl::ModelIteratorImpl(DynamicModelsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->models_.begin() : iterated->models_.end())) { }
 
 ModelIteratorImpl::~ModelIteratorImpl() {
 }
@@ -198,9 +193,8 @@ ModelIteratorImpl::current() const {
   return current_;
 }
 
-ConnectorIteratorImpl::ConnectorIteratorImpl(DynamicModelsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->connectors_.begin() : iterated->connectors_.end());
-}
+ConnectorIteratorImpl::ConnectorIteratorImpl(DynamicModelsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->connectors_.begin() : iterated->connectors_.end())) { }
 
 ConnectorIteratorImpl::~ConnectorIteratorImpl() {
 }
@@ -256,9 +250,8 @@ ConnectorIteratorImpl::current() const {
   return current_;
 }
 
-MacroConnectorIteratorImpl::MacroConnectorIteratorImpl(DynamicModelsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->macroConnectors_.begin() : iterated->macroConnectors_.end());
-}
+MacroConnectorIteratorImpl::MacroConnectorIteratorImpl(DynamicModelsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->macroConnectors_.begin() : iterated->macroConnectors_.end())) { }
 
 MacroConnectorIteratorImpl::~MacroConnectorIteratorImpl() {
 }
@@ -314,16 +307,14 @@ MacroConnectorIteratorImpl::current() const {
   return current_;
 }
 
-MacroConnectorConstIteratorImpl::MacroConnectorConstIteratorImpl(const DynamicModelsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->macroConnectors_.begin() : iterated->macroConnectors_.end());
-}
+MacroConnectorConstIteratorImpl::MacroConnectorConstIteratorImpl(const DynamicModelsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->macroConnectors_.begin() : iterated->macroConnectors_.end())) { }
 
 MacroConnectorConstIteratorImpl::~MacroConnectorConstIteratorImpl() {
 }
 
-MacroConnectorConstIteratorImpl::MacroConnectorConstIteratorImpl(const MacroConnectorIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+MacroConnectorConstIteratorImpl::MacroConnectorConstIteratorImpl(const MacroConnectorIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 MacroConnectorConstIteratorImpl&
 MacroConnectorConstIteratorImpl::operator++() {
@@ -371,9 +362,8 @@ MacroConnectorConstIteratorImpl::operator->() const {
   return &(current_->second);
 }
 
-MacroConnectIteratorImpl::MacroConnectIteratorImpl(DynamicModelsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->macroConnects_.begin() : iterated->macroConnects_.end());
-}
+MacroConnectIteratorImpl::MacroConnectIteratorImpl(DynamicModelsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->macroConnects_.begin() : iterated->macroConnects_.end())) { }
 
 MacroConnectIteratorImpl::~MacroConnectIteratorImpl() {
 }
@@ -429,16 +419,14 @@ MacroConnectIteratorImpl::current() const {
   return current_;
 }
 
-MacroConnectConstIteratorImpl::MacroConnectConstIteratorImpl(const DynamicModelsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->macroConnects_.begin() : iterated->macroConnects_.end());
-}
+MacroConnectConstIteratorImpl::MacroConnectConstIteratorImpl(const DynamicModelsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->macroConnects_.begin() : iterated->macroConnects_.end())) { }
 
 MacroConnectConstIteratorImpl::~MacroConnectConstIteratorImpl() {
 }
 
-MacroConnectConstIteratorImpl::MacroConnectConstIteratorImpl(const MacroConnectIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+MacroConnectConstIteratorImpl::MacroConnectConstIteratorImpl(const MacroConnectIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 MacroConnectConstIteratorImpl&
 MacroConnectConstIteratorImpl::operator++() {
@@ -486,13 +474,11 @@ MacroConnectConstIteratorImpl::operator->() const {
   return &(*current_);
 }
 
-StaticRefIteratorImpl::StaticRefIteratorImpl(Model::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->staticRefs_.begin() : iterated->staticRefs_.end());
-}
+StaticRefIteratorImpl::StaticRefIteratorImpl(Model::Impl* iterated, bool begin) :
+current_((begin ? iterated->staticRefs_.begin() : iterated->staticRefs_.end())) { }
 
-StaticRefIteratorImpl::StaticRefIteratorImpl(MacroStaticReference::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->staticRefs_.begin() : iterated->staticRefs_.end());
-}
+StaticRefIteratorImpl::StaticRefIteratorImpl(MacroStaticReference::Impl* iterated, bool begin) :
+current_((begin ? iterated->staticRefs_.begin() : iterated->staticRefs_.end())) { }
 
 StaticRefIteratorImpl::~StaticRefIteratorImpl() {
 }
@@ -548,20 +534,17 @@ StaticRefIteratorImpl::current() const {
   return current_;
 }
 
-StaticRefConstIteratorImpl::StaticRefConstIteratorImpl(const Model::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->staticRefs_.begin() : iterated->staticRefs_.end());
-}
+StaticRefConstIteratorImpl::StaticRefConstIteratorImpl(const Model::Impl* iterated, bool begin) :
+current_((begin ? iterated->staticRefs_.begin() : iterated->staticRefs_.end())) { }
 
-StaticRefConstIteratorImpl::StaticRefConstIteratorImpl(const MacroStaticReference::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->staticRefs_.begin() : iterated->staticRefs_.end());
-}
+StaticRefConstIteratorImpl::StaticRefConstIteratorImpl(const MacroStaticReference::Impl* iterated, bool begin) :
+current_((begin ? iterated->staticRefs_.begin() : iterated->staticRefs_.end())) { }
 
 StaticRefConstIteratorImpl::~StaticRefConstIteratorImpl() {
 }
 
-StaticRefConstIteratorImpl::StaticRefConstIteratorImpl(const StaticRefIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+StaticRefConstIteratorImpl::StaticRefConstIteratorImpl(const StaticRefIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 StaticRefConstIteratorImpl&
 StaticRefConstIteratorImpl::operator++() {
@@ -610,9 +593,8 @@ StaticRefConstIteratorImpl::operator->() const {
 }
 
 
-MacroStaticRefIteratorImpl::MacroStaticRefIteratorImpl(Model::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->macroStaticRefs_.begin() : iterated->macroStaticRefs_.end());
-}
+MacroStaticRefIteratorImpl::MacroStaticRefIteratorImpl(Model::Impl* iterated, bool begin) :
+current_((begin ? iterated->macroStaticRefs_.begin() : iterated->macroStaticRefs_.end())) { }
 
 MacroStaticRefIteratorImpl::~MacroStaticRefIteratorImpl() {
 }
@@ -668,16 +650,14 @@ MacroStaticRefIteratorImpl::current() const {
   return current_;
 }
 
-MacroStaticRefConstIteratorImpl::MacroStaticRefConstIteratorImpl(const Model::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->macroStaticRefs_.begin() : iterated->macroStaticRefs_.end());
-}
+MacroStaticRefConstIteratorImpl::MacroStaticRefConstIteratorImpl(const Model::Impl* iterated, bool begin) :
+current_((begin ? iterated->macroStaticRefs_.begin() : iterated->macroStaticRefs_.end())) { }
 
 MacroStaticRefConstIteratorImpl::~MacroStaticRefConstIteratorImpl() {
 }
 
-MacroStaticRefConstIteratorImpl::MacroStaticRefConstIteratorImpl(const MacroStaticRefIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+MacroStaticRefConstIteratorImpl::MacroStaticRefConstIteratorImpl(const MacroStaticRefIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 MacroStaticRefConstIteratorImpl&
 MacroStaticRefConstIteratorImpl::operator++() {
@@ -726,9 +706,8 @@ MacroStaticRefConstIteratorImpl::operator->() const {
 }
 
 
-MacroStaticReferenceIteratorImpl::MacroStaticReferenceIteratorImpl(DynamicModelsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->macroStaticReferences_.begin() : iterated->macroStaticReferences_.end());
-}
+MacroStaticReferenceIteratorImpl::MacroStaticReferenceIteratorImpl(DynamicModelsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->macroStaticReferences_.begin() : iterated->macroStaticReferences_.end())) { }
 
 MacroStaticReferenceIteratorImpl::~MacroStaticReferenceIteratorImpl() {
 }
@@ -784,16 +763,14 @@ MacroStaticReferenceIteratorImpl::current() const {
   return current_;
 }
 
-MacroStaticReferenceConstIteratorImpl::MacroStaticReferenceConstIteratorImpl(const DynamicModelsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->macroStaticReferences_.begin() : iterated->macroStaticReferences_.end());
-}
+MacroStaticReferenceConstIteratorImpl::MacroStaticReferenceConstIteratorImpl(const DynamicModelsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->macroStaticReferences_.begin() : iterated->macroStaticReferences_.end())) { }
 
 MacroStaticReferenceConstIteratorImpl::~MacroStaticReferenceConstIteratorImpl() {
 }
 
-MacroStaticReferenceConstIteratorImpl::MacroStaticReferenceConstIteratorImpl(const MacroStaticReferenceIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+MacroStaticReferenceConstIteratorImpl::MacroStaticReferenceConstIteratorImpl(const MacroStaticReferenceIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 MacroStaticReferenceConstIteratorImpl&
 MacroStaticReferenceConstIteratorImpl::operator++() {
