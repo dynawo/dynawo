@@ -88,7 +88,6 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 
     Types.ApparentPowerModulePu S0Pu "Start value of apparent power at terminal side in p.u (base SNom)";
     Types.CurrentModulePu I0Pu "Start value of current module at terminal side in p.u (base UNom, SNom)";
-    Types.Angle phi0 "Start value of power factor";
 
     Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in p.u (base SnRef) (generator convention)";
     Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)";
@@ -171,7 +170,6 @@ equation
 // Rotation between machine rotor frame and port phasor frame
   S0Pu = sqrt(P0Pu^2+Q0Pu^2)*SystemBase.SnRef/SNom;
   I0Pu = S0Pu/U0Pu;
-  phi0 = acos(abs(P0Pu/sqrt(P0Pu^2+Q0Pu^2)));
   sinTheta0 = u0Pu.im -    XqPPu         *i0Pu.re*SystemBase.SnRef/SNom - (RaPPu + RTfoPu)*i0Pu.im*SystemBase.SnRef/SNom;
   cosTheta0 = u0Pu.re - (RaPPu + RTfoPu) *i0Pu.re*SystemBase.SnRef/SNom +       XqPPu     *i0Pu.im*SystemBase.SnRef/SNom;
   tanTheta0 = sinTheta0/cosTheta0;
