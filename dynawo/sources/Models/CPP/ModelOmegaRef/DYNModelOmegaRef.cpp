@@ -83,7 +83,6 @@ static const int nbMaxCC = 10;  ///< max number of subNewtork where omegaRef is 
 
 int ModelOmegaRef::col1stOmegaRef_;
 int ModelOmegaRef::col1stOmega_;
-int ModelOmegaRef::col1stOmegaRefGrp_;
 
 /**
  * @brief Reference frequency model default constructor
@@ -109,7 +108,7 @@ ModelOmegaRef::init(const double& /*t0*/) {
 
   ModelOmegaRef::col1stOmegaRef_ = 0;
   ModelOmegaRef::col1stOmega_ = ModelOmegaRef::col1stOmegaRef_ + nbMaxCC;
-  ModelOmegaRef::col1stOmegaRefGrp_ = ModelOmegaRef::col1stOmega_ + nbOmega_;
+  col1stOmegaRefGrp_ = ModelOmegaRef::col1stOmega_ + nbOmega_;
 }
 
 void
