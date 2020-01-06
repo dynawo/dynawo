@@ -74,6 +74,12 @@ TEST(CommonTest, testCommonDynawoDoublesEquality) {
   ASSERT_TRUE(doubleNotEquals(0.1, 0.100001));
 }
 
+TEST(CommonTest, testCommonToNativeBool) {
+  ASSERT_TRUE(toNativeBool(1.));
+  ASSERT_FALSE(toNativeBool(0.));
+  ASSERT_FALSE(toNativeBool(-1.));
+}
+
 TEST(CommonTest, testCommonVectorEqualityDifferentSize) {
   std::vector<double> a;
   a.push_back(1.);
