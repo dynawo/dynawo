@@ -24,17 +24,14 @@ using std::vector;
 
 namespace finalState {
 
-FinalStateModelConstIteratorImpl::FinalStateModelConstIteratorImpl(const FinalStateCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->models_.begin() : iterated->models_.end());
-}
+FinalStateModelConstIteratorImpl::FinalStateModelConstIteratorImpl(const FinalStateCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->models_.begin() : iterated->models_.end())) { }
 
-FinalStateModelConstIteratorImpl::FinalStateModelConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->subModels_.begin() : iterated->subModels_.end());
-}
+FinalStateModelConstIteratorImpl::FinalStateModelConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin) :
+current_((begin ? iterated->subModels_.begin() : iterated->subModels_.end())) { }
 
-FinalStateModelConstIteratorImpl::FinalStateModelConstIteratorImpl(const FinalStateModelIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+FinalStateModelConstIteratorImpl::FinalStateModelConstIteratorImpl(const FinalStateModelIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 FinalStateModelConstIteratorImpl::~FinalStateModelConstIteratorImpl() {
 }
@@ -85,17 +82,14 @@ FinalStateModelConstIteratorImpl::operator->() const {
   return &(*current_);
 }
 
-VariableConstIteratorImpl::VariableConstIteratorImpl(const FinalStateCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->variables_.begin() : iterated->variables_.end());
-}
+VariableConstIteratorImpl::VariableConstIteratorImpl(const FinalStateCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) { }
 
-VariableConstIteratorImpl::VariableConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->variables_.begin() : iterated->variables_.end());
-}
+VariableConstIteratorImpl::VariableConstIteratorImpl(const FinalStateModel::Impl* iterated, bool begin) :
+current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) { }
 
-VariableConstIteratorImpl::VariableConstIteratorImpl(const VariableIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+VariableConstIteratorImpl::VariableConstIteratorImpl(const VariableIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 VariableConstIteratorImpl::~VariableConstIteratorImpl() {
 }
@@ -146,13 +140,11 @@ VariableConstIteratorImpl::operator->() const {
   return &(*current_);
 }
 
-FinalStateModelIteratorImpl::FinalStateModelIteratorImpl(FinalStateCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->models_.begin() : iterated->models_.end());
-}
+FinalStateModelIteratorImpl::FinalStateModelIteratorImpl(FinalStateCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->models_.begin() : iterated->models_.end())) { }
 
-FinalStateModelIteratorImpl::FinalStateModelIteratorImpl(FinalStateModel::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->subModels_.begin() : iterated->subModels_.end());
-}
+FinalStateModelIteratorImpl::FinalStateModelIteratorImpl(FinalStateModel::Impl* iterated, bool begin) :
+current_((begin ? iterated->subModels_.begin() : iterated->subModels_.end())) { }
 
 FinalStateModelIteratorImpl::~FinalStateModelIteratorImpl() {
 }
@@ -208,13 +200,11 @@ FinalStateModelIteratorImpl::current() const {
   return current_;
 }
 
-VariableIteratorImpl::VariableIteratorImpl(FinalStateCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->variables_.begin() : iterated->variables_.end());
-}
+VariableIteratorImpl::VariableIteratorImpl(FinalStateCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) { }
 
-VariableIteratorImpl::VariableIteratorImpl(FinalStateModel::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->variables_.begin() : iterated->variables_.end());
-}
+VariableIteratorImpl::VariableIteratorImpl(FinalStateModel::Impl* iterated, bool begin) :
+current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) { }
 
 VariableIteratorImpl::~VariableIteratorImpl() {
 }

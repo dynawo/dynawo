@@ -24,17 +24,14 @@ using boost::shared_ptr;
 
 namespace curves {
 
-CurvesCollection::const_iterator::const_iterator(const CurvesCollection::Impl* iterated, bool begin) {
-  impl_ = new BaseConstIteratorImpl(iterated, begin);
-}
+CurvesCollection::const_iterator::const_iterator(const CurvesCollection::Impl* iterated, bool begin) :
+impl_(new BaseConstIteratorImpl(iterated, begin)) { }
 
-CurvesCollection::const_iterator::const_iterator(const CurvesCollection::const_iterator& original) {
-  impl_ = new BaseConstIteratorImpl(*(original.impl_));
-}
+CurvesCollection::const_iterator::const_iterator(const CurvesCollection::const_iterator& original) :
+impl_(new BaseConstIteratorImpl(*(original.impl_))) { }
 
-CurvesCollection::const_iterator::const_iterator(const CurvesCollection::iterator& original) {
-  impl_ = new BaseConstIteratorImpl(*(original.impl()));
-}
+CurvesCollection::const_iterator::const_iterator(const CurvesCollection::iterator& original) :
+impl_(new BaseConstIteratorImpl(*(original.impl()))) { }
 
 CurvesCollection::const_iterator::~const_iterator() {
   delete impl_;
@@ -96,13 +93,11 @@ CurvesCollection::const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-CurvesCollection::iterator::iterator(CurvesCollection::Impl* iterated, bool begin) {
-  impl_ = new BaseIteratorImpl(iterated, begin);
-}
+CurvesCollection::iterator::iterator(CurvesCollection::Impl* iterated, bool begin) :
+impl_(new BaseIteratorImpl(iterated, begin)) { }
 
-CurvesCollection::iterator::iterator(const CurvesCollection::iterator& original) {
-  impl_ = new BaseIteratorImpl(*(original.impl_));
-}
+CurvesCollection::iterator::iterator(const CurvesCollection::iterator& original) :
+impl_(new BaseIteratorImpl(*(original.impl_))) { }
 
 CurvesCollection::iterator::~iterator() {
   delete impl_;

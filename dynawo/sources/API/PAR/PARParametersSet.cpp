@@ -24,13 +24,11 @@ using boost::shared_ptr;
 
 namespace parameters {
 
-ParametersSet::parameter_const_iterator::parameter_const_iterator(const ParametersSet::Impl* iterated, bool begin) {
-  impl_ = new BaseIteratorImpl(iterated, begin);
-}
+ParametersSet::parameter_const_iterator::parameter_const_iterator(const ParametersSet::Impl* iterated, bool begin) :
+impl_(new BaseIteratorImpl(iterated, begin)) { }
 
-ParametersSet::parameter_const_iterator::parameter_const_iterator(const ParametersSet::parameter_const_iterator& original) {
-  impl_ = new BaseIteratorImpl(*(original.impl_));
-}
+ParametersSet::parameter_const_iterator::parameter_const_iterator(const ParametersSet::parameter_const_iterator& original) :
+impl_(new BaseIteratorImpl(*(original.impl_))) { }
 
 ParametersSet::parameter_const_iterator::~parameter_const_iterator() {
   delete impl_;
@@ -92,13 +90,11 @@ ParametersSet::parameter_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-ParametersSet::reference_const_iterator::reference_const_iterator(const ParametersSet::Impl* iterated, bool begin) {
-  impl_ = new BaseIteratorRefImpl(iterated, begin);
-}
+ParametersSet::reference_const_iterator::reference_const_iterator(const ParametersSet::Impl* iterated, bool begin) :
+impl_(new BaseIteratorRefImpl(iterated, begin)) { }
 
-ParametersSet::reference_const_iterator::reference_const_iterator(const ParametersSet::reference_const_iterator& original) {
-  impl_ = new BaseIteratorRefImpl(*(original.impl_));
-}
+ParametersSet::reference_const_iterator::reference_const_iterator(const ParametersSet::reference_const_iterator& original) :
+impl_(new BaseIteratorRefImpl(*(original.impl_))) { }
 
 ParametersSet::reference_const_iterator::~reference_const_iterator() {
   delete impl_;

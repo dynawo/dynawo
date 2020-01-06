@@ -26,17 +26,14 @@ using boost::shared_ptr;
 
 namespace dynamicdata {
 
-dynamicModel_const_iterator::dynamicModel_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) {
-  impl_ = new ModelConstIteratorImpl(iterated, begin);
-}
+dynamicModel_const_iterator::dynamicModel_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin):
+impl_(new ModelConstIteratorImpl(iterated, begin)) { }
 
-dynamicModel_const_iterator::dynamicModel_const_iterator(const dynamicModel_const_iterator& original) {
-  impl_ = new ModelConstIteratorImpl(*(original.impl_));
-}
+dynamicModel_const_iterator::dynamicModel_const_iterator(const dynamicModel_const_iterator& original) :
+impl_(new ModelConstIteratorImpl(*(original.impl_))) { }
 
-dynamicModel_const_iterator::dynamicModel_const_iterator(const dynamicModel_iterator& original) {
-  impl_ = new ModelConstIteratorImpl(*(original.impl()));
-}
+dynamicModel_const_iterator::dynamicModel_const_iterator(const dynamicModel_iterator& original) :
+impl_(new ModelConstIteratorImpl(*(original.impl()))) { }
 
 dynamicModel_const_iterator::~dynamicModel_const_iterator() {
   delete impl_;
@@ -98,17 +95,14 @@ dynamicModel_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-connector_const_iterator::connector_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) {
-  impl_ = new ConnectorConstIteratorImpl(iterated, begin);
-}
+connector_const_iterator::connector_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) :
+impl_(new ConnectorConstIteratorImpl(iterated, begin)) { }
 
-connector_const_iterator::connector_const_iterator(const connector_const_iterator& original) {
-  impl_ = new ConnectorConstIteratorImpl(*(original.impl_));
-}
+connector_const_iterator::connector_const_iterator(const connector_const_iterator& original) :
+impl_(new ConnectorConstIteratorImpl(*(original.impl_))) { }
 
-connector_const_iterator::connector_const_iterator(const connector_iterator& original) {
-  impl_ = new ConnectorConstIteratorImpl(*(original.impl()));
-}
+connector_const_iterator::connector_const_iterator(const connector_iterator& original) :
+impl_(new ConnectorConstIteratorImpl(*(original.impl()))) { }
 
 connector_const_iterator::~connector_const_iterator() {
   delete impl_;
@@ -170,13 +164,11 @@ connector_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-dynamicModel_iterator::dynamicModel_iterator(DynamicModelsCollection::Impl* iterated, bool begin) {
-  impl_ = new ModelIteratorImpl(iterated, begin);
-}
+dynamicModel_iterator::dynamicModel_iterator(DynamicModelsCollection::Impl* iterated, bool begin) :
+impl_(new ModelIteratorImpl(iterated, begin)) { }
 
-dynamicModel_iterator::dynamicModel_iterator(const THIS& original) {
-  impl_ = new ModelIteratorImpl(*(original.impl_));
-}
+dynamicModel_iterator::dynamicModel_iterator(const THIS& original) :
+impl_(new ModelIteratorImpl(*(original.impl_))) { }
 
 dynamicModel_iterator::~dynamicModel_iterator() {
   delete impl_;
@@ -243,13 +235,11 @@ dynamicModel_iterator::impl() const {
   return impl_;
 }
 
-connector_iterator::connector_iterator(DynamicModelsCollection::Impl* iterated, bool begin) {
-  impl_ = new ConnectorIteratorImpl(iterated, begin);
-}
+connector_iterator::connector_iterator(DynamicModelsCollection::Impl* iterated, bool begin) :
+impl_(new ConnectorIteratorImpl(iterated, begin)) { }
 
-connector_iterator::connector_iterator(const connector_iterator& original) {
-  impl_ = new ConnectorIteratorImpl(*(original.impl_));
-}
+connector_iterator::connector_iterator(const connector_iterator& original) :
+impl_(new ConnectorIteratorImpl(*(original.impl_))) { }
 
 connector_iterator::~connector_iterator() {
   delete impl_;
@@ -316,13 +306,11 @@ connector_iterator::impl() const {
   return impl_;
 }
 
-macroConnector_iterator::macroConnector_iterator(DynamicModelsCollection::Impl* iterated, bool begin) {
-  impl_ = new MacroConnectorIteratorImpl(iterated, begin);
-}
+macroConnector_iterator::macroConnector_iterator(DynamicModelsCollection::Impl* iterated, bool begin) :
+impl_(new MacroConnectorIteratorImpl(iterated, begin)) { }
 
-macroConnector_iterator::macroConnector_iterator(const macroConnector_iterator& original) {
-  impl_ = new MacroConnectorIteratorImpl(*(original.impl_));
-}
+macroConnector_iterator::macroConnector_iterator(const macroConnector_iterator& original) :
+impl_(new MacroConnectorIteratorImpl(*(original.impl_))) { }
 
 macroConnector_iterator::~macroConnector_iterator() {
   delete impl_;
@@ -389,17 +377,14 @@ macroConnector_iterator::impl() const {
   return impl_;
 }
 
-macroConnector_const_iterator::macroConnector_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) {
-  impl_ = new MacroConnectorConstIteratorImpl(iterated, begin);
-}
+macroConnector_const_iterator::macroConnector_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) :
+impl_(new MacroConnectorConstIteratorImpl(iterated, begin)) { }
 
-macroConnector_const_iterator::macroConnector_const_iterator(const macroConnector_const_iterator& original) {
-  impl_ = new MacroConnectorConstIteratorImpl(*(original.impl_));
-}
+macroConnector_const_iterator::macroConnector_const_iterator(const macroConnector_const_iterator& original) :
+impl_(new MacroConnectorConstIteratorImpl(*(original.impl_))) { }
 
-macroConnector_const_iterator::macroConnector_const_iterator(const macroConnector_iterator& original) {
-  impl_ = new MacroConnectorConstIteratorImpl(*(original.impl()));
-}
+macroConnector_const_iterator::macroConnector_const_iterator(const macroConnector_iterator& original) :
+impl_(new MacroConnectorConstIteratorImpl(*(original.impl()))) { }
 
 macroConnector_const_iterator::~macroConnector_const_iterator() {
   delete impl_;
@@ -461,13 +446,11 @@ macroConnector_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-macroConnect_iterator::macroConnect_iterator(DynamicModelsCollection::Impl* iterated, bool begin) {
-  impl_ = new MacroConnectIteratorImpl(iterated, begin);
-}
+macroConnect_iterator::macroConnect_iterator(DynamicModelsCollection::Impl* iterated, bool begin) :
+impl_(new MacroConnectIteratorImpl(iterated, begin)) { }
 
-macroConnect_iterator::macroConnect_iterator(const macroConnect_iterator& original) {
-  impl_ = new MacroConnectIteratorImpl(*(original.impl_));
-}
+macroConnect_iterator::macroConnect_iterator(const macroConnect_iterator& original) :
+impl_(new MacroConnectIteratorImpl(*(original.impl_))) { }
 
 macroConnect_iterator::~macroConnect_iterator() {
   delete impl_;
@@ -534,17 +517,14 @@ macroConnect_iterator::impl() const {
   return impl_;
 }
 
-macroConnect_const_iterator::macroConnect_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) {
-  impl_ = new MacroConnectConstIteratorImpl(iterated, begin);
-}
+macroConnect_const_iterator::macroConnect_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) :
+impl_(new MacroConnectConstIteratorImpl(iterated, begin)) { }
 
-macroConnect_const_iterator::macroConnect_const_iterator(const macroConnect_const_iterator& original) {
-  impl_ = new MacroConnectConstIteratorImpl(*(original.impl_));
-}
+macroConnect_const_iterator::macroConnect_const_iterator(const macroConnect_const_iterator& original) :
+impl_(new MacroConnectConstIteratorImpl(*(original.impl_))) { }
 
-macroConnect_const_iterator::macroConnect_const_iterator(const macroConnect_iterator& original) {
-  impl_ = new MacroConnectConstIteratorImpl(*(original.impl()));
-}
+macroConnect_const_iterator::macroConnect_const_iterator(const macroConnect_iterator& original) :
+impl_(new MacroConnectConstIteratorImpl(*(original.impl()))) { }
 
 macroConnect_const_iterator::~macroConnect_const_iterator() {
   delete impl_;
@@ -606,17 +586,14 @@ macroConnect_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-staticRef_iterator::staticRef_iterator(Model::Impl* iterated, bool begin) {
-  impl_ = new StaticRefIteratorImpl(iterated, begin);
-}
+staticRef_iterator::staticRef_iterator(Model::Impl* iterated, bool begin) :
+impl_(new StaticRefIteratorImpl(iterated, begin)) { }
 
-staticRef_iterator::staticRef_iterator(MacroStaticReference::Impl* iterated, bool begin) {
-  impl_ = new StaticRefIteratorImpl(iterated, begin);
-}
+staticRef_iterator::staticRef_iterator(MacroStaticReference::Impl* iterated, bool begin) :
+impl_(new StaticRefIteratorImpl(iterated, begin)) { }
 
-staticRef_iterator::staticRef_iterator(const staticRef_iterator& original) {
-  impl_ = new StaticRefIteratorImpl(*(original.impl_));
-}
+staticRef_iterator::staticRef_iterator(const staticRef_iterator& original) :
+impl_(new StaticRefIteratorImpl(*(original.impl_))) { }
 
 staticRef_iterator::~staticRef_iterator() {
   delete impl_;
@@ -683,21 +660,17 @@ staticRef_iterator::impl() const {
   return impl_;
 }
 
-staticRef_const_iterator::staticRef_const_iterator(const Model::Impl* iterated, bool begin) {
-  impl_ = new StaticRefConstIteratorImpl(iterated, begin);
-}
+staticRef_const_iterator::staticRef_const_iterator(const Model::Impl* iterated, bool begin) :
+impl_(new StaticRefConstIteratorImpl(iterated, begin)) { }
 
-staticRef_const_iterator::staticRef_const_iterator(const MacroStaticReference::Impl* iterated, bool begin) {
-  impl_ = new StaticRefConstIteratorImpl(iterated, begin);
-}
+staticRef_const_iterator::staticRef_const_iterator(const MacroStaticReference::Impl* iterated, bool begin) :
+impl_(new StaticRefConstIteratorImpl(iterated, begin)) { }
 
-staticRef_const_iterator::staticRef_const_iterator(const staticRef_const_iterator& original) {
-  impl_ = new StaticRefConstIteratorImpl(*(original.impl_));
-}
+staticRef_const_iterator::staticRef_const_iterator(const staticRef_const_iterator& original) :
+impl_(new StaticRefConstIteratorImpl(*(original.impl_))) { }
 
-staticRef_const_iterator::staticRef_const_iterator(const staticRef_iterator& original) {
-  impl_ = new StaticRefConstIteratorImpl(*(original.impl()));
-}
+staticRef_const_iterator::staticRef_const_iterator(const staticRef_iterator& original) :
+impl_(new StaticRefConstIteratorImpl(*(original.impl()))) { }
 
 staticRef_const_iterator::~staticRef_const_iterator() {
   delete impl_;
@@ -759,13 +732,11 @@ staticRef_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-macroStaticRef_iterator::macroStaticRef_iterator(Model::Impl* iterated, bool begin) {
-  impl_ = new MacroStaticRefIteratorImpl(iterated, begin);
-}
+macroStaticRef_iterator::macroStaticRef_iterator(Model::Impl* iterated, bool begin) :
+impl_(new MacroStaticRefIteratorImpl(iterated, begin)) { }
 
-macroStaticRef_iterator::macroStaticRef_iterator(const macroStaticRef_iterator& original) {
-  impl_ = new MacroStaticRefIteratorImpl(*(original.impl_));
-}
+macroStaticRef_iterator::macroStaticRef_iterator(const macroStaticRef_iterator& original) :
+impl_(new MacroStaticRefIteratorImpl(*(original.impl_))) { }
 
 macroStaticRef_iterator::~macroStaticRef_iterator() {
   delete impl_;
@@ -832,17 +803,14 @@ macroStaticRef_iterator::impl() const {
   return impl_;
 }
 
-macroStaticRef_const_iterator::macroStaticRef_const_iterator(const Model::Impl* iterated, bool begin) {
-  impl_ = new MacroStaticRefConstIteratorImpl(iterated, begin);
-}
+macroStaticRef_const_iterator::macroStaticRef_const_iterator(const Model::Impl* iterated, bool begin) :
+impl_(new MacroStaticRefConstIteratorImpl(iterated, begin)) { }
 
-macroStaticRef_const_iterator::macroStaticRef_const_iterator(const macroStaticRef_const_iterator& original) {
-  impl_ = new MacroStaticRefConstIteratorImpl(*(original.impl_));
-}
+macroStaticRef_const_iterator::macroStaticRef_const_iterator(const macroStaticRef_const_iterator& original) :
+impl_(new MacroStaticRefConstIteratorImpl(*(original.impl_))) { }
 
-macroStaticRef_const_iterator::macroStaticRef_const_iterator(const macroStaticRef_iterator& original) {
-  impl_ = new MacroStaticRefConstIteratorImpl(*(original.impl()));
-}
+macroStaticRef_const_iterator::macroStaticRef_const_iterator(const macroStaticRef_iterator& original) :
+impl_(new MacroStaticRefConstIteratorImpl(*(original.impl()))) { }
 
 macroStaticRef_const_iterator::~macroStaticRef_const_iterator() {
   delete impl_;
@@ -904,13 +872,11 @@ macroStaticRef_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-macroStaticReference_iterator::macroStaticReference_iterator(DynamicModelsCollection::Impl* iterated, bool begin) {
-  impl_ = new MacroStaticReferenceIteratorImpl(iterated, begin);
-}
+macroStaticReference_iterator::macroStaticReference_iterator(DynamicModelsCollection::Impl* iterated, bool begin) :
+impl_(new MacroStaticReferenceIteratorImpl(iterated, begin)) { }
 
-macroStaticReference_iterator::macroStaticReference_iterator(const macroStaticReference_iterator& original) {
-  impl_ = new MacroStaticReferenceIteratorImpl(*(original.impl_));
-}
+macroStaticReference_iterator::macroStaticReference_iterator(const macroStaticReference_iterator& original) :
+impl_(new MacroStaticReferenceIteratorImpl(*(original.impl_))) { }
 
 macroStaticReference_iterator::~macroStaticReference_iterator() {
   delete impl_;
@@ -977,17 +943,14 @@ macroStaticReference_iterator::impl() const {
   return impl_;
 }
 
-macroStaticReference_const_iterator::macroStaticReference_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) {
-  impl_ = new MacroStaticReferenceConstIteratorImpl(iterated, begin);
-}
+macroStaticReference_const_iterator::macroStaticReference_const_iterator(const DynamicModelsCollection::Impl* iterated, bool begin) :
+impl_(new MacroStaticReferenceConstIteratorImpl(iterated, begin)) { }
 
-macroStaticReference_const_iterator::macroStaticReference_const_iterator(const macroStaticReference_const_iterator& original) {
-  impl_ = new MacroStaticReferenceConstIteratorImpl(*(original.impl_));
-}
+macroStaticReference_const_iterator::macroStaticReference_const_iterator(const macroStaticReference_const_iterator& original) :
+impl_(new MacroStaticReferenceConstIteratorImpl(*(original.impl_))) { }
 
-macroStaticReference_const_iterator::macroStaticReference_const_iterator(const macroStaticReference_iterator& original) {
-  impl_ = new MacroStaticReferenceConstIteratorImpl(*(original.impl()));
-}
+macroStaticReference_const_iterator::macroStaticReference_const_iterator(const macroStaticReference_iterator& original) :
+impl_(new MacroStaticReferenceConstIteratorImpl(*(original.impl()))) { }
 
 macroStaticReference_const_iterator::~macroStaticReference_const_iterator() {
   delete impl_;

@@ -21,8 +21,7 @@
 
 namespace job {
 
-LogsEntry::Impl::Impl() :
-  appenders_() {
+LogsEntry::Impl::Impl() {
 }
 
 

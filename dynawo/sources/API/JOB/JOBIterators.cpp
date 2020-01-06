@@ -25,17 +25,14 @@ using boost::shared_ptr;
 
 namespace job {
 
-job_const_iterator::job_const_iterator(const JobsCollection::Impl* iterated, bool begin) {
-  impl_ = new JobConstIteratorImpl(iterated, begin);
-}
+job_const_iterator::job_const_iterator(const JobsCollection::Impl* iterated, bool begin) :
+impl_(new JobConstIteratorImpl(iterated, begin)) { }
 
-job_const_iterator::job_const_iterator(const job_const_iterator& original) {
-  impl_ = new JobConstIteratorImpl(*(original.impl_));
-}
+job_const_iterator::job_const_iterator(const job_const_iterator& original) :
+impl_(new JobConstIteratorImpl(*(original.impl_))) { }
 
-job_const_iterator::job_const_iterator(const job_iterator& original) {
-  impl_ = new JobConstIteratorImpl(*(original.impl()));
-}
+job_const_iterator::job_const_iterator(const job_iterator& original) :
+impl_(new JobConstIteratorImpl(*(original.impl()))) { }
 
 job_const_iterator::~job_const_iterator() {
   delete impl_;
@@ -97,13 +94,11 @@ job_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-job_iterator::job_iterator(JobsCollection::Impl* iterated, bool begin) {
-  impl_ = new JobIteratorImpl(iterated, begin);
-}
+job_iterator::job_iterator(JobsCollection::Impl* iterated, bool begin) :
+impl_(new JobIteratorImpl(iterated, begin)) { }
 
-job_iterator::job_iterator(const job_iterator& original) {
-  impl_ = new JobIteratorImpl(*(original.impl_));
-}
+job_iterator::job_iterator(const job_iterator& original) :
+impl_(new JobIteratorImpl(*(original.impl_))) { }
 
 job_iterator::~job_iterator() {
   delete impl_;

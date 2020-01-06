@@ -22,12 +22,7 @@
 namespace job {
 
 ModelerEntry::Impl::Impl() :
-compileDir_(""),
-preCompiledModelsDirEntry_(),
-modelicaModelsDirEntry_(),
-networkEntry_(),
-dynModelsEntries_(),
-initialStateEntry_() {
+compileDir_("") {
 }
 
 ModelerEntry::Impl::~Impl() {

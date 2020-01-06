@@ -22,13 +22,11 @@
 
 namespace parameters {
 
-ParametersSetCollection::parametersSet_const_iterator::parametersSet_const_iterator(const ParametersSetCollection::Impl* iterated, bool begin) {
-  impl_ = new BaseIteratorImpl(iterated, begin);
-}
+ParametersSetCollection::parametersSet_const_iterator::parametersSet_const_iterator(const ParametersSetCollection::Impl* iterated, bool begin) :
+impl_(new BaseIteratorImpl(iterated, begin)) { }
 
-ParametersSetCollection::parametersSet_const_iterator::parametersSet_const_iterator(const ParametersSetCollection::parametersSet_const_iterator& original) {
-  impl_ = new BaseIteratorImpl(*(original.impl_));
-}
+ParametersSetCollection::parametersSet_const_iterator::parametersSet_const_iterator(const ParametersSetCollection::parametersSet_const_iterator& original) :
+impl_(new BaseIteratorImpl(*(original.impl_))) { }
 
 ParametersSetCollection::parametersSet_const_iterator::~parametersSet_const_iterator() {
   delete impl_;

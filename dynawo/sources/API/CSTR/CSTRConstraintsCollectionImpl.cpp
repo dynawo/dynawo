@@ -89,9 +89,8 @@ ConstraintsCollection::Impl::cend() const {
   return ConstraintsCollection::const_iterator(this, false);
 }
 
-ConstraintsCollection::BaseIteratorImpl::BaseIteratorImpl(const ConstraintsCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->constraintsById_.begin() : iterated->constraintsById_.end());
-}
+ConstraintsCollection::BaseIteratorImpl::BaseIteratorImpl(const ConstraintsCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->constraintsById_.begin() : iterated->constraintsById_.end())) { }
 
 ConstraintsCollection::BaseIteratorImpl::~BaseIteratorImpl() {
 }

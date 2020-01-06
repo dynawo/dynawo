@@ -132,8 +132,7 @@ SetHandler::addTable() {
 }
 
 ParTableHandler::ParTableHandler(elementName_type const & root_element) :
-parInTableHandler_(parser::ElementName(par_ns, "par")),
-pars_() {
+parInTableHandler_(parser::ElementName(par_ns, "par")) {
   onElement(root_element + par_ns("par"), parInTableHandler_);
   onStartElement(root_element, lambda::bind(&ParTableHandler::create, lambda::ref(*this), lambda_args::arg2));
   parInTableHandler_.onEnd(lambda::bind(&ParTableHandler::addPar, lambda::ref(*this)));

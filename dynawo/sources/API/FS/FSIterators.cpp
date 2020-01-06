@@ -25,21 +25,17 @@ using boost::shared_ptr;
 
 namespace finalState {
 
-finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateCollection::Impl* iterated, bool begin) {
-  impl_ = new FinalStateModelConstIteratorImpl(iterated, begin);
-}
+finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateCollection::Impl* iterated, bool begin) :
+impl_(new FinalStateModelConstIteratorImpl(iterated, begin)) { }
 
-finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateModel::Impl* iterated, bool begin) {
-  impl_ = new FinalStateModelConstIteratorImpl(iterated, begin);
-}
+finalStateModel_const_iterator::finalStateModel_const_iterator(const FinalStateModel::Impl* iterated, bool begin) :
+impl_(new FinalStateModelConstIteratorImpl(iterated, begin)) { }
 
-finalStateModel_const_iterator::finalStateModel_const_iterator(const THIS& original) {
-  impl_ = new FinalStateModelConstIteratorImpl(*(original.impl_));
-}
+finalStateModel_const_iterator::finalStateModel_const_iterator(const THIS& original) :
+impl_(new FinalStateModelConstIteratorImpl(*(original.impl_))) { }
 
-finalStateModel_const_iterator::finalStateModel_const_iterator(const finalStateModel_iterator& original) {
-  impl_ = new FinalStateModelConstIteratorImpl(*(original.impl()));
-}
+finalStateModel_const_iterator::finalStateModel_const_iterator(const finalStateModel_iterator& original) :
+impl_(new FinalStateModelConstIteratorImpl(*(original.impl()))) { }
 
 finalStateModel_const_iterator::~finalStateModel_const_iterator() {
   delete impl_;
@@ -101,21 +97,17 @@ finalStateModel_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-finalStateVariable_const_iterator::finalStateVariable_const_iterator(const FinalStateCollection::Impl* iterated, bool begin) {
-  impl_ = new VariableConstIteratorImpl(iterated, begin);
-}
+finalStateVariable_const_iterator::finalStateVariable_const_iterator(const FinalStateCollection::Impl* iterated, bool begin) :
+impl_(new VariableConstIteratorImpl(iterated, begin)) { }
 
-finalStateVariable_const_iterator::finalStateVariable_const_iterator(const FinalStateModel::Impl* iterated, bool begin) {
-  impl_ = new VariableConstIteratorImpl(iterated, begin);
-}
+finalStateVariable_const_iterator::finalStateVariable_const_iterator(const FinalStateModel::Impl* iterated, bool begin) :
+impl_(new VariableConstIteratorImpl(iterated, begin)) { }
 
-finalStateVariable_const_iterator::finalStateVariable_const_iterator(const finalStateVariable_const_iterator& original) {
-  impl_ = new VariableConstIteratorImpl(*(original.impl_));
-}
+finalStateVariable_const_iterator::finalStateVariable_const_iterator(const finalStateVariable_const_iterator& original) :
+impl_(new VariableConstIteratorImpl(*(original.impl_))) { }
 
-finalStateVariable_const_iterator::finalStateVariable_const_iterator(const finalStateVariable_iterator& original) {
-  impl_ = new VariableConstIteratorImpl(*(original.impl()));
-}
+finalStateVariable_const_iterator::finalStateVariable_const_iterator(const finalStateVariable_iterator& original) :
+impl_(new VariableConstIteratorImpl(*(original.impl()))) { }
 
 finalStateVariable_const_iterator::~finalStateVariable_const_iterator() {
   delete impl_;
@@ -177,17 +169,14 @@ finalStateVariable_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-finalStateModel_iterator::finalStateModel_iterator(FinalStateCollection::Impl* iterated, bool begin) {
-  impl_ = new FinalStateModelIteratorImpl(iterated, begin);
-}
+finalStateModel_iterator::finalStateModel_iterator(FinalStateCollection::Impl* iterated, bool begin) :
+impl_(new FinalStateModelIteratorImpl(iterated, begin)) { }
 
-finalStateModel_iterator::finalStateModel_iterator(FinalStateModel::Impl* iterated, bool begin) {
-  impl_ = new FinalStateModelIteratorImpl(iterated, begin);
-}
+finalStateModel_iterator::finalStateModel_iterator(FinalStateModel::Impl* iterated, bool begin) :
+impl_(new FinalStateModelIteratorImpl(iterated, begin)) { }
 
-finalStateModel_iterator::finalStateModel_iterator(const THIS& original) {
-  impl_ = new FinalStateModelIteratorImpl(*(original.impl_));
-}
+finalStateModel_iterator::finalStateModel_iterator(const THIS& original) :
+impl_(new FinalStateModelIteratorImpl(*(original.impl_))) { }
 
 finalStateModel_iterator::~finalStateModel_iterator() {
   delete impl_;
@@ -254,17 +243,14 @@ finalStateModel_iterator::impl() const {
   return impl_;
 }
 
-finalStateVariable_iterator::finalStateVariable_iterator(FinalStateCollection::Impl* iterated, bool begin) {
-  impl_ = new VariableIteratorImpl(iterated, begin);
-}
+finalStateVariable_iterator::finalStateVariable_iterator(FinalStateCollection::Impl* iterated, bool begin) :
+impl_(new VariableIteratorImpl(iterated, begin)) { }
 
-finalStateVariable_iterator::finalStateVariable_iterator(FinalStateModel::Impl* iterated, bool begin) {
-  impl_ = new VariableIteratorImpl(iterated, begin);
-}
+finalStateVariable_iterator::finalStateVariable_iterator(FinalStateModel::Impl* iterated, bool begin) :
+impl_(new VariableIteratorImpl(iterated, begin)) { }
 
-finalStateVariable_iterator::finalStateVariable_iterator(const THIS& original) {
-  impl_ = new VariableIteratorImpl(*(original.impl_));
-}
+finalStateVariable_iterator::finalStateVariable_iterator(const THIS& original) :
+impl_(new VariableIteratorImpl(*(original.impl_))) { }
 
 finalStateVariable_iterator::~finalStateVariable_iterator() {
   delete impl_;

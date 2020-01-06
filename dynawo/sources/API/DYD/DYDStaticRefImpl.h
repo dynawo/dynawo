@@ -39,9 +39,7 @@ class StaticRef::Impl : public StaticRef {
    *
    * @returns New StaticRef::Impl instance with void attributes
    */
-  Impl() :
-  modelVar_(),
-  staticVar_() { }
+  Impl() { }
   /**
    * @brief StaticRef constructor
    *

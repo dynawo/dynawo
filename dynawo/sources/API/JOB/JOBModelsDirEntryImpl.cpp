@@ -23,8 +23,7 @@ namespace job {
 
 ModelsDirEntry::Impl::Impl() :
 modelExtension_(""),
-useStandardModels_(false),
-dirs_() {
+useStandardModels_(false) {
 }
 
 ModelsDirEntry::Impl::~Impl() {

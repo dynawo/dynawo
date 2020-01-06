@@ -25,13 +25,11 @@ using std::string;
 
 namespace externalVariables {
 
-VariablesConstIteratorImpl::VariablesConstIteratorImpl(const VariablesCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->variables_.begin() : iterated->variables_.end());
-}
+VariablesConstIteratorImpl::VariablesConstIteratorImpl(const VariablesCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) { }
 
-VariablesConstIteratorImpl::VariablesConstIteratorImpl(const VariablesIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+VariablesConstIteratorImpl::VariablesConstIteratorImpl(const VariablesIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 VariablesConstIteratorImpl::~VariablesConstIteratorImpl() {
 }
@@ -82,9 +80,8 @@ VariablesConstIteratorImpl::operator->() const {
   return &(current_->second);
 }
 
-VariablesIteratorImpl::VariablesIteratorImpl(VariablesCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->variables_.begin() : iterated->variables_.end());
-}
+VariablesIteratorImpl::VariablesIteratorImpl(VariablesCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->variables_.begin() : iterated->variables_.end())) { }
 
 VariablesIteratorImpl::~VariablesIteratorImpl() {
 }

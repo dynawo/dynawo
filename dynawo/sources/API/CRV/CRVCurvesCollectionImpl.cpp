@@ -57,16 +57,14 @@ CurvesCollection::Impl::cend() const {
   return CurvesCollection::const_iterator(this, false);
 }
 
-CurvesCollection::BaseConstIteratorImpl::BaseConstIteratorImpl(const CurvesCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->curves_.begin() : iterated->curves_.end());
-}
+CurvesCollection::BaseConstIteratorImpl::BaseConstIteratorImpl(const CurvesCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->curves_.begin() : iterated->curves_.end())) { }
 
 CurvesCollection::BaseConstIteratorImpl::~BaseConstIteratorImpl() {
 }
 
-CurvesCollection::BaseConstIteratorImpl::BaseConstIteratorImpl(const BaseIteratorImpl& iterator) {
-  current_ = iterator.current();
-}
+CurvesCollection::BaseConstIteratorImpl::BaseConstIteratorImpl(const BaseIteratorImpl& iterator) :
+current_(iterator.current()) { }
 
 CurvesCollection::BaseConstIteratorImpl&
 CurvesCollection::BaseConstIteratorImpl::operator++() {
@@ -124,9 +122,8 @@ CurvesCollection::Impl::end() {
   return CurvesCollection::iterator(this, false);
 }
 
-CurvesCollection::BaseIteratorImpl::BaseIteratorImpl(CurvesCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->curves_.begin() : iterated->curves_.end());
-}
+CurvesCollection::BaseIteratorImpl::BaseIteratorImpl(CurvesCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->curves_.begin() : iterated->curves_.end())) { }
 
 CurvesCollection::BaseIteratorImpl::~BaseIteratorImpl() {
 }

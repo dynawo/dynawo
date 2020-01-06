@@ -26,17 +26,14 @@ using boost::shared_ptr;
 
 namespace externalVariables {
 
-variable_const_iterator::variable_const_iterator(const VariablesCollection::Impl* iterated, bool begin) {
-  impl_ = new VariablesConstIteratorImpl(iterated, begin);
-}
+variable_const_iterator::variable_const_iterator(const VariablesCollection::Impl* iterated, bool begin) :
+impl_(new VariablesConstIteratorImpl(iterated, begin)) { }
 
-variable_const_iterator::variable_const_iterator(const variable_const_iterator& original) {
-  impl_ = new VariablesConstIteratorImpl(*(original.impl_));
-}
+variable_const_iterator::variable_const_iterator(const variable_const_iterator& original) :
+impl_(new VariablesConstIteratorImpl(*(original.impl_))) { }
 
-variable_const_iterator::variable_const_iterator(const variable_iterator& original) {
-  impl_ = new VariablesConstIteratorImpl(*(original.impl()));
-}
+variable_const_iterator::variable_const_iterator(const variable_iterator& original) :
+impl_(new VariablesConstIteratorImpl(*(original.impl()))) { }
 
 variable_const_iterator::~variable_const_iterator() {
   delete impl_;
@@ -98,13 +95,11 @@ variable_const_iterator::operator->() const {
   return impl_->operator->();
 }
 
-variable_iterator::variable_iterator(VariablesCollection::Impl* iterated, bool begin) {
-  impl_ = new VariablesIteratorImpl(iterated, begin);
-}
+variable_iterator::variable_iterator(VariablesCollection::Impl* iterated, bool begin) :
+impl_(new VariablesIteratorImpl(iterated, begin)) { }
 
-variable_iterator::variable_iterator(const variable_iterator& original) {
-  impl_ = new VariablesIteratorImpl(*(original.impl_));
-}
+variable_iterator::variable_iterator(const variable_iterator& original) :
+impl_(new VariablesIteratorImpl(*(original.impl_))) { }
 
 variable_iterator::~variable_iterator() {
   delete impl_;

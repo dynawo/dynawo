@@ -506,8 +506,7 @@ MacroStaticReferenceHandler::get() const {
   return macroStaticReference_;
 }
 
-UnitDynamicModelHandler::UnitDynamicModelHandler(elementName_type const& root_element) :
-unitDynamicModel_() {
+UnitDynamicModelHandler::UnitDynamicModelHandler(elementName_type const& root_element) {
   onStartElement(root_element, lambda::bind(&UnitDynamicModelHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 

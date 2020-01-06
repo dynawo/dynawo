@@ -77,9 +77,8 @@ ParametersSetCollection::Impl::cendParametersSet() const {
   return ParametersSetCollection::parametersSet_const_iterator(this, false);
 }
 
-ParametersSetCollection::BaseIteratorImpl::BaseIteratorImpl(const ParametersSetCollection::Impl* iterated, bool begin) {
-  current_ = (begin ? iterated->parametersSets_.begin() : iterated->parametersSets_.end());
-}
+ParametersSetCollection::BaseIteratorImpl::BaseIteratorImpl(const ParametersSetCollection::Impl* iterated, bool begin) :
+current_((begin ? iterated->parametersSets_.begin() : iterated->parametersSets_.end())) { }
 
 ParametersSetCollection::BaseIteratorImpl::~BaseIteratorImpl() {
 }

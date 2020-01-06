@@ -21,10 +21,6 @@
 namespace job {
 
 JobEntry::Impl::Impl() :
-modelerEntry_(),
-solverEntry_(),
-simulationEntry_(),
-outputsEntry_(),
 name_("") {
 }
 
