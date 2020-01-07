@@ -13,12 +13,11 @@ model PLL "Phase-Locked Loop"
   parameter Types.PerUnit Ki "PLL voltage calculation integrator gain";
   parameter Types.PerUnit OmegaMinPu "Lower frequency limit (only positive values!)";
   parameter Types.PerUnit OmegaMaxPu "Upper frequency limit";
-  parameter Types.PerUnit OmegaRefPu "Frequency refence value";
 
   // Inputs:
   ComplexBlocks.Interfaces.ComplexInput uPu(re(start = u0Pu.re), im(start = u0Pu.im)) "Complex voltage at PCC (pu base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-116, 29}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {-101, 51}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  Blocks.Interfaces.RealInput omegaRefPu(start = Omega0Pu) "Reference frequency of the system. Either connected to the reference machine or the center of inertia frequency or set be constant 1." annotation(
+  Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency of the system. Either connected to the reference machine or the center of inertia frequency or set be constant 1." annotation(
     Placement(visible = true, transformation(origin = {-117, -70}, extent = {{-18, -18}, {18, 18}}, rotation = 0), iconTransformation(origin = {-101, -47}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   
   // Outputs:
@@ -38,7 +37,7 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {-42, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Gain K(k = Kp) annotation(
     Placement(visible = true, transformation(origin = {0, 52}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Continuous.LimIntegrator I(initType = Modelica.Blocks.Types.Init.SteadyState, k = Ki, outMax = OmegaMaxPu - OmegaRefPu, outMin = OmegaRefPu - OmegaMinPu) annotation(
+  Blocks.Continuous.LimIntegrator I(initType = Modelica.Blocks.Types.Init.SteadyState, k = Ki, outMax = OmegaMaxPu - SystemBase.omegaRef0Pu, outMin = SystemBase.omegaRef0Pu - OmegaMinPu) annotation(
     Placement(visible = true, transformation(origin = {0, 8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Math.Add dOmega(k1 = +1, k2 = +1) annotation(
     Placement(visible = true, transformation(origin = {40, 28}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -54,7 +53,6 @@ model PLL "Phase-Locked Loop"
 protected
 
   parameter Types.ComplexVoltagePu u0Pu "Start value of complex voltage in p.u (base UNom)";
-  parameter Types.PerUnit Omega0Pu "Start value of angular speed";
 
 equation
   connect(OmegaRad.y, omegaPLLPu) annotation(

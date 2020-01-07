@@ -16,7 +16,6 @@ model PLL_INIT "Initial model of phase locked loop"
 
   parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at PLL terminal in p.u (base UNom)";
   parameter Types.Angle UPhase0  "Start value of voltage angle at PLL terminal in rad";
-  parameter Types.PerUnit Omega0Pu "Start value of angular speed in p.u.";
   
 protected
 
