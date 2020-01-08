@@ -49,8 +49,11 @@ class ConstraintsCollection {
    * @param description description of the constraint
    * @param time time when the constraint occurs
    * @param type begin/end
+   * @param modelType type of the model
+   * @param side side on which the constraint occurs
    */
-  virtual void addConstraint(const std::string& modelName, const std::string& description, const double& time, Type_t type) = 0;
+  virtual void addConstraint(const std::string& modelName, const std::string& description, const double& time, Type_t type,
+      const std::string& modelType = "", const std::string& side = "") = 0;
 
   class Impl;
 

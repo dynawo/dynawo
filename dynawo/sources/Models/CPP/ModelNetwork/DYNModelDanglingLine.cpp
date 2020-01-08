@@ -50,7 +50,8 @@ namespace DYN {
 
 ModelDanglingLine::ModelDanglingLine(const shared_ptr<DanglingLineInterface>& line) :
 Impl(line->getID()),
-stateModified_(false) {
+stateModified_(false),
+modelType_(DYNConstraint(DanglingLine).str())  {
   // init data
   double vNom = line->getVNom();
   double r = line->getR();
@@ -253,7 +254,7 @@ void
 ModelDanglingLine::evalG(const double& t) {
   if (currentLimits_) {
     int offset = 0;
-    currentLimits_->evalG(id(), t, i1(), &(g_[offset]), currentLimitsDesactivate_);
+    currentLimits_->evalG(t, i1(), &(g_[offset]), currentLimitsDesactivate_);
   }
 }
 
@@ -672,7 +673,7 @@ NetworkComponent::StateChange_t
 ModelDanglingLine::evalZ(const double& t) {
   if (currentLimits_) {
     ModelCurrentLimits::state_t currentLimitState;
-    currentLimitState = currentLimits_->evalZ(id(), t, &(g_[0]), network_, currentLimitsDesactivate_);
+    currentLimitState = currentLimits_->evalZ(id(), t, &(g_[0]), network_, currentLimitsDesactivate_, modelType_);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }

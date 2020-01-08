@@ -1005,14 +1005,10 @@ SubModel::addEvent(const string& modelName, const MessageTimeline& messageTimeli
 }
 
 void
-SubModel::addConstraint(const string& modelName, bool begin, const Message& description) {
-  constraints::Type_t type = constraints::CONSTRAINT_UNDEFINED;
-  if (begin)
-    type = constraints::CONSTRAINT_BEGIN;
-  else
-    type = constraints::CONSTRAINT_END;
-
-  constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type);
+SubModel::addConstraint(const string& modelName, bool begin, const Message& description,
+    const string& modelType, const string& side) {
+  constraints::Type_t type = (begin)?constraints::CONSTRAINT_BEGIN:constraints::CONSTRAINT_END;
+  constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type, modelType, side);
 }
 
 string

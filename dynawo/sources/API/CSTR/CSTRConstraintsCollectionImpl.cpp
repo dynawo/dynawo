@@ -40,7 +40,8 @@ ConstraintsCollection::Impl::~Impl() {
 
 void
 ConstraintsCollection::Impl::addConstraint(const string& modelName, const string& description,
-                                           const double& time, Type_t type) {
+                                           const double& time, Type_t type,
+                                           const string& modelType, const string& side) {
   stringstream id;
   id << time << "_" << modelName << "_" << description;  // allow to sort constraint by time, then modelName
 
@@ -74,6 +75,8 @@ ConstraintsCollection::Impl::addConstraint(const string& modelName, const string
     constraint->setDescription(description);
     constraint->setTime(time);
     constraint->setType(type);
+    constraint->setModelType(modelType);
+    constraint->setSide(side);
     constraintsByModel_[modelName].push_back(constraint);
     constraintsById_[id.str()] = constraint;
   }

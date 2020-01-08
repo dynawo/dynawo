@@ -506,6 +506,8 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   // state variables
   double P_;  ///< active p
   double Q_;  ///< reactive q
+
+  const std::string modelType_;  ///< model Type
 };  ///< class for dangling line model
 
 }  // namespace DYN

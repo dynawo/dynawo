@@ -68,6 +68,10 @@ XmlExporter::exportToStream(const boost::shared_ptr<ConstraintsCollection>& cons
     attrs.add("modelName", (*itConstraint)->getModelName());
     attrs.add("description", (*itConstraint)->getDescription());
     attrs.add("time", (*itConstraint)->getTime());
+    if ((*itConstraint)->hasModelType())
+      attrs.add("type", (*itConstraint)->getModelType());
+    if ((*itConstraint)->hasSide())
+      attrs.add("side", (*itConstraint)->getSide());
     formatter->startElement("constraint", attrs);
     formatter->endElement();   // constraint
   }

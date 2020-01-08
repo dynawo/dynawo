@@ -62,13 +62,12 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   /**
    * @brief compute the local root function
    *
-   * @param componentName name of the component for which the current limits is
    * @param t current time
    * @param current current inside the component
    * @param g value of the root function
    * @param desactivate @b true if the current limits is off
    */
-  void evalG(const std::string& componentName, const double& t, const double& current, state_g* g, const double& desactivate);
+  void evalG(const double& t, const double& current, state_g* g, const double& desactivate);
 
   /**
    * @brief compute the state of the current limits
@@ -78,11 +77,12 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @param g buffer of the roots
    * @param network model of network
    * @param desactivate @b true if the current limits is off
+   * @param modelType type of the model
    *
    * @return
    */
   state_t evalZ(const std::string& componentName, const double& t, state_g * g, ModelNetwork* network,
-                const double& desactivate);  // compute the local Z function
+                const double& desactivate, const std::string& modelType);  // compute the local Z function
 
   /**
    * @brief add a new current limit (p.u. base UNom, base SNRef)
@@ -116,6 +116,7 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
  private:
   int nbTemporaryLimits_;  ///< number of temporary limits (limits with a time duration)
   side_t side_;  ///< side
+  std::string sideAsString_;  ///< side name
 
   double maxTimeOperation_;  ///< maximum time operation, if limits duration is over this time, the current limit does not operate
 

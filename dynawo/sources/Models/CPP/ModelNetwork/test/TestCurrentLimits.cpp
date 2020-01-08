@@ -33,6 +33,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   double current = 4.;
   std::vector<state_g> states(mcl.sizeG(), NO_ROOT);
   const double desactivate = 0.;
+  const std::string modelType = "Whatever";
 
   mcl.addLimit(8., 5.);
   ASSERT_EQ(mcl.sizeZ(), 0);
@@ -45,6 +46,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   ASSERT_EQ(mcl.sizeG(), 5);
   states.resize(mcl.sizeG(), NO_ROOT);
   mcl.setMaxTimeOperation(10.);
+  mcl.setSide(ModelCurrentLimits::SIDE_2);
 
   boost::shared_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstaintsCollection");
@@ -52,29 +54,29 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   network.setConstraints(constraints);
   network.setTimeline(timeline::TimelineFactory::newInstance("Test"));
 
-  mcl.evalG("MY COMP", t, current, &states[0], desactivate);
+  mcl.evalG(t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
     ASSERT_EQ(states[i], ROOT_DOWN);
   }
   current = 9.;
-  mcl.evalG("MY COMP", t, current, &states[0], desactivate);
+  mcl.evalG(t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0)
       ASSERT_EQ(states[i], ROOT_UP);
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate);
+  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
 
   current = 11.;
-  mcl.evalG("MY COMP", t, current, &states[0], desactivate);
+  mcl.evalG(t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 3)
       ASSERT_EQ(states[i], ROOT_UP);
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate);
+  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
 
   unsigned i = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
@@ -82,14 +84,18 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     boost::shared_ptr<constraints::Constraint> constraint = (*it);
     if (i == 0) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
-      ASSERT_EQ(constraint->getDescription(), "IMAP 0");
+      ASSERT_EQ(constraint->getDescription(), "IMAP 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
       ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
+      ASSERT_EQ(constraint->getModelType(), modelType);
+      ASSERT_EQ(constraint->getSide(), "side2");
     } else if (i == 1) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
-      ASSERT_EQ(constraint->getDescription(), "OverloadUp 5 0");
+      ASSERT_EQ(constraint->getDescription(), "OverloadUp 5 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
       ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
+      ASSERT_EQ(constraint->getModelType(), modelType);
+      ASSERT_EQ(constraint->getSide(), "side2");
     } else {
       assert(0);
     }
@@ -98,7 +104,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   ASSERT_EQ(i, 2);
   current = 4.;
   t = 5.1;
-  mcl.evalG("MY COMP", t, current, &states[0], desactivate);
+  mcl.evalG(t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0 || i == 3)
       ASSERT_EQ(states[i], ROOT_DOWN);
@@ -106,7 +112,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(states[i], ROOT_UP);
   }
   network.setCurrentTime(5.1);
-  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate);
+  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
 
   i = 0;
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
@@ -117,6 +123,8 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_EQ(constraint->getDescription(), "OverloadOpen 5");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 5.1);
       ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
+      ASSERT_EQ(constraint->getModelType(), modelType);
+      ASSERT_EQ(constraint->getSide(), "side2");
     } else {
       assert(0);
     }

@@ -23,7 +23,9 @@ using std::string;
 
 namespace constraints {
 
-Constraint::Impl::Impl() {
+Constraint::Impl::Impl() :
+time_(0.),
+type_(CONSTRAINT_UNDEFINED) {
 }
 
 Constraint::Impl::~Impl() {
@@ -37,6 +39,16 @@ Constraint::Impl::setTime(const double& time) {
 void
 Constraint::Impl::setModelName(const string& modelName) {
   modelName_ = modelName;
+}
+
+void
+Constraint::Impl::setModelType(const string& modelType) {
+  modelType_ = modelType;
+}
+
+void
+Constraint::Impl::setSide(const string& side) {
+  side_ = side;
 }
 
 void
@@ -62,6 +74,26 @@ Constraint::Impl::getModelName() const {
 string
 Constraint::Impl::getDescription() const {
   return description_;
+}
+
+string
+Constraint::Impl::getModelType() const {
+  return modelType_;
+}
+
+bool
+Constraint::Impl::hasModelType() const {
+  return !modelType_.empty();
+}
+
+string
+Constraint::Impl::getSide() const {
+  return side_;
+}
+
+bool
+Constraint::Impl::hasSide() const {
+  return !side_.empty();
 }
 
 Type_t

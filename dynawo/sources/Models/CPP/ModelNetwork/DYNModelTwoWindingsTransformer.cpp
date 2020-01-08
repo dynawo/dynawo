@@ -83,16 +83,14 @@ ii2_dUr2_(0.),
 ii2_dUi2_(0.),
 topologyModified_(false),
 stateIndexModified_(false),
-tapChangerIndex_(0) {
+tapChangerIndex_(0),
+modelType_(DYNConstraint(TwoWindingsTransformer).str()) {
   // init data
   // ---------
 
   // state
   bool connected1 = tfo->getInitialConnected1();
   bool connected2 = tfo->getInitialConnected2();
-
-  side1_ = tfo->getID() + "_side1";
-  side2_ = tfo->getID() + "_side2";
 
   vNom1_ = NAN;
   vNom2_ = NAN;
@@ -1136,14 +1134,14 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
   ModelCurrentLimits::state_t currentLimitState;
 
   if (currentLimits1_) {
-    currentLimitState = currentLimits1_->evalZ(side1_, t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_);
+    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
 
   if (currentLimits2_) {
-    currentLimitState = currentLimits2_->evalZ(side2_, t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_);
+    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
     offsetRoot += currentLimits2_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
@@ -1381,12 +1379,12 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
     ui2Val = ui2();
   }
   if (currentLimits1_) {
-    currentLimits1_->evalG(side1_, t, i1(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
+    currentLimits1_->evalG(t, i1(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
     offset += currentLimits1_->sizeG();
   }
 
   if (currentLimits2_) {
-    currentLimits2_->evalG(side2_, t, i2(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
+    currentLimits2_->evalG(t, i2(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
     offset += currentLimits2_->sizeG();
   }
 
