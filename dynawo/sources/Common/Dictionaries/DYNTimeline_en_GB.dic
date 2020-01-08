@@ -51,8 +51,10 @@ TapChangersLockedD        =             TCL : low voltage tap changers locked on
 TransformerSwitchOff      =             Transformer : switched off
 // --> Voltage Regulator
 VRBackToRegulation        =             Voltage regulator : back to regulation
-VRLimitationDownward      =             Voltage regulator : lower limit reached
-VRLimitationUpward        =             Voltage regulator : upper limit reached
+VRLimitationEfdMin        =             Voltage regulator : lower limit reached (Efd)
+VRLimitationEfdMax        =             Voltage regulator : upper limit reached (Efd)
+VRLimitationUsRefMin      =             Voltage regulator : lower limit reached (UsRef)
+VRLimitationUsRefMax      =             Voltage regulator : upper limit reached (UsRef)
 // --> Under-voltage automaton
 UVATripped                =              Under-voltage generator trip
 UVAArming                 =              Under-voltage automaton for generator arming
