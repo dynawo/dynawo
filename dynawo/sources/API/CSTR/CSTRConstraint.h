@@ -46,6 +46,18 @@ class Constraint {
   virtual void setModelName(const std::string& modelName) = 0;
 
   /**
+   * @brief Setter for model type for which constraint occurs
+   * @param modelType Model's type for which constraint occurs
+   */
+  virtual void setModelType(const std::string& modelType) = 0;
+
+  /**
+   * @brief Setter for side for which constraint occurs
+   * @param side side for which constraint occurs
+   */
+  virtual void setSide(const std::string& side) = 0;
+
+  /**
    * @brief Setter for constraint's type (begin or end)
    * @param type constraint's type
    */
@@ -68,6 +80,30 @@ class Constraint {
    * @return Model's name for which constraint occurs
    */
   virtual std::string getModelName() const = 0;
+
+  /**
+   * @brief Getter for model type for which constraint occurs
+   * @return Model's type for which constraint occurs
+   */
+  virtual std::string getModelType() const = 0;
+
+  /**
+   * @brief test if a model type was defined for this constraint
+   * @return true if a model type was defined for this constraint
+   */
+  virtual bool hasModelType() const = 0;
+
+  /**
+   * @brief Getter for side for which constraint occurs
+   * @return side for which constraint occurs
+   */
+  virtual std::string getSide() const = 0;
+
+  /**
+   * @brief test if a side was defined for this constraint
+   * @return true if a side was defined for this constraint
+   */
+  virtual bool hasSide() const = 0;
 
   /**
    * @brief Getter for constraint's type (begin or end)

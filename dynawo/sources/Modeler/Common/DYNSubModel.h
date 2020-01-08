@@ -705,8 +705,11 @@ class SubModel {
    * @param modelName name of the model where the constraint (dis)appears
    * @param begin @b true if the constrain begin
    * @param description description of the constraint
+   * @param modelType type of the model
+   * @param side side on which the constraint occurs
    */
-  void addConstraint(const std::string& modelName, bool begin, const Message& description);
+  void addConstraint(const std::string& modelName, bool begin, const Message& description,
+      const std::string& modelType = "", const std::string& side = "");
 
   /**
    * @brief set the timeline to use during the simulation (where events should be added)

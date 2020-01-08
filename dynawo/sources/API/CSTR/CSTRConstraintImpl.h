@@ -53,6 +53,16 @@ class Constraint::Impl : public Constraint {
   void setModelName(const std::string& modelName);
 
   /**
+   * @copydoc Constraint::setModelType(const std::string& modelType)
+   */
+  void setModelType(const std::string& modelType);
+
+  /**
+   * @copydoc Constraint::setSide(const std::string& side)
+   */
+  void setSide(const std::string& side);
+
+  /**
    * @copydoc Constraint::setType(const Type_t& type)
    */
   void setType(const Type_t& type);
@@ -73,6 +83,26 @@ class Constraint::Impl : public Constraint {
   std::string getModelName() const;
 
   /**
+   * @copydoc Constraint::getModelType() const
+   */
+  std::string getModelType() const;
+
+  /**
+   * @copydoc Constraint::hasModelType() const
+   */
+  bool hasModelType() const;
+
+  /**
+   * @copydoc Constraint::getSide() const
+   */
+  std::string getSide() const;
+
+  /**
+   * @copydoc Constraint::hasSide() const
+   */
+  bool hasSide() const;
+
+  /**
    * @copydoc Constraint::getType() const
    */
   Type_t getType() const;
@@ -87,6 +117,8 @@ class Constraint::Impl : public Constraint {
   Type_t type_;  ///< Constraint's type : begin or end
   std::string modelName_;  ///< Model's name for which constraint occurs
   std::string description_;  ///< Description of the constraint
+  std::string modelType_;  ///< Model's type for which constraint occurs
+  std::string side_;  ///< side for which constraint occurs
 };
 }  // end of namespace constraints
 

@@ -67,8 +67,7 @@ ii2_dUr1_(0.),
 ii2_dUi1_(0.),
 ii2_dUr2_(0.),
 ii2_dUi2_(0.),
-idSide1_(line->getID() + "_side1"),
-idSide2_(line->getID() + "_side2") {
+modelType_(DYNConstraint(Line).str()) {
   double r = line->getR();
   double x = line->getX();
   double b1 = line->getB1();
@@ -640,14 +639,14 @@ ModelLine::evalZ(const double& t) {
   ModelCurrentLimits::state_t currentLimitState;
 
   if (currentLimits1_) {
-    currentLimitState = currentLimits1_->evalZ(idSide1_, t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_);
+    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
 
   if (currentLimits2_) {
-    currentLimitState = currentLimits2_->evalZ(idSide2_, t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_);
+    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[0] = OPEN;
   }
@@ -798,12 +797,12 @@ ModelLine::evalG(const double& t) {
     double ur2Val = ur2();
     double ui2Val = ui2();
     if (currentLimits1_) {
-      currentLimits1_->evalG(idSide1_, t, i1(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
+      currentLimits1_->evalG(t, i1(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
       offset += currentLimits1_->sizeG();
     }
 
     if (currentLimits2_) {
-      currentLimits2_->evalG(idSide2_, t, i2(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
+      currentLimits2_->evalG(t, i2(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
     }
   }
 }

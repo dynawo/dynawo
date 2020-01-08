@@ -21,6 +21,8 @@
 #include <iostream>
 #include <cassert>
 
+#include <boost/algorithm/string/predicate.hpp>
+
 #include "PARParametersSet.h"
 #include "DYNModelBus.h"
 #include "DYNModelSwitch.h"
@@ -160,7 +162,8 @@ uiYNum_(0),
 iiYNum_(0),
 irYNum_(0),
 busIndex_(bus->getBusIndex()),
-hasConnection_(bus->hasConnection()) {
+hasConnection_(bus->hasConnection()),
+modelType_((boost::starts_with(bus->getID(), "calculatedBus_"))?DYNConstraint(CalculatedBus).str():DYNConstraint(Node).str()) {
   neighbors_.clear();
   busBarSectionNames_.clear();
   busBarSectionNames_ = bus->getBusBarSectionNames();
@@ -177,6 +180,12 @@ hasConnection_(bus->hasConnection()) {
 
   uMax_ = bus->getVMax() / unom_;
   uMin_ = bus->getVMin() / unom_;
+
+  constraintId_ = bus->getID();
+  const vector<string>& busBarSections = bus->getBusBarSectionNames();
+  if (boost::starts_with(bus->getID(), "calculatedBus_") && !busBarSections.empty()) {
+    constraintId_ = busBarSections[0];
+  }
 }
 
 bool
@@ -569,22 +578,22 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
 NetworkComponent::StateChange_t
 ModelBus::evalZ(const double& /*t*/) {
   if (g_[0] == ROOT_UP && !stateUmax_ && !getSwitchOff()) {
-    network_->addConstraint(id_, true, DYNConstraint(USupUmax));
+    network_->addConstraint(constraintId_, true, DYNConstraint(USupUmax), modelType_, "");
     stateUmax_ = true;
   }
 
   if (g_[1] == ROOT_UP && !stateUmin_ && !getSwitchOff()) {
-    network_->addConstraint(id_, true, DYNConstraint(UInfUmin));
+    network_->addConstraint(constraintId_, true, DYNConstraint(UInfUmin), modelType_, "");
     stateUmin_ = true;
   }
 
   if (g_[2] == ROOT_UP && stateUmax_) {
-    network_->addConstraint(id_, false, DYNConstraint(USupUmax));
+    network_->addConstraint(constraintId_, false, DYNConstraint(USupUmax), modelType_, "");
     stateUmax_ = false;
   }
 
   if (g_[3] == ROOT_UP && stateUmin_) {
-    network_->addConstraint(id_, false, DYNConstraint(UInfUmin));
+    network_->addConstraint(constraintId_, false, DYNConstraint(UInfUmin), modelType_, "");
     stateUmin_ = false;
   }
 

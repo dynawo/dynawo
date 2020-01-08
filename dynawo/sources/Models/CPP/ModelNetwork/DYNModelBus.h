@@ -522,6 +522,9 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   double angle0_;  ///< initial angle
   std::vector<std::string> busBarSectionNames_;  ///< name of bus bar sections on the same electrical node
   std::vector<boost::weak_ptr<ModelSwitch> > connectableSwitches_;  ///< switch connected or connectable on the node
+
+  const std::string modelType_;  ///< model Type
+  std::string constraintId_;  ///< id to use in constraints
 };
 
 /**

@@ -19,3 +19,9 @@ OverloadOpen                      = overload %1% : open line
 // Generators
 UsMax                             = Us > UsMax
 UsMin                             = Us < UsMin
+// Model Types
+Node                              = Node
+CalculatedBus                     = Bus
+DanglingLine                      = DanglingLine
+Line                              = Line
+TwoWindingsTransformer            = TwoWindingsTransformer
