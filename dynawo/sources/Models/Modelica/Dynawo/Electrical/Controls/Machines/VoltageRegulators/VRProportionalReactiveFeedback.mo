@@ -135,10 +135,10 @@ equation
   end when;
 
   when (limiterEfd.u <= EfdMinPu) then
-    Timeline.logEvent1(TimelineKeys.VRLimitationDownward);
+    Timeline.logEvent1(TimelineKeys.VRLimitationEfdMin);
     limitationEfd = true;
   elsewhen(limiterEfd.u >= EfdMaxPu) then
-    Timeline.logEvent1(TimelineKeys.VRLimitationUpward);
+    Timeline.logEvent1(TimelineKeys.VRLimitationEfdMax);
     limitationEfd = true;
   elsewhen (limiterEfd.u > EfdMinPu and limiterEfd.u < EfdMaxPu) and pre(limitationEfd) then
     Timeline.logEvent1(TimelineKeys.VRBackToRegulation);

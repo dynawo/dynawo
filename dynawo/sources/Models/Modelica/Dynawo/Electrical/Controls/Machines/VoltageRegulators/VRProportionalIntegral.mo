@@ -64,6 +64,10 @@ protected
   parameter Types.Time tEfdMaxReached0 "Initial time when the Efd went above EfdMax";
   parameter Types.Time tEfdMinReached0 "Initial time when the Efd went below EfdMin";
 
+  Boolean limitationUsRefMax (start = false) "UsRefMax reached ?";
+  Boolean limitationUsRefMin (start = false) "UsRefMin reached ?";
+  Boolean limitationEfdMax (start = false) "EfdMax limitation?";
+  Boolean limitationEfdMin (start = false) "EfdMin limitation?";
 
 equation
   connect(limUsRef.y, feedback.u1) annotation(
@@ -95,23 +99,40 @@ equation
   connect(UsPu, feedback.u2) annotation(
     Line(points = {{-60, -48}, {-60, -8}}, color = {0, 0, 127}));
 
-//TimeLine
+// Low limit (EfdMin)
   when time - limiterWithLag.tUMinReached >= LagEfdMin then
-// low limit
-    Timeline.logEvent1(TimelineKeys.VRLimitationDownward);
-    limitationDown.value = true;
-  elsewhen time - limiterWithLag.tUMinReached < LagEfdMin and pre(limitationDown.value) then
+    Timeline.logEvent1(TimelineKeys.VRLimitationEfdMin);
+    limitationEfdMin = true;
+  elsewhen time - limiterWithLag.tUMinReached < LagEfdMin and pre(limitationEfdMin) then
     Timeline.logEvent1(TimelineKeys.VRBackToRegulation);
-    limitationDown.value = false;
+    limitationEfdMin = false;
   end when;
 
+// High limit (EfdMax)
   when time - limiterWithLag.tUMaxReached >= LagEfdMax then
-// high limit
-    Timeline.logEvent1(TimelineKeys.VRLimitationUpward);
-    limitationUp.value = true;
-  elsewhen time - limiterWithLag.tUMaxReached < LagEfdMax and pre(limitationUp.value) then
+    Timeline.logEvent1(TimelineKeys.VRLimitationEfdMax);
+    limitationEfdMax = true;
+  elsewhen time - limiterWithLag.tUMaxReached < LagEfdMax and pre(limitationEfdMax) then
     Timeline.logEvent1(TimelineKeys.VRBackToRegulation);
-    limitationUp.value = false;
+    limitationEfdMax = false;
   end when;
+
+  // UsRef limits
+  when UsRefPu <= UsRefMinPu then
+    Timeline.logEvent1(TimelineKeys.VRLimitationUsRefMin);
+    limitationUsRefMin = true;
+    limitationUsRefMax = false;
+  elsewhen UsRefPu >= UsRefMaxPu then
+    Timeline.logEvent1(TimelineKeys.VRLimitationUsRefMax);
+    limitationUsRefMin = false;
+    limitationUsRefMax = true;
+  elsewhen UsRefPu < UsRefMaxPu and UsRefPu > UsRefMinPu and (pre(limitationUsRefMin) or pre(limitationUsRefMax)) then
+    Timeline.logEvent1(TimelineKeys.VRBackToRegulation);
+    limitationUsRefMin = false;
+    limitationUsRefMax = false;
+  end when;
+
+  limitationUp.value = limitationUsRefMax or limitationEfdMax;
+  limitationDown.value = limitationUsRefMin or limitationEfdMin;
 
 end VRProportionalIntegral;
