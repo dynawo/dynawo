@@ -8,35 +8,35 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-SET(MODULE_NAME MODELS_PREASSEMBLED_unittest)
+set(MODULE_NAME MODELS_PREASSEMBLED_unittest)
 
-SET(MODULE_SOURCES
+set(MODULE_SOURCES
     TestCheckers.cpp
 )
 
-ADD_EXECUTABLE(${MODULE_NAME} ${MODULE_SOURCES})
+add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
-TARGET_INCLUDE_DIRECTORIES(${MODULE_NAME}
+target_include_directories(${MODULE_NAME}
         PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
         )
 
-TARGET_LINK_LIBRARIES(${MODULE_NAME}
+target_link_libraries(${MODULE_NAME}
         dynawo_Common
         dynawo_Test)
 
-ADD_CUSTOM_TARGET(${MODULE_NAME}-tests
+add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS
     ${MODULE_NAME}-pre-tests
     ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
 
-ADD_CUSTOM_TARGET(${MODULE_NAME}-pre-tests
+add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../buildChecker.py ${CMAKE_CURRENT_BINARY_DIR}/.
   )
 
-IF(CMAKE_BUILD_TYPE STREQUAL "Tests")
-  ADD_TEST(${MODULE_NAME}-tests)
-ENDIF()
+if(CMAKE_BUILD_TYPE STREQUAL "Tests")
+  add_test(${MODULE_NAME}-tests)
+endif()
