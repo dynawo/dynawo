@@ -65,7 +65,6 @@ function(_XercesC_GET_VERSION  version_hdr)
     endif()
 endfunction()
 
-
 if(NOT XERCESC_HOME AND NOT $ENV{XERCESC_HOME} STREQUAL "")
     SET(XERCESC_HOME $ENV{XERCESC_HOME})
 endif()
@@ -73,7 +72,6 @@ endif()
 if(NOT XERCESC_HOME AND NOT $ENV{XERCESC_ROOT} STREQUAL "")
     SET(XERCESC_HOME $ENV{XERCESC_ROOT})
 endif()
-
 
 # Find include directory
 find_path(XercesC_INCLUDE_DIR
@@ -99,6 +97,37 @@ endif()
 
 if(XercesC_INCLUDE_DIR)
   _XercesC_GET_VERSION("${XercesC_INCLUDE_DIR}/xercesc/util/XercesVersion.hpp")
+endif()
+
+if (XercesC_INCLUDE_DIR AND XercesC_LIBRARY)
+  file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/xercesc/Test)
+
+  file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/xercesc/Test/testXerces.cpp
+    "\#include <xercesc/util/PlatformUtils.hpp>\n"
+    "using namespace xercesc;\n"
+    "int main(int argc, char* argv[])\n"
+    "{\n"
+    "  try {\n"
+    "    XMLPlatformUtils::Initialize();\n"
+    "  }\n"
+    "  catch (const XMLException& toCatch) {\n"
+    "    return 1;\n"
+    "  }\n"
+    "  XMLPlatformUtils::Terminate();\n"
+    "  return 0;\n"
+  "}\n")
+  try_compile(TEST_XERCESC ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/xercesc/Test SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/xercesc/Test/testXerces.cpp
+    LINK_LIBRARIES ${XercesC_LIBRARY} pthread
+    CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${XercesC_INCLUDE_DIR}"
+      "-DCOMPILE_DEFINITIONS=${CXX_STDFLAG}")
+
+  file(REMOVE_RECURSE ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/xercesc/Test)
+
+  if(NOT TEST_XERCESC)
+    unset(XercesC_LIBRARY)
+    unset(XercesC_INCLUDE_DIR)
+    unset(XercesC_VERSION)
+  endif()
 endif()
 
 include(FindPackageHandleStandardArgs)

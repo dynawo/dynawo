@@ -79,7 +79,7 @@ dynawo/3rdParty/sundials/sundials-2.7.0.tar.gz
 dynawo/3rdParty/sundials/sundials-4.0.2.tar.gz
 dynawo/3rdParty/sundials/sundials-4.1.0.tar.gz
 dynawo/3rdParty/xercesc/xerces-c-3.2.2.tar.gz
-dynawo/3rdParty/libarchive/libarchive-2.8.0.tar.gz
+dynawo/3rdParty/libarchive/libarchive-3.4.0.tar.gz
 dynawo/3rdParty/boost/boost_1_70_0.tar.gz
 dynawo/3rdParty/boost/boost_1_64_0.tar.gz
 dynawo/3rdParty/zlib/zlib-1.2.11.tar.gz
