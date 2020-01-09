@@ -85,25 +85,20 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
                 const double& desactivate);  // compute the local Z function
 
   /**
-   * @brief add a new current limit
+   * @brief add a new current limit (p.u. base UNom, base SNRef)
    * @param limit
    */
-  void addLimit(const double& limit);  // add a new current limit (p.u. base UNom, base SNRef)
+  void addLimit(const double& limit);
   /**
    * @brief add a maximum duration above the limit
    * @param acceptableDuration
    */
-  void addAcceptableDuration(const int& acceptableDuration);  // add a maximum duration above the limit
+  void addAcceptableDuration(const int& acceptableDuration);
   /**
    * @brief set side
    * @param side
    */
   void setSide(const side_t side);
-  /**
-   * @brief set the overall number of current limits
-   * @param number
-   */
-  void setNbLimits(const int& number);  // set the overall number of current limits
   /**
    * @brief set the max time operation
    * @param maxTimeOperation
@@ -114,22 +109,22 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
    * @brief get G size
    * @return size of G
    */
-  int sizeG() const;  // get the size of the local G function
+  int sizeG() const;
   /**
    * @brief get size of Z
    * @return size of Z
    */
-  int sizeZ() const;  // get the size of the local Z function
+  int sizeZ() const;
 
  private:
   int nbLimits_;  ///< number of current limits
+  int nbTemporaryLimits_;  ///< number of temporary limits (limits with a time duration)
   side_t side_;  ///< side
 
   double maxTimeOperation_;  ///< maximum time operation, if limits duration is over this time, the current limit does not operate
 
   std::vector<double> limits_;  ///< vector of current limits (p.u. base UNom, base SNRef)
   std::vector<double> acceptableDurations_;  ///< vector of limits duration (unit : s)
-  std::vector<bool> limitActivated_;  ///< vector describing whether each limit is activated
   std::vector<bool> openingAuthorized_;  ///< whether opening is authorized
   std::vector<double> tLimitReached_;  ///< last time the limit was reached
   std::vector<bool> activated_;  ///< state of activation

@@ -87,14 +87,18 @@ stateModified_(false) {
   currentLimitsDesactivate_ = 0.;
 
 
+  double factorPuToA = sqrt(3.) * vNom / (1000. * SNREF);
   // current limits
   vector<shared_ptr<CurrentLimitInterface> > cLimit = line->getCurrentLimitInterfaces();
   if (cLimit.size() > 0) {
     currentLimits_.reset(new ModelCurrentLimits());
     currentLimits_->setSide(ModelCurrentLimits::SIDE_UNDEFINED);
-    currentLimits_->setNbLimits(cLimit.size());
-    for (unsigned int i = 0; i < cLimit.size(); ++i) {
-      double limit = cLimit[i]->getLimit() * sqrt(3.) * vNom / (1000. * SNREF);
+    // Due to IIDM convention
+    double limit = cLimit[0]->getLimit() / factorPuToA;
+    currentLimits_->addLimit(limit);
+    currentLimits_->addAcceptableDuration(cLimit[0]->getAcceptableDuration());
+    for (unsigned int i = 1; i < cLimit.size(); ++i) {
+      limit = cLimit[i-1]->getLimit() / factorPuToA;
       currentLimits_->addLimit(limit);
       currentLimits_->addAcceptableDuration(cLimit[i]->getAcceptableDuration());
     }
