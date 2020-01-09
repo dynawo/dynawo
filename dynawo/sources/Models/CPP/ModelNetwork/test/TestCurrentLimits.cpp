@@ -29,28 +29,35 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 0);
 
-  mcl.setNbLimits(2);
+  mcl.addLimit(8.);
   ASSERT_EQ(mcl.sizeZ(), 0);
-  ASSERT_EQ(mcl.sizeG(), 6);
+  ASSERT_EQ(mcl.sizeG(), 2);
   double t = 0.;
   double current = 4.;
   std::vector<state_g> states(mcl.sizeG(), NO_ROOT);
   const double desactivate = 0.;
+  EXPECT_DEATH(mcl.evalG("MY COMP", t, current, &states[0], desactivate), "Mismatching number of limits and vector sizes");
+  mcl.addAcceptableDuration(5);
+  ASSERT_EQ(mcl.sizeZ(), 0);
+  ASSERT_EQ(mcl.sizeG(), 3);
 
+  mcl.addLimit(std::numeric_limits<double>::quiet_NaN());
+  mcl.addAcceptableDuration(std::numeric_limits<int>::max());
+  ASSERT_EQ(mcl.sizeZ(), 0);
+  ASSERT_EQ(mcl.sizeG(), 3);
+  states.resize(mcl.sizeG(), NO_ROOT);
+  EXPECT_DEATH(mcl.evalG("MY COMP", t, current, &states[0], desactivate), "Mismatching number of limits and vector sizes");
+  mcl.addLimit(10.);
+  ASSERT_EQ(mcl.sizeZ(), 0);
+  ASSERT_EQ(mcl.sizeG(), 5);
+  states.resize(mcl.sizeG(), NO_ROOT);
+  mcl.setMaxTimeOperation(10.);
 
   boost::shared_ptr<constraints::ConstraintsCollection> constraints =
       constraints::ConstraintsCollectionFactory::newInstance("MyConstaintsCollection");
   ModelNetwork network;
   network.setConstraints(constraints);
   network.setTimeline(timeline::TimelineFactory::newInstance("Test"));
-
-  EXPECT_DEATH(mcl.evalG("MY COMP", t, current, &states[0], desactivate), "Mismatching number of limits and vector sizes");
-  mcl.addLimit(8.);
-  mcl.addLimit(std::numeric_limits<int>::max());
-  EXPECT_DEATH(mcl.evalG("MY COMP", t, current, &states[0], desactivate), "Mismatching number of limits and vector sizes");
-  mcl.addAcceptableDuration(5);
-  mcl.addAcceptableDuration(std::numeric_limits<int>::max());
-  mcl.setMaxTimeOperation(10.);
 
   mcl.evalG("MY COMP", t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
@@ -61,7 +68,15 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0)
       ASSERT_EQ(states[i], ROOT_UP);
-    else if (i == 3)
+    else
+      ASSERT_EQ(states[i], ROOT_DOWN);
+  }
+  mcl.evalZ("MY COMP", t, &states[0], &network, desactivate);
+
+  current = 11.;
+  mcl.evalG("MY COMP", t, current, &states[0], desactivate);
+  for (size_t i = 0; i < states.size(); ++i) {
+    if (i == 3)
       ASSERT_EQ(states[i], ROOT_UP);
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
@@ -92,7 +107,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   t = 5.1;
   mcl.evalG("MY COMP", t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
-    if (i == 0 || i ==3 || i == 4)
+    if (i == 0 || i == 3)
       ASSERT_EQ(states[i], ROOT_DOWN);
     else
       ASSERT_EQ(states[i], ROOT_UP);

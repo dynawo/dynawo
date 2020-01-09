@@ -220,9 +220,12 @@ tapChangerIndex_(0) {
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
-    currentLimits1_->setNbLimits(cLimit1.size());
-    for (unsigned int i = 0; i < cLimit1.size(); ++i) {
-      double limit = cLimit1[i]->getLimit() / factorPuToASide1_;
+    // Due to IIDM convention
+    double limit = cLimit1[0]->getLimit() / factorPuToASide1_;
+    currentLimits1_->addLimit(limit);
+    currentLimits1_->addAcceptableDuration(cLimit1[0]->getAcceptableDuration());
+    for (unsigned int i = 1; i < cLimit1.size(); ++i) {
+      limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
       currentLimits1_->addLimit(limit);
       currentLimits1_->addAcceptableDuration(cLimit1[i]->getAcceptableDuration());
     }
@@ -233,9 +236,12 @@ tapChangerIndex_(0) {
   if (cLimit2.size() > 0) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
-    currentLimits2_->setNbLimits(cLimit2.size());
-    for (unsigned int i = 0; i < cLimit2.size(); ++i) {
-      double limit = cLimit2[i]->getLimit() / factorPuToASide2_;
+    // Due to IIDM convention
+    double limit = cLimit2[0]->getLimit() / factorPuToASide2_;
+    currentLimits2_->addLimit(limit);
+    currentLimits2_->addAcceptableDuration(cLimit2[0]->getAcceptableDuration());
+    for (unsigned int i = 1; i < cLimit2.size(); ++i) {
+      limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
       currentLimits2_->addLimit(limit);
       currentLimits2_->addAcceptableDuration(cLimit2[i]->getAcceptableDuration());
     }
