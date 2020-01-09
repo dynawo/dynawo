@@ -708,7 +708,6 @@ build_omcDynawo() {
   else
     cmake --build $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build $DYNAWO_CMAKE_BUILD_OPTION --target openmodelica
   fi
-  make -j $DYNAWO_NB_PROCESSORS_USED openmodelica
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1585,18 +1584,8 @@ deploy_dynawo() {
   cp -R -P $DYNAWO_LIBIIDM_HOME/share/cmake share/
   cp -R -P $DYNAWO_LIBIIDM_HOME/share/iidm share/
 
-  for file in $(grep -rl $DYNAWO_LIBXML_HOME share/cmake/*); do
-    sed -i "s|$DYNAWO_LIBXML_HOME|$DYNAWO_DEPLOY_DIR|" $file
-  done
-  for file in $(grep -rl $DYNAWO_XERCESC_INSTALL_DIR share/cmake/*); do
-    sed -i "s|$DYNAWO_XERCESC_INSTALL_DIR|$DYNAWO_DEPLOY_DIR|" $file
-  done
-  for file in $(grep -rl $DYNAWO_LIBIIDM_HOME share/cmake/*); do
-    sed -i "s|$DYNAWO_LIBIIDM_HOME|$DYNAWO_DEPLOY_DIR|" $file
-  done
-  for file in $(grep -rl $DYNAWO_LIBXML_HOME share/cmake/*); do
-    sed -i "s|$DYNAWO_LIBXML_HOME|$DYNAWO_DEPLOY_DIR|" $file
-  done
+  mkdir -p cmake
+  cp -P $DYNAWO_SUITESPARSE_INSTALL_DIR/cmake/* cmake
 
   echo "deploying OpenModelica"
   mkdir -p OpenModelica/bin/
@@ -1639,8 +1628,15 @@ deploy_dynawo() {
 
   # XERCESC
   echo "deploying XercesC"
-  cp -P $DYNAWO_XERCESC_INSTALL_DIR/lib/libxerces-c*.* lib/
-  cp -n -r $DYNAWO_XERCESC_INSTALL_DIR/include/* include/
+  if [ -d "$DYNAWO_XERCESC_INSTALL_DIR" ]; then
+    cp -P $DYNAWO_XERCESC_INSTALL_DIR/lib/libxerces-c*.* lib/
+    cp -n -r $DYNAWO_XERCESC_INSTALL_DIR/include/* include/
+  else
+    xerces_system_folder=$(find_lib_system_path xerces) || error_exit "Path for xerces could not be found for deploy."
+    cp -P $xerces_system_folder/libxerces-c*.* lib/
+    xerces_system_folder_include=$(find_include_system_path XercesC_INCLUDE_DIR) || error_exit "Path for xerces include could not be found for deploy."
+    cp -n -r $xerces_system_folder_include/xercesc include/
+  fi
 
   # ZLIB
   echo "deploying zlib"
@@ -1668,6 +1664,11 @@ deploy_dynawo() {
     libarchive_system_folder_include=$(find_include_system_path LibArchive_INCLUDE_DIR) || error_exit "Path for libarchive include could not be found for deploy."
     cp -n $libarchive_system_folder_include/archive_entry.h include/
     cp -n $libarchive_system_folder_include/archive.h include/
+    for lib in {crypto,lzma,bz2,xml2}; do
+      if [ ! -z "$(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2)" ]; then
+        cp $(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2) lib/
+      fi
+    done
   fi
 
   # DYNAWO
@@ -1678,11 +1679,6 @@ deploy_dynawo() {
   cp -n -r $DYNAWO_INSTALL_DIR/include/* include/
   cp -r $DYNAWO_INSTALL_DIR/share/* share/
   cp -r $DYNAWO_INSTALL_DIR/ddb .
-  # create zipped Dynawo library for OM users
-  DYNAWO_LIB_ZIP_FILE=Dynawo_Modelica_library_V$version.zip
-  pushd ddb
-  zip -r -y $DYNAWO_LIB_ZIP_FILE Dynawo/
-  popd
 
   mkdir -p sbin
   echo "deploying Dynawo utils"
@@ -1771,7 +1767,23 @@ binary_rpath_for_darwin() {
   fi
 }
 
+create_modelica_distrib() {
+  if [ -z "$1" ]; then
+    error_exit "You need to give a version."
+  fi
+  version=$1
+  # create zipped Dynawo library for OM users
+  DYNAWO_LIB_ZIP_FILE=Dynawo_Modelica_library_V$version.zip
+  pushd $DYNAWO_INSTALL_DIR/ddb
+  zip -r -y $DYNAWO_LIB_ZIP_FILE Dynawo/
+  mv $DYNAWO_LIB_ZIP_FILE $DYNAWO_HOME/distributions
+  popd
+}
+
 create_distrib_with_omc() {
+  DISTRIB_DIR=$DYNAWO_HOME/distributions
+  mkdir -p $DISTRIB_DIR
+
   # Set Dynawo distrib version
   DYNAWO_VERSION=$(version) || error_exit "Error with version."
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
@@ -1784,12 +1796,14 @@ create_distrib_with_omc() {
   # Deploy Dynawo
   deploy_dynawo
 
+  create_modelica_distrib $version
+
   if [ "$DYNAWO_COMPILER" = "GCC" ]; then
     gcc_version=$($DYNAWO_C_COMPILER -dumpversion)
     if [ $(echo $gcc_version | cut -d '.' -f 1) -lt 5 ]; then
-      sed -i 's/FLAGS="$FLAGS -std=c++98"/FLAGS="$FLAGS -std=c++98 -D_GLIBCXX_USE_CXX11_ABI=0"/' $DYNAWO_DEPLOY_DIR/sbin/compileCppModelicaModelInDynamicLib
+      sed -i 's/-std=c++98/-std=c++98 -D_GLIBCXX_USE_CXX11_ABI=0/' $DYNAWO_DEPLOY_DIR/sbin/compileCppModelicaModelInDynamicLib.cmake
     elif [ $(echo $gcc_version | cut -d '.' -f 1) -eq 5 -a $(echo $gcc_version | cut -d '.' -f 2) -lt 1 ]; then
-      sed -i 's/FLAGS="$FLAGS -std=c++98"/FLAGS="$FLAGS -std=c++98 -D_GLIBCXX_USE_CXX11_ABI=0"/' $DYNAWO_DEPLOY_DIR/sbin/compileCppModelicaModelInDynamicLib
+      sed -i 's/-std=c++98/-std=c++98 -D_GLIBCXX_USE_CXX11_ABI=0/' $DYNAWO_DEPLOY_DIR/sbin/compileCppModelicaModelInDynamicLib.cmake
     fi
   fi
 
@@ -1822,23 +1836,21 @@ create_distrib_with_omc() {
   cd $DYNAWO_DEPLOY_DIR
   zip -r -y $ZIP_FILE bin/ lib/ sources/ testcases/
 
-  zip -r -y $ZIP_FILE share/iidm share/xsd share/*.dic share/*.par
+  zip -r -y $ZIP_FILE share/iidm share/xsd share/*.dic share/*.par share/cmake share/dynawo-*.cmake
 
   # need with omc binary
-  zip -r -g -y $ZIP_FILE ddb/ include/ sbin/
+  zip -r -g -y $ZIP_FILE ddb/ include/ sbin/ cmake/
 
   zip -r -g -y $ZIP_FILE OpenModelica
 
   # move distribution in distribution directory
-  DISTRIB_DIR=$DYNAWO_HOME/distributions
-  mkdir -p $DISTRIB_DIR
   mv $ZIP_FILE $DISTRIB_DIR
-
-  DYNAWO_LIB_ZIP_FILE=Dynawo_Modelica_library_V$version.zip
-  mv "$DYNAWO_DEPLOY_DIR/ddb/$DYNAWO_LIB_ZIP_FILE" $DISTRIB_DIR
 }
 
 create_distrib() {
+  DISTRIB_DIR=$DYNAWO_HOME/distributions
+  mkdir -p $DISTRIB_DIR
+
   # Set Dynawo distrib version
   DYNAWO_VERSION=$(version) || error_exit "Error with version."
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
@@ -1850,6 +1862,8 @@ create_distrib() {
 
   # Deploy Dynawo
   deploy_dynawo
+
+  create_modelica_distrib $version
 
   copy_sources
 
@@ -1885,12 +1899,7 @@ create_distrib() {
   zip -r -g -y $ZIP_FILE ddb/*.$DYNAWO_SHARED_LIBRARY_SUFFIX ddb/*.desc.xml
 
   # move distribution in distribution directory
-  DISTRIB_DIR=$DYNAWO_HOME/distributions
-  mkdir -p $DISTRIB_DIR
   mv $ZIP_FILE $DISTRIB_DIR
-
-  DYNAWO_LIB_ZIP_FILE=Dynawo_Modelica_library_V$version.zip
-  mv "$DYNAWO_DEPLOY_DIR/ddb/$DYNAWO_LIB_ZIP_FILE" $DISTRIB_DIR
 }
 
 deploy_dynawo_autocompletion() {

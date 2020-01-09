@@ -57,7 +57,7 @@ xcopy %dynawo_source_dir%\util\curvesToHtml\*.py %deploy_dir%\sbin\curvesToHtml 
 xcopy %dynawo_source_dir%\util\curvesToHtml\resources %deploy_dir%\sbin\curvesToHtml\resources /i
 xcopy %dynawo_source_dir%\util\curvesToHtml\csvToHtml\*.py %deploy_dir%\sbin\curvesToHtml\csvToHtml /i
 xcopy %dynawo_source_dir%\util\curvesToHtml\xmlToHtml\*.py %deploy_dir%\sbin\curvesToHtml\xmlToHtml /i
-  
+
 xcopy %dynawo_source_dir%\util\nrt_diff\*.py %deploy_dir%\sbin\nrt\nrt_diff /i
 xcopy %dynawo_source_dir%\nrt\nrt.py %deploy_dir%\sbin\nrt /i
 xcopy %dynawo_source_dir%\nrt\resources %deploy_dir%\sbin\nrt /i
@@ -192,6 +192,7 @@ echo set DYNAWO_INSTALL_OPENMODELICA=%%OPENMODELICA_HOME%%>> %deploy_dir%\dynawo
 echo set DYNAWO_XERCESC_INSTALL_DIR=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
 echo set DYNAWO_SUITESPARSE_INSTALL_DIR=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
 echo set DYNAWO_SUNDIALS_INSTALL_DIR=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
+echo set DYNAWO_LIBXML_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
 echo set DYNAWO_BOOST_HOME=%%thirdPartyInstallPath%%>> %deploy_dir%\dynawo.cmd
 echo.>> %deploy_dir%\dynawo.cmd
 echo "%%DYNAWO_INSTALL_DIR%%"bin\dynawo %%*>> %deploy_dir%\dynawo.cmd

@@ -8,12 +8,6 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-set(DYNAWO_INCLUDE_HEADERS
-    config.h
-    )
-
-install(FILES ${DYNAWO_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
-
 #obtain git revision
 # a custom target that is always built
 add_custom_target(revisiontag ALL)
@@ -23,6 +17,14 @@ add_custom_command(TARGET revisiontag COMMAND ${CMAKE_COMMAND}
    -DOUTPUT_DIR=${CMAKE_CURRENT_SOURCE_DIR}
    -DGIT_SOURCE_DIR=${DYNAWO_HOME}
    -P ${CMAKE_MODULE_PATH}/getgitheadrevision.cmake)
+
+
+set(DYNAWO_INCLUDE_HEADERS
+  config.h
+  gitversion.h
+)
+
+install(FILES ${DYNAWO_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 if(BUILD_TESTS)
   add_subdirectory(API/CRV/test)

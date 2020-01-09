@@ -136,13 +136,9 @@ endif()
 set(googletest_url       ${googletest_prefix_url}/release-${googletest_version}.tar.gz)
 set(googletest_md5       2E6FBEB6A91310A16EFE181886C59596)
 
-if(APPLE)
-  set(libarchive_version        3.4.0)
-  set(libarchive_md5            bdfe6fb43e4c6018c9c859b6aa6d384d)
-else()
-  set(libarchive_version        2.8.0)
-  set(libarchive_md5            2c4ce7701948cacafba7cb231c4ae451)
-endif()
+set(libarchive_version_required 2.8.0)
+set(libarchive_version        3.4.0)
+set(libarchive_md5            bdfe6fb43e4c6018c9c859b6aa6d384d)
 set(libarchive_name      libarchive-${libarchive_version}.tar.gz)
 if(DEFINED ENV{DYNAWO_LIBARCHIVE_DOWNLOAD_URL})
   set(libarchive_prefix_url $ENV{DYNAWO_LIBARCHIVE_DOWNLOAD_URL})
@@ -328,7 +324,7 @@ set(CMAKE_FIND_LIBRARY_SUFFIXES_bak "${CMAKE_FIND_LIBRARY_SUFFIXES}")
 if(NOT BUILD_SHARED_LIBS)
   set(CMAKE_FIND_LIBRARY_SUFFIXES "_static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
 endif()
-find_package(LibArchive ${libarchive_version} QUIET)
+find_package(LibArchive ${libarchive_version_required} QUIET)
 set(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
 
 if(LibArchive_FOUND)
@@ -370,6 +366,12 @@ else()
       )
     ExternalProject_Get_Property(zlib install_dir)
     set(ZLIB_ROOT ${install_dir} CACHE PATH "Path to ZLib installation" FORCE)
+    if(NOT BUILD_SHARED_LIBS AND UNIX)
+      ExternalProject_Add_Step(zlib install-static
+        DEPENDEES install
+        COMMAND ${CMAKE_COMMAND} -E remove <INSTALL_DIR>/lib/libz.so <INSTALL_DIR>/lib/libz.so.${zlib_version} <INSTALL_DIR>/lib/libz.so.1
+      )
+    endif()
   endif()
 
   GetPatchCommand(libarchive)
@@ -387,7 +389,7 @@ else()
     PATCH_COMMAND       ${libarchive_patch_common}
     COMMAND             ${libarchive_patch_compiler}
     CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER} "-DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-w -fPIC>"
-    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DZLIB_ROOT:PATH=${ZLIB_ROOT} -DENABLE_TEST:BOOL=OFF -DENABLE_OPENSSL:BOOL=OFF -Wno-dev -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY} -DENABLE_LIBXML2=OFF -DENABLE_EXPAT=OFF -DENABLE_BZip2=OFF -DENABLE_LZMA=OFF -DENABLE_ICONV=OFF -DCMAKE_MACOSX_RPATH=True -DCMAKE_SKIP_BUILD_RPATH=False -DCMAKE_BUILD_WITH_INSTALL_RPATH=False -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/libarchive/lib -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
+    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DZLIB_ROOT:PATH=${ZLIB_ROOT} -DENABLE_TEST:BOOL=OFF -Wno-dev -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY} -DENABLE_NETTLE=OFF -DENABLE_OPENSSL=OFF -DENABLE_LZ4=OFF -DENABLE_LZO=OFF -DENABLE_LZMA=OFF -DENABLE_BZip2=OFF -DENABLE_LIBXML2=OFF -DENABLE_EXPAT=OFF -DENABLE_PCREPOSIX=OFF -DENABLE_CNG=OFF -DCMAKE_MACOSX_RPATH=True -DCMAKE_SKIP_BUILD_RPATH=False -DCMAKE_BUILD_WITH_INSTALL_RPATH=False -DCMAKE_INSTALL_RPATH=${CMAKE_INSTALL_PREFIX}/libarchive/lib -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=True
     )
   if(APPLE)
     ExternalProject_Add_Step(libarchive install-macos
@@ -397,6 +399,13 @@ else()
   endif()
   ExternalProject_Get_Property(libarchive install_dir)
   set(LIBARCHIVE_HOME ${install_dir} CACHE PATH "Path to LibArchive installation" FORCE)
+  if(NOT BUILD_SHARED_LIBS AND UNIX)
+    ExternalProject_Add_Step(libarchive install-static
+      DEPENDEES install
+      COMMAND ${CMAKE_COMMAND} -E remove <INSTALL_DIR>/lib/libarchive.so <INSTALL_DIR>/lib/libarchive.so.${libarchive_version} <INSTALL_DIR>/lib/libarchive.so.17
+      COMMAND ${CMAKE_COMMAND} -E remove_directory <INSTALL_DIR>/pkgconfig
+    )
+  endif()
 endif()
 
 # clear cache variables to force find
@@ -571,7 +580,7 @@ if(XercesC_FOUND)
   add_custom_target(xercesc)
   set(XERCESC_HOME ${CMAKE_INSTALL_PREFIX}/xerces-c)
 else()
-  if(MSVC)
+  if(MSVC OR APPLE)
     ExternalProject_Add(xercesc
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/xerces-c
       DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/xercesc

@@ -56,13 +56,41 @@ IF(NICSLU_FOUND)
   MARK_AS_ADVANCED(SUNDIALS_SUNLINSOLNICSLU_LIBRARY)
 ENDIF()
 
+if (SUNDIALS_INCLUDE_DIR AND SUNDIALS_IDA_LIBRARY)
+  file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/sundials/Test)
+
+  file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/sundials/Test/testSundials.cpp
+    "\#include <ida/ida.h>\n"
+    "int main() {\n"
+    "  void* IDAMem = IDACreate();\n"
+    "  int flag = IDASetMinStep(IDAMem, 0.1);\n"
+    "  IDAFree(&IDAMem);\n"
+    "  return 0;\n"
+    "}\n")
+
+  try_compile(TEST_SUNDIALS ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/sundials/Test SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/sundials/Test/testSundials.cpp
+    LINK_LIBRARIES ${SUNDIALS_IDA_LIBRARY}
+    CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${SUNDIALS_INCLUDE_DIR}"
+      "-DCOMPILE_DEFINITIONS=${CXX_STDFLAG}")
+
+  file(REMOVE_RECURSE ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/sundials/Test)
+
+  if(NOT TEST_SUNDIALS)
+    unset(SUNDIALS_IDA_LIBRARY CACHE)
+    unset(SUNDIALS_KINSOL_LIBRARY CACHE)
+    unset(SUNDIALS_NVECSERIAL_LIBRARY CACHE)
+    unset(SUNDIALS_INCLUDE_DIR CACHE)
+    unset(SUNDIALS_SUNLINSOLKLU_LIBRARY CACHE)
+  endif()
+endif()
+
 # Handle the QUIETLY and REQUIRED arguments and set SUNDIALS_FOUND
 # to TRUE if all listed variables are TRUE.
 # (Use ${CMAKE_ROOT}/Modules instead of ${CMAKE_CURRENT_LIST_DIR} because CMake
 #  itself includes this FindSundials when built with an older CMake that does
 #  not provide it.  The older CMake also does not have CMAKE_CURRENT_LIST_DIR.)
 INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(Sundials "Found Sundials suite" SUNDIALS_IDA_LIBRARY SUNDIALS_KINSOL_LIBRARY SUNDIALS_NVECSERIAL_LIBRARY SUNDIALS_INCLUDE_DIR)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(Sundials "Found Sundials suite" SUNDIALS_IDA_LIBRARY SUNDIALS_KINSOL_LIBRARY SUNDIALS_NVECSERIAL_LIBRARY SUNDIALS_SUNLINSOLKLU_LIBRARY SUNDIALS_INCLUDE_DIR)
 
 if(Sundials_FOUND)
   set(Sundials_INCLUDE_DIRS "${SUNDIALS_INCLUDE_DIR}")
