@@ -54,10 +54,10 @@ TEST(CommonTest, testCommonVarC) {
 
 TEST(CommonTest, testCommonDynawoDoublesEquality) {
   ASSERT_TRUE(doubleEquals(0.1, 0.10000001));
-  ASSERT_FALSE(doubleEquals(0.1, 0.1000001));
+  ASSERT_TRUE(doubleEquals(0.1, 0.1000001));
   ASSERT_FALSE(doubleEquals(0.1, 0.100001));
   ASSERT_FALSE(doubleNotEquals(0.1, 0.10000001));
-  ASSERT_TRUE(doubleNotEquals(0.1, 0.1000001));
+  ASSERT_FALSE(doubleNotEquals(0.1, 0.1000001));
   ASSERT_TRUE(doubleNotEquals(0.1, 0.100001));
   ASSERT_EQ(getPrecisionAsNbDecimal(), 6);
   ASSERT_EQ(getCurrentPrecision(), 1e-6);
@@ -65,11 +65,11 @@ TEST(CommonTest, testCommonDynawoDoublesEquality) {
   ASSERT_EQ(getPrecisionAsNbDecimal(), 7);
   ASSERT_EQ(getCurrentPrecision(), 1e-7);
   ASSERT_TRUE(doubleEquals(0.1, 0.100000001));
-  ASSERT_FALSE(doubleEquals(0.1, 0.10000001));
+  ASSERT_TRUE(doubleEquals(0.1, 0.10000001));
   ASSERT_FALSE(doubleEquals(0.1, 0.1000001));
   ASSERT_FALSE(doubleEquals(0.1, 0.100001));
   ASSERT_FALSE(doubleNotEquals(0.1, 0.100000001));
-  ASSERT_TRUE(doubleNotEquals(0.1, 0.10000001));
+  ASSERT_FALSE(doubleNotEquals(0.1, 0.10000001));
   ASSERT_TRUE(doubleNotEquals(0.1, 0.1000001));
   ASSERT_TRUE(doubleNotEquals(0.1, 0.100001));
 }

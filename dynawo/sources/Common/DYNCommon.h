@@ -115,7 +115,9 @@ namespace DYN {
   static inline bool doubleEquals(const double& a, const double& b) {
     if (std::isinf(a) || std::isinf(b)) return false;
     if (std::isnan(a) || std::isnan(b)) return false;
-    return std::fabs(a-b) <= std::max(std::fabs(a), std::fabs(b))*getCurrentPrecision()/5;  // Error factor used to add more leeway
+    double diff = std::fabs(a-b);
+    if (diff <= getCurrentPrecision()/5) return true;
+    return diff <= std::max(std::fabs(a), std::fabs(b))*getCurrentPrecision()/5;  // Error factor used to add more leeway
   }
 
   /**
@@ -138,7 +140,7 @@ namespace DYN {
    * @return return true if a == 0.
    */
   static inline bool doubleIsZero(const double& a) {
-    return doubleEquals(a, 0.);
+    return std::fabs(a) <= getCurrentPrecision()/5;
   }
 
   /**
