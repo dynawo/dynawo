@@ -29,14 +29,6 @@ namespace DYN {
 class StaticRefInterface {
  public:
   /**
-   * @brief default constructor.
-   */
-  StaticRefInterface() :
-  modelID_(),
-  modelVar_(),
-  staticVar_() { }
-
-  /**
    * @brief default destructor.
    */
   virtual ~StaticRefInterface() { }

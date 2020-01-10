@@ -44,18 +44,16 @@ namespace DYN {
 
 const int MATRIX_BLOCK_LENGTH = 50;  ///< Number of block reallocated when maximum number of variables allocated is reached, to deal with exploding matrix size
 
-SparseMatrix::SparseMatrix() {
-  withoutNan_ = true;
-  withoutInf_ = true;
-  nbCol_ = 0;
-  nbRow_ = 0;
-  nbTerm_ = 0;
-
-  iAp_ = 0;
-  iAi_ = 0;
-  iAx_ = 0;
-  currentMaxTerm_ = 0;
-}
+SparseMatrix::SparseMatrix() :
+withoutNan_(true),
+withoutInf_(true),
+nbRow_(0),
+nbCol_(0),
+iAp_(0),
+iAi_(0),
+iAx_(0),
+nbTerm_(0),
+currentMaxTerm_(0) { }
 
 SparseMatrix::~SparseMatrix() {
   free();

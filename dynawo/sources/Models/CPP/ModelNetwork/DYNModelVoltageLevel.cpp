@@ -52,10 +52,7 @@ namespace DYN {
 ModelVoltageLevel::ModelVoltageLevel(const shared_ptr<VoltageLevelInterface>& voltageLevel) :
 Impl(voltageLevel->getID()),
 graph_(boost::none),
-topologyKind_(voltageLevel->getVoltageLevelTopologyKind()) {
-  busesWithBBS_ = vector<shared_ptr<ModelBus> >();
-  switchesById_ = map<string, shared_ptr<ModelSwitch> >();
-}
+topologyKind_(voltageLevel->getVoltageLevelTopologyKind()) { }
 
 void
 ModelVoltageLevel::addComponent(const shared_ptr<NetworkComponent>& component) {

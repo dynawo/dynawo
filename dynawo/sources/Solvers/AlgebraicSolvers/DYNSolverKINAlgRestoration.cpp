@@ -48,7 +48,6 @@ using boost::shared_ptr;
 namespace DYN {
 
 SolverKINAlgRestoration::SolverKINAlgRestoration() :
-model_(),
 mode_(KIN_NORMAL) {
   SolverKINCommon();
 }

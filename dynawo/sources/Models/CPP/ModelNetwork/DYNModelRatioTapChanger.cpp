@@ -29,17 +29,17 @@ ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id, const std::str
 ModelTapChanger(id),
 side_(side),
 tolV_(0.015),
-targetV_(0) {
+targetV_(0),
+moveUp_(false),
+moveDown_(false),
+tapRefDown_(-1),
+tapRefUp_(-1),
+uMaxState_(false),
+uMinState_(false),
+uTargetState_(true) {
   whenUp_ = VALDEF;
   whenDown_ = VALDEF;
   whenLastTap_ = VALDEF;
-  moveUp_ = false;
-  moveDown_ = false;
-  tapRefDown_ = -1;
-  tapRefUp_ = -1;
-  uMaxState_ = false;
-  uMinState_ = false;
-  uTargetState_ = true;
 }
 
 ModelRatioTapChanger::~ModelRatioTapChanger() {

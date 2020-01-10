@@ -146,19 +146,24 @@ ModelBusContainer::initDerivatives() {
 
 ModelBus::ModelBus(const shared_ptr<BusInterface>& bus) :
 Impl(bus->getID()),
-topologyModified_(false) {
+stateUmax_(false),
+stateUmin_(false),
+connectionState_(CLOSED),
+topologyModified_(false),
+irConnection_(0.0),
+iiConnection_(0.0),
+refIslands_(0),
+ir0_(0.0),
+ii0_(0.0),
+urYNum_(0),
+uiYNum_(0),
+iiYNum_(0),
+irYNum_(0),
+busIndex_(bus->getBusIndex()),
+hasConnection_(bus->hasConnection()) {
   neighbors_.clear();
   busBarSectionNames_.clear();
   busBarSectionNames_ = bus->getBusBarSectionNames();
-  busIndex_ = bus->getBusIndex();
-  irConnection_ = 0.0;
-  iiConnection_ = 0.0;
-  refIslands_ = 0;
-  ir0_ = 0.0;
-  ii0_ = 0.0;
-  stateUmax_ = false;
-  stateUmin_ = false;
-  hasConnection_ = bus->hasConnection();
 
   derivatives_.reset(new BusDerivatives());
 
@@ -170,14 +175,8 @@ topologyModified_(false) {
   ur0_ = u0_ * cos(angle0_);
   ui0_ = u0_ * sin(angle0_);
 
-  urYNum_ = 0;
-  uiYNum_ = 0;
-  iiYNum_ = 0;
-  irYNum_ = 0;
-
   uMax_ = bus->getVMax() / unom_;
   uMin_ = bus->getVMin() / unom_;
-  connectionState_ = CLOSED;
 }
 
 bool

@@ -26,15 +26,15 @@ namespace DYN {
 
 ModelPhaseTapChanger::ModelPhaseTapChanger(const std::string& id) :
 ModelTapChanger(id),
-thresholdI_(0) {
+thresholdI_(0),
+moveUp_(false),
+moveDown_(false),
+tapRefDown_(-1),
+tapRefUp_(-1),
+currentOverThresholdState_(false) {
   whenUp_ = VALDEF;
   whenDown_ = VALDEF;
   whenLastTap_ = VALDEF;
-  moveUp_ = false;
-  moveDown_ = false;
-  tapRefDown_ = -1;
-  tapRefUp_ = -1;
-  currentOverThresholdState_ = false;
 }
 
 ModelPhaseTapChanger::~ModelPhaseTapChanger() {

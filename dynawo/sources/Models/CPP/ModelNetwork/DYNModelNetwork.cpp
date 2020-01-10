@@ -119,16 +119,17 @@ extern "C" void DYN::ModelNetworkFactory::destroy(DYN::SubModel* model) const {
 namespace DYN {
 
 ModelNetwork::ModelNetwork() :
-Impl("NETWORK") {
+Impl("NETWORK"),
+calculatedVarBuffer_(NULL),
+isInit_(false) ,
+isInitModel_(false),
+withNodeBreakerTopology_(false) {
   busContainer_.reset(new ModelBusContainer());
-  calculatedVarBuffer_ = NULL;
-  withNodeBreakerTopology_ = false;
-  isInitModel_ = false;
-  isInit_ = false;
 }
 
 ModelNetwork::~ModelNetwork() {
   delete[] calculatedVarBuffer_;
+  calculatedVarBuffer_ = NULL;
 }
 
 void

@@ -161,10 +161,6 @@ namespace DYN {
 Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context) :
 context_(context),
 jobEntry_(jobEntry),
-solver_(),
-model_(),
-data_(),
-dydFiles_(),
 iidmFile_(""),
 networkParFile_(""),
 networkParSet_(""),

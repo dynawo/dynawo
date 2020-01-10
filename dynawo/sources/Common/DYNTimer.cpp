@@ -84,7 +84,6 @@ Timers::add_(const std::string& name, const double& time) {
 
 Timer::Timer(const std::string& name) :
 name_(name),
-timer_(),
 isStopped_(false) {
 }
 

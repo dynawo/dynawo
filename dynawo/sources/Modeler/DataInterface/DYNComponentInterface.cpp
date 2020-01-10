@@ -31,7 +31,6 @@ namespace DYN {
 
 ComponentInterface::ComponentInterface() :
 hasDynamicModel_(false),
-modelDyn_(),
 type_(UNKNOWN) {
 #ifdef _DEBUG_
   checkStateVariableAreUpdatedBeforeCriteriaCheck_ = false;

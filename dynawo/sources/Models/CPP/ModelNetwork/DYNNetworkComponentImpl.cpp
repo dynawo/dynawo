@@ -36,44 +36,41 @@ using parameters::ParametersSet;
 namespace DYN {
 
 NetworkComponent::Impl::Impl() :
-id_("") {
-  y_ = NULL;
-  yp_ = NULL;
-  f_ = NULL;
-  z_ = NULL;
-  g_ = NULL;
-  yType_ = NULL;
-  fType_ = NULL;
-  calculatedVars_ = NULL;
-  sizeG_ = 0;
-  sizeZ_ = 0;
-  sizeF_ = 0;
-  sizeY_ = 0;
-  sizeCalculatedVar_ = 0;
-  offsetCalculatedVar_ = 0;
-  sizeMode_ = 0;
-  network_ = NULL;
-}
+y_(NULL),
+yp_(NULL),
+f_(NULL),
+z_(NULL),
+calculatedVars_(NULL),
+g_(NULL),
+fType_(NULL),
+yType_(NULL),
+sizeF_(0),
+sizeY_(0),
+sizeZ_(0),
+sizeG_(0),
+sizeMode_(0),
+sizeCalculatedVar_(0),
+offsetCalculatedVar_(0),
+network_(NULL) { }
 
 NetworkComponent::Impl::Impl(const string& id) :
-id_(id) {
-  y_ = NULL;
-  yp_ = NULL;
-  f_ = NULL;
-  z_ = NULL;
-  g_ = NULL;
-  yType_ = NULL;
-  fType_ = NULL;
-  calculatedVars_ = NULL;
-  sizeG_ = 0;
-  sizeZ_ = 0;
-  sizeY_ = 0;
-  sizeCalculatedVar_ = 0;
-  offsetCalculatedVar_ = 0;
-  sizeMode_ = 0;
-  sizeF_ = 0;
-  network_ = NULL;
-}
+y_(NULL),
+yp_(NULL),
+f_(NULL),
+z_(NULL),
+calculatedVars_(NULL),
+g_(NULL),
+fType_(NULL),
+yType_(NULL),
+sizeF_(0),
+sizeY_(0),
+sizeZ_(0),
+sizeG_(0),
+sizeMode_(0),
+sizeCalculatedVar_(0),
+offsetCalculatedVar_(0),
+id_(id),
+network_(NULL) { }
 
 NetworkComponent::Impl::~Impl() {
 }

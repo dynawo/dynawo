@@ -29,16 +29,6 @@ namespace DYN {
 class ConnectInterface {  ///< Generic class for connecting two dynamic models
  public:
   /**
-   * @brief connection interface constructor
-   *
-   */
-  ConnectInterface() :
-  connectedModel1_(),
-  model1Var_(),
-  connectedModel2_(),
-  model2Var_() { }
-
-  /**
    * @brief default destructor.
    */
   virtual ~ConnectInterface() { }
