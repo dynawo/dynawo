@@ -69,28 +69,26 @@ BOOST_STATIC_ASSERT_MSG(sizeof (double) == sizeof (realtype), "wrong size of sun
 }  // namespace conditions
 
 Solver::Impl::Impl() :
-model_() {
-  yy_ = NULL;
-  yp_ = NULL;
-  yz_ = NULL;
-  yId_ = NULL;
-  tSolve_ = 0.;
-  fnormtolAlg_ = 1e-4;
-  initialaddtolAlg_ = 0.1;
-  scsteptolAlg_ = 1e-4;
-  mxnewtstepAlg_ = 100000;
-  msbsetAlg_ = 5;
-  mxiterAlg_ = 30;
-  printflAlg_ = 0;
-  fnormtolAlgJ_ = 1e-4;
-  initialaddtolAlgJ_ = 0.1;
-  scsteptolAlgJ_ = 1e-4;
-  mxnewtstepAlgJ_ = 100000;
-  msbsetAlgJ_ = 1;
-  mxiterAlgJ_ = 50;
-  printflAlgJ_ = 0;
-  previousReinit_ = None;
-}
+yy_(NULL),
+yp_(NULL),
+yz_(NULL),
+yId_(NULL),
+fnormtolAlg_(1e-4),
+initialaddtolAlg_(0.1),
+scsteptolAlg_(1e-4),
+mxnewtstepAlg_(100000),
+msbsetAlg_(5),
+mxiterAlg_(30),
+printflAlg_(0),
+fnormtolAlgJ_(1e-4),
+initialaddtolAlgJ_(0.1),
+scsteptolAlgJ_(1e-4),
+mxnewtstepAlgJ_(100000),
+msbsetAlgJ_(1),
+mxiterAlgJ_(50),
+printflAlgJ_(0),
+tSolve_(0.),
+previousReinit_(None) { }
 
 Solver::Impl::~Impl() {
   clean();

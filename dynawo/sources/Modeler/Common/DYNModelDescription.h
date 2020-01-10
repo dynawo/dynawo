@@ -46,7 +46,6 @@ class ModelDescription {
    * @brief default constructor.
    */
   ModelDescription() :
-  staticRefInterfaces_(),
   hasCompiledModel_(false) { }
 
   /**
@@ -55,7 +54,6 @@ class ModelDescription {
    */
   explicit ModelDescription(const boost::shared_ptr<dynamicdata::Model>& model) :
   model_(model),
-  staticRefInterfaces_(),
   hasCompiledModel_(false) { }
 
   /**

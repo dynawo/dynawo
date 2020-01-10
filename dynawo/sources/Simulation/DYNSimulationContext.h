@@ -32,11 +32,6 @@ namespace DYN {
 class SimulationContext {
  public:
   /**
-   * @brief default constructor
-   */
-  SimulationContext();
-
-  /**
    * @brief destructor
    */
   ~SimulationContext();

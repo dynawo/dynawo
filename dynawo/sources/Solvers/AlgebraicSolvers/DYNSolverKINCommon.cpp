@@ -45,16 +45,15 @@ using boost::shared_ptr;
 
 namespace DYN {
 
-SolverKINCommon::SolverKINCommon() {
-  KINMem_ = NULL;
-  yy_ = NULL;
-  lastRowVals_ = NULL;
-  LS_ = NULL;
-  M_ = NULL;
-  nbF_ = 0;
-  t0_ = 0.;
-  firstIteration_ = false;
-  linearSolverName_ = "";
+SolverKINCommon::SolverKINCommon() :
+KINMem_(NULL),
+LS_(NULL),
+M_(NULL),
+yy_(NULL),
+lastRowVals_(NULL),
+nbF_(0),
+t0_(0.),
+firstIteration_(false) {
 }
 
 SolverKINCommon::~SolverKINCommon() {

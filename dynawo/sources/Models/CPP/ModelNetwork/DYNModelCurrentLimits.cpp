@@ -28,8 +28,8 @@ using std::string;
 
 namespace DYN {
 
-ModelCurrentLimits::ModelCurrentLimits() {
-  nbTemporaryLimits_ = 0;
+ModelCurrentLimits::ModelCurrentLimits() :
+nbTemporaryLimits_(0) {
   side_ = SIDE_UNDEFINED;
   maxTimeOperation_ = VALDEF;
 }

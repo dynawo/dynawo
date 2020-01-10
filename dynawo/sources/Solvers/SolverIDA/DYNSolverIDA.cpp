@@ -125,26 +125,22 @@ SolverIDAFactory::SolverIDAFactory() {
 SolverIDAFactory::~SolverIDAFactory() {
 }
 
-SolverIDA::SolverIDA() {
-  flagInit_ = false;
-
-  IDAMem_ = NULL;
-  M_ = NULL;
-  LS_ = NULL;
+SolverIDA::SolverIDA() :
+IDAMem_(NULL),
+LS_(NULL),
+M_(NULL),
+order_(0),
+initStep_(0.),
+minStep_(0.),
+maxStep_(0.),
+absAccuracy_(0.),
+relAccuracy_(0.),
+flagInit_(false),
+lastRowVals_(NULL) {
   // KINSOL solver Init
   //-----------------------
   solverKINNormal_.reset(new SolverKINAlgRestoration());
   solverKINYPrim_.reset(new SolverKINAlgRestoration());
-
-  lastRowVals_ = NULL;
-  order_ = 0;
-  initStep_ = 0.;
-  minStep_ = 0.;
-  maxStep_ = 0.;
-  absAccuracy_ = 0.;
-  relAccuracy_ = 0.;
-  flagInit_ = false;
-  previousReinit_ = None;
 }
 
 void

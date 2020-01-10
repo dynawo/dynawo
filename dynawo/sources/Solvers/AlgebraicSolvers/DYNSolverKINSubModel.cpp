@@ -46,10 +46,10 @@ using boost::shared_ptr;
 namespace DYN {
 
 SolverKINSubModel::SolverKINSubModel() :
-subModel_() {
-  SolverKINCommon();
-  yBuffer_ = NULL;
-  fBuffer_ = NULL;
+SolverKINCommon(),
+subModel_(NULL),
+yBuffer_(NULL),
+fBuffer_(NULL) {
 }
 
 SolverKINSubModel::~SolverKINSubModel() {

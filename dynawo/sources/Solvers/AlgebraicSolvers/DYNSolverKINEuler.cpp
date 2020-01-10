@@ -54,10 +54,8 @@ using boost::shared_ptr;
 namespace DYN {
 
 SolverKINEuler::SolverKINEuler() :
-model_() {
-  SolverKINCommon();
-  h0_ = 0.;
-}
+SolverKINCommon(),
+h0_(0.) { }
 
 SolverKINEuler::~SolverKINEuler() {
   clean();

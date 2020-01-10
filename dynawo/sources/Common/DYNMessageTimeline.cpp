@@ -56,8 +56,8 @@ MessageTimeline::initialize(const string& key) {
   }
 }
 
-MessageTimeline::MessageTimeline(const MessageTimeline& m) : Message(m) {
-  priority_ = m.priority_;
-}
+MessageTimeline::MessageTimeline(const MessageTimeline& m) :
+Message(m),
+priority_(m.priority_) { }
 
 }  // namespace DYN

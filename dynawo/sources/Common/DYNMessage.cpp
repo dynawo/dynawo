@@ -78,11 +78,11 @@ Message::initialize(const std::string& dicoName, const std::string& key) {
   }
 }
 
-Message::Message(const Message& m) {
-  fmt_ = m.fmt_;
+Message::Message(const Message& m) :
+fmt_(m.fmt_),
+hasFmt_(m.hasFmt_),
+key_(m.key_) {
   fmtss_ << m.fmtss_.str();
-  hasFmt_ = m.hasFmt_;
-  key_ = m.key_;
 }
 
 std::string

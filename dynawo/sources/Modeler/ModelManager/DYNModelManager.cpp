@@ -59,13 +59,12 @@ using parameters::ParametersSetFactory;
 namespace DYN {
 
 ModelManager::ModelManager() :
-SubModel() {
-  dataInit_ = new DYNDATA;
-  dataDyn_ = new DYNDATA;
-  modelInit_ = NULL;
-  modelDyn_ = NULL;
-  modelInitUsed_ = false;
-}
+SubModel(),
+modelInit_(NULL),
+modelDyn_(NULL),
+dataInit_(new DYNDATA),
+dataDyn_(new DYNDATA),
+modelInitUsed_(false) { }
 
 ModelManager::~ModelManager() {
   delete dataInit_;

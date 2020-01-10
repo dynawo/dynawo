@@ -104,30 +104,29 @@ SolverSIMFactory::SolverSIMFactory() {
 SolverSIMFactory::~SolverSIMFactory() {
 }
 
-SolverSIM::SolverSIM() {
+SolverSIM::SolverSIM() :
+hMin_(0),
+hMax_(0),
+kReduceStep_(0),
+nEff_(0),
+nDeadband_(0),
+maxRootRestart_(0),
+maxNewtonTry_(0),
+recalculateStep_(false),
+tEnd_(0.),
+h_(0.),
+hNew_(0.),
+nNewt_(0),
+countRestart_(0),
+factorizationForced_(false),
+fnormtol_(1e-4),
+initialaddtol_(0.1),
+scsteptol_(1e-4),
+mxnewtstep_(100000),
+msbset_(0),
+mxiter_(15),
+printfl_(0) {
   solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
-  hMin_ = 0;
-  hMax_ = 0;
-  kReduceStep_ = 0;
-  nEff_ = 0;
-  nDeadband_ = 0;
-  maxRootRestart_ = 0;
-  maxNewtonTry_ = 0;
-  recalculateStep_ = false;
-  linearSolverName_ = "";
-  fnormtol_ = 1e-4;
-  initialaddtol_ = 0.1;
-  scsteptol_ = 1e-4;
-  mxnewtstep_ = 100000;
-  msbset_ = 0;
-  mxiter_ = 15;
-  printfl_ = 0;
-  factorizationForced_ = false;
-  countRestart_ = 0;
-  nNewt_ = 0;
-  hNew_ = 0.;
-  h_ = 0.;
-  tEnd_ = 0.;
 }
 
 SolverSIM::~SolverSIM() {

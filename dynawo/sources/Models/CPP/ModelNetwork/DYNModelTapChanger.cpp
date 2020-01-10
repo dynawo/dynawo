@@ -26,7 +26,6 @@ namespace DYN {
 
 ModelTapChanger::ModelTapChanger(const std::string& id) :
 id_(id),
-steps_(),
 currentStepIndex_(0),
 regulating_(false),
 lowStepIndex_(0),

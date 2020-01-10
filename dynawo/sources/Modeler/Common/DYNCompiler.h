@@ -85,8 +85,6 @@ class Compiler {
           const bool rmModels,
           std::string outputDir) :
   dyd_(dyd),
-  unitDynamicModelsMap_(),
-  compiledModelDescriptions_(),
   useStandardPrecompiledModels_(useStandardPrecompiledModels),
   precompiledModelsDirsPaths_(precompiledModelsDirs),
   precompiledModelsExtension_(precompiledModelsExtension),

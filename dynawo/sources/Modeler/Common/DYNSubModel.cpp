@@ -62,47 +62,47 @@ using curves::Curve;
 
 namespace DYN {
 
-SubModel::SubModel() {
-  yDeb_ = 0;
-  zDeb_ = 0;
-  modeDeb_ = 0;
-  fDeb_ = 0;
-  gDeb_ = 0;
-  initialized_ = false;
-  fLocal_ = NULL;
-  yLocal_ = NULL;
-  ypLocal_ = NULL;
-  gLocal_ = NULL;
-  zLocal_ = NULL;
+SubModel::SubModel() :
+sizeF_(0),
+sizeZ_(0),
+sizeG_(0),
+sizeMode_(0),
+sizeY_(0),
+sizeCalculatedVar_(0),
+fLocal_(NULL),
+gLocal_(NULL),
+yLocal_(NULL),
+ypLocal_(NULL),
+zLocal_(NULL),
+yType_(NULL),
+fType_(NULL),
+yDeb_(0),
+zDeb_(0),
+modeDeb_(0),
+fDeb_(0),
+gDeb_(0),
+withLoadedParameters_(false),
+withLoadedVariables_(false),
+sizeFSave_(0),
+sizeZSave_(0),
+sizeGSave_(0),
+sizeModeSave_(0),
+sizeYSave_(0),
+sizeCalculatedVarSave_(0),
+fLocalSave_(NULL),
+gLocalSave_(NULL),
+yLocalSave_(NULL),
+ypLocalSave_(NULL),
+zLocalSave_(NULL),
+modeChange_(false),
+modeChangeType_(NO_MODE) ,
+initialized_(false),
+currentTime_(0.),
+isInitProcess_(false) {
   variables_.clear();
   parametersDynamic_.clear();
   variablesInit_.clear();
   parametersInit_.clear();
-  withLoadedParameters_ = false;
-  withLoadedVariables_ = false;
-  sizeG_ = 0;
-  sizeGSave_ = 0;
-  gLocalSave_ = NULL;
-  sizeF_ = 0;
-  sizeFSave_ = 0;
-  fLocalSave_ = NULL;
-  fType_ = NULL;
-  sizeYSave_ = 0;
-  yType_ = NULL;
-  yLocalSave_ = NULL;
-  sizeY_ = 0;
-  ypLocalSave_ = NULL;
-  zLocalSave_ = NULL;
-  sizeZ_ = 0;
-  sizeZSave_ = 0;
-  sizeCalculatedVar_ = 0;
-  sizeCalculatedVarSave_ = 0;
-  isInitProcess_ = false;
-  sizeMode_ = 0;
-  sizeModeSave_ = 0;
-  currentTime_ = 0.;
-  modeChange_ = false;
-  modeChangeType_ = NO_MODE;
 }
 
 SubModel::~SubModel() {

@@ -67,18 +67,17 @@ zQMax_(0.),
 alphaLong_(0.),
 betaLong_(0.),
 u0_(0.),
+DeltaPc0_(0),
+DeltaQc0_(0),
+zP0_(1),
+zQ0_(1),
+zPprim0_(0),
+zQprim0_(0),
 yOffset_(0),
 DeltaPcYNum_(0),
 DeltaQcYNum_(0),
 zPYNum_(0),
 zQYNum_(0) {
-  zP0_ = 1;
-  zQ0_ = 1;
-  zPprim0_ = 0;
-  zQprim0_ = 0;
-  DeltaPc0_ = 0;
-  DeltaQc0_ = 0;
-
   // init data
   P0_ = load->getP() / SNREF;
   Q0_ = load->getQ() / SNREF;

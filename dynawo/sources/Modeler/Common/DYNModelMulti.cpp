@@ -63,25 +63,25 @@ using std::fstream;
 
 namespace DYN {
 
-ModelMulti::ModelMulti() {
-  sizeF_ = 0;
-  sizeY_ = 0;
-  sizeZ_ = 0;
-  sizeG_ = 0;
-  sizeMode_ = 0;
-  sizeCalculatedVar_ = 0;
-  offsetFOptional_ = 0;
-  zChange_ = false;
-  modeChangeType_ = NO_MODE;
-  modeChange_ = false;
+ModelMulti::ModelMulti() :
+fType_(NULL),
+yType_(NULL),
+sizeF_(0),
+sizeZ_(0),
+sizeG_(0),
+sizeMode_(0),
+sizeY_(0),
+sizeCalculatedVar_(0),
+zChange_(false),
+modeChange_(false),
+modeChangeType_(NO_MODE),
+offsetFOptional_(0),
+fLocal_(NULL),
+gLocal_(NULL),
+yLocal_(NULL),
+ypLocal_(NULL),
+zLocal_(NULL) {
   connectorContainer_.reset(new ConnectorContainer());
-  fLocal_ = NULL;
-  yLocal_ = NULL;
-  ypLocal_ = NULL;
-  gLocal_ = NULL;
-  zLocal_ = NULL;
-  fType_ = NULL;
-  yType_ = NULL;
 }
 
 void

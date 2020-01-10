@@ -22,13 +22,6 @@
 
 namespace DYN {
 
-SimulationContext::SimulationContext():
-workingDirectory_(),
-inputDirectory_(),
-resourcesDirectory_(),
-locale_() {
-}
-
 SimulationContext::~SimulationContext() {
 }
 

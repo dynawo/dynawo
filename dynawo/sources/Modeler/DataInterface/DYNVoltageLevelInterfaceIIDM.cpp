@@ -51,8 +51,7 @@ using boost::shared_ptr;
 namespace DYN {
 
 VoltageLevelInterfaceIIDM::VoltageLevelInterfaceIIDM(IIDM::VoltageLevel& voltageLevel) :
-voltageLevelIIDM_(voltageLevel),
-graph_() {
+voltageLevelIIDM_(voltageLevel) {
   isNodeBreakerTopology_ = (voltageLevelIIDM_.mode() == IIDM::VoltageLevel::node_breaker);
   if (voltageLevelIIDM_.mode() == IIDM::VoltageLevel::node_breaker) {
     for (int i = 0, iEnd = voltageLevelIIDM_.node_count(); i < iEnd; ++i) {
