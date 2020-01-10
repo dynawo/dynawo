@@ -91,8 +91,8 @@ tapChangerIndex_(0) {
   bool connected1 = tfo->getInitialConnected1();
   bool connected2 = tfo->getInitialConnected2();
 
-  side1_ = id() + "_side1";
-  side2_ = id() + "_side2";
+  side1_ = tfo->getID() + "_side1";
+  side2_ = tfo->getID() + "_side2";
 
   vNom1_ = NAN;
   vNom2_ = NAN;
