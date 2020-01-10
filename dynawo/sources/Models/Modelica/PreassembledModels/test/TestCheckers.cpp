@@ -11,6 +11,8 @@
 // simulation tool for power systems.
 //
 
+#include <boost/algorithm/string.hpp>
+
 #include "DYNExecUtils.h"
 #include "gtest_dynawo.h"
 
@@ -23,17 +25,23 @@ TEST(ModelsModelicaPreassembled, TestBuildChecker) {
   std::string cmd = pythonCmd + " buildChecker.py";
   std::stringstream ssPython;
   executeCommand(cmd, ssPython);
-  ASSERT_EQ(ssPython.str(), "Executing command : "+cmd+"\nUsage:  Usage: buildChecker.py <preassembled-model>\n\n    Script checking if the preassembled-model fils is well built.\n    Some implicit rules must be verify before launching the built of the\n    preassembled model\n\n    Return an error if theses rules are not verified\n    \n\nbuildChecker.py: error: Incorrect args number\n\n");
+  std::string result = ssPython.str();
+  boost::erase_all(result, "\n");
+  ASSERT_EQ(result, "Executing command : "+cmd+"Usage:  Usage: buildChecker.py <preassembled-model>    Script checking if the preassembled-model fils is well built.    Some implicit rules must be verify before launching the built of the    preassembled model    Return an error if theses rules are not verified    buildChecker.py: error: Incorrect args number");
   ssPython.str(std::string());
 
   cmd = pythonCmd + " buildChecker.py res/preassembled_ok.xml";
   executeCommand(cmd, ssPython);
-  ASSERT_EQ(ssPython.str(), "Executing command : " + cmd + "\n");
+  result = ssPython.str();
+  boost::erase_all(result, "\n");
+  ASSERT_EQ(result, "Executing command : " + cmd + "");
   ssPython.str(std::string());
 
   cmd = pythonCmd + " buildChecker.py res/preassembled_ko.xml";
   executeCommand(cmd, ssPython);
-  ASSERT_EQ(ssPython.str(), "Executing command : "+ cmd+ "\nERROR : res/preassembled_ko.xml is not well build\n         file name and preassembled model id must be equal\n         file name =preassembled_ko\n         preassembled model id =preassembled_ok\n\n");
+  result = ssPython.str();
+  boost::erase_all(result, "\n");
+  ASSERT_EQ(result, "Executing command : "+ cmd+ "ERROR : res/preassembled_ko.xml is not well build         file name and preassembled model id must be equal         file name =preassembled_ko         preassembled model id =preassembled_ok");
 }
 
 
