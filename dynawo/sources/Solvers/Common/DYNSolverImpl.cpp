@@ -71,7 +71,6 @@ BOOST_STATIC_ASSERT_MSG(sizeof (double) == sizeof (realtype), "wrong size of sun
 Solver::Impl::Impl() :
 yy_(NULL),
 yp_(NULL),
-yz_(NULL),
 yId_(NULL),
 fnormtolAlg_(1e-4),
 initialaddtolAlg_(0.1),
@@ -97,7 +96,6 @@ Solver::Impl::~Impl() {
 void
 Solver::Impl::clean() {
   if (yy_ != NULL) N_VDestroy_Serial(yy_);
-  if (yz_ != NULL) N_VDestroy_Serial(yz_);
   if (yp_ != NULL) N_VDestroy_Serial(yp_);
   if (yId_ != NULL) N_VDestroy_Serial(yId_);
 }
@@ -117,13 +115,6 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
   yy_ = N_VMake_Serial(nbEq, &(vYy_[0]));
   if (yy_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
-
-  // Discrete variables
-  int nbZ = model->sizeZ();
-  vYz_.resize(nbZ);
-  yz_ = N_VMake_Serial(nbZ, &(vYz_[0]));
-  if (yz_ == NULL)
-    throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYZ);
 
   // Derivatives
   vYp_.resize(nbEq);
@@ -150,7 +141,7 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
 
   // Initial values
   // -----------------
-  model_->getY0(t0, vYy_, vYp_, vYz_);
+  model_->getY0(t0, vYy_, vYp_);
 }
 
 void
@@ -229,7 +220,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
 
   for (int i = 0; i < 10; ++i) {
     // evalZ
-    model_->evalZ(time, vYz_);
+    model_->evalZ(time);
     zChange = model_->zChange();
 
     // evaluate G and compare with previous values

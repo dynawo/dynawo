@@ -204,23 +204,16 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void printEnd() = 0;
 
   /**
-   * @copydoc Solver::getCurrentZ()
-   */
-  inline std::vector<double>& getCurrentZ() {
-    return vYz_;
-  }
-
-  /**
    * @copydoc Solver::getCurrentY()
    */
-  inline std::vector<double>& getCurrentY() {
+  inline const std::vector<double>& getCurrentY() {
     return vYy_;
   }
 
   /**
    * @copydoc Solver::getCurrentYP()
    */
-  inline std::vector<double>& getCurrentYP() {
+  inline const std::vector<double>& getCurrentYP() {
     return vYp_;
   }
 
@@ -309,11 +302,9 @@ class Solver::Impl : public Solver, private boost::noncopyable {
 
   N_Vector yy_;  ///< continuous variables values stored in sundials structure
   N_Vector yp_;  ///<  derivative of variables stored in sundials structure
-  N_Vector yz_;  ///< discrete variables values stored in sundials structure
   N_Vector yId_;  ///< property of variables (algebraic/differential) stored in sundials structure
   std::vector<double> vYy_;  ///< continuous variables values
   std::vector<double> vYp_;  ///< derivative of variables
-  std::vector<double> vYz_;  ///< discrete variables values
   std::vector<DYN::propertyContinuousVar_t> vYId_;  ///< property of variables (algebraic/differential)
 
   // Parameters for the algebraic restoration

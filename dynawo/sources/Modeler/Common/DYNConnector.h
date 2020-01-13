@@ -208,7 +208,7 @@ class ConnectorContainer {
    * @param indicesDiff index of each z variables which has changed
    * @param z vector of discrete values
    */
-  void propagateZDiff(std::vector<int> & indicesDiff, std::vector<double> & z);
+  void propagateZDiff(std::vector<int> & indicesDiff, double* z);
 
   /**
    * @brief add a flow connector to the container

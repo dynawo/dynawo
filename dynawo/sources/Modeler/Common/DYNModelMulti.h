@@ -64,9 +64,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalG(double t, std::vector<state_g> &g);
 
   /**
-   * @copydoc Model::evalZ(double t, std::vector<double> &z)
+   * @copydoc Model::evalZ(double t)
    */
-  void evalZ(double t, std::vector<double> &z);
+  void evalZ(double t);
 
   /**
    * @copydoc Model::evalMode(double t)
@@ -99,9 +99,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void setGequationsModel();
 
   /**
-   * @copydoc Model::getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0, std::vector<double> &z0)
+   * @copydoc Model::getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0)
    */
-  void getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0, std::vector<double> &z0);
+  void getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0);
 
   /**
    * @copydoc Model::modeChange()
@@ -252,9 +252,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalCalculatedVariables(const double & t, const std::vector<double> &y, const std::vector<double> &yp, const std::vector<double> &z);
 
   /**
-   * @copydoc Model::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection, std::vector<double>& y, std::vector<double>& yp)
+   * @copydoc Model::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection, const std::vector<double>& y, const std::vector<double>& yp)
    */
-  void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection, std::vector<double>& y, std::vector<double>& yp);
+  void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection, const std::vector<double>& y, const std::vector<double>& yp);
 
   /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
@@ -394,18 +394,22 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::string getVariableName(int index);
 
   /**
-   * @copydoc Model::copyZ(const std::vector<double> &zLocal)
+   * @copydoc Model::getCurrentZ(std::vector<double> &z)
    */
-  void copyZ(const std::vector<double> &z);
+  void getCurrentZ(std::vector<double> &z);
+
+  /**
+   * @copydoc Model::setCurrentZ(const std::vector<double> &zLocal)
+   */
+  void setCurrentZ(const std::vector<double> &z);
 
  private:
   /**
    * @brief copy the new values of discretes variables to the variables connected to it
    *
-   * @param z new values of discrets variables
-   * @return true if there was a change in the discrete variable values
+   * @return true if there was at least one change in the discrete variable values
    */
-  bool copieResultZ(std::vector<double> & z);
+  bool propagateZModif();
 
   /**
    * @brief connect a variable of subModel1 to a variable of subModel2
