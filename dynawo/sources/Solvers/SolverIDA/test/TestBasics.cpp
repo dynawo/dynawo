@@ -226,7 +226,8 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
   std::vector<double> z0(model->sizeZ());
-  model->getY0(tStart, y0, yp0, z0);
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y0[0], -2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y0[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[0], 1);
@@ -297,7 +298,8 @@ TEST(SimulationTest, testSolverIDATestBeta) {
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
   std::vector<double> z0(model->sizeZ());
-  model->getY0(tStart, y0, yp0, z0);
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y0[0], -2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z0[0], -1);
@@ -309,7 +311,7 @@ TEST(SimulationTest, testSolverIDATestBeta) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  z = solver->getCurrentZ();
+  model->getCurrentZ(z);
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -318,7 +320,7 @@ TEST(SimulationTest, testSolverIDATestBeta) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  z = solver->getCurrentZ();
+  model->getCurrentZ(z);
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -330,7 +332,7 @@ TEST(SimulationTest, testSolverIDATestBeta) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  z = solver->getCurrentZ();
+  model->getCurrentZ(z);
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 2.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
@@ -350,7 +352,8 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   std::vector<double> y0(model->sizeY());
   std::vector<double> yp0(model->sizeY());
   std::vector<double> z0(model->sizeZ());
-  model->getY0(tStart, y0, yp0, z0);
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
 
   double tCurrent = tStart;
   std::vector<double> y(y0);
@@ -360,6 +363,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
+  model->getCurrentZ(z);
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   // Checking the voltage values at extreme nodes - Infinite node and F21 bus
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.94766640118361411549);
@@ -371,7 +375,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   for (size_t i = 0; i < z.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
   }
-  z = solver->getCurrentZ();
+  model->getCurrentZ(z);
   for (size_t i = 0; i < z.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
   }
@@ -392,7 +396,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   for (size_t i = 0; i < z.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
   }
-  z = solver->getCurrentZ();
+  model->getCurrentZ(z);
   for (size_t i = 0; i < z.size(); ++i) {
     if (i == 12 || i == 16)
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], 1);  // bus state == OPEN
@@ -405,7 +409,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   ASSERT_EQ(solver->getPreviousReinit(), AlgebraicWithJUpdate);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  z = solver->getCurrentZ();
+  model->getCurrentZ(z);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[2], 0.92684239292330972138);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[3], -0.12083482860045162421);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[12], 0);
@@ -436,7 +440,7 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
     else
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
   }
-  z = solver->getCurrentZ();
+  model->getCurrentZ(z);
   for (size_t i = 0; i < z.size(); ++i) {
     if (i == 12 || i == 16)
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], 1);  // bus state == OPEN

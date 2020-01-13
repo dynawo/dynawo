@@ -683,7 +683,7 @@ ConnectorContainer::evalFType() const {
 }
 
 void
-ConnectorContainer::propagateZDiff(vector<int> & indicesDiff, vector<double> & z) {
+ConnectorContainer::propagateZDiff(vector<int> & indicesDiff, double* z) {
   Timer timer("ConnectorContainer::propagateZDiff");
   // z modified, it is necessary to propagate the differences if we have a connector for each indicesDiff
   for (unsigned int i = 0; i < indicesDiff.size(); ++i) {

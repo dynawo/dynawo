@@ -390,7 +390,6 @@ SolverIDA::calculateIC() {
 
   // Updating discrete variable values and mode
   model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
-  model_->copyDiscreteVariables(&vYz_[0]);
   model_->evalG(tSolve_, g0_);
   evalZMode(g0_, g1_, tSolve_);
 
@@ -446,7 +445,6 @@ SolverIDA::calculateIC() {
     // Root stabilization
     change = false;
     model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
-    model_->copyDiscreteVariables(&vYz_[0]);
     model_->evalG(tSolve_, g1_);
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
     if (rootFound) {
@@ -571,11 +569,9 @@ SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype *gout,
   realtype *iyp = NV_DATA_S(yp);
   // the current z is needed to evaluate g
   // however, the method is static -> we use mod
-  vector<double> Z = solv->getCurrentZ();
   vector<state_g> G(model->sizeG());
 
   model->copyContinuousVariables(iyy, iyp);
-  model->copyDiscreteVariables(&Z[0]);
   model->evalG(tres, G);
 
   vector<double> gIDA(G.begin(), G.end());
@@ -649,7 +645,6 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
 
     // Propagating the root change
     model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
-    model_->copyDiscreteVariables(&vYz_[0]);
     model_->evalG(tNxt, g0_);
     ++stats_.nge_;
     evalZMode(g0_, g1_, tNxt);
@@ -777,7 +772,6 @@ SolverIDA::reinit() {
 
       // Root stabilization
       model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
-      model_->copyDiscreteVariables(&vYz_[0]);
       model_->evalG(tSolve_, g1_);
       ++stats_.nge_;
       bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));

@@ -91,9 +91,8 @@ class Model {
    * @brief evaluate the discrete variables of the model based on the variable values contained in the model
    *
    * @param t current time
-   * @param z values of the discrete variables
    */
-  virtual void evalZ(double t, std::vector<double> &z) = 0;
+  virtual void evalZ(double t) = 0;
 
   /**
    * @brief evaluate the mode of the model based on the variable values contained in the model
@@ -145,9 +144,8 @@ class Model {
    * @param t0 initial time of the simulation
    * @param y0 initial values of the variables
    * @param yp0 initial values of the derivatives of the variables
-   * @param z0 initial values of discretes variables
    */
-  virtual void getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0, std::vector<double> &z0) = 0;
+  virtual void getY0(const double& t0, std::vector<double> &y0, std::vector<double> &yp0) = 0;
 
   /**
    * @brief retrieve mode change information
@@ -334,7 +332,7 @@ class Model {
    * @param yp value of the derivatives used to calculate the variable
    */
   virtual void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection,
-      std::vector<double>& y, std::vector<double>& yp) = 0;
+      const std::vector<double>& y, const std::vector<double>& yp) = 0;
 
   /**
    * @brief export the parameters of the model for dump
@@ -449,6 +447,13 @@ class Model {
   virtual std::string getVariableName(int index) = 0;
 
   /**
+   * @brief Copy the discrete variable values from the model data structure to the solver data structure
+   *
+   * @param z vector of discrete values from the solver data structure
+   */
+  virtual void getCurrentZ(std::vector<double> &z) = 0;
+
+  /**
    * @brief Copy the discrete variable values from the solver data structure to the model data structure
    *
    * This fonction is necessary when a solver has to go back in time for non convergence reasons to begin the new resolution with
@@ -456,7 +461,7 @@ class Model {
    *
    * @param z vector of discrete values from the solver data structure
    */
-  virtual void copyZ(const std::vector<double> &z) = 0;
+  virtual void setCurrentZ(const std::vector<double> &z) = 0;
 };  ///< Generic class for Model
 }  // namespace DYN
 

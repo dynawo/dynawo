@@ -760,7 +760,7 @@ class SubModel {
    * @param y values of the variables used to calculate the variable
    * @param yp values of the derivatives used to calculate the variable
    */
-  void updateCalculatedVarForCurve(boost::shared_ptr<curves::Curve>& curve, double* y, double* yp);
+  void updateCalculatedVarForCurve(boost::shared_ptr<curves::Curve>& curve, const double* y, const double* yp);
 
   /**
    * @brief add a curve of a parameter to store for the model

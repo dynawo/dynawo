@@ -712,7 +712,7 @@ Simulation::calculateIC() {
   // ensure globally satisfactory initial values for dynamic models
   solver_->init(model_, tStart_, tStop_);
   solver_->calculateIC();
-  zCurrent_ = solver_->getCurrentZ();
+  model_->getCurrentZ(zCurrent_);
 
   if (dumpGlobalInitValues_) {
     string globalInitDir = createAbsolutePath("initValues/globalInit", outputsDirectory_);
@@ -763,11 +763,11 @@ Simulation::simulate() {
         updateCurves(true);
         Trace::debug() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
-        zCurrent_ = solver_->getCurrentZ();
+        model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
       } else if (solverState.getFlags(ZChange)) {
         updateCurves(true);
-        zCurrent_ = solver_->getCurrentZ();
+        model_->getCurrentZ(zCurrent_);
       }
 
       if (isCheckCriteriaIter)
@@ -992,7 +992,7 @@ Simulation::printFinalState(std::ostream& stream) const {
       break;
     case EXPORT_FINALSTATE_XML: {
       // update calculated variables
-      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), solver_->getCurrentZ());
+      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
 
       // association between requested variables and model variables
       for (finalStateModel_iterator itModel = finalStateCollection_->beginFinalStateModel();

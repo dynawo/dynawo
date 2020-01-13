@@ -266,7 +266,6 @@ class SolverSIM : public Solver::Impl {
   int printfl_;  ///< level of verbosity of output
 
   std::vector<double> ySave_;  ///< values of state variables before step
-  std::vector<double> ypSave_;  ///< values of derivative variables before step
   std::vector<double> zSave_;  ///< values of discrete variables before step
   std::vector<state_g> gSave_;  ///< values of roots before step
 };

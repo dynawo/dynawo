@@ -247,22 +247,16 @@ class Solver {
   virtual void printEnd() = 0;
 
   /**
-   * @brief getter for the current value of discrete variables
-   * @return the current value of discrete variables
-   */
-  virtual std::vector<double>& getCurrentZ() = 0;
-
-  /**
    * @brief getter for the current value of variables' derivatives
    * @return the current value of variables' derivatives
    */
-  virtual std::vector<double>& getCurrentYP() = 0;
+  virtual const std::vector<double>& getCurrentYP() = 0;
 
   /**
    * @brief getter for the current value of continuous variables
    * @return the current value of continuous derivatives
    */
-  virtual std::vector<double>& getCurrentY() = 0;
+  virtual const std::vector<double>& getCurrentY() = 0;
 
   /**
    * @brief getter for the current internal time of the solver

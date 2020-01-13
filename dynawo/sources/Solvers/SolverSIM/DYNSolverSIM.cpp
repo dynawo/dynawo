@@ -225,7 +225,6 @@ SolverSIM::calculateIC() {
 
   // Updating discrete variable values and mode
   model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
-  model_->copyDiscreteVariables(&vYz_[0]);
   model_->evalG(tSolve_, g0_);
   evalZMode(g0_, g1_, tSolve_);
 
@@ -246,7 +245,6 @@ SolverSIM::calculateIC() {
 
     change = false;
     model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
-    model_->copyDiscreteVariables(&vYz_[0]);
     model_->evalG(tSolve_, g1_);
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
     if (rootFound) {
@@ -431,7 +429,7 @@ void
 SolverSIM::saveInitialValues() {
   gSave_.assign(g0_.begin(), g0_.end());
   ySave_.assign(vYy_.begin(), vYy_.end());
-  zSave_.assign(vYz_.begin(), vYz_.end());
+  model_->getCurrentZ(zSave_);
 
   // At the moment, the Simplified solver uses an order 0 prediction in which the NR resolution begins with vYp_ = 0
   // ypSave_.assign(vYp_.begin(), vYp_.end());
@@ -462,7 +460,6 @@ SolverSIM::solve() {
 
     // Evaluate root values after the time step (using updated y and yp)
     model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
-    model_->copyDiscreteVariables(&vYz_[0]);
     model_->evalG(tSolve_ + h_, g1_);
     ++stats_.nge_;
 
@@ -564,9 +561,8 @@ SolverSIM::restoreInitialValues(bool zRestoration, bool rootRestoration) {
   // vYp_.assign(ypSave_.begin(), ypSave_.end());
 
   if (zRestoration) {
-    vYz_.assign(zSave_.begin(), zSave_.end());
     // Propagating the restoration to the model - z isn't copied from solver to model before evalF otherwise
-    model_->copyZ(vYz_);
+    model_->setCurrentZ(zSave_);
   }
 
   if (rootRestoration)
@@ -660,7 +656,6 @@ SolverSIM::reinit() {
 
     // Root stabilization - tSolve_ has been updated in the solve method to the current time
     model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
-    model_->copyDiscreteVariables(&vYz_[0]);
     model_->evalG(tSolve_, g1_);
     ++stats_.nge_;
     bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));

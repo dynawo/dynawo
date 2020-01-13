@@ -257,13 +257,13 @@ ModelMulti::init(const double& t0) {
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->initSub(t0);
 
-  // Detect if some discrete variable was modified during the initialization (e.g. subnetwork detection)
-  std::vector<double> z(sizeZ());
-  z.assign(zLocal_, zLocal_ + sizeZ());
+  // Detect if some discrete variable were modified during the initialization (e.g. subnetwork detection)
   vector<int> indicesDiff;
-  for (unsigned int i = 0; i < z.size(); ++i) {
-    if (doubleNotEquals(z[i], zSave_[i])) {
+  vector<int> valuesModified;
+  for (int i = 0; i < sizeZ(); ++i) {
+    if (doubleNotEquals(zLocal_[i], zSave_[i])) {
       indicesDiff.push_back(i);
+      valuesModified.push_back(zLocal_[i]);
     }
   }
 
@@ -271,33 +271,27 @@ ModelMulti::init(const double& t0) {
   //-------------------------------
   vector<double> y0(sizeY(), 0.);
   vector<double> yp0(sizeY(), 0.);
-  vector<double> z0(sizeZ(), 0.);
-  getY0(t0, y0, yp0, z0);
+  getY0(t0, y0, yp0);
 
   // Propagate the potential modifications of discrete variables. Needed here as otherwise
   // the next evalZ will not detect the modifications.
   if (!indicesDiff.empty()) {
     for (size_t i = 0; i < indicesDiff.size(); ++i) {
-      zLocal_[indicesDiff[i]] = z[indicesDiff[i]];
+      zLocal_[indicesDiff[i]] = valuesModified[i];
     }
-    z.assign(zLocal_, zLocal_ + sizeZ());
 
-    connectorContainer_->propagateZDiff(indicesDiff, z);
+    connectorContainer_->propagateZDiff(indicesDiff, zLocal_);
 
-    std::copy(z.begin(), z.end(), zLocal_);
     zSave_.assign(zLocal_, zLocal_ + sizeZ());
 
     for (unsigned int i = 0; i < subModels_.size(); ++i)
       subModels_[i]->evalZSub(t0);
-    z.assign(zLocal_, zLocal_ + sizeZ());
 
-    for (unsigned j = 0; j < 10 && copieResultZ(z); ++j) {
-      std::copy(z.begin(), z.end(), zLocal_);
+    for (unsigned j = 0; j < 10 && propagateZModif(); ++j) {
       for (unsigned int i = 0; i < subModels_.size(); ++i)
         subModels_[i]->evalGSub(t0);
       for (unsigned int i = 0; i < subModels_.size(); ++i)
         subModels_[i]->evalZSub(t0);
-      z.assign(zLocal_, zLocal_ + sizeZ());
     }
   }
 }
@@ -422,39 +416,34 @@ ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) {
 }
 
 void
-ModelMulti::evalZ(double t, vector<double> &z) {
+ModelMulti::evalZ(double t) {
 #ifdef _DEBUG_
   Timer timer("ModelMulti::evalZ");
 #endif
   if (sizeZ() == 0) return;
-
-  std::copy(z.begin(), z.end(), zLocal_);
-
   // calculate Z by model
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->evalZSub(t);
 
-  std::copy(zLocal_, zLocal_ + z.size(), z.begin());
-
   // propagation of z changes to connected variables
-  if (zSave_.size() != z.size())
-    zSave_.assign(z.size(), 0.);
+  if (zSave_.size() != static_cast<size_t>(sizeZ()))
+    zSave_.assign(sizeZ(), 0.);
 
-  zChange_ = copieResultZ(z);
+  zChange_ = propagateZModif();
 }
 
 bool
-ModelMulti::copieResultZ(vector<double> & z) {
+ModelMulti::propagateZModif() {
   vector<int> indicesDiff;
-  for (unsigned int i = 0; i < z.size(); ++i) {
-    if (doubleNotEquals(z[i], zSave_[i]))
+  for (int i = 0; i < sizeZ(); ++i) {
+    if (doubleNotEquals(zLocal_[i], zSave_[i]))
       indicesDiff.push_back(i);
   }
 
   bool changeDetected = !indicesDiff.empty();
   if (changeDetected) {
-    connectorContainer_->propagateZDiff(indicesDiff, z);
-    zSave_ = z;
+    connectorContainer_->propagateZDiff(indicesDiff, zLocal_);
+    std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
   }
   return changeDetected;
 }
@@ -531,7 +520,7 @@ ModelMulti::setGequationsModel() {
 }
 
 void
-ModelMulti::getY0(const double& t0, vector<double>& y0, vector<double>& yp0, vector<double>& z0) {
+ModelMulti::getY0(const double& t0, vector<double>& y0, vector<double>& yp0) {
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     subModels_[i]->getY0Sub();
     subModels_[i]->evalCalculatedVariablesSub(t0);
@@ -540,7 +529,6 @@ ModelMulti::getY0(const double& t0, vector<double>& y0, vector<double>& yp0, vec
 
   std::copy(yLocal_, yLocal_ + sizeY_, y0.begin());
   std::copy(ypLocal_, ypLocal_ + sizeY_, yp0.begin());
-  std::copy(zLocal_, zLocal_ + sizeZ_, z0.begin());
 }
 
 void
@@ -940,7 +928,7 @@ ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
 
 void
 ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection,
-    std::vector<double>& y, std::vector<double>& yp) {
+    const std::vector<double>& y, const std::vector<double>& yp) {
   Timer timer("ModelMulti::updateCurves");
   for (curves::CurvesCollection::iterator itCurve = curvesCollection->begin(), itCurveEnd = curvesCollection->end();
       itCurve != itCurveEnd; ++itCurve) {
@@ -1084,7 +1072,12 @@ std::string ModelMulti::getVariableName(int index) {
   return yNames_[index];
 }
 
-void ModelMulti::copyZ(const vector<double> &z) {
+void ModelMulti::getCurrentZ(vector<double> &z) {
+  z.assign(zLocal_, zLocal_ + sizeZ());
+}
+
+void ModelMulti::setCurrentZ(const vector<double> &z) {
+  assert(z.size() == (size_t)sizeZ());
   std::copy(z.begin(), z.end(), zLocal_);
 }
 }  // namespace DYN
