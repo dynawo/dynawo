@@ -82,7 +82,7 @@ ModelCurrentLimits::evalG(const string& /*componentName*/, const double& t, cons
   assert(openingAuthorized_.size() == limits_.size() && "Mismatching number of limits and vector sizes");
   assert(acceptableDurations_.size() == limits_.size() && "Mismatching number of limits and vector sizes");
 
-  for (int i = 0; i < limits_.size(); ++i) {
+  for (unsigned int i = 0; i < limits_.size(); ++i) {
     g[0 + 3 * i] = (current > limits_[i] && !activated_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I > Imax
     g[1 + 3 * i] = (current < limits_[i] && activated_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I < Imax
     if (openingAuthorized_[i])
@@ -95,7 +95,7 @@ ModelCurrentLimits::state_t
 ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g* g, ModelNetwork* network, const double& desactivate) {
   state_t state = ModelCurrentLimits::COMPONENT_CLOSE;
 
-  for (int i = 0; i < limits_.size(); ++i) {
+  for (unsigned int i = 0; i < limits_.size(); ++i) {
     if (!(desactivate > 0)) {
       if (g[0 + 3 * i] == ROOT_UP && !activated_[i]) {
         if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
@@ -117,7 +117,7 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
         tLimitReached_[i] = std::numeric_limits<double>::quiet_NaN();
       }
 
-      if (openingAuthorized_[i] && g[2 + 3 * i] == ROOT_UP) { // Warning: openingAuthorized_ = false => no associated g
+      if (openingAuthorized_[i] && g[2 + 3 * i] == ROOT_UP) {  // Warning: openingAuthorized_ = false => no associated g
         state = ModelCurrentLimits::COMPONENT_OPEN;
         network->addConstraint(componentName, true, DYNConstraint(OverloadOpen, acceptableDurations_[i]));
         network->addEvent(componentName, DYNTimeline(OverloadOpen, acceptableDurations_[i]));
