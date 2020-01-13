@@ -15,6 +15,8 @@ within Dynawo.Electrical.Machines;
 package BaseClasses_INIT
 
 partial model BaseGeneratorSimplified_INIT "Base initialization model for simplified generator models"
+
+  public
     parameter Types.ActivePowerPu P0Pu  "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in p.u (base UNom)";
