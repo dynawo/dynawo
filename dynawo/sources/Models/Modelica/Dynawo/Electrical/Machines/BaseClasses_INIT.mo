@@ -15,8 +15,6 @@ within Dynawo.Electrical.Machines;
 package BaseClasses_INIT
 
 partial model BaseGeneratorSimplified_INIT "Base initialization model for simplified generator models"
-
-  public
     parameter Types.ActivePowerPu P0Pu  "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in p.u (base UNom)";
@@ -95,7 +93,6 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
     Types.PerUnit sinTheta0 "Start value of sin(theta)";
     Types.PerUnit cosTheta0 "Start value of cos(theta)";
-    Types.PerUnit tanTheta0 "Start value of tan(theta)";
 
     Types.PerUnit Ud0Pu "Start value of voltage of direct axis in p.u";
     Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in p.u";
@@ -172,8 +169,7 @@ equation
   I0Pu = S0Pu/U0Pu;
   sinTheta0 = u0Pu.im -    XqPPu         *i0Pu.re*SystemBase.SnRef/SNom - (RaPPu + RTfoPu)*i0Pu.im*SystemBase.SnRef/SNom;
   cosTheta0 = u0Pu.re - (RaPPu + RTfoPu) *i0Pu.re*SystemBase.SnRef/SNom +       XqPPu     *i0Pu.im*SystemBase.SnRef/SNom;
-  tanTheta0 = sinTheta0/cosTheta0;
-  Theta0 = atan(tanTheta0);
+  Theta0 = ComplexMath.arg(Complex(cosTheta0, sinTheta0));
 
 // Park's transformations
   u0Pu.re =  sin(Theta0)*Ud0Pu + cos(Theta0)*Uq0Pu;
