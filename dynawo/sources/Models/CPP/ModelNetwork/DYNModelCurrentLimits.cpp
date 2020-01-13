@@ -29,7 +29,6 @@ using std::string;
 namespace DYN {
 
 ModelCurrentLimits::ModelCurrentLimits() {
-  nbLimits_ = 0;
   nbTemporaryLimits_ = 0;
   side_ = SIDE_UNDEFINED;
   maxTimeOperation_ = VALDEF;
@@ -40,12 +39,12 @@ ModelCurrentLimits::~ModelCurrentLimits() {
 
 int
 ModelCurrentLimits::sizeG() const {
-  return 3 * nbTemporaryLimits_ + 2 * (nbLimits_ - nbTemporaryLimits_);  // I > IMax, I < IMax, t-tLim > delay (optional)
+  return 3 * nbTemporaryLimits_ + 2 * (limits_.size() - nbTemporaryLimits_);  // I > IMax, I < IMax, t-tLim > delay (optional)
 }
 
 int
 ModelCurrentLimits::sizeZ() const {
-  return 0 * nbLimits_;
+  return 0 * limits_.size();
 }
 
 void
@@ -64,26 +63,26 @@ ModelCurrentLimits::addLimit(const double& limit) {
     limits_.push_back(limit);
     activated_.push_back(false);
     tLimitReached_.push_back(std::numeric_limits<double>::quiet_NaN());
-    nbLimits_++;
   }
 }
 
 void
 ModelCurrentLimits::addAcceptableDuration(const int& acceptableDuration) {
+  acceptableDurations_.push_back(acceptableDuration);
   if (acceptableDuration == std::numeric_limits<int>::max()) {
     openingAuthorized_.push_back(false);
   } else {
     openingAuthorized_.push_back(true);
-    acceptableDurations_.push_back(acceptableDuration);
     nbTemporaryLimits_++;
   }
 }
 
 void
 ModelCurrentLimits::evalG(const string& /*componentName*/, const double& t, const double& current, state_g* g, const double& desactivate) {
-  assert(openingAuthorized_.size() == static_cast<size_t>(nbLimits_) && "Mismatching number of limits and vector sizes");
+  assert(openingAuthorized_.size() == limits_.size() && "Mismatching number of limits and vector sizes");
+  assert(acceptableDurations_.size() == limits_.size() && "Mismatching number of limits and vector sizes");
 
-  for (int i = 0; i < nbLimits_; ++i) {
+  for (int i = 0; i < limits_.size(); ++i) {
     g[0 + 3 * i] = (current > limits_[i] && !activated_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I > Imax
     g[1 + 3 * i] = (current < limits_[i] && activated_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I < Imax
     if (openingAuthorized_[i])
@@ -96,7 +95,7 @@ ModelCurrentLimits::state_t
 ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g* g, ModelNetwork* network, const double& desactivate) {
   state_t state = ModelCurrentLimits::COMPONENT_CLOSE;
 
-  for (int i = 0; i < nbLimits_; ++i) {
+  for (int i = 0; i < limits_.size(); ++i) {
     if (!(desactivate > 0)) {
       if (g[0 + 3 * i] == ROOT_UP && !activated_[i]) {
         if (openingAuthorized_[i]) {  // Delay is specified => temporary limit
@@ -118,12 +117,10 @@ ModelCurrentLimits::evalZ(const string& componentName, const double& t, state_g*
         tLimitReached_[i] = std::numeric_limits<double>::quiet_NaN();
       }
 
-      if (openingAuthorized_[i]) {
-        if (g[2 + 3 * i] == ROOT_UP) {
-          state = ModelCurrentLimits::COMPONENT_OPEN;
-          network->addConstraint(componentName, true, DYNConstraint(OverloadOpen, acceptableDurations_[i]));
-          network->addEvent(componentName, DYNTimeline(OverloadOpen, acceptableDurations_[i]));
-        }
+      if (openingAuthorized_[i] && g[2 + 3 * i] == ROOT_UP) { // Warning: openingAuthorized_ = false => no associated g
+        state = ModelCurrentLimits::COMPONENT_OPEN;
+        network->addConstraint(componentName, true, DYNConstraint(OverloadOpen, acceptableDurations_[i]));
+        network->addEvent(componentName, DYNTimeline(OverloadOpen, acceptableDurations_[i]));
       }
     }
   }

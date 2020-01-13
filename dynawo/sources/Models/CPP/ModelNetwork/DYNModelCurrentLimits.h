@@ -117,7 +117,6 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   int sizeZ() const;
 
  private:
-  int nbLimits_;  ///< number of current limits
   int nbTemporaryLimits_;  ///< number of temporary limits (limits with a time duration)
   side_t side_;  ///< side
 
