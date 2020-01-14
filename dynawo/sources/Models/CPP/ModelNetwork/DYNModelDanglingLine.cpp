@@ -95,12 +95,10 @@ stateModified_(false) {
     currentLimits_->setSide(ModelCurrentLimits::SIDE_UNDEFINED);
     // Due to IIDM convention
     double limit = cLimit[0]->getLimit() / factorPuToA;
-    currentLimits_->addLimit(limit);
-    currentLimits_->addAcceptableDuration(cLimit[0]->getAcceptableDuration());
+    currentLimits_->addLimit(limit, cLimit[0]->getAcceptableDuration());
     for (unsigned int i = 1; i < cLimit.size(); ++i) {
       limit = cLimit[i-1]->getLimit() / factorPuToA;
-      currentLimits_->addLimit(limit);
-      currentLimits_->addAcceptableDuration(cLimit[i]->getAcceptableDuration());
+      currentLimits_->addLimit(limit, cLimit[i]->getAcceptableDuration());
     }
   }
 

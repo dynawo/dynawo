@@ -58,30 +58,23 @@ ModelCurrentLimits::setMaxTimeOperation(const double& maxTimeOperation) {
 }
 
 void
-ModelCurrentLimits::addLimit(const double& limit) {
+ModelCurrentLimits::addLimit(const double& limit, const int& acceptableDuration) {
   if (!std::isnan(limit)) {
     limits_.push_back(limit);
     activated_.push_back(false);
     tLimitReached_.push_back(std::numeric_limits<double>::quiet_NaN());
-  }
-}
-
-void
-ModelCurrentLimits::addAcceptableDuration(const int& acceptableDuration) {
-  acceptableDurations_.push_back(acceptableDuration);
-  if (acceptableDuration == std::numeric_limits<int>::max()) {
-    openingAuthorized_.push_back(false);
-  } else {
-    openingAuthorized_.push_back(true);
-    nbTemporaryLimits_++;
+    acceptableDurations_.push_back(acceptableDuration);
+    if (acceptableDuration == std::numeric_limits<int>::max()) {
+      openingAuthorized_.push_back(false);
+    } else {
+      openingAuthorized_.push_back(true);
+      nbTemporaryLimits_++;
+    }
   }
 }
 
 void
 ModelCurrentLimits::evalG(const string& /*componentName*/, const double& t, const double& current, state_g* g, const double& desactivate) {
-  assert(openingAuthorized_.size() == limits_.size() && "Mismatching number of limits and vector sizes");
-  assert(acceptableDurations_.size() == limits_.size() && "Mismatching number of limits and vector sizes");
-
   for (unsigned int i = 0; i < limits_.size(); ++i) {
     g[0 + 3 * i] = (current > limits_[i] && !activated_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I > Imax
     g[1 + 3 * i] = (current < limits_[i] && activated_[i] && !(desactivate > 0)) ? ROOT_UP : ROOT_DOWN;  // I < Imax
