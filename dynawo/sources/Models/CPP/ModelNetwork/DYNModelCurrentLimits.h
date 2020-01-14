@@ -87,13 +87,10 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
   /**
    * @brief add a new current limit (p.u. base UNom, base SNRef)
    * @param limit
-   */
-  void addLimit(const double& limit);
-  /**
-   * @brief add a maximum duration above the limit
    * @param acceptableDuration
    */
-  void addAcceptableDuration(const int& acceptableDuration);
+  void addLimit(const double& limit, const int& acceptableDuration);
+
   /**
    * @brief set side
    * @param side

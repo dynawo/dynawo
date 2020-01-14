@@ -128,12 +128,10 @@ ii2_dUi2_(0.) {
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
     // Due to IIDM convention
     double limit = cLimit1[0]->getLimit() / factorPuToA_;
-    currentLimits1_->addLimit(limit);
-    currentLimits1_->addAcceptableDuration(cLimit1[0]->getAcceptableDuration());
+    currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration());
     for (unsigned int i = 1; i < cLimit1.size(); ++i) {
       limit = cLimit1[i-1]->getLimit() / factorPuToA_;
-      currentLimits1_->addLimit(limit);
-      currentLimits1_->addAcceptableDuration(cLimit1[i]->getAcceptableDuration());
+      currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
     }
   }
 
@@ -144,12 +142,10 @@ ii2_dUi2_(0.) {
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
     // Due to IIDM convention
     double limit = cLimit2[0]->getLimit() / factorPuToA_;
-    currentLimits2_->addLimit(limit);
-    currentLimits2_->addAcceptableDuration(cLimit2[0]->getAcceptableDuration());
+    currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration());
     for (unsigned int i = 1; i < cLimit2.size(); ++i) {
       limit = cLimit2[i-1]->getLimit() / factorPuToA_;
-      currentLimits2_->addLimit(limit);
-      currentLimits2_->addAcceptableDuration(cLimit2[i]->getAcceptableDuration());
+      currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
     }
   }
 

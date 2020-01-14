@@ -29,25 +29,18 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 0);
 
-  mcl.addLimit(8.);
-  ASSERT_EQ(mcl.sizeZ(), 0);
-  ASSERT_EQ(mcl.sizeG(), 2);
   double t = 0.;
   double current = 4.;
   std::vector<state_g> states(mcl.sizeG(), NO_ROOT);
   const double desactivate = 0.;
-  EXPECT_DEATH(mcl.evalG("MY COMP", t, current, &states[0], desactivate), "Mismatching number of limits and vector sizes");
-  mcl.addAcceptableDuration(5);
-  ASSERT_EQ(mcl.sizeZ(), 0);
-  ASSERT_EQ(mcl.sizeG(), 3);
 
-  mcl.addLimit(std::numeric_limits<double>::quiet_NaN());
-  mcl.addAcceptableDuration(std::numeric_limits<int>::max());
+  mcl.addLimit(8., 5.);
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 3);
-  states.resize(mcl.sizeG(), NO_ROOT);
-  EXPECT_DEATH(mcl.evalG("MY COMP", t, current, &states[0], desactivate), "Mismatching number of limits and vector sizes");
-  mcl.addLimit(10.);
+  mcl.addLimit(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::max());
+  ASSERT_EQ(mcl.sizeZ(), 0);
+  ASSERT_EQ(mcl.sizeG(), 3);
+  mcl.addLimit(10., std::numeric_limits<int>::max());
   ASSERT_EQ(mcl.sizeZ(), 0);
   ASSERT_EQ(mcl.sizeG(), 5);
   states.resize(mcl.sizeG(), NO_ROOT);
