@@ -106,43 +106,47 @@ boost::shared_ptr<Model> initModelFromDyd(std::string dydFileName) {
 
 TEST(AlgebraicSolvers, testInit) {
   boost::shared_ptr<SolverKINCommon> solver(new SolverKINCommon());
-  ASSERT_THROW_DYNAWO(solver->initCommon("KLU", 1, 1, 1, 1, 1, 1, NULL, NULL), Error::SUNDIALS_ERROR, KeyError_t::SolverEmptyYVector);
+  ASSERT_THROW_DYNAWO(solver->initCommon("KLU", 1, 1, 1, 1, 1, 1, 1, NULL, NULL), Error::SUNDIALS_ERROR, KeyError_t::SolverEmptyYVector);
 
   boost::shared_ptr<Model> model = initModelFromDyd("dyd/solverTestAlpha.dyd");
   boost::shared_ptr<SolverKINEuler> solverEuler(new SolverKINEuler());
   // KINSetFuncNormTol
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", -1, 1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", -1, 1, 1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  // KINSetInitialAdditionalTolerance
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, -1, 1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
   // KINSetScaledStepTol
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, -1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, 1, -1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
   // KINSetMaxNewtonStep
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, 1, -1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, 1, 1, -1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
   // KINSetMaxSetupCalls
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, 1, 1, -1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, 1, 1, 1, -1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
   // KINSetNumMaxIters
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, 1, 1, 1, -1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, 1, 1, 1, 1, -1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
   // KINSetPrintLevel
-  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, 1, 1, 1, 1, -1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
-  ASSERT_NO_THROW(solverEuler->init(model, "KLU", 1, 1, 1, 1, 1, 1));
+  ASSERT_THROW_DYNAWO(solverEuler->init(model, "KLU", 1, 1, 1, 1, 1, 1, -1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_NO_THROW(solverEuler->init(model, "KLU", 1, 1, 1, 1, 1, 1, 1));
 }
 
 TEST(AlgebraicSolvers, testModifySettings) {
   boost::shared_ptr<Model> model = initModelFromDyd("dyd/solverTestAlpha.dyd");
   boost::shared_ptr<SolverKINAlgRestoration> solver(new SolverKINAlgRestoration());
-  ASSERT_NO_THROW(solver->init(model, SolverKINAlgRestoration::KIN_NORMAL, 1, 1, 1, 1, 1, 1));
+  ASSERT_NO_THROW(solver->init(model, SolverKINAlgRestoration::KIN_NORMAL, 1, 1, 1, 1, 1, 1, 1));
 
   // KINSetFuncNormTol
-  ASSERT_THROW_DYNAWO(solver->modifySettings(-1, 1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solver->modifySettings(-1, 1, 1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  // KINSetInitialAdditionalTolerance
+  ASSERT_THROW_DYNAWO(solver->modifySettings(1, -1, 1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
   // KINSetScaledStepTol
-  ASSERT_THROW_DYNAWO(solver->modifySettings(1, -1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solver->modifySettings(1, 1, -1, 1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
   // KINSetMaxNewtonStep
-  ASSERT_THROW_DYNAWO(solver->modifySettings(1, 1, -1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solver->modifySettings(1, 1, 1, -1, 1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
   // KINSetMaxSetupCalls
-  ASSERT_THROW_DYNAWO(solver->modifySettings(1, 1, 1, -1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solver->modifySettings(1, 1, 1, 1, -1, 1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
   // KINSetNumMaxIters
-  ASSERT_THROW_DYNAWO(solver->modifySettings(1, 1, 1, 1, -1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solver->modifySettings(1, 1, 1, 1, 1, -1, 1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
   // KINSetPrintLevel
-  ASSERT_THROW_DYNAWO(solver->modifySettings(1, 1, 1, 1, 1, -1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
-  ASSERT_NO_THROW(solver->modifySettings(1, 1, 1, 1, 1, 1));
+  ASSERT_THROW_DYNAWO(solver->modifySettings(1, 1, 1, 1, 1, 1, -1), Error::SUNDIALS_ERROR, KeyError_t::SolverFuncErrorKINSOL);
+  ASSERT_NO_THROW(solver->modifySettings(1, 1, 1, 1, 1, 1, 1));
 }
 
 TEST(AlgebraicSolvers, testAnalyseFlag) {

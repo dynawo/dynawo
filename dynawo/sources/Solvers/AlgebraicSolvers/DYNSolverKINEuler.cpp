@@ -64,7 +64,7 @@ SolverKINEuler::~SolverKINEuler() {
 }
 
 void
-SolverKINEuler::init(const shared_ptr<Model>& model, const std::string& linearSolverName, double fnormtol, double scsteptol,
+SolverKINEuler::init(const shared_ptr<Model>& model, const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
         double mxnewtstep, int msbset, int mxiter, int printfl) {
   clean();
   model_ = model;
@@ -86,7 +86,7 @@ SolverKINEuler::init(const shared_ptr<Model>& model, const std::string& linearSo
   if (yy_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
 
-  initCommon(linearSolverName, fnormtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN);
+  initCommon(linearSolverName, fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN);
 }
 
 int

@@ -116,6 +116,7 @@ SolverSIM::SolverSIM() {
   recalculateStep_ = false;
   linearSolverName_ = "";
   fnormtol_ = 1e-4;
+  initialaddtol_ = 0.1;
   scsteptol_ = 1e-4;
   mxnewtstep_ = 100000;
   msbset_ = 0;
@@ -147,6 +148,7 @@ SolverSIM::defineSpecificParameters() {
   // Parameters for the algebraic resolution at each time step
   parameters_.insert(make_pair("linearSolverName", ParameterSolver("linearSolverName", VAR_TYPE_STRING)));
   parameters_.insert(make_pair("fnormtol", ParameterSolver("fnormtol", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("initialaddtol", ParameterSolver("initialaddtol", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("scsteptol", ParameterSolver("scsteptol", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("mxnewtstep", ParameterSolver("mxnewtstep", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("msbset", ParameterSolver("msbset", VAR_TYPE_INT)));
@@ -168,6 +170,8 @@ SolverSIM::setSolverSpecificParameters() {
   linearSolverName_ = findParameter("linearSolverName").getValue<std::string>();
   if (findParameter("fnormtol").hasValue())
     fnormtol_ = findParameter("fnormtol").getValue<double>();
+  if (findParameter("initialaddtol").hasValue())
+    initialaddtol_ = findParameter("initialaddtol").getValue<double>();
   if (findParameter("scsteptol").hasValue())
     scsteptol_ = findParameter("scsteptol").getValue<double>();
   if (findParameter("mxnewtstep").hasValue())
@@ -198,7 +202,7 @@ SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double 
 
   if (model->sizeY() != 0) {
     solverKINEuler_.reset(new SolverKINEuler());
-    solverKINEuler_->init(model, linearSolverName_, fnormtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_);
+    solverKINEuler_->init(model, linearSolverName_, fnormtol_, initialaddtol_, scsteptol_, mxnewtstep_, msbset_, mxiter_, printfl_);
     solverKINEuler_->setIdVars();
   }
 
@@ -230,7 +234,8 @@ SolverSIM::calculateIC() {
   state_.reset();
   model_->reinitMode();
 
-  solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+  solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
+      initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
 
   do {
     Trace::debug() << DYNLog(CalculateICIteration, counter) << Trace::endline;
@@ -631,20 +636,21 @@ SolverSIM::reinit() {
     if (modeChangeType == ALGEBRAIC_MODE) {
       if (previousReinit_ == None) {
         solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
-                                       scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+            initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
         previousReinit_ = Algebraic;
       } else if (previousReinit_ == AlgebraicWithJUpdate) {
-        solverKINAlgRestoration_->modifySettings(fnormtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+        solverKINAlgRestoration_->modifySettings(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
         previousReinit_ = Algebraic;
       }
       noInitSetup = true;
     } else {
       if (previousReinit_ == None) {
         solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlgJ_,
-                                       scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+            initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
         previousReinit_ = AlgebraicWithJUpdate;
       } else if (previousReinit_ == Algebraic) {
-        solverKINAlgRestoration_->modifySettings(fnormtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+        solverKINAlgRestoration_->modifySettings(fnormtolAlgJ_, initialaddtolAlgJ_,
+            scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
         previousReinit_ = AlgebraicWithJUpdate;
       }
     }

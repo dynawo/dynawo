@@ -405,7 +405,8 @@ SolverIDA::calculateIC() {
   // loops until a stable state is found
   bool change(true);
   int counter = 0;
-  solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+  solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_, initialaddtolAlg_,
+      scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
   do {
     // call to solver KIN in order to find the new (adequate) algebraic variables's values
     solverKINNormal_->setInitialValues(tSolve_, vYy_, vYp_);
@@ -735,26 +736,26 @@ SolverIDA::reinit() {
       if (modeChangeType == ALGEBRAIC_MODE) {
         if (previousReinit_ == None) {
           solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
-                                 scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+              initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
           solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_YPRIM, fnormtolAlg_,
-                                scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+              initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
           previousReinit_ = Algebraic;
         } else if (previousReinit_ == AlgebraicWithJUpdate) {
-          solverKINNormal_->modifySettings(fnormtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
-          solverKINYPrim_->modifySettings(fnormtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+          solverKINNormal_->modifySettings(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+          solverKINYPrim_->modifySettings(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
           previousReinit_ = Algebraic;
         }
         noInitSetup = true;
       } else {
         if (previousReinit_ == None) {
           solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlgJ_,
-                                 scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+              initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
           solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_YPRIM, fnormtolAlgJ_,
-                               scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+              initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
           previousReinit_ = AlgebraicWithJUpdate;
         } else if (previousReinit_ == Algebraic) {
-          solverKINNormal_->modifySettings(fnormtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
-          solverKINYPrim_->modifySettings(fnormtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+          solverKINNormal_->modifySettings(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+          solverKINYPrim_->modifySettings(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
           previousReinit_ = AlgebraicWithJUpdate;
         }
       }

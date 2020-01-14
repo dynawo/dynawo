@@ -258,6 +258,7 @@ class SolverSIM : public Solver::Impl {
   // Parameters for the algebraic resolution at each time step
   std::string linearSolverName_;  ///< name of the linear solver (KLU or NICSLU at the moment)
   double fnormtol_;  ///< stopping tolerance on L2-norm of residual function
+  double initialaddtol_;  ///< stopping tolerance at initialization of residual function
   double scsteptol_;  ///< scaled step length tolerance
   double mxnewtstep_;  ///< maximum allowable scaled step length
   int msbset_;  ///< maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine

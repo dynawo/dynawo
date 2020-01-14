@@ -82,7 +82,7 @@ void SolverKINCommon::clean() {
 }
 
 void
-SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol, double scsteptol,
+SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
                      double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ) {
   linearSolverName_ = linearSolverName;
 
@@ -108,6 +108,10 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
   flag = KINSetFuncNormTol(KINMem_, fnormtol);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetFuncNormTol");
+
+  flag = KINSetInitialAdditionalTolerance(KINMem_, initialaddtol);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetInitialAdditionalTolerance");
 
   flag = KINSetScaledStepTol(KINMem_, scsteptol);
   if (flag < 0)

@@ -237,6 +237,7 @@ ModelMulti::initBuffers() {
   connectorContainer_->setBufferF(fLocal_, offsetF);
   connectorContainer_->setBufferY(yLocal_, ypLocal_);  // connectors access to the whole y Buffer
   connectorContainer_->setBufferZ(zLocal_);  // connectors access to the whole z buffer
+  std::fill(fLocal_ + offsetFOptional_, fLocal_ + sizeF_, 0);
 
   // (3) init buffers of each sub-model (useful for the network model)
   // (4) release elements that were used and declared only for connections
@@ -291,8 +292,7 @@ ModelMulti::init(const double& t0) {
       subModels_[i]->evalZSub(t0);
     z.assign(zLocal_, zLocal_ + sizeZ());
 
-    for (unsigned j = 0; j < 10 && !vectorAreEquals(zSave_, z); ++j) {
-      copieResultZ(z);
+    for (unsigned j = 0; j < 10 && copieResultZ(z); ++j) {
       std::copy(z.begin(), z.end(), zLocal_);
       for (unsigned int i = 0; i < subModels_.size(); ++i)
         subModels_[i]->evalGSub(t0);
@@ -369,8 +369,6 @@ ModelMulti::evalF(const double t, double* y, double* yp, double* f) {
 
   connectorContainer_->evalFConnector(t);
 
-  std::fill(fLocal_ + offsetFOptional_, fLocal_ + sizeF_, 0);
-
   std::copy(fLocal_, fLocal_ + sizeF_, f);
 }
 
@@ -443,15 +441,10 @@ ModelMulti::evalZ(double t, vector<double> &z) {
   if (zSave_.size() != z.size())
     zSave_.assign(z.size(), 0.);
 
-  if ( !vectorAreEquals(zSave_, z) ) {
-    zChange_ = true;
-    copieResultZ(z);
-  } else {
-    zChange_ = false;
-  }
+  zChange_ = copieResultZ(z);
 }
 
-void
+bool
 ModelMulti::copieResultZ(vector<double> & z) {
   vector<int> indicesDiff;
   for (unsigned int i = 0; i < z.size(); ++i) {
@@ -459,8 +452,12 @@ ModelMulti::copieResultZ(vector<double> & z) {
       indicesDiff.push_back(i);
   }
 
-  connectorContainer_->propagateZDiff(indicesDiff, z);
-  zSave_ = z;
+  bool changeDetected = !indicesDiff.empty();
+  if (changeDetected) {
+    connectorContainer_->propagateZDiff(indicesDiff, z);
+    zSave_ = z;
+  }
+  return changeDetected;
 }
 
 void

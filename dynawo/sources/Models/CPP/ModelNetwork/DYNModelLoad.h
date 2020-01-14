@@ -449,7 +449,7 @@ class ModelLoad : public NetworkComponent::Impl {
   double Tp_;  ///< time constant Tp
   bool TpIsZero_;  ///< true if Tp == 0
   double Tq_;  ///< time constant Tq
-  bool TqIsZero_;  ///< true if Tp == 0
+  bool TqIsZero_;  ///< true if Tq == 0
   double zPMax_;  ///< zPmax
   double zQMax_;  ///< zQMax
   double alphaLong_;  ///< alpha

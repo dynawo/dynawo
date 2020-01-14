@@ -409,8 +409,9 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @brief copy the new values of discretes variables to the variables connected to it
    *
    * @param z new values of discrets variables
+   * @return true if there was a change in the discrete variable values
    */
-  void copieResultZ(std::vector<double> & z);
+  bool copieResultZ(std::vector<double> & z);
 
   /**
    * @brief connect a variable of subModel1 to a variable of subModel2

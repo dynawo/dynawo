@@ -57,8 +57,8 @@ SolverKINSubModel::~SolverKINSubModel() {
 }
 
 void
-SolverKINSubModel::init(SubModel* subModel, const double t0, double* yBuffer, double *fBuffer, int mxiter, double fnormtol, double scsteptol,
-        double mxnewtstep, int msbset, int printfl) {
+SolverKINSubModel::init(SubModel* subModel, const double t0, double* yBuffer, double *fBuffer, int mxiter, double fnormtol, double initialaddtol,
+    double scsteptol, double mxnewtstep, int msbset, int printfl) {
   // (1) Attributes
   // --------------
   clean();
@@ -80,7 +80,7 @@ SolverKINSubModel::init(SubModel* subModel, const double t0, double* yBuffer, do
   if (yy_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverCreateYY);
 
-  initCommon("KLU", fnormtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalFInit_KIN, evalJInit_KIN);
+  initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalFInit_KIN, evalJInit_KIN);
 
   vYy_.assign(yBuffer, yBuffer + nbF_);
 }
