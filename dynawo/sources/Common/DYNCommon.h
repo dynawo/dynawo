@@ -35,16 +35,6 @@ namespace DYN {
   const char* sharedLibraryExtension();
 
   /**
-   * @brief determine whether two vectors of double are equalss
-   *
-   * @param y1 : first vector to compare
-   * @param y2 : second vector to compare
-   *
-   * @return @b true if vectors are equals, @b false otherwise
-   */
-  bool vectorAreEquals(const std::vector<double> &y1, const std::vector<double> & y2);
-
-  /**
    * @brief transforms a double number to a string
    *
    * @param value : double to transform

@@ -47,6 +47,7 @@ class SolverKINCommon {
    *
    * @param linearSolverName choice for linear solver
    * @param fnormtol stopping tolerance on L2-norm of function value
+   * @param initialaddtol stopping tolerance on initialization
    * @param scsteptol scaled step length tolerance
    * @param mxnewtstep maximum allowable scaled step length
    * @param mxiter maximum number of nonlinear iterations
@@ -55,7 +56,7 @@ class SolverKINCommon {
    * @param evalF method to evaluate the residuals
    * @param evalJ method to evaluate the Jacobian
    */
-  void initCommon(const std::string& linearSolverName, double fnormtol, double scsteptol,
+  void initCommon(const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
             double mxnewtstep, int msbset, int mxiter, int printfl, KINSysFn evalF, KINLsJacFn evalJ);
 
   /**

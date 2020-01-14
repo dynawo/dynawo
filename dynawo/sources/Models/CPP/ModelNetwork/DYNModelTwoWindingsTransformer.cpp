@@ -405,26 +405,23 @@ ModelTwoWindingsTransformer::evalNodeInjection() {
       modelBus2_->iiAdd(ii02_);
     }
   } else {
-    if (modelBus1_) {
+    if (modelBus1_ || modelBus2_) {
       double ur1Val = ur1();
       double ui1Val = ui1();
       double ur2Val = ur2();
       double ui2Val = ui2();
-      double irAdd1 = ir1(ur1Val, ui1Val, ur2Val, ui2Val);
-      double iiAdd1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
-      modelBus1_->irAdd(irAdd1);
-      modelBus1_->iiAdd(iiAdd1);
-    }
-
-    if (modelBus2_) {
-      double ur1Val = ur1();
-      double ui1Val = ui1();
-      double ur2Val = ur2();
-      double ui2Val = ui2();
-      double irAdd2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
-      double iiAdd2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
-      modelBus2_->irAdd(irAdd2);
-      modelBus2_->iiAdd(iiAdd2);
+      if (modelBus1_) {
+        double irAdd1 = ir1(ur1Val, ui1Val, ur2Val, ui2Val);
+        double iiAdd1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
+        modelBus1_->irAdd(irAdd1);
+        modelBus1_->iiAdd(iiAdd1);
+      }
+      if (modelBus2_) {
+        double irAdd2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
+        double iiAdd2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
+        modelBus2_->irAdd(irAdd2);
+        modelBus2_->iiAdd(iiAdd2);
+      }
     }
   }
 }

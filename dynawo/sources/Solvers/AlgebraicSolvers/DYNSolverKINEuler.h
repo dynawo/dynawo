@@ -58,13 +58,14 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
    * @param model instance of model to interact with
    * @param linearSolverName choice for linear solver (KLU or NICSLU at the moment)
    * @param fnormtol stopping tolerance on L2-norm of function value
+   * @param initialaddtol stopping tolerance at initialization
    * @param scsteptol scaled step length tolerance
    * @param mxnewtstep maximum allowable scaled step length
    * @param msbset maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
    * @param mxiter maximum number of nonlinear iterations
    * @param printfl level of verbosity of output
    */
-  void init(const boost::shared_ptr<Model>& model, const std::string& linearSolverName, double fnormtol, double scsteptol,
+  void init(const boost::shared_ptr<Model>& model, const std::string& linearSolverName, double fnormtol, double initialaddtol, double scsteptol,
           double mxnewtstep, int msbset, int mxiter, int printfl);
 
   /**

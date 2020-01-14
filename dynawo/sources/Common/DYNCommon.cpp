@@ -46,15 +46,6 @@ static const char extension[] = ".so";
   return extension;
 }
 
-bool vectorAreEquals(const std::vector<double> & y1, const std::vector<double> & y2) {
-  if (y1.size() != y2.size())
-    return false;
-
-  if (std::equal(y1.begin(), y1.end(), y2.begin()))
-    return true;
-  return false;
-}
-
 static double MAXIMUM_VALUE_FIXED = 1000000;  ///< maximum precision
 std::string double2String(const double& value) {
   std::stringstream ss("");

@@ -646,7 +646,7 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("printflAlgJ", 0));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 27);
+  ASSERT_EQ(solver->getParametersMap().size(), 30);
 }
 
 }  // namespace DYN

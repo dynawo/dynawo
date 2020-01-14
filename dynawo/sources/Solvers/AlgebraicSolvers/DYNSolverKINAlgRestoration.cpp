@@ -58,7 +58,7 @@ SolverKINAlgRestoration::~SolverKINAlgRestoration() {
 }
 
 void
-SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, double fnormtol, double scsteptol,
+SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, double fnormtol, double initialaddtol, double scsteptol,
                               double mxnewtstep, int msbset, int mxiter, int printfl) {
   // (1) Arguments
   // --------------
@@ -95,10 +95,10 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
 
   switch (mode) {
     case KIN_NORMAL:
-      initCommon("KLU", fnormtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN);
+      initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJ_KIN);
       break;
     case KIN_YPRIM:
-      initCommon("KLU", fnormtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJPrim_KIN);
+      initCommon("KLU", fnormtol, initialaddtol, scsteptol, mxnewtstep, msbset, mxiter, printfl, evalF_KIN, evalJPrim_KIN);
       break;
   }
 
@@ -145,7 +145,7 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
 }
 
 void
-SolverKINAlgRestoration::modifySettings(double fnormtol, double scsteptol, double mxnewtstep,
+SolverKINAlgRestoration::modifySettings(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
                   int msbset, int mxiter, int printfl) {
   if (nbF_ == 0)
     return;
@@ -154,6 +154,10 @@ SolverKINAlgRestoration::modifySettings(double fnormtol, double scsteptol, doubl
   int flag = KINSetFuncNormTol(KINMem_, fnormtol);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetFuncNormTol");
+
+  flag = KINSetInitialAdditionalTolerance(KINMem_, initialaddtol);
+  if (flag < 0)
+    throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetInitialAdditionalTolerance");
 
   flag = KINSetScaledStepTol(KINMem_, scsteptol);
   if (flag < 0)

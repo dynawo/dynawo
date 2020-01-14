@@ -61,26 +61,28 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    * @param model the model to simulate
    * @param mode mode of the solver (i.e algebraic equations or derivative)
    * @param fnormtol stopping tolerance on L2-norm of function value
+   * @param initialaddtol stopping tolerance at initialization
    * @param scsteptol scaled step length tolerance
    * @param mxnewtstep maximum allowable scaled step length
    * @param msbset maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
    * @param mxiter maximum number of nonlinear iterations
    * @param printfl level of verbosity of output
    */
-  void init(const boost::shared_ptr<Model>& model, modeKin_t mode, double fnormtol, double scsteptol,
+  void init(const boost::shared_ptr<Model>& model, modeKin_t mode, double fnormtol, double initialaddtol, double scsteptol,
             double mxnewtstep, int msbset, int mxiter, int printfl);
 
   /**
    * @brief modify the solver settings
    *
    * @param fnormtol stopping tolerance on L2-norm of function value
+   * @param initialaddtol stopping tolerance at initialization
    * @param scsteptol scaled step length tolerance
    * @param mxnewtstep maximum allowable scaled step length
    * @param msbset maximum number of nonlinear iterations that may be performed between calls to the linear solver setup routine
    * @param mxiter maximum number of nonlinear iterations
    * @param printfl level of verbosity of output
    */
-  void modifySettings(double fnormtol, double scsteptol, double mxnewtstep,
+  void modifySettings(double fnormtol, double initialaddtol, double scsteptol, double mxnewtstep,
                       int msbset, int mxiter, int printfl);
 
   /**

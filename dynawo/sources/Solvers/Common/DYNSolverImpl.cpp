@@ -76,12 +76,14 @@ model_() {
   yId_ = NULL;
   tSolve_ = 0.;
   fnormtolAlg_ = 1e-4;
+  initialaddtolAlg_ = 0.1;
   scsteptolAlg_ = 1e-4;
   mxnewtstepAlg_ = 100000;
   msbsetAlg_ = 5;
   mxiterAlg_ = 30;
   printflAlg_ = 0;
   fnormtolAlgJ_ = 1e-4;
+  initialaddtolAlgJ_ = 0.1;
   scsteptolAlgJ_ = 1e-4;
   mxnewtstepAlgJ_ = 100000;
   msbsetAlgJ_ = 1;
@@ -311,6 +313,7 @@ void
 Solver::Impl::defineCommonParameters() {
   // Parameters for the algebraic restoration
   parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("initialaddtolAlg", ParameterSolver("initialaddtolAlg", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("scsteptolAlg", ParameterSolver("scsteptolAlg", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("mxnewtstepAlg", ParameterSolver("mxnewtstepAlg", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("msbsetAlg", ParameterSolver("msbsetAlg", VAR_TYPE_INT)));
@@ -319,6 +322,7 @@ Solver::Impl::defineCommonParameters() {
 
   // Parameters for the algebraic restoration with J recalculation
   parameters_.insert(make_pair("fnormtolAlgJ", ParameterSolver("fnormtolAlgJ", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("initialaddtolAlgJ", ParameterSolver("initialaddtolAlgJ", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("scsteptolAlgJ", ParameterSolver("scsteptolAlgJ", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("mxnewtstepAlgJ", ParameterSolver("mxnewtstepAlgJ", VAR_TYPE_DOUBLE)));
   parameters_.insert(make_pair("msbsetAlgJ", ParameterSolver("msbsetAlgJ", VAR_TYPE_INT)));
@@ -398,12 +402,14 @@ void Solver::Impl::setSolverParameters() {
 
 void Solver::Impl::setSolverCommonParameters() {
   fnormtolAlg_ = 1e-4;
+  initialaddtolAlg_ = 0.1;
   scsteptolAlg_ = 1e-4;
   mxnewtstepAlg_ = 100000;
   msbsetAlg_ = 5;
   mxiterAlg_ = 30;
   printflAlg_ = 0;
   fnormtolAlgJ_ = 1e-4;
+  initialaddtolAlgJ_ = 0.1;
   scsteptolAlgJ_ = 1e-4;
   mxnewtstepAlgJ_ = 100000;
   msbsetAlgJ_ = 1;
@@ -412,6 +418,8 @@ void Solver::Impl::setSolverCommonParameters() {
 
   if (findParameter("fnormtolAlg").hasValue())
     fnormtolAlg_ = findParameter("fnormtolAlg").getValue<double>();
+  if (findParameter("initialaddtolAlg").hasValue())
+    initialaddtolAlg_ = findParameter("initialaddtolAlg").getValue<double>();
   if (findParameter("scsteptolAlg").hasValue())
     scsteptolAlg_ = findParameter("scsteptolAlg").getValue<double>();
   if (findParameter("mxnewtstepAlg").hasValue())
@@ -425,6 +433,8 @@ void Solver::Impl::setSolverCommonParameters() {
 
   if (findParameter("fnormtolAlgJ").hasValue())
     fnormtolAlgJ_ = findParameter("fnormtolAlgJ").getValue<double>();
+  if (findParameter("initialaddtolAlgJ").hasValue())
+    initialaddtolAlgJ_ = findParameter("initialaddtolAlgJ").getValue<double>();
   if (findParameter("scsteptolAlgJ").hasValue())
     scsteptolAlgJ_ = findParameter("scsteptolAlgJ").getValue<double>();
   if (findParameter("mxnewtstepAlgJ").hasValue())

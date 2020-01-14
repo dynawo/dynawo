@@ -80,38 +80,6 @@ TEST(CommonTest, testCommonToNativeBool) {
   ASSERT_FALSE(toNativeBool(-1.));
 }
 
-TEST(CommonTest, testCommonVectorEqualityDifferentSize) {
-  std::vector<double> a;
-  a.push_back(1.);
-  a.push_back(2.);
-
-  std::vector<double> b;
-  b.push_back(1.);
-  ASSERT_EQ(vectorAreEquals(a, b), false);
-}
-
-TEST(CommonTest, testCommonVectorEqualitySameSizeNotEqual) {
-  std::vector<double> a;
-  a.push_back(1.);
-  a.push_back(2.);
-
-  std::vector<double> b;
-  b.push_back(1.);
-  b.push_back(3.);
-  ASSERT_EQ(vectorAreEquals(a, b), false);
-}
-
-TEST(CommonTest, testCommonVectorEqualitySameSizeEqual) {
-  std::vector<double> a;
-  a.push_back(1.);
-  a.push_back(2.);
-
-  std::vector<double> b;
-  b.push_back(1.);
-  b.push_back(2.);
-  ASSERT_EQ(vectorAreEquals(a, b), true);
-}
-
 TEST(CommonTest, testFileSystemUtilsSearchFileNonExistant) {
   ASSERT_THROW_DYNAWO(searchFile("myPath", "", true), DYN::Error::GENERAL, DYN::KeyError_t::FileSystemItemDoesNotExist);
 }

@@ -11,10 +11,18 @@ index bdfa9efc..1ce3ce84 100644
  SUNDIALS_EXPORT int IDASetStopTime(void *ida_mem, realtype tstop);
  SUNDIALS_EXPORT int IDASetNonlinConvCoef(void *ida_mem, realtype epcon);
 diff --git a/include/kinsol/kinsol.h b/include/kinsol/kinsol.h
-index fa8a372a..f5ac23bb 100644
+index fa8a372a..cdf59ce4 100644
 --- a/include/kinsol/kinsol.h
 +++ b/include/kinsol/kinsol.h
-@@ -137,6 +137,8 @@ SUNDIALS_EXPORT int KINGetNumBacktrackOps(void *kinmem, long int *nbacktr);
+@@ -125,6 +125,7 @@ SUNDIALS_EXPORT int KINSetFuncNormTol(void *kinmem, realtype fnormtol);
+ SUNDIALS_EXPORT int KINSetScaledStepTol(void *kinmem, realtype scsteptol);
+ SUNDIALS_EXPORT int KINSetConstraints(void *kinmem, N_Vector constraints);
+ SUNDIALS_EXPORT int KINSetSysFunc(void *kinmem, KINSysFn func);
++SUNDIALS_EXPORT int KINSetInitialAdditionalTolerance(void *kinmem, realtype initialaddtol);
+ 
+ 
+ /* Optional output functions */
+@@ -137,6 +138,8 @@ SUNDIALS_EXPORT int KINGetNumBacktrackOps(void *kinmem, long int *nbacktr);
  SUNDIALS_EXPORT int KINGetFuncNorm(void *kinmem, realtype *fnorm);
  SUNDIALS_EXPORT int KINGetStepLength(void *kinmem, realtype *steplength);
  SUNDIALS_EXPORT char *KINGetReturnFlagName(long int flag);
@@ -160,23 +168,92 @@ index 5c1868f8..b9a19ff9 100644
  {
    IDAMem IDA_mem;
 diff --git a/src/kinsol/kinsol.c b/src/kinsol/kinsol.c
-index a9ad2e95..02e0c135 100644
+index b0b65be8..3d66f592 100644
 --- a/src/kinsol/kinsol.c
 +++ b/src/kinsol/kinsol.c
-@@ -1111,7 +1111,7 @@ static int KINSolInit(KINMem kin_mem)
+@@ -264,6 +264,8 @@ void *KINCreate(void)
+   kin_mem->kin_mxnstepin        = ZERO;
+   kin_mem->kin_sqrt_relfunc     = SUNRsqrt(uround);
+   kin_mem->kin_scsteptol        = SUNRpowerR(uround,TWOTHIRDS);
++  kin_mem->kin_fnormtol         = SUNRpowerR(uround,ONETHIRD);
++  kin_mem->kin_initialaddtol    = POINT1;
+   kin_mem->kin_etaflag          = KIN_ETACHOICE1;
+   kin_mem->kin_eta              = POINT1;     /* default for KIN_ETACONSTANT */
+   kin_mem->kin_eta_alpha        = TWO;        /* default for KIN_ETACHOICE2  */
+@@ -1110,7 +1112,7 @@ static int KINSolInit(KINMem kin_mem)
    }
  
    fmax = KINScFNorm(kin_mem, kin_mem->kin_fval, kin_mem->kin_fscale);
 -  if (fmax <= (POINT01 * kin_mem->kin_fnormtol)) {
-+  if (fmax <= (POINT1 * kin_mem->kin_fnormtol)) {
++  if (fmax <= (kin_mem->kin_initialaddtol*kin_mem->kin_fnormtol)) {
      kin_mem->kin_fnorm = N_VWL2Norm(kin_mem->kin_fval, kin_mem->kin_fscale);
      return(KIN_INITIAL_GUESS_OK);
    }
+diff --git a/src/kinsol/kinsol_impl.h b/src/kinsol/kinsol_impl.h
+index ff4b883d..4796fa28 100644
+--- a/src/kinsol/kinsol_impl.h
++++ b/src/kinsol/kinsol_impl.h
+@@ -67,6 +67,7 @@ typedef struct KINMemRec {
+   void *kin_user_data;         /* work space available to func routine         */
+   realtype kin_fnormtol;       /* stopping tolerance on L2-norm of function
+ 				  value                                        */
++  realtype kin_initialaddtol;  /* stopping tolerance on initialization         */
+   realtype kin_scsteptol;      /* scaled step length tolerance                 */
+   int kin_globalstrategy;      /* choices are KIN_NONE, KIN_LINESEARCH
+ 				  KIN_PICARD and KIN_FP                        */
+@@ -399,6 +400,7 @@ void KINInfoHandler(const char *module, const char *function,
+ #define MSG_BAD_MXNEWTSTEP     "Illegal mxnewtstep < 0."
+ #define MSG_BAD_RELFUNC        "relfunc < 0 illegal."
+ #define MSG_BAD_FNORMTOL       "fnormtol < 0 illegal."
++#define MSG_BAD_INITADDTOL     "initialaddtol < 0 illegal."
+ #define MSG_BAD_SCSTEPTOL      "scsteptol < 0 illegal."
+ #define MSG_BAD_MXNBCF         "mxbcf < 0 illegal."
+ #define MSG_BAD_CONSTRAINTS    "Illegal values in constraints vector."
 diff --git a/src/kinsol/kinsol_io.c b/src/kinsol/kinsol_io.c
-index 5a5138fb..31468ae0 100644
+index 5a5138fb..d7c9c2c3 100644
 --- a/src/kinsol/kinsol_io.c
 +++ b/src/kinsol/kinsol_io.c
-@@ -835,6 +835,8 @@ int KINSetSysFunc(void *kinmem, KINSysFn func)
+@@ -711,6 +711,39 @@ int KINSetFuncNormTol(void *kinmem, realtype fnormtol)
+   return(KIN_SUCCESS);
+ }
+ 
++/*
++ * -----------------------------------------------------------------
++ * Function : KINSetInitialAdditionalTolerance
++ * -----------------------------------------------------------------
++ */
++
++int KINSetInitialAdditionalTolerance(void *kinmem, realtype initialaddtol)
++{
++  KINMem kin_mem;
++  realtype uround;
++
++  if (kinmem == NULL) {
++    KINProcessError(NULL, KIN_MEM_NULL, "KINSOL", "KINSetInitialAdditionalTolerance", MSG_NO_MEM);
++    return(KIN_MEM_NULL);
++  }
++
++  kin_mem = (KINMem) kinmem;
++
++  if (initialaddtol < ZERO) {
++    KINProcessError(NULL, KIN_ILL_INPUT, "KINSOL", "KINSetInitialAdditionalTolerance", MSG_BAD_INITADDTOL);
++    return(KIN_ILL_INPUT);
++  }
++
++  if (initialaddtol == ZERO) {
++    uround = kin_mem->kin_uround;
++    kin_mem->kin_initialaddtol = SUNRpowerR(uround,ONETHIRD);
++  } else {
++    kin_mem->kin_initialaddtol = initialaddtol;
++  }
++
++  return(KIN_SUCCESS);
++}
++
+ /*
+  * -----------------------------------------------------------------
+  * Function : KINSetScaledStepTol
+@@ -835,6 +868,8 @@ int KINSetSysFunc(void *kinmem, KINSysFn func)
  #define fnorm (kin_mem->kin_fnorm)
  #define liw (kin_mem->kin_liw)
  #define lrw (kin_mem->kin_lrw)
@@ -185,7 +262,7 @@ index 5a5138fb..31468ae0 100644
  
  /* 
   * =================================================================
-@@ -1058,3 +1060,39 @@ char *KINGetReturnFlagName(long int flag)
+@@ -1058,3 +1093,39 @@ char *KINGetReturnFlagName(long int flag)
  
    return(name);
  }
