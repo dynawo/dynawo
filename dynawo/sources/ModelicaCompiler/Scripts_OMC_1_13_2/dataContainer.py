@@ -1168,6 +1168,13 @@ class RawOmcFunctions:
     def get_params(self):
         return self.params
 
+    ##
+    # get the variable name by removing variable type
+    # @param self: object pointer
+    # @param param: variable to filter
+    # @return variable name without variable type
+    def remove_variable_type_from_param(self, param):
+        return param.replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
 
     ##
     # find the parameters set by a call of this function
@@ -1179,12 +1186,12 @@ class RawOmcFunctions:
         match = re.match(ptrn_var_assigned, line_with_call)
         outputs = []
         if match is not None:
-            variable_name = match.group("varName").replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
+            variable_name = self.remove_variable_type_from_param(match.group("varName"))
             outputs.append(variable_name)
             ptrn_var= re.compile(r'[ ]*&data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
             variables = re.findall(ptrn_var, match.group("rhs"))
             for output_param in variables:
-                param_variable_name = output_param[1].replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
+                param_variable_name = self.remove_variable_type_from_param(output_param[1])
                 outputs.append(param_variable_name)
         return outputs
 
@@ -1202,7 +1209,7 @@ class RawOmcFunctions:
             ptrn_var= re.compile(r'[ ]*[^&]data->localData(\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]*')
             variables = re.findall(ptrn_var, match.group("rhs"))
             for input_param in variables:
-                param_variable_name = input_param[1].replace(" variable ","").replace(" DISCRETE ","").replace(" ","")
+                param_variable_name = self.remove_variable_type_from_param(input_param[1])
                 inputs.append(param_variable_name)
         return inputs
 

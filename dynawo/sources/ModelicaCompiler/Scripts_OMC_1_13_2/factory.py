@@ -755,9 +755,6 @@ class Factory:
             eq_maker = EqMaker(f)
             list_eq_maker_16dae_c.append( eq_maker )
 
-        # dictionary that stores the number of equations that depends on a specific variable
-        variable_to_equation_dependencies = {}
-
         # Find, for each function of the main *.c file :
         # - the variable it evaluates
         # - the vars on which it depends to evaluate this variable
@@ -1087,7 +1084,6 @@ class Factory:
             relations_found = re.findall(r'RELATIONHYSTERESIS\(tmp[0-9]+, .*?, .*?, [0-9]+, .*?\);', transform_rawbody_to_string(eq.get_raw_body()))
             for relation in relations_found:
                 index_relation = relation.split(", ")[3]
-                var_name = eq.get_evaluated_var()
                 if eq.get_is_diff_eq():
                     map_relations[index_relation] = ["DIFF", eq.get_src_fct_name()]
                 else:
@@ -1131,7 +1127,6 @@ class Factory:
                         index_relation_to_create = index_additional_relation + self.nb_existing_relations
                         index_additional_relation += 1
                         relation_to_create = Relation(index_relation_to_create, "ALG")
-                        var_name = eq.get_evaluated_var()
                         if eq.get_is_diff_eq():
                             relation_to_create.set_type("DIFF")
                         relation_to_create.set_condition(line)
