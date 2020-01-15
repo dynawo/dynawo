@@ -168,19 +168,18 @@ index 5c1868f8..b9a19ff9 100644
  {
    IDAMem IDA_mem;
 diff --git a/src/kinsol/kinsol.c b/src/kinsol/kinsol.c
-index b0b65be8..3d66f592 100644
+index a9ad2e95..3d66f592 100644
 --- a/src/kinsol/kinsol.c
 +++ b/src/kinsol/kinsol.c
-@@ -264,6 +264,8 @@ void *KINCreate(void)
-   kin_mem->kin_mxnstepin        = ZERO;
+@@ -265,6 +265,7 @@ void *KINCreate(void)
    kin_mem->kin_sqrt_relfunc     = SUNRsqrt(uround);
    kin_mem->kin_scsteptol        = SUNRpowerR(uround,TWOTHIRDS);
-+  kin_mem->kin_fnormtol         = SUNRpowerR(uround,ONETHIRD);
+   kin_mem->kin_fnormtol         = SUNRpowerR(uround,ONETHIRD);
 +  kin_mem->kin_initialaddtol    = POINT1;
    kin_mem->kin_etaflag          = KIN_ETACHOICE1;
    kin_mem->kin_eta              = POINT1;     /* default for KIN_ETACONSTANT */
    kin_mem->kin_eta_alpha        = TWO;        /* default for KIN_ETACHOICE2  */
-@@ -1110,7 +1112,7 @@ static int KINSolInit(KINMem kin_mem)
+@@ -1111,7 +1112,7 @@ static int KINSolInit(KINMem kin_mem)
    }
  
    fmax = KINScFNorm(kin_mem, kin_mem->kin_fval, kin_mem->kin_fscale);
