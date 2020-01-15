@@ -367,9 +367,6 @@ class ReaderOMC:
 
             if type_eq == "residuals" or  type_eq == "container" or type_eq == "start" or  type_eq == "parameter" or  (type_eq == "initial" and "system" in tag_eq):
                 index = str(int(equation["eqIndex"]))
-                display =""
-                if "display" in keys:
-                    display = equation["display"]
 
                 self.map_tag_num_eq[index]=str(tag_eq)
 

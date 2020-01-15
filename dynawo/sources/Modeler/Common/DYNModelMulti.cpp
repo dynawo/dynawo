@@ -750,8 +750,6 @@ ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, 
     for (unsigned int i = 0; i < numVars.size(); ++i) {
       createConnection(subModelConnector, xNamesConnector[col1stYModelExt + i], subModel1, xNamesModel[numVars[i]], true);
     }
-  } else {
-    col1stYModelExt = dynamic_pointer_cast<ConnectorCalculatedVariable> (subModelConnector)->col1stYModelExt();
   }
 
   const vector<string>& xNames = subModel2->xNames();
