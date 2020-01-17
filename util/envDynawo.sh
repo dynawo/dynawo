@@ -1553,6 +1553,13 @@ deploy_dynawo() {
   cp -P $DYNAWO_LIBXML_HOME/lib/*.* lib/
   echo "deploying libiidm libraries"
   cp -P $DYNAWO_LIBIIDM_HOME/lib/*.* lib/
+  if [ "$DYNAWO_BUILD_TYPE" = "Debug" -o "$DYNAWO_BUILD_TYPE" = "Tests" -o "$DYNAWO_BUILD_TYPE" = "TestCoverage" ]; then
+    if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
+      echo "deploying gtest libraries"
+      cp -P $DYNAWO_GTEST_HOME/lib*/*.* lib/
+    fi
+  fi
+
 
   if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
     error_exit "$DYNAWO_DEPLOY_DIR does not exist."
@@ -1578,6 +1585,13 @@ deploy_dynawo() {
   cp -n -R -P $DYNAWO_LIBXML_HOME/include/xml include/
   echo "deploying libiidm include folder"
   cp -n -R -P $DYNAWO_LIBIIDM_HOME/include/IIDM include/
+  echo "deploying gtest include folder"
+  if [ "$DYNAWO_BUILD_TYPE" = "Debug" -o "$DYNAWO_BUILD_TYPE" = "Tests" -o "$DYNAWO_BUILD_TYPE" = "TestCoverage" ]; then
+    if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
+      echo "deploying gtest libraries"
+      cp -n -R -P $DYNAWO_GTEST_HOME/include/* include/
+    fi
+  fi
 
   mkdir -p share
   cp -R -P $DYNAWO_LIBXML_HOME/share/cmake share/
