@@ -275,8 +275,6 @@ macro(COMPILE_CPP_MODEL
 
     add_custom_target(${CPP_MODEL}_HPP
         COMMAND
-            ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_SOURCE_DIR}/${CPP_MODEL}.hpp
-        COMMAND
             ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../checkSum_ModelsCPP.py -m ${CMAKE_CURRENT_SOURCE_DIR}/${CPP_MODEL} 2>&1 ||
             (echo "*** [${CPP_MODEL}] Error : for more information see previous log" && exit -1)
         COMMENT "Creating checkSum for ${CPP_MODEL}"
