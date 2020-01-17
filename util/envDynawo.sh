@@ -1633,7 +1633,7 @@ deploy_dynawo() {
     error_exit "$DYNAWO_BUILD_DIR should not be deleted before deploy to be able to determine boost libraries used during compilation."
   fi
   if [ -f "$boost_system_folder/libboost_iostreams.$LIBRARY_SUFFIX" ]; then
-    cp -P $boost_system_folder/libboost_iostreams*.$LIBRARY_SUFFIX lib/
+    cp -P $boost_system_folder/libboost_iostreams*.$LIBRARY_SUFFIX* lib/
   fi
   cp -n -P -R $boost_system_folder_include/boost include/
 
