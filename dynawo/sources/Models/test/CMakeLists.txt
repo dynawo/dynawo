@@ -8,10 +8,10 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-set(MODULE_NAME MODELS_PREASSEMBLED_unittest)
+set(MODULE_NAME MODELS_unittest)
 
 set(MODULE_SOURCES
-    TestCheckers.cpp
+    TestCheckSum.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -34,11 +34,11 @@ add_custom_target(${MODULE_NAME}-tests
 
 add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../buildChecker.py ${CMAKE_CURRENT_BINARY_DIR}/.
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../checkSum_ModelsCPP.py ${CMAKE_CURRENT_BINARY_DIR}/.
   )
 
 if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-  set(EXTRACT_PATTERNS "'*/sources/Models/PreassembledModels/*.py'")
+  set(EXTRACT_PATTERNS "'*/sources/Models/*.py'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()

@@ -73,25 +73,38 @@ if __name__ =='__main__':
     ckSum2 = get_checksum(path_h)
     ckSum = str(ckSum1)+'-'+str(ckSum2)
 
-    # read hpp.in file and replace _CHECKSUM_ by new ckSum in hpp file
-    # _CHECKSUM_ must be read !
-    f = open(path_hpp_in, 'r')
-    lines=[]
-    found = False
-    for line in f:
-        if '_CHECKSUM_' in line:
-            line = line.replace('_CHECKSUM_','"'+str(ckSum)+'"')
-            found =True
-        lines.append(line)
+    doIt = True
+    if os.path.isfile(path_hpp) :
+        f = open(path_hpp, 'r')
+        lines=[]
+        for line in f:
+            if '"'+str(ckSum)+'"' in line:
+                doIt =False
+                break
+        f.close()
+        if not doIt:
+            print ("File " + file_name_hpp + " already exist. It will not be regenerated.")
 
-    f.close()
+    if doIt:
+        # read hpp.in file and replace _CHECKSUM_ by new ckSum in hpp file
+        # _CHECKSUM_ must be read !
+        f = open(path_hpp_in, 'r')
+        lines=[]
+        found = False
+        for line in f:
+            if '_CHECKSUM_' in line:
+                line = line.replace('_CHECKSUM_','"'+str(ckSum)+'"')
+                found =True
+            lines.append(line)
 
-    if not found:
-        print ("Error : %s is not well-formatted, '_CHECKSUM_' is not in file" % file_name_hpp_in)
-        sys.exit(1)
+        f.close()
 
-    # write new file
-    f = open(path_hpp,'w')
-    for line in lines:
-        f.write(line)
-    f.close()
+        if not found:
+            print ("Error : %s is not well-formatted, '_CHECKSUM_' is not in file" % file_name_hpp_in)
+            sys.exit(1)
+
+        # write new file
+        f = open(path_hpp,'w')
+        for line in lines:
+            f.write(line)
+        f.close()
