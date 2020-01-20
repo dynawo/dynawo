@@ -30,6 +30,11 @@ def main():
         for file in files:
             if file.endswith(".py") and "TestCoverage" in root:
                 python_script_to_install_path[file] = os.path.join(root, file)
+    python_script_to_build_path = {}
+    for root, dirs, files in os.walk(os.path.join(os.environ["DYNAWO_HOME"], "build")):
+        for file in files:
+            if file.endswith(".py") and "TestCoverage" in root:
+                python_script_to_build_path[file] = os.path.join(root, file)
 
     f = open(coverage_file,'r')
     filedata = f.read()
@@ -40,6 +45,11 @@ def main():
         if script_filename in python_script_to_sources_path:
             print("    ### replacing " + "filename=\""+python_script_to_install_path[script_filename] + "=>" + "filename=\""+python_script_to_sources_path[script_filename])
             newdata = newdata.replace("filename=\""+python_script_to_install_path[script_filename],"filename=\""+python_script_to_sources_path[script_filename])
+
+    for script_filename in  python_script_to_build_path:
+        if script_filename in python_script_to_sources_path:
+            print("    ### replacing " + "filename=\""+python_script_to_build_path[script_filename] + "=>" + "filename=\""+python_script_to_sources_path[script_filename])
+            newdata = newdata.replace("filename=\""+python_script_to_build_path[script_filename],"filename=\""+python_script_to_sources_path[script_filename])
 
     f = open(coverage_file,'w')
     f.write(newdata)
