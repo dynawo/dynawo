@@ -1,30 +1,30 @@
-diff -urpN libarchive-2.8.0/CMakeLists.txt libarchive-2.8.0.patch/CMakeLists.txt
---- libarchive-2.8.0/CMakeLists.txt	2010-01-17 01:21:11.000000000 +0100
-+++ libarchive-2.8.0.patch/CMakeLists.txt	2019-10-09 10:36:11.692773862 +0200
-@@ -1,13 +1,25 @@
+diff -urpN libarchive-3.4.0/CMakeLists.txt libarchive-3.4.0.patch/CMakeLists.txt
+--- libarchive-3.4.0/CMakeLists.txt	2019-06-11 21:53:23.000000000 +0200
++++ libarchive-3.4.0.patch/CMakeLists.txt	2020-01-20 14:40:38.541576610 +0100
+@@ -1,5 +1,12 @@
+ #
 +if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
 +  if(POLICY CMP0091)
 +    cmake_policy(SET CMP0091 NEW)
 +  endif()
 +endif()
- #
- #
- PROJECT(libarchive C)
- #
- CMAKE_MINIMUM_REQUIRED(VERSION 2.6.3 FATAL_ERROR)
++#
+ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
 +SET(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
- SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/cmake")
+ if(POLICY CMP0074)
+   cmake_policy(SET CMP0074 NEW) #3.12.0 `find_package()`` uses ``<PackageName>_ROOT`` variables.
+ endif()
+@@ -10,6 +17,13 @@ SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_S
  if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${libarchive_BINARY_DIR}/bin)
  endif()
--
 +if(MSVC)
 +  if(NOT BUILD_SHARED_LIBS)
-+	if(MSVC_STATIC_RUNTIME_LIBRARY)
++   if(MSVC_STATIC_RUNTIME_LIBRARY)
 +      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-+	endif()
++   endif()
 +  endif()
 +endif()
  #
- # Version - read from 'version' file.
- #
+ # Set the Build type for make based generators.
+ # You can choose following types:
