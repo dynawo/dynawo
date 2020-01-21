@@ -1222,7 +1222,7 @@ class Factory:
         list_vars = sorted(list_vars,cmp = cmp_num_init_vars)
         # We prepare the results to print in setY0omc
         for var in list_vars :
-            if var.is_alias() and  (to_param_address(var.get_name()) == "SHOULD NOT BE USED"): continue
+            if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
             if var in self.reader.list_complex_calculated_vars: continue
             if var.get_use_start() and not (is_const_var(var) and var.get_init_by_param_in_06inz()):
                 init_val = var.get_start_text()[0]
@@ -2533,7 +2533,6 @@ class Factory:
     # @return
     def prepare_for_evalcalculatedvars(self):
         index = 0
-        self.list_for_evalcalculatedvars.append("  data->simulationInfo->discreteCall = 1;\n")
         for var in self.reader.list_calculated_vars:
             expr = self.reader.dic_calculated_vars_values[var.get_name()]
             if type(expr)==list:
@@ -2541,19 +2540,13 @@ class Factory:
                 for line in expr:
                     if "return " in line:
                         line = line.replace("return ",  "calculatedVars[" + str(index)+"] /* " + var.get_name() + "*/ = ")
-                    line = mmc_strings_len1(line)
-                    line_tmp = line
-                    line_tmp = transform_atan3_operator(line_tmp)
-                    line_tmp = sub_division_sim(line_tmp)
-                    line_tmp = replace_var_names(line_tmp)
-                    body.append(line_tmp)
+                    body.append(transform_line(line))
                 # convert native boolean variables
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
                 self.list_for_evalcalculatedvars.extend(body)
             else:
                 self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(index)+"] /* " + var.get_name() + "*/ = " + expr+";\n")
             index += 1
-        self.list_for_evalcalculatedvars.append("  data->simulationInfo->discreteCall = 0;\n")
 
 
     ##
@@ -2571,19 +2564,13 @@ class Factory:
         index = 0
         trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.derivative_residual_vars + self.reader.assign_residual_vars)
         ptrn_vars = re.compile(r'x\[(?P<varId>[0-9]+)\]')
-        self.list_for_evalcalculatedvari.append("  data->simulationInfo->discreteCall = 1;\n")
         for var in self.reader.list_calculated_vars:
             expr = self.reader.dic_calculated_vars_values[var.get_name()]
             self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */\n")
             if type(expr)==list:
                 body = []
                 for line in self.reader.dic_calculated_vars_values[var.get_name()]:
-                    line = mmc_strings_len1(line)
-                    line_tmp = line
-                    line_tmp = transform_atan3_operator(line_tmp)
-                    line_tmp = sub_division_sim(line_tmp)
-                    line_tmp = replace_var_names(line_tmp)
-                    body.append(line_tmp)
+                    body.append(transform_line(line))
                 trans.set_txt_list(body)
                 body_translated = trans.translate()
                 # convert native boolean variables
@@ -2602,14 +2589,11 @@ class Factory:
                     for val in sorted_indexes:
                         line = line.replace("x["+str(val)+"]", "y["+str(index_var)+"]")
                         index_var += 1
-                    if "return" in line:
-                         body.append("    data->simulationInfo->discreteCall = 0;\n")
                     body.append(line)
                 self.list_for_evalcalculatedvari.extend(body)
             else:
                 self.list_for_evalcalculatedvari.append("    return "+ expr+";\n")
             index += 1
-        self.list_for_evalcalculatedvari.append("  data->simulationInfo->discreteCall = 0;\n")
         self.list_for_evalcalculatedvari.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
 
 
@@ -2627,7 +2611,6 @@ class Factory:
     def prepare_for_evalcalculatedvariadept(self):
         trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.derivative_residual_vars + self.reader.assign_residual_vars)
         ptrn_vars = re.compile(r'x\[(?P<varId>[0-9]+)\]')
-        self.list_for_evalcalculatedvariadept.append("  data->simulationInfo->discreteCall = 1;\n")
 
         num_ternary = 0
         index = 0
@@ -2636,21 +2619,7 @@ class Factory:
             if var in self.reader.list_complex_calculated_vars:
                 body = []
                 for line in self.reader.dic_calculated_vars_values[var.get_name()]:
-                    line = mmc_strings_len1(line)
-                    line_tmp = line
-                    line_tmp = transform_atan3_operator(line_tmp)
-                    line_tmp = line_tmp.replace("modelica_real", "adept::adouble")
-                    line_tmp = line_tmp.replace("Greater(", "Greater<adept::adouble>(")
-                    line_tmp = line_tmp.replace("Less(", "Less<adept::adouble>(")
-                    line_tmp = line_tmp.replace("GreaterEq(", "GreaterEq<adept::adouble>(")
-                    line_tmp = line_tmp.replace("LessEq(", "LessEq<adept::adouble>(")
-                    line_tmp = line_tmp.replace("Greater)", "Greater<adept::adouble>)")
-                    line_tmp = line_tmp.replace("Less)", "Less<adept::adouble>)")
-                    line_tmp = line_tmp.replace("GreaterEq)", "GreaterEq<adept::adouble>)")
-                    line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
-                    line_tmp = sub_division_sim(line_tmp)
-                    line_tmp = replace_var_names(line_tmp)
-                    body.append(line_tmp)
+                    body.append(transform_line_adept(line))
             else:
                 body = "     return " + self.reader.dic_calculated_vars_values[var.get_name()]+";"
             assert (body != None)
@@ -2684,8 +2653,6 @@ class Factory:
                 for val in sorted_indexes:
                     line = line.replace("x["+str(val)+"]", "x["+str(index_var)+"]")
                     index_var += 1
-                if "return" in line:
-                    body.append("    data->simulationInfo->discreteCall = 0;\n")
                 body.append(line)
 
 
@@ -2694,7 +2661,6 @@ class Factory:
             index += 1
 
             self.list_for_evalcalculatedvariadept.append("\n\n")
-        self.list_for_evalcalculatedvariadept.append("  data->simulationInfo->discreteCall = 0;\n")
         self.list_for_evalcalculatedvariadept.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
 
 

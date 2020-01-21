@@ -1102,7 +1102,7 @@ class ReaderOMC:
                 elif type == "discreteAlgVars":
                     map_var_name_2_addresses[name]= "discreteVars"
                 elif type == "constVars":
-                    map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
+                    map_var_name_2_addresses[name]= "SHOULD NOT BE USED - CONST VAR"
                 elif type == "intAlgVars":
                     map_var_name_2_addresses[name]= "integerDoubleVars"
                 elif type == "boolAlgVars":
@@ -1116,7 +1116,7 @@ class ReaderOMC:
                         map_var_name_2_addresses[name]= "discreteVars"
                     # Aliased non-fixed vars should never be used in equations independently from their type
                     elif not var.is_fixed():
-                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
+                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED - CONTINUOUS ALIAS VAR"
                     # fixed real vars goes into the const var mechanism (either replaced by their alias if they are in the form a = b, or initialized in Y0 if more complex)
                     else:
                         map_var_name_2_addresses[name]= "constVars"
@@ -1124,12 +1124,12 @@ class ReaderOMC:
                     if var.is_fixed():
                         map_var_name_2_addresses[name]= "integerDoubleVars"
                     else:
-                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
+                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED - INT ALIAS VAR"
                 elif type == "boolAliasVars":
                     if var.is_fixed():
                         map_var_name_2_addresses[name]= "discreteVars"
                     else:
-                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED"
+                        map_var_name_2_addresses[name]= "SHOULD NOT BE USED - BOOL ALIAS VAR"
                 elif type == "paramVars" or type == "boolParamVars":
                     map_var_name_2_addresses[name]= "realParameter"
                 elif type == "intParamVars":
@@ -1231,13 +1231,18 @@ class ReaderOMC:
                 continue
 
             list_depend = [] # list of vars on which depends the function
-            is_elligible = True
+            is_eligible = True
             for line in f.get_body():
                 if "STATE_DER" in line:
-                    is_elligible = False
+                    # equations with derivatives should be kept in F
+                    is_eligible = False
+                if "RELATIONHYSTERESIS" in line:
+                    # equations with potential mode change should be kept in F
+                    is_eligible = False
                 for func_name in name_func_to_search:
                     if func_name +"("  in line or func_name +" (" in line:
-                        is_elligible = False
+                        is_eligible = False
+                        # equations with call to an external function  should be kept in F
                         func = name_func_to_search[func_name]
                         outputs = func.find_outputs_from_call(line)
                         if(len(outputs) >= 1):
@@ -1248,7 +1253,7 @@ class ReaderOMC:
                 list_depend.append(name_var_eval) # The / equation function depends on the var it evaluates
                 if name_var_eval in map_dep.keys():
                     list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
-                if is_elligible:
+                if is_eligible:
                     function_to_eval_variable[f] = name_var_eval
                 for var_name in list_depend:
                     if var_name == "time": continue
@@ -1279,7 +1284,7 @@ class ReaderOMC:
                 assert(var != None)
                 self.list_complex_calculated_vars[var] = f
                 function_to_remove.append(f)
-                map_var_name_2_addresses[var_name]= "SHOULD NOT BE USED"
+                map_var_name_2_addresses[var_name]= "SHOULD NOT BE USED - CALCULATED VAR"
         for f in function_to_remove:
             self.list_func_16dae_c.remove(f)
 

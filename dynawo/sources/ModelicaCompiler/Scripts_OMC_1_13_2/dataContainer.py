@@ -1606,17 +1606,7 @@ class Equation(EquationBase):
         text_to_return = []
         for line in self.body:
             line = mmc_strings_len1(line)
-            line_tmp = line
-            line_tmp = line_tmp.replace("modelica_real", "adept::adouble")
-            line_tmp = line_tmp.replace("Greater(", "Greater<adept::adouble>(")
-            line_tmp = line_tmp.replace("Less(", "Less<adept::adouble>(")
-            line_tmp = line_tmp.replace("GreaterEq(", "GreaterEq<adept::adouble>(")
-            line_tmp = line_tmp.replace("LessEq(", "LessEq<adept::adouble>(")
-            line_tmp = line_tmp.replace("Greater)", "Greater<adept::adouble>)")
-            line_tmp = line_tmp.replace("Less)", "Less<adept::adouble>)")
-            line_tmp = line_tmp.replace("GreaterEq)", "GreaterEq<adept::adouble>)")
-            line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
-            line_tmp = replace_var_names(line_tmp)
+            line_tmp = transform_line_adept(line)
 
             if has_omc_trace (line) or has_omc_equation_indexes (line) or ("infoStreamPrint" in line)\
                    or ("data->simulationInfo->needToIterate = 1") in line:

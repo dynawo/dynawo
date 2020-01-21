@@ -467,7 +467,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
   std::vector<std::string> yNames_;  ///< names of all variables y
   std::vector<boost::shared_ptr<SubModel> > subModels_;  ///< list of each sub models
-  std::map<std::string, size_t > subModelByName_;  ///< map associating a sub model to its name
+  std::map<std::string, size_t > subModelByName_;  ///< map associating a sub model name to its index in subModels_
   boost::shared_ptr<ConnectorContainer> connectorContainer_;  ///< list of each connector
   std::vector<double> zSave_;  ///< save of the last discretes values
   propertyF_t* fType_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)
