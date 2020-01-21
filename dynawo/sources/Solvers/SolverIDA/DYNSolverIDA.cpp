@@ -719,6 +719,7 @@ void
 SolverIDA::reinit() {
   int counter = 0;
   modeChangeType_t modeChangeType = model_->getModeChangeType();
+  if (modeChangeType == NO_MODE) return;
 
   if (modeChangeType != DIFFERENTIAL_MODE) {
     do {

@@ -735,6 +735,7 @@ ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, 
   boost::shared_ptr<SubModel> subModelConnector = findSubModelByName(name);
   int col1stYModelExt;
   if (!subModelConnector) {
+    // Multiple connection to the same connector can happen with flow connections
     connector = shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable());
     connector->name(name);
     connector->setVariableName(calculatedVarName1);

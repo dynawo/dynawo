@@ -453,52 +453,42 @@ void ModelGeneratorPQ_Init::setFType_omc(propertyF_t* fType)
 
 void ModelGeneratorPQ_Init::evalCalculatedVars(std::vector<double>& calculatedVars)
 {
-  data->simulationInfo->discreteCall = 1;
   {
       calculatedVars[0] /* generator.PGen0Pu*/ = (-data->simulationInfo->realParameter[0] /* generator.P0Pu PARAM */);
   }
   {
       calculatedVars[1] /* generator.QGen0Pu*/ = (-data->simulationInfo->realParameter[1] /* generator.Q0Pu PARAM */);
   }
-  data->simulationInfo->discreteCall = 0;
 }
 
 double ModelGeneratorPQ_Init::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
 {
-  data->simulationInfo->discreteCall = 1;
   if (iCalculatedVar == 0)  /* generator.PGen0Pu */
   {
-    data->simulationInfo->discreteCall = 0;
       return (-data->simulationInfo->realParameter[0] /* generator.P0Pu PARAM */);
   }
   if (iCalculatedVar == 1)  /* generator.QGen0Pu */
   {
-    data->simulationInfo->discreteCall = 0;
       return (-data->simulationInfo->realParameter[1] /* generator.Q0Pu PARAM */);
   }
-  data->simulationInfo->discreteCall = 0;
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 
 #ifdef _ADEPT_
 adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)
 {
-  data->simulationInfo->discreteCall = 1;
   if (iCalculatedVar == 0)  /* generator.PGen0Pu */
   {
-    data->simulationInfo->discreteCall = 0;
       return (-data->simulationInfo->realParameter[0] /* generator.P0Pu PARAM */);
   }
 
 
   if (iCalculatedVar == 1)  /* generator.QGen0Pu */
   {
-    data->simulationInfo->discreteCall = 0;
       return (-data->simulationInfo->realParameter[1] /* generator.Q0Pu PARAM */);
   }
 
 
-  data->simulationInfo->discreteCall = 0;
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 #endif

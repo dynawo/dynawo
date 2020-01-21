@@ -752,6 +752,38 @@ def transform_atan3_operator_evalf(line):
     return line_tmp_bis
 
 ##
+# Transform a line so that it can be compiled
+# @param line : line to analyse
+# @return line transformed
+def transform_line(line):
+    line_tmp = mmc_strings_len1(line)
+    line_tmp = transform_atan3_operator(line_tmp)
+    line_tmp = sub_division_sim(line_tmp)
+    line_tmp = replace_var_names(line_tmp)
+    line_tmp = replace_pow(line_tmp)
+    return line_tmp
+
+##
+# Transform a line using adept so that it can be compiled
+# @param line : line to analyse
+# @return line transformed
+def transform_line_adept(line):
+    line_tmp = mmc_strings_len1(line)
+    line_tmp = transform_atan3_operator_evalf(line_tmp)
+    line_tmp = sub_division_sim(line_tmp)
+    line_tmp = replace_var_names(line_tmp)
+    line_tmp = line_tmp.replace("modelica_real", "adept::adouble")
+    line_tmp = line_tmp.replace("Greater(", "Greater<adept::adouble>(")
+    line_tmp = line_tmp.replace("Less(", "Less<adept::adouble>(")
+    line_tmp = line_tmp.replace("GreaterEq(", "GreaterEq<adept::adouble>(")
+    line_tmp = line_tmp.replace("LessEq(", "LessEq<adept::adouble>(")
+    line_tmp = line_tmp.replace("Greater)", "Greater<adept::adouble>)")
+    line_tmp = line_tmp.replace("Less)", "Less<adept::adouble>)")
+    line_tmp = line_tmp.replace("GreaterEq)", "GreaterEq<adept::adouble>)")
+    line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
+    return line_tmp
+
+##
 # Transform raw_body in a list to a string, used by setGequations()
 # @param raw_body : raw_body in a list of string
 # @return string : string contains raw_body

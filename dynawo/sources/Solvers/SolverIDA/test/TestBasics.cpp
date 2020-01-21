@@ -219,8 +219,8 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
 
   solver->calculateIC();
 
-  ASSERT_EQ(model->sizeY(), 1);
-  ASSERT_EQ(model->sizeF(), 1);
+  ASSERT_EQ(model->sizeY(), 2);
+  ASSERT_EQ(model->sizeF(), 2);
   ASSERT_EQ(model->sizeG(), 1);
   ASSERT_EQ(model->sizeZ(), 0);
   std::vector<double> y0(model->sizeY());
@@ -228,7 +228,9 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   std::vector<double> z0(model->sizeZ());
   model->getY0(tStart, y0, yp0, z0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y0[0], -2);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y0[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp0[1], 0);
 
   double tCurrent = tStart;
   std::vector<double> y(y0);
@@ -239,14 +241,18 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], -1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
@@ -255,14 +261,16 @@ TEST(SimulationTest, testSolverIDATestAlpha) {
   // The event in the model is written as if (x <= 0) which means that the root is detected just after t = 2 (2 + epsilon).
   // IDA will thus stop just after t = 2 and is reinitialized (thus the next time step will be t = 3)
   ASSERT_NO_THROW(solver->reinit());
-  ASSERT_EQ(solver->getPreviousReinit(), AlgebraicWithJUpdate);
+  ASSERT_EQ(solver->getPreviousReinit(), Algebraic);
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
 
   ASSERT_EQ(solver->getState().noFlagSet(), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(y[1], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(yp[1], 0);
 
   solver->setPreviousReinit(AlgebraicWithJUpdate);
   ASSERT_EQ(solver->getPreviousReinit(), AlgebraicWithJUpdate);
