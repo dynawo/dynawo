@@ -177,6 +177,23 @@ elseif('${CMAKE_CXX_COMPILER_ID}' STREQUAL 'Clang' OR '${CMAKE_CXX_COMPILER_ID}'
   endif()
 endif()
 
+if(APPLE)
+  set(CMAKE_MACOSX_RPATH True)
+
+  # use, i.e. don't skip the full RPATH for the build tree
+  set(CMAKE_SKIP_BUILD_RPATH False)
+
+  # when building, don't use the install RPATH already
+  # (but later on when installing)
+  set(CMAKE_BUILD_WITH_INSTALL_RPATH False)
+
+  set(CMAKE_INSTALL_RPATH "${INSTALL_PREFIX}/lib")
+
+  # add the automatically determined parts of the RPATH
+  # which point to directories outside the build tree to the install RPATH
+  set(CMAKE_INSTALL_RPATH_USE_LINK_PATH True)
+endif()
+
 # Python Interpreter
 find_package(PythonInterp REQUIRED)
 IF (DEFINED DYNAWO_PYTHON_COMMAND AND NOT DYNAWO_PYTHON_COMMAND STREQUAL "")
@@ -360,22 +377,6 @@ if(MSVC)
   if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
     set(runtime_tests_PATH "PATH=${GTEST_ROOT}/bin;${ADEPT_HOME}/bin;${Boost_LIBRARY_DIR_DEBUG};${Boost_LIBRARY_DIR_RELEASE};${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
   endif()
-elseif(APPLE)
-  set(CMAKE_MACOSX_RPATH True)
-
-  # use, i.e. don't skip the full RPATH for the build tree
-  set(CMAKE_SKIP_BUILD_RPATH False)
-
-  # when building, don't use the install RPATH already
-  # (but later on when installing)
-  set(CMAKE_BUILD_WITH_INSTALL_RPATH False)
-
-  set(CMAKE_INSTALL_RPATH "${INSTALL_PREFIX}/lib")
-
-  # add the automatically determined parts of the RPATH
-  # which point to directories outside the build tree to the install RPATH
-  set(CMAKE_INSTALL_RPATH_USE_LINK_PATH True)
-
 else() # Linux
   set(runtime_LD_LIBRARY_PATH "LD_LIBRARY_PATH=${ADEPT_HOME}/lib:${Boost_LIBRARY_DIR_DEBUG}:${Boost_LIBRARY_DIR_RELEASE}:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LibXML_LIB_DIR}:${libdir}:$ENV{LD_LIBRARY_PATH}")
   set(runtime_PATH "PATH=${INSTALL_OPENMODELICA}/bin:$ENV{PATH}")

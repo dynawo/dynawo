@@ -5,11 +5,18 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-install_path="$1"
+if [ -z "$2" ]; then
+  echo "You need to give a version for xerces-c."
+  exit 1
+fi
 
-for file in `find "$install_path"/lib -type f -name "libxerces*.dylib"`; do
-  install_name_tool -add_rpath $install_path/lib $file 2> /dev/null || echo -n
-done
-for file in `find "$install_path"/lib -type f -name "libxerces*.dylib"`; do
-  install_name_tool -id @rpath/$(basename $file) $file 2> /dev/null || echo -n
-done
+install_path="$1"
+version="${2%??}"
+
+rm -rf $install_path/lib/pkgconfig $install_path/lib/libxerces-c.so
+if [ -f "$install_path/lib/libxerces-c-$version.dylib" ]; then
+  ln -s $install_path/lib/libxerces-c-$version.dylib $install_path/lib/libxerces-c.dylib
+fi
+if [ -f "$install_path/lib/libxerces-c-$version.a" ]; then
+  ln -s $install_path/lib/libxerces-c-$version.a $install_path/lib/libxerces-c.a
+fi

@@ -1,20 +1,24 @@
 diff -urpN libarchive-3.4.0/CMakeLists.txt libarchive-3.4.0.patch/CMakeLists.txt
 --- libarchive-3.4.0/CMakeLists.txt	2019-06-11 21:53:23.000000000 +0200
-+++ libarchive-3.4.0.patch/CMakeLists.txt	2020-01-20 14:40:38.541576610 +0100
-@@ -1,5 +1,12 @@
++++ libarchive-3.4.0.patch/CMakeLists.txt	2020-01-22 11:16:47.797223814 +0100
+@@ -1,15 +1,29 @@
  #
+-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
 +if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
 +  if(POLICY CMP0091)
 +    cmake_policy(SET CMP0091 NEW)
 +  endif()
 +endif()
 +#
- CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
 +SET(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
  if(POLICY CMP0074)
    cmake_policy(SET CMP0074 NEW) #3.12.0 `find_package()`` uses ``<PackageName>_ROOT`` variables.
  endif()
-@@ -10,6 +17,13 @@ SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_S
+ #
+ PROJECT(libarchive C)
++CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
+ #
+ SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/build/cmake")
  if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${libarchive_BINARY_DIR}/bin)
  endif()
