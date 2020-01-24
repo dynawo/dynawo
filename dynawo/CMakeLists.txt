@@ -96,6 +96,7 @@ if(MSVC)
   if(LIBRARY_TYPE STREQUAL "STATIC")
     if(MSVC_STATIC_RUNTIME_LIBRARY)
       set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+      set(Boost_USE_STATIC_RUNTIME ON)
     endif()
   endif()
 
