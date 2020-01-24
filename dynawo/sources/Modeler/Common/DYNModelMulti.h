@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <boost/core/noncopyable.hpp>
+#include <boost/unordered_map.hpp>
 
 #include "DYNModel.h"
 
@@ -356,6 +357,15 @@ class ModelMulti : public Model, private boost::noncopyable {
   boost::shared_ptr<SubModel> findSubModelByName(const std::string& name);
 
   /**
+   * @brief find all subModels created from a library thanks to its name
+   *
+   * @param libName name of the library used to create subModels
+   *
+   * @return vector of subModels created from the library (if there is some subModels), empty vector otherwise
+   */
+  std::vector<boost::shared_ptr<SubModel> > findSubModelByLib(const std::string& libName);
+
+  /**
    * @brief check for each submodels, if each external variables is connected
    * to another variable
    *
@@ -468,6 +478,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<std::string> yNames_;  ///< names of all variables y
   std::vector<boost::shared_ptr<SubModel> > subModels_;  ///< list of each sub models
   std::map<std::string, size_t > subModelByName_;  ///< map associating a sub model name to its index in subModels_
+  boost::unordered_map<std::string, std::vector<boost::shared_ptr<SubModel> > > subModelByLib_;  ///< associates a lib and each SubModel created with it
   boost::shared_ptr<ConnectorContainer> connectorContainer_;  ///< list of each connector
   std::vector<double> zSave_;  ///< save of the last discretes values
   propertyF_t* fType_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)
