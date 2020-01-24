@@ -136,7 +136,7 @@ ModelMulti::setWorkingDirectory(const string& workingDirectory) {
 }
 
 void
-ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& /*libName*/) {
+ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& libName) {
   Trace::debug("PARAMETERS") << "------------------------------" << Trace::endline;
   Trace::debug("PARAMETERS") << "SubModel " << sub->name() << Trace::endline;
   Trace::debug("PARAMETERS") << "------------------------------" << Trace::endline;
@@ -158,6 +158,9 @@ ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& /*libName*/) {
   sub->defineElements();
 
   subModelByName_[sub->name()] = subModels_.size();
+  if (libName != "") {
+    subModelByLib_[libName].push_back(sub);
+  }
   subModels_.push_back(sub);
 }
 
@@ -764,6 +767,15 @@ ModelMulti::findSubModelByName(const string& name) {
     return (shared_ptr<SubModel>());
   else
     return subModels_[iter->second];
+}
+
+vector<boost::shared_ptr<SubModel> >
+ModelMulti::findSubModelByLib(const string& libName) {
+  boost::unordered_map<string, vector<shared_ptr<SubModel> > >::const_iterator iter = subModelByLib_.find(libName);
+  if (iter == subModelByLib_.end())
+    return (vector<shared_ptr<SubModel> >());
+  else
+    return iter->second;
 }
 
 bool
