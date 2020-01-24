@@ -23,6 +23,10 @@ else()
   set(Boost_NO_SYSTEM_PATHS TRUE)
 endif()
 
+if(MSVC_STATIC_RUNTIME_LIBRARY)
+  set(Boost_USE_STATIC_RUNTIME ON)
+endif()
+
 if (APPLE)
   if (NOT DEFINED CMAKE_OSX_DEPLOYMENT_TARGET)
     set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Variable to specify -mmacosx-version-min flag.")
