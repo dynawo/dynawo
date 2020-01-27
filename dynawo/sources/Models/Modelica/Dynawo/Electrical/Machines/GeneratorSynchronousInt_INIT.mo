@@ -14,25 +14,12 @@ within Dynawo.Electrical.Machines;
 
 model GeneratorSynchronousInt_INIT "Synchronous machine - Initialization model from internal parameters"
 
-  extends BaseClasses_INIT.BaseGeneratorSynchronous_INIT;
+  extends BaseClasses_INIT.BaseGeneratorSynchronousInt_INIT;
 
-  public
-
-    // Internal parameters of the synchronous machine given as parameters
-    parameter Types.PerUnit RaPu "Armature resistance in p.u.";
-    parameter Types.PerUnit LdPu "Direct axis stator leakage in p.u.";
-    parameter Types.PerUnit MdPu "Direct axis mutual inductance in p.u.";
-    parameter Types.PerUnit LDPu "Direct axis damper leakage in p.u.";
-    parameter Types.PerUnit RDPu "Direct axis damper resistance in p.u.";
-    parameter Types.PerUnit MrcPu "Canay's mutual inductance in p.u.";
-    parameter Types.PerUnit LfPu "Excitation winding leakage in p.u.";
-    parameter Types.PerUnit RfPu "Excitation windings resistance in p.u.";
-    parameter Types.PerUnit LqPu "Quadrature axis stator leakage in p.u.";
-    parameter Types.PerUnit MqPu "Quadrature axis mutual inductance in p.u.";
-    parameter Types.PerUnit LQ1Pu "Quadrature axis 1st damper leakage in p.u.";
-    parameter Types.PerUnit RQ1Pu "Quadrature axis 1st damper resistance in p.u.";
-    parameter Types.PerUnit LQ2Pu "Quadrature axis 2nd damper leakage in p.u.";
-    parameter Types.PerUnit RQ2Pu "Quadrature axis 2nd damper resistance in p.u.";
-    parameter Types.PerUnit MdPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
+    // Start values given as inputs of the initialization process
+    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
+    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
 
 end GeneratorSynchronousInt_INIT;

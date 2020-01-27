@@ -14,43 +14,16 @@ within Dynawo.Electrical.Transformers;
 
 model TransformerFixedRatio "Two winding transformer with a fixed ratio"
 
-/*
-  Equivalent circuit and conventions:
-
-               I1  r                I2
-    U1,P1,Q1 -->---oo----R+jX-------<-- U2,P2,Q2
-  (terminal1)                   |      (terminal2)
-                               G+jB
-                                |
-                               ---
-*/
+/* This model works without initialization model*/
 
   import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
-  extends SwitchOff.SwitchOffTransformer;
+  extends BaseClasses.TransformerParameters;
+  extends BaseClasses.BaseTransformer;
 
   Connectors.ACPower terminal1;
   Connectors.ACPower terminal2;
 
-  parameter Types.PerUnit RPu "Resistance in p.u (base U2Nom, SnRef)";
-  parameter Types.PerUnit XPu "Reactance in p.u (base U2Nom, SnRef)";
-  parameter Types.PerUnit GPu "Conductance in p.u (base U2Nom, SnRef)";
-  parameter Types.PerUnit BPu "Susceptance in p.u (base U2Nom, SnRef)";
   parameter Types.PerUnit rTfoPu "Transformation ratio in p.u: U2/U1 in no load conditions";
-
-protected
-  parameter Types.ComplexImpedancePu ZPu(re = RPu , im  = XPu) "Transformer impedance";
-  parameter Types.ComplexAdmittancePu YPu(re = GPu , im  = BPu) "Transformer admittance";
-
-equation
-
-  if (running.value) then
-    rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
-    terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
-  else
-    terminal1.i = Complex (0);
-    terminal2.i = Complex (0);
-  end if;
 
 end TransformerFixedRatio;

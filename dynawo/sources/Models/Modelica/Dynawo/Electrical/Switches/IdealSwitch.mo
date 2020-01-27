@@ -32,15 +32,36 @@ model IdealSwitch "Ideal switch"
   Connectors.ACPower terminal1 "Switch side 1";
   Connectors.ACPower terminal2 "Switch side 2";
 
+  // Variables for display
+  Types.ActivePowerPu P1Pu "Active power on side 1 in p.u (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q1Pu "Reactive power on side 1 in p.u (base SnRef) (receptor convention)";
+  Types.ActivePowerPu P1GenPu "Active power on side 1 in p.u (base SnRef) (generator convention)";
+  Types.ReactivePowerPu Q1GenPu "Reactive power on side 1 in p.u (base SnRef) (generator convention)";
+
+  Types.ActivePowerPu P2Pu "Active power on side 2 in p.u (base SnRef) (receptor convention)";
+  Types.ReactivePowerPu Q2Pu "Reactive power on side 2 in p.u (base SnRef) (receptor convention)";
+
 equation
 
   // When the switch is closed, V and i are equal on both sides. Otherwise, the currents are zero.
   if (running.value) then
     terminal1.V = terminal2.V;
     terminal1.i = - terminal2.i;
+    P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
+    Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
+    P1GenPu = - P1Pu;
+    Q1GenPu = - Q1Pu;
+    P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
+    Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
   else
     terminal1.i = Complex(0);
     terminal2.i = Complex(0);
+    P1Pu = 0;
+    Q1Pu = 0;
+    P1GenPu = 0;
+    Q1GenPu = 0;
+    P2Pu = 0;
+    Q2Pu = 0;
   end if;
 
 end IdealSwitch;

@@ -14,29 +14,12 @@ within Dynawo.Electrical.Machines;
 
 model GeneratorSynchronousExt_3E_INIT "Synchronous machine with 3 windings - Initialization model from external parameters"
 
-  extends BaseClasses_INIT.BaseGeneratorSynchronousExt_INIT;
+  extends BaseClasses_INIT.BaseGeneratorSynchronousExt3E_INIT;
 
-    parameter Types.PerUnit XppqPu "Quadrature axis sub-transient reactance in p.u.";
-    parameter Types.Time Tppq0 "Open circuit quadrature axis sub-transient time constant";
-
-  protected
-
-    Types.Time Tppq;
-
-    Types.PerUnit T3qPu;
-    Types.PerUnit T6qPu;
-
-equation
-
-  Tppq = Tppq0 * XppqPu / XqPu;
-
-  T3qPu = Tppq0 * SystemBase.omegaNom;
-  T6qPu = Tppq  * SystemBase.omegaNom;
-
-  LQ1Pu * (MqPu + LqPu) * (T3qPu - T6qPu) = (MqPu + LqPu) * MqPu * T6qPu - MqPu * LqPu * T3qPu;
-  RQ1Pu * T3qPu = MqPu + LQ1Pu;
-
-  RQ2Pu = 0;
-  LQ2Pu = 100000;
+    // Start values given as inputs of the initialization process
+    parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
+    parameter Types.ActivePowerPu P0Pu "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
+    parameter Types.Angle UPhase0 "Start value of voltage angle in rad";
 
 end GeneratorSynchronousExt_3E_INIT;
