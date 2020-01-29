@@ -41,7 +41,7 @@ class VscConverterInterface : public ConverterInterface {
 
   /**
    * @brief Getter for the reactive power set-point
-   * @return The reactive power set-point in MVAR
+   * @return The reactive power set-point in Mvar
    */
   virtual double getReactivePowerSetpoint() const = 0;
 

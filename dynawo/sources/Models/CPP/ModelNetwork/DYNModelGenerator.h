@@ -303,7 +303,7 @@ class ModelGenerator : public NetworkComponent::Impl {
   double ii_dUi(const double& ur, const double& ui, const double& U2) const;  ///< matrix value
 
   double Pc_;  ///< active power target in MW
-  double Qc_;  ///< reactive power target in MVar
+  double Qc_;  ///< reactive power target in Mvar
   double ir0_;  ///< initial current real part
   double ii0_;  ///< initial current imaginary part
   State connectionState_;  ///< "internal" generator connection status, evaluated at the end of evalZ to detect if the state was modified by another component

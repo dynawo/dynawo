@@ -83,7 +83,7 @@ class ConverterInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the reactive power of the lcc converter
-   * @return The reactive power of the lcc converter in MVar (following iidm convention)
+   * @return The reactive power of the lcc converter in Mvar (following iidm convention)
    */
   virtual double getQ() = 0;
 

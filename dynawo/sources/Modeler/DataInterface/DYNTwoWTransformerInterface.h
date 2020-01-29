@@ -149,7 +149,7 @@ class TwoWTransformerInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the reactive power of the transformer at side 1
-   * @return The reactive power of the transformer in MVar at side 1
+   * @return The reactive power of the transformer in Mvar at side 1
    */
   virtual double getQ1() = 0;
 
@@ -161,7 +161,7 @@ class TwoWTransformerInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the reactive power of the transformer at side 2
-   * @return The reactive power of the transformer in MVar at side 2
+   * @return The reactive power of the transformer in Mvar at side 2
    */
   virtual double getQ2() = 0;
 

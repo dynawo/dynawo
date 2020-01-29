@@ -104,7 +104,7 @@ class InjectorInterfaceIIDM {
 
   /**
    * @brief Getter for the reactive power injected/consumed by the injector
-   * @return The reactive power injected/consumed by the injector in MVar (following iidm convention)
+   * @return The reactive power injected/consumed by the injector in Mvar (following iidm convention)
    */
   double getQ();
 

@@ -31,7 +31,7 @@ package Types "Standard types for electrical variables"
                                  redeclare ReactivePower im "Imaginary part of complex apparent power") "Complex apparent power";
   type ApparentPowerModule = Real (final unit = "MVA") "Apparent power module";
   type ActivePower = Real (final unit = "MW") "Active power";
-  type ReactivePower = Real (final unit = "MVar") "Reactive power";
+  type ReactivePower = Real (final unit = "Mvar") "Reactive power";
 
   // Angle
   type Angle = Real (final unit = "rad") "Angle";

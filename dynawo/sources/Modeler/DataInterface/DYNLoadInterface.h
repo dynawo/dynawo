@@ -63,7 +63,7 @@ class LoadInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the reactive power of the load
-   * @return The reactive power of the load in MVar (load convention)
+   * @return The reactive power of the load in Mvar (load convention)
    */
   virtual double getQ() = 0;
 
