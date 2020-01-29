@@ -44,7 +44,7 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
    * @brief  calculated variables type
    */
   typedef enum {
-    qNum_ = 0,  // (unit MVAR)
+    qNum_ = 0,  // (unit Mvar)
     nbCalculatedVariables_ = 1
   } CalculatedVariables_t;
 

@@ -114,7 +114,7 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
     parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
     parameter Types.ActivePower PNomTurb "Nominal active (turbine) power in MW";
     parameter Types.ActivePower PNomAlt "Nominal active (alternator) power in MW";
-    final parameter Types.ReactivePower QNomAlt = sqrt(SNom*SNom - PNomAlt*PNomAlt) "Nominal reactive (alternator) power in MVar";
+    final parameter Types.ReactivePower QNomAlt = sqrt(SNom*SNom - PNomAlt*PNomAlt) "Nominal reactive (alternator) power in Mvar";
     parameter ExcitationPuType ExcitationPu "Choice of excitation base voltage";
     parameter Types.Time H "Kinetic constant = kinetic energy / rated power";
     parameter Types.PerUnit DPu "Damping coefficient of the swing equation in p.u.";

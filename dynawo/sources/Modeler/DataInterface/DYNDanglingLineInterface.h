@@ -78,13 +78,13 @@ class DanglingLineInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the reactive power of the dangling line
-   * @return The reactive power of the dangling line in MVAR
+   * @return The reactive power of the dangling line in Mvar
    */
   virtual double getQ() = 0;
 
   /**
    * @brief Getter for the reactive power of the load injection
-   * @return The reactive power of the load injection in MVAR
+   * @return The reactive power of the load injection in Mvar
    */
   virtual double getQ0() const = 0;
 

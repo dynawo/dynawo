@@ -59,7 +59,7 @@ class GeneratorInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the reactive power of the generator
-   * @return The reactive power of the generator in MVar (generator convention)
+   * @return The reactive power of the generator in Mvar (generator convention)
    */
   virtual double getQ() = 0;
 

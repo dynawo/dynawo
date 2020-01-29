@@ -80,7 +80,7 @@ class ShuntCompensatorInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the reactive power of the shunt compensator
-   * @return The reactive power of the shunt compensator in MVar
+   * @return The reactive power of the shunt compensator in Mvar
    */
   virtual double getQ() = 0;
 

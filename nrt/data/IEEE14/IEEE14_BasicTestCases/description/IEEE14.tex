@@ -39,7 +39,7 @@ Here are the initial conditions for each generator.
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
   \hline
-  Generator & P (MW) & Q (MVar) & U (kV) & $\Theta$ (°) \\
+  Generator & P (MW) & Q (Mvar) & U (kV) & $\Theta$ (°) \\
   \hline
   1 & 232.39 & -16.55 & 73.14 & 0.00\\
   2 & 40.00 & 43.56 & 72.11 & -4.98\\
@@ -207,7 +207,7 @@ As generator 2 was injecting active and reactive power, we observe that its loss
 \end{figure}
 
 \begin{figure}[H]
-\subfigure[Reactive power (MVAr)]
+\subfigure[Reactive power (Mvar)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -244,7 +244,7 @@ As generator 2 was injecting active and reactive power, we observe that its loss
 \subsection{Line Opening}
 \label{DisconnectLine}
 
-At $t=1s$, the line between buses 1 and 5 is opened at its bus 5 's extremity. 75.6 W and 3.1 MVar of active and reactive power are initially transiting on this line (from bus 1 to bus 5).\\
+At $t=1s$, the line between buses 1 and 5 is opened at its bus 5 's extremity. 75.6 W and 3.1 Mvar of active and reactive power are initially transiting on this line (from bus 1 to bus 5).\\
 
 We observe that the system is oscillating after the event but stabilizes after a few seconds. Due to the topology modification, the terminal voltage rises and then stabilize under the control of the voltage regulator. Minor changes are also induced on the evolution of generator 1 's frequency and its active power.\\
 
@@ -273,7 +273,7 @@ We observe that the system is oscillating after the event but stabilizes after a
 \end{figure}
 
 \begin{figure}[H]
-\subfigure[Reactive power (MVAr)]
+\subfigure[Reactive power (Mvar)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]
@@ -326,7 +326,7 @@ We observe that the reactive load variation triggers a sudden voltage drop at bu
     \end{axis}
   \end{tikzpicture}
 }
-\subfigure[Reactive load (MVAr)]
+\subfigure[Reactive load (Mvar)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 1.4in]
@@ -370,7 +370,7 @@ We observe that the reactive load variation triggers a sudden voltage drop at bu
     \end{axis}
   \end{tikzpicture}
 }
-\subfigure[Reactive power (MVAr)]
+\subfigure[Reactive power (Mvar)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 1.5in]
@@ -439,7 +439,7 @@ We observe that the voltage at the node 2 falls to zero. As the voltage is zero 
     \end{axis}
   \end{tikzpicture}
 }
-\subfigure[Reactive power (MVAr)]
+\subfigure[Reactive power (Mvar)]
 {%
   \begin{tikzpicture}
     \begin{axis}[height = 2in]

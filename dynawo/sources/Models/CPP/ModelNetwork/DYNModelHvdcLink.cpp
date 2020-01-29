@@ -533,8 +533,8 @@ ModelHvdcLink::setConvertersReactivePowerVsc(const shared_ptr<VscConverterInterf
     Q02_ = -vsc2->getQ() / SNREF;
   } else {
     // calculate reactive power at the two points of common coupling from set points
-    double qSetPoint1 = vsc1->getReactivePowerSetpoint();  // in MVar (generator convention)
-    double qSetPoint2 = vsc2->getReactivePowerSetpoint();  // in MVar (generator convention)
+    double qSetPoint1 = vsc1->getReactivePowerSetpoint();  // in Mvar (generator convention)
+    double qSetPoint2 = vsc2->getReactivePowerSetpoint();  // in Mvar (generator convention)
     Q01_ = qSetPoint1 / SNREF;
     Q02_ = qSetPoint2 / SNREF;
   }

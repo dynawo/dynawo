@@ -92,7 +92,7 @@ class StaticVarCompensatorInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the reactive power set-point
-   * @return The reactive power set-point in MVAR
+   * @return The reactive power set-point in Mvar
    */
   virtual double getReactivePowerSetPoint() const = 0;
 
@@ -167,8 +167,8 @@ class StaticVarCompensatorInterface : public ComponentInterface {
   virtual double getB0() const = 0;
 
   /**
-   * @brief Getter for the reactive power of static var compensator in MVar (Receptor convention)
-   * @return The reactive power of the static var compensator in MVar (Receptor convention)
+   * @brief Getter for the reactive power of static var compensator in Mvar (Receptor convention)
+   * @return The reactive power of the static var compensator in Mvar (Receptor convention)
    */
   virtual double getQ() = 0;
 };  ///< Interface class for Static Var Compensator
