@@ -15,6 +15,7 @@
 # Reader OMC : read the files created by omc and store needed informations
 #
 
+import os
 import sys
 import itertools
 import re
@@ -1223,7 +1224,7 @@ class ReaderOMC:
             # a fallback is to look at the variable defined in this case
             if f_num_omc in map_num_eq_vars_defined.keys():
                 if len(map_num_eq_vars_defined[f_num_omc]) > 1:
-                    error_exit("   Error: Found an equation (id: " + eq_mak_num_omc+") defining multiple variables. This is not supported in Dynawo.")
+                    error_exit("   Error: Found an equation (id: " + f_num_omc+") defining multiple variables. This is not supported in Dynawo.")
                 name_var_eval = map_num_eq_vars_defined[f_num_omc] [0]
 
             if name_var_eval is not None and self.is_residual_vars(name_var_eval) and \

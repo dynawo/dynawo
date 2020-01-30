@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<model xmlns="http://www.rte-france.com/dynawo">
+  <name>omegaRef</name>
+  <elements>
+    <parameters>
+      <parameter name="nbGen" valueType="INT" cardinality="1" readOnly="false"/>
+      <parameter name="weight_gen" valueType="DOUBLE" cardinality="*" readOnly="false"/>
+    </parameters>
+    <variables>
+      <variable name="omegaRef_0_value" valueType="DOUBLE"/>
+      <variable name="omegaRef_1_value" valueType="DOUBLE"/>
+      <variable name="omegaRef_2_value" valueType="DOUBLE"/>
+      <variable name="omegaRef_3_value" valueType="DOUBLE"/>
+      <variable name="omegaRef_4_value" valueType="DOUBLE"/>
+      <variable name="omegaRef_5_value" valueType="DOUBLE"/>
+      <variable name="omegaRef_6_value" valueType="DOUBLE"/>
+      <variable name="omegaRef_7_value" valueType="DOUBLE"/>
+      <variable name="omegaRef_8_value" valueType="DOUBLE"/>
+      <variable name="omegaRef_9_value" valueType="DOUBLE"/>
+    </variables>
+  </elements>
+</model>

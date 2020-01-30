@@ -112,7 +112,7 @@ int main(int argc, char ** argv) {
   desc.add_options()
           ("help,h", " produce help message")
           ("solver-file,m", po::value<string>(&inputFileName), "REQUIRED: set solver file (path)")
-          ("output-file,o", po::value<string>(&outputFileName), "REQUIRED: set solver file (path)");
+          ("output-file,o", po::value<string>(&outputFileName), "set output file (path)");
 
   po::positional_options_description positionalOptions;
   positionalOptions.add("solver-file", 1);
