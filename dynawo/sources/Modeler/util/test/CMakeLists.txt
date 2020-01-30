@@ -8,26 +8,26 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-set(MODULE_NAME COMMON_unittest)
+set(MODULE_NAME MODELER_UTILS_unittest)
 
 set(MODULE_SOURCES
-    TestBitMask.cpp
-    TestGraph.cpp
-    TestParameter.cpp
-    TestErrorQueue.cpp
-    Test.cpp
-    TestIoDico.cpp
-    TestValidateDic.cpp
+    TestDumpModel.cpp
+    TestGeneratePreassembled.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
+
+target_include_directories(${MODULE_NAME}
+        PRIVATE
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
+        )
 
 target_link_libraries(${MODULE_NAME}
         dynawo_Common
         dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-tests
-  COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>
+  COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_XSD_DIR=./" "DYNAWO_DDB_DIR=./res" $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS
     ${MODULE_NAME}-pre-tests
     ${MODULE_NAME}
@@ -35,13 +35,12 @@ add_custom_target(${MODULE_NAME}-tests
 
 add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res2 ${CMAKE_CURRENT_BINARY_DIR}/res2
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/dic ${CMAKE_CURRENT_BINARY_DIR}/dic
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/../Dictionaries/validateDictionaries.py ${CMAKE_CURRENT_BINARY_DIR}/.
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../API/DYD/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../API/EXTVAR/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
   )
 
 if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-  set(EXTRACT_PATTERNS "'*/sources/Common/DYN*'")
+  set(EXTRACT_PATTERNS "'*/sources/Modeler/util/DYN*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()

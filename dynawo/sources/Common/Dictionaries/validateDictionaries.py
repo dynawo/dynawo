@@ -190,14 +190,14 @@ class Dictionary:
         for key in list_keys:
             key1 = key+","
             key_to_print = key1.ljust(70)
-            header_file.write('      '+str(key_to_print)+'\t///< '+self.get_message(key)+'\n')
+            header_file.write('      '+str(key_to_print)+'  ///< '+self.get_message(key)+'\n')
         header_file.write("    };\n\n")
         header_file.write("    /**\n")
         header_file.write("    * @brief Return the name associated to the enum.\n")
         header_file.write("    *\n")
         header_file.write("    * @return The name associated to the enum.\n")
         header_file.write("    */\n")
-        header_file.write("    static const char* names(const value&); ///< names associated to the enum \n")
+        header_file.write("    static const char* names(const value&); ///< names associated to the enum\n")
         header_file.write("  };\n")
         header_file.write("} //namespace DYN\n")
         header_file.write("#endif\n")
