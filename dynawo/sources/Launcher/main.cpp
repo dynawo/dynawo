@@ -29,6 +29,10 @@
 #include "config.h"
 #include "gitversion.h"
 
+#define DYNIODICOS_INSTANCE  // this should be defined only once in main source before header inclusion
+#define DYNTRACE_INSTANCE  // this should be defined only once in main source before header inclusion
+#define DYNTIMERS_INSTANCE  // this should be defined only once in main source before header inclusion
+
 #include "DYNMacrosMessage.h"
 #include "DYNSimulationLauncher.h"
 #include "DYNError.h"
@@ -36,7 +40,6 @@
 #include "DYNTrace.h"
 #include "DYNFileSystemUtils.h"
 #include "DYNExecUtils.h"
-#define DYNTIMERS_INSTANCE  // this should be defined only once in main source before header inclusion
 #include "DYNTimer.h"
 
 using std::string;
@@ -109,9 +112,8 @@ int main(int argc, char ** argv) {
       return 1;
     }
 
-    boost::shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
-    dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
+    DYN::IoDicos::addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    DYN::IoDicos::addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
     if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") != "true")
       cout << "[INFO] xsd validation will not be used" << endl;
 

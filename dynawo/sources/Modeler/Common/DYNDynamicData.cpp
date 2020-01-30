@@ -21,8 +21,6 @@
 #include <set>
 #include <iomanip>
 
-#include <xml/sax/parser/ParserException.h>
-
 // files in API parameter
 #include "PARParametersSet.h"
 #include "PARParametersSetImpl.h"
@@ -304,13 +302,9 @@ DynamicData::getParametersSet(const string& modelId, const string& parFile, cons
   // Parameters file not already loaded
   parameters::XmlImporter parametersImporter;
 
-  try {
-    shared_ptr<ParametersSetCollection> parametersSetCollection = parametersImporter.importFromFile(canonical(parFile, rootDirectory_));
-    referenceParameters_[parFile] = parametersSetCollection;
-    return parametersSetCollection->getParametersSet(parId);
-  } catch (const xml::sax::parser::ParserException& exp) {
-    throw DYNError(Error::MODELER, XmlFileParsingError, parFile, exp.what());
-  }
+  shared_ptr<ParametersSetCollection> parametersSetCollection = parametersImporter.importFromFile(canonical(parFile, rootDirectory_));
+  referenceParameters_[parFile] = parametersSetCollection;
+  return parametersSetCollection->getParametersSet(parId);
 }
 
 void

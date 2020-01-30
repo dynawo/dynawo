@@ -64,6 +64,7 @@ if (SUNDIALS_INCLUDE_DIR AND SUNDIALS_IDA_LIBRARY)
     "int main() {\n"
     "  void* IDAMem = IDACreate();\n"
     "  int flag = IDASetMinStep(IDAMem, 0.1);\n"
+    "  static_cast<void>(flag);"
     "  IDAFree(&IDAMem);\n"
     "  return 0;\n"
     "}\n")
@@ -145,22 +146,23 @@ if(Sundials_FOUND)
         IMPORTED_LINK_INTERFACE_LANGUAGES "C"
         IMPORTED_LOCATION "${SUNDIALS_SUNLINSOLKLU_LIBRARY}")
     endif()
+    set_property(TARGET Sundials::Sundials_SUNLINSOLKLU APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+      $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_KLU,INTERFACE_INCLUDE_DIRECTORIES>
+      $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_AMD,INTERFACE_INCLUDE_DIRECTORIES>
+      $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_COLAMD,INTERFACE_INCLUDE_DIRECTORIES>
+      $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_BTF,INTERFACE_INCLUDE_DIRECTORIES>
+      $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_Config,INTERFACE_INCLUDE_DIRECTORIES>
+      )
+    set_property(TARGET Sundials::Sundials_SUNLINSOLKLU APPEND PROPERTY INTERFACE_LINK_LIBRARIES
+      $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_KLU,IMPORTED_LOCATION>
+      $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_AMD,IMPORTED_LOCATION>
+      $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_COLAMD,IMPORTED_LOCATION>
+      $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_BTF,IMPORTED_LOCATION>
+      $<TARGET_PROPERTY:SuiteSparse::SuiteSparse_Config,IMPORTED_LOCATION>
+      )
   endif()
 
   IF(NICSLU_FOUND)
-    if(NOT TARGET Sundials::Sundials_SUNLINSOLNICSLU)
-      add_library(Sundials::Sundials_SUNLINSOLNICSLU UNKNOWN IMPORTED)
-      if(Sundials_INCLUDE_DIRS)
-        set_target_properties(Sundials::Sundials_SUNLINSOLNICSLU PROPERTIES
-          INTERFACE_INCLUDE_DIRECTORIES "${Sundials_INCLUDE_DIRS}")
-      endif()
-      if(EXISTS "${SUNDIALS_SUNLINSOLNICSLU_LIBRARY}")
-        set_target_properties(Sundials::Sundials_SUNLINSOLNICSLU PROPERTIES
-          IMPORTED_LINK_INTERFACE_LANGUAGES "C"
-          IMPORTED_LOCATION "${SUNDIALS_SUNLINSOLNICSLU_LIBRARY}")
-      endif()
-    endif()
-
     if(NOT TARGET Sundials::Sundials_SUNMATRIXSPARSE)
       add_library(Sundials::Sundials_SUNMATRIXSPARSE UNKNOWN IMPORTED)
       if(Sundials_INCLUDE_DIRS)
@@ -173,6 +175,27 @@ if(Sundials_FOUND)
           IMPORTED_LOCATION "${SUNDIALS_SUNMATRIXSPARSE_LIBRARY}")
       endif()
     endif()
-  endif()
 
+    if(NOT TARGET Sundials::Sundials_SUNLINSOLNICSLU)
+      add_library(Sundials::Sundials_SUNLINSOLNICSLU UNKNOWN IMPORTED)
+      if(Sundials_INCLUDE_DIRS)
+        set_target_properties(Sundials::Sundials_SUNLINSOLNICSLU PROPERTIES
+          INTERFACE_INCLUDE_DIRECTORIES "${Sundials_INCLUDE_DIRS}")
+      endif()
+      if(EXISTS "${SUNDIALS_SUNLINSOLNICSLU_LIBRARY}")
+        set_target_properties(Sundials::Sundials_SUNLINSOLNICSLU PROPERTIES
+          IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+          IMPORTED_LOCATION "${SUNDIALS_SUNLINSOLNICSLU_LIBRARY}")
+      endif()
+      set_property(TARGET Sundials::Sundials_SUNLINSOLNICSLU APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+        $<TARGET_PROPERTY:NICSLU::NICSLU,INTERFACE_INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:NICSLU::NICSLU_Util,INTERFACE_INCLUDE_DIRECTORIES>
+        )
+      set_property(TARGET Sundials::Sundials_SUNLINSOLNICSLU APPEND PROPERTY INTERFACE_LINK_LIBRARIES
+        $<TARGET_PROPERTY:Sundials::Sundials_SUNMATRIXSPARSE,IMPORTED_LOCATION>
+        $<TARGET_PROPERTY:NICSLU::NICSLU,IMPORTED_LOCATION>
+        $<TARGET_PROPERTY:NICSLU::NICSLU_Util,IMPORTED_LOCATION>
+        )
+    endif()
+  endif()
 endif()

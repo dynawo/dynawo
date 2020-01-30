@@ -29,15 +29,18 @@ set(MODULE_SOURCES
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
 target_include_directories(${MODULE_NAME}
-        PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
-        )
+  PRIVATE
+    $<TARGET_PROPERTY:iidm,INTERFACE_INCLUDE_DIRECTORIES>
+  )
 
 target_link_libraries(${MODULE_NAME}
-        dynawo_DataInterface
-        DYNModelNetwork
-        dynawo_API_CSTR
-        dynawo_Test)
+  dynawo_DataInterface
+  dynawo_ModelerCommon
+  DYNModelNetwork
+  dynawo_API_CSTR
+  dynawo_API_TL
+  iidm
+  dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>

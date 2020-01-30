@@ -20,3 +20,9 @@ set(MODEL_SOURCES
   )
 
 compile_cpp_model(${MODEL_NAME} "${MODEL_SOURCES}")
+
+target_include_directories(${MODEL_NAME}
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<TARGET_PROPERTY:dynawo_CPPModelsCommon,INTERFACE_INCLUDE_DIRECTORIES>
+  )

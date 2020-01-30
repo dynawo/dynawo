@@ -16,9 +16,9 @@ set(COMPILER_MODELICA_OMC_SOURCES
 add_executable(compileModelicaModel ${COMPILER_MODELICA_OMC_SOURCES})
 
 target_link_libraries(compileModelicaModel
-    dynawo_Common
-    ${CMAKE_DL_LIBS}
-    )
+  dynawo_Common
+  ${CMAKE_DL_LIBS}
+  )
 
 if(APPLE)
     # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737

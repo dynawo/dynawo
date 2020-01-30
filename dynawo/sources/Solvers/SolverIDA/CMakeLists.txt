@@ -25,13 +25,28 @@ target_include_directories(dynawo_SolverIDA
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    $<TARGET_PROPERTY:Sundials::Sundials_NVECSERIAL,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:dynawo_SolverCommon,INTERFACE_INCLUDE_DIRECTORIES>
+  PRIVATE
+    $<TARGET_PROPERTY:dynawo_API_PAR,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:dynawo_ModelerCommon,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
 target_link_libraries(dynawo_SolverIDA
-  PUBLIC
+  PRIVATE
+    dynawo_Common
+    dynawo_SolverCommon
     dynawo_SolverKINSOL
+    Sundials::Sundials_NVECSERIAL
+    Sundials::Sundials_SUNLINSOLKLU
     Sundials::Sundials_IDA
-)
+  )
+
+if(APPLE)
+  if(LIBRARY_TYPE STREQUAL "STATIC")
+    target_link_libraries(dynawo_SolverIDA PRIVATE "-flat_namespace")
+  endif()
+endif()
 
 set_target_properties(dynawo_SolverIDA PROPERTIES VERSION ${SOLVER_IDA_VERSION_STRING}
                                                 SOVERSION ${SOLVER_IDA_VERSION_MAJOR}

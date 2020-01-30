@@ -49,12 +49,14 @@ set(DATA_INTERFACE_INCLUDE_HEADERS
 add_library(dynawo_DataInterface ${LIBRARY_TYPE} ${DATA_INTERFACE_SOURCES})
 
 target_include_directories(dynawo_DataInterface
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    )
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  )
 
 target_link_libraries(dynawo_DataInterface
+  PRIVATE
+    dynawo_Common
     dynawo_ModelerCommon
     iidm-ext-activeseason-xml
     iidm-ext-busbarsectionposition-xml
@@ -67,8 +69,7 @@ target_link_libraries(dynawo_DataInterface
     iidm-ext-hvdcoperatoractivepowerrange-xml
     iidm-ext-loaddetail-xml
     iidm-ext-standbyautomaton-xml
-    )
-
+  )
 
 set_target_properties(dynawo_DataInterface PROPERTIES VERSION ${DATA_INTERFACE_VERSION_STRING}
                                                     SOVERSION ${DATA_INTERFACE_VERSION_MAJOR})

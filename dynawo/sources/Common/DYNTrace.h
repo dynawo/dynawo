@@ -27,7 +27,16 @@
 #include <string>
 #include <vector>
 
+#include <boost/shared_ptr.hpp>
+#include <boost/log/core.hpp>
+#include <boost/log/sinks.hpp>
+
 #include "DYNTraceStream.h"
+
+namespace sinks = boost::log::sinks;
+
+typedef sinks::synchronous_sink< sinks::text_ostream_backend > text_sink;  ///< define text sink
+typedef sinks::synchronous_sink< sinks::text_file_backend > file_sink;  ///< define file sink
 
 namespace DYN {
 
@@ -184,6 +193,23 @@ class Trace {
   };
 
   /**
+  * @brief Trace constructor
+  */
+  Trace() { }
+
+  /**
+   * @brief Trace destructor
+   */
+  ~Trace() { }
+
+  /**
+ * @brief get the unique instance of Timers in current memory space
+ *
+ * @return the unique instance
+ */
+  static Trace& getInstance();
+
+  /**
    * @brief Init function.
    *
    * Configure the appenders/sinks. Traces generated before any call to
@@ -202,7 +228,7 @@ class Trace {
    * @brief Add custom appenders to trace system
    * @param[in] appenders: Appenders to add
    */
-  static void addAppenders(std::vector<TraceAppender> & appenders);
+  static void addAppenders(std::vector<TraceAppender>& appenders);
 
   /**
    * @brief Reset all custom appenders of trace system
@@ -281,6 +307,39 @@ class Trace {
 
  private:
   /**
+   * @brief get the best candidate for unique instance of Timers
+   *
+   * @return the unique instance
+   */
+  static Trace& getInstance_();
+
+  /**
+ * @brief Init function.
+ *
+ * Configure the appenders/sinks. Traces generated before any call to
+ * this function are ignored.
+ */
+  void init_();
+
+  /**
+   * @brief Disable logging
+   *
+   * When no log file is needed, disable logging which is showed in console.
+   */
+  void disableLogging_();
+
+  /**
+   * @brief Add custom appenders to trace system
+   * @param[in] appenders: Appenders to add
+   */
+  void addAppenders_(std::vector<TraceAppender>& appenders);
+
+  /**
+   * @brief Reset all custom appenders of trace system
+   */
+  void resetCustomAppenders_();
+
+  /**
    * @brief Add a log to logging core.
    *
    * Add a message of given severity level with a given tag to the logging core.
@@ -293,9 +352,36 @@ class Trace {
    */
   static void log(SeverityLevel slv, const std::string& tag, const std::string& message);
 
+  /**
+  * @brief Add a log to logging core.
+  *
+  * Add a message of given severity level with a given tag to the logging core.
+  * If tag=="" , no tag is added the log.
+  * The logging core get all the messages and each sink get info from the core
+  * that a log has arrived and is responsible for filtering.
+  * @param slv : Severity level of the log.
+  * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+  * @param message : Message to log.
+  */
+  void log_(SeverityLevel slv, const std::string& tag, const std::string& message);
+
   friend class TraceStream;  ///< Class TraceStream must get access to @p log() private function
+
+  std::vector< boost::shared_ptr<file_sink> > sinks_;  ///<  vector of file sink
+  std::vector< boost::shared_ptr<text_sink> > originalSinks_;  ///< vector of text sink
 };
 
 }  // namespace DYN
+
+#ifdef DYNTRACE_INSTANCE
+/**
+ * @brief get the unique instance of Trace in the executable
+ *
+ * @return the unique instance
+ */
+extern "C" DYN::Trace& getTraceInstance() {
+  return DYN::Trace::getInstance();
+}
+#endif
 
 #endif  // COMMON_DYNTRACE_H_

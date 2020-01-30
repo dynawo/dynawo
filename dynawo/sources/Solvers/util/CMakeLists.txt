@@ -17,10 +17,11 @@ set(DUMP_SOLVER_SOURCES
 
 add_executable(dumpSolver ${DUMP_SOLVER_SOURCES})
 
-target_include_directories(dumpSolver PRIVATE ${SUNDIALS_INCLUDE_DIR})
-
 target_link_libraries(dumpSolver
+  PRIVATE
+    XMLSAXFormatter${LibXML_LINK_SUFFIX}
+    dynawo_Common
     dynawo_SolverCommon
-    )
+  )
 
 install(TARGETS dumpSolver EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})

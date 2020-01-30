@@ -30,13 +30,16 @@
 #include <xml/sax/formatter/AttributeList.h>
 #include <xml/sax/formatter/Formatter.h>
 
+#define DYNIODICOS_INSTANCE  // this should be defined only once in main source before header inclusion
+#define DYNTRACE_INSTANCE  // this should be defined only once in main source before header inclusion
+#define DYNTIMERS_INSTANCE  // this should be defined only once in main source before header inclusion
+
 #include "DYNParameterModeler.h"
 #include "DYNEnumUtils.h"
 #include "DYNSubModel.h"
 #include "DYNSubModelFactory.h"
 #include "DYNVariableAlias.h"
 #include "DYNFileSystemUtils.h"
-
 
 using std::string;
 using std::endl;

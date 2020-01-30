@@ -22,6 +22,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <dlfcn.h>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/algorithm/string/predicate.hpp>
@@ -35,31 +36,65 @@ using boost::shared_ptr;
 using std::stringstream;
 using std::vector;
 
-
 namespace DYN {
 
 static bool readLine(string& line, string& key, string& phrase);
 
-shared_ptr<IoDicos> IoDicos::getInstance() {
-  static shared_ptr<IoDicos> instance;
-  if (instance)
-    return instance;
-
-  instance.reset(new IoDicos());
+IoDicos& IoDicos::getInstance() {
+  static IoDicos instance;
   return instance;
 }
 
+typedef IoDicos& getIoDicosInstance_t();
+
+IoDicos&
+IoDicos::getInstance_() {
+  void* handle = dlopen(NULL, RTLD_NOW);
+  IoDicos* pIoDicos = NULL;
+
+  if (!handle) {
+    std::cerr << dlerror() << '\n';
+  } else {
+    dlerror();
+    getIoDicosInstance_t* getIoDicosInstance = reinterpret_cast<getIoDicosInstance_t*> (dlsym(handle, "getIoDicosInstance"));
+    if (!dlerror()) {
+      pIoDicos = &(getIoDicosInstance());
+    }
+    dlclose(handle);
+  }
+
+  if (!pIoDicos) {
+    pIoDicos = &(getInstance());
+  }
+  return *pIoDicos;
+}
+
 void IoDicos::addPath(const string& path) {
+  IoDicos& ioDicos = getInstance_();
+  ioDicos.addPath_(path);
+}
+
+void IoDicos::addPath_(const string& path) {
   paths_.push_back(path);
 }
 
 bool IoDicos::hasIoDico(const string& dicoName) {
-  return ( getInstance()->dicos_.find(dicoName) != getInstance()->dicos_.end());
+  IoDicos& ioDicos = getInstance_();
+  return ioDicos.hasIoDico_(dicoName);
+}
+
+bool IoDicos::hasIoDico_(const string& dicoName) {
+  return (dicos_.find(dicoName) != dicos_.end());
 }
 
 boost::shared_ptr<IoDico> IoDicos::getIoDico(const string& dicoName) {
+  IoDicos& ioDicos = getInstance_();
+  return ioDicos.getIoDico_(dicoName);
+}
+
+boost::shared_ptr<IoDico> IoDicos::getIoDico_(const string& dicoName) {
   if (hasIoDico(dicoName)) {
-    return getInstance()->dicos_[dicoName];
+    return dicos_[dicoName];
   } else {
     throw MessageError("Unknown dictionary '" + dicoName + "'");
   }
@@ -70,12 +105,11 @@ vector<std::string> IoDicos::findFiles(const string& fileName) {
   if (fileName.empty())
     return res;
 
-
   // Research file in paths
   vector<string> allPaths;
-  for (unsigned int i = 0; i < getInstance()->paths_.size(); ++i) {
+  for (unsigned int i = 0; i < getInstance_().paths_.size(); ++i) {
     vector<string> paths;
-    boost::algorithm::split(paths, getInstance()->paths_[i], boost::is_any_of(":"));
+    boost::algorithm::split(paths, getInstance_().paths_[i], boost::is_any_of(":"));
     allPaths.insert(allPaths.begin(), paths.begin(), paths.end());
   }
 
@@ -129,11 +163,16 @@ void IoDicos::addDico(const string& name, const string& baseName, const string& 
   } else {
     boost::shared_ptr<IoDico> dico(new IoDico(name));
     dico->readFile(file);
-    getInstance()->dicos_[name] = dico;
+    dicos_[name] = dico;
   }
 }
 
 void IoDicos::addDicos(const string& dictionariesMappingFile, const string& locale) {
+  IoDicos& ioDicos = getInstance_();
+  ioDicos.addDicos_(dictionariesMappingFile, locale);
+}
+
+void IoDicos::addDicos_(const string& dictionariesMappingFile, const string& locale) {
   if (dictionariesMappingFile.empty()) {
     throw MessageError("impossible to add the dictionary mapping file : empty name");
   }

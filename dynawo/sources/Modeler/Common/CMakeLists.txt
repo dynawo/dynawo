@@ -70,23 +70,28 @@ add_library(dynawo_ModelerCommon ${LIBRARY_TYPE} ${MODELER_SOURCES})
 target_compile_definitions(dynawo_ModelerCommon PUBLIC $<$<BOOL:${MSVC}>:_USE_MATH_DEFINES>)
 
 target_include_directories(dynawo_ModelerCommon
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    PUBLIC
-        $<TARGET_PROPERTY:dynawo_API_TL,INTERFACE_INCLUDE_DIRECTORIES>
-        $<TARGET_PROPERTY:dynawo_API_CSTR,INTERFACE_INCLUDE_DIRECTORIES>
-        $<TARGET_PROPERTY:dynawo_DataInterface,INTERFACE_INCLUDE_DIRECTORIES>
-    )
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    $<TARGET_PROPERTY:dynawo_API_DYD,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:dynawo_API_EXTVAR,INTERFACE_INCLUDE_DIRECTORIES>
+  PRIVATE
+    $<TARGET_PROPERTY:dynawo_DataInterface,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:dynawo_API_TL,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:dynawo_API_CSTR,INTERFACE_INCLUDE_DIRECTORIES>
+  )
 
 target_link_libraries(dynawo_ModelerCommon
-    dynawo_API_PAR
+  PUBLIC
+    ${CMAKE_DL_LIBS}
+  PRIVATE
+    dynawo_Common
+    dynawo_API_DYD
     dynawo_API_CRV
     dynawo_API_FS
     dynawo_API_EXTVAR
-    dynawo_API_DYD
-    dynawo_Util
-    )
+    dynawo_API_PAR
+  )
 
 set_target_properties(dynawo_ModelerCommon PROPERTIES VERSION ${MODELER_VERSION_STRING}
                                                     SOVERSION ${MODELER_VERSION_MAJOR})

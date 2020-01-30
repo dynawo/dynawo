@@ -88,6 +88,7 @@ set(CXX11_ENABLED ON CACHE BOOL "")
 if(MSVC)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0601)
   add_definitions(-DLANG_CXX11)
+  add_definitions(/bigobj)
 
   set(CMAKE_PREFIX_PATH ${DYNAWO_THIRD_PARTY_DIR}/dlfcnwin32)
 
@@ -96,7 +97,6 @@ if(MSVC)
   if(LIBRARY_TYPE STREQUAL "STATIC")
     if(MSVC_STATIC_RUNTIME_LIBRARY)
       set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-      set(Boost_USE_STATIC_RUNTIME ON)
     endif()
   endif()
 
@@ -212,7 +212,14 @@ endif()
 
 if(BOOST_USE_STATIC)
   set(Boost_USE_STATIC_LIBS TRUE)
+  if(MSVC_STATIC_RUNTIME_LIBRARY)
+    set(Boost_USE_STATIC_RUNTIME True)
+  else()
+    set(Boost_USE_STATIC_RUNTIME False)
+  endif()
 else()
+  set(BUILD_SHARED_LIBS ON)
+  set(Boost_USE_STATIC_RUNTIME False)
   add_definitions(-DBOOST_ALL_DYN_LINK)
 endif()
 # Tell BOOST to disable auto linking
@@ -272,9 +279,10 @@ if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage"
 
   add_library(dynawo_Test INTERFACE)
   target_link_libraries(dynawo_Test INTERFACE
-          GTest::gmock_main
-          GTest::gtest_main
-          Boost::iostreams)
+    dynawo_Common
+    GTest::gmock_main
+    GTest::gtest_main
+    Boost::iostreams)
 endif()
 
 # For compatibility with old makefiles
@@ -292,13 +300,6 @@ find_package(XercesC 3.2.2 REQUIRED)
 if(MSVC)
   set(CMAKE_FIND_LIBRARY_SUFFIXES_bak "${CMAKE_FIND_LIBRARY_SUFFIXES}")
   if(LIBRARY_TYPE STREQUAL "STATIC")
-    set(CMAKE_FIND_LIBRARY_SUFFIXES "_static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-  endif()
-endif()
-find_package(LibArchive 2.8.0 REQUIRED)
-
-if(MSVC)
-  if(LIBRARY_TYPE STREQUAL "STATIC")
     if(CMAKE_BUILD_TYPE STREQUAL "Debug")
       set(CMAKE_FIND_LIBRARY_SUFFIXES "staticd${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
     else()
@@ -306,8 +307,16 @@ if(MSVC)
     endif()
   endif()
 endif()
-
 find_package(ZLIB 1.2.3 REQUIRED)
+set_property(TARGET ZLIB::ZLIB APPEND PROPERTY
+  IMPORTED_LOCATION "${ZLIB_LIBRARY}")
+
+if(MSVC)
+  if(LIBRARY_TYPE STREQUAL "STATIC")
+    set(CMAKE_FIND_LIBRARY_SUFFIXES "_static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
+  endif()
+endif()
+find_package(LibArchive 2.8.0 REQUIRED)
 if(MSVC)
   set(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
 endif()
@@ -374,12 +383,12 @@ add_custom_target(CREATE_DDBDIR
   )
 
 if(MSVC)
-  set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_LIBRARY_DIR_DEBUG};${Boost_LIBRARY_DIR_RELEASE};${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
+  set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
   if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-    set(runtime_tests_PATH "PATH=${GTEST_ROOT}/bin;${ADEPT_HOME}/bin;${Boost_LIBRARY_DIR_DEBUG};${Boost_LIBRARY_DIR_RELEASE};${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
+    set(runtime_tests_PATH "PATH=${GTEST_ROOT}/bin;${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
   endif()
 else() # Linux
-  set(runtime_LD_LIBRARY_PATH "LD_LIBRARY_PATH=${ADEPT_HOME}/lib:${Boost_LIBRARY_DIR_DEBUG}:${Boost_LIBRARY_DIR_RELEASE}:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LibXML_LIB_DIR}:${libdir}:$ENV{LD_LIBRARY_PATH}")
+  set(runtime_LD_LIBRARY_PATH "LD_LIBRARY_PATH=${ADEPT_HOME}/lib:${Boost_INCLUDE_DIR}/../lib:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LibXML_LIB_DIR}:${libdir}:$ENV{LD_LIBRARY_PATH}")
   set(runtime_PATH "PATH=${INSTALL_OPENMODELICA}/bin:$ENV{PATH}")
 endif()
 

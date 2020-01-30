@@ -1,7 +1,7 @@
 diff -urpN libarchive-3.4.0/CMakeLists.txt libarchive-3.4.0.patch/CMakeLists.txt
 --- libarchive-3.4.0/CMakeLists.txt	2019-06-11 21:53:23.000000000 +0200
-+++ libarchive-3.4.0.patch/CMakeLists.txt	2020-01-24 13:05:33.508860260 +0100
-@@ -1,15 +1,29 @@
++++ libarchive-3.4.0.patch/CMakeLists.txt	2020-01-30 15:37:27.356545031 +0100
+@@ -1,15 +1,35 @@
  #
 -CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12 FATAL_ERROR)
 +if(${CMAKE_VERSION} VERSION_GREATER "3.15.0")
@@ -25,33 +25,26 @@ diff -urpN libarchive-3.4.0/CMakeLists.txt libarchive-3.4.0.patch/CMakeLists.txt
 +if(MSVC)
 +  if(NOT BUILD_SHARED_LIBS)
 +   if(MSVC_STATIC_RUNTIME_LIBRARY)
-+      set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
++     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
++   endif()
++   set(CMAKE_FIND_LIBRARY_SUFFIXES_bak "${CMAKE_FIND_LIBRARY_SUFFIXES}")
++   if(CMAKE_BUILD_TYPE STREQUAL "Debug")
++     set(CMAKE_FIND_LIBRARY_SUFFIXES "staticd${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
++   else()
++     set(CMAKE_FIND_LIBRARY_SUFFIXES "static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
 +   endif()
 +  endif()
 +endif()
  #
  # Set the Build type for make based generators.
  # You can choose following types:
-@@ -20,6 +34,14 @@ endif()
- IF(NOT CMAKE_BUILD_TYPE)
-   SET(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build Type" FORCE)
- ENDIF(NOT CMAKE_BUILD_TYPE)
-+set(CMAKE_FIND_LIBRARY_SUFFIXES_bak "${CMAKE_FIND_LIBRARY_SUFFIXES}")
-+if(NOT BUILD_SHARED_LIBS)
-+  if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-+    set(CMAKE_FIND_LIBRARY_SUFFIXES "staticd${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-+  else()
-+    set(CMAKE_FIND_LIBRARY_SUFFIXES "static${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
-+  endif()
-+endif()
- # Set a value type to properly display CMAKE_BUILD_TYPE on GUI if the
- # value type is "UNINITIALIZED".
- GET_PROPERTY(cached_type CACHE CMAKE_BUILD_TYPE PROPERTY TYPE)
-@@ -406,6 +428,7 @@ SET(ADDITIONAL_LIBS "")
+@@ -406,6 +426,9 @@ SET(ADDITIONAL_LIBS "")
  #
  IF(ENABLE_ZLIB)
    FIND_PACKAGE(ZLIB)
-+  set(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
++  if(MSVC)  
++    set(CMAKE_FIND_LIBRARY_SUFFIXES "${CMAKE_FIND_LIBRARY_SUFFIXES_bak}")
++  endif()
  ELSE()
    SET(ZLIB_FOUND FALSE) # Override cached value
  ENDIF()

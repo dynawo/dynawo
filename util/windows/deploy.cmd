@@ -120,7 +120,8 @@ xcopy %thirdPartyInstallPath%\suitesparse\cmake %deploy_dir%\cmake /E /i
 xcopy %thirdPartyInstallPath%\sundials\include %deploy_dir%\include /E /i
 xcopy %thirdPartyInstallPath%\sundials\lib %deploy_dir%\lib /E /i
 
-xcopy %thirdPartyInstallPath%\xerces-c\bin %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\xerces-c\bin\*.dll %deploy_dir%\bin /E /i
+xcopy %thirdPartyInstallPath%\xerces-c\bin\*.lib %deploy_dir%\bin /E /i
 xcopy %thirdPartyInstallPath%\xerces-c\include %deploy_dir%\include /E /i
 xcopy %thirdPartyInstallPath%\xerces-c\lib\xerces*.lib %deploy_dir%\lib /E /i
 xcopy %thirdPartyInstallPath%\xerces-c\cmake %deploy_dir%\cmake /E /i
@@ -183,7 +184,7 @@ echo.>> %deploy_dir%\dynawo.cmd
 echo set oldpath=%%path%%>> %deploy_dir%\dynawo.cmd
 echo.>> %deploy_dir%\dynawo.cmd
 echo PATH=%%OPENMODELICA_HOME%%\bin;%%DYNAWO_INSTALL_DIR%%ddb;%%DYNAWO_INSTALL_DIR%%lib;%%PATH%%>> %deploy_dir%\dynawo.cmd
-echo PATH=%%DLFCNWIN32_ROOT%%\bin;%%LIBXML_HOME%%\bin,%%PATH%%>> %deploy_dir%\dynawo.cmd
+echo PATH=%%DLFCNWIN32_ROOT%%\bin;%%LIBXML_HOME%%\bin;%%PATH%%>> %deploy_dir%\dynawo.cmd
 echo PATH=%%BOOST_PATH%%\lib;%%LIBARCHIVE_HOME%%\bin;%%ZLIB_ROOT%%\bin;%%LIBIIDM_HOME%%\bin;%%LIBZIP_HOME%%\bin;%%ADEPT_HOME%%\bin;%%SUITESPARSE_HOME%%\bin;%%SUNDIALS_HOME%%\lib;%%XERCESC_HOME%%\bin;%%PATH%%>> %deploy_dir%\dynawo.cmd
 echo.>> %deploy_dir%\dynawo.cmd
 echo :: To compile Modelica models>> %deploy_dir%\dynawo.cmd

@@ -47,14 +47,15 @@ target_compile_options(Modelica_externalC PRIVATE -w)
 target_compile_definitions(Modelica_externalC PRIVATE #[[TABLE_SHARE]] DUMMY_FUNCTION_USERTAB)
 
 target_include_directories(Modelica_externalC
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
 target_link_libraries(Modelica_externalC
+  PRIVATE
     dynawo_Common
-    )
+  )
 
 install(TARGETS Modelica_externalC EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${MODELICA_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

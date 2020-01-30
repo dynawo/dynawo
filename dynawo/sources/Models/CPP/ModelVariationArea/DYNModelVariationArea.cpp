@@ -52,7 +52,7 @@ using parameters::ParametersSet;
  *
  * @return A pointer to a new instance of ModelVariationaAreaFactory
  */
-extern"C" DYN::SubModelFactory* getFactory() {
+extern "C" DYN::SubModelFactory* getFactory() {
   return (new DYN::ModelVariationAreaFactory());
 }
 

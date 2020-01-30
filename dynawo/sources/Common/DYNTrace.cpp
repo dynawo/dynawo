@@ -23,11 +23,10 @@
 #include <fstream>
 #include <ostream>
 #include <iomanip>
+#include <dlfcn.h>
 
 #include <boost/version.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
-#include <boost/log/core.hpp>
 #include <boost/log/expressions.hpp>
 #include <boost/log/attributes.hpp>
 #include <boost/log/trivial.hpp>
@@ -37,7 +36,6 @@
 #include <boost/log/sinks/text_ostream_backend.hpp>
 #include <boost/log/support/date_time.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
-#include <boost/log/sinks.hpp>
 
 #if BOOST_VERSION / 100 % 1000 < 56
 #include <boost/utility/empty_deleter.hpp>
@@ -60,12 +58,6 @@ namespace keywords = boost::log::keywords;
 
 namespace DYN {
 
-typedef sinks::synchronous_sink< sinks::text_ostream_backend > text_sink;  ///< define text sink
-typedef sinks::synchronous_sink< sinks::text_file_backend > file_sink;  ///< define file sink
-
-static vector< boost::shared_ptr<file_sink> > sinks;  ///<  vector of file sink
-static vector< boost::shared_ptr<text_sink> > originalSinks;  ///< vector of text sink
-
 /**
  * @brief Operator<< overload for severity level on ostreams
  *
@@ -86,11 +78,46 @@ BOOST_LOG_ATTRIBUTE_KEYWORD(severity, "Severity", SeverityLevel)
 BOOST_LOG_ATTRIBUTE_KEYWORD(tag_attr, "Tag", std::string)
 #pragma GCC diagnostic error "-Wmissing-field-initializers"
 
+Trace&
+Trace::getInstance() {
+  static Trace INSTANCE;  ///< the singleton !
+  return INSTANCE;
+}
+
+typedef Trace& getTraceInstance_t();
+
+Trace&
+Trace::getInstance_() {
+  void* handle = dlopen(NULL, RTLD_NOW);
+  Trace* pTrace = NULL;
+
+  if (!handle) {
+    std::cerr << dlerror() << '\n';
+  } else {
+    dlerror();
+    getTraceInstance_t* getTraceInstance = reinterpret_cast<getTraceInstance_t*> (dlsym(handle, "getTraceInstance"));
+    if (!dlerror()) {
+      pTrace = &(getTraceInstance());
+    }
+    dlclose(handle);
+  }
+
+  if (!pTrace) {
+    pTrace = &(getInstance());
+  }
+  return *pTrace;
+}
+
 TraceStream& Trace::endline(TraceStream& os) {
   return eol(os);
 }
 
 void Trace::init() {
+  Trace& trace = getInstance_();
+  trace.init_();
+}
+
+void Trace::init_() {
   // Setup the formatters for the sinks
   logging::formatter onlyMsg = expr::stream << expr::smessage;
 
@@ -108,18 +135,28 @@ void Trace::init() {
 
   // Register the sink in the logging core
   logging::core::get()->add_sink(sink);
-  originalSinks.push_back(sink);
+  originalSinks_.push_back(sink);
 
   logging::add_common_attributes();
 }
 
 void Trace::disableLogging() {
+  Trace& trace = getInstance_();
+  trace.disableLogging_();
+}
+
+void Trace::disableLogging_() {
   logging::core::get()->set_logging_enabled(false);
 }
 
-void Trace::addAppenders(std::vector<TraceAppender> & appenders) {
+void Trace::addAppenders(std::vector<TraceAppender>& appenders) {
+  Trace& trace = getInstance_();
+  trace.addAppenders_(appenders);
+}
+
+void Trace::addAppenders_(std::vector<TraceAppender>& appenders) {
   // remove old appenders (console_log)
-  Trace::resetCustomAppenders();
+  resetCustomAppenders_();
 
   std::stringstream s;
   // Add appender
@@ -152,24 +189,28 @@ void Trace::addAppenders(std::vector<TraceAppender> & appenders) {
       sink->set_filter(severity >= appenders[i].getLvlFilter() && tag_attr == appenders[i].getTag());
     }
     logging::core::get()->add_sink(sink);
-    sinks.push_back(sink);
+    sinks_.push_back(sink);
   }
 
   logging::add_common_attributes();
 }
 
 void Trace::resetCustomAppenders() {
-  vector< boost::shared_ptr<file_sink> >::iterator itSinks;
-  for (itSinks = sinks.begin(); itSinks != sinks.end(); ++itSinks) {
+  Trace& trace = getInstance_();
+  trace.resetCustomAppenders_();
+}
+
+void Trace::resetCustomAppenders_() {
+  for (vector< boost::shared_ptr<file_sink> >::iterator itSinks = sinks_.begin(); itSinks != sinks_.end(); ++itSinks) {
     logging::core::get()->remove_sink(*itSinks);
   }
-  sinks.clear();
+  sinks_.clear();
 
   vector< boost::shared_ptr<text_sink> >::iterator itOSinks;
-  for (itOSinks = originalSinks.begin(); itOSinks != originalSinks.end(); ++itOSinks) {
+  for (itOSinks = originalSinks_.begin(); itOSinks != originalSinks_.end(); ++itOSinks) {
     logging::core::get()->remove_sink(*itOSinks);
   }
-  originalSinks.clear();
+  originalSinks_.clear();
 }
 
 TraceStream
@@ -193,10 +234,19 @@ Trace::error(const std::string& tag) {
 }
 
 void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& message) {
+  Trace& trace = getInstance_();
+  trace.log_(slv, tag, message);
+}
+
+void Trace::log_(SeverityLevel slv, const std::string& tag, const std::string& message) {
   src::severity_logger< SeverityLevel > slg;
 
   if (tag != "")
     slg.add_attribute("Tag", attrs::constant< std::string >(tag));
+
+  for (vector< boost::shared_ptr<file_sink> >::iterator itSinks = sinks_.begin(); itSinks != sinks_.end(); ++itSinks) {
+    logging::core::get()->add_sink(*itSinks);
+  }
 
   BOOST_LOG_SEV(slg, slv) << message;
 }

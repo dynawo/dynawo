@@ -52,12 +52,13 @@ set(API_PAR_INCLUDE_HEADERS
 add_library(dynawo_API_PAR ${LIBRARY_TYPE} ${API_PAR_SOURCES})
 
 target_include_directories(dynawo_API_PAR
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    )
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  )
 
 target_link_libraries(dynawo_API_PAR
+  PRIVATE
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     XMLSAXParser${LibXML_LINK_SUFFIX}
     dynawo_Common

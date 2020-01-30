@@ -260,9 +260,6 @@ function(GetPatchCommand projectName)
   endif()
 endfunction()
 
-# Python Interpreter
-find_package(PythonInterp REQUIRED)
-
 # Build system thirparties if not available
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   # clear cache variables to force find
@@ -538,6 +535,45 @@ else()
   set(SUITESPARSE_HOME ${install_dir})
 endif()
 
+if(UNIX)
+  if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/nicslu/_nicslu301.zip")
+    set(NICSLU_HOME ${CMAKE_INSTALL_PREFIX}/nicslu)
+    find_package(NICSLU QUIET)
+    if(NICSLU_FOUND)
+      add_custom_target(nicslu)
+      set(NICSLU_HOME ${CMAKE_INSTALL_PREFIX}/nicslu)
+    else()
+      ExternalProject_Add(nicslu
+        INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/nicslu
+        DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/nicslu
+        DOWNLOAD_COMMAND    ""
+        STAMP_DIR           ${DOWNLOAD_DIR}/nicslu-stamp
+        SOURCE_DIR          ${DOWNLOAD_DIR}/nicslu
+        BINARY_DIR          ${DOWNLOAD_DIR}/nicslu-build
+        TMP_DIR             ${TMP_DIR}
+        CONFIGURE_COMMAND   ""
+        BUILD_COMMAND       ${CMAKE_CURRENT_SOURCE_DIR}/nicslu/nicslu-chain.sh --install-dir=<INSTALL_DIR> --build-dir=<BINARY_DIR> --build-type${CMAKE_BUILD_TYPE}
+        INSTALL_COMMAND     ""
+        )
+      ExternalProject_Get_Property(nicslu install_dir)
+      set(NICSLU_HOME ${install_dir})
+      set(NICSLU_FOUND True)
+    endif()
+  else()
+    add_custom_target(nicslu)
+    set(NICSLU_FOUND False)
+  endif()
+else()
+  add_custom_target(nicslu)
+  set(NICSLU_FOUND False)
+endif()
+
+if(NICSLU_FOUND)
+ set(sundials_patch_nicslu patch -p1 --forward --no-backup-if-mismatch -r /dev/null -i ${CMAKE_CURRENT_SOURCE_DIR}/sundials/patch/nicslu/sundials.patch)
+else()
+  set(sundials_patch_nicslu ${CMAKE_COMMAND} -E echo No nicslu patch.)
+endif()
+
 set(SUNDIALS_HOME ${CMAKE_INSTALL_PREFIX}/sundials)
 find_package(Sundials QUIET)
 unset(SUNDIALS_HOME)
@@ -548,7 +584,7 @@ if(Sundials_FOUND)
   set(SUNDIALS_HOME ${CMAKE_INSTALL_PREFIX}/sundials)
 else()
   ExternalProject_Add(sundials
-    DEPENDS             suitesparse
+    DEPENDS             suitesparse nicslu
     INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/sundials
     DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/sundials
     STAMP_DIR           ${DOWNLOAD_DIR}/sundials-stamp
@@ -559,9 +595,10 @@ else()
     URL_MD5             ${sundials_md5}
     PATCH_COMMAND       ${sundials_patch_common}
     COMMAND             ${sundials_patch_compiler}
+    COMMAND             ${sundials_patch_nicslu}
     # workaround on Linux: add -lm to check correctly that KLU is functional
     CMAKE_CACHE_ARGS    -DCMAKE_C_COMPILER:STRING=${CMAKE_C_COMPILER} -DCMAKE_C_FLAGS_INIT:STRING=$<$<BOOL:${UNIX}>:-lm> -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
-    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DBUILD_STATIC_LIBS:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>> -DEXAMPLES_INSTALL:BOOL=OFF -DEXAMPLES_ENABLE_C:BOOL=OFF -DBUILD_CVODES:BOOL=OFF -DBUILD_CVODE:BOOL=OFF -DBUILD_ARKODE:BOOL=OFF -DBUILD_IDAS:BOOL=OFF -DKLU_ENABLE:BOOL=ON -DKLU_INCLUDE_DIR:PATH=${SUITESPARSE_HOME}/include -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY}
+    CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR> -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS:BOOL=$<BOOL:${BUILD_SHARED_LIBS}> -DBUILD_STATIC_LIBS:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>> -DEXAMPLES_INSTALL:BOOL=OFF -DEXAMPLES_ENABLE_C:BOOL=OFF -DBUILD_CVODES:BOOL=OFF -DBUILD_CVODE:BOOL=OFF -DBUILD_ARKODE:BOOL=OFF -DBUILD_IDAS:BOOL=OFF -DKLU_ENABLE:BOOL=ON -DKLU_INCLUDE_DIR:PATH=${SUITESPARSE_HOME}/include -DKLU_LIBRARY_DIR:PATH=${SUITESPARSE_HOME}/lib -DMSVC_STATIC_RUNTIME_LIBRARY=${MSVC_STATIC_RUNTIME_LIBRARY} -DNICSLU_ENABLE=$<BOOL:${NICSLU_FOUND}> -DNICSLU_HOME=${NICSLU_HOME}
     )
   ExternalProject_Get_Property(sundials install_dir)
   set(SUNDIALS_HOME ${install_dir})

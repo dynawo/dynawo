@@ -53,6 +53,7 @@ where [option] can be:"
         config-dynawo                         configure Dynawo's compiling environment using CMake
         build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
         build-dynawo-core                     build Dynawo without models
+        build-dynawo-lib                      build a specific Dynawo library
         build-dynawo-models-cpp               build Dynawo CPP models
         build-dynawo-models                   build Dynawo preassembled models
         build-dynawo-solvers                  build Dynawo solver descriptions
@@ -840,6 +841,21 @@ build_dynawo_core() {
     make -j $DYNAWO_NB_PROCESSORS_USED && make -j $DYNAWO_NB_PROCESSORS_USED install
   else
     cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --config $DYNAWO_BUILD_TYPE && cmake --build $DYNAWO_BUILD_DIR --target install --config $DYNAWO_BUILD_TYPE
+  fi
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
+# Compile a Dynawo library, use help to see all targets
+build_dynawo_lib() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED $@
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --config $DYNAWO_BUILD_TYPE --target $@
   fi
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -2130,6 +2146,11 @@ case $MODE in
 
   build-dynawo-core)
     build_dynawo_core || error_exit "Failed to build Dynawo core"
+    ;;
+
+  build-dynawo-lib)
+    config_dynawo || error_exit "Error while configuring Dynawo"
+    build_dynawo_lib ${ARGS} || error_exit "Failed to build Dynawo lib"
     ;;
 
   build-dynawo-models)

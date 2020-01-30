@@ -26,7 +26,9 @@
 #include <boost/filesystem.hpp>
 #include <dlfcn.h>
 
-#include <xml/sax/parser/ParserException.h>
+#define DYNIODICOS_INSTANCE  // this should be defined only once in main source before header inclusion
+#define DYNTRACE_INSTANCE  // this should be defined only once in main source before header inclusion
+#define DYNTIMERS_INSTANCE  // this should be defined only once in main source before header inclusion
 
 #include "DYNDynamicData.h"
 
@@ -130,9 +132,8 @@ int main(int argc, char ** argv) {
 
     // Initializes logs, parsers & dictionnaries for Dynawo
     Trace::init();
-    shared_ptr<DYN::IoDicos> dicos = DYN::IoDicos::getInstance();
-    dicos->addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
-    dicos->addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
+    DYN::IoDicos::addPath(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
+    DYN::IoDicos::addDicos(getMandatoryEnvVar("DYNAWO_DICTIONARIES"));
 
     // Dynamic data import
     shared_ptr<DYN::DynamicData> dyd(new DYN::DynamicData());
@@ -207,13 +208,10 @@ int main(int argc, char ** argv) {
       }
       throw DYNError(DYN::Error::MODELER, FileGenerationFailed, libList.c_str());
     }
-  } catch (const xml::sax::parser::ParserException& exp) {
-    Trace::error() << DYNLog(XmlParsingError, dydFileName, exp.what()) << Trace::endline;
-    return -1;
-  } catch (const DYN::Error & e) {
+  } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
     return e.type();
-  } catch (const std::exception & exp) {
+  } catch (const std::exception& exp) {
     Trace::error() << exp.what() << Trace::endline;
     return -1;
   }

@@ -69,6 +69,7 @@ if(MSVC)
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS)
   add_definitions(-DLANG_CXX11)
+  add_definitions(/bigobj)
 
   find_package(dlfcn-win32 REQUIRED)
 endif()
@@ -85,6 +86,7 @@ endif()
 
 if(BOOST_USE_STATIC)
   set(Boost_USE_STATIC_LIBS TRUE)
+  set(Boost_USE_STATIC_RUNTIME "@Boost_USE_STATIC_RUNTIME@")
 ELSE()
   set(BUILD_SHARED_LIBS ON)
   add_definitions(-DBOOST_ALL_DYN_LINK)
@@ -99,10 +101,20 @@ find_package(Boost 1.64 REQUIRED
     serialization
     system
     log
+    log_setup
 )
 
 set(SUITESPARSE_HOME "$ENV{DYNAWO_SUITESPARSE_INSTALL_DIR}")
 find_package(SuiteSparse REQUIRED)
+
+if(DEFINED ENV{DYNAWO_NICSLU_INSTALL_DIR})
+  set(NICSLU_HOME $ENV{DYNAWO_NICSLU_INSTALL_DIR})
+endif()
+find_package(NICSLU)
+
+if(${NICSLU_FOUND})
+  add_definitions(-DWITH_NICSLU)
+endif()
 
 set(SUNDIALS_HOME "$ENV{DYNAWO_SUNDIALS_INSTALL_DIR}")
 find_package(Sundials REQUIRED)
@@ -147,6 +159,16 @@ endif()
 target_include_directories(lib PUBLIC $ENV{DYNAWO_ADDITIONAL_INCLUDE_FOR_PREASSEMBLED} PRIVATE ${OMC_INCLUDE_DIR} ${ADEPT_INCLUDE_DIR})
 
 target_link_libraries(lib
-  Dynawo::dynawo_ModelManager
-  $ENV{DYNAWO_ADDITIONAL_LIBRARY_FOR_PREASSEMBLED}
+  PRIVATE
+    Dynawo::dynawo_Common
+    Dynawo::dynawo_API_PAR
+    Dynawo::dynawo_ModelerCommon
+    Dynawo::dynawo_ModelManager
+    $ENV{DYNAWO_ADDITIONAL_LIBRARY_FOR_PREASSEMBLED}
 )
+
+if(APPLE)
+  if(DYNAWO_LIBRARY_TYPE STREQUAL "STATIC")
+    target_link_libraries(lib PRIVATE "-flat_namespace")
+  endif()
+endif()

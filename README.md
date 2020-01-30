@@ -215,6 +215,7 @@ Open `x64 Native Tools Command Prompt for VS2019` and run the following commands
 > git config --global core.autocrlf input
 > set OPENMODELICAHOME=
 > set OPENMODELICALIBRARY=
+> md dynawo-project && cd dynawo-project
 > git clone https://github.com/dynawo/dynawo.git dynawo
 > cd dynawo
 > cmake -S dynawo/3rdParty -B b-3-p -DCMAKE_INSTALL_PREFIX=../d-3-p -DOPENMODELICA_INSTALL=../OpenModelica/Install -DOPENMODELICA_SRC=../OpenModelica/Source -DOMDEV_HOME=../OMDev -G "NMake Makefiles"
