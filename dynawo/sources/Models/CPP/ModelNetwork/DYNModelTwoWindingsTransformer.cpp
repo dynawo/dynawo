@@ -84,7 +84,7 @@ ii2_dUi2_(0.),
 topologyModified_(false),
 stateIndexModified_(false),
 tapChangerIndex_(0),
-modelType_(DYNConstraint(TwoWindingsTransformer).str()) {
+modelType_("TwoWindingsTransformer") {
   // init data
   // ---------
 

@@ -1011,9 +1011,9 @@ SubModel::addEvent(const string& modelName, const MessageTimeline& messageTimeli
 
 void
 SubModel::addConstraint(const string& modelName, bool begin, const Message& description,
-    const string& modelType, const string& side) {
+    const string& modelType) {
   constraints::Type_t type = (begin)?constraints::CONSTRAINT_BEGIN:constraints::CONSTRAINT_END;
-  constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type, modelType, side);
+  constraints_->addConstraint(modelName, description.str(), getCurrentTime(), type, modelType);
 }
 
 string

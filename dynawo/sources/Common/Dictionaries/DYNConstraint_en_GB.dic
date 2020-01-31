@@ -15,13 +15,7 @@ UInfUmin                          = U < Umin
 // Current Constraints
 OverloadUp                        = overload %1% side %2%
 IMAP                              = permanent limit side %1%
-OverloadOpen                      = overload %1% : open line
+OverloadOpen                      = overload %1% : open line (side %2%)
 // Generators
 UsMax                             = Us > UsMax
 UsMin                             = Us < UsMin
-// Model Types
-Node                              = Node
-CalculatedBus                     = Bus
-DanglingLine                      = DanglingLine
-Line                              = Line
-TwoWindingsTransformer            = TwoWindingsTransformer

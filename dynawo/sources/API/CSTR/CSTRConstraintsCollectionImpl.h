@@ -51,10 +51,10 @@ class ConstraintsCollection::Impl : public ConstraintsCollection {
   virtual ~Impl();
 
   /**
-   * @copydoc ConstraintsCollection::addConstraint(const std::string& modelName, const std::string& description, const double& time, Type_t type, const std::string& modelType = "", const std::string& side = "")
+   * @copydoc ConstraintsCollection::addConstraint(const std::string& modelName, const std::string& description, const double& time, Type_t type, const std::string& modelType = "")
    */
   void addConstraint(const std::string& modelName, const std::string& description, const double& time, Type_t type,
-      const std::string& modelType = "", const std::string& side = "");
+      const std::string& modelType = "");
 
   /**
    * @copydoc ConstraintsCollection::cbegin()

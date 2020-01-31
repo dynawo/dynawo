@@ -51,7 +51,7 @@ namespace DYN {
 ModelDanglingLine::ModelDanglingLine(const shared_ptr<DanglingLineInterface>& line) :
 Impl(line->getID()),
 stateModified_(false),
-modelType_(DYNConstraint(DanglingLine).str())  {
+modelType_("DanglingLine")  {
   // init data
   double vNom = line->getVNom();
   double r = line->getR();
