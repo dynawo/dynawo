@@ -47,11 +47,6 @@ Constraint::Impl::setModelType(const string& modelType) {
 }
 
 void
-Constraint::Impl::setSide(const string& side) {
-  side_ = side;
-}
-
-void
 Constraint::Impl::setType(const Type_t& type) {
   type_ = type;
 }
@@ -84,16 +79,6 @@ Constraint::Impl::getModelType() const {
 bool
 Constraint::Impl::hasModelType() const {
   return !modelType_.empty();
-}
-
-string
-Constraint::Impl::getSide() const {
-  return side_;
-}
-
-bool
-Constraint::Impl::hasSide() const {
-  return !side_.empty();
 }
 
 Type_t

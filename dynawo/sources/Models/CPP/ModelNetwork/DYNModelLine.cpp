@@ -67,7 +67,7 @@ ii2_dUr1_(0.),
 ii2_dUi1_(0.),
 ii2_dUr2_(0.),
 ii2_dUi2_(0.),
-modelType_(DYNConstraint(Line).str()) {
+modelType_("Line") {
   double r = line->getR();
   double x = line->getX();
   double b1 = line->getB1();

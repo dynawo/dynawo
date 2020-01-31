@@ -88,14 +88,12 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
       ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
       ASSERT_EQ(constraint->getModelType(), modelType);
-      ASSERT_EQ(constraint->getSide(), "side2");
     } else if (i == 1) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
       ASSERT_EQ(constraint->getDescription(), "OverloadUp 5 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 0.);
       ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
       ASSERT_EQ(constraint->getModelType(), modelType);
-      ASSERT_EQ(constraint->getSide(), "side2");
     } else {
       assert(0);
     }
@@ -120,11 +118,10 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
     boost::shared_ptr<constraints::Constraint> constraint = (*it);
     if (i == 0) {
       ASSERT_EQ(constraint->getModelName(), "MY COMP");
-      ASSERT_EQ(constraint->getDescription(), "OverloadOpen 5");
+      ASSERT_EQ(constraint->getDescription(), "OverloadOpen 5 2");
       ASSERT_DOUBLE_EQUALS_DYNAWO(constraint->getTime(), 5.1);
       ASSERT_EQ(constraint->getType(), constraints::CONSTRAINT_BEGIN);
       ASSERT_EQ(constraint->getModelType(), modelType);
-      ASSERT_EQ(constraint->getSide(), "side2");
     } else {
       assert(0);
     }

@@ -28,7 +28,6 @@
     <xs:attribute name="time" use="required" type="xs:float"/>
     <xs:attribute name="modelName" use="required" type="xs:string"/>
     <xs:attribute name="description" use="required" type="xs:string"/>
-    <xs:attribute name="side" use="optional" type="xs:string"/>
     <xs:attribute name="type" use="optional" type="xs:string"/>
   </xs:complexType>
 

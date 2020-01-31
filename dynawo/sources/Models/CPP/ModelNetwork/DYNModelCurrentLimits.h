@@ -116,7 +116,6 @@ class ModelCurrentLimits {  ///< Generic Current Limits model
  private:
   int nbTemporaryLimits_;  ///< number of temporary limits (limits with a time duration)
   side_t side_;  ///< side
-  std::string sideAsString_;  ///< side name
 
   double maxTimeOperation_;  ///< maximum time operation, if limits duration is over this time, the current limit does not operate
 

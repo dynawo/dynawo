@@ -59,9 +59,6 @@ TxtExporter::exportToStream(const boost::shared_ptr<ConstraintsCollection>& cons
     if ((*itConstraint)->hasModelType())
       stream << (*itConstraint)->getModelType()
              << TXTEXPORTER_SEPARATOR;
-    if ((*itConstraint)->hasSide())
-      stream << (*itConstraint)->getSide()
-             << TXTEXPORTER_SEPARATOR;
     stream << "\n";
   }
 }

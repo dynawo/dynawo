@@ -163,7 +163,7 @@ iiYNum_(0),
 irYNum_(0),
 busIndex_(bus->getBusIndex()),
 hasConnection_(bus->hasConnection()),
-modelType_((boost::starts_with(bus->getID(), "calculatedBus_"))?DYNConstraint(CalculatedBus).str():DYNConstraint(Node).str()) {
+modelType_((boost::starts_with(bus->getID(), "calculatedBus_"))?"Bus":"Node") {
   neighbors_.clear();
   busBarSectionNames_.clear();
   busBarSectionNames_ = bus->getBusBarSectionNames();
@@ -578,22 +578,22 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
 NetworkComponent::StateChange_t
 ModelBus::evalZ(const double& /*t*/) {
   if (g_[0] == ROOT_UP && !stateUmax_ && !getSwitchOff()) {
-    network_->addConstraint(constraintId_, true, DYNConstraint(USupUmax), modelType_, "");
+    network_->addConstraint(constraintId_, true, DYNConstraint(USupUmax), modelType_);
     stateUmax_ = true;
   }
 
   if (g_[1] == ROOT_UP && !stateUmin_ && !getSwitchOff()) {
-    network_->addConstraint(constraintId_, true, DYNConstraint(UInfUmin), modelType_, "");
+    network_->addConstraint(constraintId_, true, DYNConstraint(UInfUmin), modelType_);
     stateUmin_ = true;
   }
 
   if (g_[2] == ROOT_UP && stateUmax_) {
-    network_->addConstraint(constraintId_, false, DYNConstraint(USupUmax), modelType_, "");
+    network_->addConstraint(constraintId_, false, DYNConstraint(USupUmax), modelType_);
     stateUmax_ = false;
   }
 
   if (g_[3] == ROOT_UP && stateUmin_) {
-    network_->addConstraint(constraintId_, false, DYNConstraint(UInfUmin), modelType_, "");
+    network_->addConstraint(constraintId_, false, DYNConstraint(UInfUmin), modelType_);
     stateUmin_ = false;
   }
 
