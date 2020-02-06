@@ -14,9 +14,23 @@ within Dynawo.Electrical.Transformers;
 
 model TransformerVariableTap "Transformer with variable tap to be connected to a tap changer"
 
-  import Dynawo.Connectors;
+/*
+  Equivalent circuit and conventions:
 
-  extends BaseClasses.BaseTransformer;
+               I1  r                I2
+    U1,P1,Q1 -->---oo----R+jX-------<-- U2,P2,Q2
+  (terminal1)                   |      (terminal2)
+                               G+jB
+                                |
+                               ---
+
+  The transformer ratio is variable.
+*/
+
+  import Dynawo.Connectors;
+  import Dynawo.Electrical.Controls.Basics.SwitchOff;
+
+  extends SwitchOff.SwitchOffTransformer;
 
   public
 
@@ -73,12 +87,19 @@ equation
   end if;
 
   if (running.value) then
+    // Transformer equations
+    terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
+    ZPu * terminal1.i = rTfoPu * rTfoPu * terminal1.V - rTfoPu * terminal2.V;
+
     // Variables for display or connection to another model (tap-changer for example)
     P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
     U1Pu.value = ComplexMath.'abs' (terminal1.V);
     U2Pu.value = ComplexMath.'abs' (terminal2.V);
+
   else
+    terminal1.i = terminal2.i;
+    terminal2.V = Complex (0);
     P1Pu.value = 0;
     Q1Pu.value = 0;
     U1Pu.value = 0;
