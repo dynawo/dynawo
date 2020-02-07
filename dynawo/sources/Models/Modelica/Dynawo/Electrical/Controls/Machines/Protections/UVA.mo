@@ -49,4 +49,7 @@ model UVA "Under-Voltage Automaton"
       switchOffSignal.value = true;
       Timeline.logEvent1(TimelineKeys.UVATripped);
     end when;
+
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>This model will send a tripping order to a generator if the voltage stays below a threshold during a certain amount of time.</body></html>"));
 end UVA;

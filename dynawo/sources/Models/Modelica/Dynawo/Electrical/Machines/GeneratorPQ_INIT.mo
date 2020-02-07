@@ -15,5 +15,7 @@ within Dynawo.Electrical.Machines;
 model GeneratorPQ_INIT "Initialisation model for generator PQ"
 
   extends BaseClasses_INIT.BaseGeneratorSimplified_INIT;
+  extends AdditionalIcons.Init;
 
+annotation(preferredView = "text");
 end GeneratorPQ_INIT;

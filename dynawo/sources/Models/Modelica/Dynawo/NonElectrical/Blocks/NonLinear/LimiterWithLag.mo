@@ -70,7 +70,8 @@ block LimiterWithLag "Limiter that enforces saturations only after they were vio
       initSaturatedMax = false;
     end when;
 
-  annotation(   Icon(coordinateSystem(
+  annotation(preferredView = "text",
+  Icon(coordinateSystem(
     preserveAspectRatio=true,
     extent={{-100,-100},{100,100}}), graphics={
 

@@ -27,4 +27,5 @@ model Step "Parametrable step model : applies a change of amplitude at a given t
 equation
   step.value = Value0 + (if time < tStep then 0 else Height);
 
+annotation(preferredView = "text");
 end Step;

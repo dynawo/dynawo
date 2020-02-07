@@ -13,6 +13,7 @@ within Dynawo.Electrical.Loads;
 */
 
 package BaseClasses
+  extends Icons.BasesPackage;
 
 partial model BaseLoad "Base model for loads"
 
@@ -48,6 +49,9 @@ partial model BaseLoad "Base model for loads"
         UPu.value = 0;
     end if;
 
+annotation(preferredView = "text");
 end BaseLoad;
+
+
 
 end BaseClasses;

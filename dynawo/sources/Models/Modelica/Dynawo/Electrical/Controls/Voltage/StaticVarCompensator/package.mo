@@ -13,6 +13,8 @@ within Dynawo.Electrical.Controls.Voltage;
 */
 
 package StaticVarCompensator "Model for static var compensator"
+  extends Icons.Package;
+
     type Mode = enumeration(OFF "No regulation", STANDBY "Standby mode", RUNNING_V "Voltage control");
 
 end StaticVarCompensator;

@@ -14,6 +14,7 @@ within Dynawo.Electrical.Controls.Transformers;
 
 model PhaseShifterP_INIT "Initialisation model for a phase-shifter monitoring the active power"
   extends BaseClasses_INIT.BaseTapChangerPhaseShifter_TARGET_INIT (targetValue = PTarget, deadBand = PDeadBand, tapChangerType = tapChangerType0);
+  extends AdditionalIcons.Init;
 
   public
     parameter Types.ActivePower PTarget  "Target active power";
@@ -27,4 +28,5 @@ model PhaseShifterP_INIT "Initialisation model for a phase-shifter monitoring th
     parameter Boolean increaseTapToIncreaseValue = (sign * increasePhase < 0) "Whether a tap increase will lead to an increase in the monitored value";
     parameter TapChangerType tapChangerType0 = TapChangerType.PhaseShifter;
 
+annotation(preferredView = "text");
 end PhaseShifterP_INIT;

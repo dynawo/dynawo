@@ -43,7 +43,7 @@ else
   GPu = 0;
 end if;
 
-annotation(
+annotation(preferredView = "text",
     Diagram(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-18, 1}, extent = {{-60, 21}, {94, -23}}, textString = "CalculBG")}, coordinateSystem(initialScale = 0.1)),
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-70, 28}, extent = {{6, -6}, {142, -46}}, textString = "CalculBG")}, coordinateSystem(initialScale = 0.1)));
 end CalculBG;

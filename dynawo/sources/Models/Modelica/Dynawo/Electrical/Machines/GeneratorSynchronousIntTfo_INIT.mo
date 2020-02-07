@@ -17,6 +17,7 @@ model GeneratorSynchronousIntTfo_INIT "Synchronous machine - Initialization mode
 /*This model is similar to GeneratorSynchronousInt_INIT but U0Pu, P0Pu, Q0Pu and UPhase0 are variables because they are calculated from the generator transformer initialization model and should be passed to the generator through an initConnect in a preassembled model or in the dyd file*/
 
   extends BaseClasses_INIT.BaseGeneratorSynchronousInt_INIT;
+  extends AdditionalIcons.Init;
 
     // Start values from transformer
     Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
@@ -24,4 +25,5 @@ model GeneratorSynchronousIntTfo_INIT "Synchronous machine - Initialization mode
     Types.ReactivePowerPu Q0Pu "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
     Types.Angle UPhase0 "Start value of voltage angle in rad";
 
+annotation(preferredView = "text");
 end GeneratorSynchronousIntTfo_INIT;

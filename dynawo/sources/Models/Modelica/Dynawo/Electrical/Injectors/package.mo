@@ -13,4 +13,5 @@ within Dynawo.Electrical;
 */
 
 package Injectors "Injector models"
+  extends Icons.Package;
 end Injectors;

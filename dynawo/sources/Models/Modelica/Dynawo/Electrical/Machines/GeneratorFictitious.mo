@@ -15,6 +15,7 @@ within Dynawo.Electrical.Machines;
 model GeneratorFictitious "Fictitious generator with voltage dependant active and reactive power (alpha-beta model)"
 
   extends BaseClasses.BaseGeneratorSimplified;
+  extends AdditionalIcons.Machine;
 
   public
 
@@ -31,4 +32,5 @@ equation
     QGenPu = 0;
   end if;
 
+annotation(preferredView = "text");
 end GeneratorFictitious;

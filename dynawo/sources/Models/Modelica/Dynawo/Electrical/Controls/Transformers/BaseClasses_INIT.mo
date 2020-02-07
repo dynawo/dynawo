@@ -13,6 +13,7 @@ within Dynawo.Electrical.Controls.Transformers;
 */
 
 package BaseClasses_INIT
+  extends Icons.BasesPackage;
 
 partial model BaseTapChangerPhaseShifter_INIT "Base initialization model for tap-changers and phase-shifters"
 
@@ -37,7 +38,7 @@ partial model BaseTapChangerPhaseShifter_INIT "Base initialization model for tap
     Boolean lookingToDecreaseTap "True if the phase shifter wants to decrease tap";
     State state0 "Initial state";
 
-
+annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter_INIT;
 
 
@@ -62,6 +63,7 @@ partial model BaseTapChangerPhaseShifter_MAX_INIT "Base initialization model for
       state0 = State.WaitingToMoveDown;
     end when;
 
+annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter_MAX_INIT;
 
 
@@ -86,6 +88,7 @@ partial model BaseTapChangerPhaseShifter_INTERVAL_INIT "Base initialisation mode
       state0 = State.WaitingToMoveDown;
     end when;
 
+annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter_INTERVAL_INIT;
 
 
@@ -96,6 +99,7 @@ partial model BaseTapChangerPhaseShifter_TARGET_INIT "Base initialization model 
     parameter Real targetValue "Target value";
     parameter Real deadBand (min = 0) "Acceptable dead-band next to the target value";
 
+annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter_TARGET_INIT;
 
 
@@ -110,7 +114,8 @@ partial model BaseTapChanger_INIT "Base initialization model for tap-changers"
     parameter Boolean increaseTapToIncreaseValue = true "Whether a tap increase will lead to an increase in the monitored value";
     parameter TapChangerType tapChangerType0 = TapChangerType.TapChanger;
 
+annotation(preferredView = "text");
 end BaseTapChanger_INIT;
 
-
+annotation(preferredView = "text");
 end BaseClasses_INIT;

@@ -15,6 +15,7 @@ within Dynawo.Electrical;
 package Constants "Defining constants for network components"
   /* This package enables to express the connection status for any component in a similar way
      between C++ and Modelica. */
+  extends Icons.Package;
 
   public
 
@@ -69,4 +70,5 @@ package Constants "Defining constants for network components"
     end if;
   end realToState;
 
+annotation(preferredView = "text");
 end Constants;

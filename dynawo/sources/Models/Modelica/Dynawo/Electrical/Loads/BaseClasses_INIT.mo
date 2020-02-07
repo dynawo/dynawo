@@ -13,6 +13,7 @@ within Dynawo.Electrical.Loads;
 */
 
 package BaseClasses_INIT
+  extends Icons.BasesPackage;
 
 partial model BaseLoadInterfaceVariables_INIT "Base model for load initialization"
 
@@ -21,7 +22,9 @@ partial model BaseLoadInterfaceVariables_INIT "Base model for load initializatio
     Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
     flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
 
+annotation(preferredView = "text");
 end BaseLoadInterfaceVariables_INIT;
+
 
 partial model BaseLoadInterfaceParameters_INIT "Base model for load initialization from load flow"
 
@@ -31,6 +34,8 @@ partial model BaseLoadInterfaceParameters_INIT "Base model for load initializati
   equation
     s0Pu = Complex(P0Pu, Q0Pu);
 
+annotation(preferredView = "text");
 end BaseLoadInterfaceParameters_INIT;
+
 
 end BaseClasses_INIT;

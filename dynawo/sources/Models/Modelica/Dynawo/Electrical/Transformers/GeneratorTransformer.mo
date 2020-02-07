@@ -23,6 +23,7 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
 
   extends BaseClasses.TransformerParameters;
   extends BaseClasses.BaseTransformer;
+  extends AdditionalIcons.Transformer;
 
   Connectors.ACPower terminal1 (V (re (start = u10Pu.re), im (start = u10Pu.im)),i (re (start = i10Pu.re), im (start = i10Pu.im)));
   Connectors.ACPower terminal2 (V (re (start = u20Pu.re), im (start = u20Pu.im)),i (re (start = i20Pu.re), im (start = i20Pu.im)));
@@ -78,4 +79,7 @@ equation
     Q2Pu = 0;
   end if;
 
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>
+This model enables to initialize a generator model when the load-flow inputs are not known at the generator terminal but at the generator transformer terminal.</body></html>"));
 end GeneratorTransformer;

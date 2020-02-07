@@ -12,10 +12,10 @@ within Dynawo.Electrical.Controls.Generic.Functions;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-package Automaton "Function to call external automaton"
-
-function functionAutomaton
+function Automaton "Function to call external automaton"
   import Dynawo.Electrical.Controls.Generic.GenericAutomatonConstants;
+
+  extends Icons.Function;
 
   input String command "Command to be called";
   input Types.Time timeActivation "Automaton activation time";
@@ -30,6 +30,5 @@ function functionAutomaton
 
   external "C" callExternalAutomaton(command, timeActivation, inputs, inputsName, nbInputs, nbMaxInputs, outputs, outputsName, nbOutputs, nbMaxOuputs);
 
-end functionAutomaton;
-
+annotation(preferredView = "text");
 end Automaton;

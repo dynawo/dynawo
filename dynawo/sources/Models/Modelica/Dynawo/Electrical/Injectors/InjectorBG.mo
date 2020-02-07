@@ -53,4 +53,5 @@ model InjectorBG "Injector controlled by a the susceptance B and the conductance
     PInjPu = -ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
     QInjPu = -ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
 
+annotation(preferredView = "text");
 end InjectorBG;

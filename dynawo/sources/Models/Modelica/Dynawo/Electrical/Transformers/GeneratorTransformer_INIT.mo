@@ -1,3 +1,4 @@
+within Dynawo.Electrical.Transformers;
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
@@ -10,12 +11,12 @@
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-within Dynawo.Electrical.Transformers;
-
 model GeneratorTransformer_INIT
 
   import Dynawo.Electrical.SystemBase;
+
   extends BaseClasses_INIT.BaseGeneratorTransformer_INIT;
+  extends AdditionalIcons.Init;
 
   public
 
@@ -26,4 +27,5 @@ model GeneratorTransformer_INIT
     parameter Types.PerUnit XPu "Reactance of the generator transformer in p.u (base U2Nom, SnRef)";
     parameter Types.PerUnit GPu "Conductance of the generator transformer in p.u (base U2Nom, SnRef)";
 
+annotation(preferredView = "text");
 end GeneratorTransformer_INIT;

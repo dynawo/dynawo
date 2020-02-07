@@ -15,6 +15,7 @@ within Dynawo.Electrical.Machines;
 model GeneratorPV_INIT "Initialisation model for generator PV"
 
   extends BaseClasses_INIT.BaseGeneratorSimplified_INIT;
+  extends AdditionalIcons.Init;
 
   parameter Real LambdaPu "Reactive power sensitivity of the voltage regulation in p.u (base UNom, SnRef)";
 
@@ -24,4 +25,5 @@ equation
 
   URef0Pu = U0Pu + LambdaPu * QGen0Pu;
 
+annotation(preferredView = "text");
 end GeneratorPV_INIT;

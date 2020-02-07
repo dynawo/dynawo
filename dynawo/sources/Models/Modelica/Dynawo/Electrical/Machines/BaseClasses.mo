@@ -13,6 +13,7 @@ within Dynawo.Electrical.Machines;
 */
 
 package BaseClasses
+  extends Icons.BasesPackage;
 
 // Base dynamic model for simplified generator models: PV, PQ, Fictitious
 partial model BaseGeneratorSimplified "Base model for simplified generator models"
@@ -44,7 +45,9 @@ equation
   SGenPu = - terminal.V * ComplexMath.conj(terminal.i);
   UPu = ComplexMath.'abs'(terminal.V);
 
+annotation(preferredView = "text");
 end BaseGeneratorSimplified;
+
 
 // Base active power / frequency behavior for PV and PQ generator models
 partial model BaseGeneratorSimplifiedPFBehavior "Base model for generator active power / frequency modulation"
@@ -93,7 +96,9 @@ equation
     PGenPu = 0;
   end if;
 
+annotation(preferredView = "text");
 end BaseGeneratorSimplifiedPFBehavior;
+
 
 record GeneratorSynchronousParameters "Synchronous machine record: Common parameters to the init and the dynamic models"
 
@@ -130,7 +135,9 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
     final parameter Types.PerUnit rTfoPu = if (RTfPu > 0.0) or (XTfPu > 0.0) then (UNomHV / UBaseHV) / (UNomLV / UBaseLV)
                                                   else 1.0 "Ratio of the generator transformer in p.u (base UBaseHV, UBaseLV)";
 
+annotation(preferredView = "text");
 end GeneratorSynchronousParameters;
+
 
 
 partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model"
@@ -296,6 +303,8 @@ equation
     ufPu = 0;
   end if;
 
+annotation(preferredView = "text");
 end BaseGeneratorSynchronous;
 
+annotation(preferredView = "text");
 end BaseClasses;

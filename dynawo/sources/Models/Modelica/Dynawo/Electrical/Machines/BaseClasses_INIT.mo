@@ -13,6 +13,7 @@ within Dynawo.Electrical.Machines;
 */
 
 package BaseClasses_INIT
+  extends Icons.BasesPackage;
 
 partial model BaseGeneratorSimplified_INIT "Base initialization model for simplified generator models"
 
@@ -40,7 +41,9 @@ equation
   PGen0Pu = -P0Pu;
   QGen0Pu = -Q0Pu;
 
+annotation(preferredView = "text");
 end BaseGeneratorSimplified_INIT;
+
 
 partial model BaseGeneratorSynchronous_INIT "Base initialization model for synchronous machine"
   import Dynawo.Connectors;
@@ -205,7 +208,9 @@ equation
   IRotor0Pu = MdPPu / rTfoPu * If0Pu;
   ThetaInternal0 = Theta0;
 
+annotation(preferredView = "text");
 end BaseGeneratorSynchronous_INIT;
+
 
 
 partial model BaseGeneratorSynchronousInt_INIT "Base initialization model for synchronous machine from internal parameters"
@@ -229,7 +234,9 @@ partial model BaseGeneratorSynchronousInt_INIT "Base initialization model for sy
     parameter Types.PerUnit RQ2Pu "Quadrature axis 2nd damper resistance in p.u.";
     parameter Types.PerUnit MdPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
 
+annotation(preferredView = "text");
 end BaseGeneratorSynchronousInt_INIT;
+
 
 
 partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for synchronous machine from external parameters"
@@ -304,7 +311,9 @@ equation
   LqPu = XlPu;
   MqPu + LqPu = XqPu;
 
+annotation(preferredView = "text");
 end BaseGeneratorSynchronousExt_INIT;
+
 
 partial model BaseGeneratorSynchronousExt4E_INIT "Base initialization model for synchronous machine from external parameters with four windings"
 
@@ -342,8 +351,9 @@ equation
   LQ2Pu * (MqPu + LQ1Pu) * (T3qPu - T6qPu) = MqPu * LQ1Pu * (T6qPu - T3qPu * (MqPu + LQ1Pu) * LqPu / (MqPu * LqPu + MqPu * LQ1Pu + LqPu * LQ1Pu));
   RQ2Pu * T3qPu = LQ2Pu + MqPu * LQ1Pu / (MqPu + LQ1Pu);
 
-
+annotation(preferredView = "text");
 end BaseGeneratorSynchronousExt4E_INIT;
+
 
 partial model BaseGeneratorSynchronousExt3E_INIT "Base initialization model for synchronous machine from external parameters with three windings"
 
@@ -372,6 +382,8 @@ equation
   RQ2Pu = 0;
   LQ2Pu = 100000;
 
+annotation(preferredView = "text");
 end BaseGeneratorSynchronousExt3E_INIT;
 
+annotation(preferredView = "text");
 end BaseClasses_INIT;

@@ -20,10 +20,12 @@ model TransformerFixedRatio "Two winding transformer with a fixed ratio"
 
   extends BaseClasses.TransformerParameters;
   extends BaseClasses.BaseTransformer;
+  extends AdditionalIcons.Transformer;
 
   Connectors.ACPower terminal1;
   Connectors.ACPower terminal2;
 
   parameter Types.PerUnit rTfoPu "Transformation ratio in p.u: U2/U1 in no load conditions";
 
+annotation(preferredView = "text");
 end TransformerFixedRatio;

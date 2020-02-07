@@ -13,9 +13,10 @@ within Dynawo.Electrical.Controls.Basics;
 */
 
 package SwitchOff
-
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
+
+  extends Icons.Package;
 
 partial model SwitchOffLogic "Manage switch-off logic"
   /* Handles a predefinite number of switch-off signals and sets running to false as soon as one signal is set to true */
@@ -45,7 +46,9 @@ partial model SwitchOffLogic "Manage switch-off logic"
       end when;
     end if;
 
+annotation(preferredView = "text");
 end SwitchOffLogic;
+
 
 partial model SwitchOffGenerator "Switch-off model for a generator"
   /* The three possible/expected switch-off signals for a generator are:
@@ -69,6 +72,7 @@ partial model SwitchOffGenerator "Switch-off model for a generator"
       state = Constants.state.Open;
     end when;
 
+annotation(preferredView = "text");
 end SwitchOffGenerator;
 
 partial model SwitchOffLoad "Switch-off model for a load"
@@ -92,6 +96,7 @@ partial model SwitchOffLoad "Switch-off model for a load"
       state = Constants.state.Open;
     end when;
 
+annotation(preferredView = "text");
 end SwitchOffLoad;
 
 partial model SwitchOffTapChanger "Switch-off model for a tap-changer"
@@ -105,6 +110,7 @@ partial model SwitchOffTapChanger "Switch-off model for a tap-changer"
       Timeline.logEvent1 (TimelineKeys.TapChangerSwitchOff);
     end when;
 
+annotation(preferredView = "text");
 end SwitchOffTapChanger;
 
 partial model SwitchOffPhaseShifter "Switch-off model for a phase-shifter"
@@ -119,6 +125,7 @@ partial model SwitchOffPhaseShifter "Switch-off model for a phase-shifter"
       Timeline.logEvent1 (TimelineKeys.PhaseShifterSwitchOff);
     end when;
 
+annotation(preferredView = "text");
 end SwitchOffPhaseShifter;
 
 partial model SwitchOffLine "Switch-off signal for a line"
@@ -142,6 +149,7 @@ partial model SwitchOffLine "Switch-off signal for a line"
       state = Constants.state.Open;
     end when;
 
+annotation(preferredView = "text");
 end SwitchOffLine;
 
 partial model SwitchOffDCLine "Switch-off signal for a DC line"
@@ -165,6 +173,7 @@ partial model SwitchOffDCLine "Switch-off signal for a DC line"
       state = Constants.state.Open;
     end when;
 
+annotation(preferredView = "text");
 end SwitchOffDCLine;
 
 
@@ -188,6 +197,7 @@ partial model SwitchOffTransformer "Switch-off signal for a transformer"
       state = Constants.state.Open;
     end when;
 
+annotation(preferredView = "text");
 end SwitchOffTransformer;
 
 partial model SwitchOffIdealSwitch "Switch-off signal for an ideal switch"
@@ -210,6 +220,8 @@ partial model SwitchOffIdealSwitch "Switch-off signal for an ideal switch"
       state = Constants.state.Open;
     end when;
 
+annotation(preferredView = "text");
 end SwitchOffIdealSwitch;
 
+annotation(preferredView = "text");
 end SwitchOff;

@@ -27,3 +27,4 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Resources DESTINATION ${DDBDIR_NAM
 add_subdirectory(Connectors C)
 add_subdirectory(Electrical E)
 add_subdirectory(NonElectrical N)
+add_subdirectory(AdditionalIcons I)

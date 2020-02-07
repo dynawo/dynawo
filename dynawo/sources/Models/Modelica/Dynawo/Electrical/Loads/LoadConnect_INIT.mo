@@ -14,8 +14,10 @@ within Dynawo.Electrical.Loads;
 
 model LoadConnect_INIT "Initialization for load where u0Pu and i0Pu need to be connected"
   extends BaseClasses_INIT.BaseLoadInterfaceVariables_INIT;
+  extends AdditionalIcons.Init;
 
   equation
     s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
+annotation(preferredView = "text");
 end LoadConnect_INIT;

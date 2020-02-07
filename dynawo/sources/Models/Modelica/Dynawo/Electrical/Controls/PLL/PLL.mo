@@ -5,7 +5,7 @@ model PLL "Phase-Locked Loop"
   import Modelica.Blocks;
   import Modelica.ComplexBlocks;
   import Modelica.Constants;
-    
+
   import Dynawo.Connectors;
   import Dynawo.Types;
 
@@ -19,7 +19,7 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {-116, 29}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {-101, 51}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
   Blocks.Interfaces.RealInput omegaRefPu(start = SystemBase.omegaRef0Pu) "Reference frequency of the system. Either connected to the reference machine or the center of inertia frequency or set be constant 1." annotation(
     Placement(visible = true, transformation(origin = {-117, -70}, extent = {{-18, -18}, {18, 18}}, rotation = 0), iconTransformation(origin = {-101, -47}, extent = {{-9, -9}, {9, 9}}, rotation = 0)));
-  
+
   // Outputs:
   Blocks.Interfaces.RealOutput omegaPLLPu "Measured Frequency, PLL (pu)" annotation(
     Placement(visible = true, transformation(origin = {160, -63}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {106, 50}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
@@ -27,7 +27,7 @@ model PLL "Phase-Locked Loop"
     Placement(visible = true, transformation(origin = {160, 53}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {106, -80}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
   Blocks.Interfaces.RealOutput cosphi "cos(phi) aligned with terminal voltage phasor" annotation(
     Placement(visible = true, transformation(origin = {160, 5}, extent = {{-17, -17}, {17, 17}}, rotation = 0), iconTransformation(origin = {106, -46}, extent = {{-8, -8}, {8, 8}}, rotation = 0)));
-  
+
   // Blocks:
   Blocks.Math.Product ur_x_sinPhi annotation(
     Placement(visible = true, transformation(origin = {-72, 68}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -95,9 +95,9 @@ equation
     Line(points = {{88, 28}, {92, 28}, {92, 52}, {104, 52}, {104, 52}}, color = {0, 0, 127}));
   connect(dOmega.y, Phi.u) annotation(
     Line(points = {{52, 28}, {64, 28}, {64, 28}, {64, 28}}, color = {0, 0, 127}));
-  
-annotation(
-    Documentation(info = "<html> 
+
+annotation(preferredView = "diagram",
+    Documentation(info = "<html>
 <p> The PLL calculates the frequency of the grid voltage by synchronizing the internal phase angle with measured voltage phasor. q-component of internal voltage phasor is therefore controlled to be zero. </p>
 
 <p> Following relationship is used to calculate internal voltage phasor q-component: </p>

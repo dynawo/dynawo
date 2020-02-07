@@ -31,6 +31,7 @@ model TransformerVariableTap "Transformer with variable tap to be connected to a
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends SwitchOff.SwitchOffTransformer;
+  extends AdditionalIcons.Transformer;
 
   public
 
@@ -106,4 +107,5 @@ equation
     U2Pu.value = 0;
   end if;
 
+annotation(preferredView = "text");
 end TransformerVariableTap;

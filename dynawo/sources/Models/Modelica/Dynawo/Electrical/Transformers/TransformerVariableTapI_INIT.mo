@@ -15,6 +15,7 @@ within Dynawo.Electrical.Transformers;
 model TransformerVariableTapI_INIT "Initialization for transformer based on the network voltage and current"
 
   extends BaseClasses_INIT.BaseTransformerVariableTap_INIT;
+  extends AdditionalIcons.Init;
 
   protected
     Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
@@ -30,4 +31,5 @@ equation
   P10Pu = ComplexMath.real(u10Pu * ComplexMath.conj(i10Pu));
   Q10Pu = ComplexMath.imag(u10Pu * ComplexMath.conj(i10Pu));
 
+annotation(preferredView = "text");
 end TransformerVariableTapI_INIT;

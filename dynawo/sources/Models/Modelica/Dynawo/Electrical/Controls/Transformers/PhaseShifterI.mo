@@ -31,4 +31,5 @@ model PhaseShifterI "Phase-shifter monitoring the current so that it remains und
 equation
   connect (iMonitored.value, valueToMonitor.value);
 
+annotation(preferredView = "text");
 end PhaseShifterI;

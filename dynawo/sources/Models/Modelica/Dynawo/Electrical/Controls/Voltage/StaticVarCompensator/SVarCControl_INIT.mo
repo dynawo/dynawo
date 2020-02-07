@@ -15,6 +15,8 @@ within Dynawo.Electrical.Controls.Voltage.StaticVarCompensator;
 model SVarCControl_INIT "Control initialization for standard static var compensator model"
   import Dynawo.Electrical.SystemBase;
 
+  extends AdditionalIcons.Init;
+
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
   parameter Types.ApparentPowerModule SNom "Static var compensator nominal apparent power in MVA";
   parameter Types.PerUnit Lambda "Statism of the regulation law URefPu = UPu - Lambda*QPu";
@@ -29,4 +31,5 @@ equation
 
   URef0 = (U0Pu - Lambda*Q0Pu*SystemBase.SnRef/SNom) * UNom;
 
+annotation(preferredView = "text");
 end SVarCControl_INIT;

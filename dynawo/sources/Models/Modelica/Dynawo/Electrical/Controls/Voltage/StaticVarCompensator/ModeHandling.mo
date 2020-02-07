@@ -96,7 +96,7 @@ equation
   else
     mode.value = modeManual.value;
   end if;
-  annotation(
+  annotation(preferredView = "text",
     Diagram(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 8}, extent = {{-57, 10}, {123, -22}}, textString = "ModeHandling")}),
     Icon(graphics = {Rectangle(origin = {0, -1}, extent = {{-100, 101}, {100, -99}}), Text(origin = {-61, 18}, extent = {{-30, 20}, {156, -54}}, textString = "ModeHandling"), Text(origin = {138, 80}, extent = {{-26, 12}, {64, -24}}, textString = "blocked"),  Text(origin = {142, -42}, extent = {{-26, 10}, {52, -22}}, textString = "URefPu"), Text(origin = {127, 14}, extent = {{-21, 12}, {57, -14}}, textString = "mode"), Text(origin = {-170, -15}, extent = {{-34, 13}, {34, -11}}, textString = "URef"), Text(origin = {-170, -62}, extent = {{-26, 10}, {32, -14}}, textString = "UPu"), Text(origin = {-193, 87}, extent = {{-125, 45}, {49, -27}}, textString = "setModeManual"), Text(origin = {-168, 36}, extent = {{-152, 46}, {22, -34}}, textString = "selectModeAuto")}, coordinateSystem(initialScale = 0.1)));
 

@@ -46,4 +46,7 @@ equation
     else
       terminal.i = Complex(0);
     end if;
+
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>During the fault, the impedance between the node and the ground is defined by R and X values.</body></html>"));
 end NodeFault;

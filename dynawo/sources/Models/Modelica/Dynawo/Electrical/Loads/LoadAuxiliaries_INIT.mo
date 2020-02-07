@@ -16,8 +16,10 @@ model LoadAuxiliaries_INIT "Initialization for auxiliaries where u0Pu and i0Pu n
 
   extends BaseClasses_INIT.BaseLoadInterfaceParameters_INIT;
   extends BaseClasses_INIT.BaseLoadInterfaceVariables_INIT;
+  extends AdditionalIcons.Init;
 
 equation
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
+annotation(preferredView = "text");
 end LoadAuxiliaries_INIT;

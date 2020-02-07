@@ -23,8 +23,7 @@ model GeneratorPQ "Generator with power / frequency modulation and fixed reactiv
 
   extends BaseClasses.BaseGeneratorSimplified;
   extends BaseClasses.BaseGeneratorSimplifiedPFBehavior;
-
-  public
+  extends AdditionalIcons.Machine;
 
     type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                                 AbsorptionMax "Reactive power is fixed to its absorption limit",
@@ -60,4 +59,7 @@ equation
     QGenPu = 0;
   end if;
 
+annotation(
+    preferredView = "text",
+    Documentation(info = "<html><head></head><body>The active power output is modulated according to frequency (in order to model frequency containment reserves).<div>The reactive power output is only modulated when large voltage variations occur.</div></body></html>"));
 end GeneratorPQ;
