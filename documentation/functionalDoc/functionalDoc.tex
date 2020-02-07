@@ -248,9 +248,9 @@ The \Dynawo Modelica library contains several models to describe advanced dynami
 
 \subsubsection{Library content}
 
-In this part, we will briefly describe what is the content of \Dynawo\textquotesingle s Modelica library. To understand in details the behaviour of each model and the chosen modelling assumptions, we encourage the reader to directly dig into the Modelica  model or to look at the specific documentation that is automatically built from the Modelica models. \\
+In this part, we will briefly describe what is the content of \Dynawo\textquotesingle s Modelica library. To understand in details the behaviour of each model and the chosen modelling assumptions, we encourage the reader to directly dig into the Modelica  model or to look at the specific documentation included into the model and available in a Modelica environment.\\
 
-The \Dynawo library is divided into three main parts:
+The \Dynawo library is divided into three main parts plus auxiliary packages (Types, AdditionalIcons and UsersGuide):
 \begin{itemize}
 \item The ``Connectors'' part contains all the specific connectors defined into \Dynawo that are used to connect together different models. This enables to have clear interfaces between the different models or the different parts of a model (regulation and physical model for example). For each type of variable, there is a type of connector (BPin for boolean values, ZPin for discrete values, ImPin for real values and ACPower for connecting both complex voltages and complex currents)
 \item The ``Electrical'' part with the different models of the electrical components and their controls.
@@ -262,7 +262,7 @@ More details on the ``Electrical'' package are given in the next sections.
 \paragraph{Bus}
 ~~\\
 
-The bus package contains an InfiniteBus model. No other bus models are provided in the package as the default C++ model is generally used in \Dynawo simulations and is simple enough to be understandable by everyone, even written in C++.
+The bus package contains a simple Bus model and a constant voltage InfiniteBus model. No other bus models are provided in the package as the default C++ model is generally used in \Dynawo simulations and is simple enough to be understandable by everyone, even written in C++.
 
 \paragraph{Controls}
 ~~\\
@@ -273,14 +273,20 @@ The controls package gathers all the controls and regulations models for the dif
 \item The Current package includes a current limit automaton model.
 \item The Generic package contains an example implementation to call a C function from a Modelica model. This model can serve for example to include an OPF-based automaton into a \Dynawo simulation.
 \item The Machines package with the different regulations for the machines such as voltage  regulations, governors or under-voltage protection.
+\item The \ac{PLL} package contains a \ac{PLL} model.
 \item The Transformers package that includes the phase-shifter and tap changer automata models.
-\item The Voltage package containing a tap changer locking automaton model. It is an automaton that can lock the tap changer automaton in case the voltage becomes too low in an area.
+\item The Voltage package containing a tap changer locking automaton model - an automaton that can lock the tap changer automaton in case the voltage becomes too low in an area - and a \ac{SVC} average model.
 \end{itemize}
 
 \paragraph{Events}
 ~~\\
 
 Events models enable to change the connection status of the different grid elements. They are all based on a similar basis with a time corresponding to the event and a variable whose value will change at the event time.
+
+\paragraph{Injectors}
+~~\\
+
+An Injectors package is available in the library: it offers at the moment a dq-injector model and a BG-injector model.
 
 \paragraph{Lines}
 ~~\\
@@ -305,6 +311,11 @@ Different models with different levels of details constitute the Machines packag
 \item GeneratorPV that modulates the P output according to frequency and the Q outputs to keep $U + \lambda * Q$ as close as possible to a set point.
 \item GeneratorFictitious that acts as a voltage-dependent generator. P and Q vary around their initial values depending on the voltage value.
 \end{itemize}
+
+\paragraph{Switches}
+~~\\
+
+The switches package contains an ideal switch model.
 
 \paragraph{Transformers}
 ~~\\
@@ -509,20 +520,6 @@ It is important to mention that different prediction schemes have been tested bo
 
 The correction step is handled by a \ac{NR} algorithm calling a \ac{NR} solver developed by the \ac{LLNL}: \ac{KINSOL}. The approach used in \ac{KINSOL} is an \textbf{inexact \ac{NR} method}: the Jacobian isn't calculated at each iteration but kept constant for a few iterations. Different criteria exist to force a recalculation of the Jacobian and its associated LU decomposition, trying to track too slow convergence.
 
-\paragraph{KINSOL parameters}
-~~\\
-
-At the moment, \ac{KINSOL} is used in the following way:
-\begin{itemize}
-\item The tolerance is set to $tolerance$.
-\item The Jacobian matrix isn't calculated at each iteration but only if the solver hasn't converged after $n$ iterations or if the residual functions hasn't decreased enough after $n_2$ iterations. Other conditions also exist in \ac{KINSOL} but can't be modified by the software calling it.
-\item The iterations maximum number is set to $n_{Max}$.
-\end{itemize}
-
-By default, these parameters have the following values into \Dynawo :
-$tolerance = 10^{-4}, n = 10, n_2 = 5, n_{Max} = 30$.
-They aren't yet configurable by the user.
-
 \paragraph{Jacobian evaluation}
 ~~\\
 
@@ -665,14 +662,82 @@ A deadband $nDeadband$ has been added to avoid oscillations between time steps.
 \end{itemize}
 A minimum time step ($hMin$) is used in \Dynawo to stop the simulation. If the \ac{NR} is divergent with this value the simulation is stopped. \\
 
-All these parameters can be modified by the user and their default values are: $h_{Max} = 1 s, h_{Min} = 10^{-6} s, kReduceStep = 0.5, n_{Eff} = 10, n_{Deadband} = 2 $.
-
 \subsubsection{Algebraic equations restoration}
 
 As already mentioned in ~\ref{sec:Solver Introduction}, the \ac{DAE} system \eqref{DAE} can change during the simulation because the differential equations or the algebraic equations can change their form (mode). \\
 
 In most of the cases, these changes are smooth changes (for example reaching a limit) and the simulation can just go on without any special process. Nevertheless, some changes lead to a deep change in the  equations form (for example a change in the network topology) and require to \textbf{reinitialize the \ac{DAE} system} by calculating new initial conditions for $y_a$ in the Simplified solver case.
 This is done by calling a \ac{NR} on the algebraic equations.
+
+\subsubsection{Parameters}
+
+During a simulation with the simplified solver, different parameters are used, for example to handle the time-step variation, to stop the Newton-Raphson iterations or to recalculate the Jacobian. Some of them have to be defined by the user in a .par file:
+\begin{itemize}
+\item the minimum time-step \textit{hMin}
+\item the maximum time-step \textit{hMax}
+\item the maximum number of Newton resolutions leading to root changes for one time-step \textit{maxRootRestart}
+\item the strategy regarding event handling \textit{recalculateStep}
+\item the reduction factor for the time step in case of a non convergence \textit{kReduceStep}
+\item the desired number of Newton iterations \textit{nEff}
+\item the iterations number deadband to avoid too frequent step size variations \textit{nDeadband}
+\item the maximum number of Newton resolutions for one time-step \textit{maxNewtonTry}
+\item the linear solver library name that should be used - as of today, KLU or NICSLU - \textit{linearSolverName}.
+\end{itemize}
+
+Recommended values for these parameters are:
+\begin{table}[h!]
+\center
+\begin{tabular}{ l | c }
+\toprule
+\textbf{{Name}} & \textbf{{Value}} \\
+\midrule
+hMin & 1e-6 \\
+hMax & 1 \\
+maxRootRestart & 3 \\
+recalculateStep & false \\
+kReduceStep & 0.5 \\
+nEff & 10 \\
+nDeadband & 2 \\
+maxNewtonTry & 10 \\
+linearSolverName & KLU \\
+\bottomrule
+\end{tabular}
+\caption{Required parameters for the simplified solver}
+\end{table}
+
+In addition to these parameters, other have default values in the tool but could be overwritten by the user. There are the parameters related to the Newton-Raphson execution and are declined in three sets depending on the resolution being done (normal time-step resolution - Time Step -, algebraic equations restoration following a soft event - Alg - or algebraic equations restoration following a tough event - AlgJ -):
+\begin{itemize}
+\item the stopping tolerance on L2-norm of residual function \textit{fnormtol}
+\item the scaled step length tolerance \textit{scsteptol}
+\item the maximum allowable scaled step length \textit{mxnewtstep}
+\item the maximum number of non linear iterations that may be performed between two calls to the linear solver setup routine \textit{msbset}
+\item the maximum number of nonlinear iterations \textit{mxiter}
+\item the level of verbosity of output \textit{printfl}
+\end{itemize}
+
+The parameters names have an additional suffix when they are related to the algebraic equations restoration part (fnormtolAlg for restoration following a soft event, fnormtolAlgJ for a restoration following a tough event). The default values for all these parameters are the following ones:
+
+\begin{table}[h!]
+\center
+\begin{tabular}{lc | lc | lc}
+\toprule
+\multicolumn{2}{c}{\textbf{Time-Step}} &
+\multicolumn{2}{c}{\textbf{Alg}} &
+\multicolumn{2}{c}{\textbf{AlgJ}} \\
+\midrule
+fnormtol & 1e-4 & fnormtolAlg & 1e-4 & fnormtolAlgJ & 1e-4 \\
+scsteptol & 1e-4 & scsteptolAlg & 1e-4 & scsteptolAlgJ & 1e-4 \\
+mxnewtstep & 100 000 & mxnewtstepAlg & 100 000 & mxnewtstepAlgJ & 100 000 \\
+msbset & 10 & msbsetAlg & 5 & msbsetAlgJ & 1 \\
+mxiter & 15 & mxiterAlg & 30 & mxiterAlgJ & 50 \\
+printfl & 0 & prinflAlg & 0 & printflAlgJ & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Optional parameters for the simplified solver}
+\label{OptionalParameters}
+\end{table}
+
+In addition, a final parameter is available for the simplified solver. It is the initial additional tolerance imposed on the first iteration of each Newton resolution. It is set to 0.1.
 
 \subsection{Variable time-step solver}
 
@@ -741,6 +806,38 @@ The time-step and order are changed by \ac{IDA} using the Local Truncation Error
 
 In a similar way than for the Simplified solver, in case of a severe event that leads to a strong discontinuity in the system (for example a line disconnection), a reinitialization of the problem is done into \Dynawo before the next time step.
 In the \ac{IDA} case, it consists in two Newton-Raphson resolutions; one on the algebraic equations enabling to calculate $y_a$ and one on the differential equations only to calculate the derivative values of differential variables $\dot{y_d}$. These values are necessary to be able to relaunch correctly \ac{IDA} after the discontinuity.
+
+\subsubsection{Parameters}
+
+A simulation with the \ac{IDA} solver depends on different parameters, such as the maximum time-step, the accuracy limit or the Jacobian recalculation during algebraic equation restoration. Some of them must be filled by the user in a .par file:
+\begin{itemize}
+\item the maximum order to use in the integration method \textit{order}
+\item the initial time step \textit{initStep}
+\item the minimum time step \textit{minStep}
+\item the maximum time step \textit{maxStep}
+\item the relative error tolerance \textit{relAccuracy}
+\item the absolute error tolerance \textit{absAccuracy}
+\end{itemize}
+
+Recommended values for these parameters are:
+\begin{table}[h!]
+\center
+\begin{tabular}{ l | c }
+\toprule
+\textbf{{Name}} & \textbf{{Value}} \\
+\midrule
+order & 2 \\
+initStep & 1 \\
+minStep & 1e-6 \\
+maxStep & 10 \\
+absAccuracy & 1e-4 \\
+relAccuracy & 1e-4 \\
+\bottomrule
+\end{tabular}
+\caption{Required parameters for \ac{IDA} solver}
+\end{table}
+
+In addition to these parameters, parameters defining the Newton-Raphsol solver behavior during algebraic equations restoration are also used. They have a similar default value than for the simplified solver but can be overwritten by the user [see Table \ref{OptionalParameters}].
 
 \bibliography{../resources/dynawoDocumentation}
 \bibliographystyle{abbrv}
