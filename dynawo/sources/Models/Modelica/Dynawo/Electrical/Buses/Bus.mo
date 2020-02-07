@@ -16,10 +16,14 @@ model Bus "Bus"
 
   import Dynawo.Connectors;
 
+  extends AdditionalIcons.Bus;
+
   Connectors.ACPower terminal;
 
 equation
 
   terminal.i = Complex(0);
 
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>The bus model doesn't provide any new equation to the system. It is present into the library for convenience purpose to build network tests.</body></html>"));
 end Bus;

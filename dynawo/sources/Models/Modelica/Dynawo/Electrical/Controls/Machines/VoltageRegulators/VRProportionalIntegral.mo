@@ -135,4 +135,5 @@ equation
   limitationUp.value = limitationUsRefMax or limitationEfdMax;
   limitationDown.value = limitationUsRefMin or limitationEfdMin;
 
+annotation(preferredView = "diagram");
 end VRProportionalIntegral;

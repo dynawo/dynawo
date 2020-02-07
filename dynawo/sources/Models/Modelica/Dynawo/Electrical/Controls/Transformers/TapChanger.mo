@@ -31,4 +31,5 @@ equation
 
     connect (UMonitored.value, valueToMonitor.value);
 
+annotation(preferredView = "text");
 end TapChanger;

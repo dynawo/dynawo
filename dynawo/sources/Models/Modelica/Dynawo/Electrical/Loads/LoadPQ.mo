@@ -14,6 +14,7 @@ within Dynawo.Electrical.Loads;
 
 model LoadPQ "Load with constant reactive/active power"
   extends BaseClasses.BaseLoad;
+  extends AdditionalIcons.Load;
 
   // in order to change the load set-point, connect an event to PRefPu or QRefPu
   Connectors.ImPin PRefPu (value (start = s0Pu.re)) "Active power request";
@@ -29,4 +30,5 @@ equation
     QPu = 0;
   end if;
 
+annotation(preferredView = "text");
 end LoadPQ;

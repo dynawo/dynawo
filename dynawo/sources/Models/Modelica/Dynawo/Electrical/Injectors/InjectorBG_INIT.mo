@@ -13,6 +13,7 @@ within Dynawo.Electrical.Injectors;
 */
 
 model InjectorBG_INIT "Initialization model for injector controlled by a the susceptance B and the conductance G"
+  extends AdditionalIcons.Init;
 
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
 
@@ -41,4 +42,5 @@ equation
   G0Pu = ComplexMath.real(Y0PuSnRef) * SystemBase.SnRef / SNom;
   B0Pu = ComplexMath.imag(Y0PuSnRef) * SystemBase.SnRef / SNom;
 
+annotation(preferredView = "text");
 end InjectorBG_INIT;

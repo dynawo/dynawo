@@ -15,10 +15,12 @@ within Dynawo.Electrical.Buses;
 model InfiniteBus "Infinite bus"
 
 /*
-  The bus voltage and angle will remain constant throughout the simulation.
+  The bus voltage magnitude and angle will remain constant throughout the simulation.
 */
 
   import Dynawo.Connectors;
+
+  extends AdditionalIcons.Bus;
 
   Connectors.ACPower terminal;
 
@@ -29,4 +31,6 @@ equation
 
   terminal.V = UPu * ComplexMath.exp(ComplexMath.j * UPhase);
 
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>The InfiniteBus model imposes a complex voltage value: the bus voltage magnitude and angle will remain constant throughout the simulation.</body></html>"));
 end InfiniteBus;

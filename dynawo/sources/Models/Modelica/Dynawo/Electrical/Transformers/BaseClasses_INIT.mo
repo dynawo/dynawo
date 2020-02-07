@@ -13,8 +13,10 @@ within Dynawo.Electrical.Transformers;
 */
 
 package BaseClasses_INIT
+  extends Icons.BasesPackage;
 
 function TapEstimation "Function that estimates the initial tap of a transformer"
+  extends Icons.Function;
 
 /*
   It is done using the voltage and current values on side 1 and the set point value for the voltage module on side 2.
@@ -91,7 +93,9 @@ algorithm
     Tap0 := integer(ceil(tapEstimation));
   end if;
 
+annotation(preferredView = "text");
 end TapEstimation;
+
 
 
 // Base model for initialization of TransformerVariableTap
@@ -159,7 +163,9 @@ equation
   // Voltage at terminal 2
   U20Pu = ComplexMath.'abs' (u20Pu);
 
+annotation(preferredView = "text");
 end BaseTransformerVariableTap_INIT;
+
 
 partial model BaseGeneratorTransformer_INIT "Base model for initialization of GeneratorTransformer"
 
@@ -218,6 +224,9 @@ partial model BaseGeneratorTransformer_INIT "Base model for initialization of Ge
     U20Pu = ComplexMath.'abs' (u20Pu);
     U2Phase0 = ComplexMath.arg(u20Pu);
 
+annotation(preferredView = "text");
 end BaseGeneratorTransformer_INIT;
 
+
+annotation(preferredView = "text");
 end BaseClasses_INIT;

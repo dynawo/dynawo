@@ -17,6 +17,8 @@ model LimiterWithLag_INIT "LimiterWithLag INIT Model. Here the input is y0LF. Th
 
   import Modelica.Constants;
 
+  extends AdditionalIcons.Init;
+
   parameter Real UMin  "Minimum allowed u";
   parameter Real UMax  "Maximum allowed u";
 
@@ -47,4 +49,5 @@ equation
     tUMaxReached0 = Constants.inf;
   end when;
 
+  annotation(preferredView = "text");
 end LimiterWithLag_INIT;

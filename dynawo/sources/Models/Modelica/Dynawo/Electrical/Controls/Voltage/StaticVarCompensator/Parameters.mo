@@ -13,6 +13,7 @@ within Dynawo.Electrical.Controls.Voltage.StaticVarCompensator;
 */
 
 package Parameters "Parameters of the static var compensator"
+  extends Icons.RecordsPackage;
 
   record Params_Regulation
     import Dynawo.Types;
@@ -21,6 +22,8 @@ package Parameters "Parameters of the static var compensator"
     parameter Types.PerUnit Kg "Global gain of the regulation";
     parameter Types.PerUnit Kp "Proportional gain of the PI controller";
     parameter Types.Time Ti "Integral time constant of the PI controller";
+
+  annotation(preferredView = "text");
   end Params_Regulation;
 
   record Params_Limitations
@@ -30,11 +33,15 @@ package Parameters "Parameters of the static var compensator"
       parameter Types.PerUnit IMaxPu "Maximum value for the current in p.u (base UNom, SNom)";
       parameter Types.PerUnit IMinPu "Minimum value for the current in p.u (base UNom, SNom)";
       parameter Types.PerUnit KCurrentLimiter "Integral gain of current limiter";
+
+  annotation(preferredView = "text");
   end Params_Limitations;
 
   record Params_CalculBG
     import Dynawo.Types;
     parameter Types.PerUnit BShuntPu "Fixed susceptance of the static var compensator in p.u (for standby mode) (base SNom)";
+
+  annotation(preferredView = "text");
   end Params_CalculBG;
 
   record Params_ModeHandling
@@ -55,6 +62,9 @@ package Parameters "Parameters of the static var compensator"
      final parameter Types.VoltageModule UBlockPu  = UBlock / UNom;
      final parameter Types.VoltageModule UUnblockUpPu  = UUnblockUp / UNom;
      final parameter Types.VoltageModule UUnblockDownPu = UUnblockDown / UNom;
+
+  annotation(preferredView = "text");
   end Params_ModeHandling;
 
+annotation(preferredView = "text");
 end Parameters;

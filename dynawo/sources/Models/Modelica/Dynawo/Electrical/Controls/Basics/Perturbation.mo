@@ -28,4 +28,5 @@ model Perturbation "Parametrable perturbation model : adds a constant signal at 
 equation
   perturbatedSignal.value = signal.value + (if time < tStep then 0 else Height);
 
+annotation(preferredView = "text");
 end Perturbation;

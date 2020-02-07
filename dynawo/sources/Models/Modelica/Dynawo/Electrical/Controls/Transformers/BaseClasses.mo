@@ -13,6 +13,7 @@ within Dynawo.Electrical.Controls.Transformers;
 */
 
 package BaseClasses
+  extends Icons.BasesPackage;
 
 // used for phase-shifterI (applied on current), phase-shifterP (applied on power) and tap-changer (applied on voltage)
 partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-shifters"
@@ -69,15 +70,15 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
     Types.Time tTapDown(start = Constants.inf) "Time when the tap has been decreased";
 
 equation
-  // to force the value of AutomatonExists : writing only value = true in the ZPin declaration would lead the other side of the conneion to be set to false, leading to a bug
-  // when initial() then
+  // To force the value of AutomatonExists : writing only value = true in the ZPin declaration would lead the other side of the connexion to be set to false, leading to a bug
   when (time > 0) then
     AutomatonExists.value = true;
   end when;
 
-  assert (tap.value <= tapMax, "tap value supposed to be below maximum tap");
-  assert (tap.value >= tapMin, "tap value supposed to be above minimum tap");
+  assert (tap.value <= tapMax, "Tap value supposed to be below maximum tap");
+  assert (tap.value >= tapMin, "Tap value supposed to be above minimum tap");
 
+annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter;
 
 
@@ -235,6 +236,7 @@ equation
     Timeline.logEvent1(TimelineKeys.TapDown);
   end when;
 
+annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter_MAX;
 
 
@@ -471,7 +473,8 @@ partial model BaseTapChangerPhaseShifter_TARGET "Base model for tap-changers and
     parameter Real targetValue "Target value";
     parameter Real deadBand (min = 0) "Acceptable dead-band next to the target value";
 
+annotation(preferredView = "text");
 end BaseTapChangerPhaseShifter_TARGET;
 
-
+annotation(preferredView = "text");
 end BaseClasses;

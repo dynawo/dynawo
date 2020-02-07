@@ -15,6 +15,7 @@ within Dynawo.Electrical.Machines;
 model GeneratorSynchronous "Synchronous machine"
 
   extends BaseClasses.BaseGeneratorSynchronous;
+  extends AdditionalIcons.Machine;
 
   /*
    This model represents a sychronous machine.
@@ -111,4 +112,5 @@ equation
     thetaInternal.value = 0;
   end if;
 
+annotation(preferredView = "text");
 end GeneratorSynchronous;

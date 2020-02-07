@@ -102,7 +102,7 @@ equation
     Line(points = {{-47, -32}, {-15.5, -32}, {-15.5, -20}, {8, -20}}, color = {0, 0, 127}));
   connect(PuConversion.y, division1.u1) annotation(
     Line(points = {{-117, -68}, {-99, -68}, {-99, -26}, {-70, -26}}, color = {0, 0, 127}));
-  annotation(
+  annotation(preferredView = "diagram",
     Diagram,
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "SVarC Control"), Text(origin = {144, 60}, extent = {{-32, 12}, {4, -4}}, textString = "BPu"), Text(origin = {146, -38}, extent = {{-32, 12}, {4, -4}}, textString = "GPu")}));
 

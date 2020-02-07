@@ -31,4 +31,5 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
 equation
   connect (PMonitored.value, valueToMonitor.value);
 
+annotation(preferredView = "text");
 end PhaseShifterP;

@@ -146,6 +146,6 @@ equation
   end when;
 
 
-
+annotation(preferredView = "diagram");
 
 end VRProportionalReactiveFeedback;

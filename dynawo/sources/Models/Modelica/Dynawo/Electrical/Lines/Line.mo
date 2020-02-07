@@ -29,6 +29,7 @@ model Line "AC power line - PI model"
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends SwitchOff.SwitchOffLine;
+  extends AdditionalIcons.Line;
 
   Connectors.ACPower terminal1;
   Connectors.ACPower terminal2;
@@ -52,4 +53,14 @@ equation
     terminal2.i = Complex (0);
   end if;
 
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>
+The line model is a classical Pi-line mode with the following equivalent circuit and conventions:<div><br></div><div>
+<p style=\"margin: 0px;\"><br></p>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1                  I2</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">   (terminal1) --&gt;-------R+jX-------&lt;-- (terminal2)</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                    |           |</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                  G+jB         G+jB</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                    |           |</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                   ---         ---</span><!--EndFragment--></pre></div><div><div><pre style=\"text-align: center; margin-top: 0px; margin-bottom: 0px;\"><!--EndFragment--></pre></div></div></body></html>"));
 end Line;

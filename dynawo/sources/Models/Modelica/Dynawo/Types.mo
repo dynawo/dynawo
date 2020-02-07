@@ -13,6 +13,7 @@ within Dynawo;
 */
 
 package Types "Standard types for electrical variables"
+  extends Icons.TypesPackage;
 
   // Voltage
   record Voltage = Complex(redeclare VoltageComponent re "Real part of complex voltage",
@@ -65,4 +66,5 @@ package Types "Standard types for electrical variables"
   // Percent
   type Percent = Real (unit = "100") "Percent quantity";
 
+  annotation(preferredView = "text");
 end Types;

@@ -14,6 +14,7 @@ within Dynawo.Electrical.Transformers;
 
 model TransformerVariableTapPQ_INIT "Initialization for transformer based on the network voltage, active and reactive power"
   extends BaseClasses_INIT.BaseTransformerVariableTap_INIT;
+  extends AdditionalIcons.Init;
 
   public
     parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
@@ -32,4 +33,5 @@ equation
   s10Pu = Complex(P10Pu, Q10Pu);
   s10Pu = u10Pu * ComplexMath.conj(i10Pu);
 
+annotation(preferredView = "text");
 end TransformerVariableTapPQ_INIT;

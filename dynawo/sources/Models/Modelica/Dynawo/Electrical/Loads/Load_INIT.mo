@@ -16,6 +16,7 @@ model Load_INIT "Initialization for load from load-flow outputs"
 
   extends BaseClasses_INIT.BaseLoadInterfaceParameters_INIT;
   extends BaseClasses_INIT.BaseLoadInterfaceVariables_INIT;
+  extends AdditionalIcons.Init;
 
   public
     parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at load terminal in p.u (base UNom)";
@@ -25,4 +26,5 @@ equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
+annotation(preferredView = "text");
 end Load_INIT;

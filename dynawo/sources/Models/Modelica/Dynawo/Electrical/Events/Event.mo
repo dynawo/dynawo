@@ -16,6 +16,8 @@ package Event
   import Dynawo.Connectors;
   import Dynawo.Electrical.Constants;
 
+  extends Icons.Package;
+
 /* A simulation event is described as follows when tEvent is reached, one or more variables (connected using state1 - state5 ZPins) are updated
    Their new value is stateEvent1 - stateEvent5
    Depending on the type of model variable they are connected to, the event model is different */
@@ -72,6 +74,7 @@ partial model EventEquations
       end when;
     end if;
 
+annotation(preferredView = "text");
 end EventEquations;
 
 // Specific model for Boolean variables events
@@ -101,6 +104,7 @@ model EventQuadripoleStatus
     parameter Boolean openOrigin  "Open the quadripole origin ?";
     parameter Boolean openExtremity  "Open the quadripole extremity ?";
 
+annotation(preferredView = "text");
 end EventQuadripoleStatus;
 
 // Event for quadripole connection
@@ -112,6 +116,7 @@ model EventQuadripoleConnection
     parameter Boolean connectOrigin  "Connect the quadripole origin ?";
     parameter Boolean connectExtremity  "Connect the quadripole extremity ?";
 
+annotation(preferredView = "text");
 end EventQuadripoleConnection;
 
 // Event for quadripole disconnection
@@ -123,6 +128,7 @@ model EventQuadripoleDisconnection
     parameter Boolean disconnectOrigin  "Disconnect the quadripole origin ?";
     parameter Boolean disconnectExtremity  "Disconnect the quadripole extremity ?";
 
+annotation(preferredView = "text");
 end EventQuadripoleDisconnection;
 
 // Event for changing connection status of a component (connected or disconnected)
@@ -130,6 +136,9 @@ model EventConnectedStatus
   extends SingleRealEvent (stateEvent1 = if(open) then Constants.stateToReal(Constants.state.Open) else Constants.stateToReal(Constants.state.Closed));
   public
   parameter Boolean open "Disconnect the component ?";
+
+annotation(preferredView = "text");
 end EventConnectedStatus;
 
+annotation(preferredView = "text");
 end Event;

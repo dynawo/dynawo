@@ -17,6 +17,8 @@ model VRProportionalIntegral_INIT "Proportional Integral Voltage Regulator INIT 
 
   import Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag_INIT;
 
+  extends AdditionalIcons.Init;
+
   public
 
     parameter Types.VoltageModulePu EfdMinPu "Minimum exciter field voltage";
@@ -51,4 +53,5 @@ model VRProportionalIntegral_INIT "Proportional Integral Voltage Regulator INIT 
     Us0Pu = ComplexMath.'abs'(u0);
     UsRef0Pu - Us0Pu = limiterWithLag.u0 - limiterWithLag.y0; // Because init in steadystate
 
+annotation(preferredView = "text");
 end VRProportionalIntegral_INIT;

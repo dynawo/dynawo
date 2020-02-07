@@ -39,7 +39,7 @@ block MaxThresholdSwitch "Switch between two real values, depending on the input
          y = yNotSatMax;
      end when;
 
-    annotation(
+    annotation(preferredView = "text",
       Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={

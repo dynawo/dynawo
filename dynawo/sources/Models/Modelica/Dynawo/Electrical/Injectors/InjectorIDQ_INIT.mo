@@ -13,6 +13,7 @@ within Dynawo.Electrical.Injectors;
 */
 
 model InjectorIDQ_INIT "Initialisation model for the injector controlled by d and q current components idPu and iqPu"
+  extends AdditionalIcons.Init;
 
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
 
@@ -41,4 +42,5 @@ equation
   i0Pu.re = -1 * (cos(UPhase0) * Id0Pu - sin(UPhase0) * Iq0Pu) * (SNom/SystemBase.SnRef);
   i0Pu.im = -1 * (sin(UPhase0) * Id0Pu + cos(UPhase0) * Iq0Pu) * (SNom/SystemBase.SnRef);
 
+annotation(preferredView = "text");
 end InjectorIDQ_INIT;

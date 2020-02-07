@@ -24,4 +24,5 @@ model SetPoint "Fixed set-point throughout a simulation"
 equation
   setPoint.value = Value0;
 
+annotation(preferredView = "text");
 end SetPoint;

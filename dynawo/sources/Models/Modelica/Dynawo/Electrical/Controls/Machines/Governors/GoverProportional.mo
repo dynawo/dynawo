@@ -85,4 +85,6 @@ equation
     state = status.Standard;
     Timeline.logEvent1(TimelineKeys.DeactivatePMAX);
   end when;
+
+annotation(preferredView = "diagram");
 end GoverProportional;

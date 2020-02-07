@@ -71,5 +71,5 @@ equation
     Line(points = {{-53, -50}, {-47, -50}, {-47, -40}, {-35, -40}, {-35, -40}}, color = {0, 0, 127}));
   connect(iMaxPu.y, add1.u1) annotation(
     Line(points = {{-53, 50}, {-47, 50}, {-47, 40}, {-37, 40}, {-37, 40}}, color = {0, 0, 127}));
-annotation(
+annotation(preferredView = "diagram",
     Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-29, 6}, extent = {{-63, 24}, {123, -32}}, textString = "Limitations")}));end Limitations;

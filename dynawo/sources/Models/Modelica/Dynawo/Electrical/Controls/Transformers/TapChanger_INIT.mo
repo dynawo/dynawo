@@ -14,9 +14,11 @@ within Dynawo.Electrical.Controls.Transformers;
 
 model TapChanger_INIT "Initialisation model for standalone tap-changer"
   extends BaseClasses_INIT.BaseTapChanger_INIT;
+  extends AdditionalIcons.Init;
 
   protected
     parameter Types.VoltageModule U0 "Initial absolute voltage";
     parameter Real valueToMonitor0 = U0  "Initial monitored value";
 
+annotation(preferredView = "text");
 end TapChanger_INIT;

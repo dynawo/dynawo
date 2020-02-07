@@ -53,4 +53,6 @@ equation
     Timeline.logEvent1(TimelineKeys.CurrentLimitAutomatonActing);
   end when;
 
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>The automaton will open one or several lines when the current stays higher than a predefined threshold during a certain amount of time on a monitored and controlled component (line, transformer, etc.)</body></html>"));
 end CurrentLimitAutomaton;

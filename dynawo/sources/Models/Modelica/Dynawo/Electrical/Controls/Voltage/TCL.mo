@@ -82,4 +82,6 @@ model TCL "Tap Changer Lock (TCL)"
       lockedD = false;
     end when;
 
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>This model will send a lock order to transformers with tap-changers in order that the tap is locked to its current step if the voltage becomes lower than a threshold on some nodes. Such a mechanism enables to avoid voltage collapse on situations where the tap actions become negative for the system stability.</body></html>"));
 end TCL;

@@ -13,4 +13,5 @@ within Dynawo.Electrical.Controls.Machines;
 */
 
 package VoltageRegulators "Voltage regulators"
+  extends Icons.Package;
 end VoltageRegulators;

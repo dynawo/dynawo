@@ -34,7 +34,9 @@ equation
 when time >= pre(t0) + SamplingTime or pre(initialize) then
   t0 = time;
   initialize = false;
-  outputs = Functions.Automaton.functionAutomaton(Command, t0, inputs, InputsName, NbInputs, GenericAutomatonConstants.inputsMaxSize, OutputsName, NbOutputs,GenericAutomatonConstants.outputsMaxSize);
+  outputs = Functions.Automaton(Command, t0, inputs, InputsName, NbInputs, GenericAutomatonConstants.inputsMaxSize, OutputsName, NbOutputs,GenericAutomatonConstants.outputsMaxSize);
 end when;
 
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>This model enables to call an external C method representing the behavior of any control system. For example, it could be used to call every few seconds an OPF that will change the system state, according to some objective function.</body></html>"));
 end GenericAutomaton;

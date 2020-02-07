@@ -13,4 +13,5 @@ within Dynawo.Electrical.Controls.Machines;
 */
 
 package Governors "Governors"
+  extends Icons.Package;
 end Governors;

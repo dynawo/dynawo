@@ -13,6 +13,7 @@ within Dynawo.Electrical.Transformers;
 */
 
 package BaseClasses
+  extends Icons.BasesPackage;
 
 record TransformerParameters "Classical transformer parameters"
 
@@ -24,7 +25,9 @@ record TransformerParameters "Classical transformer parameters"
   final parameter Types.ComplexImpedancePu ZPu = Complex(RPu, XPu) "Impedance in p.u (base U2Nom, SnRef)";
   final parameter Types.ComplexAdmittancePu YPu = Complex(GPu, BPu) "Admittance in p.u (base U2Nom, SnRef)";
 
+annotation(preferredView = "text");
 end TransformerParameters;
+
 
 partial model BaseTransformer "Base model for transformer"
 
@@ -51,6 +54,17 @@ equation
     terminal2.i = Complex (0);
   end if;
 
+annotation(preferredView = "text",
+      Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
+<p style=\"margin: 0px;\"><br></p>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r                I2</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    U1,P1,Q1 --&gt;---oo----R+jX-------&lt;-- U2,P2,Q2</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">  (terminal1)                   |      (terminal2)</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                               G+jB</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                                |</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                               ---</span><!--EndFragment--></pre></div><div><br></div></body></html>"));
 end BaseTransformer;
 
+
+annotation(preferredView = "text");
 end BaseClasses;
