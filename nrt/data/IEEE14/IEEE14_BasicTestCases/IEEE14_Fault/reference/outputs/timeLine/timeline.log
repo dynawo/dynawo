@@ -1,12 +1,15 @@
-0.0365635 | GEN____3_SM | PMIN : activation
-0.994313 | GEN____3_SM | PMIN : deactivation
+0.0292989 | GEN____3_SM | PMIN : activation
+0.538081 | GEN____3_SM | PMIN : deactivation
 1 | FAULT_GEN_2 | Fault (node) : beginning
-1 | GEN____1_SM | Voltage regulator : upper limit reached
-1 | GEN____2_SM | Voltage regulator : upper limit reached
-1 | GEN____6_SM | Voltage regulator : upper limit reached
-1 | GEN____1_SM | Voltage regulator : upper limit reached
-1 | GEN____2_SM | Voltage regulator : upper limit reached
-1 | GEN____6_SM | Voltage regulator : upper limit reached
+1 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
+1 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
+1 | GEN____6_SM | Voltage regulator : upper limit reached (Efd)
+1 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
+1 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
+1 | GEN____6_SM | Voltage regulator : upper limit reached (Efd)
+1 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
+1 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
+1 | GEN____6_SM | Voltage regulator : upper limit reached (Efd)
 1.1 | FAULT_GEN_2 | Fault (node) : end
 1.1 | GEN____1_SM | Voltage regulator : back to regulation
 1.1 | GEN____2_SM | Voltage regulator : back to regulation
@@ -14,31 +17,30 @@
 1.1 | GEN____1_SM | Voltage regulator : back to regulation
 1.1 | GEN____2_SM | Voltage regulator : back to regulation
 1.1 | GEN____6_SM | Voltage regulator : back to regulation
-1.25354 | GEN____6_SM | PMIN : activation
-1.37588 | GEN____8_SM | PMIN : activation
-1.59845 | GEN____6_SM | PMIN : deactivation
-1.72853 | GEN____8_SM | PMIN : deactivation
-2.0955 | GEN____6_SM | PMIN : activation
-2.33442 | GEN____8_SM | PMIN : activation
-2.40742 | GEN____6_SM | PMIN : deactivation
-2.72681 | GEN____8_SM | PMIN : deactivation
-2.93299 | GEN____6_SM | PMIN : activation
-2.93299 | GEN____6_SM | PMIN : deactivation
-2.93299 | GEN____6_SM | PMIN : activation
-3.05699 | GEN____6_SM | PMIN : deactivation
-3.32417 | GEN____8_SM | PMIN : activation
-3.6558 | GEN____6_SM | PMIN : activation
-3.6876 | GEN____8_SM | PMIN : deactivation
-3.9058 | GEN____6_SM | PMIN : deactivation
-4.33876 | GEN____8_SM | PMIN : activation
-4.48113 | GEN____6_SM | PMIN : activation
-4.66969 | GEN____8_SM | PMIN : deactivation
-4.75637 | GEN____6_SM | PMIN : deactivation
-5.37726 | GEN____6_SM | PMIN : activation
-5.43302 | GEN____8_SM | PMIN : activation
-5.64984 | GEN____6_SM | PMIN : deactivation
-5.74541 | GEN____8_SM | PMIN : deactivation
-6.56929 | GEN____8_SM | PMIN : activation
-6.56929 | GEN____8_SM | PMIN : deactivation
-6.56929 | GEN____8_SM | PMIN : activation
-6.79035 | GEN____8_SM | PMIN : deactivation
+1.1 | GEN____1_SM | Voltage regulator : back to regulation
+1.1 | GEN____2_SM | Voltage regulator : back to regulation
+1.1 | GEN____6_SM | Voltage regulator : back to regulation
+1.25363 | GEN____6_SM | PMIN : activation
+1.37617 | GEN____8_SM | PMIN : activation
+1.5983 | GEN____6_SM | PMIN : deactivation
+1.72808 | GEN____8_SM | PMIN : deactivation
+2.09586 | GEN____6_SM | PMIN : activation
+2.33488 | GEN____8_SM | PMIN : activation
+2.40691 | GEN____6_SM | PMIN : deactivation
+2.72622 | GEN____8_SM | PMIN : deactivation
+2.93549 | GEN____6_SM | PMIN : activation
+3.05504 | GEN____6_SM | PMIN : deactivation
+3.32552 | GEN____8_SM | PMIN : activation
+3.65909 | GEN____6_SM | PMIN : activation
+3.68733 | GEN____8_SM | PMIN : deactivation
+3.90466 | GEN____6_SM | PMIN : deactivation
+4.34217 | GEN____8_SM | PMIN : activation
+4.4844 | GEN____6_SM | PMIN : activation
+4.66617 | GEN____8_SM | PMIN : deactivation
+4.75447 | GEN____6_SM | PMIN : deactivation
+5.38298 | GEN____6_SM | PMIN : activation
+5.44104 | GEN____8_SM | PMIN : activation
+5.64677 | GEN____6_SM | PMIN : deactivation
+5.73994 | GEN____8_SM | PMIN : deactivation
+6.56861 | GEN____8_SM | PMIN : activation
+6.75883 | GEN____8_SM | PMIN : deactivation
