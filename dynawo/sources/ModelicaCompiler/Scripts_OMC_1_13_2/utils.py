@@ -207,7 +207,7 @@ def write_file (content, destination_file_path):
 #
 # @return : the value associated to the key, if the key exists, None otherwise
 def find_value_in_map(a_map, the_key):
-    for key, value in a_map.iteritems():
+    for key, value in a_map.items():
         if key == the_key:
             return value
     return None
@@ -220,7 +220,7 @@ def find_value_in_map(a_map, the_key):
 #
 # @return : the key associated to the value, if the value exists, None otherwise
 def find_key_in_map(a_map, the_value):
-    for key, value in a_map.iteritems():
+    for key, value in a_map.items():
         if value == the_value:
             return key
     return None
@@ -892,7 +892,7 @@ def convert_booleans_line (boolean_variables_names, line):
         # avoid quoted names
         patterns_to_avoid = {patterns_temp[0] : "'" + var_name + "'", patterns_temp [1] : '"' + var_name + '"'}
 
-        for replacement, pattern in patterns_to_avoid.iteritems():
+        for replacement, pattern in patterns_to_avoid.items():
             reading_side = reading_side.replace (pattern, replacement)
 
         # check that the right variable name (i.e. not part of another variable name) was found
@@ -907,7 +907,7 @@ def convert_booleans_line (boolean_variables_names, line):
                 offset += len("(toNativeBool (") + len("))")
 
         # put back quoted names
-        for replacement, pattern in patterns_to_avoid.iteritems():
+        for replacement, pattern in patterns_to_avoid.items():
             reading_side = reading_side.replace (replacement, pattern)
 
     # remove the " " added at the end of the reading_side to ease processing

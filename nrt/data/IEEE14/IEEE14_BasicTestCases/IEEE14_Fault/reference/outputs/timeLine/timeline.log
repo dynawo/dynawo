@@ -7,13 +7,7 @@
 1 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
 1 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
 1 | GEN____6_SM | Voltage regulator : upper limit reached (Efd)
-1 | GEN____1_SM | Voltage regulator : upper limit reached (Efd)
-1 | GEN____2_SM | Voltage regulator : upper limit reached (Efd)
-1 | GEN____6_SM | Voltage regulator : upper limit reached (Efd)
 1.1 | FAULT_GEN_2 | Fault (node) : end
-1.1 | GEN____1_SM | Voltage regulator : back to regulation
-1.1 | GEN____2_SM | Voltage regulator : back to regulation
-1.1 | GEN____6_SM | Voltage regulator : back to regulation
 1.1 | GEN____1_SM | Voltage regulator : back to regulation
 1.1 | GEN____2_SM | Voltage regulator : back to regulation
 1.1 | GEN____6_SM | Voltage regulator : back to regulation

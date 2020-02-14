@@ -17,11 +17,8 @@ import datetime
 import filecmp
 import imp
 import itertools
-try:
-    import lxml.etree
-except:
-    print("Error when trying to import lxml.etree")
-    sys.exit(1)
+
+from xml.dom import minidom
 import os
 import re
 import sys
@@ -157,10 +154,7 @@ def ImportXMLFile(path):
         if (not os.path.isfile(path)):
             print("No file found. Unable to import")
             return None
-
-        parser = lxml.etree.XMLParser(remove_blank_text=True)
-        importedFile = lxml.etree.parse(path, parser).getroot()
-        return importedFile
+        return minidom.parse(path)
 
 class ActivePool(object):
     def __init__(self):
@@ -221,25 +215,25 @@ class TestCase:
     def get_case_CompilerLogFile(self):
         # Parse the jobs file
         try:
-            jobs_root = lxml.etree.parse(self.jobs_file_).getroot()
+            jobs_root = minidom.parse(self.jobs_file_)
         except:
             print("Fail to import XML file " + self.jobs_file_)
             sys.exit(1)
 
         compilerLogFile = ""
 
-        for job in jobs_root.iter(namespaceDYN("job")):
+        for job in jobs_root.getElementsByTagName(namespaceDYN("job")):
 
             if (not "name" in job.attrib):
                 print("Fail to run nrtDiff : job without name in file  " + os.path.basename(self.jobs_file_))
                 sys.exit(1)
             if self.name_ == job.get("name"):
-                for outputs in job.iter(namespaceDYN("outputs")):
+                for outputs in job.getElementsByTagName(namespaceDYN("outputs")):
                     if (not "directory" in outputs.attrib):
                         print("Fail to run nrtDiff : outputs directory is missing for job " + self.name_)
                         sys.exit(1)
                     # Get compiler log file name from appenders if exists
-                    for appender in outputs.iter(namespaceDYN("appender")):
+                    for appender in outputs.getElementsByTagName(namespaceDYN("appender")):
                         if ("tag" in appender.attrib):
                             if ( appender.get("tag") == "COMPILE" ):
                                 if (not "file" in appender.attrib):
@@ -292,7 +286,7 @@ def main():
     output_dir = os.path.join(output_dir_all_nrt, branch_name)
     html_output = os.path.join(output_dir, "nrtDiff.html")
 
-    print "[INFO] output dir: " + output_dir
+    print("[INFO] output dir: " + output_dir)
     firstDirectory  = os.path.realpath (os.path.expanduser(options.firstDirectory))
     secondDirectory = os.path.realpath (os.path.expanduser(options.secondDirectory))
 
@@ -617,9 +611,9 @@ def LogsSeparator (test_dir):
         file_path = os.path.join (test_dir, name)
 
         file_content = ImportXMLFile (file_path)
-        for item in itertools.chain (file_content.iter('appender'),  file_content.iter(NamespaceDYD('appender'))):
-            if 'separator' in item.attrib:
-                separator = item.attrib ['separator']
+        for item in itertools.chain (file_content.getElementsByTagName('appender'),  file_content.getElementsByTagName(NamespaceDYD('appender'))):
+            if item.hasAttribute('separator'):
+                separator = item.getAttribute('separator')
                 break
 
         return separator.lstrip().rstrip()
@@ -1092,24 +1086,24 @@ def XMLCloseEnough (path_left, path_right):
 
     times_left = []
     left_curve = {}
-    for item in left_file_content.iter('*'):
-        if item.tag == NamespaceDYD('curve'):
-            current_curve = item.get("model")+"_"+item.get("variable")
+    for curvesOutput in left_file_content.getElementsByTagName('curvesOutput'):
+        for item in curvesOutput.getElementsByTagName('curve'):
+            current_curve = item.getAttribute("model")+"_"+item.getAttribute("variable")
             left_curve[current_curve] = {}
-        elif item.tag == NamespaceDYD('point'):
-            left_curve[current_curve][item.get("time")] = item.get("value")
-            if(item.get("time") not in times_left):
-                times_left.append(item.get("time"))
+            for pointItem in item.getElementsByTagName('point'):
+                left_curve[current_curve][pointItem.getAttribute("time")] = pointItem.getAttribute("value")
+                if(pointItem.getAttribute("time") not in times_left):
+                        times_left.append(pointItem.getAttribute("time"))
     right_curve = {}
     times_right = []
-    for item in right_file_content.iter('*'):
-        if item.tag == NamespaceDYD('curve'):
-            current_curve = item.get("model")+"_"+item.get("variable")
+    for curvesOutput in right_file_content.getElementsByTagName('curvesOutput'):
+        for item in curvesOutput.getElementsByTagName('curve'):
+            current_curve = item.getAttribute("model")+"_"+item.getAttribute("variable")
             right_curve[current_curve] = {}
-        elif item.tag == NamespaceDYD('point'):
-            right_curve[current_curve][item.get("time")] = item.get("value")
-            if(item.get("time") not in times_right):
-                times_right.append(item.get("time"))
+            for pointItem in item.getElementsByTagName('point'):
+                right_curve[current_curve][pointItem.getAttribute("time")] = pointItem.getAttribute("value")
+                if(pointItem.getAttribute("time") not in times_right):
+                    times_right.append(pointItem.getAttribute("time"))
 
 
     times = []

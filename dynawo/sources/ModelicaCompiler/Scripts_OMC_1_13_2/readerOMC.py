@@ -375,7 +375,6 @@ class ReaderOMC:
                 list_defined_vars=[]
                 if "defines" in keys:
                     list_defined_vars = equation["defines"]
-                    list_defined_vars = [s.encode('utf-8') for s in list_defined_vars]
                     for name in list_defined_vars :
                         if (index not in self.map_num_eq_vars_defined.keys()):
                             self.map_num_eq_vars_defined [index] = []
@@ -385,7 +384,6 @@ class ReaderOMC:
                 list_depend_vars=[]
                 if "uses" in keys:
                     list_depend_vars = equation["uses"]
-                    list_depend_vars = [s.encode('utf-8') for s in list_depend_vars]
                     for name in list_defined_vars :
                         self.map_vars_depend_vars[name] = list_depend_vars
 
@@ -401,7 +399,6 @@ class ReaderOMC:
                 list_defined_vars=[]
                 if "defines" in keys:
                     list_defined_vars = equation["defines"]
-                    list_defined_vars = [s.encode('utf-8') for s in list_defined_vars]
                     for name in list_defined_vars :
                         if name not in self.initial_defined: # if/else split in two in the json file
                             self.initial_defined.append(name)
@@ -554,7 +551,7 @@ class ReaderOMC:
             modified = False
             for var in self.list_vars:
                 if var.get_alias_name() != "":
-                    alias_list = filter(lambda x: (x.get_name() == var.get_alias_name()), self.list_vars)
+                    alias_list = list(filter(lambda x: (x.get_name() == var.get_alias_name()), self.list_vars))
                     assert(len(alias_list) == 1)
                     alias_var = alias_list[0]
                     if alias_var.is_fixed() and not var.is_fixed():
@@ -804,14 +801,14 @@ class ReaderOMC:
     # @param self : object pointer
     # @return
     def set_start_value_for_syst_vars_06inz(self):
-        for key, value in self.var_init_val_06inz.iteritems():
+        for key, value in self.var_init_val_06inz.items():
             for var in self.list_vars:
                 if var.get_name() == key:
                     var.set_start_text_06inz(value)
                     var.set_init_by_param_in_06inz(True)
                     var.set_num_func_06inz(self.var_num_init_val_06inz[var.get_name()])
 
-        for var_name, var_assignment in self.var_init_val_06_extend.iteritems():
+        for var_name, var_assignment in self.var_init_val_06_extend.items():
             for var in self.list_vars:
                 if var.get_name() == var_name:
                     var.set_start_text_06inz(['{/n', var_assignment, '}'])
@@ -892,7 +889,7 @@ class ReaderOMC:
     # @param self : object pointer
     # @return
     def set_start_value_for_syst_vars(self):
-        for key, value in self.var_init_val.iteritems():
+        for key, value in self.var_init_val.items():
             for var in self.list_vars + self.external_objects:
                 if var.get_name() == key:
                     var.set_start_text(value)
@@ -1086,7 +1083,7 @@ class ReaderOMC:
                 match = re.search(ptrn_var, next_iter)
                 type = match.group("type")
                 name = match.group("name")
-                var_list = filter(lambda x: (x.get_name() == name),self.list_vars)
+                var_list = list(filter(lambda x: (x.get_name() == name),self.list_vars))
                 assert(len(var_list) <= 1)
                 var = None
                 if len(var_list) == 1:
@@ -1255,14 +1252,14 @@ class ReaderOMC:
                         list_depend.extend(inputs)
             if name_var_eval is not None:
                 list_depend.append(name_var_eval) # The / equation function depends on the var it evaluates
-                if name_var_eval in map_dep.keys():
+                if name_var_eval in map_dep:
                     list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
                 if is_eligible:
                     function_to_eval_variable[f] = name_var_eval
                 for var_name in list_depend:
                     if var_name == "time": continue
                     if self.is_residual_vars(var_name) : continue
-                    var_list = filter(lambda x: (x.get_name() == var_name),self.list_vars)
+                    var_list = list(filter(lambda x: (x.get_name() == var_name),self.list_vars))
                     assert(len(var_list) <= 1)
                     var = None
                     if len(var_list) == 1:
@@ -1280,7 +1277,7 @@ class ReaderOMC:
         for f in function_to_eval_variable:
             var_name = function_to_eval_variable[f]
             if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1:
-                var_list = filter(lambda x: (x.get_name() == var_name),self.list_vars)
+                var_list = list(filter(lambda x: (x.get_name() == var_name),self.list_vars))
                 assert(len(var_list) <= 1)
                 var = None
                 if len(var_list) == 1:
@@ -1322,7 +1319,7 @@ class ReaderOMC:
                 self.list_calculated_vars.append(var)
                 self.dic_calculated_vars_values[var.get_name()] = to_param_address(var.get_name())
             elif var.is_alias():
-                alias_list = filter(lambda x: (x.get_name() == var.get_alias_name()), self.list_vars)
+                alias_list = list(filter(lambda x: (x.get_name() == var.get_alias_name()), self.list_vars))
                 assert(len(alias_list) == 1)
                 alias_var = alias_list[0]
                 if var.get_variability() == "continuous" and (is_integer_var(alias_var) or is_discrete_real_var(alias_var)):

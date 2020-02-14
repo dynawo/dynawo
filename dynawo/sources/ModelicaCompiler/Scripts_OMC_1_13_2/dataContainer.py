@@ -2103,7 +2103,9 @@ class Modes:
                 print("Mode not handled")
             text_to_return.append("  }\n")
             text_to_return.append("\n")
-        for z in self.modes_discretes:
+        list_keys = list (self.modes_discretes)
+        list_keys.sort()
+        for z in list_keys:
             discrete_mode = self.modes_discretes[z]
             for eq in discrete_mode.eqs:
                 text_to_return.append("  // ----- Mode for " + str(eq) + " --------- \n")
