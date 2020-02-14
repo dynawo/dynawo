@@ -43,7 +43,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   ASSERT_EQ(mcl.sizeG(), 3);
   mcl.addLimit(10., std::numeric_limits<int>::max());
   ASSERT_EQ(mcl.sizeZ(), 0);
-  ASSERT_EQ(mcl.sizeG(), 5);
+  ASSERT_EQ(mcl.sizeG(), 6);
   states.resize(mcl.sizeG(), NO_ROOT);
   mcl.setMaxTimeOperation(10.);
   mcl.setSide(ModelCurrentLimits::SIDE_2);
@@ -56,13 +56,18 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
 
   mcl.evalG(t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
-    ASSERT_EQ(states[i], ROOT_DOWN);
+    if (i == 5)
+      ASSERT_EQ(states[i], NO_ROOT);
+    else
+      ASSERT_EQ(states[i], ROOT_DOWN);
   }
   current = 9.;
   mcl.evalG(t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0)
       ASSERT_EQ(states[i], ROOT_UP);
+    else if (i == 5)
+      ASSERT_EQ(states[i], NO_ROOT);
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
@@ -73,6 +78,8 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 3)
       ASSERT_EQ(states[i], ROOT_UP);
+    else if (i == 5)
+      ASSERT_EQ(states[i], NO_ROOT);
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
   }
@@ -106,6 +113,8 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0 || i == 3)
       ASSERT_EQ(states[i], ROOT_DOWN);
+    else if (i == 5)
+      ASSERT_EQ(states[i], NO_ROOT);
     else
       ASSERT_EQ(states[i], ROOT_UP);
   }
