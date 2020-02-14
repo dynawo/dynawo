@@ -351,18 +351,18 @@ modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double & t) const
       modeChangeType = ALGEBRAIC_MODE;
   }
 
+  // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
+  // generator.qStatus != pre(generator.qStatus)
+  if (doubleNotEquals(data->localData[0]->integerDoubleVars[1], data->simulationInfo->integerDoubleVarsPre[1])) {
+      modeChangeType = ALGEBRAIC_MODE;
+  }
+
   // ----- Mode for GeneratorPQ_eqFunction_81 --------- 
   // ----- Mode for GeneratorPQ_eqFunction_90 --------- 
   // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
   // generator.running.value != pre(generator.running.value)
   if (doubleNotEquals(data->localData[0]->discreteVars[0], data->simulationInfo->discreteVarsPre[0])) {
     return ALGEBRAIC_J_UPDATE_MODE;
-  }
-
-  // ----- Mode for GeneratorPQ_eqFunction_93 --------- 
-  // generator.qStatus != pre(generator.qStatus)
-  if (doubleNotEquals(data->localData[0]->integerDoubleVars[1], data->simulationInfo->integerDoubleVarsPre[1])) {
-      modeChangeType = ALGEBRAIC_MODE;
   }
 
   return modeChangeType;
@@ -422,12 +422,6 @@ void ModelGeneratorPQ_Dyn::setZomc()
     data->localData[0]->discreteVars[0] /* generator.running.value DISCRETE */ = fromNativeBool ( 0);
   }
 
-  // -------------------- generator.state ---------------------
-  if((data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ && !data->simulationInfo->booleanVarsPre[7] /* $whenCondition7 DISCRETE */ /* edge */))
-  {
-    data->localData[0]->integerDoubleVars[2] /* generator.state DISCRETE */ = 1;
-  }
-
   // -------------------- generator.pStatus ---------------------
   if((data->localData[0]->booleanVars[5] /* $whenCondition5 DISCRETE */ && !data->simulationInfo->booleanVarsPre[5] /* $whenCondition5 DISCRETE */ /* edge */))
   {
@@ -458,6 +452,12 @@ void ModelGeneratorPQ_Dyn::setZomc()
   else if((data->localData[0]->booleanVars[8] /* $whenCondition8 DISCRETE */ && !data->simulationInfo->booleanVarsPre[8] /* $whenCondition8 DISCRETE */ /* edge */))
   {
     data->localData[0]->integerDoubleVars[1] /* generator.qStatus DISCRETE */ = 1;
+  }
+
+  // -------------------- generator.state ---------------------
+  if((data->localData[0]->booleanVars[7] /* $whenCondition7 DISCRETE */ && !data->simulationInfo->booleanVarsPre[7] /* $whenCondition7 DISCRETE */ /* edge */))
+  {
+    data->localData[0]->integerDoubleVars[2] /* generator.state DISCRETE */ = 1;
   }
 
 

@@ -796,7 +796,7 @@ class ModelWriter(ModelWriterBase):
 
         for n, line in enumerate(self.file_content_h):
             if "__fill_model_checkSum__" in line:
-                line_tmp = line.replace("__fill_model_checkSum__", check_sum)
+                line_tmp = line.replace("__fill_model_checkSum__", check_sum.decode('utf-8'))
                 self.file_content_h [n] = line_tmp
 
     ##

@@ -14,10 +14,30 @@
 import os
 import shutil
 try:
-    import lxml.etree
-except:
-    print("Error when trying to import lxml.etree")
-    sys.exit(1)
+    from lxml import etree
+except ImportError:
+    try:
+        # Python 2.5
+        import xml.etree.cElementTree as etree
+        print("running with cElementTree on Python 2.5+")
+    except ImportError:
+        try:
+            # Python 2.5
+            import xml.etree.ElementTree as etree
+            print("running with ElementTree on Python 2.5+")
+        except ImportError:
+            try:
+                # normal cElementTree install
+                import cElementTree as etree
+                print("running with cElementTree")
+            except ImportError:
+                try:
+                    # normal ElementTree install
+                    import elementtree.ElementTree as etree
+                    print("running with ElementTree")
+                except ImportError:
+                    print("Failed to import ElementTree from any known place")
+                    sys.exit(1)
 from optparse import OptionParser
 
 xmlToHtml_resources_dir = os.path.join(os.path.dirname(__file__),"../resources")

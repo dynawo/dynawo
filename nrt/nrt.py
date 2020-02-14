@@ -15,11 +15,32 @@ import datetime
 import glob
 import imp
 import sys
+from xml.dom import minidom
 try:
-    import lxml.etree
-except:
-    print("Error when trying to import lxml.etree")
-    sys.exit(1)
+    from lxml import etree
+except ImportError:
+    try:
+        # Python 2.5
+        import xml.etree.cElementTree as etree
+        print("running with cElementTree on Python 2.5+")
+    except ImportError:
+        try:
+            # Python 2.5
+            import xml.etree.ElementTree as etree
+            print("running with ElementTree on Python 2.5+")
+        except ImportError:
+            try:
+                # normal cElementTree install
+                import cElementTree as etree
+                print("running with cElementTree")
+            except ImportError:
+                try:
+                    # normal ElementTree install
+                    import elementtree.ElementTree as etree
+                    print("running with ElementTree")
+                except ImportError:
+                    print("Failed to import ElementTree from any known place")
+                    sys.exit(1)
 import multiprocessing as mp
 from optparse import OptionParser
 import os
@@ -29,19 +50,11 @@ import shutil
 import subprocess
 import time
 
-try:
-    nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
-    sys.path.append(nrtDiff_dir)
-    import nrtDiff
-except:
-    print ("Failed to import non-regression test diff")
-    sys.exit(1)
+nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
+sys.path.append(nrtDiff_dir)
+import nrtDiff
 
-try:
-    import psutil
-except:
-    print("Error when trying to import python.psutil")
-    sys.exit(1)
+import psutil
 
 class Alarm(Exception):
     pass
@@ -58,7 +71,7 @@ def get_last_child_pid(pid):
     p = psutil.Process(pid)
     child_pid = pid
     for process in p.get_children (recursive=True):
-        print " process :" + str(process) + " pid =" + str(process.pid)
+        print(" process :" + str(process) + " pid =" + str(process.pid))
         child_pid = process.pid
     return child_pid
 
@@ -544,7 +557,8 @@ class TestCase:
     def parseJobsFile(self):
         # Parse jobs file
         try:
-            jobs_root = lxml.etree.parse(self.jobs_file_).getroot()
+            doc = minidom.parse(self.jobs_file_)
+            jobs_root = doc.documentElement
         except:
             printout("Fail to import XML file " + self.jobs_file_ + os.linesep, BLACK)
             sys.exit(1)
@@ -556,7 +570,7 @@ class TestCase:
 
         # Go through every jobs file
         job_num = 0
-        for job in jobs_root.iter(namespaceDYN("job")):
+        for job in jobs_root.getElementsByTagName('job'):
 
             current_job = Job()
             # Create ID
@@ -564,55 +578,49 @@ class TestCase:
             current_job.file_ = self.jobs_file_
 
             # Get names
-            if (not "name" in job.attrib):
+            if (not job.hasAttribute('name')):
                 printout("Fail to generate NRT : jobs without name " + os.linesep, BLACK)
                 sys.exit(1)
-            current_job.name_ = job.get("name")
-
-            # Get optional description
-            for comment in job.iter(tag=lxml.etree.Comment):
-                if not current_job.description_ is "":
-                    current_job.description_ = current_job.description_ + "<br>"
-                current_job.description_ = current_job.description_ + comment.text
+            current_job.name_ = job.getAttribute("name")
 
             # Get solver
-            for solver in job.iter(namespaceDYN("solver")):
-                libSolver = solver.get("lib")
+            for solver in job.getElementsByTagName("solver"):
+                libSolver = solver.getAttribute("lib")
                 if libSolver == "dynawo_SolverSIM":
                     current_job.solver_="Solver SIM"
                 else:
                     current_job.solver_="Solver IDA"
-                if not solver.get("parFile") in current_job.par_files_:
-                    current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), solver.get("parFile")))
+                if not solver.getAttribute("parFile") in current_job.par_files_:
+                    current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), solver.getAttribute("parFile")))
 
             # Get dyd files
-            for modeler in job.iter(namespaceDYN("modeler")):
-                if ("compileDir" in modeler.attrib):
-                    current_job.compilation_dir_ = os.path.join(os.path.dirname(self.jobs_file_), modeler.get("compileDir"))
-                for dynModels in modeler.iter(namespaceDYN("dynModels")):
-                    current_job.dyd_files_.append(os.path.join(os.path.dirname(self.jobs_file_), dynModels.get("dydFile")))
+            for modeler in job.getElementsByTagName("modeler"):
+                if (modeler.hasAttribute('compileDir')):
+                    current_job.compilation_dir_ = os.path.join(os.path.dirname(self.jobs_file_), modeler.getAttribute("compileDir"))
+                for dynModels in modeler.getElementsByTagName("dynModels"):
+                    current_job.dyd_files_.append(os.path.join(os.path.dirname(self.jobs_file_), dynModels.getAttribute("dydFile")))
 
             # Get their outputs
-            for outputs in job.iter(namespaceDYN("outputs")):
-                if (not "directory" in outputs.attrib):
+            for outputs in job.getElementsByTagName("outputs"):
+                if (not outputs.hasAttribute('directory')):
                     printout("Fail to generate NRT : outputs directory is missing in jobs file " + current_job.name_ + os.linesep, BLACK)
                     sys.exit(1)
-                outputsDir = outputs.get("directory")
+                outputsDir = outputs.getAttribute("directory")
                 current_job.output_dir_ = os.path.join(os.path.dirname(self.jobs_file_), outputsDir)
 
                 # constraints
-                for constraints in outputs.iter(namespaceDYN("constraints")):
+                for constraints in outputs.getElementsByTagName("constraints"):
 
-                    if (not "exportMode" in constraints.attrib):
+                    if (not constraints.hasAttribute('exportMode')):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : a constraints element does not have an export mode " + os.linesep, BLACK)
                         sys.exit(1)
 
-                    if(constraints.get("exportMode") == "XML"):
+                    if(constraints.getAttribute("exportMode") == "XML"):
                         fileConstraints = os.path.join(current_job.output_dir_, "constraints", "constraints.xml" )
                         if os.path.isfile(fileConstraints):
                             os.remove(fileConstraints)
                         current_job.constraints_ = fileConstraints
-                    elif(constraints.get("exportMode") == "TXT"):
+                    elif(constraints.getAttribute("exportMode") == "TXT"):
                         fileConstraints = os.path.join(current_job.output_dir_, "constraints", "constraints.log" )
                         if os.path.isfile(fileConstraints):
                             os.remove(fileConstraints)
@@ -620,23 +628,23 @@ class TestCase:
 
 
                 # timeline
-                for timeline in outputs.iter(namespaceDYN("timeline")):
+                for timeline in outputs.getElementsByTagName("timeline"):
 
-                    if (not "exportMode" in timeline.attrib):
+                    if (not timeline.hasAttribute('exportMode')):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : a timeline element does not have an export mode " + os.linesep, BLACK)
                         sys.exit(1)
 
-                    if(timeline.get("exportMode") == "CSV"):
+                    if(timeline.getAttribute("exportMode") == "CSV"):
                         fileTimeline = os.path.join(current_job.output_dir_, "timeLine", "timeline.csv" )
                         if os.path.isfile(fileTimeline):
                             os.remove(fileTimeline)
                         current_job.timeline_ = fileTimeline
-                    elif(timeline.get("exportMode") == "XML"):
+                    elif(timeline.getAttribute("exportMode") == "XML"):
                         fileTimeline = os.path.join(current_job.output_dir_, "timeLine", "timeline.xml" )
                         if os.path.isfile(fileTimeline):
                             os.remove(fileTimeline)
                         current_job.timeline_ = fileTimeline
-                    elif(timeline.get("exportMode") == "TXT"):
+                    elif(timeline.getAttribute("exportMode") == "TXT"):
                         fileTimeline = os.path.join(current_job.output_dir_, "timeLine", "timeline.log" )
                         if os.path.isfile(fileTimeline):
                             os.remove(fileTimeline)
@@ -644,20 +652,20 @@ class TestCase:
 
 
                 # curves
-                for curves in outputs.iter(namespaceDYN("curves")):
+                for curves in outputs.getElementsByTagName("curves"):
 
-                    if (not "exportMode" in curves.attrib):
+                    if (not curves.hasAttribute('exportMode')):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : a curve element does not have an export mode " + os.linesep, BLACK)
                         sys.exit(1)
 
-                    current_job.curves_files_.append(os.path.join(os.path.dirname(self.jobs_file_), curves.get("inputFile")))
-                    if(curves.get("exportMode") == "CSV"):
+                    current_job.curves_files_.append(os.path.join(os.path.dirname(self.jobs_file_), curves.getAttribute("inputFile")))
+                    if(curves.getAttribute("exportMode") == "CSV"):
                         fileCurves = os.path.join(current_job.output_dir_, "curves", "curves.csv" )
                         if os.path.isfile(fileCurves):
                             os.remove(fileCurves)
                         current_job.curves_ = fileCurves
                         current_job.curvesType_ = CURVES_TYPE_CSV
-                    elif(curves.get("exportMode") == "XML"):
+                    elif(curves.getAttribute("exportMode") == "XML"):
                         fileCurves = os.path.join(current_job.output_dir_, "curves", "curves.xml" )
                         if os.path.isfile(fileCurves):
                             os.remove(fileCurves)
@@ -665,35 +673,36 @@ class TestCase:
                         current_job.curvesType_ = CURVES_TYPE_XML
 
                 # logs
-                for appender in outputs.iter(namespaceDYN("appender")):
-                    if (not "file" in appender.attrib):
+                for appender in outputs.getElementsByTagName("appender"):
+                    if (not appender.hasAttribute('file')):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : an appender of output is not an attribut in file " + os.linesep, BLACK)
                         sys.exit(1)
-                    fileAppender = os.path.join(current_job.output_dir_, "logs", appender.get("file"))
+                    fileAppender = os.path.join(current_job.output_dir_, "logs", appender.getAttribute("file"))
                     if os.path.isfile(fileAppender):
                         os.remove(fileAppender)
                     current_job.appenders_.append(fileAppender)
 
-        # Parse dyd files file
-        for dyd_file in current_job.dyd_files_:
-            try:
-                dyd_root = lxml.etree.parse(dyd_file).getroot()
-            except:
-                printout("Fail to import XML file " + dyd_file + os.linesep, BLACK)
-                sys.exit(1)
-            for dma in dyd_root.iter(namespaceDYN("dynamicModelsArchitecture")):
-                for item in dma.iter(namespaceDYN("blackBoxModel")):
-                    if "parFile" in item.attrib and not item.get("parFile") in current_job.par_files_:
-                        current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
-                for item in dma.iter(namespaceDYN("modelTemplateExpansion")):
-                    if "parFile" in item.attrib and not item.get("parFile") in current_job.par_files_:
-                        current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
-                for item in dma.iter(namespaceDYN("unitDynamicModel")):
-                    if "parFile" in item.attrib and not item.get("parFile") in current_job.par_files_:
-                        current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
+            # Parse dyd files file
+            for dyd_file in current_job.dyd_files_:
+                try:
+                    doc = minidom.parse(dyd_file)
+                    dyd_root = doc.documentElement
+                except:
+                    printout("Fail to import XML file " + dyd_file + os.linesep, BLACK)
+                    sys.exit(1)
+                for dma in dyd_root.getElementsByTagName("dynamicModelsArchitecture"):
+                    for item in dma.getElementsByTagName("blackBoxModel"):
+                        if item.hasAttribute("parFile") and not item.get("parFile") in current_job.par_files_:
+                            current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
+                    for item in dma.getElementsByTagName("modelTemplateExpansion"):
+                        if item.hasAttribute("parFile") and not item.get("parFile") in current_job.par_files_:
+                            current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
+                    for item in dma.getElementsByTagName("unitDynamicModel"):
+                        if item.hasAttribute("parFile") and not item.get("parFile") in current_job.par_files_:
+                            current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
 
-        self.jobs_.append(current_job)
-        job_num += 1
+            self.jobs_.append(current_job)
+            job_num += 1
 
     def launch(self, timeout):
         start_time = time.time()
@@ -789,7 +798,7 @@ def main():
     log_message = "Running non-regression tests"
 
     timeout = 0
-    if options.timeout > 0:
+    if options.timeout is not None and options.timeout > 0:
         timeout = options.timeout
         log_message += " with " + timeout + "s timeout"
 

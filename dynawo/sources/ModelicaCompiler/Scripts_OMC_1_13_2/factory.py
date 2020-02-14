@@ -16,6 +16,7 @@ import itertools
 import re
 from dataContainer import *
 from utils import *
+from functools import cmp_to_key
 
 ##
 # ZeroCrossingFilter class : take G data, read and prepare them to be used in factory
@@ -69,7 +70,7 @@ class ZeroCrossingFilter:
             return False
 
         filtered_func = []
-        filtered_iter = itertools.ifilter( filter_desc_data, self.reader.function_zero_crossing_description_raw_func.get_body() )
+        filtered_iter = filter( filter_desc_data, self.reader.function_zero_crossing_description_raw_func.get_body() )
         filtered_func = list(filtered_iter)
 
 
@@ -106,7 +107,7 @@ class ZeroCrossingFilter:
                 and "data->simulationInfo->callStatistics.functionZeroCrossings++" not in line : return True
             return False
         filtered_func = []
-        filtered_iter = itertools.ifilter( filter_eq_data, self.reader.function_zero_crossings_raw_func.get_body() )
+        filtered_iter = filter( filter_eq_data, self.reader.function_zero_crossings_raw_func.get_body() )
         filtered_func = list(filtered_iter)
 
         nb_zero_crossing_tot = 0;
@@ -389,19 +390,19 @@ class Factory:
         # ----------------------------------------------
         # ... We group some vars into categories.
         # For filters, see dataContainer.py
-        self.list_vars_der = filter (is_der_real_var, list_vars_read) # Derived from state vars
-        self.list_vars_discr = filter(is_discrete_real_var, list_vars_read) # Vars discretes reelles
-        self.list_vars_int = filter(is_integer_var, list_vars_read) # vars entieres
-        self.list_vars_bool = filter(is_bool_var, list_vars_read) # Vars booleennes
-        self.list_vars_when = filter(is_when_var, list_vars_read) # Vars when (bool & "$whenCondition")
-        self.list_vars_dummy = filter(is_dummy_var, list_vars_read)
+        self.list_vars_der = list(filter (is_der_real_var, list_vars_read)) # Derived from state vars
+        self.list_vars_discr =  list(filter(is_discrete_real_var, list_vars_read)) # Vars discretes reelles
+        self.list_vars_int =  list(filter(is_integer_var, list_vars_read)) # vars entieres
+        self.list_vars_bool =  list(filter(is_bool_var, list_vars_read)) # Vars booleennes
+        self.list_vars_when =  list(filter(is_when_var, list_vars_read)) # Vars when (bool & "$whenCondition")
+        self.list_vars_dummy =  list(filter(is_dummy_var, list_vars_read))
 
-        self.list_params_real = filter(is_param_real, list_vars_read) # Real Params (all)
+        self.list_params_real =  list(filter(is_param_real, list_vars_read)) # Real Params (all)
 
-        self.list_params_bool = filter(is_param_bool, list_vars_read) # Params booleans (all)
+        self.list_params_bool =  list(filter(is_param_bool, list_vars_read)) # Params booleans (all)
 
-        self.list_params_integer = filter(is_param_integer, list_vars_read) # Full Params (all)
-        self.list_params_string = filter(is_param_string, list_vars_read) # Params string (all)
+        self.list_params_integer =  list(filter(is_param_integer, list_vars_read)) # Full Params (all)
+        self.list_params_string =  list(filter(is_param_string, list_vars_read)) # Params string (all)
 
         ## Removing of WhenVar bool variables, we only keep "real" boolean variables
         tmp_var = []
@@ -432,7 +433,7 @@ class Factory:
         # in the system, the others come out.
         #
 
-        self.list_vars_syst = filter(is_syst_var, list_vars_read)
+        self.list_vars_syst = list(filter(is_syst_var, list_vars_read))
         tmp_list = []
         for var in self.list_vars_syst:
             if var not in self.reader.list_calculated_vars and not is_ignored_var(var.get_name()):
@@ -628,7 +629,7 @@ class Factory:
         for eq_mak in self.list_eq_maker_16dae:
             tag = find_value_in_map( map_tags_num_eq, eq_mak.get_num_omc() )
             # Do not dump again when equations, reinit equations and equations that assigns a discrete variable
-            if (tag == 'when' and not eq_mak.get_is_modelica_reinit() and len(filter(lambda x: (x.get_name() == eq_mak.get_evaluated_var()),self.list_all_vars_discr+self.list_vars_int)) == 0):
+            if (tag == 'when' and not eq_mak.get_is_modelica_reinit() and len(list(filter(lambda x: (x.get_name() == eq_mak.get_evaluated_var()),self.list_all_vars_discr+self.list_vars_int))) == 0):
                 body = eq_mak.get_body()
                 body_tmp = self.handle_body_for_discrete(body, name_func_to_search, global_pattern_index)
 
@@ -782,7 +783,7 @@ class Factory:
                     list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
 
                 eq_mak.set_depend_vars(list_depend)
-                eq_mak.set_diff_eq(name_var_eval in self.reader.derivative_residual_vars or len(filter(lambda x : x.get_name() == name_var_eval, self.list_vars_der)) > 0)
+                eq_mak.set_diff_eq(name_var_eval in self.reader.derivative_residual_vars or len(list(filter(lambda x : x.get_name() == name_var_eval, self.list_vars_der))) > 0)
 
         # Build an equation for each function in the dae *.c file
         for eq_mak in list_eq_maker_16dae_c:
@@ -824,7 +825,7 @@ class Factory:
                 self.list_warnings.append(warning)
 
         #... Sort the previous functions with their index in the main *.c file (and other *.c)
-        self.list_eq_syst.sort(cmp = cmp_equations)
+        self.list_eq_syst.sort(key = cmp_to_key(cmp_equations))
 
         # ... we give them a number for DYNAWO
         i = 0 # num dyn of the equation
@@ -888,7 +889,8 @@ class Factory:
                     break
 
         # add integer equations to setZ
-        keys = list_func_bodies_int_names.keys()
+        keys = list(list_func_bodies_int_names.keys())
+        keys.sort()
         for key in keys:
             int_equation = INTEquation(key)
             int_equation.set_body(list_func_bodies_int_names[key])
@@ -995,7 +997,8 @@ class Factory:
                 i += 1
 
         # preparation of blocks for setZ
-        keys = list_func_bodies_discr_names.keys()
+        keys = list(list_func_bodies_discr_names.keys())
+        keys.sort()
         for key in keys:
             z_equation = ZEquation(key)
             z_equation.set_body(list_func_bodies_discr_names[key])
@@ -1005,7 +1008,10 @@ class Factory:
             self.list_z_equations.append(z_equation)
 
         # add Modelica reinit equations
-        for var_name, eq_list in self.get_map_eq_reinit_discrete().iteritems():
+        keys = list(self.get_map_eq_reinit_discrete().keys())
+        keys.sort()
+        for var_name in keys:
+            eq_list = self.get_map_eq_reinit_discrete()[var_name]
             for eq in eq_list:
                 z_equation = ZEquation("reinit for " + var_name)
                 z_equation.set_body(eq.get_body_for_modelica_reinit_affectation())
@@ -1225,7 +1231,7 @@ class Factory:
         found_init_by_param_and_at_least2lines = False # for reading comfort when printing
 
         # sort by taking init function number read in *06inz.c
-        list_vars = sorted(list_vars,cmp = cmp_num_init_vars)
+        list_vars = sorted(list_vars,key = cmp_to_key(cmp_num_init_vars))
         # We prepare the results to print in setY0omc
         for var in list_vars :
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
@@ -1748,8 +1754,8 @@ class Factory:
             dict_line_par_by_param[num]=line_par_by_param
 
         keys = dict_line_par_by_param.keys()
-        keys.sort()
-        for key in keys:
+        sorted_keys = sorted(keys)
+        for key in sorted_keys:
             self.list_for_initrpar +=  dict_line_par_by_param[key]
 
     ##
@@ -1817,8 +1823,8 @@ class Factory:
             return False
 
         filtered_func = []
-        filtered_iter = itertools.ifilter( filter_setup_data, self.reader.setup_data_struc_raw_func.get_body() )
-        filtered_iter_dae = itertools.ifilter( filter_dae_setup_data, self.reader.setup_dae_data_struc_raw_func.get_body() )
+        filtered_iter = filter( filter_setup_data, self.reader.setup_data_struc_raw_func.get_body() )
+        filtered_iter_dae = filter( filter_dae_setup_data, self.reader.setup_dae_data_struc_raw_func.get_body() )
         filtered_func = list(filtered_iter)
         filtered_func += list(filtered_iter_dae)
 
@@ -1850,13 +1856,13 @@ class Factory:
                 line = line [ :line.find("=") ] + "= " + str(len(self.reader.auxiliary_var_to_keep) + len(self.reader.auxiliary_vars_counted_as_variables))+";\n"
                 filtered_func[n] = line
             if "data->modelData->nAliasReal" in line:
-                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and (is_real_const_var(x) or is_discrete_real_const_var(x))), self.list_all_vars))) + remove_const_alias_comment + line[ line.find(";") : ]
+                line = line [ :line.find(";") ] + " - " + str(len(list(filter(lambda x: (x.is_alias() and (is_real_const_var(x) or is_discrete_real_const_var(x))), self.list_all_vars)))) + remove_const_alias_comment + line[ line.find(";") : ]
                 filtered_func[n] = line
             if "data->modelData->nAliasInteger" in line:
-                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and is_integer_const_var(x)), self.list_vars_int))) + remove_const_alias_comment + line[ line.find(";") : ]
+                line = line [ :line.find(";") ] + " - " + str(len(list(filter(lambda x: (x.is_alias() and is_integer_const_var(x)), self.list_vars_int)))) + remove_const_alias_comment + line[ line.find(";") : ]
                 filtered_func[n] = line
             if "data->modelData->nAliasBoolean" in line:
-                line = line [ :line.find(";") ] + " - " + str(len(filter(lambda x: (x.is_alias() and is_boolean_const_var(x)), self.list_vars_bool))) + remove_const_alias_comment + line[ line.find(";") : ]
+                line = line [ :line.find(";") ] + " - " + str(len(list(filter(lambda x: (x.is_alias() and is_boolean_const_var(x)), self.list_vars_bool)))) + remove_const_alias_comment + line[ line.find(";") : ]
                 filtered_func[n] = line
             if "daeModeData->" in line:
                 line = line.replace("daeModeData", "data->simulationInfo->daeModeData")
@@ -2284,28 +2290,28 @@ class Factory:
     # @param self : object pointer
     # @return list of lines
     def get_list_params_real_not_internal_for_h(self):
-        return filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_real)
+        return list(filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_real))
 
     ##
     # returns the lines that declares non-internal boolean parameters
     # @param self : object pointer
     # @return list of lines
     def get_list_params_bool_not_internal_for_h(self):
-        return filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_bool)
+        return list(filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_bool))
 
     ##
     # returns the lines that declares non-internal string parameters
     # @param self : object pointer
     # @return list of lines
     def get_list_params_string_not_internal_for_h(self):
-        return filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_string)
+        return list(filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_string))
 
     ##
     # returns the lines that declares non-internal integer parameters
     # @param self : object pointer
     # @return list of lines
     def get_list_params_integer_not_internal_for_h(self):
-        return filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_integer)
+        return list(filter(lambda x: (param_scope(x) !=  INTERNAL_PARAMETER), self.list_params_integer))
 
     ##
     # returns the lines that should be included in header to define variables

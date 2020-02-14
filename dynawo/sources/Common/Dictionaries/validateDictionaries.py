@@ -186,7 +186,8 @@ class Dictionary:
         header_file.write("    ///< enum of possible key for "+str(name)+"\n")
         header_file.write("    enum value\n")
         header_file.write("    {\n")
-        list_keys = self.keys()
+        list_keys = list(self.keys())
+        list_keys.sort()
         for key in list_keys:
             key1 = key+","
             key_to_print = key1.ljust(70)
@@ -227,7 +228,8 @@ class Dictionary:
         cpp_file.write("namespace DYN {\n\n")
         cpp_file.write("const char* Key"+name+"_t::names(const value& v) {\n")
         cpp_file.write("  static const char* names[] = {\n")
-        list_keys = self.keys()
+        list_keys = list(self.keys())
+        list_keys.sort()
         for key in list_keys:
             cpp_file.write('    "'+str(key)+'",\n')
         cpp_file.write("  };\n")
@@ -263,7 +265,9 @@ class Dictionary:
         mo_file.write("within " + modelica_package + ";\n\n")
         mo_file.write('encapsulated package '+name+'Keys\n\n')
         i = 0
-        for key in self.keys():
+        list_keys = list(self.keys())
+        list_keys.sort()
+        for key in list_keys:
             mo_file.write("final constant Integer "+str(key)+" = "+str(i)+";\n")
             i = i+1
         mo_file.write("\nend "+name+"Keys;\n")
