@@ -39,7 +39,7 @@ ModelCurrentLimits::~ModelCurrentLimits() {
 
 int
 ModelCurrentLimits::sizeG() const {
-  return 3 * nbTemporaryLimits_ + 2 * (limits_.size() - nbTemporaryLimits_);  // I > IMax, I < IMax, t-tLim > delay (optional)
+  return 3 * limits_.size();
 }
 
 int
