@@ -24,22 +24,23 @@ model UVA "Under-Voltage Automaton"
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   public
-    parameter Types.VoltageModulePu UMinPu "Voltage threshold under which the automaton is activated in p.u. (base UNom network)";
+    parameter Types.VoltageModulePu UMinPu "Voltage threshold under which the automaton is activated in p.u. (base UNom)";
     parameter Types.Time tLagAction "Time-lag due to the actual trip action in s";
-    parameter Types.VoltageModulePu U0Pu  "Initial monitored voltage in p.u. (base UNom network)";
 
-    Connectors.ImPin UPu (value (start = U0Pu)) "Monitored voltage in p.u. (base UNom network)";
+    Types.VoltageModulePu UMonitoredPu "Monitored voltage in p.u. (base UNom)";
+
     Connectors.BPin switchOffSignal (value (start = false)) "Switch off message for the generator";
 
   protected
     Types.Time tThresholdReached (start = Constants.inf) "Time when the threshold was reached";
 
   equation
+
     // Voltage comparison with the minimum accepted value
-    when UPu.value <= UMinPu and not(pre(switchOffSignal.value)) then
+    when UMonitoredPu <= UMinPu and not(pre(switchOffSignal.value)) then
       tThresholdReached = time;
       Timeline.logEvent1(TimelineKeys.UVAArming);
-    elsewhen UPu.value > UMinPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) then
+    elsewhen UMonitoredPu > UMinPu and pre(tThresholdReached) <> Constants.inf and not(pre(switchOffSignal.value)) then
       tThresholdReached = Constants.inf;
       Timeline.logEvent1(TimelineKeys.UVADisarming);
     end when;
