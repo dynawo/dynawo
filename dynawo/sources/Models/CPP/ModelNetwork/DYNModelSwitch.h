@@ -153,7 +153,9 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   /**
    * @brief evaluate derivatives
    */
-  void evalDerivatives();
+  void evalDerivatives(const double& cj);
+
+  void evalDerivativesPrim() {}
   /**
    * @brief define variables
    * @param variables

@@ -94,7 +94,12 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief evaluate derivatives
    */
-  virtual void evalDerivatives() = 0;
+  virtual void evalDerivatives(const double& cj) = 0;
+
+  /**
+   * @brief evaluate derivatives
+   */
+  virtual void evalDerivativesPrim() = 0;
 
   /**
    * @brief evaluate F

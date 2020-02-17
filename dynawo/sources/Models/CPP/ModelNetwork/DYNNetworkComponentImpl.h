@@ -73,7 +73,12 @@ class NetworkComponent::Impl : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::evalDerivatives()
    */
-  virtual void evalDerivatives() = 0;
+  virtual void evalDerivatives(const double& cj) = 0;
+
+  /**
+   * @copydoc NetworkComponent::evalDerivativesPrim()
+   */
+  virtual void evalDerivativesPrim() = 0;
 
   /**
    * @copydoc NetworkComponent::evalF()

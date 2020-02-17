@@ -161,14 +161,17 @@ urYNum_(0),
 uiYNum_(0),
 iiYNum_(0),
 irYNum_(0),
+wgNum_(0),
 busIndex_(bus->getBusIndex()),
 hasConnection_(bus->hasConnection()),
+isDynamic_(false),
 modelType_((boost::starts_with(bus->getID(), "calculatedBus_"))?"Bus":"Node") {
   neighbors_.clear();
   busBarSectionNames_.clear();
   busBarSectionNames_ = bus->getBusBarSectionNames();
 
   derivatives_.reset(new BusDerivatives());
+  derivativesPrim_.reset(new BusDerivatives());
 
   // init data
   unom_ = bus->getVNom();
@@ -217,6 +220,8 @@ ModelBus::initSize() {
     sizeY_ = 2;
     if (hasConnection_)
       sizeY_ = 4;
+    if (isDynamic_)
+      sizeY_ = sizeY_ + 1;  // wg network
     sizeZ_ = 3;  // numCC, switchOff, state
     sizeG_ = 4;  // U> Umax or U< Umin
     sizeMode_ = 0;
@@ -248,6 +253,39 @@ ModelBus::ui() const {
   }
 }
 
+double
+ModelBus::urp() const {
+  if (!getSwitchOff()) {
+    if (network_->isInit())
+      return 0;
+    else
+      return yp_[urNum_];
+  } else {
+    return 0.;
+  }
+}
+
+double
+ModelBus::uip() const {
+  if (!getSwitchOff()) {
+    if (network_->isInit())
+      return 0;
+    else
+      return yp_[uiNum_];
+  } else {
+    return 0.;
+  }
+}
+
+double
+ModelBus::wg() const {
+  if (!getSwitchOff()) {
+    return y_[wgNum_];
+  } else {
+    return 0.;
+  }
+}
+
 void
 ModelBus::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
@@ -259,11 +297,18 @@ ModelBus::setSubModelParameters(const boost::unordered_map<std::string, Paramete
   value = getParameterDynamicNoThrow<double>(params, "bus_uMin", success);
   if (success)
     uMin_ = value;
+
+  // isDynamic parameter
+  success = false;
+  bool isDynamic = getParameterDynamicNoThrow<bool>(params, "bus_isDynamic", success);
+  if (success)
+    isDynamic_ = isDynamic;
 }
 
 void
 ModelBus::initDerivatives() {
   derivatives_->reset();
+  derivativesPrim_->reset();
 }
 
 void
@@ -285,7 +330,7 @@ ModelBus::addNeighbor(boost::shared_ptr<ModelBus>& bus) {
 }
 
 void
-ModelBus::evalDerivatives() {
+ModelBus::evalDerivatives(const double& /*cj*/) {
   if (!network_->isInitModel() && hasConnection_) {
     derivatives_->addDerivative(IR_DERIVATIVE, irYNum_, -1);
     derivatives_->addDerivative(II_DERIVATIVE, iiYNum_, -1);
@@ -371,6 +416,17 @@ void
 ModelBus::evalYType() {
   yType_[0] = ALGEBRIC;
   yType_[1] = ALGEBRIC;
+
+  if (isDynamic_) {
+    yType_[0] = DIFFERENTIAL;
+    yType_[1] = DIFFERENTIAL;
+    if (hasConnection_) {
+      yType_[4] = EXTERNAL;
+    } else {
+      yType_[2] = EXTERNAL;
+    }
+  }
+
   if (hasConnection_) {
     yType_[2] = ALGEBRIC;
     yType_[3] = ALGEBRIC;
@@ -379,8 +435,12 @@ ModelBus::evalYType() {
 
 void
 ModelBus::evalFType() {
-  fType_[0] = ALGEBRIC_EQ;   // no differential variable for node equation
+  fType_[0] = ALGEBRIC_EQ;
   fType_[1] = ALGEBRIC_EQ;
+  if (isDynamic_) {
+    fType_[0] = DIFFERENTIAL_EQ;
+    fType_[1] = DIFFERENTIAL_EQ;
+  }
 }
 
 void
@@ -422,6 +482,11 @@ ModelBus::init(int& yNum) {
       irYNum_ = -1;
       iiYNum_ = -1;
     }
+
+    if (isDynamic_) {
+      wgNum_ = yNum;
+      ++yNum;
+    }
   }
 }
 
@@ -452,6 +517,14 @@ ModelBus::getY0() {
       yp_[2] = 0.0;
       yp_[3] = 0.0;
     }
+
+    if (isDynamic_ && hasConnection_) {
+      y_[4] = 1;
+      yp_[4] = 0;
+    } else {
+      y_[2] = 1;
+      yp_[2] = 0;
+    }
     // We assume here that z_[numSubNetworkNum_] was already initialized!!
     if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.))
       z_[switchOffNum_] = fromNativeBool(false);
@@ -475,6 +548,8 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
     variables.push_back(VariableAliasFactory::create(id_ + "_ACPIN_i_re", id_ + "_PWPIN_ir"));
     variables.push_back(VariableAliasFactory::create(id_ + "_ACPIN_i_im", id_ + "_PWPIN_ii"));
   }
+  if (isDynamic_)
+    variables.push_back(VariableNativeFactory::createState(id_ + "_wg_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
@@ -505,6 +580,7 @@ void
 ModelBus::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("bus_uMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("bus_uMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("bus_isDynamic", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 void
@@ -524,6 +600,7 @@ ModelBus::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableAliasFactory::create("@ID@_ACPIN_V_im", "@ID@_PWPIN_vi"));
   variables.push_back(VariableNativeFactory::createState("@ID@_PWPIN_ir", FLOW));
   variables.push_back(VariableNativeFactory::createState("@ID@_PWPIN_ii", FLOW));
+  variables.push_back(VariableNativeFactory::createState("@ID@_wg", CONTINUOUS));
   variables.push_back(VariableAliasFactory::create("@ID@_ACPIN_i_re", "@ID@_PWPIN_ir"));
   variables.push_back(VariableAliasFactory::create("@ID@_ACPIN_i_im", "@ID@_PWPIN_ii"));
   variables.push_back(VariableNativeFactory::createState("@ID@_numcc_value", DISCRETE));
@@ -562,6 +639,9 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
     addSubElement("re", ACNameV, Element::TERMINAL, elements, mapElement);
     addSubElement("im", ACNameV, Element::TERMINAL, elements, mapElement);
   }
+
+  if (isDynamic_)
+    addElementWithValue(id + string("_wg"), elements, mapElement);
 
   // Calculated variables addition
   addElementWithValue(id + string("_Upu"), elements, mapElement);
@@ -780,12 +860,28 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
 }
 
 void
-ModelBus::evalJtPrim(SparseMatrix& jt, const int& /*rowOffset*/) {
-  // no y' in network equations, we only change the column index in Jacobian
-  // column change - real part of the node current
-  jt.changeCol();
-  // column change - imaginary part of the node current
-  jt.changeCol();
+ModelBus::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
+  if (isDynamic_ && !getSwitchOff() && !derivativesPrim_->empty()) {
+    jt.changeCol();
+    const map<int, double>& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
+    map<int, double>::const_iterator iter = irDerivativesValues.begin();
+    for (; iter != irDerivativesValues.end(); ++iter) {
+      jt.addTerm(iter->first + rowOffset, iter->second);
+    }
+
+    jt.changeCol();
+    const map<int, double>& iiDerivativesValues = derivativesPrim_->getValues(II_DERIVATIVE);
+    iter = iiDerivativesValues.begin();
+    for (; iter != iiDerivativesValues.end(); ++iter) {
+      jt.addTerm(iter->first + rowOffset, iter->second);
+    }
+  } else {
+    // no y' in network equations, we only change the column index in Jacobian
+    // column change - real part of the node current
+    jt.changeCol();
+    // column change - imaginary part of the node current
+    jt.changeCol();
+  }
 }
 
 NetworkComponent::StateChange_t

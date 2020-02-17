@@ -213,7 +213,9 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   /**
    * @brief evaluate derivatives
    */
-  void evalDerivatives();  ///< compute the variables' derivatives
+  void evalDerivatives(const double& cj);  ///< compute the variables' derivatives
+
+  void evalDerivativesPrim() {}
 
   /**
    * @copydoc NetworkComponent::Impl::evalF()
