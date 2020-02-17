@@ -77,6 +77,6 @@
   <dyn:connect id1="LOADVAR_LOAD2" var1="event_state2" id2="_LOAD___2_EC" var2="load_QRefPu"/>
   <dyn:connect id1="LOADVAR_LOAD3" var1="event_state1" id2="_LOAD___3_EC" var2="load_PRefPu"/>
   <dyn:connect id1="LOADVAR_LOAD3" var1="event_state2" id2="_LOAD___3_EC" var2="load_QRefPu"/>
-  <dyn:connect id1="GEN____3_SM" var1="generator_UPu" id2="UVA" var2="underVoltageAutomaton_UPu_value"/>
+  <dyn:connect id1="GEN____3_SM" var1="generator_UPu" id2="UVA" var2="underVoltageAutomaton_UMonitoredPu"/>
   <dyn:connect id1="GEN____3_SM" var1="generator_switchOffSignal3" id2="UVA" var2="underVoltageAutomaton_switchOffSignal"/>
 </dyn:dynamicModelsArchitecture>
