@@ -139,7 +139,9 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   /**
    * @brief evaluate derivatives
    */
-  void evalDerivatives();
+  void evalDerivatives(const double& cj);
+
+  void evalDerivativesPrim() {}
 
   /**
    * @brief evaluate F
@@ -316,6 +318,14 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   }
 
   /**
+   * @brief get derivatives
+   * @return the derivatives associated to the bus model
+   */
+  inline boost::shared_ptr<BusDerivatives> derivativesPrim() const {
+    return derivativesPrim_;
+  }
+
+  /**
    * @brief  switch off the bus (and force the voltage to be set to 0)
    */
   void switchOff();  // switch off the bus (and force the voltage to be set to 0)
@@ -382,6 +392,20 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @return the imaginary part of the voltage
    */
   double ui() const;
+
+  /**
+   * @brief retrieve the real part of the voltage
+   * @return the real part of the voltage
+   */
+  double urp() const;
+
+  /**
+   * @brief retrieve the imaginary part of the voltage
+   * @return the imaginary part of the voltage
+   */
+  double uip() const;
+
+  double wg() const;
 
   /**
    * @brief get urYNum
@@ -503,6 +527,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   double iiConnection_;  ///< imaginary current injected
   int refIslands_;  ///< island reference (used to compute switch loops)
   boost::shared_ptr<BusDerivatives> derivatives_;  ///< derivatives
+  boost::shared_ptr<BusDerivatives> derivativesPrim_;  ///< derivatives for JPrim
   double ur0_;  ///< initial real voltage
   double ui0_;  ///< initial imaginary voltage
   double ir0_;  ///< initial real current
@@ -513,9 +538,11 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   int uiYNum_;  ///< ui
   int iiYNum_;  ///< ii
   int irYNum_;  ///< ir
+  int wgNum_;  ///< wg
 
   int busIndex_;  ///< index of bus in its voltage level
   bool hasConnection_;  ///< whether has connection
+  bool isDynamic_;  ///< whether the bus model should be dynamic (ie voltages differential)
 
   double unom_;  ///< nominal voltage
   double u0_;  ///< initial voltage

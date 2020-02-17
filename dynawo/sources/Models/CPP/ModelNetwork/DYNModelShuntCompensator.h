@@ -91,7 +91,9 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   /**
    * @brief evaluate derivatives
    */
-  void evalDerivatives();
+  void evalDerivatives(const double& cj);
+
+  void evalDerivativesPrim() {}
 
   /**
    * @copydoc NetworkComponent::Impl::evalF()

@@ -214,7 +214,7 @@ ModelSwitch::setInitialCurrents() {
 }
 
 void
-ModelSwitch::evalDerivatives() {
+ModelSwitch::evalDerivatives(const double& /*cj*/) {
   Timer timer3("ModelSwitch::evalDerivatives");
   if (getConnectionState() == CLOSED) {
     modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, irYNum_, 1.);

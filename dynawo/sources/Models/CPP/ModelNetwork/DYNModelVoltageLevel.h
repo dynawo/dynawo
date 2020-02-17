@@ -224,7 +224,9 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::evalDerivatives()
    */
-  void evalDerivatives();
+  void evalDerivatives(const double& cj);
+
+  void evalDerivativesPrim() {}
 
   /**
    * @copydoc NetworkComponent::evalCalculatedVars()

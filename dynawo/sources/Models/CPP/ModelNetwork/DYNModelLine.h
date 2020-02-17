@@ -139,7 +139,13 @@ class ModelLine : public NetworkComponent::Impl {
   /**
    * @brief evaluate derivatives
    */
-  void evalDerivatives();
+  void evalDerivatives(const double& cj);
+
+  /**
+   * @brief evaluate derivatives prim
+   */
+  void evalDerivativesPrim();
+
   /**
    * @brief define variables
    * @param variables
@@ -174,7 +180,7 @@ class ModelLine : public NetworkComponent::Impl {
   /**
    * @brief evaluation F
    */
-  void evalF() { /* not needed */ }  // get the (empty) local F function
+  void evalF();  // get the (empty) local F function
 
   /**
   * @copydoc NetworkComponent::Impl::evalZ()
@@ -227,12 +233,12 @@ class ModelLine : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::evalYType()
    */
-  void evalYType() { /* not needed */ }
+  void evalYType();
 
   /**
    * @copydoc NetworkComponent::evalFType()
    */
-  void evalFType() { /* not needed */ }
+  void evalFType();
 
   void evalYMat();
 
@@ -454,11 +460,26 @@ class ModelLine : public NetworkComponent::Impl {
    */
   double ui2() const;
 
+  double urp1() const;
+
+  double uip1() const;
+
+  double urp2() const;
+
+  double uip2() const;
+
+  double wg() const;
+
+  inline unsigned int globalYIndex(const unsigned int& localIndex) {
+    return yOffset_ + localIndex;
+  }
+
   boost::shared_ptr<ModelBus> modelBus1_;  ///< model bus  1
   boost::shared_ptr<ModelBus> modelBus2_;  ///< model bus 2
   State connectionState_;  ///< "internal" line connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool topologyModified_;  ///< true if the line connection state was modified
   double currentLimitsDesactivate_;  ///< current limit desactivate
+  bool isDynamic_;  ///< dynamic line model
 
   double admittance_;  ///< admittance
   double lossAngle_;  ///< loss angle
@@ -466,6 +487,8 @@ class ModelLine : public NetworkComponent::Impl {
   double suscept2_;  ///< susceptance on side 2
   double conduct1_;  ///< conductance on side 1
   double conduct2_;  ///< conductance on side 2
+  double resistance_;  ///< resistance
+  double reactance_;  ///< reactance
   // Injections
   double ir1_dUr1_;  ///< injection matrix value
   double ir1_dUi1_;  ///< injection matrix value
@@ -490,6 +513,12 @@ class ModelLine : public NetworkComponent::Impl {
   double ir02_;  ///< initial real part of the current at side 2
   double ii02_;  ///< initial imaginary part of the current at side 2
 
+  unsigned int yOffset_;  ///< global Y offset at the beginning of the line model
+  unsigned int IbReNum_;  ///< local Y index for IbReNum
+  unsigned int IbImNum_;  ///< local Y index for IbImNum
+
+  double wNom_;
+  bool firstTime_;
   const std::string modelType_;  ///< model Type
 };
 }  // namespace DYN

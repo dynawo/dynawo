@@ -117,7 +117,10 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   /**
    * @brief evaluate derivatives
    */
-  void evalDerivatives();
+  void evalDerivatives(const double& cj);
+
+  void evalDerivativesPrim() {}
+
   /**
    * @brief define variables
    * @param variables
