@@ -333,7 +333,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @return @b true if the bus is switched off, @b false otherwise
    */
   inline bool getSwitchOff() const {
-    assert(z_ != NULL);
+    if (z_ == NULL) return false;  // Might happen when we initialize connection to calculated variables (done before model init)
     return toNativeBool(z_[switchOffNum_]);
   }  // get information about whether the bus is switched off
 

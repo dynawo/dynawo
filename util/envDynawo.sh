@@ -1345,6 +1345,9 @@ nrt() {
   if [ ${FAILED_CASES_NUM} -ne 0 ]; then
     error_exit "${FAILED_CASES_NUM} non regression tests failed"
   fi
+  if [ "$DYNAWO_BUILD_TYPE" = "Debug" ]; then
+    echo "Warning: Debug mode is activated, references comparison was not done"
+  fi
 }
 
 run_documentation_test() {

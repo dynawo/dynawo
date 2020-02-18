@@ -842,6 +842,8 @@ SolverIDA::printSolveSpecific(std::stringstream& msg) const {
 
 void
 SolverIDA::updateStatistics() {
+  if (IDAMem_ == NULL)
+    return;
   // statistics gathering
   long int nst;
   if (IDAGetNumSteps(IDAMem_, &nst) < 0)
