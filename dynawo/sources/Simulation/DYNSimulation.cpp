@@ -1102,6 +1102,7 @@ Simulation::dumpIIDMFile() {
 
 void
 Simulation::dumpState() {
+  if (!model_) return;
   stringstream state;
   boost::archive::binary_oarchive os(state);
 

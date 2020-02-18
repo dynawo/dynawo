@@ -84,7 +84,12 @@ namespace DYN {
 
 ModelVariationArea::ModelVariationArea() :
 Impl("VariationArea"),
-nbLoads_(0) {
+deltaP_(0.),
+deltaQ_(0.),
+startTime_(0.),
+stopTime_(0.),
+nbLoads_(0),
+stateVariationArea_(0.) {
 }
 
 void

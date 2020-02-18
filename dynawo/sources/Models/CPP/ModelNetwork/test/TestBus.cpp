@@ -433,12 +433,6 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
   ASSERT_NO_THROW(bus->evalF());
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 3.2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 5.5);
-
-  // test setFequations
-  std::map<int, std::string> fEquationIndex;
-#ifndef _MSC_VER
-  EXPECT_ASSERT_DYNAWO(bus->setFequations(fEquationIndex));  // bus->z_ is null as nbZ == 0
-#endif
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
