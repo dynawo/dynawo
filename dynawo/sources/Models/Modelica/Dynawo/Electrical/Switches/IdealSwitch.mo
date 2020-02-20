@@ -30,8 +30,10 @@ model IdealSwitch "Ideal switch"
   extends AdditionalIcons.Switch;
   extends SwitchOff.SwitchOffIdealSwitch;
 
-  Connectors.ACPower terminal1 "Switch side 1";
-  Connectors.ACPower terminal2 "Switch side 2";
+  Connectors.ACPower terminal1 "Switch side 1" annotation(
+    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Connectors.ACPower terminal2 "Switch side 2" annotation(
+    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Variables for display
   Types.ActivePowerPu P1Pu "Active power on side 1 in p.u (base SnRef) (receptor convention)";
