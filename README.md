@@ -23,6 +23,7 @@ This repository contains Dyna&omega;o's simulation tool code.
 ## Table of Contents
 
 - [About Dyna&omega;o](#about)
+- [Getting started!](#start)
 - [Dyna&omega;o Binaries](#distribution)
 - [Building requirements](#requirements)
   * [Linux and MacOS](#requirements_linux)
@@ -53,7 +54,16 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 **To achieve this goal, Dyna&omega;o is based on two mains principles: the use of a high-level modeling language Modelica and a strict separation between modeling and solving parts**. Modelica is an equation-based, declarative and object-oriented modeling language that is easy to read and understand (the equations are written in a similar way than they are written in textbooks for example) and already used in different and various industrial sectors. Using this language enables to easily share and discuss the modeling choices done because the final models implementation is available in an understandable way, even for the end-user. It is important to mention that Modelica-based tools already exist (Dymola, OpenModelica, JModelica, etc.) but they are not efficient enough for large-scale simulation of power system, which was one of the motivation for Dyna&omega;o. In addition to this, the Modelica language itself has some limitations that are adressed in Dyna&omega;o by the possibility to use C++ models in a similar way than Modelica models. The second important point in Dyna&omega;o is the strict separation between modeler and solvers - it means that the models only expose a few methods to the solvers such as the residual evaluation, the Jacobian evaluation or the zero-crossing functions or in other words that the numerical resolution method doesn't interfere in the modeling part. This feature has several advantages: it enables to easily test or use new solvers, it eases the addition of new model and it allows modeling expert not to bother about numerical difficulties and vice versa.
 
 **Dyna&omega;o's primary focus has been on RMS simulations and most of the tests done until now have been for long-term and short-term stability studies.** However, the simulation tool structure offers great flexibility and makes it also possible to run other types of power system simulations, as long as the user provides the necessary models and solvers. Different initiatives are under discussion or submission to test the possibility to use Dyna&omega;o for EMT simulations or multi-system simulations.
-**Only validated models are included into the library that is still under construction.** We plan to be able to release a new set of models in the near future, with for example HVDC, wind and solar power plants models or more different standard regulation models, etc.
+
+**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/tree/master/dynawo/sources/Models/Modelica/Dynawo). Don't hesitate to open it in any Modelica environment to see what are the available models.**
+
+<a name="start"></a>
+## Getting started!
+
+To get started with Dyna&omega;o you have different possibilities, depending on your background and what you want to do:
+- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/tree/master/dynawo/sources/Models/Modelica/Dynawo) in OpenModelica for example.
+- If you want to launch simulations and examples with Dyna&omega;o and observe the performances, you can use the [pre-built distribution](#distribution)
+- If you want to checkout the repository and build it yourself to be able to modify the tool, please follow the build instructions available [here](#build)
 
 <a name="distribution"></a>
 ## Dyna&omega;o Distribution
@@ -336,6 +346,7 @@ Regarding contributions, the final details, methodology and testing procedures f
 ## Quoting Dyna&omega;o
 
 If you use Dyna&omega;o in your work or research, it is not mandatory but we kindly ask you to quote the following paper in your publications or presentations:
+
 A. Guironnet, M. Saugier, S. Petitrenaud, F. Xavier, and P. Panciatici, “Towards an Open-Source Solution using Modelica for Time-Domain Simulation of Power Systems,” 2018 IEEE PES Innovative Smart Grid Technologies Conference Europe (ISGT-Europe), Oct. 2018.
 
 <a name="license"></a>
@@ -358,7 +369,9 @@ Dyna&omega;o is using some external libraries to run simulations:
 
 Dyna&omega;o is currently maintained by the following people in RTE:
 
+* Mathilde Bongrain, [mathilde.bongrain@rte-france.com](mailto:mathilde.bongrain@rte-france.com)
 * Gautier Bureau, [gautier.bureau@rte-france.com](mailto:gautier.bureau@rte-france.com)
+* Quentin Cossart, [quentin.cossart@rte-france.com](mailto:quentin.cossart@rte-france.com)
 * Adrien Guironnet, [adrien.guironnet@rte-france.com](mailto:adrien.guironnet@rte-france.com)
 * Romain Losseau, [romain.losseau@rte-france.com](mailto:romain.losseau@rte-france.com)
 * Florentine Rosiere, [florentine.rosiere@rte-france.com](mailto:florentine.rosiere@rte-france.com)
@@ -372,23 +385,25 @@ Below are the major development axis identified for Dyna&omega;o for the next fe
 
 ### Axis 1 - Test cases and models development
 
-* ~~Adding larger IEEE cases~~
-* Adding large scale test cases (national and panEuropean ones): postponed to February 2020
-* ~~Adding new models (standard regulations for generators, static var compensator, etc.)~~
-* PV WECC model: under progress, expected December 2019
-* Nordic32 case: expected February 2020
+* ~~Adding larger IEEE cases (IEEE14, IEEE57)~~
+* Adding large scale test cases (national and panEuropean ones): postponed to June 2020
+* ~~Adding new models (proportional and proportional integral VR, proportional governor, static var compensator, PLL, injectors)~~
+* PV WECC model: under progress, expected February 2020
+* Grid forming converters models: under progress, expected March 2020
+* Nordic32 case: expected June 2020
+* Wind WECC model: expected July 2020
+* HVDC standard model: expected September 2020
 
 ### Axis 2 - Dependencies upgrade and cross-platform deployment
 
 * ~~Switch to OpenModelica V1.13 version and DAE mode use~~
-* ~~Switch to SUNDIALS V4.0 version~~
+* Switch to Sundials V5.0.0 and Suitesparse V5.3.0
 * Switch to a newer IIDM library version: postponed to June 2020
-* ~~Mac portability~~
-* Windows portability: under progress
+* ~~Mac and Windows portability~~
 * ~~Switch to Modelica V3.2.3~~
 
 ### Axis 3 - Dyna&omega;o structure evolution
-* Performance improvement: under progress, expected December 2019
+* ~~Performance improvement (code optimization, models improvements)~~
 * New initialization strategy: using Modelica initEquations section into Dyna&omega;o: postponed
 * Dyna&omega;o connectivity analysis improvement (system splitting): postponed December 2020
 
