@@ -18,7 +18,8 @@ model Bus "Bus"
 
   extends AdditionalIcons.Bus;
 
-  Connectors.ACPower terminal;
+  Connectors.ACPower terminal annotation(
+    Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 equation
 

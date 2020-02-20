@@ -22,7 +22,8 @@ model InfiniteBus "Infinite bus"
 
   extends AdditionalIcons.Bus;
 
-  Connectors.ACPower terminal;
+  Connectors.ACPower terminal annotation(
+    Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit UPu "Infinite bus constant voltage module";
   parameter Types.Angle UPhase "Infinite bus constant voltage angle";

@@ -23,7 +23,8 @@ partial model BaseGeneratorSimplified "Base model for simplified generator model
   extends SwitchOff.SwitchOffGenerator;
 
   public
-    Connectors.ACPower terminal (V (re (start = u0Pu.re), im (start = u0Pu.im)), i (re (start = i0Pu.re), im (start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid";
+    Connectors.ACPower terminal (V (re (start = u0Pu.re), im (start = u0Pu.im)), i (re (start = i0Pu.re), im (start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
+    Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   protected
 
@@ -136,6 +137,7 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
                                                   else 1.0 "Ratio of the generator transformer in p.u (base UBaseHV, UBaseLV)";
 
 annotation(preferredView = "text");
+
 end GeneratorSynchronousParameters;
 
 
@@ -150,7 +152,8 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
 
   public
 
-    Connectors.ACPower terminal(V(re (start = u0Pu.re), im (start = u0Pu.im)), i(re (start = i0Pu.re), im (start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid";
+    Connectors.ACPower terminal(V(re (start = u0Pu.re), im (start = u0Pu.im)), i(re (start = i0Pu.re), im (start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
+    Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
     // Input variables
     Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Reference frequency in p.u";

@@ -31,8 +31,10 @@ model Line "AC power line - PI model"
   extends SwitchOff.SwitchOffLine;
   extends AdditionalIcons.Line;
 
-  Connectors.ACPower terminal1;
-  Connectors.ACPower terminal2;
+  Connectors.ACPower terminal1 annotation(
+    Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Connectors.ACPower terminal2 annotation(
+    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   parameter Types.PerUnit RPu "Resistance in p.u (base SnRef)";
   parameter Types.PerUnit XPu "Reactance in p.u (base SnRef)";
