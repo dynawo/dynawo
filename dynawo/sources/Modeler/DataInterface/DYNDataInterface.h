@@ -23,6 +23,8 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 
+#include "CRTCriteriaCollection.h"
+
 namespace DYN {
 class NetworkInterface;
 class SubModel;
@@ -96,11 +98,17 @@ class DataInterface {
   virtual void importStaticParameters() = 0;
 
   /**
+   * @brief set the criteria for this model
+   * @param criteria criteria to be used
+   */
+  virtual void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) = 0;
+
+  /**
    * @brief check if criteria for static model is respected
-   * @param checkEachIter @b true check criteria at each iteration, @b false check only at the end of simulation
+   * @param finalStep @b true check criteria at each iteration, @b false check only at the end of simulation
    * @return false if criteria is not respected
    */
-  virtual bool checkCriteria(bool checkEachIter) = 0;
+  virtual bool checkCriteria(bool finalStep) = 0;
 
   /**
    * @brief get static parameter value

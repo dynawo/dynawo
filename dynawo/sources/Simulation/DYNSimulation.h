@@ -49,6 +49,10 @@ namespace job {
 class JobEntry;
 }
 
+namespace criteria {
+class CriteriaCollection;
+}
+
 namespace DYN {
 class Message;
 class MessageTimeline;
@@ -456,6 +460,11 @@ class Simulation {
   void configureSimulationInputs();
 
   /**
+   * @brief configure the criteria
+   */
+  void configureCriteria();
+
+  /**
    * @brief  update the curves depending on parameters values
    * At the end of the simulation, parameter value is duplicated into curve
    */
@@ -495,6 +504,7 @@ class Simulation {
   boost::shared_ptr<curves::CurvesCollection> curvesCollection_;  ///< instance of curves collection where curves are stored
   boost::shared_ptr<finalState::FinalStateCollection> finalStateCollection_;  ///< instance of final state collection where final state are stored
   boost::shared_ptr<constraints::ConstraintsCollection> constraintsCollection_;  ///< instance of constraints collection where constraints are stored
+  boost::shared_ptr<criteria::CriteriaCollection> criteriaCollection_;  ///< instance of criteria collection where criteria are stored
 
   std::vector<std::string> dydFiles_;  ///< list of files to used dynamic data
   std::string iidmFile_;  ///< iidm input file

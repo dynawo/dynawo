@@ -134,11 +134,6 @@ class DanglingLineInterface : public ComponentInterface {
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
   virtual void exportStateVariablesUnitComponent() = 0;
-
-  /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  virtual bool checkCriteria(bool checkEachIter) = 0;
 };  ///< class for dangling line model interface
 }  // namespace DYN
 

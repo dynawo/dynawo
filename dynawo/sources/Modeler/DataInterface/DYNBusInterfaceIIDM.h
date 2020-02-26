@@ -116,11 +116,6 @@ class BusInterfaceIIDM : public BusInterface {
   void exportStateVariablesUnitComponent();
 
   /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  bool checkCriteria(bool checkEachIter);
-
-  /**
    * @copydoc BusInterface::getBusBarSectionNames() const
    */
   std::vector<std::string> getBusBarSectionNames() const {

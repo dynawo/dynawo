@@ -80,23 +80,6 @@ LoadInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
-bool
-LoadInterfaceIIDM::checkCriteria(bool checkEachIter) {
-  loadPUnderV_ = 0;
-  if (busInterface_) {
-    double v = busInterface_->getStateVarV();
-
-    if (checkEachIter) {
-      if ( vNom_ < 100 && v0_ > 0.2 && v < 0.85 * vNom_)
-        loadPUnderV_ = getP();
-    } else {
-      if (v0_ > 0.2 && v < 0.92 * vNom_)
-        loadPUnderV_ = getP();
-    }
-  }
-  return true;
-}
-
 void
 LoadInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();

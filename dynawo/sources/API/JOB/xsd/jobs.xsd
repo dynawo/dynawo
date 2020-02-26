@@ -66,6 +66,10 @@
     <xs:attribute name="dydFile" use="required" type="xs:string"/>
   </xs:complexType>
 
+  <xs:complexType name="CriteriaFileEntry">
+    <xs:attribute name="criteriaFile" use="required" type="xs:string"/>
+  </xs:complexType>
+
   <xs:complexType name="InitialStateEntry">
     <xs:attribute name="file" use="required" type="xs:string"/>
   </xs:complexType>
@@ -91,9 +95,11 @@
   </xs:complexType>
 
   <xs:complexType name="SimulationEntry">
+    <xs:sequence>
+      <xs:element name="criteria" type="dyn:CriteriaFileEntry" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
     <xs:attribute name="startTime" use="required" type="xs:float"/>
     <xs:attribute name="stopTime" use="required" type="xs:float"/>
-    <xs:attribute name="activateCriteria" type="xs:boolean"/>
     <xs:attribute name="criteriaStep" type="xs:int"/>
     <xs:attribute name="precision" type="xs:float"/>
   </xs:complexType>

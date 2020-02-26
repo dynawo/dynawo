@@ -24,7 +24,6 @@ namespace job {
 SimulationEntry::Impl::Impl():
 startTime_(0),
 stopTime_(0),
-activateCriteria_(true),
 criteriaStep_(10),
 precision_(1e-6) {
 }
@@ -33,7 +32,7 @@ SimulationEntry::Impl::~Impl() {
 }
 
 void
-SimulationEntry::Impl::setStartTime(const double & startTime) {
+SimulationEntry::Impl::setStartTime(double startTime) {
   startTime_ = startTime;
 }
 
@@ -43,7 +42,7 @@ SimulationEntry::Impl::getStartTime() const {
 }
 
 void
-SimulationEntry::Impl::setStopTime(const double & stopTime) {
+SimulationEntry::Impl::setStopTime(double stopTime) {
   stopTime_ = stopTime;
 }
 
@@ -53,17 +52,17 @@ SimulationEntry::Impl::getStopTime() const {
 }
 
 void
-SimulationEntry::Impl::setActivateCriteria(bool activate) {
-  activateCriteria_ = activate;
+SimulationEntry::Impl::addCriteriaFile(const std::string& criteriaFile) {
+  criteriaFiles_.push_back(criteriaFile);
 }
 
-bool
-SimulationEntry::Impl::getActivateCriteria() const {
-  return activateCriteria_;
+const std::vector<std::string>&
+SimulationEntry::Impl::getCriteriaFiles() const {
+  return criteriaFiles_;
 }
 
 void
-SimulationEntry::Impl::setCriteriaStep(const int & criteriaStep) {
+SimulationEntry::Impl::setCriteriaStep(int criteriaStep) {
   criteriaStep_ = criteriaStep;
 }
 

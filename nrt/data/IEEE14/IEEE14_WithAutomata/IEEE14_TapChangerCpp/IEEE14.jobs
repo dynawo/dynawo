@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -20,7 +20,7 @@
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
     </dyn:modeler>
-    <dyn:simulation startTime="0" stopTime="150" activateCriteria="false"/>
+    <dyn:simulation startTime="0" stopTime="150"/>
     <dyn:outputs directory="outputs">
       <dyn:dumpInitValues local="true" global="true"/>
       <dyn:curves inputFile="IEEE14.crv" exportMode="CSV"/>

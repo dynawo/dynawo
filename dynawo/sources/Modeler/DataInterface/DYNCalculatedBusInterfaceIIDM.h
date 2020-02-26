@@ -119,11 +119,6 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   void exportStateVariablesUnitComponent();
 
   /**
-   * @copydoc BusInterface::checkCriteria(bool checkEachIter)
-   */
-  bool checkCriteria(bool checkEachIter);
-
-  /**
    * @brief associate a bus bar section interface to the calculated bus
    * @param bbs : bus bar section to add
    */

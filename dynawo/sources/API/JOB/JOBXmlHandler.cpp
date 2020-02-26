@@ -202,9 +202,26 @@ shared_ptr<ModelerEntry>
 ModelerHandler::get() const {
   return modeler_;
 }
+CriteriaFileHandler::CriteriaFileHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&CriteriaFileHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
 
-SimulationHandler::SimulationHandler(elementName_type const& root_element) {
+void
+CriteriaFileHandler::create(attributes_type const& attributes) {
+  criteriaFile_ = attributes["criteriaFile"].as_string();
+}
+
+const std::string&
+CriteriaFileHandler::get() const {
+  return criteriaFile_;
+}
+
+SimulationHandler::SimulationHandler(elementName_type const& root_element) :
+criteriaFileHandler_(parser::ElementName(jobs_ns, "criteria")) {
   onStartElement(root_element, lambda::bind(&SimulationHandler::create, lambda::ref(*this), lambda_args::arg2));
+  onElement(root_element + jobs_ns("criteria"), criteriaFileHandler_);
+
+  criteriaFileHandler_.onEnd(lambda::bind(&SimulationHandler::addCriteriaFile, lambda::ref(*this)));
 }
 
 void
@@ -212,8 +229,6 @@ SimulationHandler::create(attributes_type const& attributes) {
   simulation_ = shared_ptr<SimulationEntry>(new SimulationEntry::Impl());
   simulation_->setStartTime(attributes["startTime"]);
   simulation_->setStopTime(attributes["stopTime"]);
-  if (attributes.has("activateCriteria"))
-    simulation_->setActivateCriteria(attributes["activateCriteria"]);
   if (attributes.has("criteriaStep"))
     simulation_->setCriteriaStep(attributes["criteriaStep"]);
   if (attributes.has("precision"))
@@ -223,6 +238,11 @@ SimulationHandler::create(attributes_type const& attributes) {
 shared_ptr<SimulationEntry>
 SimulationHandler::get() const {
   return simulation_;
+}
+
+void
+SimulationHandler::addCriteriaFile() {
+  simulation_->addCriteriaFile(criteriaFileHandler_.get());
 }
 
 OutputsHandler::OutputsHandler(elementName_type const& root_element) :

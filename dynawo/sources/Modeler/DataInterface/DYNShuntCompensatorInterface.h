@@ -39,11 +39,6 @@ class ShuntCompensatorInterface : public ComponentInterface {
   virtual void exportStateVariablesUnitComponent() = 0;
 
   /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  virtual bool checkCriteria(bool checkEachIter) = 0;
-
-  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   virtual void importStaticParameters() = 0;

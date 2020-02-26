@@ -85,11 +85,6 @@ class LoadInterface : public ComponentInterface {
   virtual void exportStateVariablesUnitComponent() = 0;
 
   /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  virtual bool checkCriteria(bool checkEachIter) = 0;
-
-  /**
    * @brief load power under voltage threshold
    * @return value of load power if voltage is under threshold, 0 otherwise
    */

@@ -110,7 +110,6 @@ createNodeBreakerNetworkIIDM() {
 }
 
 struct BusBreakerNetworkProperty {
-  bool falseCheckCriteriaBus;
   bool instantiateCapacitorShuntCompensator;
   bool instantiateStaticVarCompensator;
   bool instantiateTwoWindingTransformer;
@@ -145,11 +144,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
 
   IIDM::builders::VoltageLevelBuilder vlb;
   vlb.mode(IIDM::VoltageLevel::bus_breaker);
-  if (properties.falseCheckCriteriaBus) {
-    vlb.nominalV(190.);
-  } else {
-    vlb.nominalV(150.);
-  }
+  vlb.nominalV(150.);
   IIDM::VoltageLevel vl = vlb.build("MyVoltageLevel");
   vl.add(bus);
 
@@ -375,7 +370,7 @@ exportStateVariables(shared_ptr<DataInterface> data) {
   data->importStaticParameters();
 }
 
-TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDMAndStaticParameters) {
   shared_ptr<DataInterface> data = createNodeBreakerNetworkIIDM();
   exportStateVariables(data);
 
@@ -385,9 +380,8 @@ TEST(DataInterfaceIIDMTest, testNodeBreakerBusIIDMCheckCriteriaAndStaticParamete
   ASSERT_EQ(data->getStaticParameterDoubleValue("calculatedBus_MyVoltageLevel_0", "Teta_pu"), 1.5 * M_PI / 180);
 }
 
-TEST(DataInterfaceIIDMTest, testBusIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testBusIIDMStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      true /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -405,17 +399,15 @@ TEST(DataInterfaceIIDMTest, testBusIIDMCheckCriteriaAndStaticParameters) {
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
 
-  ASSERT_EQ(data->checkCriteria(true), false);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "U"), 150.);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "Teta"), 1.5);
-  ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "Upu"), 150./190.);
+  ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "Upu"), 1.);
   ASSERT_EQ(data->getStaticParameterDoubleValue("MyBus", "Teta_pu"), 1.5 * M_PI / 180);
 }
 
 
-TEST(DataInterfaceIIDMTest, testDanglingLineIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testDanglingLineIIDMAndStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -433,16 +425,14 @@ TEST(DataInterfaceIIDMTest, testDanglingLineIIDMCheckCriteriaAndStaticParameters
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
 
-  ASSERT_EQ(data->checkCriteria(true), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p_pu"), 1.05);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q_pu"), 0.9);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "p"), 105);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyDanglingLine", "q"), 90);
 }
 
-TEST(DataInterfaceIIDMTest, testGeneratorIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testGeneratorIIDMAndStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -460,7 +450,6 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDMCheckCriteriaAndStaticParameters) {
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
 
-  ASSERT_EQ(data->checkCriteria(true), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "p_pu"), -105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "q_pu"), -90. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "p"), -105.);
@@ -482,9 +471,8 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDMCheckCriteriaAndStaticParameters) {
 }
 
 
-TEST(DataInterfaceIIDMTest, testHvdcLineIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testHvdcLineIIDMAndStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -501,13 +489,10 @@ TEST(DataInterfaceIIDMTest, testHvdcLineIIDMCheckCriteriaAndStaticParameters) {
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
-
-  ASSERT_EQ(data->checkCriteria(true), true);
 }
 
-TEST(DataInterfaceIIDMTest, testLccConverterIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testLccConverterIIDMAndStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -525,8 +510,6 @@ TEST(DataInterfaceIIDMTest, testLccConverterIIDMCheckCriteriaAndStaticParameters
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
 
-  ASSERT_EQ(data->checkCriteria(true), true);
-
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "p_pu"), -105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "q_pu"), -90. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "p"), -105.);
@@ -537,9 +520,8 @@ TEST(DataInterfaceIIDMTest, testLccConverterIIDMCheckCriteriaAndStaticParameters
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLccConverter", "angle"), 1.5);
 }
 
-TEST(DataInterfaceIIDMTest, testLineIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testLineIIDMAndStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -557,13 +539,11 @@ TEST(DataInterfaceIIDMTest, testLineIIDMCheckCriteriaAndStaticParameters) {
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
 
-  ASSERT_EQ(data->checkCriteria(true), true);
   ASSERT_THROW_DYNAWO(data->getStaticParameterDoubleValue("MyLine", "p_pu"), Error::MODELER, KeyError_t::UnknownStaticParameter);
 }
 
-TEST(DataInterfaceIIDMTest, testLoadIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testLoadIIDMAndStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -581,8 +561,6 @@ TEST(DataInterfaceIIDMTest, testLoadIIDMCheckCriteriaAndStaticParameters) {
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
 
-  ASSERT_EQ(data->checkCriteria(true), true);
-
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "p_pu"), 105. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "q_pu"), 90. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "p"), 105.);
@@ -593,9 +571,8 @@ TEST(DataInterfaceIIDMTest, testLoadIIDMCheckCriteriaAndStaticParameters) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyLoad", "angle"), 1.5);
 }
 
-TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDMAndStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       true /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -613,16 +590,13 @@ TEST(DataInterfaceIIDMTest, testShuntCompensatorIIDMCheckCriteriaAndStaticParame
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
 
-  ASSERT_EQ(data->checkCriteria(true), true);
-
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyCapacitorShuntCompensator", "q_pu"), -360000. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyCapacitorShuntCompensator", "q"), -360000.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterBoolValue("MyCapacitorShuntCompensator", "isCapacitor"), 1.);
 }
 
-TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDMAndStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       true /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -640,8 +614,6 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDMCheckCriteriaAndStaticPa
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
 
-  ASSERT_EQ(data->checkCriteria(true), true);
-
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 105.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "q"), 90.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterIntValue("MyStaticVarCompensator", "regulatingMode"), 2);
@@ -649,9 +621,8 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDMCheckCriteriaAndStaticPa
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "angle"), 1.5);
 }
 
-TEST(DataInterfaceIIDMTest, testSwitchIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testSwitchIIDMAndStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -668,13 +639,10 @@ TEST(DataInterfaceIIDMTest, testSwitchIIDMCheckCriteriaAndStaticParameters) {
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
-
-  ASSERT_EQ(data->checkCriteria(true), true);
 }
 
-TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDMCheckCriteriaAndStaticParameters) {
+TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDMAndStaticParameters) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,
@@ -691,13 +659,10 @@ TEST(DataInterfaceIIDMTest, testThreeWindingTransformerIIDMCheckCriteriaAndStati
   };
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
-
-  ASSERT_EQ(data->checkCriteria(true), true);
 }
 
 TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   const BusBreakerNetworkProperty properties = {
-      false /*falseCheckCriteriaBus*/,
       false /*instantiateCapacitorShuntCompensator*/,
       false /*instantiateStaticVarCompensator*/,
       false /*instantiateTwoWindingTransformer*/,

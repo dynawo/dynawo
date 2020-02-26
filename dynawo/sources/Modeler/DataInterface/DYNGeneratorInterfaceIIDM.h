@@ -65,11 +65,6 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   void exportStateVariablesUnitComponent();
 
   /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  bool checkCriteria(bool checkEachIter);
-
-  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();

@@ -299,11 +299,6 @@ LineInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
-bool
-LineInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 void
 LineInterfaceIIDM::importStaticParameters() {
   // no static parameter

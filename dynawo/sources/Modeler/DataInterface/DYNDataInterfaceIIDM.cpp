@@ -66,6 +66,9 @@
 #include "DYNTimer.h"
 #include "DYNTrace.h"
 #include "DYNErrorQueue.h"
+#include "DYNCriteria.h"
+#include "CRTCriteria.h"
+#include "CRTCriteriaParams.h"
 
 using std::map;
 using std::string;
@@ -74,6 +77,8 @@ using std::stringstream;
 
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
+
+using criteria::CriteriaCollection;
 
 namespace DYN {
 
@@ -296,6 +301,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
     shared_ptr<GeneratorInterface> generator = importGenerator(*itGen);
     voltageLevel->addGenerator(generator);
     components_[generator->getID()] = generator;
+    generatorComponents_[generator->getID()] = generator;
     generator->setVoltageLevelInterface(voltageLevel);
   }
 
@@ -311,6 +317,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
     shared_ptr<LoadInterface> load = importLoad(*itLoad);
     voltageLevel->addLoad(load);
     components_[load->getID()] = load;
+    loadComponents_[load->getID()] = load;
     load->setVoltageLevelInterface(voltageLevel);
   }
 
@@ -1018,42 +1025,151 @@ DataInterfaceIIDM::exportStateVariables() {
     (iterVL->second)->exportSwitchesState();
 }
 
-bool
-DataInterfaceIIDM::checkCriteria(bool checkEachIter) {
-  Timer timer("DataInterfaceIIDM::checkCriteria");
-  bool criteriaOk = true;
-  double totalPUnderVoltage = 0;  // total load under voltage threshold
+void
+DataInterfaceIIDM::configureCriteria(const shared_ptr<CriteriaCollection>& criteria) {
+  configureBusCriteria(criteria);
+  configureLoadCriteria(criteria);
+  configureGeneratorCriteria(criteria);
+}
 
+
+void
+DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
+  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::BUS),
+      itEnd = criteria->end(CriteriaCollection::BUS);
+      it != itEnd; ++it) {
+    shared_ptr<criteria::Criteria> crit = *it;
+    if (!BusCriteria::criteriaEligibleForBus(crit->getParams())) continue;
+    shared_ptr<BusCriteria> dynCriteria = shared_ptr<BusCriteria>(new BusCriteria(crit->getParams()));
+    if (crit->begin() != crit->end()) {
+      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
+          cmpItEnd = crit->end();
+          cmpIt != cmpItEnd; ++cmpIt) {
+        std::map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator busItfIter = components_.find(*cmpIt);
+        if (busItfIter != components_.end()) {
+          const boost::shared_ptr<ComponentInterface>& cmp = busItfIter->second;
+          if (cmp->getType() != ComponentInterface::BUS)
+            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "bus") << Trace::endline;
+          boost::shared_ptr<BusInterface> bus = dynamic_pointer_cast<BusInterface>(cmp);
+          assert(bus);
+          dynCriteria->addBus(bus);
+        } else {
+          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+        }
+      }
+    } else {
+      for (std::map<std::string, boost::shared_ptr<BusInterface> >::const_iterator cmpIt = busComponents_.begin(),
+          cmpItEnd = busComponents_.end();
+          cmpIt != cmpItEnd; ++cmpIt) {
+        dynCriteria->addBus(cmpIt->second);
+      }
+      for (std::map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > >::const_iterator cmpIt = calculatedBusComponents_.begin(),
+          cmpItEnd = calculatedBusComponents_.end();
+          cmpIt != cmpItEnd; ++cmpIt) {
+        const std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> >& calBuses = cmpIt->second;
+        for (size_t i = 0, iEnd = calBuses.size(); i < iEnd; ++i) {
+          dynCriteria->addBus(calBuses[i]);
+        }
+      }
+    }
+    if (!dynCriteria->empty()) {
+      criterias_.push_back(dynCriteria);
+    }
+  }
+}
+
+void
+DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
+  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::LOAD),
+      itEnd = criteria->end(CriteriaCollection::LOAD);
+      it != itEnd; ++it) {
+    shared_ptr<criteria::Criteria> crit = *it;
+    if (!LoadCriteria::criteriaEligibleForLoad(crit->getParams())) continue;
+    shared_ptr<LoadCriteria> dynCriteria = shared_ptr<LoadCriteria>(new LoadCriteria(crit->getParams()));
+    if (crit->begin() != crit->end()) {
+      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
+          cmpItEnd = crit->end();
+          cmpIt != cmpItEnd; ++cmpIt) {
+        std::map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator loadItfIter = components_.find(*cmpIt);
+        if (loadItfIter != components_.end()) {
+          const boost::shared_ptr<ComponentInterface>& cmp = loadItfIter->second;
+          if (cmp->getType() != ComponentInterface::LOAD)
+            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "load") << Trace::endline;
+          boost::shared_ptr<LoadInterface> load = dynamic_pointer_cast<LoadInterface>(cmp);
+          assert(load);
+          dynCriteria->addLoad(load);
+        } else {
+          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+        }
+      }
+    } else {
+      for (std::map<std::string, boost::shared_ptr<LoadInterface> >::const_iterator cmpIt = loadComponents_.begin(),
+          cmpItEnd = loadComponents_.end();
+          cmpIt != cmpItEnd; ++cmpIt) {
+        dynCriteria->addLoad(cmpIt->second);
+      }
+    }
+    if (!dynCriteria->empty()) {
+      criterias_.push_back(dynCriteria);
+    }
+  }
+}
+
+void
+DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
+  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::GENERATORS),
+      itEnd = criteria->end(CriteriaCollection::GENERATORS);
+      it != itEnd; ++it) {
+    shared_ptr<criteria::Criteria> crit = *it;
+    if (!GeneratorCriteria::criteriaEligibleForGenerator(crit->getParams())) continue;
+    shared_ptr<GeneratorCriteria> dynCriteria = shared_ptr<GeneratorCriteria>(new GeneratorCriteria(crit->getParams()));
+    if (crit->begin() != crit->end()) {
+      for (criteria::Criteria::component_id_const_iterator cmpIt = crit->begin(),
+          cmpItEnd = crit->end();
+          cmpIt != cmpItEnd; ++cmpIt) {
+        std::map<std::string, boost::shared_ptr<ComponentInterface> >::const_iterator generatorItfIter = components_.find(*cmpIt);
+        if (generatorItfIter != components_.end()) {
+          const boost::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
+          if (cmp->getType() != ComponentInterface::GENERATOR)
+            Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "generator") << Trace::endline;
+          boost::shared_ptr<GeneratorInterface> gen = dynamic_pointer_cast<GeneratorInterface>(cmp);
+          assert(gen);
+          dynCriteria->addGenerator(gen);
+        } else {
+          Trace::warn() << DYNLog(ComponentNotFound, *cmpIt) << Trace::endline;
+        }
+      }
+    } else {
+      for (std::map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
+          cmpItEnd = generatorComponents_.end();
+          cmpIt != cmpItEnd; ++cmpIt) {
+        dynCriteria->addGenerator(cmpIt->second);
+      }
+    }
+    if (!dynCriteria->empty()) {
+      criterias_.push_back(dynCriteria);
+    }
+  }
+}
+
+bool
+DataInterfaceIIDM::checkCriteria(bool finalStep) {
+  Timer timer("DataInterfaceIIDM::checkCriteria");
 #ifdef _DEBUG_
   for (map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
     iter->second->enableCheckStateVariable();
   }
 #endif
-  map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin();
-  for (; iter != components_.end(); ++iter) {
-    if (!(iter->second)->checkCriteria(checkEachIter))
-      criteriaOk = false;
-
-    if (iter->second->getType() == ComponentInterface::LOAD)
-      totalPUnderVoltage += dynamic_pointer_cast<LoadInterface>(iter->second)->getPUnderVoltage();
+  bool criteriaOk = true;
+  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criterias_.begin(), itEnd = criterias_.end();
+      it != itEnd; ++it) {
+    criteriaOk &= (*it)->checkCriteria(finalStep);
   }
 #ifdef _DEBUG_
-  for (iter = components_.begin(); iter != components_.end(); ++iter) {
+  for (map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
     iter->second->disableCheckStateVariable();
   }
 #endif
-  if (checkEachIter) {
-    if (totalPUnderVoltage > 200) {
-      Trace::debug() << DYNLog(LoadUnderVoltageT, totalPUnderVoltage) << Trace::endline;
-      criteriaOk = false;
-    }
-  } else {
-    if (totalPUnderVoltage > 1500) {
-      Trace::debug() << DYNLog(LoadUnderVoltageTEnd, totalPUnderVoltage) << Trace::endline;
-      criteriaOk = false;
-    }
-  }
-
   return criteriaOk;
 }
 

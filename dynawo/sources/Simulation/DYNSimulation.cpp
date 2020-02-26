@@ -86,6 +86,9 @@
 #include "PARXmlImporter.h"
 #include "PARParametersSetCollection.h"
 
+#include "CRTXmlImporter.h"
+#include "CRTCriteriaCollection.h"
+
 #include "JOBJobEntry.h"
 #include "JOBSolverEntry.h"
 #include "JOBModelerEntry.h"
@@ -199,7 +202,7 @@ nbLastTimeSimulated_(0) {
   // Set simulation parameters
   setStartTime(jobEntry_->getSimulationEntry()->getStartTime());
   setStopTime(jobEntry_->getSimulationEntry()->getStopTime());
-  setActivateCriteria(jobEntry_->getSimulationEntry()->getActivateCriteria());
+  setActivateCriteria(!jobEntry_->getSimulationEntry()->getCriteriaFiles().empty());
   setCriteriaStep(jobEntry_->getSimulationEntry()->getCriteriaStep());
   setCurrentPrecision(jobEntry_->getSimulationEntry()->getPrecision());
 
@@ -214,6 +217,7 @@ nbLastTimeSimulated_(0) {
   configureSimulationOutputs();
   setSolver();
   configureSimulationInputs();
+  configureCriteria();
 }
 
 Simulation::~Simulation() {
@@ -248,6 +252,22 @@ Simulation::configureSimulationInputs() {
       if (!exists(initialStateFile_))
         throw DYNError(Error::GENERAL, UnknownInitialStateFile, initialStateFile_);
     }
+  }
+}
+
+
+void
+Simulation::configureCriteria() {
+  for (std::vector<std::string>::const_iterator it = jobEntry_->getSimulationEntry()->getCriteriaFiles().begin(),
+      itEnd = jobEntry_->getSimulationEntry()->getCriteriaFiles().end();
+      it != itEnd; ++it) {
+    criteria::XmlImporter parser;
+    std::string path = createAbsolutePath(*it, context_->getInputDirectory());
+    boost::shared_ptr<criteria::CriteriaCollection> ccollec = parser.importFromFile(path);
+    if (!criteriaCollection_)
+      criteriaCollection_ = ccollec;
+    else
+      criteriaCollection_->merge(ccollec);
   }
 }
 
@@ -502,6 +522,8 @@ Simulation::loadDynamicData() {
       IIDM::Network networkIIDM = parser.from_xml(iidmFile_, xsdValidation);
       data_.reset(new DataInterfaceIIDM(networkIIDM));
       boost::dynamic_pointer_cast<DataInterfaceIIDM>(data_)->initFromIIDM();
+      if (criteriaCollection_)
+        data_->configureCriteria(criteriaCollection_);
     } catch (const xml::sax::parser::ParserException& exp) {
       throw DYNError(Error::GENERAL, XmlFileParsingError, iidmFile_, exp.what());
     }

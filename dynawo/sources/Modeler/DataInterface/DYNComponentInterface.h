@@ -124,13 +124,6 @@ class ComponentInterface {
   ComponentType_t getType() const;
 
   /**
-   * @brief check if all criteria are respected for each component
-   * @param checkEachIter @b true check criteria at each iteration, @b false check only at the end of simulation
-   * @return false if criteria is not checked, true else
-   */
-  virtual bool checkCriteria(bool checkEachIter) = 0;
-
-  /**
    * @brief import static parameters
    */
   virtual void importStaticParameters() = 0;

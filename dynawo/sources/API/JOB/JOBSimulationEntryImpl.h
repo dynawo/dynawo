@@ -42,9 +42,9 @@ class SimulationEntry::Impl : public SimulationEntry {
   virtual ~Impl();
 
   /**
-   * @copydoc SimulationEntry::setStartTime()
+   * @copydoc SimulationEntry::setStartTime(double startTime)
    */
-  void setStartTime(const double & startTime);
+  void setStartTime(double startTime);
 
   /**
    * @copydoc SimulationEntry::getStartTime()
@@ -52,9 +52,9 @@ class SimulationEntry::Impl : public SimulationEntry {
   double getStartTime() const;
 
   /**
-   * @copydoc SimulationEntry::setStopTime()
+   * @copydoc SimulationEntry::setStopTime(double stopTime)
    */
-  void setStopTime(const double & stopTime);
+  void setStopTime(double stopTime);
 
   /**
    * @copydoc SimulationEntry::getStopTime()
@@ -62,19 +62,19 @@ class SimulationEntry::Impl : public SimulationEntry {
   double getStopTime() const;
 
   /**
-   * @copydoc SimulationEntry::setActivateCriteria()
+   * @copydoc SimulationEntry::addCriteriaFile(const std::string& criteriaFile)
    */
-  void setActivateCriteria(bool activate);
+  void addCriteriaFile(const std::string& criteriaFile);
 
   /**
-   * @copydoc SimulationEntry::getActivateCriteria()
+   * @copydoc SimulationEntry::getCriteriaFiles()
    */
-  bool getActivateCriteria() const;
+  const std::vector<std::string>& getCriteriaFiles() const;
 
   /**
-   * @copydoc SimulationEntry::setCriteriaStep()
+   * @copydoc SimulationEntry::setCriteriaStep(int criteriaStep)
    */
-  void setCriteriaStep(const int & criteriaStep);
+  void setCriteriaStep(int criteriaStep);
 
   /**
    * @copydoc SimulationEntry::getCriteriaStep()
@@ -94,7 +94,7 @@ class SimulationEntry::Impl : public SimulationEntry {
  private:
   double startTime_;  ///< Start time of the simulation
   double stopTime_;  ///< Stop time of the simulation
-  bool activateCriteria_;  ///< Whether to activate the verification of criteria
+  std::vector<std::string> criteriaFiles_;  ///< List of criteria files path
   int criteriaStep_;  ///< criteria verification time step
   double precision_;  ///< precision of the simulation
 };

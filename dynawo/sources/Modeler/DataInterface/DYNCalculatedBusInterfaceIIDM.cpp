@@ -153,16 +153,6 @@ CalculatedBusInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
-bool
-CalculatedBusInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  double v = getStateVarV();
-  if (v > 0 && v < getVMin() && getVNom() > 180 && getV0() > 0.2) {
-    Trace::debug() << DYNLog(BusUnderVoltage, name_) << Trace::endline;
-    return false;
-  }
-  return true;
-}
-
 void
 CalculatedBusInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();

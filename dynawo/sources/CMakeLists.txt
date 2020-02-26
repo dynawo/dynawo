@@ -28,6 +28,7 @@ install(FILES ${DYNAWO_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 
 if(BUILD_TESTS)
   add_subdirectory(API/CRV/test)
+  add_subdirectory(API/CRT/test)
   add_subdirectory(API/DYD/test)
   add_subdirectory(API/EXTVAR/test)
   add_subdirectory(API/PAR/test)

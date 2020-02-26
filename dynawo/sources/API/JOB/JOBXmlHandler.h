@@ -542,6 +542,40 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
+ * @class CriteriaFileHandler
+ * @brief Handler used to parse criteriaFile element
+ */
+class CriteriaFileHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit CriteriaFileHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~CriteriaFileHandler() { }
+
+  /**
+   * @brief return the simulation entry read in xml file
+   * @return simulation entry object build thanks to infos read in xml file
+   */
+  const std::string& get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  std::string criteriaFile_;  ///< current simulation entry object
+};
+
+/**
  * @class SimulationHandler
  * @brief Handler used to parse simulation element
  */
@@ -571,8 +605,14 @@ class SimulationHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void create(attributes_type const& attributes);
 
+  /**
+   * @brief add a criteria file to the simulation
+   */
+  void addCriteriaFile();
+
  private:
   boost::shared_ptr<SimulationEntry> simulation_;  ///< current simulation entry object
+  CriteriaFileHandler criteriaFileHandler_;  ///< handler used to read criteriaFiles element
 };
 
 /**

@@ -76,11 +76,6 @@ LccConverterInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
-bool
-LccConverterInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 void
 LccConverterInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();

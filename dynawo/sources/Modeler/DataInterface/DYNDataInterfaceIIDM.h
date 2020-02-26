@@ -21,8 +21,10 @@
 #define MODELER_DATAINTERFACE_DYNDATAINTERFACEIIDM_H_
 
 #include <map>
+#include <boost/unordered_set.hpp>
 
 #include "DYNDataInterface.h"
+#include "DYNCriteria.h"
 
 namespace IIDM {
 class Network;
@@ -137,9 +139,14 @@ class DataInterfaceIIDM : public DataInterface {
   void exportStateVariables();
 
   /**
-   * @copydoc DataInterface::checkCriteria(bool checkEachIter)
+   * @copydoc DataInterface::configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria)
    */
-  bool checkCriteria(bool checkEachIter);
+  void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+
+  /**
+   * @copydoc DataInterface::checkCriteria(bool finalStep)
+   */
+  bool checkCriteria(bool finalStep);
 
   /**
    * @copydoc DataInterface::getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName)
@@ -298,13 +305,37 @@ class DataInterfaceIIDM : public DataInterface {
    */
   boost::shared_ptr<LccConverterInterface> importLccConverter(IIDM::LccConverterStation& lccIIDM);
 
+  /**
+   * @brief configure the bus criteria
+   *
+   * @param criteria criteria to be used
+   */
+  void configureBusCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+
+  /**
+   * @brief configure the load criteria
+   *
+   * @param criteria criteria to be used
+   */
+  void configureLoadCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+
+  /**
+   * @brief configure the generator criteria
+   *
+   * @param criteria criteria to be used
+   */
+  void configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
+
  private:
   IIDM::Network networkIIDM_;  ///< instance of the IIDM network
   boost::shared_ptr<NetworkInterfaceIIDM> network_;  ///< instance of the network interface
   std::map<std::string, boost::shared_ptr<VoltageLevelInterface> > voltageLevels_;  ///< map of voltageLevel by name
   std::map<std::string, boost::shared_ptr<ComponentInterface> > components_;  ///< map of components by name
   std::map<std::string, boost::shared_ptr<BusInterface> > busComponents_;  ///< map of bus by name
+  std::map<std::string, boost::shared_ptr<LoadInterface> > loadComponents_;  ///< map of loads by name
+  std::map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   std::map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
+  std::vector<boost::shared_ptr<Criteria> > criterias_;  ///< table of criteria to check
 };  ///< Generic data interface for IIDM format files
 }  // namespace DYN
 

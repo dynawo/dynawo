@@ -92,9 +92,9 @@ Message::str() const {
     try {
       message << fmt_.str();
     }    catch (boost::io::too_many_args& exc) {
-      std::cerr << exc.what() << std::endl;
+      std::cerr << exc.what() << " (key: " << key_ << ")" << std::endl;
     }    catch (boost::io::too_few_args& exc) {
-      std::cerr << exc.what() << std::endl;
+      std::cerr << exc.what() << " (key: " << key_ << ")" << std::endl;
     }
   } else {
     message << fmtss_.str();

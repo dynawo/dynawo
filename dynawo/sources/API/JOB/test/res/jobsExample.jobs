@@ -28,7 +28,10 @@
           <dyn:directory path="/tmp2/" recursive="true"/>
       </dyn:modelicaModels>
     </dyn:modeler>
-    <dyn:simulation startTime="10" stopTime="200" activateCriteria="true" criteriaStep="5"/>
+    <dyn:simulation startTime="10" stopTime="200" criteriaStep="5">
+      <dyn:criteria criteriaFile="myCriteriaFile.crt"/>
+      <dyn:criteria criteriaFile="myCriteriaFile2.crt"/>
+    </dyn:simulation>
     <dyn:outputs directory="outputs1">
       <dyn:finalState exportDumpFile="true" exportIIDMFile="true"/>
       <dyn:curves inputFile="curves.crv" exportMode="CSV"/>

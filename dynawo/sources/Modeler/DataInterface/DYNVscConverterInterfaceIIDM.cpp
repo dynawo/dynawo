@@ -76,11 +76,6 @@ VscConverterInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
-bool
-VscConverterInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 void
 VscConverterInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();

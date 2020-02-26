@@ -44,11 +44,6 @@ HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
   // no state variable
 }
 
-bool
-HvdcLineInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 void
 HvdcLineInterfaceIIDM::importStaticParameters() {
   // no static parameter

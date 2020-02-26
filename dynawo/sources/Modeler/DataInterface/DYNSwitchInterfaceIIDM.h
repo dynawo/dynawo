@@ -90,11 +90,6 @@ class SwitchInterfaceIIDM : public SwitchInterface {
   void exportStateVariablesUnitComponent();
 
   /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  bool checkCriteria(bool checkEachIter);
-
-  /**
    * @copydoc SwitchInterface::open()
    */
   void open();
