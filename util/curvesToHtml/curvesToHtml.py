@@ -70,7 +70,6 @@ def readCurvesToHtml(jobs_file, withoutOffset, showpoints, htmlBrowser):
     htmlFileList=[]
     for job in jobs_root.iter(namespaceDYN("job")):
 
-
         current_job = JobCurves()
         current_job.file_ = jobs_file
 
