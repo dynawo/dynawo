@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:dyn="http://www.rte-france.com/dynawo"
+           targetNamespace="http://www.rte-france.com/dynawo"
+           elementFormDefault="qualified">
+  <xs:element name="criteria">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="busCriteria" type="dyn:Criteria" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="loadCriteria" type="dyn:Criteria" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element name="generatorCriteria" type="dyn:Criteria" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="Criteria">
+    <xs:complexContent>
+      <xs:element name="parameters" type="dyn:CriteriaParams"/>
+      <xs:sequence>
+        <xs:element name="component" minOccurs="0" maxOccurs="unbounded">
+          <xs:attribute name="id" use="required" type="xs:string"/>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CriteriaParams">
+    <xs:complexContent>
+      <xs:attribute name="id" use="required" type="xs:string"/>
+      <xs:attribute name="scope" use="required" type="dyn:Scope"/>
+      <xs:attribute name="type" use="required" type="dyn:Type"/>
+      <xs:attribute name="pMax" use="optional" type="xs:float"/>
+      <xs:attribute name="pMin" use="optional" type="xs:float"/>
+      <xs:attribute name="uMaxPu" use="optional" type="xs:float"/>
+      <xs:attribute name="uMinPu" use="optional" type="xs:float"/>
+      <xs:attribute name="uMaxNom" use="optional" type="xs:float"/>
+      <xs:attribute name="uMinNom" use="optional" type="xs:float"/>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="Scope">
+    <xs:restriction type="xs:string">
+      <xs:enumeration value="FINAL"/>
+      <xs:enumeration value="DYNAMIC"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Type">
+    <xs:restriction base="dyn:Type">
+      <xs:enumeration value="LOCAL_VALUE"/>
+      <xs:enumeration value="SUM"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

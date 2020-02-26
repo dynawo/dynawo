@@ -97,11 +97,6 @@ class GeneratorInterface : public ComponentInterface {
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
   virtual void exportStateVariablesUnitComponent() = 0;
-
-  /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  virtual bool checkCriteria(bool checkEachIter) = 0;
 };  ///< Class for Generator data interface
 }  // namespace DYN
 

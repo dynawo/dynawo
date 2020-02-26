@@ -71,8 +71,6 @@ InvalidSharedObjects          =             FOLLOWING %1% SHARED OBJECTS ARE NOT
 //---------------------- NETWORK --------------------------------------
 NbSubNetwork                  =             nbSubNetwork = %1% nbsub = %2%
 SubNetwork                    =             subNetwork[%1%] nbBus = %2%
-FNode_ir                      =             %1% : FNode_ir = %2%
-FNode_ii                      =             %1% : FNode_ii = %2%
 AddingVoltageLevelToNetwork   =             adding voltage level %1% to the Network
 AddingElementBus              =             adding element for BUS : %1%
 AddingBusToNetwork            =             adding bus %1% to the Network.
@@ -100,9 +98,16 @@ TapChangerLocked              =             %1%:  Tap changer is blocked
 NetworkInitSwitchCurrentsFailed =           model network : initialization of switches' currents failed
 //---------------------- DATAINTERFACE --------------------------------------
 VariableNotSet                =             %1% : "%3%" is not set for model %2%
-BusUnderVoltage               =             node: %1% has a voltage under 0.8Un
-LoadUnderVoltageT             =             total load power with voltage under 0.85Un = %1% MW > 200 MW
-LoadUnderVoltageTEnd          =             total load power with voltage under 0.92Un at the end of simulation = %1%  MW > 1500 MW
+BusUnderVoltage               =             node: %1% has a voltage %2% < %3%Un (criteria id: %4%)
+BusAboveVoltage               =             node: %1% has a voltage %2% > %3%Un (criteria id: %4%)
+SumBusCriteriaIgnored         =             sum criteria is not applicable to buses
+PowerBusCriteriaIgnored       =             active power criteria is not applicable to buses
+SourceUnderPower              =             node: %1% has a load power %2%MW < %3%MW (criteria id: %4%)
+SourceAbovePower              =             node: %1% has a load power %2%MW > %3%MW (criteria id: %4%)
+WrongComponentType            =             a %1% component has been found in a %2% criteria, it will be ignored
+ComponentNotFound             =             component %1% was not found
+SourcePowerAboveMax           =             total load power = %1%MW > %2%MW (criteria id: %3%)
+SourcePowerBelowMin           =             total load power = %1%MW < %2%MW (criteria id: %3%)
 NoNetworkConnection           =             component %1% not imported : no network connection declared
 PossibleDivisionByZero        =             impedance of line ID: %1% set to 0 in IIDM file, default parameters are then used: R = 0 and X = 0.01
 //---------------------- OTHERS --------------------------------------

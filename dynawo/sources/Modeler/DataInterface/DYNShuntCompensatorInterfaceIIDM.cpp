@@ -77,11 +77,6 @@ ShuntCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
-bool
-ShuntCompensatorInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 void
 ShuntCompensatorInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();

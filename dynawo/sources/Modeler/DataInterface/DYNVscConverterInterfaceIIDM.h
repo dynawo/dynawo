@@ -70,11 +70,6 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
   void exportStateVariablesUnitComponent();
 
   /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  bool checkCriteria(bool checkEachIter);
-
-  /**
    * @copydoc VscConverterInterface::setBusInterface(const boost::shared_ptr<BusInterface>& busInterface)
    */
   void setBusInterface(const boost::shared_ptr<BusInterface>& busInterface);

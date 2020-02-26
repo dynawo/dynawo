@@ -120,11 +120,6 @@ class StaticVarCompensatorInterface : public ComponentInterface {
   virtual void exportStateVariablesUnitComponent() = 0;
 
   /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  virtual bool checkCriteria(bool checkEachIter) = 0;
-
-  /**
    * @brief Getter for the extension's presence
    * @return true if the extension is loaded
    */

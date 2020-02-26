@@ -108,11 +108,6 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
-bool
-StaticVarCompensatorInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 void
 StaticVarCompensatorInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();

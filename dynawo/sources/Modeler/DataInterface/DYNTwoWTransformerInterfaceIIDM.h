@@ -209,15 +209,11 @@ class TwoWTransformerInterfaceIIDM : public TwoWTransformerInterface {
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();
+
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
   void exportStateVariablesUnitComponent();
-
-  /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  bool checkCriteria(bool checkEachIter);
 
   /**
    * @copydoc ComponentInterface::getComponentVarIndex()

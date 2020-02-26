@@ -332,13 +332,6 @@ ModelBus::evalF() {
       }
     }
   }
-
-  if (sqrt(f_[0] * f_[0]) > 0.001) {
-    Trace::debug("NETWORK") << DYNLog(FNode_ir, id_, f_[0]) << Trace::endline;
-  }
-  if (sqrt(f_[1] * f_[1]) > 0.001) {
-    Trace::debug("NETWORK") << DYNLog(FNode_ii, id_, f_[1]) << Trace::endline;
-  }
 }
 
 void

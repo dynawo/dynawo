@@ -39,6 +39,7 @@ set(DATA_INTERFACE_SOURCES
     DYNVscConverterInterfaceIIDM.cpp
     DYNLccConverterInterfaceIIDM.cpp
     DYNHvdcLineInterfaceIIDM.cpp
+    DYNCriteria.cpp
     )
 
 set(DATA_INTERFACE_INCLUDE_HEADERS
@@ -56,6 +57,7 @@ target_include_directories(dynawo_DataInterface
 
 target_link_libraries(dynawo_DataInterface
     dynawo_ModelerCommon
+    dynawo_API_CRT
     iidm-ext-activeseason-xml
     iidm-ext-busbarsectionposition-xml
     iidm-ext-connectableposition-xml

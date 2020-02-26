@@ -65,11 +65,6 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM<IID
   void exportStateVariablesUnitComponent();
 
   /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  bool checkCriteria(bool checkEachIter);
-
-  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();

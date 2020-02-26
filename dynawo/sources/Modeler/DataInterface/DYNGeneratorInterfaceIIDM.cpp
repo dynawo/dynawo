@@ -77,11 +77,6 @@ GeneratorInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
-bool
-GeneratorInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 void
 GeneratorInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();

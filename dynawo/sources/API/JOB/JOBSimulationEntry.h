@@ -20,6 +20,9 @@
 #ifndef API_JOB_JOBSIMULATIONENTRY_H_
 #define API_JOB_JOBSIMULATIONENTRY_H_
 
+#include <vector>
+#include <string>
+
 namespace job {
 
 /**
@@ -37,7 +40,7 @@ class SimulationEntry {
    * @brief Start time setter
    * @param startTime : Start time for the job
    */
-  virtual void setStartTime(const double & startTime) = 0;
+  virtual void setStartTime(double startTime) = 0;
 
   /**
    * @brief Start time getter
@@ -49,7 +52,7 @@ class SimulationEntry {
    * @brief Stop time setter
    * @param stopTime : Stop time for the job
    */
-  virtual void setStopTime(const double & stopTime) = 0;
+  virtual void setStopTime(double stopTime) = 0;
 
   /**
    * @brief Stop time getter
@@ -58,22 +61,22 @@ class SimulationEntry {
   virtual double getStopTime() const = 0;
 
   /**
-   * @brief  activate criteria setter
-   * @param activate : option to activate the verification of criteria
+   * @brief  add a criteria file path to the job
+   * @param criteriaFile criteria file path to add
    */
-  virtual void setActivateCriteria(bool activate) = 0;
+  virtual void addCriteriaFile(const std::string& criteriaFile) = 0;
 
   /**
-   * @brief activate criteria getter
-   * @return option to activate the verification of criteria
+   * @brief list of criteria files
+   * @return list of criteria files
    */
-  virtual bool getActivateCriteria() const = 0;
+  virtual const std::vector<std::string>& getCriteriaFiles() const = 0;
 
   /**
    * @brief  criteria step setter
    * @param criteriaStep : number of iterations between 2 criteria check
    */
-  virtual void setCriteriaStep(const int & criteriaStep) = 0;
+  virtual void setCriteriaStep(int criteriaStep) = 0;
 
   /**
    * @brief criteria step getter

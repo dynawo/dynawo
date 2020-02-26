@@ -122,11 +122,6 @@ ThreeWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
   // No state variable
 }
 
-bool
-ThreeWTransformerInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 void
 ThreeWTransformerInterfaceIIDM::importStaticParameters() {
   // No static parameter

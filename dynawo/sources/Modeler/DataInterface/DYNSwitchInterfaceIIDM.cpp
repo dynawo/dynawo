@@ -97,11 +97,6 @@ SwitchInterfaceIIDM::close() {
   switchIIDM_.close();
 }
 
-bool
-SwitchInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 void
 SwitchInterfaceIIDM::importStaticParameters() {
   // no static parameter

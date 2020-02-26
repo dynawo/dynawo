@@ -11,9 +11,7 @@
 set(MODULE_NAME MODELER_DATAINTERFACE_unittest)
 
 set(MODULE_SOURCES
-    TestStateVariable.cpp
-    TestStaticParameter.cpp
-    TestIIDMModels.cpp
+    TestCriteria.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

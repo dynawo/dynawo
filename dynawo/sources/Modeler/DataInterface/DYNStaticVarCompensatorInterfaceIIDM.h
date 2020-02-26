@@ -71,11 +71,6 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
   void exportStateVariablesUnitComponent();
 
   /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  bool checkCriteria(bool checkEachIter);
-
-  /**
    * @copydoc ComponentInterface::importStaticParameters()
    */
   void importStaticParameters();

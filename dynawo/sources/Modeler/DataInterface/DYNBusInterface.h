@@ -110,11 +110,6 @@ class BusInterface : public ComponentInterface {
   virtual void exportStateVariablesUnitComponent() = 0;
 
   /**
-   * @copydoc ComponentInterface::checkCriteria(bool checkEachIter)
-   */
-  virtual bool checkCriteria(bool checkEachIter) = 0;
-
-  /**
    * @brief get the names of bus bar section associated to the bus
    * @return names of the bus bar section associated to the bus
    */

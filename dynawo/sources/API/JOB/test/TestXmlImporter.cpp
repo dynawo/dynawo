@@ -81,7 +81,7 @@ TEST(APIJOBTest, testXmlStreamImporter) {
     "<dyn:directory path=\"/tmp2/\" recursive=\"true\"/>"
     "</dyn:modelicaModels>"
     "</dyn:modeler>"
-    "<dyn:simulation startTime=\"10\" stopTime=\"200\" activateCriteria=\"true\"/>"
+    "<dyn:simulation startTime=\"10\" stopTime=\"200\"/>"
     "<dyn:outputs directory=\"outputs/dump\">"
     "<dyn:finalState exportDumpFile=\"true\" exportIIDMFile=\"true\"/>"
     "<dyn:curves inputFile=\"curves_dump.crv\" exportMode=\"CSV\"/>"
@@ -104,7 +104,7 @@ TEST(APIJOBTest, testXmlStreamImporter) {
 TEST(APIJOBTest, testXmlImporter) {
   XmlImporter importer;
   boost::shared_ptr<JobsCollection> jobsCollection;
-  ASSERT_NO_THROW(jobsCollection = importer.importFromFile("res/jobsExample.jobs"));
+  jobsCollection = importer.importFromFile("res/jobsExample.jobs");
 
   // check read data
   int nbJobs = 0;
@@ -180,7 +180,11 @@ TEST(APIJOBTest, testXmlImporter) {
   boost::shared_ptr<SimulationEntry> simulation =  job1->getSimulationEntry();
   ASSERT_EQ(simulation->getStartTime(), 10);
   ASSERT_EQ(simulation->getStopTime(), 200);
-  ASSERT_EQ(simulation->getActivateCriteria(), true);
+  ASSERT_EQ(simulation->getCriteriaFiles().size(), 2);
+  ASSERT_TRUE(std::find(simulation->getCriteriaFiles().begin(),
+      simulation->getCriteriaFiles().end(), "myCriteriaFile.crt") != simulation->getCriteriaFiles().end());
+  ASSERT_TRUE(std::find(simulation->getCriteriaFiles().begin(),
+      simulation->getCriteriaFiles().end(), "myCriteriaFile2.crt") != simulation->getCriteriaFiles().end());
   ASSERT_EQ(simulation->getCriteriaStep(), 5);
 
   // ===== OutputsEntry =====

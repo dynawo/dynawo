@@ -276,11 +276,6 @@ TwoWTransformerInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
-bool
-TwoWTransformerInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 double
 TwoWTransformerInterfaceIIDM::getP1() {
   if (getInitialConnected1()) {

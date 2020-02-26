@@ -78,11 +78,6 @@ DanglingLineInterfaceIIDM::exportStateVariablesUnitComponent() {
   }
 }
 
-bool
-DanglingLineInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  return true;
-}
-
 void
 DanglingLineInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();

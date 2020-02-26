@@ -132,17 +132,6 @@ BusInterfaceIIDM::exportStateVariablesUnitComponent() {
   busIIDM_.angle(getStateVarAngle());
 }
 
-bool
-BusInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
-  double v = getStateVarV();
-  double vNom = getVNom();
-  if (U0_ && v > 0 && vNom > 180 && U0_.value() > 0.2 && v < uMinPu * vNom) {
-    Trace::debug() << DYNLog(BusUnderVoltage, busIIDM_.id()) << Trace::endline;
-    return false;
-  }
-  return true;
-}
-
 void
 BusInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
