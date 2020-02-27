@@ -89,12 +89,14 @@ deltaQ_(0.),
 startTime_(0.),
 stopTime_(0.),
 nbLoads_(0),
-stateVariationArea_(0.) {
+stateVariationArea_(NOT_STARTED),
+modeOnGoingRaised_(false),
+modeFinishedRaised_(false) {
 }
 
 void
 ModelVariationArea::init(const double& /*t0*/) {
-  stateVariationArea_ = 0;
+  // not needed
 }
 
 void
@@ -113,7 +115,7 @@ ModelVariationArea::getSize() {
   sizeY_ = nbLoads_ * 2;   // deltaP et deltaQ  by load
   sizeZ_ = 1;  // automaton running
   sizeG_ = 2;  // activation/deactivation of load increase
-  sizeMode_ = 0;
+  sizeMode_ = 2;  // activation/deactivation of load increase
 
   calculatedVars_.assign(nbCalculatedVars_, 0);
 }
@@ -122,17 +124,17 @@ ModelVariationArea::getSize() {
 
 void
 ModelVariationArea::evalF(const double & t) {
-  if (static_cast<int>(stateVariationArea_) == 0) {  // load increase not started
+  if (stateVariationArea_ == NOT_STARTED) {  // load increase not started
     for (int i = 0; i < nbLoads_; ++i) {
       fLocal_[i * 2] = yLocal_[i * 2];
       fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1];
     }
-  } else if (static_cast<int>(stateVariationArea_) == 1) {  // load increase in progress
+  } else if (stateVariationArea_ == ON_GOING) {  // load increase in progress
     for (int i = 0; i < nbLoads_; ++i) {
       fLocal_[i * 2] = yLocal_[i * 2] - deltaP_ / (stopTime_ - startTime_)*(t - startTime_);
       fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_ / (stopTime_ - startTime_)*(t - startTime_);
     }
-  } else if (static_cast<int>(stateVariationArea_) == 2) {  // load increase completed
+  } else if (stateVariationArea_ == FINISHED) {  // load increase completed
     for (int i = 0; i < nbLoads_; ++i) {
       fLocal_[i * 2] = yLocal_[i * 2] - deltaP_;
       fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_;
@@ -145,7 +147,7 @@ ModelVariationArea::evalF(const double & t) {
 
 void
 ModelVariationArea::evalG(const double & t) {
-  gLocal_[0] = (t - startTime_) >= 0 ? ROOT_UP : ROOT_DOWN;
+  gLocal_[0] = ((t - startTime_) >= 0 && (t - stopTime_) <= 0) ? ROOT_UP : ROOT_DOWN;
   gLocal_[1] = (t - stopTime_) >= 0 ? ROOT_UP : ROOT_DOWN;
 }
 
@@ -156,8 +158,8 @@ ModelVariationArea::setFequations() {
 
 void
 ModelVariationArea::setGequations() {
-  gEquationIndex_[0] = "t >= startTime_";
-  gEquationIndex_[1] = "t >= stopTime_";
+  gEquationIndex_[0] = "stopTime >= t >= startTime";
+  gEquationIndex_[1] = "t >= stopTime";
 
   assert(gEquationIndex_.size() == (unsigned int) sizeG() && "Model VariationArea: gEquationIndex.size() != gLocal_.size()");
 }
@@ -192,18 +194,26 @@ ModelVariationArea::evalJtPrim(const double& /*t*/, const double& /*cj*/, Sparse
 void
 ModelVariationArea::evalZ(const double& /*t*/) {
   if (gLocal_[0] == ROOT_UP)  // load increase in progress
-    zLocal_[0] = 1;
+    zLocal_[0] = ON_GOING;
 
   if (gLocal_[1] == ROOT_UP)  // load increase ended
-    zLocal_[0] = 2;
+    zLocal_[0] = FINISHED;
 
-  stateVariationArea_ = zLocal_[0];
+  stateVariationArea_ = static_cast<variationState_t>(zLocal_[0]);
 }
 
 // evaluation of modes (alternatives) of F(t,y,y') functions
 
 modeChangeType_t
-ModelVariationArea::evalMode(const double& /*t*/) {
+ModelVariationArea::evalMode(const double& t) {
+  if (!modeOnGoingRaised_ && t >= startTime_) {
+    modeOnGoingRaised_ = true;
+    return DIFFERENTIAL_MODE;
+  }
+  if (!modeFinishedRaised_ && t >= stopTime_) {
+    modeFinishedRaised_ = true;
+    return DIFFERENTIAL_MODE;
+  }
   return NO_MODE;
 }
 
@@ -233,7 +243,7 @@ void
 ModelVariationArea::getY0() {
   std::fill(yLocal_, yLocal_ + nbLoads_ * 2, 0);
   std::fill(ypLocal_, ypLocal_ + nbLoads_ * 2, 0);
-  zLocal_[0] = 0;
+  zLocal_[0] = NOT_STARTED;
 }
 
 void
@@ -257,6 +267,7 @@ ModelVariationArea::defineVariables(vector<shared_ptr<Variable> >& variables) {
     name1 << "DeltaQc_load_" << i << "_value";
     variables.push_back(VariableNativeFactory::createState(name1.str(), CONTINUOUS));
   }
+  variables.push_back(VariableNativeFactory::createState("state", DISCRETE));
 }
 
 void
