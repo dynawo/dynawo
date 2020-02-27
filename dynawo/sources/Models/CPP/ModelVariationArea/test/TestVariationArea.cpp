@@ -75,7 +75,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaDefineMethods) {
 
   std::vector<boost::shared_ptr<Variable> > variables;
   modelVariationArea->defineVariables(variables);
-  ASSERT_EQ(variables.size(), 4);
+  ASSERT_EQ(variables.size(), 5);
   boost::shared_ptr<Variable> variableVariationArea = variables[0];
   ASSERT_EQ(variableVariationArea->getName(), "DeltaPc_load_0_value");
   ASSERT_EQ(variableVariationArea->getType(), CONTINUOUS);
@@ -97,6 +97,12 @@ TEST(ModelsModelVariationArea, ModelVariationAreaDefineMethods) {
   variableVariationArea = variables[3];
   ASSERT_EQ(variableVariationArea->getName(), "DeltaQc_load_1_value");
   ASSERT_EQ(variableVariationArea->getType(), CONTINUOUS);
+  ASSERT_EQ(variableVariationArea->getNegated(), false);
+  ASSERT_EQ(variableVariationArea->isState(), true);
+  ASSERT_EQ(variableVariationArea->isAlias(), false);
+  variableVariationArea = variables[4];
+  ASSERT_EQ(variableVariationArea->getName(), "state");
+  ASSERT_EQ(variableVariationArea->getType(), DISCRETE);
   ASSERT_EQ(variableVariationArea->getNegated(), false);
   ASSERT_EQ(variableVariationArea->isState(), true);
   ASSERT_EQ(variableVariationArea->isAlias(), false);
@@ -169,7 +175,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaTypeMethods) {
   ASSERT_EQ(modelVariationArea->sizeF(), nbF);
   ASSERT_EQ(modelVariationArea->sizeZ(), 1);
   ASSERT_EQ(modelVariationArea->sizeG(), 2);
-  ASSERT_EQ(modelVariationArea->sizeMode(), 0);
+  ASSERT_EQ(modelVariationArea->sizeMode(), 2);
 
   modelVariationArea->evalYType();
   for (size_t i = 0; i < nbY; ++i) {
@@ -261,7 +267,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   modelVariationArea->evalJtPrim(0, 0, smjPrim, 0);
   ASSERT_EQ(smjPrim.nbElem(), 0);
   modeChangeType_t mode = modelVariationArea->evalMode(1);
-  ASSERT_EQ(mode, NO_MODE);
+  ASSERT_EQ(mode, DIFFERENTIAL_MODE);
 }
 
 }  // namespace DYN

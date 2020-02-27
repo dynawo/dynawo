@@ -260,9 +260,18 @@ class ModelVariationArea : public ModelCPP::Impl {
   double startTime_;  ///< start time
   double stopTime_;  ///< stop time
   int nbLoads_;  ///< number of loads
+  bool modeOnGoingRaised_;  ///< true if the mode change indicating the start of the slope has been done
+  bool modeFinishedRaised_;  ///< true if the mode change indicating the end of the slope has been done
 
-  // variables
-  double stateVariationArea_;  ///< equal to 1 if activated, 2 if ended, 0 either
+  /**
+   * @brief enum to represent the current state of the variation
+   */
+  typedef enum {
+    NOT_STARTED = 0,
+    ON_GOING = 1,
+    FINISHED = 2
+  } variationState_t;
+  variationState_t stateVariationArea_;  ///< equal to 1 if activated, 2 if ended, 0 either
 };
 
 }  // namespace DYN
