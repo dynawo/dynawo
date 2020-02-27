@@ -60,7 +60,7 @@ protected
   parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude in p.u (base UNom)";
   parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
   parameter Types.VoltageModule URef0  "Start value of voltage reference in kV";
-  final parameter Types.PerUnit BVar0Pu = B0Pu + BShuntPu "Start value of variable susceptance in p.u";
+  final parameter Types.PerUnit BVar0Pu = B0Pu - BShuntPu "Start value of variable susceptance in p.u";
   parameter Mode Mode0 "Start value for mode";
   parameter Boolean selectModeAuto0 = true "Start value of the boolean indicating whether the SVarC is initially in automatic configuration";
   parameter Integer setModeManual0 = 2 "Start value of the mode when in manual configuration";
