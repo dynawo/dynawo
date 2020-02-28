@@ -89,9 +89,9 @@ deltaQ_(0.),
 startTime_(0.),
 stopTime_(0.),
 nbLoads_(0),
-stateVariationArea_(NOT_STARTED),
 modeOnGoingRaised_(false),
-modeFinishedRaised_(false) {
+modeFinishedRaised_(false),
+stateVariationArea_(NOT_STARTED) {
 }
 
 void
