@@ -15,7 +15,7 @@ add_subdirectory(Loads L)
 add_subdirectory(Machines M)
 add_subdirectory(Transformers T)
 add_subdirectory(Lines N)
-add_subdirectory(Injectors I)
+add_subdirectory(Sources I)
 add_subdirectory(Switches S)
 
 set(MODEL_FILES

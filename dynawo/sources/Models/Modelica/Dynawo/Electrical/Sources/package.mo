@@ -12,6 +12,6 @@ within Dynawo.Electrical;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-package Injectors "Injector models"
+package Sources "Source models"
   extends Icons.Package;
-end Injectors;
+end Sources;
