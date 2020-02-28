@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Injectors;
+within Dynawo.Electrical.Sources;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -12,7 +12,7 @@ within Dynawo.Electrical.Injectors;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model InjectorIDQ_INIT "Initialisation model for the injector controlled by d and q current components idPu and iqPu"
+model InjectorBG_INIT "Initialization model for injector controlled by a the susceptance B and the conductance G"
   extends AdditionalIcons.Init;
 
   parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
@@ -22,15 +22,15 @@ model InjectorIDQ_INIT "Initialisation model for the injector controlled by d an
   parameter Types.ActivePowerPu P0Pu  "Start value of active power in p.u (base SnRef) (receptor convention)";
   parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
 
-protected
+  protected
 
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in p.u (base UNom)";
-  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at injector terminal in p.u (base SnRef) (receptor convention)";
-  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at injector terminal in p.u (base UNom, SnRef) (receptor convention)";
+  Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
+  flow Types.ComplexCurrentPu i0Pu "Start value of complex current at load terminal in p.u (base UNom, SnRef) (receptor convention)";
 
-  Types.PerUnit Id0Pu "Start value of id in p.u (base SNom)";
-  Types.PerUnit Iq0Pu "Start value of iq in p.u (base SNom)";
-
+  Types.ComplexAdmittancePu Y0PuSnRef "Start value of admittance in p.u (base SnRef)";
+  Types.PerUnit G0Pu "Start value of conductance in p.u (base Sn)";
+  Types.PerUnit B0Pu "Start value of susceptance in p.u (base Sn)";
 
 equation
 
@@ -38,9 +38,9 @@ equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
-  // Park's transformations dq-currents in injector convention, -> receptor convention for terminal
-  i0Pu.re = -1 * (cos(UPhase0) * Id0Pu - sin(UPhase0) * Iq0Pu) * (SNom/SystemBase.SnRef);
-  i0Pu.im = -1 * (sin(UPhase0) * Id0Pu + cos(UPhase0) * Iq0Pu) * (SNom/SystemBase.SnRef);
+  Y0PuSnRef = i0Pu / u0Pu;
+  G0Pu = ComplexMath.real(Y0PuSnRef) * SystemBase.SnRef / SNom;
+  B0Pu = ComplexMath.imag(Y0PuSnRef) * SystemBase.SnRef / SNom;
 
 annotation(preferredView = "text");
-end InjectorIDQ_INIT;
+end InjectorBG_INIT;

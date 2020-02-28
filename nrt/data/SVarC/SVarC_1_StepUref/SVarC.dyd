@@ -16,7 +16,7 @@
   <dyn:modelicaModel id="Test">
     <dyn:unitDynamicModel id="busInf" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="SVarC.par" parId="1"/>
     <dyn:unitDynamicModel id="line" name="Dynawo.Electrical.Lines.Line" parFile="SVarC.par" parId="2"/>
-    <dyn:unitDynamicModel id="svarc" name="Dynawo.Electrical.Injectors.InjectorBG" initName="Dynawo.Electrical.Injectors.InjectorBG_INIT" parFile="SVarC.par" parId="3"/>
+    <dyn:unitDynamicModel id="svarc" name="Dynawo.Electrical.Sources.InjectorBG" initName="Dynawo.Electrical.Sources.InjectorBG_INIT" parFile="SVarC.par" parId="3"/>
     <dyn:unitDynamicModel id="svarcControl" name="Dynawo.Electrical.Controls.Voltage.StaticVarCompensator.SVarCControl" initName="Dynawo.Electrical.Controls.Voltage.StaticVarCompensator.SVarCControl_INIT" parFile="SVarC.par" parId="4"/>
     <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.Step" initName="Dynawo.Electrical.Controls.Basics.Step_INIT" parFile="SVarC.par" parId="5"/>
     <dyn:initConnect id1="svarc" var1="B0Pu" id2="svarcControl" var2="B0Pu"/>
