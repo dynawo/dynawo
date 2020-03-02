@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="GridFormingConverterDroopControl">
+    <dyn:unitDynamicModel id="converter" name="Dynawo.Electrical.Sources.Converter" initName="Dynawo.Electrical.Sources.Converter_INIT"/>
+    <dyn:unitDynamicModel id="control" name="Dynawo.Electrical.Controls.Converters.GlobalDroopControl" initName="Dynawo.Electrical.Controls.Converters.GlobalDroopControl_INIT"/>
+    <dyn:initConnect id1="converter" var1="vcdref0" id2="control" var2="vcdref0"/>
+    <dyn:initConnect id1="converter" var1="vcqref0" id2="control" var2="vcqref0"/>
+    <dyn:initConnect id1="converter" var1="idc0" id2="control" var2="idc0"/>
+    <dyn:initConnect id1="converter" var1="vdc0" id2="control" var2="vdc0"/>
+    <dyn:initConnect id1="converter" var1="omega0Pu" id2="control" var2="omega0Pu"/>
+    <dyn:initConnect id1="converter" var1="deph0" id2="control" var2="deph0"/>
+    <dyn:initConnect id1="control" var1="iod0" id2="converter" var2="iod0"/>
+    <dyn:initConnect id1="control" var1="ioq0" id2="converter" var2="ioq0"/>
+    <dyn:initConnect id1="control" var1="vod0" id2="converter" var2="vod0"/>
+    <dyn:initConnect id1="control" var1="voq0" id2="converter" var2="voq0"/>
+    <dyn:initConnect id1="control" var1="icd0" id2="converter" var2="icd0"/>
+    <dyn:initConnect id1="control" var1="icq0" id2="converter" var2="icq0"/>
+    <dyn:connect id1="converter" var1="vcdref" id2="control" var2="vcdrefPin"/>
+    <dyn:connect id1="converter" var1="vcqref" id2="control" var2="vcqrefPin"/>
+    <dyn:connect id1="converter" var1="idc" id2="control" var2="idcPin"/>
+    <dyn:connect id1="converter" var1="vdcref.value" id2="control" var2="vdcref"/>
+    <dyn:connect id1="converter" var1="vdc" id2="control" var2="vdc"/>
+    <dyn:connect id1="converter" var1="omegaPu" id2="control" var2="omegaPuPin"/>
+    <dyn:connect id1="converter" var1="deph" id2="control" var2="dephPin"/>
+    <dyn:connect id1="control" var1="iod" id2="converter" var2="iod"/>
+    <dyn:connect id1="control" var1="ioq" id2="converter" var2="ioq"/>
+    <dyn:connect id1="control" var1="vod" id2="converter" var2="vod"/>
+    <dyn:connect id1="control" var1="voq" id2="converter" var2="voq"/>
+    <dyn:connect id1="control" var1="icd" id2="converter" var2="icd"/>
+    <dyn:connect id1="control" var1="icq" id2="converter" var2="icq"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>
