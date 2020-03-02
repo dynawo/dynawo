@@ -11,6 +11,9 @@
 set(MODEL_FILES
     # Sources models
     package.mo
+    Converter.mo
+    Converter.extvar
+    Converter_INIT.mo
     InjectorBG.mo
     InjectorBG.extvar
     InjectorBG_INIT.mo

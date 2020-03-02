@@ -28,6 +28,10 @@ set(MODELICA_PREASSEMBLED_MODELS
     GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
     GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
     GenericAutomaton.xml
+    GridFormingConverterDroopControl.xml
+    GridFormingConverterMatchingControl.xml
+    GridFormingConverterDispatchableVirtualOscillatorControl.xml
+    Line.xml
     LoadAlphaBeta.xml
     LoadOneTransformer.xml
     LoadOneTransformerTapChanger.xml

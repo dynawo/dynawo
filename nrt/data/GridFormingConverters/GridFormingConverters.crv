@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+    <curve model="Converter250" variable="control_omegaPu"/>
+    <curve model="Converter250" variable="converter_vod"/>
+    <curve model="Converter250" variable="converter_voq"/>
+    <curve model="Converter250" variable="converter_icd"/>
+    <curve model="Converter250" variable="converter_icq"/>
+    <curve model="Converter250" variable="converter_icmodule"/>
+    <curve model="Converter250" variable="converter_iod"/>
+    <curve model="Converter250" variable="converter_ioq"/>
+    <curve model="Converter250" variable="converter_vdc"/>
+    <curve model="Converter250" variable="converter_idc"/>
+    <curve model="Converter250" variable="converter_terminal_V_re"/>
+    <curve model="Converter250" variable="converter_terminal_V_im"/>
+    <curve model="Converter500" variable="control_omegaPu"/>
+    <curve model="Converter500" variable="converter_vod"/>
+    <curve model="Converter500" variable="converter_voq"/>
+    <curve model="Converter500" variable="converter_icd"/>
+    <curve model="Converter500" variable="converter_icq"/>
+    <curve model="Converter500" variable="converter_icmodule"/>
+    <curve model="Converter500" variable="converter_iod"/>
+    <curve model="Converter500" variable="converter_ioq"/>
+    <curve model="Converter500" variable="converter_vdc"/>
+    <curve model="Converter500" variable="converter_idc"/>
+    <curve model="Converter500" variable="converter_terminal_V_re"/>
+    <curve model="Converter500" variable="converter_terminal_V_im"/>
+    <curve model="Converter1000" variable="control_omegaPu"/>
+    <curve model="Converter1000" variable="converter_vod"/>
+    <curve model="Converter1000" variable="converter_voq"/>
+    <curve model="Converter1000" variable="converter_icd"/>
+    <curve model="Converter1000" variable="converter_icq"/>
+    <curve model="Converter1000" variable="converter_icmodule"/>
+    <curve model="Converter1000" variable="converter_iod"/>
+    <curve model="Converter1000" variable="converter_ioq"/>
+    <curve model="Converter1000" variable="converter_vdc"/>
+    <curve model="Converter1000" variable="converter_idc"/>
+    <curve model="Converter1000" variable="converter_terminal_V_re"/>
+    <curve model="Converter1000" variable="converter_terminal_V_im"/>
+</curvesInput>
+
