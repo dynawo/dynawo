@@ -48,6 +48,7 @@
 #include "ModelicaStandardTables.h"
 #include "ModelicaStrings.h"
 #include "DYNModelManagerOwnFunctions.h"  ///< redefinition of local own functions
+#include "ModelicaUtilities.h"
 
 #ifdef _MSC_VER
 #undef isnan    // undef macros defined in omc.msvc.h !

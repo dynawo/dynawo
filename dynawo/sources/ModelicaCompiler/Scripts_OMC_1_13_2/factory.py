@@ -819,7 +819,7 @@ class Factory:
 
         for eq in self.list_all_equations:
             if eq.get_evaluated_var() =="" and eq.with_throw():
-                warning = Warn(warning)
+                warning = Warn(eq.get_body())
                 warning.prepare_body()
                 self.list_warnings.append(warning)
 
@@ -1205,7 +1205,13 @@ class Factory:
         for warning in warnings:
             warning = Warn(warning)
             warning.prepare_body()
-            self.list_warnings.append(warning)
+            do_it = True
+            for line in warning.get_body_for_setf():
+                if "SHOULD NOT BE USED" in line:
+                    do_it = False
+                    break
+            if do_it:
+                self.list_warnings.append(warning)
 
 
     ##

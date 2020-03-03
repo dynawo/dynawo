@@ -761,6 +761,8 @@ def transform_line(line):
     line_tmp = sub_division_sim(line_tmp)
     line_tmp = replace_var_names(line_tmp)
     line_tmp = replace_pow(line_tmp)
+    if "omc_assert_warning" in line_tmp:
+        line_tmp = line_tmp.replace("info,","")
     return line_tmp
 
 ##
@@ -781,6 +783,8 @@ def transform_line_adept(line):
     line_tmp = line_tmp.replace("Less)", "Less<adept::adouble>)")
     line_tmp = line_tmp.replace("GreaterEq)", "GreaterEq<adept::adouble>)")
     line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
+    if "omc_assert_warning" in line_tmp:
+        line_tmp = line_tmp.replace("info,","")
     return line_tmp
 
 ##
