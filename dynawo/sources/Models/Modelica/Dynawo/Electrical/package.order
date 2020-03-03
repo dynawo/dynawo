@@ -1,11 +1,12 @@
 SystemBase
 Constants
 Buses
+Switches
 Lines
 Transformers
 Loads
 Sources
 Machines
 Controls
+Photovoltaics
 Events
-Switches

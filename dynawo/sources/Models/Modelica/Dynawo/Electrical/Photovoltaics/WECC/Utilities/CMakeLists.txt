@@ -8,21 +8,26 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(Controls C)
-add_subdirectory(Events E)
-add_subdirectory(Buses B)
-add_subdirectory(Loads L)
-add_subdirectory(Machines M)
-add_subdirectory(Transformers T)
-add_subdirectory(Lines N)
-add_subdirectory(Sources I)
-add_subdirectory(Switches S)
-add_subdirectory(Photovoltaics P)
-
 set(MODEL_FILES
+    # Sources models
     package.mo
-    SystemBase.mo
-    Constants.mo
+    RateLimFirstOrder_freeze.mo
+    RateLimFirstOrder_freeze.extvar
+    Voltage_check.mo
+    Voltage_check.extvar
+    CurrentLimitLogic.mo
+    CurrentLimitLogic.extvar
+    LimPID_freeze.mo
+    LimPID_freeze.extvar
+    VarLimPID_freeze.mo
+    VarLimPID_freeze.extvar
+    Integrator_setFreeze.mo
+    calcUPCC.mo
+    U_dq_ref.mo
+    DQ_Transformation.mo
+    DQ_BackTransformation.mo
+    FallingEdge_delay.mo
+    VSourceRef.mo
     )
 
 #

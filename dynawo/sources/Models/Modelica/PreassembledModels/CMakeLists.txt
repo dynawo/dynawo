@@ -41,6 +41,8 @@ set(MODELICA_PREASSEMBLED_MODELS
     TapChangerAutomaton.xml
     TapChangerBlockingArea.xml
     UnderVoltageAutomaton.xml
+    PhotovoltaicsCurrentLimit.xml
+    PhotovoltaicsVarPIDFreeze.xml
     )
 
 # PYTHON scripts preassembled models

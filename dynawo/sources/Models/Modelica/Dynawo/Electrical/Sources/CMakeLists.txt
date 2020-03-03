@@ -17,6 +17,7 @@ set(MODEL_FILES
     InjectorIDQ.mo
     InjectorIDQ.extvar
     InjectorIDQ_INIT.mo
+    SourceURI.mo
     )
 
 #

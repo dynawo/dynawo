@@ -8,21 +8,11 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(Controls C)
-add_subdirectory(Events E)
-add_subdirectory(Buses B)
-add_subdirectory(Loads L)
-add_subdirectory(Machines M)
-add_subdirectory(Transformers T)
-add_subdirectory(Lines N)
-add_subdirectory(Sources I)
-add_subdirectory(Switches S)
-add_subdirectory(Photovoltaics P)
+add_subdirectory(WECC W)
 
 set(MODEL_FILES
+    # Sources models
     package.mo
-    SystemBase.mo
-    Constants.mo
     )
 
 #
