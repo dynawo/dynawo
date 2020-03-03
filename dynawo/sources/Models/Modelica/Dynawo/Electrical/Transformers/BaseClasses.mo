@@ -28,43 +28,5 @@ record TransformerParameters "Classical transformer parameters"
 annotation(preferredView = "text");
 end TransformerParameters;
 
-
-partial model BaseTransformer "Base model for transformer"
-
-/*
-  Equivalent circuit and conventions:
-
-               I1  r                I2
-    U1,P1,Q1 -->---oo----R+jX-------<-- U2,P2,Q2
-  (terminal1)                   |      (terminal2)
-                               G+jB
-                                |
-                               ---
-*/
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-  extends SwitchOff.SwitchOffTransformer;
-
-equation
-  if (running.value) then
-    rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
-    terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
-  else
-    terminal1.i = Complex (0);
-    terminal2.i = Complex (0);
-  end if;
-
-annotation(preferredView = "text",
-      Documentation(info = "<html><head></head><body>The transformer has the following equivalent circuit and conventions:<div><br></div><div>
-<p style=\"margin: 0px;\"><br></p>
-<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r                I2</span></pre>
-<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    U1,P1,Q1 --&gt;---oo----R+jX-------&lt;-- U2,P2,Q2</span></pre>
-<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">  (terminal1)                   |      (terminal2)</span></pre>
-<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                               G+jB</span></pre>
-<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                                |</span></pre>
-<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                               ---</span><!--EndFragment--></pre></div><div><br></div></body></html>"));
-end BaseTransformer;
-
-
 annotation(preferredView = "text");
 end BaseClasses;
