@@ -147,7 +147,7 @@ ModelVariationArea::evalF(const double & t) {
 
 void
 ModelVariationArea::evalG(const double & t) {
-  gLocal_[0] = ((t - startTime_) >= 0 && (t - stopTime_) <= 0) ? ROOT_UP : ROOT_DOWN;
+  gLocal_[0] = ((t - startTime_) >= 0 && (t - stopTime_) < 0) ? ROOT_UP : ROOT_DOWN;
   gLocal_[1] = (t - stopTime_) >= 0 ? ROOT_UP : ROOT_DOWN;
 }
 
@@ -158,7 +158,7 @@ ModelVariationArea::setFequations() {
 
 void
 ModelVariationArea::setGequations() {
-  gEquationIndex_[0] = "stopTime >= t >= startTime";
+  gEquationIndex_[0] = "stopTime > t >= startTime";
   gEquationIndex_[1] = "t >= stopTime";
 
   assert(gEquationIndex_.size() == (unsigned int) sizeG() && "Model VariationArea: gEquationIndex.size() != gLocal_.size()");
