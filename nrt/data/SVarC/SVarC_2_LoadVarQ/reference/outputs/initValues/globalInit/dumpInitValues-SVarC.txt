@@ -1,5 +1,5 @@
  ====== INIT VARIABLES VALUES ======
-control_regulation_firstOrder_y                   : y =       0.000000 yp =       0.000000
+control_regulation_integrator_y                   : y =       0.000000 yp =       0.000000
 control_regulation_limitations_limIntegratorMax_y : y =       1.067800 yp =       8.000000
 control_regulation_limitations_limIntegratorMin_y : y =      -1.046600 yp =      -8.000000
 injector_terminal_V_im                            : y =       0.000000 yp =       0.000000
@@ -15,9 +15,10 @@ control_modeHandling_URefPu                       : y =       1.000000 yp =     
 control_regulation_add1_u2                        : y =       1.000000 yp =       0.000000
 control_regulation_add1_y                         : y =       0.000000 yp =       0.000000
 control_regulation_add2_u2                        : y =       0.000000 yp =       0.000000
-control_regulation_add3_u1                        : y =       0.000000 yp =       0.000000
 control_regulation_add3_y                         : y =       0.000000 yp =       0.000000
-control_regulation_firstOrder_u                   : y =       0.000000 yp =       0.000000
+control_regulation_add4_u2                        : y =       0.000000 yp =       0.000000
+control_regulation_add4_y                         : y =       0.000000 yp =       0.000000
+control_regulation_feedback1_u1                   : y =       0.000000 yp =       0.000000
 control_regulation_limitations_BVarMaxPu          : y =       1.067800 yp =       0.000000
 control_regulation_limitations_BVarMinPu          : y =      -1.046600 yp =       0.000000
 control_regulation_limitations_add1_y             : y =       1.000000 yp =       0.000000
@@ -40,9 +41,12 @@ control_regulation_URefPu                         : alias of control_modeHandlin
 control_regulation_add1_u1                        : alias of control_modeHandling_URefPu
 control_regulation_add2_u1                        : alias of control_UPu
 control_regulation_add2_y                         : alias of control_regulation_add1_u2
-control_regulation_add3_u2                        : alias of control_regulation_firstOrder_y
-control_regulation_gain_u                         : alias of control_regulation_add1_y
-control_regulation_gain_y                         : alias of control_regulation_add3_u1
+control_regulation_add3_u1                        : alias of control_regulation_add1_y
+control_regulation_add3_u2                        : alias of control_regulation_integrator_y
+control_regulation_add4_u1                        : alias of control_regulation_add1_y
+control_regulation_feedback1_u2                   : alias of control_regulation_add3_y
+control_regulation_feedback1_y                    : alias of control_regulation_add4_u2
+control_regulation_integrator_u                   : alias of control_regulation_add4_y
 control_regulation_lambda_u                       : alias of control_PuConversion_y
 control_regulation_lambda_y                       : alias of control_regulation_add2_u2
 control_regulation_limitations_IPu                : alias of control_division1_y
@@ -54,13 +58,13 @@ control_regulation_limitations_max_u1             : alias of control_regulation_
 control_regulation_limitations_max_y              : alias of control_regulation_limitations_BVarMinPu
 control_regulation_limitations_min_u2             : alias of control_regulation_limitations_limIntegratorMax_y
 control_regulation_limitations_min_y              : alias of control_regulation_limitations_BVarMaxPu
-control_regulation_switch_u3                      : alias of control_regulation_firstOrder_u
+control_regulation_switch_u3                      : alias of control_regulation_feedback1_u1
 control_regulation_switch_y                       : alias of control_calculBG_BVarPu
 control_regulation_variableLimiter_limit1         : alias of control_regulation_limitations_BVarMaxPu
 control_regulation_variableLimiter_limit2         : alias of control_regulation_limitations_BVarMinPu
 control_regulation_variableLimiter_simplifiedExpr : alias of control_regulation_add3_y
 control_regulation_variableLimiter_u              : alias of control_regulation_add3_y
-control_regulation_variableLimiter_y              : alias of control_regulation_firstOrder_u
+control_regulation_variableLimiter_y              : alias of control_regulation_feedback1_u1
 injector_BPu                                      : alias of control_BPu
 injector_GPu                                      : alias of control_GPu
 injector_QInjPu                                   : alias of control_QInjPu
@@ -68,6 +72,7 @@ injector_UPu                                      : alias of control_UPu
 injector_YPuSnRef_im                              : alias of injector_BPuSnRef
 injector_YPuSnRef_re                              : alias of injector_GPuSnRef
  ====== INIT CALCULATED VARIABLES VALUES ======
+control_regulation_integrator_local_set           : y =       0.000000
 control_regulation_limitations_limIntegratorMax_local_set: y =       0.000000
 control_regulation_limitations_limIntegratorMin_local_set: y =       0.000000
 injector_PInjPu                                   : y =      -0.000000
@@ -91,6 +96,7 @@ control_modeHandling_URefAuto                     : z =     225.000000
 control_modeHandling_timerModeChangeDown          : z =   1.000000e+60
 control_modeHandling_timerModeChangeUp            : z =   1.000000e+60
 control_modeHandling_blocked                      : z =      -1.000000
+control_regulation_integrator_local_reset         : z =      -1.000000
 control_regulation_limitations_limIntegratorMax_local_reset: z =      -1.000000
 control_regulation_limitations_limIntegratorMin_local_reset: z =      -1.000000
 control_selectModeAuto                            : z =       1.000000
@@ -113,13 +119,12 @@ control_GPuCst_k                                   =       0.000000
 control_IMaxPu                                     =       1.000000
 control_IMinPu                                     =      -1.000000
 control_KCurrentLimiter                            =       8.000000
-control_Kg                                         =      25.000000
-control_Kp                                         =       0.070000
+control_Kp                                         =       1.750000
 control_Lambda                                     =       0.010000
 control_PuConversion_k                             =       0.400000
 control_Q0Pu                                       =       0.000000
 control_SNom                                       =     250.000000
-control_Ti                                         =       0.006000
+control_Ti                                         =       0.003428
 control_U0Pu                                       =       1.000000
 control_UBlock                                     =       5.000000
 control_UBlockPu                                   =       0.022222
@@ -158,21 +163,20 @@ control_regulation_BVar0Pu                         =       0.000000
 control_regulation_IMaxPu                          =       1.000000
 control_regulation_IMinPu                          =      -1.000000
 control_regulation_KCurrentLimiter                 =       8.000000
-control_regulation_Kg                              =      25.000000
-control_regulation_Kp                              =       0.070000
+control_regulation_Kp                              =       1.750000
 control_regulation_Lambda                          =       0.010000
 control_regulation_SNom                            =     250.000000
-control_regulation_Ti                              =       0.006000
+control_regulation_Ti                              =       0.003428
 control_regulation_add1_k1                         =       1.000000
 control_regulation_add1_k2                         =      -1.000000
 control_regulation_add2_k1                         =       1.000000
 control_regulation_add2_k2                         =       1.000000
-control_regulation_add3_k1                         =       0.070000
+control_regulation_add3_k1                         =       1.750000
 control_regulation_add3_k2                         =       1.000000
-control_regulation_firstOrder_T                    =       0.006000
-control_regulation_firstOrder_k                    =       1.000000
-control_regulation_firstOrder_y_start              =       0.000000
-control_regulation_gain_k                          =      25.000000
+control_regulation_add4_k1                         =       1.000000
+control_regulation_add4_k2                         =       1.000000
+control_regulation_integrator_k                    =     291.715286
+control_regulation_integrator_y_start              =       0.000000
 control_regulation_lambda_k                        =       0.010000
 control_regulation_limitations_BMaxPu              =       1.067800
 control_regulation_limitations_BMinPu              =      -1.046600
@@ -211,6 +215,8 @@ injector_s0Pu_im                                   =       0.000000
 injector_s0Pu_re                                   =       0.000000
 injector_u0Pu_im                                   =       0.000000
 injector_u0Pu_re                                   =       1.000000
+control_regulation_integrator_use_reset            =      -1.000000
+control_regulation_integrator_use_set              =      -1.000000
 control_regulation_limitations_limIntegratorMax_limitsAtInit =       1.000000
 control_regulation_limitations_limIntegratorMax_strict =      -1.000000
 control_regulation_limitations_limIntegratorMax_use_reset =      -1.000000
@@ -224,7 +230,7 @@ control_regulation_variableLimiter_strict          =      -1.000000
 control_selectModeAuto0                            =       1.000000
 control_Mode0                                      =              2
 control_modeHandling_Mode0                         =              2
-control_regulation_firstOrder_initType             =              1
+control_regulation_integrator_initType             =              3
 control_regulation_limitations_limIntegratorMax_initType =              3
 control_regulation_limitations_limIntegratorMin_initType =              3
 control_regulation_variableLimiter_homotopyType    =              2

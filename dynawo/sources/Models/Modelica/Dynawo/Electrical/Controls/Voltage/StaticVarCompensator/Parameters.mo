@@ -19,7 +19,6 @@ package Parameters "Parameters of the static var compensator"
     import Dynawo.Types;
     parameter Types.ApparentPowerModule SNom "Static Var Compensator nominal apparent power in MVA";
     parameter Types.PerUnit Lambda "Statism of the regulation law URefPu = UPu + Lambda*QPu in p.u (base UNom, SNom)";
-    parameter Types.PerUnit Kg "Global gain of the regulation";
     parameter Types.PerUnit Kp "Proportional gain of the PI controller";
     parameter Types.Time Ti "Integral time constant of the PI controller";
 

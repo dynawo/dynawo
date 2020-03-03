@@ -35,9 +35,8 @@
     <par type="DOUBLE" name="control_SNom" value="250"/>
     <par type="DOUBLE" name="control_BShuntPu" value="0"/>
     <par type="DOUBLE" name="control_Lambda" value="0.01"/>
-    <par type="DOUBLE" name="control_Kg" value="25"/>
-    <par type="DOUBLE" name="control_Kp" value="0.07"/>
-    <par type="DOUBLE" name="control_Ti" value="0.006"/>
+    <par type="DOUBLE" name="control_Kp" value="1.75"/>
+    <par type="DOUBLE" name="control_Ti" value="0.003428"/>
     <par type="DOUBLE" name="control_BMaxPu" value="1.0678"/>
     <par type="DOUBLE" name="control_BMinPu" value="-1.0466"/>
     <par type="DOUBLE" name="control_IMaxPu" value="1"/>
