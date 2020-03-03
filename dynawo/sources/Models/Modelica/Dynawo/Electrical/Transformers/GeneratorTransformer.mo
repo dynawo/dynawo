@@ -17,12 +17,22 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
 /*
   This transformer model is supposed to be used with its initialisation model GeneratorTransformer_INIT.
   It enables to initialize the generator model when the load-flow inputs are not known at the generator terminal but at the generator transformer terminal.
+  Equivalent circuit and conventions:
+
+               I1  r                I2
+    U1,P1,Q1 -->---oo----R+jX-------<-- U2,P2,Q2
+  (terminal1)                   |      (terminal2)
+                               G+jB
+                                |
+                               ---
+
 */
 
   import Dynawo.Connectors;
+  import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
+  extends SwitchOff.SwitchOffTransformer;
   extends BaseClasses.TransformerParameters;
-  extends BaseClasses.BaseTransformer;
   extends AdditionalIcons.Transformer;
 
   Connectors.ACPower terminal1 (V (re (start = u10Pu.re), im (start = u10Pu.im)),i (re (start = i10Pu.re), im (start = i10Pu.im)));
@@ -60,6 +70,14 @@ protected
 equation
 
   if (running.value) then
+    rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
+    terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
+  else
+    terminal1.i = Complex (0);
+    terminal2.i = Complex (0);
+  end if;
+
+  if (running.value) then
     U1Pu = ComplexMath.'abs' (terminal1.V);
     P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
@@ -81,5 +99,13 @@ equation
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>
+The transformer has the following equivalent circuit and conventions:<div><br></div><div>
+<p style=\"margin: 0px;\"><br></p>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">               I1  r                I2</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">    U1,P1,Q1 --&gt;---oo----R+jX-------&lt;-- U2,P2,Q2</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">  (terminal1)                   |      (terminal2)</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                               G+jB</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                                |</span></pre>
+<pre style=\"margin-top: 0px; margin-bottom: 0px;\"><span style=\"font-family: 'Courier New'; font-size: 12pt;\">                               ---</span><!--EndFragment--></pre></div><div><br></div>
 This model enables to initialize a generator model when the load-flow inputs are not known at the generator terminal but at the generator transformer terminal.</body></html>"));
 end GeneratorTransformer;
