@@ -38,9 +38,8 @@
     <par type="DOUBLE" name="SNom" value="250"/>
     <par type="DOUBLE" name="BShuntPu" value="0"/>
     <par type="DOUBLE" name="Lambda" value="0.01"/>
-    <par type="DOUBLE" name="Kg" value="25"/>
-    <par type="DOUBLE" name="Kp" value="0.07"/>
-    <par type="DOUBLE" name="Ti" value="0.006"/>
+    <par type="DOUBLE" name="Kp" value="1.75"/>
+    <par type="DOUBLE" name="Ti" value="0.003428"/>
     <par type="DOUBLE" name="BMaxPu" value="1.0678"/>
     <par type="DOUBLE" name="BMinPu" value="-1.0466"/>
     <par type="DOUBLE" name="IMaxPu" value="1"/>

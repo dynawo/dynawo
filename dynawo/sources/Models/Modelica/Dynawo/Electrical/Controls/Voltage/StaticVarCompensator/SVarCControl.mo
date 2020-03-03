@@ -42,7 +42,7 @@ model SVarCControl "Control for standard static var compensator model"
 
   Modelica.Blocks.Sources.Constant GPuCst(k = G0Pu)  annotation(
     Placement(visible = true, transformation(origin = {32, -42}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Regulation regulation(BMaxPu = BMaxPu, BMinPu = BMinPu, BVar0Pu = BVar0Pu, IMaxPu = IMaxPu, IMinPu = IMinPu, KCurrentLimiter = KCurrentLimiter, Kg = Kg, Kp = Kp, Lambda = Lambda, SNom = SNom, Ti = Ti)  annotation(
+  Regulation regulation(BMaxPu = BMaxPu, BMinPu = BMinPu, BVar0Pu = BVar0Pu, IMaxPu = IMaxPu, IMinPu = IMinPu, KCurrentLimiter = KCurrentLimiter, Kp = Kp, Lambda = Lambda, SNom = SNom, Ti = Ti)  annotation(
     Placement(visible = true, transformation(origin = {30, -6}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
   Modelica.Blocks.Math.Division division1 annotation(
     Placement(visible = true, transformation(origin = {-58, -32}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

@@ -1,179 +1,244 @@
-2019-11-27 10:02:20 | DEBUG |  ============================================================ 
-2019-11-27 10:02:20 | DEBUG | DYNAWO VERSION  :     1.0.1
-2019-11-27 10:02:20 | DEBUG | DYNAWO REVISION :  385_modelica_models_calc_var-ff25670
-2019-11-27 10:02:20 | DEBUG |  ============================================================ 
-2019-11-27 10:02:37 | DEBUG | connecting LoadVar_event_state1 with Load_load_PRefPu
-2019-11-27 10:02:37 | DEBUG | connecting LoadVar_event_state2 with Load_load_QRefPu
-2019-11-27 10:02:37 | DEBUG | connecting Network_line_terminal2 with Load_load_terminal
-2019-11-27 10:02:37 | DEBUG | connecting Network_line_terminal2 with SVarC_injector_terminal
-2019-11-27 10:02:37 | INFO | adding curve : Id: SVarC; curve: injector_UPu found. (exact name)
-2019-11-27 10:02:37 | INFO | adding curve : Id: SVarC; curve: injector_BPu found. (exact name)
-2019-11-27 10:02:37 | INFO | adding curve : Id: SVarC; curve: injector_GPu found. (exact name)
-2019-11-27 10:02:37 | INFO | adding curve : Id: SVarC; curve: injector_PInjPu found. (exact name)
-2019-11-27 10:02:37 | INFO | adding curve : Id: SVarC; curve: injector_QInjPu found. (exact name)
-2019-11-27 10:02:37 | INFO | adding curve : Id: SVarC; curve: control_regulation_IPu found. (exact name)
-2019-11-27 10:02:37 | INFO | adding parameter curve: Id: SVarC; parameter curve: control_regulation_IMaxPu found. (exact name)
-2019-11-27 10:02:37 | INFO | adding curve : Id: SVarC; output: control_modeHandling_mode found.( control_modeHandling_mode_value )
-2019-11-27 10:02:37 | INFO | adding curve : Id: SVarC; curve: control_modeHandling_URefPu found. (exact name)
-2019-11-27 10:02:37 | DEBUG | injector_B0Pu same value as control_B0Pu
-2019-11-27 10:02:37 | DEBUG | injector_G0Pu same value as control_G0Pu
-2019-11-27 10:02:37 | DEBUG | Differential mode change for model SVarC
-2019-11-27 10:02:37 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-11-27 10:02:37 | DEBUG | -----------------------------------------------------------------------
-2019-11-27 10:02:37 | DEBUG | number of continuous variables : 39 (display limited to 4 variables)
-2019-11-27 10:02:37 | DEBUG | number of discrete variables : 23
-2019-11-27 10:02:37 | DEBUG | -----------------------------------------------------------------------
-2019-11-27 10:02:37 | DEBUG |     t              y1            y2            y3            y4      | nst k      h
-2019-11-27 10:02:37 | DEBUG | -----------------------------------------------------------------------
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   0 0 1.000000e-02 
-2019-11-27 10:02:37 | DEBUG | Differential mode change for model SVarC
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   1 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   0 0 0.000000e+00 
-2019-11-27 10:02:37 | DEBUG | Differential mode change for model SVarC
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   1 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   0 0 0.000000e+00 
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   1 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   2 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   3 2 2.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   4 1 4.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   5 1 8.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   6 1 1.600000e-05 
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   7 1 3.200000e-05 
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   8 1 6.400000e-05 
-2019-11-27 10:02:37 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   9 1 1.280000e-04 
-2019-11-27 10:02:37 | DEBUG |        0.001  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  10 1 2.560000e-04 
-2019-11-27 10:02:37 | DEBUG |        0.001  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  11 1 5.120000e-04 
-2019-11-27 10:02:37 | DEBUG |        0.002  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  12 1 1.024000e-03 
-2019-11-27 10:02:37 | DEBUG |        0.004  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  13 1 2.048000e-03 
-2019-11-27 10:02:37 | DEBUG |        0.008  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  14 1 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        0.016  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  15 1 8.192000e-03 
-2019-11-27 10:02:37 | DEBUG |        0.033  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  16 1 1.638400e-02 
-2019-11-27 10:02:37 | DEBUG |        0.066  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  17 1 3.276800e-02 
-2019-11-27 10:02:37 | DEBUG |        0.131  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  18 1 6.553600e-02 
-2019-11-27 10:02:37 | DEBUG |        0.262  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  19 1 1.310720e-01 
-2019-11-27 10:02:37 | DEBUG |        0.524  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  20 1 2.621440e-01 
-2019-11-27 10:02:37 | DEBUG | Algebraic mode change for model Load
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  21 1 5.242880e-01 
-2019-11-27 10:02:37 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-27 10:02:37 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2019-11-27 10:02:37 | DEBUG | Algebraic mode change for model SVarC
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  9.186023e-01  0.000000e+00  3.000000e+00 |   0 0 0.000000e+00 
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  9.186029e-01  0.000000e+00  3.000000e+00 |   1 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  9.186044e-01  0.000000e+00  3.000000e+00 |   2 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  9.186074e-01  0.000000e+00  3.000000e+00 |   3 2 2.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  9.186132e-01  0.000000e+00  3.000000e+00 |   4 2 4.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  9.186248e-01  0.000000e+00  3.000000e+00 |   5 2 8.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  9.186482e-01  0.000000e+00  3.000000e+00 |   6 2 1.600000e-05 
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  9.186949e-01  0.000000e+00  3.000000e+00 |   7 2 3.200000e-05 
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  9.187883e-01  0.000000e+00  3.000000e+00 |   8 2 6.400000e-05 
-2019-11-27 10:02:37 | DEBUG |        1.000  0.000000e+00  9.189748e-01  0.000000e+00  3.000000e+00 |   9 2 1.280000e-04 
-2019-11-27 10:02:37 | DEBUG |        1.001  0.000000e+00  9.193464e-01  0.000000e+00  3.000000e+00 |  10 2 2.560000e-04 
-2019-11-27 10:02:37 | DEBUG |        1.001  0.000000e+00  9.200844e-01  0.000000e+00  3.000000e+00 |  11 2 5.120000e-04 
-2019-11-27 10:02:37 | DEBUG |        1.002  0.000000e+00  9.215402e-01  0.000000e+00  3.000000e+00 |  12 2 1.024000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.004  0.000000e+00  9.243723e-01  0.000000e+00  3.000000e+00 |  13 2 2.048000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.008  0.000000e+00  9.297304e-01  0.000000e+00  3.000000e+00 |  14 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.012  0.000000e+00  9.346935e-01  0.000000e+00  3.000000e+00 |  15 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.016  0.000000e+00  9.392823e-01  0.000000e+00  3.000000e+00 |  16 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.020  0.000000e+00  9.435188e-01  0.000000e+00  3.000000e+00 |  17 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.025  0.000000e+00  9.474246e-01  0.000000e+00  3.000000e+00 |  18 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.029  0.000000e+00  9.510213e-01  0.000000e+00  3.000000e+00 |  19 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.033  0.000000e+00  9.543296e-01  0.000000e+00  3.000000e+00 |  20 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.037  0.000000e+00  9.573695e-01  0.000000e+00  3.000000e+00 |  21 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.041  0.000000e+00  9.601602e-01  0.000000e+00  3.000000e+00 |  22 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.045  0.000000e+00  9.627197e-01  0.000000e+00  3.000000e+00 |  23 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.049  0.000000e+00  9.650655e-01  0.000000e+00  3.000000e+00 |  24 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.053  0.000000e+00  9.672137e-01  0.000000e+00  3.000000e+00 |  25 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.057  0.000000e+00  9.688887e-01  0.000000e+00  3.000000e+00 |  26 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.057  0.000000e+00  9.688891e-01  0.000000e+00  3.000000e+00 |  26 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.057  0.000000e+00  9.691797e-01  0.000000e+00  3.000000e+00 |  26 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.061  0.000000e+00  9.709778e-01  0.000000e+00  3.000000e+00 |  27 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.066  0.000000e+00  9.726214e-01  0.000000e+00  3.000000e+00 |  28 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.070  0.000000e+00  9.741231e-01  0.000000e+00  3.000000e+00 |  29 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.078  0.000000e+00  9.767608e-01  0.000000e+00  3.000000e+00 |  30 2 8.192000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.085  0.000000e+00  9.787541e-01  0.000000e+00  3.000000e+00 |  31 2 7.372800e-03 
-2019-11-27 10:02:37 | DEBUG |        1.093  0.000000e+00  9.804433e-01  0.000000e+00  3.000000e+00 |  32 2 7.372800e-03 
-2019-11-27 10:02:37 | DEBUG |        1.100  0.000000e+00  9.818715e-01  0.000000e+00  3.000000e+00 |  33 2 7.372800e-03 
-2019-11-27 10:02:37 | DEBUG |        1.107  0.000000e+00  9.830774e-01  0.000000e+00  3.000000e+00 |  34 2 7.372800e-03 
-2019-11-27 10:02:37 | DEBUG |        1.115  0.000000e+00  9.840948e-01  0.000000e+00  3.000000e+00 |  35 2 7.372800e-03 
-2019-11-27 10:02:37 | DEBUG | Differential mode change for model SVarC
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849012e-01  0.000000e+00  3.000000e+00 |  36 2 7.372800e-03 
-2019-11-27 10:02:37 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849012e-01  0.000000e+00  3.000000e+00 |   0 0 0.000000e+00 
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849017e-01  0.000000e+00  3.000000e+00 |   1 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849018e-01  0.000000e+00  3.000000e+00 |   2 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849020e-01  0.000000e+00  3.000000e+00 |   3 2 2.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849024e-01  0.000000e+00  3.000000e+00 |   4 2 4.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849033e-01  0.000000e+00  3.000000e+00 |   5 2 8.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849050e-01  0.000000e+00  3.000000e+00 |   6 2 1.600000e-05 
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849084e-01  0.000000e+00  3.000000e+00 |   7 2 3.200000e-05 
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849152e-01  0.000000e+00  3.000000e+00 |   8 2 6.400000e-05 
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849287e-01  0.000000e+00  3.000000e+00 |   9 2 1.280000e-04 
-2019-11-27 10:02:37 | DEBUG |        1.122  0.000000e+00  9.849557e-01  0.000000e+00  3.000000e+00 |  10 2 2.560000e-04 
-2019-11-27 10:02:37 | DEBUG |        1.123  0.000000e+00  9.850092e-01  0.000000e+00  3.000000e+00 |  11 2 5.120000e-04 
-2019-11-27 10:02:37 | DEBUG |        1.124  0.000000e+00  9.851144e-01  0.000000e+00  3.000000e+00 |  12 2 1.024000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.126  0.000000e+00  9.853175e-01  0.000000e+00  3.000000e+00 |  13 2 2.048000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.130  0.000000e+00  9.856967e-01  0.000000e+00  3.000000e+00 |  14 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.138  0.000000e+00  9.863594e-01  0.000000e+00  3.000000e+00 |  15 2 8.192000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.146  0.000000e+00  9.869089e-01  0.000000e+00  3.000000e+00 |  16 2 8.192000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.154  0.000000e+00  9.873633e-01  0.000000e+00  3.000000e+00 |  17 2 8.192000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.163  0.000000e+00  9.877385e-01  0.000000e+00  3.000000e+00 |  18 2 8.192000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.171  0.000000e+00  9.880482e-01  0.000000e+00  3.000000e+00 |  19 2 8.192000e-03 
-2019-11-27 10:02:37 | DEBUG | Algebraic mode change for model SVarC
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882254e-01  0.000000e+00  3.000000e+00 |  20 2 1.638400e-02 
-2019-11-27 10:02:37 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-27 10:02:37 | DEBUG | Algebraic mode change for model SVarC
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882254e-01  0.000000e+00  3.000000e+00 |   0 0 0.000000e+00 
-2019-11-27 10:02:37 | DEBUG | Algebraic mode change for model SVarC
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882254e-01  0.000000e+00  3.000000e+00 |   1 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG | calculation of the new starting point of the simulation.
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882254e-01  0.000000e+00  3.000000e+00 |   0 0 0.000000e+00 
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882254e-01  0.000000e+00  3.000000e+00 |   1 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882253e-01  0.000000e+00  3.000000e+00 |   2 1 1.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882253e-01  0.000000e+00  3.000000e+00 |   3 2 2.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882252e-01  0.000000e+00  3.000000e+00 |   4 2 4.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882249e-01  0.000000e+00  3.000000e+00 |   5 2 8.000000e-06 
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882245e-01  0.000000e+00  3.000000e+00 |   6 2 1.600000e-05 
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882236e-01  0.000000e+00  3.000000e+00 |   7 2 3.200000e-05 
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882218e-01  0.000000e+00  3.000000e+00 |   8 2 6.400000e-05 
-2019-11-27 10:02:37 | DEBUG |        1.176  0.000000e+00  9.882181e-01  0.000000e+00  3.000000e+00 |   9 2 1.280000e-04 
-2019-11-27 10:02:37 | DEBUG |        1.177  0.000000e+00  9.882108e-01  0.000000e+00  3.000000e+00 |  10 2 2.560000e-04 
-2019-11-27 10:02:37 | DEBUG |        1.177  0.000000e+00  9.881963e-01  0.000000e+00  3.000000e+00 |  11 2 5.120000e-04 
-2019-11-27 10:02:37 | DEBUG |        1.178  0.000000e+00  9.881674e-01  0.000000e+00  3.000000e+00 |  12 2 1.024000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.180  0.000000e+00  9.881105e-01  0.000000e+00  3.000000e+00 |  13 2 2.048000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.184  0.000000e+00  9.879996e-01  0.000000e+00  3.000000e+00 |  14 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.188  0.000000e+00  9.878925e-01  0.000000e+00  3.000000e+00 |  15 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.192  0.000000e+00  9.877891e-01  0.000000e+00  3.000000e+00 |  16 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.197  0.000000e+00  9.876893e-01  0.000000e+00  3.000000e+00 |  17 2 4.096000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.205  0.000000e+00  9.874999e-01  0.000000e+00  3.000000e+00 |  18 2 8.192000e-03 
-2019-11-27 10:02:37 | DEBUG |        1.221  0.000000e+00  9.871798e-01  0.000000e+00  3.000000e+00 |  19 1 1.638400e-02 
-2019-11-27 10:02:37 | DEBUG |        1.238  0.000000e+00  9.868993e-01  0.000000e+00  3.000000e+00 |  20 1 1.638400e-02 
-2019-11-27 10:02:37 | DEBUG |        1.254  0.000000e+00  9.866534e-01  0.000000e+00  3.000000e+00 |  21 1 1.638400e-02 
-2019-11-27 10:02:37 | DEBUG |        1.287  0.000000e+00  9.862301e-01  0.000000e+00  3.000000e+00 |  22 2 3.276800e-02 
-2019-11-27 10:02:37 | DEBUG |        1.319  0.000000e+00  9.859016e-01  0.000000e+00  3.000000e+00 |  23 2 3.276800e-02 
-2019-11-27 10:02:37 | DEBUG |        1.385  0.000000e+00  9.854473e-01  0.000000e+00  3.000000e+00 |  24 2 6.553600e-02 
-2019-11-27 10:02:37 | DEBUG |        1.442  0.000000e+00  9.852190e-01  0.000000e+00  3.000000e+00 |  25 2 5.671773e-02 
-2019-11-27 10:02:37 | DEBUG |        1.498  0.000000e+00  9.850820e-01  0.000000e+00  3.000000e+00 |  26 2 5.671773e-02 
-2019-11-27 10:02:37 | DEBUG |        1.555  0.000000e+00  9.850022e-01  0.000000e+00  3.000000e+00 |  27 2 5.671773e-02 
-2019-11-27 10:02:37 | DEBUG |        1.612  0.000000e+00  9.849568e-01  0.000000e+00  3.000000e+00 |  28 2 5.671773e-02 
-2019-11-27 10:02:37 | DEBUG |        1.669  0.000000e+00  9.849313e-01  0.000000e+00  3.000000e+00 |  29 2 5.671773e-02 
-2019-11-27 10:02:37 | DEBUG |        1.725  0.000000e+00  9.849172e-01  0.000000e+00  3.000000e+00 |  30 2 5.671773e-02 
-2019-11-27 10:02:37 | DEBUG |        1.839  0.000000e+00  9.849029e-01  0.000000e+00  3.000000e+00 |  31 2 1.134355e-01 
-2019-11-27 10:02:37 | DEBUG |        1.952  0.000000e+00  9.849020e-01  0.000000e+00  3.000000e+00 |  32 1 1.134355e-01 
-2019-11-27 10:02:37 | DEBUG |        2.179  0.000000e+00  9.849015e-01  0.000000e+00  3.000000e+00 |  33 1 2.268709e-01 
-2019-11-27 10:02:37 | DEBUG |        2.633  0.000000e+00  9.849012e-01  0.000000e+00  3.000000e+00 |  34 1 4.537418e-01 
-2019-11-27 10:02:37 | DEBUG |        3.000  0.000000e+00  9.849012e-01  0.000000e+00  3.000000e+00 |  35 1 3.672149e-01 
-2019-11-27 10:02:37 | DEBUG | get parameter value in model multi : control_regulation_IMaxPu value: 1 in submodel: SVarC
-2019-11-27 10:02:37 | INFO | parameter curve:SVarC curve variable:control_regulation_IMaxPu updated.
-2019-11-27 10:02:37 | DEBUG | 
-2019-11-27 10:02:37 | DEBUG | execution Stats :
-2019-11-27 10:02:37 | DEBUG | 
-2019-11-27 10:02:37 | DEBUG | number of iterations                     = 77
-2019-11-27 10:02:37 | DEBUG | number of Residual evaluations           = 97
-2019-11-27 10:02:37 | DEBUG | number of Jacobian evaluations           = 52
-2019-11-27 10:02:37 | DEBUG | number of Nonlinear iterations           = 97
-2019-11-27 10:02:37 | DEBUG | number of error test failures            = 0
-2019-11-27 10:02:37 | DEBUG | number of Nonlinear convergence failures = 0
-2019-11-27 10:02:37 | DEBUG | number of root functions evaluations     = 232
-2019-11-27 10:02:37 | DEBUG | end of job 'SVarC - Load Variation (large)'
+2020-03-03 10:02:27 | DEBUG |  ============================================================ 
+2020-03-03 10:02:27 | DEBUG | DYNAWO VERSION  :     1.0.1
+2020-03-03 10:02:27 | DEBUG | DYNAWO REVISION :  ModifySVarCRegulationImplementation-c2b463d1
+2020-03-03 10:02:27 | DEBUG |  ============================================================ 
+2020-03-03 10:02:46 | DEBUG | connecting LoadVar_event_state1 with Load_load_PRefPu
+2020-03-03 10:02:46 | DEBUG | connecting LoadVar_event_state2 with Load_load_QRefPu
+2020-03-03 10:02:46 | DEBUG | connecting Network_line_terminal2 with Load_load_terminal
+2020-03-03 10:02:46 | DEBUG | connecting Network_line_terminal2 with SVarC_injector_terminal
+2020-03-03 10:02:46 | DEBUG | injector_B0Pu same value as control_B0Pu
+2020-03-03 10:02:46 | DEBUG | injector_G0Pu same value as control_G0Pu
+2020-03-03 10:02:46 | DEBUG | Differential mode change for model SVarC
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | INFO | adding curve : Id: SVarC; curve: injector_UPu found. (exact name)
+2020-03-03 10:02:46 | INFO | adding curve : Id: SVarC; curve: injector_BPu found. (exact name)
+2020-03-03 10:02:46 | INFO | adding curve : Id: SVarC; curve: injector_GPu found. (exact name)
+2020-03-03 10:02:46 | INFO | adding curve : Id: SVarC; curve: injector_PInjPu found. (exact name)
+2020-03-03 10:02:46 | INFO | adding curve : Id: SVarC; curve: injector_QInjPu found. (exact name)
+2020-03-03 10:02:46 | INFO | adding curve : Id: SVarC; curve: control_regulation_IPu found. (exact name)
+2020-03-03 10:02:46 | INFO | adding parameter curve: Id: SVarC; parameter curve: control_regulation_IMaxPu found. (exact name)
+2020-03-03 10:02:46 | INFO | adding curve : Id: SVarC; output: control_modeHandling_mode found.( control_modeHandling_mode_value )
+2020-03-03 10:02:46 | INFO | adding curve : Id: SVarC; curve: control_modeHandling_URefPu found. (exact name)
+2020-03-03 10:02:46 | DEBUG | -----------------------------------------------------------------------
+2020-03-03 10:02:46 | DEBUG | number of continuous variables : 40 (display limited to 4 variables)
+2020-03-03 10:02:46 | DEBUG | number of discrete variables : 24
+2020-03-03 10:02:46 | DEBUG | -----------------------------------------------------------------------
+2020-03-03 10:02:46 | DEBUG |     t              y1            y2            y3            y4      | nst k      h
+2020-03-03 10:02:46 | DEBUG | -----------------------------------------------------------------------
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   0 0 1.000000e-02 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG | Differential mode change for model SVarC
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   1 1 1.000000e-06 
+2020-03-03 10:02:46 | DEBUG | calculation of the new starting point of the simulation.
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   0 0 0.000000e+00 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG | Differential mode change for model SVarC
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   1 1 1.000000e-06 
+2020-03-03 10:02:46 | DEBUG | calculation of the new starting point of the simulation.
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   0 0 0.000000e+00 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   1 1 1.000000e-06 
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   2 1 1.000000e-06 
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   3 2 2.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   4 1 4.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   5 1 8.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   6 1 1.600000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   7 1 3.200000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   8 1 6.400000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |   9 1 1.280000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.001  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  10 1 2.560000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.001  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  11 1 5.120000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.002  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  12 1 1.024000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.004  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  13 1 2.048000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.008  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  14 1 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.016  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  15 1 8.192000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.033  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  16 1 1.638400e-02 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.066  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  17 1 3.276800e-02 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.131  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  18 1 6.553600e-02 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.262  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  19 1 1.310720e-01 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        0.524  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  20 1 2.621440e-01 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG | Algebraic mode change for model Load
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  1.000000e+00  0.000000e+00  0.000000e+00 |  21 1 5.242880e-01 
+2020-03-03 10:02:46 | DEBUG | calculation of the new starting point of the simulation.
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG | Algebraic mode change for model SVarC
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  9.185996e-01  0.000000e+00  3.000000e+00 |   0 0 0.000000e+00 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  9.186029e-01  0.000000e+00  3.000000e+00 |   1 1 1.000000e-06 
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  9.186044e-01  0.000000e+00  3.000000e+00 |   2 1 1.000000e-06 
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  9.186072e-01  0.000000e+00  3.000000e+00 |   3 2 2.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  9.186132e-01  0.000000e+00  3.000000e+00 |   4 2 4.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  9.186248e-01  0.000000e+00  3.000000e+00 |   5 2 8.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  9.186482e-01  0.000000e+00  3.000000e+00 |   6 2 1.600000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  9.186950e-01  0.000000e+00  3.000000e+00 |   7 2 3.200000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  9.187884e-01  0.000000e+00  3.000000e+00 |   8 2 6.400000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.000  0.000000e+00  9.189748e-01  0.000000e+00  3.000000e+00 |   9 2 1.280000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.001  0.000000e+00  9.193465e-01  0.000000e+00  3.000000e+00 |  10 2 2.560000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.001  0.000000e+00  9.200847e-01  0.000000e+00  3.000000e+00 |  11 2 5.120000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.002  0.000000e+00  9.215407e-01  0.000000e+00  3.000000e+00 |  12 2 1.024000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.004  0.000000e+00  9.243732e-01  0.000000e+00  3.000000e+00 |  13 2 2.048000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.008  0.000000e+00  9.297321e-01  0.000000e+00  3.000000e+00 |  14 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.012  0.000000e+00  9.346959e-01  0.000000e+00  3.000000e+00 |  15 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.016  0.000000e+00  9.392853e-01  0.000000e+00  3.000000e+00 |  16 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.020  0.000000e+00  9.435221e-01  0.000000e+00  3.000000e+00 |  17 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.025  0.000000e+00  9.474284e-01  0.000000e+00  3.000000e+00 |  18 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.029  0.000000e+00  9.510254e-01  0.000000e+00  3.000000e+00 |  19 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.033  0.000000e+00  9.543339e-01  0.000000e+00  3.000000e+00 |  20 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.037  0.000000e+00  9.573739e-01  0.000000e+00  3.000000e+00 |  21 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.041  0.000000e+00  9.601646e-01  0.000000e+00  3.000000e+00 |  22 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.045  0.000000e+00  9.627242e-01  0.000000e+00  3.000000e+00 |  23 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.049  0.000000e+00  9.650700e-01  0.000000e+00  3.000000e+00 |  24 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.053  0.000000e+00  9.672182e-01  0.000000e+00  3.000000e+00 |  25 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.057  0.000000e+00  9.688887e-01  0.000000e+00  3.000000e+00 |  26 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.057  0.000000e+00  9.688891e-01  0.000000e+00  3.000000e+00 |  26 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.057  0.000000e+00  9.691841e-01  0.000000e+00  3.000000e+00 |  26 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.061  0.000000e+00  9.709821e-01  0.000000e+00  3.000000e+00 |  27 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.066  0.000000e+00  9.726257e-01  0.000000e+00  3.000000e+00 |  28 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.070  0.000000e+00  9.741272e-01  0.000000e+00  3.000000e+00 |  29 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.078  0.000000e+00  9.767647e-01  0.000000e+00  3.000000e+00 |  30 2 8.192000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.085  0.000000e+00  9.787577e-01  0.000000e+00  3.000000e+00 |  31 2 7.372800e-03 
+2020-03-03 10:02:46 | DEBUG |        1.093  0.000000e+00  9.804465e-01  0.000000e+00  3.000000e+00 |  32 2 7.372800e-03 
+2020-03-03 10:02:46 | DEBUG |        1.100  0.000000e+00  9.818744e-01  0.000000e+00  3.000000e+00 |  33 2 7.372800e-03 
+2020-03-03 10:02:46 | DEBUG |        1.107  0.000000e+00  9.830801e-01  0.000000e+00  3.000000e+00 |  34 2 7.372800e-03 
+2020-03-03 10:02:46 | DEBUG |        1.115  0.000000e+00  9.840972e-01  0.000000e+00  3.000000e+00 |  35 2 7.372800e-03 
+2020-03-03 10:02:46 | DEBUG | Differential mode change for model SVarC
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849012e-01  0.000000e+00  3.000000e+00 |  36 2 7.372800e-03 
+2020-03-03 10:02:46 | DEBUG | calculation of the new starting point of the simulation.
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849012e-01  0.000000e+00  3.000000e+00 |   0 0 0.000000e+00 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849017e-01  0.000000e+00  3.000000e+00 |   1 1 1.000000e-06 
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849018e-01  0.000000e+00  3.000000e+00 |   2 1 1.000000e-06 
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849020e-01  0.000000e+00  3.000000e+00 |   3 2 2.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849024e-01  0.000000e+00  3.000000e+00 |   4 2 4.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849033e-01  0.000000e+00  3.000000e+00 |   5 2 8.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849050e-01  0.000000e+00  3.000000e+00 |   6 2 1.600000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849084e-01  0.000000e+00  3.000000e+00 |   7 2 3.200000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849152e-01  0.000000e+00  3.000000e+00 |   8 2 6.400000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849287e-01  0.000000e+00  3.000000e+00 |   9 2 1.280000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.122  0.000000e+00  9.849557e-01  0.000000e+00  3.000000e+00 |  10 2 2.560000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.123  0.000000e+00  9.850092e-01  0.000000e+00  3.000000e+00 |  11 2 5.120000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.124  0.000000e+00  9.851144e-01  0.000000e+00  3.000000e+00 |  12 2 1.024000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.126  0.000000e+00  9.853176e-01  0.000000e+00  3.000000e+00 |  13 2 2.048000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.130  0.000000e+00  9.856968e-01  0.000000e+00  3.000000e+00 |  14 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.138  0.000000e+00  9.863596e-01  0.000000e+00  3.000000e+00 |  15 2 8.192000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.146  0.000000e+00  9.869091e-01  0.000000e+00  3.000000e+00 |  16 2 8.192000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.154  0.000000e+00  9.873636e-01  0.000000e+00  3.000000e+00 |  17 2 8.192000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.163  0.000000e+00  9.877388e-01  0.000000e+00  3.000000e+00 |  18 2 8.192000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.171  0.000000e+00  9.880485e-01  0.000000e+00  3.000000e+00 |  19 2 8.192000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG | Algebraic mode change for model SVarC
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882255e-01  0.000000e+00  3.000000e+00 |  20 2 1.638400e-02 
+2020-03-03 10:02:46 | DEBUG | calculation of the new starting point of the simulation.
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882255e-01  0.000000e+00  3.000000e+00 |   0 0 0.000000e+00 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882255e-01  0.000000e+00  3.000000e+00 |   1 1 1.000000e-06 
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882254e-01  0.000000e+00  3.000000e+00 |   2 1 1.000000e-06 
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882254e-01  0.000000e+00  3.000000e+00 |   3 2 2.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882253e-01  0.000000e+00  3.000000e+00 |   4 2 4.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882250e-01  0.000000e+00  3.000000e+00 |   5 2 8.000000e-06 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882246e-01  0.000000e+00  3.000000e+00 |   6 2 1.600000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882237e-01  0.000000e+00  3.000000e+00 |   7 2 3.200000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882218e-01  0.000000e+00  3.000000e+00 |   8 2 6.400000e-05 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.176  0.000000e+00  9.882182e-01  0.000000e+00  3.000000e+00 |   9 2 1.280000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.177  0.000000e+00  9.882109e-01  0.000000e+00  3.000000e+00 |  10 2 2.560000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.177  0.000000e+00  9.881964e-01  0.000000e+00  3.000000e+00 |  11 2 5.120000e-04 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.178  0.000000e+00  9.881675e-01  0.000000e+00  3.000000e+00 |  12 2 1.024000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.180  0.000000e+00  9.881106e-01  0.000000e+00  3.000000e+00 |  13 2 2.048000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.182  0.000000e+00  9.880546e-01  0.000000e+00  3.000000e+00 |  14 2 2.048000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.186  0.000000e+00  9.879456e-01  0.000000e+00  3.000000e+00 |  15 2 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.190  0.000000e+00  9.878420e-01  0.000000e+00  3.000000e+00 |  16 1 4.096000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.199  0.000000e+00  9.876489e-01  0.000000e+00  3.000000e+00 |  17 1 8.192000e-03 
+2020-03-03 10:02:46 | DEBUG |        1.207  0.000000e+00  9.874685e-01  0.000000e+00  3.000000e+00 |  18 1 8.192000e-03 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.223  0.000000e+00  9.871523e-01  0.000000e+00  3.000000e+00 |  19 1 1.638400e-02 
+2020-03-03 10:02:46 | DEBUG |        1.240  0.000000e+00  9.868751e-01  0.000000e+00  3.000000e+00 |  20 1 1.638400e-02 
+2020-03-03 10:02:46 | DEBUG |        1.256  0.000000e+00  9.866323e-01  0.000000e+00  3.000000e+00 |  21 1 1.638400e-02 
+2020-03-03 10:02:46 | DEBUG |        1.289  0.000000e+00  9.862140e-01  0.000000e+00  3.000000e+00 |  22 2 3.276800e-02 
+2020-03-03 10:02:46 | DEBUG |        1.321  0.000000e+00  9.858895e-01  0.000000e+00  3.000000e+00 |  23 2 3.276800e-02 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.387  0.000000e+00  9.854408e-01  0.000000e+00  3.000000e+00 |  24 2 6.553600e-02 
+2020-03-03 10:02:46 | DEBUG |        1.444  0.000000e+00  9.852150e-01  0.000000e+00  3.000000e+00 |  25 2 5.676380e-02 
+2020-03-03 10:02:46 | DEBUG |        1.501  0.000000e+00  9.850796e-01  0.000000e+00  3.000000e+00 |  26 2 5.676380e-02 
+2020-03-03 10:02:46 | DEBUG |        1.557  0.000000e+00  9.850009e-01  0.000000e+00  3.000000e+00 |  27 2 5.676380e-02 
+2020-03-03 10:02:46 | DEBUG |        1.614  0.000000e+00  9.849560e-01  0.000000e+00  3.000000e+00 |  28 2 5.676380e-02 
+2020-03-03 10:02:46 | DEBUG |        1.671  0.000000e+00  9.849308e-01  0.000000e+00  3.000000e+00 |  29 2 5.676380e-02 
+2020-03-03 10:02:46 | DEBUG |        1.728  0.000000e+00  9.849170e-01  0.000000e+00  3.000000e+00 |  30 2 5.676380e-02 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        1.841  0.000000e+00  9.849029e-01  0.000000e+00  3.000000e+00 |  31 2 1.135276e-01 
+2020-03-03 10:02:46 | DEBUG |        1.955  0.000000e+00  9.849020e-01  0.000000e+00  3.000000e+00 |  32 1 1.135276e-01 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        2.182  0.000000e+00  9.849015e-01  0.000000e+00  3.000000e+00 |  33 1 2.270552e-01 
+2020-03-03 10:02:46 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-03-03 10:02:46 | DEBUG |        2.636  0.000000e+00  9.849012e-01  0.000000e+00  3.000000e+00 |  34 1 4.541104e-01 
+2020-03-03 10:02:46 | DEBUG |        3.000  0.000000e+00  9.849012e-01  0.000000e+00  3.000000e+00 |  35 1 3.641805e-01 
+2020-03-03 10:02:46 | DEBUG | get parameter value in model multi : control_regulation_IMaxPu value: 1 in submodel: SVarC
+2020-03-03 10:02:46 | INFO | parameter curve:SVarC curve variable:control_regulation_IMaxPu updated.
+2020-03-03 10:02:46 | DEBUG | 
+2020-03-03 10:02:46 | DEBUG | execution Stats :
+2020-03-03 10:02:46 | DEBUG | 
+2020-03-03 10:02:46 | DEBUG | number of iterations                     = 76
+2020-03-03 10:02:46 | DEBUG | number of Residual evaluations           = 97
+2020-03-03 10:02:46 | DEBUG | number of Jacobian evaluations           = 51
+2020-03-03 10:02:46 | DEBUG | number of Nonlinear iterations           = 97
+2020-03-03 10:02:46 | DEBUG | number of error test failures            = 0
+2020-03-03 10:02:46 | DEBUG | number of Nonlinear convergence failures = 0
+2020-03-03 10:02:46 | DEBUG | number of root functions evaluations     = 196
+2020-03-03 10:02:46 | DEBUG | end of job 'SVarC - Load Variation (large)'
