@@ -422,8 +422,13 @@ class NonRegressionTest:
                 os.remove(info_file_path)
             info_file = open(info_file_path, "w")
             case_dir = os.path.relpath (os.path.dirname (job.file_), data_dir)
-            case_first_dir= case_dir.split(os.sep)[0]
-            case_second_dir = case_dir.split(os.sep)[1]
+            path_list = case_dir.split(os.sep)
+            if len(path_list) > 1:
+                case_first_dir= case_dir.split(os.sep)[0]
+                case_second_dir = case_dir.split(os.sep)[1]
+            else:
+                case_first_dir = ""
+                case_second_dir = case_dir.split(os.sep)[0]
             # first line: job identification infos
             info_file.write(case_first_dir + '|' + case_second_dir + '|' + job.name_ + '|' + job.description_ + \
                             '|' + testcase_status + '|' + diff_status +'\n')
