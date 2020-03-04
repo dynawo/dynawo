@@ -193,13 +193,15 @@ ModelVariationArea::evalJtPrim(const double& /*t*/, const double& /*cj*/, Sparse
 
 void
 ModelVariationArea::evalZ(const double& /*t*/) {
-  if (gLocal_[0] == ROOT_UP)  // load increase in progress
+  if (gLocal_[0] == ROOT_UP) {  // load increase in progress
     zLocal_[0] = ON_GOING;
+    stateVariationArea_ = ON_GOING;
+  }
 
-  if (gLocal_[1] == ROOT_UP)  // load increase ended
+  if (gLocal_[1] == ROOT_UP) {  // load increase ended
     zLocal_[0] = FINISHED;
-
-  stateVariationArea_ = static_cast<variationState_t>(zLocal_[0]);
+    stateVariationArea_ = FINISHED;
+  }
 }
 
 // evaluation of modes (alternatives) of F(t,y,y') functions
