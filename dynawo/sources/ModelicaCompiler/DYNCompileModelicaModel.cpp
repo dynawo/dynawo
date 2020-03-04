@@ -142,6 +142,8 @@ int main(int argc, char ** argv) {
 
     // generate the .cpp file from the previous files
     generateModelFile(modelName, compilationDir1, withInitFile, additionalHeaderList, packageName);
+    if (!exists(absolute(modelName + "_Dyn.cpp", compilationDir1)))
+      throw DYNError(DYN::Error::MODELER, ModelCompilationFailed, modelName);
 
     // Creation of the lib .so
     if (libName != "") {
@@ -222,6 +224,8 @@ modelicaCompile(const string& modelName, const string& compilationDir,
 
   bool doPrintLogs = true;
   string result = executeCommand(varExtCommand, doPrintLogs);
+  if (!exists(absolute(modelName + "-tmp.mo", compilationDir1)))
+    throw DYNError(DYN::Error::MODELER, ModelCompilationFailed, modelName);
 
   std::cout << "output dir : " << compilationDir << std::endl;
 
