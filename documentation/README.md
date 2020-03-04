@@ -10,7 +10,7 @@
 
 This directory contains LaTeX sources for Dyna&omega;o documentation.
 
-You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.0.1/DynawoDocumentation.pdf).
+You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.1.0/DynawoDocumentation.pdf).
 
 **We will soon provide some guidelines on how to contribute to this documentation.**
 
