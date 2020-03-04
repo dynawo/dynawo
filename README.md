@@ -333,7 +333,7 @@ You can have more information on how to use Docker to build and try Dyna&omega;o
 
 <a name="documentation"></a>
 ## Dyna&omega;o Documentation
-You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.0.1/DynawoDocumentation.pdf).
+You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.1.0/DynawoDocumentation.pdf).
 
 <a name="contributions"></a>
 ## Get involved!
