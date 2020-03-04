@@ -268,7 +268,7 @@ ModelShuntCompensator::setSubModelParameters(const boost::unordered_map<std::str
     }
   } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    throw DYNError(Error::MODELER, ParameterNotFoundFor, id_);
+    throw DYNError(Error::MODELER, NetworkParameterNotFoundFor, id_);
   }
 }
 
