@@ -151,7 +151,7 @@ ParameterCardinalityBadType =             the %1% parameter %2% cardinality shou
 ParameterCardinalityNotDefined =          failed to retrieve parameter %1% cardinality (%2%)
 ParameterNotReadFromOrigin  =             failed to retrieve parameters values : the origin %1% data has not been retrieved yet for parameter %2%
 ParameterNoWriteRights      =             failed to set %1% parameter value for the %2% origin (due to its %3% scope)
-ParameterNotFoundFor        =             parameter not found for model %1%
+NetworkParameterNotFoundFor =             parameter not found for network model %1%
 ParameterNotUnitary         =             parameter %1% is not unitary (cardinality > 1)
 ParameterUnableToConvertToDouble =        unable to convert %1% parameter to double because it is of %2% type
 ParameterUnitary            =             parameter %1% is unitary (cardinality = 1)

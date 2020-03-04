@@ -235,22 +235,22 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerWithRatioTapChangerPar
   modelNetwork->defineParameters();
   const bool isInitParam = false;
 
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
   modelNetwork->setParameterValue("transformer_currentLimit_maxTimeOperation", PAR, 7., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
   modelNetwork->setParameterValue("transformer_t1st_THT", PAR, 9., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
   modelNetwork->setParameterValue("transformer_tNext_THT", PAR, 10., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
   modelNetwork->setParameterValue("transformer_t1st_HT", PAR, 11., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
   modelNetwork->setParameterValue("transformer_tNext_HT", PAR, 12., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
   modelNetwork->setParameterValue("transformer_tolV", PAR, 13., isInitParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
@@ -373,26 +373,26 @@ TEST(ModelsModelNetwork, ModelNetworkLoadParam) {
   ASSERT_EQ(modelNetwork->hasParameter("MyLoad_alphaLong", isInitParam), true);
   ASSERT_EQ(modelNetwork->hasParameter("MyLoad_betaLong", isInitParam), true);
 
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
   modelNetwork->setParameterValue("load_alpha", PAR, 7., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("load_beta", PAR, 8., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("load_isRestorative", PAR, true, isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("load_isControllable", PAR, true, isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("load_Tp", PAR, 9., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("load_Tq", PAR, 10., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("load_zPMax", PAR, 11., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("load_zQMax", PAR, 12., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("load_alphaLong", PAR, 13., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("load_betaLong", PAR, 14., isInitParam);
 
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
@@ -418,10 +418,10 @@ TEST(ModelsModelNetwork, ModelNetworkCapacitorShuntCompensatorParam) {
   ASSERT_EQ(modelNetwork->hasParameter("capacitor_no_reclosing_delay", isInitParam), true);
   ASSERT_EQ(modelNetwork->hasParameter("reactance_no_reclosing_delay", isInitParam), true);
   ASSERT_EQ(modelNetwork->hasParameter("MyCapacitorShuntCompensator_no_reclosing_delay", isInitParam), true);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
   modelNetwork->setParameterValue("reactance_no_reclosing_delay", PAR, 7., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("capacitor_no_reclosing_delay", PAR, 8., isInitParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
@@ -446,10 +446,10 @@ TEST(ModelsModelNetwork, ModelNetworkReactanceShuntCompensatorParam) {
   ASSERT_EQ(modelNetwork->hasParameter("capacitor_no_reclosing_delay", isInitParam), true);
   ASSERT_EQ(modelNetwork->hasParameter("reactance_no_reclosing_delay", isInitParam), true);
   ASSERT_EQ(modelNetwork->hasParameter("MyReactanceShuntCompensator_no_reclosing_delay", isInitParam), true);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
 
   modelNetwork->setParameterValue("capacitor_no_reclosing_delay", PAR, 7., isInitParam);
-  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::ParameterNotFoundFor);
+  ASSERT_THROW_DYNAWO(modelNetwork->setSubModelParameters(), Error::MODELER, KeyError_t::NetworkParameterNotFoundFor);
   modelNetwork->setParameterValue("reactance_no_reclosing_delay", PAR, 8., isInitParam);
   ASSERT_NO_THROW(modelNetwork->setSubModelParameters());
 }
