@@ -47,6 +47,7 @@ SolverSIMConvFailMin        =             solverSIM fails to converge while mini
 SolverSIMConvFail           =             solverSIM fails to converge while the max number of try (%1%) is reached
 SolverEmptyYVector          =             impossible to create the KINSOL's structure : no continuous variable in simulated problem
 SolverUnstableZMode         =             discrete events are unstable during the solve of the equation
+SolverUnbalanced            =             the number of algebric variables is different from the number of algebric equations in the simulated problem
 WrongLinearSolverChoice     =             the linear solver name provided is not valid
 //--------------- MODELER -----------------------------------------
 UndefinedStep               =             step %1% does not exist for tap changer %2%
