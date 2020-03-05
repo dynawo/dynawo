@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls;
+within Dynawo.Electrical.Controls.Converters;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -12,6 +12,6 @@ within Dynawo.Electrical.Controls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-package Converters "Converters controls"
+package BaseControls "Converters control basic elements"
   extends Icons.Package;
-end Converters;
+end BaseControls;

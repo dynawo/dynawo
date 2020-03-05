@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Converters.BasicBlocks;
+within Dynawo.Electrical.Controls.Converters.BaseControls;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -26,31 +26,15 @@ model DroopControl "Droop Control"
   parameter Types.PerUnit Wff "Cutoff pulsation of the active damping (in rad/s)";
   parameter Types.PerUnit Kff "Gain of the active damping";
 
-  parameter Types.PerUnit Pref0 "Start value of the active power reference at the converter's capacitor in p.u (base SNom) (generator convention)";
-  parameter Types.PerUnit Qref0 "Start value of the reactive power reference at the converter's capacitor in p.u (base SNom) (generator convention)";
-  parameter Types.PerUnit Veffref0 "Start value of the voltage reference at the converter's capacitor in p.u (base UNom)";
-  parameter Types.PerUnit iod0;
-  parameter Types.PerUnit ioq0;
-  parameter Types.PerUnit vod0;
-  parameter Types.PerUnit voq0;
-  parameter Types.PerUnit omega0Pu;
-  parameter Types.PerUnit omegaRef0Pu;
-  parameter Types.PerUnit wref0;
-  parameter Types.PerUnit voqref0;
-  parameter Types.PerUnit vodref0;
-  parameter Types.PerUnit DeltaVVIq0;
-  parameter Types.PerUnit DeltaVVId0;
-  parameter Types.Angle deph0;
-
-  Modelica.Blocks.Interfaces.RealOutput omegaPu(start = omega0Pu) "Converter's frequency" annotation(
+  Modelica.Blocks.Interfaces.RealOutput omegaPu(start = SystemBase.omegaRef0Pu) "Converter's frequency" annotation(
     Placement(visible = true, transformation(origin = {160,60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, -1}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput vod(start = vod0) "d-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput vFilterd(start = VFilterd0) "d-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-100, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {90, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput voq (start = voq0) "q-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput vFilterq (start = VFilterq0) "q-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-100, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput iod(start = iod0) "d-axis current in the grid" annotation(
+  Modelica.Blocks.Interfaces.RealInput iPCCd(start = IPCCd0) "d-axis current in the grid" annotation(
     Placement(visible = true, transformation(origin = {-140, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput ioq (start = ioq0) "q-axis current in the grid" annotation(
+  Modelica.Blocks.Interfaces.RealInput iPCCq (start = IPCCq0) "q-axis current in the grid" annotation(
     Placement(visible = true, transformation(origin = {-140, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-50, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -72,17 +56,17 @@ model DroopControl "Droop Control"
     Placement(visible = true, transformation(origin = {46, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T=1/Wf, k=1) annotation(
     Placement(visible = true, transformation(origin = {76, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput wref (start=wref0) annotation(
+  Modelica.Blocks.Interfaces.RealInput wref(start = SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {80, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Add add1 annotation(
     Placement(visible = true, transformation(origin = {122, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaRefPu (start=omegaRef0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput omegaRefPu (start=SystemBase.omegaRef0Pu) annotation(
     Placement(visible = true, transformation(origin = {140, 100}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Feedback feedback2 annotation(
     Placement(visible = true, transformation(origin = {176, 60}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Continuous.Integrator integrator(k=SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {208, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput deph(start=deph0) annotation(
+  Modelica.Blocks.Interfaces.RealOutput theta(start=Theta0) annotation(
     Placement(visible = true, transformation(origin = {240, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(T = 1 / Wf, k=1)  annotation(
     Placement(visible = true, transformation(origin = {20, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -94,7 +78,7 @@ model DroopControl "Droop Control"
     Placement(visible = true, transformation(origin = {44, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Continuous.FirstOrder firstOrder3(T = 1 / Wff, k = 1)  annotation(
     Placement(visible = true, transformation(origin = {44, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput Veffref(start=Veffref0) annotation(
+  Modelica.Blocks.Interfaces.RealInput Veffref(start = VFilterd0) annotation(
     Placement(visible = true, transformation(origin = {68, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput qref (start=Qref0) annotation(
     Placement(visible = true, transformation(origin = {0, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -106,39 +90,49 @@ model DroopControl "Droop Control"
     Placement(visible = true, transformation(origin = {110, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback4 annotation(
     Placement(visible = true, transformation(origin = {136, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput DeltaVVId(start=DeltaVVId0) annotation(
+  Modelica.Blocks.Interfaces.RealInput DeltaVVId(start = 0) annotation(
     Placement(visible = true, transformation(origin = {140, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-90, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Feedback feedback5 annotation(
     Placement(visible = true, transformation(origin = {168, -22}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput vodref(start=vodref0) annotation(
+  Modelica.Blocks.Interfaces.RealOutput vFilterdref(start=VFilterd0) annotation(
     Placement(visible = true, transformation(origin = {194, -22}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Constant const(k = 0)  annotation(
     Placement(visible = true, transformation(origin = {88, -96}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedback6 annotation(
     Placement(visible = true, transformation(origin = {116, -96}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput DeltaVVIq (start=DeltaVVIq0) annotation(
+  Modelica.Blocks.Interfaces.RealInput DeltaVVIq (start = 0) annotation(
     Placement(visible = true, transformation(origin = {140, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Math.Feedback feedback7 annotation(
     Placement(visible = true, transformation(origin = {168, -96}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput voqref (start=voqref0) annotation(
+  Modelica.Blocks.Interfaces.RealOutput vFilterqref (start=VFilterq0) annotation(
     Placement(visible = true, transformation(origin = {194, -96}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+protected
+
+  parameter Types.PerUnit Pref0 "Start value of the active power reference at the converter's capacitor in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit Qref0 "Start value of the reactive power reference at the converter's capacitor in p.u (base SNom) (generator convention)";
+  parameter Types.PerUnit IPCCd0;
+  parameter Types.PerUnit IPCCq0;
+  parameter Types.PerUnit VFilterd0;
+  parameter Types.PerUnit VFilterq0;
+  parameter Types.Angle Theta0;
+
 equation
-  connect(product.u1, iod) annotation(
+  connect(product.u1, iPCCd) annotation(
     Line(points = {{-62, 66}, {-81, 66}, {-81, 60}, {-140, 60}}, color = {0, 0, 127}));
-  connect(product.u2, vod) annotation(
+  connect(product.u2, vFilterd) annotation(
     Line(points = {{-62, 54}, {-78, 54}, {-78, 20}, {-100, 20}}, color = {0, 0, 127}));
-  connect(product1.u1, voq) annotation(
+  connect(product1.u1, vFilterq) annotation(
     Line(points = {{-62, 26}, {-76, 26}, {-76, -20}, {-100, -20}}, color = {0, 0, 127}));
-  connect(product1.u2, ioq) annotation(
+  connect(product1.u2, iPCCq) annotation(
     Line(points = {{-62, 14}, {-74, 14}, {-74, -60}, {-140, -60}}, color = {0, 0, 127}));
-  connect(product2.u1, voq) annotation(
+  connect(product2.u1, vFilterq) annotation(
     Line(points = {{-62, -14}, {-70, -14}, {-70, -20}, {-100, -20}, {-100, -20}}, color = {0, 0, 127}));
-  connect(product2.u2, iod) annotation(
+  connect(product2.u2, iPCCd) annotation(
     Line(points = {{-62, -26}, {-72, -26}, {-72, 60}, {-140, 60}}, color = {0, 0, 127}));
-  connect(product3.u1, ioq) annotation(
+  connect(product3.u1, iPCCq) annotation(
     Line(points = {{-62, -54}, {-70, -54}, {-70, -60}, {-140, -60}}, color = {0, 0, 127}));
-  connect(product3.u2, vod) annotation(
+  connect(product3.u2, vFilterd) annotation(
     Line(points = {{-62, -66}, {-68, -66}, {-68, 20}, {-100, 20}, {-100, 20}}, color = {0, 0, 127}));
   connect(product2.y, feedback.u1) annotation(
     Line(points = {{-38, -20}, {-22, -20}, {-22, -40}, {-20, -40}}, color = {0, 0, 127}));
@@ -168,15 +162,15 @@ equation
     Line(points = {{176, 68}, {176, 68}, {176, 100}, {140, 100}, {140, 100}}, color = {0, 0, 127}));
   connect(integrator.u, feedback2.y) annotation(
     Line(points = {{196, 60}, {186, 60}, {186, 60}, {186, 60}}, color = {0, 0, 127}));
-  connect(integrator.y, deph) annotation(
+  connect(integrator.y, theta) annotation(
     Line(points = {{220, 60}, {230, 60}, {230, 60}, {240, 60}}, color = {0, 0, 127}));
-  connect(deph, integrator.y) annotation(
+  connect(theta, integrator.y) annotation(
     Line(points = {{240, 60}, {218, 60}, {218, 60}, {220, 60}}, color = {0, 0, 127}));
   connect(feedback.y, firstOrder1.u) annotation(
     Line(points = {{-2, -40}, {6, -40}, {6, -40}, {8, -40}}, color = {0, 0, 127}));
-  connect(gain1.u, iod) annotation(
+  connect(gain1.u, iPCCd) annotation(
     Line(points = {{2, -80}, {-108, -80}, {-108, 60}, {-140, 60}, {-140, 60}}, color = {0, 0, 127}));
-  connect(gain2.u, ioq) annotation(
+  connect(gain2.u, iPCCq) annotation(
     Line(points = {{2, -110}, {-100, -110}, {-100, -60}, {-140, -60}, {-140, -60}}, color = {0, 0, 127}));
   connect(gain1.y, firstOrder2.u) annotation(
     Line(points = {{26, -80}, {30, -80}, {30, -80}, {32, -80}}, color = {0, 0, 127}));
@@ -200,7 +194,7 @@ equation
     Line(points = {{146, -22}, {160, -22}, {160, -22}, {160, -22}}, color = {0, 0, 127}));
   connect(DeltaVVId, feedback5.u2) annotation(
     Line(points = {{140, 0}, {168, 0}, {168, -14}, {168, -14}}, color = {0, 0, 127}));
-  connect(feedback5.y, vodref) annotation(
+  connect(feedback5.y, vFilterdref) annotation(
     Line(points = {{178, -22}, {184, -22}, {184, -22}, {194, -22}}, color = {0, 0, 127}));
   connect(const.y, feedback6.u1) annotation(
     Line(points = {{99, -96}, {108, -96}}, color = {0, 0, 127}));
@@ -210,7 +204,7 @@ equation
     Line(points = {{126, -96}, {158, -96}, {158, -96}, {160, -96}}, color = {0, 0, 127}));
   connect(DeltaVVIq, feedback7.u2) annotation(
     Line(points = {{140, -60}, {168, -60}, {168, -88}, {168, -88}}, color = {0, 0, 127}));
-  connect(feedback7.y, voqref) annotation(
+  connect(feedback7.y, vFilterqref) annotation(
     Line(points = {{178, -96}, {184, -96}, {184, -96}, {194, -96}}, color = {0, 0, 127}));
 
 annotation(
