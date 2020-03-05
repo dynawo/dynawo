@@ -12,6 +12,15 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="icd" type="continuous" />
-  <variable id="icq" type="continuous" />
+  <variable id="Veffref" type="continuous" />
+  <variable id="pref" type="continuous" />
+  <variable id="qref" type="continuous" />
+  <variable id="wref" type="continuous" />
+  <variable id="omegaRefPu" type="continuous" />
+  <variable id="iPCCd" type="continuous" />
+  <variable id="iPCCq" type="continuous" />
+  <variable id="vFilterd" type="continuous" />
+  <variable id="vFilterq" type="continuous" />
+  <variable id="DeltaVVId" type="continuous" />
+  <variable id="DeltaVVIq" type="continuous" />
 </external_variables>

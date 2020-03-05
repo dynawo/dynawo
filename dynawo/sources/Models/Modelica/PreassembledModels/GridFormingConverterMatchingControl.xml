@@ -15,30 +15,41 @@
   <dyn:modelicaModel id="GridFormingConverterMatchingControl">
     <dyn:unitDynamicModel id="converter" name="Dynawo.Electrical.Sources.Converter" initName="Dynawo.Electrical.Sources.Converter_INIT"/>
     <dyn:unitDynamicModel id="control" name="Dynawo.Electrical.Controls.Converters.GlobalMatchingControl" initName="Dynawo.Electrical.Controls.Converters.GlobalMatchingControl_INIT"/>
-    <dyn:initConnect id1="converter" var1="vcdref0" id2="control" var2="vcdref0"/>
-    <dyn:initConnect id1="converter" var1="vcqref0" id2="control" var2="vcqref0"/>
-    <dyn:initConnect id1="converter" var1="idc0" id2="control" var2="idc0"/>
-    <dyn:initConnect id1="converter" var1="vdc0" id2="control" var2="vdc0"/>
-    <dyn:initConnect id1="converter" var1="omega0Pu" id2="control" var2="omega0Pu"/>
-    <dyn:initConnect id1="converter" var1="deph0" id2="control" var2="deph0"/>
-    <dyn:initConnect id1="control" var1="iod0" id2="converter" var2="iod0"/>
-    <dyn:initConnect id1="control" var1="ioq0" id2="converter" var2="ioq0"/>
-    <dyn:initConnect id1="control" var1="vod0" id2="converter" var2="vod0"/>
-    <dyn:initConnect id1="control" var1="voq0" id2="converter" var2="voq0"/>
-    <dyn:initConnect id1="control" var1="icd0" id2="converter" var2="icd0"/>
-    <dyn:initConnect id1="control" var1="icq0" id2="converter" var2="icq0"/>
-    <dyn:connect id1="converter" var1="vcdref" id2="control" var2="vcdrefPin"/>
-    <dyn:connect id1="converter" var1="vcqref" id2="control" var2="vcqrefPin"/>
+    <dyn:unitDynamicModel id="SetVeffref" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
+    <dyn:unitDynamicModel id="Setwref" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
+    <dyn:unitDynamicModel id="Setidcref" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
+    <dyn:unitDynamicModel id="Setvdcref" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
+    <dyn:connect id1="control" var1="Veffref" id2="SetVeffref" var2="setPoint.value"/>
+    <dyn:connect id1="control" var1="wref" id2="Setwref" var2="setPoint.value"/>
+    <dyn:connect id1="control" var1="idcref" id2="Setidcref" var2="setPoint.value"/>
+    <dyn:connect id1="converter" var1="vdcref" id2="Setvdcref" var2="setPoint"/>
+    <dyn:initConnect id1="control" var1="VFilterd0" id2="SetVeffref" var2="Value0"/>
+    <dyn:initConnect id1="control" var1="Wref0" id2="Setwref" var2="Value0"/>
+    <dyn:initConnect id1="control" var1="Idcref0" id2="Setidcref" var2="Value0"/>
+    <dyn:initConnect id1="converter" var1="VFilterd0" id2="Setvdcref" var2="Value0"/>
+    <dyn:initConnect id1="converter" var1="VConvdref0" id2="control" var2="VConvdref0"/>
+    <dyn:initConnect id1="converter" var1="VConvqref0" id2="control" var2="VConvqref0"/>
+    <dyn:initConnect id1="converter" var1="Idc0" id2="control" var2="Idc0"/>
+    <dyn:initConnect id1="converter" var1="Vdc0" id2="control" var2="Vdc0"/>
+    <dyn:initConnect id1="converter" var1="Theta0" id2="control" var2="Theta0"/>
+    <dyn:initConnect id1="control" var1="IPCCd0" id2="converter" var2="IPCCd0"/>
+    <dyn:initConnect id1="control" var1="IPCCq0" id2="converter" var2="IPCCq0"/>
+    <dyn:initConnect id1="control" var1="VFilterd0" id2="converter" var2="VFilterd0"/>
+    <dyn:initConnect id1="control" var1="VFilterq0" id2="converter" var2="VFilterq0"/>
+    <dyn:initConnect id1="control" var1="IConvd0" id2="converter" var2="IConvd0"/>
+    <dyn:initConnect id1="control" var1="IConvq0" id2="converter" var2="IConvq0"/>
+    <dyn:connect id1="converter" var1="vConvdref" id2="control" var2="vConvdrefPin"/>
+    <dyn:connect id1="converter" var1="vConvqref" id2="control" var2="vConvqrefPin"/>
     <dyn:connect id1="converter" var1="idc" id2="control" var2="idcPin"/>
-    <dyn:connect id1="converter" var1="vdcref.value" id2="control" var2="vdcref"/>
+    <dyn:connect id1="Setvdcref" var1="setPoint.value" id2="control" var2="vdcref"/>
     <dyn:connect id1="converter" var1="vdc" id2="control" var2="vdc"/>
     <dyn:connect id1="converter" var1="omegaPu" id2="control" var2="omegaPuPin"/>
-    <dyn:connect id1="converter" var1="deph" id2="control" var2="dephPin"/>
-    <dyn:connect id1="control" var1="iod" id2="converter" var2="iod"/>
-    <dyn:connect id1="control" var1="ioq" id2="converter" var2="ioq"/>
-    <dyn:connect id1="control" var1="vod" id2="converter" var2="vod"/>
-    <dyn:connect id1="control" var1="voq" id2="converter" var2="voq"/>
-    <dyn:connect id1="control" var1="icd" id2="converter" var2="icd"/>
-    <dyn:connect id1="control" var1="icq" id2="converter" var2="icq"/>
+    <dyn:connect id1="converter" var1="theta" id2="control" var2="thetaPin"/>
+    <dyn:connect id1="control" var1="iPCCd" id2="converter" var2="iPCCd"/>
+    <dyn:connect id1="control" var1="iPCCq" id2="converter" var2="iPCCq"/>
+    <dyn:connect id1="control" var1="vFilterd" id2="converter" var2="vFilterd"/>
+    <dyn:connect id1="control" var1="vFilterq" id2="converter" var2="vFilterq"/>
+    <dyn:connect id1="control" var1="iConvd" id2="converter" var2="iConvd"/>
+    <dyn:connect id1="control" var1="iConvq" id2="converter" var2="iConvq"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

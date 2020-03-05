@@ -19,7 +19,7 @@ standardReturnCodeType = "ALLOWED"
 forbiddenReturnCodeType = "FORBIDDEN"
 
 ##############################################################
-#       Grid Forming Converters - Three busses system        #
+#       Grid Forming Converters - Three buses system        #
 ##############################################################
 
 case_name = "Grid Forming Converters"

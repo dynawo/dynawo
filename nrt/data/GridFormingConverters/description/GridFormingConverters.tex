@@ -52,13 +52,13 @@ The currents in the three converters during the whole simulation are presented i
   \begin{tikzpicture}[scale = 0.8]
     \begin{axis}[grid=major, xmin=0.47, xmax=2.1]
         \addplot[color=blue!50]
-        table[x=time,y=Converter250_converter_icmodule]
+        table[x=time,y=Converter250_converter_iConvmodule]
         {../reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
-        table[x=time,y=Converter500_converter_icmodule]
+        table[x=time,y=Converter500_converter_iConvmodule]
         {../reference/outputs/curves/curves.csv};
         \addplot[color=green!50]
-        table[x=time,y=Converter1000_converter_icmodule]
+        table[x=time,y=Converter1000_converter_iConvmodule]
         {../reference/outputs/curves/curves.csv};
         \legend{$i_{c_{Converter250}}$,$i_{c_{Converter500}}$,$i_{c_{Converter1000}}$}
     \end{axis}

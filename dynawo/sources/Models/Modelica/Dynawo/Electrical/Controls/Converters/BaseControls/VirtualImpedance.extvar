@@ -12,11 +12,6 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="vodref" type="continuous" />
-  <variable id="voqref" type="continuous" />
-  <variable id="iod" type="continuous" />
-  <variable id="ioq" type="continuous" />
-  <variable id="vod" type="continuous" />
-  <variable id="voq" type="continuous" />
-  <variable id="omegaPu" type="continuous" />
+  <variable id="iConvd" type="continuous" />
+  <variable id="iConvq" type="continuous" />
 </external_variables>

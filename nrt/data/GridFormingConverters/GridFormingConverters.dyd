@@ -13,51 +13,19 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:blackBoxModel id="Converter250" lib="GridFormingConverterDroopControl" parFile="./GridFormingConverters.par" parId="1"/>
-  <dyn:blackBoxModel id="SetPref250" lib="SetPoint" parFile="./GridFormingConverters.par" parId="2"/>
-  <dyn:blackBoxModel id="SetQref250" lib="SetPoint" parFile="./GridFormingConverters.par" parId="3"/>
-  <dyn:blackBoxModel id="SetVeffref250" lib="SetPoint" parFile="./GridFormingConverters.par" parId="4"/>
-  <dyn:blackBoxModel id="Setwref250" lib="SetPoint" parFile="./GridFormingConverters.par" parId="5"/>
-  <dyn:blackBoxModel id="Setidcref250" lib="SetPoint" parFile="./GridFormingConverters.par" parId="6"/>
-  <dyn:blackBoxModel id="Setvdcref250" lib="SetPoint" parFile="./GridFormingConverters.par" parId="7"/>
+  <dyn:blackBoxModel id="Converter500" lib="GridFormingConverterDispatchableVirtualOscillatorControl" parFile="./GridFormingConverters.par" parId="2"/>
+  <dyn:blackBoxModel id="Converter1000" lib="GridFormingConverterMatchingControl" parFile="./GridFormingConverters.par" parId="3"/>
+  <dyn:blackBoxModel id="Line12" lib="Line" parFile="./GridFormingConverters.par" parId="4"/>
+  <dyn:blackBoxModel id="Line23bis1" lib="Line" parFile="./GridFormingConverters.par" parId="5"/>
+  <dyn:blackBoxModel id="Line23bis2" lib="Line" parFile="./GridFormingConverters.par" parId="5"/>
+  <dyn:blackBoxModel id="Line23" lib="Line" parFile="./GridFormingConverters.par" parId="6"/>
+  <dyn:blackBoxModel id="Line13" lib="Line" parFile="./GridFormingConverters.par" parId="7"/>
+  <dyn:blackBoxModel id="Load" lib="LoadAlphaBeta" parFile="./GridFormingConverters.par" parId="8"/>
+  <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="./GridFormingConverters.par" parId="9"/>
+  <dyn:blackBoxModel id="Disconnect" lib="EventSetPointBoolean" parFile="./GridFormingConverters.par" parId="10"/>
   <dyn:connect id1="Converter250" var1="control_omegaRefPu" id2="Converter1000" var2="control_omegaPu"/>
-  <dyn:connect id1="Converter250" var1="control_pref" id2="SetPref250" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter250" var1="control_qref" id2="SetQref250" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter250" var1="control_wref" id2="Setwref250" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter250" var1="control_Veffref" id2="SetVeffref250" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter250" var1="control_vdcref" id2="Setvdcref250" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter250" var1="control_idcref" id2="Setidcref250" var2="setPoint_setPoint_value"/>
-  <dyn:blackBoxModel id="Converter500" lib="GridFormingConverterDispatchableVirtualOscillatorControl" parFile="./GridFormingConverters.par" parId="9"/>
-  <dyn:blackBoxModel id="SetPref500" lib="SetPoint" parFile="./GridFormingConverters.par" parId="10"/>
-  <dyn:blackBoxModel id="SetQref500" lib="SetPoint" parFile="./GridFormingConverters.par" parId="11"/>
-  <dyn:blackBoxModel id="SetVeffref500" lib="SetPoint" parFile="./GridFormingConverters.par" parId="12"/>
-  <dyn:blackBoxModel id="Setwref500" lib="SetPoint" parFile="./GridFormingConverters.par" parId="13"/>
-  <dyn:blackBoxModel id="Setidcref500" lib="SetPoint" parFile="./GridFormingConverters.par" parId="14"/>
-  <dyn:blackBoxModel id="Setvdcref500" lib="SetPoint" parFile="./GridFormingConverters.par" parId="15"/>
   <dyn:connect id1="Converter500" var1="control_omegaRefPu" id2="Converter1000" var2="control_omegaPu"/>
-  <dyn:connect id1="Converter500" var1="control_pref" id2="SetPref500" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter500" var1="control_qref" id2="SetQref500" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter500" var1="control_wref" id2="Setwref500" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter500" var1="control_Veffref" id2="SetVeffref500" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter500" var1="control_vdcref" id2="Setvdcref500" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter500" var1="control_idcref" id2="Setidcref500" var2="setPoint_setPoint_value"/>
-  <dyn:blackBoxModel id="Converter1000" lib="GridFormingConverterMatchingControl" parFile="./GridFormingConverters.par" parId="17"/>
-  <dyn:blackBoxModel id="SetVeffref1000" lib="SetPoint" parFile="./GridFormingConverters.par" parId="20"/>
-  <dyn:blackBoxModel id="Setwref1000" lib="SetPoint" parFile="./GridFormingConverters.par" parId="21"/>
-  <dyn:blackBoxModel id="Setidcref1000" lib="SetPoint" parFile="./GridFormingConverters.par" parId="22"/>
-  <dyn:blackBoxModel id="Setvdcref1000" lib="SetPoint" parFile="./GridFormingConverters.par" parId="23"/>
   <dyn:connect id1="Converter1000" var1="control_omegaRefPu" id2="Converter500" var2="control_omegaRefPu"/>
-  <dyn:connect id1="Converter1000" var1="control_wref" id2="Setwref1000" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter1000" var1="control_Veffref" id2="SetVeffref1000" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter1000" var1="control_vdcref" id2="Setvdcref1000" var2="setPoint_setPoint_value"/>
-  <dyn:connect id1="Converter1000" var1="control_idcref" id2="Setidcref1000" var2="setPoint_setPoint_value"/>
-  <dyn:blackBoxModel id="Line12" lib="Line" parFile="./GridFormingConverters.par" parId="25"/>
-  <dyn:blackBoxModel id="Line23bis1" lib="Line" parFile="./GridFormingConverters.par" parId="26"/>
-  <dyn:blackBoxModel id="Line23bis2" lib="Line" parFile="./GridFormingConverters.par" parId="26"/>
-  <dyn:blackBoxModel id="Line23" lib="Line" parFile="./GridFormingConverters.par" parId="27"/>
-  <dyn:blackBoxModel id="Line13" lib="Line" parFile="./GridFormingConverters.par" parId="28"/>
-  <dyn:blackBoxModel id="Load" lib="LoadAlphaBeta" parFile="./GridFormingConverters.par" parId="29"/>
-  <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="./GridFormingConverters.par" parId="30"/>
-  <dyn:blackBoxModel id="Disconnect" lib="EventSetPointBoolean" parFile="./GridFormingConverters.par" parId="32"/>
   <dyn:connect id1="Converter1000" var1="converter_terminal" id2="Line12" var2="line_terminal1"/>
   <dyn:connect id1="Converter1000" var1="converter_terminal" id2="Line13" var2="line_terminal1"/>
   <dyn:connect id1="Converter250" var1="converter_terminal" id2="Line23" var2="line_terminal1"/>

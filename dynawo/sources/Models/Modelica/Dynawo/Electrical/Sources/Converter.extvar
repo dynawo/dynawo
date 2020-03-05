@@ -12,12 +12,12 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="vcdref.value" type="continuous" />
+  <variable id="vConvdref.value" type="continuous" />
+  <variable id="vConvqref.value" type="continuous" />
   <variable id="vdcref.value" type="continuous" />
-  <variable id="vcqref.value" type="continuous" />
   <variable id="idc.value" type="continuous" />
   <variable id="omegaPu.value" type="continuous" />
-  <variable id="deph.value" type="continuous" />
+  <variable id="theta.value" type="continuous" />
   <variable type="continuous" id="terminal.V.re"/>
   <variable type="continuous" id="terminal.V.im"/>
 </external_variables>
