@@ -139,8 +139,9 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
       break;
     }
   }
-  assert(ignoreF_.size() == ignoreY_.size());  // Jacobian should be square
-  assert(indexF_.size() == indexY_.size());
+
+  if (ignoreF_.size() != ignoreY_.size() || indexF_.size() != indexY_.size())
+    throw DYNError(Error::SOLVER_ALGO, SolverUnbalanced);
 }
 
 void
