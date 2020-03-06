@@ -24,12 +24,6 @@ notifications:
 services:
   - docker
 
-addons:
-  sonarcloud:
-    organization: "dynawo"
-    token:
-      secure: ${SONAR_TOKEN}
-
 env:
   global:
     - DYNAWO_HOME=/home/dynawo_travis/dynawo;
