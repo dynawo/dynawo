@@ -392,6 +392,15 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   fEquationIndex.clear();
   ASSERT_NO_THROW(bus->setFequations(fEquationIndex));
   ASSERT_EQ(fEquationIndex.size(), nbF);
+
+  // differential voltages -> evalYType, evalFType
+  bus->setHasDifferentialVoltages(true);
+  bus->evalYType();
+  ASSERT_EQ(yTypes[ModelBus::urNum_], DIFFERENTIAL);
+  ASSERT_EQ(yTypes[ModelBus::uiNum_], DIFFERENTIAL);
+  bus->evalFType();
+  ASSERT_EQ(fTypes[ModelBus::urNum_], DIFFERENTIAL_EQ);
+  ASSERT_EQ(fTypes[ModelBus::uiNum_], DIFFERENTIAL_EQ);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
@@ -518,7 +527,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   int yNum = 2;
   bus->init(yNum);
   ASSERT_EQ(yNum, 6);
-  bus->evalDerivatives();
+  bus->evalDerivatives(1);
   SparseMatrix smj2;
   smj2.init(size, size);
   bus->evalJt(smj2, 1., 0);
@@ -592,7 +601,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   container.add(bus2);
   container.add(bus3);
 
-  bus1->evalDerivatives();
+  bus1->evalDerivatives(1);
   bus1->initSize();
   std::vector<double> y1(bus1->sizeY(), 0.);
   std::vector<double> yp1(bus1->sizeY(), 0.);
@@ -604,7 +613,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   bus1->irAdd(0.1);
   bus1->iiAdd(0.01);
 
-  bus2->evalDerivatives();
+  bus2->evalDerivatives(1);
   bus2->initSize();
   std::vector<double> y2(bus2->sizeY(), 0.);
   std::vector<double> yp2(bus2->sizeY(), 0.);
@@ -616,7 +625,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   bus2->irAdd(0.2);
   bus2->iiAdd(0.02);
 
-  bus3->evalDerivatives();
+  bus3->evalDerivatives(1);
   bus3->initSize();
   std::vector<double> y3(bus3->sizeY(), 0.);
   std::vector<double> yp3(bus3->sizeY(), 0.);
