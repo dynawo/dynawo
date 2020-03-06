@@ -13,18 +13,9 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="StaticVarCompensator">
-    <dyn:unitDynamicModel id="injector" name="Dynawo.Electrical.Sources.InjectorBG" initName="Dynawo.Electrical.Sources.InjectorBG_INIT"/>
-    <dyn:unitDynamicModel id="control" name="Dynawo.Electrical.Controls.Voltage.StaticVarCompensator.SVarCControl" initName="Dynawo.Electrical.Controls.Voltage.StaticVarCompensator.SVarCControl_INIT"/>
+    <dyn:unitDynamicModel id="SVarC" name="Dynawo.Electrical.StaticVarCompensators.SVarCStandard" initName="Dynawo.Electrical.StaticVarCompensators.SVarCStandard_INIT"/>
     <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
-    <dyn:initConnect id1="injector" var1="B0Pu" id2="control" var2="B0Pu"/>
-    <dyn:initConnect id1="injector" var1="G0Pu" id2="control" var2="G0Pu"/>
-    <dyn:initConnect id1="injector" var1="U0Pu" id2="control" var2="U0Pu"/>
-    <dyn:initConnect id1="injector" var1="Q0Pu" id2="control" var2="Q0Pu"/>
-    <dyn:initConnect id1="URef" var1="Value0" id2="control" var2="URef0"/>
-    <dyn:connect id1="injector" var1="BPu" id2="control" var2="BPu"/>
-    <dyn:connect id1="injector" var1="GPu" id2="control" var2="GPu"/>
-    <dyn:connect id1="injector" var1="UPu" id2="control" var2="UPu"/>
-    <dyn:connect id1="injector" var1="QInjPu" id2="control" var2="QInjPu"/>
-    <dyn:connect id1="URef" var1="setPoint.value" id2="control" var2="URef"/>
+    <dyn:initConnect id1="URef" var1="Value0" id2="SVarC" var2="URef0"/>
+    <dyn:connect id1="URef" var1="setPoint.value" id2="SVarC" var2="URef"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

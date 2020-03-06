@@ -22,6 +22,6 @@
   <dyn:blackBoxModel id="SVarC" lib="StaticVarCompensator" parFile="SVarC.par" parId="3"/>
   <!-- Fault -->
   <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="SVarC.par" parId="4"/>
-  <dyn:connect id1="Network" var1="line_terminal2" id2="SVarC" var2="injector_terminal"/>
+  <dyn:connect id1="Network" var1="line_terminal2" id2="SVarC" var2="SVarC_terminal"/>
   <dyn:connect id1="Fault" var1="fault_terminal" id2="Network" var2="line_terminal2"/>
 </dyn:dynamicModelsArchitecture>

@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Voltage.StaticVarCompensator;
+within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)

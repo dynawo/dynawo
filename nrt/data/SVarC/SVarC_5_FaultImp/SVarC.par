@@ -26,32 +26,31 @@
   </set>
   <!-- SVarC  -->
   <set id="3">
-    <par type="DOUBLE" name="injector_SNom" value="250"/>
-    <par type="DOUBLE" name="injector_U0Pu" value="1"/>
-    <par type="DOUBLE" name="injector_UPhase0" value="0"/>
-    <par type="DOUBLE" name="injector_P0Pu" value="0"/>
-    <par type="DOUBLE" name="injector_Q0Pu" value="0"/>
-    <par type="DOUBLE" name="control_UNom" value="225"/>
-    <par type="DOUBLE" name="control_SNom" value="250"/>
-    <par type="DOUBLE" name="control_BShuntPu" value="0"/>
-    <par type="DOUBLE" name="control_Lambda" value="0.01"/>
-    <par type="DOUBLE" name="control_Kp" value="1.75"/>
-    <par type="DOUBLE" name="control_Ti" value="0.003428"/>
-    <par type="DOUBLE" name="control_BMaxPu" value="1.0678"/>
-    <par type="DOUBLE" name="control_BMinPu" value="-1.0466"/>
-    <par type="DOUBLE" name="control_IMaxPu" value="1"/>
-    <par type="DOUBLE" name="control_IMinPu" value="-1"/>
-    <par type="DOUBLE" name="control_KCurrentLimiter" value="8"/>
-    <par type="DOUBLE" name="control_UBlock" value="5"/>
-    <par type="DOUBLE" name="control_UUnblockUp" value="270"/>
-    <par type="DOUBLE" name="control_UUnblockDown" value="180"/>
-    <par type="DOUBLE" name="control_URefUp" value="230"/>
-    <par type="DOUBLE" name="control_URefDown" value="220"/>
-    <par type="DOUBLE" name="control_UThresholdUp" value="240"/>
-    <par type="DOUBLE" name="control_UThresholdDown" value="218"/>
-    <par type="DOUBLE" name="control_tThresholdUp" value="60"/>
-    <par type="DOUBLE" name="control_tThresholdDown" value="0"/>
-    <par type="INT" name="control_Mode0" value="3"/>
+    <par type="DOUBLE" name="SVarC_U0Pu" value="1"/>
+    <par type="DOUBLE" name="SVarC_UPhase0" value="0"/>
+    <par type="DOUBLE" name="SVarC_P0Pu" value="0"/>
+    <par type="DOUBLE" name="SVarC_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="SVarC_UNom" value="225"/>
+    <par type="DOUBLE" name="SVarC_SNom" value="250"/>
+    <par type="DOUBLE" name="SVarC_BShuntPu" value="0"/>
+    <par type="DOUBLE" name="SVarC_Lambda" value="0.01"/>
+    <par type="DOUBLE" name="SVarC_Kp" value="1.75"/>
+    <par type="DOUBLE" name="SVarC_Ti" value="0.003428"/>
+    <par type="DOUBLE" name="SVarC_BMaxPu" value="1.0678"/>
+    <par type="DOUBLE" name="SVarC_BMinPu" value="-1.0466"/>
+    <par type="DOUBLE" name="SVarC_IMaxPu" value="1"/>
+    <par type="DOUBLE" name="SVarC_IMinPu" value="-1"/>
+    <par type="DOUBLE" name="SVarC_KCurrentLimiter" value="8"/>
+    <par type="DOUBLE" name="SVarC_UBlock" value="5"/>
+    <par type="DOUBLE" name="SVarC_UUnblockUp" value="270"/>
+    <par type="DOUBLE" name="SVarC_UUnblockDown" value="180"/>
+    <par type="DOUBLE" name="SVarC_URefUp" value="230"/>
+    <par type="DOUBLE" name="SVarC_URefDown" value="220"/>
+    <par type="DOUBLE" name="SVarC_UThresholdUp" value="240"/>
+    <par type="DOUBLE" name="SVarC_UThresholdDown" value="218"/>
+    <par type="DOUBLE" name="SVarC_tThresholdUp" value="60"/>
+    <par type="DOUBLE" name="SVarC_tThresholdDown" value="0"/>
+    <par type="INT" name="SVarC_Mode0" value="3"/>
     <par type="DOUBLE" name="URef_ValueIn" value="225"/>
   </set>
   <!-- Fault -->

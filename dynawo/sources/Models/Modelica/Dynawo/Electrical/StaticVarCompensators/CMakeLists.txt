@@ -9,19 +9,14 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 
+add_subdirectory(BaseControls A)
 
 set(MODEL_FILES
     # Voltage control models
     package.mo
-    SVarCControl.mo
-    SVarCControl.extvar
-    SVarCControl_INIT.mo
-    Parameters.mo
-    CalculBG.mo
-    Regulation.mo
-    Limitations.mo
-    ModeHandling.mo
-    ModeConnector.mo
+    SVarCStandard.mo
+    SVarCStandard.extvar
+    SVarCStandard_INIT.mo
     )
 
 #
