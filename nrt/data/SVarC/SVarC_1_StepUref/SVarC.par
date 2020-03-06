@@ -24,18 +24,14 @@
     <par type="DOUBLE" name="BPu" value="0.0"/>
     <par type="DOUBLE" name="GPu" value="0.0"/>
   </set>
-  <!-- SVarC (InjectorBG) -->
+  <!-- SVarC -->
   <set id="3">
-    <par type="DOUBLE" name="SNom" value="250"/>
     <par type="DOUBLE" name="U0Pu" value="1"/>
     <par type="DOUBLE" name="UPhase0" value="0"/>
     <par type="DOUBLE" name="P0Pu" value="0"/>
     <par type="DOUBLE" name="Q0Pu" value="0"/>
-  </set>
-  <!-- SVarC Control -->
-  <set id="4">
-    <par type="DOUBLE" name="UNom" value="225"/>
     <par type="DOUBLE" name="SNom" value="250"/>
+    <par type="DOUBLE" name="UNom" value="225"/>
     <par type="DOUBLE" name="BShuntPu" value="0"/>
     <par type="DOUBLE" name="Lambda" value="0.01"/>
     <par type="DOUBLE" name="Kp" value="1.75"/>
@@ -57,7 +53,7 @@
     <par type="INT" name="Mode0" value="3"/>
   </set>
   <!-- URef Step - ValueIn is overwritten by init -->
-  <set id="5">
+  <set id="4">
     <par type="DOUBLE" name="ValueIn" value="225"/>
     <par type="DOUBLE" name="Height" value="5"/>
     <par type="DOUBLE" name="tStep" value="1"/>

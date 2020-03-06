@@ -12,11 +12,11 @@
     simulation tool for power systeSVarC.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="SVarC" variable="injector_UPu"/>
-  <curve model="SVarC" variable="injector_BPu"/>
-  <curve model="SVarC" variable="injector_GPu"/>
-  <curve model="SVarC" variable="injector_PInjPu"/>
-  <curve model="SVarC" variable="injector_QInjPu"/>
-  <curve model="SVarC" variable="control_regulation_limitations_BVarMaxPu"/>
-  <curve model="SVarC" variable="control_regulation_limitations_BVarMinPu"/>
+  <curve model="SVarC" variable="SVarC_injector_UPu"/>
+  <curve model="SVarC" variable="SVarC_injector_BPu"/>
+  <curve model="SVarC" variable="SVarC_injector_GPu"/>
+  <curve model="SVarC" variable="SVarC_injector_PInjPu"/>
+  <curve model="SVarC" variable="SVarC_injector_QInjPu"/>
+  <curve model="SVarC" variable="SVarC_regulation_limitations_BVarMaxPu"/>
+  <curve model="SVarC" variable="SVarC_regulation_limitations_BVarMinPu"/>
 </curvesInput>

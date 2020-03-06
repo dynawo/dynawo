@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Voltage.StaticVarCompensator;
+within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 
 /*
 * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
@@ -40,7 +40,7 @@ model Regulation "Variable susceptance calculation"
     Placement(visible = true, transformation(origin = {-134, -72}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {112, -16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  StaticVarCompensator.Limitations limitations(BMaxPu = BMaxPu, BMinPu = BMinPu, IMaxPu = IMaxPu, IMinPu = IMinPu, KCurrentLimiter = KCurrentLimiter)  annotation(
+  Limitations limitations(BMaxPu = BMaxPu, BMinPu = BMinPu, IMaxPu = IMaxPu, IMinPu = IMinPu, KCurrentLimiter = KCurrentLimiter)  annotation(
     Placement(visible = true, transformation(origin = {-31, 45}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {182, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

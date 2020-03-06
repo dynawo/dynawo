@@ -12,13 +12,13 @@
     simulation tool for power systeTest.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="Test" variable="svarc_UPu"/>
-  <curve model="Test" variable="svarc_BPu"/>
-  <curve model="Test" variable="svarc_GPu"/>
-  <curve model="Test" variable="svarc_PInjPu"/>
-  <curve model="Test" variable="svarc_QInjPu"/>
-  <curve model="Test" variable="svarcControl_modeHandling_mode"/>
-  <curve model="Test" variable="svarcControl_modeHandling_URefPu"/>
-  <curve model="Test" variable="svarcControl_modeHandling_setModeManual"/>
-  <curve model="Test" variable="svarcControl_modeHandling_selectModeAuto"/>
+  <curve model="Test" variable="svarc_injector_UPu"/>
+  <curve model="Test" variable="svarc_injector_BPu"/>
+  <curve model="Test" variable="svarc_injector_GPu"/>
+  <curve model="Test" variable="svarc_injector_PInjPu"/>
+  <curve model="Test" variable="svarc_injector_QInjPu"/>
+  <curve model="Test" variable="svarc_modeHandling_mode"/>
+  <curve model="Test" variable="svarc_modeHandling_URefPu"/>
+  <curve model="Test" variable="svarc_modeHandling_setModeManual"/>
+  <curve model="Test" variable="svarc_modeHandling_selectModeAuto"/>
 </curvesInput>
