@@ -152,9 +152,13 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   void addBusNeighbors();
   /**
    * @brief evaluate derivatives
+   * @param cj Jacobian prime coefficient
    */
   void evalDerivatives(const double& cj);
 
+  /**
+   * @brief evaluate derivatives prim
+   */
   void evalDerivativesPrim() {}
   /**
    * @brief define variables

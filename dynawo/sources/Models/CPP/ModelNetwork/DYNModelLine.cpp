@@ -25,6 +25,7 @@
 #include "DYNModelLine.h"
 
 #include "DYNCommon.h"
+#include "DYNCommonModeler.h"
 #include "DYNModelConstants.h"
 #include "DYNModelBus.h"
 #include "DYNModelCurrentLimits.h"
@@ -72,7 +73,8 @@ ii2_dUi2_(0.),
 yOffset_(0.),
 IbReNum_(0.),
 IbImNum_(0.),
-wNom_(314.),
+omegaNom_(OMEGA_NOM),
+omegaRef_(1.),
 modelType_("Line") {
   double r = line->getR();
   double x = line->getX();
@@ -206,8 +208,8 @@ ModelLine::initSize() {
     sizeF_ = 0;
     sizeY_ = 0;
     if (isDynamic_) {
-      sizeF_ = 2;
-      sizeY_ = 2;
+      sizeF_ = 2;  // IBranch_re, IBranch_im, omegaRef
+      sizeY_ = 3;
     }
     sizeZ_ = 2;
     sizeG_ = 0;
@@ -237,6 +239,8 @@ ModelLine::init(int& yNum) {
       IbReNum_ = localIndex;
       ++localIndex;
       IbImNum_ = localIndex;
+      ++localIndex;
+      omegaRefNum_ = localIndex;
       ++localIndex;
     }
 
@@ -532,26 +536,24 @@ ModelLine::evalNodeInjection() {
         modelBus2_->iiAdd(iiAdd2);
       }
     }
-  } else {
-    if (modelBus1_ && getConnectionState() == CLOSED) {
+  } else if (getConnectionState() == CLOSED) {
+    if (modelBus1_) {
       double ur1Val = ur1();
       double ui1Val = ui1();
       double urp1Val = urp1();
       double uip1Val = uip1();
-      double wgVal = wg();
-      double irAdd1 = conduct1_ * ur1Val + suscept1_ * urp1Val - suscept1_ * wgVal * ui1Val + y_[IbReNum_];
-      double iiAdd1 = conduct1_ * ui1Val + suscept1_ * uip1Val + suscept1_ * wgVal * ur1Val + y_[IbImNum_];
+      double irAdd1 = conduct1_ * ur1Val + suscept1_ * urp1Val - suscept1_ * omegaRef_ * ui1Val + y_[IbReNum_];
+      double iiAdd1 = conduct1_ * ui1Val + suscept1_ * uip1Val + suscept1_ * omegaRef_ * ur1Val + y_[IbImNum_];
       modelBus1_->irAdd(irAdd1);
       modelBus1_->iiAdd(iiAdd1);
     }
-    if (modelBus2_ && getConnectionState() == CLOSED) {
+    if (modelBus2_) {
       double ur2Val = ur2();
       double ui2Val = ui2();
       double urp2Val = urp2();
       double uip2Val = uip2();
-      double wgVal = wg();
-      double irAdd2 = conduct2_ * ur2Val + suscept2_ * urp2Val - suscept2_ * wgVal * ui2Val - y_[IbReNum_];
-      double iiAdd2 = conduct2_ * ui2Val + suscept2_ * uip2Val + suscept2_ * wgVal * ur2Val - y_[IbImNum_];
+      double irAdd2 = conduct2_ * ur2Val + suscept2_ * urp2Val - suscept2_ * omegaRef_ * ui2Val - y_[IbReNum_];
+      double iiAdd2 = conduct2_ * ui2Val + suscept2_ * uip2Val + suscept2_ * omegaRef_ * ur2Val - y_[IbImNum_];
       modelBus2_->irAdd(irAdd2);
       modelBus2_->iiAdd(iiAdd2);
     }
@@ -568,16 +570,15 @@ ModelLine::evalF() {
     double ui1Val = ui1();
     double ur2Val = ur2();
     double ui2Val = ui2();
-    double wgVal = wg();
-    f_[0] = - reactance_ * yp_[IbReNum_] - wNom_ * (resistance_ * y_[IbReNum_] - reactance_ * wgVal * y_[IbImNum_]);
-    f_[1] = - reactance_ * yp_[IbImNum_] - wNom_ * (resistance_ * y_[IbImNum_] + reactance_ * wgVal * y_[IbReNum_]);
+    f_[0] = - reactance_ * yp_[IbReNum_] - omegaNom_ * (resistance_ * y_[IbReNum_] - reactance_ * omegaRef_ * y_[IbImNum_]);
+    f_[1] = - reactance_ * yp_[IbImNum_] - omegaNom_ * (resistance_ * y_[IbImNum_] + reactance_ * omegaRef_ * y_[IbReNum_]);
     if (modelBus1_) {
-      f_[0] += wNom_ * ur1Val;
-      f_[1] += wNom_ * ui1Val;
+      f_[0] += omegaNom_ * ur1Val;
+      f_[1] += omegaNom_ * ui1Val;
     }
     if (modelBus2_) {
-      f_[0] -= wNom_ * ur2Val;
-      f_[1] -= wNom_ * ui2Val;
+      f_[0] -= omegaNom_ * ur2Val;
+      f_[1] -= omegaNom_ * ui2Val;
     }
   } else {
     f_[0] = y_[IbReNum_];
@@ -595,25 +596,24 @@ ModelLine::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
     int ui1YNum = modelBus1_->uiYNum();
     int ur2YNum = modelBus2_->urYNum();
     int ui2YNum = modelBus2_->uiYNum();
-    double wgVal = wg();
 
     // column for equation IBranch_re
     jt.changeCol();
-    jt.addTerm(globalYIndex(IbReNum_) + rowOffset, - wNom_ * resistance_ - cj * reactance_);
-    jt.addTerm(globalYIndex(IbImNum_) + rowOffset, wNom_ * reactance_ * wgVal);
+    jt.addTerm(globalYIndex(IbReNum_) + rowOffset, - omegaNom_ * resistance_ - cj * reactance_);
+    jt.addTerm(globalYIndex(IbImNum_) + rowOffset, omegaNom_ * reactance_ * omegaRef_);
     if (modelBus1_)
-      jt.addTerm(ur1YNum + rowOffset, wNom_);
+      jt.addTerm(ur1YNum + rowOffset, omegaNom_);
     if (modelBus2_)
-      jt.addTerm(ur2YNum + rowOffset, -wNom_);
+      jt.addTerm(ur2YNum + rowOffset, -omegaNom_);
 
     // column for equation IBranch_im
     jt.changeCol();
-    jt.addTerm(globalYIndex(IbReNum_) + rowOffset, - wNom_ * reactance_ * wgVal);
-    jt.addTerm(globalYIndex(IbImNum_) + rowOffset, -wNom_ * resistance_ - cj * reactance_);
+    jt.addTerm(globalYIndex(IbReNum_) + rowOffset, - omegaNom_ * reactance_ * omegaRef_);
+    jt.addTerm(globalYIndex(IbImNum_) + rowOffset, -omegaNom_ * resistance_ - cj * reactance_);
     if (modelBus1_)
-      jt.addTerm(ui1YNum + rowOffset, wNom_);
+      jt.addTerm(ui1YNum + rowOffset, omegaNom_);
     if (modelBus2_)
-      jt.addTerm(ui2YNum + rowOffset, -wNom_);
+      jt.addTerm(ui2YNum + rowOffset, -omegaNom_);
   } else {
     jt.changeCol();
     jt.addTerm(globalYIndex(IbReNum_) + rowOffset, 1);
@@ -627,9 +627,11 @@ ModelLine::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
   if (!isDynamic_ || network_->isInitModel())
     return;
 
-  if ((modelBus1_ || modelBus2_) && getConnectionState() == CLOSED) {
+  if (getConnectionState() == CLOSED) {
+    // column for equation IBranch_re
     jt.changeCol();
     jt.addTerm(globalYIndex(IbReNum_) + rowOffset, - reactance_);
+    // column for equation IBranch_im
     jt.changeCol();
     jt.addTerm(globalYIndex(IbImNum_) + rowOffset, - reactance_);
   }
@@ -675,18 +677,17 @@ ModelLine::evalDerivatives(const double& cj) {
         int ui1YNum = modelBus1_->uiYNum();
         int ur2YNum = modelBus2_->urYNum();
         int ui2YNum = modelBus2_->uiYNum();
-        double wgVal = wg();
         double ir1_dUr1 = conduct1_ + cj * suscept1_;
-        double ir1_dUi1 = - wgVal * suscept1_;
+        double ir1_dUi1 = - omegaRef_ * suscept1_;
         double ir1_dIbr = 1;
         double ii1_dUr1 = conduct1_ + cj * suscept1_;
-        double ii1_dUi1 = wgVal * suscept1_;
+        double ii1_dUi1 = omegaRef_ * suscept1_;
         double ii1_dIbi = 1;
         double ir2_dUr2 = conduct2_ + cj * suscept2_;
-        double ir2_dUi2 = - wgVal * suscept2_;
+        double ir2_dUi2 = - omegaRef_ * suscept2_;
         double ir2_dIbr = -1;
         double ii2_dUr2 = conduct2_ + cj * suscept2_;
-        double ii2_dUi2 = wgVal * suscept2_;
+        double ii2_dUi2 = omegaRef_ * suscept2_;
         double ii2_dIbi = -1;
 
         modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1);
@@ -711,7 +712,7 @@ ModelLine::evalDerivatives(const double& cj) {
         break;
       }
     }
-  } else {
+  } else if (!isDynamic_) {
     switch (knownBus_) {
       case BUS1_BUS2: {
         int ur1YNum = modelBus1_->urYNum();
@@ -764,6 +765,7 @@ ModelLine::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   if (isDynamic_) {
     variables.push_back(VariableNativeFactory::createState(id_ + "_iBranch_re", CONTINUOUS));
     variables.push_back(VariableNativeFactory::createState(id_ + "_iBranch_im", CONTINUOUS));
+    variables.push_back(VariableNativeFactory::createState(id_ + "_omegaRef_value", CONTINUOUS));
   }
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i2_value", CONTINUOUS));
@@ -789,6 +791,7 @@ void
 ModelLine::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState("@ID@_iBranch_re", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_iBranch_im", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createState("@ID@_omegaRef_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_i1_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_i2_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1_value", CONTINUOUS));
@@ -812,8 +815,11 @@ void
 ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   string lineName = id_;
   if (isDynamic_) {
-    addElementWithValue(lineName + string("_iBranch_re"), elements, mapElement);
-    addElementWithValue(lineName + string("_iBranch_im"), elements, mapElement);
+    string name = lineName + string("_iBranch");
+    addElement(name, Element::STRUCTURE, elements, mapElement);
+    addSubElement("re", name, Element::TERMINAL, elements, mapElement);
+    addSubElement("im", name, Element::TERMINAL, elements, mapElement);
+    addElementWithValue(lineName + string("_omegaRef"), elements, mapElement);
   }
   addElementWithValue(lineName + string("_i1"), elements, mapElement);
   addElementWithValue(lineName + string("_i2"), elements, mapElement);
@@ -922,6 +928,8 @@ ModelLine::evalZ(const double& t) {
           }
           break;
           case CLOSED_1:
+            if (isDynamic_)
+              throw DYNError(Error::MODELER, DynamicLineStatusNotSupported, id_);
             switch (getConnectionState()) {
             case OPEN:
               network_->addEvent(id_, DYNTimeline(LineCloseSide1));
@@ -948,6 +956,8 @@ ModelLine::evalZ(const double& t) {
             }
             break;
             case CLOSED_2:
+              if (isDynamic_)
+                throw DYNError(Error::MODELER, DynamicLineStatusNotSupported, id_);
               switch (getConnectionState()) {
               case OPEN:
                 network_->addEvent(id_, DYNTimeline(LineCloseSide2));
@@ -1011,30 +1021,40 @@ ModelLine::evalG(const double& t) {
 void
 ModelLine::setFequations(std::map<int, std::string>& fEquationIndex) {
   if (isDynamic_) {
-    fEquationIndex[0] = id() + "Ibranch_re";
-    fEquationIndex[1] = id() + "Ibranch_im";
+    std::stringstream fRe;
+    fRe << id() << " - real part of the branch current: 0 = omegaNom * (Re(U1) - Re(U2) + L * omegaRef * Im(Ib) - R * Re(Ib)) - L * d(Re(Ib))/dt";
+    fEquationIndex[0] = fRe.str();
+
+    std::stringstream fIm;
+    fIm << id() << " - imaginary part of the branch current: 0 = omegaNom * (Im(U1) - Im(U2) - L * omegaRef * Re(Ib) - R * Im(Ib)) - L * d(Im(Ib))/dt";
+    fEquationIndex[1] = fIm.str();
   }
 }
 
 void
 ModelLine::evalYType() {
-  if (isDynamic_ && getConnectionState() == CLOSED) {
-    yType_[0] = DIFFERENTIAL;
-    yType_[1] = DIFFERENTIAL;
-  } else {
-    yType_[0] = ALGEBRIC;
-    yType_[1] = ALGEBRIC;
+  if (isDynamic_) {
+    if (getConnectionState() == CLOSED) {
+      yType_[0] = DIFFERENTIAL;
+      yType_[1] = DIFFERENTIAL;
+    } else {
+      yType_[0] = ALGEBRIC;
+      yType_[1] = ALGEBRIC;
+    }
+    yType_[2] = EXTERNAL;
   }
 }
 
 void
 ModelLine::evalFType() {
-  if (isDynamic_ && getConnectionState() == CLOSED) {
-    fType_[0] = DIFFERENTIAL_EQ;
-    fType_[1] = DIFFERENTIAL_EQ;
-  } else {
-    fType_[0] = ALGEBRIC_EQ;
-    fType_[1] = ALGEBRIC_EQ;
+  if (isDynamic_) {
+    if (getConnectionState() == CLOSED) {
+      fType_[0] = DIFFERENTIAL_EQ;
+      fType_[1] = DIFFERENTIAL_EQ;
+    } else {
+      fType_[0] = ALGEBRIC_EQ;
+      fType_[1] = ALGEBRIC_EQ;
+    }
   }
 }
 
@@ -1152,15 +1172,6 @@ ModelLine::uip2() const {
   if (modelBus2_)
     uip2 = modelBus2_->uip();
   return uip2;
-}
-
-double ModelLine::wg() const {
-  double wg = 1;
-  if (modelBus1_)
-    return modelBus1_->wg();
-  if (modelBus2_)
-    return modelBus2_->wg();
-  return wg;
 }
 
 double
@@ -1609,8 +1620,10 @@ ModelLine::getY0() {
     if (isDynamic_) {
       y_[0] = ir01_;
       y_[1] = ii01_;
+      y_[2] = 1;
       yp_[0] = 0;
       yp_[1] = 0;
+      yp_[2] = 0;
     }
     z_[0] = getConnectionState();
     z_[1] = getCurrentLimitsDesactivate();
@@ -1649,8 +1662,15 @@ ModelLine::setSubModelParameters(const boost::unordered_map<std::string, Paramet
   // isDynamic parameter
   success = false;
   bool isDynamic = getParameterDynamicNoThrow<bool>(params, "line_isDynamic", success);
-  if (success)
+  if (success) {
     isDynamic_ = isDynamic;
+    if (isDynamic_ && getConnectionState() == CLOSED) {
+      modelBus1_->setHasDifferentialVoltages(true);
+      modelBus2_->setHasDifferentialVoltages(true);
+    } else if (isDynamic_ && (getConnectionState() == CLOSED_1 || getConnectionState() == CLOSED_2)) {
+        throw DYNError(Error::MODELER, DynamicLineStatusNotSupported, id_);
+    }
+  }
 }
 
 void

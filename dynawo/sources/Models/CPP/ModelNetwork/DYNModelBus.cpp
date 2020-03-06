@@ -164,7 +164,7 @@ irYNum_(0),
 wgNum_(0),
 busIndex_(bus->getBusIndex()),
 hasConnection_(bus->hasConnection()),
-isDynamic_(false),
+hasDifferentialVoltages_(false),
 modelType_((boost::starts_with(bus->getID(), "calculatedBus_"))?"Bus":"Node") {
   neighbors_.clear();
   busBarSectionNames_.clear();
@@ -220,8 +220,6 @@ ModelBus::initSize() {
     sizeY_ = 2;
     if (hasConnection_)
       sizeY_ = 4;
-    if (isDynamic_)
-      sizeY_ = sizeY_ + 1;  // wg network
     sizeZ_ = 3;  // numCC, switchOff, state
     sizeG_ = 4;  // U> Umax or U< Umin
     sizeMode_ = 0;
@@ -277,15 +275,6 @@ ModelBus::uip() const {
   }
 }
 
-double
-ModelBus::wg() const {
-  if (!getSwitchOff()) {
-    return y_[wgNum_];
-  } else {
-    return 0.;
-  }
-}
-
 void
 ModelBus::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
@@ -297,12 +286,6 @@ ModelBus::setSubModelParameters(const boost::unordered_map<std::string, Paramete
   value = getParameterDynamicNoThrow<double>(params, "bus_uMin", success);
   if (success)
     uMin_ = value;
-
-  // isDynamic parameter
-  success = false;
-  bool isDynamic = getParameterDynamicNoThrow<bool>(params, "bus_isDynamic", success);
-  if (success)
-    isDynamic_ = isDynamic;
 }
 
 void
@@ -417,14 +400,9 @@ ModelBus::evalYType() {
   yType_[0] = ALGEBRAIC;
   yType_[1] = ALGEBRAIC;
 
-  if (isDynamic_) {
+  if (hasDifferentialVoltages_) {
     yType_[0] = DIFFERENTIAL;
     yType_[1] = DIFFERENTIAL;
-    if (hasConnection_) {
-      yType_[4] = EXTERNAL;
-    } else {
-      yType_[2] = EXTERNAL;
-    }
   }
 
   if (hasConnection_) {
@@ -437,7 +415,7 @@ void
 ModelBus::evalFType() {
   fType_[0] = ALGEBRAIC_EQ;
   fType_[1] = ALGEBRAIC_EQ;
-  if (isDynamic_) {
+  if (hasDifferentialVoltages_) {
     fType_[0] = DIFFERENTIAL_EQ;
     fType_[1] = DIFFERENTIAL_EQ;
   }
@@ -482,11 +460,6 @@ ModelBus::init(int& yNum) {
       irYNum_ = -1;
       iiYNum_ = -1;
     }
-
-    if (isDynamic_) {
-      wgNum_ = yNum;
-      ++yNum;
-    }
   }
 }
 
@@ -518,13 +491,6 @@ ModelBus::getY0() {
       yp_[3] = 0.0;
     }
 
-    if (isDynamic_ && hasConnection_) {
-      y_[4] = 1;
-      yp_[4] = 0;
-    } else {
-      y_[2] = 1;
-      yp_[2] = 0;
-    }
     // We assume here that z_[numSubNetworkNum_] was already initialized!!
     if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.))
       z_[switchOffNum_] = fromNativeBool(false);
@@ -548,8 +514,6 @@ ModelBus::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
     variables.push_back(VariableAliasFactory::create(id_ + "_ACPIN_i_re", id_ + "_PWPIN_ir"));
     variables.push_back(VariableAliasFactory::create(id_ + "_ACPIN_i_im", id_ + "_PWPIN_ii"));
   }
-  if (isDynamic_)
-    variables.push_back(VariableNativeFactory::createState(id_ + "_wg_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_numcc_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_switchOff_value", BOOLEAN));
   variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
@@ -580,7 +544,6 @@ void
 ModelBus::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("bus_uMax", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("bus_uMin", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("bus_isDynamic", VAR_TYPE_BOOL, EXTERNAL_PARAMETER));
 }
 
 void
@@ -600,7 +563,6 @@ ModelBus::defineVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableAliasFactory::create("@ID@_ACPIN_V_im", "@ID@_PWPIN_vi"));
   variables.push_back(VariableNativeFactory::createState("@ID@_PWPIN_ir", FLOW));
   variables.push_back(VariableNativeFactory::createState("@ID@_PWPIN_ii", FLOW));
-  variables.push_back(VariableNativeFactory::createState("@ID@_wg", CONTINUOUS));
   variables.push_back(VariableAliasFactory::create("@ID@_ACPIN_i_re", "@ID@_PWPIN_ir"));
   variables.push_back(VariableAliasFactory::create("@ID@_ACPIN_i_im", "@ID@_PWPIN_ii"));
   variables.push_back(VariableNativeFactory::createState("@ID@_numcc_value", DISCRETE));
@@ -639,9 +601,6 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
     addSubElement("re", ACNameV, Element::TERMINAL, elements, mapElement);
     addSubElement("im", ACNameV, Element::TERMINAL, elements, mapElement);
   }
-
-  if (isDynamic_)
-    addElementWithValue(id + string("_wg"), elements, mapElement);
 
   // Calculated variables addition
   addElementWithValue(id + string("_Upu"), elements, mapElement);
@@ -861,7 +820,8 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
 
 void
 ModelBus::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
-  if (isDynamic_ && !getSwitchOff() && !derivativesPrim_->empty()) {
+  // y' in network equations - differential voltages
+  if (hasDifferentialVoltages_ && !getSwitchOff() && !derivativesPrim_->empty()) {
     jt.changeCol();
     const map<int, double>& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
     map<int, double>::const_iterator iter = irDerivativesValues.begin();

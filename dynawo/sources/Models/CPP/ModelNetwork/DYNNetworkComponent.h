@@ -93,6 +93,7 @@ class NetworkComponent {  ///< Base class for network component models
 
   /**
    * @brief evaluate derivatives
+   * @param cj Jacobian prime coefficient
    */
   virtual void evalDerivatives(const double& cj) = 0;
 

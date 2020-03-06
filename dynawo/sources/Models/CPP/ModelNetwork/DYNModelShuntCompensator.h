@@ -90,9 +90,13 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
 
   /**
    * @brief evaluate derivatives
+   * @param cj Jacobian prime coefficient
    */
   void evalDerivatives(const double& cj);
 
+  /**
+   * @brief evaluate derivatives prim
+   */
   void evalDerivativesPrim() {}
 
   /**

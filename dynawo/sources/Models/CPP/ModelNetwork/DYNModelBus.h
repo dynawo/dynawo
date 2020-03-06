@@ -137,10 +137,14 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void resetNodeInjection();
 
   /**
-   * @brief evaluate derivatives
+   * @brief evaluate derivatives for J
+   * @param cj Jacobian prime coefficient
    */
   void evalDerivatives(const double& cj);
 
+  /**
+   * @brief evaluate derivatives for J'
+   */
   void evalDerivativesPrim() {}
 
   /**
@@ -310,16 +314,16 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void initDerivatives();
 
   /**
-   * @brief get derivatives
-   * @return the derivatives associated to the bus model
+   * @brief get derivatives for J
+   * @return the derivatives associated to the bus model for J
    */
   inline boost::shared_ptr<BusDerivatives> derivatives() const {
     return derivatives_;
   }
 
   /**
-   * @brief get derivatives
-   * @return the derivatives associated to the bus model
+   * @brief get derivatives for J'
+   * @return the derivatives associated to the bus model for J'
    */
   inline boost::shared_ptr<BusDerivatives> derivativesPrim() const {
     return derivativesPrim_;
@@ -405,7 +409,13 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    */
   double uip() const;
 
-  double wg() const;
+  /**
+   * @brief set if the bus voltage variables are differential
+   * @param hasDifferentialVoltages @b true if the bus voltages are differential
+  **/
+  inline void setHasDifferentialVoltages(const bool& hasDifferentialVoltages) {
+    hasDifferentialVoltages_ = hasDifferentialVoltages;
+  }
 
   /**
    * @brief get urYNum
@@ -542,7 +552,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   int busIndex_;  ///< index of bus in its voltage level
   bool hasConnection_;  ///< whether has connection
-  bool isDynamic_;  ///< whether the bus model should be dynamic (ie voltages differential)
+  bool hasDifferentialVoltages_;  ///< whether the bus model has differential voltages
 
   double unom_;  ///< nominal voltage
   double u0_;  ///< initial voltage
