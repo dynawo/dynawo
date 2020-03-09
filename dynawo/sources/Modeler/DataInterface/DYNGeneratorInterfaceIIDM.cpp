@@ -87,8 +87,12 @@ GeneratorInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
   staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(getP() / SNREF)));
   staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(getQ() / SNREF)));
+  staticParameters_.insert(std::make_pair("pMin_pu", StaticParameter("pMin_pu", StaticParameter::DOUBLE).setValue(getPMin() / SNREF)));
+  staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(getPMax() / SNREF)));
   staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(getP())));
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ())));
+  staticParameters_.insert(std::make_pair("pMin", StaticParameter("pMin", StaticParameter::DOUBLE).setValue(getPMin())));
+  staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(getPMax())));
   if (busInterface_) {
     double U0 = busInterface_->getV0();
     double vNom;
@@ -137,6 +141,16 @@ GeneratorInterfaceIIDM::getInitialConnected() {
 double
 GeneratorInterfaceIIDM::getP() {
   return InjectorInterfaceIIDM<IIDM::Generator>::getP();
+}
+
+double
+GeneratorInterfaceIIDM::getPMin() {
+  return generatorIIDM_.pmin();
+}
+
+double
+GeneratorInterfaceIIDM::getPMax() {
+  return generatorIIDM_.pmax();
 }
 
 double
