@@ -8,22 +8,14 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(Controls C)
-add_subdirectory(Events E)
-add_subdirectory(Buses B)
-add_subdirectory(Loads L)
-add_subdirectory(HVDC H)
-add_subdirectory(Machines M)
-add_subdirectory(Transformers T)
-add_subdirectory(Lines N)
-add_subdirectory(Sources I)
-add_subdirectory(StaticVarCompensators V)
-add_subdirectory(Switches S)
-
 set(MODEL_FILES
     package.mo
-    SystemBase.mo
-    Constants.mo
+    DeltaPCalc.mo
+    DeltaPCalc.extvar
+    IpRefPPuCalc.mo
+    IpRefPPuCalc.extvar
+    ActivePowerControl.mo
+    ActivePowerControl.extvar
     )
 
 #
