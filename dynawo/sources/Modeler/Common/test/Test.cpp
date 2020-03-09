@@ -54,6 +54,14 @@ using parameters::ParametersSetFactory;
 namespace DYN {
 
 class SubModelMockBase : public SubModel {
+ public:
+  SubModelMockBase(unsigned nbY, unsigned nbZ) {
+    sizeZ_ = nbZ;
+    sizeY_ = nbY;
+  }
+
+  virtual ~SubModelMockBase() {}
+
   void init(const double& t0) {
     // Dummy class used for testing
   }
@@ -166,7 +174,9 @@ class SubModelMockBase : public SubModel {
   }
 
   void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-    // Dummy class used for testing
+    variables.push_back(VariableNativeFactory::createState("MyVar", CONTINUOUS));
+    variables.push_back(VariableAliasFactory::create("MyAliasVar", "MyVar", FLOW, false));
+    variables.push_back(VariableNativeFactory::createState("MyDiscreteVar", DISCRETE));
   }
 
   void defineParameters(std::vector<ParameterModeler>& parameters) {
@@ -217,6 +227,13 @@ class SubModelMockBase : public SubModel {
 };
 
 class SubModelMock : public SubModelMockBase {
+ public:
+  SubModelMock(unsigned nbY, unsigned nbZ) : SubModelMockBase(nbY, nbZ) {}
+
+  SubModelMock() : SubModelMockBase(1, 1) {}
+
+  virtual ~SubModelMock() {}
+
   modeChangeType_t evalMode(const double& t) {
     // Dummy class used for testing
     return NO_MODE;
@@ -224,6 +241,13 @@ class SubModelMock : public SubModelMockBase {
 };
 
 class SubModelMode : public SubModelMockBase {
+ public:
+  SubModelMode(unsigned nbY, unsigned nbZ) : SubModelMockBase(nbY, nbZ) {}
+
+  SubModelMode() : SubModelMockBase(1, 1) {}
+
+  virtual ~SubModelMode() {}
+
   modeChangeType_t evalMode(const double& t) {
     if (doubleEquals(t, 1))
       return DIFFERENTIAL_MODE;
@@ -984,5 +1008,32 @@ TEST(ModelerCommonTest, testModeHandling) {
   ASSERT_EQ(subModel->modeChange(), false);
   modelMulti->setModeChangeType(DIFFERENTIAL_MODE);
   ASSERT_EQ(modelMulti->getModeChangeType(), DIFFERENTIAL_MODE);
+}
+
+TEST(ModelerCommonTest, SanityCheckOnSizeYZ) {
+  // Create submodel
+  boost::shared_ptr<SubModelMock> submodel = boost::shared_ptr<SubModelMock>(new SubModelMock(2, 1));
+  boost::dynamic_pointer_cast< SubModel >(submodel)->defineVariables();
+  submodel->defineNames();
+  int sizeYGlob = 0;
+  int sizeZGlob = 0;
+  int sizeModeGlob = 0;
+  int sizeFGlob = 0;
+  int sizeGGlob = 0;
+  ASSERT_THROW_DYNAWO(submodel->initSize(sizeYGlob, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob),
+      Error::MODELER, KeyError_t::MismatchingVariableSizes);
+
+
+  submodel = boost::shared_ptr<SubModelMock>(new SubModelMock(1, 2));
+  boost::dynamic_pointer_cast< SubModel >(submodel)->defineVariables();
+  submodel->defineNames();
+  ASSERT_THROW_DYNAWO(submodel->initSize(sizeYGlob, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob),
+      Error::MODELER, KeyError_t::MismatchingVariableSizes);
+
+
+  submodel = boost::shared_ptr<SubModelMock>(new SubModelMock(1, 1));
+  boost::dynamic_pointer_cast< SubModel >(submodel)->defineVariables();
+  submodel->defineNames();
+  ASSERT_NO_THROW(submodel->initSize(sizeYGlob, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob));
 }
 }  // namespace DYN

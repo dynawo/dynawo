@@ -220,6 +220,12 @@ void
 SubModel::initSize(int &sizeYGlob, int &sizeZGlob, int& sizeModeGlob, int & sizeFGlob, int & sizeGGlob) {
   getSize();
 
+  if (sizeY_ != xNames_.size())
+      throw DYNError(Error::MODELER, MismatchingVariableSizes, "Y", name(), sizeY_, xNames_.size());
+  if (sizeZ_ != zNames_.size())
+      throw DYNError(Error::MODELER, MismatchingVariableSizes, "Z", name(), sizeZ_, zNames_.size());
+
+
   yDeb_ = sizeYGlob;
   zDeb_ = sizeZGlob;
   modeDeb_ = sizeModeGlob;
