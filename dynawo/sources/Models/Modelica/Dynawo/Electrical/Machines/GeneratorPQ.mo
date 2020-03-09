@@ -12,10 +12,10 @@ within Dynawo.Electrical.Machines;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GeneratorPQ "Generator with power / frequency modulation and fixed reactive power under normal voltages"
+model GeneratorPQ "Generator with power / frequency modulation and fixed reactive power"
   /*
   The P output is modulated according to frequency (in order to model frequency containment reserves)
-  The Q output is only modulated when large voltage variations occur
+  The Q output is fixed equal to its initial value QGen0Pu
   */
 
   import Dynawo.NonElectrical.Logs.Timeline;
@@ -25,41 +25,11 @@ model GeneratorPQ "Generator with power / frequency modulation and fixed reactiv
   extends BaseClasses.BaseGeneratorSimplifiedPFBehavior;
   extends AdditionalIcons.Machine;
 
-    type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
-                                AbsorptionMax "Reactive power is fixed to its absorption limit",
-                                GenerationMax "Reactive power is fixed to its generation limit");
-
-    parameter Types.VoltageModulePu UMinPu "Minimum voltage in p.u (base UNom)";
-    parameter Types.VoltageModulePu UMaxPu "Maximum voltage in p.u (base UNom)";
-    parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
-    parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
-
-  protected
-
-    constant Types.VoltageModulePu UDeadBand = 1e-4 "Voltage dead-band";
-
-    QStatus qStatus (start = QStatus.Standard) "Reactive power status: standard, absorptionMax or generationMax";
-
 equation
 
-  when UPu >= UMaxPu + UDeadBand and pre(qStatus) <> QStatus.AbsorptionMax then
-    qStatus = QStatus.AbsorptionMax;
-    Timeline.logEvent1(TimelineKeys.GeneratorPQMaxV);
-  elsewhen UPu <= UMinPu - UDeadBand and pre(qStatus) <> QStatus.GenerationMax then
-    qStatus = QStatus.GenerationMax;
-    Timeline.logEvent1(TimelineKeys.GeneratorPQMinV);
-  elsewhen (UPu < UMaxPu - UDeadBand and pre(qStatus) == QStatus.AbsorptionMax) or (UPu > UMinPu + UDeadBand and pre(qStatus) == QStatus.GenerationMax) then
-    qStatus = QStatus.Standard;
-    Timeline.logEvent1(TimelineKeys.GeneratorPQBackRegulation);
-  end when;
-
-  if running.value then
-    QGenPu = if qStatus == QStatus.AbsorptionMax then QMaxPu else if qStatus == QStatus.GenerationMax then QMinPu else QGen0Pu;
-  else
-    QGenPu = 0;
-  end if;
+  QGenPu = QGen0Pu;
 
 annotation(
     preferredView = "text",
-    Documentation(info = "<html><head></head><body>The active power output is modulated according to frequency (in order to model frequency containment reserves).<div>The reactive power output is only modulated when large voltage variations occur.</div></body></html>"));
+    Documentation(info = "<html><head></head><body>The active power output is modulated according to frequency (in order to model frequency containment reserves).<div>The reactive power output is fixed equal to its initial value QGen0Pu.</div></body></html>"));
 end GeneratorPQ;
