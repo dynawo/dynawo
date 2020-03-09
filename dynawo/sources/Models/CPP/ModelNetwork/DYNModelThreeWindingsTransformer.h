@@ -115,9 +115,12 @@ class ModelThreeWindingsTransformer : public NetworkComponent::Impl {
   /**
    * @brief evaluate derivatives
    */
-  void evalDerivatives(const double& /*cj*/) { /* not needed */ }
+  void evalDerivatives(const double /*cj*/) { /* not needed */ }
 
-  void evalDerivativesPrim() {}
+  /**
+   * @copydoc NetworkComponent::Impl::evalDerivativesPrim()
+   */
+  void evalDerivativesPrim() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::Impl::evalF()

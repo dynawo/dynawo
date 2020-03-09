@@ -141,7 +141,7 @@ class ModelLine : public NetworkComponent::Impl {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double& cj);
+  void evalDerivatives(const double cj);
 
   /**
    * @brief evaluate derivatives prim
@@ -193,13 +193,20 @@ class ModelLine : public NetworkComponent::Impl {
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t);  // get the local G function for time G
-  /**
-   * @brief evalaution calculated variables (for outputs)
-   */
-  void evalCalculatedVars();  // compute calculated variables (for outputs)
+  void evalG(const double& t);
 
+  /**
+   * @brief evaluation calculated variables (for outputs)
+   */
+  void evalCalculatedVars();
+
+  /**
+   * @brief get the index of variables used to define the jacobian associated to a calculated variable
+   * @param numCalculatedVar index of the calculated variable
+   * @param numVars index of variables used to define the jacobian associated to a calculated variable
+   */
   void getDefJCalculatedVarI(int numCalculatedVar, std::vector<int> & numVars);
+
   /**
    * @brief evaluate the jacobian associated to a calculated variable
    *
@@ -242,9 +249,15 @@ class ModelLine : public NetworkComponent::Impl {
    */
   void evalFType();
 
+  /**
+   * @copydoc NetworkComponent::evalYMat()
+   */
   void evalYMat();
 
-  void init(int& yNum);
+  /**
+   * @copydoc NetworkComponent::init(int& yNum)
+   */
+  void init(int & yNum);
 
   /**
    * @copydoc NetworkComponent::Impl::getY0()
@@ -491,7 +504,7 @@ class ModelLine : public NetworkComponent::Impl {
    * @param localIndex the local variable index inside the model
    * @return the global variable index
    */
-  inline unsigned int globalYIndex(const unsigned int& localIndex) {
+  inline unsigned int globalYIndex(const unsigned int localIndex) {
     return yOffset_ + localIndex;
   }
 

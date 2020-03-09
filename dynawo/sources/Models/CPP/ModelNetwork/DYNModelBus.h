@@ -140,12 +140,12 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @brief evaluate derivatives for J
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double& cj);
+  void evalDerivatives(const double cj);
 
   /**
    * @brief evaluate derivatives for J'
    */
-  void evalDerivativesPrim() {}
+  void evalDerivativesPrim() { /* not needed */ }
 
   /**
    * @brief evaluate F
@@ -208,8 +208,14 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    */
   void evalFType();
 
+  /**
+   * @copydoc NetworkComponent::evalYMat()
+   */
   void evalYMat() { /* not needed*/ }
 
+  /**
+   * @copydoc NetworkComponent::init(int& yNum)
+   */
   void init(int & yNum);
 
   /**
@@ -332,7 +338,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   /**
    * @brief  switch off the bus (and force the voltage to be set to 0)
    */
-  void switchOff();  // switch off the bus (and force the voltage to be set to 0)
+  void switchOff();
 
   /**
    * @brief switch on the bus
@@ -340,7 +346,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   inline void switchOn() {
     assert(z_!= NULL);
     z_[switchOffNum_] = fromNativeBool(false);
-  }  // switch on the bus
+  }
 
   /**
    * @brief get information about whether the bus is switched off
@@ -413,7 +419,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    * @brief set if the bus voltage variables are differential
    * @param hasDifferentialVoltages @b true if the bus voltages are differential
   **/
-  inline void setHasDifferentialVoltages(const bool& hasDifferentialVoltages) {
+  inline void setHasDifferentialVoltages(const bool hasDifferentialVoltages) {
     hasDifferentialVoltages_ = hasDifferentialVoltages;
   }
 
@@ -439,7 +445,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    */
   inline void numSubNetwork(int num) {
     z_[numSubNetworkNum_] = num;
-  }  // set the number of independent sub networks
+  }
 
   /**
    * @brief check whether the sub-network index has already been set
@@ -463,7 +469,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
     assert(z_ != NULL);
     assert(doubleNotEquals(z_[numSubNetworkNum_], -1.));
     return z_[numSubNetworkNum_];
-  }  // get the number of independent sub networks
+  }
 
   /**
    * @brief get nominal voltage
@@ -548,7 +554,6 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   int uiYNum_;  ///< ui
   int iiYNum_;  ///< ii
   int irYNum_;  ///< ir
-  int wgNum_;  ///< wg
 
   int busIndex_;  ///< index of bus in its voltage level
   bool hasConnection_;  ///< whether has connection

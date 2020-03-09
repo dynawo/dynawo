@@ -73,6 +73,7 @@ ii2_dUi2_(0.),
 yOffset_(0.),
 IbReNum_(0.),
 IbImNum_(0.),
+omegaRefNum_(0.),
 omegaNom_(OMEGA_NOM),
 omegaRef_(1.),
 modelType_("Line") {
@@ -542,8 +543,8 @@ ModelLine::evalNodeInjection() {
       double ui1Val = ui1();
       double urp1Val = urp1();
       double uip1Val = uip1();
-      double irAdd1 = conduct1_ * ur1Val + suscept1_ * urp1Val - suscept1_ * omegaRef_ * ui1Val + y_[IbReNum_];
-      double iiAdd1 = conduct1_ * ui1Val + suscept1_ * uip1Val + suscept1_ * omegaRef_ * ur1Val + y_[IbImNum_];
+      double irAdd1 = conduct1_ * ur1Val + suscept1_ * urp1Val / omegaNom_ - suscept1_ * omegaRef_ * ui1Val + y_[IbReNum_];
+      double iiAdd1 = conduct1_ * ui1Val + suscept1_ * uip1Val / omegaNom_ + suscept1_ * omegaRef_ * ur1Val + y_[IbImNum_];
       modelBus1_->irAdd(irAdd1);
       modelBus1_->iiAdd(iiAdd1);
     }
@@ -552,8 +553,8 @@ ModelLine::evalNodeInjection() {
       double ui2Val = ui2();
       double urp2Val = urp2();
       double uip2Val = uip2();
-      double irAdd2 = conduct2_ * ur2Val + suscept2_ * urp2Val - suscept2_ * omegaRef_ * ui2Val - y_[IbReNum_];
-      double iiAdd2 = conduct2_ * ui2Val + suscept2_ * uip2Val + suscept2_ * omegaRef_ * ur2Val - y_[IbImNum_];
+      double irAdd2 = conduct2_ * ur2Val + suscept2_ * urp2Val / omegaNom_ - suscept2_ * omegaRef_ * ui2Val - y_[IbReNum_];
+      double iiAdd2 = conduct2_ * ui2Val + suscept2_ * uip2Val / omegaNom_ + suscept2_ * omegaRef_ * ur2Val - y_[IbImNum_];
       modelBus2_->irAdd(irAdd2);
       modelBus2_->iiAdd(iiAdd2);
     }
@@ -646,10 +647,10 @@ ModelLine::evalDerivativesPrim() {
         int ui1YNum = modelBus1_->uiYNum();
         int ur2YNum = modelBus2_->urYNum();
         int ui2YNum = modelBus2_->uiYNum();
-        double ir1_dUrp1 = suscept1_;
-        double ii1_dUip1 = suscept1_;
-        double ir2_dUrp2 = suscept2_;
-        double ii2_dUip2 = suscept2_;
+        double ir1_dUrp1 = suscept1_ / omegaNom_;
+        double ii1_dUip1 = suscept1_ / omegaNom_;
+        double ir2_dUrp2 = suscept2_ / omegaNom_;
+        double ii2_dUip2 = suscept2_ / omegaNom_;
 
         modelBus1_->derivativesPrim()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUrp1);
         modelBus1_->derivativesPrim()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUip1);
@@ -658,9 +659,7 @@ ModelLine::evalDerivativesPrim() {
         modelBus2_->derivativesPrim()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUip2);
         break;
       }
-    case BUS1: {
-      break;
-      }
+    case BUS1:
     case BUS2: {
       break;
       }
@@ -669,7 +668,7 @@ ModelLine::evalDerivativesPrim() {
 }
 
 void
-ModelLine::evalDerivatives(const double& cj) {
+ModelLine::evalDerivatives(const double cj) {
   if (isDynamic_ && getConnectionState() == CLOSED) {
     switch (knownBus_) {
       case BUS1_BUS2: {
@@ -677,16 +676,16 @@ ModelLine::evalDerivatives(const double& cj) {
         int ui1YNum = modelBus1_->uiYNum();
         int ur2YNum = modelBus2_->urYNum();
         int ui2YNum = modelBus2_->uiYNum();
-        double ir1_dUr1 = conduct1_ + cj * suscept1_;
+        double ir1_dUr1 = conduct1_ + cj * suscept1_ / omegaNom_;
         double ir1_dUi1 = - omegaRef_ * suscept1_;
         double ir1_dIbr = 1;
-        double ii1_dUr1 = conduct1_ + cj * suscept1_;
+        double ii1_dUr1 = conduct1_ + cj * suscept1_ / omegaNom_;
         double ii1_dUi1 = omegaRef_ * suscept1_;
         double ii1_dIbi = 1;
-        double ir2_dUr2 = conduct2_ + cj * suscept2_;
+        double ir2_dUr2 = conduct2_ + cj * suscept2_ / omegaNom_;
         double ir2_dUi2 = - omegaRef_ * suscept2_;
         double ir2_dIbr = -1;
-        double ii2_dUr2 = conduct2_ + cj * suscept2_;
+        double ii2_dUr2 = conduct2_ + cj * suscept2_ / omegaNom_;
         double ii2_dUi2 = omegaRef_ * suscept2_;
         double ii2_dIbi = -1;
 
@@ -705,9 +704,7 @@ ModelLine::evalDerivatives(const double& cj) {
         modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, globalYIndex(IbImNum_), ii2_dIbi);
         break;
       }
-    case BUS1: {
-        break;
-      }
+    case BUS1:
     case BUS2: {
         break;
       }

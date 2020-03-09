@@ -79,12 +79,12 @@ class ModelGenerator : public NetworkComponent::Impl {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double& cj);
+  void evalDerivatives(const double cj);
 
   /**
    * @brief evaluate derivatives prim
    */
-  void evalDerivativesPrim() {}
+  void evalDerivativesPrim() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::Impl::evalF()
@@ -185,8 +185,14 @@ class ModelGenerator : public NetworkComponent::Impl {
    */
   void evalFType() { /* not needed */ }
 
-  void evalYMat() { /* not needed */ }
+  /**
+   * @copydoc NetworkComponent::evalYMat()
+   */
+  void evalYMat() { /* not needed*/ }
 
+  /**
+   * @copydoc NetworkComponent::init(int& yNum)
+   */
   void init(int & yNum);
 
   /**
