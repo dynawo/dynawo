@@ -283,11 +283,6 @@ The controls package gathers all the controls and regulations models for the dif
 
 Events models enable to change the connection status of the different grid elements. They are all based on a similar basis with a time corresponding to the event and a variable whose value will change at the event time.
 
-\paragraph{Injectors}
-~~\\
-
-An Injectors package is available in the library: it offers at the moment a dq-injector model and a BG-injector model.
-
 \paragraph{Lines}
 ~~\\
 
@@ -307,10 +302,16 @@ Two load models are included into the package:
 
 Different models with different levels of details constitute the Machines package. The most detailed model is a four-windings synchronous machine model (GeneratorSynchronous). Others are simplified ones:
 \begin{itemize}
-\item GeneratorPQ in which the P output is modulated according to frequency and the Q output is only modulated when large variations occur.
+\item GeneratorPQ in which the P output is modulated according to frequency and the Q output is constant equal to a fixed value.
 \item GeneratorPV that modulates the P output according to frequency and the Q outputs to keep $U + \lambda * Q$ as close as possible to a set point.
 \item GeneratorFictitious that acts as a voltage-dependent generator. P and Q vary around their initial values depending on the voltage value.
 \end{itemize}
+
+
+\paragraph{Sources}
+~~\\
+
+A Sources package is available in the library: it offers at the moment a dq-injector model and a BG-injector model.
 
 \paragraph{Switches}
 ~~\\
