@@ -859,7 +859,7 @@ ModelTwoWindingsTransformer::ii2_dUi2() const {
 }
 
 void
-ModelTwoWindingsTransformer::evalDerivatives(const double& /*cj*/) {
+ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
   switch (knownBus_) {
     case BUS1_BUS2: {
       int ur1YNum = modelBus1_->urYNum();

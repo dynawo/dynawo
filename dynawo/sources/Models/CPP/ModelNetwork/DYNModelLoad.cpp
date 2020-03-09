@@ -579,7 +579,7 @@ ModelLoad::evalNodeInjection() {
 }
 
 void
-ModelLoad::evalDerivatives(const double& /*cj*/) {
+ModelLoad::evalDerivatives(const double /*cj*/) {
   if (network_->isInitModel())
     return;
   if (isConnected()) {

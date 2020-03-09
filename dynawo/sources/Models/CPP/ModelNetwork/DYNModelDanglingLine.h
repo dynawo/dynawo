@@ -118,12 +118,12 @@ class ModelDanglingLine : public NetworkComponent::Impl {
    * @brief evaluate derivatives
    * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives(const double& cj);
+  void evalDerivatives(const double cj);
 
   /**
    * @brief evaluate derivatives prim
    */
-  void evalDerivativesPrim() {}
+  void evalDerivativesPrim() { /* not needed */ }
 
   /**
    * @brief define variables
@@ -217,9 +217,15 @@ class ModelDanglingLine : public NetworkComponent::Impl {
    */
   void evalFType();
 
+  /**
+   * @copydoc NetworkComponent::evalYMat()
+   */
   void evalYMat();
 
-  void init(int& yNum);
+  /**
+   * @copydoc NetworkComponent::init(int& yNum)
+   */
+  void init(int & yNum);
 
   /**
    * @copydoc NetworkComponent::Impl::getY0()

@@ -935,11 +935,11 @@ ModelNetwork::evalJt(const double& /*t*/, const double& cj, SparseMatrix& jt, co
 
 void
 ModelNetwork::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& rowOffset) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
+       itComponent != getComponents().end(); ++itComponent)
     (*itComponent)->evalDerivativesPrim();
 
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
     (*itComponent)->evalJtPrim(jt, rowOffset);
 }
 

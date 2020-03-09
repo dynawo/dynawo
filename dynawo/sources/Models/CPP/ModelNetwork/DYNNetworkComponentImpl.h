@@ -71,9 +71,9 @@ class NetworkComponent::Impl : public NetworkComponent {
   virtual void evalNodeInjection() = 0;
 
   /**
-   * @copydoc NetworkComponent::evalDerivatives(const double& cj)
+   * @copydoc NetworkComponent::evalDerivatives(const double cj)
    */
-  virtual void evalDerivatives(const double& cj) = 0;
+  virtual void evalDerivatives(const double cj) = 0;
 
   /**
    * @copydoc NetworkComponent::evalDerivativesPrim()

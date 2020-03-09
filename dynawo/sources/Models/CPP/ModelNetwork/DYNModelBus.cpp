@@ -161,7 +161,6 @@ urYNum_(0),
 uiYNum_(0),
 iiYNum_(0),
 irYNum_(0),
-wgNum_(0),
 busIndex_(bus->getBusIndex()),
 hasConnection_(bus->hasConnection()),
 hasDifferentialVoltages_(false),
@@ -253,10 +252,7 @@ ModelBus::ui() const {
 
 double
 ModelBus::urp() const {
-  if (!getSwitchOff()) {
-    if (network_->isInit())
-      return 0;
-    else
+  if (!getSwitchOff() && !network_->isInit()) {
       return yp_[urNum_];
   } else {
     return 0.;
@@ -265,10 +261,7 @@ ModelBus::urp() const {
 
 double
 ModelBus::uip() const {
-  if (!getSwitchOff()) {
-    if (network_->isInit())
-      return 0;
-    else
+  if (!getSwitchOff() && !network_->isInit()) {
       return yp_[uiNum_];
   } else {
     return 0.;
@@ -313,7 +306,7 @@ ModelBus::addNeighbor(boost::shared_ptr<ModelBus>& bus) {
 }
 
 void
-ModelBus::evalDerivatives(const double& /*cj*/) {
+ModelBus::evalDerivatives(const double /*cj*/) {
   if (!network_->isInitModel() && hasConnection_) {
     derivatives_->addDerivative(IR_DERIVATIVE, irYNum_, -1);
     derivatives_->addDerivative(II_DERIVATIVE, iiYNum_, -1);
@@ -824,15 +817,13 @@ ModelBus::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
   if (hasDifferentialVoltages_ && !getSwitchOff() && !derivativesPrim_->empty()) {
     jt.changeCol();
     const map<int, double>& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
-    map<int, double>::const_iterator iter = irDerivativesValues.begin();
-    for (; iter != irDerivativesValues.end(); ++iter) {
+    for (map<int, double>::const_iterator iter = irDerivativesValues.begin(); iter != irDerivativesValues.end(); ++iter) {
       jt.addTerm(iter->first + rowOffset, iter->second);
     }
 
     jt.changeCol();
     const map<int, double>& iiDerivativesValues = derivativesPrim_->getValues(II_DERIVATIVE);
-    iter = iiDerivativesValues.begin();
-    for (; iter != iiDerivativesValues.end(); ++iter) {
+    for (map<int, double>::const_iterator iter = iiDerivativesValues.begin(); iter != iiDerivativesValues.end(); ++iter) {
       jt.addTerm(iter->first + rowOffset, iter->second);
     }
   } else {

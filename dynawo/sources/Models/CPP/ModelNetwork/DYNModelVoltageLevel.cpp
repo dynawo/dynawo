@@ -450,7 +450,7 @@ ModelVoltageLevel::evalState(const double& time) {
 }
 
 void
-ModelVoltageLevel::evalDerivatives(const double& cj) {
+ModelVoltageLevel::evalDerivatives(const double cj) {
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
     (*itComponent)->evalDerivatives(cj);
