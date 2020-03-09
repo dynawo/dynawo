@@ -37,7 +37,8 @@ model TransformerVariableTap "Transformer with variable tap to be connected to a
 
     Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)),i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the transformer to the grid" annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-    Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)),i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the transformer to the grid";
+    Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)),i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the transformer to the grid" annotation(
+    Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
     // Input connectors
     Connectors.ImPin tap (value (start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
