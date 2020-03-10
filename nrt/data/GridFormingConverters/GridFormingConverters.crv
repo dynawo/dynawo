@@ -13,10 +13,10 @@
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
     <curve model="Converter250" variable="control_omegaPu"/>
-    <curve model="Converter250" variable="converter_iConvmodule"/>
+    <curve model="Converter250" variable="converter_IConvPu"/>
     <curve model="Converter500" variable="control_omegaPu"/>
-    <curve model="Converter500" variable="converter_iConvmodule"/>
+    <curve model="Converter500" variable="converter_IConvPu"/>
     <curve model="Converter1000" variable="control_omegaPu"/>
-    <curve model="Converter1000" variable="converter_iConvmodule"/>
+    <curve model="Converter1000" variable="converter_IConvPu"/>
 </curvesInput>
 

@@ -15,7 +15,6 @@ within Dynawo.Electrical.Controls.Converters.BaseControls;
 model CurrentLoop "Current loop control for grid forming and grid following converters"
 
   import Modelica;
-
   import Dynawo.Types;
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
@@ -23,36 +22,39 @@ model CurrentLoop "Current loop control for grid forming and grid following conv
   parameter Types.PerUnit Kpc "Proportional gain of the current loop";
   parameter Types.PerUnit Kic "Integral gain of the current loop";
   parameter Types.PerUnit Lfilter "Filter inductance in p.u (base UNom, SNom)";
+  parameter Types.PerUnit Rfilter "Filter resistance in p.u (base UNom, SNom)";
+
+  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omegaRef0Pu) "Converter's frequency" annotation(
+    Placement(visible = true, transformation(origin = {-142, 2}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput idConvPu(start = IdConv0Pu) "d-axis current in the converter" annotation(
+    Placement(visible = true, transformation(origin = {-142, 52}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput iqConvPu (start = IqConv0Pu) "q-axis current in the converter" annotation(
+    Placement(visible = true, transformation(origin = {-142, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {80, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-80,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput uqFilterPu (start = 0) "q-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {80, -126}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-40,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+  Modelica.Blocks.Interfaces.RealInput idConvRefPu(start = IdConv0Pu) "d-axis current reference in the converter" annotation(
+    Placement(visible = true, transformation(origin = {-142, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput iqConvRefPu (start = IqConv0Pu) "q-axis current reference in the converter" annotation(
+    Placement(visible = true, transformation(origin = {-142, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Modelica.Blocks.Interfaces.RealOutput udConvRefPu(start = UdConv0Pu) "d-axis modulation voltage reference" annotation(
+    Placement(visible = true, transformation(origin = {180, 90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput uqConvRefPu(start = UqConv0Pu) "q-axis modulation voltage reference" annotation(
+    Placement(visible = true, transformation(origin = {180, -86}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Math.Gain gaind (k = Kpc) annotation(
     Placement(visible = true, transformation(origin = {-12, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratord(y_start = YIntegratord0, k = Kic)  annotation(
+  Modelica.Blocks.Continuous.Integrator integratord(y_start = Rfilter * IdConv0Pu, k = Kic)  annotation(
     Placement(visible = true, transformation(origin = {-12, 112}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput omegaPu(start = SystemBase.omegaRef0Pu) "Converter's frequency" annotation(
-    Placement(visible = true, transformation(origin = {-142, 2}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput iConvd(start = IConvd0) "d-axis current in the converter" annotation(
-    Placement(visible = true, transformation(origin = {-142, 52}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {40, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput iConvq (start = IConvq0) "q-axis current in the converter" annotation(
-    Placement(visible = true, transformation(origin = {-142, -50}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {80,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput vFilterd(start = VFilterd0) "d-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {80, 140}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {-80,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput vFilterq (start = VFilterq0) "q-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {80, -126}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-40,-110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput iConvdref(start = IConvd0) "d-axis current reference in the converter" annotation(
-    Placement(visible = true, transformation(origin = {-142, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput iConvqref (start = IConvq0) "q-axis current reference in the converter" annotation(
-    Placement(visible = true, transformation(origin = {-142, -80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput vConvdref(start = VConvdref0) "d-axis modulation voltage reference" annotation(
-    Placement(visible = true, transformation(origin = {180, 90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealOutput vConvqref(start = VConvqref0) "q-axis modulation voltage reference" annotation(
-    Placement(visible = true, transformation(origin = {180, -86}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackd annotation(
     Placement(visible = true, transformation(origin = {-62, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Feedback feedbackq annotation(
     Placement(visible = true, transformation(origin = {-62, -80}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gainq(k = Kpc) annotation(
     Placement(visible = true, transformation(origin = {-12, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Continuous.Integrator integratorq(k = Kic, y_start = YIntegratorq0) annotation(
+  Modelica.Blocks.Continuous.Integrator integratorq(k = Kic, y_start = Rfilter * IqConv0Pu) annotation(
     Placement(visible = true, transformation(origin = {-12, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Product product annotation(
     Placement(visible = true, transformation(origin = {-48, 22}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -77,24 +79,21 @@ model CurrentLoop "Current loop control for grid forming and grid following conv
 
 protected
 
-  parameter Types.PerUnit YIntegratord0;
-  parameter Types.PerUnit YIntegratorq0;
-  parameter Types.PerUnit VFilterd0;
-  parameter Types.PerUnit VFilterq0;
-  parameter Types.PerUnit VConvdref0;
-  parameter Types.PerUnit VConvqref0;
-  parameter Types.PerUnit IConvd0;
-  parameter Types.PerUnit IConvq0;
+  parameter Types.PerUnit UdFilter0Pu;
+  parameter Types.PerUnit UdConv0Pu;
+  parameter Types.PerUnit UqConv0Pu;
+  parameter Types.PerUnit IdConv0Pu;
+  parameter Types.PerUnit IqConv0Pu;
 
 equation
 
-  connect(feedbackd.u1, iConvdref) annotation(
+  connect(feedbackd.u1, idConvRefPu) annotation(
     Line(points = {{-70, 80}, {-142, 80}}, color = {0, 0, 127}));
-  connect(feedbackd.u2, iConvd) annotation(
+  connect(feedbackd.u2, idConvPu) annotation(
     Line(points = {{-62, 72}, {-62, 52}, {-142, 52}}, color = {0, 0, 127}));
-  connect(feedbackq.u1, iConvqref) annotation(
+  connect(feedbackq.u1, iqConvRefPu) annotation(
     Line(points = {{-70, -80}, {-142, -80}}, color = {0, 0, 127}));
-  connect(feedbackq.u2, iConvq) annotation(
+  connect(feedbackq.u2, iqConvPu) annotation(
     Line(points = {{-62, -72}, {-62, -50}, {-142, -50}}, color = {0, 0, 127}));
   connect(gaind.u, feedbackd.y) annotation(
     Line(points = {{-24, 80}, {-53, 80}}, color = {0, 0, 127}));
@@ -102,13 +101,13 @@ equation
     Line(points = {{-24, 112}, {-54, 112}, {-54, 80}, {-53, 80}}, color = {0, 0, 127}));
   connect(gainq.u, feedbackq.y) annotation(
     Line(points = {{-24, -80}, {-53, -80}}, color = {0, 0, 127}));
-  connect(product.u1, iConvd) annotation(
+  connect(product.u1, idConvPu) annotation(
     Line(points = {{-60, 28}, {-122, 28}, {-122, 52}, {-142, 52}}, color = {0, 0, 127}));
   connect(product.u2, omegaPu) annotation(
     Line(points = {{-60, 16}, {-122, 16}, {-122, 2}, {-142, 2}}, color = {0, 0, 127}));
   connect(product1.u1, omegaPu) annotation(
     Line(points = {{-60, -12}, {-122, -12}, {-122, 2}, {-142, 2}}, color = {0, 0, 127}));
-  connect(product1.u2, iConvq) annotation(
+  connect(product1.u2, iqConvPu) annotation(
     Line(points = {{-60, -24}, {-122, -24}, {-122, -50}, {-142, -50}}, color = {0, 0, 127}));
   connect(integratorq.u, feedbackq.y) annotation(
     Line(points = {{-24, -110}, {-53, -110}, {-53, -80}}, color = {0, 0, 127}));
@@ -134,15 +133,15 @@ equation
     Line(points = {{62, -74}, {60, -74}, {60, 22}, {0, 22}, {0, 22}}, color = {0, 0, 127}));
   connect(addd2.u2, feedbackLwq.y) annotation(
     Line(points = {{100, 86}, {80, 86}, {80, 86}, {80, 86}}, color = {0, 0, 127}));
-  connect(addd2.u1, vFilterd) annotation(
+  connect(addd2.u1, udFilterPu) annotation(
     Line(points = {{100, 98}, {80, 98}, {80, 140}, {80, 140}}, color = {0, 0, 127}));
-  connect(addd2.y, vConvdref) annotation(
+  connect(addd2.y, udConvRefPu) annotation(
     Line(points = {{124, 92}, {162, 92}, {162, 90}, {180, 90}}, color = {0, 0, 127}));
   connect(addq2.u1, feedbackLwd.y) annotation(
     Line(points = {{102, -80}, {86, -80}, {86, -80}, {86, -80}}, color = {0, 0, 127}));
-  connect(addq2.u2, vFilterq) annotation(
+  connect(addq2.u2, uqFilterPu) annotation(
     Line(points = {{102, -92}, {80, -92}, {80, -126}, {80, -126}}, color = {0, 0, 127}));
-  connect(addq2.y, vConvqref) annotation(
+  connect(addq2.y, uqConvRefPu) annotation(
     Line(points = {{126, -86}, {160, -86}, {160, -86}, {180, -86}}, color = {0, 0, 127}));
 
 annotation(

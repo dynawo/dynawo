@@ -7,28 +7,19 @@
 %% SPDX-License-Identifier: MPL-2.0
 %%
 %% This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
-
 \documentclass[a4paper, 12pt]{report}
-
 \input{../../../documentation/latex_setup.tex}
-
 \begin{document}
-
 \chapter*{Three-converter system with three different types of Grid Forming Converters}
-
 \section*{Test case description}
-
 The studied test case is a simple system with three converters and one fully resistive load, as depicted in Fig.~\ref{ThreeConv}.
-
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=\textwidth]{ThreeConvISGT}
 \end{center}
 \caption{Structure of the three-converter system\label{ThreeConv}}
 \end{figure}
-
 Each converter has a different control: the 1 000 MW converter is using a matching control, the 500 MW a dVOC control and the 250 MW an improved droop control. The network consists in four RL lines, linking together the different converters.
-
 The general structure of the converters and their control is presented in Fig.~\ref{GFTaoufik}. The current and voltage loops are common to the three converters while the external loop is different.
 \begin{figure}[htbp]
 \begin{center}
@@ -36,29 +27,26 @@ The general structure of the converters and their control is presented in Fig.~\
 \end{center}
 \caption{Structure of the grid forming converter and its control\label{GFTaoufik}}
 \end{figure}
-
 Three events are simulated:
 \begin{itemize}
 \item At $t = 0.5s$, the line connecting the bus 1 and the bus 2 is disconnected ($K_1$ is opened).
 \item At $t = 1.5s$, a short-circuit is applied at the middle of the line connecting bus 2 and bus 4.
 \item At $t = 1.65s$, the short-circuited line connecting bus 2 and bus 4 is disconnected to clear the fault ($K_2$ and $K_3$ are opened).
 \end{itemize}
-
 \section*{Results}
-
 The currents in the three converters during the whole simulation are presented in Fig.~\ref{comp1}.
 \begin{figure}[H]
 \begin{center}
   \begin{tikzpicture}[scale = 0.8]
     \begin{axis}[grid=major, xmin=0.47, xmax=2.1]
         \addplot[color=blue!50]
-        table[x=time,y=Converter250_converter_iConvmodule]
+        table[x=time,y=Converter250_converter_IConvPu]
         {../reference/outputs/curves/curves.csv};
         \addplot[color=red!50]
-        table[x=time,y=Converter500_converter_iConvmodule]
+        table[x=time,y=Converter500_converter_IConvPu]
         {../reference/outputs/curves/curves.csv};
         \addplot[color=green!50]
-        table[x=time,y=Converter1000_converter_iConvmodule]
+        table[x=time,y=Converter1000_converter_IConvPu]
         {../reference/outputs/curves/curves.csv};
         \legend{$i_{c_{Converter250}}$,$i_{c_{Converter500}}$,$i_{c_{Converter1000}}$}
     \end{axis}
@@ -66,11 +54,8 @@ The currents in the three converters during the whole simulation are presented i
   \end{center}
   \caption{Current in the three converters with static lines\label{comp1}}
 \end{figure}
-
 All the three controls are stable for this simulation and manage to bring back the current near its set point. During the fault, the current suddenly increases but is then limited thanks to the current limitation that protects the converter from overcurrents.
-
 \par When looking at the frequency of each of the three converter in Fig.~\ref{comp10}, one can see that the frequency is maintained close to $1 pu$ during the whole simulation and that the three converters are well synchronized.
-
 \begin{figure}[H]
 \begin{center}
   \begin{tikzpicture}[scale = 0.8]
@@ -90,7 +75,4 @@ All the three controls are stable for this simulation and manage to bring back t
     \end{center}
   \caption{Frequency of the three converters with static lines\label{comp10}}
 \end{figure}
-
-
 \end{document}
-
