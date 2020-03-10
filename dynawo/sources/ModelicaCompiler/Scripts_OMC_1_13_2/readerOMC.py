@@ -496,7 +496,7 @@ class ReaderOMC:
                         sys.exit()
                 start = list_real[0].getAttribute('start')
                 fixed = list_real[0].getAttribute('fixed')
-                var.set_fixed(fixed == "true")
+                var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
                 if start != '':
                     var.set_start_text( [start] )
                     var.set_use_start(list_real[0].getAttribute('useStart'))
@@ -510,7 +510,7 @@ class ReaderOMC:
                     sys.exit()
                 start = list_integer[0].getAttribute('start')
                 fixed = list_integer[0].getAttribute('fixed')
-                var.set_fixed(fixed == "true")
+                var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
                 if start != '':
                     var.set_start_text( [start] )
                     var.set_use_start(list_integer[0].getAttribute('useStart'))
@@ -524,7 +524,7 @@ class ReaderOMC:
                     sys.exit()
                 start = list_boolean[0].getAttribute('start')
                 fixed = list_boolean[0].getAttribute('fixed')
-                var.set_fixed(fixed == "true")
+                var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
                 if start != '':
                     var.set_start_text( [start] )
                     var.set_use_start(list_boolean[0].getAttribute('useStart'))
@@ -538,7 +538,7 @@ class ReaderOMC:
                     sys.exit()
                 start = list_string[0].getAttribute('start')
                 fixed = list_string[0].getAttribute('fixed')
-                var.set_fixed(fixed == "true")
+                var.set_fixed(fixed == "true" or var.get_variability() == "parameter")
                 if start != '':
                     var.set_start_text( [start] )
                     var.set_use_start(list_string[0].getAttribute('useStart'))
@@ -559,6 +559,7 @@ class ReaderOMC:
                     alias_var = alias_list[0]
                     if alias_var.is_fixed() and not var.is_fixed():
                         var.set_fixed(True)
+                        print_info("variable " + var.get_name() + " is considered as fixed (alias of fixed variable " + var.get_alias_name()+").")
                         modified = True
                     if is_discrete_real_var(var) and ((is_real_var(alias_var)  and not alias_var.is_fixed()) or is_der_real_var(alias_var)):
                         error_msg = "    Error: Found an alias that assigns the continuous variable " + alias_var.get_name()+\
@@ -1285,6 +1286,7 @@ class ReaderOMC:
                 assert(var != None)
                 self.list_complex_calculated_vars[var] = f
                 function_to_remove.append(f)
+                print_info("Variable " + var_name + " is set as a calculated variable.")
                 map_var_name_2_addresses[var_name]= "SHOULD NOT BE USED - CALCULATED VAR"
         for f in function_to_remove:
             self.list_func_16dae_c.remove(f)

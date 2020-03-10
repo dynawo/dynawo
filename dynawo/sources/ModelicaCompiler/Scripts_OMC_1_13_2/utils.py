@@ -31,6 +31,12 @@ ADEPT_NAMESPACE = "adept::"
 REGULAR_EXPR_ATAN3 = r'omc_Modelica_Math_atan3\(\s*(?P<var1>.*)\s*,\s*(?P<var2>.*)\s*,\s*0.0\)'
 NEED_TO_ITERATE_ACTIVATION= "data->simulationInfo->needToIterate = 1;"
 ##
+# print an information log
+def print_info(log):
+    print("    [INFO]: " + log)
+
+
+##
 # Indicates whether is the variable a derivative variable
 #
 # @param var_name : name of the variable
@@ -774,7 +780,7 @@ def transform_line_adept(line):
     line_tmp = transform_atan3_operator_evalf(line_tmp)
     line_tmp = sub_division_sim(line_tmp)
     line_tmp = replace_var_names(line_tmp)
-    line_tmp = line_tmp.replace("modelica_real", "adept::adouble")
+    line_tmp = line_tmp.replace("modelica_real ", "adept::adouble ")
     line_tmp = line_tmp.replace("Greater(", "Greater<adept::adouble>(")
     line_tmp = line_tmp.replace("Less(", "Less<adept::adouble>(")
     line_tmp = line_tmp.replace("GreaterEq(", "GreaterEq<adept::adouble>(")

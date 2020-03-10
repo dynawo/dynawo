@@ -17,6 +17,7 @@
  *
  */
 #include <boost/filesystem.hpp>
+#include <boost/algorithm/string.hpp>
 #include <string>
 
 #include "DYNCommon.h"
@@ -42,7 +43,11 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
   create_directory("res");
   std::stringstream ssPython;
   executeCommand(varExtCommand, ssPython);
-  ASSERT_EQ(ssPython.str(), "Executing command : " + varExtCommand + "\n");
+  std::string result = ssPython.str();
+  boost::erase_all(result, "\n");
+  ASSERT_EQ(result, "Executing command : " + varExtCommand +
+      "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable."
+      "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable.");
   std::cout << ssPython.str() << std::endl;
   std::stringstream ssDiff;
   executeCommand("diff ModelicaModel/reference res/", ssDiff);
