@@ -874,7 +874,7 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
             else:
                 return_value = IDENTICAL
 
-        elif (file_extension == ".log" or file_extension == ".xml"):
+        elif (file_extension == ".log" or "timeline" in file_name):
             dir = os.path.abspath(os.path.join(path_left, os.pardir))
             parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
             message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "

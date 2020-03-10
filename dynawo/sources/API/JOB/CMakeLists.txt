@@ -25,6 +25,7 @@ set(API_JOB_SOURCES
     JOBConstraintsEntryImpl.cpp
     JOBCurvesEntryImpl.cpp
     JOBDynModelsEntryImpl.cpp
+    JOBDynModelsEntryFactory.cpp
     JOBFinalStateEntryImpl.cpp
     JOBInitValuesEntryImpl.cpp
     JOBInitialStateEntryImpl.cpp
@@ -50,6 +51,7 @@ set(API_JOB_INCLUDE_HEADERS
     JOBConstraintsEntry.h
     JOBCurvesEntry.h
     JOBDynModelsEntry.h
+    JOBDynModelsEntryFactory.h
     JOBFinalStateEntry.h
     JOBInitValuesEntry.h
     JOBInitialStateEntry.h
