@@ -2061,6 +2061,7 @@ class Factory:
                         used_functions.append(func)
                 if "double external_call_" in line:
                     line = line.replace("double external_call_","adept::adouble external_call_")
+                line = transform_line_adept(line)
                 transposed_function_call_body.append(line)
 
             self.list_for_evalfadept.extend(transposed_function_call_body)
