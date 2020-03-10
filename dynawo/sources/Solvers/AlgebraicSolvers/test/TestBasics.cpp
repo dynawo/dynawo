@@ -166,6 +166,8 @@ TEST(AlgebraicSolvers, testAnalyseFlag) {
   ASSERT_NO_THROW(solver->analyseFlag(-2));
   // KIN_NO_MALLOC
   ASSERT_NO_THROW(solver->analyseFlag(-3));
+  // KIN_MEM_FAIL
+  ASSERT_NO_THROW(solver->analyseFlag(-4));
   // KIN_LINESEARCH_NONCONV
   ASSERT_NO_THROW(solver->analyseFlag(-5));
   // KIN_MAXITER_REACHED
@@ -188,8 +190,10 @@ TEST(AlgebraicSolvers, testAnalyseFlag) {
   ASSERT_NO_THROW(solver->analyseFlag(-14));
   // KIN_REPTD_SYSFUNC_ERR
   ASSERT_NO_THROW(solver->analyseFlag(-15));
+  // KIN_VECTOROP_ERR
+  ASSERT_NO_THROW(solver->analyseFlag(-16));
   // Negative number not corresponding to any expected message
-  ASSERT_THROW_DYNAWO(solver->analyseFlag(-16), Error::SUNDIALS_ERROR, KeyError_t::SolverSolveErrorKINSOL);
+  ASSERT_THROW_DYNAWO(solver->analyseFlag(-17), Error::SUNDIALS_ERROR, KeyError_t::SolverSolveErrorKINSOL);
 }
 
 }  // namespace DYN

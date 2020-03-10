@@ -122,7 +122,7 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
     vector<std::pair<double, int> >::iterator it;
     int i = 0;
     for (it = fErr.begin(); it != fErr.end(); ++it) {
-      Trace::debug("MODELER") << DYNLog(SolveParametersError, tolerance, it->second, irr[it->second],
+      Trace::debug("MODELER") << DYNLog(SolveParametersFError, tolerance, it->second, irr[it->second],
                                  "" /*FIXME: subModel->getFequationByLocalIndex(it->second)*/) << Trace::endline;
 
       if (i >= nbErr) {
@@ -161,11 +161,11 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
   return (0);
 }
 
-void
+int
 SolverKINSubModel::solve() {
   Timer timer("SolverKINSubModel::solve");
   if (nbF_ == 0)
-    return;
+    return KIN_SUCCESS;
 
   SubModel* subModel = getSubModel();
 
@@ -181,6 +181,6 @@ SolverKINSubModel::solve() {
 
   // SubModel initialization can fail, especially on switch currents.
   // This failure shouldn't be stopping the simulation.
-  solveCommon();
+  return solveCommon();
 }
 }  // namespace DYN

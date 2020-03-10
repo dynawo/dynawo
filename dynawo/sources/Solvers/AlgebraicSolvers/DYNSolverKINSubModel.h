@@ -62,8 +62,9 @@ class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable{
 
   /**
    * @brief solve the equations of F(u) = 0 to find the new value of u
+   * @return the solver flag
    */
-  void solve();
+  int solve();
 
   /**
    * @brief getter for the model currently simulated

@@ -221,6 +221,9 @@ SolverKINCommon::analyseFlag(const int & flag) {
     case KIN_NO_MALLOC:
       msg << DYNLog(KinNoMalloc);
       break;
+    case KIN_MEM_FAIL:
+      msg << DYNLog(KinMemFail);
+      break;
     case KIN_LINESEARCH_NONCONV:
       msg << DYNLog(KinLineSearchNonConv);
       break;
@@ -253,6 +256,9 @@ SolverKINCommon::analyseFlag(const int & flag) {
       break;
     case KIN_REPTD_SYSFUNC_ERR:
       msg << DYNLog(KinReptdSysfuncErr);
+      break;
+    case KIN_VECTOROP_ERR:
+      msg << DYNLog(KinVectoropErr);
       break;
     default:
 #ifdef _DEBUG_

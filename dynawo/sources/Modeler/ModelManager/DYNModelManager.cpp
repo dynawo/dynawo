@@ -849,6 +849,7 @@ ModelManager::solveParameters() {
 
   SolverKINSubModel solver;
   solver.init(this, t0, y, f);
+  int flag = KIN_SUCCESS;
   do {
     zSave = zLocalInit_;
     if (sizeMode() > 0)
@@ -858,7 +859,7 @@ ModelManager::solveParameters() {
     evalG(t0);
 
     try {
-      solver.solve();
+      flag = solver.solve();
     } catch (const MessageError& Msg) {
       Trace::error() << Msg.what() << Trace::endline;
       throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
@@ -913,6 +914,8 @@ ModelManager::solveParameters() {
     if ( compteur >= 10)
       throw  DYNError(Error::MODELER, UnstableRoots);
   } while (!stableRoot || zChange);
+  if (flag < 0)
+    Trace::warn() << DYNLog(SolveParametersError, name()) << Trace::endline;
 
   // copy of computed values in the parameters
   vector<double> calculatedVars(sizeCalculatedVar_, 0);
