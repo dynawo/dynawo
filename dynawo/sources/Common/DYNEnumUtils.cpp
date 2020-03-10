@@ -48,8 +48,8 @@ propertyVar2Str(const propertyContinuousVar_t& property) {
   switch (property) {
     case DIFFERENTIAL:
       return "DIFFERENTIAL";
-    case ALGEBRIC:
-      return "ALGEBRIC";
+    case ALGEBRAIC:
+      return "ALGEBRAIC";
     case EXTERNAL:
       return "EXTERNAL";
     case OPTIONAL_EXTERNAL:

@@ -433,22 +433,22 @@ void ModelGeneratorPQ_Init::setGequations(std::map<int,std::string>& gEquationIn
 
 void ModelGeneratorPQ_Init::setYType_omc(propertyContinuousVar_t* yType)
 {
-   yType[ 0 ] = ALGEBRIC;   /* generator_i0Pu_im (rAlg)  */
-   yType[ 1 ] = ALGEBRIC;   /* generator_i0Pu_re (rAlg)  */
-   yType[ 2 ] = ALGEBRIC;   /* generator_s0Pu_im (rAlg)  */
-   yType[ 3 ] = ALGEBRIC;   /* generator_s0Pu_re (rAlg)  */
-   yType[ 4 ] = ALGEBRIC;   /* generator_u0Pu_im (rAlg)  */
-   yType[ 5 ] = ALGEBRIC;   /* generator_u0Pu_re (rAlg)  */
+   yType[ 0 ] = ALGEBRAIC;   /* generator_i0Pu_im (rAlg)  */
+   yType[ 1 ] = ALGEBRAIC;   /* generator_i0Pu_re (rAlg)  */
+   yType[ 2 ] = ALGEBRAIC;   /* generator_s0Pu_im (rAlg)  */
+   yType[ 3 ] = ALGEBRAIC;   /* generator_s0Pu_re (rAlg)  */
+   yType[ 4 ] = ALGEBRAIC;   /* generator_u0Pu_im (rAlg)  */
+   yType[ 5 ] = ALGEBRAIC;   /* generator_u0Pu_re (rAlg)  */
 }
 
 void ModelGeneratorPQ_Init::setFType_omc(propertyF_t* fType)
 {
-   fType[ 0 ] = ALGEBRIC_EQ;
-   fType[ 1 ] = ALGEBRIC_EQ;
-   fType[ 2 ] = ALGEBRIC_EQ;
-   fType[ 3 ] = ALGEBRIC_EQ;
-   fType[ 4 ] = ALGEBRIC_EQ;
-   fType[ 5 ] = ALGEBRIC_EQ;
+   fType[ 0 ] = ALGEBRAIC_EQ;
+   fType[ 1 ] = ALGEBRAIC_EQ;
+   fType[ 2 ] = ALGEBRAIC_EQ;
+   fType[ 3 ] = ALGEBRAIC_EQ;
+   fType[ 4 ] = ALGEBRAIC_EQ;
+   fType[ 5 ] = ALGEBRAIC_EQ;
 }
 
 void ModelGeneratorPQ_Init::evalCalculatedVars(std::vector<double>& calculatedVars)

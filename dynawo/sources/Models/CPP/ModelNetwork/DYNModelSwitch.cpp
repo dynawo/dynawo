@@ -175,14 +175,14 @@ ModelSwitch::setFequations(std::map<int, std::string>& fEquationIndex) {
 
 void
 ModelSwitch::evalYType() {
-  yType_[0] = ALGEBRIC;
-  yType_[1] = ALGEBRIC;
+  yType_[0] = ALGEBRAIC;
+  yType_[1] = ALGEBRAIC;
 }
 
 void
 ModelSwitch::evalFType() {
-  fType_[0] = ALGEBRIC_EQ;   // no differential variable for switch equation
-  fType_[1] = ALGEBRIC_EQ;
+  fType_[0] = ALGEBRAIC_EQ;   // no differential variable for switch equation
+  fType_[1] = ALGEBRAIC_EQ;
 }
 
 void

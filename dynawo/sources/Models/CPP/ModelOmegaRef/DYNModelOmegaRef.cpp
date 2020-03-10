@@ -399,20 +399,20 @@ ModelOmegaRef::getY0() {
 
 void
 ModelOmegaRef::evalYType() {
-  std::fill(yType_, yType_ + nbMaxCC, ALGEBRIC);  // omegaRef[i] is an algebraic variable
+  std::fill(yType_, yType_ + nbMaxCC, ALGEBRAIC);  // omegaRef[i] is an algebraic variable
   std::fill(yType_+ nbMaxCC, yType_ + nbMaxCC + nbOmega_, EXTERNAL);  // omega[i] is an external variable
-  std::fill(yType_ + nbMaxCC + nbOmega_, yType_ + sizeY_, ALGEBRIC);  // omegaRefGrp[i] is an algebraic variable
+  std::fill(yType_ + nbMaxCC + nbOmega_, yType_ + sizeY_, ALGEBRAIC);  // omegaRefGrp[i] is an algebraic variable
 }
 
 void
 ModelOmegaRef::evalFType() {
   //  equation 0 to nbMaxCC
   // ----------------------
-  std::fill(fType_, fType_ + nbMaxCC, ALGEBRIC_EQ);  // no differential variable
+  std::fill(fType_, fType_ + nbMaxCC, ALGEBRAIC_EQ);  // no differential variable
 
   // equation nbMaxCC to nbGen_ + nbMaxCC =  omegaRef - omegaRefGrp[i]
   // -------------------------------------------------------------------
-  std::fill(fType_ + nbMaxCC, fType_ + nbMaxCC + nbGen_, ALGEBRIC_EQ);  // no differential variable
+  std::fill(fType_ + nbMaxCC, fType_ + nbMaxCC + nbGen_, ALGEBRAIC_EQ);  // no differential variable
 
   return;
 }

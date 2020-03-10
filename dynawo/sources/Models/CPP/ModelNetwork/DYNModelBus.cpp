@@ -369,18 +369,18 @@ ModelBus::iiAdd(const double& ii) {
 
 void
 ModelBus::evalYType() {
-  yType_[0] = ALGEBRIC;
-  yType_[1] = ALGEBRIC;
+  yType_[0] = ALGEBRAIC;
+  yType_[1] = ALGEBRAIC;
   if (hasConnection_) {
-    yType_[2] = ALGEBRIC;
-    yType_[3] = ALGEBRIC;
+    yType_[2] = ALGEBRAIC;
+    yType_[3] = ALGEBRAIC;
   }
 }
 
 void
 ModelBus::evalFType() {
-  fType_[0] = ALGEBRIC_EQ;   // no differential variable for node equation
-  fType_[1] = ALGEBRIC_EQ;
+  fType_[0] = ALGEBRAIC_EQ;   // no differential variable for node equation
+  fType_[1] = ALGEBRAIC_EQ;
 }
 
 void

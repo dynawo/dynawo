@@ -2347,7 +2347,7 @@ class Factory:
             if v in self.reader.list_calculated_vars : continue
             spin = "DIFFERENTIAL"
             var_ext = ""
-            if is_alg_var(v) : spin = "ALGEBRIC"
+            if is_alg_var(v) : spin = "ALGEBRAIC"
             if v.get_name() in self.reader.fictive_continuous_vars:
               spin = "EXTERNAL"
               var_ext = "- external variables"
@@ -2375,7 +2375,7 @@ class Factory:
         for eq in self.get_list_eq_syst():
             var_name = eq.get_evaluated_var()
             if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
-                spin = "ALGEBRIC_EQ" # no derivatives in the equation
+                spin = "ALGEBRAIC_EQ" # no derivatives in the equation
                 if eq.get_is_diff_eq():
                     spin = "DIFFERENTIAL_EQ"
                 line = "   fType[ %s ] = %s;\n" % (str(ind), spin)
@@ -2385,7 +2385,7 @@ class Factory:
         for eq in self.list_additional_equations_from_call_for_setf:
             var_name = eq.get_evaluated_var()
             if var_name not in self.reader.fictive_continuous_vars_der and not self.reader.is_auxiliary_vars(var_name):
-                spin = "ALGEBRIC_EQ" # no derivatives in the equation
+                spin = "ALGEBRAIC_EQ" # no derivatives in the equation
                 if eq.get_is_diff_eq(): spin = "DIFFERENTIAL_EQ"
                 line = "   fType[ %s ] = %s;\n" % (str(ind), spin)
                 self.list_for_setftype.append(line)

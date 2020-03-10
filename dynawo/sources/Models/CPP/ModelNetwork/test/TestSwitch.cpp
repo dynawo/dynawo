@@ -323,11 +323,11 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
 
   // test evalYType
   sw->evalYType();
-  ASSERT_EQ(yTypes[urIndex], ALGEBRIC);
-  ASSERT_EQ(yTypes[uiIndex], ALGEBRIC);
+  ASSERT_EQ(yTypes[urIndex], ALGEBRAIC);
+  ASSERT_EQ(yTypes[uiIndex], ALGEBRAIC);
   sw->evalFType();
-  ASSERT_EQ(fTypes[urIndex], ALGEBRIC_EQ);
-  ASSERT_EQ(fTypes[uiIndex], ALGEBRIC_EQ);
+  ASSERT_EQ(fTypes[urIndex], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[uiIndex], ALGEBRAIC_EQ);
 
   // test getY0
   y[urIndex] = 2.;

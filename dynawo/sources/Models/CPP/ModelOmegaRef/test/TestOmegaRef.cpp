@@ -174,15 +174,15 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
 
   modelOmegaRef->evalYType();
   propertyContinuousVar_t* yTypeGet = modelOmegaRef->getYType();
-  ASSERT_EQ(yTypeGet[0], ALGEBRIC);
+  ASSERT_EQ(yTypeGet[0], ALGEBRAIC);
   ASSERT_EQ(yTypeGet[10], EXTERNAL);
-  ASSERT_EQ(yTypeGet[11], ALGEBRIC);
-  ASSERT_EQ(yTypeGet[12], ALGEBRIC);
+  ASSERT_EQ(yTypeGet[11], ALGEBRAIC);
+  ASSERT_EQ(yTypeGet[12], ALGEBRAIC);
   ASSERT_NE(yTypeGet[9], EXTERNAL);
 
   modelOmegaRef->evalFType();
-  ASSERT_EQ(fTypes[0], ALGEBRIC_EQ);
-  ASSERT_EQ(fTypes[10], ALGEBRIC_EQ);
+  ASSERT_EQ(fTypes[0], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[10], ALGEBRAIC_EQ);
 }
 
 TEST(ModelsModelOmegaRef, ModelOmegaRefInit) {
@@ -195,12 +195,12 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefInit) {
   modelOmegaRef->init(0);
   modelOmegaRef->getY0();
 
-  ASSERT_EQ(y[0], 1); // OmegaRef0_0
+  ASSERT_EQ(y[0], 1);  // OmegaRef0_0
   ASSERT_EQ(yp[0], 0);
-  ASSERT_EQ(y[10], 1); // weight0_gen_0
+  ASSERT_EQ(y[10], 1);  // weight0_gen_0
   ASSERT_EQ(yp[10], 0);
-  ASSERT_EQ(y[11], 1); // OmegaRef0_gen_0
-  ASSERT_EQ(y[12], 1); // OmegaRef0_gen_1
+  ASSERT_EQ(y[11], 1);  // OmegaRef0_gen_0
+  ASSERT_EQ(y[12], 1);  // OmegaRef0_gen_1
   ASSERT_EQ(yp[11], 0);
   ASSERT_EQ(yp[12], 0);
 
@@ -225,7 +225,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
 
   modelOmegaRef->evalF(0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10],0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
   SparseMatrix smj;
   int size = modelOmegaRef->sizeF();
@@ -233,31 +233,31 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   modelOmegaRef->evalJt(0, 0, smj, 0);
   ASSERT_EQ(smj.nbElem(), 16);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[1], 3); // 3 elements non zero for numCC_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[1], 3);  // 3 elements non zero for numCC_0
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[2], 4);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[10], 12); // omega_grp_0
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[11], 14); // 2 elements non zero for omega_grp_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[10], 12);  // omega_grp_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[11], 14);  // 2 elements non zero for omega_grp_0
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[0], 0);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[1], 10); // first index of omega
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[1], 10);  // first index of omega
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[2], 11);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[13], 12);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[14], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ai_[15], 13);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], -1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 0.6666666); // first index of omega
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], 0.6666666);  // first index of omega
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], 0.3333333);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[12], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[13], -1);
 
-  y[10] = 2.5; // Modifying omegaGrp_0
+  y[10] = 2.5;  // Modifying omegaGrp_0
   modelOmegaRef->evalF(1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
 
-  y[0] = 2; // Modifying omegaRef_grp_0
+  y[0] = 2;  // Modifying omegaRef_grp_0
   modelOmegaRef->evalF(1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 1);
@@ -269,12 +269,12 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   modeChangeType_t mode = modelOmegaRef->evalMode(1);
   ASSERT_EQ(mode, NO_MODE);
 
-  z[2] = 0; // Switching off gen1
+  z[2] = 0;  // Switching off gen1
   y[12] = 2;
   y[13] = 2;
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, NO_MODE);
-  modelOmegaRef->evalZ(2); // Propagating the changes to internal discrete values
+  modelOmegaRef->evalZ(2);  // Propagating the changes to internal discrete values
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, ALGEBRAIC_J_UPDATE_MODE);
   modelOmegaRef->evalF(2);
@@ -286,7 +286,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_EQ(smj2.nbElem(), 14);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[9], 10);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[10], 11);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[11], 12);// 1 element non zero for omega_grp_0
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[11], 12);  // 1 element non zero for omega_grp_0
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[11], 12);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[12], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ai_[13], 13);
@@ -296,8 +296,8 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
 
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, NO_MODE);
-  z[0] = 1; // Changing numCC for gen1
-  modelOmegaRef->evalZ(2); // Propagating the changes to internal discrete values
+  z[0] = 1;  // Changing numCC for gen1
+  modelOmegaRef->evalZ(2);  // Propagating the changes to internal discrete values
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, ALGEBRAIC_J_UPDATE_MODE);
 }

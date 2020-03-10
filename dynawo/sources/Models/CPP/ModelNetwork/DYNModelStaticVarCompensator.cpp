@@ -140,17 +140,17 @@ ModelStaticVarCompensator::initSize() {
 
 void
 ModelStaticVarCompensator::evalYType() {
-  yType_[0] = ALGEBRIC;  // piIn
-  yType_[1] = ALGEBRIC;  // piOut
-  yType_[2] = ALGEBRIC;  // bSvc
+  yType_[0] = ALGEBRAIC;  // piIn
+  yType_[1] = ALGEBRAIC;  // piOut
+  yType_[2] = ALGEBRAIC;  // bSvc
   yType_[3] = DIFFERENTIAL;  // feedBack
 }
 
 void
 ModelStaticVarCompensator::evalFType() {
-  fType_[0] = ALGEBRIC_EQ;  // algebraic equations
-  fType_[1] = ALGEBRIC_EQ;
-  fType_[2] = ALGEBRIC_EQ;
+  fType_[0] = ALGEBRAIC_EQ;  // algebraic equations
+  fType_[1] = ALGEBRAIC_EQ;
+  fType_[2] = ALGEBRAIC_EQ;
   fType_[3] = DIFFERENTIAL_EQ;  // differential equations
 }
 

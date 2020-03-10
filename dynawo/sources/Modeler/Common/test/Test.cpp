@@ -820,8 +820,8 @@ TEST(ModelerCommonTest, ConnectorsY) {
 
 TEST(ModelerCommonTest, ModelerCommonUtilities) {
   // propertyVar2Str
-  propertyContinuousVar_t propertyContinuousVar = ALGEBRIC;
-  ASSERT_EQ(propertyVar2Str(propertyContinuousVar), "ALGEBRIC");
+  propertyContinuousVar_t propertyContinuousVar = ALGEBRAIC;
+  ASSERT_EQ(propertyVar2Str(propertyContinuousVar), "ALGEBRAIC");
   ASSERT_EQ(propertyVar2Str(DIFFERENTIAL), "DIFFERENTIAL");
   ASSERT_EQ(propertyVar2Str(EXTERNAL), "EXTERNAL");
   ASSERT_EQ(propertyVar2Str(UNDEFINED_PROPERTY), "UNDEFINED");

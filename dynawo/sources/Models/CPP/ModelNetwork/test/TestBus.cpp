@@ -358,13 +358,13 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
 
   // test evalYType
   bus->evalYType();
-  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRIC);
-  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRIC);
-  ASSERT_EQ(yTypes[ModelBus::irNum_], ALGEBRIC);
-  ASSERT_EQ(yTypes[ModelBus::iiNum_], ALGEBRIC);
+  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBus::irNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBus::iiNum_], ALGEBRAIC);
   bus->evalFType();
-  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRIC_EQ);
-  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRIC_EQ);
+  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
 
   // test evalF
   bus->irAdd(3.2);
@@ -421,11 +421,11 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
 
   // test evalYType
   bus->evalYType();
-  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRIC);
-  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRIC);
+  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
   bus->evalFType();
-  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRIC_EQ);
-  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRIC_EQ);
+  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
 
   // test evalF
   bus->irAdd(3.2);

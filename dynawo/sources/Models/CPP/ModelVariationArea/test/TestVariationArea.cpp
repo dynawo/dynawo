@@ -179,12 +179,12 @@ TEST(ModelsModelVariationArea, ModelVariationAreaTypeMethods) {
 
   modelVariationArea->evalYType();
   for (size_t i = 0; i < nbY; ++i) {
-    ASSERT_EQ(yTypes[i], ALGEBRIC);
+    ASSERT_EQ(yTypes[i], ALGEBRAIC);
   }
 
   modelVariationArea->evalFType();
   for (size_t i = 0; i < nbF; ++i) {
-    ASSERT_EQ(fTypes[i], ALGEBRIC_EQ);
+    ASSERT_EQ(fTypes[i], ALGEBRAIC_EQ);
   }
 }
 

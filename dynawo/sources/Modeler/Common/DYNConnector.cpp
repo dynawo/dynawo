@@ -671,13 +671,13 @@ ConnectorContainer::evalFType() const {
       throw DYNError(Error::MODELER, EmptyConnector);  // should not happen but who knows ...
     }
     for (unsigned j = 0, jEnd = yc->connectedSubModels().size() - 1; j < jEnd; ++j) {
-      fType_[offset] = ALGEBRIC_EQ;  // no differential equation in connector
+      fType_[offset] = ALGEBRAIC_EQ;  // no differential equation in connector
       ++offset;
     }
   }
 
   for (unsigned int i = 0; i < nbFlowConnectors(); ++i) {
-    fType_[offset ] = ALGEBRIC_EQ;  // no differential equation in connector
+    fType_[offset ] = ALGEBRAIC_EQ;  // no differential equation in connector
     ++offset;
   }
 }
