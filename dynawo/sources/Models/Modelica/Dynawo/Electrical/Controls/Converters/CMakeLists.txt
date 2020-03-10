@@ -13,15 +13,13 @@ add_subdirectory(BaseControls B)
 SET(MODEL_FILES
     # Converter control models
     package.mo
-    GlobalDroopControl.mo
-    GlobalDroopControl.extvar
-    GlobalDroopControl_INIT.mo
-    GlobalMatchingControl.mo
-    GlobalMatchingControl.extvar
-    GlobalMatchingControl_INIT.mo
-    GlobalDispatchableVirtualOscillatorControl.mo
-    GlobalDispatchableVirtualOscillatorControl.extvar
-    GlobalDispatchableVirtualOscillatorControl_INIT.mo
+    GridFormingControlDroopControl.mo
+    GridFormingControlDroopControl.extvar
+    GridFormingControlMatchingControl.mo
+    GridFormingControlMatchingControl.extvar
+    GridFormingControlDispatchableVirtualOscillatorControl.mo
+    GridFormingControlDispatchableVirtualOscillatorControl.extvar
+    GridFormingControl_INIT.mo
     )
 
 #
