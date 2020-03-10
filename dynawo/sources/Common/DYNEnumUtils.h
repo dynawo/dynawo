@@ -32,7 +32,7 @@ namespace DYN {
 typedef enum {
   UNDEFINED_PROPERTY = 0,  ///< Undefined type
   DIFFERENTIAL = 1,  ///< The continuous variable is a differential variable
-  ALGEBRIC = -1,  ///< The continuous variable is an algebric variable
+  ALGEBRAIC = -1,  ///< The continuous variable is an algebraic variable
   EXTERNAL = -2,  ///< The continuous variable is an external variable
   OPTIONAL_EXTERNAL = -3  ///< The continuous variable is an optional external variable
 } propertyContinuousVar_t;
@@ -43,7 +43,7 @@ typedef enum {
 typedef enum {
   UNDEFINED_EQ = 0,  ///< Undefined type
   DIFFERENTIAL_EQ = 1,  ///< The residual function is a differential equation
-  ALGEBRIC_EQ = -1  ///< The residual function is an algebric equation
+  ALGEBRAIC_EQ = -1  ///< The residual function is an algebraic equation
 } propertyF_t;
 
 /**
@@ -98,7 +98,7 @@ static const state_g ROOT_DOWN = -1;  ///< ROOT is unactivated
 static const state_g NO_ROOT = 0;  ///< State of the root is undefined
 
 /**
- * @brief return the property of variable(differential, algebric, or external)
+ * @brief return the property of variable(differential, algebraic, or external)
  * @param property : property of a variable as an enum type
  * @return property of a variable as a string
  */

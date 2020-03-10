@@ -573,26 +573,26 @@ void ModelGeneratorPQ_Dyn::setYType_omc(propertyContinuousVar_t* yType)
    yType[ 0 ] = EXTERNAL;   /* generator_omegaRefPu_value (rSta) - external variables */
    yType[ 1 ] = EXTERNAL;   /* generator_terminal_V_im (rSta) - external variables */
    yType[ 2 ] = EXTERNAL;   /* generator_terminal_V_re (rSta) - external variables */
-   yType[ 3 ] = ALGEBRIC;   /* generator_PGenPu (rAlg)  */
-   yType[ 4 ] = ALGEBRIC;   /* generator_PGenRawPu (rAlg)  */
-   yType[ 5 ] = ALGEBRIC;   /* generator_QGenPu (rAlg)  */
-   yType[ 6 ] = ALGEBRIC;   /* generator_SGenPu_im (rAlg)  */
-   yType[ 7 ] = ALGEBRIC;   /* generator_SGenPu_re (rAlg)  */
-   yType[ 8 ] = ALGEBRIC;   /* generator_UPu (rAlg)  */
-   yType[ 9 ] = ALGEBRIC;   /* generator_terminal_i_im (rAlg)  */
-   yType[ 10 ] = ALGEBRIC;   /* generator_terminal_i_re (rAlg)  */
+   yType[ 3 ] = ALGEBRAIC;   /* generator_PGenPu (rAlg)  */
+   yType[ 4 ] = ALGEBRAIC;   /* generator_PGenRawPu (rAlg)  */
+   yType[ 5 ] = ALGEBRAIC;   /* generator_QGenPu (rAlg)  */
+   yType[ 6 ] = ALGEBRAIC;   /* generator_SGenPu_im (rAlg)  */
+   yType[ 7 ] = ALGEBRAIC;   /* generator_SGenPu_re (rAlg)  */
+   yType[ 8 ] = ALGEBRAIC;   /* generator_UPu (rAlg)  */
+   yType[ 9 ] = ALGEBRAIC;   /* generator_terminal_i_im (rAlg)  */
+   yType[ 10 ] = ALGEBRAIC;   /* generator_terminal_i_re (rAlg)  */
 }
 
 void ModelGeneratorPQ_Dyn::setFType_omc(propertyF_t* fType)
 {
-   fType[ 0 ] = ALGEBRIC_EQ;
-   fType[ 1 ] = ALGEBRIC_EQ;
-   fType[ 2 ] = ALGEBRIC_EQ;
-   fType[ 3 ] = ALGEBRIC_EQ;
-   fType[ 4 ] = ALGEBRIC_EQ;
-   fType[ 5 ] = ALGEBRIC_EQ;
-   fType[ 6 ] = ALGEBRIC_EQ;
-   fType[ 7 ] = ALGEBRIC_EQ;
+   fType[ 0 ] = ALGEBRAIC_EQ;
+   fType[ 1 ] = ALGEBRAIC_EQ;
+   fType[ 2 ] = ALGEBRAIC_EQ;
+   fType[ 3 ] = ALGEBRAIC_EQ;
+   fType[ 4 ] = ALGEBRAIC_EQ;
+   fType[ 5 ] = ALGEBRAIC_EQ;
+   fType[ 6 ] = ALGEBRAIC_EQ;
+   fType[ 7 ] = ALGEBRAIC_EQ;
 }
 
 boost::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Dyn::setSharedParametersDefaultValues()

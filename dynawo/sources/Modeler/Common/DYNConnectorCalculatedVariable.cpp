@@ -174,7 +174,7 @@ ConnectorCalculatedVariable::getY0() {
 
 void
 ConnectorCalculatedVariable::evalYType() {
-  yType_[0] = ALGEBRIC;  // the calculated variable is an algebraic variable
+  yType_[0] = ALGEBRAIC;  // the calculated variable is an algebraic variable
 
   for (int i = 0; i < nbVarExt_; ++i)
     yType_[1 + i] = EXTERNAL;
@@ -182,7 +182,7 @@ ConnectorCalculatedVariable::evalYType() {
 
 void
 ConnectorCalculatedVariable::evalFType() {
-  fType_[0] = ALGEBRIC_EQ;  // no differential variable in connector calculated variable
+  fType_[0] = ALGEBRAIC_EQ;  // no differential variable in connector calculated variable
 }
 
 void

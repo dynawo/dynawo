@@ -559,7 +559,7 @@ ModelMulti::evalFType() {
   }
   connectorContainer_->setBufferFType(fType_, offsetFType);
   connectorContainer_->evalFType();
-  std::fill(fType_ + offsetFOptional_, fType_ + sizeF_, ALGEBRIC_EQ);
+  std::fill(fType_ + offsetFOptional_, fType_ + sizeF_, ALGEBRAIC_EQ);
 }
 
 void

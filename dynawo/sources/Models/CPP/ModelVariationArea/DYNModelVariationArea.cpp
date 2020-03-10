@@ -250,12 +250,12 @@ ModelVariationArea::getY0() {
 
 void
 ModelVariationArea::evalYType() {
-  std::fill(yType_, yType_ + sizeY(), ALGEBRIC);  // all variables are algebraic variable
+  std::fill(yType_, yType_ + sizeY(), ALGEBRAIC);  // all variables are algebraic variable
 }
 
 void
 ModelVariationArea::evalFType() {
-  std::fill(fType_, fType_ + 2 * nbLoads_, ALGEBRIC_EQ);  // no differential variable
+  std::fill(fType_, fType_ + 2 * nbLoads_, ALGEBRAIC_EQ);  // no differential variable
 }
 
 void
