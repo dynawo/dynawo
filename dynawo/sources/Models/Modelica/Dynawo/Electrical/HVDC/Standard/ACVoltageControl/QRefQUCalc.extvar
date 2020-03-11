@@ -11,8 +11,8 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="qRefPu" type="continuous" />
-  <variable id="uRefPu" type="continuous" />
-  <variable id="qPu" type="continuous" />
-  <variable id="uPu" type="continuous" />
+  <variable id="QRefPu" type="continuous" />
+  <variable id="URefPu" type="continuous" />
+  <variable id="QPu" type="continuous" />
+  <variable id="UPu" type="continuous" />
 </external_variables>
