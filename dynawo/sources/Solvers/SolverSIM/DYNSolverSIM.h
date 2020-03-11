@@ -265,7 +265,7 @@ class SolverSIM : public Solver::Impl {
   int mxiter_;  ///< maximum number of nonlinear iterations
   int printfl_;  ///< level of verbosity of output
 
-  bool skipNextNR_;  ///< indicates if the next NR resolution could be skipped
+  bool skipNextNR_;  ///< indicates if the next Newton-Raphson resolution could be skipped
 
   std::vector<double> ySave_;  ///< values of state variables before step
   std::vector<double> zSave_;  ///< values of discrete variables before step

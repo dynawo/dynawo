@@ -453,7 +453,7 @@ SolverSIM::solve() {
   if (model_->sizeY() != 0)
     flag = SIMCorrection();
 
-  if (flag != 0) {
+  if (flag < 0) {
     stats_.ncfn_++;
     return (NON_CONV);
   } else {
@@ -512,8 +512,11 @@ SolverSIM::solve() {
 int
 SolverSIM::SIMCorrection() {
   int flag = 0;
-  if (!skipNextNR_)
+  if (!skipNextNR_) {
     flag = callSolverKINEuler();
+    if (flag == KIN_INITIAL_GUESS_OK)
+      skipNextNR_ = true;
+  }
   return flag;
 }
 
@@ -531,15 +534,8 @@ SolverSIM::callSolverKINEuler() {
   int flag = solverKINEuler_->solve(noInitSetup);
 
   // Get updated y and yp values plus set the skipNextNR indicator
-  if (flag >= 0) {
-    if (flag == KIN_INITIAL_GUESS_OK) {
-      skipNextNR_ = true;
-      flag = KIN_SUCCESS;
-    } else if (flag == KIN_STEP_LT_STPTOL) {
-      flag = KIN_SUCCESS;
-    }
+  if (flag >= 0)
     solverKINEuler_->getValues(vYy_, vYp_);
-  }
 
   // Update statistics
   long int nre;
