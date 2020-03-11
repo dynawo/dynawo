@@ -25,7 +25,7 @@ model DispatchableVirtualOscillatorControl "Dispatchable Virtual Oscillator Cont
 
   Modelica.Blocks.Interfaces.RealInput udFilterPu(start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {40, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {60, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput uqFilterPu (start = 0) "q-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput uqFilterPu(start = 0) "q-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {90, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput idPccPu(start = IdPcc0Pu) "d-axis current injected in the grid in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-80, -120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-30, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
@@ -53,9 +53,9 @@ model DispatchableVirtualOscillatorControl "Dispatchable Virtual Oscillator Cont
   Modelica.Blocks.Interfaces.RealOutput uqFilterRefPu(start = 0) "q-axis reference voltage at the converter's capacitor in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {110, -95}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Types.VoltageModulePu UConvRefRawPu(start = UdFilter0Pu);
-  Types.PerUnit udConvRefRawPu (start = UdFilter0Pu);
-  Types.PerUnit uqConvRefRawPu (start = 0);
+  Types.VoltageModulePu UFilterRefRawPu(start = UdFilter0Pu);
+  Types.PerUnit udFilterRefRawPu (start = UdFilter0Pu);
+  Types.PerUnit uqFilterRefRawPu (start = 0);
 
   Modelica.Blocks.Continuous.Integrator integrator(k = SystemBase.omegaNom) annotation(
     Placement(visible = true, transformation(origin = {81, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -82,12 +82,12 @@ equation
   connect(integrator.y, theta) annotation(
     Line(points = {{92, 60}, {110, 60}}, color = {0, 0, 127}));
 
-  udConvRefRawPu * tan(theta) = uqConvRefRawPu;
-  UConvRefRawPu = sqrt(udConvRefRawPu ^ 2 + uqConvRefRawPu ^ 2);
-  der(UConvRefRawPu) = Eta * UConvRefRawPu * cos(KDvoc) * ((PRefPu / (UFilterRefPu ^ 2)) - ((udFilterPu * idPccPu + uqFilterPu * iqPccPu) / (UConvRefRawPu ^ 2))) - Eta * UConvRefRawPu * sin(KDvoc) * (- (QRefPu / (UFilterRefPu ^ 2)) + ((uqFilterPu * idPccPu - udFilterPu * iqPccPu) / (UConvRefRawPu ^ 2))) + Eta * Alpha * (1 - (UConvRefRawPu/UFilterRefPu) ^ 2) * UConvRefRawPu;
-  omegaPu * SystemBase.omegaNom = Eta * cos(KDvoc) * (-(QRefPu / (UFilterRefPu ^ 2)) + ((uqFilterPu * idPccPu - udFilterPu * iqPccPu) / (UConvRefRawPu ^ 2))) + Eta * sin(KDvoc) * ((PRefPu / (UFilterRefPu ^ 2)) - ((udFilterPu * idPccPu + uqFilterPu * iqPccPu) / (UConvRefRawPu ^ 2))) + SystemBase.omegaRef0Pu * SystemBase.omegaNom;
-  uqFilterRefPu = uqConvRefRawPu - DeltaVVIq;
-  udFilterRefPu = udConvRefRawPu - DeltaVVId;
+  udFilterRefRawPu * tan(theta) = uqFilterRefRawPu;
+  UFilterRefRawPu = sqrt(udFilterRefRawPu ^ 2 + uqFilterRefRawPu ^ 2);
+  der(UFilterRefRawPu) = Eta * UFilterRefRawPu * cos(KDvoc) * ((PRefPu / (UFilterRefPu ^ 2)) - ((udFilterPu * idPccPu + uqFilterPu * iqPccPu) / (UFilterRefRawPu ^ 2))) - Eta * UFilterRefRawPu * sin(KDvoc) * (- (QRefPu / (UFilterRefPu ^ 2)) + ((uqFilterPu * idPccPu - udFilterPu * iqPccPu) / (UFilterRefRawPu ^ 2))) + Eta * Alpha * (1 - (UFilterRefRawPu/UFilterRefPu) ^ 2) * UFilterRefRawPu;
+  omegaPu * SystemBase.omegaNom = Eta * cos(KDvoc) * (-(QRefPu / (UFilterRefPu ^ 2)) + ((uqFilterPu * idPccPu - udFilterPu * iqPccPu) / (UFilterRefRawPu ^ 2))) + Eta * sin(KDvoc) * ((PRefPu / (UFilterRefPu ^ 2)) - ((udFilterPu * idPccPu + uqFilterPu * iqPccPu) / (UFilterRefRawPu ^ 2))) + SystemBase.omegaRef0Pu * SystemBase.omegaNom;
+  uqFilterRefPu = uqFilterRefRawPu - DeltaVVIq;
+  udFilterRefPu = udFilterRefRawPu - DeltaVVId;
 
   annotation(
    Diagram(coordinateSystem(grid = {1, 1})),
