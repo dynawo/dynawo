@@ -54,6 +54,18 @@ equation
   end when;
 end DYNSolverTestGamma;
 
+model DYNSolverTestSkipNR
+  Real y (start = 1);
+  Integer z (start = 0);
+
+equation
+  y = if (time < 3) then 1 else 2 + z;
+  when (time >= 6) then
+    z = 2;
+  end when;
+
+end DYNSolverTestSkipNR;
+
 connector ZPin "connector for propagating discrete values (and events)"
   public
     discrete Real value;

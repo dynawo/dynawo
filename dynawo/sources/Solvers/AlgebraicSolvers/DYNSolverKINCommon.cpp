@@ -192,8 +192,6 @@ SolverKINCommon::solveCommon() {
 
   int flag = KINSol(KINMem_, yy_, KIN_NONE, yScaleNV, fScaleNV);
   analyseFlag(flag);
-  if (flag == KIN_STEP_LT_STPTOL || flag == KIN_INITIAL_GUESS_OK)
-    flag = KIN_SUCCESS;
 
   if (fScaleNV != NULL) N_VDestroy_Serial(fScaleNV);
   if (yScaleNV != NULL) N_VDestroy_Serial(yScaleNV);
