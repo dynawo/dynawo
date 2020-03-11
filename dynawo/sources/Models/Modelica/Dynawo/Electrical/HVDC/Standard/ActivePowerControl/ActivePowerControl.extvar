@@ -11,10 +11,10 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="ipRefVdcPu" type="continuous" />
-  <variable id="vdcPu" type="continuous" />
-  <variable id="pRefPu" type="continuous" />
-  <variable id="pPu" type="continuous" />
+  <variable id="ipRefUdcPu" type="continuous" />
+  <variable id="UdcPu" type="continuous" />
+  <variable id="PRefPu" type="continuous" />
+  <variable id="PPu" type="continuous" />
   <variable id="rpfault" type="continuous" />
   <variable id="blocked" type="boolean" />
 </external_variables>
