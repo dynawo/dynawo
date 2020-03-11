@@ -75,7 +75,7 @@ equation
   QInjPu = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom; //
   PInjPu = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom; //
 
-annotation(preferredView = "diagram",
+annotation(preferredView = "text",
 Documentation(info="<html> <p> This block calculates the current references for terminal connection based on d-q-frame setpoints from generator control  </p> </html>"),
     Diagram,
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "Injector"), Text(origin = {-148, 82}, extent = {{-32, 12}, {4, -4}}, textString = "idPu"), Text(origin = {-148, -18}, extent = {{-32, 12}, {4, -4}}, textString = "iqPu"), Text(origin = {170, -70}, extent = {{-32, 12}, {4, -4}}, textString = "ACPower"), Text(origin = {158, 92}, extent = {{-32, 12}, {4, -4}}, textString = "UPu"), Text(origin = {158, 54}, extent = {{-32, 12}, {4, -4}}, textString = "PInjPu"), Text(origin = {158, 20}, extent = {{-32, 12}, {4, -4}}, textString = "QInjPu"), Text(origin = {164, -20}, extent = {{-32, 12}, {4, -4}}, textString = "uPu")}));

@@ -59,7 +59,7 @@ model InjectorBG "Injector controlled by a the susceptance B and the conductance
     PInjPu = -ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
     QInjPu = -ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
 
-annotation(preferredView = "diagram",
+annotation(preferredView = "text",
     Diagram,
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "Injector"), Text(origin = {-148, 82}, extent = {{-32, 12}, {4, -4}}, textString = "BPu"), Text(origin = {-148, -18}, extent = {{-32, 12}, {4, -4}}, textString = "GPu"), Text(origin = {160, -38}, extent = {{-32, 12}, {4, -4}}, textString = "ACPower"), Text(origin = {158, 92}, extent = {{-32, 12}, {4, -4}}, textString = "UPu"), Text(origin = {158, 52}, extent = {{-32, 12}, {4, -4}}, textString = "PInjPu"), Text(origin = {158, 10}, extent = {{-32, 12}, {4, -4}}, textString = "QInjPu")}));
 end InjectorBG;
