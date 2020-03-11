@@ -192,8 +192,8 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     IIDM::MinMaxReactiveLimits limits(1., 2.);
     gb.minMaxReactiveLimits(limits);
     gb.targetP(1.05);
-    gb.pmin(-9999.);
-    gb.pmax(9999.);
+    gb.pmin(-150.);
+    gb.pmax(200.);
     gb.energySource(IIDM::Generator::source_nuclear);
     IIDM::Generator g = gb.build("MyGenerator");
     g.p(-105.);
@@ -471,6 +471,10 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDMCheckCriteriaAndStaticParameters) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "v"), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "uc"), 150.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "angle"), 1.5);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMin"), -150.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMax"), 200.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMin_pu"), -150. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMax_pu"), 200. / SNREF);
 }
 
 

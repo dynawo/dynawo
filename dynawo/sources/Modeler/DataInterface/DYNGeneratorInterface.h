@@ -58,6 +58,18 @@ class GeneratorInterface : public ComponentInterface {
   virtual double getP() = 0;
 
   /**
+   * @brief Getter for the minimum active power of the generator
+   * @return The minimum active power of the generator in MW (generator convention)
+   */
+  virtual double getPMin() = 0;
+
+  /**
+   * @brief Getter for the maximum active power of the generator
+   * @return The maximum active power of the generator in MW (generator convention)
+   */
+  virtual double getPMax() = 0;
+
+  /**
    * @brief Getter for the reactive power of the generator
    * @return The reactive power of the generator in Mvar (generator convention)
    */

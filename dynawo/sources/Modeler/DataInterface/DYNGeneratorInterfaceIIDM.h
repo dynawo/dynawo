@@ -100,6 +100,16 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getP();
 
   /**
+   * @copydoc GeneratorInterface::getPMin()
+   */
+  double getPMin();
+
+  /**
+   * @copydoc GeneratorInterface::getPMax()
+   */
+  double getPMax();
+
+  /**
    * @copydoc GeneratorInterface::getQ()
    */
   double getQ();

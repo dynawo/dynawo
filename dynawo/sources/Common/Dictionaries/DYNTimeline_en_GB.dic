@@ -22,10 +22,6 @@ CurrentLimitAutomatonDisarming =        CLA : disarming by under-current constra
 GeneratorPVMaxQ           =             PV Generator : max reactive power limit reached
 GeneratorPVMinQ           =             PV Generator : min reactive power limit reached
 GeneratorPVBackRegulation =             PV Generator : back to voltage regulation
-// --> Generator PQ
-GeneratorPQMaxV           =             PQ Generator : max voltage limit reached
-GeneratorPQMinV           =             PQ Generator : min voltage limit reached
-GeneratorPQBackRegulation =             PQ Generator : back to reactive power regulation
 // --> BaseTapChangerPhaseShifter
 TapUp                     =             Tap +1
 TapDown                   =             Tap -1

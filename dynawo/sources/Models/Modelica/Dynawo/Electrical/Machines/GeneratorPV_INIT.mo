@@ -17,9 +17,14 @@ model GeneratorPV_INIT "Initialisation model for generator PV"
   extends BaseClasses_INIT.BaseGeneratorSimplified_INIT;
   extends AdditionalIcons.Init;
 
-  parameter Real LambdaPu "Reactive power sensitivity of the voltage regulation in p.u (base UNom, SnRef)";
+  parameter Types.PerUnit LambdaPuSNom "Reactive power sensitivity of the voltage regulation in p.u (base UNom, SNom)";
+  parameter Types.ApparentPowerModule SNom "Apparent nominal power in MVA";
 
   Types.VoltageModulePu URef0Pu "Initial voltage regulation set point";
+
+protected
+
+  final parameter Types.PerUnit LambdaPu = LambdaPuSNom * SNom / SystemBase.SnRef "Reactive power sensitivity of the voltage regulation in p.u. (base UNom, SnRef)";
 
 equation
 

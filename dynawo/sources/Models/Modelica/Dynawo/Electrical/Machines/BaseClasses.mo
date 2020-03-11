@@ -63,11 +63,16 @@ partial model BaseGeneratorSimplifiedPFBehavior "Base model for generator active
 
     Connectors.ImPin omegaRefPu "Network angular reference frequency in p.u (base OmegaNom)";
 
-    parameter Types.ActivePowerPu PMinPu "Minimum active power in p.u (base SnRef)";
-    parameter Types.ActivePowerPu PMaxPu "Maximum active power in p.u (base SnRef)";
-    parameter Types.PerUnit AlphaPu "Frequency sensitivity in p.u (base SnRef, OmegaNom)";
+    parameter Types.ActivePower PMin "Minimum active power in MW";
+    parameter Types.ActivePower PMax "Maximum active power in MW";
+    parameter Types.ActivePower PNom "Nominal active power in MW";
+    parameter Types.PerUnit AlphaPuPNom "Frequency sensitivity in p.u (base PNom, OmegaNom)";
 
   protected
+
+    final parameter Types.ActivePowerPu PMinPu = PMin / SystemBase.SnRef "Minimum active power in p.u. (base SnRef)";
+    final parameter Types.ActivePowerPu PMaxPu = PMax / SystemBase.SnRef "Maximum active power in p.u. (base SnRef)";
+    final parameter Types.PerUnit AlphaPu = AlphaPuPNom * PNom / SystemBase.SnRef "Frequency sensitivity in p.u. (base SnRef, OmegaNom)";
 
     Types.ActivePowerPu PGenRawPu (start = PGen0Pu) "Active power generation without taking limits into account in p.u (base SnRef) (generator convention)";
 
@@ -102,8 +107,6 @@ end BaseGeneratorSimplifiedPFBehavior;
 
 
 record GeneratorSynchronousParameters "Synchronous machine record: Common parameters to the init and the dynamic models"
-
-  public
 
     type ExcitationPuType = enumeration(NominalStatorVoltageNoLoad "1 p.u. gives nominal air-gap stator voltage at no load",
                                         Kundur "Base voltage as per Kundur, Power System Stability and Control",
