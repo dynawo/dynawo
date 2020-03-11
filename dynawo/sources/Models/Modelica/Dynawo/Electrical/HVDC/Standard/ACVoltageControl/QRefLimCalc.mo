@@ -19,47 +19,50 @@ model QRefLimCalc
   import Dynawo.Electrical.SystemBase;
 
   parameter Types.ReactivePowerPu QMinOP;
-  parameter Types.ReactivePowerPu QMaxOP;
+  parameter Types.ReactivePowerPu QMaxOPPu;
 
-  Modelica.Blocks.Interfaces.RealInput qRefUPu(start = Q0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefUPu(start = Q0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput qRefQPu(start = Q0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefQPu(start = Q0Pu) annotation(
     Placement(visible = true, transformation(origin = {-120, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput qMaxP(start = QMaxOP) annotation(
+  Modelica.Blocks.Interfaces.RealInput QMaxPPu(start = QMaxOPPu) annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput qMinP(start = QMinOP) annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput qMaxU(start = QMaxOP) annotation(
+  Modelica.Blocks.Interfaces.RealInput qMaxU(start = QMaxOPPu) annotation(
     Placement(visible = true, transformation(origin = {-120, 90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput qMinU(start = QMinOP) annotation(
     Placement(visible = true, transformation(origin = {-120, -90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput modeU(start = true) annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Interfaces.RealOutput qRefLimPu(start = Q0Pu) annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = QMaxOP, uMin = QMinOP)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = QMaxOPPu, uMin = QMinOP)  annotation(
     Placement(visible = true, transformation(origin = {-41, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {-4, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter1 annotation(
     Placement(visible = true, transformation(origin = {30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-parameter Types.ReactivePowerPu Q0Pu;
+  parameter Types.ReactivePowerPu Q0Pu;
 
 equation
+
   connect(modeU, switch1.u2) annotation(
     Line(points = {{-120, 0}, {-84, 0}, {-84, 0}, {-82, 0}}, color = {255, 0, 255}));
-  connect(qRefUPu, switch1.u1) annotation(
+  connect(QRefUPu, switch1.u1) annotation(
     Line(points = {{-120, 30}, {-90, 30}, {-90, 8}, {-82, 8}}, color = {0, 0, 127}));
-  connect(qRefQPu, switch1.u3) annotation(
+  connect(QRefQPu, switch1.u3) annotation(
     Line(points = {{-120, -30}, {-90, -30}, {-90, -8}, {-82, -8}}, color = {0, 0, 127}));
   connect(switch1.y, limiter.u) annotation(
     Line(points = {{-59, 0}, {-54, 0}, {-54, 0}, {-53, 0}}, color = {0, 0, 127}));
-  connect(qMaxP, variableLimiter.limit1) annotation(
+  connect(QMaxPPu, variableLimiter.limit1) annotation(
     Line(points = {{-16, 8}, {-20, 8}, {-20, 60}, {-120, 60}}, color = {0, 0, 127}));
-  connect(variableLimiter.limit1, qMaxP) annotation(
+  connect(variableLimiter.limit1, QMaxPPu) annotation(
     Line(points = {{-16, 8}, {-20, 8}, {-20, 60}, {-120, 60}}, color = {0, 0, 127}));
   connect(qMinP, variableLimiter.limit2) annotation(
     Line(points = {{-120, -60}, {-19, -60}, {-19, -8}, {-16, -8}, {-16, -8}}, color = {0, 0, 127}));
