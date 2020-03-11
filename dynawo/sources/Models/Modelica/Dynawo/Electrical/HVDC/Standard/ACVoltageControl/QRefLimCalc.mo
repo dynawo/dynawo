@@ -18,30 +18,30 @@ model QRefLimCalc
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Types.ReactivePowerPu QMinOP;
+  parameter Types.ReactivePowerPu QMinOPPu;
   parameter Types.ReactivePowerPu QMaxOPPu;
 
-  Modelica.Blocks.Interfaces.RealInput QRefUPu(start = Q0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefUPu(start = Q0Pu) "Reference reactive power in U mode in p.u (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QRefQPu(start = Q0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealInput QRefQPu(start = Q0Pu) "Reference reactive power in Q mode in p.u (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QMaxPPu(start = QMaxOPPu) annotation(
+  Modelica.Blocks.Interfaces.RealInput QMaxPPu(start = QMaxOPPu) "Maximum reactive power in p.u (base SNom) following the PQ diagram" annotation(
     Placement(visible = true, transformation(origin = {-120, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput qMinP(start = QMinOP) annotation(
+  Modelica.Blocks.Interfaces.RealInput QMinPPu(start = QMinOPPu) "Minimum reactive power in p.u (base SNom) following the PQ diagram" annotation(
     Placement(visible = true, transformation(origin = {-120, -60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput qMaxU(start = QMaxOPPu) annotation(
+  Modelica.Blocks.Interfaces.RealInput QMaxUPu(start = QMaxOPPu) "Maximum reactive power in p.u (base SNom) following the UQ diagram" annotation(
     Placement(visible = true, transformation(origin = {-120, 90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput qMinU(start = QMinOP) annotation(
+  Modelica.Blocks.Interfaces.RealInput QMinUPu(start = QMinOPPu) "Minimum reactive power in p.u (base SNom) following the UQ diagram" annotation(
     Placement(visible = true, transformation(origin = {-120, -90}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput modeU(start = true) annotation(
+  Modelica.Blocks.Interfaces.BooleanInput modeU(start = true) "Boolean assessing the mode of the control: true if U mode, false if Q mode" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Modelica.Blocks.Interfaces.RealOutput qRefLimPu(start = Q0Pu) annotation(
+  Modelica.Blocks.Interfaces.RealOutput QRefLimPu(start = Q0Pu) "Reference reactive power in p.u (base SNom) after applying the diagrams" annotation(
     Placement(visible = true, transformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Logical.Switch switch1 annotation(
     Placement(visible = true, transformation(origin = {-70, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = QMaxOPPu, uMin = QMinOP)  annotation(
+  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = QMaxOPPu, uMin = QMinOPPu)  annotation(
     Placement(visible = true, transformation(origin = {-41, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.VariableLimiter variableLimiter annotation(
     Placement(visible = true, transformation(origin = {-4, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -64,15 +64,15 @@ equation
     Line(points = {{-16, 8}, {-20, 8}, {-20, 60}, {-120, 60}}, color = {0, 0, 127}));
   connect(variableLimiter.limit1, QMaxPPu) annotation(
     Line(points = {{-16, 8}, {-20, 8}, {-20, 60}, {-120, 60}}, color = {0, 0, 127}));
-  connect(qMinP, variableLimiter.limit2) annotation(
+  connect(QMinPPu, variableLimiter.limit2) annotation(
     Line(points = {{-120, -60}, {-19, -60}, {-19, -8}, {-16, -8}, {-16, -8}}, color = {0, 0, 127}));
   connect(variableLimiter.y, variableLimiter1.u) annotation(
     Line(points = {{7, 0}, {17, 0}, {17, 0}, {18, 0}}, color = {0, 0, 127}));
-  connect(qMaxU, variableLimiter1.limit1) annotation(
+  connect(QMaxUPu, variableLimiter1.limit1) annotation(
     Line(points = {{-120, 90}, {12, 90}, {12, 8}, {18, 8}, {18, 8}}, color = {0, 0, 127}));
-  connect(qMinU, variableLimiter1.limit2) annotation(
+  connect(QMinUPu, variableLimiter1.limit2) annotation(
     Line(points = {{-120, -90}, {12, -90}, {12, -8}, {18, -8}, {18, -8}}, color = {0, 0, 127}));
-  connect(variableLimiter1.y, qRefLimPu) annotation(
+  connect(variableLimiter1.y, QRefLimPu) annotation(
     Line(points = {{41, 0}, {101, 0}, {101, 0}, {110, 0}}, color = {0, 0, 127}));
   connect(variableLimiter.y, variableLimiter1.u) annotation(
     Line(points = {{7, 0}, {18, 0}, {18, 0}, {18, 0}}, color = {0, 0, 127}));
