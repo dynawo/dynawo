@@ -336,7 +336,9 @@ SolverKINAlgRestoration::solve(bool noInitSetup) {
   }
 
   flag = solveCommon();
-  if (flag < 0)
+  if (flag == KIN_STEP_LT_STPTOL || flag == KIN_INITIAL_GUESS_OK)
+    flag = KIN_SUCCESS;
+  else if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
 }
 

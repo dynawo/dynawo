@@ -125,7 +125,8 @@ scsteptol_(1e-4),
 mxnewtstep_(100000),
 msbset_(0),
 mxiter_(15),
-printfl_(0) {
+printfl_(0),
+skipNextNR_(false) {
   solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
 }
 
@@ -494,10 +495,14 @@ SolverSIM::solve() {
       // Algebraic mode change
       modeChangeType_t modeChangeType = model_->getModeChangeType();
       if (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
+        skipNextNR_ = false;
         return (ROOT_ALG);
       } else if (modelChange) {  // Z change
+        skipNextNR_ = false;
         return (ROOT);
       } else {  // Root change without any z or mode change
+        if (modeChangeType == DIFFERENTIAL_MODE)
+          skipNextNR_ = false;
         return (CONV);
       }
     }
@@ -506,7 +511,9 @@ SolverSIM::solve() {
 
 int
 SolverSIM::SIMCorrection() {
-  int flag = callSolverKINEuler();
+  int flag = 0;
+  if (!skipNextNR_)
+    flag = callSolverKINEuler();
   return flag;
 }
 
@@ -523,9 +530,16 @@ SolverSIM::callSolverKINEuler() {
   // Call the solving method in Backward Euler method (Newton-Raphson resolution)
   int flag = solverKINEuler_->solve(noInitSetup);
 
-  // Get updated y and yp values
-  if (flag >= 0)
+  // Get updated y and yp values plus set the skipNextNR indicator
+  if (flag >= 0) {
+    if (flag == KIN_INITIAL_GUESS_OK) {
+      skipNextNR_ = true;
+      flag = KIN_SUCCESS;
+    } else if (flag == KIN_STEP_LT_STPTOL) {
+      flag = KIN_SUCCESS;
+    }
     solverKINEuler_->getValues(vYy_, vYp_);
+  }
 
   // Update statistics
   long int nre;

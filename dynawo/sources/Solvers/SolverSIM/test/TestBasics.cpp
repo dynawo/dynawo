@@ -19,6 +19,9 @@
 
 #include <fstream>
 #include <cmath>
+#include <iostream>
+#include <iomanip>
+#include <sstream>
 
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/classification.hpp>
@@ -585,6 +588,79 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
 
   solver->setPreviousReinit(Algebraic);
   ASSERT_EQ(solver->getPreviousReinit(), Algebraic);
+}
+
+TEST(SimulationTest, testSolverSkipNR) {
+  const double tStart = 0.;
+  const double tStop = 10.;
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSkipNR.dyd",
+                                                                                                tStart, tStop, true, 3);
+  boost::shared_ptr<Solver> solver = p.first;
+  boost::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC();
+
+  std::vector<double> y0(model->sizeY());
+  std::vector<double> yp0(model->sizeY());
+  std::vector<double> z0(model->sizeZ());
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
+
+  double tCurrent = tStart;
+  std::vector<double> y(y0);
+  std::vector<double> yp(yp0);
+  std::vector<double> z(z0);
+
+  // Statistics to ensure that nothing is done in the NR
+  // Solve at t = 1 -> Should force skipNextNR_ = true
+  solver->solve(tStop, tCurrent);
+  // Solve at t = 2
+  solver->solve(tStop, tCurrent);
+  std::stringstream msg;
+  msg << "| " << std::setw(3) << 2 << " "
+          << std::setw(4) << 0 << " "
+          << std::setw(3) << 0 << " "
+          << std::setw(3) << 1 << " ";
+  std::stringstream msgRef;
+  solver->printSolveSpecific(msgRef);
+  ASSERT_EQ(msgRef.str(), msg.str());
+
+  // Solve at t = 3
+  solver->solve(tStop, tCurrent);
+  // Solve at t = 4 -> skipNextNR_ = false
+  solver->solve(tStop, tCurrent);
+  msg.str(std::string());
+  msg << "| " << std::setw(3) << 4 << " "
+          << std::setw(4) << 0 << " "
+          << std::setw(3) << 0 << " "
+          << std::setw(3) << 1 << " ";
+  msgRef.str(std::string());
+  solver->printSolveSpecific(msgRef);
+  ASSERT_NE(msgRef.str(), msg.str());
+
+  // Solve at t = 5 -> skipNextNR_ = true
+  solver->solve(tStop, tCurrent);
+  // Solve at t = 6
+  solver->solve(tStop, tCurrent);
+  msg.str(std::string());
+  msg << "| " << std::setw(3) << 6 << " "
+          << std::setw(4) << 1 << " "
+          << std::setw(3) << 2 << " "
+          << std::setw(3) << 1 << " ";
+  msgRef.str(std::string());
+  solver->printSolveSpecific(msgRef);
+  ASSERT_EQ(msgRef.str(), msg.str());
+
+  // Solve at t = 7
+  solver->solve(tStop, tCurrent);
+  msg.str(std::string());
+  msg << "| " << std::setw(3) << 7 << " "
+          << std::setw(4) << 1 << " "
+          << std::setw(3) << 1 << " "
+          << std::setw(3) << 1 << " ";
+  msgRef.str(std::string());
+  solver->printSolveSpecific(msgRef);
+  ASSERT_NE(msgRef.str(), msg.str());
 }
 
 TEST(ParametersTest, testParameters) {
