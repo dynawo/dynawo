@@ -33,14 +33,14 @@
     <dyn:initConnect id1="control" var1="IqConv0Pu" id2="converter" var2="IqConv0Pu"/>
     <dyn:connect id1="control" var1="UFilterRefPu" id2="UFilterRefPu" var2="setPoint.value"/>
     <dyn:connect id1="control" var1="IdcSourceRefPu" id2="IdcSourceRefPu" var2="setPoint.value"/>
-    <dyn:connect id1="converter" var1="UdcSourceRefPu" id2="UdcSourceRefPu" var2="setPoint"/>
-    <dyn:connect id1="converter" var1="udConvRefPu" id2="control" var2="udConvRefPuPin"/>
-    <dyn:connect id1="converter" var1="uqConvRefPu" id2="control" var2="uqConvRefPuPin"/>
-    <dyn:connect id1="converter" var1="IdcSourcePu" id2="control" var2="IdcSourcePuPin"/>
+    <dyn:connect id1="converter" var1="UdcSourceRefPu" id2="UdcSourceRefPu" var2="setPoint.value"/>
+    <dyn:connect id1="converter" var1="udConvRefPu" id2="control" var2="udConvRefPu"/>
+    <dyn:connect id1="converter" var1="uqConvRefPu" id2="control" var2="uqConvRefPu"/>
+    <dyn:connect id1="converter" var1="IdcSourcePu" id2="control" var2="IdcSourcePu"/>
     <dyn:connect id1="UdcSourceRefPu" var1="setPoint.value" id2="control" var2="UdcSourceRefPu"/>
     <dyn:connect id1="converter" var1="UdcSourcePu" id2="control" var2="UdcSourcePu"/>
-    <dyn:connect id1="converter" var1="omegaPu" id2="control" var2="omegaPuPin"/>
-    <dyn:connect id1="converter" var1="theta" id2="control" var2="thetaPin"/>
+    <dyn:connect id1="converter" var1="omegaPu" id2="control" var2="omegaPu"/>
+    <dyn:connect id1="converter" var1="theta" id2="control" var2="theta"/>
     <dyn:connect id1="control" var1="idPccPu" id2="converter" var2="idPccPu"/>
     <dyn:connect id1="control" var1="iqPccPu" id2="converter" var2="iqPccPu"/>
     <dyn:connect id1="control" var1="udFilterPu" id2="converter" var2="udFilterPu"/>

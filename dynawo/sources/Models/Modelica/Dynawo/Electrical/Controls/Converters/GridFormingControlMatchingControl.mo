@@ -20,12 +20,6 @@ model GridFormingControlMatchingControl "Grid Forming Control with Matching Cont
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  Connectors.ImPin udConvRefPuPin(value(start = UdConv0Pu));
-  Connectors.ImPin uqConvRefPuPin(value(start = UqConv0Pu));
-  Connectors.ImPin omegaPuPin(value(start = SystemBase.omegaRef0Pu));
-  Connectors.ImPin thetaPin(value(start = Theta0));
-  Connectors.ImPin IdcSourcePuPin(value(start = IdcSource0Pu));
-
   parameter Types.PerUnit KMatching "Proportional gain of the matching control";
   parameter Types.PerUnit Kpc "Proportional gain of the current loop";
   parameter Types.PerUnit Kic "Integral gain of the current loop";
@@ -39,49 +33,49 @@ model GridFormingControlMatchingControl "Grid Forming Control with Matching Cont
   parameter Types.PerUnit Kpdc "Proportional gain of the dc voltage control";
 
   Modelica.Blocks.Interfaces.RealInput idPccPu (start = IdPcc0Pu) "d-axis current at the PCC in p.u (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-53, -35}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-66, -19}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, -9}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-60, 30}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqPccPu (start = IqPcc0Pu) "q-axis current at the PCC in p.u (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-53, -40}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-62, 15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, -14}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-60, -30}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput omegaRefPu (start = SystemBase.omegaRef0Pu) "grid frequency in p.u" annotation(
-    Placement(visible = true, transformation(origin = {-53, -45}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-62, -34}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, -19}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-10, 65}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput udFilterPu (start = UdFilter0Pu) "d-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-53, -55}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-16, -36}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, -29}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-60, 45}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput uqFilterPu (start = 0) "q-axis voltage at the converter's capacitor in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-53, -50}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {25, -15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, -24}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-60, -45}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput idConvPu (start = IdConv0Pu) "d-axis current created by the converter in p.u (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-53, -25}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-83, 6}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, 1}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-60, 15}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput iqConvPu (start = IqConv0Pu) "q-axis current created by the converter in p.u (base UNom, SNom) (generator convention)" annotation(
-    Placement(visible = true, transformation(origin = {-53, -30}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-84, -12}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, -4}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-60, -15}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UFilterRefPu (start = UdFilter0Pu) "reference voltage at the converter's capacitor in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-53, 14}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-89, 1}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, 40}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-30, 65}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput IdcSourceRefPu (start = IdcSourceRef0Pu) "reference DC Current generated by the DC current source in p.u (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-53, -62}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-68, -64}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, -36}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {30, 65}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UdcSourceRefPu (start = UdcSource0Pu) "reference DC voltage on the DC side in p.u (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-53, -70}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {21, -72}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, -44}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {10, 65}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UdcSourcePu (start = UdcSource0Pu) "DC voltage on the DC side in p.u (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-53, -78}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {1, -76}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-58, -52}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {-60, 0}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput theta (start = Theta0) "Phase shift between the converter's rotating frame and the grid rotating frame" annotation(
-    Placement(visible = true, transformation(origin = {72, 24}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {67, 50}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {69, -55}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput udConvRefPu (start = UdConv0Pu) "reference d-axis modulated voltage created by the converter in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {72, 29}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {67, 55}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {69, 25}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput uqConvRefPu (start = UqConv0Pu) "reference q-axis modulated voltage created by the converter in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {72, 11}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {110, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {67, 37}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {69, -25}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput IdcSourcePu (start = IdcSource0Pu) "DC Current generated by the DC current source in p.u (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {72, -70}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {110, -80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {67, -44}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {69, 0}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput omegaPu (start = SystemBase.omegaRef0Pu) "Converter's frequency" annotation(
-    Placement(visible = true, transformation(origin = {72, 20}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {71, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {67, 46}, extent = {{-3, -3}, {3, 3}}, rotation = 0), iconTransformation(origin = {69, 55}, extent = {{-5, -5}, {5, 5}}, rotation = 0)));
 
   Dynawo.Electrical.Controls.Converters.BaseControls.CurrentLoop currentLoop(Kic = Kic, Kpc = Kpc, Lfilter = Lfilter, Rfilter = Rfilter, UdConv0Pu = UdConv0Pu, UqConv0Pu = UqConv0Pu, UdFilter0Pu = UdFilter0Pu, IdConv0Pu=IdConv0Pu, IqConv0Pu=IqConv0Pu)  annotation(
-    Placement(visible = true, transformation(origin = {50, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {45, 46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.VoltageLoop voltageLoop(Cfilter = Cfilter, Kiv = Kiv, Kpv = Kpv, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu, IdPcc0Pu = IdPcc0Pu, IqPcc0Pu = IqPcc0Pu, UdFilter0Pu = UdFilter0Pu)  annotation(
-    Placement(visible = true, transformation(origin = {20, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {15, 46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.VirtualImpedance virtualImpedance(KpVI = KpVI, XRratio = XRratio, IdConv0Pu = IdConv0Pu, IqConv0Pu = IqConv0Pu)  annotation(
-    Placement(visible = true, transformation(origin = {-30, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-35, 16}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.DCVoltageControl dCVoltageControl(Kpdc = Kpdc, IdcSource0Pu = IdcSource0Pu, IdcSourceRef0Pu = IdcSourceRef0Pu, UdcSource0Pu = UdcSource0Pu)  annotation(
-    Placement(visible = true, transformation(origin = {50, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {45, -44}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Controls.Converters.BaseControls.MatchingControl matchingControl(KMatching = KMatching, Theta0 = Theta0, UdcSource0Pu = UdcSource0Pu, UdFilter0Pu = UdFilter0Pu)  annotation(
-    Placement(visible = true, transformation(origin = {-10, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-15, 46}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
 
@@ -98,76 +92,69 @@ protected
   parameter Types.PerUnit UdcSource0Pu;
 
 equation
-
-  connect(udConvRefPuPin.value, udConvRefPu);
-  connect(uqConvRefPuPin.value, uqConvRefPu);
-  connect(IdcSourcePuPin.value, IdcSourcePu);
-  connect(omegaPuPin.value, omegaPu);
-  connect(thetaPin.value, theta);
   connect(voltageLoop.idConvRefPu, currentLoop.idConvRefPu) annotation(
-    Line(points = {{31, 29}, {38, 29}, {38, 29}, {39, 29}}, color = {0, 0, 127}));
+    Line(points = {{26, 55}, {34, 55}}, color = {0, 0, 127}));
   connect(voltageLoop.iqConvRefPu, currentLoop.iqConvRefPu) annotation(
-    Line(points = {{31, 11}, {39, 11}, {39, 11}, {39, 11}}, color = {0, 0, 127}));
+    Line(points = {{26, 37}, {34, 37}}, color = {0, 0, 127}));
   connect(idConvPu, virtualImpedance.idConvPu) annotation(
-    Line(points = {{-53, -25}, {-45, -25}, {-45, -1}, {-41, -1}, {-41, -1}}, color = {0, 0, 127}));
+    Line(points = {{-58, 1}, {-50, 1}, {-50, 25}, {-46, 25}}, color = {0, 0, 127}));
   connect(iqConvPu, virtualImpedance.iqConvPu) annotation(
-    Line(points = {{-53, -30}, {-44, -30}, {-44, -19}, {-41, -19}, {-41, -19}}, color = {0, 0, 127}));
+    Line(points = {{-58, -4}, {-49, -4}, {-49, -16.5}, {-46, -16.5}, {-46, 7}}, color = {0, 0, 127}));
   connect(udFilterPu, voltageLoop.udFilterPu) annotation(
-    Line(points = {{-53, -55}, {12, -55}, {12, 9}, {12, 9}}, color = {0, 0, 127}));
+    Line(points = {{-58, -29}, {7, -29}, {7, 35}}, color = {0, 0, 127}));
   connect(uqFilterPu, voltageLoop.uqFilterPu) annotation(
-    Line(points = {{-53, -50}, {16, -50}, {16, 9}, {16, 9}}, color = {0, 0, 127}));
+    Line(points = {{-58, -24}, {11, -24}, {11, 35}}, color = {0, 0, 127}));
   connect(idPccPu, voltageLoop.idPccPu) annotation(
-    Line(points = {{-53, -35}, {24, -35}, {24, 9}, {24, 9}}, color = {0, 0, 127}));
+    Line(points = {{-58, -9}, {19, -9}, {19, 35}}, color = {0, 0, 127}));
   connect(iqPccPu, voltageLoop.iqPccPu) annotation(
-    Line(points = {{-53, -40}, {28, -40}, {28, 9}, {28, 9}}, color = {0, 0, 127}));
+    Line(points = {{-58, -14}, {23, -14}, {23, 35}}, color = {0, 0, 127}));
   connect(udFilterPu, currentLoop.udFilterPu) annotation(
-    Line(points = {{-53, -55}, {42, -55}, {42, 9}, {42, 9}}, color = {0, 0, 127}));
+    Line(points = {{-58, -29}, {37, -29}, {37, 35}}, color = {0, 0, 127}));
   connect(uqFilterPu, currentLoop.uqFilterPu) annotation(
-    Line(points = {{-53, -50}, {46, -50}, {46, 9}, {46, 9}}, color = {0, 0, 127}));
+    Line(points = {{-58, -24}, {41, -24}, {41, 35}}, color = {0, 0, 127}));
   connect(idConvPu, currentLoop.idConvPu) annotation(
-    Line(points = {{-53, -25}, {54, -25}, {54, 9}, {54, 9}}, color = {0, 0, 127}));
+    Line(points = {{-58, 1}, {49, 1}, {49, 35}}, color = {0, 0, 127}));
   connect(iqConvPu, currentLoop.iqConvPu) annotation(
-    Line(points = {{-53, -30}, {58, -30}, {58, 9}, {58, 9}}, color = {0, 0, 127}));
+    Line(points = {{-58, -4}, {53, -4}, {53, 35}}, color = {0, 0, 127}));
   connect(UdcSourceRefPu, dCVoltageControl.UdcSourceRefPu) annotation(
-    Line(points = {{-53, -70}, {39, -70}}, color = {0, 0, 127}));
+    Line(points = {{-58, -44}, {34, -44}}, color = {0, 0, 127}));
   connect(IdcSourceRefPu, dCVoltageControl.IdcSourceRefPu) annotation(
-    Line(points = {{-53, -62}, {39, -62}}, color = {0, 0, 127}));
+    Line(points = {{-58, -36}, {34, -36}}, color = {0, 0, 127}));
   connect(UdcSourcePu, dCVoltageControl.UdcSourcePu) annotation(
-    Line(points = {{-53, -78}, {39, -78}}, color = {0, 0, 127}));
+    Line(points = {{-58, -52}, {34, -52}}, color = {0, 0, 127}));
   connect(currentLoop.udConvRefPu, udConvRefPu) annotation(
-    Line(points = {{61, 29}, {69, 29}, {69, 29}, {72, 29}}, color = {0, 0, 127}));
+    Line(points = {{56, 55}, {67, 55}}, color = {0, 0, 127}));
   connect(currentLoop.uqConvRefPu, uqConvRefPu) annotation(
-    Line(points = {{61, 11}, {70, 11}, {70, 11}, {72, 11}}, color = {0, 0, 127}));
+    Line(points = {{56, 37}, {67, 37}}, color = {0, 0, 127}));
   connect(dCVoltageControl.IdcSourcePu, IdcSourcePu) annotation(
-    Line(points = {{61, -70}, {70, -70}, {70, -70}, {72, -70}}, color = {0, 0, 127}));
+    Line(points = {{56, -44}, {67, -44}}, color = {0, 0, 127}));
   connect(UdcSourceRefPu, matchingControl.UdcSourceRefPu) annotation(
-    Line(points = {{-53, -70}, {-46, -70}, {-46, 26}, {-21, 26}, {-21, 26}}, color = {0, 0, 127}));
+    Line(points = {{-58, -44}, {-51, -44}, {-51, 52}, {-26, 52}}, color = {0, 0, 127}));
   connect(UFilterRefPu, matchingControl.UFilterRefPu) annotation(
-    Line(points = {{-53, 14}, {-21, 14}}, color = {0, 0, 127}));
+    Line(points = {{-58, 40}, {-26, 40}}, color = {0, 0, 127}));
   connect(virtualImpedance.DeltaVVId, matchingControl.DeltaVVId) annotation(
-    Line(points = {{-19, -1}, {-17, -1}, {-17, 9}, {-17, 9}}, color = {0, 0, 127}));
+    Line(points = {{-24, 25}, {-22, 25}, {-22, 35}}, color = {0, 0, 127}));
   connect(virtualImpedance.DeltaVVIq, matchingControl.DeltaVVIq) annotation(
-    Line(points = {{-19, -19}, {-13, -19}, {-13, 9}, {-13, 9}}, color = {0, 0, 127}));
+    Line(points = {{-24, 7}, {-18, 7}, {-18, 35}}, color = {0, 0, 127}));
   connect(omegaRefPu, matchingControl.omegaRefPu) annotation(
-    Line(points = {{-53, -45}, {-7, -45}, {-7, 9}, {-7, 9}}, color = {0, 0, 127}));
+    Line(points = {{-58, -19}, {-12, -19}, {-12, 35}}, color = {0, 0, 127}));
   connect(UdcSourcePu, matchingControl.UdcSourcePu) annotation(
-    Line(points = {{-53, -78}, {-3, -78}, {-3, 9}, {-3, 9}}, color = {0, 0, 127}));
+    Line(points = {{-58, -52}, {-8, -52}, {-8, 35}}, color = {0, 0, 127}));
   connect(matchingControl.udFilterRefPu, voltageLoop.udFilterRefPu) annotation(
-    Line(points = {{1, 29}, {8, 29}, {8, 29}, {9, 29}}, color = {0, 0, 127}));
+    Line(points = {{-4, 55}, {4, 55}}, color = {0, 0, 127}));
   connect(matchingControl.omegaPu, voltageLoop.omegaPu) annotation(
-    Line(points = {{1, 20}, {9, 20}, {9, 20}, {9, 20}}, color = {0, 0, 127}));
+    Line(points = {{-4, 46}, {4, 46}}, color = {0, 0, 127}));
   connect(matchingControl.uqFilterRefPu, voltageLoop.uqFilterRefPu) annotation(
-    Line(points = {{1, 11}, {8, 11}, {8, 11}, {9, 11}}, color = {0, 0, 127}));
+    Line(points = {{-4, 37}, {4, 37}}, color = {0, 0, 127}));
   connect(matchingControl.theta, theta) annotation(
-    Line(points = {{1, 24}, {69, 24}, {69, 24}, {72, 24}}, color = {0, 0, 127}));
+    Line(points = {{-4, 50}, {67, 50}}, color = {0, 0, 127}));
   connect(matchingControl.omegaPu, currentLoop.omegaPu) annotation(
-    Line(points = {{1, 20}, {38, 20}, {38, 20}, {39, 20}}, color = {0, 0, 127}));
+    Line(points = {{-4, 46}, {34, 46}}, color = {0, 0, 127}));
   connect(matchingControl.omegaPu, omegaPu) annotation(
-    Line(points = {{1, 20}, {70, 20}, {70, 20}, {72, 20}}, color = {0, 0, 127}));
-
+    Line(points = {{-4, 46}, {67, 46}}, color = {0, 0, 127}));
   annotation(
-    Diagram(coordinateSystem(grid = {1, 1})),
+    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-55, -60}, {64, 60}})),
     preferredView = "diagram",
-    Icon(coordinateSystem(grid = {1, 1})));
+    Icon(coordinateSystem(grid = {1, 1}, extent = {{-55, -60}, {64, 60}})));
 
 end GridFormingControlMatchingControl;
