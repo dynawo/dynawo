@@ -11,11 +11,11 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="qRefUPu" type="continuous" />
-  <variable id="qRefQPu" type="continuous" />
-  <variable id="qMaxP" type="continuous" />
-  <variable id="qMinP" type="continuous" />
-  <variable id="qMaxU" type="continuous" />
-  <variable id="qMinU" type="continuous" />
+  <variable id="QRefUPu" type="continuous" />
+  <variable id="QRefQPu" type="continuous" />
+  <variable id="QMaxPPu" type="continuous" />
+  <variable id="QMinPPu" type="continuous" />
+  <variable id="QMaxUPu" type="continuous" />
+  <variable id="QMinUPu" type="continuous" />
   <variable id="modeU" type="boolean" />
 </external_variables>
