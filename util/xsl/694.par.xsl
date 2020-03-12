@@ -1,8 +1,8 @@
 <!--  This xsl deletes the attributes UMinPu, UMaxPu, QMinPu, QMaxPu from generators par files -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:dyn="http://www.rte-france.com/dynawo">
+<xsl:output method='xml' version='1.0' encoding='UTF-8' indent='yes'/>
 
 <!--  These lines enable to avoid empty lines after removing some elements while keeping the indentation fine -->
-<xsl:output omit-xml-declaration="yes" indent="yes"/>
 <xsl:strip-space elements="*"/>
 
 <!--  This first template copies all the xml. It will be overrided by the following templates when they could be applied -->
