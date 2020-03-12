@@ -516,6 +516,10 @@ class Job:
         self.job_ = ""
         self.file_ =""
         self.output_dir_ =""
+        self.compilation_dir_ =""
+        self.dyd_files_ =[]
+        self.curves_files_ =[]
+        self.par_files_ =[]
 
 class TestCase:
     def __init__(self, case, case_name, case_description, jobs_file, estimated_computation_time, return_code_type, expected_return_codes):
@@ -578,6 +582,15 @@ class TestCase:
                     current_job.solver_="Solver SIM"
                 else:
                     current_job.solver_="Solver IDA"
+                if not solver.get("parFile") in current_job.par_files_:
+                    current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), solver.get("parFile")))
+
+            # Get dyd files
+            for modeler in job.iter(namespaceDYN("modeler")):
+                if ("compileDir" in modeler.attrib):
+                    current_job.compilation_dir_ = os.path.join(os.path.dirname(self.jobs_file_), modeler.get("compileDir"))
+                for dynModels in modeler.iter(namespaceDYN("dynModels")):
+                    current_job.dyd_files_.append(os.path.join(os.path.dirname(self.jobs_file_), dynModels.get("dydFile")))
 
             # Get their outputs
             for outputs in job.iter(namespaceDYN("outputs")):
@@ -637,6 +650,7 @@ class TestCase:
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : a curve element does not have an export mode " + os.linesep, BLACK)
                         sys.exit(1)
 
+                    current_job.curves_files_.append(os.path.join(os.path.dirname(self.jobs_file_), curves.get("inputFile")))
                     if(curves.get("exportMode") == "CSV"):
                         fileCurves = os.path.join(current_job.output_dir_, "curves", "curves.csv" )
                         if os.path.isfile(fileCurves):
@@ -660,12 +674,33 @@ class TestCase:
                         os.remove(fileAppender)
                     current_job.appenders_.append(fileAppender)
 
+        # Parse dyd files file
+        for dyd_file in current_job.dyd_files_:
+            try:
+                dyd_root = lxml.etree.parse(dyd_file).getroot()
+            except:
+                printout("Fail to import XML file " + dyd_file + os.linesep, BLACK)
+                sys.exit(1)
+            for dma in dyd_root.iter(namespaceDYN("dynamicModelsArchitecture")):
+                for item in dma.iter(namespaceDYN("blackBoxModel")):
+                    if "parFile" in item.attrib and not item.get("parFile") in current_job.par_files_:
+                        current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
+                for item in dma.iter(namespaceDYN("modelTemplateExpansion")):
+                    if "parFile" in item.attrib and not item.get("parFile") in current_job.par_files_:
+                        current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
+                for item in dma.iter(namespaceDYN("unitDynamicModel")):
+                    if "parFile" in item.attrib and not item.get("parFile") in current_job.par_files_:
+                        current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
 
-            self.jobs_.append(current_job)
-            job_num += 1
+        self.jobs_.append(current_job)
+        job_num += 1
 
     def launch(self, timeout):
         start_time = time.time()
+
+        for job in self.jobs_:
+            if job.compilation_dir_ != "" and os.path.isdir(job.compilation_dir_):
+                shutil.rmtree(job.compilation_dir_)
         command = []
 
         command = [env_dynawo, "jobs", self.jobs_file_]

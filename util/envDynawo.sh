@@ -97,6 +97,7 @@ where [option] can be:"
         nrt ([-p regex] [-n name_filter])     run (filtered) non-regression tests and open the result in chosen browser
         nrt-diff ([args])                     make a diff between two non-regression test outputs
         nrt-ref ([args])                      define or redefine automatically the non-regression tests references
+        nrt-xsl ([args])                      update automatically the xml input files from the nrt
         version-validation                    clean all built items, then build them all and run non-regression tests
         list-tests                            print all available unittest target
         run-doc-tests                         run all tests provided in the documentation
@@ -1470,6 +1471,11 @@ nrt_ref() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_NRT_DIFF_DIR/defineTestReference.py $@
 }
 
+nrt_xsl() {
+  export_var_env_force DYNAWO_NRT_SCRIPT_DIR=$DYNAWO_NRT_DIR
+  $DYNAWO_PYTHON_COMMAND xsl/applyXsltToXml.py $@
+}
+
 check_coding_files() {
   # html escape .dic files for dictionary
   for dicfile in $(find $DYNAWO_INSTALL_DIR -iname '*.dic')
@@ -1723,6 +1729,7 @@ deploy_dynawo() {
   cp -r $DYNAWO_NRT_DIFF_DIR/*.py sbin/nrt/nrt_diff
   cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
+  cp -r $current_dir/xsl sbin/.
 
   rm -f lib/*.la
   find OpenModelica/lib -name "*.la" -exec rm {} \;
@@ -2330,6 +2337,10 @@ case $MODE in
 
   nrt-ref)
     nrt_ref ${ARGS} || error_exit "Error during Dynawo's NRT ref execution"
+    ;;
+
+  nrt-xsl)
+    nrt_xsl ${ARGS} || error_exit "Error during Dynawo's NRT xsl execution"
     ;;
 
   nrt-doc)
