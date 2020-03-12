@@ -45,9 +45,14 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
   executeCommand(varExtCommand, ssPython);
   std::string result = ssPython.str();
   boost::erase_all(result, "\n");
-  ASSERT_EQ(result, "Executing command : " + varExtCommand +
+  std::string res = "Executing command : " + varExtCommand +
       "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable."
-      "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable.");
+      "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable.";
+  std::string res2 = "Executing command : " + varExtCommand +
+      "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable."
+      "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable.";
+  if (result != res && result != res2)
+    assert(false);
   std::cout << ssPython.str() << std::endl;
   std::stringstream ssDiff;
   executeCommand("diff ModelicaModel/reference res/", ssDiff);
