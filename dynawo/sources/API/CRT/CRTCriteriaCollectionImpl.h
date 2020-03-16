@@ -103,6 +103,15 @@ class CriteriaCollection::BaseConstCriteriaCollectionIteratorImpl {
    */
   BaseConstCriteriaCollectionIteratorImpl(const BaseConstCriteriaCollectionIteratorImpl& iterator);
 
+
+  /**
+   * @brief copy assignment operator
+   *
+   * @param other iterator on the vector
+   * @returns modified constant iterator
+   */
+  BaseConstCriteriaCollectionIteratorImpl& operator=(const BaseConstCriteriaCollectionIteratorImpl& other);
+
   /**
    * @brief Destructor
    */

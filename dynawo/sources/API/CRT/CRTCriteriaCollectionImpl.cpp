@@ -78,6 +78,12 @@ CriteriaCollection::BaseConstCriteriaCollectionIteratorImpl::BaseConstCriteriaCo
     const BaseConstCriteriaCollectionIteratorImpl& iterator) :
 current_(iterator.current()) {}
 
+CriteriaCollection::BaseConstCriteriaCollectionIteratorImpl&
+CriteriaCollection::BaseConstCriteriaCollectionIteratorImpl::operator=(const BaseConstCriteriaCollectionIteratorImpl& other) {
+  current_ = other.current_;
+  return *this;
+}
+
 CriteriaCollection::BaseConstCriteriaCollectionIteratorImpl::~BaseConstCriteriaCollectionIteratorImpl() {
 }
 

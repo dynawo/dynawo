@@ -11,8 +11,9 @@
 // simulation tool for power systems.
 //
 
-#include "CRTCriteriaParamsImpl.h"
 #include <limits>
+#include <iostream>
+#include "CRTCriteriaParamsImpl.h"
 
 
 namespace criteria {
@@ -20,11 +21,11 @@ namespace criteria {
 CriteriaParams::Impl::Impl() :
 scope_(UNDEFINED_SCOPE),
 type_(UNDEFINED_TYPE),
-uMinPu_(std::numeric_limits<double>::min()),
+uMinPu_(-std::numeric_limits<double>::max()),
 uMaxPu_(std::numeric_limits<double>::max()),
-uMinNom_(std::numeric_limits<double>::min()),
+uMinNom_(-std::numeric_limits<double>::max()),
 uMaxNom_(std::numeric_limits<double>::max()),
-pMin_(std::numeric_limits<double>::min()),
+pMin_(-std::numeric_limits<double>::max()),
 pMax_(std::numeric_limits<double>::max()) {}
 
 void
@@ -69,7 +70,7 @@ CriteriaParams::Impl::getUMaxPu() const {
 
 bool
 CriteriaParams::Impl::hasUMaxPu() const {
-  return uMaxPu_ != std::numeric_limits<double>::max();
+  return uMaxPu_ < std::numeric_limits<double>::max();
 }
 
 void
@@ -84,7 +85,7 @@ CriteriaParams::Impl::getUMaxNom() const {
 
 bool
 CriteriaParams::Impl::hasUMaxNom() const {
-  return uMaxNom_ != std::numeric_limits<double>::max();
+  return uMaxNom_ < std::numeric_limits<double>::max();
 }
 
 void
@@ -99,7 +100,7 @@ CriteriaParams::Impl::getUMinPu() const {
 
 bool
 CriteriaParams::Impl::hasUMinPu() const {
-  return uMinPu_ != std::numeric_limits<double>::min();
+  return uMinPu_ > -std::numeric_limits<double>::max();
 }
 
 void
@@ -114,7 +115,7 @@ CriteriaParams::Impl::getUMinNom() const {
 
 bool
 CriteriaParams::Impl::hasUMinNom() const {
-  return uMinNom_ != std::numeric_limits<double>::min();
+  return uMinNom_ > -std::numeric_limits<double>::max();
 }
 
 void
@@ -129,7 +130,7 @@ CriteriaParams::Impl::getPMax() const {
 
 bool
 CriteriaParams::Impl::hasPMax() const {
-  return pMax_ != std::numeric_limits<double>::max();
+  return pMax_ < std::numeric_limits<double>::max();
 }
 
 void
@@ -144,7 +145,7 @@ CriteriaParams::Impl::getPMin() const {
 
 bool
 CriteriaParams::Impl::hasPMin() const {
-  return pMin_ != std::numeric_limits<double>::min();
+  return pMin_ > -std::numeric_limits<double>::max();
 }
 
 }  // namespace criteria
