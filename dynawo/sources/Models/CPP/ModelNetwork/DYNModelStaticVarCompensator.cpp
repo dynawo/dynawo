@@ -582,7 +582,7 @@ ModelStaticVarCompensator::evalYMat() {
 }
 
 void
-ModelStaticVarCompensator::evalDerivatives() {
+ModelStaticVarCompensator::evalDerivatives(const double /*cj*/) {
   if (network_->isInitModel())
     return;
   if (isConnected()) {

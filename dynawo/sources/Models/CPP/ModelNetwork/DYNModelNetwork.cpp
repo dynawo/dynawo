@@ -923,7 +923,7 @@ ModelNetwork::evalJt(const double& /*t*/, const double& cj, SparseMatrix& jt, co
   Timer * timer3 = new Timer("evalJt_evalDerivatives");
 
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalDerivatives();
+    (*itComponent)->evalDerivatives(cj);
   delete timer3;
 
   // fill sparse matrix Jt
@@ -935,8 +935,11 @@ ModelNetwork::evalJt(const double& /*t*/, const double& cj, SparseMatrix& jt, co
 
 void
 ModelNetwork::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& rowOffset) {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
+       itComponent != getComponents().end(); ++itComponent)
+    (*itComponent)->evalDerivativesPrim();
+
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
     (*itComponent)->evalJtPrim(jt, rowOffset);
 }
 

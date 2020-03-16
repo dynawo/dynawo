@@ -212,8 +212,14 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief evaluate derivatives
+   * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives();  ///< compute the variables' derivatives
+  void evalDerivatives(const double cj);
+
+  /**
+   * @brief evaluate derivatives prim
+   */
+  void evalDerivativesPrim() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::Impl::evalF()

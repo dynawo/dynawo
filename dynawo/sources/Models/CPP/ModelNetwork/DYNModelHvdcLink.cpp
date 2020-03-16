@@ -434,7 +434,7 @@ ModelHvdcLink::evalNodeInjection() {
 }
 
 void
-ModelHvdcLink::evalDerivatives() {
+ModelHvdcLink::evalDerivatives(const double /*cj*/) {
   if (network_->isInitModel())
     return;
   if (isConnected1()) {

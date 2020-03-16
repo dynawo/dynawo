@@ -37,6 +37,7 @@
 #include "TLTimelineFactory.h"
 #include "DYNSparseMatrix.h"
 #include "DYNVariable.h"
+#include "DYNElement.h"
 
 #include "gtest_dynawo.h"
 
@@ -1088,6 +1089,12 @@ TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
   dl->setFequations(fEquationIndex);
   ASSERT_TRUE(fEquationIndex.empty());
 
+  // test evalNodeInjection
+  ASSERT_NO_THROW(dl->evalNodeInjection());
+
+  // test evalDerivatives
+  ASSERT_NO_THROW(dl->evalDerivatives(1));
+
   shared_ptr<ModelLine> dlInit = createModelLine(false, true).first;
   dlInit->initSize();
   ASSERT_EQ(dlInit->sizeY(), 0);
@@ -1098,9 +1105,156 @@ TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
   ASSERT_NO_THROW(dlInit->setFequations(fEquationIndex));
 }
 
+TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
+  std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
+  shared_ptr<ModelLine> dl = p.first;
+
+  std::vector<ParameterModeler> parameters;
+  dl->defineParameters(parameters);
+  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  parameters[0].setValue<double>(10., PAR);
+  parametersModels.insert(std::make_pair(parameters[0].getName(), parameters[0]));
+  parameters[1].setValue<bool>(true, PAR);
+  parametersModels.insert(std::make_pair(parameters[1].getName(), parameters[1]));
+  dl->setSubModelParameters(parametersModels);
+
+  dl->initSize();
+  unsigned nbY = 3;
+  unsigned nbF = 2;
+  ASSERT_EQ(dl->sizeY(), nbY);
+  ASSERT_EQ(dl->sizeF(), nbF);
+
+  std::vector<double> y(nbY, 0.);
+  std::vector<double> yp(nbY, 0.);
+  std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
+  std::vector<double> f(nbF, 0.);
+  std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
+  std::vector<double> z(dl->sizeZ(), 0.);
+  dl->setReferenceZ(&z[0], 0);
+  dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  dl->evalYMat();
+  dl->setBufferYType(&yTypes[0], 0);
+  dl->setBufferFType(&fTypes[0], 0);
+
+  // test evalYType
+  ASSERT_NO_THROW(dl->evalYType());
+  ASSERT_NO_THROW(dl->evalFType());
+  ASSERT_EQ(yTypes[0], DIFFERENTIAL);
+  ASSERT_EQ(yTypes[2], EXTERNAL);
+  ASSERT_EQ(fTypes[0], DIFFERENTIAL_EQ);
+
+  // test init
+  int yNum = 0;
+  dl->init(yNum);
+  ASSERT_EQ(yNum, 3);
+
+  // test getY0
+  ASSERT_NO_THROW(dl->getY0());
+  ASSERT_EQ(y[2], 1);
+  ASSERT_EQ(yp[2], 0);
+
+  // test evalF
+  ASSERT_NO_THROW(dl->evalF());
+
+  // test setFequations
+  std::map<int, std::string> fEquationIndex;
+  dl->setFequations(fEquationIndex);
+  ASSERT_EQ(fEquationIndex.size(), 2);
+
+  // test evalNodeInjection
+  ASSERT_NO_THROW(dl->evalNodeInjection());
+
+  // test evalJt, evalJtPrim, evalDerivatives and evalDerivativesPrim
+  SparseMatrix smj;
+  int size = dl->sizeF();
+  smj.init(size, size);
+  dl->evalJt(smj, 1., 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -smj.Ax_[3]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[6], -smj.Ax_[7]);
+  ASSERT_EQ(smj.nbElem(), 8);
+
+  SparseMatrix smjPrime;
+  smjPrime.init(size, size);
+  dl->evalJtPrim(smjPrime, 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.Ax_[0], smjPrime.Ax_[1]);
+  ASSERT_EQ(smjPrime.nbElem(), 2);
+
+  ASSERT_NO_THROW(dl->evalDerivatives(1));
+  ASSERT_NO_THROW(dl->evalDerivativesPrim());
+
+  // Closed_1 line
+  std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p2 = createModelLine(false, false, true, false);
+  shared_ptr<ModelLine> dl2 = p2.first;
+
+  ASSERT_THROW_DYNAWO(dl2->setSubModelParameters(parametersModels), Error::MODELER, KeyError_t::DynamicLineStatusNotSupported);
+
+  // Open line
+  std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p3 = createModelLine(true, false);
+  shared_ptr<ModelLine> dl3 = p3.first;
+
+  ASSERT_NO_THROW(dl3->setSubModelParameters(parametersModels));
+  std::vector<propertyContinuousVar_t> yTypes3(nbY, UNDEFINED_PROPERTY);
+  std::vector<propertyF_t> fTypes3(nbF, UNDEFINED_EQ);
+  dl3->initSize();
+  dl3->setBufferYType(&yTypes3[0], 0);
+  dl3->setBufferFType(&fTypes3[0], 0);
+  std::vector<double> y3(nbY, 0.);
+  std::vector<double> yp3(nbY, 0.);
+  std::vector<double> f3(nbF, 0.);
+  dl3->setReferenceY(&y3[0], &yp3[0], &f3[0], 0, 0);
+  std::vector<double> z3(dl3->sizeZ(), 0.);
+  dl3->setReferenceZ(&z3[0], 0);
+  yNum = 0;
+  dl3->init(yNum);
+  dl3->getY0();
+
+  // test evalYType
+  ASSERT_NO_THROW(dl3->evalYType());
+  ASSERT_NO_THROW(dl3->evalFType());
+  ASSERT_EQ(yTypes3[0], ALGEBRIC);
+  ASSERT_EQ(yTypes3[2], EXTERNAL);
+  ASSERT_EQ(fTypes3[0], ALGEBRIC_EQ);
+
+  // test evalF
+  ASSERT_NO_THROW(dl3->evalF());
+  ASSERT_EQ(f3[0], 0);
+
+  // test evalJt
+  SparseMatrix smj3;
+  int size3 = dl3->sizeF();
+  smj3.init(size3, size3);
+  dl3->evalJt(smj3, 1., 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[0], 1);
+  ASSERT_EQ(smj3.nbElem(), 2);
+
+  // Close side2 then only side1 then both sides
+  unsigned nbG = 9;
+  std::vector<state_g> g3(nbG, NO_ROOT);
+  dl3->setReferenceG(&g3[0], 0);
+  z3[0] = CLOSED_2;
+  ASSERT_THROW_DYNAWO(dl3->evalZ(0), Error::MODELER, KeyError_t::DynamicLineStatusNotSupported);
+  z3[0] = CLOSED_1;
+  ASSERT_THROW_DYNAWO(dl3->evalZ(0), Error::MODELER, KeyError_t::DynamicLineStatusNotSupported);
+  z3[0] = CLOSED;
+  ASSERT_NO_THROW(dl3->evalZ(0));
+}
+
 TEST(ModelsModelNetwork, ModelNetworkLineDefineInstantiate) {
   std::pair<shared_ptr<ModelLine>, shared_ptr<ModelVoltageLevel> > p = createModelLine(false, false);
   shared_ptr<ModelLine> dl = p.first;
+
+  std::vector<ParameterModeler> parameters;
+  dl->defineNonGenericParameters(parameters);
+  ASSERT_TRUE(parameters.empty());
+  boost::unordered_map<std::string, ParameterModeler> parametersModels;
+  dl->defineParameters(parameters);
+  ASSERT_EQ(parameters.size(), 2);
+  ASSERT_EQ(parameters[0].getName(), "line_currentLimit_maxTimeOperation");
+  parameters[0].setValue<double>(10., PAR);
+  parametersModels.insert(std::make_pair(parameters[0].getName(), parameters[0]));
+  parameters[1].setValue<bool>(true, PAR);
+  parametersModels.insert(std::make_pair(parameters[1].getName(), parameters[1]));
+  ASSERT_NO_THROW(dl->setSubModelParameters(parametersModels));
 
   std::vector<shared_ptr<Variable> > definedVariables;
   std::vector<shared_ptr<Variable> > instantiatedVariables;
@@ -1115,16 +1269,10 @@ TEST(ModelsModelNetwork, ModelNetworkLineDefineInstantiate) {
     ASSERT_EQ(definedVariables[i]->getType(), instantiatedVariables[i]->getType());
   }
 
-
-  std::vector<ParameterModeler> parameters;
-  dl->defineNonGenericParameters(parameters);
-  ASSERT_TRUE(parameters.empty());
-  boost::unordered_map<std::string, ParameterModeler> parametersModels;
-  const std::string paramName = "dangling_line_currentLimit_maxTimeOperation";
-  ParameterModeler param = ParameterModeler(paramName, VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER);
-  param.setValue<double>(10., PAR);
-  parametersModels.insert(std::make_pair(paramName, param));
-  ASSERT_NO_THROW(dl->setSubModelParameters(parametersModels));
+  std::vector<Element> elements;
+  std::map<std::string, int> mapElement;
+  dl->defineElements(elements, mapElement);
+  ASSERT_EQ(elements.size(), 39);
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLineJt) {

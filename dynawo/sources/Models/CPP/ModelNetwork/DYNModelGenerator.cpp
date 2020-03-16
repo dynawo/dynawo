@@ -161,7 +161,7 @@ ModelGenerator::evalNodeInjection() {
 }
 
 void
-ModelGenerator::evalDerivatives() {
+ModelGenerator::evalDerivatives(const double /*cj*/) {
   if (!network_->isInitModel() && isConnected()) {
     double ur = modelBus_->ur();
     double ui = modelBus_->ui();

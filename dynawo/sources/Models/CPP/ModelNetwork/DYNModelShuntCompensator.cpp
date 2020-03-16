@@ -154,7 +154,7 @@ ModelShuntCompensator::evalYMat() {
 }
 
 void
-ModelShuntCompensator::evalDerivatives() {
+ModelShuntCompensator::evalDerivatives(const double /*cj*/) {
   if (isConnected()) {
     int urYNum = modelBus_->urYNum();
     int uiYNum = modelBus_->uiYNum();

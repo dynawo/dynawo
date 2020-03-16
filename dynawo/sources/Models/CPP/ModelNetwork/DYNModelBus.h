@@ -137,9 +137,15 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void resetNodeInjection();
 
   /**
-   * @brief evaluate derivatives
+   * @brief evaluate derivatives for J
+   * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives();
+  void evalDerivatives(const double cj);
+
+  /**
+   * @brief evaluate derivatives for J'
+   */
+  void evalDerivativesPrim() { /* not needed */ }
 
   /**
    * @brief evaluate F
@@ -202,8 +208,14 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    */
   void evalFType();
 
+  /**
+   * @copydoc NetworkComponent::evalYMat()
+   */
   void evalYMat() { /* not needed*/ }
 
+  /**
+   * @copydoc NetworkComponent::init(int& yNum)
+   */
   void init(int & yNum);
 
   /**
@@ -308,17 +320,25 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void initDerivatives();
 
   /**
-   * @brief get derivatives
-   * @return the derivatives associated to the bus model
+   * @brief get derivatives for J
+   * @return the derivatives associated to the bus model for J
    */
   inline boost::shared_ptr<BusDerivatives> derivatives() const {
     return derivatives_;
   }
 
   /**
+   * @brief get derivatives for J'
+   * @return the derivatives associated to the bus model for J'
+   */
+  inline boost::shared_ptr<BusDerivatives> derivativesPrim() const {
+    return derivativesPrim_;
+  }
+
+  /**
    * @brief  switch off the bus (and force the voltage to be set to 0)
    */
-  void switchOff();  // switch off the bus (and force the voltage to be set to 0)
+  void switchOff();
 
   /**
    * @brief switch on the bus
@@ -326,7 +346,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   inline void switchOn() {
     assert(z_!= NULL);
     z_[switchOffNum_] = fromNativeBool(false);
-  }  // switch on the bus
+  }
 
   /**
    * @brief get information about whether the bus is switched off
@@ -384,6 +404,26 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   double ui() const;
 
   /**
+   * @brief retrieve the real part of the voltage
+   * @return the real part of the voltage
+   */
+  double urp() const;
+
+  /**
+   * @brief retrieve the imaginary part of the voltage
+   * @return the imaginary part of the voltage
+   */
+  double uip() const;
+
+  /**
+   * @brief set if the bus voltage variables are differential
+   * @param hasDifferentialVoltages @b true if the bus voltages are differential
+  **/
+  inline void setHasDifferentialVoltages(const bool hasDifferentialVoltages) {
+    hasDifferentialVoltages_ = hasDifferentialVoltages;
+  }
+
+  /**
    * @brief get urYNum
    * @return urYNum
    */
@@ -405,7 +445,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    */
   inline void numSubNetwork(int num) {
     z_[numSubNetworkNum_] = num;
-  }  // set the number of independent sub networks
+  }
 
   /**
    * @brief check whether the sub-network index has already been set
@@ -429,7 +469,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
     assert(z_ != NULL);
     assert(doubleNotEquals(z_[numSubNetworkNum_], -1.));
     return z_[numSubNetworkNum_];
-  }  // get the number of independent sub networks
+  }
 
   /**
    * @brief get nominal voltage
@@ -503,6 +543,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   double iiConnection_;  ///< imaginary current injected
   int refIslands_;  ///< island reference (used to compute switch loops)
   boost::shared_ptr<BusDerivatives> derivatives_;  ///< derivatives
+  boost::shared_ptr<BusDerivatives> derivativesPrim_;  ///< derivatives for JPrim
   double ur0_;  ///< initial real voltage
   double ui0_;  ///< initial imaginary voltage
   double ir0_;  ///< initial real current
@@ -516,6 +557,7 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   int busIndex_;  ///< index of bus in its voltage level
   bool hasConnection_;  ///< whether has connection
+  bool hasDifferentialVoltages_;  ///< whether the bus model has differential voltages
 
   double unom_;  ///< nominal voltage
   double u0_;  ///< initial voltage
