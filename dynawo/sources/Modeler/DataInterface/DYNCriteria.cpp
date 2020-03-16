@@ -30,7 +30,7 @@ BusCriteria::BusCriteria(const boost::shared_ptr<criteria::CriteriaParams>& para
 BusCriteria::~BusCriteria() {}
 
 bool
-BusCriteria::checkCriteria(bool finalStep) const {
+BusCriteria::checkCriteria(bool finalStep) {
   assert(params_->getType() != criteria::CriteriaParams::SUM);
   if (!finalStep && params_->getScope() == criteria::CriteriaParams::FINAL)
     return true;
@@ -41,10 +41,12 @@ BusCriteria::checkCriteria(bool finalStep) const {
     double vNom = (*it)->getVNom();
     if (params_->hasUMaxPu() && v > params_->getUMaxPu()*vNom) {
       Trace::debug() << DYNLog(BusAboveVoltage, (*it)->getID(), v, params_->getUMaxPu(), params_->getId()) << Trace::endline;
+      failingCriteria_.push_back(params_->getId());
       return false;
     }
     if (params_->hasUMinPu() && v < params_->getUMinPu()*vNom) {
       Trace::debug() << DYNLog(BusUnderVoltage, (*it)->getID(), v, params_->getUMinPu(), params_->getId()) << Trace::endline;
+      failingCriteria_.push_back(params_->getId());
       return false;
     }
   }
@@ -82,7 +84,7 @@ LoadCriteria::LoadCriteria(const boost::shared_ptr<criteria::CriteriaParams>& pa
 LoadCriteria::~LoadCriteria() {}
 
 bool
-LoadCriteria::checkCriteria(bool finalStep) const {
+LoadCriteria::checkCriteria(bool finalStep) {
   if (!finalStep && params_->getScope() == criteria::CriteriaParams::FINAL)
     return true;
   double sum = 0.;
@@ -99,10 +101,12 @@ LoadCriteria::checkCriteria(bool finalStep) const {
     if (params_->getType() == criteria::CriteriaParams::LOCAL_VALUE) {
       if (params_->hasPMax() && p > params_->getPMax()) {
         Trace::debug() << DYNLog(SourceAbovePower, (*it)->getID(), p, params_->getPMax(), params_->getId()) << Trace::endline;
+        failingCriteria_.push_back(params_->getId());
         return false;
       }
       if (params_->hasPMin() && p < params_->getPMin()) {
         Trace::debug() << DYNLog(SourceUnderPower, (*it)->getID(), p, params_->getPMin(), params_->getId()) << Trace::endline;
+        failingCriteria_.push_back(params_->getId());
         return false;
       }
     } else {
@@ -114,10 +118,12 @@ LoadCriteria::checkCriteria(bool finalStep) const {
   if (atLeastOneEligibleLoadWasFound && params_->getType() == criteria::CriteriaParams::SUM) {
     if (params_->hasPMax() && sum > params_->getPMax()) {
       Trace::debug() << DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId()) << Trace::endline;
+      failingCriteria_.push_back(params_->getId());
       return false;
     }
     if (params_->hasPMin() && sum < params_->getPMin()) {
       Trace::debug() << DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId()) << Trace::endline;
+      failingCriteria_.push_back(params_->getId());
       return false;
     }
   }
@@ -150,7 +156,7 @@ GeneratorCriteria::GeneratorCriteria(const boost::shared_ptr<criteria::CriteriaP
 GeneratorCriteria::~GeneratorCriteria() {}
 
 bool
-GeneratorCriteria::checkCriteria(bool finalStep) const {
+GeneratorCriteria::checkCriteria(bool finalStep) {
   if (!finalStep && params_->getScope() == criteria::CriteriaParams::FINAL)
     return true;
   double sum = 0.;
@@ -167,10 +173,12 @@ GeneratorCriteria::checkCriteria(bool finalStep) const {
     if (params_->getType() == criteria::CriteriaParams::LOCAL_VALUE) {
       if (params_->hasPMax() && p > params_->getPMax()) {
         Trace::debug() << DYNLog(SourceAbovePower, (*it)->getID(), p, params_->getPMax(), params_->getId()) << Trace::endline;
+        failingCriteria_.push_back(params_->getId());
         return false;
       }
       if (params_->hasPMin() && p < params_->getPMin()) {
         Trace::debug() << DYNLog(SourceUnderPower, (*it)->getID(), p, params_->getPMin(), params_->getId()) << Trace::endline;
+        failingCriteria_.push_back(params_->getId());
         return false;
       }
     } else {
@@ -182,10 +190,12 @@ GeneratorCriteria::checkCriteria(bool finalStep) const {
   if (atLeastOneEligibleGeneratorWasFound && params_->getType() == criteria::CriteriaParams::SUM) {
     if (params_->hasPMax() && sum > params_->getPMax()) {
       Trace::debug() << DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId()) << Trace::endline;
+      failingCriteria_.push_back(params_->getId());
       return false;
     }
     if (params_->hasPMin() && sum < params_->getPMin()) {
       Trace::debug() << DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId()) << Trace::endline;
+      failingCriteria_.push_back(params_->getId());
       return false;
     }
   }

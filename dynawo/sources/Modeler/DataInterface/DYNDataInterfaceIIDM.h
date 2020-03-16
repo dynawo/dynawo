@@ -149,6 +149,11 @@ class DataInterfaceIIDM : public DataInterface {
   bool checkCriteria(bool finalStep);
 
   /**
+   * @copydoc DataInterface::getFailingCriteria(std::vector<std::string>& failingCriteria) const
+   */
+  void getFailingCriteria(std::vector<std::string>& failingCriteria) const;
+
+  /**
    * @copydoc DataInterface::getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName)
    */
   double getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName);

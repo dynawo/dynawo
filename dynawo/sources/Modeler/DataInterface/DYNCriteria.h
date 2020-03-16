@@ -44,10 +44,18 @@ class Criteria {
    *
    * @return true if the criteria is respected, false otherwise
    */
-  virtual bool checkCriteria(bool finalStep) const = 0;
+  virtual bool checkCriteria(bool finalStep) = 0;
+
+  /**
+   * @brief returns the list of failing criteria ids
+   *
+   * @return list of failing criteria ids
+   */
+  const std::vector<std::string>& getFailingCriteriaIds() const {return failingCriteria_;}
 
  protected:
   const boost::shared_ptr<criteria::CriteriaParams>& params_;  ///< parameters of this criteria
+  std::vector<std::string> failingCriteria_;  ///< keeps the ids of the failing criteria
 };
 
 /**
@@ -79,7 +87,7 @@ class BusCriteria : public Criteria {
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(bool finalStep) const;
+  bool checkCriteria(bool finalStep);
 
   /**
    * @brief add a bus to the criteria
@@ -127,7 +135,7 @@ class LoadCriteria : public Criteria {
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(bool finalStep) const;
+  bool checkCriteria(bool finalStep);
 
   /**
    * @brief add a load to the criteria
@@ -175,7 +183,7 @@ class GeneratorCriteria : public Criteria {
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(bool finalStep) const;
+  bool checkCriteria(bool finalStep);
 
   /**
    * @brief add a generator to the criteria
