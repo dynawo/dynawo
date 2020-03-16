@@ -8,6 +8,7 @@ install/
 deploy/
 OpenModelica/
 distributions/
+nrt/data/*/outputs*/
 nrt/data/*/*/outputs*/
 nrt/data/*/*/*/outputs*/
 !nrt/data/*/*/reference/outputs*/
