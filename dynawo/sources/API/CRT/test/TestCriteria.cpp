@@ -42,11 +42,11 @@ TEST(APICRTTest, CriteriaParams) {
   ASSERT_EQ(criteriap->getType(), CriteriaParams::UNDEFINED_TYPE);
   ASSERT_EQ(criteriap->getId(), "");
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMaxPu(), std::numeric_limits<double>::max());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMinPu(), std::numeric_limits<double>::min());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMinPu(), -std::numeric_limits<double>::max());
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMaxNom(), std::numeric_limits<double>::max());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMinNom(), std::numeric_limits<double>::min());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMinNom(), -std::numeric_limits<double>::max());
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMax(), std::numeric_limits<double>::max());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMin(), std::numeric_limits<double>::min());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMin(), -std::numeric_limits<double>::max());
   ASSERT_FALSE(criteriap->hasPMax());
   ASSERT_FALSE(criteriap->hasPMin());
   ASSERT_FALSE(criteriap->hasUMaxPu());
