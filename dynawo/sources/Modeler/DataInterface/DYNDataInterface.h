@@ -111,6 +111,12 @@ class DataInterface {
   virtual bool checkCriteria(bool finalStep) = 0;
 
   /**
+   * @brief fill a vector with the ids of the failing criteria met so far
+   * @param failingCriteria vector to fill
+   */
+  virtual void getFailingCriteria(std::vector<std::string>& failingCriteria) const = 0;
+
+  /**
    * @brief get static parameter value
    * @param staticID id of static model
    * @param refOrigName parameter of static model

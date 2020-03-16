@@ -849,6 +849,12 @@ Simulation::checkCriteria(bool finalStep) {
   return criteriaChecked;
 }
 
+
+void
+Simulation::getFailingCriteria(std::vector<std::string>& failingCriteria) const {
+  data_->getFailingCriteria(failingCriteria);
+}
+
 void
 Simulation::updateParametersValues() {
   if (exportCurvesMode_ == EXPORT_CURVES_NONE)

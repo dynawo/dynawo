@@ -1173,6 +1173,15 @@ DataInterfaceIIDM::checkCriteria(bool finalStep) {
   return criteriaOk;
 }
 
+void
+DataInterfaceIIDM::getFailingCriteria(std::vector<std::string>& failingCriteria) const {
+  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criterias_.begin(), itEnd = criterias_.end();
+      it != itEnd; ++it) {
+    const std::vector<std::string>& ids = (*it)->getFailingCriteriaIds();
+    failingCriteria.insert(failingCriteria.end(), ids.begin(), ids.end());
+  }
+}
+
 double
 DataInterfaceIIDM::getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName) {
   return findComponent(staticID)->getStaticParameterValue<double>(refOrigName);
