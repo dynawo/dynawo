@@ -1211,9 +1211,9 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   // test evalYType
   ASSERT_NO_THROW(dl3->evalYType());
   ASSERT_NO_THROW(dl3->evalFType());
-  ASSERT_EQ(yTypes3[0], ALGEBRIC);
+  ASSERT_EQ(yTypes3[0], ALGEBRAIC);
   ASSERT_EQ(yTypes3[2], EXTERNAL);
-  ASSERT_EQ(fTypes3[0], ALGEBRIC_EQ);
+  ASSERT_EQ(fTypes3[0], ALGEBRAIC_EQ);
 
   // test evalF
   ASSERT_NO_THROW(dl3->evalF());
