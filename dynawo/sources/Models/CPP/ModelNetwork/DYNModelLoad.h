@@ -86,9 +86,15 @@ class ModelLoad : public NetworkComponent::Impl {
 
   /**
    * @brief evaluate derivatives
+   * @param cj Jacobian prime coefficient
    */
+  void evalDerivatives(const double cj);
 
-  void evalDerivatives();
+  /**
+   * @brief evaluate derivatives prim
+   */
+  void evalDerivativesPrim() { /* not needed */ }
+
   /**
    * @brief define variables
    * @param variables
@@ -141,7 +147,13 @@ class ModelLoad : public NetworkComponent::Impl {
    */
   void evalCalculatedVars();
 
+  /**
+   * @brief get the index of variables used to define the jacobian associated to a calculated variable
+   * @param numCalculatedVar index of the calculated variable
+   * @param numVars index of variables used to define the jacobian associated to a calculated variable
+   */
   void getDefJCalculatedVarI(int numCalculatedVar, std::vector<int>& numVars);
+
   /**
    * @brief evaluate the jacobian associated to a calculated variable
    *
@@ -173,9 +185,15 @@ class ModelLoad : public NetworkComponent::Impl {
    */
   void evalFType();
 
-  void evalYMat() { /* not needed */ }
+  /**
+   * @copydoc NetworkComponent::evalYMat()
+   */
+  void evalYMat() { /* not needed*/ }
 
-  void init(int& yNum);
+  /**
+   * @copydoc NetworkComponent::init(int& yNum)
+   */
+  void init(int & yNum);
 
   /**
    * @copydoc NetworkComponent::Impl::getY0()

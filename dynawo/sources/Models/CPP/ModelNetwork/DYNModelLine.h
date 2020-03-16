@@ -136,10 +136,18 @@ class ModelLine : public NetworkComponent::Impl {
    *
    */
   void addBusNeighbors();
+
   /**
    * @brief evaluate derivatives
+   * @param cj Jacobian prime coefficient
    */
-  void evalDerivatives();
+  void evalDerivatives(const double cj);
+
+  /**
+   * @brief evaluate derivatives prim
+   */
+  void evalDerivativesPrim();
+
   /**
    * @brief define variables
    * @param variables
@@ -174,7 +182,7 @@ class ModelLine : public NetworkComponent::Impl {
   /**
    * @brief evaluation F
    */
-  void evalF() { /* not needed */ }  // get the (empty) local F function
+  void evalF();  // get the (empty) local F function
 
   /**
   * @copydoc NetworkComponent::Impl::evalZ()
@@ -185,13 +193,20 @@ class ModelLine : public NetworkComponent::Impl {
    * @brief evaluation G
    * @param t time
    */
-  void evalG(const double& t);  // get the local G function for time G
-  /**
-   * @brief evalaution calculated variables (for outputs)
-   */
-  void evalCalculatedVars();  // compute calculated variables (for outputs)
+  void evalG(const double& t);
 
+  /**
+   * @brief evaluation calculated variables (for outputs)
+   */
+  void evalCalculatedVars();
+
+  /**
+   * @brief get the index of variables used to define the jacobian associated to a calculated variable
+   * @param numCalculatedVar index of the calculated variable
+   * @param numVars index of variables used to define the jacobian associated to a calculated variable
+   */
   void getDefJCalculatedVarI(int numCalculatedVar, std::vector<int> & numVars);
+
   /**
    * @brief evaluate the jacobian associated to a calculated variable
    *
@@ -227,16 +242,22 @@ class ModelLine : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::evalYType()
    */
-  void evalYType() { /* not needed */ }
+  void evalYType();
 
   /**
    * @copydoc NetworkComponent::evalFType()
    */
-  void evalFType() { /* not needed */ }
+  void evalFType();
 
+  /**
+   * @copydoc NetworkComponent::evalYMat()
+   */
   void evalYMat();
 
-  void init(int& yNum);
+  /**
+   * @copydoc NetworkComponent::init(int& yNum)
+   */
+  void init(int & yNum);
 
   /**
    * @copydoc NetworkComponent::Impl::getY0()
@@ -432,33 +453,67 @@ class ModelLine : public NetworkComponent::Impl {
 
   /**
    * @brief get the real part of the voltage at side 1
-   * @return  real part of the voltage at side 1
+   * @return real part of the voltage at side 1
    */
   double ur1() const;
 
   /**
    * @brief get the imaginary part of the voltage at side 1
-   * @return  imaginary part of the voltage at side 1
+   * @return imaginary part of the voltage at side 1
    */
   double ui1() const;
 
+  /**
+   * @brief get the real part of the voltage derivative at side 1
+   * @return real part of the voltage derivative at side 1
+   */
+  double urp1() const;
+
+  /**
+   * @brief get the imaginary part of the voltage derivative at side 1
+   * @return imaginary part of the voltage derivative at side 1
+   */
+  double uip1() const;
+
    /**
    * @brief get the real part of the voltage at side 2
-   * @return  real part of the voltage at side 2
+   * @return real part of the voltage at side 2
    */
   double ur2() const;
 
   /**
    * @brief get the imaginary part of the voltage at side 2
-   * @return  imaginary part of the voltage at side 2
+   * @return imaginary part of the voltage at side 2
    */
   double ui2() const;
 
-  boost::shared_ptr<ModelBus> modelBus1_;  ///< model bus  1
+  /**
+   * @brief get the real part of the voltage derivative at side 2
+   * @return real part of the voltage derivative at side 2
+   */
+  double urp2() const;
+
+  /**
+   * @brief get the imaginary part of the voltage derivative at side 2
+   * @return imaginary part of the voltage derivative at side 2
+   */
+  double uip2() const;
+
+  /**
+   * @brief compute the global Y index inside the Y matrix
+   * @param localIndex the local variable index inside the model
+   * @return the global variable index
+   */
+  inline unsigned int globalYIndex(const unsigned int localIndex) {
+    return yOffset_ + localIndex;
+  }
+
+  boost::shared_ptr<ModelBus> modelBus1_;  ///< model bus 1
   boost::shared_ptr<ModelBus> modelBus2_;  ///< model bus 2
   State connectionState_;  ///< "internal" line connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool topologyModified_;  ///< true if the line connection state was modified
   double currentLimitsDesactivate_;  ///< current limit desactivate
+  bool isDynamic_;  ///< true if the line model is dynamic
 
   double admittance_;  ///< admittance
   double lossAngle_;  ///< loss angle
@@ -466,6 +521,8 @@ class ModelLine : public NetworkComponent::Impl {
   double suscept2_;  ///< susceptance on side 2
   double conduct1_;  ///< conductance on side 1
   double conduct2_;  ///< conductance on side 2
+  double resistance_;  ///< resistance
+  double reactance_;  ///< reactance
   // Injections
   double ir1_dUr1_;  ///< injection matrix value
   double ir1_dUi1_;  ///< injection matrix value
@@ -490,6 +547,13 @@ class ModelLine : public NetworkComponent::Impl {
   double ir02_;  ///< initial real part of the current at side 2
   double ii02_;  ///< initial imaginary part of the current at side 2
 
+  unsigned int yOffset_;  ///< global Y offset at the beginning of the line model
+  unsigned int IbReNum_;  ///< local Y index for IBranch_re
+  unsigned int IbImNum_;  ///< local Y index for IBranch_im
+  unsigned int omegaRefNum_;  ///< local Y index for omegaRef
+
+  double omegaNom_;  ///< nominal angular frequency
+  double omegaRef_;  ///< reference angular frequency in p.u.
   const std::string modelType_;  ///< model Type
 };
 }  // namespace DYN

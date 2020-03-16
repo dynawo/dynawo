@@ -163,12 +163,14 @@ iiYNum_(0),
 irYNum_(0),
 busIndex_(bus->getBusIndex()),
 hasConnection_(bus->hasConnection()),
+hasDifferentialVoltages_(false),
 modelType_((boost::starts_with(bus->getID(), "calculatedBus_"))?"Bus":"Node") {
   neighbors_.clear();
   busBarSectionNames_.clear();
   busBarSectionNames_ = bus->getBusBarSectionNames();
 
   derivatives_.reset(new BusDerivatives());
+  derivativesPrim_.reset(new BusDerivatives());
 
   // init data
   unom_ = bus->getVNom();
@@ -248,6 +250,24 @@ ModelBus::ui() const {
   }
 }
 
+double
+ModelBus::urp() const {
+  if (!getSwitchOff() && !network_->isInit()) {
+      return yp_[urNum_];
+  } else {
+    return 0.;
+  }
+}
+
+double
+ModelBus::uip() const {
+  if (!getSwitchOff() && !network_->isInit()) {
+      return yp_[uiNum_];
+  } else {
+    return 0.;
+  }
+}
+
 void
 ModelBus::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   bool success = false;
@@ -264,6 +284,7 @@ ModelBus::setSubModelParameters(const boost::unordered_map<std::string, Paramete
 void
 ModelBus::initDerivatives() {
   derivatives_->reset();
+  derivativesPrim_->reset();
 }
 
 void
@@ -285,7 +306,7 @@ ModelBus::addNeighbor(boost::shared_ptr<ModelBus>& bus) {
 }
 
 void
-ModelBus::evalDerivatives() {
+ModelBus::evalDerivatives(const double /*cj*/) {
   if (!network_->isInitModel() && hasConnection_) {
     derivatives_->addDerivative(IR_DERIVATIVE, irYNum_, -1);
     derivatives_->addDerivative(II_DERIVATIVE, iiYNum_, -1);
@@ -371,6 +392,12 @@ void
 ModelBus::evalYType() {
   yType_[0] = ALGEBRAIC;
   yType_[1] = ALGEBRAIC;
+
+  if (hasDifferentialVoltages_) {
+    yType_[0] = DIFFERENTIAL;
+    yType_[1] = DIFFERENTIAL;
+  }
+
   if (hasConnection_) {
     yType_[2] = ALGEBRAIC;
     yType_[3] = ALGEBRAIC;
@@ -379,8 +406,12 @@ ModelBus::evalYType() {
 
 void
 ModelBus::evalFType() {
-  fType_[0] = ALGEBRAIC_EQ;   // no differential variable for node equation
+  fType_[0] = ALGEBRAIC_EQ;
   fType_[1] = ALGEBRAIC_EQ;
+  if (hasDifferentialVoltages_) {
+    fType_[0] = DIFFERENTIAL_EQ;
+    fType_[1] = DIFFERENTIAL_EQ;
+  }
 }
 
 void
@@ -452,6 +483,7 @@ ModelBus::getY0() {
       yp_[2] = 0.0;
       yp_[3] = 0.0;
     }
+
     // We assume here that z_[numSubNetworkNum_] was already initialized!!
     if (doubleNotEquals(z_[switchOffNum_], -1.) && doubleNotEquals(z_[switchOffNum_], 1.))
       z_[switchOffNum_] = fromNativeBool(false);
@@ -780,12 +812,27 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
 }
 
 void
-ModelBus::evalJtPrim(SparseMatrix& jt, const int& /*rowOffset*/) {
-  // no y' in network equations, we only change the column index in Jacobian
-  // column change - real part of the node current
-  jt.changeCol();
-  // column change - imaginary part of the node current
-  jt.changeCol();
+ModelBus::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
+  // y' in network equations - differential voltages
+  if (hasDifferentialVoltages_ && !getSwitchOff() && !derivativesPrim_->empty()) {
+    jt.changeCol();
+    const map<int, double>& irDerivativesValues = derivativesPrim_->getValues(IR_DERIVATIVE);
+    for (map<int, double>::const_iterator iter = irDerivativesValues.begin(); iter != irDerivativesValues.end(); ++iter) {
+      jt.addTerm(iter->first + rowOffset, iter->second);
+    }
+
+    jt.changeCol();
+    const map<int, double>& iiDerivativesValues = derivativesPrim_->getValues(II_DERIVATIVE);
+    for (map<int, double>::const_iterator iter = iiDerivativesValues.begin(); iter != iiDerivativesValues.end(); ++iter) {
+      jt.addTerm(iter->first + rowOffset, iter->second);
+    }
+  } else {
+    // no y' in network equations, we only change the column index in Jacobian
+    // column change - real part of the node current
+    jt.changeCol();
+    // column change - imaginary part of the node current
+    jt.changeCol();
+  }
 }
 
 NetworkComponent::StateChange_t

@@ -534,7 +534,7 @@ ModelDanglingLine::evalNodeInjection() {
 }
 
 void
-ModelDanglingLine::evalDerivatives() {
+ModelDanglingLine::evalDerivatives(const double /*cj*/) {
   if (network_->isInitModel())
     return;  ///< current injection constant for the init model
   int ur1YNum = modelBus_->urYNum();

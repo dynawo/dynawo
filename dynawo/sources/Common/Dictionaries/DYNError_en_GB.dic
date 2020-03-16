@@ -142,6 +142,7 @@ UDMUndefined                =             trying to retrieve a unit dynamic mode
 IncompleteMacroConnection   =             macroConnect between %1% and %2% using macroConnector %3% : %4% is required
 SystemInitConnectorForbidden =            system macro connector id (%1%) could not have an init connection
 FlowConnectionMixedSystemAndInternal =    the system flow connection %1%_%2%->%3%_%4% is also connected inside a modelica model which is forbidden. Please merge the models inside a single modelica model.
+DynamicLineStatusNotSupported =           connection status (CLOSED_1 or CLOSED_2) not supported for dynamic line %1%
 //---Parameter---------------
 ParameterDeclaredTwice      =             model (%1%): parameter %2% is declared twice: once in par file and once in init model
 ParameterWrongTypeReference =             wrong type for reference parameter: %1%
