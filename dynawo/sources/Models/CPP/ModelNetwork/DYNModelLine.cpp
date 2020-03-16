@@ -1035,8 +1035,8 @@ ModelLine::evalYType() {
       yType_[0] = DIFFERENTIAL;
       yType_[1] = DIFFERENTIAL;
     } else {
-      yType_[0] = ALGEBRIC;
-      yType_[1] = ALGEBRIC;
+      yType_[0] = ALGEBRAIC;
+      yType_[1] = ALGEBRAIC;
     }
     yType_[2] = EXTERNAL;
   }
@@ -1049,8 +1049,8 @@ ModelLine::evalFType() {
       fType_[0] = DIFFERENTIAL_EQ;
       fType_[1] = DIFFERENTIAL_EQ;
     } else {
-      fType_[0] = ALGEBRIC_EQ;
-      fType_[1] = ALGEBRIC_EQ;
+      fType_[0] = ALGEBRAIC_EQ;
+      fType_[1] = ALGEBRAIC_EQ;
     }
   }
 }
