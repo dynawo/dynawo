@@ -129,14 +129,14 @@ e.g tInteger, t0...</li>
 <li><strong>Protected</strong> should be used for initial parameters, internal parameters and variables.</li>
 </ul></div>
 
-<h3>Comments conventions</h3>
+<h3>Comments and documentation conventions</h3>
 
 <p>Comments should start with a capital letter.</p>
 
 <ul>
 <li>Always comment <strong>all</strong> models, function, parameters and variables, using the Modelica <code>\"comments\"</code>, explaining concisely but clearly what is their meaning/use. These comments are meant for the library users and automatically show up at various places in the graphical user interface (e.g. in the variables browser to inspect simulation results).</li>
 <li>Use <code>//</code> comments for equations and implementation description (base transformation, model conventions). These comments are meant for library developers.</li>
-</ul>
+</ul><div>In addition to comments, always fill the documentation part of your model (available in the documentation browser) by explaining what are the hypothesis done in the model and for which simulation the model could be used. If it is relevant, also include graphical views helping to understand the model's behavior. &nbsp;</div>
 
 <h3>Model implementation</h3>
 
@@ -161,8 +161,10 @@ e.g tInteger, t0...</li>
 
 <h3>Graphical view</h3>
 
-<p> Try to use one of the <a href=\"modelica://Modelica.Icons\"> Modelica icons </a> or <a href=\"modelica://Dynawo.AdditionalIcons\"> Dynawo icons </a> when creating a model.</p>
+<p> Try to use one of the <a href=\"modelica://Modelica.Icons\"> Modelica icons</a> or <a href=\"modelica://Dynawo.AdditionalIcons\"> Dynawo icons</a> when creating a model.</p>
 
-</body></html>"));
+<h3>Preferred view</h3>
+
+<p> Always set a preferred view to your model such as it will be opened by default in this view by Modelica-based environments:</p><p></p><ul><li>text view for equation-based models</li><li>diagram view for input/output or block models</li><li>info view for documentation</li></ul><p></p></body></html>"));
 
 end NamingConventions;
