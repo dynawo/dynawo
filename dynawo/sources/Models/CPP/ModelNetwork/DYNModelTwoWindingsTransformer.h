@@ -89,6 +89,17 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   } CalculatedVariables_t;  // enumeration of calculated variables which can be retrieved for this model
 
   /**
+   * @brief index discrete variable
+   */
+  typedef enum {
+    connectionStateNum_ = 0,
+    currentStepIndexNum_ = 1,
+    currentLimitsDesactivateNum_ = 2,
+    disableInternalTapChangerNum_ = 3,
+    tapChangerLockedNum_ = 4
+  } IndexDiscreteVariable_t;
+
+  /**
    * @brief set the connection state (open, closed on one side, ...)
    * @param state
    */

@@ -140,10 +140,10 @@ ModelStaticVarCompensator::initSize() {
 
 void
 ModelStaticVarCompensator::evalYType() {
-  yType_[0] = ALGEBRAIC;  // piIn
-  yType_[1] = ALGEBRAIC;  // piOut
-  yType_[2] = ALGEBRAIC;  // bSvc
-  yType_[3] = DIFFERENTIAL;  // feedBack
+  yType_[piInNum_] = ALGEBRAIC;  // piIn
+  yType_[piOutNum_] = ALGEBRAIC;  // piOut
+  yType_[bSvcNum_] = ALGEBRAIC;  // bSvc
+  yType_[feedBackNum_] = DIFFERENTIAL;  // feedBack
 }
 
 void
@@ -427,21 +427,21 @@ ModelStaticVarCompensator::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
 void
 ModelStaticVarCompensator::getY0() {
   if (!network_->isInitModel()) {
-    y_[0] = piIn0_;
-    y_[1] = piOut0_;
-    y_[2] = bSvc0_;
-    y_[3] = feedBack0_;
-    yp_[3] = feedBackPrim0_;
+    y_[piInNum_] = piIn0_;
+    y_[piOutNum_] = piOut0_;
+    y_[bSvcNum_] = bSvc0_;
+    y_[feedBackNum_] = feedBack0_;
+    yp_[feedBackNum_] = feedBackPrim0_;
 
-    z_[0] = mode_;
-    z_[1] = getConnected();
-    z_[2] = vSetPoint_;
+    z_[modeNum_] = mode_;
+    z_[connectionStateNum_] = getConnected();
+    z_[voltageSetPointNum_] = vSetPoint_;
   }
 }
 
 NetworkComponent::StateChange_t
 ModelStaticVarCompensator::evalZ(const double& /*t*/) {
-  mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[0]));
+  mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_]));
 
   if (g_[0] == ROOT_UP && !isRunning_) {
     network_->addEvent(id_, DYNTimeline(SVarCRunning));
@@ -458,22 +458,22 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
       network_->addEvent(id_, DYNTimeline(SVarCUminreached));
       isRunning_ = true;
       vSetPoint_ = uSetPointMin_;
-      z_[0] = StaticVarCompensatorInterface::RUNNING_V;
-      z_[2] = uSetPointMin_;
+      z_[modeNum_] = StaticVarCompensatorInterface::RUNNING_V;
+      z_[voltageSetPointNum_] = uSetPointMin_;
     }
 
     if (g_[7] == ROOT_UP) {
       network_->addEvent(id_, DYNTimeline(SVarCUmaxreached));
       isRunning_ = true;
       vSetPoint_ = uSetPointMax_;
-      z_[0] = StaticVarCompensatorInterface::RUNNING_V;
-      z_[2] = uSetPointMax_;
+      z_[modeNum_] = StaticVarCompensatorInterface::RUNNING_V;
+      z_[voltageSetPointNum_] = uSetPointMax_;
     }
   }
 
-  State currState = static_cast<State>(static_cast<int>(z_[1]));
+  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != getConnected()) {
-    Trace::debug() << DYNLog(SVCStateChange, id_, getConnected(), z_[1]) << Trace::endline;
+    Trace::debug() << DYNLog(SVCStateChange, id_, getConnected(), z_[connectionStateNum_]) << Trace::endline;
     if (currState == OPEN) {
       network_->addEvent(id_, DYNTimeline(SVarCDisconnected));
       modelBus_->getVoltageLevel()->disconnectNode(modelBus_->getBusIndex());
@@ -489,18 +489,21 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
 
 void
 ModelStaticVarCompensator::evalG(const double& /*t*/) {
-  g_[0] = (doubleEquals(z_[0], 0.)) ? ROOT_UP : ROOT_DOWN;
-  g_[1] = (doubleEquals(z_[0], 2.)) ? ROOT_UP : ROOT_DOWN;
+  g_[0] = (doubleEquals(z_[modeNum_], 0.)) ? ROOT_UP : ROOT_DOWN;
+  g_[1] = (doubleEquals(z_[modeNum_], 2.)) ? ROOT_UP : ROOT_DOWN;
 
   double b = piOut();
-  g_[2] = (bMin_ - b > 0.) ? ROOT_UP : ROOT_DOWN;  // B < BMin
-  g_[3] = (b - bMax_ > 0.) ? ROOT_UP : ROOT_DOWN;  // B > BMax
-  g_[4] = (b - bMin_ > 0.) ? ROOT_UP : ROOT_DOWN;  // B > BMin
-  g_[5] = (bMax_ - b > 0.) ? ROOT_UP : ROOT_DOWN;  // B < BMax
+  bool bIsbMin = doubleEquals(b, bMin_);
+  bool bIsbMax = doubleEquals(b, bMax_);
+  g_[2] = (!bIsbMin && (bMin_ - b > 0.)) ? ROOT_UP : ROOT_DOWN;  // B < BMin
+  g_[3] = (!bIsbMax && (b - bMax_ > 0.)) ? ROOT_UP : ROOT_DOWN;  // B > BMax
+  g_[4] = (bIsbMin || (b - bMin_ > 0.)) ? ROOT_UP : ROOT_DOWN;  // B >= BMin
+  g_[5] = (bIsbMax || (bMax_ - b > 0.)) ? ROOT_UP : ROOT_DOWN;  // B <= BMax
 
   if (hasStandByAutomaton_) {
-    g_[6] = ((uMinActivation_ - modelBus_->getCurrentV() > 0.) && mode_ == StaticVarCompensatorInterface::STANDBY) ? ROOT_UP : ROOT_DOWN;
-    g_[7] = ((uMaxActivation_ - modelBus_->getCurrentV() < 0.) && mode_ == StaticVarCompensatorInterface::STANDBY) ? ROOT_UP : ROOT_DOWN;
+    double v = modelBus_->getCurrentV();
+    g_[6] = (!doubleEquals(v, uMinActivation_) && (uMinActivation_ - v > 0.) && mode_ == StaticVarCompensatorInterface::STANDBY) ? ROOT_UP : ROOT_DOWN;
+    g_[7] = (!doubleEquals(v, uMaxActivation_) && (uMaxActivation_ - v < 0.) && mode_ == StaticVarCompensatorInterface::STANDBY) ? ROOT_UP : ROOT_DOWN;
   }
 }
 
@@ -512,38 +515,49 @@ ModelStaticVarCompensator::evalCalculatedVars() {
 
 void
 ModelStaticVarCompensator::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
-  if (numCalculatedVar == qNum_ && isConnected()) {
-    int urYNum = modelBus_->urYNum();
-    int uiYNum = modelBus_->uiYNum();
-    numVars.push_back(urYNum);
-    numVars.push_back(uiYNum);
-    numVars.push_back(bSvcYNum_);
+  if (numCalculatedVar == qNum_) {
+    if (isConnected()) {
+      int urYNum = modelBus_->urYNum();
+      int uiYNum = modelBus_->uiYNum();
+      numVars.push_back(urYNum);
+      numVars.push_back(uiYNum);
+      numVars.push_back(bSvcYNum_);
+    }
+    return;
   }
+  throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
 }
 
 
 void
 ModelStaticVarCompensator::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, vector<double>& res) {
-  if (numCalculatedVar == qNum_ && isConnected()) {
-    double ur = y[0];
-    double ui = y[1];
-    double b = y[2];
-    // QProduced = SNREF * b * (ur * ur + ui * ui * ui)
-    res[0] = SNREF * b * 2. * ur;  // @Q/@Ur
-    res[1] = SNREF * b * 2. * ui;  // @Q/@Ui
-    res[2] = SNREF * (ur * ur + ui * ui);  // @Q/@BSvc
+  if (numCalculatedVar == qNum_) {
+    if (isConnected()) {
+      double ur = y[0];
+      double ui = y[1];
+      double b = y[2];
+      // QProduced = SNREF * b * (ur * ur + ui * ui * ui)
+      res[0] = SNREF * b * 2. * ur;  // @Q/@Ur
+      res[1] = SNREF * b * 2. * ui;  // @Q/@Ui
+      res[2] = SNREF * (ur * ur + ui * ui);  // @Q/@BSvc
+    }
+    return;
   }
+  throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
 }
 
 double
 ModelStaticVarCompensator::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
-  if (numCalculatedVar == qNum_ && isConnected()) {
-    double ur = y[0];
-    double ui = y[1];
-    double b = y[2];
-    return SNREF * b * (ur * ur + ui * ui);
+  if (numCalculatedVar == qNum_) {
+    if (isConnected()) {
+      double ur = y[0];
+      double ui = y[1];
+      double b = y[2];
+      return SNREF * b * (ur * ur + ui * ui);
+    }
+    return 0.;
   }
-  return 0.;
+  throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
 }
 
 void

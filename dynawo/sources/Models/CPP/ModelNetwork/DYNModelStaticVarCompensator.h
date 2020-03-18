@@ -61,6 +61,15 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   } IndexVariables_t;
 
   /**
+   * @brief index discrete variable
+   */
+  typedef enum {
+    modeNum_ = 0,
+    connectionStateNum_ = 1,
+    voltageSetPointNum_ = 2
+  } IndexDiscreteVariable_t;
+
+  /**
    * @brief set connection status
    * @param state
    */

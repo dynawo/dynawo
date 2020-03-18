@@ -365,7 +365,7 @@ ModelSwitch::evalCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*y
       output = getConnectionState();
       break;
     default:
-      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
   return output;
 }
