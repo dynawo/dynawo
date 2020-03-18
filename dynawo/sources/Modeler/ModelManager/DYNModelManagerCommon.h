@@ -519,14 +519,6 @@ const char* modelica_real_to_modelica_string_format(modelica_real r, std::string
 const char* modelica_integer_to_modelica_string_format(modelica_integer i, std::string format);
 
 /**
- * @brief conversion of a modelica boolean number to modelica string
- * @param b modelica boolean to convert
- * @param format format of the conversion
- * @return modelica string created
- */
-const char* modelica_boolean_to_modelica_string_format(modelica_boolean b, std::string format);
-
-/**
  * @brief transforms an assert (done in modelica model) to a throw instruction
  *
  * @param model model where the assert appears

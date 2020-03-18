@@ -330,34 +330,10 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void initialize();
 
   /**
-   * @brief get number of variables
-   * @return number of variables
-   */
-  int nbVars() const;
-
-  /**
-   * @brief get number of f functions
-   * @return number of residual functions
-   */
-  int nbF() const;
-
-  /**
-   * @brief get number of discrete variables
-   * @return number of discrete variables
-   */
-  int nbZ() const;
-
-  /**
    * @brief set the current time
    * @param st time to set
    */
   void setManagerTime(const double &st);
-
-  /**
-   * @brief get the current time
-   * @return current time
-   */
-  double getManagerTime() const;
 
   /**
    * @brief calculate the values of the parameters

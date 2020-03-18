@@ -1137,14 +1137,14 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
-      z_[0] = OPEN;
+      z_[connectionStateNum_] = OPEN;
   }
 
   if (currentLimits2_) {
     currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
     offsetRoot += currentLimits2_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
-      z_[0] = OPEN;
+      z_[connectionStateNum_] = OPEN;
   }
 
   if (modelRatioChanger_ && modelBusMonitored_) {
@@ -1164,7 +1164,7 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
   }
 
-  State currState = static_cast<State>(static_cast<int>(z_[0]));
+  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != connectionState_) {
     if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
       Trace::error() << DYNLog(UnableToCloseTfo, id_) << Trace::endline;
@@ -1279,37 +1279,37 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
               case CLOSED_3:
                 throw DYNError(Error::MODELER, NoThirdSide, id_);
       }
-      setConnectionState(static_cast<State>(static_cast<int>(z_[0])));
+      setConnectionState(static_cast<State>(static_cast<int>(z_[connectionStateNum_])));
     }
   }
 
-  int currStateIndex = static_cast<int>(static_cast<int>(z_[1]));
+  int currStateIndex = static_cast<int>(static_cast<int>(z_[currentStepIndexNum_]));
   if (currStateIndex != getCurrentStepIndex()) {
     if (disableInternalTapChanger_ > 0.) {
       // external automaton
-      Trace::debug() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[1]) << Trace::endline;
+      Trace::debug() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[currentStepIndexNum_]) << Trace::endline;
     } else {
       // internal automaton
-      Trace::debug() << DYNLog(TfoTapChange, id_, z_[1], getCurrentStepIndex()) << Trace::endline;
-      z_[1] = getCurrentStepIndex();
+      Trace::debug() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_], getCurrentStepIndex()) << Trace::endline;
+      z_[currentStepIndexNum_] = getCurrentStepIndex();
     }
     stateIndexModified_ = true;
-    setCurrentStepIndex(static_cast<int>(z_[1]));
+    setCurrentStepIndex(static_cast<int>(z_[currentStepIndexNum_]));
   }
 
-  if (doubleNotEquals(z_[2], getCurrentLimitsDesactivate())) {
-    setCurrentLimitsDesactivate(z_[2]);
+  if (doubleNotEquals(z_[currentLimitsDesactivateNum_], getCurrentLimitsDesactivate())) {
+    setCurrentLimitsDesactivate(z_[currentLimitsDesactivateNum_]);
     Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
 
-  if (doubleNotEquals(z_[3], getDisableInternalTapChanger())) {
-    setDisableInternalTapChanger(z_[3]);
+  if (doubleNotEquals(z_[disableInternalTapChangerNum_], getDisableInternalTapChanger())) {
+    setDisableInternalTapChanger(z_[disableInternalTapChangerNum_]);
     Trace::debug() << DYNLog(DisableInternalTapChanger, id_) << Trace::endline;
   }
 
-  if (doubleNotEquals(z_[4], getTapChangerLocked())) {
-    setTapChangerLocked(z_[4]);
-    if (z_[4] > 0)
+  if (doubleNotEquals(z_[tapChangerLockedNum_], getTapChangerLocked())) {
+    setTapChangerLocked(z_[tapChangerLockedNum_]);
+    if (z_[tapChangerLockedNum_] > 0)
       Trace::debug() << DYNLog(TapChangerLocked, id_) << Trace::endline;
   }
   if (topologyModified_)
@@ -1607,7 +1607,7 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(int numCalculatedVar, double* y,
       output = getConnectionState();
       break;
     default:
-      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
   return output;
 }
@@ -1615,11 +1615,11 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(int numCalculatedVar, double* y,
 void
 ModelTwoWindingsTransformer::getY0() {
   if (!network_->isInitModel()) {
-    z_[0] = getConnectionState();
-    z_[1] = getCurrentStepIndex();
-    z_[2] = getCurrentLimitsDesactivate();
-    z_[3] = getDisableInternalTapChanger();
-    z_[4] = getTapChangerLocked();
+    z_[connectionStateNum_] = getConnectionState();
+    z_[currentStepIndexNum_] = getCurrentStepIndex();
+    z_[currentLimitsDesactivateNum_] = getCurrentLimitsDesactivate();
+    z_[disableInternalTapChangerNum_] = getDisableInternalTapChanger();
+    z_[tapChangerLockedNum_] = getTapChangerLocked();
   }
 }
 

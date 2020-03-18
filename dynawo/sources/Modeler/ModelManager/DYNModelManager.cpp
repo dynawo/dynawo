@@ -1275,29 +1275,9 @@ ModelManager::defineElements(vector<Element> &elements, map<string, int>& mapEle
   modelDyn_->defineElements(elements, mapElement);
 }
 
-int
-ModelManager::nbVars() const {
-  return data()->nbVars;
-}
-
-int
-ModelManager::nbF() const {
-  return data()->nbF;
-}
-
-int
-ModelManager::nbZ() const {
-  return data()->nbZ;
-}
-
 void
 ModelManager::setManagerTime(const double & st) {
   data()->localData[0]->timeValue = st;
-}
-
-double
-ModelManager::getManagerTime() const {
-  return data()->localData[0]->timeValue;
 }
 
 void
@@ -1315,6 +1295,7 @@ ModelManager::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std
 #if _ADEPT_
   try {
     size_t size = getDefJCalculatedVarI(iCalculatedVar).size();
+    assert(res.size() == size);
     size_t nbInput = size;
 
     adept::Stack stack;

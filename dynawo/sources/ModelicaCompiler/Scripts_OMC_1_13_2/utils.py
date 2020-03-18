@@ -190,7 +190,7 @@ def write_file (content, destination_file_path):
     # check whether write rights are granted
     try:
         open (destination_file_path, 'w').close()
-    except:
+    except OSError:
         error_exit ("failed to open %s with write rights" % destination_file_path)
 
     # write the file

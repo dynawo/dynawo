@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,24 +8,11 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-set(MODULE_NAME MODELS_MODELNETWORK_unittest)
+set(MODULE_NAME MODELER_MODELMANAGER_unittest)
 
 set(MODULE_SOURCES
-    TestIIDMInitializationFlow.cpp
-    TestDerivatives.cpp
-    TestBus.cpp
-    TestSwitch.cpp
-    TestDanglingLine.cpp
-    TestCurrentLimits.cpp
-    TestGenerator.cpp
-    TestHvdcLink.cpp
-    TestLine.cpp
-    TestLoad.cpp
-    TestTapChanger.cpp
-    TestShuntCompensator.cpp
-    TestStaticVarCompensator.cpp
-    TestThreeWindingsTransformer.cpp
-    TestTwoWindingsTransformer.cpp
+    Test.cpp
+    TestCommon.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -33,22 +20,37 @@ add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 target_include_directories(${MODULE_NAME}
         PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
+        ${OMC_INCLUDE_DIR}
         )
 
 target_link_libraries(${MODULE_NAME}
-        dynawo_DataInterface
-        DYNModelNetwork
-        dynawo_API_CSTR
-        dynawo_Test)
+        PUBLIC
+          dynawo_Common
+          dynawo_ModelManager
+          dynawo_ModelerCommon
+          Modelica_externalC
+          dynawo_API_PAR
+          dynawo_API_CSTR
+          dynawo_Test)
+
+
+if(USE_ADEPT)
+  target_link_libraries(${MODULE_NAME} PUBLIC Adept::Adept)
+endif(USE_ADEPT)
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS
+    ${MODULE_NAME}-pre-tests
     ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
 
+add_custom_target(${MODULE_NAME}-pre-tests
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res
+  )
+
 if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-  set(EXTRACT_PATTERNS "'*/sources/Models/CPP/ModelNetwork/DYN*'")
+  set(EXTRACT_PATTERNS "'*/sources/Modeler/ModelManager/DYN*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()

@@ -199,15 +199,6 @@ const char* modelica_integer_to_modelica_string_format(modelica_integer i, std::
   return mmChars.string2Keep_.back().c_str();
 }
 
-const char* modelica_boolean_to_modelica_string_format(modelica_boolean b, std::string /*format*/) {
-  std::stringstream ss("");
-  ss << std::boolalpha << b;
-  const std::string tmp = ss.str();
-  mmChars.string2Keep_.push_back(tmp);
-
-  return mmChars.string2Keep_.back().c_str();
-}
-
 const char * modelica_real_to_modelica_string(modelica_real r, modelica_integer /*minLen*/, modelica_boolean /*leftJustified*/,
                                               modelica_integer signDigits) {
   // @todo warning: no thread safe

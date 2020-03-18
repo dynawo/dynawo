@@ -168,7 +168,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchCalculatedVariables) {
   sw->evalCalculatedVars();
   ASSERT_EQ(calculatedVars[0], OPEN);
 
-  ASSERT_THROW_DYNAWO(sw->evalCalculatedVarI(1, y, yp), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_THROW_DYNAWO(sw->evalCalculatedVarI(1, y, yp), Error::MODELER, KeyError_t::UndefCalculatedVarI);
   std::vector<double> res;
   ASSERT_THROW_DYNAWO(sw->evalJCalculatedVarI(1, y, yp, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(sw->evalJCalculatedVarI(ModelSwitch::swStateNum_, y, yp, res));

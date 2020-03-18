@@ -152,6 +152,12 @@ TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClose
   smjPrime.init(size, size);
   tw3->evalJtPrim(smjPrime, 0);
   ASSERT_EQ(smjPrime.nbElem(), 0);
+  ASSERT_NO_THROW(tw3->evalNodeInjection());
+  ASSERT_NO_THROW(tw3->evalDerivatives(0.));
+  ASSERT_NO_THROW(tw3->evalDerivativesPrim());
+  ASSERT_NO_THROW(tw3->addBusNeighbors());
+  ASSERT_NO_THROW(tw3->updateYType());
+  ASSERT_NO_THROW(tw3->updateFType());
 
   std::vector<ParameterModeler> parameters;
   tw3->defineNonGenericParameters(parameters);
