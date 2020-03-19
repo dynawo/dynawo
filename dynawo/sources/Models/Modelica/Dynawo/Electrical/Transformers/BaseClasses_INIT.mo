@@ -96,21 +96,63 @@ algorithm
 annotation(preferredView = "text");
 end TapEstimation;
 
+function IdealTransformerTapEstimation "Function that estimates the initial tap of an ideal transformer"
+  extends Icons.Function;
+
+  /*
+  It is done using the voltage value on side 1 and the set point value for the voltage module on side 2.
+  The tap is determined as the closest value to an estimated tap based on the minimum and maximum tap values.
+  */
+
+  input Types.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
+  input Types.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
+  input Integer NbTap "Number of taps";
+  input Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
+  input Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in p.u (base U2Nom)";
+
+  output Integer Tap0 "Estimated tap";
+
+protected
+  Types.PerUnit rcTfo0Pu "Ratio value corresponding to the voltage set point on side 2 in p.u.: U2/U1 in no load conditions";
+  Real tapEstimation "Intermediate real value corresponding to the tap estimation based on the minimum and maximum tap values";
+
+algorithm
+
+  // Handling the one tap case
+  if (NbTap == 1) then
+    Tap0 := 0;
+    return;
+  end if;
+
+  // Handling zero voltage case
+  if (ComplexMath. 'abs'(u10Pu) == 0) then
+    Tap0 := 0;
+    return;
+  end if;
+
+  // Initial ratio calculation
+  rcTfo0Pu := Uc20Pu / ComplexMath. 'abs'(u10Pu);
+
+  // Finding the tap position closest to the ratio calculated (rounded to an integer)
+  tapEstimation := ((rcTfo0Pu - rTfoMinPu) / (rTfoMaxPu - rTfoMinPu)) * (NbTap - 1);
+  if tapEstimation <= 0 then
+    Tap0 := 0;
+  elseif tapEstimation >= (NbTap -1) then
+    Tap0 := NbTap - 1;
+  elseif (tapEstimation - floor(tapEstimation)) < (ceil(tapEstimation) - tapEstimation) then
+   Tap0 := integer(floor(tapEstimation));
+  else
+    Tap0 := integer(ceil(tapEstimation));
+  end if;
+
+annotation(preferredView = "text");
+end IdealTransformerTapEstimation;
 
 
-// Base model for initialization of TransformerVariableTap
-partial model BaseTransformerVariableTap_INIT "Base model for initialization of TransformerVariableTap"
+// Base model for initialization of transformers with variable tap
+partial model BaseTransformerVariableTapCommon_INIT "Base model for initialization of transformers with variable tap"
 
 /*
-  Equivalent circuit and conventions:
-
-               I1  r                I2
-    U1,P1,Q1 -->---oo----R+jX-------<-- U2,P2,Q2
-  (terminal1)                   |      (terminal2)
-                               G+jB
-                                |
-                               ---
-
   The initialization scheme is specific and considers that the values on only one side of the transformer are known plus the voltage set point on the other side.
   From these values, the tap position and its corresponding ratio are determined.
   From the tap and ratio values, the final U2, P2 and Q2 values are calculated.
@@ -121,22 +163,12 @@ partial model BaseTransformerVariableTap_INIT "Base model for initialization of 
   public
 
     // Transformer's parameters
-    parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-    parameter Types.Percent R "Resistance in % (base U2Nom, SNom)";
-    parameter Types.Percent X "Reactance in % (base U2Nom, SNom)";
-    parameter Types.Percent G "Conductance in % (base U2Nom, SNom)";
-    parameter Types.Percent B "Susceptance in % (base U2Nom, SNom)";
     parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
     parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
     parameter Integer NbTap "Number of taps";
     parameter Types.VoltageModulePu Uc20Pu "Voltage set-point on side 2 in p.u (base U2Nom)";
 
   protected
-
-    // Transformer's impedance and susceptance
-    parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom) "Transformer impedance in p.u (base U2Nom, SnRef)";
-    parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in p.u (base U2Nom, SnRef)";
-
     // Transformer start values
     Types.ComplexVoltagePu u20Pu  "Start value of complex voltage at terminal 2 in p.u (base U2Nom)";
     flow Types.ComplexCurrentPu i20Pu  "Start value of complex current at terminal 2 in p.u (base U2Nom, SnRef) (receptor convention)";
@@ -148,24 +180,78 @@ partial model BaseTransformerVariableTap_INIT "Base model for initialization of 
 
 equation
 
-  // Initial tap and ratio estimation
-  Tap0 = TapEstimation (ZPu, rTfoMinPu, rTfoMaxPu, NbTap, u10Pu, i10Pu, Uc20Pu);
+  // Initial ratio estimation
   if (NbTap == 1) then
     rTfo0Pu = rTfoMinPu;
   else
     rTfo0Pu = rTfoMinPu + (rTfoMaxPu - rTfoMinPu) * (Tap0 / (NbTap - 1));
   end if;
 
-  // Transformer equations
-  i10Pu = rTfo0Pu * (YPu * u20Pu - i20Pu);
-  rTfo0Pu * rTfo0Pu * u10Pu = rTfo0Pu * u20Pu + ZPu * i10Pu;
-
   // Voltage at terminal 2
   U20Pu = ComplexMath.'abs' (u20Pu);
 
 annotation(preferredView = "text");
-end BaseTransformerVariableTap_INIT;
+end BaseTransformerVariableTapCommon_INIT;
 
+partial model BaseIdealTransformerVariableTap_INIT "Base model for initialization of IdealTransformerVariableTap"
+  extends BaseTransformerVariableTapCommon_INIT;
+
+/* Equivalent circuit and conventions:
+
+               I1   r   I2
+    U1,P1,Q1 -->---oo---<-- U2,P2,Q2
+  (terminal1)              (terminal2)
+*/
+
+equation
+
+  // Initial tap estimation
+  Tap0 = IdealTransformerTapEstimation(rTfoMinPu, rTfoMaxPu, NbTap, u10Pu, Uc20Pu);
+
+  // Transformer equations
+  i10Pu = - rTfo0Pu * i20Pu;
+  rTfo0Pu * u10Pu = u20Pu;
+
+annotation(preferredView = "text");
+end BaseIdealTransformerVariableTap_INIT;
+
+partial model BaseNormalTransformerVariableTap_INIT "Base model for initialization of TransformerVariableTap"
+  extends BaseTransformerVariableTapCommon_INIT;
+
+/*  Equivalent circuit and conventions:
+
+               I1  r                I2
+    U1,P1,Q1 -->---oo----R+jX-------<-- U2,P2,Q2
+  (terminal1)                   |      (terminal2)
+                               G+jB
+                                |
+                               ---
+*/
+
+  public
+
+    parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
+    parameter Types.Percent R "Resistance in % (base U2Nom, SNom)";
+    parameter Types.Percent X "Reactance in % (base U2Nom, SNom)";
+    parameter Types.Percent G "Conductance in % (base U2Nom, SNom)";
+    parameter Types.Percent B "Susceptance in % (base U2Nom, SNom)";
+
+  protected
+
+    // Transformer's impedance and susceptance
+    parameter Types.ComplexImpedancePu ZPu(re = R / 100 * SystemBase.SnRef/ SNom , im  = X / 100 * SystemBase.SnRef/ SNom) "Transformer impedance in p.u (base U2Nom, SnRef)";
+    parameter Types.ComplexAdmittancePu YPu(re = G / 100 * SNom / SystemBase.SnRef, im  = B / 100 * SNom / SystemBase.SnRef) "Transformer admittance in p.u (base U2Nom, SnRef)";
+
+  equation
+    // Initial tap estimation
+    Tap0 = TapEstimation (ZPu, rTfoMinPu, rTfoMaxPu, NbTap, u10Pu, i10Pu, Uc20Pu);
+
+    // Transformer equations
+    i10Pu = rTfo0Pu * (YPu * u20Pu - i20Pu);
+    rTfo0Pu * rTfo0Pu * u10Pu = rTfo0Pu * u20Pu + ZPu * i10Pu;
+
+annotation(preferredView = "text");
+end BaseNormalTransformerVariableTap_INIT;
 
 partial model BaseGeneratorTransformer_INIT "Base model for initialization of GeneratorTransformer"
 

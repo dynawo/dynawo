@@ -1,7 +1,7 @@
 within Dynawo.Electrical.Transformers;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,8 +12,8 @@ within Dynawo.Electrical.Transformers;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model TransformerVariableTapPQ_INIT "Initialization for transformer based on the network voltage, active and reactive power"
-  extends BaseClasses_INIT.BaseNormalTransformerVariableTap_INIT;
+model IdealTransformerVariableTapPQ_INIT "Initialization for ideal transformer based on the network voltage, active and reactive power"
+  extends BaseClasses_INIT.BaseIdealTransformerVariableTap_INIT;
   extends AdditionalIcons.Init;
 
   public
@@ -34,4 +34,4 @@ equation
   s10Pu = u10Pu * ComplexMath.conj(i10Pu);
 
 annotation(preferredView = "text");
-end TransformerVariableTapPQ_INIT;
+end IdealTransformerVariableTapPQ_INIT;
