@@ -6,3 +6,6 @@ TransformerVariableTapPQ_INIT
 TransformerVariableTapI_INIT
 GeneratorTransformer
 GeneratorTransformer_INIT
+IdealTransformerVariableTap
+IdealTransformerVariableTapPQ_INIT
+IdealTransformerVariableTapI_INIT
