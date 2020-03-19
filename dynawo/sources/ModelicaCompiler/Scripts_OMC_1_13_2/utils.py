@@ -28,7 +28,7 @@ HASHTAG_INCLUDE = "#include \""
 OMC_METATYPE_TMPMETA = "modelica_metatype tmpMeta"
 MODEL_NAME_NAMESPACE = "__fill_model_name__::"
 ADEPT_NAMESPACE = "adept::"
-REGULAR_EXPR_ATAN3 = r'omc_Modelica_Math_atan3\(\s*(?P<var1>.*)\s*,\s*(?P<var2>.*)\s*,\s*0.0\)'
+REGULAR_EXPR_ATAN3 = r'omc_Modelica_Math_atan3\(\s*(?P<var1>[^,]*)\s*,\s*(?P<var2>[^,]*)\s*,\s*0.0\)'
 NEED_TO_ITERATE_ACTIVATION= "data->simulationInfo->needToIterate = 1;"
 ##
 # print an information log
