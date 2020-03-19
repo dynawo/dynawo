@@ -14,8 +14,8 @@ set(MODEL_FILES
     QRefQUCalc.extvar
     QRefLimCalc.mo
     QRefLimCalc.extvar
-    IqRefCalc.mo
-    IqRefCalc.extvar
+    ACVoltageControl.mo
+    ACVoltageControl.extvar
     )
 
 #

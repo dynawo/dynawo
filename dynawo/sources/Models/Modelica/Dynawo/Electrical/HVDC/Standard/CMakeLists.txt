@@ -11,6 +11,9 @@
 add_subdirectory(ACVoltageControl A)
 add_subdirectory(DCVoltageControl D)
 add_subdirectory(ActivePowerControl P)
+add_subdirectory(LimitsCalculationFunction L)
+add_subdirectory(BlockingFunction B)
+add_subdirectory(DCLine H)
 
 set(MODEL_FILES
     package.mo

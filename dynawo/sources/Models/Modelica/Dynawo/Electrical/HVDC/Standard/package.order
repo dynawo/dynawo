@@ -1,3 +1,6 @@
 ACVoltageControl
 DCVoltageControl
 ActivePowerControl
+LimitsCalculationFunction
+BlockingFunction
+DCLine
