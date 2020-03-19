@@ -10,12 +10,8 @@
 
 set(MODEL_FILES
     package.mo
-    DeltaPCalc.mo
-    DeltaPCalc.extvar
-    ActivePowerControl.mo
-    ActivePowerControl.extvar
-    RPFaultFunction.mo
-    RPFaultFunction.extvar
+    LimitsCalculationFunction.mo
+    LimitsCalculationFunction.extvar
     )
 
 #

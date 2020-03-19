@@ -7,15 +7,12 @@
     License, v. 2.0. If a copy of the MPL was not distributed with this
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
+
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
-<external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="activateDeltaP" type="boolean" />
-  <variable id="UdcPu" type="continuous" />
-  <variable id="PRefPu" type="continuous" />
-  <variable id="PPu" type="continuous" />
-  <variable id="IpMaxPu" type="continuous" />
-  <variable id="IpMinPu" type="continuous" />
-  <variable id="blocked" type="boolean" />
-</external_variables>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="ACVoltageControl">
+    <dyn:unitDynamicModel id="acvoltagecontrol" name="Dynawo.Electrical.HVDC.Standard.ACVoltageControl.ACVoltageControl"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

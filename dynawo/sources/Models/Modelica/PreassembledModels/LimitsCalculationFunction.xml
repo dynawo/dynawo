@@ -7,12 +7,12 @@
     License, v. 2.0. If a copy of the MPL was not distributed with this
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
+
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
-<external_variables xmlns="http://www.rte-france.com/dynawo">
-  <variable id="QRefLimPu" type="continuous" />
-  <variable id="UPu" type="continuous" />
-  <variable id="iqMod" type="continuous" />
-  <variable id="blocked" type="boolean" />
-</external_variables>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="LimitsCalculationFunction">
+    <dyn:unitDynamicModel id="limitscalculationfunction" name="Dynawo.Electrical.HVDC.Standard.LimitsCalculationFunction.LimitsCalculationFunction"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>
