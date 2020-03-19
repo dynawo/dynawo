@@ -22,10 +22,10 @@ model QRefLimCalc
 
   parameter Types.ReactivePowerPu QMinOPPu;
   parameter Types.ReactivePowerPu QMaxOPPu;
-  parameter Real tableQMaxPPu[:,:]=[0,0;0,0;0,0;0,0;0,0];
-  parameter Real tableQMaxUPu[:,:]=[0,0;0,0;0,0;0,0;0,0];
-  parameter Real tableQMinPPu[:,:]=[0,0;0,0;0,0;0,0;0,0];
-  parameter Real tableQMinUPu[:,:]=[0,0;0,0;0,0;0,0;0,0];
+  parameter Real tableQMaxPPu[:,:]=[0,0;1,0;2,0;3,0;4,0];
+  parameter Real tableQMaxUPu[:,:]=[0,0;1,0;2,0;3,0;4,0];
+  parameter Real tableQMinPPu[:,:]=[0,0;1,0;2,0;3,0;4,0];
+  parameter Real tableQMinUPu[:,:]=[0,0;1,0;2,0;3,0;4,0];
 
   Modelica.Blocks.Interfaces.RealInput QRefUQPu(start = Q0Pu) "Reference reactive power in U mode in p.u (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

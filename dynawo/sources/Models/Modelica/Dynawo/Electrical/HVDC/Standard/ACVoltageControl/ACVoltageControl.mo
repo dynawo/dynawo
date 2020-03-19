@@ -20,11 +20,11 @@ model ACVoltageControl
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Real tableQMaxPPu[:,:]=[0,0;0,0;0,0;0,0;0,0];
-  parameter Real tableQMaxUPu[:,:]=[0,0;0,0;0,0;0,0;0,0];
-  parameter Real tableQMinPPu[:,:]=[0,0;0,0;0,0;0,0;0,0];
-  parameter Real tableQMinUPu[:,:]=[0,0;0,0;0,0;0,0;0,0];
-  parameter Real tableiqMod[:,:]=[0,0;0,0;0,0;0,0];
+  parameter Real tableQMaxPPu[:,:]=[0,0;1,0;2,0;3,0;4,0];
+  parameter Real tableQMaxUPu[:,:]=[0,0;1,0;2,0;3,0;4,0];
+  parameter Real tableQMinPPu[:,:]=[0,0;1,0;2,0;3,0;4,0];
+  parameter Real tableQMinUPu[:,:]=[0,0;1,0;2,0;3,0;4,0];
+  parameter Real tableiqMod[:,:]=[0,0;1,0;2,0;3,0];
   parameter Types.PerUnit SlopeURefPu;
   parameter Types.PerUnit SlopeQRefPu;
   parameter Types.PerUnit Lambda;
