@@ -479,6 +479,7 @@ class Transpose:
                     line_tmp = line_tmp.replace("(modelica_boolean)"+name, "(modelica_boolean)( ("+name+">0)? 1: 0 )")
             for name in self.residual_vars_map:
                 line_tmp = line_tmp.replace("$P"+name, name)
+            line_tmp = transform_line_adept(line_tmp)
             tmp_txt_list.append(line_tmp)
         return tmp_txt_list
 
@@ -791,6 +792,18 @@ def transform_line_adept(line):
     line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
+    ptrn_variable = re.compile(r'omc_Modelica_Blocks_Tables_Internal_getTable1DValue\(\s*(?P<var1>[^,]*)\s*,\s*(?P<var2>[^,]*)\s*,\s*(?P<expr>[^,]*)\s*\)')
+    match = ptrn_variable.search(line_tmp)
+    if match is not None:
+        expr = match.group('expr')
+        initial_expr = expr
+        ptrn_variable2 = re.compile(r'x\[(?P<val>[0-9]+)\]')
+        for var in re.finditer(ptrn_variable2, expr):
+            expr = expr.replace("x["+var.group('val') + "]", "x["+var.group('val') + "].value()")
+        ptrn_variable2 = re.compile(r'xd\[(?P<val>[0-9]+)\]')
+        for var in re.finditer(ptrn_variable2, expr):
+            expr = expr.replace("xd["+var.group('val') + "]", "xd["+var.group('val') + "].value()")
+        line_tmp = line_tmp.replace(initial_expr, expr)
     return line_tmp
 
 ##

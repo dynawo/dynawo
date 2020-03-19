@@ -2569,17 +2569,14 @@ class Factory:
     # @return
     def prepare_for_evalcalculatedvari(self):
         index = 0
-        trans = Transpose(self.reader.auxiliary_vars_to_address_map, self.reader.derivative_residual_vars + self.reader.assign_residual_vars)
         ptrn_vars = re.compile(r'x\[(?P<varId>[0-9]+)\]')
         for var in self.reader.list_calculated_vars:
             expr = self.reader.dic_calculated_vars_values[var.get_name()]
             self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */\n")
             if type(expr)==list:
-                body = []
+                body_translated = []
                 for line in self.reader.dic_calculated_vars_values[var.get_name()]:
-                    body.append(transform_line(line))
-                trans.set_txt_list(body)
-                body_translated = trans.translate()
+                    body_translated.append(transform_line(line))
                 # convert native boolean variables
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
                 body = []

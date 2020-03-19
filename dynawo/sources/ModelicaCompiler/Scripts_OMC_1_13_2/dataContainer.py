@@ -746,6 +746,7 @@ class Variable:
         txt_tmp = []
         ptrn_assign_var = re.compile(r'^[ ]*data->modelData->[\w\[\]]*\.attribute[ ]*\/\*[ \w\$\.()\[\]]*\*\/.start[ ]*=[ ]*(?P<initVal>[^;]*);$')
         ptrn_local_var = re.compile(r'^[ ]*[^;]*=[ ]*data->modelData->[\w\[\]]*\.attribute[ ]*\/\*[ \w\$\.()\[\]]*\*\/.start[ ]*;$')
+        ptrn_constant_strings = re.compile(r'_OMC_LIT(?P<val>[0-9]+)')
         for line in self.start_text:
             if has_omc_trace (line) or has_omc_equation_indexes (line) or ptrn_local_var.match(line) or "infoStreamPrint" in line:
                 continue
@@ -755,8 +756,11 @@ class Variable:
             line_tmp = sub_division_sim(line) # hard to process using a regex
             if THREAD_DATA_OMC_PARAM in line_tmp:
                 line_tmp=line_tmp.replace(THREAD_DATA_OMC_PARAM, "")
-            if "omc_Modelica_Blocks_Types_ExternalCombiTable1D_constructor" in line_tmp and "_OMC_LIT0" in line_tmp:
-                line_tmp=line_tmp.replace("_OMC_LIT0", "_OMC_LIT0.c_str()")
+            if "omc_Modelica_Blocks_Types_ExternalCombiTable1D_constructor" in line_tmp and "_OMC_LIT" in line_tmp:
+                match = ptrn_constant_strings.search(line_tmp)
+                if match is not None:
+                    val = match.group('val')
+                    line_tmp=line_tmp.replace("_OMC_LIT"+val, "_OMC_LIT"+val+".c_str()")
             if "throwStream" in line_tmp:
                 line_tmp = throw_stream_indexes(line_tmp)
             if "omc_assert_warning" in line_tmp:
