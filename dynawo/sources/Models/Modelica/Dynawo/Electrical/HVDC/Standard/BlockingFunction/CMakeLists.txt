@@ -12,6 +12,8 @@ set(MODEL_FILES
     package.mo
     BlockingFunction.mo
     BlockingFunction.extvar
+    GeneralBlockingFunction.mo
+    GeneralBlockingFunction.extvar
     )
 
 #
