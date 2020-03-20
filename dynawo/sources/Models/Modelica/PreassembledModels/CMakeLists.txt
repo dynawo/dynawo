@@ -16,6 +16,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     ActivePowerControl.xml
     LimitsCalculationFunction.xml
     BlockingFunction.xml
+    GeneralBlockingFunction.xml
     DCLine.xml
     CurrentLimitAutomaton.xml
     EventConnectedStatus.xml
