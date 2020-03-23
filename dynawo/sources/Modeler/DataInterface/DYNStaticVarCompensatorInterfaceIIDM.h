@@ -49,7 +49,7 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
   typedef enum {
     VAR_STATE = 0,
     VAR_Q,
-    VAR_USETPOINT,
+    VAR_VOLTAGESETPOINT,
     VAR_REGULATINGMODE
   } indexVar_t;
 

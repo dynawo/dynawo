@@ -45,7 +45,7 @@ staticVarCompensatorIIDM_(svc) {
   stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
   stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
-  stateVariables_[VAR_USETPOINT] = StateVariable("uSetPoint", StateVariable::DOUBLE);  // uSetPoint
+  stateVariables_[VAR_VOLTAGESETPOINT] = StateVariable("voltageSetPoint", StateVariable::DOUBLE);  // voltageSetPoint
 }
 
 int
@@ -57,8 +57,8 @@ StaticVarCompensatorInterfaceIIDM::getComponentVarIndex(const std::string& varNa
     index = VAR_Q;
   else if ( varName == "state" )
     index = VAR_STATE;
-  else if ( varName == "uSetPoint" )
-    index = VAR_USETPOINT;
+  else if ( varName == "voltageSetPoint" )
+    index = VAR_VOLTAGESETPOINT;
   return index;
 }
 
@@ -66,7 +66,7 @@ void
 StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
   bool connected = (getValue<int>(VAR_STATE) == CLOSED);
   staticVarCompensatorIIDM_.q(-1 * getValue<double>(VAR_Q));
-  staticVarCompensatorIIDM_.voltageSetPoint(getValue<double>(VAR_USETPOINT));
+  staticVarCompensatorIIDM_.voltageSetPoint(getValue<double>(VAR_VOLTAGESETPOINT));
   int regulatingMode = getValue<int>(VAR_REGULATINGMODE);
   bool standbyMode(false);
   switch (regulatingMode) {
@@ -111,18 +111,30 @@ StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
 void
 StaticVarCompensatorInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
-  staticParameters_["p"] = StaticParameter("p", StaticParameter::DOUBLE).setValue(getP());
-  staticParameters_["q"] = StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ());
+  staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(getP());
+  staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(getP());
+  staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(getP() / SNREF)));
+  staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(getQ() / SNREF)));
   int regulatingMode = getRegulationMode();
   staticParameters_["regulatingMode"] = StaticParameter("regulatingMode", StaticParameter::INT).setValue(regulatingMode);
   if (busInterface_) {
     double U0 = busInterface_->getV0();
+    double vNom;
+    if (staticVarCompensatorIIDM_.voltageLevel().nominalV() > 0)
+      vNom = staticVarCompensatorIIDM_.voltageLevel().nominalV();
+    else
+      throw DYNError(Error::MODELER, UndefinedNominalV, staticVarCompensatorIIDM_.voltageLevel().id());
+
     double teta = busInterface_->getAngle0();
-    staticParameters_["v"] = StaticParameter("v", StaticParameter::DOUBLE).setValue(U0);
-    staticParameters_["angle"] = StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta);
+    staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(U0)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
+    staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));
   } else {
-    staticParameters_["v"] = StaticParameter("v", StaticParameter::DOUBLE).setValue(0.);
-    staticParameters_["angle"] = StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.);
+    staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
   }
 }
 
