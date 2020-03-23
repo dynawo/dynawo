@@ -38,10 +38,12 @@ model DeltaPCalc
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = Kideltap, Kp = Kpdeltap, uMax = IpMaxcstPu, uMin = -IpMaxcstPu)  annotation(
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
 protected
 
   parameter Types.VoltageModulePu Udc0Pu;
   parameter Types.PerUnit Ip0Pu;
+
 equation
   connect(UdcPu, limiter.u) annotation(
     Line(points = {{-120, 0}, {-72, 0}}, color = {0, 0, 127}));
