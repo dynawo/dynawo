@@ -35,6 +35,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     LoadAlphaBeta.xml
     LoadOneTransformer.xml
     LoadOneTransformerTapChanger.xml
+    LoadPQ.xml
     LoadTwoTransformers.xml
     LoadTwoTransformersTapChangers.xml
     NodeFault.xml
