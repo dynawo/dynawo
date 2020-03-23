@@ -4,3 +4,8 @@ ActivePowerControl
 LimitsCalculationFunction
 BlockingFunction
 DCLine
+ACEmulation
+DCVoltageControlSide
+ActivePowerControlSide
+HVDCStandard
+HVDCStandard_INIT
