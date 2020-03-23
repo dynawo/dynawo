@@ -215,7 +215,7 @@ equation
 annotation(preferredView = "text");
 end BaseIdealTransformerVariableTap_INIT;
 
-partial model BaseNormalTransformerVariableTap_INIT "Base model for initialization of TransformerVariableTap"
+partial model BaseTransformerVariableTap_INIT "Base model for initialization of TransformerVariableTap"
   extends BaseTransformerVariableTapCommon_INIT;
 
 /*  Equivalent circuit and conventions:
@@ -251,7 +251,7 @@ partial model BaseNormalTransformerVariableTap_INIT "Base model for initializati
     rTfo0Pu * rTfo0Pu * u10Pu = rTfo0Pu * u20Pu + ZPu * i10Pu;
 
 annotation(preferredView = "text");
-end BaseNormalTransformerVariableTap_INIT;
+end BaseTransformerVariableTap_INIT;
 
 partial model BaseGeneratorTransformer_INIT "Base model for initialization of GeneratorTransformer"
 

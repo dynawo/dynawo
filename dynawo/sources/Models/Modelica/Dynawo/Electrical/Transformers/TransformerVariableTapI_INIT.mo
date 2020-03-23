@@ -14,7 +14,7 @@ within Dynawo.Electrical.Transformers;
 
 model TransformerVariableTapI_INIT "Initialization for transformer based on the network voltage and current"
 
-  extends BaseClasses_INIT.BaseNormalTransformerVariableTap_INIT;
+  extends BaseClasses_INIT.BaseTransformerVariableTap_INIT;
   extends AdditionalIcons.Init;
 
   protected
