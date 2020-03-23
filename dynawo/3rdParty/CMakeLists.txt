@@ -114,7 +114,15 @@ endif()
 set(zlib_url             ${zlib_prefix_url}/${zlib_version}/${zlib_name})
 set(zlib_md5             1C9F62F0778697A09D36121EAD88E08E)
 
-if(MSVC OR APPLE)
+if(MSVC)
+  if(MSVC_VERSION GREATER 1900)
+    set(boost_version        1.70.0)
+    set(boost_md5            fea771fe8176828fabf9c09242ee8c26)
+  else()
+    set(boost_version        1.64.0)
+    set(boost_md5            319C6FFBBECCC366F14BB68767A6DB79)
+  endif()
+elseif(APPLE)
   set(boost_version        1.70.0)
   set(boost_md5            fea771fe8176828fabf9c09242ee8c26)
 else()
@@ -425,6 +433,13 @@ if(Boost_FOUND)
   find_package(Boost ${boost_version} QUIET COMPONENTS filesystem program_options serialization system log iostreams)
 endif()
 
+if(MSVC)
+  if(CMAKE_CXX_COMPILER_VERSION EQUAL 19.0.23026.0)
+    GetPatchCommand(boost)
+  else()
+    set(boost_patch_compiler ${CMAKE_COMMAND} -E echo No compiler patch.)
+  endif()
+endif()
 if(Boost_FOUND)
   add_custom_target(boost)
 else()
@@ -437,6 +452,7 @@ else()
       SOURCE_DIR          ${DOWNLOAD_DIR}/boost
       URL                 ${boost_url}
       URL_MD5             ${boost_md5}
+      PATCH_COMMAND       ${boost_patch_compiler}
       BUILD_IN_SOURCE     1
       CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.bat msvc
       BUILD_COMMAND       <SOURCE_DIR>/b2 -j${NUMBER_OF_PROCESSORS} -sNO_BZIP2=1 install --prefix=<INSTALL_DIR> --disable-icu --layout=system architecture=x86 address-model=64 variant=$<IF:$<CONFIG:Debug>,debug,release> link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,static> runtime-link=$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,shared,$<IF:$<BOOL:${MSVC_STATIC_RUNTIME_LIBRARY}>,static,shared>> stage
