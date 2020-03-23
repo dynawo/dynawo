@@ -12,7 +12,7 @@ within Dynawo.Electrical.Transformers;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model TransformerFixedRatio "Two windings transformer with a fixed ratio"
+model TransformerFixedRatio "Two winding transformer with a fixed ratio"
 
 /* This model works without initialization model
   Equivalent circuit and conventions:
