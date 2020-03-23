@@ -105,7 +105,6 @@ equation
 annotation(preferredView = "text");
 end BaseGeneratorSimplifiedPFBehavior;
 
-
 record GeneratorSynchronousParameters "Synchronous machine record: Common parameters to the init and the dynamic models"
 
     type ExcitationPuType = enumeration(NominalStatorVoltageNoLoad "1 p.u. gives nominal air-gap stator voltage at no load",
@@ -131,6 +130,12 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
     parameter Types.PerUnit RTfPu "Resistance of the generator transformer in p.u (base UBaseHV, SnTfo)";
     parameter Types.PerUnit XTfPu "Reactance of the generator transformer in p.u (base UBaseHV, SnTfo)";
 
+    // Mutual inductances saturation, Shackshaft modelisation
+    parameter Types.PerUnit md;
+    parameter Types.PerUnit mq;
+    parameter Types.PerUnit nd;
+    parameter Types.PerUnit nq;
+
   protected
 
     // Transformer internal parameters
@@ -142,8 +147,6 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
 annotation(preferredView = "text");
 
 end GeneratorSynchronousParameters;
-
-
 
 partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model"
   import Dynawo.Connectors;
@@ -223,6 +226,12 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     parameter Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNomTurb/OmegaNom)";
     parameter Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNomTurb/OmegaNom)";
 
+
+    parameter Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
+    parameter Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in p.u.";
+    parameter Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in p.u.";
+
+
     // d-q axis p.u. variables (base UNom, SNom)
     Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in p.u";
     Types.PerUnit uqPu(start = Uq0Pu) "Voltage of quadrature axis in p.u";
@@ -248,7 +257,14 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     Types.PerUnit cePu(start = Ce0Pu) "Electrical torque in p.u (base SNom/OmegaNom)";
     Types.PerUnit PePu(start = Ce0Pu*SystemBase.omega0Pu) "Electrical active power in p.u (base SNom)";
 
+
+    // Saturated mutual inductances
+    Types.PerUnit MdSatPPu(start = MdSat0PPu) "Direct axis saturated mutual inductance in p.u.";
+    Types.PerUnit MqSatPPu(start = MqSat0PPu) "Quadrature axis saturated mutual inductance in p.u.";
+    Types.PerUnit lambdaAirGapPu(start = LambdaAirGap0Pu) "Total air gap flux in p.u.";
+
 equation
+
   assert(SNom<>PNomAlt, "The alternator nominal active power should be different from the nominal apparent power");
 
   if running.value then
@@ -260,12 +276,18 @@ equation
     terminal.i.im * SystemBase.SnRef / SNom = -cos(theta)*idPu + sin(theta)*iqPu;
 
     // Flux linkages
-    lambdadPu = (MdPPu + (LdPPu + XTfoPu)) *idPu +          MdPPu          * ifPu +         MdPPu           *iDPu;
-    lambdafPu =           MdPPu            *idPu + (MdPPu + LfPPu + MrcPPu)* ifPu +    (MdPPu + MrcPPu)     *iDPu;
-    lambdaDPu =           MdPPu            *idPu +     (MdPPu + MrcPPu)    * ifPu + (MdPPu + LDPPu + MrcPPu)*iDPu;
-    lambdaqPu = (MqPPu + (LqPPu + XTfoPu)) *iqPu +          MqPPu          *iQ1Pu +          MqPPu          *iQ2Pu;
-    lambdaQ1Pu =          MqPPu            *iqPu +     (MqPPu + LQ1PPu )   *iQ1Pu +          MqPPu          *iQ2Pu;
-    lambdaQ2Pu =          MqPPu            *iqPu +          MqPPu          *iQ1Pu +     (MqPPu + LQ2PPu)    *iQ2Pu;
+    lambdadPu = (MdSatPPu + (LdPPu + XTfoPu)) *idPu +          MdSatPPu          * ifPu +         MdSatPPu           *iDPu;
+    lambdafPu =           MdSatPPu            *idPu + (MdSatPPu + LfPPu + MrcPPu)* ifPu +    (MdSatPPu + MrcPPu)     *iDPu;
+    lambdaDPu =           MdSatPPu            *idPu +     (MdSatPPu + MrcPPu)    * ifPu + (MdSatPPu + LDPPu + MrcPPu)*iDPu;
+    lambdaqPu = (MqSatPPu + (LqPPu + XTfoPu)) *iqPu +          MqSatPPu          *iQ1Pu +          MqSatPPu          *iQ2Pu;
+    lambdaQ1Pu =          MqSatPPu            *iqPu +     (MqSatPPu + LQ1PPu )   *iQ1Pu +          MqSatPPu          *iQ2Pu;
+    lambdaQ2Pu =          MqSatPPu            *iqPu +          MqSatPPu          *iQ1Pu +     (MqSatPPu + LQ2PPu)    *iQ2Pu;
+
+    // Mutual inductances saturation, Shackshaft modelisation
+    lambdaAirGapPu = sqrt( (MdSatPPu*(idPu + ifPu + iDPu))^2 + (MqSatPPu*(iqPu + iQ1Pu + iQ2Pu))^2 );
+    MdSatPPu = MdPPu / (1 + md*lambdaAirGapPu^nd);
+    MqSatPPu = MqPPu / (1 + mq*lambdaAirGapPu^nq);   // later Md = Mi + Msal sin (eta) ^2
+
 
     // Equivalent circuit equations in Park's coordinates
     udPu = (RaPPu + RTfoPu) * idPu - omegaPu.value * lambdaqPu;
@@ -307,10 +329,14 @@ equation
     PePu = 0;
     cmPu = 0;
     ufPu = 0;
+    lambdaAirGapPu = 0;
+    MdSatPPu = MdPPu;
+    MqSatPPu = MqPPu;
   end if;
 
 annotation(preferredView = "text");
 end BaseGeneratorSynchronous;
+
 
 annotation(preferredView = "text");
 end BaseClasses;

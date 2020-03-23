@@ -16,8 +16,6 @@ package BaseClasses_INIT
   extends Icons.BasesPackage;
 
 partial model BaseGeneratorSimplified_INIT "Base initialization model for simplified generator models"
-
-  public
     parameter Types.ActivePowerPu P0Pu  "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in p.u (base UNom)";
@@ -115,6 +113,12 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.PerUnit LambdaQ10Pu "Start value of flux of quadrature axis 1st damper";
     Types.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
 
+
+    Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
+    Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in p.u.";
+    Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in p.u.";
+
+
     Types.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/omegaNom)";
     Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNomTurb/omegaNom)";
     Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNomTurb/omegaNom)";
@@ -181,6 +185,17 @@ equation
   u0Pu.im = -cos(Theta0)*Ud0Pu + sin(Theta0)*Uq0Pu;
   i0Pu.re*SystemBase.SnRef/SNom =  sin(Theta0)*Id0Pu + cos(Theta0)*Iq0Pu;
   i0Pu.im*SystemBase.SnRef/SNom = -cos(Theta0)*Id0Pu + sin(Theta0)*Iq0Pu;
+
+
+
+// Mutual inductances saturation, Shackshaft modelisation
+  MdSat0PPu = MdPPu;
+  MqSat0PPu = MqPPu;
+  //LambdaAirGap0Pu = sqrt( (MdSat0PPu*(Id0Pu + If0Pu))^2 + (MqSat0PPu*(Iq0Pu))^2 );
+  LambdaAirGap0Pu = 1;
+
+
+
 
 // Flux linkages
   Lambdad0Pu  = (MdPPu + (LdPPu + XTfoPu)) * Id0Pu +          MdPPu          * If0Pu;
@@ -313,7 +328,6 @@ equation
 
 annotation(preferredView = "text");
 end BaseGeneratorSynchronousExt_INIT;
-
 
 partial model BaseGeneratorSynchronousExt4E_INIT "Base initialization model for synchronous machine from external parameters with four windings"
 

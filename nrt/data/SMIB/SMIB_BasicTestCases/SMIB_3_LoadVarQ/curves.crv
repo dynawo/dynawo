@@ -34,4 +34,9 @@
   <curve model="Load" variable="load_QPu"/>
   <curve model="Load" variable="load_PRefPu"/>
   <curve model="Load" variable="load_QRefPu"/>
+
+  <curve model="SM" variable="generator_MdPPu"/>
+  <curve model="SM" variable="generator_MqPPu"/>
+  <curve model="SM" variable="generator_MdSatPPu"/>
+  <curve model="SM" variable="generator_MqSatPPu"/>
 </curvesInput>
