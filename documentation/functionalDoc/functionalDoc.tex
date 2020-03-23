@@ -301,7 +301,7 @@ Two load models are included into the package:
 \paragraph{Machines}
 ~~\\
 
-Different models with different levels of details constitute the Machines package. The most detailed model is a four-windings synchronous machine model (GeneratorSynchronous). Others are simplified ones:
+Different models with different levels of details constitute the Machines package. The most detailed model (GeneratorSynchronous) can either represent a three-winding or a four-winding synchronous machine model depending on its initialisation model. Others are simplified ones:
 \begin{itemize}
 \item GeneratorPQ in which the P output is modulated according to frequency and the Q output is constant equal to a fixed value.
 \item GeneratorPV that modulates the P output according to frequency and the Q outputs to keep $U + \lambda * Q$ as close as possible to a set point.
@@ -311,7 +311,7 @@ Different models with different levels of details constitute the Machines packag
 \paragraph{Sources}
 ~~\\
 
-A Sources package is available in the library: it offers at the moment a dq-injector model and a BG-injector model.
+A Sources package is available in the library: it offers at the moment a dq-injector model, a BG-injector model and a converter model.
 
 \paragraph{StaticVarCompensators}
 ~~\\
@@ -326,7 +326,7 @@ The switches package contains an ideal switch model.
 \paragraph{Transformers}
 ~~\\
 
-The transformers package contains both a fixed ratio transformer model and a variable tap transformer model that can serve for phase shifter or tap changer modelling.
+The transformers package contains a generator transformer model, a fixed ratio transformer model and a variable tap transformer model that can serve for phase shifter or tap changer modelling.
 
 \subsubsection{Preassembled models}
 
