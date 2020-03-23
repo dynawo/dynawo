@@ -270,12 +270,13 @@ The bus package contains a simple Bus model and a constant voltage InfiniteBus m
 The controls package gathers all the controls and regulations models for the different components:
 \begin{itemize}
 \item Common models, such as set point, perturbation, step and switch-off, are included into the Basics package.
+\item The Converters package which features three types of grid forming controls.
 \item The Current package includes a current limit automaton model.
 \item The Generic package contains an example implementation to call a C function from a Modelica model. This model can serve for example to include an OPF-based automaton into a \Dynawo simulation.
 \item The Machines package with the different regulations for the machines such as voltage  regulations, governors or under-voltage protection.
 \item The \ac{PLL} package contains a \ac{PLL} model.
 \item The Transformers package that includes the phase-shifter and tap changer automata models.
-\item The Voltage package containing a tap changer locking automaton model - an automaton that can lock the tap changer automaton in case the voltage becomes too low in an area - and a \ac{SVC} average model.
+\item The Voltage package containing a tap changer locking automaton model - an automaton that can lock the tap changer automaton in case the voltage becomes too low in an area.
 \end{itemize}
 
 \paragraph{Events}
@@ -307,11 +308,15 @@ Different models with different levels of details constitute the Machines packag
 \item GeneratorFictitious that acts as a voltage-dependent generator. P and Q vary around their initial values depending on the voltage value.
 \end{itemize}
 
-
 \paragraph{Sources}
 ~~\\
 
 A Sources package is available in the library: it offers at the moment a dq-injector model and a BG-injector model.
+
+\paragraph{StaticVarCompensators}
+~~\\
+
+The StaticVarCompensators package features for now one standard model. It instantiates a BG-injector model and the block controls written in the BaseControls sub-package.
 
 \paragraph{Switches}
 ~~\\
@@ -331,12 +336,16 @@ The different preassembled models delivered with \Dynawo are:
 \begin{itemize}
 \item CurrentLimitAutomaton corresponding to the current limit automaton model
 \item Different event models
-\item GeneratorFictitious, MachinePV, MachinePQ and Machine4WNoRegul corresponding to the different generator models
+\item GeneratorFictitious, GeneratorPV, GeneratorPQ and various three-winding and four-winding generator preassembled models corresponding to the different generator models
 \item GenericAutomaton that enables to call a C function every few s (corresponding to the GenericAutomaton model)
+\item Three grid forming converter models featuring different types of control: GridFormingConverterMatchingControl, GridFormingConverterDroopControl, GridFormingConverterDispatchableVirtualOscillatorControl
 \item Different load models: LoadAlphaBeta corresponding to the LoadAlphaBeta model, LoadOneTransformer which is a load alpha beta plus a transformer, LoadTwoTransformers which is a load alpha beta behind two transformers
+\item Line, the $\pi$ line model
 \item PhaseShifterI and PhaseShifterP that are phase shifter models controlling either the current or the active power
 \item TapChangerAutomaton, the tap changer automaton model
+\item StaticVarCompensator, the static VAR compensator model
 \item TapChangerBlockingArea, the automaton that allows to block the tap on transformers
+\item UnderVoltageAutomaton corresponding to the under-voltage protection model
 \end{itemize}
 
 \section{Solvers}
