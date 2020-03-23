@@ -8,23 +8,10 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(ACVoltageControl A)
-add_subdirectory(DCVoltageControl D)
-add_subdirectory(ActivePowerControl P)
-add_subdirectory(LimitsCalculationFunction L)
-add_subdirectory(BlockingFunction B)
-add_subdirectory(DCLine H)
-add_subdirectory(ACEmulation E)
-
 set(MODEL_FILES
     package.mo
-    DCVoltageControlSide.mo
-    DCVoltageControlSide.extvar
-    ActivePowerControlSide.mo
-    ActivePowerControlSide.extvar
-    HVDCStandard.mo
-    HVDCStandard_INIT.mo
-    HVDCStandard.extvar
+    ACEmulation.mo
+    ACEmulation.extvar
     )
 
 #

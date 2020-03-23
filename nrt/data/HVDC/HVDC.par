@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="UPu" value="1.05"/>
+    <par type="DOUBLE" name="UPhase" value="0.15"/>
+  </set>
+  <set id="2">
+    <par type="DOUBLE" name="line_XPu" value="0.1"/>
+    <par type="DOUBLE" name="line_RPu" value="0.0"/>
+    <par type="DOUBLE" name="line_BPu" value="0.0"/>
+    <par type="DOUBLE" name="line_GPu" value="0.0"/>
+  </set>
+  <set id="3">
+    <par type="DOUBLE" name="hvdcstandard_P10Pu" value="0.24377"/>
+    <par type="DOUBLE" name="hvdcstandard_Q10Pu" value="-0.01486"/>
+    <par type="DOUBLE" name="hvdcstandard_U10Pu" value="1.04"/>
+    <par type="DOUBLE" name="hvdcstandard_UPhase10" value="0.10375"/>
+    <par type="DOUBLE" name="hvdcstandard_P20Pu" value="-0.23889"/>
+    <par type="DOUBLE" name="hvdcstandard_Q20Pu" value="0.05607"/>
+    <par type="DOUBLE" name="hvdcstandard_U20Pu" value="1.03"/>
+    <par type="DOUBLE" name="hvdcstandard_UPhase20" value="0.07937"/>
+    <par type="DOUBLE" name="hvdcstandard_SNom" value="100"/>
+    <par type="DOUBLE" name="hvdcstandard_RdcPu" value="0.01"/>
+    <par type="DOUBLE" name="hvdcstandard_CdcPu" value="0.1"/>
+    <par type="DOUBLE" name="hvdcstandard_UdcMinPu" value="0.5"/>
+    <par type="DOUBLE" name="hvdcstandard_UdcMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="hvdcstandard_UdcRefMinPu" value="0.5"/>
+    <par type="DOUBLE" name="hvdcstandard_UdcRefMaxPu" value="1.5"/>
+    <par type="DOUBLE" name="hvdcstandard_UMindbPu" value="0.8"/>
+    <par type="DOUBLE" name="hvdcstandard_UMaxdbPu" value="1.5"/>
+    <par type="DOUBLE" name="hvdcstandard_SlopePRefPu" value="1000"/>
+    <par type="DOUBLE" name="hvdcstandard_SlopeURefPu" value="1000"/>
+    <par type="DOUBLE" name="hvdcstandard_SlopeQRefPu" value="1000"/>
+    <par type="DOUBLE" name="hvdcstandard_SlopeRPFault" value="1000"/>
+    <par type="DOUBLE" name="hvdcstandard_Lambda" value="0"/>
+    <par type="DOUBLE" name="hvdcstandard_QMinOPPu" value="-2"/>
+    <par type="DOUBLE" name="hvdcstandard_QMaxOPPu" value="2"/>
+    <par type="DOUBLE" name="hvdcstandard_PMinOPPu" value="-2"/>
+    <par type="DOUBLE" name="hvdcstandard_PMaxOPPu" value="2"/>
+    <par type="DOUBLE" name="hvdcstandard_QMinCombPu" value="-2"/>
+    <par type="DOUBLE" name="hvdcstandard_QMaxCombPu" value="2"/>
+    <par type="DOUBLE" name="hvdcstandard_IpMaxcstPu" value="2"/>
+    <par type="DOUBLE" name="hvdcstandard_InPu" value="1.2"/>
+    <par type="DOUBLE" name="hvdcstandard_TBlockUV" value="0.2"/>
+    <par type="DOUBLE" name="hvdcstandard_TBlock" value="0.2"/>
+    <par type="DOUBLE" name="hvdcstandard_TDeblockU" value="0.2"/>
+    <par type="DOUBLE" name="hvdcstandard_UBlockUVPu" value="0.0"/>
+    <par type="DOUBLE" name="hvdcstandard_TQ" value="0.2"/>
+    <par type="DOUBLE" name="hvdcstandard_DUDC" value="0.0"/>
+    <par type="DOUBLE" name="hvdcstandard_Kpdc" value="10"/>
+    <par type="DOUBLE" name="hvdcstandard_Kidc" value="1"/>
+    <par type="DOUBLE" name="hvdcstandard_Kpacvoltagecontrol" value="10"/>
+    <par type="DOUBLE" name="hvdcstandard_Kiacvoltagecontrol" value="1"/>
+    <par type="DOUBLE" name="hvdcstandard_Kppcontrol" value="10"/>
+    <par type="DOUBLE" name="hvdcstandard_Kipcontrol" value="1"/>
+    <par type="DOUBLE" name="hvdcstandard_Kpdeltap" value="10"/>
+    <par type="DOUBLE" name="hvdcstandard_Kideltap" value="1"/>
+    <par type="DOUBLE" name="hvdcstandard_DeadBandU" value="0.1"/>
+    <par type="DOUBLE" name="PRefPu_ValueIn" value="-0.24377"/>
+    <par type="DOUBLE" name="QRef1Pu_ValueIn" value="0.01486"/>
+    <par type="DOUBLE" name="QRef2Pu_ValueIn" value="-0.05607"/>
+    <par type="DOUBLE" name="URef1Pu_ValueIn" value="1.04"/>
+    <par type="DOUBLE" name="URef2Pu_ValueIn" value="1.03"/>
+    <par type="DOUBLE" name="UdcRefPu_ValueIn" value="1"/>
+    <par type="DOUBLE" name="modeU1_ValueIn" value="1"/>
+    <par type="DOUBLE" name="modeU2_ValueIn" value="1"/>
+  </set>
+  <set id="4">
+    <par type="DOUBLE" name="load_alpha" value="0"/>
+    <par type="DOUBLE" name="load_beta" value="0"/>
+    <par type="DOUBLE" name="load_U0Pu" value="1.0254"/>
+    <par type="DOUBLE" name="load_UPhase0" value="0.0226"/>
+    <par type="DOUBLE" name="load_P0Pu" value="0.5"/>
+    <par type="DOUBLE" name="load_Q0Pu" value="0.02"/>
+  </set>
+</parametersSet>
