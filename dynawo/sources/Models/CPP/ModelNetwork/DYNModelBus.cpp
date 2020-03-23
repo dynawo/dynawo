@@ -393,7 +393,7 @@ ModelBus::evalYType() {
   yType_[0] = ALGEBRAIC;
   yType_[1] = ALGEBRAIC;
 
-  if (hasDifferentialVoltages_) {
+  if (hasDifferentialVoltages_ && !getSwitchOff()) {
     yType_[0] = DIFFERENTIAL;
     yType_[1] = DIFFERENTIAL;
   }
@@ -405,13 +405,23 @@ ModelBus::evalYType() {
 }
 
 void
+ModelBus::updateYType() {
+  evalYType();
+}
+
+void
 ModelBus::evalFType() {
   fType_[0] = ALGEBRAIC_EQ;
   fType_[1] = ALGEBRAIC_EQ;
-  if (hasDifferentialVoltages_) {
+  if (hasDifferentialVoltages_ && !getSwitchOff()) {
     fType_[0] = DIFFERENTIAL_EQ;
     fType_[1] = DIFFERENTIAL_EQ;
   }
+}
+
+void
+ModelBus::updateFType() {
+  evalFType();
 }
 
 void

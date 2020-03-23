@@ -187,6 +187,11 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void evalFType();
 
   /**
+   * @copydoc NetworkComponent::updateFType()
+   */
+  void updateFType();
+
+  /**
    * @copydoc NetworkComponent::evalYMat()
    */
   void evalYMat();
@@ -195,6 +200,11 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
    *  @copydoc NetworkComponent::evalYType()
    */
   void evalYType();
+
+  /**
+   * @copydoc NetworkComponent::updateYType()
+   */
+  void updateYType();
 
   /**
    * @copydoc NetworkComponent::evalG(const double& t)

@@ -126,6 +126,21 @@ class NetworkComponent::Impl : public NetworkComponent {
   virtual void evalFType() = 0;
 
   /**
+   * @copydoc NetworkComponent::updateFType()
+   */
+  virtual void updateFType() = 0;
+
+  /**
+   * @copydoc NetworkComponent::evalYType()
+   */
+  virtual void evalYType() = 0;
+
+  /**
+   * @copydoc NetworkComponent::updateYType()
+   */
+  virtual void updateYType() = 0;
+
+  /**
    * @copydoc NetworkComponent::evalYMat()
    */
   virtual void evalYMat() = 0;

@@ -347,6 +347,14 @@ ModelVoltageLevel::evalFType() {
 }
 
 void
+ModelVoltageLevel::updateFType() {
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
+    if ((*itComponent)->sizeF() != 0)
+      (*itComponent)->updateFType();
+  }
+}
+
+void
 ModelVoltageLevel::evalYMat() {
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
@@ -363,6 +371,14 @@ ModelVoltageLevel::evalYType() {
       offset += (*itComponent)->sizeY();
       (*itComponent)->evalYType();
     }
+  }
+}
+
+void
+ModelVoltageLevel::updateYType() {
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
+    if ((*itComponent)->sizeY() != 0)
+      (*itComponent)->updateYType();
   }
 }
 

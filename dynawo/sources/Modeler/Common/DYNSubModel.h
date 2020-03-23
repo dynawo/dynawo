@@ -221,10 +221,22 @@ class SubModel {
   virtual void evalYType() = 0;
 
   /**
+   * @brief update during the simulation the properties of the variables (algebraic or differential variables)
+   *
+   */
+  virtual void updateYType() = 0;
+
+  /**
    * @brief evaluate the properties of each residual function (algebraic or differential equation)
    *
    */
   virtual void evalFType() = 0;
+
+  /**
+   * @brief update during the simulation the properties of each residual function (algebraic or differential equation)
+   *
+   */
+  virtual void updateFType() = 0;
 
   /**
    * @brief Model model's sizes getter

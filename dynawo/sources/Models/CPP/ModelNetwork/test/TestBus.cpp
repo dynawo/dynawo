@@ -356,13 +356,21 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   ASSERT_EQ(bus->sizeY(), nbY);
   ASSERT_EQ(bus->sizeF(), nbF);
 
-  // test evalYType
+  // test evalYType and updateYType
   bus->evalYType();
   ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
   ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
   ASSERT_EQ(yTypes[ModelBus::irNum_], ALGEBRAIC);
   ASSERT_EQ(yTypes[ModelBus::iiNum_], ALGEBRAIC);
   bus->evalFType();
+  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
+  bus->updateYType();
+  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBus::irNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBus::iiNum_], ALGEBRAIC);
+  bus->updateFType();
   ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
   ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
 
@@ -393,12 +401,33 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   ASSERT_NO_THROW(bus->setFequations(fEquationIndex));
   ASSERT_EQ(fEquationIndex.size(), nbF);
 
-  // differential voltages -> evalYType, evalFType
+  // evalYType, evalFType, updateYType, updateFType
   bus->setHasDifferentialVoltages(true);
+  bus->evalYType();
+  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
+  bus->evalFType();
+  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
+  bus->updateYType();
+  ASSERT_EQ(yTypes[ModelBus::urNum_], ALGEBRAIC);
+  ASSERT_EQ(yTypes[ModelBus::uiNum_], ALGEBRAIC);
+  bus->updateFType();
+  ASSERT_EQ(fTypes[ModelBus::urNum_], ALGEBRAIC_EQ);
+  ASSERT_EQ(fTypes[ModelBus::uiNum_], ALGEBRAIC_EQ);
+
+  // switch on again
+  bus->switchOn();
   bus->evalYType();
   ASSERT_EQ(yTypes[ModelBus::urNum_], DIFFERENTIAL);
   ASSERT_EQ(yTypes[ModelBus::uiNum_], DIFFERENTIAL);
   bus->evalFType();
+  ASSERT_EQ(fTypes[ModelBus::urNum_], DIFFERENTIAL_EQ);
+  ASSERT_EQ(fTypes[ModelBus::uiNum_], DIFFERENTIAL_EQ);
+  bus->updateYType();
+  ASSERT_EQ(yTypes[ModelBus::urNum_], DIFFERENTIAL);
+  ASSERT_EQ(yTypes[ModelBus::uiNum_], DIFFERENTIAL);
+  bus->updateFType();
   ASSERT_EQ(fTypes[ModelBus::urNum_], DIFFERENTIAL_EQ);
   ASSERT_EQ(fTypes[ModelBus::uiNum_], DIFFERENTIAL_EQ);
 }

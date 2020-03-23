@@ -160,6 +160,11 @@ class ModelVariationArea : public ModelCPP::Impl {
   void evalFType();
 
   /**
+   * @copydoc ModelCPP::updateFType()
+   */
+  void updateFType() { /* not needed */}
+
+  /**
    * @copydoc ModelCPP::getY0()
    */
   void getY0();
@@ -168,6 +173,11 @@ class ModelVariationArea : public ModelCPP::Impl {
    * @copydoc ModelCPP::evalYType()
    */
   void evalYType();
+
+  /**
+   * @copydoc ModelCPP::updateYType()
+   */
+  void updateYType() { /* not needed */}
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable

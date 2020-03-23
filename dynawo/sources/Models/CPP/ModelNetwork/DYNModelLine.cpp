@@ -209,8 +209,8 @@ ModelLine::initSize() {
     sizeF_ = 0;
     sizeY_ = 0;
     if (isDynamic_) {
-      sizeF_ = 2;  // IBranch_re, IBranch_im, omegaRef
-      sizeY_ = 3;
+      sizeF_ = 2;
+      sizeY_ = 3;  // IBranch_re, IBranch_im, omegaRef
     }
     sizeZ_ = 2;
     sizeG_ = 0;
@@ -1043,6 +1043,11 @@ ModelLine::evalYType() {
 }
 
 void
+ModelLine::updateYType() {
+  evalYType();
+}
+
+void
 ModelLine::evalFType() {
   if (isDynamic_) {
     if (getConnectionState() == CLOSED) {
@@ -1053,6 +1058,11 @@ ModelLine::evalFType() {
       fType_[1] = ALGEBRAIC_EQ;
     }
   }
+}
+
+void
+ModelLine::updateFType() {
+  evalFType();
 }
 
 void

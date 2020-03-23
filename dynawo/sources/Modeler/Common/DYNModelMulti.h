@@ -155,6 +155,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalFType();
 
   /**
+   * @copydoc Model::updateFType()
+   */
+  void updateFType();
+
+  /**
    * @copydoc Model::getYType()
    */
   inline propertyContinuousVar_t* getYType() const {
@@ -165,6 +170,11 @@ class ModelMulti : public Model, private boost::noncopyable {
    * @copydoc Model::evalYType()
    */
   void evalYType();
+
+  /**
+   * @copydoc Model::updateYType()
+   */
+  void updateYType();
 
   /**
    * @copydoc Model::setIsInitProcess(bool isInitProcess)

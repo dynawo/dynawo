@@ -109,9 +109,19 @@ class ModelCPP::Impl : public ModelCPP {
   virtual void evalYType() = 0;
 
   /**
+   * @copydoc ModelCPP::updateYType()
+   */
+  virtual void updateYType() = 0;
+
+  /**
    * @copydoc ModelCPP::evalFType()
    */
   virtual void evalFType() = 0;
+
+  /**
+   * @copydoc ModelCPP::updateFType()
+   */
+  virtual void updateFType() = 0;
 
   /**
    * @copydoc ModelCPP::getSize()

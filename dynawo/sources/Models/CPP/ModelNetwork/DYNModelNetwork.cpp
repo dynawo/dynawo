@@ -1070,6 +1070,15 @@ ModelNetwork::evalYType() {
 }
 
 void
+ModelNetwork::updateYType() {
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
+    if ((*itComponent)->sizeY() != 0) {
+      (*itComponent)->updateYType();
+    }
+  }
+}
+
+void
 ModelNetwork::evalFType() {
   unsigned int offsetComponent = 0;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
@@ -1079,6 +1088,14 @@ ModelNetwork::evalFType() {
       offsetComponent += (*itComponent)->sizeF();
       (*itComponent)->evalFType();
     }
+  }
+}
+
+void
+ModelNetwork::updateFType() {
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
+    if ((*itComponent)->sizeF() != 0)
+      (*itComponent)->evalFType();
   }
 }
 

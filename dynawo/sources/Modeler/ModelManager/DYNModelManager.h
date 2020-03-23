@@ -144,6 +144,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void evalFType();
 
   /**
+   * @copydoc SubModel::updateFType()
+   */
+  void updateFType() { /* not yet supported for Modelica models */}
+
+  /**
    * @copydoc SubModel::getY0()
    */
   void getY0();
@@ -152,6 +157,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @copydoc SubModel::evalYType()
    */
   void evalYType();
+
+  /**
+   * @copydoc SubModel::updateYType()
+   */
+  void updateYType() { /* not yet supported for Modelica models */}
 
   /**
    * @copydoc SubModel::dumpParameters(std::map< std::string, std::string > & mapParameters)

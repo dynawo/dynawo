@@ -162,9 +162,19 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
   void evalYType();
 
   /**
+   * @copydoc ModelCPP::updateYType()
+   */
+  void updateYType();
+
+  /**
    * @copydoc ModelCPP::evalFType()
    */
   void evalFType();
+
+  /**
+   * @copydoc ModelCPP::updateFType()
+   */
+  void updateFType();
 
   /**
    * @brief retrieve the size of the network
