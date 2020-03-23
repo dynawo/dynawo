@@ -112,6 +112,11 @@ class ConnectorCalculatedVariable : public SubModel {
   void evalFType();
 
   /**
+   * @copydoc SubModel::updateFType()
+   */
+  void updateFType() { /* not needed */ }
+
+  /**
    * @copydoc SubModel::getDefJCalculatedVarI( int iCalculatedVar)
    */
   std::vector<int> getDefJCalculatedVarI(int iCalculatedVar);
@@ -135,6 +140,11 @@ class ConnectorCalculatedVariable : public SubModel {
    * @copydoc SubModel::evalYType()
    */
   void evalYType();
+
+  /**
+   * @copydoc SubModel::updateYType()
+   */
+  void updateYType() { /* not needed */ }
 
   /**
    * @copydoc SubModel::dumpParameters(std::map<std::string, std::string > & mapParameters)

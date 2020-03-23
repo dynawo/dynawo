@@ -203,6 +203,11 @@ class Model {
   virtual void evalFType() = 0;
 
   /**
+   * @brief update the properties of the residual functions during the simulation (algebraic or differential)
+   */
+  virtual void updateFType() = 0;
+
+  /**
    * @brief get the properties of the variables (algebraic, external or differential variable)
    *
    * @return properties of each variable
@@ -213,6 +218,11 @@ class Model {
    * @brief evaluate the properties of the variables (algebraic, external or differential variable)
    */
   virtual void evalYType() = 0;
+
+  /**
+   * @brief update the properties of the variables during the simulation (algebraic, external or differential variable)
+   */
+  virtual void updateYType() = 0;
 
   /**
    * @brief Set the initialisation status of the simulation

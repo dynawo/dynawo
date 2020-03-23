@@ -245,9 +245,19 @@ class ModelLine : public NetworkComponent::Impl {
   void evalYType();
 
   /**
+   * @copydoc NetworkComponent::updateYType()
+   */
+  void updateYType();
+
+  /**
    * @copydoc NetworkComponent::evalFType()
    */
   void evalFType();
+
+  /**
+   * @copydoc NetworkComponent::updateFType()
+   */
+  void updateFType();
 
   /**
    * @copydoc NetworkComponent::evalYMat()

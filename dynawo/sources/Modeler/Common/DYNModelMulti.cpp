@@ -546,6 +546,15 @@ ModelMulti::evalYType() {
 }
 
 void
+ModelMulti::updateYType() {
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    int sizeYType = subModels_[i]->sizeY();
+    if (sizeYType > 0)
+      subModels_[i]->updateYType();
+  }
+}
+
+void
 ModelMulti::evalFType() {
   fType_ = new propertyF_t[sizeF_]();
   int offsetFType = 0;
@@ -560,6 +569,16 @@ ModelMulti::evalFType() {
   connectorContainer_->setBufferFType(fType_, offsetFType);
   connectorContainer_->evalFType();
   std::fill(fType_ + offsetFOptional_, fType_ + sizeF_, ALGEBRAIC_EQ);
+}
+
+void
+ModelMulti::updateFType() {
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    int sizeFType = subModels_[i]->sizeF();
+    if (sizeFType > 0)
+      subModels_[i]->updateFType();
+  }
+  // connectors equations (A = B) can't change during the simulation so we don't need to update them.
 }
 
 void

@@ -153,6 +153,14 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
+  void updateYType() {
+    // Dummy class used for testing
+  }
+
+  void updateFType() {
+    // Dummy class used for testing
+  }
+
   void getSize() {
     // Dummy class used for testing
   }

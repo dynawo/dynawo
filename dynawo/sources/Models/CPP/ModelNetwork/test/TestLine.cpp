@@ -1077,6 +1077,8 @@ TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
   // test evalYType
   ASSERT_NO_THROW(dl->evalYType());
   ASSERT_NO_THROW(dl->evalFType());
+  ASSERT_NO_THROW(dl->updateYType());
+  ASSERT_NO_THROW(dl->updateFType());
 
   // test getY0
   ASSERT_NO_THROW(dl->getY0());
@@ -1142,6 +1144,14 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_EQ(yTypes[0], DIFFERENTIAL);
   ASSERT_EQ(yTypes[2], EXTERNAL);
   ASSERT_EQ(fTypes[0], DIFFERENTIAL_EQ);
+  std::vector<propertyF_t> fTypesSave(nbF, UNDEFINED_EQ);
+  std::vector<propertyContinuousVar_t> yTypesSave(nbY, UNDEFINED_PROPERTY);
+  fTypesSave = fTypes;
+  yTypesSave = yTypes;
+  ASSERT_NO_THROW(dl->updateYType());
+  ASSERT_NO_THROW(dl->updateFType());
+  ASSERT_EQ(fTypes, fTypesSave);
+  ASSERT_EQ(yTypes, yTypesSave);
 
   // test init
   int yNum = 0;
@@ -1214,6 +1224,14 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_EQ(yTypes3[0], ALGEBRAIC);
   ASSERT_EQ(yTypes3[2], EXTERNAL);
   ASSERT_EQ(fTypes3[0], ALGEBRAIC_EQ);
+  std::vector<propertyF_t> fTypesSave3(nbF, UNDEFINED_EQ);
+  std::vector<propertyContinuousVar_t> yTypesSave3(nbY, UNDEFINED_PROPERTY);
+  fTypesSave3 = fTypes3;
+  yTypesSave3 = yTypes3;
+  ASSERT_NO_THROW(dl3->updateYType());
+  ASSERT_NO_THROW(dl3->updateFType());
+  ASSERT_EQ(fTypes3, fTypesSave3);
+  ASSERT_EQ(yTypes3, yTypesSave3);
 
   // test evalF
   ASSERT_NO_THROW(dl3->evalF());

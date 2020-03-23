@@ -195,9 +195,19 @@ class ModelCPP : public SubModel {
   virtual void evalYType() = 0;
 
   /**
+   * @brief update variables' properties during the simulation
+   */
+  virtual void updateYType() = 0;
+
+  /**
    * @brief evaluate residual functions' properties
    */
   virtual void evalFType() = 0;
+
+  /**
+   * @brief update residual functions' properties during the simulation
+   */
+  virtual void updateFType() = 0;
 
   /**
    * @brief  CPP Model model's sizes getter

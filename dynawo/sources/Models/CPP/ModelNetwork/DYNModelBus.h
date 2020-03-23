@@ -204,9 +204,19 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void evalYType();
 
   /**
+   * @copydoc NetworkComponent::updateYType()
+   */
+  void updateYType();
+
+  /**
    * @copydoc NetworkComponent::evalFType()
    */
   void evalFType();
+
+  /**
+   * @copydoc NetworkComponent::updateFType()
+   */
+  void updateFType();
 
   /**
    * @copydoc NetworkComponent::evalYMat()

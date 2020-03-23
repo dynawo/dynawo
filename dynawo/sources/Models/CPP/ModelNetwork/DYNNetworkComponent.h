@@ -174,6 +174,11 @@ class NetworkComponent {  ///< Base class for network component models
   virtual void evalYType() = 0;
 
   /**
+   * @brief update during the simulation the continuous variable property
+   */
+  virtual void updateYType() = 0;
+
+  /**
    * @brief set the local buffer for continuous variables properties
    *
    * @param yType global buffer for variable properties
@@ -185,6 +190,11 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief evaluate the residual function property
    */
   virtual void evalFType() = 0;
+
+  /**
+   * @brief update during the simulation the residual function property
+   */
+  virtual void updateFType() = 0;
 
   /**
    * @brief set the local buffer for residual function properties

@@ -66,6 +66,10 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
   model_ = model;
   mode_ = mode;
 
+  // For some specific models, the equation type could vary during the simulation.
+  model_->updateFType();
+  model_->updateYType();
+
   // (2) Size of the problem
   // -------------------------------
   fType_.resize(model->sizeF());

@@ -164,6 +164,11 @@ class ModelOmegaRef : public ModelCPP::Impl {
   void evalFType();
 
   /**
+   * @copydoc ModelCPP::updateFType()
+   */
+  void updateFType() { /* not needed */}
+
+  /**
    * @copydoc ModelCPP::getY0()
    */
   void getY0();
@@ -172,6 +177,11 @@ class ModelOmegaRef : public ModelCPP::Impl {
    * @copydoc ModelCPP::evalYType()
    */
   void evalYType();
+
+  /**
+   * @copydoc ModelCPP::updateYType()
+   */
+  void updateYType() { /* not needed */}
 
   // output management
   /**

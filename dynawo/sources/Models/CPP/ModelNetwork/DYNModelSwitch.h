@@ -244,9 +244,19 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   void evalYType();
 
   /**
+   * @copydoc NetworkComponent::updateYType()
+   */
+  void updateYType() { /* not needed */ }
+
+  /**
    * @copydoc NetworkComponent::evalFType()
    */
   void evalFType();
+
+  /**
+   * @copydoc NetworkComponent::updateFType()
+   */
+  void updateFType() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalYMat()

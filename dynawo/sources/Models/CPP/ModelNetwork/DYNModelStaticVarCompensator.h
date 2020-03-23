@@ -179,9 +179,19 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   void evalYType();
 
   /**
+   * @copydoc NetworkComponent::updateYType()
+   */
+  void updateYType() { /* not needed */ }
+
+  /**
    * @copydoc NetworkComponent::evalFType()
    */
   void evalFType();
+
+  /**
+   * @copydoc NetworkComponent::updateFType()
+   */
+  void updateFType() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalYMat()
