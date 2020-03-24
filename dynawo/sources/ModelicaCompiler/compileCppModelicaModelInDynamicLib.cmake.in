@@ -105,6 +105,7 @@ find_package(Boost 1.64 REQUIRED
     serialization
     system
     log
+    log_setup
 )
 
 set(SUITESPARSE_HOME "$ENV{DYNAWO_SUITESPARSE_INSTALL_DIR}")
