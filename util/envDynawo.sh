@@ -1914,6 +1914,7 @@ create_distrib() {
   cd $DYNAWO_DEPLOY_DIR
   zip -r -y $ZIP_FILE bin/ lib/ share/ sources/
   zip -r -g -y $ZIP_FILE ddb/*.$DYNAWO_SHARED_LIBRARY_SUFFIX ddb/*.desc.xml ddb/*.extvar
+  zip -r -g -y $ZIP_FILE sbin/curvesToHtml
 
   # move distribution in distribution directory
   mv $ZIP_FILE $DISTRIB_DIR

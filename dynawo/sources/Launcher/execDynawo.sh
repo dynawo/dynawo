@@ -35,6 +35,7 @@ usage="Usage: `basename $0` [option] -- program to deal with Dynawo
 where [option] can be:
     jobs ([args])              call Dynawo's launcher with given arguments
     jobs-with-curves ([args])  call Dynawo simulation and print curves
+    jobs-help                  show jobs help
     version                    show dynawo version
     help                       show this message"
 
@@ -115,6 +116,11 @@ while (($#)); do
     jobs-with-curves)
       shift
       jobs_with_curves $@ || error_exit "Dynawo execution failed"
+      break
+      ;;
+    jobs-help)
+      shift
+      jobs --help || error_exit "Dynawo execution failed"
       break
       ;;
     version)
