@@ -2814,7 +2814,7 @@ class Factory:
         if (len(self.reader.external_objects) > 0):
             body += """
   for (size_t i = 0, iEnd = data->modelData->nExtObjs; i < iEnd; ++i) {
-    omc_Modelica_Blocks_Types_ExternalCombiTable1D_destructor(data->simulationInfo->extObjs[0]);
+    omc_Modelica_Blocks_Types_ExternalCombiTable1D_destructor(data->simulationInfo->extObjs[i]);
   }
   free(data->simulationInfo->extObjs);
 """
