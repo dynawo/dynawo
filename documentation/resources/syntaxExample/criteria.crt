@@ -5,12 +5,12 @@
     <component id="_BUS___10_TN"/>
   </busCriteria>
   <busCriteria>
-    <parameters id ="maximum bus voltage with UNom above 180kV " scope="DYNAMIC" type="LOCAL_VALUE" uMinNom="180" uMaxPu="1.2"/>
+    <parameters id ="maximum bus voltage with UNom above 180kV " scope="DYNAMIC" type="LOCAL_VALUE" uNomMin="180" uMaxPu="1.2"/>
   </busCriteria>
   <loadCriteria>
     <parameters id ="maximum sum of load active power" scope="DYNAMIC" type="SUM" pMax="100" uMaxPu="0.6"/>
   </loadCriteria>
   <generatorCriteria>
-    <parameters id ="maximum sum of generator active power" scope="DYNAMIC" type="SUM" pMax="100" uMaxPu="0.6" uMinNom="180"/>
+    <parameters id ="maximum sum of generator active power" scope="DYNAMIC" type="SUM" pMax="100" uMinPu="0.6" uNomMin="180"/>
   </generatorCriteria>
 </criteria>

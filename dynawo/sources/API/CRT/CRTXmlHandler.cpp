@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,12 +12,12 @@
 //
 
 /**
- * @file  CRVXmlHandler.cpp
+ * @file  CRTXmlHandler.cpp
  *
- * @brief Handler for curves collection file : implementation file
+ * @brief Handler for criteria collection file : implementation file
  *
  * XmlHandler is the implementation of Dynawo handler for parsing
- * curves collection files.
+ * criteria collection files.
  *
  */
 #include <xml/sax/parser/Attributes.h>
@@ -80,7 +80,7 @@ XmlHandler::addLoadCriteria() {
 
 void
 XmlHandler::addGenCriteria() {
-  criteriaCollection_->add(CriteriaCollection::GENERATORS, genCriteriaHandler_.get());
+  criteriaCollection_->add(CriteriaCollection::GENERATOR, genCriteriaHandler_.get());
 }
 
 CriteriaHandler::CriteriaHandler(elementName_type const& root_element) :
@@ -126,10 +126,10 @@ void CriteriaParamsHandler::create(attributes_type const & attributes) {
     criteriaParamsRead_->setUMaxPu(attributes["uMaxPu"]);
   if (attributes.has("uMinPu"))
     criteriaParamsRead_->setUMinPu(attributes["uMinPu"]);
-  if (attributes.has("uMaxNom"))
-    criteriaParamsRead_->setUMaxNom(attributes["uMaxNom"]);
-  if (attributes.has("uMinNom"))
-    criteriaParamsRead_->setUMinNom(attributes["uMinNom"]);
+  if (attributes.has("uNomMax"))
+    criteriaParamsRead_->setUNomMax(attributes["uNomMax"]);
+  if (attributes.has("uNomMin"))
+    criteriaParamsRead_->setUNomMin(attributes["uNomMin"]);
   if (attributes.has("pMax"))
     criteriaParamsRead_->setPMax(attributes["pMax"]);
   if (attributes.has("pMin"))

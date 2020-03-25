@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -238,8 +238,8 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap));
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap));
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setPMax(100);
   criteriap->setPMin(0);
   ASSERT_FALSE(BusCriteria::criteriaEligibleForBus(criteriap));
@@ -302,8 +302,8 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
 TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
@@ -316,8 +316,8 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -332,8 +332,8 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -347,8 +347,8 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -364,8 +364,8 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -381,8 +381,8 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -400,8 +400,8 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
 TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   ASSERT_FALSE(LoadCriteria::criteriaEligibleForLoad(criteriap));
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setUMinPu(0.2);
   ASSERT_FALSE(LoadCriteria::criteriaEligibleForLoad(criteriap));
@@ -483,8 +483,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setUMinPu(0.2);
   criteriap->setPMax(200);
@@ -566,8 +566,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -582,8 +582,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
@@ -599,8 +599,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
@@ -616,8 +616,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
@@ -634,8 +634,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
@@ -652,8 +652,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
@@ -670,8 +670,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
@@ -691,8 +691,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -707,8 +707,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
@@ -724,8 +724,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
@@ -741,8 +741,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
@@ -759,8 +759,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
@@ -776,8 +776,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
@@ -793,8 +793,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
@@ -811,8 +811,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
@@ -830,8 +830,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setUMinPu(0.2);
   ASSERT_FALSE(GeneratorCriteria::criteriaEligibleForGenerator(criteriap));
@@ -913,8 +913,8 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setUMinPu(0.2);
   criteriap->setPMax(200);
@@ -996,13 +996,13 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   shared_ptr<DataInterface> data = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1012,14 +1012,14 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(190, 200, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1029,14 +1029,14 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(190, 225, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1046,15 +1046,15 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyDummyName");
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 200, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1064,15 +1064,15 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyGen");
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1082,15 +1082,15 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyGend2");
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1100,15 +1100,15 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyGen");
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1121,13 +1121,13 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   boost::shared_ptr<CriteriaParams> criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   boost::shared_ptr<criteria::Criteria> criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   boost::shared_ptr<CriteriaCollection> collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   shared_ptr<DataInterface> data = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1137,14 +1137,14 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(190, 200, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1154,14 +1154,14 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(190, 225, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1171,15 +1171,15 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyDummyName");
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 200, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1189,14 +1189,14 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 50, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1206,14 +1206,14 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1223,15 +1223,15 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::DYNAMIC);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   criteria->addComponentId("MyGen2");
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);
@@ -1241,14 +1241,14 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setScope(CriteriaParams::FINAL);
-  criteriap->setUMinNom(225);
-  criteriap->setUMaxNom(400);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
   criteriap->setPMax(150);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
   collection = CriteriaCollectionFactory::newInstance();
-  collection->add(CriteriaCollection::GENERATORS, criteria);
+  collection->add(CriteriaCollection::GENERATOR, criteria);
   data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
   exportStates(data);
   data->configureCriteria(collection);

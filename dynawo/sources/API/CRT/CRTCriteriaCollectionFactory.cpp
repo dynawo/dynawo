@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,9 +12,9 @@
 //
 
 /**
- * @file  CRVCurvesCollectionFactory.cpp
+ * @file  CRTCriteriaCollectionFactory.cpp
  *
- * @brief Dynawo curves collections factory : implementation file
+ * @brief Dynawo criteria collections factory : implementation file
  *
  */
 

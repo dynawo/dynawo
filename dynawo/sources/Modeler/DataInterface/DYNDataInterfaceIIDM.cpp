@@ -1073,7 +1073,7 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
       }
     }
     if (!dynCriteria->empty()) {
-      criterias_.push_back(dynCriteria);
+      criteria_.push_back(dynCriteria);
     }
   }
 }
@@ -1110,15 +1110,15 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
       }
     }
     if (!dynCriteria->empty()) {
-      criterias_.push_back(dynCriteria);
+      criteria_.push_back(dynCriteria);
     }
   }
 }
 
 void
 DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria) {
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::GENERATORS),
-      itEnd = criteria->end(CriteriaCollection::GENERATORS);
+  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteria->begin(CriteriaCollection::GENERATOR),
+      itEnd = criteria->end(CriteriaCollection::GENERATOR);
       it != itEnd; ++it) {
     shared_ptr<criteria::Criteria> crit = *it;
     if (!GeneratorCriteria::criteriaEligibleForGenerator(crit->getParams())) continue;
@@ -1147,7 +1147,7 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
       }
     }
     if (!dynCriteria->empty()) {
-      criterias_.push_back(dynCriteria);
+      criteria_.push_back(dynCriteria);
     }
   }
 }
@@ -1161,7 +1161,7 @@ DataInterfaceIIDM::checkCriteria(bool finalStep) {
   }
 #endif
   bool criteriaOk = true;
-  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criterias_.begin(), itEnd = criterias_.end();
+  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
       it != itEnd; ++it) {
     criteriaOk &= (*it)->checkCriteria(finalStep);
   }

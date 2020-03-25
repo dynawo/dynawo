@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,9 +12,9 @@
 //
 
 /**
- * @file  CRVXmlImporter.cpp
+ * @file  CRTXmlImporter.cpp
  *
- * @brief Dynawo curves collection XML importer : implementation file
+ * @brief Dynawo criteria collection XML importer : implementation file
  *
  */
 #include <fstream>
@@ -49,7 +49,7 @@ XmlImporter::importFromFile(const string& fileName) const {
 
 boost::shared_ptr<CriteriaCollection>
 XmlImporter::importFromStream(std::istream& stream) const {
-  XmlHandler curvesHandler;
+  XmlHandler criteriaHandler;
 
   xml::sax::parser::ParserFactory parser_factory;
   xml::sax::parser::ParserPtr parser = parser_factory.createParser();
@@ -57,16 +57,16 @@ XmlImporter::importFromStream(std::istream& stream) const {
   try {
     bool xsdValidation = false;
     if (getEnvVar("DYNAWO_USE_XSD_VALIDATION") == "true") {
-      const std::string crvXsdPath = getMandatoryEnvVar("DYNAWO_XSD_DIR") + std::string("criteria.xsd");
-      parser->addXmlSchema(crvXsdPath);
+      const std::string crtXsdPath = getMandatoryEnvVar("DYNAWO_XSD_DIR") + std::string("criteria.xsd");
+      parser->addXmlSchema(crtXsdPath);
       xsdValidation = true;
     }
-    parser->parse(stream, curvesHandler, xsdValidation);
+    parser->parse(stream, criteriaHandler, xsdValidation);
   } catch (const xml::sax::parser::ParserException& exp) {
     throw DYNError(DYN::Error::API, XmlParsingError, exp.what());
   }
 
-  return curvesHandler.getCriteriaCollection();
+  return criteriaHandler.getCriteriaCollection();
 }
 
 }  // namespace criteria

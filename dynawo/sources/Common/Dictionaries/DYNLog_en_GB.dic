@@ -98,8 +98,8 @@ TapChangerLocked              =             %1%:  Tap changer is blocked
 NetworkInitSwitchCurrentsFailed =           model network : initialization of switches' currents failed
 //---------------------- DATAINTERFACE --------------------------------------
 VariableNotSet                =             %1% : "%3%" is not set for model %2%
-BusUnderVoltage               =             node: %1% has a voltage %2% < %3%Un (criteria id: %4%)
-BusAboveVoltage               =             node: %1% has a voltage %2% > %3%Un (criteria id: %4%)
+BusUnderVoltage               =             node: %1% has a voltage %2% p.u. < %3% p.u. (criteria id: %4%)
+BusAboveVoltage               =             node: %1% has a voltage %2% p.u. > %3% p.u. (criteria id: %4%)
 SumBusCriteriaIgnored         =             sum criteria is not applicable to buses
 PowerBusCriteriaIgnored       =             active power criteria is not applicable to buses
 SourceUnderPower              =             node: %1% has a load power %2%MW < %3%MW (criteria id: %4%)

@@ -11,8 +11,8 @@
 // simulation tool for power systems.
 //
 
-#ifndef API_CRT_CRVCRITERIAIMPL_H_
-#define API_CRT_CRVCRITERIAIMPL_H_
+#ifndef API_CRT_CRTCRITERIAIMPL_H_
+#define API_CRT_CRTCRITERIAIMPL_H_
 
 #include <string>
 #include <vector>
@@ -29,7 +29,7 @@ namespace criteria {
  * Interface class for criteria object.
  */
 class Criteria::Impl : public Criteria {
-public:
+ public:
   /**
    * @brief Destructor
    */
@@ -61,7 +61,7 @@ public:
   component_id_const_iterator end() const;
   friend class Criteria::BaseCompIdConstIteratorImpl;
 
-protected:
+ protected:
   boost::shared_ptr<CriteriaParams> params_;  ///< parameters of this criteria
   std::vector<std::string> compIds_;  ///< ids of the components
 };
@@ -71,7 +71,7 @@ protected:
  * @brief Implementation class for iterators' functions
  */
 class Criteria::BaseCompIdConstIteratorImpl {
-public:
+ public:
   /**
    * @brief Constructor
    *
@@ -147,9 +147,9 @@ public:
    */
   const std::string* operator->() const;
 
-private:
+ private:
   std::vector<std::string>::const_iterator current_;  ///< current vector const iterator
 };
 }  // namespace criteria
 
-#endif  // API_CRT_CRVCRITERIAIMPL_H_
+#endif  // API_CRT_CRTCRITERIAIMPL_H_

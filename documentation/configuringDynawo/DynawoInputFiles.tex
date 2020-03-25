@@ -152,7 +152,7 @@ Sometimes, the par file contains references to parameters present in the iidm fi
 
 \subsection{crt file}
 
-The crt file contains all the criteria files to be checked during the
+The crt file contains all the criteria to be checked during the
 simulation.
 \\
 
@@ -161,8 +161,8 @@ Here is an example of a crt file :
 busCriteria, loadCriteria, generatorCriteria}, deletekeywords={type}, title=crt
 file example]{../resources/syntaxExample/criteria.crt}
 
-There are three different kind of criteria, depending on which type of component
-is targeted.
+There are three different kinds of criteria, depending on which type of
+component is targeted.
 
 Each criteria is then associated to an id, a set of parameters and optionally a list of component.
 
@@ -171,8 +171,8 @@ the criteria should be checked at every time step or 'FINAL' if the criteria
 should be respected only at the final step.
 
 An empty component list means that all the component corresponding to the specified type will be subject to this
-criteria. If some components id are specified then only those components will be subject to this
-criteria. Components from the list should have the same type as the
+criterion. If some components id are specified then only those components will
+be subject to this criterion. Components from the list should have the same type as the
 specified type (buses, loads or generators).
 
 \subsubsection{bus Criteria}
@@ -188,10 +188,10 @@ $U_{bus} > UMaxPu*U_n$ \\
 the buses taken into account are the ones that satisfy the
 following condition:
 \begin{center}
-$UMaxNom \ge U_n \ge UMinNom$\\
+$UNomMax \ge U_n \ge UNomMin$\\
 \end{center}
 
-$UMinNom$ and $UMaxNom$ are optionals. If one of them is not
+$UNomMin$ and $UNomMax$ are optionals. If one of them is not
 specified, the corresponding condition is not applied.
 
 \subsubsection{load and generators Criteria}
@@ -215,12 +215,12 @@ $\sum P_{source} > PMax$ \\
 In both cases, the sources taken into account are the ones that satisfy the
 following conditions:\\
 \begin{center}
-$UMaxNom \ge U_n \ge UMinNom$\\
+$UNomMax \ge U_n \ge UNomMin$\\
 and\\
 $UMaxPu*U_n \ge U_{source} \ge UMinPu*U_n$ \\
 \end{center}
 
-$UMinNom$, $UMaxNom$, $UMinPu$ and $UMaxPu$ are optionals. If one of them is not
+$UNomMin$, $UNomMax$, $UMinPu$ and $UMaxPu$ are optionals. If one of them is not
 specified, the corresponding condition is not applied.
 
 \subsection{crv file}

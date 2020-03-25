@@ -46,8 +46,8 @@
       <xs:attribute name="pMin" use="optional" type="xs:float"/>
       <xs:attribute name="uMaxPu" use="optional" type="xs:float"/>
       <xs:attribute name="uMinPu" use="optional" type="xs:float"/>
-      <xs:attribute name="uMaxNom" use="optional" type="xs:float"/>
-      <xs:attribute name="uMinNom" use="optional" type="xs:float"/>
+      <xs:attribute name="uNomMax" use="optional" type="xs:float"/>
+      <xs:attribute name="uNomMin" use="optional" type="xs:float"/>
     </xs:complexContent>
   </xs:complexType>
 

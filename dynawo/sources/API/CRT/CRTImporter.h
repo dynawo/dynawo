@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,14 +12,14 @@
 //
 
 /**
- * @file  CRVImporter.h
+ * @file  CRTImporter.h
  *
- * @brief Curves collection importer : interface file
+ * @brief Criteria collection importer : interface file
  *
  */
 
-#ifndef API_CRV_CRTIMPORTER_H_
-#define API_CRV_CRTIMPORTER_H_
+#ifndef API_CRT_CRTIMPORTER_H_
+#define API_CRT_CRTIMPORTER_H_
 
 #include <boost/shared_ptr.hpp>
 
@@ -50,7 +50,7 @@ class Importer {
   /**
    * @brief Import criteria from stream
    *
-   * @param stream stream from where the curves must be imported
+   * @param stream stream from where the criteria must be imported
    *
    * @return criteria collection imported
    */
@@ -59,4 +59,4 @@ class Importer {
 
 }  // namespace criteria
 
-#endif  // API_CRV_CRTIMPORTER_H_
+#endif  // API_CRT_CRTIMPORTER_H_

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,9 +12,9 @@
 //
 
 /**
- * @file  CRVCurvesCollectionImpl.h
+ * @file  CRTCriteriaCollectionImpl.h
  *
- * @brief Curve collection : header file
+ * @brief Criteria collection : header file
  *
  */
 
@@ -70,9 +70,9 @@ class CriteriaCollection::Impl : public CriteriaCollection {
   friend class CriteriaCollection::BaseConstCriteriaCollectionIteratorImpl;
 
  protected:
-  std::vector<boost::shared_ptr<Criteria> > busCriterias_;  ///< Vector of the bus criteria object
-  std::vector<boost::shared_ptr<Criteria> > loadCriterias_;  ///< Vector of the load criteria object
-  std::vector<boost::shared_ptr<Criteria> > generatorCriterias_;  ///< Vector of the generator criteria object
+  std::vector<boost::shared_ptr<Criteria> > busCriteria_;  ///< Vector of the bus criteria object
+  std::vector<boost::shared_ptr<Criteria> > loadCriteria_;  ///< Vector of the load criteria object
+  std::vector<boost::shared_ptr<Criteria> > generatorCriteria_;  ///< Vector of the generator criteria object
 };
 
 /**
@@ -84,10 +84,10 @@ class CriteriaCollection::BaseConstCriteriaCollectionIteratorImpl {
   /**
    * @brief Constructor
    *
-   * Constructor based on curvesCollection. Can create an implementation for
-   * a constant iterator to the beginning of the curves' container or to the end.
+   * Constructor based on criteriaCollection. Can create an implementation for
+   * a constant iterator to the beginning of the criteria' container or to the end.
    *
-   * @param iterated Pointer to the curves' vector iterated
+   * @param iterated Pointer to the criteria' vector iterated
    * @param begin Flag indicating if the iterator point to the beginning (true)
    * or the end of the events' container.
    * @param type type of the component
@@ -164,14 +164,14 @@ class CriteriaCollection::BaseConstCriteriaCollectionIteratorImpl {
   /**
    * @brief Indirection operator
    *
-   * @returns Curve pointed to by this
+   * @returns Criteria pointed to by this
    */
   const boost::shared_ptr<Criteria>& operator*() const;
 
   /**
    * @brief Structure dereference operator
    *
-   * @returns Pointer to the Curve pointed to by this
+   * @returns Pointer to the Criteria pointed to by this
    */
   const boost::shared_ptr<Criteria>* operator->() const;
 

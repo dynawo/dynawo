@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,8 +11,8 @@
 // simulation tool for power systems.
 //
 
-#ifndef API_CRT_CRVCRITERIACOLLECTIONFACTORY_H_
-#define API_CRT_CRVCRITERIACOLLECTIONFACTORY_H_
+#ifndef API_CRT_CRTCRITERIACOLLECTIONFACTORY_H_
+#define API_CRT_CRTCRITERIACOLLECTIONFACTORY_H_
 
 #include <boost/shared_ptr.hpp>
 
@@ -34,8 +34,8 @@ class CriteriaCollectionFactory {
    *
    * @return shared pointer to a new empty @p CriteriaCollection
    */
-  static boost::shared_ptr<CriteriaCollection> newInstance( );
+  static boost::shared_ptr<CriteriaCollection> newInstance();
 };
 }  // namespace criteria
 
-#endif  // API_CRT_CRVCRITERIACOLLECTIONFACTORY_H_
+#endif  // API_CRT_CRTCRITERIACOLLECTIONFACTORY_H_
