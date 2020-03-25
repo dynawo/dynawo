@@ -115,6 +115,11 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getQ();
 
   /**
+   * @copydoc GeneratorInterface::getQMax()
+   */
+  double getQMax();
+
+  /**
    * @copydoc GeneratorInterface::getID() const
    */
   std::string getID() const;

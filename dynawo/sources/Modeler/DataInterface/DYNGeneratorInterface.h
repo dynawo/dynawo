@@ -76,6 +76,12 @@ class GeneratorInterface : public ComponentInterface {
   virtual double getQ() = 0;
 
   /**
+   * @brief Getter for the maximum reactive power of the generator
+   * @return The maximum reactive power of the generator in MVar (generator convention)
+   */
+  virtual double getQMax() = 0;
+
+  /**
    * @brief Getter for the initial connection state of the generator
    * @return @b true if the generator is connected, @b false else
    */
