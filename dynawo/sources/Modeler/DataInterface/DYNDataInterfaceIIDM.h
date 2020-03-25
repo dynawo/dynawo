@@ -335,7 +335,7 @@ class DataInterfaceIIDM : public DataInterface {
   std::map<std::string, boost::shared_ptr<LoadInterface> > loadComponents_;  ///< map of loads by name
   std::map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   std::map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
-  std::vector<boost::shared_ptr<Criteria> > criterias_;  ///< table of criteria to check
+  std::vector<boost::shared_ptr<Criteria> > criteria_;  ///< table of criteria to check
 };  ///< Generic data interface for IIDM format files
 }  // namespace DYN
 

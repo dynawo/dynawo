@@ -13,7 +13,7 @@
 -->
 <criteria xmlns="http://www.rte-france.com/dynawo">
   <busCriteria>
-    <parameters id ="busCritId" scope="DYNAMIC" type="LOCAL_VALUE" uMaxPu="0.8" uMinNom="225"/>
+    <parameters id ="busCritId" scope="DYNAMIC" type="LOCAL_VALUE" uMaxPu="0.8" uNomMin="225"/>
     <component id="MyId"/>
     <component id="MyId2"/>
   </busCriteria>

@@ -23,8 +23,8 @@ scope_(UNDEFINED_SCOPE),
 type_(UNDEFINED_TYPE),
 uMinPu_(-std::numeric_limits<double>::max()),
 uMaxPu_(std::numeric_limits<double>::max()),
-uMinNom_(-std::numeric_limits<double>::max()),
-uMaxNom_(std::numeric_limits<double>::max()),
+uNomMin_(-std::numeric_limits<double>::max()),
+uNomMax_(std::numeric_limits<double>::max()),
 pMin_(-std::numeric_limits<double>::max()),
 pMax_(std::numeric_limits<double>::max()) {}
 
@@ -59,8 +59,8 @@ CriteriaParams::Impl::getId() const {
 }
 
 void
-CriteriaParams::Impl::setUMaxPu(double uMax) {
-  uMaxPu_ = uMax;
+CriteriaParams::Impl::setUMaxPu(double uMaxPu) {
+  uMaxPu_ = uMaxPu;
 }
 
 double
@@ -74,23 +74,23 @@ CriteriaParams::Impl::hasUMaxPu() const {
 }
 
 void
-CriteriaParams::Impl::setUMaxNom(double uMaxNom) {
-  uMaxNom_ = uMaxNom;
+CriteriaParams::Impl::setUNomMax(double uMaxNom) {
+  uNomMax_ = uMaxNom;
 }
 
 double
-CriteriaParams::Impl::getUMaxNom() const {
-  return uMaxNom_;
+CriteriaParams::Impl::getUNomMax() const {
+  return uNomMax_;
 }
 
 bool
-CriteriaParams::Impl::hasUMaxNom() const {
-  return uMaxNom_ < std::numeric_limits<double>::max();
+CriteriaParams::Impl::hasUNomMax() const {
+  return uNomMax_ < std::numeric_limits<double>::max();
 }
 
 void
-CriteriaParams::Impl::setUMinPu(double uMin) {
-  uMinPu_ = uMin;
+CriteriaParams::Impl::setUMinPu(double uMinPu) {
+  uMinPu_ = uMinPu;
 }
 
 double
@@ -104,18 +104,18 @@ CriteriaParams::Impl::hasUMinPu() const {
 }
 
 void
-CriteriaParams::Impl::setUMinNom(double uMinNom) {
-  uMinNom_ = uMinNom;
+CriteriaParams::Impl::setUNomMin(double uNomMin) {
+  uNomMin_ = uNomMin;
 }
 
 double
-CriteriaParams::Impl::getUMinNom() const {
-  return uMinNom_;
+CriteriaParams::Impl::getUNomMin() const {
+  return uNomMin_;
 }
 
 bool
-CriteriaParams::Impl::hasUMinNom() const {
-  return uMinNom_ > -std::numeric_limits<double>::max();
+CriteriaParams::Impl::hasUNomMin() const {
+  return uNomMin_ > -std::numeric_limits<double>::max();
 }
 
 void

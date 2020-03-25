@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -24,7 +24,7 @@ class Criteria;
  * @class CriteriaCollection
  * @brief Criteria collection interface class
  *
- * Interface class for criteria collection object. This a container for criterias
+ * Interface class for criteria collection object. This a container for criteria
  */
 class CriteriaCollection {
  public:
@@ -34,7 +34,7 @@ class CriteriaCollection {
   typedef enum {
     BUS,
     LOAD,
-    GENERATORS
+    GENERATOR
   } CriteriaCollectionType_t;  ///< components type
 
   /**
@@ -65,15 +65,15 @@ class CriteriaCollection {
  public:
   /**
    * @class CriteriaCollectionConstIterator
-   * @brief Const iterator over curves
+   * @brief Const iterator over criteria
    *
-   * Const iterator over curves stored in collection
+   * Const iterator over criteria stored in collection
    */
   class CriteriaCollectionConstIterator {
    public:
     /**
      * @brief Constructor
-     * @param iterated Pointer to the curves' vector iterated
+     * @param iterated Pointer to the criteria' vector iterated
      * @param begin Flag indicating if the iterator point to the beginning (true)
      * or the end of the events' container.
      * @param type type of the component
@@ -146,14 +146,14 @@ class CriteriaCollection {
     /**
      * @brief Indirection operator
      *
-     * @returns Curve pointed to by this
+     * @returns Criteria pointed to by this
      */
     const boost::shared_ptr<Criteria>& operator*() const;
 
     /**
      * @brief Structure dereference operator
      *
-     * @returns Curve pointed to by this
+     * @returns Criteria pointed to by this
      */
     const boost::shared_ptr<Criteria>* operator->() const;
 
@@ -162,16 +162,16 @@ class CriteriaCollection {
   };
 
   /**
-   * @brief Get a CriteriaCollectionConstIterator to the beginning of the curves' vector
+   * @brief Get a CriteriaCollectionConstIterator to the beginning of the criteria' vector
    * @param type type of component
-   * @return a CriteriaCollectionConstIterator to the beginning of the curves' vector
+   * @return a CriteriaCollectionConstIterator to the beginning of the criteria' vector
    */
   virtual CriteriaCollectionConstIterator begin(CriteriaCollectionType_t type) const = 0;
 
   /**
-   * @brief Get a CriteriaCollectionConstIterator to the end of the curves' vector
+   * @brief Get a CriteriaCollectionConstIterator to the end of the criteria' vector
    * @param type type of component
-   * @return a CriteriaCollectionConstIterator to the end of the curves' vector
+   * @return a CriteriaCollectionConstIterator to the end of the criteria' vector
    */
   virtual CriteriaCollectionConstIterator end(CriteriaCollectionType_t type) const = 0;
 };

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,8 +12,8 @@
 //
 
 /**
- * @file API/CRV/test/TestCurve.cpp
- * @brief Unit tests for API_CRV
+ * @file API/CRT/test/TestCriteria.cpp
+ * @brief Unit tests for API_CRT
  *
  */
 
@@ -43,8 +43,8 @@ TEST(APICRTTest, CriteriaParams) {
   ASSERT_EQ(criteriap->getId(), "");
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMaxPu(), std::numeric_limits<double>::max());
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMinPu(), -std::numeric_limits<double>::max());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMaxNom(), std::numeric_limits<double>::max());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMinNom(), -std::numeric_limits<double>::max());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUNomMax(), std::numeric_limits<double>::max());
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUNomMin(), -std::numeric_limits<double>::max());
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMax(), std::numeric_limits<double>::max());
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMin(), -std::numeric_limits<double>::max());
   ASSERT_FALSE(criteriap->hasPMax());
@@ -57,8 +57,8 @@ TEST(APICRTTest, CriteriaParams) {
   criteriap->setType(CriteriaParams::SUM);
   criteriap->setUMaxPu(0.8);
   criteriap->setUMinPu(0.2);
-  criteriap->setUMaxNom(220);
-  criteriap->setUMinNom(180);
+  criteriap->setUNomMax(220);
+  criteriap->setUNomMin(180);
   criteriap->setPMax(200);
   criteriap->setPMin(0);
   criteriap->setId("MyId");
@@ -69,8 +69,8 @@ TEST(APICRTTest, CriteriaParams) {
   ASSERT_EQ(criteriap->getId(), "MyId");
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMaxPu(), 0.8);
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMinPu(), 0.2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMaxNom(), 220);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUMinNom(), 180);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUNomMax(), 220);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getUNomMin(), 180);
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMax(), 200);
   ASSERT_DOUBLE_EQUALS_DYNAWO(criteriap->getPMin(), 0);
   ASSERT_TRUE(criteriap->hasPMax());
@@ -127,7 +127,7 @@ TEST(APICRTTest, CriteriaCollection) {
   // test default constructor attributes
   ASSERT_EQ(criteriaCol->begin(CriteriaCollection::BUS), criteriaCol->end(CriteriaCollection::BUS));
   ASSERT_EQ(criteriaCol->begin(CriteriaCollection::LOAD), criteriaCol->end(CriteriaCollection::LOAD));
-  ASSERT_EQ(criteriaCol->begin(CriteriaCollection::GENERATORS), criteriaCol->end(CriteriaCollection::GENERATORS));
+  ASSERT_EQ(criteriaCol->begin(CriteriaCollection::GENERATOR), criteriaCol->end(CriteriaCollection::GENERATOR));
 
   // set attributes
   boost::shared_ptr<Criteria> criteriaBus = CriteriaFactory::newCriteria();
@@ -145,7 +145,7 @@ TEST(APICRTTest, CriteriaCollection) {
   criteriaLoad->addComponentId("MyCompGenId1");
   criteriaLoad->addComponentId("MyCompGenId2");
   criteriaLoad->addComponentId("MyCompGenId3");
-  criteriaCol->add(CriteriaCollection::GENERATORS, criteriaGen);
+  criteriaCol->add(CriteriaCollection::GENERATOR, criteriaGen);
 
   // test setted attributes
   size_t idx = 0;
@@ -173,8 +173,8 @@ TEST(APICRTTest, CriteriaCollection) {
   }
 
   idx = 0;
-  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCol->begin(CriteriaCollection::GENERATORS),
-      itEnd = criteriaCol->end(CriteriaCollection::GENERATORS);
+  for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCol->begin(CriteriaCollection::GENERATOR),
+      itEnd = criteriaCol->end(CriteriaCollection::GENERATOR);
       it != itEnd; ++it, ++idx) {
     boost::shared_ptr<Criteria> criteria = *it;
     if (idx == 0)

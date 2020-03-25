@@ -81,24 +81,24 @@ class CriteriaParams::Impl : public CriteriaParams {
   bool hasUMaxPu() const;
 
   /**
-   * @copydoc CriteriaParams::setUMaxNom(double uMaxNom)
+   * @copydoc CriteriaParams::setUNomMax(double uNomMax)
    */
-  void setUMaxNom(double uMaxNom);
+  void setUNomMax(double uNomMax);
 
   /**
-   * @copydoc CriteriaParams::getUMaxNom() const
+   * @copydoc CriteriaParams::getUNomMax() const
    */
-  double getUMaxNom() const;
+  double getUNomMax() const;
 
   /**
-   * @copydoc CriteriaParams::hasUMaxNom() const
+   * @copydoc CriteriaParams::hasUNomMax() const
    */
-  bool hasUMaxNom() const;
+  bool hasUNomMax() const;
 
   /**
-   * @copydoc CriteriaParams::setUMinPu(double uMin)
+   * @copydoc CriteriaParams::setUMinPu(double uMinPu)
    */
-  void setUMinPu(double uMin);
+  void setUMinPu(double uMinPu);
 
   /**
    * @copydoc CriteriaParams::getUMinPu() const
@@ -111,19 +111,19 @@ class CriteriaParams::Impl : public CriteriaParams {
   bool hasUMinPu() const;
 
   /**
-   * @copydoc CriteriaParams::setUMinNom(double uMinNom)
+   * @copydoc CriteriaParams::setUNomMin(double uNomMin)
    */
-  void setUMinNom(double uMinNom);
+  void setUNomMin(double uNomMin);
 
   /**
-   * @copydoc CriteriaParams::getUMinNom() const
+   * @copydoc CriteriaParams::getUNomMin() const
    */
-  double getUMinNom() const;
+  double getUNomMin() const;
 
   /**
-   * @copydoc CriteriaParams::hasUMinNom() const
+   * @copydoc CriteriaParams::hasUNomMin() const
    */
-  bool hasUMinNom() const;
+  bool hasUNomMin() const;
 
   /**
    * @copydoc CriteriaParams::setPMax(double pMax)
@@ -158,12 +158,12 @@ class CriteriaParams::Impl : public CriteriaParams {
  private:
   CriteriaParams::CriteriaScope_t scope_;  ///< scope of the criteria
   CriteriaType_t type_;  ///< type of the criteria
-  double uMinPu_;  ///< minimum voltage
-  double uMaxPu_;  ///< maximum voltage
-  double uMinNom_;  ///< minimum nominal voltage
-  double uMaxNom_;  ///< maximum nominal voltage
-  double pMin_;  ///< minimum active power
-  double pMax_;  ///< maximum active power
+  double uMinPu_;  ///< minimum voltage in p.u.
+  double uMaxPu_;  ///< maximum voltage in p.u.
+  double uNomMin_;  ///< minimum nominal voltage in kV
+  double uNomMax_;  ///< maximum nominal voltage in kV
+  double pMin_;  ///< minimum active power in MW
+  double pMax_;  ///< maximum active power in MW
   std::string id_;  ///< criteria id
 };
 

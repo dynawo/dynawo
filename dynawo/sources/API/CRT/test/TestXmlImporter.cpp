@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,8 +12,8 @@
 //
 
 /**
- * @file API/CRV/test/TestXmlImporter.cpp
- * @brief Unit tests for API_CRV
+ * @file API/CRT/test/TestXmlImporter.cpp
+ * @brief Unit tests for API_CRT
  *
  */
 
@@ -78,9 +78,9 @@ TEST(APICRTTest, testXmlFileImporter) {
       ASSERT_EQ(criteria->getParams()->getType(), CriteriaParams::LOCAL_VALUE);
       ASSERT_EQ(criteria->getParams()->getId(), "busCritId");
       ASSERT_DOUBLE_EQUALS_DYNAWO(criteria->getParams()->getUMaxPu(), 0.8);
-      ASSERT_DOUBLE_EQUALS_DYNAWO(criteria->getParams()->getUMinNom(), 225);
+      ASSERT_DOUBLE_EQUALS_DYNAWO(criteria->getParams()->getUNomMin(), 225);
       ASSERT_FALSE(criteria->getParams()->hasUMinPu());
-      ASSERT_FALSE(criteria->getParams()->hasUMaxNom());
+      ASSERT_FALSE(criteria->getParams()->hasUNomMax());
       ASSERT_FALSE(criteria->getParams()->hasPMax());
       ASSERT_FALSE(criteria->getParams()->hasPMin());
     } else {
@@ -101,8 +101,8 @@ TEST(APICRTTest, testXmlFileImporter) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(criteria->getParams()->getPMax(), 200);
       ASSERT_FALSE(criteria->getParams()->hasUMinPu());
       ASSERT_FALSE(criteria->getParams()->hasUMaxPu());
-      ASSERT_FALSE(criteria->getParams()->hasUMinNom());
-      ASSERT_FALSE(criteria->getParams()->hasUMaxNom());
+      ASSERT_FALSE(criteria->getParams()->hasUNomMin());
+      ASSERT_FALSE(criteria->getParams()->hasUNomMax());
       ASSERT_FALSE(criteria->getParams()->hasPMin());
     } else if (idx == 1) {
       size_t idx2 = 0;
@@ -122,8 +122,8 @@ TEST(APICRTTest, testXmlFileImporter) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(criteria->getParams()->getUMinPu(), 0.2);
       ASSERT_FALSE(criteria->getParams()->hasUMaxPu());
       ASSERT_FALSE(criteria->getParams()->hasPMin());
-      ASSERT_FALSE(criteria->getParams()->hasUMinNom());
-      ASSERT_FALSE(criteria->getParams()->hasUMaxNom());
+      ASSERT_FALSE(criteria->getParams()->hasUNomMin());
+      ASSERT_FALSE(criteria->getParams()->hasUNomMax());
     } else {
       assert(false);
     }
@@ -132,7 +132,7 @@ TEST(APICRTTest, testXmlFileImporter) {
 
 TEST(APICRTTest, testXmlStreamImporter) {
   boost::shared_ptr<XmlImporter> importer = boost::shared_ptr<XmlImporter>(new XmlImporter());
-  boost::shared_ptr<CriteriaCollection> curves;
+  boost::shared_ptr<CriteriaCollection> criteria;
   std::istringstream goodInputStream(
     "<?xml version='1.0' encoding='UTF-8'?>"
     "<criteria xmlns=\"http://www.rte-france.com/dynawo\">"
@@ -141,7 +141,7 @@ TEST(APICRTTest, testXmlStreamImporter) {
     "</busCriteria>"
     "</criteria>");
   std::istream goodStream(goodInputStream.rdbuf());
-  ASSERT_NO_THROW(curves = importer->importFromStream(goodStream));
+  ASSERT_NO_THROW(criteria = importer->importFromStream(goodStream));
 }
 
 }  // namespace criteria

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,9 +12,9 @@
 //
 
 /**
- * @file  CRVCurvesCollectionImpl.cpp
+ * @file  CRTCriteriaCollectionImpl.cpp
  *
- * @brief Curves collection : implementation file
+ * @brief Criteria collection : implementation file
  *
  */
 #include "CRTCriteriaCollectionImpl.h"
@@ -29,13 +29,13 @@ void
 CriteriaCollection::Impl::add(CriteriaCollectionType_t type, const boost::shared_ptr<Criteria> & criteria) {
   switch (type) {
   case CriteriaCollection::BUS:
-    busCriterias_.push_back(criteria);
+    busCriteria_.push_back(criteria);
     break;
   case CriteriaCollection::LOAD:
-    loadCriterias_.push_back(criteria);
+    loadCriteria_.push_back(criteria);
     break;
-  case CriteriaCollection::GENERATORS:
-    generatorCriterias_.push_back(criteria);
+  case CriteriaCollection::GENERATOR:
+    generatorCriteria_.push_back(criteria);
     break;
   }
 }
@@ -44,9 +44,9 @@ void
 CriteriaCollection::Impl::merge(const boost::shared_ptr<CriteriaCollection> & other) {
   boost::shared_ptr<CriteriaCollection::Impl> otherImpl = boost::dynamic_pointer_cast<CriteriaCollection::Impl>(other);
   if (!otherImpl) return;
-  busCriterias_.insert(busCriterias_.end(), otherImpl->busCriterias_.begin(), otherImpl->busCriterias_.end());
-  loadCriterias_.insert(loadCriterias_.end(), otherImpl->loadCriterias_.begin(), otherImpl->loadCriterias_.end());
-  generatorCriterias_.insert(generatorCriterias_.end(), otherImpl->generatorCriterias_.begin(), otherImpl->generatorCriterias_.end());
+  busCriteria_.insert(busCriteria_.end(), otherImpl->busCriteria_.begin(), otherImpl->busCriteria_.end());
+  loadCriteria_.insert(loadCriteria_.end(), otherImpl->loadCriteria_.begin(), otherImpl->loadCriteria_.end());
+  generatorCriteria_.insert(generatorCriteria_.end(), otherImpl->generatorCriteria_.begin(), otherImpl->generatorCriteria_.end());
 }
 
 CriteriaCollection::CriteriaCollectionConstIterator
@@ -63,13 +63,13 @@ CriteriaCollection::BaseConstCriteriaCollectionIteratorImpl::BaseConstCriteriaCo
     const CriteriaCollection::Impl* iterated, bool begin, CriteriaCollectionType_t type) {
   switch (type) {
   case CriteriaCollection::BUS:
-    current_ = (begin ? iterated->busCriterias_.begin() : iterated->busCriterias_.end());
+    current_ = (begin ? iterated->busCriteria_.begin() : iterated->busCriteria_.end());
     break;
   case CriteriaCollection::LOAD:
-    current_ = (begin ? iterated->loadCriterias_.begin() : iterated->loadCriterias_.end());
+    current_ = (begin ? iterated->loadCriteria_.begin() : iterated->loadCriteria_.end());
     break;
-  case CriteriaCollection::GENERATORS:
-    current_ = (begin ? iterated->generatorCriterias_.begin() : iterated->generatorCriterias_.end());
+  case CriteriaCollection::GENERATOR:
+    current_ = (begin ? iterated->generatorCriteria_.begin() : iterated->generatorCriteria_.end());
     break;
   }
 }

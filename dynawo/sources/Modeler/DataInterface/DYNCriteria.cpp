@@ -68,10 +68,10 @@ BusCriteria::criteriaEligibleForBus(const boost::shared_ptr<criteria::CriteriaPa
 
 void
 BusCriteria::addBus(const boost::shared_ptr<BusInterface>& bus) {
-  if (params_->hasUMinNom() &&
-      bus->getVNom() < params_->getUMinNom()) return;
-  if (params_->hasUMaxNom() &&
-      bus->getVNom() > params_->getUMaxNom()) return;
+  if (params_->hasUNomMin() &&
+      bus->getVNom() < params_->getUNomMin()) return;
+  if (params_->hasUNomMax() &&
+      bus->getVNom() > params_->getUNomMax()) return;
   if (doubleEquals(bus->getV0(), defaultV0) || bus->getV0() <  defaultV0) return;
   buses_.push_back(bus);
 }
@@ -134,12 +134,12 @@ LoadCriteria::criteriaEligibleForLoad(const boost::shared_ptr<criteria::Criteria
 
 void
 LoadCriteria::addLoad(const boost::shared_ptr<LoadInterface>& load) {
-  if (params_->hasUMinNom() &&
+  if (params_->hasUNomMin() &&
       load->getBusInterface() &&
-      load->getBusInterface()->getVNom() < params_->getUMinNom()) return;
-  if (params_->hasUMaxNom() &&
+      load->getBusInterface()->getVNom() < params_->getUNomMin()) return;
+  if (params_->hasUNomMax() &&
       load->getBusInterface() &&
-      load->getBusInterface()->getVNom() > params_->getUMaxNom()) return;
+      load->getBusInterface()->getVNom() > params_->getUNomMax()) return;
   loads_.push_back(load);
 }
 
@@ -153,7 +153,7 @@ GeneratorCriteria::checkCriteria(bool finalStep) const {
   if (!finalStep && params_->getScope() == criteria::CriteriaParams::FINAL)
     return true;
   double sum = 0.;
-  bool atLeastOneEligibleLoadWasFound = false;
+  bool atLeastOneEligibleGeneratorWasFound = false;
   for (std::vector<boost::shared_ptr<GeneratorInterface> >::const_iterator it = generators_.begin(), itEnd = generators_.end();
       it != itEnd; ++it) {
     double p = (*it)->getP();
@@ -174,11 +174,11 @@ GeneratorCriteria::checkCriteria(bool finalStep) const {
       }
     } else {
       sum+=p;
-      atLeastOneEligibleLoadWasFound = true;
+      atLeastOneEligibleGeneratorWasFound = true;
     }
   }
 
-  if (atLeastOneEligibleLoadWasFound && params_->getType() == criteria::CriteriaParams::SUM) {
+  if (atLeastOneEligibleGeneratorWasFound && params_->getType() == criteria::CriteriaParams::SUM) {
     if (params_->hasPMax() && sum > params_->getPMax()) {
       Trace::debug() << DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId()) << Trace::endline;
       return false;
@@ -201,12 +201,12 @@ GeneratorCriteria::criteriaEligibleForGenerator(const boost::shared_ptr<criteria
 
 void
 GeneratorCriteria::addGenerator(const boost::shared_ptr<GeneratorInterface>& generator) {
-  if (params_->hasUMinNom() &&
+  if (params_->hasUNomMin() &&
       generator->getBusInterface() &&
-      generator->getBusInterface()->getVNom() < params_->getUMinNom()) return;
-  if (params_->hasUMaxNom() &&
+      generator->getBusInterface()->getVNom() < params_->getUNomMin()) return;
+  if (params_->hasUNomMax() &&
       generator->getBusInterface() &&
-      generator->getBusInterface()->getVNom() > params_->getUMaxNom()) return;
+      generator->getBusInterface()->getVNom() > params_->getUNomMax()) return;
   generators_.push_back(generator);
 }
 

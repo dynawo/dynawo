@@ -11,8 +11,8 @@
 // simulation tool for power systems.
 //
 
-#ifndef API_CRT_CRVCRITERIA_H_
-#define API_CRT_CRVCRITERIA_H_
+#ifndef API_CRT_CRTCRITERIA_H_
+#define API_CRT_CRTCRITERIA_H_
 
 #include <string>
 #include <boost/shared_ptr.hpp>
@@ -55,123 +55,123 @@ class Criteria {
 
   class Impl;
  protected:
-   class BaseCompIdConstIteratorImpl;  // Abstract class for the interface
+  class BaseCompIdConstIteratorImpl;  // Abstract class for the interface
 
-  public:
+ public:
    /**
     * @class component_id_const_iterator
     * @brief Const iterator over components id
     *
     * Const iterator over components id stored in criteria
     */
-   class component_id_const_iterator {
-    public:
-     /**
-      * @brief Constructor
-      *
-      * Can create a constant iterator to the
-      * beginning of the component ids container or to the end.
-      *
-      * @param iterated Pointer to the component ids iterated
-      * @param begin Flag indicating if the iterator point to the beginning (true)
-      * or the end of the container.
-      */
-     component_id_const_iterator(const Criteria::Impl* iterated, bool begin);
+  class component_id_const_iterator {
+   public:
+    /**
+     * @brief Constructor
+     *
+     * Can create a constant iterator to the
+     * beginning of the component ids container or to the end.
+     *
+     * @param iterated Pointer to the component ids iterated
+     * @param begin Flag indicating if the iterator point to the beginning (true)
+     * or the end of the container.
+     */
+    component_id_const_iterator(const Criteria::Impl* iterated, bool begin);
 
-     /**
-      * @brief Copy constructor
-      * @param original : component_id_const_iterator to copy
-      */
-     component_id_const_iterator(const component_id_const_iterator& original);
+    /**
+     * @brief Copy constructor
+     * @param original : component_id_const_iterator to copy
+     */
+    component_id_const_iterator(const component_id_const_iterator& original);
 
-     /**
-      * @brief Destructor
-      */
-     ~component_id_const_iterator();
+    /**
+     * @brief Destructor
+     */
+    ~component_id_const_iterator();
 
-     /**
-      * @brief assignment
-      * @param other : component_id_const_iterator to assign
-      *
-      * @returns Reference to this component_id_const_iterator
-      */
-     component_id_const_iterator& operator=(const component_id_const_iterator& other);
+    /**
+     * @brief assignment
+     * @param other : component_id_const_iterator to assign
+     *
+     * @returns Reference to this component_id_const_iterator
+     */
+    component_id_const_iterator& operator=(const component_id_const_iterator& other);
 
-     /**
-      * @brief Prefix-increment operator
-      *
-      * @returns Reference to this component_id_const_iterator
-      */
-     component_id_const_iterator& operator++();
+    /**
+     * @brief Prefix-increment operator
+     *
+     * @returns Reference to this component_id_const_iterator
+     */
+    component_id_const_iterator& operator++();
 
-     /**
-      * @brief Postfix-increment operator
-      *
-      * @returns Copy of this component_id_const_iterator
-      */
-     component_id_const_iterator operator++(int);
+    /**
+     * @brief Postfix-increment operator
+     *
+     * @returns Copy of this component_id_const_iterator
+     */
+    component_id_const_iterator operator++(int);
 
-     /**
-      * @brief Prefix-decrement operator
-      *
-      * @returns Reference to this component_id_const_iterator
-      */
-     component_id_const_iterator& operator--();
+    /**
+     * @brief Prefix-decrement operator
+     *
+     * @returns Reference to this component_id_const_iterator
+     */
+    component_id_const_iterator& operator--();
 
-     /**
-      * @brief Postfix-decrement operator
-      *
-      * @returns Copy of this component_id_const_iterator
-      */
-     component_id_const_iterator operator--(int);
+    /**
+     * @brief Postfix-decrement operator
+     *
+     * @returns Copy of this component_id_const_iterator
+     */
+    component_id_const_iterator operator--(int);
 
-     /**
-      * @brief Equal to operator
-      *
-      * @param other Iterator to be compared with this
-      * @returns true if iterators are equals, else false
-      */
-     bool operator==(const component_id_const_iterator& other) const;
+    /**
+     * @brief Equal to operator
+     *
+     * @param other Iterator to be compared with this
+     * @returns true if iterators are equals, else false
+     */
+    bool operator==(const component_id_const_iterator& other) const;
 
-     /**
-      * @brief Not equal to operator
-      *
-      * @param other Iterator to be compared with this
-      * @returns true if iterators are different, else false
-      */
-     bool operator!=(const component_id_const_iterator& other) const;
+    /**
+     * @brief Not equal to operator
+     *
+     * @param other Iterator to be compared with this
+     * @returns true if iterators are different, else false
+     */
+    bool operator!=(const component_id_const_iterator& other) const;
 
-     /**
-      * @brief Indirection operator
-      *
-      * @returns id pointed to by this
-      */
-     const std::string& operator*() const;
+    /**
+     * @brief Indirection operator
+     *
+     * @returns id pointed to by this
+     */
+    const std::string& operator*() const;
 
-     /**
-      * @brief Structure dereference operator
-      *
-      * @returns Pointer to the id pointed to by this
-      */
-     const std::string* operator->() const;
+    /**
+     * @brief Structure dereference operator
+     *
+     * @returns Pointer to the id pointed to by this
+     */
+    const std::string* operator->() const;
 
-    private:
-     BaseCompIdConstIteratorImpl* impl_;  ///<  Pointer to the implementation of the const iterator
-   };
+   private:
+    BaseCompIdConstIteratorImpl* impl_;  ///<  Pointer to the implementation of the const iterator
+  };
 
-   /**
-    * @brief Get a component_id_const_iterator to the beginning of components ids container
-    * @return a component_id_const_iterator to the beginning of components ids container
-    */
-   virtual component_id_const_iterator begin() const = 0;
+  /**
+   * @brief Get a component_id_const_iterator to the beginning of components ids container
+   * @return a component_id_const_iterator to the beginning of components ids container
+   */
+  virtual component_id_const_iterator begin() const = 0;
 
-   /**
-    * @brief Get a component_id_const_iterator to the end of components ids container
-    * @return a component_id_const_iterator to the end of components ids container
-    */
-   virtual component_id_const_iterator end() const = 0;
+  /**
+   * @brief Get a component_id_const_iterator to the end of components ids container
+   * @return a component_id_const_iterator to the end of components ids container
+   */
+  virtual component_id_const_iterator end() const = 0;
 };
 
 }  // namespace criteria
 
-#endif  // API_CRT_CRVCRITERIA_H_
+#endif  // API_CRT_CRTCRITERIA_H_

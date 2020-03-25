@@ -133,27 +133,27 @@ static CriteriaType_t string2Type(const std::string& str) {
 
   /**
    * @brief Setter for maximum nominal voltage
-   * @param uMaxNom maximum nominal voltage
+   * @param uNomMax maximum nominal voltage
    */
-  virtual void setUMaxNom(double uMaxNom) = 0;
+  virtual void setUNomMax(double uNomMax) = 0;
 
   /**
    * @brief Getter for maximum nominal voltage
    * @return maximum nominal voltage
    */
-  virtual double getUMaxNom() const = 0;
+  virtual double getUNomMax() const = 0;
 
   /**
-   * @brief return true if uMaxNom has been defined
-   * @return true if uMaxNom has been defined
+   * @brief return true if uNomMax has been defined
+   * @return true if uNomMax has been defined
    */
-  virtual bool hasUMaxNom() const = 0;
+  virtual bool hasUNomMax() const = 0;
 
   /**
    * @brief Setter for minimum voltage
-   * @param uMin minimum voltage
+   * @param uMinPu minimum voltage
    */
-  virtual void setUMinPu(double uMin) = 0;
+  virtual void setUMinPu(double uMinPu) = 0;
 
   /**
    * @brief Getter for minimum voltage
@@ -169,21 +169,21 @@ static CriteriaType_t string2Type(const std::string& str) {
 
   /**
    * @brief Setter for minimum nominal voltage
-   * @param uMinNom minimum nominal voltage
+   * @param uNomMin minimum nominal voltage
    */
-  virtual void setUMinNom(double uMinNom) = 0;
+  virtual void setUNomMin(double uNomMin) = 0;
 
   /**
    * @brief Getter for minimum nominal voltage
    * @return minimum nominal voltage
    */
-  virtual double getUMinNom() const = 0;
+  virtual double getUNomMin() const = 0;
 
   /**
-   * @brief return true if uMinNom has been defined
-   * @return true if uMinNom has been defined
+   * @brief return true if uNomMin has been defined
+   * @return true if uNomMin has been defined
    */
-  virtual bool hasUMinNom() const = 0;
+  virtual bool hasUNomMin() const = 0;
 
   /**
    * @brief Setter for maximum active power
