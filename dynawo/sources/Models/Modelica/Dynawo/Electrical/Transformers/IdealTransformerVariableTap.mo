@@ -24,7 +24,7 @@ model IdealTransformerVariableTap "Ideal transformer (lossless) with a variable 
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
-  extends BaseClasses.BaseCommonTransformerVariableTap;
+  extends BaseClasses.BaseTransformerVariableTap;
   extends SwitchOff.SwitchOffTransformer;
   extends AdditionalIcons.Transformer;
 equation
