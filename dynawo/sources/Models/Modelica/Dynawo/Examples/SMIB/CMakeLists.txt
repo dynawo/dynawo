@@ -10,7 +10,7 @@
 
 set(MODEL_FILES
     package.mo
-    Types.mo
+    SMIB_StepPm.mo
     )
 
 #
@@ -19,12 +19,3 @@ set(MODEL_FILES
 foreach( MODEL_FILE ${MODEL_FILES} )
     INSTALL_MODEL_file(${MODEL_FILE})
 endforeach( MODEL_FILE )
-
-get_filename_component(modelRoot ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Resources DESTINATION ${DDBDIR_NAME}/${modelRoot}/)
-
-add_subdirectory(Connectors C)
-add_subdirectory(Electrical E)
-add_subdirectory(NonElectrical N)
-add_subdirectory(AdditionalIcons I)
-add_subdirectory(Examples X)
