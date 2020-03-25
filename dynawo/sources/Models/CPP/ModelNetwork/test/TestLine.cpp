@@ -1150,8 +1150,9 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   yTypesSave = yTypes;
   ASSERT_NO_THROW(dl->updateYType());
   ASSERT_NO_THROW(dl->updateFType());
-  ASSERT_EQ(fTypes, fTypesSave);
-  ASSERT_EQ(yTypes, yTypesSave);
+  ASSERT_EQ(fTypes[0], fTypesSave[0]);
+  ASSERT_EQ(yTypes[0], yTypesSave[0]);
+  ASSERT_EQ(yTypes[2], yTypesSave[2]);
 
   // test init
   int yNum = 0;
@@ -1230,8 +1231,9 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   yTypesSave3 = yTypes3;
   ASSERT_NO_THROW(dl3->updateYType());
   ASSERT_NO_THROW(dl3->updateFType());
-  ASSERT_EQ(fTypes3, fTypesSave3);
-  ASSERT_EQ(yTypes3, yTypesSave3);
+  ASSERT_EQ(fTypes3[0], fTypesSave3[0]);
+  ASSERT_EQ(yTypes3[0], yTypesSave3[0]);
+  ASSERT_EQ(yTypes3[2], yTypesSave3[2]);
 
   // test evalF
   ASSERT_NO_THROW(dl3->evalF());
