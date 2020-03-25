@@ -30,7 +30,7 @@ model TransformerVariableTap "Transformer with variable tap to be connected to a
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
-  extends BaseClasses.BaseCommonTransformerVariableTap;
+  extends BaseClasses.BaseTransformerVariableTap;
   extends SwitchOff.SwitchOffTransformer;
   extends AdditionalIcons.Transformer;
 

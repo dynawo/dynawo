@@ -28,7 +28,7 @@ record TransformerParameters "Classical transformer parameters"
 annotation(preferredView = "text");
 end TransformerParameters;
 
-partial model BaseCommonTransformerVariableTap "Base class for ideal and classical transformers with variable tap"
+partial model BaseTransformerVariableTap "Base class for ideal and classical transformers with variable tap"
 
   parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
   parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
@@ -84,7 +84,7 @@ equation
   U2Pu.value = ComplexMath.'abs' (terminal2.V);
 
 annotation(preferredView = "text");
-end BaseCommonTransformerVariableTap;
+end BaseTransformerVariableTap;
 
 
 annotation(preferredView = "text");
