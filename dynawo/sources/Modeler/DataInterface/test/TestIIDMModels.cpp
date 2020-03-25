@@ -189,7 +189,7 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
 
   if (properties.instantiateGenerator) {
     IIDM::builders::GeneratorBuilder gb;
-    IIDM::MinMaxReactiveLimits limits(1., 2.);
+    IIDM::MinMaxReactiveLimits limits(1., 20.);
     gb.minMaxReactiveLimits(limits);
     gb.targetP(1.05);
     gb.pmin(-150.);
@@ -475,6 +475,10 @@ TEST(DataInterfaceIIDMTest, testGeneratorIIDMCheckCriteriaAndStaticParameters) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMax"), 200.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMin_pu"), -150. / SNREF);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "pMax_pu"), 200. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "qMax"), 20);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "qMax_pu"), 20. / SNREF);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "sNom"), sqrt(20 * 20 + 200 * 200));
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyGenerator", "vNom"), 150);
 }
 
 

@@ -85,14 +85,20 @@ GeneratorInterfaceIIDM::checkCriteria(bool /*checkEachIter*/) {
 void
 GeneratorInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
+  double pMax = getPMax();
+  double qMax = getQMax();
   staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(getP() / SNREF)));
   staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(getQ() / SNREF)));
   staticParameters_.insert(std::make_pair("pMin_pu", StaticParameter("pMin_pu", StaticParameter::DOUBLE).setValue(getPMin() / SNREF)));
-  staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(getPMax() / SNREF)));
+  staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(pMax / SNREF)));
+  staticParameters_.insert(std::make_pair("qMax_pu", StaticParameter("qMax_pu", StaticParameter::DOUBLE).setValue(qMax / SNREF)));
   staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(getP())));
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ())));
   staticParameters_.insert(std::make_pair("pMin", StaticParameter("pMin", StaticParameter::DOUBLE).setValue(getPMin())));
-  staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(getPMax())));
+  staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(pMax)));
+  staticParameters_.insert(std::make_pair("qMax", StaticParameter("qMax", StaticParameter::DOUBLE).setValue(qMax)));
+  double sNom = sqrt(pMax * pMax + qMax * qMax);
+  staticParameters_.insert(std::make_pair("sNom", StaticParameter("sNom", StaticParameter::DOUBLE).setValue(sNom)));
   if (busInterface_) {
     double U0 = busInterface_->getV0();
     double vNom;
@@ -108,6 +114,7 @@ GeneratorInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(U0)));
     staticParameters_.insert(std::make_pair("uc", StaticParameter("uc", StaticParameter::DOUBLE).setValue(U0)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
+    staticParameters_.insert(std::make_pair("vNom", StaticParameter("vNom", StaticParameter::DOUBLE).setValue(vNom)));
   } else {
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
@@ -115,6 +122,7 @@ GeneratorInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("uc", StaticParameter("uc", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("vNom", StaticParameter("vNom", StaticParameter::DOUBLE).setValue(0.)));
   }
 }
 
@@ -156,6 +164,23 @@ GeneratorInterfaceIIDM::getPMax() {
 double
 GeneratorInterfaceIIDM::getQ() {
   return InjectorInterfaceIIDM<IIDM::Generator>::getQ();
+}
+
+double
+GeneratorInterfaceIIDM::getQMax() {
+  if (generatorIIDM_.has_minMaxReactiveLimits()) {
+    return generatorIIDM_.minMaxReactiveLimits().max();
+  } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
+    double qMax;
+    for (int i = 0; i <= generatorIIDM_.reactiveCapabilityCurve().size(); i++) {
+      IIDM::ReactiveCapabilityCurve::point const& current_point = generatorIIDM_.reactiveCapabilityCurve()[i];
+      if (current_point.qmax > qMax)
+        qMax = current_point.qmax;
+    }
+    return qMax;
+  } else {
+    return 0.3 * getPMax();
+  }
 }
 
 string
