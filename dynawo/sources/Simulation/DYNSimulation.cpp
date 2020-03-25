@@ -539,6 +539,8 @@ Simulation::loadDynamicData() {
     dyd_->getNetworkParameters(networkParFile_, networkParSet_);
   } else {
     dyd_->initFromDydFiles(dydFiles_);
+    if (activateCriteria_)
+      Trace::warn() << DYNLog(CriteriaDefinedButNoIIDM) << Trace::endline;
   }
 }
 
