@@ -172,7 +172,7 @@ GeneratorInterfaceIIDM::getQMax() {
     return generatorIIDM_.minMaxReactiveLimits().max();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
     double qMax = 0;
-    for (int i = 0; i <= generatorIIDM_.reactiveCapabilityCurve().size(); i++) {
+    for (unsigned int i = 0; i <= generatorIIDM_.reactiveCapabilityCurve().size(); ++i) {
       IIDM::ReactiveCapabilityCurve::point const& current_point = generatorIIDM_.reactiveCapabilityCurve()[i];
       if (current_point.qmax > qMax)
         qMax = current_point.qmax;
