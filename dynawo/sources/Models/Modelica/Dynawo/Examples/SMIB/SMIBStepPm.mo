@@ -1,7 +1,7 @@
 within Dynawo.Examples.SMIB;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@ within Dynawo.Examples.SMIB;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model SMIB_StepPm "Synchronous machine infinite bus - Step on Pm"
+model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
   import Dynawo;
   extends Icons.Example;
   Dynawo.Electrical.Buses.InfiniteBus infiniteBus(UPhase = 0, UPu = 0.90081)  annotation(
@@ -86,4 +86,4 @@ equation
   annotation(
     experiment(StartTime = 0, StopTime = 30, Tolerance = 0.0001, Interval = 0.015),
     Documentation(info = "<html><head></head><body> This test case represents a synchronous machine connected to an infinite bus through a transformer and two lines in parallel. <div><br></div><div> The simulated event is a step variation on the generator  mechanical power Pm.</body></html>"));
-end SMIB_StepPm;
+end SMIBStepPm;
