@@ -49,7 +49,7 @@ model DCVoltageControl "DC Voltage Control for HVDC"
     Placement(visible = true, transformation(origin = {41, -25}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.LessThreshold lessThreshold(threshold = (-IpMaxcstPu) + DUDC) annotation(
     Placement(visible = true, transformation(origin = {41, -55}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = Kidc, Kp = Kpdc, uMax = IpMaxcstPu, uMin = -IpMaxcstPu)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = Kidc, Kp = Kpdc, uMax = IpMaxcstPu, uMin = -IpMaxcstPu, integrator.y_start = - Ip0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-30, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected

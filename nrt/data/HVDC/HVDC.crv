@@ -13,11 +13,13 @@
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
     <curve model="HVDC" variable="hvdcstandard_PPu_Side_PPu"/>
-    <curve model="HVDC" variable="hvdcstandard_UdcPu_Side_PPu"/>
+    <curve model="HVDC" variable="hvdcstandard_PPu_Side_QPu"/>
     <curve model="HVDC" variable="hvdcstandard_dCLine_U1dcPu"/>
-    <curve model="HVDC" variable="hvdcstandard_dCLine_U2dcPu"/>
     <curve model="HVDC" variable="hvdcstandard_Conv1_UPu"/>
+    <curve model="HVDC" variable="hvdcstandard_PPu_Side_aCVoltageControl_iqModPu"/>
+    <curve model="HVDC" variable="hvdcstandard_UdcPu_Side_PPu"/>
+    <curve model="HVDC" variable="hvdcstandard_UdcPu_Side_QPu"/>
+    <curve model="HVDC" variable="hvdcstandard_dCLine_U2dcPu"/>
     <curve model="HVDC" variable="hvdcstandard_Conv2_UPu"/>
-    <curve model="Load" variable="load_PPu"/>
-    <curve model="Load" variable="load_QPu"/>
+    <curve model="HVDC" variable="hvdcstandard_UdcPu_Side_aCVoltageControl_iqModPu"/>
 </curvesInput>

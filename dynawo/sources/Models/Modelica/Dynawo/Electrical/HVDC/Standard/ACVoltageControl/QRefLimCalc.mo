@@ -22,10 +22,10 @@ model QRefLimCalc
 
   parameter Types.ReactivePowerPu QMinOPPu;
   parameter Types.ReactivePowerPu QMaxOPPu;
-  parameter Real tableQMaxPPu[:,:]=[-1,2;-0.5,2;0,2;0.5,2;1,2];
-  parameter Real tableQMaxUPu[:,:]=[0,2;0.25,2;0.5,2;0.75,2;1,2];
-  parameter Real tableQMinPPu[:,:]=[-1,-2;-0.5,-2;0,-2;0.5,-2;1,-2];
-  parameter Real tableQMinUPu[:,:]=[0,-2;0.25,-2;0.5,-2;0.75,-2;1,-2];
+  parameter Real tableQMaxPPu[:,:]=[-1.049009,0;-1.049,0;-1.018,0.301;0,0.4;1.018,0.301;1.049,0;1.049009,0] "PQ diagram for Q>0";
+  parameter Real tableQMaxUPu[:,:]=[0,0.401;1.105263,0.401;1.131579,0;2,0] "UQ diagram for Q>0";
+  parameter Real tableQMinPPu[:,:]=[-1.049009,0;-1.049,0;-1.018,-0.288;-0.911,-0.6;0,-0.6;0.911,-0.6;1.018,-0.288;1.049,0;1.049009,0] "PQ diagram for Q<0";
+  parameter Real tableQMinUPu[:,:]=[0,0;0.986842,0;1.052632,-0.601;2,-0.601] "UQ diagram for Q<0";
 
   Modelica.Blocks.Interfaces.RealInput QRefUQPu(start = Q0Pu) "Reference reactive power in U mode in p.u (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
