@@ -22,11 +22,10 @@ model IdealTransformerVariableTap "Ideal transformer (lossless) with a variable 
 */
 
   import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends BaseClasses.BaseTransformerVariableTap;
-  extends SwitchOff.SwitchOffTransformer;
   extends AdditionalIcons.Transformer;
+
 equation
 
   if (running.value) then
@@ -34,8 +33,8 @@ equation
     terminal1.i = - rTfoPu * terminal2.i;
     rTfoPu * terminal1.V = terminal2.V;
   else
-    terminal1.i = Complex (0);
-    terminal2.i = Complex (0);
+    terminal1.i = terminal2.i;
+    terminal2.V = Complex (0);
   end if;
 
 annotation(preferredView = "text",
