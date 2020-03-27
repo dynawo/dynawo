@@ -48,9 +48,9 @@ protected
   Types.PerUnit Udc10Pu "Start value of dc voltage at terminal 1 in p.u (base SNom, UNom)";
   Types.PerUnit Udc20Pu "Start value of dc voltage at terminal 2 in p.u (base SNom, UNom)";
 
-  Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in p.u (base SnRef) (generator convention)";
-  Types.ReactivePowerPu QRef20Pu "Start value of reactive power reference at terminal 2 in p.u (base SnRef) (generator convention)";
-  Types.ReactivePowerPu PRef0Pu "Start value of reactive power reference in p.u (base SnRef) (generator convention)";
+  Types.ReactivePowerPu QRef10Pu "Start value of reactive power reference at terminal 1 in p.u (base SNom) (generator convention)";
+  Types.ReactivePowerPu QRef20Pu "Start value of reactive power reference at terminal 2 in p.u (base SNom) (generator convention)";
+  Types.ReactivePowerPu PRef0Pu "Start value of reactive power reference in p.u (base SNom) (generator convention)";
 
   Real modeU10 "Start value of the real assessing the mode of the control: 1 if U mode, 0 if Q mode";
   Real modeU20 "Start value of the real assessing the mode of the control: 1 if U mode, 0 if Q mode";
@@ -72,11 +72,11 @@ equation
   Q20Pu = U20Pu * Iq20Pu * (SNom/SystemBase.SnRef);
 
   Udc10Pu = 1;
-  0 = Udc10Pu * (Udc10Pu - Udc20Pu) - RdcPu * P10Pu;
+  Udc20Pu = 1 + RdcPu * PRef0Pu;
 
-  QRef10Pu = - Q10Pu;
-  QRef20Pu = - Q20Pu;
-  PRef0Pu = - P10Pu;
+  QRef10Pu = - Q10Pu / (SNom/SystemBase.SnRef);
+  QRef20Pu = - Q20Pu / (SNom/SystemBase.SnRef);
+  PRef0Pu = - P10Pu / (SNom/SystemBase.SnRef);
   modeU10 = 1;
   modeU20 = 1;
 

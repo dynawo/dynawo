@@ -31,11 +31,11 @@ model ActivePowerControlSide "Active Power Control Side of the HVDC link"
   parameter Types.PerUnit Kideltap;
   parameter Types.PerUnit IpMaxcstPu;
   parameter Types.PerUnit SlopeRPFault;
-  parameter Real tableQMaxPPu[:,:]=[-1,2;-0.5,2;0,2;0.5,2;1,2];
-  parameter Real tableQMaxUPu[:,:]=[0,2;0.25,2;0.5,2;0.75,2;1,2];
-  parameter Real tableQMinPPu[:,:]=[-1,-2;-0.5,-2;0,-2;0.5,-2;1,-2];
-  parameter Real tableQMinUPu[:,:]=[0,-2;0.25,-2;0.5,-2;0.75,-2;1,-2];
-  parameter Real tableiqMod[:,:]=[0,0;1,0;2,0;3,0];
+  parameter Real tableQMaxPPu[:,:]=[-1.049009,0;-1.049,0;-1.018,0.301;0,0.4;1.018,0.301;1.049,0;1.049009,0] "PQ diagram for Q>0";
+  parameter Real tableQMaxUPu[:,:]=[0,0.401;1.105263,0.401;1.131579,0;2,0] "UQ diagram for Q>0";
+  parameter Real tableQMinPPu[:,:]=[-1.049009,0;-1.049,0;-1.018,-0.288;-0.911,-0.6;0,-0.6;0.911,-0.6;1.018,-0.288;1.049,0;1.049009,0] "PQ diagram for Q<0";
+  parameter Real tableQMinUPu[:,:]=[0,0;0.986842,0;1.052632,-0.601;2,-0.601] "UQ diagram for Q<0";
+  parameter Real tableiqMod[:,:]=[0,1;0.736842,1;0.894737,0;1.157895,0;1.315789,-1;2,-1] "iqMod diagram";
   parameter Types.PerUnit SlopeURefPu;
   parameter Types.PerUnit SlopeQRefPu;
   parameter Types.PerUnit Lambda;

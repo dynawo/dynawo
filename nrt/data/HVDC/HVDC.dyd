@@ -12,18 +12,19 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="InfBus">
+  <dyn:modelicaModel id="InfBus1">
     <dyn:unitDynamicModel id="Bus" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="./HVDC.par" parId="1"/>
   </dyn:modelicaModel>
-    <dyn:blackBoxModel id="Line1" lib="Line" parFile="./HVDC.par" parId="2"/>
-    <dyn:blackBoxModel id="HVDC" lib="HVDCStandard" parFile="./HVDC.par" parId="3"/>
-    <dyn:blackBoxModel id="Line2" lib="Line" parFile="./HVDC.par" parId="2"/>
-    <dyn:blackBoxModel id="Line3" lib="Line" parFile="./HVDC.par" parId="2"/>
-    <dyn:blackBoxModel id="Load" lib="LoadAlphaBeta" parFile="./HVDC.par" parId="4"/>
-    <dyn:connect id1="InfBus" var1="Bus_terminal" id2="Line1" var2="line_terminal1"/>
+  <dyn:modelicaModel id="InfBus2">
+    <dyn:unitDynamicModel id="Bus" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="./HVDC.par" parId="2"/>
+  </dyn:modelicaModel>
+    <dyn:blackBoxModel id="Line1" lib="Line" parFile="./HVDC.par" parId="3"/>
+    <dyn:blackBoxModel id="Line2" lib="Line" parFile="./HVDC.par" parId="4"/>
+    <dyn:blackBoxModel id="HVDC" lib="HVDCStandard" parFile="./HVDC.par" parId="5"/>
+    <dyn:blackBoxModel id="Fault" lib="NodeFault" parFile="./HVDC.par" parId="6"/>
+    <dyn:connect id1="Fault" var1="fault_terminal" id2="Line2" var2="line_terminal2"/>
+    <dyn:connect id1="InfBus1" var1="Bus_terminal" id2="Line1" var2="line_terminal1"/>
+    <dyn:connect id1="InfBus2" var1="Bus_terminal" id2="Line2" var2="line_terminal1"/>
     <dyn:connect id1="Line1" var1="line_terminal2" id2="HVDC" var2="hvdcstandard_terminal1"/>
-    <dyn:connect id1="Line3" var1="line_terminal1" id2="HVDC" var2="hvdcstandard_terminal1"/>
-    <dyn:connect id1="Line3" var1="line_terminal2" id2="HVDC" var2="hvdcstandard_terminal2"/>
     <dyn:connect id1="Line2" var1="line_terminal2" id2="HVDC" var2="hvdcstandard_terminal2"/>
-    <dyn:connect id1="Load" var1="load_terminal" id2="Line2" var2="line_terminal1"/>
 </dyn:dynamicModelsArchitecture>
