@@ -31,11 +31,57 @@ model HVDCStandard "HVDC Standard model"
   parameter Types.PerUnit Kidc "Integral coefficient of the PI controller for the dc voltage control";
   parameter Types.PerUnit IpMaxcstPu "Maximum value of the active current in p.u (base SNom, UNom)";
   parameter Types.CurrentModulePu DUDC "Deadband for the activate DeltaP function";
-  parameter Real tableQMaxPPu[:,:]=[-1,2;-0.5,2;0,2;0.5,2;1,2] "PQ diagram for Q>0";
-  parameter Real tableQMaxUPu[:,:]=[0,2;0.25,2;0.5,2;0.75,2;1,2] "UQ diagram for Q>0";
-  parameter Real tableQMinPPu[:,:]=[-1,-2;-0.5,-2;0,-2;0.5,-2;1,-2] "PQ diagram for Q<0";
-  parameter Real tableQMinUPu[:,:]=[0,-2;0.25,-2;0.5,-2;0.75,-2;1,-2] "UQ diagram for Q<0";
-  parameter Real tableiqMod[:,:]=[0,0;1,0;2,0;3,0] "iqMod diagram";
+  parameter Real tableQMaxPPu11 = 0;
+  parameter Real tableQMaxPPu12 = 0.4;
+  parameter Real tableQMaxPPu21 = 1.018;
+  parameter Real tableQMaxPPu22 = 0.301;
+  parameter Real tableQMaxPPu31 = 1.049;
+  parameter Real tableQMaxPPu32 = 0;
+  parameter Real tableQMaxPPu41 = 1.049009;
+  parameter Real tableQMaxPPu42 = 0;
+  parameter Real tableQMaxPPu[:,:]=[-tableQMaxPPu41,tableQMaxPPu42;-tableQMaxPPu31,tableQMaxPPu32;-tableQMaxPPu21,tableQMaxPPu22;tableQMaxPPu11,tableQMaxPPu12;tableQMaxPPu21,tableQMaxPPu22;tableQMaxPPu31,tableQMaxPPu32;tableQMaxPPu41,tableQMaxPPu42] "PQ diagram for Q>0";
+  parameter Real tableQMaxUPu11 = 0;
+  parameter Real tableQMaxUPu12 = 0.401;
+  parameter Real tableQMaxUPu21 = 1.105263;
+  parameter Real tableQMaxUPu22 = 0.401;
+  parameter Real tableQMaxUPu31 = 1.131579;
+  parameter Real tableQMaxUPu32 = 0;
+  parameter Real tableQMaxUPu41 = 2;
+  parameter Real tableQMaxUPu42 = 0;
+  parameter Real tableQMaxUPu[:,:]=[tableQMaxUPu11,tableQMaxUPu12;tableQMaxUPu21,tableQMaxUPu22;tableQMaxUPu31,tableQMaxUPu32;tableQMaxUPu41,tableQMaxUPu42] "UQ diagram for Q>0";
+  parameter Real tableQMinPPu11 = 0;
+  parameter Real tableQMinPPu12 = - 0.6;
+  parameter Real tableQMinPPu21 = 0.911;
+  parameter Real tableQMinPPu22 = - 0.6;
+  parameter Real tableQMinPPu31 = 1.018;
+  parameter Real tableQMinPPu32 = - 0.288;
+  parameter Real tableQMinPPu41 = 1.049;
+  parameter Real tableQMinPPu42 = 0;
+  parameter Real tableQMinPPu51 = 1.049009;
+  parameter Real tableQMinPPu52 = 0;
+  parameter Real tableQMinPPu[:,:]=[-tableQMinPPu51,tableQMinPPu52;-tableQMinPPu41,tableQMinPPu42;-tableQMinPPu31,tableQMinPPu32;-tableQMinPPu21,tableQMinPPu22;tableQMinPPu11,tableQMinPPu12;tableQMinPPu21,tableQMinPPu22;tableQMinPPu31,tableQMinPPu32;tableQMinPPu41,tableQMinPPu42;tableQMinPPu51,tableQMinPPu52] "PQ diagram for Q<0";
+  parameter Real tableQMinUPu11 = 0;
+  parameter Real tableQMinUPu12 = 0;
+  parameter Real tableQMinUPu21 = 0.986842;
+  parameter Real tableQMinUPu22 = 0;
+  parameter Real tableQMinUPu31 = 1.052632;
+  parameter Real tableQMinUPu32 = -0.601;
+  parameter Real tableQMinUPu41 = 2;
+  parameter Real tableQMinUPu42 = -0.601;
+  parameter Real tableQMinUPu[:,:]=[tableQMinUPu11,tableQMinUPu12;tableQMinUPu21,tableQMinUPu22;tableQMinUPu31,tableQMinUPu32;tableQMinUPu41,tableQMinUPu42] "UQ diagram for Q<0";
+  parameter Real tableiqMod11 = 0;
+  parameter Real tableiqMod12 = 1;
+  parameter Real tableiqMod21 = 0.736842;
+  parameter Real tableiqMod22 = 1;
+  parameter Real tableiqMod31 = 0.894737;
+  parameter Real tableiqMod32 = 0;
+  parameter Real tableiqMod41 = 1.157895;
+  parameter Real tableiqMod42 = 0;
+  parameter Real tableiqMod51 = 1.315789;
+  parameter Real tableiqMod52 = -1;
+  parameter Real tableiqMod61 = 2;
+  parameter Real tableiqMod62 = -1;
+  parameter Real tableiqMod[:,:]=[tableiqMod11,tableiqMod12;tableiqMod21,tableiqMod22;tableiqMod31,tableiqMod32;tableiqMod41,tableiqMod42;tableiqMod51,tableiqMod52;tableiqMod61,tableiqMod62] "iqMod diagram";
   parameter Types.PerUnit SlopeURefPu "Slope of the ramp of URefPu";
   parameter Types.PerUnit SlopeQRefPu "Slope of the ramp of QRefPu";
   parameter Types.PerUnit Lambda "Lambda coefficient for the QRefUPu calculation";
@@ -68,15 +114,15 @@ model HVDCStandard "HVDC Standard model"
   parameter Types.VoltageModulePu UMaxdbPu "Maximum voltage that deactivate the blocking function in p.u (base UNom)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 
-  Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu) "Reactive power reference for the side 1 of the HVDC link in p.u (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu / (SNom/SystemBase.SnRef)) "Reactive power reference for the side 1 of the HVDC link in p.u (base SNom) and in generator convention" annotation(
     Placement(visible = true, transformation(origin = {-90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P10Pu) "Active power reference of the HVDC link in p.u (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P10Pu / (SNom/SystemBase.SnRef)) "Active power reference of the HVDC link in p.u (base SNom) and in generator convention" annotation(
     Placement(visible = true, transformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu) "Voltage reference for the side 1 of the HVDC link in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput modeU1(start = 1) "Real assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
     Placement(visible = true, transformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput QRef2Pu(start = - Q20Pu) "Reactive power reference for the side 2 of the HVDC link in p.u (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRef2Pu(start = - Q20Pu / (SNom/SystemBase.SnRef)) "Reactive power reference for the side 2 of the HVDC link in p.u (base SNom) and in generator convention" annotation(
     Placement(visible = true, transformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput URef2Pu(start = U20Pu) "Voltage reference for the side 2 of the HVDC link in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
@@ -85,17 +131,17 @@ model HVDCStandard "HVDC Standard model"
   Modelica.Blocks.Interfaces.RealInput modeU2(start = 1) "Boolean assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
     Placement(visible = true, transformation(origin = {90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90), iconTransformation(origin = {90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  Dynawo.Electrical.HVDC.Standard.DCVoltageControlSide UdcPu_Side(DUDC = DUDC, DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip20Pu, IpMaxcstPu = IpMaxcstPu, Iq0Pu = Iq20Pu, Kiacvoltagecontrol = Kiacvoltagecontrol, Kidc = Kidc, Kpacvoltagecontrol = Kpacvoltagecontrol, Kpdc = Kpdc, Lambda = Lambda, P0Pu = - P20Pu, Q0Pu = - Q20Pu, QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U20Pu, Udc0Pu = Udc20Pu, UdcRefMaxPu = UdcRefMaxPu, UdcRefMinPu = UdcRefMinPu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod)  annotation(
+  Dynawo.Electrical.HVDC.Standard.DCVoltageControlSide UdcPu_Side(DUDC = DUDC, DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip20Pu, IpMaxcstPu = IpMaxcstPu, Iq0Pu = Iq20Pu, Kiacvoltagecontrol = Kiacvoltagecontrol, Kidc = Kidc, Kpacvoltagecontrol = Kpacvoltagecontrol, Kpdc = Kpdc, Lambda = Lambda, P0Pu = - P20Pu / (SNom/SystemBase.SnRef), Q0Pu = - Q20Pu / (SNom/SystemBase.SnRef), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U20Pu, Udc0Pu = Udc20Pu, UdcRefMaxPu = UdcRefMaxPu, UdcRefMinPu = UdcRefMinPu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod)  annotation(
     Placement(visible = true, transformation(origin = {80, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.HVDC.Standard.ActivePowerControlSide PPu_Side(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip10Pu, IpMaxcstPu = IpMaxcstPu, Iq0Pu = Iq10Pu, Kiacvoltagecontrol = Kiacvoltagecontrol, Kideltap = Kideltap, Kipcontrol = Kipcontrol, Kpacvoltagecontrol = Kpacvoltagecontrol, Kpdeltap = Kpdeltap, Kppcontrol = Kppcontrol, Lambda = Lambda, P0Pu = - P10Pu, PMaxOPPu = PMaxOPPu, PMinOPPu = PMinOPPu, Q0Pu = - Q10Pu, QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopePRefPu = SlopePRefPu, SlopeQRefPu = SlopeQRefPu, SlopeRPFault = SlopeRPFault, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U10Pu, Udc0Pu = Udc10Pu, UdcMaxPu = UdcMaxPu, UdcMinPu = UdcMinPu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod)  annotation(
+  Dynawo.Electrical.HVDC.Standard.ActivePowerControlSide PPu_Side(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip10Pu, IpMaxcstPu = IpMaxcstPu, Iq0Pu = Iq10Pu, Kiacvoltagecontrol = Kiacvoltagecontrol, Kideltap = Kideltap, Kipcontrol = Kipcontrol, Kpacvoltagecontrol = Kpacvoltagecontrol, Kpdeltap = Kpdeltap, Kppcontrol = Kppcontrol, Lambda = Lambda, P0Pu = - P10Pu / (SNom/SystemBase.SnRef), PMaxOPPu = PMaxOPPu, PMinOPPu = PMinOPPu, Q0Pu = - Q10Pu / (SNom/SystemBase.SnRef), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopePRefPu = SlopePRefPu, SlopeQRefPu = SlopeQRefPu, SlopeRPFault = SlopeRPFault, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U10Pu, Udc0Pu = Udc10Pu, UdcMaxPu = UdcMaxPu, UdcMinPu = UdcMinPu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod)  annotation(
     Placement(visible = true, transformation(origin = {-80, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.HVDC.Standard.BlockingFunction.GeneralBlockingFunction Blocking(TBlock = TBlock, TBlockUV = TBlockUV, TDeblockU = TDeblockU, UBlockUVPu = UBlockUVPu, UMaxdbPu = UMaxdbPu, UMindbPu = UMindbPu, U10Pu = U10Pu, U20Pu = U20Pu)  annotation(
     Placement(visible = true, transformation(origin = {0, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.HVDC.Standard.DCLine.DCLine dCLine(CdcPu = CdcPu, P10Pu = - P10Pu, P20Pu = - P20Pu, RdcPu = RdcPu, U1dc0Pu = Udc10Pu, U2dc0Pu = Udc20Pu)  annotation(
+  Dynawo.Electrical.HVDC.Standard.DCLine.DCLine dCLine(CdcPu = CdcPu, P10Pu = - P10Pu / (SNom/SystemBase.SnRef), P20Pu = - P20Pu / (SNom/SystemBase.SnRef), RdcPu = RdcPu, U1dc0Pu = Udc10Pu, U2dc0Pu = Udc20Pu)  annotation(
     Placement(visible = true, transformation(origin = {0, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Dynawo.Electrical.Sources.InjectorIDQ Conv1(Id0Pu = Ip10Pu, Iq0Pu = Iq10Pu, P0Pu = - P10Pu, Q0Pu = - Q10Pu, SNom = SNom, U0Pu = U10Pu, UPhase0 = UPhase10, i0Pu = i10Pu, s0Pu = s10Pu, u0Pu = u10Pu)  annotation(
+  Dynawo.Electrical.Sources.InjectorIDQ Conv1(Id0Pu = Ip10Pu, Iq0Pu = Iq10Pu, P0Pu = P10Pu / (SNom/SystemBase.SnRef), Q0Pu = Q10Pu / (SNom/SystemBase.SnRef), SNom = SNom, U0Pu = U10Pu, UPhase0 = UPhase10, i0Pu = i10Pu, s0Pu = s10Pu, u0Pu = u10Pu)  annotation(
     Placement(visible = true, transformation(origin = {-50, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.InjectorIDQ Conv2(Id0Pu = Ip20Pu, Iq0Pu = Iq20Pu, P0Pu = - P20Pu, Q0Pu = - Q20Pu, SNom = SNom, U0Pu = U20Pu, UPhase0 = UPhase20, i0Pu = i20Pu, s0Pu = s20Pu, u0Pu = u20Pu)  annotation(
+  Dynawo.Electrical.Sources.InjectorIDQ Conv2(Id0Pu = Ip20Pu, Iq0Pu = Iq20Pu, P0Pu = P20Pu / (SNom/SystemBase.SnRef), Q0Pu = Q20Pu / (SNom/SystemBase.SnRef), SNom = SNom, U0Pu = U20Pu, UPhase0 = UPhase20, i0Pu = i20Pu, s0Pu = s20Pu, u0Pu = u20Pu)  annotation(
     Placement(visible = true, transformation(origin = {50, -20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.RealToBoolean realToBoolean annotation(
     Placement(visible = true, transformation(origin = {-30, 88}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));

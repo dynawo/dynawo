@@ -55,7 +55,7 @@ model QRefQUCalc
     Placement(visible = true, transformation(origin = {-85, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter1(Rising = SlopeQRefPu)  annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = Kiacvoltagecontrol, Kp = Kpacvoltagecontrol, uMax = QMaxCombPu, uMin = QMinCombPu)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = Kiacvoltagecontrol, Kp = Kpacvoltagecontrol, uMax = QMaxCombPu, uMin = QMinCombPu, integrator.y_start = Q0Pu)  annotation(
     Placement(visible = true, transformation(origin = {25, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
