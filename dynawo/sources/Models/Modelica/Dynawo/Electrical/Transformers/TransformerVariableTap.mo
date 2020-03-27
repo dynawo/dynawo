@@ -28,10 +28,8 @@ model TransformerVariableTap "Transformer with variable tap to be connected to a
 */
 
   import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends BaseClasses.BaseTransformerVariableTap;
-  extends SwitchOff.SwitchOffTransformer;
   extends AdditionalIcons.Transformer;
 
   public
@@ -54,8 +52,8 @@ equation
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
     ZPu * terminal1.i = rTfoPu * rTfoPu * terminal1.V - rTfoPu * terminal2.V;
   else
-    terminal1.i = Complex (0);
-    terminal2.i = Complex (0);
+    terminal1.i = terminal2.i;
+    terminal2.V = Complex (0);
   end if;
 
 annotation(preferredView = "text");

@@ -29,6 +29,9 @@ annotation(preferredView = "text");
 end TransformerParameters;
 
 partial model BaseTransformerVariableTap "Base class for ideal and classical transformers with variable tap"
+  import Dynawo.Electrical.Controls.Basics.SwitchOff;
+
+  extends SwitchOff.SwitchOffTransformer;
 
   parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
   parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
@@ -77,11 +80,18 @@ equation
     rTfoPu = rTfoMinPu + (rTfoMaxPu - rTfoMinPu) * (tap.value / (NbTap - 1));
   end if;
 
-  // Variables for display or connection to another model (tap-changer for example)
-  P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
-  Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
-  U1Pu.value = ComplexMath.'abs' (terminal1.V);
-  U2Pu.value = ComplexMath.'abs' (terminal2.V);
+  if (running.value) then
+    // Variables for display or connection to another model (tap-changer for example)
+    P1Pu.value = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
+    Q1Pu.value = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
+    U1Pu.value = ComplexMath.'abs' (terminal1.V);
+    U2Pu.value = ComplexMath.'abs' (terminal2.V);
+  else
+    P1Pu.value = 0;
+    Q1Pu.value = 0;
+    U1Pu.value = 0;
+    U2Pu.value = 0;
+  end if;
 
 annotation(preferredView = "text");
 end BaseTransformerVariableTap;
