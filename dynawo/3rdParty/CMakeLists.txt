@@ -744,7 +744,7 @@ if(NOT OMCompiler)
                 COMMAND   <SOURCE_DIR>/configure "CC=${CMAKE_C_COMPILER}" "CXX=${CMAKE_CXX_COMPILER}" --prefix=<INSTALL_DIR> --disable-modelica3d --disable-omnotebook --disable-omshell-terminal --with-qwt=NO
       BUILD_COMMAND       make -j ${NUMBER_OF_PROCESSORS} omc
       INSTALL_COMMAND     make install
-              COMMAND     ${CMAKE_COMMAND} -E create_symlink <INSTALL_DIR>/bin/omc <INSTALL_DIR>/bin/omcDynawo
+              COMMAND     cd <INSTALL_DIR>/bin && ln -s -f omc omcDynawo
       )
   endif()
   ExternalProject_Get_Property(openmodelica install_dir)
