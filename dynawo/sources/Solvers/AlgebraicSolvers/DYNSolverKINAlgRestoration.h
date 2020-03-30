@@ -88,9 +88,10 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   /**
    * @brief solve the equations of F(u) = 0 to find the new value of u
    *
+   * @return the flag value
    * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
    */
-  void solve(bool noInitSetup = true);
+  int solve(bool noInitSetup = true);
 
   /**
    * @brief getter for the model currently simulated
