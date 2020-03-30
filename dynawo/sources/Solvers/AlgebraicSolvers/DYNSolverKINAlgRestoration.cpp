@@ -303,10 +303,10 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector yy, N_Vector /*rr*/,
   return (0);
 }
 
-void
+int
 SolverKINAlgRestoration::solve(bool noInitSetup) {
   if (nbF_ == 0)
-    return;
+    return KIN_SUCCESS;
 
   int flag = KINSetNoInitSetup(KINMem_, noInitSetup);
   if (flag < 0)
@@ -342,6 +342,8 @@ SolverKINAlgRestoration::solve(bool noInitSetup) {
   flag = solveCommon();
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
+
+  return flag;
 }
 
 void
