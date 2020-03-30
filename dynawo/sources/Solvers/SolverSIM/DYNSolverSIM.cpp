@@ -663,10 +663,8 @@ SolverSIM::reinit() {
     solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
     int flag = solverKINAlgRestoration_->solve(noInitSetup);
     // If the initial guess is fine, nor the variables neither the time would have changed so we can return here and skip following treatments
-    if (flag == KIN_INITIAL_GUESS_OK) {
-      modeChangeType = NO_MODE;
+    if (flag == KIN_INITIAL_GUESS_OK)
       return;
-    }
     solverKINAlgRestoration_->getValues(vYy_, vYp_);
 
     // Root stabilization - tSolve_ has been updated in the solve method to the current time
