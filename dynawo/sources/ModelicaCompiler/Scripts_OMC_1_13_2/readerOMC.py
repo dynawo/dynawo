@@ -1132,6 +1132,8 @@ class ReaderOMC:
                         map_var_name_2_addresses[name]= "discreteVars"
                     else:
                         map_var_name_2_addresses[name]= "SHOULD NOT BE USED - BOOL ALIAS VAR"
+                elif type == "intConstVars":
+                    map_var_name_2_addresses[name]= "constVars"
                 elif type == "paramVars" or type == "boolParamVars":
                     map_var_name_2_addresses[name]= "realParameter"
                 elif type == "intParamVars":
