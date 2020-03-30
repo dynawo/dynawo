@@ -1923,6 +1923,7 @@ create_distrib() {
   zip -r -g -y $ZIP_FILE ddb/*.$DYNAWO_SHARED_LIBRARY_SUFFIX ddb/*.desc.xml ddb/*.extvar
   zip -r -g -y $ZIP_FILE sbin/curvesToHtml
   zip -r -g -y $ZIP_FILE sbin/xsl
+  zip -r -g -y $ZIP_FILE sbin/nrt
 
   # move distribution in distribution directory
   mv $ZIP_FILE $DISTRIB_DIR
