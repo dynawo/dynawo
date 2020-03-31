@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.Standard.ActivePowerControl;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -20,7 +20,7 @@ model RPFaultFunction "rpfault function"
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Types.PerUnit Slope "Slope of the recovery of rpfault after a fault in p.u/s";
+  extends Parameters.Params_RPFaultFunction;
 
   Modelica.Blocks.Interfaces.BooleanInput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -43,7 +43,7 @@ equation
     Timer = time;
   end when;
 
-  rpfault = if Timer == 0 then 1 else min(Slope * max(time - Timer, 0), 1);
+  rpfault = if Timer == 0 then 1 else min(SlopeRPFault * max(time - Timer, 0), 1);
 
   annotation(preferredView = "text",
     Diagram(coordinateSystem(grid = {1, 1})),

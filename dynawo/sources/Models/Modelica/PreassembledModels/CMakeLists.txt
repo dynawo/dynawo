@@ -11,16 +11,6 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
-    ACVoltageControl.xml
-    ACEmulation.xml
-    DCVoltageControl.xml
-    DCVoltageControlSide.xml
-    ActivePowerControl.xml
-    ActivePowerControlSide.xml
-    LimitsCalculationFunction.xml
-    BlockingFunction.xml
-    GeneralBlockingFunction.xml
-    DCLine.xml
     HVDCStandard.xml
     CurrentLimitAutomaton.xml
     EventConnectedStatus.xml

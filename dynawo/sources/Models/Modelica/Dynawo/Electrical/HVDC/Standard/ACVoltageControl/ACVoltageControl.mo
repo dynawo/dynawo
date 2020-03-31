@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.Standard.ACVoltageControl;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -20,51 +20,36 @@ model ACVoltageControl
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Real tableQMaxPPu[:,:]=[-1.049009,0;-1.049,0;-1.018,0.301;0,0.4;1.018,0.301;1.049,0;1.049009,0] "PQ diagram for Q>0";
-  parameter Real tableQMaxUPu[:,:]=[0,0.401;1.105263,0.401;1.131579,0;2,0] "UQ diagram for Q>0";
-  parameter Real tableQMinPPu[:,:]=[-1.049009,0;-1.049,0;-1.018,-0.288;-0.911,-0.6;0,-0.6;0.911,-0.6;1.018,-0.288;1.049,0;1.049009,0] "PQ diagram for Q<0";
-  parameter Real tableQMinUPu[:,:]=[0,0;0.986842,0;1.052632,-0.601;2,-0.601] "UQ diagram for Q<0";
-  parameter Real tableiqMod[:,:]=[0,1;0.736842,1;0.894737,0;1.157895,0;1.315789,-1;2,-1] "iqMod diagram";
-  parameter Types.PerUnit SlopeURefPu;
-  parameter Types.PerUnit SlopeQRefPu;
-  parameter Types.PerUnit Lambda;
-  parameter Types.PerUnit Kiacvoltagecontrol;
-  parameter Types.PerUnit Kpacvoltagecontrol;
-  parameter Types.ReactivePowerPu QMinCombPu;
-  parameter Types.ReactivePowerPu QMaxCombPu;
-  parameter Types.PerUnit DeadBandU;
-  parameter Types.ReactivePowerPu QMinOPPu;
-  parameter Types.ReactivePowerPu QMaxOPPu;
-  parameter Types.Time TQ;
-  parameter Types.CurrentModulePu InPu;
+  parameter Types.CurrentModulePu InPu "Nominal current in p.u (base SNom, UNom)";
+  extends Parameters.Params_ACVoltageControl;
 
   Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) "Active power in p.u (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage module in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QPu(start = Q0Pu) "Reactive power in p.u (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu) "Reference voltage in p.u (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu + Lambda * Q0Pu) "Reference voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-110, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = Q0Pu) "Reference reactive power in p.u (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput modeU(start = true) "Boolean assessing the mode of the control: true if U mode, false if Q mode" annotation(
-    Placement(visible = true, transformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -100}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
-    Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput IqMaxPu(start = sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Max reactive current reference in p.u (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-70,-110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+    Placement(visible = true, transformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {80, 110}, extent = {{10, -10}, {-10, 10}}, rotation = 90)));
   Modelica.Blocks.Interfaces.RealInput IqMinPu(start = -sqrt(InPu ^ 2 - Ip0Pu ^ 2)) "Min reactive current reference in p.u (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
+    Placement(visible = true, transformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {40, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in p.u (base UNom, SNom)"annotation(
-    Placement(visible = true, transformation(origin = {160, 7}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in p.u (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {160, 7}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealOutput iqModPu(start = 0) "Additional reactive current in case of fault or overvoltage in p.u (base UNom, SNom)" annotation(
-    Placement(visible = true, transformation(origin = {160, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {160, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.HVDC.Standard.ACVoltageControl.QRefQUCalc qRefQUCalc(DeadBandU = DeadBandU, Kiacvoltagecontrol = Kiacvoltagecontrol, Kpacvoltagecontrol = Kpacvoltagecontrol, Lambda = Lambda, Q0Pu = Q0Pu, QMaxCombPu = QMaxCombPu, QMinCombPu = QMinCombPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, U0Pu = U0Pu)  annotation(
+  Dynawo.Electrical.HVDC.Standard.ACVoltageControl.QRefQU qRefQU(DeadBandU = DeadBandU, KiACVoltageControl = KiACVoltageControl, KpACVoltageControl = KpACVoltageControl, Lambda = Lambda, Q0Pu = Q0Pu, QMaxCombPu = QMaxCombPu, QMinCombPu = QMinCombPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, U0Pu = U0Pu)  annotation(
     Placement(visible = true, transformation(origin = {-84, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.HVDC.Standard.ACVoltageControl.QRefLimCalc qRefLimCalc(P0Pu = P0Pu,Q0Pu = Q0Pu, QMaxOPPu = QMaxOPPu, QMinOPPu = QMinOPPu, U0Pu = U0Pu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu)  annotation(
+  Dynawo.Electrical.HVDC.Standard.ACVoltageControl.QRefLim qRefLim(P0Pu = P0Pu,Q0Pu = Q0Pu, QMaxOPPu = QMaxOPPu, QMinOPPu = QMinOPPu, U0Pu = U0Pu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu)  annotation(
     Placement(visible = true, transformation(origin = {-29, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Division division annotation(
     Placement(visible = true, transformation(origin = {0, -7}, extent = {{-10, 10}, {10, -10}}, rotation = 0)));
@@ -78,7 +63,7 @@ model ACVoltageControl
     Placement(visible = true, transformation(origin = {40, 90}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = -1) annotation(
     Placement(visible = true, transformation(origin = {137, 7}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Tables.CombiTable1D iqModCalc(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, table = tableiqMod)  annotation(
+  Modelica.Blocks.Tables.CombiTable1D iqMod(extrapolation = Modelica.Blocks.Types.Extrapolation.HoldLastPoint, table = tableiqMod)  annotation(
     Placement(visible = true, transformation(origin = {5, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Logical.Switch switch annotation(
     Placement(visible = true, transformation(origin = {-55, -13}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -94,7 +79,7 @@ protected
   parameter Types.ActivePowerPu P0Pu;
 
 equation
-  connect(qRefLimCalc.QRefLimPu, division.u1) annotation(
+  connect(qRefLim.QRefLimPu, division.u1) annotation(
     Line(points = {{-18, -13}, {-12, -13}}, color = {0, 0, 127}));
   connect(division.y, firstOrder.u) annotation(
     Line(points = {{11, -7}, {16, -7}}, color = {0, 0, 127}));
@@ -106,29 +91,29 @@ equation
     Line(points = {{148, 7}, {160, 7}}, color = {0, 0, 127}));
   connect(gain.y, iqRefPu) annotation(
     Line(points = {{148, 7}, {160, 7}}, color = {0, 0, 127}));
-  connect(URefPu, qRefQUCalc.URefPu) annotation(
+  connect(URefPu, qRefQU.URefPu) annotation(
     Line(points = {{-110, -10}, {-95, -10}}, color = {0, 0, 127}));
-  connect(QRefPu, qRefQUCalc.QRefPu) annotation(
+  connect(QRefPu, qRefQU.QRefPu) annotation(
     Line(points = {{-110, -30}, {-98, -30}, {-98, -16}, {-95, -16}}, color = {0, 0, 127}));
-  connect(UPu, iqModCalc.u[1]) annotation(
+  connect(UPu, iqMod.u[1]) annotation(
     Line(points = {{-110, 30}, {-7, 30}}, color = {0, 0, 127}));
-  connect(iqModCalc.y[1], add.u1) annotation(
+  connect(iqMod.y[1], add.u1) annotation(
     Line(points = {{16, 30}, {40, 30}, {40, 5}, {43, 5}}, color = {0, 0, 127}));
-  connect(qRefQUCalc.QRefUPu, switch.u1) annotation(
+  connect(qRefQU.QRefUPu, switch.u1) annotation(
     Line(points = {{-73, -5}, {-67, -5}}, color = {0, 0, 127}));
-  connect(qRefQUCalc.QRefQPu, switch.u3) annotation(
+  connect(qRefQU.QRefQPu, switch.u3) annotation(
     Line(points = {{-73, -21}, {-67, -21}}, color = {0, 0, 127}));
-  connect(switch.y, qRefLimCalc.QRefUQPu) annotation(
+  connect(switch.y, qRefLim.QRefUQPu) annotation(
     Line(points = {{-44, -13}, {-40, -13}}, color = {0, 0, 127}));
-  connect(QPu, qRefQUCalc.QPu) annotation(
+  connect(QPu, qRefQU.QPu) annotation(
     Line(points = {{-110, -50}, {-97, -50}, {-97, -20}, {-95, -20}}, color = {0, 0, 127}));
-  connect(UPu, qRefQUCalc.UPu) annotation(
+  connect(UPu, qRefQU.UPu) annotation(
     Line(points = {{-110, 30}, {-97, 30}, {-97, -6}, {-95, -6}}, color = {0, 0, 127}));
   connect(modeU, switch.u2) annotation(
     Line(points = {{-110, 10}, {-71, 10}, {-71, -13}, {-67, -13}}, color = {255, 0, 255}));
-  connect(PPu, qRefLimCalc.PPu) annotation(
+  connect(PPu, qRefLim.PPu) annotation(
     Line(points = {{-110, -70}, {-43, -70}, {-43, -21}, {-40, -21}}, color = {0, 0, 127}));
-  connect(UPu, qRefLimCalc.UPu) annotation(
+  connect(UPu, qRefLim.UPu) annotation(
     Line(points = {{-110, 30}, {-43, 30}, {-43, -5}, {-40, -5}}, color = {0, 0, 127}));
   connect(UPu, division.u2) annotation(
     Line(points = {{-110, 30}, {-17, 30}, {-17, 0}, {-14.5, 0}, {-14.5, -1}, {-12, -1}}, color = {0, 0, 127}));
@@ -144,7 +129,7 @@ equation
     Line(points = {{-110, -90}, {66, -90}, {66, -9}, {70, -9}}, color = {0, 0, 127}));
   connect(IqMaxPu, variableLimiter.limit1) annotation(
     Line(points = {{-110, 50}, {66, 50}, {66, 7}, {70, 7}}, color = {0, 0, 127}));
-  connect(iqModCalc.y[1], iqModPu) annotation(
+  connect(iqMod.y[1], iqModPu) annotation(
     Line(points = {{16, 30}, {151, 30}, {151, 30}, {160, 30}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-100, -100}, {150, 100}})),

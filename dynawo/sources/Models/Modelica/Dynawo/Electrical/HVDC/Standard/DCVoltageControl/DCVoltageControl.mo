@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.Standard.DCVoltageControl;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -20,12 +20,8 @@ model DCVoltageControl "DC Voltage Control for HVDC"
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Types.VoltageModulePu UdcRefMaxPu;
-  parameter Types.VoltageModulePu UdcRefMinPu;
-  parameter Types.PerUnit Kpdc;
-  parameter Types.PerUnit Kidc;
-  parameter Types.PerUnit IpMaxcstPu;
-  parameter Types.CurrentModulePu DUDC;
+  parameter Types.PerUnit IpMaxcstPu "Maximum value of the active current in p.u (base SNom, UNom)";
+  extends Parameters.Params_DCVoltageControl;
 
   Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = Udc0Pu) "Reference DC voltage in p.u (base UdcNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 33}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

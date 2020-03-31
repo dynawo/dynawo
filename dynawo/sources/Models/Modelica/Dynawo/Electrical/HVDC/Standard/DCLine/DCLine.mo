@@ -2,7 +2,7 @@ within Dynawo.Electrical.HVDC.Standard.DCLine;
 
 model DCLine "DC line model"
   /*
-  * Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+  * Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
   * See AUTHORS.txt
   * All rights reserved.
   * This Source Code Form is subject to the terms of the Mozilla Public
@@ -29,18 +29,17 @@ model DCLine "DC line model"
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Types.PerUnit RdcPu "DC line resistance in p.u (base UNom, SNom)";
-  parameter Types.PerUnit CdcPu "DC line capacitance in p.u (base UNom, SNom)";
+  extends Parameters.Params_DCLine;
 
   Modelica.Blocks.Interfaces.RealInput P1Pu(start = P10Pu) "Active power in p.u (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput P2Pu(start = P20Pu) "Active power in p.u (base SNom)" annotation(
-    Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput U1dcPu(start = U1dc0Pu) "DC Voltage in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-73, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealOutput U2dcPu(start = U2dc0Pu) "DC Voltage in p.u (base UNom)" annotation(
-    Placement(visible = true, transformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {67, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
 protected
 
@@ -57,10 +56,6 @@ equation
   annotation(
     preferredView = "text",
     Diagram(coordinateSystem(grid = {1, 1})),
-    Icon(coordinateSystem(grid = {1, 1}))
-    ,
-  experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.002),
-  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
-  __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
+    Icon(coordinateSystem(grid = {1, 1})));
 
 end DCLine;
