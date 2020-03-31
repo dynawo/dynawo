@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.Standard.ACVoltageControl;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@ within Dynawo.Electrical.HVDC.Standard.ACVoltageControl;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model QRefQUCalc
+model QRefQU
 
   import Modelica;
   import Dynawo;
@@ -20,18 +20,11 @@ model QRefQUCalc
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Types.PerUnit SlopeURefPu;
-  parameter Types.PerUnit SlopeQRefPu;
-  parameter Types.PerUnit Lambda;
-  parameter Types.PerUnit Kiacvoltagecontrol;
-  parameter Types.PerUnit Kpacvoltagecontrol;
-  parameter Types.ReactivePowerPu QMinCombPu;
-  parameter Types.ReactivePowerPu QMaxCombPu;
-  parameter Types.PerUnit DeadBandU;
+  extends Parameters.Params_QRefQU;
 
   Modelica.Blocks.Interfaces.RealInput QRefPu(start = Q0Pu) "Reference reactive power in p.u (base SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 80}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu) "Reference voltage in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu + Lambda * Q0Pu) "Reference voltage in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage module in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, -20}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -55,7 +48,7 @@ model QRefQUCalc
     Placement(visible = true, transformation(origin = {-85, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.SlewRateLimiter slewRateLimiter1(Rising = SlopeQRefPu)  annotation(
     Placement(visible = true, transformation(origin = {-70, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = Kiacvoltagecontrol, Kp = Kpacvoltagecontrol, uMax = QMaxCombPu, uMin = QMinCombPu, integrator.y_start = Q0Pu)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = KiACVoltageControl, Kp = KpACVoltageControl, uMax = QMaxCombPu, uMin = QMinCombPu, integrator.y_start = Q0Pu)  annotation(
     Placement(visible = true, transformation(origin = {25, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
@@ -92,4 +85,4 @@ equation
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));
 
-end QRefQUCalc;
+end QRefQU;

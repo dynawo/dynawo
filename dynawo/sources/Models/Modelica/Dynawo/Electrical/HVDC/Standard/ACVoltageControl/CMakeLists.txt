@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,10 +10,10 @@
 
 set(MODEL_FILES
     package.mo
-    QRefQUCalc.mo
-    QRefQUCalc.extvar
-    QRefLimCalc.mo
-    QRefLimCalc.extvar
+    QRefQU.mo
+    QRefQU.extvar
+    QRefLim.mo
+    QRefLim.extvar
     ACVoltageControl.mo
     ACVoltageControl.extvar
     )

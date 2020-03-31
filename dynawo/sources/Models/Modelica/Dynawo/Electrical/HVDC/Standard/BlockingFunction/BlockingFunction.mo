@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.Standard.BlockingFunction;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -20,12 +20,7 @@ model BlockingFunction "Blocking function"
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Types.VoltageModulePu UBlockUVPu "Minimum voltage that triggers the blocking function in p.u (base UNom)";
-  parameter Types.Time TBlockUV "If UPu < UBlockUVPu during TBlockUV then the blocking is activated";
-  parameter Types.Time TBlock "The blocking is activated during at least TBlock";
-  parameter Types.Time TDeblockU "When UPu goes back between UMindbPu and UMaxdbPu for TDeblockU then the blocking is deactivated";
-  parameter Types.VoltageModulePu UMindbPu "Minimum voltage that deactivate the blocking function in p.u (base UNom)";
-  parameter Types.VoltageModulePu UMaxdbPu "Maximum voltage that deactivate the blocking function in p.u (base UNom)";
+  extends Parameters.Params_BlockingFunction;
 
   Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage module in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));

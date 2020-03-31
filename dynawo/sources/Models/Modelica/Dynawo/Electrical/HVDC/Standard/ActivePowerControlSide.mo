@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.Standard;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -20,67 +20,45 @@ model ActivePowerControlSide "Active Power Control Side of the HVDC link"
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Types.PerUnit Kppcontrol;
-  parameter Types.PerUnit Kipcontrol;
-  parameter Types.ActivePowerPu PMaxOPPu;
-  parameter Types.ActivePowerPu PMinOPPu;
-  parameter Types.Time SlopePRefPu;
-  parameter Types.VoltageModulePu UdcMinPu;
-  parameter Types.VoltageModulePu UdcMaxPu;
-  parameter Types.PerUnit Kpdeltap;
-  parameter Types.PerUnit Kideltap;
-  parameter Types.PerUnit IpMaxcstPu;
-  parameter Types.PerUnit SlopeRPFault;
-  parameter Real tableQMaxPPu[:,:]=[-1.049009,0;-1.049,0;-1.018,0.301;0,0.4;1.018,0.301;1.049,0;1.049009,0] "PQ diagram for Q>0";
-  parameter Real tableQMaxUPu[:,:]=[0,0.401;1.105263,0.401;1.131579,0;2,0] "UQ diagram for Q>0";
-  parameter Real tableQMinPPu[:,:]=[-1.049009,0;-1.049,0;-1.018,-0.288;-0.911,-0.6;0,-0.6;0.911,-0.6;1.018,-0.288;1.049,0;1.049009,0] "PQ diagram for Q<0";
-  parameter Real tableQMinUPu[:,:]=[0,0;0.986842,0;1.052632,-0.601;2,-0.601] "UQ diagram for Q<0";
-  parameter Real tableiqMod[:,:]=[0,1;0.736842,1;0.894737,0;1.157895,0;1.315789,-1;2,-1] "iqMod diagram";
-  parameter Types.PerUnit SlopeURefPu;
-  parameter Types.PerUnit SlopeQRefPu;
-  parameter Types.PerUnit Lambda;
-  parameter Types.PerUnit Kiacvoltagecontrol;
-  parameter Types.PerUnit Kpacvoltagecontrol;
-  parameter Types.ReactivePowerPu QMinCombPu;
-  parameter Types.ReactivePowerPu QMaxCombPu;
-  parameter Types.PerUnit DeadBandU;
-  parameter Types.ReactivePowerPu QMinOPPu;
-  parameter Types.ReactivePowerPu QMaxOPPu;
-  parameter Types.Time TQ;
-  parameter Types.CurrentModulePu InPu;
+  parameter Types.PerUnit IpMaxcstPu "Maximum value of the active current in p.u (base SNom, UNom)";
+  parameter Types.CurrentModulePu InPu "Nominal current in p.u (base SNom, UNom)";
+  extends Parameters.Params_ActivePowerControl;
+  extends Parameters.Params_ACVoltageControl;
 
-  Modelica.Blocks.Interfaces.RealInput QRefPu(start = Q0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-110, 30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput QPu(start = Q0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-110, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 70}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-110, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 30}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput blocked(start = false) annotation(
-    Placement(visible = true, transformation(origin = {-110, -90}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput modeU(start = true) annotation(
-    Placement(visible = true, transformation(origin = {-110, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {89, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-110, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, -70}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = P0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-110, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.BooleanInput activateDeltaP(start = false) annotation(
-    Placement(visible = true, transformation(origin = {-110, 95}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu) annotation(
-    Placement(visible = true, transformation(origin = {-110, 10}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput QRefPu(start = Q0Pu) "Reference reactive power in p.u (base SNom)" annotation(
+    Placement(visible = true, transformation(origin = {-107, -64}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-33, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput PPu(start = P0Pu) "Active power in p.u (base SNom)" annotation(
+    Placement(visible = true, transformation(origin = {-107, 40}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-47, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput QPu(start = Q0Pu) "Reactive power in p.u (base SNom)" annotation(
+    Placement(visible = true, transformation(origin = {-107, -88}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-93, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput UPu(start = U0Pu) "Voltage module in p.u (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-107, -76}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {0, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput blocked(start = false) "Boolean assessing the state of the HVDC link: true if blocked, false if not blocked" annotation(
+    Placement(visible = true, transformation(origin = {-80, 0}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {46, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput modeU(start = true) "Boolean assessing the mode of the control: true if U mode, false if Q mode" annotation(
+    Placement(visible = true, transformation(origin = {-107, -100}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {99, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in p.u (base UdcNom)" annotation(
+    Placement(visible = true, transformation(origin = {-107, 80}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {93, -110}, extent = {{10, -10}, {-10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = P0Pu) "Reference active power in p.u (base SNom)" annotation(
+    Placement(visible = true, transformation(origin = {-107, 60}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {-99, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.BooleanInput activateDeltaP(start = false) "Boolean that indicates whether DeltaP is activated or not" annotation(
+    Placement(visible = true, transformation(origin = {-107, 100}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {110, 86}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.RealInput URefPu(start = U0Pu + Lambda * Q0Pu) "Reference voltage in p.u (base UNom)" annotation(
+    Placement(visible = true, transformation(origin = {-107, -52}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {33, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) annotation(
-    Placement(visible = true, transformation(origin = {110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {69, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealOutput ipRefPPu(start = Ip0Pu) annotation(
-    Placement(visible = true, transformation(origin = {110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-70, -110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Modelica.Blocks.Interfaces.RealOutput iqRefPu(start = Iq0Pu) "Reactive current reference in p.u (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {107, -70}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = { -110, -28}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+  Modelica.Blocks.Interfaces.RealOutput ipRefPPu(start = Ip0Pu) "Active current reference in p.u (base UNom, SNom)" annotation(
+    Placement(visible = true, transformation(origin = {107, 70}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = { -110, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
+  Modelica.Blocks.Interfaces.RealOutput POutPu annotation(
+    Placement(visible = true, transformation(origin = {107, 40}, extent = {{-7, -7}, {7, 7}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  Dynawo.Electrical.HVDC.Standard.ActivePowerControl.ActivePowerControl activePowerControl(Ip0Pu = Ip0Pu, IpMaxcstPu = IpMaxcstPu, Kideltap = Kideltap, Kipcontrol = Kipcontrol, Kpdeltap = Kpdeltap, Kppcontrol = Kppcontrol, P0Pu = P0Pu, PMaxOPPu = PMaxOPPu, PMinOPPu = PMinOPPu, SlopePRefPu = SlopePRefPu, SlopeRPFault = SlopeRPFault, Udc0Pu = Udc0Pu, UdcMaxPu = UdcMaxPu, UdcMinPu = UdcMinPu)  annotation(
+  Dynawo.Electrical.HVDC.Standard.ActivePowerControl.ActivePowerControl activePowerControl(Ip0Pu = Ip0Pu, IpMaxcstPu = IpMaxcstPu, KiDeltaP = KiDeltaP, KiPControl = KiPControl, KpDeltaP = KpDeltaP, KpPControl = KpPControl, P0Pu = P0Pu, PMaxOPPu = PMaxOPPu, PMinOPPu = PMinOPPu, SlopePRefPu = SlopePRefPu, SlopeRPFault = SlopeRPFault, Udc0Pu = Udc0Pu, UdcMaxPu = UdcMaxPu, UdcMinPu = UdcMinPu)  annotation(
     Placement(visible = true, transformation(origin = {-40, 70}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
   Dynawo.Electrical.HVDC.Standard.LimitsCalculationFunction.LimitsCalculationFunction limitsCalculationFunction(InPu = InPu, Ip0Pu = Ip0Pu, IpMaxcstPu = IpMaxcstPu, Iq0Pu = Iq0Pu) annotation(
-    Placement(visible = true, transformation(origin = {50, -8}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
-  Dynawo.Electrical.HVDC.Standard.ACVoltageControl.ACVoltageControl aCVoltageControl(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip0Pu, Iq0Pu = Iq0Pu, Kiacvoltagecontrol = Kiacvoltagecontrol, Kpacvoltagecontrol = Kpacvoltagecontrol, Lambda = Lambda, P0Pu = P0Pu, Q0Pu = Q0Pu, QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U0Pu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) annotation(
-    Placement(visible = true, transformation(origin = {-40, -8}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {40, 0}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
+  Dynawo.Electrical.HVDC.Standard.ACVoltageControl.ACVoltageControl aCVoltageControl(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip0Pu, Iq0Pu = Iq0Pu, KiACVoltageControl = KiACVoltageControl, KpACVoltageControl = KpACVoltageControl, Lambda = Lambda, P0Pu = P0Pu, Q0Pu = Q0Pu, QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U0Pu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) annotation(
+    Placement(visible = true, transformation(origin = {-40, -70}, extent = {{-30, -30}, {30, 30}}, rotation = 0)));
 
 protected
 
@@ -92,49 +70,51 @@ protected
   parameter Types.VoltageModulePu U0Pu;
 
 equation
-  connect(aCVoltageControl.iqModPu, limitsCalculationFunction.iqModPu) annotation(
-    Line(points = {{-7, -8}, {17, -8}}, color = {0, 0, 127}));
-  connect(QPu, aCVoltageControl.QPu) annotation(
-    Line(points = {{-110, -30}, {-86, -30}, {-86, -8}, {-73, -8}}, color = {0, 0, 127}));
-  connect(UPu, aCVoltageControl.UPu) annotation(
-    Line(points = {{-110, -50}, {-85, -50}, {-85, -17}, {-73, -17}}, color = {0, 0, 127}));
-  connect(blocked, aCVoltageControl.blocked) annotation(
-    Line(points = {{-110, -90}, {-79, -90}, {-79, -35}, {-73, -35}}, color = {255, 0, 255}));
-  connect(aCVoltageControl.iqRefPu, iqRefPu) annotation(
-    Line(points = {{-7, -29}, {6, -29}, {6, -70}, {110, -70}}, color = {0, 0, 127}));
-  connect(modeU, aCVoltageControl.modeU) annotation(
-    Line(points = {{-110, -10}, {-90, -10}, {-90, 1}, {-73, 1}}, color = {255, 0, 255}));
-  connect(URefPu, aCVoltageControl.URefPu) annotation(
-    Line(points = {{-110, 10}, {-73, 10}}, color = {0, 0, 127}));
-  connect(aCVoltageControl.iqRefPu, limitsCalculationFunction.iqRefPu) annotation(
-    Line(points = {{-7, -29}, {17, -29}}, color = {0, 0, 127}));
-  connect(QRefPu, aCVoltageControl.QRefPu) annotation(
-    Line(points = {{-110, 30}, {-80, 30}, {-80, 19}, {-73, 19}}, color = {0, 0, 127}));
-  connect(PPu, aCVoltageControl.PPu) annotation(
-    Line(points = {{-110, -70}, {-82, -70}, {-82, -26}, {-73, -26}}, color = {0, 0, 127}));
-  connect(limitsCalculationFunction.IqMinPu, aCVoltageControl.IqMinPu) annotation(
-    Line(points = {{32, -41}, {32, -50}, {-19, -50}, {-19, -41}}, color = {0, 0, 127}));
-  connect(limitsCalculationFunction.IqMaxPu, aCVoltageControl.IqMaxPu) annotation(
-    Line(points = {{68, -41}, {68, -60}, {-61, -60}, {-61, -41}}, color = {0, 0, 127}));
-  connect(activePowerControl.ipRefPPu, ipRefPPu) annotation(
-    Line(points = {{-7, 70}, {110, 70}}, color = {0, 0, 127}));
-  connect(activePowerControl.ipRefPPu, limitsCalculationFunction.ipRefPu) annotation(
-    Line(points = {{-7, 70}, {0, 70}, {0, 13}, {17, 13}}, color = {0, 0, 127}));
-  connect(limitsCalculationFunction.IpMinPu, activePowerControl.IpMinPu) annotation(
-    Line(points = {{32, 25}, {32, 28}, {-61, 28}, {-61, 37}}, color = {0, 0, 127}));
-  connect(limitsCalculationFunction.IpMaxPu, activePowerControl.IpMaxPu) annotation(
-    Line(points = {{68, 25}, {68, 31}, {-19, 31}, {-19, 37}}, color = {0, 0, 127}));
-  connect(activateDeltaP, activePowerControl.activateDeltaP) annotation(
-    Line(points = {{-110, 95}, {-76, 95}, {-76, 94}, {-73, 94}}, color = {255, 0, 255}));
-  connect(PRefPu, activePowerControl.PRefPu) annotation(
-    Line(points = {{-110, 80}, {-80, 80}, {-80, 83}, {-73, 83}, {-73, 83}}, color = {0, 0, 127}));
-  connect(UdcPu, activePowerControl.UdcPu) annotation(
-    Line(points = {{-110, 60}, {-90, 60}, {-90, 71}, {-73, 71}, {-73, 70}}, color = {0, 0, 127}));
-  connect(PPu, activePowerControl.PPu) annotation(
-    Line(points = {{-110, -70}, {-88, -70}, {-88, 45}, {-73, 45}, {-73, 45}}, color = {0, 0, 127}));
   connect(blocked, activePowerControl.blocked) annotation(
-    Line(points = {{-110, -90}, {-94, -90}, {-94, 57}, {-73, 57}, {-73, 57}}, color = {255, 0, 255}));
+    Line(points = {{-80, 0}, {-40, 0}, {-40, 37}}, color = {255, 0, 255}));
+  connect(blocked, aCVoltageControl.blocked) annotation(
+    Line(points = {{-80, 0}, {-40, 0}, {-40, -37}}, color = {255, 0, 255}));
+  connect(limitsCalculationFunction.IpMaxPu, activePowerControl.IpMaxPu) annotation(
+    Line(points = {{7, 21}, {-16, 21}, {-16, 37}}, color = {0, 0, 127}));
+  connect(limitsCalculationFunction.IpMinPu, activePowerControl.IpMinPu) annotation(
+    Line(points = {{7, 9}, {-28, 9}, {-28, 37}}, color = {0, 0, 127}));
+  connect(limitsCalculationFunction.IqMinPu, aCVoltageControl.IqMinPu) annotation(
+    Line(points = {{7, -9}, {-28, -9}, {-28, -37}}, color = {0, 0, 127}));
+  connect(limitsCalculationFunction.IqMaxPu, aCVoltageControl.IqMaxPu) annotation(
+    Line(points = {{7, -21}, {-16, -21}, {-16, -37}}, color = {0, 0, 127}));
+  connect(aCVoltageControl.iqRefPu, iqRefPu) annotation(
+    Line(points = {{-7, -70}, {107, -70}}, color = {0, 0, 127}));
+  connect(aCVoltageControl.iqModPu, limitsCalculationFunction.iqModPu) annotation(
+    Line(points = {{-7, -52}, {19, -52}, {19, -33}, {19, -33}}, color = {0, 0, 127}));
+  connect(aCVoltageControl.iqRefPu, limitsCalculationFunction.iqRefPu) annotation(
+    Line(points = {{-7, -70}, {40, -70}, {40, -33}, {40, -33}}, color = {0, 0, 127}));
+  connect(activePowerControl.ipRefPPu, limitsCalculationFunction.ipRefPu) annotation(
+    Line(points = {{-7, 70}, {40, 70}, {40, 33}, {40, 33}}, color = {0, 0, 127}));
+  connect(activePowerControl.ipRefPPu, ipRefPPu) annotation(
+    Line(points = {{-7, 70}, {107, 70}}, color = {0, 0, 127}));
+  connect(activateDeltaP, activePowerControl.activateDeltaP) annotation(
+    Line(points = {{-107, 100}, {-73, 100}}, color = {255, 0, 255}));
+  connect(UdcPu, activePowerControl.UdcPu) annotation(
+    Line(points = {{-107, 80}, {-73, 80}}, color = {0, 0, 127}));
+  connect(PRefPu, activePowerControl.PRefPu) annotation(
+    Line(points = {{-107, 60}, {-73, 60}}, color = {0, 0, 127}));
+  connect(QPu, aCVoltageControl.QPu) annotation(
+    Line(points = {{-107, -88}, {-73, -88}}, color = {0, 0, 127}));
+  connect(UPu, aCVoltageControl.UPu) annotation(
+    Line(points = {{-107, -76}, {-73, -76}}, color = {0, 0, 127}));
+  connect(QRefPu, aCVoltageControl.QRefPu) annotation(
+    Line(points = {{-107, -64}, {-75, -64}, {-75, -64}, {-73, -64}}, color = {0, 0, 127}));
+  connect(URefPu, aCVoltageControl.URefPu) annotation(
+    Line(points = {{-107, -52}, {-75, -52}, {-75, -52}, {-73, -52}}, color = {0, 0, 127}));
+  connect(PPu, activePowerControl.PPu) annotation(
+    Line(points = {{-107, 40}, {-73, 40}}, color = {0, 0, 127}));
+  connect(PPu, aCVoltageControl.PPu) annotation(
+    Line(points = {{-107, 40}, {-94, 40}, {-94, -40}, {-73, -40}}, color = {0, 0, 127}));
+  connect(modeU, aCVoltageControl.modeU) annotation(
+    Line(points = {{-107, -100}, {-75, -100}, {-75, -100}, {-73, -100}}, color = {255, 0, 255}));
+  connect(PPu, POutPu) annotation(
+    Line(points = {{-107, 40}, {101, 40}, {101, 40}, {107, 40}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
-    Diagram(coordinateSystem(grid = {1, 1})),
-    Icon(coordinateSystem(grid = {1, 1})));
+    Diagram(coordinateSystem(grid = {1, 1}, initialScale = 0.1)),
+    Icon(coordinateSystem(grid = {1, 1}, initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-76, 113}, extent = {{-13, 8}, {13, -8}}, textString = "PRefPu"), Text(origin = {-10, 112}, extent = {{-13, 8}, {13, -8}}, textString = "QRefPu"), Text(origin = {55, 112}, extent = {{-13, 8}, {13, -8}}, textString = "URefPu"), Text(origin = {122, 111}, extent = {{-13, 8}, {13, -8}}, textString = "modeU"), Text(origin = {133, 69}, extent = {{-13, 8}, {39, -14}}, textString = "activateDeltaP"), Text(origin = {133, -9}, extent = {{-13, 8}, {1, -6}}, textString = "PPu"), Text(origin = {-114, 58}, extent = {{-13, 8}, {13, -8}}, textString = "ipRefPu"), Text(origin = {-113, -10}, extent = {{-13, 8}, {13, -8}}, textString = "iqRefPu"), Text(origin = {-70, -129}, extent = {{-13, 8}, {1, -6}}, textString = "QPu"), Text(origin = {-26, -129}, extent = {{-13, 8}, {1, -6}}, textString = "PPu"), Text(origin = {23, -128}, extent = {{-13, 8}, {1, -6}}, textString = "UPu"), Text(origin = {64, -128}, extent = {{-13, 8}, {13, -8}}, textString = "blocked"), Text(origin = {116, -125}, extent = {{-13, 8}, {8, -11}}, textString = "UdcPu"), Text(origin = {0, 51}, extent = {{-65, 27}, {65, -27}}, textString = "P Control"), Text(origin = {0, -53}, extent = {{-65, 27}, {65, -27}}, textString = "U/Q Control")}));
 end ActivePowerControlSide;

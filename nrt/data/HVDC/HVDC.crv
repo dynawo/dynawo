@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,10 +16,12 @@
     <curve model="HVDC" variable="hvdcstandard_PPu_Side_QPu"/>
     <curve model="HVDC" variable="hvdcstandard_dCLine_U1dcPu"/>
     <curve model="HVDC" variable="hvdcstandard_Conv1_UPu"/>
+    <curve model="HVDC" variable="hvdcstandard_Conv1_UPhase"/>
     <curve model="HVDC" variable="hvdcstandard_PPu_Side_aCVoltageControl_iqModPu"/>
     <curve model="HVDC" variable="hvdcstandard_UdcPu_Side_PPu"/>
     <curve model="HVDC" variable="hvdcstandard_UdcPu_Side_QPu"/>
     <curve model="HVDC" variable="hvdcstandard_dCLine_U2dcPu"/>
     <curve model="HVDC" variable="hvdcstandard_Conv2_UPu"/>
+    <curve model="HVDC" variable="hvdcstandard_Conv2_UPhase"/>
     <curve model="HVDC" variable="hvdcstandard_UdcPu_Side_aCVoltageControl_iqModPu"/>
 </curvesInput>
