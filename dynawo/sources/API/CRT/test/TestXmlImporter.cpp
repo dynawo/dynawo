@@ -94,7 +94,7 @@ TEST(APICRTTest, testXmlFileImporter) {
       it != itEnd; ++it, ++idx) {
     boost::shared_ptr<Criteria> criteria = *it;
     if (idx == 0) {
-      ASSERT_EQ(criteria->begin(), criteria->end());
+      assert(criteria->begin() == criteria->end());
       ASSERT_EQ(criteria->getParams()->getScope(), CriteriaParams::FINAL);
       ASSERT_EQ(criteria->getParams()->getType(), CriteriaParams::SUM);
       ASSERT_EQ(criteria->getParams()->getId(), "loadCritId");
