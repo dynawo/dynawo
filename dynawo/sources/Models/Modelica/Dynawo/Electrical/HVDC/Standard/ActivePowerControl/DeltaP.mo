@@ -1,7 +1,7 @@
 within Dynawo.Electrical.HVDC.Standard.ActivePowerControl;
 
 /*
-* Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+* Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
 * All rights reserved.
 * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,7 +12,7 @@ within Dynawo.Electrical.HVDC.Standard.ActivePowerControl;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model DeltaPCalc
+model DeltaP
 
   import Modelica;
   import Dynawo;
@@ -20,11 +20,8 @@ model DeltaPCalc
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  parameter Types.VoltageModulePu UdcMinPu;
-  parameter Types.VoltageModulePu UdcMaxPu;
-  parameter Types.PerUnit Kpdeltap;
-  parameter Types.PerUnit Kideltap;
-  parameter Types.CurrentModulePu IpMaxcstPu;
+  parameter Types.PerUnit IpMaxcstPu "Maximum value of the active current in p.u (base SNom, UNom)";
+  extends Parameters.Params_DeltaP;
 
   Modelica.Blocks.Interfaces.RealInput UdcPu(start = Udc0Pu) "DC voltage in p.u (base UdcNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -36,7 +33,7 @@ model DeltaPCalc
     Placement(visible = true, transformation(origin = {-10, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true, uMax = UdcMaxPu, uMin = UdcMinPu)  annotation(
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = Kideltap, Kp = Kpdeltap, uMax = IpMaxcstPu, uMin = -IpMaxcstPu)  annotation(
+  Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = KiDeltaP, Kp = KpDeltaP, uMax = IpMaxcstPu, uMin = -IpMaxcstPu)  annotation(
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
 protected
@@ -59,4 +56,4 @@ equation
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));
 
-end DeltaPCalc;
+end DeltaP;

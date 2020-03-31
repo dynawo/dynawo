@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -44,10 +44,10 @@
     <par type="DOUBLE" name="hvdcstandard_DUDC" value="0.01"/>
     <par type="DOUBLE" name="hvdcstandard_InPu" value="1.081"/>
     <par type="DOUBLE" name="hvdcstandard_IpMaxcstPu" value="1.001"/>
-    <par type="DOUBLE" name="hvdcstandard_Kipcontrol" value="100"/>
-    <par type="DOUBLE" name="hvdcstandard_Kppcontrol" value="4000000"/>
-    <par type="DOUBLE" name="hvdcstandard_Kpdeltap" value="10"/>
-    <par type="DOUBLE" name="hvdcstandard_Kideltap" value="20"/>
+    <par type="DOUBLE" name="hvdcstandard_KiPControl" value="100"/>
+    <par type="DOUBLE" name="hvdcstandard_KpPControl" value="0.4"/>
+    <par type="DOUBLE" name="hvdcstandard_KpDeltaP" value="10"/>
+    <par type="DOUBLE" name="hvdcstandard_KiDeltaP" value="20"/>
     <par type="DOUBLE" name="hvdcstandard_PMinOPPu" value="-1"/>
     <par type="DOUBLE" name="hvdcstandard_PMaxOPPu" value="1"/>
     <par type="DOUBLE" name="hvdcstandard_SlopePRefPu" value="0.083333"/>
@@ -59,10 +59,9 @@
     <par type="DOUBLE" name="hvdcstandard_UdcRefMaxPu" value="1.15"/>
     <par type="DOUBLE" name="hvdcstandard_RdcPu" value="0.000244"/>
     <par type="DOUBLE" name="hvdcstandard_CdcPu" value="1.99"/>
-    <par type="DOUBLE" name="hvdcstandard_Kpacvoltagecontrol" value="0"/>
-    <par type="DOUBLE" name="hvdcstandard_Kiacvoltagecontrol" value="33.5"/>
-    <!--<par type="DOUBLE" name="hvdcstandard_Lambda" value="1754386"/>-->
-    <par type="DOUBLE" name="hvdcstandard_Lambda" value="0.0001"/>
+    <par type="DOUBLE" name="hvdcstandard_KpACVoltageControl" value="0"/>
+    <par type="DOUBLE" name="hvdcstandard_KiACVoltageControl" value="33.5"/>
+    <par type="DOUBLE" name="hvdcstandard_Lambda" value="0.1754386"/>
     <par type="DOUBLE" name="hvdcstandard_QMinOPPu" value="-0.6"/>
     <par type="DOUBLE" name="hvdcstandard_QMaxOPPu" value="0.4"/>
     <par type="DOUBLE" name="hvdcstandard_QMinCombPu" value="-0.6"/>
@@ -98,7 +97,7 @@
     <par type="DOUBLE" name="URef2Pu_Height" value="0.1"/>
     <par type="DOUBLE" name="URef2Pu_tStep" value="4.5"/>
     <par type="DOUBLE" name="UdcRefPu_ValueIn" value="1"/>
-    <par type="DOUBLE" name="UdcRefPu_Height" value="0.01"/>
+    <par type="DOUBLE" name="UdcRefPu_Height" value="0.005"/>
     <par type="DOUBLE" name="UdcRefPu_tStep" value="6"/>
     <par type="DOUBLE" name="PRefPu_ValueIn" value="-0.902"/>
     <par type="DOUBLE" name="PRefPu_Height" value="1.8"/>
