@@ -58,12 +58,16 @@ class CriteriaCollection::Impl : public CriteriaCollection {
   void merge(const boost::shared_ptr<CriteriaCollection> & other);
 
   /**
-   * @copydoc CriteriaCollection::begin(CriteriaCollectionType_t type) const
+   * @brief Get a CriteriaCollectionConstIterator to the beginning of the criteria' vector
+   * @param type type of component
+   * @return a CriteriaCollectionConstIterator to the beginning of the criteria' vector
    */
   CriteriaCollectionConstIterator begin(CriteriaCollectionType_t type) const;
 
   /**
-   * @copydoc CriteriaCollection::end(CriteriaCollectionType_t type) const
+   * @brief Get a CriteriaCollectionConstIterator to the end of the criteria' vector
+   * @param type type of component
+   * @return a CriteriaCollectionConstIterator to the end of the criteria' vector
    */
   CriteriaCollectionConstIterator end(CriteriaCollectionType_t type) const;
 

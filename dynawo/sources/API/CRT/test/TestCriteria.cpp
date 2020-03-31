@@ -83,7 +83,7 @@ TEST(APICRTTest, Criteria) {
   boost::shared_ptr<Criteria> criteria = CriteriaFactory::newCriteria();
 
   // test default constructor attributes
-  ASSERT_EQ(criteria->begin(), criteria->end());
+  assert(criteria->begin() == criteria->end());
   assert(!criteria->getParams());
 
   // set attributes
@@ -125,9 +125,9 @@ TEST(APICRTTest, CriteriaCollection) {
   boost::shared_ptr<CriteriaCollection> criteriaCol = CriteriaCollectionFactory::newInstance();
 
   // test default constructor attributes
-  ASSERT_EQ(criteriaCol->begin(CriteriaCollection::BUS), criteriaCol->end(CriteriaCollection::BUS));
-  ASSERT_EQ(criteriaCol->begin(CriteriaCollection::LOAD), criteriaCol->end(CriteriaCollection::LOAD));
-  ASSERT_EQ(criteriaCol->begin(CriteriaCollection::GENERATOR), criteriaCol->end(CriteriaCollection::GENERATOR));
+  assert(criteriaCol->begin(CriteriaCollection::BUS) == criteriaCol->end(CriteriaCollection::BUS));
+  assert(criteriaCol->begin(CriteriaCollection::LOAD) == criteriaCol->end(CriteriaCollection::LOAD));
+  assert(criteriaCol->begin(CriteriaCollection::GENERATOR) == criteriaCol->end(CriteriaCollection::GENERATOR));
 
   // set attributes
   boost::shared_ptr<Criteria> criteriaBus = CriteriaFactory::newCriteria();

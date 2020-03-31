@@ -74,7 +74,10 @@ class BusCriteria : public Criteria {
   static bool criteriaEligibleForBus(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
-   * @copydoc Criteria::checkCriteria(bool finalStep) const
+   * @brief returns true if the criteria is respected, false otherwise
+   * @param finalStep true if this is the final step of the simulation
+   *
+   * @return true if the criteria is respected, false otherwise
    */
   bool checkCriteria(bool finalStep) const;
 
@@ -119,7 +122,10 @@ class LoadCriteria : public Criteria {
   static bool criteriaEligibleForLoad(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
-   * @copydoc Criteria::checkCriteria(bool finalStep) const
+   * @brief returns true if the criteria is respected, false otherwise
+   * @param finalStep true if this is the final step of the simulation
+   *
+   * @return true if the criteria is respected, false otherwise
    */
   bool checkCriteria(bool finalStep) const;
 
@@ -164,7 +170,10 @@ class GeneratorCriteria : public Criteria {
   static bool criteriaEligibleForGenerator(const boost::shared_ptr<criteria::CriteriaParams>& params);
 
   /**
-   * @copydoc Criteria::checkCriteria(bool finalStep) const
+   * @brief returns true if the criteria is respected, false otherwise
+   * @param finalStep true if this is the final step of the simulation
+   *
+   * @return true if the criteria is respected, false otherwise
    */
   bool checkCriteria(bool finalStep) const;
 
