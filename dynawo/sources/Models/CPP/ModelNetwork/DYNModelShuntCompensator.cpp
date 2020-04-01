@@ -202,7 +202,7 @@ ModelShuntCompensator::evalG(const double& t) {
 NetworkComponent::StateChange_t
 ModelShuntCompensator::evalZ(const double& t) {
   z_[isCapacitorNum_] = isCapacitor() ? 1. : 0.;
-  z_[isAvailableNum_] = isAvailable(t) ? 1. : 0.;
+  z_[isAvailableNum_] = isAvailable() ? 1. : 0.;
   z_[currentSectionNum_] = getCurrentSection();
 
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
@@ -236,7 +236,7 @@ ModelShuntCompensator::getY0() {
 }
 
 bool
-ModelShuntCompensator::isAvailable(const double& t) const {
+ModelShuntCompensator::isAvailable() const {
   if (modelBus_->getVoltageLevel()->isClosestBBSSwitchedOff(modelBus_)) {
     return false;
   } else {
