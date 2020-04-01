@@ -196,7 +196,7 @@ ModelShuntCompensator::defineElements(std::vector<Element>& elements, std::map<s
 void
 ModelShuntCompensator::evalG(const double& t) {
   // Time out reached for availability
-  g_[0] = (t >= tLastOpening_ + noReclosingDelay_) ? ROOT_UP : ROOT_DOWN;
+  g_[0] = (doubleEquals(tLastOpening_, VALDEF) || t >= tLastOpening_ + noReclosingDelay_) ? ROOT_UP : ROOT_DOWN;
 }
 
 NetworkComponent::StateChange_t
@@ -240,10 +240,10 @@ ModelShuntCompensator::isAvailable(const double& t) const {
   if (modelBus_->getVoltageLevel()->isClosestBBSSwitchedOff(modelBus_)) {
     return false;
   } else {
-    if (doubleNotEquals(tLastOpening_, VALDEF))
-      return (t >= tLastOpening_ + noReclosingDelay_);
+    if (g_[0] == ROOT_UP)
+      return true;
 
-    return true;
+    return false;
   }
 }
 

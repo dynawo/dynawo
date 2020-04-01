@@ -207,6 +207,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   z[ModelShuntCompensator::isCapacitorNum_] = 0.;
   z[ModelShuntCompensator::isAvailableNum_] = 0.;
   z[ModelShuntCompensator::currentSectionNum_] = 0.;
+  capa->evalG(10.);
   capa->evalZ(10.);
   ASSERT_EQ(capa->getConnected(), OPEN);
   ASSERT_EQ(z[ModelShuntCompensator::connectionStateNum_], OPEN);
@@ -215,10 +216,10 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isCapacitorNum_], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isAvailableNum_], 1.);
 
-
   ASSERT_EQ(capa->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(capa->getConnected(), OPEN);
   z[ModelShuntCompensator::connectionStateNum_] = CLOSED;
+  capa->evalG(0.);
   capa->evalZ(0.);
   ASSERT_EQ(capa->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(capa->getConnected(), CLOSED);
@@ -229,6 +230,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   z[ModelShuntCompensator::currentSectionNum_] = 42.;
   z[ModelShuntCompensator::isCapacitorNum_] = 0.;
   z[ModelShuntCompensator::isAvailableNum_] = 0.;
+  capa->evalG(0.);
   capa->evalZ(0.);
   ASSERT_EQ(capa->evalState(0.), NetworkComponent::NO_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(capa->getCurrentSection(), 5.);
