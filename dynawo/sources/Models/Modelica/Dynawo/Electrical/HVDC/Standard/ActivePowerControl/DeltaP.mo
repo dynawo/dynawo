@@ -35,7 +35,8 @@ model DeltaP
     Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Dynawo.NonElectrical.Blocks.Continuous.PIAntiWindup PI(Ki = KiDeltaP, Kp = KpDeltaP, uMax = IpMaxcstPu, uMin = -IpMaxcstPu)  annotation(
     Placement(visible = true, transformation(origin = {44, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+  Modelica.Blocks.Math.Gain gain(k = -1)  annotation(
+    Placement(visible = true, transformation(origin = {78, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
 
   parameter Types.VoltageModulePu Udc0Pu;
@@ -50,8 +51,10 @@ equation
     Line(points = {{-120, 0}, {-90, 0}, {-90, -20}, {-10, -20}, {-10, -8}}, color = {0, 0, 127}));
   connect(feedback.y, PI.u) annotation(
     Line(points = {{-1, 0}, {30, 0}, {30, 0}, {32, 0}}, color = {0, 0, 127}));
-  connect(PI.y, DeltaPRawPu) annotation(
-    Line(points = {{55, 0}, {100, 0}, {100, 0}, {110, 0}}, color = {0, 0, 127}));
+  connect(PI.y, gain.u) annotation(
+    Line(points = {{55, 0}, {66, 0}, {66, 0}, {66, 0}}, color = {0, 0, 127}));
+  connect(gain.y, DeltaPRawPu) annotation(
+    Line(points = {{89, 0}, {104, 0}, {104, 0}, {110, 0}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1})),
     Icon(coordinateSystem(grid = {1, 1})));
