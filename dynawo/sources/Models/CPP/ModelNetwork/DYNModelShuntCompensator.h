@@ -323,12 +323,11 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   double ii_dUi() const;
 
   /**
-   * @brief return true if the shunt is available to be connected (i.e : time > last time disconnection + noReclosingdelay)
-   * and the closest bus bar section is not switched off)
-   * @param time
+   * @brief return true if the shunt is available to be connected
+   * and the closest bus bar section is not switched off
    * @return available or not
    */
-  bool isAvailable(const double& time) const;
+  bool isAvailable() const;
 
   double suscepPerSect_;  ///< The shunt susceptance per section in Siemens
   int currentSection_;  ///< The current number of connected section of the shunt compensator
