@@ -84,6 +84,7 @@ equation
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
   annotation(
-    experiment(StartTime = 0, StopTime = 30, Tolerance = 0.00001, Interval = 0.015),
+    experiment(StartTime = 0, StopTime = 30, Tolerance = 0.0001, Interval = 0.015,
+    __OpenModelica_commandLineOptions = "--daeMode"),
     Documentation(info = "<html><head></head><body> This test case represents a synchronous machine connected to an infinite bus through a transformer and two lines in parallel. <div><br></div><div> The simulated event is a step variation on the generator  mechanical power Pm.</body></html>"));
 end SMIBStepPm;
