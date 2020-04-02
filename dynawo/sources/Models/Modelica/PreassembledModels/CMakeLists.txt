@@ -31,6 +31,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     GridFormingConverterDroopControl.xml
     GridFormingConverterMatchingControl.xml
     GridFormingConverterDispatchableVirtualOscillatorControl.xml
+    InfiniteBus.xml
     Line.xml
     LoadAlphaBeta.xml
     LoadOneTransformer.xml
