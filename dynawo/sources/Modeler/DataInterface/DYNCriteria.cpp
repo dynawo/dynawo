@@ -31,6 +31,7 @@ BusCriteria::~BusCriteria() {}
 
 bool
 BusCriteria::checkCriteria(bool finalStep) {
+  failingCriteria_.clear();
   assert(params_->getType() != criteria::CriteriaParams::SUM);
   if (!finalStep && params_->getScope() == criteria::CriteriaParams::FINAL)
     return true;
@@ -40,13 +41,15 @@ BusCriteria::checkCriteria(bool finalStep) {
     if (doubleIsZero(v)) continue;
     double vNom = (*it)->getVNom();
     if (params_->hasUMaxPu() && v > params_->getUMaxPu()*vNom) {
-      Trace::debug() << DYNLog(BusAboveVoltage, (*it)->getID(), v, params_->getUMaxPu(), params_->getId()) << Trace::endline;
-      failingCriteria_.push_back(params_->getId());
+      Message mess = DYNLog(BusAboveVoltage, (*it)->getID(), v, params_->getUMaxPu(), params_->getId());
+      Trace::debug() << mess << Trace::endline;
+      failingCriteria_.push_back(mess.str());
       return false;
     }
     if (params_->hasUMinPu() && v < params_->getUMinPu()*vNom) {
-      Trace::debug() << DYNLog(BusUnderVoltage, (*it)->getID(), v, params_->getUMinPu(), params_->getId()) << Trace::endline;
-      failingCriteria_.push_back(params_->getId());
+      Message mess = DYNLog(BusUnderVoltage, (*it)->getID(), v, params_->getUMinPu(), params_->getId());
+      Trace::debug() << mess << Trace::endline;
+      failingCriteria_.push_back(mess.str());
       return false;
     }
   }
@@ -85,6 +88,7 @@ LoadCriteria::~LoadCriteria() {}
 
 bool
 LoadCriteria::checkCriteria(bool finalStep) {
+  failingCriteria_.clear();
   if (!finalStep && params_->getScope() == criteria::CriteriaParams::FINAL)
     return true;
   double sum = 0.;
@@ -100,13 +104,15 @@ LoadCriteria::checkCriteria(bool finalStep) {
     }
     if (params_->getType() == criteria::CriteriaParams::LOCAL_VALUE) {
       if (params_->hasPMax() && p > params_->getPMax()) {
-        Trace::debug() << DYNLog(SourceAbovePower, (*it)->getID(), p, params_->getPMax(), params_->getId()) << Trace::endline;
-        failingCriteria_.push_back(params_->getId());
+        Message mess = DYNLog(SourceAbovePower, (*it)->getID(), p, params_->getPMax(), params_->getId());
+        Trace::debug() << mess << Trace::endline;
+        failingCriteria_.push_back(mess.str());
         return false;
       }
       if (params_->hasPMin() && p < params_->getPMin()) {
-        Trace::debug() << DYNLog(SourceUnderPower, (*it)->getID(), p, params_->getPMin(), params_->getId()) << Trace::endline;
-        failingCriteria_.push_back(params_->getId());
+        Message mess = DYNLog(SourceUnderPower, (*it)->getID(), p, params_->getPMin(), params_->getId());
+        Trace::debug() << mess << Trace::endline;
+        failingCriteria_.push_back(mess.str());
         return false;
       }
     } else {
@@ -117,13 +123,15 @@ LoadCriteria::checkCriteria(bool finalStep) {
 
   if (atLeastOneEligibleLoadWasFound && params_->getType() == criteria::CriteriaParams::SUM) {
     if (params_->hasPMax() && sum > params_->getPMax()) {
-      Trace::debug() << DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId()) << Trace::endline;
-      failingCriteria_.push_back(params_->getId());
+      Message mess = DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
+      Trace::debug() << mess << Trace::endline;
+      failingCriteria_.push_back(mess.str());
       return false;
     }
     if (params_->hasPMin() && sum < params_->getPMin()) {
-      Trace::debug() << DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId()) << Trace::endline;
-      failingCriteria_.push_back(params_->getId());
+      Message mess = DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
+      Trace::debug() << mess << Trace::endline;
+      failingCriteria_.push_back(mess.str());
       return false;
     }
   }
@@ -157,6 +165,7 @@ GeneratorCriteria::~GeneratorCriteria() {}
 
 bool
 GeneratorCriteria::checkCriteria(bool finalStep) {
+  failingCriteria_.clear();
   if (!finalStep && params_->getScope() == criteria::CriteriaParams::FINAL)
     return true;
   double sum = 0.;
@@ -172,13 +181,15 @@ GeneratorCriteria::checkCriteria(bool finalStep) {
     }
     if (params_->getType() == criteria::CriteriaParams::LOCAL_VALUE) {
       if (params_->hasPMax() && p > params_->getPMax()) {
-        Trace::debug() << DYNLog(SourceAbovePower, (*it)->getID(), p, params_->getPMax(), params_->getId()) << Trace::endline;
-        failingCriteria_.push_back(params_->getId());
+        Message mess = DYNLog(SourceAbovePower, (*it)->getID(), p, params_->getPMax(), params_->getId());
+        Trace::debug() << mess << Trace::endline;
+        failingCriteria_.push_back(mess.str());
         return false;
       }
       if (params_->hasPMin() && p < params_->getPMin()) {
-        Trace::debug() << DYNLog(SourceUnderPower, (*it)->getID(), p, params_->getPMin(), params_->getId()) << Trace::endline;
-        failingCriteria_.push_back(params_->getId());
+        Message mess = DYNLog(SourceUnderPower, (*it)->getID(), p, params_->getPMin(), params_->getId());
+        Trace::debug() << mess << Trace::endline;
+        failingCriteria_.push_back(mess.str());
         return false;
       }
     } else {
@@ -189,13 +200,15 @@ GeneratorCriteria::checkCriteria(bool finalStep) {
 
   if (atLeastOneEligibleGeneratorWasFound && params_->getType() == criteria::CriteriaParams::SUM) {
     if (params_->hasPMax() && sum > params_->getPMax()) {
-      Trace::debug() << DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId()) << Trace::endline;
-      failingCriteria_.push_back(params_->getId());
+      Message mess = DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
+      Trace::debug() << mess << Trace::endline;
+      failingCriteria_.push_back(mess.str());
       return false;
     }
     if (params_->hasPMin() && sum < params_->getPMin()) {
-      Trace::debug() << DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId()) << Trace::endline;
-      failingCriteria_.push_back(params_->getId());
+      Message mess = DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
+      Trace::debug() << mess << Trace::endline;
+      failingCriteria_.push_back(mess.str());
       return false;
     }
   }

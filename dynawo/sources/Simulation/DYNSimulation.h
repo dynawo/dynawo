@@ -414,6 +414,12 @@ class Simulation {
    */
   void printFinalState(std::ostream& stream) const;
 
+  /**
+   * @brief fill a vector with the ids of the failing criteria met so far
+   * @param failingCriteria vector to fill
+   */
+  void getFailingCriteria(std::vector<std::string>& failingCriteria) const;
+
  private:
   /**
    * @brief open a file stream
@@ -428,12 +434,6 @@ class Simulation {
    * @return @b true if all criteria are fullfilled
    */
   bool checkCriteria(bool finalStep);
-
-  /**
-   * @brief fill a vector with the ids of the failing criteria met so far
-   * @param failingCriteria vector to fill
-   */
-  void getFailingCriteria(std::vector<std::string>& failingCriteria) const;
 
   /**
    * @brief configure and create all appenders of the simulation
