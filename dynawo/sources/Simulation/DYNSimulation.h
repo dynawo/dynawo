@@ -424,10 +424,10 @@ class Simulation {
   /**
    * @brief check if criteria are fullfilled
    *
-   * @param checkEachIter  @b false if criteria should not be checked at each iteration
+   * @param finalStep  @b true if this is the final step of the simulation
    * @return @b true if all criteria are fullfilled
    */
-  bool checkCriteria(bool checkEachIter);
+  bool checkCriteria(bool finalStep);
 
   /**
    * @brief configure and create all appenders of the simulation

@@ -26,14 +26,14 @@
 namespace DYN {
 
 class MyEmptyModelManager : public ModelManager {
-public:
+ public:
   MyEmptyModelManager() :
     ModelManager() {
   }
 
   virtual ~MyEmptyModelManager() {
   }
-protected:
+ protected:
   bool hasInit() const {
     return false;
   }
@@ -68,34 +68,33 @@ TEST(TestModelManager, TestModelManagerCommonLogs) {
   boost::shared_ptr<constraints::ConstraintsCollection> constraints = constraints::ConstraintsCollectionFactory::newInstance("MyConstraints");
   mm.setConstraints(constraints);
   constraints::ConstraintsCollection::const_iterator it = constraints->cbegin();
-  ASSERT_EQ(it, constraints->cend());
+  assert(it == constraints->cend());
   ASSERT_NO_THROW(addLogConstraintBegin_(&mm, mess));
   it = constraints->cbegin();
   ++it;
-  ASSERT_EQ(it, constraints->cend());
+  assert(it == constraints->cend());
   ASSERT_NO_THROW(addLogConstraintEnd_(&mm, mess));
   it = constraints->cbegin();
-  ASSERT_EQ(it, constraints->cend());
+  assert(it == constraints->cend());
 
   ASSERT_THROW(assert_(&mm, mess), MessageError);
   ASSERT_THROW(throw_(&mm, mess), MessageError);
   ASSERT_THROW(terminate_(&mm, mess),  DYN::Terminate);
   ASSERT_EQ(timeline->getSizeEvents(), 6);
-
 }
 
 TEST(TestModelManager, TestModelManagerCommonStrings) {
   ASSERT_EQ(std::string(modelica_integer_to_modelica_string(2, 0, true)), "2");
-  ASSERT_EQ(std::string(cat_modelica_string(std::string("hello").c_str(),std::string(" world").c_str())), "hello world");
-  ASSERT_EQ(std::string(cat_modelica_string(std::string("hello").c_str(),std::string(" world"))), "hello world");
-  ASSERT_EQ(std::string(cat_modelica_string(std::string("hello"),std::string(" world").c_str())), "hello world");
-  ASSERT_EQ(std::string(stringAppend(std::string("hello").c_str(),std::string(" world").c_str())), "hello world");
-  ASSERT_EQ(std::string(stringAppend(std::string("hello").c_str(),std::string(" world"))), "hello world");
-  ASSERT_EQ(std::string(stringAppend(std::string("hello"),std::string(" world").c_str())), "hello world");
+  ASSERT_EQ(std::string(cat_modelica_string(std::string("hello").c_str(), std::string(" world").c_str())), "hello world");
+  ASSERT_EQ(std::string(cat_modelica_string(std::string("hello").c_str(), std::string(" world"))), "hello world");
+  ASSERT_EQ(std::string(cat_modelica_string(std::string("hello"), std::string(" world").c_str())), "hello world");
+  ASSERT_EQ(std::string(stringAppend(std::string("hello").c_str(), std::string(" world").c_str())), "hello world");
+  ASSERT_EQ(std::string(stringAppend(std::string("hello").c_str(), std::string(" world"))), "hello world");
+  ASSERT_EQ(std::string(stringAppend(std::string("hello"),  std::string(" world").c_str())), "hello world");
   ASSERT_EQ(mmc_strings_len1(3), std::string(3, '\0'));
-  ASSERT_EQ(std::string(modelica_real_to_modelica_string_format(1.,"")), "1.000");
-  ASSERT_EQ(std::string(modelica_integer_to_modelica_string_format(1,"")), "1");
-  ASSERT_EQ(std::string(modelica_real_to_modelica_string(1.,0, true, 0)), "1");
+  ASSERT_EQ(std::string(modelica_real_to_modelica_string_format(1., "")), "1.000");
+  ASSERT_EQ(std::string(modelica_integer_to_modelica_string_format(1, "")), "1");
+  ASSERT_EQ(std::string(modelica_real_to_modelica_string(1., 0, true, 0)), "1");
   ASSERT_EQ(std::string(modelica_boolean_to_modelica_string(true, 0, false)), "true");
   ASSERT_TRUE(compareString_("blah.", "blah."));
   ASSERT_FALSE(compareString_("blah.", "blah"));
