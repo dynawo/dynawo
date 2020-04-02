@@ -140,6 +140,7 @@ LoadCriteria::addLoad(const boost::shared_ptr<LoadInterface>& load) {
   if (params_->hasUNomMax() &&
       load->getBusInterface() &&
       load->getBusInterface()->getVNom() > params_->getUNomMax()) return;
+  if (load->getBusInterface() && (doubleEquals(load->getBusInterface()->getV0(), defaultV0) || load->getBusInterface()->getV0() <  defaultV0)) return;
   loads_.push_back(load);
 }
 
@@ -207,6 +208,8 @@ GeneratorCriteria::addGenerator(const boost::shared_ptr<GeneratorInterface>& gen
   if (params_->hasUNomMax() &&
       generator->getBusInterface() &&
       generator->getBusInterface()->getVNom() > params_->getUNomMax()) return;
+  if (generator->getBusInterface() &&
+      (doubleEquals(generator->getBusInterface()->getV0(), defaultV0) || generator->getBusInterface()->getV0() <  defaultV0)) return;
   generators_.push_back(generator);
 }
 
