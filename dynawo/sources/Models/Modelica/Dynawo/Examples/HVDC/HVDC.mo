@@ -15,9 +15,14 @@ within Dynawo.Examples.HVDC;
 model HVDC "HVDC link connected to two infinite buses"
 
   import Dynawo;
+  import Modelica;
+
   extends Icons.Example;
 
-  Dynawo.Electrical.HVDC.Standard.HVDCStandard HVDC(CdcPu = 1.99, DUDC = 0.01, DeadBandU = 0, InPu = 1.081, Ip10Pu = -0.8688, Ip20Pu = 0.8552, IpMaxcstPu = 1.001, Iq10Pu = 0.4515, Iq20Pu = 0.5328, KiACVoltageControl = 33.5, KiDeltaP = 20, KiPControl = 100, Kidc = 724.7, KpACVoltageControl = 0, KpDeltaP = 10, KpPControl = 0.4, Kpdc = 24, Lambda = 0.1754386, P10Pu = 9.02, P20Pu = -9.018, PMaxOPPu = 1, PMinOPPu = -1, Q10Pu = 4.688, Q20Pu = 5.618, QMaxCombPu = 0.4, QMaxOPPu = 0.4, QMinCombPu = -0.6, QMinOPPu = -0.6, RdcPu = 0.000244, SNom = 1000, SlopePRefPu = 0.083333, SlopeQRefPu = 100, SlopeRPFault = 1000, SlopeURefPu = 100, TBlock = 0.1, TBlockUV = 0.01, TDeblockU = 0.02, TQ = 0.1, U10Pu = 1.03826, U20Pu = 1.055, UBlockUVPu = -1, UMaxdbPu = 1.2, UMindbPu = 0.8, UPhase10 = -0.07291, UPhase20 = 0.11, Udc10Pu = 1, Udc20Pu = 1, UdcMaxPu = 1.05, UdcMinPu = 0.95, UdcRefMaxPu = 1.15, UdcRefMinPu = 0.95, tableQMaxPPu32 = 0.02, tableQMaxPPu42 = 0.02, tableQMinPPu42 = -0.02, tableQMinPPu52 = -0.02)  annotation(
+  parameter Real modeU1Set = 1 "Set value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
+  parameter Real modeU2Set = 1 "Set value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
+
+  Dynawo.Electrical.HVDC.Standard.HVDCStandard HVDC(CdcPu = 1.99, DUDC = 0.01, DeadBandU = 0, InPu = 1.081, Ip10Pu = -0.8688, Ip20Pu = 0.8552, IpMaxCstPu = 1.0, Iq10Pu = 0.4515, Iq20Pu = 0.5328, KiACVoltageControl = 33.5, KiDeltaP = 20, KiPControl = 100, Kidc = 724.7, KpACVoltageControl = 0, KpDeltaP = 10, KpPControl = 0.4, Kpdc = 24, Lambda = 0.1754386, P10Pu = 9.02, P20Pu = -9.018, PMaxOPPu = 1, PMinOPPu = -1, Q10Pu = 4.688, Q20Pu = 5.618, QMaxCombPu = 0.4, QMaxOPPu = 0.4, QMinCombPu = -0.6, QMinOPPu = -0.6, RdcPu = 0.000244, SNom = 1000, SlopePRefPu = 0.1, SlopeQRefPu = 100, SlopeRPFault = 1000, SlopeURefPu = 100, TBlock = 0.1, TBlockUV = 0.01, TDeblockU = 0.02, TQ = 0.1, U10Pu = 1.03826, U20Pu = 1.055, UBlockUVPu = -1, UMaxdbPu = 1.2, UMindbPu = 0.8, UPhase10 = -0.07291, UPhase20 = 0.11, Udc10Pu = 1, Udc20Pu = 1, UdcMaxPu = 1.05, UdcMinPu = 0.95, UdcRefMaxPu = 1.15, UdcRefMinPu = 0.95, modeU10 = modeU1Set, modeU20 = modeU2Set)  annotation(
     Placement(visible = true, transformation(origin = {20, -30}, extent = {{-50, -30}, {10, 10}}, rotation = 0)));
   Dynawo.Electrical.Lines.Line line1(BPu = 0, GPu = 0, RPu = 0.00037, XPu = 0.0093)  annotation(
     Placement(visible = true, transformation(origin = {-52, -25}, extent = {{-40, -40}, {10, 10}}, rotation = 0)));
@@ -33,9 +38,9 @@ model HVDC "HVDC link connected to two infinite buses"
     Placement(visible = true, transformation(origin = {-50, -10}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step PRefPu(height = 1.8, offset = -0.902, startTime = 6)  annotation(
     Placement(visible = true, transformation(origin = {-50, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant modeU1(k = 1)  annotation(
+  Modelica.Blocks.Sources.Constant modeU1(k = modeU1Set)  annotation(
     Placement(visible = true, transformation(origin = {-50, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant modeu2(k = 1)  annotation(
+  Modelica.Blocks.Sources.Constant modeu2(k = modeU2Set)  annotation(
     Placement(visible = true, transformation(origin = {50, -10}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.Step QRef2Pu(height = 0, offset = -0.46964, startTime = 1)  annotation(
     Placement(visible = true, transformation(origin = {50, 80}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));

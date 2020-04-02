@@ -13,7 +13,7 @@
 -->
 <jobs xmlns="http://www.rte-france.com/dynawo">
     <job name="testHVDC">
-        <solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="5"/>
+        <solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
         <modeler compileDir="outputs/compilation">
             <dynModels dydFile="HVDC.dyd"/>
             <precompiledModels useStandardModels="true"/>
@@ -21,7 +21,7 @@
               <directory path="." recursive="false"/>
             </modelicaModels>
         </modeler>
-        <simulation startTime="0" stopTime="30" precision="1e-5"/>
+        <simulation startTime="0" stopTime="30" precision="1e-4"/>
         <outputs directory="outputs">
             <dumpInitValues local="true" global="true"/>
             <constraints exportMode="XML"/>

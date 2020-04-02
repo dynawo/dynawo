@@ -11,7 +11,6 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
-    HVDCStandard.xml
     CurrentLimitAutomaton.xml
     EventConnectedStatus.xml
     EventQuadripoleConnection.xml
@@ -32,6 +31,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     GridFormingConverterDroopControl.xml
     GridFormingConverterMatchingControl.xml
     GridFormingConverterDispatchableVirtualOscillatorControl.xml
+    HVDCStandard.xml
     InfiniteBus.xml
     Line.xml
     LoadAlphaBeta.xml
