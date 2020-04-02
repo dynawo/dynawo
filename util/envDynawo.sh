@@ -49,6 +49,7 @@ where [option] can be:"
   export_var_env DYNAWO_DEVELOPER_OPTIONS="    =========== Dynawo Developer
         =========== Build
         build-omcDynawo                       build the OpenModelica compiler for Dynawo
+        config-3rd-party                      configure 3rd parties build
         build-3rd-party                       build 3rd party softwares
         config-dynawo                         configure Dynawo's compiling environment using CMake
         build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
@@ -319,41 +320,41 @@ set_environment() {
 
   # Third parties
   export_var_env_force DYNAWO_THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
-  export_var_env DYNAWO_THIRD_PARTY_BUILD_DIR=$DYNAWO_HOME/build/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
-  export_var_env DYNAWO_THIRD_PARTY_INSTALL_DIR=$DYNAWO_HOME/install/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
-  export_var_env_force DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION=$DYNAWO_THIRD_PARTY_BUILD_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
-  export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_THIRD_PARTY_INSTALL_DIR/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
+  export_var_env_force DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION=$DYNAWO_HOME/build/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
+  export_var_env_force DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION=$DYNAWO_HOME/install/3rdParty/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/$DYNAWO_BUILD_TYPE_THIRD_PARTY$SUFFIX_CX11
+  export_var_env DYNAWO_THIRD_PARTY_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION
+  export_var_env DYNAWO_THIRD_PARTY_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION
 
-  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost" ]; then
-    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost)" ]; then
-      export_var_env DYNAWO_BOOST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR/boost" ]; then
+    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR/boost)" ]; then
+      export_var_env DYNAWO_BOOST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/boost
       unset DYNAWO_BOOST_HOME_DEFAULT
       if [ "$DYNAWO_LIBRARY_TYPE" = "STATIC" ]; then
-        if [ "$DYNAWO_BOOST_HOME" = "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/boost" ]; then
+        if [ "$DYNAWO_BOOST_HOME" = "$DYNAWO_THIRD_PARTY_INSTALL_DIR/boost" ]; then
           export_var_env_force DYNAWO_BOOST_USE_STATIC=ON
         fi
       fi
     fi
   fi
 
-  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive" ]; then
-    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive)" ]; then
-      export_var_env DYNAWO_LIBARCHIVE_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libarchive
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR/libarchive" ]; then
+    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR/libarchive)" ]; then
+      export_var_env DYNAWO_LIBARCHIVE_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libarchive
       unset DYNAWO_LIBARCHIVE_HOME_DEFAULT
     fi
   fi
 
-  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib" ]; then
-    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib)" ]; then
-      export_var_env DYNAWO_ZLIB_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/zlib
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR/zlib" ]; then
+    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR/zlib)" ]; then
+      export_var_env DYNAWO_ZLIB_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/zlib
       unset DYNAWO_ZLIB_HOME_DEFAULT
     fi
   fi
 
-  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest" ]; then
-    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest)" ]; then
-      export_var_env DYNAWO_GTEST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
-      export_var_env DYNAWO_GMOCK_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/googletest
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR/googletest" ]; then
+    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR/googletest)" ]; then
+      export_var_env DYNAWO_GTEST_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/googletest
+      export_var_env DYNAWO_GMOCK_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/googletest
       unset DYNAWO_GTEST_HOME_DEFAULT
       unset DYNAWO_GMOCK_HOME_DEFAULT
     fi
@@ -367,29 +368,20 @@ set_environment() {
   export_var_env_default DYNAWO_GTEST_HOME=UNDEFINED
   export_var_env_default DYNAWO_GMOCK_HOME=UNDEFINED
 
-  export_var_env_force DYNAWO_SUITESPARSE_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/suitesparse
-  export_var_env_force DYNAWO_NICSLU_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/nicslu
-  export_var_env_force DYNAWO_SUNDIALS_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/sundials
-  export_var_env_force DYNAWO_ADEPT_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/adept
-  export_var_env_force DYNAWO_XERCESC_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/xerces-c
+  export_var_env_force DYNAWO_SUITESPARSE_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/suitesparse
+  export_var_env_force DYNAWO_NICSLU_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/nicslu
+  export_var_env_force DYNAWO_SUNDIALS_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/sundials
+  export_var_env_force DYNAWO_ADEPT_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/adept
+  export_var_env_force DYNAWO_XERCESC_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/xerces-c
 
-  export_var_env_force DYNAWO_SUITESPARSE_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/suitesparse
-  export_var_env_force DYNAWO_NICSLU_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/nicslu
-  export_var_env_force DYNAWO_SUNDIALS_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/sundials
-  export_var_env_force DYNAWO_ADEPT_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/adept
-  export_var_env_force DYNAWO_XERCESC_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/xerces-c
-
-  export_var_env_force DYNAWO_LIBIIDM_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libiidm
+  export_var_env_force DYNAWO_LIBIIDM_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libiidm
   export_var_env_force DYNAWO_LIBIIDM_INSTALL_DIR=$DYNAWO_LIBIIDM_HOME
-  export_var_env_force DYNAWO_LIBIIDM_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/libiidm
 
-  export_var_env_force DYNAWO_LIBZIP_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libzip
+  export_var_env_force DYNAWO_LIBZIP_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libzip
   export_var_env_force DYNAWO_LIBZIP_INSTALL_DIR=$DYNAWO_LIBZIP_HOME
-  export_var_env_force DYNAWO_LIBZIP_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/libzip
 
-  export_var_env_force DYNAWO_LIBXML_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION/libxml
+  export_var_env_force DYNAWO_LIBXML_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libxml
   export_var_env_force DYNAWO_LIBXML_INSTALL_DIR=$DYNAWO_LIBXML_HOME
-  export_var_env_force DYNAWO_LIBXML_BUILD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/libxml
 
   # Miscellaneous
   export_var_env DYNAWO_USE_XSD_VALIDATION=true
@@ -650,8 +642,8 @@ config_3rd_party() {
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
   fi
-  case $DYNAWO_BUILD_TYPE in
-    Tests|TestCoverage)
+  case $DYNAWO_BUILD_TYPE_THIRD_PARTY in
+    Debug)
       if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
         CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGTEST_ROOT=$DYNAWO_GTEST_HOME"
       fi
@@ -660,12 +652,12 @@ config_3rd_party() {
       ;;
   esac
 
-  mkdir -p $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build
-  cd $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build
+  mkdir -p $DYNAWO_THIRD_PARTY_BUILD_DIR/build
+  cd $DYNAWO_THIRD_PARTY_BUILD_DIR/build
   cmake $DYNAWO_SRC_DIR/3rdParty \
-    -DCMAKE_INSTALL_PREFIX=$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION \
-    -DDOWNLOAD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/src \
-    -DTMP_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/tmp \
+    -DCMAKE_INSTALL_PREFIX=$DYNAWO_THIRD_PARTY_INSTALL_DIR \
+    -DDOWNLOAD_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR/src \
+    -DTMP_DIR=$DYNAWO_THIRD_PARTY_BUILD_DIR/tmp \
     -DCMAKE_C_COMPILER=$DYNAWO_C_COMPILER \
     -DCMAKE_CXX_COMPILER=$DYNAWO_CXX_COMPILER \
     -DCXX11_ENABLED=$DYNAWO_CXX11_ENABLED \
@@ -683,7 +675,7 @@ config_3rd_party() {
 build_3rd_party() {
   config_3rd_party || error_exit "Error with 3rd parties configuration."
   if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
-    cd $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build
+    cd $DYNAWO_THIRD_PARTY_BUILD_DIR/build
     available_cmd=($(make help | fgrep '...' | awk '{print $2}'))
     for cmd in "$@"; do
       if ! echo ${available_cmd[*]} | grep -w "$cmd" > /dev/null; then
@@ -694,7 +686,7 @@ build_3rd_party() {
     done
     make -j $DYNAWO_NB_PROCESSORS_USED $@
   else
-    cmake --build $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build $DYNAWO_CMAKE_BUILD_OPTION --target $@
+    cmake --build $DYNAWO_THIRD_PARTY_BUILD_DIR/build $DYNAWO_CMAKE_BUILD_OPTION --target $@
   fi
   RETURN_CODE=$?
   set_environment
@@ -704,10 +696,10 @@ build_3rd_party() {
 build_omcDynawo() {
   config_3rd_party || error_exit "Error with 3rd parties configuration."
   if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
-    cd $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build
+    cd $DYNAWO_THIRD_PARTY_BUILD_DIR/build
     make -j $DYNAWO_NB_PROCESSORS_USED openmodelica
   else
-    cmake --build $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION/build $DYNAWO_CMAKE_BUILD_OPTION --target openmodelica
+    cmake --build $DYNAWO_THIRD_PARTY_BUILD_DIR/build $DYNAWO_CMAKE_BUILD_OPTION --target openmodelica
   fi
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -715,15 +707,15 @@ build_omcDynawo() {
 
 # clean third parties
 clean_3rd_party() {
-  if [ -d "$DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION" ]; then
-    rm -rf $DYNAWO_THIRD_PARTY_BUILD_DIR_VERSION
+  if [ -d "$DYNAWO_THIRD_PARTY_BUILD_DIR" ]; then
+    rm -rf $DYNAWO_THIRD_PARTY_BUILD_DIR
   fi
 }
 
 # uninstall third parties
 uninstall_3rd_party() {
-  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION" ]; then
-    rm -rf $DYNAWO_THIRD_PARTY_INSTALL_DIR_VERSION
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR" ]; then
+    rm -rf $DYNAWO_THIRD_PARTY_INSTALL_DIR
   fi
 }
 
