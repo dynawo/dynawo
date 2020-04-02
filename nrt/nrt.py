@@ -697,10 +697,6 @@ class TestCase:
 
     def launch(self, timeout):
         start_time = time.time()
-
-        for job in self.jobs_:
-            if job.compilation_dir_ != "" and os.path.isdir(job.compilation_dir_):
-                shutil.rmtree(job.compilation_dir_)
         command = []
 
         command = [env_dynawo, "jobs", self.jobs_file_]
