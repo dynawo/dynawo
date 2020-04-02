@@ -1175,7 +1175,7 @@ DataInterfaceIIDM::checkCriteria(bool finalStep) {
 
 void
 DataInterfaceIIDM::getFailingCriteria(std::vector<std::string>& failingCriteria) const {
-  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criterias_.begin(), itEnd = criterias_.end();
+  for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
       it != itEnd; ++it) {
     const std::vector<std::string>& ids = (*it)->getFailingCriteriaIds();
     failingCriteria.insert(failingCriteria.end(), ids.begin(), ids.end());
