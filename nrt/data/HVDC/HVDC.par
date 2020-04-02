@@ -13,12 +13,12 @@
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="1">
-    <par type="DOUBLE" name="UPu" value="1.08625"/>
-    <par type="DOUBLE" name="UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.08625"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
   </set>
   <set id="2">
-    <par type="DOUBLE" name="UPu" value="1.1"/>
-    <par type="DOUBLE" name="UPhase" value="0"/>
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.1"/>
+    <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
   </set>
   <set id="3">
     <par type="DOUBLE" name="line_XPu" value="0.0093"/>
