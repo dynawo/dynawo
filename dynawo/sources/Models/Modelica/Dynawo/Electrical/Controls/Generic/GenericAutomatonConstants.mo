@@ -16,8 +16,8 @@ package GenericAutomatonConstants "Defining constants for Generic automaton"
   extends Icons.Package;
 
   public
-  final constant Integer inputsMaxSize = 1000;
-  final constant Integer outputsMaxSize = 500;
+  final constant Integer inputsMaxSize = 100;
+  final constant Integer outputsMaxSize = 50;
 
 annotation(preferredView = "text");
 end GenericAutomatonConstants;
