@@ -15,53 +15,54 @@ within Dynawo.Electrical.HVDC.Standard;
 model HVDCStandard "HVDC Standard model"
 
   import Modelica;
-  import Dynawo;
+  import Dynawo.Electrical.Sources;
+  import Dynawo.Electrical.HVDC;
   import Dynawo.Types;
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
-  Dynawo.Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) annotation(
-    Placement(visible = true, transformation(origin = {-130, -8}, extent = {{-40, -40}, {40, 40}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the injector to the grid" annotation(
-    Placement(visible = true, transformation(origin = {130, -8}, extent = {{-40, -40}, {40, 40}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the injector to the grid" annotation(
+    Placement(visible = true, transformation(origin = {-130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the injector to the grid" annotation(
+    Placement(visible = true, transformation(origin = {130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
-  parameter Types.PerUnit IpMaxcstPu "Maximum value of the active current in p.u (base SNom, UNom)";
+  extends HVDC.Standard.BaseControls.Parameters.Params_DCLine;
+  extends HVDC.Standard.BaseControls.Parameters.Params_ActivePowerControl;
+  extends HVDC.Standard.BaseControls.Parameters.Params_DCVoltageControl;
+  extends HVDC.Standard.BaseControls.Parameters.Params_BlockingFunction;
+  extends HVDC.Standard.BaseControls.Parameters.Params_ACVoltageControl;
+  parameter Types.PerUnit IpMaxCstPu "Maximum value of the active current in p.u (base SNom, UNom)";
   parameter Types.CurrentModulePu InPu "Nominal current in p.u (base SNom, UNom)";
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-  extends Parameters.Params_DCLine;
-  extends Parameters.Params_ActivePowerControl;
-  extends Parameters.Params_DCVoltageControl;
-  extends Parameters.Params_BlockingFunction;
-  extends Parameters.Params_ACVoltageControl;
 
-  Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu / (SNom/SystemBase.SnRef)) "Reactive power reference for the side 1 of the HVDC link in p.u (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRef1Pu(start = - Q10Pu * (SystemBase.SnRef/SNom)) "Reactive power reference for the side 1 of the HVDC link in p.u (base SNom) and in generator convention" annotation(
     Placement(visible = true, transformation(origin = {-50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P10Pu / (SNom/SystemBase.SnRef)) "Active power reference of the HVDC link in p.u (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput PRefPu(start = - P10Pu * (SystemBase.SnRef/SNom)) "Active power reference of the HVDC link in p.u (base SNom) and in generator convention" annotation(
     Placement(visible = true, transformation(origin = {-60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - Lambda * Q10Pu / (SNom/SystemBase.SnRef)) "Voltage reference for the side 1 of the HVDC link in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URef1Pu(start = U10Pu - Lambda * Q10Pu * (SystemBase.SnRef/SNom)) "Voltage reference for the side 1 of the HVDC link in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-40, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput modeU1(start = 1) "Real assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
+  Modelica.Blocks.Interfaces.RealInput modeU1(start = modeU10) "Real assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
     Placement(visible = true, transformation(origin = {-30, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {-30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput QRef2Pu(start = - Q20Pu / (SNom/SystemBase.SnRef)) "Reactive power reference for the side 2 of the HVDC link in p.u (base SNom) and in generator convention" annotation(
+  Modelica.Blocks.Interfaces.RealInput QRef2Pu(start = - Q20Pu * (SystemBase.SnRef/SNom)) "Reactive power reference for the side 2 of the HVDC link in p.u (base SNom) and in generator convention" annotation(
     Placement(visible = true, transformation(origin = {50, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {30, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput URef2Pu(start = U20Pu - Lambda * Q20Pu / (SNom/SystemBase.SnRef)) "Voltage reference for the side 2 of the HVDC link in p.u (base UNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput URef2Pu(start = U20Pu - Lambda * Q20Pu * (SystemBase.SnRef/SNom)) "Voltage reference for the side 2 of the HVDC link in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {40, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {50, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput UdcRefPu(start = Udc20Pu) "DC voltage reference of the HVDC link in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {60, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {70, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
-  Modelica.Blocks.Interfaces.RealInput modeU2(start = 1) "Boolean assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
+  Modelica.Blocks.Interfaces.RealInput modeU2(start = modeU20) "Boolean assessing the mode of the control: 1 if U mode, 0 if Q mode" annotation(
     Placement(visible = true, transformation(origin = {30, 77}, extent = {{-7, -7}, {7, 7}}, rotation = -90), iconTransformation(origin = {90, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
 
-  Dynawo.Electrical.HVDC.Standard.DCVoltageControlSide UdcPu_Side(DUDC = DUDC, DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip20Pu, IpMaxcstPu = IpMaxcstPu, Iq0Pu = Iq20Pu, KiACVoltageControl = KiACVoltageControl, Kidc = Kidc, KpACVoltageControl = KpACVoltageControl, Kpdc = Kpdc, Lambda = Lambda, P0Pu = - P20Pu / (SNom/SystemBase.SnRef), Q0Pu = - Q20Pu / (SNom/SystemBase.SnRef), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U20Pu, Udc0Pu = Udc20Pu, UdcRefMaxPu = UdcRefMaxPu, UdcRefMinPu = UdcRefMinPu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod)  annotation(
+  HVDC.Standard.BaseControls.DCVoltageControlSide UdcPu_Side(DUDC = DUDC, DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip20Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq20Pu, KiACVoltageControl = KiACVoltageControl, Kidc = Kidc, KpACVoltageControl = KpACVoltageControl, Kpdc = Kpdc, Lambda = Lambda, P0Pu = - P20Pu * (SystemBase.SnRef/SNom), Q0Pu = - Q20Pu * (SystemBase.SnRef/SNom), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopeQRefPu = SlopeQRefPu, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U20Pu, Udc0Pu = Udc20Pu, UdcRefMaxPu = UdcRefMaxPu, UdcRefMinPu = UdcRefMinPu, modeU0 = if modeU20 > 0.5 then true else false, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) "DC Voltage Control Side of the HVDC link"  annotation(
     Placement(visible = true, transformation(origin = {45, 0}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  Dynawo.Electrical.HVDC.Standard.ActivePowerControlSide PPu_Side(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip10Pu, IpMaxcstPu = IpMaxcstPu, Iq0Pu = Iq10Pu, KiACVoltageControl = KiACVoltageControl, KiDeltaP = KiDeltaP, KiPControl = KiPControl, KpACVoltageControl = KpACVoltageControl, KpDeltaP = KpDeltaP, KpPControl = KpPControl, Lambda = Lambda, P0Pu = - P10Pu / (SNom/SystemBase.SnRef), PMaxOPPu = PMaxOPPu, PMinOPPu = PMinOPPu, Q0Pu = - Q10Pu / (SNom/SystemBase.SnRef), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopePRefPu = SlopePRefPu, SlopeQRefPu = SlopeQRefPu, SlopeRPFault = SlopeRPFault, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U10Pu, Udc0Pu = Udc10Pu, UdcMaxPu = UdcMaxPu, UdcMinPu = UdcMinPu, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod)  annotation(
+  HVDC.Standard.BaseControls.ActivePowerControlSide PPu_Side(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip10Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq10Pu, KiACVoltageControl = KiACVoltageControl, KiDeltaP = KiDeltaP, KiPControl = KiPControl, KpACVoltageControl = KpACVoltageControl, KpDeltaP = KpDeltaP, KpPControl = KpPControl, Lambda = Lambda, P0Pu = - P10Pu * (SystemBase.SnRef/SNom), PMaxOPPu = PMaxOPPu, PMinOPPu = PMinOPPu, Q0Pu = - Q10Pu * (SystemBase.SnRef/SNom), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopePRefPu = SlopePRefPu, SlopeQRefPu = SlopeQRefPu, SlopeRPFault = SlopeRPFault, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U10Pu, Udc0Pu = Udc10Pu, UdcMaxPu = UdcMaxPu, UdcMinPu = UdcMinPu, modeU0 = if modeU10 > 0.5 then true else false, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) "Active Power Control Side of the HVDC link"  annotation(
     Placement(visible = true, transformation(origin = {-45, 0}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  Dynawo.Electrical.HVDC.Standard.BlockingFunction.GeneralBlockingFunction Blocking(TBlock = TBlock, TBlockUV = TBlockUV, TDeblockU = TDeblockU, UBlockUVPu = UBlockUVPu, UMaxdbPu = UMaxdbPu, UMindbPu = UMindbPu, U10Pu = U10Pu, U20Pu = U20Pu)  annotation(
+  HVDC.Standard.BaseControls.BlockingFunction.GeneralBlockingFunction Blocking(TBlock = TBlock, TBlockUV = TBlockUV, TDeblockU = TDeblockU, UBlockUVPu = UBlockUVPu, UMaxdbPu = UMaxdbPu, UMindbPu = UMindbPu, U10Pu = U10Pu, U20Pu = U20Pu) "Undervoltage blocking function for the two sides of an HVDC Link"  annotation(
     Placement(visible = true, transformation(origin = {0, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.HVDC.Standard.DCLine.DCLine dCLine(CdcPu = CdcPu, P10Pu = - P10Pu / (SNom/SystemBase.SnRef), P20Pu = - P20Pu / (SNom/SystemBase.SnRef), RdcPu = RdcPu, U1dc0Pu = Udc10Pu, U2dc0Pu = Udc20Pu)  annotation(
+  HVDC.Standard.BaseControls.DCLine.DCLine dCLine(CdcPu = CdcPu, P10Pu = - P10Pu * (SystemBase.SnRef/SNom), P20Pu = - P20Pu * (SystemBase.SnRef/SNom), RdcPu = RdcPu, SNom = SNom, U1dc0Pu = Udc10Pu, U2dc0Pu = Udc20Pu) "DC line model"  annotation(
     Placement(visible = true, transformation(origin = {5, 0}, extent = {{-20, -10}, {10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.InjectorIDQ Conv1(Id0Pu = Ip10Pu, Iq0Pu = Iq10Pu, P0Pu = P10Pu / (SNom/SystemBase.SnRef), Q0Pu = Q10Pu / (SNom/SystemBase.SnRef), SNom = SNom, U0Pu = U10Pu, UPhase0 = UPhase10, i0Pu = i10Pu, s0Pu = s10Pu, u0Pu = u10Pu)  annotation(
+  Sources.InjectorIDQ Conv1(Id0Pu = Ip10Pu, Iq0Pu = Iq10Pu, P0Pu = P10Pu * (SystemBase.SnRef/SNom), Q0Pu = Q10Pu * (SystemBase.SnRef/SNom), SNom = SNom, U0Pu = U10Pu, UPhase0 = UPhase10, i0Pu = i10Pu, s0Pu = s10Pu, u0Pu = u10Pu) "Injector of the Active Power Control Side of the HVDC link"  annotation(
     Placement(visible = true, transformation(origin = {-90, 0}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
-  Dynawo.Electrical.Sources.InjectorIDQ Conv2(Id0Pu = Ip20Pu, Iq0Pu = Iq20Pu, P0Pu = P20Pu / (SNom/SystemBase.SnRef), Q0Pu = Q20Pu / (SNom/SystemBase.SnRef), SNom = SNom, U0Pu = U20Pu, UPhase0 = UPhase20, i0Pu = i20Pu, s0Pu = s20Pu, u0Pu = u20Pu)  annotation(
+  Sources.InjectorIDQ Conv2(Id0Pu = Ip20Pu, Iq0Pu = Iq20Pu, P0Pu = P20Pu * (SystemBase.SnRef/SNom), Q0Pu = Q20Pu * (SystemBase.SnRef/SNom), SNom = SNom, U0Pu = U20Pu, UPhase0 = UPhase20, i0Pu = i20Pu, s0Pu = s20Pu, u0Pu = u20Pu) "Injector of the DC Voltage Control Side of the HVDC link"  annotation(
     Placement(visible = true, transformation(origin = {90, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.RealToBoolean realToBoolean annotation(
     Placement(visible = true, transformation(origin = {-30, 58}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
@@ -77,9 +78,10 @@ protected
   parameter Types.ComplexVoltagePu u10Pu "Start value of complex voltage at terminal 1 in p.u (base UNom)";
   parameter Types.ComplexCurrentPu i10Pu "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexApparentPowerPu s10Pu "Start value of complex apparent power at terminal 1 in p.u (base SnRef) (receptor convention)";
-  parameter Types.VoltageModulePu Udc10Pu "Start value of dc voltage at terminal 1 in p.u (base SNom, UNom)";
+  parameter Types.VoltageModulePu Udc10Pu "Start value of dc voltage at terminal 1 in p.u (base UdcNom)";
   parameter Types.PerUnit Ip10Pu "Start value of active current at terminal 1 in p.u (base SNom)";
   parameter Types.PerUnit Iq10Pu "Start value of reactive current at terminal 1 in p.u (base SNom)";
+  parameter Real modeU10 "Start value of the real assessing the mode of the control at terminal 1: 1 if U mode, 0 if Q mode";
 
   parameter Types.VoltageModulePu U20Pu  "Start value of voltage amplitude at terminal 2 in p.u (base UNom)";
   parameter Types.Angle UPhase20  "Start value of voltage angle at terminal 2 (in rad)";
@@ -88,9 +90,11 @@ protected
   parameter Types.ComplexVoltagePu u20Pu "Start value of complex voltage at terminal 2 in p.u (base UNom)";
   parameter Types.ComplexCurrentPu i20Pu "Start value of complex current at terminal 2 in p.u (base UNom, SnRef) (receptor convention)";
   parameter Types.ComplexApparentPowerPu s20Pu "Start value of complex apparent power at terminal 2 in p.u (base SnRef) (receptor convention)";
-  parameter Types.VoltageModulePu Udc20Pu "Start value of dc voltage at terminal 2 in p.u (base SNom, UNom)";
+  parameter Types.VoltageModulePu Udc20Pu "Start value of dc voltage at terminal 2 in p.u (base UdcNom)";
   parameter Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in p.u (base SNom)";
   parameter Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in p.u (base SNom)";
+  parameter Real modeU20 "Start value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
+
 equation
   connect(modeU1, realToBoolean.u) annotation(
     Line(points = {{-30, 77}, {-30, 64}}, color = {0, 0, 127}));

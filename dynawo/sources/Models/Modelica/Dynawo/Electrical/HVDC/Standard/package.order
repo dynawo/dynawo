@@ -1,11 +1,3 @@
-Parameters
-ACVoltageControl
-DCVoltageControl
-ActivePowerControl
-LimitsCalculationFunction
-BlockingFunction
-DCLine
-DCVoltageControlSide
-ActivePowerControlSide
+BaseControls
 HVDCStandard
 HVDCStandard_INIT
