@@ -122,11 +122,19 @@ class SubModelMock : public SubModel {
     // Dummy class used for testing
   }
 
-  void evalYType() {
+  void evalStaticYType() {
     // Dummy class used for testing
   }
 
-  void evalFType() {
+  void evalDynamicYType() {
+    // Dummy class used for testing
+  }
+
+  void evalStaticFType() {
+    // Dummy class used for testing
+  }
+
+  void evalDynamicFType() {
     // Dummy class used for testing
   }
 

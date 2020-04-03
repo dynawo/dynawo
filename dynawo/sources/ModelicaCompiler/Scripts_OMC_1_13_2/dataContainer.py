@@ -390,8 +390,12 @@ class Variable:
 
         # "bAlg" (var alg bool), "rAlg" (var alg reelle), "rSta" (real state variable),
         # "rDer" (var diff reelle), "rPar" (param reel), "rAli" (real state variable with an alias)
-        ## type of the variable
+        ## OpenModelica type of the variable
         self.type = ""
+
+        # table containing the different possible types of this variable
+        # a type can be ALGEBRAIC if the variable is always algebraic, DIFFERENTIAL if the variable is always differential or MIXED if it depends on some conditions
+        self.ordered_types = []
 
         ## Dynamic type of the variable : CONTINUOUS, DISCRETE, FLOW
         self.dyn_type = ""
@@ -471,12 +475,19 @@ class Variable:
         self.causality = causality
 
     ##
-    # Set the type of the variable (bAlg,rAlg,...)
+    # Set the OpenModelica type of the variable (bAlg,rAlg,...)
     # @param self : object pointer
     # @param type : type of the variable
     # @return
     def set_type(self, type):
         self.type = type
+
+    ##
+    # add a type to the variable (ALGEBRAIC, DIFFERENTIAL, or MIXED)
+    # @param self : object pointer
+    # @param type : new additional type of the variable
+    def add_ordered_types(self, type):
+        self.ordered_types.append(type)
 
     ##
     # Set the dynamic type of the variable (continuous/discrete/flow)
@@ -644,6 +655,13 @@ class Variable:
     # @return the type of the variable
     def get_type(self):
        return self.type
+
+    ##
+    # get the ordered types of this variable
+    # @param self : object pointer
+    # @return ordered types of this variable
+    def get_ordered_types(self):
+        return self.ordered_types
 
     ##
     # Get the C type of a variable
@@ -1239,7 +1257,7 @@ class EqMaker():
         ## List of variables needed to build the equation
         self.depend_vars = []
         ## whether this equation is differential or not
-        self.is_diff_eq = False
+        self.type = UNDEFINED_TYPE
 
         ## For whenCondition, index of the relation associated to this equation
         self.num_relation = ""
@@ -1298,11 +1316,11 @@ class EqMaker():
         self.depend_vars = list_vars
 
     ##
-    # set whether the equation defines a differential equation
+    # set the type of this equation (one of DIFFERENTIAL, ALGEBRAIC, MIXED)
     # @param self : object pointer
-    # @param is_diff_eq whether the equation defined a differential equation
-    def set_diff_eq(self, is_diff_eq):
-        self.is_diff_eq = is_diff_eq
+    # @param type new type of the equation
+    def set_type(self, type):
+        self.type = type
 
     ##
     # Get the name of the equation maker
@@ -1404,7 +1422,7 @@ class EqMaker():
                          self.get_depend_vars(), \
                          self.name, \
                          self.num_omc,
-                         self.is_diff_eq )
+                         self.type )
 
 
 ##
@@ -1420,7 +1438,7 @@ class EquationBase:
     # @param depend_vars : variables used in the equation
     # @param comes_from : name of the function using the equation
     # @param num_omc : index of the equation in omc arrays
-    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, is_diff_eq = False):
+    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, type = ALGEBRAIC):
         ## pattern to identify the variable evaluated
         self.ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
         ## pattern to identify the residual variable evaluated
@@ -1440,8 +1458,8 @@ class EquationBase:
         self.num_dyn = -1
         ## body of the equation
         self.body = []
-        ## whether this equation is differential or not
-        self.is_diff_eq = is_diff_eq
+        ## type of the equation (one of DIFFERENTIAL, ALGEBRAIC, MIXED)
+        self.type = type
 
 
         if body is not None:
@@ -1541,18 +1559,18 @@ class EquationBase:
         return text_to_return
 
     ##
-    # set whether the equation defines a differential equation
+    # set the type of this equation (one of DIFFERENTIAL, ALGEBRAIC, MIXED)
     # @param self : object pointer
-    # @param is_diff_eq whether the equation defined a differential equation
-    def set_diff_eq(self, is_diff_eq):
-        self.is_diff_eq = is_diff_eq
+    # @param type new type of the equation
+    def set_type(self, type):
+        self.type = type
 
     ##
-    # get if the equation defined a differential equation
+    # get the type of this equation
     # @param self : object pointer
-    # @return @b true if the equation defined a differential equation
-    def get_is_diff_eq(self):
-        return self.is_diff_eq
+    # @return the type of this equation
+    def get_type(self):
+        return self.type
 
 ##
 # class Equation
@@ -1567,8 +1585,8 @@ class Equation(EquationBase):
     # @param depend_vars : variables used in the equation
     # @param comes_from : name of the function using the equation
     # @param num_omc : index of the equation in omc arrays
-    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, is_diff_eq = False):
-        EquationBase.__init__(self, body, eval_var, evaluated_var_address, depend_vars, comes_from, num_omc, is_diff_eq)
+    def __init__(self, body = None, eval_var = None, evaluated_var_address = None, depend_vars = None, comes_from = None, num_omc = None, type = ALGEBRAIC):
+        EquationBase.__init__(self, body, eval_var, evaluated_var_address, depend_vars, comes_from, num_omc, type)
 
     ##
     # retrieve the body formatted for Modelica reinit affectation
@@ -2127,9 +2145,9 @@ class Modes:
             text_to_return.append(relation.body_definition)
             text_to_return.append("  if (data->simulationInfo->relations[" + str(relation.index) + "] != data->simulationInfo->relationsPre[" + str(relation.index) + "]) \n")
             text_to_return.append("  {\n")
-            if relation.type == "ALG":
+            if relation.type == ALGEBRAIC:
                 text_to_return.append("    modeChangeType = ALGEBRAIC_MODE;\n")
-            elif relation.type == "DIFF":
+            elif relation.type == DIFFERENTIAL:
                 text_to_return.append("    if (modeChangeType == NO_MODE)\n")
                 text_to_return.append("      modeChangeType = DIFFERENTIAL_MODE;\n")
             else:
@@ -2149,7 +2167,7 @@ class Modes:
             if z_aff == z_pre: continue
             text_to_return.append("  // " + z + " != pre(" +z+")\n")
             text_to_return.append("  if (doubleNotEquals(" + z_aff + ", " + z_pre +")) {\n")
-            if discrete_mode.type == "ALG":
+            if discrete_mode.type == ALGEBRAIC:
                 if discrete_mode.boolean == False:
                     text_to_return.append("      modeChangeType = ALGEBRAIC_MODE;\n")
                 else:

@@ -169,12 +169,12 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief evaluate the continuous variable property
    */
-  virtual void evalYType() = 0;
+  virtual void evalStaticYType() = 0;
 
   /**
    * @brief update during the simulation the continuous variable property
    */
-  virtual void updateYType() = 0;
+  virtual void evalDynamicYType() = 0;
 
   /**
    * @brief set the local buffer for continuous variables properties
@@ -187,12 +187,12 @@ class NetworkComponent {  ///< Base class for network component models
   /**
    * @brief evaluate the residual function property
    */
-  virtual void evalFType() = 0;
+  virtual void evalStaticFType() = 0;
 
   /**
    * @brief update during the simulation the residual function property
    */
-  virtual void updateFType() = 0;
+  virtual void evalDynamicFType() = 0;
 
   /**
    * @brief set the silent flag for discrete variables

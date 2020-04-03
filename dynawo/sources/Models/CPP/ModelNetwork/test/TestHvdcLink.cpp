@@ -619,9 +619,11 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkContinuousVariables) {
   ASSERT_EQ(hvdc->sizeY(), nbY);
   ASSERT_EQ(hvdc->sizeF(), nbF);
 
-  // test evalYType
-  ASSERT_NO_THROW(hvdc->evalYType());
-  ASSERT_NO_THROW(hvdc->evalFType());
+  // test evalStaticYType
+  ASSERT_NO_THROW(hvdc->evalStaticYType());
+  ASSERT_NO_THROW(hvdc->evalStaticFType());
+  ASSERT_NO_THROW(hvdc->evalDynamicYType());
+  ASSERT_NO_THROW(hvdc->evalDynamicFType());
   ASSERT_NO_THROW(hvdc->evalF(UNDEFINED_EQ));
 
   // test setFequations

@@ -1054,7 +1054,16 @@ ModelLine::setFequations(std::map<int, std::string>& fEquationIndex) {
 }
 
 void
-ModelLine::evalYType() {
+ModelLine::evalStaticYType() {
+  if (network_->isInitModel()) return;
+  if (isDynamic_) {
+    yType_[2] = EXTERNAL;
+  }
+}
+
+void
+ModelLine::evalDynamicYType() {
+  if (network_->isInitModel()) return;
   if (isDynamic_) {
     if (getConnectionState() == CLOSED) {
       yType_[0] = DIFFERENTIAL;
@@ -1063,17 +1072,17 @@ ModelLine::evalYType() {
       yType_[0] = ALGEBRAIC;
       yType_[1] = ALGEBRAIC;
     }
-    yType_[2] = EXTERNAL;
   }
 }
 
 void
-ModelLine::updateYType() {
-  evalYType();
+ModelLine::evalStaticFType() {
+  /* not needed */
 }
 
 void
-ModelLine::evalFType() {
+ModelLine::evalDynamicFType() {
+  if (network_->isInitModel()) return;
   if (isDynamic_) {
     if (getConnectionState() == CLOSED) {
       fType_[0] = DIFFERENTIAL_EQ;
@@ -1083,11 +1092,6 @@ ModelLine::evalFType() {
       fType_[1] = ALGEBRAIC_EQ;
     }
   }
-}
-
-void
-ModelLine::updateFType() {
-  evalFType();
 }
 
 void

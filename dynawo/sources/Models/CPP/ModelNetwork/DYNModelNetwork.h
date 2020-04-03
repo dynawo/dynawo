@@ -155,19 +155,19 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
   void getY0();
 
   /**
-   * @copydoc ModelCPP::evalYType()
+   * @copydoc ModelCPP::evalStaticYType()
    */
-  void evalYType();
+  void evalStaticYType();
 
   /**
-   * @copydoc ModelCPP::updateYType()
+   * @copydoc ModelCPP::evalDynamicYType()
    */
-  void updateYType();
+  void evalDynamicYType();
 
   /**
-   * @copydoc ModelCPP::evalFType()
+   * @copydoc ModelCPP::evalStaticFType()
    */
-  void evalFType();
+  void evalStaticFType();
 
   /**
    * @copydoc ModelCPP::collectSilentZ()
@@ -175,9 +175,9 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
   void collectSilentZ(BitMask* silentZTable);
 
   /**
-   * @copydoc ModelCPP::updateFType()
+   * @copydoc ModelCPP::evalDynamicFType()
    */
-  void updateFType();
+  void evalDynamicFType();
 
   /**
    * @brief retrieve the size of the network

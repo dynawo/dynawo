@@ -211,8 +211,10 @@ TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClose
   tw3->evalYMat();
   ASSERT_NO_THROW(tw3->init());
   ASSERT_NO_THROW(tw3->evalF(UNDEFINED_EQ));
-  ASSERT_NO_THROW(tw3->evalYType());
-  ASSERT_NO_THROW(tw3->evalFType());
+  ASSERT_NO_THROW(tw3->evalStaticYType());
+  ASSERT_NO_THROW(tw3->evalStaticFType());
+  ASSERT_NO_THROW(tw3->evalDynamicYType());
+  ASSERT_NO_THROW(tw3->evalDynamicFType());
   std::map<int, std::string> fEquationIndex;
   tw3->setFequations(fEquationIndex);
   ASSERT_EQ(fEquationIndex.size(), 0);
@@ -248,8 +250,6 @@ TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClose
   ASSERT_NO_THROW(tw3->evalDerivatives(0.));
   ASSERT_NO_THROW(tw3->evalDerivativesPrim());
   ASSERT_NO_THROW(tw3->addBusNeighbors());
-  ASSERT_NO_THROW(tw3->updateYType());
-  ASSERT_NO_THROW(tw3->updateFType());
 
   std::vector<ParameterModeler> parameters;
   tw3->defineNonGenericParameters(parameters);

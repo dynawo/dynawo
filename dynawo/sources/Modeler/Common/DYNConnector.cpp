@@ -744,7 +744,7 @@ ConnectorContainer::getY0ConnectorForZConnector() {
 }
 
 void
-ConnectorContainer::evalFType() const {
+ConnectorContainer::evalStaticFType() const {
   int offset = 0;
 
   for (unsigned int i = 0; i < yConnectors_.size(); ++i) {

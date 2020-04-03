@@ -103,12 +103,12 @@ ModelStaticVarCompensator::initSize() {
 }
 
 void
-ModelStaticVarCompensator::evalYType() {
+ModelStaticVarCompensator::evalStaticYType() {
   // not needed
 }
 
 void
-ModelStaticVarCompensator::evalFType() {
+ModelStaticVarCompensator::evalStaticFType() {
   // not needed
 }
 
