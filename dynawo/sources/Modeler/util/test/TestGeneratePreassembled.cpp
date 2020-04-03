@@ -26,7 +26,8 @@ TEST(ModelerUtil, TestGeneratePreassembled) {
   executeCommand(cmd, ss);
   std::string result = ss.str();
   boost::erase_all(result, "\n");
-  ASSERT_EQ(result, "Executing command : ../generate-preassembled Default BDD Models Directory is used. You need to give a model list.  -h [ --help ]                         "
+  ASSERT_EQ(result, "Executing command : ../generate-preassembled Default BDD Models Directory is used. "
+      "You need to give a model list.  -h [ --help ]                         "
       "produce help message  --model-list arg                      "
       "set model list file (required)  --use-standard-precompiled-models arg use standard precompiled models                                         "
       "(default true)  --recursive-precompiled-models-dir arg                                        "

@@ -108,6 +108,18 @@ namespace DYN {
      Complex omc_Modelica_ComplexMath_conj( Complex _c1);
      modelica_metatype boxptr_Modelica_ComplexMath_conj( modelica_metatype _c1);
 
+#ifdef _ADEPT_
+     typedef struct Complex_s_adept {
+       adept::adouble _im;
+       adept::adouble _re;
+     } Complex_adept;
+     typedef Complex_adept Dynawo_Types_AC_ApparentPower_adept;
+     typedef Complex_adept Dynawo_Types_AC_ApparentPower$generator$SGenPu_adept;
+     typedef Complex_adept Dynawo_Types_AC_Current_adept;
+     typedef Complex_adept Dynawo_Types_AC_Current$generator$terminal$i_adept;
+     typedef Complex_adept Dynawo_Types_AC_Voltage_adept;
+     typedef Complex_adept Dynawo_Types_AC_Voltage$generator$terminal$V_adept;
+#endif
       // Non-internal parameters 
       double generator_AlphaPu_;
       double generator_PGen0Pu_;

@@ -16,6 +16,7 @@ import itertools
 import re
 from dataContainer import *
 from utils import *
+from __builtin__ import False
 
 
 def cmp_to_key_dynawo(mycmp):
@@ -222,6 +223,8 @@ class Factory:
         self.map_eq_reinit_continuous = {}
         # Map of reinit equations for discrete variables
         self.map_eq_reinit_discrete = {}
+        # List of adept types
+        self.list_adept_structs = []
 
         ## List of warnings
         self.list_warnings = []
@@ -584,16 +587,21 @@ class Factory:
 
         global_pattern_index = 0
         dic_var_name_to_temporary_name = {}
+        tmp_var_to_declare = []
 
         # functions calling an external function ???
         for body in list_body_to_analyse:
             new_body = []
             is_discrete = False
             found = False
+            use_temporary_var = False
             function_name = ""
+            ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+            ptrn_tmp_decl = re.compile(r'(?P<type>[\w\_]+)\s*tmp[0-9]+\s*;')
             for line in body:
                 for name in name_func_to_search:
                     ptrn_function = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+name+'[ ]*\((?P<rhs>[^;]+);')
+                    ptrn_function_tmp = re.compile(r'[ ]*tmp[0-9]+[ ]* = [ ]*'+name+'[ ]*\((?P<rhs>[^;]+);')
                     match = re.match(ptrn_function, line)
                     if match is not None:
                         variables_set_by_omc_function = self.find_variables_set_by_omc_function(line, name_func_to_search[name], None)
@@ -609,7 +617,32 @@ class Factory:
                             (line, dic_var_name_to_temporary_name_tmp, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_set_by_omc_function, global_pattern_index)
                             dic_var_name_to_temporary_name.update(dic_var_name_to_temporary_name_tmp)
                         found = True
-                new_body.append(line)
+                    else:
+                        match_tmp = re.match(ptrn_function_tmp, line)
+                        if match_tmp is not None:
+                            found = True
+                            use_temporary_var = True
+                if "omc_assert" in line or "omc_terminate" in line:
+                    found = True
+                match_eval = re.search(ptrn_tmp_decl, line)
+                if match_eval is not None:
+                    tmp_var_to_declare.append(line)
+                else:
+                    match_eval = re.search(ptrn_evaluated_var, line)
+                    if use_temporary_var and match_eval is not None:
+                        eq = EquationBasedOnExternalCall(
+                                      function_name,
+                                      [line], \
+                                      name, \
+                                      to_param_address(name), \
+                                      [], \
+                                      "external_call_"+str(self.nb_eq_dyn), \
+                                      -1 )
+                        eq.set_num_dyn(self.nb_eq_dyn)
+                        self.nb_eq_dyn += 1
+                        self.list_additional_equations_from_call_for_setf.append(eq)
+                    else:
+                        new_body.append(line)
             if found and is_discrete:
                 list_body_to_append_to_z.append("{\n")
                 list_body_to_append_to_z.append(body)
@@ -624,6 +657,8 @@ class Factory:
                 test_param_address(name)
                 self.list_call_for_setf.append("  double " + dic_var_name_to_temporary_name[name]+ " = " + to_param_address(name) + " /* " + name + "*/;\n")
 
+            for tmp_var in tmp_var_to_declare:
+                self.list_call_for_setf.append(tmp_var)
             # Add the functions concerned
             for body in list_body_to_append:
                 self.list_call_for_setf.extend(body)
@@ -1240,7 +1275,7 @@ class Factory:
         map_tags_num_eq = self.reader.get_map_tag_num_eq()
         for eq in self.list_all_equations:
             tag = find_value_in_map( map_tags_num_eq, eq.get_num_omc() )
-            if eq.get_evaluated_var() == "" and tag == 'algorithm':
+            if eq.get_evaluated_var() == "" and tag == 'algorithm' and eq.with_throw():
                 warning = Warn(eq.get_body())
                 warning.prepare_body()
                 do_it = True
@@ -1940,34 +1975,50 @@ class Factory:
         functions_to_dump.extend(used_functions)
         list_omc_functions = self.reader.list_omc_functions
         list_functions_body = []
+        ptrn_modelica_integer_cast_adouble = re.compile(r'.*\(modelica_real\)[(]*\(modelica_integer\).*')
         while len(functions_to_dump) > 0:
             func = functions_to_dump[0]
             functions_to_dump.remove(func)
-            if func.get_return_type() != "modelica_real" or "omc_Modelica_" in func.get_name(): continue
+            if not is_adept_func(func, self.list_adept_structs) : continue
             if func in functions_dumped: continue
             functions_dumped.append(func)
             func_body = []
             func_body.append("// " + func.get_name()+"\n")
-            func_header = "adept::adouble " + get_adept_function_name(func)
+            if func.get_return_type() == "modelica_real":
+                func_header = "adept::adouble " + get_adept_function_name(func) + "("
+                func_header_cpp = func_header
+            elif func.get_return_type().startswith('modelica_'):
+                func_header = func.get_return_type() + " " + get_adept_function_name(func) + "("
+                func_header_cpp = func_header
+            else:
+                func_header = func.get_return_type() + "_adept " + get_adept_function_name(func) + "("
+                func_header_cpp = MODEL_NAME_NAMESPACE+func.get_return_type() + "_adept " + get_adept_function_name(func) + "("
             for param in func.get_params():
                 type = param.get_type()
                 if type == "modelica_real":
                     type = "adept::adouble"
+                elif type in self.list_adept_structs:
+                    type += "_adept"
                 last_char = ", "
                 if param.get_index() == len(func.get_params()) - 1 :
                     last_char=") "
                 func_header+=type + " " + param.get_name()+ last_char
-            func_body.append(func_header.replace(get_adept_function_name(func), MODEL_NAME_NAMESPACE +get_adept_function_name(func)))
+                func_header_cpp+=type + " " + param.get_name()+ last_char
+            func_body.append(func_header_cpp.replace(get_adept_function_name(func), MODEL_NAME_NAMESPACE +get_adept_function_name(func)))
             func_header+= ";\n"
             self.list_for_evalfadept_external_call_headers.append(func_header)
             for line in func.get_corrected_body():
                 if "OMC_LABEL_UNUSED" in line: continue
                 if "omc_assert" in line or "omc_terminate" in line: continue
+                if ptrn_modelica_integer_cast_adouble.search(line) is not None:
+                    line = line.replace("(modelica_integer)","")
                 line = line.replace("modelica_real","adept::adouble").replace(THREAD_DATA_OMC_PARAM,"")
+                for type in self.list_adept_structs:
+                    line = line.replace(type + " ",type+"_adept ")
                 for func in list_omc_functions:
                     if func.get_name() + "(" in line or func.get_name() + " (" in line:
-                        line = line.replace(func.get_name() + "(", get_adept_function_name(func))
-                        line = line.replace(func.get_name() + " (", get_adept_function_name(func))
+                        line = line.replace(func.get_name() + "(", get_adept_function_name(func) + "(")
+                        line = line.replace(func.get_name() + " (", get_adept_function_name(func) + "(")
                         if func not in functions_dumped:
                             functions_to_dump.append(func)
                 func_body.append(line)
@@ -1977,6 +2028,149 @@ class Factory:
         # Need to dump in reversed order to put the functions called by other functions in first
         for func_body in reversed(list_functions_body):
             self.list_for_evalfadept_external_call.extend(func_body)
+
+    ##
+    # replace function names and double variables by their adept equivalent when required
+    # @param self : object pointer
+    # @param line : line to analyze
+    # are you ready??
+    def replace_adept_functions_in_line(self, line):
+        # Map of functions called in this line (function name -> RawOmcFunctions object)
+        called_func = {}
+        # result line
+        line_tmp = line
+        # regular expressions to find real and der variables in the parameters
+        ptrn_vars = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]variable[ ]\*\/|data->localData\[[0-9]+\]->realVars\[[0-9]+\][ ]+\/\*[ \w\$\.()\[\]]*[ ]*\*\/')
+        ptrn_real_der_var = re.compile(r'data->localData\[[0-9]+\]->derivativesVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
+        ptrn_real_var = re.compile(r'data->localData\[[0-9]+\]->realVars\[(?P<varId>[0-9]+)\][ ]+\/\*[ \w\$\.()\[\]]*\*\/')
+
+        # step 1: collect all functions called in this line
+        for func in self.reader.list_omc_functions:
+            if (func.get_name() + "(" in line_tmp or func.get_name() + " (" in line_tmp):
+                called_func[func.get_name()] = func
+        # step 2: replace whatever needs to be replaced
+        if len(called_func) > 0:
+            # filter whatever is assigned in this line
+            line_split_by_equal = line.split('=')
+            assert(len(line_split_by_equal) >= 2)
+            call_line = line_split_by_equal[0] + " = "
+            func_call_line = line_split_by_equal[1]
+
+            # Split this line at each function call ('(') and parameter (',')
+            line_split_by_parenthesis = re.split('(\()', func_call_line)
+            line_split = []
+            for l in line_split_by_parenthesis:
+                line_split.extend(l.split(','))
+
+            # stack (FILO) containing the function called sorted by call stack
+            stack_func_called = []
+            # same size as stack_func_called
+            # each index contains the first id of line_split at which the first parameter of the corresponding function is found
+            stack_param_idx_func_called = []
+            idx = 0
+
+            # True if the first function of the stack requires adept inputs, False otherwise
+            main_func_is_adept = False
+
+            while idx < len(line_split):
+                l = line_split[idx].strip()
+
+                #hack to handle the case data->localData[0]->derivativesVars[...] /* der(a) STATE_DER /
+                if l.endswith("/* der"):
+                    idx+=1
+                    l+=line_split[idx].strip()
+                    idx+=1
+                    l+=line_split[idx].strip()
+                #hack to handle cast
+                while l.endswith("modelica_integer)") or l.endswith("modelica_real)") or l.endswith("modelica_boolean)"):
+                    idx+=1
+                    l+=line_split[idx].strip()
+                    idx+=1
+                    while l.endswith("("):
+                        l+=line_split[idx].strip()
+                #Filter empty indexes
+                if len(l) == 0:
+                    idx+=1
+                    continue
+
+                #Put back any opening parenthesis into the final line
+                if l =='(':
+                    call_line+= l
+                    idx+=1
+                    continue
+
+                #Is there a function call in this index?
+                function_found = None
+                for func_name in called_func:
+                    if func_name in l:
+                        function_found = func_name
+                        break
+
+                if function_found is not None:
+                    #First case: there is a function call here.
+                    # Push it on the stack
+                    stack_func_called.append(function_found)
+                    stack_param_idx_func_called.append(0)
+                    idx+=1
+                    # Replace this function by its adept equivalent only if
+                    # - this function has an adept equivalent
+                    # - the main function has an adept equivalent if this function is called as a parameter
+                    # if this is the first function is the stack, set the flag main_func_is_adept
+                    if (len(stack_func_called) == 1 or main_func_is_adept) and is_adept_func(called_func[function_found], self.list_adept_structs):
+                        call_line += l.replace(function_found, get_adept_function_name(called_func[function_found]))
+                        if len(stack_func_called) == 1:
+                            main_func_is_adept = True
+                    else:
+                        call_line += l
+                elif len(stack_func_called) == 0:
+                    #Second case: no function being currently called, lets go to the next index
+                    # e.g. a + f(...)
+                    call_line+= l
+                    idx+=1
+                else :
+                    #Third case: parameter of the latest function in the stack
+
+                    # Get the name of the function currently called (latest index of the stack)
+                    func = called_func[stack_func_called[len(stack_func_called) - 1]]
+                    # Get the id of the param currently analyzed
+                    curr_param_idx = stack_param_idx_func_called[len(stack_param_idx_func_called) - 1]
+
+                    if l[-1] == ')':
+                        # This is the last parameter, we need to pop the function
+                        stack_func_called.pop()
+                        stack_param_idx_func_called.pop()
+                        if len(stack_param_idx_func_called) > 1:
+                            stack_param_idx_func_called[len(stack_param_idx_func_called) - 2]+=1
+                        if len(stack_param_idx_func_called) == 0:
+                            # end of main function
+                            main_func_is_adept = False
+                    param = func.get_params()[curr_param_idx]
+                    stack_param_idx_func_called[len(stack_param_idx_func_called) - 1]+=1
+
+                    # if this function is either:
+                    # - has no equivalent adept function
+                    # - called as a parameter of a non adept function
+                    # and this parameter is a real input, transform the input so that it calls the double value of the adept double
+                    if (not is_adept_func(func, self.list_adept_structs) or not main_func_is_adept) \
+                    and param.get_is_input() and param.get_type() == "modelica_real":
+                        match_global = ptrn_vars.findall(l) # Is this a word that matches the regex?
+                        for name in match_global:
+                            match = ptrn_real_der_var.search(l)
+                            if match is not None:
+                                l = l.replace(name, "xd[" + match.group('varId')+"].value()")
+                            match = ptrn_real_var.search(l)
+                            if match is not None:
+                                l = l.replace(name, "x[" + match.group('varId')+"].value()")
+                    call_line += l
+                    if call_line[-1] != ';':
+                        call_line += ', '
+                    else:
+                        call_line += "\n"
+
+                    idx+=1
+            line_tmp = call_line
+        return line_tmp
+
     ##
     # prepare the lines that constitues the body of evalFAdept
     # @param self : object pointer
@@ -2027,11 +2221,10 @@ class Factory:
                 standard_body = []
                 for line in standard_body_with_standard_external_call:
                     for func in list_omc_functions:
-                        if func.get_return_type() != "modelica_real" or "omc_Modelica_" in func.get_name(): continue
                         if (func.get_name() + "(" in line or func.get_name() + " (" in line):
-                            line = line.replace(func.get_name() + "(", get_adept_function_name(func))
-                            line = line.replace(func.get_name() + " (", get_adept_function_name(func))
+                            if not is_adept_func(func, self.list_adept_structs) : continue
                             used_functions.append(func)
+                    line = self.replace_adept_functions_in_line(line)
                     if self.create_additional_relations() and (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
                         line = self.transform_in_relation(line, index_relation)
                         index_relation += 1
@@ -2093,12 +2286,14 @@ class Factory:
             for line in external_function_call_body:
                 for func in list_omc_functions:
                     if func.get_name() + "(" in line or func.get_name() + " (" in line:
-                        if func.get_return_type() != "modelica_real" or "omc_Modelica_" in func.get_name(): continue
-                        line = line.replace(func.get_name() + "(", get_adept_function_name(func))
-                        line = line.replace(func.get_name() + " (", get_adept_function_name(func))
+                        if not is_adept_func(func, self.list_adept_structs) : continue
                         used_functions.append(func)
+                line = self.replace_adept_functions_in_line(line)
                 if "double external_call_" in line:
                     line = line.replace("double external_call_","adept::adouble external_call_")
+                for type in self.list_adept_structs:
+                    line = line.replace(type + " ",type+"_adept ")
+                line = line.replace("f[","res[")
                 line = transform_line_adept(line)
                 transposed_function_call_body.append(line)
 
@@ -2195,10 +2390,44 @@ class Factory:
                 if func in line:
                     tmp_list.remove(line)
 
+        ptrn_struct = re.compile(r'.*typedef struct (?P<name>.*) {.*')
+        ptrn_struct_end = re.compile(r'\s*}\s*(?P<name>.*)\s*;')
+        ptrn_typedef = re.compile(r'\s*typedef (?P<name1>.*) (?P<name2>.*);')
+        adept_reading_struct = False
         for line in tmp_list:
             if 'threadData_t *threadData,' in line:
                 line = line.replace("threadData_t *threadData,","")
             self.list_for_externalcalls_header.append(line)
+            match = ptrn_struct.search(line)
+            if match is not None:
+                self.list_for_evalfadept_external_call_headers.append(line.replace(match.group('name'), match.group('name')+"_adept"))
+                adept_reading_struct = True
+                self.list_adept_structs.append(match.group('name'))
+            elif adept_reading_struct:
+                match_end = ptrn_struct_end.search(line)
+                if match_end is not None:
+                    adept_reading_struct = False
+                    self.list_adept_structs.append(match_end.group('name'))
+                    self.list_for_evalfadept_external_call_headers.append(line.replace(match_end.group('name'), match_end.group('name')+"_adept"))
+                elif "modelica_real" in line:
+                    self.list_for_evalfadept_external_call_headers.append(line.replace("modelica_real", "adept::adouble"))
+                else:
+                    line_tmp = line
+                    for struct in self.list_adept_structs:
+                        if struct in line_tmp:
+                            line_tmp = line_tmp.replace(struct, struct+"_adept")
+                    self.list_for_evalfadept_external_call_headers.append(line_tmp)
+            elif "typedef" in line:
+                match_typedef = ptrn_typedef.search(line)
+                if match_typedef is not None:
+                    base_name =  match_typedef.group('name1')
+                    new_name = match_typedef.group('name2')
+                    if base_name in self.list_adept_structs:
+                        self.list_for_evalfadept_external_call_headers.append("typedef " + base_name +"_adept " + new_name + "_adept;\n")
+                        self.list_adept_structs.append(new_name)
+
+
+
 
     ##
     # returns the lines that constitues the body of externalCalls
@@ -2669,9 +2898,8 @@ class Factory:
         num_ternary = 0
         index = 0
         for var in self.reader.list_calculated_vars:
-            body = None
+            body = []
             if var in self.reader.list_complex_calculated_vars:
-                body = []
                 for line in self.reader.dic_calculated_vars_values[var.get_name()]:
                     if "throwStreamPrint" in line:
                         with_throw = True
@@ -2681,7 +2909,7 @@ class Factory:
                         continue
                     body.append(transform_line_adept(line))
             else:
-                body = "     return " + self.reader.dic_calculated_vars_values[var.get_name()]+";"
+                body.append("     return " + self.reader.dic_calculated_vars_values[var.get_name()]+";")
             assert (body != None)
             trans.set_txt_list(body)
             body_translated = trans.translate()

@@ -57,6 +57,20 @@ def is_ignored_var(var_name):
     return match_is_temporary_abs_var.search(var_name) is not None
 
 ##
+# Indicates whether the function  of type RawOmcFunctions should be transformed to an adept type
+#
+# @param func : function to analyse
+# @param list_adept_structs : list of struct converted into adept
+# @return @b true if the function should be transformed to an adept type
+def is_adept_func(func, list_adept_structs):
+    if func.get_return_type() == "modelica_real" : return True
+    if func.get_return_type() in list_adept_structs: return True
+    for param in func.get_params():
+        if not param.get_is_input() and (param.get_type() == "modelica_real" or param.get_type() in list_adept_structs):
+            return True
+    return False
+
+##
 # replace '.' by '_' so that var_name should be correctly analyse by gcc
 # replace ']' by '_' A[1] => A_1_
 # replace ']' by '_'
@@ -417,7 +431,7 @@ def replace_modelica_strings(line):
 # Return the adept equivalent of a function
 # @param func function
 def get_adept_function_name(func):
-    return func.get_name()+"_adept("
+    return func.get_name()+"_adept"
 
 ##
 # Class containing a map associated name variable with its reference in x,xd list
