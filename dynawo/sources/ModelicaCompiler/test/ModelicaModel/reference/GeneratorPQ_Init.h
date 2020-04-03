@@ -98,6 +98,15 @@ namespace DYN {
      modelica_real omc_Modelica_Math_sin( modelica_real _u);
      modelica_metatype boxptr_Modelica_Math_sin( modelica_metatype _u);
 
+#ifdef _ADEPT_
+     typedef struct Complex_s_adept {
+       adept::adouble _im;
+       adept::adouble _re;
+     } Complex_adept;
+     typedef Complex_adept Dynawo_Types_AC_ApparentPower_adept;
+     typedef Complex_adept Dynawo_Types_AC_Current_adept;
+     typedef Complex_adept Dynawo_Types_AC_Voltage_adept;
+#endif
       // Non-internal parameters 
       double generator_P0Pu_;
       double generator_Q0Pu_;

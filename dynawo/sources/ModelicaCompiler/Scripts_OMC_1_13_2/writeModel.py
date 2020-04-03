@@ -80,6 +80,8 @@ if __name__ == '__main__':
     # Readers
     ###########################################
 
+    if init_pb:
+        print_info("Starting init model generation")
     # Reader for the init pb
     reader_init = None
 
@@ -189,6 +191,7 @@ if __name__ == '__main__':
     # Readers
     ###########################################
     # Reader for dynamic pb
+    print_info("Starting dynamic model generation")
     reader = ReaderOMC(mod_name, input_dir, is_init_pb = False)
 
     #reader.readInfoXml()            # Read *_info.xml
