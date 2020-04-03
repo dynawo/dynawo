@@ -791,16 +791,20 @@ class Variable:
             self.start_text_06inz.pop(0)
             self.start_text_06inz.pop()
 
-            # Replace DIVISION(a1,a2,a3,a4) by a1 / a2
-            # Difficult to do this with a regex and a sub, so we use
-            # the function "sub_division_sim()" (see utils.py)
+            tmp_abs_var_prtn = re.compile(r'\(\(data->localData\[0\]->realVars\[[0-9+]\] \/\*\s*\$TMP\$VAR\$[0-9]+\$0X\$ABS\s*variable\s*\*\/\s*\>\= 0.0 \? 1.0\:-1.0\)\)\s*\*')
 
             txt_tmp = []
             for line in self.start_text_06inz:
                 if has_omc_trace (line) or has_omc_equation_indexes (line):
                     continue
+
+                # Replace DIVISION(a1,a2,a3,a4) by a1 / a2
+                # Difficult to do this with a regex and a sub, so we use
+                # the function "sub_division_sim()" (see utils.py)
                 line_tmp = sub_division_sim(line)
                 line_tmp = throw_stream_indexes(line_tmp)
+                if re.search(tmp_abs_var_prtn, line_tmp) is not None:
+                    error_exit("Variable " + self.get_name() + " is defined in a equation with multiple solutions. In this case a start value should be defined to provide the initial sign of this variable.")
 
                 if THREAD_DATA_OMC_PARAM in line:
                     line=line.replace(THREAD_DATA_OMC_PARAM, "")
