@@ -205,19 +205,19 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   double evalCalculatedVarI(unsigned numCalculatedVar) const;
 
   /**
-   * @copydoc NetworkComponent::evalYType()
+   * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalYType();
+  void evalStaticYType();
 
   /**
-   * @copydoc NetworkComponent::updateYType()
+   * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void updateYType() { /* not needed */ }
+  void evalDynamicYType() { /* not needed */ }
 
   /**
-   * @copydoc NetworkComponent::evalFType()
+   * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalFType();
+  void evalStaticFType();
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()
@@ -225,9 +225,9 @@ class ModelDanglingLine : public NetworkComponent::Impl {
   void collectSilentZ(BitMask* silentZTable);
 
   /**
-   * @copydoc NetworkComponent::updateFType()
+   * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void updateFType() { /* not needed */ }
+  void evalDynamicFType() { /* not needed */ }
 
   /**
    * @copydoc NetworkComponent::evalYMat()

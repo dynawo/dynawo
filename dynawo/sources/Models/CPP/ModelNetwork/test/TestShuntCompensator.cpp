@@ -328,8 +328,10 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorContinuousVariables) {
   ASSERT_EQ(capa->sizeF(), nbF);
 
   // test evalYType
-  ASSERT_NO_THROW(capa->evalYType());
-  ASSERT_NO_THROW(capa->evalFType());
+  ASSERT_NO_THROW(capa->evalStaticYType());
+  ASSERT_NO_THROW(capa->evalStaticFType());
+  ASSERT_NO_THROW(capa->evalDynamicYType());
+  ASSERT_NO_THROW(capa->evalDynamicFType());
 
   // test evalF
   ASSERT_NO_THROW(capa->evalF(UNDEFINED_EQ));

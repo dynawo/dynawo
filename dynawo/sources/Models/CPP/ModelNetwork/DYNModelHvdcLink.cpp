@@ -130,12 +130,12 @@ ModelHvdcLink::getY0() {
 }
 
 void
-ModelHvdcLink::evalYType() {
+ModelHvdcLink::evalStaticYType() {
   // no state variable for simple hvdc model
 }
 
 void
-ModelHvdcLink::evalFType() {
+ModelHvdcLink::evalStaticFType() {
   // no equation for simple hvdc model because no state variable
 }
 

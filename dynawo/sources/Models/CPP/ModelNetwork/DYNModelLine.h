@@ -237,24 +237,24 @@ class ModelLine : public NetworkComponent::Impl {
   double evalCalculatedVarI(unsigned numCalculatedVar) const;
 
   /**
-   * @copydoc NetworkComponent::evalYType()
+   * @copydoc NetworkComponent::evalStaticYType()
    */
-  void evalYType();
+  void evalStaticYType();
 
   /**
-   * @copydoc NetworkComponent::updateYType()
+   * @copydoc NetworkComponent::evalDynamicYType()
    */
-  void updateYType();
+  void evalDynamicYType();
 
   /**
-   * @copydoc NetworkComponent::evalFType()
+   * @copydoc NetworkComponent::evalStaticFType()
    */
-  void evalFType();
+  void evalStaticFType();
 
   /**
-   * @copydoc NetworkComponent::updateFType()
+   * @copydoc NetworkComponent::evalDynamicFType()
    */
-  void updateFType();
+  void evalDynamicFType();
 
   /**
    * @copydoc NetworkComponent::collectSilentZ()

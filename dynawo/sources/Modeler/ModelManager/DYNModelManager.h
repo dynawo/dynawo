@@ -144,9 +144,9 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void evalCalculatedVars();
 
   /**
-   * @copydoc SubModel::evalFType()
+   * @copydoc SubModel::evalStaticFType()
    */
-  void evalFType();
+  void evalStaticFType();
 
   /**
    * @copydoc SubModel::collectSilentZ()
@@ -154,9 +154,9 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void collectSilentZ(BitMask* silentZTable);
 
   /**
-   * @copydoc SubModel::updateFType()
+   * @copydoc SubModel::evalDynamicFType()
    */
-  void updateFType() { /* not yet supported for Modelica models */}
+  void evalDynamicFType();
 
   /**
    * @copydoc SubModel::getY0()
@@ -164,14 +164,14 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void getY0();
 
   /**
-   * @copydoc SubModel::evalYType()
+   * @copydoc SubModel::evalStaticYType()
    */
-  void evalYType();
+  void evalStaticYType();
 
   /**
-   * @copydoc SubModel::updateYType()
+   * @copydoc SubModel::evalDynamicYType()
    */
-  void updateYType() { /* not yet supported for Modelica models */}
+  void evalDynamicYType();
 
   /**
    * @copydoc SubModel::dumpParameters(std::map< std::string, std::string > & mapParameters)

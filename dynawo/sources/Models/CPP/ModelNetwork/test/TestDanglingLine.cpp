@@ -402,11 +402,13 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
   dl->setBufferYType(&yTypes[0], 0);
   dl->setBufferFType(&fTypes[0], 0);
 
-  // test evalYType
-  dl->evalYType();
+  // test evalStaticYType
+  dl->evalStaticYType();
+  dl->evalDynamicYType();
   ASSERT_EQ(yTypes[urIndex], ALGEBRAIC);
   ASSERT_EQ(yTypes[uiIndex], ALGEBRAIC);
-  dl->evalFType();
+  dl->evalStaticFType();
+  dl->evalDynamicFType();
   ASSERT_EQ(fTypes[urIndex], ALGEBRAIC_EQ);
   ASSERT_EQ(fTypes[uiIndex], ALGEBRAIC_EQ);
 

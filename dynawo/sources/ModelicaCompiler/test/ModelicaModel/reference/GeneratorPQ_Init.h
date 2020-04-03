@@ -32,8 +32,10 @@ namespace DYN {
     void collectSilentZ(BitMask* silentZTable);
     void setY0omc();
     void callCustomParametersConstructors();
-    void setYType_omc(propertyContinuousVar_t* yType);
-    void setFType_omc(propertyF_t* fType);
+    void evalStaticYType_omc(propertyContinuousVar_t* yType);
+    void evalStaticFType_omc(propertyF_t* fType);
+    void evalDynamicYType_omc(propertyContinuousVar_t* yType);
+    void evalDynamicFType_omc(propertyF_t* fType);
     boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues(); ///< set parameter values based on internal Modelica data
     void setParameters(boost::shared_ptr<parameters::ParametersSet> params );
     void defineVariables(std::vector< boost::shared_ptr<Variable> >& variables);
@@ -55,7 +57,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("916885e5d6a0f6b7da2c8f4c624b714e"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("053fb7157d34bb18f9a4e8fca51533b9"); }
 
     private:
     DYNDATA * data;

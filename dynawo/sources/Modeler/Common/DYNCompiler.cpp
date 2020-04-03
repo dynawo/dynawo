@@ -360,7 +360,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
 
   stringstream ss;
   executeCommand(compileCommand, ss);
-  Trace::debug(Trace::compile()) << ss.str() << Trace::endline;
+  Trace::info(Trace::compile()) << ss.str() << Trace::endline;
 
 #ifdef __linux__
     bool hasUndefinedSymbol = (ss.str().find("undefined symbol") != string::npos);

@@ -180,12 +180,14 @@ TEST(ModelsModelVariationArea, ModelVariationAreaTypeMethods) {
   ASSERT_EQ(modelVariationArea->sizeG(), 2);
   ASSERT_EQ(modelVariationArea->sizeMode(), 2);
 
-  modelVariationArea->evalYType();
+  modelVariationArea->evalStaticYType();
+  modelVariationArea->evalDynamicYType();
   for (size_t i = 0; i < nbY; ++i) {
     ASSERT_EQ(yTypes[i], ALGEBRAIC);
   }
 
-  modelVariationArea->evalFType();
+  modelVariationArea->evalStaticFType();
+  modelVariationArea->evalDynamicFType();
   for (size_t i = 0; i < nbF; ++i) {
     ASSERT_EQ(fTypes[i], ALGEBRAIC_EQ);
   }

@@ -204,13 +204,13 @@ ModelDanglingLine::evalYMat() {
 }
 
 void
-ModelDanglingLine::evalYType() {
+ModelDanglingLine::evalStaticYType() {
   yType_[0] = ALGEBRAIC;  // ur fictitious node
   yType_[1] = ALGEBRAIC;  // ui fictitious node
 }
 
 void
-ModelDanglingLine::evalFType() {
+ModelDanglingLine::evalStaticFType() {
   fType_[0] = ALGEBRAIC_EQ;  // sum of ir in fictitious node
   fType_[1] = ALGEBRAIC_EQ;  // sum of ii in fictitious node
 }

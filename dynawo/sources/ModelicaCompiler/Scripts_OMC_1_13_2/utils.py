@@ -30,10 +30,17 @@ MODEL_NAME_NAMESPACE = "__fill_model_name__::"
 ADEPT_NAMESPACE = "adept::"
 REGULAR_EXPR_ATAN3 = r'omc_Modelica_Math_atan3\(\s*(?P<var1>[^,]*)\s*,\s*(?P<var2>[^,]*)\s*,\s*0.0\)'
 NEED_TO_ITERATE_ACTIVATION= "data->simulationInfo->needToIterate = 1;"
+
+DIFFERENTIAL, ALGEBRAIC, MIXED, UNDEFINED_TYPE = range(4)
 ##
 # print an information log
 def print_info(log):
     print("    [INFO]: " + log)
+
+##
+# print a warning log
+def print_warning(log):
+    print("  **[WARNING]: " + log)
 
 
 ##
@@ -1071,3 +1078,44 @@ def format_for_modelica_reinit_evalmode(body):
             text_to_return.append (line)
 
     return text_to_return
+
+##
+# replace the equations in the of statement by others lines
+# @param eq_body : a body of lines
+# @param lines_to_insert : lines to insert
+# @return the formatted body
+def replace_equations_in_a_if_statement(eq_body, lines_to_insert, additional_leading_space):
+    res_body = []
+    tmp_assign_ptrn = re.compile(r'tmp[0-9]+\s*=\s*tmp[0-9]+;')
+    tmp_assign_cste = re.compile(r'tmp[0-9]+\s*=\s*[0-9\.]+;')
+    tmp_eq_ptrn = re.compile(r'\s*tmp[0-9]+\s*=.*;')
+    idx = 0
+    leading_spaces_gen= ""
+    for _ in range(1, additional_leading_space):
+        leading_spaces_gen+=" "
+    insertion_done_for_this_branch = False
+    for line in eq_body:
+        if " if(" in line or " else\n" in line:
+            insertion_done_for_this_branch = False
+        if re.search(tmp_eq_ptrn, line) is not None:
+            if re.search(tmp_assign_ptrn, line) is not None:
+                continue
+            if "$P$DAEres" in line:
+                continue
+            if re.search(tmp_assign_cste, line) is None and "data->localData" not in line or "modelica_boolean" in line:
+                res_body.append(leading_spaces_gen + line)
+                continue
+            nb_leading_spaces = len(line) - len(line.lstrip())
+            leading_spaces= ""
+            for _ in range(1, nb_leading_spaces+additional_leading_space):
+                leading_spaces+=" "
+            assert(idx < len(lines_to_insert))
+            if not insertion_done_for_this_branch:
+                res_body.append(leading_spaces + lines_to_insert[idx])
+                insertion_done_for_this_branch = True
+                idx+=1
+        else:
+            if "$P$DAEres" in line:
+                continue
+            res_body.append(leading_spaces_gen + line)
+    return res_body

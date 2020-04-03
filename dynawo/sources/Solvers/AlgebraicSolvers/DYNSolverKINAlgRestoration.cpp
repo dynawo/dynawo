@@ -68,8 +68,8 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
   mode_ = mode;
 
   // For some specific models, the equation type could vary during the simulation.
-  model_->updateFType();
-  model_->updateYType();
+  model_->evalDynamicFType();
+  model_->evalDynamicYType();
 
   // (2) Size of the problem
   // -------------------------------
@@ -145,8 +145,17 @@ SolverKINAlgRestoration::init(const shared_ptr<Model>& model, modeKin_t mode, do
     }
   }
 
-  if (ignoreF_.size() != ignoreY_.size() || indexF_.size() != indexY_.size())
+  if (ignoreF_.size() != ignoreY_.size() || indexF_.size() != indexY_.size()) {
+#ifdef _DEBUG_
+    for (int i = 0; i < model_->sizeF(); ++i) {
+      Trace::debug() << "Equation " << i << " has type " << ((fType_[i] > 0)? "differential":"algebraic") << Trace::endline;
+    }
+    for (int i = 0; i < model_->sizeY(); ++i) {
+      Trace::debug() << "Variable " << i << " has type " << ((vId_[i] > 0)? "differential":"algebraic") << Trace::endline;
+    }
+#endif
     throw DYNError(Error::SOLVER_ALGO, SolverUnbalanced);
+  }
 }
 
 void

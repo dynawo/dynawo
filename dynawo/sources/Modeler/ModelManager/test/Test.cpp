@@ -35,9 +35,12 @@ class MyModelica: public ModelModelica {
     nbCallZ_(0),
     nbCallCalcVars_(0),
     nbCallY0_(0),
-    nbCallFType_(0),
-    nbCallYType_(0),
-    nbCallCheckDataCoherence_(0) {}
+
+    nbCallStaticFType_(0),
+    nbCallDynamicFType_(0),
+    nbCallStaticYType_(0),
+    nbCallDynamicYType_(0),
+    nbCallCheckDataCoherence_(0)  { }
 
   /**
    * @brief default destructor
@@ -301,12 +304,25 @@ class MyModelica: public ModelModelica {
    *
    * @param yType local buffer to fill
    */
-  void setYType_omc(propertyContinuousVar_t* /*yType*/) {
-    ++nbCallYType_;
+  void evalStaticYType_omc(propertyContinuousVar_t* /*yType*/) {
+    ++nbCallStaticYType_;
   }
 
-  unsigned getNbCallYType() const {
-    return nbCallYType_;
+  /**
+   * @brief defines the property of each continuous variable with dynamic type
+   *
+   * @param yType local buffer to fill
+   */
+  void evalDynamicYType_omc(propertyContinuousVar_t* /*yType*/) {
+    ++nbCallDynamicYType_;
+  }
+
+  unsigned getNbCallStaticYType() const {
+    return nbCallStaticYType_;
+  }
+
+  unsigned getNbCallDynamicYType() const {
+    return nbCallDynamicYType_;
   }
 
   /**
@@ -314,12 +330,25 @@ class MyModelica: public ModelModelica {
    *
    * @param fType local buffer to fill
    */
-  void setFType_omc(propertyF_t* /*fType*/) {
-    ++nbCallFType_;
+  void evalStaticFType_omc(propertyF_t* /*fType*/) {
+    ++nbCallStaticFType_;
   }
 
-  unsigned getNbCallFType() const {
-    return nbCallFType_;
+  /**
+   * @brief defines the property of each residual function with dynamic type
+   *
+   * @param fType local buffer to fill
+   */
+  void evalDynamicFType_omc(propertyF_t* /*fType*/) {
+    ++nbCallDynamicFType_;
+  }
+
+  unsigned getNbCallStaticFType() const {
+    return nbCallStaticFType_;
+  }
+
+  unsigned getNbCallDynamicFType() const {
+    return nbCallDynamicFType_;
   }
 
   /**
@@ -400,8 +429,10 @@ class MyModelica: public ModelModelica {
   unsigned nbCallZ_;
   unsigned nbCallCalcVars_;
   unsigned nbCallY0_;
-  unsigned nbCallFType_;
-  unsigned nbCallYType_;
+  unsigned nbCallStaticFType_;
+  unsigned nbCallDynamicFType_;
+  unsigned nbCallStaticYType_;
+  unsigned nbCallDynamicYType_;
   unsigned nbCallCheckDataCoherence_;
 };
 
@@ -528,12 +559,20 @@ class MyModelManager : public ModelManager {
     ASSERT_EQ(dynamic_cast<MyModelica*>(modelDyn_)->getNbCallY0(), ref);
   }
 
-  void testNbCallFType(unsigned ref) {
-    ASSERT_EQ(dynamic_cast<MyModelica*>(modelDyn_)->getNbCallFType(), ref);
+  void testNbCallStaticFType(unsigned ref) {
+    ASSERT_EQ(dynamic_cast<MyModelica*>(modelDyn_)->getNbCallStaticFType(), ref);
   }
 
-  void testNbCallYType(unsigned ref) {
-    ASSERT_EQ(dynamic_cast<MyModelica*>(modelDyn_)->getNbCallYType(), ref);
+  void testNbCallDynamicFType(unsigned ref) {
+    ASSERT_EQ(dynamic_cast<MyModelica*>(modelDyn_)->getNbCallDynamicFType(), ref);
+  }
+
+  void testNbCallStaticYType(unsigned ref) {
+    ASSERT_EQ(dynamic_cast<MyModelica*>(modelDyn_)->getNbCallStaticYType(), ref);
+  }
+
+  void testNbCallDynamicYType(unsigned ref) {
+    ASSERT_EQ(dynamic_cast<MyModelica*>(modelDyn_)->getNbCallDynamicYType(), ref);
   }
 
   void testNbCallCheckDataCoherence(unsigned ref) {
@@ -595,10 +634,14 @@ TEST(TestModelManager, TestModelManagerBasics) {
   mm->testNbCallG(1);
   mm->evalZ(0);
   mm->testNbCallZ(1);
-  mm->evalYType();
-  mm->testNbCallYType(1);
-  mm->evalFType();
-  mm->testNbCallFType(1);
+  mm->evalStaticYType();
+  mm->testNbCallStaticYType(1);
+  mm->evalDynamicYType();
+  mm->testNbCallDynamicYType(1);
+  mm->evalStaticFType();
+  mm->testNbCallStaticFType(1);
+  mm->evalDynamicFType();
+  mm->testNbCallDynamicFType(1);
   mm->getY0();
   mm->testNbCallY0(1);
   ASSERT_EQ(mm->evalMode(0.), DIFFERENTIAL_MODE);

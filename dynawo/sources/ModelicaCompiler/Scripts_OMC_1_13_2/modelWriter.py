@@ -518,36 +518,70 @@ class ModelWriter(ModelWriterBase):
         self.addLine("}\n")
 
     ##
-    # Add the body of setYType_omc in the cpp file
+    # Add the body of evalStaticYType_omc in the cpp file
     # @param self : object pointer
     # @return
-    def fill_setYType_omc(self):
+    def fill_evalStaticYType_omc(self):
         self.addEmptyLine()
-        if self.init_pb_ and len(self.builder.get_list_for_setytype()) == 0:
-          self.addLine(self.void_function_prefix+ self.className + "::setYType_omc(propertyContinuousVar_t* /*yType*/)\n")
+        if self.init_pb_ and len(self.builder.get_list_for_evalstaticytype()) == 0:
+          self.addLine(self.void_function_prefix+ self.className + "::evalStaticYType_omc(propertyContinuousVar_t* /*yType*/)\n")
         else:
-          self.addLine(self.void_function_prefix+ self.className + "::setYType_omc(propertyContinuousVar_t* yType)\n")
+          self.addLine(self.void_function_prefix+ self.className + "::evalStaticYType_omc(propertyContinuousVar_t* yType)\n")
 
         self.addLine("{\n")
 
-        self.addBody(self.builder.get_list_for_setytype())
+        self.addBody(self.builder.get_list_for_evalstaticytype())
 
         self.addLine("}\n")
 
     ##
-    # Add the body of setFType_omc in the cpp file
+    # Add the body of evalStaticYType_omc in the cpp file
     # @param self : object pointer
     # @return
-    def fill_setFType_omc(self):
+    def fill_evalDynamicYType_omc(self):
         self.addEmptyLine()
-        if self.init_pb_ and len(self.builder.get_list_for_setftype()) == 0:
-          self.addLine(self.void_function_prefix+ self.className + "::setFType_omc(propertyF_t* /*fType*/)\n")
+        if self.init_pb_ and len(self.builder.get_list_for_evaldynamicytype()) == 0:
+          self.addLine(self.void_function_prefix+ self.className + "::evalDynamicYType_omc(propertyContinuousVar_t* /*yType*/)\n")
         else:
-          self.addLine(self.void_function_prefix+ self.className + "::setFType_omc(propertyF_t* fType)\n")
+          self.addLine(self.void_function_prefix+ self.className + "::evalDynamicYType_omc(propertyContinuousVar_t* yType)\n")
 
         self.addLine("{\n")
 
-        self.addBody(self.builder.get_list_for_setftype())
+        self.addBody(self.builder.get_list_for_evaldynamicytype())
+
+        self.addLine("}\n")
+
+    ##
+    # Add the body of evalStaticFType_omc in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_evalStaticFType_omc(self):
+        self.addEmptyLine()
+        if self.init_pb_ and len(self.builder.get_list_for_evalstaticftype()) == 0:
+          self.addLine(self.void_function_prefix+ self.className + "::evalStaticFType_omc(propertyF_t* /*fType*/)\n")
+        else:
+          self.addLine(self.void_function_prefix+ self.className + "::evalStaticFType_omc(propertyF_t* fType)\n")
+
+        self.addLine("{\n")
+
+        self.addBody(self.builder.get_list_for_evalstaticftype())
+
+        self.addLine("}\n")
+
+    ##
+    # Add the body of evalStaticFType_omc in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_evalDynamicFType_omc(self):
+        self.addEmptyLine()
+        if self.init_pb_ and len(self.builder.get_list_for_evaldynamicftype()) == 0:
+          self.addLine(self.void_function_prefix+ self.className + "::evalDynamicFType_omc(propertyF_t* /*fType*/)\n")
+        else:
+          self.addLine(self.void_function_prefix+ self.className + "::evalDynamicFType_omc(propertyF_t* fType)\n")
+
+        self.addLine("{\n")
+
+        self.addBody(self.builder.get_list_for_evaldynamicftype())
 
         self.addLine("}\n")
 

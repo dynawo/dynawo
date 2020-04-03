@@ -187,19 +187,23 @@ class ModelCPP : public SubModel {
   virtual void evalCalculatedVars() = 0;
 
   /**
-   * @brief evaluate variables' properties
+   * @brief evaluate the properties of the variables that won't change during simulation
+   * (algebraic, differential, external or external optional variables)
+   *
    */
-  virtual void evalYType() = 0;
+  virtual void evalStaticYType() = 0;
 
   /**
-   * @brief update variables' properties during the simulation
+   * @brief update during the simulation the properties of the variables that depends on others variables values
+   *
    */
-  virtual void updateYType() = 0;
+  virtual void evalDynamicYType() = 0;
 
   /**
-   * @brief evaluate residual functions' properties
+   * @brief evaluate the properties of the residual function  that won't change during simulation (algebraic or differential equation)
+   *
    */
-  virtual void evalFType() = 0;
+  virtual void evalStaticFType() = 0;
 
   /**
    * @brief set the silent flag for discrete variables
@@ -208,9 +212,9 @@ class ModelCPP : public SubModel {
   virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
   /**
-   * @brief update residual functions' properties during the simulation
+   * @brief update during the simulation the properties of the residual functions that depends on others variables values
    */
-  virtual void updateFType() = 0;
+  virtual void evalDynamicFType() = 0;
 
   /**
    * @brief  CPP Model model's sizes getter
