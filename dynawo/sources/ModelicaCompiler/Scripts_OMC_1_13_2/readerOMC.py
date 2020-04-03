@@ -1093,6 +1093,8 @@ class ReaderOMC:
                     var = var_list[0]
                 if "$cse" in name:
                     map_var_name_2_addresses[name]= "auxiliaryVars"
+                elif  is_ignored_var(name):
+                    map_var_name_2_addresses[name]= "SHOULD NOT BE USED - IGNORED VAR"
                 elif type == "derivativeVars" or "$DER" in name:
                     map_var_name_2_addresses[name]= "derivativesVars"
                     map_var_name_2_addresses[name.replace(alternative_way_to_declare_der,"der(")+")"]= map_var_name_2_addresses[name]

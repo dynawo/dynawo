@@ -435,13 +435,13 @@ class Factory:
         self.list_vars_syst = filter(is_syst_var, list_vars_read)
         tmp_list = []
         for var in self.list_vars_syst:
-            if var not in self.reader.list_calculated_vars:
+            if var not in self.reader.list_calculated_vars and not is_ignored_var(var.get_name()):
                 tmp_list.append(var)
         self.list_vars_syst = tmp_list
         self.list_all_vars = filter(is_var, list_vars_read)
         tmp_list = []
         for var in self.list_all_vars:
-            if var not in self.list_vars_when:
+            if var not in self.list_vars_when and not is_ignored_var(var.get_name()):
                 tmp_list.append(var)
         self.list_all_vars = tmp_list
         self.list_all_vars_discr = self.list_vars_discr + self.list_vars_bool

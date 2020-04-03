@@ -45,6 +45,17 @@ def is_der(var_name):
     ptrn_der_var = re.compile(r'der\((\S*)\)$')
     return ptrn_der_var.search(var_name) is not None
 
+
+
+##
+# Indicates whether is the variable a temporary absolute variable used to solve equations with multiple solutions
+#
+# @param var_name : name of the variable
+# @return @b true if the variable is a temporary absolute variable
+def is_ignored_var(var_name):
+    match_is_temporary_abs_var = re.compile(r'\$TMP\$VAR\$[0-9]+\$0X\$ABS')
+    return match_is_temporary_abs_var.search(var_name) is not None
+
 ##
 # replace '.' by '_' so that var_name should be correctly analyse by gcc
 # replace ']' by '_' A[1] => A_1_
@@ -166,7 +177,7 @@ def stop_reading_block(element):
 # @param error_message : the message to display
 # @param error_code : the error code to send back
 def error_exit(error_message, error_code = 1):
-    print(error_message)
+    print("   [ERROR]: " + error_message)
     sys.exit(error_code)
 
 ##
