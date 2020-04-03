@@ -16,8 +16,6 @@ package BaseClasses_INIT
   extends Icons.BasesPackage;
 
 partial model BaseGeneratorSimplified_INIT "Base initialization model for simplified generator models"
-
-  public
     parameter Types.ActivePowerPu P0Pu  "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude at terminal in p.u (base UNom)";
@@ -115,6 +113,19 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.PerUnit LambdaQ10Pu "Start value of flux of quadrature axis 1st damper";
     Types.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
 
+    Types.PerUnit MsalPu "";
+    Types.PerUnit MdSat0PPu(start = 1) "Start value of direct axis saturated mutual inductance in p.u.";
+    Types.PerUnit MqSat0PPu(start = 1) "Start value of quadrature axis saturated mutual inductance in p.u.";
+    Types.PerUnit LambdaAirGap0Pu(start = 1) "Start value of total air gap flux in p.u.";
+    Types.PerUnit LambdaAD0Pu(start = 1) "Start value of      in p.u.";
+    Types.PerUnit LambdaAQ0Pu(start = 1) "Start value of      in p.u.";
+    Types.PerUnit Mds0Pu(start = 1) "Start value of      in p.u.";
+    Types.PerUnit Mqs0Pu(start = 1) "Start value of      in p.u.";
+    Types.PerUnit Cos2Eta0(start = 1) "Start value of      in p.u.";
+    Types.PerUnit Sin2Eta0(start = 1) "Start value of      in p.u.";
+    Types.PerUnit Mi0Pu(start = 1) "Start value of      in p.u.";
+
+
     Types.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/omegaNom)";
     Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNomTurb/omegaNom)";
     Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNomTurb/omegaNom)";
@@ -182,12 +193,35 @@ equation
   i0Pu.re*SystemBase.SnRef/SNom =  sin(Theta0)*Id0Pu + cos(Theta0)*Iq0Pu;
   i0Pu.im*SystemBase.SnRef/SNom = -cos(Theta0)*Id0Pu + sin(Theta0)*Iq0Pu;
 
+
+
+// Mutual inductances saturation, Shackshaft modelisation
+
+  MsalPu = MdPPu - MqPPu;
+
+  MdSat0PPu = Mi0Pu + MsalPu*Sin2Eta0;
+  MqSat0PPu = Mi0Pu - MsalPu*Cos2Eta0;
+  LambdaAD0Pu = MdSat0PPu*(Id0Pu + If0Pu + 0);
+  LambdaAQ0Pu = MqSat0PPu*(Iq0Pu + 0 + 0);
+  LambdaAirGap0Pu = sqrt(LambdaAD0Pu^2 + LambdaAQ0Pu^2);
+
+  Mds0Pu = MdPPu / (1 + md*LambdaAirGap0Pu^nd);
+  Mqs0Pu = MqPPu / (1 + mq*LambdaAirGap0Pu^nq);
+
+  LambdaAD0Pu^2 = Cos2Eta0 * LambdaAirGap0Pu^2;
+  LambdaAQ0Pu^2 = Sin2Eta0 * LambdaAirGap0Pu^2;
+
+  Mi0Pu = Mds0Pu*Cos2Eta0 + Mqs0Pu*Sin2Eta0;
+
+
+
+
 // Flux linkages
-  Lambdad0Pu  = (MdPPu + (LdPPu + XTfoPu)) * Id0Pu +          MdPPu          * If0Pu;
-  Lambdaf0Pu  =           MdPPu            * Id0Pu + (MdPPu + LfPPu + MrcPPu)* If0Pu;
-  LambdaD0Pu  =           MdPPu            * Id0Pu +     (MdPPu + MrcPPu)    * If0Pu;
-  LambdaQ10Pu =           MqPPu            * Iq0Pu;
-  LambdaQ20Pu =           MqPPu            * Iq0Pu;
+  Lambdad0Pu  = (MdSat0PPu + (LdPPu + XTfoPu)) * Id0Pu +          MdSat0PPu          * If0Pu;
+  Lambdaf0Pu  =           MdSat0PPu            * Id0Pu + (MdSat0PPu + LfPPu + MrcPPu)* If0Pu;
+  LambdaD0Pu  =           MdSat0PPu            * Id0Pu +     (MdSat0PPu + MrcPPu)    * If0Pu;
+  LambdaQ10Pu =           MqSat0PPu            * Iq0Pu;
+  LambdaQ20Pu =           MqSat0PPu            * Iq0Pu;
 
 // Equivalent circuit equations in Park's coordinates
   Ud0Pu = (RaPPu + RTfoPu) * Id0Pu - SystemBase.omega0Pu * Lambdaq0Pu;
@@ -205,7 +239,7 @@ equation
   IStator0Pu = rTfoPu * I0Pu *SNom/SystemBase.SnRef;
   QStator0Pu = - ComplexMath.imag(sStator0Pu);
   QStator0PuQNom = QStator0Pu * SystemBase.SnRef / QNomAlt;
-  IRotor0Pu = MdPPu / rTfoPu * If0Pu;
+  IRotor0Pu = MdSat0PPu / rTfoPu * If0Pu;
   ThetaInternal0 = Theta0;
 
 annotation(preferredView = "text");
@@ -313,7 +347,6 @@ equation
 
 annotation(preferredView = "text");
 end BaseGeneratorSynchronousExt_INIT;
-
 
 partial model BaseGeneratorSynchronousExt4E_INIT "Base initialization model for synchronous machine from external parameters with four windings"
 

@@ -56,7 +56,10 @@ model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
     Id0Pu = -0.924857, If0Pu = 1.458244, Iq0Pu = -0.380294,
     LambdaD0Pu = 0.885353, Lambdad0Pu = 0.746631, Lambdaf0Pu = 1.133115,
     LambdaQ10Pu = -0.612268, LambdaQ20Pu = -0.612268, Lambdaq0Pu = -0.669312,
-    Ud0Pu = 0.666538, Uf0Pu = 0.001079, Uq0Pu = 0.745490)  annotation(
+    Ud0Pu = 0.666538, Uf0Pu = 0.001079, Uq0Pu = 0.745490,
+    MdSat0PPu = 1.66, MqSat0PPu = 1.61, LambdaAQ0Pu = 1, LambdaAD0Pu = 1, Mi0Pu = 1, LambdaAirGap0Pu = 1,
+    Sin2Eta0 = 1, Cos2Eta0 = 1, Mds0Pu = 1, Mqs0Pu = 1,
+    md = 0.031, mq = 0.031, nd = 6.93, nq = 6.93)  annotation(
     Placement(visible = true, transformation(origin = {82, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.903, Height = 0.02, tStep = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
