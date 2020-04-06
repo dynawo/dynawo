@@ -58,7 +58,7 @@ model SMIBStepPm "Synchronous machine infinite bus - Step on Pm"
     LambdaQ10Pu = -0.612268, LambdaQ20Pu = -0.612268, Lambdaq0Pu = -0.669312,
     Ud0Pu = 0.666538, Uf0Pu = 0.001079, Uq0Pu = 0.745490)  annotation(
     Placement(visible = true, transformation(origin = {82, 1.9984e-15}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.903, Height = 0.008, tStep = 1);
+  Dynawo.Electrical.Controls.Basics.Step PmPu(Value0 = 0.903, Height = 0.02, tStep = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint Omega0Pu(Value0 = 1);
   Dynawo.Electrical.Controls.Basics.SetPoint EfdPu(Value0 = 2.420747);
 equation
@@ -84,6 +84,6 @@ equation
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
   annotation(
-    experiment(StartTime = 0, StopTime = 30, Tolerance = 0.0001, Interval = 0.015),
+    experiment(StartTime = 0, StopTime = 30, Tolerance = 0.00001, Interval = 0.015),
     Documentation(info = "<html><head></head><body> This test case represents a synchronous machine connected to an infinite bus through a transformer and two lines in parallel. <div><br></div><div> The simulated event is a step variation on the generator  mechanical power Pm.</body></html>"));
 end SMIBStepPm;
