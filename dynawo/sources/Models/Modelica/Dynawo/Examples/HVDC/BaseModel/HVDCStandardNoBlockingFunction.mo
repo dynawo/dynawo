@@ -1,4 +1,4 @@
-within Dynawo.Electrical.HVDC.Standard;
+within Dynawo.Examples.HVDC.BaseModel;
 
 /*
 * Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
@@ -12,7 +12,7 @@ within Dynawo.Electrical.HVDC.Standard;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model HVDCStandard "HVDC Standard model"
+model HVDCStandardNoBlockingFunction "HVDC Standard model without blocking function"
 
   import Modelica;
   import Dynawo.Electrical.Sources;
@@ -56,8 +56,6 @@ model HVDCStandard "HVDC Standard model"
     Placement(visible = true, transformation(origin = {45, 0}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   HVDC.Standard.BaseControls.ActivePowerControlSide PPu_Side(DeadBandU = DeadBandU, InPu = InPu, Ip0Pu = Ip10Pu, IpMaxCstPu = IpMaxCstPu, Iq0Pu = Iq10Pu, KiACVoltageControl = KiACVoltageControl, KiDeltaP = KiDeltaP, KiPControl = KiPControl, KpACVoltageControl = KpACVoltageControl, KpDeltaP = KpDeltaP, KpPControl = KpPControl, Lambda = Lambda, P0Pu = - P10Pu * (SystemBase.SnRef/SNom), PMaxOPPu = PMaxOPPu, PMinOPPu = PMinOPPu, Q0Pu = - Q10Pu * (SystemBase.SnRef/SNom), QMaxCombPu = QMaxCombPu, QMaxOPPu = QMaxOPPu, QMinCombPu = QMinCombPu, QMinOPPu = QMinOPPu, SlopePRefPu = SlopePRefPu, SlopeQRefPu = SlopeQRefPu, SlopeRPFault = SlopeRPFault, SlopeURefPu = SlopeURefPu, TQ = TQ, U0Pu = U10Pu, Udc0Pu = Udc10Pu, UdcMaxPu = UdcMaxPu, UdcMinPu = UdcMinPu, modeU0 = if modeU10 > 0.5 then true else false, tableQMaxPPu = tableQMaxPPu, tableQMaxUPu = tableQMaxUPu, tableQMinPPu = tableQMinPPu, tableQMinUPu = tableQMinUPu, tableiqMod = tableiqMod) "Active Power Control Side of the HVDC link"  annotation(
     Placement(visible = true, transformation(origin = {-45, 0}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  HVDC.Standard.BaseControls.BlockingFunction.GeneralBlockingFunction Blocking(TBlock = TBlock, TBlockUV = TBlockUV, TDeblockU = TDeblockU, UBlockUVPu = UBlockUVPu, UMaxdbPu = UMaxdbPu, UMindbPu = UMindbPu, U10Pu = U10Pu, U20Pu = U20Pu) "Undervoltage blocking function for the two sides of an HVDC Link"  annotation(
-    Placement(visible = true, transformation(origin = {0, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   HVDC.Standard.BaseControls.DCLine.DCLine dCLine(CdcPu = CdcPu, P10Pu = - P10Pu * (SystemBase.SnRef/SNom), P20Pu = - P20Pu * (SystemBase.SnRef/SNom), RdcPu = RdcPu, SNom = SNom, U1dc0Pu = Udc10Pu, U2dc0Pu = Udc20Pu) "DC line model"  annotation(
     Placement(visible = true, transformation(origin = {5, 0}, extent = {{-20, -10}, {10, 10}}, rotation = 0)));
   Sources.InjectorIDQ Conv1(Id0Pu = Ip10Pu, Iq0Pu = Iq10Pu, P0Pu = P10Pu * (SystemBase.SnRef/SNom), Q0Pu = Q10Pu * (SystemBase.SnRef/SNom), SNom = SNom, U0Pu = U10Pu, UPhase0 = UPhase10, i0Pu = i10Pu, s0Pu = s10Pu, u0Pu = u10Pu) "Injector of the Active Power Control Side of the HVDC link"  annotation(
@@ -68,7 +66,8 @@ model HVDCStandard "HVDC Standard model"
     Placement(visible = true, transformation(origin = {-30, 58}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
   Modelica.Blocks.Math.RealToBoolean realToBoolean1 annotation(
     Placement(visible = true, transformation(origin = {30, 58}, extent = {{-5, -5}, {5, 5}}, rotation = -90)));
-
+  Modelica.Blocks.Sources.BooleanConstant blocked(k = false)  annotation(
+    Placement(visible = true, transformation(origin = {0, -50}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
 protected
 
   parameter Types.VoltageModulePu U10Pu  "Start value of voltage amplitude at terminal 1 in p.u (base UNom)";
@@ -94,7 +93,6 @@ protected
   parameter Types.PerUnit Ip20Pu "Start value of active current at terminal 2 in p.u (base SNom)";
   parameter Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in p.u (base SNom)";
   parameter Real modeU20 "Start value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
-
 equation
   connect(modeU1, realToBoolean.u) annotation(
     Line(points = {{-30, 77}, {-30, 64}}, color = {0, 0, 127}));
@@ -132,22 +130,14 @@ equation
     Line(points = {{50, 77}, {50, 17}}, color = {0, 0, 127}));
   connect(UdcRefPu, UdcPu_Side.UdcRefPu) annotation(
     Line(points = {{60, 77}, {60, 17}}, color = {0, 0, 127}));
-  connect(Blocking.blocked, PPu_Side.blocked) annotation(
-    Line(points = {{0, -39}, {0, -39}, {0, -30}, {-38, -30}, {-38, -16}, {-39, -16}}, color = {255, 0, 255}));
-  connect(Blocking.blocked, UdcPu_Side.blocked) annotation(
-    Line(points = {{0, -39}, {0, -39}, {0, -30}, {38, -30}, {38, -16}, {39, -16}}, color = {255, 0, 255}));
   connect(Conv1.UPu, PPu_Side.UPu) annotation(
     Line(points = {{-101, 8}, {-110, 8}, {-110, -30}, {-45, -30}, {-45, -16}, {-45, -16}}, color = {0, 0, 127}));
   connect(Conv1.PInjPu, PPu_Side.PPu) annotation(
     Line(points = {{-101, 4}, {-109, 4}, {-109, -28}, {-52, -28}, {-52, -16}, {-52, -16}}, color = {0, 0, 127}));
   connect(Conv1.QInjPu, PPu_Side.QPu) annotation(
     Line(points = {{-101, 1}, {-108, 1}, {-108, -26}, {-59, -26}, {-59, -16}, {-59, -16}}, color = {0, 0, 127}));
-  connect(Conv1.UPu, Blocking.U1Pu) annotation(
-    Line(points = {{-101, 8}, {-110, 8}, {-110, -50}, {-11, -50}, {-11, -50}}, color = {0, 0, 127}));
   connect(Conv2.UPu, UdcPu_Side.UPu) annotation(
     Line(points = {{102, 8}, {110, 8}, {110, -30}, {45, -30}, {45, -16}, {45, -16}}, color = {0, 0, 127}));
-  connect(Conv2.UPu, Blocking.U2Pu) annotation(
-    Line(points = {{102, 8}, {110, 8}, {110, -50}, {11, -50}, {11, -50}}, color = {0, 0, 127}));
   connect(UdcPu_Side.ipRefUdcPu, Conv2.idPu) annotation(
     Line(points = {{62, 6}, {77, 6}, {77, 6}, {79, 6}}, color = {0, 0, 127}));
   connect(UdcPu_Side.iqRefPu, Conv2.iqPu) annotation(
@@ -166,7 +156,11 @@ equation
     Line(points = {{-61, -4}, {-70, -4}, {-70, -32}, {70, -32}, {70, -10}, {62, -10}, {62, -10}}, color = {0, 0, 127}));
   connect(UdcPu_Side.iqRefPu, PPu_Side.iqRef1Pu) annotation(
     Line(points = {{62, -4}, {72, -4}, {72, -34}, {-72, -34}, {-72, -10}, {-61, -10}, {-61, -11}}, color = {0, 0, 127}));
+  connect(blocked.y, PPu_Side.blocked) annotation(
+    Line(points = {{0, -39}, {0, -39}, {0, -30}, {-38, -30}, {-38, -16}, {-38, -16}}, color = {255, 0, 255}));
+  connect(blocked.y, UdcPu_Side.blocked) annotation(
+    Line(points = {{0, -39}, {0, -39}, {0, -30}, {38, -30}, {38, -16}, {38, -16}}, color = {255, 0, 255}));
   annotation(preferredView = "diagram",
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -70}, {120, 70}})),
     Icon(coordinateSystem(grid = {1, 1})));
-end HVDCStandard;
+end HVDCStandardNoBlockingFunction;
