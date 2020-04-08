@@ -50,10 +50,10 @@
   </set>
   <!-- Synchronous machine external parameters -->
   <set id="6">
-    <par type="DOUBLE" name="generator_md" value="0.215"/>
-    <par type="DOUBLE" name="generator_mq" value="0.215"/>
-    <par type="DOUBLE" name="generator_nd" value="7"/>
-    <par type="DOUBLE" name="generator_nq" value="7"/>
+    <par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
 
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
