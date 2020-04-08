@@ -114,6 +114,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
 
     Types.PerUnit MsalPu "";
+
     Types.PerUnit MdSat0PPu(start = 1) "Start value of direct axis saturated mutual inductance in p.u.";
     Types.PerUnit MqSat0PPu(start = 1) "Start value of quadrature axis saturated mutual inductance in p.u.";
     Types.PerUnit LambdaAirGap0Pu(start = 1) "Start value of total air gap flux in p.u.";
@@ -124,6 +125,18 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.PerUnit Cos2Eta0(start = 1) "Start value of      in p.u.";
     Types.PerUnit Sin2Eta0(start = 1) "Start value of      in p.u.";
     Types.PerUnit Mi0Pu(start = 1) "Start value of      in p.u.";
+
+//    Types.PerUnit MdSat0PPu(start = 1.529) "Start value of direct axis saturated mutual inductance in p.u.";
+//    Types.PerUnit MqSat0PPu(start = 1.579) "Start value of quadrature axis saturated mutual inductance in p.u.";
+//    Types.PerUnit LambdaAirGap0Pu(start = 1.076) "Start value of total air gap flux in p.u.";
+//    Types.PerUnit LambdaAD0Pu(start = 0.8934) "Start value of      in p.u.";
+//    Types.PerUnit LambdaAQ0Pu(start = -0.6004) "Start value of      in p.u.";
+//    Types.PerUnit Mds0Pu(start = 1.578) "Start value of      in p.u.";
+//    Types.PerUnit Mqs0Pu(start = 1.5305) "Start value of      in p.u.";
+//    Types.PerUnit Cos2Eta0(start = 0.688) "Start value of      in p.u.";
+//    Types.PerUnit Sin2Eta0(start = 0.312) "Start value of      in p.u.";
+//    Types.PerUnit Mi0Pu(start = 1.566) "Start value of      in p.u.";
+
 
 
     Types.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/omegaNom)";
@@ -145,7 +158,7 @@ equation
     assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
     Kuf = RfPPu / MdPPuEfd;
   else
-    Kuf = RfPPu / MdPPu;
+    Kuf = RfPPu / MdSat0PPu;
   end if;
 
   // Used for initialization of theta

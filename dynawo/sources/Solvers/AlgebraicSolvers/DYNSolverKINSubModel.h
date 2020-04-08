@@ -58,7 +58,7 @@ class SolverKINSubModel : public SolverKINCommon, private boost::noncopyable{
    * @param printfl level of verbosity of output
    */
   void init(SubModel * subModel, const double t0, double* yBuffer, double* fBuffer, int mxiter = 30, double fnormtol = 1e-4,
-      double initialaddtol = 0.1, double scsteptol = 1e-4, double mxnewtstep = 100000, int msbset = 0, int printfl = 0);
+      double initialaddtol = 0.1, double scsteptol = 1e-4, double mxnewtstep = 100000, int msbset = 1, int printfl = 0);
 
   /**
    * @brief solve the equations of F(u) = 0 to find the new value of u
