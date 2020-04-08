@@ -21,6 +21,9 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Types;
+  import Dynawo.Electrical.Controls.Basics.SwitchOff;
+
+  extends SwitchOff.SwitchOffInjector;
 
   // Terminal connection
   Dynawo.Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid"  annotation(
@@ -66,14 +69,17 @@ equation
   UPhase = ComplexMath.arg(terminal.V);
   UPu = ComplexMath.'abs'(terminal.V);
   uPu = terminal.V;
-
-  // Park's transformations dq-currents in injector convention, -> receptor convention for terminal
-  terminal.i.re = -1 * (cos(UPhase) * idPu - sin(UPhase) * iqPu) * (SNom/SystemBase.SnRef);
-  terminal.i.im = -1 * (sin(UPhase) * idPu + cos(UPhase) * iqPu) * (SNom/SystemBase.SnRef);
-
   // Active and reactive power in generator convention and SNom base from terminal in receptor base in SnRef
-  QInjPu = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom; //
-  PInjPu = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom; //
+  QInjPu = -1 * ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
+  PInjPu = -1 * ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i))*SystemBase.SnRef/SNom;
+
+  if running.value then
+    // Park's transformations dq-currents in injector convention, -> receptor convention for terminal
+    terminal.i.re = -1 * (cos(UPhase) * idPu - sin(UPhase) * iqPu) * (SNom/SystemBase.SnRef);
+    terminal.i.im = -1 * (sin(UPhase) * idPu + cos(UPhase) * iqPu) * (SNom/SystemBase.SnRef);
+  else
+    terminal.i = Complex(0);
+  end if;
 
 annotation(preferredView = "text",
 Documentation(info="<html> <p> This block calculates the current references for terminal connection based on d-q-frame setpoints from generator control  </p> </html>"),

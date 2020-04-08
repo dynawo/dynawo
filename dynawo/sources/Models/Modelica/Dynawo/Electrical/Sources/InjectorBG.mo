@@ -19,6 +19,9 @@ model InjectorBG "Injector controlled by a the susceptance B and the conductance
     import Dynawo.Connectors;
     import Dynawo.Types;
     import Dynawo.Electrical.SystemBase;
+    import Dynawo.Electrical.Controls.Basics.SwitchOff;
+
+    extends SwitchOff.SwitchOffInjector;
 
     Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -61}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
@@ -54,10 +57,16 @@ model InjectorBG "Injector controlled by a the susceptance B and the conductance
     Types.ComplexAdmittancePu YPuSnRef(re = GPuSnRef, im = BPuSnRef) "Admittance in p.u (base SnRef)";
 
   equation
+
+  UPu = ComplexMath.'abs'(terminal.V);
+  PInjPu = -ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
+  QInjPu = -ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
+
+  if running.value then
     terminal.i = terminal.V * YPuSnRef;
-    UPu = ComplexMath.'abs'(terminal.V);
-    PInjPu = -ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
-    QInjPu = -ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
+  else
+    terminal.i = Complex(0);
+  end if;
 
 annotation(preferredView = "text",
     Diagram,

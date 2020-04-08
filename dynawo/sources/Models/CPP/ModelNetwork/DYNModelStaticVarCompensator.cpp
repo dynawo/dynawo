@@ -127,7 +127,7 @@ ModelStaticVarCompensator::initSize() {
   } else {
     sizeF_ = 4;
     sizeY_ = 4;
-    sizeZ_ = 3;  // mode, state and uSetPoint
+    sizeZ_ = 2;  // mode, state
     sizeG_ = 6;
 
     if (hasStandByAutomaton_)
@@ -435,7 +435,6 @@ ModelStaticVarCompensator::getY0() {
 
     z_[modeNum_] = mode_;
     z_[connectionStateNum_] = getConnected();
-    z_[voltageSetPointNum_] = vSetPoint_;
   }
 }
 
@@ -459,7 +458,6 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
       isRunning_ = true;
       vSetPoint_ = uSetPointMin_;
       z_[modeNum_] = StaticVarCompensatorInterface::RUNNING_V;
-      z_[voltageSetPointNum_] = uSetPointMin_;
     }
 
     if (g_[7] == ROOT_UP) {
@@ -467,7 +465,6 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
       isRunning_ = true;
       vSetPoint_ = uSetPointMax_;
       z_[modeNum_] = StaticVarCompensatorInterface::RUNNING_V;
-      z_[voltageSetPointNum_] = uSetPointMax_;
     }
   }
 
@@ -509,55 +506,68 @@ ModelStaticVarCompensator::evalG(const double& /*t*/) {
 
 void
 ModelStaticVarCompensator::evalCalculatedVars() {
-  // Q
+  calculatedVars_[pNum_] = 0.;
   calculatedVars_[qNum_] = (isConnected())?-Q():0.;
 }
 
 void
 ModelStaticVarCompensator::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
-  if (numCalculatedVar == qNum_) {
-    if (isConnected()) {
-      int urYNum = modelBus_->urYNum();
-      int uiYNum = modelBus_->uiYNum();
-      numVars.push_back(urYNum);
-      numVars.push_back(uiYNum);
-      numVars.push_back(bSvcYNum_);
+  switch (numCalculatedVar) {
+    case pNum_:
+    case qNum_: {
+      if (isConnected()) {
+        int urYNum = modelBus_->urYNum();
+        int uiYNum = modelBus_->uiYNum();
+        numVars.push_back(urYNum);
+        numVars.push_back(uiYNum);
+        numVars.push_back(bSvcYNum_);
+      }
+      break;
     }
-    return;
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
-  throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
 }
 
 
 void
 ModelStaticVarCompensator::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, vector<double>& res) {
-  if (numCalculatedVar == qNum_) {
-    if (isConnected()) {
-      double ur = y[0];
-      double ui = y[1];
-      double b = y[2];
-      // QProduced = SNREF * b * (ur * ur + ui * ui * ui)
-      res[0] = SNREF * b * 2. * ur;  // @Q/@Ur
-      res[1] = SNREF * b * 2. * ui;  // @Q/@Ui
-      res[2] = SNREF * (ur * ur + ui * ui);  // @Q/@BSvc
+  switch (numCalculatedVar) {
+    case pNum_:
+    case qNum_: {
+      if (isConnected()) {
+        double ur = y[0];
+        double ui = y[1];
+        double b = y[2];
+        // QProduced = SNREF * b * (ur * ur + ui * ui * ui)
+        res[0] = SNREF * b * 2. * ur;  // @Q/@Ur
+        res[1] = SNREF * b * 2. * ui;  // @Q/@Ui
+        res[2] = SNREF * (ur * ur + ui * ui);  // @Q/@BSvc
+      }
+      break;
     }
-    return;
+    default:
+      throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
-  throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
 }
 
 double
 ModelStaticVarCompensator::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
-  if (numCalculatedVar == qNum_) {
-    if (isConnected()) {
-      double ur = y[0];
-      double ui = y[1];
-      double b = y[2];
-      return SNREF * b * (ur * ur + ui * ui);
+  switch (numCalculatedVar) {
+    case pNum_:
+    case qNum_: {
+      if (isConnected()) {
+        double ur = y[0];
+        double ui = y[1];
+        double b = y[2];
+        return SNREF * b * (ur * ur + ui * ui);
+      }
+      break;
     }
-    return 0.;
+    default:
+      throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
-  throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
+  return 0.;
 }
 
 void
@@ -619,10 +629,10 @@ ModelStaticVarCompensator::instantiateVariables(vector<shared_ptr<Variable> >& v
   variables.push_back(VariableNativeFactory::createState(id_ + "_piOut_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_bSvc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_feedBack_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_QProduced_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState(id_ + "_mode_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_uSetPoint_value", DISCRETE));
 }
 
 void
@@ -631,10 +641,10 @@ ModelStaticVarCompensator::defineVariables(vector<shared_ptr<Variable> >& variab
   variables.push_back(VariableNativeFactory::createState("@ID@_piOut_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_bSvc_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_feedBack_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_QProduced_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q_value", CONTINUOUS));
   variables.push_back(VariableNativeFactory::createState("@ID@_mode_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_uSetPoint_value", DISCRETE));
 }
 
 void
@@ -647,12 +657,12 @@ ModelStaticVarCompensator::defineElements(vector<Element> &elements, map<string,
   addElementWithValue(svcName + string("_feedBack"), elements, mapElement);
 
   // ========  CALCULATED VARIABLE ======
-  addElementWithValue(svcName + string("_QProduced"), elements, mapElement);
+  addElementWithValue(svcName + string("_P"), elements, mapElement);
+  addElementWithValue(svcName + string("_Q"), elements, mapElement);
 
   // ========  DISCRETE VARIABLE ======
   addElementWithValue(svcName + string("_mode"), elements, mapElement);
   addElementWithValue(svcName + string("_state"), elements, mapElement);
-  addElementWithValue(svcName + string("_uSetPoint"), elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

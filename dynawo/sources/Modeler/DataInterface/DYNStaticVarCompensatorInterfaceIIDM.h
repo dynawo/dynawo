@@ -47,9 +47,9 @@ class StaticVarCompensatorInterfaceIIDM : public StaticVarCompensatorInterface, 
    * @brief defines the index of each state variable
    */
   typedef enum {
-    VAR_STATE = 0,
+    VAR_P = 0,
     VAR_Q,
-    VAR_VOLTAGESETPOINT,
+    VAR_STATE,
     VAR_REGULATINGMODE
   } indexVar_t;
 

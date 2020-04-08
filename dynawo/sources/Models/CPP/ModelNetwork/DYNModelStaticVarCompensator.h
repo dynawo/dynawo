@@ -46,8 +46,9 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
    * @brief  calculated variables type
    */
   typedef enum {
-    qNum_ = 0,
-    nbCalculatedVariables_ = 1
+    pNum_ = 0,
+    qNum_ = 1,
+    nbCalculatedVariables_ = 2
   } CalculatedVariables_t;
 
   /**
@@ -65,8 +66,7 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
    */
   typedef enum {
     modeNum_ = 0,
-    connectionStateNum_ = 1,
-    voltageSetPointNum_ = 2
+    connectionStateNum_ = 1
   } IndexDiscreteVariable_t;
 
   /**
