@@ -320,10 +320,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       // Add to containers
       modelVoltageLevel->addComponent(modelStaticVarCompensator);
       // declare reference between subModel and static data
-      data->setReference("q", id, id, "QProduced_value");
-      data->setReference("regulatingMode", id, id, "mode_value");
+      data->setReference("p", id, id, "P_value");
+      data->setReference("q", id, id, "Q_value");
       data->setReference("state", id, id, "state_value");
-      data->setReference("uSetPoint", id, id, "uSetPoint_value");
+      data->setReference("regulatingMode", id, id, "mode_value");
     }
 
     // =================================

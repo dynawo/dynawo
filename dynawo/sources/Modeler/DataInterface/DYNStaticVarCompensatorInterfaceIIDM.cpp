@@ -42,31 +42,31 @@ staticVarCompensatorIIDM_(svc) {
   setType(ComponentInterface::SVC);
   sa_ = staticVarCompensatorIIDM_.findExtension<StandbyAutomaton>();
   stateVariables_.resize(4);
-  stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
+  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
   stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
+  stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);  // connectionState
   stateVariables_[VAR_REGULATINGMODE] = StateVariable("regulatingMode", StateVariable::INT);  // regulatingMode
-  stateVariables_[VAR_VOLTAGESETPOINT] = StateVariable("voltageSetPoint", StateVariable::DOUBLE);  // voltageSetPoint
 }
 
 int
 StaticVarCompensatorInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
   int index = -1;
-  if ( varName == "regulatingMode" )
-    index = VAR_REGULATINGMODE;
+  if ( varName == "p" )
+    index = VAR_P;
   else if ( varName == "q" )
     index = VAR_Q;
   else if ( varName == "state" )
     index = VAR_STATE;
-  else if ( varName == "voltageSetPoint" )
-    index = VAR_VOLTAGESETPOINT;
+  else if ( varName == "regulatingMode" )
+    index = VAR_REGULATINGMODE;
   return index;
 }
 
 void
 StaticVarCompensatorInterfaceIIDM::exportStateVariablesUnitComponent() {
-  bool connected = (getValue<int>(VAR_STATE) == CLOSED);
+  staticVarCompensatorIIDM_.p(-1 * getValue<double>(VAR_P));
   staticVarCompensatorIIDM_.q(-1 * getValue<double>(VAR_Q));
-  staticVarCompensatorIIDM_.voltageSetPoint(getValue<double>(VAR_VOLTAGESETPOINT));
+  bool connected = (getValue<int>(VAR_STATE) == CLOSED);
   int regulatingMode = getValue<int>(VAR_REGULATINGMODE);
   bool standbyMode(false);
   switch (regulatingMode) {
@@ -112,11 +112,11 @@ void
 StaticVarCompensatorInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
   staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(getP())));
-  staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(getP())));
+  staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ())));
   staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(getP() / SNREF)));
   staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(getQ() / SNREF)));
   int regulatingMode = getRegulationMode();
-  staticParameters_["regulatingMode"] = StaticParameter("regulatingMode", StaticParameter::INT).setValue(regulatingMode);
+  staticParameters_.insert(std::make_pair("regulatingMode", StaticParameter("regulatingMode", StaticParameter::INT).setValue(regulatingMode)));
   if (busInterface_) {
     double U0 = busInterface_->getV0();
     double vNom;

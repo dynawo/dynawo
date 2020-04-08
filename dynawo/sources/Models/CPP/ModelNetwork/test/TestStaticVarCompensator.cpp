@@ -168,7 +168,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   std::pair<shared_ptr<ModelStaticVarCompensator>, shared_ptr<ModelVoltageLevel> > p = createModelStaticVarCompensator(false, false);
   shared_ptr<ModelStaticVarCompensator> svc = p.first;
   svc->initSize();
-  unsigned nbZ = 3;
+  unsigned nbZ = 2;
   unsigned nbG = 8;
   ASSERT_EQ(svc->sizeZ(), nbZ);
   ASSERT_EQ(svc->sizeG(), nbG);
@@ -185,7 +185,6 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(svc->getConnected(), CLOSED);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_Q);
   ASSERT_EQ(z[ModelStaticVarCompensator::connectionStateNum_], svc->getConnected());
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::voltageSetPointNum_], 0.9975);
 
   z[ModelStaticVarCompensator::connectionStateNum_] = OPEN;
   ASSERT_EQ(svc->evalZ(10.), NetworkComponent::STATE_CHANGE);
@@ -193,21 +192,18 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(svc->getConnected(), OPEN);
   ASSERT_EQ(z[ModelStaticVarCompensator::connectionStateNum_], OPEN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_Q);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::voltageSetPointNum_], 0.9975);
 
   g[7] =  ROOT_UP;
   z[ModelStaticVarCompensator::connectionStateNum_] = CLOSED;
   ASSERT_EQ(svc->evalZ(10.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(svc->evalState(10.), NetworkComponent::STATE_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_V);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::voltageSetPointNum_], 5.);
 
   g[7] =  ROOT_DOWN;
   g[6] =  ROOT_UP;
   ASSERT_EQ(svc->evalZ(10.), NetworkComponent::NO_CHANGE);
   ASSERT_EQ(svc->evalState(10.), NetworkComponent::NO_CHANGE);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::modeNum_], StaticVarCompensatorInterface::RUNNING_V);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelStaticVarCompensator::voltageSetPointNum_], 0.);
 
   std::map<int, std::string> gEquationIndex;
   svc->setGequations(gEquationIndex);

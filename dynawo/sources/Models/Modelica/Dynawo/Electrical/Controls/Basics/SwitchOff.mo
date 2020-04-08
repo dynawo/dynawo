@@ -75,6 +75,31 @@ partial model SwitchOffGenerator "Switch-off model for a generator"
 annotation(preferredView = "text");
 end SwitchOffGenerator;
 
+partial model SwitchOffInjector "Switch-off model for an injector"
+  /* The three possible/expected switch-off signals for a generator are:
+     - a switch-off signal coming from the node in case of a node disconnection
+     - a switch-off signal coming from the user (event)
+     - a switch-off signal coming from an automaton/control block
+  */
+  import Dynawo.Electrical.Constants;
+
+  extends SwitchOffLogic(NbSwitchOffSignals = 3);
+
+  public
+    Constants.state state (start = State0) "Injector connection state";
+
+  protected
+    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+
+  equation
+    when not(running.value) then
+      Timeline.logEvent1 (TimelineKeys.ComponentDisconnected);
+      state = Constants.state.Open;
+    end when;
+
+annotation(preferredView = "text");
+end SwitchOffInjector;
+
 partial model SwitchOffLoad "Switch-off model for a load"
   /* The two possible/expected switch-off signals for a load are:
      - a switch-off signal coming from the node in case of a node disconnection

@@ -38,8 +38,8 @@ class StaticVarCompensatorInterface : public ComponentInterface {
   typedef enum {
     OFF = 1,
     STANDBY = 2,
-    RUNNING_Q = 3,
-    RUNNING_V = 4
+    RUNNING_V = 3,
+    RUNNING_Q = 4
   } RegulationMode_t;
 
  public:
