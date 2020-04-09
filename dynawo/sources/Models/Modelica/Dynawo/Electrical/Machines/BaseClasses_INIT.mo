@@ -158,11 +158,11 @@ equation
     assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
     Kuf = RfPPu / MdPPuEfd;
   else
-    Kuf = RfPPu / MdSat0PPu;
+    Kuf = RfPPu / MdPPu;
   end if;
 
   // Used for initialization of theta
-  XqPPu = MqPPu + (LqPPu + XTfoPu);
+  XqPPu = MqSat0PPu + (LqPPu + XTfoPu);
 
   // Internal parameters after transformation due to the presence of a generator transformer in the model
   RaPPu  = RaPu  * rTfoPu * rTfoPu;
@@ -199,6 +199,7 @@ equation
   sinTheta0 = u0Pu.im -    XqPPu         *i0Pu.re*SystemBase.SnRef/SNom - (RaPPu + RTfoPu)*i0Pu.im*SystemBase.SnRef/SNom;
   cosTheta0 = u0Pu.re - (RaPPu + RTfoPu) *i0Pu.re*SystemBase.SnRef/SNom +       XqPPu     *i0Pu.im*SystemBase.SnRef/SNom;
   Theta0 = ComplexMath.arg(Complex(cosTheta0, sinTheta0));
+  // Theta0 = 1.2106;
 
 // Park's transformations
   u0Pu.re =  sin(Theta0)*Ud0Pu + cos(Theta0)*Uq0Pu;

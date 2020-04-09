@@ -199,7 +199,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
 
     // p.u factor for excitation voltage
     parameter Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
-    final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd else RfPPu / MdSat0PPu "Scaling factor for excitation p.u. voltage";
+    final parameter Types.PerUnit Kuf = if ExcitationPu == ExcitationPuType.Kundur then 1 elseif ExcitationPu == ExcitationPuType.UserBase then RfPPu / MdPPuEfd else RfPPu / MdPPu "Scaling factor for excitation p.u. voltage";
 
     // Start values calculated by the initialization model
     parameter Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal in p.u (base SnRef)";
