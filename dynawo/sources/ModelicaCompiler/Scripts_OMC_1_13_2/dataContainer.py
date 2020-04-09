@@ -1587,11 +1587,19 @@ class Equation(EquationBase):
     # @return list of lines to print
     def get_body_for_setf(self):
         text_to_return = []
+
+        with_throw = False
+        for line in self.body:
+            if "throwStreamPrint" in line:
+                with_throw = True
+                break
         for line in self.body:
             line = mmc_strings_len1(line)
 
             if has_omc_trace (line) or has_omc_equation_indexes (line) or ("infoStreamPrint" in line)\
                    or ("data->simulationInfo->needToIterate = 1") in line:
+                continue
+            if "omc_assert_warning" in line and with_throw:
                 continue
 
             line = sub_division_sim(line)
@@ -1612,12 +1620,19 @@ class Equation(EquationBase):
     # @return list of lines to print
     def get_body_for_evalf_adept(self):
         text_to_return = []
+        with_throw = False
+        for line in self.body:
+            if "throwStreamPrint" in line:
+                with_throw = True
+                break
         for line in self.body:
             line = mmc_strings_len1(line)
             line_tmp = transform_line_adept(line)
 
             if has_omc_trace (line) or has_omc_equation_indexes (line) or ("infoStreamPrint" in line)\
                    or ("data->simulationInfo->needToIterate = 1") in line:
+                continue
+            if "omc_assert_warning" in line and with_throw:
                 continue
 
             line_tmp = sub_division_sim(line_tmp)

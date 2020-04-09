@@ -486,7 +486,18 @@ ModelManager::initParams() {
   associateBuffers();
   // call the parameter calculation method
   solveParameters();
-  checkDataCoherence(getCurrentTime());
+  try {
+    checkDataCoherence(getCurrentTime());
+  } catch (const MessageError& Msg) {
+    Trace::error() << Msg.what() << Trace::endline;
+    throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
+  } catch (const Terminate& Msg) {
+    Trace::error() << Msg.what() << Trace::endline;
+    throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
+  } catch (const Error& Msg) {
+    Trace::error() << Msg.what() << Trace::endline;
+    throw DYNError(Error::MODELER, ErrorInit, modelType(), name());
+  }
 
   modelInitUsed_ = false;
 }
