@@ -15,6 +15,92 @@ within Dynawo.Electrical.Machines;
 package BaseClasses_INIT
   extends Icons.BasesPackage;
 
+function RotorPositionEstimation
+    extends Icons.Function;
+
+  input Types.ComplexVoltagePu u0Pu;
+  input Types.ComplexCurrentPu i0Pu;
+  input Types.PerUnit MSalPu;
+  input Types.PerUnit RaPPu;
+  input Types.PerUnit LdPPu;
+  input Types.PerUnit LqPPu;
+  input Types.PerUnit RTfoPu;
+  input Types.PerUnit XTfoPu;
+  input Types.ApparentPowerModule SNom;
+  input Real md;
+  input Real mq;
+  input Real nd;
+  input Real nq;
+  input Types.PerUnit MdPPu;
+  input Types.PerUnit MqPPu;
+
+  output Real Theta0;
+  output Real Ud0Pu;
+  output Real Uq0Pu;
+  output Real Id0Pu;
+  output Real Iq0Pu;
+  output Real LambdaAD0Pu;
+  output Real LambdaAQ0Pu;
+  output Real LambdaAirGap0Pu;
+  output Real Mds0Pu;
+  output Real Mqs0Pu;
+  output Real Cos2Eta0;
+  output Real Sin2Eta0;
+  output Real Mi0Pu;
+  output Real MdSat0PPu;
+  output Real MqSat0PPu;
+
+protected
+  Real sinTheta0;
+  Real cosTheta0;
+  Real XqPPu;
+  Boolean iterate;
+  Integer nbIterations;
+  Real MdSave;
+  Real MqSave;
+  Real deltaMd;
+  Real deltaMq;
+
+algorithm
+  MdSat0PPu := MdPPu;
+  MqSat0PPu := MqPPu;
+  iterate := true;
+  nbIterations := 0;
+
+  while iterate loop
+    // Theta calculation
+    XqPPu := MqSat0PPu + (LqPPu + XTfoPu);
+    sinTheta0 := u0Pu.im -    XqPPu         *i0Pu.re*SystemBase.SnRef/SNom - (RaPPu + RTfoPu)*i0Pu.im*SystemBase.SnRef/SNom;
+    cosTheta0 := u0Pu.re - (RaPPu + RTfoPu) *i0Pu.re*SystemBase.SnRef/SNom +       XqPPu     *i0Pu.im*SystemBase.SnRef/SNom;
+    Theta0 := ComplexMath.arg(Complex(cosTheta0, sinTheta0));
+
+    // Park's transformations
+    Ud0Pu := sinTheta0 * u0Pu.re - cosTheta0 * u0Pu.im;
+    Uq0Pu := cosTheta0 * u0Pu.re + sinTheta0 * u0Pu.im;
+    Id0Pu := sinTheta0 * i0Pu.re*SystemBase.SnRef/SNom - cosTheta0 * i0Pu.im*SystemBase.SnRef/SNom;
+    Iq0Pu := cosTheta0 * i0Pu.re*SystemBase.SnRef/SNom + cosTheta0 * i0Pu.im*SystemBase.SnRef/SNom;
+
+    // Common flux calculations
+    LambdaAD0Pu := -(Uq0Pu + (RaPPu + RTfoPu) * Iq0Pu + (LdPPu  + XTfoPu) * Id0Pu);
+    LambdaAQ0Pu := Ud0Pu + (RaPPu + RTfoPu) * Id0Pu - (LqPPu + XTfoPu) * Iq0Pu;
+    LambdaAirGap0Pu := sqrt(LambdaAD0Pu^2 + LambdaAQ0Pu^2);
+
+    // Saturation part
+    Mds0Pu := MdPPu / (1 + md*LambdaAirGap0Pu^nd);
+    Mqs0Pu := MqPPu / (1 + mq*LambdaAirGap0Pu^nq);
+    Cos2Eta0 := LambdaAD0Pu^2 / LambdaAirGap0Pu^2;
+    Sin2Eta0 := LambdaAQ0Pu^2 / LambdaAirGap0Pu^2;
+    Mi0Pu := Mds0Pu*Cos2Eta0 + Mqs0Pu*Sin2Eta0;
+    MdSat0PPu := Mi0Pu + MSalPu*Sin2Eta0;
+    MqSat0PPu := Mi0Pu - MSalPu*Cos2Eta0;
+    deltaMd := abs(MdSat0PPu - MdSave);
+    deltaMq := abs(MqSat0PPu - MqSave);
+    nbIterations := nbIterations + 1;
+    iterate := (deltaMd > 0.0001 or deltaMq > 0.0001) and nbIterations < 10;
+  end while;
+
+end RotorPositionEstimation;
+
 partial model BaseGeneratorSimplified_INIT "Base initialization model for simplified generator models"
     parameter Types.ActivePowerPu P0Pu  "Start value of active power at terminal in p.u (base SnRef) (receptor convention)";
     parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power at terminal in p.u (base SnRef) (receptor convention)";
@@ -72,8 +158,6 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.PerUnit LQ2PPu "Quadrature axis 2nd damper leakage in p.u.";
     Types.PerUnit RQ2PPu "Quadrature axis 2nd damper resistance in p.u.";
 
-    // Used for initialization of theta
-    Types.PerUnit XqPPu "Quadrature axis reactance in p.u.";
 
     // Start values calculated by the initialization model
     Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
@@ -94,8 +178,6 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)";
 
     Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
-    Types.PerUnit sinTheta0 "Start value of sin(theta)";
-    Types.PerUnit cosTheta0 "Start value of cos(theta)";
 
     Types.PerUnit Ud0Pu "Start value of voltage of direct axis in p.u";
     Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in p.u";
@@ -161,9 +243,6 @@ equation
     Kuf = RfPPu / MdPPu;
   end if;
 
-  // Used for initialization of theta
-  XqPPu = MqSat0PPu + (LqPPu + XTfoPu);
-
   // Internal parameters after transformation due to the presence of a generator transformer in the model
   RaPPu  = RaPu  * rTfoPu * rTfoPu;
   LdPPu  = LdPu  * rTfoPu * rTfoPu;
@@ -192,42 +271,12 @@ equation
   uStator0Pu = 1 / rTfoPu * (u0Pu - i0Pu * Complex(RTfoPu, XTfoPu) * SystemBase.SnRef / SNom);
   iStator0Pu = rTfoPu * i0Pu ;
   sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
-
-// Rotation between machine rotor frame and port phasor frame
   S0Pu = sqrt(P0Pu^2+Q0Pu^2)*SystemBase.SnRef/SNom;
   I0Pu = S0Pu/U0Pu;
-  sinTheta0 = u0Pu.im -    XqPPu         *i0Pu.re*SystemBase.SnRef/SNom - (RaPPu + RTfoPu)*i0Pu.im*SystemBase.SnRef/SNom;
-  cosTheta0 = u0Pu.re - (RaPPu + RTfoPu) *i0Pu.re*SystemBase.SnRef/SNom +       XqPPu     *i0Pu.im*SystemBase.SnRef/SNom;
-  Theta0 = ComplexMath.arg(Complex(cosTheta0, sinTheta0));
-  // Theta0 = 1.2106;
 
-// Park's transformations
-  u0Pu.re =  sin(Theta0)*Ud0Pu + cos(Theta0)*Uq0Pu;
-  u0Pu.im = -cos(Theta0)*Ud0Pu + sin(Theta0)*Uq0Pu;
-  i0Pu.re*SystemBase.SnRef/SNom =  sin(Theta0)*Id0Pu + cos(Theta0)*Iq0Pu;
-  i0Pu.im*SystemBase.SnRef/SNom = -cos(Theta0)*Id0Pu + sin(Theta0)*Iq0Pu;
-
-
-
-// Mutual inductances saturation, Shackshaft modelisation
-
+  // Saturation part
   MsalPu = MdPPu - MqPPu;
-
-  MdSat0PPu = Mi0Pu + MsalPu*Sin2Eta0;
-  MqSat0PPu = Mi0Pu - MsalPu*Cos2Eta0;
-  LambdaAD0Pu = MdSat0PPu*(Id0Pu + If0Pu + 0);
-  LambdaAQ0Pu = MqSat0PPu*(Iq0Pu + 0 + 0);
-  LambdaAirGap0Pu = sqrt(LambdaAD0Pu^2 + LambdaAQ0Pu^2);
-
-  Mds0Pu = MdPPu / (1 + md*LambdaAirGap0Pu^nd);
-  Mqs0Pu = MqPPu / (1 + mq*LambdaAirGap0Pu^nq);
-
-  LambdaAD0Pu^2 = Cos2Eta0 * LambdaAirGap0Pu^2;
-  LambdaAQ0Pu^2 = Sin2Eta0 * LambdaAirGap0Pu^2;
-
-  Mi0Pu = Mds0Pu*Cos2Eta0 + Mqs0Pu*Sin2Eta0;
-
-
+  (Theta0, Ud0Pu, Uq0Pu, Id0Pu, Iq0Pu, LambdaAD0Pu, LambdaAQ0Pu, LambdaAirGap0Pu, Mds0Pu, Mqs0Pu, Cos2Eta0, Sin2Eta0, Mi0Pu, MdSat0PPu, MqSat0PPu) = RotorPositionEstimation(u0Pu, i0Pu, MsalPu, RaPPu, LdPPu, LqPPu, RTfoPu, XTfoPu, SNom, md, mq, nd, nq, MdPPu, MqPPu);
 
 
 // Flux linkages
