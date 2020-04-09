@@ -588,8 +588,6 @@ class Factory:
                             (line, dic_var_name_to_temporary_name_tmp, global_pattern_index) = self.replace_var_names_by_temporary_and_build_dictionary(line, variables_set_by_omc_function, global_pattern_index)
                             dic_var_name_to_temporary_name.update(dic_var_name_to_temporary_name_tmp)
                         found = True
-                if "omc_assert" in line or "omc_terminate" in line:
-                    found = True
                 new_body.append(line)
             if found and is_discrete:
                 list_body_to_append_to_z.append("{\n")
@@ -1218,6 +1216,19 @@ class Factory:
                     break
             if do_it:
                 self.list_warnings.append(warning)
+        map_tags_num_eq = self.reader.get_map_tag_num_eq()
+        for eq in self.list_all_equations:
+            tag = find_value_in_map( map_tags_num_eq, eq.get_num_omc() )
+            if eq.get_evaluated_var() == "" and tag == 'algorithm':
+                warning = Warn(eq.get_body())
+                warning.prepare_body()
+                do_it = True
+                for line in warning.get_body_for_setf():
+                    if "SHOULD NOT BE USED" in line:
+                        do_it = False
+                        break
+                if do_it:
+                    self.list_warnings.append(warning)
 
 
     ##
@@ -2551,6 +2562,12 @@ class Factory:
             if type(expr)==list:
                 body = []
                 for line in expr:
+                    if "throwStreamPrint" in line:
+                        with_throw = True
+                        break
+                for line in expr:
+                    if "omc_assert_warning" in line and with_throw:
+                        continue
                     if "return " in line:
                         line = line.replace("return ",  "calculatedVars[" + str(index)+"] /* " + var.get_name() + "*/ = ")
                     body.append(transform_line(line))
@@ -2582,6 +2599,12 @@ class Factory:
             if type(expr)==list:
                 body_translated = []
                 for line in self.reader.dic_calculated_vars_values[var.get_name()]:
+                    if "throwStreamPrint" in line:
+                        with_throw = True
+                        break
+                for line in self.reader.dic_calculated_vars_values[var.get_name()]:
+                    if "omc_assert_warning" in line and with_throw:
+                        continue
                     body_translated.append(transform_line(line))
                 # convert native boolean variables
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
@@ -2629,6 +2652,12 @@ class Factory:
             if var in self.reader.list_complex_calculated_vars:
                 body = []
                 for line in self.reader.dic_calculated_vars_values[var.get_name()]:
+                    if "throwStreamPrint" in line:
+                        with_throw = True
+                        break
+                for line in self.reader.dic_calculated_vars_values[var.get_name()]:
+                    if "omc_assert_warning" in line and with_throw:
+                        continue
                     body.append(transform_line_adept(line))
             else:
                 body = "     return " + self.reader.dic_calculated_vars_values[var.get_name()]+";"

@@ -231,9 +231,8 @@ def find_value_in_map(a_map, the_key):
 #
 # @return : the key associated to the value, if the value exists, None otherwise
 def find_key_in_map(a_map, the_value):
-    for key, value in a_map.items():
-        if value == the_value:
-            return key
+    if the_key in a_map:
+        return a_map[the_key]
     return None
 
 ##
