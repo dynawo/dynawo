@@ -218,9 +218,8 @@ def write_file (content, destination_file_path):
 #
 # @return : the value associated to the key, if the key exists, None otherwise
 def find_value_in_map(a_map, the_key):
-    for key, value in a_map.items():
-        if key == the_key:
-            return value
+    if the_key in a_map:
+        return a_map[the_key]
     return None
 
 ##
@@ -231,8 +230,9 @@ def find_value_in_map(a_map, the_key):
 #
 # @return : the key associated to the value, if the value exists, None otherwise
 def find_key_in_map(a_map, the_value):
-    if the_key in a_map:
-        return a_map[the_key]
+    for key, value in a_map.items():
+        if value == the_value:
+            return key
     return None
 
 ##
