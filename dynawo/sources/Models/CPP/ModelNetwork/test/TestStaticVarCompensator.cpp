@@ -128,7 +128,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   std::vector<double> calculatedVars(ModelStaticVarCompensator::nbCalculatedVariables_, 0.);
   svc->setReferenceCalculatedVar(&calculatedVars[0], 0);
   svc->evalCalculatedVars();
-  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::qNum_], 3250);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::qNum_], 32.50);
   std::vector<double> yI(3, 0.);
   yI[0] = 3.5;
   yI[1] = 2;
@@ -143,9 +143,9 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   std::vector<double> res(3, 0.);
   ASSERT_THROW_DYNAWO(svc->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(svc->evalJCalculatedVarI(ModelStaticVarCompensator::qNum_, &yI[0], &yp[0], res));
-  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 1400);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 800);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 1625);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 14.00);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 8.00);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 16.25);
   res.clear();
   svc->setConnected(OPEN);
   ASSERT_NO_THROW(svc->evalJCalculatedVarI(ModelStaticVarCompensator::qNum_, &yI[0], &yp[0], res));
