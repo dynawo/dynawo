@@ -27,7 +27,7 @@
   </dyn:modelicaModel>
   <!-- Generator four windings with fixed excitation voltage and fixed mechanical power -->
   <dyn:modelicaModel id="SM">
-    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName = "Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT" parFile="SMIB.par" parId="5" />
+    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT" parFile="SMIB.par" parId="5" />
     <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="SMIB.par" parId="6"/>
     <dyn:unitDynamicModel id="efd" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="SMIB.par" parId="7"/>
     <dyn:unitDynamicModel id="omega" name="Dynawo.Electrical.Controls.Basics.SetPoint" parFile="SMIB.par" parId="8"/>

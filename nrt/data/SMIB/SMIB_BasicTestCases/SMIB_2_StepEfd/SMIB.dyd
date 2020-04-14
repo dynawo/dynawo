@@ -25,7 +25,7 @@
   </dyn:modelicaModel>
   <!-- Generator with four windings with proportional speed regulation and proportional excitation control-->
   <dyn:modelicaModel id="SM">
-    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName = "Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT" parFile="SMIB.par" parId="5" />
+    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT" parFile="SMIB.par" parId="5"/>
     <dyn:unitDynamicModel id="gover" name="Dynawo.Electrical.Controls.Machines.Governors.GoverProportional" initName="Dynawo.Electrical.Controls.Machines.Governors.Governor_INIT" parFile="SMIB.par" parId="6"/>
     <dyn:unitDynamicModel id="avr" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.VRProportional" initName="Dynawo.Electrical.Controls.Machines.VoltageRegulators.VRProportional_INIT" parFile="SMIB.par" parId="7"/>
     <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="SMIB.par" parId="8"/>

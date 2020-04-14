@@ -19,6 +19,15 @@
         <xsl:attribute name="value">0</xsl:attribute>
       </xsl:element>
     </xsl:if>
+    <xsl:if test="@name='ExcitationPu' and not(../dyn:par[@name='MdPuEfd'])">
+    <xsl:text>
+    </xsl:text>
+        <xsl:element name="par" xmlns="http://www.rte-france.com/dynawo">
+            <xsl:attribute name="type">DOUBLE</xsl:attribute>
+            <xsl:attribute name="name">MdPuEfd</xsl:attribute>
+            <xsl:attribute name="value">0</xsl:attribute>
+        </xsl:element>
+    </xsl:if>
 </xsl:template>
 
 <!--  To deal with file without namespace-->
@@ -33,6 +42,15 @@
         <xsl:attribute name="value">0</xsl:attribute>
       </xsl:element>
     </xsl:if>
+    <xsl:if test="@name='ExcitationPu' and not(../par[@name='MdPuEfd'])">
+    <xsl:text>
+    </xsl:text>
+    <xsl:element name="par">
+        <xsl:attribute name="type">DOUBLE</xsl:attribute>
+        <xsl:attribute name="name">MdPuEfd</xsl:attribute>
+        <xsl:attribute name="value">0</xsl:attribute>
+    </xsl:element>
+</xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>

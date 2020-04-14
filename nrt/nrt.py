@@ -570,7 +570,7 @@ class TestCase:
 
         # Go through every jobs file
         job_num = 0
-        for job in jobs_root.getElementsByTagName('job'):
+        for job in jobs_root.getElementsByTagNameNS(jobs_root.namespaceURI, 'job'):
 
             current_job = Job()
             # Create ID
@@ -584,7 +584,7 @@ class TestCase:
             current_job.name_ = job.getAttribute("name")
 
             # Get solver
-            for solver in job.getElementsByTagName("solver"):
+            for solver in job.getElementsByTagNameNS(jobs_root.namespaceURI, "solver"):
                 libSolver = solver.getAttribute("lib")
                 if libSolver == "dynawo_SolverSIM":
                     current_job.solver_="Solver SIM"
@@ -594,14 +594,14 @@ class TestCase:
                     current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), solver.getAttribute("parFile")))
 
             # Get dyd files
-            for modeler in job.getElementsByTagName("modeler"):
+            for modeler in job.getElementsByTagNameNS(jobs_root.namespaceURI, "modeler"):
                 if (modeler.hasAttribute('compileDir')):
                     current_job.compilation_dir_ = os.path.join(os.path.dirname(self.jobs_file_), modeler.getAttribute("compileDir"))
-                for dynModels in modeler.getElementsByTagName("dynModels"):
+                for dynModels in modeler.getElementsByTagNameNS(jobs_root.namespaceURI, "dynModels"):
                     current_job.dyd_files_.append(os.path.join(os.path.dirname(self.jobs_file_), dynModels.getAttribute("dydFile")))
 
             # Get their outputs
-            for outputs in job.getElementsByTagName("outputs"):
+            for outputs in job.getElementsByTagNameNS(jobs_root.namespaceURI, "outputs"):
                 if (not outputs.hasAttribute('directory')):
                     printout("Fail to generate NRT : outputs directory is missing in jobs file " + current_job.name_ + os.linesep, BLACK)
                     sys.exit(1)
@@ -609,7 +609,7 @@ class TestCase:
                 current_job.output_dir_ = os.path.join(os.path.dirname(self.jobs_file_), outputsDir)
 
                 # constraints
-                for constraints in outputs.getElementsByTagName("constraints"):
+                for constraints in outputs.getElementsByTagNameNS(jobs_root.namespaceURI, "constraints"):
 
                     if (not constraints.hasAttribute('exportMode')):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : a constraints element does not have an export mode " + os.linesep, BLACK)
@@ -628,7 +628,7 @@ class TestCase:
 
 
                 # timeline
-                for timeline in outputs.getElementsByTagName("timeline"):
+                for timeline in outputs.getElementsByTagNameNS(jobs_root.namespaceURI, "timeline"):
 
                     if (not timeline.hasAttribute('exportMode')):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : a timeline element does not have an export mode " + os.linesep, BLACK)
@@ -652,7 +652,7 @@ class TestCase:
 
 
                 # curves
-                for curves in outputs.getElementsByTagName("curves"):
+                for curves in outputs.getElementsByTagNameNS(jobs_root.namespaceURI, "curves"):
 
                     if (not curves.hasAttribute('exportMode')):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : a curve element does not have an export mode " + os.linesep, BLACK)
@@ -673,7 +673,7 @@ class TestCase:
                         current_job.curvesType_ = CURVES_TYPE_XML
 
                 # logs
-                for appender in outputs.getElementsByTagName("appender"):
+                for appender in outputs.getElementsByTagNameNS(jobs_root.namespaceURI, "appender"):
                     if (not appender.hasAttribute('file')):
                         printout("Fail to generate NRT for " + current_job.name_ + "(file = "+current_job.file_+") : an appender of output is not an attribut in file " + os.linesep, BLACK)
                         sys.exit(1)
@@ -690,16 +690,15 @@ class TestCase:
                 except:
                     printout("Fail to import XML file " + dyd_file + os.linesep, BLACK)
                     sys.exit(1)
-                for dma in dyd_root.getElementsByTagName("dynamicModelsArchitecture"):
-                    for item in dma.getElementsByTagName("blackBoxModel"):
-                        if item.hasAttribute("parFile") and not item.get("parFile") in current_job.par_files_:
-                            current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
-                    for item in dma.getElementsByTagName("modelTemplateExpansion"):
-                        if item.hasAttribute("parFile") and not item.get("parFile") in current_job.par_files_:
-                            current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
-                    for item in dma.getElementsByTagName("unitDynamicModel"):
-                        if item.hasAttribute("parFile") and not item.get("parFile") in current_job.par_files_:
-                            current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.get("parFile")))
+                for item in dyd_root.getElementsByTagNameNS(dyd_root.namespaceURI, "blackBoxModel"):
+                    if item.hasAttribute("parFile") and os.path.join(os.path.dirname(self.jobs_file_), item.getAttribute("parFile")) not in current_job.par_files_:
+                        current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.getAttribute("parFile")))
+                for item in dyd_root.getElementsByTagNameNS(dyd_root.namespaceURI, "modelTemplateExpansion"):
+                    if item.hasAttribute("parFile") and os.path.join(os.path.dirname(self.jobs_file_), item.getAttribute("parFile")) not in current_job.par_files_:
+                        current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.getAttribute("parFile")))
+                for item in dyd_root.getElementsByTagNameNS(dyd_root.namespaceURI, "unitDynamicModel"):
+                    if item.hasAttribute("parFile") and os.path.join(os.path.dirname(self.jobs_file_), item.getAttribute("parFile")) not in current_job.par_files_:
+                        current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), item.getAttribute("parFile")))
 
             self.jobs_.append(current_job)
             job_num += 1
