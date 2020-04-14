@@ -21,6 +21,13 @@
     <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
   </set>
   <set id="2">
+
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
+
+
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -67,6 +74,13 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="3">
+
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
+
+
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -113,6 +127,12 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="4">
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
+
+
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -159,6 +179,11 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="5">
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
+
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -203,6 +228,12 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="6">
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
+
+
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>

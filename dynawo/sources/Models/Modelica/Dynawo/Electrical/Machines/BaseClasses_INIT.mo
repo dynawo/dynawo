@@ -93,9 +93,9 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in p.u (base SnRef) (generator convention)";
     Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)";
 
-    Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
-    Types.PerUnit sinTheta0 "Start value of sin(theta)";
-    Types.PerUnit cosTheta0 "Start value of cos(theta)";
+    Types.Angle Theta0(start = 1) "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
+    Types.PerUnit sinTheta0(start = 1) "Start value of sin(theta)";
+    Types.PerUnit cosTheta0(start = 1) "Start value of cos(theta)";
 
     Types.PerUnit Ud0Pu "Start value of voltage of direct axis in p.u";
     Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in p.u";
@@ -158,11 +158,13 @@ equation
     assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
     Kuf = RfPPu / MdPPuEfd;
   else
-    Kuf = RfPPu / MdSat0PPu;
+    //Kuf = RfPPu / MdSat0PPu;
+    Kuf = RfPPu / MdPPu;
   end if;
 
   // Used for initialization of theta
-  XqPPu = MqPPu + (LqPPu + XTfoPu);
+  //XqPPu = MqPPu + (LqPPu + XTfoPu);
+  XqPPu = MqSat0PPu + (LqPPu + XTfoPu);
 
   // Internal parameters after transformation due to the presence of a generator transformer in the model
   RaPPu  = RaPu  * rTfoPu * rTfoPu;
@@ -199,6 +201,7 @@ equation
   sinTheta0 = u0Pu.im -    XqPPu         *i0Pu.re*SystemBase.SnRef/SNom - (RaPPu + RTfoPu)*i0Pu.im*SystemBase.SnRef/SNom;
   cosTheta0 = u0Pu.re - (RaPPu + RTfoPu) *i0Pu.re*SystemBase.SnRef/SNom +       XqPPu     *i0Pu.im*SystemBase.SnRef/SNom;
   Theta0 = ComplexMath.arg(Complex(cosTheta0, sinTheta0));
+  //Theta0 = 1.2106;
 
 // Park's transformations
   u0Pu.re =  sin(Theta0)*Ud0Pu + cos(Theta0)*Uq0Pu;

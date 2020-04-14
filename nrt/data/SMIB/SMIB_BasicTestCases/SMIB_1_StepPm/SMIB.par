@@ -41,6 +41,13 @@
   </set>
   <!-- Synchronous machine external parameters -->
   <set id="5">
+
+
+    <par type="DOUBLE" name="md" value="0.031"/>
+    <par type="DOUBLE" name="mq" value="0.031"/>
+    <par type="DOUBLE" name="nd" value="6.93"/>
+    <par type="DOUBLE" name="nq" value="6.93"/>
+
     <par type="INT" name="ExcitationPu" value="1"/>
     <par type="DOUBLE" name="MdPuEfd" value="0"/>
     <par type="DOUBLE" name="H" value="3.5"/>

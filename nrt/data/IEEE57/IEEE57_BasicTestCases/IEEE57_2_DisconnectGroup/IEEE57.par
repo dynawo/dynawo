@@ -13,6 +13,10 @@
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="43">
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -59,6 +63,10 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="44">
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -105,6 +113,10 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="45">
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -151,6 +163,10 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="46">
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -197,6 +213,10 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="47">
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -243,6 +263,10 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="48">
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
@@ -289,6 +313,10 @@
     <reference name="generator_UPhase0" origData="IIDM" origName="angle_pu" type="DOUBLE"/>
   </set>
   <set id="49">
+<par type="DOUBLE" name="generator_md" value="0.031"/>
+    <par type="DOUBLE" name="generator_mq" value="0.031"/>
+    <par type="DOUBLE" name="generator_nd" value="6.93"/>
+    <par type="DOUBLE" name="generator_nq" value="6.93"/>
     <par type="INT" name="generator_ExcitationPu" value="1"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
