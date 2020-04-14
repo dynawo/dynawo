@@ -1611,6 +1611,13 @@ deploy_dynawo() {
   cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/* OpenModelica/lib/
   cp -P $DYNAWO_INSTALL_OPENMODELICA/lib/omc/*.mo OpenModelica/lib/omc/
   cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary OpenModelica/lib/
+  if [ "`uname`" = "Linux" ]; then
+    for lib in {gfortran,quadmath,lapack,blas,lpsolve}; do
+      if [ ! -z "$(ldd $DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2)" ]; then
+        cp $(ldd $DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2) lib/
+      fi
+    done
+  fi
 
   if [ "$DYNAWO_LIBRARY_TYPE" = "SHARED" ]; then
     LIBRARY_SUFFIX=$DYNAWO_SHARED_LIBRARY_SUFFIX
@@ -1679,11 +1686,13 @@ deploy_dynawo() {
     libarchive_system_folder_include=$(find_include_system_path LibArchive_INCLUDE_DIR) || error_exit "Path for libarchive include could not be found for deploy."
     cp -n $libarchive_system_folder_include/archive_entry.h include/
     cp -n $libarchive_system_folder_include/archive.h include/
-    for lib in {crypto,lzma,bz2,xml2}; do
-      if [ ! -z "$(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2)" ]; then
-        cp $(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2) lib/
-      fi
-    done
+    if [ "`uname`" = "Linux" ]; then
+      for lib in {crypto,lzma,bz2,xml2}; do
+        if [ ! -z "$(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2)" ]; then
+          cp $(ldd ${libarchive_system_folder}/libarchive.$LIBRARY_SUFFIX | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2) lib/
+        fi
+      done
+    fi
   fi
 
   # DYNAWO
