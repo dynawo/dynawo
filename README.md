@@ -78,14 +78,13 @@ You can download a pre-built Dyna&omega;o release to start testing it. Pre-built
 - Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++98 or C++11 compatible for C++ standard
 - Python2
 - Binary utilities: [curl](https://curl.haxx.se/) and unzip
-- Libraries: [BLAS](http://www.netlib.org/blas/index.html) and [LAPACK](http://www.netlib.org/lapack/index.html)
 - [CMake](https://cmake.org/)
 
 You can install the dependencies for Ubuntu or Fedora with:
 
 ``` bash
-$> apt install -y g++ unzip curl python liblapacke
-$> dnf install -y gcc-c++ unzip curl python lapack
+$> apt install -y g++ unzip curl python
+$> dnf install -y gcc-c++ unzip curl python
 ```
 
 ### MacOS Requirements for Distribution
