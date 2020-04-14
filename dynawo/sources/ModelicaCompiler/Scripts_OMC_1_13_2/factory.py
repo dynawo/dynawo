@@ -16,8 +16,29 @@ import itertools
 import re
 from dataContainer import *
 from utils import *
-from functools import cmp_to_key
 
+
+def cmp_to_key_dynawo(mycmp):
+    """Convert a cmp= function into a key= function"""
+    class K(object):
+        __slots__ = ['obj']
+        def __init__(self, obj, *args):
+            self.obj = obj
+        def __lt__(self, other):
+            return mycmp(self.obj, other.obj) < 0
+        def __gt__(self, other):
+            return mycmp(self.obj, other.obj) > 0
+        def __eq__(self, other):
+            return mycmp(self.obj, other.obj) == 0
+        def __le__(self, other):
+            return mycmp(self.obj, other.obj) <= 0
+        def __ge__(self, other):
+            return mycmp(self.obj, other.obj) >= 0
+        def __ne__(self, other):
+            return mycmp(self.obj, other.obj) != 0
+        def __hash__(self):
+            raise TypeError('hash not implemented')
+    return K
 ##
 # ZeroCrossingFilter class : take G data, read and prepare them to be used in factory
 #
@@ -823,7 +844,7 @@ class Factory:
                 self.list_warnings.append(warning)
 
         #... Sort the previous functions with their index in the main *.c file (and other *.c)
-        self.list_eq_syst.sort(key = cmp_to_key(cmp_equations))
+        self.list_eq_syst.sort(key = cmp_to_key_dynawo(cmp_equations))
 
         # ... we give them a number for DYNAWO
         i = 0 # num dyn of the equation
@@ -1242,7 +1263,7 @@ class Factory:
         found_init_by_param_and_at_least2lines = False # for reading comfort when printing
 
         # sort by taking init function number read in *06inz.c
-        list_vars = sorted(list_vars,key = cmp_to_key(cmp_num_init_vars))
+        list_vars = sorted(list_vars,key = cmp_to_key_dynawo(cmp_num_init_vars))
         # We prepare the results to print in setY0omc
         for var in list_vars :
             if var.is_alias() and  (to_param_address(var.get_name()).startswith("SHOULD NOT BE USED")): continue
