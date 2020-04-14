@@ -88,7 +88,7 @@ stateModified_(false) {
   double ur0 = 0.;
   double ui0 = 0.;
   double U0 = 0.;
-  double Q0 = svc->getQ() / SNREF;
+  double Q0 = svc->getQ();
   if (svc->getBusInterface()) {
     double uBus0 = svc->getBusInterface()->getV0();
     double tetaBus0 = svc->getBusInterface()->getAngle0();
@@ -167,7 +167,7 @@ ModelStaticVarCompensator::evalF() {
   // equation 0 : 0 = piIn - KG * ((vSetPoint_ - vNetwork) / vNom_ + Statism_ * q / SNREF)
   // -------------------------------------------------------------------------------------
   if (isRunning_ && isConnected() && !modelBus_->getSwitchOff())
-    f_[index] = piIn() - kG_ * ((vSetPoint_ - vNetwork) / vNom_ + Statism_ * Q() / SNREF);
+    f_[index] = piIn() - kG_ * ((vSetPoint_ - vNetwork) / vNom_ + Statism_ * Q());
   else
     f_[index] = piIn();
   index += 1;
@@ -234,7 +234,7 @@ double
 ModelStaticVarCompensator::Q() const {
   double ur = modelBus_->ur();
   double ui = modelBus_->ui();
-  return - bSvc() * (ur * ur + ui * ui) * SNREF;
+  return - bSvc() * (ur * ur + ui * ui);
 }
 
 double
@@ -539,10 +539,10 @@ ModelStaticVarCompensator::evalJCalculatedVarI(int numCalculatedVar, double* y, 
         double ur = y[0];
         double ui = y[1];
         double b = y[2];
-        // QProduced = SNREF * b * (ur * ur + ui * ui * ui)
-        res[0] = SNREF * b * 2. * ur;  // @Q/@Ur
-        res[1] = SNREF * b * 2. * ui;  // @Q/@Ui
-        res[2] = SNREF * (ur * ur + ui * ui);  // @Q/@BSvc
+        // QProduced =  b * (ur * ur + ui * ui * ui)
+        res[0] = b * 2. * ur;  // @Q/@Ur
+        res[1] = b * 2. * ui;  // @Q/@Ui
+        res[2] = (ur * ur + ui * ui);  // @Q/@BSvc
       }
       break;
     }
@@ -560,7 +560,7 @@ ModelStaticVarCompensator::evalCalculatedVarI(int numCalculatedVar, double* y, d
         double ur = y[0];
         double ui = y[1];
         double b = y[2];
-        return SNREF * b * (ur * ur + ui * ui);
+        return b * (ur * ur + ui * ui);
       }
       break;
     }
