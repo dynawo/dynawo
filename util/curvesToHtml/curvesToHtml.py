@@ -81,7 +81,7 @@ class JobCurves:
 def readCurvesToHtml(jobs_file, withoutOffset, showpoints, htmlBrowser):
     # parsing the job file
     try:
-        jobs_root = lxml.etree.parse(jobs_file).getroot()
+        jobs_root = etree.parse(jobs_file).getroot()
     except:
         print("Fail to  import XML file: " + jobs_file)
         sys.exit(1)

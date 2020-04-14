@@ -27,7 +27,7 @@
   </dyn:modelicaModel>
   <!-- Generator four windings with fixed mechanical power and a proportional average voltage regulator -->
   <dyn:modelicaModel id="SM">
-    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName = "Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT" parFile="SMIB.par" parId="5" />
+    <dyn:unitDynamicModel id="gen" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName="Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT" parFile="SMIB.par" parId="5" />
     <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT" parFile="SMIB.par" parId="6"/>
     <dyn:unitDynamicModel id="VR" name="AVRNoPSS" moFile="AVRNoPSS.mo" initName="AVR_INIT" initFile="AVR_INIT.mo" parFile="SMIB.par" parId="9"/>
     <dyn:unitDynamicModel id="omega" name="Dynawo.Electrical.Controls.Basics.SetPoint" parFile="SMIB.par" parId="8"/>

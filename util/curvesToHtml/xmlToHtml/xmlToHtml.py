@@ -13,6 +13,7 @@
 
 import os
 import shutil
+import sys
 try:
     from lxml import etree
 except ImportError:
@@ -82,7 +83,7 @@ def readXmlToHtml(xml_file, output_dir, withoutOffset, showpoints):
     datas=[]
     timeSerie = []
     full_path = os.path.expanduser(xml_file)
-    xml_curves = lxml.etree.parse(full_path).getroot()
+    xml_curves = etree.parse(full_path).getroot()
     index = 0
     for curve in xml_curves.iter(namespaceDYN("curve")):
         model = curve.get("model")

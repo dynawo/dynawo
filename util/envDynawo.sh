@@ -1465,7 +1465,7 @@ nrt_ref() {
 
 nrt_xsl() {
   export_var_env_force DYNAWO_NRT_SCRIPT_DIR=$DYNAWO_NRT_DIR
-  $DYNAWO_PYTHON_COMMAND xsl/applyXsltToXml.py $@
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/xsl/applyXsltToXml.py $@
 }
 
 check_coding_files() {

@@ -39,4 +39,25 @@
     </xsl:call-template>
   </xsl:attribute>
 </xsl:template>
+
+<xsl:template match="@var1">
+  <xsl:variable name="name" select="."/>
+  <xsl:attribute name="var1">
+    <xsl:call-template name="string-replace-all">
+      <xsl:with-param name="text" select="$name" />
+      <xsl:with-param name="replace" select="'UcEfd0Pu'" />
+      <xsl:with-param name="by" select="'UsRef0Pu'" />
+    </xsl:call-template>
+  </xsl:attribute>
+</xsl:template>
+<xsl:template match="@var2">
+  <xsl:variable name="name" select="."/>
+  <xsl:attribute name="var2">
+    <xsl:call-template name="string-replace-all">
+      <xsl:with-param name="text" select="$name" />
+      <xsl:with-param name="replace" select="'UcEfd0Pu'" />
+      <xsl:with-param name="by" select="'UsRef0Pu'" />
+    </xsl:call-template>
+  </xsl:attribute>
+</xsl:template>
 </xsl:stylesheet>
