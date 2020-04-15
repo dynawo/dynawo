@@ -18,12 +18,15 @@ package BaseClasses_INIT
 function RotorPositionEstimation
     extends Icons.Function;
 
-  input Types.ComplexVoltagePu u0Pu;
-  input Types.ComplexCurrentPu i0Pu;
-  input Types.PerUnit MSalPu;
-  input Types.PerUnit RaPPu;
-  input Types.PerUnit LdPPu;
-  input Types.PerUnit LqPPu;
+  input Real u0PuRe;
+  input Real u0PuIm;
+  input Real i0PuRe;
+  input Real i0PuIm;
+  input Types.PerUnit rTfo0Pu;
+  input Types.PerUnit XdPu;
+  input Types.PerUnit XqPu;
+  input Types.PerUnit XlPu;
+  input Types.PerUnit RaPu;
   input Types.PerUnit RTfoPu;
   input Types.PerUnit XTfoPu;
   input Types.ApparentPowerModule SNom;
@@ -31,9 +34,8 @@ function RotorPositionEstimation
   input Real mq;
   input Real nd;
   input Real nq;
-  input Types.PerUnit MdPPu;
-  input Types.PerUnit MqPPu;
 
+  output Real MsalPu;
   output Real Theta0;
   output Real Ud0Pu;
   output Real Uq0Pu;
@@ -51,38 +53,52 @@ function RotorPositionEstimation
   output Real MqSat0PPu;
 
 protected
-  Real sinTheta0;
-  Real cosTheta0;
-  Real XqPPu;
+  Real MdPPu;
+  Real MqPPu;
+  Real LdPPu;
+  Real LqPPu;
+  Real RaPPu;
   Boolean iterate;
   Integer nbIterations;
   Real MdSave;
   Real MqSave;
   Real deltaMd;
   Real deltaMq;
+  Real XqPPu;
+  Real cosTheta0;
+  Real sinTheta0;
 
 algorithm
+  MdPPu := (XdPu - XlPu) * rTfo0Pu * rTfo0Pu;
+  MqPPu := (XqPu - XlPu) * rTfo0Pu * rTfo0Pu;
+  LdPPu := XlPu * rTfo0Pu * rTfo0Pu;
+  LqPPu := XlPu * rTfo0Pu * rTfo0Pu;
+  RaPPu := RaPu * rTfo0Pu * rTfo0Pu;
+  MsalPu := MdPPu - MqPPu;
   MdSat0PPu := MdPPu;
   MqSat0PPu := MqPPu;
+  MdSave := MdSat0PPu;
+  MqSave := MqSat0PPu;
   iterate := true;
   nbIterations := 0;
 
   while iterate loop
+
     // Theta calculation
     XqPPu := MqSat0PPu + (LqPPu + XTfoPu);
-    sinTheta0 := u0Pu.im -    XqPPu         *i0Pu.re*SystemBase.SnRef/SNom - (RaPPu + RTfoPu)*i0Pu.im*SystemBase.SnRef/SNom;
-    cosTheta0 := u0Pu.re - (RaPPu + RTfoPu) *i0Pu.re*SystemBase.SnRef/SNom +       XqPPu     *i0Pu.im*SystemBase.SnRef/SNom;
-    Theta0 := ComplexMath.arg(Complex(cosTheta0, sinTheta0));
+    sinTheta0 := u0PuIm -    XqPPu         *i0PuRe*SystemBase.SnRef/SNom - (RaPPu + RTfoPu)*i0PuIm*SystemBase.SnRef/SNom;
+    cosTheta0 := u0PuRe - (RaPPu + RTfoPu) *i0PuRe*SystemBase.SnRef/SNom +       XqPPu     *i0PuIm*SystemBase.SnRef/SNom;
+    Theta0 := atan(sinTheta0/cosTheta0);
 
     // Park's transformations
-    Ud0Pu := sinTheta0 * u0Pu.re - cosTheta0 * u0Pu.im;
-    Uq0Pu := cosTheta0 * u0Pu.re + sinTheta0 * u0Pu.im;
-    Id0Pu := sinTheta0 * i0Pu.re*SystemBase.SnRef/SNom - cosTheta0 * i0Pu.im*SystemBase.SnRef/SNom;
-    Iq0Pu := cosTheta0 * i0Pu.re*SystemBase.SnRef/SNom + cosTheta0 * i0Pu.im*SystemBase.SnRef/SNom;
+    Ud0Pu := sin(Theta0) * u0PuRe - cos(Theta0) * u0PuIm;
+    Uq0Pu := cos(Theta0) * u0PuRe + sin(Theta0) * u0PuIm;
+    Id0Pu := sin(Theta0) * i0PuRe*SystemBase.SnRef/SNom - cos(Theta0) * i0PuIm*SystemBase.SnRef/SNom;
+    Iq0Pu := cos(Theta0) * i0PuRe*SystemBase.SnRef/SNom + sin(Theta0) * i0PuIm*SystemBase.SnRef/SNom;
 
-    // Common flux calculations
-    LambdaAD0Pu := -(Uq0Pu + (RaPPu + RTfoPu) * Iq0Pu + (LdPPu  + XTfoPu) * Id0Pu);
-    LambdaAQ0Pu := Ud0Pu + (RaPPu + RTfoPu) * Id0Pu - (LqPPu + XTfoPu) * Iq0Pu;
+    // Common flux calculations - Not very sure of sign conventions
+    LambdaAD0Pu := (Uq0Pu - (RaPPu + RTfoPu) * Iq0Pu - (LdPPu  + XTfoPu) * Id0Pu);
+    LambdaAQ0Pu := - Ud0Pu + (RaPPu + RTfoPu) * Id0Pu - (LqPPu + XTfoPu) * Iq0Pu;
     LambdaAirGap0Pu := sqrt(LambdaAD0Pu^2 + LambdaAQ0Pu^2);
 
     // Saturation part
@@ -91,12 +107,16 @@ algorithm
     Cos2Eta0 := LambdaAD0Pu^2 / LambdaAirGap0Pu^2;
     Sin2Eta0 := LambdaAQ0Pu^2 / LambdaAirGap0Pu^2;
     Mi0Pu := Mds0Pu*Cos2Eta0 + Mqs0Pu*Sin2Eta0;
-    MdSat0PPu := Mi0Pu + MSalPu*Sin2Eta0;
-    MqSat0PPu := Mi0Pu - MSalPu*Cos2Eta0;
+    MdSat0PPu := Mi0Pu + MsalPu*Sin2Eta0;
+    MqSat0PPu := Mi0Pu - MsalPu*Cos2Eta0;
+
+    // Algorithm stopping conditions
     deltaMd := abs(MdSat0PPu - MdSave);
     deltaMq := abs(MqSat0PPu - MqSave);
     nbIterations := nbIterations + 1;
-    iterate := (deltaMd > 0.0001 or deltaMq > 0.0001) and nbIterations < 10;
+    MdSave := MdSat0PPu;
+    MqSave := MqSat0PPu;
+    iterate := (deltaMd > 0.000001 or deltaMq > 0.000001) and nbIterations < 10;
   end while;
 
 end RotorPositionEstimation;
@@ -197,16 +217,16 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 
     Types.PerUnit MsalPu "";
 
-    Types.PerUnit MdSat0PPu(start = 1) "Start value of direct axis saturated mutual inductance in p.u.";
-    Types.PerUnit MqSat0PPu(start = 1) "Start value of quadrature axis saturated mutual inductance in p.u.";
-    Types.PerUnit LambdaAirGap0Pu(start = 1) "Start value of total air gap flux in p.u.";
-    Types.PerUnit LambdaAD0Pu(start = 1) "Start value of      in p.u.";
-    Types.PerUnit LambdaAQ0Pu(start = 1) "Start value of      in p.u.";
-    Types.PerUnit Mds0Pu(start = 1) "Start value of      in p.u.";
-    Types.PerUnit Mqs0Pu(start = 1) "Start value of      in p.u.";
-    Types.PerUnit Cos2Eta0(start = 1) "Start value of      in p.u.";
-    Types.PerUnit Sin2Eta0(start = 1) "Start value of      in p.u.";
-    Types.PerUnit Mi0Pu(start = 1) "Start value of      in p.u.";
+    Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
+    Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in p.u.";
+    Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in p.u.";
+    Types.PerUnit LambdaAD0Pu "Start value of      in p.u.";
+    Types.PerUnit LambdaAQ0Pu "Start value of      in p.u.";
+    Types.PerUnit Mds0Pu "Start value of      in p.u.";
+    Types.PerUnit Mqs0Pu "Start value of      in p.u.";
+    Types.PerUnit Cos2Eta0 "Start value of      in p.u.";
+    Types.PerUnit Sin2Eta0 "Start value of      in p.u.";
+    Types.PerUnit Mi0Pu "Start value of      in p.u.";
 
 //    Types.PerUnit MdSat0PPu(start = 1.529) "Start value of direct axis saturated mutual inductance in p.u.";
 //    Types.PerUnit MqSat0PPu(start = 1.579) "Start value of quadrature axis saturated mutual inductance in p.u.";
@@ -275,9 +295,7 @@ equation
   I0Pu = S0Pu/U0Pu;
 
   // Saturation part
-  MsalPu = MdPPu - MqPPu;
-  (Theta0, Ud0Pu, Uq0Pu, Id0Pu, Iq0Pu, LambdaAD0Pu, LambdaAQ0Pu, LambdaAirGap0Pu, Mds0Pu, Mqs0Pu, Cos2Eta0, Sin2Eta0, Mi0Pu, MdSat0PPu, MqSat0PPu) = RotorPositionEstimation(u0Pu, i0Pu, MsalPu, RaPPu, LdPPu, LqPPu, RTfoPu, XTfoPu, SNom, md, mq, nd, nq, MdPPu, MqPPu);
-
+  (MsalPu, Theta0, Ud0Pu, Uq0Pu, Id0Pu, Iq0Pu, LambdaAD0Pu, LambdaAQ0Pu, LambdaAirGap0Pu, Mds0Pu, Mqs0Pu, Cos2Eta0, Sin2Eta0, Mi0Pu, MdSat0PPu, MqSat0PPu) = RotorPositionEstimation(u0Pu.re, u0Pu.im, i0Pu.re, i0Pu.im, rTfoPu, XdPu, XqPu, XlPu, RaPu, RTfoPu, XTfoPu, SNom, md, mq, nd, nq);
 
 // Flux linkages
   Lambdad0Pu  = (MdSat0PPu + (LdPPu + XTfoPu)) * Id0Pu +          MdSat0PPu          * If0Pu;

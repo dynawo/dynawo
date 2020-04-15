@@ -227,7 +227,6 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     parameter Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNomTurb/OmegaNom)";
     parameter Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNomTurb/OmegaNom)";
 
-
     parameter Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
     parameter Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in p.u.";
     parameter Types.PerUnit Mi0Pu "Start value of intermerdiary axis saturated mutual inductance in p.u.";
@@ -238,8 +237,6 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     parameter Types.PerUnit LambdaAD0Pu "Start value of total flux of direct axis in p.u";
     parameter Types.PerUnit LambdaAQ0Pu "Start value of total flux of quadrature axis in p.u";
     parameter Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in p.u.";
-
-
 
     // d-q axis p.u. variables (base UNom, SNom)
     Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in p.u";
