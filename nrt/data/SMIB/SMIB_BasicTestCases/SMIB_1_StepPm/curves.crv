@@ -31,4 +31,10 @@
   <curve model="SM" variable="gen_QStatorPu"/>
   <curve model="SM" variable="gen_thetaInternal"/>
   <curve model="SM" variable="gover_PmRefPu"/>
+
+  <curve model="SM" variable="gen_LambdaAD0Pu_Start"/>
+  <curve model="SM" variable="gen_LambdaAQ0Pu_Start"/>
+  <curve model="SM" variable="gen_LambdaAirGap0PuStart"/>
+  <curve model="SM" variable="gen_Cos2Eta0_Start"/>
+  <curve model="SM" variable="gen_Sin2Eta0_Start"/>
 </curvesInput>

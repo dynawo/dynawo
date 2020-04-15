@@ -49,7 +49,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
 
   extends BaseClasses.GeneratorSynchronousParameters;
 
-  protected
+  //protected
 
     //Internal parameters (final value used in the equations) in p.u (base UNom, SNom)
     /*For an initialization from internal parameters:
@@ -57,16 +57,16 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
       For an initialization from external parameters:
         - Calculate the internal parameter from the external parameters
         - Apply the transformation due to the presence of a generator transformer in the model to the internal parameters calculated from the external ones*/
-    Types.PerUnit RaPPu "Armature resistance in p.u.";
-    Types.PerUnit LdPPu "Direct axis stator leakage in p.u.";
-    Types.PerUnit MdPPu "Direct axis mutual inductance in p.u.";
+    final parameter Types.PerUnit RaPPu = RaPu  * rTfoPu * rTfoPu "Armature resistance in p.u.";
+    final parameter Types.PerUnit LdPPu = LdPu * rTfoPu * rTfoPu "Direct axis stator leakage in p.u.";
+    final parameter Types.PerUnit MdPPu = MdPu * rTfoPu * rTfoPu  "Direct axis mutual inductance in p.u.";
     Types.PerUnit LDPPu "Direct axis damper leakage in p.u.";
     Types.PerUnit RDPPu "Direct axis damper resistance in p.u.";
-    Types.PerUnit MrcPPu "Canay's mutual inductance in p.u.";
+    final parameter Types.PerUnit MrcPPu = MrcPu  * rTfoPu * rTfoPu "Canay's mutual inductance in p.u.";
     Types.PerUnit LfPPu "Excitation winding leakage in p.u.";
     Types.PerUnit RfPPu "Excitation winding resistance in p.u.";
-    Types.PerUnit LqPPu "Quadrature axis stator leakage in p.u.";
-    Types.PerUnit MqPPu "Quadrature axis mutual inductance in p.u.";
+    final parameter Types.PerUnit LqPPu = LqPu  * rTfoPu * rTfoPu "Quadrature axis stator leakage in p.u.";
+    final parameter Types.PerUnit MqPPu = MqPu  * rTfoPu * rTfoPu "Quadrature axis mutual inductance in p.u.";
     Types.PerUnit LQ1PPu "Quadrature axis 1st damper leakage in p.u.";
     Types.PerUnit RQ1PPu "Quadrature axis 1st damper resistance in p.u.";
     Types.PerUnit LQ2PPu "Quadrature axis 2nd damper leakage in p.u.";
@@ -83,9 +83,9 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.ComplexVoltagePu uStator0Pu "Start value of complex voltage at stator side in p.u (base UNom)";
     Types.ComplexCurrentPu iStator0Pu "Start value of complex current at stator side in p.u (base UNom, SnRef)";
 
-    Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power at terminal side in p.u (base SnRef)";
-    Types.ComplexVoltagePu u0Pu "Start value of complex voltage at terminal side (base UNom)";
-    Types.ComplexCurrentPu i0Pu "Start value of complex current at terminal side (base UNom, SnRef)";
+    final parameter Types.ComplexApparentPowerPu s0Pu = Complex(P0Pu, Q0Pu) "Start value of complex apparent power at terminal side in p.u (base SnRef)";
+    final parameter Types.ComplexVoltagePu u0Pu = Complex(0.880229, 0.474548) "Start value of complex voltage at terminal side (base UNom)";
+    final parameter Types.ComplexCurrentPu i0Pu = Complex(-22.180612, -0.960858) "Start value of complex current at terminal side (base UNom, SnRef)";
 
     Types.ApparentPowerModulePu S0Pu "Start value of apparent power at terminal side in p.u (base SNom)";
     Types.CurrentModulePu I0Pu "Start value of current module at terminal side in p.u (base UNom, SNom)";
@@ -93,9 +93,54 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in p.u (base SnRef) (generator convention)";
     Types.ReactivePowerPu QGen0Pu "Start value of reactive power at terminal in p.u (base SnRef) (generator convention)";
 
-    Types.Angle Theta0(start = 1) "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
-    Types.PerUnit sinTheta0(start = 1) "Start value of sin(theta)";
-    Types.PerUnit cosTheta0(start = 1) "Start value of cos(theta)";
+    // Initializing Theta with a good start value, guessing init variables using non saturated mutual inductances
+    final parameter Types.PerUnit XqPPu_Start = MqPPu + (LqPPu + XTfoPu);
+    final parameter Types.PerUnit sinTheta0_Start = u0Pu.im -    XqPPu_Start         *i0Pu.re*SystemBase.SnRef/SNom - (RaPPu + RTfoPu)*i0Pu.im*SystemBase.SnRef/SNom;
+    final parameter Types.PerUnit cosTheta0_Start = u0Pu.re - (RaPPu + RTfoPu) *i0Pu.re*SystemBase.SnRef/SNom +       XqPPu_Start     *i0Pu.im*SystemBase.SnRef/SNom;
+    final parameter Types.Angle Theta0_Start = ComplexMath.arg(Complex(cosTheta0_Start, sinTheta0_Start));
+
+    final parameter Types.PerUnit Id0Pu_Start = sin(Theta0_Start)*i0Pu.re*SystemBase.SnRef/SNom - cos(Theta0_Start)*i0Pu.im*SystemBase.SnRef/SNom;
+    final parameter Types.PerUnit Iq0Pu_Start = cos(Theta0_Start)*i0Pu.re*SystemBase.SnRef/SNom + sin(Theta0_Start)*i0Pu.im*SystemBase.SnRef/SNom;
+    final parameter Types.PerUnit Ud0Pu_Start = sin(Theta0_Start)*u0Pu.re - cos(Theta0_Start)*u0Pu.im;
+    final parameter Types.PerUnit Uq0Pu_Start = cos(Theta0_Start)*u0Pu.re + sin(Theta0_Start)*u0Pu.im;
+    final parameter Types.PerUnit MsalPu = MdPPu - MqPPu "";
+    final parameter Types.PerUnit LambdaAD0Pu_Start = Uq0Pu_Start - (RaPPu + RTfoPu) * Iq0Pu_Start - (LdPPu  + XTfoPu) * Id0Pu_Start;
+    final parameter Types.PerUnit LambdaAQ0Pu_Start = - Ud0Pu_Start + (RaPPu + RTfoPu) * Id0Pu_Start - (LqPPu + XTfoPu) * Iq0Pu_Start;
+    final parameter Types.PerUnit LambdaAirGap0Pu_Start = sqrt(LambdaAD0Pu_Start^2 + LambdaAQ0Pu_Start^2);
+    final parameter Types.PerUnit Cos2Eta0_Start = LambdaAD0Pu_Start^2 / LambdaAirGap0Pu_Start^2;
+    final parameter Types.PerUnit Sin2Eta0_Start = LambdaAQ0Pu_Start^2 / LambdaAirGap0Pu_Start^2;
+
+
+    Types.Angle Theta0 (start = Theta0_Start) "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
+    Types.PerUnit sinTheta0(start = sinTheta0_Start) "Start value of sin(theta)";
+    Types.PerUnit cosTheta0(start = cosTheta0_Start) "Start value of cos(theta)";
+
+    Types.PerUnit MdSat0PPu(start = MdPPu) "Start value of direct axis saturated mutual inductance in p.u.";
+    Types.PerUnit MqSat0PPu(start = MqPPu) "Start value of quadrature axis saturated mutual inductance in p.u.";
+    Types.PerUnit LambdaAirGap0Pu (start = LambdaAirGap0Pu_Start) "Start value of total air gap flux in p.u.";
+    Types.PerUnit LambdaAD0Pu (start = LambdaAD0Pu_Start) "Start value of      in p.u.";
+    Types.PerUnit LambdaAQ0Pu (start = LambdaAQ0Pu_Start) "Start value of      in p.u.";
+    Types.PerUnit Mds0Pu "Start value of      in p.u.";
+    Types.PerUnit Mqs0Pu "Start value of      in p.u.";
+    Types.PerUnit Cos2Eta0 (start = Cos2Eta0_Start) "Start value of      in p.u.";
+    Types.PerUnit Sin2Eta0 (start = Sin2Eta0_Start) "Start value of      in p.u.";
+    Types.PerUnit Mi0Pu "Start value of      in p.u.";
+
+
+// Valeurs théoriques
+//    Types.PerUnit MdSat0PPu(start = 1.529) "Start value of direct axis saturated mutual inductance in p.u.";
+//    Types.PerUnit MqSat0PPu(start = 1.579) "Start value of quadrature axis saturated mutual inductance in p.u.";
+//    Types.PerUnit LambdaAirGap0Pu(start = 1.076) "Start value of total air gap flux in p.u.";
+//    Types.PerUnit LambdaAD0Pu(start = 0.8934) "Start value of      in p.u.";
+//    Types.PerUnit LambdaAQ0Pu(start = -0.6004) "Start value of      in p.u.";
+//    Types.PerUnit Mds0Pu(start = 1.578) "Start value of      in p.u.";
+//    Types.PerUnit Mqs0Pu(start = 1.5305) "Start value of      in p.u.";
+//    Types.PerUnit Cos2Eta0(start = 0.688) "Start value of      in p.u.";
+//    Types.PerUnit Sin2Eta0(start = 0.312) "Start value of      in p.u.";
+//    Types.PerUnit Mi0Pu(start = 1.566) "Start value of      in p.u.";
+
+
+
 
     Types.PerUnit Ud0Pu "Start value of voltage of direct axis in p.u";
     Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in p.u";
@@ -112,31 +157,6 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.PerUnit Lambdaf0Pu "Start value of flux of excitation winding";
     Types.PerUnit LambdaQ10Pu "Start value of flux of quadrature axis 1st damper";
     Types.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
-
-    Types.PerUnit MsalPu "";
-
-    Types.PerUnit MdSat0PPu(start = 1) "Start value of direct axis saturated mutual inductance in p.u.";
-    Types.PerUnit MqSat0PPu(start = 1) "Start value of quadrature axis saturated mutual inductance in p.u.";
-    Types.PerUnit LambdaAirGap0Pu(start = 1) "Start value of total air gap flux in p.u.";
-    Types.PerUnit LambdaAD0Pu(start = 1) "Start value of      in p.u.";
-    Types.PerUnit LambdaAQ0Pu(start = 1) "Start value of      in p.u.";
-    Types.PerUnit Mds0Pu(start = 1) "Start value of      in p.u.";
-    Types.PerUnit Mqs0Pu(start = 1) "Start value of      in p.u.";
-    Types.PerUnit Cos2Eta0(start = 1) "Start value of      in p.u.";
-    Types.PerUnit Sin2Eta0(start = 1) "Start value of      in p.u.";
-    Types.PerUnit Mi0Pu(start = 1) "Start value of      in p.u.";
-
-//    Types.PerUnit MdSat0PPu(start = 1.529) "Start value of direct axis saturated mutual inductance in p.u.";
-//    Types.PerUnit MqSat0PPu(start = 1.579) "Start value of quadrature axis saturated mutual inductance in p.u.";
-//    Types.PerUnit LambdaAirGap0Pu(start = 1.076) "Start value of total air gap flux in p.u.";
-//    Types.PerUnit LambdaAD0Pu(start = 0.8934) "Start value of      in p.u.";
-//    Types.PerUnit LambdaAQ0Pu(start = -0.6004) "Start value of      in p.u.";
-//    Types.PerUnit Mds0Pu(start = 1.578) "Start value of      in p.u.";
-//    Types.PerUnit Mqs0Pu(start = 1.5305) "Start value of      in p.u.";
-//    Types.PerUnit Cos2Eta0(start = 0.688) "Start value of      in p.u.";
-//    Types.PerUnit Sin2Eta0(start = 0.312) "Start value of      in p.u.";
-//    Types.PerUnit Mi0Pu(start = 1.566) "Start value of      in p.u.";
-
 
 
     Types.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/omegaNom)";
@@ -158,34 +178,23 @@ equation
     assert(MdPuEfd <> 0, "Direct axis mutual inductance should be different from 0");
     Kuf = RfPPu / MdPPuEfd;
   else
-    //Kuf = RfPPu / MdSat0PPu;
     Kuf = RfPPu / MdPPu;
   end if;
 
   // Used for initialization of theta
-  //XqPPu = MqPPu + (LqPPu + XTfoPu);
   XqPPu = MqSat0PPu + (LqPPu + XTfoPu);
 
   // Internal parameters after transformation due to the presence of a generator transformer in the model
-  RaPPu  = RaPu  * rTfoPu * rTfoPu;
-  LdPPu  = LdPu  * rTfoPu * rTfoPu;
-  MdPPu  = MdPu  * rTfoPu * rTfoPu;
   LDPPu  = LDPu  * rTfoPu * rTfoPu;
   RDPPu  = RDPu  * rTfoPu * rTfoPu;
-  MrcPPu = MrcPu * rTfoPu * rTfoPu;
   LfPPu  = LfPu  * rTfoPu * rTfoPu;
   RfPPu  = RfPu  * rTfoPu * rTfoPu;
-  LqPPu  = LqPu  * rTfoPu * rTfoPu;
-  MqPPu  = MqPu  * rTfoPu * rTfoPu;
   LQ1PPu = LQ1Pu * rTfoPu * rTfoPu;
   RQ1PPu = RQ1Pu * rTfoPu * rTfoPu;
   LQ2PPu = LQ2Pu * rTfoPu * rTfoPu;
   RQ2PPu = RQ2Pu * rTfoPu * rTfoPu;
 
 // Apparent power, voltage and current at terminal in p.u (base SnRef, UNom)
-  s0Pu = Complex(P0Pu, Q0Pu);
-  u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
-  s0Pu = u0Pu * ComplexMath.conj(i0Pu);
 
   PGen0Pu = -P0Pu;
   QGen0Pu = -Q0Pu;
@@ -213,12 +222,10 @@ equation
 
 // Mutual inductances saturation, Shackshaft modelisation
 
-  MsalPu = MdPPu - MqPPu;
-
   MdSat0PPu = Mi0Pu + MsalPu*Sin2Eta0;
   MqSat0PPu = Mi0Pu - MsalPu*Cos2Eta0;
-  LambdaAD0Pu = MdSat0PPu*(Id0Pu + If0Pu + 0);
-  LambdaAQ0Pu = MqSat0PPu*(Iq0Pu + 0 + 0);
+  LambdaAD0Pu = MdSat0PPu*(Id0Pu + If0Pu);
+  LambdaAQ0Pu = MqSat0PPu*(Iq0Pu);
   LambdaAirGap0Pu = sqrt(LambdaAD0Pu^2 + LambdaAQ0Pu^2);
 
   Mds0Pu = MdPPu / (1 + md*LambdaAirGap0Pu^nd);
@@ -309,15 +316,15 @@ partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for sy
   protected
 
     // Internal parameters to be calculated from the external ones in p.u (base UNom, SNom)
-    Types.PerUnit LdPu "Direct axis stator leakage in p.u.";
-    Types.PerUnit MdPu "Direct axis mutual inductance in p.u.";
+    final parameter Types.PerUnit LdPu = XlPu "Direct axis stator leakage in p.u.";
+    final parameter Types.PerUnit MdPu = XdPu - LdPu "Direct axis mutual inductance in p.u.";
     Types.PerUnit LDPu "Direct axis damper leakage in p.u.";
     Types.PerUnit RDPu "Direct axis damper resistance in p.u.";
-    Types.PerUnit MrcPu "Canay's mutual inductance in p.u.";
+    final parameter Types.PerUnit MrcPu = 0 "Canay's mutual inductance in p.u.";
     Types.PerUnit LfPu "Excitation winding leakage in p.u.";
     Types.PerUnit RfPu "Excitation winding resistance in p.u.";
-    Types.PerUnit LqPu "Quadrature axis stator leakage in p.u.";
-    Types.PerUnit MqPu "Quadrature axis mutual inductance in p.u.";
+    final parameter Types.PerUnit LqPu = XlPu "Quadrature axis stator leakage in p.u.";
+    final parameter Types.PerUnit MqPu = XqPu - LqPu "Quadrature axis mutual inductance in p.u.";
     Types.PerUnit LQ1Pu "Quadrature axis 1st damper leakage in p.u.";
     Types.PerUnit RQ1Pu "Quadrature axis 1st damper resistance in p.u.";
     Types.PerUnit LQ2Pu "Quadrature axis 2nd damper leakage in p.u.";
@@ -337,12 +344,7 @@ partial model BaseGeneratorSynchronousExt_INIT "Base initialization model for sy
 
 equation
 
-  MrcPu = 0;
-
   // Direct axis
-  LdPu = XlPu;
-  MdPu + LdPu = XdPu;
-
   Tpd = Tpd0 * XpdPu / XdPu;
   Tppd = Tppd0 * XppdPu / XpdPu;
 
@@ -356,10 +358,6 @@ equation
 
   LDPu * (MdPu + LfPu) * (T3dPu - T6dPu) = MdPu * LfPu * (T6dPu - T3dPu * (MdPu + LfPu) * LdPu / (MdPu * LdPu + MdPu * LfPu + LdPu * LfPu));
   RDPu * T3dPu = LDPu + MdPu * LfPu / (MdPu + LfPu);
-
-  // Quadrature axis
-  LqPu = XlPu;
-  MqPu + LqPu = XqPu;
 
 annotation(preferredView = "text");
 end BaseGeneratorSynchronousExt_INIT;
