@@ -27,9 +27,9 @@ To start testing \Dynawo you can use binary releases on Github:
 \item
   \href{https://github.com/dynawo/dynawo/releases/download/v1.1.0/Dynawo_Linux_v1.1.0.zip}{Linux}
 \item
-  \href{https://github.com/dynawo/dynawo/releases/download/v1.1.0/Dynawo_MacOS_v1.1.0.zip}{MacOS}
+  \href{#}{MacOS} (Soon)
 \item
-  Windows (Soon)
+  \href{https://github.com/dynawo/dynawo/releases/download/v1.1.0/Dynawo_Windows_v1.1.0.zip}{Windows}
 \end{itemize}
 
 To use those distributions you need some requirements if you want to be able to fully use \Dynawo and add new models to the already available library of models.
@@ -40,14 +40,13 @@ To use those distributions you need some requirements if you want to be able to 
 \item Compilers: C and C++ (\href{https://www.gnu.org/software/gcc}{gcc} or \href{https://clang.llvm.org}{clang}), c++98 or c++11 compatible for C++ standard
 \item Python2
 \item Binary utilities: \href{curl}{https://curl.haxx.se} and unzip
-\item Libraries: \href{http://www.netlib.org/blas/index.html}{BLAS}, \href{http://www.netlib.org/lapack/index.html}{LAPACK}
 \item \href{https://cmake.org/}{CMake}: minimum version 3.9.6
 \end{itemize}
 
 You can install the dependencies for Ubuntu or Fedora with:
 \begin{lstlisting}[language=bash]
-$> apt install -y g++ unzip curl python liblapacke
-$> dnf install -y gcc-c++ unzip curl python lapack
+$> apt install -y g++ unzip curl python
+$> dnf install -y gcc-c++ unzip curl python
 \end{lstlisting}
 
 
