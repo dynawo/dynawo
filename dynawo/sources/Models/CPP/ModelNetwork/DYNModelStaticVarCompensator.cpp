@@ -88,7 +88,7 @@ stateModified_(false) {
   double ur0 = 0.;
   double ui0 = 0.;
   double U0 = 0.;
-  double Q0 = svc->getQ();
+  double Q0 = svc->getQ() / SNREF;
   if (svc->getBusInterface()) {
     double uBus0 = svc->getBusInterface()->getV0();
     double tetaBus0 = svc->getBusInterface()->getAngle0();
