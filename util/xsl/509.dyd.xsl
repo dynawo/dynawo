@@ -1,5 +1,6 @@
 <!--  This xsl:
     * remove the '.so' extension from dynamic model library names
+    * rename UcEfd0Pu in UsRef0Pu
 -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:dyn="http://www.rte-france.com/dynawo">
 <xsl:output method='xml' version='1.0' encoding='UTF-8' indent='yes'/>
