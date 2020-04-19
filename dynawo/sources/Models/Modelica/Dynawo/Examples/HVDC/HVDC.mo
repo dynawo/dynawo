@@ -51,6 +51,12 @@ equation
   line1.switchOffSignal2.value = false;
   line2.switchOffSignal1.value = false;
   line2.switchOffSignal2.value = false;
+  HVDC.Conv1.switchOffSignal1.value = false;
+  HVDC.Conv1.switchOffSignal2.value = false;
+  HVDC.Conv1.switchOffSignal3.value = false;
+  HVDC.Conv2.switchOffSignal1.value = false;
+  HVDC.Conv2.switchOffSignal2.value = false;
+  HVDC.Conv2.switchOffSignal3.value = false;
   connect(HVDC.terminal2, line2.terminal1) annotation(
     Line(points = {{33, -40}, {42, -40}}, color = {0, 0, 255}));
   connect(HVDC.terminal1, line1.terminal2) annotation(
