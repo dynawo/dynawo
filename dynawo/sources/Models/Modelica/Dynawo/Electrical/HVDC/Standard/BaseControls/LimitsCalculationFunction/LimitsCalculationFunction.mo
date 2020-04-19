@@ -28,7 +28,7 @@ model LimitsCalculationFunction "Reactive and active currents limits calculation
     Placement(visible = true, transformation(origin = {0, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {0, 110}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
   Modelica.Blocks.Interfaces.RealInput iqRefPu(start = Iq0Pu) "Reactive current reference in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {0,-120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {0, -110}, extent = {{-10, -10}, {10, 10}}, rotation = 90)));
-  Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0) "Additional reactive current in case of fault or overvoltage in p.u for the other HVDC terminal (base UNom, SNom)" annotation(
+  Modelica.Blocks.Interfaces.RealInput iqMod1Pu(start = 0, fixed = true) "Additional reactive current in case of fault or overvoltage in p.u for the other HVDC terminal (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-30,-120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {111, 40}, extent = {{-10, -10}, {10, 10}}, rotation = 180)));
   Modelica.Blocks.Interfaces.RealInput iqRef1Pu(start = Iq0Pu) "Reactive current reference in p.u for the other HVDC terminal (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {30,-120}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {110, -40}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
@@ -48,15 +48,19 @@ protected
 equation
 
   if iqModPu == 0 and iqMod1Pu == 0 then
-    IqMaxPu = sqrt(InPu ^ 2 - ipRefPu ^ 2);
-    IqMinPu = - IqMaxPu;
     IpMaxPu = IpMaxCstPu;
     IpMinPu = - IpMaxPu;
   else
-    IqMaxPu = InPu;
-    IqMinPu = - IqMaxPu;
     IpMaxPu = max(0.001, sqrt(InPu ^ 2 - min(InPu ^ 2, max(iqRefPu ^ 2, iqRef1Pu ^ 2))));
     IpMinPu = - IpMaxPu;
+  end if;
+
+  if iqModPu == 0 then
+    IqMaxPu = max(0.001, sqrt(InPu ^ 2 - min(InPu ^ 2, ipRefPu ^ 2)));
+    IqMinPu = - IqMaxPu;
+  else
+    IqMaxPu = InPu;
+    IqMinPu = - IqMaxPu;
   end if;
 
   annotation(preferredView = "text",
