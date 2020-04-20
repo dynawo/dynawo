@@ -219,7 +219,18 @@ equation
     Line(points = {{-46, 13.5}, {-36, 13.5}, {-36, -23}, {-115.5, -23}, {-115.5, -16}}, color = {0, 0, 127}));
   annotation(
     experiment(StartTime = 0, StopTime = 3, Tolerance = 1e-06, Interval = 0.0001),
-    Documentation(info = "<html><head></head><body> This test case consists in three different grid-forming converters (one with a droop control, one with a dispatchable virtual oscillator control and one with a matching control) connected to a load. At t = 0.5s the line connecting the 250MW and the 1000MW converters is opened. At t = 1.5s, a short-circuit occurs in the middle of one of the lines connecting the 250MW and the 500MW converters. It is cleared after 150ms. This test case and the grid-forming converters controls come from the Horizon 2020 European project MIGRATE, and more precisely from its Deliverables 3.2 and 3.3 that can be found on the project website : https://www.h2020-migrate.eu/downloads.html.</body></html>"),
+    Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
+    This test case consists in three different grid-forming converters (one with a droop control, one with a dispatchable virtual oscillator control and one with a matching control) connected to a load. At t = 0.5s the line connecting the 250MW and the 1000MW converters is opened. At t = 1.5s, a short-circuit occurs in the middle of one of the lines connecting the 250MW and the 500MW converters. It is cleared after 150ms. This test case and the grid-forming converters controls come from the Horizon 2020 European project MIGRATE, and more precisely from its Deliverables 3.2 and 3.3 that can be found on the project website : https://www.h2020-migrate.eu/downloads.html.
+    </div><div><br></div><div>The two following figures show the expected evolution of the frequency and the current for each converter during the simulation.
+    <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/GridForming/Resources/Images/frequency.png\">
+    </figure>
+    <figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Examples/GridForming/Resources/Images/current.png\">
+    </figure>
+    </div>
+    <div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><span style=\"font-size: 12px;\"><br></span></div></div></body></html>
+"),
     Diagram(coordinateSystem(grid = {1, 1}, extent = {{-150, -100}, {150, 200}})),
   __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
   __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"));
