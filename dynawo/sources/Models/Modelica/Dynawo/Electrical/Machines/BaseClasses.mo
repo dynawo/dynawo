@@ -131,10 +131,10 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
     parameter Types.PerUnit XTfPu "Reactance of the generator transformer in p.u (base UBaseHV, SnTfo)";
 
     // Mutual inductances saturation, Shackshaft modelisation
-    parameter Types.PerUnit md = 0.031;
-    parameter Types.PerUnit mq = 0.031;
-    parameter Types.PerUnit nd = 6.93;
-    parameter Types.PerUnit nq = 6.93;
+    parameter Types.PerUnit md = 0.031 "Parameter for direct axis mutual inductance saturation modelling";
+    parameter Types.PerUnit mq = 0.031 "Parameter for quadrature axis mutual inductance saturation modelling";
+    parameter Types.PerUnit nd = 6.93 "Parameter for direct axis mutual inductance saturation modelling";
+    parameter Types.PerUnit nq = 6.93 "Parameter for quadrature axis mutual inductance saturation modelling";
 
   protected
 
@@ -154,6 +154,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
   import Dynawo.Electrical.SystemBase;
 
   extends GeneratorSynchronousParameters;
+  extends MagneticSaturation;
   extends SwitchOff.SwitchOffGenerator;
 
   public
@@ -169,7 +170,7 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     // Output variables
     Connectors.ImPin omegaPu(value(start = SystemBase.omega0Pu)) "Angular frequency in p.u.";
 
-  public
+  protected
 
     // Start values given as inputs of the initialization process
     parameter Types.VoltageModulePu U0Pu "Start value of voltage amplitude in p.u (base UNom)";
@@ -195,7 +196,6 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     parameter Types.PerUnit RQ1PPu "Quadrature axis 1st damper resistance in p.u.";
     parameter Types.PerUnit LQ2PPu "Quadrature axis 2nd damper leakage in p.u.";
     parameter Types.PerUnit RQ2PPu "Quadrature axis 2nd damper resistance in p.u.";
-    parameter Types.PerUnit MsalPu "";
 
     // p.u factor for excitation voltage
     parameter Types.PerUnit MdPPuEfd "Direct axis mutual inductance used to determine the excitation voltage in p.u.";
@@ -229,14 +229,14 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
 
     parameter Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
     parameter Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in p.u.";
-    parameter Types.PerUnit Mi0Pu "Start value of intermerdiary axis saturated mutual inductance in p.u.";
-    parameter Types.PerUnit Mds0Pu " in p.u.";
-    parameter Types.PerUnit Mqs0Pu " in p.u.";
-    parameter Types.PerUnit Sin2Eta0 "";
-    parameter Types.PerUnit Cos2Eta0 "";
-    parameter Types.PerUnit LambdaAD0Pu "Start value of total flux of direct axis in p.u";
-    parameter Types.PerUnit LambdaAQ0Pu "Start value of total flux of quadrature axis in p.u";
     parameter Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in p.u.";
+    parameter Types.PerUnit LambdaAD0Pu "Start value of common flux of direct axis in p.u";
+    parameter Types.PerUnit LambdaAQ0Pu "Start value of common flux of quadrature axis in p.u";
+    parameter Types.PerUnit Mds0Pu "Start value of direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the direct axis in p.u.";
+    parameter Types.PerUnit Mqs0Pu "Start value of quadrature axis saturated mutual inductance in the case when the total air gap flux is aligned on the quadrature axis in p.u.";
+    parameter Types.PerUnit Cos2Eta0 "Start value of the common flux of direct axis contribution to the total air gap flux in p.u.";
+    parameter Types.PerUnit Sin2Eta0 "Start value of the common flux of quadrature axis contribution to the total air gap flux in p.u.";
+    parameter Types.PerUnit Mi0Pu "Start value of intermerdiary axis saturated mutual inductance in p.u.";
 
     // d-q axis p.u. variables (base UNom, SNom)
     Types.PerUnit udPu(start = Ud0Pu) "Voltage of direct axis in p.u";
@@ -264,18 +264,17 @@ partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model
     Types.PerUnit PePu(start = Ce0Pu*SystemBase.omega0Pu) "Electrical active power in p.u (base SNom)";
 
 
-    // Saturated mutual inductances
+    // Saturated mutual inductances and related variables
     Types.PerUnit MdSatPPu(start = MdSat0PPu) "Direct axis saturated mutual inductance in p.u.";
     Types.PerUnit MqSatPPu(start = MqSat0PPu) "Quadrature axis saturated mutual inductance in p.u.";
-
+    Types.PerUnit lambdaAirGapPu(start = LambdaAirGap0Pu) "Total air gap flux in p.u.";
+    Types.PerUnit lambdaADPu(start = LambdaAD0Pu) "Common flux of direct axis in p.u.";
+    Types.PerUnit lambdaAQPu(start = LambdaAQ0Pu) "Common flux of quadrature axis in p.u.";
+    Types.PerUnit mdsPu(start = Mds0Pu) "Direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the direct axis in p.u.";
+    Types.PerUnit mqsPu(start = Mqs0Pu) "Direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the quadrature axis in p.u.";
+    Types.PerUnit sin2Eta(start = Sin2Eta0) "Common flux of quadrature axis contribution to the total air gap flux in p.u.";
+    Types.PerUnit cos2Eta(start = Cos2Eta0) "Common flux of direct axis contribution to the total air gap flux in p.u.";
     Types.PerUnit miPu(start = Mi0Pu) "Intermerdiary axis saturated mutual inductance in p.u.";
-    Types.PerUnit mdsPu(start = Mds0Pu) " in p.u.";
-    Types.PerUnit mqsPu(start = Mqs0Pu) " in p.u.";
-    Types.PerUnit sin2Eta(start = Sin2Eta0) "";
-    Types.PerUnit cos2Eta(start = Cos2Eta0) "";
-    Types.PerUnit lambdaADPu(start = LambdaAD0Pu) "Total flux of direct axis in p.u";
-    Types.PerUnit lambdaAQPu(start = LambdaAQ0Pu) "Total flux of quadrature axis in p.u";
-    Types.PerUnit lambdaAirGapPu(start = LambdaAirGap0Pu) "";
 
 equation
 
@@ -316,23 +315,6 @@ equation
   // Excitation voltage p.u. conversion
     ufPu = efdPu.value * (Kuf * rTfoPu);
 
-    // Mutual inductances saturation, Shackshaft modelisation
-    lambdaADPu = MdSatPPu*(idPu + ifPu + iDPu);
-    lambdaAQPu = MqSatPPu*(iqPu + iQ1Pu + iQ2Pu);
-    //lambdaAirGapPu = sqrt(lambdaADPu^2 + lambdaAQPu^2);
-    lambdaAirGapPu^2 = lambdaADPu^2 + lambdaAQPu^2;
-
-    mdsPu = MdPPu / (1 + md*lambdaAirGapPu^nd);
-    mqsPu = MqPPu / (1 + mq*lambdaAirGapPu^nq);
-
-    lambdaADPu^2 = cos2Eta * lambdaAirGapPu^2;
-    lambdaAQPu^2 = sin2Eta * lambdaAirGapPu^2;
-
-    miPu = mdsPu*cos2Eta + mqsPu*sin2Eta;
-
-    MdSatPPu = miPu + MsalPu*sin2Eta;
-    MqSatPPu = miPu - MsalPu*cos2Eta;
-
 
   else
     udPu = 0;
@@ -356,21 +338,72 @@ equation
     PePu = 0;
     cmPu = 0;
     ufPu = 0;
-    lambdaADPu = 0;
-    lambdaAQPu = 0;
-    lambdaAirGapPu = 0;
-    mdsPu = 0;
-    mqsPu = 0;
-    cos2Eta = 0;
-    sin2Eta = 0;
-    miPu = 0;
-    MdSatPPu = MdPPu;
-    MqSatPPu = MqPPu;
   end if;
 
 annotation(preferredView = "text");
 end BaseGeneratorSynchronous;
 
+  partial model MagneticSaturation "Magnetic saturation modelisation in synchronous machine, Shackshaft modelisation"
+
+    protected
+      parameter Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in p.u.";
+
+      parameter Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
+      parameter Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in p.u.";
+      parameter Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in p.u.";
+      parameter Types.PerUnit LambdaAD0Pu "Start value of common flux of direct axis in p.u";
+      parameter Types.PerUnit LambdaAQ0Pu "Start value of common flux of quadrature axis in p.u";
+      parameter Types.PerUnit Mds0Pu "Start value of direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the direct axis in p.u.";
+      parameter Types.PerUnit Mqs0Pu "Start value of quadrature axis saturated mutual inductance in the case when the total air gap flux is aligned on the quadrature axis in p.u.";
+      parameter Types.PerUnit Cos2Eta0 "Start value of the common flux of direct axis contribution to the total air gap flux in p.u.";
+      parameter Types.PerUnit Sin2Eta0 "Start value of the common flux of quadrature axis contribution to the total air gap flux in p.u.";
+      parameter Types.PerUnit Mi0Pu "Start value of intermerdiary axis saturated mutual inductance in p.u.";
+
+      // Saturated mutual inductances and related variables
+      Types.PerUnit MdSatPPu(start = MdSat0PPu) "Direct axis saturated mutual inductance in p.u.";
+      Types.PerUnit MqSatPPu(start = MqSat0PPu) "Quadrature axis saturated mutual inductance in p.u.";
+      Types.PerUnit lambdaAirGapPu(start = LambdaAirGap0Pu) "Total air gap flux in p.u.";
+      Types.PerUnit lambdaADPu(start = LambdaAD0Pu) "Common flux of direct axis in p.u.";
+      Types.PerUnit lambdaAQPu(start = LambdaAQ0Pu) "Common flux of quadrature axis in p.u.";
+      Types.PerUnit mdsPu(start = Mds0Pu) "Direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the direct axis in p.u.";
+      Types.PerUnit mqsPu(start = Mqs0Pu) "Direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the quadrature axis in p.u.";
+      Types.PerUnit sin2Eta(start = Sin2Eta0) "Common flux of quadrature axis contribution to the total air gap flux in p.u.";
+      Types.PerUnit cos2Eta(start = Cos2Eta0) "Common flux of direct axis contribution to the total air gap flux in p.u.";
+      Types.PerUnit miPu(start = Mi0Pu) "Intermerdiary axis saturated mutual inductance in p.u.";
+
+  equation
+
+    if running.value then
+
+      // Mutual inductances saturation
+      lambdaADPu = MdSatPPu*(idPu + ifPu + iDPu);
+      lambdaAQPu = MqSatPPu*(iqPu + iQ1Pu + iQ2Pu);
+      lambdaAirGapPu^2 = lambdaADPu^2 + lambdaAQPu^2;
+      mdsPu = MdPPu / (1 + md*lambdaAirGapPu^nd);
+      mqsPu = MqPPu / (1 + mq*lambdaAirGapPu^nq);
+      lambdaADPu^2 = cos2Eta * lambdaAirGapPu^2;
+      lambdaAQPu^2 = sin2Eta * lambdaAirGapPu^2;
+      miPu = mdsPu*cos2Eta + mqsPu*sin2Eta;
+      MdSatPPu = miPu + MsalPu*sin2Eta;
+      MqSatPPu = miPu - MsalPu*cos2Eta;
+
+     else
+
+      lambdaADPu = 0;
+      lambdaAQPu = 0;
+      lambdaAirGapPu = 0;
+      mdsPu = 0;
+      mqsPu = 0;
+      cos2Eta = 0;
+      sin2Eta = 0;
+      miPu = 0;
+      MdSatPPu = MdPPu;
+      MqSatPPu = MqPPu;
+
+      end if;
+
+  annotation(preferredView = "text");
+  end MagneticSaturation;
 
 annotation(preferredView = "text");
 end BaseClasses;

@@ -31,25 +31,25 @@ function RotorPositionEstimation "Rotor position estimation and saturation initi
   input Types.PerUnit RTfoPu "Resistance of the generator transformer in p.u (base SNom, UNom)";
   input Types.PerUnit XTfoPu "Reactance of the generator transformer in p.u (base SNom, UNom)";
   input Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
-  input Real md "";
-  input Real mq "";
-  input Real nd "";
-  input Real nq "";
+  input Real md "Parameter for direct axis mutual inductance saturation modelling";
+  input Real mq "Parameter for quadrature axis mutual inductance saturation modelling";
+  input Real nd "Parameter for direct axis mutual inductance saturation modelling";
+  input Real nq "Parameter for quadrature axis mutual inductance saturation modelling";
 
-  output Types.PerUnit MsalPu "";
+  output Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in p.u.";
   output Types.Angle Theta0 "Start value of rotor angle: angle between machine rotor frame and port phasor frame";
   output Types.PerUnit Ud0Pu "Start value of voltage of direct axis in p.u.";
   output Types.PerUnit Uq0Pu "Start value of voltage of quadrature axis in p.u";
   output Types.PerUnit Id0Pu "Start value of current of direct axis in p.u";
   output Types.PerUnit Iq0Pu "Start value of current of quadrature axis in p.u";
-  output Types.PerUnit LambdaAD0Pu "Start value of total flux of direct axis in p.u.";
-  output Types.PerUnit LambdaAQ0Pu "Start value of total flux of quadrature axis in p.u.";
+  output Types.PerUnit LambdaAD0Pu "Start value of common flux of direct axis in p.u.";
+  output Types.PerUnit LambdaAQ0Pu "Start value of common flux of quadrature axis in p.u.";
   output Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in p.u.";
-  output Types.PerUnit Mds0Pu "";
-  output Types.PerUnit Mqs0Pu "";
-  output Types.PerUnit Cos2Eta0 "";
-  output Types.PerUnit Sin2Eta0 "";
-  output Types.PerUnit Mi0Pu "";
+  output Types.PerUnit Mds0Pu "Start value of direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the direct axis in p.u.";
+  output Types.PerUnit Mqs0Pu "Start value of quadrature axis saturated mutual inductance in the case when the total air gap flux is aligned on the quadrature axis in p.u.";
+  output Types.PerUnit Cos2Eta0 "Start value of the common flux of direct axis contribution to the total air gap flux in p.u.";
+  output Types.PerUnit Sin2Eta0 "Start value of the common flux of quadrature axis contribution to the total air gap flux in p.u.";
+  output Types.PerUnit Mi0Pu "Start value of intermediary axis saturated mutual inductance in p.u.";
   output Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
   output Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in p.u.";
 
@@ -161,6 +161,7 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
   import Dynawo.Electrical.SystemBase;
 
   extends BaseClasses.GeneratorSynchronousParameters;
+  extends BaseClasses_INIT.MagneticSaturation_INIT;
 
   protected
 
@@ -222,18 +223,6 @@ partial model BaseGeneratorSynchronous_INIT "Base initialization model for synch
     Types.PerUnit LambdaQ10Pu "Start value of flux of quadrature axis 1st damper";
     Types.PerUnit LambdaQ20Pu "Start value of flux of quadrature axis 2nd damper";
 
-    Types.PerUnit MsalPu "";
-    Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
-    Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in p.u.";
-    Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in p.u.";
-    Types.PerUnit LambdaAD0Pu "Start value of      in p.u.";
-    Types.PerUnit LambdaAQ0Pu "Start value of      in p.u.";
-    Types.PerUnit Mds0Pu "Start value of      in p.u.";
-    Types.PerUnit Mqs0Pu "Start value of      in p.u.";
-    Types.PerUnit Cos2Eta0 "Start value of      in p.u.";
-    Types.PerUnit Sin2Eta0 "Start value of      in p.u.";
-    Types.PerUnit Mi0Pu "Start value of      in p.u.";
-
     Types.PerUnit Ce0Pu "Start value of electrical torque in p.u (base SNom/omegaNom)";
     Types.PerUnit Cm0Pu "Start value of mechanical torque in p.u (base PNomTurb/omegaNom)";
     Types.PerUnit Pm0Pu "Start value of mechanical power in p.u (base PNomTurb/omegaNom)";
@@ -256,7 +245,7 @@ equation
     Kuf = RfPPu / MdPPu;
   end if;
 
-  // Internal parameters after transformation due to the presence of a generator transformer in the model
+// Internal parameters after transformation due to the presence of a generator transformer in the model
   RaPPu  = RaPu  * rTfoPu * rTfoPu;
   LdPPu  = LdPu  * rTfoPu * rTfoPu;
   MdPPu  = MdPu  * rTfoPu * rTfoPu;
@@ -286,9 +275,6 @@ equation
   sStator0Pu = uStator0Pu * ComplexMath.conj(iStator0Pu);
   S0Pu = sqrt(P0Pu^2+Q0Pu^2)*SystemBase.SnRef/SNom;
   I0Pu = S0Pu/U0Pu;
-
-  // Saturation part
-  (MsalPu, Theta0, Ud0Pu, Uq0Pu, Id0Pu, Iq0Pu, LambdaAD0Pu, LambdaAQ0Pu, LambdaAirGap0Pu, Mds0Pu, Mqs0Pu, Cos2Eta0, Sin2Eta0, Mi0Pu, MdSat0PPu, MqSat0PPu) = RotorPositionEstimation(u0Pu.re, u0Pu.im, i0Pu.re, i0Pu.im, MdPu, MqPu, LdPu, LqPu, RaPu, rTfoPu, RTfoPu, XTfoPu, SNom, md, mq, nd, nq);
 
 // Flux linkages
   Lambdad0Pu  = (MdSat0PPu + (LdPPu + XTfoPu)) * Id0Pu +          MdSat0PPu          * If0Pu;
@@ -484,6 +470,28 @@ equation
 
 annotation(preferredView = "text");
 end BaseGeneratorSynchronousExt3E_INIT;
+
+  partial model MagneticSaturation_INIT "Magnetic saturation init model"
+    protected
+
+      Types.PerUnit MsalPu "Constant difference between direct and quadrature axis saturated mutual inductances in p.u.";
+      Types.PerUnit MdSat0PPu "Start value of direct axis saturated mutual inductance in p.u.";
+      Types.PerUnit MqSat0PPu "Start value of quadrature axis saturated mutual inductance in p.u.";
+      Types.PerUnit LambdaAirGap0Pu "Start value of total air gap flux in p.u.";
+      Types.PerUnit LambdaAD0Pu "Start value of common flux of direct axis in p.u.";
+      Types.PerUnit LambdaAQ0Pu "Start value of common flux of quadrature axis in p.u.";
+      Types.PerUnit Mds0Pu "Start value of direct axis saturated mutual inductance in the case when the total air gap flux is aligned on the direct axis in p.u.";
+      Types.PerUnit Mqs0Pu "Start value of quadrature axis saturated mutual inductance in the case when the total air gap flux is aligned on the quadrature axis in p.u.";
+      Types.PerUnit Cos2Eta0 "Start value of the common flux of direct axis contribution to the total air gap flux in p.u.";
+      Types.PerUnit Sin2Eta0 "Start value of the common flux of quadrature axis contribution to the total air gap flux in p.u.";
+      Types.PerUnit Mi0Pu "Start value of intermediary axis saturated mutual inductance in p.u.";
+
+  equation
+
+    (MsalPu, Theta0, Ud0Pu, Uq0Pu, Id0Pu, Iq0Pu, LambdaAD0Pu, LambdaAQ0Pu, LambdaAirGap0Pu, Mds0Pu, Mqs0Pu, Cos2Eta0, Sin2Eta0, Mi0Pu, MdSat0PPu, MqSat0PPu) = RotorPositionEstimation(u0Pu.re, u0Pu.im, i0Pu.re, i0Pu.im, MdPu, MqPu, LdPu, LqPu, RaPu, rTfoPu, RTfoPu, XTfoPu, SNom, md, mq, nd, nq);
+
+  annotation(preferredView = "text");
+  end MagneticSaturation_INIT;
 
 annotation(preferredView = "text");
 end BaseClasses_INIT;
