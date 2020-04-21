@@ -16,7 +16,6 @@ import itertools
 import re
 from dataContainer import *
 from utils import *
-from __builtin__ import False
 
 
 def cmp_to_key_dynawo(mycmp):
