@@ -82,16 +82,19 @@ GeneratorInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
   double pMax = getPMax();
   double qMax = getQMax();
+  double qMin = getQMin();
   staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(getP() / SNREF)));
   staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(getQ() / SNREF)));
   staticParameters_.insert(std::make_pair("pMin_pu", StaticParameter("pMin_pu", StaticParameter::DOUBLE).setValue(getPMin() / SNREF)));
   staticParameters_.insert(std::make_pair("pMax_pu", StaticParameter("pMax_pu", StaticParameter::DOUBLE).setValue(pMax / SNREF)));
   staticParameters_.insert(std::make_pair("qMax_pu", StaticParameter("qMax_pu", StaticParameter::DOUBLE).setValue(qMax / SNREF)));
+  staticParameters_.insert(std::make_pair("qMin_pu", StaticParameter("qMin_pu", StaticParameter::DOUBLE).setValue(qMin / SNREF)));
   staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(getP())));
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(getQ())));
   staticParameters_.insert(std::make_pair("pMin", StaticParameter("pMin", StaticParameter::DOUBLE).setValue(getPMin())));
   staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(pMax)));
   staticParameters_.insert(std::make_pair("qMax", StaticParameter("qMax", StaticParameter::DOUBLE).setValue(qMax)));
+  staticParameters_.insert(std::make_pair("qMin", StaticParameter("qMin", StaticParameter::DOUBLE).setValue(qMin)));
   double sNom = sqrt(pMax * pMax + qMax * qMax);
   staticParameters_.insert(std::make_pair("sNom", StaticParameter("sNom", StaticParameter::DOUBLE).setValue(sNom)));
   if (busInterface_) {
@@ -175,6 +178,23 @@ GeneratorInterfaceIIDM::getQMax() {
     return qMax;
   } else {
     return 0.3 * getPMax();
+  }
+}
+
+double
+GeneratorInterfaceIIDM::getQMin() {
+  if (generatorIIDM_.has_minMaxReactiveLimits()) {
+    return generatorIIDM_.minMaxReactiveLimits().min();
+  } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
+    double qMin = 0;
+    for (unsigned int i = 0; i <= generatorIIDM_.reactiveCapabilityCurve().size(); ++i) {
+      IIDM::ReactiveCapabilityCurve::point const& current_point = generatorIIDM_.reactiveCapabilityCurve()[i];
+      if (current_point.qmin < qMin)
+        qMin = current_point.qmin;
+    }
+    return qMin;
+  } else {
+    return -0.3 * getPMax();
   }
 }
 
