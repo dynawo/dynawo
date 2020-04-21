@@ -60,6 +60,9 @@ namespace keywords = boost::log::keywords;
 
 namespace DYN {
 
+
+const char Trace::NETWORK[] = "NETWORK";
+
 typedef sinks::synchronous_sink< sinks::text_ostream_backend > text_sink;  ///< define text sink
 typedef sinks::synchronous_sink< sinks::text_file_backend > file_sink;  ///< define file sink
 

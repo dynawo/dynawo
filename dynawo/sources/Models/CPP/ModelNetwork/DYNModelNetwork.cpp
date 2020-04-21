@@ -146,7 +146,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
   vector<shared_ptr<VoltageLevelInterface> >::const_iterator iVL;
   for (iVL = voltageLevels.begin(); iVL != voltageLevels.end(); ++iVL) {
     string voltageLevelsId = (*iVL)->getID();
-    Trace::debug("NETWORK") << DYNLog(AddingVoltageLevelToNetwork, voltageLevelsId) << Trace::endline;
+    Trace::debug(Trace::NETWORK) << DYNLog(AddingVoltageLevelToNetwork, voltageLevelsId) << Trace::endline;
     shared_ptr<ModelVoltageLevel> modelVoltageLevel(new ModelVoltageLevel(*iVL));
     shared_ptr<ModelVoltageLevel> modelVoltageLevelInit(new ModelVoltageLevel(*iVL));
     // Add to containers
@@ -165,7 +165,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     vector<shared_ptr<BusInterface> >::const_iterator iBus;
     for (iBus = buses.begin(); iBus != buses.end(); ++iBus) {
       string id = (*iBus)->getID();
-      Trace::debug("NETWORK") << DYNLog(AddingBusToNetwork, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
       shared_ptr<ModelBus> modelBus(new ModelBus(*iBus));
       componentsById[id] = (*iBus);
       modelBusById[id] = modelBus;
@@ -203,10 +203,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelVoltageLevelInit->addSwitch(modelSwitch);
 
       if ((*iSwitch)->hasDynamicModel()) {
-        Trace::info("NETWORK") << DYNLog(SwitchExtDynModel, id) << Trace::endline;
+        Trace::debug(Trace::NETWORK) << DYNLog(SwitchExtDynModel, id) << Trace::endline;
         continue;
       }
-      Trace::debug("NETWORK") << DYNLog(AddingSwitchToNetwork, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(AddingSwitchToNetwork, id) << Trace::endline;
       // Add to containers
       modelVoltageLevel->addSwitch(modelSwitch);
       // declare reference between subModel and static data
@@ -229,10 +229,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelVoltageLevelInit->addComponent(modelLoad);
 
       if ((*iLoad)->hasDynamicModel()) {
-        Trace::info("NETWORK") << DYNLog(LoadExtDynModel, id) << Trace::endline;
+        Trace::debug(Trace::NETWORK) << DYNLog(LoadExtDynModel, id) << Trace::endline;
         continue;
       }
-      Trace::debug("NETWORK") << DYNLog(AddingLoadToNetwork, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(AddingLoadToNetwork, id) << Trace::endline;
       // Add to containers
       modelVoltageLevel->addComponent(modelLoad);
       // declare reference between subModel and static data
@@ -257,10 +257,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelVoltageLevelInit->addComponent(modelGenerator);
 
       if ((*iGen)->hasDynamicModel()) {
-        Trace::info("NETWORK") << DYNLog(GeneratorExtDynModel, id) << Trace::endline;
+        Trace::debug(Trace::NETWORK) << DYNLog(GeneratorExtDynModel, id) << Trace::endline;
         continue;
       }
-      Trace::debug("NETWORK") << DYNLog(AddingGeneratorToNetwork, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(AddingGeneratorToNetwork, id) << Trace::endline;
       // add to containers
       modelVoltageLevel->addComponent(modelGenerator);
       // declare reference between subModel and static data
@@ -285,10 +285,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelVoltageLevelInit->addComponent(modelShuntCompensator);
 
       if ((*iShunt)->hasDynamicModel()) {
-        Trace::info("NETWORK") << DYNLog(ShuntExtDynModel, id) << Trace::endline;
+        Trace::debug(Trace::NETWORK) << DYNLog(ShuntExtDynModel, id) << Trace::endline;
         continue;
       }
-      Trace::debug("NETWORK") << DYNLog(AddingShuntToNetwork, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(AddingShuntToNetwork, id) << Trace::endline;
       // add to containers
       modelVoltageLevel->addComponent(modelShuntCompensator);
       // declare reference between subModel and static data
@@ -313,10 +313,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       modelVoltageLevelInit->addComponent(modelStaticVarCompensator);
 
       if ((*iSvc)->hasDynamicModel()) {
-        Trace::info("NETWORK") << DYNLog(SVCExtDynModel, id) << Trace::endline;
+        Trace::debug(Trace::NETWORK) << DYNLog(SVCExtDynModel, id) << Trace::endline;
         continue;
       }
-      Trace::debug("NETWORK") << DYNLog(AddingSVCToNetwork, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(AddingSVCToNetwork, id) << Trace::endline;
       // Add to containers
       modelVoltageLevel->addComponent(modelStaticVarCompensator);
       // declare reference between subModel and static data
@@ -343,10 +343,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
 
       if ((*iDangling)->hasDynamicModel()) {
-        Trace::info("NETWORK") << DYNLog(DanglingLineExtDynModel, id) << Trace::endline;
+        Trace::debug(Trace::NETWORK) << DYNLog(DanglingLineExtDynModel, id) << Trace::endline;
         continue;
       }
-      Trace::debug("NETWORK") << DYNLog(AddingDanglingLineToNetwork, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(AddingDanglingLineToNetwork, id) << Trace::endline;
       // add to containers
       modelVoltageLevel->addComponent(modelDanglingLine);
       // declare reference between subModel and static data
@@ -378,11 +378,11 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     initComponents_.push_back(modelLine);
 
     if ((*iLine)->hasDynamicModel()) {
-      Trace::info("NETWORK") << DYNLog(LineExtDynModel, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(LineExtDynModel, id) << Trace::endline;
       continue;
     }
 
-    Trace::debug("NETWORK") << DYNLog(AddingLineToNetwork, id) << Trace::endline;
+    Trace::debug(Trace::NETWORK) << DYNLog(AddingLineToNetwork, id) << Trace::endline;
     // add to containers
     components_.push_back(modelLine);
     // declare reference between subModel and static data
@@ -418,10 +418,10 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
 
     if ((*i2WTfo)->hasDynamicModel()) {
-      Trace::info("NETWORK") << DYNLog(TwoWTfoExtDynModel, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(TwoWTfoExtDynModel, id) << Trace::endline;
       continue;
     }
-    Trace::debug("NETWORK") << DYNLog(AddingTwoWTfoToNetwork, id) << Trace::endline;
+    Trace::debug(Trace::NETWORK) << DYNLog(AddingTwoWTfoToNetwork, id) << Trace::endline;
 
     // add to containers
     components_.push_back(modelTwoWindingsTransformer);
@@ -462,11 +462,11 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
 
     if ((*i3WTfo)->hasDynamicModel()) {
-      Trace::info("NETWORK") << DYNLog(ThreeWTfoExtDynModel, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(ThreeWTfoExtDynModel, id) << Trace::endline;
       continue;
     }
 
-    Trace::debug("NETWORK") << DYNLog(AddingThreeWTfoToNetwork, id) << Trace::endline;
+    Trace::debug(Trace::NETWORK) << DYNLog(AddingThreeWTfoToNetwork, id) << Trace::endline;
 
     // add to containers
     components_.push_back(modelThreeWindingsTransformer);
@@ -621,11 +621,11 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
       // is there a dynamic model?
       if ((*iHvdc)->hasDynamicModel()) {
-        Trace::info("NETWORK") << DYNLog(HvdcExtDynModel, id) << Trace::endline;
+        Trace::debug(Trace::NETWORK) << DYNLog(HvdcExtDynModel, id) << Trace::endline;
         continue;
       }
 
-      Trace::debug("NETWORK") << DYNLog(AddingHvdcToNetwork, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(AddingHvdcToNetwork, id) << Trace::endline;
       components_.push_back(modelHvdcLinkVsc);
       // declare reference between subModel and static data
       data->setReference("p", idVsc1, id, "P1_value");
@@ -657,11 +657,11 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
 
       // is there a dynamic model?
       if ((*iHvdc)->hasDynamicModel()) {
-        Trace::info("NETWORK") << DYNLog(HvdcExtDynModel, id) << Trace::endline;
+        Trace::debug(Trace::NETWORK) << DYNLog(HvdcExtDynModel, id) << Trace::endline;
         continue;
       }
 
-      Trace::debug("NETWORK") << DYNLog(AddingHvdcToNetwork, id) << Trace::endline;
+      Trace::debug(Trace::NETWORK) << DYNLog(AddingHvdcToNetwork, id) << Trace::endline;
       components_.push_back(modelHvdcLinkLcc);
       // declare reference between subModel and static data
       data->setReference("p", idVsc1, id, "P1_value");

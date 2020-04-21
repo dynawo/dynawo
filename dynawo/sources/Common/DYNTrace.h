@@ -182,6 +182,7 @@ class Trace {
     bool showTimeStamp_;  ///< @b true if the timestamp of the log should be printed
     std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
   };
+  static const char NETWORK[];  ///< Identifier for network log file
 
   /**
    * @brief Init function.

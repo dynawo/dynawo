@@ -72,7 +72,6 @@ InvalidSharedObjects          =             FOLLOWING %1% SHARED OBJECTS ARE NOT
 NbSubNetwork                  =             nbSubNetwork = %1% nbsub = %2%
 SubNetwork                    =             subNetwork[%1%] nbBus = %2%
 AddingVoltageLevelToNetwork   =             adding voltage level %1% to the Network
-AddingElementBus              =             adding element for BUS : %1%
 AddingBusToNetwork            =             adding bus %1% to the Network.
 SwitchExtDynModel             =             switch %1% using an external dynamic modelisation : not added to the Network.
 AddingSwitchToNetwork         =             adding Switch %1% to the Network.

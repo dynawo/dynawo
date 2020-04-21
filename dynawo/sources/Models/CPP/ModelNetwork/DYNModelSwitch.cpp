@@ -136,22 +136,6 @@ ModelSwitch::evalF() {
     f_[0] = y_[0];
     f_[1] = y_[1];
   }
-#ifdef _DEBUG_
-  if (sqrt(f_[0] * f_[0]) > 0.001) {
-    if (getConnectionState() == CLOSED) {
-      Trace::debug("NETWORK") << id_ << " Fswitch_ir = " << f_[0] << Trace::endline;
-    } else {
-      Trace::debug("NETWORK") << id_ << " Fswitch_ur = " << f_[0] << Trace::endline;
-    }
-  }
-  if (sqrt(f_[1] * f_[1]) > 0.001) {
-    if (getConnectionState() == CLOSED) {
-      Trace::debug("NETWORK") << id_ << " Fswitch_ii =" << f_[1] << Trace::endline;
-    } else {
-      Trace::debug("NETWORK") << id_ << " Fswitch_ui =" << f_[1] << Trace::endline;
-    }
-  }
-#endif
 }
 
 void
