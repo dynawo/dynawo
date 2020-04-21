@@ -269,7 +269,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   criteria.addBus(bus);
   ASSERT_FALSE(criteria.empty());
   ASSERT_TRUE(criteria.checkCriteria(false));
-  ASSERT_TRUE(criteria.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
   data = createBusBreakerNetwork(190, 225);
   exportStates(data);
@@ -278,8 +278,8 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   BusCriteria criteria2(criteriap);
   criteria2.addBus(bus);
   ASSERT_FALSE(criteria2.checkCriteria(false));
-  ASSERT_EQ(criteria2.getFailingCriteriaIds().size(), 1);
-  ASSERT_EQ(criteria2.getFailingCriteriaIds()[0], "BusAboveVoltage MyBus 190 0.8 MyCriteria");
+  ASSERT_EQ(criteria2.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria2.getFailingCriteria()[0], "BusAboveVoltage MyBus 190 0.8 MyCriteria");
 
   boost::shared_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
   criteriap2->setType(CriteriaParams::LOCAL_VALUE);
@@ -292,7 +292,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   // v>=0.2*vNom
   criteria3.addBus(bus);
   ASSERT_TRUE(criteria3.checkCriteria(true));
-  ASSERT_TRUE(criteria3.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
   data = createBusBreakerNetwork(43, 225);
   exportStates(data);
@@ -301,10 +301,10 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   BusCriteria criteria4(criteriap2);
   criteria4.addBus(bus);
   ASSERT_FALSE(criteria4.checkCriteria(true));
-  ASSERT_EQ(criteria4.getFailingCriteriaIds().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteriaIds()[0], "BusUnderVoltage MyBus 43 0.2 ");
+  ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria4.getFailingCriteria()[0], "BusUnderVoltage MyBus 43 0.2 ");
   ASSERT_TRUE(criteria4.checkCriteria(false));
-  ASSERT_TRUE(criteria4.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria4.getFailingCriteria().empty());
 }
 
 TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
@@ -446,7 +446,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
     criteria.addLoad(loads[i]);
   ASSERT_FALSE(criteria.empty());
   ASSERT_TRUE(criteria.checkCriteria(true));
-  ASSERT_TRUE(criteria.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(43, 225, 250, 100);
   exportStates(data);
@@ -457,7 +457,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
     criteria2.addLoad(loads[i]);
   ASSERT_FALSE(criteria2.empty());
   ASSERT_TRUE(criteria2.checkCriteria(true));
-  ASSERT_TRUE(criteria2.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(180, 225, 100, 100);
   exportStates(data);
@@ -468,7 +468,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
     criteria3.addLoad(loads[i]);
   ASSERT_FALSE(criteria3.empty());
   ASSERT_TRUE(criteria3.checkCriteria(true));
-  ASSERT_TRUE(criteria3.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(180, 225, 250, 100);
   exportStates(data);
@@ -479,8 +479,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
     criteria4.addLoad(loads[i]);
   ASSERT_FALSE(criteria4.empty());
   ASSERT_FALSE(criteria4.checkCriteria(true));
-  ASSERT_EQ(criteria4.getFailingCriteriaIds().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteriaIds()[0], "SourceAbovePower MyLoad 250 200 MyCriteria");
+  ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourceAbovePower MyLoad 250 200 MyCriteria");
 
   data = createBusBreakerNetworkWithLoads(180, 225, 40, 100);
   exportStates(data);
@@ -492,10 +492,10 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
     criteria5.addLoad(loads[i]);
   ASSERT_FALSE(criteria5.empty());
   ASSERT_TRUE(criteria5.checkCriteria(false));
-  ASSERT_TRUE(criteria5.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria5.getFailingCriteria().empty());
   ASSERT_FALSE(criteria5.checkCriteria(true));
-  ASSERT_EQ(criteria5.getFailingCriteriaIds().size(), 1);
-  ASSERT_EQ(criteria5.getFailingCriteriaIds()[0], "SourceUnderPower MyLoad 40 50 MyCriteria");
+  ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourceUnderPower MyLoad 40 50 MyCriteria");
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
@@ -536,7 +536,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
     criteria.addLoad(loads[i]);
   ASSERT_FALSE(criteria.empty());
   ASSERT_TRUE(criteria.checkCriteria(true));
-  ASSERT_TRUE(criteria.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(43, 225, 250, 100);
   exportStates(data);
@@ -547,7 +547,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
     criteria2.addLoad(loads[i]);
   ASSERT_FALSE(criteria2.empty());
   ASSERT_TRUE(criteria2.checkCriteria(true));
-  ASSERT_TRUE(criteria2.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(180, 225, 50, 50);
   exportStates(data);
@@ -558,7 +558,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
     criteria3.addLoad(loads[i]);
   ASSERT_FALSE(criteria3.empty());
   ASSERT_TRUE(criteria3.checkCriteria(true));
-  ASSERT_TRUE(criteria3.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(180, 225, 250, 100);
   exportStates(data);
@@ -569,8 +569,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
     criteria4.addLoad(loads[i]);
   ASSERT_FALSE(criteria4.empty());
   ASSERT_FALSE(criteria4.checkCriteria(true));
-  ASSERT_EQ(criteria4.getFailingCriteriaIds().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteriaIds()[0], "SourcePowerAboveMax 350 200 MyCriteria");
+  ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourcePowerAboveMax 350 200 MyCriteria");
 
   data = createBusBreakerNetworkWithLoads(180, 225, 10, 10);
   exportStates(data);
@@ -582,10 +582,10 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
     criteria5.addLoad(loads[i]);
   ASSERT_FALSE(criteria5.empty());
   ASSERT_TRUE(criteria5.checkCriteria(false));
-  ASSERT_TRUE(criteria5.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria5.getFailingCriteria().empty());
   ASSERT_FALSE(criteria5.checkCriteria(true));
-  ASSERT_EQ(criteria5.getFailingCriteriaIds().size(), 1);
-  ASSERT_EQ(criteria5.getFailingCriteriaIds()[0], "SourcePowerBelowMin 20 50 MyCriteria");
+  ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourcePowerBelowMin 20 50 MyCriteria");
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
@@ -899,7 +899,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
     criteria.addGenerator(generators[i]);
   ASSERT_FALSE(criteria.empty());
   ASSERT_TRUE(criteria.checkCriteria(true));
-  ASSERT_TRUE(criteria.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(43, 225, 250, 100);
   exportStates(data);
@@ -910,7 +910,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
     criteria2.addGenerator(generators[i]);
   ASSERT_FALSE(criteria2.empty());
   ASSERT_TRUE(criteria2.checkCriteria(true));
-  ASSERT_TRUE(criteria2.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
   exportStates(data);
@@ -921,7 +921,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
     criteria3.addGenerator(generators[i]);
   ASSERT_FALSE(criteria3.empty());
   ASSERT_TRUE(criteria3.checkCriteria(true));
-  ASSERT_TRUE(criteria3.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 250, 100);
   exportStates(data);
@@ -932,8 +932,8 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
     criteria4.addGenerator(generators[i]);
   ASSERT_FALSE(criteria4.empty());
   ASSERT_FALSE(criteria4.checkCriteria(true));
-  ASSERT_EQ(criteria4.getFailingCriteriaIds().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteriaIds()[0], "SourceAbovePower MyGen 250 200 MyCriteria");
+  ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourceAbovePower MyGen 250 200 MyCriteria");
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 40, 100);
   exportStates(data);
@@ -945,10 +945,10 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
     criteria5.addGenerator(generators[i]);
   ASSERT_FALSE(criteria5.empty());
   ASSERT_TRUE(criteria5.checkCriteria(false));
-  ASSERT_TRUE(criteria5.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria5.getFailingCriteria().empty());
   ASSERT_FALSE(criteria5.checkCriteria(true));
-  ASSERT_EQ(criteria5.getFailingCriteriaIds().size(), 1);
-  ASSERT_EQ(criteria5.getFailingCriteriaIds()[0], "SourceUnderPower MyGen 40 50 MyCriteria");
+  ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourceUnderPower MyGen 40 50 MyCriteria");
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
@@ -989,7 +989,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
     criteria.addGenerator(generators[i]);
   ASSERT_FALSE(criteria.empty());
   ASSERT_TRUE(criteria.checkCriteria(true));
-  ASSERT_TRUE(criteria.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(43, 225, 250, 100);
   exportStates(data);
@@ -1000,7 +1000,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
     criteria2.addGenerator(generators[i]);
   ASSERT_FALSE(criteria2.empty());
   ASSERT_TRUE(criteria2.checkCriteria(true));
-  ASSERT_TRUE(criteria2.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 50, 50);
   exportStates(data);
@@ -1011,7 +1011,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
     criteria3.addGenerator(generators[i]);
   ASSERT_FALSE(criteria3.empty());
   ASSERT_TRUE(criteria3.checkCriteria(true));
-  ASSERT_TRUE(criteria3.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 250, 100);
   exportStates(data);
@@ -1022,8 +1022,8 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
     criteria4.addGenerator(generators[i]);
   ASSERT_FALSE(criteria4.empty());
   ASSERT_FALSE(criteria4.checkCriteria(true));
-  ASSERT_EQ(criteria4.getFailingCriteriaIds().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteriaIds()[0], "SourcePowerAboveMax 350 200 MyCriteria");
+  ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourcePowerAboveMax 350 200 MyCriteria");
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 10, 10);
   exportStates(data);
@@ -1035,10 +1035,10 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
     criteria5.addGenerator(generators[i]);
   ASSERT_FALSE(criteria5.empty());
   ASSERT_TRUE(criteria5.checkCriteria(false));
-  ASSERT_TRUE(criteria5.getFailingCriteriaIds().empty());
+  ASSERT_TRUE(criteria5.getFailingCriteria().empty());
   ASSERT_FALSE(criteria5.checkCriteria(true));
-  ASSERT_EQ(criteria5.getFailingCriteriaIds().size(), 1);
-  ASSERT_EQ(criteria5.getFailingCriteriaIds()[0], "SourcePowerBelowMin 20 50 MyCriteria");
+  ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
+  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourcePowerBelowMin 20 50 MyCriteria");
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
