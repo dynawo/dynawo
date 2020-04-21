@@ -120,12 +120,11 @@ ModelBusContainer::exploreNeighbors() {
   subNetworks_.erase(subNetworks_.end() - 1);
 
   Trace::debug() << DYNLog(NbSubNetwork, numSubNetwork, subNetworks_.size()) << Trace::endline;
-  Trace::debug("NETWORK") << DYNLog(NbSubNetwork, numSubNetwork, subNetworks_.size()) << Trace::endline;
+  Trace::debug(Trace::NETWORK) << DYNLog(NbSubNetwork, numSubNetwork, subNetworks_.size()) << Trace::endline;
   for (unsigned int i = 0; i < subNetworks_.size(); ++i) {
-    Trace::debug() << DYNLog(SubNetwork, i, subNetworks_[i]->nbBus()) << Trace::endline;
-    Trace::debug("NETWORK") << DYNLog(SubNetwork, i, subNetworks_[i]->nbBus()) << Trace::endline;
+    Trace::debug(Trace::NETWORK) << DYNLog(SubNetwork, i, subNetworks_[i]->nbBus()) << Trace::endline;
     for (unsigned int j = 0; j < subNetworks_[i]->nbBus(); ++j) {
-      Trace::debug("NETWORK") << "                " << subNetworks_[i]->bus(j)->id() << Trace::endline;
+      Trace::debug(Trace::NETWORK) << "                " << subNetworks_[i]->bus(j)->id() << Trace::endline;
     }
   }
 }
@@ -576,7 +575,6 @@ ModelBus::defineElements(std::vector<Element>& elements, std::map<std::string, i
 void
 ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   if (hasConnection_) {
-    Trace::debug("NETWORK") << DYNLog(AddingElementBus, id) << Trace::endline;
     string name = id + string("_PWPIN");
     addElement(name, Element::STRUCTURE, elements, mapElement);
     addSubElement("vr", name, Element::TERMINAL, elements, mapElement);
@@ -795,7 +793,7 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
     for (; iter != irDerivativesValues.end(); ++iter) {
       jt.addTerm(iter->first + rowOffset, iter->second);
 #ifdef _DEBUG_
-      Trace::debug("NETWORK") << id_ << " : IR_DERIVATIVE[" << iter->first << "] = " << iter->second << Trace::endline;
+      Trace::debug(Trace::NETWORK) << id_ << " : IR_DERIVATIVE[" << iter->first << "] = " << iter->second << Trace::endline;
 #endif
     }
 
@@ -808,7 +806,7 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
     for (; iter != iiDerivativesValues.end(); ++iter) {
       jt.addTerm(iter->first + rowOffset, iter->second);
 #ifdef _DEBUG_
-      Trace::debug("NETWORK") << id_ << " : II_DERIVATIVE[" << iter->first << "] = " << iter->second << Trace::endline;
+      Trace::debug(Trace::NETWORK) << id_ << " : II_DERIVATIVE[" << iter->first << "] = " << iter->second << Trace::endline;
 #endif
     }
   }
