@@ -47,11 +47,11 @@ class Criteria {
   virtual bool checkCriteria(bool finalStep) = 0;
 
   /**
-   * @brief returns the list of failing criteria ids
+   * @brief returns the list of failing criteria
    *
-   * @return list of failing criteria ids
+   * @return list of failing criteria
    */
-  const std::vector<std::string>& getFailingCriteriaIds() const {return failingCriteria_;}
+  const std::vector<std::string>& getFailingCriteria() const {return failingCriteria_;}
 
  protected:
   const boost::shared_ptr<criteria::CriteriaParams>& params_;  ///< parameters of this criteria
