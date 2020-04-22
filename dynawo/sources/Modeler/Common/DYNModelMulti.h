@@ -130,11 +130,6 @@ class ModelMulti : public Model, private boost::noncopyable {
   void reinitMode();
 
   /**
-   * @copydoc Model::zChange(bool zChange)
-   */
-  void zChange(bool zChange);
-
-  /**
    * @brief retrieve if one discrete variables has changed
    *
    *

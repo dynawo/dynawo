@@ -176,13 +176,6 @@ class Model {
   virtual void reinitMode() = 0;
 
   /**
-   * @brief set information that one discrete variables has changed
-   *
-   * @param zChange @b true if one mode of the sub model has change
-   */
-  virtual void zChange(bool zChange) = 0;
-
-  /**
    * @brief retrieve if one discrete variables has changed
    *
    *

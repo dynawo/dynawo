@@ -181,6 +181,7 @@ SolverVarDisplayLimit         =             display limited to %1% variables
 SolverNbZVar                  =             number of discrete variables : %1%
 // --> DYNSolverSIM
 SolverSIMInitOK               =             initialization of SIM solver : ok
+SolverSIMInitGuessOK          =             initial guess of KINSOL is accurate, following solver iterations will be skipped until the next mode change
 SolverExecutionStats          =             execution Stats :
 SolverNbIter                  =             number of iterations                     = %1%
 SolverNbResEval               =             number of Residual evaluations           = %1%

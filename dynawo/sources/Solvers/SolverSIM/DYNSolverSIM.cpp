@@ -514,8 +514,10 @@ SolverSIM::SIMCorrection() {
   int flag = 0;
   if (!skipNextNR_) {
     flag = callSolverKINEuler();
-    if (flag == KIN_INITIAL_GUESS_OK)
+    if (flag == KIN_INITIAL_GUESS_OK) {
       skipNextNR_ = true;
+      Trace::debug() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
+    }
   }
   return flag;
 }
