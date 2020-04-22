@@ -24,6 +24,7 @@
 #include <vector>
 
 #include <boost/shared_ptr.hpp>
+#include <boost/unordered_map.hpp>
 
 namespace parameters {
 class ParametersSet;
@@ -87,6 +88,15 @@ class DynamicData {
    */
   inline boost::shared_ptr<parameters::ParametersSet> getNetworkParameters() const {
     return networkParameters_;
+  }
+
+  /**
+   * @brief initialize the parameter sets that were already read
+   * @param parametersRef filepath->parameter sets collection
+   */
+  inline void setParametersReference(const boost::unordered_map<std::string,
+      boost::shared_ptr<parameters::ParametersSetCollection> >& parametersRef) {
+    referenceParameters_ = parametersRef;
   }
 
   /**
@@ -258,7 +268,7 @@ class DynamicData {
 
  private:
   std::string rootDirectory_;  ///< directory to use as root when reading file
-  std::map<std::string,
+  boost::unordered_map<std::string,
           boost::shared_ptr<parameters::ParametersSetCollection> > referenceParameters_;  ///< association between file name and parameters collection
 
   boost::shared_ptr<dynamicdata::DynamicModelsCollection> dynamicModelsCollection_;  ///< dynamic models collection, input from API DYD

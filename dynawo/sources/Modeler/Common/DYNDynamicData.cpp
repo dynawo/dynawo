@@ -430,11 +430,7 @@ DynamicData::mergeParameters(shared_ptr<ParametersSet>& concatParams, const stri
 
 void
 DynamicData::getNetworkParameters(const string & parFile, const string& parSet) {
-  const string filePath = searchFile(parFile, rootDirectory_, false);
-  if (filePath == "")
-    throw DYNError(Error::MODELER, UnknownParFile, parFile, rootDirectory_);
-
-  shared_ptr<ParametersSet> parameters = getParametersSet("network", filePath, parSet);
+  shared_ptr<ParametersSet> parameters = getParametersSet("network", parFile, parSet);
   DYNErrorQueue::get()->flush();
   setNetworkParameters(parameters);
 }

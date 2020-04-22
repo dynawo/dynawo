@@ -42,7 +42,7 @@ using std::stringstream;
 
 namespace DYN {
 
-const int MATRIX_BLOCK_LENGTH = 50;  ///< Number of block reallocated when maximum number of variables allocated is reached, to deal with exploding matrix size
+const int MATRIX_BLOCK_LENGTH = 1024;  ///< Number of block reallocated when maximum number of variables allocated is reached
 
 SparseMatrix::SparseMatrix() :
 withoutNan_(true),

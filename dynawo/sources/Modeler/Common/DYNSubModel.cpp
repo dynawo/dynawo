@@ -52,6 +52,7 @@ using std::stringstream;
 using std::vector;
 using std::map;
 using boost::unordered_map;
+using boost::unordered_set;
 using std::string;
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
@@ -192,7 +193,7 @@ SubModel::initSub(const double& t0) {
 }
 
 void
-SubModel::setPARParameters(const boost::shared_ptr<parameters::ParametersSet>& params) {
+SubModel::setPARParameters(const shared_ptr<parameters::ParametersSet>& params) {
   readPARParameters_ = params;
 }
 
@@ -305,7 +306,7 @@ SubModel::getVariable(const std::string & variableName) const {
 }
 
 double
-SubModel::getVariableValue(const boost::shared_ptr <Variable> variable) const {
+SubModel::getVariableValue(const shared_ptr <Variable> variable) const {
 #ifdef _DEBUG_
   assert(variable && "SubModel::getVariableValue variable not found");
 #endif
@@ -422,13 +423,11 @@ SubModel::defineVariables() {
 }
 
 void
-SubModel::instantiateNonUnitaryParameters(const bool isInitParam) {
+SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
+    const std::map<std::string, ParameterModeler>& nonUnitaryParameters,
+    unordered_set<std::string>& addedParameter) {
   typedef std::map<std::string, ParameterModeler>::const_iterator ParamIterator;
-  const unordered_map<std::string, ParameterModeler>& parametersUMap = getParameters(isInitParam);
-  // Sorting
-  std::map<std::string, ParameterModeler> parameters;
-  parameters.insert(parametersUMap.begin(), parametersUMap.end());
-  for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
+  for (ParamIterator it = nonUnitaryParameters.begin(), itEnd = nonUnitaryParameters.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = it->second;
     const string paramName = parameter.getName();
     if (!parameter.isUnitary()) {
@@ -451,17 +450,17 @@ SubModel::instantiateNonUnitaryParameters(const bool isInitParam) {
         ParameterModeler newParameter = ParameterModeler(newName, parameter.getValueType(), parameter.getScope());
         newParameter.setIsNonUnitaryParameterInstance(true);
         addParameter(newParameter, isInitParam);
+        addedParameter.insert(newName);
       }
     }
   }
 }
 
 void
-SubModel::setParameterFromSet(const string& parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet,
-                              const parameterOrigin_t& origin, const bool isInitParam) {
+SubModel::setParameterFromSet(ParameterModeler& parameter, const shared_ptr<parameters::ParametersSet> parametersSet,
+                              const parameterOrigin_t& origin) {
   if (parametersSet) {
-    const ParameterModeler& parameter = findParameter(parName, isInitParam);
-
+    const string& parName = parameter.getName();
      // Check that parameter cardinality is unitary
     if (!parameter.isUnitary())
       throw DYNError(Error::MODELER, ParameterNotUnitary, parName);
@@ -472,25 +471,25 @@ SubModel::setParameterFromSet(const string& parName, const boost::shared_ptr<par
       switch (parameter.getValueType()) {
         case VAR_TYPE_BOOL: {
           const bool value = parametersSet->getParameter(parName)->getBool();
-          setParameterValue(parName, origin, value, isInitParam);
+          parameter.setValue<bool>(value, origin);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(origin), value) << Trace::endline;
           break;
         }
         case VAR_TYPE_INT: {
           const int value = parametersSet->getParameter(parName)->getInt();
-          setParameterValue(parName, origin, value, isInitParam);
+          parameter.setValue<int>(value, origin);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(origin), value) << Trace::endline;
           break;
         }
         case VAR_TYPE_DOUBLE: {
           const double& value = parametersSet->getParameter(parName)->getDouble();
-          setParameterValue(parName, origin, value, isInitParam);
+          parameter.setValue<double>(value, origin);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(origin), value) << Trace::endline;
           break;
         }
         case VAR_TYPE_STRING: {
           const string& value = parametersSet->getParameter(parName)->getString();
-          setParameterValue(parName, origin, value, isInitParam);
+          parameter.setValue<string>(value, origin);
           Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(origin), value) << Trace::endline;
           break;
         }
@@ -507,14 +506,18 @@ SubModel::setParameterFromSet(const string& parName, const boost::shared_ptr<par
 
 void
 SubModel::setParametersFromPARFile(const bool isInitParam) {
-  typedef unordered_map<std::string, ParameterModeler>::const_iterator ParamIterator;
-  const unordered_map<std::string, ParameterModeler>& parameters = getParameters(isInitParam);
+  typedef unordered_map<std::string, ParameterModeler>::iterator ParamIterator;
+  typedef unordered_set<std::string>::const_iterator ParamNameIterator;
+  unordered_map<std::string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
 
+  std::map<std::string, ParameterModeler> nonUnitaryParameters;
   // Set values of parameters with unitary cardinality
   for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
-    const ParameterModeler& currentParameter = it->second;
+    ParameterModeler& currentParameter = it->second;
     if ((currentParameter.isUnitary()) && (!currentParameter.isFullyInternal())) {
-      setParameterFromPARFile(currentParameter.getName(), isInitParam);
+      setParameterFromPARFile(currentParameter);
+    } else if (!currentParameter.isUnitary()) {
+      nonUnitaryParameters.insert(std::make_pair(it->first, currentParameter));
     }
   }
 
@@ -523,14 +526,15 @@ SubModel::setParametersFromPARFile(const bool isInitParam) {
   // For these parameters, the name is not the same in parameters and readPARParameters_
   // Example with OmegaRef:
   //    -name of multiple parameter: weight_gen
-  //    -name in multiple parameter instances: weight_gen_0, weight_gen_1, ...weight_gen_nbGen
-  instantiateNonUnitaryParameters(isInitParam);
+  //    -name in multiple parameter instances: weight_gen_0, weight_gen_1, ...weight_gen_nbGen,
+  unordered_set<std::string> addedParameter;
+  instantiateNonUnitaryParameters(isInitParam, nonUnitaryParameters, addedParameter);
 
   // set the unitary parameters coming from not-unitary parameters instantiation
-  for (ParamIterator  it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
-    const ParameterModeler& currentParameter = it->second;
-    if ((currentParameter.getIsNonUnitaryParameterInstance()) && (!currentParameter.isFullyInternal())) {
-      setParameterFromPARFile(currentParameter.getName(), isInitParam);
+  for (ParamNameIterator  it = addedParameter.begin(), itEnd = addedParameter.end(); it != itEnd; ++it) {
+    ParameterModeler& currentParameter = findParameterReference(*it, isInitParam);
+    if (!currentParameter.isFullyInternal()) {
+      setParameterFromPARFile(currentParameter);
     }
   }
 }
@@ -936,7 +940,7 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
 }
 
 void
-SubModel::updateCalculatedVarForCurve(boost::shared_ptr<curves::Curve>& curve, const double* y, const double* yp) {
+SubModel::updateCalculatedVarForCurve(shared_ptr<curves::Curve>& curve, const double* y, const double* yp) {
 #ifdef _DEBUG_
   Timer timer("SubModel::updateCalculatedVarForCurve");
   assert(curve);

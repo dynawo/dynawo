@@ -330,12 +330,6 @@ ModelMulti::zChange() const {
 }
 
 void
-ModelMulti::zChange(bool /*zChange*/) {
-  // not yet coded .. is this function necessary?
-}
-
-
-void
 ModelMulti::copyContinuousVariables(double* y, double* yp) {
   std::copy(y, y + sizeY() , yLocal_);
   std::copy(yp, yp + sizeY(), ypLocal_);

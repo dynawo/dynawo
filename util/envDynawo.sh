@@ -107,8 +107,7 @@ where [option] can be:"
         generate-preassembled-gdb             generate a preassembled model with debugger
         dump-model-gdb                        dump model with debugger
         dump-model-valgrind                   dump model with valgrind
-        compileCppModelicaModelInDynamicLib   compile Modelica Model generated for Dynawo
-        flat-model ([args])                   generate and display the (full) flat Modelica model"
+        compileCppModelicaModelInDynamicLib   compile Modelica Model generated for Dynawo"
 
   export_var_env DYNAWO_DOCUMENTATION_OPTIONS="    =========== Dynawo Documentation
         =========== Launch
@@ -120,7 +119,6 @@ where [option] can be:"
         =========== Build
         build-doc                             build documentation
         build-doxygen-doc                     build all doxygen documentation
-        build-modelica-doc                    build all Dynawo modelica library document
         build-nrt-doc                         build nrt documentation
 
         =========== Clean
@@ -391,7 +389,6 @@ set_environment() {
   export_var_env_force DYNAWO_NRT_DIR=$DYNAWO_HOME/nrt
   export_var_env DYNAWO_RESULTS_SHOW=true
   export_var_env_force DYNAWO_CURVES_TO_HTML_DIR=$DYNAWO_HOME/util/curvesToHtml
-  export_var_env_force DYNAWO_MODEL_DOCUMENTATION_DIR=$DYNAWO_HOME/util/modelDocumentation
   export_var_env_force DYNAWO_SCRIPTS_DIR=$DYNAWO_INSTALL_DIR/sbin
   export_var_env_force DYNAWO_NRT_DIFF_DIR=$DYNAWO_HOME/util/nrt_diff
   export_var_env_force DYNAWO_ENV_DYNAWO=$SCRIPT
@@ -924,7 +921,7 @@ build_tests() {
   echo "#######################"
   echo "Running python tests"
   echo "#######################"
-  python $DYNAWO_NRT_DIFF_DIR/test/nrtDiffTest.py
+  ${DYNAWO_PYTHON_COMMAND} $DYNAWO_NRT_DIFF_DIR/test/nrtDiffTest.py
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
@@ -1119,27 +1116,6 @@ test_doxygen_doc() {
   fi
 }
 
-# Compile Dynawo Modelica library doc
-build_modelica_doc() {
-  error_exit "Not available for the moment."
-  # python $DYNAWO_MODEL_DOCUMENTATION_DIR/latex/model_documentation.py --model_file=$DYNAWO_MODEL_DOCUMENTATION_DIR/latex/models.txt --outputDir=$DYNAWO_HOME/documents/ModelicaDocumentation/resources || error_exit "Error during LaTeX file generation"
-  # Do it twice to generate cross references and Contents section
-  # pdflatex -halt-on-error -output-directory $DYNAWO_HOME/documentation/ModelicaDocumentation $DYNAWO_HOME/documentation/ModelicaDocumentation/resources/model_documentation.tex
-  # pdflatex -halt-on-error -output-directory $DYNAWO_HOME/documentation/ModelicaDocumentation $DYNAWO_HOME/documentation/ModelicaDocumentation/resources/model_documentation.tex
-  # test_modelica_doc
-}
-
-test_modelica_doc() {
-  if [ -f "$DYNAWO_HOME/documentation/ModelicaDocumentation/resources/model_documentation.tex" ] ; then
-    nb_diff=$(diff $DYNAWO_HOME/documentation/ModelicaDocumentation/resources/model_documentation.tex $DYNAWO_MODEL_DOCUMENTATION_DIR/latex/ref.tex | wc -l)
-    if [ ${nb_diff} -ne 0 ]; then
-      error_exit "The generated LaTeX file does not correspond to the reference"
-    fi
-  else
-    error_exit "Dynawo Modelica library LaTeX file not found"
-  fi
-}
-
 open_modelica_doc() {
   error_exit "Not available for the moment."
   # open_pdf $DYNAWO_HOME/documentation/ModelicaDocumentation/model_documentation.pdf
@@ -1296,11 +1272,6 @@ open_doxygen_doc() {
   fi
   verify_browser
   $DYNAWO_BROWSER $DYNAWO_INSTALL_DIR/doxygen/html/index.html
-}
-
-flat_model() {
-  error_exit "Not available for the moment."
-  # python $DYNAWO_MODEL_DOCUMENTATION_DIR/model_documentation.py --model=$@ --outputDir=/tmp/dynawo/doxygen --outputFormat=Modelica
 }
 
 version() {
@@ -2158,10 +2129,6 @@ case $MODE in
     build_dynawo_solvers || error_exit "Failed to build Dynawo solvers"
     ;;
 
-  build-modelica-doc)
-    build_modelica_doc || error_exit "Error while building Dynawo Modelica library documentation"
-    ;;
-
   build-nrt-doc)
     build_nrt_doc || error_exit "Error during the build of Dynawo nrt documentation"
     ;;
@@ -2280,10 +2247,6 @@ case $MODE in
 
   dump-model-valgrind)
     valgrind_dump_model ${ARGS} || error_exit "Error during model's description dump"
-    ;;
-
-  flat-model)
-    flat_model ${ARGS} || error_exit "Failed to generate Modelica model documentation"
     ;;
 
   generate-preassembled)

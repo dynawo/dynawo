@@ -26,6 +26,7 @@
 #include <list>
 #include <iostream>
 #include <boost/unordered_map.hpp>
+#include <boost/unordered_set.hpp>
 
 #include <boost/shared_ptr.hpp>
 
@@ -797,29 +798,31 @@ class SubModel {
    * @brief instantiate all non-unitary parameters
    *
    * @param isInitParam: whether to do it for initial (or dynamic) parameters
+   * @param nonUnitaryParameters: non unitary parameter of this model
+   * @param addedParameter: parameter added after processing non unitary parameters
    */
-  void instantiateNonUnitaryParameters(const bool isInitParam);
+  void instantiateNonUnitaryParameters(const bool isInitParam,
+      const std::map<std::string, ParameterModeler>& nonUnitaryParameters,
+      boost::unordered_set<std::string>& addedParameter);
 
   /**
    * @brief set a parameter value from a parameters set (API PAR) (only for unitary cardinality)
    *
-   * @param parName: the name of the parameter to be set
-   * @param isInitParam: whether to rely on initParameters
+   * @param parameterName: name of the parameter to be set
+   * @param isInitParam: whether to do it for initial (or dynamic) parameters
    */
-  inline void setParameterFromPARFile(const std::string& parName, const bool isInitParam) {
-    setParameterFromSet(parName, readPARParameters_, PAR, isInitParam);
+  inline void setParameterFromPARFile(const std::string& parameterName, const bool isInitParam) {
+    setParameterFromSet(findParameterReference(parameterName, isInitParam), readPARParameters_, PAR);
   }
 
   /**
    * @brief set a parameter value from a parameters set(only for unitary cardinality)
    *
-   * @param parName: the name of the parameter to be set
+   * @param parameter: parameter to be set
    * @param parametersSet: the set to scan for a value
    * @param origin: the origin of the set data (MO, PAR, INIT, ...)
-   * @param isInitParam: whether the parameter is an initParam or a dynamic parameter
    */
-  void setParameterFromSet(const std::string& parName, const boost::shared_ptr<parameters::ParametersSet> parametersSet, const parameterOrigin_t& origin,
-                           const bool isInitParam);
+  void setParameterFromSet(ParameterModeler& parameter, const boost::shared_ptr<parameters::ParametersSet> parametersSet, const parameterOrigin_t& origin);
 
   /**
    * @brief set all parameters values from a parameters set (API PAR)
@@ -1364,6 +1367,15 @@ class SubModel {
    * @return the map of index of root equation and root equation in string format
    */
   std::map<int, std::string>& gEquationIndex();
+
+  /**
+   * @brief set a parameter value from a parameters set (API PAR) (only for unitary cardinality)
+   *
+   * @param parameter: parameter to be set
+   */
+  inline void setParameterFromPARFile(ParameterModeler& parameter) {
+    setParameterFromSet(parameter, readPARParameters_, PAR);
+  }
 
  protected:
   boost::shared_ptr<parameters::ParametersSet> readPARParameters_;  ///< parameters set read from PAR file

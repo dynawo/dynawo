@@ -84,7 +84,6 @@
 #include "PARParametersSet.h"
 #include "PARParametersSetFactory.h"
 #include "PARXmlImporter.h"
-#include "PARParametersSetCollection.h"
 
 #include "CRTXmlImporter.h"
 #include "CRTCriteriaCollection.h"
@@ -244,6 +243,7 @@ Simulation::configureSimulationInputs() {
     networkParFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile(), context_->getInputDirectory());
     if (!exists(networkParFile_))
       throw DYNError(Error::GENERAL, UnknownParFile, networkParFile_);
+    networkParFile_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile();
     networkParSet_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParId();
   }
   if (jobEntry_->getModelerEntry()->getInitialStateEntry()) {
@@ -497,6 +497,7 @@ Simulation::loadDynamicData() {
   // Load model
   dyd_.reset(new DynamicData());  // takes ownership of pointer
   dyd_->setRootDirectory(context_->getInputDirectory());
+  dyd_->setParametersReference(referenceParameters_);
 
   if (iidmFile_ != "") {
     try {
@@ -550,6 +551,7 @@ Simulation::setSolver() {
 
   parameters::XmlImporter importer;
   boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
+  referenceParameters_[solverParFile] = parameters;
   string parId = jobEntry_->getSolverEntry()->getParametersId();
   shared_ptr<ParametersSet> solverParams = ParametersSetFactory::copyInstance(parameters->getParametersSet(parId));
 
@@ -884,6 +886,7 @@ Simulation::updateParametersValues() {
 
 void
 Simulation::iterate() {
+  Timer timer("Simulation::iterate()");
   double tVise = tStop_;
 
   solver_->solve(tVise, tCurrent_);
@@ -899,6 +902,7 @@ Simulation::iterate() {
 
 void
 Simulation::updateCurves(bool updateCalculateVariable) {
+  Timer timer("Simulation::updateCurves()");
   if (exportCurvesMode_ == EXPORT_CURVES_NONE)
     return;
 
@@ -926,6 +930,7 @@ Simulation::printEnd() {
 
 void
 Simulation::terminate() {
+  Timer timer("Simulation::terminate()");
   updateParametersValues();   // update parameter curves' value
 
   if (curvesOutputFile_ != "") {
