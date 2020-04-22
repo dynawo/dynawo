@@ -1029,8 +1029,8 @@ def LineCloseEnough (line_left, line_right):
 # @param path_right : the absolute path to the right-side file
 # @param logs_separator_right : the separator to use as a string
 def DynawoLogCloseEnough (path_left, logs_separator_left, path_right, logs_separator_right):
-    file_left = open (path_left, "rb")
-    file_right = open (path_right, "rb")
+    file_left = open (path_left, "r")
+    file_right = open (path_right, "r")
     lines_to_compare_left = []
     lines_to_compare_right = []
     file_name = os.path.splitext(os.path.basename(path_left))[0]
