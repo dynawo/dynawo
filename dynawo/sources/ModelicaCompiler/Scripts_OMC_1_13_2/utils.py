@@ -63,6 +63,7 @@ def is_ignored_var(var_name):
 # @param list_adept_structs : list of struct converted into adept
 # @return @b true if the function should be transformed to an adept type
 def is_adept_func(func, list_adept_structs):
+    if func.get_name() == "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" : return False
     if func.get_return_type() == "modelica_real" : return True
     if func.get_return_type() in list_adept_structs: return True
     for param in func.get_params():
@@ -816,18 +817,6 @@ def transform_line_adept(line):
     line_tmp = line_tmp.replace("LessEq)", "LessEq<adept::adouble>)")
     if "omc_assert_warning" in line_tmp:
         line_tmp = line_tmp.replace("info,","")
-    ptrn_variable = re.compile(r'omc_Modelica_Blocks_Tables_Internal_getTable1DValue\(\s*(?P<var1>[^,]*)\s*,\s*(?P<var2>[^,]*)\s*,\s*(?P<expr>[^,]*)\s*\)')
-    match = ptrn_variable.search(line_tmp)
-    if match is not None:
-        expr = match.group('expr')
-        initial_expr = expr
-        ptrn_variable2 = re.compile(r'x\[(?P<val>[0-9]+)\]')
-        for var in re.finditer(ptrn_variable2, expr):
-            expr = expr.replace("x["+var.group('val') + "]", "x["+var.group('val') + "].value()")
-        ptrn_variable2 = re.compile(r'xd\[(?P<val>[0-9]+)\]')
-        for var in re.finditer(ptrn_variable2, expr):
-            expr = expr.replace("xd["+var.group('val') + "]", "xd["+var.group('val') + "].value()")
-        line_tmp = line_tmp.replace(initial_expr, expr)
     return line_tmp
 
 ##
