@@ -166,6 +166,8 @@ class ReaderOMC:
         # ---------------------------------------
         ## List containing all variables found in *_init.xml file : differential/alegbraic/discrete variables and parameters
         self.list_vars = []
+        ## Dictionnary containing all variables names from self.list_vars and their index
+        self.dic_vars = {}
 
 
         # ---------------------------------------------
@@ -459,6 +461,16 @@ class ReaderOMC:
         return self.map_tag_num_eq
 
     ##
+    # Retrieve the variable from its name
+    # @param self : object pointer
+    # @param name : name of the variable to find
+    # @return the variable with this name or None if not found
+    def find_variable_from_name(self, name):
+        if name in self.dic_vars:
+            return self.list_vars[self.dic_vars[name]]
+        return None
+
+    ##
     # Read the _init.xml file
     # @param self : object pointer
     # @return
@@ -544,6 +556,7 @@ class ReaderOMC:
 
             # Vars after the read of *_init.xml
             self.list_vars.append(var)
+            self.dic_vars[var.get_name()] = len(self.list_vars) - 1
 
         ## Need to go over again to propagate fixed property: an alias on a fixed variable should be set as fixed
         modified = True
@@ -551,9 +564,8 @@ class ReaderOMC:
             modified = False
             for var in self.list_vars:
                 if var.get_alias_name() != "":
-                    alias_list = list(filter(lambda x: (x.get_name() == var.get_alias_name()), self.list_vars))
-                    assert(len(alias_list) == 1)
-                    alias_var = alias_list[0]
+                    alias_var = self.find_variable_from_name(var.get_alias_name())
+                    assert(alias_var != None)
                     if alias_var.is_fixed() and not var.is_fixed():
                         var.set_fixed(True)
                         print_info("variable " + var.get_name() + " is considered as fixed (alias of fixed variable " + var.get_alias_name()+").")
@@ -1083,11 +1095,7 @@ class ReaderOMC:
                 match = re.search(ptrn_var, next_iter)
                 type = match.group("type")
                 name = match.group("name")
-                var_list = list(filter(lambda x: (x.get_name() == name),self.list_vars))
-                assert(len(var_list) <= 1)
-                var = None
-                if len(var_list) == 1:
-                    var = var_list[0]
+                var = self.find_variable_from_name(name)
                 if "$cse" in name:
                     map_var_name_2_addresses[name]= "auxiliaryVars"
                 elif  is_ignored_var(name):
@@ -1261,11 +1269,7 @@ class ReaderOMC:
                 for var_name in list_depend:
                     if var_name == "time": continue
                     if self.is_residual_vars(var_name) : continue
-                    var_list = list(filter(lambda x: (x.get_name() == var_name),self.list_vars))
-                    assert(len(var_list) <= 1)
-                    var = None
-                    if len(var_list) == 1:
-                        var = var_list[0]
+                    var = self.find_variable_from_name(var_name)
                     if (var is None): continue
                     if is_discrete_real_var(var): continue
                     if is_integer_var(var): continue
@@ -1279,11 +1283,7 @@ class ReaderOMC:
         for f in function_to_eval_variable:
             var_name = function_to_eval_variable[f]
             if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1:
-                var_list = list(filter(lambda x: (x.get_name() == var_name),self.list_vars))
-                assert(len(var_list) <= 1)
-                var = None
-                if len(var_list) == 1:
-                    var = var_list[0]
+                var = self.find_variable_from_name(var_name)
                 assert(var != None)
                 self.list_complex_calculated_vars[var] = f
                 function_to_remove.append(f)
@@ -1321,9 +1321,8 @@ class ReaderOMC:
                 self.list_calculated_vars.append(var)
                 self.dic_calculated_vars_values[var.get_name()] = to_param_address(var.get_name())
             elif var.is_alias():
-                alias_list = list(filter(lambda x: (x.get_name() == var.get_alias_name()), self.list_vars))
-                assert(len(alias_list) == 1)
-                alias_var = alias_list[0]
+                alias_var = self.find_variable_from_name(var.get_alias_name())
+                assert(alias_var != None)
                 if var.get_variability() == "continuous" and (is_integer_var(alias_var) or is_discrete_real_var(alias_var)):
                     test_param_address(var.get_alias_name())
                     negated = "-" if var.get_alias_negated() else ""
@@ -1343,9 +1342,9 @@ class ReaderOMC:
     def find_constant_value_of(self, var):
         if var.is_alias() :
             if to_param_address(var.get_alias_name()) == "constVars":
-                alias_list = filter(lambda x : x.get_name() == var.get_alias_name(), self.list_vars)
-                assert(len(alias_list) == 1)
-                return self.find_constant_value_of(alias_list[0])
+                alias_var = self.find_variable_from_name(var.get_alias_name())
+                assert(alias_var != None)
+                return self.find_constant_value_of(alias_var)
             else:
                 if var.get_alias_negated():
                     return "-("+to_param_address(var.get_alias_name())+")"

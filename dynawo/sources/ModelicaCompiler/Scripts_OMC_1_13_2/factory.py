@@ -588,6 +588,8 @@ class Factory:
         dic_var_name_to_temporary_name = {}
         tmp_var_to_declare = []
 
+        ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
+        ptrn_tmp_decl = re.compile(r'(?P<type>[\w\_]+)\s*tmp[0-9]+\s*;')
         # functions calling an external function ???
         for body in list_body_to_analyse:
             new_body = []
@@ -595,8 +597,6 @@ class Factory:
             found = False
             use_temporary_var = False
             function_name = ""
-            ptrn_evaluated_var = re.compile(r'data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*(?P<rhs>[^;]+);')
-            ptrn_tmp_decl = re.compile(r'(?P<type>[\w\_]+)\s*tmp[0-9]+\s*;')
             for line in body:
                 for name in name_func_to_search:
                     ptrn_function = re.compile(r'[ ]*data->localData(?P<var>\S*)[ ]*\/\*(?P<varName>[ \w\$\.()\[\],]*)\*\/[ ]* = [ ]*'+name+'[ ]*\((?P<rhs>[^;]+);')
@@ -2134,17 +2134,9 @@ class Factory:
                     # Get the id of the param currently analyzed
                     curr_param_idx = stack_param_idx_func_called[len(stack_param_idx_func_called) - 1]
 
-                    if l[-1] == ')':
-                        # This is the last parameter, we need to pop the function
-                        stack_func_called.pop()
-                        stack_param_idx_func_called.pop()
-                        if len(stack_param_idx_func_called) > 1:
-                            stack_param_idx_func_called[len(stack_param_idx_func_called) - 2]+=1
-                        if len(stack_param_idx_func_called) == 0:
-                            # end of main function
-                            main_func_is_adept = False
                     param = func.get_params()[curr_param_idx]
-                    stack_param_idx_func_called[len(stack_param_idx_func_called) - 1]+=1
+                    if len(stack_param_idx_func_called) > 0:
+                        stack_param_idx_func_called[len(stack_param_idx_func_called) - 1]+=1
 
                     # if this function is either:
                     # - has no equivalent adept function
@@ -2165,6 +2157,16 @@ class Factory:
                         call_line += ', '
                     else:
                         call_line += "\n"
+
+                    if curr_param_idx == len(func.get_params()) - 1:
+                        # This is the last parameter, we need to pop the function
+                        stack_func_called.pop()
+                        stack_param_idx_func_called.pop()
+                        if len(stack_param_idx_func_called) > 1:
+                            stack_param_idx_func_called[len(stack_param_idx_func_called) - 2]+=1
+                        if len(stack_param_idx_func_called) == 0:
+                            # end of main function
+                            main_func_is_adept = False
 
                     idx+=1
             line_tmp = call_line
