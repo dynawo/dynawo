@@ -149,7 +149,8 @@ class DataInterfaceIIDM : public DataInterface {
   bool checkCriteria(bool finalStep);
 
   /**
-   * @copydoc DataInterface::getFailingCriteria(std::vector<std::string>& failingCriteria) const
+   * @brief fill a vector with the ids of the failing criteria
+   * @param failingCriteria vector to fill
    */
   void getFailingCriteria(std::vector<std::string>& failingCriteria) const;
 
