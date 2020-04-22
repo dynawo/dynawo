@@ -46,6 +46,8 @@ model HVDC "HVDC link connected to two infinite buses"
     Placement(visible = true, transformation(origin = {50, 20}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
   Dynawo.Electrical.Events.NodeFault nodeFault(RPu = 0.00, XPu = 0.0075, tBegin = 0.5, tEnd = 1.5) annotation(
     Placement(visible = true, transformation(origin = {42, -84}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+initial equation
+  HVDC.PPu_Side.limitsCalculationFunction.iqMod1Pu = 0;
 equation
   line1.switchOffSignal1.value = false;
   line1.switchOffSignal2.value = false;
