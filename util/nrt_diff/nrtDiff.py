@@ -1198,8 +1198,8 @@ def CSVCloseEnough (path_left, path_right, dataWrittenAsRows):
         path_left_comparison = path_left_transpose
         path_right_comparison = path_right_transpose
 
-    file_left = open (path_left_comparison, "rb")
-    file_right = open (path_right_comparison, "rb")
+    file_left = open (path_left_comparison, "rt")
+    file_right = open (path_right_comparison, "rt")
 
     reader_left = list(csv.reader (file_left, delimiter = ";"))
     reader_right = list(csv.reader (file_right, delimiter = ";"))
