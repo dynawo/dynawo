@@ -14,7 +14,6 @@ set(MODEL_FILES
     LimiterWithLag_INIT.mo
     MaxThresholdSwitch.mo
     MinThresholdSwitch.mo
-    VariableLimiter.mo
     )
 
 #
