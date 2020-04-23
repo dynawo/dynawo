@@ -103,9 +103,9 @@ namespace DYN {
        adept::adouble _im;
        adept::adouble _re;
      } Complex_adept;
-     typedef Complex_adept Dynawo_Types_AC_ApparentPower_adept;
-     typedef Complex_adept Dynawo_Types_AC_Current_adept;
-     typedef Complex_adept Dynawo_Types_AC_Voltage_adept;
+     typedef Complex_adept Dynawo_Types_AC_ApparentPower_adept ;
+     typedef Complex_adept Dynawo_Types_AC_Current_adept ;
+     typedef Complex_adept Dynawo_Types_AC_Voltage_adept ;
 #endif
       // Non-internal parameters 
       double generator_P0Pu_;
