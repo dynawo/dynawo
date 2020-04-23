@@ -30,6 +30,7 @@
 #include <boost/log/core.hpp>
 #include <boost/log/expressions.hpp>
 #include <boost/log/attributes.hpp>
+#include <boost/log/attributes/attribute_value_set.hpp>
 #include <boost/log/trivial.hpp>
 #include <boost/log/sources/severity_logger.hpp>
 #include <boost/log/sources/record_ostream.hpp>
@@ -60,8 +61,9 @@ namespace keywords = boost::log::keywords;
 
 namespace DYN {
 
-
 const char Trace::NETWORK[] = "NETWORK";
+const char Trace::VARIABLES[] = "VARIABLES";
+const char Trace::EQUATIONS[] = "EQUATIONS";
 
 typedef sinks::synchronous_sink< sinks::text_ostream_backend > text_sink;  ///< define text sink
 typedef sinks::synchronous_sink< sinks::text_file_backend > file_sink;  ///< define file sink
@@ -202,6 +204,18 @@ void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& me
     slg.add_attribute("Tag", attrs::constant< std::string >(tag));
 
   BOOST_LOG_SEV(slg, slv) << message;
+}
+
+bool
+Trace::logExists(const std::string& tag, SeverityLevel slv) {
+  boost::log::attribute_value_set set;
+  set.insert("Severity",  attrs::make_attribute_value(slv));
+  set.insert("Tag",  attrs::make_attribute_value(tag));
+  for (vector< boost::shared_ptr<file_sink> >::iterator itSinks = sinks.begin(); itSinks != sinks.end(); ++itSinks) {
+    if ((*itSinks)->will_consume(set))
+      return true;
+  }
+  return false;
 }
 
 SeverityLevel

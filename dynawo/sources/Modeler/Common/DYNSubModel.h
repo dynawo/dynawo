@@ -1218,6 +1218,15 @@ class SubModel {
   }
 
   /**
+   * @brief get the number of root functions of the init model
+   *
+   * @return number of root functions of init
+   */
+  inline unsigned int sizeGInit() const {
+    return gEquationInitIndex_.size();
+  }
+
+  /**
    * @brief set the time to use for the equation's evaluation
    *
    * @param time time to use

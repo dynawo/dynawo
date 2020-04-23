@@ -1002,47 +1002,47 @@ ModelMulti::fillVariable(boost::shared_ptr<finalState::Variable>& /*variable*/) 
 
 void ModelMulti::printVariableNames() {
   int nVar = 0;
-  Trace::debug("VARIABLES") << "------------------------------" << Trace::endline;
-  Trace::debug("VARIABLES") << "X variables init" << Trace::endline;
-  Trace::debug("VARIABLES") << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "X variables init" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "------------------------------" << Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     const std::vector<std::string>& xNames = subModels_[i]->xNamesInit();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
-       Trace::debug("VARIABLES") << nVar << " " << subModels_[i]->name() << "_" << xNames[j] << Trace::endline;
+       Trace::debug(Trace::VARIABLES) << nVar << " " << subModels_[i]->name() << "_" << xNames[j] << Trace::endline;
        ++nVar;
     }
   }
   nVar = 0;
-  Trace::debug("VARIABLES") << "------------------------------" << Trace::endline;
-  Trace::debug("VARIABLES") << "Z variables init" << Trace::endline;
-  Trace::debug("VARIABLES") << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "Z variables init" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "------------------------------" << Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     const std::vector<std::string>& zNames = subModels_[i]->zNamesInit();
     for (unsigned int j = 0; j < zNames.size(); ++j) {
-      Trace::debug("VARIABLES") << nVar << " " << subModels_[i]->name() << "_" << zNames[j] << Trace::endline;
+      Trace::debug(Trace::VARIABLES) << nVar << " " << subModels_[i]->name() << "_" << zNames[j] << Trace::endline;
       ++nVar;
     }
   }
   nVar = 0;
-  Trace::info("VARIABLES") << "------------------------------" << Trace::endline;
-  Trace::info("VARIABLES") << "X variables" << Trace::endline;
-  Trace::info("VARIABLES") << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "X variables" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "------------------------------" << Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     const std::vector<std::string>& xNames = subModels_[i]->xNames();
     for (unsigned int j = 0; j < xNames.size(); ++j) {
       std::string varName = subModels_[i]->name() + "_" + xNames[j];
-      Trace::info("VARIABLES") << nVar << " " << varName << Trace::endline;
+      Trace::debug(Trace::VARIABLES) << nVar << " " << varName << Trace::endline;
       ++nVar;
     }
   }
   nVar = 0;
-  Trace::info("VARIABLES") << "------------------------------" << Trace::endline;
-  Trace::info("VARIABLES") << "Z variables" << Trace::endline;
-  Trace::info("VARIABLES") << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "Z variables" << Trace::endline;
+  Trace::debug(Trace::VARIABLES) << "------------------------------" << Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     const std::vector<std::string>& zNames = subModels_[i]->zNames();
     for (unsigned int j = 0; j < zNames.size(); ++j) {
-       Trace::info("VARIABLES") << nVar << " " << subModels_[i]->name() << "_" << zNames[j] << Trace::endline;
+       Trace::debug(Trace::VARIABLES) << nVar << " " << subModels_[i]->name() << "_" << zNames[j] << Trace::endline;
        ++nVar;
     }
   }
@@ -1052,23 +1052,50 @@ void ModelMulti::printEquations() {
   bool isInitProcessBefore = subModels_[0]->getIsInitProcess();
   setIsInitProcess(true);
   int nVar = 0;
-  Trace::debug("EQUATIONS") << "------------------------------" << Trace::endline;
-  Trace::debug("EQUATIONS") << "Equations init" << Trace::endline;
-  Trace::debug("EQUATIONS") << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::EQUATIONS) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::EQUATIONS) << "Equations init" << Trace::endline;
+  Trace::debug(Trace::EQUATIONS) << "------------------------------" << Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     for (unsigned int j = 0 ; j < subModels_[i]->sizeFInit() ; ++j) {
-      Trace::debug("EQUATIONS") << nVar << " " << subModels_[i]->getFequationByLocalIndex(j) << Trace::endline;
+      Trace::debug(Trace::EQUATIONS) << nVar << " " << subModels_[i]->getFequationByLocalIndex(j) <<
+          " model: " << subModels_[i]->name() <<  Trace::endline;
       ++nVar;
     }
   }
   setIsInitProcess(false);
   nVar = 0;
-  Trace::debug("EQUATIONS") << "------------------------------" << Trace::endline;
-  Trace::debug("EQUATIONS") << "Equations" << Trace::endline;
-  Trace::debug("EQUATIONS") << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::EQUATIONS) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::EQUATIONS) << "Equations" << Trace::endline;
+  Trace::debug(Trace::EQUATIONS) << "------------------------------" << Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     for (unsigned int j = 0 ; j < subModels_[i]->sizeF() ; ++j) {
-      Trace::debug("EQUATIONS") << nVar << " " << subModels_[i]->getFequationByLocalIndex(j) << Trace::endline;
+      Trace::debug(Trace::EQUATIONS) << nVar << " " << subModels_[i]->getFequationByLocalIndex(j) <<
+          " model: " << subModels_[i]->name() << Trace::endline;
+      ++nVar;
+    }
+  }
+
+  setIsInitProcess(true);
+  nVar = 0;
+  Trace::debug(Trace::EQUATIONS) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::EQUATIONS) << "Roots init" << Trace::endline;
+  Trace::debug(Trace::EQUATIONS) << "------------------------------" << Trace::endline;
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    for (unsigned int j = 0 ; j < subModels_[i]->sizeGInit() ; ++j) {
+      Trace::debug(Trace::EQUATIONS) << nVar << " " << subModels_[i]->getGequationByLocalIndex(j) <<
+          " model: " << subModels_[i]->name() <<  Trace::endline;
+      ++nVar;
+    }
+  }
+  setIsInitProcess(false);
+  nVar = 0;
+  Trace::debug(Trace::EQUATIONS) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::EQUATIONS) << "Roots" << Trace::endline;
+  Trace::debug(Trace::EQUATIONS) << "------------------------------" << Trace::endline;
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    for (unsigned int j = 0 ; j < subModels_[i]->sizeG() ; ++j) {
+      Trace::debug(Trace::EQUATIONS) << nVar << " " << subModels_[i]->getGequationByLocalIndex(j) <<
+          " model: " << subModels_[i]->name() << Trace::endline;
       ++nVar;
     }
   }
