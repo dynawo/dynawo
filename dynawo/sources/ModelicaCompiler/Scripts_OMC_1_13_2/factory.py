@@ -17,6 +17,9 @@ import re
 from dataContainer import *
 from utils import *
 
+ADEPT_SUFFIX= "_adept "
+ADEPT_DOUBLE= "adept::adouble"
+
 
 def cmp_to_key_dynawo(mycmp):
     """Convert a cmp= function into a key= function"""
@@ -569,6 +572,7 @@ class Factory:
 
         for eq_mak in self.list_eq_maker_16dae:
             tag = find_value_in_map( map_tags_num_eq, eq_mak.get_num_omc() )
+            if eq_mak.get_evaluated_var() == "" and tag == 'algorithm' and eq_mak.with_throw(): continue
             if eq_mak.get_evaluated_var() == "" and tag != 'when':
                 # call to a function and not evaluation of a variable
                 body = eq_mak.get_body()
@@ -682,7 +686,7 @@ class Factory:
         for eq_mak in self.list_eq_maker_16dae:
             tag = find_value_in_map( map_tags_num_eq, eq_mak.get_num_omc() )
             # Do not dump again when equations, reinit equations and equations that assigns a discrete variable
-            if (tag == 'when' and not eq_mak.get_is_modelica_reinit() and len(list(filter(lambda x: (x.get_name() == eq_mak.get_evaluated_var()),self.list_all_vars_discr+self.list_vars_int))) == 0):
+            if (tag == 'when' and not eq_mak.get_is_modelica_reinit() and len(list(filter(lambda x,eq_mak=eq_mak: (x.get_name() == eq_mak.get_evaluated_var()),self.list_all_vars_discr+self.list_vars_int))) == 0):
                 body = eq_mak.get_body()
                 body_tmp = self.handle_body_for_discrete(body, name_func_to_search, global_pattern_index)
 
@@ -836,7 +840,7 @@ class Factory:
                     list_depend.extend( map_dep[name_var_eval] ) # We get the other vars (from *._info.xml)
 
                 eq_mak.set_depend_vars(list_depend)
-                eq_mak.set_diff_eq(name_var_eval in self.reader.derivative_residual_vars or len(list(filter(lambda x : x.get_name() == name_var_eval, self.list_vars_der))) > 0)
+                eq_mak.set_diff_eq(name_var_eval in self.reader.derivative_residual_vars or len(list(filter(lambda x,name_var_eval=name_var_eval : x.get_name() == name_var_eval, self.list_vars_der))) > 0)
 
         # Build an equation for each function in the dae *.c file
         for eq_mak in list_eq_maker_16dae_c:
@@ -1457,10 +1461,10 @@ class Factory:
                 self.list_for_setf.append("\n\n")
 
     ##
-    # dump the lines of the warning in the body of setF
+    # dump the lines of the warning in the body of checkDataCoherence
     # @param self : object pointer
     # @return
-    def dump_warnings_in_setf(self):
+    def dump_warnings_in_checkdatacoherence(self):
         for warn in self.list_warnings:
             self.list_for_warnings.append("{\n")
             self.list_for_warnings.extend(warn.get_body_for_setf())
@@ -1492,7 +1496,7 @@ class Factory:
     # @return
     def prepare_for_setf(self):
         self.dump_eq_syst_in_setf()
-        self.dump_warnings_in_setf()
+        self.dump_warnings_in_checkdatacoherence()
         self.dump_external_calls_in_setf()
 
         # convert native boolean variables
@@ -1990,12 +1994,12 @@ class Factory:
                 func_header = func.get_return_type() + " " + get_adept_function_name(func) + "("
                 func_header_cpp = func_header
             else:
-                func_header = func.get_return_type() + "_adept " + get_adept_function_name(func) + "("
-                func_header_cpp = MODEL_NAME_NAMESPACE+func.get_return_type() + "_adept " + get_adept_function_name(func) + "("
+                func_header = func.get_return_type() + ADEPT_SUFFIX + get_adept_function_name(func) + "("
+                func_header_cpp = MODEL_NAME_NAMESPACE+func.get_return_type() + ADEPT_SUFFIX + get_adept_function_name(func) + "("
             for param in func.get_params():
                 type = param.get_type()
                 if type == "modelica_real":
-                    type = "adept::adouble"
+                    type = ADEPT_DOUBLE
                 elif type in self.list_adept_structs:
                     type += "_adept"
                 last_char = ", "
@@ -2011,9 +2015,9 @@ class Factory:
                 if "omc_assert" in line or "omc_terminate" in line: continue
                 if ptrn_modelica_integer_cast_adouble.search(line) is not None:
                     line = line.replace("(modelica_integer)","")
-                line = line.replace("modelica_real","adept::adouble").replace(THREAD_DATA_OMC_PARAM,"")
+                line = line.replace("modelica_real",ADEPT_DOUBLE).replace(THREAD_DATA_OMC_PARAM,"")
                 for type in self.list_adept_structs:
-                    line = line.replace(type + " ",type+"_adept ")
+                    line = line.replace(type + " ",type+ADEPT_SUFFIX)
                 for func in list_omc_functions:
                     if func.get_name() + "(" in line or func.get_name() + " (" in line:
                         line = line.replace(func.get_name() + "(", get_adept_function_name(func) + "(")
@@ -2293,7 +2297,7 @@ class Factory:
                 if "double external_call_" in line:
                     line = line.replace("double external_call_","adept::adouble external_call_")
                 for type in self.list_adept_structs:
-                    line = line.replace(type + " ",type+"_adept ")
+                    line = line.replace(type + " ",type+ADEPT_SUFFIX)
                 line = line.replace("f[","res[")
                 line = transform_line_adept(line)
                 transposed_function_call_body.append(line)
@@ -2411,7 +2415,7 @@ class Factory:
                     self.list_adept_structs.append(match_end.group('name'))
                     self.list_for_evalfadept_external_call_headers.append(line.replace(match_end.group('name'), match_end.group('name')+"_adept"))
                 elif "modelica_real" in line:
-                    self.list_for_evalfadept_external_call_headers.append(line.replace("modelica_real", "adept::adouble"))
+                    self.list_for_evalfadept_external_call_headers.append(line.replace("modelica_real", ADEPT_DOUBLE))
                 else:
                     line_tmp = line
                     for struct in self.list_adept_structs:
@@ -2424,7 +2428,7 @@ class Factory:
                     base_name =  match_typedef.group('name1')
                     new_name = match_typedef.group('name2')
                     if base_name in self.list_adept_structs:
-                        self.list_for_evalfadept_external_call_headers.append("typedef " + base_name +"_adept " + new_name + "_adept;\n")
+                        self.list_for_evalfadept_external_call_headers.append("typedef " + base_name +ADEPT_SUFFIX + new_name + ADEPT_SUFFIX +";\n")
                         self.list_adept_structs.append(new_name)
 
 
@@ -2911,7 +2915,6 @@ class Factory:
                     body.append(transform_line_adept(line))
             else:
                 body.append("     return " + self.reader.dic_calculated_vars_values[var.get_name()]+";")
-            assert (body != None)
             trans.set_txt_list(body)
             body_translated = trans.translate()
 

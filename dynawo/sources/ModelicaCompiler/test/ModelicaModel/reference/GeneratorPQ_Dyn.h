@@ -55,7 +55,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("c0bec3b2552f13a5109f29e343e44cb4"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("71cf5101a0e5eb9093a123c85b19adf8"); }
 
     private:
     DYNDATA * data;
@@ -113,12 +113,12 @@ namespace DYN {
        adept::adouble _im;
        adept::adouble _re;
      } Complex_adept;
-     typedef Complex_adept Dynawo_Types_AC_ApparentPower_adept;
-     typedef Complex_adept Dynawo_Types_AC_ApparentPower$generator$SGenPu_adept;
-     typedef Complex_adept Dynawo_Types_AC_Current_adept;
-     typedef Complex_adept Dynawo_Types_AC_Current$generator$terminal$i_adept;
-     typedef Complex_adept Dynawo_Types_AC_Voltage_adept;
-     typedef Complex_adept Dynawo_Types_AC_Voltage$generator$terminal$V_adept;
+     typedef Complex_adept Dynawo_Types_AC_ApparentPower_adept ;
+     typedef Complex_adept Dynawo_Types_AC_ApparentPower$generator$SGenPu_adept ;
+     typedef Complex_adept Dynawo_Types_AC_Current_adept ;
+     typedef Complex_adept Dynawo_Types_AC_Current$generator$terminal$i_adept ;
+     typedef Complex_adept Dynawo_Types_AC_Voltage_adept ;
+     typedef Complex_adept Dynawo_Types_AC_Voltage$generator$terminal$V_adept ;
 #endif
       // Non-internal parameters 
       double generator_AlphaPu_;

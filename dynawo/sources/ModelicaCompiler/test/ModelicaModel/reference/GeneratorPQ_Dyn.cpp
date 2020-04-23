@@ -933,6 +933,7 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
 void ModelGeneratorPQ_Dyn::checkDataCoherence()
 {
 {
+{
   modelica_boolean tmp0;
   modelica_boolean tmp1;
   const modelica_string   tmp2 = "Variable violating min/max constraint: 1 <= generator.NbSwitchOffSignals <= 3 has value: ";
@@ -954,9 +955,11 @@ void ModelGeneratorPQ_Dyn::checkDataCoherence()
       tmp4 = 1;
     }
   }
+}
 
 
 }
+{
 {
   modelica_boolean tmp5;
   modelica_boolean tmp6;
@@ -979,6 +982,7 @@ void ModelGeneratorPQ_Dyn::checkDataCoherence()
       tmp9 = 1;
     }
   }
+}
 
 
 }

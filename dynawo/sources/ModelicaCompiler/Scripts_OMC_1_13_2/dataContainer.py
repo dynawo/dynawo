@@ -1358,7 +1358,16 @@ class EqMaker():
     # @return : name of the variable (in the form data->localData[0]->...)
     def get_evaluated_var_address(self):
         return self.evaluated_var_address
-
+    ##
+    # Get if the equation use the 'throw' instruction
+    # @param self: object pointer
+    # @return @b True if the equation use the 'throw' instruction
+    def with_throw(self):
+        with_throw = False
+        for line in self.body_func:
+            if "throwStreamPrint" in line or "omc_assert_withEquationIndexes" in line:
+                with_throw = True
+        return with_throw
 
     ##
     # Prepare the body of the equation to be used when printing model
@@ -1495,7 +1504,7 @@ class EquationBase:
     def with_throw(self):
         with_throw = False
         for line in self.body:
-            if "throwStreamPrint" in line:
+            if "throwStreamPrint" in line or "omc_assert_withEquationIndexes" in line:
                 with_throw = True
 
         return with_throw
@@ -1965,9 +1974,6 @@ class Warn:
     def prepare_body(self):
         tmp_body = []
         # remove the start and end braces
-        self.body.pop(0)
-        self.body.pop()
-
         with_throw = False
         for line in self.body:
             if "throwStreamPrint" in line:
