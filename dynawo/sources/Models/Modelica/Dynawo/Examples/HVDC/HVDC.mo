@@ -88,7 +88,7 @@ equation
   annotation(
     experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.0001),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
-     This test case consists in one HVDC link connected to two infinite buses. A short-circuit at the HVDC link terminal 2 is simulated at t = 0.5s and cleared at t = 1.5s.    </div><div><br></div><div>The following figures show the evolution of the active power, reactive power, AC voltage and DC voltage for each terminal of the HVDC link.
+     This test case works with Modelica Standard Library 3.2.3. </div><div><br></div><div>This test case consists in one HVDC link connected to two infinite buses. A short-circuit at the HVDC link terminal 2 is simulated at t = 0.5s and cleared at t = 1.5s.    </div><div><br></div><div>The following figures show the evolution of the active power, reactive power, AC voltage and DC voltage for each terminal of the HVDC link.
     <figure>
     <img width=\"450\" src=\"modelica://Dynawo/Examples/HVDC/Resources/Images/P.png\">
     </figure>
