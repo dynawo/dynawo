@@ -13,34 +13,34 @@
 -->
 <parametersSet xmlns="http://www.rte-france.com/dynawo">
   <set id="1">
-    <par type="DOUBLE" name="infiniteBus_UPu" value="1.08625"/>
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1"/>
     <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
   </set>
   <set id="2">
-    <par type="DOUBLE" name="infiniteBus_UPu" value="1.1"/>
+    <par type="DOUBLE" name="infiniteBus_UPu" value="1.02"/>
     <par type="DOUBLE" name="infiniteBus_UPhase" value="0"/>
   </set>
   <set id="3">
-    <par type="DOUBLE" name="line_XPu" value="0.0093"/>
+    <par type="DOUBLE" name="line_XPu" value="0.0037"/>
     <par type="DOUBLE" name="line_RPu" value="0.00037"/>
     <par type="DOUBLE" name="line_BPu" value="0.0"/>
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
   <set id="4">
-    <par type="DOUBLE" name="line_XPu" value="0.013"/>
+    <par type="DOUBLE" name="line_XPu" value="0.0037"/>
     <par type="DOUBLE" name="line_RPu" value="0.00037"/>
     <par type="DOUBLE" name="line_BPu" value="0.0"/>
     <par type="DOUBLE" name="line_GPu" value="0.0"/>
   </set>
   <set id="5">
-    <par type="DOUBLE" name="hvdc_P10Pu" value="9.02"/>
-    <par type="DOUBLE" name="hvdc_Q10Pu" value="4.6769"/>
-    <par type="DOUBLE" name="hvdc_U10Pu" value="1.03826"/>
-    <par type="DOUBLE" name="hvdc_UPhase10" value="-0.07291"/>
-    <par type="DOUBLE" name="hvdc_P20Pu" value="-9.018"/>
-    <par type="DOUBLE" name="hvdc_Q20Pu" value="4.6964"/>
-    <par type="DOUBLE" name="hvdc_U20Pu" value="1.03844"/>
-    <par type="DOUBLE" name="hvdc_UPhase20" value="0.10434"/>
+    <par type="DOUBLE" name="hvdc_P10Pu" value="-8.98"/>
+    <par type="DOUBLE" name="hvdc_Q10Pu" value="-3.01"/>
+    <par type="DOUBLE" name="hvdc_U10Pu" value="1.01381"/>
+    <par type="DOUBLE" name="hvdc_UPhase10" value="0.0316757"/>
+    <par type="DOUBLE" name="hvdc_P20Pu" value="9"/>
+    <par type="DOUBLE" name="hvdc_Q20Pu" value="-3.01"/>
+    <par type="DOUBLE" name="hvdc_U20Pu" value="1.02696"/>
+    <par type="DOUBLE" name="hvdc_UPhase20" value="-0.0328494"/>
     <par type="DOUBLE" name="hvdc_DUDC" value="0.01"/>
     <par type="DOUBLE" name="hvdc_InPu" value="1.081"/>
     <par type="DOUBLE" name="hvdc_IpMaxCstPu" value="1.001"/>
@@ -53,8 +53,8 @@
     <par type="DOUBLE" name="hvdc_SlopePRefPu" value="0.083333"/>
     <par type="DOUBLE" name="hvdc_UdcMinPu" value="0.95"/>
     <par type="DOUBLE" name="hvdc_UdcMaxPu" value="1.05"/>
-    <par type="DOUBLE" name="hvdc_Kpdc" value="24"/>
-    <par type="DOUBLE" name="hvdc_Kidc" value="724.7"/>
+    <par type="DOUBLE" name="hvdc_Kpdc" value="40"/>
+    <par type="DOUBLE" name="hvdc_Kidc" value="20"/>
     <par type="DOUBLE" name="hvdc_UdcRefMinPu" value="0.95"/>
     <par type="DOUBLE" name="hvdc_UdcRefMaxPu" value="1.15"/>
     <par type="DOUBLE" name="hvdc_RdcPu" value="0.000244"/>
@@ -80,34 +80,30 @@
     <par type="DOUBLE" name="hvdc_DeadBandU" value="0"/>
     <par type="DOUBLE" name="hvdc_SNom" value="1000"/>
     <par type="DOUBLE" name="hvdc_SlopeRPFault" value="1000"/>
-    <par type="DOUBLE" name="hvdc_tableQMaxPPu32" value="0.02"/>
-    <par type="DOUBLE" name="hvdc_tableQMaxPPu42" value="0.02"/>
-    <par type="DOUBLE" name="hvdc_tableQMinPPu42" value="-0.02"/>
-    <par type="DOUBLE" name="hvdc_tableQMinPPu52" value="-0.02"/>
-    <par type="DOUBLE" name="QRef1Pu_ValueIn" value="-0.46769"/>
+    <par type="DOUBLE" name="QRef1Pu_ValueIn" value="0.301"/>
     <par type="DOUBLE" name="QRef1Pu_Height" value="0"/>
     <par type="DOUBLE" name="QRef1Pu_tStep" value="0.4"/>
-    <par type="DOUBLE" name="QRef2Pu_ValueIn" value="-0.46964"/>
+    <par type="DOUBLE" name="QRef2Pu_ValueIn" value="0.301"/>
     <par type="DOUBLE" name="QRef2Pu_Height" value="0"/>
     <par type="DOUBLE" name="QRef2Pu_tStep" value="0.4"/>
-    <par type="DOUBLE" name="URef1Pu_ValueIn" value="1.03826"/>
-    <par type="DOUBLE" name="URef1Pu_Height" value="0.1"/>
+    <par type="DOUBLE" name="URef1Pu_ValueIn" value="1.066617"/>
+    <par type="DOUBLE" name="URef1Pu_Height" value="0"/>
     <par type="DOUBLE" name="URef1Pu_tStep" value="3"/>
-    <par type="DOUBLE" name="URef2Pu_ValueIn" value="1.03844"/>
-    <par type="DOUBLE" name="URef2Pu_Height" value="0.1"/>
+    <par type="DOUBLE" name="URef2Pu_ValueIn" value="1.079767"/>
+    <par type="DOUBLE" name="URef2Pu_Height" value="0"/>
     <par type="DOUBLE" name="URef2Pu_tStep" value="4.5"/>
     <par type="DOUBLE" name="UdcRefPu_ValueIn" value="1"/>
-    <par type="DOUBLE" name="UdcRefPu_Height" value="0.005"/>
+    <par type="DOUBLE" name="UdcRefPu_Height" value="0"/>
     <par type="DOUBLE" name="UdcRefPu_tStep" value="6"/>
-    <par type="DOUBLE" name="PRefPu_ValueIn" value="-0.902"/>
-    <par type="DOUBLE" name="PRefPu_Height" value="1.8"/>
+    <par type="DOUBLE" name="PRefPu_ValueIn" value="0.898"/>
+    <par type="DOUBLE" name="PRefPu_Height" value="0"/>
     <par type="DOUBLE" name="PRefPu_tStep" value="7.5"/>
     <par type="DOUBLE" name="hvdc_modeU1Set" value="1"/>
     <par type="DOUBLE" name="hvdc_modeU2Set" value="1"/>
   </set>
   <set id="6">
-    <par type="DOUBLE" name="fault_RPu" value="0.01"/>
-    <par type="DOUBLE" name="fault_XPu" value="0.00"/>
+    <par type="DOUBLE" name="fault_RPu" value="0"/>
+    <par type="DOUBLE" name="fault_XPu" value="0.0075"/>
     <par type="DOUBLE" name="fault_tBegin" value="0.5"/>
     <par type="DOUBLE" name="fault_tEnd" value="1.5"/>
   </set>
