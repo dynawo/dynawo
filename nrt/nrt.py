@@ -590,10 +590,10 @@ class TestCase:
                     current_job.solver_="Solver SIM"
                 else:
                     current_job.solver_="Solver IDA"
-                if not solver.getAttribute("parFile") in current_job.par_files_:
+                if solver.hasAttribute("parFile") and not os.path.join(os.path.dirname(self.jobs_file_), solver.getAttribute("parFile")) in current_job.par_files_:
                     current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), solver.getAttribute("parFile")))
                 for iidm in job.getElementsByTagNameNS(jobs_root.namespaceURI, "network"):
-                    if not iidm.getAttribute("parFile") in current_job.par_files_:
+                    if iidm.hasAttribute("parFile") and not os.path.join(os.path.dirname(self.jobs_file_), iidm.getAttribute("parFile")) in current_job.par_files_:
                         current_job.par_files_.append(os.path.join(os.path.dirname(self.jobs_file_), iidm.getAttribute("parFile")))
 
             # Get dyd files
