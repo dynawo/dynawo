@@ -183,7 +183,8 @@ class Trace {
     std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
   };
   static const char NETWORK[];  ///< Identifier for network log file
-
+  static const char VARIABLES[];  ///< Identifier for variables log file
+  static const char EQUATIONS[];  ///< Identifier for equations log file
   /**
    * @brief Init function.
    *
@@ -279,6 +280,15 @@ class Trace {
    * @return The TraceStream with the end of line added.
    */
   static TraceStream& endline(TraceStream& os);  ///< End of line function for stream-like logging
+
+  /**
+   * @brief test if a log exists
+   *
+   * @param tag : Tag added to the log, can be used as a filter in logging sinks.
+   * @param slv : Severity level.
+   * @return true if this log with this level exists
+   */
+  static bool logExists(const std::string& tag, SeverityLevel slv);
 
  private:
   /**

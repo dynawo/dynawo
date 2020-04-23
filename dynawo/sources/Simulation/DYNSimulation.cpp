@@ -664,17 +664,18 @@ Simulation::init() {
 
 #ifdef _DEBUG_
   printDebugInfo();
-  model_->printVariableNames();
 #endif
+  if (Trace::logExists(Trace::VARIABLES, DEBUG))
+    model_->printVariableNames();
 
   model_->setTimeline(timeline_);
   model_->setConstraints(constraintsCollection_);
 
-#ifdef _DEBUG_
-  model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
-  model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
-  model_->printEquations();
-#endif
+  if (Trace::logExists(Trace::EQUATIONS, DEBUG)) {
+    model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
+    model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
+    model_->printEquations();
+  }
 
   tCurrent_ = tStart_;
 
