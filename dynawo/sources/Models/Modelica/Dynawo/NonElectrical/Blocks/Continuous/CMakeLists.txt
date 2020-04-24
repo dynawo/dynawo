@@ -16,9 +16,16 @@ set(MODEL_FILES
   LimPIDFreeze.mo
   PIAntiWindup.mo
   PIAntiWindupVariableLimits.mo
+<<<<<<< HEAD
   Power.mo
   RateLimFirstOrderFreeze.mo
   VarLimPIDFreeze.mo
+=======
+  RateLimFirstOrderFreeze.mo
+  LimPIDFreeze.mo
+  VarLimPIDFreeze.mo
+  IntegratorSetFreeze.mo
+>>>>>>> #672 WECC PV
   )
 
 #

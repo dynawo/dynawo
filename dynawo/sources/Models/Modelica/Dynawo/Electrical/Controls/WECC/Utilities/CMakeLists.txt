@@ -12,9 +12,6 @@ set(MODEL_FILES
   package.mo
   package.order
   Measurements.mo
-  TransformDQtoRI.mo
-  TransformRItoDQ.mo
-  )
 
 #
 # Modelica models install
