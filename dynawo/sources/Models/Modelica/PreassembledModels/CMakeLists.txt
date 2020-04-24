@@ -78,6 +78,7 @@ set(MODELICA_PREASSEMBLED_MODELS
   NodeFault.xml
   PhaseShifterI.xml
   PhaseShifterP.xml
+  PhotovoltaicsWeccCurrentSource.xml
   PowerTransferHVDCEmulation.xml
   ShuntBWithSections.xml
   SetPoint.xml

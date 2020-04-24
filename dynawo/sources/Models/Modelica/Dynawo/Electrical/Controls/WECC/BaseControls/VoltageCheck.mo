@@ -1,0 +1,38 @@
+within Dynawo.Electrical.Controls.WECC.BaseControls;
+
+/*
+* Copyright (c) 2015-2021, RTE (http://www.rte-france.com)
+* See AUTHORS.txt
+* All rights reserved.
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, you can obtain one at http://mozilla.org/MPL/2.0/.
+* SPDX-License-Identifier: MPL-2.0
+*
+* This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
+*/
+
+block VoltageCheck
+  import Modelica.Blocks;
+  import Dynawo.Types;
+
+  parameter Types.PerUnit Vdip "Lower Voltage limit for freeze";
+  parameter Types.PerUnit Vup "Upper Voltage limit for freeze";
+
+  Blocks.Interfaces.RealInput Vt annotation(
+    Placement(visible = true, transformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Blocks.Interfaces.BooleanOutput freeze annotation(
+    Placement(visible = true, transformation(origin = {110, 2.88658e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 2.88658e-15}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+equation
+  if Vt < Vdip then
+    freeze = true;
+  elseif Vt > Vup then
+    freeze = true;
+  else
+    freeze = false;
+  end if;
+
+  annotation(preferredView = "text",
+    Icon(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {18, -4}, extent = {{-98, 84}, {62, -76}}, textString = "Voltage Check"), Text(origin = {-121.5, 18}, extent = {{-10.5, 7}, {15.5, -10}}, textString = "Vt"), Text(origin = {112.5, 20}, extent = {{-10.5, 7}, {31.5, -20}}, textString = "freeze")}, coordinateSystem(initialScale = 0.1)));
+end VoltageCheck;

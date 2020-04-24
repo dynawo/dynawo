@@ -15,6 +15,10 @@ set(MODEL_FILES
   PIAntiWindup.mo
   PIAntiWindupVariableLimits.mo
   Power.mo
+  RateLimFirstOrderFreeze.mo
+  LimPIDFreeze.mo
+  VarLimPIDFreeze.mo
+  IntegratorSetFreeze.mo
   )
 
 #

@@ -16,7 +16,6 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
 
   import Modelica;
   import Modelica.ComplexMath;
-  import Modelica.SIunits;
 
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
