@@ -159,20 +159,19 @@ ModelManager::initSubBuffers() {
 void
 ModelManager::init(const double& t0) {
   // initialization of the dynamic model
-  if (!withLoadedParameters_) {
-    shared_ptr<ParametersSet> mergedParametersSet(ParametersSetFactory::newInstance("merged_" + name()));
+  shared_ptr<ParametersSet> mergedParametersSet(ParametersSetFactory::newInstance("merged_" + name()));
 
-    const boost::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
-    createParametersValueSet(parameters, mergedParametersSet);
+  const boost::unordered_map<string, ParameterModeler>& parameters = getParametersDynamic();
 
-    modelModelica()->setParameters(mergedParametersSet);
+  createParametersValueSet(parameters, mergedParametersSet);
 
-    // parameters (number and order = those of the .mo file)
-    // --------------------------------------------------
-    // apparently problem of scheduling of inits in WTO
-    for (int i = 0; i < 2; ++i) {
-      modelModelica()->initRpar();
-    }
+  modelModelica()->setParameters(mergedParametersSet);
+
+  // parameters (number and order = those of the .mo file)
+  // --------------------------------------------------
+  // apparently problem of scheduling of inits in WTO
+  for (int i = 0; i < 2; ++i) {
+    modelModelica()->initRpar();
   }
 
   getSize();
@@ -756,9 +755,6 @@ ModelManager::loadParameters(const string & parameters) {
     throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
 
   // loading of read parameters
-  std::copy(parameterDoubleValues.begin(), parameterDoubleValues.end(), simulationInfo()->realParameter);
-  std::copy(parameterBoolValues.begin(), parameterBoolValues.end(), simulationInfo()->booleanParameter);
-  std::copy(parameterIntValues.begin(), parameterIntValues.end(), simulationInfo()->integerParameter);
   for (unsigned int i = 0; i < parameterStringValues.size(); ++i)
     simulationInfo()->stringParameter[i] = parameterStringValues[i].c_str();
 

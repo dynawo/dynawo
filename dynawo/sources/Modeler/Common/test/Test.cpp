@@ -318,7 +318,7 @@ TEST(ModelerCommonTest, ParameterUnitary) {   // Test for unitary parameters
   ASSERT_NO_THROW(parameters[0].setValue(true, LOCAL_INIT));
   ASSERT_NO_THROW(parameters[1].setValue(2, PAR));
   ASSERT_NO_THROW(parameters[2].setValue(1.12, FINAL));
-  ASSERT_NO_THROW(parameters[3].setValue(std::string("ok"), LOCAL_INIT));
+  ASSERT_NO_THROW(parameters[3].setValue(std::string("ok"), PAR));
 
   ASSERT_THROW_DYNAWO(parameters[0].setValue(1, LOCAL_INIT), Error::MODELER, KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(parameters[0].setValue(1.12, LOCAL_INIT), Error::MODELER, KeyError_t::ParameterInvalidTypeRequested);
@@ -346,12 +346,12 @@ TEST(ModelerCommonTest, ParameterUnitary) {   // Test for unitary parameters
   ASSERT_THROW_DYNAWO(parameters[0].getValue<std::string>(), Error::MODELER, KeyError_t::ParameterInvalidTypeRequested);
 
   ASSERT_EQ(parameters[0].getOrigin(), LOCAL_INIT);
-  ASSERT_EQ(parameters[3].getOrigin(), LOCAL_INIT);
+  ASSERT_EQ(parameters[3].getOrigin(), PAR);
 
   ASSERT_EQ(parameters[0].hasOrigin(LOCAL_INIT), true);
   ASSERT_EQ(parameters[1].hasOrigin(PAR), true);
   ASSERT_EQ(parameters[2].hasOrigin(FINAL), true);
-  ASSERT_EQ(parameters[3].hasOrigin(LOCAL_INIT), true);
+  ASSERT_EQ(parameters[3].hasOrigin(PAR), true);
   ASSERT_EQ(parameters[0].hasOrigin(MO), false);
   ASSERT_EQ(parameters[1].hasOrigin(MO), false);
   ASSERT_EQ(parameters[2].hasOrigin(MO), false);
@@ -363,19 +363,22 @@ TEST(ModelerCommonTest, ParameterUnitary) {   // Test for unitary parameters
   ASSERT_NO_THROW(parameters[0].setValue(true, LOCAL_INIT));
   ASSERT_EQ(parameters[0].getOrigin(), LOCAL_INIT);
 
-  ASSERT_NO_THROW(parameters[3].setValue(std::string("mo"), PAR));
+  ASSERT_NO_THROW(parameters[3].setValue(std::string("mo"), LOADED_DUMP));
+  ASSERT_EQ(parameters[3].getOrigin(), PAR);
+  ASSERT_NO_THROW(parameters[3].setValue(std::string("init"), LOCAL_INIT));
   ASSERT_EQ(parameters[3].getOrigin(), LOCAL_INIT);
-  ASSERT_NO_THROW(parameters[3].setValue(std::string("init"), LOADED_DUMP));
-  ASSERT_EQ(parameters[3].getOrigin(), LOADED_DUMP);
   ASSERT_EQ(parameters[3].getValue<std::string>(), "init");
 
   ASSERT_THROW_DYNAWO(parameters[4].setValue(true, PAR), Error::MODELER, KeyError_t::ParameterInvalidTypeRequested);
+  ASSERT_NO_THROW(parameters[4].setValue(std::string("LOADED_DUMP"), LOADED_DUMP));
+  ASSERT_EQ(parameters[4].getOrigin(), LOADED_DUMP);
+  ASSERT_EQ(parameters[4].getValue<std::string>(), "LOADED_DUMP");
   ASSERT_NO_THROW(parameters[4].setValue(std::string("PAR"), PAR));
   ASSERT_EQ(parameters[4].getOrigin(), PAR);
   ASSERT_EQ(parameters[4].getValue<std::string>(), "PAR");
   ASSERT_NO_THROW(parameters[4].setValue(std::string("LOADED_DUMP"), LOADED_DUMP));
-  ASSERT_EQ(parameters[4].getOrigin(), LOADED_DUMP);
-  ASSERT_EQ(parameters[4].getValue<std::string>(), "LOADED_DUMP");
+  ASSERT_EQ(parameters[4].getOrigin(), PAR);
+  ASSERT_EQ(parameters[4].getValue<std::string>(), "PAR");
 
   // Test for parameters with multiple origin
   ASSERT_NO_THROW(parameters[1].setValue(1, PAR));
