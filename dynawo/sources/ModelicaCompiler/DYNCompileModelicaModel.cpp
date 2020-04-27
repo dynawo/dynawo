@@ -44,19 +44,21 @@ static void modelicaCompile(const string& modelName, const string& compilationDi
                             const vector<string>& moFiles,
                             bool& withInitFile,
                             const string& packageName,
-                            bool noInit);  ///< Convert the whole (INIT when relevant + standard) Modelica model into a C++ model
+                            bool noInit, bool useAliasing);  ///< Convert the whole (INIT when relevant + standard) Modelica model into a C++ model
 static void compileLib(const string& modelName, const string& compilationDir);  ///< Compile the C++ model
 static string executeCommand(const string& command, const bool printLogs, const string& start_dir = "");  ///< Run a given command and return logs
 static string compileModelicaToC(const string& modelName, const string& fileToCompile, const vector<string>& libs,
-                               const string& compilationDir, const string& packageName);  ///< Convert one (INIT or standard) Modelica model into C code
-static string runOptions();  ///< Return modelica run options
+                               const string& compilationDir,
+                               const string& packageName, bool useAliasing);  ///< Convert one (INIT or standard) Modelica model into C code
+static string runOptions(bool useAliasing);  ///< Return modelica run options
 static void compileModelicaToXML(const string& modelName, const string& fileToCompile, const vector<string>& libs,
                                  const string& compilationDir,
-                                 const string& packageName);  ///< Generate the .xml file describing the model parameters and variables
+                                 const string& packageName, bool useAliasing);  ///< Generate the .xml file describing the model parameters and variables
 static void generateModelFile(const string& modelName, const string& compilationDir,
                               bool& withInitFile,
                               const string& additionalHeaderList,
-                              const string& packageName);  ///< Rewrite parts of one whole Modelica model C/C++ code to fit Dynawo C/C++ requirements
+                              const string& packageName,
+                              bool genCalcVars);  ///< Rewrite parts of one whole Modelica model C/C++ code to fit Dynawo C/C++ requirements
 static bool verifySharedObject(const string& library);  ///< Ensure that the generated compiled library can actually run
 
 static void mosAddHeader(const string& mosFilePath, ofstream& mosFile);  ///< Add a header to the .mos file
@@ -79,6 +81,8 @@ int main(int argc, char ** argv) {
   vector<string> moFiles;
   vector<string> initFiles;
   bool noInit = false;
+  bool useAliasing = true;
+  bool genCalcVars = true;
 
   desc.add_options()
           ("help,h", "produce help message")
@@ -91,7 +95,9 @@ int main(int argc, char ** argv) {
           ("additionalHeaderList", po::value< string >(&additionalHeaderList),
               "list of headers that should be included in the dynamic model files")
           ("package-name", po::value<string>(&packageName), "set the model name package")
-          ("no-init", po::value<bool>(&noInit)->implicit_value(true), "avoid building init problem for model");
+          ("no-init", po::value<bool>(&noInit)->implicit_value(true), "avoid building init problem for model")
+          ("useAliasing", po::value<bool>(&useAliasing), "use aliasing")
+          ("generateCalculatedVariables", po::value<bool>(&genCalcVars), "use automatic generation of calculated variables");
 
   po::variables_map vm;
   // parse regular options
@@ -114,6 +120,12 @@ int main(int argc, char ** argv) {
 
   if (packageName != "" && strcmp(&packageName.at(packageName.length() - 1), ".")) {
     packageName += ".";
+  }
+  if (!useAliasing) {
+    std::cout << " [INFO] Aliasing and automatic generation of calculated variables are disabled for " << modelName <<  std::endl;
+    genCalcVars = false;
+  } else if (!genCalcVars) {
+    std::cout << " [INFO] Automatic generation of calculated variables is disabled for " << modelName <<  std::endl;
   }
 
   // Prepare workspace
@@ -138,10 +150,10 @@ int main(int argc, char ** argv) {
 
     // Create .c, .h and .xml files from .mo
     bool withInitFile = false;
-    modelicaCompile(modelName, compilationDir1, initFiles, moFiles, withInitFile, packageName, noInit);
+    modelicaCompile(modelName, compilationDir1, initFiles, moFiles, withInitFile, packageName, noInit, useAliasing);
 
     // generate the .cpp file from the previous files
-    generateModelFile(modelName, compilationDir1, withInitFile, additionalHeaderList, packageName);
+    generateModelFile(modelName, compilationDir1, withInitFile, additionalHeaderList, packageName, genCalcVars);
     if (!exists(absolute(modelName + "_Dyn.cpp", compilationDir1)))
       throw DYNError(DYN::Error::MODELER, ModelCompilationFailed, modelName);
 
@@ -200,7 +212,7 @@ copyFile(const string& fileName, const string& modelDir, const string& compilati
 
 void
 modelicaCompile(const string& modelName, const string& compilationDir,
-        const vector<string>&  initFiles, const vector<string>& moFiles, bool& withInitFile, const string& packageName, bool noInit) {
+        const vector<string>&  initFiles, const vector<string>& moFiles, bool& withInitFile, const string& packageName, bool noInit, bool useAliasing) {
   string compilationDir1 = prettyPath(compilationDir);
   string scriptsDir1 = getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR");
   string pythonCmd = "python";
@@ -231,7 +243,7 @@ modelicaCompile(const string& modelName, const string& compilationDir,
 
   // generate C/CPP files
   vector<string> libs(moFiles);
-  string error = compileModelicaToC(modelName, modelTmpFile, libs, compilationDir, packageName);
+  string error = compileModelicaToC(modelName, modelTmpFile, libs, compilationDir, packageName, useAliasing);
   if (!exists(cFile))
     throw DYNError(DYN::Error::MODELER, OMCompilationFailed, modelName, error);
 
@@ -243,7 +255,7 @@ modelicaCompile(const string& modelName, const string& compilationDir,
       for (unsigned int i = 0; i < initFiles.size(); ++i)
         libs1.push_back(initFiles[i]);  // some libs for .mo can be used for _INIT.mo
 
-      error = compileModelicaToC(modelName + "_INIT", initFile, libs1, compilationDir, packageName);
+      error = compileModelicaToC(modelName + "_INIT", initFile, libs1, compilationDir, packageName, useAliasing);
 
       if (!exists(cInitFile))
         throw DYNError(DYN::Error::MODELER, OMCompilationFailed, modelName+ "_INIT", error);
@@ -251,7 +263,7 @@ modelicaCompile(const string& modelName, const string& compilationDir,
   }
 
   // we generate the XML file for structuring the model
-  compileModelicaToXML(modelName, modelTmpFile, libs, compilationDir, packageName);
+  compileModelicaToXML(modelName, modelTmpFile, libs, compilationDir, packageName, useAliasing);
 }
 
 
@@ -310,13 +322,15 @@ mosRunFile(const string& mosFilePath, const string& path) {
 }
 
 string
-runOptions() {
-  return "simCodeTarget=C +showErrorMessages -g=Modelica "
-      "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls +numProcs=1 +daeMode";
+runOptions(bool useAliasing) {
+  return string("simCodeTarget=C +showErrorMessages -g=Modelica "
+      "-d=visxml,infoXmlOperations,initialization,disableSingleFlowEq,failtrace,dumpSimCode --postOptmodules-=wrapFunctionCalls")
+      + ((useAliasing)?string():string(" --preOptModules-=comSubExp,removeSimpleEquations")) +string(" +numProcs=1 +daeMode ");
 }
 
 string
-compileModelicaToC(const string& modelName, const string& fileToCompile, const vector<string>& libs, const string& compilationDir, const string& packageName) {
+compileModelicaToC(const string& modelName, const string& fileToCompile, const vector<string>& libs,
+    const string& compilationDir, const string& packageName, bool useAliasing) {
   // Create a .mos file
   string mosFileName = "compileModelicaToC-" + modelName + ".mos";
   ofstream mosFile(absolute(mosFileName, compilationDir).c_str(), ios::out | ios::trunc);
@@ -332,7 +346,7 @@ compileModelicaToC(const string& modelName, const string& fileToCompile, const v
 
   // add Modelica transcription
   mosFile << "// Translate model from Modelica to C/C++" << std::endl;
-  mosFile << "setCommandLineOptions(\"" << runOptions() << "\");" << std::endl;
+  mosFile << "setCommandLineOptions(\"" << runOptions(useAliasing) << "\");" << std::endl;
   mosFile << "instantiateModel(" << packageName << modelName << "); getErrorString();" << std::endl;
   mosFile << "translateModel(" << packageName << modelName << "); getErrorString();" << std::endl;
 
@@ -344,14 +358,14 @@ compileModelicaToC(const string& modelName, const string& fileToCompile, const v
 
 void
 compileModelicaToXML(const string& modelName, const string& fileToCompile, const vector<string>& libs, const string& compilationDir,
-        const string& packageName) {
+        const string& packageName, bool useAliasing) {
   // Create a .mos file
   string mosFileName = "createStructure-" + modelName + ".mos";
   ofstream mosFile(absolute(mosFileName, compilationDir).c_str(), ios::out | ios::trunc);
 
   // add header
   mosAddHeader(mosFileName, mosFile);
-  mosFile << "setCommandLineOptions(\"" << runOptions() << "\");" << std::endl;
+  mosFile << "setCommandLineOptions(\"" << runOptions(useAliasing) << "\");" << std::endl;
 
   // add Modelica and library files import
   bool importModelicaPackage = true;
@@ -369,12 +383,15 @@ compileModelicaToXML(const string& modelName, const string& fileToCompile, const
 }
 
 void
-generateModelFile(const string& modelName, const string& compilationDir, bool& withInitFile, const string& additionalHeaderList, const string& packageName) {
+generateModelFile(const string& modelName, const string& compilationDir, bool& withInitFile,
+    const string& additionalHeaderList, const string& packageName, bool genCalcVars) {
   string scriptsDir1 = getMandatoryEnvVar("DYNAWO_SCRIPTS_DIR");
   string pythonCmd = "python";
   if (hasEnvVar("DYNAWO_PYTHON_COMMAND"))
     pythonCmd = getEnvVar("DYNAWO_PYTHON_COMMAND");
   string varExtCommand = pythonCmd + " " + scriptsDir1 + "/writeModel.py -m " + packageName + modelName + " -i " + compilationDir + " -o " + compilationDir;
+  if (!genCalcVars)
+    varExtCommand+=" -c";
   if (!additionalHeaderList.empty())
     varExtCommand += " -a " + additionalHeaderList;
   if (withInitFile)

@@ -54,6 +54,21 @@ class ModelTemplate::Impl : public ModelTemplate, public Model::Impl {
   ~Impl();
 
   /**
+   * @copydoc ModelTemplate::setCompilationOptions(bool useAlias, bool generateCalculatedVariables)
+   */
+  void setCompilationOptions(bool useAlias, bool generateCalculatedVariables);
+
+  /**
+   * @copydoc ModelTemplate::getUseAlias() const
+   */
+  bool getUseAlias() const;
+
+  /**
+   * @copydoc ModelTemplate::getGenerateCalculatedVariables() const
+   */
+  bool getGenerateCalculatedVariables() const;
+
+  /**
    * @copydoc ModelTemplate::getUnitDynamicModels()
    */
   const std::map<std::string, boost::shared_ptr<UnitDynamicModel> >& getUnitDynamicModels() const;
@@ -175,6 +190,8 @@ class ModelTemplate::Impl : public ModelTemplate, public Model::Impl {
   Impl();
 #endif
 
+  bool useAliasing_;  ///< true if OpenModelica aliasing is used
+  bool generateCalculatedVariables_;  ///< true if calculated variables are computed automatically for compiled models
   std::map<std::string, boost::shared_ptr<UnitDynamicModel> > unitDynamicModelsMap_;  ///< Unit Dynamic model parts
   std::map<std::string, boost::shared_ptr<Connector> > initConnectorsMap_;  ///< Unit Dynamic model initialization connectors
   std::map<std::string, boost::shared_ptr<Connector> > connectorsMap_;  ///<  model connectors

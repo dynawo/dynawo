@@ -170,6 +170,13 @@ ModelicaModelHandler::create(attributes_type const& attributes) {
   modelicaModel_ = ModelicaModelFactory::newModel(attributes["id"]);
   if (attributes.has("staticId"))
     modelicaModel_->setStaticId(attributes["staticId"]);
+  bool useAliasing = true;
+  bool genCalcVars = true;
+  if (attributes.has("useAliasing"))
+    useAliasing = attributes["useAliasing"];
+  if (attributes.has("generateCalculatedVariables"))
+    genCalcVars = attributes["generateCalculatedVariables"];
+  modelicaModel_->setCompilationOptions(useAliasing, genCalcVars);
 }
 
 shared_ptr<ModelicaModel>
@@ -238,6 +245,13 @@ unitDynamicModelHandler_(parser::ElementName(dyd_ns, "unitDynamicModel")) {
 void
 ModelTemplateHandler::create(attributes_type const& attributes) {
   modelTemplate_ = ModelTemplateFactory::newModel(attributes["id"]);
+  bool useAliasing = true;
+  bool genCalcVars = true;
+  if (attributes.has("useAliasing"))
+    useAliasing = attributes["useAliasing"];
+  if (attributes.has("generateCalculatedVariables"))
+    genCalcVars = attributes["generateCalculatedVariables"];
+  modelTemplate_->setCompilationOptions(useAliasing, genCalcVars);
 }
 
 shared_ptr<ModelTemplate>

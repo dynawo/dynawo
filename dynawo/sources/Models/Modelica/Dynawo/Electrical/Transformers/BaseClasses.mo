@@ -44,7 +44,7 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   // Input connectors
-  Connectors.ImPin tap (value (start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
+  Connectors.ZPin tap (value (start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";
 
   // Output connectors
   Connectors.ImPin U1Pu (value (start = U10Pu)) "Absolute voltage on side 1";

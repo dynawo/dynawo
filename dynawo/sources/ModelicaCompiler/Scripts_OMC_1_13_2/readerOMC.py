@@ -62,7 +62,7 @@ class ReaderOMC:
     # @param mod_name : model read
     # @param input_dir : directory where the files should be read
     # @param is_init_pb : @b True is we should read the init model
-    def __init__(self, mod_name, input_dir, is_init_pb):
+    def __init__(self, mod_name, input_dir, is_init_pb, disable_calc_var_gen):
         ## model read
         self.mod_name = mod_name
 
@@ -152,6 +152,8 @@ class ReaderOMC:
         self.auxiliary_var_to_keep = []
         self.auxiliary_vars_counted_as_variables = []
 
+        ## activation of calculated variables automatic generation
+        self.disable_generate_calc_vars = disable_calc_var_gen
         ## List of calculated variables
         self.list_calculated_vars = []
         self.dic_calculated_vars_values = {}
@@ -1216,6 +1218,9 @@ class ReaderOMC:
         self.find_calculated_variables()
 
     def detect_non_const_real_calculated_variables(self):
+        if self.disable_generate_calc_vars:
+            print_info("Automatic generation of calculated variables is disabled")
+            return
         map_dep = self.get_map_dep_vars_for_func()
         map_num_eq_vars_defined = self.get_map_num_eq_vars_defined()
         name_func_to_search = {}

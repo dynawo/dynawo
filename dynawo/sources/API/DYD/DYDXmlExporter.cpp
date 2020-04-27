@@ -210,6 +210,10 @@ XmlExporter::writeModelicaModel(const shared_ptr<ModelicaModel>& cm, Formatter& 
   attrs.add("id", cm->getId());
   if (cm->getStaticId() != "")
     attrs.add("staticId", cm->getStaticId());
+  if (!cm->getUseAlias())
+    attrs.add("useAliasing", cm->getUseAlias());
+  if (!cm->getGenerateCalculatedVariables())
+    attrs.add("generateCalculatedVariables", cm->getGenerateCalculatedVariables());
 
   formatter.startElement("dyn", "modelicaModel", attrs);
   for (map<std::string, shared_ptr<UnitDynamicModel> >::const_iterator itModel = cm->getUnitDynamicModels().begin();
@@ -255,6 +259,10 @@ void
 XmlExporter::writeModelTemplate(const shared_ptr<ModelTemplate>& mt, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", mt->getId());
+  if (!mt->getUseAlias())
+    attrs.add("useAliasing", mt->getUseAlias());
+  if (!mt->getGenerateCalculatedVariables())
+    attrs.add("generateCalculatedVariables", mt->getGenerateCalculatedVariables());
 
   formatter.startElement("dyn", "modelTemplate", attrs);
   for (map<std::string, shared_ptr<UnitDynamicModel> >::const_iterator itModel = mt->getUnitDynamicModels().begin();
