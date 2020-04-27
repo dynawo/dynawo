@@ -245,13 +245,11 @@ Simulation::configureSimulationInputs() {
     if (!exists(networkParFile_))
       throw DYNError(Error::GENERAL, UnknownParFile, networkParFile_);
     networkParSet_ = jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParId();
-
-
-    if (jobEntry_->getModelerEntry()->getInitialStateEntry()) {
-      initialStateFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getInitialStateEntry()->getInitialStateFile(), context_->getInputDirectory());
-      if (!exists(initialStateFile_))
-        throw DYNError(Error::GENERAL, UnknownInitialStateFile, initialStateFile_);
-    }
+  }
+  if (jobEntry_->getModelerEntry()->getInitialStateEntry()) {
+    initialStateFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getInitialStateEntry()->getInitialStateFile(), context_->getInputDirectory());
+    if (!exists(initialStateFile_))
+      throw DYNError(Error::GENERAL, UnknownInitialStateFile, initialStateFile_);
   }
 }
 

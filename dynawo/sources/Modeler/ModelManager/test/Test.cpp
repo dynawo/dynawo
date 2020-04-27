@@ -28,9 +28,8 @@
 namespace DYN {
 
 class MyModelica: public ModelModelica {
-public:
-
-  MyModelica(ModelManager* parent):
+ public:
+  explicit MyModelica(ModelManager* parent):
     parent_(parent),
     nbCallF_(0),
     nbCallCheckDataCoherence_(0),
@@ -46,7 +45,7 @@ public:
    */
   virtual ~MyModelica() { }
 
-public:
+ public:
   /**
    * @brief initialise the dyn data structure
    *
@@ -58,11 +57,11 @@ public:
     data->nbModes = 1;
     data->nbVars = 2;
     data->nbZ = 1;
-    data->modelData = (MODEL_DATA *)calloc(1,sizeof(MODEL_DATA));
-    data->simulationInfo = (SIMULATION_INFO *)calloc(1,sizeof(SIMULATION_INFO));
-    data->simulationInfo->daeModeData = (DAEMODE_DATA *)calloc(1,sizeof(DAEMODE_DATA));
-    data->localData = (SIMULATION_DATA**) calloc(1, sizeof(SIMULATION_DATA*));
-    data->localData[0] = (SIMULATION_DATA*) calloc(1, sizeof(SIMULATION_DATA));
+    data->modelData = reinterpret_cast<MODEL_DATA *>(calloc(1, sizeof(MODEL_DATA)));
+    data->simulationInfo = reinterpret_cast<SIMULATION_INFO *>(calloc(1, sizeof(SIMULATION_INFO)));
+    data->simulationInfo->daeModeData = reinterpret_cast<DAEMODE_DATA *>(calloc(1, sizeof(DAEMODE_DATA)));
+    data->localData = reinterpret_cast<SIMULATION_DATA **>(calloc(1, sizeof(SIMULATION_DATA*)));
+    data->localData[0] = reinterpret_cast<SIMULATION_DATA *>(calloc(1, sizeof(SIMULATION_DATA)));
     data->modelData->nParametersReal = 1;
     data->modelData->nParametersInteger = 1;
     data->modelData->nParametersBoolean = 0;
@@ -78,35 +77,35 @@ public:
     data->modelData->nAliasString = 0;
     // buffer for all parameters values
     int nb = (data->modelData->nParametersReal > 0) ? data->modelData->nParametersReal : 0;
-    data->simulationInfo->realParameter = (modelica_real*) calloc(nb, sizeof(modelica_real));
+    data->simulationInfo->realParameter = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
 
     nb = (data->modelData->nParametersBoolean > 0) ? data->modelData->nParametersBoolean : 0;
-    data->simulationInfo->booleanParameter = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
+    data->simulationInfo->booleanParameter = reinterpret_cast<modelica_boolean *>(calloc(nb, sizeof(modelica_boolean)));
 
     nb = (data->modelData->nParametersInteger > 0) ? data->modelData->nParametersInteger : 0;
-    data->simulationInfo->integerParameter = (modelica_integer*) calloc(nb, sizeof(modelica_integer));
+    data->simulationInfo->integerParameter = reinterpret_cast<modelica_integer *>(calloc(nb, sizeof(modelica_integer)));
 
     nb = (data->modelData->nParametersString > 0) ? data->modelData->nParametersString : 0;
-    data->simulationInfo->stringParameter = (modelica_string*) calloc(nb, sizeof(modelica_string));
+    data->simulationInfo->stringParameter = reinterpret_cast<modelica_string *>(calloc(nb, sizeof(modelica_string)));
 
     nb = (data->modelData->nVariablesReal > 0) ? data->modelData->nVariablesReal : 0;
-    data->simulationInfo->realVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
+    data->simulationInfo->realVarsPre = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
 
     nb = (data->modelData->nStates > 0) ? data->modelData->nStates  : 0;
-    data->simulationInfo->derivativesVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
+    data->simulationInfo->derivativesVarsPre = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
 
     nb = (data->modelData->nDiscreteReal >0) ? data->modelData->nDiscreteReal : 0;
-    data->simulationInfo->discreteVarsPre = (modelica_real*)calloc(nb, sizeof(modelica_real));
+    data->simulationInfo->discreteVarsPre = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
 
     nb = (data->modelData->nVariablesBoolean > 0) ? data->modelData->nVariablesBoolean : 0;
-    data->localData[0]->booleanVars = (modelica_boolean*) calloc(nb, sizeof(modelica_boolean));
-    data->simulationInfo->booleanVarsPre = (modelica_boolean*)calloc(nb, sizeof(modelica_boolean));
+    data->localData[0]->booleanVars = reinterpret_cast<modelica_boolean *>(calloc(nb, sizeof(modelica_boolean)));
+    data->simulationInfo->booleanVarsPre = reinterpret_cast<modelica_boolean *>(calloc(nb, sizeof(modelica_boolean)));
 
     nb = (data->modelData->nVariablesInteger > 0) ? data->modelData->nVariablesInteger : 0;
-    data->simulationInfo->integerDoubleVarsPre = (modelica_real*) calloc(nb, sizeof(modelica_real));
+    data->simulationInfo->integerDoubleVarsPre = reinterpret_cast<modelica_real *>(calloc(nb, sizeof(modelica_real)));
 
     nb = (data->modelData->nExtObjs > 0) ? data->modelData->nExtObjs : 0;
-    data->simulationInfo->extObjs = (void**) calloc(nb, sizeof(void*));
+    data->simulationInfo->extObjs = reinterpret_cast<void**>(calloc(nb, sizeof(void*)));
   }
 
   /**
@@ -188,11 +187,11 @@ public:
    * @param variables vector to fill
    */
   virtual void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-    variables.push_back (DYN::VariableNativeFactory::createState ("MyVariable", DISCRETE, false));
-    variables.push_back (DYN::VariableNativeFactory::createState ("MyVariable2", CONTINUOUS, false));
-    variables.push_back (DYN::VariableNativeFactory::createState ("MyVariable3", CONTINUOUS, false));
-    variables.push_back (DYN::VariableNativeFactory::createCalculated ("MyVariable4", CONTINUOUS, false));
-    variables.push_back (DYN::VariableAliasFactory::create ("MyAliasVariable", "MyVariable2", FLOW, false));
+    variables.push_back(DYN::VariableNativeFactory::createState("MyVariable", DISCRETE, false));
+    variables.push_back(DYN::VariableNativeFactory::createState("MyVariable2", CONTINUOUS, false));
+    variables.push_back(DYN::VariableNativeFactory::createState("MyVariable3", CONTINUOUS, false));
+    variables.push_back(DYN::VariableNativeFactory::createCalculated("MyVariable4", CONTINUOUS, false));
+    variables.push_back(DYN::VariableAliasFactory::create("MyAliasVariable", "MyVariable2", FLOW, false));
   }
 
   /**
@@ -378,7 +377,7 @@ public:
     return res;
   }
 
-private:
+ private:
   ModelManager* parent_;
   unsigned nbCallF_;
   unsigned nbCallG_;
@@ -393,9 +392,8 @@ private:
 
 
 class MyModelicaInit: public MyModelica {
-public:
-
-  MyModelicaInit(ModelManager* parent):
+ public:
+  explicit MyModelicaInit(ModelManager* parent):
     MyModelica(parent),
     data_(NULL) { }
 
@@ -405,8 +403,8 @@ public:
   virtual ~MyModelicaInit() { }
 
   void defineVariables(std::vector<boost::shared_ptr<Variable> >& variables) {
-    variables.push_back (DYN::VariableNativeFactory::createState ("MyParam2", CONTINUOUS, false));
-    variables.push_back (DYN::VariableNativeFactory::createState ("MyParam", INTEGER, false));
+    variables.push_back(DYN::VariableNativeFactory::createState("MyParam2", CONTINUOUS, false));
+    variables.push_back(DYN::VariableNativeFactory::createState("MyParam", INTEGER, false));
   }
 
   void defineParameters(std::vector<ParameterModeler>& /*parameters*/) {
@@ -442,11 +440,11 @@ public:
     data->nbModes = 0;
     data->nbVars = 1;
     data->nbZ = 0;
-    data->modelData = (MODEL_DATA *)calloc(1,sizeof(MODEL_DATA));
-    data->simulationInfo = (SIMULATION_INFO *)calloc(1,sizeof(SIMULATION_INFO));
-    data->simulationInfo->daeModeData = (DAEMODE_DATA *)calloc(1,sizeof(DAEMODE_DATA));
-    data->localData = (SIMULATION_DATA**) calloc(1, sizeof(SIMULATION_DATA*));
-    data->localData[0] = (SIMULATION_DATA*) calloc(1, sizeof(SIMULATION_DATA));
+    data->modelData = reinterpret_cast<MODEL_DATA *>(calloc(1, sizeof(MODEL_DATA)));
+    data->simulationInfo = reinterpret_cast<SIMULATION_INFO *>(calloc(1, sizeof(SIMULATION_INFO)));
+    data->simulationInfo->daeModeData = reinterpret_cast<DAEMODE_DATA *>(calloc(1, sizeof(DAEMODE_DATA)));
+    data->localData = reinterpret_cast<SIMULATION_DATA **>(calloc(1, sizeof(SIMULATION_DATA*)));
+    data->localData[0] = reinterpret_cast<SIMULATION_DATA *>(calloc(1, sizeof(SIMULATION_DATA)));
     data_ = data;
     data->modelData->nParametersReal = 0;
     data->modelData->nParametersInteger = 0;
@@ -462,12 +460,13 @@ public:
     data->modelData->nAliasBoolean = 0;
     data->modelData->nAliasString = 0;
   }
+
  private:
   DYNDATA* data_;
 };
 
 class MyModelManager : public ModelManager {
-public:
+ public:
   MyModelManager() :
     ModelManager() {
     modelInit_ = new MyModelicaInit(this);
@@ -476,9 +475,7 @@ public:
     name("MyModelManager");
   }
 
-  virtual ~MyModelManager() {
-
-  }
+  virtual ~MyModelManager() {}
 
   void testSize() {
     ASSERT_EQ(dataInit_->nbF, 1);
@@ -524,7 +521,8 @@ public:
   void testNbCallCheckDataCoherence(unsigned ref) {
     ASSERT_EQ(dynamic_cast<MyModelica*>(modelDyn_)->getNbCallCheckDataCoherence(), ref);
   }
-protected:
+
+ protected:
   bool hasInit() const {
     return true;
   }
@@ -622,40 +620,44 @@ TEST(TestModelManager, TestModelManagerBasics) {
   mm->setSharedParametersDefaultValuesInit();
   for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
       it != itEnd; ++it) {
-    if(it->first == "MyParam")
+    if (it->first == "MyParam")
       ASSERT_EQ(it->second.getValue<int>(), 2);
-    else  if(it->first == "MyParam2")
+    else if (it->first == "MyParam2")
       ASSERT_EQ(it->second.getValue<double>(), 1);
-    else assert(0);
+    else
+      assert(0);
   }
   std::map< std::string, std::string > mapParameters;
   mm->dumpParameters(mapParameters);
-  ASSERT_EQ(mapParameters.size(),1);
+  ASSERT_EQ(mapParameters.size(), 1);
   std::map< std::string, std::string > mapVariables;
   mm->dumpVariables(mapVariables);
-  ASSERT_EQ(mapVariables.size(),1);
+  ASSERT_EQ(mapVariables.size(), 1);
 
   mm->defineNames();
   mm->defineNamesInit();
-  mm->initParams();
-
-  for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
-      it != itEnd; ++it) {
-    if(it->first == "MyParam")
-      ASSERT_EQ(it->second.getValue<int>(), 4);
-    else  if(it->first == "MyParam2")
-      ASSERT_EQ(it->second.getValue<double>(), 8);
-    else assert(0);
-  }
 
   mm->loadParameters(mapParameters["MyModelica-MyModelManager-parameters.bin"]);
   for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
       it != itEnd; ++it) {
-    if(it->first == "MyParam")
+    if (it->first == "MyParam")
       ASSERT_EQ(it->second.getValue<int>(), 0);
-    else  if(it->first == "MyParam2")
+    else if (it->first == "MyParam2")
       ASSERT_EQ(it->second.getValue<double>(), 0);
-    else assert(0);
+    else
+      assert(0);
+  }
+
+  mm->initParams();
+
+  for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = mm->getParametersDynamic().begin(), itEnd = mm->getParametersDynamic().end();
+      it != itEnd; ++it) {
+    if (it->first == "MyParam")
+      ASSERT_EQ(it->second.getValue<int>(), 4);
+    else if (it->first == "MyParam2")
+      ASSERT_EQ(it->second.getValue<double>(), 8);
+    else
+      assert(0);
   }
 
   mm->printInitValues("res");
