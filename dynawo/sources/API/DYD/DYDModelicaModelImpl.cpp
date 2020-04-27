@@ -52,7 +52,9 @@ using boost::dynamic_pointer_cast;
 namespace dynamicdata {
 
 ModelicaModel::Impl::Impl(const string& id) :
-Model::Impl(id, Model::MODELICA_MODEL) {
+Model::Impl(id, Model::MODELICA_MODEL),
+useAliasing_(true),
+generateCalculatedVariables_(true)  {
 }
 
 ModelicaModel::Impl::~Impl() {
@@ -67,6 +69,22 @@ ModelicaModel&
 ModelicaModel::Impl::setStaticId(const string& staticId) {
   staticId_ = staticId;
   return *this;
+}
+
+void
+ModelicaModel::Impl::setCompilationOptions(bool useAlias, bool generateCalculatedVariables) {
+  useAliasing_ = useAlias;
+  generateCalculatedVariables_ = generateCalculatedVariables;
+}
+
+bool
+ModelicaModel::Impl::getUseAlias() const {
+  return useAliasing_;
+}
+
+bool
+ModelicaModel::Impl::getGenerateCalculatedVariables() const {
+  return generateCalculatedVariables_;
 }
 
 const map<string, shared_ptr<UnitDynamicModel> >&

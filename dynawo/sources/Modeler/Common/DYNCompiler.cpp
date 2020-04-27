@@ -294,6 +294,8 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   string libName;
   string modelID;
   map<string, shared_ptr<dynamicdata::UnitDynamicModel> > unitDynamicModels;
+  bool useAliasing = true;
+  bool genCalculatedVariables = true;
   if (isModelTemplate) {
     // create compiled model for model template
     modelDescription->hasCompiledModel(true);
@@ -302,12 +304,16 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
     libName = modelicaModel->getId() + sharedLibraryExtension();
     unitDynamicModels = modelicaModel->getUnitDynamicModels();
     modelID = modelicaModel->getId();
+    useAliasing = modelicaModel->getUseAlias();
+    genCalculatedVariables = modelicaModel->getGenerateCalculatedVariables();
   } else {
     // compile(modelicaModel) compile the modelica model already mapped;
     shared_ptr<dynamicdata::ModelicaModel> modelicaModel = dynamic_pointer_cast<dynamicdata::ModelicaModel> (modelDescription->getModel());
     libName = modelicaModel->getId() + sharedLibraryExtension();
     unitDynamicModels = modelicaModel->getUnitDynamicModels();
     modelID = modelicaModel->getId();
+    useAliasing = modelicaModel->getUseAlias();
+    genCalculatedVariables = modelicaModel->getGenerateCalculatedVariables();
   }
 
   string thisCompiledId = modelDescription->getCompiledModelId();
@@ -329,7 +335,8 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
   string installDir = getMandatoryEnvVar("DYNAWO_INSTALL_DIR");
   string compileDirPath = createAbsolutePath(thisCompiledId, modelDirPath_);
   string compileCommand = prettyPath(installDir + "/sbin")
-    + "/compileModelicaModel --model " + thisCompiledId + " --model-dir " + modelDirPath_ + " --compilation-dir " + compileDirPath + " --lib " + libName;
+    + "/compileModelicaModel --model " + thisCompiledId + " --model-dir " + modelDirPath_ + " --compilation-dir " + compileDirPath + " --lib " + libName +
+    " --useAliasing " + ((useAliasing)?"true":"false") + " --generateCalculatedVariables " + ((genCalculatedVariables)?"true":"false");
 
   if (moFilesCompilation_.size() > 0) {
     string moFilesList = "";

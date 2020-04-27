@@ -77,6 +77,64 @@ TEST(ModelicaCompilerTestSuite, TestPackageOption) {
   executeCommand(varExtCommand, ssCompileModelicaModel);
   std::cout << ssCompileModelicaModel.str() << std::endl;
   ASSERT_EQ(boost::filesystem::exists("Test" + std::string(sharedLibraryExtension())), true);
+  std::stringstream ssDiff;
+  executeCommand("diff ModelicaModel/reference_Test/Test_Dyn.cpp compilation/Test_Dyn.cpp", ssDiff);
+  std::cout << ssDiff.str() << std::endl;
+  ASSERT_EQ(ssDiff.str(), "Executing command : diff ModelicaModel/reference_Test/Test_Dyn.cpp compilation/Test_Dyn.cpp\n");
 }
+
+TEST(ModelicaCompilerTestSuite, TestPackageNoCalcVar) {
+  std::string varExtCommand = "../compileModelicaModel --model Test --lib Test" + std::string(sharedLibraryExtension()) +
+          " --model-dir . --compilation-dir compilationNoCalcVar --package-name Test --generateCalculatedVariables false";
+
+  remove_all_in_directory("compilationNoCalcVar");
+  boost::filesystem::path fspath("compilationNoCalcVar");
+  boost::filesystem::remove(fspath);
+  std::stringstream ssCompileModelicaModel;
+  executeCommand(varExtCommand, ssCompileModelicaModel);
+  std::cout << ssCompileModelicaModel.str() << std::endl;
+  ASSERT_EQ(boost::filesystem::exists("Test" + std::string(sharedLibraryExtension())), true);
+  std::stringstream ssDiff;
+  executeCommand("diff ModelicaModel/reference_Test/Test_DynNoCalcVar.cpp compilationNoCalcVar/Test_Dyn.cpp", ssDiff);
+  std::cout << ssDiff.str() << std::endl;
+  ASSERT_EQ(ssDiff.str(), "Executing command : diff ModelicaModel/reference_Test/Test_DynNoCalcVar.cpp compilationNoCalcVar/Test_Dyn.cpp\n");
+}
+
+
+TEST(ModelicaCompilerTestSuite, TestPackageNoAlias) {
+  std::string varExtCommand = "../compileModelicaModel --model Test --lib Test" + std::string(sharedLibraryExtension()) +
+          " --model-dir . --compilation-dir compilationNoAlias --package-name Test --useAliasing false";
+
+  remove_all_in_directory("compilationNoAlias");
+  boost::filesystem::path fspath("compilationNoAlias");
+  boost::filesystem::remove(fspath);
+  std::stringstream ssCompileModelicaModel;
+  executeCommand(varExtCommand, ssCompileModelicaModel);
+  std::cout << ssCompileModelicaModel.str() << std::endl;
+  ASSERT_EQ(boost::filesystem::exists("Test" + std::string(sharedLibraryExtension())), true);
+  std::stringstream ssDiff;
+  executeCommand("diff ModelicaModel/reference_Test/Test_DynNoAliasNoCalcVar.cpp compilationNoAlias/Test_Dyn.cpp", ssDiff);
+  std::cout << ssDiff.str() << std::endl;
+  ASSERT_EQ(ssDiff.str(), "Executing command : diff ModelicaModel/reference_Test/Test_DynNoAliasNoCalcVar.cpp compilationNoAlias/Test_Dyn.cpp\n");
+}
+
+
+TEST(ModelicaCompilerTestSuite, TestPackageNoAliasNoCalcVar) {
+  std::string varExtCommand = "../compileModelicaModel --model Test --lib Test" + std::string(sharedLibraryExtension()) +
+          " --model-dir . --compilation-dir compilationNoAliasNoCalcVar --package-name Test --useAliasing false --generateCalculatedVariables false";
+
+  remove_all_in_directory("compilationNoAliasNoCalcVar");
+  boost::filesystem::path fspath("compilationNoAliasNoCalcVar");
+  boost::filesystem::remove(fspath);
+  std::stringstream ssCompileModelicaModel;
+  executeCommand(varExtCommand, ssCompileModelicaModel);
+  std::cout << ssCompileModelicaModel.str() << std::endl;
+  ASSERT_EQ(boost::filesystem::exists("Test" + std::string(sharedLibraryExtension())), true);
+  std::stringstream ssDiff;
+  executeCommand("diff ModelicaModel/reference_Test/Test_DynNoAliasNoCalcVar.cpp compilationNoAliasNoCalcVar/Test_Dyn.cpp", ssDiff);
+  std::cout << ssDiff.str() << std::endl;
+  ASSERT_EQ(ssDiff.str(), "Executing command : diff ModelicaModel/reference_Test/Test_DynNoAliasNoCalcVar.cpp compilationNoAliasNoCalcVar/Test_Dyn.cpp\n");
+}
+
 
 }  // namespace DYN

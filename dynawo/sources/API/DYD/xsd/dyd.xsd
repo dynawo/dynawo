@@ -116,6 +116,8 @@
           <xs:element name="macroStaticRef" type="dyn:MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
         </xs:choice>
         <xs:attribute name="staticId" type="xs:string"/>
+        <xs:attribute name="useAliasing" use="optional" type="xs:boolean"/>
+        <xs:attribute name="generateCalculatedVariables" use="optional" type="xs:boolean"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -131,6 +133,8 @@
           <xs:element name="staticRef" type="dyn:StaticRef" minOccurs="0" maxOccurs="unbounded"/>
           <xs:element name="macroStaticRef" type="dyn:MacroStaticRef" minOccurs="0" maxOccurs="unbounded"/>
         </xs:choice>
+        <xs:attribute name="useAliasing" use="optional" type="xs:boolean"/>
+        <xs:attribute name="generateCalculatedVariables" use="optional" type="xs:boolean"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

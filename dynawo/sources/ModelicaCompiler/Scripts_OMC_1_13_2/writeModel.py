@@ -45,6 +45,11 @@ options[('-p','--package-name')] = { 'dest': 'packageName',
 
 options[('-a','--additionalHeaderList')] = { 'dest': 'additionalHeaderFilesStr',
                             'help': 'list of headers that should be included in the dynamic model files'}
+
+options[('-c','--disableCalculatedVariablesGeneration')] = { 'action':"store_true",
+                            'dest': 'disable_generate_calc_vars',
+                            'help': 'if true calculated variables will not be automatically generated',
+                            'default': False}
 ##
 # Main program
 if __name__ == '__main__':
@@ -55,6 +60,7 @@ if __name__ == '__main__':
     output_dir = "."
     mod_name = ""
     package_name = ""
+    disable_generate_calc_vars = False
 
     opt_parser = OptionParser()
     for param, option in options.items():
@@ -72,6 +78,7 @@ if __name__ == '__main__':
     mod_name = options.modName
     mod_name_init =  mod_name + "_INIT"
     init_pb = options.init_pb
+    disable_generate_calc_vars = options.disable_generate_calc_vars
     additional_header_files = []
     if options.additionalHeaderFilesStr is not None: additional_header_files = options.additionalHeaderFilesStr.split(" ")
     if options.packageName: package_name = options.packageName
@@ -86,7 +93,7 @@ if __name__ == '__main__':
     reader_init = None
 
     if init_pb:
-        reader_init = ReaderOMC(mod_name_init, input_dir, is_init_pb = True)
+        reader_init = ReaderOMC(mod_name_init, input_dir, is_init_pb = True, disable_calc_var_gen = disable_generate_calc_vars)
 
         #reader_init.readInfoXml()            # Read *_info.xml
         reader_init.read_16dae_h_file()       # Read *_16dae.h
@@ -192,7 +199,7 @@ if __name__ == '__main__':
     ###########################################
     # Reader for dynamic pb
     print_info("Starting dynamic model generation")
-    reader = ReaderOMC(mod_name, input_dir, is_init_pb = False)
+    reader = ReaderOMC(mod_name, input_dir, is_init_pb = False, disable_calc_var_gen = disable_generate_calc_vars)
 
     #reader.readInfoXml()            # Read *_info.xml
     reader.read_16dae_h_file()           # Read *_16dae.h

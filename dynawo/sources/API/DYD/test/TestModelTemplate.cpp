@@ -48,6 +48,9 @@ TEST(APIDYDTest, ModelTemplateCreate) {
 
   boost::shared_ptr<ModelTemplate> model;
   model = ModelTemplateFactory::newModel("modelTemplate");
+  ASSERT_TRUE(model->getUseAlias());
+  ASSERT_TRUE(model->getGenerateCalculatedVariables());
+  model->setCompilationOptions(false, false);
 
   // <dyn:unitDynamicModel id="component1" name="model1" initName="model1_init"/>
   boost::shared_ptr<UnitDynamicModel> udm1;
@@ -76,6 +79,8 @@ TEST(APIDYDTest, ModelTemplateCreate) {
 
   ASSERT_EQ(model->getType(), Model::MODEL_TEMPLATE);
   ASSERT_EQ(model->getId(), "modelTemplate");
+  ASSERT_FALSE(model->getUseAlias());
+  ASSERT_FALSE(model->getGenerateCalculatedVariables());
   std::map<std::string, boost::shared_ptr<UnitDynamicModel> > udms = model->getUnitDynamicModels();
   ASSERT_EQ(udms.size(), 2);
 }

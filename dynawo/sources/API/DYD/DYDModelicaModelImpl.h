@@ -66,6 +66,21 @@ class ModelicaModel::Impl : public ModelicaModel, public Model::Impl {
   ModelicaModel& setStaticId(const std::string& staticId);
 
   /**
+   * @copydoc ModelicaModel::setCompilationOptions(bool useAlias, bool generateCalculatedVariables)
+   */
+  void setCompilationOptions(bool useAlias, bool generateCalculatedVariables);
+
+  /**
+   * @copydoc ModelicaModel::getUseAlias() const
+   */
+  bool getUseAlias() const;
+
+  /**
+   * @copydoc ModelicaModel::getGenerateCalculatedVariables() const
+   */
+  bool getGenerateCalculatedVariables() const;
+
+  /**
    * @copydoc ModelicaModel::getUnitDynamicModels()
    */
   const std::map<std::string, boost::shared_ptr<UnitDynamicModel> >& getUnitDynamicModels() const;
@@ -291,6 +306,8 @@ class ModelicaModel::Impl : public ModelicaModel, public Model::Impl {
 
  private:
   std::string staticId_;  ///< Identifiable device modeled by dynamic model
+  bool useAliasing_;  ///< true if OpenModelica aliasing is used
+  bool generateCalculatedVariables_;  ///< true if calculated variables are computed automatically for compiled models
   std::map<std::string, boost::shared_ptr<UnitDynamicModel> > unitDynamicModelsMap_;  ///< Unit Dynamic model parts
   std::map<std::string, boost::shared_ptr<Connector> > initConnectorsMap_;  ///< Unit Dynamic model initialization connectors
   std::map<std::string, boost::shared_ptr<Connector> > connectorsMap_;  ///<  model connectors

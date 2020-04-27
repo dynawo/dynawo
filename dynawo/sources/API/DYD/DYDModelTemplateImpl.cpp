@@ -59,10 +59,28 @@ using boost::shared_ptr;
 namespace dynamicdata {
 
 ModelTemplate::Impl::Impl(const string& id) :
-Model::Impl(id, Model::MODEL_TEMPLATE) {
+Model::Impl(id, Model::MODEL_TEMPLATE),
+useAliasing_(true),
+generateCalculatedVariables_(true) {
 }
 
 ModelTemplate::Impl::~Impl() {
+}
+
+void
+ModelTemplate::Impl::setCompilationOptions(bool useAlias, bool generateCalculatedVariables) {
+  useAliasing_ = useAlias;
+  generateCalculatedVariables_ = generateCalculatedVariables;
+}
+
+bool
+ModelTemplate::Impl::getUseAlias() const {
+  return useAliasing_;
+}
+
+bool
+ModelTemplate::Impl::getGenerateCalculatedVariables() const {
+  return generateCalculatedVariables_;
 }
 
 const map<string, shared_ptr<UnitDynamicModel> >&

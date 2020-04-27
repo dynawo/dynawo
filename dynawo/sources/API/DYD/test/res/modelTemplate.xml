@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelTemplate id="ModelTemplate">
+  <dyn:modelTemplate id="ModelTemplate" useAliasing="false" generateCalculatedVariables="false">
     <dyn:unitDynamicModel id="UDM1" name="unitModel1" initName="unitModel1_INIT"/>
     <dyn:unitDynamicModel id="UDM2" name="unitModel2" initName="unitModel2_INIT"/>
     <dyn:connect id1="UDM1" var1="var1" id2="UDM2" var2="var1"/>
