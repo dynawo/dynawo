@@ -135,6 +135,9 @@ ModelNetwork::~ModelNetwork() {
 void
 ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
   Timer timer("ModelNetwork::initFromData");
+  Trace::debug(Trace::NETWORK) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::NETWORK) << "Network initialization" << Trace::endline;
+  Trace::debug(Trace::NETWORK) << "------------------------------" << Trace::endline;
   shared_ptr<NetworkInterface> network = data->getNetwork();
   map<string, shared_ptr<ComponentInterface> > componentsById;
   map<string, shared_ptr<ModelBus> > modelBusById;

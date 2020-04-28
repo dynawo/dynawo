@@ -345,6 +345,14 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
         calculatedBus_[component[*iter]]->setAngle0(itBBS->angle());
     }
   }
+
+  if (!calculatedBus_.empty()) {
+    Trace::debug(Trace::NETWORK) << "------------------------------" << Trace::endline;
+    Trace::debug(Trace::NETWORK) << "Calculated buses from " << getID() << Trace::endline;
+    Trace::debug(Trace::NETWORK) << "------------------------------" << Trace::endline;
+  }
+  for (unsigned int i = 0; i < calculatedBus_.size(); ++i)
+    Trace::debug(Trace::NETWORK) << (*calculatedBus_[i]) << Trace::endline;
 }
 
 void

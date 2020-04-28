@@ -119,12 +119,14 @@ ModelBusContainer::exploreNeighbors() {
   // Erase the last subNetwork which is empty
   subNetworks_.erase(subNetworks_.end() - 1);
 
-  Trace::debug() << DYNLog(NbSubNetwork, numSubNetwork, subNetworks_.size()) << Trace::endline;
-  Trace::debug(Trace::NETWORK) << DYNLog(NbSubNetwork, numSubNetwork, subNetworks_.size()) << Trace::endline;
+  Trace::debug(Trace::NETWORK) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::NETWORK) << "SubNetworks" << Trace::endline;
+  Trace::debug(Trace::NETWORK) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::NETWORK) << DYNLog(NbSubNetwork, subNetworks_.size()) << Trace::endline;
   for (unsigned int i = 0; i < subNetworks_.size(); ++i) {
     Trace::debug(Trace::NETWORK) << DYNLog(SubNetwork, i, subNetworks_[i]->nbBus()) << Trace::endline;
     for (unsigned int j = 0; j < subNetworks_[i]->nbBus(); ++j) {
-      Trace::debug(Trace::NETWORK) << "                " << subNetworks_[i]->bus(j)->id() << Trace::endline;
+      Trace::debug(Trace::NETWORK) << "                " << subNetworks_[i]->bus(j)->id() << " (subNetwork " << i << ")" << Trace::endline;
     }
   }
 }
@@ -792,9 +794,6 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
     map<int, double>::const_iterator iter = irDerivativesValues.begin();
     for (; iter != irDerivativesValues.end(); ++iter) {
       jt.addTerm(iter->first + rowOffset, iter->second);
-#ifdef _DEBUG_
-      Trace::debug(Trace::NETWORK) << id_ << " : IR_DERIVATIVE[" << iter->first << "] = " << iter->second << Trace::endline;
-#endif
     }
 
     // Column for the imaginary part of the node current
@@ -805,9 +804,6 @@ ModelBus::evalJt(SparseMatrix& jt, const double& /*cj*/, const int& rowOffset) {
     iter = iiDerivativesValues.begin();
     for (; iter != iiDerivativesValues.end(); ++iter) {
       jt.addTerm(iter->first + rowOffset, iter->second);
-#ifdef _DEBUG_
-      Trace::debug(Trace::NETWORK) << id_ << " : II_DERIVATIVE[" << iter->first << "] = " << iter->second << Trace::endline;
-#endif
     }
   }
 }

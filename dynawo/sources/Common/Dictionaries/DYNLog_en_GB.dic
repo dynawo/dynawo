@@ -69,7 +69,7 @@ ValidatedModel                =             model Validated: %1%
 PreassembledModelGenerated    =             preassembled model generated. Total No Models: %1%
 InvalidSharedObjects          =             FOLLOWING %1% SHARED OBJECTS ARE NOT VALID:
 //---------------------- NETWORK --------------------------------------
-NbSubNetwork                  =             nbSubNetwork = %1% nbsub = %2%
+NbSubNetwork                  =             nbSubNetwork = %1%
 SubNetwork                    =             subNetwork[%1%] nbBus = %2%
 AddingVoltageLevelToNetwork   =             adding voltage level %1% to the Network
 AddingBusToNetwork            =             adding bus %1% to the Network.
