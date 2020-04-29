@@ -998,6 +998,16 @@ def LineCloseEnough (line_left, line_right):
     if line_left == line_right:
         return IDENTICAL
 
+    xerces_pattern = re.compile(r'.*error while parsing file (?P<path>\/.*?\.[\w:]+) :.*')
+    match_left = re.search(xerces_pattern, line_left)
+    match_right = re.search(xerces_pattern, line_right)
+    if match_left is not None:
+        path = match_left.group('path')
+        line_left = line_left.replace(path, os.path.basename(path))
+    if match_right is not None:
+        path = match_right.group('path')
+        line_right = line_right.replace(path, os.path.basename(path))
+
     # Compare statistics lines
     value_pattern = re.compile(r'.*number of [\w ]*= (?P<value>[0-9]+)[ ()\w]*')
     match_left = re.search(value_pattern, line_left)
