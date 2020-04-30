@@ -33,6 +33,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     GridFormingConverterDispatchableVirtualOscillatorControl.xml
     HVDCStandard.xml
     InfiniteBus.xml
+    InjectorBG.xml
     Line.xml
     LoadAlphaBeta.xml
     LoadOneTransformer.xml
@@ -45,6 +46,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     PhaseShifterP.xml
     SetPoint.xml
     StaticVarCompensator.xml
+    Step.xml
     TapChangerAutomaton.xml
     TapChangerBlockingArea.xml
     UnderVoltageAutomaton.xml
