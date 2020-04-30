@@ -438,6 +438,16 @@ class Model {
   virtual void printEquations() = 0;
 
   /**
+  * @brief Print all parameters values
+  */
+  virtual void printParameterValues() const = 0;
+
+  /**
+  * @brief Print values of parameters set by local initialization
+  */
+  virtual void printLocalInitParametersValues() const = 0;
+
+  /**
    * @brief Get a variable name from its index.
    *
    * This function is intended to be used in debug mode as it allocates a lot of memory

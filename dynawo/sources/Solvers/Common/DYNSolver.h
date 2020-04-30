@@ -247,6 +247,11 @@ class Solver {
   virtual void printEnd() = 0;
 
   /**
+   * @brief Print all parameters values
+   */
+  virtual void printParameterValues() const = 0;
+
+  /**
    * @brief getter for the current value of variables' derivatives
    * @return the current value of variables' derivatives
    */

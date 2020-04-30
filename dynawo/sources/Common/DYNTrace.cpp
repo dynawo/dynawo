@@ -208,6 +208,11 @@ Trace::equations() {
   return "EQUATIONS";
 }
 
+std::string
+Trace::parameters() {
+  return "PARAMETERS";
+}
+
 void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& message) {
   src::severity_logger< SeverityLevel > slg;
 

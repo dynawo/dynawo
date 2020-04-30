@@ -290,6 +290,12 @@ class Trace {
   static std::string variables();
 
   /**
+   * @brief Get parameters identifier
+   * @return parameters identifier
+   */
+  static std::string parameters();
+
+  /**
    * @brief Print end of line in trace.
    *
    * @param os: Trace to add end of line.

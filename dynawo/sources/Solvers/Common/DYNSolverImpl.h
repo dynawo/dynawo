@@ -204,6 +204,11 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   virtual void printEnd() = 0;
 
   /**
+   * @copydoc Solver::printParameterValues()
+   */
+  void printParameterValues() const;
+
+  /**
    * @copydoc Solver::getCurrentY()
    */
   inline const std::vector<double>& getCurrentY() {

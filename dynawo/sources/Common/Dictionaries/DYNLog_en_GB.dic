@@ -35,14 +35,11 @@ AddedRefParToSet              =             modelDescription %1%: Added Referenc
 SubModelFeqFormulaNotExist    =             failed to retrieve equation %2% of submodel %1%
 SubModelGeqFormulaNotExist    =             failed to retrieve root equation %2% of submodel %1%
 //---------------------- PARAMETER -------------------------------------
-ValueInPARFile                =             value read in PAR file for parameter %1%: %2%
-NoValueInPARFile              =             no value read in PAR file for parameter %1%
 ParamSameValue                =             %1% same value as %2%
-ParamNoNeedToSetValueNotExist =             no need to set value for %1% : the parameter does not exist
-ParamNoValueInOriginData      =             no value found for parameter %1% linked with origin %2%
+ParamNoValueFound             =             no value found for parameter %1%
 ParamOppositeValue            =             %1% opposite value of %2%
 ParamUnused                   =             parameter %1% in model %2% is not used
-ParamValueInOrigin            =             setting parameter %1% value %3% (coming from origin %2%)
+ParamValueInOrigin            =             parameter %1% has value %3% (coming from origin %2%)
 ModelMultiGetParam            =             get parameter value in model multi : %1% value: %2% in submodel: %3%
 ModelMultiParamNotFound       =             in model multi get parameter value: Model: %1%  Parameter: %2% not found.
 //---------------------- COMPILER --------------------------------------
