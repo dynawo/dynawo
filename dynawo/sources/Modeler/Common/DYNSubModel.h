@@ -567,6 +567,16 @@ class SubModel {
   void printModel();
 
   /**
+   * @brief Print all parameters values
+   */
+  void printParameterValues() const;
+
+  /**
+   * @brief Print values of parameters set by local initialization
+   */
+  void printLocalInitParametersValues() const;
+
+  /**
    * @brief load parameters from a previous save
    *
    * @param mapParameters map associating name of the model and data saved

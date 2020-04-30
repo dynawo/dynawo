@@ -306,6 +306,13 @@ ModelMulti::printModel() {
 }
 
 void
+ModelMulti::printParameterValues() const {
+  Timer timer("ModelMulti::printParameterValues");
+  for (unsigned int i = 0; i < subModels_.size(); ++i)
+    subModels_[i]->printParameterValues();
+}
+
+void
 ModelMulti::rotateBuffers() {
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->rotateBuffers();
@@ -1094,6 +1101,12 @@ void ModelMulti::printEquations() {
     }
   }
   setIsInitProcess(isInitProcessBefore);
+}
+
+void ModelMulti::printLocalInitParametersValues() const {
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    subModels_[i]->printLocalInitParametersValues();
+  }
 }
 
 std::string ModelMulti::getVariableName(int index) {

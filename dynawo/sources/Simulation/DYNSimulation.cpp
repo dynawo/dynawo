@@ -664,6 +664,10 @@ Simulation::init() {
   // Simulation::initFromData==>Modeler::initSystem==>Modeler::initModelDescription(dyd,data)
   initFromData(data_, dyd_);
   initStructure();
+  if (Trace::logExists(Trace::parameters(), DEBUG)) {
+    model_->printParameterValues();
+    solver_->printParameterValues();
+  }
 
   double t0 = 0;
 
@@ -694,6 +698,9 @@ Simulation::init() {
   // therefore a calculateIC() is always necessary.
   zCurrent_.assign(model_->sizeZ(), 0.);
   calculateIC();
+  if (Trace::logExists(Trace::parameters(), DEBUG)) {
+    model_->printLocalInitParametersValues();
+  }
 
   // Initialize curves
   const std::vector<double>& y = solver_->getCurrentY();

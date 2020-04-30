@@ -186,6 +186,49 @@ Solver::Impl::printSolve() const {
 }
 
 void
+Solver::Impl::printParameterValues() const {
+  if (!parameters_.empty()) {
+    Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
+    Trace::debug(Trace::parameters()) << solverType() << " parameters" << " initial parameters"<< Trace::endline;
+    Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
+  }
+
+  for (std::map<std::string, ParameterSolver>::const_iterator it = parameters_.begin(), itEnd = parameters_.end(); it != itEnd; ++it) {
+    const ParameterSolver& parameter = it->second;
+    if (!parameter.hasValue()) {
+      Trace::debug(Trace::parameters()) << DYNLog(ParamNoValueFound, it->first) << Trace::endline;
+      continue;
+    }
+    switch (parameter.getValueType()) {
+      case VAR_TYPE_BOOL: {
+        const bool value = parameter.getValue<bool>();
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        break;
+      }
+      case VAR_TYPE_INT: {
+        const int value = parameter.getValue<int>();
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        break;
+      }
+      case VAR_TYPE_DOUBLE: {
+        const double& value = parameter.getValue<double>();
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        break;
+      }
+      case VAR_TYPE_STRING: {
+        const string& value = parameter.getValue<string>();
+        Trace::debug(Trace::parameters()) << DYNLog(ParamValueInOrigin, it->first, origin2Str(PAR), value) << Trace::endline;
+        break;
+      }
+      default:
+      {
+        throw DYNError(Error::MODELER, ParameterNoTypeDetected, it->first);
+      }
+    }
+  }
+}
+
+void
 Solver::Impl::resetStats() {
   // Statistics reinitialization
   // -------------------------------
@@ -350,25 +393,21 @@ Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr
         case VAR_TYPE_BOOL: {
           const bool value = parametersSet->getParameter(parName)->getBool();
           setParameterValue(parameter, value);
-          Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(PAR), value) << Trace::endline;
           break;
         }
         case VAR_TYPE_INT: {
           const int value = parametersSet->getParameter(parName)->getInt();
           setParameterValue(parameter, value);
-          Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(PAR), value) << Trace::endline;
           break;
         }
         case VAR_TYPE_DOUBLE: {
           const double& value = parametersSet->getParameter(parName)->getDouble();
           setParameterValue(parameter, value);
-          Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(PAR), value) << Trace::endline;
           break;
         }
         case VAR_TYPE_STRING: {
           const string& value = parametersSet->getParameter(parName)->getString();
           setParameterValue(parameter, value);
-          Trace::debug("PARAMETERS") << DYNLog(ParamValueInOrigin, parName, origin2Str(PAR), value) << Trace::endline;
           break;
         }
         default:
@@ -376,8 +415,6 @@ Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr
           throw DYNError(Error::GENERAL, ParameterNoTypeDetected, parName);
         }
       }
-    } else {
-      Trace::debug("PARAMETERS") << DYNLog(ParamNoValueInOriginData, parName, origin2Str(PAR)) << Trace::endline;
     }
   } else {
     throw DYNError(Error::GENERAL, ParameterNotReadFromOrigin, origin2Str(PAR), parName);

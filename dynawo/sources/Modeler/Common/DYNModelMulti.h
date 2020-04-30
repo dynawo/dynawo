@@ -394,6 +394,16 @@ class ModelMulti : public Model, private boost::noncopyable {
   void printEquations();
 
   /**
+   * @copydoc Model::printParameterValues() const
+   */
+  void printParameterValues() const;
+
+  /**
+   * @copydoc Model::printLocalInitParametersValues() const;
+   */
+  void printLocalInitParametersValues() const;
+
+  /**
    * @copydoc Model::getVariableName()
    */
   std::string getVariableName(int index);
