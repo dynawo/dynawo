@@ -182,9 +182,7 @@ class Trace {
     bool showTimeStamp_;  ///< @b true if the timestamp of the log should be printed
     std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
   };
-  static const char NETWORK[];  ///< Identifier for network log file
-  static const char VARIABLES[];  ///< Identifier for variables log file
-  static const char EQUATIONS[];  ///< Identifier for equations log file
+
   /**
    * @brief Init function.
    *
@@ -272,6 +270,24 @@ class Trace {
    * @return A TraceStream that can be used for stream-like logging.
    */
   static TraceStream error(const std::string& tag = "");
+
+  /**
+   * @brief Get network identifier
+   * @return network identifier
+   */
+  static std::string network();
+
+  /**
+   * @brief Get equations identifier
+   * @return equations identifier
+   */
+  static std::string equations();
+
+  /**
+   * @brief Get variables identifier
+   * @return variables identifier
+   */
+  static std::string variables();
 
   /**
    * @brief Print end of line in trace.
