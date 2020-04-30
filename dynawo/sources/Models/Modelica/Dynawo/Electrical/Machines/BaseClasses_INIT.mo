@@ -95,7 +95,7 @@ algorithm
     XqPPu := MqSat0PPu + (LqPPu + XTfoPu);
     sinTheta0 := u0PuIm -    XqPPu         * i0PuRe * SystemBase.SnRef/SNom - (RaPPu + RTfoPu) * i0PuIm * SystemBase.SnRef/SNom;
     cosTheta0 := u0PuRe - (RaPPu + RTfoPu) * i0PuRe * SystemBase.SnRef/SNom +       XqPPu      * i0PuIm * SystemBase.SnRef/SNom;
-    Theta0 := atan(sinTheta0/cosTheta0);
+    Theta0 := ComplexMath.arg(Complex(cosTheta0, sinTheta0));
 
     // Park's transformations
     Ud0Pu := sin(Theta0) * u0PuRe - cos(Theta0) * u0PuIm;

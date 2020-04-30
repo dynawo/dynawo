@@ -131,10 +131,10 @@ record GeneratorSynchronousParameters "Synchronous machine record: Common parame
     parameter Types.PerUnit XTfPu "Reactance of the generator transformer in p.u (base UBaseHV, SnTfo)";
 
     // Mutual inductances saturation, Shackshaft modelisation
-    parameter Types.PerUnit md = 0.031 "Parameter for direct axis mutual inductance saturation modelling";
-    parameter Types.PerUnit mq = 0.031 "Parameter for quadrature axis mutual inductance saturation modelling";
-    parameter Types.PerUnit nd = 6.93 "Parameter for direct axis mutual inductance saturation modelling";
-    parameter Types.PerUnit nq = 6.93 "Parameter for quadrature axis mutual inductance saturation modelling";
+    parameter Types.PerUnit md "Parameter for direct axis mutual inductance saturation modelling";
+    parameter Types.PerUnit mq "Parameter for quadrature axis mutual inductance saturation modelling";
+    parameter Types.PerUnit nd "Parameter for direct axis mutual inductance saturation modelling";
+    parameter Types.PerUnit nq "Parameter for quadrature axis mutual inductance saturation modelling";
 
   protected
 

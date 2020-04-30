@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -22,6 +22,10 @@
   </set>
   <set id="2">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0.215"/>
+    <par type="DOUBLE" name="generator_mq" value="0.215"/>
+    <par type="DOUBLE" name="generator_nd" value="6.995"/>
+    <par type="DOUBLE" name="generator_nq" value="6.995"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
     <par type="DOUBLE" name="generator_H" value="5.4000000000000004"/>
@@ -68,6 +72,10 @@
   </set>
   <set id="3">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0.084"/>
+    <par type="DOUBLE" name="generator_mq" value="0.084"/>
+    <par type="DOUBLE" name="generator_nd" value="5.57"/>
+    <par type="DOUBLE" name="generator_nq" value="5.57"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
     <par type="DOUBLE" name="generator_H" value="6.2999999999999998"/>
@@ -114,6 +122,10 @@
   </set>
   <set id="4">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0.05"/>
+    <par type="DOUBLE" name="generator_mq" value="0.05"/>
+    <par type="DOUBLE" name="generator_nd" value="9.285"/>
+    <par type="DOUBLE" name="generator_nq" value="9.285"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
     <par type="DOUBLE" name="generator_H" value="5.625"/>
@@ -160,6 +172,10 @@
   </set>
   <set id="5">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0.16"/>
+    <par type="DOUBLE" name="generator_mq" value="0.16"/>
+    <par type="DOUBLE" name="generator_nd" value="5.7"/>
+    <par type="DOUBLE" name="generator_nq" value="5.7"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
     <par type="DOUBLE" name="generator_H" value="4.9750000000000001"/>
@@ -204,6 +220,10 @@
   </set>
   <set id="6">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0"/>
+    <par type="DOUBLE" name="generator_mq" value="0"/>
+    <par type="DOUBLE" name="generator_nd" value="0"/>
+    <par type="DOUBLE" name="generator_nq" value="0"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_DPu" value="0"/>
     <par type="DOUBLE" name="generator_H" value="2.748"/>
