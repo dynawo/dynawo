@@ -15,10 +15,9 @@ within Dynawo.Electrical.Controls.Machines.Governors;
 model GoverProportional "Keep the mechanical power as a constant modulated by the difference between omega and a reference"
   // as a result, the mechanical power will vary with (angular) frequency
 
-  import Modelica.Blocks;
+  import Modelica;
+  import Dynawo;
 
-  import Dynawo.Connectors;
-  import Dynawo.Electrical.SystemBase;
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
@@ -27,47 +26,60 @@ model GoverProportional "Keep the mechanical power as a constant modulated by th
                              LimitPMax "Active power is fixed to its maximum value");
 
   //Input variables
-  Connectors.ImPin omegaPu(value (start = SystemBase.omega0Pu)) "Angular frequency" annotation(
+  Dynawo.Connectors.ImPin omegaPu(value (start = SystemBase.omega0Pu)) "Angular frequency" annotation(
     Placement(visible = true, transformation(origin = {-106, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90), iconTransformation(origin = {-106, -48}, extent = {{-20, -20}, {20, 20}}, rotation = 90)));
-  Connectors.ImPin PmRefPu(value(start = Pm0Pu)) annotation(
+  Dynawo.Connectors.ImPin PmRefPu(value(start = Pm0Pu)) annotation(
     Placement(visible = true, transformation(origin = {-106, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-106, 60}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   //Output variables
-  Connectors.ImPin PmPu(value (start = Pm0Pu)) "Mechanical power" annotation(
-    Placement(visible = true, transformation(origin = {72, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {72, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
+  Dynawo.Connectors.ImPin PmPu(value (start = Pm0Pu)) "Mechanical power in p.u (base PNom)" annotation(
+    Placement(visible = true, transformation(origin = {130, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {130, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
 
   parameter Types.PerUnit KGover  "Mechanical power sensitivity to frequency";
-  parameter Types.ActivePower PMin  "Minimum mechanical power";
-  parameter Types.ActivePower PMax  "Maximum mechanical power";   // may be negative (for power plants which may be pumping)
-  parameter Types.ActivePower PNom  "Nominal active power";
+  parameter Types.ActivePower PMin  "Minimum mechanical power in MW";
+  parameter Types.ActivePower PMax  "Maximum mechanical power in MW";   // may be negative (for power plants which may be pumping)
+  parameter Types.ActivePower PNom  "Nominal active power in MW";
 
-  Blocks.Math.Gain gain(k=KGover) annotation(
-    Placement(visible = true, transformation(origin = {-60, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Math.Add PmRawPu annotation(
-    Placement(visible = true, transformation(origin = {-16, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Math.Feedback feedback annotation(
+  Modelica.Blocks.Math.Gain gain(k=KGover) annotation(
+    Placement(visible = true, transformation(origin = {-68, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Add PmRawPu annotation(
+    Placement(visible = true, transformation(origin = {-24, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Feedback feedback annotation(
     Placement(visible = true, transformation(origin = {-106, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Blocks.Sources.Constant omegaRefPu(k = SystemBase.omegaRef0Pu) "Angular reference frequency" annotation(
+  Modelica.Blocks.Sources.Constant omegaRefPu(k = SystemBase.omegaRef0Pu) "Angular reference frequency" annotation(
     Placement(visible = true, transformation(origin = {-154, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-154, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Blocks.Nonlinear.Limiter limiter(limitsAtInit = true,uMax=PMaxPu, uMin=PMinPu) annotation(
-    Placement(visible = true, transformation(origin = {28, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-
+  Modelica.Blocks.Nonlinear.Limiter limiter(limitsAtInit = true,uMax=PMaxPu, uMin=PMinPu) annotation(
+    Placement(visible = true, transformation(origin = {14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Logical.Switch switch annotation(
+    Placement(visible = true, transformation(origin = {78, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant PmCst(k = Pm0Pu)  annotation(
+    Placement(visible = true, transformation(origin = {14, -66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.BooleanConstant activeFrequencyRegulation(k = ActiveFrequencyRegulation) annotation(
+    Placement(visible = true, transformation(origin = {14, -34}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 protected
-    parameter Types.ActivePowerPu PMinPu = PMin/PNom "Minimum mechanical power Pu";
-    parameter Types.ActivePowerPu PMaxPu = PMax/PNom "Maximum mechanical power Pu";
-    parameter Types.ActivePowerPu Pm0Pu  "Initial mechanical power";
+  parameter Types.ActivePowerPu Pm0Pu "Initial mechanical power in p.u (base PNom)";
+  final parameter Types.ActivePowerPu PMinPu = PMin/PNom "Minimum mechanical power in p.u (base PNom)";
+  final parameter Types.ActivePowerPu PMaxPu = PMax/PNom "Maximum mechanical power in p.u (base PNom)";
+  final parameter Boolean ActiveFrequencyRegulation= if Pm0Pu<PMin/PNom then false else true "Boolean indicating whether the group participates to primary frequency control or not";
 
-    status state (start = status.Standard);
+  status state (start = status.Standard);
+
 equation
-  connect(PmRawPu.u1, PmRefPu.value) annotation(
-    Line(points = {{-28, 6}, {-38, 6}, {-38, 60}, {-106, 60}}, color = {0, 0, 127}));
-  connect(limiter.y, PmPu.value) annotation(
-    Line(points = {{40, 0}, {64, 0}, {64, 0}, {72, 0}}, color = {0, 0, 127}));
+  connect(activeFrequencyRegulation.y, switch.u2) annotation(
+    Line(points = {{25, -34}, {41.5, -34}, {41.5, 0}, {66, 0}}, color = {255, 0, 255}));
+  connect(PmCst.y, switch.u3) annotation(
+    Line(points = {{25, -66}, {52, -66}, {52, -8}, {66, -8}}, color = {0, 0, 127}));
+  connect(limiter.y, switch.u1) annotation(
+    Line(points = {{26, 0}, {32, 0}, {32, 8}, {66, 8}, {66, 8}}, color = {0, 0, 127}));
+  connect(switch.y, PmPu.value) annotation(
+    Line(points = {{90, 0}, {118, 0}, {118, 0}, {130, 0}}, color = {0, 0, 127}));
   connect(PmRawPu.y, limiter.u) annotation(
-    Line(points = {{-4, 0}, {14, 0}, {14, 0}, {16, 0}}, color = {0, 0, 127}));
+    Line(points = {{-13, 0}, {2, 0}}, color = {0, 0, 127}));
   connect(gain.y, PmRawPu.u2) annotation(
-    Line(points = {{-48, 0}, {-40, 0}, {-40, -6}, {-28, -6}, {-28, -6}}, color = {0, 0, 127}));
+    Line(points = {{-57, 0}, {-52, 0}, {-52, 0}, {-49, 0}, {-49, -6}, {-35, -6}, {-35, -6}, {-37, -6}, {-37, -6}}, color = {0, 0, 127}));
+  connect(PmRawPu.u1, PmRefPu.value) annotation(
+    Line(points = {{-36, 6}, {-46, 6}, {-46, 60}, {-106, 60}}, color = {0, 0, 127}));
   connect(feedback.y, gain.u) annotation(
-    Line(points = {{-96, 0}, {-72, 0}, {-72, 0}, {-72, 0}}, color = {0, 0, 127}));
+    Line(points = {{-96, 0}, {-80, 0}}, color = {0, 0, 127}));
   connect(omegaPu.value, feedback.u2) annotation(
     Line(points = {{-106, -48}, {-106, -48}, {-106, -8}, {-106, -8}}, color = {0, 0, 127}));
   connect(omegaRefPu.y, feedback.u1) annotation(
