@@ -119,14 +119,14 @@ ModelBusContainer::exploreNeighbors() {
   // Erase the last subNetwork which is empty
   subNetworks_.erase(subNetworks_.end() - 1);
 
-  Trace::debug(Trace::NETWORK) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::NETWORK) << "SubNetworks" << Trace::endline;
-  Trace::debug(Trace::NETWORK) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::NETWORK) << DYNLog(NbSubNetwork, subNetworks_.size()) << Trace::endline;
+  Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::network()) << "SubNetworks" << Trace::endline;
+  Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::network()) << DYNLog(NbSubNetwork, subNetworks_.size()) << Trace::endline;
   for (unsigned int i = 0; i < subNetworks_.size(); ++i) {
-    Trace::debug(Trace::NETWORK) << DYNLog(SubNetwork, i, subNetworks_[i]->nbBus()) << Trace::endline;
+    Trace::debug(Trace::network()) << DYNLog(SubNetwork, i, subNetworks_[i]->nbBus()) << Trace::endline;
     for (unsigned int j = 0; j < subNetworks_[i]->nbBus(); ++j) {
-      Trace::debug(Trace::NETWORK) << "                " << subNetworks_[i]->bus(j)->id() << " (subNetwork " << i << ")" << Trace::endline;
+      Trace::debug(Trace::network()) << "                " << subNetworks_[i]->bus(j)->id() << " (subNetwork " << i << ")" << Trace::endline;
     }
   }
 }

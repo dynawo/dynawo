@@ -61,10 +61,6 @@ namespace keywords = boost::log::keywords;
 
 namespace DYN {
 
-const char Trace::NETWORK[] = "NETWORK";
-const char Trace::VARIABLES[] = "VARIABLES";
-const char Trace::EQUATIONS[] = "EQUATIONS";
-
 typedef sinks::synchronous_sink< sinks::text_ostream_backend > text_sink;  ///< define text sink
 typedef sinks::synchronous_sink< sinks::text_file_backend > file_sink;  ///< define file sink
 
@@ -195,6 +191,21 @@ Trace::warn(const std::string& tag) {
 TraceStream
 Trace::error(const std::string& tag) {
   return TraceStream(ERROR, tag);
+}
+
+std::string
+Trace::network() {
+  return "NETWORK";
+}
+
+std::string
+Trace::variables() {
+  return "VARIABLES";
+}
+
+std::string
+Trace::equations() {
+  return "EQUATIONS";
 }
 
 void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& message) {

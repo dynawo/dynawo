@@ -665,13 +665,13 @@ Simulation::init() {
 #ifdef _DEBUG_
   printDebugInfo();
 #endif
-  if (Trace::logExists(Trace::VARIABLES, DEBUG))
+  if (Trace::logExists(Trace::variables(), DEBUG))
     model_->printVariableNames();
 
   model_->setTimeline(timeline_);
   model_->setConstraints(constraintsCollection_);
 
-  if (Trace::logExists(Trace::EQUATIONS, DEBUG)) {
+  if (Trace::logExists(Trace::equations(), DEBUG)) {
     model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
     model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
     model_->printEquations();

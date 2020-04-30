@@ -347,12 +347,12 @@ VoltageLevelInterfaceIIDM::calculateBusTopology() {
   }
 
   if (!calculatedBus_.empty()) {
-    Trace::debug(Trace::NETWORK) << "------------------------------" << Trace::endline;
-    Trace::debug(Trace::NETWORK) << "Calculated buses from " << getID() << Trace::endline;
-    Trace::debug(Trace::NETWORK) << "------------------------------" << Trace::endline;
+    Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
+    Trace::debug(Trace::network()) << "Calculated buses from " << getID() << Trace::endline;
+    Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
   }
   for (unsigned int i = 0; i < calculatedBus_.size(); ++i)
-    Trace::debug(Trace::NETWORK) << (*calculatedBus_[i]) << Trace::endline;
+    Trace::debug(Trace::network()) << (*calculatedBus_[i]) << Trace::endline;
 }
 
 void
