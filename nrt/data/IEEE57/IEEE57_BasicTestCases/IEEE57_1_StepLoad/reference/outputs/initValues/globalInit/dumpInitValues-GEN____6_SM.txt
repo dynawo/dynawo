@@ -35,20 +35,22 @@ governor_PmRawPu_u2                               : y =       0.000000 yp =     
 governor_PmRawPu_y                                : y =       0.000000 yp =       0.000000
 governor_feedback_y                               : y =       0.000000 yp =       0.000000
 governor_limiter_y                                : y =       0.000000 yp =       0.000000
+governor_switch_y                                 : y =       0.000000 yp =       0.000000
 voltageRegulator_EfdPu                            : y =       0.982341 yp =       0.000000
 voltageRegulator_UsPu                             : y =       0.980068 yp =       0.000000
 voltageRegulator_feedback_y                       : y =       0.049117 yp =       0.000000
 voltageRegulator_gain_y                           : y =       0.982341 yp =       0.000000
-generator_PmPu_value                              : alias of governor_limiter_y
+generator_PmPu_value                              : alias of governor_switch_y
 generator_UStatorPu_value                         : alias of voltageRegulator_UsPu
 generator_efdPu_value                             : alias of voltageRegulator_EfdPu
-governor_PmPu_value                               : alias of governor_limiter_y
+governor_PmPu_value                               : alias of governor_switch_y
 governor_feedback_u2                              : alias of generator_omegaPu_value
 governor_gain_u                                   : alias of governor_feedback_y
 governor_gain_y                                   : alias of governor_PmRawPu_u2
 governor_limiter_simplifiedExpr                   : alias of governor_PmRawPu_y
 governor_limiter_u                                : alias of governor_PmRawPu_y
 governor_omegaPu_value                            : alias of generator_omegaPu_value
+governor_switch_u1                                : alias of governor_limiter_y
 voltageRegulator_EfdPuPin_value                   : alias of voltageRegulator_EfdPu
 voltageRegulator_feedback_u2                      : alias of voltageRegulator_UsPu
 voltageRegulator_gain_u                           : alias of voltageRegulator_feedback_y
@@ -67,10 +69,12 @@ generator_thetaInternal_value                     : y =       0.000030
 voltageRegulator_feedback_u1                      : y =       1.029185
 Pm_setPoint_value                                 : y =       0.000000
 URef_setPoint_value                               : y =       1.029185
+governor_PmCst_y                                  : y =       0.000000
 governor_PmRawPu_u1                               : y =       0.000000
 governor_PmRefPu_value                            : y =       0.000000
 governor_feedback_u1                              : y =       1.000000
 governor_omegaRefPu_y                             : y =       1.000000
+governor_switch_u3                                : y =       0.000000
 voltageRegulator_UsRefPu                          : y =       1.029185
 voltageRegulator_limUsRef_simplifiedExpr          : y =       1.029185
 voltageRegulator_limUsRef_u                       : y =       1.029185
@@ -90,6 +94,8 @@ voltageRegulator_limitationUsRefMax               : z =      -1.000000
 voltageRegulator_limitationUsRefMin               : z =      -1.000000
 voltageRegulator_limiterWithLag_initSaturatedMax  : z =      -1.000000
 voltageRegulator_limiterWithLag_initSaturatedMin  : z =      -1.000000
+governor_activeFrequencyRegulation_y              : z =       1.000000
+governor_switch_u2                                : z =       1.000000
 generator_state                                   : z =       2.000000
 governor_state                                    : z =       2.000000
  ====== PARAMETERS VALUES ======
@@ -176,6 +182,7 @@ governor_PMin                                      =       0.000000
 governor_PMinPu                                    =       0.000000
 governor_PNom                                      =    1008.000000
 governor_Pm0Pu                                     =       0.000000
+governor_PmCst_k                                   =       0.000000
 governor_PmRawPu_k1                                =       1.000000
 governor_PmRawPu_k2                                =       1.000000
 governor_gain_k                                    =       5.000000
@@ -206,6 +213,8 @@ voltageRegulator_limiterWithLag_u0                 =       0.982116
 voltageRegulator_limiterWithLag_y0                 =       0.982116
 voltageRegulator_tEfdMaxReached0                   =   1.000000e+60
 voltageRegulator_tEfdMinReached0                   =   1.000000e+60
+governor_ActiveFrequencyRegulation                 =       1.000000
+governor_activeFrequencyRegulation_k               =       1.000000
 governor_limiter_limitsAtInit                      =       1.000000
 governor_limiter_strict                            =      -1.000000
 voltageRegulator_limUsRef_limitsAtInit             =       1.000000

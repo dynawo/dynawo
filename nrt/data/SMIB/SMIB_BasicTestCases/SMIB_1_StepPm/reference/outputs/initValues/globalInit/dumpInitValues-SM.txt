@@ -39,16 +39,17 @@ gover_PmRawPu_u2                                  : y =      -0.000000 yp =     
 gover_PmRawPu_y                                   : y =       0.903000 yp =       0.000000
 gover_feedback_y                                  : y =      -0.000000 yp =       0.000000
 gover_limiter_y                                   : y =       0.903000 yp =       0.000000
+gover_switch_y                                    : y =       0.903000 yp =       0.000000
 Pm_step_value                                     : alias of gover_PmRawPu_u1
 avr_EfdPuPin_value                                : alias of avr_EfdPu
 avr_feedback_u2                                   : alias of avr_UsPu
 avr_gain_u                                        : alias of avr_feedback_y
 avr_limiterWithLag_u                              : alias of avr_gain_y
 avr_limiterWithLag_y                              : alias of avr_EfdPu
-gen_PmPu_value                                    : alias of gover_limiter_y
+gen_PmPu_value                                    : alias of gover_switch_y
 gen_UStatorPu_value                               : alias of avr_UsPu
 gen_efdPu_value                                   : alias of avr_EfdPu
-gover_PmPu_value                                  : alias of gover_limiter_y
+gover_PmPu_value                                  : alias of gover_switch_y
 gover_PmRefPu_value                               : alias of gover_PmRawPu_u1
 gover_feedback_u2                                 : alias of gen_omegaPu_value
 gover_gain_u                                      : alias of gover_feedback_y
@@ -56,6 +57,7 @@ gover_gain_y                                      : alias of gover_PmRawPu_u2
 gover_limiter_simplifiedExpr                      : alias of gover_PmRawPu_y
 gover_limiter_u                                   : alias of gover_PmRawPu_y
 gover_omegaPu_value                               : alias of gen_omegaPu_value
+gover_switch_u1                                   : alias of gover_limiter_y
  ====== INIT CALCULATED VARIABLES VALUES ======
 avr_feedback_u1                                   : y =       1.121037
 gen_IRotorPu_value                                : y =       2.420683
@@ -73,8 +75,10 @@ avr_limUsRef_simplifiedExpr                       : y =       1.121037
 avr_limUsRef_u                                    : y =       1.121037
 avr_limUsRef_y                                    : y =       1.121037
 gen_omegaRefPu_value                              : y =       1.000000
+gover_PmCst_y                                     : y =       0.903000
 gover_feedback_u1                                 : y =       1.000000
 gover_omegaRefPu_y                                : y =       1.000000
+gover_switch_u3                                   : y =       0.903000
 omegaRef_setPoint_value                           : y =       1.000000
  ====== INIT DISCRETE VARIABLES VALUES ======
 avr_limiterWithLag_tUMaxReached                   : z =   1.000000e+60
@@ -91,6 +95,8 @@ gen_running_value                                 : z =       1.000000
 gen_switchOffSignal1_value                        : z =      -1.000000
 gen_switchOffSignal2_value                        : z =      -1.000000
 gen_switchOffSignal3_value                        : z =      -1.000000
+gover_activeFrequencyRegulation_y                 : z =       1.000000
+gover_switch_u2                                   : z =       1.000000
 gen_state                                         : z =       2.000000
 gover_state                                       : z =       1.000000
  ====== PARAMETERS VALUES ======
@@ -203,6 +209,7 @@ gover_PMin                                         =       0.000000
 gover_PMinPu                                       =       0.000000
 gover_PNom                                         =    2200.000000
 gover_Pm0Pu                                        =       0.903000
+gover_PmCst_k                                      =       0.903000
 gover_PmRawPu_k1                                   =       1.000000
 gover_PmRawPu_k2                                   =       1.000000
 gover_gain_k                                       =       5.000000
@@ -212,6 +219,8 @@ gover_omegaRefPu_k                                 =       1.000000
 omegaRef_Value0                                    =       1.000000
 avr_limUsRef_limitsAtInit                          =       1.000000
 avr_limUsRef_strict                                =      -1.000000
+gover_ActiveFrequencyRegulation                    =       1.000000
+gover_activeFrequencyRegulation_k                  =       1.000000
 gover_limiter_limitsAtInit                         =       1.000000
 gover_limiter_strict                               =      -1.000000
 avr_limUsRef_homotopyType                          =              2

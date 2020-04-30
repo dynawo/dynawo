@@ -1,263 +1,259 @@
-2020-03-11 09:33:06 | DEBUG |  ============================================================ 
-2020-03-11 09:33:06 | DEBUG | DYNAWO VERSION  :     1.0.1
-2020-03-11 09:33:06 | DEBUG | DYNAWO REVISION :  618_SkipEvalF-6f8bd37d
-2020-03-11 09:33:06 | DEBUG |  ============================================================ 
-2020-03-11 09:33:06 | DEBUG | connecting DisconnectLine_event_state1 with NETWORK__BEAV___6-CLIN___8-1_AC_state
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omega_grp_3 with GEN___12_SM_generator_omegaPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omegaRef_grp_3 with GEN___12_SM_generator_omegaRefPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_running_grp_3 with GEN___12_SM_generator_running
-2020-03-11 09:33:06 | DEBUG | connecting GEN___12_SM_generator_switchOffSignal1 with NETWORK__GLEN__12_TN_switchOff
-2020-03-11 09:33:06 | DEBUG | connecting GEN___12_SM_generator_terminal with NETWORK__GLEN__12_TN_ACPIN
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omega_grp_2 with GEN____1_SM_generator_omegaPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omegaRef_grp_2 with GEN____1_SM_generator_omegaRefPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_running_grp_2 with GEN____1_SM_generator_running
-2020-03-11 09:33:06 | DEBUG | connecting GEN____1_SM_generator_switchOffSignal1 with NETWORK__KANA___1_TN_switchOff
-2020-03-11 09:33:06 | DEBUG | connecting GEN____1_SM_generator_terminal with NETWORK__KANA___1_TN_ACPIN
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omega_grp_6 with GEN____2_SM_generator_omegaPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omegaRef_grp_6 with GEN____2_SM_generator_omegaRefPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_running_grp_6 with GEN____2_SM_generator_running
-2020-03-11 09:33:06 | DEBUG | connecting GEN____2_SM_generator_switchOffSignal1 with NETWORK__TURN___2_TN_switchOff
-2020-03-11 09:33:06 | DEBUG | connecting GEN____2_SM_generator_terminal with NETWORK__TURN___2_TN_ACPIN
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omega_grp_4 with GEN____3_SM_generator_omegaPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omegaRef_grp_4 with GEN____3_SM_generator_omegaRefPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_running_grp_4 with GEN____3_SM_generator_running
-2020-03-11 09:33:06 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal1 with NETWORK__LOGA___3_TN_switchOff
-2020-03-11 09:33:06 | DEBUG | connecting GEN____3_SM_generator_terminal with NETWORK__LOGA___3_TN_ACPIN
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omega_grp_0 with GEN____6_SM_generator_omegaPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omegaRef_grp_0 with GEN____6_SM_generator_omegaRefPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_running_grp_0 with GEN____6_SM_generator_running
-2020-03-11 09:33:06 | DEBUG | connecting GEN____6_SM_generator_switchOffSignal1 with NETWORK__BEAV___6_TN_switchOff
-2020-03-11 09:33:06 | DEBUG | connecting GEN____6_SM_generator_terminal with NETWORK__BEAV___6_TN_ACPIN
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omega_grp_5 with GEN____8_SM_generator_omegaPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omegaRef_grp_5 with GEN____8_SM_generator_omegaRefPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_running_grp_5 with GEN____8_SM_generator_running
-2020-03-11 09:33:06 | DEBUG | connecting GEN____8_SM_generator_switchOffSignal1 with NETWORK__CLIN___8_TN_switchOff
-2020-03-11 09:33:06 | DEBUG | connecting GEN____8_SM_generator_terminal with NETWORK__CLIN___8_TN_ACPIN
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omega_grp_1 with GEN____9_SM_generator_omegaPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_omegaRef_grp_1 with GEN____9_SM_generator_omegaRefPu
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_running_grp_1 with GEN____9_SM_generator_running
-2020-03-11 09:33:06 | DEBUG | connecting GEN____9_SM_generator_switchOffSignal1 with NETWORK__SALT___9_TN_switchOff
-2020-03-11 09:33:06 | DEBUG | connecting GEN____9_SM_generator_terminal with NETWORK__SALT___9_TN_ACPIN
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_numcc_node_3 with NETWORK__GLEN__12_TN_numcc
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_numcc_node_2 with NETWORK__KANA___1_TN_numcc
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_numcc_node_6 with NETWORK__TURN___2_TN_numcc
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_numcc_node_4 with NETWORK__LOGA___3_TN_numcc
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_numcc_node_0 with NETWORK__BEAV___6_TN_numcc
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_numcc_node_5 with NETWORK__CLIN___8_TN_numcc
-2020-03-11 09:33:06 | DEBUG | connecting OMEGA_REF_numcc_node_1 with NETWORK__SALT___9_TN_numcc
-2020-03-11 09:33:06 | DEBUG | nbSubNetwork = 1 nbsub = 1
-2020-03-11 09:33:06 | DEBUG | subNetwork[0] nbBus = 57
-2020-03-11 09:33:06 | DEBUG | keep SubNetworks num : 0
-2020-03-11 09:33:06 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2020-03-11 09:33:06 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2020-03-11 09:33:06 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2020-03-11 09:33:06 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2020-03-11 09:33:06 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2020-03-11 09:33:06 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2020-03-11 09:33:06 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2020-03-11 09:33:06 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2020-03-11 09:33:06 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2020-03-11 09:33:06 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2020-03-11 09:33:06 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2020-03-11 09:33:06 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2020-03-11 09:33:06 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2020-03-11 09:33:06 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2020-03-11 09:33:06 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2020-03-11 09:33:06 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2020-03-11 09:33:06 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2020-03-11 09:33:06 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2020-03-11 09:33:06 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2020-03-11 09:33:06 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2020-03-11 09:33:06 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2020-03-11 09:33:06 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2020-03-11 09:33:06 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2020-03-11 09:33:06 | DEBUG | calculate initial condition of the DAE
-2020-03-11 09:33:06 | DEBUG | initial condition iteration 0
-2020-03-11 09:33:06 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-03-11 09:33:06 | DEBUG | end of calculate initial condition of the DAE
-2020-03-11 09:33:06 | INFO | adding curve : Id: NETWORK; curve: _KANA___1_TN_Upu_value found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: NETWORK; curve: _TURN___2_TN_Upu_value found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: NETWORK; curve: _LOGA___3_TN_Upu_value found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: NETWORK; curve: _BEAV___6_TN_Upu_value found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: NETWORK; curve: _CLIN___8_TN_Upu_value found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: NETWORK; curve: _SALT___9_TN_Upu_value found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: NETWORK; curve: _GLEN__12_TN_Upu_value found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____9_SM; curve: generator_PGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN___12_SM; curve: generator_PGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____9_SM; curve: generator_QGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN___12_SM; curve: generator_QGen found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____9_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN___12_SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____1_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____2_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____3_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____6_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____8_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN____9_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: GEN___12_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-03-11 09:33:06 | INFO | adding curve : Id: NETWORK; curve: _BEAV___6-BUS____7-1_AC_P2_value found. (exact name)
-2020-03-11 09:33:06 | INFO | adding curve : Id: NETWORK; curve: _BUS____7-CLIN___8-1_AC_P1_value found. (exact name)
-2020-03-11 09:33:06 | DEBUG | -----------------------------------------------------------------------
-2020-03-11 09:33:06 | DEBUG | number of continuous variables : 432 (display limited to 4 variables)
-2020-03-11 09:33:06 | DEBUG | number of discrete variables : 563
-2020-03-11 09:33:06 | DEBUG | -----------------------------------------------------------------------
-2020-03-11 09:33:06 | DEBUG |     t              y1            y2            y3            y4      | nst   nni   nje  h
-2020-03-11 09:33:06 | DEBUG | -----------------------------------------------------------------------
-2020-03-11 09:33:06 | DEBUG |        0.000  9.687819e-01 -1.477580e-01 -5.059122e-04 -9.316371e-03 |   0    0   0 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-03-11 09:33:06 | DEBUG | state of Line _BEAV___6-CLIN___8-1_AC change from 2 to 4
-2020-03-11 09:33:06 | DEBUG | nbSubNetwork = 1 nbsub = 1
-2020-03-11 09:33:06 | DEBUG | subNetwork[0] nbBus = 57
-2020-03-11 09:33:06 | DEBUG | keep SubNetworks num : 0
-2020-03-11 09:33:06 | DEBUG | Algebraic mode (with J recalculation) change for model NETWORK
-2020-03-11 09:33:06 | DEBUG |        1.000  9.687732e-01 -1.478032e-01 -1.240101e-03 -9.383560e-03 |   1    1   1 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG | calculation of the new starting point of the simulation.
-2020-03-11 09:33:06 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-03-11 09:33:06 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-03-11 09:33:06 | DEBUG |        1.000  9.647429e-01 -1.568196e-01  2.515470e-01 -1.198734e-01 |   1    1   1 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-03-11 09:33:06 | DEBUG | Algebraic mode change for model GEN____9_SM
-2020-03-11 09:33:06 | DEBUG |        2.000  9.605266e-01 -1.740248e-01 -1.020882e-02 -1.459304e-01 |   2    4   2 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG | calculation of the new starting point of the simulation.
-2020-03-11 09:33:06 | DEBUG |        2.000  9.605264e-01 -1.740248e-01 -1.020914e-02 -1.459282e-01 |   2    4   2 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-03-11 09:33:06 | DEBUG | Algebraic mode change for model GEN____9_SM
-2020-03-11 09:33:06 | DEBUG |        3.000  9.605667e-01 -1.759947e-01 -3.490881e-02 -1.555564e-01 |   3    5   3 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG | calculation of the new starting point of the simulation.
-2020-03-11 09:33:06 | DEBUG |        3.000  9.605639e-01 -1.759966e-01 -3.493571e-02 -1.555328e-01 |   3    5   3 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-03-11 09:33:06 | DEBUG |        4.000  9.608543e-01 -1.758349e-01 -2.931161e-02 -1.587455e-01 |   4    6   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |        5.000  9.609354e-01 -1.758375e-01 -2.775118e-02 -1.600651e-01 |   5    7   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |        6.000  9.609470e-01 -1.759007e-01 -2.786106e-02 -1.606656e-01 |   6    8   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |        7.000  9.609475e-01 -1.759405e-01 -2.799807e-02 -1.609462e-01 |   7    9   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |        8.000  9.609467e-01 -1.759607e-01 -2.804354e-02 -1.610820e-01 |   8   10   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |        9.000  9.609457e-01 -1.759717e-01 -2.806048e-02 -1.611512e-01 |   9   11   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       10.000  9.609449e-01 -1.759779e-01 -2.806980e-02 -1.611880e-01 |  10   12   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       11.000  9.609443e-01 -1.759815e-01 -2.807536e-02 -1.612084e-01 |  11   13   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       12.000  9.609439e-01 -1.759836e-01 -2.807858e-02 -1.612199e-01 |  12   14   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       13.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  13   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       14.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  14   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       15.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  15   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       16.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  16   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       17.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  17   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       18.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  18   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       19.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  19   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       20.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  20   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       21.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  21   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       22.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  22   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       23.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  23   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       24.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  24   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       25.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  25   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       26.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  26   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       27.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  27   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       28.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  28   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       29.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  29   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG |       30.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  30   15   4 1.000000e+00 
-2020-03-11 09:33:06 | DEBUG | 
-2020-03-11 09:33:06 | DEBUG | execution Stats :
-2020-03-11 09:33:06 | DEBUG | 
-2020-03-11 09:33:06 | DEBUG | number of iterations                     = 30
-2020-03-11 09:33:06 | DEBUG | number of Residual evaluations           = 29
-2020-03-11 09:33:06 | DEBUG | number of Jacobian evaluations           = 4
-2020-03-11 09:33:06 | DEBUG | number of Nonlinear iterations           = 15
-2020-03-11 09:33:06 | DEBUG | number of error test failures            = 0
-2020-03-11 09:33:06 | DEBUG | number of Nonlinear convergence failures = 0
-2020-03-11 09:33:06 | DEBUG | number of root functions evaluations     = 45
-2020-03-11 09:33:06 | DEBUG | end of job 'IEEE57 - Disconnect line 6-8 - Simplified solver'
+2020-04-30 14:25:40 | DEBUG |  ============================================================ 
+2020-04-30 14:25:40 | DEBUG | DYNAWO VERSION  :     1.1.0
+2020-04-30 14:25:40 | DEBUG | DYNAWO REVISION :  832_Update_Gover-a63e270d
+2020-04-30 14:25:40 | DEBUG |  ============================================================ 
+2020-04-30 14:25:40 | DEBUG | connecting DisconnectLine_event_state1 with NETWORK__BEAV___6-CLIN___8-1_AC_state
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omega_grp_3 with GEN___12_SM_generator_omegaPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omegaRef_grp_3 with GEN___12_SM_generator_omegaRefPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_running_grp_3 with GEN___12_SM_generator_running
+2020-04-30 14:25:40 | DEBUG | connecting GEN___12_SM_generator_switchOffSignal1 with NETWORK__GLEN__12_TN_switchOff
+2020-04-30 14:25:40 | DEBUG | connecting GEN___12_SM_generator_terminal with NETWORK__GLEN__12_TN_ACPIN
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omega_grp_2 with GEN____1_SM_generator_omegaPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omegaRef_grp_2 with GEN____1_SM_generator_omegaRefPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_running_grp_2 with GEN____1_SM_generator_running
+2020-04-30 14:25:40 | DEBUG | connecting GEN____1_SM_generator_switchOffSignal1 with NETWORK__KANA___1_TN_switchOff
+2020-04-30 14:25:40 | DEBUG | connecting GEN____1_SM_generator_terminal with NETWORK__KANA___1_TN_ACPIN
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omega_grp_6 with GEN____2_SM_generator_omegaPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omegaRef_grp_6 with GEN____2_SM_generator_omegaRefPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_running_grp_6 with GEN____2_SM_generator_running
+2020-04-30 14:25:40 | DEBUG | connecting GEN____2_SM_generator_switchOffSignal1 with NETWORK__TURN___2_TN_switchOff
+2020-04-30 14:25:40 | DEBUG | connecting GEN____2_SM_generator_terminal with NETWORK__TURN___2_TN_ACPIN
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omega_grp_4 with GEN____3_SM_generator_omegaPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omegaRef_grp_4 with GEN____3_SM_generator_omegaRefPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_running_grp_4 with GEN____3_SM_generator_running
+2020-04-30 14:25:40 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal1 with NETWORK__LOGA___3_TN_switchOff
+2020-04-30 14:25:40 | DEBUG | connecting GEN____3_SM_generator_terminal with NETWORK__LOGA___3_TN_ACPIN
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omega_grp_0 with GEN____6_SM_generator_omegaPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omegaRef_grp_0 with GEN____6_SM_generator_omegaRefPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_running_grp_0 with GEN____6_SM_generator_running
+2020-04-30 14:25:40 | DEBUG | connecting GEN____6_SM_generator_switchOffSignal1 with NETWORK__BEAV___6_TN_switchOff
+2020-04-30 14:25:40 | DEBUG | connecting GEN____6_SM_generator_terminal with NETWORK__BEAV___6_TN_ACPIN
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omega_grp_5 with GEN____8_SM_generator_omegaPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omegaRef_grp_5 with GEN____8_SM_generator_omegaRefPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_running_grp_5 with GEN____8_SM_generator_running
+2020-04-30 14:25:40 | DEBUG | connecting GEN____8_SM_generator_switchOffSignal1 with NETWORK__CLIN___8_TN_switchOff
+2020-04-30 14:25:40 | DEBUG | connecting GEN____8_SM_generator_terminal with NETWORK__CLIN___8_TN_ACPIN
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omega_grp_1 with GEN____9_SM_generator_omegaPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_omegaRef_grp_1 with GEN____9_SM_generator_omegaRefPu
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_running_grp_1 with GEN____9_SM_generator_running
+2020-04-30 14:25:40 | DEBUG | connecting GEN____9_SM_generator_switchOffSignal1 with NETWORK__SALT___9_TN_switchOff
+2020-04-30 14:25:40 | DEBUG | connecting GEN____9_SM_generator_terminal with NETWORK__SALT___9_TN_ACPIN
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_numcc_node_3 with NETWORK__GLEN__12_TN_numcc
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_numcc_node_2 with NETWORK__KANA___1_TN_numcc
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_numcc_node_6 with NETWORK__TURN___2_TN_numcc
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_numcc_node_4 with NETWORK__LOGA___3_TN_numcc
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_numcc_node_0 with NETWORK__BEAV___6_TN_numcc
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_numcc_node_5 with NETWORK__CLIN___8_TN_numcc
+2020-04-30 14:25:40 | DEBUG | connecting OMEGA_REF_numcc_node_1 with NETWORK__SALT___9_TN_numcc
+2020-04-30 14:25:40 | DEBUG | keep SubNetworks num : 0
+2020-04-30 14:25:40 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2020-04-30 14:25:40 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2020-04-30 14:25:40 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2020-04-30 14:25:40 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2020-04-30 14:25:40 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2020-04-30 14:25:40 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2020-04-30 14:25:40 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2020-04-30 14:25:40 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2020-04-30 14:25:40 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2020-04-30 14:25:40 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2020-04-30 14:25:40 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2020-04-30 14:25:40 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2020-04-30 14:25:40 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2020-04-30 14:25:40 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2020-04-30 14:25:40 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2020-04-30 14:25:40 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2020-04-30 14:25:40 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2020-04-30 14:25:40 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2020-04-30 14:25:40 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
+2020-04-30 14:25:40 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
+2020-04-30 14:25:40 | DEBUG | generator_Cm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | generator_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | governor_Pm0Pu same value as Pm_Value0
+2020-04-30 14:25:40 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
+2020-04-30 14:25:40 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
+2020-04-30 14:25:40 | DEBUG | calculate initial condition of the DAE
+2020-04-30 14:25:40 | DEBUG | initial condition iteration 0
+2020-04-30 14:25:40 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-04-30 14:25:40 | DEBUG | end of calculate initial condition of the DAE
+2020-04-30 14:25:40 | INFO | adding curve : Id: NETWORK; curve: _KANA___1_TN_Upu_value found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: NETWORK; curve: _TURN___2_TN_Upu_value found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: NETWORK; curve: _LOGA___3_TN_Upu_value found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: NETWORK; curve: _BEAV___6_TN_Upu_value found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: NETWORK; curve: _CLIN___8_TN_Upu_value found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: NETWORK; curve: _SALT___9_TN_Upu_value found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: NETWORK; curve: _GLEN__12_TN_Upu_value found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____1_SM; curve: generator_PGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____2_SM; curve: generator_PGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____3_SM; curve: generator_PGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____6_SM; curve: generator_PGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____8_SM; curve: generator_PGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____9_SM; curve: generator_PGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN___12_SM; curve: generator_PGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____1_SM; curve: generator_QGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____2_SM; curve: generator_QGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____3_SM; curve: generator_QGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____6_SM; curve: generator_QGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____8_SM; curve: generator_QGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____9_SM; curve: generator_QGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN___12_SM; curve: generator_QGen found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____1_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____2_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____3_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____6_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____8_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____9_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN___12_SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____1_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____2_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____3_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____6_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____8_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN____9_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: GEN___12_SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2020-04-30 14:25:40 | INFO | adding curve : Id: NETWORK; curve: _BEAV___6-BUS____7-1_AC_P2_value found. (exact name)
+2020-04-30 14:25:40 | INFO | adding curve : Id: NETWORK; curve: _BUS____7-CLIN___8-1_AC_P1_value found. (exact name)
+2020-04-30 14:25:40 | DEBUG | -----------------------------------------------------------------------
+2020-04-30 14:25:40 | DEBUG | number of continuous variables : 439 (display limited to 4 variables)
+2020-04-30 14:25:40 | DEBUG | number of discrete variables : 577
+2020-04-30 14:25:40 | DEBUG | -----------------------------------------------------------------------
+2020-04-30 14:25:40 | DEBUG |     t              y1            y2            y3            y4      | nst   nni   nje  h
+2020-04-30 14:25:40 | DEBUG | -----------------------------------------------------------------------
+2020-04-30 14:25:40 | DEBUG |        0.000  9.687819e-01 -1.477580e-01 -5.059122e-04 -9.316371e-03 |   0    0   0 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-04-30 14:25:40 | DEBUG | state of Line _BEAV___6-CLIN___8-1_AC change from 2 to 4
+2020-04-30 14:25:40 | DEBUG | keep SubNetworks num : 0
+2020-04-30 14:25:40 | DEBUG | Algebraic mode (with J recalculation) change for model NETWORK
+2020-04-30 14:25:40 | DEBUG |        1.000  9.687732e-01 -1.478032e-01 -1.240101e-03 -9.383560e-03 |   1    1   1 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG | calculation of the new starting point of the simulation.
+2020-04-30 14:25:40 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-04-30 14:25:40 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-04-30 14:25:40 | DEBUG |        1.000  9.647429e-01 -1.568196e-01  2.515470e-01 -1.198734e-01 |   1    1   1 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-04-30 14:25:40 | DEBUG | Algebraic mode change for model GEN____9_SM
+2020-04-30 14:25:40 | DEBUG |        2.000  9.605266e-01 -1.740248e-01 -1.020882e-02 -1.459304e-01 |   2    4   2 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG | calculation of the new starting point of the simulation.
+2020-04-30 14:25:40 | DEBUG |        2.000  9.605264e-01 -1.740248e-01 -1.020914e-02 -1.459282e-01 |   2    4   2 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-04-30 14:25:40 | DEBUG | Algebraic mode change for model GEN____9_SM
+2020-04-30 14:25:40 | DEBUG |        3.000  9.605667e-01 -1.759947e-01 -3.490881e-02 -1.555564e-01 |   3    5   3 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG | calculation of the new starting point of the simulation.
+2020-04-30 14:25:40 | DEBUG |        3.000  9.605639e-01 -1.759966e-01 -3.493571e-02 -1.555328e-01 |   3    5   3 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-04-30 14:25:40 | DEBUG |        4.000  9.608543e-01 -1.758349e-01 -2.931161e-02 -1.587455e-01 |   4    6   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |        5.000  9.609354e-01 -1.758375e-01 -2.775118e-02 -1.600651e-01 |   5    7   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |        6.000  9.609470e-01 -1.759007e-01 -2.786106e-02 -1.606656e-01 |   6    8   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |        7.000  9.609475e-01 -1.759405e-01 -2.799807e-02 -1.609462e-01 |   7    9   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |        8.000  9.609467e-01 -1.759607e-01 -2.804354e-02 -1.610820e-01 |   8   10   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |        9.000  9.609457e-01 -1.759717e-01 -2.806048e-02 -1.611512e-01 |   9   11   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       10.000  9.609449e-01 -1.759779e-01 -2.806980e-02 -1.611880e-01 |  10   12   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       11.000  9.609443e-01 -1.759815e-01 -2.807536e-02 -1.612084e-01 |  11   13   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       12.000  9.609439e-01 -1.759836e-01 -2.807858e-02 -1.612199e-01 |  12   14   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       13.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  13   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       14.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  14   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       15.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  15   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       16.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  16   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       17.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  17   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       18.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  18   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       19.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  19   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       20.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  20   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       21.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  21   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       22.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  22   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       23.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  23   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       24.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  24   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       25.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  25   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       26.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  26   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       27.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  27   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       28.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  28   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       29.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  29   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG |       30.000  9.609437e-01 -1.759848e-01 -2.808044e-02 -1.612265e-01 |  30   15   4 1.000000e+00 
+2020-04-30 14:25:40 | DEBUG | 
+2020-04-30 14:25:40 | DEBUG | execution Stats :
+2020-04-30 14:25:40 | DEBUG | 
+2020-04-30 14:25:40 | DEBUG | number of iterations                     = 30
+2020-04-30 14:25:40 | DEBUG | number of Residual evaluations           = 29
+2020-04-30 14:25:40 | DEBUG | number of Jacobian evaluations           = 4
+2020-04-30 14:25:40 | DEBUG | number of Nonlinear iterations           = 15
+2020-04-30 14:25:40 | DEBUG | number of error test failures            = 0
+2020-04-30 14:25:40 | DEBUG | number of Nonlinear convergence failures = 0
+2020-04-30 14:25:40 | DEBUG | number of root functions evaluations     = 45
+2020-04-30 14:25:40 | DEBUG | end of job 'IEEE57 - Disconnect line 6-8 - Simplified solver'
