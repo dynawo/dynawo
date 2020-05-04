@@ -442,12 +442,12 @@ NetworkComponent::StateChange_t
 ModelStaticVarCompensator::evalZ(const double& /*t*/) {
   mode_ = static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_]));
 
-  if (g_[0] == ROOT_UP && !isRunning_) {
+  if (g_[0] == ROOT_UP) {
     network_->addEvent(id_, DYNTimeline(SVarCRunning));
     isRunning_ = true;
   }
 
-  if (g_[1] == ROOT_UP && isRunning_) {
+  if (g_[1] == ROOT_UP) {
     network_->addEvent(id_, DYNTimeline(SVarCOff));
     isRunning_ = false;
   }
@@ -486,8 +486,10 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
 
 void
 ModelStaticVarCompensator::evalG(const double& /*t*/) {
-  g_[0] = (doubleEquals(z_[modeNum_], 0.)) ? ROOT_UP : ROOT_DOWN;
-  g_[1] = (doubleEquals(z_[modeNum_], 2.)) ? ROOT_UP : ROOT_DOWN;
+  g_[0] = (static_cast<StaticVarCompensatorInterface::RegulationMode_t>(z_[modeNum_]) == StaticVarCompensatorInterface::RUNNING_V
+      && !isRunning_) ? ROOT_UP : ROOT_DOWN;
+  g_[1] = (static_cast<StaticVarCompensatorInterface::RegulationMode_t>(z_[modeNum_]) == StaticVarCompensatorInterface::OFF
+      && isRunning_) ? ROOT_UP : ROOT_DOWN;
 
   double b = piOut();
   bool bIsbMin = doubleEquals(b, bMin_);

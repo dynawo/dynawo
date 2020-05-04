@@ -213,7 +213,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   }
   g[6] =  ROOT_DOWN;
   y[ModelStaticVarCompensator::piOutNum_] = 2;
-  z[ModelStaticVarCompensator::modeNum_] = StaticVarCompensatorInterface::STANDBY;
+  z[ModelStaticVarCompensator::modeNum_] = StaticVarCompensatorInterface::OFF;
   ASSERT_NO_THROW(svc->evalZ(20.));
   ASSERT_NO_THROW(svc->evalG(20.));
   ASSERT_EQ(g[0], ROOT_DOWN);
@@ -222,13 +222,13 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(g[3], ROOT_UP);
   ASSERT_EQ(g[4], ROOT_UP);
   ASSERT_EQ(g[5], ROOT_DOWN);
-  ASSERT_EQ(g[6], ROOT_UP);
-  ASSERT_EQ(g[7], ROOT_UP);
+  ASSERT_EQ(g[6], ROOT_DOWN);
+  ASSERT_EQ(g[7], ROOT_DOWN);
   z[ModelStaticVarCompensator::modeNum_] = StaticVarCompensatorInterface::RUNNING_V;
   y[ModelStaticVarCompensator::piOutNum_] = -1;
   ASSERT_NO_THROW(svc->evalZ(20.));
   ASSERT_NO_THROW(svc->evalG(20.));
-  ASSERT_EQ(g[0], ROOT_DOWN);
+  ASSERT_EQ(g[0], ROOT_UP);
   ASSERT_EQ(g[1], ROOT_DOWN);
   ASSERT_EQ(g[2], ROOT_UP);
   ASSERT_EQ(g[3], ROOT_DOWN);
@@ -251,7 +251,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_NO_THROW(svc->evalZ(20.));
   ASSERT_NO_THROW(svc->evalG(20.));
   ASSERT_EQ(g[0], ROOT_DOWN);
-  ASSERT_EQ(g[1], ROOT_UP);
+  ASSERT_EQ(g[1], ROOT_DOWN);
   ASSERT_EQ(g[2], ROOT_DOWN);
   ASSERT_EQ(g[3], ROOT_UP);
   ASSERT_EQ(g[4], ROOT_UP);
