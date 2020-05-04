@@ -626,8 +626,9 @@ Simulation::importFinalStateRequest() {
 
 void
 Simulation::initFromData(const shared_ptr<DataInterface> & data, const shared_ptr<DynamicData> &dyd) {
+#ifdef _DEBUG_
   Timer timer("Simulation::initFromData()");
-
+#endif
   Modeler modeler;
   modeler.setDataInterface(data);
   modeler.setDynamicData(dyd);
@@ -650,7 +651,9 @@ Simulation::initStructure() {
 
 void
 Simulation::init() {
+#ifdef _DEBUG_
   Timer timer("Simulation::init()");
+#endif
 
   loadDynamicData();
   compileModels();
@@ -752,7 +755,9 @@ Simulation::calculateIC() {
 
 void
 Simulation::simulate() {
+#ifdef _DEBUG_
   Timer timer("Simulation::simulate()");
+#endif
 
   string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
   if (!is_directory(outputsDirectory))
@@ -843,7 +848,9 @@ Simulation::simulate() {
 
 bool
 Simulation::checkCriteria(bool finalStep) {
+#ifdef _DEBUG_
   Timer timer("Simulation::checkCriteria()");
+#endif
   const bool filterForCriteriaCheck = true;
   data_->updateFromModel(filterForCriteriaCheck);
   bool criteriaChecked = data_->checkCriteria(finalStep);
@@ -886,7 +893,9 @@ Simulation::updateParametersValues() {
 
 void
 Simulation::iterate() {
+#ifdef _DEBUG_
   Timer timer("Simulation::iterate()");
+#endif
   double tVise = tStop_;
 
   solver_->solve(tVise, tCurrent_);
@@ -902,7 +911,9 @@ Simulation::iterate() {
 
 void
 Simulation::updateCurves(bool updateCalculateVariable) {
+#ifdef _DEBUG_
   Timer timer("Simulation::updateCurves()");
+#endif
   if (exportCurvesMode_ == EXPORT_CURVES_NONE)
     return;
 
@@ -930,7 +941,9 @@ Simulation::printEnd() {
 
 void
 Simulation::terminate() {
+#ifdef _DEBUG_
   Timer timer("Simulation::terminate()");
+#endif
   updateParametersValues();   // update parameter curves' value
 
   if (curvesOutputFile_ != "") {
@@ -1069,9 +1082,10 @@ Simulation::printConstraints(std::ostream& stream) const {
 void
 Simulation::dumpIIDMFile() {
   if (data_) {
-    Timer * timer = new Timer("Job::exportStateVariables");
+#ifdef _DEBUG_
+    Timer timer("Job::exportStateVariables");
+#endif
     data_->exportStateVariables();
-    delete timer;
   }
 
   IIDM::xml::xml_formatter formatter;
