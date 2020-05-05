@@ -333,12 +333,12 @@ ConnectorContainer::printConnectors() const {
   if (nbContinuousConnectors() == 0)
     return;
 
-  Trace::debug("MODELER") << DYNLog(ModelConnectorsNB, nbContinuousConnectors()) << Trace::endline;
-  Trace::debug("MODELER") << "         F : [" << std::setw(6) << offsetModel_ << " ; "
+  Trace::debug(Trace::modeler()) << DYNLog(ModelConnectorsNB, nbContinuousConnectors()) << Trace::endline;
+  Trace::debug(Trace::modeler()) << "         F : [" << std::setw(6) << offsetModel_ << " ; "
                           << std::setw(6) << offsetModel_ + nbContinuousConnectors() << "[" << Trace::endline;
-  Trace::debug("MODELER") << Trace::endline;
+  Trace::debug(Trace::modeler()) << Trace::endline;
 
-  Trace::debug("MODELER") << " ====== " << DYNLog(ModelConnectorsList) << " ===== " << Trace::endline;
+  Trace::debug(Trace::modeler()) << " ====== " << DYNLog(ModelConnectorsList) << " ===== " << Trace::endline;
   printYConnectors();
   printFlowConnectors();
   printZConnectors();
@@ -362,7 +362,7 @@ ConnectorContainer::printYConnectors() const {
         it != yc->connectedSubModels().end();
         ++it) {
       const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
-      Trace::debug("MODELER") << "         Yconnector " << (it->negated() ? "-" : "") << "Y[" << std::setw(6) << numVar2 << "] = "
+      Trace::debug(Trace::modeler()) << "         Yconnector " << (it->negated() ? "-" : "") << "Y[" << std::setw(6) << numVar2 << "] = "
           << (reference.negated() ? "-" : "") << "Y[" << std::setw(6) << numVarReference << "]"
           << "      F = F[" << std::setw(6) << offsetModel_ + offset
           << "] / " << DYNLog(ConnectedModels, it->subModel()->name(), reference.subModel()->name()) << Trace::endline;
@@ -389,7 +389,7 @@ ConnectorContainer::printFlowConnectors() const {
     ss << " = 0";
 
     ss << "      F = F[" << std::setw(6) << offsetModel_ + offset << "]";
-    Trace::debug("MODELER") << ss.str() << Trace::endline;
+    Trace::debug(Trace::modeler()) << ss.str() << Trace::endline;
     ++offset;
   }
 }
@@ -411,7 +411,7 @@ ConnectorContainer::printZConnectors() const {
         it != zc->connectedSubModels().end();
         ++it) {
       const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
-      Trace::debug("MODELER") << "         Zconnector " << (it->negated() ? "-" : "") << "Z[" << std::setw(6) << numVar2 << "] = "
+      Trace::debug(Trace::modeler()) << "         Zconnector " << (it->negated() ? "-" : "") << "Z[" << std::setw(6) << numVar2 << "] = "
           << (reference.negated() ? "-" : "") << "Z[" << std::setw(6) << numVarReference << "] / "
           << DYNLog(ConnectedModels, it->subModel()->name(), reference.subModel()->name()) << Trace::endline;
     }

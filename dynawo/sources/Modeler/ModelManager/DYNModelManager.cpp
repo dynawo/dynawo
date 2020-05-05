@@ -806,8 +806,11 @@ ModelManager::loadParameters(const string & parameters) {
 
 void
 ModelManager::solveParameters() {
+#ifdef _DEBUG_
   Timer timer("ModelManager::solveParameters");
-  Trace::debug("MODELER") << " ====== " << DYNLog(SolveParameters, name()) << " ====== " << Trace::endline;
+#endif
+  Trace::debug() << "------------------------------" << Trace::endline;
+  Trace::debug() << DYNLog(SolveParameters, name()) << Trace::endline;
 
   // values recovery and modes initialization
   double t0 = getCurrentTime();
@@ -895,7 +898,7 @@ ModelManager::solveParameters() {
       for (; iG0 < g0.end(); ++iG0, ++iG1) {
         ++i;
         if ((*iG0) != (*iG1)) {
-          Trace::debug("MODELER") << DYNLog(UnstableRoot, i) << Trace::endline;
+          Trace::debug() << DYNLog(UnstableRoot, i) << Trace::endline;
         }
       }
     }
@@ -904,7 +907,7 @@ ModelManager::solveParameters() {
     // if a root crossing is detected, update z and modes
     // -------------------------------------------------
     if (!stableRoot) {
-      Trace::debug("MODELER") << DYNLog(UnstableRootFound) << Trace::endline;
+      Trace::debug() << DYNLog(UnstableRootFound) << Trace::endline;
       evalZ(t0);
 
       if (sizeMode() > 0) {
@@ -924,13 +927,38 @@ ModelManager::solveParameters() {
   if (flag < 0)
     Trace::warn() << DYNLog(SolveParametersError, name()) << Trace::endline;
 
+#ifdef _DEBUG_
+  setFequationsInit();
+  double tolerance = 1e-4;
+  const unsigned nbErr = 10;
+
+  map<double, int> fErr;
+  for (unsigned int i = 0; i < fLocalInit_.size(); ++i) {
+    if (fabs(f[i]) > tolerance) {
+      fErr.insert(std::make_pair(f[i], i));
+    }
+  }
+
+  if (fErr.size() > 0) {
+    unsigned i = 0;
+    for (map<double, int>::const_iterator it = fErr.begin(); it != fErr.end(); ++it, ++i) {
+      Trace::debug() << DYNLog(SolveParametersFError, tolerance, it->second, it->first,
+                                 getFequationByLocalIndex(it->second)) << Trace::endline;
+
+      if (i >= nbErr) {
+        break;
+      }
+    }
+  }
+#endif
+
   // copy of computed values in the parameters
   vector<double> calculatedVars(sizeCalculatedVar_, 0);
   modelModelica()->evalCalculatedVars(calculatedVars);
   setCalculatedParameters(yLocalInit_, zLocalInit_, calculatedVars);
   solver.clean();
 
-  Trace::debug("MODELER") << " ====================================== " << Trace::endline;
+  Trace::debug() << DYNLog(SolveParametersOK, name()) << Trace::endline;
 }
 
 void

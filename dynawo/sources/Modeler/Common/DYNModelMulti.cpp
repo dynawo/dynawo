@@ -295,7 +295,7 @@ ModelMulti::init(const double& t0) {
 }
 
 void
-ModelMulti::printModel() {
+ModelMulti::printModel() const {
 #ifdef _DEBUG_
   Timer timer("ModelMulti::printModel");
 #endif
@@ -1062,6 +1062,13 @@ void ModelMulti::printVariableNames() {
       ++nVar;
     }
   }
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    const std::vector<std::pair<std::string, std::string> >& xAlias = subModels_[i]->xAliasesNames();
+    for (unsigned int j = 0; j < xAlias.size(); ++j) {
+      Trace::debug(Trace::variables()) << subModels_[i]->name() << "_" << xAlias[j].first << " is an alias of " <<
+          subModels_[i]->name() << "_" << xAlias[j].second << Trace::endline;
+    }
+  }
   nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "Z variables" << Trace::endline;
@@ -1071,6 +1078,13 @@ void ModelMulti::printVariableNames() {
     for (unsigned int j = 0; j < zNames.size(); ++j) {
        Trace::debug(Trace::variables()) << nVar << " " << subModels_[i]->name() << "_" << zNames[j] << Trace::endline;
        ++nVar;
+    }
+  }
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    const std::vector<std::pair<std::string, std::string> >& zAlias = subModels_[i]->zAliasesNames();
+    for (unsigned int j = 0; j < zAlias.size(); ++j) {
+      Trace::debug(Trace::variables()) << subModels_[i]->name() << "_" << zAlias[j].first << " is an alias of "
+          << subModels_[i]->name() << "_" << zAlias[j].second << Trace::endline;
     }
   }
 }

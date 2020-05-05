@@ -213,6 +213,16 @@ Trace::parameters() {
   return "PARAMETERS";
 }
 
+std::string
+Trace::compile() {
+  return "COMPILE";
+}
+
+std::string
+Trace::modeler() {
+  return "MODELER";
+}
+
 void Trace::log(SeverityLevel slv, const std::string& tag, const std::string& message) {
   src::severity_logger< SeverityLevel > slg;
 
