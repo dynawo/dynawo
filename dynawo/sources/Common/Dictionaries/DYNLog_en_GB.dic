@@ -37,6 +37,7 @@ SubModelGeqFormulaNotExist    =             failed to retrieve root equation %2%
 //---------------------- PARAMETER -------------------------------------
 ParamSameValue                =             %1% same value as %2%
 ParamNoValueFound             =             no value found for parameter %1%
+InternalParam                 =             parameter %1% was computed internally
 ParamOppositeValue            =             %1% opposite value of %2%
 ParamUnused                   =             parameter %1% in model %2% is not used
 ParamValueInOrigin            =             parameter %1% has value %3% (coming from origin %2%)

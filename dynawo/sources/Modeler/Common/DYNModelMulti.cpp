@@ -137,10 +137,6 @@ ModelMulti::setWorkingDirectory(const string& workingDirectory) {
 
 void
 ModelMulti::addSubModel(shared_ptr<SubModel>& sub, const string& libName) {
-  Trace::debug("PARAMETERS") << "------------------------------" << Trace::endline;
-  Trace::debug("PARAMETERS") << "SubModel " << sub->name() << Trace::endline;
-  Trace::debug("PARAMETERS") << "------------------------------" << Trace::endline;
-
   sub->defineVariablesInit();
   sub->defineParametersInit();  // only for modelica models
   sub->defineNamesInit();
@@ -248,7 +244,9 @@ ModelMulti::initBuffers() {
 
 void
 ModelMulti::init(const double& t0) {
+#ifdef _DEBUG_
   Timer timer1("ModelMulti::init");
+#endif
 
   zSave_.assign(zLocal_, zLocal_ + sizeZ());
 
@@ -298,7 +296,9 @@ ModelMulti::init(const double& t0) {
 
 void
 ModelMulti::printModel() {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::printModel");
+#endif
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->printModel();
 
@@ -307,7 +307,18 @@ ModelMulti::printModel() {
 
 void
 ModelMulti::printParameterValues() const {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::printParameterValues");
+#endif
+  Trace::debug(Trace::parameters()) << "This file is organized as follows: "<< Trace::endline;
+  Trace::debug(Trace::parameters()) << "  -- For each model, initial and dynamic models parameters values before local initialization"<< Trace::endline;
+  Trace::debug(Trace::parameters()) << "  -- For each model, dynamic models parameters values after local initialization"<< Trace::endline;
+  Trace::debug(Trace::parameters()) << "caption: "<< Trace::endline;
+  Trace::debug(Trace::parameters()) << "  -- \"modelica file\"  -> default value specified in modelica model"<< Trace::endline;
+  Trace::debug(Trace::parameters()) << "  -- \"parameters\"     -> value read from parameter file"<< Trace::endline;
+  Trace::debug(Trace::parameters()) << "  -- \"IIDM\"           -> value read from iidm file"<< Trace::endline;
+  Trace::debug(Trace::parameters()) << "  -- \"loaded dump\"    -> value read from initial state file"<< Trace::endline;
+  Trace::debug(Trace::parameters()) << "  -- \"initialisation\" -> value computed by local initialization"<< Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->printParameterValues();
 }
@@ -332,7 +343,9 @@ ModelMulti::printInitValues(const string& directory) {
 
 bool
 ModelMulti::zChange() const {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::zChange");
+#endif
   return zChange_;
 }
 
@@ -354,12 +367,16 @@ ModelMulti::evalF(const double t, double* y, double* yp, double* f) {
 #endif
   copyContinuousVariables(y, yp);
 
+#ifdef _DEBUG_
   Timer * timer2 = new Timer("ModelMulti::evalF_subModels");
+#endif
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     if (subModels_[i]->sizeF() != 0)
       subModels_[i]->evalFSub(t);
   }
+#ifdef _DEBUG_
   delete timer2;
+#endif
 
   connectorContainer_->evalFConnector(t);
 
@@ -451,7 +468,9 @@ ModelMulti::propagateZModif() {
 
 void
 ModelMulti::evalMode(double t) {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::evalMode");
+#endif
   /* modeChange_ has to be set at each evalMode call
    *  -> it indicates if there has been a mode change for this call
    * modeChangeType_ is the worst mode change for a complete time step (possibly several evalMode calls)
@@ -491,7 +510,9 @@ ModelMulti::reinitMode() {
 
 void
 ModelMulti::evalCalculatedVariables(const double & t, const vector<double> &y, const vector<double> &yp, const vector<double> &z) {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::evalCalculatedVariables");
+#endif
   std::copy(y.begin(), y.end(), yLocal_);
   std::copy(yp.begin(), yp.end(), ypLocal_);
   std::copy(z.begin(), z.end(), zLocal_);
@@ -502,7 +523,9 @@ ModelMulti::evalCalculatedVariables(const double & t, const vector<double> &y, c
 
 void
 ModelMulti::checkDataCoherence(const double & t) {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::checkDataCoherence");
+#endif
 
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->checkDataCoherenceSub(t);
@@ -833,7 +856,9 @@ ModelMulti::getGInfos(const int globalGIndex, string& subModelName, int& localGI
 
 void
 ModelMulti::setIsInitProcess(bool isInitProcess) {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::setIsInitProcess");
+#endif
 
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->setIsInitProcess(isInitProcess);
@@ -949,7 +974,9 @@ ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
 void
 ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection,
     const std::vector<double>& y, const std::vector<double>& yp) {
+#ifdef _DEBUG_
   Timer timer("ModelMulti::updateCurves");
+#endif
   for (curves::CurvesCollection::iterator itCurve = curvesCollection->begin(), itCurveEnd = curvesCollection->end();
       itCurve != itCurveEnd; ++itCurve) {
     boost::shared_ptr<Curve> curve = *itCurve;
