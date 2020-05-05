@@ -698,9 +698,6 @@ Simulation::init() {
   // therefore a calculateIC() is always necessary.
   zCurrent_.assign(model_->sizeZ(), 0.);
   calculateIC();
-  if (Trace::logExists(Trace::parameters(), DEBUG)) {
-    model_->printLocalInitParametersValues();
-  }
 
   // Initialize curves
   const std::vector<double>& y = solver_->getCurrentY();
@@ -733,6 +730,9 @@ Simulation::calculateIC() {
   model_->init(tStart_);
   model_->rotateBuffers();
   model_->printMessages();
+  if (Trace::logExists(Trace::parameters(), DEBUG)) {
+    model_->printLocalInitParametersValues();
+  }
 
   if (dumpLocalInitValues_) {
     string localInitDir = createAbsolutePath("initValues/localInit", outputsDirectory_);
