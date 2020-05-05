@@ -436,11 +436,11 @@ DataInterfaceIIDM::importGenerator(IIDM::Generator & generatorIIDM) {
   shared_ptr<GeneratorInterfaceIIDM> generator(new GeneratorInterfaceIIDM(generatorIIDM));
 
   // reference to bus interface
-  string voltageLevelId = generatorIIDM.voltageLevel().id();
   if (generatorIIDM.is_bus()) {
     string id = generatorIIDM.bus_id();
     generator->setBusInterface(findBusInterface(id));
   } else if (generatorIIDM.is_node()) {
+    string voltageLevelId = generatorIIDM.voltageLevel().id();
     int node = generatorIIDM.node();
     generator->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
@@ -456,11 +456,11 @@ DataInterfaceIIDM::importLoad(IIDM::Load& loadIIDM) {
   shared_ptr<LoadInterfaceIIDM> load(new LoadInterfaceIIDM(loadIIDM));
 
   // reference to bus interface
-  string voltageLevelId = loadIIDM.voltageLevel().id();
   if (loadIIDM.is_bus()) {
     string id = loadIIDM.bus_id();
     load->setBusInterface(findBusInterface(id));
   } else if (loadIIDM.is_node()) {
+    string voltageLevelId = loadIIDM.voltageLevel().id();
     int node = loadIIDM.node();
     load->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
@@ -476,11 +476,11 @@ DataInterfaceIIDM::importShuntCompensator(IIDM::ShuntCompensator& shuntIIDM) {
   shared_ptr<ShuntCompensatorInterfaceIIDM> shunt(new ShuntCompensatorInterfaceIIDM(shuntIIDM));
 
   // reference to bus interface
-  string voltageLevelId = shuntIIDM.voltageLevel().id();
   if (shuntIIDM.is_bus()) {
     string id = shuntIIDM.bus_id();
     shunt->setBusInterface(findBusInterface(id));
   } else if (shuntIIDM.is_node()) {
+    string voltageLevelId = shuntIIDM.voltageLevel().id();
     int node = shuntIIDM.node();
     shunt->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
@@ -496,11 +496,11 @@ DataInterfaceIIDM::importDanglingLine(IIDM::DanglingLine& danglingLineIIDM) {
   shared_ptr<DanglingLineInterfaceIIDM> danglingLine(new DanglingLineInterfaceIIDM(danglingLineIIDM));
 
   // reference to bus interface
-  string voltageLevelId = danglingLineIIDM.voltageLevel().id();
   if (danglingLineIIDM.is_bus()) {
     string id = danglingLineIIDM.bus_id();
     danglingLine->setBusInterface(findBusInterface(id));
   } else if (danglingLineIIDM.is_node()) {
+    string voltageLevelId = danglingLineIIDM.voltageLevel().id();
     int node = danglingLineIIDM.node();
     danglingLine->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
@@ -536,11 +536,11 @@ DataInterfaceIIDM::importStaticVarCompensator(IIDM::StaticVarCompensator& svcIID
   shared_ptr<StaticVarCompensatorInterfaceIIDM> svc(new StaticVarCompensatorInterfaceIIDM(svcIIDM));
 
   // reference to bus interface
-  string voltageLevelId = svcIIDM.voltageLevel().id();
   if (svcIIDM.is_bus()) {
     string id = svcIIDM.bus_id();
     svc->setBusInterface(findBusInterface(id));
   } else if (svcIIDM.is_node()) {
+    string voltageLevelId = svcIIDM.voltageLevel().id();
     int node = svcIIDM.node();
     svc->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
@@ -839,11 +839,11 @@ DataInterfaceIIDM::importVscConverter(IIDM::VscConverterStation& vscIIDM) {
   shared_ptr<VscConverterInterfaceIIDM> vsc(new VscConverterInterfaceIIDM(vscIIDM));
 
   // reference to bus interface
-  string voltageLevelId = vscIIDM.voltageLevel().id();
   if (vscIIDM.is_bus()) {
     string id = vscIIDM.bus_id();
     vsc->setBusInterface(findBusInterface(id));
   } else if (vscIIDM.is_node()) {
+    string voltageLevelId = vscIIDM.voltageLevel().id();
     int node = vscIIDM.node();
     vsc->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
@@ -859,11 +859,11 @@ DataInterfaceIIDM::importLccConverter(IIDM::LccConverterStation& lccIIDM) {
   shared_ptr<LccConverterInterfaceIIDM> lcc(new LccConverterInterfaceIIDM(lccIIDM));
 
   // reference to bus interface
-  string voltageLevelId = lccIIDM.voltageLevel().id();
   if (lccIIDM.is_bus()) {
     string id = lccIIDM.bus_id();
     lcc->setBusInterface(findBusInterface(id));
   } else if (lccIIDM.is_node()) {
+    string voltageLevelId = lccIIDM.voltageLevel().id();
     int node = lccIIDM.node();
     lcc->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
