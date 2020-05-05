@@ -310,15 +310,14 @@ ModelMulti::printParameterValues() const {
 #ifdef _DEBUG_
   Timer timer("ModelMulti::printParameterValues");
 #endif
-  Trace::debug(Trace::parameters()) << "This file is organized as follows: "<< Trace::endline;
-  Trace::debug(Trace::parameters()) << "  -- For each model, initial and dynamic models parameters values before local initialization"<< Trace::endline;
-  Trace::debug(Trace::parameters()) << "  -- For each model, dynamic models parameters values after local initialization"<< Trace::endline;
-  Trace::debug(Trace::parameters()) << "caption: "<< Trace::endline;
-  Trace::debug(Trace::parameters()) << "  -- \"modelica file\"  -> default value specified in modelica model"<< Trace::endline;
-  Trace::debug(Trace::parameters()) << "  -- \"parameters\"     -> value read from parameter file"<< Trace::endline;
-  Trace::debug(Trace::parameters()) << "  -- \"IIDM\"           -> value read from iidm file"<< Trace::endline;
-  Trace::debug(Trace::parameters()) << "  -- \"loaded dump\"    -> value read from initial state file"<< Trace::endline;
-  Trace::debug(Trace::parameters()) << "  -- \"initialisation\" -> value computed by local initialization"<< Trace::endline;
+  Trace::debug(Trace::parameters()) << "This file is organized as follows: "<< Trace::endline <<
+      "  -- For each model, initial and dynamic models parameters values before local initialization"<< Trace::endline <<
+      "  -- For each model, dynamic models parameters values after local initialization"<< Trace::endline <<
+      "caption: "<< Trace::endline <<
+      "  -- \"modelica file\"  -> default value specified in modelica model"<< Trace::endline <<
+      "  -- \"parameters\"     -> value read from parameter file"<< Trace::endline <<
+      "  -- \"loaded dump\"    -> value read from initial state file"<< Trace::endline <<
+      "  -- \"initialization\" -> value computed by local initialization"<< Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i)
     subModels_[i]->printParameterValues();
 }

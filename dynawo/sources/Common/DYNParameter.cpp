@@ -60,10 +60,8 @@ string origin2Str(const parameterOrigin_t& origin) {
       return "modelica file";
     case PAR:
       return "parameters";
-    case IIDM:
-      return "IIDM";
     case LOCAL_INIT:
-      return "initialisation";
+      return "initialization";
     case LOADED_DUMP:
       return "loaded dump";
     case FINAL:

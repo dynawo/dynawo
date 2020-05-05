@@ -51,7 +51,6 @@ nonUnitaryParameterInstance_(false) {
 
   if (scope_ != INTERNAL_PARAMETER) {
     writeRights_[PAR] = true;
-    writeRights_[IIDM] = true;
   }
 }
 
