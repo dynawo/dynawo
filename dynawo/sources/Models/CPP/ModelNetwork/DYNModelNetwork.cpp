@@ -734,22 +734,54 @@ ModelNetwork::getSize() {
   sizeF_ = 0;
   sizeG_ = 0;
   sizeCalculatedVar_ = 0;
-  if (!isInitModel_)
-    Trace::debug("MODELER") << "=== MODEL NETWORK ===" << Trace::endline;
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
+      itComponent != getComponents().end(); ++itComponent) {
     sizeY_ += (*itComponent)->sizeY();
     sizeZ_ += (*itComponent)->sizeZ();
     sizeMode_ += (*itComponent)->sizeMode();
-    if ((*itComponent)->sizeF() != 0 && !isInitModel_)
-      Trace::debug("MODELER") << (*itComponent)->id() << "    F[" << std::setw(6) << sizeF_ << " ; " << std::setw(6)
-                              << sizeF_ + (*itComponent)->sizeF() << "[" << Trace::endline;
     sizeF_ += (*itComponent)->sizeF();
     sizeG_ += (*itComponent)->sizeG();
     sizeCalculatedVar_ += (*itComponent)->sizeCalculatedVar();
   }
-  if (!isInitModel_)
-    Trace::debug("MODELER") << "=====================" << Trace::endline;
+}
+
+void
+ModelNetwork::printModel() const {
+  Trace::debug(Trace::modeler()) << DYNLog(ModelName) << std::setw(25) << std::left << modelType() << "=>" << name() << Trace::endline;
+  Trace::debug(Trace::modeler()) << "         Y : [" << std::setw(6) << yDeb_ << " ; " << std::setw(6) << yDeb_ + sizeY() << "[" << Trace::endline;
+  unsigned offset = yDeb_;
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
+      itComponent != components_.end(); ++itComponent) {
+    if ((*itComponent)->sizeY() != 0) {
+      Trace::debug(Trace::modeler()) << "           " << (*itComponent)->id() << "    Y[" << std::setw(6) << offset << " ; " << std::setw(6)
+                              << offset + (*itComponent)->sizeY() << "[" << Trace::endline;
+      offset+=(*itComponent)->sizeY();
+    }
+  }
+  Trace::debug(Trace::modeler()) << "         F : [" << std::setw(6) << fDeb_ << " ; " << std::setw(6) << fDeb_ + sizeF() << "[" << Trace::endline;
+  offset = fDeb_;
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
+      itComponent != components_.end(); ++itComponent) {
+    if ((*itComponent)->sizeF() != 0) {
+      Trace::debug(Trace::modeler()) << "           " << (*itComponent)->id() << "    F[" << std::setw(6) << offset << " ; " << std::setw(6)
+                              << offset + (*itComponent)->sizeF() << "[" << Trace::endline;
+      offset+=(*itComponent)->sizeF();
+    }
+  }
+
+  if (sizeZ() != 0) {
+    Trace::debug(Trace::modeler()) << "         Z : [" << std::setw(6) << zDeb_ << " ; " << std::setw(6) << zDeb_ + sizeZ() << "[" << Trace::endline;
+  }
+  if (sizeMode() != 0) {
+    Trace::debug(Trace::modeler()) << "      mode : [" << std::setw(6) << modeDeb_ << " ; " << std::setw(6) << modeDeb_ + sizeMode() << "[" << Trace::endline;
+  }
+
+
+  if (sizeG() != 0) {
+    Trace::debug(Trace::modeler()) << "         G : [" << std::setw(6) << gDeb_ << " ; " << std::setw(6) << gDeb_ + sizeG() << "[" << Trace::endline;
+  }
+
+  Trace::debug(Trace::modeler()) << Trace::endline;
 }
 
 void

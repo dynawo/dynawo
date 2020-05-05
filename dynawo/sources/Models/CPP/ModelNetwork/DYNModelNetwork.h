@@ -283,6 +283,11 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
    */
   void initSubBuffers();
 
+  /**
+   * @copydoc SubModel::printModel() const
+   */
+  void printModel() const;
+
   // Specific methods for ModelNetwork class
   // ---------------------------------------------
  private:

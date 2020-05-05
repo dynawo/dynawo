@@ -562,9 +562,8 @@ class SubModel {
 
   /**
    * @brief print some data for the subModel (size,index, etc...)
-   *
    */
-  void printModel();
+  virtual void printModel() const;
 
   /**
    * @brief Print all parameters values

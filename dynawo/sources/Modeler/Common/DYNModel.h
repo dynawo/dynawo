@@ -308,7 +308,7 @@ class Model {
    * @brief print informations about the model
    *
    */
-  virtual void printModel() = 0;
+  virtual void printModel() const = 0;
 
   /**
    * @brief print initial values of the model

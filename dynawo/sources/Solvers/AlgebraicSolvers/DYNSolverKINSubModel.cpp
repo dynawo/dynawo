@@ -104,36 +104,6 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
   realtype *irr = NV_DATA_S(rr);
   memcpy(irr, solv->fBuffer_, solv->nbF_ * sizeof(solv->fBuffer_[0]));
 
-#ifdef _DEBUG_
-  double tolerance = 1e-04;
-  int nbErr = 10;
-
-  Trace::debug("MODELER") << " =================================================================" << Trace::endline;
-  vector<std::pair<double, int> > fErr;
-  for (unsigned int i = 0; i < solv->nbF_; ++i) {
-    if (fabs(irr[i]) > tolerance) {
-      fErr.push_back(std::pair<double, int>(irr[i], i));
-    }
-  }
-
-  std::sort(fErr.begin(), fErr.end(), SolverCommon::mapcompabs());
-
-  if (fErr.size() > 0) {
-    vector<std::pair<double, int> >::iterator it;
-    int i = 0;
-    for (it = fErr.begin(); it != fErr.end(); ++it) {
-      Trace::debug("MODELER") << DYNLog(SolveParametersFError, tolerance, it->second, irr[it->second],
-                                 "" /*FIXME: subModel->getFequationByLocalIndex(it->second)*/) << Trace::endline;
-
-      if (i >= nbErr) {
-        Trace::debug("MODELER") << " =================================================================" << Trace::endline;
-        break;
-      }
-      ++i;
-    }
-  }
-#endif
-
   return (0);
 }
 

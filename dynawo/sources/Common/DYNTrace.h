@@ -296,6 +296,18 @@ class Trace {
   static std::string parameters();
 
   /**
+   * @brief Get compile identifier
+   * @return compile identifier
+   */
+  static std::string compile();
+
+  /**
+   * @brief Get modeler identifier
+   * @return modeler identifier
+   */
+  static std::string modeler();
+
+  /**
    * @brief Print end of line in trace.
    *
    * @param os: Trace to add end of line.

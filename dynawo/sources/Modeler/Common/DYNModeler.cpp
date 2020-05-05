@@ -155,15 +155,12 @@ Modeler::initParamDescription(const shared_ptr<ModelDescription>& modelDescripti
         if (refType == "DOUBLE") {
           double value = data_->getStaticParameterDoubleValue(staticID, refOrigName);
           params->createParameter(*itRef, value);
-          Trace::info("MODELER") << DYNLog(AddedRefParToSet, modelDescription->getID(), *itRef, value) << Trace::endline;
         } else if (refType == "INT") {
           int value = data_->getStaticParameterIntValue(staticID, refOrigName);
           params->createParameter(*itRef, value);
-          Trace::info("MODELER") << DYNLog(AddedRefParToSet, modelDescription->getID(), *itRef, value) << Trace::endline;
         } else if (refType == "BOOL") {
           bool value = data_->getStaticParameterBoolValue(staticID, refOrigName);
           params->createParameter(*itRef, value);
-          Trace::info("MODELER") << DYNLog(AddedRefParToSet, modelDescription->getID(), *itRef, value) << Trace::endline;
         } else {
           throw DYNError(Error::MODELER, ParameterWrongTypeReference, *itRef);
         }
@@ -222,7 +219,6 @@ Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& sub
 
 void
 Modeler::initConnects() {
-  Trace::info("MODELER") << DYNLog(EnteringInitConnects) << Trace::endline;
   map<string, shared_ptr<ConnectInterface> > connects = dyd_->getConnectInterfaces();
   for (map<string, shared_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
           itConnector != connects.end(); ++itConnector) {
@@ -247,8 +243,6 @@ Modeler::initConnects() {
 
     model_->connectElements(iter1->second, var1, iter2->second, var2);
   }
-
-  Trace::info("MODELER") << DYNLog(LeavingInitConnects) << Trace::endline;
 }
 
 string

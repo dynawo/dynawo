@@ -674,6 +674,8 @@ Simulation::init() {
 #ifdef _DEBUG_
   printDebugInfo();
 #endif
+  if (Trace::logExists(Trace::modeler(), DEBUG))
+    model_->printModel();
   if (Trace::logExists(Trace::variables(), DEBUG))
     model_->printVariableNames();
 
@@ -1215,7 +1217,6 @@ Simulation::loadState(const string & fileName) {
 
 void
 Simulation::printDebugInfo() {
-  model_->printModel();
   Trace::debug() << DYNLog(NbVar, model_->sizeY()) << Trace::endline;
   Trace::debug() << DYNLog(NbRootFunctions, model_->sizeG()) << Trace::endline;
 }

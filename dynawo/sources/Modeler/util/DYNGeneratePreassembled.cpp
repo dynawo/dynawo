@@ -190,19 +190,19 @@ int main(int argc, char ** argv) {
       if (!valid) {
         libValid = false;
         notValidsolist.push_back(*it);
-        Trace::info("COMPILE") << DYNLog(InvalidModel, *it) << Trace::endline;
+        Trace::info(Trace::compile()) << DYNLog(InvalidModel, *it) << Trace::endline;
       } else {
-        Trace::info("COMPILE") << DYNLog(ValidatedModel, *it) << Trace::endline;
+        Trace::info(Trace::compile()) << DYNLog(ValidatedModel, *it) << Trace::endline;
       }
     }
 
     if (libValid) {
-      Trace::info("COMPILE") << DYNLog(PreassembledModelGenerated, solist.size()) << Trace::endline;
+      Trace::info(Trace::compile()) << DYNLog(PreassembledModelGenerated, solist.size()) << Trace::endline;
     } else {
-      Trace::info("COMPILE") << DYNLog(InvalidSharedObjects, notValidsolist.size()) << Trace::endline;
+      Trace::info(Trace::compile()) << DYNLog(InvalidSharedObjects, notValidsolist.size()) << Trace::endline;
       string libList;
       for (vector<string >::iterator it = notValidsolist.begin(); it != notValidsolist.end(); ++it) {
-        Trace::info("COMPILE") << *it << Trace::endline;
+        Trace::info(Trace::compile()) << *it << Trace::endline;
         libList += *it;
       }
       throw DYNError(DYN::Error::MODELER, FileGenerationFailed, libList.c_str());
