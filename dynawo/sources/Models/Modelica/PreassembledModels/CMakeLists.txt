@@ -49,6 +49,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     Step.xml
     TapChangerAutomaton.xml
     TapChangerBlockingArea.xml
+    TransformerFixedRatio.xml
     UnderVoltageAutomaton.xml
     )
 
