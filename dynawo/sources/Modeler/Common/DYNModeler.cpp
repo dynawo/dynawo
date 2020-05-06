@@ -137,12 +137,12 @@ Modeler::initParamDescription(const shared_ptr<ModelDescription>& modelDescripti
 
   // params can be a nullptr if no parFile was given for the model
   if (params) {
-    // if there are references in external parameters, retrieve the parameters' value from IIDM or INIT
+    // if there are references in external parameters, retrieve the parameters' value from IIDM
     vector<string> referencesNames = params->getReferencesNames();
 
     for (vector<string>::const_iterator itRef = referencesNames.begin(); itRef != referencesNames.end(); ++itRef) {
       string refType = params->getReference(*itRef)->getType();
-      Reference::OriginData refOrigData_ = params->getReference(*itRef)->getOrigData();  // IIDM or INIT
+      Reference::OriginData refOrigData_ = params->getReference(*itRef)->getOrigData();  // IIDM
       string refOrigName = params->getReference(*itRef)->getOrigName();
       string staticID = modelDescription->getStaticId();
       string componentID = params->getReference(*itRef)->getComponentId();
