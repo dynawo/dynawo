@@ -21,6 +21,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>  // std::find, std::copy
+#include <set>
 #ifdef _DEBUG_
 #include <assert.h>
 #endif
@@ -51,6 +52,7 @@ using std::ofstream;
 using std::stringstream;
 using std::vector;
 using std::map;
+using std::set;
 using boost::unordered_map;
 using boost::unordered_set;
 using std::string;
@@ -255,7 +257,7 @@ SubModel::releaseElements() {
 
 vector<Element>
 SubModel::getElements(const string &nameElement) {
-  map<std::string, int>::iterator iter = mapElement_.find(nameElement);
+  map<string, int>::iterator iter = mapElement_.find(nameElement);
   if (iter == mapElement_.end()) {
     throw DYNError(Error::MODELER, SubModelUnknownElement, name(), modelType(), nameElement);
   } else {
@@ -297,7 +299,7 @@ SubModel::hasVariableInit(const string& nameVariable) const {
 }
 
 shared_ptr <Variable>
-SubModel::getVariable(const std::string & variableName) const {
+SubModel::getVariable(const string & variableName) const {
   map<string, shared_ptr<Variable> >::const_iterator iter = variablesByName_.find(variableName);
   if (iter == variablesByName_.end()) {
     throw DYNError(Error::MODELER, SubModelUnknownElement, name(), modelType(), variableName);
@@ -388,7 +390,7 @@ SubModel::getVariableValue(const string& nameVariable) const {
 
 bool
 SubModel::hasParameter(const string & nameParameter, const bool isInitParam) {
-  const unordered_map<std::string, ParameterModeler>& parameters = getParameters(isInitParam);
+  const unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
   return (parameters.find(nameParameter) != parameters.end());
 }
 
@@ -424,9 +426,9 @@ SubModel::defineVariables() {
 
 void
 SubModel::instantiateNonUnitaryParameters(const bool isInitParam,
-    const std::map<std::string, ParameterModeler>& nonUnitaryParameters,
-    unordered_set<std::string>& addedParameter) {
-  typedef std::map<std::string, ParameterModeler>::const_iterator ParamIterator;
+    const std::map<string, ParameterModeler>& nonUnitaryParameters,
+    unordered_set<string>& addedParameter) {
+  typedef std::map<string, ParameterModeler>::const_iterator ParamIterator;
   for (ParamIterator it = nonUnitaryParameters.begin(), itEnd = nonUnitaryParameters.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = it->second;
     const string paramName = parameter.getName();
@@ -500,11 +502,11 @@ SubModel::setParameterFromSet(ParameterModeler& parameter, const shared_ptr<para
 
 void
 SubModel::setParametersFromPARFile(const bool isInitParam) {
-  typedef unordered_map<std::string, ParameterModeler>::iterator ParamIterator;
-  typedef unordered_set<std::string>::const_iterator ParamNameIterator;
-  unordered_map<std::string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
+  typedef unordered_map<string, ParameterModeler>::iterator ParamIterator;
+  typedef unordered_set<string>::const_iterator ParamNameIterator;
+  unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
 
-  std::map<std::string, ParameterModeler> nonUnitaryParameters;
+  std::map<string, ParameterModeler> nonUnitaryParameters;
   // Set values of parameters with unitary cardinality
   for (ParamIterator it = parameters.begin(), itEnd = parameters.end(); it != itEnd; ++it) {
     ParameterModeler& currentParameter = it->second;
@@ -521,7 +523,7 @@ SubModel::setParametersFromPARFile(const bool isInitParam) {
   // Example with OmegaRef:
   //    -name of multiple parameter: weight_gen
   //    -name in multiple parameter instances: weight_gen_0, weight_gen_1, ...weight_gen_nbGen,
-  unordered_set<std::string> addedParameter;
+  unordered_set<string> addedParameter;
   instantiateNonUnitaryParameters(isInitParam, nonUnitaryParameters, addedParameter);
 
   // set the unitary parameters coming from not-unitary parameters instantiation
@@ -544,8 +546,8 @@ SubModel::setParametersFromPARFile() {
 
 const ParameterModeler&
 SubModel::findParameter(const string& name, const bool isInitParam) const {
-  const unordered_map<std::string, ParameterModeler>& parameters = getParameters(isInitParam);
-  const unordered_map<std::string, ParameterModeler>::const_iterator indexIterator = parameters.find(name);
+  const unordered_map<string, ParameterModeler>& parameters = getParameters(isInitParam);
+  const unordered_map<string, ParameterModeler>::const_iterator indexIterator = parameters.find(name);
 
   if (indexIterator == parameters.end()) {
     throw DYNError(Error::MODELER, ParameterNotDefined, name);
@@ -556,8 +558,8 @@ SubModel::findParameter(const string& name, const bool isInitParam) const {
 ParameterModeler&
 SubModel::findParameterReference(const string& name, const bool isInitParam) {
   // Cannot use getParameters as we are not const here
-  unordered_map<std::string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
-  const unordered_map<std::string, ParameterModeler>::iterator indexIterator = parameters.find(name);
+  unordered_map<string, ParameterModeler>& parameters = (isInitParam ? parametersInit_ : parametersDynamic_);
+  const unordered_map<string, ParameterModeler>::iterator indexIterator = parameters.find(name);
 
   if (indexIterator == parameters.end()) {
     throw DYNError(Error::MODELER, ParameterNotDefined, name);
@@ -565,12 +567,12 @@ SubModel::findParameterReference(const string& name, const bool isInitParam) {
   return indexIterator->second;
 }
 
-const unordered_map<std::string, ParameterModeler>&
+const unordered_map<string, ParameterModeler>&
 SubModel::getParametersDynamic() const {
   return parametersDynamic_;
 }
 
-const unordered_map<std::string, ParameterModeler>&
+const unordered_map<string, ParameterModeler>&
 SubModel::getParametersInit() const {
   return parametersInit_;
 }
@@ -965,9 +967,9 @@ SubModel::addParameterCurve(shared_ptr<curves::Curve>& curve) {
 
 void
 SubModel::printLocalInitParametersValues() const {
-  const boost::unordered_map<std::string, ParameterModeler>& params = getParametersDynamic();
-  std::set<std::string> sortedParams;
-  for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = params.begin(), itEnd = params.end();
+  const boost::unordered_map<string, ParameterModeler>& params = getParametersDynamic();
+  set<string> sortedParams;
+  for (boost::unordered_map<string, ParameterModeler>::const_iterator it = params.begin(), itEnd = params.end();
       it != itEnd; ++it) {
     sortedParams.insert(it->first);
   }
@@ -977,7 +979,7 @@ SubModel::printLocalInitParametersValues() const {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
-  for (std::set<std::string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
+  for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = params.find(*it)->second;
     if (parameter.originSet() && parameter.getOrigin() != LOCAL_INIT)
       continue;
@@ -1012,7 +1014,7 @@ SubModel::printLocalInitParametersValues() const {
     }
   }
 
-  for (std::set<std::string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
+  for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = params.find(*it)->second;
     if (!parameter.hasValue()) {
       if (parameter.isFullyInternal()) {
@@ -1027,9 +1029,9 @@ SubModel::printLocalInitParametersValues() const {
 
 void
 SubModel::printParameterValues() const {
-  const boost::unordered_map<std::string, ParameterModeler>& initParams = getParametersInit();
-  std::set<std::string> sortedInitParams;
-  for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = initParams.begin(), itEnd = initParams.end();
+  const boost::unordered_map<string, ParameterModeler>& initParams = getParametersInit();
+  set<string> sortedInitParams;
+  for (boost::unordered_map<string, ParameterModeler>::const_iterator it = initParams.begin(), itEnd = initParams.end();
       it != itEnd; ++it) {
     sortedInitParams.insert(it->first);
   }
@@ -1039,7 +1041,7 @@ SubModel::printParameterValues() const {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
-  for (std::set<std::string>::const_iterator it = sortedInitParams.begin(), itEnd = sortedInitParams.end(); it != itEnd; ++it) {
+  for (set<string>::const_iterator it = sortedInitParams.begin(), itEnd = sortedInitParams.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = initParams.find(*it)->second;
     if (!parameter.hasValue()) {
       continue;
@@ -1072,16 +1074,16 @@ SubModel::printParameterValues() const {
     }
   }
 
-  for (std::set<std::string>::const_iterator it = sortedInitParams.begin(), itEnd = sortedInitParams.end(); it != itEnd; ++it) {
+  for (set<string>::const_iterator it = sortedInitParams.begin(), itEnd = sortedInitParams.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = initParams.find(*it)->second;
     if (!parameter.hasValue() && parameter.isFullyInternal()) {
       Trace::debug(Trace::parameters()) << DYNLog(InternalParam, *it) << Trace::endline;
     }
   }
 
-  const boost::unordered_map<std::string, ParameterModeler>& params = getParametersDynamic();
-  std::set<std::string> sortedParams;
-  for (boost::unordered_map<std::string, ParameterModeler>::const_iterator it = params.begin(), itEnd = params.end();
+  const boost::unordered_map<string, ParameterModeler>& params = getParametersDynamic();
+  set<string> sortedParams;
+  for (boost::unordered_map<string, ParameterModeler>::const_iterator it = params.begin(), itEnd = params.end();
       it != itEnd; ++it) {
     sortedParams.insert(it->first);
   }
@@ -1091,7 +1093,7 @@ SubModel::printParameterValues() const {
     Trace::debug(Trace::parameters()) << "------------------------------" << Trace::endline;
   }
 
-  for (std::set<std::string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
+  for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = params.find(*it)->second;
     if (!parameter.hasValue()) {
       continue;
@@ -1124,7 +1126,7 @@ SubModel::printParameterValues() const {
     }
   }
 
-  for (std::set<std::string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
+  for (set<string>::const_iterator it = sortedParams.begin(), itEnd = sortedParams.end(); it != itEnd; ++it) {
     const ParameterModeler& parameter = params.find(*it)->second;
     if (!parameter.hasValue() && parameter.isFullyInternal()) {
       Trace::debug(Trace::parameters()) << DYNLog(InternalParam, *it) << Trace::endline;
