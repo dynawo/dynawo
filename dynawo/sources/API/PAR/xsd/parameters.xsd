@@ -75,7 +75,6 @@
   <xs:simpleType name="OriginData">
     <xs:restriction base="dyn:String">
       <xs:enumeration value="IIDM"/>
-      <xs:enumeration value="INIT"/> <!-- only for AIA if needed -->
     </xs:restriction>
   </xs:simpleType>
 
