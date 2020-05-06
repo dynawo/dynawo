@@ -86,6 +86,6 @@ equation
   annotation(
     experiment(StartTime = 0, StopTime = 30, Tolerance = 0.000001),
     //__OpenModelica_commandLineOptions = "--daeMode",
-    __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol",  s = "ida", nlsLS = "klu",  maxIntegrationOrder = "2", maxStepSize = "10", outputFormat = "mat"),
+    __OpenModelica_simulationFlags(initialStepSize = "0.001", lv = "LOG_STATS", nls="kinsol",  s = "ida", nlsLS = "klu",  maxIntegrationOrder = "2", maxStepSize = "10"),
     Documentation(info = "<html><head></head><body> This test case represents a synchronous machine connected to an infinite bus through a transformer and two lines in parallel. <div><br></div><div> The simulated event is a step variation on the generator  mechanical power Pm.</body></html>"));
 end SMIBStepPm;
