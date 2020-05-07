@@ -686,6 +686,7 @@ class ReaderOMC:
         # Find functions of type MODEL_NAME_eqFunction_N and variable assignment expressions
         # Regular expression to recognize a line of type var = rhs
         ptrn_assign_var = re.compile(r'^[ ]*data->localData(?P<var>\S*)[ ]*\/\* (?P<varName>[\w\$\.()\[\],]*) [\w(),\.]+ \*\/[ ]*=[ ]*(?P<rhs>[^;]+);')
+        ptrn_param = re.compile(r'^[ ]*data->simulationInfo->(?P<var>\S*)[ ]*\/\* (?P<varName>[ \w\$\.()\[\],]*) PARAM \*\/[ ]*=[ ]*(?P<rhs>[^;]+);')
         with open(self._06inz_c_file, 'r') as f:
             while True:
                 nb_braces_opened = 0
@@ -711,6 +712,14 @@ class ReaderOMC:
                             self.var_init_val_06inz[ var ] = list_body
                             self.var_num_init_val_06inz[var] = num_function
                             break
+                    if ptrn_param.search(line) is not None:
+                        match = re.search(ptrn_param, line)
+                        var = str(match.group('varName'))
+                        rhs = match.group('rhs')
+                        # rejection of inits of type var = ..atribute and integerVarsPre vars
+                        if 'attribute' not in rhs and 'VarsPre' not in rhs and 'aux_x' not in rhs and "linearSystemData" not in rhs:
+                            self.var_init_val_06inz[ var ] = list_body
+                            self.var_num_init_val_06inz[var] = num_function
 
                 for line in list_body:
                     if 'omc_assert_warning' in line:
