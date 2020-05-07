@@ -66,14 +66,14 @@ class ModelicaModel::Impl : public ModelicaModel, public Model::Impl {
   ModelicaModel& setStaticId(const std::string& staticId);
 
   /**
-   * @copydoc ModelicaModel::setCompilationOptions(bool useAlias, bool generateCalculatedVariables)
+   * @copydoc ModelicaModel::setCompilationOptions(bool useAliasing, bool generateCalculatedVariables)
    */
-  void setCompilationOptions(bool useAlias, bool generateCalculatedVariables);
+  void setCompilationOptions(bool useAliasing, bool generateCalculatedVariables);
 
   /**
-   * @copydoc ModelicaModel::getUseAlias() const
+   * @copydoc ModelicaModel::getUseAliasing() const
    */
-  bool getUseAlias() const;
+  bool getUseAliasing() const;
 
   /**
    * @copydoc ModelicaModel::getGenerateCalculatedVariables() const

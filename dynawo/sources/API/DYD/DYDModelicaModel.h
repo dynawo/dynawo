@@ -65,16 +65,16 @@ class ModelicaModel : public Model {
 
   /**
    * @brief Set compilation options
-   * @param useAlias activate OpenModelica aliasing
+   * @param useAliasing activate OpenModelica aliasing
    * @param generateCalculatedVariables activate automatic computation of calculated variables
    */
-  virtual void setCompilationOptions(bool useAlias, bool generateCalculatedVariables)  = 0;
+  virtual void setCompilationOptions(bool useAliasing, bool generateCalculatedVariables)  = 0;
 
   /**
    * @brief whether the compilation should use aliasing or not
    * @return  whether the compilation should use aliasing or not
    */
-  virtual bool getUseAlias() const = 0;
+  virtual bool getUseAliasing() const = 0;
 
   /**
    * @brief whether the compilation should use automatic computation of calculated variables
