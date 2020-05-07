@@ -106,7 +106,7 @@ LineInterfaceIIDM::getR() const {
 double
 LineInterfaceIIDM::getX() const {
   if (doubleIsZero(lineIIDM_.x()) && doubleIsZero(lineIIDM_.r())) {
-    Trace::debug() << DYNLog(PossibleDivisionByZero, lineIIDM_.id()) << Trace::endline;
+    Trace::warn() << DYNLog(PossibleDivisionByZero, lineIIDM_.id()) << Trace::endline;
     return 0.01;  // default parameter
   }
   return lineIIDM_.x();

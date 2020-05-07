@@ -601,10 +601,10 @@ Simulation::configureLogs() {
       itApp = appendersEntry.begin();
       for (; itApp != appendersEntry.end(); ++itApp) {
         string tag = (*itApp)->getTag();
-        Trace::debug(tag) << " ============================================================ " << Trace::endline;
-        Trace::debug(tag) << DYNLog(DynawoVersion) << "  " << setw(8) << DYNAWO_VERSION_STRING << Trace::endline;
-        Trace::debug(tag) << DYNLog(DynawoRevision) << "  " << setw(8) << DYNAWO_GIT_BRANCH << "-" << DYNAWO_GIT_HASH << Trace::endline;
-        Trace::debug(tag) << " ============================================================ " << Trace::endline;
+        Trace::info(tag) << " ============================================================ " << Trace::endline;
+        Trace::info(tag) << DYNLog(DynawoVersion) << "  " << setw(8) << DYNAWO_VERSION_STRING << Trace::endline;
+        Trace::info(tag) << DYNLog(DynawoRevision) << "  " << setw(8) << DYNAWO_GIT_BRANCH << "-" << DYNAWO_GIT_HASH << Trace::endline;
+        Trace::info(tag) << " ============================================================ " << Trace::endline;
       }
     }
   } else {
@@ -641,12 +641,10 @@ Simulation::initFromData(const shared_ptr<DataInterface> & data, const shared_pt
 void
 Simulation::initStructure() {
   model_->initBuffers();
-#ifdef _DEBUG_
   shared_ptr<ModelMulti> model = dynamic_pointer_cast<ModelMulti>(model_);
   if (!model->checkConnects()) {
     throw DYNError(Error::MODELER, WrongConnect);
   }
-#endif
 }
 
 void
@@ -654,6 +652,9 @@ Simulation::init() {
 #ifdef _DEBUG_
   Timer timer("Simulation::init()");
 #endif
+  Trace::info() << Trace::endline << "-----------------------------------------------------------------------" << Trace::endline;
+  Trace::info() << DYNLog(ModelBuilding) << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
 
   loadDynamicData();
   compileModels();
@@ -687,11 +688,23 @@ Simulation::init() {
     model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
     model_->printEquations();
   }
+#ifdef _DEBUG_
+  model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
+  model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
+#endif
 
   tCurrent_ = tStart_;
+  Trace::info() << DYNLog(ModelBuildingEnd) << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
-  if (initialStateFile_ != "")
+  if (initialStateFile_ != "") {
+    Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+    Trace::info() << DYNLog(ModelInitialStateLoad) << Trace::endline;
+    Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
     t0 = loadState(initialStateFile_);  // loadState and return initial time
+    Trace::info() << DYNLog(ModelInitialStateLoadEnd) << Trace::endline;
+    Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
+  }
 
   // When a simulation starts with a dumpfile (initial condition of variables for dynamic models),
   // initial condition's calculation is not necessary for those dynamic models;
@@ -702,18 +715,28 @@ Simulation::init() {
   calculateIC();
 
   // Initialize curves
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  Trace::info() << DYNLog(CurveInit) << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   const std::vector<double>& y = solver_->getCurrentY();
+  unsigned nbCurves = 0;
   for (CurvesCollection::iterator itCurve = curvesCollection_->begin();
           itCurve != curvesCollection_->end();
           ++itCurve) {
     shared_ptr<curves::Curve>& curve = *itCurve;
-    model_->initCurves(curve);
+    bool added = model_->initCurves(curve);
+    if (added)
+      ++nbCurves;
     if (curve->getCurveType() == curves::Curve::DISCRETE_VARIABLE) {
       curve->setBuffer(&(zCurrent_[curve->getGlobalIndex()]));
     } else if (curve->getCurveType() == curves::Curve::CONTINUOUS_VARIABLE) {
       curve->setBuffer(&(y[curve->getGlobalIndex()]));
     }
   }
+  stringstream ss;
+  ss << nbCurves;
+  Trace::info() << DYNLog(CurveInitEnd, ss.str()) << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
   // if no dump to load t0 should be equal to zero
   // if dump loaded, t0 should be equal to the current time loaded
@@ -722,12 +745,14 @@ Simulation::init() {
     throw DYNError(Error::GENERAL, WrongStartTime, getStartTime(), t0);
 
   solver_->setTimeline(timeline_);
-  printSolverHeader();
 }
 
 void
 Simulation::calculateIC() {
   // ensure locally satisfactory values for initial models
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  Trace::info() << DYNLog(ModelLocalInit) << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   model_->setIsInitProcess(true);
   model_->init(tStart_);
   model_->rotateBuffers();
@@ -745,7 +770,12 @@ Simulation::calculateIC() {
   // check coherence during local init process (use of init model)
   model_->checkDataCoherence(tCurrent_);
   model_->setIsInitProcess(false);
+  Trace::info() << DYNLog(ModelLocalInitEnd) << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  Trace::info() << DYNLog(ModelGlobalInit) << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   // ensure globally satisfactory initial values for dynamic models
   solver_->init(model_, tStart_, tStop_);
   solver_->calculateIC();
@@ -760,6 +790,8 @@ Simulation::calculateIC() {
 
   // after the initialization process (use of dynamic model)
   model_->checkDataCoherence(tCurrent_);
+  Trace::info() << DYNLog(ModelGlobalInitEnd) << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;
 }
 
 void
@@ -767,7 +799,7 @@ Simulation::simulate() {
 #ifdef _DEBUG_
   Timer timer("Simulation::simulate()");
 #endif
-
+  printSolverHeader();
   string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
   if (!is_directory(outputsDirectory))
     create_directory(outputsDirectory);
@@ -800,7 +832,7 @@ Simulation::simulate() {
       BitMask solverState = solver_->getState();
       if (solverState.getFlags(ModeChange)) {
         updateCurves(true);
-        Trace::debug() << DYNLog(NewStartPoint) << Trace::endline;
+        Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
@@ -891,10 +923,6 @@ Simulation::updateParametersValues() {
 
       if (found) {
         (*itCurve)->updateParameterCurveValue(curveVariable, value);   // update value
-
-        Trace::info() << DYNLog(ParamCurveUpdated, (*itCurve)->getModelName(), (*itCurve)->getVariable()) << Trace::endline;
-      } else {
-        Trace::info() << DYNLog(ParamCurveNotFound, (*itCurve)->getModelName(), (*itCurve)->getVariable()) << Trace::endline;
       }
     }
   }
@@ -934,6 +962,9 @@ Simulation::updateCurves(bool updateCalculateVariable) {
 
 void
 Simulation::printSolverHeader() {
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
+  Trace::info() << DYNLog(SimulationStart) << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   solver_->printHeader();
 }
 

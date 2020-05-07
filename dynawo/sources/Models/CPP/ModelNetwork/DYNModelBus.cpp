@@ -858,7 +858,7 @@ SubNetwork::shutDownNodes() {
   for (unsigned int i = 0; i < bus_.size(); ++i) {
     if (!bus_[i]->getSwitchOff()) {
       bus_[i]->switchOff();
-      Trace::debug() << DYNLog(SwitchOffBus, bus_[i]->id()) << Trace::endline;
+      Trace::info() << DYNLog(SwitchOffBus, bus_[i]->id()) << Trace::endline;
     }
   }
 }
@@ -868,7 +868,7 @@ SubNetwork::turnOnNodes() {
   for (unsigned int i = 0; i < bus_.size(); ++i) {
     if (bus_[i]->getSwitchOff()) {
       bus_[i]->switchOn();
-      Trace::debug() << DYNLog(SwitchOnBus, bus_[i]->id()) << Trace::endline;
+      Trace::info() << DYNLog(SwitchOnBus, bus_[i]->id()) << Trace::endline;
     }
   }
 }

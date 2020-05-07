@@ -335,6 +335,20 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
     return (isInitModel_) ?  vLevelInitComponents_ : vLevelComponents_;
   }
 
+  /**
+   * @brief print network statistics into network log
+   * @param data network data
+   */
+  void printStats(const boost::shared_ptr<DataInterface>& data) const;
+
+  /**
+   * @brief print a component statistics into network log
+   * @param message message to display
+   * @param nbStatic number of components without dynamic model
+   * @param nbDynamic number of components with dynamic model
+   */
+  void printComponentStats(KeyLog_t::value message, unsigned nbStatic, unsigned nbDynamic) const;
+
  private:
   double * calculatedVarBuffer_;  ///< calculated variable buffer
 

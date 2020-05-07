@@ -186,7 +186,7 @@ SubModel::initSub(const double& t0) {
     for (vector<string>::iterator it = unusedParamNameList.begin();
             it != unusedParamNameList.end();
             ++it) {
-      Trace::debug() << DYNLog(ParamUnused, *it, name()) << Trace::endline;
+      Trace::warn() << DYNLog(ParamUnused, *it, name()) << Trace::endline;
     }
   }
 #endif
@@ -840,7 +840,7 @@ SubModel::evalModeSub(const double & t) {
   if (modeChangeType > modeChangeType_) {
     modeChange_ = true;
     modeChangeType_ = modeChangeType;
-    Trace::debug() << DYNLog(ModeChange, modeChangeType2Str(modeChangeType), name_) << Trace::endline;
+    Trace::info() << DYNLog(ModeChange, modeChangeType2Str(modeChangeType), name_) << Trace::endline;
   }
   return modeChangeType;
 }
@@ -1162,7 +1162,7 @@ void
 SubModel::printMessages() {
   std::list<string>::const_iterator iter;
   for (iter = messages_.begin(); iter != messages_.end(); ++iter)
-    Trace::debug() << getCurrentTime() << " | " << name() << " : " << *iter << Trace::endline;
+    Trace::info() << getCurrentTime() << " | " << name() << " : " << *iter << Trace::endline;
 
   messages_.clear();
 }
