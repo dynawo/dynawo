@@ -625,7 +625,6 @@ ModelMulti::getModelParameterValue(const string& curveModelName, const string& c
   if (subModel) {
     subModel->getSubModelParameterValue(curveVariable, value, found);
     if (found) {
-      Trace::debug() << DYNLog(ModelMultiGetParam, curveVariable, value, curveModelName) << Trace::endline;
       return;
     }
   }
@@ -822,7 +821,7 @@ ModelMulti::checkConnects() {
       if (yType_[yDeb + j] == EXTERNAL) {
         const bool isConnected = connectorContainer_->isConnected(yDeb + j);
         if (!isConnected) {
-          Trace::debug() << DYNLog(SubModelExtVar, sub->name(), name[j]) << Trace::endline;
+          Trace::info() << DYNLog(SubModelExtVar, sub->name(), name[j]) << Trace::endline;
           connectOk = false;
           break;
         }
@@ -912,7 +911,7 @@ ModelMulti::findSubModel(const string& modelName, const string& variable) {
   return findSubModelFromVarName_t();
 }
 
-void
+bool
 ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
   const string modelName = curve->getModelName();
   const string variable = curve->getVariable();
@@ -926,51 +925,51 @@ ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
   if (subModel) {
     if (!props.isNetwork_) {   // found model's ID in the composed models.
       if (props.isDynParam_) {   // case 2: curve's variable curve is a parameter in submodel
-        Trace::info() << DYNLog(AddingCurveParam, modelName, variable) << Trace::endline;
+        Trace::debug() << DYNLog(AddingCurveParam, modelName, variable) << Trace::endline;
         curve->setAvailable(true);
         curve->setFoundVariableName(variable);
         curve->setAsParameterCurve(true);   // This is a parameter curve
         subModel->addParameterCurve(curve);
-        return;
+        return true;
       } else if (props.variableNameInSubModel_ == variable) {   // found exact curve name
-        Trace::info() << DYNLog(AddingCurve, modelName, variable) << Trace::endline;
+        Trace::debug() << DYNLog(AddingCurve, modelName, variable) << Trace::endline;
         curve->setAvailable(true);
         curve->setFoundVariableName(variable);
         curve->setAsParameterCurve(false);   // This is a variable curve
         subModel->addCurve(curve);
-        return;
+        return true;
       } else if (props.variableNameInSubModel_ == variableNameBis) {
-        Trace::info() << DYNLog(AddingCurveOutput, modelName, variable, variableNameBis) << Trace::endline;
+        Trace::debug() << DYNLog(AddingCurveOutput, modelName, variable, variableNameBis) << Trace::endline;
         curve->setAvailable(true);
         curve->setFoundVariableName(variableNameBis);
         subModel->addCurve(curve);
-        return;
+        return true;
       }
     } else {
       // BEGIN SEARCH IN NETWORK
       shared_ptr<SubModel> modelNetwork = subModel;
       string name = modelName + "_" + variable;
       if (props.variableNameInSubModel_ == name) {
-        Trace::info() << DYNLog(AddingCurveOutput, modelName, variable, name) << Trace::endline;
+        Trace::debug() << DYNLog(AddingCurveOutput, modelName, variable, name) << Trace::endline;
         curve->setAvailable(true);
         curve->setFoundVariableName(name);
         modelNetwork->addCurve(curve);
-        return;
+        return true;
       } else {
         string name2 = name + "_value";
         if (props.variableNameInSubModel_ == name2) {   // find name2 = name_value
-          Trace::info() << DYNLog(AddingCurveOutput, modelName, variable, name2) << Trace::endline;
+          Trace::debug() << DYNLog(AddingCurveOutput, modelName, variable, name2) << Trace::endline;
           curve->setAvailable(true);
           curve->setFoundVariableName(name2);
           modelNetwork->addCurve(curve);
-          return;
+          return true;
         }
       }
     }
   }
 
   Trace::warn() << DYNLog(CurveNotAdded, modelName, variable) << Trace::endline;
-  return;
+  return false;
 }
 
 void
@@ -1118,6 +1117,7 @@ void ModelMulti::printEquations() {
       ++nVar;
     }
   }
+  connectorContainer_->printEquations();
 
   setIsInitProcess(true);
   nVar = 0;

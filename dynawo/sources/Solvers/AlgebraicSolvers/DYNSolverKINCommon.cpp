@@ -262,13 +262,13 @@ SolverKINCommon::analyseFlag(const int & flag) {
       break;
     default:
 #ifdef _DEBUG_
-      Trace::debug() << DYNLog(SolverKINUnknownError) << Trace::endline;
+      Trace::error() << DYNLog(SolverKINUnknownError) << Trace::endline;
 #endif
       throw DYNError(Error::SUNDIALS_ERROR, SolverSolveErrorKINSOL);
   }
 
   if (flag < 0)
-    Trace::warn() << msg.str() << Trace::endline;
+    Trace::error() << msg.str() << Trace::endline;
 }
 
 void

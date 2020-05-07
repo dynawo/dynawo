@@ -43,15 +43,10 @@
   <curve model="GEN____6_SM" variable="generator_QGen"/>
   <curve model="GEN____8_SM" variable="generator_QGen"/>
   <curve model="GEN____1_SM" variable="generator_UStatorPu"/>
-  <curve model="GEN____1_SM" variable="voltageRegulator_UcEfdPu"/>
   <curve model="GEN____6_SM" variable="generator_UStatorPu"/>
-  <curve model="GEN____6_SM" variable="voltageRegulator_UcEfdPu"/>
   <curve model="GEN____2_SM" variable="generator_UStatorPu"/>
-  <curve model="GEN____2_SM" variable="voltageRegulator_UcEfdPu"/>
   <curve model="GEN____3_SM" variable="generator_UStatorPu"/>
-  <curve model="GEN____3_SM" variable="voltageRegulator_UcEfdPu"/>
   <curve model="GEN____8_SM" variable="generator_UStatorPu"/>
-  <curve model="GEN____8_SM" variable="voltageRegulator_UcEfdPu"/>
   <curve model="GEN____1_SM" variable="voltageRegulator_EfdPu"/>
   <curve model="GEN____2_SM" variable="voltageRegulator_EfdPu"/>
   <curve model="GEN____3_SM" variable="voltageRegulator_EfdPu"/>

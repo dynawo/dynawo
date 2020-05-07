@@ -195,7 +195,7 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
   // evaluation of the discrete variables current values
   State currState1 = static_cast<State>(static_cast<int>(z_[0]));
   if (currState1 != getConnected1()) {
-    Trace::debug() << DYNLog(Converter1StateChange, id_, getConnected1(), z_[0]) << Trace::endline;
+    Trace::info() << DYNLog(Converter1StateChange, id_, getConnected1(), z_[0]) << Trace::endline;
     if (currState1 == OPEN) {
       network_->addEvent(id_, DYNTimeline(Converter1SwitchOff));
       modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
@@ -209,7 +209,7 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
 
   State currState2 = static_cast<State>(static_cast<int>(z_[1]));
   if (currState2 != getConnected2()) {
-    Trace::debug() << DYNLog(Converter2StateChange, id_, getConnected2(), z_[1]) << Trace::endline;
+    Trace::info() << DYNLog(Converter2StateChange, id_, getConnected2(), z_[1]) << Trace::endline;
     if (currState2 == OPEN) {
       network_->addEvent(id_, DYNTimeline(Converter2SwitchOff));
       modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());

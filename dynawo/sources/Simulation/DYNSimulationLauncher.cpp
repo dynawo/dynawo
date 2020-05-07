@@ -55,7 +55,7 @@ void launchSimu(const std::string& jobsFileName) {
   for (job::job_iterator itJobEntry = jobsCollection->begin();
       itJobEntry != jobsCollection->end();
       ++itJobEntry) {
-    Trace::debug() << DYNLog(LaunchingJob, (*itJobEntry)->getName()) << Trace::endline;
+    Trace::info() << DYNLog(LaunchingJob, (*itJobEntry)->getName()) << Trace::endline;
 
     boost::shared_ptr<SimulationContext> context = boost::shared_ptr<SimulationContext>(new SimulationContext());
     context->setResourcesDirectory(getMandatoryEnvVar("DYNAWO_RESOURCES_DIR"));
@@ -82,13 +82,13 @@ void launchSimu(const std::string& jobsFileName) {
       throw;
     }
     simulation->clean();
-    Trace::debug() << DYNLog(EndOfJob, (*itJobEntry)->getName()) << Trace::endline;
+    Trace::info() << DYNLog(EndOfJob, (*itJobEntry)->getName()) << Trace::endline;
     Trace::resetCustomAppenders();
     Trace::init();
-    Trace::debug() << DYNLog(JobSuccess, (*itJobEntry)->getName()) << Trace::endline;
+    Trace::info() << DYNLog(JobSuccess, (*itJobEntry)->getName()) << Trace::endline;
     if ((*itJobEntry)->getOutputsEntry()) {
       std::string outputsDirectory = createAbsolutePath((*itJobEntry)->getOutputsEntry()->getOutputsDirectory(), context->getWorkingDirectory());
-      Trace::debug() << DYNLog(ResultFolder, outputsDirectory) << Trace::endline;
+      Trace::info() << DYNLog(ResultFolder, outputsDirectory) << Trace::endline;
     }
   }
 }

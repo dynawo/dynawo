@@ -208,7 +208,7 @@ ModelShuntCompensator::evalZ(const double& t) {
   State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != getConnected()) {
     stateModified_ = true;
-    Trace::debug() << DYNLog(ShuntStateChange, id_, getConnected(), currState) << Trace::endline;
+    Trace::info() << DYNLog(ShuntStateChange, id_, getConnected(), currState) << Trace::endline;
     if (currState == OPEN) {
       network_->addEvent(id_, DYNTimeline(ShuntDisconnected));
       tLastOpening_ = t;

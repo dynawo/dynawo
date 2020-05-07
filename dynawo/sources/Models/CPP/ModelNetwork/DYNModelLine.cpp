@@ -869,7 +869,7 @@ ModelLine::evalZ(const double& t) {
       Trace::error() << DYNLog(UnableToCloseLineSide2, id_) << Trace::endline;
     } else {
       topologyModified_ = true;
-      Trace::debug() << DYNLog(LineStateChange, id_, getConnectionState(), currState) << Trace::endline;
+      Trace::info() << DYNLog(LineStateChange, id_, getConnectionState(), currState) << Trace::endline;
       switch (currState) {
       // z_[0] represents the actual state
       // getConnectionState() represents the previous state
@@ -994,7 +994,7 @@ ModelLine::evalZ(const double& t) {
 
   if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {
     setCurrentLimitsDesactivate(z_[1]);
-    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
+    Trace::info() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
 
   if (topologyModified_) {

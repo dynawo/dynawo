@@ -1000,10 +1000,8 @@ ModelManager::setYCalculatedParameters(vector<double>& y,
           ++it) {
         if (!(*it)->getNegated()) {  // Usual alias
           setCalculatedParameter((*it)->getName(), y[i]);
-          Trace::debug() << DYNLog(ParamSameValue, (*it)->getName(), xNamesInitial[i]) << Trace::endline;
         } else {  // Negated alias
           setCalculatedParameter((*it)->getName(), -y[i]);
-          Trace::debug() << DYNLog(ParamOppositeValue, (*it)->getName(), xNamesInitial[i]) << Trace::endline;
         }
       }
     }
@@ -1069,12 +1067,6 @@ ModelManager::setZCalculatedParameters(vector<double>& z,
           setCalculatedParameter((*it)->getName(), static_cast<int> (zVal));
         } else {
           setCalculatedParameter((*it)->getName(), zVal);
-        }
-
-        if ((*it)->getNegated()) {
-          Trace::debug() << DYNLog(ParamOppositeValue, (*it)->getName(), zNamesInitial[i]) << Trace::endline;
-        } else {
-          Trace::debug() << DYNLog(ParamSameValue, (*it)->getName(), zNamesInitial[i]) << Trace::endline;
         }
       }
     }
@@ -1173,10 +1165,8 @@ ModelManager::createCalculatedParametersFromInitialCalculatedVariables(const vec
           ++it) {
         if (!(*it)->getNegated()) {  // Usual alias
           setCalculatedParameter((*it)->getName(), calculatedVars[i]);
-          Trace::debug() << DYNLog(ParamSameValue, (*it)->getName(), calcVarInitial[i]) << Trace::endline;
         } else {  // Negated alias
           setCalculatedParameter((*it)->getName(), -calculatedVars[i]);
-          Trace::debug() << DYNLog(ParamOppositeValue, (*it)->getName(), calcVarInitial[i]) << Trace::endline;
         }
       }
     }

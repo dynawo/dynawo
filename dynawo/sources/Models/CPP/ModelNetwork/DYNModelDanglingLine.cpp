@@ -680,7 +680,7 @@ ModelDanglingLine::evalZ(const double& t) {
 
   State currState = static_cast<State>(static_cast<int>(z_[0]));
   if (currState != connectionState_) {
-    Trace::debug() << DYNLog(DanglingLineStateChange, id_, connectionState_, currState) << Trace::endline;
+    Trace::info() << DYNLog(DanglingLineStateChange, id_, connectionState_, currState) << Trace::endline;
     stateModified_ = true;
     if (connectionState_ == CLOSED) {
       network_->addEvent(id_, DYNTimeline(DanglingLineConnected));
@@ -694,7 +694,7 @@ ModelDanglingLine::evalZ(const double& t) {
 
   if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {
     setCurrentLimitsDesactivate(z_[1]);
-    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
+    Trace::info() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
   return (stateModified_)?NetworkComponent::STATE_CHANGE:NetworkComponent::NO_CHANGE;
 }
