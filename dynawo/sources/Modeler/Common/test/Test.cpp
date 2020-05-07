@@ -384,7 +384,7 @@ TEST(ModelerCommonTest, ParameterUnitary) {   // Test for unitary parameters
 
   // Test for parameters with multiple origin
   ASSERT_NO_THROW(parameters[1].setValue(1, PAR));
-  ASSERT_NO_THROW(parameters[1].setValue(3, LOCAL_INIT));
+  ASSERT_NO_THROW(parameters[1].setValue(3, IIDM));
   ASSERT_EQ(parameters[1].getValue<int>(), 3);
 
   // Test the impossibility to set a cardinality informator for an unitary parameter
@@ -483,10 +483,12 @@ TEST(ModelerCommonTest, SetParameterFromPARFile) {
   ASSERT_EQ(submodel.findParameterDynamic(paramString.getName()).getValue<std::string>(), string_value);
   ASSERT_EQ(submodel.findParameterDynamic(paramDoubleShared.getName()).originWriteAllowed(MO), true);
   ASSERT_EQ(submodel.findParameterDynamic(paramDoubleShared.getName()).originWriteAllowed(PAR), true);
+  ASSERT_EQ(submodel.findParameterDynamic(paramDoubleShared.getName()).originWriteAllowed(IIDM), true);
   // ASSERT_EQ (submodel.findParameterDynamic (paramDoubleInternal.getName()).originWriteAllowed(MO), false);
   ASSERT_EQ(submodel.findParameterDynamic(paramDoubleInternal.getName()).originWriteAllowed(PAR), false);
+  ASSERT_EQ(submodel.findParameterDynamic(paramDoubleInternal.getName()).originWriteAllowed(IIDM), false);
 
-  ASSERT_THROW_DYNAWO(submodel.findParameterDynamic(paramDoubleInternal.getName()).writeChecks(PAR), Error::MODELER, KeyError_t::ParameterNoWriteRights);
+  ASSERT_THROW_DYNAWO(submodel.findParameterDynamic(paramDoubleInternal.getName()).writeChecks(IIDM), Error::MODELER, KeyError_t::ParameterNoWriteRights);
   ASSERT_NO_THROW(submodel.findParameterDynamic(paramDoubleShared.getName()).writeChecks(PAR));
 
   // Test fail cases

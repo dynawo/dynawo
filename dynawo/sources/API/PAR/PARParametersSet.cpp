@@ -123,19 +123,6 @@ ParametersSet::reference_const_iterator::operator++(int) {
   return previous;
 }
 
-ParametersSet::reference_const_iterator&
-ParametersSet::reference_const_iterator::operator--() {
-  --(*impl_);
-  return *this;
-}
-
-ParametersSet::reference_const_iterator
-ParametersSet::reference_const_iterator::operator--(int) {
-  ParametersSet::reference_const_iterator previous = *this;
-  (*impl_)--;
-  return previous;
-}
-
 bool
 ParametersSet::reference_const_iterator::operator==(const ParametersSet::reference_const_iterator& other) const {
   return *impl_ == *(other.impl_);

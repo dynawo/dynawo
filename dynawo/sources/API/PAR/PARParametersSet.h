@@ -26,6 +26,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
+#include <boost/unordered_map.hpp>
 
 namespace parameters {
 
@@ -445,20 +446,6 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
      * @returns Copy of this reference_const_iterator
      */
     reference_const_iterator operator++(int);
-
-    /**
-     * @brief Prefix-decrement operator
-     *
-     * @returns Reference to this reference_const_iterator
-     */
-    reference_const_iterator& operator--();
-
-    /**
-     * @brief Postfix-decrement operator
-     *
-     * @returns Copy of this reference_const_iterator
-     */
-    reference_const_iterator operator--(int);
 
     /**
      * @brief Equal to operator
