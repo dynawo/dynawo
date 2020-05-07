@@ -180,7 +180,7 @@ DataInterfaceIIDM::initFromIIDM() {
     IIDM::Contains<IIDM::Transformer2Windings>::iterator it2WTfo = itSubstation->twoWindingsTransformers().begin();
     for (; it2WTfo != itSubstation->twoWindingsTransformers().end(); ++it2WTfo) {
       if ( !(*it2WTfo).has_connection(IIDM::side_1) && !(*it2WTfo).has_connection(IIDM::side_2) ) {
-        Trace::debug() << DYNLog(NoNetworkConnection, (*it2WTfo).id()) << Trace::endline;
+        Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*it2WTfo).id()) << Trace::endline;
         continue;
       }
       shared_ptr<TwoWTransformerInterface> tfo = importTwoWindingsTransformer(*it2WTfo);
@@ -194,7 +194,7 @@ DataInterfaceIIDM::initFromIIDM() {
     IIDM::Contains<IIDM::Transformer3Windings>::iterator it3WTfo = itSubstation->threeWindingsTransformers().begin();
     for (; it3WTfo != itSubstation->threeWindingsTransformers().end(); ++it3WTfo) {
       if (!(*it3WTfo).has_connection(IIDM::side_1) && !(*it3WTfo).has_connection(IIDM::side_2) && !(*it3WTfo).has_connection(IIDM::side_3)) {
-        Trace::debug() << DYNLog(NoNetworkConnection, (*it3WTfo).id()) << Trace::endline;
+        Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*it3WTfo).id()) << Trace::endline;
         continue;
       }
       shared_ptr<ThreeWTransformerInterface> tfo = importThreeWindingsTransformer(*it3WTfo);
@@ -210,7 +210,7 @@ DataInterfaceIIDM::initFromIIDM() {
   IIDM::Contains<IIDM::Line>::iterator itLine = networkIIDM_.lines().begin();
   for (; itLine != networkIIDM_.lines().end(); ++itLine) {
     if ( !(*itLine).has_connection(IIDM::side_1) && !(*itLine).has_connection(IIDM::side_2) ) {
-      Trace::debug() << DYNLog(NoNetworkConnection, (*itLine).id()) << Trace::endline;
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLine).id()) << Trace::endline;
       continue;
     }
     shared_ptr<LineInterface> line = importLine(*itLine);
@@ -224,7 +224,7 @@ DataInterfaceIIDM::initFromIIDM() {
   IIDM::Contains<IIDM::TieLine>::iterator itTieLine = networkIIDM_.tielines().begin();
   for (; itTieLine != networkIIDM_.tielines().end(); ++itTieLine) {
     if ( !(*itTieLine).has_connection(IIDM::side_1) && !(*itTieLine).has_connection(IIDM::side_2) ) {
-      Trace::debug() << DYNLog(NoNetworkConnection, (*itTieLine).id()) << Trace::endline;
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itTieLine).id()) << Trace::endline;
       continue;
     }
     importTieLine(*itTieLine);
@@ -295,7 +295,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
   IIDM::Contains<IIDM::Generator>::iterator itGen = voltageLevelIIDM.generators().begin();
   for (; itGen != voltageLevelIIDM.generators().end(); ++itGen) {
     if ( !(*itGen).has_connection() ) {
-      Trace::debug() << DYNLog(NoNetworkConnection, (*itGen).id()) << Trace::endline;
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itGen).id()) << Trace::endline;
       continue;
     }
     shared_ptr<GeneratorInterface> generator = importGenerator(*itGen);
@@ -311,7 +311,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
   IIDM::Contains<IIDM::Load>::iterator itLoad = voltageLevelIIDM.loads().begin();
   for (; itLoad != voltageLevelIIDM.loads().end(); ++itLoad) {
     if ( !(*itLoad).has_connection() ) {
-      Trace::debug() << DYNLog(NoNetworkConnection, (*itLoad).id()) << Trace::endline;
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLoad).id()) << Trace::endline;
       continue;
     }
     shared_ptr<LoadInterface> load = importLoad(*itLoad);
@@ -327,7 +327,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
   IIDM::Contains<IIDM::ShuntCompensator>::iterator itShunt = voltageLevelIIDM.shuntCompensators().begin();
   for (; itShunt != voltageLevelIIDM.shuntCompensators().end(); ++itShunt) {
     if ( !(*itShunt).has_connection() ) {
-      Trace::debug() << DYNLog(NoNetworkConnection, (*itShunt).id()) << Trace::endline;
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itShunt).id()) << Trace::endline;
       continue;
     }
     shared_ptr<ShuntCompensatorInterface> shunt = importShuntCompensator(*itShunt);
@@ -342,7 +342,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
   IIDM::Contains<IIDM::DanglingLine>::iterator itDanglingLine = voltageLevelIIDM.danglingLines().begin();
   for (; itDanglingLine != voltageLevelIIDM.danglingLines().end(); ++itDanglingLine) {
     if ( !(*itDanglingLine).has_connection() ) {
-      Trace::debug() << DYNLog(NoNetworkConnection, (*itDanglingLine).id()) << Trace::endline;
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itDanglingLine).id()) << Trace::endline;
       continue;
     }
     shared_ptr<DanglingLineInterface> line = importDanglingLine(*itDanglingLine);
@@ -357,7 +357,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
   IIDM::Contains<IIDM::StaticVarCompensator>::iterator itSVC = voltageLevelIIDM.staticVarCompensators().begin();
   for (; itSVC != voltageLevelIIDM.staticVarCompensators().end(); ++itSVC) {
     if ( !(*itSVC).has_connection() ) {
-      Trace::debug() << DYNLog(NoNetworkConnection, (*itSVC).id()) << Trace::endline;
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itSVC).id()) << Trace::endline;
       continue;
     }
     shared_ptr<StaticVarCompensatorInterface> svc = importStaticVarCompensator(*itSVC);
@@ -372,7 +372,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
   IIDM::Contains<IIDM::VscConverterStation>::iterator itVSC = voltageLevelIIDM.vscConverterStations().begin();
   for (; itVSC != voltageLevelIIDM.vscConverterStations().end(); ++itVSC) {
     if ( !(*itVSC).has_connection() ) {
-      Trace::debug() << DYNLog(NoNetworkConnection, (*itVSC).id()) << Trace::endline;
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itVSC).id()) << Trace::endline;
       continue;
     }
     shared_ptr<VscConverterInterface> vsc = importVscConverter(*itVSC);
@@ -387,7 +387,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
   IIDM::Contains<IIDM::LccConverterStation>::iterator itLCC = voltageLevelIIDM.lccConverterStations().begin();
   for (; itLCC != voltageLevelIIDM.lccConverterStations().end(); ++itLCC) {
     if ( !(*itLCC).has_connection() ) {
-      Trace::debug() << DYNLog(NoNetworkConnection, (*itLCC).id()) << Trace::endline;
+      Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLCC).id()) << Trace::endline;
       continue;
     }
     shared_ptr<LccConverterInterface> lcc = importLccConverter(*itLCC);
