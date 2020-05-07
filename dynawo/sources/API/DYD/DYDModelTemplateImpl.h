@@ -54,14 +54,14 @@ class ModelTemplate::Impl : public ModelTemplate, public Model::Impl {
   ~Impl();
 
   /**
-   * @copydoc ModelTemplate::setCompilationOptions(bool useAlias, bool generateCalculatedVariables)
+   * @copydoc ModelTemplate::setCompilationOptions(bool useAliasing, bool generateCalculatedVariables)
    */
-  void setCompilationOptions(bool useAlias, bool generateCalculatedVariables);
+  void setCompilationOptions(bool useAliasing, bool generateCalculatedVariables);
 
   /**
-   * @copydoc ModelTemplate::getUseAlias() const
+   * @copydoc ModelTemplate::getUseAliasing() const
    */
-  bool getUseAlias() const;
+  bool getUseAliasing() const;
 
   /**
    * @copydoc ModelTemplate::getGenerateCalculatedVariables() const

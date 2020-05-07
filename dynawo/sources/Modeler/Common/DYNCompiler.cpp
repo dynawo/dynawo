@@ -304,7 +304,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
     libName = modelicaModel->getId() + sharedLibraryExtension();
     unitDynamicModels = modelicaModel->getUnitDynamicModels();
     modelID = modelicaModel->getId();
-    useAliasing = modelicaModel->getUseAlias();
+    useAliasing = modelicaModel->getUseAliasing();
     genCalculatedVariables = modelicaModel->getGenerateCalculatedVariables();
   } else {
     // compile(modelicaModel) compile the modelica model already mapped;
@@ -312,7 +312,7 @@ Compiler::compileModelicaModelDescription(const shared_ptr<ModelDescription>& mo
     libName = modelicaModel->getId() + sharedLibraryExtension();
     unitDynamicModels = modelicaModel->getUnitDynamicModels();
     modelID = modelicaModel->getId();
-    useAliasing = modelicaModel->getUseAlias();
+    useAliasing = modelicaModel->getUseAliasing();
     genCalculatedVariables = modelicaModel->getGenerateCalculatedVariables();
   }
 

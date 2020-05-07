@@ -49,7 +49,7 @@ TEST(APIDYDTest, ModelicaModel) {
   boost::shared_ptr<ModelicaModel> model;
   model = ModelicaModelFactory::newModel("ModelicaModel");
   model->setStaticId("staticId");
-  ASSERT_TRUE(model->getUseAlias());
+  ASSERT_TRUE(model->getUseAliasing());
   ASSERT_TRUE(model->getGenerateCalculatedVariables());
   model->setCompilationOptions(false, false);
 
@@ -79,7 +79,7 @@ TEST(APIDYDTest, ModelicaModel) {
   ASSERT_EQ(model->getType(), Model::MODELICA_MODEL);
   ASSERT_EQ(model->getId(), "ModelicaModel");
   ASSERT_EQ(model->getStaticId(), "staticId");
-  ASSERT_FALSE(model->getUseAlias());
+  ASSERT_FALSE(model->getUseAliasing());
   ASSERT_FALSE(model->getGenerateCalculatedVariables());
   std::map<std::string, boost::shared_ptr<UnitDynamicModel> > udms = model->getUnitDynamicModels();
   ASSERT_EQ(udms.size(), 2);

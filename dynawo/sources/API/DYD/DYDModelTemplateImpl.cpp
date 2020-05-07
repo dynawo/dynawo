@@ -68,13 +68,13 @@ ModelTemplate::Impl::~Impl() {
 }
 
 void
-ModelTemplate::Impl::setCompilationOptions(bool useAlias, bool generateCalculatedVariables) {
-  useAliasing_ = useAlias;
+ModelTemplate::Impl::setCompilationOptions(bool useAliasing, bool generateCalculatedVariables) {
+  useAliasing_ = useAliasing;
   generateCalculatedVariables_ = generateCalculatedVariables;
 }
 
 bool
-ModelTemplate::Impl::getUseAlias() const {
+ModelTemplate::Impl::getUseAliasing() const {
   return useAliasing_;
 }
 

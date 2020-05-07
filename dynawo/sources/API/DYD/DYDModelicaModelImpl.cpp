@@ -72,13 +72,13 @@ ModelicaModel::Impl::setStaticId(const string& staticId) {
 }
 
 void
-ModelicaModel::Impl::setCompilationOptions(bool useAlias, bool generateCalculatedVariables) {
-  useAliasing_ = useAlias;
+ModelicaModel::Impl::setCompilationOptions(bool useAliasing, bool generateCalculatedVariables) {
+  useAliasing_ = useAliasing;
   generateCalculatedVariables_ = generateCalculatedVariables;
 }
 
 bool
-ModelicaModel::Impl::getUseAlias() const {
+ModelicaModel::Impl::getUseAliasing() const {
   return useAliasing_;
 }
 

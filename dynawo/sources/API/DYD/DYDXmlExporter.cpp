@@ -210,8 +210,8 @@ XmlExporter::writeModelicaModel(const shared_ptr<ModelicaModel>& cm, Formatter& 
   attrs.add("id", cm->getId());
   if (cm->getStaticId() != "")
     attrs.add("staticId", cm->getStaticId());
-  if (!cm->getUseAlias())
-    attrs.add("useAliasing", cm->getUseAlias());
+  if (!cm->getUseAliasing())
+    attrs.add("useAliasing", cm->getUseAliasing());
   if (!cm->getGenerateCalculatedVariables())
     attrs.add("generateCalculatedVariables", cm->getGenerateCalculatedVariables());
 
@@ -259,8 +259,8 @@ void
 XmlExporter::writeModelTemplate(const shared_ptr<ModelTemplate>& mt, Formatter& formatter) const {
   AttributeList attrs;
   attrs.add("id", mt->getId());
-  if (!mt->getUseAlias())
-    attrs.add("useAliasing", mt->getUseAlias());
+  if (!mt->getUseAliasing())
+    attrs.add("useAliasing", mt->getUseAliasing());
   if (!mt->getGenerateCalculatedVariables())
     attrs.add("generateCalculatedVariables", mt->getGenerateCalculatedVariables());
 
