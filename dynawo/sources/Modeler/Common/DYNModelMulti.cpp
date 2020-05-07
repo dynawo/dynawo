@@ -318,6 +318,7 @@ ModelMulti::printParameterValues() const {
       "caption: "<< Trace::endline <<
       "  -- \"modelica file\"  -> default value specified in modelica model"<< Trace::endline <<
       "  -- \"parameters\"     -> value read from parameter file"<< Trace::endline <<
+      "  -- \"IIDM\"           -> value read from iidm file"<< Trace::endline <<
       "  -- \"loaded dump\"    -> value read from initial state file"<< Trace::endline <<
       "  -- \"initialization\" -> value computed by local initialization"<< Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i)

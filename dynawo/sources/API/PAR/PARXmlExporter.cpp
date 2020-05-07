@@ -19,6 +19,7 @@
 
 #include <fstream>
 #include <vector>
+#include <map>
 #include <xml/sax/formatter/AttributeList.h>
 #include <xml/sax/formatter/Formatter.h>
 
@@ -33,6 +34,7 @@
 using std::fstream;
 using std::string;
 using std::vector;
+using std::map;
 
 using xml::sax::formatter::AttributeList;
 using xml::sax::formatter::Formatter;
@@ -104,14 +106,20 @@ XmlExporter::exportToStream(const boost::shared_ptr<ParametersSetCollection>& co
       formatter->endElement();   // par
     }
      // write references
+    map<string, boost::shared_ptr<Reference> > sortedRef;
     for (ParametersSet::reference_const_iterator itRef = (*itParamSet)->cbeginReference();
             itRef != (*itParamSet)->cendReference();
             ++itRef) {
+      sortedRef.insert(std::make_pair((*itRef)->getName(), *itRef));
+    }
+    for (map<string, boost::shared_ptr<Reference> >::const_iterator itRef = sortedRef.begin();
+            itRef != sortedRef.end(); ++itRef) {
+      const boost::shared_ptr<Reference>& ref = itRef->second;
       attrs.clear();
-      attrs.add("type", (*itRef)->getType());
-      attrs.add("name", (*itRef)->getName());
-      attrs.add("origData", (*itRef)->getOrigDataStr());
-      attrs.add("origName", (*itRef)->getOrigName());
+      attrs.add("type", ref->getType());
+      attrs.add("name", ref->getName());
+      attrs.add("origData", ref->getOrigDataStr());
+      attrs.add("origName", ref->getOrigName());
       formatter->startElement("reference", attrs);
       formatter->endElement();   // ref
     }

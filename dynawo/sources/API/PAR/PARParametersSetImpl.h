@@ -24,6 +24,7 @@
 #include <vector>
 
 #include <boost/shared_ptr.hpp>
+#include <boost/unordered_map.hpp>
 
 #include "PARParametersSet.h"
 #include "PARParameter.h"
@@ -235,7 +236,7 @@ class ParametersSet::Impl : public ParametersSet {
 
   std::string id_; /**< Parameters' set id */
   std::map<std::string, boost::shared_ptr<Parameter> > parameters_; /**< Map of the parameters */
-  std::map<std::string, boost::shared_ptr<Reference> > references_; /**< Map of the references */
+  boost::unordered_map<std::string, boost::shared_ptr<Reference> > references_; /**< Map of the references */
 };
 
 /**
@@ -359,18 +360,6 @@ class ParametersSet::BaseIteratorRefImpl {
    */
   BaseIteratorRefImpl operator++(int);
   /**
-   * @brief Prefix-decrement operator
-   *
-   * @returns Copy of this const_iterator
-   */
-  BaseIteratorRefImpl& operator--();
-  /**
-   * @brief Postfix-decrement operator
-   *
-   * @returns Copy of this const_iterator
-   */
-  BaseIteratorRefImpl operator--(int);
-  /**
    * @brief Equal to operator
    *
    * @param other Iterator to be compared with this
@@ -398,7 +387,7 @@ class ParametersSet::BaseIteratorRefImpl {
   const boost::shared_ptr<Reference>* operator->() const;
 
  private:
-  std::map<std::string, boost::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
+  boost::unordered_map<std::string, boost::shared_ptr<Reference> >::const_iterator current_; /**< Hidden map iterator */
 };
 
 }  // namespace parameters

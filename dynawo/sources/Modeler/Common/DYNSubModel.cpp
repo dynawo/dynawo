@@ -32,13 +32,11 @@
 #include "TLTimeline.h"
 #include "CSTRConstraintsCollection.h"
 #include "CRVCurve.h"
-#include "PARParametersSet.h"
 #include "PARParameter.h"
 
 #include "DYNSubModel.h"
 #include "DYNVariableNative.h"
 #include "DYNVariableAlias.h"
-#include "DYNParameterModeler.h"
 #include "DYNModel.h"
 #include "DYNSparseMatrix.h"
 #include "DYNSubModelFactory.h"
