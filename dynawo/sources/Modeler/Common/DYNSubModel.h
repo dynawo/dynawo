@@ -32,6 +32,7 @@
 
 #include "DYNEnumUtils.h"
 #include "DYNParameterModeler.h"
+#include "PARParametersSet.h"
 
 namespace parameters {
 class ParametersSet;
@@ -822,7 +823,10 @@ class SubModel {
    * @param isInitParam: whether to do it for initial (or dynamic) parameters
    */
   inline void setParameterFromPARFile(const std::string& parameterName, const bool isInitParam) {
-    setParameterFromSet(findParameterReference(parameterName, isInitParam), readPARParameters_, PAR);
+    if (readPARParameters_->hasReference(parameterName))
+      setParameterFromSet(findParameterReference(parameterName, isInitParam), readPARParameters_, IIDM);
+    else
+      setParameterFromSet(findParameterReference(parameterName, isInitParam), readPARParameters_, PAR);
   }
 
   /**
@@ -1384,7 +1388,10 @@ class SubModel {
    * @param parameter: parameter to be set
    */
   inline void setParameterFromPARFile(ParameterModeler& parameter) {
-    setParameterFromSet(parameter, readPARParameters_, PAR);
+    if (readPARParameters_->hasReference(parameter.getName()))
+      setParameterFromSet(parameter, readPARParameters_, IIDM);
+    else
+      setParameterFromSet(parameter, readPARParameters_, PAR);
   }
 
  protected:
