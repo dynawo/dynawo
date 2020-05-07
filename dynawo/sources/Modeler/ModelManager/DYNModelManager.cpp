@@ -941,13 +941,9 @@ ModelManager::solveParameters() {
 
   if (fErr.size() > 0) {
     unsigned i = 0;
-    for (map<double, int>::const_iterator it = fErr.begin(); it != fErr.end(); ++it, ++i) {
+    for (map<double, int>::const_iterator it = fErr.begin(); it != fErr.end() && i < nbErr; ++it, ++i) {
       Trace::debug() << DYNLog(SolveParametersFError, tolerance, it->second, it->first,
                                  getFequationByLocalIndex(it->second)) << Trace::endline;
-
-      if (i >= nbErr) {
-        break;
-      }
     }
   }
 #endif
