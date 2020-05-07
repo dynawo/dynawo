@@ -486,9 +486,9 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
 
 void
 ModelStaticVarCompensator::evalG(const double& /*t*/) {
-  g_[0] = (static_cast<StaticVarCompensatorInterface::RegulationMode_t>(z_[modeNum_]) == StaticVarCompensatorInterface::RUNNING_V
+  g_[0] = (static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_])) == StaticVarCompensatorInterface::RUNNING_V
       && !isRunning_) ? ROOT_UP : ROOT_DOWN;
-  g_[1] = (static_cast<StaticVarCompensatorInterface::RegulationMode_t>(z_[modeNum_]) == StaticVarCompensatorInterface::OFF
+  g_[1] = (static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_])) == StaticVarCompensatorInterface::OFF
       && isRunning_) ? ROOT_UP : ROOT_DOWN;
 
   double b = piOut();
