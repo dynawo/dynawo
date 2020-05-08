@@ -148,38 +148,31 @@ ModelLoad::evalF() {
     return;
 
   if (isRestorative_) {
-    double ur = modelBus_->ur();
-    double ui = modelBus_->ui();
-    double U = sqrt(ur * ur + ui * ui);
-    bool busSwitchOff = modelBus_->getSwitchOff();
-    bool running = isRunning();
+    if (!isRunning()) {
+      f_[0] = zPPrim();
+      f_[1] = zQPrim();
+    } else if (TpIsZero_) {
+      f_[0] = zPPrim();
+    } else if (TqIsZero_) {
+      f_[1] = zQPrim();
+    } else {
+      double ur = modelBus_->ur();
+      double ui = modelBus_->ui();
+      double U = sqrt(ur * ur + ui * ui);
 
-    if (!TpIsZero_ && running) {
       double zPprimValue = 0.;
-      if (!busSwitchOff) {
-        double zp = zP();
-        double zPdiff = pow(U / u0_, alphaLong_) - zp * pow(U, alpha_) * kp_;
-        if ((zp > 0. && zp < zPMax_) || (zp <= 0. && zPdiff > 0.) || (zp >= zPMax_ && zPdiff < 0.)) {
-          zPprimValue = zPdiff;
-        }
-      }
+      double zp = zP();
+      double zPdiff = pow(U / u0_, alphaLong_) - zp * pow(U, alpha_) * kp_;
+      if ((zp > 0. && zp < zPMax_) || (zp <= 0. && zPdiff > 0.) || (zp >= zPMax_ && zPdiff < 0.))
+        zPprimValue = zPdiff;
       f_[0] = Tp_ * zPPrim() - zPprimValue;
-    } else {
-      f_[0] = zPPrim();  // z is constant
-    }
 
-    if (!TqIsZero_ && running) {
       double zQprimValue = 0.;
-      if (!busSwitchOff) {
-        double zq = zQ();
-        double zQdiff = (pow(U / u0_, betaLong_) - zq * pow(U, beta_) * kq_);
-        if ((zq > 0. && zQ() < zQMax_) || (zq <= 0. && zQdiff > 0.) || (zq >= zQMax_ && zQdiff < 0.)) {
+      double zq = zQ();
+      double zQdiff = (pow(U / u0_, betaLong_) - zq * pow(U, beta_) * kq_);
+      if ((zq > 0. && zQ() < zQMax_) || (zq <= 0. && zQdiff > 0.) || (zq >= zQMax_ && zQdiff < 0.))
           zQprimValue = zQdiff;
-        }
-      }
       f_[1] = Tq_ * zQPrim() - zQprimValue;
-    } else {
-      f_[1] = zQPrim();  // z is constant
     }
   }
 }
@@ -192,14 +185,14 @@ ModelLoad::setFequations(std::map<int, std::string>& fEquationIndex) {
   unsigned int index = 0;
 
   if (isRestorative_) {
-    if (!TpIsZero_ && isRunning())
+    if (isRunning() && !TpIsZero_)
       fEquationIndex[index] = std::string("Tp_*zPPrim() - zPprimValue localModel:").append(id());
     else
       fEquationIndex[index] = std::string("zPPrim() localModel:").append(id());  // z is constant
     ++index;
 
 
-    if (!TqIsZero_ && isRunning())
+    if (isRunning() && !TqIsZero_)
       fEquationIndex[index] = std::string("Tq_*zQPrim() - zQprimValue localModel:").append(id());
     else
       fEquationIndex[index] = std::string("zQPrim() localModel:").append(id());  // z is constant
@@ -245,68 +238,56 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
     return;
 
   if (isRestorative_) {
-    double ur = modelBus_->ur();
-    double ui = modelBus_->ui();
-    double U = sqrt(ur * ur + ui * ui);
-    int urYNum = modelBus_->urYNum();
-    int uiYNum = modelBus_->uiYNum();
-
-    // column for equations Zp
-    jt.changeCol();
-
-    // @f[2]/@zp, @f[2]/@ur, @f[2]/@ui
-    double termZp = 0.;
-    double termUr = 0.;
-    double termUi = 0.;
-    double zp = zP();
-    double zPdiff = pow(U / u0_, alphaLong_) - zp * pow(U, alpha_) * kp_;
-    double dZpdiff_dZp = -pow(U, alpha_) * kp_;
-    double dZpdiff_dUr = alphaLong_ * ur * pow(U, alphaLong_ - 2.) / pow(u0_, alphaLong_) - zp * alpha_ * ur * pow(U, alpha_ - 2.) * kp_;
-    double dZpdiff_dUi = alphaLong_ * ui * pow(U, alphaLong_ - 2.) / pow(u0_, alphaLong_) - zp * alpha_ * ui * pow(U, alpha_ - 2.) * kp_;
-
-    if ((zp > 0. && zp < zPMax_) ||
-        (zp <= 0. && zPdiff > 0.) ||
-        (zp >= zPMax_ && zPdiff < 0.)) {
-      termZp = dZpdiff_dZp;
-      termUr = dZpdiff_dUr;
-      termUi = dZpdiff_dUi;
-    }
-
-    if (!TpIsZero_ && isRunning()) {
-      jt.addTerm(globalYIndex(zPYNum_) + rowOffset, -termZp + cj * Tp_);
-      jt.addTerm(urYNum + rowOffset, -termUr);
-      jt.addTerm(uiYNum + rowOffset, -termUi);
-    } else {
+    if (!isRunning()) {
+      // column for equations Zp
+      jt.changeCol();
       jt.addTerm(globalYIndex(zPYNum_) + rowOffset, cj);
-    }
 
-
-    // column for equations Zq
-    jt.changeCol();
-    // @f[3]/@zq, @f[3]/@ur, @f[3]/@ui
-    double termZq = 0.;
-    termUr = 0.;
-    termUi = 0.;
-    double zq = zQ();
-    double zQdiff = pow(U / u0_, betaLong_) - zq * pow(U, beta_) * kq_;
-    double dZqdiff_dZq = -pow(U, beta_) * kq_;
-    double dZqdiff_dUr = betaLong_ * ur * pow(U, betaLong_ - 2.) / pow(u0_, betaLong_) - zq * beta_ * ur * pow(U, beta_ - 2.) * kq_;
-    double dZqdiff_dUi = betaLong_ * ui * pow(U, betaLong_ - 2.) / pow(u0_, betaLong_) - zq * beta_ * ui * pow(U, beta_ - 2.) * kq_;
-
-    if ((zq > 0. && zq < zQMax_) ||
-        (zq <= 0. && zQdiff > 0.) ||
-        (zq >= zQMax_ && zQdiff < 0.)) {
-      termZq = dZqdiff_dZq;
-      termUr = dZqdiff_dUr;
-      termUi = dZqdiff_dUi;
-    }
-
-    if (!TqIsZero_ && isRunning()) {
-      jt.addTerm(globalYIndex(zQYNum_) + rowOffset, - termZq + cj * Tq_);
-      jt.addTerm(urYNum + rowOffset, -termUr);
-      jt.addTerm(uiYNum + rowOffset, -termUi);
-    } else {
+      // column for equations Zq
+      jt.changeCol();
       jt.addTerm(globalYIndex(zQYNum_) + rowOffset, cj);
+    } else {
+      double ur = modelBus_->ur();
+      double ui = modelBus_->ui();
+      double U = sqrt(ur * ur + ui * ui);
+      int urYNum = modelBus_->urYNum();
+      int uiYNum = modelBus_->uiYNum();
+
+      // column for equations Zp
+      jt.changeCol();
+      // @f[0]/@zp, @f[0]/@ur, @f[0]/@ui
+      double zp = zP();
+      double zPdiff = pow(U / u0_, alphaLong_) - zp * pow(U, alpha_) * kp_;
+      if (TpIsZero_) {
+        jt.addTerm(globalYIndex(zPYNum_) + rowOffset, cj);
+      } else if ((zp > 0. && zp < zPMax_) || (zp <= 0. && zPdiff > 0.) || (zp >= zPMax_ && zPdiff < 0.)) {
+        double termZp = -pow(U, alpha_) * kp_;
+        double termUr = alphaLong_ * ur * pow(U, alphaLong_ - 2.) / pow(u0_, alphaLong_) - zp * alpha_ * ur * pow(U, alpha_ - 2.) * kp_;
+        double termUi = alphaLong_ * ui * pow(U, alphaLong_ - 2.) / pow(u0_, alphaLong_) - zp * alpha_ * ui * pow(U, alpha_ - 2.) * kp_;
+        jt.addTerm(globalYIndex(zPYNum_) + rowOffset, -termZp + cj * Tp_);
+        jt.addTerm(urYNum + rowOffset, -termUr);
+        jt.addTerm(uiYNum + rowOffset, -termUi);
+      } else {
+        jt.addTerm(globalYIndex(zPYNum_) + rowOffset, cj * Tp_);
+      }
+
+      // column for equations Zq
+      jt.changeCol();
+      // @f[1]/@zq, @f[1]/@ur, @f[1]/@ui
+      double zq = zQ();
+      double zQdiff = pow(U / u0_, betaLong_) - zq * pow(U, beta_) * kq_;
+      if (TqIsZero_) {
+        jt.addTerm(globalYIndex(zQYNum_) + rowOffset, cj);
+      } else if ((zq > 0. && zq < zQMax_) || (zq <= 0. && zQdiff > 0.) || (zq >= zQMax_ && zQdiff < 0.)) {
+        double termZq = -pow(U, beta_) * kq_;
+        double termUr = betaLong_ * ur * pow(U, betaLong_ - 2.) / pow(u0_, betaLong_) - zq * beta_ * ur * pow(U, beta_ - 2.) * kq_;
+        double termUi = betaLong_ * ui * pow(U, betaLong_ - 2.) / pow(u0_, betaLong_) - zq * beta_ * ui * pow(U, beta_ - 2.) * kq_;
+        jt.addTerm(globalYIndex(zQYNum_) + rowOffset, - termZq + cj * Tq_);
+        jt.addTerm(urYNum + rowOffset, -termUr);
+        jt.addTerm(uiYNum + rowOffset, -termUi);
+      } else {
+        jt.addTerm(globalYIndex(zQYNum_) + rowOffset, cj * Tq_);
+      }
     }
   }
 }
@@ -314,37 +295,41 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
 void
 ModelLoad::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
   if (isRestorative_) {
-    // column for equations Zp
-    jt.changeCol();
-    if (!doubleIsZero(Tp_) && isConnected())
-      jt.addTerm(globalYIndex(zPYNum_) + rowOffset, Tp_);
-    else
+    if (!isRunning()) {
+      // column for equations Zp
+      jt.changeCol();
       jt.addTerm(globalYIndex(zPYNum_) + rowOffset, 1);
-    // column for equations Zq
-    jt.changeCol();
-    if (!doubleIsZero(Tq_) && isConnected())
-      jt.addTerm(globalYIndex(zQYNum_) + rowOffset, Tq_);
-    else
+      // column for equations Zq
+      jt.changeCol();
       jt.addTerm(globalYIndex(zQYNum_) + rowOffset, 1);
+    } else {
+      // column for equations Zp
+      jt.changeCol();
+      if (TpIsZero_) {
+        jt.addTerm(globalYIndex(zPYNum_) + rowOffset, 1);
+      } else {
+        jt.addTerm(globalYIndex(zPYNum_) + rowOffset, Tp_);
+      }
+
+      // column for equations Zq
+      jt.changeCol();
+      if (TqIsZero_) {
+        jt.addTerm(globalYIndex(zQYNum_) + rowOffset, 1);
+      } else {
+        jt.addTerm(globalYIndex(zQYNum_) + rowOffset, Tq_);
+      }
+    }
   }
 }
 
 double
 ModelLoad::P(const double& /*ur*/, const double& /*ui*/, const double& U) const {
-  double P = 0.;
-  if (isRunning()) {
-    P = zP() * P0_ * (1. + deltaPc()) * pow(U, alpha_) * kp_;
-  }
-  return P;
+  return zP() * P0_ * (1. + deltaPc()) * pow(U, alpha_) * kp_;
 }
 
 double
 ModelLoad::Q(const double& /*ur*/, const double& /*ui*/, const double& U) const {
-  double Q = 0.;
-  if (isRunning()) {
-    Q = zQ() * Q0_ * (1. + deltaQc()) * pow(U, beta_) * kq_;
-  }
-  return Q;
+  return zQ() * Q0_ * (1. + deltaQc()) * pow(U, beta_) * kq_;
 }
 
 double
@@ -417,127 +402,40 @@ ModelLoad::deltaPc() const {
 
 void
 ModelLoad::getI(double ur, double ui, double U, double U2, double& ir, double& ii) const {
-  ir = 0.;
-  ii = 0.;
-  if (!doubleIsZero(U2)) {
-    double p = P(ur, ui, U);
-    double q = Q(ur, ui, U);
-    ii = (p * ui - q * ur) / U2;
-    ir = (p * ur + q * ui) / U2;
-  }
-}
-
-double
-ModelLoad::ir_dUr(const double& ur, const double& ui, const double& U, const double& U2) const {
-  double ir_dUr = 0.;
-  if (isRunning()) {
-    double PdUr = P_dUr(ur, ui, U, U2);
-    double QdUr = Q_dUr(ur, ui, U, U2);
-    double p = P(ur, ui, U);
-    double q = Q(ur, ui, U);
-    if (!doubleIsZero(U2))
-      ir_dUr = ((PdUr * ur + p) + (QdUr * ui) - 2. * ur * (p * ur + q * ui) / U2) / U2;
-  }
-  return ir_dUr;
-}
-
-double
-ModelLoad::ir_dUi(const double& ur, const double& ui, const double& U, const double& U2) const {
-  double ir_dUi = 0.;
-  if (isRunning()) {
-    double PdUi = P_dUi(ur, ui, U, U2);
-    double QdUi = Q_dUi(ur, ui, U, U2);
-    double p = P(ur, ui, U);
-    double q = Q(ur, ui, U);
-    if (!doubleIsZero(U2))
-      ir_dUi = ((PdUi * ur) + (QdUi * ui + q) - 2. * ui * (p * ur + q * ui) / U2) / U2;
-  }
-
-  return ir_dUi;
-}
-
-double
-ModelLoad::ii_dUr(const double& ur, const double& ui, const double& U, const double& U2) const {
-  double ii_dUr = 0.;
-  if (isRunning()) {
-    double PdUr = P_dUr(ur, ui, U, U2);
-    double QdUr = Q_dUr(ur, ui, U, U2);
-    double p = P(ur, ui, U);
-    double q = Q(ur, ui, U);
-    if (!doubleIsZero(U2))
-      ii_dUr = ((PdUr * ui) - (QdUr * ur + q) - 2. * ur * (p * ui - q * ur) / U2) / U2;
-  }
-
-  return ii_dUr;
-}
-
-double
-ModelLoad::ii_dUi(const double& ur, const double& ui, const double& U, const double& U2) const {
-  double ii_dUi = 0.;
-  if (isRunning()) {
-    double PdUi = P_dUi(ur, ui, U, U2);
-    double QdUi = Q_dUi(ur, ui, U, U2);
-    double p = P(ur, ui, U);
-    double q = Q(ur, ui, U);
-    if (!doubleIsZero(U2))
-      ii_dUi = ((PdUi * ui + p) - (QdUi * ur) - 2. * ui * (p * ui - q * ur) / U2) / U2;
-  }
-
-  return ii_dUi;
+  double p = P(ur, ui, U);
+  double q = Q(ur, ui, U);
+  ii = (p * ui - q * ur) / U2;
+  ir = (p * ur + q * ui) / U2;
 }
 
 double
 ModelLoad::ir_dZp(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
-  double ir_dZp = 0.;
-  if (isRunning() && isRestorative_ && !doubleIsZero(U2)) {
-    ir_dZp = 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ur;
-  }
-  return ir_dZp;
+  return 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ur;
 }
 
 double
 ModelLoad::ir_dZq(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
-  double ir_dZq = 0.;
-  if (isRunning() && isRestorative_ && !doubleIsZero(U2)) {
-    ir_dZq = 1. / U2 * (Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ui;
-  }
-  return ir_dZq;
+  return 1. / U2 * (Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ui;
 }
 
 double
 ModelLoad::ii_dZp(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
-  double ii_dZp = 0.;
-  if (isRunning() && isRestorative_ && !doubleIsZero(U2)) {
-    ii_dZp = 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ui;
-  }
-  return ii_dZp;
+  return 1. / U2 * (P0_ * (1. + deltaPc()) * kp_) * pow(U, alpha_) * ui;
 }
 
 double
 ModelLoad::ii_dZq(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
-  double ii_dZq = 0.;
-  if (isRunning() && isRestorative_ && !doubleIsZero(U2)) {
-    ii_dZq = 1. / U2 * (-1. * Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ur;
-  }
-  return ii_dZq;
+  return 1. / U2 * (-1. * Q0_ * (1. + deltaQc()) * kq_) * pow(U, beta_) * ur;
 }
 
 double
 ModelLoad::P_dUr(const double& ur, const double& /*ui*/, const double& U, const double& U2) const {
-  double P_dUr = 0.;
-  if (!modelBus_->getSwitchOff()) {
-    P_dUr = 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ur * pow(U, alpha_);
-  }
-  return P_dUr;
+  return 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ur * pow(U, alpha_);
 }
 
 double
 ModelLoad::P_dUi(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
-  double P_dUi = 0.;
-  if (!modelBus_->getSwitchOff()) {
-    P_dUi = 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ui * pow(U, alpha_);
-  }
-  return P_dUi;
+  return 1. / U2 * zP() * P0_ * (1. + deltaPc()) * kp_ * alpha_ * ui * pow(U, alpha_);
 }
 
 double
@@ -551,11 +449,7 @@ ModelLoad::Q_dUr(const double& ur, const double& /*ui*/, const double& U, const 
 
 double
 ModelLoad::Q_dUi(const double& /*ur*/, const double& ui, const double& U, const double& U2) const {
-  double Q_dUi = 0.;
-  if (!modelBus_->getSwitchOff()) {
-    Q_dUi = 1. / U2 * zQ() * Q0_ * (1. + deltaQc()) * kq_ * beta_ * ui * pow(U, beta_);
-  }
-  return Q_dUi;
+  return 1. / U2 * zQ() * Q0_ * (1. + deltaQc()) * kq_ * beta_ * ui * pow(U, beta_);
 }
 
 void
@@ -568,6 +462,8 @@ ModelLoad::evalNodeInjection() {
       double ur = modelBus_->ur();
       double ui = modelBus_->ui();
       double U2 = ur * ur + ui * ui;
+      if (doubleIsZero(U2))
+        return;
       double U = sqrt(U2);
       double ii;
       double ir;
@@ -582,17 +478,25 @@ void
 ModelLoad::evalDerivatives(const double /*cj*/) {
   if (network_->isInitModel())
     return;
-  if (isConnected()) {
+  if (isRunning()) {
     int urYNum = modelBus_->urYNum();
     int uiYNum = modelBus_->uiYNum();
     double ur = modelBus_->ur();
     double ui = modelBus_->ui();
     double U2 = ur * ur + ui * ui;
+    if (doubleIsZero(U2))
+      return;
     double U = sqrt(U2);
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr(ur, ui, U, U2));
-    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi(ur, ui, U, U2));
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr(ur, ui, U, U2));
-    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi(ur, ui, U, U2));
+    double p = P(ur, ui, U);
+    double q = Q(ur, ui, U);
+    double PdUr = P_dUr(ur, ui, U, U2);
+    double QdUr = Q_dUr(ur, ui, U, U2);
+    double PdUi = P_dUi(ur, ui, U, U2);
+    double QdUi = Q_dUi(ur, ui, U, U2);
+    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, urYNum, ir_dUr(ur, ui, U, U2, p, q, PdUr, QdUr));
+    modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, uiYNum, ir_dUi(ur, ui, U, U2, p, q, PdUi, QdUi));
+    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, urYNum, ii_dUr(ur, ui, U, U2, p, q, PdUr, QdUr));
+    modelBus_->derivatives()->addDerivative(II_DERIVATIVE, uiYNum, ii_dUi(ur, ui, U, U2, p, q, PdUi, QdUi));
     if (isRestorative_) {
       modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, globalYIndex(zPYNum_), ir_dZp(ur, ui, U, U2));
       modelBus_->derivatives()->addDerivative(IR_DERIVATIVE, globalYIndex(zQYNum_), ir_dZq(ur, ui, U, U2));

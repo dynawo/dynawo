@@ -699,6 +699,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   State connectionState_;  ///< "internal" 2wt connection state for the transformer
   bool topologyModified_;  ///< true if the 2wt connection state was modified
   bool stateIndexModified_;  ///< true if the 2wt state index was modified
+  bool updateYMat_;  ///< true if YMat needs to be updated (= topologyModified or stateIndexModified on this 2wt)
   double currentLimitsDesactivate_;  ///< whether the current limit automaton is deactivated
   double disableInternalTapChanger_;  ///< whether an external (or internal) model is used for the tap-changer
   double tapChangerLocked_;  ///< whether the tap-changer is locked

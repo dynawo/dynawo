@@ -261,13 +261,17 @@ class ModelGenerator : public NetworkComponent::Impl {
    * @brief calculate the active power set point in pu (SNREF)
    * @return the active power set point in pu (SNREF)
    */
-  double Pc() const;
+  inline double PcPu() const {
+    return Pc_ / SNREF;
+  }
 
   /**
    * @brief calculate the reactive power set point in pu (SNREF)
    * @return the reactive power set point in pu (SNREF)
    */
-  double Qc() const;
+  inline double QcPu() const {
+    return Qc_ / SNREF;
+  }
 
  private:
   /**
@@ -275,54 +279,78 @@ class ModelGenerator : public NetworkComponent::Impl {
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U2 voltage square
+   * @param Pc active power set point
+   * @param Qc reactive power set point
    * @return the real part of the current
    */
-  double ir(const double& ur, const double& ui, const double& U2) const;
+  inline double ir(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+    return (-Pc * ur - Qc * ui) / U2;
+  }
 
   /**
    * @brief get the imaginary part of the current
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U2 voltage square
+   * @param Pc active power set point
+   * @param Qc reactive power set point
    * @return the imaginary part of the current
    */
-  double ii(const double& ur, const double& ui, const double& U2) const;
+  inline double ii(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+    return (-Pc * ui + Qc * ur) / U2;
+  }
 
   /**
    * @brief get the partial derivative of ir with respect to Ur
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U2 voltage square
+   * @param Pc active power set point
+   * @param Qc reactive power set point
    * @return the partial derivative of ir with respect to Ur
    */
-  double ir_dUr(const double& ur, const double& ui, const double& U2) const;
-
-  /**
-   * @brief get the partial derivative of ii with respect to Ur
-   * @param ur real part of the voltage
-   * @param ui imaginary part of the voltage
-   * @param U2 voltage square
-   * @return the partial derivative of ii with respect to Ur
-   */
-  double ii_dUr(const double& ur, const double& ui, const double& U2) const;  ///< matrix value
+  inline double ir_dUr(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+    return (-Pc - 2. * ur * (-Pc * ur - Qc * ui) / U2) / U2;
+  }
 
   /**
    * @brief get the partial derivative of ir with respect to Ui
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U2 voltage square
+   * @param Pc active power set point
+   * @param Qc reactive power set point
    * @return the partial derivative of ir with respect to Ui
    */
-  double ir_dUi(const double& ur, const double& ui, const double& U2) const;  ///< matrix value
+  inline double ir_dUi(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+    return (-Qc - 2. * ui * (-Pc * ur - Qc * ui) / U2) / U2;
+  }
+
+  /**
+   * @brief get the partial derivative of ii with respect to Ur
+   * @param ur real part of the voltage
+   * @param ui imaginary part of the voltage
+   * @param U2 voltage square
+   * @param Pc active power set point
+   * @param Qc reactive power set point
+   * @return the partial derivative of ii with respect to Ur
+   */
+  inline double ii_dUr(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+    return (Qc - 2. * ur * (-Pc * ui + Qc * ur) / U2) / U2;
+  }
 
   /**
    * @brief get the partial derivative of ii with respect to Ui
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U2 voltage square
+   * @param Pc active power set point
+   * @param Qc reactive power set point
    * @return the partial derivative of ii with respect to Ui
    */
-  double ii_dUi(const double& ur, const double& ui, const double& U2) const;  ///< matrix value
+  inline double ii_dUi(const double& ur, const double& ui, const double& U2, const double& Pc, const double& Qc) const {
+    return (-Pc - 2 * ui * (-Pc * ui + Qc * ur) / U2) / U2;
+  }
 
   double Pc_;  ///< active power target in MW
   double Qc_;  ///< reactive power target in Mvar
