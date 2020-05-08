@@ -383,36 +383,68 @@ class ModelLoad : public NetworkComponent::Impl {
    * @param ui imaginary part of the voltage
    * @param U voltage
    * @param U2 voltage square
+   * @param p active power
+   * @param q reactive power
+   * @param PdUr partial derivative of active power with respect to ur
+   * @param QdUr partial derivative of reactive power with respect to ur
    * @return value
    */
-  double ir_dUr(const double& ur, const double& ui, const double& U, const double& U2) const;
+  inline double ir_dUr(const double& ur, const double& ui, const double& U, const double& U2,
+                       const double& p, const double& q, const double& PdUr, const double& QdUr) const {
+    return ((PdUr * ur + p) + (QdUr * ui) - 2. * ur * (p * ur + q * ui) / U2) / U2;
+  }
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U voltage
    * @param U2 voltage square
+   * @param p active power
+   * @param q reactive power
+   * @param PdUr partial derivative of active power with respect to ur
+   * @param QdUr partial derivative of reactive power with respect to ur
    * @return value
    */
-  double ii_dUr(const double& ur, const double& ui, const double& U, const double& U2) const;
+  inline double ii_dUr(const double& ur, const double& ui, const double& U, const double& U2,
+                       const double& p, const double& q, const double& PdUr, const double& QdUr) const {
+    return ((PdUr * ui) - (QdUr * ur + q) - 2. * ur * (p * ui - q * ur) / U2) / U2;
+  }
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U voltage
    * @param U2 voltage square
+   * @param p active power
+   * @param q reactive power
+   * @param PdUi partial derivative of active power with respect to ui
+   * @param QdUi partial derivative of reactive power with respect to ui
    * @return value
    */
-  double ir_dUi(const double& ur, const double& ui, const double& U, const double& U2) const;
+  inline double ir_dUi(const double& ur, const double& ui, const double& U, const double& U2,
+                       const double& p, const double& q, const double& PdUi, const double& QdUi) const {
+    return ((PdUi * ur) + (QdUi * ui + q) - 2. * ui * (p * ur + q * ui) / U2) / U2;
+  }
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
    * @param U voltage
    * @param U2 voltage square
+   * @param p active power
+   * @param q reactive power
+   * @param PdUi partial derivative of active power with respect to ui
+   * @param QdUi partial derivative of reactive power with respect to ui
    * @return value
    */
-  double ii_dUi(const double& ur, const double & ui, const double& U, const double& U2) const;
+  inline double ii_dUi(const double& ur, const double & ui, const double& U, const double& U2,
+                       const double& p, const double& q, const double& PdUi, const double& QdUi) const {
+    return ((PdUi * ui + p) - (QdUi * ur) - 2. * ui * (p * ui - q * ur) / U2) / U2;
+  }
+
   /**
    * @brief compute value
    * @param ur real part of the voltage
