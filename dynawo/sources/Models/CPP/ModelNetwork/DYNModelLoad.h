@@ -381,7 +381,6 @@ class ModelLoad : public NetworkComponent::Impl {
    * @brief compute value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
-   * @param U voltage
    * @param U2 voltage square
    * @param p active power
    * @param q reactive power
@@ -389,7 +388,7 @@ class ModelLoad : public NetworkComponent::Impl {
    * @param QdUr partial derivative of reactive power with respect to ur
    * @return value
    */
-  inline double ir_dUr(const double& ur, const double& ui, const double& U, const double& U2,
+  inline double ir_dUr(const double& ur, const double& ui, const double& U2,
                        const double& p, const double& q, const double& PdUr, const double& QdUr) const {
     return ((PdUr * ur + p) + (QdUr * ui) - 2. * ur * (p * ur + q * ui) / U2) / U2;
   }
@@ -398,7 +397,6 @@ class ModelLoad : public NetworkComponent::Impl {
    * @brief compute value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
-   * @param U voltage
    * @param U2 voltage square
    * @param p active power
    * @param q reactive power
@@ -406,7 +404,7 @@ class ModelLoad : public NetworkComponent::Impl {
    * @param QdUr partial derivative of reactive power with respect to ur
    * @return value
    */
-  inline double ii_dUr(const double& ur, const double& ui, const double& U, const double& U2,
+  inline double ii_dUr(const double& ur, const double& ui, const double& U2,
                        const double& p, const double& q, const double& PdUr, const double& QdUr) const {
     return ((PdUr * ui) - (QdUr * ur + q) - 2. * ur * (p * ui - q * ur) / U2) / U2;
   }
@@ -415,7 +413,6 @@ class ModelLoad : public NetworkComponent::Impl {
    * @brief compute value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
-   * @param U voltage
    * @param U2 voltage square
    * @param p active power
    * @param q reactive power
@@ -423,7 +420,7 @@ class ModelLoad : public NetworkComponent::Impl {
    * @param QdUi partial derivative of reactive power with respect to ui
    * @return value
    */
-  inline double ir_dUi(const double& ur, const double& ui, const double& U, const double& U2,
+  inline double ir_dUi(const double& ur, const double& ui, const double& U2,
                        const double& p, const double& q, const double& PdUi, const double& QdUi) const {
     return ((PdUi * ur) + (QdUi * ui + q) - 2. * ui * (p * ur + q * ui) / U2) / U2;
   }
@@ -432,7 +429,6 @@ class ModelLoad : public NetworkComponent::Impl {
    * @brief compute value
    * @param ur real part of the voltage
    * @param ui imaginary part of the voltage
-   * @param U voltage
    * @param U2 voltage square
    * @param p active power
    * @param q reactive power
@@ -440,7 +436,7 @@ class ModelLoad : public NetworkComponent::Impl {
    * @param QdUi partial derivative of reactive power with respect to ui
    * @return value
    */
-  inline double ii_dUi(const double& ur, const double & ui, const double& U, const double& U2,
+  inline double ii_dUi(const double& ur, const double & ui, const double& U2,
                        const double& p, const double& q, const double& PdUi, const double& QdUi) const {
     return ((PdUi * ui + p) - (QdUi * ur) - 2. * ui * (p * ui - q * ur) / U2) / U2;
   }
