@@ -69,16 +69,18 @@ protected
   parameter Types.PerUnit rTfo0Pu "Start value of transformer ratio";
 
   // Internal variables
-  Types.PerUnit rTfoPu (start = rTfo0Pu) "Transformation ratio in p.u: U2/U1 in no load conditions";
+  discrete Types.PerUnit rTfoPu (start = rTfo0Pu) "Transformation ratio in p.u: U2/U1 in no load conditions";
 
 equation
 
-  // Transformer ratio calculation
-  if (NbTap == 1) then
-    rTfoPu = rTfoMinPu;
-  else
-    rTfoPu = rTfoMinPu + (rTfoMaxPu - rTfoMinPu) * (tap.value / (NbTap - 1));
-  end if;
+  when (tap.value <> pre(tap.value)) then
+    // Transformer ratio calculation
+    if (NbTap == 1) then
+      rTfoPu = rTfoMinPu;
+    else
+      rTfoPu = rTfoMinPu + (rTfoMaxPu - rTfoMinPu) * (tap.value / (NbTap - 1));
+    end if;
+  end when;
 
   if (running.value) then
     // Variables for display or connection to another model (tap-changer for example)
