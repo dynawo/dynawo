@@ -18,12 +18,13 @@
  */
 
 #include "gtest_dynawo.h"
-#include "JOBDynModelsEntryImpl.h"
+#include "JOBDynModelsEntry.h"
+#include "JOBDynModelsEntryFactory.h"
 
 namespace job {
 
 TEST(APIJOBTest, testDynModelsEntry) {
-  boost::shared_ptr<DynModelsEntry> dynModels = boost::shared_ptr<DynModelsEntry>(new DynModelsEntry::Impl());
+  boost::shared_ptr<DynModelsEntry> dynModels = DynModelsEntryFactory::newInstance();
   // check default attributes
   ASSERT_EQ(dynModels->getDydFile(), "");
 

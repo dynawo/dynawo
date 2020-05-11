@@ -78,12 +78,18 @@ TEST(APIJOBTest, testJobCollection) {
   ASSERT_EQ((--itVariable)->get()->getName(), "job1");
   ASSERT_EQ((itVariable++)->get()->getName(), "job1");
   ASSERT_EQ((itVariable--)->get()->getName(), "job2");
+  job_iterator itVariable2 = jobsCollection->end();
+  itVariable2 = itVariable;
+  ASSERT_TRUE(itVariable2 == itVariable);
 
   job_const_iterator itVariablec(itVariable);
   ASSERT_EQ((++itVariablec)->get()->getName(), "job2");
   ASSERT_EQ((--itVariablec)->get()->getName(), "job1");
   ASSERT_EQ((itVariablec++)->get()->getName(), "job1");
   ASSERT_EQ((itVariablec--)->get()->getName(), "job2");
+  job_const_iterator itVariablec2 = jobsCollection->cend();
+  itVariablec2 = itVariablec;
+  ASSERT_TRUE(itVariablec2 == itVariablec);
 }
 
 }  // namespace job

@@ -36,6 +36,7 @@
 #include "DYNConnector.h"
 
 #include "DYNElement.h"
+#include "DYNCommonModeler.h"
 #include "DYNModelMulti.h"
 #include "DYNSubModel.h"
 #include "PARParametersSet.h"
@@ -44,6 +45,7 @@
 
 #include "DYNError.h"
 #include "DYNErrorQueue.h"
+#include "DYNStaticRefInterface.h"
 
 using boost::shared_ptr;
 using boost::dynamic_pointer_cast;
@@ -1044,5 +1046,54 @@ TEST(ModelerCommonTest, SanityCheckOnSizeYZ) {
   boost::dynamic_pointer_cast< SubModel >(submodel)->defineVariables();
   submodel->defineNames();
   ASSERT_NO_THROW(submodel->initSize(sizeYGlob, sizeZGlob, sizeModeGlob, sizeFGlob, sizeGGlob));
+}
+
+
+TEST(ModelerCommonTest, CommonModeler) {
+  std::map<std::string, int> mapElement;
+  std::vector<Element> elements;
+  addElement("MyElement", Element::STRUCTURE, elements, mapElement);
+  ASSERT_EQ(elements.size(), 1);
+  ASSERT_EQ(elements[0].name(), "MyElement");
+  ASSERT_EQ(elements[0].getTypeElement(), Element::STRUCTURE);
+  ASSERT_EQ(mapElement.size(), 1);
+  ASSERT_TRUE(mapElement.find("MyElement") != mapElement.end());
+  ASSERT_EQ(mapElement["MyElement"], 0);
+
+  addSubElement("MySubElement", "MyElement", Element::TERMINAL, elements, mapElement);
+  ASSERT_EQ(elements.size(), 2);
+  ASSERT_EQ(elements[0].name(), "MyElement");
+  ASSERT_EQ(elements[0].getTypeElement(), Element::STRUCTURE);
+  ASSERT_EQ(elements[1].name(), "MySubElement");
+  ASSERT_EQ(elements[1].getTypeElement(), Element::TERMINAL);
+  ASSERT_EQ(mapElement.size(), 2);
+  ASSERT_TRUE(mapElement.find("MyElement") != mapElement.end());
+  ASSERT_EQ(mapElement["MyElement"], 0);
+  ASSERT_TRUE(mapElement.find("MyElement_MySubElement") != mapElement.end());
+  ASSERT_EQ(mapElement["MyElement_MySubElement"], 1);
+
+  std::string var = "@NAME@_@INDEX@";
+  ASSERT_THROW_DYNAWO(replaceMacroInVariableId("", "MyName", "Model1", "Model2", "Connector", var),
+      Error::MODELER, KeyError_t::IncompleteMacroConnection);
+  ASSERT_THROW_DYNAWO(replaceMacroInVariableId("42", "", "Model1", "Model2", "Connector", var),
+      Error::MODELER, KeyError_t::IncompleteMacroConnection);
+  replaceMacroInVariableId("42", "MyName", "Model1", "Model2", "Connector", var);
+  ASSERT_EQ(var, "MyName_42");
+}
+
+TEST(ModelerCommonTest, StaticRefInterface) {
+  StaticRefInterface sri;
+
+  ASSERT_EQ(sri.getModelID(), "");
+  ASSERT_EQ(sri.getModelVar(), "");
+  ASSERT_EQ(sri.getStaticVar(), "");
+
+  sri.setModelID("MyModelID");
+  sri.setModelVar("MyModelVar");
+  sri.setStaticVar("MyStaticVar");
+
+  ASSERT_EQ(sri.getModelID(), "MyModelID");
+  ASSERT_EQ(sri.getModelVar(), "MyModelVar");
+  ASSERT_EQ(sri.getStaticVar(), "MyStaticVar");
 }
 }  // namespace DYN
