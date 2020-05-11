@@ -14,6 +14,8 @@ within Dynawo.Electrical.Controls.Transformers;
 
 model TapChanger "Tap-changer monitoring the voltage so that it remains within [UTarget - UDeadBand ; UTarget + UDeadBand]"
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
   extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0, tapChangerType = tapChangerType0 );
   extends SwitchOff.SwitchOffTapChanger;
@@ -24,12 +26,16 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
     parameter Types.VoltageModule U0  "Initial voltage";
 
     Connectors.ImPin UMonitored (value (start = U0)) "Initial voltage";
-  protected
-    parameter TapChangerType tapChangerType0 = TapChangerType.TapChanger;
 
 equation
 
     connect (UMonitored.value, valueToMonitor.value);
+
+    when (valueToMonitor.value < valueMin) and not(locked) then
+      Timeline.logEvent1(TimelineKeys.TapChangerBelowMin);
+    elsewhen (valueToMonitor.value > valueMax) and not(locked) then
+      Timeline.logEvent1(TimelineKeys.TapChangerAboveMax);
+    end when;
 
 annotation(preferredView = "text");
 end TapChanger;

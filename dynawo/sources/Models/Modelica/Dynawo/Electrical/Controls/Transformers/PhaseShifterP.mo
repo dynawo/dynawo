@@ -18,9 +18,6 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
   extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = PTarget, deadBand = PDeadBand, valueToMonitor0 = P0, tapChangerType = tapChangerType0);
   extends SwitchOff.SwitchOffPhaseShifter;
 
-  protected
-    parameter TapChangerType tapChangerType0 = TapChangerType.PhaseShifter;
-
   public
     parameter Types.ActivePower PTarget  "Target active power";
     parameter Types.ActivePower PDeadBand (min = 0) "Active-power dead-band around the target";
@@ -30,6 +27,12 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
 
 equation
   connect (PMonitored.value, valueToMonitor.value);
+
+  when (valueToMonitor.value < valueMin) and not(locked) then
+    Timeline.logEvent1(TimelineKeys.PhaseShifterBelowMin);
+  elsewhen (valueToMonitor.value > valueMax) and not(locked) then
+    Timeline.logEvent1(TimelineKeys.PhaseShifterAboveMax);
+  end when;
 
 annotation(preferredView = "text");
 end PhaseShifterP;
