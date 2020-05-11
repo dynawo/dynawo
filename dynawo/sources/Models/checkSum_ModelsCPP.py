@@ -36,7 +36,7 @@ def get_checksum(path):
         check_sum = md5sum_pipe.communicate()[0].split()[-1]
     elif current_platform == 'Windows':
         md5sum_pipe = Popen(["certutil", "-hashfile", path, "MD5"], stdin = PIPE, stdout = PIPE)
-        check_sum = md5sum_pipe.communicate()[0].split(os.linesep)[1]
+        check_sum = md5sum_pipe.communicate()[0].split(os.linesep.encode())[1]
     return check_sum
 
 if __name__ =='__main__':
