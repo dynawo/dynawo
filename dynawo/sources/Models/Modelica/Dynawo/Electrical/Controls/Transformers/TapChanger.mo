@@ -17,7 +17,7 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0, tapChangerType = tapChangerType0 );
+  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0);
   extends SwitchOff.SwitchOffTapChanger;
 
   public
@@ -37,5 +37,12 @@ equation
       Timeline.logEvent1(TimelineKeys.TapChangerAboveMax);
     end when;
 
-annotation(preferredView = "text");
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>The tap changer controls a monitored voltage to keep it within a voltage range defined by [UMin ; UMax]. When the voltage goes above UMax or below UMin, the tap-changer is ready to begin increasing its tap until the voltage value comes back to an acceptable value.<div><br></div><div>The time interval before the first time change is specified with a first timer and a second timer indicates the time interval between further changes. The automaton can be locked by an external controller: in this case, it stops acting.&nbsp;</div><div><br></div><div>The detailed tap-changer behavior is explained in the following state diagram:
+
+<figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Electrical/Controls/Transformers/Images/TapChanger.png\">
+</figure>
+
+</div><div><br></div><div><br></div><div><br></div></body></html>"));
 end TapChanger;

@@ -47,7 +47,7 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
 
     Connectors.ImPin valueToMonitor (value (start = valueToMonitor0)) "Monitored value";
     Connectors.ZPin tap (value (start = tap0)) "Current tap";
-    Connectors.BPin AutomatonExists (value (start = true)) "Pin to indicate to deactivate internal automaton";
+    Connectors.BPin AutomatonExists (value = true) "Pin to indicate to deactivate internal automaton";
 
   protected
     parameter Boolean regulating0 "Whether the tap-changer/phase-shifter is initially regulating";
@@ -110,52 +110,52 @@ equation
   lookingToDecreaseTap = running.value and valueAboveMax and decreaseTapToDecreaseValue;
   lookingToIncreaseTap = running.value and valueAboveMax and increaseTapToDecreaseValue;
 
-  //Transition to "locked"
+  //Transition to "Locked" (possible from any state and prioritary)
   when (not running.value) or locked then
     state = State.Locked;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition to "waitingToMoveDown"
+  //Transition to "WaitingToMoveDown" (possible from any state except down states)
   elsewhen lookingToDecreaseTap and pre(state) <> State.WaitingToMoveDown and pre(state) <> State.MoveDown1 and pre(state) <> State.MoveDownN then
     state = State.WaitingToMoveDown;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition to "waitingToMoveUp"
+  //Transition to "WaitingToMoveUp" (possible from any state except up states)
   elsewhen lookingToIncreaseTap and pre(state) <> State.WaitingToMoveUp and pre(state) <> State.MoveUp1 and pre(state) <> State.MoveUpN then
     state = State.WaitingToMoveUp;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition to "standard"
+  //Transition to "Standard" (possible from any state)
   elsewhen not(valueAboveMax) and pre(state) <> State.Standard then
     state = State.Standard;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition to "moveDown1"
+  //Transition to "MoveDown1" (only possible from WaitingToMoveDown)
   elsewhen pre(state) == State.WaitingToMoveDown and time - tValueAboveMaxWhileRunning>= t1st and pre(tap.value) > tapMin then
     state = State.MoveDown1;
     tap.value = pre(tap.value) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
     Timeline.logEvent1(TimelineKeys.TapDown);
-  //Transition to "moveUp1"
+  //Transition to "MoveUp1" (only possible from WaitingToMoveUp)
   elsewhen pre(state) == State.WaitingToMoveUp and time - tValueAboveMaxWhileRunning>= t1st and pre(tap.value) < tapMax then
     state = State.MoveUp1;
     tap.value = pre(tap.value) + 1;
     tTapUp = time;
     tTapDown = pre(tTapDown);
     Timeline.logEvent1(TimelineKeys.TapUp);
-  //Transition to "moveDownN"
+  //Transition to "MoveDownN" (only possible from MoveDown1 or MoveDownN)
   elsewhen (pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN) and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
     state = State.MoveDownN;
     tap.value = pre(tap.value) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
     Timeline.logEvent1(TimelineKeys.TapDown);
-  //Transition to "moveUpN"
+  //Transition to "MoveUpN" (only possible from MoveUp1 or MoveUpN)
   elsewhen (pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN) and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
     state = State.MoveUpN;
     tap.value = pre(tap.value) + 1;
@@ -193,9 +193,9 @@ equation
   elsewhen (valueToMonitor.value > valueMax) and not(locked) then
     valueUnderMin = false;
     tValueUnderMinWhileRunning = pre(tValueUnderMinWhileRunning);
-    valueAboveMax = false;
-    tValueAboveMaxWhileRunning = pre(tValueAboveMaxWhileRunning);
-  elsewhen (valueToMonitor.value >= valueMin or valueToMonitor.value <= valueMax) and not(locked) then
+    valueAboveMax = true;
+    tValueAboveMaxWhileRunning = time;
+  elsewhen (valueToMonitor.value >= valueMin and valueToMonitor.value <= valueMax) and not(locked) then
     valueUnderMin = false;
     tValueUnderMinWhileRunning = pre(tValueUnderMinWhileRunning);
     valueAboveMax = false;

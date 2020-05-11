@@ -20,4 +20,6 @@
   <curve model="PhaseShifter" variable="phaseShifter_valueMax"/>
   <curve model="PhaseShifter" variable="phaseShifter_valueMin"/>
   <curve model="PhaseShifter" variable="phaseShifter_PMonitored"/>
+  <curve model="PhaseShifter" variable="phaseShifter_valueUnderMin"/>
+  <curve model="PhaseShifter" variable="phaseShifter_valueAboveMax"/>
 </curvesInput>
