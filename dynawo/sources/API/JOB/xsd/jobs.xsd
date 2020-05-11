@@ -42,7 +42,7 @@
   <xs:complexType name="SolverEntry">
     <xs:attribute name="lib" use="required" type="xs:string"/>
     <xs:attribute name="parFile" use="required" type="xs:string"/>
-    <xs:attribute name="parId" use="required" type="xs:int"/>
+    <xs:attribute name="parId" use="required" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="ModelerEntry">
@@ -59,7 +59,7 @@
   <xs:complexType name="NetworkEntry">
     <xs:attribute name="iidmFile" use="required" type="xs:string"/>
     <xs:attribute name="parFile" use="required" type="xs:string"/>
-    <xs:attribute name="parId" use="required" type="xs:int"/>
+    <xs:attribute name="parId" use="required" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="DynModelsEntry">
