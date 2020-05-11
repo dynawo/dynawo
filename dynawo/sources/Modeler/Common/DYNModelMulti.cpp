@@ -281,6 +281,7 @@ ModelMulti::init(const double& t0) {
     connectorContainer_->propagateZDiff(indicesDiff, zLocal_);
 
     zSave_.assign(zLocal_, zLocal_ + sizeZ());
+    rotateBuffers();
 
     for (unsigned int i = 0; i < subModels_.size(); ++i)
       subModels_[i]->evalZSub(t0);
@@ -291,6 +292,7 @@ ModelMulti::init(const double& t0) {
       for (unsigned int i = 0; i < subModels_.size(); ++i)
         subModels_[i]->evalZSub(t0);
     }
+    rotateBuffers();
   }
 }
 
