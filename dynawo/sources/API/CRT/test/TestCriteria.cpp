@@ -117,7 +117,9 @@ TEST(APICRTTest, Criteria) {
   ASSERT_EQ(*(itCt++), "MyCompId1");
   ASSERT_EQ(*(itCt--), "MyCompId2");
   ASSERT_EQ(*itCt, "MyCompId1");
-  Criteria::component_id_const_iterator itCt2 = itCt;
+  ASSERT_EQ(itCt->size(), 9);
+  Criteria::component_id_const_iterator itCt2 = criteria->end();
+  itCt2 = itCt;
   ASSERT_EQ(itCt == itCt2, true);
 }
 
@@ -171,6 +173,15 @@ TEST(APICRTTest, CriteriaCollection) {
     else
       assert(false);
   }
+  CriteriaCollection::CriteriaCollectionConstIterator itCt = criteriaCol->begin(CriteriaCollection::LOAD);
+  ASSERT_EQ(*(++itCt), criteriaLoad2);
+  ASSERT_EQ(*(--itCt), criteriaLoad);
+  ASSERT_EQ(*(itCt++), criteriaLoad);
+  ASSERT_EQ(*(itCt--), criteriaLoad2);
+  ASSERT_EQ(*itCt, criteriaLoad);
+  CriteriaCollection::CriteriaCollectionConstIterator itCt2  = criteriaCol->end(CriteriaCollection::LOAD);
+  itCt2 = itCt;
+  ASSERT_EQ(itCt == itCt2, true);
 
   idx = 0;
   for (CriteriaCollection::CriteriaCollectionConstIterator it = criteriaCol->begin(CriteriaCollection::GENERATOR),

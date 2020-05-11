@@ -81,12 +81,20 @@ TEST(APIFSTest, FinalStateCollectionAddVariable) {
   ASSERT_EQ((--itVariable)->get()->getId(), variable1->getId());
   ASSERT_EQ((itVariable++)->get()->getId(), variable1->getId());
   ASSERT_EQ((itVariable--)->get()->getId(), variable2->getId());
+  finalStateVariable_iterator itVariable2 = collection->endVariable();
+  itVariable2 = itVariable;
+  ASSERT_TRUE(itVariable2 == itVariable);
+  ASSERT_TRUE(*itVariable2 == *itVariable);
 
   finalStateVariable_const_iterator itVariablec(itVariable);
   ASSERT_EQ((++itVariablec)->get()->getId(), variable2->getId());
   ASSERT_EQ((--itVariablec)->get()->getId(), variable1->getId());
   ASSERT_EQ((itVariablec++)->get()->getId(), variable1->getId());
   ASSERT_EQ((itVariablec--)->get()->getId(), variable2->getId());
+  finalStateVariable_const_iterator itVariablec2 = collection->cendVariable();
+  itVariablec2 = itVariablec;
+  ASSERT_TRUE(itVariablec2 == itVariablec);
+  ASSERT_TRUE(*itVariablec2 == *itVariablec);
 
   XmlExporter exporter;
   ASSERT_NO_THROW(exporter.exportToFile(collection, "finalStateMultipleVariables.xml"));
@@ -138,12 +146,20 @@ TEST(APIFSTest, FinalStateCollectionAddModel) {
   ASSERT_EQ((--itVariable)->get()->getId(), model1->getId());
   ASSERT_EQ((itVariable++)->get()->getId(), model1->getId());
   ASSERT_EQ((itVariable--)->get()->getId(), model2->getId());
+  finalStateModel_iterator itVariable2 = collection->endFinalStateModel();
+  itVariable2 = itVariable;
+  ASSERT_TRUE(itVariable2 == itVariable);
+  ASSERT_TRUE(*itVariable2 == *itVariable);
 
   finalStateModel_const_iterator itVariablec(itVariable);
   ASSERT_EQ((++itVariablec)->get()->getId(), model2->getId());
   ASSERT_EQ((--itVariablec)->get()->getId(), model1->getId());
   ASSERT_EQ((itVariablec++)->get()->getId(), model1->getId());
   ASSERT_EQ((itVariablec--)->get()->getId(), model2->getId());
+  finalStateModel_const_iterator itVariablec2 = collection->cendFinalStateModel();
+  itVariablec2 = itVariablec;
+  ASSERT_TRUE(itVariablec2 == itVariablec);
+  ASSERT_TRUE(*itVariablec2 == *itVariablec);
 
   // export
   XmlExporter exporter;

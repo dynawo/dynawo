@@ -27,39 +27,37 @@
   </xs:element>
 
   <xs:complexType name="Criteria">
-    <xs:complexContent>
-      <xs:element name="parameters" type="dyn:CriteriaParams"/>
-      <xs:sequence>
-        <xs:element name="component" minOccurs="0" maxOccurs="unbounded">
-          <xs:attribute name="id" use="required" type="xs:string"/>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexContent>
+    <xs:sequence>
+      <xs:element name="parameters" type="dyn:CriteriaParams" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="component" minOccurs="0" maxOccurs="unbounded" type="dyn:Component"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Component">
+    <xs:attribute name="id" use="required" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="CriteriaParams">
-    <xs:complexContent>
-      <xs:attribute name="id" use="required" type="xs:string"/>
-      <xs:attribute name="scope" use="required" type="dyn:Scope"/>
-      <xs:attribute name="type" use="required" type="dyn:Type"/>
-      <xs:attribute name="pMax" use="optional" type="xs:float"/>
-      <xs:attribute name="pMin" use="optional" type="xs:float"/>
-      <xs:attribute name="uMaxPu" use="optional" type="xs:float"/>
-      <xs:attribute name="uMinPu" use="optional" type="xs:float"/>
-      <xs:attribute name="uNomMax" use="optional" type="xs:float"/>
-      <xs:attribute name="uNomMin" use="optional" type="xs:float"/>
-    </xs:complexContent>
+    <xs:attribute name="id" use="required" type="xs:string"/>
+    <xs:attribute name="scope" use="required" type="dyn:Scope"/>
+    <xs:attribute name="type" use="required" type="dyn:Type"/>
+    <xs:attribute name="pMax" use="optional" type="xs:float"/>
+    <xs:attribute name="pMin" use="optional" type="xs:float"/>
+    <xs:attribute name="uMaxPu" use="optional" type="xs:float"/>
+    <xs:attribute name="uMinPu" use="optional" type="xs:float"/>
+    <xs:attribute name="uNomMax" use="optional" type="xs:float"/>
+    <xs:attribute name="uNomMin" use="optional" type="xs:float"/>
   </xs:complexType>
 
   <xs:simpleType name="Scope">
-    <xs:restriction type="xs:string">
+    <xs:restriction base="xs:string">
       <xs:enumeration value="FINAL"/>
       <xs:enumeration value="DYNAMIC"/>
     </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="Type">
-    <xs:restriction base="dyn:Type">
+    <xs:restriction base="xs:string">
       <xs:enumeration value="LOCAL_VALUE"/>
       <xs:enumeration value="SUM"/>
     </xs:restriction>

@@ -28,6 +28,8 @@
 #include "DYNError_keys.h"
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
+#include "DYNEnumUtils.h"
+#include "DYNTimer.h"
 
 namespace DYN {
 
@@ -473,4 +475,36 @@ TEST(CommonTest, testSparseMatrix) {
 }
 
 
+TEST(CommonTest, testEnumUtils) {
+  ASSERT_EQ(modeChangeType2Str(NO_MODE), "No mode change");
+  ASSERT_EQ(modeChangeType2Str(DIFFERENTIAL_MODE), "Differential mode change");
+  ASSERT_EQ(modeChangeType2Str(ALGEBRAIC_MODE), "Algebraic mode change");
+  ASSERT_EQ(modeChangeType2Str(ALGEBRAIC_J_UPDATE_MODE), "Algebraic mode (with J recalculation) change");
+
+  ASSERT_EQ(propertyVar2Str(DIFFERENTIAL), "DIFFERENTIAL");
+  ASSERT_EQ(propertyVar2Str(ALGEBRAIC), "ALGEBRAIC");
+  ASSERT_EQ(propertyVar2Str(EXTERNAL), "EXTERNAL");
+  ASSERT_EQ(propertyVar2Str(OPTIONAL_EXTERNAL), "OPTIONAL_EXTERNAL");
+  ASSERT_EQ(propertyVar2Str(UNDEFINED_PROPERTY), "UNDEFINED");
+
+  ASSERT_EQ(typeVar2Str(DISCRETE), "DISCRETE");
+  ASSERT_EQ(typeVar2Str(CONTINUOUS), "CONTINUOUS");
+  ASSERT_EQ(typeVar2Str(FLOW), "FLOW");
+  ASSERT_EQ(typeVar2Str(INTEGER), "INTEGER");
+  ASSERT_EQ(typeVar2Str(BOOLEAN), "BOOLEAN");
+  ASSERT_EQ(typeVar2Str(UNDEFINED_TYPE), "UNDEFINED");
+
+  ASSERT_EQ(toCTypeVar(DISCRETE), VAR_TYPE_DOUBLE);
+  ASSERT_EQ(toCTypeVar(CONTINUOUS), VAR_TYPE_DOUBLE);
+  ASSERT_EQ(toCTypeVar(FLOW), VAR_TYPE_DOUBLE);
+  ASSERT_EQ(toCTypeVar(BOOLEAN), VAR_TYPE_BOOL);
+  ASSERT_EQ(toCTypeVar(INTEGER), VAR_TYPE_INT);
+
+  ASSERT_EQ(paramScope2Str(EXTERNAL_PARAMETER), "external parameter");
+  ASSERT_EQ(paramScope2Str(SHARED_PARAMETER), "shared parameter");
+  ASSERT_EQ(paramScope2Str(INTERNAL_PARAMETER), "internal parameter");
+}
+TEST(CommonTest, testTimer) {
+  Timer t("test");
+}
 }  // namespace DYN
