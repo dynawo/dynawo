@@ -117,13 +117,13 @@ equation
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveDown" (possible from any state except down states)
-  elsewhen lookingToDecreaseTap and pre(state) <> State.WaitingToMoveDown and pre(state) <> State.MoveDown1 and pre(state) <> State.MoveDownN then
+  elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) then
     state = State.WaitingToMoveDown;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveUp" (possible from any state except up states)
-  elsewhen lookingToIncreaseTap and pre(state) <> State.WaitingToMoveUp and pre(state) <> State.MoveUp1 and pre(state) <> State.MoveUpN then
+  elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) then
     state = State.WaitingToMoveUp;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
@@ -217,13 +217,13 @@ equation
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveDown" (possible from any state other than the down ones)
-  elsewhen lookingToDecreaseTap and pre(state) <> State.WaitingToMoveDown and pre(state) <> State.MoveDown1 and  pre(state) <> State.MoveDownN then
+  elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) then
     state = State.WaitingToMoveDown;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
   //Transition to "WaitingToMoveUp" (possible from any state other than the up ones)
-  elsewhen lookingToIncreaseTap and pre(state) <> State.WaitingToMoveUp and pre(state) <> State.MoveUp1 and pre(state) <> State.MoveUpN then
+  elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) then
     state = State.WaitingToMoveUp;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
