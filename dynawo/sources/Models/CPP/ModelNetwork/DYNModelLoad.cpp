@@ -185,14 +185,14 @@ ModelLoad::setFequations(std::map<int, std::string>& fEquationIndex) {
   unsigned int index = 0;
 
   if (isRestorative_) {
-    if (isRunning() && !TpIsZero_)
+    if (!TpIsZero_ && isRunning())
       fEquationIndex[index] = std::string("Tp_*zPPrim() - zPprimValue localModel:").append(id());
     else
       fEquationIndex[index] = std::string("zPPrim() localModel:").append(id());  // z is constant
     ++index;
 
 
-    if (isRunning() && !TqIsZero_)
+    if (!TqIsZero_ && isRunning())
       fEquationIndex[index] = std::string("Tq_*zQPrim() - zQprimValue localModel:").append(id());
     else
       fEquationIndex[index] = std::string("zQPrim() localModel:").append(id());  // z is constant
