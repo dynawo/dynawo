@@ -821,7 +821,9 @@ ModelNetwork::printStats(const shared_ptr<DataInterface>& data) const {
 
 void
 ModelNetwork::printComponentStats(KeyLog_t::value message, unsigned nbStatic, unsigned nbDynamic) const {
-  stringstream ss, ss2, ss3;
+  stringstream ss;
+  stringstream ss2;
+  stringstream ss3;
   ss << nbStatic;
   ss2 << nbDynamic;
   ss3 << nbStatic + nbDynamic;
