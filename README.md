@@ -76,9 +76,11 @@ You can download a pre-built Dyna&omega;o release to start testing it. Pre-built
 ### Linux Requirements for Distribution
 
 - Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++98 or C++11 compatible for C++ standard
-- Python2
+- Python2 or Python3
 - Binary utilities: [curl](https://curl.haxx.se/) and unzip
 - [CMake](https://cmake.org/)
+
+**Note** For Python you need to have the `python` command available in your PATH. If you don't have one, you can use an environment variable to point to your Python version with `export DYNAWO_PYTHON_COMMAND="python3"`.
 
 You can install the dependencies for Ubuntu or Fedora with:
 
@@ -98,7 +100,9 @@ On Windows you can either run Dyna&omega;o with distribution models and in this 
 
 - [Visual Studio 2019](https://visualstudio.microsoft.com)
 - [CMake](https://cmake.org/)
-- [Python2](https://www.python.org/ftp/python/2.7.17/python-2.7.17.amd64.msi)
+- [Python2](https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi) or [Python3](https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe)
+
+**Note** For Python you need to have the `python` command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with `set DYNAWO_PYTHON_COMMAND=python3`.
 
 ### Using a distribution
 
@@ -146,9 +150,11 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 
 #### Dyna&omega;o user
 - [CMake](https://cmake.org/): minimum version 3.9.6 (last version to compile with c++98 compiler)
-- Python2
+- Python2 or Python3
 - Python packages: [lxml](https://lxml.de/)
 - Binary utilities: [curl](https://curl.haxx.se/) or [wget](https://www.gnu.org/software/wget/), [xmllint](http://xmlsoft.org/xmllint.html)
+
+**Note** For Python you need to have the `python` command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with `export DYNAWO_PYTHON_COMMAND="python3"`.
 
 #### Dyna&omega;o developer
 - [Doxygen](http://www.doxygen.nl/): minimum version 1.8, [Graphviz](https://graphviz.readthedocs.io/en/stable/) and LaTeX to build full documentation
@@ -160,7 +166,9 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 
 - [Visual Studio 2019](https://visualstudio.microsoft.com/), Visual Studio 2015 was also tested
 - [CMake](https://cmake.org/)
-- [Python2](https://www.python.org/ftp/python/2.7.17/python-2.7.17.amd64.msi)
+- [Python2](https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi) or [Python3](https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe)
+
+**Note** For Python you need to have the `python` command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with `set DYNAWO_PYTHON_COMMAND=python3`.
 
 <a name="build"></a>
 ## Building Dyna&omega;o

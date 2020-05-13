@@ -38,10 +38,12 @@ To use those distributions you need some requirements if you want to be able to 
 
 \begin{itemize}
 \item Compilers: C and C++ (\href{https://www.gnu.org/software/gcc}{gcc} or \href{https://clang.llvm.org}{clang}), c++98 or c++11 compatible for C++ standard
-\item Python2
+\item Python2 or Python3
 \item Binary utilities: \href{curl}{https://curl.haxx.se} and unzip
 \item \href{https://cmake.org/}{CMake}: minimum version 3.9.6
 \end{itemize}
+
+\textbf{Note:} For Python you need to have the \lstinline[language=bash]{python} command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with \lstinline[language=bash]{export DYNAWO_PYTHON_COMMAND="python3"}.
 
 You can install the dependencies for Ubuntu or Fedora with:
 \begin{lstlisting}[language=bash]
@@ -64,8 +66,10 @@ On Windows you can either run \Dynawo with the distribution models and in this c
 \begin{itemize}
 \item \href{https://visualstudio.microsoft.com}{Visual Studio 2019}
 \item \href{https://cmake.org/}{CMake}: minimum version 3.9.6
-\item \href{https://www.python.org/ftp/python/2.7.17/python-2.7.17.amd64.msi}{Python2}
+\item \href{https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi}{Python2} or \href{https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe}{Python3}
 \end{itemize}
+
+\textbf{Note:} For Python you need to have the \lstinline[language=bash]{python} command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with \lstinline[language=command.com]{set DYNAWO_PYTHON_COMMAND=python3}.
 
 \subsection{Using a distribution}
 
@@ -152,7 +156,7 @@ In the following we give a list of requirements needed to build \Dynawo and its 
   \end{itemize}
 
 \item
-  Python
+  Python2 or Python3
 \item
   Python packages: \href{https://lxml.de/}{lxml}
 \item
@@ -160,6 +164,8 @@ In the following we give a list of requirements needed to build \Dynawo and its 
   \href{https://www.gnu.org/software/wget/}{wget},
   \href{http://xmlsoft.org/xmllint.html}{xmllint}
 \end{itemize}
+
+\textbf{Note:} For Python you need to have the \lstinline[language=bash]{python} command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with \lstinline[language=bash]{export DYNAWO_PYTHON_COMMAND="python3"}.
 
 \paragraph{\Dynawo developer}
 
@@ -188,8 +194,10 @@ In the following we give a list of requirements needed to build \Dynawo and its 
 \item
   \href{https://cmake.org}{CMake}
 \item
-  \href{https://www.python.org/ftp/python/2.7.17/python-2.7.17.amd64.msi}{Python2}
+  \href{https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi}{Python2} or \href{https://www.python.org/ftp/python/3.8.2/python-3.8.2-amd64.exe}{Python3}
 \end{itemize}
+
+\textbf{Note:} For Python you need to have the \lstinline[language=bash]{python} command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with \lstinline[language=command.com]{set DYNAWO_PYTHON_COMMAND=python3}.
 
 \section[Building Dynawo]{Building \Dynawo}
 \label{Dynawo_Installation_Documentation_Building_Dynawo}
@@ -221,7 +229,7 @@ export DYNAWO_INSTALL_OPENMODELICA=$DYNAWO_HOME/OpenModelica/Install
 
 export DYNAWO_LOCALE=en_GB
 export DYNAWO_RESULTS_SHOW=true
-export DYNAWO_BROWSER=xdg-open
+export DYNAWO_BROWSER=firefox
 
 export DYNAWO_NB_PROCESSORS_USED=1
 
