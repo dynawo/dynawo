@@ -163,7 +163,10 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   double* yp1 = new double[bus1->sizeY()];
   double* f1 = new double[bus1->sizeF()];
   double* z1 = new double[bus1->sizeZ()];
-  bus1->setReferenceZ(&z1[0], 0);
+  bool* zConnected1 = new bool[bus1->sizeZ()];
+  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+    zConnected1[i] = true;
+  bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
@@ -179,7 +182,10 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
   double* yp2 = new double[bus2->sizeY()];
   double* f2 = new double[bus2->sizeF()];
   double* z2 = new double[bus2->sizeZ()];
-  bus2->setReferenceZ(&z2[0], 0);
+  bool* zConnected2 = new bool[bus2->sizeZ()];
+  for (size_t i = 0; i < bus2->sizeZ(); ++i)
+    zConnected2[i] = true;
+  bus2->setReferenceZ(&z2[0], zConnected2, 0);
   bus2->setReferenceY(y2, yp2, f2, 0, 0);
   y2[ModelBus::urNum_] = 5.;
   y2[ModelBus::uiNum_] = 2.5;
@@ -240,7 +246,10 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
   std::vector<double> yp(hvdc->sizeY(), 0.);
   std::vector<double> f(hvdc->sizeF(), 0.);
   std::vector<double> z(hvdc->sizeZ(), 0.);
-  hvdc->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[hvdc->sizeZ()];
+  for (size_t i = 0; i < hvdc->sizeZ(); ++i)
+    zConnected[i] = true;
+  hvdc->setReferenceZ(&z[0], zConnected, 0);
   hvdc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   ASSERT_EQ(hvdc->sizeCalculatedVar(), ModelHvdcLink::nbCalculatedVariables_);
 
@@ -393,6 +402,7 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkCalculatedVariables) {
   shared_ptr<ModelHvdcLink> hvdcInit = createModelHvdcLink(true, VSC).first;
   hvdcInit->initSize();
   ASSERT_EQ(hvdcInit->sizeCalculatedVar(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
@@ -409,7 +419,10 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
   std::vector<double> z(nbZ, 0.);
   std::vector<state_g> g(nbG, NO_ROOT);
   hvdc->setReferenceG(&g[0], 0);
-  hvdc->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[hvdc->sizeZ()];
+  for (size_t i = 0; i < hvdc->sizeZ(); ++i)
+    zConnected[i] = true;
+  hvdc->setReferenceZ(&z[0], zConnected, 0);
   hvdc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
 
   hvdc->getY0();
@@ -448,6 +461,7 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkDiscreteVariables) {
   hvdcInit->initSize();
   ASSERT_EQ(hvdcInit->sizeZ(), 0);
   ASSERT_EQ(hvdcInit->sizeG(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkHvdcLinkContinuousVariables) {

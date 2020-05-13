@@ -84,7 +84,10 @@ createModelLoad(bool open, bool initModel) {
   double* yp1 = new double[bus1->sizeY()];
   double* f1 = new double[bus1->sizeF()];
   double* z1 = new double[bus1->sizeZ()];
-  bus1->setReferenceZ(&z1[0], 0);
+  bool* zConnected1 = new bool[bus1->sizeZ()];
+  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+    zConnected1[i] = true;
+  bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
@@ -176,7 +179,10 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   std::vector<double> yp(load->sizeY(), 0.);
   std::vector<double> f(load->sizeF(), 0.);
   std::vector<double> z(load->sizeZ(), 0.);
-  load->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[load->sizeZ()];
+  for (size_t i = 0; i < load->sizeZ(); ++i)
+    zConnected[i] = true;
+  load->setReferenceZ(&z[0], zConnected, 0);
   load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   const size_t DeltaPcIdx = 0;
   const size_t DeltaQcIdx = 1;
@@ -278,6 +284,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadCalculatedVariables) {
   shared_ptr<ModelLoad> loadInit = createModelLoad(false, true).first;
   loadInit->initSize();
   ASSERT_EQ(loadInit->sizeCalculatedVar(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
@@ -296,7 +303,10 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   std::vector<double> z(nbZ, 0.);
   std::vector<state_g> g(nbG, NO_ROOT);
   load->setReferenceG(&g[0], 0);
-  load->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[load->sizeZ()];
+  for (size_t i = 0; i < load->sizeZ(); ++i)
+    zConnected[i] = true;
+  load->setReferenceZ(&z[0], zConnected, 0);
   load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
 
   load->getY0();
@@ -331,6 +341,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadDiscreteVariables) {
   loadInit->initSize();
   ASSERT_EQ(loadInit->sizeZ(), 0);
   ASSERT_EQ(loadInit->sizeG(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
@@ -350,7 +361,10 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   std::vector<double> f(nbF, 0.);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   std::vector<double> z(load->sizeZ(), 0.);
-  load->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[load->sizeZ()];
+  for (size_t i = 0; i < load->sizeZ(); ++i)
+    zConnected[i] = true;
+  load->setReferenceZ(&z[0], zConnected, 0);
   load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   load->evalYMat();
   const size_t DeltaPcIdx = 0;
@@ -439,6 +453,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   ASSERT_NO_THROW(loadInit->evalF());
   fEquationIndex.clear();
   ASSERT_NO_THROW(loadInit->setFequations(fEquationIndex));
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkLoadDefineInstantiate) {
@@ -486,7 +501,10 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   std::vector<double> yp(load->sizeY(), 0.);
   std::vector<double> f(load->sizeF(), 0.);
   std::vector<double> z(load->sizeZ(), 0.);
-  load->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[load->sizeZ()];
+  for (size_t i = 0; i < load->sizeZ(); ++i)
+    zConnected[i] = true;
+  load->setReferenceZ(&z[0], zConnected, 0);
   load->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   load->evalYMat();
   const size_t DeltaPcIdx = 0;
@@ -538,6 +556,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadJt) {
   smjInit.init(loadInit->sizeY(), loadInit->sizeY());
   ASSERT_NO_THROW(loadInit->evalJt(smjInit, 1., 0));
   ASSERT_EQ(smjInit.nbElem(), 0);
+  delete[] zConnected;
 }
 
 }  // namespace DYN

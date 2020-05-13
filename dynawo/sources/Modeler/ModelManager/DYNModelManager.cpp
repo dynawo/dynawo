@@ -824,6 +824,7 @@ ModelManager::solveParameters() {
   double* y = static_cast<double*>(0);
   double* yp = static_cast<double*>(0);
   double* z = static_cast<double*>(0);
+  bool* zConnected = static_cast<bool*>(0);
   double* f = static_cast<double*>(0);
   if (!yLocalInit_.empty())
     y = &yLocalInit_[0];
@@ -834,7 +835,7 @@ ModelManager::solveParameters() {
   if (!fLocalInit_.empty())
     f = &fLocalInit_[0];
   setBufferY(y, yp, 0);
-  setBufferZ(z, 0);
+  setBufferZ(z, zConnected, 0);
   setBufferF(f, 0);
   getY0();
 

@@ -525,6 +525,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   double* yLocal_;  ///< local buffer to use when accessing continuous variables
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
+  bool* zConnectedLocal_;  ///< local buffer to use when accessing discretes variables connection status
 };  ///< Class for Multiple-Model
 
 

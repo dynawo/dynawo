@@ -62,6 +62,7 @@ fLocal_(NULL),
 yLocal_(NULL),
 ypLocal_(NULL),
 zLocal_(NULL),
+zConnectedLocal_(NULL),
 fType_(NULL),
 connectorsMerged_(false) {
 }
@@ -476,8 +477,9 @@ ConnectorContainer::setBufferY(double* y, double* yp) {
 }
 
 void
-ConnectorContainer::setBufferZ(double* z) {
+ConnectorContainer::setBufferZ(double* z, bool* zConnected) {
   zLocal_ = z;
+  zConnectedLocal_ = zConnected;
 }
 
 void
@@ -679,6 +681,7 @@ ConnectorContainer::getY0ConnectorForZConnector() {
         it != zc->connectedSubModels().end();
         ++it) {
       const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
+      zConnectedLocal_[numVar] = true;
       if (doubleNotEquals(zLocal_[numVar], 0)) {  // non zero variable
         itReference = it;
         nonZeroVariableFound = true;

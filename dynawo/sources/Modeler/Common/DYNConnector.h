@@ -327,10 +327,11 @@ class ConnectorContainer {
   void setBufferY(double* y, double* yp);
 
   /**
-   * @brief defines the local buffer to define discrete variables
+   * @brief defines the local buffer to define discrete variables and their connection status
    * @param z local buffer
+   * @param zConnected local buffer of connection status
    */
-  void setBufferZ(double* z);
+  void setBufferZ(double* z, bool* zConnected);
 
   /**
    * @brief defines the offset to use when filling the f buffer
@@ -483,6 +484,7 @@ class ConnectorContainer {
   double* yLocal_;  ///< local buffer to use for continuous variables
   double* ypLocal_;  ///< local buffer to use for derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use for discrete variables
+  bool* zConnectedLocal_;  ///< local buffer to use for connection status of discrete variables
   propertyF_t* fType_;  ///< local buffer to use for properties of residual functions
 
   std::vector< std::vector<unsigned int> > index_;  ///< global index of variables for evalF by connector;

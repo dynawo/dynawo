@@ -602,12 +602,12 @@ ModelVoltageLevel::setReferenceY(double* y, double* yp, double* f, const int & o
 }
 
 void
-ModelVoltageLevel::setReferenceZ(double* z, const int& offsetZ) {
+ModelVoltageLevel::setReferenceZ(double* z, bool* zConnected, const int& offsetZ) {
   int offsetZComponent = offsetZ;
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent) {
     if ((*itComponent)->sizeZ() != 0) {
-      (*itComponent)->setReferenceZ(z, offsetZComponent);
+      (*itComponent)->setReferenceZ(z, zConnected, offsetZComponent);
       offsetZComponent += (*itComponent)->sizeZ();
     }
   }

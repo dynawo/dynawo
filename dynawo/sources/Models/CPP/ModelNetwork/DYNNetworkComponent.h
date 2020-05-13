@@ -230,9 +230,10 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief set the local buffer for discretes variables
    *
    * @param z global buffer for the discretes variables
+   * @param zConnected global buffer for the discretes variables connection status
    * @param offsetZ offset to use to find the beginning of the local buffer
    */
-  virtual void setReferenceZ(double* z, const int& offsetZ) = 0;
+  virtual void setReferenceZ(double* z, bool* zConnected, const int& offsetZ) = 0;
 
   /**
    * @brief set the local buffer for calculated variables

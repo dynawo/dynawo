@@ -988,9 +988,10 @@ class SubModel {
    * @brief   defines the local buffer to define the discrete variables
    *
    * @param z global buffer to define the discrete variable
+   * @param zConnected global buffer to define the connection status of the discrete variable
    * @param offsetZ offset to use to find the beginning of the local buffer
    */
-  void setBufferZ(double* z, const int & offsetZ);
+  void setBufferZ(double* z, bool* zConnected, int offsetZ);
 
   /**
    * @brief   defines the local buffer to define the variables properties
@@ -1419,6 +1420,7 @@ class SubModel {
   int offsetY_;  ///< index in the global variable table
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
+  bool* zLocalConnected_;  ///< table to know whether a discrete var is connected or not
 
   std::vector<double> yLocalInit_;  ///< local buffer used for the init model
   std::vector<double> ypLocalInit_;  ///< local buffer used for the init model

@@ -292,9 +292,9 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void setReferenceY(double* y, double* yp, double* f, const int& offsetY, const int& offsetF);
 
   /**
-   * @copydoc NetworkComponent::setReferenceZ( double* z, const int & offsetZ )
+   * @copydoc NetworkComponent::setReferenceZ( double* z, bool* zConnected, const int & offsetZ )
    */
-  void setReferenceZ(double* z, const int& offsetZ);
+  void setReferenceZ(double* z, bool* zConnected, const int& offsetZ);
 
   /**
    * @copydoc NetworkComponent::setReferenceCalculatedVar( double* calculatedVars, const int & offsetCalculatedVars )

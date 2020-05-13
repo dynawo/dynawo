@@ -40,6 +40,7 @@ y_(NULL),
 yp_(NULL),
 f_(NULL),
 z_(NULL),
+zConnected_(NULL),
 calculatedVars_(NULL),
 g_(NULL),
 fType_(NULL),
@@ -58,6 +59,7 @@ y_(NULL),
 yp_(NULL),
 f_(NULL),
 z_(NULL),
+zConnected_(NULL),
 calculatedVars_(NULL),
 g_(NULL),
 fType_(NULL),
@@ -97,9 +99,11 @@ NetworkComponent::Impl::setReferenceY(double* y, double* yp, double* f, const in
 }
 
 void
-NetworkComponent::Impl::setReferenceZ(double* z, const int& offsetZ) {
-  if (sizeZ() != 0)
+NetworkComponent::Impl::setReferenceZ(double* z, bool* zConnected, const int& offsetZ) {
+  if (sizeZ() != 0) {
     z_ = &(z[offsetZ]);
+    zConnected_ = &(zConnected[offsetZ]);
+  }
 }
 
 void

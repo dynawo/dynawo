@@ -971,7 +971,7 @@ ModelNetwork::initSubBuffers() {
         offsetF += (*itComponent)->sizeF();
       }
       if ((*itComponent)->sizeZ() != 0) {
-        (*itComponent)->setReferenceZ(zLocal_, offsetZ);
+        (*itComponent)->setReferenceZ(zLocal_, zLocalConnected_, offsetZ);
         offsetZ += (*itComponent)->sizeZ();
       }
       if ((*itComponent)->sizeCalculatedVar() != 0) {

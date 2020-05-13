@@ -194,7 +194,10 @@ TEST(ModelsModelVariationArea, ModelVariationAreaInit) {
   std::vector<double> yp(modelVariationArea->sizeY(), 0);
   modelVariationArea->setBufferY(&y[0], &yp[0], 0.);
   std::vector<double> z(modelVariationArea->sizeZ(), 0);
-  modelVariationArea->setBufferZ(&z[0], 0);
+  bool* zConnected = new bool[modelVariationArea->sizeZ()];
+  for (size_t i = 0; i < modelVariationArea->sizeZ(); ++i)
+    zConnected[i] = true;
+  modelVariationArea->setBufferZ(&z[0], zConnected, 0);
   modelVariationArea->init(0);
   modelVariationArea->getY0();
   for (size_t i = 0; i < modelVariationArea->sizeY(); ++i) {
@@ -205,6 +208,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaInit) {
   boost::shared_ptr<DataInterface> data;
   ASSERT_NO_THROW(modelVariationArea->initializeFromData(data));
   ASSERT_NO_THROW(modelVariationArea->initializeStaticData());
+  delete[] zConnected;
 }
 
 TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
@@ -213,7 +217,10 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   std::vector<double> yp(modelVariationArea->sizeY(), 0);
   modelVariationArea->setBufferY(&y[0], &yp[0], 0.);
   std::vector<double> z(modelVariationArea->sizeZ(), 0);
-  modelVariationArea->setBufferZ(&z[0], 0);
+  bool* zConnected = new bool[modelVariationArea->sizeZ()];
+  for (size_t i = 0; i < modelVariationArea->sizeZ(); ++i)
+    zConnected[i] = true;
+  modelVariationArea->setBufferZ(&z[0], zConnected, 0);
   std::vector<state_g> g(modelVariationArea->sizeG(), ROOT_DOWN);
   modelVariationArea->setBufferG(&g[0], 0);
   std::vector<double> f(modelVariationArea->sizeF(), 0);
@@ -268,6 +275,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   ASSERT_EQ(smjPrim.nbElem(), 0);
   modeChangeType_t mode = modelVariationArea->evalMode(1);
   ASSERT_EQ(mode, DIFFERENTIAL_MODE);
+  delete[] zConnected;
 }
 
 }  // namespace DYN
