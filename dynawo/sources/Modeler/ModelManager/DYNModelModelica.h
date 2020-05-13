@@ -149,6 +149,11 @@ class ModelModelica {
   virtual void checkDataCoherence() = 0;
 
   /**
+   * @brief ensure parameters coherence (min/max, sanity checks...)
+   */
+  virtual void checkParametersCoherence() const = 0;
+
+  /**
    * @brief set formula for modelica model's equation
    * @param fEquationIndex map of equation's formula by idnex as it key
    */

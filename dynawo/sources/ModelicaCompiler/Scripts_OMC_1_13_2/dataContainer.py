@@ -1966,6 +1966,8 @@ class Warn:
         self.body=body
         ## body prepared for the setF function
         self.body_for_setf=[]
+        ## True if this warning test a parameter value
+        self.is_parameter_warning = False
 
     ##
     # Prepare the body of the equation to be print
@@ -1975,11 +1977,14 @@ class Warn:
         tmp_body = []
         # remove the start and end braces
         with_throw = False
+        with_variable= False
         for line in self.body:
             if "throwStreamPrint" in line:
                 with_throw = True
-                break
+            if "data->localData[0]->" in line.replace("data->localData[0]->timeValue", ""):
+                with_variable = True
 
+        self.is_parameter_warning = not with_variable
         #################
         for line in self.body:
             line = throw_stream_indexes(line)
@@ -2024,6 +2029,14 @@ class Warn:
     # @return body to print in setF
     def get_body_for_setf(self):
         return self.body_for_setf
+
+    ##
+    # Get whether this warning tests a parameter
+    # @param self : object pointer
+    # @return True if this warning tests a parameter, False otherwise
+    def get_is_parameter_warning(self):
+        return self.is_parameter_warning
+
 
 ##
 # Class Modes: used to store all information related to mode change conditions

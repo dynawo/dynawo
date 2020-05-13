@@ -123,6 +123,10 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
+  void checkParametersCoherence() const {
+    // Dummy class used for testing
+  }
+
   void setFequations() {
     // Dummy class used for testing
   }

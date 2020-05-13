@@ -849,16 +849,12 @@ SubModel::evalModeSub(const double & t) {
 
 void
 SubModel::checkDataCoherenceSub(const double & t) {
-  bool doCheck = true;
   // when loaded variables and parameters are used, do not check the init model coherence because it is not used
   if (isInitProcess_ && withLoadedParameters_ && withLoadedVariables_) {
-    doCheck = false;
+    return;
   }
-
-  if (doCheck) {
-    setCurrentTime(t);
-    checkDataCoherence(t);
-  }
+  setCurrentTime(t);
+  checkDataCoherence(t);
 }
 
 void

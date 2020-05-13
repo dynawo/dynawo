@@ -89,6 +89,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   void checkDataCoherence(const double & t);
 
   /**
+   * @copydoc Model::checkParametersCoherence() const
+   */
+  void checkParametersCoherence() const;
+
+  /**
    * @copydoc Model::setFequationsModel()
    */
   void setFequationsModel();

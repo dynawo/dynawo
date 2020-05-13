@@ -659,7 +659,7 @@ class ModelWriter(ModelWriterBase):
         self.addLine("}\n")
 
     ##
-    # Add the body of checkDataCoherence in the cpp file
+    # Add the body of checkDataCoherence and checkParametersCoherence in the cpp file
     # @param self : object pointer
     # @return
     def fill_warnings(self):
@@ -668,6 +668,13 @@ class ModelWriter(ModelWriterBase):
         self.addLine("{\n")
 
         self.addBody( self.builder.get_list_for_warnings() )
+
+        self.addLine("}\n")
+        self.addEmptyLine()
+        self.addLine("void Model"+ self.className +"::checkParametersCoherence() const\n")
+        self.addLine("{\n")
+
+        self.addBody( self.builder.get_list_for_parameters_warnings() )
 
         self.addLine("}\n")
 

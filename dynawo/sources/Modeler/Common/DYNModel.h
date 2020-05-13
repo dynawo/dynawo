@@ -127,6 +127,11 @@ class Model {
   virtual void checkDataCoherence(const double & t) = 0;
 
   /**
+   * @brief Coherence check on parameters (min/max values, sanity checks)
+   */
+  virtual void checkParametersCoherence() const = 0;
+
+  /**
    * @brief set equation's formula in Model
    *
    */

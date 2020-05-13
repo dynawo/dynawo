@@ -182,6 +182,11 @@ class SubModel {
   virtual modeChangeType_t evalMode(const double & t) = 0;
 
   /**
+   * @brief Coherence check on parameters (min/max values, sanity checks)
+   */
+  virtual void checkParametersCoherence() const = 0;
+
+  /**
    * @brief Coherence check on data (asserts, min/max values, sanity checks)
    *
    * @param t time for which to conduct the data coherence check

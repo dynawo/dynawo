@@ -112,6 +112,11 @@ ModelCPP::Impl::checkDataCoherence(const double& /*t*/) {
 }
 
 void
+ModelCPP::Impl::checkParametersCoherence() const {
+  // not needed
+}
+
+void
 ModelCPP::Impl::printInitValues(const std::string& /*directory*/) {
   // not needed
 }

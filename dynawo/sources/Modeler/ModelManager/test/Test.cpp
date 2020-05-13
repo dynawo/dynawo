@@ -237,6 +237,10 @@ class MyModelica: public ModelModelica {
     ++nbCallCheckDataCoherence_;
   }
 
+  void checkParametersCoherence() const {
+    // Dummy class used for testing
+  }
+
   unsigned getNbCallCheckDataCoherence() const {
     return nbCallCheckDataCoherence_;
   }

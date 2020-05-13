@@ -769,6 +769,7 @@ Simulation::calculateIC() {
   }
   // check coherence during local init process (use of init model)
   model_->checkDataCoherence(tCurrent_);
+  model_->checkParametersCoherence();
   model_->setIsInitProcess(false);
   Trace::info() << DYNLog(ModelLocalInitEnd) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline<< Trace::endline;

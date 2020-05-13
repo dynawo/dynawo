@@ -164,6 +164,13 @@ inline std::string key2Str(const int key) {
  * @param B second double
  */
 #define  ASSERT_DOUBLE_EQUALS_DYNAWO(A, B) \
-    ASSERT_EQ(doubleEquals(A, B), true)          \
+    {                                                                                                \
+      if (!doubleEquals(A, B)) {                                                                     \
+        std::ostringstream oss;                                                                      \
+        oss << "Expected: " << A << " equals to " << B << std::endl;                                 \
+        GTEST_FATAL_FAILURE_(oss.str().c_str());                                                     \
+      }                                                                                              \
+      ASSERT_EQ(doubleEquals(A, B), true);                                                           \
+    }                                                                                                \
 
 #endif  // COMMON_GTEST_DYNAWO_H_
