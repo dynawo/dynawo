@@ -200,7 +200,7 @@ export DYNAWO_INSTALL_OPENMODELICA=$DYNAWO_HOME/OpenModelica/Install
 
 export DYNAWO_LOCALE=en_GB
 export DYNAWO_RESULTS_SHOW=true
-export DYNAWO_BROWSER=xdg-open
+export DYNAWO_BROWSER=firefox
 
 export DYNAWO_NB_PROCESSORS_USED=1
 
@@ -211,6 +211,14 @@ $DYNAWO_HOME/util/envDynawo.sh $@' > myEnvDynawo.sh
 $> chmod +x myEnvDynawo.sh
 $> ./myEnvDynawo.sh build-user
 ```
+
+Below is a description of some environment variables that might be changed in `myEnvDynawo.sh`:
+
+| Variable | Description |
+|:----|:----|
+| DYNAWO_BROWSER | Default browser command |
+| DYNAWO_NB_PROCESSORS_USED | Maximum number of cores to use |
+| DYNAWO_BUILD_TYPE | Build type: Release or Debug |
 
 You can have more information about compilation options [here](https://dynawo.github.io/install/compilation_options).
 
