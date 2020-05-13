@@ -373,7 +373,8 @@ ConnectorContainer::printEquations() const {
     for (vector<connectedSubModel>::iterator it = fc->connectedSubModels().begin();
         it != fc->connectedSubModels().end();
         ++it) {
-      ss << (it->negated() ? "-" : (first ? "" : "+")) << it->variable()->getName();
+      string op = (first ? "" : "+");
+      ss << (it->negated() ? "-" : op) << it->variable()->getName();
       first = false;
     }
     ss << " = 0";
