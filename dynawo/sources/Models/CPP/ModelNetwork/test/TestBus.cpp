@@ -92,7 +92,10 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
   sub.addBus(bus);
   bus->initSize();
   std::vector<double> z(bus->sizeZ(), 0.);
-  bus->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[bus->sizeZ()];
+  for (size_t i = 0; i < bus->sizeZ(); ++i)
+    zConnected[i] = true;
+  bus->setReferenceZ(&z[0], zConnected, 0);
   ASSERT_EQ(sub.nbBus(), 1);
   ASSERT_EQ(bus, sub.bus(0));
 
@@ -101,6 +104,7 @@ TEST(ModelsModelNetwork, ModelNetworkSubNetwork) {
   ASSERT_TRUE(bus->getSwitchOff());
   sub.turnOnNodes();
   ASSERT_FALSE(bus->getSwitchOff());
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
@@ -108,7 +112,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
   shared_ptr<ModelBus> bus = p.first;
   bus->initSize();
   std::vector<double> z(bus->sizeZ(), 0.);
-  bus->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[bus->sizeZ()];
+  for (size_t i = 0; i < bus->sizeZ(); ++i)
+    zConnected[i] = true;
+  bus->setReferenceZ(&z[0], zConnected, 0);
   ASSERT_EQ(bus->id(), "MyBus1");
   ASSERT_FALSE(bus->getSwitchOff());
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getAngle0(), M_PI/2);
@@ -117,6 +124,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusInitialization) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getVNom(), 5.);
   ASSERT_FALSE(bus->hasBBS());
   ASSERT_EQ(bus->getBusIndex(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
@@ -127,7 +135,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   std::vector<double> yp(bus->sizeY(), 0.);
   std::vector<double> f(bus->sizeF(), 0.);
   std::vector<double> z(bus->sizeZ(), 0.);
-  bus->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[bus->sizeZ()];
+  for (size_t i = 0; i < bus->sizeZ(); ++i)
+    zConnected[i] = true;
+  bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   y[ModelBus::urNum_] = 0.35;
   y[ModelBus::uiNum_] = 0.02;
@@ -227,6 +238,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   shared_ptr<ModelBus> busInit = createModelBus(true).first;
   busInit->initSize();
   ASSERT_EQ(busInit->sizeCalculatedVar(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
@@ -241,9 +253,12 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   std::vector<double> yp(bus->sizeY(), 0.);
   std::vector<double> f(bus->sizeF(), 0.);
   std::vector<double> z(nbZ, 0.);
+  bool* zConnected = new bool[nbZ];
+  for (size_t i = 0; i < nbZ; ++i)
+    zConnected[i] = true;
   std::vector<state_g> g(nbG, NO_ROOT);
   bus->setReferenceG(&g[0], 0);
-  bus->setReferenceZ(&z[0], 0);
+  bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   ModelNetwork* network = new ModelNetwork();
   boost::shared_ptr<constraints::ConstraintsCollection> constraints =
@@ -327,6 +342,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   busInit->initSize();
   ASSERT_EQ(busInit->sizeZ(), 0);
   ASSERT_EQ(busInit->sizeG(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
@@ -344,11 +360,14 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   std::vector<double> yp(nbY, 0.);
   std::vector<double> f(nbF, 0.);
   std::vector<double> z(bus->sizeZ(), 0.);
+  bool* zConnected = new bool[bus->sizeZ()];
+  for (size_t i = 0; i < bus->sizeZ(); ++i)
+    zConnected[i] = true;
   std::vector<state_g> g(bus->sizeG(), NO_ROOT);
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   bus->setReferenceG(&g[0], 0);
-  bus->setReferenceZ(&z[0], 0);
+  bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   bus->evalYMat();
   bus->setBufferYType(&yTypes[0], 0);
@@ -430,6 +449,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   bus->updateFType();
   ASSERT_EQ(fTypes[ModelBus::urNum_], DIFFERENTIAL_EQ);
   ASSERT_EQ(fTypes[ModelBus::uiNum_], DIFFERENTIAL_EQ);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
@@ -445,11 +465,14 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
   std::vector<double> yp(nbY, 0.);
   std::vector<double> f(nbF, 0.);
   std::vector<double> z(bus->sizeZ(), 0.);
+  bool* zConnected = new bool[bus->sizeZ()];
+  for (size_t i = 0; i < bus->sizeZ(); ++i)
+    zConnected[i] = true;
   std::vector<state_g> g(bus->sizeG(), NO_ROOT);
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   bus->setReferenceG(&g[0], 0);
-  bus->setReferenceZ(&z[0], 0);
+  bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   bus->evalYMat();
   bus->setBufferYType(&yTypes[0], 0);
@@ -471,6 +494,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
   ASSERT_NO_THROW(bus->evalF());
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 3.2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 5.5);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusDefineInstantiate) {
@@ -534,7 +558,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   std::vector<double> yp(bus->sizeY(), 0.);
   std::vector<double> f(bus->sizeF(), 0.);
   std::vector<double> z(bus->sizeZ(), 0.);
-  bus->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[bus->sizeZ()];
+  for (size_t i = 0; i < bus->sizeZ(); ++i)
+    zConnected[i] = true;
+  bus->setReferenceZ(&z[0], zConnected, 0);
   bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   bus->evalYMat();
   y[ModelBus::urNum_] = 0.35;
@@ -575,6 +602,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   smjPrime.init(size, size);
   bus->evalJtPrim(smjPrime, 0);
   ASSERT_EQ(smjPrime.nbElem(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
@@ -630,7 +658,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   std::vector<double> yp1(bus1->sizeY(), 0.);
   std::vector<double> f1(bus1->sizeF(), 0.);
   std::vector<double> z1(bus1->sizeZ(), 0.);
-  bus1->setReferenceZ(&z1[0], 0);
+  bool* zConnected1 = new bool[bus1->sizeZ()];
+  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+    zConnected1[i] = true;
+  bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(&y1[0], &yp1[0], &f1[0], 0, 0);
   bus1->evalYMat();
   bus1->irAdd(0.1);
@@ -642,7 +673,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   std::vector<double> yp2(bus2->sizeY(), 0.);
   std::vector<double> f2(bus2->sizeF(), 0.);
   std::vector<double> z2(bus2->sizeZ(), 0.);
-  bus2->setReferenceZ(&z2[0], 0);
+  bool* zConnected2 = new bool[bus2->sizeZ()];
+  for (size_t i = 0; i < bus2->sizeZ(); ++i)
+    zConnected2[i] = true;
+  bus2->setReferenceZ(&z2[0], zConnected2, 0);
   bus2->setReferenceY(&y2[0], &yp2[0], &f2[0], 0, 0);
   bus2->evalYMat();
   bus2->irAdd(0.2);
@@ -654,7 +688,10 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   std::vector<double> yp3(bus3->sizeY(), 0.);
   std::vector<double> f3(bus3->sizeF(), 0.);
   std::vector<double> z3(bus3->sizeZ(), 0.);
-  bus3->setReferenceZ(&z3[0], 0);
+  bool* zConnected3 = new bool[bus3->sizeZ()];
+  for (size_t i = 0; i < bus3->sizeZ(); ++i)
+    zConnected3[i] = true;
+  bus3->setReferenceZ(&z3[0], zConnected3, 0);
   bus3->setReferenceY(&y3[0], &yp3[0], &f3[0], 0, 0);
   bus3->evalYMat();
   bus3->irAdd(0.3);
@@ -727,5 +764,8 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   ASSERT_EQ(bus1->getRefIslands(), 0);
   ASSERT_EQ(bus2->getRefIslands(), 0);
   ASSERT_EQ(bus3->getRefIslands(), 0);
+  delete[] zConnected1;
+  delete[] zConnected2;
+  delete[] zConnected3;
 }
 }  // namespace DYN

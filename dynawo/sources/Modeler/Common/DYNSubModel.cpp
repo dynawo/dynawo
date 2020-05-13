@@ -76,6 +76,7 @@ yLocal_(NULL),
 offsetY_(-1),
 ypLocal_(NULL),
 zLocal_(NULL),
+zLocalConnected_(NULL),
 yType_(NULL),
 fType_(NULL),
 yDeb_(0),
@@ -776,10 +777,13 @@ SubModel::setBufferY(double* y, double* yp, const int & offsetY) {
 }
 
 void
-SubModel::setBufferZ(double* z, const int & offsetZ) {
+SubModel::setBufferZ(double* z, bool* zConnected, int offsetZ) {
   zLocal_ = static_cast<double*>(0);
   if (z)
     zLocal_ = &(z[offsetZ]);
+  zLocalConnected_ = static_cast<bool*>(0);
+  if (zConnected)
+    zLocalConnected_ = &(zConnected[offsetZ]);
 }
 
 void

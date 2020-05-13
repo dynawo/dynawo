@@ -191,7 +191,10 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefInit) {
   std::vector<double> yp(modelOmegaRef->sizeY(), 0);
   modelOmegaRef->setBufferY(&y[0], &yp[0], 0.);
   std::vector<double> z(modelOmegaRef->sizeZ(), 0);
-  modelOmegaRef->setBufferZ(&z[0], 0);
+  bool* zConnected = new bool[modelOmegaRef->sizeZ()];
+  for (size_t i = 0; i < modelOmegaRef->sizeZ(); ++i)
+    zConnected[i] = true;
+  modelOmegaRef->setBufferZ(&z[0], zConnected, 0);
   modelOmegaRef->init(0);
   modelOmegaRef->getY0();
 
@@ -206,6 +209,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefInit) {
 
   ASSERT_EQ(z[0], 0);
   ASSERT_EQ(z[2], 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
@@ -214,7 +218,10 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   std::vector<double> yp(modelOmegaRef->sizeY(), 0);
   modelOmegaRef->setBufferY(&y[0], &yp[0], 0.);
   std::vector<double> z(modelOmegaRef->sizeZ(), 0);
-  modelOmegaRef->setBufferZ(&z[0], 0);
+  bool* zConnected = new bool[modelOmegaRef->sizeZ()];
+  for (size_t i = 0; i < modelOmegaRef->sizeZ(); ++i)
+    zConnected[i] = true;
+  modelOmegaRef->setBufferZ(&z[0], zConnected, 0);
   z[2] = 1;
   z[3] = 1;
   std::vector<double> f(modelOmegaRef->sizeF(), 0);
@@ -300,6 +307,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   modelOmegaRef->evalZ(2);  // Propagating the changes to internal discrete values
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, ALGEBRAIC_J_UPDATE_MODE);
+  delete[] zConnected;
 }
 
 }  // namespace DYN

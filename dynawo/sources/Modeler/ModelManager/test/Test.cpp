@@ -558,9 +558,12 @@ TEST(TestModelManager, TestModelManagerBasics) {
   yp[1] = 2;
   std::vector<double> f(mm->sizeF(), 0.);
   std::vector<double> z(mm->sizeZ(), 0.);
+  bool* zConnected = new bool[mm->sizeZ()];
+  for (size_t i = 0; i < mm->sizeZ(); ++i)
+    zConnected[i] = true;
   std::vector<state_g> g(mm->sizeG(), NO_ROOT);
   mm->setBufferG(&g[0], 0);
-  mm->setBufferZ(&z[0], 0);
+  mm->setBufferZ(&z[0], zConnected, 0);
   mm->setBufferY(&y[0], &yp[0], 0);
   mm->setBufferF(&f[0], 0);
   mm->initSubBuffers();
@@ -679,6 +682,7 @@ TEST(TestModelManager, TestModelManagerBasics) {
   ASSERT_EQ(calcVarJRes[1], 0);
 
   mm->setSubModelParameters();
+  delete[] zConnected;
 }
 
 

@@ -101,7 +101,10 @@ createModelDanglingLine(bool open, bool initModel) {
   double* yp1 = new double[bus1->sizeY()];
   double* f1 = new double[bus1->sizeF()];
   double* z1 = new double[bus1->sizeZ()];
-  bus1->setReferenceZ(&z1[0], 0);
+  bool* zConnected1 = new bool[bus1->sizeZ()];
+  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+    zConnected1[i] = true;
+  bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
@@ -137,7 +140,10 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineCalculatedVariables) {
   std::vector<double> yp(dl->sizeY(), 0.);
   std::vector<double> f(dl->sizeF(), 0.);
   std::vector<double> z(dl->sizeZ(), 0.);
-  dl->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[dl->sizeZ()];
+  for (size_t i = 0; i < dl->sizeZ(); ++i)
+    zConnected[i] = true;
+  dl->setReferenceZ(&z[0], zConnected, 0);
   dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   dl->evalYMat();
   y[ModelDanglingLine::urFictNum_] = 4.;
@@ -217,6 +223,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineCalculatedVariables) {
   shared_ptr<ModelDanglingLine> dlInit = createModelDanglingLine(false, true).first;
   dlInit->initSize();
   ASSERT_EQ(dlInit->sizeCalculatedVar(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
@@ -231,9 +238,12 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
   std::vector<double> yp(dl->sizeY(), 0.);
   std::vector<double> f(dl->sizeF(), 0.);
   std::vector<double> z(nbZ, 0.);
+  bool* zConnected = new bool[dl->sizeZ()];
+  for (size_t i = 0; i < dl->sizeZ(); ++i)
+    zConnected[i] = true;
   std::vector<state_g> g(nbG, NO_ROOT);
   dl->setReferenceG(&g[0], 0);
-  dl->setReferenceZ(&z[0], 0);
+  dl->setReferenceZ(&z[0], zConnected, 0);
   dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
 
   dl->getY0();
@@ -289,6 +299,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
   dlInit->initSize();
   ASSERT_EQ(dlInit->sizeZ(), 0);
   ASSERT_EQ(dlInit->sizeG(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
@@ -307,7 +318,10 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
   std::vector<double> f(nbF, 0.);
   std::vector<propertyF_t> fTypes(nbF, UNDEFINED_EQ);
   std::vector<double> z(dl->sizeZ(), 0.);
-  dl->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[dl->sizeZ()];
+  for (size_t i = 0; i < dl->sizeZ(); ++i)
+    zConnected[i] = true;
+  dl->setReferenceZ(&z[0], zConnected, 0);
   dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   dl->evalYMat();
   y[ModelDanglingLine::urFictNum_] = 4.;
@@ -370,6 +384,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
   ASSERT_NO_THROW(dlInit->evalF());
   fEquationIndex.clear();
   ASSERT_NO_THROW(dlInit->setFequations(fEquationIndex));
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineDefineInstantiate) {
@@ -409,7 +424,10 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
   std::vector<double> yp(dl->sizeY(), 0.);
   std::vector<double> f(dl->sizeF(), 0.);
   std::vector<double> z(dl->sizeZ(), 0.);
-  dl->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[dl->sizeZ()];
+  for (size_t i = 0; i < dl->sizeZ(); ++i)
+    zConnected[i] = true;
+  dl->setReferenceZ(&z[0], zConnected, 0);
   dl->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   dl->evalYMat();
   y[ModelDanglingLine::urFictNum_] = 4.;
@@ -452,6 +470,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
   smjInit.init(dlInit->sizeY(), dlInit->sizeY());
   ASSERT_NO_THROW(dlInit->evalJt(smjInit, 1., 0));
   ASSERT_EQ(smjInit.nbElem(), 0);
+  delete[] zConnected;
 }
 
 

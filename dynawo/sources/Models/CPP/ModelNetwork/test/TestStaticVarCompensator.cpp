@@ -94,7 +94,10 @@ createModelStaticVarCompensator(bool open, bool initModel) {
   double* yp1 = new double[bus1->sizeY()];
   double* f1 = new double[bus1->sizeF()];
   double* z1 = new double[bus1->sizeZ()];
-  bus1->setReferenceZ(&z1[0], 0);
+  bool* zConnected1 = new bool[bus1->sizeZ()];
+  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+    zConnected1[i] = true;
+  bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
@@ -119,7 +122,10 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   std::vector<double> yp(svc->sizeY(), 0.);
   std::vector<double> f(svc->sizeF(), 0.);
   std::vector<double> z(svc->sizeZ(), 0.);
-  svc->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[svc->sizeZ()];
+  for (size_t i = 0; i < svc->sizeZ(); ++i)
+    zConnected[i] = true;
+  svc->setReferenceZ(&z[0], zConnected, 0);
   svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   svc->evalYMat();
   ASSERT_EQ(svc->sizeCalculatedVar(), ModelStaticVarCompensator::nbCalculatedVariables_);
@@ -162,6 +168,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 4);
   numVars.clear();
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
@@ -178,7 +185,10 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   std::vector<double> z(nbZ, 0.);
   std::vector<state_g> g(nbG, NO_ROOT);
   svc->setReferenceG(&g[0], 0);
-  svc->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[svc->sizeZ()];
+  for (size_t i = 0; i < svc->sizeZ(); ++i)
+    zConnected[i] = true;
+  svc->setReferenceZ(&z[0], zConnected, 0);
   svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
 
   svc->getY0();
@@ -258,6 +268,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDiscreteVariables) {
   ASSERT_EQ(g[5], ROOT_DOWN);
   ASSERT_EQ(g[6], ROOT_UP);
   ASSERT_EQ(g[7], ROOT_UP);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
@@ -281,7 +292,10 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
   svc->setBufferYType(&yTypes[0], 0);
   svc->setBufferFType(&fTypes[0], 0);
   svc->setReferenceG(&g[0], 0);
-  svc->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[svc->sizeZ()];
+  for (size_t i = 0; i < svc->sizeZ(); ++i)
+    zConnected[i] = true;
+  svc->setReferenceZ(&z[0], zConnected, 0);
   svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   ASSERT_EQ(svc->sizeY(), nbY);
   ASSERT_EQ(svc->sizeF(), nbF);
@@ -314,6 +328,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
   ASSERT_NO_THROW(svc->addBusNeighbors());
   ASSERT_NO_THROW(svc->updateYType());
   ASSERT_NO_THROW(svc->updateFType());
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorDefineInstantiate) {
@@ -360,7 +375,10 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorJt) {
   svc->setBufferYType(&yTypes[0], 0);
   svc->setBufferFType(&fTypes[0], 0);
   svc->setReferenceG(&g[0], 0);
-  svc->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[svc->sizeZ()];
+  for (size_t i = 0; i < svc->sizeZ(); ++i)
+    zConnected[i] = true;
+  svc->setReferenceZ(&z[0], zConnected, 0);
   svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   svc->evalYMat();
   SparseMatrix smj;
@@ -410,6 +428,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorJt) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.Ax_[0], 0.005);
   ASSERT_EQ(smjPrime.Ap_[0], 0);
   ASSERT_EQ(smjPrime.Ap_[1], 0);
+  delete[] zConnected;
 }
 
 }  // namespace DYN

@@ -79,7 +79,8 @@ fLocal_(NULL),
 gLocal_(NULL),
 yLocal_(NULL),
 ypLocal_(NULL),
-zLocal_(NULL) {
+zLocal_(NULL),
+zConnectedLocal_(NULL) {
   connectorContainer_.reset(new ConnectorContainer());
 }
 
@@ -105,6 +106,9 @@ ModelMulti::cleanBuffers() {
 
   if (zLocal_ != NULL)
     delete[] zLocal_;
+
+  if (zConnectedLocal_ != NULL)
+    delete[] zConnectedLocal_;
 
   if (fType_ != NULL)
     delete[] fType_;
@@ -196,6 +200,10 @@ ModelMulti::initBuffers() {
   yLocal_ = new double[sizeY_]();
   ypLocal_ = new double[sizeY_]();
   zLocal_ = new double[sizeZ_]();
+  zConnectedLocal_ = new bool[sizeZ_];
+  for (int i = 0; i < sizeZ_; ++i) {
+    zConnectedLocal_[i] = false;
+  }
   int offsetF = 0;
   int offsetG = 0;
   int offsetY = 0;
@@ -226,12 +234,12 @@ ModelMulti::initBuffers() {
 
     int sizeZ = subModels_[i]->sizeZ();
     if (sizeZ > 0)
-      subModels_[i]->setBufferZ(zLocal_, offsetZ);
+      subModels_[i]->setBufferZ(zLocal_, zConnectedLocal_, offsetZ);
     offsetZ += sizeZ;
   }
   connectorContainer_->setBufferF(fLocal_, offsetF);
   connectorContainer_->setBufferY(yLocal_, ypLocal_);  // connectors access to the whole y Buffer
-  connectorContainer_->setBufferZ(zLocal_);  // connectors access to the whole z buffer
+  connectorContainer_->setBufferZ(zLocal_, zConnectedLocal_);  // connectors access to the whole z buffer
   std::fill(fLocal_ + offsetFOptional_, fLocal_ + sizeF_, 0);
 
   // (3) init buffers of each sub-model (useful for the network model)

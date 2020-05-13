@@ -237,6 +237,9 @@ ModelShuntCompensator::getY0() {
 
 bool
 ModelShuntCompensator::isAvailable() const {
+  if (!zConnected_[isAvailableNum_]) {
+    return true;
+  }
   if (modelBus_->getVoltageLevel()->isClosestBBSSwitchedOff(modelBus_)) {
     return false;
   } else {

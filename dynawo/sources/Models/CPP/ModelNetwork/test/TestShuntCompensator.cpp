@@ -92,7 +92,10 @@ createModelShuntCompensator(bool open, bool capacitor, bool initModel) {
   double* yp1 = new double[bus1->sizeY()];
   double* f1 = new double[bus1->sizeF()];
   double* z1 = new double[bus1->sizeZ()];
-  bus1->setReferenceZ(&z1[0], 0);
+  bool* zConnected1 = new bool[bus1->sizeZ()];
+  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+    zConnected1[i] = true;
+  bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
@@ -129,7 +132,10 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariables) {
   std::vector<double> yp(capa->sizeY(), 0.);
   std::vector<double> f(capa->sizeF(), 0.);
   std::vector<double> z(capa->sizeZ(), 0.);
-  capa->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[capa->sizeZ()];
+  for (size_t i = 0; i < capa->sizeZ(); ++i)
+    zConnected[i] = true;
+  capa->setReferenceZ(&z[0], zConnected, 0);
   capa->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   capa->evalYMat();
   ASSERT_EQ(capa->sizeCalculatedVar(), ModelShuntCompensator::nbCalculatedVariables_);
@@ -169,6 +175,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariables) {
   shared_ptr<ModelShuntCompensator> capaInit = createModelShuntCompensator(false, capacitance, true).first;
   capaInit->initSize();
   ASSERT_EQ(capaInit->sizeCalculatedVar(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
@@ -185,7 +192,10 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   std::vector<double> z(nbZ, 0.);
   std::vector<state_g> g(nbG, NO_ROOT);
   capa->setReferenceG(&g[0], 0);
-  capa->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[nbZ];
+  for (size_t i = 0; i < nbZ; ++i)
+    zConnected[i] = true;
+  capa->setReferenceZ(&z[0], zConnected, 0);
   capa->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
 
   capa->getY0();
@@ -237,6 +247,11 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isCapacitorNum_], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isAvailableNum_], 0.);
 
+  zConnected[ModelShuntCompensator::isAvailableNum_] = false;
+  capa->evalG(0.);
+  capa->evalZ(0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(z[ModelShuntCompensator::isAvailableNum_], 1.);
+
   std::map<int, std::string> gEquationIndex;
   capa->setGequations(gEquationIndex);
   ASSERT_EQ(gEquationIndex.size(), nbG);
@@ -252,6 +267,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorDiscreteVariables) {
   capaInit->initSize();
   ASSERT_EQ(capaInit->sizeZ(), 0);
   ASSERT_EQ(capaInit->sizeG(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorContinuousVariables) {

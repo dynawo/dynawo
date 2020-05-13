@@ -84,7 +84,10 @@ createModelGenerator(bool open, bool initModel) {
   double* yp1 = new double[bus1->sizeY()];
   double* f1 = new double[bus1->sizeF()];
   double* z1 = new double[bus1->sizeZ()];
-  bus1->setReferenceZ(&z1[0], 0);
+  bool* zConnected1 = new bool[bus1->sizeZ()];
+  for (size_t i = 0; i < bus1->sizeZ(); ++i)
+    zConnected1[i] = true;
+  bus1->setReferenceZ(&z1[0], zConnected1, 0);
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
   y1[ModelBus::urNum_] = 0.35;
   y1[ModelBus::uiNum_] = 0.02;
@@ -120,7 +123,10 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
   std::vector<double> yp(gen->sizeY(), 0.);
   std::vector<double> f(gen->sizeF(), 0.);
   std::vector<double> z(gen->sizeZ(), 3.);
-  gen->setReferenceZ(&z[0], 0);
+  bool* zConnected = new bool[gen->sizeZ()];
+  for (size_t i = 0; i < gen->sizeZ(); ++i)
+    zConnected[i] = true;
+  gen->setReferenceZ(&z[0], zConnected, 0);
   gen->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   ASSERT_EQ(gen->sizeCalculatedVar(), ModelGenerator::nbCalculatedVariables_);
 
@@ -192,6 +198,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
   shared_ptr<ModelGenerator> genInit = createModelGenerator(false, true).first;
   genInit->initSize();
   ASSERT_EQ(genInit->sizeCalculatedVar(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
@@ -206,9 +213,12 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
   std::vector<double> yp(gen->sizeY(), 0.);
   std::vector<double> f(gen->sizeF(), 0.);
   std::vector<double> z(nbZ, 0.);
+  bool* zConnected = new bool[nbZ];
+  for (size_t i = 0; i < nbZ; ++i)
+    zConnected[i] = true;
   std::vector<state_g> g(nbG, NO_ROOT);
   gen->setReferenceG(&g[0], 0);
-  gen->setReferenceZ(&z[0], 0);
+  gen->setReferenceZ(&z[0], zConnected, 0);
   gen->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
 
   gen->getY0();
@@ -251,6 +261,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
   genInit->initSize();
   ASSERT_EQ(genInit->sizeZ(), 0);
   ASSERT_EQ(genInit->sizeG(), 0);
+  delete[] zConnected;
 }
 
 TEST(ModelsModelNetwork, ModelNetworkGeneratorContinuousVariables) {
