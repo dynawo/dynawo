@@ -207,6 +207,11 @@ class ConnectorCalculatedVariable : public SubModel {
   void checkDataCoherence(const double& t);
 
   /**
+   * @copydoc SubModel::checkParametersCoherence () const
+   */
+  void checkParametersCoherence() const;
+
+  /**
    * @copydoc SubModel::setFequations()
    */
   void setFequations();

@@ -49,13 +49,14 @@ namespace DYN {
 #endif
 
     void checkDataCoherence ();
+    void checkParametersCoherence () const;
     void setFequations (std::map<int,std::string>& fEquationIndex);
     void setGequations (std::map<int,std::string>& gEquationIndex);
 
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("71cf5101a0e5eb9093a123c85b19adf8"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("1a8c77a00f7b2c6cb7f7f1dca6216b06"); }
 
     private:
     DYNDATA * data;

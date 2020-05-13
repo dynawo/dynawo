@@ -538,10 +538,11 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   }
   model->getCurrentZ(z);
   for (size_t i = 0; i < z.size(); ++i) {
-    if (i == 12 || i == 16)
+    if (i == 12 || i == 16) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], 1);  // bus state == OPEN
-    else
+    } else {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
+    }
   }
 
   ASSERT_EQ(solver->getPreviousReinit(), None);
@@ -557,10 +558,11 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2.);
   model->getCurrentZ(z);
   for (size_t i = 0; i < z.size(); ++i) {
-    if (i == 12 || i == 16)
+    if (i == 12 || i == 16) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], 1);  // bus state == OPEN
-    else
+    } else {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
+    }
   }
 
   solver->solve(tStop, tCurrent);
@@ -573,17 +575,19 @@ TEST(SimulationTest, testSolverSIMAlgebraicMode) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[11], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 3.);
   for (size_t i = 0; i < z.size(); ++i) {
-    if (i == 12 || i == 16)
+    if (i == 12 || i == 16) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], 1);  // bus state == OPEN
-    else
+    } else {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
+    }
   }
   model->getCurrentZ(z);
   for (size_t i = 0; i < z.size(); ++i) {
-    if (i == 12 || i == 16)
+    if (i == 12 || i == 16) {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], 1);  // bus state == OPEN
-    else
+    } else {
       ASSERT_DOUBLE_EQUALS_DYNAWO(z[i], z0[i]);
+    }
   }
 
   solver->setPreviousReinit(Algebraic);

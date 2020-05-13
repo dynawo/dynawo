@@ -77,6 +77,7 @@ class HeaderPatternDefine:
 #endif
 
     void checkDataCoherence ();
+    void checkParametersCoherence () const;
     void setFequations (std::map<int,std::string>& fEquationIndex);
     void setGequations (std::map<int,std::string>& gEquationIndex);
 
@@ -158,6 +159,7 @@ namespace DYN {
 #endif
 
     void checkDataCoherence ();
+    void checkParametersCoherence () const;
     void setFequations (std::map<int,std::string>& fEquationIndex);
     void setGequations (std::map<int,std::string>& gEquationIndex);
 

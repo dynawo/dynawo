@@ -286,6 +286,8 @@ class Factory:
         self.list_for_literalconstants = []
         ## List of equations to define warnings
         self.list_for_warnings = []
+        ## List of equations to define warnings
+        self.list_for_parameters_warnings = []
         ## List of formula of equations to define setFequations function
         self.listfor_setfequations = []
         ## List of formula of root equations to define setGequations function
@@ -875,12 +877,6 @@ class Factory:
             for eq in filter(lambda x: (not x.get_is_modelica_reinit()) and (x.get_evaluated_var() == var.get_name()), self.list_all_equations):
                 self.list_eq_syst.append(eq)
 
-        for eq in self.list_all_equations:
-            if eq.get_evaluated_var() =="" and eq.with_throw():
-                warning = Warn(eq.get_body())
-                warning.prepare_body()
-                self.list_warnings.append(warning)
-
         #... Sort the previous functions with their index in the main *.c file (and other *.c)
         self.list_eq_syst.sort(key = cmp_to_key_dynawo(cmp_equations))
 
@@ -1466,10 +1462,16 @@ class Factory:
     # @return
     def dump_warnings_in_checkdatacoherence(self):
         for warn in self.list_warnings:
-            self.list_for_warnings.append("{\n")
-            self.list_for_warnings.extend(warn.get_body_for_setf())
-            self.list_for_warnings.append("\n\n")
-            self.list_for_warnings.append("}\n")
+            if warn.get_is_parameter_warning():
+                self.list_for_parameters_warnings.append("{\n")
+                self.list_for_parameters_warnings.extend(warn.get_body_for_setf())
+                self.list_for_parameters_warnings.append("\n\n")
+                self.list_for_parameters_warnings.append("}\n")
+            else:
+                self.list_for_warnings.append("{\n")
+                self.list_for_warnings.extend(warn.get_body_for_setf())
+                self.list_for_warnings.append("\n\n")
+                self.list_for_warnings.append("}\n")
 
     ##
     # dump the lines of the warning in the body of setF
@@ -3134,6 +3136,13 @@ class Factory:
     # @return list of lines
     def get_list_for_warnings (self):
         return self.list_for_warnings
+
+    ##
+    # returns the lines that defines warnings/assert
+    # @param self : object pointer
+    # @return list of lines
+    def get_list_for_parameters_warnings (self):
+        return self.list_for_parameters_warnings
 
     ##
     # Prepare all the data stored in dataContainer in list of lines to be printed

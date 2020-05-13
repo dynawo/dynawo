@@ -414,6 +414,10 @@ void ModelGeneratorPQ_Init::checkDataCoherence()
 {
 }
 
+void ModelGeneratorPQ_Init::checkParametersCoherence() const
+{
+}
+
 void ModelGeneratorPQ_Init::setFequations(std::map<int,std::string>& fEquationIndex)
 {
   //Note: fictive equations are not added. fEquationIndex.size() = sizeF() - Nunmber of fictive equations.

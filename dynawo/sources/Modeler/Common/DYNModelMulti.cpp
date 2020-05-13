@@ -524,6 +524,12 @@ ModelMulti::evalCalculatedVariables(const double & t, const vector<double> &y, c
 }
 
 void
+ModelMulti::checkParametersCoherence() const {
+  for (unsigned int i = 0; i < subModels_.size(); ++i)
+    subModels_[i]->checkParametersCoherence();
+}
+
+void
 ModelMulti::checkDataCoherence(const double & t) {
 #ifdef _DEBUG_
   Timer timer("ModelMulti::checkDataCoherence");

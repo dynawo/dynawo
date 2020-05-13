@@ -114,6 +114,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void checkDataCoherence(const double & t);
 
   /**
+   * @copydoc SubModel::checkParametersCoherence() const
+   */
+  void checkParametersCoherence() const;
+
+  /**
    * @copydoc SubModel::setFequations()
    */
   void setFequations();

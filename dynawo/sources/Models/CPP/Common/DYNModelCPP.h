@@ -288,6 +288,11 @@ class ModelCPP : public SubModel {
   virtual void checkDataCoherence(const double & t) = 0;
 
   /**
+   * @copydoc SubModel::checkParametersCoherence() const
+   */
+  virtual void checkParametersCoherence() const = 0;
+
+  /**
    * @copydoc SubModel::setFequations()
    */
   virtual void setFequations() = 0;

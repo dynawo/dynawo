@@ -249,6 +249,11 @@ ModelManager::checkDataCoherence(const double & t) {
 }
 
 void
+ModelManager::checkParametersCoherence() const {
+  modelModelica()->checkParametersCoherence();
+}
+
+void
 ModelManager::setFequations() {
   modelModelicaDynamic()->setFequations(fEquationIndex_);
 }
@@ -487,6 +492,7 @@ ModelManager::initParams() {
   solveParameters();
   try {
     checkDataCoherence(getCurrentTime());
+    checkParametersCoherence();
   } catch (const MessageError& Msg) {
     Trace::error() << Msg.what() << Trace::endline;
     throw DYNError(Error::MODELER, ErrorInit, modelType(), name());

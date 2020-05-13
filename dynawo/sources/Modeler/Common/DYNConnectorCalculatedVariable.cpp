@@ -69,6 +69,11 @@ ConnectorCalculatedVariable::checkDataCoherence(const double& /*t*/) {
 }
 
 void
+ConnectorCalculatedVariable::checkParametersCoherence() const {
+  // no check
+}
+
+void
 ConnectorCalculatedVariable::evalF(const double& /*t*/) {
   // computing the model calculated variables
   double output = model_->evalCalculatedVarI(indexCalculatedVariable_, &yLocal_[1], &ypLocal_[1]);  //  first variable in y is the value of the output

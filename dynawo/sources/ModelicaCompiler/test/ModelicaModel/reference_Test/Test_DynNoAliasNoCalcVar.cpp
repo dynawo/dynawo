@@ -345,6 +345,10 @@ void ModelTest_Dyn::checkDataCoherence()
 {
 }
 
+void ModelTest_Dyn::checkParametersCoherence() const
+{
+}
+
 void ModelTest_Dyn::setFequations(std::map<int,std::string>& fEquationIndex)
 {
   //Note: fictive equations are not added. fEquationIndex.size() = sizeF() - Nunmber of fictive equations.

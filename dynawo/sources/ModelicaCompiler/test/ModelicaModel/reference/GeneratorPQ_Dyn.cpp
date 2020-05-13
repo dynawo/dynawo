@@ -932,6 +932,10 @@ void ModelGeneratorPQ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
 
 void ModelGeneratorPQ_Dyn::checkDataCoherence()
 {
+}
+
+void ModelGeneratorPQ_Dyn::checkParametersCoherence() const
+{
 {
 {
   modelica_boolean tmp0;
