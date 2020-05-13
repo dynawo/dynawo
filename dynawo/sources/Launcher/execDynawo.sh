@@ -40,62 +40,64 @@ where [option] can be:
     help                       show this message"
 
 set_environment() {
-  export_var_env DYNAWO_INSTALL_DIR=$(dirname $(dirname $(python -c "import os; print(os.path.realpath('$0'))")))
+  export_var_env DYNAWO_INSTALL_DIR="$(dirname $(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd))"
 
-  export LD_LIBRARY_PATH=$DYNAWO_INSTALL_DIR/lib:$LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH="$DYNAWO_INSTALL_DIR/lib:$LD_LIBRARY_PATH"
 
-  export_var_env DYNAWO_INSTALL_OPENMODELICA=$DYNAWO_INSTALL_DIR/OpenModelica
-  if [ -x "$(command -v $DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo)" ]; then
-    omc_version=$($DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo --version | cut -d v -f 2)
-    export_var_env DYNAWO_OPENMODELICA_VERSION=${omc_version//./_}
+  export_var_env DYNAWO_INSTALL_OPENMODELICA="$DYNAWO_INSTALL_DIR/OpenModelica"
+  if [ -x "$(command -v "$DYNAWO_INSTALL_OPENMODELICA"/bin/omcDynawo)" ]; then
+    omc_version=$("$DYNAWO_INSTALL_OPENMODELICA"/bin/omcDynawo --version | cut -d v -f 2)
+    export_var_env DYNAWO_OPENMODELICA_VERSION="${omc_version//./_}"
   else
     export_var_env DYNAWO_OPENMODELICA_VERSION=NOT-FOUND
   fi
 
-  export_var_env DYNAWO_ADEPT_INSTALL_DIR=$DYNAWO_INSTALL_DIR
-  export_var_env DYNAWO_SUITESPARSE_INSTALL_DIR=$DYNAWO_INSTALL_DIR
-  export_var_env DYNAWO_SUNDIALS_INSTALL_DIR=$DYNAWO_INSTALL_DIR
-  export_var_env DYNAWO_LIBIIDM_INSTALL_DIR=$DYNAWO_INSTALL_DIR
-  export_var_env DYNAWO_XERCESC_INSTALL_DIR=$DYNAWO_INSTALL_DIR
-  export_var_env DYNAWO_LIBXML_HOME=$DYNAWO_INSTALL_DIR
-  export_var_env DYNAWO_BOOST_HOME=$DYNAWO_INSTALL_DIR
+  export_var_env DYNAWO_ADEPT_INSTALL_DIR="$DYNAWO_INSTALL_DIR"
+  export_var_env DYNAWO_SUITESPARSE_INSTALL_DIR="$DYNAWO_INSTALL_DIR"
+  export_var_env DYNAWO_SUNDIALS_INSTALL_DIR="$DYNAWO_INSTALL_DIR"
+  export_var_env DYNAWO_LIBIIDM_INSTALL_DIR="$DYNAWO_INSTALL_DIR"
+  export_var_env DYNAWO_XERCESC_INSTALL_DIR="$DYNAWO_INSTALL_DIR"
+  export_var_env DYNAWO_LIBXML_HOME="$DYNAWO_INSTALL_DIR"
+  export_var_env DYNAWO_BOOST_HOME="$DYNAWO_INSTALL_DIR"
 
   export_var_env DYNAWO_LOCALE=en_GB
   export_var_env DYNAWO_USE_XSD_VALIDATION=false
 
   export_var_env DYNAWO_BROWSER=firefox
 
-  export PATH=$DYNAWO_INSTALL_OPENMODELICA/bin:$PATH
-  export PATH=$DYNAWO_INSTALL_DIR/sbin:$PATH
+  export_var_env DYNAWO_PYTHON_COMMAND=python
+
+  export PATH="$DYNAWO_INSTALL_OPENMODELICA/bin:$PATH"
+  export PATH="$DYNAWO_INSTALL_DIR/sbin:$PATH"
 }
 
 jobs() {
   set_environment
 
   # launch dynawo
-  $DYNAWO_INSTALL_DIR/bin/launcher $@
+  "$DYNAWO_INSTALL_DIR"/bin/launcher "$@"
   RETURN_CODE=$?
   return ${RETURN_CODE}
 }
 
 verify_browser() {
-  if [ ! -x "$(command -v $DYNAWO_BROWSER)" ]; then
+  if [ ! -x "$(command -v "$DYNAWO_BROWSER")" ]; then
     error_exit "Specified browser DYNAWO_BROWSER=$DYNAWO_BROWSER not found. Use export DYNAWO_BROWSER="
   fi
 }
 
 curves_visu() {
   verify_browser
-  python $DYNAWO_INSTALL_DIR/sbin/curvesToHtml/curvesToHtml.py --jobsFile=$(python -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
+  $DYNAWO_PYTHON_COMMAND "$DYNAWO_INSTALL_DIR"/sbin/curvesToHtml/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
 
 jobs_with_curves() {
   set_environment
 
   # launch dynawo
-  $DYNAWO_INSTALL_DIR/bin/launcher $@ || error_exit "Dynawo job failed."
+  "$DYNAWO_INSTALL_DIR"/bin/launcher "$@" || error_exit "Dynawo job failed."
   echo "Generating curves visualization pages"
-  curves_visu $@ || error_exit "Error during curves visualisation page generation"
+  curves_visu "$@" || error_exit "Error during curves visualisation page generation"
   echo "End of generating curves visualization pages"
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -110,12 +112,12 @@ while (($#)); do
   case $1 in
     jobs)
       shift
-      jobs $@ || error_exit "Dynawo execution failed"
+      jobs "$@" || error_exit "Dynawo execution failed"
       break
       ;;
     jobs-with-curves)
       shift
-      jobs_with_curves $@ || error_exit "Dynawo execution failed"
+      jobs_with_curves "$@" || error_exit "Dynawo execution failed"
       break
       ;;
     jobs-help)
