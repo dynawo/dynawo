@@ -153,7 +153,7 @@ Solver::Impl::printHeader() const {
 
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   ss.str(std::string());
-  ss << "    t        ";
+  ss << "        time ";
 
   printHeaderSpecific(ss);
   Trace::info() << ss.str() << Trace::endline;
