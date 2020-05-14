@@ -688,15 +688,15 @@ SolverSIM::reinit() {
 
 void
 SolverSIM::printHeaderSpecific(std::stringstream& ss) const {
-  ss << "| nst   nni   nje  h";
+  ss << "| iter num   Nonlinear iter   jac eval      time step (h)";
 }
 
 void
 SolverSIM::printSolveSpecific(std::stringstream& msg) const {
-  msg << "| " << setw(3) << stats_.nst_ << " "
-          << setw(4) << stats_.nni_ << " "
-          << setw(3) << stats_.nje_ << " "
-          << setw(3) << h_ << " ";
+  msg << "| " << setw(8) << stats_.nst_ << " "
+          << setw(16) << stats_.nni_ << " "
+          << setw(10) << stats_.nje_ << " "
+          << setw(18) << h_ << " ";
 }
 
 void

@@ -164,7 +164,7 @@ ModelLocalInit                =             starting local initialization
 ModelLocalInitEnd             =             end of local initialization
 ModelGlobalInit               =             starting global initialization
 ModelGlobalInitEnd            =             end of global initialization
-SimulationStart               =             starting simulation
+SimulationStart               =             starting simulation with solver %1%
 // --> DYNSolverIDA
 SolverIDAInitOk               =             initialization of IDA solver : ok
 SolverIDABeforeCalcIC         =             BEFORE CALC IC

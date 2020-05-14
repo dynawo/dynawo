@@ -781,7 +781,7 @@ SolverIDA::getRootsFound() const {
 
 void
 SolverIDA::printHeaderSpecific(std::stringstream& ss) const {
-  ss << "| nst k      h";
+  ss << "| iter num   order (k)      time step (h)";
 }
 
 void
@@ -806,9 +806,9 @@ SolverIDA::printSolveSpecific(std::stringstream& msg) const {
   int kused;
   double hused;
   getLastConf(nst, kused, hused);
-  msg << "| " << setw(3) << nst << " "
-          << setw(1) << kused << " "
-          << setw(12) << hused << " ";
+  msg << "| " << setw(8) << nst << " "
+          << setw(11) << kused << " "
+          << setw(18) << hused << " ";
 }
 
 void
