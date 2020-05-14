@@ -963,7 +963,7 @@ Simulation::updateCurves(bool updateCalculateVariable) {
 void
 Simulation::printSolverHeader() {
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
-  Trace::info() << DYNLog(SimulationStart) << Trace::endline;
+  Trace::info() << DYNLog(SimulationStart, solver_->solverType()) << Trace::endline;
   Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   solver_->printHeader();
 }
