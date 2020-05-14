@@ -104,32 +104,29 @@ def readXmlToHtml(xml_file, output_dir, withoutOffset, showpoints):
     jsDst=os.path.join(full_path,"curves.js")
     htmlDst=os.path.join(full_path,"curves.html")
 
-    dataToPrint=""
     titleToPrint=""
+    dataToPrint=[]
+    dataToPrintBody=[]
     if withoutOffset:
         minTime = timeSerie[0]
         for i in range(0,len(timeSerie)):
             timeSerie[i] = str(float(timeSerie[i]) - float(minTime))
 
-    for data in datas:
-        dataToPrint = dataToPrint + "\n"
-        dataToPrint = dataToPrint +"\tvar "+cleanIdForJS(data.name())+"=[];\n"
-        serie = data.serie()
-        for i in range(0,len(serie)):
-            dataToPrint = dataToPrint + "\t"+cleanIdForJS(data.name())+".push(["+timeSerie[i]+","+serie[i]+"]);\n"
-
-    dataToPrint += "\n\tdatasRead=[\n"
     index = 0
     for data in datas:
-        dataToPrint +="\t{\n"
-        dataToPrint +='\t\tlabel:"'+data.name()+'",\n'
-        dataToPrint +="\t\tdata:"+cleanIdForJS(data.name())+"\n"
+        dataToPrint.append("\n")
+        dataToPrint.append("\tvar "+cleanIdForJS(data.name())+"=[];\n")
+        serie = data.serie()
+        for i in range(0,len(serie)):
+            dataToPrint.append("\t"+cleanIdForJS(data.name())+".push(["+timeSerie[i]+","+serie[i]+"]);\n")
+        dataToPrintBody.append("\t{\n")
+        dataToPrintBody.append('\t\tlabel:"'+data.name()+'",\n')
+        dataToPrintBody.append("\t\tdata:"+cleanIdForJS(data.name())+"\n")
         if(index < len(datas)-1):
-            dataToPrint +="\t},\n"
+            dataToPrintBody.append("\t},\n")
         else:
-            dataToPrint +="\t}\n"
+            dataToPrintBody.append("\t}\n")
         index += 1
-    dataToPrint += "\t];\n"
 
     titleToPrint = os.path.basename(xml_file)
     ## javascript file
@@ -140,7 +137,13 @@ def readXmlToHtml(xml_file, output_dir, withoutOffset, showpoints):
 
     for line in lines:
         if (line.find("@DATA_TO_PRINT@")!=-1):
-            line=line.replace("@DATA_TO_PRINT@",dataToPrint)
+            for data in dataToPrint:
+                fileDst.write(data)
+            fileDst.write("\n\tdatasRead=[\n")
+            for data in dataToPrintBody:
+                fileDst.write(data)
+            fileDst.write("\t];\n")
+            continue
         elif(line.find("@TITLE_TO_READ@")!=-1):
             line=line.replace("@TITLE_TO_READ@",titleToPrint)
         elif(line.find("@SHOW_POINTS@")!=-1):
