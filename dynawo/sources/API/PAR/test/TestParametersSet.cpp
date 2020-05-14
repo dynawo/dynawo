@@ -217,7 +217,7 @@ TEST(APIPARTest, ParametersSetGetReferences) {
   ++itVariablec;
   itVariablec++;
   ++itVariablec;
-  ASSERT_EQ(itVariablec, parametersSet->cendReference());
+  ASSERT_TRUE(itVariablec == parametersSet->cendReference());
 
   // Get the vector of names
   string namesTab[] = {"ref1", "ref2", "ref3"};

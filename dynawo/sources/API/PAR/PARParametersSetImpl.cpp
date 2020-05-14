@@ -17,6 +17,7 @@
  *
  */
 #include <sstream>
+#include <set>
 #include "DYNMacrosMessage.h"
 
 #include "PARParametersSetImpl.h"

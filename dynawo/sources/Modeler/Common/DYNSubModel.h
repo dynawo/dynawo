@@ -1387,6 +1387,8 @@ class SubModel {
    * @param parameter: parameter to be set
    */
   inline void setParameterFromPARFile(ParameterModeler& parameter) {
+    if (!readPARParameters_)
+      return;
     if (readPARParameters_->hasReference(parameter.getName()))
       setParameterFromSet(parameter, readPARParameters_, IIDM);
     else
