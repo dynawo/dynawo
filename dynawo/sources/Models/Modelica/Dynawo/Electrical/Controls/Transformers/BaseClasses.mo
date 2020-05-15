@@ -253,7 +253,7 @@ equation
     state = State.MoveDownN;
     tap.value = pre(tap.value) - 1;
     tTapUp = pre(tTapUp);
-    tTapDown = pre(tTapDown);
+    tTapDown = time;
     Timeline.logEvent1(TimelineKeys.TapDown);
   //Transition to "MoveUpN" (only possible from "MoveUp1" or "MoveUpN")
   elsewhen (pre(state) == State.MoveUp1 or  pre(state) == State.MoveUpN)  and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
