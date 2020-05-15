@@ -44,15 +44,12 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
     parameter Boolean increaseTapToDecreaseValue = not decreaseTapToDecreaseValue "Whether increasing the tap will decrease the monitored value";
     parameter Boolean decreaseTapToIncreaseValue = not increaseTapToIncreaseValue "Whether decreasing the tap will increase the monitored value";
     parameter Boolean decreaseTapToDecreaseValue = increaseTapToIncreaseValue "Whether decreasing the tap will decrease the monitored value";
-    parameter Types.Time tTransition = 0 "Time lag before transition to standard state"; //to avoid problems with discrete events iterations
 
     Connectors.ImPin valueToMonitor (value (start = valueToMonitor0)) "Monitored value";
     Connectors.ZPin tap (value (start = tap0)) "Current tap";
-    Connectors.BPin AutomatonExists (value (start = true)) "Pin to indicate to deactivate internal automaton";
+    Connectors.BPin AutomatonExists (value = true) "Pin to indicate to deactivate internal automaton";
 
   protected
-    type TapChangerType = enumeration ( Undefined "1: undefined", TapChanger "2: tap-changer", PhaseShifter "3: phase-shifter");
-    parameter TapChangerType tapChangerType( start = TapChangerType.Undefined );
     parameter Boolean regulating0 "Whether the tap-changer/phase-shifter is initially regulating";
     parameter Boolean locked0 = not regulating0 "Whether the tap-changer/phase-shifter is initially locked";
     parameter Boolean running0 = true "Whether the tap-changer/phase-shifter is initially running";
@@ -70,10 +67,6 @@ partial model BaseTapChangerPhaseShifter "Base model for tap-changers and phase-
     Types.Time tTapDown(start = Constants.inf) "Time when the tap has been decreased";
 
 equation
-  // To force the value of AutomatonExists : writing only value = true in the ZPin declaration would lead the other side of the connexion to be set to false, leading to a bug
-  when (time > 0) then
-    AutomatonExists.value = true;
-  end when;
 
   assert (tap.value <= tapMax, "Tap value supposed to be below maximum tap");
   assert (tap.value >= tapMin, "Tap value supposed to be above minimum tap");
@@ -98,142 +91,77 @@ partial model BaseTapChangerPhaseShifter_MAX "Base model for tap-changers and ph
 
 equation
 
-  when (valueToMonitor.value > valueMax)  then
+  when (valueToMonitor.value > valueMax) and not(locked) then
     valueAboveMax = true;
+    tValueAboveMaxWhileRunning = time;
     valueUnderStop = false;
     Timeline.logEvent1(TimelineKeys.PhaseShifterAboveMax);
-  elsewhen (valueToMonitor.value <= valueStop) then
+  elsewhen (valueToMonitor.value <= valueStop) and not(locked) then
     valueAboveMax = false;
+    tValueAboveMaxWhileRunning = Constants.inf;
     valueUnderStop = true;
     Timeline.logEvent1(TimelineKeys.PhaseShifterBelowStop);
+   elsewhen running.value and locked then
+    valueAboveMax = pre(valueAboveMax);
+    tValueAboveMaxWhileRunning = Constants.inf;
+    valueUnderStop = pre(valueUnderStop);
   end when;
 
   lookingToDecreaseTap = running.value and valueAboveMax and decreaseTapToDecreaseValue;
   lookingToIncreaseTap = running.value and valueAboveMax and increaseTapToDecreaseValue;
 
-  //The "not(locked)" condition is important to prevent unwanted transitions when the phase-shifter leaves the "locked" state
-  when running.value and valueAboveMax and not(locked) then
-    tValueAboveMaxWhileRunning= time;
-  elsewhen running.value and valueUnderStop and not(locked) then
-    tValueAboveMaxWhileRunning= Constants.inf;
-  elsewhen running.value and locked then
-    tValueAboveMaxWhileRunning= Constants.inf;
-  end when;
-
-  //Transition to "locked"
+  //Transition to "Locked" (possible from any state and prioritary)
   when (not running.value) or locked then
     state = State.Locked;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition from "locked" to "standard"
-  elsewhen running.value and not(locked) and not(valueAboveMax) and pre(state) == State.Locked then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "locked" to "waitingToMoveDown"
-  elsewhen running.value and not(locked) and lookingToDecreaseTap and pre(state) == State.Locked then
+  //Transition to "WaitingToMoveDown" (possible from any state except down states)
+  elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) and running.value and not(locked) then
     state = State.WaitingToMoveDown;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition from "locked" to "waitingToMoveUp"
-  elsewhen running.value and not(locked) and lookingToIncreaseTap and pre(state) == State.Locked then
+  //Transition to "WaitingToMoveUp" (possible from any state except up states)
+  elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) and running.value and not(locked) then
     state = State.WaitingToMoveUp;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition from "standard" to "waitingToMoveUp"
-  elsewhen running.value and lookingToIncreaseTap and pre(state) == State.Standard then
-    state = State.WaitingToMoveUp;
-    tap.value = pre(tap.value);
-    tTapUp = pre(tTapUp);
-    tTapDown = pre(tTapDown);
-  //Transition from "waitingToMoveUp" to "standard"
-  elsewhen running.value and valueUnderStop and pre(state) == State.WaitingToMoveUp then
+  //Transition to "Standard" (possible from any state)
+  elsewhen valueUnderStop and pre(state) <> State.Standard and running.value and not(locked) then
     state = State.Standard;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition from "standard" to "waitingToMoveDown"
-  elsewhen running.value and lookingToDecreaseTap and pre(state) == State.Standard then
-    state = State.WaitingToMoveDown;
-    tap.value = pre(tap.value);
-    tTapUp = pre(tTapUp);
-    tTapDown = pre(tTapDown);
-  //Transition from "waitingToMoveDown" to "standard"
-  elsewhen running.value and valueUnderStop and pre(state) == State.WaitingToMoveDown then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "waitingToMoveUp" to "moveUp1"
-  elsewhen running.value and pre(state) == State.WaitingToMoveUp and time - tValueAboveMaxWhileRunning>= t1st and pre(tap.value) < tapMax then
-    state = State.MoveUp1;
-    tap.value = pre(tap.value) + 1;
-    tTapUp = time;
-    tTapDown = pre(tTapDown);
-    Timeline.logEvent1(TimelineKeys.TapUp);
-  //Transition from "moveUp1" to "standard"
-  elsewhen running.value and valueUnderStop and pre(state) == State.MoveUp1 then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "moveUp1" to "moveUpN"
-  elsewhen running.value and pre(state) == State.MoveUp1 and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
-    state = State.MoveUpN;
-    tap.value = pre(tap.value) + 1;
-    tTapUp = time;
-    tTapDown = pre(tTapDown);
-    Timeline.logEvent1(TimelineKeys.TapUp);
-  //Transition from "moveUpN" to "standard"
-  elsewhen running.value and valueUnderStop and pre(state) == State.MoveUpN then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "moveUpN" to "moveUpN"
-  elsewhen running.value and pre(state) == State.MoveUpN and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
-    state = State.MoveUpN;
-    tap.value = pre(tap.value) + 1;
-    tTapUp = time;
-    tTapDown = pre(tTapDown);
-    Timeline.logEvent1(TimelineKeys.TapUp);
-  //Transition from "waitingToMoveDown" to "moveDown1"
-  elsewhen running.value and pre(state) == State.WaitingToMoveDown and time - tValueAboveMaxWhileRunning>= t1st and pre(tap.value) > tapMin then
+  //Transition to "MoveDown1" (only possible from WaitingToMoveDown)
+  elsewhen pre(state) == State.WaitingToMoveDown and time - tValueAboveMaxWhileRunning>= t1st and pre(tap.value) > tapMin then
     state = State.MoveDown1;
     tap.value = pre(tap.value) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
     Timeline.logEvent1(TimelineKeys.TapDown);
-  //Transition from "moveDown1" to "standard"
-  elsewhen running.value and valueUnderStop and pre(state) == State.MoveDown1 then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "moveDown1" to "moveDownN"
-  elsewhen running.value and pre(state) == State.MoveDown1 and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
+  //Transition to "MoveUp1" (only possible from WaitingToMoveUp)
+  elsewhen pre(state) == State.WaitingToMoveUp and time - tValueAboveMaxWhileRunning>= t1st and pre(tap.value) < tapMax then
+    state = State.MoveUp1;
+    tap.value = pre(tap.value) + 1;
+    tTapUp = time;
+    tTapDown = pre(tTapDown);
+    Timeline.logEvent1(TimelineKeys.TapUp);
+  //Transition to "MoveDownN" (only possible from MoveDown1 or MoveDownN)
+  elsewhen (pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN) and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
     state = State.MoveDownN;
     tap.value = pre(tap.value) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
     Timeline.logEvent1(TimelineKeys.TapDown);
-  //Transition from "moveDownN" to "standard"
-  elsewhen running.value and valueUnderStop and pre(state) == State.MoveDownN then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "moveDownN" to "moveDownN"
-  elsewhen running.value and pre(state) == State.MoveDownN and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
-    state = State.MoveDownN;
-    tap.value = pre(tap.value) - 1;
-    tTapUp = pre(tTapUp);
-    tTapDown = time;
-    Timeline.logEvent1(TimelineKeys.TapDown);
+  //Transition to "MoveUpN" (only possible from MoveUp1 or MoveUpN)
+  elsewhen (pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN) and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
+    state = State.MoveUpN;
+    tap.value = pre(tap.value) + 1;
+    tTapUp = time;
+    tTapDown = pre(tTapDown);
+    Timeline.logEvent1(TimelineKeys.TapUp);
   end when;
 
 annotation(preferredView = "text");
@@ -253,214 +181,87 @@ partial model BaseTapChangerPhaseShifter_INTERVAL "Base model for tap-changers a
 
   protected
     Boolean valueUnderMin "True if the monitored signal is under the minimum limit";
-    Boolean valueUnderMax "True if the monitored signal is under the maximum limit";
-    Boolean valueAboveMin "True if the monitored signal is above the minimum limit";
-    Types.Time tValueUnderMaxWhileRunning(start = 0) "Time when the monitored signal went under the maximum limit and the tap-changer/phase-shifter is running";
     Types.Time tValueUnderMinWhileRunning(start = Constants.inf) "Time when the monitored signal went under the minimum limit and the tap-changer/phase-shifter is running";
-    Types.Time tValueAboveMinWhileRunning(start = 0) "Time when the monitored signal went above the minimum limit and the tap-changer/phase-shifter is running";
 
 equation
 
-  valueUnderMax = not valueAboveMax;
-  valueAboveMin = not valueUnderMin;
-
-  when (valueToMonitor.value < valueMin and tapChangerType==TapChangerType.TapChanger) then
+  when (valueToMonitor.value < valueMin) and not(locked) then
     valueUnderMin = true;
-    Timeline.logEvent1(TimelineKeys.TapChangerBelowMin);
-  elsewhen (valueToMonitor.value < valueMin and tapChangerType==TapChangerType.PhaseShifter) then
-    valueUnderMin = true;
-    Timeline.logEvent1(TimelineKeys.PhaseShifterBelowMin);
-  elsewhen (valueToMonitor.value >= valueMin)  then
-    valueUnderMin = false;
-  end when;
-
-  when (valueToMonitor.value > valueMax and tapChangerType==TapChangerType.TapChanger) then
-    valueAboveMax = true;
-    Timeline.logEvent1(TimelineKeys.TapChangerAboveMax);
-  elsewhen (valueToMonitor.value > valueMax and tapChangerType==TapChangerType.PhaseShifter) then
-    valueAboveMax = true;
-    Timeline.logEvent1(TimelineKeys.PhaseShifterAboveMax);
-  elsewhen valueToMonitor.value <= valueMax then
+    tValueUnderMinWhileRunning = time;
     valueAboveMax = false;
-  end when;
-
-  lookingToDecreaseTap = (running.value and valueAboveMax and decreaseTapToDecreaseValue) or (running.value and valueUnderMin and decreaseTapToIncreaseValue);
-  lookingToIncreaseTap = (running.value and valueUnderMin and increaseTapToIncreaseValue) or (running.value and valueAboveMax and increaseTapToDecreaseValue);
-
-  //The "not(locked)" condition is important to prevent unwanted transitions when the phase-shifter leaves the "locked" state
-  when valueUnderMin and not(locked) then
-    tValueUnderMinWhileRunning= time;
-    tValueAboveMinWhileRunning= pre(tValueAboveMinWhileRunning);
-  elsewhen not(valueUnderMin) and not(locked) then
-    tValueUnderMinWhileRunning= pre(tValueUnderMinWhileRunning);
-    tValueAboveMinWhileRunning= time;
-  elsewhen locked then
+    tValueAboveMaxWhileRunning = pre(tValueAboveMaxWhileRunning);
+  elsewhen (valueToMonitor.value > valueMax) and not(locked) then
+    valueUnderMin = false;
+    tValueUnderMinWhileRunning = pre(tValueUnderMinWhileRunning);
+    valueAboveMax = true;
+    tValueAboveMaxWhileRunning = time;
+  elsewhen (valueToMonitor.value >= valueMin and valueToMonitor.value <= valueMax) and not(locked) then
+    valueUnderMin = false;
+    tValueUnderMinWhileRunning = pre(tValueUnderMinWhileRunning);
+    valueAboveMax = false;
+    tValueAboveMaxWhileRunning = pre(tValueAboveMaxWhileRunning);
+  elsewhen running.value and locked then
+    valueUnderMin = pre(valueUnderMin);
     tValueUnderMinWhileRunning = Constants.inf;
-    tValueAboveMinWhileRunning = Constants.inf;
+    valueAboveMax = pre(valueAboveMax);
+    tValueAboveMaxWhileRunning = pre(tValueAboveMaxWhileRunning);
   end when;
 
-  //The "not(locked)" condition is important to prevent unwanted transitions when the phase-shifter leaves the "locked" state
-  when valueAboveMax and not(locked) then
-    tValueAboveMaxWhileRunning= time;
-    tValueUnderMaxWhileRunning= pre(tValueUnderMaxWhileRunning);
-  elsewhen not(valueAboveMax) and not(locked) then
-    tValueAboveMaxWhileRunning= pre(tValueAboveMaxWhileRunning);
-    tValueUnderMaxWhileRunning= time;
-  elsewhen locked then
-    tValueAboveMaxWhileRunning = Constants.inf;
-    tValueUnderMaxWhileRunning = Constants.inf;
-  end when;
+  lookingToDecreaseTap = (valueAboveMax and decreaseTapToDecreaseValue) or (valueUnderMin and decreaseTapToIncreaseValue);
+  lookingToIncreaseTap = (valueUnderMin and increaseTapToIncreaseValue) or (valueAboveMax and increaseTapToDecreaseValue);
 
-  //Transition to "locked"
+  //Transition to "Locked" (possible from any state and prioritary)
   when not(running.value) or locked then
     state = State.Locked;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition from "locked" to "standard"
-  elsewhen running.value and not(locked) and valueAboveMin and valueUnderMax and pre(state) == State.Locked and time - (if increaseTapToIncreaseValue then tValueAboveMinWhileRunning else tValueUnderMaxWhileRunning) >= tTransition then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "locked" to "waitingToMoveDown"
-  elsewhen running.value and not(locked) and lookingToDecreaseTap and pre(state) == State.Locked then
+  //Transition to "WaitingToMoveDown" (possible from any state other than the down ones)
+  elsewhen lookingToDecreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveUp1 or pre(state) == State.MoveUpN or pre(state) == State.WaitingToMoveUp or pre(state) == State.Locked) and running.value and not(locked) then
     state = State.WaitingToMoveDown;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition from "locked" to "waitingToMoveUp"
-  elsewhen running.value and not(locked) and lookingToIncreaseTap and pre(state) == State.Locked then
+  //Transition to "WaitingToMoveUp" (possible from any state other than the up ones)
+  elsewhen lookingToIncreaseTap and (pre(state) == State.Standard or pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN or pre(state) == State.WaitingToMoveDown or pre(state) == State.Locked) and running.value and not(locked) then
     state = State.WaitingToMoveUp;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition from "standard" to "waitingToMoveUp"
-  elsewhen running.value and lookingToIncreaseTap and pre(state) == State.Standard then
-    state = State.WaitingToMoveUp;
-    tap.value = pre(tap.value);
-    tTapUp = pre(tTapUp);
-    tTapDown = pre(tTapDown);
-  //Transition from "waitingToMoveUp" to "standard"
-  elsewhen running.value and valueAboveMin and valueUnderMax and pre(state) == State.WaitingToMoveUp and time - (if increaseTapToIncreaseValue then tValueAboveMinWhileRunning else tValueUnderMaxWhileRunning) >= tTransition then
+  //Transition to "Standard" (possible from any state)
+  elsewhen not(valueUnderMin) and not(valueAboveMax) and pre(state) <> State.Standard and running.value and not(locked) then
     state = State.Standard;
     tap.value = pre(tap.value);
     tTapUp = Constants.inf;
     tTapDown = Constants.inf;
-  //Transition from "standard" to "waitingToMoveDown"
-  elsewhen running.value and lookingToDecreaseTap and pre(state) == State.Standard then
-    state = State.WaitingToMoveDown;
-    tap.value = pre(tap.value);
-    tTapUp = pre(tTapUp);
-    tTapDown = pre(tTapDown);
-  //Transition from "waitingToMoveDown" to "standard"
-  elsewhen running.value and valueAboveMin and valueUnderMax and pre(state) == State.WaitingToMoveDown and time - (if increaseTapToIncreaseValue then tValueUnderMaxWhileRunning else tValueAboveMinWhileRunning) >= tTransition then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "waitingToMoveDown" to "waitingToMoveUp"
-  elsewhen running.value and lookingToIncreaseTap and pre(state) == State.WaitingToMoveDown then
-    state = State.WaitingToMoveUp;
-    tap.value = pre(tap.value);
-    tTapUp = pre(tTapUp);
-    tTapDown = pre(tTapDown);
-  //Transition from "waitingToMoveUp" to "waitingToMoveDown"
-  elsewhen running.value and lookingToDecreaseTap and pre(state) == State.WaitingToMoveUp then
-    state = State.WaitingToMoveDown;
-    tap.value = pre(tap.value);
-    tTapUp = pre(tTapUp);
-    tTapDown = pre(tTapDown);
-  //Transition from "waitingToMoveUp" to "moveUp1"
-  elsewhen running.value and pre(state) == State.WaitingToMoveUp and time - (if increaseTapToIncreaseValue then tValueUnderMinWhileRunning else tValueAboveMaxWhileRunning) >= t1st and pre(tap.value) < tapMax then
-    state = State.MoveUp1;
-    tap.value = pre(tap.value) + 1;
-    tTapUp = time;
-    tTapDown = pre(tTapDown);
-    Timeline.logEvent1(TimelineKeys.TapUp);
-  //Transition from "moveUp1" to "standard"
-  elsewhen running.value and valueAboveMin and valueUnderMax and pre(state) == State.MoveUp1 and time - (if increaseTapToIncreaseValue then tValueAboveMinWhileRunning else tValueUnderMaxWhileRunning) >= tTransition then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "moveUp1" to "waitingToMoveDown"
-  elsewhen running.value and lookingToDecreaseTap and pre(state) == State.MoveUp1 then
-    state = State.WaitingToMoveDown;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = pre(tTapDown);
-  //Transition from "moveUp1" to "moveUpN"
-  elsewhen running.value and pre(state) == State.MoveUp1 and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
-    state = State.MoveUpN;
-    tap.value = pre(tap.value) + 1;
-    tTapUp = time;
-    tTapDown = pre(tTapDown);
-    Timeline.logEvent1(TimelineKeys.TapUp);
-  //Transition from "moveUpN" to "standard"
-  elsewhen running.value and valueAboveMin and valueUnderMax and pre(state) == State.MoveUpN and time - (if increaseTapToIncreaseValue then tValueAboveMinWhileRunning else tValueUnderMaxWhileRunning) >= tTransition then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "moveUpN" to "waitingToMoveDown"
-  elsewhen running.value and lookingToDecreaseTap and pre(state) == State.MoveUpN then
-    state = State.WaitingToMoveDown;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = pre(tTapDown);
-  //Transition from "moveUpN" to "moveUpN"
-  elsewhen running.value and pre(state) == State.MoveUpN and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
-    state = State.MoveUpN;
-    tap.value = pre(tap.value) + 1;
-    tTapUp = time;
-    tTapDown = pre(tTapDown);
-    Timeline.logEvent1(TimelineKeys.TapUp);
-  //Transition from "waitingToMoveDown" to "moveDown1"
-  elsewhen running.value and pre(state) == State.WaitingToMoveDown and time - (if increaseTapToIncreaseValue then tValueAboveMaxWhileRunning else tValueUnderMinWhileRunning) >= t1st and pre(tap.value) > tapMin then
+  //Transition to "MoveDown1" (only possible from "WaitingToMoveDown")
+  elsewhen pre(state) == State.WaitingToMoveDown and time - (if increaseTapToIncreaseValue then tValueAboveMaxWhileRunning else tValueUnderMinWhileRunning) >= t1st and pre(tap.value) > tapMin then
     state = State.MoveDown1;
     tap.value = pre(tap.value) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
     Timeline.logEvent1(TimelineKeys.TapDown);
-  //Transition from "moveDown1" to "standard"
-  elsewhen running.value and valueAboveMin and valueUnderMax and pre(state) == State.MoveDown1 and time - (if decreaseTapToDecreaseValue then tValueUnderMaxWhileRunning else tValueAboveMinWhileRunning) >= tTransition then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "moveDown1" to "waitingToMoveUp"
-  elsewhen running.value and lookingToIncreaseTap and pre(state) == State.MoveDown1 then
-    state = State.WaitingToMoveUp;
-    tap.value = pre(tap.value);
-    tTapUp = pre(tTapUp);
-    tTapDown = Constants.inf;
-  //Transition from "moveDown1" to "moveDownN"
-  elsewhen running.value and pre(state) == State.MoveDown1 and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
+  //Transition to "MoveUp1" (only possible from "WaitingToMoveUp")
+  elsewhen pre(state) == State.WaitingToMoveUp and time - (if increaseTapToIncreaseValue then tValueUnderMinWhileRunning else tValueAboveMaxWhileRunning) >= t1st and pre(tap.value) < tapMax then
+    state = State.MoveUp1;
+    tap.value = pre(tap.value) + 1;
+    tTapUp = time;
+    tTapDown = pre(tTapDown);
+    Timeline.logEvent1(TimelineKeys.TapUp);
+  //Transition to "MoveDownN" (only possible from "MoveDown1" or "MoveDownN")
+  elsewhen (pre(state) == State.MoveDown1 or pre(state) == State.MoveDownN)  and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
     state = State.MoveDownN;
     tap.value = pre(tap.value) - 1;
     tTapUp = pre(tTapUp);
     tTapDown = time;
     Timeline.logEvent1(TimelineKeys.TapDown);
-  //Transition from "moveDownN" to "standard"
-  elsewhen running.value and valueAboveMin and valueUnderMax and pre(state) == State.MoveDownN and time - (if decreaseTapToDecreaseValue then tValueUnderMaxWhileRunning else tValueAboveMinWhileRunning) >= tTransition then
-    state = State.Standard;
-    tap.value = pre(tap.value);
-    tTapUp = Constants.inf;
-    tTapDown = Constants.inf;
-  //Transition from "moveDownN" to "waitingToMoveUp"
-  elsewhen running.value and lookingToIncreaseTap and pre(state) == State.MoveDownN then
-    state = State.WaitingToMoveUp;
-    tap.value = pre(tap.value);
-    tTapUp = pre(tTapUp);
-    tTapDown = Constants.inf;
-  //Transition from "moveDownN" to "moveDownN"
-  elsewhen running.value and pre(state) == State.MoveDownN and time - pre(tTapDown) >= tNext and pre(tap.value) > tapMin then
-    state = State.MoveDownN;
-    tap.value = pre(tap.value) - 1;
-    tTapUp = pre(tTapUp);
-    tTapDown = time;
-    Timeline.logEvent1(TimelineKeys.TapDown);
+  //Transition to "MoveUpN" (only possible from "MoveUp1" or "MoveUpN")
+  elsewhen (pre(state) == State.MoveUp1 or  pre(state) == State.MoveUpN)  and time - pre(tTapUp) >= tNext and pre(tap.value) < tapMax then
+    state = State.MoveUpN;
+    tap.value = pre(tap.value) + 1;
+    tTapUp = time;
+    tTapDown = pre(tTapDown);
+    Timeline.logEvent1(TimelineKeys.TapUp);
   end when;
 
 end BaseTapChangerPhaseShifter_INTERVAL;
