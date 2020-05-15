@@ -1220,3 +1220,6 @@
 2020-05-11 18:22:22 | INFO | number of Nonlinear convergence failures = 0
 2020-05-11 18:22:22 | INFO | number of root functions evaluations     = 2958
 2020-05-11 18:22:22 | INFO | end of job 'IEEE14 - PhaseShifterP'
+=======
+2020-05-11 18:22:22 | INFO | end of job 'IEEE14 - PhaseShifterP'
+>>>>>>> ce7642c77896e57ec507bfcb60f65a11c3af9808
