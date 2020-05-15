@@ -31,8 +31,6 @@ partial model BaseTapChangerPhaseShifter_INIT "Base initialization model for tap
     parameter Boolean regulating0 "Whether the phase-shifter is initially regulating";
 
   protected
-    type TapChangerType = enumeration ( Undefined "1: undefined", TapChanger "2: tap-changer", PhaseShifter "3: phase-shifter");
-    parameter TapChangerType tapChangerType( start = TapChangerType.Undefined );
     parameter Boolean locked0 = not regulating0 "Whether the phase-shifter is initially locked";
     Boolean lookingToIncreaseTap "True if the phase shifter wants to increase tap";
     Boolean lookingToDecreaseTap "True if the phase shifter wants to decrease tap";
@@ -104,7 +102,7 @@ end BaseTapChangerPhaseShifter_TARGET_INIT;
 
 
 partial model BaseTapChanger_INIT "Base initialization model for tap-changers"
-  extends BaseTapChangerPhaseShifter_TARGET_INIT (targetValue = UTarget, deadBand = UDeadBand, tapChangerType = tapChangerType0 );
+  extends BaseTapChangerPhaseShifter_TARGET_INIT (targetValue = UTarget, deadBand = UDeadBand);
 
   public
     parameter Types.VoltageModule UTarget "voltage set-point" ;
@@ -112,7 +110,6 @@ partial model BaseTapChanger_INIT "Base initialization model for tap-changers"
 
   protected
     parameter Boolean increaseTapToIncreaseValue = true "Whether a tap increase will lead to an increase in the monitored value";
-    parameter TapChangerType tapChangerType0 = TapChangerType.TapChanger;
 
 annotation(preferredView = "text");
 end BaseTapChanger_INIT;

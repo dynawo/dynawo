@@ -14,8 +14,10 @@ within Dynawo.Electrical.Controls.Transformers;
 
 model TapChanger "Tap-changer monitoring the voltage so that it remains within [UTarget - UDeadBand ; UTarget + UDeadBand]"
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0, tapChangerType = tapChangerType0 );
+  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = UTarget, deadBand = UDeadBand, valueToMonitor0 = U0);
   extends SwitchOff.SwitchOffTapChanger;
 
   public
@@ -24,12 +26,23 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
     parameter Types.VoltageModule U0  "Initial voltage";
 
     Connectors.ImPin UMonitored (value (start = U0)) "Initial voltage";
-  protected
-    parameter TapChangerType tapChangerType0 = TapChangerType.TapChanger;
 
 equation
 
     connect (UMonitored.value, valueToMonitor.value);
 
-annotation(preferredView = "text");
+    when (valueToMonitor.value < valueMin) and not(locked) then
+      Timeline.logEvent1(TimelineKeys.TapChangerBelowMin);
+    elsewhen (valueToMonitor.value > valueMax) and not(locked) then
+      Timeline.logEvent1(TimelineKeys.TapChangerAboveMax);
+    end when;
+
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>The tap changer controls a monitored voltage to keep it within a voltage range defined by [UMin ; UMax]. When the voltage goes above UMax or below UMin, the tap-changer is ready to begin increasing its tap until the voltage value comes back to an acceptable value.<div><br></div><div>The time interval before the first time change is specified with a first timer and a second timer indicates the time interval between further changes. The automaton can be locked by an external controller: in this case, it stops acting.&nbsp;</div><div><br></div><div>The detailed tap-changer behavior is explained in the following state diagram:
+
+<figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Electrical/Controls/Transformers/Images/TapChanger.png\">
+</figure>
+
+</div><div><br></div><div><br></div><div><br></div></body></html>"));
 end TapChanger;

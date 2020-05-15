@@ -14,12 +14,11 @@ within Dynawo.Electrical.Controls.Transformers;
 
 model PhaseShifterP "Phase-shifter monitoring the active power so that it remains within [PTarget - PDeadBand ; PTarget + PDeadBand]"
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  import Dynawo.NonElectrical.Logs.Timeline;
+  import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = PTarget, deadBand = PDeadBand, valueToMonitor0 = P0, tapChangerType = tapChangerType0);
+  extends BaseClasses.BaseTapChangerPhaseShifter_TARGET (targetValue = PTarget, deadBand = PDeadBand, valueToMonitor0 = P0);
   extends SwitchOff.SwitchOffPhaseShifter;
-
-  protected
-    parameter TapChangerType tapChangerType0 = TapChangerType.PhaseShifter;
 
   public
     parameter Types.ActivePower PTarget  "Target active power";
@@ -31,5 +30,17 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
 equation
   connect (PMonitored.value, valueToMonitor.value);
 
-annotation(preferredView = "text");
+  when (valueToMonitor.value < valueMin) and not(locked) then
+    Timeline.logEvent1(TimelineKeys.PhaseShifterBelowMin);
+  elsewhen (valueToMonitor.value > valueMax) and not(locked) then
+    Timeline.logEvent1(TimelineKeys.PhaseShifterAboveMax);
+  end when;
+
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>The phase shifter P controls an active power PMonitored to keep it in a certain desired [PMin;PMax] range. When the active power monitored goes above PMax or under PMin, the phase-shifter will act to modify its tap to bring back the active power in an acceptable range.<div><div>The time interval before the first time change is specified with a first timer and a second timer indicates the time interval between further changes. The automaton can be locked by an external controller: in this case, it stops acting.&nbsp;</div><div><br></div><div>The detailed phase-shifter P behavior is explained in the following state diagram:
+<figure>
+    <img width=\"450\" src=\"modelica://Dynawo/Electrical/Controls/Transformers/Images/PhaseShifterP.png\">
+</figure>
+
+</div></div></body></html>"));
 end PhaseShifterP;

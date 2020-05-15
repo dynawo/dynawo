@@ -5,8 +5,6 @@ tapChanger_valueToMonitor_value                   : alias of tapChanger_UMonitor
 tapChanger_tTapDown                               : z =   1.000000e+60
 tapChanger_tTapUp                                 : z =   1.000000e+60
 tapChanger_tValueAboveMaxWhileRunning             : z =   1.000000e+60
-tapChanger_tValueAboveMinWhileRunning             : z =       0.000000
-tapChanger_tValueUnderMaxWhileRunning             : z =       0.000000
 tapChanger_tValueUnderMinWhileRunning             : z =   1.000000e+60
 tapChanger_tap_value                              : z =       5.000000
 tapChanger_AutomatonExists_value                  : z =       1.000000
@@ -18,8 +16,6 @@ tapChanger_switchOffSignal1_value                 : z =      -1.000000
 tapChanger_valueAboveMax                          : z =      -1.000000
 tapChanger_valueUnderMin                          : z =      -1.000000
 tapChanger_state                                  : z =       4.000000
-tapChanger_valueAboveMin                          : alias of tapChanger_valueUnderMin
-tapChanger_valueUnderMax                          : alias of tapChanger_valueAboveMax
  ====== PARAMETERS VALUES ======
 tapChanger_U0                                      =       1.000000
 tapChanger_UDeadBand                               =       0.010000
@@ -27,7 +23,6 @@ tapChanger_UTarget                                 =       1.000000
 tapChanger_deadBand                                =       0.010000
 tapChanger_t1st                                    =      60.000000
 tapChanger_tNext                                   =      10.000000
-tapChanger_tTransition                             =       0.000000
 tapChanger_targetValue                             =       1.000000
 tapChanger_valueMax                                =       1.010000
 tapChanger_valueMin                                =       0.990000
@@ -42,7 +37,5 @@ tapChanger_running0                                =       1.000000
 tapChanger_NbSwitchOffSignals                      =              1
 tapChanger_state0                                  =              4
 tapChanger_tap0                                    =              5
-tapChanger_tapChangerType                          =              2
-tapChanger_tapChangerType0                         =              2
 tapChanger_tapMax                                  =             10
 tapChanger_tapMin                                  =              0
