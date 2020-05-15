@@ -1229,7 +1229,7 @@ jobs_with_curves() {
 
 curves_visu() {
   verify_browser
-  $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$(python -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_CURVES_TO_HTML_DIR/curvesToHtml.py --jobsFile=$("$DYNAWO_PYTHON_COMMAND" -c "import os; print(os.path.realpath('$1'))") --withoutOffset --htmlBrowser="$DYNAWO_BROWSER" || return 1
 }
 
 dump_model() {
@@ -1582,6 +1582,21 @@ deploy_dynawo() {
   cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/* OpenModelica/lib/
   cp -P $DYNAWO_INSTALL_OPENMODELICA/lib/omc/*.mo OpenModelica/lib/omc/
   cp -P -R $DYNAWO_INSTALL_OPENMODELICA/lib/omlibrary OpenModelica/lib/
+  find OpenModelica/lib -name "libipopt*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libcoinmumps*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "*.a" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libamd*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libbtf*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libcminpack*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libcolamd*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libklu*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "liblis*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libomopcua*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libOpenModelicaFMIRuntimeC*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libSimulationRuntimeC*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libsundials*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libumfpack*" -exec rm -f '{}' \;
+  find OpenModelica/lib -name "libzlib*" -exec rm -f '{}' \;
   if [ "`uname`" = "Linux" ]; then
     for lib in {gfortran,quadmath,lapack,blas,lpsolve}; do
       if [ ! -z "$(ldd $DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2)" ]; then
@@ -1749,7 +1764,7 @@ binary_rpath_for_darwin() {
           error_exit "Directory $omc_lib_path does not exist."
         fi
         if [ -f "$lib_path" ]; then
-          cp $lib_path $omc_lib_path || error_exit "Copy of $lib_path into $omc_lib_path failed."
+          cp $lib_path $omc_lib_path
           for lib_path_dylib in $(otool -l $omc_lib_path/$(basename $lib_path) | grep -A2 LC_LOAD_DYLIB | grep dylib | grep name |awk '{print $2}' | grep -v "@.*path" | grep -v "^/usr/lib/" | grep -v "^/usr/local/lib/" | grep -v "^/System"); do
             install_name_tool -change $lib_path_dylib @rpath/$(echo $lib_path_dylib | awk -F'/' '{print $(NF)}') $omc_lib_path/$(basename $lib_path)
           done

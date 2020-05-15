@@ -17,6 +17,7 @@
  *
  */
 #include <sstream>
+#include <set>
 #include "DYNMacrosMessage.h"
 
 #include "PARParametersSetImpl.h"
@@ -24,12 +25,14 @@
 #include "PARParameterFactory.h"
 
 using std::map;
+using std::set;
 using std::string;
 using std::vector;
 using std::stringstream;
 
 using boost::dynamic_pointer_cast;
 using boost::shared_ptr;
+using boost::unordered_map;
 
 namespace parameters {
 
@@ -142,7 +145,7 @@ ParametersSet::Impl::getParameter(const string& name) const {
 
 const shared_ptr<Reference>
 ParametersSet::Impl::getReference(const string& name) const {
-  map<string, shared_ptr<Reference> >::const_iterator itRef = references_.find(name);
+  unordered_map<string, shared_ptr<Reference> >::const_iterator itRef = references_.find(name);
   if (itRef == references_.end())
     throw DYNError(DYN::Error::API, ReferenceNotFoundInSet, name, id_);
   return itRef->second;
@@ -191,10 +194,16 @@ ParametersSet::Impl::getParamsUnused() const {
 vector<string>
 ParametersSet::Impl::getReferencesNames() const {
   vector<string> returnVector;
-  for (map<string, shared_ptr<Reference> >::const_iterator itRefs = references_.begin();
+  set<string> orderedNames;
+  for (unordered_map<string, shared_ptr<Reference> >::const_iterator itRefs = references_.begin();
           itRefs != references_.end();
           ++itRefs) {
-    returnVector.push_back(itRefs->first);
+    orderedNames.insert(itRefs->first);
+  }
+  for (set<string>::const_iterator itRefs = orderedNames.begin();
+          itRefs != orderedNames.end();
+          ++itRefs) {
+    returnVector.push_back(*itRefs);
   }
   return returnVector;
 }
@@ -304,19 +313,6 @@ ParametersSet::BaseIteratorRefImpl
 ParametersSet::BaseIteratorRefImpl::operator++(int) {
   ParametersSet::BaseIteratorRefImpl previous = *this;
   current_++;
-  return previous;
-}
-
-ParametersSet::BaseIteratorRefImpl&
-ParametersSet::BaseIteratorRefImpl::operator--() {
-  --current_;
-  return *this;
-}
-
-ParametersSet::BaseIteratorRefImpl
-ParametersSet::BaseIteratorRefImpl::operator--(int) {
-  ParametersSet::BaseIteratorRefImpl previous = *this;
-  current_--;
   return previous;
 }
 

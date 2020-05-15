@@ -99,15 +99,15 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorInitialization) {
   shared_ptr<ModelGenerator> gen = p.first;
   ASSERT_EQ(gen->id(), "MyGenerator");
   ASSERT_EQ(gen->getConnected(), CLOSED);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->Pc(), -8.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->Qc(), -4.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->PcPu(), -8.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->QcPu(), -4.);
   ASSERT_TRUE(gen->isConnected());
 
   shared_ptr<ModelGenerator> genOpened = createModelGenerator(true, false).first;
   ASSERT_EQ(genOpened->id(), "MyGenerator");
   ASSERT_EQ(genOpened->getConnected(), OPEN);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(genOpened->Pc(), -0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(genOpened->Qc(), -0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genOpened->PcPu(), -0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(genOpened->QcPu(), -0.);
   ASSERT_TRUE(!genOpened->isConnected());
 }
 
@@ -230,8 +230,8 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorDiscreteVariables) {
   gen->evalZ(0.);
   ASSERT_EQ(gen->getConnected(), OPEN);
   ASSERT_EQ(z[0], OPEN);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->Pc(), 1.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->Qc(), 2.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->PcPu(), 1.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->QcPu(), 2.);
 
   ASSERT_EQ(gen->evalState(0.), NetworkComponent::STATE_CHANGE);
   ASSERT_EQ(gen->getConnected(), OPEN);

@@ -210,9 +210,7 @@ SolverSIM::init(const shared_ptr<Model> &model, const double & t0, const double 
   Solver::Impl::resetStats();
   g0_.assign(model_->sizeG(), NO_ROOT);
   g1_.assign(model_->sizeG(), NO_ROOT);
-#ifdef _DEBUG_
   Trace::debug() << DYNLog(SolverSIMInitOK) << Trace::endline;
-#endif
 }
 
 void
@@ -516,7 +514,7 @@ SolverSIM::SIMCorrection() {
     flag = callSolverKINEuler();
     if (flag == KIN_INITIAL_GUESS_OK) {
       skipNextNR_ = true;
-      Trace::debug() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
+      Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
     }
   }
   return flag;
@@ -690,15 +688,15 @@ SolverSIM::reinit() {
 
 void
 SolverSIM::printHeaderSpecific(std::stringstream& ss) const {
-  ss << "| nst   nni   nje  h";
+  ss << "| iter num   Nonlinear iter   jac eval      time step (h)";
 }
 
 void
 SolverSIM::printSolveSpecific(std::stringstream& msg) const {
-  msg << "| " << setw(3) << stats_.nst_ << " "
-          << setw(4) << stats_.nni_ << " "
-          << setw(3) << stats_.nje_ << " "
-          << setw(3) << h_ << " ";
+  msg << "| " << setw(8) << stats_.nst_ << " "
+          << setw(16) << stats_.nni_ << " "
+          << setw(10) << stats_.nje_ << " "
+          << setw(18) << h_ << " ";
 }
 
 void
@@ -706,17 +704,17 @@ SolverSIM::printEnd() {
   // (1) Print on the standard output
   // -----------------------------------
 
-  Trace::debug() << Trace::endline;
-  Trace::debug() << DYNLog(SolverExecutionStats) << Trace::endline;
-  Trace::debug() << Trace::endline;
+  Trace::info() << Trace::endline;
+  Trace::info() << DYNLog(SolverExecutionStats) << Trace::endline;
+  Trace::info() << Trace::endline;
 
-  Trace::debug() << DYNLog(SolverNbIter, stats_.nst_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbResEval, stats_.nre_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbJacEval, stats_.nje_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbIter, stats_.nst_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbResEval, stats_.nre_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbJacEval, stats_.nje_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
 }
 
 }  // end namespace DYN

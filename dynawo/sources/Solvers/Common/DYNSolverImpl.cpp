@@ -52,8 +52,6 @@ using timeline::Timeline;
 
 namespace DYN {
 
-const unsigned int affMax = 4;  ///< number of variables to print
-
 namespace conditions {
 #if defined LANG_CXX11 || defined LANG_CXX0X
 /**
@@ -146,43 +144,30 @@ Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
 
 void
 Solver::Impl::printHeader() const {
-  Trace::debug() << "-----------------------------------------------------------------------" << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   stringstream ss;
   ss << DYNLog(SolverNbYVar, model_->sizeY());
-  if (affMax < vYy_.size())
-    ss << " (" << DYNLog(SolverVarDisplayLimit, affMax) << ")";
-  Trace::debug() << ss.str() << Trace::endline;
+  Trace::info() << ss.str() << Trace::endline;
 
-  Trace::debug() << DYNLog(SolverNbZVar, model_->sizeZ()) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbZVar, model_->sizeZ()) << Trace::endline;
 
-  Trace::debug() << "-----------------------------------------------------------------------" << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
   ss.str(std::string());
-  ss << "    t        ";
-  for (unsigned int i = 0; i < affMax; i++) {
-    if (i >= vYy_.size()) break;
-    ss << "      y" << i + 1 << "      ";
-  }
+  ss << "        time ";
 
   printHeaderSpecific(ss);
-  Trace::debug() << ss.str() << Trace::endline;
-  Trace::debug() << "-----------------------------------------------------------------------" << Trace::endline;
+  Trace::info() << ss.str() << Trace::endline;
+  Trace::info() << "-----------------------------------------------------------------------" << Trace::endline;
 }
 
 void
 Solver::Impl::printSolve() const {
   std::stringstream msg;
-  std::streamsize precision = msg.precision();
   msg << setfill(' ') << setw(12) << std::fixed << std::setprecision(3) << getTSolve() << " ";
-
-  for (unsigned int i = 0; i < affMax; i++) {
-    if (i >= vYy_.size()) break;
-    double val = vYy_[i];
-    msg << std::setprecision(precision) << std::scientific << setw(13) << val << " ";
-  }
 
   printSolveSpecific(msg);
 
-  Trace::debug() << msg.str() << Trace::endline;
+  Trace::info() << msg.str() << Trace::endline;
 }
 
 void
@@ -332,7 +317,7 @@ Solver::Impl::checkUnusedParameters(boost::shared_ptr<parameters::ParametersSet>
   for (vector<string>::iterator it = unusedParamNameList.begin();
           it != unusedParamNameList.end();
           ++it) {
-    Trace::debug() << DYNLog(ParamUnused, *it, "SOLVER") << Trace::endline;
+    Trace::warn() << DYNLog(ParamUnused, *it, "SOLVER") << Trace::endline;
   }
 }
 

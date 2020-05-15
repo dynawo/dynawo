@@ -53,6 +53,7 @@ namespace DYN {
 ModelLine::ModelLine(const shared_ptr<LineInterface>& line) :
 Impl(line->getID()),
 topologyModified_(false),
+updateYMat_(true),
 isDynamic_(false),
 ir1_dUr1_(0.),
 ir1_dUi1_(0.),
@@ -251,22 +252,25 @@ ModelLine::init(int& yNum) {
 
 void
 ModelLine::evalYMat() {
-  ir1_dUr1_ = ir1_dUr1();
-  ir1_dUi1_ = ir1_dUi1();
-  ir1_dUr2_ = ir1_dUr2();
-  ir1_dUi2_ = ir1_dUi2();
-  ii1_dUr1_ = ii1_dUr1();
-  ii1_dUi1_ = ii1_dUi1();
-  ii1_dUr2_ = ii1_dUr2();
-  ii1_dUi2_ = ii1_dUi2();
-  ir2_dUr1_ = ir2_dUr1();
-  ir2_dUi1_ = ir2_dUi1();
-  ir2_dUr2_ = ir2_dUr2();
-  ir2_dUi2_ = ir2_dUi2();
-  ii2_dUr1_ = ii2_dUr1();
-  ii2_dUi1_ = ii2_dUi1();
-  ii2_dUr2_ = ii2_dUr2();
-  ii2_dUi2_ = ii2_dUi2();
+  if (updateYMat_) {
+    ir1_dUr1_ = ir1_dUr1();
+    ir1_dUi1_ = ir1_dUi1();
+    ir1_dUr2_ = ir1_dUr2();
+    ir1_dUi2_ = ir1_dUi2();
+    ii1_dUr1_ = ii1_dUr1();
+    ii1_dUi1_ = ii1_dUi1();
+    ii1_dUr2_ = ii1_dUr2();
+    ii1_dUi2_ = ii1_dUi2();
+    ir2_dUr1_ = ir2_dUr1();
+    ir2_dUi1_ = ir2_dUi1();
+    ir2_dUr2_ = ir2_dUr2();
+    ir2_dUi2_ = ir2_dUi2();
+    ii2_dUr1_ = ii2_dUr1();
+    ii2_dUi1_ = ii2_dUi1();
+    ii2_dUr2_ = ii2_dUr2();
+    ii2_dUi2_ = ii2_dUi2();
+    updateYMat_ = false;
+  }
 }
 
 double
@@ -865,7 +869,7 @@ ModelLine::evalZ(const double& t) {
       Trace::error() << DYNLog(UnableToCloseLineSide2, id_) << Trace::endline;
     } else {
       topologyModified_ = true;
-      Trace::debug() << DYNLog(LineStateChange, id_, getConnectionState(), currState) << Trace::endline;
+      Trace::info() << DYNLog(LineStateChange, id_, getConnectionState(), currState) << Trace::endline;
       switch (currState) {
       // z_[0] represents the actual state
       // getConnectionState() represents the previous state
@@ -990,10 +994,14 @@ ModelLine::evalZ(const double& t) {
 
   if (doubleNotEquals(z_[1], getCurrentLimitsDesactivate())) {
     setCurrentLimitsDesactivate(z_[1]);
-    Trace::debug() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
+    Trace::info() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
 
-  return (topologyModified_)? NetworkComponent::TOPO_CHANGE: NetworkComponent::NO_CHANGE;
+  if (topologyModified_) {
+    updateYMat_ = true;
+    return NetworkComponent::TOPO_CHANGE;
+  }
+  return NetworkComponent::NO_CHANGE;
 }
 
 void

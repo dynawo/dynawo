@@ -522,6 +522,7 @@ class ModelLine : public NetworkComponent::Impl {
   boost::shared_ptr<ModelBus> modelBus2_;  ///< model bus 2
   State connectionState_;  ///< "internal" line connection status, evaluated at the end of evalZ to detect if the state was modified by another component
   bool topologyModified_;  ///< true if the line connection state was modified
+  bool updateYMat_;  ///< true if the YMat need to be updated(= topologyModified)
   double currentLimitsDesactivate_;  ///< current limit desactivate
   bool isDynamic_;  ///< true if the line model is dynamic
 

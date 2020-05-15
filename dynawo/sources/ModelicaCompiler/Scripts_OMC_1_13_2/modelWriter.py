@@ -792,7 +792,7 @@ class ModelWriter(ModelWriterBase):
             check_sum = md5sum_pipe.communicate()[0].split()[-1]
         elif current_platform == 'Windows':
             md5sum_pipe = Popen(["certutil", "-hashfile", file_name, "MD5"], stdin = PIPE, stdout = PIPE)
-            check_sum = md5sum_pipe.communicate()[0].split(os.linesep)[1]
+            check_sum = md5sum_pipe.communicate()[0].split(os.linesep.encode())[1]
 
         for n, line in enumerate(self.file_content_h):
             if "__fill_model_checkSum__" in line:

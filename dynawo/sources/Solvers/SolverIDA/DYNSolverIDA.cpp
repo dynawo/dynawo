@@ -115,10 +115,6 @@ struct mapcomp {
 
 namespace DYN {
 
-#ifdef _DEBUG_
-const bool affDebug = false;  ///< variable used to activate debug log
-#endif
-
 SolverIDAFactory::SolverIDAFactory() {
 }
 
@@ -219,11 +215,7 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
   int flag = IDAInit(IDAMem_, evalF, t0, yy_, yp_);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAInit");
-#ifdef _DEBUG_
-  if (affDebug) {
-    Trace::debug() << "-> init.getStartTime() -> " << t0 << Trace::endline;
-  }
-#endif
+
   // (6) IDASVtolerances
   // -------------------
   std::vector<double> vYAcc;
@@ -238,15 +230,7 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASVtolerances");
 
   if (yAcc != NULL) N_VDestroy_Serial(yAcc);
-#ifdef _DEBUG_
-  if (affDebug) {
-    stringstream ss;
-    ss << "-> init.getYacc() -> ";
-    for (unsigned int i = 0; i < vYAcc.size(); ++i)
-      ss << vYAcc[i] << " ";
-    Trace::debug() << ss.str() << Trace::endline;
-  }
-#endif
+
   // (7) IDASet
   // ----------
 
@@ -340,9 +324,7 @@ SolverIDA::init(const shared_ptr<Model> &model, const double & t0, const double 
   g0_.assign(model_->sizeG(), NO_ROOT);
   g1_.assign(model_->sizeG(), NO_ROOT);
 
-#ifdef _DEBUG_
   Trace::debug() << DYNLog(SolverIDAInitOk) << Trace::endline;
-#endif
 
   flag = IDASetStepToleranceIC(IDAMem_, 0.01);
   if (flag < 0)
@@ -514,14 +496,14 @@ SolverIDA::analyseFlag(const int & flag) {
       break;
     default:
 #ifdef _DEBUG_
-      Trace::debug() << DYNLog(SolverIDAUnknownError) << Trace::endline;
+      Trace::error() << DYNLog(SolverIDAUnknownError) << Trace::endline;
 #endif
       throw DYNError(Error::SUNDIALS_ERROR, SolverIDAError);
   }
 
   if (flag < 0) {
 #ifdef _DEBUG_
-    Trace::debug() << msg.str() << Trace::endline;
+    Trace::error() << msg.str() << Trace::endline;
 #endif
     throw DYNError(Error::SUNDIALS_ERROR, SolverIDAError);
   }
@@ -557,14 +539,6 @@ SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype *gout,
   Timer timer("SolverIDA::evalG");
   SolverIDA* solv = reinterpret_cast<SolverIDA*> (data);
   shared_ptr<Model> model = solv->getModel();
-#ifdef _DEBUG_
-  if (affDebug) {
-    Trace::debug() << "-> evalG(" << tres << ")" << Trace::endline;
-    for (int i = 0; i < model->sizeG(); ++i) {
-      Trace::debug() << i << ") gout[" << i << "]=" << gout[i] << Trace::endline;
-    }
-  }
-#endif
   realtype *iyy = NV_DATA_S(yy);
   realtype *iyp = NV_DATA_S(yp);
   // the current z is needed to evaluate g
@@ -588,9 +562,6 @@ SolverIDA::evalJ(realtype tt, realtype cj,
         N_Vector /*tmp1*/, N_Vector /*tmp2*/, N_Vector /*tmp3*/) {
 #ifdef _DEBUG_
   Timer timer("SolverIDA::evalJ");
-  if (affDebug) {
-    Trace::debug() << "-> evalJ(" << tt << ")" << Trace::endline;
-  }
 #endif
   SolverIDA* solv = reinterpret_cast<SolverIDA*> (data);
   shared_ptr<Model> model = solv->getModel();
@@ -810,7 +781,7 @@ SolverIDA::getRootsFound() const {
 
 void
 SolverIDA::printHeaderSpecific(std::stringstream& ss) const {
-  ss << "| nst k      h";
+  ss << "| iter num   order (k)      time step (h)";
 }
 
 void
@@ -835,9 +806,9 @@ SolverIDA::printSolveSpecific(std::stringstream& msg) const {
   int kused;
   double hused;
   getLastConf(nst, kused, hused);
-  msg << "| " << setw(3) << nst << " "
-          << setw(1) << kused << " "
-          << setw(12) << hused << " ";
+  msg << "| " << setw(8) << nst << " "
+          << setw(11) << kused << " "
+          << setw(18) << hused << " ";
 }
 
 void
@@ -899,17 +870,17 @@ SolverIDA::printEnd() {
 
   // (1) Writing on standard output
   // -----------------------------------
-  Trace::debug() << Trace::endline;
-  Trace::debug() << DYNLog(SolverExecutionStats) << Trace::endline;
-  Trace::debug() << Trace::endline;
+  Trace::info() << Trace::endline;
+  Trace::info() << DYNLog(SolverExecutionStats) << Trace::endline;
+  Trace::info() << Trace::endline;
 
-  Trace::debug() << DYNLog(SolverNbIter, stats_.nst_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbResEval, stats_.nre_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbJacEval, stats_.nje_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
-  Trace::debug() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbIter, stats_.nst_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbResEval, stats_.nre_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbJacEval, stats_.nje_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
 }
 
 }  // end namespace DYN

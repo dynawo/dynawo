@@ -238,6 +238,12 @@ class ConnectorContainer {
   void printConnectors() const;
 
   /**
+   * @brief print informations about the equations stored in the container
+   *
+   */
+  void printEquations() const;
+
+  /**
    * @brief get connector's information according to it global index in F matrix
    * @param globalFIndex connector's index in F matrix
    * @param subModelName type of the connector (Y, flow, or Z connector)

@@ -219,6 +219,9 @@ Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& sub
 
 void
 Modeler::initConnects() {
+  Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::modeler()) << DYNLog(DynamicConnectStart) << Trace::endline;
+  Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
   map<string, shared_ptr<ConnectInterface> > connects = dyd_->getConnectInterfaces();
   for (map<string, shared_ptr<ConnectInterface> >::const_iterator itConnector = connects.begin();
           itConnector != connects.end(); ++itConnector) {
@@ -239,10 +242,11 @@ Modeler::initConnects() {
 
     replaceStaticAndNodeMacroInVariableName(iter1->second, var1, iter2->second, var2);
 
-    Trace::debug() << DYNLog(DynamicConnect, id1, var1, id2, var2) << Trace::endline;
+    Trace::debug(Trace::modeler()) << DYNLog(DynamicConnect, id1, var1, id2, var2) << Trace::endline;
 
     model_->connectElements(iter1->second, var1, iter2->second, var2);
   }
+  Trace::debug(Trace::modeler()) << "------------------------------" << Trace::endline;
 }
 
 string

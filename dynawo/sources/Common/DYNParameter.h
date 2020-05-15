@@ -140,6 +140,7 @@ typedef enum {
   MO,  ///< Parameter from MODELICA model
   LOADED_DUMP,  ///< Value loaded from previous dump
   PAR,  ///< Parameter from PAR file
+  IIDM,  ///< Parameter from IIDM file
   LOCAL_INIT,  ///< Parameter from local initialization
   FINAL,  ///< Value used for dynamic simulation
   NB_ORIGINS  ///< Number of origins (for data dimensions)

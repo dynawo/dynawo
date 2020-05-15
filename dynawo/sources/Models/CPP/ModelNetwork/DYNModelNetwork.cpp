@@ -678,6 +678,156 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
       throw DYNError(Error::MODELER, WrongIIDMDataForHVDC, id);
     }
   }
+
+  if (Trace::logExists(Trace::network(), DEBUG))
+    printStats(data);
+}
+
+void
+ModelNetwork::printStats(const shared_ptr<DataInterface>& data) const {
+  Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::network()) << DYNLog(NetworkStats) << Trace::endline;
+  Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
+  shared_ptr<NetworkInterface> network = data->getNetwork();
+  unsigned nbVoltageLevels = 0;
+  unsigned nbBuses = 0;
+  unsigned nbStaticSwitches = 0;
+  unsigned nbDynamicSwitches = 0;
+  unsigned nbStaticLoads = 0;
+  unsigned nbDynamicLoads = 0;
+  unsigned nbStaticGens = 0;
+  unsigned nbDynamicGens = 0;
+  unsigned nbStaticShuntCompensators = 0;
+  unsigned nbDynamicShuntCompensators = 0;
+  unsigned nbStaticSVCs = 0;
+  unsigned nbDynamicSVCs = 0;
+  unsigned nbStaticDanglingLines = 0;
+  unsigned nbDynamicDanglingLines = 0;
+  unsigned nbStaticLines = 0;
+  unsigned nbDynamicLines = 0;
+  unsigned nbStatic2WTs = 0;
+  unsigned nbDynamic2WTs = 0;
+  unsigned nbStatic3WTs = 0;
+  unsigned nbDynamic3WTs = 0;
+  unsigned nbStaticHVDCs = 0;
+  unsigned nbDynamicHVDCs = 0;
+
+
+  const vector<shared_ptr<VoltageLevelInterface> >& voltageLevels = network->getVoltageLevels();
+  nbVoltageLevels = voltageLevels.size();
+  for (vector<shared_ptr<VoltageLevelInterface> >::const_iterator iVL = voltageLevels.begin();
+      iVL != voltageLevels.end(); ++iVL) {
+    nbBuses += (*iVL)->getBuses().size();
+    const vector<shared_ptr<SwitchInterface> >& switches = (*iVL)->getSwitches();
+    for (vector<shared_ptr<SwitchInterface> >::const_iterator iSwitch = switches.begin(); iSwitch != switches.end(); ++iSwitch) {
+      if ((*iSwitch)->hasDynamicModel()) {
+        ++nbDynamicSwitches;
+        continue;
+      }
+      ++nbStaticSwitches;
+    }
+    const vector<shared_ptr<LoadInterface> >& loads = (*iVL)->getLoads();
+    for (vector<shared_ptr<LoadInterface> >::const_iterator iLoad = loads.begin(); iLoad != loads.end(); ++iLoad) {
+      if ((*iLoad)->hasDynamicModel()) {
+        ++nbDynamicLoads;
+        continue;
+      }
+      ++nbStaticLoads;
+    }
+
+    const vector<shared_ptr<GeneratorInterface> >& generators = (*iVL)->getGenerators();
+    for (vector<shared_ptr<GeneratorInterface> >::const_iterator iGen = generators.begin(); iGen != generators.end(); ++iGen) {
+      if ((*iGen)->hasDynamicModel()) {
+        ++nbDynamicGens;
+        continue;
+      }
+      ++nbStaticGens;
+    }
+
+    const vector<shared_ptr<ShuntCompensatorInterface> >& shunts = (*iVL)->getShuntCompensators();
+    for (vector<shared_ptr<ShuntCompensatorInterface> >::const_iterator iShunt = shunts.begin(); iShunt != shunts.end(); ++iShunt) {
+      if ((*iShunt)->hasDynamicModel()) {
+        ++nbDynamicShuntCompensators;
+        continue;
+      }
+      ++nbStaticShuntCompensators;
+    }
+    const vector<shared_ptr<StaticVarCompensatorInterface> >& svcs = (*iVL)->getStaticVarCompensators();
+    for (vector<shared_ptr<StaticVarCompensatorInterface> >::const_iterator iSvc = svcs.begin(); iSvc != svcs.end(); ++iSvc) {
+      if ((*iSvc)->hasDynamicModel()) {
+        ++nbDynamicSVCs;
+        continue;
+      }
+      ++nbStaticSVCs;
+    }
+    const vector<shared_ptr<DanglingLineInterface> >& danglingLines = (*iVL)->getDanglingLines();
+    for (vector<shared_ptr<DanglingLineInterface> >::const_iterator iDangling = danglingLines.begin(); iDangling != danglingLines.end(); ++iDangling) {
+      if ((*iDangling)->hasDynamicModel()) {
+        ++nbDynamicDanglingLines;
+        continue;
+      }
+      ++nbStaticDanglingLines;
+    }
+  }
+  const vector<shared_ptr<LineInterface> >& lines = network->getLines();
+  for (vector<shared_ptr<LineInterface> >::const_iterator iLine = lines.begin(); iLine != lines.end(); ++iLine) {
+    if ((*iLine)->hasDynamicModel()) {
+      ++nbDynamicLines;
+      continue;
+    }
+    ++nbStaticLines;
+  }
+  const vector<shared_ptr<TwoWTransformerInterface> >& twoWTfos = network->getTwoWTransformers();
+  for (vector<shared_ptr<TwoWTransformerInterface> >::const_iterator i2WTfo = twoWTfos.begin(); i2WTfo != twoWTfos.end(); ++i2WTfo) {
+    if ((*i2WTfo)->hasDynamicModel()) {
+      ++nbDynamic2WTs;
+      continue;
+    }
+    ++nbStatic2WTs;
+  }
+  const vector<shared_ptr<ThreeWTransformerInterface> >&threeWTfos = network->getThreeWTransformers();
+  for (vector<shared_ptr<ThreeWTransformerInterface> >::const_iterator i3WTfo = threeWTfos.begin(); i3WTfo != threeWTfos.end(); ++i3WTfo) {
+    if ((*i3WTfo)->hasDynamicModel()) {
+      ++nbDynamic3WTs;
+      continue;
+    }
+    ++nbStatic3WTs;
+  }
+  const vector<shared_ptr<HvdcLineInterface> >& hvdcs = network->getHvdcLines();
+  for (vector<shared_ptr<HvdcLineInterface> >::const_iterator iHvdc = hvdcs.begin(); iHvdc != hvdcs.end(); ++iHvdc) {
+    if ((*iHvdc)->hasDynamicModel()) {
+      ++nbDynamicHVDCs;
+      continue;
+    }
+    ++nbStaticHVDCs;
+  }
+  stringstream ss;
+  ss << nbVoltageLevels;
+  Trace::debug(Trace::network()) << DYNLog(NetworkNbVoltagelevel, ss.str()) << Trace::endline;
+  ss.str("");
+  ss << nbBuses;
+  Trace::debug(Trace::network()) << DYNLog(NetworkNbBus, ss.str()) << Trace::endline;
+  printComponentStats(KeyLog_t::NetworkNbSwitches, nbStaticSwitches, nbDynamicSwitches);
+  printComponentStats(KeyLog_t::NetworkNbLoads, nbStaticLoads, nbDynamicLoads);
+  printComponentStats(KeyLog_t::NetworkNbGenerators, nbStaticGens, nbDynamicGens);
+  printComponentStats(KeyLog_t::NetworkNbShunt, nbStaticShuntCompensators, nbDynamicShuntCompensators);
+  printComponentStats(KeyLog_t::NetworkNbSVC, nbStaticSVCs, nbDynamicSVCs);
+  printComponentStats(KeyLog_t::NetworkNbDanglingLine, nbStaticDanglingLines, nbDynamicDanglingLines);
+  printComponentStats(KeyLog_t::NetworkNbLine, nbStaticLines, nbDynamicLines);
+  printComponentStats(KeyLog_t::NetworkNbTwoWTfo, nbStatic2WTs, nbDynamic2WTs);
+  printComponentStats(KeyLog_t::NetworkNbThreeWTfo, nbStatic3WTs, nbDynamic3WTs);
+  printComponentStats(KeyLog_t::NetworkNbHVDC, nbStaticHVDCs, nbDynamicHVDCs);
+}
+
+void
+ModelNetwork::printComponentStats(KeyLog_t::value message, unsigned nbStatic, unsigned nbDynamic) const {
+  stringstream ss;
+  stringstream ss2;
+  stringstream ss3;
+  ss << nbStatic;
+  ss2 << nbDynamic;
+  ss3 << nbStatic + nbDynamic;
+  Trace::debug(Trace::network()) << (DYN::Message(Message::LOG_KEY, KeyLog_t::names(message)), ss3.str(), ss.str(), ss2.str()) << Trace::endline;
 }
 
 void

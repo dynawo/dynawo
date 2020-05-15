@@ -404,8 +404,9 @@ class Model {
    * @brief initialize curve (reference with the variable, variable exists ...)
    *
    * @param curve curve to find
+   * @return true if the curve was added
    */
-  virtual void initCurves(boost::shared_ptr<curves::Curve>& curve) = 0;
+  virtual bool initCurves(boost::shared_ptr<curves::Curve>& curve) = 0;
 
   /**
    * @brief fill variables with the current value

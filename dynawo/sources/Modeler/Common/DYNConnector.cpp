@@ -345,6 +345,47 @@ ConnectorContainer::printConnectors() const {
 }
 
 void
+ConnectorContainer::printEquations() const {
+  int offset = 0;
+  for (unsigned int i = 0; i < yConnectors_.size(); ++i) {
+    shared_ptr<Connector> yc = yConnectors_[i];
+    if (yc->connectedSubModels().empty()) {
+      continue;  // should not happen but who knows ...
+    }
+
+    vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
+    // First is reference
+    connectedSubModel reference = *it;
+    ++it;
+    for (;
+        it != yc->connectedSubModels().end();
+        ++it) {
+      const int numEq = offsetModel_ + offset;
+      Trace::debug(Trace::equations()) << numEq << " "  << reference.subModel()->name()+"_"+reference.variable()->getName()  <<
+          " = " << it->subModel()->name()+"_"+it->variable()->getName() << Trace::endline;
+      ++offset;
+    }
+  }
+  for (unsigned int i = 0; i < nbFlowConnectors(); ++i) {
+    shared_ptr<Connector> fc = flowConnectors_[i];
+    stringstream ss;
+    bool first = true;
+    for (vector<connectedSubModel>::iterator it = fc->connectedSubModels().begin();
+        it != fc->connectedSubModels().end();
+        ++it) {
+      string op = (first ? "" : "+");
+      ss << (it->negated() ? "-" : op) << it->variable()->getName();
+      first = false;
+    }
+    ss << " = 0";
+
+    const int numEq = offsetModel_ + offset;
+    Trace::debug(Trace::equations()) << numEq << " " << ss.str() << Trace::endline;
+    ++offset;
+  }
+}
+
+void
 ConnectorContainer::printYConnectors() const {
   int offset = 0;
   for (unsigned int i = 0; i < yConnectors_.size(); ++i) {

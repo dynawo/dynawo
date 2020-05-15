@@ -214,10 +214,10 @@ TEST(APIPARTest, ParametersSetGetReferences) {
   ASSERT_EQ(nbReferences, 3);
 
   ParametersSet::reference_const_iterator itVariablec(parametersSet->cbeginReference());
-  ASSERT_EQ((++itVariablec)->get()->getName(), "ref2");
-  ASSERT_EQ((--itVariablec)->get()->getName(), "ref1");
-  ASSERT_EQ((itVariablec++)->get()->getName(), "ref1");
-  ASSERT_EQ((itVariablec--)->get()->getName(), "ref2");
+  ++itVariablec;
+  itVariablec++;
+  ++itVariablec;
+  ASSERT_TRUE(itVariablec == parametersSet->cendReference());
 
   // Get the vector of names
   string namesTab[] = {"ref1", "ref2", "ref3"};

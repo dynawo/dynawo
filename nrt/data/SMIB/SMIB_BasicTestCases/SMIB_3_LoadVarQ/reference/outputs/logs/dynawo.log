@@ -1,340 +1,355 @@
-2020-04-30 14:24:24 | DEBUG |  ============================================================ 
-2020-04-30 14:24:24 | DEBUG | DYNAWO VERSION  :     1.1.0
-2020-04-30 14:24:24 | DEBUG | DYNAWO REVISION :  832_Update_Gover-a63e270d
-2020-04-30 14:24:24 | DEBUG |  ============================================================ 
-2020-04-30 14:25:00 | DEBUG | connecting LoadVar_event_state1 with Load_load_PRefPu
-2020-04-30 14:25:00 | DEBUG | connecting LoadVar_event_state2 with Load_load_QRefPu
-2020-04-30 14:25:00 | DEBUG | connecting Network_tfo_terminal2 with Load_load_terminal
-2020-04-30 14:25:00 | DEBUG | connecting Network_tfo_terminal2 with SM_generator_terminal
-2020-04-30 14:25:00 | DEBUG | connecting OmegaRef_setPoint_setPoint with SM_generator_omegaRefPu
-2020-04-30 14:25:00 | DEBUG | generator_sStator0Pu_im opposite value of generator_QStator0Pu
-2020-04-30 14:25:00 | DEBUG | generator_Theta0 same value as generator_ThetaInternal0
-2020-04-30 14:25:00 | DEBUG | voltageRegulator_u0_im same value as generator_uStator0Pu_im
-2020-04-30 14:25:00 | DEBUG | voltageRegulator_u0_re same value as generator_uStator0Pu_re
-2020-04-30 14:25:00 | DEBUG | voltageRegulator_limiterWithLag_y0 same value as voltageRegulator_Efd0Pu
-2020-04-30 14:25:00 | DEBUG | generator_Efd0Pu same value as voltageRegulator_Efd0PuLF
-2020-04-30 14:25:00 | DEBUG | voltageRegulator_limiterWithLag_u0 same value as voltageRegulator_Efd0PuLF
-2020-04-30 14:25:00 | DEBUG | voltageRegulator_limiterWithLag_y0LF same value as voltageRegulator_Efd0PuLF
-2020-04-30 14:25:00 | DEBUG | voltageRegulator_tEfdMaxReached0 same value as voltageRegulator_limiterWithLag_tUMaxReached0
-2020-04-30 14:25:00 | DEBUG | voltageRegulator_tEfdMinReached0 same value as voltageRegulator_limiterWithLag_tUMinReached0
-2020-04-30 14:25:00 | DEBUG | generator_Cm0Pu same value as Pm_Value0
-2020-04-30 14:25:00 | DEBUG | generator_Pm0Pu same value as Pm_Value0
-2020-04-30 14:25:00 | DEBUG | governor_Pm0Pu same value as Pm_Value0
-2020-04-30 14:25:00 | DEBUG | voltageRegulator_UsRef0Pu same value as URef_Value0
-2020-04-30 14:25:00 | DEBUG | generator_LambdaQ10Pu same value as generator_LambdaQ20Pu
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; curve: generator_cePu found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; curve: generator_PePu found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; curve: generator_cmPu found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; output: generator_PmPu found.( generator_PmPu_value )
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; curve: generator_ufPu found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; output: generator_efdPu found.( generator_efdPu_value )
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; output: generator_omegaPu found.( generator_omegaPu_value )
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; curve: generator_theta found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; curve: generator_PGenPu found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; curve: generator_QGenPu found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; curve: generator_PGen found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; curve: generator_QGen found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; curve: generator_UPu found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; output: generator_IStatorPu found.( generator_IStatorPu_value )
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; output: generator_IRotorPu found.( generator_IRotorPu_value )
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; output: generator_QStatorPu found.( generator_QStatorPu_value )
-2020-04-30 14:25:00 | INFO | adding curve : Id: SM; output: generator_thetaInternal found.( generator_thetaInternal_value )
-2020-04-30 14:25:00 | INFO | adding curve : Id: Load; curve: load_PPu found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: Load; curve: load_QPu found. (exact name)
-2020-04-30 14:25:00 | INFO | adding curve : Id: Load; output: load_PRefPu found.( load_PRefPu_value )
-2020-04-30 14:25:00 | INFO | adding curve : Id: Load; output: load_QRefPu found.( load_QRefPu_value )
-2020-04-30 14:25:00 | DEBUG | -----------------------------------------------------------------------
-2020-04-30 14:25:00 | DEBUG | number of continuous variables : 70 (display limited to 4 variables)
-2020-04-30 14:25:00 | DEBUG | number of discrete variables : 37
-2020-04-30 14:25:00 | DEBUG | -----------------------------------------------------------------------
-2020-04-30 14:25:00 | DEBUG |     t              y1            y2            y3            y4      | nst k      h
-2020-04-30 14:25:00 | DEBUG | -----------------------------------------------------------------------
-2020-04-30 14:25:00 | DEBUG |        0.000  4.745652e-01  8.802364e-01  0.000000e+00  0.000000e+00 |   0 0 1.000000e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.000  4.745652e-01  8.802364e-01  0.000000e+00  0.000000e+00 |   1 1 1.000000e-06 
-2020-04-30 14:25:00 | DEBUG |        0.000  4.745652e-01  8.802364e-01  0.000000e+00  0.000000e+00 |   2 1 1.000000e-06 
-2020-04-30 14:25:00 | DEBUG |        0.000  4.745652e-01  8.802364e-01  0.000000e+00  0.000000e+00 |   3 2 2.000000e-06 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.000  4.745652e-01  8.802364e-01  0.000000e+00  0.000000e+00 |   4 2 4.000000e-06 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.000  4.745652e-01  8.802364e-01  0.000000e+00  0.000000e+00 |   5 2 8.000000e-06 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.000  4.745652e-01  8.802364e-01  0.000000e+00  0.000000e+00 |   6 2 1.600000e-05 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.000  4.745652e-01  8.802364e-01  0.000000e+00  0.000000e+00 |   7 2 3.200000e-05 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.000  4.745652e-01  8.802364e-01  0.000000e+00  0.000000e+00 |   8 2 6.400000e-05 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.000  4.745652e-01  8.802364e-01  0.000000e+00  0.000000e+00 |   9 2 1.280000e-04 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.001  4.745652e-01  8.802365e-01  0.000000e+00  0.000000e+00 |  10 2 2.560000e-04 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.001  4.745653e-01  8.802365e-01  0.000000e+00  0.000000e+00 |  11 2 5.120000e-04 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.002  4.745654e-01  8.802365e-01  0.000000e+00  0.000000e+00 |  12 2 1.024000e-03 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.004  4.745656e-01  8.802366e-01  0.000000e+00  0.000000e+00 |  13 2 2.048000e-03 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.008  4.745660e-01  8.802368e-01  0.000000e+00  0.000000e+00 |  14 2 4.096000e-03 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.016  4.745666e-01  8.802370e-01  0.000000e+00  0.000000e+00 |  15 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.033  4.745676e-01  8.802370e-01  0.000000e+00  0.000000e+00 |  16 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.066  4.745695e-01  8.802361e-01  0.000000e+00  0.000000e+00 |  17 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        0.098  4.745715e-01  8.802342e-01  0.000000e+00  0.000000e+00 |  18 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.164  4.745771e-01  8.802289e-01  0.000000e+00  0.000000e+00 |  19 2 6.553600e-02 
-2020-04-30 14:25:00 | DEBUG |        0.229  4.745842e-01  8.802222e-01  0.000000e+00  0.000000e+00 |  20 1 6.553600e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        0.360  4.745932e-01  8.802137e-01  0.000000e+00  0.000000e+00 |  21 1 1.310720e-01 
-2020-04-30 14:25:00 | DEBUG |        0.492  4.745958e-01  8.802107e-01  0.000000e+00  0.000000e+00 |  22 1 1.310720e-01 
-2020-04-30 14:25:00 | DEBUG |        0.623  4.745940e-01  8.802116e-01  0.000000e+00  0.000000e+00 |  23 1 1.310720e-01 
-2020-04-30 14:25:00 | DEBUG |        0.754  4.745906e-01  8.802137e-01  0.000000e+00  0.000000e+00 |  24 2 1.310720e-01 
-2020-04-30 14:25:00 | DEBUG |        0.885  4.745868e-01  8.802162e-01  0.000000e+00  0.000000e+00 |  25 2 1.310720e-01 
-2020-04-30 14:25:00 | DEBUG | Algebraic mode change for model Load
-2020-04-30 14:25:00 | DEBUG |        1.000  4.745847e-01  8.802175e-01  0.000000e+00  0.000000e+00 |  26 2 2.621440e-01 
-2020-04-30 14:25:00 | DEBUG | calculation of the new starting point of the simulation.
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.000  4.730048e-01  8.770182e-01  0.000000e+00  4.964471e-01 |   0 0 0.000000e+00 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.000  4.730047e-01  8.770181e-01  0.000000e+00  4.964471e-01 |   1 1 1.000000e-06 
-2020-04-30 14:25:00 | DEBUG |        1.000  4.730047e-01  8.770180e-01  0.000000e+00  4.964470e-01 |   2 1 1.000000e-06 
-2020-04-30 14:25:00 | DEBUG |        1.000  4.730047e-01  8.770179e-01  0.000000e+00  4.964470e-01 |   3 2 2.000000e-06 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.000  4.730047e-01  8.770178e-01  0.000000e+00  4.964468e-01 |   4 2 4.000000e-06 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.000  4.730047e-01  8.770175e-01  0.000000e+00  4.964465e-01 |   5 2 8.000000e-06 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.000  4.730047e-01  8.770168e-01  0.000000e+00  4.964460e-01 |   6 2 1.600000e-05 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.000  4.730046e-01  8.770156e-01  0.000000e+00  4.964449e-01 |   7 2 3.200000e-05 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.000  4.730045e-01  8.770131e-01  0.000000e+00  4.964426e-01 |   8 2 6.400000e-05 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.000  4.730043e-01  8.770081e-01  0.000000e+00  4.964381e-01 |   9 2 1.280000e-04 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.001  4.730040e-01  8.769981e-01  0.000000e+00  4.964292e-01 |  10 2 2.560000e-04 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.001  4.730033e-01  8.769783e-01  0.000000e+00  4.964116e-01 |  11 2 5.120000e-04 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.002  4.730024e-01  8.769395e-01  0.000000e+00  4.963771e-01 |  12 2 1.024000e-03 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.004  4.730020e-01  8.768645e-01  0.000000e+00  4.963112e-01 |  13 2 2.048000e-03 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.008  4.730065e-01  8.767245e-01  0.000000e+00  4.961905e-01 |  14 2 4.096000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.012  4.730174e-01  8.765968e-01  0.000000e+00  4.960837e-01 |  15 2 4.096000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.016  4.730337e-01  8.764800e-01  0.000000e+00  4.959891e-01 |  16 2 4.096000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.020  4.730548e-01  8.763731e-01  0.000000e+00  4.959054e-01 |  17 2 4.096000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.025  4.730800e-01  8.762750e-01  0.000000e+00  4.958313e-01 |  18 2 4.096000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.029  4.731087e-01  8.761848e-01  0.000000e+00  4.957658e-01 |  19 2 4.096000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.033  4.731404e-01  8.761015e-01  0.000000e+00  4.957079e-01 |  20 2 4.096000e-03 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.041  4.732109e-01  8.759523e-01  0.000000e+00  4.956105e-01 |  21 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.049  4.732893e-01  8.758231e-01  0.000000e+00  4.955345e-01 |  22 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.057  4.733738e-01  8.757101e-01  0.000000e+00  4.954755e-01 |  23 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.066  4.734629e-01  8.756099e-01  0.000000e+00  4.954299e-01 |  24 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.074  4.735555e-01  8.755201e-01  0.000000e+00  4.953951e-01 |  25 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.082  4.736506e-01  8.754385e-01  0.000000e+00  4.953687e-01 |  26 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.090  4.737477e-01  8.753634e-01  0.000000e+00  4.953490e-01 |  27 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.098  4.738461e-01  8.752937e-01  0.000000e+00  4.953346e-01 |  28 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.106  4.739455e-01  8.752283e-01  0.000000e+00  4.953245e-01 |  29 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG |        1.115  4.740455e-01  8.751665e-01  0.000000e+00  4.953177e-01 |  30 2 8.192000e-03 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.131  4.742454e-01  8.750509e-01  0.000000e+00  4.953114e-01 |  31 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG |        1.147  4.744439e-01  8.749448e-01  0.000000e+00  4.953127e-01 |  32 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG |        1.164  4.746388e-01  8.748468e-01  0.000000e+00  4.953194e-01 |  33 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG |        1.180  4.748282e-01  8.747565e-01  0.000000e+00  4.953303e-01 |  34 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG |        1.197  4.750101e-01  8.746740e-01  0.000000e+00  4.953446e-01 |  35 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG |        1.213  4.751827e-01  8.746001e-01  0.000000e+00  4.953619e-01 |  36 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG |        1.229  4.753443e-01  8.745354e-01  0.000000e+00  4.953822e-01 |  37 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG |        1.246  4.754933e-01  8.744810e-01  0.000000e+00  4.954055e-01 |  38 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG |        1.262  4.756282e-01  8.744378e-01  0.000000e+00  4.954319e-01 |  39 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG |        1.279  4.757477e-01  8.744068e-01  0.000000e+00  4.954616e-01 |  40 2 1.638400e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.311  4.759354e-01  8.743851e-01  0.000000e+00  4.955319e-01 |  41 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.344  4.760516e-01  8.744193e-01  0.000000e+00  4.956171e-01 |  42 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.377  4.760938e-01  8.745112e-01  0.000000e+00  4.957176e-01 |  43 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.410  4.760627e-01  8.746598e-01  0.000000e+00  4.958328e-01 |  44 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.442  4.759620e-01  8.748618e-01  0.000000e+00  4.959615e-01 |  45 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.475  4.757983e-01  8.751113e-01  0.000000e+00  4.961020e-01 |  46 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.508  4.755810e-01  8.754003e-01  0.000000e+00  4.962515e-01 |  47 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.541  4.753215e-01  8.757188e-01  0.000000e+00  4.964070e-01 |  48 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.573  4.750328e-01  8.760560e-01  0.000000e+00  4.965652e-01 |  49 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.606  4.747291e-01  8.764001e-01  0.000000e+00  4.967225e-01 |  50 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.639  4.744245e-01  8.767394e-01  0.000000e+00  4.968753e-01 |  51 2 3.276800e-02 
-2020-04-30 14:25:00 | DEBUG |        1.668  4.741606e-01  8.770316e-01  0.000000e+00  4.970063e-01 |  52 2 2.949120e-02 
-2020-04-30 14:25:00 | DEBUG |        1.698  4.739168e-01  8.773029e-01  0.000000e+00  4.971288e-01 |  53 2 2.949120e-02 
-2020-04-30 14:25:00 | DEBUG |        1.727  4.737018e-01  8.775465e-01  0.000000e+00  4.972406e-01 |  54 2 2.949120e-02 
-2020-04-30 14:25:00 | DEBUG |        1.757  4.735228e-01  8.777566e-01  0.000000e+00  4.973402e-01 |  55 2 2.949120e-02 
-2020-04-30 14:25:00 | DEBUG |        1.786  4.733856e-01  8.779289e-01  0.000000e+00  4.974265e-01 |  56 2 2.949120e-02 
-2020-04-30 14:25:00 | DEBUG |        1.816  4.732943e-01  8.780603e-01  0.000000e+00  4.974987e-01 |  57 2 2.949120e-02 
-2020-04-30 14:25:00 | DEBUG |        1.845  4.732510e-01  8.781495e-01  0.000000e+00  4.975565e-01 |  58 2 2.949120e-02 
-2020-04-30 14:25:00 | DEBUG |        1.875  4.732560e-01  8.781966e-01  0.000000e+00  4.976003e-01 |  59 2 2.949120e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        1.934  4.733976e-01  8.781770e-01  0.000000e+00  4.976500e-01 |  60 2 5.898240e-02 
-2020-04-30 14:25:00 | DEBUG |        1.982  4.736286e-01  8.780616e-01  0.000000e+00  4.976581e-01 |  61 2 4.838204e-02 
-2020-04-30 14:25:00 | DEBUG |        2.026  4.739031e-01  8.779002e-01  0.000000e+00  4.976464e-01 |  62 2 4.354384e-02 
-2020-04-30 14:25:00 | DEBUG |        2.065  4.741843e-01  8.777249e-01  0.000000e+00  4.976259e-01 |  63 2 3.918945e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        2.100  4.744492e-01  8.775563e-01  0.000000e+00  4.976036e-01 |  64 2 3.527051e-02 
-2020-04-30 14:25:00 | DEBUG |        2.136  4.747100e-01  8.773902e-01  0.000000e+00  4.975816e-01 |  65 2 3.527051e-02 
-2020-04-30 14:25:00 | DEBUG |        2.167  4.749306e-01  8.772517e-01  0.000000e+00  4.975648e-01 |  66 2 3.174346e-02 
-2020-04-30 14:25:00 | DEBUG |        2.199  4.751280e-01  8.771317e-01  0.000000e+00  4.975533e-01 |  67 2 3.174346e-02 
-2020-04-30 14:25:00 | DEBUG |        2.231  4.752945e-01  8.770367e-01  0.000000e+00  4.975491e-01 |  68 2 3.174346e-02 
-2020-04-30 14:25:00 | DEBUG |        2.263  4.754237e-01  8.769718e-01  0.000000e+00  4.975536e-01 |  69 2 3.174346e-02 
-2020-04-30 14:25:00 | DEBUG |        2.294  4.755115e-01  8.769404e-01  0.000000e+00  4.975678e-01 |  70 2 3.174346e-02 
-2020-04-30 14:25:00 | DEBUG |        2.326  4.755552e-01  8.769446e-01  0.000000e+00  4.975923e-01 |  71 2 3.174346e-02 
-2020-04-30 14:25:00 | DEBUG |        2.358  4.755545e-01  8.769845e-01  0.000000e+00  4.976269e-01 |  72 2 3.174346e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        2.421  4.754327e-01  8.771598e-01  0.000000e+00  4.977227e-01 |  73 2 6.348691e-02 
-2020-04-30 14:25:00 | DEBUG |        2.475  4.752237e-01  8.773902e-01  0.000000e+00  4.978256e-01 |  74 2 5.328283e-02 
-2020-04-30 14:25:00 | DEBUG |        2.522  4.749760e-01  8.776425e-01  0.000000e+00  4.979293e-01 |  75 2 4.795454e-02 
-2020-04-30 14:25:00 | DEBUG |        2.566  4.747259e-01  8.778881e-01  0.000000e+00  4.980261e-01 |  76 2 4.315909e-02 
-2020-04-30 14:25:00 | DEBUG |        2.604  4.744958e-01  8.781099e-01  0.000000e+00  4.981116e-01 |  77 2 3.884318e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        2.639  4.742971e-01  8.783000e-01  0.000000e+00  4.981843e-01 |  78 2 3.495886e-02 
-2020-04-30 14:25:00 | DEBUG |        2.674  4.741172e-01  8.784721e-01  0.000000e+00  4.982502e-01 |  79 2 3.495886e-02 
-2020-04-30 14:25:00 | DEBUG |        2.709  4.739651e-01  8.786192e-01  0.000000e+00  4.983073e-01 |  80 2 3.495886e-02 
-2020-04-30 14:25:00 | DEBUG |        2.744  4.738477e-01  8.787358e-01  0.000000e+00  4.983541e-01 |  81 2 3.495886e-02 
-2020-04-30 14:25:00 | DEBUG |        2.779  4.737699e-01  8.788180e-01  0.000000e+00  4.983895e-01 |  82 2 3.495886e-02 
-2020-04-30 14:25:00 | DEBUG |        2.814  4.737345e-01  8.788640e-01  0.000000e+00  4.984131e-01 |  83 2 3.495886e-02 
-2020-04-30 14:25:00 | DEBUG |        2.849  4.737421e-01  8.788735e-01  0.000000e+00  4.984251e-01 |  84 2 3.495886e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        2.898  4.738187e-01  8.788311e-01  0.000000e+00  4.984241e-01 |  85 2 4.848646e-02 
-2020-04-30 14:25:00 | DEBUG |        2.946  4.739615e-01  8.787334e-01  0.000000e+00  4.984059e-01 |  86 2 4.848646e-02 
-2020-04-30 14:25:00 | DEBUG |        2.995  4.741537e-01  8.785945e-01  0.000000e+00  4.983750e-01 |  87 2 4.848646e-02 
-2020-04-30 14:25:00 | DEBUG |        3.038  4.743529e-01  8.784480e-01  0.000000e+00  4.983408e-01 |  88 2 4.363782e-02 
-2020-04-30 14:25:00 | DEBUG |        3.082  4.745595e-01  8.782956e-01  0.000000e+00  4.983049e-01 |  89 2 4.363782e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        3.121  4.747387e-01  8.781642e-01  0.000000e+00  4.982746e-01 |  90 2 3.927404e-02 
-2020-04-30 14:25:00 | DEBUG |        3.160  4.748994e-01  8.780484e-01  0.000000e+00  4.982492e-01 |  91 2 3.927404e-02 
-2020-04-30 14:25:00 | DEBUG |        3.200  4.750319e-01  8.779561e-01  0.000000e+00  4.982311e-01 |  92 2 3.927404e-02 
-2020-04-30 14:25:00 | DEBUG |        3.239  4.751288e-01  8.778933e-01  0.000000e+00  4.982220e-01 |  93 2 3.927404e-02 
-2020-04-30 14:25:00 | DEBUG |        3.278  4.751851e-01  8.778639e-01  0.000000e+00  4.982229e-01 |  94 2 3.927404e-02 
-2020-04-30 14:25:00 | DEBUG |        3.318  4.751988e-01  8.778695e-01  0.000000e+00  4.982344e-01 |  95 2 3.927404e-02 
-2020-04-30 14:25:00 | DEBUG |        3.357  4.751704e-01  8.779093e-01  0.000000e+00  4.982558e-01 |  96 2 3.927404e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        3.404  4.750865e-01  8.779973e-01  0.000000e+00  4.982932e-01 |  97 2 4.719090e-02 
-2020-04-30 14:25:00 | DEBUG |        3.451  4.749577e-01  8.781208e-01  0.000000e+00  4.983405e-01 |  98 2 4.719090e-02 
-2020-04-30 14:25:00 | DEBUG |        3.498  4.747978e-01  8.782682e-01  0.000000e+00  4.983940e-01 |  99 2 4.719090e-02 
-2020-04-30 14:25:00 | DEBUG |        3.546  4.746225e-01  8.784262e-01  0.000000e+00  4.984495e-01 | 100 2 4.719090e-02 
-2020-04-30 14:25:00 | DEBUG |        3.588  4.744647e-01  8.785667e-01  0.000000e+00  4.984981e-01 | 101 2 4.247181e-02 
-2020-04-30 14:25:00 | DEBUG |        3.613  4.743805e-01  8.786411e-01  0.000000e+00  4.985235e-01 | 102 1 2.448082e-02 
-2020-04-30 14:25:00 | DEBUG |        3.637  4.743046e-01  8.787081e-01  0.000000e+00  4.985464e-01 | 103 1 2.448082e-02 
-2020-04-30 14:25:00 | DEBUG |        3.662  4.742386e-01  8.787664e-01  0.000000e+00  4.985664e-01 | 104 1 2.448082e-02 
-2020-04-30 14:25:00 | DEBUG |        3.710  4.741331e-01  8.788605e-01  0.000000e+00  4.985990e-01 | 105 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        3.759  4.740732e-01  8.789157e-01  0.000000e+00  4.986191e-01 | 106 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        3.808  4.740626e-01  8.789294e-01  0.000000e+00  4.986261e-01 | 107 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        3.857  4.741002e-01  8.789029e-01  0.000000e+00  4.986207e-01 | 108 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        3.906  4.741801e-01  8.788415e-01  0.000000e+00  4.986045e-01 | 109 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        3.955  4.742924e-01  8.787535e-01  0.000000e+00  4.985805e-01 | 110 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        4.004  4.744249e-01  8.786494e-01  0.000000e+00  4.985518e-01 | 111 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        4.053  4.745638e-01  8.785405e-01  0.000000e+00  4.985221e-01 | 112 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        4.102  4.746954e-01  8.784383e-01  0.000000e+00  4.984948e-01 | 113 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        4.151  4.748073e-01  8.783529e-01  0.000000e+00  4.984729e-01 | 114 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        4.200  4.748897e-01  8.782924e-01  0.000000e+00  4.984589e-01 | 115 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        4.249  4.749359e-01  8.782621e-01  0.000000e+00  4.984542e-01 | 116 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        4.298  4.749430e-01  8.782641e-01  0.000000e+00  4.984593e-01 | 117 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG |        4.347  4.749121e-01  8.782971e-01  0.000000e+00  4.984737e-01 | 118 2 4.896164e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        4.400  4.748419e-01  8.783626e-01  0.000000e+00  4.984978e-01 | 119 2 5.293188e-02 
-2020-04-30 14:25:00 | DEBUG |        4.453  4.747430e-01  8.784507e-01  0.000000e+00  4.985283e-01 | 120 2 5.293188e-02 
-2020-04-30 14:25:00 | DEBUG |        4.506  4.746280e-01  8.785511e-01  0.000000e+00  4.985619e-01 | 121 2 5.293188e-02 
-2020-04-30 14:25:00 | DEBUG |        4.559  4.745105e-01  8.786522e-01  0.000000e+00  4.985949e-01 | 122 2 5.293188e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        4.591  4.744447e-01  8.787082e-01  0.000000e+00  4.986129e-01 | 123 1 3.252923e-02 
-2020-04-30 14:25:00 | DEBUG |        4.624  4.743884e-01  8.787558e-01  0.000000e+00  4.986281e-01 | 124 1 3.252923e-02 
-2020-04-30 14:25:00 | DEBUG |        4.656  4.743435e-01  8.787938e-01  0.000000e+00  4.986402e-01 | 125 1 3.252923e-02 
-2020-04-30 14:25:00 | DEBUG |        4.689  4.743068e-01  8.788249e-01  0.000000e+00  4.986500e-01 | 126 2 3.252923e-02 
-2020-04-30 14:25:00 | DEBUG |        4.721  4.742814e-01  8.788463e-01  0.000000e+00  4.986568e-01 | 127 2 3.252923e-02 
-2020-04-30 14:25:00 | DEBUG |        4.754  4.742689e-01  8.788569e-01  0.000000e+00  4.986603e-01 | 128 2 3.252923e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        4.819  4.742817e-01  8.788468e-01  0.000000e+00  4.986574e-01 | 129 2 6.505845e-02 
-2020-04-30 14:25:00 | DEBUG |        4.884  4.743386e-01  8.788004e-01  0.000000e+00  4.986436e-01 | 130 2 6.505845e-02 
-2020-04-30 14:25:00 | DEBUG |        4.949  4.744271e-01  8.787284e-01  0.000000e+00  4.986223e-01 | 131 2 6.505845e-02 
-2020-04-30 14:25:00 | DEBUG |        5.014  4.745308e-01  8.786445e-01  0.000000e+00  4.985979e-01 | 132 2 6.505845e-02 
-2020-04-30 14:25:00 | DEBUG |        5.073  4.746231e-01  8.785706e-01  0.000000e+00  4.985767e-01 | 133 2 5.855261e-02 
-2020-04-30 14:25:00 | DEBUG |        5.106  4.746682e-01  8.785351e-01  0.000000e+00  4.985669e-01 | 134 1 3.331879e-02 
-2020-04-30 14:25:00 | DEBUG |        5.139  4.747047e-01  8.785068e-01  0.000000e+00  4.985594e-01 | 135 1 3.331879e-02 
-2020-04-30 14:25:00 | DEBUG |        5.173  4.747317e-01  8.784865e-01  0.000000e+00  4.985544e-01 | 136 1 3.331879e-02 
-2020-04-30 14:25:00 | DEBUG |        5.239  4.747622e-01  8.784654e-01  0.000000e+00  4.985503e-01 | 137 2 6.663758e-02 
-2020-04-30 14:25:00 | DEBUG |        5.306  4.747560e-01  8.784746e-01  0.000000e+00  4.985555e-01 | 138 2 6.663758e-02 
-2020-04-30 14:25:00 | DEBUG |        5.373  4.747163e-01  8.785112e-01  0.000000e+00  4.985687e-01 | 139 2 6.663758e-02 
-2020-04-30 14:25:00 | DEBUG |        5.439  4.746519e-01  8.785674e-01  0.000000e+00  4.985876e-01 | 140 2 6.663758e-02 
-2020-04-30 14:25:00 | DEBUG |        5.506  4.745753e-01  8.786329e-01  0.000000e+00  4.986087e-01 | 141 2 6.663758e-02 
-2020-04-30 14:25:00 | DEBUG |        5.572  4.745003e-01  8.786961e-01  0.000000e+00  4.986287e-01 | 142 2 6.663758e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        5.610  4.744655e-01  8.787251e-01  0.000000e+00  4.986376e-01 | 143 1 3.756831e-02 
-2020-04-30 14:25:00 | DEBUG |        5.648  4.744389e-01  8.787470e-01  0.000000e+00  4.986443e-01 | 144 1 3.756831e-02 
-2020-04-30 14:25:00 | DEBUG |        5.685  4.744214e-01  8.787613e-01  0.000000e+00  4.986485e-01 | 145 1 3.756831e-02 
-2020-04-30 14:25:00 | DEBUG |        5.760  4.744076e-01  8.787722e-01  0.000000e+00  4.986516e-01 | 146 2 7.513662e-02 
-2020-04-30 14:25:00 | DEBUG |        5.835  4.744254e-01  8.787569e-01  0.000000e+00  4.986466e-01 | 147 2 7.513662e-02 
-2020-04-30 14:25:00 | DEBUG |        5.911  4.744689e-01  8.787208e-01  0.000000e+00  4.986354e-01 | 148 2 7.513662e-02 
-2020-04-30 14:25:00 | DEBUG |        5.986  4.745270e-01  8.786729e-01  0.000000e+00  4.986210e-01 | 149 2 7.513662e-02 
-2020-04-30 14:25:00 | DEBUG |        6.061  4.745868e-01  8.786244e-01  0.000000e+00  4.986067e-01 | 150 2 7.513662e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        6.136  4.746266e-01  8.785931e-01  0.000000e+00  4.985981e-01 | 151 1 7.513662e-02 
-2020-04-30 14:25:00 | DEBUG |        6.189  4.746430e-01  8.785807e-01  0.000000e+00  4.985951e-01 | 152 1 5.327712e-02 
-2020-04-30 14:25:00 | DEBUG |        6.237  4.746482e-01  8.785776e-01  0.000000e+00  4.985948e-01 | 153 1 4.794941e-02 
-2020-04-30 14:25:00 | DEBUG |        6.285  4.746442e-01  8.785820e-01  0.000000e+00  4.985968e-01 | 154 1 4.794941e-02 
-2020-04-30 14:25:00 | DEBUG |        6.333  4.746326e-01  8.785926e-01  0.000000e+00  4.986006e-01 | 155 1 4.794941e-02 
-2020-04-30 14:25:00 | DEBUG |        6.429  4.745988e-01  8.786222e-01  0.000000e+00  4.986105e-01 | 156 2 9.589882e-02 
-2020-04-30 14:25:00 | DEBUG |        6.509  4.745628e-01  8.786528e-01  0.000000e+00  4.986203e-01 | 157 2 8.001359e-02 
-2020-04-30 14:25:00 | DEBUG |        6.589  4.745281e-01  8.786818e-01  0.000000e+00  4.986294e-01 | 158 2 8.001359e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        6.642  4.745120e-01  8.786951e-01  0.000000e+00  4.986333e-01 | 159 1 5.269501e-02 
-2020-04-30 14:25:00 | DEBUG |        6.694  4.745029e-01  8.787024e-01  0.000000e+00  4.986355e-01 | 160 1 5.269501e-02 
-2020-04-30 14:25:00 | DEBUG |        6.747  4.745007e-01  8.787040e-01  0.000000e+00  4.986358e-01 | 161 1 5.269501e-02 
-2020-04-30 14:25:00 | DEBUG |        6.853  4.745095e-01  8.786964e-01  0.000000e+00  4.986333e-01 | 162 2 1.053900e-01 
-2020-04-30 14:25:00 | DEBUG |        6.947  4.745311e-01  8.786784e-01  0.000000e+00  4.986277e-01 | 163 2 9.485101e-02 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        7.118  4.745646e-01  8.786514e-01  0.000000e+00  4.986199e-01 | 164 1 1.707318e-01 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        7.214  4.745748e-01  8.786435e-01  0.000000e+00  4.986178e-01 | 165 1 9.572829e-02 
-2020-04-30 14:25:00 | DEBUG |        7.310  4.745764e-01  8.786428e-01  0.000000e+00  4.986179e-01 | 166 1 9.572829e-02 
-2020-04-30 14:25:00 | DEBUG |        7.405  4.745718e-01  8.786470e-01  0.000000e+00  4.986195e-01 | 167 1 9.572829e-02 
-2020-04-30 14:25:00 | DEBUG |        7.501  4.745648e-01  8.786532e-01  0.000000e+00  4.986216e-01 | 168 2 9.572829e-02 
-2020-04-30 14:25:00 | DEBUG |        7.597  4.745562e-01  8.786605e-01  0.000000e+00  4.986240e-01 | 169 2 9.572829e-02 
-2020-04-30 14:25:00 | DEBUG |        7.788  4.745452e-01  8.786698e-01  0.000000e+00  4.986269e-01 | 170 2 1.914566e-01 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        7.980  4.745482e-01  8.786673e-01  0.000000e+00  4.986261e-01 | 171 1 1.914566e-01 
-2020-04-30 14:25:00 | DEBUG |        8.136  4.745530e-01  8.786634e-01  0.000000e+00  4.986249e-01 | 172 1 1.560602e-01 
-2020-04-30 14:25:00 | DEBUG |        8.292  4.745565e-01  8.786606e-01  0.000000e+00  4.986242e-01 | 173 1 1.560602e-01 
-2020-04-30 14:25:00 | DEBUG |        8.604  4.745569e-01  8.786605e-01  0.000000e+00  4.986243e-01 | 174 1 3.121204e-01 
-2020-04-30 14:25:00 | DEBUG |        8.916  4.745557e-01  8.786617e-01  0.000000e+00  4.986247e-01 | 175 1 3.121204e-01 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |        9.540  4.745557e-01  8.786618e-01  0.000000e+00  4.986248e-01 | 176 1 6.242407e-01 
-2020-04-30 14:25:00 | DEBUG |       10.164  4.745558e-01  8.786618e-01  0.000000e+00  4.986249e-01 | 177 1 6.242407e-01 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |       11.413  4.745558e-01  8.786619e-01  0.000000e+00  4.986249e-01 | 178 1 1.248481e+00 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |       13.910  4.745558e-01  8.786619e-01  0.000000e+00  4.986250e-01 | 179 1 2.496963e+00 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |       18.904  4.745558e-01  8.786619e-01  0.000000e+00  4.986250e-01 | 180 1 4.993926e+00 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |       28.892  4.745558e-01  8.786619e-01  0.000000e+00  4.986250e-01 | 181 1 9.987851e+00 
-2020-04-30 14:25:00 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
-2020-04-30 14:25:00 | DEBUG |       30.000  4.745558e-01  8.786619e-01  0.000000e+00  4.986250e-01 | 182 1 1.108295e+00 
-2020-04-30 14:25:00 | DEBUG | 
-2020-04-30 14:25:00 | DEBUG | execution Stats :
-2020-04-30 14:25:00 | DEBUG | 
-2020-04-30 14:25:00 | DEBUG | number of iterations                     = 208
-2020-04-30 14:25:00 | DEBUG | number of Residual evaluations           = 414
-2020-04-30 14:25:00 | DEBUG | number of Jacobian evaluations           = 62
-2020-04-30 14:25:00 | DEBUG | number of Nonlinear iterations           = 412
-2020-04-30 14:25:00 | DEBUG | number of error test failures            = 10
-2020-04-30 14:25:00 | DEBUG | number of Nonlinear convergence failures = 0
-2020-04-30 14:25:00 | DEBUG | number of root functions evaluations     = 260
-2020-04-30 14:25:00 | DEBUG | end of job 'SMIB_LoadVarQ'
+2020-05-11 18:21:26 | INFO |  ============================================================ 
+2020-05-11 18:21:26 | INFO | DYNAWO VERSION  :     1.1.0
+2020-05-11 18:21:26 | INFO | DYNAWO REVISION :  810_logs_general-b7f5aa52
+2020-05-11 18:21:26 | INFO |  ============================================================ 
+2020-05-11 18:21:26 | INFO | 
+2020-05-11 18:21:26 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:21:26 | INFO | building model from input files
+2020-05-11 18:21:26 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | model was built successfully
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | 
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | starting local initialization
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | DEBUG | ------------------------------
+2020-05-11 18:22:01 | DEBUG | starting local initialization of model Load
+2020-05-11 18:22:01 | DEBUG | local initialization of model Load ended successfully
+2020-05-11 18:22:01 | DEBUG | ------------------------------
+2020-05-11 18:22:01 | DEBUG | starting local initialization of model SM
+2020-05-11 18:22:01 | DEBUG | local initialization of model SM ended successfully
+2020-05-11 18:22:01 | INFO | end of local initialization
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | 
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | starting global initialization
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | DEBUG | initialization of IDA solver : ok
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO | end of global initialization
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | 
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | starting curve initialization
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; curve: generator_cePu found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; curve: generator_PePu found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; curve: generator_cmPu found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; output: generator_PmPu found.( generator_PmPu_value )
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; curve: generator_ufPu found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; output: generator_efdPu found.( generator_efdPu_value )
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; output: generator_omegaPu found.( generator_omegaPu_value )
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; curve: generator_theta found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; curve: generator_PGenPu found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; curve: generator_QGenPu found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; curve: generator_PGen found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; curve: generator_QGen found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; curve: generator_UPu found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; output: generator_IStatorPu found.( generator_IStatorPu_value )
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; output: generator_IRotorPu found.( generator_IRotorPu_value )
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; output: generator_UStatorPu found.( generator_UStatorPu_value )
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; output: generator_QStatorPu found.( generator_QStatorPu_value )
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: SM; output: generator_thetaInternal found.( generator_thetaInternal_value )
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: Load; curve: load_PPu found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: Load; curve: load_QPu found. (exact name)
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: Load; output: load_PRefPu found.( load_PRefPu_value )
+2020-05-11 18:22:01 | DEBUG | adding curve : Id: Load; output: load_QRefPu found.( load_QRefPu_value )
+2020-05-11 18:22:01 | INFO | end of curve initialization, added 22 curves
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | 
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | starting simulation
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO | number of continuous variables : 70
+2020-05-11 18:22:01 | INFO | number of discrete variables : 37
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO |     t        | nst k      h
+2020-05-11 18:22:01 | INFO | -----------------------------------------------------------------------
+2020-05-11 18:22:01 | INFO |        0.000 |   0 0        0.010 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.000 |   1 1        0.000 
+2020-05-11 18:22:01 | INFO |        0.000 |   2 1        0.000 
+2020-05-11 18:22:01 | INFO |        0.000 |   3 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.000 |   4 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.000 |   5 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.000 |   6 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.000 |   7 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.000 |   8 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.000 |   9 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.001 |  10 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.001 |  11 2        0.001 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.002 |  12 2        0.001 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.004 |  13 2        0.002 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.008 |  14 2        0.004 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.016 |  15 2        0.008 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.033 |  16 2        0.016 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.066 |  17 2        0.033 
+2020-05-11 18:22:01 | INFO |        0.098 |  18 2        0.033 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.164 |  19 2        0.066 
+2020-05-11 18:22:01 | INFO |        0.229 |  20 1        0.066 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        0.360 |  21 1        0.131 
+2020-05-11 18:22:01 | INFO |        0.492 |  22 1        0.131 
+2020-05-11 18:22:01 | INFO |        0.623 |  23 1        0.131 
+2020-05-11 18:22:01 | INFO |        0.754 |  24 2        0.131 
+2020-05-11 18:22:01 | INFO |        0.885 |  25 2        0.131 
+2020-05-11 18:22:01 | INFO | Algebraic mode change for model Load
+2020-05-11 18:22:01 | INFO |        1.000 |  26 2        0.262 
+2020-05-11 18:22:01 | INFO | calculation of the new starting point of the simulation.
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.000 |   0 0        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.000 |   1 1        0.000 
+2020-05-11 18:22:01 | INFO |        1.000 |   2 1        0.000 
+2020-05-11 18:22:01 | INFO |        1.000 |   3 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.000 |   4 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.000 |   5 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.000 |   6 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.000 |   7 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.000 |   8 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.000 |   9 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.001 |  10 2        0.000 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.001 |  11 2        0.001 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.002 |  12 2        0.001 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.004 |  13 2        0.002 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.008 |  14 2        0.004 
+2020-05-11 18:22:01 | INFO |        1.012 |  15 2        0.004 
+2020-05-11 18:22:01 | INFO |        1.016 |  16 2        0.004 
+2020-05-11 18:22:01 | INFO |        1.020 |  17 2        0.004 
+2020-05-11 18:22:01 | INFO |        1.025 |  18 2        0.004 
+2020-05-11 18:22:01 | INFO |        1.029 |  19 2        0.004 
+2020-05-11 18:22:01 | INFO |        1.033 |  20 2        0.004 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.041 |  21 2        0.008 
+2020-05-11 18:22:01 | INFO |        1.049 |  22 2        0.008 
+2020-05-11 18:22:01 | INFO |        1.057 |  23 2        0.008 
+2020-05-11 18:22:01 | INFO |        1.066 |  24 2        0.008 
+2020-05-11 18:22:01 | INFO |        1.074 |  25 2        0.008 
+2020-05-11 18:22:01 | INFO |        1.082 |  26 2        0.008 
+2020-05-11 18:22:01 | INFO |        1.090 |  27 2        0.008 
+2020-05-11 18:22:01 | INFO |        1.098 |  28 2        0.008 
+2020-05-11 18:22:01 | INFO |        1.106 |  29 2        0.008 
+2020-05-11 18:22:01 | INFO |        1.115 |  30 2        0.008 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.131 |  31 2        0.016 
+2020-05-11 18:22:01 | INFO |        1.147 |  32 2        0.016 
+2020-05-11 18:22:01 | INFO |        1.164 |  33 2        0.016 
+2020-05-11 18:22:01 | INFO |        1.180 |  34 2        0.016 
+2020-05-11 18:22:01 | INFO |        1.197 |  35 2        0.016 
+2020-05-11 18:22:01 | INFO |        1.213 |  36 2        0.016 
+2020-05-11 18:22:01 | INFO |        1.229 |  37 2        0.016 
+2020-05-11 18:22:01 | INFO |        1.246 |  38 2        0.016 
+2020-05-11 18:22:01 | INFO |        1.262 |  39 2        0.016 
+2020-05-11 18:22:01 | INFO |        1.279 |  40 2        0.016 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.311 |  41 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.344 |  42 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.377 |  43 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.410 |  44 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.442 |  45 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.475 |  46 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.508 |  47 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.541 |  48 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.573 |  49 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.606 |  50 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.639 |  51 2        0.033 
+2020-05-11 18:22:01 | INFO |        1.668 |  52 2        0.029 
+2020-05-11 18:22:01 | INFO |        1.698 |  53 2        0.029 
+2020-05-11 18:22:01 | INFO |        1.727 |  54 2        0.029 
+2020-05-11 18:22:01 | INFO |        1.757 |  55 2        0.029 
+2020-05-11 18:22:01 | INFO |        1.786 |  56 2        0.029 
+2020-05-11 18:22:01 | INFO |        1.816 |  57 2        0.029 
+2020-05-11 18:22:01 | INFO |        1.845 |  58 2        0.029 
+2020-05-11 18:22:01 | INFO |        1.875 |  59 2        0.029 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        1.934 |  60 2        0.059 
+2020-05-11 18:22:01 | INFO |        1.982 |  61 2        0.048 
+2020-05-11 18:22:01 | INFO |        2.026 |  62 2        0.044 
+2020-05-11 18:22:01 | INFO |        2.065 |  63 2        0.039 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        2.100 |  64 2        0.035 
+2020-05-11 18:22:01 | INFO |        2.136 |  65 2        0.035 
+2020-05-11 18:22:01 | INFO |        2.167 |  66 2        0.032 
+2020-05-11 18:22:01 | INFO |        2.199 |  67 2        0.032 
+2020-05-11 18:22:01 | INFO |        2.231 |  68 2        0.032 
+2020-05-11 18:22:01 | INFO |        2.263 |  69 2        0.032 
+2020-05-11 18:22:01 | INFO |        2.294 |  70 2        0.032 
+2020-05-11 18:22:01 | INFO |        2.326 |  71 2        0.032 
+2020-05-11 18:22:01 | INFO |        2.358 |  72 2        0.032 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        2.421 |  73 2        0.063 
+2020-05-11 18:22:01 | INFO |        2.475 |  74 2        0.053 
+2020-05-11 18:22:01 | INFO |        2.522 |  75 2        0.048 
+2020-05-11 18:22:01 | INFO |        2.566 |  76 2        0.043 
+2020-05-11 18:22:01 | INFO |        2.604 |  77 2        0.039 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        2.639 |  78 2        0.035 
+2020-05-11 18:22:01 | INFO |        2.674 |  79 2        0.035 
+2020-05-11 18:22:01 | INFO |        2.709 |  80 2        0.035 
+2020-05-11 18:22:01 | INFO |        2.744 |  81 2        0.035 
+2020-05-11 18:22:01 | INFO |        2.779 |  82 2        0.035 
+2020-05-11 18:22:01 | INFO |        2.814 |  83 2        0.035 
+2020-05-11 18:22:01 | INFO |        2.849 |  84 2        0.035 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        2.898 |  85 2        0.048 
+2020-05-11 18:22:01 | INFO |        2.946 |  86 2        0.048 
+2020-05-11 18:22:01 | INFO |        2.995 |  87 2        0.048 
+2020-05-11 18:22:01 | INFO |        3.038 |  88 2        0.044 
+2020-05-11 18:22:01 | INFO |        3.082 |  89 2        0.044 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        3.121 |  90 2        0.039 
+2020-05-11 18:22:01 | INFO |        3.160 |  91 2        0.039 
+2020-05-11 18:22:01 | INFO |        3.200 |  92 2        0.039 
+2020-05-11 18:22:01 | INFO |        3.239 |  93 2        0.039 
+2020-05-11 18:22:01 | INFO |        3.278 |  94 2        0.039 
+2020-05-11 18:22:01 | INFO |        3.318 |  95 2        0.039 
+2020-05-11 18:22:01 | INFO |        3.357 |  96 2        0.039 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        3.404 |  97 2        0.047 
+2020-05-11 18:22:01 | INFO |        3.451 |  98 2        0.047 
+2020-05-11 18:22:01 | INFO |        3.498 |  99 2        0.047 
+2020-05-11 18:22:01 | INFO |        3.546 | 100 2        0.047 
+2020-05-11 18:22:01 | INFO |        3.588 | 101 2        0.042 
+2020-05-11 18:22:01 | INFO |        3.613 | 102 1        0.024 
+2020-05-11 18:22:01 | INFO |        3.637 | 103 1        0.024 
+2020-05-11 18:22:01 | INFO |        3.662 | 104 1        0.024 
+2020-05-11 18:22:01 | INFO |        3.710 | 105 2        0.049 
+2020-05-11 18:22:01 | INFO |        3.759 | 106 2        0.049 
+2020-05-11 18:22:01 | INFO |        3.808 | 107 2        0.049 
+2020-05-11 18:22:01 | INFO |        3.857 | 108 2        0.049 
+2020-05-11 18:22:01 | INFO |        3.906 | 109 2        0.049 
+2020-05-11 18:22:01 | INFO |        3.955 | 110 2        0.049 
+2020-05-11 18:22:01 | INFO |        4.004 | 111 2        0.049 
+2020-05-11 18:22:01 | INFO |        4.053 | 112 2        0.049 
+2020-05-11 18:22:01 | INFO |        4.102 | 113 2        0.049 
+2020-05-11 18:22:01 | INFO |        4.151 | 114 2        0.049 
+2020-05-11 18:22:01 | INFO |        4.200 | 115 2        0.049 
+2020-05-11 18:22:01 | INFO |        4.249 | 116 2        0.049 
+2020-05-11 18:22:01 | INFO |        4.298 | 117 2        0.049 
+2020-05-11 18:22:01 | INFO |        4.347 | 118 2        0.049 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        4.400 | 119 2        0.053 
+2020-05-11 18:22:01 | INFO |        4.453 | 120 2        0.053 
+2020-05-11 18:22:01 | INFO |        4.506 | 121 2        0.053 
+2020-05-11 18:22:01 | INFO |        4.559 | 122 2        0.053 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        4.591 | 123 1        0.033 
+2020-05-11 18:22:01 | INFO |        4.624 | 124 1        0.033 
+2020-05-11 18:22:01 | INFO |        4.656 | 125 1        0.033 
+2020-05-11 18:22:01 | INFO |        4.689 | 126 2        0.033 
+2020-05-11 18:22:01 | INFO |        4.721 | 127 2        0.033 
+2020-05-11 18:22:01 | INFO |        4.754 | 128 2        0.033 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        4.819 | 129 2        0.065 
+2020-05-11 18:22:01 | INFO |        4.884 | 130 2        0.065 
+2020-05-11 18:22:01 | INFO |        4.949 | 131 2        0.065 
+2020-05-11 18:22:01 | INFO |        5.014 | 132 2        0.065 
+2020-05-11 18:22:01 | INFO |        5.073 | 133 2        0.059 
+2020-05-11 18:22:01 | INFO |        5.106 | 134 1        0.033 
+2020-05-11 18:22:01 | INFO |        5.139 | 135 1        0.033 
+2020-05-11 18:22:01 | INFO |        5.173 | 136 1        0.033 
+2020-05-11 18:22:01 | INFO |        5.239 | 137 2        0.067 
+2020-05-11 18:22:01 | INFO |        5.306 | 138 2        0.067 
+2020-05-11 18:22:01 | INFO |        5.373 | 139 2        0.067 
+2020-05-11 18:22:01 | INFO |        5.439 | 140 2        0.067 
+2020-05-11 18:22:01 | INFO |        5.506 | 141 2        0.067 
+2020-05-11 18:22:01 | INFO |        5.572 | 142 2        0.067 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        5.610 | 143 1        0.038 
+2020-05-11 18:22:01 | INFO |        5.648 | 144 1        0.038 
+2020-05-11 18:22:01 | INFO |        5.685 | 145 1        0.038 
+2020-05-11 18:22:01 | INFO |        5.760 | 146 2        0.075 
+2020-05-11 18:22:01 | INFO |        5.835 | 147 2        0.075 
+2020-05-11 18:22:01 | INFO |        5.911 | 148 2        0.075 
+2020-05-11 18:22:01 | INFO |        5.986 | 149 2        0.075 
+2020-05-11 18:22:01 | INFO |        6.061 | 150 2        0.075 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        6.136 | 151 1        0.075 
+2020-05-11 18:22:01 | INFO |        6.189 | 152 1        0.053 
+2020-05-11 18:22:01 | INFO |        6.237 | 153 1        0.048 
+2020-05-11 18:22:01 | INFO |        6.285 | 154 1        0.048 
+2020-05-11 18:22:01 | INFO |        6.333 | 155 1        0.048 
+2020-05-11 18:22:01 | INFO |        6.429 | 156 2        0.096 
+2020-05-11 18:22:01 | INFO |        6.509 | 157 2        0.080 
+2020-05-11 18:22:01 | INFO |        6.589 | 158 2        0.080 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        6.642 | 159 1        0.053 
+2020-05-11 18:22:01 | INFO |        6.694 | 160 1        0.053 
+2020-05-11 18:22:01 | INFO |        6.747 | 161 1        0.053 
+2020-05-11 18:22:01 | INFO |        6.853 | 162 2        0.105 
+2020-05-11 18:22:01 | INFO |        6.947 | 163 2        0.095 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        7.118 | 164 1        0.171 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        7.214 | 165 1        0.096 
+2020-05-11 18:22:01 | INFO |        7.310 | 166 1        0.096 
+2020-05-11 18:22:01 | INFO |        7.405 | 167 1        0.096 
+2020-05-11 18:22:01 | INFO |        7.501 | 168 2        0.096 
+2020-05-11 18:22:01 | INFO |        7.597 | 169 2        0.096 
+2020-05-11 18:22:01 | INFO |        7.788 | 170 2        0.191 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        7.980 | 171 1        0.191 
+2020-05-11 18:22:01 | INFO |        8.136 | 172 1        0.156 
+2020-05-11 18:22:01 | INFO |        8.292 | 173 1        0.156 
+2020-05-11 18:22:01 | INFO |        8.604 | 174 1        0.312 
+2020-05-11 18:22:01 | INFO |        8.916 | 175 1        0.312 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |        9.540 | 176 1        0.624 
+2020-05-11 18:22:01 | INFO |       10.164 | 177 1        0.624 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |       11.413 | 178 1        1.248 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |       13.910 | 179 1        2.497 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |       18.904 | 180 1        4.994 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |       28.892 | 181 1        9.988 
+2020-05-11 18:22:01 | DEBUG | call of SolverReInit ie a new symbolic and numerical factorization will be performed
+2020-05-11 18:22:01 | INFO |       30.000 | 182 1        1.108 
+2020-05-11 18:22:01 | INFO | 
+2020-05-11 18:22:01 | INFO | execution Stats :
+2020-05-11 18:22:01 | INFO | 
+2020-05-11 18:22:01 | INFO | number of iterations                     = 208
+2020-05-11 18:22:01 | INFO | number of Residual evaluations           = 414
+2020-05-11 18:22:01 | INFO | number of Jacobian evaluations           = 62
+2020-05-11 18:22:01 | INFO | number of Nonlinear iterations           = 412
+2020-05-11 18:22:01 | INFO | number of error test failures            = 10
+2020-05-11 18:22:01 | INFO | number of Nonlinear convergence failures = 0
+2020-05-11 18:22:01 | INFO | number of root functions evaluations     = 260
+2020-05-11 18:22:01 | INFO | end of job 'SMIB_LoadVarQ'

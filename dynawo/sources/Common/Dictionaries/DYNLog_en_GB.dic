@@ -16,6 +16,7 @@ ModelDesc                     =             instancing model description %1% ...
 ModelConnectorsNB             =             model connectors (Y,Flow) NB = %1%
 ModelConnectorsList           =             connectors list
 StaticConnect                 =             connecting %1%_%2% with %3%
+DynamicConnectStart           =             connection list
 DynamicConnect                =             connecting %1%_%2% with %3%_%4%
 ModelName                     =             model :
 ConnectedModels               =             model %1% to model %2%
@@ -33,13 +34,10 @@ WrongParameterNum             =             unable to load dump state : Number o
 SubModelFeqFormulaNotExist    =             failed to retrieve equation %2% of submodel %1%
 SubModelGeqFormulaNotExist    =             failed to retrieve root equation %2% of submodel %1%
 //---------------------- PARAMETER -------------------------------------
-ParamSameValue                =             %1% same value as %2%
 ParamNoValueFound             =             no value found for parameter %1%
 InternalParam                 =             parameter %1% was computed internally
-ParamOppositeValue            =             %1% opposite value of %2%
 ParamUnused                   =             parameter %1% in model %2% is not used
 ParamValueInOrigin            =             parameter %1% has value %3% (coming from origin %2%)
-ModelMultiGetParam            =             get parameter value in model multi : %1% value: %2% in submodel: %3%
 ModelMultiParamNotFound       =             in model multi get parameter value: Model: %1%  Parameter: %2% not found.
 //---------------------- COMPILER --------------------------------------
 DDBDir                        =             DDB Dir : %1%
@@ -91,6 +89,19 @@ HvdcExtDynModel               =             HVDC %1% using an external dynamic m
 AddingHvdcToNetwork           =             adding HVDC %1% to the Network.
 TapChangerLocked              =             %1%:  Tap changer is blocked
 NetworkInitSwitchCurrentsFailed =           model network : initialization of switches' currents failed
+NetworkStats                  =             network statistics:
+NetworkNbVoltagelevel         =             number of voltage levels              : %1%
+NetworkNbBus                  =             number of buses                       : %1%
+NetworkNbSwitches             =             number of switches                    : %1% (static: %2%, dynamic: %3%)
+NetworkNbLoads                =             number of loads                       : %1% (static: %2%, dynamic: %3%)
+NetworkNbGenerators           =             number of generator                   : %1% (static: %2%, dynamic: %3%)
+NetworkNbShunt                =             number of shunt compensators          : %1% (static: %2%, dynamic: %3%)
+NetworkNbSVC                  =             number of SVCs                        : %1% (static: %2%, dynamic: %3%)
+NetworkNbDanglingLine         =             number of dangling lines              : %1% (static: %2%, dynamic: %3%)
+NetworkNbLine                 =             number of lines                       : %1% (static: %2%, dynamic: %3%)
+NetworkNbTwoWTfo              =             number of two windings transformers   : %1% (static: %2%, dynamic: %3%)
+NetworkNbThreeWTfo            =             number of three windings transformers : %1% (static: %2%, dynamic: %3%)
+NetworkNbHVDC                 =             number of HCDCs                       : %1% (static: %2%, dynamic: %3%)
 //---------------------- DATAINTERFACE --------------------------------------
 VariableNotSet                =             %1% : "%3%" is not set for model %2%
 BusUnderVoltage               =             node: %1% has a voltage %2% p.u. < %3% p.u. (criteria id: %4%)
@@ -135,16 +146,25 @@ NotInstancedModel             =             one of the two models has not been i
 ModeChange                    =             %1% for model %2%
 SubModelExtVar                =             subModel : %1%  Var -%2%- is external and not connected
 KeepSubNetwork                =             keep SubNetworks num : %1%
+CurveInit                     =             starting curve initialization
+CurveInitEnd                  =             end of curve initialization, added %1% curves
 AddingCurve                   =             adding curve : Id: %1%; curve: %2% found. (exact name)
 AddingCurveParam              =             adding parameter curve: Id: %1%; parameter curve: %2% found. (exact name)
 AddingCurveOutput             =             adding curve : Id: %1%; output: %2% found.( %3% )
 CurveNotAdded                 =             curve not added: Id: %1% , name: %2%
 // --> DYNSimulation
 NewStartPoint                 =             calculation of the new starting point of the simulation.
-ParamCurveUpdated             =             parameter curve:%1% curve variable:%2% updated.
-ParamCurveNotFound            =             parameter curve:%1% curve variable:%2% not found. not updated.
 NbVar                         =             number of variables : %1%
 NbRootFunctions               =             number of root functions : %1%
+ModelBuilding                 =             building model from input files
+ModelBuildingEnd              =             model was built successfully
+ModelInitialStateLoad         =             starting load of initial state
+ModelInitialStateLoadEnd      =             initial state was successfully loaded
+ModelLocalInit                =             starting local initialization
+ModelLocalInitEnd             =             end of local initialization
+ModelGlobalInit               =             starting global initialization
+ModelGlobalInitEnd            =             end of global initialization
+SimulationStart               =             starting simulation with solver %1%
 // --> DYNSolverIDA
 SolverIDAInitOk               =             initialization of IDA solver : ok
 SolverIDABeforeCalcIC         =             BEFORE CALC IC
@@ -173,7 +193,6 @@ SolverIDAErrorValue           =             error > %1% : variable %2%, error %3
 SolverInstableRoot            =             instability for the root  :%1% switch from %2% to %3%
 SolverInstableRootFound       =             at least one root is not stable
 SolverNbYVar                  =             number of continuous variables : %1%
-SolverVarDisplayLimit         =             display limited to %1% variables
 SolverNbZVar                  =             number of discrete variables : %1%
 // --> DYNSolverSIM
 SolverSIMInitOK               =             initialization of SIM solver : ok
