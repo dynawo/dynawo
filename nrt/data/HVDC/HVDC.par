@@ -81,23 +81,11 @@
     <par type="DOUBLE" name="hvdc_SNom" value="1000"/>
     <par type="DOUBLE" name="hvdc_SlopeRPFault" value="1000"/>
     <par type="DOUBLE" name="QRef1Pu_ValueIn" value="0.301"/>
-    <par type="DOUBLE" name="QRef1Pu_Height" value="0"/>
-    <par type="DOUBLE" name="QRef1Pu_tStep" value="0.4"/>
     <par type="DOUBLE" name="QRef2Pu_ValueIn" value="0.301"/>
-    <par type="DOUBLE" name="QRef2Pu_Height" value="0"/>
-    <par type="DOUBLE" name="QRef2Pu_tStep" value="0.4"/>
     <par type="DOUBLE" name="URef1Pu_ValueIn" value="1.066617"/>
-    <par type="DOUBLE" name="URef1Pu_Height" value="0"/>
-    <par type="DOUBLE" name="URef1Pu_tStep" value="3"/>
     <par type="DOUBLE" name="URef2Pu_ValueIn" value="1.079767"/>
-    <par type="DOUBLE" name="URef2Pu_Height" value="0"/>
-    <par type="DOUBLE" name="URef2Pu_tStep" value="4.5"/>
     <par type="DOUBLE" name="UdcRefPu_ValueIn" value="1"/>
-    <par type="DOUBLE" name="UdcRefPu_Height" value="0"/>
-    <par type="DOUBLE" name="UdcRefPu_tStep" value="6"/>
     <par type="DOUBLE" name="PRefPu_ValueIn" value="0.898"/>
-    <par type="DOUBLE" name="PRefPu_Height" value="0"/>
-    <par type="DOUBLE" name="PRefPu_tStep" value="7.5"/>
     <par type="DOUBLE" name="hvdc_modeU1Set" value="1"/>
     <par type="DOUBLE" name="hvdc_modeU2Set" value="1"/>
   </set>
