@@ -170,10 +170,18 @@ GeneratorInterfaceIIDM::getQMax() {
     return generatorIIDM_.minMaxReactiveLimits().max();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
     double qMax = 0;
-    for (unsigned int i = 0; i <= generatorIIDM_.reactiveCapabilityCurve().size(); ++i) {
-      IIDM::ReactiveCapabilityCurve::point const& current_point = generatorIIDM_.reactiveCapabilityCurve()[i];
-      if (current_point.qmax > qMax)
-        qMax = current_point.qmax;
+    if (- getP() < generatorIIDM_.reactiveCapabilityCurve()[0].p) {
+      qMax = generatorIIDM_.reactiveCapabilityCurve()[0].qmax;
+    } else if (- getP() > generatorIIDM_.reactiveCapabilityCurve()[generatorIIDM_.reactiveCapabilityCurve().size() - 1].p) {
+      qMax = generatorIIDM_.reactiveCapabilityCurve()[generatorIIDM_.reactiveCapabilityCurve().size() - 1].qmax;
+    } else {
+      for (unsigned int i = 0; i <= generatorIIDM_.reactiveCapabilityCurve().size() - 2; ++i) {
+        IIDM::ReactiveCapabilityCurve::point current_point = generatorIIDM_.reactiveCapabilityCurve()[i];
+        IIDM::ReactiveCapabilityCurve::point next_point = generatorIIDM_.reactiveCapabilityCurve()[i+1];
+        if (current_point.p <= - getP() && next_point.p >= - getP()) {
+          qMax = current_point.qmax + (- getP() - current_point.p) * (next_point.qmax - current_point.qmax) / (next_point.p - current_point.p);
+        }
+      }
     }
     return qMax;
   } else {
@@ -187,10 +195,18 @@ GeneratorInterfaceIIDM::getQMin() {
     return generatorIIDM_.minMaxReactiveLimits().min();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
     double qMin = 0;
-    for (unsigned int i = 0; i <= generatorIIDM_.reactiveCapabilityCurve().size(); ++i) {
-      IIDM::ReactiveCapabilityCurve::point const& current_point = generatorIIDM_.reactiveCapabilityCurve()[i];
-      if (current_point.qmin < qMin)
-        qMin = current_point.qmin;
+    if (- getP() < generatorIIDM_.reactiveCapabilityCurve()[0].p) {
+      qMin = generatorIIDM_.reactiveCapabilityCurve()[0].qmin;
+    } else if (- getP() > generatorIIDM_.reactiveCapabilityCurve()[generatorIIDM_.reactiveCapabilityCurve().size() - 1].p) {
+      qMin = generatorIIDM_.reactiveCapabilityCurve()[generatorIIDM_.reactiveCapabilityCurve().size() - 1].qmin;
+    } else {
+      for (unsigned int i = 0; i <= generatorIIDM_.reactiveCapabilityCurve().size() - 2; ++i) {
+        IIDM::ReactiveCapabilityCurve::point current_point = generatorIIDM_.reactiveCapabilityCurve()[i];
+        IIDM::ReactiveCapabilityCurve::point next_point = generatorIIDM_.reactiveCapabilityCurve()[i+1];
+        if (current_point.p <= - getP() && next_point.p >= - getP()) {
+          qMin = current_point.qmin + (- getP() - current_point.p) * (next_point.qmin - current_point.qmin) / (next_point.p - current_point.p);
+        }
+      }
     }
     return qMin;
   } else {
