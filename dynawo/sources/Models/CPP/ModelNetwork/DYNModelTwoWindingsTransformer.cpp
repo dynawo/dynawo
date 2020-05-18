@@ -217,17 +217,22 @@ modelType_("TwoWindingsTransformer") {
   factorPuToASide1_ = 1000. * SNREF / (sqrt(3.) * vNom1_);
   factorPuToASide2_ = 1000. * SNREF / (sqrt(3.) * vNom2_);
 
+  double limit = 0.;
   // current limits side 1
   vector<shared_ptr<CurrentLimitInterface> > cLimit1 = tfo->getCurrentLimitInterfaces1();
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
     // Due to IIDM convention
-    double limit = cLimit1[0]->getLimit() / factorPuToASide1_;
-    currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration());
+    if (cLimit1[0]->getLimit() < maximumValueCurrentLimit) {
+      limit = cLimit1[0]->getLimit() / factorPuToASide1_;
+      currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration());
+    }
     for (unsigned int i = 1; i < cLimit1.size(); ++i) {
-      limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
-      currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
+      if (cLimit1[i-1]->getLimit() < maximumValueCurrentLimit) {
+        limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
+        currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
+      }
     }
   }
 
@@ -237,11 +242,15 @@ modelType_("TwoWindingsTransformer") {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
     // Due to IIDM convention
-    double limit = cLimit2[0]->getLimit() / factorPuToASide2_;
-    currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration());
+    if (cLimit2[0]->getLimit() < maximumValueCurrentLimit) {
+      limit = cLimit2[0]->getLimit() / factorPuToASide2_;
+      currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration());
+    }
     for (unsigned int i = 1; i < cLimit2.size(); ++i) {
-      limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
-      currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
+      if (cLimit2[i-1]->getLimit() < maximumValueCurrentLimit) {
+        limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
+        currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
+      }
     }
   }
 
