@@ -66,10 +66,7 @@ namespace DYN {
 
   bool
   PhaseTapChangerInterfaceIIDM::isCurrentLimiter() const {
-    if (tapChangerIIDM_.regulationMode() == IIDM::PhaseTapChanger::mode_current_limiter)
-      return true;
-    else
-      return false;
+    return tapChangerIIDM_.regulationMode() == IIDM::PhaseTapChanger::mode_current_limiter;
   }
 
   bool
