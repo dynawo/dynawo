@@ -79,7 +79,7 @@ extern "C" void DYN::ModelOmegaRefFactory::destroy(DYN::SubModel* model) const {
 }
 
 namespace DYN {
-static const int nbMaxCC = 10;  ///< max number of subNewtork where omegaRef is calculated
+static const int nbMaxCC = 10;  ///< max number of subNetwork where omegaRef is calculated
 
 int ModelOmegaRef::col1stOmegaRef_;
 int ModelOmegaRef::col1stOmega_;
