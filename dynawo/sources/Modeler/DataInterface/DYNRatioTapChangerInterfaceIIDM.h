@@ -76,6 +76,11 @@ class RatioTapChangerInterfaceIIDM : public RatioTapChangerInterface {
   unsigned int getNbTap() const;
 
   /**
+   * @copydoc RatioTapChangerInterface::hasLoadTapChangingCapabilities() const
+   */
+  bool hasLoadTapChangingCapabilities() const;
+
+  /**
    * @copydoc RatioTapChangerInterface::getRegulating() const
    */
   bool getRegulating() const;

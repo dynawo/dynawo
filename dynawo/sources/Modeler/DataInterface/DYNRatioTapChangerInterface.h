@@ -73,6 +73,12 @@ class RatioTapChangerInterface {
   virtual unsigned int getNbTap() const = 0;
 
   /**
+   * @brief Indicates if the ratio tap changer has load tap changing capabilities
+   * @return @b true if the ratio tap changer has load tap changing capabilities
+   */
+  virtual bool hasLoadTapChangingCapabilities() const = 0;
+
+  /**
    * @brief Getter for the current status of the ratio tap changer
    * @return @b true is the ratio tap changer is regulating, @b false else
    */

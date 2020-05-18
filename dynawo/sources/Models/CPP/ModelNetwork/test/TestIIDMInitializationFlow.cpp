@@ -76,7 +76,7 @@ initializeModelNetwork(shared_ptr<DataInterface> data) {
 
 struct NetworkProperty {
   bool instantiateTwoWindingTransformer;
-  bool instantiateRadioTap;
+  bool instantiateRatioTap;
   bool instantiateDanglingLine;
   bool instantiateLine;
   bool instantiateLoad;
@@ -147,8 +147,10 @@ createNetwork(const NetworkProperty& properties) {
   if (properties.instantiateTwoWindingTransformer) {
     IIDM::builders::Transformer2WindingsBuilder t2Wb;
     IIDM::Transformer2Windings t2W = t2Wb.build("MyTransformer2Winding");
-    if (properties.instantiateRadioTap) {
+    if (properties.instantiateRatioTap) {
       IIDM::RatioTapChanger rtp(0, 0, true);
+      IIDM::TerminalReference tr("", IIDM::side_1);
+      rtp.terminalReference(tr);
       t2W.ratioTapChanger(rtp);
     }
     ss.add(t2W, c1, c2);
@@ -172,7 +174,7 @@ createNetwork(const NetworkProperty& properties) {
 TEST(ModelsModelNetwork, TestNetworkCreation) {
   const NetworkProperty properties = {
       true /*instantiateTwoWindingTransformer*/,
-      true /*instantiateRadioTap*/,
+      true /*instantiateRatioTap*/,
       true /*instantiateDanglingLine*/,
       true /*instantiateLine*/,
       true /*instantiateLoad*/,
@@ -191,7 +193,7 @@ TEST(ModelsModelNetwork, TestNetworkCreation) {
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerParam) {
   const NetworkProperty properties = {
       true /*instantiateTwoWindingTransformer*/,
-      false /*instantiateRadioTap*/,
+      false /*instantiateRatioTap*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -221,7 +223,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerParam) {
 TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerWithRatioTapChangerParam) {
   const NetworkProperty properties = {
       true /*instantiateTwoWindingTransformer*/,
-      true /*instantiateRadioTap*/,
+      true /*instantiateRatioTap*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -259,7 +261,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingTransformerWithRatioTapChangerPar
 TEST(ModelsModelNetwork, ModelNetworkBusParam) {
   const NetworkProperty properties = {
       false /*instantiateTwoWindingTransformer*/,
-      false /*instantiateRadioTap*/,
+      false /*instantiateRatioTap*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -289,7 +291,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusParam) {
 TEST(ModelsModelNetwork, ModelNetworkDanglingLineParam) {
   const NetworkProperty properties = {
       false /*instantiateTwoWindingTransformer*/,
-      false /*instantiateRadioTap*/,
+      false /*instantiateRatioTap*/,
       true /*instantiateDanglingLine*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -313,7 +315,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineParam) {
 TEST(ModelsModelNetwork, ModelNetworkLineParam) {
   const NetworkProperty properties = {
       false /*instantiateTwoWindingTransformer*/,
-      false /*instantiateRadioTap*/,
+      false /*instantiateRatioTap*/,
       false /*instantiateDanglingLine*/,
       true /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -337,7 +339,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineParam) {
 TEST(ModelsModelNetwork, ModelNetworkLoadParam) {
   const NetworkProperty properties = {
       false /*instantiateTwoWindingTransformer*/,
-      false /*instantiateRadioTap*/,
+      false /*instantiateRatioTap*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateLine*/,
       true /*instantiateLoad*/,
@@ -401,7 +403,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadParam) {
 TEST(ModelsModelNetwork, ModelNetworkCapacitorShuntCompensatorParam) {
   const NetworkProperty properties = {
       false /*instantiateTwoWindingTransformer*/,
-      false /*instantiateRadioTap*/,
+      false /*instantiateRatioTap*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -429,7 +431,7 @@ TEST(ModelsModelNetwork, ModelNetworkCapacitorShuntCompensatorParam) {
 TEST(ModelsModelNetwork, ModelNetworkReactanceShuntCompensatorParam) {
   const NetworkProperty properties = {
       false /*instantiateTwoWindingTransformer*/,
-      false /*instantiateRadioTap*/,
+      false /*instantiateRatioTap*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,
@@ -457,7 +459,7 @@ TEST(ModelsModelNetwork, ModelNetworkReactanceShuntCompensatorParam) {
 TEST(ModeslModelNetwork, ModelNetworkSwitchVariablesCheck) {
   const NetworkProperty properties = {
       false /*instantiateTwoWindingTransformer*/,
-      false /*instantiateRadioTap*/,
+      false /*instantiateRatioTap*/,
       false /*instantiateDanglingLine*/,
       false /*instantiateLine*/,
       false /*instantiateLoad*/,

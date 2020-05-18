@@ -156,6 +156,7 @@ modelType_("TwoWindingsTransformer") {
 
   if (phaseTapChanger) {
     modelPhaseChanger_.reset(new ModelPhaseTapChanger(tfo->getID()));
+
     vector<shared_ptr<StepInterface> > steps = phaseTapChanger->getSteps();
     int lowIndex = phaseTapChanger->getLowPosition();
     double rTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentR() / 100. : 0.;
@@ -163,11 +164,9 @@ modelType_("TwoWindingsTransformer") {
     double bTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentB() / 100. : 0.;
     double gTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentG() / 100. : 0.;
     double rhoTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentRho() : 1;
-
     for (unsigned int i = 0; i < steps.size(); ++i) {
       double rho = ratio * rhoTapChanger * steps[i]->getRho();
       double phaseShift = steps[i]->getAlpha() * DEG_TO_RAD;
-
       double rTap = r * (1. + rTapChanger + steps[i]->getR() / 100.);
       double xTap = x * (1. + xTapChanger + steps[i]->getX() / 100.);
       double gTap = g * (1. + gTapChanger + steps[i]->getG() / 100.);
@@ -177,42 +176,59 @@ modelType_("TwoWindingsTransformer") {
     modelPhaseChanger_->setLowStepIndex(lowIndex);
     modelPhaseChanger_->setHighStepIndex(phaseTapChanger->getNbTap() - 1. + lowIndex);
     modelPhaseChanger_->setCurrentStepIndex(phaseTapChanger->getCurrentPosition());
+
+    // At the moment, only current regulation is supported.
+    bool regulating = phaseTapChanger->isCurrentLimiter() && phaseTapChanger->getRegulating();
+    double thresholdI = phaseTapChanger->getThresholdI();
+    modelPhaseChanger_->setRegulating(regulating);
+    modelPhaseChanger_->setThresholdI(thresholdI);
   } else if (ratioTapChanger) {
-    modelRatioChanger_.reset(new ModelRatioTapChanger(tfo->getID(), tfo->getRatioTapChanger()->getTerminalRefSide()));
+    if (tfo->getRatioTapChanger()->hasLoadTapChangingCapabilities() && tfo->getRatioTapChanger()->getTerminalRefSide() != "") {
+      modelRatioChanger_.reset(new ModelRatioTapChanger(tfo->getID(), tfo->getRatioTapChanger()->getTerminalRefSide()));
 
-    vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
-    int lowIndex = ratioTapChanger->getLowPosition();
-    double rTapChanger = phaseTapChanger ? phaseTapChanger->getCurrentR() / 100. : 0.;
-    double xTapChanger = phaseTapChanger ? phaseTapChanger->getCurrentX() / 100. : 0.;
-    double bTapChanger = phaseTapChanger ? phaseTapChanger->getCurrentB() / 100. : 0.;
-    double gTapChanger = phaseTapChanger ? phaseTapChanger->getCurrentG() / 100. : 0.;
-    double rhoTapChanger = phaseTapChanger ? phaseTapChanger->getCurrentRho() : 1.;
-    double shiftTapChanger = phaseTapChanger ? phaseTapChanger->getCurrentAlpha() * DEG_TO_RAD : 0.;
+      terminalRefId_ = tfo->getRatioTapChanger()->getTerminalRefId();
+      side_ = tfo->getRatioTapChanger()->getTerminalRefSide();
+      vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
+      int lowIndex = ratioTapChanger->getLowPosition();
+      for (unsigned int i = 0; i < steps.size(); ++i) {
+        double rho = ratio * steps[i]->getRho();
+        double rTap = r * (1. + steps[i]->getR() / 100.);
+        double xTap = x * (1. + steps[i]->getX() / 100.);
+        double gTap = g * (1. + steps[i]->getG() / 100.);
+        double bTap = b * (1. + steps[i]->getB() / 100.);
+        modelRatioChanger_->addStep(lowIndex + i, TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
+      }
+      modelRatioChanger_->setLowStepIndex(lowIndex);
+      modelRatioChanger_->setHighStepIndex(ratioTapChanger->getNbTap() - 1. + lowIndex);
+      modelRatioChanger_->setCurrentStepIndex(ratioTapChanger->getCurrentPosition());
 
-    for (unsigned int i = 0; i < steps.size(); ++i) {
-      double rho = ratio * rhoTapChanger * steps[i]->getRho();
-      double phaseShift = shiftTapChanger;
-
-      double rTap = r * (1. + rTapChanger + steps[i]->getR() / 100.);
-      double xTap = x * (1. + xTapChanger + steps[i]->getX() / 100.);
-      double gTap = g * (1. + gTapChanger + steps[i]->getG() / 100.);
-      double bTap = b * (1. + bTapChanger + steps[i]->getB() / 100.);
-      modelRatioChanger_->addStep(lowIndex + i, TapChangerStep(rho, phaseShift, rTap, xTap, gTap, bTap));
+      bool regulating = ratioTapChanger->getRegulating();
+      double targetV = ratioTapChanger->getTargetV();
+      modelRatioChanger_->setRegulating(regulating);
+      modelRatioChanger_->setTargetV(targetV);
+    } else {
+      modelTapChanger_.reset(new ModelTapChanger(tfo->getID()));
+      int currentStepIndex = ratioTapChanger->getCurrentPosition();
+      vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
+      // The steps law begins at 0 while the lowIndex is 1.
+      double rho = steps[currentStepIndex-1]->getRho();
+      double rTap = r * (1. + steps[currentStepIndex-1]->getR() / 100.);
+      double xTap = x * (1. + steps[currentStepIndex-1]->getX() / 100.);
+      double gTap = g * (1. + steps[currentStepIndex-1]->getG() / 100.);
+      double bTap = b * (1. + steps[currentStepIndex-1]->getB() / 100.);
+      modelTapChanger_->addStep(currentStepIndex, TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
+      modelTapChanger_->setLowStepIndex(currentStepIndex);
+      modelTapChanger_->setHighStepIndex(currentStepIndex);
+      modelTapChanger_->setCurrentStepIndex(currentStepIndex);
     }
-    modelRatioChanger_->setLowStepIndex(lowIndex);
-    modelRatioChanger_->setHighStepIndex(ratioTapChanger->getNbTap() - 1. + lowIndex);
-    modelRatioChanger_->setCurrentStepIndex(ratioTapChanger->getCurrentPosition());
-
   } else {
     // create default ratio changer
     modelTapChanger_.reset(new ModelTapChanger(tfo->getID()));
-    double phaseShift = 0.;
-    modelTapChanger_->addStep(0, TapChangerStep(ratio, phaseShift, r, x, g, b));
+    modelTapChanger_->addStep(0, TapChangerStep(ratio, 0, r, x, g, b));
     modelTapChanger_->setLowStepIndex(0);
     modelTapChanger_->setHighStepIndex(0);
     modelTapChanger_->setCurrentStepIndex(0);
   }
-
 
   factorPuToASide1_ = 1000. * SNREF / (sqrt(3.) * vNom1_);
   factorPuToASide2_ = 1000. * SNREF / (sqrt(3.) * vNom2_);
@@ -242,32 +258,6 @@ modelType_("TwoWindingsTransformer") {
     for (unsigned int i = 1; i < cLimit2.size(); ++i) {
       limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
       currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
-    }
-  }
-
-  if (phaseTapChanger) {
-    int lowStepPosition = phaseTapChanger->getLowPosition();
-    int nbTap = phaseTapChanger->getNbTap();
-    bool regulating = phaseTapChanger->getRegulating();
-    double thresholdI = phaseTapChanger->getThresholdI();
-
-    modelPhaseChanger_->setRegulating(regulating);
-    modelPhaseChanger_->setLowStepIndex(lowStepPosition);
-    modelPhaseChanger_->setHighStepIndex(nbTap - 1 + lowStepPosition);
-    modelPhaseChanger_->setThresholdI(thresholdI);
-  } else if (ratioTapChanger) {
-    terminalRefId_ = ratioTapChanger->getTerminalRefId();
-    if (terminalRefId_ != "") {  // terminalRef exist, we could add a tapChanger
-      bool regulating = ratioTapChanger->getRegulating();
-      int lowStepPosition = ratioTapChanger->getLowPosition();
-      int nbTap = ratioTapChanger->getNbTap();
-      double targetV = ratioTapChanger->getTargetV();
-      side_ = ratioTapChanger->getTerminalRefSide();
-
-      modelRatioChanger_->setRegulating(regulating);
-      modelRatioChanger_->setLowStepIndex(lowStepPosition);
-      modelRatioChanger_->setHighStepIndex(nbTap - 1 + lowStepPosition);
-      modelRatioChanger_->setTargetV(targetV);
     }
   }
 
@@ -1317,10 +1307,12 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
       Trace::info() << DYNLog(TapChangerLocked, id_) << Trace::endline;
   }
   if (topologyModified_) {
-    updateYMat_ = true;
+    if (modelRatioChanger_ || modelPhaseChanger_)
+      updateYMat_ = true;
     return NetworkComponent::TOPO_CHANGE;
   } else if (stateIndexModified_) {
-    updateYMat_ = true;
+    if (modelRatioChanger_ || modelPhaseChanger_)
+      updateYMat_ = true;
     return NetworkComponent::STATE_CHANGE;
   }
   return NetworkComponent::NO_CHANGE;

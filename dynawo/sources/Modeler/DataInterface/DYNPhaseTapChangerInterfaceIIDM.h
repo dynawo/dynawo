@@ -74,6 +74,11 @@ class PhaseTapChangerInterfaceIIDM : public PhaseTapChangerInterface {
   unsigned int getNbTap() const;
 
   /**
+   * @copydoc PhaseTapChangerInterface::isCurrentLimiter() const
+   */
+  bool isCurrentLimiter() const;
+
+  /**
    * @copydoc PhaseTapChangerInterface::getRegulating() const
    */
   bool getRegulating() const;
