@@ -71,6 +71,11 @@ RatioTapChangerInterfaceIIDM::getNbTap() const {
 }
 
 bool
+RatioTapChangerInterfaceIIDM::hasLoadTapChangingCapabilities() const {
+  return tapChangerIIDM_.loadTapChangingCapabilities();
+}
+
+bool
 RatioTapChangerInterfaceIIDM::getRegulating() const {
   if (!tapChangerIIDM_.has_regulating())
     return false;

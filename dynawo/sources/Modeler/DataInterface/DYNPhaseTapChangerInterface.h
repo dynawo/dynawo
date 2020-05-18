@@ -70,8 +70,14 @@ class PhaseTapChangerInterface {
   virtual unsigned int getNbTap() const = 0;
 
   /**
+   * @brief Indicates if the regulation mode is current limiter
+   * @return @b true if the phase tap changer regulation mode is current limiter, @b false otherwise
+   */
+  virtual bool isCurrentLimiter() const = 0;
+
+  /**
    * @brief Getter for the current status of the phase tap changer
-   * @return @b true is the phase tap changer is regulating, @b false else
+   * @return @b true if the phase tap changer is regulating, @b false else
    */
   virtual bool getRegulating() const = 0;
 
