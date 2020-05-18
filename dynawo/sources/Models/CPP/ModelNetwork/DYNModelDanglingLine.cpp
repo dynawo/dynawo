@@ -89,17 +89,22 @@ modelType_("DanglingLine")  {
 
 
   double factorPuToA = sqrt(3.) * vNom / (1000. * SNREF);
+  double limit = 0.;
   // current limits
   vector<shared_ptr<CurrentLimitInterface> > cLimit = line->getCurrentLimitInterfaces();
   if (cLimit.size() > 0) {
     currentLimits_.reset(new ModelCurrentLimits());
     currentLimits_->setSide(ModelCurrentLimits::SIDE_UNDEFINED);
     // Due to IIDM convention
-    double limit = cLimit[0]->getLimit() / factorPuToA;
-    currentLimits_->addLimit(limit, cLimit[0]->getAcceptableDuration());
+    if (cLimit[0]->getLimit() < maximumValueCurrentLimit) {
+      limit = cLimit[0]->getLimit() / factorPuToA;
+      currentLimits_->addLimit(limit, cLimit[0]->getAcceptableDuration());
+    }
     for (unsigned int i = 1; i < cLimit.size(); ++i) {
-      limit = cLimit[i-1]->getLimit() / factorPuToA;
-      currentLimits_->addLimit(limit, cLimit[i]->getAcceptableDuration());
+      if (cLimit[i-1]->getLimit() < maximumValueCurrentLimit) {
+        limit = cLimit[i-1]->getLimit() / factorPuToA;
+        currentLimits_->addLimit(limit, cLimit[i]->getAcceptableDuration());
+      }
     }
   }
 
