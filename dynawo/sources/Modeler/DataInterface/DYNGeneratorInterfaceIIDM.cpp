@@ -169,17 +169,20 @@ GeneratorInterfaceIIDM::getQMax() {
   if (generatorIIDM_.has_minMaxReactiveLimits()) {
     return generatorIIDM_.minMaxReactiveLimits().max();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
+    assert(!generatorIIDM_.reactiveCapabilityCurve().empty());
     double qMax = 0;
-    if (- getP() < generatorIIDM_.reactiveCapabilityCurve()[0].p) {
-      qMax = generatorIIDM_.reactiveCapabilityCurve()[0].qmax;
-    } else if (- getP() > generatorIIDM_.reactiveCapabilityCurve()[generatorIIDM_.reactiveCapabilityCurve().size() - 1].p) {
-      qMax = generatorIIDM_.reactiveCapabilityCurve()[generatorIIDM_.reactiveCapabilityCurve().size() - 1].qmax;
+    const double pGen = - getP();
+    const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
+    if (pGen < reactiveCurve[0].p) {
+      qMax = reactiveCurve[0].qmax;
+    } else if (pGen > reactiveCurve[reactiveCurve.size() - 1].p) {
+      qMax = reactiveCurve[reactiveCurve.size() - 1].qmax;
     } else {
-      for (unsigned int i = 0; i <= generatorIIDM_.reactiveCapabilityCurve().size() - 2; ++i) {
-        IIDM::ReactiveCapabilityCurve::point current_point = generatorIIDM_.reactiveCapabilityCurve()[i];
-        IIDM::ReactiveCapabilityCurve::point next_point = generatorIIDM_.reactiveCapabilityCurve()[i+1];
-        if (current_point.p <= - getP() && next_point.p >= - getP()) {
-          qMax = current_point.qmax + (- getP() - current_point.p) * (next_point.qmax - current_point.qmax) / (next_point.p - current_point.p);
+      for (unsigned int i = 0; i <= reactiveCurve.size() - 2; ++i) {
+        IIDM::ReactiveCapabilityCurve::point current_point = reactiveCurve[i];
+        IIDM::ReactiveCapabilityCurve::point next_point = reactiveCurve[i+1];
+        if (current_point.p <= pGen && next_point.p >= pGen) {
+          qMax = current_point.qmax + (pGen - current_point.p) * (next_point.qmax - current_point.qmax) / (next_point.p - current_point.p);
         }
       }
     }
@@ -194,17 +197,20 @@ GeneratorInterfaceIIDM::getQMin() {
   if (generatorIIDM_.has_minMaxReactiveLimits()) {
     return generatorIIDM_.minMaxReactiveLimits().min();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
+    assert(!generatorIIDM_.reactiveCapabilityCurve().empty());
     double qMin = 0;
-    if (- getP() < generatorIIDM_.reactiveCapabilityCurve()[0].p) {
-      qMin = generatorIIDM_.reactiveCapabilityCurve()[0].qmin;
-    } else if (- getP() > generatorIIDM_.reactiveCapabilityCurve()[generatorIIDM_.reactiveCapabilityCurve().size() - 1].p) {
-      qMin = generatorIIDM_.reactiveCapabilityCurve()[generatorIIDM_.reactiveCapabilityCurve().size() - 1].qmin;
+    const double pGen = - getP();
+    const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
+    if (pGen < reactiveCurve[0].p) {
+      qMin = reactiveCurve[0].qmin;
+    } else if (pGen > reactiveCurve[reactiveCurve.size() - 1].p) {
+      qMin = reactiveCurve[reactiveCurve.size() - 1].qmin;
     } else {
-      for (unsigned int i = 0; i <= generatorIIDM_.reactiveCapabilityCurve().size() - 2; ++i) {
-        IIDM::ReactiveCapabilityCurve::point current_point = generatorIIDM_.reactiveCapabilityCurve()[i];
-        IIDM::ReactiveCapabilityCurve::point next_point = generatorIIDM_.reactiveCapabilityCurve()[i+1];
-        if (current_point.p <= - getP() && next_point.p >= - getP()) {
-          qMin = current_point.qmin + (- getP() - current_point.p) * (next_point.qmin - current_point.qmin) / (next_point.p - current_point.p);
+      for (unsigned int i = 0; i <= reactiveCurve.size() - 2; ++i) {
+        IIDM::ReactiveCapabilityCurve::point current_point = reactiveCurve[i];
+        IIDM::ReactiveCapabilityCurve::point next_point = reactiveCurve[i+1];
+        if (current_point.p <= pGen && next_point.p >= pGen) {
+          qMin = current_point.qmin + (pGen - current_point.p) * (next_point.qmin - current_point.qmin) / (next_point.p - current_point.p);
         }
       }
     }
