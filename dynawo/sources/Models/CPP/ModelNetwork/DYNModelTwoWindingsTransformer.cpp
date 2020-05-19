@@ -210,12 +210,13 @@ modelType_("TwoWindingsTransformer") {
       modelTapChanger_.reset(new ModelTapChanger(tfo->getID()));
       int currentStepIndex = ratioTapChanger->getCurrentPosition();
       vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
-      // The steps law begins at 0 while the lowIndex is 1.
-      double rho = steps[currentStepIndex-1]->getRho();
-      double rTap = r * (1. + steps[currentStepIndex-1]->getR() / 100.);
-      double xTap = x * (1. + steps[currentStepIndex-1]->getX() / 100.);
-      double gTap = g * (1. + steps[currentStepIndex-1]->getG() / 100.);
-      double bTap = b * (1. + steps[currentStepIndex-1]->getB() / 100.);
+      // The steps law begins at 0 while the lowIndex could have another value.
+      int indexInSteps = currentStepIndex - ratioTapChanger->getLowPosition();
+      double rho = steps[indexInSteps]->getRho();
+      double rTap = r * (1. + steps[indexInSteps]->getR() / 100.);
+      double xTap = x * (1. + steps[indexInSteps]->getX() / 100.);
+      double gTap = g * (1. + steps[indexInSteps]->getG() / 100.);
+      double bTap = b * (1. + steps[indexInSteps]->getB() / 100.);
       modelTapChanger_->addStep(currentStepIndex, TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
       modelTapChanger_->setLowStepIndex(currentStepIndex);
       modelTapChanger_->setHighStepIndex(currentStepIndex);
