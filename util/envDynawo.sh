@@ -300,7 +300,7 @@ set_environment() {
   export_var_env DYNAWO_HOME=UNDEFINED
   export_git_branch
   export_var_env_force DYNAWO_SRC_DIR=$DYNAWO_HOME/dynawo
-  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")
+  export_var_env DYNAWO_DEPLOY_DIR=$DYNAWO_HOME/deploy/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
 
   SUFFIX_CX11=""
   if [ "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "yes" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "true" -o "$(echo "$DYNAWO_CXX11_ENABLED" | tr '[:upper:]' '[:lower:]')" = "on" ]; then
@@ -1683,6 +1683,7 @@ deploy_dynawo() {
 
   # DYNAWO
   echo "deploying Dynawo"
+  cp $DYNAWO_INSTALL_DIR/dynawo.sh .
   mkdir -p bin
   cp -r $DYNAWO_INSTALL_DIR/bin/* bin/
   cp -r $DYNAWO_INSTALL_DIR/lib/* lib/
@@ -1844,15 +1845,16 @@ create_distrib_with_omc() {
   if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
     error_exit "$DYNAWO_DEPLOY_DIR does not exist."
   fi
-  cd $DYNAWO_DEPLOY_DIR
-  zip -r -y $ZIP_FILE bin/ lib/ sources/ testcases/
+  cd "$DYNAWO_DEPLOY_DIR/.."
+  zip -r -y $ZIP_FILE dynawo/bin/ dynawo/lib/ dynawo/sources/ dynawo/testcases/
+  zip -r -g -y $ZIP_FILE dynawo/dynawo.sh
 
-  zip -r -y $ZIP_FILE share/iidm share/xsd share/*.dic share/*.par share/cmake share/dynawo-*.cmake
+  zip -r -g -y $ZIP_FILE dynawo/share/iidm dynawo/share/xsd dynawo/share/*.dic dynawo/share/*.par dynawo/share/cmake dynawo/share/dynawo-*.cmake
 
   # need with omc binary
-  zip -r -g -y $ZIP_FILE ddb/ include/ sbin/ cmake/
+  zip -r -g -y $ZIP_FILE dynawo/ddb/ dynawo/include/ dynawo/sbin/ dynawo/cmake/
 
-  zip -r -g -y $ZIP_FILE OpenModelica
+  zip -r -g -y $ZIP_FILE dynawo/OpenModelica
 
   # move distribution in distribution directory
   mv $ZIP_FILE $DISTRIB_DIR
@@ -1905,12 +1907,13 @@ create_distrib() {
   if [ ! -d "$DYNAWO_DEPLOY_DIR" ]; then
     error_exit "$DYNAWO_DEPLOY_DIR does not exist."
   fi
-  cd $DYNAWO_DEPLOY_DIR
-  zip -r -y $ZIP_FILE bin/ lib/ share/ sources/
-  zip -r -g -y $ZIP_FILE ddb/*.$DYNAWO_SHARED_LIBRARY_SUFFIX ddb/*.desc.xml ddb/*.extvar
-  zip -r -g -y $ZIP_FILE sbin/curvesToHtml
-  zip -r -g -y $ZIP_FILE sbin/xsl
-  zip -r -g -y $ZIP_FILE sbin/nrt
+  cd "$DYNAWO_DEPLOY_DIR/.."
+  zip -r -y $ZIP_FILE dynawo/bin/ dynawo/lib/ dynawo/share/ dynawo/sources/
+  zip -r -g -y $ZIP_FILE dynawo/dynawo.sh
+  zip -r -g -y $ZIP_FILE dynawo/ddb/*.$DYNAWO_SHARED_LIBRARY_SUFFIX dynawo/ddb/*.desc.xml dynawo/ddb/*.extvar
+  zip -r -g -y $ZIP_FILE dynawo/sbin/curvesToHtml
+  zip -r -g -y $ZIP_FILE dynawo/sbin/xsl
+  zip -r -g -y $ZIP_FILE dynawo/sbin/nrt
 
   # move distribution in distribution directory
   mv $ZIP_FILE $DISTRIB_DIR
