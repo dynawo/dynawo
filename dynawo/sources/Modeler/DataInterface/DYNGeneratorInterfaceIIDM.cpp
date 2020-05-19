@@ -169,7 +169,7 @@ GeneratorInterfaceIIDM::getQMax() {
   if (generatorIIDM_.has_minMaxReactiveLimits()) {
     return generatorIIDM_.minMaxReactiveLimits().max();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
-    assert(!generatorIIDM_.reactiveCapabilityCurve().empty());
+    assert(generatorIIDM_.reactiveCapabilityCurve().size()>0);
     double qMax = 0;
     const double pGen = - getP();
     const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
@@ -197,7 +197,7 @@ GeneratorInterfaceIIDM::getQMin() {
   if (generatorIIDM_.has_minMaxReactiveLimits()) {
     return generatorIIDM_.minMaxReactiveLimits().min();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
-    assert(!generatorIIDM_.reactiveCapabilityCurve().empty());
+    assert(generatorIIDM_.reactiveCapabilityCurve().size()>0);
     double qMin = 0;
     const double pGen = - getP();
     const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
