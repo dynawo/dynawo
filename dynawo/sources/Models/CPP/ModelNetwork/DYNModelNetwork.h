@@ -36,7 +36,7 @@ class ModelVoltageLevel;
 class NetworkComponent;
 class DataInterface;
 
-static const double maximumValueCurrentLimit = 5000;
+static const double maximumValueCurrentLimit = 5000;   ///< Maximum acceptable value for current limits
 
 /**
  * @brief Network Model factory
