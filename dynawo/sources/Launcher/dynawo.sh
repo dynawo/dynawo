@@ -40,7 +40,7 @@ where [option] can be:
     help                       show this message"
 
 set_environment() {
-  export_var_env DYNAWO_INSTALL_DIR="$(dirname $(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd))"
+  export_var_env DYNAWO_INSTALL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
   export LD_LIBRARY_PATH="$DYNAWO_INSTALL_DIR/lib:$LD_LIBRARY_PATH"
 

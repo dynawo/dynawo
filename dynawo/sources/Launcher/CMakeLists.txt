@@ -38,12 +38,12 @@ if(NOT MSVC)
 
   # execution script for distribution
   set(EXEC_DYNAWO
-      execDynawo.sh
+      dynawo.sh
       )
 
-  install(PROGRAMS ${EXEC_DYNAWO} DESTINATION ${BINDIR_NAME})
+  install(PROGRAMS ${EXEC_DYNAWO} DESTINATION .)
 else()
   # Launcher
   configure_file(dynawo.cmd.in dynawo.cmd @ONLY)
-  install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/dynawo.cmd DESTINATION /)
+  install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/dynawo.cmd DESTINATION .)
 endif()
