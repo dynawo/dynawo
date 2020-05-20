@@ -212,7 +212,7 @@ modelType_("TwoWindingsTransformer") {
       vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
       // The steps law begins at 0 while the lowIndex could have another value.
       int indexInSteps = currentStepIndex - ratioTapChanger->getLowPosition();
-      double rho = steps[indexInSteps]->getRho();
+      double rho = ratio * steps[indexInSteps]->getRho();
       double rTap = r * (1. + steps[indexInSteps]->getR() / 100.);
       double xTap = x * (1. + steps[indexInSteps]->getX() / 100.);
       double gTap = g * (1. + steps[indexInSteps]->getG() / 100.);
