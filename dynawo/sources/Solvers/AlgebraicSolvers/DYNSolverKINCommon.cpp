@@ -285,6 +285,9 @@ SolverKINCommon::infoHandlerFn(const char* module, const char* function,
 
 void
 SolverKINCommon::updateStatistics(long int& nni, long int& nre, long int& nje) {
+  if (KINMem_ == NULL)
+    return;
+
   int flag = KINGetNumNonlinSolvIters(KINMem_, &nni);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINGetNumNonlinSolvIters");
