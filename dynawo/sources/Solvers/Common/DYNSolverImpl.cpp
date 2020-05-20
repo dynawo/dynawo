@@ -219,11 +219,13 @@ Solver::Impl::resetStats() {
   // -------------------------------
   stats_.nst_ = 0;
   stats_.nre_ = 0;
-  stats_.nje_ = 0;
   stats_.nni_ = 0;
+  stats_.nje_ = 0;
   stats_.netf_ = 0;
   stats_.ncfn_ = 0;
   stats_.nge_ = 0;
+  stats_.nze_ = 0;
+  stats_.nme_ = 0;
 }
 
 void
@@ -250,6 +252,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
     // evalZ
     model_->evalZ(time);
     zChange = model_->zChange();
+    ++stats_.nze_;
 
     // evaluate G and compare with previous values
     stableRoot = detectUnstableRoot(G0, G1, time);
@@ -265,6 +268,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
   // evalMode
   model_->evalMode(time);
   modeChange = model_->modeChange();
+  ++stats_.nme_;
   if (modeChange) {
     change = true;
     state_.setFlags(ModeChange);
@@ -478,5 +482,25 @@ void
 Solver::Impl::setTimeline(const boost::shared_ptr<Timeline>& timeline) {
   timeline_ = timeline;
 }
+
+void
+Solver::Impl::printEnd() const {
+  // (1) Print on the standard output
+  // -----------------------------------
+  Trace::info() << Trace::endline;
+  Trace::info() << DYNLog(SolverExecutionStats) << Trace::endline;
+  Trace::info() << Trace::endline;
+
+  Trace::info() << DYNLog(SolverNbIter, stats_.nst_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbResEval, stats_.nre_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbJacEval, stats_.nje_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbDiscreteVarsEval, stats_.nze_) << Trace::endline;
+  Trace::info() << DYNLog(SolverNbModeEval, stats_.nme_) << Trace::endline;
+}
+
 
 }  // end namespace DYN
