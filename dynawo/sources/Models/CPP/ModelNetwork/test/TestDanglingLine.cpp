@@ -157,43 +157,38 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineCalculatedVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelDanglingLine::iNum_], 4.3158702611537239);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelDanglingLine::pNum_], 12.270833333333332);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelDanglingLine::qNum_], -12.333333333333336);
-  std::vector<double> yI(4, 0.);
-  yI[0] = 3.5;
-  yI[1] = 2;
-  yI[2] = 4.;
-  yI[3] = 1.5;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelDanglingLine::iNum_, &yI[0], &yp[0]), calculatedVars[ModelDanglingLine::iNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelDanglingLine::pNum_, &yI[0], &yp[0]), calculatedVars[ModelDanglingLine::pNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelDanglingLine::qNum_, &yI[0], &yp[0]), calculatedVars[ModelDanglingLine::qNum_]);
-  ASSERT_THROW_DYNAWO(dl->evalCalculatedVarI(42, &yI[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelDanglingLine::iNum_), calculatedVars[ModelDanglingLine::iNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelDanglingLine::pNum_), calculatedVars[ModelDanglingLine::pNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelDanglingLine::qNum_), calculatedVars[ModelDanglingLine::qNum_]);
+  ASSERT_THROW_DYNAWO(dl->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
   std::vector<double> res(4, 0.);
-  ASSERT_THROW_DYNAWO(dl->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::iNum_, &yI[0], &yp[0], res));
+  ASSERT_THROW_DYNAWO(dl->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::iNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.89020606654237955);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.57965971165276509);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.029365134594484289);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.051087288952047991);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::pNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::pNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 5.3124999999999991);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 3.270833333333333);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.062499999999999972);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.22916666666666669);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::qNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::qNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -5.0625000000000009);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -3.0625);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.22916666666666669);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.062499999999999972);
   dl->setConnectionState(OPEN);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::iNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::iNum_, res));
   for (size_t i = 0; i < res.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(res[i], 0.);
   }
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::pNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::pNum_, res));
   for (size_t i = 0; i < res.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(res[i], 0.);
   }
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::qNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelDanglingLine::qNum_, res));
   for (size_t i = 0; i < res.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(res[i], 0.);
   }
@@ -201,20 +196,20 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineCalculatedVariables) {
   int offset = 2;
   dl->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(dl->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelDanglingLine::iNum_, numVars));
+  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelDanglingLine::iNum_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelDanglingLine::pNum_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelDanglingLine::pNum_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelDanglingLine::qNum_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelDanglingLine::qNum_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
@@ -434,7 +429,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineJt) {
   y[ModelDanglingLine::urFictNum_] = 4.;
   y[ModelDanglingLine::uiFictNum_] = 1.5;
   SparseMatrix smj;
-  int size = dl->sizeF();
+  int size = dl->sizeY();
   smj.init(size, size);
   dl->evalJt(smj, 1., 0);
   ASSERT_EQ(smj.nbElem(), 8);

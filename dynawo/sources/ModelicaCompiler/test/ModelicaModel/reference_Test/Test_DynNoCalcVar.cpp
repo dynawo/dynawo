@@ -346,22 +346,20 @@ void ModelTest_Dyn::evalCalculatedVars(std::vector<double>& calculatedVars)
 {
 }
 
-double ModelTest_Dyn::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
+double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)
+adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
 {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 #endif
 
-std::vector<int> ModelTest_Dyn::getDefJCalculatedVarI(int iCalculatedVar)
+void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
 {
-  std::vector<int> res;
-  return res;
 }
 
 }

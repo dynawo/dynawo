@@ -1314,25 +1314,28 @@ ModelManager::evalCalculatedVars() {
 }
 
 double
-ModelManager::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp) {
-  return modelModelica()->evalCalculatedVarI(iCalculatedVar, y, yp);
+ModelManager::evalCalculatedVarI(unsigned iCalculatedVar) const {
+  return modelModelica()->evalCalculatedVarI(iCalculatedVar);
 }
 
 void
-ModelManager::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res) {
+ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const {
 #if _ADEPT_
   try {
-    size_t size = getDefJCalculatedVarI(iCalculatedVar).size();
+    std::vector<int> indexes;
+    getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes);
+    size_t size = indexes.size();
     assert(res.size() == size);
     size_t nbInput = size;
 
     adept::Stack stack;
     stack.activate();
     vector<adept::adouble> x(nbInput);
-    adept::set_values(&x[0], nbInput, y);
-
     vector<adept::adouble> xp(nbInput);
-    adept::set_values(&xp[0], nbInput, yp);
+    for (size_t i = 0; i < size; ++i) {
+      x[i] = yLocal_[indexes[i]];
+      xp[i] = ypLocal_[indexes[i]];
+    }
 
     stack.new_recording();
     adept::adouble output = modelModelica()->evalCalculatedVarIAdept(iCalculatedVar, x, xp);
@@ -1355,9 +1358,9 @@ ModelManager::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std
 #endif
 }
 
-vector<int>
-ModelManager::getDefJCalculatedVarI(int iCalculatedVar) {
-  return  modelModelica()->getDefJCalculatedVarI(iCalculatedVar);
+void
+ModelManager::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const {
+  return  modelModelica()->getIndexesOfVariablesUsedForCalculatedVarI(iCalculatedVar, indexes);
 }
 
 void

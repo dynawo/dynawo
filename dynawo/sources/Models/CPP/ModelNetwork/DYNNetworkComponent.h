@@ -145,28 +145,24 @@ class NetworkComponent {  ///< Base class for network component models
    * @param numCalculatedVar index of the calculated variable
    * @param numVars index of variables used to define the jacobian
    */
-  virtual void getDefJCalculatedVarI(int numCalculatedVar, std::vector<int>& numVars) = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const = 0;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
    *
    * @param numCalculatedVar index of the calculated variable
-   * @param y value of the variable used to calculate the jacobian
-   * @param yp value of the derivatives of variable used to calculate the jacobian
    * @param res values of the jacobian
    */
-  virtual void evalJCalculatedVarI(int numCalculatedVar, double* y, double* yp, std::vector<double>& res) = 0;
+  virtual void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const = 0;
 
   /**
    * @brief evaluate the value of a calculated variable
    *
    * @param numCalculatedVar index of the calculated variable
-   * @param y values of the variables used to calculate the variable
-   * @param yp values of the derivatives used to calculate the variable
    *
    * @return value of the calculated variable
    */
-  virtual double evalCalculatedVarI(int numCalculatedVar, double* y, double* yp) = 0;
+  virtual double evalCalculatedVarI(unsigned numCalculatedVar) const = 0;
 
   /**
    * @brief evaluate the continuous variable property

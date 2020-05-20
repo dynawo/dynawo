@@ -305,7 +305,7 @@ ModelShuntCompensator::evalCalculatedVars() {
 }
 
 void
-ModelShuntCompensator::getDefJCalculatedVarI(int numCalculatedVar, std::vector<int>& numVars) {
+ModelShuntCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case qNum_: {
       if (isConnected()) {
@@ -322,12 +322,12 @@ ModelShuntCompensator::getDefJCalculatedVarI(int numCalculatedVar, std::vector<i
 }
 
 void
-ModelShuntCompensator::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, std::vector<double>& res) {
+ModelShuntCompensator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const {
   switch (numCalculatedVar) {
     case qNum_: {
       if (isConnected()) {
-        double ur = y[0];
-        double ui = y[1];
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
          // q = -ui*ui*suscepPu_ - ur*ur*suscepPu_
         res[0] = -2. * ur * suscepPu_;  // @Q/@ur
         res[1] = -2. * ui * suscepPu_;  // @Q/@ui
@@ -340,12 +340,12 @@ ModelShuntCompensator::evalJCalculatedVarI(int numCalculatedVar, double* y, doub
 }
 
 double
-ModelShuntCompensator::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
+ModelShuntCompensator::evalCalculatedVarI(unsigned numCalculatedVar) const {
   switch (numCalculatedVar) {
     case qNum_: {
       if (isConnected()) {
-        double ur = y[0];
-        double ui = y[1];
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
         double ir = -suscepPu_ * ui;
         double ii = suscepPu_ * ur;
         return (ui * ir - ur * ii);   // Q value

@@ -78,17 +78,17 @@ ModelThreeWindingsTransformer::evalCalculatedVars() {
 }
 
 void
-ModelThreeWindingsTransformer::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& /*numVars*/) {
+ModelThreeWindingsTransformer::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& /*numVars*/) const {
   throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
 }
 
 void
-ModelThreeWindingsTransformer::evalJCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*yp*/, vector<double>& /*res*/) {
+ModelThreeWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& /*res*/) const {
   throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
 }
 
 double
-ModelThreeWindingsTransformer::evalCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*yp*/) {
+ModelThreeWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) const {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
 }
 

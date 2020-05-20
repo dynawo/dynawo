@@ -1128,27 +1128,28 @@ ModelNetwork::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix
     (*itComponent)->evalJtPrim(jt, rowOffset);
 }
 
-vector<int>
-ModelNetwork::getDefJCalculatedVarI(int iCalculatedVar) {
+void
+ModelNetwork::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const {
   int index = componentIndexByCalculatedVar_[iCalculatedVar];
-  int varIndex = iCalculatedVar - getComponents()[index]->getOffsetCalculatedVar();
-  vector<int> numVars;
-  getComponents()[index]->getDefJCalculatedVarI(varIndex, numVars);
-  return numVars;
+  const boost::shared_ptr<NetworkComponent>& comp = (isInitModel_) ?  initComponents_[index] : components_[index];
+  unsigned varIndex = iCalculatedVar - comp->getOffsetCalculatedVar();
+  comp->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, indexes);
 }
 
 void
-ModelNetwork::evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, vector<double> &res) {
+ModelNetwork::evalJCalculatedVarI(unsigned iCalculatedVar, vector<double> &res) const {
   int index = componentIndexByCalculatedVar_[iCalculatedVar];
-  int varIndex = iCalculatedVar - getComponents()[index]->getOffsetCalculatedVar();
-  getComponents()[index]->evalJCalculatedVarI(varIndex, y, yp, res);
+  const boost::shared_ptr<NetworkComponent>& comp = (isInitModel_) ?  initComponents_[index] : components_[index];
+  unsigned varIndex = iCalculatedVar - comp->getOffsetCalculatedVar();
+  comp->evalJCalculatedVarI(varIndex, res);
 }
 
 double
-ModelNetwork::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp) {
+ModelNetwork::evalCalculatedVarI(unsigned iCalculatedVar) const {
   int index = componentIndexByCalculatedVar_[iCalculatedVar];
-  int varIndex = iCalculatedVar - getComponents()[index]->getOffsetCalculatedVar();
-  return getComponents()[index]->evalCalculatedVarI(varIndex, y, yp);
+  const boost::shared_ptr<NetworkComponent>& comp = (isInitModel_) ?  initComponents_[index] : components_[index];
+  unsigned varIndex = iCalculatedVar - comp->getOffsetCalculatedVar();
+  return comp->evalCalculatedVarI(varIndex);
 }
 
 void

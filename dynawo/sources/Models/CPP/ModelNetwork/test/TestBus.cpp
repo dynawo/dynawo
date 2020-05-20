@@ -151,14 +151,11 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phipuNum_], 0.057080782406264609);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::uNum_], 1.7528548142958102);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phiNum_], 3.2704879231835657);
-  std::vector<double> yI(2, 0.);
-  yI[0] = 0.35;
-  yI[1] = 0.02;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::upuNum_, &yI[0], &yp[0]), calculatedVars[ModelBus::upuNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phipuNum_, &yI[0], &yp[0]), calculatedVars[ModelBus::phipuNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::uNum_, &yI[0], &yp[0]), calculatedVars[ModelBus::uNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phiNum_, &yI[0], &yp[0]), calculatedVars[ModelBus::phiNum_]);
-  ASSERT_THROW_DYNAWO(bus->evalCalculatedVarI(42, &yI[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::upuNum_), calculatedVars[ModelBus::upuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phipuNum_), calculatedVars[ModelBus::phipuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::uNum_), calculatedVars[ModelBus::uNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phiNum_), calculatedVars[ModelBus::phiNum_]);
+  ASSERT_THROW_DYNAWO(bus->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
   bus->switchOff();
   bus->evalCalculatedVars();
@@ -166,42 +163,44 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phipuNum_], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::uNum_], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelBus::phiNum_], 0.);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::upuNum_, &yI[0], &yp[0]), calculatedVars[ModelBus::upuNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phipuNum_, &yI[0], &yp[0]), calculatedVars[ModelBus::phipuNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::uNum_, &yI[0], &yp[0]), calculatedVars[ModelBus::uNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phiNum_, &yI[0], &yp[0]), calculatedVars[ModelBus::phiNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::upuNum_), calculatedVars[ModelBus::upuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phipuNum_), calculatedVars[ModelBus::phipuNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::uNum_), calculatedVars[ModelBus::uNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->evalCalculatedVarI(ModelBus::phiNum_), calculatedVars[ModelBus::phiNum_]);
   bus->switchOn();
 
   std::vector<double> res(2, 0.);
-  ASSERT_THROW_DYNAWO(bus->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::upuNum_, &yI[0], &yp[0], res));
+  y[ModelBus::urNum_] = 0.35;
+  y[ModelBus::uiNum_] = 0.02;
+  ASSERT_THROW_DYNAWO(bus->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::upuNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.99837133442397663);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.057049790538512953);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phipuNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phipuNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -0.16273393002441011);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 2.8478437754271764);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::uNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::uNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 4.9918566721198836);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.28524895269256478);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phiNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phiNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -9.3239673739759699);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 163.16942904457943);
   std::fill(res.begin(), res.end(), 0);
 
   bus->switchOff();
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::upuNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::upuNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phipuNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phipuNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::uNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::uNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
-  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phiNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(bus->evalJCalculatedVarI(ModelBus::phiNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   bus->switchOn();
@@ -209,26 +208,26 @@ TEST(ModelsModelNetwork, ModelNetworkBusCalculatedVariables) {
   int offset = 2;
   bus->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(bus->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(bus->getDefJCalculatedVarI(ModelBus::upuNum_, numVars));
+  ASSERT_THROW_DYNAWO(bus->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::upuNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(bus->getDefJCalculatedVarI(ModelBus::phipuNum_, numVars));
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::phipuNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(bus->getDefJCalculatedVarI(ModelBus::uNum_, numVars));
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::uNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(bus->getDefJCalculatedVarI(ModelBus::phiNum_, numVars));
+  ASSERT_NO_THROW(bus->getIndexesOfVariablesUsedForCalculatedVarI(ModelBus::phiNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i + 2);
@@ -567,7 +566,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   y[ModelBus::urNum_] = 0.35;
   y[ModelBus::uiNum_] = 0.02;
   SparseMatrix smj;
-  int size = bus->sizeF();
+  int size = bus->sizeY();
   smj.init(size, size);
   bus->evalJt(smj, 1., 0);
   ASSERT_EQ(smj.nbElem(), 0);
@@ -577,10 +576,15 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
   int yNum = 2;
   bus->init(yNum);
   ASSERT_EQ(yNum, 6);
+  yNum = 0;
+  bus->init(yNum);
   bus->evalDerivatives(1);
   SparseMatrix smj2;
+  size = bus->sizeY();
   smj2.init(size, size);
   bus->evalJt(smj2, 1., 0);
+  smj2.changeCol();
+  smj2.changeCol();
   ASSERT_EQ(smj2.nbElem(), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[0], -1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ax_[1], -1.);
@@ -590,8 +594,11 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
 
   bus->switchOff();
   SparseMatrix smj3;
+  size = bus->sizeY();
   smj3.init(size, size);
   bus->evalJt(smj3, 1., 0);
+  smj3.changeCol();
+  smj3.changeCol();
   ASSERT_EQ(smj3.nbElem(), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[0], 1.0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj3.Ax_[1], 1.0);
@@ -731,9 +738,15 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
 
 
   SparseMatrix smj;
-  int size = bus1->sizeF()+ bus2->sizeF() + bus3->sizeF();
+  int size = bus1->sizeY()+ bus2->sizeY() + bus3->sizeY();
   smj.init(size, size);
   container.evalJt(smj, 1., 0);
+  smj.changeCol();
+  smj.changeCol();
+  smj.changeCol();
+  smj.changeCol();
+  smj.changeCol();
+  smj.changeCol();
   ASSERT_EQ(smj.nbElem(), 6);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[0], -1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[1], -1.);

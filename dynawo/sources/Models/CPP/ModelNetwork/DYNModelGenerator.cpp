@@ -248,7 +248,7 @@ ModelGenerator::evalCalculatedVars() {
 }
 
 void
-ModelGenerator::getDefJCalculatedVarI(int numCalculatedVar, std::vector<int> & numVars) {
+ModelGenerator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const {
   switch (numCalculatedVar) {
     case pNum_:
     case qNum_: {
@@ -268,13 +268,13 @@ ModelGenerator::getDefJCalculatedVarI(int numCalculatedVar, std::vector<int> & n
 }
 
 void
-ModelGenerator::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, std::vector<double>& res) {
+ModelGenerator::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const {
   switch (numCalculatedVar) {
     case pNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
         // P = -(ur*ir + ui* ii)
-        double ur = y[0];
-        double ui = y[1];
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
         double U2 = ur * ur + ui * ui;
         if (!doubleIsZero(U2)) {
           double Pc = PcPu();
@@ -288,8 +288,8 @@ ModelGenerator::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*y
     case qNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
         // q = ui*ir - ur * ii
-        double ur = y[0];
-        double ui = y[1];
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
         double U2 = ur * ur + ui * ui;
         if (!doubleIsZero(U2)) {
           double Pc = PcPu();
@@ -308,13 +308,13 @@ ModelGenerator::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*y
 }
 
 double
-ModelGenerator::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
+ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) const {
   switch (numCalculatedVar) {
     case pNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
         // P = ur*ir + ui* ii
-        double ur = y[0];
-        double ui = y[1];
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
         double U2 = ur * ur + ui * ui;
         if (!doubleIsZero(U2)) {
           double Pc = PcPu();
@@ -327,8 +327,8 @@ ModelGenerator::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp
     case qNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
         // q = ui*ir - ur * ii
-        double ur = y[0];
-        double ui = y[1];
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
         double U2 = ur * ur + ui * ui;
         if (!doubleIsZero(U2)) {
           double Pc = PcPu();

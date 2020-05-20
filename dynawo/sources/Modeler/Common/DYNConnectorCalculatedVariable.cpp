@@ -41,21 +41,17 @@ using boost::shared_ptr;
 using parameters::ParametersSet;
 
 namespace DYN {
-const int ConnectorCalculatedVariable::colCalculatedVariable_ = 0;
-const int ConnectorCalculatedVariable::col1stYModelExt_ = 1;
 
 ConnectorCalculatedVariable::ConnectorCalculatedVariable() :
-indexCalculatedVariable_(0),
-nbVarExt_(0) {
+indexCalculatedVariable_(0) {
 }
 
 void ConnectorCalculatedVariable::getSize() {
   sizeF_ = 1;
-  sizeY_ = nbVarExt_ + 1;  // the value and the y variable of the model used to calculate the value
+  sizeY_ = 1;
   sizeZ_ = 0;
   sizeG_ = 0;
   sizeMode_ = 0;
-  calculatedVars_.assign(nbCalculatedVars_, 0);
 }
 
 void
@@ -75,11 +71,8 @@ ConnectorCalculatedVariable::checkParametersCoherence() const {
 
 void
 ConnectorCalculatedVariable::evalF(const double& /*t*/) {
-  // computing the model calculated variables
-  double output = model_->evalCalculatedVarI(indexCalculatedVariable_, &yLocal_[1], &ypLocal_[1]);  //  first variable in y is the value of the output
-
-  // only one equation 0 = output - yLocal
-  fLocal_[0] = output - yLocal_[0];
+  // only one equation 0 = calculated var - yLocal
+  fLocal_[0] = model_->evalCalculatedVarI(indexCalculatedVariable_) - yLocal_[0];
 }
 
 void
@@ -98,14 +91,14 @@ ConnectorCalculatedVariable::evalJt(const double& /*t*/, const double& /*cj*/, S
   const double dMOne(-1.);
 
   Jt.changeCol();
-  Jt.addTerm(colCalculatedVariable_ + rowOffset, dMOne);  // d(f)/d(yLocal) = -1;
+  Jt.addTerm(rowOffset, dMOne);  // d(f)/d(yLocal) = -1;
 
+  vector<double> JModel(varExtIndexes_.size());
+  model_->evalJCalculatedVarI(indexCalculatedVariable_, JModel);
 
-  vector<double> JModel(nbVarExt_);
-  model_->evalJCalculatedVarI(indexCalculatedVariable_, &yLocal_[1], &ypLocal_[1], JModel);
-
-  for (int i = 0; i < nbVarExt_; ++i)  // d(f)/dyModel = d(calculatedVariable)/d(yModel)
-    Jt.addTerm(i + col1stYModelExt_ + rowOffset, JModel[i]);
+  for (unsigned i = 0, iEnd = varExtIndexes_.size(); i < iEnd; ++i) {  // d(f)/dyModel = d(calculatedVariable)/d(yModel)
+    Jt.addTerm(model_->getOffsetY() + varExtIndexes_[i], JModel[i]);
+  }
 }
 
 void
@@ -128,7 +121,6 @@ ConnectorCalculatedVariable::evalMode(const double& /*t*/) {
 
 void
 ConnectorCalculatedVariable::evalCalculatedVars() {
-  calculatedVars_[0] = yLocal_[0];
 }
 
 void
@@ -137,52 +129,35 @@ ConnectorCalculatedVariable::setParams(const shared_ptr<SubModel>& model, const 
   indexCalculatedVariable_ = indexCalculatedVariable;
   if (indexCalculatedVariable_ == -1)
     throw DYNError(Error::MODELER, UndefCalculatedVar);
-  nbVarExt_ = model_->getDefJCalculatedVarI(indexCalculatedVariable_).size();
+  model_->getIndexesOfVariablesUsedForCalculatedVarI(indexCalculatedVariable_, varExtIndexes_);
 }
 
 void
-ConnectorCalculatedVariable::evalJCalculatedVarI(int /*iCalculatedVar*/, double* /*y*/, double* /*yp*/, vector<double>& /*JI*/) {
+ConnectorCalculatedVariable::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*JI*/) const {
   throw DYNError(Error::MODELER, FuncNotYetCoded);
 }
 
-vector<int>
-ConnectorCalculatedVariable::getDefJCalculatedVarI(int /*iCalculatedVar*/) {
+void
+ConnectorCalculatedVariable::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
   throw DYNError(Error::MODELER, FuncNotYetCoded);
 }
 
 double
-ConnectorCalculatedVariable::evalCalculatedVarI(int /*iCalculatedVar*/, double* /*y*/, double* /*yp*/) {
+ConnectorCalculatedVariable::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
   throw DYNError(Error::MODELER, FuncNotYetCoded);
 }
 
 void
 ConnectorCalculatedVariable::getY0() {
-  vector<double> y;
-  vector<double> yp;
-  vector<double> z;
-  y.resize(model_->sizeY());
-  z.resize(model_->sizeZ());
-  yp.resize(model_->sizeY());
-  model_->getY0Values(y, yp, z);
+  model_->getY0Sub();
 
-  yLocal_[0] = model_->getCalculatedVar(indexCalculatedVariable_);  // valeur calculée à l'instant zero
-
-  vector<int> numVars = model_->getDefJCalculatedVarI(indexCalculatedVariable_);
-
-  for (unsigned int i = 0; i < numVars.size(); ++i)
-    yLocal_[1+i] = y[numVars[i]];
-
+  yLocal_[0] = model_->getCalculatedVar(indexCalculatedVariable_);  // value computed at t=0
   ypLocal_[0] = 0.;
-  for (unsigned int i = 0; i < numVars.size(); ++i)
-    ypLocal_[1+i] = yp[numVars[i]];
 }
 
 void
 ConnectorCalculatedVariable::evalYType() {
   yType_[0] = ALGEBRAIC;  // the calculated variable is an algebraic variable
-
-  for (int i = 0; i < nbVarExt_; ++i)
-    yType_[1 + i] = EXTERNAL;
 }
 
 void
@@ -195,12 +170,6 @@ ConnectorCalculatedVariable::defineVariables(vector<boost::shared_ptr<Variable> 
   typeVar_t type = model_->getVariable(variableName_)->getType();
   assert(type == CONTINUOUS || type == FLOW);
   variables.push_back(VariableNativeFactory::createState("connector_" + name(), type));
-
-  for (int i = 0; i < nbVarExt_; ++i) {
-    std::stringstream var;
-    var << "connector_varExt_" << name() << "_" << i;
-    variables.push_back(VariableNativeFactory::createState(var.str(), CONTINUOUS));
-  }
 }
 
 void

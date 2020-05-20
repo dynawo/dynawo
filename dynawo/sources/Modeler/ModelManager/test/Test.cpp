@@ -351,7 +351,7 @@ class MyModelica: public ModelModelica {
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(int /*iCalculatedVar*/, double* /*y*/, double* /*yp*/) {
+  double evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
     return 10.;
   }
 
@@ -362,7 +362,7 @@ class MyModelica: public ModelModelica {
    * @param iCalculatedVar index of the calculated variable
    * @return value of the calculated variable
    */
-  adept::adouble evalCalculatedVarIAdept(int /*iCalculatedVar*/, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/) {
+  adept::adouble evalCalculatedVarIAdept(unsigned /*iCalculatedVar*/, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/) const {
     return 2*y[0];
   }
 #endif
@@ -374,11 +374,9 @@ class MyModelica: public ModelModelica {
    *
    * @return index of variables used to define the jacobian
    */
-  std::vector<int> getDefJCalculatedVarI(int /*iCalculatedVar*/) {
-    std::vector<int> res;
-    res.push_back(0);
-    res.push_back(1);
-    return res;
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& indexe) const {
+    indexe.push_back(0);
+    indexe.push_back(1);
   }
 
  private:
@@ -586,8 +584,9 @@ TEST(TestModelManager, TestModelManagerBasics) {
   ASSERT_EQ(mm->evalMode(0.), DIFFERENTIAL_MODE);
   mm->evalCalculatedVars();
   mm->testNbCallCalcVars(1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(mm->evalCalculatedVarI(0, NULL, NULL), 10.);
-  std::vector<int> res = mm->getDefJCalculatedVarI(0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(mm->evalCalculatedVarI(0), 10.);
+  std::vector<int> res;
+  mm->getIndexesOfVariablesUsedForCalculatedVarI(0, res);
   ASSERT_EQ(res.size(), 2);
   ASSERT_EQ(res[0], 0);
   ASSERT_EQ(res[1], 1);
@@ -677,7 +676,7 @@ TEST(TestModelManager, TestModelManagerBasics) {
   ASSERT_EQ(y[0], 2);
 
   std::vector<double> calcVarJRes(2, 0.);
-  mm->evalJCalculatedVarI(0, &y[0], &yp[0], calcVarJRes);
+  mm->evalJCalculatedVarI(0, calcVarJRes);
   ASSERT_EQ(calcVarJRes[0], 2);
   ASSERT_EQ(calcVarJRes[1], 0);
 

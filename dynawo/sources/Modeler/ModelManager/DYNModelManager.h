@@ -226,19 +226,19 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**
-   * @copydoc SubModel::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
+   * @copydoc SubModel::evalCalculatedVarI(unsigned iCalculatedVar) const
    */
-  double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp);
+  double evalCalculatedVarI(unsigned iCalculatedVar) const;
 
   /**
-   * @copydoc SubModel::evalJCalculatedVarI()
+   * @copydoc SubModel::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double> & res) const
    */
-  void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double> & res);
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double> & res) const;
 
   /**
-   * @copydoc SubModel::getDefJCalculatedVarI( int iCalculatedVar)
+   * @copydoc SubModel::getIndexesOfVariablesUsedForCalculatedVarI( unsigned iCalculatedVar, std::vector<int>& indexes) const
    */
-  std::vector<int> getDefJCalculatedVarI(int iCalculatedVar);
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
 
   /**
    * @copydoc SubModel::initializeStaticData()

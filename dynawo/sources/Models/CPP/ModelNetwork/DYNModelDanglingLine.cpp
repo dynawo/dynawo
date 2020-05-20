@@ -718,7 +718,7 @@ ModelDanglingLine::evalCalculatedVars() {
 }
 
 void
-ModelDanglingLine::getDefJCalculatedVarI(int numCalculatedVar, vector<int> & numVars) {
+ModelDanglingLine::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int> & numVars) const {
   switch (numCalculatedVar) {
     case iNum_:
     case pNum_:
@@ -734,11 +734,11 @@ ModelDanglingLine::getDefJCalculatedVarI(int numCalculatedVar, vector<int> & num
 }
 
 void
-ModelDanglingLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, vector<double>& res) {
-  double ur1 = y[0];
-  double ui1 = y[1];
-  double ur2 = y[2];
-  double ui2 = y[3];
+ModelDanglingLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
+  double ur1 = modelBus_->ur();
+  double ui1 = modelBus_->ui();
+  double ur2 = y_[urFictNum_];
+  double ui2 = y_[uiFictNum_];
 
   double Ir1 = ir1(ur1, ui1, ur2, ui2);
   double Ii1 = ii1(ur1, ui1, ur2, ui2);
@@ -792,12 +792,12 @@ ModelDanglingLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* 
 }
 
 double
-ModelDanglingLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
+ModelDanglingLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
   double output;
-  double ur1 = y[0];
-  double ui1 = y[1];
-  double ur2 = y[2];
-  double ui2 = y[3];
+  double ur1 = modelBus_->ur();
+  double ui1 = modelBus_->ui();
+  double ur2 = y_[urFictNum_];
+  double ui2 = y_[uiFictNum_];
   double Ir1 = ir1(ur1, ui1, ur2, ui2);
   double Ii1 = ii1(ur1, ui1, ur2, ui2);
   switch (numCalculatedVar) {

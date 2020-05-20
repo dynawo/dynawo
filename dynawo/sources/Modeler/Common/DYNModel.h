@@ -336,11 +336,8 @@ class Model {
    * @brief update the subset of calculated variables needed for curves
    *
    * @param curvesCollection set of curves
-   * @param y values of the variables used to calculate the variable
-   * @param yp value of the derivatives used to calculate the variable
    */
-  virtual void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection,
-      const std::vector<double>& y, const std::vector<double>& yp) = 0;
+  virtual void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection) = 0;
 
   /**
    * @brief export the parameters of the model for dump

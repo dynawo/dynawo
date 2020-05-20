@@ -934,7 +934,7 @@ SubModel::addCurve(shared_ptr<curves::Curve>& curve) {
 }
 
 void
-SubModel::updateCalculatedVarForCurve(shared_ptr<curves::Curve>& curve, const double* y, const double* yp) {
+SubModel::updateCalculatedVarForCurve(shared_ptr<curves::Curve>& curve) {
 #ifdef _DEBUG_
   Timer timer("SubModel::updateCalculatedVarForCurve");
   assert(curve);
@@ -946,15 +946,7 @@ SubModel::updateCalculatedVarForCurve(shared_ptr<curves::Curve>& curve, const do
   const shared_ptr <Variable> variable = getVariable(variableName);
 
   const int varNum = variable->getIndex();
-  std::vector<int> numVars = getDefJCalculatedVarI(varNum);
-  size_t nbVar = numVars.size();
-  std::vector<double> yLocal(nbVar);
-  std::vector<double> ypLocal(nbVar);
-  for (size_t i = 0, iEnd = nbVar; i < iEnd; ++i) {
-    yLocal[i] = y[numVars[i]];
-    ypLocal[i] = yp[numVars[i]];
-  }
-  calculatedVars_[varNum] = evalCalculatedVarI(varNum, (nbVar > 0)?&yLocal[0]:NULL, (nbVar > 0)?&ypLocal[0]:NULL);
+  calculatedVars_[varNum] = evalCalculatedVarI(varNum);
 }
 
 void

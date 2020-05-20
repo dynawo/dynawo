@@ -328,7 +328,7 @@ void ModelTest_Dyn::evalCalculatedVars(std::vector<double>& calculatedVars)
   }
 }
 
-double ModelTest_Dyn::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
+double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 {
   if (iCalculatedVar == 0)  /* y */
   {
@@ -338,7 +338,7 @@ double ModelTest_Dyn::evalCalculatedVarI(int iCalculatedVar, double* y, double* 
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)
+adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
 {
   if (iCalculatedVar == 0)  /* y */
   {
@@ -350,13 +350,11 @@ adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(int iCalculatedVar, const 
 }
 #endif
 
-std::vector<int> ModelTest_Dyn::getDefJCalculatedVarI(int iCalculatedVar)
+void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
 {
-  std::vector<int> res;
   if (iCalculatedVar == 0)  /* y */ {
-    res.push_back(0);
+    indexes.push_back(0);
   }
-  return res;
 }
 
 }

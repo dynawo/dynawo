@@ -300,8 +300,8 @@ class Factory:
         self.list_for_evalcalculatedvari = []
         ## List of equations to add in evalCalculatedVarIAdept
         self.list_for_evalcalculatedvariadept = []
-        ## List of equations to add in getDefJCalculatedVarI
-        self.list_for_getdefjcalculatedvari = []
+        ## List of equations to add in getIndexesOfVariablesUsedForCalculatedVarI
+        self.list_for_getindexofvarusedforcalcvari = []
 
         ## List of variables definitions for generic header
         self.list_for_definition_header = []
@@ -2865,22 +2865,7 @@ class Factory:
                     body_translated.append(transform_line(line))
                 # convert native boolean variables
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
-                body = []
-                sorted_indexes = []
-                for line in body_translated:
-                    match_global = ptrn_vars.findall(line)
-                    for val in match_global:
-                        if int(val) not in sorted_indexes:
-                            sorted_indexes.append(int(val))
-                    assert("xd[" not in line)
-                sorted_indexes.sort()
-                for line in body_translated:
-                    index_var = 0
-                    for val in sorted_indexes:
-                        line = line.replace("x["+str(val)+"]", "y["+str(index_var)+"]")
-                        index_var += 1
-                    body.append(line)
-                self.list_for_evalcalculatedvari.extend(body)
+                self.list_for_evalcalculatedvari.extend(body_translated)
             else:
                 self.list_for_evalcalculatedvari.append("    return "+ expr+";\n")
             index += 1
@@ -2966,11 +2951,10 @@ class Factory:
         return self.list_for_evalcalculatedvariadept
 
     ##
-    # prepare the lines that constitues the body for getDefJCalculatedVarI
+    # prepare the lines that constitues the body for getIndexesOfVariablesUsedForCalculatedVarI
     # @param self : object pointer
     # @return
-    def prepare_for_getdefjcalculatedvari(self):
-        self.list_for_getdefjcalculatedvari.append("  std::vector<int> res;\n")
+    def prepare_for_getindexofvarusedforcalcvari(self):
         map_dep = self.reader.get_map_dep_vars_for_func()
         index = 0
         for var in self.reader.list_calculated_vars:
@@ -2986,22 +2970,20 @@ class Factory:
                             if dependency_index not in list_of_indexes:
                                 list_of_indexes.append(dependency_index)
                 if len(list_of_indexes) > 0:
-                    self.list_for_getdefjcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */ {\n")
+                    self.list_for_getindexofvarusedforcalcvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */ {\n")
                     list_of_indexes.sort()
                     for dependency_index in list_of_indexes:
-                        self.list_for_getdefjcalculatedvari.append("    res.push_back(" + str(dependency_index) + ");\n")
-                    self.list_for_getdefjcalculatedvari.append("  }\n")
+                        self.list_for_getindexofvarusedforcalcvari.append("    indexes.push_back(" + str(dependency_index) + ");\n")
+                    self.list_for_getindexofvarusedforcalcvari.append("  }\n")
             index+=1
-
-        self.list_for_getdefjcalculatedvari.append("  return res;\n")
 
 
     ##
-    # return the list of lines that constitues the body of getDefJCalculatedVarI
+    # return the list of lines that constitues the body of getIndexesOfVariablesUsedForCalculatedVarI
     # @param self : object pointer
     # @return list of lines
-    def get_list_for_getdefjcalculatedvari(self):
-        return self.list_for_getdefjcalculatedvari
+    def get_list_for_getindexofvarusedforcalcvari(self):
+        return self.list_for_getindexofvarusedforcalcvari
 
     ##
     # returns the lines that constitues the defines for literal constants
@@ -3176,4 +3158,4 @@ class Factory:
         self.prepare_for_evalcalculatedvars()
         self.prepare_for_evalcalculatedvari()
         self.prepare_for_evalcalculatedvariadept()
-        self.prepare_for_getdefjcalculatedvari()
+        self.prepare_for_getindexofvarusedforcalcvari()

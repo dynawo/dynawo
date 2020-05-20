@@ -54,19 +54,19 @@ class ModelCPP::Impl : public ModelCPP {
   virtual void init(const double &t0) = 0;
 
   /**
-   * @copydoc ModelCPP::getDefJCalculatedVarI()
+   * @copydoc ModelCPP::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
    */
-  virtual std::vector<int> getDefJCalculatedVarI(int iCalculatedVar) = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
 
   /**
-   * @copydoc ModelCPP::evalJCalculatedVarI()
+   * @copydoc ModelCPP::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const
    */
-  virtual void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res) = 0;
+  virtual void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const = 0;
 
   /**
-   * @copydoc ModelCPP::evalCalculatedVarI()
+   * @copydoc ModelCPP::evalCalculatedVarI(unsigned iCalculatedVar) const
    */
-  virtual double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp) = 0;
+  virtual double evalCalculatedVarI(unsigned iCalculatedVar) const = 0;
 
   /**
    * @copydoc ModelCPP::evalF()

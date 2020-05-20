@@ -217,16 +217,15 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  std::vector<int> getDefJCalculatedVarI(int iCalculatedVar) {
-    // Dummy class used for testing
-    return std::vector<int>();
-  }
-
-  void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res) {
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const {
     // Dummy class used for testing
   }
 
-  double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp) {
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const {
+    // Dummy class used for testing
+  }
+
+  double evalCalculatedVarI(unsigned iCalculatedVar) const {
     // Dummy class used for testing
     return 0.;
   }

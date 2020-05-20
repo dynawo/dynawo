@@ -145,28 +145,25 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorCalculatedVariables) {
   capa->setReferenceCalculatedVar(&calculatedVars[0], 0);
   capa->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelShuntCompensator::qNum_], -32.5);
-  std::vector<double> yI(2, 0.);
-  yI[0] = 3.5;
-  yI[1] = 2;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(capa->evalCalculatedVarI(ModelShuntCompensator::qNum_, &yI[0], &yp[0]), calculatedVars[ModelShuntCompensator::qNum_]);
-  ASSERT_THROW_DYNAWO(capa->evalCalculatedVarI(42, &yI[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(capa->evalCalculatedVarI(ModelShuntCompensator::qNum_), calculatedVars[ModelShuntCompensator::qNum_]);
+  ASSERT_THROW_DYNAWO(capa->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
   std::vector<double> res(2, 0.);
-  ASSERT_THROW_DYNAWO(capa->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(capa->evalJCalculatedVarI(ModelShuntCompensator::qNum_, &yI[0], &yp[0], res));
+  ASSERT_THROW_DYNAWO(capa->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(capa->evalJCalculatedVarI(ModelShuntCompensator::qNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -14);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -8);
   res.clear();
   capa->setConnected(OPEN);
-  ASSERT_NO_THROW(capa->evalJCalculatedVarI(ModelShuntCompensator::qNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(capa->evalJCalculatedVarI(ModelShuntCompensator::qNum_, res));
   ASSERT_TRUE(res.empty());
 
   capa->setConnected(CLOSED);
   int offset = 2;
   capa->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(capa->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(capa->getDefJCalculatedVarI(ModelShuntCompensator::qNum_, numVars));
+  ASSERT_THROW_DYNAWO(capa->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(capa->getIndexesOfVariablesUsedForCalculatedVarI(ModelShuntCompensator::qNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
@@ -352,7 +349,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorJt) {
   capa->initSize();
   capa->evalYMat();
   SparseMatrix smj;
-  int size = capa->sizeF();
+  int size = capa->sizeY();
   smj.init(size, size);
   capa->evalJt(smj, 1., 0);
   ASSERT_EQ(smj.nbElem(), 0);

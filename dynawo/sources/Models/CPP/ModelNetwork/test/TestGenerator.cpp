@@ -137,63 +137,60 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorCalculatedVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelGenerator::pNum_], -8.0000000000000002);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelGenerator::qNum_], -4.0000000000000008);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelGenerator::genStateNum_], CLOSED);
-  std::vector<double> yI(2, 0.);
-  yI[0] = 0.35;
-  yI[1] = 0.02;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::pNum_, &yI[0], &yp[0]), calculatedVars[ModelGenerator::pNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::qNum_, &yI[0], &yp[0]), calculatedVars[ModelGenerator::qNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::genStateNum_, &yI[0], &yp[0]), calculatedVars[ModelGenerator::genStateNum_]);
-  ASSERT_THROW_DYNAWO(gen->evalCalculatedVarI(42, &yI[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::pNum_), calculatedVars[ModelGenerator::pNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::qNum_), calculatedVars[ModelGenerator::qNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::genStateNum_), calculatedVars[ModelGenerator::genStateNum_]);
+  ASSERT_THROW_DYNAWO(gen->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
   gen->setConnected(OPEN);
   gen->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelGenerator::pNum_], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelGenerator::qNum_], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelGenerator::genStateNum_], OPEN);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::pNum_, &yI[0], &yp[0]), calculatedVars[ModelGenerator::pNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::qNum_, &yI[0], &yp[0]), calculatedVars[ModelGenerator::qNum_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::genStateNum_, &yI[0], &yp[0]), calculatedVars[ModelGenerator::genStateNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::pNum_), calculatedVars[ModelGenerator::pNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::qNum_), calculatedVars[ModelGenerator::qNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(gen->evalCalculatedVarI(ModelGenerator::genStateNum_), calculatedVars[ModelGenerator::genStateNum_]);
   gen->setConnected(CLOSED);
 
   std::vector<double> res(2, 0.);
-  ASSERT_THROW_DYNAWO(gen->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::pNum_, &yI[0], &yp[0], res));
+  ASSERT_THROW_DYNAWO(gen->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::pNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 1.0380585280245214e-14);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 1.9984014443252818e-15);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::qNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::qNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 2.2204460492503131e-15);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::genStateNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::genStateNum_, res));
   for (size_t i = 0; i < res.size(); ++i) {
     ASSERT_DOUBLE_EQUALS_DYNAWO(res[i], 0.);
   }
 
   gen->setConnected(OPEN);
   res.clear();
-  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::pNum_, &yI[0], &yp[0], res));
-  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::qNum_, &yI[0], &yp[0], res));
-  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::genStateNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::pNum_, res));
+  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::qNum_, res));
+  ASSERT_NO_THROW(gen->evalJCalculatedVarI(ModelGenerator::genStateNum_, res));
   gen->setConnected(CLOSED);
 
   int offset = 2;
   gen->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(gen->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(gen->getDefJCalculatedVarI(ModelGenerator::pNum_, numVars));
+  ASSERT_THROW_DYNAWO(gen->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(gen->getIndexesOfVariablesUsedForCalculatedVarI(ModelGenerator::pNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(gen->getDefJCalculatedVarI(ModelGenerator::qNum_, numVars));
+  ASSERT_NO_THROW(gen->getIndexesOfVariablesUsedForCalculatedVarI(ModelGenerator::qNum_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(gen->getDefJCalculatedVarI(ModelGenerator::genStateNum_, numVars));
+  ASSERT_NO_THROW(gen->getIndexesOfVariablesUsedForCalculatedVarI(ModelGenerator::genStateNum_, numVars));
   ASSERT_EQ(numVars.size(), 0);
 
   shared_ptr<ModelGenerator> genInit = createModelGenerator(false, true).first;
@@ -343,7 +340,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorJt) {
   gen->initSize();
   gen->evalYMat();
   SparseMatrix smj;
-  int size = gen->sizeF();
+  int size = gen->sizeY();
   smj.init(size, size);
   gen->evalJt(smj, 1., 0);
   ASSERT_EQ(smj.nbElem(), 0);

@@ -494,6 +494,7 @@ ModelStaticVarCompensator::evalG(const double& /*t*/) {
   double b = piOut();
   bool bIsbMin = doubleEquals(b, bMin_);
   bool bIsbMax = doubleEquals(b, bMax_);
+  std::cout << "BUBU? " << b << " " << bIsbMin << " " << bMin_ << std::endl;
   g_[2] = (!bIsbMin && (bMin_ - b > 0.)) ? ROOT_UP : ROOT_DOWN;  // B < BMin
   g_[3] = (!bIsbMax && (b - bMax_ > 0.)) ? ROOT_UP : ROOT_DOWN;  // B > BMax
   g_[4] = (bIsbMin || (b - bMin_ > 0.)) ? ROOT_UP : ROOT_DOWN;  // B >= BMin
@@ -513,9 +514,10 @@ ModelStaticVarCompensator::evalCalculatedVars() {
 }
 
 void
-ModelStaticVarCompensator::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
+ModelStaticVarCompensator::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case pNum_:
+      break;
     case qNum_: {
       if (isConnected()) {
         int urYNum = modelBus_->urYNum();
@@ -533,14 +535,15 @@ ModelStaticVarCompensator::getDefJCalculatedVarI(int numCalculatedVar, vector<in
 
 
 void
-ModelStaticVarCompensator::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, vector<double>& res) {
+ModelStaticVarCompensator::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
   switch (numCalculatedVar) {
     case pNum_:
+      break;
     case qNum_: {
       if (isConnected()) {
-        double ur = y[0];
-        double ui = y[1];
-        double b = y[2];
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
+        double b = bSvc();
         // QProduced =  b * (ur * ur + ui * ui * ui)
         res[0] = b * 2. * ur;  // @Q/@Ur
         res[1] = b * 2. * ui;  // @Q/@Ui
@@ -554,15 +557,13 @@ ModelStaticVarCompensator::evalJCalculatedVarI(int numCalculatedVar, double* y, 
 }
 
 double
-ModelStaticVarCompensator::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
+ModelStaticVarCompensator::evalCalculatedVarI(unsigned numCalculatedVar) const {
   switch (numCalculatedVar) {
     case pNum_:
+      return 0.;
     case qNum_: {
       if (isConnected()) {
-        double ur = y[0];
-        double ui = y[1];
-        double b = y[2];
-        return b * (ur * ur + ui * ui);
+        return (isConnected())?-Q():0.;
       }
       break;
     }
