@@ -136,11 +136,6 @@ class SolverSIM : public Solver::Impl {
    */
   void printSolveSpecific(std::stringstream& msg) const;
 
-  /**
-   * @brief print a summary of the execution statistics of the solver
-   */
-  void printEnd();
-
  private:
   /**
    * @brief integrate the DAE over an interval and recalculate it in case of a z change

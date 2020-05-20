@@ -244,7 +244,7 @@ class Solver {
   /**
    * @brief print a summary of the execution statistics of the solver
    */
-  virtual void printEnd() = 0;
+  virtual void printEnd() const = 0;
 
   /**
    * @brief Print all parameters values

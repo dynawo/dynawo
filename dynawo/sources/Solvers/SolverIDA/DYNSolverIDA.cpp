@@ -593,6 +593,7 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
       break;
     case IDA_TSTOP_RETURN:
       msg = "IDA_TSTOP_RETURN";
+      updateStatistics();
       break;
     default:
       analyseFlag(flag);
@@ -741,6 +742,20 @@ SolverIDA::reinit() {
       solverKINYPrim_->solve(noInitSetup);
       solverKINYPrim_->getValues(vYy_, vYp_);
 
+      // Update statistics
+      long int nNewt;
+      long int nre;
+      long int nje;
+      solverKINNormal_->updateStatistics(nNewt, nre, nje);
+      stats_.nre_ += nre;
+      stats_.nni_ += nNewt;
+      stats_.nje_ += nje;
+      solverKINYPrim_->updateStatistics(nNewt, nre, nje);
+      stats_.nre_ += nre;
+      stats_.nni_ += nNewt;
+      stats_.nje_ += nje;
+
+
       // Root stabilization
       model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
       model_->evalG(tSolve_, g1_);
@@ -862,25 +877,6 @@ SolverIDA::errHandlerFn(int error_code, const char* module, const char* function
   } else {
     Trace::error() << module << " " << function << " :" << msg << Trace::endline;
   }
-}
-
-void
-SolverIDA::printEnd() {
-  updateStatistics();
-
-  // (1) Writing on standard output
-  // -----------------------------------
-  Trace::info() << Trace::endline;
-  Trace::info() << DYNLog(SolverExecutionStats) << Trace::endline;
-  Trace::info() << Trace::endline;
-
-  Trace::info() << DYNLog(SolverNbIter, stats_.nst_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbResEval, stats_.nre_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbJacEval, stats_.nje_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
 }
 
 }  // end namespace DYN

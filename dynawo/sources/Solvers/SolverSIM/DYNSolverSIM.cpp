@@ -358,7 +358,6 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
 
   // Limitation to end up the simulation at tEnd
   updateTimeStep(tNxt);
-
   ++stats_.nst_;
 }
 
@@ -662,6 +661,15 @@ SolverSIM::reinit() {
 
     solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
     int flag = solverKINAlgRestoration_->solve(noInitSetup);
+
+    // Update statistics
+    long int nre;
+    long int nje;
+    solverKINAlgRestoration_->updateStatistics(nNewt_, nre, nje);
+    stats_.nre_ += nre;
+    stats_.nni_ += nNewt_;
+    stats_.nje_ += nje;
+
     // If the initial guess is fine, nor the variables neither the time would have changed so we can return here and skip following treatments
     if (flag == KIN_INITIAL_GUESS_OK)
       return;
@@ -697,24 +705,6 @@ SolverSIM::printSolveSpecific(std::stringstream& msg) const {
           << setw(16) << stats_.nni_ << " "
           << setw(10) << stats_.nje_ << " "
           << setw(18) << h_ << " ";
-}
-
-void
-SolverSIM::printEnd() {
-  // (1) Print on the standard output
-  // -----------------------------------
-
-  Trace::info() << Trace::endline;
-  Trace::info() << DYNLog(SolverExecutionStats) << Trace::endline;
-  Trace::info() << Trace::endline;
-
-  Trace::info() << DYNLog(SolverNbIter, stats_.nst_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbResEval, stats_.nre_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbJacEval, stats_.nje_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbNonLinIter, stats_.nni_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbErrorTestFail, stats_.netf_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbNonLinConvFail, stats_.ncfn_) << Trace::endline;
-  Trace::info() << DYNLog(SolverNbRootFuncEval, stats_.nge_) << Trace::endline;
 }
 
 }  // end namespace DYN

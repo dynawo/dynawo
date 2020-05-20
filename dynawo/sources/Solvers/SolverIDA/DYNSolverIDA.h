@@ -123,11 +123,6 @@ class SolverIDA : public Solver::Impl {
   void printSolveSpecific(std::stringstream& msg) const;
 
   /**
-   * @brief print a summary of the execution statistics of the solver
-   */
-  void printEnd();
-
-  /**
    * @brief getter for the state of the solver
    * @return @b true is the solver is in init state, @b false otherwise
    */
