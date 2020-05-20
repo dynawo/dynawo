@@ -135,34 +135,30 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorCalculatedVariables) {
   svc->setReferenceCalculatedVar(&calculatedVars[0], 0);
   svc->evalCalculatedVars();
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelStaticVarCompensator::qNum_], 32.50);
-  std::vector<double> yI(3, 0.);
-  yI[0] = 3.5;
-  yI[1] = 2;
-  yI[2] = 2;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::qNum_, &yI[0], &yp[0]), calculatedVars[ModelStaticVarCompensator::qNum_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::qNum_), calculatedVars[ModelStaticVarCompensator::qNum_]);
   svc->setConnected(OPEN);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::qNum_, &yI[0], &yp[0]), 0.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(svc->evalCalculatedVarI(ModelStaticVarCompensator::qNum_), 0.);
   svc->setConnected(CLOSED);
-  ASSERT_THROW_DYNAWO(svc->evalCalculatedVarI(42, &yI[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_THROW_DYNAWO(svc->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
 
   std::vector<double> res(3, 0.);
-  ASSERT_THROW_DYNAWO(svc->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(svc->evalJCalculatedVarI(ModelStaticVarCompensator::qNum_, &yI[0], &yp[0], res));
+  ASSERT_THROW_DYNAWO(svc->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(svc->evalJCalculatedVarI(ModelStaticVarCompensator::qNum_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 14.00);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 8.00);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 16.25);
   res.clear();
   svc->setConnected(OPEN);
-  ASSERT_NO_THROW(svc->evalJCalculatedVarI(ModelStaticVarCompensator::qNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(svc->evalJCalculatedVarI(ModelStaticVarCompensator::qNum_, res));
   ASSERT_TRUE(res.empty());
 
   svc->setConnected(CLOSED);
   int offset = 2;
   svc->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(svc->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(svc->getDefJCalculatedVarI(ModelStaticVarCompensator::qNum_, numVars));
+  ASSERT_THROW_DYNAWO(svc->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(svc->getIndexesOfVariablesUsedForCalculatedVarI(ModelStaticVarCompensator::qNum_, numVars));
   ASSERT_EQ(numVars.size(), 3);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
@@ -382,7 +378,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorJt) {
   svc->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
   svc->evalYMat();
   SparseMatrix smj;
-  int size = svc->sizeF();
+  int size = svc->sizeY();
   smj.init(size, size);
   svc->evalJt(smj, 1., 0);
   ASSERT_EQ(smj.nbElem(), 7);

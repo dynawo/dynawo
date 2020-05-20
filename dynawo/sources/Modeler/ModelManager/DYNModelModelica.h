@@ -225,12 +225,10 @@ class ModelModelica {
    * @brief evaluate the value of a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
-   * @param y values of the variables used to calculate the variable
-   * @param yp values of the derivatives used to calculate the variable
    *
-   * @return value of the calculated variable
+   * @return value of the calculated variable based on current continuous variables values
    */
-  virtual double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp) = 0;
+  virtual double evalCalculatedVarI(unsigned iCalculatedVar) const = 0;
 
 #ifdef _ADEPT_
   /**
@@ -239,17 +237,17 @@ class ModelModelica {
    * @param iCalculatedVar index of the calculated variable
    * @return value of the calculated variable
    */
-  virtual adept::adouble evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp) = 0;
+  virtual adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &y,
+      const std::vector<adept::adouble> &yp) const = 0;
 #endif
 
 /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
-   *
-   * @return index of variables used to define the jacobian
+   * @param indexes vector to fill with the indexes
    */
-  virtual std::vector<int> getDefJCalculatedVarI(int iCalculatedVar) = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
 };
 }  // namespace DYN
 

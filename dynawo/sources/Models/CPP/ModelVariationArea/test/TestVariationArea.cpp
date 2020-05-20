@@ -230,9 +230,10 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   ASSERT_NO_THROW(modelVariationArea->setFequations());
   ASSERT_NO_THROW(modelVariationArea->setGequations());
   std::vector<double> res;
-  ASSERT_NO_THROW(modelVariationArea->evalJCalculatedVarI(0, NULL, NULL, res));
-  ASSERT_NO_THROW(modelVariationArea->getDefJCalculatedVarI(0));
-  ASSERT_NO_THROW(modelVariationArea->evalCalculatedVarI(0, NULL, NULL));
+  ASSERT_NO_THROW(modelVariationArea->evalJCalculatedVarI(0, res));
+  std::vector<int> indexes;
+  ASSERT_NO_THROW(modelVariationArea->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+  ASSERT_NO_THROW(modelVariationArea->evalCalculatedVarI(0));
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVars());
 
   modelVariationArea->evalF(0);

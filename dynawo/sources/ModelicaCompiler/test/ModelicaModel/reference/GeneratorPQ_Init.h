@@ -39,11 +39,11 @@ namespace DYN {
     void defineParameters(std::vector<ParameterModeler>& parameters);
     void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
     void evalCalculatedVars(std::vector<double>& calculatedVars);
-    double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp);
-    std::vector<int> getDefJCalculatedVarI(int iCalculatedVar);
+    double evalCalculatedVarI(unsigned iCalculatedVar) const;
+    void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
 #ifdef _ADEPT_
     void evalFAdept( const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp, std::vector<adept::adouble> &F);
-    adept::adouble evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp);
+    adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &yp) const;
 #endif
 
     void checkDataCoherence ();
@@ -54,7 +54,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("0fad86cae7aa18be0434b84cbe705786"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("e11dff8c58cf9aa983f707b243d1a317"); }
 
     private:
     DYNDATA * data;

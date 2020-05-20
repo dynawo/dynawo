@@ -106,19 +106,19 @@ class NetworkComponent::Impl : public NetworkComponent {
   virtual void evalCalculatedVars() = 0;
 
   /**
-   * @copydoc NetworkComponent::getDefJCalculatedVarI(int numCalculatedVar, std::vector<int> & numVars)
+   * @copydoc NetworkComponent::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const
    */
-  virtual void getDefJCalculatedVarI(int numCalculatedVar, std::vector<int>& numVars) = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const = 0;
 
   /**
-   * @copydoc NetworkComponent::evalJCalculatedVarI()
+   * @copydoc NetworkComponent::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const
    */
-  virtual void evalJCalculatedVarI(int numCalculatedVar, double* y, double* yp, std::vector<double>& res) = 0;
+  virtual void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const = 0;
 
   /**
-   * @copydoc NetworkComponent::evalCalculatedVarI()
+   * @copydoc NetworkComponent::evalCalculatedVarI(unsigned numCalculatedVar) const
    */
-  virtual double evalCalculatedVarI(int numCalculatedVar, double* y, double* yp) = 0;
+  virtual double evalCalculatedVarI(unsigned numCalculatedVar) const = 0;
 
   /**
    * @copydoc NetworkComponent::evalFType()

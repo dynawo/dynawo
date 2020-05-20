@@ -253,7 +253,7 @@ ModelHvdcLink::evalCalculatedVars() {
 }
 
 void
-ModelHvdcLink::getDefJCalculatedVarI(int numCalculatedVar, std::vector<int> & numVars) {
+ModelHvdcLink::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const {
   // get the index of variables used to define the jacobian associated to a calculated variable
   switch (numCalculatedVar) {
     case p1Num_:
@@ -282,12 +282,12 @@ ModelHvdcLink::getDefJCalculatedVarI(int numCalculatedVar, std::vector<int> & nu
 }
 
 void
-ModelHvdcLink::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, std::vector<double>& res) {
+ModelHvdcLink::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const {
   switch (numCalculatedVar) {
     case p1Num_: {
       if (isConnected1() && isConnected2()) {
-        double ur1 = y[0];
-        double ui1 = y[1];
+        double ur1 = modelBus1_->ur();
+        double ui1 = modelBus1_->ui();
         double U1_2 = ur1 * ur1 + ui1 * ui1;
         // P1 = -( ur1 * ir1 + ui1 * ii1 ) (generator convention)
         res[0] = -(ir1(ur1, ui1, U1_2) + ur1 * ir1_dUr(ur1, ui1, U1_2) + ui1 * ii1_dUr(ur1, ui1, U1_2));  // @P1/@ur1
@@ -300,8 +300,8 @@ ModelHvdcLink::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp
     }
     case p2Num_: {
       if (isConnected1() && isConnected2()) {
-        double ur2 = y[0];
-        double ui2 = y[1];
+        double ur2 = modelBus2_->ur();
+        double ui2 = modelBus2_->ui();
         double U2_2 = ur2 * ur2 + ui2 * ui2;
         // P2 = -( ur2 * ir2 + ui2 * ii2 ) (generator convention)
         res[0] = -(ir2(ur2, ui2, U2_2) + ur2 * ir2_dUr(ur2, ui2, U2_2) + ui2 * ii2_dUr(ur2, ui2, U2_2));  // @P2/@ur2
@@ -314,8 +314,8 @@ ModelHvdcLink::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp
     }
     case q1Num_: {
       if (isConnected1()) {
-        double ur1 = y[0];
-        double ui1 = y[1];
+        double ur1 = modelBus1_->ur();
+        double ui1 = modelBus1_->ui();
         double U1_2 = ur1 * ur1 + ui1 * ui1;
         // Q1 = -( ui1 * ir1 - ur1 * ii1 ) (generator convention)
         res[0] = -(ui1 * ir1_dUr(ur1, ui1, U1_2) - (ii1(ur1, ui1, U1_2) + ur1 * ii1_dUr(ur1, ui1, U1_2)));  // @Q1/@ur1
@@ -328,8 +328,8 @@ ModelHvdcLink::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp
     }
     case q2Num_: {
       if (isConnected2()) {
-        double ur2 = y[0];
-        double ui2 = y[1];
+        double ur2 = modelBus2_->ur();
+        double ui2 = modelBus2_->ui();
         double U2_2 = ur2 * ur2 + ui2 * ui2;
         // Q2 = -( ui2 * ir2 - ur2 * ii2 ) (generator convention)
         res[0] = -(ui2 * ir2_dUr(ur2, ui2, U2_2) - (ii2(ur2, ui2, U2_2) + ur2 * ii2_dUr(ur2, ui2, U2_2)));  // @Q2/@ur2
@@ -346,7 +346,7 @@ ModelHvdcLink::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp
 }
 
 double
-ModelHvdcLink::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
+ModelHvdcLink::evalCalculatedVarI(unsigned numCalculatedVar) const {
   double ur1 = 0.;
   double ui1 = 0.;
   double ur2 = 0.;
@@ -356,16 +356,16 @@ ModelHvdcLink::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*
     case p1Num_:
     case q1Num_: {
       if (isConnected1()) {
-        ur1 = y[0];
-        ui1 = y[1];
+        ur1 = modelBus1_->ur();
+        ui1 = modelBus1_->ui();
       }
       break;
     }
     case p2Num_:
     case q2Num_: {
       if (isConnected2()) {
-        ur2 = y[0];
-        ui2 = y[1];
+        ur2 = modelBus2_->ur();
+        ui2 = modelBus2_->ui();
       }
       break;
     }

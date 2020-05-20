@@ -247,19 +247,19 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void evalCalculatedVars();
 
   /**
-   * @copydoc NetworkComponent::getDefJCalculatedVarI(int numCalculatedVar, std::vector<int>& numVars)
+   * @copydoc NetworkComponent::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const
    */
-  void getDefJCalculatedVarI(int numCalculatedVar, std::vector<int>& numVars);
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
 
   /**
-   * @copydoc NetworkComponent::evalJCalculatedVarI()
+   * @copydoc NetworkComponent::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const
    */
-  void evalJCalculatedVarI(int numCalculatedVar, double* y, double* yp, std::vector<double>& res);
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const;
 
   /**
-   * @copydoc NetworkComponent::evalCalculatedVarI()
+   * @copydoc NetworkComponent::evalCalculatedVarI(unsigned numCalculatedVar) const
    */
-  double evalCalculatedVarI(int numCalculatedVar, double* y, double* yp);
+  double evalCalculatedVarI(unsigned numCalculatedVar) const;
 
   /**
    * @copydoc NetworkComponent::instantiateVariables(std::vector<boost::shared_ptr<Variable> >& variables)

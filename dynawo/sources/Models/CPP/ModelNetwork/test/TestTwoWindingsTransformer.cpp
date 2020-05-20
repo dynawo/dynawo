@@ -279,195 +279,190 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariables) 
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iSide1Num_],  280554.57852180168);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::iSide2Num_], 826.8693826607456);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelTwoWindingsTransformer::twtStateNum_], 2);
-  std::vector<double> yI(4, 0.);
-  yI[0] = 3.5;
-  yI[1] = 2;
-  yI[2] = 4;
-  yI[3] = 1.5;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::i1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::i2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::p1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::p2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::q1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::q2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iSide1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iSide2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_),
                               calculatedVars[ModelTwoWindingsTransformer::twtStateNum_]);
-  ASSERT_THROW_DYNAWO(t2w->evalCalculatedVarI(42, &yI[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_THROW_DYNAWO(t2w->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
 
   std::vector<double> res(4, 0.);
-  ASSERT_THROW_DYNAWO(t2w->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, &yI[0], &yp[0], res));
+  ASSERT_THROW_DYNAWO(t2w->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 5.1884653180093343);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 3.0099528188156892);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.038667189110393511);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.024975861542662795);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.03254954049980735);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.032549540499807343);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.019529724299884407);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.019529724299884404);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::p1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::p1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 24.646048685969205);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 14.29934179121318);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.0095606806228193536);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.18531446909337082);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::p2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::p2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -0.021358967348851739);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -0.19548540592615737);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.055207845128365379);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.13966730458782481);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -34.021904672013058);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -19.509582378621396);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.18531446909337082);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.0095606806228193536);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -0.19548540592615737);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.021358967348851739);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.094915182523564012);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.080838605946987468);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 59911.236960674541);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 34755.941403826226);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 446.49024083383733);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -288.39640769798376);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -59911.236960674541);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -34755.941403826226);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -446.49024083383733);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 288.39640769798376);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 375.84971939124802);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 375.84971939124796);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -225.50983163474882);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -225.50983163474879);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -375.84971939124802);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -375.84971939124796);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 225.50983163474882);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 225.50983163474879);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 59911.236960674541);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 34755.941403826226);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 446.49024083383733);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -288.39640769798376);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 375.84971939124802);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 375.84971939124796);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -225.50983163474882);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -225.50983163474879);
   res.clear();
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_, res));
   ASSERT_EQ(res.size(), 0);
 
   int offset = 4;
   t2w->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(t2w->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, numVars));
+  ASSERT_THROW_DYNAWO(t2w->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::p1Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::p1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::p2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::p2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   ASSERT_EQ(numVars[2], 2);
   ASSERT_EQ(numVars[3], 3);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_, numVars));
   ASSERT_EQ(numVars.size(), 0);
   numVars.clear();
   delete[] zConnected;
@@ -507,166 +502,166 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerCalculatedVariablesOp
   std::vector<double> yI(2, 0.);
   yI[0] = 3.5;
   yI[1] = 2;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::i1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::i2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::i2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::p1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::p2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::p2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::q1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::q2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::q2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iS1ToS2Side2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iS2ToS1Side2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iSide1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_),
                               calculatedVars[ModelTwoWindingsTransformer::iSide2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_, &yI[0], &yp[0]),
+  ASSERT_DOUBLE_EQUALS_DYNAWO(t2w->evalCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_),
                               calculatedVars[ModelTwoWindingsTransformer::twtStateNum_]);
-  ASSERT_THROW_DYNAWO(t2w->evalCalculatedVarI(42, &yI[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_THROW_DYNAWO(t2w->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
 
   std::vector<double> res(4, 0.);
-  ASSERT_THROW_DYNAWO(t2w->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, &yI[0], &yp[0], res));
+  ASSERT_THROW_DYNAWO(t2w->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::p1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::p1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::p2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::p2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0);
   res.clear();
-  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(t2w->evalJCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_, res));
   ASSERT_EQ(res.size(), 0);
 
   int offset = 4;
   t2w->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(t2w->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, numVars));
+  ASSERT_THROW_DYNAWO(t2w->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::i1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::i2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::p1Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::p1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::p2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::p2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::q1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::q2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iS1ToS2Side2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iS2ToS1Side2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iSide1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::iSide2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   ASSERT_EQ(numVars[0], 0);
   ASSERT_EQ(numVars[1], 1);
   numVars.clear();
-  ASSERT_NO_THROW(t2w->getDefJCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_, numVars));
+  ASSERT_NO_THROW(t2w->getIndexesOfVariablesUsedForCalculatedVarI(ModelTwoWindingsTransformer::twtStateNum_, numVars));
   ASSERT_EQ(numVars.size(), 0);
   numVars.clear();
   delete[] zConnected;
@@ -917,7 +912,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerJt) {
   t2w->initSize();
   t2w->evalYMat();
   SparseMatrix smj;
-  int size = t2w->sizeF();
+  int size = t2w->sizeY();
   smj.init(size, size);
   t2w->evalJt(smj, 1., 0);
   ASSERT_EQ(smj.nbElem(), 0);

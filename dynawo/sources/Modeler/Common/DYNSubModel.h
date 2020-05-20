@@ -317,34 +317,29 @@ class SubModel {
   virtual void rotateBuffers() = 0;
 
   /**
-   * @brief get the index of variables used to define the jacobian associated to a calculated variable
+   * @brief get the indexes global of the variables used to compute a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
+   * @param indexes vector to fill with the indexes
    *
-   * @return index of variables used to define the jacobian
    */
-  virtual std::vector<int> getDefJCalculatedVarI(int iCalculatedVar) = 0;
+  virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
 
   /**
-   * @brief evaluate the jacobian associated to a calculated variable
+   * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
    *
    * @param iCalculatedVar index of the calculated variable
-   * @param y value of the variable used to calculate the jacobian
-   * @param yp value of the derivatives of variable used to calculate the jacobian
    * @param res values of the jacobian
    */
-  virtual void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res) = 0;
+  virtual void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const = 0;
 
   /**
    * @brief evaluate the value of a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
-   * @param y values of the variables used to calculate the variable
-   * @param yp values of the derivatives used to calculate the variable
-   *
-   * @return value of the calculated variable
+   * @return value of the calculated variable based on the current values of continuous variables
    */
-  virtual double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp) = 0;
+  virtual double evalCalculatedVarI(unsigned iCalculatedVar) const = 0;
 
   /**
    * @brief set the submodel parameters value
@@ -784,10 +779,8 @@ class SubModel {
    * @brief update the subset of calculated variables needed for curves
    *
    * @param curve curve whose value needs to be updated
-   * @param y values of the variables used to calculate the variable
-   * @param yp values of the derivatives used to calculate the variable
    */
-  void updateCalculatedVarForCurve(boost::shared_ptr<curves::Curve>& curve, const double* y, const double* yp);
+  void updateCalculatedVarForCurve(boost::shared_ptr<curves::Curve>& curve);
 
   /**
    * @brief add a curve of a parameter to store for the model

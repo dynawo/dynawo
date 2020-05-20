@@ -720,7 +720,7 @@ class ModelWriter(ModelWriterBase):
     # @return
     def fill_evalCalculatedVarI(self):
         self.addEmptyLine()
-        self.addLine("double Model" + self.className + "::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)\n")
+        self.addLine("double Model" + self.className + "::evalCalculatedVarI(unsigned iCalculatedVar) const\n")
         self.addLine("{\n")
         self.addBody(self.builder.get_list_for_evalcalculatedvari())
         self.addLine("}\n")
@@ -733,7 +733,7 @@ class ModelWriter(ModelWriterBase):
     def fill_evalCalculatedVarIAdept(self):
         self.addEmptyLine()
         self.addLine("#ifdef _ADEPT_\n")
-        self.addLine("adept::adouble Model" + self.className + "::evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)\n")
+        self.addLine("adept::adouble Model" + self.className + "::evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const\n")
         self.addLine("{\n")
         self.addBody(self.builder.get_list_for_evalcalculatedvariadept())
         self.addLine("}\n")
@@ -741,15 +741,15 @@ class ModelWriter(ModelWriterBase):
 
 
     ##
-    # Add the body of getDefJCalculatedVarI in the cpp file
+    # Add the body of getIndexesOfVariablesUsedForCalculatedVarI in the cpp file
     # @param self : object pointer
     # @return
-    def fill_getDefJCalculatedVarI(self):
+    def fill_getIndexesOfVariablesUsedForCalculatedVarI(self):
         self.addEmptyLine()
-        self.addLine("std::vector<int> Model" + self.className + "::getDefJCalculatedVarI(int iCalculatedVar)\n")
+        self.addLine("void Model" + self.className + "::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const\n")
         self.addLine("{\n")
 
-        self.addBody(self.builder.get_list_for_getdefjcalculatedvari())
+        self.addBody(self.builder.get_list_for_getindexofvarusedforcalcvari())
         self.addLine("}\n")
 
     ##

@@ -717,7 +717,7 @@ ModelLoad::evalCalculatedVars() {
 }
 
 void
-ModelLoad::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
+ModelLoad::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case pNum_: {
       if (isRunning()) {
@@ -761,70 +761,62 @@ ModelLoad::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
 }
 
 void
-ModelLoad::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, vector<double>& res) {
+ModelLoad::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
   switch (numCalculatedVar) {
     case pNum_: {
       if (isRunning()) {
-        unsigned int index = 0;
-        double ur = y[index];
-        ++index;
-        double ui = y[index];
-        ++index;
-        double deltaPc = 0.;
-        double zP = 1.;
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
+        double deltaPcVal = 0.;
+        double zPVal = 1.;
         if (isControllable_) {
-          deltaPc = y[index];
-          ++index;
+          deltaPcVal = deltaPc();
         }
         if (isRestorative_) {
-          zP = y[index];
+          zPVal = zP();
         }
         double U = sqrt(ur * ur + ui * ui);
 
         unsigned int indexRes = 0;
-        res[indexRes] =  zP * P0_ * (1. + deltaPc) * kp_ * alpha_ * ur * pow(U, alpha_ - 2.);  // dP/dUr
+        res[indexRes] =  zPVal * P0_ * (1. + deltaPcVal) * kp_ * alpha_ * ur * pow(U, alpha_ - 2.);  // dP/dUr
         ++indexRes;
-        res[indexRes] =  zP * P0_ * (1. + deltaPc) * kp_ * alpha_ * ui * pow(U, alpha_ - 2.);  // dP/dUi
+        res[indexRes] =  zPVal * P0_ * (1. + deltaPcVal) * kp_ * alpha_ * ui * pow(U, alpha_ - 2.);  // dP/dUi
         ++indexRes;
         if (isControllable_) {
-          res[indexRes] = zP * P0_ * pow(U, alpha_) * kp_;  // dP/d(deltaPc)
+          res[indexRes] = zPVal * P0_ * pow(U, alpha_) * kp_;  // dP/d(deltaPc)
           ++indexRes;
         }
         if (isRestorative_) {
-          res[indexRes] = P0_ * (1. + deltaPc) * pow(U, alpha_) * kp_;  // dP/d(zP)
+          res[indexRes] = P0_ * (1. + deltaPcVal) * pow(U, alpha_) * kp_;  // dP/d(zP)
         }
       }
     }
     break;
     case qNum_: {
       if (isRunning()) {
-        unsigned int index = 0;
-        double ur = y[index];
-        ++index;
-        double ui = y[index];
-        ++index;
-        double deltaQc = 0.;
-        double zQ = 1.;
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
+        double deltaQcVal = 0.;
+        double zQVal = 1.;
         if (isControllable_) {
-          deltaQc = y[index];
-          ++index;
+          deltaQcVal = deltaQc();
         }
         if (isRestorative_) {
-          zQ = y[index];
+          zQVal = zQ();
         }
         double U = sqrt(ur * ur + ui * ui);
 
         unsigned int indexRes = 0;
-        res[indexRes] = zQ * Q0_ * (1. + deltaQc) * kq_ * beta_ * ur * pow(U, beta_ - 2.);  // dQ/dUr
+        res[indexRes] = zQVal * Q0_ * (1. + deltaQcVal) * kq_ * beta_ * ur * pow(U, beta_ - 2.);  // dQ/dUr
         ++indexRes;
-        res[indexRes] = zQ * Q0_ * (1. + deltaQc) * kq_ * beta_ * ui * pow(U, beta_ - 2.);  // dQ/dUi
+        res[indexRes] = zQVal * Q0_ * (1. + deltaQcVal) * kq_ * beta_ * ui * pow(U, beta_ - 2.);  // dQ/dUi
         ++indexRes;
         if (isControllable_) {
-          res[indexRes] = zQ * Q0_ * pow(U, beta_) * kq_;  // dQ/d(deltaQc)
+          res[indexRes] = zQVal * Q0_ * pow(U, beta_) * kq_;  // dQ/d(deltaQc)
           ++indexRes;
         }
         if (isRestorative_) {
-          res[indexRes] = Q0_ * (1. + deltaQc) * pow(U, beta_) * kq_;  // dQ/d(zQ)
+          res[indexRes] = Q0_ * (1. + deltaQcVal) * pow(U, beta_) * kq_;  // dQ/d(zQ)
         }
       }
     }
@@ -849,62 +841,54 @@ ModelLoad::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
 }
 
 double
-ModelLoad::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
+ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
   double output = 0.;
   switch (numCalculatedVar) {
     case pNum_: {
       if (isRunning()) {
-        unsigned int index = 0;
-        double ur = y[index];
-        ++index;
-        double ui = y[index];
-        ++index;
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
         double U = sqrt(ur * ur + ui * ui);
-        double deltaPc = 0.;
-        double zP = 1.;
+        double deltaPcVal = 0.;
+        double zPVal = 1.;
         if (isControllable_) {
-          deltaPc = y[index];
-          ++index;
+          deltaPcVal = deltaPc();
         }
         if (isRestorative_) {
-            zP = y[index];
+          zPVal = zP();
         }
-        output = zP * P0_ * (1. + deltaPc) * pow(U, alpha_) * kp_;
+        output = zPVal * P0_ * (1. + deltaPcVal) * pow(U, alpha_) * kp_;
       }
     }
     break;
     case qNum_: {
       if (isRunning()) {
-        unsigned int index = 0;
-        double ur = y[index];
-        ++index;
-        double ui = y[index];
-        ++index;
+        double ur = modelBus_->ur();
+        double ui = modelBus_->ui();
         double U = sqrt(ur*ur + ui*ui);
-        double deltaQc = 0.;
-        double zQ = 1.;
+        double deltaQcVal = 0.;
+        double zQVal = 1.;
         if (isControllable_) {
-          deltaQc = y[index];
-          ++index;
+          deltaQcVal = deltaQc();
         }
         if (isRestorative_) {
-          zQ = y[index];
+          zQVal = zQ();
         }
-        output = zQ * Q0_ * (1. + deltaQc) * pow(U, beta_) * kq_;
+        output = zQVal * Q0_ * (1. + deltaQcVal) * pow(U, beta_) * kq_;
       }
     }
     break;
     case pcNum_: {
       if (isRunning()) {
-        double deltaPc = (isControllable_) ? y[0] : 0.;
-        output = P0_ * (1. + deltaPc) * kp_;
+        double deltaPcVal = (isControllable_) ? deltaPc() : 0.;
+        output = P0_ * (1. + deltaPcVal) * kp_;
       }
     }
     break;
     case qcNum_: {
       if (isRunning()) {
-        double deltaQc = (isControllable_) ? y[0] : 0.;
-        output = Q0_ * (1. + deltaQc) * kq_;
+        double deltaQcVal = (isControllable_) ? deltaQc() : 0.;
+        output = Q0_ * (1. + deltaQcVal) * kq_;
       }
     }
     break;

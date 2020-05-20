@@ -781,7 +781,6 @@ ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, 
   shared_ptr<ConnectorCalculatedVariable> connector;
   string name = subModel1->name()+"_"+calculatedVarName1;
   boost::shared_ptr<SubModel> subModelConnector = findSubModelByName(name);
-  int col1stYModelExt;
   if (!subModelConnector) {
     // Multiple connection to the same connector can happen with flow connections
     connector = shared_ptr<ConnectorCalculatedVariable>(new ConnectorCalculatedVariable());
@@ -789,16 +788,7 @@ ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, 
     connector->setVariableName(calculatedVarName1);
     connector->setParams(subModel1, numVar);
     subModelConnector = dynamic_pointer_cast<SubModel> (connector);
-    col1stYModelExt = connector->col1stYModelExt();
     addSubModel(subModelConnector, "");  // no library for connectors
-    vector<int> numVars = subModel1->getDefJCalculatedVarI(numVar);
-
-    const vector<string>& xNamesConnector = subModelConnector->xNames();
-    const vector<string>& xNamesModel = subModel1->xNames();
-
-    for (unsigned int i = 0; i < numVars.size(); ++i) {
-      createConnection(subModelConnector, xNamesConnector[col1stYModelExt + i], subModel1, xNamesModel[numVars[i]], true);
-    }
   }
 
   const vector<string>& xNames = subModel2->xNames();
@@ -986,8 +976,7 @@ ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
 }
 
 void
-ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection,
-    const std::vector<double>& y, const std::vector<double>& yp) {
+ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection) {
 #ifdef _DEBUG_
   Timer timer("ModelMulti::updateCurves");
 #endif
@@ -996,7 +985,7 @@ ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollect
     boost::shared_ptr<Curve> curve = *itCurve;
     shared_ptr<SubModel> subModel = findSubModel(curve->getModelName(), curve->getVariable()).subModel_;
     if (subModel) {
-      subModel->updateCalculatedVarForCurve(curve, &y[subModel->getOffsetY()], &yp[subModel->getOffsetY()]);
+      subModel->updateCalculatedVarForCurve(curve);
     }
   }
 }

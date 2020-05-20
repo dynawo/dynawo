@@ -128,11 +128,11 @@ TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClose
   ASSERT_NO_THROW(tw3->evalZ(0.));
   ASSERT_NO_THROW(tw3->evalState(0.));
   ASSERT_NO_THROW(tw3->evalCalculatedVars());
-  ASSERT_THROW_DYNAWO(tw3->evalCalculatedVarI(42, &y[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_THROW_DYNAWO(tw3->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
   std::vector<double> res;
-  ASSERT_THROW_DYNAWO(tw3->evalJCalculatedVarI(42, &y[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_THROW_DYNAWO(tw3->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(tw3->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_THROW_DYNAWO(tw3->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
   ASSERT_NO_THROW(tw3->getY0());
   std::map<int, std::string> gEquationIndex;
   tw3->setGequations(gEquationIndex);
@@ -143,7 +143,7 @@ TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClose
   tw3->instantiateVariables(instantiatedVariables);
   ASSERT_EQ(definedVariables.size(), instantiatedVariables.size());
   SparseMatrix smj;
-  int size = tw3->sizeF();
+  int size = tw3->sizeY();
   smj.init(size, size);
   tw3->evalJt(smj, 1., 0);
   ASSERT_EQ(smj.nbElem(), 0);

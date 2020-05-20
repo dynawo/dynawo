@@ -235,9 +235,11 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
   SparseMatrix smj;
-  int size = modelOmegaRef->sizeF();
+  int size = modelOmegaRef->sizeY();
   smj.init(size, size);
   modelOmegaRef->evalJt(0, 0, smj, 0);
+  smj.changeCol();
+  smj.changeCol();
   ASSERT_EQ(smj.nbElem(), 16);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ap_[1], 3);  // 3 elements non zero for numCC_0
@@ -290,6 +292,8 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   SparseMatrix smj2;
   smj2.init(size, size);
   modelOmegaRef->evalJt(2, 0, smj2, 0);
+  smj2.changeCol();
+  smj2.changeCol();
   ASSERT_EQ(smj2.nbElem(), 14);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[9], 10);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj2.Ap_[10], 11);

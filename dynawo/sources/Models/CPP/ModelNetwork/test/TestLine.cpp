@@ -243,211 +243,198 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::u1Num_], 4.0311288741492746);
   ASSERT_DOUBLE_EQUALS_DYNAWO(calculatedVars[ModelLine::u2Num_], 4.2720018726587652);
   ASSERT_EQ(calculatedVars[ModelLine::lineStateNum_], CLOSED);
-  std::vector<double> yI(4, 0.);
-  yI[0] = 3.5;
-  yI[1] = 2;
-  yI[2] = 4.;
-  yI[3] = 1.5;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::i1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::i2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::p1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::p2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::q1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::q2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS1ToS2Side1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS2ToS1Side1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS1ToS2Side2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS2ToS1Side2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iSide1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iSide2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::u1Num_]);
-  yI[0] = 4.;
-  yI[1] = 1.5;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::u2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::lineStateNum_, &yI[0], &yp[0]), calculatedVars[ModelLine::lineStateNum_]);
-  ASSERT_THROW_DYNAWO(dl->evalCalculatedVarI(42, &yI[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i1Num_), calculatedVars[ModelLine::i1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i2Num_), calculatedVars[ModelLine::i2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p1Num_), calculatedVars[ModelLine::p1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p2Num_), calculatedVars[ModelLine::p2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q1Num_), calculatedVars[ModelLine::q1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q2Num_), calculatedVars[ModelLine::q2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side1Num_), calculatedVars[ModelLine::iS1ToS2Side1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side1Num_), calculatedVars[ModelLine::iS2ToS1Side1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side2Num_), calculatedVars[ModelLine::iS1ToS2Side2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side2Num_), calculatedVars[ModelLine::iS2ToS1Side2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide1Num_), calculatedVars[ModelLine::iSide1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide2Num_), calculatedVars[ModelLine::iSide2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u1Num_), calculatedVars[ModelLine::u1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u2Num_), calculatedVars[ModelLine::u2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::lineStateNum_), calculatedVars[ModelLine::lineStateNum_]);
+  ASSERT_THROW_DYNAWO(dl->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
-  yI[0] = 3.5;
-  yI[1] = 2;
-  yI[2] = 4.;
-  yI[3] = 1.5;
   std::vector<double> res(4, 0.);
-  ASSERT_THROW_DYNAWO(dl->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i1Num_, &yI[0], &yp[0], res));
+  ASSERT_THROW_DYNAWO(dl->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.89020606654237955);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.57965971165276509);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.029365134594484289);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.051087288952047991);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 10279.214243049617);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 6693.3338112220972);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 339.07936725830194);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -589.90520057266212);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -10279.214243049617);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -6693.3338112220972);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -339.07936725830194);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 589.90520057266212);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 10279.214243049617);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 6693.3338112220972);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 339.07936725830194);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -589.90520057266212);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -0.010946888666137453);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -0.057899808728124606);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 1.4614755820417966);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.59324223156971401);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 126.40378236366647);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 668.5694031042118);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -16875.666414117928);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -6850.1712418285751);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -126.40378236366647);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -668.5694031042118);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 16875.666414117928);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 6850.1712418285751);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -126.40378236366647);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -668.5694031042118);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 16875.666414117928);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 6850.1712418285751);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 5.3124999999999991);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 3.270833333333333);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.062499999999999972);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.22916666666666669);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -0.10416666666666666);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -0.22916666666666669);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 12.104166666666668);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 4.6875);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -5.0625000000000009);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -3.0625);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.22916666666666669);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.062499999999999972);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -0.22916666666666669);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.10416666666666666);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -2.7291666666666661);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -1.229166666666667);
   std::fill(res.begin(), res.end(), 0);
   res.resize(2);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.8682431421244593);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.49613893835683387);
   std::fill(res.begin(), res.end(), 0);
-  yI[0] = 4.;
-  yI[1] = 1.5;
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.93632917756904455);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.3511234415883917);
   std::fill(res.begin(), res.end(), 0);
   res.resize(0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, res));
 
   int offset = 4;
   dl->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(dl->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::i1Num_, numVars));
+  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iSide1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::i2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iSide2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::p1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::p2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::q1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q1Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::q2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q2Num_, numVars));
   ASSERT_EQ(numVars.size(), 4);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::u1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::u2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i+2);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::lineStateNum_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::lineStateNum_, numVars));
   ASSERT_EQ(numVars.size(), 0);
   numVars.clear();
 
@@ -493,195 +480,195 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed2) {
   std::vector<double> yI(2, 0.);
   yI[0] = 4.;
   yI[1] = 1.5;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::i1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::i2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::p1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::p2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::q1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::q2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS1ToS2Side1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS2ToS1Side1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS1ToS2Side2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS2ToS1Side2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iSide1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iSide2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::u1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::u2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::lineStateNum_, &yI[0], &yp[0]), calculatedVars[ModelLine::lineStateNum_]);
-  ASSERT_THROW_DYNAWO(dl->evalCalculatedVarI(42, &yI[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i1Num_), calculatedVars[ModelLine::i1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i2Num_), calculatedVars[ModelLine::i2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p1Num_), calculatedVars[ModelLine::p1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p2Num_), calculatedVars[ModelLine::p2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q1Num_), calculatedVars[ModelLine::q1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q2Num_), calculatedVars[ModelLine::q2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side1Num_), calculatedVars[ModelLine::iS1ToS2Side1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side1Num_), calculatedVars[ModelLine::iS2ToS1Side1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side2Num_), calculatedVars[ModelLine::iS1ToS2Side2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side2Num_), calculatedVars[ModelLine::iS2ToS1Side2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide1Num_), calculatedVars[ModelLine::iSide1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide2Num_), calculatedVars[ModelLine::iSide2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u1Num_), calculatedVars[ModelLine::u1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u2Num_), calculatedVars[ModelLine::u2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::lineStateNum_), calculatedVars[ModelLine::lineStateNum_]);
+  ASSERT_THROW_DYNAWO(dl->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
   std::vector<double> res(4, 0.);
-  ASSERT_THROW_DYNAWO(dl->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i1Num_, &yI[0], &yp[0], res));
+  ASSERT_THROW_DYNAWO(dl->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 1.479341407875052);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.55475302795314463);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -17081.963201200426);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -6405.736200450161);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 17081.963201200426);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 6405.736200450161);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 17081.963201200426);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 6405.736200450161);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 12.350769230769231);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 4.6315384615384616);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -2.6861538461538466);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -1.0073076923076929);
   std::fill(res.begin(), res.end(), 0);
   res.resize(2);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.93632917756904455);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.3511234415883917);
   std::fill(res.begin(), res.end(), 0);
   res.resize(0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, res));
 
   int offset = 2;
   dl->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(dl->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::i1Num_, numVars));
+  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iSide1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::i2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iSide2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::p1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::p2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::q1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::q2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::u1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u1Num_, numVars));
   ASSERT_EQ(numVars.size(), 0);
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::u2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::lineStateNum_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::lineStateNum_, numVars));
   ASSERT_EQ(numVars.size(), 0);
   numVars.clear();
   delete[] zConnected;
@@ -723,195 +710,195 @@ TEST(ModelsModelNetwork, ModelNetworkLineCalculatedVariablesClosed1) {
   std::vector<double> yI(2, 0.);
   yI[0] = 3.5;
   yI[1] = 2;
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::i1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::i2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::p1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::p2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::q1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::q2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS1ToS2Side1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS2ToS1Side1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS1ToS2Side2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iS2ToS1Side2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iSide1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::iSide2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u1Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::u1Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u2Num_, &yI[0], &yp[0]), calculatedVars[ModelLine::u2Num_]);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::lineStateNum_, &yI[0], &yp[0]), calculatedVars[ModelLine::lineStateNum_]);
-  ASSERT_THROW_DYNAWO(dl->evalCalculatedVarI(42, &yI[0], &yp[0]), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i1Num_), calculatedVars[ModelLine::i1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::i2Num_), calculatedVars[ModelLine::i2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p1Num_), calculatedVars[ModelLine::p1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::p2Num_), calculatedVars[ModelLine::p2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q1Num_), calculatedVars[ModelLine::q1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::q2Num_), calculatedVars[ModelLine::q2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side1Num_), calculatedVars[ModelLine::iS1ToS2Side1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side1Num_), calculatedVars[ModelLine::iS2ToS1Side1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS1ToS2Side2Num_), calculatedVars[ModelLine::iS1ToS2Side2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iS2ToS1Side2Num_), calculatedVars[ModelLine::iS2ToS1Side2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide1Num_), calculatedVars[ModelLine::iSide1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::iSide2Num_), calculatedVars[ModelLine::iSide2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u1Num_), calculatedVars[ModelLine::u1Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::u2Num_), calculatedVars[ModelLine::u2Num_]);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(dl->evalCalculatedVarI(ModelLine::lineStateNum_), calculatedVars[ModelLine::lineStateNum_]);
+  ASSERT_THROW_DYNAWO(dl->evalCalculatedVarI(42), Error::MODELER, KeyError_t::UndefCalculatedVarI);
 
   std::vector<double> res(4, 0.);
-  ASSERT_THROW_DYNAWO(dl->evalJCalculatedVarI(42, &yI[0], &yp[0], res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i1Num_, &yI[0], &yp[0], res));
+  ASSERT_THROW_DYNAWO(dl->evalJCalculatedVarI(42, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.92387837442928422);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.52793049967387662);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 10668.028563504424);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 6096.016322002527);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -10668.028563504424);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -6096.016322002527);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], -0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], -0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 10668.028563504424);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 6096.016322002527);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::i2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS1ToS2Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iS2ToS1Side2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::iSide2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 5.5449232379623172);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 3.1685275645498958);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::p2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], -4.9733949755757152);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], -2.8419399860432657);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::q2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[2], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[3], 0.);
   std::fill(res.begin(), res.end(), 0);
   res.resize(2);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u1Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u1Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.8682431421244593);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.49613893835683387);
   std::fill(res.begin(), res.end(), 0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u2Num_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::u2Num_, res));
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(res[1], 0.);
   std::fill(res.begin(), res.end(), 0);
   res.resize(0);
-  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, &yI[0], &yp[0], res));
+  ASSERT_NO_THROW(dl->evalJCalculatedVarI(ModelLine::lineStateNum_, res));
 
   int offset = 2;
   dl->init(offset);
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(dl->getDefJCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::i1Num_, numVars));
+  ASSERT_THROW_DYNAWO(dl->getIndexesOfVariablesUsedForCalculatedVarI(42, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iSide1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::i2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::i2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS1ToS2Side2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iS2ToS1Side2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::iSide2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::iSide2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::p1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::p2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::p2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::q1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::q2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::q2Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::u1Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u1Num_, numVars));
   ASSERT_EQ(numVars.size(), 2);
   for (size_t i = 0; i < numVars.size(); ++i) {
     ASSERT_EQ(numVars[i], i);
   }
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::u2Num_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::u2Num_, numVars));
   ASSERT_EQ(numVars.size(), 0);
   numVars.clear();
-  ASSERT_NO_THROW(dl->getDefJCalculatedVarI(ModelLine::lineStateNum_, numVars));
+  ASSERT_NO_THROW(dl->getIndexesOfVariablesUsedForCalculatedVarI(ModelLine::lineStateNum_, numVars));
   ASSERT_EQ(numVars.size(), 0);
   numVars.clear();
   delete[] zConnected;
@@ -1208,9 +1195,11 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
 
   // test evalJt, evalJtPrim, evalDerivatives and evalDerivativesPrim
   SparseMatrix smj;
-  int size = dl->sizeF();
+  int size = dl->sizeY() + 1;
   smj.init(size, size);
   dl->evalJt(smj, 1., 0);
+  smj.changeCol();
+  smj.changeCol();
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[2], -smj.Ax_[3]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[6], -smj.Ax_[7]);
   ASSERT_EQ(smj.nbElem(), 8);
@@ -1218,6 +1207,8 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   SparseMatrix smjPrime;
   smjPrime.init(size, size);
   dl->evalJtPrim(smjPrime, 0);
+  smjPrime.changeCol();
+  smjPrime.changeCol();
   ASSERT_DOUBLE_EQUALS_DYNAWO(smjPrime.Ax_[0], smjPrime.Ax_[1]);
   ASSERT_EQ(smjPrime.nbElem(), 2);
 
@@ -1336,7 +1327,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineJt) {
   shared_ptr<ModelLine> dl = p.first;
   dl->initSize();
   SparseMatrix smj;
-  int size = dl->sizeF();
+  int size = dl->sizeY();
   smj.init(size, size);
   dl->evalJt(smj, 1., 0);
   ASSERT_EQ(smj.nbElem(), 0);

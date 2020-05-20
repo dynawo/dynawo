@@ -1035,22 +1035,20 @@ void ModelGeneratorPQ_Dyn::evalCalculatedVars(std::vector<double>& calculatedVar
 {
 }
 
-double ModelGeneratorPQ_Dyn::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
+double ModelGeneratorPQ_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelGeneratorPQ_Dyn::evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)
+adept::adouble ModelGeneratorPQ_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
 {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 #endif
 
-std::vector<int> ModelGeneratorPQ_Dyn::getDefJCalculatedVarI(int iCalculatedVar)
+void ModelGeneratorPQ_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
 {
-  std::vector<int> res;
-  return res;
 }
 
 }

@@ -94,31 +94,26 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
    * @brief get the index of variables used to define the Jacobian associated to a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
-   *
-   * @return index of variables used to define the Jacobian
+   * @param indexes vector to fill with the indexes
    */
-  std::vector<int> getDefJCalculatedVarI(int iCalculatedVar);
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
 
   /**
    * @brief evaluate the Jacobian associated to a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
-   * @param y value of the variable used to calculate the Jacobian
-   * @param yp value of the derivatives of variable used to calculate the Jacobian
    * @param res values of the Jacobian
    */
-  void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res);
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const;
 
   /**
    * @brief evaluate the value of a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
-   * @param y values of the variables used to calculate the variable
-   * @param yp values of the derivatives used to calculate the variable
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp);
+  double evalCalculatedVarI(unsigned iCalculatedVar) const;
 
   /**
    * @brief evaluation F

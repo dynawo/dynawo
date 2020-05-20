@@ -1212,7 +1212,7 @@ ModelLine::i2(const double& ur1, const double& ui1, const double& ur2, const dou
 }
 
 void
-ModelLine::getDefJCalculatedVarI(int numCalculatedVar, vector<int> & numVars) {
+ModelLine::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int> & numVars) const {
   switch (numCalculatedVar) {
     case i1Num_:
     case i2Num_:
@@ -1280,7 +1280,7 @@ ModelLine::getDefJCalculatedVarI(int numCalculatedVar, vector<int> & numVars) {
 }
 
 void
-ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, vector<double>& res) {
+ModelLine::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
   double ur1 = 0.;
   double ui1 = 0.;
   double ur2 = 0.;
@@ -1302,20 +1302,20 @@ ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
     // in the y vector, we have access only at variables declared in getDefJCalculatedVarI
     switch (knownBus_) {
       case BUS1_BUS2: {
-        ur1 = y[0];
-        ui1 = y[1];
-        ur2 = y[2];
-        ui2 = y[3];
+        ur1 = modelBus1_->ur();
+        ui1 = modelBus1_->ui();
+        ur2 = modelBus2_->ur();
+        ui2 = modelBus2_->ui();
         break;
       }
       case BUS1: {
-        ur1 = y[0];
-        ui1 = y[1];
+        ur1 = modelBus1_->ur();
+        ui1 = modelBus1_->ui();
         break;
       }
       case BUS2: {
-        ur2 = y[0];
-        ui2 = y[1];
+        ur2 = modelBus2_->ur();
+        ui2 = modelBus2_->ui();
         break;
       }
     }
@@ -1454,8 +1454,8 @@ ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
       switch (knownBus_) {
         case BUS1_BUS2:
         case BUS1:
-          ur1 = y[0];
-          ui1 = y[1];
+          ur1 = modelBus1_->ur();
+          ui1 = modelBus1_->ui();
           break;
         case BUS2:
           break;
@@ -1474,8 +1474,8 @@ ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
       switch (knownBus_) {
         case BUS1_BUS2:
         case BUS2:
-          ur2 = y[0];
-          ui2 = y[1];
+          ur2 = modelBus2_->ur();
+          ui2 = modelBus2_->ui();
           break;
         case BUS1:
           break;
@@ -1496,7 +1496,7 @@ ModelLine::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, 
 }
 
 double
-ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
+ModelLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
   double ur1 = 0.;
   double ui1 = 0.;
   double ur2 = 0.;
@@ -1518,20 +1518,20 @@ ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
     // in the y vector, we have access only at variables declared in getDefJCalculatedVarI
     switch (knownBus_) {
       case BUS1_BUS2: {
-        ur1 = y[0];
-        ui1 = y[1];
-        ur2 = y[2];
-        ui2 = y[3];
+        ur1 = modelBus1_->ur();
+        ui1 = modelBus1_->ui();
+        ur2 = modelBus2_->ur();
+        ui2 = modelBus2_->ui();
         break;
       }
       case BUS1: {
-        ur1 = y[0];
-        ui1 = y[1];
+        ur1 = modelBus1_->ur();
+        ui1 = modelBus1_->ui();
         break;
       }
       case BUS2: {
-        ur2 = y[0];
-        ui2 = y[1];
+        ur2 = modelBus2_->ur();
+        ui2 = modelBus2_->ui();
         break;
       }
     }
@@ -1604,8 +1604,8 @@ ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
       switch (knownBus_) {
         case BUS1_BUS2:
         case BUS1:
-          ur1 = y[0];
-          ui1 = y[1];
+          ur1 = modelBus1_->ur();
+          ui1 = modelBus1_->ui();
           break;
         case BUS2:
           break;
@@ -1619,8 +1619,8 @@ ModelLine::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
       switch (knownBus_) {
         case BUS1_BUS2:
         case BUS2:
-          ur2 = y[0];
-          ui2 = y[1];
+          ur2 = modelBus2_->ur();
+          ui2 = modelBus2_->ui();
           break;
         case BUS1:
           break;

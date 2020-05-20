@@ -671,7 +671,7 @@ ModelBus::setGequations(std::map<int, std::string>& gEquationIndex) {
 }
 
 void
-ModelBus::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
+ModelBus::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case upuNum_:
     case phipuNum_:
@@ -686,9 +686,9 @@ ModelBus::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
 }
 
 void
-ModelBus::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, vector<double>& res) {
-  double ur = y[0];
-  double ui = y[1];
+ModelBus::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
+  double ur = y_[urNum_];
+  double ui = y_[uiNum_];
   switch (numCalculatedVar) {
     case upuNum_: {
       if (getSwitchOff()) {
@@ -740,10 +740,10 @@ ModelBus::evalJCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/, v
 }
 
 double
-ModelBus::evalCalculatedVarI(int numCalculatedVar, double* y, double* /*yp*/) {
+ModelBus::evalCalculatedVarI(unsigned numCalculatedVar) const {
   double output = 0.0;
-  double ur = y[0];
-  double ui = y[1];
+  double ur = y_[urNum_];
+  double ui = y_[uiNum_];
   switch (numCalculatedVar) {
     case upuNum_:
       if (getSwitchOff())

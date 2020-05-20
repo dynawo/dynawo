@@ -321,18 +321,17 @@ ModelSwitch::evalCalculatedVars() {
 }
 
 void
-ModelSwitch::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& /*numVars*/) {
+ModelSwitch::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& /*numVars*/) const {
   switch (numCalculatedVar) {
     case swStateNum_:
       break;
-
     default:
       throw DYNError(Error::MODELER, UndefJCalculatedVarI, numCalculatedVar);
   }
 }
 
 void
-ModelSwitch::evalJCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*yp*/, vector<double>& /*res*/) {
+ModelSwitch::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& /*res*/) const {
   switch (numCalculatedVar) {
     case swStateNum_:
       break;
@@ -342,16 +341,14 @@ ModelSwitch::evalJCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*
 }
 
 double
-ModelSwitch::evalCalculatedVarI(int numCalculatedVar, double* /*y*/, double* /*yp*/) {
-  double output = 0;
+ModelSwitch::evalCalculatedVarI(unsigned numCalculatedVar) const {
   switch (numCalculatedVar) {
     case swStateNum_:
-      output = getConnectionState();
-      break;
+      return getConnectionState();
     default:
       throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
-  return output;
+  return 0.;
 }
 
 void

@@ -159,31 +159,27 @@ class ModelThreeWindingsTransformer : public NetworkComponent::Impl {
 
   /**
    * @brief get the index of variables used to define the jacobian associated to a calculated variable
-   * @param numCalculatedVar index of the calculated variable
-   * @param numVars index of variables
+   * @param numCalculatedVar : index of the calculated variable
+   * @param numVars : index of variables used to define the jacobian associated to the calculated variable
    */
-  void getDefJCalculatedVarI(int numCalculatedVar, std::vector<int>& numVars);
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const;
 
   /**
    * @brief evaluate the jacobian associated to a calculated variable
    *
-   * @param iCalculatedVar index of the calculated variable
-   * @param y value of the variable used to calculate the jacobian
-   * @param yp value of the derivatives of variable used to calculate the jacobian
+   * @param numCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res);
+  void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const;
 
   /**
    * @brief evaluate the value of a calculated variable
    *
    * @param numCalculatedVar index of the calculated variable
-   * @param y values of the variables used to calculate the variable
-   * @param yp values of the derivatives used to calculate the variable
    *
    * @return value of the calculated variable
    */
-  double evalCalculatedVarI(int numCalculatedVar, double* y, double* yp);
+  double evalCalculatedVarI(unsigned numCalculatedVar) const;
 
   /**
    * @copydoc NetworkComponent::evalYType()

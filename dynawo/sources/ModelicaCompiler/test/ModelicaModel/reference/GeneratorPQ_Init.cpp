@@ -465,7 +465,7 @@ void ModelGeneratorPQ_Init::evalCalculatedVars(std::vector<double>& calculatedVa
   }
 }
 
-double ModelGeneratorPQ_Init::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
+double ModelGeneratorPQ_Init::evalCalculatedVarI(unsigned iCalculatedVar) const
 {
   if (iCalculatedVar == 0)  /* generator.PGen0Pu */
   {
@@ -479,7 +479,7 @@ double ModelGeneratorPQ_Init::evalCalculatedVarI(int iCalculatedVar, double* y, 
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(int iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd)
+adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
 {
   if (iCalculatedVar == 0)  /* generator.PGen0Pu */
   {
@@ -497,10 +497,8 @@ adept::adouble ModelGeneratorPQ_Init::evalCalculatedVarIAdept(int iCalculatedVar
 }
 #endif
 
-std::vector<int> ModelGeneratorPQ_Init::getDefJCalculatedVarI(int iCalculatedVar)
+void ModelGeneratorPQ_Init::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
 {
-  std::vector<int> res;
-  return res;
 }
 
 }

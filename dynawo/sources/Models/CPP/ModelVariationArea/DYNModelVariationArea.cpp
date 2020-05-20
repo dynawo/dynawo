@@ -220,20 +220,18 @@ ModelVariationArea::evalMode(const double& t) {
 }
 
 void
-ModelVariationArea::evalJCalculatedVarI(int /*iCalculatedVar*/, double* /*y*/, double* /*yp*/, vector<double>& /*res*/) {
-  // output depends only on discrete variable
+ModelVariationArea::evalJCalculatedVarI(unsigned /*iCalculatedVar*/, vector<double>& /*res*/) const {
+  // output depends only on discrete variables
 }
 
-vector<int>
-ModelVariationArea::getDefJCalculatedVarI(int /*iCalculatedVar*/) {
-  vector<int> defJCalculatedVarI;
-  return defJCalculatedVarI;
+void
+ModelVariationArea::getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& /*indexes*/) const {
+  // output depends only on discrete variables
 }
 
 double
-ModelVariationArea::evalCalculatedVarI(int /*iCalculatedVar*/, double* /*y*/, double* /*yp*/) {
-  double output = 0;
-  return (output);
+ModelVariationArea::evalCalculatedVarI(unsigned /*iCalculatedVar*/) const {
+  return 0;
 }
 
 void

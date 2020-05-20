@@ -501,24 +501,24 @@ ModelVoltageLevel::evalCalculatedVars() {
 }
 
 void
-ModelVoltageLevel::getDefJCalculatedVarI(int numCalculatedVar, vector<int>& numVars) {
+ModelVoltageLevel::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
   int index = componentIndexByCalculatedVar_[numCalculatedVar];
   int varIndex = numCalculatedVar - components_[index]->getOffsetCalculatedVar();
-  components_[index]->getDefJCalculatedVarI(varIndex, numVars);
+  components_[index]->getIndexesOfVariablesUsedForCalculatedVarI(varIndex, numVars);
 }
 
 void
-ModelVoltageLevel::evalJCalculatedVarI(int numCalculatedVar, double* y, double* yp, vector<double>& res) {
+ModelVoltageLevel::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
   int index = componentIndexByCalculatedVar_[numCalculatedVar];
   int varIndex = numCalculatedVar - components_[index]->getOffsetCalculatedVar();
-  components_[index]->evalJCalculatedVarI(varIndex, y, yp, res);
+  components_[index]->evalJCalculatedVarI(varIndex, res);
 }
 
 double
-ModelVoltageLevel::evalCalculatedVarI(int numCalculatedVar, double* y, double* yp) {
+ModelVoltageLevel::evalCalculatedVarI(unsigned numCalculatedVar) const {
   int index = componentIndexByCalculatedVar_[numCalculatedVar];
   int varIndex = numCalculatedVar - components_[index]->getOffsetCalculatedVar();
-  return components_[index]->evalCalculatedVarI(varIndex, y, yp);
+  return components_[index]->evalCalculatedVarI(varIndex);
 }
 
 void

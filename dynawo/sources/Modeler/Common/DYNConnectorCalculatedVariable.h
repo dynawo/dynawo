@@ -32,14 +32,6 @@ class DataInterface;
  * class ConnectorCalculatedVariable
  */
 class ConnectorCalculatedVariable : public SubModel {
-  /**
-   * enum to define the type of calculated variables
-   */
-  typedef enum {
-    valueNum_ = 0,
-    nbCalculatedVars_ = 1
-  } CalculatedVars_t;
-
  public:
   /**
    * @brief default constructor
@@ -117,19 +109,19 @@ class ConnectorCalculatedVariable : public SubModel {
   void updateFType() { /* not needed */ }
 
   /**
-   * @copydoc SubModel::getDefJCalculatedVarI( int iCalculatedVar)
+   * @copydoc SubModel::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
    */
-  std::vector<int> getDefJCalculatedVarI(int iCalculatedVar);
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
 
   /**
-   * @copydoc SubModel::evalJCalculatedVarI()
+   * @copydoc SubModel::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const
    */
-  void evalJCalculatedVarI(int iCalculatedVar, double* y, double* yp, std::vector<double>& res);
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const;
 
   /**
-   * @copydoc SubModel::evalCalculatedVarI(int iCalculatedVar, double* y, double* yp)
+   * @copydoc SubModel::evalCalculatedVarI(unsigned iCalculatedVar) const
    */
-  double evalCalculatedVarI(int iCalculatedVar, double* y, double* yp);
+  double evalCalculatedVarI(unsigned iCalculatedVar) const;
 
   /**
    * @copydoc SubModel::getY0()
@@ -250,14 +242,6 @@ class ConnectorCalculatedVariable : public SubModel {
   void initSubBuffers() { /*not needed*/ }
 
   /**
-   * @brief get the index of the row for the definition of \f$( @F/@(calculatedVariable) )\f$
-   * @return index of the row
-   */
-  inline int col1stYModelExt() {
-    return col1stYModelExt_;
-  }
-
-  /**
    * @copydoc SubModel::modelType() const
    */
   std::string modelType() const {
@@ -298,10 +282,7 @@ class ConnectorCalculatedVariable : public SubModel {
   boost::shared_ptr<SubModel> model_;  ///< Model where the calculated variable is located.
   std::string variableName_;  ///< Name of the calculated variable from the model
   int indexCalculatedVariable_;  ///< Index of the calculated variable inside the list calculated variables in the model
-  int nbVarExt_;  ///< Number of variables of which depends the calculated variable
-
-  static const int colCalculatedVariable_;  ///< index of the row for the definition of \f$( @F/@(calculatedVariable) )\f$
-  static const int col1stYModelExt_;  ///< index of the first row for the definition of \f$( @F/@(dependVariable) )\f$
+  std::vector<int> varExtIndexes_;  ///< Number of variables of which depends the calculated variable
 };
 }  // namespace DYN
 

@@ -956,7 +956,7 @@ Simulation::updateCurves(bool updateCalculateVariable) {
     return;
 
   if (updateCalculateVariable)
-    model_->updateCalculatedVarForCurves(curvesCollection_, solver_->getCurrentY(), solver_->getCurrentYP());
+    model_->updateCalculatedVarForCurves(curvesCollection_);
 
   curvesCollection_->updateCurves(tCurrent_);
 }

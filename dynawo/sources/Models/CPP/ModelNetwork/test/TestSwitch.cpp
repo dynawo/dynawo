@@ -161,20 +161,20 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchCalculatedVariables) {
   sw->setReferenceCalculatedVar(&calculatedVars[0], 0);
   sw->evalCalculatedVars();
   ASSERT_EQ(calculatedVars[0], CLOSED);
-  ASSERT_EQ(sw->evalCalculatedVarI(ModelSwitch::swStateNum_, y, yp), CLOSED);
+  ASSERT_EQ(sw->evalCalculatedVarI(ModelSwitch::swStateNum_), CLOSED);
 
   sw->setConnectionState(OPEN);
-  ASSERT_EQ(sw->evalCalculatedVarI(ModelSwitch::swStateNum_, y, yp), OPEN);
+  ASSERT_EQ(sw->evalCalculatedVarI(ModelSwitch::swStateNum_), OPEN);
   sw->evalCalculatedVars();
   ASSERT_EQ(calculatedVars[0], OPEN);
 
-  ASSERT_THROW_DYNAWO(sw->evalCalculatedVarI(1, y, yp), Error::MODELER, KeyError_t::UndefCalculatedVarI);
+  ASSERT_THROW_DYNAWO(sw->evalCalculatedVarI(1), Error::MODELER, KeyError_t::UndefCalculatedVarI);
   std::vector<double> res;
-  ASSERT_THROW_DYNAWO(sw->evalJCalculatedVarI(1, y, yp, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(sw->evalJCalculatedVarI(ModelSwitch::swStateNum_, y, yp, res));
+  ASSERT_THROW_DYNAWO(sw->evalJCalculatedVarI(1, res), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(sw->evalJCalculatedVarI(ModelSwitch::swStateNum_, res));
   std::vector<int> numVars;
-  ASSERT_THROW_DYNAWO(sw->getDefJCalculatedVarI(1, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
-  ASSERT_NO_THROW(sw->getDefJCalculatedVarI(ModelSwitch::swStateNum_, numVars));
+  ASSERT_THROW_DYNAWO(sw->getIndexesOfVariablesUsedForCalculatedVarI(1, numVars), Error::MODELER, KeyError_t::UndefJCalculatedVarI);
+  ASSERT_NO_THROW(sw->getIndexesOfVariablesUsedForCalculatedVarI(ModelSwitch::swStateNum_, numVars));
 
   shared_ptr<ModelSwitch> swInit = createModelSwitch(false, true);
   swInit->initSize();

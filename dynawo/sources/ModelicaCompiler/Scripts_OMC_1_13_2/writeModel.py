@@ -167,7 +167,7 @@ if __name__ == '__main__':
         writer_init_pb.fill_evalCalculatedVars()
         writer_init_pb.fill_evalCalculatedVarI()
         writer_init_pb.fill_evalCalculatedVarIAdept()
-        writer_init_pb.fill_getDefJCalculatedVarI()
+        writer_init_pb.fill_getIndexesOfVariablesUsedForCalculatedVarI()
         writer_init_pb.fill_tail()
 
         writer_init_pb.write_file()
@@ -268,7 +268,7 @@ if __name__ == '__main__':
     writer.fill_evalCalculatedVars()
     writer.fill_evalCalculatedVarI()
     writer.fill_evalCalculatedVarIAdept()
-    writer.fill_getDefJCalculatedVarI()
+    writer.fill_getIndexesOfVariablesUsedForCalculatedVarI()
     writer.fill_tail()
 
     writer.write_file()

@@ -262,9 +262,9 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalCalculatedVariables(const double & t, const std::vector<double> &y, const std::vector<double> &yp, const std::vector<double> &z);
 
   /**
-   * @copydoc Model::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection, const std::vector<double>& y, const std::vector<double>& yp)
+   * @copydoc Model::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection)
    */
-  void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection, const std::vector<double>& y, const std::vector<double>& yp);
+  void updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection);
 
   /**
    * @copydoc Model::dumpParameters(std::map< std::string, std::string> & mapParameters)
