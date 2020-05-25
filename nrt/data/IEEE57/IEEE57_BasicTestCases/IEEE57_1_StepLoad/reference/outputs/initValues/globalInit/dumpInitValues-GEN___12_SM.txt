@@ -59,7 +59,7 @@ voltageRegulator_limiterWithLag_y                 : alias of voltageRegulator_Ef
  ====== INIT CALCULATED VARIABLES VALUES ======
 generator_IRotorPu_value                          : y =       1.350053
 generator_IStatorPu_value                         : y =       3.307179
-generator_PGen                                    : y =     310.018826
+generator_PGen                                    : y =     310.018827
 generator_PePu                                    : y =       0.181420
 generator_QGen                                    : y =     128.751290
 generator_QStatorPuQNom_value                     : y =       0.181316
@@ -211,8 +211,6 @@ voltageRegulator_limiterWithLag_tUMaxReached0      =   1.000000e+60
 voltageRegulator_limiterWithLag_tUMinReached0      =   1.000000e+60
 voltageRegulator_limiterWithLag_u0                 =       1.349984
 voltageRegulator_limiterWithLag_y0                 =       1.349984
-voltageRegulator_tEfdMaxReached0                   =   1.000000e+60
-voltageRegulator_tEfdMinReached0                   =   1.000000e+60
 governor_ActiveFrequencyRegulation                 =       1.000000
 governor_activeFrequencyRegulation_k               =       1.000000
 governor_limiter_limitsAtInit                      =       1.000000

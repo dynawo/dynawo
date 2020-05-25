@@ -30,7 +30,7 @@ model VRProportionalIntegral "Proportional Integral Voltage Regulator, keeps mac
   parameter Types.Time LagEfdMax "Time lag before taking action when going above EfdMax";
   parameter Types.Time tIntegral "Time integration constant";
 
-  LimiterWithLag limiterWithLag (UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = tEfdMinReached0, tUMaxReached0 = tEfdMaxReached0) "Limiter activated only after a certain period outside the bounds" annotation(
+  LimiterWithLag limiterWithLag (UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = Modelica.Constants.inf, tUMaxReached0 = Modelica.Constants.inf) "Limiter activated only after a certain period outside the bounds" annotation(
     Placement(visible = true, transformation(origin = {80, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain (k = Gain) annotation(
     Placement(visible = true, transformation(origin = {-8, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -61,8 +61,6 @@ protected
   parameter Types.VoltageModulePu Us0Pu  "Initial stator voltage, p.u. = Unom";
   parameter Types.VoltageModulePu Efd0Pu "Initial Efd";
   parameter Types.PerUnit yIntegrator0 "Initial control before saturation";
-  parameter Types.Time tEfdMaxReached0 "Initial time when the Efd went above EfdMax";
-  parameter Types.Time tEfdMinReached0 "Initial time when the Efd went below EfdMin";
 
   Boolean limitationUsRefMax (start = false) "UsRefMax reached ?";
   Boolean limitationUsRefMin (start = false) "UsRefMin reached ?";

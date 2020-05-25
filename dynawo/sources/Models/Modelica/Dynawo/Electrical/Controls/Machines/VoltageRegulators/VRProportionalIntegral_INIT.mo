@@ -13,7 +13,6 @@ within Dynawo.Electrical.Controls.Machines.VoltageRegulators;
 */
 
 model VRProportionalIntegral_INIT "Proportional Integral Voltage Regulator INIT Model. Here one of the inputs is Efd0PuLF. This value will initialize the limiter's input variable, but since it could be out the saturation bounds, the initial value kept for EfdPu is Efd0Pu which is min(max(Efd0PuLF, EfdMinPu), EfdMaxPu)"
-  import Modelica.Constants;
 
   import Dynawo.NonElectrical.Blocks.NonLinear.LimiterWithLag_INIT;
 
@@ -33,24 +32,13 @@ model VRProportionalIntegral_INIT "Proportional Integral Voltage Regulator INIT 
 
   protected
 
-    parameter Types.PerUnit Ur0Pu = 1.0;
-    parameter Types.PerUnit Ui0Pu = 0.0 "Start values for complex voltage";
-
-    discrete Types.Time tEfdMaxReached0(start = Constants.inf) "First time when the Efd went above the maximum Efd";
-    discrete Types.Time tEfdMinReached0(start = Constants.inf) "First time when the Efd went below the maximum Efd";
-
-    Types.ComplexVoltagePu u0 (re (start = Ur0Pu), im (start = Ui0Pu));
     LimiterWithLag_INIT limiterWithLag(UMin = EfdMinPu, UMax = EfdMaxPu);
 
   equation
 
-    tEfdMaxReached0 = limiterWithLag.tUMaxReached0;
-    tEfdMinReached0 = limiterWithLag.tUMinReached0;
-
     limiterWithLag.y0LF = Efd0PuLF;
     Efd0Pu = limiterWithLag.y0;
     yIntegrator0 =  limiterWithLag.u0 - Gain*(UsRef0Pu - Us0Pu);
-    Us0Pu = ComplexMath.'abs'(u0);
     UsRef0Pu - Us0Pu = limiterWithLag.u0 - limiterWithLag.y0; // Because init in steadystate
 
 annotation(preferredView = "text");
