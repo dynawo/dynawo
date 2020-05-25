@@ -1098,7 +1098,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
   ASSERT_NO_THROW(dl->getY0());
 
   // test evalF
-  ASSERT_NO_THROW(dl->evalF());
+  ASSERT_NO_THROW(dl->evalF(UNDEFINED_EQ));
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;
@@ -1116,7 +1116,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineContinuousVariables) {
   ASSERT_EQ(dlInit->sizeY(), 0);
   ASSERT_EQ(dlInit->sizeF(), 0);
   ASSERT_NO_THROW(dlInit->getY0());
-  ASSERT_NO_THROW(dlInit->evalF());
+  ASSERT_NO_THROW(dlInit->evalF(UNDEFINED_EQ));
   fEquationIndex.clear();
   ASSERT_NO_THROW(dlInit->setFequations(fEquationIndex));
   delete[] zConnected;
@@ -1183,7 +1183,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_EQ(yp[2], 0);
 
   // test evalF
-  ASSERT_NO_THROW(dl->evalF());
+  ASSERT_NO_THROW(dl->evalF(UNDEFINED_EQ));
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;
@@ -1261,7 +1261,7 @@ TEST(ModelsModelNetwork, ModelNetworkDynamicLine) {
   ASSERT_EQ(yTypes3[2], yTypesSave3[2]);
 
   // test evalF
-  ASSERT_NO_THROW(dl3->evalF());
+  ASSERT_NO_THROW(dl3->evalF(UNDEFINED_EQ));
   ASSERT_EQ(f3[0], 0);
 
   // test evalJt

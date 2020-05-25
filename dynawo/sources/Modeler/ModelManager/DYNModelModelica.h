@@ -72,8 +72,9 @@ class ModelModelica {
    * @brief calculates the residual functions of the model
    *
    * @param f local buffer to fill
+   * @param  type type of the residues to compute (algebraic, differential or both)
    */
-  virtual void setFomc(double* f) = 0;
+  virtual void setFomc(double* f, propertyF_t type) = 0;
 
   /**
    * @brief  calculates the roots of the model

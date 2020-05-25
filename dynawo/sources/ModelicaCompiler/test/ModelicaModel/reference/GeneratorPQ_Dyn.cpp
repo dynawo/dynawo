@@ -196,8 +196,9 @@ void ModelGeneratorPQ_Dyn::initRpar()
   return;
 }
 
-void ModelGeneratorPQ_Dyn::setFomc(double * f)
+void ModelGeneratorPQ_Dyn::setFomc(double * f, propertyF_t type)
 {
+  if (type != DIFFERENTIAL_EQ) {
   {
   // ----- GeneratorPQ_eqFunction_63 -----
   modelica_real tmp0;
@@ -338,6 +339,7 @@ void ModelGeneratorPQ_Dyn::setFomc(double * f)
   }
 
 
+  }
 }
 
 modeChangeType_t ModelGeneratorPQ_Dyn::evalMode(const double & t) const

@@ -282,6 +282,7 @@ class SolverSIM : public Solver::Impl {
   std::vector<double> ySave_;  ///< values of state variables before step
   std::vector<double> zSave_;  ///< values of discrete variables before step
   std::vector<state_g> gSave_;  ///< values of roots before step
+  bool skipScaling_;  ///< flag used to skip algebraic residues evaluation after a convergence or a mode
 };
 
 }  // end of namespace DYN

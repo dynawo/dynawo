@@ -117,9 +117,10 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
 
   /**
    * @brief evaluation F
-   * @param t : time to use
+   * @param[in] t Simulation instant
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(const double& t);
+  void evalF(double t, propertyF_t type);
 
   /**
    * @brief evaluation G

@@ -81,9 +81,9 @@ class NetworkComponent::Impl : public NetworkComponent {
   virtual void evalDerivativesPrim() = 0;
 
   /**
-   * @copydoc NetworkComponent::evalF()
+   * @copydoc NetworkComponent::evalF(propertyF_t type)
    */
-  virtual void evalF() = 0;
+  virtual void evalF(propertyF_t type) = 0;
 
   /**
    * @copydoc NetworkComponent::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)

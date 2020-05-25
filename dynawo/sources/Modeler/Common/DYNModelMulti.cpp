@@ -393,6 +393,19 @@ ModelMulti::evalF(const double t, double* y, double* yp, double* f) {
 }
 
 void
+ModelMulti::evalFDiff(const double t, double* y, double* yp, double* f) {
+#ifdef _DEBUG_
+  Timer timer("ModelMulti::evalFDiff");
+#endif
+  copyContinuousVariables(y, yp);
+
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+      subModels_[i]->evalFDiffSub(t);
+  }
+  std::copy(fLocal_, fLocal_ + sizeF_, f);
+}
+
+void
 ModelMulti::evalG(double t, vector<state_g> &g) {
 #ifdef _DEBUG_
   Timer timer("ModelMulti::evalG");

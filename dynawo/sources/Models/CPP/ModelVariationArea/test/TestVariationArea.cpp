@@ -236,7 +236,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVarI(0));
   ASSERT_NO_THROW(modelVariationArea->evalCalculatedVars());
 
-  modelVariationArea->evalF(0);
+  modelVariationArea->evalF(0, UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], 0);
@@ -254,7 +254,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
 
   modelVariationArea->evalG(2.);
   modelVariationArea->evalZ(2.);
-  modelVariationArea->evalF(2.);
+  modelVariationArea->evalF(2., UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], -0.08);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], -0.04);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], -0.08);
@@ -263,7 +263,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
 
   modelVariationArea->evalG(6.);
   modelVariationArea->evalZ(6.);
-  modelVariationArea->evalF(6.);
+  modelVariationArea->evalF(6., UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], -0.2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], -0.1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], -0.2);

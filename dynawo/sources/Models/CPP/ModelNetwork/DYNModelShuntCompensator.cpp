@@ -154,6 +154,11 @@ ModelShuntCompensator::evalYMat() {
 }
 
 void
+ModelShuntCompensator::evalF(propertyF_t /*type*/) {
+  // not needed
+}
+
+void
 ModelShuntCompensator::evalDerivatives(const double /*cj*/) {
   if (isConnected()) {
     int urYNum = modelBus_->urYNum();

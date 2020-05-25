@@ -305,10 +305,10 @@ ModelVoltageLevel::getY0() {
 }
 
 void
-ModelVoltageLevel::evalF() {
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
-  for (itComponent = components_.begin(); itComponent != components_.end(); ++itComponent)
-    (*itComponent)->evalF();
+ModelVoltageLevel::evalF(propertyF_t type) {
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin();
+      itComponent != components_.end(); ++itComponent)
+    (*itComponent)->evalF(type);
 }
 
 void

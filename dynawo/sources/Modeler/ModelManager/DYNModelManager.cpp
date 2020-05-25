@@ -228,13 +228,13 @@ ModelManager::getSize() {
 }
 
 void
-ModelManager::evalF(const double & t) {
+ModelManager::evalF(double t, propertyF_t type) {
 #ifdef _DEBUG_
   Timer timer("ModelManager::evalF");
 #endif
   setManagerTime(t);
 
-  modelModelica()->setFomc(fLocal_);
+  modelModelica()->setFomc(fLocal_, type);
 }
 
 void

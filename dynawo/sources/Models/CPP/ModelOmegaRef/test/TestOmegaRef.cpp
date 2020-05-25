@@ -230,7 +230,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   modelOmegaRef->getY0();
   ASSERT_NO_THROW(modelOmegaRef->setFequations());
 
-  modelOmegaRef->evalF(0);
+  modelOmegaRef->evalF(0, UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
@@ -260,14 +260,14 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(smj.Ax_[13], -1);
 
   y[10] = 2.5;  // Modifying omegaGrp_0
-  modelOmegaRef->evalF(1);
+  modelOmegaRef->evalF(1, UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
 
   y[0] = 2;  // Modifying omegaRef_grp_0
-  modelOmegaRef->evalF(1);
+  modelOmegaRef->evalF(1, UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 1);
@@ -286,7 +286,7 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   modelOmegaRef->evalZ(2);  // Propagating the changes to internal discrete values
   mode = modelOmegaRef->evalMode(2);
   ASSERT_EQ(mode, ALGEBRAIC_J_UPDATE_MODE);
-  modelOmegaRef->evalF(2);
+  modelOmegaRef->evalF(2, UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], -1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
   SparseMatrix smj2;

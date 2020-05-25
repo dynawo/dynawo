@@ -341,7 +341,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[uiIndex], -5.3999999999999844);
 
   // test evalF
-  dl->evalF();
+  dl->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[urIndex], -5.3301593716322637);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[uiIndex], 4.7114409765398335);
 
@@ -360,7 +360,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[uiIndex], 0.);
 
   // test evalF (bus switchoff)
-  dl->evalF();
+  dl->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[urIndex], y[urIndex]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[uiIndex], y[uiIndex]);
 
@@ -377,7 +377,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineContinuousVariables) {
   ASSERT_EQ(dlInit->sizeY(), 0);
   ASSERT_EQ(dlInit->sizeF(), 0);
   ASSERT_NO_THROW(dlInit->getY0());
-  ASSERT_NO_THROW(dlInit->evalF());
+  ASSERT_NO_THROW(dlInit->evalF(UNDEFINED_EQ));
   fEquationIndex.clear();
   ASSERT_NO_THROW(dlInit->setFequations(fEquationIndex));
   delete[] zConnected;

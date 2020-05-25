@@ -128,8 +128,9 @@ class ModelLoad : public NetworkComponent::Impl {
 
   /**
    * @brief evaluation F
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF();  // compute the local F function
+  void evalF(propertyF_t type);
 
   /**
    * @copydoc NetworkComponent::Impl::evalZ()

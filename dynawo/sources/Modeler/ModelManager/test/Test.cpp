@@ -119,7 +119,7 @@ class MyModelica: public ModelModelica {
    *
    * @param f local buffer to fill
    */
-  virtual void setFomc(double* /*f*/) {
+  virtual void setFomc(double* /*f*/, propertyF_t /*type*/) {
     ++nbCallF_;
   }
 
@@ -412,7 +412,7 @@ class MyModelicaInit: public MyModelica {
   void defineParameters(std::vector<ParameterModeler>& /*parameters*/) {
   }
 
-  void setFomc(double* f) {
+  void setFomc(double* f, propertyF_t /*type*/) {
     f[0] = data_->localData[0]->realVars[0] - 8;
   }
 
@@ -560,16 +560,20 @@ TEST(TestModelManager, TestModelManagerBasics) {
   for (size_t i = 0; i < mm->sizeZ(); ++i)
     zConnected[i] = true;
   std::vector<state_g> g(mm->sizeG(), NO_ROOT);
+  std::vector<propertyContinuousVar_t> yTypes(mm->sizeY(), UNDEFINED_PROPERTY);
+  std::vector<propertyF_t> fTypes(mm->sizeF(), UNDEFINED_EQ);
   mm->setBufferG(&g[0], 0);
   mm->setBufferZ(&z[0], zConnected, 0);
   mm->setBufferY(&y[0], &yp[0], 0);
   mm->setBufferF(&f[0], 0);
+  mm->setBufferYType(&yTypes[0], 0);
+  mm->setBufferFType(&fTypes[0], 0);
   mm->initSubBuffers();
 
   mm->checkDataCoherence(0.);
   mm->testNbCallCheckDataCoherence(1);
 
-  mm->evalF(0);
+  mm->evalF(0, UNDEFINED_EQ);
   mm->testNbCallF(1);
   mm->evalG(0);
   mm->testNbCallG(1);

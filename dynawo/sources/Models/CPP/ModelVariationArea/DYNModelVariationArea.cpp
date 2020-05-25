@@ -123,7 +123,9 @@ ModelVariationArea::getSize() {
 // evaluation of F(t,y,y') function
 
 void
-ModelVariationArea::evalF(const double & t) {
+ModelVariationArea::evalF(double t, propertyF_t type) {
+  if (type == DIFFERENTIAL_EQ)
+    return;
   if (stateVariationArea_ == NOT_STARTED) {  // load increase not started
     for (int i = 0; i < nbLoads_; ++i) {
       fLocal_[i * 2] = yLocal_[i * 2];
@@ -153,7 +155,13 @@ ModelVariationArea::evalG(const double & t) {
 
 void
 ModelVariationArea::setFequations() {
-  // not needed
+  for (int i = 0; i < nbLoads_; ++i) {
+    stringstream ss;
+    ss << i;
+    fEquationIndex_[i * 2] = "deltaP_" + ss.str();
+    fEquationIndex_[i * 2 + 1] = "deltaQ_" + ss.str();
+  }
+  assert(fEquationIndex_.size() == (unsigned int) sizeF() && "Model VariationArea: fEquationIndex_.size() != fLocal_.size()");
 }
 
 void

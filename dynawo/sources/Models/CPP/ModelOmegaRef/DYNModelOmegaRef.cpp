@@ -140,16 +140,10 @@ ModelOmegaRef::calculateInitialState() {
   sortGenByCC();
 }
 
-/**
- * @brief Reference Frequency F(t,y,y') function evaluation
- *
- * Get the residues' values at a certain instant time with given state variables,
- * state variables derivatives
- *
- * @param t Simulation instant
- */
 void
-ModelOmegaRef::evalF(const double& /*t*/) {
+ModelOmegaRef::evalF(double /*t*/, propertyF_t type) {
+  if (type == DIFFERENTIAL_EQ)
+    return;
   if (firstState_) {
     calculateInitialState();
     firstState_ = false;

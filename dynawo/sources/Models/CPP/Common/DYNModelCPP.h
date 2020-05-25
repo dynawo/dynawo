@@ -124,8 +124,9 @@ class ModelCPP : public SubModel {
    * Get the residues' values at a certain instant time with given state variables,
    * state variables derivatives
    * @param[in] t Simulation instant
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  virtual void evalF(const double & t) = 0;
+  virtual void evalF(double t, propertyF_t type) = 0;
 
   /**
    * @brief  CPP Model G(t,y,y') function evaluation

@@ -574,11 +574,14 @@ ModelLine::evalNodeInjection() {
 }
 
 void
-ModelLine::evalF() {
+ModelLine::evalF(propertyF_t type) {
   if (!isDynamic_ || network_->isInitModel())
     return;
+  bool connStateClosed = getConnectionState() == CLOSED;
+  if (type == DIFFERENTIAL_EQ && !connStateClosed)
+    return;
 
-  if ((modelBus1_ || modelBus2_) && getConnectionState() == CLOSED) {
+  if ((modelBus1_ || modelBus2_) && connStateClosed) {
     double ur1Val = ur1();
     double ui1Val = ui1();
     double ur2Val = ur2();

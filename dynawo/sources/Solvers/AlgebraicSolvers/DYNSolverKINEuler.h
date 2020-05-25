@@ -79,10 +79,11 @@ class SolverKINEuler : public SolverKINCommon, private boost::noncopyable{
    * @brief solve the problem
    *
    * @param noInitSetup indicate if kinsol have to rebuilt the jacobian at the beginning
+   * @param skipScaling indicate if algebraic residues needs to be be evaluated
    *
    * @return @b KIN_SUCCESS if everything ok, error flag else
    */
-  int solve(bool noInitSetup);
+  int solve(bool noInitSetup, bool skipScaling);
 
   /**
    * @brief get the final value of variable after the solver call

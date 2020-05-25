@@ -131,8 +131,9 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
 
   /**
    * @brief evaluation F
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF();
+  void evalF(propertyF_t type);
 
   /**
    * @brief evaluate jacobian \f$( J = @F/@x + cj * @F/@x')\f$

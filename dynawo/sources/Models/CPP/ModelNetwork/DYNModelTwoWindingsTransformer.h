@@ -235,7 +235,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::Impl::evalF()
    */
-  void evalF() { /* not needed */ }
+  void evalF(propertyF_t type);
 
   /**
    * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)

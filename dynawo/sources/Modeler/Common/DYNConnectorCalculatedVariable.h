@@ -59,9 +59,9 @@ class ConnectorCalculatedVariable : public SubModel {
   void getSize();
 
   /**
-   * @copydoc SubModel::evalF(const double & t)
+   * @copydoc SubModel::evalF(double t, propertyF_t type)
    */
-  void evalF(const double& t);
+  void evalF(double t, propertyF_t type);
 
   /**
    * @copydoc SubModel::evalG(const double & t)

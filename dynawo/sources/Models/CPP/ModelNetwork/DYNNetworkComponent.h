@@ -104,8 +104,9 @@ class NetworkComponent {  ///< Base class for network component models
 
   /**
    * @brief evaluate F
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  virtual void evalF() = 0;
+  virtual void evalF(propertyF_t type) = 0;
 
   /**
    * @brief evaluate jacobian \f$( J = @F/@x + cj * @F/@x')\f$

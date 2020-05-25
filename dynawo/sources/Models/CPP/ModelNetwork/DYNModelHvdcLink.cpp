@@ -176,7 +176,7 @@ ModelHvdcLink::setFequations(std::map<int, std::string>& /*fEquationIndex*/) {
 }
 
 void
-ModelHvdcLink::evalF() {
+ModelHvdcLink::evalF(propertyF_t /*type*/) {
   // no equation for simple hvdc model because no state variable
 }
 

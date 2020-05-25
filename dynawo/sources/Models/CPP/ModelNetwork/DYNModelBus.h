@@ -149,8 +149,9 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
 
   /**
    * @brief evaluate F
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF();
+  void evalF(propertyF_t type);
 
   /**
    * @copydoc NetworkComponent::Impl::evalZ()
@@ -709,9 +710,9 @@ class ModelBusContainer {
 
   /**
    * @brief evaluate the residual functions for each bus
-   *
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF();
+  void evalF(propertyF_t type);
 
   /**
    * @brief get sub networks

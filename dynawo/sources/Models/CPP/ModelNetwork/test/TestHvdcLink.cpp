@@ -466,7 +466,7 @@ TEST(ModelsModelNetwork, ModelNetworkHvdcLinkContinuousVariables) {
   // test evalYType
   ASSERT_NO_THROW(hvdc->evalYType());
   ASSERT_NO_THROW(hvdc->evalFType());
-  ASSERT_NO_THROW(hvdc->evalF());
+  ASSERT_NO_THROW(hvdc->evalF(UNDEFINED_EQ));
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;

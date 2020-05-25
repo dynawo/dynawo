@@ -97,7 +97,7 @@ SolverKINSubModel::evalFInit_KIN(N_Vector yy, N_Vector rr, void *data) {
     realtype *iyy = NV_DATA_S(yy);
     int yL = NV_LENGTH_S(yy);
     std::copy(iyy, iyy+yL, solv->yBuffer_);
-    subModel->evalF(solv->t0_);
+    subModel->evalF(solv->t0_, UNDEFINED_EQ);
   }
 
   // copy of values in output vector
@@ -142,7 +142,7 @@ SolverKINSubModel::solve() {
 
   SubModel* subModel = getSubModel();
 
-  subModel->evalF(t0_);
+  subModel->evalF(t0_, UNDEFINED_EQ);
   firstIteration_ = true;
 
   fScale_.assign(subModel->sizeF(), 1.0);

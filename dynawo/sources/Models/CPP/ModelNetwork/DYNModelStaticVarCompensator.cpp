@@ -155,44 +155,44 @@ ModelStaticVarCompensator::evalFType() {
 }
 
 void
-ModelStaticVarCompensator::evalF() {
+ModelStaticVarCompensator::evalF(propertyF_t type) {
   if (network_->isInitModel())
     return;
 
-  int index = 0;
-  double ur = modelBus_->ur();
-  double ui = modelBus_->ui();
-  double vNetwork = sqrt(ur * ur + ui * ui) * vNom_;
+  if (type != DIFFERENTIAL_EQ) {
+    double ur = modelBus_->ur();
+    double ui = modelBus_->ui();
+    double vNetwork = sqrt(ur * ur + ui * ui) * vNom_;
 
-  // equation 0 : 0 = piIn - KG * ((vSetPoint_ - vNetwork) / vNom_ + Statism_ * q / SNREF)
-  // -------------------------------------------------------------------------------------
-  if (isRunning_ && isConnected() && !modelBus_->getSwitchOff())
-    f_[index] = piIn() - kG_ * ((vSetPoint_ - vNetwork) / vNom_ + Statism_ * Q());
-  else
-    f_[index] = piIn();
-  index += 1;
+    // equation 0 : 0 = piIn - KG * ((vSetPoint_ - vNetwork) / vNom_ + Statism_ * q / SNREF)
+    // -------------------------------------------------------------------------------------
+    if (isRunning_ && isConnected() && !modelBus_->getSwitchOff())
+      f_[0] = piIn() - kG_ * ((vSetPoint_ - vNetwork) / vNom_ + Statism_ * Q());
+    else
+      f_[0] = piIn();
 
-  // equation 1 : 0 = piOut - KP * piIn - feedBack;
-  // -----------------------------------------------
-  f_[index] = piOut() - kP_ * piIn() - feedBack();
-  index += 1;
+    // equation 1 : 0 = piOut - KP * piIn - feedBack;
+    // -----------------------------------------------
+    f_[1] = piOut() - kP_ * piIn() - feedBack();
 
-  // equation 2 : 0 = bSvc - min( max(piOut,BMIN),BMAX));
-  // -----------------------------------------------------
-  double tmp;
-  if (piOut() > bMax_)
-    tmp = bMax_;
-  else if (piOut() < bMin_)
-    tmp = bMin_;
-  else
-    tmp = piOut();
+    // equation 2 : 0 = bSvc - min( max(piOut,BMIN),BMAX));
+    // -----------------------------------------------------
+    double tmp;
+    if (piOut() > bMax_)
+      tmp = bMax_;
+    else if (piOut() < bMin_)
+      tmp = bMin_;
+    else
+      tmp = piOut();
 
-  f_[index] = bSvc() - tmp;
-  index += 1;
+    f_[2] = bSvc() - tmp;
+  }
 
-  // equation 3 : 0 = T * d(feedBack)/dt - K * bSvc + feedBack
-  // ----------------------------------------------------------
-  f_[index] = kP_ * Ti_ * feedBackPrim() - bSvc() + feedBack();
+  if (type != ALGEBRAIC_EQ) {
+    // equation 3 : 0 = T * d(feedBack)/dt - K * bSvc + feedBack
+    // ----------------------------------------------------------
+    f_[3] = kP_ * Ti_ * feedBackPrim() - bSvc() + feedBack();
+  }
 }
 
 void

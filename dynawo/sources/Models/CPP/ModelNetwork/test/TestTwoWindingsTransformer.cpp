@@ -841,7 +841,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerContinuousVariables) 
   ASSERT_NO_THROW(t2w->evalFType());
 
   // test evalF
-  ASSERT_NO_THROW(t2w->evalF());
+  ASSERT_NO_THROW(t2w->evalF(UNDEFINED_EQ));
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;

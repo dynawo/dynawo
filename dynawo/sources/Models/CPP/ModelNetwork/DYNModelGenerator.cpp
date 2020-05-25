@@ -120,6 +120,11 @@ ModelGenerator::evalDerivatives(const double /*cj*/) {
 }
 
 void
+ModelGenerator::evalF(propertyF_t /*type*/) {
+  // not needed
+}
+
+void
 ModelGenerator::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
   variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
   variables.push_back(VariableNativeFactory::createState(id_ + "_Pc_value", DISCRETE));

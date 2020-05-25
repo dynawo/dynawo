@@ -49,6 +49,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalF(const double t, double* y, double* yp, double* f);
 
   /**
+   * @copydoc Model::evalFDiff(const double t, double* y, double* yp, double* f)
+   */
+  void evalFDiff(const double t, double* y, double* yp, double* f);
+
+  /**
    * @copydoc Model::copyContinuousVariables(double* y, double* yp)
    */
   void copyContinuousVariables(double* y, double* yp);
