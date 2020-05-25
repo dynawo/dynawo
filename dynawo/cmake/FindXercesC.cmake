@@ -100,9 +100,10 @@ if(XercesC_INCLUDE_DIR)
 endif()
 
 if (XercesC_INCLUDE_DIR AND XercesC_LIBRARY)
-  file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/xercesc/Test)
+  set(XercesTest_DIR ${PROJECT_BINARY_DIR}/XercesTest_DIR)
+  file(MAKE_DIRECTORY ${XercesTest_DIR})
 
-  file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/xercesc/Test/testXerces.cpp
+  file(WRITE ${XercesTest_DIR}/testXerces.cpp
     "\#include <xercesc/util/PlatformUtils.hpp>\n"
     "using namespace xercesc;\n"
     "int main(int argc, char* argv[])\n"
@@ -116,12 +117,10 @@ if (XercesC_INCLUDE_DIR AND XercesC_LIBRARY)
     "  XMLPlatformUtils::Terminate();\n"
     "  return 0;\n"
   "}\n")
-  try_compile(TEST_XERCESC ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/xercesc/Test SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/xercesc/Test/testXerces.cpp
+  try_compile(TEST_XERCESC ${XercesTest_DIR} SOURCES ${XercesTest_DIR}/testXerces.cpp
     LINK_LIBRARIES ${XercesC_LIBRARY} $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread> $<$<BOOL:${APPLE}>:-framework\ CoreServices>
     CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${XercesC_INCLUDE_DIR}"
       "-DCOMPILE_DEFINITIONS=${CXX_STDFLAG}")
-
-  file(REMOVE_RECURSE ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/xercesc/Test)
 
   if(NOT TEST_XERCESC)
     unset(XercesC_LIBRARY)

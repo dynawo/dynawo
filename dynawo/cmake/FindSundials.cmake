@@ -57,9 +57,10 @@ IF(NICSLU_FOUND)
 ENDIF()
 
 if (SUNDIALS_INCLUDE_DIR AND SUNDIALS_IDA_LIBRARY)
-  file(MAKE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/sundials/Test)
+  set(SundialsTest_DIR ${PROJECT_BINARY_DIR}/SundialsTest_DIR)
+  file(MAKE_DIRECTORY ${SundialsTest_DIR})
 
-  file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/sundials/Test/testSundials.cpp
+  file(WRITE ${SundialsTest_DIR}/testSundials.cpp
     "\#include <ida/ida.h>\n"
     "int main() {\n"
     "  void* IDAMem = IDACreate();\n"
@@ -68,12 +69,10 @@ if (SUNDIALS_INCLUDE_DIR AND SUNDIALS_IDA_LIBRARY)
     "  return 0;\n"
     "}\n")
 
-  try_compile(TEST_SUNDIALS ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/sundials/Test SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/sundials/Test/testSundials.cpp
+  try_compile(TEST_SUNDIALS ${SundialsTest_DIR} SOURCES ${SundialsTest_DIR}/testSundials.cpp
     LINK_LIBRARIES ${SUNDIALS_IDA_LIBRARY}
     CMAKE_FLAGS "-DINCLUDE_DIRECTORIES=${SUNDIALS_INCLUDE_DIR}"
       "-DCOMPILE_DEFINITIONS=${CXX_STDFLAG}")
-
-  file(REMOVE_RECURSE ${CMAKE_CURRENT_SOURCE_DIR}/3rdParty/sundials/Test)
 
   if(NOT TEST_SUNDIALS)
     unset(SUNDIALS_IDA_LIBRARY CACHE)
