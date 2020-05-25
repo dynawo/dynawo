@@ -28,7 +28,7 @@ model VRProportional "Simple Proportional Voltage Regulator"
   parameter Types.Time LagEfdMin "Time lag before taking action when going below EfdMin";
   parameter Types.Time LagEfdMax "Time lag before taking action when going above EfdMax";
 
-  LimiterWithLag limiterWithLag(UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = tEfdMinReached0, tUMaxReached0 = tEfdMaxReached0) "Limiter activated only after a certain period outside the bounds" annotation(
+  LimiterWithLag limiterWithLag(UMin = EfdMinPu, UMax = EfdMaxPu, LagMin = LagEfdMin, LagMax = LagEfdMax, tUMinReached0 = Modelica.Constants.inf, tUMaxReached0 = Modelica.Constants.inf) "Limiter activated only after a certain period outside the bounds" annotation(
     Placement(visible = true, transformation(origin = {64, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain(k = Gain) annotation(
     Placement(visible = true, transformation(origin = {14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -48,12 +48,8 @@ model VRProportional "Simple Proportional Voltage Regulator"
 protected
 
   parameter Types.VoltageModulePu UsRef0Pu "Initial control voltage";
-  // p.u. = Unom
   parameter Types.VoltageModulePu Us0Pu "Initial stator voltage";
-  // p.u. = Unom
   parameter Types.VoltageModulePu Efd0Pu "Initial Efd, i.e Efd0PuLF if compliant with saturations";
-  parameter Types.Time tEfdMaxReached0 "Initial time when Efd went above EfdMax";
-  parameter Types.Time tEfdMinReached0 "Initial time when Efd went below EfdMin";
   parameter Types.VoltageModulePu Efd0PuLF "Initial Efd from LoadFlow";
 
   Boolean limitationUsRefMax (start = false) "UsRefMax reached ?";

@@ -35,8 +35,7 @@
     <dyn:initConnect id1="gen" var1="Pm0Pu" id2="gover" var2="Pm0Pu"/>
     <dyn:initConnect id1="avr" var1="UsRef0Pu" id2="URef" var2="Value0"/>
     <dyn:initConnect id1="avr" var1="Efd0PuLF" id2="gen" var2="Efd0Pu"/>
-    <dyn:initConnect id1="avr" var1="u0.re" id2="gen" var2="uStator0Pu.re"/>
-    <dyn:initConnect id1="avr" var1="u0.im" id2="gen" var2="uStator0Pu.im"/>
+    <dyn:initConnect id1="avr" var1="Us0Pu" id2="gen" var2="UStator0Pu"/>
     <dyn:connect id1="gover" var1="PmRefPu" id2="Pm" var2="step"/>
     <dyn:connect id1="gen" var1="PmPu" id2="gover" var2="PmPu"/>
     <dyn:connect id1="gen" var1="omegaPu" id2="gover" var2="omegaPu"/>
