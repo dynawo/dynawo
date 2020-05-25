@@ -790,7 +790,22 @@ void
 SubModel::evalFSub(const double & t) {
   setCurrentTime(t);
   // computing f for the sub-model
-  evalF(t);
+  evalF(t, UNDEFINED_EQ);
+
+#ifdef _DEBUG_
+  // test NAN
+  for (unsigned int i = 0; i < sizeF(); ++i) {
+    if (std::isnan(fLocal_[i])) {
+      throw DYNError(Error::MODELER, NanValue, i, name());
+    }
+  }
+#endif
+}
+
+void
+SubModel::evalFDiffSub(const double & t) {
+  setCurrentTime(t);
+  evalF(t, DIFFERENTIAL_EQ);
 
 #ifdef _DEBUG_
   // test NAN

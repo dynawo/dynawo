@@ -122,7 +122,9 @@ ModelSwitch::evalZ(const double& /*t*/) {
 }
 
 void
-ModelSwitch::evalF() {
+ModelSwitch::evalF(propertyF_t type) {
+  if (type == DIFFERENTIAL_EQ)
+    return;
   if (getConnectionState() == CLOSED && !modelBus1_->getSwitchOff()) {
     if (inLoop_) {
       // 1 is the default value for the current in a loop

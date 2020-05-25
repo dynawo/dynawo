@@ -370,13 +370,13 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   // test evalF
   sw->open();
   sw->evalZ(0.);
-  sw->evalF();
+  sw->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[urIndex], y[urIndex]);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[uiIndex], y[uiIndex]);
   sw->close();
   sw->evalZ(0.);
   sw->inLoop(true);
-  sw->evalF();
+  sw->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[urIndex], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[uiIndex], 4.);
   sw->inLoop(false);
@@ -385,7 +385,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchContinuousVariables) {
   y1[ModelBus::uiNum_] = 12.;
   y2[ModelBus::uiNum_] = 10.;
   sw->evalZ(0.);
-  sw->evalF();
+  sw->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[urIndex], 5.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[uiIndex], 2.);
 

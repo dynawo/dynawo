@@ -108,6 +108,11 @@ ModelThreeWindingsTransformer::evalYMat() {
 }
 
 void
+ModelThreeWindingsTransformer::evalF(propertyF_t /*type*/) {
+  // not needed
+}
+
+void
 ModelThreeWindingsTransformer::evalJt(SparseMatrix& /*jt*/, const double& /*cj*/, const int& /*rowOffset*/) {
   // not needed
 }

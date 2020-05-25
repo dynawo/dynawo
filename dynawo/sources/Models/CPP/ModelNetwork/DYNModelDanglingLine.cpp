@@ -217,8 +217,10 @@ ModelDanglingLine::evalFType() {
 }
 
 void
-ModelDanglingLine::evalF() {
+ModelDanglingLine::evalF(propertyF_t type) {
   if (network_->isInitModel())
+    return;
+  if (type ==DIFFERENTIAL_EQ)
     return;
 
   double ur1 = modelBus_->ur();

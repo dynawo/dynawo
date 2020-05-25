@@ -70,7 +70,10 @@ ConnectorCalculatedVariable::checkParametersCoherence() const {
 }
 
 void
-ConnectorCalculatedVariable::evalF(const double& /*t*/) {
+ConnectorCalculatedVariable::evalF(double /*t*/, propertyF_t type) {
+  if (type == DIFFERENTIAL_EQ)
+    return;
+
   // only one equation 0 = calculated var - yLocal
   fLocal_[0] = model_->evalCalculatedVarI(indexCalculatedVariable_) - yLocal_[0];
 }

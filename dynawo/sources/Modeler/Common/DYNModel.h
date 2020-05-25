@@ -65,6 +65,16 @@ class Model {
   virtual void evalF(const double t, double* y, double* yp, double* f) = 0;
 
   /**
+   * @brief evaluate the differential residual functions of the model
+   *
+   * @param t current time
+   * @param y current values of continuous variables
+   * @param yp current values of the derivative of the continuous variables
+   * @param f values of the residual functions
+   */
+  virtual void evalFDiff(const double t, double* y, double* yp, double* f) = 0;
+
+  /**
    * @brief get the current value of the continuous variables
    *
    * @param y current values of continuous variables

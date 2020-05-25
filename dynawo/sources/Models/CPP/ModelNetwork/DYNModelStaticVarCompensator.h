@@ -135,8 +135,9 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
 
   /**
    * @brief evaluation F
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF();
+  void evalF(propertyF_t type);
 
   /**
    * @copydoc NetworkComponent::Impl::evalZ()

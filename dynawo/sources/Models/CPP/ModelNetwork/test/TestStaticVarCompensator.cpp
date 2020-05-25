@@ -309,7 +309,7 @@ TEST(ModelsModelNetwork, ModelNetworkStaticVarCompensatorContinuousVariables) {
   ASSERT_EQ(fTypes[ModelStaticVarCompensator::feedBackNum_], DIFFERENTIAL_EQ);
 
   // test evalF
-  ASSERT_NO_THROW(svc->evalF());
+  ASSERT_NO_THROW(svc->evalF(UNDEFINED_EQ));
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[ModelStaticVarCompensator::piInNum_], 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[ModelStaticVarCompensator::piOutNum_], -3.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[ModelStaticVarCompensator::bSvcNum_], 1.75);

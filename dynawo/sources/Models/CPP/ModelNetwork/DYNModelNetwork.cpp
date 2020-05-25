@@ -987,31 +987,30 @@ ModelNetwork::initSubBuffers() {
 }
 
 void
-ModelNetwork::evalF(const double& /*t*/) {
+ModelNetwork::evalF(double /*t*/, propertyF_t type) {
 #ifdef _DEBUG_
   Timer timer("ModelNetwork::evalF");
 #endif
 
-  // compute nodal current injections (convention: > 0 if the current goes out of the node)
+  if (type != DIFFERENTIAL_EQ) {
+    // compute nodal current injections (convention: > 0 if the current goes out of the node)
+    busContainer_->resetNodeInjections();
 
-  busContainer_->resetNodeInjections();
-
-  vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
 #ifdef _DEBUG_
-  Timer * timer2 = new Timer("ModelNetwork::evalF_evalNodeInjection");
+    Timer timer2("ModelNetwork::evalF_evalNodeInjection");
 #endif
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalNodeInjection();
-#ifdef _DEBUG_
-  delete timer2;
-#endif
+    for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
+        itComponent != getComponents().end(); ++itComponent)
+      (*itComponent)->evalNodeInjection();
+  }
 
   // evaluate F
 #ifdef _DEBUG_
   Timer timer3("ModelNetwork::evalF_evalF");
 #endif
-  for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
-    (*itComponent)->evalF();
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
+      itComponent != getComponents().end(); ++itComponent)
+    (*itComponent)->evalF(type);
 }
 
 void

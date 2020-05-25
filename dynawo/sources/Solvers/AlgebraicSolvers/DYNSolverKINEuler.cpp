@@ -168,7 +168,7 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 }
 
 int
-SolverKINEuler::solve(bool noInitSetup) {
+SolverKINEuler::solve(bool noInitSetup, bool skipScaling) {
 #ifdef _DEBUG_
   Timer timer("SolverKINEuler::solve");
 #endif
@@ -178,7 +178,10 @@ SolverKINEuler::solve(bool noInitSetup) {
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
 
   firstIteration_ = true;
-  model_->evalF(t0_ + h0_ , &y0_[0], &YP_[0], &F_[0]);
+  if (skipScaling)
+    model_->evalFDiff(t0_ + h0_ , &y0_[0], &YP_[0], &F_[0]);
+  else
+    model_->evalF(t0_ + h0_ , &y0_[0], &YP_[0], &F_[0]);
 
   fScale_.assign(nbF_, 1.0);
   for (unsigned int i = 0; i < nbF_; ++i) {

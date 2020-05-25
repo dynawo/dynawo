@@ -27,7 +27,7 @@ namespace DYN {
     public:
     void initData(DYNDATA * d);
     void initRpar();
-    void setFomc(double * f);
+    void setFomc(double * f, propertyF_t type);
     void setGomc(state_g * g);
     modeChangeType_t evalMode(const double & t) const;
     void setZomc();
@@ -56,7 +56,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("6d328223dc57be2343ac1090aaaa147e"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("c0b65258e132db776d993dac30625286"); }
 
     private:
     DYNDATA * data;

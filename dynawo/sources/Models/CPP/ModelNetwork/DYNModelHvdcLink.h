@@ -114,9 +114,9 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   void setFequations(std::map<int, std::string>& fEquationIndex);
 
   /**
-   * @copydoc NetworkComponent::Impl::evalF()
+   * @copydoc NetworkComponent::Impl::evalF(propertyF_t type)
    */
-  void evalF();
+  void evalF(propertyF_t type);
 
   /**
    * @copydoc NetworkComponent::Impl::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset)

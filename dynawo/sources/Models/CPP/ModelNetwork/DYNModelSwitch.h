@@ -193,8 +193,9 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
 
   /**
    * @brief evaluate F
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF();  ///< compute the local F function
+  void evalF(propertyF_t type);  ///< compute the local F function
 
   /**
   * @copydoc NetworkComponent::Impl::evalZ()

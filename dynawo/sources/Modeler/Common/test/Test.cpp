@@ -93,7 +93,7 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void evalF(const double & t) {
+  void evalF(double t, propertyF_t type) {
     // Dummy class used for testing
   }
 

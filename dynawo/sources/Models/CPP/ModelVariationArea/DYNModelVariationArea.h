@@ -106,8 +106,9 @@ class ModelVariationArea : public ModelCPP::Impl {
    * Get the residues' values at a certain instant time with given state variables,
    * state variables derivatives
    * @param[in] t Simulation instant
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(const double & t);
+  void evalF(double t, propertyF_t type);
   /**
    * @brief  VariationArea G(t,y,y') function evaluation
    *

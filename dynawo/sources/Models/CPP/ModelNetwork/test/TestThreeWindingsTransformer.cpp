@@ -118,7 +118,7 @@ TEST(ModelsModelNetwork, ModelNetworkThreeWindingsTransformerInitializationClose
 
   tw3->evalYMat();
   ASSERT_NO_THROW(tw3->init());
-  ASSERT_NO_THROW(tw3->evalF());
+  ASSERT_NO_THROW(tw3->evalF(UNDEFINED_EQ));
   ASSERT_NO_THROW(tw3->evalYType());
   ASSERT_NO_THROW(tw3->evalFType());
   std::map<int, std::string> fEquationIndex;

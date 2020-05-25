@@ -275,7 +275,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorContinuousVariables) {
   ASSERT_NO_THROW(gen->evalFType());
 
   // test evalF
-  ASSERT_NO_THROW(gen->evalF());
+  ASSERT_NO_THROW(gen->evalF(UNDEFINED_EQ));
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;
@@ -287,7 +287,7 @@ TEST(ModelsModelNetwork, ModelNetworkGeneratorContinuousVariables) {
   ASSERT_EQ(genInit->sizeY(), 0);
   ASSERT_EQ(genInit->sizeF(), 0);
   ASSERT_NO_THROW(genInit->getY0());
-  ASSERT_NO_THROW(genInit->evalF());
+  ASSERT_NO_THROW(genInit->evalF(UNDEFINED_EQ));
   fEquationIndex.clear();
   ASSERT_NO_THROW(genInit->setFequations(fEquationIndex));
 }

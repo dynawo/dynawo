@@ -182,16 +182,9 @@ void ModelTest_Dyn::initRpar()
   return;
 }
 
-void ModelTest_Dyn::setFomc(double * f)
+void ModelTest_Dyn::setFomc(double * f, propertyF_t type)
 {
-  {
-  // ----- Test.Test_eqFunction_5 -----
-  $P$DAEres0 = ((-data->simulationInfo->realParameter[1] /* b PARAM */)) * (data->localData[0]->realVars[0] /* u STATE(1) */) - ((data->simulationInfo->realParameter[0] /* a PARAM */) * (data->localData[0]->derivativesVars[0] /* der(u) STATE_DER */));
-  f[0] = $P$DAEres0;
-
-  }
-
-
+  if (type != DIFFERENTIAL_EQ) {
   {
   // ----- Test.Test_eqFunction_6 -----
   f[1] = data->localData[0]->realVars[1] /*  x variable  */ - ( (2.0) * (data->localData[0]->realVars[0] /* u STATE(1) */) );
@@ -206,6 +199,17 @@ void ModelTest_Dyn::setFomc(double * f)
   }
 
 
+  }
+  if (type != ALGEBRAIC_EQ) {
+  {
+  // ----- Test.Test_eqFunction_5 -----
+  $P$DAEres0 = ((-data->simulationInfo->realParameter[1] /* b PARAM */)) * (data->localData[0]->realVars[0] /* u STATE(1) */) - ((data->simulationInfo->realParameter[0] /* a PARAM */) * (data->localData[0]->derivativesVars[0] /* der(u) STATE_DER */));
+  f[0] = $P$DAEres0;
+
+  }
+
+
+  }
 }
 
 modeChangeType_t ModelTest_Dyn::evalMode(const double & t) const

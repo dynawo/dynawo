@@ -143,8 +143,10 @@ void ModelLoad::evalFType() {
 }
 
 void
-ModelLoad::evalF() {
+ModelLoad::evalF(propertyF_t type) {
   if (network_->isInitModel())
+    return;
+  if (type == ALGEBRAIC_EQ)
     return;
 
   if (isRestorative_) {

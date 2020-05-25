@@ -284,7 +284,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorContinuousVariables) {
   ASSERT_NO_THROW(capa->evalFType());
 
   // test evalF
-  ASSERT_NO_THROW(capa->evalF());
+  ASSERT_NO_THROW(capa->evalF(UNDEFINED_EQ));
 
   // test setFequations
   std::map<int, std::string> fEquationIndex;
@@ -296,7 +296,7 @@ TEST(ModelsModelNetwork, ModelNetworkShuntCompensatorContinuousVariables) {
   ASSERT_EQ(capaInit->sizeY(), 0);
   ASSERT_EQ(capaInit->sizeF(), 0);
   ASSERT_NO_THROW(capaInit->getY0());
-  ASSERT_NO_THROW(capaInit->evalF());
+  ASSERT_NO_THROW(capaInit->evalF(UNDEFINED_EQ));
   fEquationIndex.clear();
   ASSERT_NO_THROW(capaInit->setFequations(fEquationIndex));
   ASSERT_EQ(fEquationIndex.size(), 0);

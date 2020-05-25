@@ -79,9 +79,9 @@ class ModelCPP::Impl : public ModelCPP {
   virtual double evalCalculatedVarI(unsigned iCalculatedVar) const = 0;
 
   /**
-   * @copydoc ModelCPP::evalF()
+   * @copydoc ModelCPP::evalF(double t, propertyF_t type)
    */
-  virtual void evalF(const double & t) = 0;
+  virtual void evalF(double t, propertyF_t type) = 0;
 
   /**
    * @copydoc ModelCPP::evalG()

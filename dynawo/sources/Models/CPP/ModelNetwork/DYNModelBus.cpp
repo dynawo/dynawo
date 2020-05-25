@@ -57,10 +57,10 @@ ModelBusContainer::add(const shared_ptr<ModelBus>& model) {
 }
 
 void
-ModelBusContainer::evalF() {
+ModelBusContainer::evalF(propertyF_t type) {
   vector<shared_ptr<ModelBus> >::const_iterator itB;
   for (itB = models_.begin(); itB != models_.end(); ++itB)
-    (*itB)->evalF();
+    (*itB)->evalF(type);
 }
 
 void
@@ -315,12 +315,15 @@ ModelBus::evalDerivatives(const double /*cj*/) {
 }
 
 void
-ModelBus::evalF() {
+ModelBus::evalF(propertyF_t type) {
   if (network_->isInitModel()) {
     f_[0] = ir0_;
     f_[1] = ii0_;
   } else {
-    if (getSwitchOff()) {
+    bool switchedOff = getSwitchOff();
+    if (type == DIFFERENTIAL_EQ && (!hasDifferentialVoltages_ || switchedOff))
+      return;
+    if (switchedOff) {
       f_[0] = y_[urNum_];
       f_[1] = y_[uiNum_];
     } else {

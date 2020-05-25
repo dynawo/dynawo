@@ -55,7 +55,7 @@ class HeaderPatternDefine:
     public:
     void initData(DYNDATA * d);
     void initRpar();
-    void setFomc(double * f);
+    void setFomc(double * f, propertyF_t type);
     void setGomc(state_g * g);
     modeChangeType_t evalMode(const double & t) const;
     void setZomc();
@@ -138,7 +138,7 @@ namespace DYN {
     public:
     void initData(DYNDATA * d);
     void initRpar();
-    void setFomc(double * f);
+    void setFomc(double * f, propertyF_t type);
     void setGomc(state_g * g);
     modeChangeType_t evalMode(const double & t) const;
     void setZomc();

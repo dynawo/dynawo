@@ -126,7 +126,8 @@ mxnewtstep_(100000),
 msbset_(0),
 mxiter_(15),
 printfl_(0),
-skipNextNR_(false) {
+skipNextNR_(false),
+skipScaling_(false) {
   solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
 }
 
@@ -377,6 +378,7 @@ void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
 
     // Call the Newton-Raphson solver and analyze the root evolution
     SolverStatus_t status = solve();
+    skipScaling_ = false;
 
     switch (status) {
       /* NON_CONV: the Newton-Raphson algorithm fails to converge
@@ -396,6 +398,7 @@ void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
       */
       case CONV: {
         handleConvergence(redoStep);
+        skipScaling_ = true;
         break;
       }
       /*
@@ -513,7 +516,7 @@ SolverSIM::callSolverKINEuler() {
     noInitSetup = false;
 
   // Call the solving method in Backward Euler method (Newton-Raphson resolution)
-  int flag = solverKINEuler_->solve(noInitSetup);
+  int flag = solverKINEuler_->solve(noInitSetup, skipScaling_);
 
   // Get updated y and yp values plus set the skipNextNR indicator
   if (flag >= 0)

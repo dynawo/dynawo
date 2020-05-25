@@ -184,8 +184,9 @@ void ModelGeneratorPQ_Init::initRpar()
   return;
 }
 
-void ModelGeneratorPQ_Init::setFomc(double * f)
+void ModelGeneratorPQ_Init::setFomc(double * f, propertyF_t type)
 {
+  if (type != DIFFERENTIAL_EQ) {
   {
   // ----- GeneratorPQ_INIT_eqFunction_10 -----
   f[0] = data->localData[0]->realVars[3] /*  generator.s0Pu.re variable  */ - ( data->simulationInfo->realParameter[0] /* generator.P0Pu PARAM */ );
@@ -244,6 +245,7 @@ void ModelGeneratorPQ_Init::setFomc(double * f)
   }
 
 
+  }
 }
 
 modeChangeType_t ModelGeneratorPQ_Init::evalMode(const double & t) const

@@ -108,8 +108,9 @@ class ModelOmegaRef : public ModelCPP::Impl {
    * state variables derivatives
    *
    * @param t Simulation instant
+   * @param[in] type type of the residues to compute (algebraic, differential or both)
    */
-  void evalF(const double & t);
+  void evalF(double t, propertyF_t type);
   /**
    * @brief Reference frequency G(t,y,y') function evaluation
    *

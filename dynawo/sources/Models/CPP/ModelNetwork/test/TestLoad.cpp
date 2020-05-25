@@ -404,7 +404,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[zQIdx], 0);
 
   // test evalF
-  load->evalF();
+  load->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaPcIdx], -402.24999999999994);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaQcIdx], 6.1766109710079018);
 
@@ -429,7 +429,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[zQIdx], 0);
 
   // test evalF (bus switchoff)
-  load->evalF();
+  load->evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaPcIdx], 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[DeltaPcIdx], 2);
 
@@ -446,7 +446,7 @@ TEST(ModelsModelNetwork, ModelNetworkLoadContinuousVariables) {
   ASSERT_EQ(loadInit->sizeY(), 0);
   ASSERT_EQ(loadInit->sizeF(), 0);
   ASSERT_NO_THROW(loadInit->getY0());
-  ASSERT_NO_THROW(loadInit->evalF());
+  ASSERT_NO_THROW(loadInit->evalF(UNDEFINED_EQ));
   fEquationIndex.clear();
   ASSERT_NO_THROW(loadInit->setFequations(fEquationIndex));
   delete[] zConnected;

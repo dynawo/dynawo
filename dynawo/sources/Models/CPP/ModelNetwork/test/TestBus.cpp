@@ -395,7 +395,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   // test evalF
   bus->irAdd(3.2);
   bus->iiAdd(5.5);
-  ASSERT_NO_THROW(bus->evalF());
+  ASSERT_NO_THROW(bus->evalF(UNDEFINED_EQ));
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 2.4);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 5.1);
 
@@ -409,7 +409,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   // test evalF
   y[ModelBus::urNum_] = 0.35;
   y[ModelBus::uiNum_] = 0.02;
-  ASSERT_NO_THROW(bus->evalF());
+  ASSERT_NO_THROW(bus->evalF(UNDEFINED_EQ));
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0.35);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0.02);
   ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getCurrentV(), 1.7528548142958102);
@@ -490,7 +490,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariablesInitModel) {
   // test evalF
   bus->irAdd(3.2);
   bus->iiAdd(5.5);
-  ASSERT_NO_THROW(bus->evalF());
+  ASSERT_NO_THROW(bus->evalF(UNDEFINED_EQ));
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 3.2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 5.5);
   delete[] zConnected;
@@ -720,7 +720,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   ASSERT_FALSE(bus3->numSubNetworkSet());
   ASSERT_EQ(container.getSubNetworks().size(), 0);
 
-  container.evalF();
+  container.evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f1[0], 0.1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f1[1], 0.01);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f2[0], 0.2);
@@ -728,7 +728,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(f3[0], 0.3);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f3[1], 0.03);
   container.resetNodeInjections();
-  container.evalF();
+  container.evalF(UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f1[0], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f1[1], 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f2[0], 0.);

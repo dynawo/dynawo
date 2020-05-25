@@ -1413,48 +1413,70 @@ class Factory:
         return body
 
     ##
+    # dump an equation into Fomc body
+    # @param self : object pointer
+    # @return
+    def dump_eq(self, eq, index_relation):
+        var_name = eq.get_evaluated_var()
+        var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
+        if var_name not in self.reader.fictive_continuous_vars_der:
+            standard_eq_body = []
+            standard_eq_body.append (self.ptrn_f_name %(eq.get_src_fct_name()))
+            eq_body = (eq.get_body_for_setf())
+            if self.create_additional_relations():
+                index = 0
+                for line in eq_body:
+                    if (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
+                        eq_body[index] = self.transform_in_relation(line, index_relation)
+                        index_relation += 1
+                    index += 1
+            standard_eq_body.extend(eq_body)
+
+            if self.keep_continous_modelica_reinit() and ((var_name in map_eq_reinit_continuous) or (var_name_without_der in map_eq_reinit_continuous)):
+                var_name_modelica_reinit = var_name if var_name in map_eq_reinit_continuous else var_name_without_der
+                eq_list = map_eq_reinit_continuous [var_name_modelica_reinit]
+                first_eq = True
+                self.list_for_setf.append("  //reinit equations for " + var_name_modelica_reinit + "\n")
+                for eq in eq_list:
+                    if (not first_eq):
+                        self.list_for_setf.append("  else ")
+                    self.list_for_setf.extend(eq.get_body_for_setf())
+                    self.list_for_setf.extend("\n")
+                    first_eq = False
+                self.list_for_setf.append("  else \n")
+                self.list_for_setf.append("  {\n")
+                self.list_for_setf.extend(standard_eq_body)
+                self.list_for_setf.append("  }")
+            else:
+                self.list_for_setf.append("  {\n")
+                self.list_for_setf.extend(standard_eq_body)
+                self.list_for_setf.append("\n  }\n")
+            self.list_for_setf.append("\n\n")
+        return index_relation
+    ##
     # dump the lines of the system equation in the body of setF
     # @param self : object pointer
     # @return
     def dump_eq_syst_in_setf(self):
         map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
         index_relation = self.nb_existing_relations
+        algebraic_eq = []
+        differential_eq = []
         for eq in self.get_list_eq_syst():
-            var_name = eq.get_evaluated_var()
-            var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
-            if var_name not in self.reader.fictive_continuous_vars_der:
-                standard_eq_body = []
-                standard_eq_body.append (self.ptrn_f_name %(eq.get_src_fct_name()))
-                eq_body = (eq.get_body_for_setf())
-                if self.create_additional_relations():
-                    index = 0
-                    for line in eq_body:
-                        if (("Greater" in line or "Less" in line) and not "RELATIONHYSTERESIS" in line):
-                            eq_body[index] = self.transform_in_relation(line, index_relation)
-                            index_relation += 1
-                        index += 1
-                standard_eq_body.extend(eq_body)
-
-                if self.keep_continous_modelica_reinit() and ((var_name in map_eq_reinit_continuous) or (var_name_without_der in map_eq_reinit_continuous)):
-                    var_name_modelica_reinit = var_name if var_name in map_eq_reinit_continuous else var_name_without_der
-                    eq_list = map_eq_reinit_continuous [var_name_modelica_reinit]
-                    first_eq = True
-                    self.list_for_setf.append("  //reinit equations for " + var_name_modelica_reinit + "\n")
-                    for eq in eq_list:
-                        if (not first_eq):
-                            self.list_for_setf.append("  else ")
-                        self.list_for_setf.extend(eq.get_body_for_setf())
-                        self.list_for_setf.extend("\n")
-                        first_eq = False
-                    self.list_for_setf.append("  else \n")
-                    self.list_for_setf.append("  {\n")
-                    self.list_for_setf.extend(standard_eq_body)
-                    self.list_for_setf.append("  }")
-                else:
-                    self.list_for_setf.append("  {\n")
-                    self.list_for_setf.extend(standard_eq_body)
-                    self.list_for_setf.append("\n  }\n")
-                self.list_for_setf.append("\n\n")
+            if eq.get_is_diff_eq():
+                differential_eq.append(eq)
+            else:
+                algebraic_eq.append(eq)
+        if len(algebraic_eq) > 0:
+            self.list_for_setf.append("  if (type != DIFFERENTIAL_EQ) {\n")
+            for eq in algebraic_eq:
+                index_relation = self.dump_eq(eq, index_relation)
+            self.list_for_setf.append("  }\n")
+        if len(differential_eq) > 0:
+            self.list_for_setf.append("  if (type != ALGEBRAIC_EQ) {\n")
+            for eq in differential_eq:
+                index_relation = self.dump_eq(eq, index_relation)
+            self.list_for_setf.append("  }\n")
 
     ##
     # dump the lines of the warning in the body of checkDataCoherence
@@ -1482,13 +1504,34 @@ class Factory:
             self.list_for_setf.append("  // -------------- call functions ----------\n")
             self.list_for_setf.extend(self.filter_external_function_call())
 
+
+            algebraic_eq = []
+            differential_eq = []
             for eq in self.list_additional_equations_from_call_for_setf:
-                standard_eq_body = []
-                standard_eq_body.append (self.ptrn_f_name %(eq.get_src_fct_name()))
-                standard_eq_body.append ("  ")
-                standard_eq_body.extend(eq.get_body_for_setf())
-                standard_eq_body.append ("\n"  )
-                self.list_for_setf.extend(standard_eq_body)
+                if eq.get_is_diff_eq():
+                    differential_eq.append(eq)
+                else:
+                    algebraic_eq.append(eq)
+            if len(algebraic_eq) > 0:
+                self.list_for_setf.append("  if (type != DIFFERENTIAL_EQ) {\n")
+                for eq in algebraic_eq:
+                    standard_eq_body = []
+                    standard_eq_body.append (self.ptrn_f_name %(eq.get_src_fct_name()))
+                    standard_eq_body.append ("  ")
+                    standard_eq_body.extend(eq.get_body_for_setf())
+                    standard_eq_body.append ("\n"  )
+                    self.list_for_setf.extend(standard_eq_body)
+                self.list_for_setf.append("  }\n")
+            if len(differential_eq) > 0:
+                self.list_for_setf.append("  if (type != ALGEBRAIC_EQ) {\n")
+                for eq in differential_eq:
+                    standard_eq_body = []
+                    standard_eq_body.append (self.ptrn_f_name %(eq.get_src_fct_name()))
+                    standard_eq_body.append ("  ")
+                    standard_eq_body.extend(eq.get_body_for_setf())
+                    standard_eq_body.append ("\n"  )
+                    self.list_for_setf.extend(standard_eq_body)
+                self.list_for_setf.append("  }\n")
 
             self.list_for_setf.append("\n\n")
 

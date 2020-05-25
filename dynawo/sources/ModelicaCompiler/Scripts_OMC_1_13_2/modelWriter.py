@@ -368,7 +368,7 @@ class ModelWriter(ModelWriterBase):
     def fill_setFomc(self):
         self.addEmptyLine()
 
-        self.addLine(self.void_function_prefix+ self.className + "::setFomc(double * f)\n")
+        self.addLine(self.void_function_prefix+ self.className + "::setFomc(double * f, propertyF_t type)\n")
         self.addLine("{\n")
 
         self.addBody(self.builder.get_list_for_setf())
