@@ -263,11 +263,11 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
         jt.addTerm(globalYIndex(zPYNum_) + rowOffset, cj);
       } else if ((zp > 0. && zp < zPMax_) || (zp <= 0. && zPdiff > 0.) || (zp >= zPMax_ && zPdiff < 0.)) {
         double termZp = -powUAlpha * kp_;
-        double powUAlphaLong = pow(U, alphaLong_ - 2.);
+        double powUAlphaLongMinus2 = pow(U, alphaLong_ - 2.);
         double powU0AlphaLong = pow(u0_, alphaLong_);
         double powUAlphaMinus2 = pow(U, alpha_ - 2.);
-        double termUr = alphaLong_ * ur *  powUAlphaLong / powU0AlphaLong - zp * alpha_ * ur * powUAlphaMinus2 * kp_;
-        double termUi = alphaLong_ * ui *  powUAlphaLong / powU0AlphaLong - zp * alpha_ * ui * powUAlphaMinus2 * kp_;
+        double termUr = alphaLong_ * ur *  powUAlphaLongMinus2 / powU0AlphaLong - zp * alpha_ * ur * powUAlphaMinus2 * kp_;
+        double termUi = alphaLong_ * ui *  powUAlphaLongMinus2 / powU0AlphaLong - zp * alpha_ * ui * powUAlphaMinus2 * kp_;
         jt.addTerm(globalYIndex(zPYNum_) + rowOffset, -termZp + cj * Tp_);
         jt.addTerm(urYNum + rowOffset, -termUr);
         jt.addTerm(uiYNum + rowOffset, -termUi);
@@ -285,11 +285,11 @@ ModelLoad::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
         jt.addTerm(globalYIndex(zQYNum_) + rowOffset, cj);
       } else if ((zq > 0. && zq < zQMax_) || (zq <= 0. && zQdiff > 0.) || (zq >= zQMax_ && zQdiff < 0.)) {
         double termZq = -powUBeta * kq_;
-        double powUAlphaLong = pow(U, betaLong_ - 2.);
-        double powU0AlphaLong = pow(u0_, betaLong_);
-        double powUAlphaMinus2 = pow(U, beta_ - 2.);
-        double termUr = betaLong_ * ur * powUAlphaLong / powU0AlphaLong - zq * beta_ * ur * powUAlphaMinus2 * kq_;
-        double termUi = betaLong_ * ui * powUAlphaLong / powU0AlphaLong - zq * beta_ * ui * powUAlphaMinus2 * kq_;
+        double powUBetaLongMinus2 = pow(U, betaLong_ - 2.);
+        double powU0BetaLong = pow(u0_, betaLong_);
+        double powUBetaMinus2 = pow(U, beta_ - 2.);
+        double termUr = betaLong_ * ur * powUBetaLongMinus2 / powU0BetaLong - zq * beta_ * ur * powUBetaMinus2 * kq_;
+        double termUi = betaLong_ * ui * powUBetaLongMinus2 / powU0BetaLong - zq * beta_ * ui * powUBetaMinus2 * kq_;
         jt.addTerm(globalYIndex(zQYNum_) + rowOffset, - termZq + cj * Tq_);
         jt.addTerm(urYNum + rowOffset, -termUr);
         jt.addTerm(uiYNum + rowOffset, -termUi);
