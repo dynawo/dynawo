@@ -22,6 +22,7 @@
 #include <string>
 #include <map>
 #include <fstream>
+#include <algorithm>
 
 #include "TLTimeline.h"
 #include "CRVCurve.h"
@@ -201,9 +202,7 @@ ModelMulti::initBuffers() {
   ypLocal_ = new double[sizeY_]();
   zLocal_ = new double[sizeZ_]();
   zConnectedLocal_ = new bool[sizeZ_];
-  for (int i = 0; i < sizeZ_; ++i) {
-    zConnectedLocal_[i] = false;
-  }
+  std::fill_n(zConnectedLocal_, sizeZ_, false);
   int offsetF = 0;
   int offsetG = 0;
   int offsetY = 0;
