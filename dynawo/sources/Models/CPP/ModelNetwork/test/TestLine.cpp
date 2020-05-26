@@ -148,7 +148,8 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     bus1->setReferenceY(y1, yp1, f1, 0, 0);
     y1[ModelBus::urNum_] = 3.5;
     y1[ModelBus::uiNum_] = 2;
-    z1[ModelBus::switchOffNum_] = -1;
+    if (!initModel)
+      z1[ModelBus::switchOffNum_] = -1;
     bus1->init(offset);
   }
   if (closed2) {
@@ -169,7 +170,8 @@ createModelLine(bool open, bool initModel, bool closed1 = true, bool closed2 = t
     bus2->setReferenceY(y2, yp2, f2, 0, 0);
     y2[ModelBus::urNum_] = 4.;
     y2[ModelBus::uiNum_] = 1.5;
-    z2[ModelBus::switchOffNum_] = -1;
+    if (!initModel)
+      z2[ModelBus::switchOffNum_] = -1;
     bus2->init(offset);
   }
   return std::make_pair(dl, vl);
