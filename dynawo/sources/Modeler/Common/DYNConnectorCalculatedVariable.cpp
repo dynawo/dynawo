@@ -91,7 +91,7 @@ ConnectorCalculatedVariable::evalJt(const double& /*t*/, const double& /*cj*/, S
   const double dMOne(-1.);
 
   Jt.changeCol();
-  Jt.addTerm(rowOffset, dMOne);  // d(f)/d(yLocal) = -1;
+  Jt.addTerm(rowOffset, dMOne);  // d(f)/d(yLocal) = -1
 
   vector<double> JModel(varExtIndexes_.size());
   model_->evalJCalculatedVarI(indexCalculatedVariable_, JModel);
@@ -121,6 +121,7 @@ ConnectorCalculatedVariable::evalMode(const double& /*t*/) {
 
 void
 ConnectorCalculatedVariable::evalCalculatedVars() {
+  // no calculated variables
 }
 
 void

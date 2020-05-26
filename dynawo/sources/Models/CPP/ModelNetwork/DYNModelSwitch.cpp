@@ -348,7 +348,6 @@ ModelSwitch::evalCalculatedVarI(unsigned numCalculatedVar) const {
     default:
       throw DYNError(Error::MODELER, UndefCalculatedVarI, numCalculatedVar);
   }
-  return 0.;
 }
 
 void
