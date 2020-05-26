@@ -248,7 +248,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
   bool stableRoot = true;
   bool change = false;
 
-  for (int i = 0; i < 10; ++i) {
+  for (int i = 0; i < maxNumberUnstableRoots; ++i) {
     // evalZ
     model_->evalZ(time);
     zChange = model_->zChange();
@@ -294,25 +294,30 @@ Solver::Impl::detectUnstableRoot(vector<state_g> &vGout0, vector<state_g> &vGout
 
   if (!stableRoot) {
 #ifdef _DEBUG_
-    int i = 0;
-    vector<state_g>::const_iterator iG0(vGout0.begin());
-    vector<state_g>::const_iterator iG1(vGout1.begin());
-    for (; iG0 < vGout0.end(); iG0++, iG1++, i++) {
-      if ((*iG0) != (*iG1)) {
-        Trace::debug() << DYNLog(SolverInstableRoot, i, (*iG0), (*iG1)) << Trace::endline;
-        std::string subModelName("");
-        int localGIndex(0);
-        std::string gEquation("");
-        model_->getGInfos(i, subModelName, localGIndex, gEquation);
-        Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
-      }
-    }
-    Trace::debug() << DYNLog(SolverInstableRootFound) << Trace::endline;
+  printUnstableRoot(vGout0, vGout1);
 #endif
     std::copy(vGout1.begin(), vGout1.end(), vGout0.begin());
   }
 
   return (stableRoot);
+}
+
+void
+Solver::Impl::printUnstableRoot(vector<state_g> &vGout0, vector<state_g> &vGout1) const {
+  int i = 0;
+  vector<state_g>::const_iterator iG0(vGout0.begin());
+  vector<state_g>::const_iterator iG1(vGout1.begin());
+  for (; iG0 < vGout0.end(); iG0++, iG1++, i++) {
+    if ((*iG0) != (*iG1)) {
+      Trace::debug() << DYNLog(SolverInstableRoot, i, (*iG0), (*iG1)) << Trace::endline;
+      std::string subModelName("");
+      int localGIndex(0);
+      std::string gEquation("");
+      model_->getGInfos(i, subModelName, localGIndex, gEquation);
+      Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
+    }
+  }
+  Trace::debug() << DYNLog(SolverInstableRootFound) << Trace::endline;
 }
 
 void

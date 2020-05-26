@@ -144,19 +144,14 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
 }
 
 int
-SolverKINEuler::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
+SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
+#ifdef _DEBUG_
   Timer timer("SolverKINEuler::evalJ_KIN");
+#endif
+
   SolverKINEuler* solv = reinterpret_cast<SolverKINEuler*> (data);
   shared_ptr<Model> model = solv->getModel();
-
-  realtype* iyy = NV_DATA_S(yy);
-  const vector<int>& diffVar = solv->differentialVars_;
-
-  // YP[i] = (y[i]-yprec[i])/h for each differential variable
-  for (unsigned int i = 0; i < diffVar.size(); ++i) {
-    solv->YP_[diffVar[i]] = (iyy[diffVar[i]] - solv->y0_[diffVar[i]]) / solv->h0_;
-  }
 
   // cj = 1/h
   double cj = 1 / solv->h0_;
@@ -166,7 +161,6 @@ SolverKINEuler::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
   SparseMatrix smj;
   int size = model->sizeY();
   smj.init(size, size);
-  model->copyContinuousVariables(iyy, &solv->YP_[0]);
   model->evalJt(solv->t0_ + solv->h0_, cj, smj);
   SolverCommon::propagateMatrixStructureChangeToKINSOL(smj, JJ, size, solv->lastRowVals_, solv->LS_, solv->linearSolverName_, true);
 
@@ -175,12 +169,14 @@ SolverKINEuler::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
 
 int
 SolverKINEuler::solve(bool noInitSetup) {
+#ifdef _DEBUG_
   Timer timer("SolverKINEuler::solve");
+#endif
+
   int flag = KINSetNoInitSetup(KINMem_, noInitSetup);
   if (flag < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "KINSetNoInitSetup");
 
-  Timer* scaling = new Timer("SolverKINEuler::scaling");
   firstIteration_ = true;
   model_->evalF(t0_ + h0_ , &y0_[0], &YP_[0], &F_[0]);
 
@@ -195,7 +191,6 @@ SolverKINEuler::solve(bool noInitSetup) {
     if (std::abs(y0_[i]) > RCONST(1.0))
       yScale_[i] = 1 / std::abs(y0_[i]);
   }
-  delete scaling;
 
   flag = solveCommon();
 

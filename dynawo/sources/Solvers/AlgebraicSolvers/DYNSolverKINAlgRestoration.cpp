@@ -196,20 +196,19 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   double *irr = NV_DATA_S(rr);
   double *iyy = NV_DATA_S(yy);
 
-  vector<double> Y(solv->y0_.begin(), solv->y0_.end());
-  vector<double> YP(model->sizeY(), 0.);
-
   // evalF has already been called in the scaling part so it doesn't have to be called again for the first iteration
   if (solv->getFirstIteration()) {
     solv->setFirstIteration(false);
   } else {
     if (solv->mode_ == KIN_NORMAL) {
+      vector<double> Y(solv->y0_.begin(), solv->y0_.end());
       // add current values of algebraic variables
       for (unsigned int i = 0; i < solv->indexY_.size(); ++i) {
         Y[solv->indexY_[i]] = iyy[i];
       }
       model->evalF(solv->t0_, &Y[0], &solv->yp0_[0], &solv->F_[0]);
     } else if (solv->mode_ == KIN_YPRIM) {
+      vector<double> YP(model->sizeY(), 0.);
       for (unsigned int i = 0; i < solv->indexY_.size(); ++i) {
         YP[solv->indexY_[i]] = iyy[i];
       }
@@ -240,25 +239,14 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
 }
 
 int
-SolverKINAlgRestoration::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
+SolverKINAlgRestoration::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
          SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKINAlgRestoration* solv = reinterpret_cast<SolverKINAlgRestoration*> (data);
   shared_ptr<Model> model = solv->getModel();
 
-  double* iyy = NV_DATA_S(yy);
-
-  vector<double> Y(solv->y0_.begin(), solv->y0_.end());
-
-  // add current values of algebraic variables
-  for (unsigned int i = 0; i < solv->indexY_.size(); ++i) {
-    Y[solv->indexY_[i]] = iyy[i];
-  }
-
   double cj = 1;
-
   SparseMatrix smj;
   smj.init(model->sizeY(), model->sizeY());
-  model->copyContinuousVariables(&Y[0], &solv->yp0_[0]);
   model->evalJt(solv->t0_, cj, smj);
 
   // Erase useless values in the jacobian
@@ -272,25 +260,15 @@ SolverKINAlgRestoration::evalJ_KIN(N_Vector yy, N_Vector /*rr*/,
 }
 
 int
-SolverKINAlgRestoration::evalJPrim_KIN(N_Vector yy, N_Vector /*rr*/,
+SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
   SolverKINAlgRestoration* solv = reinterpret_cast<SolverKINAlgRestoration*> (data);
   shared_ptr<Model> model = solv->getModel();
-
-  double* iyy = NV_DATA_S(yy);
-
-  vector<double> YP(model->sizeY(), 0.);
-
-  // add current values of the derivatives
-  for (unsigned int i = 0; i < solv->indexY_.size(); ++i) {
-    YP[solv->indexY_[i]] = iyy[i];
-  }
 
   double cj = 1;
 
   SparseMatrix smj;
   smj.init(model->sizeY(), model->sizeY());
-  model->copyContinuousVariables(&solv->y0_[0], &YP[0]);
   model->evalJtPrim(solv->t0_, cj, smj);
 
   // Erase useless values in the jacobian
@@ -325,17 +303,9 @@ SolverKINAlgRestoration::solve(bool noInitSetup) {
 
   // yScale
   yScale_.assign(indexY_.size(), 1.0);
-  if (mode_ == KIN_NORMAL) {  // variables = YAlg
-    for (unsigned int i = 0; i < indexY_.size(); ++i) {
-      if (std::abs(y0_[indexY_[i]]) > RCONST(1.0)) {
-        yScale_[i] = 1. / std::abs(y0_[indexY_[i]]);
-      }
-    }
-  } else if (mode_ == KIN_YPRIM) {  // variables = YP
-    for (unsigned int i = 0; i < indexY_.size(); ++i) {
-      if (std::abs(yp0_[indexY_[i]]) > RCONST(1.0)) {
-        yScale_[i] = 1. / std::abs(yp0_[indexY_[i]]);
-      }
+  for (unsigned int i = 0; i < indexY_.size(); ++i) {
+    if (std::abs(vYy_[indexY_[i]]) > RCONST(1.0)) {
+      yScale_[i] = 1. / std::abs(vYy_[indexY_[i]]);
     }
   }
 
@@ -372,7 +342,6 @@ void
 SolverKINAlgRestoration::getValues(vector<double>& y, vector<double>& yp) {
   switch (mode_) {
     case KIN_NORMAL: {
-      yp.assign(yp0_.begin(), yp0_.end());
       for (unsigned int i = 0; i < indexY_.size(); ++i) {
         y0_[indexY_[i]] = vYy_[i];
       }
@@ -380,7 +349,6 @@ SolverKINAlgRestoration::getValues(vector<double>& y, vector<double>& yp) {
       break;
     }
     case KIN_YPRIM: {
-      y.assign(y0_.begin(), y0_.end());
       for (unsigned int i = 0; i < indexY_.size(); ++i) {
         yp0_[indexY_[i]] = vYy_[i];
       }

@@ -231,6 +231,11 @@ class SolverIDA : public Solver::Impl {
    */
   void solveStep(double tAim, double &tNxt);
 
+  /**
+   * @copydoc Solver::initAlgRestoration(const modeChangeType_t& modeChangeType)
+   */
+  bool initAlgRestoration(const modeChangeType_t& modeChangeType);
+
  private:
   void* IDAMem_;  ///< IDA internal memory structure
   SUNLinearSolver LS_;  ///< Linear Solver pointer
@@ -247,6 +252,7 @@ class SolverIDA : public Solver::Impl {
   double relAccuracy_;  ///< absolute error tolerance
 
   bool flagInit_;  ///< @b true if the solver is in initialization mode
+  int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
 
   sunindextype* lastRowVals_;  ///< save of last Jacobian structure, to force symbolic factorization if structure change
 };

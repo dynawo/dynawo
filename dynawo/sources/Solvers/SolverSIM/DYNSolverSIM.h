@@ -150,9 +150,14 @@ class SolverSIM : public Solver::Impl {
   void solveWithoutStepRecalculation(double &tNxt);
 
   /**
-   * @brief save the initial values of roots, y, yp and z before the time step
+   * @brief save the initial values of roots, y, and z before the time step
    */
   void saveInitialValues();
+
+  /**
+   * @brief save the initial values of y before the time step
+   */
+  void saveContinuousVariables();
 
   /**
    * @brief increment the counter of NR tries and stop the simulation if it is higher than a threshold
@@ -193,12 +198,14 @@ class SolverSIM : public Solver::Impl {
   void updateStepDivergence();
 
   /**
-   * @brief restore y, yp and possibly z and roots to their initial values
-   *
-   * @param zRestoration @b 1 if the z values also have to be restored to their initial values
-   * @param rootRestoration @b 1 if the root values also have to be restored to their initial values
+   * @brief restore y, z and roots to their initial values
    */
-  void restoreInitialValues(bool zRestoration, bool rootRestoration);
+  void restoreInitialValues();
+
+  /**
+   * @brief restore y to their initial values
+   */
+  void restoreContinuousVariables();
 
   /**
    * @brief update the solver attributes and strategy following a convergence
@@ -228,6 +235,16 @@ class SolverSIM : public Solver::Impl {
    * @copydoc Solver::Impl::solveStep(double tAim, double &tNxt)
    */
   void solveStep(double tAim, double &tNxt);
+
+  /**
+   * @copydoc Solver::initAlgRestoration(const modeChangeType_t& modeChangeType)
+   */
+  bool initAlgRestoration(const modeChangeType_t& modeChangeType);
+
+  /**
+   * @copydoc Solver::updateStatistics()
+   */
+  void updateStatistics();
 
  private:
   boost::shared_ptr<SolverKINEuler> solverKINEuler_;  ///< Backward Euler solver

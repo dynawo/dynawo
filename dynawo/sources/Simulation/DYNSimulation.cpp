@@ -182,9 +182,7 @@ dumpFinalStateFile_(""),
 exportIIDM_(false),
 exportIIDMFile_(""),
 dumpLocalInitValues_(false),
-dumpGlobalInitValues_(false),
-lastTimeSimulated_(-1),
-nbLastTimeSimulated_(0) {
+dumpGlobalInitValues_(false) {
   SignalHandler::setSignalHandlers();
 
 #ifdef _MSC_VER
@@ -827,7 +825,7 @@ Simulation::simulate() {
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       bool isCheckCriteriaIter = data_ && activateCriteria_ && currentIterNb % criteriaStep_ == 0;
 
-      iterate();
+      solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
 
       BitMask solverState = solver_->getState();
@@ -927,24 +925,6 @@ Simulation::updateParametersValues() {
       }
     }
   }
-}
-
-void
-Simulation::iterate() {
-#ifdef _DEBUG_
-  Timer timer("Simulation::iterate()");
-#endif
-  double tVise = tStop_;
-
-  solver_->solve(tVise, tCurrent_);
-
-  if (std::abs(tCurrent_ - lastTimeSimulated_) < 1e-6)
-    ++nbLastTimeSimulated_;
-  else
-    nbLastTimeSimulated_ = 0;
-  lastTimeSimulated_ = tCurrent_;
-  if (nbLastTimeSimulated_ > 10)
-    throw DYNError(Error::SOLVER_ALGO, SlowStepIncrease);
 }
 
 void

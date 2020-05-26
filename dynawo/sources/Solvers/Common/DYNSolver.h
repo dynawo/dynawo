@@ -26,6 +26,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNBitMask.h"
+#include "DYNEnumUtils.h"
 
 namespace parameters {
 class ParametersSet;
@@ -36,6 +37,9 @@ class Timeline;
 }  // namespace timeline
 
 namespace DYN {
+static const int maxNumberUnstableRoots = 10;  ///< Maximum number of unstable roots for one time step
+static const double minimalAcceptableStep = 1e-6;  ///< Minimum time step to consider that the solver is not blocked
+static const int maximumNumberSlowStepIncrease = 10;  ///< Maximum number of consecutive time-steps with a time step lower than minimalAcceptableStep
 
 /**
  * @brief Flags of the current numerical resolution
@@ -275,6 +279,19 @@ class Solver {
    * @param timeline timeline to use
    */
   virtual void setTimeline(const boost::shared_ptr<timeline::Timeline> &timeline) = 0;
+
+  /**
+   * @brief initialize the algebraic restoration solver with the good settings
+   *
+   * @param modeChangeType type of mode change
+   * @return @b true if a Jacobian evaluation is not needed at the next time-domain time-step
+   */
+  virtual bool initAlgRestoration(const modeChangeType_t& modeChangeType) = 0;
+
+  /**
+   * @brief update the statistics
+   */
+  virtual void updateStatistics() = 0;
 
   class Impl;
 };
