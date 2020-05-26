@@ -844,7 +844,7 @@ Simulation::simulate() {
 
       if (isCheckCriteriaIter)
         model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
-      updateCurves(!isCheckCriteriaIter);
+      updateCurves(!isCheckCriteriaIter && !solverState.getFlags(ZChange));
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
