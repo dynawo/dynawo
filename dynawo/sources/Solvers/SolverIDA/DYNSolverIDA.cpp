@@ -428,8 +428,7 @@ SolverIDA::calculateIC() {
     change = false;
     model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
     model_->evalG(tSolve_, g1_);
-    bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
-    if (rootFound) {
+    if (!(std::equal(g0_.begin(), g0_.end(), g1_.begin()))) {
       g0_.assign(g1_.begin(), g1_.end());
       change = evalZMode(g0_, g1_, tSolve_);
     }
@@ -439,7 +438,7 @@ SolverIDA::calculateIC() {
     model_->reinitMode();
 
     ++counter;
-    if (counter >= 100)
+    if (counter >= maxNumberUnstableRoots)
       throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
   } while (change);
 
@@ -590,6 +589,10 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
       break;
     case IDA_ROOT_RETURN:
       msg = "IDA_ROOT_RETURN";
+      model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+      model_->evalG(tNxt, g0_);
+      ++stats_.nge_;
+      evalZMode(g0_, g1_, tNxt);
       break;
     case IDA_TSTOP_RETURN:
       msg = "IDA_TSTOP_RETURN";
@@ -599,9 +602,16 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
       analyseFlag(flag);
   }
 
+  if (std::abs(tSolve_ - tNxt) < minimalAcceptableStep)
+    ++nbLastTimeSimulated_;
+    if (nbLastTimeSimulated_ > maximumNumberSlowStepIncrease)
+      throw DYNError(Error::SOLVER_ALGO, SlowStepIncrease);
+  else
+    nbLastTimeSimulated_ = 0;
+
+#ifdef _DEBUG_
   // A root has been found at tNxt
   if (flag == IDA_ROOT_RETURN) {
-#ifdef _DEBUG_
     vector<state_g> rootsFound = getRootsFound();
     for (unsigned int i = 0; i < rootsFound.size(); i++) {
       if (rootsFound[i] != NO_ROOT) {
@@ -613,16 +623,8 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
         Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
       }
     }
-#endif
-
-    // Propagating the root change
-    model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
-    model_->evalG(tNxt, g0_);
-    ++stats_.nge_;
-    evalZMode(g0_, g1_, tNxt);
   }
 
-#ifdef _DEBUG_
   /* The convergence criterion in IDA is associated to the weighted RMS norm of the delta between two Newton iterations.
    * Indeed, the correction step is successful if sqrt(Sum(w*(y(k+1)-y(k))^2)/n) < tolerance where k is the kth Newton iteration and n the number of variables
    * The weights (w) used are inversely proportional to the relative accuracy multiplied by the value variable and the absolute accuracy.
@@ -677,6 +679,41 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
 #endif
 }
 
+bool SolverIDA::initAlgRestoration(const modeChangeType_t& modeChangeType) {
+  if (modeChangeType == ALGEBRAIC_MODE) {
+    if (previousReinit_ == None) {
+      solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
+            initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+      solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_YPRIM, fnormtolAlg_,
+            initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+      previousReinit_ = Algebraic;
+      return true;
+    } else if (previousReinit_ == AlgebraicWithJUpdate) {
+      solverKINNormal_->modifySettings(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+      solverKINYPrim_->modifySettings(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+      previousReinit_ = Algebraic;
+      return true;
+    }
+    return true;
+  } else {
+    if (previousReinit_ == None) {
+      solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlgJ_,
+            initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+      solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_YPRIM, fnormtolAlgJ_,
+            initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+      previousReinit_ = AlgebraicWithJUpdate;
+      return false;
+    } else if (previousReinit_ == Algebraic) {
+      solverKINNormal_->modifySettings(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+      solverKINYPrim_->modifySettings(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+      previousReinit_ = AlgebraicWithJUpdate;
+      return false;
+    }
+    return false;
+  }
+}
+
+
 /*
  * This routine deals with the possible actions due to a mode change.
  * In IDA, in case of a mode change, depending on the types of mode, either there is an algebraic equation restoration or just
@@ -696,33 +733,7 @@ SolverIDA::reinit() {
 
       // During the algebraic equation restoration, the system could have moved a lot from its previous state.
       // J updates and preconditioner calls must be done on a regular basis.
-      bool noInitSetup = false;
-      if (modeChangeType == ALGEBRAIC_MODE) {
-        if (previousReinit_ == None) {
-          solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
-              initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
-          solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_YPRIM, fnormtolAlg_,
-              initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
-          previousReinit_ = Algebraic;
-        } else if (previousReinit_ == AlgebraicWithJUpdate) {
-          solverKINNormal_->modifySettings(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
-          solverKINYPrim_->modifySettings(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
-          previousReinit_ = Algebraic;
-        }
-        noInitSetup = true;
-      } else {
-        if (previousReinit_ == None) {
-          solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlgJ_,
-              initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
-          solverKINYPrim_->init(model_, SolverKINAlgRestoration::KIN_YPRIM, fnormtolAlgJ_,
-              initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
-          previousReinit_ = AlgebraicWithJUpdate;
-        } else if (previousReinit_ == Algebraic) {
-          solverKINNormal_->modifySettings(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
-          solverKINYPrim_->modifySettings(fnormtolAlgJ_, initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
-          previousReinit_ = AlgebraicWithJUpdate;
-        }
-      }
+      bool noInitSetup = initAlgRestoration(modeChangeType);
 
       // Call to solver KIN to find new algebraic variables' values
       for (unsigned int i = 0; i < vYId_.size(); i++)
@@ -757,26 +768,23 @@ SolverIDA::reinit() {
 
 
       // Root stabilization
-      model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
       model_->evalG(tSolve_, g1_);
       ++stats_.nge_;
-      bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
-      if (rootFound) {
+      if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
+        break;
+      } else {
         g0_.assign(g1_.begin(), g1_.end());
         evalZMode(g0_, g1_, tSolve_);
         modeChangeType = model_->getModeChangeType();
-      } else {
-        modeChangeType = NO_MODE;
       }
 
       counter++;
-      if (counter >= 10)
+      if (counter >= maxNumberUnstableRoots)
         throw DYNError(Error::SOLVER_ALGO, SolverIDAUnstableRoots);
     } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
 
     updateStatistics();
   }
-
 
   int flag0 = IDAReInit(IDAMem_, tSolve_, yy_, yp_);  // required to relaunch the simulation
   if (flag0 < 0)

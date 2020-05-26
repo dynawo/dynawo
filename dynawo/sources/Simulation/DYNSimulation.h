@@ -491,11 +491,6 @@ class Simulation {
   void printCurrentTime(const std::string& fileName);
 
   /**
-   * @brief do an iteration of the simulation
-   */
-  void iterate();
-
-  /**
    * @brief add an event to the timeline
    * @param messageTimeline message to add in the timeline
    */
@@ -554,8 +549,6 @@ class Simulation {
   bool dumpLocalInitValues_;  ///< whether to export the results from the local initialisation
   bool dumpGlobalInitValues_;  ///< whether to export the results from the global initialisation
   std::vector<double> zCurrent_;  ///< current values of the model's discrete variables
-  double lastTimeSimulated_;  ///< value of the latest time simulated
-  int nbLastTimeSimulated_;  ///< nb times of simulation of the latest time (to see if the solver succeed to pass through event at one point)
 
  private:
   /**

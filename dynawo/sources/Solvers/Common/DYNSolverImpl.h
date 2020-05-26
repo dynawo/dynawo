@@ -291,6 +291,14 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    */
   bool detectUnstableRoot(std::vector<state_g> &vGout0, std::vector<state_g> &vGout1, const double &time);
 
+  /**
+   * @brief print the unstable roots
+   *
+   * @param vGout0 previous value of zero crossing functions
+   * @param vGout1 new value of zero crossing functions
+   */
+  void printUnstableRoot(std::vector<state_g>& vGout0, std::vector<state_g>& vGout1) const;
+
  protected:
   /**
    * @brief Integrate the DAE over an interval in t
@@ -299,6 +307,11 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @param tNxt the time reached by the solver
    */
   virtual void solveStep(double tAim, double &tNxt) = 0;
+
+  /**
+   * @copydoc Solver::initAlgRestoration(const modeChangeType_t& modeChangeType)
+   */
+  virtual bool initAlgRestoration(const modeChangeType_t& modeChangeType) = 0;
 
   std::map<std::string, ParameterSolver> parameters_;  ///< map between parameters and parameters' names
   boost::shared_ptr<Model> model_;  ///< model currently simulated

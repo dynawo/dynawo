@@ -226,42 +226,43 @@ SolverSIM::calculateIC() {
   model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
   model_->evalG(tSolve_, g0_);
   evalZMode(g0_, g1_, tSolve_);
-
   model_->rotateBuffers();
   state_.reset();
   model_->reinitMode();
 
+  // KINSOL initialization
   solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
       initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
 
+  // Loop as long as there is a z or a mode change
   do {
     Trace::debug() << DYNLog(CalculateICIteration, counter) << Trace::endline;
 
-    // Global initialization
+    // Global initialization - continuous part
     solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
     solverKINAlgRestoration_->solve();
     solverKINAlgRestoration_->getValues(vYy_, vYp_);
 
-    change = false;
-    model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
+    // Updating discrete variable values and mode
     model_->evalG(tSolve_, g1_);
-    bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
-    if (rootFound) {
+    if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
+      break;
+    } else {
       g0_.assign(g1_.begin(), g1_.end());
       change = evalZMode(g0_, g1_, tSolve_);
     }
 
-    ++counter;
-    if (counter >= 100)
-      throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
-
     model_->rotateBuffers();
     state_.reset();
     model_->reinitMode();
+
+    // Maximum number of initialization calculation
+    ++counter;
+    if (counter >= maxNumberUnstableRoots)
+      throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
   } while (change);
 
   Trace::debug() << DYNLog(EndCalculateIC) << Trace::endline;
-
   solverKINAlgRestoration_->clean();
 }
 
@@ -302,6 +303,7 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
       */
       case NON_CONV: {
         handleDivergence(redoStep);
+        restoreInitialValues();
         countRestart_ = 0;
         // Erase timeline messages that could have been added between the previous accepted time step and the non convergence
         if (timeline_) {
@@ -347,7 +349,7 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
           } else {
             countRestart_++;
             redoStep = true;
-            restoreInitialValues(false, false);
+            restoreContinuousVariables();
             state_.reset();
             model_->reinitMode();
           }
@@ -364,7 +366,7 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
 void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
   int counter = 0;
   bool redoStep = false;
-  saveInitialValues();
+  saveContinuousVariables();
 
   do {
     // If we have more than maxNewtonTry consecutive divergence or root changes, the simulation is stopped
@@ -384,6 +386,7 @@ void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
       */
       case NON_CONV: {
         handleDivergence(redoStep);
+        restoreContinuousVariables();
         break;
       }
       /*
@@ -425,12 +428,14 @@ void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
 
 void
 SolverSIM::saveInitialValues() {
+  saveContinuousVariables();
   gSave_.assign(g0_.begin(), g0_.end());
-  ySave_.assign(vYy_.begin(), vYy_.end());
   model_->getCurrentZ(zSave_);
+}
 
-  // At the moment, the Simplified solver uses an order 0 prediction in which the NR resolution begins with vYp_ = 0
-  // ypSave_.assign(vYp_.begin(), vYp_.end());
+void
+SolverSIM::saveContinuousVariables() {
+  ySave_.assign(vYy_.begin(), vYy_.end());
 }
 
 void SolverSIM::handleMaximumTries(int& counter) {
@@ -445,43 +450,30 @@ SolverSIM::solve() {
    * Call the Newton-Raphson solver for the time step
    * Returns y and yp updated values
    */
-
   int flag = 0;
-  if (model_->sizeY() != 0)
-    flag = SIMCorrection();
+  if (!skipNextNR_ && model_->sizeY() != 0)
+    flag = callSolverKINEuler();
 
+  // Analyze the return value and do further treatments if necessary
   if (flag < 0) {
     stats_.ncfn_++;
-    return (NON_CONV);
+    return NON_CONV;
   } else {
-    // Dealing with discrete variable value and mode changes
-
     // Evaluate root values after the time step (using updated y and yp)
-    model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
     model_->evalG(tSolve_ + h_, g1_);
     ++stats_.nge_;
 
-    // Check if there has been any root change
-    bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
-
-    // No root change -> no discrete variable change and no mode change
-    if (!rootFound) {
-      return (CONV);
+    // No root change -> no discrete variable change neither mode change
+    if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
+      if (flag == KIN_INITIAL_GUESS_OK) {
+        skipNextNR_ = true;
+        Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
+      }
+      return CONV;
     } else {
       // A root change has occurred - Dealing with propagation and algebraic mode detection
-
 #ifdef _DEBUG_
-      for (int i = 0; i < model_->sizeG(); ++i) {
-        if (g0_[i] != g1_[i]) {
-          Trace::debug() << "SolverSIM: rootsfound -> g[" << i << "] =" << g1_[i] << Trace::endline;
-
-          std::string subModelName("");
-          int localGIndex(0);
-          std::string gEquation("");
-          model_->getGInfos(i, subModelName, localGIndex, gEquation);
-          Trace::debug() << DYNLog(RootGeq, i, subModelName, gEquation) << Trace::endline;
-        }
-      }
+      printUnstableRoot(g0_, g1_);
 #endif
       /* Save the new values of the root in g0 for comparison after the evalZMode
        * Calculate the propagation of discrete variable value changes and mode changes
@@ -490,33 +482,20 @@ SolverSIM::solve() {
       bool modelChange = evalZMode(g0_, g1_, tSolve_ + h_);
 
       // Algebraic mode change
-      modeChangeType_t modeChangeType = model_->getModeChangeType();
-      if (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE) {
+      // modeChangeType_t modeChangeType = model_->getModeChangeType();
+      if (getState().getFlags(ModeChange)) {
         skipNextNR_ = false;
-        return (ROOT_ALG);
-      } else if (modelChange) {  // Z change
+        if (model_->getModeChangeType() != DIFFERENTIAL_MODE)
+          return ROOT_ALG;
+        return CONV;
+      } else if (getState().getFlags(ZChange)) {  // Z change
         skipNextNR_ = false;
-        return (ROOT);
+        return ROOT;
       } else {  // Root change without any z or mode change
-        if (modeChangeType == DIFFERENTIAL_MODE)
-          skipNextNR_ = false;
-        return (CONV);
+        return CONV;
       }
     }
   }
-}
-
-int
-SolverSIM::SIMCorrection() {
-  int flag = 0;
-  if (!skipNextNR_) {
-    flag = callSolverKINEuler();
-    if (flag == KIN_INITIAL_GUESS_OK) {
-      skipNextNR_ = true;
-      Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
-    }
-  }
-  return flag;
 }
 
 int
@@ -537,14 +516,19 @@ SolverSIM::callSolverKINEuler() {
     solverKINEuler_->getValues(vYy_, vYp_);
 
   // Update statistics
+  updateStatistics();
+
+  return flag;
+}
+
+void
+SolverSIM::updateStatistics() {
   long int nre;
   long int nje;
   solverKINEuler_->updateStatistics(nNewt_, nre, nje);
-
   stats_.nre_ += nre;
   stats_.nni_ += nNewt_;
   stats_.nje_ += nje;
-  return flag;
 }
 
 void SolverSIM::handleDivergence(bool& redoStep) {
@@ -554,7 +538,6 @@ void SolverSIM::handleDivergence(bool& redoStep) {
   factorizationForced_ = true;
   redoStep = true;
   updateStepDivergence();
-  restoreInitialValues(true, true);
 }
 
 void
@@ -563,19 +546,15 @@ SolverSIM::updateStepDivergence() {
 }
 
 void
-SolverSIM::restoreInitialValues(bool zRestoration, bool rootRestoration) {
+SolverSIM::restoreContinuousVariables() {
   vYy_.assign(ySave_.begin(), ySave_.end());
+}
 
-  // At the moment, the Simplified solver uses an order 0 prediction in which the NR resolution begins with vYp_ = 0
-  // vYp_.assign(ypSave_.begin(), ypSave_.end());
-
-  if (zRestoration) {
-    // Propagating the restoration to the model - z isn't copied from solver to model before evalF otherwise
-    model_->setCurrentZ(zSave_);
-  }
-
-  if (rootRestoration)
-    g0_.assign(gSave_.begin(), gSave_.end());
+void
+SolverSIM::restoreInitialValues() {
+  restoreContinuousVariables();
+  model_->setCurrentZ(zSave_);
+  g0_.assign(gSave_.begin(), gSave_.end());
 }
 
 void SolverSIM::handleConvergence(bool& redoStep) {
@@ -587,10 +566,10 @@ void SolverSIM::handleConvergence(bool& redoStep) {
 void
 SolverSIM::updateStepConvergence() {
   if (doubleNotEquals(h_, hMax_)) {
-    if (nNewt_ > nEff_ - nDeadband_ && nNewt_ < nEff_ + nDeadband_) {
-      hNew_ = h_;
-    } else {
+    if (nNewt_ <= nEff_ - nDeadband_ || nNewt_ >= nEff_ + nDeadband_) {
       hNew_ = min(h_ * nEff_ / nNewt_, hMax_);
+    } else {
+      hNew_ = h_;
     }
   } else {
     hNew_ = h_;
@@ -612,6 +591,35 @@ void SolverSIM::updateTimeStep(double& tNxt) {
   tNxt = tSolve_ + h_;
 }
 
+bool SolverSIM::initAlgRestoration(const modeChangeType_t& modeChangeType) {
+  if (modeChangeType == ALGEBRAIC_MODE) {
+    if (previousReinit_ == None) {
+      solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
+            initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+      previousReinit_ = Algebraic;
+      return true;
+    } else if (previousReinit_ == AlgebraicWithJUpdate) {
+      solverKINAlgRestoration_->modifySettings(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
+      previousReinit_ = Algebraic;
+      return true;
+    }
+    return true;
+  } else {
+    if (previousReinit_ == None) {
+      solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlgJ_,
+            initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+      previousReinit_ = AlgebraicWithJUpdate;
+      return false;
+    } else if (previousReinit_ == Algebraic) {
+      solverKINAlgRestoration_->modifySettings(fnormtolAlgJ_, initialaddtolAlgJ_,
+            scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
+      previousReinit_ = AlgebraicWithJUpdate;
+      return false;
+    }
+    return false;
+  }
+}
+
 /*
  * This routine deals with the possible actions due to a mode change.
  * In the simplified solver, in case of a mode change, depending on the types of mode, either there is an algebraic equation restoration or nothing is done.
@@ -629,35 +637,9 @@ SolverSIM::reinit() {
     state_.reset();
     model_->reinitMode();
 
-    // Call to solver KIN to find new algebraic variables' values
-    for (unsigned int i = 0; i < vYId_.size(); i++)
-      if (vYId_[i] != DYN::DIFFERENTIAL)
-        vYp_[i] = 0;
-
     // During the algebraic equation restoration, the system could have moved a lot from its previous state.
     // J updates and preconditioner calls must be done on a regular basis.
-    bool noInitSetup = false;
-    if (modeChangeType == ALGEBRAIC_MODE) {
-      if (previousReinit_ == None) {
-        solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
-            initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
-        previousReinit_ = Algebraic;
-      } else if (previousReinit_ == AlgebraicWithJUpdate) {
-        solverKINAlgRestoration_->modifySettings(fnormtolAlg_, initialaddtolAlg_, scsteptolAlg_, mxnewtstepAlg_, msbsetAlg_, mxiterAlg_, printflAlg_);
-        previousReinit_ = Algebraic;
-      }
-      noInitSetup = true;
-    } else {
-      if (previousReinit_ == None) {
-        solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlgJ_,
-            initialaddtolAlgJ_, scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
-        previousReinit_ = AlgebraicWithJUpdate;
-      } else if (previousReinit_ == Algebraic) {
-        solverKINAlgRestoration_->modifySettings(fnormtolAlgJ_, initialaddtolAlgJ_,
-            scsteptolAlgJ_, mxnewtstepAlgJ_, msbsetAlgJ_, mxiterAlgJ_, printflAlgJ_);
-        previousReinit_ = AlgebraicWithJUpdate;
-      }
-    }
+    bool noInitSetup = initAlgRestoration(modeChangeType);
 
     solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
     int flag = solverKINAlgRestoration_->solve(noInitSetup);
@@ -676,20 +658,18 @@ SolverSIM::reinit() {
     solverKINAlgRestoration_->getValues(vYy_, vYp_);
 
     // Root stabilization - tSolve_ has been updated in the solve method to the current time
-    model_->copyContinuousVariables(&vYy_[0], &vYp_[0]);
     model_->evalG(tSolve_, g1_);
     ++stats_.nge_;
-    bool rootFound = !(std::equal(g0_.begin(), g0_.end(), g1_.begin()));
-    if (rootFound) {
+    if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
+      break;
+    } else {
       g0_.assign(g1_.begin(), g1_.end());
       evalZMode(g0_, g1_, tSolve_);
       modeChangeType = model_->getModeChangeType();
-    } else {
-      modeChangeType = NO_MODE;
     }
 
     counter++;
-    if (counter >= 10)
+    if (counter >= maxNumberUnstableRoots)
       throw DYNError(Error::SOLVER_ALGO, SolverSIMUnstableRoots);
   } while (modeChangeType == ALGEBRAIC_MODE || modeChangeType == ALGEBRAIC_J_UPDATE_MODE);
 }
