@@ -108,7 +108,8 @@ createModelDanglingLine(bool open, bool initModel) {
   bus1->setReferenceY(y1, yp1, f1, 0, 0);
   y1[ModelBus::urNum_] = 3.5;
   y1[ModelBus::uiNum_] = 2;
-  z1[ModelBus::switchOffNum_] = -1;
+  if (!initModel)
+    z1[ModelBus::switchOffNum_] = -1;
   int offset = 0;
   bus1->init(offset);
   return std::make_pair(dl, vl);

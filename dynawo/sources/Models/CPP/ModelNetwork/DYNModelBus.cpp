@@ -392,7 +392,7 @@ ModelBus::evalYType() {
     yType_[1] = DIFFERENTIAL;
   }
 
-  if (hasConnection_) {
+  if (!network_->isInitModel() && hasConnection_) {
     yType_[2] = ALGEBRAIC;
     yType_[3] = ALGEBRAIC;
   }
