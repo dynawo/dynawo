@@ -2849,7 +2849,6 @@ class Factory:
     # @return
     def prepare_for_evalcalculatedvari(self):
         index = 0
-        ptrn_vars = re.compile(r'x\[(?P<varId>[0-9]+)\]')
         for var in self.reader.list_calculated_vars:
             expr = self.reader.dic_calculated_vars_values[var.get_name()]
             self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */\n")
