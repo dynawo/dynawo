@@ -479,7 +479,7 @@ SolverSIM::solve() {
        * Calculate the propagation of discrete variable value changes and mode changes
        */
       g0_.assign(g1_.begin(), g1_.end());
-      bool modelChange = evalZMode(g0_, g1_, tSolve_ + h_);
+      evalZMode(g0_, g1_, tSolve_ + h_);
 
       // Algebraic mode change
       // modeChangeType_t modeChangeType = model_->getModeChangeType();

@@ -602,12 +602,13 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
       analyseFlag(flag);
   }
 
-  if (std::abs(tSolve_ - tNxt) < minimalAcceptableStep)
+  if (std::abs(tSolve_ - tNxt) < minimalAcceptableStep) {
     ++nbLastTimeSimulated_;
     if (nbLastTimeSimulated_ > maximumNumberSlowStepIncrease)
       throw DYNError(Error::SOLVER_ALGO, SlowStepIncrease);
-  else
+  } else {
     nbLastTimeSimulated_ = 0;
+  }
 
 #ifdef _DEBUG_
   // A root has been found at tNxt
