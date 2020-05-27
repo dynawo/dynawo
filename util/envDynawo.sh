@@ -1598,7 +1598,7 @@ deploy_dynawo() {
   find OpenModelica/lib -name "libumfpack*" -exec rm -f '{}' \;
   find OpenModelica/lib -name "libzlib*" -exec rm -f '{}' \;
   if [ "`uname`" = "Linux" ]; then
-    for lib in {gfortran,quadmath,lapack,blas,lpsolve}; do
+    for lib in {gfortran,quadmath,lapack,blas,lpsolve,cblas,atlas}; do
       if [ ! -z "$(ldd $DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2)" ]; then
         cp $(ldd $DYNAWO_INSTALL_OPENMODELICA/bin/omcDynawo | grep $lib | cut -d '>' -f 2 | cut -d ' ' -f 2) lib/
       fi
