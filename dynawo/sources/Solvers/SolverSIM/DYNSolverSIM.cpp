@@ -487,6 +487,8 @@ SolverSIM::solve() {
         skipNextNR_ = false;
         if (model_->getModeChangeType() != DIFFERENTIAL_MODE)
           return ROOT_ALG;
+        else if (getState().getFlags(ZChange))
+          return ROOT;
         return CONV;
       } else if (getState().getFlags(ZChange)) {  // Z change
         skipNextNR_ = false;
