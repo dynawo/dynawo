@@ -286,7 +286,7 @@ class Solver {
    * @param modeChangeType type of mode change
    * @return @b true if a Jacobian evaluation is not needed at the next time-domain time-step
    */
-  virtual bool initAlgRestoration(const modeChangeType_t& modeChangeType) = 0;
+  virtual bool initAlgRestoration(modeChangeType_t modeChangeType) = 0;
 
   /**
    * @brief update the statistics

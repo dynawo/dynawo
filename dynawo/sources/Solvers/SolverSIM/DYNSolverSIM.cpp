@@ -481,8 +481,6 @@ SolverSIM::solve() {
       g0_.assign(g1_.begin(), g1_.end());
       evalZMode(g0_, g1_, tSolve_ + h_);
 
-      // Algebraic mode change
-      // modeChangeType_t modeChangeType = model_->getModeChangeType();
       if (getState().getFlags(ModeChange)) {
         skipNextNR_ = false;
         if (model_->getModeChangeType() != DIFFERENTIAL_MODE)
@@ -593,7 +591,7 @@ void SolverSIM::updateTimeStep(double& tNxt) {
   tNxt = tSolve_ + h_;
 }
 
-bool SolverSIM::initAlgRestoration(const modeChangeType_t& modeChangeType) {
+bool SolverSIM::initAlgRestoration(modeChangeType_t modeChangeType) {
   if (modeChangeType == ALGEBRAIC_MODE) {
     if (previousReinit_ == None) {
       solverKINAlgRestoration_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,
