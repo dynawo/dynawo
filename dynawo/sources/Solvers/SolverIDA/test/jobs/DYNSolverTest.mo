@@ -39,6 +39,37 @@ equation
   end when;
 end DYNSolverTestBeta;
 
+model DYNSolverTestSilentZ
+  Real u (start = 1);
+  Real x (start = 0);
+  Real y;
+  Integer z1(start = 1), z2(start = 1), z3;
+equation
+  der(u) = 5;
+  if (time > 4) then
+    z2 = 3;
+  elseif (time > 3) then
+    z2 = 4;
+  else
+    z2 = 1;
+  end if;
+  if (time > 4) then
+    z1 = 3;
+  elseif (time > 1) then
+    z1 = 2;
+  else
+    z1 = 1;
+  end if;
+  if (z2 == 2) then
+    x = u;
+    z3 = 0;
+  else
+    x = z1*u;
+    z3 = 1;
+  end if;
+  y = x;
+end DYNSolverTestSilentZ;
+
 connector ZPin "connector for propagating discrete values (and events)"
   public
     discrete Real value;

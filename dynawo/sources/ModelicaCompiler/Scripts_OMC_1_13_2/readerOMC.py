@@ -146,6 +146,9 @@ class ReaderOMC:
         ## List of variables defined by initial equation
         self.initial_defined = []
 
+        ## List of silent discrete variables
+        self.silent_discrete_vars = []
+
         ## List of residual variables which computes a derivative values
         self.derivative_residual_vars = []
         ## List of residual variables which computes a derivative values
@@ -1193,6 +1196,7 @@ class ReaderOMC:
         # We initialize vars of self.list_vars with initial values found in *_08bnd.c
         self.set_start_value_for_syst_vars()
         self.detect_non_const_real_calculated_variables()
+        self.detect_z_only_used_internally()
         # Attribution of indexes done independently to make sure the order is the same as in defineVariables and defineParameters methods
         index_real_var = 0
         index_derivative_var = 0
@@ -1245,6 +1249,45 @@ class ReaderOMC:
         self.nb_bool_vars = index_boolean_vars
         self.nb_integer_vars = index_integer_double
         self.find_calculated_variables()
+
+    def detect_z_only_used_internally(self):
+        map_dep = self.get_map_dep_vars_for_func()
+        map_num_eq_vars_defined = self.get_map_num_eq_vars_defined()
+        dicr_variable_to_dics_equation_dependencies = {}
+
+        discr_vars = []
+        for var in self.list_vars:
+            name = var.get_name()
+            if name not in map_var_name_2_addresses : continue
+            test_param_address(name)
+            address = map_var_name_2_addresses[name]
+            if "discreteVars" in address or "integerDoubleVars" in address or "booleanVars" in address:
+                discr_vars.append(name)
+
+        for f in self.list_func_16dae_c:
+            f_num_omc = f.get_num_omc()
+            name_var_eval = None
+
+            # for Modelica reinit equations, the evaluated var scan does not always work
+            # a fallback is to look at the variable defined in this case
+            if f_num_omc in map_num_eq_vars_defined.keys():
+                if len(map_num_eq_vars_defined[f_num_omc]) > 1:
+                    error_exit("   Error: Found an equation (id: " + f_num_omc+") defining multiple variables. This is not supported in Dynawo.")
+                name_var_eval = map_num_eq_vars_defined[f_num_omc] [0]
+
+            if name_var_eval is not None and name_var_eval in discr_vars:
+                for discr_var in discr_vars:
+                    if discr_var == name_var_eval: continue
+                    if "/* " + discr_var + " " in str(f.get_body()):
+                        if not discr_var in dicr_variable_to_dics_equation_dependencies:
+                            dicr_variable_to_dics_equation_dependencies[discr_var] = []
+                        dicr_variable_to_dics_equation_dependencies[discr_var].append(f_num_omc)
+
+        for discr_var in discr_vars:
+            if discr_var not in dicr_variable_to_dics_equation_dependencies and "$whenCondition" not in discr_var:
+                print_info("Discrete variable " + discr_var + " is defined as silent.")
+                self.silent_discrete_vars.append(discr_var)
+
 
     def detect_non_const_real_calculated_variables(self):
         if self.disable_generate_calc_vars:

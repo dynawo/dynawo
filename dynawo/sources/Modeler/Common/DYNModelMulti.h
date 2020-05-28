@@ -140,12 +140,30 @@ class ModelMulti : public Model, private boost::noncopyable {
   void reinitMode();
 
   /**
-   * @brief retrieve if one discrete variables has changed
+   * @brief retrieve if at least one non-silent discrete variables has changed
    *
    *
-   * @return @b true if one discrete variables has changed
+   * @return @b true if at least one non-silent discrete variables has changed
    */
   bool zChange() const;
+
+  /**
+   * @brief retrieve if at least one silent discrete variables has changed
+   *
+   *
+   * @return @b true at least one silent discrete variables has changed
+   */
+  bool silentZChange() const;
+
+  /**
+   * @brief enable or disable the possibility to break discrete variable propagation loop if only silent z are modified
+   *
+   *
+   * @param enableSilentZ whether to enable or disable silent z
+   */
+  inline void setCollectSilentZ(bool enableSilentZ) {
+    enableSilentZ_ = enableSilentZ;
+  }
 
   /**
    * @copydoc Model::getFType()
@@ -495,6 +513,11 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   findSubModelFromVarName_t findSubModel(const std::string& modelName, const std::string& varName);
 
+  /**
+   * @brief set the silent flag for discrete variables
+   */
+  void collectSilentZ();
+
  private:
   /**
    * @brief delete all informations about the local buffers (size, buffers, etc...)
@@ -518,7 +541,8 @@ class ModelMulti : public Model, private boost::noncopyable {
   int sizeG_;  ///< number of root functions
   int sizeMode_;  ///< number of mode
   int sizeY_;  ///< number of continuous values
-  bool zChange_;  ///< @b true if one discrete value has changed
+  bool zChange_;  ///< @b true if at least one non-silent discrete value has changed
+  bool silentZChange_;  ///< @b true if at least one silent discrete value has changed
   bool modeChange_;  ///< @b true if one mode has changed
   modeChangeType_t modeChangeType_;  ///< type of mode change
 
@@ -531,6 +555,8 @@ class ModelMulti : public Model, private boost::noncopyable {
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
   bool* zConnectedLocal_;  ///< local buffer to use when accessing discretes variables connection status
+  bool* silentZ_;  ///< local buffer indicating if the corresponding discrete variables is used only in residual equations
+  bool enableSilentZ_;  ///< enable or disable the use of silentZ in the discrete variable propagation loop
 };  ///< Class for Multiple-Model
 
 

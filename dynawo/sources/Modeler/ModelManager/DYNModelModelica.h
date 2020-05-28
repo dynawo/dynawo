@@ -98,6 +98,12 @@ class ModelModelica {
   virtual void setZomc() = 0;
 
   /**
+   * @brief set the silent flag for discrete variables
+   * @param silentZTable flag table
+   */
+  virtual void collectSilentZ(bool* silentZTable) = 0;
+
+  /**
    * @brief calculates the initial values (discretes and continuous) of the model
    *
    */

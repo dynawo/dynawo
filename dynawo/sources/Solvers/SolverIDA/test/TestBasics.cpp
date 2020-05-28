@@ -453,6 +453,51 @@ TEST(SimulationTest, testSolverIDAAlgebraicMode) {
   }
 }
 
+TEST(SimulationTest, testSolverIDASilentZ) {
+  const double tStart = 0.;
+  const double tStop = 10.;
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZ.dyd",
+                                                                                                tStart, tStop);
+  boost::shared_ptr<Solver> solver = p.first;
+  boost::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC();
+
+  std::vector<double> y0(model->sizeY());
+  std::vector<double> yp0(model->sizeY());
+  std::vector<double> z0(model->sizeZ());
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
+
+  double tCurrent = tStart;
+  std::vector<double> y(y0);
+  std::vector<double> yp(yp0);
+  std::vector<double> z(z0);
+
+  // Solve at t = 1
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  // Solve at t = 2 => z1 is modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_TRUE(solver->getState().getFlags(SilentZChange));
+
+  // Solve at t = 3
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  // Solve at t = 4 -> z2 is modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_TRUE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  // Solve at t = 5 -> z1 and z2 are modified
+  solver->solve(tStop, tCurrent);
+  solver->solve(tStop, tCurrent);
+  ASSERT_TRUE(solver->getState().getFlags(ZChange));
+  ASSERT_TRUE(solver->getState().getFlags(SilentZChange));
+}
+
 TEST(SimulationTest, testSolverIDAInit) {
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverIDA" + std::string(sharedLibraryExtension()));
   boost::shared_ptr<Model> model = initModelFromDyd("jobs/solverTestAlpha.dyd");

@@ -151,6 +151,11 @@ class ModelShuntCompensator : public NetworkComponent::Impl {
   NetworkComponent::StateChange_t evalZ(const double& t);
 
   /**
+   * @copydoc NetworkComponent::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
+
+  /**
    * @brief evaluation G
    * @param t time
    */

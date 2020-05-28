@@ -141,6 +141,11 @@ class NetworkComponent::Impl : public NetworkComponent {
   virtual void updateFType() = 0;
 
   /**
+   * @copydoc NetworkComponent::collectSilentZ()
+   */
+  virtual void collectSilentZ(bool* silentZTable) = 0;
+
+  /**
    * @copydoc NetworkComponent::evalYType()
    */
   virtual void evalYType() = 0;

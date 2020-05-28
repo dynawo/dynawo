@@ -30,6 +30,7 @@ namespace DYN {
     void setGomc(state_g * g);
     modeChangeType_t evalMode(const double & t) const;
     void setZomc();
+    void collectSilentZ(bool* silentZTable);
     void setY0omc();
     void setYType_omc(propertyContinuousVar_t* yType);
     void setFType_omc(propertyF_t* fType);
@@ -54,7 +55,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("d146835bacbf5d877a023dbe8e3a663d"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("1cf8d9d93a57874f9b936201b8b70ff5"); }
 
     private:
     DYNDATA * data;

@@ -482,7 +482,7 @@ SolverSIM::solve() {
     if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
       if (flag == KIN_INITIAL_GUESS_OK) {
         skipNextNR_ = skipNRIfInitialGuessOK_;
-        if(skipNextNR_)
+        if (skipNextNR_)
           Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
       }
       return CONV;
@@ -501,10 +501,10 @@ SolverSIM::solve() {
         skipNextNR_ = false;
         if (model_->getModeChangeType() != DIFFERENTIAL_MODE)
           return ROOT_ALG;
-        else if (getState().getFlags(ZChange))
+        else if (getState().getFlags(ZChange) || getState().getFlags(SilentZChange))
           return ROOT;
         return CONV;
-      } else if (getState().getFlags(ZChange)) {  // Z change
+      } else if (getState().getFlags(ZChange) || getState().getFlags(SilentZChange)) {  // Z change
         skipNextNR_ = false;
         return ROOT;
       } else {  // Root change without any z or mode change

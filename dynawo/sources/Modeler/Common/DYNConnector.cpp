@@ -33,10 +33,10 @@
 using std::stringstream;
 using std::vector;
 using std::set;
-using std::map;
 using std::list;
 using std::string;
 using boost::shared_ptr;
+using boost::unordered_map;
 
 namespace DYN {
 
@@ -214,7 +214,7 @@ ConnectorContainer::mergeZConnector() {
 
 void
 ConnectorContainer::mergeConnectors(shared_ptr<Connector> connector, shared_ptr<Connector> reference, list<shared_ptr<Connector> > &connectorsList,
-                                    map<int, shared_ptr<Connector> >& connectorsByVarNum) {
+                                    unordered_map<int, shared_ptr<Connector> >& connectorsByVarNum) {
   // Looking for common variable to test the negated attributes
   bool negatedMerge = false;
   for (vector<connectedSubModel>::const_iterator itCon = connector->connectedSubModels().begin();
@@ -681,7 +681,6 @@ ConnectorContainer::getY0ConnectorForZConnector() {
         it != zc->connectedSubModels().end();
         ++it) {
       const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
-      zConnectedLocal_[numVar] = true;
       if (doubleNotEquals(zLocal_[numVar], 0)) {  // non zero variable
         itReference = it;
         nonZeroVariableFound = true;
@@ -694,11 +693,13 @@ ConnectorContainer::getY0ConnectorForZConnector() {
 
     // Propagating reference init value
     const int numVarReference = itReference->subModel()->getVariableIndexGlobal(itReference->variable());
+    zConnectedLocal_[numVarReference] = true;
     for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
         it != zc->connectedSubModels().end();
         ++it) {
       if (it != itReference) {
         const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
+        zConnectedLocal_[numVar2] = true;
         zLocal_[numVar2] = zLocal_[numVarReference];
       }
     }
@@ -732,8 +733,7 @@ ConnectorContainer::propagateZDiff(vector<int> & indicesDiff, double* z) {
   // z modified, it is necessary to propagate the differences if we have a connector for each indicesDiff
   for (unsigned int i = 0; i < indicesDiff.size(); ++i) {
     int index = indicesDiff[i];
-    map<int, shared_ptr<Connector> >::iterator iter;
-    iter = zConnectorByVarNum_.find(index);  // all discrete variables are not necessarily connected
+    boost::unordered_map<int, shared_ptr<Connector> >::iterator iter = zConnectorByVarNum_.find(index);  // all discrete variables are not necessarily connected
     if (iter == zConnectorByVarNum_.end())
       continue;
 

@@ -159,6 +159,10 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
+  void collectSilentZ(bool* silentZTable) {
+    // Dummy class used for testing
+  }
+
   void updateYType() {
     // Dummy class used for testing
   }

@@ -118,6 +118,12 @@ class SubModel {
    */
   virtual void loadVariables(const std::string &variables) = 0;
 
+  /**
+   * @brief set the silent flag for discrete variables
+   * @param silentZTable flag table
+   */
+  virtual void collectSilentZ(bool* silentZTable) = 0;
+
  public:
   /**
    * @brief Model F(t,y,y') function evaluation

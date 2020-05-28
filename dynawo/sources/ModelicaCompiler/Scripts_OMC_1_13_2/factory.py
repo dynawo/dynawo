@@ -252,6 +252,8 @@ class Factory:
         self.list_for_evalmode = []
         ## List of equations to add in setZ function
         self.list_for_setz = []
+        ## List of equations to add in collectSilentZ function
+        self.list_for_collectsilentz = []
         ## List of equations to add in setG function
         self.list_for_setg = []
         ## List of equations to add in initRpar function
@@ -1673,6 +1675,20 @@ class Factory:
         return self.list_for_evalmode
 
     ##
+    # prepare the lines that constitues the body of collectSilentZ
+    # @param self : object pointer
+    # @return
+    def prepare_for_collectsilentz(self):
+        for var in self.reader.silent_discrete_vars:
+            test_param_address(var)
+            address = to_param_address(var)
+            index = address.split("[")[2].replace("]","")
+            if "integerDoubleVars" in address:
+                self.list_for_collectsilentz.append("  silentZTable[" + str(int(self.nb_z) + int(index)) +"] /* " + var +" */ = true;\n")
+            else:
+                self.list_for_collectsilentz.append("  silentZTable[" + index +"] /* " + var +" */ = true;\n")
+
+    ##
     # prepare the lines that constitues the body of setZ
     # @param self : object pointer
     # @return
@@ -1737,6 +1753,13 @@ class Factory:
     # @return list of lines
     def get_list_for_setz(self):
         return self.list_for_setz
+
+    ##
+    # returns the lines that constitues the body of collectSilentZ
+    # @param self : object pointer
+    # @return list of lines
+    def get_list_for_collectsilentz(self):
+        return self.list_for_collectsilentz
 
     ##
     # prepare the lines that constitues the body of setG
@@ -3204,6 +3227,7 @@ class Factory:
         self.prepare_for_setf()
         self.prepare_for_evalmode()
         self.prepare_for_setz()
+        self.prepare_for_collectsilentz()
         self.prepare_for_setg()
         self.prepare_for_setg_equations()
         self.prepare_for_sety0()

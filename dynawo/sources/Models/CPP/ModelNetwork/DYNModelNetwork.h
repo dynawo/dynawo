@@ -170,6 +170,11 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
   void evalFType();
 
   /**
+   * @copydoc ModelCPP::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
+
+  /**
    * @copydoc ModelCPP::updateFType()
    */
   void updateFType();

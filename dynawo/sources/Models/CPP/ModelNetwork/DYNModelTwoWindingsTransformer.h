@@ -344,6 +344,11 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   void updateFType() { /* not needed */ }
 
   /**
+   * @copydoc NetworkComponent::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
+
+  /**
    * @brief evaluate the term of the jacobian
    */
   void evalYMat();

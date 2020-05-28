@@ -126,6 +126,12 @@ class ModelVariationArea : public ModelCPP::Impl {
    * it shows that there is a bug in the selection of activated shunt.
    */
   void evalZ(const double & t);
+
+  /**
+   * @copydoc SubModel::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
+
   /**
    * @copydoc ModelCPP::evalMode(const double& t)
    */
@@ -267,8 +273,8 @@ class ModelVariationArea : public ModelCPP::Impl {
   double startTime_;  ///< start time
   double stopTime_;  ///< stop time
   int nbLoads_;  ///< number of loads
-  bool modeOnGoingRaised_;  ///< true if the mode change indicating the start of the slope has been done
-  bool modeFinishedRaised_;  ///< true if the mode change indicating the end of the slope has been done
+  double timeModeOnGoingRaised_;  ///< true if the mode change indicating the start of the slope has been done
+  double timeModeFinishedRaised_;  ///< true if the mode change indicating the end of the slope has been done
 
   /**
    * @brief enum to represent the current state of the variation

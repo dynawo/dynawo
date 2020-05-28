@@ -3,6 +3,7 @@
   <name>SimplifiedSolver</name>
   <elements>
     <parameters>
+      <parameter name="enableSilentZ" valueType="BOOL" cardinality="1"/>
       <parameter name="fnormtol" valueType="DOUBLE" cardinality="1"/>
       <parameter name="fnormtolAlg" valueType="DOUBLE" cardinality="1"/>
       <parameter name="fnormtolAlgJ" valueType="DOUBLE" cardinality="1"/>

@@ -481,6 +481,11 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
 }
 
 void
+ModelStaticVarCompensator::collectSilentZ(bool* silentZTable) {
+  silentZTable[connectionStateNum_] = true;
+}
+
+void
 ModelStaticVarCompensator::evalG(const double& /*t*/) {
   g_[0] = (static_cast<StaticVarCompensatorInterface::RegulationMode_t>(static_cast<int>(z_[modeNum_])) == StaticVarCompensatorInterface::RUNNING_V
       && !isRunning_) ? ROOT_UP : ROOT_DOWN;

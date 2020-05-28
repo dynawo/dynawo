@@ -257,6 +257,11 @@ class ModelLine : public NetworkComponent::Impl {
   void updateFType();
 
   /**
+   * @copydoc NetworkComponent::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
+
+  /**
    * @copydoc NetworkComponent::evalYMat()
    */
   void evalYMat();

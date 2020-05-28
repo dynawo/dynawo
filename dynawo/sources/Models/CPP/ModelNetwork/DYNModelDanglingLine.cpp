@@ -706,6 +706,12 @@ ModelDanglingLine::evalZ(const double& t) {
 }
 
 void
+ModelDanglingLine::collectSilentZ(bool* silentZTable) {
+  silentZTable[0] = true;
+  silentZTable[1] = true;
+}
+
+void
 ModelDanglingLine::evalCalculatedVars() {
   double ur1 = modelBus_->ur();
   double ui1 = modelBus_->ui();

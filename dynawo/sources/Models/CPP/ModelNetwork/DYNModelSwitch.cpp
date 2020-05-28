@@ -141,6 +141,11 @@ ModelSwitch::evalF(propertyF_t type) {
 }
 
 void
+ModelSwitch::collectSilentZ(bool* /*silentZTable*/) {
+  // no silent z
+}
+
+void
 ModelSwitch::setFequations(std::map<int, std::string>& fEquationIndex) {
   if (getConnectionState() == CLOSED && !modelBus1_->getSwitchOff()) {
     if (inLoop_) {

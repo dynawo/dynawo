@@ -194,6 +194,12 @@ class NetworkComponent {  ///< Base class for network component models
   virtual void updateFType() = 0;
 
   /**
+   * @brief set the silent flag for discrete variables
+   * @param silentZTable flag table
+   */
+  virtual void collectSilentZ(bool* silentZTable) = 0;
+
+  /**
    * @brief set the local buffer for residual function properties
    *
    * @param fType global buffer for residual function properties

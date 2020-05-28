@@ -68,6 +68,14 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   } CalculatedVariables_t;
 
   /**
+   * @brief index discrete variable
+   */
+  typedef enum {
+    state1Num_ = 0,
+    state2Num_ = 1
+  } IndexDiscreteVariable_t;
+
+  /**
    * @brief set indexes of state variable
    * @param yNum : global offset in the whole vector of state variable
    */
@@ -102,6 +110,11 @@ class ModelHvdcLink : public NetworkComponent::Impl {
    * @copydoc NetworkComponent::updateFType()
    */
   void updateFType() { /* not needed */ }
+
+  /**
+   * @copydoc NetworkComponent::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
 
   /**
    * @brief init size

@@ -47,7 +47,8 @@ static const int maximumNumberSlowStepIncrease = 10;  ///< Maximum number of con
 typedef enum {
   NoChange = 0x00,
   ModeChange = 0x01,
-  ZChange = 0x02
+  ZChange = 0x02,
+  SilentZChange = 0x04
 } StateFlags;
 
 /**

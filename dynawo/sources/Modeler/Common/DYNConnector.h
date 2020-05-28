@@ -20,7 +20,7 @@
 #ifndef MODELER_COMMON_DYNCONNECTOR_H_
 #define MODELER_COMMON_DYNCONNECTOR_H_
 
-#include <map>
+#include <boost/unordered_map.hpp>
 #include <vector>
 #include <list>
 #include <boost/shared_ptr.hpp>
@@ -293,7 +293,7 @@ class ConnectorContainer {
    * @param connectorsByVarNum the association between (global) variable index and connector
    */
   void mergeConnectors(boost::shared_ptr<Connector> connector, boost::shared_ptr<Connector> reference,
-                       std::list<boost::shared_ptr<Connector> > &connectorsList, std::map<int, boost::shared_ptr<Connector> >& connectorsByVarNum);
+                       std::list<boost::shared_ptr<Connector> > &connectorsList, boost::unordered_map<int, boost::shared_ptr<Connector> >& connectorsByVarNum);
 
 
   /**
@@ -474,9 +474,9 @@ class ConnectorContainer {
   std::vector<boost::shared_ptr<Connector> >flowConnectors_;  ///< flow connectors after merge
   std::vector<boost::shared_ptr<Connector> >zConnectors_;  ///< discrete connectors after merge
 
-  std::map<int, boost::shared_ptr<Connector> > yConnectorByVarNum_;  ///< association between connector and the (global) index of the variable connected
-  std::map<int, boost::shared_ptr<Connector> > flowConnectorByVarNum_;  ///< association between connector and the (global) index of the variable connected
-  std::map<int, boost::shared_ptr<Connector> > zConnectorByVarNum_;  ///< association between connector and the (global) index of the variable connected
+  boost::unordered_map<int, boost::shared_ptr<Connector> > yConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
+  boost::unordered_map<int, boost::shared_ptr<Connector> > flowConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
+  boost::unordered_map<int, boost::shared_ptr<Connector> > zConnectorByVarNum_;  ///< (global) index of the variable connected -> connector
 
   int offsetModel_;  ///< offset to use when filling the residual's vector
   int sizeY_;  ///<  size of the Y buffer

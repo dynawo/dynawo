@@ -217,6 +217,10 @@ void ModelTest_Dyn::setZomc()
 {
 }
 
+void ModelTest_Dyn::collectSilentZ(bool* silentZTable)
+{
+}
+
 void ModelTest_Dyn::setGomc(state_g * gout)
 {
   data->simulationInfo->discreteCall = 1;

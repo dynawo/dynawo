@@ -270,6 +270,10 @@ void ModelGeneratorPQ_Init::setZomc()
 {
 }
 
+void ModelGeneratorPQ_Init::collectSilentZ(bool* silentZTable)
+{
+}
+
 void ModelGeneratorPQ_Init::setY0omc()
 {
   data->localData[0]->realVars[0] /* generator.i0Pu.im */ = 0.0;
