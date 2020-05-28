@@ -317,7 +317,7 @@ class SubModel {
   virtual void rotateBuffers() = 0;
 
   /**
-   * @brief get the indexes global of the variables used to compute a calculated variable
+   * @brief get the global indexes of the variables used to compute a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes

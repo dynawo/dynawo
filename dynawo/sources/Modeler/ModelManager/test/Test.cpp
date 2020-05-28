@@ -374,9 +374,9 @@ class MyModelica: public ModelModelica {
    *
    * @return index of variables used to define the jacobian
    */
-  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& indexe) const {
-    indexe.push_back(0);
-    indexe.push_back(1);
+  void getIndexesOfVariablesUsedForCalculatedVarI(unsigned /*iCalculatedVar*/, std::vector<int>& indexes) const {
+    indexes.push_back(0);
+    indexes.push_back(1);
   }
 
  private:
