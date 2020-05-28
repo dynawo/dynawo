@@ -680,7 +680,7 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
 #endif
 }
 
-bool SolverIDA::initAlgRestoration(const modeChangeType_t& modeChangeType) {
+bool SolverIDA::initAlgRestoration(modeChangeType_t modeChangeType) {
   if (modeChangeType == ALGEBRAIC_MODE) {
     if (previousReinit_ == None) {
       solverKINNormal_->init(model_, SolverKINAlgRestoration::KIN_NORMAL, fnormtolAlg_,

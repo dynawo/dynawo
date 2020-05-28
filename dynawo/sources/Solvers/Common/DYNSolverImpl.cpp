@@ -303,7 +303,7 @@ Solver::Impl::detectUnstableRoot(vector<state_g> &vGout0, vector<state_g> &vGout
 }
 
 void
-Solver::Impl::printUnstableRoot(vector<state_g> &vGout0, vector<state_g> &vGout1) const {
+Solver::Impl::printUnstableRoot(const vector<state_g> &vGout0, const vector<state_g> &vGout1) const {
   int i = 0;
   vector<state_g>::const_iterator iG0(vGout0.begin());
   vector<state_g>::const_iterator iG1(vGout1.begin());

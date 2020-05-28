@@ -232,9 +232,9 @@ class SolverIDA : public Solver::Impl {
   void solveStep(double tAim, double &tNxt);
 
   /**
-   * @copydoc Solver::initAlgRestoration(const modeChangeType_t& modeChangeType)
+   * @copydoc Solver::initAlgRestoration(modeChangeType_t modeChangeType)
    */
-  bool initAlgRestoration(const modeChangeType_t& modeChangeType);
+  bool initAlgRestoration(modeChangeType_t modeChangeType);
 
  private:
   void* IDAMem_;  ///< IDA internal memory structure
