@@ -193,6 +193,11 @@ class ModelLoad : public NetworkComponent::Impl {
   void updateFType() { /* not needed */ }
 
   /**
+   * @copydoc NetworkComponent::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
+
+  /**
    * @copydoc NetworkComponent::evalYMat()
    */
   void evalYMat() { /* not needed*/ }

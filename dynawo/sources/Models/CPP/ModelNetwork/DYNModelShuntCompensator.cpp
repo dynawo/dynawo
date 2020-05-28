@@ -231,6 +231,14 @@ ModelShuntCompensator::evalZ(const double& t) {
 }
 
 void
+ModelShuntCompensator::collectSilentZ(bool* silentZTable) {
+  silentZTable[connectionStateNum_] = true;
+  silentZTable[isCapacitorNum_] = true;
+  silentZTable[isAvailableNum_] = true;
+  silentZTable[currentSectionNum_] = true;
+}
+
+void
 ModelShuntCompensator::getY0() {
   if (!network_->isInitModel()) {
     z_[connectionStateNum_] = getConnected();

@@ -1016,6 +1016,12 @@ ModelLine::evalZ(const double& t) {
 }
 
 void
+ModelLine::collectSilentZ(bool* silentZTable) {
+  silentZTable[0] = true;
+  silentZTable[1] = true;
+}
+
+void
 ModelLine::evalG(const double& t) {
   int offset = 0;
   if (currentLimits1_ || currentLimits2_) {

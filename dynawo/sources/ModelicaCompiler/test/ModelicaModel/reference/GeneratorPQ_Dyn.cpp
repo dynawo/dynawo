@@ -507,6 +507,11 @@ void ModelGeneratorPQ_Dyn::setZomc()
   data->simulationInfo->discreteCall = 0;
 }
 
+void ModelGeneratorPQ_Dyn::collectSilentZ(bool* silentZTable)
+{
+  silentZTable[6] /* generator.state */ = true;
+}
+
 void ModelGeneratorPQ_Dyn::setGomc(state_g * gout)
 {
   data->simulationInfo->discreteCall = 1;

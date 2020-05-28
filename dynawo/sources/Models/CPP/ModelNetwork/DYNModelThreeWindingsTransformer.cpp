@@ -126,6 +126,10 @@ void
 ModelThreeWindingsTransformer::defineElements(vector<Element>& /*elements*/, map<string, int>& /*mapElement*/) {
   // not needed
 }
+void
+ModelThreeWindingsTransformer::collectSilentZ(bool* /*silentZTable*/) {
+  // not needed
+}
 
 NetworkComponent::StateChange_t
 ModelThreeWindingsTransformer::evalZ(const double& /*t*/) {

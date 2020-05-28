@@ -420,6 +420,12 @@ ModelManager::evalFType() {
   modelModelica()->setFType_omc(fType_);
 }
 
+
+void
+ModelManager::collectSilentZ(bool* silentZTable) {
+  modelModelica()->collectSilentZ(silentZTable);
+}
+
 void
 ModelManager::setSharedParametersDefaultValues(const bool isInit, const parameterOrigin_t& origin) {
   ModelModelica * model = isInit ? modelModelicaInit() : modelModelicaDynamic();

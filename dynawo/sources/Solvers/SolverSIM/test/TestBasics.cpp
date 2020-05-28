@@ -318,7 +318,7 @@ TEST(SimulationTest, testSolverSIMTestBeta) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
@@ -365,7 +365,7 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
@@ -417,7 +417,7 @@ TEST(SimulationTest, testSolverSIMTestBetaWithRecalculation) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
@@ -473,7 +473,7 @@ TEST(SimulationTest, testSolverSIMDivergenceWithRecalculation) {
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
   model->getCurrentZ(z);
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | ZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 0.8);
   // Does not diverge as sundials forces a reevaluation of the jacobian
   ASSERT_DOUBLE_EQUALS_DYNAWO(tCurrent, 2);
@@ -754,7 +754,7 @@ TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluations) {
   ASSERT_EQ(solver->getCurrentY()[0], 4);
 }
 
-  TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluationsAndSkipNR) {
+TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluationsAndSkipNR) {
   const double tStart = 0.;
   const double tStop = 10.;
   std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSkipNR.dyd",
@@ -839,6 +839,49 @@ TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluations) {
   ASSERT_EQ(solver->getCurrentY()[0], 4);
 }
 
+TEST(SimulationTest, testSolverSIMSilentZ) {
+  const double tStart = 0.;
+  const double tStop = 10.;
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSilentZ.dyd",
+                                                                                                tStart, tStop, true, 3);
+  boost::shared_ptr<Solver> solver = p.first;
+  boost::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC();
+
+  std::vector<double> y0(model->sizeY());
+  std::vector<double> yp0(model->sizeY());
+  std::vector<double> z0(model->sizeZ());
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
+
+  double tCurrent = tStart;
+  std::vector<double> y(y0);
+  std::vector<double> yp(yp0);
+  std::vector<double> z(z0);
+  // Solve at t = 1
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  // Solve at t = 2 => z1 is modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_TRUE(solver->getState().getFlags(SilentZChange));
+
+  // Solve at t = 3
+  solver->solve(tStop, tCurrent);
+  ASSERT_FALSE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  // Solve at t = 4 -> z2 is modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_TRUE(solver->getState().getFlags(ZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  // Solve at t = 5 -> z1 and z2 are modified
+  solver->solve(tStop, tCurrent);
+  ASSERT_TRUE(solver->getState().getFlags(ZChange));
+  ASSERT_TRUE(solver->getState().getFlags(SilentZChange));
+}
+
 TEST(ParametersTest, testParameters) {
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverSIM" + std::string(sharedLibraryExtension()));
   solver->defineParameters();
@@ -908,7 +951,7 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("skipNRIfInitialGuessOK", false));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 32);
+  ASSERT_EQ(solver->getParametersMap().size(), 33);
 }
 
 }  // namespace DYN

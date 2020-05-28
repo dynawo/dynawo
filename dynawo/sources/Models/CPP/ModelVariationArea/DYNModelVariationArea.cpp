@@ -89,8 +89,8 @@ deltaQ_(0.),
 startTime_(0.),
 stopTime_(0.),
 nbLoads_(0),
-modeOnGoingRaised_(false),
-modeFinishedRaised_(false),
+timeModeOnGoingRaised_(-1),
+timeModeFinishedRaised_(-1),
 stateVariationArea_(NOT_STARTED) {
 }
 
@@ -212,16 +212,22 @@ ModelVariationArea::evalZ(const double& /*t*/) {
   }
 }
 
+
+void
+ModelVariationArea::collectSilentZ(bool* silentZTable) {
+  silentZTable[0] = true;
+}
+
 // evaluation of modes (alternatives) of F(t,y,y') functions
 
 modeChangeType_t
 ModelVariationArea::evalMode(const double& t) {
-  if (!modeOnGoingRaised_ && t >= startTime_) {
-    modeOnGoingRaised_ = true;
+  if ((timeModeOnGoingRaised_ < 0 || doubleEquals(t, timeModeOnGoingRaised_)) && t >= startTime_) {
+    timeModeOnGoingRaised_ = t;
     return DIFFERENTIAL_MODE;
   }
-  if (!modeFinishedRaised_ && t >= stopTime_) {
-    modeFinishedRaised_ = true;
+  if ((timeModeFinishedRaised_ < 0 || doubleEquals(t, timeModeFinishedRaised_)) && t >= stopTime_) {
+    timeModeFinishedRaised_ = t;
     return DIFFERENTIAL_MODE;
   }
   return NO_MODE;

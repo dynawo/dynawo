@@ -258,6 +258,11 @@ class ModelSwitch : public boost::enable_shared_from_this<ModelSwitch>, public N
   void updateFType() { /* not needed */ }
 
   /**
+   * @copydoc NetworkComponent::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
+
+  /**
    * @copydoc NetworkComponent::evalYMat()
    */
   void evalYMat() { /* not needed*/ }

@@ -473,6 +473,13 @@ ModelBus::updateFType() {
 }
 
 void
+ModelBus::collectSilentZ(bool* silentZTable) {
+  silentZTable[numSubNetworkNum_] = true;
+  silentZTable[connectionStateNum_] = true;
+}
+
+
+void
 ModelBus::evalCalculatedVars() {
   if (getSwitchOff()) {
     calculatedVars_[upuNum_] = 0.;

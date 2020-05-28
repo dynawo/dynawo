@@ -829,20 +829,22 @@ Simulation::simulate() {
       solver_->printSolve();
 
       BitMask solverState = solver_->getState();
+      bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
         updateCurves(true);
         Trace::info() << DYNLog(NewStartPoint) << Trace::endline;
         solver_->reinit();
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
-      } else if (solverState.getFlags(ZChange)) {
+      } else if (solverState.getFlags(ZChange) || solverState.getFlags(SilentZChange)) {
         updateCurves(true);
         model_->getCurrentZ(zCurrent_);
+        modifZ = true;
       }
 
       if (isCheckCriteriaIter)
         model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
-      updateCurves(!isCheckCriteriaIter && !solverState.getFlags(ZChange));
+      updateCurves(!isCheckCriteriaIter && !modifZ);
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();

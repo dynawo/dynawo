@@ -188,6 +188,11 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
   void evalFType();
 
   /**
+   * @copydoc NetworkComponent::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
+
+  /**
    * @copydoc NetworkComponent::updateFType()
    */
   void updateFType();

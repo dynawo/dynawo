@@ -349,6 +349,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   double tSolve_;  ///< current internal time of the solver
   BitMask state_;  ///< current state value of the solver
   PreviousReinit previousReinit_;  ///< previous reinitialization status of the solver
+  bool enableSilentZ_;  ///< enable the possibility to break discrete variable propagation loop if only silent z are modified
 };
 
 }  // end of namespace DYN

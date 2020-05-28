@@ -354,6 +354,19 @@ ModelVoltageLevel::updateFType() {
   }
 }
 
+
+void
+ModelVoltageLevel::collectSilentZ(bool* silentZTable) {
+  unsigned int offsetComponent = 0;
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(), itEnd = components_.end();
+      itComponent != itEnd; ++itComponent) {
+    if ((*itComponent)->sizeZ() != 0) {
+      (*itComponent)->collectSilentZ(&silentZTable[offsetComponent]);
+      offsetComponent += (*itComponent)->sizeZ();
+    }
+  }
+}
+
 void
 ModelVoltageLevel::evalYMat() {
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;

@@ -1333,6 +1333,15 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
   return NetworkComponent::NO_CHANGE;
 }
 
+void
+ModelTwoWindingsTransformer::collectSilentZ(bool* silentZTable) {
+  silentZTable[connectionStateNum_] = true;
+  silentZTable[currentStepIndexNum_] = true;
+  silentZTable[currentLimitsDesactivateNum_] = true;
+  silentZTable[disableInternalTapChangerNum_] = true;
+  silentZTable[tapChangerLockedNum_] = true;
+}
+
 double
 ModelTwoWindingsTransformer::ur1() const {
   double ur1 = 0.;

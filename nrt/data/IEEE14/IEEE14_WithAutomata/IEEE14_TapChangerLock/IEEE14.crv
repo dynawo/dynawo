@@ -59,6 +59,8 @@
   <curve model="TAP_CHANGER_LOAD_2" variable="tapChanger_valueMax"/>
   <curve model="TAP_CHANGER_LOAD_3" variable="tapChanger_valueMin"/>
   <curve model="TAP_CHANGER_LOAD_3" variable="tapChanger_valueMax"/>
+  <curve model="TAP_CHANGER_LOAD_2" variable="tapChanger_tap_value"/>
+  <curve model="TAP_CHANGER_LOAD_3" variable="tapChanger_tap_value"/>
   <curve model="TAP_CHANGER_LOCK" variable="tapChangerLock_locked"/>
   <curve model="TAP_CHANGER_LOCK" variable="tapChangerLock_lockedT"/>
   <curve model="TAP_CHANGER_LOCK" variable="tapChangerLock_UMin"/>

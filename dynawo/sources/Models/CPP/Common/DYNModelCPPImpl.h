@@ -129,6 +129,11 @@ class ModelCPP::Impl : public ModelCPP {
   virtual void evalFType() = 0;
 
   /**
+   * @copydoc ModelCPP::collectSilentZ()
+   */
+  virtual void collectSilentZ(bool* silentZTable) = 0;
+
+  /**
    * @copydoc ModelCPP::updateFType()
    */
   virtual void updateFType() = 0;

@@ -8,22 +8,22 @@
 
 #include "DYNElement.h"
 
-#include "Test_Dyn.h"
-#include "Test_Dyn_definition.h"
-#include "Test_Dyn_literal.h"
+#include "TestSilentZ_Dyn.h"
+#include "TestSilentZ_Dyn_definition.h"
+#include "TestSilentZ_Dyn_literal.h"
 
 
 namespace DYN {
 
 
-void ModelTest_Dyn::initData(DYNDATA *d)
+void ModelTestSilentZ_Dyn::initData(DYNDATA *d)
 {
   setData(d);
   setupDataStruc();
   initializeDataStruc();
 }
 
-void ModelTest_Dyn::setupDataStruc()
+void ModelTestSilentZ_Dyn::setupDataStruc()
 {
 
   data->modelData = (MODEL_DATA *)calloc(1,sizeof(MODEL_DATA));
@@ -31,24 +31,24 @@ void ModelTest_Dyn::setupDataStruc()
   data->simulationInfo->daeModeData = (DAEMODE_DATA *)calloc(1,sizeof(DAEMODE_DATA));
   data->nbDummy = 0;
   data->modelData->nStates = 1;
-  data->modelData->nVariablesReal = 3;
-  data->modelData->nDiscreteReal = 0;
-  data->modelData->nVariablesInteger = 0;
+  data->modelData->nVariablesReal = 1;
+  data->modelData->nDiscreteReal = 1;
+  data->modelData->nVariablesInteger = 2;
   data->modelData->nVariablesBoolean = 0;
   data->modelData->nVariablesString = 0;
-  data->modelData->nParametersReal = 2;
+  data->modelData->nParametersReal = 0 + 0; // 0 boolean emulated as real parameter
   data->modelData->nParametersInteger = 0;
-  data->modelData->nParametersBoolean = 0;
+  data->modelData->nParametersBoolean = 0; // all boolean parameters emulated as real parameters
   data->modelData->nParametersString = 0;
   data->modelData->nInputVars = 0;
   data->modelData->nOutputVars = 0;
   data->modelData->nAliasReal = 0 - 0 /* Remove const aliases */;
-  data->modelData->nAliasInteger = 0 - 0 /* Remove const aliases */;
+  data->modelData->nAliasInteger = 1 - 0 /* Remove const aliases */;
   data->modelData->nAliasBoolean = 0 - 0 /* Remove const aliases */;
   data->modelData->nAliasString = 0;
-  data->modelData->nZeroCrossings = 0 + 0 + 0;
+  data->modelData->nZeroCrossings = 1 + 0 + 0;
   data->modelData->nSamples = 0;
-  data->modelData->nRelations = 0 + 0;
+  data->modelData->nRelations = 1 + 0;
   data->modelData->nMathEvents = 0;
   data->modelData->nExtObjs = 0;
   data->modelData->nMixedSystems = 0;
@@ -66,15 +66,15 @@ void ModelTest_Dyn::setupDataStruc()
   data->simulationInfo->daeModeData->nResidualVars = 1;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
-  data->nbVars =3;
-  data->nbF = 3;
+  data->nbVars =1;
+  data->nbF = 1;
   data->nbModes = 0;
-  data->nbZ = 0;
-  data->nbCalculatedVars = 0;
+  data->nbZ = 1;
+  data->nbCalculatedVars = 1;
   data->constCalcVars.resize(0, 0.);
 }
 
-void ModelTest_Dyn::initializeDataStruc()
+void ModelTestSilentZ_Dyn::initializeDataStruc()
 {
 
   dataStructIsInitialized_ = true;
@@ -137,7 +137,7 @@ void ModelTest_Dyn::initializeDataStruc()
  
 }
 
-void ModelTest_Dyn::deInitializeDataStruc()
+void ModelTestSilentZ_Dyn::deInitializeDataStruc()
 {
 
   if(! dataStructIsInitialized_)
@@ -171,39 +171,21 @@ void ModelTest_Dyn::deInitializeDataStruc()
 
 }
 
-void ModelTest_Dyn::initRpar()
+void ModelTestSilentZ_Dyn::initRpar()
 {
   /* Setting shared and external parameters */
-  data->simulationInfo->realParameter[0] /* a */ = a_;
-  data->simulationInfo->realParameter[1] /* b */ = b_;
 
   // Setting internal parameters 
 
   return;
 }
 
-void ModelTest_Dyn::setFomc(double * f, propertyF_t type)
+void ModelTestSilentZ_Dyn::setFomc(double * f, propertyF_t type)
 {
-  if (type != DIFFERENTIAL_EQ) {
-  {
-  // ----- Test.Test_eqFunction_6 -----
-  f[1] = data->localData[0]->realVars[1] /*  x variable  */ - ( (2.0) * (data->localData[0]->realVars[0] /* u STATE(1) */) );
-
-  }
-
-
-  {
-  // ----- Test.Test_eqFunction_7 -----
-  f[2] = data->localData[0]->realVars[2] /*  y variable  */ - ( data->localData[0]->realVars[1] /* x variable */ );
-
-  }
-
-
-  }
   if (type != ALGEBRAIC_EQ) {
   {
-  // ----- Test.Test_eqFunction_5 -----
-  $P$DAEres0 = ((-data->simulationInfo->realParameter[1] /* b PARAM */)) * (data->localData[0]->realVars[0] /* u STATE(1) */) - ((data->simulationInfo->realParameter[0] /* a PARAM */) * (data->localData[0]->derivativesVars[0] /* der(u) STATE_DER */));
+  // ----- TestSilentZ.TestSilentZ_eqFunction_11 -----
+  $P$DAEres0 = 5.0 - data->localData[0]->derivativesVars[0] /* der(u) STATE_DER */;
   f[0] = $P$DAEres0;
 
   }
@@ -212,7 +194,7 @@ void ModelTest_Dyn::setFomc(double * f, propertyF_t type)
   }
 }
 
-modeChangeType_t ModelTest_Dyn::evalMode(const double & t) const
+modeChangeType_t ModelTestSilentZ_Dyn::evalMode(const double & t) const
 {
   modeChangeType_t modeChangeType = NO_MODE;
  
@@ -220,175 +202,244 @@ modeChangeType_t ModelTest_Dyn::evalMode(const double & t) const
   return modeChangeType;
 }
 
-void ModelTest_Dyn::setZomc()
-{
-}
-
-void ModelTest_Dyn::collectSilentZ(bool* silentZTable)
-{
-}
-
-void ModelTest_Dyn::setGomc(state_g * gout)
+void ModelTestSilentZ_Dyn::setZomc()
 {
   data->simulationInfo->discreteCall = 1;
-  
-  
-  
 
+  // -------------------- b ---------------------
+  data->localData[0]->discreteVars[0] /* b DISCRETE */ = fromNativeBool ( ((modelica_integer)data->localData[0]->integerDoubleVars[0] /* z2 DISCRETE */ == ((modelica_integer) 2)));
+
+  // -------------------- z2 ---------------------
+  modelica_boolean tmp3;
+  modelica_boolean tmp4;
+  modelica_integer tmp5;
+  RELATIONHYSTERESIS(tmp3, data->localData[0]->timeValue, 2.0, 0, Greater);
+  tmp4 = (modelica_boolean)tmp3;
+  if(tmp4)
+  {
+    tmp5 = ((modelica_integer) 2);
+  }
+  else
+  {
+    tmp5 = ((modelica_integer) 1);
+  }
+  data->localData[0]->integerDoubleVars[0] /* z2 DISCRETE */ = tmp5;
+
+  // -------------------- z3 ---------------------
+  modelica_boolean tmp0;
+  modelica_boolean tmp1;
+  modelica_integer tmp2;
+  RELATIONHYSTERESIS(tmp0, data->localData[0]->timeValue, 2.0, 0, Greater);
+  tmp1 = (modelica_boolean)tmp0;
+  if(tmp1)
+  {
+    tmp2 = ((modelica_integer) 2);
+  }
+  else
+  {
+    tmp2 = ((modelica_integer) 1);
+  }
+  data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */ = tmp2;
   data->simulationInfo->discreteCall = 0;
 }
 
-void ModelTest_Dyn::setY0omc()
+void ModelTestSilentZ_Dyn::collectSilentZ(bool* silentZTable)
+{
+  silentZTable[2] /* z3 */ = true;
+  silentZTable[0] /* b */ = true;
+}
+
+void ModelTestSilentZ_Dyn::setGomc(state_g * gout)
+{
+  data->simulationInfo->discreteCall = 1;
+  modelica_boolean tmp_zc0;
+  
+  
+  tmp_zc0 = GreaterZC(data->localData[0]->timeValue, 2.0, data->simulationInfo->storedRelations[0]);
+  
+
+  gout[0] = (tmp_zc0) ? ROOT_UP : ROOT_DOWN;
+  data->simulationInfo->discreteCall = 0;
+}
+
+void ModelTestSilentZ_Dyn::setY0omc()
 {
   data->localData[0]->realVars[0] /* u */ = 1.0;
+  data->localData[0]->integerDoubleVars[1] /* z3 */ = 1;
+  data->localData[0]->integerDoubleVars[0] /* z2 */ = 1;
   {
-    data->localData[0]->realVars[1] /* x variable */ = (2.0) * (data->localData[0]->realVars[0] /* u STATE(1) */);
-  }
-  {
-    data->localData[0]->realVars[2] /* y variable */ = data->localData[0]->realVars[1] /* x variable */;
+    data->localData[0]->discreteVars[0] /* b DISCRETE */ = fromNativeBool ( ((modelica_integer)data->localData[0]->integerDoubleVars[0] /* z2 DISCRETE */ == ((modelica_integer) 2)));
   }
 }
 
-void ModelTest_Dyn::setYType_omc(propertyContinuousVar_t* yType)
+void ModelTestSilentZ_Dyn::setYType_omc(propertyContinuousVar_t* yType)
 {
    yType[ 0 ] = DIFFERENTIAL;   /* u (rSta)  */
-   yType[ 1 ] = ALGEBRAIC;   /* x (rAlg)  */
-   yType[ 2 ] = ALGEBRAIC;   /* y (rAlg)  */
 }
 
-void ModelTest_Dyn::setFType_omc(propertyF_t* fType)
+void ModelTestSilentZ_Dyn::setFType_omc(propertyF_t* fType)
 {
    fType[ 0 ] = DIFFERENTIAL_EQ;
-   fType[ 1 ] = ALGEBRAIC_EQ;
-   fType[ 2 ] = ALGEBRAIC_EQ;
 }
 
-boost::shared_ptr<parameters::ParametersSet> ModelTest_Dyn::setSharedParametersDefaultValues()
+boost::shared_ptr<parameters::ParametersSet> ModelTestSilentZ_Dyn::setSharedParametersDefaultValues()
 {
 
    // Propagating shared parameters default value 
 
    // This value may be updated later on through *.par/*.iidm data 
   boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("SharedModelicaParameters");
-  double a_internal;
-  double b_internal;
 
-  a_internal = 1.0; 
-  parametersSet->createParameter("a", a_internal);
-  b_internal = 2.0; 
-  parametersSet->createParameter("b", b_internal);
   return parametersSet;
 }
 
-void ModelTest_Dyn::setParameters( boost::shared_ptr<parameters::ParametersSet> params )
+void ModelTestSilentZ_Dyn::setParameters( boost::shared_ptr<parameters::ParametersSet> params )
 {
-  a_ = params->getParameter("a")->getDouble();
-  b_ = params->getParameter("b")->getDouble();
 }
 
-void ModelTest_Dyn::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
+void ModelTestSilentZ_Dyn::defineVariables(std::vector<boost::shared_ptr<Variable> >& variables)
 {
   variables.push_back (VariableNativeFactory::createState ("u", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("x", CONTINUOUS, false));
-  variables.push_back (VariableNativeFactory::createState ("y", CONTINUOUS, false));
+  variables.push_back (VariableNativeFactory::createState ("z2", INTEGER, false));
+  variables.push_back (VariableNativeFactory::createState ("z3", INTEGER, false));
+  variables.push_back (VariableAliasFactory::create ("z1", "z2", INTEGER, false));
+  variables.push_back (VariableNativeFactory::createState ("b", BOOLEAN, false));
+  variables.push_back (VariableNativeFactory::createCalculated ("x", CONTINUOUS, false));
 }
 
-void ModelTest_Dyn::defineParameters(std::vector<ParameterModeler>& parameters)
+void ModelTestSilentZ_Dyn::defineParameters(std::vector<ParameterModeler>& parameters)
 {
-  parameters.push_back(ParameterModeler("a", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
-  parameters.push_back(ParameterModeler("b", VAR_TYPE_DOUBLE, SHARED_PARAMETER));
 }
 
-void ModelTest_Dyn::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)
+void ModelTestSilentZ_Dyn::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)
 {
-  elements.push_back(Element("y","y",Element::TERMINAL));
+  elements.push_back(Element("b","b",Element::TERMINAL));
+  elements.push_back(Element("z3","z3",Element::TERMINAL));
+  elements.push_back(Element("z2","z2",Element::TERMINAL));
+  elements.push_back(Element("z1","z1",Element::TERMINAL));
   elements.push_back(Element("x","x",Element::TERMINAL));
   elements.push_back(Element("u","u",Element::TERMINAL));
 
 
-  mapElement["y"] = 0;
-  mapElement["x"] = 1;
-  mapElement["u"] = 2;
+  mapElement["b"] = 0;
+  mapElement["z3"] = 1;
+  mapElement["z2"] = 2;
+  mapElement["z1"] = 3;
+  mapElement["x"] = 4;
+  mapElement["u"] = 5;
 }
 
 #ifdef _ADEPT_
-void ModelTest_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
+void ModelTestSilentZ_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
                               const std::vector<adept::adouble> & xd,
                               std::vector<adept::adouble> & res)
 {
   /*
     u : x[0]
-    x : x[1]
-    y : x[2]
     der(u) : xd[0]
 
   */
   adept::adouble $DAEres0;
-  // ----- Test.Test_eqFunction_5 -----
+  // ----- TestSilentZ.TestSilentZ_eqFunction_11 -----
   {
-  $DAEres0 = ((-data->simulationInfo->realParameter[1] /* b PARAM */)) * (x[0]) - ((data->simulationInfo->realParameter[0] /* a PARAM */) * (xd[0]));
+  $DAEres0 = 5.0 - xd[0];
   res[0] = $DAEres0;
 
   }
 
 
-  // ----- Test.Test_eqFunction_6 -----
-  {
-  res[1] = x[1] - ( (2.0) * (x[0]) );
-
-  }
-
-
-  // ----- Test.Test_eqFunction_7 -----
-  {
-  res[2] = x[2] - ( x[1] );
-
-  }
-
-
 }
 #endif
 
-void ModelTest_Dyn::checkDataCoherence()
+void ModelTestSilentZ_Dyn::checkDataCoherence()
 {
 }
 
-void ModelTest_Dyn::checkParametersCoherence() const
+void ModelTestSilentZ_Dyn::checkParametersCoherence() const
 {
 }
 
-void ModelTest_Dyn::setFequations(std::map<int,std::string>& fEquationIndex)
+void ModelTestSilentZ_Dyn::setFequations(std::map<int,std::string>& fEquationIndex)
 {
   //Note: fictive equations are not added. fEquationIndex.size() = sizeF() - Nunmber of fictive equations.
-  fEquationIndex[0] = "$DAEres0 = (-b) * u - a * der(u)";//equation_index_omc:5
-  fEquationIndex[1] = "x = 2.0 * u";//equation_index_omc:6
-  fEquationIndex[2] = "y = x";//equation_index_omc:7
+  fEquationIndex[0] = "$DAEres0 = 5.0 - der(u)";//equation_index_omc:11
 }
 
-void ModelTest_Dyn::setGequations(std::map<int,std::string>& gEquationIndex)
+void ModelTestSilentZ_Dyn::setGequations(std::map<int,std::string>& gEquationIndex)
 {
 // ---------------- boolean conditions -------------
+  static const char *res[] = {"time > 2.0"};
+  gEquationIndex[0] =  res[0]  ;
 // -----------------------------
 }
 
-void ModelTest_Dyn::evalCalculatedVars(std::vector<double>& calculatedVars)
+void ModelTestSilentZ_Dyn::evalCalculatedVars(std::vector<double>& calculatedVars)
 {
+  {
+    modelica_boolean tmp7;
+    modelica_real tmp8;
+    tmp7 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* b DISCRETE */));
+    if(tmp7)
+    {
+      tmp8 = data->localData[0]->realVars[0] /* u STATE(1) */;
+    }
+    else
+    {
+      tmp8 = (((modelica_real)((modelica_integer)data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * (data->localData[0]->realVars[0] /* u STATE(1) */);
+    }
+      calculatedVars[0] /* x*/ = tmp8;
+  }
 }
 
-double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
+double ModelTestSilentZ_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 {
+  if (iCalculatedVar == 0)  /* x */
+  {
+    modelica_boolean tmp7;
+    modelica_real tmp8;
+    tmp7 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* b DISCRETE */));
+    if(tmp7)
+    {
+      tmp8 = data->localData[0]->realVars[0] /* u STATE(1) */;
+    }
+    else
+    {
+      tmp8 = (((modelica_real)((modelica_integer)data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * (data->localData[0]->realVars[0] /* u STATE(1) */);
+    }
+      return tmp8;
+  }
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
+adept::adouble ModelTestSilentZ_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
 {
+  if (iCalculatedVar == 0)  /* x */
+  {
+    modelica_boolean tmp7;
+    adept::adouble tmp8;
+    tmp7 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* b DISCRETE */));
+    if(tmp7)
+    {
+      tmp8 = x[0];
+    }
+    else
+    {
+      tmp8 = (((modelica_real)((modelica_integer)data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * (x[0]);
+    }
+      return tmp8;
+  }
+
+
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 #endif
 
-void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
+void ModelTestSilentZ_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
 {
+  if (iCalculatedVar == 0)  /* x */ {
+    indexes.push_back(0);
+  }
 }
 
 }

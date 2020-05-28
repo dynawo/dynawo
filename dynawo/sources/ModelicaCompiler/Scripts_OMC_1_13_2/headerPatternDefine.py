@@ -59,6 +59,7 @@ class HeaderPatternDefine:
     void setGomc(state_g * g);
     modeChangeType_t evalMode(const double & t) const;
     void setZomc();
+    void collectSilentZ(bool* silentZTable);
     void setOomc();
     void setY0omc();
     void setYType_omc(propertyContinuousVar_t* yType);
@@ -142,6 +143,7 @@ namespace DYN {
     void setGomc(state_g * g);
     modeChangeType_t evalMode(const double & t) const;
     void setZomc();
+    void collectSilentZ(bool* silentZTable);
     void setY0omc();
     void setYType_omc(propertyContinuousVar_t* yType);
     void setFType_omc(propertyF_t* fType);

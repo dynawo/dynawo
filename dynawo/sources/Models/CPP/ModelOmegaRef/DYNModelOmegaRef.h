@@ -128,6 +128,13 @@ class ModelOmegaRef : public ModelCPP::Impl {
    * @param t Simulation instant
    */
   void evalZ(const double & t);
+
+  /**
+   * @brief set the silent flag for discrete variables
+   * @param silentZTable flag table
+   */
+  void collectSilentZ(bool* silentZTable);
+
   /**
    * @copydoc ModelCPP::evalMode(const double& t)
    */

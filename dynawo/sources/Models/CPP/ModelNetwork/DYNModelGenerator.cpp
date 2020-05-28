@@ -212,6 +212,13 @@ ModelGenerator::evalZ(const double& /*t*/) {
 }
 
 void
+ModelGenerator::collectSilentZ(bool* silentZTable) {
+  silentZTable[0] = true;
+  silentZTable[1] = true;
+  silentZTable[2] = true;
+}
+
+void
 ModelGenerator::getY0() {
   if (!network_->isInitModel()) {
     z_[0] = getConnected();

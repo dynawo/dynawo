@@ -1279,6 +1279,18 @@ ModelNetwork::evalFType() {
 }
 
 void
+ModelNetwork::collectSilentZ(bool* silentZTable) {
+  unsigned int offsetComponent = 0;
+  for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin(),
+      itEnd = getComponents().end(); itComponent != itEnd; ++itComponent) {
+    if ((*itComponent)->sizeZ() > 0) {
+      (*itComponent)->collectSilentZ(&silentZTable[offsetComponent]);
+      offsetComponent += (*itComponent)->sizeZ();
+    }
+  }
+}
+
+void
 ModelNetwork::updateFType() {
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent) {
     if ((*itComponent)->sizeF() != 0)

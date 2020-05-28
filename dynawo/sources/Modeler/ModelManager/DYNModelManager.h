@@ -148,6 +148,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void evalFType();
 
   /**
+   * @copydoc SubModel::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
+
+  /**
    * @copydoc SubModel::updateFType()
    */
   void updateFType() { /* not yet supported for Modelica models */}

@@ -116,6 +116,12 @@ ConnectorCalculatedVariable::evalZ(const double& /*t*/) {
   // no discrete variable
 }
 
+
+void
+ConnectorCalculatedVariable::collectSilentZ(bool* /*silentZTable*/) {
+  // no discrete variable
+}
+
 modeChangeType_t
 ConnectorCalculatedVariable::evalMode(const double& /*t*/) {
   // no modes, F has always the same formula

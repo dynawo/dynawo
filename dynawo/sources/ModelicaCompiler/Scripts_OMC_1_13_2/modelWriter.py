@@ -404,6 +404,20 @@ class ModelWriter(ModelWriterBase):
         self.addLine("}\n")
 
     ##
+    # Add the body of collectSilentZ in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_collectSilentZ(self):
+        self.addEmptyLine()
+
+        self.addLine(self.void_function_prefix+ self.className + "::collectSilentZ(bool* silentZTable)\n")
+        self.addLine("{\n")
+
+        if (len(self.builder.get_list_for_collectsilentz()) > 0):
+            self.addBody(self.builder.get_list_for_collectsilentz())
+        self.addLine("}\n")
+
+    ##
     # Add the body of setGomc in the cpp file
     # @param self : object pointer
     # @return

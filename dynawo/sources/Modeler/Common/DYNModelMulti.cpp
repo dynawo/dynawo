@@ -73,6 +73,7 @@ sizeG_(0),
 sizeMode_(0),
 sizeY_(0),
 zChange_(false),
+silentZChange_(false),
 modeChange_(false),
 modeChangeType_(NO_MODE),
 offsetFOptional_(0),
@@ -81,7 +82,9 @@ gLocal_(NULL),
 yLocal_(NULL),
 ypLocal_(NULL),
 zLocal_(NULL),
-zConnectedLocal_(NULL) {
+zConnectedLocal_(NULL),
+silentZ_(NULL),
+enableSilentZ_(true) {
   connectorContainer_.reset(new ConnectorContainer());
 }
 
@@ -110,6 +113,9 @@ ModelMulti::cleanBuffers() {
 
   if (zConnectedLocal_ != NULL)
     delete[] zConnectedLocal_;
+
+  if (silentZ_ != NULL)
+    delete[] silentZ_;
 
   if (fType_ != NULL)
     delete[] fType_;
@@ -202,7 +208,9 @@ ModelMulti::initBuffers() {
   ypLocal_ = new double[sizeY_]();
   zLocal_ = new double[sizeZ_]();
   zConnectedLocal_ = new bool[sizeZ_];
+  silentZ_ = new bool[sizeZ_];
   std::fill_n(zConnectedLocal_, sizeZ_, false);
+  std::fill_n(silentZ_, sizeZ_, false);
   int offsetF = 0;
   int offsetG = 0;
   int offsetY = 0;
@@ -358,6 +366,11 @@ ModelMulti::zChange() const {
   return zChange_;
 }
 
+bool
+ModelMulti::silentZChange() const {
+  return silentZChange_;
+}
+
 void
 ModelMulti::copyContinuousVariables(double* y, double* yp) {
   std::copy(y, y + sizeY() , yLocal_);
@@ -475,14 +488,22 @@ ModelMulti::evalZ(double t) {
 bool
 ModelMulti::propagateZModif() {
   vector<int> indicesDiff;
+  silentZChange_ = false;
   for (int i = 0; i < sizeZ(); ++i) {
-    if (doubleNotEquals(zLocal_[i], zSave_[i]))
-      indicesDiff.push_back(i);
+    bool isSilent = silentZ_[i];
+    if ((!isSilent || (!silentZChange_ && isSilent)) && doubleNotEquals(zLocal_[i], zSave_[i])) {
+      if (!isSilent)
+        indicesDiff.push_back(i);
+      else
+        silentZChange_ = true;
+    }
   }
 
   bool changeDetected = !indicesDiff.empty();
   if (changeDetected) {
     connectorContainer_->propagateZDiff(indicesDiff, zLocal_);
+    std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
+  } else if (silentZChange_) {
     std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
   }
   return changeDetected;
@@ -578,6 +599,9 @@ ModelMulti::getY0(const double& t0, vector<double>& y0, vector<double>& yp0) {
     subModels_[i]->evalCalculatedVariablesSub(t0);
   }
   connectorContainer_->getY0Connector();
+  if (!subModels_.empty() && !subModels_[0]->getIsInitProcess() && enableSilentZ_) {
+    collectSilentZ();
+  }
 
   std::copy(yLocal_, yLocal_ + sizeY_, y0.begin());
   std::copy(ypLocal_, ypLocal_ + sizeY_, yp0.begin());
@@ -925,6 +949,23 @@ ModelMulti::findSubModel(const string& modelName, const string& variable) {
   }
 
   return findSubModelFromVarName_t();
+}
+
+void
+ModelMulti::collectSilentZ() {
+  unsigned offsetZ = 0;
+  for (unsigned int i = 0, iEnd = subModels_.size(); i < iEnd; ++i) {
+    int sizeZ = subModels_[i]->sizeZ();
+    if (sizeZ > 0)
+      subModels_[i]->collectSilentZ(&silentZ_[offsetZ]);
+    offsetZ += sizeZ;
+  }
+  // a discrete variable is not silent if it is connected somewhere
+  for (int i = 0; i < sizeZ_; ++i) {
+    if (zConnectedLocal_[i]) {
+      silentZ_[i] = false;
+    }
+  }
 }
 
 bool

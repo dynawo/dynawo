@@ -616,6 +616,11 @@ ModelLoad::getY0() {
 }
 
 void
+ModelLoad::collectSilentZ(bool* silentZTable) {
+  silentZTable[0] = true;
+}
+
+void
 ModelLoad::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
   // All the parameters could be non generic ones
   vector<string> ids;

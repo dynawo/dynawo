@@ -290,6 +290,11 @@ ModelOmegaRef::evalZ(const double& /*t*/) {
   std::copy(zLocal_ + nbGen_, zLocal_ + sizeZ(), runningGrp_.begin());
 }
 
+void
+ModelOmegaRef::collectSilentZ(bool* silentZTable) {
+  std::fill_n(silentZTable, sizeZ_, true);
+}
+
 /**
  * @brief Reference frequency modes' evaluation
  *

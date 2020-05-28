@@ -85,7 +85,8 @@ msbsetAlgJ_(1),
 mxiterAlgJ_(50),
 printflAlgJ_(0),
 tSolve_(0.),
-previousReinit_(None) { }
+previousReinit_(None),
+enableSilentZ_(true) { }
 
 Solver::Impl::~Impl() {
   clean();
@@ -101,6 +102,7 @@ Solver::Impl::clean() {
 void
 Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
   model_ = model;
+  model_->setCollectSilentZ(enableSilentZ_);
 
   // Problem size
   // ---------------------------
@@ -257,6 +259,8 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
     // evaluate G and compare with previous values
     stableRoot = detectUnstableRoot(G0, G1, time);
 
+    if (model_->silentZChange())
+      state_.setFlags(SilentZChange);
     if (zChange) {
       change = true;
       state_.setFlags(ZChange);
@@ -354,6 +358,7 @@ Solver::Impl::defineCommonParameters() {
   parameters_.insert(make_pair("msbsetAlgJ", ParameterSolver("msbsetAlgJ", VAR_TYPE_INT)));
   parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT)));
   parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("enableSilentZ", ParameterSolver("enableSilentZ", VAR_TYPE_BOOL)));
 }
 
 bool
@@ -465,6 +470,8 @@ void Solver::Impl::setSolverCommonParameters() {
     mxiterAlgJ_ = findParameter("mxiterAlgJ").getValue<int>();
   if (findParameter("printflAlgJ").hasValue())
     printflAlgJ_ = findParameter("printflAlgJ").getValue<int>();
+  if (findParameter("enableSilentZ").hasValue())
+    enableSilentZ_ = findParameter("enableSilentZ").getValue<bool>();
 }
 
 void

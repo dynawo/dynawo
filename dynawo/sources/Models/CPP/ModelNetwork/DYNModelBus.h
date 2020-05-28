@@ -231,6 +231,11 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void evalFType();
 
   /**
+   * @copydoc NetworkComponent::collectSilentZ()
+   */
+  void collectSilentZ(bool* silentZTable);
+
+  /**
    * @copydoc NetworkComponent::updateFType()
    */
   void updateFType();
