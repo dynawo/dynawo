@@ -494,7 +494,6 @@ ModelStaticVarCompensator::evalG(const double& /*t*/) {
   double b = piOut();
   bool bIsbMin = doubleEquals(b, bMin_);
   bool bIsbMax = doubleEquals(b, bMax_);
-  std::cout << "BUBU? " << b << " " << bIsbMin << " " << bMin_ << std::endl;
   g_[2] = (!bIsbMin && (bMin_ - b > 0.)) ? ROOT_UP : ROOT_DOWN;  // B < BMin
   g_[3] = (!bIsbMax && (b - bMax_ > 0.)) ? ROOT_UP : ROOT_DOWN;  // B > BMax
   g_[4] = (bIsbMin || (b - bMin_ > 0.)) ? ROOT_UP : ROOT_DOWN;  // B >= BMin

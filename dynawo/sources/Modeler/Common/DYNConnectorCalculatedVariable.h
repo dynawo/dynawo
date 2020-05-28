@@ -282,7 +282,7 @@ class ConnectorCalculatedVariable : public SubModel {
   boost::shared_ptr<SubModel> model_;  ///< Model where the calculated variable is located.
   std::string variableName_;  ///< Name of the calculated variable from the model
   int indexCalculatedVariable_;  ///< Index of the calculated variable inside the list calculated variables in the model
-  std::vector<int> varExtIndexes_;  ///< Number of variables of which depends the calculated variable
+  std::vector<int> varExtIndexes_;  ///< Indexes of variables on which depends the calculated variable
 };
 }  // namespace DYN
 
