@@ -106,17 +106,27 @@ class NetworkComponent::Impl : public NetworkComponent {
   virtual void evalCalculatedVars() = 0;
 
   /**
-   * @copydoc NetworkComponent::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int> & numVars) const
+   * @brief get the global indexes of the variables used to compute a calculated variable
+   *
+   * @param numCalculatedVar index of the calculated variable
+   * @param numVars vector to fill with the indexes
+   *
    */
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, std::vector<int>& numVars) const = 0;
 
   /**
-   * @copydoc NetworkComponent::evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const
+   * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
+   *
+   * @param numCalculatedVar index of the calculated variable
+   * @param res values of the jacobian
    */
   virtual void evalJCalculatedVarI(unsigned numCalculatedVar, std::vector<double>& res) const = 0;
 
   /**
-   * @copydoc NetworkComponent::evalCalculatedVarI(unsigned numCalculatedVar) const
+   * @brief evaluate the value of a calculated variable
+   *
+   * @param numCalculatedVar index of the calculated variable
+   * @return value of the calculated variable based on the current values of continuous variables
    */
   virtual double evalCalculatedVarI(unsigned numCalculatedVar) const = 0;
 

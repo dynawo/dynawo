@@ -964,7 +964,7 @@ def LineToCompare (line, file_type):
             if pattern in line:
                 return False
 
-        if ("number of" in line and "variables" in line) or "ERROR" in line or ("WARN" in line and "KINSOL" not in line):
+        if ("number of" in line and "variables" in line and "evaluations" not in line) or "ERROR" in line or ("WARN" in line and "KINSOL" not in line):
             return True
     elif file_type == TYPE_TIMELINE:
         # We filter those lines as they are very unstable

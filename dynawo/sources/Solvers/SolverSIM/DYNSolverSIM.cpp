@@ -523,8 +523,8 @@ SolverSIM::callSolverKINEuler() {
 
 void
 SolverSIM::updateStatistics() {
-  long int nre;
-  long int nje;
+  long int nre = 0;
+  long int nje = 0;
   solverKINEuler_->updateStatistics(nNewt_, nre, nje);
   stats_.nre_ += nre;
   stats_.nni_ += nNewt_;
@@ -645,8 +645,8 @@ SolverSIM::reinit() {
     int flag = solverKINAlgRestoration_->solve(noInitSetup);
 
     // Update statistics
-    long int nre;
-    long int nje;
+    long int nre = 0;
+    long int nje = 0;
     solverKINAlgRestoration_->updateStatistics(nNewt_, nre, nje);
     stats_.nre_ += nre;
     stats_.nni_ += nNewt_;

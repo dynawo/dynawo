@@ -755,9 +755,9 @@ SolverIDA::reinit() {
       solverKINYPrim_->getValues(vYy_, vYp_);
 
       // Update statistics
-      long int nNewt;
-      long int nre;
-      long int nje;
+      long int nNewt = 0;
+      long int nre = 0;
+      long int nje = 0;
       solverKINNormal_->updateStatistics(nNewt, nre, nje);
       stats_.nre_ += nre;
       stats_.nni_ += nNewt;
@@ -840,31 +840,31 @@ SolverIDA::updateStatistics() {
   if (IDAMem_ == NULL)
     return;
   // statistics gathering
-  long int nst;
+  long int nst = 0;
   if (IDAGetNumSteps(IDAMem_, &nst) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumSteps");
 
-  long int nre;
+  long int nre = 0;
   if (IDAGetNumResEvals(IDAMem_, &nre) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumResEvals");
 
-  long int nje;
+  long int nje = 0;
   if (IDAGetNumJacEvals(IDAMem_, &nje) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDASlsGetNumJacEvals");
 
-  long int nni;
+  long int nni = 0;
   if (IDAGetNumNonlinSolvIters(IDAMem_, &nni) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumNonlinSolvIters");
 
-  long int netf;
+  long int netf = 0;
   if (IDAGetNumErrTestFails(IDAMem_, &netf) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumErrTestFails");
 
-  long int ncfn;
+  long int ncfn = 0;
   if (IDAGetNumNonlinSolvConvFails(IDAMem_, &ncfn) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumNonlinSolvConvFails");
 
-  long int nge;
+  long int nge = 0;
   if (IDAGetNumGEvals(IDAMem_, &nge) < 0)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorIDA, "IDAGetNumGEvals");
 

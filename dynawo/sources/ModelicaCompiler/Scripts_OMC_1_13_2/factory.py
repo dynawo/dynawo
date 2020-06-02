@@ -2687,7 +2687,6 @@ class Factory:
             if v in self.reader.list_calculated_vars: continue # will be done in a second time to make sure we first declare the const variables and then the others
             if is_when_var(v): continue
             name = to_compile_name(v.get_name())
-            is_state = True
             negated = "true" if v.get_alias_negated() else "false"
             line = ""
             if is_real_const_var(v):
@@ -2697,10 +2696,8 @@ class Factory:
             elif v.is_alias():
                 alias_name = to_compile_name(v.get_alias_name())
                 line = line_ptrn_alias % ( name, alias_name, v.get_dyn_type(), negated)
-            elif is_state:
-                line = line_ptrn_native_state % ( name, v.get_dyn_type(), negated)
             else:
-                line = line_ptrn_native_calculated % ( name, v.get_dyn_type(), negated)
+                line = line_ptrn_native_state % ( name, v.get_dyn_type(), negated)
             self.list_for_setvariables.append(line)
         for v in self.reader.list_calculated_vars:
             name = to_compile_name(v.get_name())

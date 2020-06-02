@@ -101,7 +101,7 @@ NetworkNbDanglingLine         =             number of dangling lines            
 NetworkNbLine                 =             number of lines                       : %1% (static: %2%, dynamic: %3%)
 NetworkNbTwoWTfo              =             number of two windings transformers   : %1% (static: %2%, dynamic: %3%)
 NetworkNbThreeWTfo            =             number of three windings transformers : %1% (static: %2%, dynamic: %3%)
-NetworkNbHVDC                 =             number of HCDCs                       : %1% (static: %2%, dynamic: %3%)
+NetworkNbHVDC                 =             number of HVDCs                       : %1% (static: %2%, dynamic: %3%)
 //---------------------- DATAINTERFACE --------------------------------------
 VariableNotSet                =             %1% : "%3%" is not set for model %2%
 BusUnderVoltage               =             node: %1% has a voltage %2% p.u. < %3% p.u. (criteria id: %4%)
