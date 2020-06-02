@@ -283,6 +283,7 @@ macro(COMPILE_CPP_MODEL
     add_library(${CPP_MODEL} SHARED EXCLUDE_FROM_ALL ${CPP_SOURCES})
 
     set_target_properties(${CPP_MODEL} PROPERTIES PREFIX "")
+    set_target_properties(${CPP_MODEL} PROPERTIES SKIP_BUILD_RPATH True)
 
     add_dependencies(${CPP_MODEL} ${CPP_MODEL}_HPP)
 

@@ -435,7 +435,7 @@ compileLib(const string& modelName, const string& compilationDir) {
   cmakeFile.close();
 
   string compileLibCommand = "cmake -B" + compilationDir + " -H" + compilationDir + " -C" + absolute("PreloadCache.cmake", scriptsDir)
-                           + " -DMODEL_NAME=" + modelName + " && cmake --build " + compilationDir;
+                           + " -DMODEL_NAME=" + modelName + " -DCMAKE_SKIP_BUILD_RPATH=True && cmake --build " + compilationDir;
 
   bool doPrintLogs = true;
   string result = executeCommand(compileLibCommand, doPrintLogs);
