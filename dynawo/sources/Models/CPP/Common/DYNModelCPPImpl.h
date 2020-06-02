@@ -54,17 +54,27 @@ class ModelCPP::Impl : public ModelCPP {
   virtual void init(const double &t0) = 0;
 
   /**
-   * @copydoc ModelCPP::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const
+   * @brief get the global indexes of the variables used to compute a calculated variable
+   *
+   * @param iCalculatedVar index of the calculated variable
+   * @param indexes vector to fill with the indexes
+   *
    */
   virtual void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const = 0;
 
   /**
-   * @copydoc ModelCPP::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const
+   * @brief evaluate the jacobian associated to a calculated variable based on the current values of continuous variables
+   *
+   * @param iCalculatedVar index of the calculated variable
+   * @param res values of the jacobian
    */
   virtual void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const = 0;
 
   /**
-   * @copydoc ModelCPP::evalCalculatedVarI(unsigned iCalculatedVar) const
+   * @brief evaluate the value of a calculated variable
+   *
+   * @param iCalculatedVar index of the calculated variable
+   * @return value of the calculated variable based on the current values of continuous variables
    */
   virtual double evalCalculatedVarI(unsigned iCalculatedVar) const = 0;
 
