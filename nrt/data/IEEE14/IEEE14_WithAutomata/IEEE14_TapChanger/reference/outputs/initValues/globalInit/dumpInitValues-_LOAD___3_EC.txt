@@ -1,14 +1,14 @@
  ====== INIT VARIABLES VALUES ======
-transformer_terminal1_V_im                        : y =      -0.222538 yp =       0.000000
-transformer_terminal1_V_re                        : y =       0.985181 yp =       0.000000
-load_PPu                                          : y =       0.942003 yp =       0.000000
-load_QPu                                          : y =       0.064396 yp =       0.000000
-load_terminal_V_im                                : y =      -0.343014 yp =       0.000000
-load_terminal_V_re                                : y =       0.931208 yp =       0.000000
-load_terminal_i_im                                : y =      -0.388996 yp =       0.000000
-load_terminal_i_re                                : y =       0.868304 yp =       0.000000
-transformer_terminal1_i_im                        : y =      -0.388996 yp =       0.000000
-transformer_terminal1_i_re                        : y =       0.868304 yp =       0.000000
+transformer_terminal1_V_im                        : y =      -0.222540 yp =       0.000000
+transformer_terminal1_V_re                        : y =       0.985179 yp =       0.000000
+load_PPu                                          : y =       0.942001 yp =       0.000000
+load_QPu                                          : y =       0.064395 yp =       0.000000
+load_terminal_V_im                                : y =      -0.343016 yp =       0.000000
+load_terminal_V_re                                : y =       0.931206 yp =       0.000000
+load_terminal_i_im                                : y =      -0.388998 yp =       0.000000
+load_terminal_i_re                                : y =       0.868303 yp =       0.000000
+transformer_terminal1_i_im                        : y =      -0.388998 yp =       0.000000
+transformer_terminal1_i_re                        : y =       0.868303 yp =       0.000000
 load_SPu_im                                       : alias of load_QPu
 load_SPu_re                                       : alias of load_PPu
 transformer_terminal2_V_im                        : alias of load_terminal_V_im
@@ -16,11 +16,11 @@ transformer_terminal2_V_re                        : alias of load_terminal_V_re
 transformer_terminal2_i_im                        : alias of load_terminal_i_im
 transformer_terminal2_i_re                        : alias of load_terminal_i_re
  ====== INIT CALCULATED VARIABLES VALUES ======
-load_UPu_value                                    : y =       0.992375
-transformer_P1Pu_value                            : y =       0.942003
-transformer_Q1Pu_value                            : y =       0.190001
-transformer_U1Pu_value                            : y =       1.010002
-transformer_U2Pu_value                            : y =       0.992375
+load_UPu_value                                    : y =       0.992373
+transformer_P1Pu_value                            : y =       0.942001
+transformer_Q1Pu_value                            : y =       0.190000
+transformer_U1Pu_value                            : y =       1.010001
+transformer_U2Pu_value                            : y =       0.992373
  ====== INIT DISCRETE VARIABLES VALUES ======
 load_PRefPu_value                                 : z =       0.942000
 load_QRefPu_value                                 : z =       0.064395

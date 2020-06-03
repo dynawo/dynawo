@@ -31,7 +31,7 @@ void ModelTest_Dyn::setupDataStruc()
   data->simulationInfo->daeModeData = (DAEMODE_DATA *)calloc(1,sizeof(DAEMODE_DATA));
   data->nbDummy = 0;
   data->modelData->nStates = 1;
-  data->modelData->nVariablesReal = 2;
+  data->modelData->nVariablesReal = 3;
   data->modelData->nDiscreteReal = 0;
   data->modelData->nVariablesInteger = 0;
   data->modelData->nVariablesBoolean = 0;
@@ -66,8 +66,8 @@ void ModelTest_Dyn::setupDataStruc()
   data->simulationInfo->daeModeData->nResidualVars = 1;
   data->simulationInfo->daeModeData->nAuxiliaryVars = 0;
 
-  data->nbVars =2;
-  data->nbF = 2;
+  data->nbVars =3;
+  data->nbF = 3;
   data->nbModes = 0;
   data->nbZ = 0;
   data->nbCalculatedVars = 0;
@@ -186,8 +186,15 @@ void ModelTest_Dyn::setFomc(double * f, propertyF_t type)
 {
   if (type != DIFFERENTIAL_EQ) {
   {
-  // ----- Test.Test_eqFunction_4 -----
+  // ----- Test.Test_eqFunction_5 -----
   f[0] = data->localData[0]->realVars[1] /*  y variable  */ - ( (2.0) * (data->localData[0]->realVars[0] /* u STATE(1) */) );
+
+  }
+
+
+  {
+  // ----- Test.Test_eqFunction_6 -----
+  f[1] = data->localData[0]->realVars[2] /*  z variable  */ - ( (4.0) * ((data->localData[0]->realVars[1] /* y variable */) * (data->localData[0]->realVars[0] /* u STATE(1) */)) );
 
   }
 
@@ -195,9 +202,9 @@ void ModelTest_Dyn::setFomc(double * f, propertyF_t type)
   }
   if (type != ALGEBRAIC_EQ) {
   {
-  // ----- Test.Test_eqFunction_5 -----
+  // ----- Test.Test_eqFunction_7 -----
   $P$DAEres0 = ((-data->simulationInfo->realParameter[1] /* b PARAM */)) * (data->localData[0]->realVars[0] /* u STATE(1) */) - ((data->simulationInfo->realParameter[0] /* a PARAM */) * (data->localData[0]->derivativesVars[0] /* der(u) STATE_DER */));
-  f[1] = $P$DAEres0;
+  f[2] = $P$DAEres0;
 
   }
 
@@ -237,18 +244,23 @@ void ModelTest_Dyn::setY0omc()
   {
     data->localData[0]->realVars[1] /* y variable */ = (2.0) * (data->localData[0]->realVars[0] /* u STATE(1) */);
   }
+  {
+    data->localData[0]->realVars[2] /* z variable */ = (4.0) * ((data->localData[0]->realVars[1] /* y variable */) * (data->localData[0]->realVars[0] /* u STATE(1) */));
+  }
 }
 
 void ModelTest_Dyn::setYType_omc(propertyContinuousVar_t* yType)
 {
    yType[ 0 ] = DIFFERENTIAL;   /* u (rSta)  */
    yType[ 1 ] = ALGEBRAIC;   /* y (rAlg)  */
+   yType[ 2 ] = ALGEBRAIC;   /* z (rAlg)  */
 }
 
 void ModelTest_Dyn::setFType_omc(propertyF_t* fType)
 {
    fType[ 0 ] = ALGEBRAIC_EQ;
-   fType[ 1 ] = DIFFERENTIAL_EQ;
+   fType[ 1 ] = ALGEBRAIC_EQ;
+   fType[ 2 ] = DIFFERENTIAL_EQ;
 }
 
 boost::shared_ptr<parameters::ParametersSet> ModelTest_Dyn::setSharedParametersDefaultValues()
@@ -278,6 +290,7 @@ void ModelTest_Dyn::defineVariables(std::vector<boost::shared_ptr<Variable> >& v
 {
   variables.push_back (VariableNativeFactory::createState ("u", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createState ("y", CONTINUOUS, false));
+  variables.push_back (VariableNativeFactory::createState ("z", CONTINUOUS, false));
   variables.push_back (VariableAliasFactory::create ("x", "y", CONTINUOUS, false));
 }
 
@@ -289,14 +302,16 @@ void ModelTest_Dyn::defineParameters(std::vector<ParameterModeler>& parameters)
 
 void ModelTest_Dyn::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)
 {
+  elements.push_back(Element("z","z",Element::TERMINAL));
   elements.push_back(Element("y","y",Element::TERMINAL));
   elements.push_back(Element("x","x",Element::TERMINAL));
   elements.push_back(Element("u","u",Element::TERMINAL));
 
 
-  mapElement["y"] = 0;
-  mapElement["x"] = 1;
-  mapElement["u"] = 2;
+  mapElement["z"] = 0;
+  mapElement["y"] = 1;
+  mapElement["x"] = 2;
+  mapElement["u"] = 3;
 }
 
 #ifdef _ADEPT_
@@ -307,21 +322,29 @@ void ModelTest_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
   /*
     u : x[0]
     y : x[1]
+    z : x[2]
     der(u) : xd[0]
 
   */
   adept::adouble $DAEres0;
-  // ----- Test.Test_eqFunction_4 -----
+  // ----- Test.Test_eqFunction_5 -----
   {
   res[0] = x[1] - ( (2.0) * (x[0]) );
 
   }
 
 
-  // ----- Test.Test_eqFunction_5 -----
+  // ----- Test.Test_eqFunction_6 -----
+  {
+  res[1] = x[2] - ( (4.0) * ((x[1]) * (x[0])) );
+
+  }
+
+
+  // ----- Test.Test_eqFunction_7 -----
   {
   $DAEres0 = ((-data->simulationInfo->realParameter[1] /* b PARAM */)) * (x[0]) - ((data->simulationInfo->realParameter[0] /* a PARAM */) * (xd[0]));
-  res[1] = $DAEres0;
+  res[2] = $DAEres0;
 
   }
 
@@ -340,8 +363,9 @@ void ModelTest_Dyn::checkParametersCoherence() const
 void ModelTest_Dyn::setFequations(std::map<int,std::string>& fEquationIndex)
 {
   //Note: fictive equations are not added. fEquationIndex.size() = sizeF() - Nunmber of fictive equations.
-  fEquationIndex[0] = "y = 2.0 * u";//equation_index_omc:4
-  fEquationIndex[1] = "$DAEres0 = (-b) * u - a * der(u)";//equation_index_omc:5
+  fEquationIndex[0] = "y = 2.0 * u";//equation_index_omc:5
+  fEquationIndex[1] = "z = 4.0 * y * u";//equation_index_omc:6
+  fEquationIndex[2] = "$DAEres0 = (-b) * u - a * der(u)";//equation_index_omc:7
 }
 
 void ModelTest_Dyn::setGequations(std::map<int,std::string>& gEquationIndex)
@@ -360,7 +384,7 @@ double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
+adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
 {
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }

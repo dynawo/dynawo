@@ -29,6 +29,8 @@
         <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
         <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
         <dyn:appender tag="MODELER" file="dynawoModeler.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="VARIABLES" file="dynawoVar.log" lvlFilter="DEBUG"/>
+        <dyn:appender tag="EQUATIONS" file="dynawoEq.log" lvlFilter="DEBUG"/>
       </dyn:logs>
     </dyn:outputs>
   </dyn:job>

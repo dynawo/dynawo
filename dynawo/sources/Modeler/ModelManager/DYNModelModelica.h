@@ -242,9 +242,12 @@ class ModelModelica {
    * @brief evaluate the value of a calculated variable with ADEPT library
    *
    * @param iCalculatedVar index of the calculated variable
+   * @param indexOffset offset to read the first variable in y and yp
+   * @param y values of the continuous variable
+   * @param yp values of the derivatives of the continuous variable
    * @return value of the calculated variable
    */
-  virtual adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &y,
+  virtual adept::adouble evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &y,
       const std::vector<adept::adouble> &yp) const = 0;
 #endif
 

@@ -1368,6 +1368,7 @@ class ReaderOMC:
                 for var_name in list_depend:
                     if var_name == "time": continue
                     if self.is_residual_vars(var_name) : continue
+                    if var_name in self.list_flow_vars: continue
                     var = self.find_variable_from_name(var_name)
                     if (var is None): continue
                     if is_discrete_real_var(var): continue
@@ -1386,10 +1387,30 @@ class ReaderOMC:
                 assert(var != None)
                 self.list_complex_calculated_vars[var] = f
                 function_to_remove.append(f)
-                print_info("Variable " + var_name + " is set as a calculated variable.")
+                print_info("Variable " + var_name + " is set as a calculated variable of level 1.")
                 map_var_name_2_addresses[var_name]= "SHOULD NOT BE USED - CALCULATED VAR"
         for f in function_to_remove:
             self.list_func_16dae_c.remove(f)
+        was_modif = True
+        idx = 2
+        while was_modif:
+            was_modif = False
+            for f in function_to_remove:
+                for var in variable_to_equation_dependencies:
+                    if f.get_num_omc() in variable_to_equation_dependencies[var]:
+                        variable_to_equation_dependencies[var].remove(f.get_num_omc())
+            function_to_remove = []
+            for f in function_to_eval_variable:
+                var_name = function_to_eval_variable[f]
+                if var_name in variable_to_equation_dependencies and len( variable_to_equation_dependencies[var_name]) == 1:
+                    var = self.find_variable_from_name(var_name)
+                    assert(var != None)
+                    self.list_complex_calculated_vars[var] = f
+                    function_to_remove.append(f)
+                    print_info("Variable " + var_name + " is set as a calculated variable of level " + str(idx) +".")
+                    map_var_name_2_addresses[var_name]= "SHOULD NOT BE USED - CALCULATED VAR"
+                    was_modif = True
+            idx+=1
 
     ##
     # Find all calculated variables, collect their initial value and their associated equation

@@ -47,14 +47,14 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
   boost::erase_all(result, "\n");
   std::string res = "Executing command : " + varExtCommand +
       "    [INFO]: Starting init model generation"
-      "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable."
-      "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable."
+      "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable of level 1."
+      "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable of level 1."
       "    [INFO]: Starting dynamic model generation"
       "    [INFO]: Discrete variable generator.state is defined as silent.";
   std::string res2 = "Executing command : " + varExtCommand +
       "    [INFO]: Starting init model generation"
-      "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable."
-      "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable."
+      "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable of level 1."
+      "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable of level 1."
       "    [INFO]: Starting dynamic model generation"
       "    [INFO]: Discrete variable generator.state is defined as silent.";
   std::cout << result << std::endl;

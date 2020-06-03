@@ -208,8 +208,13 @@ class Factory:
         ## List of name of integer variables
         self.list_name_integer_vars = []
 
-        ## LIste of all boolean items
+        ## List of all boolean items
         self.list_all_bool_items = []
+
+        ## Dictionary complex calculated variable name=>indexes of calculated variables required to compute it
+        self.dic_calc_var_recursive_deps = {}
+        ## Dictionary complex calculated variable name=>index
+        self.dic_calc_var_index = {}
 
         ## List of functions which should not be written in output files
         self.erase_func = []
@@ -543,6 +548,22 @@ class Factory:
         # List of names of integer vars
         for v in self.list_vars_int:
             self.list_name_integer_vars.append( v.get_name() )
+
+        index = 0
+        ptrn_calc_var = re.compile(r'SHOULD NOT BE USED - CALCULATED VAR \/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
+        for var in self.reader.list_calculated_vars:
+            self.dic_calc_var_index[var.get_name()] = index
+            index += 1
+        for var in self.reader.list_calculated_vars:
+            expr = self.reader.dic_calculated_vars_values[var.get_name()]
+            if type(expr)==list:
+                for line in expr:
+                    line_tmp = transform_line(line)
+                    match = ptrn_calc_var.findall(line_tmp)
+                    for name in match:
+                        if var.get_name() not in self.dic_calc_var_recursive_deps:
+                            self.dic_calc_var_recursive_deps[var.get_name()] = []
+                        self.dic_calc_var_recursive_deps [var.get_name()].append(name)
 
     ##
     # build the list of all elements
@@ -2895,6 +2916,11 @@ class Factory:
     def prepare_for_evalcalculatedvars(self):
         closing_bracket = "] /* "
         index = 0
+        ptrn_calc_var = re.compile(r'SHOULD NOT BE USED - CALCULATED VAR \/\* (?P<varName>[ \w\$\.()\[\],]*) [\w\(\),\.]+ \*\/')
+        calc_var_2_index = {}
+        for var in self.reader.list_calculated_vars:
+            calc_var_2_index[var.get_name()] = index
+            index += 1
         for var in self.reader.list_calculated_vars:
             expr = self.reader.dic_calculated_vars_values[var.get_name()]
             if type(expr)==list:
@@ -2907,14 +2933,17 @@ class Factory:
                     if "omc_assert_warning" in line and with_throw:
                         continue
                     if "return " in line:
-                        line = line.replace("return ",  "calculatedVars[" + str(index)+closing_bracket + var.get_name() + "*/ = ")
-                    body.append(transform_line(line))
-                # convert native boolean variables
+                        line = line.replace("return ",  "calculatedVars[" + str(calc_var_2_index[var.get_name()])+closing_bracket + var.get_name() + "*/ = ")
+                    line_tmp = transform_line(line)
+                    match = ptrn_calc_var.findall(line_tmp)
+                    for name in match:
+                        line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                    "evalCalculatedVarI(" + str(calc_var_2_index[name]) + ") /* " + name)
+                    body.append(line_tmp)
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
                 self.list_for_evalcalculatedvars.extend(body)
             else:
-                self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(index)+closing_bracket + var.get_name() + "*/ = " + expr+";\n")
-            index += 1
+                self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(calc_var_2_index[var.get_name()])+closing_bracket + var.get_name() + "*/ = " + expr+";\n")
 
 
     ##
@@ -2929,26 +2958,31 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_evalcalculatedvari(self):
-        index = 0
         for var in self.reader.list_calculated_vars:
-            expr = self.reader.dic_calculated_vars_values[var.get_name()]
-            self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */\n")
+            var_name = var.get_name()
+            expr = self.reader.dic_calculated_vars_values[var_name]
+            index = self.dic_calc_var_index[var_name]
+            self.list_for_evalcalculatedvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var_name + " */\n")
             if type(expr)==list:
                 body_translated = []
-                for line in self.reader.dic_calculated_vars_values[var.get_name()]:
+                for line in self.reader.dic_calculated_vars_values[var_name]:
                     if "throwStreamPrint" in line:
                         with_throw = True
                         break
-                for line in self.reader.dic_calculated_vars_values[var.get_name()]:
+                for line in self.reader.dic_calculated_vars_values[var_name]:
                     if "omc_assert_warning" in line and with_throw:
                         continue
-                    body_translated.append(transform_line(line))
+                    line_tmp = transform_line(line)
+                    if var_name in self.dic_calc_var_recursive_deps:
+                        for name in self.dic_calc_var_recursive_deps[var_name]:
+                            line_tmp = line_tmp.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                                                        "evalCalculatedVarI(" + str(self.dic_calc_var_index[name]) + ") /* " + name)
+                    body_translated.append(line_tmp)
                 # convert native boolean variables
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
                 self.list_for_evalcalculatedvari.extend(body_translated)
             else:
                 self.list_for_evalcalculatedvari.append("    return "+ expr+";\n")
-            index += 1
         self.list_for_evalcalculatedvari.append("  throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);\n")
 
 
@@ -2958,6 +2992,26 @@ class Factory:
     # @return list of lines
     def get_list_for_evalcalculatedvari(self):
         return self.list_for_evalcalculatedvari
+
+    def compute_recursive_calc_vars_num_deps(self):
+        recursive_calc_vars_num_deps = {}
+        map_dep = self.reader.get_map_dep_vars_for_func()
+        index = 0
+        for var in self.reader.list_calculated_vars:
+            if var in self.reader.list_complex_calculated_vars:
+                var_name = var.get_name()
+                list_depend = map_dep[var_name]
+                list_of_indexes = []
+                for dependency in list_depend:
+                    for syst_var in self.list_vars_syst:
+                        if syst_var.get_dynawo_name() is None or  syst_var.get_dynawo_name() == "": continue
+                        if syst_var.get_name() == dependency:
+                            dependency_index = int(syst_var.get_dynawo_name().replace("]","").replace("x[",""))
+                            if dependency_index not in list_of_indexes:
+                                list_of_indexes.append(dependency_index)
+                recursive_calc_vars_num_deps[var_name] = len(list_of_indexes)
+            index+=1
+        return recursive_calc_vars_num_deps
 
     ##
     # prepare the lines that constitues the body for evalCalculatedVarIAdept
@@ -2969,6 +3023,7 @@ class Factory:
 
         num_ternary = 0
         index = 0
+        recursive_calc_vars_num_deps = self.compute_recursive_calc_vars_num_deps()
         for var in self.reader.list_calculated_vars:
             body = []
             if var in self.reader.list_complex_calculated_vars:
@@ -2998,6 +3053,15 @@ class Factory:
 
             # convert native boolean variables
             convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body_translated)
+            calc_var_to_offset = {}
+            if var.get_name() in self.dic_calc_var_recursive_deps:
+                offset = 0
+                prev_name = var.get_name()
+                for name in self.dic_calc_var_recursive_deps[var.get_name()]:
+                    if prev_name in recursive_calc_vars_num_deps:
+                        offset += recursive_calc_vars_num_deps[prev_name]
+                    calc_var_to_offset[name] = offset
+                    prev_name = name
             body = []
             sorted_indexes = []
             for line in body_translated:
@@ -3012,6 +3076,13 @@ class Factory:
                 for val in sorted_indexes:
                     line = line.replace("x["+str(val)+"]", "x["+str(index_var)+"]")
                     index_var += 1
+                if var.get_name() in self.dic_calc_var_recursive_deps:
+                    for name in self.dic_calc_var_recursive_deps[var.get_name()]:
+                        offset = 0
+                        if name in calc_var_to_offset:
+                            offset = calc_var_to_offset[name]
+                        line = line.replace("SHOULD NOT BE USED - CALCULATED VAR /* " + name, \
+                            "evalCalculatedVarIAdept(" + str(self.dic_calc_var_index[name]) + ", indexOffset + " + str(offset) +", x, xd) /* " + name)
                 body.append(line)
 
 
@@ -3049,11 +3120,14 @@ class Factory:
                             dependency_index = int(syst_var.get_dynawo_name().replace("]","").replace("x[",""))
                             if dependency_index not in list_of_indexes:
                                 list_of_indexes.append(dependency_index)
-                if len(list_of_indexes) > 0:
+                if len(list_of_indexes) > 0 or var_name in self.dic_calc_var_recursive_deps:
                     self.list_for_getindexofvarusedforcalcvari.append("  if (iCalculatedVar == " + str(index)+")  /* "+ var.get_name() + " */ {\n")
                     list_of_indexes.sort()
                     for dependency_index in list_of_indexes:
                         self.list_for_getindexofvarusedforcalcvari.append("    indexes.push_back(" + str(dependency_index) + ");\n")
+                    if var_name in self.dic_calc_var_recursive_deps:
+                        for name in self.dic_calc_var_recursive_deps[var_name]:
+                            self.list_for_getindexofvarusedforcalcvari.append("    getIndexesOfVariablesUsedForCalculatedVarI(" + str(self.dic_calc_var_index[name])+ ", indexes);\n")
                     self.list_for_getindexofvarusedforcalcvari.append("  }\n")
             index+=1
 

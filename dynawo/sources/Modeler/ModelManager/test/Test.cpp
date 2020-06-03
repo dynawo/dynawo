@@ -368,7 +368,8 @@ class MyModelica: public ModelModelica {
    * @param iCalculatedVar index of the calculated variable
    * @return value of the calculated variable
    */
-  adept::adouble evalCalculatedVarIAdept(unsigned /*iCalculatedVar*/, const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/) const {
+  adept::adouble evalCalculatedVarIAdept(unsigned /*iCalculatedVar*/, unsigned /*indexOffset*/,
+      const std::vector<adept::adouble> &y, const std::vector<adept::adouble> &/*yp*/) const {
     return 2*y[0];
   }
 #endif

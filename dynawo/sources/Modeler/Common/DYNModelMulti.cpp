@@ -1100,6 +1100,17 @@ void ModelMulti::printVariableNames() {
   }
   nVar = 0;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::variables()) << "X calculated variables init" << Trace::endline;
+  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    const std::vector<std::string>& xNames = subModels_[i]->getCalculatedVarNamesInit();
+    for (unsigned int j = 0; j < xNames.size(); ++j) {
+       Trace::debug(Trace::variables()) << nVar << " " << subModels_[i]->name() << "_" << xNames[j] << Trace::endline;
+       ++nVar;
+    }
+  }
+  nVar = 0;
+  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::variables()) << "Z variables init" << Trace::endline;
   Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
@@ -1126,6 +1137,18 @@ void ModelMulti::printVariableNames() {
     for (unsigned int j = 0; j < xAlias.size(); ++j) {
       Trace::debug(Trace::variables()) << subModels_[i]->name() << "_" << xAlias[j].first << " is an alias of " <<
           subModels_[i]->name() << "_" << xAlias[j].second << Trace::endline;
+    }
+  }
+  nVar = 0;
+  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  Trace::debug(Trace::variables()) << "X calculated variables" << Trace::endline;
+  Trace::debug(Trace::variables()) << "------------------------------" << Trace::endline;
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    const std::vector<std::string>& xNames = subModels_[i]->getCalculatedVarNames();
+    for (unsigned int j = 0; j < xNames.size(); ++j) {
+      std::string varName = subModels_[i]->name() + "_" + xNames[j];
+      Trace::debug(Trace::variables()) << nVar << " " << varName << Trace::endline;
+      ++nVar;
     }
   }
   nVar = 0;
