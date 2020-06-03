@@ -475,23 +475,6 @@ path_prepend() {
 }
 
 set_standard_environment_variables() {
-  ld_library_path_prepend $DYNAWO_NICSLU_INSTALL_DIR/lib
-  ld_library_path_prepend $DYNAWO_SUITESPARSE_INSTALL_DIR/lib
-  if [ -d "$DYNAWO_SUNDIALS_INSTALL_DIR/lib64" ]; then
-    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib64
-  elif [ -d "$DYNAWO_SUNDIALS_INSTALL_DIR/lib" ]; then
-    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib
-  else
-    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib
-    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib64
-  fi
-  ld_library_path_prepend $DYNAWO_LIBZIP_HOME/lib
-  ld_library_path_prepend $DYNAWO_LIBXML_HOME/lib
-  ld_library_path_prepend $DYNAWO_LIBIIDM_HOME/lib
-  ld_library_path_prepend $DYNAWO_ADEPT_INSTALL_DIR/lib
-  ld_library_path_prepend $DYNAWO_XERCESC_INSTALL_DIR/lib
-  ld_library_path_prepend $DYNAWO_INSTALL_DIR/lib
-
   if [ $DYNAWO_ZLIB_HOME_DEFAULT != true ]; then
     ld_library_path_prepend $DYNAWO_ZLIB_HOME/lib
   fi
@@ -515,6 +498,23 @@ set_standard_environment_variables() {
       fi
     fi
   fi
+
+  ld_library_path_prepend $DYNAWO_NICSLU_INSTALL_DIR/lib
+  ld_library_path_prepend $DYNAWO_SUITESPARSE_INSTALL_DIR/lib
+  if [ -d "$DYNAWO_SUNDIALS_INSTALL_DIR/lib64" ]; then
+    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib64
+  elif [ -d "$DYNAWO_SUNDIALS_INSTALL_DIR/lib" ]; then
+    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib
+  else
+    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib
+    ld_library_path_prepend $DYNAWO_SUNDIALS_INSTALL_DIR/lib64
+  fi
+  ld_library_path_prepend $DYNAWO_LIBZIP_HOME/lib
+  ld_library_path_prepend $DYNAWO_LIBXML_HOME/lib
+  ld_library_path_prepend $DYNAWO_LIBIIDM_HOME/lib
+  ld_library_path_prepend $DYNAWO_ADEPT_INSTALL_DIR/lib
+  ld_library_path_prepend $DYNAWO_XERCESC_INSTALL_DIR/lib
+  ld_library_path_prepend $DYNAWO_INSTALL_DIR/lib
 
   path_prepend $DYNAWO_INSTALL_OPENMODELICA/bin
   python_path_append $DYNAWO_SCRIPTS_DIR
