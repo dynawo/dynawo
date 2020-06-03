@@ -1,5 +1,5 @@
  ====== INIT VARIABLES VALUES ======
-tapChanger_UMonitored_value                       : y =       0.992371 yp =       0.000000
+tapChanger_UMonitored_value                       : y =       0.992375 yp =       0.000000
 tapChanger_valueToMonitor_value                   : alias of tapChanger_UMonitored_value
  ====== INIT DISCRETE VARIABLES VALUES ======
 tapChanger_tTapDown                               : z =   1.000000e+60

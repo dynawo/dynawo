@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -145,4 +145,4 @@
     <par type="DOUBLE" name="event_tEvent" value="0.5"/>
     <par type="BOOL" name="event_stateEvent1" value="true"/>
   </set>
-  </parametersSet>
+</parametersSet>
