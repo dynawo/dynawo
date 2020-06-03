@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -51,6 +51,10 @@
   <!-- Synchronous machine external parameters -->
   <set id="6">
     <par type="INT" name="generator_ExcitationPu" value="1"/>
+    <par type="DOUBLE" name="generator_md" value="0.1"/>
+    <par type="DOUBLE" name="generator_mq" value="0.1"/>
+    <par type="DOUBLE" name="generator_nd" value="6"/>
+    <par type="DOUBLE" name="generator_nq" value="6"/>
     <par type="DOUBLE" name="generator_MdPuEfd" value="0"/>
     <par type="DOUBLE" name="generator_H" value="3.5"/>
     <par type="DOUBLE" name="generator_DPu" value="0.0"/>
