@@ -35,7 +35,6 @@ target_include_directories(dynawo_SolverKINSOL
 
 target_link_libraries(dynawo_SolverKINSOL
   PUBLIC
-    dynawo_SolverCommon
     Sundials::Sundials_SUNLINSOLKLU
     Sundials::Sundials_KINSOL
     SuiteSparse::SuiteSparse_KLU
@@ -43,6 +42,7 @@ target_link_libraries(dynawo_SolverKINSOL
     SuiteSparse::SuiteSparse_COLAMD
     SuiteSparse::SuiteSparse_BTF
     SuiteSparse::SuiteSparse_Config
+    dynawo_SolverCommon
 )
 
 if(${NICSLU_FOUND})
