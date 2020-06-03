@@ -1417,6 +1417,7 @@ class Factory:
     # @param self : object pointer
     # @return
     def dump_eq(self, eq, index_relation):
+        map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
         var_name = eq.get_evaluated_var()
         var_name_without_der = var_name [4 : -1] if 'der(' == var_name [ : 4] else var_name
         if var_name not in self.reader.fictive_continuous_vars_der:
@@ -1458,7 +1459,6 @@ class Factory:
     # @param self : object pointer
     # @return
     def dump_eq_syst_in_setf(self):
-        map_eq_reinit_continuous = self.get_map_eq_reinit_continuous()
         index_relation = self.nb_existing_relations
         algebraic_eq = []
         differential_eq = []
