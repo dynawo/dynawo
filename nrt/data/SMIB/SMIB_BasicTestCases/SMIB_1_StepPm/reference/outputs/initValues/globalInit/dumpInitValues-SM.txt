@@ -13,17 +13,12 @@ avr_feedback_y                                    : y =       0.127891 yp =     
 avr_gain_y                                        : y =       2.557825 yp =       0.000000
 gen_MdSatPPu                                      : y =       1.438447 yp =       0.000000
 gen_MqSatPPu                                      : y =       1.388447 yp =       0.000000
-gen_PGenPu                                        : y =      19.979052 yp =       0.000000
-gen_QGenPu                                        : y =       9.679003 yp =       0.000000
-gen_QStatorPu_value                               : y =       9.679003 yp =       0.000000
 gen_cePu                                          : y =       0.902957 yp =       0.000000
 gen_cmPu                                          : y =       0.903000 yp =       0.000000
 gen_cos2Eta                                       : y =       0.712229 yp =       0.000000
 gen_iDPu                                          : y =      -0.000036 yp =       0.000000
 gen_iQ1Pu                                         : y =      -0.000000 yp =       0.000000
 gen_iQ2Pu                                         : y =      -0.000001 yp =       0.000000
-gen_iStatorPu_im                                  : y =      -0.961526 yp =       0.000000
-gen_iStatorPu_re                                  : y =     -22.178985 yp =       0.000000
 gen_idPu                                          : y =      -0.909403 yp =       0.000000
 gen_ifPu                                          : y =       1.540989 yp =       0.000000
 gen_iqPu                                          : y =      -0.415896 yp =       0.000000
@@ -35,7 +30,6 @@ gen_lambdaqPu                                     : y =      -0.639836 yp =     
 gen_mdsPu                                         : y =       1.436509 yp =       0.000000
 gen_miPu                                          : y =       1.424058 yp =       0.000000
 gen_mqsPu                                         : y =       1.393241 yp =       0.000000
-gen_sStatorPu_im                                  : y =      -9.679003 yp =       0.000000
 gen_sin2Eta                                       : y =       0.287771 yp =       0.000000
 gen_terminal_i_im                                 : y =      -0.961526 yp =       0.000000
 gen_terminal_i_re                                 : y =     -22.178985 yp =       0.000000
@@ -73,10 +67,16 @@ avr_feedback_u1                                   : y =       1.127905
 gen_IRotorPu_value                                : y =       2.558042
 gen_IStatorPu_value                               : y =      22.199818
 gen_PGen                                          : y =    1997.905159
+gen_PGenPu                                        : y =      19.979052
 gen_PePu                                          : y =       0.902957
 gen_QGen                                          : y =     967.900295
+gen_QGenPu                                        : y =       9.679003
+gen_QStatorPu_value                               : y =       9.679003
 gen_QStatorPuQNom_value                           : y =       3.255401
 gen_UPu                                           : y =       1.000014
+gen_iStatorPu_im                                  : y =      -0.961526
+gen_iStatorPu_re                                  : y =     -22.178985
+gen_sStatorPu_im                                  : y =      -9.679003
 gen_sStatorPu_re                                  : y =     -19.979052
 gen_thetaInternal_value                           : y =       0.690728
 URef_setPoint_value                               : y =       1.127905

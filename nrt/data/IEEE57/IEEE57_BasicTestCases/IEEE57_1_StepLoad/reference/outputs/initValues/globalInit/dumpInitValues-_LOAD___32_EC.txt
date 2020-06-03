@@ -1,5 +1,5 @@
  ====== INIT VARIABLES VALUES ======
-load_terminal_V_im                                : y =      -0.301574 yp =       0.000000
+load_terminal_V_im                                : y =      -0.301575 yp =       0.000000
 load_terminal_V_re                                : y =       0.900707 yp =       0.000000
 load_PPu                                          : y =       0.015996 yp =       0.000000
 load_QPu                                          : y =       0.007997 yp =       0.000000

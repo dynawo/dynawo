@@ -70,7 +70,7 @@ void ModelTest_Dyn::setupDataStruc()
   data->nbF = 1;
   data->nbModes = 0;
   data->nbZ = 0;
-  data->nbCalculatedVars = 1;
+  data->nbCalculatedVars = 2;
   data->constCalcVars.resize(0, 0.);
 }
 
@@ -186,7 +186,7 @@ void ModelTest_Dyn::setFomc(double * f, propertyF_t type)
 {
   if (type != ALGEBRAIC_EQ) {
   {
-  // ----- Test.Test_eqFunction_5 -----
+  // ----- Test.Test_eqFunction_7 -----
   $P$DAEres0 = ((-data->simulationInfo->realParameter[1] /* b PARAM */)) * (data->localData[0]->realVars[0] /* u STATE(1) */) - ((data->simulationInfo->realParameter[0] /* a PARAM */) * (data->localData[0]->derivativesVars[0] /* der(u) STATE_DER */));
   f[0] = $P$DAEres0;
 
@@ -265,6 +265,7 @@ void ModelTest_Dyn::defineVariables(std::vector<boost::shared_ptr<Variable> >& v
   variables.push_back (VariableNativeFactory::createState ("u", CONTINUOUS, false));
   variables.push_back (VariableAliasFactory::create ("x", "y", CONTINUOUS, false));
   variables.push_back (VariableNativeFactory::createCalculated ("y", CONTINUOUS, false));
+  variables.push_back (VariableNativeFactory::createCalculated ("z", CONTINUOUS, false));
 }
 
 void ModelTest_Dyn::defineParameters(std::vector<ParameterModeler>& parameters)
@@ -275,14 +276,16 @@ void ModelTest_Dyn::defineParameters(std::vector<ParameterModeler>& parameters)
 
 void ModelTest_Dyn::defineElements(std::vector<Element>& elements, std::map<std::string, int >& mapElement)
 {
+  elements.push_back(Element("z","z",Element::TERMINAL));
   elements.push_back(Element("y","y",Element::TERMINAL));
   elements.push_back(Element("x","x",Element::TERMINAL));
   elements.push_back(Element("u","u",Element::TERMINAL));
 
 
-  mapElement["y"] = 0;
-  mapElement["x"] = 1;
-  mapElement["u"] = 2;
+  mapElement["z"] = 0;
+  mapElement["y"] = 1;
+  mapElement["x"] = 2;
+  mapElement["u"] = 3;
 }
 
 #ifdef _ADEPT_
@@ -296,7 +299,7 @@ void ModelTest_Dyn::evalFAdept(const std::vector<adept::adouble> & x,
 
   */
   adept::adouble $DAEres0;
-  // ----- Test.Test_eqFunction_5 -----
+  // ----- Test.Test_eqFunction_7 -----
   {
   $DAEres0 = ((-data->simulationInfo->realParameter[1] /* b PARAM */)) * (x[0]) - ((data->simulationInfo->realParameter[0] /* a PARAM */) * (xd[0]));
   res[0] = $DAEres0;
@@ -318,7 +321,7 @@ void ModelTest_Dyn::checkParametersCoherence() const
 void ModelTest_Dyn::setFequations(std::map<int,std::string>& fEquationIndex)
 {
   //Note: fictive equations are not added. fEquationIndex.size() = sizeF() - Nunmber of fictive equations.
-  fEquationIndex[0] = "$DAEres0 = (-b) * u - a * der(u)";//equation_index_omc:5
+  fEquationIndex[0] = "$DAEres0 = (-b) * u - a * der(u)";//equation_index_omc:7
 }
 
 void ModelTest_Dyn::setGequations(std::map<int,std::string>& gEquationIndex)
@@ -332,6 +335,9 @@ void ModelTest_Dyn::evalCalculatedVars(std::vector<double>& calculatedVars)
   {
       calculatedVars[0] /* y*/ = (2.0) * (data->localData[0]->realVars[0] /* u STATE(1) */);
   }
+  {
+      calculatedVars[1] /* z*/ = (4.0) * ((evalCalculatedVarI(0) /* y variable */) * (data->localData[0]->realVars[0] /* u STATE(1) */));
+  }
 }
 
 double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
@@ -340,15 +346,25 @@ double ModelTest_Dyn::evalCalculatedVarI(unsigned iCalculatedVar) const
   {
       return (2.0) * (data->localData[0]->realVars[0] /* u STATE(1) */);
   }
+  if (iCalculatedVar == 1)  /* z */
+  {
+      return (4.0) * ((evalCalculatedVarI(0) /* y variable */) * (data->localData[0]->realVars[0] /* u STATE(1) */));
+  }
   throw DYNError(Error::MODELER, UndefCalculatedVarI, iCalculatedVar);
 }
 
 #ifdef _ADEPT_
-adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
+adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, unsigned indexOffset, const std::vector<adept::adouble> &x, const std::vector<adept::adouble> &xd) const
 {
   if (iCalculatedVar == 0)  /* y */
   {
       return (2.0) * (x[0]);
+  }
+
+
+  if (iCalculatedVar == 1)  /* z */
+  {
+      return (4.0) * ((evalCalculatedVarIAdept(0, indexOffset + 1, x, xd) /* y variable */) * (x[0]));
   }
 
 
@@ -360,6 +376,10 @@ void ModelTest_Dyn::getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalcula
 {
   if (iCalculatedVar == 0)  /* y */ {
     indexes.push_back(0);
+  }
+  if (iCalculatedVar == 1)  /* z */ {
+    indexes.push_back(0);
+    getIndexesOfVariablesUsedForCalculatedVarI(0, indexes);
   }
 }
 

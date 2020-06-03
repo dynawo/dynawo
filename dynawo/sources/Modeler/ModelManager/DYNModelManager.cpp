@@ -1344,7 +1344,7 @@ ModelManager::evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& 
     }
 
     stack.new_recording();
-    adept::adouble output = modelModelica()->evalCalculatedVarIAdept(iCalculatedVar, x, xp);
+    adept::adouble output = modelModelica()->evalCalculatedVarIAdept(iCalculatedVar, 0, x, xp);
     output.set_gradient(1.0);
     stack.compute_adjoint();
     for (size_t i = 0; i < size; ++i) {

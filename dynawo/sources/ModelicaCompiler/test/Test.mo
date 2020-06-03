@@ -6,10 +6,12 @@ model Test
   Real u (start = 1);
   Real x;
   Real y;
+  Real z;
 equation
   a*der(u) = -b*u;
   x = 2*u;
   y = x;
+  z = 4*x*u;
 end Test;
 
 end Test;
