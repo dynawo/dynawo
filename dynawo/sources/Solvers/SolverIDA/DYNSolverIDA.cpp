@@ -132,8 +132,8 @@ maxStep_(0.),
 absAccuracy_(0.),
 relAccuracy_(0.),
 flagInit_(false),
-lastRowVals_(NULL),
-nbLastTimeSimulated_(0) {
+nbLastTimeSimulated_(0),
+lastRowVals_(NULL) {
   // KINSOL solver Init
   //-----------------------
   solverKINNormal_.reset(new SolverKINAlgRestoration());
