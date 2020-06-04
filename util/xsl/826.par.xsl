@@ -53,24 +53,24 @@
 <!--  To deal with file without namespace-->
 <xsl:template match="par">
   <xsl:choose>
-    <xsl:when test="@name='generator_ExcitationPu' and not(../dyn:par[@name='generator_nd'])">
+    <xsl:when test="@name='generator_ExcitationPu' and not(../par[@name='generator_nd'])">
       <xsl:copy-of select="."/>
-      <xsl:element name="par" xmlns="http://www.rte-france.com/dynawo">
+      <xsl:element name="par">
         <xsl:attribute name="type">DOUBLE</xsl:attribute>
         <xsl:attribute name="name">generator_md</xsl:attribute>
         <xsl:attribute name="value">0</xsl:attribute>
       </xsl:element>
-      <xsl:element name="par" xmlns="http://www.rte-france.com/dynawo">
+      <xsl:element name="par">
         <xsl:attribute name="type">DOUBLE</xsl:attribute>
         <xsl:attribute name="name">generator_mq</xsl:attribute>
         <xsl:attribute name="value">0</xsl:attribute>
       </xsl:element>
-      <xsl:element name="par" xmlns="http://www.rte-france.com/dynawo">
+      <xsl:element name="par">
         <xsl:attribute name="type">DOUBLE</xsl:attribute>
         <xsl:attribute name="name">generator_nd</xsl:attribute>
         <xsl:attribute name="value">0</xsl:attribute>
       </xsl:element>
-      <xsl:element name="par" xmlns="http://www.rte-france.com/dynawo">
+      <xsl:element name="par">
         <xsl:attribute name="type">DOUBLE</xsl:attribute>
         <xsl:attribute name="name">generator_nq</xsl:attribute>
         <xsl:attribute name="value">0</xsl:attribute>
