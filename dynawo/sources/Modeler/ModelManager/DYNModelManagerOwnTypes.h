@@ -39,6 +39,11 @@ typedef int m_integer;
 typedef const char* m_string;
 typedef signed char m_boolean;
 typedef m_integer _index_t;
+typedef unsigned long mmc_uint_t;
+struct mmc_string {
+    mmc_uint_t header;  /* MMC_STRINGHDR(bytes) */
+    char data[1];  /* `bytes' elements + terminating '\0' */
+};
 
 struct index_spec_s {
   _index_t ndims;  ///< number of indices/subscripts

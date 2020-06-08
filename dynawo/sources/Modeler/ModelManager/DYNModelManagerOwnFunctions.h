@@ -59,6 +59,11 @@ void put_string_element(modelica_string value, int i1, string_array_t* dest);
  */
 void simple_alloc_1d_string_array(string_array_t* dest, int n);
 /**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/modelica_string.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+void* mmc_mk_scon(const char *s);
+/**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
