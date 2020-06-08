@@ -127,7 +127,9 @@ msbset_(0),
 mxiter_(15),
 printfl_(0),
 skipNextNR_(false),
-skipScaling_(false) {
+skipAlgebraicResidualsEvaluation_(false),
+optimizeAlgebraicResidualsEvaluations_(true),
+skipNRIfInitialGuessOK_(true) {
   solverKINAlgRestoration_.reset(new SolverKINAlgRestoration());
 }
 
@@ -155,6 +157,8 @@ SolverSIM::defineSpecificParameters() {
   parameters_.insert(make_pair("msbset", ParameterSolver("msbset", VAR_TYPE_INT)));
   parameters_.insert(make_pair("mxiter", ParameterSolver("mxiter", VAR_TYPE_INT)));
   parameters_.insert(make_pair("printfl", ParameterSolver("printfl", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("optimizeAlgebraicResidualsEvaluations", ParameterSolver("optimizeAlgebraicResidualsEvaluations", VAR_TYPE_BOOL)));
+  parameters_.insert(make_pair("skipNRIfInitialGuessOK", ParameterSolver("skipNRIfInitialGuessOK", VAR_TYPE_BOOL)));
 }
 
 void
@@ -183,6 +187,10 @@ SolverSIM::setSolverSpecificParameters() {
     mxiter_ = findParameter("mxiter").getValue<int>();
   if (findParameter("printfl").hasValue())
     printfl_ = findParameter("printfl").getValue<int>();
+  if (findParameter("optimizeAlgebraicResidualsEvaluations").hasValue())
+    optimizeAlgebraicResidualsEvaluations_ = findParameter("optimizeAlgebraicResidualsEvaluations").getValue<bool>();
+  if (findParameter("skipNRIfInitialGuessOK").hasValue())
+    skipNRIfInitialGuessOK_ = findParameter("skipNRIfInitialGuessOK").getValue<bool>();
 }
 
 std::string
@@ -294,6 +302,7 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
 
     // Call the Newton-Raphson solver and analyze the root evolution
     SolverStatus_t status = solve();
+    skipAlgebraicResidualsEvaluation_ = false;
 
     switch (status) {
       /* NON_CONV: the Newton-Raphson algorithm fails to converge
@@ -321,6 +330,7 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
        */
       case CONV: {
         handleConvergence(redoStep);
+        skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
         countRestart_ = 0;
         break;
       }
@@ -332,6 +342,7 @@ void SolverSIM::solveWithStepRecalculation(double& tNxt) {
        */
       case ROOT_ALG: {
         handleAlgebraicRoot(redoStep);
+        skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
         countRestart_ = 0;
         break;
       }
@@ -378,7 +389,7 @@ void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
 
     // Call the Newton-Raphson solver and analyze the root evolution
     SolverStatus_t status = solve();
-    skipScaling_ = false;
+    skipAlgebraicResidualsEvaluation_ = false;
 
     switch (status) {
       /* NON_CONV: the Newton-Raphson algorithm fails to converge
@@ -398,7 +409,7 @@ void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
       */
       case CONV: {
         handleConvergence(redoStep);
-        skipScaling_ = true;
+        skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
         break;
       }
       /*
@@ -409,6 +420,7 @@ void SolverSIM::solveWithoutStepRecalculation(double& tNxt) {
       */
       case ROOT_ALG: {
         handleAlgebraicRoot(redoStep);
+        skipAlgebraicResidualsEvaluation_ = optimizeAlgebraicResidualsEvaluations_;
         break;
       }
       /*
@@ -469,8 +481,9 @@ SolverSIM::solve() {
     // No root change -> no discrete variable change neither mode change
     if (std::equal(g0_.begin(), g0_.end(), g1_.begin())) {
       if (flag == KIN_INITIAL_GUESS_OK) {
-        skipNextNR_ = true;
-        Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
+        skipNextNR_ = skipNRIfInitialGuessOK_;
+        if(skipNextNR_)
+          Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
       }
       return CONV;
     } else {
@@ -516,7 +529,7 @@ SolverSIM::callSolverKINEuler() {
     noInitSetup = false;
 
   // Call the solving method in Backward Euler method (Newton-Raphson resolution)
-  int flag = solverKINEuler_->solve(noInitSetup, skipScaling_);
+  int flag = solverKINEuler_->solve(noInitSetup, skipAlgebraicResidualsEvaluation_);
 
   // Get updated y and yp values plus set the skipNextNR indicator
   if (flag >= 0)
