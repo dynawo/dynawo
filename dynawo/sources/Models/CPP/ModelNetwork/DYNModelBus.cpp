@@ -320,10 +320,9 @@ ModelBus::evalF(propertyF_t type) {
     f_[0] = ir0_;
     f_[1] = ii0_;
   } else {
-    bool switchedOff = getSwitchOff();
-    if (type == DIFFERENTIAL_EQ && (!hasDifferentialVoltages_ || switchedOff))
+    if (type == DIFFERENTIAL_EQ && !hasDifferentialVoltages_)
       return;
-    if (switchedOff) {
+    if (getSwitchOff()) {
       f_[0] = y_[urNum_];
       f_[1] = y_[uiNum_];
     } else {

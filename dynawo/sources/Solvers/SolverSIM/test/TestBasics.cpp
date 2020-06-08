@@ -66,7 +66,8 @@
 
 namespace DYN {
 
-boost::shared_ptr<Solver> initSolver(const double& tStart, const double& tStop, const bool& recalculateStep, const int& maxRootRestart) {
+boost::shared_ptr<Solver> initSolver(const double& tStart, const double& tStop, const bool& recalculateStep,
+    const int& maxRootRestart, bool optimizeAlgebraicResidualsEvaluations, bool skipNR) {
   // Solver
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverSIM" + std::string(sharedLibraryExtension()));
 
@@ -80,6 +81,8 @@ boost::shared_ptr<Solver> initSolver(const double& tStart, const double& tStop, 
   params->addParameter(parameters::ParameterFactory::newParameter("maxNewtonTry", 10));
   params->addParameter(parameters::ParameterFactory::newParameter("linearSolverName", std::string("KLU")));
   params->addParameter(parameters::ParameterFactory::newParameter("recalculateStep", recalculateStep));
+  params->addParameter(parameters::ParameterFactory::newParameter("optimizeAlgebraicResidualsEvaluations", optimizeAlgebraicResidualsEvaluations));
+  params->addParameter(parameters::ParameterFactory::newParameter("skipNRIfInitialGuessOK", skipNR));
   solver->setParameters(params);
 
   return solver;
@@ -137,8 +140,9 @@ boost::shared_ptr<Model> initModel(const double& tStart, Modeler modeler) {
 }
 
 std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModel(std::string dydFileName, std::string iidmFileName,
- std::string parFileName, const double& tStart, const double& tStop, const bool& recalculateStep, const int& maxRootRestart) {
-  boost::shared_ptr<Solver> solver = initSolver(tStart, tStop, recalculateStep, maxRootRestart);
+ std::string parFileName, const double& tStart, const double& tStop, const bool& recalculateStep,
+ const int& maxRootRestart, bool optimizeAlgebraicResidualsEvaluations = true, bool skipNR = true) {
+  boost::shared_ptr<Solver> solver = initSolver(tStart, tStop, recalculateStep, maxRootRestart, optimizeAlgebraicResidualsEvaluations, skipNR);
 
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
@@ -179,8 +183,9 @@ std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndMod
 }
 
 std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > initSolverAndModelWithDyd(std::string dydFileName,
- const double& tStart, const double& tStop, const bool& recalculateStep, const int& maxRootRestart) {
-  boost::shared_ptr<Solver> solver = initSolver(tStart, tStop, recalculateStep, maxRootRestart);
+ const double& tStart, const double& tStop, const bool& recalculateStep, const int& maxRootRestart,
+ bool optimizeAlgebraicResidualsEvaluations = true, bool skipNR = true) {
+  boost::shared_ptr<Solver> solver = initSolver(tStart, tStop, recalculateStep, maxRootRestart, optimizeAlgebraicResidualsEvaluations, skipNR);
   // DYD
   boost::shared_ptr<DynamicData> dyd(new DynamicData());
   std::vector <std::string> fileNames;
@@ -598,7 +603,7 @@ TEST(SimulationTest, testSolverSkipNR) {
   const double tStart = 0.;
   const double tStop = 10.;
   std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSkipNR.dyd",
-                                                                                                tStart, tStop, true, 3);
+                                                                                                tStart, tStop, true, 3, false);
   boost::shared_ptr<Solver> solver = p.first;
   boost::shared_ptr<Model> model = p.second;
 
@@ -667,6 +672,173 @@ TEST(SimulationTest, testSolverSkipNR) {
   ASSERT_NE(msgRef.str(), msg.str());
 }
 
+TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluations) {
+  const double tStart = 0.;
+  const double tStop = 10.;
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSkipNR.dyd",
+                                                                                                tStart, tStop, true, 3, true, false);
+  boost::shared_ptr<Solver> solver = p.first;
+  boost::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC();
+
+  std::vector<double> y0(model->sizeY());
+  std::vector<double> yp0(model->sizeY());
+  std::vector<double> z0(model->sizeZ());
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
+
+  double tCurrent = tStart;
+  std::vector<double> y(y0);
+  std::vector<double> yp(yp0);
+  std::vector<double> z(z0);
+
+  // Statistics to ensure that nothing is done in the NR
+  // Solve at t = 1 -> Should force optimizeAlgebraicResidualsEvaluations = true
+  solver->solve(tStop, tCurrent);
+  ASSERT_EQ(solver->getCurrentY()[0], 1);
+  // Solve at t = 2
+  solver->solve(tStop, tCurrent);
+  std::stringstream msg;
+  msg << "| " << std::setw(8) << 2 << " "
+          << std::setw(16) << 0 << " "
+          << std::setw(10) << 0 << " "
+          << std::setw(18) << 1 << " ";
+  std::stringstream msgRef;
+  solver->printSolveSpecific(msgRef);
+  ASSERT_EQ(msgRef.str(), msg.str());
+  ASSERT_EQ(solver->getCurrentY()[0], 1);
+
+  // Solve at t = 3
+  solver->solve(tStop, tCurrent);
+  solver->reinit();
+  ASSERT_EQ(solver->getCurrentY()[0], 2);
+  // Solve at t = 4 -> optimizeAlgebraicResidualsEvaluations = true
+  solver->solve(tStop, tCurrent);
+  msg.str(std::string());
+  msg << "| " << std::setw(8) << 4 << " "
+          << std::setw(16) << 1 << " "
+          << std::setw(10) << 1 << " "
+          << std::setw(18) << 1 << " ";
+  msgRef.str(std::string());
+  solver->printSolveSpecific(msgRef);
+  ASSERT_EQ(msgRef.str(), msg.str());
+  ASSERT_EQ(solver->getCurrentY()[0], 2);
+
+  // Solve at t = 5 -> optimizeAlgebraicResidualsEvaluations = true
+  solver->solve(tStop, tCurrent);
+  ASSERT_EQ(solver->getCurrentY()[0], 2);
+  // Solve at t = 6-> optimizeAlgebraicResidualsEvaluations = false
+  solver->solve(tStop, tCurrent);
+  solver->reinit();
+  msg.str(std::string());
+  msg << "| " << std::setw(8) << 6 << " "
+          << std::setw(16) << 2 << " "
+          << std::setw(10) << 1 << " "
+          << std::setw(18) << 1 << " ";
+  msgRef.str(std::string());
+  solver->printSolveSpecific(msgRef);
+  ASSERT_EQ(msgRef.str(), msg.str());
+  ASSERT_EQ(solver->getCurrentY()[0], 4);
+
+  // Solve at t = 7
+  solver->solve(tStop, tCurrent);
+  msg.str(std::string());
+  msg << "| " << std::setw(8) << 7 << " "
+          << std::setw(16) << 1 << " "
+          << std::setw(10) << 1 << " "
+          << std::setw(18) << 1 << " ";
+  msgRef.str(std::string());
+  solver->printSolveSpecific(msgRef);
+  ASSERT_NE(msgRef.str(), msg.str());
+  ASSERT_EQ(solver->getCurrentY()[0], 4);
+}
+
+  TEST(SimulationTest, testSolverOptimizeAlgebraicResidualsEvaluationsAndSkipNR) {
+  const double tStart = 0.;
+  const double tStop = 10.;
+  std::pair<boost::shared_ptr<Solver>, boost::shared_ptr<Model> > p = initSolverAndModelWithDyd("jobs/solverTestSkipNR.dyd",
+                                                                                                tStart, tStop, true, 3);
+  boost::shared_ptr<Solver> solver = p.first;
+  boost::shared_ptr<Model> model = p.second;
+
+  solver->calculateIC();
+
+  std::vector<double> y0(model->sizeY());
+  std::vector<double> yp0(model->sizeY());
+  std::vector<double> z0(model->sizeZ());
+  model->getY0(tStart, y0, yp0);
+  model->getCurrentZ(z0);
+
+  double tCurrent = tStart;
+  std::vector<double> y(y0);
+  std::vector<double> yp(yp0);
+  std::vector<double> z(z0);
+
+  // Statistics to ensure that nothing is done in the NR
+  // Solve at t = 1 -> Should force skipNextNR_ = true
+  // optimizeAlgebraicResidualsEvaluations = true
+  solver->solve(tStop, tCurrent);
+  ASSERT_EQ(solver->getCurrentY()[0], 1);
+  // Solve at t = 2
+  solver->solve(tStop, tCurrent);
+  std::stringstream msg;
+  msg << "| " << std::setw(8) << 2 << " "
+          << std::setw(16) << 0 << " "
+          << std::setw(10) << 0 << " "
+          << std::setw(18) << 1 << " ";
+  std::stringstream msgRef;
+  solver->printSolveSpecific(msgRef);
+  ASSERT_EQ(msgRef.str(), msg.str());
+  ASSERT_EQ(solver->getCurrentY()[0], 1);
+
+  // Solve at t = 3
+  solver->solve(tStop, tCurrent);
+  solver->reinit();
+  ASSERT_EQ(solver->getCurrentY()[0], 2);
+  // Solve at t = 4 -> skipNextNR_ = false
+  // and optimizeAlgebraicResidualsEvaluations = true
+  solver->solve(tStop, tCurrent);
+  msg.str(std::string());
+  msg << "| " << std::setw(8) << 4 << " "
+          << std::setw(16) << 1 << " "
+          << std::setw(10) << 1 << " "
+          << std::setw(18) << 1 << " ";
+  msgRef.str(std::string());
+  solver->printSolveSpecific(msgRef);
+  ASSERT_EQ(msgRef.str(), msg.str());
+  ASSERT_EQ(solver->getCurrentY()[0], 2);
+
+  // Solve at t = 5 -> skipNextNR_ = true
+  // optimizeAlgebraicResidualsEvaluations = true
+  solver->solve(tStop, tCurrent);
+  ASSERT_EQ(solver->getCurrentY()[0], 2);
+  // Solve at t = 6
+  solver->solve(tStop, tCurrent);
+  solver->reinit();
+  msg.str(std::string());
+  msg << "| " << std::setw(8) << 6 << " "
+          << std::setw(16) << 2 << " "
+          << std::setw(10) << 1 << " "
+          << std::setw(18) << 1 << " ";
+  msgRef.str(std::string());
+  solver->printSolveSpecific(msgRef);
+  ASSERT_EQ(msgRef.str(), msg.str());
+  ASSERT_EQ(solver->getCurrentY()[0], 4);
+
+  // Solve at t = 7
+  solver->solve(tStop, tCurrent);
+  msg.str(std::string());
+  msg << "| " << std::setw(8) << 7 << " "
+          << std::setw(16) << 1 << " "
+          << std::setw(10) << 1 << " "
+          << std::setw(18) << 1 << " ";
+  msgRef.str(std::string());
+  solver->printSolveSpecific(msgRef);
+  ASSERT_NE(msgRef.str(), msg.str());
+  ASSERT_EQ(solver->getCurrentY()[0], 4);
+}
+
 TEST(ParametersTest, testParameters) {
   boost::shared_ptr<Solver> solver = SolverFactory::createSolverFromLib("../dynawo_SolverSIM" + std::string(sharedLibraryExtension()));
   solver->defineParameters();
@@ -732,9 +904,11 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("msbsetAlgJ", 10));
   params->addParameter(parameters::ParameterFactory::newParameter("mxiterAlgJ", 2));
   params->addParameter(parameters::ParameterFactory::newParameter("printflAlgJ", 0));
+  params->addParameter(parameters::ParameterFactory::newParameter("optimizeAlgebraicResidualsEvaluations", false));
+  params->addParameter(parameters::ParameterFactory::newParameter("skipNRIfInitialGuessOK", false));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 30);
+  ASSERT_EQ(solver->getParametersMap().size(), 32);
 }
 
 }  // namespace DYN

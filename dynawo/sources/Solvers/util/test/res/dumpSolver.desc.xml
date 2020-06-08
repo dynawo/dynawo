@@ -26,6 +26,7 @@
       <parameter name="mxnewtstepAlgJ" valueType="DOUBLE" cardinality="1"/>
       <parameter name="nDeadband" valueType="INT" cardinality="1"/>
       <parameter name="nEff" valueType="INT" cardinality="1"/>
+      <parameter name="optimizeAlgebraicResidualsEvaluations" valueType="BOOL" cardinality="1"/>
       <parameter name="printfl" valueType="INT" cardinality="1"/>
       <parameter name="printflAlg" valueType="INT" cardinality="1"/>
       <parameter name="printflAlgJ" valueType="INT" cardinality="1"/>
@@ -33,6 +34,7 @@
       <parameter name="scsteptol" valueType="DOUBLE" cardinality="1"/>
       <parameter name="scsteptolAlg" valueType="DOUBLE" cardinality="1"/>
       <parameter name="scsteptolAlgJ" valueType="DOUBLE" cardinality="1"/>
+      <parameter name="skipNRIfInitialGuessOK" valueType="BOOL" cardinality="1"/>
     </parameters>
   </elements>
 </solver>
