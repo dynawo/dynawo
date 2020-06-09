@@ -1131,8 +1131,14 @@ ModelLine::evalCalculatedVars() {
 
   calculatedVars_[iSide1Num_] = std::abs(calculatedVars_[iS1ToS2Side1Num_]);
   calculatedVars_[iSide2Num_] = std::abs(calculatedVars_[iS1ToS2Side2Num_]);
-  calculatedVars_[u1Num_] = std::sqrt(ur1Val * ur1Val + ui1Val * ui1Val);
-  calculatedVars_[u2Num_] = std::sqrt(ur2Val * ur2Val + ui2Val * ui2Val);
+  if (modelBus1_)
+    calculatedVars_[u1Num_] = modelBus1_->getCurrentU(ModelBus::UPuType_);
+  else
+    calculatedVars_[u1Num_] = 0;
+  if (modelBus2_)
+    calculatedVars_[u2Num_] = modelBus2_->getCurrentU(ModelBus::UPuType_);
+  else
+    calculatedVars_[u2Num_] = 0;
   calculatedVars_[lineStateNum_] = connectionState_;
 }
 
@@ -1604,32 +1610,14 @@ ModelLine::evalCalculatedVarI(unsigned numCalculatedVar) const {
       output = ui2 * Ir2 - ur2 * Ii2;
       break;
     case u1Num_: {
-      switch (knownBus_) {
-        case BUS1_BUS2:
-        case BUS1:
-          ur1 = modelBus1_->ur();
-          ui1 = modelBus1_->ui();
-          break;
-        case BUS2:
-          break;
-      }
       if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_1) {
-        output = sqrt(ur1 * ur1 + ui1 * ui1);
+        output = modelBus1_->getCurrentU(ModelBus::UPuType_);
       }
     }
     break;
     case u2Num_: {
-      switch (knownBus_) {
-        case BUS1_BUS2:
-        case BUS2:
-          ur2 = modelBus2_->ur();
-          ui2 = modelBus2_->ui();
-          break;
-        case BUS1:
-          break;
-      }
       if (getConnectionState() == CLOSED || getConnectionState() == CLOSED_2) {
-        output = sqrt(ur2 * ur2 + ui2 * ui2);
+        output = modelBus2_->getCurrentU(ModelBus::UPuType_);
       }
     }
     break;

@@ -88,13 +88,13 @@ ModelGenerator::evalNodeInjection() {
     modelBus_->irAdd(ir0_);
     modelBus_->iiAdd(ii0_);
   } else if (isConnected() && !modelBus_->getSwitchOff()) {
-     double ur = modelBus_->ur();
-     double ui = modelBus_->ui();
-     double U2 = ur * ur + ui * ui;
+     double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
      if (doubleIsZero(U2))
       return;
      double Pc = PcPu();
      double Qc = QcPu();
+     double ur = modelBus_->ur();
+     double ui = modelBus_->ui();
      modelBus_->irAdd(ir(ur, ui, U2, Pc, Qc));
      modelBus_->iiAdd(ii(ur, ui, U2, Pc, Qc));
   }
@@ -234,7 +234,7 @@ ModelGenerator::evalCalculatedVars() {
   if (isConnected() && !modelBus_->getSwitchOff()) {
     double ur = modelBus_->ur();
     double ui = modelBus_->ui();
-    double U2 = ur * ur + ui * ui;
+    double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
     double irCalculated = 0;
     double iiCalculated = 0;
     if (!doubleIsZero(U2)) {
@@ -318,10 +318,10 @@ ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) const {
     case pNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
         // P = ur*ir + ui* ii
-        double ur = modelBus_->ur();
-        double ui = modelBus_->ui();
-        double U2 = ur * ur + ui * ui;
+        double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
         if (!doubleIsZero(U2)) {
+          double ur = modelBus_->ur();
+          double ui = modelBus_->ui();
           double Pc = PcPu();
           double Qc = QcPu();
           return -(ur * ir(ur, ui, U2, Pc, Qc) + ui * ii(ur, ui, U2, Pc, Qc));
@@ -332,10 +332,10 @@ ModelGenerator::evalCalculatedVarI(unsigned numCalculatedVar) const {
     case qNum_: {
       if (isConnected() && !modelBus_->getSwitchOff()) {
         // q = ui*ir - ur * ii
-        double ur = modelBus_->ur();
-        double ui = modelBus_->ui();
-        double U2 = ur * ur + ui * ui;
+        double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
         if (!doubleIsZero(U2)) {
+          double ur = modelBus_->ur();
+          double ui = modelBus_->ui();
           double Pc = PcPu();
           double Qc = QcPu();
           return -(ui * ir(ur, ui, U2, Pc, Qc) - ur * ii(ur, ui, U2, Pc, Qc));

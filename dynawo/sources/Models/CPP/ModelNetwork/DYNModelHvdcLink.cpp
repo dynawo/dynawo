@@ -240,8 +240,8 @@ ModelHvdcLink::evalCalculatedVars() {
   double ui1 = modelBus1_->ui();
   double ur2 = modelBus2_->ur();
   double ui2 = modelBus2_->ui();
-  double U1_2 = ur1 * ur1 + ui1 * ui1;
-  double U2_2 = ur2 * ur2 + ui2 * ui2;
+  double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
+  double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
   double ir1Val = ir1(ur1, ui1, U1_2);
   double ii1Val = ii1(ur1, ui1, U1_2);
   double ir2Val = ir2(ur2, ui2, U2_2);
@@ -371,8 +371,8 @@ ModelHvdcLink::evalCalculatedVarI(unsigned numCalculatedVar) const {
     }
   }
 
-  double U1_2 = ur1 * ur1 + ui1 * ui1;
-  double U2_2 = ur2 * ur2 + ui2 * ui2;
+  double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
+  double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
   switch (numCalculatedVar) {
     case p1Num_: {
       if (isConnected1() && isConnected2()) {
@@ -423,8 +423,8 @@ ModelHvdcLink::evalNodeInjection() {
     double ui1 = modelBus1_->ui();
     double ur2 = modelBus2_->ur();
     double ui2 = modelBus2_->ui();
-    double U1_2 = ur1 * ur1 + ui1 * ui1;
-    double U2_2 = ur2 * ur2 + ui2 * ui2;
+    double U1_2 = modelBus1_->getCurrentU(ModelBus::U2PuType_);
+    double U2_2 = modelBus2_->getCurrentU(ModelBus::U2PuType_);
     modelBus1_->irAdd(ir1(ur1, ui1, U1_2));
     modelBus1_->iiAdd(ii1(ur1, ui1, U1_2));
     // Add current injection at point of common coupling 2

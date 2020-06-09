@@ -160,9 +160,7 @@ ModelStaticVarCompensator::evalF(propertyF_t type) {
     return;
 
   if (type != DIFFERENTIAL_EQ) {
-    double ur = modelBus_->ur();
-    double ui = modelBus_->ui();
-    double vNetwork = sqrt(ur * ur + ui * ui) * vNom_;
+    double vNetwork = modelBus_->getCurrentU(ModelBus::UType_);
 
     // equation 0 : 0 = piIn - KG * ((vSetPoint_ - vNetwork) / vNom_ + Statism_ * q / SNREF)
     // -------------------------------------------------------------------------------------
@@ -232,9 +230,7 @@ ModelStaticVarCompensator::init(int& yNum) {
 
 double
 ModelStaticVarCompensator::Q() const {
-  double ur = modelBus_->ur();
-  double ui = modelBus_->ui();
-  return - bSvc() * (ur * ur + ui * ui);
+  return - bSvc() * modelBus_->getCurrentU(ModelBus::U2PuType_);
 }
 
 double
@@ -500,7 +496,7 @@ ModelStaticVarCompensator::evalG(const double& /*t*/) {
   g_[5] = (bIsbMax || (bMax_ - b > 0.)) ? ROOT_UP : ROOT_DOWN;  // B <= BMax
 
   if (hasStandByAutomaton_) {
-    double v = modelBus_->getCurrentV();
+    double v = modelBus_->getCurrentU(ModelBus::UType_);
     g_[6] = (!doubleEquals(v, uMinActivation_) && (uMinActivation_ - v > 0.) && mode_ == StaticVarCompensatorInterface::STANDBY) ? ROOT_UP : ROOT_DOWN;
     g_[7] = (!doubleEquals(v, uMaxActivation_) && (uMaxActivation_ - v < 0.) && mode_ == StaticVarCompensatorInterface::STANDBY) ? ROOT_UP : ROOT_DOWN;
   }
