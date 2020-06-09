@@ -26,6 +26,7 @@
 #include <boost/weak_ptr.hpp>
 
 #include "DYNNetworkComponentImpl.h"
+#include "DYNBitMask.h"
 
 namespace DYN {
 class SubNetwork;  ///< AC-connected network
@@ -79,6 +80,25 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
     switchOffNum_ = 1,
     connectionStateNum_ = 2
   } IndexDiscreteVariable_t;
+
+  /**
+   * @brief Flags of the U calculation status for the current time step
+   */
+  typedef enum {
+    NoCalculation = 0x00,
+    U2Pu = 0x01,
+    UPu = 0x02,
+    U = 0x04
+  } UStatusFlags;
+
+  /**
+   * @brief U calculation type requested (U², U in p.u. or U in S.I)
+   */
+  typedef enum {
+    U2PuType_ = 0,
+    UPuType_ = 1,
+    UType_ = 2
+  } UType_t;
 
   /**
    * @brief add a bus to the neighbors
@@ -275,10 +295,11 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   void iiAdd(const double& ii);
 
   /**
-   * @brief get current v
-   * @return current V
+   * @brief get the current requested value of U
+   * @param currentURequested type of U requested
+   * @return the current requested value of U
    */
-  double getCurrentV() const;
+  double getCurrentU(UType_t currentURequested);
 
   /**
    * @brief get initial voltage of the bus
@@ -526,6 +547,11 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
     connectableSwitches_.push_back(sw);
   }
 
+  /**
+   * @brief reset the bit mask corresponding to the status of U calculation for the current time step
+   */
+  void resetCurrentUStatus();
+
  private:
   /**
    * @brief define elements of the bus model using id as prefix (to deal with alias)
@@ -535,6 +561,20 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
    */
   void defineElementsById(const std::string& id, std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
+  /**
+   * @brief calculate the value of U² in p.u.
+   * @return the value of U² in p.u.
+   */
+  double calculateU2Pu() const;
+
+  /**
+   * @brief calculate the value of U in S.I.
+   * @return the value of U in S.I.
+   */
+  inline double calculateU() const {
+    return UPu_ * unom_;
+  }
+
  private:
   boost::weak_ptr<ModelVoltageLevel> modelVoltageLevel_;  ///< voltage level that contains the bus
 
@@ -542,6 +582,12 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   double uMax_;  ///< maximum allowed voltage
   bool stateUmax_;  ///< whether U > UMax
   bool stateUmin_;  ///< whether U < UMin
+
+  double U2Pu_;  ///< current value of U² (= 0 if not yet calculated)
+  double UPu_;  ///< current value of U (=0 if not yet calculated)
+  double U_;  ///< current value of U in S.I. unit (=0 if not yet calculated)
+  BitMask currentUStatus_;  ///< Bit mask value indicating which value of U have already been calculated for the current time step
+
 
   // equivalent to z_[switchOffNum_] but with discrete variable, to be able to switch off a node thanks to an outside event
   State connectionState_;  ///< "internal" bus connection status, evaluated at the end of evalZ to detect if the state was modified by another component
@@ -736,6 +782,11 @@ class ModelBusContainer {
    * @param rowOffset row offset to use to find the first row to fill
    */
   void evalJtPrim(SparseMatrix& jt, const int& rowOffset);
+
+  /**
+   * @brief reset the bit mask of every bus corresponding to the status of U calculation for the current time step
+   */
+  void resetCurrentUStatus();
 
  private:
   std::vector<boost::shared_ptr<ModelBus> > models_;  ///< model bus

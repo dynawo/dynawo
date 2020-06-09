@@ -57,31 +57,33 @@ ModelBusContainer::add(const shared_ptr<ModelBus>& model) {
 }
 
 void
+ModelBusContainer::resetCurrentUStatus() {
+  for (vector<shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
+    (*itB)->resetCurrentUStatus();
+}
+
+void
 ModelBusContainer::evalF(propertyF_t type) {
-  vector<shared_ptr<ModelBus> >::const_iterator itB;
-  for (itB = models_.begin(); itB != models_.end(); ++itB)
+  for (vector<shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
     (*itB)->evalF(type);
 }
 
 void
 ModelBusContainer::evalJt(SparseMatrix& jt, const double& cj, const int& rowOffset) {
-  vector<shared_ptr<ModelBus> >::const_iterator itB;
-  for (itB = models_.begin(); itB != models_.end(); ++itB)
+  for (vector<shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
     (*itB)->evalJt(jt, cj, rowOffset);
 }
 
 void
 ModelBusContainer::evalJtPrim(SparseMatrix& jt, const int& rowOffset) {
-  vector<shared_ptr<ModelBus> >::const_iterator itB;
-  for (itB = models_.begin(); itB != models_.end(); ++itB)
+  for (vector<shared_ptr<ModelBus> >::const_iterator itB = models_.begin(); itB != models_.end(); ++itB)
     (*itB)->evalJtPrim(jt, rowOffset);
 }
 
 void
 ModelBusContainer::resetSubNetwork() {
   subNetworks_.clear();
-  vector<shared_ptr<ModelBus> >::iterator itModelBus;
-  for (itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
+  for (vector<shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
     shared_ptr<ModelBus> bus = *itModelBus;
     bus->clearNeighbors();
     bus->clearNumSubNetwork();
@@ -90,8 +92,7 @@ ModelBusContainer::resetSubNetwork() {
 
 void
 ModelBusContainer::resetNodeInjections() {
-  vector<shared_ptr<ModelBus> >::iterator itModelBus;
-  for (itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
+  for (vector<shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
     (*itModelBus)->resetNodeInjection();
   }
 }
@@ -102,8 +103,7 @@ ModelBusContainer::exploreNeighbors() {
   shared_ptr<SubNetwork> subNetwork(new SubNetwork(numSubNetwork));
   subNetworks_.push_back(subNetwork);
 
-  vector<shared_ptr<ModelBus> >::iterator itModelBus;
-  for (itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
+  for (vector<shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
     shared_ptr<ModelBus> bus = *itModelBus;
     if (!bus->numSubNetworkSet()) {  // Bus not yet treated
       bus->numSubNetwork(numSubNetwork);
@@ -133,17 +133,14 @@ ModelBusContainer::exploreNeighbors() {
 
 void
 ModelBusContainer::initRefIslands() {
-  std::vector<boost::shared_ptr<ModelBus> >::iterator itModelBus;
-  for (itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
+  for (std::vector<boost::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus) {
     (*itModelBus)->setRefIslands(0);
   }
 }
 
 void
 ModelBusContainer::initDerivatives() {
-  Timer timer("ModelBusContainer::initDerivatives");
-  std::vector<boost::shared_ptr<ModelBus> >::iterator itModelBus;
-  for (itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus)
+  for (std::vector<boost::shared_ptr<ModelBus> >::iterator itModelBus = models_.begin(); itModelBus != models_.end(); ++itModelBus)
     (*itModelBus)->initDerivatives();
 }
 
@@ -151,6 +148,9 @@ ModelBus::ModelBus(const shared_ptr<BusInterface>& bus) :
 Impl(bus->getID()),
 stateUmax_(false),
 stateUmin_(false),
+U2Pu_(0.0),
+UPu_(0.0),
+U_(0.0),
 connectionState_(CLOSED),
 topologyModified_(false),
 irConnection_(0.0),
@@ -197,13 +197,65 @@ ModelBus::numSubNetworkSet() const {
   return doubleNotEquals(z_[numSubNetworkNum_], -1.);
 }
 
-// currentV can be called during one iteration of the simulation
+void
+ModelBus::resetCurrentUStatus() {
+  currentUStatus_.reset();
+}
 
 double
-ModelBus::getCurrentV() const {
-  double ur = y_[urNum_];
-  double ui = y_[uiNum_];
-  return sqrt(ur * ur + ui * ui) * unom_;
+ModelBus::getCurrentU(UType_t currentURequested) {
+  if (getSwitchOff())
+    return 0;
+  switch (currentURequested) {
+    case UType_:
+      if (currentUStatus_.getFlags(U)) {
+        return U_;
+      } else if (currentUStatus_.getFlags(UPu)) {
+        U_ = calculateU();
+        currentUStatus_.setFlags(U);
+        return U_;
+      } else if (currentUStatus_.getFlags(U2Pu)) {
+        UPu_ = sqrt(U2Pu_);
+        U_ = calculateU();
+        currentUStatus_.setFlags(UPu | U);
+        return U_;
+      } else {
+        U2Pu_ = calculateU2Pu();
+        UPu_ = sqrt(U2Pu_);
+        U_ = calculateU();
+        currentUStatus_.setFlags(U2Pu | UPu | U);
+        return U_;
+      }
+    case UPuType_:
+      if (currentUStatus_.getFlags(UPu)) {
+        return UPu_;
+      } else if (currentUStatus_.getFlags(U2Pu)) {
+        UPu_ = sqrt(U2Pu_);
+        currentUStatus_.setFlags(UPu);
+        return UPu_;
+      } else {
+        U2Pu_ = calculateU2Pu();
+        UPu_ = sqrt(U2Pu_);
+        currentUStatus_.setFlags(U2Pu | UPu);
+        return UPu_;
+      }
+    case U2PuType_:
+      if (currentUStatus_.getFlags(U2Pu)) {
+        return U2Pu_;
+      } else {
+        U2Pu_ = calculateU2Pu();
+        currentUStatus_.setFlags(U2Pu);
+        return U2Pu_;
+      }
+  }
+  return 0;
+}
+
+double
+ModelBus::calculateU2Pu() const {
+  double urPu = ur();
+  double uiPu = ui();
+  return urPu * urPu + uiPu * uiPu;
 }
 
 void
@@ -428,10 +480,10 @@ ModelBus::evalCalculatedVars() {
     calculatedVars_[uNum_] = 0.;
     calculatedVars_[phiNum_] = 0.;
   } else {
-    calculatedVars_[upuNum_] = sqrt(y_[urNum_] * y_[urNum_] + y_[uiNum_] * y_[uiNum_]);
+    calculatedVars_[uNum_] = getCurrentU(ModelBus::UType_);
+    calculatedVars_[upuNum_] = getCurrentU(ModelBus::UPuType_);
     calculatedVars_[phipuNum_] = atan2(y_[uiNum_], y_[urNum_]);
-    calculatedVars_[uNum_] = calculatedVars_[upuNum_] * unom_;
-    calculatedVars_[phiNum_] = atan2(y_[uiNum_], y_[urNum_]) * RAD_TO_DEG;
+    calculatedVars_[phiNum_] = calculatedVars_[phipuNum_] * RAD_TO_DEG;
   }
 }
 
@@ -655,7 +707,7 @@ ModelBus::evalZ(const double& /*t*/) {
 
 void
 ModelBus::evalG(const double& /*t*/) {
-  double upu = sqrt(y_[urNum_] * y_[urNum_] + y_[uiNum_] * y_[uiNum_]);
+  double upu = getCurrentU(ModelBus::UPuType_);
   g_[0] = (upu - uMax_ > 0) ? ROOT_UP : ROOT_DOWN;  // U > Umax
   g_[1] = (uMin_ - upu > 0 && !getSwitchOff()) ? ROOT_UP : ROOT_DOWN;  // U < Umin
   g_[2] = (uMax_ - upu > 0) ? ROOT_UP : ROOT_DOWN;  // U < Umax

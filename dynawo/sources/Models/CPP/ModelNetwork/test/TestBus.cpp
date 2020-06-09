@@ -412,7 +412,6 @@ TEST(ModelsModelNetwork, ModelNetworkBusContinuousVariables) {
   ASSERT_NO_THROW(bus->evalF(UNDEFINED_EQ));
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], 0.35);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0.02);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(bus->getCurrentV(), 1.7528548142958102);
 
   // test setFequations
   fEquationIndex.clear();
@@ -780,5 +779,44 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   delete[] zConnected1;
   delete[] zConnected2;
   delete[] zConnected3;
+}
+
+TEST(ModelsModelNetwork, ModelNetworkBusCurrentU) {
+  std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> > p = createModelBus(false);
+  shared_ptr<ModelBus> bus = p.first;
+  bus->initSize();
+  std::vector<double> y(bus->sizeY(), 0.);
+  std::vector<double> yp(bus->sizeY(), 0.);
+  std::vector<double> f(bus->sizeF(), 0.);
+  bus->setReferenceY(&y[0], &yp[0], &f[0], 0, 0);
+  y[ModelBus::urNum_] = 1;
+  y[ModelBus::uiNum_] = 2.;
+  std::vector<double> z(bus->sizeZ(), 0.);
+  bool* zConnected = new bool[bus->sizeZ()];
+  for (size_t i = 0; i < bus->sizeZ(); ++i)
+    zConnected[i] = true;
+  bus->setReferenceZ(&z[0], zConnected, 0);
+
+  bus->resetCurrentUStatus();
+  ASSERT_EQ(bus->getCurrentU(ModelBus::U2PuType_), 5);
+  ASSERT_EQ(bus->getCurrentU(ModelBus::UPuType_), sqrt(5));
+  ASSERT_EQ(bus->getCurrentU(ModelBus::UType_), sqrt(5) * 5);
+  bus->resetCurrentUStatus();
+  bus->getCurrentU(ModelBus::U2PuType_);
+  ASSERT_EQ(bus->getCurrentU(ModelBus::UType_), sqrt(5) * 5);
+
+  bus->resetCurrentUStatus();
+  ASSERT_EQ(bus->getCurrentU(ModelBus::UPuType_), sqrt(5));
+  ASSERT_EQ(bus->getCurrentU(ModelBus::U2PuType_), 5);
+  ASSERT_EQ(bus->getCurrentU(ModelBus::UType_), sqrt(5) * 5);
+
+  bus->resetCurrentUStatus();
+  ASSERT_EQ(bus->getCurrentU(ModelBus::UType_), sqrt(5) * 5);
+  ASSERT_EQ(bus->getCurrentU(ModelBus::UPuType_), sqrt(5));
+  ASSERT_EQ(bus->getCurrentU(ModelBus::U2PuType_), 5);
+  ASSERT_EQ(bus->getCurrentU(ModelBus::UType_), sqrt(5) * 5);
+
+  bus->switchOff();
+  ASSERT_EQ(bus->getCurrentU(ModelBus::UType_), 0);
 }
 }  // namespace DYN

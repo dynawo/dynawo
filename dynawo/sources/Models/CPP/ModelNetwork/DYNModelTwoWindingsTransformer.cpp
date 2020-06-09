@@ -1406,7 +1406,7 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
     double vValue = 0.;
     bool nodeOff = true;
     if (modelBusMonitored_) {
-      vValue = modelBusMonitored_->getCurrentV();
+      vValue = modelBusMonitored_->getCurrentU(ModelBus::UType_);
       nodeOff = modelBusMonitored_->getSwitchOff();
     }
     modelRatioChanger_->evalG(t, vValue, nodeOff, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED);

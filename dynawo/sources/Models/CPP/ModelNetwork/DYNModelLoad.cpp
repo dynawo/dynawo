@@ -158,9 +158,7 @@ ModelLoad::evalF(propertyF_t type) {
     } else if (TqIsZero_) {
       f_[1] = zQPrim();
     } else {
-      double ur = modelBus_->ur();
-      double ui = modelBus_->ui();
-      double U = sqrt(ur * ur + ui * ui);
+      double U = modelBus_->getCurrentU(ModelBus::UPuType_);
 
       double zPprimValue = 0.;
       double zp = zP();
@@ -469,12 +467,12 @@ ModelLoad::evalNodeInjection() {
       modelBus_->irAdd(ir0_);
       modelBus_->iiAdd(ii0_);
     } else {
+      double U = modelBus_->getCurrentU(ModelBus::UPuType_);
+      if (doubleIsZero(U))
+        return;
+      double U2 = modelBus_->getCurrentU(ModelBus::U2PuType_);
       double ur = modelBus_->ur();
       double ui = modelBus_->ui();
-      double U2 = ur * ur + ui * ui;
-      if (doubleIsZero(U2))
-        return;
-      double U = sqrt(U2);
       double ii;
       double ir;
       getI(ur, ui, U, U2, ir, ii);
@@ -699,7 +697,7 @@ ModelLoad::evalCalculatedVars() {
   if (isRunning()) {
     double ur = modelBus_->ur();
     double ui = modelBus_->ui();
-    double U = sqrt(ur * ur + ui * ui);
+    double U = modelBus_->getCurrentU(ModelBus::UPuType_);
     // P
     calculatedVars_[pNum_] = P(ur, ui, U);
 
@@ -848,9 +846,7 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
   switch (numCalculatedVar) {
     case pNum_: {
       if (isRunning()) {
-        double ur = modelBus_->ur();
-        double ui = modelBus_->ui();
-        double U = sqrt(ur * ur + ui * ui);
+        double U = modelBus_->getCurrentU(ModelBus::UPuType_);
         double deltaPcVal = 0.;
         double zPVal = 1.;
         if (isControllable_) {
@@ -865,9 +861,7 @@ ModelLoad::evalCalculatedVarI(unsigned numCalculatedVar) const {
     break;
     case qNum_: {
       if (isRunning()) {
-        double ur = modelBus_->ur();
-        double ui = modelBus_->ui();
-        double U = sqrt(ur*ur + ui*ui);
+        double U = modelBus_->getCurrentU(ModelBus::UPuType_);
         double deltaQcVal = 0.;
         double zQVal = 1.;
         if (isControllable_) {
