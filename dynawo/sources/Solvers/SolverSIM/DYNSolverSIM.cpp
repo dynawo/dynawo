@@ -653,17 +653,17 @@ SolverSIM::reinit() {
   if (modeChangeType == DIFFERENTIAL_MODE)
     return;
 
+  const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
   do {
     model_->rotateBuffers();
     state_.reset();
-    model_->reinitMode();
 
     // During the algebraic equation restoration, the system could have moved a lot from its previous state.
     // J updates and preconditioner calls must be done on a regular basis.
     bool noInitSetup = initAlgRestoration(modeChangeType);
 
     solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
-    int flag = solverKINAlgRestoration_->solve(noInitSetup);
+    int flag = solverKINAlgRestoration_->solve(noInitSetup, evaluateOnlyMode);
 
     // Update statistics
     long int nre = 0;

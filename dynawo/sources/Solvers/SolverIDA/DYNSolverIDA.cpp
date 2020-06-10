@@ -727,11 +727,11 @@ SolverIDA::reinit() {
   modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (modeChangeType == NO_MODE) return;
 
+  const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
   if (modeChangeType != DIFFERENTIAL_MODE) {
     do {
       model_->rotateBuffers();
       state_.reset();
-      model_->reinitMode();
 
       // During the algebraic equation restoration, the system could have moved a lot from its previous state.
       // J updates and preconditioner calls must be done on a regular basis.
@@ -743,7 +743,7 @@ SolverIDA::reinit() {
           vYp_[i] = 0;
 
       solverKINNormal_->setInitialValues(tSolve_, vYy_, vYp_);
-      solverKINNormal_->solve(noInitSetup);
+      solverKINNormal_->solve(noInitSetup, evaluateOnlyMode);
       solverKINNormal_->getValues(vYy_, vYp_);
 
       // Recomputation of differential variables' values
@@ -752,7 +752,7 @@ SolverIDA::reinit() {
           vYp_[i] = 0;
 
       solverKINYPrim_->setInitialValues(tSolve_, vYy_, vYp_);
-      solverKINYPrim_->solve(noInitSetup);
+      solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode);
       solverKINYPrim_->getValues(vYy_, vYp_);
 
       // Update statistics

@@ -54,6 +54,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   void evalFDiff(const double t, double* y, double* yp, double* f);
 
   /**
+   * @copydoc Model::evalFMode(const double t, double* y, double* yp, double* f)
+   */
+  void evalFMode(const double t, double* y, double* yp, double* f);
+
+  /**
    * @copydoc Model::copyContinuousVariables(double* y, double* yp)
    */
   void copyContinuousVariables(double* y, double* yp);
@@ -531,8 +536,10 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::map<int, int> mapAssociationG_;  ///< association between an index of g functions and a subModel
   std::vector<std::string> yNames_;  ///< names of all variables y
   std::vector<boost::shared_ptr<SubModel> > subModels_;  ///< list of each sub models
-  std::map<std::string, size_t > subModelByName_;  ///< map associating a sub model name to its index in subModels_
+  boost::unordered_map<std::string, size_t > subModelByName_;  ///< map associating a sub model name to its index in subModels_
   boost::unordered_map<std::string, std::vector<boost::shared_ptr<SubModel> > > subModelByLib_;  ///< associates a lib and each SubModel created with it
+  boost::unordered_map<size_t, std::vector<size_t > >
+    subModelIdxToConnectorCalcVarsIdx_;  ///< associates a subModel index to the associated calculated variables connectors indexes
   boost::shared_ptr<ConnectorContainer> connectorContainer_;  ///< list of each connector
   std::vector<double> zSave_;  ///< save of the last discretes values
   propertyF_t* fType_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)

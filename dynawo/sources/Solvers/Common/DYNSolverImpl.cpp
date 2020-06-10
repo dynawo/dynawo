@@ -86,7 +86,8 @@ mxiterAlgJ_(50),
 printflAlgJ_(0),
 tSolve_(0.),
 previousReinit_(None),
-enableSilentZ_(true) { }
+enableSilentZ_(true),
+optimizeReinitAlgebraicResidualsEvaluations_(true) { }
 
 Solver::Impl::~Impl() {
   clean();
@@ -340,7 +341,10 @@ Solver::Impl::defineCommonParameters() {
   parameters_.insert(make_pair("msbsetAlgJ", ParameterSolver("msbsetAlgJ", VAR_TYPE_INT)));
   parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT)));
   parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT)));
+
+  // Parameters for performance optimization
   parameters_.insert(make_pair("enableSilentZ", ParameterSolver("enableSilentZ", VAR_TYPE_BOOL)));
+  parameters_.insert(make_pair("optimizeReinitAlgebraicResidualsEvaluations", ParameterSolver("optimizeReinitAlgebraicResidualsEvaluations", VAR_TYPE_BOOL)));
 }
 
 bool
@@ -454,6 +458,8 @@ void Solver::Impl::setSolverCommonParameters() {
     printflAlgJ_ = findParameter("printflAlgJ").getValue<int>();
   if (findParameter("enableSilentZ").hasValue())
     enableSilentZ_ = findParameter("enableSilentZ").getValue<bool>();
+  if (findParameter("optimizeReinitAlgebraicResidualsEvaluations").hasValue())
+    optimizeReinitAlgebraicResidualsEvaluations_ = findParameter("optimizeReinitAlgebraicResidualsEvaluations").getValue<bool>();
 }
 
 void
