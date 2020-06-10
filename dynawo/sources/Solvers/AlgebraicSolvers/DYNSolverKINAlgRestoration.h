@@ -90,8 +90,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
    *
    * @return the flag value
    * @param noInitSetup indicates if the J should be evaluated or not at the first iteration
+   * @param evaluateOnlyModeAtFirstIter indicates if only residuals of models with mode change should be evaluated
    */
-  int solve(bool noInitSetup = true);
+  int solve(bool noInitSetup = true, bool evaluateOnlyModeAtFirstIter = false);
 
   /**
    * @brief getter for the model currently simulated
@@ -167,7 +168,9 @@ class SolverKINAlgRestoration : public SolverKINCommon, private boost::noncopyab
   boost::shared_ptr<Model> model_;  ///< model currently simulated
 
   std::vector<double> y0_;  ///< initial variables values
+  std::vector<double> Y_;  ///< copy of initial variables values used in evalF
   std::vector<double> yp0_;  ///< initial values of derivative variables
+  std::vector<double> YP_;  ///< copy of initial derivative variables values used in evalF
   std::vector<DYN::propertyContinuousVar_t> vId_;  ///< property of variables (algebraic/differential)
   std::vector<DYN::propertyF_t> fType_;  ///< property of equations (algebraic /differential)
   boost::unordered_set<int> ignoreF_;  ///< equations to erase from the initial set of equations

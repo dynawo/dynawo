@@ -201,18 +201,16 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
     solv->setFirstIteration(false);
   } else {
     if (solv->mode_ == KIN_NORMAL) {
-      vector<double> Y(solv->y0_.begin(), solv->y0_.end());
       // add current values of algebraic variables
       for (unsigned int i = 0; i < solv->indexY_.size(); ++i) {
-        Y[solv->indexY_[i]] = iyy[i];
+        solv->Y_[solv->indexY_[i]] = iyy[i];
       }
-      model->evalF(solv->t0_, &Y[0], &solv->yp0_[0], &solv->F_[0]);
+      model->evalF(solv->t0_, &solv->Y_[0], &solv->yp0_[0], &solv->F_[0]);
     } else if (solv->mode_ == KIN_YPRIM) {
-      vector<double> YP(model->sizeY(), 0.);
       for (unsigned int i = 0; i < solv->indexY_.size(); ++i) {
-        YP[solv->indexY_[i]] = iyy[i];
+        solv->YP_[solv->indexY_[i]] = iyy[i];
       }
-      model->evalF(solv->t0_, &solv->y0_[0], &YP[0], &solv->F_[0]);
+      model->evalFDiff(solv->t0_, &solv->y0_[0], &solv->YP_[0], &solv->F_[0]);
     }
   }
 
@@ -282,7 +280,7 @@ SolverKINAlgRestoration::evalJPrim_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 }
 
 int
-SolverKINAlgRestoration::solve(bool noInitSetup) {
+SolverKINAlgRestoration::solve(bool noInitSetup, bool evaluateOnlyModeAtFirstIter) {
   if (nbF_ == 0)
     return KIN_SUCCESS;
 
@@ -292,7 +290,11 @@ SolverKINAlgRestoration::solve(bool noInitSetup) {
 
   // first evaluation of F in order to fill the scaling vector
   firstIteration_ = true;
-  model_->evalF(t0_, &y0_[0], &yp0_[0], &F_[0]);
+  if (evaluateOnlyModeAtFirstIter)
+    model_->evalFMode(t0_, &y0_[0], &yp0_[0], &F_[0]);
+  else
+    model_->evalF(t0_, &y0_[0], &yp0_[0], &F_[0]);
+  model_->reinitMode();
 
   // fScale
   fScale_.assign(indexF_.size(), 1.0);
@@ -327,12 +329,14 @@ SolverKINAlgRestoration::setInitialValues(const double& t, const vector<double>&
       for (unsigned int i = 0; i < indexY_.size(); ++i) {
         vYy_[i] = y0_[indexY_[i]];
       }
+      Y_.assign(y0_.begin(), y0_.end());
       break;
     }
     case KIN_YPRIM: {
       for (unsigned int i = 0; i < indexY_.size(); ++i) {
         vYy_[i] = yp0_[indexY_[i]];
       }
+      YP_.assign(model_->sizeY(), 0.);
       break;
     }
   }

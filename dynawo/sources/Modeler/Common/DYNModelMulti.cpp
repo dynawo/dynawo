@@ -414,6 +414,31 @@ ModelMulti::evalFDiff(const double t, double* y, double* yp, double* f) {
 }
 
 void
+ModelMulti::evalFMode(const double t, double* y, double* yp, double* f) {
+#ifdef _DEBUG_
+  Timer timer("ModelMulti::evalFMode");
+#endif
+  copyContinuousVariables(y, yp);
+
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    if (subModels_[i]->modeChange()) {
+      subModels_[i]->evalFSub(t);
+      boost::unordered_map<size_t, std::vector<size_t > >::const_iterator it = subModelIdxToConnectorCalcVarsIdx_.find(i);
+      if (it != subModelIdxToConnectorCalcVarsIdx_.end()) {
+        const std::vector<size_t >& connectorsIdx = it->second;
+        for (size_t j = 0, jEnd = connectorsIdx.size(); j < jEnd; ++j) {
+          subModels_[connectorsIdx[j]]->evalFSub(t);
+        }
+      }
+    }
+  }
+
+  connectorContainer_->evalFConnector(t);
+
+  std::copy(fLocal_, fLocal_ + sizeF_, f);
+}
+
+void
 ModelMulti::evalG(double t, vector<state_g> &g) {
 #ifdef _DEBUG_
   Timer timer("ModelMulti::evalG");
@@ -525,8 +550,9 @@ ModelMulti::evalMode(double t) {
     modeChangeType_t modeChangeTypeSub = subModels_[i]->evalModeSub(t);
     if (modeChangeTypeSub > modeChangeType)
       modeChangeType = modeChangeTypeSub;
-    if (subModels_[i]->modeChange())
+    if (subModels_[i]->modeChange()) {
       modeChange_ = true;
+    }
   }
   if (modeChangeType > modeChangeType_)
     modeChangeType_ = modeChangeType;
@@ -822,6 +848,7 @@ ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, 
     connector->setParams(subModel1, numVar);
     subModelConnector = dynamic_pointer_cast<SubModel> (connector);
     addSubModel(subModelConnector, "");  // no library for connectors
+    subModelIdxToConnectorCalcVarsIdx_[subModelByName_[subModel1->name()]].push_back(subModels_.size() - 1);
   }
 
   const vector<string>& xNames = subModel2->xNames();
@@ -830,7 +857,7 @@ ModelMulti::createCalculatedVariableConnection(shared_ptr<SubModel> &subModel1, 
 
 boost::shared_ptr<SubModel>
 ModelMulti::findSubModelByName(const string& name) {
-  std::map<string, size_t >::const_iterator iter = subModelByName_.find(name);
+  boost::unordered_map<string, size_t >::const_iterator iter = subModelByName_.find(name);
   if (iter == subModelByName_.end())
     return (shared_ptr<SubModel>());
   else
