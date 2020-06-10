@@ -28,6 +28,7 @@
       <parameter name="nDeadband" valueType="INT" cardinality="1"/>
       <parameter name="nEff" valueType="INT" cardinality="1"/>
       <parameter name="optimizeAlgebraicResidualsEvaluations" valueType="BOOL" cardinality="1"/>
+      <parameter name="optimizeReinitAlgebraicResidualsEvaluations" valueType="BOOL" cardinality="1"/>
       <parameter name="printfl" valueType="INT" cardinality="1"/>
       <parameter name="printflAlg" valueType="INT" cardinality="1"/>
       <parameter name="printflAlgJ" valueType="INT" cardinality="1"/>
