@@ -338,6 +338,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   BitMask state_;  ///< current state value of the solver
   PreviousReinit previousReinit_;  ///< previous reinitialization status of the solver
   bool enableSilentZ_;  ///< enable the possibility to break discrete variable propagation loop if only silent z are modified
+  bool optimizeReinitAlgebraicResidualsEvaluations_;  ///< enable or disable the optimization of the number of algebraic residuals evals during reinit
 };
 
 }  // end of namespace DYN
