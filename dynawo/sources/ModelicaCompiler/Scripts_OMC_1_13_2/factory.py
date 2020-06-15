@@ -1679,14 +1679,15 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_collectsilentz(self):
+        closing_bracket = "] /* "
         for var in self.reader.silent_discrete_vars:
             test_param_address(var)
             address = to_param_address(var)
             index = address.split("[")[2].replace("]","")
             if "integerDoubleVars" in address:
-                self.list_for_collectsilentz.append("  silentZTable[" + str(int(self.nb_z) + int(index)) +"] /* " + var +" */ = true;\n")
+                self.list_for_collectsilentz.append("  silentZTable[" + str(int(self.nb_z) + int(index)) +closing_bracket + var +" */ = true;\n")
             else:
-                self.list_for_collectsilentz.append("  silentZTable[" + index +"] /* " + var +" */ = true;\n")
+                self.list_for_collectsilentz.append("  silentZTable[" + index +closing_bracket + var +" */ = true;\n")
 
     ##
     # prepare the lines that constitues the body of setZ
@@ -2892,6 +2893,7 @@ class Factory:
     # @param self : object pointer
     # @return
     def prepare_for_evalcalculatedvars(self):
+        closing_bracket = "] /* "
         index = 0
         for var in self.reader.list_calculated_vars:
             expr = self.reader.dic_calculated_vars_values[var.get_name()]
@@ -2905,13 +2907,13 @@ class Factory:
                     if "omc_assert_warning" in line and with_throw:
                         continue
                     if "return " in line:
-                        line = line.replace("return ",  "calculatedVars[" + str(index)+"] /* " + var.get_name() + "*/ = ")
+                        line = line.replace("return ",  "calculatedVars[" + str(index)+closing_bracket + var.get_name() + "*/ = ")
                     body.append(transform_line(line))
                 # convert native boolean variables
                 convert_booleans_body ([item.get_name() for item in self.list_all_bool_items], body)
                 self.list_for_evalcalculatedvars.extend(body)
             else:
-                self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(index)+"] /* " + var.get_name() + "*/ = " + expr+";\n")
+                self.list_for_evalcalculatedvars.append("  calculatedVars[" + str(index)+closing_bracket + var.get_name() + "*/ = " + expr+";\n")
             index += 1
 
 

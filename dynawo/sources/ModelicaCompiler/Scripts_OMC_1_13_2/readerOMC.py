@@ -1149,7 +1149,7 @@ class ReaderOMC:
                 elif type == "intAlgVars":
                     map_var_name_2_addresses[name]= "integerDoubleVars"
                 elif type == "boolAlgVars":
-                    if "$whenCondition" in name:
+                    if is_when_condition(name):
                         map_var_name_2_addresses[name]= "booleanVars"
                     else:
                         map_var_name_2_addresses[name]= "discreteVars"
@@ -1251,7 +1251,6 @@ class ReaderOMC:
         self.find_calculated_variables()
 
     def detect_z_only_used_internally(self):
-        map_dep = self.get_map_dep_vars_for_func()
         map_num_eq_vars_defined = self.get_map_num_eq_vars_defined()
         dicr_variable_to_dics_equation_dependencies = {}
 
@@ -1284,7 +1283,7 @@ class ReaderOMC:
                         dicr_variable_to_dics_equation_dependencies[discr_var].append(f_num_omc)
 
         for discr_var in discr_vars:
-            if discr_var not in dicr_variable_to_dics_equation_dependencies and "$whenCondition" not in discr_var:
+            if discr_var not in dicr_variable_to_dics_equation_dependencies and not is_when_condition(discr_var):
                 print_info("Discrete variable " + discr_var + " is defined as silent.")
                 self.silent_discrete_vars.append(discr_var)
 
@@ -1351,7 +1350,7 @@ class ReaderOMC:
                     if is_discrete_real_var(var): continue
                     if is_integer_var(var): continue
                     if is_bool_var(var): continue
-                    if "$whenCondition" in var_name : continue
+                    if is_when_condition(var_name) : continue
                     if not var_name in variable_to_equation_dependencies:
                         variable_to_equation_dependencies[var_name] = []
                     variable_to_equation_dependencies[var_name].append(f_num_omc)

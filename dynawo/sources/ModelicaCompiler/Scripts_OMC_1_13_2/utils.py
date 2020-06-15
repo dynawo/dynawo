@@ -48,13 +48,20 @@ def is_der(var_name):
 
 
 ##
-# Indicates whether is the variable a temporary absolute variable used to solve equations with multiple solutions
+# Indicates whether the variable is a temporary absolute variable used to solve equations with multiple solutions
 #
 # @param var_name : name of the variable
 # @return @b true if the variable is a temporary absolute variable
 def is_ignored_var(var_name):
     match_is_temporary_abs_var = re.compile(r'\$TMP\$VAR\$[0-9]+\$0X\$ABS')
     return match_is_temporary_abs_var.search(var_name) is not None
+##
+# Indicates whether is a when conditions
+#
+# @param var_name : name of the variable
+# @return @b true if the variable is a when conditions
+def is_when_condition(var_name):
+    return "$whenCondition" in var_name
 
 ##
 # Indicates whether the function  of type RawOmcFunctions should be transformed to an adept type
