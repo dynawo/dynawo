@@ -15,10 +15,18 @@ set(COMPILER_MODELICA_OMC_SOURCES
 
 add_executable(compileModelicaModel ${COMPILER_MODELICA_OMC_SOURCES})
 
+target_include_directories(compileModelicaModel SYSTEM
+  PRIVATE
+  $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+
 target_link_libraries(compileModelicaModel
+  PRIVATE
     dynawo_Common
     ${CMAKE_DL_LIBS}
-    )
+    Boost::log
+    Boost::program_options
+  )
 
 if(APPLE)
     # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737

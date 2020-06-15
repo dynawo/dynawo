@@ -30,19 +30,28 @@ set(MODEL_MANAGER_INCLUDE_HEADERS
 
 add_library(dynawo_ModelManager ${LIBRARY_TYPE} ${MODEL_MANAGER_SOURCES})
 
-target_include_directories(dynawo_ModelManager PRIVATE ${OMC_INCLUDE_DIR} ${SUNDIALS_INCLUDE_DIR})
 target_include_directories(dynawo_ModelManager
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  PRIVATE
+    ${OMC_INCLUDE_DIR}
+    $<TARGET_PROPERTY:Modelica_externalC,INTERFACE_INCLUDE_DIRECTORIES>
 )
+target_include_directories(dynawo_ModelManager SYSTEM
+  PRIVATE
+  $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
 
 target_link_libraries(dynawo_ModelManager
-  PUBLIC
+  PRIVATE
+    dynawo_Common
+    dynawo_API_PAR
     dynawo_ModelerCommon
     dynawo_SolverKINSOL
-    Modelica_externalC
-)
+    Boost::serialization
+    Boost::system
+  )
 
 set_target_properties(dynawo_ModelManager PROPERTIES VERSION ${MODEL_MANAGER_VERSION_STRING}
                                                    SOVERSION ${MODEL_MANAGER_VERSION_MAJOR})

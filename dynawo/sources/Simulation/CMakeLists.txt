@@ -24,24 +24,43 @@ set(SIM_INCLUDE_HEADERS
 add_library(dynawo_Simulation ${LIBRARY_TYPE} ${SIM_SOURCES})
 
 target_include_directories(dynawo_Simulation
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
-        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    )
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  PRIVATE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../> # for gitversion.h
+  )
 
 target_link_libraries(dynawo_Simulation
-    PUBLIC
-      dynawo_SimulationCommon
-      dynawo_API_CSTR
-      dynawo_API_JOB
-      dynawo_SolverCommon
-      dynawo_DataInterface
-      libZIP::libZIP
-      LibArchive::LibArchive
-      ZLIB::ZLIB
-    )
+  PRIVATE
+    dynawo_Common
+    dynawo_SimulationCommon
+    dynawo_API_JOB
+    dynawo_API_CRV
+    dynawo_API_CRT
+    dynawo_API_PAR
+    dynawo_API_FS
+    dynawo_API_TL
+    dynawo_API_CSTR
+    dynawo_ModelerCommon
+    dynawo_DataInterface
+    dynawo_SolverCommon
+    iidm-xml
+    iidm-ext-activeseason-xml
+    iidm-ext-busbarsectionposition-xml
+    iidm-ext-connectableposition-xml
+    iidm-ext-currentlimitsperseason-xml
+    iidm-ext-generatoractivepowercontrol-xml
+    iidm-ext-generatorentsoecategory-xml
+    iidm-ext-generatorstartup-xml
+    iidm-ext-hvdcangledroopactivepowercontrol-xml
+    iidm-ext-hvdcoperatoractivepowerrange-xml
+    iidm-ext-loaddetail-xml
+    iidm-ext-standbyautomaton-xml
+    libZIP::libZIP
+    Boost::filesystem
+    Boost::serialization
+  )
 
 set_target_properties(dynawo_Simulation PROPERTIES VERSION ${SIM_VERSION_STRING}
                                                  SOVERSION ${SIM_VERSION_MAJOR})
@@ -66,10 +85,15 @@ set(SIMCOMMON_INCLUDE_HEADERS
 add_library(dynawo_SimulationCommon ${LIBRARY_TYPE} ${SIMCOMMON_SOURCES})
 
 target_include_directories(dynawo_SimulationCommon
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    )
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  )
+
+target_link_libraries(dynawo_SimulationCommon
+  PRIVATE
+    dynawo_Interface
+  )
 
 set_target_properties(dynawo_SimulationCommon PROPERTIES VERSION ${SIMCOMMON_VERSION_STRING}
                                                        SOVERSION ${SIMCOMMON_VERSION_MAJOR})

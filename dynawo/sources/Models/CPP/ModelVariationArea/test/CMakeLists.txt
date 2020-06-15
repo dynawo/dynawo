@@ -22,8 +22,10 @@ target_include_directories(${MODULE_NAME}
         )
 
 target_link_libraries(${MODULE_NAME}
-        DYNModelVariationArea
-        dynawo_Test)
+  DYNModelVariationArea
+  dynawo_API_PAR
+  dynawo_ModelerCommon
+  dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>

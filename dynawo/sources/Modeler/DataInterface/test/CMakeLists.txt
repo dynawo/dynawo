@@ -17,9 +17,22 @@ set(MODULE_SOURCES
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
 target_link_libraries(${MODULE_NAME}
-        dynawo_ModelerCommon
-        dynawo_DataInterface
-        dynawo_Test)
+  dynawo_API_PAR
+  dynawo_API_CRT
+  dynawo_ModelerCommon
+  dynawo_DataInterface
+  iidm-ext-activeseason-xml
+  iidm-ext-busbarsectionposition-xml
+  iidm-ext-connectableposition-xml
+  iidm-ext-currentlimitsperseason-xml
+  iidm-ext-generatoractivepowercontrol-xml
+  iidm-ext-generatorentsoecategory-xml
+  iidm-ext-generatorstartup-xml
+  iidm-ext-hvdcangledroopactivepowercontrol-xml
+  iidm-ext-hvdcoperatoractivepowerrange-xml
+  iidm-ext-loaddetail-xml
+  iidm-ext-standbyautomaton-xml
+  dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>

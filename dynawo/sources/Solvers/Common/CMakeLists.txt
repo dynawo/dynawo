@@ -32,27 +32,30 @@ target_include_directories(dynawo_SolverCommon
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-  PUBLIC
-    $<TARGET_PROPERTY:dynawo_ModelerCommon,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:Sundials::Sundials_NVECSERIAL,INTERFACE_INCLUDE_DIRECTORIES>
+  PRIVATE
     $<TARGET_PROPERTY:dynawo_API_PAR,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:dynawo_API_TL,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:dynawo_ModelerCommon,INTERFACE_INCLUDE_DIRECTORIES>
 )
+target_include_directories(dynawo_SolverCommon SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
 
 target_link_libraries(dynawo_SolverCommon
   PUBLIC
-    dynawo_Util
-    dynawo_API_TL
+    ${CMAKE_DL_LIBS}
+  PRIVATE
+    dynawo_Common
     Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_SUNLINSOLKLU
-    SuiteSparse::SuiteSparse_KLU
-)
+  )
 
 if(${NICSLU_FOUND})
   target_link_libraries(dynawo_SolverCommon
-    PUBLIC
+    PRIVATE
       Sundials::Sundials_SUNLINSOLNICSLU
-      Sundials::Sundials_SUNMATRIXSPARSE
-      NICSLU::NICSLU
-      NICSLU::NICSLU_Util
   )
 endif()
 

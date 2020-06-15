@@ -60,7 +60,7 @@ shared_ptr<ParametersSetCollection> XmlImporter::importFromStream(std::istream& 
       xsdValidation = true;
     }
     parser->parse(stream, parHandler, xsdValidation);
-  }  catch (const xml::sax::parser::ParserException& exp) {
+  } catch (const xml::sax::parser::ParserException& exp) {
     throw DYNError(DYN::Error::API, XmlParsingError, exp.what());
   }
 

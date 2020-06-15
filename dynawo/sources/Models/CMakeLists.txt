@@ -49,7 +49,6 @@ add_custom_target(EXTERNAL_VARIABLES_FLATTENING
                   COMMENT "Flattening external variables files (processing includes)"
                  )
 
-
 #
 # Target used to install Modelica preassembled models files in ddbdir
 # (.so and .desc.xml)
@@ -152,8 +151,6 @@ macro(COMPILE_PREASSEMBLED_MODEL
         COMMAND
           ${CMAKE_COMMAND} -E echo "set DYNAWO_INSTALL_DIR=${installdir}" >> wrapper.bat
         COMMAND
-          ${CMAKE_COMMAND} -E echo "set DYNAWO_INSTALL_DIR=${installdir}" >> wrapper.bat
-        COMMAND
           ${CMAKE_COMMAND} -E echo "set DYNAWO_DDB_DIR=${ddbdir}" >> wrapper.bat
         COMMAND
           ${CMAKE_COMMAND} -E echo "set DYNAWO_SCRIPTS_DIR=${sbindir}" >> wrapper.bat
@@ -178,10 +175,11 @@ macro(COMPILE_PREASSEMBLED_MODEL
         COMMAND
           ${CMAKE_COMMAND} -E echo "set DYNAWO_LIBXML_HOME=${LIBXML_HOME}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
         COMMAND
+          ${CMAKE_COMMAND} -E echo "${runtime_PATH}" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
+        COMMAND
           ${CMAKE_COMMAND} -E echo "%*" >> ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat
         COMMAND
             ${CMAKE_COMMAND} -E env
-              "${runtime_PATH}"
               cmd /c ${CMAKE_CURRENT_BINARY_DIR}/wrapper.bat $<TARGET_FILE:generate-preassembled> --model-list ${CMAKE_CURRENT_SOURCE_DIR}/${PREASSEMBLED_MODEL} --output-dir ${CMAKE_CURRENT_BINARY_DIR} --remove-model-files true >> ${MODEL_NAME}.log 2>&1 ||
               (echo "*** [${MODEL_NAME}] Error : for more information please see file ${CMAKE_CURRENT_BINARY_DIR}/${MODEL_NAME}.log" && exit -1)
         COMMENT "Building ${MODEL_NAME}"
@@ -287,7 +285,23 @@ macro(COMPILE_CPP_MODEL
 
     add_dependencies(${CPP_MODEL} ${CPP_MODEL}_HPP)
 
-    target_link_libraries(${CPP_MODEL} dynawo_CPPModelsCommon)
+    target_include_directories(${MODEL_NAME}
+      PRIVATE
+        $<TARGET_PROPERTY:dynawo_API_PAR,INTERFACE_INCLUDE_DIRECTORIES>
+      )
+    target_link_libraries(${CPP_MODEL}
+      PRIVATE
+        dynawo_Common
+        dynawo_ModelerCommon
+      PUBLIC
+        dynawo_CPPModelsCommon
+      )
+
+    if(APPLE)
+      if(LIBRARY_TYPE STREQUAL "STATIC")
+        target_link_libraries(${CPP_MODEL} PRIVATE "-flat_namespace")
+      endif()
+    endif()
 
     add_custom_command(
         OUTPUT ${CPP_MODEL}${DESCRIPTION_XML_EXTENSION}

@@ -74,14 +74,21 @@ set(API_JOB_INCLUDE_HEADERS
 add_library(dynawo_API_JOB ${LIBRARY_TYPE} ${API_JOB_SOURCES})
 
 target_include_directories(dynawo_API_JOB
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    )
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  )
+
+target_include_directories(dynawo_API_JOB SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
 
 target_link_libraries(dynawo_API_JOB
+  PRIVATE
     XMLSAXParser${LibXML_LINK_SUFFIX}
     dynawo_Common
+    Boost::system
     )
 
 set_target_properties(dynawo_API_JOB PROPERTIES VERSION ${API_JOB_VERSION_STRING}

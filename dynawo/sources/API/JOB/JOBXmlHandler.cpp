@@ -18,11 +18,11 @@
  * JobsHandler is the implementation of Dynawo handler for parsing jobs
  * files.
  */
-#include <xml/sax/parser/Attributes.h>
-
 #include <boost/phoenix/core.hpp>
 #include <boost/phoenix/operator/self.hpp>
 #include <boost/phoenix/bind.hpp>
+
+#include <xml/sax/parser/Attributes.h>
 
 #include "JOBXmlHandler.h"
 #include "JOBAppenderEntryImpl.h"

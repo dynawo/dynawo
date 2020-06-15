@@ -1,8 +1,7 @@
-diff --git a/include/ida/ida.h b/include/ida/ida.h
-index bdfa9efc..1ce3ce84 100644
---- a/include/ida/ida.h
-+++ b/include/ida/ida.h
-@@ -134,6 +134,7 @@ SUNDIALS_EXPORT int IDASetUserData(void *ida_mem, void *user_data);
+diff '--exclude=.git' -urpN sundials-4.1.0/include/ida/ida.h sundials-4.1.0.patch/include/ida/ida.h
+--- sundials-4.1.0/include/ida/ida.h	2019-02-12 19:51:21.000000000 +0100
++++ sundials-4.1.0.patch/include/ida/ida.h	2020-01-30 08:53:26.672843634 +0100
+@@ -134,6 +134,7 @@ SUNDIALS_EXPORT int IDASetUserData(void
  SUNDIALS_EXPORT int IDASetMaxOrd(void *ida_mem, int maxord);
  SUNDIALS_EXPORT int IDASetMaxNumSteps(void *ida_mem, long int mxsteps);
  SUNDIALS_EXPORT int IDASetInitStep(void *ida_mem, realtype hin);
@@ -10,11 +9,10 @@ index bdfa9efc..1ce3ce84 100644
  SUNDIALS_EXPORT int IDASetMaxStep(void *ida_mem, realtype hmax);
  SUNDIALS_EXPORT int IDASetStopTime(void *ida_mem, realtype tstop);
  SUNDIALS_EXPORT int IDASetNonlinConvCoef(void *ida_mem, realtype epcon);
-diff --git a/include/kinsol/kinsol.h b/include/kinsol/kinsol.h
-index fa8a372a..cdf59ce4 100644
---- a/include/kinsol/kinsol.h
-+++ b/include/kinsol/kinsol.h
-@@ -125,6 +125,7 @@ SUNDIALS_EXPORT int KINSetFuncNormTol(void *kinmem, realtype fnormtol);
+diff '--exclude=.git' -urpN sundials-4.1.0/include/kinsol/kinsol.h sundials-4.1.0.patch/include/kinsol/kinsol.h
+--- sundials-4.1.0/include/kinsol/kinsol.h	2019-02-12 19:51:32.000000000 +0100
++++ sundials-4.1.0.patch/include/kinsol/kinsol.h	2020-01-30 08:53:26.673843637 +0100
+@@ -125,6 +125,7 @@ SUNDIALS_EXPORT int KINSetFuncNormTol(vo
  SUNDIALS_EXPORT int KINSetScaledStepTol(void *kinmem, realtype scsteptol);
  SUNDIALS_EXPORT int KINSetConstraints(void *kinmem, N_Vector constraints);
  SUNDIALS_EXPORT int KINSetSysFunc(void *kinmem, KINSysFn func);
@@ -22,7 +20,7 @@ index fa8a372a..cdf59ce4 100644
  
  
  /* Optional output functions */
-@@ -137,6 +138,8 @@ SUNDIALS_EXPORT int KINGetNumBacktrackOps(void *kinmem, long int *nbacktr);
+@@ -137,6 +138,8 @@ SUNDIALS_EXPORT int KINGetNumBacktrackOp
  SUNDIALS_EXPORT int KINGetFuncNorm(void *kinmem, realtype *fnorm);
  SUNDIALS_EXPORT int KINGetStepLength(void *kinmem, realtype *steplength);
  SUNDIALS_EXPORT char *KINGetReturnFlagName(long int flag);
@@ -31,10 +29,9 @@ index fa8a372a..cdf59ce4 100644
  
  /* Free function */
  SUNDIALS_EXPORT void KINFree(void **kinmem);
-diff --git a/src/ida/ida.c b/src/ida/ida.c
-index c950af8a..9baa4bb5 100644
---- a/src/ida/ida.c
-+++ b/src/ida/ida.c
+diff '--exclude=.git' -urpN sundials-4.1.0/src/ida/ida.c sundials-4.1.0.patch/src/ida/ida.c
+--- sundials-4.1.0/src/ida/ida.c	2019-02-12 19:51:21.000000000 +0100
++++ sundials-4.1.0.patch/src/ida/ida.c	2020-01-30 08:53:26.673843637 +0100
 @@ -298,6 +298,7 @@ void *IDACreate(void)
    IDA_mem->ida_maxord      = MAXORD_DEFAULT;
    IDA_mem->ida_mxstep      = MXSTEP_DEFAULT;
@@ -43,7 +40,7 @@ index c950af8a..9baa4bb5 100644
    IDA_mem->ida_hin         = ZERO;
    IDA_mem->ida_epcon       = EPCON;
    IDA_mem->ida_maxnef      = MXNEF;
-@@ -2551,6 +2552,7 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+@@ -2551,6 +2552,7 @@ static int IDAHandleNFlag(IDAMem IDA_mem
           Note that if nflag=IDA_CONSTR_RECVR then rr was already set in IDANls */
        if (nflag != IDA_CONSTR_RECVR) IDA_mem->ida_rr = QUARTER;
        IDA_mem->ida_hh *= IDA_mem->ida_rr;
@@ -51,7 +48,7 @@ index c950af8a..9baa4bb5 100644
  
        /* Test if there were too many convergence failures */
        if (*ncfPtr < IDA_mem->ida_maxncf)  return(PREDICT_AGAIN);
-@@ -2579,6 +2581,7 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+@@ -2579,6 +2581,7 @@ static int IDAHandleNFlag(IDAMem IDA_mem
        IDA_mem->ida_rr = PT9 * SUNRpowerR( TWO * err_knew + PT0001, -ONE/(IDA_mem->ida_kk + 1) );
        IDA_mem->ida_rr = SUNMAX(QUARTER, SUNMIN(PT9,IDA_mem->ida_rr));
        IDA_mem->ida_hh *= IDA_mem->ida_rr;
@@ -59,7 +56,7 @@ index c950af8a..9baa4bb5 100644
        return(PREDICT_AGAIN);
  
      } else if (*nefPtr == 2) {
-@@ -2589,6 +2592,7 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+@@ -2589,6 +2592,7 @@ static int IDAHandleNFlag(IDAMem IDA_mem
        IDA_mem->ida_kk = IDA_mem->ida_knew;
        IDA_mem->ida_rr = QUARTER;
        IDA_mem->ida_hh *= IDA_mem->ida_rr;
@@ -67,7 +64,7 @@ index c950af8a..9baa4bb5 100644
        return(PREDICT_AGAIN);
  
      } else if (*nefPtr < IDA_mem->ida_maxnef) {
-@@ -2598,6 +2602,7 @@ static int IDAHandleNFlag(IDAMem IDA_mem, int nflag, realtype err_k, realtype er
+@@ -2598,6 +2602,7 @@ static int IDAHandleNFlag(IDAMem IDA_mem
        IDA_mem->ida_kk = 1;
        IDA_mem->ida_rr = QUARTER;
        IDA_mem->ida_hh *= IDA_mem->ida_rr;
@@ -103,17 +100,16 @@ index c950af8a..9baa4bb5 100644
        if (IDA_mem->ida_iroots[i] == 1) return(CLOSERT);
        zroot = SUNTRUE;
        IDA_mem->ida_iroots[i] = 1;
-+    } 
++    }
 +    else if (IDA_mem->ida_grout[i]*IDA_mem->ida_glo[i] < ZERO) {
 +      zroot = SUNTRUE;
 +      IDA_mem->ida_iroots[i] = IDA_mem->ida_grout[i] > 0 ? -1 : 1;
      } else {
        if (IDA_mem->ida_iroots[i] == 1)
          IDA_mem->ida_glo[i] = IDA_mem->ida_ghi[i];
-diff --git a/src/ida/ida_impl.h b/src/ida/ida_impl.h
-index 93b14585..10bd182a 100644
---- a/src/ida/ida_impl.h
-+++ b/src/ida/ida_impl.h
+diff '--exclude=.git' -urpN sundials-4.1.0/src/ida/ida_impl.h sundials-4.1.0.patch/src/ida/ida_impl.h
+--- sundials-4.1.0/src/ida/ida_impl.h	2019-02-12 19:51:21.000000000 +0100
++++ sundials-4.1.0.patch/src/ida/ida_impl.h	2020-01-30 08:53:26.673843637 +0100
 @@ -176,6 +176,7 @@ typedef struct IDAMemRec {
    int ida_maxord_alloc;  /* value of maxord used when allocating memory       */
    long int ida_mxstep;   /* max number of internal steps for one user call    */
@@ -130,11 +126,10 @@ index 93b14585..10bd182a 100644
  #define MSG_NEG_EPCON      "epcon <= 0.0 illegal."
  #define MSG_BAD_CONSTR     "Illegal values in constraints vector."
  #define MSG_BAD_EPICCON    "epiccon <= 0.0 illegal."
-diff --git a/src/ida/ida_io.c b/src/ida/ida_io.c
-index 5c1868f8..b9a19ff9 100644
---- a/src/ida/ida_io.c
-+++ b/src/ida/ida_io.c
-@@ -167,6 +167,32 @@ int IDASetInitStep(void *ida_mem, realtype hin)
+diff '--exclude=.git' -urpN sundials-4.1.0/src/ida/ida_io.c sundials-4.1.0.patch/src/ida/ida_io.c
+--- sundials-4.1.0/src/ida/ida_io.c	2019-02-12 19:51:21.000000000 +0100
++++ sundials-4.1.0.patch/src/ida/ida_io.c	2020-01-30 08:53:26.673843637 +0100
+@@ -167,6 +167,32 @@ int IDASetInitStep(void *ida_mem, realty
  
  /*-----------------------------------------------------------------*/
  
@@ -167,10 +162,9 @@ index 5c1868f8..b9a19ff9 100644
  int IDASetMaxStep(void *ida_mem, realtype hmax)
  {
    IDAMem IDA_mem;
-diff --git a/src/kinsol/kinsol.c b/src/kinsol/kinsol.c
-index a9ad2e95..3d66f592 100644
---- a/src/kinsol/kinsol.c
-+++ b/src/kinsol/kinsol.c
+diff '--exclude=.git' -urpN sundials-4.1.0/src/kinsol/kinsol.c sundials-4.1.0.patch/src/kinsol/kinsol.c
+--- sundials-4.1.0/src/kinsol/kinsol.c	2019-02-12 19:51:32.000000000 +0100
++++ sundials-4.1.0.patch/src/kinsol/kinsol.c	2020-01-30 08:53:26.674843641 +0100
 @@ -265,6 +265,7 @@ void *KINCreate(void)
    kin_mem->kin_sqrt_relfunc     = SUNRsqrt(uround);
    kin_mem->kin_scsteptol        = SUNRpowerR(uround,TWOTHIRDS);
@@ -188,10 +182,9 @@ index a9ad2e95..3d66f592 100644
      kin_mem->kin_fnorm = N_VWL2Norm(kin_mem->kin_fval, kin_mem->kin_fscale);
      return(KIN_INITIAL_GUESS_OK);
    }
-diff --git a/src/kinsol/kinsol_impl.h b/src/kinsol/kinsol_impl.h
-index ff4b883d..4796fa28 100644
---- a/src/kinsol/kinsol_impl.h
-+++ b/src/kinsol/kinsol_impl.h
+diff '--exclude=.git' -urpN sundials-4.1.0/src/kinsol/kinsol_impl.h sundials-4.1.0.patch/src/kinsol/kinsol_impl.h
+--- sundials-4.1.0/src/kinsol/kinsol_impl.h	2019-02-12 19:51:32.000000000 +0100
++++ sundials-4.1.0.patch/src/kinsol/kinsol_impl.h	2020-01-30 08:53:26.674843641 +0100
 @@ -67,6 +67,7 @@ typedef struct KINMemRec {
    void *kin_user_data;         /* work space available to func routine         */
    realtype kin_fnormtol;       /* stopping tolerance on L2-norm of function
@@ -200,7 +193,7 @@ index ff4b883d..4796fa28 100644
    realtype kin_scsteptol;      /* scaled step length tolerance                 */
    int kin_globalstrategy;      /* choices are KIN_NONE, KIN_LINESEARCH
  				  KIN_PICARD and KIN_FP                        */
-@@ -399,6 +400,7 @@ void KINInfoHandler(const char *module, const char *function,
+@@ -399,6 +400,7 @@ void KINInfoHandler(const char *module,
  #define MSG_BAD_MXNEWTSTEP     "Illegal mxnewtstep < 0."
  #define MSG_BAD_RELFUNC        "relfunc < 0 illegal."
  #define MSG_BAD_FNORMTOL       "fnormtol < 0 illegal."
@@ -208,19 +201,14 @@ index ff4b883d..4796fa28 100644
  #define MSG_BAD_SCSTEPTOL      "scsteptol < 0 illegal."
  #define MSG_BAD_MXNBCF         "mxbcf < 0 illegal."
  #define MSG_BAD_CONSTRAINTS    "Illegal values in constraints vector."
-diff --git a/src/kinsol/kinsol_io.c b/src/kinsol/kinsol_io.c
-index 5a5138fb..d7c9c2c3 100644
---- a/src/kinsol/kinsol_io.c
-+++ b/src/kinsol/kinsol_io.c
-@@ -711,6 +711,39 @@ int KINSetFuncNormTol(void *kinmem, realtype fnormtol)
+diff '--exclude=.git' -urpN sundials-4.1.0/src/kinsol/kinsol_io.c sundials-4.1.0.patch/src/kinsol/kinsol_io.c
+--- sundials-4.1.0/src/kinsol/kinsol_io.c	2019-02-12 19:51:32.000000000 +0100
++++ sundials-4.1.0.patch/src/kinsol/kinsol_io.c	2020-01-30 09:51:54.602891251 +0100
+@@ -711,6 +711,37 @@ int KINSetFuncNormTol(void *kinmem, real
    return(KIN_SUCCESS);
  }
  
-+/*
-+ * -----------------------------------------------------------------
-+ * Function : KINSetInitialAdditionalTolerance
-+ * -----------------------------------------------------------------
-+ */
++// Function : KINSetInitialAdditionalTolerance
 +
 +int KINSetInitialAdditionalTolerance(void *kinmem, realtype initialaddtol)
 +{
@@ -249,10 +237,12 @@ index 5a5138fb..d7c9c2c3 100644
 +  return(KIN_SUCCESS);
 +}
 +
++// End KINSetInitialAdditionalTolerance
++
  /*
   * -----------------------------------------------------------------
   * Function : KINSetScaledStepTol
-@@ -835,6 +868,8 @@ int KINSetSysFunc(void *kinmem, KINSysFn func)
+@@ -835,6 +866,8 @@ int KINSetSysFunc(void *kinmem, KINSysFn
  #define fnorm (kin_mem->kin_fnorm)
  #define liw (kin_mem->kin_liw)
  #define lrw (kin_mem->kin_lrw)
@@ -261,7 +251,7 @@ index 5a5138fb..d7c9c2c3 100644
  
  /* 
   * =================================================================
-@@ -1058,3 +1093,39 @@ char *KINGetReturnFlagName(long int flag)
+@@ -1058,3 +1091,39 @@ char *KINGetReturnFlagName(long int flag
  
    return(name);
  }
@@ -300,12 +290,11 @@ index 5a5138fb..d7c9c2c3 100644
 +  N_VScale(ONE, fscale, weights);
 +
 +  return(KIN_SUCCESS);
-+}
-diff --git a/src/kinsol/kinsol_ls.c b/src/kinsol/kinsol_ls.c
-index 8f5f611e..c337984d 100644
---- a/src/kinsol/kinsol_ls.c
-+++ b/src/kinsol/kinsol_ls.c
-@@ -224,6 +224,7 @@ int KINSetJacFn(void *kinmem, KINLsJacFn jac)
++} /*----------------------------END KINGetResiduals-------------------------------------*/
+diff '--exclude=.git' -urpN sundials-4.1.0/src/kinsol/kinsol_ls.c sundials-4.1.0.patch/src/kinsol/kinsol_ls.c
+--- sundials-4.1.0/src/kinsol/kinsol_ls.c	2019-02-12 19:51:32.000000000 +0100
++++ sundials-4.1.0.patch/src/kinsol/kinsol_ls.c	2020-01-30 08:53:26.674843641 +0100
+@@ -224,6 +224,7 @@ int KINSetJacFn(void *kinmem, KINLsJacFn
      kinls_mem->jac    = kinLsDQJac;
      kinls_mem->J_data = kin_mem;
    }

@@ -16,11 +16,6 @@ set(MODULE_SOURCES
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
-target_include_directories(${MODULE_NAME}
-        PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
-        )
-
 target_link_libraries(${MODULE_NAME}
         dynawo_Common
         dynawo_Test)

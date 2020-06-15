@@ -52,7 +52,7 @@ ENDIF()
 MESSAGE("-- libZIP version : ${libZIP_VERSION}")
 IF(libZIP_FIND_VERSION)
   IF("${libZIP_VERSION}" VERSION_LESS "${libZIP_FIND_VERSION}")
-    MESSAGE("\n\tDetected version of libZIP is too old. Requested version was ${libZIP_FIND_VERSION}.\n")
+    MESSAGE("\tDetected version of libZIP is too old. Requested version was ${libZIP_FIND_VERSION}.")
     SET(libZIP_FOUND FALSE)
   ELSE()
     SET(libZIP_FOUND TRUE)
@@ -83,5 +83,9 @@ if(libZIP_FOUND)
         IMPORTED_LINK_INTERFACE_LANGUAGES "CXX"
         IMPORTED_LOCATION "${libZIP_LIBRARY}")
     endif()
+    set_property(TARGET libZIP::libZIP APPEND PROPERTY INTERFACE_LINK_LIBRARIES
+      $<TARGET_PROPERTY:LibArchive::LibArchive,IMPORTED_LOCATION>
+      $<TARGET_PROPERTY:ZLIB::ZLIB,IMPORTED_LOCATION>
+      )
   endif()
 endif()

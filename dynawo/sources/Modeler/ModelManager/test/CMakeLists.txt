@@ -18,20 +18,21 @@ set(MODULE_SOURCES
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
 target_include_directories(${MODULE_NAME}
-        PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
-        ${OMC_INCLUDE_DIR}
-        )
+  PRIVATE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../>
+    ${OMC_INCLUDE_DIR}
+  )
 
 target_link_libraries(${MODULE_NAME}
-        PUBLIC
-          dynawo_Common
-          dynawo_ModelManager
-          dynawo_ModelerCommon
-          Modelica_externalC
-          dynawo_API_PAR
-          dynawo_API_CSTR
-          dynawo_Test)
+  PUBLIC
+    dynawo_Common
+    dynawo_ModelManager
+    dynawo_ModelerCommon
+    Modelica_externalC
+    dynawo_API_PAR
+    dynawo_API_CSTR
+    dynawo_API_TL
+    dynawo_Test)
 
 
 if(USE_ADEPT)

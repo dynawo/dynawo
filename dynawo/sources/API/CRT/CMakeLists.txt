@@ -46,14 +46,19 @@ add_library(dynawo_API_CRT ${LIBRARY_TYPE} ${API_CRT_SOURCES})
 
 target_include_directories(dynawo_API_CRT
   INTERFACE
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-      $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  )
+target_include_directories(dynawo_API_CRT SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
   )
 
 target_link_libraries(dynawo_API_CRT
-  XMLSAXFormatter${LibXML_LINK_SUFFIX}
-  XMLSAXParser${LibXML_LINK_SUFFIX}
-  dynawo_Common
+  PRIVATE
+    XMLSAXFormatter${LibXML_LINK_SUFFIX}
+    XMLSAXParser${LibXML_LINK_SUFFIX}
+    dynawo_Common
   )
 
 set_target_properties(dynawo_API_CRT PROPERTIES VERSION ${API_CRT_VERSION_STRING}

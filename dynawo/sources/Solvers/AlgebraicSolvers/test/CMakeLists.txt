@@ -16,11 +16,19 @@ set(MODULE_SOURCES
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
+target_include_directories(${MODULE_NAME}
+  PRIVATE
+    $<TARGET_PROPERTY:Sundials::Sundials_KINSOL,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:Sundials::Sundials_SUNLINSOLKLU,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+
 target_link_libraries(${MODULE_NAME}
-        dynawo_SolverKINSOL
-        dynawo_Test
-        dynawo_API_DYD
-        dynawo_DataInterface)
+  dynawo_Test
+  dynawo_SolverKINSOL
+  dynawo_ModelerCommon
+  dynawo_API_DYD
+  dynawo_API_TL
+  dynawo_DataInterface)
 
 add_custom_target(${MODULE_NAME}-tests
   COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_XSD_DIR=./" $<TARGET_FILE:${MODULE_NAME}>

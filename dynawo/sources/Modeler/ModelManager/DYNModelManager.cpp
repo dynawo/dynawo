@@ -296,7 +296,7 @@ ModelManager::evalF(const double & t, const vector<adept::adouble> &y,
 }
 
 void
-ModelManager::evalJtAdept(const double & t, double *y, double * yp, const double & cj, SparseMatrix &Jt, const int& rowOffset, bool complete) {
+ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double & cj, SparseMatrix &Jt, const int& rowOffset, bool complete) {
   if (sizeY() == 0)
     return;
 
