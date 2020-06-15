@@ -30,8 +30,9 @@ set(MODULE_SOURCES
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
 target_link_libraries(${MODULE_NAME}
-        dynawo_API_DYD
-        dynawo_Test)
+  dynawo_API_DYD
+  XMLSAXParser${LibXML_LINK_SUFFIX}
+  dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-pre-tests
   COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/res ${CMAKE_CURRENT_BINARY_DIR}/res

@@ -20,3 +20,7 @@ set(MODEL_SOURCES
   )
 
 compile_cpp_model(${MODEL_NAME} "${MODEL_SOURCES}")
+target_include_directories(${MODEL_NAME} SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )

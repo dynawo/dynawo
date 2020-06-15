@@ -42,12 +42,17 @@ set(API_CSTR_INCLUDE_HEADERS
 add_library(dynawo_API_CSTR ${LIBRARY_TYPE} ${API_CSTR_SOURCES})
 
 target_include_directories(dynawo_API_CSTR
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    )
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  )
+target_include_directories(dynawo_API_CSTR SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
 
 target_link_libraries(dynawo_API_CSTR
+  PRIVATE
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     dynawo_Common
     )

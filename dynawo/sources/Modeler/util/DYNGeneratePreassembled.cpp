@@ -26,8 +26,6 @@
 #include <boost/filesystem.hpp>
 #include <dlfcn.h>
 
-#include <xml/sax/parser/ParserException.h>
-
 #include "DYNDynamicData.h"
 
 #include "DYNCommon.h"
@@ -207,13 +205,10 @@ int main(int argc, char ** argv) {
       }
       throw DYNError(DYN::Error::MODELER, FileGenerationFailed, libList.c_str());
     }
-  } catch (const xml::sax::parser::ParserException& exp) {
-    Trace::error() << DYNLog(XmlParsingError, dydFileName, exp.what()) << Trace::endline;
-    return -1;
-  } catch (const DYN::Error & e) {
+  } catch (const DYN::Error& e) {
     Trace::error() << e.what() << Trace::endline;
     return e.type();
-  } catch (const std::exception & exp) {
+  } catch (const std::exception& exp) {
     Trace::error() << exp.what() << Trace::endline;
     return -1;
   }

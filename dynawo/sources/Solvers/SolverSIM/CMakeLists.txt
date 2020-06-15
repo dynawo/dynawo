@@ -25,11 +25,31 @@ target_include_directories(dynawo_SolverSIM
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    $<TARGET_PROPERTY:dynawo_SolverCommon,INTERFACE_INCLUDE_DIRECTORIES>
+  PRIVATE
+    $<TARGET_PROPERTY:dynawo_ModelerCommon,INTERFACE_INCLUDE_DIRECTORIES>
+  PUBLIC
+    $<TARGET_PROPERTY:Sundials::Sundials_NVECSERIAL,INTERFACE_INCLUDE_DIRECTORIES>
 )
+target_include_directories(dynawo_SolverSIM SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
 
 target_link_libraries(dynawo_SolverSIM
-  dynawo_SolverKINSOL
-)
+  PRIVATE
+    dynawo_Common
+    dynawo_API_PAR
+    dynawo_API_TL
+    dynawo_SolverCommon
+    dynawo_SolverKINSOL
+  )
+
+if(APPLE)
+  if(LIBRARY_TYPE STREQUAL "STATIC")
+    target_link_libraries(dynawo_SolverSIM PRIVATE "-flat_namespace")
+  endif()
+endif()
 
 set_target_properties(dynawo_SolverSIM PROPERTIES VERSION ${SOLVER_SIM_VERSION_STRING}
                                                 SOVERSION ${SOLVER_SIM_VERSION_MAJOR}

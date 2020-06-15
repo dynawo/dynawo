@@ -74,5 +74,8 @@ IF(LibArchive_FOUND)
         IMPORTED_LINK_INTERFACE_LANGUAGES "C"
         IMPORTED_LOCATION "${LibArchive_LIBRARY}")
     endif()
+    set_property(TARGET LibArchive::LibArchive APPEND PROPERTY INTERFACE_LINK_LIBRARIES
+      $<TARGET_PROPERTY:ZLIB::ZLIB,IMPORTED_LOCATION>
+      )
   endif()
 ENDIF()

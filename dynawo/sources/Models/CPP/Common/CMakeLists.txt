@@ -20,12 +20,25 @@ set(COMMON_CPP_MODELS_HEADERS
 add_library(dynawo_CPPModelsCommon ${LIBRARY_TYPE} ${COMMON_CPP_MODELS_SOURCES})
 
 target_include_directories(dynawo_CPPModelsCommon
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    )
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  )
+target_include_directories(dynawo_CPPModelsCommon SYSTEM
+  PRIVATE
+  $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
 
-target_link_libraries(dynawo_CPPModelsCommon dynawo_ModelerCommon)
+target_compile_definitions(dynawo_CPPModelsCommon
+  INTERFACE $<$<BOOL:${MSVC}>:_USE_MATH_DEFINES>
+  )
+
+target_link_libraries(dynawo_CPPModelsCommon
+  PRIVATE
+    dynawo_Common
+    dynawo_ModelerCommon
+    Boost::serialization
+  )
 
 install(TARGETS dynawo_CPPModelsCommon EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${COMMON_CPP_MODELS_HEADERS} DESTINATION ${INCLUDEDIR_NAME})

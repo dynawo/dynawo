@@ -40,7 +40,20 @@ set(MODEL_SOURCES
 
 compile_cpp_model(${MODEL_NAME} "${MODEL_SOURCES}")
 
+target_include_directories(${MODEL_NAME}
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  PUBLIC
+    $<TARGET_PROPERTY:dynawo_CPPModelsCommon,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+target_include_directories(${MODEL_NAME} SYSTEM
+  PRIVATE
+  $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+
 target_link_libraries(${MODEL_NAME}
-  dynawo_DataInterface
-  dynawo_SolverKINSOL
-)
+  PRIVATE
+    dynawo_DataInterface
+  PUBLIC
+    dynawo_SolverKINSOL
+  )

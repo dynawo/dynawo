@@ -59,104 +59,95 @@ set(COMMON_SOURCES
   DYNBitMask.cpp
   DYNCommon.cpp
   DYNError.cpp
-  DYNErrorQueue.cpp
   DYNTerminate.cpp
   DYNExecUtils.cpp
   DYNEnumUtils.cpp
   DYNFileSystemUtils.cpp
-  DYNTrace.cpp
-  DYNTraceStream.cpp
   DYNMessage.cpp
   DYNMessageTimeline.cpp
-  DYNIoDico.cpp
   DYNGraph.cpp
   DYNParameter.cpp
   DYNSparseMatrix.cpp
   ${CPP_KEYS}
+  DYNErrorQueue.cpp
+  DYNIoDico.cpp
+  DYNTimer.cpp
+  DYNTrace.cpp
+  DYNTraceStream.cpp
   )
 
 set(COMMON_INCLUDE_HEADERS
   DYNBitMask.h
   DYNCommon.h
   DYNError.h
-  DYNErrorQueue.h
   DYNTerminate.h
   DYNExecUtils.h
   DYNEnumUtils.h
   DYNFileSystemUtils.h
-  DYNTrace.h
-  DYNTraceStream.h
   DYNGraph.h
   DYNMessage.h
   DYNMessage.hpp
   DYNMessageTimeline.h
   DYNMessageTimeline.hpp
   DYNMacrosMessage.h
-  DYNIoDico.h
   DYNParameter.h
   DYNSparseMatrix.h
   DYNParameter.hpp
   gtest_dynawo.h
   ${INCLUDE_KEYS}
-  )
-
-set(UTIL_SOURCES
-  DYNTimer.cpp
-  )
-
-set(UTIL_INCLUDE_HEADERS
+  DYNErrorQueue.h
+  DYNIoDico.h
   DYNTimer.h
+  DYNTrace.h
+  DYNTraceStream.h
   )
 
 add_library(dynawo_Interface INTERFACE)
 
-target_compile_definitions(dynawo_Interface INTERFACE _OMC_${OPENMODELICA_VERSION} $<$<BOOL:${USE_ADEPT}>:_ADEPT_> $<$<CONFIG:Debug>:_DEBUG_>)
-
-target_include_directories(dynawo_Interface
+target_compile_definitions(dynawo_Interface
   INTERFACE
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-)
+    _OMC_${OPENMODELICA_VERSION}
+    $<$<BOOL:${USE_ADEPT}>:_ADEPT_>
+    $<$<CONFIG:Debug>:_DEBUG_>)
 
-target_link_libraries(dynawo_Interface INTERFACE
-  Boost::filesystem
-  Boost::program_options
-  Boost::serialization
-  Boost::system
-  Boost::log
-  Boost::date_time
-  Boost::log_setup
-  Boost::thread
-  Boost::regex
-  Boost::chrono
-  $<$<CXX_COMPILER_ID:GNU>:rt>
-  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>)
+target_link_libraries(dynawo_Interface
+  INTERFACE
+    $<$<CXX_COMPILER_ID:GNU>:rt>
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
+  )
 
 add_library(dynawo_Common ${LIBRARY_TYPE} ${COMMON_SOURCES})
 
 add_dependencies(dynawo_Common create_keys_files)
 
-target_link_libraries(dynawo_Common dynawo_Interface)
+target_include_directories(dynawo_Common
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  )
+target_include_directories(dynawo_Common SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+
+target_link_libraries(dynawo_Common
+  PUBLIC
+    dynawo_Interface
+  PRIVATE
+    ${CMAKE_DL_LIBS}
+    Boost::filesystem
+    Boost::log
+  )
 
 set_target_properties(dynawo_Common PROPERTIES VERSION ${COMMON_VERSION_STRING}
                                              SOVERSION ${COMMON_VERSION_MAJOR})
-
-add_library(dynawo_Util ${LIBRARY_TYPE} ${UTIL_SOURCES})
-
-target_link_libraries(dynawo_Util
-  dynawo_Interface
-  ${CMAKE_DL_LIBS}
-)
-
-set_target_properties(dynawo_Util PROPERTIES VERSION ${UTIL_VERSION_STRING}
-                                           SOVERSION ${UTIL_VERSION_MAJOR})
 
 # PYTHON scripts for models
 set(PYTHON_SCRIPTS_COMMON
   Dictionaries/validateDictionaries.py
 )
 
-install(TARGETS dynawo_Interface dynawo_Common dynawo_Util EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
+install(TARGETS dynawo_Interface dynawo_Common EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
 install(FILES ${COMMON_INCLUDE_HEADERS} ${UTIL_INCLUDE_HEADERS} DESTINATION ${INCLUDEDIR_NAME})
 install(FILES ${DYNAWO_DICTIONARIES} ${DYNAWO_DICTIONARIES_MAPPING} DESTINATION ${SHAREDIR_NAME})
 install(PROGRAMS ${PYTHON_SCRIPTS_COMMON} DESTINATION ${SBINDIR_NAME})

@@ -45,15 +45,21 @@ set(API_EXTVAR_INCLUDE_HEADERS
 add_library(dynawo_API_EXTVAR ${LIBRARY_TYPE} ${API_EXTVAR_SOURCES})
 
 target_include_directories(dynawo_API_EXTVAR
-    INTERFACE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
-    )
+  INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+  )
+target_include_directories(dynawo_API_EXTVAR SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
 
 target_link_libraries(dynawo_API_EXTVAR
+  PRIVATE
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
     XMLSAXParser${LibXML_LINK_SUFFIX}
     dynawo_Common
+    Boost::system
     )
 
 set_target_properties(dynawo_API_EXTVAR PROPERTIES VERSION ${API_EXTVAR_VERSION_STRING}

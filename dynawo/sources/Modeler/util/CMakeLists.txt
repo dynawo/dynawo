@@ -17,13 +17,24 @@ set(DUMP_MODEL_SOURCES
 
 add_executable(dumpModel ${DUMP_MODEL_SOURCES})
 
+target_include_directories(dumpModel SYSTEM
+  PRIVATE
+  $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+
 target_link_libraries(dumpModel
+  PRIVATE
+    dynawo_Common
     dynawo_ModelerCommon
+    XMLSAXFormatter${LibXML_LINK_SUFFIX}
+    ${CMAKE_DL_LIBS}
+    Boost::system
+    Boost::program_options
     )
 
 if(APPLE)
-    # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
-    set_target_properties(dumpModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
+  # Additional step to make shared library work on macOS; see https://gist.github.com/robertmaynard/5750737
+  set_target_properties(dumpModel PROPERTIES INSTALL_RPATH "@loader_path/../lib")
 endif()
 
 install(TARGETS dumpModel EXPORT dynawo-targets DESTINATION ${SBINDIR_NAME})
@@ -38,8 +49,18 @@ set(DYD_LIB_GENERATION_SOURCES
 
 add_executable(generate-preassembled ${DYD_LIB_GENERATION_SOURCES})
 
+target_include_directories(generate-preassembled SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
+
 target_link_libraries(generate-preassembled
+  PRIVATE
+    dynawo_Common
     dynawo_ModelerCommon
+    ${CMAKE_DL_LIBS}
+    Boost::filesystem
+    Boost::program_options
     )
 
 if(APPLE)

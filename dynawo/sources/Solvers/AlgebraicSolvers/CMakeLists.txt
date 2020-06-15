@@ -31,27 +31,28 @@ target_include_directories(dynawo_SolverKINSOL
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
+    $<TARGET_PROPERTY:Sundials::Sundials_NVECSERIAL,INTERFACE_INCLUDE_DIRECTORIES>
+  PRIVATE
+    $<TARGET_PROPERTY:dynawo_ModelerCommon,INTERFACE_INCLUDE_DIRECTORIES>
 )
+target_include_directories(dynawo_SolverKINSOL SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+  )
 
 target_link_libraries(dynawo_SolverKINSOL
-  PUBLIC
-    Sundials::Sundials_SUNLINSOLKLU
+  PRIVATE
+    Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_KINSOL
-    SuiteSparse::SuiteSparse_KLU
-    SuiteSparse::SuiteSparse_AMD
-    SuiteSparse::SuiteSparse_COLAMD
-    SuiteSparse::SuiteSparse_BTF
-    SuiteSparse::SuiteSparse_Config
+    Sundials::Sundials_SUNLINSOLKLU
+    dynawo_Common
     dynawo_SolverCommon
-)
+  )
 
 if(${NICSLU_FOUND})
   target_link_libraries(dynawo_SolverKINSOL
-    PUBLIC
+    PRIVATE
       Sundials::Sundials_SUNLINSOLNICSLU
-      Sundials::Sundials_SUNMATRIXSPARSE
-      NICSLU::NICSLU
-      NICSLU::NICSLU_Util
   )
 endif()
 

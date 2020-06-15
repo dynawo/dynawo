@@ -54,6 +54,7 @@ where [option] can be:"
         config-dynawo                         configure Dynawo's compiling environment using CMake
         build-dynawo                          build Dynawo and install preassembled models (core, models cpp, models and solvers)
         build-dynawo-core                     build Dynawo without models
+        build-dynawo-lib                      build a specific Dynawo library
         build-dynawo-models-cpp               build Dynawo CPP models
         build-dynawo-models                   build Dynawo preassembled models
         build-dynawo-solvers                  build Dynawo solver descriptions
@@ -232,7 +233,8 @@ export_git_branch() {
   if [ -e ".git" ]; then
     branch_name=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
     if [[ "${branch_name}" == "" ]]; then
-      branch_ref=$(git rev-parse --short HEAD)
+      branch_ref=$(git rev-parse --short HEAD 2> /dev/null)
+      [ -z "$branch_ref" ] && branch_ref=unknown
       branch_name="detached_"${branch_ref}
     fi
   else
@@ -615,7 +617,7 @@ git diff-index --check --cached HEAD -- ':(exclude)*/reference/*' ':(exclude)*.p
   fi
 
   if [ -e "$DYNAWO_HOME/.git" ]; then
-    if [ "$(git config --get core.commentchar)" = "#" ]; then
+    if [ "$(git config --get core.commentchar 2> /dev/null)" = "#" ]; then
       git config core.commentchar % || error_exit "You need to change git config commentchar from # to %."
     fi
   fi
@@ -830,6 +832,21 @@ build_dynawo_core() {
     make -j $DYNAWO_NB_PROCESSORS_USED && make -j $DYNAWO_NB_PROCESSORS_USED install
   else
     cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --config $DYNAWO_BUILD_TYPE && cmake --build $DYNAWO_BUILD_DIR --target install --config $DYNAWO_BUILD_TYPE
+  fi
+  RETURN_CODE=$?
+  return ${RETURN_CODE}
+}
+
+# Compile a Dynawo library, use help to see all targets
+build_dynawo_lib() {
+  if [ ! -d "$DYNAWO_BUILD_DIR" ]; then
+    error_exit "$DYNAWO_BUILD_DIR does not exist."
+  fi
+  if [ "$DYNAWO_CMAKE_GENERATOR" = "Unix Makefiles" ]; then
+    cd $DYNAWO_BUILD_DIR
+    make -j $DYNAWO_NB_PROCESSORS_USED $@
+  else
+    cmake --build $DYNAWO_BUILD_DIR $DYNAWO_CMAKE_BUILD_OPTION --config $DYNAWO_BUILD_TYPE --target $@
   fi
   RETURN_CODE=$?
   return ${RETURN_CODE}
@@ -2133,6 +2150,11 @@ case $MODE in
 
   build-dynawo-core)
     build_dynawo_core || error_exit "Failed to build Dynawo core"
+    ;;
+
+  build-dynawo-lib)
+    config_dynawo || error_exit "Error while configuring Dynawo"
+    build_dynawo_lib ${ARGS} || error_exit "Failed to build Dynawo lib"
     ;;
 
   build-dynawo-models)
