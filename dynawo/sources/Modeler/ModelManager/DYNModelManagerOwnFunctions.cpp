@@ -568,10 +568,6 @@ static inline void real_set_(real_array_t *a, size_t i, modelica_real r) {
   (reinterpret_cast<modelica_real *> (a->data))[i] = r;
 }
 
-static inline modelica_real real_get(const real_array_t a, size_t i) {
-  return (reinterpret_cast<modelica_real *> (a.data))[i];
-}
-
 static inline modelica_string *string_ptrget(const string_array_t *a, size_t i) {
   return (reinterpret_cast<modelica_string *> (a->data)) + i;
 }

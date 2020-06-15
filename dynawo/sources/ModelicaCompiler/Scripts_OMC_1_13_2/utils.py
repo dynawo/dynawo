@@ -63,7 +63,7 @@ def is_ignored_var(var_name):
 # @param list_adept_structs : list of struct converted into adept
 # @return @b true if the function should be transformed to an adept type
 def is_adept_func(func, list_adept_structs):
-    if func.get_name() == "omc_Modelica_Blocks_Tables_Internal_getTable1DValue" : return False
+    if "omc_Modelica_Blocks_Tables_Internal_getTable" in func.get_name(): return False
     if func.get_return_type() == "modelica_real" : return True
     if func.get_return_type() in list_adept_structs: return True
     for param in func.get_params():

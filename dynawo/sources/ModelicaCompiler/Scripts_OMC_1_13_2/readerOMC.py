@@ -1234,7 +1234,7 @@ class ReaderOMC:
         map_num_eq_vars_defined = self.get_map_num_eq_vars_defined()
         name_func_to_search = {}
         for func in self.list_omc_functions:
-            if "omc_Modelica_" in func.get_name() and not "Table1D" in func.get_name(): continue
+            if "omc_Modelica_" in func.get_name() and not "omc_Modelica_Blocks_Tables_Internal_getTable" in func.get_name(): continue
             name_func_to_search[func.get_name()] = func
 
         # dictionary that stores the number of equations that depends on a specific variable

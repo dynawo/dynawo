@@ -3122,11 +3122,19 @@ class Factory:
   free(data->simulationInfo->integerDoubleVarsPre);
   free(data->simulationInfo->discreteVarsPre);
 """
+        index = 0
+        for ext_obj in self.reader.external_objects:
+            if "ExternalCombiTable1D" in str(ext_obj.get_start_text()):
+                body += """
+  omc_Modelica_Blocks_Types_ExternalCombiTable1D_destructor(data->simulationInfo->extObjs["""+str(index)+"""]);
+"""
+            if "ExternalCombiTable2D" in str(ext_obj.get_start_text()):
+                body += """
+  omc_Modelica_Blocks_Types_ExternalCombiTable2D_destructor(data->simulationInfo->extObjs["""+str(index)+"""]);
+"""
+            index+=1
         if (len(self.reader.external_objects) > 0):
             body += """
-  for (size_t i = 0, iEnd = data->modelData->nExtObjs; i < iEnd; ++i) {
-    omc_Modelica_Blocks_Types_ExternalCombiTable1D_destructor(data->simulationInfo->extObjs[i]);
-  }
   free(data->simulationInfo->extObjs);
 """
         body += """
