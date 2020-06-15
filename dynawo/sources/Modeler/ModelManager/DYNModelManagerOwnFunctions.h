@@ -154,6 +154,12 @@ static inline int* data_of_integer_c89_array(const integer_array_t *a) { return 
 inline void real_set(real_array_t *a, size_t i, modelica_real r) {reinterpret_cast<modelica_real *>(a->data)[i] = r;}
 
 /**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/real_array.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+static inline modelica_real real_get(const real_array_t a, size_t i) {return reinterpret_cast<modelica_real *> (a.data)[i];}
+
+/**
  * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/integer_array.h
  * It is needed for Dynawo models dynamic libraries compilation
  */
