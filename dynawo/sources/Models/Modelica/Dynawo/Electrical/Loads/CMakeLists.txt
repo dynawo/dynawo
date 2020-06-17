@@ -15,6 +15,8 @@ set(MODEL_FILES
     BaseClasses_INIT.mo
     LoadAlphaBeta.mo
     LoadAlphaBeta.extvar
+    LoadAlphaBetaRestorative.mo
+    LoadAlphaBetaRestorative.extvar
     LoadPQ.mo
     LoadPQ.extvar
     Load_INIT.mo

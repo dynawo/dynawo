@@ -21,6 +21,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     GeneratorFictitious.xml
     GeneratorPQ.xml
     GeneratorPV.xml
+    GeneratorPVAlphaSum.xml
     GeneratorSynchronousFourWindings.xml
     GeneratorSynchronousThreeWindings.xml
     GeneratorSynchronousFourWindingsProportionalRegulations.xml
@@ -36,6 +37,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     InjectorBG.xml
     Line.xml
     LoadAlphaBeta.xml
+    LoadAlphaBetaRestorative.xml
     LoadOneTransformer.xml
     LoadOneTransformerTapChanger.xml
     LoadPQ.xml
