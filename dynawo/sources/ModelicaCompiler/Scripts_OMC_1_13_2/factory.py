@@ -1324,6 +1324,13 @@ class Factory:
                 for L in var.get_start_text() :
                     if "FILE_INFO" not in L and "omc_assert_warning" not in L:
                         L = replace_var_names(L)
+                        for const_string in self.reader.list_of_stringconstants:
+                            if const_string+"," in L:
+                                L = L.replace(const_string+",", const_string+".c_str(),")
+                            elif const_string+";" in L:
+                                L = L.replace(const_string+";", const_string+".c_str();")
+                            elif const_string+" " in L:
+                                L = L.replace(const_string+" ", const_string+".c_str() ")
                         self.list_for_sety0.append("  " + L)
 
                 if len(var.get_start_text()) > 1 : self.list_for_sety0.append("\n") # reading comfort
@@ -2830,8 +2837,10 @@ class Factory:
         list_literal = self.reader.list_vars_literal
         for var in list_literal:
             words = var.split()
-            name = words[1]
-            name = name.replace("_data","")
+            name = None
+            if len(words) > 1:
+                name = words[1]
+                name = name.replace("_data","")
             if '#define' in var and "_data" in var:
                 # deletion of the define
                 var = var.replace("#define", "const std::string")
@@ -2846,6 +2855,13 @@ class Factory:
                 var = var.replace("_data", "")
                 var = var.replace ("static const", "const")
 
+                self.list_for_literalconstants.append(var)
+
+            elif 'static _index_t' in var and 'dims' in var:
+                self.list_for_literalconstants.append(var)
+
+            elif 'static base_array_t const' in var:
+                var = var.replace ("static ", "")
                 self.list_for_literalconstants.append(var)
 
     ##

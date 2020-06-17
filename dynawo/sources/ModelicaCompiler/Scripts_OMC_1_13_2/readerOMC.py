@@ -121,6 +121,8 @@ class ReaderOMC:
         self._functions_c_file  = os.path.join (input_dir, self.mod_name + "_functions.c")
         ## Full name of the _literals.h file
         self._literals_file = os.path.join (input_dir, self.mod_name + "_literals.h")
+        ## List of constant strings literal names
+        self.list_of_stringconstants = []
         ## Full name of the _literals.h file
         self._variables_file = os.path.join (input_dir, self.mod_name + "_variables.txt")
 
@@ -1075,15 +1077,33 @@ class ReaderOMC:
         ptrn_var = re.compile(r'#define _OMC_LIT.*')
         ptrn_var1 = re.compile(r'static const MMC_DEFSTRINGLIT*')
         ptrn_var2 = re.compile(r'static const modelica_integer _OMC_LIT.*')
+        ptrn_table_size= re.compile(r'static _index_t _OMC_LIT[0-9]+_dims*')
+        ptrn_table= re.compile(r'static base_array_t const _OMC_LIT*')
 
         with open(file_to_read,'r') as f:
             while True:
                 it = itertools.dropwhile(lambda line: (ptrn_var.search(line) is None) and (ptrn_var1.search(line) is None)\
-                                         and (ptrn_var2.search(line) is None), f)
+                                         and (ptrn_var2.search(line) is None) and (ptrn_table_size.search(line) is None), f)
                 next_iter = next(it, None) # Line on which "dropwhile" stopped
                 if next_iter is None: break # If we reach the end of the file, exit loop
 
                 self.list_vars_literal.append(next_iter)
+                if '#define' in next_iter and "_data" in next_iter:
+                    self.list_of_stringconstants.append(next_iter.split()[1].replace("_data",""))
+
+        with open(file_to_read,'r') as f:
+            while True:
+                it = itertools.dropwhile(lambda line: (ptrn_table.search(line) is None), f)
+                next_iter = next(it, None) # Line on which "dropwhile" stopped
+                if next_iter is None: break # If we reach the end of the file, exit loop
+
+                table_declaration = ""
+                while not "};" in next_iter:
+                    table_declaration+=next_iter
+                    next_iter = next(it, None)
+                table_declaration+=next_iter
+                self.list_vars_literal.append(table_declaration)
+                next_iter = next(it, None)
 
     ##
     # Read *_literals.h file and store all string declaration with type '_OMC_LIT'

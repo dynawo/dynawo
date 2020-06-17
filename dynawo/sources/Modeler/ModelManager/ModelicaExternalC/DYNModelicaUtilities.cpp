@@ -11,6 +11,7 @@
 // simulation tool for power systems.
 //
 #include "ModelicaUtilities.h"
+#include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
 
 #include <stddef.h>
@@ -18,8 +19,8 @@
 #include <stdlib.h>
 
 void ModelicaVFormatMessage(const char *string, va_list args) {
-  char buff[100];
-  snprintf(buff, sizeof(buff), string, args);
+  char buff[512];
+  vsnprintf(buff, sizeof(buff), string, args);
   std::string buffAsStdStr = buff;
   DYN::Trace::info() << buffAsStdStr << DYN::Trace::endline;
 }
@@ -32,18 +33,21 @@ void ModelicaFormatMessage(const char *string, ...) {
 }
 
 void ModelicaError(const char *string) {
-  DYN::Trace::error() << std::string(string) << DYN::Trace::endline;
+  throw DYNError(DYN::Error::GENERAL, ModelicaError, string);
 }
 
 void ModelicaVFormatError(const char *string, va_list args) {
-  char buff[100];
-  snprintf(buff, sizeof(buff), string, args);
+  char buff[512];
+  vsnprintf(buff, sizeof(buff), string, args);
   std::string buffAsStdStr = buff;
-  DYN::Trace::error() << buffAsStdStr << DYN::Trace::endline;
+  throw DYNError(DYN::Error::GENERAL, ModelicaError, buffAsStdStr);
 }
 
 void ModelicaFormatError(const char *string, ...) {
-  DYN::Trace::error() << string << DYN::Trace::endline;
+  va_list args;
+  va_start(args, string);
+  ModelicaVFormatError(string, args);
+  va_end(args);
 }
 
 char* ModelicaAllocateStringWithErrorReturn(size_t len) {
