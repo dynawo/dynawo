@@ -23,6 +23,9 @@ set(MODEL_FILES
     GeneratorPV.mo
     GeneratorPV.extvar
     GeneratorPV_INIT.mo
+    GeneratorPVAlphaSum.mo
+    GeneratorPVAlphaSum.extvar
+    GeneratorPVAlphaSum_INIT.mo
     GeneratorSynchronous.mo
     GeneratorSynchronous.extvar
     GeneratorSynchronousInt_INIT.mo
