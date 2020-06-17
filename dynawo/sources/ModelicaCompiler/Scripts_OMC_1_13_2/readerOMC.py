@@ -1103,7 +1103,7 @@ class ReaderOMC:
                     next_iter = next(it, None)
                 table_declaration+=next_iter
                 self.list_vars_literal.append(table_declaration)
-                next_iter = next(it, None)
+                next(it, None)
 
     ##
     # Read *_literals.h file and store all string declaration with type '_OMC_LIT'
