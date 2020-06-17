@@ -47,6 +47,8 @@ set(MODELICA_PREASSEMBLED_MODELS
     PhaseShifterI.xml
     PhaseShifterP.xml
     SetPoint.xml
+    SimplifiedHVDCACEmulation.xml
+    SimplifiedLCC.xml
     StaticVarCompensator.xml
     Step.xml
     TapChangerAutomaton.xml

@@ -28,26 +28,13 @@
   <curve model="NETWORK" variable="_BUS___13_TN_Upu_value"/>
   <curve model="NETWORK" variable="_BUS___14_TN_Upu_value"/>
   <curve model="GEN____1_SM" variable="generator_PGenPu"/>
-  <curve model="GEN____6_SM" variable="generator_PGenPu"/>
   <curve model="GEN____2_SM" variable="generator_PGenPu"/>
   <curve model="GEN____3_SM" variable="generator_PGenPu"/>
+  <curve model="GEN____6_SM" variable="generator_PGenPu"/>
   <curve model="GEN____8_SM" variable="generator_PGenPu"/>
   <curve model="GEN____1_SM" variable="generator_QGenPu"/>
   <curve model="GEN____2_SM" variable="generator_QGenPu"/>
   <curve model="GEN____3_SM" variable="generator_QGenPu"/>
   <curve model="GEN____6_SM" variable="generator_QGenPu"/>
   <curve model="GEN____8_SM" variable="generator_QGenPu"/>
-  <curve model="GEN____1_SM" variable="generator_N_value"/>
-  <curve model="GEN____2_SM" variable="generator_N_value"/>
-  <curve model="GEN____3_SM" variable="generator_N_value"/>
-  <curve model="GEN____6_SM" variable="generator_N_value"/>
-  <curve model="GEN____8_SM" variable="generator_N_value"/>
-  <curve model="MODEL_ALPHA_SUM" variable="n_grp_0_value"/>
-  <curve model="MODEL_ALPHA_SUM" variable="n_grp_1_value"/>
-  <curve model="MODEL_ALPHA_SUM" variable="n_grp_2_value"/>
-  <curve model="MODEL_ALPHA_SUM" variable="n_grp_3_value"/>
-  <curve model="MODEL_ALPHA_SUM" variable="n_grp_4_value"/>
-  <curve model="MODEL_ALPHA_SUM" variable="n_0_value"/>
-  <curve model="_LOAD___2_EC" variable="load_PPu"/>
-  <curve model="_LOAD___2_EC" variable="load_QPu"/>
 </curvesInput>

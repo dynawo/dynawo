@@ -38,7 +38,7 @@
     <par type="DOUBLE" name="generator_PMinPu" value="-10000"/>
     <par type="DOUBLE" name="generator_PMaxPu" value="10000"/>
     <par type="DOUBLE" name="generator_QMinPu" value="-10000"/>
-    <par type="DOUBLE" name="generator_QMaxPu" value="0.7"/>
+    <par type="DOUBLE" name="generator_QMaxPu" value="10000"/>
     <reference name="generator_AlphaRaw" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_P0Pu" origData="IIDM" origName="p_pu" type="DOUBLE"/>
     <reference name="generator_Q0Pu" origData="IIDM" origName="q_pu" type="DOUBLE"/>
