@@ -1,3 +1,5 @@
+within Dynawo.Electrical.HVDC;
+
 /*
 * Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 * See AUTHORS.txt
@@ -10,7 +12,6 @@
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-within Dynawo.Electrical.HVDC;
-
 package SimplifiedHVDCACEmulation "Simplified model for HVDC link with AC Emulation"
+  extends Icons.Package;
 end SimplifiedHVDCACEmulation;

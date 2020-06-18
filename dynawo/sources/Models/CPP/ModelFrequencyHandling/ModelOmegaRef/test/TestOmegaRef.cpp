@@ -12,7 +12,7 @@
 //
 
 /**
- * @file Models/CPP/ModelOmegaRef/TestOmegaRef
+ * @file Models/CPP/ModelFrequencyHandling/ModelOmegaRef/TestOmegaRef
  * @brief Unit tests for OmegaRef model
  *
  */

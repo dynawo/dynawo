@@ -12,7 +12,7 @@ within Dynawo.Electrical.Machines;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model GeneratorPVAlphaSum "Model for generator PV with AlphaSum. This generator provides an active power PGenPu that depends on an emulated frequency regulation (signal N and total generators participation AlphaSum) and regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated). This model is used with DYNModelAlphaSum and cannot be used with DYNModelOmegaRef as the frequency is not explicitly expressed."
+model GeneratorPVAlphaSum "Model for generator PV with AlphaSum."
 
   extends BaseClasses.BaseGeneratorSimplified;
   extends AdditionalIcons.Machine;
@@ -68,5 +68,6 @@ model GeneratorPVAlphaSum "Model for generator PV with AlphaSum. This generator 
       Alpha.value = 0;
     end if;
 
-annotation(preferredView = "text");
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body> This generator provides an active power PGenPu that depends on its setpoint PGen0Pu and its participation (Alpha) in an emulated frequency regulation (DYNModelAlphaSum model, that calculates the signal N (that is common to all the generators in a connected component and which increases or decreases the generation of each generator) and the total generators participation AlphaSum).<div>It regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).<div>This model is used with the frequency handling model DYNModelAlphaSum and cannot be used with DYNModelOmegaRef (and as a consequence with other generator models such as GeneratorPQ, GeneratorPV and GeneratorSynchronous) as the frequency is not explicitly expressed.</div></body></html>"));
 end GeneratorPVAlphaSum;

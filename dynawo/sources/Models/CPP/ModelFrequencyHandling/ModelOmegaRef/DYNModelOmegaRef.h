@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,14 +12,15 @@
 //
 
 /**
- * @file  DYNModelAlphaSum.h
+ * @file  DYNModelOmegaRef.h
  *
- * @brief AlphaSum model header
+ * @brief Reference frequency model header
  *
  */
 
-#ifndef DYNAWO_SOURCES_MODELS_CPP_MODELALPHASUM_DYNMODELALPHASUM_H_
-#define DYNAWO_SOURCES_MODELS_CPP_MODELALPHASUM_DYNMODELALPHASUM_H_
+#ifndef MODELS_CPP_MODELFREQUENCYHANDLING_MODELOMEGAREF_DYNMODELOMEGAREF_H_
+#define MODELS_CPP_MODELFREQUENCYHANDLING_MODELOMEGAREF_DYNMODELOMEGAREF_H_
+
 
 #include "DYNModelCPPImpl.h"
 #include "DYNSubModelFactory.h"
@@ -28,43 +29,43 @@ namespace DYN {
 class DataInterface;
 
 /**
- * @brief AlphaSum factory
+ * @brief Reference frequency factory
  *
- * Implementation of @p SubModelFactory template for AlphaSum model
+ * Implementation of @p SubModelFactory template for Reference frequency Model
  */
-class ModelAlphaSumFactory : public SubModelFactory {
+class ModelOmegaRefFactory : public SubModelFactory {
  public:
   /**
    * @brief default constructor
    *
    */
-  ModelAlphaSumFactory() { }
+  ModelOmegaRefFactory() { }
 
   /**
    * @brief default destructor
    *
    */
-  ~ModelAlphaSumFactory() { }
+  ~ModelOmegaRefFactory() { }
   /**
-   * @brief ModelAlphaSum getter
+   * @brief ModelOmegaRef getter
    *
-   * @return A pointer to a new instance of ModelAlphaSum
+   * @return A pointer to a new instance of ModelOmegaRef
    */
   SubModel* create() const;
 
   /**
-   * @brief ModelAlphaSum destroy
+   * @brief ModelOmegaRef destroy
    */
   void destroy(SubModel*) const;
 };
 
 /**
- * @brief AlphaSum model class
+ * @brief Reference frequency model class
  *
  *
  *
  */
-class ModelAlphaSum : public ModelCPP::Impl {
+class ModelOmegaRef : public ModelCPP::Impl {
  public:
   /**
    * @brief define type of calculated variables
@@ -74,34 +75,34 @@ class ModelAlphaSum : public ModelCPP::Impl {
     nbCalculatedVars_ = 0
   } CalculatedVars_t;
   /**
-   * @brief AlphaSum model default constructor
+   * @brief Reference frequency model default constructor
    *
    *
    */
-  ModelAlphaSum();
+  ModelOmegaRef();
 
   /**
-   * @brief AlphaSum model default destructor
+   * @brief Reference frequency model default destructor
    *
    *
    */
-  ~ModelAlphaSum() { }
+  ~ModelOmegaRef() { }
   /**
-   * @brief AlphaSum model initialization
+   * @brief Reference frequency model initialization
    * @param t0 : initial time of the simulation
    */
   void init(const double& t0);
 
   /**
-   * @brief AlphaSum model's sizes getter
+   * @brief Reference Frequency model's sizes getter
    *
    * Get the sizes of the vectors and matrices used by the solver to simulate
-   * ModelAlphaSum instance. Used by @p ModelMulti to generate right size matrices
+   * ModelOmegaRef instance. Used by @p ModelMulti to generate right size matrices
    * and vector for the solver.
    */
   void getSize();
   /**
-   * @brief AlphaSum F(t,y,y') function evaluation
+   * @brief Reference Frequency F(t,y,y') function evaluation
    *
    * Get the residues' values at a certain instant time with given state variables,
    * state variables derivatives
@@ -111,7 +112,7 @@ class ModelAlphaSum : public ModelCPP::Impl {
    */
   void evalF(double t, propertyF_t type);
   /**
-   * @brief AlphaSum G(t,y,y') function evaluation
+   * @brief Reference frequency G(t,y,y') function evaluation
    *
    * Get the root's value
    *
@@ -119,7 +120,7 @@ class ModelAlphaSum : public ModelCPP::Impl {
    */
   void evalG(const double & t);
   /**
-   * @brief AlphaSum discrete variables evaluation
+   * @brief Reference frequency discrete variables evaluation
    *
    * Get the discrete variables' value depending on current simulation instant and
    * current state variables values.
@@ -127,17 +128,19 @@ class ModelAlphaSum : public ModelCPP::Impl {
    * @param t Simulation instant
    */
   void evalZ(const double & t);
+
   /**
-   * @brief Model mode change type evaluation
-   *
-   * Set the mode change type value depending on current simulation instant and
-   * current state variables values.
-   * @param[in] t Simulation instant
-   * @return mode change type value
+   * @brief set the silent flag for discrete variables
+   * @param silentZTable flag table
+   */
+  void collectSilentZ(bool* silentZTable);
+
+  /**
+   * @copydoc ModelCPP::evalMode(const double& t)
    */
   modeChangeType_t evalMode(const double &t);
   /**
-   * @brief AlphaSum transposed jacobian evaluation
+   * @brief Reference frequency transposed jacobian evaluation
    *
    * Get the sparse transposed jacobian \f$ Jt=@F/@y + cj*@F/@y' \f$
    *
@@ -148,7 +151,7 @@ class ModelAlphaSum : public ModelCPP::Impl {
    */
   void evalJt(const double &t, const double & cj, SparseMatrix& jt, const int& rowOffset);
   /**
-   * @brief  AlphaSum transposed jacobian evaluation
+   * @brief  Reference frequency transposed jacobian evaluation
    *
    * Get the sparse transposed jacobian \f$ Jt=@F/@y' \f$
    *
@@ -171,7 +174,7 @@ class ModelAlphaSum : public ModelCPP::Impl {
   /**
    * @copydoc ModelCPP::updateFType()
    */
-  void updateFType() { /* not needed */ }
+  void updateFType() { /* not needed */}
 
   /**
    * @copydoc ModelCPP::getY0()
@@ -186,15 +189,14 @@ class ModelAlphaSum : public ModelCPP::Impl {
   /**
    * @copydoc ModelCPP::updateYType()
    */
-  void updateYType() { /* not needed */ }
+  void updateYType() { /* not needed */}
 
   // output management
   /**
-   * @brief get the global indexes of the variables used to compute a calculated variable
+   * @brief get the index of variables used to define the jacobian associated to a calculated variable
    *
    * @param iCalculatedVar index of the calculated variable
    * @param indexes vector to fill with the indexes
-   *
    */
   void getIndexesOfVariablesUsedForCalculatedVarI(unsigned iCalculatedVar, std::vector<int>& indexes) const;
 
@@ -204,8 +206,7 @@ class ModelAlphaSum : public ModelCPP::Impl {
    * @param iCalculatedVar index of the calculated variable
    * @param res values of the jacobian
    */
-  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res) const;
-
+  void evalJCalculatedVarI(unsigned iCalculatedVar, std::vector<double>& res)const;
   /**
    * @brief evaluate the value of a calculated variable
    *
@@ -216,13 +217,13 @@ class ModelAlphaSum : public ModelCPP::Impl {
   double evalCalculatedVarI(unsigned iCalculatedVar) const;
 
   /**
-   * @brief AlphaSum parameters setter
+   * @brief Reference frequency parameters setter
    */
   void setSubModelParameters();
   /**
-   * @brief AlphaSum elements initializer
+   * @brief Reference frequency elements initializer
    *
-   * Define elements for this model (elements to be seen by other models)
+   * Define elements for this model( elements to be seen by other models)
    *
    * @param elements  Reference to elements' vector
    * @param mapElement Map associating each element index in the elements vector to its name
@@ -252,9 +253,7 @@ class ModelAlphaSum : public ModelCPP::Impl {
   void initializeStaticData() { /* not needed */ }
 
   /**
-   * @brief initialize the model from data interface
-   *
-   * @param data data interface to use to initialize the model
+   * @copydoc ModelCPP::initializeFromData(const boost::shared_ptr<DataInterface> &data)
    */
   void initializeFromData(const boost::shared_ptr<DataInterface>& data);
 
@@ -287,25 +286,27 @@ class ModelAlphaSum : public ModelCPP::Impl {
   void calculateInitialState();
 
  private:
-  static int col1stN_;  ///< offset to find the first row the residual functions about n
-  static int col1stNGrp_;  ///< offset to find the first row the residual functions about n for each generator
-  static int col1stTetaRef_;  ///< offset to find the first row the residual functions about tetaRef
-  static int col1stAlphaSum_;  ///< offset to find the first row the residual functions about alphaSum
-  static int col1stAlpha_;  ///< offset to find the first row the residual functions about alpha
-  static int col1stAlphaSumGrp_;  ///< offset to find the first row the residual functions about alphaSum for each generators
+  static int col1stOmegaRef_;  ///< offset to find the first row the residual functions about omegaRef
+  static int col1stOmega_;  ///< offset to find the first row the residual functions about omega
+  int col1stOmegaRefGrp_;  ///< offset to find the first row the residual functions about omegaRef for each generators
 
   bool firstState_;  ///< @b true if the initial state must be calculated
 
+  std::vector<double> weights_;  ///< weight use to calculate the centroid of omega (omegaref value)
   std::vector<int> numCCNode_;  ///< index of the network for each generators
-  std::vector<double> alphaSum0_;  ///< initial values for alphaSum
-  boost::unordered_map<int, std::vector<int> > genByCC_;  ///< list of generators for each network
+  std::vector<double> runningGrp_;  ///< @b true if the generator is on
+  std::vector<double> omegaRef0_;  ///< initial values for omegaref
+  std::map<int, double > sumWeightByCC_;  ///< sum of weight for each network
+  std::map<int, std::vector<int> >genByCC_;  ///< list of generators for each network
   std::vector<int> numCCNodeOld_;  ///< save of the index of the network for each generators
+  std::vector<double> runningGrpOld_;  ///< save of the states for each generators
 
   int nbGen_;  ///< number of generators
   int nbCC_;  ///< number of connected components
-  std::vector<int> indexAlpha_;  ///< index for each alpha inside the local buffer
+  int nbOmega_;  ///< number of generators with positive weight
+  std::vector<int> indexOmega_;  ///< index for each omega inside the local buffer
 };
 
 }  // namespace DYN
 
-#endif  // DYNAWO_SOURCES_MODELS_CPP_MODELALPHASUM_DYNMODELALPHASUM_H_
+#endif  // MODELS_CPP_MODELFREQUENCYHANDLING_MODELOMEGAREF_DYNMODELOMEGAREF_H_

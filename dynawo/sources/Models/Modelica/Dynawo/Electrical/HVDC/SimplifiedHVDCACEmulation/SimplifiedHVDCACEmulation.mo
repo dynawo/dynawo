@@ -27,6 +27,7 @@ model SimplifiedHVDCACEmulation "Simplified model of HVDC link with AC Emulation
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends SwitchOff.SwitchOffLine;
+  extends AdditionalIcons.Line;
 
   parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
   parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
@@ -127,4 +128,6 @@ else
 
 end if;
 
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body> This HVDC link emulates the behaviour of an AC line in terms of active power with a time constant tFilter (modelled with a first order filter). It also regulates the voltage at each of its terminal.</div></body></html>"));
 end SimplifiedHVDCACEmulation;

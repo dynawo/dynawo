@@ -12,7 +12,7 @@
 //
 
 /**
- * @file Models/CPP/ModelAlphaSum/TestAlphaSum
+ * @file Models/CPP/ModelFrequencyHandling/ModelAlphaSum/TestAlphaSum
  * @brief Unit tests for AlphaSum model
  *
  */

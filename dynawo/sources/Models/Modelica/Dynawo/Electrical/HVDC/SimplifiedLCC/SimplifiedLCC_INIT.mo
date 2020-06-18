@@ -12,7 +12,9 @@ within Dynawo.Electrical.HVDC.SimplifiedLCC;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model SimplifiedLCC_INIT "Initialisation model for LCC HVDC link"
+model SimplifiedLCC_INIT "Initialisation model for simplified LCC HVDC link"
+
+  extends AdditionalIcons.Init;
 
   public
     parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
@@ -44,4 +46,5 @@ equation
   s20Pu = Complex(P20Pu, Q20Pu);
   s20Pu = u20Pu * ComplexMath.conj(i20Pu);
 
+annotation(preferredView = "text");
 end SimplifiedLCC_INIT;
