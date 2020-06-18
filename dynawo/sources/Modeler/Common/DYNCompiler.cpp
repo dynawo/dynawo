@@ -26,6 +26,8 @@
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/unordered_map.hpp>
+#include <boost/unordered_set.hpp>
 
 #include "DYNStaticRefInterface.h"
 #include "DYNConnectInterface.h"
@@ -73,6 +75,8 @@ using std::vector;
 using boost::dynamic_pointer_cast;
 using boost::lexical_cast;
 using boost::shared_ptr;
+using boost::unordered_map;
+using boost::unordered_set;
 
 namespace DYN {
 
@@ -605,6 +609,16 @@ Compiler::collectConnectedExtVar(string itUnitDynamicModelName,
   }
 }
 
+struct DiscreteExtVar {
+  size_t connectionId;
+  string fullVarId;
+  shared_ptr<externalVariables::Variable> correspondingVar;
+
+  DiscreteExtVar(size_t id, string varId, shared_ptr<externalVariables::Variable> var):
+    connectionId(id), fullVarId(varId), correspondingVar(var) {}
+
+  DiscreteExtVar():fullVarId(0) {}
+};
 void
 Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDescription,
     const vector<shared_ptr<dynamicdata::Connector> >& macroConnection,
@@ -614,6 +628,8 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
   // only keep external variables for which no internal connect has already been conducted
   shared_ptr<externalVariables::VariablesCollection> modelExternalvariables = externalVariables::VariablesCollectionFactory::newCollection();
   bool atLeastOneExternalVariable = false;
+  unordered_set<string> extvarIds;
+  unordered_map<string, shared_ptr<externalVariables::Variable> > connectedDiscreteExtVar;
   for (map<string, shared_ptr<dynamicdata::UnitDynamicModel> >::const_iterator itUnitDynamicModel = unitDynamicModels.begin();
       itUnitDynamicModel != unitDynamicModels.end(); ++itUnitDynamicModel) {
     string itUnitDynamicModelName = itUnitDynamicModel->first;
@@ -621,7 +637,7 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
     collectConnectedExtVar(itUnitDynamicModelName, macroConnection, internalConnects, extVarConnected);
 
     if (allExternalVariables.find(itUnitDynamicModelName) != allExternalVariables.end()) {
-      boost::shared_ptr<externalVariables::VariablesCollection> unitModelExternalVariables = allExternalVariables.find(itUnitDynamicModelName)->second;
+      shared_ptr<externalVariables::VariablesCollection> unitModelExternalVariables = allExternalVariables.find(itUnitDynamicModelName)->second;
       for (externalVariables::variable_iterator itExternalVariable = unitModelExternalVariables->beginVariable();
           itExternalVariable != unitModelExternalVariables->endVariable(); ++itExternalVariable) {
         const string& variableName = (*itExternalVariable)->getId();
@@ -629,17 +645,128 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
         // remove all sub-structures from the external variable identifier,
         // in order to retrieve the native Modelica (macro) object name
         string modelicaObjectName = variableName;
+        string leftovers;
         size_t found = variableName.find(".");
         if (found != string::npos) {
           modelicaObjectName = variableName.substr(0, found);
+          leftovers = variableName.substr(found+1, variableName.size());
+        }
+        bool foundConnectedExtVar = false;
+
+        while (!foundConnectedExtVar && found != string::npos) {
+          if (extVarConnected.find(modelicaObjectName) != extVarConnected.end()) {
+            foundConnectedExtVar = true;
+            break;
+          }
+          found = leftovers.find(".");
+          if (found != string::npos) {
+            modelicaObjectName += "."+leftovers.substr(0, found);
+            leftovers = leftovers.substr(found+1, leftovers.size());
+          }
         }
 
-        if (extVarConnected.find(modelicaObjectName) == extVarConnected.end()) {
+        if (!foundConnectedExtVar && !leftovers.empty())
+          modelicaObjectName += "."+leftovers;
+        if (!foundConnectedExtVar && extVarConnected.find(modelicaObjectName) != extVarConnected.end()) {
+          foundConnectedExtVar = true;
+        }
+        if (!foundConnectedExtVar) {
           shared_ptr<externalVariables::Variable> variable = *itExternalVariable;
           variable->setId(itUnitDynamicModelName + "." + variableName);
-          modelExternalvariables->addVariable(variable);
-          atLeastOneExternalVariable = true;
+          if (extvarIds.find(variable->getId()) == extvarIds.end()) {
+            modelExternalvariables->addVariable(variable);
+            Trace::info(Trace::compile()) << DYNLog(AddingExtVar, itUnitDynamicModelName + "." + variableName) << Trace::endline;
+            atLeastOneExternalVariable = true;
+            extvarIds.insert(variable->getId());
+          }
+        } else if ((*itExternalVariable)->getType() == externalVariables::Variable::DISCRETE) {
+          connectedDiscreteExtVar.insert(std::make_pair(itUnitDynamicModelName + "." + modelicaObjectName, *itExternalVariable));
         }
+      }
+    }
+  }
+  size_t index = 0;
+  unordered_map<string, DiscreteExtVar> varNameToConnIndex;
+  for (vector<shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect = internalConnects.begin();
+      itInternConnect != internalConnects.end(); ++itInternConnect) {
+    std::string firstVar = (*itInternConnect)->getFirstModelId()+"."+(*itInternConnect)->getFirstVariableId();
+    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it = connectedDiscreteExtVar.find(firstVar);
+    std::string secondVar = (*itInternConnect)->getSecondModelId()+"."+(*itInternConnect)->getSecondVariableId();
+    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it2 = connectedDiscreteExtVar.find(secondVar);
+    if (it != connectedDiscreteExtVar.end() && it2 != connectedDiscreteExtVar.end()) {
+      string var1FullName = (*itInternConnect)->getFirstModelId()+"."+it->second->getId();
+      string var2FullName = (*itInternConnect)->getSecondModelId()+"."+it2->second->getId();
+      bool firstVarFound = (varNameToConnIndex.find(firstVar) != varNameToConnIndex.end());
+      bool secondVarFound = (varNameToConnIndex.find(secondVar) != varNameToConnIndex.end());
+      if (firstVarFound && !secondVarFound) {
+        varNameToConnIndex.insert(std::make_pair(secondVar, DiscreteExtVar(varNameToConnIndex[firstVar].connectionId, var2FullName, it2->second)));
+      } else if (!firstVarFound && secondVarFound) {
+        varNameToConnIndex.insert(std::make_pair(firstVar, DiscreteExtVar(varNameToConnIndex[secondVar].connectionId, var1FullName, it->second)));
+      } else if (firstVarFound && secondVarFound) {
+        size_t indexToKeep = varNameToConnIndex[firstVar].connectionId;
+        size_t indexToDrop = varNameToConnIndex[secondVar].connectionId;
+        for (unordered_map<string, DiscreteExtVar>::iterator it = varNameToConnIndex.begin(), itEnd = varNameToConnIndex.end();
+            it != itEnd; ++it) {
+          if (it->second.connectionId == indexToDrop)
+            it->second.connectionId = indexToKeep;
+        }
+      } else {
+        varNameToConnIndex.insert(std::make_pair(firstVar, DiscreteExtVar(index, var1FullName, it->second)));
+        varNameToConnIndex.insert(std::make_pair(secondVar, DiscreteExtVar(index, var2FullName, it2->second)));
+        ++index;
+      }
+    }
+  }
+
+  for (vector<shared_ptr<dynamicdata::Connector> >::const_iterator itInternConnect = macroConnection.begin();
+      itInternConnect != macroConnection.end(); ++itInternConnect) {
+    std::string firstVar = (*itInternConnect)->getFirstModelId()+"."+(*itInternConnect)->getFirstVariableId();
+    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it = connectedDiscreteExtVar.find(firstVar);
+    std::string secondVar = (*itInternConnect)->getSecondModelId()+"."+(*itInternConnect)->getSecondVariableId();
+    unordered_map<string, shared_ptr<externalVariables::Variable> >::const_iterator it2 = connectedDiscreteExtVar.find(secondVar);
+    if (it != connectedDiscreteExtVar.end() && it2 != connectedDiscreteExtVar.end()) {
+      bool firstVarFound = (varNameToConnIndex.find(firstVar) != varNameToConnIndex.end());
+      bool secondVarFound = (varNameToConnIndex.find(secondVar) != varNameToConnIndex.end());
+      string var1FullName = (*itInternConnect)->getFirstModelId()+"."+it->second->getId();
+      string var2FullName = (*itInternConnect)->getSecondModelId()+"."+it2->second->getId();
+      if (firstVarFound && !secondVarFound) {
+        varNameToConnIndex.insert(std::make_pair(secondVar, DiscreteExtVar(varNameToConnIndex[firstVar].connectionId, var2FullName, it2->second)));
+      } else if (!firstVarFound && secondVarFound) {
+        varNameToConnIndex.insert(std::make_pair(firstVar, DiscreteExtVar(varNameToConnIndex[secondVar].connectionId, var1FullName, it->second)));
+      } else if (firstVarFound && secondVarFound) {
+        size_t indexToKeep = varNameToConnIndex[firstVar].connectionId;
+        size_t indexToDrop = varNameToConnIndex[secondVar].connectionId;
+        for (unordered_map<string, DiscreteExtVar>::iterator it = varNameToConnIndex.begin(), itEnd = varNameToConnIndex.end();
+            it != itEnd; ++it) {
+          if (it->second.connectionId == indexToDrop)
+            it->second.connectionId = indexToKeep;
+        }
+      } else {
+        varNameToConnIndex.insert(std::make_pair(firstVar, DiscreteExtVar(index, var1FullName, it->second)));
+        varNameToConnIndex.insert(std::make_pair(secondVar, DiscreteExtVar(index, var2FullName, it2->second)));
+        ++index;
+      }
+    }
+  }
+
+  for (size_t idx = 0; idx < index; ++idx) {
+    vector<string> connectedDiscreteVarNames;
+    for (unordered_map<string, DiscreteExtVar>::const_iterator it = varNameToConnIndex.begin(), itEnd = varNameToConnIndex.end();
+        it != itEnd; ++it) {
+      if (it->second.connectionId == idx) {
+        connectedDiscreteVarNames.push_back(it->first);
+      }
+    }
+    // 2 or more discrete external discrete variables are connected together. We need to keep only one as external variable.
+    if (connectedDiscreteVarNames.size() > 1) {
+      string firstVar = connectedDiscreteVarNames[0];
+      if (extvarIds.find(firstVar) == extvarIds.end()) {
+        shared_ptr<externalVariables::Variable> variable = varNameToConnIndex[firstVar].correspondingVar;
+        variable->setId(varNameToConnIndex[firstVar].fullVarId);
+        modelExternalvariables->addVariable(variable);
+        Trace::info(Trace::compile()) << DYNLog(AddingDiscreteExtVar, variable->getId()) << Trace::endline;
+        atLeastOneExternalVariable = true;
+        extvarIds.insert(variable->getId());
       }
     }
   }
