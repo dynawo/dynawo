@@ -52,6 +52,12 @@ target_include_directories(Modelica_externalC
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>
     )
 
+target_include_directories(Modelica_externalC SYSTEM
+  PRIVATE
+    $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
+    )
+
+
 target_link_libraries(Modelica_externalC
   PRIVATE
     dynawo_Common
