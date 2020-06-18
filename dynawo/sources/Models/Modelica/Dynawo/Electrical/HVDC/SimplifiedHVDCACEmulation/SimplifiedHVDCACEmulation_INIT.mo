@@ -12,7 +12,9 @@ within Dynawo.Electrical.HVDC.SimplifiedHVDCACEmulation;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model SimplifiedHVDCACEmulation_INIT "Initialisation model for HVDC link with AC Emulation"
+model SimplifiedHVDCACEmulation_INIT "Initialisation model for simplified HVDC link with AC Emulation"
+
+  extends AdditionalIcons.Init;
 
   public
     parameter Types.ActivePowerPu P10Pu  "Start value of active power at terminal 1 in p.u (base SnRef) (receptor convention)";
@@ -44,4 +46,5 @@ equation
   s20Pu = Complex(P20Pu, Q20Pu);
   s20Pu = u20Pu * ComplexMath.conj(i20Pu);
 
+annotation(preferredView = "text");
 end SimplifiedHVDCACEmulation_INIT;

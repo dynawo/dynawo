@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,7 +8,5 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(Common)
-add_subdirectory(ModelFrequencyHandling)
-add_subdirectory(ModelVariationArea)
-add_subdirectory(ModelNetwork)
+add_subdirectory(ModelAlphaSum)
+add_subdirectory(ModelOmegaRef)

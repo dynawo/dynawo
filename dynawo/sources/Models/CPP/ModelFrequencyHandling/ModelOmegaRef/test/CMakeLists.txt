@@ -29,7 +29,7 @@ add_custom_target(${MODULE_NAME}-tests
   COMMENT "Running ${MODULE_NAME}...")
 
 if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-  set(EXTRACT_PATTERNS "'*/sources/Models/CPP/ModelOmegaRef/DYN*'")
+  set(EXTRACT_PATTERNS "'*/sources/Models/CPP/ModelFrequencyHandling/ModelOmegaRef/DYN*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()

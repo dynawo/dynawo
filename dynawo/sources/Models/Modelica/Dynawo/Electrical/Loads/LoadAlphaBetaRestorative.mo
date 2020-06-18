@@ -12,7 +12,7 @@ within Dynawo.Electrical.Loads;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model LoadAlphaBetaRestorative "Generic model of a restorative alpha-beta load. After an event, the load goes back to its initial P/Q unless the voltage at its terminal is lower than UMinPu or higher than UMaxPu. In this case, the load behaves as a classical alpha-beta load."
+model LoadAlphaBetaRestorative "Generic model of a restorative alpha-beta load."
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
@@ -43,5 +43,6 @@ model LoadAlphaBetaRestorative "Generic model of a restorative alpha-beta load. 
       terminal.i = Complex(0);
     end if;
 
-annotation(preferredView = "text");
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body>  After an event, the load goes back to its initial PPu/QPu unless the voltage at its terminal is lower than UMinPu or higher than UMaxPu. In this case, the load behaves as a classical alpha-beta load.<div>This load restoration emulates the behaviour of a tap changer transformer that connects the load to the system and regulates the voltage at its terminal.</div></body></html>"));
 end LoadAlphaBetaRestorative;

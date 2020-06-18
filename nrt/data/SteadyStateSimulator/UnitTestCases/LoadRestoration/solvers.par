@@ -44,7 +44,7 @@
   </set>
   <!-- Simplified solver with step recalculation -->
   <set id="4">
-    <par type="DOUBLE" name="hMin" value="1"/>
+    <par type="DOUBLE" name="hMin" value="0.000001"/>
     <par type="DOUBLE" name="hMax" value="1"/>
     <par type="DOUBLE" name="kReduceStep" value="0.5"/>
     <par type="INT" name="nEff" value="10"/>

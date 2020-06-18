@@ -27,6 +27,7 @@ model SimplifiedLCC "Simplified model of LCC HVDC link"
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends SwitchOff.SwitchOffDCLine;
+  extends AdditionalIcons.Line;
 
   parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
   parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
@@ -117,4 +118,6 @@ else
 
 end if;
 
+annotation(preferredView = "text",
+    Documentation(info = "<html><head></head><body> This HVDC link regulates the active power flowing through itself and the reactive power at each of its terminal.</div></body></html>"));
 end SimplifiedLCC;
