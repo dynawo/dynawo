@@ -26,7 +26,7 @@ case_name = "IEEE14_DisconnectLine"
 case_description = "IEEE 14 test case with a line disconnection"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE14", "IEEE14_BasicTestCases", "IEEE14_DisconnectLine", "IEEE14.jobs")
 
-test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ##############################################
 #  Small System with an HVDC link and a CLA  #
@@ -36,7 +36,7 @@ case_name = "HVDC_CLA"
 case_description = "Small System with an HVDC link and a CLA"
 job_file = os.path.join(os.path.dirname(__file__), "UnitTestCases", "HVDC_CLA", "HVDC_CLA.jobs")
 
-test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ########################################################
 #  Small System with an HVDC link and a Phase Shifter  #
@@ -46,7 +46,7 @@ case_name = "HVDC_PhaseShifter"
 case_description = "Small System with an HVDC link and a Phase Shifter"
 job_file = os.path.join(os.path.dirname(__file__), "UnitTestCases", "HVDC_PhaseShifter", "HVDC_PhaseShifter.jobs")
 
-test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ##########################################
 #  Small System with a Load Restoration  #
@@ -56,7 +56,7 @@ case_name = "LoadRestoration"
 case_description = "Small System with a Load Restoration"
 job_file = os.path.join(os.path.dirname(__file__), "UnitTestCases", "LoadRestoration", "LoadRestoration.jobs")
 
-test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
 ##########################################
 #  Small System with two Phase Shifters  #
@@ -66,4 +66,4 @@ case_name = "PhaseShifters"
 case_description = "Small System with two Phase Shifters"
 job_file = os.path.join(os.path.dirname(__file__), "UnitTestCases", "PhaseShifters", "PhaseShifters.jobs")
 
-test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
