@@ -37,7 +37,7 @@ def print_info(log):
 
 
 ##
-# Indicates whether is the variable a derivative variable
+# Indicates whether the variable is a derivative variable
 #
 # @param var_name : name of the variable
 # @return @b true if the variable is a derivative variable
@@ -56,10 +56,10 @@ def is_ignored_var(var_name):
     match_is_temporary_abs_var = re.compile(r'\$TMP\$VAR\$[0-9]+\$0X\$ABS')
     return match_is_temporary_abs_var.search(var_name) is not None
 ##
-# Indicates whether is a when conditions
+# Indicates whether the variable is a when condition
 #
 # @param var_name : name of the variable
-# @return @b true if the variable is a when conditions
+# @return @b true if the variable is a when condition
 def is_when_condition(var_name):
     return "$whenCondition" in var_name
 

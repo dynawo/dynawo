@@ -102,7 +102,7 @@ Solver::Impl::clean() {
 void
 Solver::Impl::init(const double& t0, const boost::shared_ptr<Model> & model) {
   model_ = model;
-  model_->setCollectSilentZ(enableSilentZ_);
+  model_->setEnableSilentZ(enableSilentZ_);
 
   // Problem size
   // ---------------------------
@@ -259,7 +259,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
     // evaluate G and compare with previous values
     stableRoot = detectUnstableRoot(G0, G1, time);
 
-    if (model_->silentZChange())
+    if (model_->getSilentZChange())
       state_.setFlags(SilentZChange);
     if (zChange) {
       change = true;

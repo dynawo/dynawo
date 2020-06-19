@@ -1189,6 +1189,11 @@ class ReaderOMC:
                     self.external_objects.append(ext)
                 test_param_address(name)
 
+
+    ##
+    # Assign the final type and index to the variables
+    # @param self : object pointer
+    # @return
     def assign_variables_indexes(self):
         # We initialize vars of self.list_vars with initial values found in *_06inz.c
         self.set_start_value_for_syst_vars_06inz()
@@ -1250,25 +1255,39 @@ class ReaderOMC:
         self.nb_integer_vars = index_integer_double
         self.find_calculated_variables()
 
-    def detect_z_only_used_internally(self):
-        map_num_eq_vars_defined = self.get_map_num_eq_vars_defined()
-        dicr_variable_to_dics_equation_dependencies = {}
 
+
+    ##
+    # Collect all discrete variables names
+    # @param self : object pointer
+    # Requires map_var_name_2_addresses to be ready
+    # @return all discrete variables names
+    def collect_discrete_variables_names(self):
         discr_vars = []
         for var in self.list_vars:
             name = var.get_name()
             if name not in map_var_name_2_addresses : continue
-            test_param_address(name)
             address = map_var_name_2_addresses[name]
             if "discreteVars" in address or "integerDoubleVars" in address or "booleanVars" in address:
                 discr_vars.append(name)
+        return discr_vars
 
+    ##
+    # Mark as silent Z all discrete variables that are used only in continuous equations
+    # @param self : object pointer
+    # Requires map_var_name_2_addresses to be ready
+    # @return
+    def detect_z_only_used_internally(self):
+        map_num_eq_vars_defined = self.get_map_num_eq_vars_defined()
+        discr_variable_to_discs_equation_dependencies = {}
+        # Collect all discrete variables
+        discr_vars = self.collect_discrete_variables_names()
+
+        # Build a dictionary that associate each discrete variable name to the list of discrete equations that use it
+        # If a discrete variable is not present in this list then it means that it is not used in discrete equations
         for f in self.list_func_16dae_c:
             f_num_omc = f.get_num_omc()
             name_var_eval = None
-
-            # for Modelica reinit equations, the evaluated var scan does not always work
-            # a fallback is to look at the variable defined in this case
             if f_num_omc in map_num_eq_vars_defined.keys():
                 if len(map_num_eq_vars_defined[f_num_omc]) > 1:
                     error_exit("   Error: Found an equation (id: " + f_num_omc+") defining multiple variables. This is not supported in Dynawo.")
@@ -1278,16 +1297,23 @@ class ReaderOMC:
                 for discr_var in discr_vars:
                     if discr_var == name_var_eval: continue
                     if "/* " + discr_var + " " in str(f.get_body()):
-                        if not discr_var in dicr_variable_to_dics_equation_dependencies:
-                            dicr_variable_to_dics_equation_dependencies[discr_var] = []
-                        dicr_variable_to_dics_equation_dependencies[discr_var].append(f_num_omc)
+                        if not discr_var in discr_variable_to_discs_equation_dependencies:
+                            discr_variable_to_discs_equation_dependencies[discr_var] = []
+                        discr_variable_to_discs_equation_dependencies[discr_var].append(f_num_omc)
 
+        # Mark as silent all discrete variables that are not in the dictionary defined above
+        # boolean whenCondition variable are filtered as they are not in the Z table
         for discr_var in discr_vars:
-            if discr_var not in dicr_variable_to_dics_equation_dependencies and not is_when_condition(discr_var):
+            if discr_var not in discr_variable_to_discs_equation_dependencies and not is_when_condition(discr_var):
                 print_info("Discrete variable " + discr_var + " is defined as silent.")
                 self.silent_discrete_vars.append(discr_var)
 
 
+    ##
+    # Find all continuous variables that are used in a single equation and mark them as calculated variables
+    # @param self : object pointer
+    # Requires map_var_name_2_addresses to be ready
+    # @return
     def detect_non_const_real_calculated_variables(self):
         if self.disable_generate_calc_vars:
             print_info("Automatic generation of calculated variables is disabled")
@@ -1305,9 +1331,6 @@ class ReaderOMC:
         for f in self.list_func_16dae_c:
             f_num_omc = f.get_num_omc()
             name_var_eval = None
-
-            # for Modelica reinit equations, the evaluated var scan does not always work
-            # a fallback is to look at the variable defined in this case
             if f_num_omc in map_num_eq_vars_defined.keys():
                 if len(map_num_eq_vars_defined[f_num_omc]) > 1:
                     error_exit("   Error: Found an equation (id: " + f_num_omc+") defining multiple variables. This is not supported in Dynawo.")
@@ -1368,6 +1391,11 @@ class ReaderOMC:
         for f in function_to_remove:
             self.list_func_16dae_c.remove(f)
 
+    ##
+    # Find all calculated variables, collect their initial value and their associated equation
+    # @param self : object pointer
+    # Requires map_var_name_2_addresses to be ready
+    # @return
     def find_calculated_variables(self):
         for var in self.list_vars:
             test_param_address(var.get_name())

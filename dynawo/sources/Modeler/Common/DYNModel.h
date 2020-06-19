@@ -204,7 +204,7 @@ class Model {
    *
    * @return @b true at least one silent discrete variables has changed
    */
-  virtual bool silentZChange() const = 0;
+  virtual bool getSilentZChange() const = 0;
 
   /**
    * @brief enable or disable the possibility to break discrete variable propagation loop if only silent z are modified
@@ -212,7 +212,7 @@ class Model {
    *
    * @param enableSilentZ whether to enable or disable silent z
    */
-  virtual void setCollectSilentZ(bool enableSilentZ) = 0;
+  virtual void setEnableSilentZ(bool enableSilentZ) = 0;
 
   /**
    * @brief get the properties of each residual function (algebraic or differential equation)

@@ -140,20 +140,22 @@ class ModelMulti : public Model, private boost::noncopyable {
   void reinitMode();
 
   /**
-   * @brief retrieve if at least one non-silent discrete variables has changed
+   * @brief retrieve if at least one non-silent discrete variable has changed
    *
    *
-   * @return @b true if at least one non-silent discrete variables has changed
+   * @return @b true if at least one non-silent discrete variable has changed
    */
   bool zChange() const;
 
   /**
-   * @brief retrieve if at least one silent discrete variables has changed
+   * @brief retrieve if at least one silent discrete variable has changed
    *
    *
-   * @return @b true at least one silent discrete variables has changed
+   * @return @b true at least one silent discrete variable has changed
    */
-  bool silentZChange() const;
+  inline bool getSilentZChange() const {
+    return silentZChange_;
+  }
 
   /**
    * @brief enable or disable the possibility to break discrete variable propagation loop if only silent z are modified
@@ -161,7 +163,7 @@ class ModelMulti : public Model, private boost::noncopyable {
    *
    * @param enableSilentZ whether to enable or disable silent z
    */
-  inline void setCollectSilentZ(bool enableSilentZ) {
+  inline void setEnableSilentZ(bool enableSilentZ) {
     enableSilentZ_ = enableSilentZ;
   }
 
@@ -555,7 +557,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
   bool* zConnectedLocal_;  ///< local buffer to use when accessing discretes variables connection status
-  bool* silentZ_;  ///< local buffer indicating if the corresponding discrete variables is used only in residual equations
+  bool* silentZ_;  ///< local buffer indicating if the corresponding discrete variable is used only in residual equations
   bool enableSilentZ_;  ///< enable or disable the use of silentZ in the discrete variable propagation loop
 };  ///< Class for Multiple-Model
 
