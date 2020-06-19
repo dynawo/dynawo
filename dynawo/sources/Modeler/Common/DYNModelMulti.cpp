@@ -366,11 +366,6 @@ ModelMulti::zChange() const {
   return zChange_;
 }
 
-bool
-ModelMulti::silentZChange() const {
-  return silentZChange_;
-}
-
 void
 ModelMulti::copyContinuousVariables(double* y, double* yp) {
   std::copy(y, y + sizeY() , yLocal_);
@@ -491,11 +486,12 @@ ModelMulti::propagateZModif() {
   silentZChange_ = false;
   for (int i = 0; i < sizeZ(); ++i) {
     bool isSilent = silentZ_[i];
-    if ((!isSilent || (!silentZChange_ && isSilent)) && doubleNotEquals(zLocal_[i], zSave_[i])) {
-      if (!isSilent)
-        indicesDiff.push_back(i);
-      else
-        silentZChange_ = true;
+    if (isSilent && silentZChange_) {
+      continue;
+    } else if (isSilent) {
+      silentZChange_ =  doubleNotEquals(zLocal_[i], zSave_[i]);
+    } else if (doubleNotEquals(zLocal_[i], zSave_[i])) {
+      indicesDiff.push_back(i);
     }
   }
 
