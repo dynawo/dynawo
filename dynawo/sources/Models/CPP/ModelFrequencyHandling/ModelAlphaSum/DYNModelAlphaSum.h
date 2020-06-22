@@ -126,7 +126,14 @@ class ModelAlphaSum : public ModelCPP::Impl {
    *
    * @param t Simulation instant
    */
+
   void evalZ(const double & t);
+  /**
+   * @brief set the silent flag for discrete variables
+   * @param silentZTable flag table
+   */
+
+  void collectSilentZ(bool* silentZTable);
   /**
    * @brief Model mode change type evaluation
    *
@@ -135,6 +142,7 @@ class ModelAlphaSum : public ModelCPP::Impl {
    * @param[in] t Simulation instant
    * @return mode change type value
    */
+
   modeChangeType_t evalMode(const double &t);
   /**
    * @brief AlphaSum transposed jacobian evaluation
