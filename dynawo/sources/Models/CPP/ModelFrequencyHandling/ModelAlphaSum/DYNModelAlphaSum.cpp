@@ -215,6 +215,11 @@ ModelAlphaSum::evalZ(const double& /*t*/) {
   }
 }
 
+void
+ModelAlphaSum::collectSilentZ(bool* silentZTable) {
+  std::fill_n(silentZTable, sizeZ_, true);
+}
+
 modeChangeType_t
 ModelAlphaSum::evalMode(const double& /*t*/) {
   // mode change = number of subNetwork change
