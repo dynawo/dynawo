@@ -496,6 +496,11 @@ class Simulation {
    */
   void addEvent(const MessageTimeline& messageTimeline);
 
+  /**
+   * @brief dump the 10 highest derivatives values in the global log
+   */
+  void printHighestDerivativesValues();
+
  public:
   boost::shared_ptr<SimulationContext> context_;  ///< simulation context : configuration of the simulation
   boost::shared_ptr<job::JobEntry> jobEntry_;  ///< jobs data description

@@ -97,7 +97,7 @@ void SolverCommon::propagateMatrixStructureChangeToKINSOL(const SparseMatrix& sm
 }
 
 void
-SolverCommon::printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shared_ptr<Model>& model,
+SolverCommon::printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, const boost::shared_ptr<Model>& model,
                    int nbErr) {
   std::sort(fErr.begin(), fErr.end(), mapcompabs());
 
@@ -105,7 +105,7 @@ SolverCommon::printLargestErrors(std::vector<std::pair<double, int> >& fErr, con
     std::string subModelName("");
     int subModelIndexF = 0;
     std::string fEquation("");
-    std::pair<double, int> currentErr = fErr[i];
+    std::pair<double, size_t> currentErr = fErr[i];
     model->getFInfos(currentErr.second, subModelName, subModelIndexF, fEquation);
 
     Trace::debug() << DYNLog(KinErrorValue, currentErr.second, currentErr.first,

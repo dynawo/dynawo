@@ -68,7 +68,7 @@ static void propagateMatrixStructureChangeToKINSOL(const SparseMatrix& smj, SUNM
  * @param model model currently simulated
  * @param nbErrors maximum number of errors to be displayed
  */
-static void printLargestErrors(std::vector<std::pair<double, int> >& fErr, const boost::shared_ptr<Model>& model, int nbErrors);
+static void printLargestErrors(std::vector<std::pair<double, size_t> >& fErr, const boost::shared_ptr<Model>& model, int nbErrors);
 
 /**
  * @brief Compute the weighted infinity norm of a vector
@@ -115,21 +115,6 @@ static double weightedInfinityNorm(const std::vector<double>& vec, const std::ve
  *
  */
 static double weightedL2Norm(const std::vector<double>& vec, const std::vector<int>& vec_index, const std::vector<double>& weights);
-
-/**
- * @brief structure use for sorting pairs in a vector
- */
-struct mapcompabs {
-  /**
-   * @brief compare two pairs
-   * @param p1 first pair to compare
-   * @param p2 second pair to compare
-   * @return @b true is the first pair double argument's absolute value is greater that the second one's
-   */
-  bool operator()(const std::pair<double, int>& p1, const std::pair<double, int>& p2) const {
-    return fabs(p1.first) > fabs(p2.first);
-  }
-};
 };
 
 }  // end of namespace DYN

@@ -153,6 +153,21 @@ namespace DYN {
   static inline bool toNativeBool(const double& dynawoBool) {
     return dynawoBool >  0.0;
   }
+
+  /**
+   * @brief structure use for sorting pairs in a vector
+   */
+struct mapcompabs {
+  /**
+   * @brief compare two pairs
+   * @param p1 first pair to compare
+   * @param p2 second pair to compare
+   * @return @b true is the first pair double argument's absolute value is greater that the second one's
+   */
+  bool operator()(const std::pair<double, size_t>& p1, const std::pair<double, size_t>& p2) const {
+    return fabs(p1.first) > fabs(p2.first);
+  }
+};
 }  // namespace DYN
 
 #endif  // COMMON_DYNCOMMON_H_
