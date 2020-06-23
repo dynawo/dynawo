@@ -134,9 +134,9 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
 
   const int nbErr = 10;
   Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
-  vector<std::pair<double, int> > fErr;
-  for (unsigned int i = 0; i < solv->nbF_; ++i)
-    fErr.push_back(std::pair<double, int>(solv->F_[i], i));
+  vector<std::pair<double, size_t> > fErr;
+  for (size_t i = 0; i < solv->nbF_; ++i)
+    fErr.push_back(std::pair<double, size_t>(solv->F_[i], i));
   SolverCommon::printLargestErrors(fErr, mod, nbErr);
 #endif
 

@@ -663,7 +663,7 @@ SolverIDA::solveStep(double tAim, double &tNxt) {
       yErr.push_back(std::pair<double, int>(errors[i], i));
     }
   }
-  std::sort(yErr.begin(), yErr.end(), SolverCommon::mapcompabs());
+  std::sort(yErr.begin(), yErr.end(), mapcompabs());
 
   Trace::debug() << DYNLog(SolverIDALargestErrors, nbErr) << Trace::endline;
   vector<std::pair<double, int> >::iterator it;

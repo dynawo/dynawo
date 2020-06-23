@@ -827,6 +827,8 @@ Simulation::simulate() {
 
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
+      if (currentIterNb == 0)
+        printHighestDerivativesValues();
 
       BitMask solverState = solver_->getState();
       bool modifZ = false;
@@ -836,6 +838,7 @@ Simulation::simulate() {
         solver_->reinit();
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
+        printHighestDerivativesValues();
       } else if (solverState.getFlags(ZChange) || solverState.getFlags(SilentZChange)) {
         updateCurves(true);
         model_->getCurrentZ(zCurrent_);
@@ -955,6 +958,24 @@ void
 Simulation::addEvent(const MessageTimeline& messageTimeline) {
   const string name = "Simulation";
   timeline_->addEvent(getCurrentTime(), name, messageTimeline.str(), messageTimeline.priority());
+}
+
+void
+Simulation::printHighestDerivativesValues() {
+  if (Trace::logExists("", DEBUG)) return;
+  const vector<double>& deriv = solver_->getCurrentYP();
+  vector<std::pair<double, size_t> > derivValues;
+  for (size_t i = 0, iEnd = deriv.size(); i < iEnd; ++i)
+    derivValues.push_back(std::make_pair(deriv[i], i));
+
+  std::sort(derivValues.begin(), derivValues.end(), mapcompabs());
+
+  const unsigned nbDeriv = std::min(10, model_->sizeY());
+  Trace::debug() << DYNLog(SolverLargestDeriv, nbDeriv) << Trace::endline;
+  for (size_t i = 0; i < nbDeriv; ++i) {
+    Trace::debug() << DYNLog(SolverLargestDerivValue, derivValues[i].second, derivValues[i].first,
+                             model_->getVariableName(derivValues[i].second)) << Trace::endline;
+  }
 }
 
 void
