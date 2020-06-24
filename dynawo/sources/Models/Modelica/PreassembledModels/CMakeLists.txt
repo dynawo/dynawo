@@ -21,7 +21,8 @@ set(MODELICA_PREASSEMBLED_MODELS
     GeneratorFictitious.xml
     GeneratorPQ.xml
     GeneratorPV.xml
-    GeneratorPVAlphaSum.xml
+    GeneratorPVSignalN.xml
+    GeneratorPVPropSignalN.xml
     GeneratorSynchronousFourWindings.xml
     GeneratorSynchronousThreeWindings.xml
     GeneratorSynchronousFourWindingsProportionalRegulations.xml
@@ -32,7 +33,9 @@ set(MODELICA_PREASSEMBLED_MODELS
     GridFormingConverterDroopControl.xml
     GridFormingConverterMatchingControl.xml
     GridFormingConverterDispatchableVirtualOscillatorControl.xml
-    HVDCStandard.xml
+    HvdcPVEmulation.xml
+    HvdcPTanPhi.xml
+    HvdcVSC.xml
     InfiniteBus.xml
     InjectorBG.xml
     Line.xml
@@ -47,8 +50,6 @@ set(MODELICA_PREASSEMBLED_MODELS
     PhaseShifterI.xml
     PhaseShifterP.xml
     SetPoint.xml
-    SimplifiedHVDCACEmulation.xml
-    SimplifiedLCC.xml
     StaticVarCompensator.xml
     Step.xml
     TapChangerAutomaton.xml

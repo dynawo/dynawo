@@ -1,0 +1,208 @@
+%% Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, You can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+%% This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+%% simulation tool for power systems.
+\documentclass[a4paper, 12pt]{report}
+
+\input{../../../../documentation/latex_setup.tex}
+\pgfkeys{
+/pgf/number format/read comma as period
+}
+
+\begin{document}
+\chapter*{Illustrative examples for the steady state simulator}
+
+This document presents the results of several simple test cases to illustrate the possibilities of the steady state simulator.
+
+\section*{Phase Shifters in parallel (PhaseShifters)}
+
+The following system is simulated. It is made of a generator (GeneratorPVSignalN), two phase shifter transformers, a transformer, five lines and a PQ load (LoadPQ).\\
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{PhaseShifters/PhaseShifters}
+  \end{center}
+  \caption{Illustration of the studied system}
+\end{figure}
+
+The line is disconnected at t = 30s.\\
+Two simulations are done :
+\begin{itemize}
+\item the two phase shifters have the following time constants t1st = 40s/tNext = 20s;
+\item one phase shifter have the following time constants t1st = 20s/tNext = 10s, the other one t1st = 40s/tNext = 20s.
+\end{itemize}
+
+The currents in both phase shifters are compared in both cases. One can observe that depending on the time constants of the phase shifter, the steady state after the event is different.\\
+\\
+This cannot be captured by a fully static simulator, in which all the phase shifters are activated at the same time with an external loop.
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmin = 0, ymin = 0.24, ymax = 0.34, height = 2.3in, legend pos=north east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_6_phaseShifter_iMonitored]
+        {PhaseShifters/curves2010.csv};
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_6_phaseShifter_iMonitored]
+        {PhaseShifters/curves4020.csv};
+        \legend{20/10, 40/20}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Current in the first phase shifter [p.u]}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmin = 0, ymin = 0.24, ymax = 0.34, height = 2.3in, legend pos=north east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_7_phaseShifter_iMonitored]
+        {PhaseShifters/curves2010.csv};
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_7_phaseShifter_iMonitored]
+        {PhaseShifters/curves4020.csv};
+        \legend{20/10, 40/20}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Current in the second phase shifter [p.u]}
+\end{figure}
+
+\section*{Simplified HVDC link with AC emulation and phase shifter (HVDC\_PhaseShifter)}
+
+The following system is simulated. It is made of a generator (GeneratorPVSignalN), a phase shifter transformer, four lines, two transformers, a simplified HVDC link with an AC emulation (SimplifiedHVDCACEmulation) and a PQ load (LoadPQ).\\
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{HVDC_PhaseShifter/HVDC_PhaseShifter}
+  \end{center}
+  \caption{Illustration of the studied system}
+\end{figure}
+
+The line is disconnected at t = 30s.\\
+Two simulations are done :
+\begin{itemize}
+\item the time constant of the HVDC link is equal to 50s;
+\item the time constant of the HVDC link is equal to 1s.
+\end{itemize}
+
+One can observe that, in the case where the HVDC link time constant is equal to 50s, its power increases too slowly. As a consequence, the power in the phase shifter is too high for a too long time, which induces a tap change that doesn't happen when the time constant is equal to 1s.\\
+\\
+This cannot be captured by a fully static simulator, in which the HVDC link has no dynamics (which is equivalent to tFilter=0s).
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmax = 120, height = 3in, legend pos=north east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_6_phaseShifter_PMonitored]
+        {HVDC_PhaseShifter/curves1.csv};
+
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_6_phaseShifter_PMonitored]
+        {HVDC_PhaseShifter/curves50.csv};
+
+        \legend{tFilter = 1s, tFilter = 50s}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Active power in the phase shifter [p.u]}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmax = 120, height = 3in, legend pos=north east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=HVDC_hvdc_P1Pu]
+        {HVDC_PhaseShifter/curves1.csv};
+
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=HVDC_hvdc_P1Pu]
+        {HVDC_PhaseShifter/curves50.csv};
+
+        \legend{tFilter = 1s, tFilter = 50s}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Active power in the HVDC link [p.u]}
+\end{figure}
+
+\section*{Simplified HVDC link with AC emulation and CLA (HVDC\_CLA)}
+
+The following system is simulated. It is made of a generator (GeneratorPVSignalN), four lines (one is monitored by a current limiter automaton), two transformers, a simplified HVDC link with an AC emulation (SimplifiedHVDCACEmulation) and a PQ load (LoadPQ).\\
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{HVDC_CLA/HVDC_CLA}
+  \end{center}
+  \caption{Illustration of the studied system}
+\end{figure}
+
+The line is disconnected at t = 30s.\\
+Two simulations are done :
+\begin{itemize}
+\item the time constant of the HVDC link is equal to 60s;
+\item the time constant of the HVDC link is equal to 30s.
+\end{itemize}
+
+One can observe that, in the case where the HVDC link time constant is equal to 60s, its power increases too slowly. As a consequence, the current in the line that is monitored by the CLA is too high for a too long time, which induces a line disconnection that doesn't happen when the time constant is equal to 30s.\\
+\\
+This cannot be captured by a fully static simulator, in which the HVDC link has no dynamics (which is equivalent to tFilter=0s).
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmax = 120, height = 3in, legend pos=south east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=HVDC_hvdc_P1Pu]
+        {HVDC_CLA/curves30.csv};
+
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=HVDC_hvdc_P1Pu]
+        {HVDC_CLA/curves60.csv};
+
+        \legend{tFilter = 30s, tFilter = 60s}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Active power in the HVDC link [p.u]}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmax = 120, height = 3in, legend pos=south east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=NETWORK__BUS____7-BUS___10-2_AC_iSide2]
+        {HVDC_CLA/curves30.csv};
+
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=NETWORK__BUS____7-BUS___10-2_AC_iSide2]
+        {HVDC_CLA/curves60.csv};
+
+        \legend{tFilter = 30s, tFilter = 60s}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Current in the remaining AC line [A]}
+\end{figure}
+
+\section*{Load restoration (LoadRestoration)}
+
+The following system is simulated. It is made of a generator (GeneratorPVSignalN), two transformers, three lines and a restorative alpha beta load (LoadAlphaBetaRestorative).\\
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{LoadRestoration/LoadRestoration}
+  \end{center}
+  \caption{Illustration of the studied system}
+\end{figure}
+
+The line is disconnected at t = 30s.\\
+Two simulations are done :
+\begin{itemize}
+\item the load restoration is complete (UMinPu = 0);
+\item the load restoration is not complete (the voltage goes below UMinPu = 0.95 p.u, which decreases the load active power following an alpha-beta behaviour).
+\end{itemize}
+
+One can notice that when the restoration is complete, the simulation fails, as would a purely static simulation (power flow).
+
+When the restoration is not complete, the active power of the load is below the maximum transferrable power. As a consequence, the simulation succeeds.
+
+\end{document}
