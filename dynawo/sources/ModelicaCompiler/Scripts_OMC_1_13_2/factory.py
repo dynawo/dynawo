@@ -2996,7 +2996,6 @@ class Factory:
     def compute_recursive_calc_vars_num_deps(self):
         recursive_calc_vars_num_deps = {}
         map_dep = self.reader.get_map_dep_vars_for_func()
-        index = 0
         for var in self.reader.list_calculated_vars:
             if var in self.reader.list_complex_calculated_vars:
                 var_name = var.get_name()
@@ -3010,7 +3009,6 @@ class Factory:
                             if dependency_index not in list_of_indexes:
                                 list_of_indexes.append(dependency_index)
                 recursive_calc_vars_num_deps[var_name] = len(list_of_indexes)
-            index+=1
         return recursive_calc_vars_num_deps
 
     ##
