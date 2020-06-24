@@ -15,5 +15,5 @@ within Dynawo.Examples.HVDC;
 package BaseModel "Base HVDC Model used for the test case"
   extends Icons.Package;
   annotation(
-    Documentation(info = "<html><head></head><body>This model is the same as the HVDC standard model but without the blocking function.</body></html>"));
+    Documentation(info = "<html><head></head><body>This model is the same as the HVDC VSC model but without the blocking function.</body></html>"));
 end BaseModel;

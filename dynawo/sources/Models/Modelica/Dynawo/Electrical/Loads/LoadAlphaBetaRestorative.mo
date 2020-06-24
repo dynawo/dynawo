@@ -12,7 +12,7 @@ within Dynawo.Electrical.Loads;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model LoadAlphaBetaRestorative "Generic model of a restorative alpha-beta load."
+model LoadAlphaBetaRestorative "Generic model of a restorative Alpha-Beta load."
   extends BaseClasses.BaseLoad;
   extends AdditionalIcons.Load;
 
@@ -20,12 +20,12 @@ model LoadAlphaBetaRestorative "Generic model of a restorative alpha-beta load."
     parameter Types.Time tFilter "Time constant of the load restoration";
     parameter Types.VoltageModulePu UMinPu "Minimum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration";
     parameter Types.VoltageModulePu UMaxPu "Maximum value of the voltage amplitude at terminal in p.u (base UNom) that ensures the P/Q restoration";
-    parameter Real alpha = 2 "Active load sensitivity to voltage";
-    parameter Real beta = 2 "Reactive load sensitivity to voltage";
+    parameter Real Alpha "Active load sensitivity to voltage";
+    parameter Real Beta  "Reactive load sensitivity to voltage";
 
     // in order to change the load set-point, connect an event to PRefPu or QRefPu
-    Connectors.ZPin PRefPu (value (start = s0Pu.re)) "Active power request";
-    Connectors.ZPin QRefPu (value (start = s0Pu.im)) "Reactive power request";
+    Connectors.ZPin PRefPu (value (start = s0Pu.re)) "Active power request in p.u (base SnRef)";
+    Connectors.ZPin QRefPu (value (start = s0Pu.im)) "Reactive power request in p.u (base SnRef)";
 
   protected
     Types.VoltageModulePu UFilteredRawPu (start = ComplexMath.'abs' (u0Pu)) "Filtered voltage amplitude at terminal in p.u (base UNom)";
@@ -35,8 +35,8 @@ model LoadAlphaBetaRestorative "Generic model of a restorative alpha-beta load."
     if (running.value) then
       tFilter * der(UFilteredRawPu) = ComplexMath.'abs' (terminal.V) - UFilteredRawPu;
       UFilteredPu = if UFilteredRawPu >= UMaxPu then UMaxPu elseif UFilteredRawPu <= UMinPu then UMinPu else UFilteredRawPu;
-      PPu = PRefPu.value * ((ComplexMath.'abs' (terminal.V) / UFilteredPu) ^ alpha);
-      QPu = QRefPu.value * ((ComplexMath.'abs' (terminal.V) / UFilteredPu) ^ beta);
+      PPu = PRefPu.value * ((ComplexMath.'abs' (terminal.V) / UFilteredPu) ^ Alpha);
+      QPu = QRefPu.value * ((ComplexMath.'abs' (terminal.V) / UFilteredPu) ^ Beta);
     else
       UFilteredRawPu = 0;
       UFilteredPu = 0;
@@ -44,5 +44,5 @@ model LoadAlphaBetaRestorative "Generic model of a restorative alpha-beta load."
     end if;
 
 annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body>  After an event, the load goes back to its initial PPu/QPu unless the voltage at its terminal is lower than UMinPu or higher than UMaxPu. In this case, the load behaves as a classical alpha-beta load.<div>This load restoration emulates the behaviour of a tap changer transformer that connects the load to the system and regulates the voltage at its terminal.</div></body></html>"));
+    Documentation(info = "<html><head></head><body>  After an event, the load goes back to its initial PPu/QPu unless the voltage at its terminal is lower than UMinPu or higher than UMaxPu. In this case, the load behaves as a classical Alpha-Beta load.<div>This load restoration emulates the behaviour of a tap changer transformer that connects the load to the system and regulates the voltage at its terminal.</div></body></html>"));
 end LoadAlphaBetaRestorative;

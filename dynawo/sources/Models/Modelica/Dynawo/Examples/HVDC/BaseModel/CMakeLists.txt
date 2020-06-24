@@ -11,7 +11,7 @@
 
 set(MODEL_FILES
     package.mo
-    HVDCStandardNoBlockingFunction.mo
+    HvdcVSCNoBlockingFunction.mo
     )
 
 #

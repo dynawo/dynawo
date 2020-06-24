@@ -8,12 +8,14 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(SimplifiedLCC L)
-add_subdirectory(SimplifiedHVDCACEmulation A)
-add_subdirectory(Standard S)
+add_subdirectory(BaseControls B)
+add_subdirectory(HvdcPTanPhi T)
+add_subdirectory(HvdcPV P)
+add_subdirectory(HvdcVSC V)
 
 set(MODEL_FILES
     package.mo
+    BaseClasses_INIT.mo
     )
 
 #

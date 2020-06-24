@@ -10,6 +10,8 @@
 
 # Machines models
 
+add_subdirectory(SignalN N)
+
 set(MODEL_FILES
     package.mo
     BaseClasses.mo
@@ -23,9 +25,6 @@ set(MODEL_FILES
     GeneratorPV.mo
     GeneratorPV.extvar
     GeneratorPV_INIT.mo
-    GeneratorPVAlphaSum.mo
-    GeneratorPVAlphaSum.extvar
-    GeneratorPVAlphaSum_INIT.mo
     GeneratorSynchronous.mo
     GeneratorSynchronous.extvar
     GeneratorSynchronousInt_INIT.mo
