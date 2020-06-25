@@ -13,6 +13,7 @@ within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 */
 
 model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
+  extends AdditionalIcons.Line;
 
 /*
   Equivalent circuit and conventions:
@@ -26,26 +27,21 @@ model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
+  Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im)));
+  Connectors.ZPin P1RefPu (value (start = s10Pu.re)) "Active power regulation set point in p.u (base SnRef) at terminal 1";
+  Connectors.ZPin tanPhi1Ref (value (start = s10Pu.im/s10Pu.re)) "tan(Phi) regulation set point at terminal 1";
+  Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im)));
+  Connectors.ZPin tanPhi2Ref (value (start = s20Pu.im/s20Pu.re)) "tan(Phi) regulation set point at terminal 2";
+
   extends SwitchOff.SwitchOffDCLine;
-  extends AdditionalIcons.Line;
 
   parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1";
   parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1";
   parameter Types.ReactivePowerPu Q2MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 2";
   parameter Types.ReactivePowerPu Q2MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 2";
-
   parameter Real KLosses "Coefficient between 0 and 1 (no loss) modelling the losses in the HVDC";
 
-  public
-
-  Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im)));
-  Connectors.ZPin P1RefPu (value (start = s10Pu.re)) "Active power regulation set point in p.u (base SnRef) at terminal 1";
-  Connectors.ZPin tanPhi1Ref (value (start = s10Pu.im/s10Pu.re)) "tan(Phi) regulation set point at terminal 1";
-
-  Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im)));
-  Connectors.ZPin tanPhi2Ref (value (start = s20Pu.im/s20Pu.re)) "tan(Phi) regulation set point at terminal 2";
-
-  protected
+protected
 
   parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
   parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
@@ -98,23 +94,23 @@ if (running.value) then
 
 else
 
-    U1Pu = 0;
-    s1Pu.re = 0;
-    s1Pu.im = 0;
-    P1Pu = 0;
-    Q1Pu = 0;
-    Q1RawPu = 0;
-    terminal1.i.re = 0;
-    terminal1.i.im = 0;
+  U1Pu = 0;
+  s1Pu.re = 0;
+  s1Pu.im = 0;
+  P1Pu = 0;
+  Q1Pu = 0;
+  Q1RawPu = 0;
+  terminal1.i.re = 0;
+  terminal1.i.im = 0;
 
-    U2Pu = 0;
-    s2Pu.re = 0;
-    s2Pu.im = 0;
-    P2Pu = 0;
-    Q2Pu = 0;
-    Q2RawPu = 0;
-    terminal2.i.re = 0;
-    terminal2.i.im = 0;
+  U2Pu = 0;
+  s2Pu.re = 0;
+  s2Pu.im = 0;
+  P2Pu = 0;
+  Q2Pu = 0;
+  Q2RawPu = 0;
+  terminal2.i.re = 0;
+  terminal2.i.im = 0;
 
 end if;
 
