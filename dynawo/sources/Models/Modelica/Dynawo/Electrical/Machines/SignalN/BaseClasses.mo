@@ -28,6 +28,10 @@ package BaseClasses
 
   public
 
+    parameter Types.ActivePowerPu PMinPu "Minimum active power in p.u (base SnRef)";
+    parameter Types.ActivePowerPu PMaxPu "Maximum active power in p.u (base SnRef)";
+    parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
+    parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
     parameter Types.PerUnit KGover "Mechanical power sensitivity to frequency";
     parameter Types.ActivePower PNom "Nominal power in MW";
     final parameter Real Alpha = PNom * KGover "Participation of the considered generator in the frequency regulation";
@@ -38,11 +42,6 @@ package BaseClasses
     Connectors.ZPin URefPu (value(start = U0Pu)) "Voltage regulation set point in p.u (base UNom)";
 
   protected
-
-    parameter Types.ActivePowerPu PMinPu "Minimum active power in p.u (base SnRef)";
-    parameter Types.ActivePowerPu PMaxPu "Maximum active power in p.u (base SnRef)";
-    parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
-    parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
 
     Types.ActivePowerPu PGenRawPu (start = PGen0Pu) "Active power generation without taking limits into account in p.u (base SnRef) (generator convention)";
     QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
