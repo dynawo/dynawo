@@ -13,11 +13,9 @@ within Dynawo.Electrical.Machines.SignalN;
 */
 
 package BaseClasses
-
   extends Icons.BasesPackage;
-  // Base dynamic model for generators based on SignalN for the frequency handling
 
-  partial model BaseGeneratorSignalN
+  partial model BaseGeneratorSignalN "Base dynamic model for generators based on SignalN for the frequency handling"
 
   import Dynawo.Electrical.Machines;
 
@@ -69,6 +67,7 @@ package BaseClasses
       alpha.value = 0;
     end if;
 
+annotation(preferredView = "text");
   end BaseGeneratorSignalN;
 
   annotation(preferredView = "text");

@@ -13,6 +13,7 @@ within Dynawo.Electrical.HVDC.HvdcPV;
 */
 
 model HvdcPV "Model of PV HVDC link"
+  extends AdditionalIcons.Line;
 
 /*
   Equivalent circuit and conventions:
@@ -26,15 +27,12 @@ model HvdcPV "Model of PV HVDC link"
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
-  extends SwitchOff.SwitchOffLine;
-  extends AdditionalIcons.Line;
-
-  public
-
   Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im)));
   Connectors.ZPin U1RefPu (value (start = ComplexMath.'abs'(u10Pu))) "Voltage regulation set point in p.u (base UNom) at terminal 1";
   Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im)));
   Connectors.ZPin U2RefPu (value (start = ComplexMath.'abs'(u20Pu))) "Voltage regulation set point in p.u (base UNom) at terminal 2";
+
+  extends SwitchOff.SwitchOffLine;
 
   parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1";
   parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1";
@@ -46,7 +44,7 @@ model HvdcPV "Model of PV HVDC link"
   output Types.Angle Theta1(start = UPhase10) "Angle of the voltage at terminal 1 in rad";
   output Types.Angle Theta2(start = UPhase20) "Angle of the voltage at terminal 2 in rad";
 
-  protected
+protected
 
   parameter Types.ComplexVoltagePu u10Pu  "Start value of complex voltage at terminal 1 in p.u (base UNom)";
   parameter Types.ComplexCurrentPu i10Pu  "Start value of complex current at terminal 1 in p.u (base UNom, SnRef) (receptor convention)";
@@ -99,23 +97,23 @@ if (running.value) then
 
 else
 
-    U1Pu = 0;
-    s1Pu.re = 0;
-    s1Pu.im = 0;
-    P1Pu = 0;
-    Q1Pu = 0;
-    Theta1 = 0;
-    terminal1.i.re = 0;
-    terminal1.i.im = 0;
+  U1Pu = 0;
+  s1Pu.re = 0;
+  s1Pu.im = 0;
+  P1Pu = 0;
+  Q1Pu = 0;
+  Theta1 = 0;
+  terminal1.i.re = 0;
+  terminal1.i.im = 0;
 
-    U2Pu = 0;
-    s2Pu.re = 0;
-    s2Pu.im = 0;
-    P2Pu = 0;
-    Q2Pu = 0;
-    Theta2 = 0;
-    terminal2.i.re = 0;
-    terminal2.i.im = 0;
+  U2Pu = 0;
+  s2Pu.re = 0;
+  s2Pu.im = 0;
+  P2Pu = 0;
+  Q2Pu = 0;
+  Theta2 = 0;
+  terminal2.i.re = 0;
+  terminal2.i.im = 0;
 
 end if;
 
