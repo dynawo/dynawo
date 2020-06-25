@@ -24,7 +24,7 @@ forbiddenReturnCodeType = "FORBIDDEN"
 
 case_name = "IEEE14_DisconnectLine"
 case_description = "IEEE 14 test case with a line disconnection"
-job_file = os.path.join(os.path.dirname(__file__), "IEEE14", "IEEE14_BasicTestCases", "IEEE14_DisconnectLine", "IEEE14.jobs")
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "SteadyStateSimulator", "IEEE14", "IEEE14_BasicTestCases", "IEEE14_DisconnectLine", "IEEE14.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -34,7 +34,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 
 case_name = "HVDC_CLA"
 case_description = "Small System with an HVDC link and a CLA"
-job_file = os.path.join(os.path.dirname(__file__), "IllustrativeExamples", "HVDC_CLA", "HVDC_CLA.jobs")
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "SteadyStateSimulator", "IllustrativeExamples", "HVDC_CLA", "HVDC_CLA.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -44,7 +44,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 
 case_name = "HVDC_PhaseShifter"
 case_description = "Small System with an HVDC link and a Phase Shifter"
-job_file = os.path.join(os.path.dirname(__file__), "IllustrativeExamples", "HVDC_PhaseShifter", "HVDC_PhaseShifter.jobs")
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "SteadyStateSimulator", "IllustrativeExamples", "HVDC_PhaseShifter", "HVDC_PhaseShifter.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -54,7 +54,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 
 case_name = "LoadRestoration"
 case_description = "Small System with a Load Restoration"
-job_file = os.path.join(os.path.dirname(__file__), "IllustrativeExamples", "LoadRestoration", "LoadRestoration.jobs")
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "SteadyStateSimulator", "IllustrativeExamples", "LoadRestoration", "LoadRestoration.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
@@ -64,6 +64,6 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 
 case_name = "PhaseShifters"
 case_description = "Small System with two Phase Shifters"
-job_file = os.path.join(os.path.dirname(__file__), "IllustrativeExamples", "PhaseShifters", "PhaseShifters.jobs")
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "SteadyStateSimulator", "IllustrativeExamples", "PhaseShifters", "PhaseShifters.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
