@@ -26,14 +26,13 @@ model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
   import Modelica;
   import Dynawo.Connectors;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  extends SwitchOff.SwitchOffDCLine;
 
   Connectors.ACPower terminal1 (V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im)));
+  Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im)));
   Connectors.ZPin P1RefPu (value (start = s10Pu.re)) "Active power regulation set point in p.u (base SnRef) at terminal 1";
   Connectors.ZPin tanPhi1Ref (value (start = s10Pu.im/s10Pu.re)) "tan(Phi) regulation set point at terminal 1";
-  Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im)));
   Connectors.ZPin tanPhi2Ref (value (start = s20Pu.im/s20Pu.re)) "tan(Phi) regulation set point at terminal 2";
-
-  extends SwitchOff.SwitchOffDCLine;
 
   parameter Types.ReactivePowerPu Q1MinPu  "Minimum reactive power in p.u (base SnRef) at terminal 1";
   parameter Types.ReactivePowerPu Q1MaxPu  "Maximum reactive power in p.u (base SnRef) at terminal 1";

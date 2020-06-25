@@ -27,5 +27,5 @@ model GeneratorPV "Model for generator PV based on SignalN for the frequency han
     end if;
 
 annotation(preferredView = "text",
-    Documentation(info = "<html><head></head><body> This generator provides an active power PGenPu that depends on its setpoint PGen0Pu and its participation (alpha) in an emulated frequency regulation (DYNModelSignalN model, that calculates the signal N (that is common to all the generators in a connected component and which increases or decreases the generation of each generator) and the total generators participation alphaSum).<div>It regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).<div>This model is used with the frequency handling model DYNModelSignalN and cannot be used with DYNModelOmegaRef as the frequency is not explicitly expressed.</div></body></html>"));
+    Documentation(info = "<html><head></head><body> This generator regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).</div></body></html>"));
 end GeneratorPV;

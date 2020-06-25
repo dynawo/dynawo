@@ -1,4 +1,4 @@
-%% Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+%% Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 %% See AUTHORS.txt
 %% All rights reserved.
 %% This Source Code Form is subject to the terms of the Mozilla Public
@@ -10,7 +10,7 @@
 
 \documentclass[a4paper, 12pt]{report}
 
-\input{../../../../../../documentation/latex_setup.tex}
+\input{../../../../../../nrt/documentation/latex_setup.tex}
 
 \begin{document}
 
@@ -54,26 +54,27 @@ Here are the initial conditions for each generator.
 
 \subsubsection{Synchronous Machines}
 
-The generators are modelled using the GeneratorPVSignalN model. This model is used for the calculation of steady states after an event. All machines participate in the frequency regulation depending on their active power setpoint (although the frequency is not explicitly modelled in this model). All machines regulate the voltage at their stator.
+The generators are modelled using the GeneratorPVSignalN model. This model is used for the calculation of steady states after an event. All machines participate in the frequency regulation depending on their active power setpoint (although the frequency is not explicitly modelled in this model). For each generator, the active power is indeed equal to $P_{Ref} + \frac{Alpha}{alphaSum}N$, with Alpha the participation factor of the generator, $alphaSum$ the sum of all the participation factors of all the generators involved in the frequency regulation, and N a signal that is common to all the generators and that is calculated in the model DYNModelSignalN. \\
+All machines regulate the voltage at their stator.
 
 All parameters can be found in the IEEE14.par file.
 
 \subsubsection{System reference frequency handling}
 
-The model used for frequency handling is DYNModelSignalN. It calculates the power compensation needed to stabilize the system at each time step. This compensation is instantaneous.
+The model used for frequency handling is DYNModelSignalN. It calculates the power compensation N needed to stabilize the system at each time step. This compensation is instantaneous. N is not explicitly calculated but the angle of a selected node in the system is fixed to zero to balance the number of equations/variables. N is then automatically deduced by the solver.
 
 \subsubsection{Loads}
 
-Loads follow an alpha beta dynamic behaviour, with a load restoration when the voltage is between UMinPu and UMaxPU.
+After an event, the load goes back to its initial PPu/QPu with a time constant tFilter (modelled with a first order filter) unless the voltage at its terminal is lower than UMinPu or higher than UMaxPu. In this case, the load behaves as a classical Alpha-Beta load. This model is called LoadAlphaBetaRestorative.
 
-They are directly connected to the grid (no transformer included).
+The loads are directly connected to the grid (no transformer included).
 
 
 \subsection{Scenarios}
 The simulated scenario is a disconnection of line 1-5.
 
 \subsection{Solver}
-The solver used is the simplified solver SIM with hMin = 1 and hMax = 10.
+The solver used is the simplified solver SIM with hMin = 1 and hMax = 10. Because the models are simple, the solver manages to solve the problem with a time step of 10s during all the simulation and never needs to reduce it.
 
 
 \newpage
