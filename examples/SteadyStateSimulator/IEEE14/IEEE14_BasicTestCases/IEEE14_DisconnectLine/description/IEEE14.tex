@@ -54,7 +54,7 @@ Here are the initial conditions for each generator.
 
 \subsubsection{Synchronous Machines}
 
-The generators are modelled using the GeneratorPVSignalN model. This model is used for the calculation of steady states after an event. All machines participate in the frequency regulation depending on their active power setpoint (although the frequency is not explicitly modelled in this model). For each generator, the active power is indeed equal to $P_{Ref} + \frac{Alpha}{alphaSum}N$, with Alpha the participation factor of the generator, $alphaSum$ the sum of all the participation factors of all the generators involved in the frequency regulation, and N a signal that is common to all the generators and that is calculated in the model DYNModelSignalN. \\
+The generators are modelled using the GeneratorPVSignalN model. This model is used for the calculation of steady states after an event. All machines participate in the frequency regulation depending on their nominal active power (although the frequency is not explicitly modelled in this model). For each generator, the active power is indeed equal to $P_{Ref} + \frac{Alpha}{alphaSum}N$, with Alpha the participation factor of the generator, $alphaSum$ the sum of all the participation factors of all the generators involved in the frequency regulation, and N a signal that is common to all the generators and that is calculated in the model DYNModelSignalN. \\
 All machines regulate the voltage at their stator.
 
 All parameters can be found in the IEEE14.par file.
@@ -80,34 +80,21 @@ The solver used is the simplified solver SIM with hMin = 1 and hMax = 10. Becaus
 \newpage
 \section{Results}
 
-For each event, we focus on generator 1 's response.
+We focus on generator 1 's response.
 
-At $t=1s$, the line between buses 1 and 5 is opened at its bus 5 's extremity. 75.6 W and 3.1 Mvar of active and reactive power are initially transiting on this line (from bus 1 to bus 5).\\
-One can observe that the generator active power adapts to compensate the desequilibrium. The dynamics are linked to the load restoration dynamics.
+At $t=10s$, the line between buses 1 and 5 is opened at its bus 5 's extremity. 75.6 W and 3.1 Mvar of active and reactive power are initially transiting on this line (from bus 1 to bus 5).\\
+One can observe that the generators' active power adapts to compensate the desequilibrium. For instance, the following table presents the active and reactive power of generator 1 before and after the event. The same final state is obtained when modelling the synchronous machines using a more detailed model (see the comparison folder to find the input data needed to do the equivalent simulation with more detailed models).
 
-\begin{figure}[H]
-\subfigure[Active power (MW)]
-{%
-  \begin{tikzpicture}
-    \begin{axis}[height = 2in]
-        \addplot[color=blue!50]
-        table[x=time, y=GEN____1_SM_generator_PGenPu]
-        {../reference/outputs/curves/curves.csv};
-    \end{axis}
-  \end{tikzpicture}
-}
-\subfigure[Reactive power (Mvar)]
-{%
-  \begin{tikzpicture}
-    \begin{axis}[height = 2in]
-        \addplot[color=blue!50]
-        table[x=time, y=GEN____1_SM_generator_QGenPu]
-        {../reference/outputs/curves/curves.csv};
-    \end{axis}
-  \end{tikzpicture}
-}
-\caption{Generator 1 response to the disconnection}
-\end{figure}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+  \hline
+  Generator 1 & Before the event & After the event \\
+  \hline
+  P [MW] & 232.6 & 234.5 \\
+  Q [MVAR] & -16.68 & -42.4 \\
+  \hline
+\end{tabular}
+\end{center}
 
 
 \end{document}

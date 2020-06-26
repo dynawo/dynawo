@@ -1,6 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0"?>
 <!--
-    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
     This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,7 +13,7 @@
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:job name="IEEE14 - Disconnect Line">
-    <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="3"/>
+    <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
     <dyn:modeler compileDir="outputs/compilation">
       <dyn:network iidmFile="IEEE14.iidm" parFile="IEEE14.par" parId="8"/>
       <dyn:dynModels dydFile="IEEE14.dyd"/>

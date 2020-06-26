@@ -20,8 +20,8 @@
  * regulation Alpha, which is a coefficient that can be equal to the nominal active power of the generator,
  * its maximum active power, or its active power set point, through the total participation SignalN, which
  * is calculated in this model and is equal to the sum of the Alpha, and through the signal N, which is common
- * to all the generators in the same connected component and that changes the active power reference of the
- * generators to balance the generation and the consumption. This signal N emulates a primary frequency regulation.
+ * to all the generators in the same "synchronous area" and that changes the active power reference of the
+ * generators to balance the generation and the consumption.
  * Moreover, the voltage angle of a chosen bus is fixed here to 0 to balance the number of equations and the number
  * of variables.
  * When using this model, the frequency is not explicitly modeled. As a result, this model cannot be used in the
@@ -130,14 +130,14 @@ ModelSignalN::evalF(double /*t*/, propertyF_t type) {
     firstState_ = false;
   }
 
-  // for each generator k, and the connected component i which contains this generator k:
+  // for each generator k, and the "synchronous area" i which contains this generator k:
   // 0 = n[i] - nGrp[k]
   // the index i is given by numCCNode_[k]
   for (int k = 0; k < nbGen_; ++k) {
     fLocal_[k] = yLocal_[numCCNode_[k]] - yLocal_[col1stNGrp_ + k];
   }
 
-  // for each connected component i, tetaRef[i]=0
+  // for each "synchronous area" i, tetaRef[i]=0
   for (int i = 0; i < nbMaxCC; ++i) {
     fLocal_[nbGen_ + i] = yLocal_[col1stTetaRef_ + i];
   }
@@ -153,7 +153,7 @@ ModelSignalN::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt
   static double dMOne = -1.;
   static double dPOne = +1.;
 
-  // for each generator k, and the connected component i which contains this generator k:
+  // for each generator k, and the "synchronous area" i which contains this generator k:
   // 0 = n[i] - nGrp[k]
   // the index i is given by numCCNode_[k]
   for (int i = 0; i < nbGen_; ++i) {
@@ -162,7 +162,7 @@ ModelSignalN::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt
     jt.addTerm(i + col1stNGrp_ + rowOffset, dMOne);
   }
 
-  // for each connected component i, tetaRef[i]=0
+  // for each "synchronous area" i, tetaRef[i]=0
   for (int i = 0; i < nbMaxCC; ++i) {
     jt.changeCol();
     jt.addTerm(i + col1stTetaRef_ + rowOffset, dPOne);
@@ -171,14 +171,14 @@ ModelSignalN::evalJt(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt
 
 void
 ModelSignalN::evalJtPrim(const double& /*t*/, const double& /*cj*/, SparseMatrix& jt, const int& /*rowOffset*/) {
-  // for each generator k, and the connected component i which contains this generator k:
+  // for each generator k, and the "synchronous area" i which contains this generator k:
   // 0 = n[i] - nGrp[k]
   // the index i is given by numCCNode_[k]
   for (int i = 0; i < nbGen_; ++i) {
     jt.changeCol();
   }
 
-  // for each connected component i, tetaRef[i]=0
+  // for each "synchronous area" i, tetaRef[i]=0
   for (int i = 0; i < nbMaxCC; ++i) {
     jt.changeCol();
   }
@@ -193,7 +193,7 @@ ModelSignalN::evalZ(const double& /*t*/) {
   std::copy(zLocal_ + nbMaxCC + 2 * nbGen_, zLocal_ + nbMaxCC + 3 * nbGen_, numCCNode_.begin());
   sortGenByCC();
 
-  // I: for each connected component i, for generator k in this cc i:
+  // I: for each "synchronous area" i, for generator k in this cc i:
   // 0 = sum_k (alpha[k]) - alphaSum[i]
   for (int i = 0; i < nbMaxCC; ++i) {
     boost::unordered_map<int, std::vector<int> >::const_iterator iterGen = genByCC_.find(i);
@@ -207,7 +207,7 @@ ModelSignalN::evalZ(const double& /*t*/) {
   }
 
   // II: equation nbMaxCC to nbGen_+ nbMaxCC :
-  // for each generator k, and the connected component i which contains this generator k:
+  // for each generator k, and the "synchronous area" i which contains this generator k:
   // 0 = alphaSum[i] - alphaSumGrp[k]
   // the index i is given by numCCNode_[k]
   for (int k = 0; k < nbGen_; ++k) {
