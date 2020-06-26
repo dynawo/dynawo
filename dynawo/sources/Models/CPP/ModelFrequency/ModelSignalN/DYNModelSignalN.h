@@ -292,19 +292,19 @@ class ModelSignalN : public ModelCPP::Impl {
   void calculateInitialState();
 
  private:
-  static int col1stN_;  ///< offset to find the first row the residual functions about n
-  static int col1stNGrp_;  ///< offset to find the first row the residual functions about n for each generator
-  static int col1stTetaRef_;  ///< offset to find the first row the residual functions about tetaRef
-  static int col1stAlphaSum_;  ///< offset to find the first row the residual functions about alphaSum
-  static int col1stAlpha_;  ///< offset to find the first row the residual functions about alpha
-  static int col1stAlphaSumGrp_;  ///< offset to find the first row the residual functions about alphaSum for each generators
+  static int col1stN_;  ///< offset to find the first row of the residual functions about n
+  static int col1stNGrp_;  ///< offset to find the first row of the residual functions about n for each generator
+  static int col1stTetaRef_;  ///< offset to find the first row of the residual functions about tetaRef
+  static int col1stAlphaSum_;  ///< offset to find the first row of the residual functions about alphaSum
+  static int col1stAlpha_;  ///< offset to find the first row of the residual functions about alpha
+  static int col1stAlphaSumGrp_;  ///< offset to find the first row of the residual functions about alphaSum for each generator
 
   bool firstState_;  ///< @b true if the initial state must be calculated
 
-  std::vector<int> numCCNode_;  ///< index of the network for each generators
+  std::vector<int> numCCNode_;  ///< index of the network for each generator
   std::vector<double> alphaSum0_;  ///< initial values for alphaSum
   boost::unordered_map<int, std::vector<int> > genByCC_;  ///< list of generators for each network
-  std::vector<int> numCCNodeOld_;  ///< save of the index of the network for each generators
+  std::vector<int> numCCNodeOld_;  ///< save of the index of the network for each generator
 
   int nbGen_;  ///< number of generators
   int nbCC_;  ///< number of connected components

@@ -16,6 +16,7 @@ add_subdirectory(HvdcVSC V)
 set(MODEL_FILES
     package.mo
     BaseClasses_INIT.mo
+    BaseClasses.mo
     )
 
 #
