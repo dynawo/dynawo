@@ -484,14 +484,9 @@ bool
 ModelMulti::propagateZModif() {
   vector<int> indicesDiff;
   silentZChange_ = false;
-  for (int i = 0; i < sizeZ(); ++i) {
-    bool isSilent = silentZ_[i];
-    if (isSilent && silentZChange_) {
-      continue;
-    } else if (isSilent) {
-      silentZChange_ =  doubleNotEquals(zLocal_[i], zSave_[i]);
-    } else if (doubleNotEquals(zLocal_[i], zSave_[i])) {
-      indicesDiff.push_back(i);
+  for (int i = 0, iEnd = nonSilentZIndexes_.size(); i < iEnd; ++i) {
+    if (doubleNotEquals(zLocal_[nonSilentZIndexes_[i]], zSave_[nonSilentZIndexes_[i]])) {
+      indicesDiff.push_back(nonSilentZIndexes_[i]);
     }
   }
 
@@ -499,8 +494,14 @@ ModelMulti::propagateZModif() {
   if (changeDetected) {
     connectorContainer_->propagateZDiff(indicesDiff, zLocal_);
     std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
-  } else if (silentZChange_) {
-    std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
+  } else {
+    for (int i = 0, iEnd = silentZIndexes_.size(); i < iEnd; ++i) {
+      if (doubleNotEquals(zLocal_[silentZIndexes_[i]], zSave_[silentZIndexes_[i]])) {
+        silentZChange_ = true;
+        std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
+        return changeDetected;
+      }
+    }
   }
   return changeDetected;
 }
@@ -595,7 +596,7 @@ ModelMulti::getY0(const double& t0, vector<double>& y0, vector<double>& yp0) {
     subModels_[i]->evalCalculatedVariablesSub(t0);
   }
   connectorContainer_->getY0Connector();
-  if (!subModels_.empty() && !subModels_[0]->getIsInitProcess() && enableSilentZ_) {
+  if (!subModels_.empty() && subModels_[0]->getIsInitProcess() && enableSilentZ_) {
     collectSilentZ();
   }
 
@@ -960,6 +961,11 @@ ModelMulti::collectSilentZ() {
   for (int i = 0; i < sizeZ_; ++i) {
     if (zConnectedLocal_[i]) {
       silentZ_[i] = false;
+    }
+    if (silentZ_[i]) {
+      silentZIndexes_.push_back(i);
+    } else {
+      nonSilentZIndexes_.push_back(i);
     }
   }
 }

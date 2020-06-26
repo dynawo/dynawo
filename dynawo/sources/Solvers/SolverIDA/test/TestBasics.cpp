@@ -495,7 +495,7 @@ TEST(SimulationTest, testSolverIDASilentZ) {
   solver->solve(tStop, tCurrent);
   solver->solve(tStop, tCurrent);
   ASSERT_TRUE(solver->getState().getFlags(ZChange));
-  ASSERT_TRUE(solver->getState().getFlags(SilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
 }
 
 TEST(SimulationTest, testSolverIDAInit) {
