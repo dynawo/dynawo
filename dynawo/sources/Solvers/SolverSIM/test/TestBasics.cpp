@@ -879,7 +879,7 @@ TEST(SimulationTest, testSolverSIMSilentZ) {
   // Solve at t = 5 -> z1 and z2 are modified
   solver->solve(tStop, tCurrent);
   ASSERT_TRUE(solver->getState().getFlags(ZChange));
-  ASSERT_TRUE(solver->getState().getFlags(SilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
 }
 
 TEST(ParametersTest, testParameters) {
