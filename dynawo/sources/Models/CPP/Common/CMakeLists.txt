@@ -36,8 +36,9 @@ target_compile_definitions(dynawo_CPPModelsCommon
 target_link_libraries(dynawo_CPPModelsCommon
   PRIVATE
     dynawo_Common
-    dynawo_ModelerCommon
     Boost::serialization
+  PUBLIC
+    dynawo_ModelerCommon
   )
 
 install(TARGETS dynawo_CPPModelsCommon EXPORT dynawo-targets DESTINATION ${LIBDIR_NAME})
