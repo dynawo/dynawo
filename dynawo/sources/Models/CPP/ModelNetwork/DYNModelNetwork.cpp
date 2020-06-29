@@ -585,98 +585,57 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
   // go through all hvdc lines
   vector<shared_ptr<HvdcLineInterface> >::const_iterator iHvdc;
   for (iHvdc = hvdcs.begin(); iHvdc != hvdcs.end(); ++iHvdc) {
-    // search for the two converters associated with the current hvdc line
+    string id = (*iHvdc)->getID();
     string idVsc1 = (*iHvdc)->getIdConverter1();
     string idVsc2 = (*iHvdc)->getIdConverter2();
 
-    map<string, shared_ptr<VscConverterInterface> >::const_iterator iVsc1;
-    map<string, shared_ptr<VscConverterInterface> >::const_iterator iVsc2;
-    map<string, shared_ptr<LccConverterInterface> >::const_iterator iLcc1;
-    map<string, shared_ptr<LccConverterInterface> >::const_iterator iLcc2;
+    // retrieve the two converters associated with the current hvdc line
+    shared_ptr<ConverterInterface> conv1 = (*iHvdc)->getConverter1();
+    shared_ptr<ConverterInterface> conv2 = (*iHvdc)->getConverter2();
 
-    iVsc1 = vscs.find(idVsc1);
-    iVsc2 = vscs.find(idVsc2);
-    iLcc1 = lccs.find(idVsc1);
-    iLcc2 = lccs.find(idVsc2);
-    string id = (*iHvdc)->getID();
-    // if the link is a HVDC-VSC link
-    //----------------------------------
-    if (iVsc1 != vscs.end() && iVsc2 != vscs.end()) {
-      // add the hvdc line in the component list
-      componentsById[ id ] = (*iHvdc);
-      // add the two converters in the component list
-      componentsById[ idVsc1 ] = iVsc1->second;
-      componentsById[ idVsc2 ] = iVsc2->second;
+    // add the hvdc line and convertesr in the component list
+    componentsById[ id ] = (*iHvdc);
+    componentsById[ idVsc1 ] = conv1;
+    componentsById[ idVsc2 ] = conv2;
 
-      shared_ptr<ModelHvdcLink> modelHvdcLinkVsc(new ModelHvdcLink(iVsc1->second, iVsc2->second, (*iHvdc)));
-      modelHvdcLinkVsc->setNetwork(this);
-
-      if (iVsc1->second->getBusInterface()) {
-        shared_ptr<ModelBus> modelBus = modelBusById[iVsc1->second->getBusInterface()->getID()];
-        modelHvdcLinkVsc->setModelBus1(modelBus);
-      }
-      if (iVsc2->second->getBusInterface()) {
-        shared_ptr<ModelBus> modelBus = modelBusById[iVsc2->second->getBusInterface()->getID()];
-        modelHvdcLinkVsc->setModelBus2(modelBus);
-      }
-
-      initComponents_.push_back(modelHvdcLinkVsc);
-
-      // is there a dynamic model?
-      if ((*iHvdc)->hasDynamicModel()) {
-        Trace::debug(Trace::network()) << DYNLog(HvdcExtDynModel, id) << Trace::endline;
-        continue;
-      }
-
-      Trace::debug(Trace::network()) << DYNLog(AddingHvdcToNetwork, id) << Trace::endline;
-      components_.push_back(modelHvdcLinkVsc);
-      // declare reference between subModel and static data
-      data->setReference("p", idVsc1, id, "P1_value");
-      data->setReference("q", idVsc1, id, "Q1_value");
-      data->setReference("state", idVsc1, id, "state1_value");
-      data->setReference("p", idVsc2, id, "P2_value");
-      data->setReference("q", idVsc2, id, "Q2_value");
-      data->setReference("state", idVsc2, id, "state2_value");
-
-    } else if (iLcc1 != lccs.end() && iLcc2 != lccs.end()) {  // if the link is a HVDC-LCC link
-      // add the hvdc line in the component list
-      componentsById[ id ] = (*iHvdc);
-      // add the two converters in the component list
-      componentsById[ idVsc1 ] = iLcc1->second;
-      componentsById[ idVsc2 ] = iLcc2->second;
-
-      shared_ptr<ModelHvdcLink> modelHvdcLinkLcc(new ModelHvdcLink(iLcc1->second, iLcc2->second, (*iHvdc)));
-      modelHvdcLinkLcc->setNetwork(this);
-      if (iLcc1->second->getBusInterface()) {
-        shared_ptr<ModelBus> modelBus = modelBusById[iLcc1->second->getBusInterface()->getID()];
-        modelHvdcLinkLcc->setModelBus1(modelBus);
-      }
-      if (iLcc2->second->getBusInterface()) {
-        shared_ptr<ModelBus> modelBus = modelBusById[iLcc2->second->getBusInterface()->getID()];
-        modelHvdcLinkLcc->setModelBus2(modelBus);
-      }
-
-      initComponents_.push_back(modelHvdcLinkLcc);
-
-      // is there a dynamic model?
-      if ((*iHvdc)->hasDynamicModel()) {
-        Trace::debug(Trace::network()) << DYNLog(HvdcExtDynModel, id) << Trace::endline;
-        continue;
-      }
-
-      Trace::debug(Trace::network()) << DYNLog(AddingHvdcToNetwork, id) << Trace::endline;
-      components_.push_back(modelHvdcLinkLcc);
-      // declare reference between subModel and static data
-      data->setReference("p", idVsc1, id, "P1_value");
-      data->setReference("q", idVsc1, id, "Q1_value");
-      data->setReference("state", idVsc1, id, "state1_value");
-      data->setReference("p", idVsc2, id, "P2_value");
-      data->setReference("q", idVsc2, id, "Q2_value");
-      data->setReference("state", idVsc2, id, "state2_value");
-
-    } else {
-      throw DYNError(Error::MODELER, WrongIIDMDataForHVDC, id);
+    shared_ptr<ModelHvdcLink> modelHvdcLink(new ModelHvdcLink(*iHvdc));
+    modelHvdcLink->setNetwork(this);
+    if (conv1->getBusInterface()) {
+      shared_ptr<ModelBus> modelBus = modelBusById[conv1->getBusInterface()->getID()];
+      modelHvdcLink->setModelBus1(modelBus);
     }
+    if (conv2->getBusInterface()) {
+      shared_ptr<ModelBus> modelBus = modelBusById[conv2->getBusInterface()->getID()];
+      modelHvdcLink->setModelBus2(modelBus);
+    }
+
+    initComponents_.push_back(modelHvdcLink);
+
+    // is there a dynamic model?
+    if ((*iHvdc)->hasDynamicModel()) {
+      Trace::debug(Trace::network()) << DYNLog(HvdcExtDynModel, id) << Trace::endline;
+      continue;
+    }
+    Trace::debug(Trace::network()) << DYNLog(AddingHvdcToNetwork, id) << Trace::endline;
+
+    // add to containers
+    components_.push_back(modelHvdcLink);
+
+    // declare reference between subModel and static data: to be removed later on
+    data->setReference("p", idVsc1, id, "P1_value");
+    data->setReference("q", idVsc1, id, "Q1_value");
+    data->setReference("state", idVsc1, id, "state1_value");
+    data->setReference("p", idVsc2, id, "P2_value");
+    data->setReference("q", idVsc2, id, "Q2_value");
+    data->setReference("state", idVsc2, id, "state2_value");
+
+    // declare reference between subModel and static data
+    data->setReference("p1", id, id, "P1_value");
+    data->setReference("q1", id, id, "Q1_value");
+    data->setReference("state1", id, id, "state1_value");
+    data->setReference("p2", id, id, "P2_value");
+    data->setReference("q2", id, id, "Q2_value");
+    data->setReference("state2", id, id, "state2_value");
   }
 
   if (Trace::logExists(Trace::network(), DEBUG))

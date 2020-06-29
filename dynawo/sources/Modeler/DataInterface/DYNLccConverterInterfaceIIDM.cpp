@@ -159,4 +159,9 @@ LccConverterInterfaceIIDM::getPowerFactor() const {
   return lccConverterIIDM_.powerFactor();
 }
 
+IIDM::LccConverterStation&
+LccConverterInterfaceIIDM::getLccIIDM() const {
+  return lccConverterIIDM_;
+}
+
 }  // namespace DYN

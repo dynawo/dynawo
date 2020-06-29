@@ -31,9 +31,18 @@ using std::vector;
 
 namespace DYN {
 
-HvdcLineInterfaceIIDM::HvdcLineInterfaceIIDM(IIDM::HvdcLine& hvdcLine) :
-hvdcLineIIDM_(hvdcLine) {
+HvdcLineInterfaceIIDM::HvdcLineInterfaceIIDM(IIDM::HvdcLine& hvdcLine, shared_ptr<ConverterInterface>& conv1, shared_ptr<ConverterInterface>& conv2) :
+hvdcLineIIDM_(hvdcLine),
+conv1_(conv1),
+conv2_(conv2) {
   setType(ComponentInterface::HVDC_LINE);
+  stateVariables_.resize(6);
+  stateVariables_[VAR_P1] = StateVariable("p1", StateVariable::DOUBLE);  // P1
+  stateVariables_[VAR_P2] = StateVariable("p2", StateVariable::DOUBLE);  // P2
+  stateVariables_[VAR_Q1] = StateVariable("q1", StateVariable::DOUBLE);  // Q1
+  stateVariables_[VAR_Q2] = StateVariable("q2", StateVariable::DOUBLE);  // Q2
+  stateVariables_[VAR_STATE1] = StateVariable("state1", StateVariable::INT);   // connectionState1
+  stateVariables_[VAR_STATE2] = StateVariable("state2", StateVariable::INT);   // connectionState2
 }
 
 HvdcLineInterfaceIIDM::~HvdcLineInterfaceIIDM() {
@@ -41,12 +50,12 @@ HvdcLineInterfaceIIDM::~HvdcLineInterfaceIIDM() {
 
 void
 HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
-  // no state variable
+  // to do
 }
 
 void
 HvdcLineInterfaceIIDM::importStaticParameters() {
-  // no static parameter
+  // to do
 }
 
 string
@@ -98,8 +107,31 @@ HvdcLineInterfaceIIDM::getIdConverter2() const {
 }
 
 int
-HvdcLineInterfaceIIDM::getComponentVarIndex(const std::string& /*varName*/) const {
-  return -1;
+HvdcLineInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
+  int index = -1;
+  if ( varName == "p1" )
+    index = VAR_P1;
+  else if ( varName == "q1" )
+    index = VAR_Q1;
+  else if ( varName == "p2" )
+    index = VAR_P2;
+  else if ( varName == "q2" )
+    index = VAR_Q2;
+  else if ( varName == "state1" )
+    index = VAR_STATE1;
+  else if ( varName == "state2" )
+    index = VAR_STATE2;
+  return index;
+}
+
+shared_ptr<ConverterInterface>
+HvdcLineInterfaceIIDM::getConverter1() const {
+  return conv1_;
+}
+
+shared_ptr<ConverterInterface>
+HvdcLineInterfaceIIDM::getConverter2() const {
+  return conv2_;
 }
 
 }  // namespace DYN

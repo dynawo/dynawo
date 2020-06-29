@@ -182,4 +182,9 @@ VscConverterInterfaceIIDM::getVoltageSetpoint() const {
   return vscConverterIIDM_.voltageSetpoint();
 }
 
+IIDM::VscConverterStation&
+VscConverterInterfaceIIDM::getVscIIDM() const {
+  return vscConverterIIDM_;
+}
+
 }  // namespace DYN

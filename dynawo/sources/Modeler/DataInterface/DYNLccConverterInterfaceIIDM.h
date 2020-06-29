@@ -134,6 +134,12 @@ class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorI
    */
   int getComponentVarIndex(const std::string& varName) const;
 
+  /**
+   * @brief Getter for the reference to the iidm lcc converter istance
+   * @return the iidm lcc converter istance
+   */
+  IIDM::LccConverterStation& getLccIIDM() const;
+
  private:
   IIDM::LccConverterStation& lccConverterIIDM_;  ///< reference to the iidm lcc converter instance
 };

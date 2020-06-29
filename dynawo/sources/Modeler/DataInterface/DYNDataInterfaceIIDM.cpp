@@ -235,7 +235,7 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   IIDM::Contains<IIDM::HvdcLine>::iterator itHvdcLine = networkIIDM_.hvdclines().begin();
   for (; itHvdcLine != networkIIDM_.hvdclines().end(); ++itHvdcLine) {
-    shared_ptr<HvdcLineInterfaceIIDM> hvdc(new HvdcLineInterfaceIIDM(*itHvdcLine));
+    shared_ptr<HvdcLineInterface> hvdc = importHvdcLine(*itHvdcLine);
     network_->addHvdcLine(hvdc);
     components_[hvdc->getID()] = hvdc;
   }
@@ -873,6 +873,20 @@ DataInterfaceIIDM::importLccConverter(IIDM::LccConverterStation& lccIIDM) {
   return lcc;
 #endif
 }
+
+shared_ptr<HvdcLineInterface>
+DataInterfaceIIDM::importHvdcLine(IIDM::HvdcLine& hvdcLineIIDM) {
+  shared_ptr<ConverterInterface> conv1 = dynamic_pointer_cast<ConverterInterface>(findComponent(hvdcLineIIDM.converterStation1()));
+  shared_ptr<ConverterInterface> conv2 = dynamic_pointer_cast<ConverterInterface>(findComponent(hvdcLineIIDM.converterStation2()));
+
+  shared_ptr<HvdcLineInterfaceIIDM> hvdcLine(new HvdcLineInterfaceIIDM(hvdcLineIIDM, conv1, conv2));
+#ifdef LANG_CXX11
+  return std::move(hvdcLine);
+#else
+  return hvdcLine;
+#endif
+}
+
 
 shared_ptr<NetworkInterface>
 DataInterfaceIIDM::getNetwork() const {

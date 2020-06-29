@@ -144,6 +144,12 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
    */
   int getComponentVarIndex(const std::string& varName) const;
 
+  /**
+   * @brief Getter for the reference to the iidm vsc converter istance
+   * @return the iidm vsc converter istance
+   */
+  IIDM::VscConverterStation& getVscIIDM() const;
+
  private:
   IIDM::VscConverterStation& vscConverterIIDM_;  ///< reference to the iidm vsc converter instance
 };
