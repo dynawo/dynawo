@@ -26,6 +26,7 @@
 #include "DYNModelConstants.h"
 
 using boost::shared_ptr;
+using boost::dynamic_pointer_cast;
 using std::string;
 using std::vector;
 
@@ -52,7 +53,22 @@ HvdcLineInterfaceIIDM::~HvdcLineInterfaceIIDM() {
 
 void
 HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
-  // to do
+  switch (conv1_->getType()) {
+    case ComponentInterface::VSC_CONVERTER:
+      {
+      const shared_ptr<VscConverterInterface>& vsc1 = dynamic_pointer_cast<VscConverterInterface>(conv1_);
+      const shared_ptr<VscConverterInterface>& vsc2 = dynamic_pointer_cast<VscConverterInterface>(conv2_);
+      // to do
+      break;
+      }
+    case ComponentInterface::LCC_CONVERTER:
+      {
+      const shared_ptr<LccConverterInterface>& lcc1 = dynamic_pointer_cast<LccConverterInterface>(conv1_);
+      const shared_ptr<LccConverterInterface>& lcc2 = dynamic_pointer_cast<LccConverterInterface>(conv2_);
+      // to do
+      break;
+      }
+  }
 }
 
 void
