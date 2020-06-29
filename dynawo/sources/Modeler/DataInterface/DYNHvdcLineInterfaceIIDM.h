@@ -56,7 +56,9 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface {
    * @param conv1: converter 1 data interface instance
    * @param conv2: converter 2 data interface instance
    */
-  explicit HvdcLineInterfaceIIDM(IIDM::HvdcLine& hvdcLine, boost::shared_ptr<ConverterInterface>& conv1, boost::shared_ptr<ConverterInterface>& conv2);
+  explicit HvdcLineInterfaceIIDM(IIDM::HvdcLine& hvdcLine,
+                                 const boost::shared_ptr<ConverterInterface>& conv1,
+                                 const boost::shared_ptr<ConverterInterface>& conv2);
 
   /**
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
@@ -116,12 +118,12 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface {
   /**
    * @copydoc HvdcLineInterface::getConverter1() const
    */
-  boost::shared_ptr<ConverterInterface> getConverter1() const;
+  const boost::shared_ptr<ConverterInterface>& getConverter1() const;
 
   /**
    * @copydoc HvdcLineInterface::getConverter2() const
    */
-  boost::shared_ptr<ConverterInterface> getConverter2() const;
+  const boost::shared_ptr<ConverterInterface>& getConverter2() const;
 
  private:
   IIDM::HvdcLine& hvdcLineIIDM_;  ///< reference to the iidm line instance

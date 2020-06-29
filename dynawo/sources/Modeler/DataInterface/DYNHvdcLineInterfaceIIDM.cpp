@@ -31,7 +31,9 @@ using std::vector;
 
 namespace DYN {
 
-HvdcLineInterfaceIIDM::HvdcLineInterfaceIIDM(IIDM::HvdcLine& hvdcLine, shared_ptr<ConverterInterface>& conv1, shared_ptr<ConverterInterface>& conv2) :
+HvdcLineInterfaceIIDM::HvdcLineInterfaceIIDM(IIDM::HvdcLine& hvdcLine,
+                                             const shared_ptr<ConverterInterface>& conv1,
+                                             const shared_ptr<ConverterInterface>& conv2) :
 hvdcLineIIDM_(hvdcLine),
 conv1_(conv1),
 conv2_(conv2) {
@@ -124,12 +126,12 @@ HvdcLineInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
   return index;
 }
 
-shared_ptr<ConverterInterface>
+const shared_ptr<ConverterInterface>&
 HvdcLineInterfaceIIDM::getConverter1() const {
   return conv1_;
 }
 
-shared_ptr<ConverterInterface>
+const shared_ptr<ConverterInterface>&
 HvdcLineInterfaceIIDM::getConverter2() const {
   return conv2_;
 }

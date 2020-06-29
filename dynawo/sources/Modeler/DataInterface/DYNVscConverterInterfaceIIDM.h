@@ -148,7 +148,7 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
    * @brief Getter for the reference to the iidm vsc converter istance
    * @return the iidm vsc converter istance
    */
-  IIDM::VscConverterStation& getVscIIDM() const;
+  const IIDM::VscConverterStation& getVscIIDM() const;
 
  private:
   IIDM::VscConverterStation& vscConverterIIDM_;  ///< reference to the iidm vsc converter instance

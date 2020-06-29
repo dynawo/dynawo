@@ -590,8 +590,8 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     string idVsc2 = (*iHvdc)->getIdConverter2();
 
     // retrieve the two converters associated with the current hvdc line
-    shared_ptr<ConverterInterface> conv1 = (*iHvdc)->getConverter1();
-    shared_ptr<ConverterInterface> conv2 = (*iHvdc)->getConverter2();
+    const shared_ptr<ConverterInterface>& conv1 = (*iHvdc)->getConverter1();
+    const shared_ptr<ConverterInterface>& conv2 = (*iHvdc)->getConverter2();
 
     // add the hvdc line and convertesr in the component list
     componentsById[ id ] = (*iHvdc);

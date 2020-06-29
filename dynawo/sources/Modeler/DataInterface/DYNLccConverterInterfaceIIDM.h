@@ -138,7 +138,7 @@ class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorI
    * @brief Getter for the reference to the iidm lcc converter istance
    * @return the iidm lcc converter istance
    */
-  IIDM::LccConverterStation& getLccIIDM() const;
+  const IIDM::LccConverterStation& getLccIIDM() const;
 
  private:
   IIDM::LccConverterStation& lccConverterIIDM_;  ///< reference to the iidm lcc converter instance
