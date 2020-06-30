@@ -489,21 +489,20 @@ ModelMulti::propagateZModif() {
       indicesDiff.push_back(nonSilentZIndexes_[i]);
     }
   }
-
-  bool changeDetected = !indicesDiff.empty();
-  if (changeDetected) {
+  if (!indicesDiff.empty()) {
     connectorContainer_->propagateZDiff(indicesDiff, zLocal_);
     std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
+    return true;
   } else {
     for (int i = 0, iEnd = silentZIndexes_.size(); i < iEnd; ++i) {
       if (doubleNotEquals(zLocal_[silentZIndexes_[i]], zSave_[silentZIndexes_[i]])) {
         silentZChange_ = true;
         std::copy(zLocal_, zLocal_ + sizeZ(), zSave_.begin());
-        return changeDetected;
+        return false;
       }
     }
   }
-  return changeDetected;
+  return false;
 }
 
 void
