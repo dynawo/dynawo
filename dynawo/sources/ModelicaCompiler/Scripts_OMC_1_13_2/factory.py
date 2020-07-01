@@ -3072,7 +3072,7 @@ class Factory:
             for line in body_translated:
                 index_var = 0
                 for val in sorted_indexes:
-                    line = line.replace("x["+str(val)+"]", "x["+str(index_var)+"]")
+                    line = line.replace("x["+str(val)+"]", "x[indexOffset +" +str(index_var)+"]")
                     index_var += 1
                 if var.get_name() in self.dic_calc_var_recursive_deps:
                     for name in self.dic_calc_var_recursive_deps[var.get_name()]:

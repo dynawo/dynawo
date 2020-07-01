@@ -358,13 +358,13 @@ adept::adouble ModelTest_Dyn::evalCalculatedVarIAdept(unsigned iCalculatedVar, u
 {
   if (iCalculatedVar == 0)  /* y */
   {
-      return (2.0) * (x[0]);
+      return (2.0) * (x[indexOffset +0]);
   }
 
 
   if (iCalculatedVar == 1)  /* z */
   {
-      return (4.0) * ((evalCalculatedVarIAdept(0, indexOffset + 1, x, xd) /* y variable */) * (x[0]));
+      return (4.0) * ((evalCalculatedVarIAdept(0, indexOffset + 1, x, xd) /* y variable */) * (x[indexOffset +0]));
   }
 
 

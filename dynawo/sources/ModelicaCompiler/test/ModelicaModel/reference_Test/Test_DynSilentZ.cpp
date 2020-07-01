@@ -421,11 +421,11 @@ adept::adouble ModelTestSilentZ_Dyn::evalCalculatedVarIAdept(unsigned iCalculate
     tmp7 = (modelica_boolean)(toNativeBool (data->localData[0]->discreteVars[0] /* b DISCRETE */));
     if(tmp7)
     {
-      tmp8 = x[0];
+      tmp8 = x[indexOffset +0];
     }
     else
     {
-      tmp8 = (((modelica_real)((modelica_integer)data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * (x[0]);
+      tmp8 = (((modelica_real)((modelica_integer)data->localData[0]->integerDoubleVars[1] /* z3 DISCRETE */))) * (x[indexOffset +0]);
     }
       return tmp8;
   }
