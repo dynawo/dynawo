@@ -24,8 +24,12 @@
 
 #include "DYNHvdcLineInterfaceIIDM.h"
 #include "DYNModelConstants.h"
+#include "DYNVscConverterInterfaceIIDM.h"
+#include "DYNLccConverterInterfaceIIDM.h"
+#include "DYNInjectorInterfaceIIDM.h"
 
 using boost::shared_ptr;
+using boost::dynamic_pointer_cast;
 using std::string;
 using std::vector;
 
@@ -52,7 +56,29 @@ HvdcLineInterfaceIIDM::~HvdcLineInterfaceIIDM() {
 
 void
 HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
-  // to do
+  switch (conv1_->getType()) {
+    case ComponentInterface::VSC_CONVERTER:
+      {
+      shared_ptr<VscConverterInterfaceIIDM>& vsc1 = dynamic_pointer_cast<VscConverterInterfaceIIDM>(conv1_);
+      shared_ptr<VscConverterInterfaceIIDM>& vsc2 = dynamic_pointer_cast<VscConverterInterfaceIIDM>(conv2_);
+      // je pense que j'aimerais écrire un truc comme ça pour les puissances (et pour les states j'avoue que je ne sais pas trop encore)
+      (vsc1->getVscIIDM()).p(-1 * getValue<double>(VAR_P1) * SNREF);
+      (vsc1->getVscIIDM()).q(-1 * getValue<double>(VAR_Q1) * SNREF);
+      (vsc2->getVscIIDM()).p(-1 * getValue<double>(VAR_P2) * SNREF);
+      (vsc2->getVscIIDM()).q(-1 * getValue<double>(VAR_Q2) * SNREF);
+      break;
+      }
+    case ComponentInterface::LCC_CONVERTER:
+      {
+      shared_ptr<LccConverterInterfaceIIDM>& lcc1 = dynamic_pointer_cast<LccConverterInterfaceIIDM>(conv1_);
+      shared_ptr<LccConverterInterfaceIIDM>& lcc2 = dynamic_pointer_cast<LccConverterInterfaceIIDM>(conv2_);
+      (lcc1->getLccIIDM()).p(-1 * getValue<double>(VAR_P1) * SNREF);
+      (lcc1->getLccIIDM()).q(-1 * getValue<double>(VAR_Q1) * SNREF);
+      (lcc2->getLccIIDM()).p(-1 * getValue<double>(VAR_P2) * SNREF);
+      (lcc2->getLccIIDM()).q(-1 * getValue<double>(VAR_Q2) * SNREF);
+      break;
+      }
+  }
 }
 
 void
