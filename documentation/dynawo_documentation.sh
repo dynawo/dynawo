@@ -27,7 +27,7 @@ echo '%% Except where otherwise noted, content in this documentation is Copyrigh
 
 \begin{document}
 
-\title{\Dynawo Documentation \\ \small{v1.1.0}}
+\title{\Dynawo Documentation \\ \small{v1.2.0}}
 \date\today
 
 \maketitle
