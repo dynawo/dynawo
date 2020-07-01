@@ -236,7 +236,8 @@ bool
 Trace::logExists(const std::string& tag, SeverityLevel slv) {
   boost::log::attribute_value_set set;
   set.insert("Severity",  attrs::make_attribute_value(slv));
-  set.insert("Tag",  attrs::make_attribute_value(tag));
+  if (tag != "")
+    set.insert("Tag",  attrs::make_attribute_value(tag));
   for (vector< boost::shared_ptr<file_sink> >::iterator itSinks = sinks.begin(); itSinks != sinks.end(); ++itSinks) {
     if ((*itSinks)->will_consume(set))
       return true;
