@@ -24,5 +24,9 @@
     <dyn:connect id1="tapChanger" var1="tap" id2="transformer" var2="tap"/>
     <dyn:connect id1="tapChanger" var1="UMonitored" id2="transformer" var2="U2Pu"/>
     <dyn:connect id1="load" var1="terminal" id2="transformer" var2="terminal2"/>
+    <dyn:connect id1="load" var1="switchOffSignal1" id2="transformer" var2="switchOffSignal1"/>
+    <dyn:connect id1="load" var1="switchOffSignal2" id2="transformer" var2="switchOffSignal2"/>
+    <dyn:connect id1="transformer" var1="switchOffSignal1" id2="tapChanger" var2="switchOffSignal1"/>
+    <dyn:connect id1="transformer" var1="switchOffSignal2" id2="tapChanger" var2="switchOffSignal2"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
