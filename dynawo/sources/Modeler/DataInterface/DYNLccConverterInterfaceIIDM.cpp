@@ -159,8 +159,8 @@ LccConverterInterfaceIIDM::getPowerFactor() const {
   return lccConverterIIDM_.powerFactor();
 }
 
-const IIDM::LccConverterStation&
-LccConverterInterfaceIIDM::getLccIIDM() const {
+IIDM::LccConverterStation&
+LccConverterInterfaceIIDM::getLccIIDM() {
   return lccConverterIIDM_;
 }
 

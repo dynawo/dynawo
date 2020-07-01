@@ -182,8 +182,8 @@ VscConverterInterfaceIIDM::getVoltageSetpoint() const {
   return vscConverterIIDM_.voltageSetpoint();
 }
 
-const IIDM::VscConverterStation&
-VscConverterInterfaceIIDM::getVscIIDM() const {
+IIDM::VscConverterStation&
+VscConverterInterfaceIIDM::getVscIIDM() {
   return vscConverterIIDM_;
 }
 
