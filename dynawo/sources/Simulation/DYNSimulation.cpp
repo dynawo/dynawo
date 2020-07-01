@@ -962,7 +962,7 @@ Simulation::addEvent(const MessageTimeline& messageTimeline) {
 
 void
 Simulation::printHighestDerivativesValues() {
-  if (Trace::logExists("", DEBUG)) return;
+  if (!Trace::logExists("", DEBUG)) return;
   const vector<double>& deriv = solver_->getCurrentYP();
   vector<std::pair<double, size_t> > derivValues;
   for (size_t i = 0, iEnd = deriv.size(); i < iEnd; ++i)
