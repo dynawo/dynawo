@@ -19,5 +19,7 @@
     <dyn:initConnect id1="load" var1="u0Pu" id2="transformer" var2="u20Pu"/>
     <dyn:initConnect id1="load" var1="i0Pu" id2="transformer" var2="i20Pu"/>
     <dyn:connect id1="load" var1="terminal" id2="transformer" var2="terminal2"/>
+    <dyn:connect id1="load" var1="switchOffSignal1" id2="transformer" var2="switchOffSignal1"/>
+    <dyn:connect id1="load" var1="switchOffSignal2" id2="transformer" var2="switchOffSignal2"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
