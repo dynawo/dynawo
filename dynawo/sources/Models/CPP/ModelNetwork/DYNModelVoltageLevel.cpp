@@ -169,6 +169,12 @@ ModelVoltageLevel::findClosestBBS(const unsigned int node, vector<string>& short
   if (topologyKind_ != VoltageLevelInterface::NODE_BREAKER)
     throw DYNError(Error::MODELER, VoltageLevelTopoError, id());
 
+  boost::unordered_map<unsigned, std::pair<unsigned, std::vector<std::string> > >::const_iterator it = ClosestBBS_.find(node);
+  if (it != ClosestBBS_.end()) {
+    shortestPath = it->second.second;
+    return it->second.first;
+  }
+
   // define the voltage level graph if it hasn't been defined yet
   if (graph_ == boost::none) {
     defineGraph();
@@ -187,6 +193,7 @@ ModelVoltageLevel::findClosestBBS(const unsigned int node, vector<string>& short
       }
     }
   }
+  ClosestBBS_[node] = std::make_pair(nodeClosestBBS, shortestPath);
   return nodeClosestBBS;
 }
 

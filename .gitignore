@@ -11,6 +11,11 @@ distributions/
 nrt/data/*/outputs*/
 nrt/data/*/*/outputs*/
 nrt/data/*/*/*/outputs*/
+examples/*/*/outputs*/
+examples/*/*/*/outputs*/
+examples/*/*/*/*/outputs*/
+examples/*/*/*/*/*/outputs*/
+examples/*/*/*/*/*/*/outputs*/
 !nrt/data/*/*/reference/outputs*/
 nrt/data/*/*/execution/
 nrt/data/*/*/description/*.log
@@ -24,7 +29,8 @@ nrt/data/*/*/description/*.gz
 nrt/data/*/*/*/description/*.out
 nrt/data/*/*/description/*.out
 dynawo/sources/Models/CPP/ModelNetwork/DYNModelNetwork.hpp
-dynawo/sources/Models/CPP/ModelOmegaRef/DYNModelOmegaRef.hpp
+dynawo/sources/Models/CPP/ModelFrequency/ModelOmegaRef/DYNModelOmegaRef.hpp
+dynawo/sources/Models/CPP/ModelFrequency/ModelSignalN/DYNModelSignalN.hpp
 dynawo/sources/Models/CPP/ModelVariationArea/DYNModelVariationArea.hpp
 nrt/output/
 *.pyc
