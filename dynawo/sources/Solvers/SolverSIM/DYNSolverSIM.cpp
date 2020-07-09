@@ -509,8 +509,9 @@ SolverSIM::solve() {
         return ROOT;
       } else {  // Root change without any z or mode change
         if (flag == KIN_INITIAL_GUESS_OK) {
-          skipNextNR_ = true;
-          Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
+          skipNextNR_ = skipNRIfInitialGuessOK_;
+          if (skipNextNR_)
+            Trace::info() << DYNLog(SolverSIMInitGuessOK) << Trace::endline;
         }
         return CONV;
       }
