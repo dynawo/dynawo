@@ -33,19 +33,17 @@ model LoadAlphaBetaRestorative "Generic model of a restorative Alpha-Beta load."
 
   equation
     if (running.value) then
-
-      UFilteredPu = if UFilteredRawPu >= UMaxPu then UMaxPu elseif UFilteredRawPu <= UMinPu then UMinPu else UFilteredRawPu;
-
       if (ComplexMath.'abs' (terminal.V)==0) then
-        PPu=0;
-        QPu=0;
-        UFilteredRawPu=0;
+        UFilteredPu = 0;
+        UFilteredRawPu = 0;
+        PPu = 0;
+        QPu = 0;
       else
+        UFilteredPu = if UFilteredRawPu >= UMaxPu then UMaxPu elseif UFilteredRawPu <= UMinPu then UMinPu else UFilteredRawPu;
         tFilter * der(UFilteredRawPu) = ComplexMath.'abs' (terminal.V) - UFilteredRawPu;
         PPu = PRefPu.value * ((ComplexMath.'abs' (terminal.V) / UFilteredPu) ^ Alpha);
         QPu = QRefPu.value * ((ComplexMath.'abs' (terminal.V) / UFilteredPu) ^ Beta);
       end if;
-
     else
       UFilteredRawPu = 0;
       UFilteredPu = 0;
