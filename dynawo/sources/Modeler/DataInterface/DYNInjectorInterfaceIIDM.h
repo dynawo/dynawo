@@ -23,6 +23,8 @@
 #ifndef MODELER_DATAINTERFACE_DYNINJECTORINTERFACEIIDM_H_
 #define MODELER_DATAINTERFACE_DYNINJECTORINTERFACEIIDM_H_
 
+#include <IIDM/components/Injection.h>
+
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 

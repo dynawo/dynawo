@@ -39,16 +39,6 @@ namespace DYN {
 class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorInterfaceIIDM<IIDM::LccConverterStation> {
  public:
   /**
-   * @brief defines the index of each state variable
-   */
-  typedef enum {
-    VAR_P = 0,
-    VAR_Q,
-    VAR_STATE
-  } indexVar_t;
-
- public:
-  /**
    * @brief Destructor
    */
   ~LccConverterInterfaceIIDM();
@@ -133,6 +123,12 @@ class LccConverterInterfaceIIDM : public LccConverterInterface, public InjectorI
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
   int getComponentVarIndex(const std::string& varName) const;
+
+  /**
+   * @brief Getter for the reference to the iidm lcc converter istance
+   * @return the iidm lcc converter istance
+   */
+  IIDM::LccConverterStation& getLccIIDM();
 
  private:
   IIDM::LccConverterStation& lccConverterIIDM_;  ///< reference to the iidm lcc converter instance

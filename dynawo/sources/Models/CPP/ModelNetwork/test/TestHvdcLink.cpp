@@ -120,7 +120,6 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
 
 
   shared_ptr<NetworkInterfaceIIDM> networkItfIIDM = shared_ptr<NetworkInterfaceIIDM>(new NetworkInterfaceIIDM(networkIIDM));
-  shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM = shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.get_hvdcline("MyHvdcLine")));
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
   shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus2")));
@@ -142,7 +141,9 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
       vsc->setBusInterface(bus1ItfIIDM);
     }
     const std::vector<shared_ptr<VscConverterInterface> >& vscConverters = vlItfIIDM->getVscConverters();
-    hvdc = shared_ptr<ModelHvdcLink>(new ModelHvdcLink(vscConverters[0], vscConverters[1], hvdcItfIIDM));
+    shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM = shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.get_hvdcline("MyHvdcLine"),
+                                                                                      vscConverters[0], vscConverters[1]));
+    hvdc = shared_ptr<ModelHvdcLink>(new ModelHvdcLink(hvdcItfIIDM));
   } else {
     for (IIDM::Contains<IIDM::LccConverterStation>::iterator itLCC = vlIIDM.lccConverterStations().begin();
         itLCC != vlIIDM.lccConverterStations().end(); ++itLCC) {
@@ -152,7 +153,9 @@ createModelHvdcLink(bool initModel, bool vsc, bool withP = true, bool withQ = tr
       lcc->setBusInterface(bus1ItfIIDM);
     }
     const std::vector<shared_ptr<LccConverterInterface> >& lccConverters = vlItfIIDM->getLccConverters();
-    hvdc = shared_ptr<ModelHvdcLink>(new ModelHvdcLink(lccConverters[0], lccConverters[1], hvdcItfIIDM));
+    shared_ptr<HvdcLineInterfaceIIDM> hvdcItfIIDM = shared_ptr<HvdcLineInterfaceIIDM>(new HvdcLineInterfaceIIDM(networkIIDM.get_hvdcline("MyHvdcLine"),
+                                                                                      lccConverters[0], lccConverters[1]));
+    hvdc = shared_ptr<ModelHvdcLink>(new ModelHvdcLink(hvdcItfIIDM));
   }
   hvdc->setNetwork(network);
   shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));

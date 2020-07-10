@@ -28,6 +28,7 @@ namespace DYN {
 class BusInterface;
 class CurrentLimitInterface;
 class VoltageLevelInterface;
+class ConverterInterface;
 
 /**
  * class HvdcLineInterface
@@ -104,6 +105,18 @@ class HvdcLineInterface : public ComponentInterface {
    * @return The converter 2 id
    */
   virtual std::string getIdConverter2() const = 0;
+
+  /**
+   * @brief Getter for converter 1
+   * @return converter 1
+   */
+  virtual const boost::shared_ptr<ConverterInterface>& getConverter1() const = 0;
+
+  /**
+   * @brief Getter for converter 2
+   * @return converter 2
+   */
+  virtual const boost::shared_ptr<ConverterInterface>& getConverter2() const = 0;
 };
 }  // namespace DYN
 

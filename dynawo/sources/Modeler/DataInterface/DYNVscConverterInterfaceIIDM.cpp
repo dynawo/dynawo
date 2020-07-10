@@ -35,45 +35,15 @@ VscConverterInterfaceIIDM::VscConverterInterfaceIIDM(IIDM::VscConverterStation& 
 InjectorInterfaceIIDM<IIDM::VscConverterStation>(vsc, vsc.id()),
 vscConverterIIDM_(vsc) {
   setType(ComponentInterface::VSC_CONVERTER);
-  stateVariables_.resize(3);
-  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
-  stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
-  stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);   // connectionState
 }
 
 int
-VscConverterInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
-  int index = -1;
-  if ( varName == "p" )
-    index = VAR_P;
-  else if ( varName == "q" )
-    index = VAR_Q;
-  else if ( varName == "state" )
-    index = VAR_STATE;
-  return index;
+VscConverterInterfaceIIDM::getComponentVarIndex(const std::string& /*varName*/) const {
+  return -1;
 }
 
 void
 VscConverterInterfaceIIDM::exportStateVariablesUnitComponent() {
-  bool connected = (getValue<int>(VAR_STATE) == CLOSED);
-  vscConverterIIDM_.p(-1 * getValue<double>(VAR_P) * SNREF);
-  vscConverterIIDM_.q(-1 * getValue<double>(VAR_Q) * SNREF);
-
-  if (vscConverterIIDM_.has_connection()) {
-    if (vscConverterIIDM_.connectionPoint()->is_bus()) {
-      if (connected)
-        vscConverterIIDM_.connect();
-      else
-        vscConverterIIDM_.disconnect();
-    } else  {  // is node()
-      // should be removed once a solution has been found to propagate switches (de)connection
-      // following component (de)connection (only Modelica models)
-      if (connected && !getInitialConnected())
-        getVoltageLevelInterface()->connectNode(vscConverterIIDM_.node());
-      else if (!connected && getInitialConnected())
-        getVoltageLevelInterface()->disconnectNode(vscConverterIIDM_.node());
-    }
-  }
 }
 
 void
@@ -180,6 +150,11 @@ VscConverterInterfaceIIDM::getVoltageSetpoint() const {
     return 0;
   }
   return vscConverterIIDM_.voltageSetpoint();
+}
+
+IIDM::VscConverterStation&
+VscConverterInterfaceIIDM::getVscIIDM() {
+  return vscConverterIIDM_;
 }
 
 }  // namespace DYN
