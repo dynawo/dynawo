@@ -63,6 +63,7 @@ class DanglingLineInterface;
 class TwoWTransformerInterface;
 class ThreeWTransformerInterface;
 class LineInterface;
+class HvdcLineInterface;
 
 class DataInterfaceIIDM : public DataInterface {
  public:
@@ -170,9 +171,9 @@ class DataInterfaceIIDM : public DataInterface {
   bool getStaticParameterBoolValue(const std::string& staticID, const std::string& refOrigName);
 
   /**
-   * @copydoc DataInterface::getBusName(const std::string& staticID)
+   * @copydoc DataInterface::getBusName(const std::string& staticID, const std::string& labelNode)
    */
-  std::string getBusName(const std::string& staticID);
+  std::string getBusName(const std::string& staticID, const std::string& labelNode);
 
  private:
   /**
@@ -310,6 +311,14 @@ class DataInterfaceIIDM : public DataInterface {
    * @return the instance of lccConverterInterface created
    */
   boost::shared_ptr<LccConverterInterface> importLccConverter(IIDM::LccConverterStation& lccIIDM);
+
+   /**
+   * @brief import and create a hvdc line interface thanks to the IIDM instance
+   *
+   * @param hvdcLineIIDM IIDM instance to use to create hvdc line Interface
+   * @return the instance of HvdcLineInterface created
+   */
+  boost::shared_ptr<HvdcLineInterface> importHvdcLine(IIDM::HvdcLine& hvdcLineIIDM);
 
   /**
    * @brief configure the bus criteria

@@ -30,8 +30,8 @@ using std::map;
 namespace DYN {
 
 ComponentInterface::ComponentInterface() :
-hasDynamicModel_(false),
-type_(UNKNOWN) {
+type_(UNKNOWN),
+hasDynamicModel_(false) {
 #ifdef _DEBUG_
   checkStateVariableAreUpdatedBeforeCriteriaCheck_ = false;
 #endif

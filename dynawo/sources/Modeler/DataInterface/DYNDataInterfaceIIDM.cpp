@@ -95,7 +95,7 @@ DataInterfaceIIDM::getNetworkIIDM() {
 }
 
 std::string
-DataInterfaceIIDM::getBusName(const std::string& componentName) {
+DataInterfaceIIDM::getBusName(const std::string& componentName, const std::string& labelNode) {
   map<string, shared_ptr<ComponentInterface> >::const_iterator iter = components_.find(componentName);
   string busName = "";
   if (iter != components_.end()) {
@@ -151,8 +151,18 @@ DataInterfaceIIDM::getBusName(const std::string& componentName) {
         busName = lcc->getBusInterface()->getID();
         break;
       }
-      case ComponentInterface::HVDC_LINE:
+      case ComponentInterface::HVDC_LINE: {
+        shared_ptr<HvdcLineInterface> hvdc = dynamic_pointer_cast<HvdcLineInterface>(component);
+        if (labelNode == "@NODE1@") {
+          shared_ptr<ConverterInterface> conv1 = hvdc->getConverter1();
+          busName = conv1->getBusInterface()->getID();
+        }
+        if (labelNode == "@NODE2@") {
+          shared_ptr<ConverterInterface> conv2 = hvdc->getConverter2();
+          busName = conv2->getBusInterface()->getID();
+        }
         break;
+      }
       case ComponentInterface::UNKNOWN:
         break;
     }
@@ -235,7 +245,7 @@ DataInterfaceIIDM::initFromIIDM() {
   //===========================
   IIDM::Contains<IIDM::HvdcLine>::iterator itHvdcLine = networkIIDM_.hvdclines().begin();
   for (; itHvdcLine != networkIIDM_.hvdclines().end(); ++itHvdcLine) {
-    shared_ptr<HvdcLineInterfaceIIDM> hvdc(new HvdcLineInterfaceIIDM(*itHvdcLine));
+    shared_ptr<HvdcLineInterface> hvdc = importHvdcLine(*itHvdcLine);
     network_->addHvdcLine(hvdc);
     components_[hvdc->getID()] = hvdc;
   }
@@ -874,6 +884,20 @@ DataInterfaceIIDM::importLccConverter(IIDM::LccConverterStation& lccIIDM) {
 #endif
 }
 
+shared_ptr<HvdcLineInterface>
+DataInterfaceIIDM::importHvdcLine(IIDM::HvdcLine& hvdcLineIIDM) {
+  shared_ptr<ConverterInterface> conv1 = dynamic_pointer_cast<ConverterInterface>(findComponent(hvdcLineIIDM.converterStation1()));
+  shared_ptr<ConverterInterface> conv2 = dynamic_pointer_cast<ConverterInterface>(findComponent(hvdcLineIIDM.converterStation2()));
+
+  shared_ptr<HvdcLineInterfaceIIDM> hvdcLine(new HvdcLineInterfaceIIDM(hvdcLineIIDM, conv1, conv2));
+#ifdef LANG_CXX11
+  return std::move(hvdcLine);
+#else
+  return hvdcLine;
+#endif
+}
+
+
 shared_ptr<NetworkInterface>
 DataInterfaceIIDM::getNetwork() const {
   return network_;
@@ -974,6 +998,15 @@ DataInterfaceIIDM::mapConnections() {
       (*i3WTfo)->getBusInterface1()->hasConnection(true);
       (*i3WTfo)->getBusInterface2()->hasConnection(true);
       (*i3WTfo)->getBusInterface3()->hasConnection(true);
+    }
+  }
+
+  const vector<shared_ptr<HvdcLineInterface> >& hvdcs = network_->getHvdcLines();
+  vector<shared_ptr<HvdcLineInterface> >::const_iterator iHvdc;
+  for (iHvdc = hvdcs.begin(); iHvdc != hvdcs.end(); ++iHvdc) {
+    if ((*iHvdc)->hasDynamicModel()) {
+      (*iHvdc)->getConverter1()->getBusInterface()->hasConnection(true);
+      (*iHvdc)->getConverter2()->getBusInterface()->hasConnection(true);
     }
   }
 

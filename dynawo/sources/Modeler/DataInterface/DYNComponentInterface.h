@@ -186,11 +186,11 @@ class ComponentInterface {
  protected:
   std::vector<StateVariable> stateVariables_;  ///< state variable
   boost::unordered_map<std::string, StaticParameter> staticParameters_;  ///< static parameter by name, from iidm data
+  ComponentType_t type_;  ///< type of the interface
 
  private:
   bool hasDynamicModel_;  ///< @b true is component has a dynamic model (other than c++ one), @b false else
   boost::shared_ptr<SubModel> modelDyn_;  ///< dynamic model of the component
-  ComponentType_t type_;  ///< type of the interface
 #ifdef _DEBUG_
   bool checkStateVariableAreUpdatedBeforeCriteriaCheck_;  ///< true if we want to check that all state variable used in check criteria are properly updated
 #endif

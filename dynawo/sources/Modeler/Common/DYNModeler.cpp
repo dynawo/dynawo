@@ -189,31 +189,52 @@ Modeler::initStaticRefs(const shared_ptr<SubModel>& model, const shared_ptr<Mode
 void
 Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& subModel1, string& var1,
     const shared_ptr<SubModel>& subModel2, string& var2) const {
-  //  @todo add same mechanism for @NODE1@, @NODE2@, @NODE3@
 
-  // convention : if node inside a connector, the staticId of the component is before @NODE@
+  // convention : if node inside a connector, the staticId of the component is placed before
+  // so the name of the var is as follow : @STATIC_ID@@@NODE@_var or @STATIC_ID@@@NODE1@_var or @STATIC_ID@@@NODE2@_var
   const string labelNode = "@NODE@";
+  const string labelNode1 = "@NODE1@";
+  const string labelNode2 = "@NODE2@";
   const string labelStaticId = "@STATIC_ID@";
 
-  // so the name of the var is as follow : @STATIC_ID@@@NODE@_var
+  // replace @STATIC_ID@ with the static id of the model where the connection should be made
   bool foundStaticIdInVar1 = (var1.find(labelStaticId) != string::npos);
   bool foundStaticIdInVar2 = (var2.find(labelStaticId) != string::npos);
-  // in connector, use static id of the model where the connection should be connected
-  // replace @STATIC_ID@ by @id@
   if (foundStaticIdInVar1)
     var1.replace(var1.find(labelStaticId), labelStaticId.size(), "@" + subModel2->staticId() + "@");
   if (foundStaticIdInVar2)
     var2.replace(var2.find(labelStaticId), labelStaticId.size(), "@" + subModel1->staticId() + "@");
 
+  // replace the static id of the model where the connection should be made with the static if of the bus for @NODE@
   bool foundNodeInVar1 = (var1.find(labelNode) != string::npos);
   bool foundNodeInVar2 = (var2.find(labelNode) != string::npos);
-
   if (foundNodeInVar1 && foundNodeInVar2) {
     throw DYNError(Error::MODELER, WrongConnectTwoUnknownNodes, subModel1->name(), var1, subModel2->name(), var2);
   } else if (foundNodeInVar1) {
-    var1 = findNodeConnectorName(var1);
+    var1 = findNodeConnectorName(var1, labelNode);
   } else if (foundNodeInVar2) {
-    var2 = findNodeConnectorName(var2);
+    var2 = findNodeConnectorName(var2, labelNode);
+  }
+
+  // replace the static id of the model where the connection should be made with the static if of the bus for @NODE1@
+  bool foundNode1InVar1 = (var1.find(labelNode1) != string::npos);
+  bool foundNode1InVar2 = (var2.find(labelNode1) != string::npos);
+  if (foundNode1InVar1 && foundNode1InVar2) {
+    throw DYNError(Error::MODELER, WrongConnectTwoUnknownNodes, subModel1->name(), var1, subModel2->name(), var2);
+  } else if (foundNode1InVar1) {
+    var1 = findNodeConnectorName(var1, labelNode1);
+  } else if (foundNode1InVar2) {
+    var2 = findNodeConnectorName(var2, labelNode1);
+  }
+  // replace the static id of the model where the connection should be made with the static if of the bus for @NODE2@
+  bool foundNode2InVar1 = (var1.find(labelNode2) != string::npos);
+  bool foundNode2InVar2 = (var2.find(labelNode2) != string::npos);
+  if (foundNode2InVar1 && foundNode2InVar2) {
+    throw DYNError(Error::MODELER, WrongConnectTwoUnknownNodes, subModel1->name(), var1, subModel2->name(), var2);
+  } else if (foundNode2InVar1) {
+    var1 = findNodeConnectorName(var1, labelNode2);
+  } else if (foundNode2InVar2) {
+    var2 = findNodeConnectorName(var2, labelNode2);
   }
 }
 
@@ -250,17 +271,16 @@ Modeler::initConnects() {
 }
 
 string
-Modeler::findNodeConnectorName(const string& id) const {
-  // remove @NODE@
+Modeler::findNodeConnectorName(const string& id, const string& labelNode) const {
+  // remove labelNode: @NODE@ or @NODE1@ or @NODE2@
   string tmpId = id;
-  const string labelNode = "@NODE@";
   tmpId.replace(tmpId.find(labelNode), labelNode.size(), "");
   // retrieve the staticId of the component
   vector<string> strs;
   boost::split(strs, tmpId, boost::is_any_of("@"));
 
   if (strs.size() == 3) {
-    string busName = data_->getBusName(strs[1]);
+    string busName = data_->getBusName(strs[1], labelNode);
     string staticIdLabel = "@" + strs[1] + "@";
     // replace @staticId@ by the node name
     tmpId.replace(tmpId.find(staticIdLabel), staticIdLabel.size(), busName);
