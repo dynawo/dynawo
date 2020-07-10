@@ -35,21 +35,9 @@ class ModelHvdcLink : public NetworkComponent::Impl {
  public:
   /**
    * @brief default constructor for hvdc-vsc link
-   * @param vsc1 vsc converter interface used to represent vsc converter 1 of the hvdc link
-   * @param vsc2 vsc converter interface used to represent vsc converter 2 of the hvdc link
    * @param dcLine dc line interface used to represent the dc line of the hvdc link
    */
-  ModelHvdcLink(const boost::shared_ptr<VscConverterInterface>& vsc1, const boost::shared_ptr<VscConverterInterface>& vsc2,
-                const boost::shared_ptr<HvdcLineInterface>& dcLine);
-
-  /**
-   * @brief default constructor for hvdc-lcc link
-   * @param lcc1 lcc converter interface used to represent lcc converter 1 of the hvdc link
-   * @param lcc2 lcc converter interface used to represent lcc converter 2 of the hvdc link
-   * @param dcLine dc line interface used to represent the dc line of the hvdc link
-   */
-  ModelHvdcLink(const boost::shared_ptr<LccConverterInterface>& lcc1, const boost::shared_ptr<LccConverterInterface>& lcc2,
-                const boost::shared_ptr<HvdcLineInterface>& dcLine);
+  explicit ModelHvdcLink(const boost::shared_ptr<HvdcLineInterface>& dcLine);
 
   /**
    * @brief destructor
@@ -339,37 +327,24 @@ class ModelHvdcLink : public NetworkComponent::Impl {
     return modelBus2_;
   }
 
- protected:
+ private:
   /**
    * @brief set attributes for hvdc link
-   * @param conv1 converter interface used to represent converter 1 of the hvdc link
-   * @param conv2 converter interface used to represent converter 2 of the hvdc link
    * @param dcLine dc line interface used to represent the dc line of the hvdc link
    */
-  template <class T> void setAttributes(const boost::shared_ptr<T>& conv1, const boost::shared_ptr<T>& conv2,
-                                        const boost::shared_ptr<HvdcLineInterface>& dcLine);
+  void setAttributes(const boost::shared_ptr<HvdcLineInterface>& dcLine);
 
   /**
    * @brief setter for the active power at the two points of common coupling
-   * @param conv1 converter interface used to represent converter 1 of the hvdc link
-   * @param conv2 converter interface used to represent converter 2 of the hvdc link
+   * @param dcLine dc line interface used to represent the dc line of the hvdc link
    */
-  template <class T> void setConvertersActivePower(const boost::shared_ptr<T>& conv1, const boost::shared_ptr<T>& conv2);
+  void setConvertersActivePower(const boost::shared_ptr<HvdcLineInterface>& dcLine);
 
- private:
   /**
    * @brief setter for the reactive power at the two points of common coupling (for VSC)
-   * @param vsc1 converter interface used to represent converter 1 of the hvdc link
-   * @param vsc2 converter interface used to represent converter 2 of the hvdc link
+   * @param dcLine dc line interface used to represent the dc line of the hvdc link
    */
-  void setConvertersReactivePowerVsc(const boost::shared_ptr<VscConverterInterface>& vsc1, const boost::shared_ptr<VscConverterInterface>& vsc2);
-
-  /**
-   * @brief setter for the reactive power at the two points of common coupling (for LCC)
-   * @param lcc1 converter interface used to represent converter 1 of the hvdc link
-   * @param lcc2 converter interface used to represent converter 2 of the hvdc link
-   */
-  void setConvertersReactivePowerLcc(const boost::shared_ptr<LccConverterInterface>& lcc1, const boost::shared_ptr<LccConverterInterface>& lcc2);
+  void setConvertersReactivePower(const boost::shared_ptr<HvdcLineInterface>& dcLine);
 
   /**
    * @brief getter for the active power value at the point of common coupling 1
@@ -531,42 +506,6 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   double ii02_;  ///< initial current imaginary part at point of common coupling 2
 };  ///< class for Hvdc link model in network
 
-template <class T>
-void ModelHvdcLink::setAttributes(const boost::shared_ptr<T>& conv1, const boost::shared_ptr<T>& conv2, const boost::shared_ptr<HvdcLineInterface>& dcLine) {
-  // retrieve data from VscConverterInterface or LccConverterInterface (IIDM)
-  lossFactor1_ = conv1->getLossFactor() / 100.;
-  lossFactor2_ = conv2->getLossFactor() / 100.;
-  connectionState1_ = conv1->getInitialConnected() ? CLOSED : OPEN;
-  connectionState2_ = conv2->getInitialConnected() ? CLOSED : OPEN;
-
-  // retrieve data from HvdcLineInterface (IIDM)
-  vdcNom_ = dcLine->getVNom();
-  pSetPoint_ = dcLine->getActivePowerSetpoint();
-  converterMode_ = dcLine->getConverterMode();
-  rdc_ = dcLine->getResistanceDC();
-}
-
-template <class T>
-void ModelHvdcLink::setConvertersActivePower(const boost::shared_ptr<T>& conv1, const boost::shared_ptr<T>& conv2) {
-  if (conv1->hasP() && conv2->hasP()) {
-    // retrieve active power at the two points of common coupling from load flow data in IIDM file
-    P01_ = -conv1->getP() / SNREF;
-    P02_ = -conv2->getP() / SNREF;
-  } else {
-    // calculate losses on dc line
-    double PdcLoss = rdc_ * (pSetPoint_ / vdcNom_) * (pSetPoint_ / vdcNom_) / SNREF;  // in pu
-
-    // calculate active power at the two points of common coupling (generator convention)
-    double P0dc = pSetPoint_ / SNREF;  // in pu
-    if (converterMode_ == HvdcLineInterface::RECTIFIER_INVERTER) {
-      P01_ = -P0dc;  // RECTIFIER (absorbs power from the grid)
-      P02_ = ((P0dc * (1 - lossFactor1_)) - PdcLoss) * (1. - lossFactor2_);  // INVERTER (injects power to the grid)
-    } else {   // converterMode_ == HvdcLineInterface::INVERTER_RECTIFIER
-      P01_ = ((P0dc * (1 - lossFactor2_)) - PdcLoss) * (1. - lossFactor1_);  // INVERTER (injects power to the grid)
-      P02_ = -P0dc;  // RECTIFIER (absorbs power from the grid)
-    }
-  }
-}
 }  // namespace DYN
 
 
