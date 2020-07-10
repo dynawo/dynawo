@@ -139,9 +139,9 @@ equation
     Line(points = {{0, -39}, {0, -39}, {0, -30}, {38, -30}, {38, -16}, {39, -16}}, color = {255, 0, 255}));
   connect(Conv1.UPu, PPu_Side.UPu) annotation(
     Line(points = {{-101, 8}, {-110, 8}, {-110, -30}, {-45, -30}, {-45, -16}, {-45, -16}}, color = {0, 0, 127}));
-  connect(Conv1.PInjPu, PPu_Side.PPu) annotation(
+  connect(Conv1.PInjPuSn, PPu_Side.PPu) annotation(
     Line(points = {{-101, 4}, {-109, 4}, {-109, -28}, {-52, -28}, {-52, -16}, {-52, -16}}, color = {0, 0, 127}));
-  connect(Conv1.QInjPu, PPu_Side.QPu) annotation(
+  connect(Conv1.QInjPuSn, PPu_Side.QPu) annotation(
     Line(points = {{-101, 1}, {-108, 1}, {-108, -26}, {-59, -26}, {-59, -16}, {-59, -16}}, color = {0, 0, 127}));
   connect(Conv1.UPu, Blocking.U1Pu) annotation(
     Line(points = {{-101, 8}, {-110, 8}, {-110, -50}, {-11, -50}, {-11, -50}}, color = {0, 0, 127}));
@@ -155,9 +155,9 @@ equation
     Line(points = {{62, -4}, {77, -4}, {77, -4}, {79, -4}}, color = {0, 0, 127}));
   connect(realToBoolean.y, PPu_Side.modeU) annotation(
     Line(points = {{-30, 53}, {-30, 53}, {-30, 17}, {-30, 17}}, color = {255, 0, 255}));
-  connect(Conv2.QInjPu, UdcPu_Side.QPu) annotation(
+  connect(Conv2.QInjPuSn, UdcPu_Side.QPu) annotation(
     Line(points = {{102, 1}, {108, 1}, {108, -26}, {59, -26}, {59, -16}, {59, -16}}, color = {0, 0, 127}));
-  connect(UdcPu_Side.PPu, Conv2.PInjPu) annotation(
+  connect(UdcPu_Side.PPu, Conv2.PInjPuSn) annotation(
     Line(points = {{52, -16}, {52, -16}, {52, -28}, {109, -28}, {109, 4}, {102, 4}, {102, 4}}, color = {0, 0, 127}));
   connect(PPu_Side.iqModPu, UdcPu_Side.iqMod1Pu) annotation(
     Line(points = {{-28, 9}, {27, 9}, {27, 9}, {29, 9}}, color = {0, 0, 127}));

@@ -39,16 +39,6 @@ namespace DYN {
 class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorInterfaceIIDM<IIDM::VscConverterStation> {
  public:
   /**
-   * @brief defines the index of each state variable
-   */
-  typedef enum {
-    VAR_P = 0,
-    VAR_Q,
-    VAR_STATE
-  } indexVar_t;
-
- public:
-  /**
    * @brief Destructor
    */
   ~VscConverterInterfaceIIDM();
@@ -143,6 +133,12 @@ class VscConverterInterfaceIIDM : public VscConverterInterface, public InjectorI
    * @copydoc ComponentInterface::getComponentVarIndex()
    */
   int getComponentVarIndex(const std::string& varName) const;
+
+  /**
+   * @brief Getter for the reference to the iidm vsc converter istance
+   * @return the iidm vsc converter istance
+   */
+  IIDM::VscConverterStation& getVscIIDM();
 
  private:
   IIDM::VscConverterStation& vscConverterIIDM_;  ///< reference to the iidm vsc converter instance

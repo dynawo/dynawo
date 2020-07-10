@@ -40,6 +40,7 @@
 #include "DYNModelVoltageLevel.h"
 
 using boost::shared_ptr;
+using boost::dynamic_pointer_cast;
 using std::vector;
 using std::map;
 using std::string;
@@ -47,28 +48,26 @@ using std::abs;
 
 namespace DYN {
 
-ModelHvdcLink::ModelHvdcLink(const shared_ptr<VscConverterInterface>& vsc1, const shared_ptr<VscConverterInterface>& vsc2,
-                             const shared_ptr<HvdcLineInterface>& dcLine) :
+ModelHvdcLink::ModelHvdcLink(const shared_ptr<HvdcLineInterface>& dcLine) :
 Impl(dcLine->getID()),
 stateModified_(false) {
   // retrieve data from VscConverterInterface and HvdcLineInterface (IIDM)
-  setAttributes(vsc1, vsc2, dcLine);
+  setAttributes(dcLine);
 
   // calculate active power at the two points of common coupling
-  setConvertersActivePower(vsc1, vsc2);
+  setConvertersActivePower(dcLine);
 
   // calculate reactive power at the two points of common coupling
-  setConvertersReactivePowerVsc(vsc1, vsc2);
-
+  setConvertersReactivePower(dcLine);
 
   ir01_ = 0;
   ii01_ = 0;
-  if (vsc1->getBusInterface()) {
-    double P01 = vsc1->getP() / SNREF;
-    double Q01 = vsc1->getQ() / SNREF;
-    double uNode1 = vsc1->getBusInterface()->getV0();
-    double tetaNode1 = vsc1->getBusInterface()->getAngle0();
-    double unomNode1 = vsc1->getBusInterface()->getVNom();
+  if (dcLine->getConverter1()->getBusInterface()) {
+    double P01 = dcLine->getConverter1()->getP() / SNREF;
+    double Q01 = dcLine->getConverter1()->getQ() / SNREF;
+    double uNode1 = dcLine->getConverter1()->getBusInterface()->getV0();
+    double tetaNode1 = dcLine->getConverter1()->getBusInterface()->getAngle0();
+    double unomNode1 = dcLine->getConverter1()->getBusInterface()->getVNom();
     double ur01 = uNode1 / unomNode1 * cos(tetaNode1 * DEG_TO_RAD);
     double ui01 = uNode1 / unomNode1 * sin(tetaNode1 * DEG_TO_RAD);
     double U201 = ur01 * ur01 + ui01 * ui01;
@@ -80,12 +79,12 @@ stateModified_(false) {
 
   ir02_ = 0;
   ii02_ = 0;
-  if (vsc2->getBusInterface()) {
-    double P02 = vsc2->getP() / SNREF;
-    double Q02 = vsc2->getQ() / SNREF;
-    double uNode2 = vsc2->getBusInterface()->getV0();
-    double tetaNode2 = vsc2->getBusInterface()->getAngle0();
-    double unomNode2 = vsc2->getBusInterface()->getVNom();
+  if (dcLine->getConverter2()->getBusInterface()) {
+    double P02 = dcLine->getConverter2()->getP() / SNREF;
+    double Q02 = dcLine->getConverter2()->getQ() / SNREF;
+    double uNode2 = dcLine->getConverter2()->getBusInterface()->getV0();
+    double tetaNode2 = dcLine->getConverter2()->getBusInterface()->getAngle0();
+    double unomNode2 = dcLine->getConverter2()->getBusInterface()->getVNom();
     double ur02 = uNode2 / unomNode2 * cos(tetaNode2 * DEG_TO_RAD);
     double ui02 = uNode2 / unomNode2 * sin(tetaNode2 * DEG_TO_RAD);
     double U202 = ur02 * ur02 + ui02 * ui02;
@@ -94,35 +93,6 @@ stateModified_(false) {
       ii02_ = (P02 * ui02 - Q02 * ur02) / U202;
     }
   }
-}
-
-ModelHvdcLink::ModelHvdcLink(const shared_ptr<LccConverterInterface>& lcc1, const shared_ptr<LccConverterInterface>& lcc2,
-                             const shared_ptr<HvdcLineInterface>& dcLine) :
-Impl(dcLine->getID()) {
-  // retrieve data from LccConverterInterface and HvdcLineInterface (IIDM)
-  setAttributes(lcc1, lcc2, dcLine);
-
-  // calculate active power at the two points of common coupling
-  setConvertersActivePower(lcc1, lcc2);
-
-  // calculate reactive power at the two points of common coupling
-  setConvertersReactivePowerLcc(lcc1, lcc2);
-
-  double uNode1 = lcc1->getBusInterface()->getV0();
-  double tetaNode1 = lcc1->getBusInterface()->getAngle0();
-  double unomNode1 = lcc1->getBusInterface()->getVNom();
-  double ur01 = uNode1 / unomNode1 * cos(tetaNode1 * DEG_TO_RAD);
-  double ui01 = uNode1 / unomNode1 * sin(tetaNode1 * DEG_TO_RAD);
-  ir01_ = (P01_ * ur01 + Q01_ * ui01) / (ur01 * ur01 + ui01 * ui01);
-  ii01_ = (P01_ * ui01 - Q01_ * ur01) / (ur01 * ur01 + ui01 * ui01);
-
-  double uNode2 = lcc2->getBusInterface()->getV0();
-  double tetaNode2 = lcc2->getBusInterface()->getAngle0();
-  double unomNode2 = lcc2->getBusInterface()->getVNom();
-  double ur02 = uNode2 / unomNode2 * cos(tetaNode2 * DEG_TO_RAD);
-  double ui02 = uNode2 / unomNode2 * sin(tetaNode2 * DEG_TO_RAD);
-  ir02_ = (P02_ * ur02 + Q02_ * ui02) / (ur02 * ur02 + ui02 * ui02);
-  ii02_ = (P02_ * ui02 - Q02_ * ur02) / (ur02 * ur02 + ui02 * ui02);
 }
 
 void
@@ -532,32 +502,72 @@ ModelHvdcLink::addBusNeighbors() {
 }
 
 void
-ModelHvdcLink::setConvertersReactivePowerVsc(const shared_ptr<VscConverterInterface>& vsc1, const shared_ptr<VscConverterInterface>& vsc2) {
-  if (vsc1->hasQ() && vsc2->hasQ()) {
-    // retrieve reactive power at the two points of common coupling from load flow data in IIDM file
-    Q01_ = -vsc1->getQ() / SNREF;
-    Q02_ = -vsc2->getQ() / SNREF;
+ModelHvdcLink::setAttributes(const shared_ptr<HvdcLineInterface>& dcLine) {
+  // retrieve data from ConverterInterface  (IIDM)
+  lossFactor1_ = dcLine->getConverter1()->getLossFactor() / 100.;
+  lossFactor2_ = dcLine->getConverter2()->getLossFactor() / 100.;
+  connectionState1_ = dcLine->getConverter1()->getInitialConnected() ? CLOSED : OPEN;
+  connectionState2_ = dcLine->getConverter2()->getInitialConnected() ? CLOSED : OPEN;
+
+  // retrieve data from HvdcLineInterface (IIDM)
+  vdcNom_ = dcLine->getVNom();
+  pSetPoint_ = dcLine->getActivePowerSetpoint();
+  converterMode_ = dcLine->getConverterMode();
+  rdc_ = dcLine->getResistanceDC();
+}
+
+void
+ModelHvdcLink::setConvertersActivePower(const shared_ptr<HvdcLineInterface>& dcLine) {
+  if (dcLine->getConverter1()->hasP() && dcLine->getConverter2()->hasP()) {
+    // retrieve active power at the two points of common coupling from load flow data in IIDM file
+    P01_ = -dcLine->getConverter1()->getP() / SNREF;
+    P02_ = -dcLine->getConverter2()->getP() / SNREF;
   } else {
-    // calculate reactive power at the two points of common coupling from set points
-    double qSetPoint1 = vsc1->getReactivePowerSetpoint();  // in Mvar (generator convention)
-    double qSetPoint2 = vsc2->getReactivePowerSetpoint();  // in Mvar (generator convention)
-    Q01_ = qSetPoint1 / SNREF;
-    Q02_ = qSetPoint2 / SNREF;
+    // calculate losses on dc line
+    double PdcLoss = rdc_ * (pSetPoint_ / vdcNom_) * (pSetPoint_ / vdcNom_) / SNREF;  // in pu
+
+    // calculate active power at the two points of common coupling (generator convention)
+    double P0dc = pSetPoint_ / SNREF;  // in pu
+    if (converterMode_ == HvdcLineInterface::RECTIFIER_INVERTER) {
+      P01_ = -P0dc;  // RECTIFIER (absorbs power from the grid)
+      P02_ = ((P0dc * (1 - lossFactor1_)) - PdcLoss) * (1. - lossFactor2_);  // INVERTER (injects power to the grid)
+    } else {   // converterMode_ == HvdcLineInterface::INVERTER_RECTIFIER
+      P01_ = ((P0dc * (1 - lossFactor2_)) - PdcLoss) * (1. - lossFactor1_);  // INVERTER (injects power to the grid)
+      P02_ = -P0dc;  // RECTIFIER (absorbs power from the grid)
+    }
   }
 }
 
 void
-ModelHvdcLink::setConvertersReactivePowerLcc(const shared_ptr<LccConverterInterface>& lcc1, const shared_ptr<LccConverterInterface>& lcc2) {
-  if (lcc1->hasQ() && lcc2->hasQ()) {
+ModelHvdcLink::setConvertersReactivePower(const shared_ptr<HvdcLineInterface>& dcLine) {
+  if (dcLine->getConverter1()->hasQ() && dcLine->getConverter2()->hasQ()) {
     // retrieve reactive power at the two points of common coupling from load flow data in IIDM file
-    Q01_ = -lcc1->getQ() / SNREF;
-    Q02_ = -lcc2->getQ() / SNREF;
+    Q01_ = -dcLine->getConverter1()->getQ() / SNREF;
+    Q02_ = -dcLine->getConverter2()->getQ() / SNREF;
   } else {
-    // calculate reactive power at the two points of common coupling
-    double powerFactor1 = lcc1->getPowerFactor();
-    double powerFactor2 = lcc2->getPowerFactor();
-    Q01_ = -abs(powerFactor1 * P01_);
-    Q02_ = -abs(powerFactor2 * P02_);
+    // calculate reactive power at the two points of common coupling from set points
+    switch (dcLine->getConverter1()->getType()) {
+      case ConverterInterface::VSC_CONVERTER:
+        {
+        shared_ptr<VscConverterInterface> vsc1 = dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter1());
+        shared_ptr<VscConverterInterface> vsc2 = dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter2());
+        double qSetPoint1 = vsc1->getReactivePowerSetpoint();  // in Mvar (generator convention)
+        double qSetPoint2 = vsc2->getReactivePowerSetpoint();  // in Mvar (generator convention)
+        Q01_ = qSetPoint1 / SNREF;
+        Q02_ = qSetPoint2 / SNREF;
+        break;
+        }
+      case ConverterInterface::LCC_CONVERTER:
+        {
+        shared_ptr<LccConverterInterface> lcc1 = dynamic_pointer_cast<LccConverterInterface>(dcLine->getConverter1());
+        shared_ptr<LccConverterInterface> lcc2 = dynamic_pointer_cast<LccConverterInterface>(dcLine->getConverter2());
+        double powerFactor1 = lcc1->getPowerFactor();
+        double powerFactor2 = lcc2->getPowerFactor();
+        Q01_ = -abs(powerFactor1 * P01_);
+        Q02_ = -abs(powerFactor2 * P02_);
+        break;
+        }
+    }
   }
 }
 

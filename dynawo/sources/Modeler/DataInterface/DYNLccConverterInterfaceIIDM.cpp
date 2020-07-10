@@ -35,45 +35,15 @@ LccConverterInterfaceIIDM::LccConverterInterfaceIIDM(IIDM::LccConverterStation& 
 InjectorInterfaceIIDM<IIDM::LccConverterStation>(lcc, lcc.id()),
 lccConverterIIDM_(lcc) {
   setType(ComponentInterface::LCC_CONVERTER);
-  stateVariables_.resize(3);
-  stateVariables_[VAR_P] = StateVariable("p", StateVariable::DOUBLE);  // P
-  stateVariables_[VAR_Q] = StateVariable("q", StateVariable::DOUBLE);  // Q
-  stateVariables_[VAR_STATE] = StateVariable("state", StateVariable::INT);   // connectionState
 }
 
 int
-LccConverterInterfaceIIDM::getComponentVarIndex(const std::string& varName) const {
-  int index = -1;
-  if ( varName == "p" )
-    index = VAR_P;
-  else if ( varName == "q" )
-    index = VAR_Q;
-  else if ( varName == "state" )
-    index = VAR_STATE;
-  return index;
+LccConverterInterfaceIIDM::getComponentVarIndex(const std::string& /*varName*/) const {
+  return -1;
 }
 
 void
 LccConverterInterfaceIIDM::exportStateVariablesUnitComponent() {
-  bool connected = (getValue<int>(VAR_STATE) == CLOSED);
-  lccConverterIIDM_.p(-1 * getValue<double>(VAR_P) * SNREF);
-  lccConverterIIDM_.q(-1 * getValue<double>(VAR_Q) * SNREF);
-
-  if (lccConverterIIDM_.has_connection()) {
-    if (lccConverterIIDM_.connectionPoint()->is_bus()) {
-      if (connected)
-        lccConverterIIDM_.connect();
-      else
-        lccConverterIIDM_.disconnect();
-    } else {  // is node()
-      // should be removed once a solution has been found to propagate switches (de)connection
-      // following component (de)connection (only Modelica models)
-      if (connected && !getInitialConnected())
-        getVoltageLevelInterface()->connectNode(lccConverterIIDM_.node());
-      else if (!connected && getInitialConnected())
-        getVoltageLevelInterface()->disconnectNode(lccConverterIIDM_.node());
-    }
-  }
 }
 
 void
@@ -157,6 +127,11 @@ LccConverterInterfaceIIDM::getLossFactor() const {
 double
 LccConverterInterfaceIIDM::getPowerFactor() const {
   return lccConverterIIDM_.powerFactor();
+}
+
+IIDM::LccConverterStation&
+LccConverterInterfaceIIDM::getLccIIDM() {
+  return lccConverterIIDM_;
 }
 
 }  // namespace DYN

@@ -110,11 +110,12 @@ class Modeler {
    * @brief find a node connector name
    *
    * @param id : id of the node connector
+   * @param labelNode : @NODE@ or @NODE1@ or @NODE2@
    * if the id contains \@static_id\@\@NODE\@, find the connection point of static id,
    * and replace \@NODE\@ by the name of the connection point
    * @return the id of the connector where \@static_id\@\@NODE\@ is replaced by the name of the connection point
    */
-  std::string findNodeConnectorName(const std::string& id) const;
+  std::string findNodeConnectorName(const std::string& id, const std::string& labelNode) const;
 
   /**
    * @brief Check for each flow connections that there is no mix of internal and system connections
