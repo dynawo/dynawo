@@ -31,7 +31,6 @@ set(MODEL_SOURCES
   DYNModelDanglingLine.cpp
   DYNModelNetwork.cpp
   DYNModelCurrentLimits.cpp
-  DYNModelTapChangerStep.cpp
   DYNModelRatioTapChanger.cpp
   DYNModelPhaseTapChanger.cpp
   DYNModelHvdcLink.cpp
