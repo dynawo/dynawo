@@ -55,7 +55,7 @@ HvdcLineInterfaceIIDM::~HvdcLineInterfaceIIDM() {
 
 void
 HvdcLineInterfaceIIDM::exportStateVariablesUnitComponent() {
-  switch (conv1_->getType()) {
+  switch (conv1_->getConverterType()) {
     case ConverterInterface::VSC_CONVERTER:
       {
       shared_ptr<VscConverterInterfaceIIDM> vsc1 = dynamic_pointer_cast<VscConverterInterfaceIIDM>(conv1_);
