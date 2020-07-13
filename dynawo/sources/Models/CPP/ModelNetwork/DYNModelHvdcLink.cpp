@@ -546,7 +546,7 @@ ModelHvdcLink::setConvertersReactivePower(const shared_ptr<HvdcLineInterface>& d
     Q02_ = -dcLine->getConverter2()->getQ() / SNREF;
   } else {
     // calculate reactive power at the two points of common coupling from set points
-    switch (dcLine->getConverter1()->getType()) {
+    switch (dcLine->getConverter1()->getConverterType()) {
       case ConverterInterface::VSC_CONVERTER:
         {
         shared_ptr<VscConverterInterface> vsc1 = dynamic_pointer_cast<VscConverterInterface>(dcLine->getConverter1());

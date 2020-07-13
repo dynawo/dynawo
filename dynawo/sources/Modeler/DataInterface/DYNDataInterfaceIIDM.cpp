@@ -975,8 +975,7 @@ DataInterfaceIIDM::setModelNetwork(const shared_ptr<SubModel>& model) {
 void
 DataInterfaceIIDM::mapConnections() {
   const vector<shared_ptr<LineInterface> >& lines = network_->getLines();
-  vector<shared_ptr<LineInterface> >::const_iterator iLine;
-  for (iLine = lines.begin(); iLine != lines.end(); ++iLine) {
+  for (vector<shared_ptr<LineInterface> >::const_iterator iLine = lines.begin(); iLine != lines.end(); ++iLine) {
     if ((*iLine)->hasDynamicModel()) {
       (*iLine)->getBusInterface1()->hasConnection(true);
       (*iLine)->getBusInterface2()->hasConnection(true);
@@ -984,18 +983,15 @@ DataInterfaceIIDM::mapConnections() {
   }
 
   const vector<shared_ptr<TwoWTransformerInterface> >& twoWtfos = network_->getTwoWTransformers();
-  vector<shared_ptr<TwoWTransformerInterface> >::const_iterator i2WTfo;
-  for (i2WTfo = twoWtfos.begin(); i2WTfo != twoWtfos.end(); ++i2WTfo) {
+  for (vector<shared_ptr<TwoWTransformerInterface> >::const_iterator i2WTfo = twoWtfos.begin(); i2WTfo != twoWtfos.end(); ++i2WTfo) {
     if ((*i2WTfo)->hasDynamicModel()) {
       (*i2WTfo)->getBusInterface1()->hasConnection(true);
       (*i2WTfo)->getBusInterface2()->hasConnection(true);
     }
   }
 
-
   const vector<shared_ptr<ThreeWTransformerInterface> >& threeWtfos = network_->getThreeWTransformers();
-  vector<shared_ptr<ThreeWTransformerInterface> >::const_iterator i3WTfo;
-  for (i3WTfo = threeWtfos.begin(); i3WTfo != threeWtfos.end(); ++i3WTfo) {
+  for (vector<shared_ptr<ThreeWTransformerInterface> >::const_iterator i3WTfo = threeWtfos.begin(); i3WTfo != threeWtfos.end(); ++i3WTfo) {
     if ((*i3WTfo)->hasDynamicModel()) {
       (*i3WTfo)->getBusInterface1()->hasConnection(true);
       (*i3WTfo)->getBusInterface2()->hasConnection(true);
@@ -1004,8 +1000,7 @@ DataInterfaceIIDM::mapConnections() {
   }
 
   const vector<shared_ptr<HvdcLineInterface> >& hvdcs = network_->getHvdcLines();
-  vector<shared_ptr<HvdcLineInterface> >::const_iterator iHvdc;
-  for (iHvdc = hvdcs.begin(); iHvdc != hvdcs.end(); ++iHvdc) {
+  for (vector<shared_ptr<HvdcLineInterface> >::const_iterator iHvdc = hvdcs.begin(); iHvdc != hvdcs.end(); ++iHvdc) {
     if ((*iHvdc)->hasDynamicModel()) {
       (*iHvdc)->getConverter1()->getBusInterface()->hasConnection(true);
       (*iHvdc)->getConverter2()->getBusInterface()->hasConnection(true);
@@ -1013,8 +1008,7 @@ DataInterfaceIIDM::mapConnections() {
   }
 
   const vector< shared_ptr<VoltageLevelInterface> > voltageLevels = network_->getVoltageLevels();
-  vector<shared_ptr<VoltageLevelInterface> >::const_iterator iVL;
-  for (iVL = voltageLevels.begin(); iVL != voltageLevels.end(); ++iVL) {
+  for (vector<shared_ptr<VoltageLevelInterface> >::const_iterator iVL = voltageLevels.begin(); iVL != voltageLevels.end(); ++iVL) {
     (*iVL)->mapConnections();
   }
 }

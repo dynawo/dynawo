@@ -121,7 +121,7 @@ class ComponentInterface {
    * @brief Getter fot the interface's type
    * @return interface's type
    */
-  ComponentType_t getType() const;
+  const ComponentType_t& getType() const;
 
   /**
    * @brief import static parameters

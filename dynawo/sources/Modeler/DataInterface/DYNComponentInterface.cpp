@@ -105,7 +105,7 @@ ComponentInterface::setType(const ComponentInterface::ComponentType_t& type) {
   type_ = type;
 }
 
-ComponentInterface::ComponentType_t
+const ComponentInterface::ComponentType_t&
 ComponentInterface::getType() const {
   return type_;
 }

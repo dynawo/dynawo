@@ -205,7 +205,15 @@ Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& sub
   if (foundStaticIdInVar2)
     var2.replace(var2.find(labelStaticId), labelStaticId.size(), "@" + subModel1->staticId() + "@");
 
-  // replace the static id of the model where the connection should be made with the static if of the bus for @NODE@
+  // replace @NODE@, @NODE1@, @NODE2@ with the static id of the bus
+  replaceNodeWithBus(subModel1, var1, subModel2, var2, labelNode);
+  replaceNodeWithBus(subModel1, var1, subModel2, var2, labelNode1);
+  replaceNodeWithBus(subModel1, var1, subModel2, var2, labelNode2);
+}
+
+void
+Modeler::replaceNodeWithBus(const shared_ptr<SubModel>& subModel1, string& var1,
+    const shared_ptr<SubModel>& subModel2, string& var2, const string& labelNode) const {
   bool foundNodeInVar1 = (var1.find(labelNode) != string::npos);
   bool foundNodeInVar2 = (var2.find(labelNode) != string::npos);
   if (foundNodeInVar1 && foundNodeInVar2) {
@@ -214,27 +222,6 @@ Modeler::replaceStaticAndNodeMacroInVariableName(const shared_ptr<SubModel>& sub
     var1 = findNodeConnectorName(var1, labelNode);
   } else if (foundNodeInVar2) {
     var2 = findNodeConnectorName(var2, labelNode);
-  }
-
-  // replace the static id of the model where the connection should be made with the static if of the bus for @NODE1@
-  bool foundNode1InVar1 = (var1.find(labelNode1) != string::npos);
-  bool foundNode1InVar2 = (var2.find(labelNode1) != string::npos);
-  if (foundNode1InVar1 && foundNode1InVar2) {
-    throw DYNError(Error::MODELER, WrongConnectTwoUnknownNodes, subModel1->name(), var1, subModel2->name(), var2);
-  } else if (foundNode1InVar1) {
-    var1 = findNodeConnectorName(var1, labelNode1);
-  } else if (foundNode1InVar2) {
-    var2 = findNodeConnectorName(var2, labelNode1);
-  }
-  // replace the static id of the model where the connection should be made with the static if of the bus for @NODE2@
-  bool foundNode2InVar1 = (var1.find(labelNode2) != string::npos);
-  bool foundNode2InVar2 = (var2.find(labelNode2) != string::npos);
-  if (foundNode2InVar1 && foundNode2InVar2) {
-    throw DYNError(Error::MODELER, WrongConnectTwoUnknownNodes, subModel1->name(), var1, subModel2->name(), var2);
-  } else if (foundNode2InVar1) {
-    var1 = findNodeConnectorName(var1, labelNode2);
-  } else if (foundNode2InVar2) {
-    var2 = findNodeConnectorName(var2, labelNode2);
   }
 }
 
