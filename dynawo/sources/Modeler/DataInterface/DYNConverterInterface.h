@@ -106,7 +106,7 @@ class ConverterInterface : public ComponentInterface {
    * @brief Getter fot the converter's type
    * @return converter's type
    */
-  inline ConverterType_t getType() const {
+  inline ConverterType_t getConverterType() const {
     switch (type_) {
       case ComponentInterface::BUS:
       case ComponentInterface::CALCULATED_BUS:

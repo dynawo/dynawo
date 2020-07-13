@@ -130,7 +130,6 @@ class Modeler {
   void collectAllInternalConnections(boost::shared_ptr<dynamicdata::ModelicaModel> model,
       std::vector<std::pair<std::string, std::string> >& variablesConnectedInternally) const;
 
-
   /**
    * @brief replace STATIC and NODE macros in a macro connection
    * @param subModel1: first connected model
@@ -147,6 +146,17 @@ class Modeler {
    * @param modelDescription dynamic model
    */
   void initParamDescription(const boost::shared_ptr<ModelDescription>& modelDescription);
+
+  /**
+   * @brief replace @NODE@, @NODE1@, @NODE2@ with the id of the bus the compoment is connected to
+   * @param subModel1: first connected model
+   * @param var1: first connected variable
+   * @param subModel2: second connected model
+   * @param var2: second connected variable
+   * @param labelNode: @NODE@ or @NODE1@ or @NODE2@
+   */
+  void replaceNodeWithBus(const boost::shared_ptr<SubModel>& subModel1, std::string& var1,
+      const boost::shared_ptr<SubModel>& subModel2, std::string& var2, const std::string& labelNode) const;
 
  private:
   boost::shared_ptr<DataInterface> data_;  ///< data used to build the model multi
