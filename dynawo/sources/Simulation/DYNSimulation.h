@@ -432,10 +432,11 @@ class Simulation {
   /**
    * @brief check if criteria are fullfilled
    *
+   * @param t current time of the simulation
    * @param finalStep  @b true if this is the final step of the simulation
    * @return @b true if all criteria are fullfilled
    */
-  bool checkCriteria(bool finalStep);
+  bool checkCriteria(double t, bool finalStep);
 
   /**
    * @brief configure and create all appenders of the simulation

@@ -1153,7 +1153,7 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
 }
 
 bool
-DataInterfaceIIDM::checkCriteria(bool finalStep) {
+DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
   Timer timer("DataInterfaceIIDM::checkCriteria");
 #ifdef _DEBUG_
   for (map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
@@ -1163,7 +1163,7 @@ DataInterfaceIIDM::checkCriteria(bool finalStep) {
   bool criteriaOk = true;
   for (std::vector<boost::shared_ptr<Criteria> >::const_iterator it = criteria_.begin(), itEnd = criteria_.end();
       it != itEnd; ++it) {
-    criteriaOk &= (*it)->checkCriteria(finalStep);
+    criteriaOk &= (*it)->checkCriteria(t, finalStep);
   }
 #ifdef _DEBUG_
   for (map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
