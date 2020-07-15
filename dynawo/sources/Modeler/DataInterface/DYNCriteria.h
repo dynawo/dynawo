@@ -40,11 +40,12 @@ class Criteria {
 
   /**
    * @brief returns true if the criteria is respected, false otherwise
+   * @param t current time of the simulation
    * @param finalStep true if this is the final step of the simulation
    *
    * @return true if the criteria is respected, false otherwise
    */
-  virtual bool checkCriteria(bool finalStep) = 0;
+  virtual bool checkCriteria(double t, bool finalStep) = 0;
 
   /**
    * @brief returns the list of failing criteria
@@ -83,11 +84,12 @@ class BusCriteria : public Criteria {
 
   /**
    * @brief returns true if the criteria is respected, false otherwise
+   * @param t current time of the simulation
    * @param finalStep true if this is the final step of the simulation
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(bool finalStep);
+  bool checkCriteria(double t, bool finalStep);
 
   /**
    * @brief add a bus to the criteria
@@ -131,11 +133,12 @@ class LoadCriteria : public Criteria {
 
   /**
    * @brief returns true if the criteria is respected, false otherwise
+   * @param t current time of the simulation
    * @param finalStep true if this is the final step of the simulation
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(bool finalStep);
+  bool checkCriteria(double t, bool finalStep);
 
   /**
    * @brief add a load to the criteria
@@ -179,11 +182,12 @@ class GeneratorCriteria : public Criteria {
 
   /**
    * @brief returns true if the criteria is respected, false otherwise
+   * @param t current time of the simulation
    * @param finalStep true if this is the final step of the simulation
    *
    * @return true if the criteria is respected, false otherwise
    */
-  bool checkCriteria(bool finalStep);
+  bool checkCriteria(double t, bool finalStep);
 
   /**
    * @brief add a generator to the criteria

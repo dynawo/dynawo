@@ -854,7 +854,7 @@ Simulation::simulate() {
       printCurrentTime(fileName.str());
 
       if (isCheckCriteriaIter) {
-        criteriaChecked = checkCriteria(false);
+        criteriaChecked = checkCriteria(tCurrent_, false);
       }
       ++currentIterNb;
     }
@@ -870,7 +870,7 @@ Simulation::simulate() {
       addEvent(DYNTimeline(CriteriaNotChecked));
       throw DYNError(Error::SIMULATION, CriteriaNotChecked);
     } else if (end() && data_ && activateCriteria_) {
-      criteriaChecked = checkCriteria(true);
+      criteriaChecked = checkCriteria(tCurrent_, true);
       if (!criteriaChecked) {
         addEvent(DYNTimeline(CriteriaNotChecked));
         throw DYNError(Error::SIMULATION, CriteriaNotChecked);
@@ -892,13 +892,13 @@ Simulation::simulate() {
 }
 
 bool
-Simulation::checkCriteria(bool finalStep) {
+Simulation::checkCriteria(double t, bool finalStep) {
 #ifdef _DEBUG_
   Timer timer("Simulation::checkCriteria()");
 #endif
   const bool filterForCriteriaCheck = true;
   data_->updateFromModel(filterForCriteriaCheck);
-  bool criteriaChecked = data_->checkCriteria(finalStep);
+  bool criteriaChecked = data_->checkCriteria(t, finalStep);
   return criteriaChecked;
 }
 

@@ -105,10 +105,11 @@ class DataInterface {
 
   /**
    * @brief check if criteria for static model is respected
+   * @param t current time of the simulation
    * @param finalStep @b true check criteria at each iteration, @b false check only at the end of simulation
    * @return false if criteria is not respected
    */
-  virtual bool checkCriteria(bool finalStep) = 0;
+  virtual bool checkCriteria(double t, bool finalStep) = 0;
 
   /**
    * @brief fill a vector with the ids of the failing criteria

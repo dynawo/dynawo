@@ -232,7 +232,7 @@ SolverKINAlgRestoration::evalF_KIN(N_Vector yy, N_Vector rr, void *data) {
   Trace::debug() << DYNLog(KinLargestErrors, nbErr) << Trace::endline;
   vector<std::pair<double, size_t> > fErr;
   for (size_t i = 0; i < solv->indexF_.size(); ++i)
-    fErr.push_back(std::pair<double, size_t>(solv->F_[solv->indexF_[i]], i));
+    fErr.push_back(std::pair<double, size_t>(solv->F_[solv->indexF_[i]], solv->indexF_[i]));
   SolverCommon::printLargestErrors(fErr, model, nbErr);
 #endif
   return (0);
