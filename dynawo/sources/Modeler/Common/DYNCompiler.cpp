@@ -705,10 +705,10 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
       } else if (firstVarFound && secondVarFound) {
         size_t indexToKeep = varNameToConnIndex[firstVar].connectionId;
         size_t indexToDrop = varNameToConnIndex[secondVar].connectionId;
-        for (unordered_map<string, DiscreteExtVar>::iterator it = varNameToConnIndex.begin(), itEnd = varNameToConnIndex.end();
-            it != itEnd; ++it) {
-          if (it->second.connectionId == indexToDrop)
-            it->second.connectionId = indexToKeep;
+        for (unordered_map<string, DiscreteExtVar>::iterator itVarName = varNameToConnIndex.begin(), itVarNameEnd = varNameToConnIndex.end();
+            itVarName != itVarNameEnd; ++itVarName) {
+          if (itVarName->second.connectionId == indexToDrop)
+            itVarName->second.connectionId = indexToKeep;
         }
       } else {
         varNameToConnIndex.insert(std::make_pair(firstVar, DiscreteExtVar(index, var1FullName, it->second)));
@@ -736,10 +736,10 @@ Compiler::writeExtvarFile(const shared_ptr<ModelDescription> & modelicaModelDesc
       } else if (firstVarFound && secondVarFound) {
         size_t indexToKeep = varNameToConnIndex[firstVar].connectionId;
         size_t indexToDrop = varNameToConnIndex[secondVar].connectionId;
-        for (unordered_map<string, DiscreteExtVar>::iterator it = varNameToConnIndex.begin(), itEnd = varNameToConnIndex.end();
-            it != itEnd; ++it) {
-          if (it->second.connectionId == indexToDrop)
-            it->second.connectionId = indexToKeep;
+        for (unordered_map<string, DiscreteExtVar>::iterator itVarName = varNameToConnIndex.begin(), itVarNameEnd = varNameToConnIndex.end();
+            itVarName != itVarNameEnd; ++itVarName) {
+          if (itVarName->second.connectionId == indexToDrop)
+            itVarName->second.connectionId = indexToKeep;
         }
       } else {
         varNameToConnIndex.insert(std::make_pair(firstVar, DiscreteExtVar(index, var1FullName, it->second)));
