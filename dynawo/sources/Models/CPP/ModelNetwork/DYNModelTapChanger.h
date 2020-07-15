@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -20,12 +20,11 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELTAPCHANGER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELTAPCHANGER_H_
 
-// #include <vector>
 #include <map>
 #include <string>
 
-#include "DYNEnumUtils.h"      // stage_g
-#include "DYNMacrosMessage.h"  // Error::MODELER
+#include "DYNEnumUtils.h"
+#include "DYNMacrosMessage.h"
 #include "DYNModelTapChangerStep.h"
 
 namespace DYN {
@@ -41,7 +40,7 @@ class ModelTapChanger {
    *
    * @param id : name of the tap changer
    */
-  explicit ModelTapChanger(std::string const& id)
+  inline explicit ModelTapChanger(const std::string& id)
       : id_(id),
         currentStepIndex_(0),
         regulating_(false),
@@ -59,14 +58,14 @@ class ModelTapChanger {
    * @brief  return the name of the tap changer
    * @return name of the tap changer
    */
-  std::string const& id() const { return id_; }
+  inline const std::string& id() const { return id_; }
 
   /**
    * @brief return the step associated to the index
    * @param key associated to the index
    * @return step associated to the index
    */
-  TapChangerStep const& getStep(int key) const {
+  inline const TapChangerStep& getStep(int key) const {
     if (steps_.find(key) != steps_.end()) {
       return steps_.find(key)->second;
     } else {
@@ -79,13 +78,15 @@ class ModelTapChanger {
    * @param index
    * @param step
    */
-  void addStep(int index, TapChangerStep const& step) { steps_[index] = step; }
+  inline void addStep(int index, const TapChangerStep& step) {
+    steps_[index] = step;
+  }
 
   /**
    * @brief  get the current TapChangerStep object
    * @return tap changer step
    */
-  const TapChangerStep& getCurrentStep() const {
+  inline const TapChangerStep& getCurrentStep() const {
     return getStep(currentStepIndex_);
   }
 
@@ -93,81 +94,81 @@ class ModelTapChanger {
    * @brief  return the name of the tap changer
    * @return name of the tap changer
    */
-  size_t size() const { return steps_.size(); }
+  inline size_t size() const { return steps_.size(); }
 
   /**
    * @brief  set the current step to a new index
    * @param index
    */
-  void setCurrentStepIndex(int const& index) { currentStepIndex_ = index; }
+  inline void setCurrentStepIndex(int index) { currentStepIndex_ = index; }
 
   /**
    * @brief   get the current step index
    * @return current step index
    */
-  int getCurrentStepIndex() const { return currentStepIndex_; }
+  inline int getCurrentStepIndex() const { return currentStepIndex_; }
 
   /**
    * @brief   get the lowest step index
    * @return index
    */
-  int getLowStepIndex() const { return lowStepIndex_; }
+  inline int getLowStepIndex() const { return lowStepIndex_; }
 
   /**
    * @brief   set the lowest step index
    * @param index
    */
-  void setLowStepIndex(int const& index) { lowStepIndex_ = index; }
+  inline void setLowStepIndex(int index) { lowStepIndex_ = index; }
 
   /**
    * @brief   get the highest step index
    * @return index
    */
-  int getHighStepIndex() const { return highStepIndex_; }
+  inline int getHighStepIndex() const { return highStepIndex_; }
 
   /**
    * @brief  set the highest step index
    * @param index
    */
-  void setHighStepIndex(int const& index) { highStepIndex_ = index; }
+  inline void setHighStepIndex(int index) { highStepIndex_ = index; }
 
   /**
    * @brief get if the tap changer is regulating
    * @return regulating
    */
-  bool getRegulating() const { return regulating_; }
+  inline bool getRegulating() const { return regulating_; }
 
   /**
    * @brief set if the tap changer is regulating
    * @param regulating
    */
-  void setRegulating(bool regulating) { regulating_ = regulating; }
+  inline void setRegulating(bool regulating) { regulating_ = regulating; }
 
   /**
    * @brief   get the time to wait before changing of step for the first time
    * @return time
    */
-  double getTFirst() const { return tFirst_; }
+  inline double getTFirst() const { return tFirst_; }
 
   /**
    * @brief   set the time to wait before changing of step for the first time
    * @param time
    */
-  void setTFirst(double const& time) { tFirst_ = time; }
+  inline void setTFirst(double time) { tFirst_ = time; }
 
   /**
    * @brief   get the time to wait before changing of step if it's not the first
    * time
    * @return time
    */
-  double getTNext() const { return tNext_; }
+  inline double getTNext() const { return tNext_; }
 
   /**
    * @brief  set the time to wait before changing of step if it's not the first
    * time
    * @param time
    */
-  void setTNext(double const& time) { tNext_ = time; }
+  inline void setTNext(double time) { tNext_ = time; }
 
  public:
   /**
