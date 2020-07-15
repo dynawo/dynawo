@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -31,7 +31,7 @@ class TapChangerStep {
   /**
    * @brief Empty constructor
    */
-  TapChangerStep() : rho_(1), alpha_(0), r_(0), x_(0), g_(0), b_(0) {}
+  inline TapChangerStep() : rho_(1), alpha_(0), r_(0), x_(0), g_(0), b_(0) {}
 
   /**
    * @brief Constructor
@@ -43,45 +43,45 @@ class TapChangerStep {
    * @param g step conductance
    * @param b step susceptance
    */
-  TapChangerStep(const double& rho, const double& alpha, const double& r,
-                 const double& x, const double& g, const double& b)
+  inline TapChangerStep(double rho, double alpha, double r, double x, double g,
+                        double b)
       : rho_(rho), alpha_(alpha), r_(r), x_(x), g_(g), b_(b) {}
 
   /**
    * @brief Get the step conversion ratio
    * @return The conversion ratio of the step
    */
-  double getRho() const { return rho_; }
+  inline double getRho() const { return rho_; }
 
   /**
    * @brief Get the step phase shift
    * @return The phase shift of the step
    */
-  double getAlpha() const { return alpha_; }
+  inline double getAlpha() const { return alpha_; }
 
   /**
    * @brief Get the step resistance
    * @return The resistance of the step
    */
-  double getR() const { return r_; }
+  inline double getR() const { return r_; }
 
   /**
    * @brief Get the step reactance
    * @return The reactance of the step
    */
-  double getX() const { return x_; }
+  inline double getX() const { return x_; }
 
   /**
    * @brief Get the step conductance
    * @return The conductance of the step
    */
-  double getG() const { return g_; }
+  inline double getG() const { return g_; }
 
   /**
    * @brief Get the step susceptance
    * @return The susceptance of the step
    */
-  double getB() const { return b_; }
+  inline double getB() const { return b_; }
 
  private:
   double rho_;    ///< conversion ratio
