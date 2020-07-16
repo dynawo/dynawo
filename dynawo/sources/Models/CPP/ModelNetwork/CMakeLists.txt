@@ -25,7 +25,6 @@ set(MODEL_SOURCES
   DYNModelLoad.cpp
   DYNModelShuntCompensator.cpp
   DYNModelStaticVarCompensator.cpp
-  DYNModelTapChanger.cpp
   DYNModelThreeWindingsTransformer.cpp
   DYNModelTwoWindingsTransformer.cpp
   DYNModelDanglingLine.cpp
