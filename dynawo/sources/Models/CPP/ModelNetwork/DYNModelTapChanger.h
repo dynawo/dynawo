@@ -52,7 +52,7 @@ class ModelTapChanger {
   /**
    * @brief destructor
    */
-  virtual ~ModelTapChanger();
+  virtual ~ModelTapChanger() {}
 
   /**
    * @brief  return the name of the tap changer
@@ -182,7 +182,9 @@ class ModelTapChanger {
    * @param tfoClosed : is the transformer connected ?
    */
   virtual void evalG(double t, double valueMonitored, bool nodeOff, state_g* g,
-                     double disable, double locked, bool tfoClosed);
+                     double disable, double locked, bool tfoClosed) {
+    // not needed
+  }
 
   /**
    * @brief  evaluate discrete values
@@ -196,7 +198,9 @@ class ModelTapChanger {
    */
   virtual void evalZ(double t, state_g* g, ModelNetwork* network,
                      double disable, bool nodeOff, double locked,
-                     bool tfoClosed);
+                     bool tfoClosed) {
+    // not needed
+  }
 
   /**
    * @brief  get the size of the local G function

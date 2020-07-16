@@ -19,39 +19,17 @@
  */
 
 #include "DYNModelRatioTapChanger.h"
-#include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
-#include "DYNMacrosMessage.h"
 
 namespace DYN {
 
-ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id, const std::string& side) :
-ModelTapChanger(id),
-side_(side),
-tolV_(0.015),
-targetV_(0),
-moveUp_(false),
-moveDown_(false),
-tapRefDown_(-1),
-tapRefUp_(-1),
-uMaxState_(false),
-uMinState_(false),
-uTargetState_(true) {
-  whenUp_ = VALDEF;
-  whenDown_ = VALDEF;
-  whenLastTap_ = VALDEF;
-}
-
-ModelRatioTapChanger::~ModelRatioTapChanger() {
-}
-
-bool
-ModelRatioTapChanger::getUpIncreaseTargetU() {
+bool ModelRatioTapChanger::getUpIncreaseTargetU() {
   // decide whether we should increase/decrease tap
   bool increaseRate = false;
   bool upIncreaseTargetU = false;
   if (size() > 1)
-    increaseRate = (getStep(getLowStepIndex()).getRho() < getStep(getLowStepIndex() + 1).getRho());
+    increaseRate = (getStep(getLowStepIndex()).getRho() <
+                    getStep(getLowStepIndex() + 1).getRho());
 
   // in tfo, the main equation is U2 = rho*U1
   if (side_ == "ONE") {
@@ -70,55 +48,52 @@ ModelRatioTapChanger::getUpIncreaseTargetU() {
   return upIncreaseTargetU;
 }
 
-void
-ModelRatioTapChanger::setTolV(const double& tolerance) {
-  tolV_ = tolerance;
+void ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff,
+                                 state_g* g, double disable, double locked,
+                                 bool tfoClosed) {
+  g[0] =
+      (uValue > targetV_ + tolV_ && doubleNotEquals(uValue, targetV_ + tolV_) &&
+       !(disable > 0) && !(nodeOff) && tfoClosed)
+          ? ROOT_UP
+          : ROOT_DOWN;  // U > Uc + deadBand
+  g[1] =
+      (uValue < targetV_ - tolV_ && doubleNotEquals(uValue, targetV_ - tolV_) &&
+       !(disable > 0) && !(nodeOff) && tfoClosed)
+          ? ROOT_UP
+          : ROOT_DOWN;  // U < Uc - deadBand
+  g[2] = (uValue <= targetV_ + tolV_ && uValue >= targetV_ - tolV_)
+             ? ROOT_UP
+             : ROOT_DOWN;  // U-deadBand < U < U + deadBand
+  g[3] = (moveUp_ && (t - whenUp_ >= getTFirst()) &&
+          getCurrentStepIndex() < getHighStepIndex() && !(locked > 0) &&
+          getRegulating() && getCurrentStepIndex() == tapRefUp_ && !(nodeOff) &&
+          tfoClosed)
+             ? ROOT_UP
+             : ROOT_DOWN;  // first tap Up
+  g[4] = (moveUp_ && (t - whenLastTap_ >= getTNext()) &&
+          getCurrentStepIndex() < getHighStepIndex() && !(locked > 0) &&
+          getRegulating() && getCurrentStepIndex() != tapRefUp_ && !(nodeOff) &&
+          tfoClosed)
+             ? ROOT_UP
+             : ROOT_DOWN;  // next tap Up
+
+  g[5] = (moveDown_ && (t - whenDown_ >= getTFirst()) &&
+          getCurrentStepIndex() > getLowStepIndex() && !(locked > 0) &&
+          getRegulating() && getCurrentStepIndex() == tapRefDown_ &&
+          !(nodeOff) && tfoClosed)
+             ? ROOT_UP
+             : ROOT_DOWN;  // first tap down
+  g[6] = (moveDown_ && (t - whenLastTap_ >= getTNext()) &&
+          getCurrentStepIndex() > getLowStepIndex() && !(locked > 0) &&
+          getRegulating() && getCurrentStepIndex() != tapRefDown_ &&
+          !(nodeOff) && tfoClosed)
+             ? ROOT_UP
+             : ROOT_DOWN;  // next tap down
 }
 
-void
-ModelRatioTapChanger::setTargetV(const double& target) {
-  targetV_ = target;
-}
-
-double
-ModelRatioTapChanger::getTolV() const {
-  return tolV_;
-}
-
-int
-ModelRatioTapChanger::sizeG() const {
-  return 7;
-}
-
-int
-ModelRatioTapChanger::sizeZ() const {
-  return 0;
-}
-
-void
-ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff, state_g* g, double disable, double locked, bool tfoClosed) {
-  g[0] = (uValue > targetV_ + tolV_ && doubleNotEquals(uValue, targetV_ + tolV_)
-  && !(disable > 0) && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U > Uc + deadBand
-  g[1] = (uValue < targetV_ - tolV_ && doubleNotEquals(uValue, targetV_ - tolV_)
-  && !(disable > 0) && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U < Uc - deadBand
-  g[2] = (uValue <= targetV_ + tolV_ && uValue >= targetV_ - tolV_) ? ROOT_UP : ROOT_DOWN;  // U-deadBand < U < U + deadBand
-  g[3] = (moveUp_ && (t - whenUp_ >= getTFirst()) && getCurrentStepIndex() < getHighStepIndex()
-      && !(locked > 0) && getRegulating() && getCurrentStepIndex() == tapRefUp_
-          && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // first tap Up
-  g[4] = (moveUp_ && (t - whenLastTap_ >= getTNext()) && getCurrentStepIndex() < getHighStepIndex()
-      && !(locked > 0) && getRegulating() && getCurrentStepIndex() != tapRefUp_
-          && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // next tap Up
-
-  g[5] = (moveDown_ && (t - whenDown_ >= getTFirst()) && getCurrentStepIndex() > getLowStepIndex()
-      && !(locked > 0) && getRegulating() && getCurrentStepIndex() == tapRefDown_
-          && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // first tap down
-  g[6] = (moveDown_ && (t - whenLastTap_ >= getTNext()) && getCurrentStepIndex() > getLowStepIndex()
-      && !(locked > 0) && getRegulating() && getCurrentStepIndex() != tapRefDown_
-          && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // next tap down
-}
-
-void
-ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double disable, bool nodeOff, double locked, bool tfoClosed) {
+void ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
+                                 double disable, bool nodeOff, double locked,
+                                 bool tfoClosed) {
   if (!(disable > 0) && !(nodeOff) && !(locked > 0) && tfoClosed) {
     if (g[0] == ROOT_UP && !uMaxState_) {  // U > UMax
       if (!getUpIncreaseTargetU()) {
