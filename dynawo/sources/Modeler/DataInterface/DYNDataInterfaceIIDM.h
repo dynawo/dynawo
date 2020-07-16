@@ -144,9 +144,9 @@ class DataInterfaceIIDM : public DataInterface {
   void configureCriteria(const boost::shared_ptr<criteria::CriteriaCollection>& criteria);
 
   /**
-   * @copydoc DataInterface::checkCriteria(bool finalStep)
+   * @copydoc DataInterface::checkCriteria(double t, bool finalStep)
    */
-  bool checkCriteria(bool finalStep);
+  bool checkCriteria(double t, bool finalStep);
 
   /**
    * @brief fill a vector with the ids of the failing criteria

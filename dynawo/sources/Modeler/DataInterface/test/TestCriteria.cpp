@@ -268,7 +268,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   // v<=0.8*vNom
   criteria.addBus(bus);
   ASSERT_FALSE(criteria.empty());
-  ASSERT_TRUE(criteria.checkCriteria(false));
+  ASSERT_TRUE(criteria.checkCriteria(0, false));
   ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
   data = createBusBreakerNetwork(190, 225);
@@ -277,9 +277,9 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   // v>0.8*vNom
   BusCriteria criteria2(criteriap);
   criteria2.addBus(bus);
-  ASSERT_FALSE(criteria2.checkCriteria(false));
+  ASSERT_FALSE(criteria2.checkCriteria(0, false));
   ASSERT_EQ(criteria2.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria2.getFailingCriteria()[0], "BusAboveVoltage MyBus 190 0.8 MyCriteria");
+  ASSERT_EQ(criteria2.getFailingCriteria()[0], "BusAboveVoltage MyBus 190 0.8 MyCriteria 0");
 
   boost::shared_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
   criteriap2->setType(CriteriaParams::LOCAL_VALUE);
@@ -291,7 +291,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   bus = data->getNetwork()->getVoltageLevels()[0]->getBuses()[0];
   // v>=0.2*vNom
   criteria3.addBus(bus);
-  ASSERT_TRUE(criteria3.checkCriteria(true));
+  ASSERT_TRUE(criteria3.checkCriteria(0, true));
   ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
   data = createBusBreakerNetwork(43, 225);
@@ -300,10 +300,10 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   // v<0.2*vNom
   BusCriteria criteria4(criteriap2);
   criteria4.addBus(bus);
-  ASSERT_FALSE(criteria4.checkCriteria(true));
+  ASSERT_FALSE(criteria4.checkCriteria(0, true));
   ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteria()[0], "BusUnderVoltage MyBus 43 0.2 ");
-  ASSERT_TRUE(criteria4.checkCriteria(false));
+  ASSERT_EQ(criteria4.getFailingCriteria()[0], "BusUnderVoltage MyBus 43 0.2  0");
+  ASSERT_TRUE(criteria4.checkCriteria(0, false));
   ASSERT_TRUE(criteria4.getFailingCriteria().empty());
 }
 
@@ -320,7 +320,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   exportStates(data);
   data->configureCriteria(collection);
   // not eligible
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -335,7 +335,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   exportStates(data);
   data->configureCriteria(collection);
   // vNom < min
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -351,7 +351,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_FALSE(data->checkCriteria(false));
+  ASSERT_FALSE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -367,7 +367,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   exportStates(data);
   data->configureCriteria(collection);
   // bus not found
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -384,7 +384,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_FALSE(data->checkCriteria(false));
+  ASSERT_FALSE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -401,8 +401,8 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(false));
-  ASSERT_FALSE(data->checkCriteria(true));
+  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, true));
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
@@ -445,7 +445,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   for (size_t i = 0; i < loads.size(); ++i)
     criteria.addLoad(loads[i]);
   ASSERT_FALSE(criteria.empty());
-  ASSERT_TRUE(criteria.checkCriteria(true));
+  ASSERT_TRUE(criteria.checkCriteria(0, true));
   ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(43, 225, 250, 100);
@@ -456,7 +456,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   for (size_t i = 0; i < loads.size(); ++i)
     criteria2.addLoad(loads[i]);
   ASSERT_FALSE(criteria2.empty());
-  ASSERT_TRUE(criteria2.checkCriteria(true));
+  ASSERT_TRUE(criteria2.checkCriteria(0, true));
   ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(180, 225, 100, 100);
@@ -467,7 +467,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   for (size_t i = 0; i < loads.size(); ++i)
     criteria3.addLoad(loads[i]);
   ASSERT_FALSE(criteria3.empty());
-  ASSERT_TRUE(criteria3.checkCriteria(true));
+  ASSERT_TRUE(criteria3.checkCriteria(0, true));
   ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(180, 225, 250, 100);
@@ -478,9 +478,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   for (size_t i = 0; i < loads.size(); ++i)
     criteria4.addLoad(loads[i]);
   ASSERT_FALSE(criteria4.empty());
-  ASSERT_FALSE(criteria4.checkCriteria(true));
+  ASSERT_FALSE(criteria4.checkCriteria(0, true));
   ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourceAbovePower MyLoad 250 200 MyCriteria");
+  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourceAbovePower MyLoad 250 200 MyCriteria 0");
 
   data = createBusBreakerNetworkWithLoads(180, 225, 40, 100);
   exportStates(data);
@@ -491,11 +491,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
   for (size_t i = 0; i < loads.size(); ++i)
     criteria5.addLoad(loads[i]);
   ASSERT_FALSE(criteria5.empty());
-  ASSERT_TRUE(criteria5.checkCriteria(false));
+  ASSERT_TRUE(criteria5.checkCriteria(0, false));
   ASSERT_TRUE(criteria5.getFailingCriteria().empty());
-  ASSERT_FALSE(criteria5.checkCriteria(true));
+  ASSERT_FALSE(criteria5.checkCriteria(0, true));
   ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourceUnderPower MyLoad 40 50 MyCriteria");
+  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourceUnderPower MyLoad 40 50 MyCriteria 0");
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
@@ -535,7 +535,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   for (size_t i = 0; i < loads.size(); ++i)
     criteria.addLoad(loads[i]);
   ASSERT_FALSE(criteria.empty());
-  ASSERT_TRUE(criteria.checkCriteria(true));
+  ASSERT_TRUE(criteria.checkCriteria(0, true));
   ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(43, 225, 250, 100);
@@ -546,7 +546,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   for (size_t i = 0; i < loads.size(); ++i)
     criteria2.addLoad(loads[i]);
   ASSERT_FALSE(criteria2.empty());
-  ASSERT_TRUE(criteria2.checkCriteria(true));
+  ASSERT_TRUE(criteria2.checkCriteria(0, true));
   ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(180, 225, 50, 50);
@@ -557,7 +557,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   for (size_t i = 0; i < loads.size(); ++i)
     criteria3.addLoad(loads[i]);
   ASSERT_FALSE(criteria3.empty());
-  ASSERT_TRUE(criteria3.checkCriteria(true));
+  ASSERT_TRUE(criteria3.checkCriteria(0, true));
   ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithLoads(180, 225, 250, 100);
@@ -568,9 +568,9 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   for (size_t i = 0; i < loads.size(); ++i)
     criteria4.addLoad(loads[i]);
   ASSERT_FALSE(criteria4.empty());
-  ASSERT_FALSE(criteria4.checkCriteria(true));
+  ASSERT_FALSE(criteria4.checkCriteria(0, true));
   ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourcePowerAboveMax 350 200 MyCriteria");
+  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourcePowerAboveMax 350 200 MyCriteria 0");
 
   data = createBusBreakerNetworkWithLoads(180, 225, 10, 10);
   exportStates(data);
@@ -581,11 +581,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaSum) {
   for (size_t i = 0; i < loads.size(); ++i)
     criteria5.addLoad(loads[i]);
   ASSERT_FALSE(criteria5.empty());
-  ASSERT_TRUE(criteria5.checkCriteria(false));
+  ASSERT_TRUE(criteria5.checkCriteria(0, false));
   ASSERT_TRUE(criteria5.getFailingCriteria().empty());
-  ASSERT_FALSE(criteria5.checkCriteria(true));
+  ASSERT_FALSE(criteria5.checkCriteria(0, true));
   ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourcePowerBelowMin 20 50 MyCriteria");
+  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourcePowerBelowMin 20 50 MyCriteria 0");
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
@@ -603,7 +603,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // not eligible
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -620,7 +620,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // vNom < min
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -637,7 +637,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -655,7 +655,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // load not found
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -673,7 +673,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax
-  ASSERT_FALSE(data->checkCriteria(false));
+  ASSERT_FALSE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -691,7 +691,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // P < PMax
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -709,8 +709,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(false));
-  ASSERT_FALSE(data->checkCriteria(true));
+  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, true));
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
@@ -728,7 +728,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // not eligible
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -745,7 +745,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // vNom < min
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -762,7 +762,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -780,7 +780,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // load not found
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -797,7 +797,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // sum(P)<= PMax
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -815,11 +815,11 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax
-  ASSERT_FALSE(data->checkCriteria(false));
+  ASSERT_FALSE(data->checkCriteria(0, false));
   std::vector<std::string> failingCriteria;
   data->getFailingCriteria(failingCriteria);
   ASSERT_EQ(failingCriteria.size(), 1);
-  ASSERT_EQ(failingCriteria[0], "SourcePowerAboveMax 300 150 MyCriteria");
+  ASSERT_EQ(failingCriteria[0], "SourcePowerAboveMax 300 150 MyCriteria 0");
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -837,7 +837,7 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // P < PMax
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -854,8 +854,8 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(false));
-  ASSERT_FALSE(data->checkCriteria(true));
+  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, true));
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
@@ -898,7 +898,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   for (size_t i = 0; i < generators.size(); ++i)
     criteria.addGenerator(generators[i]);
   ASSERT_FALSE(criteria.empty());
-  ASSERT_TRUE(criteria.checkCriteria(true));
+  ASSERT_TRUE(criteria.checkCriteria(0, true));
   ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(43, 225, 250, 100);
@@ -909,7 +909,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   for (size_t i = 0; i < generators.size(); ++i)
     criteria2.addGenerator(generators[i]);
   ASSERT_FALSE(criteria2.empty());
-  ASSERT_TRUE(criteria2.checkCriteria(true));
+  ASSERT_TRUE(criteria2.checkCriteria(0, true));
   ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 100, 100);
@@ -920,7 +920,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   for (size_t i = 0; i < generators.size(); ++i)
     criteria3.addGenerator(generators[i]);
   ASSERT_FALSE(criteria3.empty());
-  ASSERT_TRUE(criteria3.checkCriteria(true));
+  ASSERT_TRUE(criteria3.checkCriteria(0, true));
   ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 250, 100);
@@ -931,9 +931,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   for (size_t i = 0; i < generators.size(); ++i)
     criteria4.addGenerator(generators[i]);
   ASSERT_FALSE(criteria4.empty());
-  ASSERT_FALSE(criteria4.checkCriteria(true));
+  ASSERT_FALSE(criteria4.checkCriteria(0, true));
   ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourceAbovePower MyGen 250 200 MyCriteria");
+  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourceAbovePower MyGen 250 200 MyCriteria 0");
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 40, 100);
   exportStates(data);
@@ -944,11 +944,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaLocalValue) {
   for (size_t i = 0; i < generators.size(); ++i)
     criteria5.addGenerator(generators[i]);
   ASSERT_FALSE(criteria5.empty());
-  ASSERT_TRUE(criteria5.checkCriteria(false));
+  ASSERT_TRUE(criteria5.checkCriteria(0, false));
   ASSERT_TRUE(criteria5.getFailingCriteria().empty());
-  ASSERT_FALSE(criteria5.checkCriteria(true));
+  ASSERT_FALSE(criteria5.checkCriteria(0, true));
   ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourceUnderPower MyGen 40 50 MyCriteria");
+  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourceUnderPower MyGen 40 50 MyCriteria 0");
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
@@ -988,7 +988,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   for (size_t i = 0; i < generators.size(); ++i)
     criteria.addGenerator(generators[i]);
   ASSERT_FALSE(criteria.empty());
-  ASSERT_TRUE(criteria.checkCriteria(true));
+  ASSERT_TRUE(criteria.checkCriteria(0, true));
   ASSERT_TRUE(criteria.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(43, 225, 250, 100);
@@ -999,7 +999,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   for (size_t i = 0; i < generators.size(); ++i)
     criteria2.addGenerator(generators[i]);
   ASSERT_FALSE(criteria2.empty());
-  ASSERT_TRUE(criteria2.checkCriteria(true));
+  ASSERT_TRUE(criteria2.checkCriteria(0, true));
   ASSERT_TRUE(criteria2.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 50, 50);
@@ -1010,7 +1010,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   for (size_t i = 0; i < generators.size(); ++i)
     criteria3.addGenerator(generators[i]);
   ASSERT_FALSE(criteria3.empty());
-  ASSERT_TRUE(criteria3.checkCriteria(true));
+  ASSERT_TRUE(criteria3.checkCriteria(0, true));
   ASSERT_TRUE(criteria3.getFailingCriteria().empty());
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 250, 100);
@@ -1021,9 +1021,9 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   for (size_t i = 0; i < generators.size(); ++i)
     criteria4.addGenerator(generators[i]);
   ASSERT_FALSE(criteria4.empty());
-  ASSERT_FALSE(criteria4.checkCriteria(true));
+  ASSERT_FALSE(criteria4.checkCriteria(0, true));
   ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourcePowerAboveMax 350 200 MyCriteria");
+  ASSERT_EQ(criteria4.getFailingCriteria()[0], "SourcePowerAboveMax 350 200 MyCriteria 0");
 
   data = createBusBreakerNetworkWithGenerators(180, 225, 10, 10);
   exportStates(data);
@@ -1034,11 +1034,11 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaSum) {
   for (size_t i = 0; i < generators.size(); ++i)
     criteria5.addGenerator(generators[i]);
   ASSERT_FALSE(criteria5.empty());
-  ASSERT_TRUE(criteria5.checkCriteria(false));
+  ASSERT_TRUE(criteria5.checkCriteria(0, false));
   ASSERT_TRUE(criteria5.getFailingCriteria().empty());
-  ASSERT_FALSE(criteria5.checkCriteria(true));
+  ASSERT_FALSE(criteria5.checkCriteria(0, true));
   ASSERT_EQ(criteria5.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourcePowerBelowMin 20 50 MyCriteria");
+  ASSERT_EQ(criteria5.getFailingCriteria()[0], "SourcePowerBelowMin 20 50 MyCriteria 0");
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
@@ -1056,7 +1056,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // not eligible
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1073,7 +1073,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // vNom < min
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1090,7 +1090,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1108,7 +1108,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // generator not found
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1126,7 +1126,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax
-  ASSERT_FALSE(data->checkCriteria(false));
+  ASSERT_FALSE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1144,7 +1144,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // P < PMax
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
@@ -1162,8 +1162,8 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(false));
-  ASSERT_FALSE(data->checkCriteria(true));
+  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, true));
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
@@ -1181,7 +1181,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // not eligible
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1198,7 +1198,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // vNom < min
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1215,7 +1215,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1233,7 +1233,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // generator not found
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1250,7 +1250,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // sum(P)<= PMax
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1267,7 +1267,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // P > PMax
-  ASSERT_FALSE(data->checkCriteria(false));
+  ASSERT_FALSE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1285,7 +1285,7 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // P < PMax
-  ASSERT_TRUE(data->checkCriteria(false));
+  ASSERT_TRUE(data->checkCriteria(0, false));
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::SUM);
@@ -1302,8 +1302,8 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {
   exportStates(data);
   data->configureCriteria(collection);
   // v > 0.8*vNom
-  ASSERT_TRUE(data->checkCriteria(false));
-  ASSERT_FALSE(data->checkCriteria(true));
+  ASSERT_TRUE(data->checkCriteria(0, false));
+  ASSERT_FALSE(data->checkCriteria(0, true));
 }
 
 }  // namespace DYN
