@@ -27,12 +27,13 @@ load_QRefPu_value                                 : z =       0.064395
 transformer_rTfoPu                                : z =       1.000000
 transformer_tap_value                             : z =       5.000000
 load_running_value                                : z =       1.000000
-load_switchOffSignal1_value                       : z =      -1.000000
-load_switchOffSignal2_value                       : z =      -1.000000
 transformer_running_value                         : z =       1.000000
 transformer_switchOffSignal1_value                : z =      -1.000000
+transformer_switchOffSignal2_value                : z =      -1.000000
 load_state                                        : z =       2.000000
 transformer_state                                 : z =       2.000000
+load_switchOffSignal1_value                       : alias of transformer_switchOffSignal1_value
+load_switchOffSignal2_value                       : alias of transformer_switchOffSignal2_value
  ====== PARAMETERS VALUES ======
 load_alpha                                         =       1.500000
 load_beta                                          =       2.500000
@@ -68,7 +69,7 @@ transformer_u20Pu_im                               =      -0.343035
 transformer_u20Pu_re                               =       0.931198
 load_NbSwitchOffSignals                            =              2
 load_State0                                        =              2
-transformer_NbSwitchOffSignals                     =              1
+transformer_NbSwitchOffSignals                     =              2
 transformer_NbTap                                  =             11
 transformer_State0                                 =              2
 transformer_Tap0                                   =              5
