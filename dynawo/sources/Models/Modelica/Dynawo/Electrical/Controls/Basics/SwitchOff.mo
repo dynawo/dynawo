@@ -127,8 +127,9 @@ end SwitchOffLoad;
 partial model SwitchOffTapChanger "Switch-off model for a tap-changer"
   /* The only possible/expected switch-off signal for a tap-changer is:
      - a switch-off signal coming from the node in case of a node disconnection
+     - a switch-off signal coming from the user (event)
   */
-  extends SwitchOffLogic(NbSwitchOffSignals = 1);
+  extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
   equation
     when not(running.value) then
@@ -205,10 +206,11 @@ end SwitchOffDCLine;
 partial model SwitchOffTransformer "Switch-off signal for a transformer"
   /* The only possible/expected switch-off signal for a transformer is:
      - a switch-off signal coming from the node in case of a node disconnection
+     - a switch-off signal coming from the user (event)
   */
   import Dynawo.Electrical.Constants;
 
-  extends SwitchOffLogic(NbSwitchOffSignals = 1);
+  extends SwitchOffLogic(NbSwitchOffSignals = 2);
 
   public
     Constants.state state (start = State0) "Transformer connection state";
