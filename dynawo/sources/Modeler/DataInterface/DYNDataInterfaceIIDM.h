@@ -152,7 +152,7 @@ class DataInterfaceIIDM : public DataInterface {
    * @brief fill a vector with the ids of the failing criteria
    * @param failingCriteria vector to fill
    */
-  void getFailingCriteria(std::vector<std::string>& failingCriteria) const;
+  void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const;
 
   /**
    * @copydoc DataInterface::getStaticParameterDoubleValue(const std::string& staticID, const std::string& refOrigName)
