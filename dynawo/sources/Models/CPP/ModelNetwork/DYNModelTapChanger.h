@@ -181,8 +181,8 @@ class ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed : is the transformer connected ?
    */
-  virtual void evalG(double t, double valueMonitored, bool nodeOff, state_g* g,
-                     double disable, double locked, bool tfoClosed) {
+  virtual void evalG(double /* t */, double /* valueMonitored */, bool /* nodeOff */, state_g* /* g */,
+                     double /* disable */, double /* locked */, bool /* tfoClosed */) {
     // not needed
   }
 
@@ -196,9 +196,9 @@ class ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed :is the transformer connected ?
    */
-  virtual void evalZ(double t, state_g* g, ModelNetwork* network,
-                     double disable, bool nodeOff, double locked,
-                     bool tfoClosed) {
+  virtual void evalZ(double /* t */, state_g* /* g */, ModelNetwork* /* network */,
+                     double /* disable */, bool /* nodeOff */, double /* locked */,
+                     bool /* tfoClosed */) {
     // not needed
   }
 
