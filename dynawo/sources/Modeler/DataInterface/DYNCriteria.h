@@ -52,11 +52,11 @@ class Criteria {
    *
    * @return list of failing criteria
    */
-  const std::vector<std::string>& getFailingCriteria() const {return failingCriteria_;}
+  const std::vector<std::pair<double, std::string> >& getFailingCriteria() const {return failingCriteria_;}
 
  protected:
   const boost::shared_ptr<criteria::CriteriaParams>& params_;  ///< parameters of this criteria
-  std::vector<std::string> failingCriteria_;  ///< keeps the ids of the failing criteria
+  std::vector<std::pair<double, std::string> > failingCriteria_;  ///< keeps the ids of the failing criteria
 };
 
 /**
