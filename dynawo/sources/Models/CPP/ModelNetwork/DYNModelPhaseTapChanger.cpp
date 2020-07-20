@@ -18,9 +18,22 @@
  *
  */
 #include "DYNModelPhaseTapChanger.h"
+#include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
 
 namespace DYN {
+
+ModelPhaseTapChanger::ModelPhaseTapChanger(const std::string& id)
+    : ModelTapChanger(id),
+      thresholdI_(0),
+      whenUp_(VALDEF),
+      whenDown_(VALDEF),
+      whenLastTap_(VALDEF),
+      moveUp_(false),
+      moveDown_(false),
+      tapRefDown_(-1),
+      tapRefUp_(-1),
+      currentOverThresholdState_(false) {}
 
 bool ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) {
   // decide whether we should increase/decrease tap depending on tap description
@@ -121,6 +134,6 @@ void ModelPhaseTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
       network->addEvent(id(), DYNTimeline(TapDown));
     }
   }
-}  // ModelPhaseTapChanger::evalZ()
+}
 
 }  // namespace DYN
