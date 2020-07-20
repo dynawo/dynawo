@@ -20,7 +20,6 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELRATIOTAPCHANGER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELRATIOTAPCHANGER_H_
 
-#include "DYNModelConstants.h"
 #include "DYNModelTapChanger.h"
 
 namespace DYN {
@@ -36,22 +35,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param id : name of the tap changer
    * @param side : side where the voltage is controlled
    */
-  inline explicit ModelRatioTapChanger(const std::string& id,
-                                       const std::string& side)
-      : ModelTapChanger(id),
-        side_(side),
-        tolV_(0.015),
-        targetV_(0),
-        whenUp_(VALDEF),
-        whenDown_(VALDEF),
-        whenLastTap_(VALDEF),
-        moveUp_(false),
-        moveDown_(false),
-        tapRefDown_(-1),
-        tapRefUp_(-1),
-        uMaxState_(false),
-        uMinState_(false),
-        uTargetState_(true) {}
+  explicit ModelRatioTapChanger(const std::string& id, const std::string& side);
 
   /**
    * @brief destructor
@@ -96,20 +80,20 @@ class ModelRatioTapChanger : public ModelTapChanger {
    *
    * @param tolerance dead band to use
    */
-  void setTolV(const double& tolerance) { tolV_ = tolerance; }
+  inline void setTolV(const double& tolerance) { tolV_ = tolerance; }
 
   /**
    * @brief set the target of the tap changer
    *
    * @param target target to use
    */
-  void setTargetV(const double& target) { targetV_ = target; }
+  inline void setTargetV(const double& target) { targetV_ = target; }
 
   /**
    * @brief get the current dead band of the tap changer
    * @return value of the current dead band
    */
-  double getTolV() const { return tolV_; }
+  inline double getTolV() const { return tolV_; }
 
   /**
    * @brief set the reference side
@@ -120,8 +104,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
 
  private:
   /**
-   * @brief decide whether if the tap changer should increase/decrease tap to
-   * increase the target U
+   * @brief decide whether if the tap changer should increase/decrease tap to increase the target U
    * @return @b true if one tap up increase the voltage
    */
   bool getUpIncreaseTargetU();

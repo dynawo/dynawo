@@ -20,7 +20,6 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELPHASETAPCHANGER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELPHASETAPCHANGER_H_
 
-#include "DYNModelConstants.h"
 #include "DYNModelTapChanger.h"
 
 namespace DYN {
@@ -35,17 +34,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    *
    * @param id : name of the tap changer
    */
-  inline explicit ModelPhaseTapChanger(const std::string& id)
-      : ModelTapChanger(id),
-        thresholdI_(0),
-        whenUp_(VALDEF),
-        whenDown_(VALDEF),
-        whenLastTap_(VALDEF),
-        moveUp_(false),
-        moveDown_(false),
-        tapRefDown_(-1),
-        tapRefUp_(-1),
-        currentOverThresholdState_(false) {}
+  explicit ModelPhaseTapChanger(const std::string& id);
 
   /**
    * @brief  destructor
@@ -72,8 +61,7 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    * @param g: root values
    * @param network : network of the transformer
    * @param disable : is the tap changer disabled ?
-   * @param P1SupP2 : is the active power evaluated at side 1 is superior to the
-   * active power evaluated at side 2  ?
+   * @param P1SupP2 : is the active power evaluated at side 1 is superior to the active power evaluated at side 2  ?
    * @param locked : is the tap changer locked ?
    * @param tfoClosed :is the transformer connected ?
    */

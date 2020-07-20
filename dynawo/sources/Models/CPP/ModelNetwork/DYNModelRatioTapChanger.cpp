@@ -19,9 +19,27 @@
  */
 
 #include "DYNModelRatioTapChanger.h"
+#include "DYNModelConstants.h"
 #include "DYNModelNetwork.h"
 
 namespace DYN {
+
+ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id,
+                                           const std::string& side)
+    : ModelTapChanger(id),
+      side_(side),
+      tolV_(0.015),
+      targetV_(0),
+      whenUp_(VALDEF),
+      whenDown_(VALDEF),
+      whenLastTap_(VALDEF),
+      moveUp_(false),
+      moveDown_(false),
+      tapRefDown_(-1),
+      tapRefUp_(-1),
+      uMaxState_(false),
+      uMinState_(false),
+      uTargetState_(true) {}
 
 bool ModelRatioTapChanger::getUpIncreaseTargetU() {
   // decide whether we should increase/decrease tap
