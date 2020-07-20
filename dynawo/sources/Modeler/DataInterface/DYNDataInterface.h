@@ -115,7 +115,7 @@ class DataInterface {
    * @brief fill a vector with the ids of the failing criteria
    * @param failingCriteria vector to fill
    */
-  virtual void getFailingCriteria(std::vector<std::string>& failingCriteria) const = 0;
+  virtual void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const = 0;
 
   /**
    * @brief get static parameter value

@@ -904,7 +904,7 @@ Simulation::checkCriteria(double t, bool finalStep) {
 
 
 void
-Simulation::getFailingCriteria(std::vector<std::string>& failingCriteria) const {
+Simulation::getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const {
   data_->getFailingCriteria(failingCriteria);
 }
 
