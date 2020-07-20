@@ -420,7 +420,7 @@ class Simulation {
    * @brief fill a vector with the ids of the failing criteria met so far
    * @param failingCriteria vector to fill
    */
-  void getFailingCriteria(std::vector<std::string>& failingCriteria) const;
+  void getFailingCriteria(std::vector<std::pair<double, std::string> >& failingCriteria) const;
 
  private:
   /**
