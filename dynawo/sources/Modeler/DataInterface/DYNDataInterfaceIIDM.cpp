@@ -260,7 +260,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
     for (; itSwitch != voltageLevelIIDM.switches().end(); ++itSwitch) {
       bool open = itSwitch->opened();
       bool retained = itSwitch->retained();
-      if (open || retained) {  // if the switch is close or not retained, don't create a specific switch model
+      if (open || retained) {  // if the switch is not open (=closed) or not retained, don't create a specific switch model
         shared_ptr<SwitchInterface> sw = importSwitch(*itSwitch);
         if (sw->getBusInterface1() != sw->getBusInterface2()) {  // if the switch is connecting one single bus, don't create a specific switch model
           components_[sw->getID()] = sw;
