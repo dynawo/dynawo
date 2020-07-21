@@ -260,10 +260,12 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
     for (; itSwitch != voltageLevelIIDM.switches().end(); ++itSwitch) {
       bool open = itSwitch->opened();
       bool retained = itSwitch->retained();
-      if (open || retained) {  // if switch should be retained or is opened, create model of switch
+      if (open || retained) {  // if the switch is close or not retained, don't create a specific switch model
         shared_ptr<SwitchInterface> sw = importSwitch(*itSwitch);
-        components_[sw->getID()] = sw;
-        voltageLevel->addSwitch(sw);
+        if (sw->getBusInterface1() != sw->getBusInterface2()) {  // if the switch is connecting one single bus, don't create a specific switch model
+          components_[sw->getID()] = sw;
+          voltageLevel->addSwitch(sw);
+        }
       }
     }
   } else {
@@ -283,7 +285,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
     //===========================
     IIDM::Contains<IIDM::Switch>::iterator itSwitch = voltageLevelIIDM.switches().begin();
     for (; itSwitch != voltageLevelIIDM.switches().end(); ++itSwitch) {
-      shared_ptr<SwitchInterface> sw = importSwitch(*itSwitch);  // in bus breaker topology, keep all switchs
+      shared_ptr<SwitchInterface> sw = importSwitch(*itSwitch);  // in bus breaker topology, keep all switches
       components_[sw->getID()] = sw;
       voltageLevel->addSwitch(sw);
     }
