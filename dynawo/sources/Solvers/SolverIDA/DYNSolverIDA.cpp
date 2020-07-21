@@ -754,6 +754,7 @@ SolverIDA::reinit() {
       solverKINYPrim_->setInitialValues(tSolve_, vYy_, vYp_);
       solverKINYPrim_->solve(noInitSetup, evaluateOnlyMode);
       solverKINYPrim_->getValues(vYy_, vYp_);
+      model_->reinitMode();
 
       // Update statistics
       long int nNewt = 0;
