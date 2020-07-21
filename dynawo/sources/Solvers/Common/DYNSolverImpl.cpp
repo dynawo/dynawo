@@ -265,7 +265,7 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
       change = true;
 #ifdef _DEBUG_
       std::copy(G1.begin(), G1.end(), G0.begin());
-      printUnstableRoot(G1, G0);
+      printUnstableRoot(G0, G1);
 #endif
     }
 
