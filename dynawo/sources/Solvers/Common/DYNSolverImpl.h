@@ -279,25 +279,13 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @return @b true zero crossing functions or discretes variables have changed
    */
   bool evalZMode(std::vector<state_g> &G0, std::vector<state_g> &G1, const double &time);
-
-  /**
-   * @brief detect if one zero crossing functions have changed its value
-   *
-   * @param vGout0 previous value of zero crossing functions
-   * @param vGout1 new value of zero crossing functions
-   * @param time time to use to evaluate these values
-   *
-   * @return @b true zero crossing functions have changed
-   */
-  bool detectUnstableRoot(std::vector<state_g> &vGout0, std::vector<state_g> &vGout1, const double &time);
-
   /**
    * @brief print the unstable roots
    *
-   * @param vGout0 previous value of zero crossing functions
-   * @param vGout1 new value of zero crossing functions
+   * @param G0 previous value of zero crossing functions
+   * @param G1 new value of zero crossing functions
    */
-  void printUnstableRoot(const std::vector<state_g>& vGout0, const std::vector<state_g>& vGout1) const;
+  void printUnstableRoot(const std::vector<state_g>& G0, const std::vector<state_g>& G1) const;
 
  protected:
   /**
