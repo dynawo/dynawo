@@ -294,7 +294,6 @@ SolverKINAlgRestoration::solve(bool noInitSetup, bool evaluateOnlyModeAtFirstIte
     model_->evalFMode(t0_, &y0_[0], &yp0_[0], &F_[0]);
   else
     model_->evalF(t0_, &y0_[0], &yp0_[0], &F_[0]);
-  model_->reinitMode();
 
   // fScale
   fScale_.assign(indexF_.size(), 1.0);
