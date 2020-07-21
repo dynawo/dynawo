@@ -245,73 +245,54 @@ Solver::Impl::solve(double tAim, double &tNxt) {
 bool
 Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double & time) {
   Timer timer("SolverIMPL::evalZMode");
-  bool zChange = false;
-  bool modeChange = false;
-  bool stableRoot = true;
   bool change = false;
 
-  for (int i = 0; i < maxNumberUnstableRoots; ++i) {
-    // evalZ
+  // evalZ part
+  bool nonSilentZChange;
+  int i = 0;
+  do {
+    nonSilentZChange = false;
     model_->evalZ(time);
-    zChange = model_->zChange();
     ++stats_.nze_;
 
-    // evaluate G and compare with previous values
-    stableRoot = detectUnstableRoot(G0, G1, time);
-
-    if (model_->getSilentZChange())
+    if (model_->getSilentZChange()) {
       state_.setFlags(SilentZChange);
-    if (zChange) {
-      change = true;
+    } else if (model_->zChange()) {
+      model_->evalG(time, G1);
+      ++stats_.nge_;
       state_.setFlags(ZChange);
-    } else if (stableRoot) {
-      break;
+      nonSilentZChange = true;
+      change = true;
+#ifdef _DEBUG_
+      std::copy(G1.begin(), G1.end(), G0.begin());
+      printUnstableRoot(G1, G0);
+#endif
     }
-  }
 
-  // evalMode
+    ++i;
+    if (i == maxNumberUnstableRoots)
+      throw DYNError(Error::SOLVER_ALGO, SolverUnstableZMode);
+  } while (nonSilentZChange);
+
+  std::copy(G1.begin(), G1.end(), G0.begin());
+
+  // evalMode part
   model_->evalMode(time);
-  modeChange = model_->modeChange();
   ++stats_.nme_;
-  if (modeChange) {
+  if (model_->modeChange()) {
     change = true;
     state_.setFlags(ModeChange);
   }
-  if (stableRoot)
-    return change;
 
-  throw DYNError(Error::SOLVER_ALGO, SolverUnstableZMode);
-}
-
-bool
-Solver::Impl::detectUnstableRoot(vector<state_g> &vGout0, vector<state_g> &vGout1, const double & time) {
-  Timer timer("SolverIMPL::detectUnstableRoot");
-
-  // Evaluate roots after propagation of previous changes
-  // ----------------------------------------------------
-  model_->evalG(time, vGout1);
-  ++stats_.nge_;
-
-  // Find if some roots appears/disappears
-  // ---------------------------------------
-  bool stableRoot = std::equal(vGout0.begin(), vGout0.end(), vGout1.begin());
-
-  if (!stableRoot) {
-#ifdef _DEBUG_
-  printUnstableRoot(vGout0, vGout1);
-#endif
-    std::copy(vGout1.begin(), vGout1.end(), vGout0.begin());
-  }
-
-  return (stableRoot);
+  return change;
 }
 
 void
-Solver::Impl::printUnstableRoot(const vector<state_g> &vGout0, const vector<state_g> &vGout1) const {
+Solver::Impl::printUnstableRoot(const vector<state_g> &G0, const vector<state_g> &G1) const {
   int i = 0;
-  vector<state_g>::const_iterator iG0(vGout0.begin());
-  vector<state_g>::const_iterator iG1(vGout1.begin());
-  for (; iG0 < vGout0.end(); iG0++, iG1++, i++) {
+  vector<state_g>::const_iterator iG0(G0.begin());
+  vector<state_g>::const_iterator iG1(G1.begin());
+  for (; iG0 < G0.end(); iG0++, iG1++, i++) {
     if ((*iG0) != (*iG1)) {
       Trace::debug() << DYNLog(SolverInstableRoot, i, (*iG0), (*iG1)) << Trace::endline;
       std::string subModelName("");
