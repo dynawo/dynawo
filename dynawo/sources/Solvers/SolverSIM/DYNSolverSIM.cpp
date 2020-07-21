@@ -664,6 +664,7 @@ SolverSIM::reinit() {
 
     solverKINAlgRestoration_->setInitialValues(tSolve_, vYy_, vYp_);
     int flag = solverKINAlgRestoration_->solve(noInitSetup, evaluateOnlyMode);
+    model_->reinitMode();
 
     // Update statistics
     long int nre = 0;
