@@ -264,13 +264,13 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
       nonSilentZChange = true;
       change = true;
 #ifdef _DEBUG_
-      std::copy(G1.begin(), G1.end(), G0.begin());
       printUnstableRoot(G0, G1);
+      std::copy(G1.begin(), G1.end(), G0.begin());
 #endif
     }
 
     ++i;
-    if (i == maxNumberUnstableRoots)
+    if (i >= maxNumberUnstableRoots)
       throw DYNError(Error::SOLVER_ALGO, SolverUnstableZMode);
   } while (nonSilentZChange);
 
