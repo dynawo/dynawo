@@ -41,13 +41,13 @@ BusCriteria::checkCriteria(double t, bool finalStep) {
     if (doubleIsZero(v)) continue;
     double vNom = (*it)->getVNom();
     if (params_->hasUMaxPu() && v > params_->getUMaxPu()*vNom) {
-      Message mess = DYNLog(BusAboveVoltage, (*it)->getID(), v, params_->getUMaxPu(), params_->getId());
+      Message mess = DYNLog(BusAboveVoltage, (*it)->getID(), v/vNom, params_->getUMaxPu(), params_->getId());
       Trace::info() << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
     }
     if (params_->hasUMinPu() && v < params_->getUMinPu()*vNom) {
-      Message mess = DYNLog(BusUnderVoltage, (*it)->getID(), v, params_->getUMinPu(), params_->getId());
+      Message mess = DYNLog(BusUnderVoltage, (*it)->getID(), v/vNom, params_->getUMinPu(), params_->getId());
       Trace::info() << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
@@ -92,6 +92,9 @@ LoadCriteria::checkCriteria(double t, bool finalStep) {
   if (!finalStep && params_->getScope() == criteria::CriteriaParams::FINAL)
     return true;
   double sum = 0.;
+#ifdef _DEBUG_
+  std::vector<boost::shared_ptr<LoadInterface> > sourcesAddedIntoSum;
+#endif
   bool atLeastOneEligibleLoadWasFound = false;
   for (std::vector<boost::shared_ptr<LoadInterface> >::const_iterator it = loads_.begin(), itEnd = loads_.end();
       it != itEnd; ++it) {
@@ -116,6 +119,9 @@ LoadCriteria::checkCriteria(double t, bool finalStep) {
         return false;
       }
     } else {
+#ifdef _DEBUG_
+  sourcesAddedIntoSum.push_back(*it);
+#endif
       sum+=p;
       atLeastOneEligibleLoadWasFound = true;
     }
@@ -123,12 +129,24 @@ LoadCriteria::checkCriteria(double t, bool finalStep) {
 
   if (atLeastOneEligibleLoadWasFound && params_->getType() == criteria::CriteriaParams::SUM) {
     if (params_->hasPMax() && sum > params_->getPMax()) {
+#ifdef _DEBUG_
+  for (size_t i = 0; i < sourcesAddedIntoSum.size(); ++i) {
+    Trace::info() << DYNLog(SourcePowerTakenIntoAccount, "load", sourcesAddedIntoSum[i]->getID(), params_->getId(),
+        sourcesAddedIntoSum[i]->getP(), sourcesAddedIntoSum[i]->getBusInterface()->getStateVarV()) << Trace::endline;
+  }
+#endif
       Message mess = DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
       Trace::info() << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
     }
     if (params_->hasPMin() && sum < params_->getPMin()) {
+#ifdef _DEBUG_
+  for (size_t i = 0; i < sourcesAddedIntoSum.size(); ++i) {
+    Trace::info() << DYNLog(SourcePowerTakenIntoAccount, "load", sourcesAddedIntoSum[i]->getID(), params_->getId(),
+        sourcesAddedIntoSum[i]->getP(), sourcesAddedIntoSum[i]->getBusInterface()->getStateVarV()) << Trace::endline;
+  }
+#endif
       Message mess = DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
       Trace::info() << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
@@ -169,6 +187,9 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep) {
   if (!finalStep && params_->getScope() == criteria::CriteriaParams::FINAL)
     return true;
   double sum = 0.;
+#ifdef _DEBUG_
+  std::vector<boost::shared_ptr<GeneratorInterface> > sourcesAddedIntoSum;
+#endif
   bool atLeastOneEligibleGeneratorWasFound = false;
   for (std::vector<boost::shared_ptr<GeneratorInterface> >::const_iterator it = generators_.begin(), itEnd = generators_.end();
       it != itEnd; ++it) {
@@ -193,6 +214,9 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep) {
         return false;
       }
     } else {
+#ifdef _DEBUG_
+  sourcesAddedIntoSum.push_back(*it);
+#endif
       sum+=p;
       atLeastOneEligibleGeneratorWasFound = true;
     }
@@ -200,12 +224,24 @@ GeneratorCriteria::checkCriteria(double t, bool finalStep) {
 
   if (atLeastOneEligibleGeneratorWasFound && params_->getType() == criteria::CriteriaParams::SUM) {
     if (params_->hasPMax() && sum > params_->getPMax()) {
+#ifdef _DEBUG_
+  for (size_t i = 0; i < sourcesAddedIntoSum.size(); ++i) {
+    Trace::info() << DYNLog(SourcePowerTakenIntoAccount, "generator", sourcesAddedIntoSum[i]->getID(), params_->getId(),
+        sourcesAddedIntoSum[i]->getP(), sourcesAddedIntoSum[i]->getBusInterface()->getStateVarV()) << Trace::endline;
+  }
+#endif
       Message mess = DYNLog(SourcePowerAboveMax, sum, params_->getPMax(), params_->getId());
       Trace::info() << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
     }
     if (params_->hasPMin() && sum < params_->getPMin()) {
+#ifdef _DEBUG_
+  for (size_t i = 0; i < sourcesAddedIntoSum.size(); ++i) {
+    Trace::info() << DYNLog(SourcePowerTakenIntoAccount, "generator", sourcesAddedIntoSum[i]->getID(), params_->getId(),
+        sourcesAddedIntoSum[i]->getP(), sourcesAddedIntoSum[i]->getBusInterface()->getStateVarV()) << Trace::endline;
+  }
+#endif
       Message mess = DYNLog(SourcePowerBelowMin, sum, params_->getPMin(), params_->getId());
       Trace::info() << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));

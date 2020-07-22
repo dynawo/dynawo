@@ -98,7 +98,7 @@ ModelBusContainer::resetNodeInjections() {
 }
 
 void
-ModelBusContainer::exploreNeighbors() {
+ModelBusContainer::exploreNeighbors(double t) {
   int numSubNetwork = 0;
   shared_ptr<SubNetwork> subNetwork(new SubNetwork(numSubNetwork));
   subNetworks_.push_back(subNetwork);
@@ -120,7 +120,7 @@ ModelBusContainer::exploreNeighbors() {
   subNetworks_.erase(subNetworks_.end() - 1);
 
   Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
-  Trace::debug(Trace::network()) << "SubNetworks" << Trace::endline;
+  Trace::debug(Trace::network()) << "SubNetworks at time " << t << Trace::endline;
   Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::network()) << DYNLog(NbSubNetwork, subNetworks_.size()) << Trace::endline;
   for (unsigned int i = 0; i < subNetworks_.size(); ++i) {
