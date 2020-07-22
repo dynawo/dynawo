@@ -51,8 +51,6 @@ TEST(ModelsModelNetwork, ModelNetworkTapChanger) {
   ASSERT_EQ(ptc.getHighStepIndex(), 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(ptc.getTFirst(), 60);
   ASSERT_DOUBLE_EQUALS_DYNAWO(ptc.getTNext(), 10);
-  ASSERT_EQ(ptc.sizeG(), 0);
-  ASSERT_EQ(ptc.sizeZ(), 0);
 
   ptc.setCurrentStepIndex(2);
   ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
@@ -97,9 +95,6 @@ TEST(ModelsModelNetwork, ModelNetworkTapChanger) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs3.getX(), 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs3.getG(), 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs3.getB(), 1.);
-
-  ASSERT_NO_THROW(ptc.evalZ(3., NULL, NULL, 0., false, 0., false));
-  ASSERT_NO_THROW(ptc.evalG(3., 0., false, NULL, 0., 0., false));
 }
 
 TEST(ModelsModelNetwork, ModelNetworkPhaseTapChanger) {
