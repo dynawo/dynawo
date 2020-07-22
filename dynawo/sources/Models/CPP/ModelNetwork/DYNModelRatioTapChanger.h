@@ -40,7 +40,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
   /**
    * @brief destructor
    */
-  virtual ~ModelRatioTapChanger() {}
+  inline ~ModelRatioTapChanger() {}
 
   /**
    * @brief  evaluate the zero crossing functions
@@ -53,27 +53,34 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed : is the transformer connected ?
    */
-  virtual void evalG(double t, double uValue, bool nodeOff, state_g* g,
-                     double disable, double locked, bool tfoClosed);
+  void evalG(double t, double uValue, bool nodeOff, state_g* g, double disable,
+             double locked, bool tfoClosed);
 
   /**
-   * @copydoc ModelTapChanger::evalZ(double t, state_g* rootFound, ModelNetwork* network, double disable, bool nodeOff, double locked, bool tfoClosed)
+   * @brief  evaluate discrete values
+   *
+   * @param t time to use during the evaluation
+   * @param g: root values
+   * @param network : network of the transformer
+   * @param disable : is the tap changer disabled ?
+   * @param nodeOff : is the node monitored by the tap changer off ?
+   * @param locked : is the tap changer locked ?
+   * @param tfoClosed :is the transformer connected ?
    */
-  virtual void evalZ(double t, state_g* g, ModelNetwork* network,
-                     double disable, bool nodeOff, double locked,
-                     bool tfoClosed);
+  void evalZ(double t, state_g* g, ModelNetwork* network, double disable,
+             bool nodeOff, double locked, bool tfoClosed);
 
   /**
    * @brief  get the size of the local G function
    * @return size of G function
    */
-  virtual int sizeG() const { return 7; }
+  inline int sizeG() const { return 7; }
 
   /**
    * @brief  get size of discrete variables
    * @return number of discrete variables
    */
-  virtual int sizeZ() const { return 0; }
+  inline int sizeZ() const { return 0; }
 
   /**
    * @brief set the dead band around the target of the tap changer
@@ -107,7 +114,7 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @brief decide whether if the tap changer should increase/decrease tap to increase the target U
    * @return @b true if one tap up increase the voltage
    */
-  bool getUpIncreaseTargetU();
+  bool getUpIncreaseTargetU() const;
 
  private:
   std::string side_;  ///< reference side where the voltage is controlled

@@ -30,16 +30,16 @@ namespace DYN {
 class ModelPhaseTapChanger : public ModelTapChanger {
  public:
   /**
-   * @brief default constructor
+   * @brief unique constructor
    *
    * @param id : name of the tap changer
    */
   explicit ModelPhaseTapChanger(const std::string& id);
 
   /**
-   * @brief  destructor
+   * @brief destructor
    */
-  virtual ~ModelPhaseTapChanger() {}
+  inline ~ModelPhaseTapChanger() {}
 
   /**
    * @brief  evaluate the zero crossing functions
@@ -52,11 +52,12 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed : is the transformer connected ?
    */
-  virtual void evalG(double t, double iValue, bool nodeOff, state_g* g,
-                     double disable, double locked, bool tfoClosed);
+  void evalG(double t, double iValue, bool nodeOff, state_g* g, double disable,
+             double locked, bool tfoClosed);
 
   /**
    * @brief  evaluate discrete values
+   *
    * @param t time to use during the evaluation
    * @param g: root values
    * @param network : network of the transformer
@@ -65,19 +66,22 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    * @param locked : is the tap changer locked ?
    * @param tfoClosed :is the transformer connected ?
    */
-  virtual void evalZ(double t, state_g* g, ModelNetwork* network,
-                     double disable, bool P1SupP2, double locked,
-                     bool tfoClosed);
+  void evalZ(double t, state_g* g, ModelNetwork* network, double disable,
+             bool P1SupP2, double locked, bool tfoClosed);
 
   /**
-   * @copydoc ModelTapChanger::sizeG()
+   * @brief  get the size of the local G function
+   *
+   * @return size of G function
    */
-  virtual int sizeG() const { return 6; }
+  inline int sizeG() const { return 6; }
 
   /**
-   * @copydoc ModelTapChanger::sizeZ()
+   * @brief  get size of discrete variables
+   *
+   * @return number of discrete variables
    */
-  virtual int sizeZ() const { return 0; }
+  inline int sizeZ() const { return 0; }
 
   /**
    * @brief set the current threshold over which the current should not go
@@ -88,12 +92,12 @@ class ModelPhaseTapChanger : public ModelTapChanger {
 
  private:
   /**
-   * @brief decide whether we should increase/decrease tap depending on tap
-   * description and power flow
+   * @brief decide whether we should increase/decrease tap depending on tap description and power flow
+   *
    * @param P1SupP2 @b true if P at side 1 is superior to P at side 2
    * @return @b true if a tap up increase the phase
    */
-  bool getIncreaseTap(bool P1SupP2);
+  bool getIncreaseTap(bool P1SupP2) const;
 
  private:
   double thresholdI_;  ///< threshold of I
