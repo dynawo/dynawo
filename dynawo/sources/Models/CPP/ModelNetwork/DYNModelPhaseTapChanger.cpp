@@ -35,7 +35,7 @@ ModelPhaseTapChanger::ModelPhaseTapChanger(const std::string& id)
       tapRefUp_(-1),
       currentOverThresholdState_(false) {}
 
-bool ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) {
+bool ModelPhaseTapChanger::getIncreaseTap(bool P1SupP2) const {
   // decide whether we should increase/decrease tap depending on tap description
   // and power flow
   bool increaseTap = false;

@@ -52,7 +52,7 @@ class ModelTapChanger {
   /**
    * @brief destructor
    */
-  virtual ~ModelTapChanger() {}
+  inline ~ModelTapChanger() {}
 
   /**
    * @brief  return the name of the tap changer
@@ -169,50 +169,6 @@ class ModelTapChanger {
    * @param time
    */
   inline void setTNext(double time) { tNext_ = time; }
-
- public:
-  /**
-   * @brief evaluate the zero crossing functions
-   * @param t time to use during the evaluation
-   * @param valueMonitored : value monitored by the tap changer
-   * @param nodeOff : is the node monitored by the tap changer off ?
-   * @param g : value of the zero crossing function
-   * @param disable : is the tap changer disabled ?
-   * @param locked : is the tap changer locked ?
-   * @param tfoClosed : is the transformer connected ?
-   */
-  virtual void evalG(double /* t */, double /* valueMonitored */, bool /* nodeOff */, state_g* /* g */,
-                     double /* disable */, double /* locked */, bool /* tfoClosed */) {
-    // not needed
-  }
-
-  /**
-   * @brief  evaluate discrete values
-   * @param t time to use during the evaluation
-   * @param g: root values
-   * @param network : network of the transformer
-   * @param disable : is the tap changer disabled ?
-   * @param nodeOff : is the node monitored by the tap changer off ?
-   * @param locked : is the tap changer locked ?
-   * @param tfoClosed :is the transformer connected ?
-   */
-  virtual void evalZ(double /* t */, state_g* /* g */, ModelNetwork* /* network */,
-                     double /* disable */, bool /* nodeOff */, double /* locked */,
-                     bool /* tfoClosed */) {
-    // not needed
-  }
-
-  /**
-   * @brief  get the size of the local G function
-   * @return size of G function
-   */
-  virtual int sizeG() const { return 0; }
-
-  /**
-   * @brief  get size of discrete variables
-   * @return number of discrete variables
-   */
-  virtual int sizeZ() const { return 0; }
 
  private:
   std::string id_;  ///< id of the tap changer
