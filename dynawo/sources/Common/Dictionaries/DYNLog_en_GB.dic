@@ -116,6 +116,7 @@ WrongComponentType            =             a %1% component has been found in a 
 ComponentNotFound             =             component %1% was not found
 SourcePowerAboveMax           =             total load power = %1%MW > %2%MW (criteria id: %3%)
 SourcePowerBelowMin           =             total load power = %1%MW < %2%MW (criteria id: %3%)
+SourcePowerTakenIntoAccount   =             power of %1% %2% was added into the total power sum (criteria id: %3%, power=%4%, V=%5%)
 NoNetworkConnection           =             component %1% not imported : no network connection declared
 PossibleDivisionByZero        =             impedance of line ID: %1% set to 0 in IIDM file, default parameters are then used: R = 0 and X = 0.01
 CriteriaDefinedButNoIIDM      =             a criteria file was defined without any IIDM file, it will be ignored
