@@ -307,9 +307,9 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
 
   /**
    * @brief scan through the AC network to find AC-connected components
-   *
+   * @param t : time to use
    */
-  void computeComponents();
+  void computeComponents(double t);
 
   /**
    * @brief analyze AC-connected components in network and keep the one with the most buses
