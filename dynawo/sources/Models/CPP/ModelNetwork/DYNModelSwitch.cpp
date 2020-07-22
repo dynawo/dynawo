@@ -153,8 +153,8 @@ ModelSwitch::setFequations(std::map<int, std::string>& fEquationIndex) {
       fEquationIndex[0] = std::string("y_[irNum_] - 1 localModel:").append(id());
       fEquationIndex[1] = std::string("y_[iiNum_] - 1 localModel:").append(id());
     } else {
-      fEquationIndex[0] = std::string("modelBus1_->ur() - modelBus2_->ur() localModel:").append(id());
-      fEquationIndex[1] = std::string("modelBus1_->ui() - modelBus2_->ui() localModel:").append(id());
+      fEquationIndex[0] = modelBus1_->id() + "->ur() - " + modelBus2_->id() + "->ur() localModel:"+id();
+      fEquationIndex[1] = modelBus1_->id() + "->ui() - " + modelBus2_->id() + "->ui() localModel:"+id();
     }
   } else {
     fEquationIndex[0] = std::string("y_[irNum_] localModel:").append(id());

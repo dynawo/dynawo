@@ -813,7 +813,7 @@ ModelNetwork::analyseComponents() {
 }
 
 void
-ModelNetwork::computeComponents() {
+ModelNetwork::computeComponents(double t) {
   Timer * timer1 = new Timer("ModelNetwork::computeComponents");
   busContainer_->resetSubNetwork();
 
@@ -822,7 +822,7 @@ ModelNetwork::computeComponents() {
     (*itComponent)->addBusNeighbors();
 
   // connectivity calculation
-  busContainer_->exploreNeighbors();
+  busContainer_->exploreNeighbors(t);
 
   delete timer1;
 }
@@ -994,7 +994,7 @@ ModelNetwork::evalZ(const double& t) {
   if (topoChange) {
     breakModelSwitchLoops();
     evalYMat();
-    computeComponents();
+    computeComponents(t);
     analyseComponents();
   } else if (stateChange) {
     evalYMat();
@@ -1273,13 +1273,13 @@ ModelNetwork::evalYMat() {
 }
 
 void
-ModelNetwork::init(const double& /*t0*/) {
+ModelNetwork::init(const double& t0) {
   initializeStaticData();
 
   getSize();
   initSubBuffers();
 
-  computeComponents();
+  computeComponents(t0);
   analyseComponents();
 
   evalYMat();

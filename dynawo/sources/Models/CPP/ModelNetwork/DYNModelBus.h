@@ -743,9 +743,9 @@ class ModelBusContainer {
 
   /**
    * @brief create a new-subnetwork, and scan the network to find all buses located within
-   *
+   * @param t : time to use
    */
-  void exploreNeighbors();  // create a new-subnetwork, and scan the network to find all buses located within
+  void exploreNeighbors(double t);  // create a new-subnetwork, and scan the network to find all buses located within
 
   /**
    * @brief init reference islands
