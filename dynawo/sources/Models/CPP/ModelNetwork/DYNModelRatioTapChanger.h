@@ -57,7 +57,15 @@ class ModelRatioTapChanger : public ModelTapChanger {
                      double disable, double locked, bool tfoClosed);
 
   /**
-   * @copydoc ModelTapChanger::evalZ(double t, state_g* rootFound, ModelNetwork* network, double disable, bool nodeOff, double locked, bool tfoClosed)
+   * @brief  evaluate discrete values
+   *
+   * @param t time to use during the evaluation
+   * @param g: root values
+   * @param network : network of the transformer
+   * @param disable : is the tap changer disabled ?
+   * @param nodeOff : is the node monitored by the tap changer off ?
+   * @param locked : is the tap changer locked ?
+   * @param tfoClosed :is the transformer connected ?
    */
   virtual void evalZ(double t, state_g* g, ModelNetwork* network,
                      double disable, bool nodeOff, double locked,
