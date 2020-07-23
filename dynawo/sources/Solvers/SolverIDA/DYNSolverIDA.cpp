@@ -732,7 +732,7 @@ SolverIDA::reinit() {
   if (modeChangeType == NO_MODE) return;
 
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
-  if (modeChangeType != DIFFERENTIAL_MODE) {
+  if (modeChangeType >= minimumModeChangeType_) {
     do {
       model_->rotateBuffers();
       state_.reset();
