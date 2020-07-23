@@ -110,7 +110,7 @@ class Modeler {
    * @brief find a node connector name
    *
    * @param id : id of the node connector
-   * @param labelNode : @NODE@ or @NODE1@ or @NODE2@
+   * @param labelNode : \@NODE\@ or \@NODE1\@ or \@NODE2\@
    * if the id contains \@static_id\@\@NODE\@, find the connection point of static id,
    * and replace \@NODE\@ by the name of the connection point
    * @return the id of the connector where \@static_id\@\@NODE\@ is replaced by the name of the connection point
@@ -148,12 +148,12 @@ class Modeler {
   void initParamDescription(const boost::shared_ptr<ModelDescription>& modelDescription);
 
   /**
-   * @brief replace @NODE@, @NODE1@, @NODE2@ with the id of the bus the compoment is connected to
+   * @brief replace \@NODE\@, \@NODE1\@, \@NODE2\@ with the id of the bus the compoment is connected to
    * @param subModel1: first connected model
    * @param var1: first connected variable
    * @param subModel2: second connected model
    * @param var2: second connected variable
-   * @param labelNode: @NODE@ or @NODE1@ or @NODE2@
+   * @param labelNode: \@NODE\@ or \@NODE1\@ or \@NODE2\@
    */
   void replaceNodeWithBus(const boost::shared_ptr<SubModel>& subModel1, std::string& var1,
       const boost::shared_ptr<SubModel>& subModel2, std::string& var2, const std::string& labelNode) const;

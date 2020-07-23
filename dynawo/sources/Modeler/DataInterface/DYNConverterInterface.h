@@ -122,11 +122,11 @@ class ConverterInterface : public ComponentInterface {
       case ComponentInterface::HVDC_LINE:
       case ComponentInterface::UNKNOWN:
       case ComponentInterface::VSC_CONVERTER: {
-        return ConverterType_t::VSC_CONVERTER;
+        return VSC_CONVERTER;
         break;
       }
       case ComponentInterface::LCC_CONVERTER: {
-        return ConverterType_t::LCC_CONVERTER;
+        return LCC_CONVERTER;
         break;
       }
       default:
