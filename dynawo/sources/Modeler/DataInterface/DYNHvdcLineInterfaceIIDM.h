@@ -127,8 +127,8 @@ class HvdcLineInterfaceIIDM : public HvdcLineInterface {
 
  private:
   IIDM::HvdcLine& hvdcLineIIDM_;  ///< reference to the iidm line instance
-  boost::shared_ptr<ConverterInterface> conv1_;  /// conv1
-  boost::shared_ptr<ConverterInterface> conv2_;  /// conv2
+  boost::shared_ptr<ConverterInterface> conv1_;  ///< conv1
+  boost::shared_ptr<ConverterInterface> conv2_;  ///< conv2
 };  ///< Interface class for Hvdc Line model
 
 }  // namespace DYN
