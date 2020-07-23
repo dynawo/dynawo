@@ -339,6 +339,7 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   PreviousReinit previousReinit_;  ///< previous reinitialization status of the solver
   bool enableSilentZ_;  ///< enable the possibility to break discrete variable propagation loop if only silent z are modified
   bool optimizeReinitAlgebraicResidualsEvaluations_;  ///< enable or disable the optimization of the number of algebraic residuals evals during reinit
+  modeChangeType_t minimumModeChangeType_;  ///< parameter to set the minimum mode level at which algebraic restoration will occur
 };
 
 }  // end of namespace DYN
