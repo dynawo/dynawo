@@ -279,7 +279,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   criteria2.addBus(bus);
   ASSERT_FALSE(criteria2.checkCriteria(0, false));
   ASSERT_EQ(criteria2.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria2.getFailingCriteria()[0].second, "BusAboveVoltage MyBus 190 0.8 MyCriteria");
+  ASSERT_EQ(criteria2.getFailingCriteria()[0].second, "BusAboveVoltage MyBus 0.844444 0.8 MyCriteria");
 
   boost::shared_ptr<CriteriaParams> criteriap2 = CriteriaParamsFactory::newCriteriaParams();
   criteriap2->setType(CriteriaParams::LOCAL_VALUE);
@@ -302,7 +302,7 @@ TEST(DataInterfaceIIDMTest, testBusCriteria) {
   criteria4.addBus(bus);
   ASSERT_FALSE(criteria4.checkCriteria(0, true));
   ASSERT_EQ(criteria4.getFailingCriteria().size(), 1);
-  ASSERT_EQ(criteria4.getFailingCriteria()[0].second, "BusUnderVoltage MyBus 43 0.2 ");
+  ASSERT_EQ(criteria4.getFailingCriteria()[0].second, "BusUnderVoltage MyBus 0.191111 0.2 ");
   ASSERT_TRUE(criteria4.checkCriteria(0, false));
   ASSERT_TRUE(criteria4.getFailingCriteria().empty());
 }

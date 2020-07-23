@@ -708,7 +708,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   ASSERT_FALSE(bus1->numSubNetworkSet());
   ASSERT_FALSE(bus2->numSubNetworkSet());
   ASSERT_FALSE(bus3->numSubNetworkSet());
-  container.exploreNeighbors();
+  container.exploreNeighbors(0);
   ASSERT_EQ(bus1->numSubNetwork(), 0);
   ASSERT_EQ(bus2->numSubNetwork(), 0);
   ASSERT_EQ(bus3->numSubNetwork(), 1);
