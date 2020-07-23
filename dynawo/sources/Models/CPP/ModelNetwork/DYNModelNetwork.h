@@ -307,7 +307,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
 
   /**
    * @brief scan through the AC network to find AC-connected components
-   * @param t : time to use
+   * @param t : time to use (only used for log purpose)
    */
   void computeComponents(double t);
 
