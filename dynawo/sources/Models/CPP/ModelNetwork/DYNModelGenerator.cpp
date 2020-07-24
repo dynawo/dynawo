@@ -23,7 +23,6 @@
 #include "DYNModelGenerator.h"
 #include "DYNModelBus.h"
 #include "DYNTrace.h"
-#include "DYNTimer.h"
 #include "DYNVariableForModel.h"
 #include "DYNParameter.h"
 #include "DYNDerivative.h"

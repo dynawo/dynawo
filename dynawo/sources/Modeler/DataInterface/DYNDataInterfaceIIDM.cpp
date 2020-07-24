@@ -1183,7 +1183,9 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
 
 bool
 DataInterfaceIIDM::checkCriteria(double t, bool finalStep) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("DataInterfaceIIDM::checkCriteria");
+#endif
 #ifdef _DEBUG_
   for (map<string, shared_ptr<ComponentInterface> >::iterator iter = components_.begin(); iter != components_.end(); ++iter) {
     iter->second->enableCheckStateVariable();

@@ -259,7 +259,7 @@ ModelMulti::initBuffers() {
 
 void
 ModelMulti::init(const double& t0) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer1("ModelMulti::init");
 #endif
 
@@ -313,7 +313,7 @@ ModelMulti::init(const double& t0) {
 
 void
 ModelMulti::printModel() const {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::printModel");
 #endif
   for (unsigned int i = 0; i < subModels_.size(); ++i)
@@ -324,7 +324,7 @@ ModelMulti::printModel() const {
 
 void
 ModelMulti::printParameterValues() const {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::printParameterValues");
 #endif
   Trace::debug(Trace::parameters()) << "This file is organized as follows: "<< Trace::endline <<
@@ -360,7 +360,7 @@ ModelMulti::printInitValues(const string& directory) {
 
 bool
 ModelMulti::zChange() const {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::zChange");
 #endif
   return zChange_;
@@ -379,19 +379,19 @@ ModelMulti::copyDiscreteVariables(double* z) {
 
 void
 ModelMulti::evalF(const double t, double* y, double* yp, double* f) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalF");
 #endif
   copyContinuousVariables(y, yp);
 
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer * timer2 = new Timer("ModelMulti::evalF_subModels");
 #endif
   for (unsigned int i = 0; i < subModels_.size(); ++i) {
     if (subModels_[i]->sizeF() != 0)
       subModels_[i]->evalFSub(t);
   }
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   delete timer2;
 #endif
 
@@ -402,7 +402,7 @@ ModelMulti::evalF(const double t, double* y, double* yp, double* f) {
 
 void
 ModelMulti::evalFDiff(const double t, double* y, double* yp, double* f) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalFDiff");
 #endif
   copyContinuousVariables(y, yp);
@@ -415,7 +415,7 @@ ModelMulti::evalFDiff(const double t, double* y, double* yp, double* f) {
 
 void
 ModelMulti::evalFMode(const double t, double* y, double* yp, double* f) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalFMode");
 #endif
   copyContinuousVariables(y, yp);
@@ -440,7 +440,7 @@ ModelMulti::evalFMode(const double t, double* y, double* yp, double* f) {
 
 void
 ModelMulti::evalG(double t, vector<state_g> &g) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalG");
 #endif
   for (unsigned int i = 0; i < subModels_.size(); ++i)
@@ -451,7 +451,7 @@ ModelMulti::evalG(double t, vector<state_g> &g) {
 
 void
 ModelMulti::evalJt(const double t, const double cj, SparseMatrix& Jt) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalJt");
 #endif
   int rowOffset = 0;
@@ -490,7 +490,7 @@ ModelMulti::evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) {
 
 void
 ModelMulti::evalZ(double t) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalZ");
 #endif
   if (sizeZ() == 0) return;
@@ -532,7 +532,7 @@ ModelMulti::propagateZModif() {
 
 void
 ModelMulti::evalMode(double t) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalMode");
 #endif
   /* modeChange_ has to be set at each evalMode call
@@ -575,7 +575,7 @@ ModelMulti::reinitMode() {
 
 void
 ModelMulti::evalCalculatedVariables(const double & t, const vector<double> &y, const vector<double> &yp, const vector<double> &z) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalCalculatedVariables");
 #endif
   std::copy(y.begin(), y.end(), yLocal_);
@@ -594,7 +594,7 @@ ModelMulti::checkParametersCoherence() const {
 
 void
 ModelMulti::checkDataCoherence(const double & t) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::checkDataCoherence");
 #endif
 
@@ -920,7 +920,7 @@ ModelMulti::getGInfos(const int globalGIndex, string& subModelName, int& localGI
 
 void
 ModelMulti::setIsInitProcess(bool isInitProcess) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::setIsInitProcess");
 #endif
 
@@ -1059,7 +1059,7 @@ ModelMulti::initCurves(shared_ptr<curves::Curve>& curve) {
 
 void
 ModelMulti::updateCalculatedVarForCurves(boost::shared_ptr<curves::CurvesCollection> curvesCollection) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::updateCurves");
 #endif
   for (curves::CurvesCollection::iterator itCurve = curvesCollection->begin(), itCurveEnd = curvesCollection->end();

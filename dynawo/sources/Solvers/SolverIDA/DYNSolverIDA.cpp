@@ -512,7 +512,9 @@ SolverIDA::analyseFlag(const int & flag) {
 int
 SolverIDA::evalF(realtype tres, N_Vector yy, N_Vector yp,
         N_Vector rr, void *data) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalF");
+#endif
   SolverIDA* solv = reinterpret_cast<SolverIDA*> (data);
   shared_ptr<Model> model = solv->getModel();
 
@@ -536,7 +538,9 @@ return (0);
 int
 SolverIDA::evalG(realtype tres, N_Vector yy, N_Vector yp, realtype *gout,
         void *data) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalG");
+#endif
   SolverIDA* solv = reinterpret_cast<SolverIDA*> (data);
   shared_ptr<Model> model = solv->getModel();
   realtype *iyy = NV_DATA_S(yy);
@@ -560,7 +564,7 @@ SolverIDA::evalJ(realtype tt, realtype cj,
         N_Vector yy, N_Vector yp, N_Vector /*rr*/,
         SUNMatrix JJ, void* data,
         N_Vector /*tmp1*/, N_Vector /*tmp2*/, N_Vector /*tmp3*/) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::evalJ");
 #endif
   SolverIDA* solv = reinterpret_cast<SolverIDA*> (data);
@@ -796,7 +800,9 @@ SolverIDA::reinit() {
 
 vector<state_g>
 SolverIDA::getRootsFound() const {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIDA::getRootsFound()");
+#endif
   vector<state_g> rootsFound(model_->sizeG(), NO_ROOT);
 
   if (IDAGetRootInfo(IDAMem_, &rootsFound[0]) < 0)

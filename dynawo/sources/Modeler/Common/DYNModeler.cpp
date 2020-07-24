@@ -50,7 +50,6 @@
 #include "DYNModelMulti.h"
 #include "DYNSubModelFactory.h"
 #include "DYNTrace.h"
-#include "DYNTimer.h"
 #include "DYNElement.h"
 #include "DYNDataInterface.h"
 #include "DYNExecUtils.h"
