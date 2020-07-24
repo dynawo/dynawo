@@ -134,7 +134,9 @@ ModelNetwork::~ModelNetwork() {
 
 void
 ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::initFromData");
+#endif
   Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
   Trace::debug(Trace::network()) << "Network initialization" << Trace::endline;
   Trace::debug(Trace::network()) << "------------------------------" << Trace::endline;
@@ -814,7 +816,9 @@ ModelNetwork::analyseComponents() {
 
 void
 ModelNetwork::computeComponents(double t) {
-  Timer * timer1 = new Timer("ModelNetwork::computeComponents");
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer1("ModelNetwork::computeComponents");
+#endif
   busContainer_->resetSubNetwork();
 
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
@@ -823,8 +827,6 @@ ModelNetwork::computeComponents(double t) {
 
   // connectivity calculation
   busContainer_->exploreNeighbors(t);
-
-  delete timer1;
 }
 
 void
@@ -939,7 +941,7 @@ ModelNetwork::initSubBuffers() {
 
 void
 ModelNetwork::evalF(double /*t*/, propertyF_t type) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::evalF");
 #endif
 
@@ -948,7 +950,7 @@ ModelNetwork::evalF(double /*t*/, propertyF_t type) {
     busContainer_->resetNodeInjections();
     busContainer_->resetCurrentUStatus();
 
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer timer2("ModelNetwork::evalF_evalNodeInjection");
 #endif
     for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
@@ -957,7 +959,7 @@ ModelNetwork::evalF(double /*t*/, propertyF_t type) {
   }
 
   // evaluate F
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelNetwork::evalF_evalF");
 #endif
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin();
@@ -967,7 +969,9 @@ ModelNetwork::evalF(double /*t*/, propertyF_t type) {
 
 void
 ModelNetwork::evalG(const double& t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelNetwork::evalG");
+#endif
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
     (*itComponent)->evalG(t);
@@ -975,7 +979,9 @@ ModelNetwork::evalG(const double& t) {
 
 void
 ModelNetwork::evalZ(const double& t) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelNetwork::evalZ");
+#endif
   bool topoChange = false;
   bool stateChange = false;
   for (vector<shared_ptr<NetworkComponent> >::const_iterator  itComponent = getComponents().begin(), itEnd = getComponents().end();
@@ -1037,7 +1043,9 @@ ModelNetwork::evalMode(const double& t) {
 
 void
 ModelNetwork::evalCalculatedVars() {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelNetwork::calculatedVars");
+#endif
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
     (*itComponent)->evalCalculatedVars();
@@ -1047,26 +1055,40 @@ ModelNetwork::evalCalculatedVars() {
 
 void
 ModelNetwork::evalJt(const double& /*t*/, const double& cj, SparseMatrix& jt, const int& rowOffset) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelNetwork::evalJ");
+#endif
 
   // init bus derivatives
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer * timer2 = new Timer("evalJt_initBusDerivatives");
+#endif
   busContainer_->initDerivatives();
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   delete timer2;
+#endif
   vector<shared_ptr<NetworkComponent> >::const_iterator itComponent;
 
   // fill bus derivatives
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer * timer3 = new Timer("evalJt_evalDerivatives");
+#endif
 
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
     (*itComponent)->evalDerivatives(cj);
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   delete timer3;
+#endif
 
   // fill sparse matrix Jt
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer * timer1 = new Timer("EvalJt_evalJt");
+#endif
   for (itComponent = getComponents().begin(); itComponent != getComponents().end(); ++itComponent)
     (*itComponent)->evalJt(jt, cj, rowOffset);
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   delete timer1;
+#endif
 }
 
 void

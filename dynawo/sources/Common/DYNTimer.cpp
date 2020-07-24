@@ -31,7 +31,7 @@ Timers::Timers() {
 }
 
 Timers::~Timers() {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   std::map<std::string, double>::const_iterator itT;
   for (itT = timers_.begin(); itT != timers_.end(); ++itT) {
     std::cout << "TIMER[" << itT->first << "] = " << itT->second << " secondes en " << nbAppels_[itT->first] << " appels" << std::endl;
@@ -89,7 +89,7 @@ isStopped_(false) {
 
 void
 Timer::stop() {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timers::add(name_, timer_.elapsed());
 #endif
   isStopped_ = true;

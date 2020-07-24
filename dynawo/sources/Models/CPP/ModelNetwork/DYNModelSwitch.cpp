@@ -206,7 +206,9 @@ ModelSwitch::setInitialCurrents() {
 
 void
 ModelSwitch::evalDerivatives(const double /*cj*/) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer3("ModelSwitch::evalDerivatives");
+#endif
   if (getConnectionState() == CLOSED) {
     modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, irYNum_, 1.);
     modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, iiYNum_, 1.);

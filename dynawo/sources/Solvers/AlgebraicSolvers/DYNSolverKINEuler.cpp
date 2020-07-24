@@ -146,7 +146,7 @@ SolverKINEuler::evalF_KIN(N_Vector yy, N_Vector rr, void* data) {
 int
 SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
         SUNMatrix JJ, void* data, N_Vector /*tmp1*/, N_Vector /*tmp2*/) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverKINEuler::evalJ_KIN");
 #endif
 
@@ -169,7 +169,7 @@ SolverKINEuler::evalJ_KIN(N_Vector /*yy*/, N_Vector /*rr*/,
 
 int
 SolverKINEuler::solve(bool noInitSetup, bool skipAlgebraicResidualsEvaluation) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverKINEuler::solve");
 #endif
 
