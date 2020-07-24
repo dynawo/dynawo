@@ -35,7 +35,6 @@
 
 #include "DYNSparseMatrix.h"
 #include "DYNDerivative.h"
-#include "DYNTimer.h"
 
 using std::vector;
 using boost::shared_ptr;

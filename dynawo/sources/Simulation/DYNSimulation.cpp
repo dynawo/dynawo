@@ -624,7 +624,7 @@ Simulation::importFinalStateRequest() {
 
 void
 Simulation::initFromData(const shared_ptr<DataInterface> & data, const shared_ptr<DynamicData> &dyd) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::initFromData()");
 #endif
   Modeler modeler;
@@ -647,7 +647,7 @@ Simulation::initStructure() {
 
 void
 Simulation::init() {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::init()");
 #endif
   Trace::info() << Trace::endline << "-----------------------------------------------------------------------" << Trace::endline;
@@ -795,7 +795,7 @@ Simulation::calculateIC() {
 
 void
 Simulation::simulate() {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::simulate()");
 #endif
   printSolverHeader();
@@ -893,7 +893,7 @@ Simulation::simulate() {
 
 bool
 Simulation::checkCriteria(double t, bool finalStep) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::checkCriteria()");
 #endif
   const bool filterForCriteriaCheck = true;
@@ -934,7 +934,7 @@ Simulation::updateParametersValues() {
 
 void
 Simulation::updateCurves(bool updateCalculateVariable) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::updateCurves()");
 #endif
   if (exportCurvesMode_ == EXPORT_CURVES_NONE)
@@ -985,7 +985,7 @@ Simulation::printEnd() {
 
 void
 Simulation::terminate() {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::terminate()");
 #endif
   updateParametersValues();   // update parameter curves' value
@@ -1126,7 +1126,7 @@ Simulation::printConstraints(std::ostream& stream) const {
 void
 Simulation::dumpIIDMFile() {
   if (data_) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer timer("Job::exportStateVariables");
 #endif
     data_->exportStateVariables();

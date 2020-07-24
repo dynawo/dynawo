@@ -133,7 +133,7 @@ SolverKINSubModel::evalJInit_KIN(N_Vector yy, N_Vector /*rr*/,
 
 int
 SolverKINSubModel::solve() {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverKINSubModel::solve");
 #endif
 

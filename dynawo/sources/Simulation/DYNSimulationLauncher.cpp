@@ -43,7 +43,9 @@ using DYN::Simulation;
 using DYN::SimulationContext;
 
 void launchSimu(const std::string& jobsFileName) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   DYN::Timer timer("Main::LaunchSimu");
+#endif
 
   job::XmlImporter importer;
   boost::shared_ptr<job::JobsCollection> jobsCollection = importer.importFromFile(jobsFileName);

@@ -53,7 +53,6 @@
 
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
-#include "DYNTimer.h"
 #include "DYNExecUtils.h"
 #include "DYNFileSystemUtils.h"
 

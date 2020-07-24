@@ -32,7 +32,6 @@
 #include "DYNTrace.h"
 #include "DYNSparseMatrix.h"
 #include "DYNDerivative.h"
-#include "DYNTimer.h"
 #include "DYNVariableForModel.h"
 #include "DYNParameter.h"
 #include "DYNBusInterface.h"

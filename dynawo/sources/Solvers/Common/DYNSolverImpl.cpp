@@ -245,7 +245,9 @@ Solver::Impl::solve(double tAim, double &tNxt) {
 
 bool
 Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double & time) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("SolverIMPL::evalZMode");
+#endif
   bool change = false;
 
   // evalZ part

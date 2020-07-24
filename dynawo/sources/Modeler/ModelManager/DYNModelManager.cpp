@@ -229,7 +229,7 @@ ModelManager::getSize() {
 
 void
 ModelManager::evalF(double t, propertyF_t type) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalF");
 #endif
   setManagerTime(t);
@@ -239,7 +239,7 @@ ModelManager::evalF(double t, propertyF_t type) {
 
 void
 ModelManager::checkDataCoherence(const double & t) {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::checkDataCoherence");
 #endif
 
@@ -281,7 +281,9 @@ ModelManager::setGequationsInit() {
 void
 ModelManager::evalF(const double & t, const vector<adept::adouble> &y,
         const vector<adept::adouble> &yp, vector<adept::adouble> &f) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalF adept");
+#endif
   setManagerTime(t);
 
   modelModelica()->evalFAdept(y, yp, f);
@@ -320,13 +322,19 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
     stack.independent(&x[0], x.size());
     stack.independent(&xp[0], xp.size());
     stack.dependent(&output[0], nbOutput);
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer * timer1 = new Timer("zzz reading");
+#endif
     stack.jacobian(&jac[0]);
     stack.pause_recording();
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
     delete timer1;
+#endif
 
     int offsetJPrim = sizeY() * sizeY();
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
     Timer * timer3 = new Timer("zzz filling");
+#endif
 
     for (unsigned int i = 0; i < sizeF(); ++i) {
       Jt.changeCol();
@@ -342,7 +350,9 @@ ModelManager::evalJtAdept(const double& t, double *y, double * yp, const double 
       }
     }
 
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
     delete timer3;
+#endif
   } catch (adept::stack_already_active & e) {
     std::cerr << "Error :" << e.what() << std::endl;
     throw DYNError(DYN::Error::MODELER, AdeptFailure);
@@ -362,7 +372,9 @@ ModelManager::evalG(const double & t) {
 
 void
 ModelManager::evalJt(const double &t, const double & cj, SparseMatrix& jt, const int& rowOffset) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalJ");
+#endif
 
 #if _ADEPT_
   evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, true);
@@ -374,7 +386,9 @@ ModelManager::evalJt(const double &t, const double & cj, SparseMatrix& jt, const
 
 void
 ModelManager::evalJtPrim(const double &t, const double & cj, SparseMatrix& jt, const int& rowOffset) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::evalJPrim");
+#endif
 
 #ifdef _ADEPT_
   evalJtAdept(t, yLocal_, ypLocal_, cj, jt, rowOffset, false);
@@ -818,7 +832,7 @@ ModelManager::loadParameters(const string & parameters) {
 
 void
 ModelManager::solveParameters() {
-#ifdef _DEBUG_
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelManager::solveParameters");
 #endif
   Trace::debug() << "------------------------------" << Trace::endline;
