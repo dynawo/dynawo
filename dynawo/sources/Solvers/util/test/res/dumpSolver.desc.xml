@@ -16,6 +16,7 @@
       <parameter name="linearSolverName" valueType="STRING" cardinality="1"/>
       <parameter name="maxNewtonTry" valueType="INT" cardinality="1"/>
       <parameter name="maxRootRestart" valueType="INT" cardinality="1"/>
+      <parameter name="minimumModeChangeTypeForAlgebraicRestoration" valueType="STRING" cardinality="1"/>
       <parameter name="msbset" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlg" valueType="INT" cardinality="1"/>
       <parameter name="msbsetAlgJ" valueType="INT" cardinality="1"/>

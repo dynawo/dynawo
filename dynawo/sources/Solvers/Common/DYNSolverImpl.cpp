@@ -88,7 +88,7 @@ tSolve_(0.),
 previousReinit_(None),
 enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
-minimumModeChangeType_(ALGEBRAIC_MODE) { }
+minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE) { }
 
 Solver::Impl::~Impl() {
   clean();
@@ -348,7 +348,8 @@ Solver::Impl::defineCommonParameters() {
   // Parameters for performance optimization
   parameters_.insert(make_pair("enableSilentZ", ParameterSolver("enableSilentZ", VAR_TYPE_BOOL)));
   parameters_.insert(make_pair("optimizeReinitAlgebraicResidualsEvaluations", ParameterSolver("optimizeReinitAlgebraicResidualsEvaluations", VAR_TYPE_BOOL)));
-  parameters_.insert(make_pair("minimumModeChangeType", ParameterSolver("minimumModeChangeType", VAR_TYPE_STRING)));
+  parameters_.insert(make_pair("minimumModeChangeTypeForAlgebraicRestoration",
+      ParameterSolver("minimumModeChangeTypeForAlgebraicRestoration", VAR_TYPE_STRING)));
 }
 
 bool
@@ -464,14 +465,14 @@ void Solver::Impl::setSolverCommonParameters() {
     enableSilentZ_ = findParameter("enableSilentZ").getValue<bool>();
   if (findParameter("optimizeReinitAlgebraicResidualsEvaluations").hasValue())
     optimizeReinitAlgebraicResidualsEvaluations_ = findParameter("optimizeReinitAlgebraicResidualsEvaluations").getValue<bool>();
-  if (findParameter("minimumModeChangeType").hasValue()) {
-    std::string value = findParameter("minimumModeChangeType").getValue<string>();
+  if (findParameter("minimumModeChangeTypeForAlgebraicRestoration").hasValue()) {
+    std::string value = findParameter("minimumModeChangeTypeForAlgebraicRestoration").getValue<string>();
     if (value == "DIFFERENTIAL")
-      minimumModeChangeType_ = DIFFERENTIAL_MODE;
+      minimumModeChangeTypeForAlgebraicRestoration_ = DIFFERENTIAL_MODE;
     else if (value == "ALGEBRAIC")
-      minimumModeChangeType_ = ALGEBRAIC_MODE;
+      minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_MODE;
     else if (value == "ALGEBRAIC_J_UPDATE")
-      minimumModeChangeType_ = ALGEBRAIC_J_UPDATE_MODE;
+      minimumModeChangeTypeForAlgebraicRestoration_ = ALGEBRAIC_J_UPDATE_MODE;
     else
       Trace::warn() << DYNLog(IncoherentParamMinimumModeChangeType, value) << Trace::endline;
   }
