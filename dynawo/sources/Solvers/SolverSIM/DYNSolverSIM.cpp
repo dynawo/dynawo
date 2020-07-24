@@ -651,7 +651,7 @@ SolverSIM::reinit() {
   modeChangeType_t modeChangeType = model_->getModeChangeType();
   if (modeChangeType == NO_MODE) return;
 
-  if (modeChangeType < minimumModeChangeType_)
+  if (modeChangeType < minimumModeChangeTypeForAlgebraicRestoration_)
     return;
 
   const bool evaluateOnlyMode = optimizeReinitAlgebraicResidualsEvaluations_;
