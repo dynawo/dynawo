@@ -28,7 +28,6 @@
 #include "DYNModelCurrentLimits.h"
 #include "DYNMacrosMessage.h"
 #include "DYNTrace.h"
-#include "DYNTimer.h"
 #include "DYNVariableForModel.h"
 #include "DYNParameter.h"
 #include "DYNDerivative.h"

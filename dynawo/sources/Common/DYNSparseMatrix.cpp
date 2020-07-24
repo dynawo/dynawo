@@ -32,7 +32,6 @@
 #include "DYNFileSystemUtils.h"
 #include "DYNSparseMatrix.h"
 #include "DYNTrace.h"
-#include "DYNTimer.h"
 #include "DYNFileSystemUtils.h"
 
 using std::map;
