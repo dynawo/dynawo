@@ -34,8 +34,10 @@ class ModelRatioTapChanger : public ModelTapChanger {
    *
    * @param id : name of the tap changer
    * @param side : side where the voltage is controlled
+   * @param lowindex : lowest step index
    */
-  explicit ModelRatioTapChanger(const std::string& id, const std::string& side);
+  explicit ModelRatioTapChanger(const std::string& id, const std::string& side,
+                                int lowindex);
 
   /**
    * @brief destructor

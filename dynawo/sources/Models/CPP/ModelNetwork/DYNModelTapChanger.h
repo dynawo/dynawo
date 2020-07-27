@@ -20,8 +20,8 @@
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELTAPCHANGER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELTAPCHANGER_H_
 
-#include <map>
 #include <string>
+#include <vector>
 
 #include "DYNEnumUtils.h"
 #include "DYNMacrosMessage.h"
@@ -36,15 +36,16 @@ class ModelNetwork;
 class ModelTapChanger {
  public:
   /**
-   * @brief default constructor
+   * @brief  unique constructor
    *
    * @param id : name of the tap changer
+   * @param lowindex : lowest step index
    */
-  inline explicit ModelTapChanger(const std::string& id)
+  inline explicit ModelTapChanger(const std::string& id, int lowindex)
       : id_(id),
         currentStepIndex_(0),
         regulating_(false),
-        lowStepIndex_(0),
+        lowStepIndex_(lowindex),
         highStepIndex_(0),
         tFirst_(60),
         tNext_(10) {}
@@ -66,20 +67,19 @@ class ModelTapChanger {
    * @return step associated to the index
    */
   inline const TapChangerStep& getStep(int key) const {
-    if (steps_.find(key) != steps_.end()) {
-      return steps_.find(key)->second;
-    } else {
+    try {
+      return steps_.at(key - getLowStepIndex());
+    } catch (...) {
       throw DYNError(Error::MODELER, UndefinedStep, key, id_);
     }
   }
 
   /**
    * @brief  add a new TapChangerStep to the steps vector
-   * @param index
    * @param step
    */
-  inline void addStep(int index, const TapChangerStep& step) {
-    steps_[index] = step;
+  inline void addStep(const TapChangerStep& step) {
+    steps_.push_back(step);
   }
 
   /**
@@ -111,14 +111,10 @@ class ModelTapChanger {
   /**
    * @brief   get the lowest step index
    * @return index
+   *
+   * lowStepIndex_ is set by the ctor and cannot be changed
    */
   inline int getLowStepIndex() const { return lowStepIndex_; }
-
-  /**
-   * @brief   set the lowest step index
-   * @param index
-   */
-  inline void setLowStepIndex(int index) { lowStepIndex_ = index; }
 
   /**
    * @brief   get the highest step index
@@ -172,7 +168,7 @@ class ModelTapChanger {
 
  private:
   std::string id_;  ///< id of the tap changer
-  std::map<int, TapChangerStep>
+  std::vector<TapChangerStep>
       steps_;             ///< map of TapChangerStep : index -> step
   int currentStepIndex_;  ///< index of the current step
   bool regulating_;       ///< is the tapChanger regulating ?

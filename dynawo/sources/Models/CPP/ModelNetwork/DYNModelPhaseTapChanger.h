@@ -33,8 +33,9 @@ class ModelPhaseTapChanger : public ModelTapChanger {
    * @brief unique constructor
    *
    * @param id : name of the tap changer
+   * @param lowindex : lowest step index
    */
-  explicit ModelPhaseTapChanger(const std::string& id);
+  explicit ModelPhaseTapChanger(const std::string& id, int lowindex);
 
   /**
    * @brief destructor

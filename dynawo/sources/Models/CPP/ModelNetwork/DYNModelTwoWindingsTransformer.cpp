@@ -26,65 +26,66 @@
  *
  * b, g, r, x shall be specified at the side 2 voltage.
  */
-#include <cmath>
 #include <cassert>
+#include <cmath>
 #include "PARParametersSet.h"
 
-#include "DYNModelTwoWindingsTransformer.h"
+#include "DYNBusInterface.h"
 #include "DYNCommon.h"
-#include "DYNModelRatioTapChanger.h"
-#include "DYNModelPhaseTapChanger.h"
-#include "DYNModelTapChanger.h"
-#include "DYNModelBus.h"
-#include "DYNModelCurrentLimits.h"
-#include "DYNMacrosMessage.h"
-#include "DYNTrace.h"
-#include "DYNVariableForModel.h"
-#include "DYNParameter.h"
-#include "DYNDerivative.h"
-#include "DYNTwoWTransformerInterface.h"
 #include "DYNCurrentLimitInterface.h"
-#include "DYNStepInterface.h"
+#include "DYNDerivative.h"
+#include "DYNMacrosMessage.h"
+#include "DYNMessageTimeline.h"
+#include "DYNModelBus.h"
+#include "DYNModelConstants.h"
+#include "DYNModelCurrentLimits.h"
+#include "DYNModelNetwork.h"
+#include "DYNModelPhaseTapChanger.h"
+#include "DYNModelRatioTapChanger.h"
+#include "DYNModelTapChanger.h"
+#include "DYNModelTwoWindingsTransformer.h"
+#include "DYNModelVoltageLevel.h"
+#include "DYNParameter.h"
 #include "DYNPhaseTapChangerInterface.h"
 #include "DYNRatioTapChangerInterface.h"
-#include "DYNBusInterface.h"
-#include "DYNModelConstants.h"
-#include "DYNModelNetwork.h"
-#include "DYNMessageTimeline.h"
-#include "DYNModelVoltageLevel.h"
+#include "DYNStepInterface.h"
+#include "DYNTrace.h"
+#include "DYNTwoWTransformerInterface.h"
+#include "DYNVariableForModel.h"
 
 using parameters::ParametersSet;
 
-using std::vector;
-using std::string;
-using std::map;
 using boost::shared_ptr;
+using std::map;
+using std::string;
+using std::vector;
 
 namespace DYN {
 
-ModelTwoWindingsTransformer::ModelTwoWindingsTransformer(const shared_ptr<TwoWTransformerInterface>& tfo) :
-Impl(tfo->getID()),
-ir1_dUr1_(0.),
-ir1_dUi1_(0.),
-ir1_dUr2_(0.),
-ir1_dUi2_(0.),
-ii1_dUr1_(0.),
-ii1_dUi1_(0.),
-ii1_dUr2_(0.),
-ii1_dUi2_(0.),
-ir2_dUr1_(0.),
-ir2_dUi1_(0.),
-ir2_dUr2_(0.),
-ir2_dUi2_(0.),
-ii2_dUr1_(0.),
-ii2_dUi1_(0.),
-ii2_dUr2_(0.),
-ii2_dUi2_(0.),
-topologyModified_(false),
-stateIndexModified_(false),
-updateYMat_(true),
-tapChangerIndex_(0),
-modelType_("TwoWindingsTransformer") {
+ModelTwoWindingsTransformer::ModelTwoWindingsTransformer(
+    const shared_ptr<TwoWTransformerInterface>& tfo)
+    : Impl(tfo->getID()),
+      ir1_dUr1_(0.),
+      ir1_dUi1_(0.),
+      ir1_dUr2_(0.),
+      ir1_dUi2_(0.),
+      ii1_dUr1_(0.),
+      ii1_dUi1_(0.),
+      ii1_dUr2_(0.),
+      ii1_dUi2_(0.),
+      ir2_dUr1_(0.),
+      ir2_dUi1_(0.),
+      ir2_dUr2_(0.),
+      ir2_dUi2_(0.),
+      ii2_dUr1_(0.),
+      ii2_dUi1_(0.),
+      ii2_dUr2_(0.),
+      ii2_dUi2_(0.),
+      topologyModified_(false),
+      stateIndexModified_(false),
+      updateYMat_(true),
+      tapChangerIndex_(0),
+      modelType_("TwoWindingsTransformer") {
   // init data
   // ---------
 
@@ -104,7 +105,8 @@ modelType_("TwoWindingsTransformer") {
     if (tfo->getBusInterface2()) {
       vNom2_ = tfo->getVNom2();
     } else {
-      vNom2_ = tfo->getRatedU2();  // bus2 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
+      vNom2_ =
+          tfo->getRatedU2();  // bus2 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
     }
   } else if (connected2) {
     connectionState_ = CLOSED_2;
@@ -112,20 +114,23 @@ modelType_("TwoWindingsTransformer") {
     if (tfo->getBusInterface1()) {
       vNom1_ = tfo->getVNom1();
     } else {
-      vNom1_ = tfo->getRatedU1();  // bus1 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
+      vNom1_ =
+          tfo->getRatedU1();  // bus1 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
     }
   } else {
     connectionState_ = OPEN;  // should not happened, filtered by model network
     if (tfo->getBusInterface1()) {
       vNom1_ = tfo->getVNom1();
     } else {
-      vNom1_ = tfo->getRatedU1();  // bus1 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
+      vNom1_ =
+          tfo->getRatedU1();  // bus1 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
     }
 
     if (tfo->getBusInterface2()) {
       vNom2_ = tfo->getVNom2();
     } else {
-      vNom2_ = tfo->getRatedU2();  // bus2 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
+      vNom2_ =
+          tfo->getRatedU2();  // bus2 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
     }
     assert(vNom1_ == vNom1_);  // control that vNom != NAN
     assert(vNom2_ == vNom2_);  // control that vNom != NAN
@@ -143,26 +148,34 @@ modelType_("TwoWindingsTransformer") {
   tapChangerLocked_ = 0.;
 
   // tap changer and tap init
-  double coeff = vNom2_ * vNom2_ / SNREF;  // PU with respect to the secondary voltage
+  double coeff =
+      vNom2_ * vNom2_ / SNREF;  // PU with respect to the secondary voltage
   double ratio = tfo->getRatedU2() / tfo->getRatedU1() * vNom1_ / vNom2_;
 
-  shared_ptr<PhaseTapChangerInterface> phaseTapChanger = tfo->getPhaseTapChanger();
-  shared_ptr<RatioTapChangerInterface> ratioTapChanger = tfo->getRatioTapChanger();
+  shared_ptr<PhaseTapChangerInterface> phaseTapChanger =
+      tfo->getPhaseTapChanger();
+  shared_ptr<RatioTapChangerInterface> ratioTapChanger =
+      tfo->getRatioTapChanger();
   double r = tfo->getR() / coeff;
   double x = tfo->getX() / coeff;
   double g = tfo->getG() * coeff;
   double b = tfo->getB() * coeff;
 
   if (phaseTapChanger) {
-    modelPhaseChanger_.reset(new ModelPhaseTapChanger(tfo->getID()));
+    const int lowIndex = phaseTapChanger->getLowPosition();
+    modelPhaseChanger_.reset(new ModelPhaseTapChanger(tfo->getID(), lowIndex));
 
     vector<shared_ptr<StepInterface> > steps = phaseTapChanger->getSteps();
-    int lowIndex = phaseTapChanger->getLowPosition();
-    double rTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentR() / 100. : 0.;
-    double xTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentX() / 100. : 0.;
-    double bTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentB() / 100. : 0.;
-    double gTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentG() / 100. : 0.;
-    double rhoTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentRho() : 1;
+    double rTapChanger =
+        ratioTapChanger ? ratioTapChanger->getCurrentR() / 100. : 0.;
+    double xTapChanger =
+        ratioTapChanger ? ratioTapChanger->getCurrentX() / 100. : 0.;
+    double bTapChanger =
+        ratioTapChanger ? ratioTapChanger->getCurrentB() / 100. : 0.;
+    double gTapChanger =
+        ratioTapChanger ? ratioTapChanger->getCurrentG() / 100. : 0.;
+    double rhoTapChanger =
+        ratioTapChanger ? ratioTapChanger->getCurrentRho() : 1;
     for (unsigned int i = 0; i < steps.size(); ++i) {
       double rho = ratio * rhoTapChanger * steps[i]->getRho();
       double phaseShift = steps[i]->getAlpha() * DEG_TO_RAD;
@@ -170,44 +183,52 @@ modelType_("TwoWindingsTransformer") {
       double xTap = x * (1. + xTapChanger + steps[i]->getX() / 100.);
       double gTap = g * (1. + gTapChanger + steps[i]->getG() / 100.);
       double bTap = b * (1. + bTapChanger + steps[i]->getB() / 100.);
-      modelPhaseChanger_->addStep(lowIndex + i, TapChangerStep(rho, phaseShift, rTap, xTap, gTap, bTap));
+      modelPhaseChanger_->addStep(
+          TapChangerStep(rho, phaseShift, rTap, xTap, gTap, bTap));
     }
-    modelPhaseChanger_->setLowStepIndex(lowIndex);
-    modelPhaseChanger_->setHighStepIndex(phaseTapChanger->getNbTap() - 1. + lowIndex);
-    modelPhaseChanger_->setCurrentStepIndex(phaseTapChanger->getCurrentPosition());
+    modelPhaseChanger_->setHighStepIndex(phaseTapChanger->getNbTap() - 1. +
+                                         lowIndex);
+    modelPhaseChanger_->setCurrentStepIndex(
+        phaseTapChanger->getCurrentPosition());
 
     // At the moment, only current regulation is supported.
-    bool regulating = phaseTapChanger->isCurrentLimiter() && phaseTapChanger->getRegulating();
+    bool regulating =
+        phaseTapChanger->isCurrentLimiter() && phaseTapChanger->getRegulating();
     double thresholdI = phaseTapChanger->getThresholdI();
     modelPhaseChanger_->setRegulating(regulating);
     modelPhaseChanger_->setThresholdI(thresholdI);
   } else if (ratioTapChanger) {
-    if (tfo->getRatioTapChanger()->hasLoadTapChangingCapabilities() && tfo->getRatioTapChanger()->getTerminalRefSide() != "") {
-      modelRatioChanger_.reset(new ModelRatioTapChanger(tfo->getID(), tfo->getRatioTapChanger()->getTerminalRefSide()));
+    if (tfo->getRatioTapChanger()->hasLoadTapChangingCapabilities() &&
+        tfo->getRatioTapChanger()->getTerminalRefSide() != "") {
+      const int lowIndex = ratioTapChanger->getLowPosition();
+      modelRatioChanger_.reset(new ModelRatioTapChanger(
+          tfo->getID(), tfo->getRatioTapChanger()->getTerminalRefSide(),
+          lowIndex));
 
       terminalRefId_ = tfo->getRatioTapChanger()->getTerminalRefId();
       side_ = tfo->getRatioTapChanger()->getTerminalRefSide();
       vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
-      int lowIndex = ratioTapChanger->getLowPosition();
       for (unsigned int i = 0; i < steps.size(); ++i) {
         double rho = ratio * steps[i]->getRho();
         double rTap = r * (1. + steps[i]->getR() / 100.);
         double xTap = x * (1. + steps[i]->getX() / 100.);
         double gTap = g * (1. + steps[i]->getG() / 100.);
         double bTap = b * (1. + steps[i]->getB() / 100.);
-        modelRatioChanger_->addStep(lowIndex + i, TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
+        modelRatioChanger_->addStep(TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
       }
-      modelRatioChanger_->setLowStepIndex(lowIndex);
-      modelRatioChanger_->setHighStepIndex(ratioTapChanger->getNbTap() - 1. + lowIndex);
-      modelRatioChanger_->setCurrentStepIndex(ratioTapChanger->getCurrentPosition());
+      modelRatioChanger_->setHighStepIndex(ratioTapChanger->getNbTap() - 1. +
+                                           lowIndex);
+      modelRatioChanger_->setCurrentStepIndex(
+          ratioTapChanger->getCurrentPosition());
 
       bool regulating = ratioTapChanger->getRegulating();
       double targetV = ratioTapChanger->getTargetV();
       modelRatioChanger_->setRegulating(regulating);
       modelRatioChanger_->setTargetV(targetV);
     } else {
-      modelTapChanger_.reset(new ModelTapChanger(tfo->getID()));
-      int currentStepIndex = ratioTapChanger->getCurrentPosition();
+      const int currentStepIndex = ratioTapChanger->getCurrentPosition();
+      modelTapChanger_.reset(
+          new ModelTapChanger(tfo->getID(), currentStepIndex));
       vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
       // The steps law begins at 0 while the lowIndex could have another value.
       int indexInSteps = currentStepIndex - ratioTapChanger->getLowPosition();
@@ -216,16 +237,14 @@ modelType_("TwoWindingsTransformer") {
       double xTap = x * (1. + steps[indexInSteps]->getX() / 100.);
       double gTap = g * (1. + steps[indexInSteps]->getG() / 100.);
       double bTap = b * (1. + steps[indexInSteps]->getB() / 100.);
-      modelTapChanger_->addStep(currentStepIndex, TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
-      modelTapChanger_->setLowStepIndex(currentStepIndex);
+      modelTapChanger_->addStep(TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
       modelTapChanger_->setHighStepIndex(currentStepIndex);
       modelTapChanger_->setCurrentStepIndex(currentStepIndex);
     }
   } else {
     // create default ratio changer
-    modelTapChanger_.reset(new ModelTapChanger(tfo->getID()));
-    modelTapChanger_->addStep(0, TapChangerStep(ratio, 0, r, x, g, b));
-    modelTapChanger_->setLowStepIndex(0);
+    modelTapChanger_.reset(new ModelTapChanger(tfo->getID(), 0));
+    modelTapChanger_->addStep(TapChangerStep(ratio, 0, r, x, g, b));
     modelTapChanger_->setHighStepIndex(0);
     modelTapChanger_->setCurrentStepIndex(0);
   }
@@ -234,7 +253,8 @@ modelType_("TwoWindingsTransformer") {
   factorPuToASide2_ = 1000. * SNREF / (sqrt(3.) * vNom2_);
 
   // current limits side 1
-  vector<shared_ptr<CurrentLimitInterface> > cLimit1 = tfo->getCurrentLimitInterfaces1();
+  vector<shared_ptr<CurrentLimitInterface> > cLimit1 =
+      tfo->getCurrentLimitInterfaces1();
   if (cLimit1.size() > 0) {
     currentLimits1_.reset(new ModelCurrentLimits());
     currentLimits1_->setSide(ModelCurrentLimits::SIDE_1);
@@ -244,15 +264,16 @@ modelType_("TwoWindingsTransformer") {
       currentLimits1_->addLimit(limit, cLimit1[0]->getAcceptableDuration());
     }
     for (unsigned int i = 1; i < cLimit1.size(); ++i) {
-      if (cLimit1[i-1]->getLimit() < maximumValueCurrentLimit) {
-        double limit = cLimit1[i-1]->getLimit() / factorPuToASide1_;
+      if (cLimit1[i - 1]->getLimit() < maximumValueCurrentLimit) {
+        double limit = cLimit1[i - 1]->getLimit() / factorPuToASide1_;
         currentLimits1_->addLimit(limit, cLimit1[i]->getAcceptableDuration());
       }
     }
   }
 
   // current limits side 2
-  vector<shared_ptr<CurrentLimitInterface> > cLimit2 = tfo->getCurrentLimitInterfaces2();
+  vector<shared_ptr<CurrentLimitInterface> > cLimit2 =
+      tfo->getCurrentLimitInterfaces2();
   if (cLimit2.size() > 0) {
     currentLimits2_.reset(new ModelCurrentLimits());
     currentLimits2_->setSide(ModelCurrentLimits::SIDE_2);
@@ -262,8 +283,8 @@ modelType_("TwoWindingsTransformer") {
       currentLimits2_->addLimit(limit, cLimit2[0]->getAcceptableDuration());
     }
     for (unsigned int i = 1; i < cLimit2.size(); ++i) {
-      if (cLimit2[i-1]->getLimit() < maximumValueCurrentLimit) {
-        double limit = cLimit2[i-1]->getLimit() / factorPuToASide2_;
+      if (cLimit2[i - 1]->getLimit() < maximumValueCurrentLimit) {
+        double limit = cLimit2[i - 1]->getLimit() / factorPuToASide2_;
         currentLimits2_->addLimit(limit, cLimit2[i]->getAcceptableDuration());
       }
     }
@@ -304,8 +325,7 @@ modelType_("TwoWindingsTransformer") {
   }
 }
 
-void
-ModelTwoWindingsTransformer::initSize() {
+void ModelTwoWindingsTransformer::initSize() {
   if (network_->isInitModel()) {
     sizeF_ = 0;
     sizeY_ = 0;
@@ -331,7 +351,8 @@ ModelTwoWindingsTransformer::initSize() {
       sizeG_ += currentLimits2_->sizeG();
     }
 
-    sizeZ_ += 2;  // add tap changer locked variable and disable_internal_tapChanger
+    sizeZ_ +=
+        2;  // add tap changer locked variable and disable_internal_tapChanger
 
     if (modelRatioChanger_) {
       sizeG_ += modelRatioChanger_->sizeG();
@@ -345,8 +366,7 @@ ModelTwoWindingsTransformer::initSize() {
   }
 }
 
-void
-ModelTwoWindingsTransformer::evalYMat() {
+void ModelTwoWindingsTransformer::evalYMat() {
   if (updateYMat_) {
     ir1_dUr1_ = ir1_dUr1();
     ir1_dUi1_ = ir1_dUi1();
@@ -368,34 +388,33 @@ ModelTwoWindingsTransformer::evalYMat() {
   }
 }
 
-void
-ModelTwoWindingsTransformer::init(int& /*yNum*/) {
+void ModelTwoWindingsTransformer::init(int& /*yNum*/) {
   // not needed
 }
 
-void
-ModelTwoWindingsTransformer::evalJt(SparseMatrix& /*jt*/, const double& /*cj*/, const int& /*rowOffset*/) {
+void ModelTwoWindingsTransformer::evalJt(SparseMatrix& /*jt*/,
+                                         const double& /*cj*/,
+                                         const int& /*rowOffset*/) {
   // not needed
 }
 
-void
-ModelTwoWindingsTransformer::evalJtPrim(SparseMatrix& /*jt*/, const int& /*rowOffset*/) {
+void ModelTwoWindingsTransformer::evalJtPrim(SparseMatrix& /*jt*/,
+                                             const int& /*rowOffset*/) {
   // not needed
 }
 
-void
-ModelTwoWindingsTransformer::defineNonGenericParameters(std::vector<ParameterModeler>& /*parameters*/) {
+void ModelTwoWindingsTransformer::defineNonGenericParameters(
+    std::vector<ParameterModeler>& /*parameters*/) {
   // not needed
 }
 
-void
-ModelTwoWindingsTransformer::setFequations(std::map<int, std::string>& /*fEquationIndex*/) {
+void ModelTwoWindingsTransformer::setFequations(
+    std::map<int, std::string>& /*fEquationIndex*/) {
   // not needed
 }
 
-void
-ModelTwoWindingsTransformer::evalNodeInjection() {
-  if ( network_->isInitModel() ) {
+void ModelTwoWindingsTransformer::evalNodeInjection() {
+  if (network_->isInitModel()) {
     if (modelBus1_) {
       modelBus1_->irAdd(ir01_);
       modelBus1_->iiAdd(ii01_);
@@ -426,28 +445,31 @@ ModelTwoWindingsTransformer::evalNodeInjection() {
   }
 }
 
-double
-ModelTwoWindingsTransformer::ir1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+double ModelTwoWindingsTransformer::ir1(const double& ur1, const double& ui1,
+                                        const double& ur2,
+                                        const double& ui2) const {
   return ir1_dUr1_ * ur1 + ir1_dUi1_ * ui1 + ir1_dUr2_ * ur2 + ir1_dUi2_ * ui2;
 }
 
-double
-ModelTwoWindingsTransformer::ii1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+double ModelTwoWindingsTransformer::ii1(const double& ur1, const double& ui1,
+                                        const double& ur2,
+                                        const double& ui2) const {
   return ii1_dUr1_ * ur1 + ii1_dUi1_ * ui1 + ii1_dUr2_ * ur2 + ii1_dUi2_ * ui2;
 }
 
-double
-ModelTwoWindingsTransformer::ir2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+double ModelTwoWindingsTransformer::ir2(const double& ur1, const double& ui1,
+                                        const double& ur2,
+                                        const double& ui2) const {
   return ir2_dUr1_ * ur1 + ir2_dUi1_ * ui1 + ir2_dUr2_ * ur2 + ir2_dUi2_ * ui2;
 }
 
-double
-ModelTwoWindingsTransformer::ii2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+double ModelTwoWindingsTransformer::ii2(const double& ur1, const double& ui1,
+                                        const double& ur2,
+                                        const double& ui2) const {
   return ii2_dUr1_ * ur1 + ii2_dUi1_ * ui1 + ii2_dUr2_ * ur2 + ii2_dUi2_ * ui2;
 }
 
-void
-ModelTwoWindingsTransformer::setCurrentStepIndex(const int& stepIndex) {
+void ModelTwoWindingsTransformer::setCurrentStepIndex(const int& stepIndex) {
   if (modelRatioChanger_)
     modelRatioChanger_->setCurrentStepIndex(stepIndex);
   else if (modelPhaseChanger_)
@@ -456,8 +478,7 @@ ModelTwoWindingsTransformer::setCurrentStepIndex(const int& stepIndex) {
     modelTapChanger_->setCurrentStepIndex(stepIndex);
 }
 
-int
-ModelTwoWindingsTransformer::getCurrentStepIndex() const {
+int ModelTwoWindingsTransformer::getCurrentStepIndex() const {
   if (modelRatioChanger_)
     return modelRatioChanger_->getCurrentStepIndex();
   else if (modelPhaseChanger_)
@@ -466,8 +487,7 @@ ModelTwoWindingsTransformer::getCurrentStepIndex() const {
     return modelTapChanger_->getCurrentStepIndex();
 }
 
-double
-ModelTwoWindingsTransformer::getRho() const {
+double ModelTwoWindingsTransformer::getRho() const {
   if (modelRatioChanger_)
     return modelRatioChanger_->getCurrentStep().getRho();
   else if (modelPhaseChanger_)
@@ -476,8 +496,7 @@ ModelTwoWindingsTransformer::getRho() const {
     return modelTapChanger_->getCurrentStep().getRho();
 }
 
-double
-ModelTwoWindingsTransformer::getAlpha() const {
+double ModelTwoWindingsTransformer::getAlpha() const {
   if (modelRatioChanger_)
     return modelRatioChanger_->getCurrentStep().getAlpha();
   else if (modelPhaseChanger_)
@@ -486,8 +505,7 @@ ModelTwoWindingsTransformer::getAlpha() const {
     return modelTapChanger_->getCurrentStep().getAlpha();
 }
 
-double
-ModelTwoWindingsTransformer::getR() const {
+double ModelTwoWindingsTransformer::getR() const {
   if (modelRatioChanger_)
     return modelRatioChanger_->getCurrentStep().getR();
   else if (modelPhaseChanger_)
@@ -496,8 +514,7 @@ ModelTwoWindingsTransformer::getR() const {
     return modelTapChanger_->getCurrentStep().getR();
 }
 
-double
-ModelTwoWindingsTransformer::getX() const {
+double ModelTwoWindingsTransformer::getX() const {
   if (modelRatioChanger_)
     return modelRatioChanger_->getCurrentStep().getX();
   else if (modelPhaseChanger_)
@@ -506,8 +523,7 @@ ModelTwoWindingsTransformer::getX() const {
     return modelTapChanger_->getCurrentStep().getX();
 }
 
-double
-ModelTwoWindingsTransformer::getB() const {
+double ModelTwoWindingsTransformer::getB() const {
   if (modelRatioChanger_)
     return modelRatioChanger_->getCurrentStep().getB();
   else if (modelPhaseChanger_)
@@ -516,8 +532,7 @@ ModelTwoWindingsTransformer::getB() const {
     return modelTapChanger_->getCurrentStep().getB();
 }
 
-double
-ModelTwoWindingsTransformer::getG() const {
+double ModelTwoWindingsTransformer::getG() const {
   if (modelRatioChanger_)
     return modelRatioChanger_->getCurrentStep().getG();
   else if (modelPhaseChanger_)
@@ -526,8 +541,7 @@ ModelTwoWindingsTransformer::getG() const {
     return modelTapChanger_->getCurrentStep().getG();
 }
 
-double
-ModelTwoWindingsTransformer::ir1_dUr1() const {
+double ModelTwoWindingsTransformer::ir1_dUr1() const {
   double ir1_dUr1 = 0.;
 
   // Get infos from current step
@@ -547,8 +561,7 @@ ModelTwoWindingsTransformer::ir1_dUr1() const {
   return ir1_dUr1;
 }
 
-double
-ModelTwoWindingsTransformer::ir1_dUi1() const {
+double ModelTwoWindingsTransformer::ir1_dUi1() const {
   double ir1_dUi1 = 0.;
 
   // Get infos from current step
@@ -563,13 +576,12 @@ ModelTwoWindingsTransformer::ir1_dUi1() const {
     double B1 = b - admittance * cos(lossAngle);
     ir1_dUi1 = -rho * rho * B1;
   } else if (getConnectionState() == CLOSED_1) {
-    ir1_dUi1 = -rho * rho*b;
+    ir1_dUi1 = -rho * rho * b;
   }
   return ir1_dUi1;
 }
 
-double
-ModelTwoWindingsTransformer::ir1_dUr2() const {
+double ModelTwoWindingsTransformer::ir1_dUr2() const {
   double ir1_dUr2 = 0.;
 
   // Get infos from current step
@@ -586,8 +598,7 @@ ModelTwoWindingsTransformer::ir1_dUr2() const {
   return ir1_dUr2;
 }
 
-double
-ModelTwoWindingsTransformer::ir1_dUi2() const {
+double ModelTwoWindingsTransformer::ir1_dUi2() const {
   double ir1_dUi2 = 0.;
 
   // Get infos from current step
@@ -595,7 +606,6 @@ ModelTwoWindingsTransformer::ir1_dUi2() const {
   double alpha = getAlpha();
   double r = getR();
   double x = getX();
-
 
   double admittance = 1. / sqrt(r * r + x * x);
   double lossAngle = atan2(r, x);
@@ -605,8 +615,7 @@ ModelTwoWindingsTransformer::ir1_dUi2() const {
   return ir1_dUi2;
 }
 
-double
-ModelTwoWindingsTransformer::ii1_dUr1() const {
+double ModelTwoWindingsTransformer::ii1_dUr1() const {
   double ii1_dUr1 = 0.;
 
   // Get infos from current step
@@ -626,8 +635,7 @@ ModelTwoWindingsTransformer::ii1_dUr1() const {
   return ii1_dUr1;
 }
 
-double
-ModelTwoWindingsTransformer::ii1_dUi1() const {
+double ModelTwoWindingsTransformer::ii1_dUi1() const {
   double ii1_dUi1 = 0.;
 
   // Get infos from current step
@@ -648,8 +656,7 @@ ModelTwoWindingsTransformer::ii1_dUi1() const {
   return ii1_dUi1;
 }
 
-double
-ModelTwoWindingsTransformer::ii1_dUr2() const {
+double ModelTwoWindingsTransformer::ii1_dUr2() const {
   double ii1_dUr2 = 0.;
 
   // Get infos from current step
@@ -666,8 +673,7 @@ ModelTwoWindingsTransformer::ii1_dUr2() const {
   return ii1_dUr2;
 }
 
-double
-ModelTwoWindingsTransformer::ii1_dUi2() const {
+double ModelTwoWindingsTransformer::ii1_dUi2() const {
   double ii1_dUi2 = 0.;
 
   // Get infos from current step
@@ -684,8 +690,7 @@ ModelTwoWindingsTransformer::ii1_dUi2() const {
   return ii1_dUi2;
 }
 
-double
-ModelTwoWindingsTransformer::ir2_dUr1() const {
+double ModelTwoWindingsTransformer::ir2_dUr1() const {
   double ir2_dUr1 = 0.;
 
   // Get infos from current step
@@ -702,8 +707,7 @@ ModelTwoWindingsTransformer::ir2_dUr1() const {
   return ir2_dUr1;
 }
 
-double
-ModelTwoWindingsTransformer::ir2_dUi1() const {
+double ModelTwoWindingsTransformer::ir2_dUi1() const {
   double ir2_dUi1 = 0.;
 
   // Get infos from current step
@@ -720,8 +724,7 @@ ModelTwoWindingsTransformer::ir2_dUi1() const {
   return ir2_dUi1;
 }
 
-double
-ModelTwoWindingsTransformer::ir2_dUr2() const {
+double ModelTwoWindingsTransformer::ir2_dUr2() const {
   double ir2_dUr2 = 0.;
 
   // Get infos from current step
@@ -739,15 +742,16 @@ ModelTwoWindingsTransformer::ir2_dUr2() const {
     double B = b - admittance * cos(lossAngle);
     double denom = G * G + B * B;
 
-    double GT = 1. / denom * (admittance * admittance * g + (admittance * sin(lossAngle) * (g * g + b * b)));
+    double GT = 1. / denom *
+                (admittance * admittance * g +
+                 (admittance * sin(lossAngle) * (g * g + b * b)));
 
     ir2_dUr2 = GT;
   }
   return ir2_dUr2;
 }
 
-double
-ModelTwoWindingsTransformer::ir2_dUi2() const {
+double ModelTwoWindingsTransformer::ir2_dUi2() const {
   double ir2_dUi2 = 0.;
 
   // Get infos from current step
@@ -765,14 +769,15 @@ ModelTwoWindingsTransformer::ir2_dUi2() const {
     double B = b - admittance * cos(lossAngle);
     double denom = G * G + B * B;
 
-    double BT = 1. / denom * (admittance * admittance * b - admittance * cos(lossAngle) * (g * g + b * b));
+    double BT = 1. / denom *
+                (admittance * admittance * b -
+                 admittance * cos(lossAngle) * (g * g + b * b));
     ir2_dUi2 = -BT;
   }
   return ir2_dUi2;
 }
 
-double
-ModelTwoWindingsTransformer::ii2_dUr1() const {
+double ModelTwoWindingsTransformer::ii2_dUr1() const {
   double ii2_dUr1 = 0.;
 
   // Get infos from current step
@@ -789,8 +794,7 @@ ModelTwoWindingsTransformer::ii2_dUr1() const {
   return ii2_dUr1;
 }
 
-double
-ModelTwoWindingsTransformer::ii2_dUi1() const {
+double ModelTwoWindingsTransformer::ii2_dUi1() const {
   double ii2_dUi1 = 0.;
 
   // Get infos from current step
@@ -807,8 +811,7 @@ ModelTwoWindingsTransformer::ii2_dUi1() const {
   return ii2_dUi1;
 }
 
-double
-ModelTwoWindingsTransformer::ii2_dUr2() const {
+double ModelTwoWindingsTransformer::ii2_dUr2() const {
   double ii2_dUr2 = 0.;
 
   // Get infos from current step
@@ -826,15 +829,16 @@ ModelTwoWindingsTransformer::ii2_dUr2() const {
     double B = b - admittance * cos(lossAngle);
     double denom = G * G + B * B;
 
-    double BT = 1. / denom * (admittance * admittance * b - admittance * cos(lossAngle) * (g * g + b * b));
+    double BT = 1. / denom *
+                (admittance * admittance * b -
+                 admittance * cos(lossAngle) * (g * g + b * b));
 
     ii2_dUr2 = BT;
   }
   return ii2_dUr2;
 }
 
-double
-ModelTwoWindingsTransformer::ii2_dUi2() const {
+double ModelTwoWindingsTransformer::ii2_dUi2() const {
   double ii2_dUi2 = 0.;
 
   // Get infos from current step
@@ -852,7 +856,9 @@ ModelTwoWindingsTransformer::ii2_dUi2() const {
     double B = b - admittance * cos(lossAngle);
     double denom = G * G + B * B;
 
-    double GT = 1. / denom * (admittance * admittance * g + admittance * sin(lossAngle) * (g * g + b * b));
+    double GT = 1. / denom *
+                (admittance * admittance * g +
+                 admittance * sin(lossAngle) * (g * g + b * b));
 
     ii2_dUi2 = GT;
   }
@@ -860,89 +866,113 @@ ModelTwoWindingsTransformer::ii2_dUi2() const {
   return ii2_dUi2;
 }
 
-void
-ModelTwoWindingsTransformer::evalF(propertyF_t /*type*/) {
+void ModelTwoWindingsTransformer::evalF(propertyF_t /*type*/) {
   // not needed
 }
 
-void
-ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
+void ModelTwoWindingsTransformer::evalDerivatives(const double /*cj*/) {
   switch (knownBus_) {
     case BUS1_BUS2: {
       int ur1YNum = modelBus1_->urYNum();
       int ui1YNum = modelBus1_->uiYNum();
       int ur2YNum = modelBus2_->urYNum();
       int ui2YNum = modelBus2_->uiYNum();
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir1_dUr2_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir1_dUi2_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii1_dUr2_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii1_dUi2_);
+      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum,
+                                               ir1_dUr1_);
+      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum,
+                                               ir1_dUi1_);
+      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum,
+                                               ii1_dUr1_);
+      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum,
+                                               ii1_dUi1_);
+      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum,
+                                               ir1_dUr2_);
+      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum,
+                                               ir1_dUi2_);
+      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum,
+                                               ii1_dUr2_);
+      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum,
+                                               ii1_dUi2_);
 
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir2_dUr1_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir2_dUi1_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii2_dUr1_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii2_dUi1_);
+      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum,
+                                               ir2_dUr2_);
+      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum,
+                                               ir2_dUi2_);
+      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum,
+                                               ii2_dUr2_);
+      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum,
+                                               ii2_dUi2_);
+      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum,
+                                               ir2_dUr1_);
+      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum,
+                                               ir2_dUi1_);
+      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum,
+                                               ii2_dUr1_);
+      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum,
+                                               ii2_dUi1_);
       break;
     }
     case BUS1: {
       int ur1YNum = modelBus1_->urYNum();
       int ui1YNum = modelBus1_->uiYNum();
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum, ir1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum, ir1_dUi1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum, ii1_dUr1_);
-      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum, ii1_dUi1_);
+      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ur1YNum,
+                                               ir1_dUr1_);
+      modelBus1_->derivatives()->addDerivative(IR_DERIVATIVE, ui1YNum,
+                                               ir1_dUi1_);
+      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ur1YNum,
+                                               ii1_dUr1_);
+      modelBus1_->derivatives()->addDerivative(II_DERIVATIVE, ui1YNum,
+                                               ii1_dUi1_);
       break;
     }
     case BUS2: {
       int ur2YNum = modelBus2_->urYNum();
       int ui2YNum = modelBus2_->uiYNum();
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum, ir2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum, ir2_dUi2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum, ii2_dUr2_);
-      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum, ii2_dUi2_);
+      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ur2YNum,
+                                               ir2_dUr2_);
+      modelBus2_->derivatives()->addDerivative(IR_DERIVATIVE, ui2YNum,
+                                               ir2_dUi2_);
+      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ur2YNum,
+                                               ii2_dUr2_);
+      modelBus2_->derivatives()->addDerivative(II_DERIVATIVE, ui2YNum,
+                                               ii2_dUi2_);
       break;
     }
   }
 }
 
-void
-ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vector<double>& res) const {
+void ModelTwoWindingsTransformer::evalJCalculatedVarI(
+    unsigned numCalculatedVar, vector<double>& res) const {
   double ur1 = 0.;
   double ui1 = 0.;
   double ur2 = 0.;
   double ui2 = 0.;
   if (numCalculatedVar != twtStateNum_) {
     switch (knownBus_) {
-    case BUS1_BUS2: {
-      ur1 = modelBus1_->ur();
-      ui1 = modelBus1_->ui();
-      ur2 = modelBus2_->ur();
-      ui2 = modelBus2_->ui();
-      break;
-    }
-    case BUS1: {
-      ur1 = modelBus1_->ur();
-      ui1 = modelBus1_->ui();
-      break;
-    }
-    case BUS2: {
-      ur2 = modelBus2_->ur();
-      ui2 = modelBus2_->ui();
-      break;
-    }
+      case BUS1_BUS2: {
+        ur1 = modelBus1_->ur();
+        ui1 = modelBus1_->ui();
+        ur2 = modelBus2_->ur();
+        ui2 = modelBus2_->ui();
+        break;
+      }
+      case BUS1: {
+        ur1 = modelBus1_->ur();
+        ui1 = modelBus1_->ui();
+        break;
+      }
+      case BUS2: {
+        ur2 = modelBus2_->ur();
+        ui2 = modelBus2_->ui();
+        break;
+      }
     }
   }
 
-  bool closed1 = getConnectionState() == CLOSED || getConnectionState() == CLOSED_1;
-  bool closed2 = getConnectionState() == CLOSED || getConnectionState() == CLOSED_2;
+  bool closed1 =
+      getConnectionState() == CLOSED || getConnectionState() == CLOSED_1;
+  bool closed2 =
+      getConnectionState() == CLOSED || getConnectionState() == CLOSED_2;
 
   double Ir1 = ir1(ur1, ui1, ur2, ui2);
   double Ii1 = ii1(ur1, ui1, ur2, ui2);
@@ -965,10 +995,10 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
         factor = factorPuToASide1_;
       }
       if (closed1 && !doubleIsZero(I1)) {
-        res[0] = factor * (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;   // dI1/dUr1
-        res[1] = factor * (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;   // dI1/dUi1
-        res[2] = factor * (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;   // dI1/dUr2
-        res[3] = factor * (ii1_dUi2_ * Ii1 + ir1_dUi2_ * Ir1) / I1;   // dI1/dUi2
+        res[0] = factor * (ii1_dUr1_ * Ii1 + ir1_dUr1_ * Ir1) / I1;  // dI1/dUr1
+        res[1] = factor * (ii1_dUi1_ * Ii1 + ir1_dUi1_ * Ir1) / I1;  // dI1/dUi1
+        res[2] = factor * (ii1_dUr2_ * Ii1 + ir1_dUr2_ * Ir1) / I1;  // dI1/dUr2
+        res[3] = factor * (ii1_dUi2_ * Ii1 + ir1_dUi2_ * Ir1) / I1;  // dI1/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -993,10 +1023,10 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
         factor = factorPuToASide2_;
       }
       if (closed2 && !doubleIsZero(I2)) {
-        res[0] = factor * (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;   // dI2/dUr1
-        res[1] = factor * (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;   // dI2/dUi1
-        res[2] = factor * (ii2_dUr2_ * Ii2 + ir2_dUr2_ * Ir2) / I2;   // dI2/dUr2
-        res[3] = factor * (ii2_dUi2_ * Ii2 + ir2_dUi2_ * Ir2) / I2;   // dI2/dUi2
+        res[0] = factor * (ii2_dUr1_ * Ii2 + ir2_dUr1_ * Ir2) / I2;  // dI2/dUr1
+        res[1] = factor * (ii2_dUi1_ * Ii2 + ir2_dUi1_ * Ir2) / I2;  // dI2/dUi1
+        res[2] = factor * (ii2_dUr2_ * Ii2 + ir2_dUr2_ * Ir2) / I2;  // dI2/dUr2
+        res[3] = factor * (ii2_dUi2_ * Ii2 + ir2_dUi2_ * Ir2) / I2;  // dI2/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1007,10 +1037,10 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
     }
     case p1Num_: {
       if (closed1) {
-        res[0] = Ir1 + ur1 * ir1_dUr1_ + ui1*ii1_dUr1_;   // dP1/dUr1
-        res[1] = ur1 * ir1_dUi1_ + Ii1 + ui1*ii1_dUi1_;   // dP1/dUi1
-        res[2] = ur1 * ir1_dUr2_ + ui1*ii1_dUr2_;   // dP1/dUr2
-        res[3] = ur1 * ir1_dUi2_ + ui1*ii1_dUi2_;   // dP1/dUi2
+        res[0] = Ir1 + ur1 * ir1_dUr1_ + ui1 * ii1_dUr1_;  // dP1/dUr1
+        res[1] = ur1 * ir1_dUi1_ + Ii1 + ui1 * ii1_dUi1_;  // dP1/dUi1
+        res[2] = ur1 * ir1_dUr2_ + ui1 * ii1_dUr2_;        // dP1/dUr2
+        res[3] = ur1 * ir1_dUi2_ + ui1 * ii1_dUi2_;        // dP1/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1021,10 +1051,10 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
     }
     case p2Num_: {
       if (closed2) {
-        res[0] = ur2 * ir2_dUr1_ + ui2*ii2_dUr1_;   // dP2/dUr1
-        res[1] = ur2 * ir2_dUi1_ + ui2*ii2_dUi1_;   // dP2/dUi1
-        res[2] = Ir2 + ur2 * ir2_dUr2_ + ui2*ii2_dUr2_;   // dP2/dUr2
-        res[3] = ur2 * ir2_dUi2_ + Ii2 + ui2*ii2_dUi2_;   // dP2/dUi2
+        res[0] = ur2 * ir2_dUr1_ + ui2 * ii2_dUr1_;        // dP2/dUr1
+        res[1] = ur2 * ir2_dUi1_ + ui2 * ii2_dUi1_;        // dP2/dUi1
+        res[2] = Ir2 + ur2 * ir2_dUr2_ + ui2 * ii2_dUr2_;  // dP2/dUr2
+        res[3] = ur2 * ir2_dUi2_ + Ii2 + ui2 * ii2_dUi2_;  // dP2/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1035,10 +1065,10 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
     }
     case q1Num_: {
       if (closed1) {
-        res[0] = ui1 * ir1_dUr1_ - Ii1 - ur1*ii1_dUr1_;   // dQ1/dUr1
-        res[1] = Ir1 + ui1 * ir1_dUi1_ - ur1*ii1_dUi1_;   // dQ1/dUi1
-        res[2] = ui1 * ir1_dUr2_ - ur1*ii1_dUr2_;   // dQ1/dUr2
-        res[3] = ui1 * ir1_dUi2_ - ur1*ii1_dUi2_;   // dQ1/dUi2
+        res[0] = ui1 * ir1_dUr1_ - Ii1 - ur1 * ii1_dUr1_;  // dQ1/dUr1
+        res[1] = Ir1 + ui1 * ir1_dUi1_ - ur1 * ii1_dUi1_;  // dQ1/dUi1
+        res[2] = ui1 * ir1_dUr2_ - ur1 * ii1_dUr2_;        // dQ1/dUr2
+        res[3] = ui1 * ir1_dUi2_ - ur1 * ii1_dUi2_;        // dQ1/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1049,10 +1079,10 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
     }
     case q2Num_: {
       if (closed2) {
-        res[0] = ui2 * ir2_dUr1_ - ur2*ii2_dUr1_;   // dQ2/dUr1
-        res[1] = ui2 * ir2_dUi1_ - ur2*ii2_dUi1_;   // dQ2/dUi1
-        res[2] = ui2 * ir2_dUr2_ - Ii2 - ur2*ii2_dUr2_;   // dQ2/dUr2
-        res[3] = Ir2 + ui2 * ir2_dUi2_ - ur2*ii2_dUi2_;   // dQ2/dUi2
+        res[0] = ui2 * ir2_dUr1_ - ur2 * ii2_dUr1_;        // dQ2/dUr1
+        res[1] = ui2 * ir2_dUi1_ - ur2 * ii2_dUi1_;        // dQ2/dUi1
+        res[2] = ui2 * ir2_dUr2_ - Ii2 - ur2 * ii2_dUr2_;  // dQ2/dUr2
+        res[3] = Ir2 + ui2 * ir2_dUi2_ - ur2 * ii2_dUi2_;  // dQ2/dUi2
       } else {
         res[0] = 0.;
         res[1] = 0.;
@@ -1068,53 +1098,89 @@ ModelTwoWindingsTransformer::evalJCalculatedVarI(unsigned numCalculatedVar, vect
   }
 }
 
-void
-ModelTwoWindingsTransformer::instantiateVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_i2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_P2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_Q2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS1ToS2Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iS2ToS1Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_iSide2_value", CONTINUOUS));
+void ModelTwoWindingsTransformer::instantiateVariables(
+    vector<shared_ptr<Variable> >& variables) {
+  variables.push_back(
+      VariableNativeFactory::createCalculated(id_ + "_i1_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated(id_ + "_i2_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated(id_ + "_P1_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated(id_ + "_P2_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated(id_ + "_Q1_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated(id_ + "_Q2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      id_ + "_iS1ToS2Side1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      id_ + "_iS2ToS1Side1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      id_ + "_iS1ToS2Side2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      id_ + "_iS2ToS1Side2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      id_ + "_iSide1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      id_ + "_iSide2_value", CONTINUOUS));
   // state as continuous variable (need for external automaton as inputs of automaton are continuous)
-  variables.push_back(VariableNativeFactory::createCalculated(id_ + "_twtState_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_step_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_desactivate_currentLimits_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_disable_internal_tapChanger_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState(id_ + "_TAP_CHANGER_locked_value", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      id_ + "_twtState_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createState(id_ + "_state_value", DISCRETE));
+  variables.push_back(
+      VariableNativeFactory::createState(id_ + "_step_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(
+      id_ + "_desactivate_currentLimits_value", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(
+      id_ + "_disable_internal_tapChanger_value", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(
+      id_ + "_TAP_CHANGER_locked_value", BOOLEAN));
 }
 
-void
-ModelTwoWindingsTransformer::defineVariables(vector<shared_ptr<Variable> >& variables) {
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_i2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_P2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_Q2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS1ToS2Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iS2ToS1Side2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide1_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_iSide2_value", CONTINUOUS));
-  variables.push_back(VariableNativeFactory::createCalculated("@ID@_twtState_value", CONTINUOUS));  // state as continuous variable
-  variables.push_back(VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_step_value", DISCRETE));
-  variables.push_back(VariableNativeFactory::createState("@ID@_desactivate_currentLimits_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState("@ID@_disable_internal_tapChanger_value", BOOLEAN));
-  variables.push_back(VariableNativeFactory::createState("@ID@_TAP_CHANGER_locked_value", BOOLEAN));
+void ModelTwoWindingsTransformer::defineVariables(
+    vector<shared_ptr<Variable> >& variables) {
+  variables.push_back(
+      VariableNativeFactory::createCalculated("@ID@_i1_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated("@ID@_i2_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated("@ID@_P1_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated("@ID@_P2_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated("@ID@_Q1_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated("@ID@_Q2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      "@ID@_iS1ToS2Side1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      "@ID@_iS2ToS1Side1_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      "@ID@_iS1ToS2Side2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      "@ID@_iS2ToS1Side2_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated("@ID@_iSide1_value", CONTINUOUS));
+  variables.push_back(
+      VariableNativeFactory::createCalculated("@ID@_iSide2_value", CONTINUOUS));
+  variables.push_back(VariableNativeFactory::createCalculated(
+      "@ID@_twtState_value", CONTINUOUS));  // state as continuous variable
+  variables.push_back(
+      VariableNativeFactory::createState("@ID@_state_value", DISCRETE));
+  variables.push_back(
+      VariableNativeFactory::createState("@ID@_step_value", DISCRETE));
+  variables.push_back(VariableNativeFactory::createState(
+      "@ID@_desactivate_currentLimits_value", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(
+      "@ID@_disable_internal_tapChanger_value", BOOLEAN));
+  variables.push_back(VariableNativeFactory::createState(
+      "@ID@_TAP_CHANGER_locked_value", BOOLEAN));
 }
 
-void
-ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
+void ModelTwoWindingsTransformer::defineElements(
+    std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   string twtName = id();
   addElementWithValue(twtName + string("_i1"), elements, mapElement);
   addElementWithValue(twtName + string("_i2"), elements, mapElement);
@@ -1131,32 +1197,41 @@ ModelTwoWindingsTransformer::defineElements(std::vector<Element>& elements, std:
   addElementWithValue(twtName + string("_twtState"), elements, mapElement);
   addElementWithValue(twtName + string("_state"), elements, mapElement);
   addElementWithValue(twtName + string("_step"), elements, mapElement);
-  addElementWithValue(twtName + string("_desactivate_currentLimits"), elements, mapElement);
-  addElementWithValue(twtName + string("_disable_internal_tapChanger"), elements, mapElement);
-  addElementWithValue(twtName + string("_TAP_CHANGER_locked"), elements, mapElement);
+  addElementWithValue(twtName + string("_desactivate_currentLimits"), elements,
+                      mapElement);
+  addElementWithValue(twtName + string("_disable_internal_tapChanger"),
+                      elements, mapElement);
+  addElementWithValue(twtName + string("_TAP_CHANGER_locked"), elements,
+                      mapElement);
 }
 
-NetworkComponent::StateChange_t
-ModelTwoWindingsTransformer::evalZ(const double& t) {
+NetworkComponent::StateChange_t ModelTwoWindingsTransformer::evalZ(
+    const double& t) {
   int offsetRoot = 0;
   ModelCurrentLimits::state_t currentLimitState;
 
   if (currentLimits1_) {
-    currentLimitState = currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+    currentLimitState =
+        currentLimits1_->evalZ(id(), t, &(g_[offsetRoot]), network_,
+                               currentLimitsDesactivate_, modelType_);
     offsetRoot += currentLimits1_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
   if (currentLimits2_) {
-    currentLimitState = currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_, currentLimitsDesactivate_, modelType_);
+    currentLimitState =
+        currentLimits2_->evalZ(id(), t, &(g_[offsetRoot]), network_,
+                               currentLimitsDesactivate_, modelType_);
     offsetRoot += currentLimits2_->sizeG();
     if (currentLimitState == ModelCurrentLimits::COMPONENT_OPEN)
       z_[connectionStateNum_] = OPEN;
   }
 
   if (modelRatioChanger_ && modelBusMonitored_) {
-    modelRatioChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
+    modelRatioChanger_->evalZ(
+        t, &(g_[offsetRoot]), network_, disableInternalTapChanger_,
+        modelBusMonitored_->getSwitchOff(), tapChangerLocked_,
         getConnectionState() == CLOSED);
     offsetRoot += modelRatioChanger_->sizeG();
   }
@@ -1169,10 +1244,13 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
     double pSide1 = P1(ur1Val, ui1Val, ur2Val, ui2Val);
     double pSide2 = P2(ur1Val, ui1Val, ur2Val, ui2Val);
     bool P1SupP2 = (pSide1 > pSide2);
-    modelPhaseChanger_->evalZ(t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2, tapChangerLocked_, getConnectionState() == CLOSED);
+    modelPhaseChanger_->evalZ(
+        t, &(g_[offsetRoot]), network_, disableInternalTapChanger_, P1SupP2,
+        tapChangerLocked_, getConnectionState() == CLOSED);
   }
 
-  State currState = static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
+  State currState =
+      static_cast<State>(static_cast<int>(z_[connectionStateNum_]));
   if (currState != connectionState_) {
     if (currState == CLOSED && knownBus_ != BUS1_BUS2) {
       Trace::error() << DYNLog(UnableToCloseTfo, id_) << Trace::endline;
@@ -1182,135 +1260,161 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
       Trace::error() << DYNLog(UnableToCloseTfoSide2, id_) << Trace::endline;
     } else {
       topologyModified_ = true;
-      Trace::info() << DYNLog(TfoStateChange, id_, getConnectionState(), currState) << Trace::endline;
+      Trace::info() << DYNLog(TfoStateChange, id_, getConnectionState(),
+                              currState)
+                    << Trace::endline;
       switch (currState) {
-      // z_[0] represents the actual state
-      // getConnectionState() represents the previous state
-      // compare them to know what happened, which timeline message to generate
-      // and which topology action to take
-      case UNDEFINED_STATE:
-        throw DYNError(Error::MODELER, UndefinedComponentState, id_);
-      case OPEN:
-        switch (getConnectionState()) {
-        case OPEN:
-          break;
-        case CLOSED:
-          network_->addEvent(id_, DYNTimeline(TwoWTFOOpen));
-          modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-          modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
-          break;
-        case CLOSED_1:
-          network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
-          modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-          break;
-        case CLOSED_2:
-          network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
-          modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
-          break;
-        case CLOSED_3:
-          throw DYNError(Error::MODELER, NoThirdSide, id_);
+        // z_[0] represents the actual state
+        // getConnectionState() represents the previous state
+        // compare them to know what happened, which timeline message to generate
+        // and which topology action to take
         case UNDEFINED_STATE:
-          throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-        }
-        break;
-        case CLOSED:
+          throw DYNError(Error::MODELER, UndefinedComponentState, id_);
+        case OPEN:
           switch (getConnectionState()) {
-          case OPEN:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOClosed));
-            modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-            modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-            break;
-          case CLOSED:
-            break;
-          case CLOSED_1:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
-            modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-            break;
-          case CLOSED_2:
-            network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
-            modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-            break;
-          case CLOSED_3:
-            throw DYNError(Error::MODELER, NoThirdSide, id_);
-          case UNDEFINED_STATE:
-            throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+            case OPEN:
+              break;
+            case CLOSED:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOOpen));
+              modelBus1_->getVoltageLevel()->disconnectNode(
+                  modelBus1_->getBusIndex());
+              modelBus2_->getVoltageLevel()->disconnectNode(
+                  modelBus2_->getBusIndex());
+              break;
+            case CLOSED_1:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
+              modelBus1_->getVoltageLevel()->disconnectNode(
+                  modelBus1_->getBusIndex());
+              break;
+            case CLOSED_2:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
+              modelBus2_->getVoltageLevel()->disconnectNode(
+                  modelBus2_->getBusIndex());
+              break;
+            case CLOSED_3:
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            case UNDEFINED_STATE:
+              throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
           }
           break;
-          case CLOSED_1:
-            switch (getConnectionState()) {
+        case CLOSED:
+          switch (getConnectionState()) {
+            case OPEN:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOClosed));
+              modelBus1_->getVoltageLevel()->connectNode(
+                  modelBus1_->getBusIndex());
+              modelBus2_->getVoltageLevel()->connectNode(
+                  modelBus2_->getBusIndex());
+              break;
+            case CLOSED:
+              break;
+            case CLOSED_1:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
+              modelBus2_->getVoltageLevel()->connectNode(
+                  modelBus2_->getBusIndex());
+              break;
+            case CLOSED_2:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
+              modelBus1_->getVoltageLevel()->connectNode(
+                  modelBus1_->getBusIndex());
+              break;
+            case CLOSED_3:
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            case UNDEFINED_STATE:
+              throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+          }
+          break;
+        case CLOSED_1:
+          switch (getConnectionState()) {
             case OPEN:
               network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
-              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
+              modelBus1_->getVoltageLevel()->connectNode(
+                  modelBus1_->getBusIndex());
               break;
             case CLOSED:
               network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
-              modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+              modelBus2_->getVoltageLevel()->disconnectNode(
+                  modelBus2_->getBusIndex());
               break;
             case CLOSED_1:
               break;
             case CLOSED_2:
               network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide1));
               network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide2));
-              modelBus1_->getVoltageLevel()->connectNode(modelBus1_->getBusIndex());
-              modelBus2_->getVoltageLevel()->disconnectNode(modelBus2_->getBusIndex());
+              modelBus1_->getVoltageLevel()->connectNode(
+                  modelBus1_->getBusIndex());
+              modelBus2_->getVoltageLevel()->disconnectNode(
+                  modelBus2_->getBusIndex());
               break;
             case CLOSED_3:
               throw DYNError(Error::MODELER, NoThirdSide, id_);
             case UNDEFINED_STATE:
               throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-            }
-            break;
-            case CLOSED_2:
-              switch (getConnectionState()) {
-              case OPEN:
-                network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
-                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-                break;
-              case CLOSED:
-                network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
-                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-                break;
-              case CLOSED_1:
-                network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
-                network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
-                modelBus1_->getVoltageLevel()->disconnectNode(modelBus1_->getBusIndex());
-                modelBus2_->getVoltageLevel()->connectNode(modelBus2_->getBusIndex());
-                break;
-              case CLOSED_2:
-                break;
-              case CLOSED_3:
-                throw DYNError(Error::MODELER, NoThirdSide, id_);
-              case UNDEFINED_STATE:
-                throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
-              }
+          }
+          break;
+        case CLOSED_2:
+          switch (getConnectionState()) {
+            case OPEN:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
+              modelBus2_->getVoltageLevel()->connectNode(
+                  modelBus2_->getBusIndex());
               break;
-              case CLOSED_3:
-                throw DYNError(Error::MODELER, NoThirdSide, id_);
+            case CLOSED:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
+              modelBus1_->getVoltageLevel()->disconnectNode(
+                  modelBus1_->getBusIndex());
+              break;
+            case CLOSED_1:
+              network_->addEvent(id_, DYNTimeline(TwoWTFOCloseSide2));
+              network_->addEvent(id_, DYNTimeline(TwoWTFOOpenSide1));
+              modelBus1_->getVoltageLevel()->disconnectNode(
+                  modelBus1_->getBusIndex());
+              modelBus2_->getVoltageLevel()->connectNode(
+                  modelBus2_->getBusIndex());
+              break;
+            case CLOSED_2:
+              break;
+            case CLOSED_3:
+              throw DYNError(Error::MODELER, NoThirdSide, id_);
+            case UNDEFINED_STATE:
+              throw DYNError(Error::MODELER, UnsupportedComponentState, id_);
+          }
+          break;
+        case CLOSED_3:
+          throw DYNError(Error::MODELER, NoThirdSide, id_);
       }
-      setConnectionState(static_cast<State>(static_cast<int>(z_[connectionStateNum_])));
+      setConnectionState(
+          static_cast<State>(static_cast<int>(z_[connectionStateNum_])));
     }
   }
 
-  int currStateIndex = static_cast<int>(static_cast<int>(z_[currentStepIndexNum_]));
+  int currStateIndex =
+      static_cast<int>(static_cast<int>(z_[currentStepIndexNum_]));
   if (currStateIndex != getCurrentStepIndex()) {
     if (disableInternalTapChanger_ > 0.) {
       // external automaton
-      Trace::info() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(), z_[currentStepIndexNum_]) << Trace::endline;
+      Trace::info() << DYNLog(TfoTapChange, id_, getCurrentStepIndex(),
+                              z_[currentStepIndexNum_])
+                    << Trace::endline;
     } else {
       // internal automaton
-      Trace::info() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_], getCurrentStepIndex()) << Trace::endline;
+      Trace::info() << DYNLog(TfoTapChange, id_, z_[currentStepIndexNum_],
+                              getCurrentStepIndex())
+                    << Trace::endline;
       z_[currentStepIndexNum_] = getCurrentStepIndex();
     }
     stateIndexModified_ = true;
     setCurrentStepIndex(static_cast<int>(z_[currentStepIndexNum_]));
   }
 
-  if (doubleNotEquals(z_[currentLimitsDesactivateNum_], getCurrentLimitsDesactivate())) {
+  if (doubleNotEquals(z_[currentLimitsDesactivateNum_],
+                      getCurrentLimitsDesactivate())) {
     setCurrentLimitsDesactivate(z_[currentLimitsDesactivateNum_]);
     Trace::info() << DYNLog(DeactivateCurrentLimits, id_) << Trace::endline;
   }
 
-  if (doubleNotEquals(z_[disableInternalTapChangerNum_], getDisableInternalTapChanger())) {
+  if (doubleNotEquals(z_[disableInternalTapChangerNum_],
+                      getDisableInternalTapChanger())) {
     setDisableInternalTapChanger(z_[disableInternalTapChangerNum_]);
     Trace::info() << DYNLog(DisableInternalTapChanger, id_) << Trace::endline;
   }
@@ -1321,19 +1425,16 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
       Trace::info() << DYNLog(TapChangerLocked, id_) << Trace::endline;
   }
   if (topologyModified_) {
-    if (modelRatioChanger_ || modelPhaseChanger_)
-      updateYMat_ = true;
+    if (modelRatioChanger_ || modelPhaseChanger_) updateYMat_ = true;
     return NetworkComponent::TOPO_CHANGE;
   } else if (stateIndexModified_) {
-    if (modelRatioChanger_ || modelPhaseChanger_)
-      updateYMat_ = true;
+    if (modelRatioChanger_ || modelPhaseChanger_) updateYMat_ = true;
     return NetworkComponent::STATE_CHANGE;
   }
   return NetworkComponent::NO_CHANGE;
 }
 
-void
-ModelTwoWindingsTransformer::collectSilentZ(bool* silentZTable) {
+void ModelTwoWindingsTransformer::collectSilentZ(bool* silentZTable) {
   silentZTable[connectionStateNum_] = true;
   silentZTable[currentStepIndexNum_] = true;
   silentZTable[currentLimitsDesactivateNum_] = true;
@@ -1341,54 +1442,47 @@ ModelTwoWindingsTransformer::collectSilentZ(bool* silentZTable) {
   silentZTable[tapChangerLockedNum_] = true;
 }
 
-double
-ModelTwoWindingsTransformer::ur1() const {
+double ModelTwoWindingsTransformer::ur1() const {
   double ur1 = 0.;
-  if (modelBus1_)
-    ur1 = modelBus1_->ur();
+  if (modelBus1_) ur1 = modelBus1_->ur();
   return ur1;
 }
 
-double
-ModelTwoWindingsTransformer::ui1() const {
+double ModelTwoWindingsTransformer::ui1() const {
   double ui1 = 0.;
-  if (modelBus1_)
-    ui1 = modelBus1_->ui();
+  if (modelBus1_) ui1 = modelBus1_->ui();
   return ui1;
 }
 
-double
-ModelTwoWindingsTransformer::ur2() const {
+double ModelTwoWindingsTransformer::ur2() const {
   double ur2 = 0.;
-  if (modelBus2_)
-    ur2 = modelBus2_->ur();
+  if (modelBus2_) ur2 = modelBus2_->ur();
   return ur2;
 }
 
-double
-ModelTwoWindingsTransformer::ui2() const {
+double ModelTwoWindingsTransformer::ui2() const {
   double ui2 = 0.;
-  if (modelBus2_)
-    ui2 = modelBus2_->ui();
+  if (modelBus2_) ui2 = modelBus2_->ui();
   return ui2;
 }
 
-double
-ModelTwoWindingsTransformer::P1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+double ModelTwoWindingsTransformer::P1(const double& ur1, const double& ui1,
+                                       const double& ur2,
+                                       const double& ui2) const {
   double irBus1 = ir1(ur1, ui1, ur2, ui2);
   double iiBus1 = ii1(ur1, ui1, ur2, ui2);
   return ur1 * irBus1 + ui1 * iiBus1;
 }
 
-double
-ModelTwoWindingsTransformer::P2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+double ModelTwoWindingsTransformer::P2(const double& ur1, const double& ui1,
+                                       const double& ur2,
+                                       const double& ui2) const {
   const double irBus2 = ir2(ur1, ui1, ur2, ui2);
   const double iiBus2 = ii2(ur1, ui1, ur2, ui2);
   return ur2 * irBus2 + ui2 * iiBus2;
 }
 
-void
-ModelTwoWindingsTransformer::evalG(const double& t) {
+void ModelTwoWindingsTransformer::evalG(const double& t) {
   int offset = 0;
   double ur1Val = 0.;
   double ui1Val = 0.;
@@ -1401,12 +1495,14 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
     ui2Val = ui2();
   }
   if (currentLimits1_) {
-    currentLimits1_->evalG(t, i1(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
+    currentLimits1_->evalG(t, i1(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]),
+                           currentLimitsDesactivate_);
     offset += currentLimits1_->sizeG();
   }
 
   if (currentLimits2_) {
-    currentLimits2_->evalG(t, i2(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]), currentLimitsDesactivate_);
+    currentLimits2_->evalG(t, i2(ur1Val, ui1Val, ur2Val, ui2Val), &(g_[offset]),
+                           currentLimitsDesactivate_);
     offset += currentLimits2_->sizeG();
   }
 
@@ -1417,18 +1513,22 @@ ModelTwoWindingsTransformer::evalG(const double& t) {
       vValue = modelBusMonitored_->getCurrentU(ModelBus::UType_);
       nodeOff = modelBusMonitored_->getSwitchOff();
     }
-    modelRatioChanger_->evalG(t, vValue, nodeOff, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED);
+    modelRatioChanger_->evalG(t, vValue, nodeOff, &g_[offset],
+                              disableInternalTapChanger_, tapChangerLocked_,
+                              getConnectionState() == CLOSED);
     offset += modelRatioChanger_->sizeG();
   }
 
   if (modelPhaseChanger_) {
     double iValue = i2(ur1Val, ui1Val, ur2Val, ui2Val) * factorPuToASide2_;
-    modelPhaseChanger_->evalG(t, iValue, false, &g_[offset], disableInternalTapChanger_, tapChangerLocked_, getConnectionState() == CLOSED);
+    modelPhaseChanger_->evalG(t, iValue, false, &g_[offset],
+                              disableInternalTapChanger_, tapChangerLocked_,
+                              getConnectionState() == CLOSED);
   }
 }
 
-void
-ModelTwoWindingsTransformer::setGequations(std::map<int, std::string>& gEquationIndex) {
+void ModelTwoWindingsTransformer::setGequations(
+    std::map<int, std::string>& gEquationIndex) {
   int offset = 0;
   if (currentLimits1_) {
     for (int i = 0; i < currentLimits1_->sizeG(); ++i) {
@@ -1439,44 +1539,48 @@ ModelTwoWindingsTransformer::setGequations(std::map<int, std::string>& gEquation
 
   if (currentLimits2_) {
     for (int i = 0; i < currentLimits2_->sizeG(); ++i) {
-      gEquationIndex[i + offset] = "ModelTwoWindingsTransformer: currentLimits2.";
+      gEquationIndex[i + offset] =
+          "ModelTwoWindingsTransformer: currentLimits2.";
     }
     offset += currentLimits2_->sizeG();
   }
 
   if (modelRatioChanger_) {
     for (int i = 0; i < modelRatioChanger_->sizeG(); ++i) {
-      gEquationIndex[i + offset] = "ModelTwoWindingsTransformer: modelRatioChagner.";
+      gEquationIndex[i + offset] =
+          "ModelTwoWindingsTransformer: modelRatioChagner.";
     }
     offset += modelRatioChanger_->sizeG();
   }
 
   if (modelPhaseChanger_) {
     for (int i = 0; i < modelPhaseChanger_->sizeG(); ++i) {
-      gEquationIndex[i + offset] = "ModelTwoWindingsTransformer: modelPhaseChagner.";
+      gEquationIndex[i + offset] =
+          "ModelTwoWindingsTransformer: modelPhaseChagner.";
     }
   }
 
-
-  assert(gEquationIndex.size() == (unsigned int) sizeG_ && "Model TwoWindingsTransformer: gEquationIndex.size() != sizeG_");
+  assert(gEquationIndex.size() == (unsigned int)sizeG_ &&
+         "Model TwoWindingsTransformer: gEquationIndex.size() != sizeG_");
 }
 
-double
-ModelTwoWindingsTransformer::i1(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+double ModelTwoWindingsTransformer::i1(const double& ur1, const double& ui1,
+                                       const double& ur2,
+                                       const double& ui2) const {
   double irBus1 = ir1(ur1, ui1, ur2, ui2);
   double iiBus1 = ii1(ur1, ui1, ur2, ui2);
   return sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);
 }
 
-double
-ModelTwoWindingsTransformer::i2(const double& ur1, const double& ui1, const double& ur2, const double& ui2) const {
+double ModelTwoWindingsTransformer::i2(const double& ur1, const double& ui1,
+                                       const double& ur2,
+                                       const double& ui2) const {
   double irBus2 = ir2(ur1, ui1, ur2, ui2);
   double iiBus2 = ii2(ur1, ui1, ur2, ui2);
   return sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);
 }
 
-void
-ModelTwoWindingsTransformer::evalCalculatedVars() {
+void ModelTwoWindingsTransformer::evalCalculatedVars() {
   double ur1Val = ur1();
   double ui1Val = ui1();
   double ur2Val = ur2();
@@ -1485,30 +1589,39 @@ ModelTwoWindingsTransformer::evalCalculatedVars() {
   double iiBus1 = ii1(ur1Val, ui1Val, ur2Val, ui2Val);
   double irBus2 = ir2(ur1Val, ui1Val, ur2Val, ui2Val);
   double iiBus2 = ii2(ur1Val, ui1Val, ur2Val, ui2Val);
-  double P1 = ur1Val * irBus1 + ui1Val * iiBus1;   // in p.u., because u and iBus in p.u.
+  double P1 =
+      ur1Val * irBus1 + ui1Val * iiBus1;  // in p.u., because u and iBus in p.u.
   double P2 = ur2Val * irBus2 + ui2Val * iiBus2;
   int signP1 = sign(P1);
   int signP2 = sign(P2);
 
-  calculatedVars_[i1Num_] = sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);  // Current side 1
-  calculatedVars_[i2Num_] = sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);  // Current side 2
-  calculatedVars_[p1Num_] = P1;  // Active power side 1
-  calculatedVars_[p2Num_] = P2;  // Active power side 2
-  calculatedVars_[q1Num_] = (irBus1 * ui1Val - iiBus1 * ur1Val);  // Reactive power side 1
-  calculatedVars_[q2Num_] = (irBus2 * ui2Val - iiBus2 * ur2Val);  // Reactive power side 2
+  calculatedVars_[i1Num_] =
+      sqrt(irBus1 * irBus1 + iiBus1 * iiBus1);  // Current side 1
+  calculatedVars_[i2Num_] =
+      sqrt(irBus2 * irBus2 + iiBus2 * iiBus2);  // Current side 2
+  calculatedVars_[p1Num_] = P1;                 // Active power side 1
+  calculatedVars_[p2Num_] = P2;                 // Active power side 2
+  calculatedVars_[q1Num_] =
+      (irBus1 * ui1Val - iiBus1 * ur1Val);  // Reactive power side 1
+  calculatedVars_[q2Num_] =
+      (irBus2 * ui2Val - iiBus2 * ur2Val);  // Reactive power side 2
 
-  calculatedVars_[iS1ToS2Side1Num_] = signP1 * calculatedVars_[i1Num_] * factorPuToASide1_;
+  calculatedVars_[iS1ToS2Side1Num_] =
+      signP1 * calculatedVars_[i1Num_] * factorPuToASide1_;
   calculatedVars_[iS2ToS1Side1Num_] = -1. * calculatedVars_[iS1ToS2Side1Num_];
-  calculatedVars_[iS2ToS1Side2Num_] = signP2 * calculatedVars_[i2Num_] * factorPuToASide2_;
+  calculatedVars_[iS2ToS1Side2Num_] =
+      signP2 * calculatedVars_[i2Num_] * factorPuToASide2_;
   calculatedVars_[iS1ToS2Side2Num_] = -1. * calculatedVars_[iS2ToS1Side2Num_];
 
-  calculatedVars_[iSide1Num_] = std::max(calculatedVars_[iS1ToS2Side1Num_], calculatedVars_[iS2ToS1Side1Num_]);
-  calculatedVars_[iSide2Num_] = std::max(calculatedVars_[iS1ToS2Side2Num_], calculatedVars_[iS1ToS2Side2Num_]);
+  calculatedVars_[iSide1Num_] = std::max(calculatedVars_[iS1ToS2Side1Num_],
+                                         calculatedVars_[iS2ToS1Side1Num_]);
+  calculatedVars_[iSide2Num_] = std::max(calculatedVars_[iS1ToS2Side2Num_],
+                                         calculatedVars_[iS1ToS2Side2Num_]);
   calculatedVars_[twtStateNum_] = getConnectionState();
 }
 
-void
-ModelTwoWindingsTransformer::getIndexesOfVariablesUsedForCalculatedVarI(unsigned numCalculatedVar, vector<int>& numVars) const {
+void ModelTwoWindingsTransformer::getIndexesOfVariablesUsedForCalculatedVarI(
+    unsigned numCalculatedVar, vector<int>& numVars) const {
   switch (numCalculatedVar) {
     case i1Num_:
     case i2Num_:
@@ -1551,8 +1664,8 @@ ModelTwoWindingsTransformer::getIndexesOfVariablesUsedForCalculatedVarI(unsigned
   }
 }
 
-double
-ModelTwoWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) const {
+double ModelTwoWindingsTransformer::evalCalculatedVarI(
+    unsigned numCalculatedVar) const {
   double output;
   double ur1 = 0.;
   double ui1 = 0.;
@@ -1560,23 +1673,23 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) const
   double ui2 = 0.;
   if (numCalculatedVar != twtStateNum_) {
     switch (knownBus_) {
-    case BUS1_BUS2: {
-      ur1 = modelBus1_->ur();
-      ui1 = modelBus1_->ui();
-      ur2 = modelBus2_->ur();
-      ui2 = modelBus2_->ui();
-      break;
-    }
-    case BUS1: {
-      ur1 = modelBus1_->ur();
-      ui1 = modelBus1_->ui();
-      break;
-    }
-    case BUS2: {
-      ur2 = modelBus2_->ur();
-      ui2 = modelBus2_->ui();
-      break;
-    }
+      case BUS1_BUS2: {
+        ur1 = modelBus1_->ur();
+        ui1 = modelBus1_->ui();
+        ur2 = modelBus2_->ur();
+        ui2 = modelBus2_->ui();
+        break;
+      }
+      case BUS1: {
+        ur1 = modelBus1_->ur();
+        ui1 = modelBus1_->ui();
+        break;
+      }
+      case BUS2: {
+        ur2 = modelBus2_->ur();
+        ui2 = modelBus2_->ui();
+        break;
+      }
     }
   }
   double Ir1 = ir1(ur1, ui1, ur2, ui2);
@@ -1633,8 +1746,7 @@ ModelTwoWindingsTransformer::evalCalculatedVarI(unsigned numCalculatedVar) const
   return output;
 }
 
-void
-ModelTwoWindingsTransformer::getY0() {
+void ModelTwoWindingsTransformer::getY0() {
   if (!network_->isInitModel()) {
     z_[connectionStateNum_] = getConnectionState();
     z_[currentStepIndexNum_] = getCurrentStepIndex();
@@ -1644,8 +1756,8 @@ ModelTwoWindingsTransformer::getY0() {
   }
 }
 
-NetworkComponent::StateChange_t
-ModelTwoWindingsTransformer::evalState(const double& /*time*/) {
+NetworkComponent::StateChange_t ModelTwoWindingsTransformer::evalState(
+    const double& /*time*/) {
   NetworkComponent::StateChange_t state = NetworkComponent::NO_CHANGE;
   if (topologyModified_) {
     state = NetworkComponent::TOPO_CHANGE;
@@ -1660,24 +1772,22 @@ ModelTwoWindingsTransformer::evalState(const double& /*time*/) {
   return state;
 }
 
-void
-ModelTwoWindingsTransformer::addBusNeighbors() {
+void ModelTwoWindingsTransformer::addBusNeighbors() {
   if (getConnectionState() == CLOSED) {
     modelBus1_->addNeighbor(modelBus2_);
     modelBus2_->addNeighbor(modelBus1_);
   }
 }
 
-void
-ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<std::string, ParameterModeler>& params) {
+void ModelTwoWindingsTransformer::setSubModelParameters(
+    const boost::unordered_map<std::string, ParameterModeler>& params) {
   // current limits parameter
   bool success = false;
-  double maxTimeOperation = getParameterDynamicNoThrow<double>(params, "transformer_currentLimit_maxTimeOperation", success);
+  double maxTimeOperation = getParameterDynamicNoThrow<double>(
+      params, "transformer_currentLimit_maxTimeOperation", success);
   if (success) {
-    if (currentLimits1_)
-      currentLimits1_->setMaxTimeOperation(maxTimeOperation);
-    if (currentLimits2_)
-      currentLimits2_->setMaxTimeOperation(maxTimeOperation);
+    if (currentLimits1_) currentLimits1_->setMaxTimeOperation(maxTimeOperation);
+    if (currentLimits2_) currentLimits2_->setMaxTimeOperation(maxTimeOperation);
   }
   try {
     if (modelRatioChanger_ || modelPhaseChanger_) {
@@ -1726,14 +1836,21 @@ ModelTwoWindingsTransformer::setSubModelParameters(const boost::unordered_map<st
   }
 }
 
-void
-ModelTwoWindingsTransformer::defineParameters(vector<ParameterModeler>& parameters) {
-  parameters.push_back(ParameterModeler("transformer_currentLimit_maxTimeOperation", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("transformer_t1st_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("transformer_tNext_THT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("transformer_t1st_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("transformer_tNext_HT", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("transformer_tolV", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+void ModelTwoWindingsTransformer::defineParameters(
+    vector<ParameterModeler>& parameters) {
+  parameters.push_back(
+      ParameterModeler("transformer_currentLimit_maxTimeOperation",
+                       VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_t1st_THT", VAR_TYPE_DOUBLE,
+                                        EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_tNext_THT",
+                                        VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_t1st_HT", VAR_TYPE_DOUBLE,
+                                        EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_tNext_HT", VAR_TYPE_DOUBLE,
+                                        EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("transformer_tolV", VAR_TYPE_DOUBLE,
+                                        EXTERNAL_PARAMETER));
 }
 
 }  // namespace DYN
