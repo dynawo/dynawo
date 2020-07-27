@@ -90,6 +90,7 @@ equation
   line2.switchOffSignal1.value = false;
   line2.switchOffSignal2.value = false;
   transformer.switchOffSignal1.value = false;
+  transformer.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal1.value = false;
   generatorSynchronous.switchOffSignal2.value = false;
   generatorSynchronous.switchOffSignal3.value = false;
