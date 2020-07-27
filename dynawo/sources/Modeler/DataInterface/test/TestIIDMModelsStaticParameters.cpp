@@ -616,7 +616,7 @@ TEST(DataInterfaceIIDMTest, testStaticVarCompensatorIIDMAndStaticParameters) {
   shared_ptr<DataInterface> data = createBusBreakerNetwork(properties);
   exportStateVariables(data);
 
-  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 105.);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "p"), 0.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "q"), 90.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterIntValue("MyStaticVarCompensator", "regulatingMode"), 2);
   ASSERT_DOUBLE_EQUALS_DYNAWO(data->getStaticParameterDoubleValue("MyStaticVarCompensator", "v"), 150.);
