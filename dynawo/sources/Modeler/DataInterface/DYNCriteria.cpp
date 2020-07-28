@@ -41,13 +41,13 @@ BusCriteria::checkCriteria(double t, bool finalStep) {
     if (doubleIsZero(v)) continue;
     double vNom = (*it)->getVNom();
     if (params_->hasUMaxPu() && v > params_->getUMaxPu()*vNom) {
-      Message mess = DYNLog(BusAboveVoltage, (*it)->getID(), v/vNom, params_->getUMaxPu(), params_->getId());
+      Message mess = DYNLog(BusAboveVoltage, (*it)->getID(), v, v/vNom, params_->getUMaxPu()*vNom, params_->getUMaxPu(), params_->getId());
       Trace::info() << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
     }
     if (params_->hasUMinPu() && v < params_->getUMinPu()*vNom) {
-      Message mess = DYNLog(BusUnderVoltage, (*it)->getID(), v/vNom, params_->getUMinPu(), params_->getId());
+      Message mess = DYNLog(BusUnderVoltage, (*it)->getID(), v, v/vNom, params_->getUMinPu()*vNom, params_->getUMinPu(), params_->getId());
       Trace::info() << mess << Trace::endline;
       failingCriteria_.push_back(std::make_pair(t, mess.str()));
       return false;
