@@ -13,7 +13,7 @@ within Dynawo.Electrical.HVDC.HvdcVSC;
 */
 
 model HvdcVSC "HVDC VSC model"
-  extends AdditionalIcons.Line;
+  extends AdditionalIcons.Hvdc;
 
   import Modelica;
   import Dynawo.Electrical.Sources;
@@ -23,9 +23,9 @@ model HvdcVSC "HVDC VSC model"
   import Dynawo.Electrical.SystemBase;
 
   Connectors.ACPower terminal1(V(re(start = u10Pu.re), im(start = u10Pu.im)), i(re(start = i10Pu.re), im(start = i10Pu.im))) "Connector used to connect the injector to the grid" annotation(
-    Placement(visible = true, transformation(origin = {-130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {-130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the injector to the grid" annotation(
-    Placement(visible = true, transformation(origin = {130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Placement(visible = true, transformation(origin = {130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_DCLine;
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ActivePowerControl;
