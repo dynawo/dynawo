@@ -21,10 +21,6 @@ package AdditionalIcons "Icons for the Dynawo library"
   annotation(
       Icon(graphics = {Rectangle(origin = {0, 2}, fillPattern = FillPattern.Solid, extent = {{-100, 6}, {100, -10}}), Text(origin = {0, 30}, lineColor = {0, 0, 255}, extent = {{-100, 10}, {100, -10}}, textString = "%name")}, coordinateSystem(initialScale = 0.1)));end Bus;
 
-
-
-
-
   model Line
   equation
 
@@ -60,6 +56,11 @@ package AdditionalIcons "Icons for the Dynawo library"
           Line(origin={10,34}, points={{30,-60},{80,-60}})}));
   end Switch;
 
+  model Hvdc
+  equation
+
+  annotation(
+      Icon(graphics = {Rectangle(origin = {1, -1}, fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent = {{-61, 21}, {-21, -19}}), Line(origin = {-80, 0}, points = {{-20, 0}, {20, 0}}), Line(origin = {80, 0}, points = {{-20, 0}, {20, 0}}), Text(origin = {0, 30}, lineColor = {0, 0, 255}, extent = {{-80, 10}, {80, -10}}, textString = "%name"), Rectangle(origin = {40, 0}, extent = {{-20, 20}, {20, -20}}), Line(origin = {0, 10}, points = {{-20, 0}, {20, 0}, {20, 0}}), Line(origin = {0, -10}, points = {{-20, 0}, {20, 0}}),  Line(origin = {40, 0}, points = {{-20, -20}, {20, 20}}), Line(origin = {-40, 0}, points = {{-20, -20}, {20, 20}})}, coordinateSystem(initialScale = 0.1)));end Hvdc;
 
   model Init
   equation

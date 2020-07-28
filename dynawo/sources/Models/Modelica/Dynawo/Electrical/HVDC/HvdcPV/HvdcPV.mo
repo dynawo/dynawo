@@ -13,7 +13,7 @@ within Dynawo.Electrical.HVDC.HvdcPV;
 */
 
 model HvdcPV "Model of PV HVDC link"
-  extends AdditionalIcons.Line;
+  extends AdditionalIcons.Hvdc;
 
 /*
   Equivalent circuit and conventions:

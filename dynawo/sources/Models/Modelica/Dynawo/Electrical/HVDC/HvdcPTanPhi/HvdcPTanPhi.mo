@@ -13,7 +13,7 @@ within Dynawo.Electrical.HVDC.HvdcPTanPhi;
 */
 
 model HvdcPTanPhi "Model for P/tan(Phi) HVDC link"
-  extends AdditionalIcons.Line;
+  extends AdditionalIcons.Hvdc;
 
 /*
   Equivalent circuit and conventions:
