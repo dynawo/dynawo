@@ -272,18 +272,26 @@ $> export HTTP_PROXY=$http_proxy;export HTTPS_PROXY=$https_proxy;export NO_PROXY
 
 \section[Launching Dynawo]{Launching \Dynawo}
 
-Once you have installed and compiled \Dynawo as explained in part \ref{Dynawo_Installation_Documentation_Building _Dynawo}, you can launch a simulation by calling:
+Once you have installed and compiled \Dynawo as explained in part \ref{Dynawo_Installation_Documentation_Building_Dynawo}, you can launch a simulation by calling one example from DynaFlow, DynaSwing or DynaWaltz:
 
 \begin{lstlisting}[language=bash, breaklines=true, breakatwhitespace=false]
-$> ./myEnvDynawo.sh jobs nrt/data/IEEE14/IEEE14_BasicTestCases/IEEE14_DisconnectLine/IEEE14.jobs
+$> ./myEnvDynawo.sh jobs examples/DynaWaltz/IEEE14/IEEE14_GeneratorDisconnections/IEEE14.jobs
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, breaklines=true, breakatwhitespace=false]
+$> ./myEnvDynawo.sh jobs examples/DynaSwing/IEEE14/IEEE14_Fault/IEEE14.jobs
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, breaklines=true, breakatwhitespace=false]
+$> ./myEnvDynawo.sh jobs examples/DynaFlow/IEEE14/IEEE14_DisconnectLine/IEEE14.jobs
 \end{lstlisting}
 
 This command launches a simple simulation on the IEEE 14-bus network that should succeed if your installation went well and your compilation finished successfully.
 
-The correctness of the simulation can be checked by looking into the outputs directory and compare its content with the ones from the reference outputs directory (especially the curves file).
+The correctness of the simulation can be checked by looking into the outputs directory and compare its content with the ones from the reference outputs directory (especially the curves file). The command lines are given for the DynaWaltz example but are similar for the two other examples (only replace DynaWaltz by DynaSwing or DynaFlow).
 
 \begin{lstlisting}[language=bash, breaklines=true, breakatwhitespace=false]
-$> cd nrt/data/IEEE14/IEEE14_BasicTestCases/IEEE14_DisconnectLine
+$> cd examples/DynaWaltz/IEEE14/IEEE14_GeneratorDisconnections
 $> ls outputs
 $> diff outputs/curves/curves.csv reference/outputs/curves/curves.csv
 \end{lstlisting}
@@ -293,16 +301,16 @@ All the simulation outputs are stored into the outputs directory, as specified i
 It is also possible to display directly simulation results - plots - into a simple GUI (created for demonstration purpose) by using for example the following command:
 
 \begin{lstlisting}[language=bash, breaklines=true, breakatwhitespace=false]
-$> ./myEnvDynawo.sh jobs-with-curves nrt/data/IEEE14/IEEE14_BasicTestCases/IEEE14_DisconnectLine/IEEE14.jobs
+$> ./myEnvDynawo.sh jobs-with-curves examples/DynaWaltz/IEEE14/IEEE14_GeneratorDisconnections/IEEE14.jobs
 \end{lstlisting}
 
-For example, for this line disconnection simulation, on Figure~\ref{IEEE14DisconnectLine} we can see the plot for the voltage module in p.u. on bus 10.
+For example, for the generator disconnections simulation - DynaWaltz example, on Figure~\ref{IEEE14GeneratorDisconnections} we can see the plot for the voltage module on bus 1.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{../resources/VoltageModule.png}
-\caption{\Dynawo results on IEEE14\_DisconnectLine case}
-\label{IEEE14DisconnectLine}
+\caption{\Dynawo results on DynaWaltz - IEEE14 - Generator disconnections case}
+\label{IEEE14GeneratorDisconnections}
 \end{figure}
 
 \section{\Dynawo Docker}

@@ -83,13 +83,13 @@ More details on the philosophy of \Dynawo could be found into \cite{Dynawo}.
 \newpage
 \subsection{DynaFlow}
 
-One important and fundamental simulation tool for real-time operation and planning studies of the power system is the steady-state calculation tool. This tool focuses on the correct calculation of the system equilibrium point following one or several event(s): it ensures the existence of a steady-state point and enables to check that this point is acceptable for the system operator. \\
+O\textbf{ne important and fundamental simulation tool for real-time operation and planning studies of the power system is the steady-state calculation tool.} This tool focuses on the correct calculation of the system equilibrium point following one or several event(s): it ensures the existence of a steady-state point and enables to check that this point is acceptable for the system operator. \\
 
-This calculation has been historically done by \textit{purely static simulation tool} determining the final steady state by the combination of outer heuristic loops - trying to mimic the actions of special protection schemes, controllers and regulations - and an inner loop - classical power flow problem - solved several times. The recent and ongoing power system evolution - power-electronics based components, diverse and advanced controllers, etc. - makes this classical approach null and void for modern power system steady-state calculations. Indeed, the steady-state point is determined by the difference of speeds of the various controls, regulations and special protection schemes dynamics. It is thus absolutely necessary to represent the actions temporality to find the correct steady-state point and takes the best decisions when operating the system or planning new investments for the future. \\
+This calculation has been historically done by \textit{purely static simulation tool} determining the final steady state by the combination of outer heuristic loops - trying to mimic the actions of special protection schemes, controllers and regulations - and an inner loop - classical power flow problem - solved several times. The recent and ongoing power system evolution - power-electronics based components, diverse and advanced controllers, etc. - makes this classical approach null and void for modern power system steady-state calculations. \textbf{Indeed, the steady-state point is determined by the difference of speeds of the various controls, regulations and special protection schemes dynamics}. It is thus absolutely necessary to represent the actions temporality to find the correct steady-state point and takes the best decisions when operating the system or planning new investments for the future. \\
 
-DynaFlow is a new steady-state simulation tool that aims at calculating the steady-state point by using a simplified time-domain simulation, guaranteeing the correctness of the solution found. The \textit{Illustrative Test Cases} example section show the pros of this approach compared to a purely static simulation tool. \\
+\textbf{DynaFlow is a new steady-state simulation tool that aims at calculating the steady-state point by using a simplified time-domain simulation, guaranteeing the correctness of the solution found.} The \textit{Illustrative Test Cases} example section show the pros of this approach compared to a purely static simulation tool. \\
 
-The main features required for a steady-state calculation tool are listed below in association with the current DynaFlow status. In its current state, DynaFlow already covers a large range of the required features and the future work should allow to have a mature tool at the beginning of 2021. Regarding performances, DynaFlow exhibits similar performances than classical steady-state simulation tools for the simulation part (core part) and improvements on the initialization part are scheduled in the next few months to further reduce the cost of input/output on the simulation time.
+The main features required for a steady-state calculation tool are listed below in association with the current DynaFlow status. \textbf{In its current state, DynaFlow already covers a large range of the required features and the future work should allow to have a mature tool at the beginning of 2021}. Regarding performances, DynaFlow exhibits similar performances than classical steady-state simulation tools for the simulation part (core part) and improvements on the initialization part are scheduled in the next few months to further reduce the cost of input/output on the simulation time.
 \begin{table}[H]
 \renewcommand{\arraystretch}{2}
 \begin{tabularx}{\linewidth}{X | X | X}
@@ -117,13 +117,13 @@ The main features required for a steady-state calculation tool are listed below 
 \newpage
 \subsection{DySym}
 
-Short-circuit calculations are essential simulations for power system operators. They are used to avoid large incidents on the system during its operation but also to avoid reaching situations that can damage materials, the environment or even injure people. \\
+\textbf{Short-circuit calculations are essential simulations for power system operators.} They are used to avoid large incidents on the system during its operation but also to avoid reaching situations that can damage materials, the environment or even injure people. \\
 
-Until the recent years, the power system short-circuit behavior was mainly driven by the synchronous machines actions and the interesting result was obtained for the transient part following the event (around $100 \ ms$ after the event). Considering this, it was adequate enough to do one static calculation with a specific machine representation ($E$ behind $X_{d}$) to analyze potential short-circuit issues. Nevertheless, the large introduction of power-electronics based components that can have very different behaviors, mainly defined by the tuning of their controls, deeply modify the system behavior during a short-circuit. Short-circuit calculations have to evolve to accurately take into account the power-electronics based components participation during the fault. \\
+Until the recent years, the power system short-circuit behavior was mainly driven by the synchronous machines actions and the interesting result was obtained for the transient part following the event (around $100 \ ms$ after the event). Considering this, it was adequate enough to do one static calculation with a specific machine representation ($E$ behind $X_{d}$) to analyze potential short-circuit issues. Nevertheless, the large introduction of power-electronics based components that can have very different behaviors, mainly defined by the tuning of their controls, deeply modify the system behavior during a short-circuit. \textbf{Short-circuit calculations have to evolve to accurately take into account the power-electronics based components participation during the fault.} \\
 
-Our ambition with DySym is to provide a short-circuit simulation tool that is adapted to the current and future power system operators needs. Through a time-domain approach correctly representing the different power system components and their contribution during the short-circuit, the user will have the possibility to output different values to further analyze the system behavior. \\
+\textbf{Our ambition with DySym is to provide a short-circuit simulation tool that is adapted to the current and future power system operators needs.} Through a time-domain approach correctly representing the different power system components and their contribution during the short-circuit, the user will have the possibility to output different values to further analyze the system behavior. \\
 
-DySym is at a research stage and we are currently playing around with different models to see which hypothesis make sense and which modelling choices should be done. We plan to release a work plan at the beginning of next year to distribute a proof-of-concept tool next summer. Don't hesitate to have a look to our website to see the current status.
+\textbf{DySym is at a research stage and we are currently playing around with different models to see which hypothesis make sense and which modelling choices should be done.} We plan to release a work plan at the beginning of next year to distribute a proof-of-concept tool next summer. Don't hesitate to have a look to our website to see the current status.
 
 \begin{center}
 \includegraphics[width=0.3\textwidth]{../resources/DySym.png}
@@ -132,13 +132,13 @@ DySym is at a research stage and we are currently playing around with different 
 \newpage
 \subsection{DynaWaltz}
 
-Long-term stability studies are a core process for ensuring power system stability: they enable to guarantee that the slow dynamics of the system don't lead to an instability or a system collapse.\\
+\textbf{Long-term stability studies are a core process for ensuring power system stability: they enable to guarantee that the slow dynamics of the system don't lead to an instability or a system collapse}.\\
 
-Most of the classical approaches for long-term stability studies use simplified models to reach acceptable simulation times on large-scale systems. The quasi steady-state simulation approach is the most widely known approximation: it consists in considering the fast dynamics stabilized and thus in replacing their differential nature by pure algebraic equations (for example, an integral control for voltage regulation can be considered instantaneous). While this technique globally provides acceptable results on most of the situations, it involves a strong a priori hypothesis on the real system behavior. This approximation is more and more questionable in a system where the multiplicity and diversity of the controls is exploding. \\
+Most of the classical approaches for long-term stability studies use simplified models to reach acceptable simulation times on large-scale systems. The quasi steady-state simulation approach is the most widely known approximation: it consists in considering the fast dynamics stabilized and thus in replacing their differential nature by pure algebraic equations (for example, an integral control for voltage regulation can be considered instantaneous). While this technique globally provides acceptable results on most of the situations, \textbf{it involves a strong a priori hypothesis on the real system behavior}. This approximation is more and more questionable in a system where the multiplicity and diversity of the controls is exploding. \\
 
-Our long-term stability simulation tool DynaWaltz uses a different paradigm. Instead of doing a priori simplifications or hypothesis on the modelling side, it is the numerical method that will take charge of filtering the fast dynamics while keeping as detailed models as necessary. Thanks to an intensive research work conducted during the Pegase project on the numerical method, DynaWaltz manages to achieve simular simulation times than current long-term stability simulation tools.\\
+\textbf{Our long-term stability simulation tool DynaWaltz uses a different paradigm. Instead of doing a priori simplifications or hypothesis on the modelling side, it is the numerical method that will take charge of filtering the fast dynamics while keeping as detailed models as necessary.} Thanks to an intensive research work conducted during the Pegase project on the numerical method, DynaWaltz manages to achieve simular simulation times than current long-term stability simulation tools.\\
 
-DynaWaltz is the most advanced simulation tool of the \Dynawo initiative. A parallel run in RTE is forecasted for the winter 2020/2021 and if the results are positive, DynaWaltz should be used operationnaly in 2021 in RTE. Most of the models impacting the system slow dynamics - tap-changers, loads, static var compensators, etc. - are already developed and available in the repository. The current work for this tool consists in robustifying it by using it on a large number of French test cases, doing the final validation for some additional models (special protection schemes, secondary voltage regulatio) and providing additional features (contingency analysis, margin calculation) around the core.
+\textbf{DynaWaltz is the most advanced simulation tool of the \Dynawo initiative. A parallel run in RTE is forecasted for the winter 2020/2021 and if the results are positive, DynaWaltz should be used operationnaly in 2021 in RTE.} Most of the models impacting the system slow dynamics - tap-changers, loads, static var compensators, etc. - are already developed and available in the repository. The current work for this tool consists in robustifying it by using it on a large number of French test cases, doing the final validation for some additional models (special protection schemes, secondary voltage regulatio) and providing additional features (contingency analysis, margin calculation) around the core.
 
 \begin{center}
 \includegraphics[width=0.2\textwidth]{../resources/DynaWaltz.png}
@@ -147,13 +147,13 @@ DynaWaltz is the most advanced simulation tool of the \Dynawo initiative. A para
 \newpage
 \subsection{DynaSwing}
 
-In order to protect the system against loss of synchronism or inter-area oscillations, the system operator has to conduct a large number of short-term stability studies. Transient stability focuses on phenomena in the range of the ms and depends mainly on the active component models - synchronous machines and their controllers, HVDCs, Static Var Compensators. \\
+\textbf{In order to protect the system against loss of synchronism or inter-area oscillations, the system operator has to conduct a large number of short-term stability studies. }Transient stability focuses on phenomena in the range of the ms and depends mainly on the active component models - synchronous machines and their controllers, HVDCs, Static Var Compensators. \\
 
-To properly represent the system response in the few instants following an event, it is necessary to combine open models with detailed physical modelling and transparent block control scheme with a very accurate solving method. It is the association of these different features that enable to catch the correct system fast dynamics. \\
+To properly represent the system response in the few instants following an event, \textbf{it is necessary to combine open models with detailed physical modelling and transparent block control scheme with a very accurate solving method.} It is the association of these different features that enable to catch the correct system fast dynamics. \\
 
-DynaSwing is a simulation tool that offers an unique combination of a transparent, flexible and robust way of modelling - thanks to the intensive use of the Modelica language - and a state-of-the-art, efficient and accurate numerical method (the variable time-step solver IDA). \\
+D\textbf{ynaSwing is a simulation tool that offers an unique combination of a transparent, flexible and robust way of modelling - thanks to the intensive use of the Modelica language - and a state-of-the-art, efficient and accurate numerical method (the variable time-step solver IDA).} \\
 
-The core of the tool has already reached a mature state, making it usable for running transient stability studies. The future work will thus concentrate on:
+\textbf{The core of the tool has already reached a mature state, making it usable for running transient stability studies.} The future work will thus concentrate on:
 \begin{itemize}
 \item the development of more elaborated regulation controls (PSS, specific governors or voltage regulators)
 \item the addition of new models (especially standard PV and wind models)
@@ -168,8 +168,16 @@ These developments will contribute to enlarge the possibilities offered by DynaS
 \newpage
 \subsection{DynaWave}
 
+\textbf{Being able to correctly design the future system and to anticipate the needed changes in grid codes and system regulations is critical to be able to operate the grid in the future.} Indeed, the overall energy sector is going through a major evolution powered by a general will for \textit{clean energy} that ends up in a move towards a larger development and integration of renewable energies sources in the power system. \\
+
+\textbf{The traditional stability boundaries are challenged by this global change.} In a system with a high percentage of power electronics based components, the classical \textit{phasor approach} may be unadapted and unable to capture all the possible interactions between the different controllers themselves and between the controllers and the system, leading to inappropriate control and regulations designs that can end up in future large incidents on the system. \\
+
+The aim of DynaWave is to propose a new simulation frame to correctly capture fast dynamics phenomena occuring in systems with a high penetration of renewable energy sources. \textbf{The modeling frame chosen would consist in a \textit{quasi-EMT} approach, being more detailed than the phasor approach without encompassing the complexity of an EMT simulation.} \\
+
+The development and release of some grid-forming controllers strategies and of dynamic lines are the first steps on which DynaWave will be built. They already enable to simulate in a completely open-source environment the three nodes test case used in the Migrate project to study interactions between different grid-forming controllers (the test case is under final validation but will be released soon). \textbf{The idea is to build upon this first basis to develop more open-source models, in collaboration with our partner and colleagues conducting researches on stability of power systems with a high-share of power-electronics based components.} DynaWave will provide a flexible and open-source simulation tool to ease technical discussions and collaborations in order to face the future stability challenges arising in power-electronics based system.
+
 \begin{center}
-\includegraphics[width=0.3\textwidth]{../resources/DynaWave.png}
+\includegraphics[width=0.18\textwidth]{../resources/DynaWave.png}
 \end{center}
 
 \newpage
@@ -222,6 +230,8 @@ The default line model in \Dynawo is a classical $\pi$ line model.
 
 The line can be connected or disconnected during the simulation, either on both sides or only on one side. In addition, the line model gives access to a large number of variables: P, Q or the current circulating into the line (at each side) and the line status (open/close/close on one side). \\
 If such limits exist in the input file (iidm file), current maximum limits are added to the line. These limits correspond to the maximum current that the line can support during a certain time. If the line is overloaded during more time than this allowed time, the line will be tripped. \\
+
+In addition, the line can also be dynamic. In this case, the derivative terms ($L * \frac{di}{dt}$ and $C * \frac{dv}{dt}$) are no longer neglegted. This model is available and can be activated by setting the following paramter $line\_isDynamic$ at true in the network set of parameters. Please notice anyway than the dynamic line model has not been as extensively used and validated as the other network components.
 
 \paragraph{Transformer}
 ~~\\
@@ -725,7 +735,7 @@ Two LU decomposition libraries could be used into \Dynawo   at the moment:
 \item NICSLU \cite{chenNicsLu}, which results from a more recent effort and that is also very efficient for power system problems. NISCLU is in particular faster for refactorization (numerical factorization only) but its integration into \ac{SUNDIALS} and its use in \Dynawo is still under experimentation;
 \end{itemize}
 
-It is possible to switch from KLU to NICSLU by modifying the solver parameter called ``linearSolverName".
+It is possible to switch from KLU to NICSLU by modifying the solver parameter called ``linearSolverName". If you want more details on the LU decomposition libraries, please have a look to our paper published at the 2019 PowerTech conference \cite{LUDecomposition}.
 
 \paragraph{Residual function evaluation}
 ~~\\
@@ -900,7 +910,7 @@ printfl & 0 & prinflAlg & 0 & printflAlgJ & 0 \\
 \label{OptionalParameters}
 \end{table}
 
-In addition, a final parameter is available for the simplified solver. It is the initial additional tolerance imposed on the first iteration of each Newton resolution. It is set to 0.1.
+In addition, a few other parameters are available for the simplified solver. They enable to discard some algorithmic optimizations realized in the solver implementation (for example, we currently avoid recalculate algebraic residuals at the first iteration of a time-step because their value is the same due to the 0-order prediction scheme use). We advise not to modify these parameters except if you encounter an unexpected simulation problem ; in this case, you can try to deactivate some of these parameters. Nevertheless, they have been thoroughly tested before being integrated.
 
 \subsection{Variable time-step solver}
 
