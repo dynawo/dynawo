@@ -46,10 +46,10 @@ target_include_directories(dynawo_SolverCommon SYSTEM
 target_link_libraries(dynawo_SolverCommon
   PUBLIC
     ${CMAKE_DL_LIBS}
-  PRIVATE
-    dynawo_Common
     Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_SUNLINSOLKLU
+  PRIVATE
+    dynawo_Common
   )
 
 if(${NICSLU_FOUND})
