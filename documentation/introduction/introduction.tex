@@ -18,7 +18,9 @@
 
 \chapter{Introduction}
 
-\textbf{\Dynawo is an hybrid C++/Modelica open source time domain simulation tool for power systems. It aims at providing power system stakeholders with a transparent, flexible, interoperable and robust simulation tool that could ease collaboration and cooperation in the power system community.} \\
+\section{What is \Dynawo ?}
+
+\textbf{\Dynawo is an hybrid C++/Modelica open source suite of simulation tools for power systems. It aims at providing power system stakeholders with a transparent, flexible, interoperable and robust suite of simulation tools that could ease collaboration and cooperation in the power system community.} \\
 
 To achieve this goal, \textbf{\Dynawo is based on two mains principles}: the use of a high-level modelling language \href{https://modelica.org/} {\underline{Modelica}} and a strict separation between the modelling and the solving parts. \\
 
@@ -31,32 +33,68 @@ It is an ongoing project based on previous works conducted particularly in two R
 \end{figure}
 
 
-\textbf{\Dynawo 's primary focus has been on RMS simulations} and most of the
-tests done until now have been for long-term and short-term stability studies.
-However, the simulation tool structure offers great flexibility and makes it
-also possible to run others types of power system simulations, as long as the
-user provides the necessary models and solvers. Different initiatives are under discussion or submission to test the possibility to use \Dynawo for EMT simulations or multi-system simulations. \\
+\textbf{\Dynawo 's primary focus has been on long-term and short-term stability studies} but the very encouraging results obtained and the flexibility of the approach led to \textbf{an extension of the initiative. \Dynawo is now evolving towards a complete and coherent suite of simulation tools}, sharing the same philosophy:
+\begin{itemize}
+\item DynaFlow for steady-state calculations
+\item DySym for short-circuit calculations
+\item DynaWaltz for long-term stability simulations
+\item DynaSwing for short-term stability studies
+\item DynaWave for stability studies and system design with a high-penetration of power-electronics based components (quasi-EMT)
+\end{itemize}
+
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{../resources/DynawoLogos.png}
+\end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\textwidth]{../resources/DynawoScope.png}
-\caption{\Dynawo scope in the range of dynamic phenomena}
+\includegraphics[width=\textwidth]{../resources/DynawoInitiative.png}
+\caption{High-level vision of the \Dynawo initiative}
 \end{figure}
 
-\textbf{Only validated models are included into the library that is still under
-construction.} We plan to release a new set of models in the near future, e.g.
-HVDC, wind and solar power plants models or more different standard regulation
-models. \\
+\textbf{Only validated models, numerical methods and test cases are included into this release.} We plan to release additional features in the near future, including for example additional models (standard wind and solar power plant models, new regulations for synchronous machines, etc.), new test cases (Nordic32 test case, large-scale test cases) or more functionalities (contingency analysis, critical time clearing algorithm). \\
 
 \Dynawo is licensed under the terms of the \href{http://mozilla.org/MPL/2.0}{\underline{Mozilla Public License, v2.0}}.
 The source code is hosted into a \href{https://github.com/dynawo/dynawo} {\underline{GitHub repository}}. \\
 
-\textbf{In the following sections of this document, the reader will find}:
+\section{Getting started}
+
+To get started with \Dynawo , different possibilities exist, depending on your background and what you want to do:
 \begin{itemize}
-\item Installation directions to be able to compile and use \Dynawo;
-\item Configuration directions to be able to create the needed input files in order to simulate a given test case;
-\item Detailed information about the \Dynawo simulator, its architecture, models and solvers;
-\item Advanced information on the code organization, the procedure to follow to add a new model or a new solver into \Dynawo;
+\item If you are interested in the models available and want to have a look to them, please open the \Dynawo Modelica library into OpenModelica and run the full Modelica examples provided with the library.
+\item If you want to launch simulations and examples with \Dynawo and observe the performances, you can use the pre-built distribution and run the simulations provided into the examples directory.
+\item If you want to modify the tool yourself or try new methods and models, please checkout the repository and build it.
+\end{itemize}
+
+\section{Changes from previous versions}
+
+\subsection{Changes from v1.2.0}
+
+\subsection{Changes from v1.1.0}
+
+\underline{New features:}
+\begin{itemize}
+\item Windows and MacOS portability (compilation with Visual Studio 2019)
+\item Numerical robustness on severe events (automatic mode generation from Modelica models)
+\item Performances improvement (generation of aliased and calculated variables from Modelica)
+\end{itemize}
+
+\underline{New models:}
+\begin{itemize}
+\item Source models (injector BG, injector Id/Iq, converter)
+\item Network models (ideal switch, bus and dynamic line)
+\item Control models (Grid forming controls, PLL)
+\end{itemize}
+
+\underline{3rd parties:}
+\begin{itemize}
+\item End of compatibility with OpenModelica 1.9.4
+\item Integration of Modelica 3.2.3
+\end{itemize}
+
+\underline{Additional test cases:}
+\begin{itemize}
+\item IEEE14 Fault test case
 \end{itemize}
 
 \end{document}
