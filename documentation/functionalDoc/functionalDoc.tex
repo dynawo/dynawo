@@ -20,7 +20,7 @@
 
 \section[Dynawo Overview]{\Dynawo Overview}
 
-The nature of power system dynamics is deeply evolving towards a more diverse and difficult to predict behaviour due to the massive changes going on in the power system (large penetration of power-electronic based components such as Renewable Energies Sources - RES - or High Voltage Direct Current - HVDC - lines, booming use of complex automata, control strategies or smart grids). Due to this radical change from physically-driven to numerically-driven dynamics, being able to assess the system stability becomes harder but is still essential as any generalized incident will be unacceptable for the economy and the consumers. This requires to have access to a transparent, flexible, robust and easy to use simulation tool that will allow to run collaborative studies in a very simple way by sharing not only the same data but also the same modelling and solving choices in an open-source frame. Such a tool will ensure to get similar results and to agree upon optimal and shared actions on the system to accompany the ongoing changes in the best possible way. This analysis has motivated us to launch a new effort on time-domain simulation tools that finally ends up in the development of the \Dynawo's software. \\
+The nature of power system dynamics is deeply evolving towards a more diverse and difficult to predict behaviour due to the massive changes going on in the power system (large penetration of power-electronic based components such as Renewable Energies Sources - RES - or High Voltage Direct Current - HVDC - lines, booming use of complex automata, control strategies or smart grids). Due to this radical change from physically-driven to numerically-driven dynamics, being able to assess the system stability becomes harder but is still essential as any generalized incident will be unacceptable for the economy and the consumers. This requires to have access to a transparent, flexible, robust and easy to use suite of simulation tools that will allow to run collaborative studies in a very simple way by sharing not only the same data but also the same modelling and solving choices in an open-source frame. Such a suite of simulation tools will ensure to get similar results and to agree upon optimal and shared actions on the system to accompany the ongoing changes in the best possible way. This analysis has motivated us to launch a new effort on simulation tools that finally ends up in the development of the \Dynawo's initiative. \\
 
 \textbf{To achieve this goal, \Dynawo is based on two mains principles: the use of a high-level modelling language \href{https://modelica.org/} {\underline{Modelica}} and a strict separation between modelling and solving parts}.\\
 
@@ -40,7 +40,7 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 \caption{Building a global model from different unit models in \Dynawo}
 \end{figure}
 
-To ensure acceptable performances both for compilation and simulation, a mechanism has been created into \Dynawo to compile non squared Modelica models individually (for example a generator model by itself) and before the simulation. These compiled models are then only instantiated during the simulation. This strategy enables to use \Dynawo for large-scale simulations (French EHV-HV networks - i.e. 250 000 continuous and 250 000 discrete variables) while keeping computation time in a range close to current simulation tools.\\
+To ensure acceptable performances both for compilation and simulation, a mechanism has been created into \Dynawo to compile non squared Modelica models individually (for example a generator model by itself) and before the simulation. These compiled models are then only instantiated during the simulation. This strategy enables to use \Dynawo for large-scale simulations (French EHV-HV networks, in the range of 100 continuous variables and 150 000 discrete variables after simplifications) while keeping computation time in a range close to current simulation tools.\\
 
 \textbf{The global model only exposes a few methods to the solvers} such as the residual functions, the Jacobian function or the zero-crossing functions. Having a separation between the modelling and the solving parts means that the choice of the numerical resolution method doesn't interfere with the models implementation. This feature has several advantages: it enables to easily test or use new solvers, it eases the addition of new model and it allows modelling experts not to bother about numerical difficulties and vice versa.
 
@@ -57,10 +57,122 @@ To ensure acceptable performances both for compilation and simulation, a mechani
 \item The second solver is the variable time-step variable order BDF solver called IDA and developed by the Lawrence Livermore National Lab as part of the \href{https://computation.llnl.gov/projects/sundials}{\underline{SUNDIALS}} suite of solvers. Contrary to the first solver, IDA aims at running very accurate simulations by using a control error scheme and by detecting the exact instant corresponding to an event, thanks to its root findings mechanism;
 \end{itemize}
 
-One important idea in \Dynawo is that the same models could be used for different stability studies, in particular one set of RMS models should be usable for both short-term and long-term stability analysis. It is the solvers approximations that enable to run long-term stability studies with acceptable computation time and not a priori simplifications done at the modelling stage. \\
+One important idea in \Dynawo is that the same models could be used for different stability studies. It is the overall association between the different models and the selected solving strategy that enables to run a specific stability study. For example, short-term stability studies and long-term stability studies share a large common set of models but use different solving strategies. Indeed, short-term stability studies are simulated using the \ac{IDA} solver which manages to capture the fast dynamics while long-term stability studies are done with the simplified solver that approximates the fast dynamics but enables to study the system long-term behavior with very good simulation times.  \\
+
+\Dynawo 's primary focus has been on long-term and short-term stability studies but the very encouraging results obtained and the flexibility of the approach led to an extension of the initiative. \textbf{\Dynawo is now evolving towards a complete and coherent suite of simulation tools}, sharing the same philosophy:
+\begin{itemize}
+\item DynaFlow for steady-state calculations
+\item DySym for short-circuit calculations
+\item DynaWaltz for long-term stability simulations
+\item DynaSwing for short-term stability studies
+\item DynaWave for stability studies and system design with a high-penetration of power-electronics based components (quasi-EMT)
+\end{itemize}
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{../resources/DynawoLogos.png}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{../resources/DynawoInitiative.png}
+\caption{High-level vision of the \Dynawo initiative}
+\end{figure}
 
 More details on the philosophy of \Dynawo could be found into \cite{Dynawo}.
 
+\newpage
+\subsection{DynaFlow}
+
+One important and fundamental simulation tool for real-time operation and planning studies of the power system is the steady-state calculation tool. This tool focuses on the correct calculation of the system equilibrium point following one or several event(s): it ensures the existence of a steady-state point and enables to check that this point is acceptable for the system operator. \\
+
+This calculation has been historically done by \textit{purely static simulation tool} determining the final steady state by the combination of outer heuristic loops - trying to mimic the actions of special protection schemes, controllers and regulations - and an inner loop - classical power flow problem - solved several times. The recent and ongoing power system evolution - power-electronics based components, diverse and advanced controllers, etc. - makes this classical approach null and void for modern power system steady-state calculations. Indeed, the steady-state point is determined by the difference of speeds of the various controls, regulations and special protection schemes dynamics. It is thus absolutely necessary to represent the actions temporality to find the correct steady-state point and takes the best decisions when operating the system or planning new investments for the future. \\
+
+DynaFlow is a new steady-state simulation tool that aims at calculating the steady-state point by using a simplified time-domain simulation, guaranteeing the correctness of the solution found. The \textit{Illustrative Test Cases} example section show the pros of this approach compared to a purely static simulation tool. \\
+
+The main features required for a steady-state calculation tool are listed below in association with the current DynaFlow status. In its current state, DynaFlow already covers a large range of the required features and the future work should allow to have a mature tool at the beginning of 2021. Regarding performances, DynaFlow exhibits similar performances than classical steady-state simulation tools for the simulation part (core part) and improvements on the initialization part are scheduled in the next few months to further reduce the cost of input/output on the simulation time.
+\begin{table}[H]
+\renewcommand{\arraystretch}{2}
+\begin{tabularx}{\linewidth}{X | X | X}
+ \textbf{Feature} & \textbf{Current status} & \textbf{Future work} \\
+ \hline
+ Frequency regulation & Covered & Covered \\
+ \hline
+ Voltage regulation & Covered for generators  and classical special protection schemes & Static Var Compensator model and shunt regulation handling \\
+ \hline
+ Thermal limits handling & Covered & Covered \\
+ \hline
+ Node-breaker topology & Supported & Supported \\
+ \hline
+ Multi synchronous area calculations & Main area & Extension to system splitting and multi-area \\
+ \hline
+ Control interactions & Native & Native \\
+\end{tabularx}
+\caption{Main expected features for a steady-state calculation tool and DynaFlow status}
+\end{table}
+
+\begin{center}
+\includegraphics[width=0.3\textwidth]{../resources/DynaFlow.png}
+\end{center}
+
+\newpage
+\subsection{DySym}
+
+Short-circuit calculations are essential simulations for power system operators. They are used to avoid large incidents on the system during its operation but also to avoid reaching situations that can damage materials, the environment or even injure people. \\
+
+Until the recent years, the power system short-circuit behavior was mainly driven by the synchronous machines actions and the interesting result was obtained for the transient part following the event (around $100 \ ms$ after the event). Considering this, it was adequate enough to do one static calculation with a specific machine representation ($E$ behind $X_{d}$) to analyze potential short-circuit issues. Nevertheless, the large introduction of power-electronics based components that can have very different behaviors, mainly defined by the tuning of their controls, deeply modify the system behavior during a short-circuit. Short-circuit calculations have to evolve to accurately take into account the power-electronics based components participation during the fault. \\
+
+Our ambition with DySym is to provide a short-circuit simulation tool that is adapted to the current and future power system operators needs. Through a time-domain approach correctly representing the different power system components and their contribution during the short-circuit, the user will have the possibility to output different values to further analyze the system behavior. \\
+
+DySym is at a research stage and we are currently playing around with different models to see which hypothesis make sense and which modelling choices should be done. We plan to release a work plan at the beginning of next year to distribute a proof-of-concept tool next summer. Don't hesitate to have a look to our website to see the current status.
+
+\begin{center}
+\includegraphics[width=0.3\textwidth]{../resources/DySym.png}
+\end{center}
+
+\newpage
+\subsection{DynaWaltz}
+
+Long-term stability studies are a core process for ensuring power system stability: they enable to guarantee that the slow dynamics of the system don't lead to an instability or a system collapse.\\
+
+Most of the classical approaches for long-term stability studies use simplified models to reach acceptable simulation times on large-scale systems. The quasi steady-state simulation approach is the most widely known approximation: it consists in considering the fast dynamics stabilized and thus in replacing their differential nature by pure algebraic equations (for example, an integral control for voltage regulation can be considered instantaneous). While this technique globally provides acceptable results on most of the situations, it involves a strong a priori hypothesis on the real system behavior. This approximation is more and more questionable in a system where the multiplicity and diversity of the controls is exploding. \\
+
+Our long-term stability simulation tool DynaWaltz uses a different paradigm. Instead of doing a priori simplifications or hypothesis on the modelling side, it is the numerical method that will take charge of filtering the fast dynamics while keeping as detailed models as necessary. Thanks to an intensive research work conducted during the Pegase project on the numerical method, DynaWaltz manages to achieve simular simulation times than current long-term stability simulation tools.\\
+
+DynaWaltz is the most advanced simulation tool of the \Dynawo initiative. A parallel run in RTE is forecasted for the winter 2020/2021 and if the results are positive, DynaWaltz should be used operationnaly in 2021 in RTE. Most of the models impacting the system slow dynamics - tap-changers, loads, static var compensators, etc. - are already developed and available in the repository. The current work for this tool consists in robustifying it by using it on a large number of French test cases, doing the final validation for some additional models (special protection schemes, secondary voltage regulatio) and providing additional features (contingency analysis, margin calculation) around the core.
+
+\begin{center}
+\includegraphics[width=0.2\textwidth]{../resources/DynaWaltz.png}
+\end{center}
+
+\newpage
+\subsection{DynaSwing}
+
+In order to protect the system against loss of synchronism or inter-area oscillations, the system operator has to conduct a large number of short-term stability studies. Transient stability focuses on phenomena in the range of the ms and depends mainly on the active component models - synchronous machines and their controllers, HVDCs, Static Var Compensators. \\
+
+To properly represent the system response in the few instants following an event, it is necessary to combine open models with detailed physical modelling and transparent block control scheme with a very accurate solving method. It is the association of these different features that enable to catch the correct system fast dynamics. \\
+
+DynaSwing is a simulation tool that offers an unique combination of a transparent, flexible and robust way of modelling - thanks to the intensive use of the Modelica language - and a state-of-the-art, efficient and accurate numerical method (the variable time-step solver IDA). \\
+
+The core of the tool has already reached a mature state, making it usable for running transient stability studies. The future work will thus concentrate on:
+\begin{itemize}
+\item the development of more elaborated regulation controls (PSS, specific governors or voltage regulators)
+\item the addition of new models (especially standard PV and wind models)
+\item the improvement of the numerical method on large test cases (especially on systems containing a lot of digital controllers).
+\end{itemize}
+These developments will contribute to enlarge the possibilities offered by DynaSwing.
+
+\begin{center}
+\includegraphics[width=0.3\textwidth]{../resources/DynaSwing.png}
+\end{center}
+
+\newpage
+\subsection{DynaWave}
+
+\begin{center}
+\includegraphics[width=0.3\textwidth]{../resources/DynaWave.png}
+\end{center}
+
+\newpage
 \section{Models}
 
 \subsection{Introduction}
@@ -79,10 +191,10 @@ Below is an example of a Pi line model in Modelica. As explained earlier, the mo
 
 \subsection{C++ library}
 
-The C++ library contains three models:
+The C++ library contains:
 \begin{itemize}
 \item A network model that provides a default behaviour for any grid component
-\item An ``OmegaRef'' model that calculates the rotation speed reference value for the system.
+\item Two different frequency models: an explicit  frequency model (OmegaRef model) that calculates the rotation speed reference value for the system and an implicit frequency model (SignalN model) that calculates a signal N value used by the generators to adjust their active power output. When doing a simulation, one has to choose the way the frequency is modeled and use either the SignalN or the OmegaRef model.
 \item A variation area model that applies a variation on the (P, Q) values of one area\textquotesingle s loads.
 \end{itemize}
 
@@ -225,7 +337,12 @@ The static var compensator model controls the susceptance to respect a predefine
  \label{StaticVarCompensator}
 \end{figure}
 
-\subsubsection{OmegaRef model}
+\subsubsection{Frequency models}
+
+Two different frequency models are available into \Dynawo. When doing a simulation, an user has to either choose the explicit frequency model (OmegaRef) and the associated machine models or an implicit frequency model (SignalN) and the associated models.
+
+\paragraph{Explicit frequency model - OmegaRef}
+~~\\
 
 The ``OmegaRef'' model calculates the reference speed for each synchronous area. This reference speed is determined by calculating a weighted barycentre of the different speeds of the generators connected to the grid in the synchronous area:
 
@@ -238,23 +355,35 @@ The ``OmegaRef'' model calculates the reference speed for each synchronous area.
 
 This model is connected to all the generators of one synchronous area and takes their speed as inputs to calculate the reference speed that is used into the machine models.
 
+\paragraph{Implicit frequency model - SignalN}
+~~\\
+
+All generators of the network are connected to this model through their participation in the frequency
+regulation Alpha, which is a coefficient that can be equal to the nominal active power of the generator,
+its maximum active power, or its active power set point, through the total participation SignalN, which
+is calculated in this model and is equal to the sum of the Alpha, and through the signal N, which is common to all the generators in the same "synchronous area" and that changes the active power reference of the generators to balance the generation and the consumption. \\
+Moreover, the voltage angle of a chosen bus is fixed here to 0 to balance the number of equations and the number of variables.
+
 \subsubsection{Variation area model}
 
 This model enables to calculate the active and reactive power variation to apply to a set of loads to match a given variation in a time window. Its parameters are thus the starting and stopping time of the variation and the required changes into P and Q.
 
 \subsection{Modelica library}
 
-The \Dynawo Modelica library contains several models to describe advanced dynamic behaviours of the main grid components as well as simple models equivalent to the C++ default models that are mainly used for testing in full Modelica simulations. In addition to the individual models (.mo files), \Dynawo\textquotesingle s code contains ``preassembled'' models that consists in a group of Modelica models that are compiled together to create a single final model library (.so) that could be directly used in the simulation (without being compiled at run time). These preassembled models correspond to a coherent dynamic behaviour (physical model + regulation models) and are built to be associated to one static component. One example is the combination of a synchronous machine model with its regulations (voltage regulators and governors). This gives one preassembled model that can be directly used during the simulation and associated to one particular generator (without having to associate the three models to the generator).
+The \Dynawo Modelica library contains several models to describe advanced dynamic behaviours of the main grid components as well as simple models equivalent to the C++ default models that are mainly used for testing in full Modelica simulations. \textbf{If the reader wants to have a look to the models, we highly recommend he/she to open the \Dynawo Modelica library with OpenModelica and in particular OMEdit: it provides a nice and rich environment to visualize the equations and the control blocks, as well as an immediate access to the library documentation and to some full Modelica test cases. } \\
+
+In addition to the individual models (.mo files), \Dynawo\textquotesingle s code contains ``preassembled'' models that consists in a group of Modelica models that are compiled together to create a single final model library (.so) that could be directly used in the simulation (without being compiled at run time). These preassembled models correspond to a coherent dynamic behaviour (physical model + regulation models) and are built to be associated to one static component. One example is the combination of a synchronous machine model with its regulations (voltage regulators and governors). This gives one preassembled model that can be directly used during the simulation and associated to one particular generator (without having to associate the three models to the generator).
 
 \subsubsection{Library content}
 
 In this part, we will briefly describe what is the content of \Dynawo\textquotesingle s Modelica library. To understand in details the behaviour of each model and the chosen modelling assumptions, we encourage the reader to directly dig into the Modelica  model or to look at the specific documentation included into the model and available in a Modelica environment.\\
 
-The \Dynawo library is divided into three main parts plus auxiliary packages (Types, AdditionalIcons and UsersGuide):
+The \Dynawo library is divided into four main parts plus auxiliary packages (Types, AdditionalIcons and UsersGuide):
 \begin{itemize}
 \item The ``Connectors'' part contains all the specific connectors defined into \Dynawo that are used to connect together different models. This enables to have clear interfaces between the different models or the different parts of a model (regulation and physical model for example). For each type of variable, there is a type of connector (BPin for boolean values, ZPin for discrete values, ImPin for real values and ACPower for connecting both complex voltages and complex currents)
 \item The ``Electrical'' part with the different models of the electrical components and their controls.
 \item The ``NonElectrical'' part including all \Dynawo - specific blocks. In the library, we have tried to use as much as possible existing blocks from the Modelica Standard Library but when necessary, specific models or blocks have been developed and are stored into this folder to be reused several times. This folder also contains logs files that are used to generate logs from the Modelica model during a simulation.
+\item The ``Examples'' part with simple test cases to illustrate the way to use \Dynawo models in a full Modelica environment. Each test case has been configured with the best options available in OpenModelica for power sytem simulations.
 \end{itemize}
 
 More details on the ``Electrical'' package are given in the next sections.
@@ -284,6 +413,17 @@ The controls package gathers all the controls and regulations models for the dif
 
 Events models enable to change the connection status of the different grid elements. They are all based on a similar basis with a time corresponding to the event and a variable whose value will change at the event time.
 
+\paragraph{HVDC}
+~~\\
+
+The HVDC package contains three different HVDC models: one complete standard VSC model for long-term and short-term stability studies and two simplified models:
+\begin{itemize}
+\item The HvdcVsc model is a standard VSC model, with a complete control scheme (active power control, dc and ac voltage control, etc.) and a physical DC line model.
+\item The HvdcPV model is a simplified VSC model, that regulates the network voltage at both sides and respects a certain active power flowing into the link (represented as a constant loss factor).
+\item The HvdcPTanPhi is a simplified LCC model, for which the reactive power output is calculated thanks to a power factor and the active power is set (with constant losses in the DC line as for the HvdcPV model).
+\end{itemize}
+
+
 \paragraph{Lines}
 ~~\\
 
@@ -292,26 +432,36 @@ There is at the moment one $\pi$ line model included into \Dynawo.
 \paragraph{Loads}
 ~~\\
 
-Two load models are included into the package:
+Three load models are included into the package:
 \begin{itemize}
 \item A voltage dependent load model (LoadAlphaBeta)
+\item A restorative voltage dependent load model (LoadAlphaBetaRestorative): the load behaves as a constant P,Q load model when its voltage is in the normal range and as a voltage dependent load if its voltage is lower (or higher) than a minimum (maximum) value. This model emulates the behavior of a load connected to the network behind a transformer with a tap-changer.
 \item A constant P,Q load  model (LoadPQ)
 \end{itemize}
 
 \paragraph{Machines}
 ~~\\
 
-Different models with different levels of details constitute the Machines package. The most detailed model (GeneratorSynchronous) can either represent a three-winding or a four-winding synchronous machine model depending on its initialisation model. Others are simplified ones:
+Different models with different levels of details constitute the Machines package that is subdivided into two main categories: the models that need to be connected to an explicit frequency model (OmegaRef model) and the models that need to be connected to an implicit frequency model (SignalN model). \\
+
+\textit{OmegaRef package} \\
+
+The most detailed model (GeneratorSynchronous) can either represent a three-winding or a four-winding synchronous machine model depending on its initialisation model. Others are simplified ones:
 \begin{itemize}
 \item GeneratorPQ in which the P output is modulated according to frequency and the Q output is constant equal to a fixed value.
 \item GeneratorPV that modulates the P output according to frequency and the Q outputs to keep $U + \lambda * Q$ as close as possible to a set point.
 \item GeneratorFictitious that acts as a voltage-dependent generator. P and Q vary around their initial values depending on the voltage value.
 \end{itemize}
+\medskip
+
+\textit{SignalN package} \\
+
+The SignalN package comprises two different final models, that behaves in a similar way for the active power part. Their active power depends on their initial set point and their participation in the emulating frequency regulation (SignalN model). \\ Regarding the reactive power behavior, the GeneratorPV model imposes a constant voltage as long as its reactive power generation is between [QMin;QMax] while the GeneratorPVProp model has the following regulating law: $Q = Q0 + KVoltage * (URef - U)$.
 
 \paragraph{Sources}
 ~~\\
 
-A Sources package is available in the library: it offers at the moment a dq-injector model, a BG-injector model and a converter model.
+A Sources package is available in the library: it offers at the moment a Id/Iq-injector model, a BG-injector model and a converter model.
 
 \paragraph{StaticVarCompensators}
 ~~\\
@@ -336,16 +486,19 @@ The different preassembled models delivered with \Dynawo are:
 \begin{itemize}
 \item CurrentLimitAutomaton corresponding to the current limit automaton model
 \item Different event models
-\item GeneratorFictitious, GeneratorPV, GeneratorPQ and various three-winding and four-winding generator preassembled models corresponding to the different generator models
+\item GeneratorFictitious, GeneratorPV, GeneratorPQ and various three-winding and four-winding generator preassembled models corresponding to the different generator models that can be connected to an OmegaRef explicit frequency model
+\item GeneratorPVPropSignalN and GeneratorPVSignalN are generator preassembled models that can be connected to a SignalN implicit frequency model.
 \item GenericAutomaton that enables to call a C function every few s (corresponding to the GenericAutomaton model)
-\item Three grid forming converter models featuring different types of control: GridFormingConverterMatchingControl, GridFormingConverterDroopControl, GridFormingConverterDispatchableVirtualOscillatorControl
-\item Different load models: LoadAlphaBeta corresponding to the LoadAlphaBeta model, LoadOneTransformer which is a load alpha beta plus a transformer, LoadTwoTransformers which is a load alpha beta behind two transformers
-\item Line, the $\pi$ line model
+\item Three grid forming converter models featuring different types of control: GridFormingConverterMatchingControl, GridFormingConverterDroopControl and GridFormingConverterDispatchableVirtualOscillatorControl
+\item The three different HVDC models: a standard VSC model (HvdcVSC), a simplified VSC model (HvdcPV) and a simplified LCC model (HvdcPTanPhi).
+\item Different load models: LoadAlphaBeta corresponding to the LoadAlphaBeta model, LoadOneTransformer which is a load alpha beta plus a transformer, LoadTwoTransformers which is a load alpha beta behind two transformers, LoadPQ corresponding to the constant LoadPQ model, LoadAlphaBetaRestorative corresponding to the LoadAlphaBetaRestorative model.
 \item PhaseShifterI and PhaseShifterP that are phase shifter models controlling either the current or the active power
+\item StaticVarCompensator, the standard static VAR compensator model
 \item TapChangerAutomaton, the tap changer automaton model
-\item StaticVarCompensator, the static VAR compensator model
 \item TapChangerBlockingArea, the automaton that allows to block the tap on transformers
+\item TransformerFixedRatio, a fixed ratio transformer model.
 \item UnderVoltageAutomaton corresponding to the under-voltage protection model
+\item Other simpled and unitary models: Line, InfiniteBus, InjectorPB, SetPoint and Step.
 \end{itemize}
 
 \section{Solvers}

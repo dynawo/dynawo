@@ -7,13 +7,14 @@
 
 mkdir -p dynawoDocumentation
 
-folders=(introduction installation configuringDynawo functionalDoc advancedDoc)
+folders=(introduction installation configuringDynawo ../examples/DynaFlow/description ../examples/DynaWaltz/description
+../examples/DynaSwing/description functionalDoc advancedDoc)
 
 pdflatex_options="-halt-on-error -interaction=nonstopmode"
 output_file=DynawoDocumentation.tex
 
 echo '%% Except where otherwise noted, content in this documentation is Copyright (c)
-%% 2015-2019, RTE (http://www.rte-france.com) and licensed under a
+%% 2015-2020, RTE (http://www.rte-france.com) and licensed under a
 %% CC-BY-4.0 (https://creativecommons.org/licenses/by/4.0/)
 %% license. All rights reserved.
 
@@ -27,7 +28,8 @@ echo '%% Except where otherwise noted, content in this documentation is Copyrigh
 
 \begin{document}
 
-\title{\Dynawo Documentation \\ \small{v1.2.0}}
+\title{\huge{\Dynawo Documentation} \\ \LARGE{v1.2.0} \\
+\includegraphics[width=0.7\textwidth]{../resources/dynawoLogo.png}}
 \date\today
 
 \maketitle
