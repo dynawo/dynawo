@@ -144,8 +144,25 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
    */
   int getComponentVarIndex(const std::string& varName) const;
 
+  /**
+   * @brief Getter for the bus' country
+   * @return the bus country
+   */
+  inline const std::string& getCountry() const {
+    return country_;
+  }
+
+  /**
+   * @brief Setter for the bus' country
+   * @param country bus country
+   */
+  inline void setCountry(const std::string& country) {
+    country_ = country;
+  }
+
  private:
   IIDM::Generator& generatorIIDM_;  ///< reference to the iidm generator instance
+  std::string country_;  ///< country of the generator
 };
 }  // namespace DYN
 

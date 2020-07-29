@@ -227,9 +227,10 @@ class DataInterfaceIIDM : public DataInterface {
    * @brief import and create a voltage level interface thanls to the IIDM instance
    *
    * @param voltageLevelIIDM IIDM instance to use to create voltageLevelInterface
+   * @param country country of the parent substation
    * @return the instance VoltageLevelInterface created
    */
-  boost::shared_ptr<VoltageLevelInterface> importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM);
+  boost::shared_ptr<VoltageLevelInterface> importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, const std::string& country);
 
   /**
    * @brief import and create a switch interface thanks to the IIDM instance
@@ -243,17 +244,19 @@ class DataInterfaceIIDM : public DataInterface {
    * @brief import and create a generator interface thanks to the IIDM instance
    *
    * @param generatorIIDM IIDM instance to use to create generatorInterface
+   * @param country country of the parent substation
    * @return the instance of GeneratorInterface created
    */
-  boost::shared_ptr<GeneratorInterface> importGenerator(IIDM::Generator & generatorIIDM);
+  boost::shared_ptr<GeneratorInterface> importGenerator(IIDM::Generator & generatorIIDM, const std::string& country);
 
   /**
    * @brief import and create a load interface thanks to the IIDM instance
    *
    * @param loadIIDM IIDM instance to use to create loadInterface
+   * @param country country of the parent substation
    * @return the instance of loadInterface created
    */
-  boost::shared_ptr<LoadInterface> importLoad(IIDM::Load& loadIIDM);
+  boost::shared_ptr<LoadInterface> importLoad(IIDM::Load& loadIIDM, const std::string& country);
 
   /**
    * @brief import and create a shunt interface thanks to the IIDM instance

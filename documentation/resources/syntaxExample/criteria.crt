@@ -6,6 +6,7 @@
   </busCriteria>
   <busCriteria>
     <parameters id ="maximum bus voltage with UNom above 180kV " scope="DYNAMIC" type="LOCAL_VALUE" uNomMin="180" uMaxPu="1.2"/>
+    <country id="FR"/>
   </busCriteria>
   <loadCriteria>
     <parameters id ="maximum sum of load active power" scope="DYNAMIC" type="SUM" pMax="100" uMaxPu="0.6"/>

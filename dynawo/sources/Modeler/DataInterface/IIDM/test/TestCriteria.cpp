@@ -87,11 +87,13 @@ using criteria::CriteriaCollectionFactory;
 namespace DYN {
 
 shared_ptr<DataInterface>
-createBusBreakerNetwork(double busV, double busVNom) {
+createBusBreakerNetwork(double busV, double busVNom, bool addCountry = true) {
   IIDM::builders::NetworkBuilder nb;
   IIDM::Network network = nb.build("MyNetwork");
 
   IIDM::builders::SubstationBuilder ssb;
+  if (addCountry)
+    ssb.country("FR");
   IIDM::Substation ss = ssb.build("MySubStation");
 
   IIDM::builders::BusBuilder bb;
@@ -115,7 +117,7 @@ createBusBreakerNetwork(double busV, double busVNom) {
 }
 
 shared_ptr<DataInterface>
-createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, double pow2) {
+createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
   IIDM::builders::NetworkBuilder nb;
   IIDM::Network network = nb.build("MyNetwork");
   IIDM::connection_status_t cs = {true /*connected*/};
@@ -123,6 +125,8 @@ createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, doubl
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_1);
 
   IIDM::builders::SubstationBuilder ssb;
+  if (addCountry)
+    ssb.country("FR");
   IIDM::Substation ss = ssb.build("MySubStation");
 
   IIDM::builders::BusBuilder bb;
@@ -159,7 +163,7 @@ createBusBreakerNetworkWithLoads(double busV, double busVNom, double pow1, doubl
 }
 
 shared_ptr<DataInterface>
-createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, double pow2) {
+createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, double pow2, bool addCountry = true) {
   IIDM::builders::NetworkBuilder nb;
   IIDM::Network network = nb.build("MyNetwork");
   IIDM::connection_status_t cs = {true /*connected*/};
@@ -167,6 +171,8 @@ createBusBreakerNetworkWithGenerators(double busV, double busVNom, double pow1, 
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1), c2("MyVoltageLevel", p2, IIDM::side_1);
 
   IIDM::builders::SubstationBuilder ssb;
+  if (addCountry)
+    ssb.country("FR");
   IIDM::Substation ss = ssb.build("MySubStation");
 
   IIDM::builders::BusBuilder bb;
@@ -355,6 +361,57 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
 
   criteriap = CriteriaParamsFactory::newCriteriaParams();
   criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("BE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::BUS, criteria);
+  data = createBusBreakerNetwork(190, 225);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom but criteria filter is KO
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::BUS, criteria);
+  data = createBusBreakerNetwork(190, 225);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom and criteria filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::BUS, criteria);
+  data = createBusBreakerNetwork(190, 225, false);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom and criteria filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
   criteriap->setUNomMin(225);
   criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
@@ -403,6 +460,60 @@ TEST(DataInterfaceIIDMTest, testBusCriteriaDataIIDM) {
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyBus");
+  criteria->addCountry("BE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::BUS, criteria);
+  data = createBusBreakerNetwork(190, 225);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom but the bus is ignored due to country filter
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyBus");
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::BUS, criteria);
+  data = createBusBreakerNetwork(190, 225);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom and the country filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyBus");
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::BUS, criteria);
+  data = createBusBreakerNetwork(190, 225, false);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // v > 0.8*vNom and the country filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaLocalValue) {
@@ -645,6 +756,77 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   criteriap->setUNomMin(225);
   criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::LOAD, criteria);
+  data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("BE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::LOAD, criteria);
+  data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax but country filter is KO
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::LOAD, criteria);
+  data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and country filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::LOAD, criteria);
+  data = createBusBreakerNetworkWithLoads(180, 225, 200, 100, false);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and country filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -711,6 +893,63 @@ TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMLocalValue) {
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyLoad");
+  criteria->addCountry("BE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::LOAD, criteria);
+  data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax but country filter is KO
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyLoad");
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::LOAD, criteria);
+  data = createBusBreakerNetworkWithLoads(180, 225, 200, 100);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and country filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyLoad");
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::LOAD, criteria);
+  data = createBusBreakerNetworkWithLoads(180, 225, 200, 100, false);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and country filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
 }
 
 TEST(DataInterfaceIIDMTest, testLoadCriteriaDataIIDMSum) {
@@ -1098,6 +1337,77 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   criteriap->setUNomMin(225);
   criteriap->setUNomMax(400);
   criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("BE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax but country filter is KO
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and country filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and country filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
   criteriap->setPMax(200);
   criteria = CriteriaFactory::newCriteria();
   criteria->setParams(criteriap);
@@ -1164,6 +1474,63 @@ TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMLocalValue) {
   // v > 0.8*vNom
   ASSERT_TRUE(data->checkCriteria(0, false));
   ASSERT_FALSE(data->checkCriteria(0, true));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyGen");
+  criteria->addCountry("BE");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax but criteria filter is KO
+  ASSERT_TRUE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyGen");
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and criteria filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
+
+  criteriap = CriteriaParamsFactory::newCriteriaParams();
+  criteriap->setType(CriteriaParams::LOCAL_VALUE);
+  criteriap->setScope(CriteriaParams::DYNAMIC);
+  criteriap->setUNomMin(225);
+  criteriap->setUNomMax(400);
+  criteriap->setUMaxPu(0.8);
+  criteriap->setPMax(150);
+  criteria = CriteriaFactory::newCriteria();
+  criteria->setParams(criteriap);
+  criteria->addComponentId("MyGen");
+  criteria->addCountry("FR");
+  collection = CriteriaCollectionFactory::newInstance();
+  collection->add(CriteriaCollection::GENERATOR, criteria);
+  data = createBusBreakerNetworkWithGenerators(180, 225, 200, 100, false);
+  exportStates(data);
+  data->configureCriteria(collection);
+  // P > PMax and criteria filter is OK
+  ASSERT_FALSE(data->checkCriteria(0, false));
 }
 
 TEST(DataInterfaceIIDMTest, testGeneratorCriteriaDataIIDMSum) {

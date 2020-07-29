@@ -172,6 +172,22 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
     return busIndex_;
   }
 
+  /**
+   * @brief Getter for the bus' country
+   * @return the bus country
+   */
+  inline const std::string& getCountry() const {
+    return country_;
+  }
+
+  /**
+   * @brief Setter for the bus' country
+   * @param country bus country
+   */
+  inline void setCountry(const std::string& country) {
+    country_ = country;
+  }
+
  private:
   int busIndex_;  ///< bus index
   boost::optional<double> U0_;  ///< initial value of the voltage magnitude
@@ -181,6 +197,7 @@ class CalculatedBusInterfaceIIDM : public BusInterface {
   std::set<int> nodes_;  ///< index of the nodes associated to the bus
   IIDM::VoltageLevel& voltageLevel_;  ///< IIDM voltage level instance
   bool hasConnection_;  ///< @b true if the bus has an outside connection, @b false else
+  std::string country_;  ///< country of the bus
 };  ///< Interface class for CalculatedBusInterface
 
 std::ostream& operator<<(std::ostream& stream, const CalculatedBusInterfaceIIDM& calculatedBus);
