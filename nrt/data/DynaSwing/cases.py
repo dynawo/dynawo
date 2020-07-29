@@ -18,6 +18,17 @@ standardReturnCode = [0]
 standardReturnCodeType = "ALLOWED"
 forbiddenReturnCodeType = "FORBIDDEN"
 
+
+#########################################
+#          Kundur Example 13            #
+#########################################
+
+case_name = "DynaSwing - Kundur - Example 13"
+case_description = "Impact of the excitation control on a synchronous generator transient stability - Kundur Example 13"
+job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaSwing", "Kundur_Example13", "KundurExample13.jobs")
+
+test_cases.append((case_name, case_description, job_file, 150, standardReturnCodeType, standardReturnCode))
+
 ###############################################
 #     IEEE14 - Fault on generator 2 node     #
 ###############################################

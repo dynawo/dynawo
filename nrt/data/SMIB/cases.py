@@ -67,13 +67,3 @@ case_description = "SMIB test case with a fault"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_5_Fault", "SMIB.jobs")
 
 test_cases.append((case_name, case_description, job_file, 30, standardReturnCodeType, standardReturnCode))
-
-#########################################
-#          Kundur Example 13            #
-#########################################
-
-case_name = "Kundur - Example 13"
-case_description = "Impact of the excitation control on a synchronous generator transient stability"
-job_file = os.path.join(os.path.dirname(__file__), "SMIB_KundurEx13", "SMIB.jobs")
-
-test_cases.append((case_name, case_description, job_file, 60, standardReturnCodeType, standardReturnCode))
