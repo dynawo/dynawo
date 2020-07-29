@@ -1172,10 +1172,8 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
           cmpIt != cmpItEnd; ++cmpIt) {
         const std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> >& calBuses = cmpIt->second;
         for (size_t i = 0, iEnd = calBuses.size(); i < iEnd; ++i) {
-          if (crit->hasCountryFilter()) {
-            if (!calBuses[i]->getCountry().empty() && !crit->containsCountry(calBuses[i]->getCountry()))
+          if (crit->hasCountryFilter() && !calBuses[i]->getCountry().empty() && !crit->containsCountry(calBuses[i]->getCountry()))
               continue;
-          }
           dynCriteria->addBus(calBuses[i]);
         }
       }
