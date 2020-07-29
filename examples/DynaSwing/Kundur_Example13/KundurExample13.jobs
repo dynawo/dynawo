@@ -12,10 +12,10 @@
     simulation tool for power systems.
 -->
 <dyn:jobs xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:job name="SMIB_AVR_SetPoint">
-      <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+  <dyn:job name="Kundur Example 13 - Set Point case">
+      <dyn:solver lib="dynawo_SolverIDA" parFile="KundurExample13.par" parId="IDAOrder2"/>
       <dyn:modeler compileDir="outputs_AVR_SetPoint/compilation">
-        <dyn:dynModels dydFile="SMIB_AVR_SetPoint.dyd"/>
+        <dyn:dynModels dydFile="KundurExample13_AVR_SetPoint.dyd"/>
         <dyn:precompiledModels useStandardModels="true"/>
         <dyn:modelicaModels useStandardModels="true">
           <dyn:directory path="." recursive="false"/>
@@ -23,17 +23,16 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="5"/>
       <dyn:outputs directory="outputs_AVR_SetPoint">
-        <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
+        <dyn:curves inputFile="KundurExample13.crv" exportMode="CSV"/>
         <dyn:logs>
-          <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
-          <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>
-  <dyn:job name="SMIB_AVR_NoPSS">
-      <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+  <dyn:job name="Kundur Example 13 - AVR and No PSS case">
+      <dyn:solver lib="dynawo_SolverIDA" parFile="KundurExample13.par" parId="IDAOrder2"/>
       <dyn:modeler compileDir="outputs_AVR_NoPSS/compilation">
-        <dyn:dynModels dydFile="SMIB_AVR_NoPSS.dyd"/>
+        <dyn:dynModels dydFile="KundurExample13_AVR_NoPSS.dyd"/>
         <dyn:precompiledModels useStandardModels="true"/>
         <dyn:modelicaModels useStandardModels="true">
           <dyn:directory path="." recursive="false"/>
@@ -41,18 +40,16 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="5"/>
       <dyn:outputs directory="outputs_AVR_NoPSS">
-        <dyn:dumpInitValues local="true" global="true"/>
-        <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
+        <dyn:curves inputFile="KundurExample13.crv" exportMode="CSV"/>
         <dyn:logs>
-          <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
-          <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>
-  <dyn:job name="SMIB_AVR_PSS">
-      <dyn:solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="2"/>
+  <dyn:job name="Kundur Example 13 - AVR and PSS case">
+      <dyn:solver lib="dynawo_SolverIDA" parFile="KundurExample13.par" parId="IDAOrder2"/>
       <dyn:modeler compileDir="outputs_AVR_PSS/compilation">
-        <dyn:dynModels dydFile="SMIB_AVR_PSS.dyd"/>
+        <dyn:dynModels dydFile="KundurExample13_AVR_PSS.dyd"/>
         <dyn:precompiledModels useStandardModels="true"/>
         <dyn:modelicaModels useStandardModels="true">
           <dyn:directory path="." recursive="false"/>
@@ -60,10 +57,9 @@
       </dyn:modeler>
       <dyn:simulation startTime="0" stopTime="5"/>
       <dyn:outputs directory="outputs_AVR_PSS">
-        <dyn:curves inputFile="curves.crv" exportMode="CSV"/>
+        <dyn:curves inputFile="KundurExample13.crv" exportMode="CSV"/>
         <dyn:logs>
-          <dyn:appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
-          <dyn:appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
+          <dyn:appender tag="" file="dynawo.log" lvlFilter="INFO"/>
         </dyn:logs>
       </dyn:outputs>
   </dyn:job>
