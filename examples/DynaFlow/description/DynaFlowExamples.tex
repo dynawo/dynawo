@@ -1,0 +1,319 @@
+%% Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+%% See AUTHORS.txt
+%% All rights reserved.
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, You can obtain one at http://mozilla.org/MPL/2.0/.
+%% SPDX-License-Identifier: MPL-2.0
+%% This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+%% simulation tool for power systems.
+\documentclass[a4paper, 12pt]{report}
+
+\input{../../../nrt/documentation/latex_setup.tex}\pgfkeys{
+/pgf/number format/read comma as period
+}
+
+\begin{document}
+
+\title{DynaFlow use examples}
+\date\today
+
+\maketitle
+\tableofcontents
+
+\chapter{Illustrative examples}
+
+This part presents the results of several simple test cases to illustrate the possibilities and advantages of the approach used in DynaFlow for calculating the steady-state point.
+
+\section{Phase Shifters in parallel (PhaseShifters)}
+
+The following system is simulated. It is made of a generator (GeneratorPVSignalN), two phase shifter transformers, a transformer, five lines and a PQ load (LoadPQ).\\
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{PhaseShifters/PhaseShifters}
+  \end{center}
+  \caption{Illustration of the studied system}
+\end{figure}
+
+The line is disconnected at t = 30s.\\
+Two simulations are done :
+\begin{itemize}
+\item the two phase shifters have the following time constants t1st = 40s/tNext = 20s;
+\item one phase shifter have the following time constants t1st = 20s/tNext = 10s, the other one t1st = 40s/tNext = 20s.
+\end{itemize}
+
+The currents in both phase shifters are compared in both cases. One can observe that depending on the time constants of the phase shifter, the steady state after the event is different.\\
+\\
+This cannot be captured by a fully static simulator, in which all the phase shifters are activated at the same time with an external loop.
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmin = 0, ymin = 0.24, ymax = 0.34, height = 2.3in, legend pos=north east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_6_phaseShifter_iMonitored]
+        {PhaseShifters/curves2010.csv};
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_6_phaseShifter_iMonitored]
+        {PhaseShifters/curves4020.csv};
+        \legend{20/10, 40/20}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Current in the first phase shifter [p.u]}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmin = 0, ymin = 0.24, ymax = 0.34, height = 2.3in, legend pos=north east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_7_phaseShifter_iMonitored]
+        {PhaseShifters/curves2010.csv};
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_7_phaseShifter_iMonitored]
+        {PhaseShifters/curves4020.csv};
+        \legend{20/10, 40/20}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Current in the second phase shifter [p.u]}
+\end{figure}
+
+\section{Simplified HVDC link with AC emulation and phase shifter (HVDC\_PhaseShifter)}
+
+The following system is simulated. It is made of a generator (GeneratorPVSignalN), a phase shifter transformer, four lines, two transformers, a simplified HVDC link with an AC emulation (SimplifiedHVDCACEmulation) and a PQ load (LoadPQ).\\
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{HVDC_PhaseShifter/HVDC_PhaseShifter}
+  \end{center}
+  \caption{Illustration of the studied system}
+\end{figure}
+
+The line is disconnected at t = 30s.\\
+Two simulations are done :
+\begin{itemize}
+\item the time constant of the HVDC link is equal to 50s;
+\item the time constant of the HVDC link is equal to 1s.
+\end{itemize}
+
+One can observe that, in the case where the HVDC link time constant is equal to 50s, its power increases too slowly. As a consequence, the power in the phase shifter is too high for a too long time, which induces a tap change that doesn't happen when the time constant is equal to 1s.\\
+\\
+This cannot be captured by a fully static simulator, in which the HVDC link has no dynamics (which is equivalent to tFilter=0s).
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmax = 120, height = 3in, legend pos=north east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_6_phaseShifter_PMonitored]
+        {HVDC_PhaseShifter/curves1.csv};
+
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=PhaseShifter_5_6_phaseShifter_PMonitored]
+        {HVDC_PhaseShifter/curves50.csv};
+
+        \legend{tFilter = 1s, tFilter = 50s}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Active power in the phase shifter [p.u]}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmax = 120, height = 3in, legend pos=north east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=HVDC_hvdc_P1Pu]
+        {HVDC_PhaseShifter/curves1.csv};
+
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=HVDC_hvdc_P1Pu]
+        {HVDC_PhaseShifter/curves50.csv};
+
+        \legend{tFilter = 1s, tFilter = 50s}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Active power in the HVDC link [p.u]}
+\end{figure}
+
+\section{Simplified HVDC link with AC emulation and CLA (HVDC\_CLA)}
+
+The following system is simulated. It is made of a generator (GeneratorPVSignalN), four lines (one is monitored by a current limiter automaton), two transformers, a simplified HVDC link with an AC emulation (SimplifiedHVDCACEmulation) and a PQ load (LoadPQ).\\
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{HVDC_CLA/HVDC_CLA}
+  \end{center}
+  \caption{Illustration of the studied system}
+\end{figure}
+
+The line is disconnected at t = 30s.\\
+Two simulations are done :
+\begin{itemize}
+\item the time constant of the HVDC link is equal to 60s;
+\item the time constant of the HVDC link is equal to 30s.
+\end{itemize}
+
+One can observe that, in the case where the HVDC link time constant is equal to 60s, its power increases too slowly. As a consequence, the current in the line that is monitored by the CLA is too high for a too long time, which induces a line disconnection that doesn't happen when the time constant is equal to 30s.\\
+\\
+This cannot be captured by a fully static simulator, in which the HVDC link has no dynamics (which is equivalent to tFilter=0s).
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmax = 120, height = 3in, legend pos=south east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=HVDC_hvdc_P1Pu]
+        {HVDC_CLA/curves30.csv};
+
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=HVDC_hvdc_P1Pu]
+        {HVDC_CLA/curves60.csv};
+
+        \legend{tFilter = 30s, tFilter = 60s}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Active power in the HVDC link [p.u]}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{tikzpicture}
+    \begin{axis}[xmax = 120, height = 3in, legend pos=south east]
+        \addplot[color=red!50,line width=0.03in]
+        table[x=time,y=NETWORK__BUS____7-BUS___10-2_AC_iSide2]
+        {HVDC_CLA/curves30.csv};
+
+        \addplot[color=blue!50,line width=0.03in]
+        table[x=time,y=NETWORK__BUS____7-BUS___10-2_AC_iSide2]
+        {HVDC_CLA/curves60.csv};
+
+        \legend{tFilter = 30s, tFilter = 60s}
+        \end{axis}
+  \end{tikzpicture}
+  \caption{Current in the remaining AC line [A]}
+\end{figure}
+
+\section{Load restoration (LoadRestoration)}
+
+The following system is simulated. It is made of a generator (GeneratorPVSignalN), two transformers, three lines and a restorative alpha beta load (LoadAlphaBetaRestorative).\\
+
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{LoadRestoration/LoadRestoration}
+  \end{center}
+  \caption{Illustration of the studied system}
+\end{figure}
+
+The line is disconnected at t = 30s.\\
+Two simulations are done :
+\begin{itemize}
+\item the load restoration is complete (UMinPu = 0);
+\item the load restoration is not complete (the voltage goes below UMinPu = 0.95 p.u, which decreases the load active power following an alpha-beta behaviour).
+\end{itemize}
+
+One can notice that when the restoration is complete, the simulation fails, as would a purely static simulation (power flow).
+
+When the restoration is not complete, the active power of the load is below the maximum transferrable power. As a consequence, the simulation succeeds.
+
+\chapter{IEEE14}
+
+The IEEE 14-bus system is a standard test case in the power system community. It represents a simple approximation of the American Electric Power system (in the U.S. Midwest) as it was in the early 1960s. The data were provided by Iraj Dabbagchi of AEP and converted into the IEEE Common Data Format by Rich Christie at the University of Washington in August 1993.
+
+\textbf{Note. The test case is used in a modified way in this example: arbitrary data are added to the test case and synchronous condensers 3, 6 and 8 are considered as classical synchronous machines (their active power can be different from zero).}
+
+% Generic description of the non regression test
+% List of scenarios
+\section{Test case description}
+
+The IEEE 14-bus test case system has 14 buses, 5 generators, 1 shunt, 3 transformers, 16 lines and 11 loads.\\
+There are two voltage levels in the test case: 69 kV and 13.8 kV. The lower part of the system, with generators 1, 2 and 3, corresponds to the 69 kV network, whereas the upper part is the 13.8 kV network.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{Single-line-diagram-of-IEEE-14-bus-system.png}
+  \caption{IEEE 14 bus system diagram}
+\end{figure}
+
+\subsection{Initial Conditions}
+
+The reference angle for the load flow is set at bus n°1. \\
+
+Here are the initial conditions for each generator.
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Generator & P (MW) & Q (Mvar) & U (kV) & $\Theta$ (°) \\
+  \hline
+  1 & 232.39 & -16.55 & 73.14 & 0.00\\
+  2 & 40.00 & 43.56 & 72.11 & -4.98\\
+  3 & 0.00 & 25.07 & 69.69 & -12.73\\
+  6 & 0.00 & 12.73 & 14.77 & -14.22\\
+  8 & 0.00 & 17.62 & 15.04 & -13.36\\
+  \hline
+\end{tabular}
+\end{center}
+
+\subsection{Models}
+
+\subsubsection{Synchronous machines}
+
+All the generators and the synchronous condensers are modeled as GeneratorPV: it means that they can adjust their Q to maintain the voltage equal to a target and their active power is modified by the frequency regulation model through the signal N variable.
+
+\subsubsection{Loads}
+
+Loads are modelled as restorative loads. After an event, the load goes back to its initial PPu/QPu unless the voltage at its terminal is lower than UMinPu or higher than UMaxPu. In this case, the load behaves as a classical Alpha-Beta load.
+
+\subsection{Solver}
+The solver used is a fixed Backward-Euler order 1 solver:
+\begin{itemize}
+\item $Time step$=10 s
+\item $Tolerance$=$10^{-4}$
+\end{itemize}
+
+\subsection{Scenario}
+The scenario simulated is the disconnection of the line between bus 1 and bus 5.
+
+\newpage
+\section{Results}
+
+\textbf{As a remainder, synchronous condensers are considered as normal synchronous machines in the current set of data: their active power can thus vary}. \\
+
+Here are the final values obtained for each generator:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Generator & P (MW) & Q (Mvar) & U (kV) & $\Theta$ (°) \\
+  \hline
+  1 & 234.46 & -36.84 & 73.14 & 0.00\\
+  2 & 41.92 & 74.70 & 72.11 & -4.97\\
+  3 & 2.82 & 28.80 & 69.69 & -12.73\\
+  6 & 0.14 & 21.14 & 14.77 & -14.22\\
+  8 & 0.43 & 19.84 & 15.04 & -13.36\\
+  \hline
+\end{tabular}
+\end{center}
+
+And the final power flows on the lines:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Line & $P_{Or} (MW)$ & $P_{Ex} (MW)$ & $Q_{Or} (Mvar)$ & $Q_{Ex} (Mvar)$ \\
+  \hline
+  Bus1-Bus2 & 156.77 & -152.48 & -20.5 & 27.76 \\
+  Bus1-Bus5 & 75.51 & -72.74 & 3.85 & 2.22 \\
+  Bus2-Bus3 & 73.32 & -71 & 3.58 & 1.59 \\
+  Bus2-Bus4 & 56.17 & -54.5 & -1.5 & 3 \\
+  Bus2-Bus5 & 41.55 & -40.65 & 1.2 & -2.2 \\
+  Bus3-Bus4 & -23.33 & 23.7 & 4.5 & -4.85 \\
+  Bus4-Bus5 & -61.16 & 61.67 & 15.82 & -14.2 \\
+  Bus6-Bus11 & 7.42 & -7.36 & 3.68 & -3.56 \\
+  Bus6-Bus12 & 7.84 & -7.76 & 2.6 & -2.44 \\
+  Bus6-Bus13 & 17.86 & -17.64 & 7.4 & -6.97 \\
+  Bus9-Bus10 & 5.22 & -5.21 & 2.6 & -2.44 \\
+  Bus9-Bus11 & 9.26 & -9.15 & 3.25 & -3 \\
+  Bus10-Bus11 & -3.78 & 3.79 & -1.61 & 1.64 \\
+  Bus12-Bus13 & 1.61 & -1.61 & 0.75 & -0.74 \\
+  Bus13-Bus14 & 5.5 & -5.46 & 1.46 & -1.36 \\
+  \hline
+\end{tabular}
+\end{center}
+
+\end{document}

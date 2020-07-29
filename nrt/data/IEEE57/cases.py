@@ -21,7 +21,7 @@ standardReturnCodeType = "ALLOWED"
 #       IEEE57 - Step on the load connected at node 9        #
 ##############################################################
 
-case_name = "IEEE57_1_StepLoad"
+case_name = "IEEE57 - StepLoad"
 case_description = "IEEE57 - Step on the load connected at node 9"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE57_BasicTestCases", "IEEE57_1_StepLoad", "IEEE57.jobs")
 
@@ -31,7 +31,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 #       IEEE57 - Disconnection of the generator connected to node 12       #
 ############################################################################
 
-case_name = "IEEE57_2_DisconnectGroup"
+case_name = "IEEE57 - DisconnectGroup"
 case_description = "IEEE57 - Disconnection of the generator connected to node 12"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE57_BasicTestCases", "IEEE57_2_DisconnectGroup", "IEEE57.jobs")
 
@@ -41,7 +41,7 @@ test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeT
 #       IEEE57 - Disconnection of the line 6-8                             #
 ############################################################################
 
-case_name = "IEEE57_3_DisconnectLine"
+case_name = "IEEE57 - DisconnectLine"
 case_description = "IEEE57 - Disconnection of the line 6-8"
 job_file = os.path.join(os.path.dirname(__file__), "IEEE57_BasicTestCases", "IEEE57_3_DisconnectLine", "IEEE57.jobs")
 
