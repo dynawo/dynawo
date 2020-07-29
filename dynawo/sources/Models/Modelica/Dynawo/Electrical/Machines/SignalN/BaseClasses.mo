@@ -20,7 +20,6 @@ package BaseClasses
   import Dynawo.Electrical.Machines;
 
   extends Machines.BaseClasses.BaseGeneratorSimplified;
-  extends AdditionalIcons.Machine;
 
     type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
                                 AbsorptionMax "Reactive power is fixed to its absorption limit",
