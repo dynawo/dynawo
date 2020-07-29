@@ -60,6 +60,7 @@ endif()
 
 set(CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel." FORCE)
 set(CMAKE_CXX_FLAGS "@CMAKE_CXX_FLAGS@")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
 
 if(NOT MODEL_NAME OR "${MODEL_NAME}" STREQUAL "")
   message(FATAL_ERROR "Need a model name to compile: please add -DMODEL_NAME=...")
