@@ -16,6 +16,7 @@
 
 #include <string>
 #include <vector>
+#include <boost/unordered_set.hpp>
 
 #include "CRTCriteria.h"
 #include "CRTCriteriaParams.h"
@@ -51,6 +52,11 @@ class Criteria::Impl : public Criteria {
   void addComponentId(const std::string& id);
 
   /**
+   * @copydoc Criteria::addCountry(const std::string& id)
+   */
+  void addCountry(const std::string& id);
+
+  /**
    * @copydoc Criteria::begin() const
    */
   component_id_const_iterator begin() const;
@@ -59,11 +65,25 @@ class Criteria::Impl : public Criteria {
    * @copydoc Criteria::end() const
    */
   component_id_const_iterator end() const;
+
+  /**
+   * @brief Test if this criteria is limited to a specific country
+   * @param country to test
+   * @return @b true if this criteria should be limited to this country
+   */
+  bool containsCountry(const std::string& country) const;
+
+  /**
+   * @copydoc Criteria::hasCountryFilter() const
+   */
+  bool hasCountryFilter() const;
+
   friend class Criteria::BaseCompIdConstIteratorImpl;
 
  protected:
   boost::shared_ptr<CriteriaParams> params_;  ///< parameters of this criteria
   std::vector<std::string> compIds_;  ///< ids of the components
+  boost::unordered_set<std::string> countryIds_;  ///< ids of the countries
 };
 
 /**

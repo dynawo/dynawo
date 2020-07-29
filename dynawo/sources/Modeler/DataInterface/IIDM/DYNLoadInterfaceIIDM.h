@@ -124,11 +124,28 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM<IID
    */
   int getComponentVarIndex(const std::string& varName) const;
 
+  /**
+   * @brief Getter for the bus' country
+   * @return the bus country
+   */
+  inline const std::string& getCountry() const {
+    return country_;
+  }
+
+  /**
+   * @brief Setter for the bus' country
+   * @param country bus country
+   */
+  inline void setCountry(const std::string& country) {
+    country_ = country;
+  }
+
  private:
   IIDM::Load& loadIIDM_;  ///< reference to the iidm load instance
   double loadPUnderV_;  ///< load power value if voltage is under threshold
   double v0_;  ///< initial voltage of the bus where the load is connected
   double vNom_;  ///<  nominal voltage of the bus where the load is connected
+  std::string country_;  ///< country of the load
 };
 }  // namespace DYN
 

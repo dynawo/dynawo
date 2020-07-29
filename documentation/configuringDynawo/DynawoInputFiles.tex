@@ -164,7 +164,8 @@ file example]{../resources/syntaxExample/criteria.crt}
 There are three different kinds of criteria, depending on which type of
 component is targeted.
 
-Each criteria is then associated to an id, a set of parameters and optionally a list of component.
+Each criteria is then associated to an id, a set of parameters and optionally a
+list of component and/or a list of country.
 
 The scope of a criteria (specified in its parameters) can be one of 'DYNAMIC' if
 the criteria should be checked at every time step or 'FINAL' if the criteria
@@ -174,6 +175,11 @@ An empty component list means that all the component corresponding to the specif
 criterion. If some components id are specified then only those components will
 be subject to this criterion. Components from the list should have the same type as the
 specified type (buses, loads or generators).
+
+If some country ids are specified then only the components contained in a
+substation with the same country attribute can be subject to this
+criterion. Components contained in a substation with an empty country attribute
+(and respecting the others conditions) will always be selected.
 
 \subsubsection{bus Criteria}
 

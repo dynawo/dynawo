@@ -98,6 +98,8 @@ TEST(APICRTTest, Criteria) {
   criteria->setParams(criteriap);
   criteria->addComponentId("MyCompId1");
   criteria->addComponentId("MyCompId2");
+  criteria->addCountry("FR");
+  criteria->addCountry("BE");
 
   // test setted attributes
   ASSERT_EQ(criteria->getParams(), criteriap);
@@ -117,10 +119,16 @@ TEST(APICRTTest, Criteria) {
   ASSERT_EQ(*(itCt++), "MyCompId1");
   ASSERT_EQ(*(itCt--), "MyCompId2");
   ASSERT_EQ(*itCt, "MyCompId1");
-  ASSERT_EQ(itCt->size(), 9);
+  ASSERT_EQ(idx, 2);
   Criteria::component_id_const_iterator itCt2 = criteria->end();
   itCt2 = itCt;
   ASSERT_EQ(itCt == itCt2, true);
+
+
+  ASSERT_TRUE(criteria->hasCountryFilter());
+  ASSERT_TRUE(criteria->containsCountry("FR"));
+  ASSERT_TRUE(criteria->containsCountry("BE"));
+  ASSERT_FALSE(criteria->containsCountry("IT"));
 }
 
 TEST(APICRTTest, CriteriaCollection) {

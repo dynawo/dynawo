@@ -31,6 +31,11 @@ Criteria::Impl::addComponentId(const std::string& id) {
   compIds_.push_back(id);
 }
 
+void
+Criteria::Impl::addCountry(const std::string& id) {
+  countryIds_.insert(id);
+}
+
 Criteria::component_id_const_iterator
 Criteria::Impl::begin() const {
   return Criteria::component_id_const_iterator(this, true);
@@ -39,6 +44,16 @@ Criteria::Impl::begin() const {
 Criteria::component_id_const_iterator
 Criteria::Impl::end() const {
   return Criteria::component_id_const_iterator(this, false);
+}
+
+bool
+Criteria::Impl::containsCountry(const std::string& country) const {
+  return countryIds_.find(country) != countryIds_.end();
+}
+
+bool
+Criteria::Impl::hasCountryFilter() const {
+  return !countryIds_.empty();
 }
 
 Criteria::BaseCompIdConstIteratorImpl::BaseCompIdConstIteratorImpl(const Criteria::Impl* iterated, bool begin) :
