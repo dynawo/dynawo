@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<iidm:network xmlns:iidm="http://www.itesla_project.eu/schema/iidm/1_0" id="ieee57bus" caseDate="2018-02-27T13:26:14.115+01:00" forecastDistance="0" sourceFormat="CIM1">
+    <iidm:substation id="_BEAV___6_SS" name="BEAV   6_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BEAV___6_VL" name="BEAV   6_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BEAV___6_TN" v="67.62" angle="-8.67"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="_GEN____6_SM" name="GEN    6" energySource="OTHER" minP="-9999.0" maxP="9999.0" voltageRegulatorOn="true" targetP="0.0" targetV="67.62" targetQ="0.8" bus="_BEAV___6_TN" connectableBus="_BEAV___6_TN" p="-0.0" q="-0.87">
+                <iidm:minMaxReactiveLimits minQ="-8.0" maxQ="25.0"/>
+            </iidm:generator>
+            <iidm:load id="_LOAD____6_EC" name="BEAV   6" loadType="UNDEFINED" p0="75.0" q0="2.0" bus="_BEAV___6_TN" connectableBus="_BEAV___6_TN" p="75.0" q="2.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___10_SS" name="BUS   10_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___51_VL" name="BUS   51_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___51_TN" v="18.950207" angle="-12.53628"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___51_EC" name="BUS   51" loadType="UNDEFINED" p0="18.0" q0="5.3" bus="_BUS___51_TN" connectableBus="_BUS___51_TN" p="18.0" q="5.3"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___10_VL" name="BUS   10_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___10_TN" v="68.05" angle="-11.45"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___10_EC" name="BUS   10" loadType="UNDEFINED" p0="5.0" q0="2.0" bus="_BUS___10_TN" connectableBus="_BUS___10_TN" p="5.0" q="2.0"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS___10-BUS___51-1_PT" name="BUS   10-BUS   51-1" r="0.0" x="0.23068786" g="0.0" b="0.0" ratedU1="69.0" ratedU2="18.0" bus1="_BUS___10_TN" connectableBus1="_BUS___10_TN" voltageLevelId1="_BUS___10_VL" bus2="_BUS___51_TN" connectableBus2="_BUS___51_TN" voltageLevelId2="_BUS___51_VL" p1="29.591225" q1="12.16224" p2="-29.591225" q2="-11.514569">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="3" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0928961"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0752689"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0489510"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0238907"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9803921"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615384"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433962"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74"/>
+            <iidm:currentLimits2 permanentLimit="3207.5"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_BUS___13_SS" name="BUS   13_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___49_VL" name="BUS   49_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___49_TN" v="18.65" angle="-12.94"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___49_EC" name="BUS   49" loadType="UNDEFINED" p0="18.0" q0="8.5" bus="_BUS___49_TN" connectableBus="_BUS___49_TN" p="18.0" q="8.5"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___13_VL" name="BUS   13_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___13_TN" v="67.54" angle="-9.80"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___13_EC" name="BUS   13" loadType="UNDEFINED" p0="18.0" q0="2.3" bus="_BUS___13_TN" connectableBus="_BUS___13_TN" p="18.0" q="2.3"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS___13-BUS___49-1_PT" name="BUS   13-BUS   49-1" r="0.0" x="0.6188399" g="0.0" b="0.0" ratedU1="69.0" ratedU2="18.0" bus1="_BUS___13_TN" connectableBus1="_BUS___13_TN" voltageLevelId1="_BUS___13_VL" bus2="_BUS___49_TN" connectableBus2="_BUS___49_TN" voltageLevelId2="_BUS___49_VL" p1="32.99264" q1="36.276997" p2="-32.99264" q2="-32.47759">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="3" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.25"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1805466"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1173183"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0554089"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9523809"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8695652"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.8333333"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74"/>
+            <iidm:currentLimits2 permanentLimit="3207.5"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_BUS___14_SS" name="BUS   14_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___46_VL" name="BUS   46_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___46_TN" v="19.08" angle="-11.12"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___14_VL" name="BUS   14_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___14_TN" v="66.94" angle="-9.35"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___14_EC" name="BUS   14" loadType="UNDEFINED" p0="10.5" q0="5.3" bus="_BUS___14_TN" connectableBus="_BUS___14_TN" p="10.5" q="5.3"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS___14-BUS___46-1_PT" name="BUS   14-BUS   46-1" r="0.0" x="0.23814033" g="0.0" b="0.0" ratedU1="69.0" ratedU2="18.0" bus1="_BUS___14_TN" connectableBus1="_BUS___14_TN" voltageLevelId1="_BUS___14_VL" bus2="_BUS___46_TN" connectableBus2="_BUS___46_TN" voltageLevelId2="_BUS___46_VL" p1="47.922092" q1="27.108624" p2="-47.922092" q2="-25.191057">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="1" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0869565"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0638298"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0416667"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0204082"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74"/>
+            <iidm:currentLimits2 permanentLimit="3207.5"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_BUS___15_SS" name="BUS   15_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___45_VL" name="BUS   45_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___45_TN" v="18.65" angle="-9.27"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___15_VL" name="BUS   15_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___15_TN" v="68.17" angle="-7.19"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___15_EC" name="BUS   15" loadType="UNDEFINED" p0="22.0" q0="5.0" bus="_BUS___15_TN" connectableBus="_BUS___15_TN" p="22.0" q="5.0"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS___15-BUS___45-1_PT" name="BUS   15-BUS   45-1" r="0.0" x="0.33760783" g="0.0" b="0.0" ratedU1="69.0" ratedU2="18.0" bus1="_BUS___15_TN" connectableBus1="_BUS___15_TN" voltageLevelId1="_BUS___15_VL" bus2="_BUS___45_TN" connectableBus2="_BUS___45_TN" voltageLevelId2="_BUS___45_VL" p1="36.650166" q1="-2.406516" p2="-36.650166" q2="3.732939">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="4" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0889292"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0676156"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0471204"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0230180"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74"/>
+            <iidm:currentLimits2 permanentLimit="3207.5"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_BUS___16_SS" name="BUS   16_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___16_VL" name="BUS   16_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___16_TN" v="69.92" angle="-8.86"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___16_EC" name="BUS   16" loadType="UNDEFINED" p0="43.0" q0="3.0" bus="_BUS___16_TN" connectableBus="_BUS___16_TN" p="43.0" q="3.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___17_SS" name="BUS   17_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___17_VL" name="BUS   17_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___17_TN" v="70.20" angle="-5.40"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___17_EC" name="BUS   17" loadType="UNDEFINED" p0="42.0" q0="8.0" bus="_BUS___17_TN" connectableBus="_BUS___17_TN" p="42.0" q="8.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___19_SS" name="BUS   19_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___19_VL" name="BUS   19_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___19_TN" v="13.39" angle="-13.23"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___19_EC" name="BUS   19" loadType="UNDEFINED" p0="3.3" q0="0.6" bus="_BUS___19_TN" connectableBus="_BUS___19_TN" p="3.3" q="0.6"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___21_SS" name="BUS   21_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___21_VL" name="BUS   21_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___21_TN" v="18.15" angle="-12.93"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___20_VL" name="BUS   20_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___20_TN" v="13.30" angle="-13.44"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___20_EC" name="BUS   20" loadType="UNDEFINED" p0="2.3" q0="1.0" bus="_BUS___20_TN" connectableBus="_BUS___20_TN" p="2.3" q="1.0"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS___21-BUS___20-1_PT" name="BUS   21-BUS   20-1" r="0.0" x="1.4791485" g="0.0" b="0.0" ratedU1="18.0" ratedU2="13.8" bus1="_BUS___21_TN" connectableBus1="_BUS___21_TN" voltageLevelId1="_BUS___21_VL" bus2="_BUS___20_TN" connectableBus2="_BUS___20_TN" voltageLevelId2="_BUS___20_VL" p1="1.141439" q1="0.543942" p2="-1.141439" q2="-0.530733">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="8" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0869565"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0638298"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0416667"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0204082"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9789525"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9587727"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9416195"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9250693"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="3207.5"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_BUS___22_SS" name="BUS   22_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___22_VL" name="BUS   22_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___22_TN" v="18.18" angle="-12.87"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___23_SS" name="BUS   23_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___23_VL" name="BUS   23_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___23_TN" v="18.15" angle="-12.94"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___23_EC" name="BUS   23" loadType="UNDEFINED" p0="6.3" q0="2.1" bus="_BUS___23_TN" connectableBus="_BUS___23_TN" p="6.3" q="2.1"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___24_SS" name="BUS   24_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___26_VL" name="BUS   26_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___26_TN" v="13.23" angle="-12.98"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___25_VL" name="BUS   25_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___25_TN" v="13.56" angle="-18.17"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___25_EC" name="BUS   25" loadType="UNDEFINED" p0="6.3" q0="3.2" bus="_BUS___25_TN" connectableBus="_BUS___25_TN" p="6.3" q="3.2"/>
+            <iidm:shunt id="_BUS___25_SC" name="BUS   25" bPerSection="0.0309809" maximumSectionCount="1" currentSectionCount="1" bus="_BUS___25_TN" connectableBus="_BUS___25_TN" q="-5.6961102"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___24_VL" name="BUS   24_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___24_TN" v="17.99" angle="-13.29"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS___24-BUS___26-1_PT" name="BUS   24-BUS   26-1" r="0.0" x="0.090078115" g="0.0" b="0.0" ratedU1="18.0" ratedU2="13.8" bus1="_BUS___24_TN" connectableBus1="_BUS___24_TN" voltageLevelId1="_BUS___24_VL" bus2="_BUS___26_TN" connectableBus2="_BUS___26_TN" voltageLevelId2="_BUS___26_VL" p1="-10.818672" q1="-1.977572" p2="10.818672" q2="2.039413">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="8" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0869565"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0638298"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0416667"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0204082"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9789525"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9587727"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9416195"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9250693"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="3207.5"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="_BUS___24-BUS___25-1_PT" name="BUS   24-BUS   25-1" r="0.0" x="2.2510006" g="0.0" b="0.0" ratedU1="18.0" ratedU2="13.8" bus1="_BUS___24_TN" connectableBus1="_BUS___24_TN" voltageLevelId1="_BUS___24_VL" bus2="_BUS___25_TN" connectableBus2="_BUS___25_TN" voltageLevelId2="_BUS___25_VL" p1="7.10957" q1="1.806203" p2="-7.10957" q2="-1.170587">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="6" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0869565"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0638298"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0416667"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0204082"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="3207.5"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="_BUS___24-BUS___25-2_PT" name="BUS   24-BUS   25-2" r="0.0" x="2.3424118" g="0.0" b="0.0" ratedU1="18.0" ratedU2="13.8" bus1="_BUS___24_TN" connectableBus1="_BUS___24_TN" voltageLevelId1="_BUS___24_VL" bus2="_BUS___25_TN" connectableBus2="_BUS___25_TN" voltageLevelId2="_BUS___25_VL" p1="6.832124" q1="1.735717" p2="-6.832124" q2="-1.124906">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="6" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0869565"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0638298"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0416667"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0204082"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="3207.5"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_BUS___27_SS" name="BUS   27_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___27_VL" name="BUS   27_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___27_TN" v="13.55" angle="-11.51"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___27_EC" name="BUS   27" loadType="UNDEFINED" p0="9.3" q0="0.5" bus="_BUS___27_TN" connectableBus="_BUS___27_TN" p="9.3" q="0.5"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___28_SS" name="BUS   28_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___28_VL" name="BUS   28_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___28_TN" v="13.75" angle="-10.48"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___28_EC" name="BUS   28" loadType="UNDEFINED" p0="4.6" q0="2.3" bus="_BUS___28_TN" connectableBus="_BUS___28_TN" p="4.6" q="2.3"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___30_SS" name="BUS   30_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___30_VL" name="BUS   30_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___30_TN" v="13.28" angle="-18.72"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___30_EC" name="BUS   30" loadType="UNDEFINED" p0="3.6" q0="1.8" bus="_BUS___30_TN" connectableBus="_BUS___30_TN" p="3.6" q="1.8"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___31_SS" name="BUS   31_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___31_VL" name="BUS   31_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___31_TN" v="12.92" angle="-19.38"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___31_EC" name="BUS   31" loadType="UNDEFINED" p0="5.8" q0="2.9" bus="_BUS___31_TN" connectableBus="_BUS___31_TN" p="5.8" q="2.9"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___33_SS" name="BUS   33_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___33_VL" name="BUS   33_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___33_TN" v="13.08" angle="-18.55"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___33_EC" name="BUS   33" loadType="UNDEFINED" p0="3.8" q0="1.9" bus="_BUS___33_TN" connectableBus="_BUS___33_TN" p="3.8" q="1.9"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___34_SS" name="BUS   34_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___34_VL" name="BUS   34_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___34_TN" v="17.27306" angle="-14.156829"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___32_VL" name="BUS   32_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___32_TN" v="13.11" angle="-18.51"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___32_EC" name="BUS   32" loadType="UNDEFINED" p0="1.6" q0="0.8" bus="_BUS___32_TN" connectableBus="_BUS___32_TN" p="1.6" q="0.8"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS___34-BUS___32-1_PT" name="BUS   34-BUS   32-1" r="0.0" x="1.814893" g="0.0" b="0.0" ratedU1="18.0" ratedU2="13.8" bus1="_BUS___34_TN" connectableBus1="_BUS___34_TN" voltageLevelId1="_BUS___34_VL" bus2="_BUS___32_TN" connectableBus2="_BUS___32_TN" voltageLevelId2="_BUS___32_VL" p1="7.376833" q1="3.60778" p2="-7.376833" q2="-2.937542">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="5" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0884353"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0666666"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0457516"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0256410"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="3207.5"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_BUS___35_SS" name="BUS   35_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___35_VL" name="BUS   35_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___35_TN" v="17.39" angle="-13.91"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___35_EC" name="BUS   35" loadType="UNDEFINED" p0="6.0" q0="3.0" bus="_BUS___35_TN" connectableBus="_BUS___35_TN" p="6.0" q="3.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___36_SS" name="BUS   36_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___36_VL" name="BUS   36_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___36_TN" v="17.56" angle="-13.63"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___37_SS" name="BUS   37_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___37_VL" name="BUS   37_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___37_TN" v="17.73" angle="-13.45"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___38_SS" name="BUS   38_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___38_VL" name="BUS   38_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___38_TN" v="18.23" angle="-12.73"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___38_EC" name="BUS   38" loadType="UNDEFINED" p0="14.0" q0="7.0" bus="_BUS___38_TN" connectableBus="_BUS___38_TN" p="14.0" q="7.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___39_SS" name="BUS   39_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___57_VL" name="BUS   57_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___57_TN" v="13.285819" angle="-16.629436"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___57_EC" name="BUS   57" loadType="UNDEFINED" p0="6.7" q0="2.0" bus="_BUS___57_TN" connectableBus="_BUS___57_TN" p="6.7" q="2.0"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___39_VL" name="BUS   39_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___39_TN" v="17.69" angle="-13.49"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS___39-BUS___57-1_PT" name="BUS   39-BUS   57-1" r="0.0" x="2.580462" g="0.0" b="0.0" ratedU1="18.0" ratedU2="13.8" bus1="_BUS___39_TN" connectableBus1="_BUS___39_TN" voltageLevelId1="_BUS___39_VL" bus2="_BUS___57_TN" connectableBus2="_BUS___57_TN" voltageLevelId2="_BUS___57_VL" p1="3.898335" q1="3.072711" p2="-3.898335" q2="-2.740732">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="5" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0869565"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0638298"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0416667"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0204082"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="3207.5"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_BUS___40_SS" name="BUS   40_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___56_VL" name="BUS   56_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___56_TN" v="13.328656" angle="-16.101166"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___56_EC" name="BUS   56" loadType="UNDEFINED" p0="7.6" q0="2.2" bus="_BUS___56_TN" connectableBus="_BUS___56_TN" p="7.6" q="2.2"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___40_VL" name="BUS   40_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___40_TN" v="17.51" angle="-13.66"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS___40-BUS___56-1_PT" name="BUS   40-BUS   56-1" r="0.0" x="2.2757578" g="0.0" b="0.0" ratedU1="18.0" ratedU2="13.8" bus1="_BUS___40_TN" connectableBus1="_BUS___40_TN" voltageLevelId1="_BUS___40_VL" bus2="_BUS___56_TN" connectableBus2="_BUS___56_TN" voltageLevelId2="_BUS___56_VL" p1="3.484551" q1="4.107333" p2="-3.484551" q2="-3.769747">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="4" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0877447"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0653409"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0438413"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0214505"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="3207.5"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_BUS___42_SS" name="BUS   42_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___42_VL" name="BUS   42_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___42_TN" v="13.34" angle="-15.53"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___42_EC" name="BUS   42" loadType="UNDEFINED" p0="7.1" q0="4.4" bus="_BUS___42_TN" connectableBus="_BUS___42_TN" p="7.1" q="4.4"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___44_SS" name="BUS   44_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___44_VL" name="BUS   44_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___44_TN" v="18.30" angle="-11.86"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___44_EC" name="BUS   44" loadType="UNDEFINED" p0="12.0" q0="1.8" bus="_BUS___44_TN" connectableBus="_BUS___44_TN" p="12.0" q="1.8"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___47_SS" name="BUS   47_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___47_VL" name="BUS   47_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___47_TN" v="18.60" angle="-12.51"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___47_EC" name="BUS   47" loadType="UNDEFINED" p0="29.7" q0="11.6" bus="_BUS___47_TN" connectableBus="_BUS___47_TN" p="29.7" q="11.6"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___48_SS" name="BUS   48_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___48_VL" name="BUS   48_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___48_TN" v="18.49" angle="-12.61"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___50_SS" name="BUS   50_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___50_VL" name="BUS   50_VL" nominalV="18.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___50_TN" v="18.42" angle="-13.41"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___50_EC" name="BUS   50" loadType="UNDEFINED" p0="21.0" q0="10.5" bus="_BUS___50_TN" connectableBus="_BUS___50_TN" p="21.0" q="10.5"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___52_SS" name="BUS   52_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___52_VL" name="BUS   52_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___52_TN" v="13.53" angle="-11.50"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___52_EC" name="BUS   52" loadType="UNDEFINED" p0="4.9" q0="2.2" bus="_BUS___52_TN" connectableBus="_BUS___52_TN" p="4.9" q="2.2"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___53_SS" name="BUS   53_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___53_VL" name="BUS   53_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___53_TN" v="13.4" angle="-12.25"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___53_EC" name="BUS   53" loadType="UNDEFINED" p0="20.0" q0="10.0" bus="_BUS___53_TN" connectableBus="_BUS___53_TN" p="20.0" q="10.0"/>
+            <iidm:shunt id="_BUS___53_SC" name="BUS   53" bPerSection="0.0330813" maximumSectionCount="1" currentSectionCount="1" bus="_BUS___53_TN" connectableBus="_BUS___53_TN" q="-5.9945273"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS___54_SS" name="BUS   54_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS___54_VL" name="BUS   54_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___54_TN" v="13.75" angle="-11.71"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___54_EC" name="BUS   54" loadType="UNDEFINED" p0="4.1" q0="1.4" bus="_BUS___54_TN" connectableBus="_BUS___54_TN" p="4.1" q="1.4"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS____5_SS" name="BUS    5_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS____5_VL" name="BUS    5_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS____5_TN" v="67.38" angle="-8.55"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD____5_EC" name="BUS    5" loadType="UNDEFINED" p0="13.0" q0="4.0" bus="_BUS____5_TN" connectableBus="_BUS____5_TN" p="13.0" q="4.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_BUS____7_SS" name="BUS    7_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_BUS____7_VL" name="BUS    7_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS____7_TN" v="67.91" angle="-7.60"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_BUS___29_VL" name="BUS   29_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_BUS___29_TN" v="13.94" angle="-9.77"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___29_EC" name="BUS   29" loadType="UNDEFINED" p0="17.0" q0="2.6" bus="_BUS___29_TN" connectableBus="_BUS___29_TN" p="17.0" q="2.6"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_BUS____7-BUS___29-1_PT" name="BUS    7-BUS   29-1" r="0.0" x="0.12340521" g="0.0" b="0.0" ratedU1="69.0" ratedU2="13.8" bus1="_BUS____7_TN" connectableBus1="_BUS____7_TN" voltageLevelId1="_BUS____7_VL" bus2="_BUS___29_TN" connectableBus2="_BUS___29_TN" voltageLevelId2="_BUS___29_VL" p1="60.74" q1="14.000532" p2="-60.74" q2="-11.602774">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="4" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0842067"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0585744"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0341261"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0167768"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_CLIN___8_SS" name="CLIN   8_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_CLIN___8_VL" name="CLIN   8_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_CLIN___8_TN" v="69.34" angle="-4.48"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="_GEN____8_SM" name="GEN    8" energySource="OTHER" minP="-9999.0" maxP="9999.0" voltageRegulatorOn="true" targetP="450.0" targetV="69.345" targetQ="62.1" bus="_CLIN___8_TN" connectableBus="_CLIN___8_TN" p="-450.0" q="-62.1">
+                <iidm:minMaxReactiveLimits minQ="-140.0" maxQ="200.0"/>
+            </iidm:generator>
+            <iidm:load id="_LOAD____8_EC" name="CLIN   8" loadType="UNDEFINED" p0="150.0" q0="22.0" bus="_CLIN___8_TN" connectableBus="_CLIN___8_TN" p="150.0" q="22.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_GLEN__12_SS" name="GLEN  12_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_GLEN__12_VL" name="GLEN  12_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_GLEN__12_TN" v="70.04" angle="-10.47"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="_GEN___12_SM" name="GEN   12" energySource="OTHER" minP="-9999.0" maxP="9999.0" voltageRegulatorOn="true" targetP="310.0" targetV="70.035" targetQ="128.5" bus="_GLEN__12_TN" connectableBus="_GLEN__12_TN" p="-310.0" q="-128.63">
+                <iidm:minMaxReactiveLimits minQ="-150.0" maxQ="155.0"/>
+            </iidm:generator>
+            <iidm:load id="_LOAD___12_EC" name="GLEN  12" loadType="UNDEFINED" p0="377.0" q0="24.0" bus="_GLEN__12_TN" connectableBus="_GLEN__12_TN" p="377.0" q="24.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_KANA___1_SS" name="KANA   1_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_KANA___1_VL" name="KANA   1_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_KANA___1_TN" v="71.76" angle="0.0"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="_GEN____1_SM" name="GEN    1" energySource="OTHER" minP="-9999.0" maxP="9999.0" voltageRegulatorOn="true" targetP="477.864" targetV="71.76" targetQ="129.656" bus="_KANA___1_TN" connectableBus="_KANA___1_TN" p="-478.6601" q="-128.85">
+                <iidm:minMaxReactiveLimits minQ="-9999.0" maxQ="9999.0"/>
+            </iidm:generator>
+            <iidm:load id="_LOAD____1_EC" name="KANA   1" loadType="UNDEFINED" p0="55.0" q0="17.0" bus="_KANA___1_TN" connectableBus="_KANA___1_TN" p="55.0" q="17.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_LOGA___3_SS" name="LOGA   3_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_LOGA___3_VL" name="LOGA   3_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_LOGA___3_TN" v="67.96" angle="-5.99"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="_GEN____3_SM" name="GEN    3" energySource="OTHER" minP="-9999.0" maxP="9999.0" voltageRegulatorOn="true" targetP="40.0" targetV="67.965" targetQ="-1.0" bus="_LOGA___3_TN" connectableBus="_LOGA___3_TN" p="-40.0" q="0.91">
+                <iidm:minMaxReactiveLimits minQ="-10.0" maxQ="60.0"/>
+            </iidm:generator>
+            <iidm:load id="_LOAD____3_EC" name="LOGA   3" loadType="UNDEFINED" p0="41.0" q0="21.0" bus="_LOGA___3_TN" connectableBus="_LOGA___3_TN" p="41.0" q="21.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:substation id="_SALT___9_SS" name="SALT   9_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_SALT___9_VL" name="SALT   9_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_SALT___9_TN" v="67.62" angle="-9.58"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="_GEN____9_SM" name="GEN    9" energySource="OTHER" minP="-9999.0" maxP="9999.0" voltageRegulatorOn="true" targetP="0.0" targetV="67.62" targetQ="2.2" bus="_SALT___9_TN" connectableBus="_SALT___9_TN" p="-0.0" q="-2.29">
+                <iidm:minMaxReactiveLimits minQ="-3.0" maxQ="9.0"/>
+            </iidm:generator>
+            <iidm:load id="_LOAD____9_EC" name="SALT   9" loadType="UNDEFINED" p0="121.0" q0="26.0" bus="_SALT___9_TN" connectableBus="_SALT___9_TN" p="121.0" q="26.0"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_SALT__55_VL" name="SALT  55_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_SALT__55_TN" v="14.22" angle="-10.80"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___55_EC" name="SALT  55" loadType="UNDEFINED" p0="6.8" q0="3.4" bus="_SALT__55_TN" connectableBus="_SALT__55_TN" p="6.8" q="3.4"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_SALT___9-SALT__55-1_PT" name="SALT   9-SALT  55-1" r="0.0" x="0.22948042" g="0.0" b="0.0" ratedU1="69.0" ratedU2="13.8" bus1="_SALT___9_TN" connectableBus1="_SALT___9_TN" voltageLevelId1="_SALT___9_VL" bus2="_SALT__55_TN" connectableBus2="_SALT__55_TN" voltageLevelId2="_SALT__55_VL" p1="18.563889" q1="9.787708" p2="-18.563889" q2="-9.299443">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="3" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0869565"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0638298"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0416667"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0204082"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_SPRI___4_SS" name="SPRI   4_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_SPRI___4_VL" name="SPRI   4_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_SPRI___4_TN" v="67.67" angle="-7.34"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_SPRI__18_VL" name="SPRI  18_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_SPRI__18_TN" v="13.81" angle="-11.73"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___18_EC" name="SPRI  18" loadType="UNDEFINED" p0="27.2" q0="9.8" bus="_SPRI__18_TN" connectableBus="_SPRI__18_TN" p="27.2" q="9.8"/>
+            <iidm:shunt id="_SPRI__18_SC" name="SPRI  18" bPerSection="0.05251" maximumSectionCount="1" currentSectionCount="1" bus="_SPRI__18_TN" connectableBus="_SPRI__18_TN" q="-9.997862"/>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_SPRI___4-SPRI__18-1_PT" name="SPRI   4-SPRI  18-1" r="0.0" x="1.0569401" g="0.0" b="0.0" ratedU1="69.0" ratedU2="13.8" bus1="_SPRI___4_TN" connectableBus1="_SPRI___4_TN" voltageLevelId1="_SPRI___4_VL" bus2="_SPRI__18_TN" connectableBus2="_SPRI__18_TN" voltageLevelId2="_SPRI__18_VL" p1="13.947786" q1="2.587131" p2="-13.947786" q2="-1.494797">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="5" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0899182"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0695187"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0498288"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0309278"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9803921"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615384"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433962"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="_SPRI___4-SPRI__18-2_PT" name="SPRI   4-SPRI  18-2" r="0.0" x="0.81889206" g="0.0" b="0.0" ratedU1="69.0" ratedU2="13.8" bus1="_SPRI___4_TN" connectableBus1="_SPRI___4_TN" voltageLevelId1="_SPRI___4_VL" bus2="_SPRI__18_TN" connectableBus2="_SPRI__18_TN" voltageLevelId2="_SPRI__18_VL" p1="17.818645" q1="0.903599" p2="-17.818645" q2="0.462883">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="5" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0875475"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0649627"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0432966"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0224948"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9803921"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615384"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433962"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_TAZE__11_SS" name="TAZE  11_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_TAZE__43_VL" name="TAZE  43_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_TAZE__43_TN" v="13.93" angle="-11.35"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___43_EC" name="TAZE  43" loadType="UNDEFINED" p0="2.0" q0="1.0" bus="_TAZE__43_TN" connectableBus="_TAZE__43_TN" p="2.0" q="1.0"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_TAZE__41_VL" name="TAZE  41_VL" nominalV="13.8" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_TAZE__41_TN" v="13.75" angle="-14.08"/>
+            </iidm:busBreakerTopology>
+            <iidm:load id="_LOAD___41_EC" name="TAZE  41" loadType="UNDEFINED" p0="6.3" q0="3.0" bus="_TAZE__41_TN" connectableBus="_TAZE__41_TN" p="6.3" q="3.0"/>
+        </iidm:voltageLevel>
+        <iidm:voltageLevel id="_TAZE__11_VL" name="TAZE  11_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_TAZE__11_TN" v="67.20" angle="-10.19"/>
+            </iidm:busBreakerTopology>
+        </iidm:voltageLevel>
+        <iidm:twoWindingsTransformer id="_TAZE__11-TAZE__43-1_PT" name="TAZE  11-TAZE  43-1" r="0.0" x="0.29137322" g="0.0" b="0.0" ratedU1="69.0" ratedU2="13.8" bus1="_TAZE__11_TN" connectableBus1="_TAZE__11_TN" voltageLevelId1="_TAZE__11_VL" bus2="_TAZE__43_TN" connectableBus2="_TAZE__43_TN" voltageLevelId2="_TAZE__43_VL" p1="13.566975" q1="5.010226" p2="-13.566975" q2="-4.699233">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="4" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0877447"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0653409"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0438413"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0214506"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+        <iidm:twoWindingsTransformer id="_TAZE__11-TAZE__41-1_PT" name="TAZE  11-TAZE  41-1" r="0.0" x="1.4263961" g="0.0" b="0.0" ratedU1="69.0" ratedU2="13.8" bus1="_TAZE__11_TN" connectableBus1="_TAZE__11_TN" voltageLevelId1="_TAZE__11_VL" bus2="_TAZE__41_TN" connectableBus2="_TAZE__41_TN" voltageLevelId2="_TAZE__41_VL" p1="9.137424" q1="3.202926" p2="-9.137424" q2="-2.520541">
+            <iidm:ratioTapChanger lowTapPosition="1" tapPosition="4" loadTapChangingCapabilities="false">
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.1111112"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0899182"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0676156"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0471204"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0230194"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="1.0"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.98039216"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9615385"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9433963"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9259259"/>
+                <iidm:step r="0.0" x="0.0" g="0.0" b="0.0" rho="0.9090909"/>
+            </iidm:ratioTapChanger>
+            <iidm:currentLimits1 permanentLimit="836.74"/>
+            <iidm:currentLimits2 permanentLimit="4183.7"/>
+        </iidm:twoWindingsTransformer>
+    </iidm:substation>
+    <iidm:substation id="_TURN___2_SS" name="TURN   2_SS" country="AF" geographicalTags="_SGR_01">
+        <iidm:voltageLevel id="_TURN___2_VL" name="TURN   2_VL" nominalV="69.0" topologyKind="BUS_BREAKER">
+            <iidm:busBreakerTopology>
+                <iidm:bus id="_TURN___2_TN" v="69.69" angle="-1.19"/>
+            </iidm:busBreakerTopology>
+            <iidm:generator id="_GEN____2_SM" name="GEN    2" energySource="OTHER" minP="-9999.0" maxP="9999.0" voltageRegulatorOn="true" targetP="0.0" targetV="69.69" targetQ="-0.8" bus="_TURN___2_TN" connectableBus="_TURN___2_TN" p="-0.0" q="0.75">
+                <iidm:minMaxReactiveLimits minQ="-17.0" maxQ="50.0"/>
+            </iidm:generator>
+            <iidm:load id="_LOAD____2_EC" name="TURN   2" loadType="UNDEFINED" p0="3.0" q0="88.0" bus="_TURN___2_TN" connectableBus="_TURN___2_TN" p="3.0" q="88.0"/>
+        </iidm:voltageLevel>
+    </iidm:substation>
+    <iidm:line id="_BEAV___6-BUS____7-1_AC" name="BEAV   6-BUS    7-1" r="0.9522" x="4.85622" g1="0.0" b1="2.89855E-4" g2="0.0" b2="2.89855E-4" bus1="_BEAV___6_TN" connectableBus1="_BEAV___6_TN" voltageLevelId1="_BEAV___6_VL" bus2="_BUS____7_TN" connectableBus2="_BUS____7_TN" voltageLevelId2="_BUS____7_VL" p1="-17.510767" q1="-1.304565" p2="17.574621" q2="-1.030566">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_BEAV___6-CLIN___8-1_AC" name="BEAV   6-CLIN   8-1" r="1.61398" x="8.23653" g1="0.0" b1="4.93594E-4" g2="0.0" b2="4.93594E-4" bus1="_BEAV___6_TN" connectableBus1="_BEAV___6_TN" voltageLevelId1="_BEAV___6_VL" bus2="_CLIN___8_TN" connectableBus2="_CLIN___8_TN" voltageLevelId2="_CLIN___8_VL" p1="-42.51831" q1="-6.55972" p2="43.162964" q2="5.219031">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_BUS___10-GLEN__12-1_AC" name="BUS   10-GLEN  12-1" r="1.3188" x="6.00838" g1="0.0" b1="3.444655E-4" g2="0.0" b2="3.444655E-4" bus1="_BUS___10_TN" connectableBus1="_BUS___10_TN" voltageLevelId1="_BUS___10_VL" bus2="_GLEN__12_TN" connectableBus2="_GLEN__12_TN" voltageLevelId2="_GLEN__12_VL" p1="-17.577902" q1="-19.891415" p2="17.761116" q2="17.440506">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_BUS___13-BUS___14-1_AC" name="BUS   13-BUS   14-1" r="0.628452" x="2.06627" g1="0.0" b1="1.15522E-4" g2="0.0" b2="1.15522E-4" bus1="_BUS___13_TN" connectableBus1="_BUS___13_TN" voltageLevelId1="_BUS___13_VL" bus2="_BUS___14_TN" connectableBus2="_BUS___14_TN" voltageLevelId2="_BUS___14_VL" p1="-10.550362" q1="21.623222" p2="10.633345" q2="-22.394638">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_BUS___13-BUS___15-1_AC" name="BUS   13-BUS   15-1" r="1.28071" x="4.13731" g1="0.0" b1="2.41546E-4" g2="0.0" b2="2.41546E-4" bus1="_BUS___13_TN" connectableBus1="_BUS___13_TN" voltageLevelId1="_BUS___13_VL" bus2="_BUS___15_TN" connectableBus2="_BUS___15_TN" voltageLevelId2="_BUS___15_VL" p1="-49.116966" q1="4.273756" p2="49.80286" q2="-4.28226">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_BUS___14-BUS___15-1_AC" name="BUS   14-BUS   15-1" r="0.814131" x="2.60427" g1="0.0" b1="1.554295E-4" g2="0.0" b2="1.554295E-4" bus1="_BUS___14_TN" connectableBus1="_BUS___14_TN" voltageLevelId1="_BUS___14_VL" bus2="_BUS___15_TN" connectableBus2="_BUS___15_TN" voltageLevelId2="_BUS___15_VL" p1="-69.055435" q1="-10.013984" p2="69.93762" q2="11.416758">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_BUS___19-BUS___20-1_AC" name="BUS   19-BUS   20-1" r="0.538945" x="0.82651" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___19_TN" connectableBus1="_BUS___19_TN" voltageLevelId1="_BUS___19_VL" bus2="_BUS___20_TN" connectableBus2="_BUS___20_TN" voltageLevelId2="_BUS___20_VL" p1="1.163307" q1="0.476546" p2="-1.158561" q2="-0.469267">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___21-BUS___22-1_AC" name="BUS   21-BUS   22-1" r="0.238464" x="0.37908" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___21_TN" connectableBus1="_BUS___21_TN" voltageLevelId1="_BUS___21_VL" bus2="_BUS___22_TN" connectableBus2="_BUS___22_TN" voltageLevelId2="_BUS___22_VL" p1="-1.141439" q1="-0.543942" p2="1.142596" q2="0.545782">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___22-BUS___23-1_AC" name="BUS   22-BUS   23-1" r="0.032076" x="0.049248" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___22_TN" connectableBus1="_BUS___22_TN" voltageLevelId1="_BUS___22_VL" bus2="_BUS___23_TN" connectableBus2="_BUS___23_TN" voltageLevelId2="_BUS___23_VL" p1="9.45084" q1="2.859799" p2="-9.441374" q2="-2.845266">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___22-BUS___38-1_AC" name="BUS   22-BUS   38-1" r="0.062208" x="0.09558" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___22_TN" connectableBus1="_BUS___22_TN" voltageLevelId1="_BUS___22_VL" bus2="_BUS___38_TN" connectableBus2="_BUS___38_TN" voltageLevelId2="_BUS___38_VL" p1="-10.593436" q1="-3.405581" p2="10.61675" q2="3.441402">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___23-BUS___24-1_AC" name="BUS   23-BUS   24-1" r="0.53784" x="0.82944" g1="0.0" b1="0.001296295" g2="0.0" b2="0.001296295" bus1="_BUS___23_TN" connectableBus1="_BUS___23_TN" voltageLevelId1="_BUS___23_VL" bus2="_BUS___24_TN" connectableBus2="_BUS___24_TN" voltageLevelId2="_BUS___24_VL" p1="3.141374" q1="0.745266" p2="-3.123022" q2="-1.564349">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___25-BUS___30-1_AC" name="BUS   25-BUS   30-1" r="0.257094" x="0.384689" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___25_TN" connectableBus1="_BUS___25_TN" voltageLevelId1="_BUS___25_VL" bus2="_BUS___30_TN" connectableBus2="_BUS___30_TN" voltageLevelId2="_BUS___30_VL" p1="7.641694" q1="4.791604" p2="-7.527933" q2="-4.621384">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___26-BUS___27-1_AC" name="BUS   26-BUS   27-1" r="0.314226" x="0.483718" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___26_TN" connectableBus1="_BUS___26_TN" voltageLevelId1="_BUS___26_VL" bus2="_BUS___27_TN" connectableBus2="_BUS___27_TN" voltageLevelId2="_BUS___27_VL" p1="-10.818672" q1="-2.039413" p2="11.034397" q2="2.371498">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___27-BUS___28-1_AC" name="BUS   27-BUS   28-1" r="0.117692" x="0.18168" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___27_TN" connectableBus1="_BUS___27_TN" voltageLevelId1="_BUS___27_VL" bus2="_BUS___28_TN" connectableBus2="_BUS___28_TN" voltageLevelId2="_BUS___28_VL" p1="-20.334396" q1="-2.871498" p2="20.601904" q2="3.284446">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___28-BUS___29-1_AC" name="BUS   28-BUS   29-1" r="0.0796039" x="0.111788" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___28_TN" connectableBus1="_BUS___28_TN" voltageLevelId1="_BUS___28_VL" bus2="_BUS___29_TN" connectableBus2="_BUS___29_TN" voltageLevelId2="_BUS___29_VL" p1="-25.201904" q1="-5.584446" p2="25.47891" q2="5.973448">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___29-BUS___52-1_AC" name="BUS   29-BUS   52-1" r="0.274614" x="0.356123" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___29_TN" connectableBus1="_BUS___29_TN" voltageLevelId1="_BUS___29_VL" bus2="_BUS___52_TN" connectableBus2="_BUS___52_TN" voltageLevelId2="_BUS___52_VL" p1="18.26109" q1="3.029325" p2="-17.782986" q2="-2.409312">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___30-BUS___31-1_AC" name="BUS   30-BUS   31-1" r="0.620834" x="0.946487" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___30_TN" connectableBus1="_BUS___30_TN" voltageLevelId1="_BUS___30_VL" bus2="_BUS___31_TN" connectableBus2="_BUS___31_TN" voltageLevelId2="_BUS___31_VL" p1="3.927933" q1="2.821384" p2="-3.845588" q2="-2.695845">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___31-BUS___32-1_AC" name="BUS   31-BUS   32-1" r="0.965531" x="1.43782" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___31_TN" connectableBus1="_BUS___31_TN" voltageLevelId1="_BUS___31_VL" bus2="_BUS___32_TN" connectableBus2="_BUS___32_TN" voltageLevelId2="_BUS___32_VL" p1="-1.954412" q1="-0.204155" p2="1.976833" q2="0.237542">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___32-BUS___33-1_AC" name="BUS   32-BUS   33-1" r="0.0746525" x="0.0685584" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___32_TN" connectableBus1="_BUS___32_TN" voltageLevelId1="_BUS___32_VL" bus2="_BUS___33_TN" connectableBus2="_BUS___33_TN" voltageLevelId2="_BUS___33_VL" p1="3.8" q1="1.9" p2="-3.8" q2="-1.9">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___34-BUS___35-1_AC" name="BUS   34-BUS   35-1" r="0.16848" x="0.25272" g1="0.0" b1="4.93827E-4" g2="0.0" b2="4.93827E-4" bus1="_BUS___34_TN" connectableBus1="_BUS___34_TN" voltageLevelId1="_BUS___34_VL" bus2="_BUS___35_TN" connectableBus2="_BUS___35_TN" voltageLevelId2="_BUS___35_VL" p1="-7.376833" q1="-3.60778" p2="7.414324" q2="3.36724">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___35-BUS___36-1_AC" name="BUS   35-BUS   36-1" r="0.13932" x="0.173988" g1="0.0" b1="2.469135E-4" g2="0.0" b2="2.469135E-4" bus1="_BUS___35_TN" connectableBus1="_BUS___35_TN" voltageLevelId1="_BUS___35_VL" bus2="_BUS___36_TN" connectableBus2="_BUS___36_TN" voltageLevelId2="_BUS___36_VL" p1="-13.414324" q1="-6.36724" p2="13.515398" q2="6.342553">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___36-BUS___37-1_AC" name="BUS   36-BUS   37-1" r="0.09396" x="0.118584" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___36_TN" connectableBus1="_BUS___36_TN" voltageLevelId1="_BUS___36_VL" bus2="_BUS___37_TN" connectableBus2="_BUS___37_TN" voltageLevelId2="_BUS___37_VL" p1="-17.009146" q1="-10.46417" p2="17.13058" q2="10.61743">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___36-BUS___40-1_AC" name="BUS   36-BUS   40-1" r="0.0972" x="0.150984" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___36_TN" connectableBus1="_BUS___36_TN" voltageLevelId1="_BUS___36_VL" bus2="_BUS___40_TN" connectableBus2="_BUS___40_TN" voltageLevelId2="_BUS___40_VL" p1="3.493747" q1="4.121617" p2="-3.484551" q2="-4.107333">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___37-BUS___38-1_AC" name="BUS   37-BUS   38-1" r="0.210924" x="0.326916" g1="0.0" b1="3.08642E-4" g2="0.0" b2="3.08642E-4" bus1="_BUS___37_TN" connectableBus1="_BUS___37_TN" voltageLevelId1="_BUS___37_VL" bus2="_BUS___38_TN" connectableBus2="_BUS___38_TN" voltageLevelId2="_BUS___38_VL" p1="-21.035011" q1="-13.69981" p2="21.456146" q2="14.152957">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___37-BUS___39-1_AC" name="BUS   37-BUS   39-1" r="0.077436" x="0.122796" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___37_TN" connectableBus1="_BUS___37_TN" voltageLevelId1="_BUS___37_VL" bus2="_BUS___39_TN" connectableBus2="_BUS___39_TN" voltageLevelId2="_BUS___39_VL" p1="3.904432" q1="3.08238" p2="-3.898335" q2="-3.072711">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___38-BUS___44-1_AC" name="BUS   38-BUS   44-1" r="0.093636" x="0.18954" g1="0.0" b1="3.08642E-4" g2="0.0" b2="3.08642E-4" bus1="_BUS___38_TN" connectableBus1="_BUS___38_TN" voltageLevelId1="_BUS___38_VL" bus2="_BUS___44_TN" connectableBus2="_BUS___44_TN" voltageLevelId2="_BUS___44_VL" p1="-23.685139" q1="6.834228" p2="23.856745" q2="-6.692599">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___38-BUS___48-1_AC" name="BUS   38-BUS   48-1" r="0.101088" x="0.156168" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___38_TN" connectableBus1="_BUS___38_TN" voltageLevelId1="_BUS___38_VL" bus2="_BUS___48_TN" connectableBus2="_BUS___48_TN" voltageLevelId2="_BUS___48_VL" p1="-17.484373" q1="-20.04704" p2="17.69959" q2="20.379522">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___38-BUS___49-1_AC" name="BUS   38-BUS   49-1" r="0.3726" x="0.57348" g1="0.0" b1="4.62963E-4" g2="0.0" b2="4.62963E-4" bus1="_BUS___38_TN" connectableBus1="_BUS___38_TN" voltageLevelId1="_BUS___38_VL" bus2="_BUS___49_TN" connectableBus2="_BUS___49_TN" voltageLevelId2="_BUS___49_VL" p1="-4.903386" q1="-11.381547" p2="5.071666" q2="11.325065">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___44-BUS___45-1_AC" name="BUS   44-BUS   45-1" r="0.202176" x="0.402408" g1="0.0" b1="6.17285E-4" g2="0.0" b2="6.17285E-4" bus1="_BUS___44_TN" connectableBus1="_BUS___44_TN" voltageLevelId1="_BUS___44_VL" bus2="_BUS___45_TN" connectableBus2="_BUS___45_TN" voltageLevelId2="_BUS___45_VL" p1="-35.856743" q1="4.892599" p2="36.650166" q2="-3.732939">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___46-BUS___47-1_AC" name="BUS   46-BUS   47-1" r="0.07452" x="0.22032" g1="0.0" b1="4.93827E-4" g2="0.0" b2="4.93827E-4" bus1="_BUS___46_TN" connectableBus1="_BUS___46_TN" voltageLevelId1="_BUS___46_VL" bus2="_BUS___47_TN" connectableBus2="_BUS___47_TN" voltageLevelId2="_BUS___47_VL" p1="47.922092" q1="25.191057" p2="-47.320175" q2="-23.762169">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___47-BUS___48-1_AC" name="BUS   47-BUS   48-1" r="0.058968" x="0.075492" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___47_TN" connectableBus1="_BUS___47_TN" voltageLevelId1="_BUS___47_VL" bus2="_BUS___48_TN" connectableBus2="_BUS___48_TN" voltageLevelId2="_BUS___48_VL" p1="17.620174" q1="12.162168" p2="-17.542082" q2="-12.062191">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___48-BUS___49-1_AC" name="BUS   48-BUS   49-1" r="0.270216" x="0.41796" g1="0.0" b1="7.4074E-4" g2="0.0" b2="7.4074E-4" bus1="_BUS___48_TN" connectableBus1="_BUS___48_TN" voltageLevelId1="_BUS___48_VL" bus2="_BUS___49_TN" connectableBus2="_BUS___49_TN" voltageLevelId2="_BUS___49_VL" p1="-0.157509" q1="-8.317332" p2="0.208872" q2="7.884688">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___49-BUS___50-1_AC" name="BUS   49-BUS   50-1" r="0.259524" x="0.41472" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___49_TN" connectableBus1="_BUS___49_TN" voltageLevelId1="_BUS___49_VL" bus2="_BUS___50_TN" connectableBus2="_BUS___50_TN" voltageLevelId2="_BUS___50_VL" p1="9.712105" q1="4.767836" p2="-9.625083" q2="-4.628775">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___50-BUS___51-1_AC" name="BUS   50-BUS   51-1" r="0.449064" x="0.7128" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___50_TN" connectableBus1="_BUS___50_TN" voltageLevelId1="_BUS___50_VL" bus2="_BUS___51_TN" connectableBus2="_BUS___51_TN" voltageLevelId2="_BUS___51_VL" p1="-11.374917" q1="-5.871225" p2="11.591224" q2="6.214569">
+        <iidm:currentLimits1 permanentLimit="3207.5"/>
+    </iidm:line>
+    <iidm:line id="_BUS___52-BUS___53-1_AC" name="BUS   52-BUS   53-1" r="0.145115" x="0.187393" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___52_TN" connectableBus1="_BUS___52_TN" voltageLevelId1="_BUS___52_VL" bus2="_BUS___53_TN" connectableBus2="_BUS___53_TN" voltageLevelId2="_BUS___53_VL" p1="12.882985" q1="0.209312" p2="-12.752743" q2="-0.041125">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___53-BUS___54-1_AC" name="BUS   53-BUS   54-1" r="0.357646" x="0.441821" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___53_TN" connectableBus1="_BUS___53_TN" voltageLevelId1="_BUS___53_VL" bus2="_BUS___54_TN" connectableBus2="_BUS___54_TN" voltageLevelId2="_BUS___54_VL" p1="-7.247257" q1="-3.964347" p2="7.38194" q2="4.130729">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___54-SALT__55-1_AC" name="BUS   54-SALT  55-1" r="0.329842" x="0.431347" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___54_TN" connectableBus1="_BUS___54_TN" voltageLevelId1="_BUS___54_VL" bus2="_SALT__55_TN" connectableBus2="_SALT__55_TN" voltageLevelId2="_SALT__55_VL" p1="-11.48194" q1="-5.530729" p2="11.763888" q2="5.899443">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___56-BUS___42-1_AC" name="BUS   56-BUS   42-1" r="0.404685" x="0.674158" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___56_TN" connectableBus1="_BUS___56_TN" voltageLevelId1="_BUS___56_VL" bus2="_BUS___42_TN" connectableBus2="_BUS___42_TN" voltageLevelId2="_BUS___42_VL" p1="-1.551149" q1="1.546152" p2="1.562075" q2="-1.527949">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___56-TAZE__41-1_AC" name="BUS   56-TAZE  41-1" r="1.05313" x="1.04552" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___56_TN" connectableBus1="_BUS___56_TN" voltageLevelId1="_BUS___56_VL" bus2="_TAZE__41_TN" connectableBus2="_TAZE__41_TN" voltageLevelId2="_TAZE__41_VL" p1="-5.381731" q1="0.740769" p2="5.556677" q2="-0.567087">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS___57-BUS___56-1_AC" name="BUS   57-BUS   56-1" r="0.331366" x="0.495144" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_BUS___57_TN" connectableBus1="_BUS___57_TN" voltageLevelId1="_BUS___57_VL" bus2="_BUS___56_TN" connectableBus2="_BUS___56_TN" voltageLevelId2="_BUS___56_VL" p1="-2.801665" q1="0.740732" p2="2.817431" q2="-0.717174">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_BUS____5-BEAV___6-1_AC" name="BUS    5-BEAV   6-1" r="1.43782" x="3.0518" g1="0.0" b1="1.302245E-4" g2="0.0" b2="1.302245E-4" bus1="_BUS____5_TN" connectableBus1="_BUS____5_TN" voltageLevelId1="_BUS____5_VL" bus2="_BEAV___6_TN" connectableBus2="_BEAV___6_TN" voltageLevelId2="_BEAV___6_VL" p1="0.770568" q1="-6.264438" p2="-0.760187" q2="5.09981">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_BUS____7-CLIN___8-1_AC" name="BUS    7-CLIN   8-1" r="0.661779" x="3.38983" g1="0.0" b1="2.037385E-4" g2="0.0" b2="2.037385E-4" bus1="_BUS____7_TN" connectableBus1="_BUS____7_TN" voltageLevelId1="_BUS____7_VL" bus2="_CLIN___8_TN" connectableBus2="_CLIN___8_TN" voltageLevelId2="_CLIN___8_VL" p1="-78.31462" q1="-12.969966" p2="79.21638" q2="15.670617">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_CLIN___8-SALT___9-1_AC" name="CLIN   8-SALT   9-1" r="0.471339" x="2.4043" g1="0.0" b1="5.7551E-4" g2="0.0" b2="5.7551E-4" bus1="_CLIN___8_TN" connectableBus1="_CLIN___8_TN" voltageLevelId1="_CLIN___8_VL" bus2="_SALT___9_TN" connectableBus2="_SALT___9_TN" voltageLevelId2="_SALT___9_VL" p1="177.62067" q1="19.868694" p2="-174.47807" q2="-9.237348">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_GLEN__12-BUS___13-1_AC" name="GLEN  12-BUS   13-1" r="0.847458" x="2.76138" g1="0.0" b1="6.3432E-4" g2="0.0" b2="6.3432E-4" bus1="_GLEN__12_TN" connectableBus1="_GLEN__12_TN" voltageLevelId1="_GLEN__12_VL" bus2="_BUS___13_TN" connectableBus2="_BUS___13_TN" voltageLevelId2="_BUS___13_VL" p1="-0.406826" q1="60.992954" p2="1.116859" q2="-64.68222">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_GLEN__12-BUS___16-1_AC" name="GLEN  12-BUS   16-1" r="0.85698" x="3.87069" g1="0.0" b1="2.26843E-4" g2="0.0" b2="2.26843E-4" bus1="_GLEN__12_TN" connectableBus1="_GLEN__12_TN" voltageLevelId1="_GLEN__12_VL" bus2="_BUS___16_TN" connectableBus2="_BUS___16_TN" voltageLevelId2="_BUS___16_VL" p1="-33.423943" q1="8.829755" p2="33.636402" q2="-10.091848">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_GLEN__12-BUS___17-1_AC" name="GLEN  12-BUS   17-1" r="1.89012" x="8.52219" g1="0.0" b1="4.99895E-4" g2="0.0" b2="4.99895E-4" bus1="_GLEN__12_TN" connectableBus1="_GLEN__12_TN" voltageLevelId1="_GLEN__12_VL" bus2="_BUS___17_TN" connectableBus2="_BUS___17_TN" voltageLevelId2="_BUS___17_VL" p1="-48.488693" q1="9.177263" p2="49.44683" q2="-9.772924">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_KANA___1-BUS___15-1_AC" name="KANA   1-BUS   15-1" r="0.847458" x="4.33251" g1="0.0" b1="0.001037595" g2="0.0" b2="0.001037595" bus1="_KANA___1_TN" connectableBus1="_KANA___1_TN" voltageLevelId1="_KANA___1_VL" bus2="_BUS___15_TN" connectableBus2="_BUS___15_TN" voltageLevelId2="_BUS___15_VL" p1="148.93486" q1="33.52616" p2="-145.03577" q2="-23.760483">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_KANA___1-BUS___16-1_AC" name="KANA   1-BUS   16-1" r="2.16149" x="9.80766" g1="0.0" b1="5.7341E-4" g2="0.0" b2="5.7341E-4" bus1="_KANA___1_TN" connectableBus1="_KANA___1_TN" voltageLevelId1="_KANA___1_VL" bus2="_BUS___16_TN" connectableBus2="_BUS___16_TN" voltageLevelId2="_BUS___16_VL" p1="79.27622" q1="-0.870045" p2="-76.6364" q2="7.091848">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_KANA___1-BUS___17-1_AC" name="KANA   1-BUS   17-1" r="1.13312" x="5.14188" g1="0.0" b1="3.00357E-4" g2="0.0" b2="3.00357E-4" bus1="_KANA___1_TN" connectableBus1="_KANA___1_TN" voltageLevelId1="_KANA___1_VL" bus2="_BUS___17_TN" connectableBus2="_BUS___17_TN" voltageLevelId2="_BUS___17_VL" p1="93.371864" q1="3.93546" p2="-91.44683" q2="1.772924">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_KANA___1-TURN___2-1_AC" name="KANA   1-TURN   2-1" r="0.395163" x="1.33308" g1="0.0" b1="0.001354755" g2="0.0" b2="0.001354755" bus1="_KANA___1_TN" connectableBus1="_KANA___1_TN" voltageLevelId1="_KANA___1_VL" bus2="_TURN___2_TN" connectableBus2="_TURN___2_TN" voltageLevelId2="_TURN___2_VL" p1="102.09717" q1="74.99488" p2="-100.78164" q2="-84.112885">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_LOGA___3-BUS___15-1_AC" name="LOGA   3-BUS   15-1" r="0.771282" x="2.52333" g1="0.0" b1="5.7131E-4" g2="0.0" b2="5.7131E-4" bus1="_LOGA___3_TN" connectableBus1="_LOGA___3_TN" voltageLevelId1="_LOGA___3_VL" bus2="_BUS___15_TN" connectableBus2="_BUS___15_TN" voltageLevelId2="_BUS___15_VL" p1="33.585613" q1="-18.573193" p2="-33.354877" q2="14.032501">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_LOGA___3-SPRI___4-1_AC" name="LOGA   3-SPRI   4-1" r="0.533232" x="1.74253" g1="0.0" b1="3.99076E-4" g2="0.0" b2="3.99076E-4" bus1="_LOGA___3_TN" connectableBus1="_LOGA___3_TN" voltageLevelId1="_LOGA___3_VL" bus2="_SPRI___4_TN" connectableBus2="_SPRI___4_TN" voltageLevelId2="_SPRI___4_VL" p1="60.402843" q1="-8.349267" p2="-59.976788" q2="6.070314">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_SALT___9-BUS___10-1_AC" name="SALT   9-BUS   10-1" r="1.75681" x="7.99372" g1="0.0" b1="4.62088E-4" g2="0.0" b2="4.62088E-4" bus1="_SALT___9_TN" connectableBus1="_SALT___9_TN" voltageLevelId1="_SALT___9_VL" bus2="_BUS___10_TN" connectableBus2="_BUS___10_TN" voltageLevelId2="_BUS___10_VL" p1="17.146557" q1="-9.376874" p2="-17.013323" q2="5.729174">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_SALT___9-BUS___13-1_AC" name="SALT   9-BUS   13-1" r="2.29004" x="7.52238" g1="0.0" b1="4.26381E-4" g2="0.0" b2="4.26381E-4" bus1="_SALT___9_TN" connectableBus1="_SALT___9_TN" voltageLevelId1="_SALT___9_VL" bus2="_BUS___13_TN" connectableBus2="_BUS___13_TN" voltageLevelId2="_BUS___13_VL" p1="2.334146" q1="-1.730369" p2="-2.331393" q2="-2.15388">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_SALT___9-GLEN__12-1_AC" name="SALT   9-GLEN  12-1" r="3.08513" x="14.0449" g1="0.0" b1="8.10755E-4" g2="0.0" b2="8.10755E-4" bus1="_SALT___9_TN" connectableBus1="_SALT___9_TN" voltageLevelId1="_SALT___9_VL" bus2="_GLEN__12_TN" connectableBus2="_GLEN__12_TN" voltageLevelId2="_GLEN__12_VL" p1="2.545567" q1="-15.853191" p2="-2.441656" q2="8.642418">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_SALT___9-TAZE__11-1_AC" name="SALT   9-TAZE  11-1" r="1.22834" x="4.03733" g1="0.0" b1="2.289435E-4" g2="0.0" b2="2.289435E-4" bus1="_SALT___9_TN" connectableBus1="_SALT___9_TN" voltageLevelId1="_SALT___9_VL" bus2="_TAZE__11_TN" connectableBus2="_TAZE__11_TN" voltageLevelId2="_TAZE__11_VL" p1="12.88792" q1="2.217971" p2="-12.840436" q2="-4.142446">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_SPRI__18-BUS___19-1_AC" name="SPRI  18-BUS   19-1" r="0.877928" x="1.30451" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_SPRI__18_TN" connectableBus1="_SPRI__18_TN" voltageLevelId1="_SPRI__18_VL" bus2="_BUS___19_TN" connectableBus2="_BUS___19_TN" voltageLevelId2="_BUS___19_VL" p1="4.56643" q1="1.229776" p2="-4.463307" q2="-1.076546">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_SPRI___4-BEAV___6-1_AC" name="SPRI   4-BEAV   6-1" r="2.04723" x="7.04628" g1="0.0" b1="3.654695E-4" g2="0.0" b2="3.654695E-4" bus1="_SPRI___4_TN" connectableBus1="_SPRI___4_TN" voltageLevelId1="_SPRI___4_VL" bus2="_BEAV___6_TN" connectableBus2="_BEAV___6_TN" voltageLevelId2="_BEAV___6_VL" p1="14.307494" q1="-5.104896" p2="-14.210734" q2="2.09293">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_SPRI___4-BUS____5-1_AC" name="SPRI   4-BUS    5-1" r="2.97563" x="6.28452" g1="0.0" b1="2.709515E-4" g2="0.0" b2="2.709515E-4" bus1="_SPRI___4_TN" connectableBus1="_SPRI___4_TN" voltageLevelId1="_SPRI___4_VL" bus2="_BUS____5_TN" connectableBus2="_BUS____5_TN" voltageLevelId2="_BUS____5_VL" p1="13.90286" q1="-4.456148" p2="-13.770568" q2="2.264438">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_TAZE__11-BUS___13-1_AC" name="TAZE  11-BUS   13-1" r="1.0617" x="3.48505" g1="0.0" b1="1.974375E-4" g2="0.0" b2="1.974375E-4" bus1="_TAZE__11_TN" connectableBus1="_TAZE__11_TN" voltageLevelId1="_TAZE__11_VL" bus2="_BUS___13_TN" connectableBus2="_BUS___13_TN" voltageLevelId2="_BUS___13_VL" p1="-9.863964" q1="-4.070706" p2="9.889219" q2="2.362124">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+    <iidm:line id="_TAZE__41-BUS___42-1_AC" name="TAZE  41-BUS   42-1" r="0.394211" x="0.670349" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_TAZE__41_TN" connectableBus1="_TAZE__41_TN" voltageLevelId1="_TAZE__41_VL" bus2="_BUS___42_TN" connectableBus2="_BUS___42_TN" voltageLevelId2="_BUS___42_VL" p1="8.847723" q1="3.187741" p2="-8.662075" q2="-2.872051">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_TAZE__41-TAZE__43-1_AC" name="TAZE  41-TAZE  43-1" r="0.0" x="0.784613" g1="0.0" b1="0.0" g2="0.0" b2="0.0" bus1="_TAZE__41_TN" connectableBus1="_TAZE__41_TN" voltageLevelId1="_TAZE__41_VL" bus2="_TAZE__43_TN" connectableBus2="_TAZE__43_TN" voltageLevelId2="_TAZE__43_VL" p1="-11.566975" q1="-3.100113" p2="11.566975" q2="3.699233">
+        <iidm:currentLimits1 permanentLimit="4183.7"/>
+    </iidm:line>
+    <iidm:line id="_TURN___2-LOGA___3-1_AC" name="TURN   2-LOGA   3-1" r="1.41878" x="4.04685" g1="0.0" b1="8.59065E-4" g2="0.0" b2="8.59065E-4" bus1="_TURN___2_TN" connectableBus1="_TURN___2_TN" voltageLevelId1="_TURN___2_VL" bus2="_LOGA___3_TN" connectableBus2="_LOGA___3_TN" voltageLevelId2="_LOGA___3_VL" p1="97.78164" q1="-4.641892" p2="-94.98846" q2="4.468557">
+        <iidm:currentLimits1 permanentLimit="836.74"/>
+    </iidm:line>
+</iidm:network>

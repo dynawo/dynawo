@@ -16,6 +16,12 @@ examples/*/*/*/outputs*/
 examples/*/*/*/*/outputs*/
 examples/*/*/*/*/*/outputs*/
 examples/*/*/*/*/*/*/outputs*/
+examples/*/description/*aux
+examples/*/description/*pdf
+examples/*/description/*gz
+examples/*/description/*toc
+examples/*/description/*out
+examples/*/description/*log
 !nrt/data/*/*/reference/outputs*/
 nrt/data/*/*/execution/
 nrt/data/*/*/description/*.log
