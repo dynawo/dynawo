@@ -22,7 +22,7 @@ forbiddenReturnCodeType = "FORBIDDEN"
 #           SMIB_1_StepPm              #
 ########################################
 
-case_name = "SMIB_StepPm"
+case_name = "SMIB - StepPm"
 case_description = "SMIB test case with a step on the mechanical power"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_1_StepPm", "SMIB.jobs")
 
@@ -32,7 +32,7 @@ test_cases.append((case_name, case_description, job_file, 30, standardReturnCode
 #           SMIB_2_StepEfd             #
 ########################################
 
-case_name = "SMIB_StepEfd"
+case_name = "SMIB - StepEfd"
 case_description = "SMIB test case with a step on the excitation voltage"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_2_StepEfd", "SMIB.jobs")
 
@@ -42,7 +42,7 @@ test_cases.append((case_name, case_description, job_file, 30, standardReturnCode
 #           SMIB_3_LoadVarQ            #
 ########################################
 
-case_name = "SMIB_LoadVarQ"
+case_name = "SMIB - LoadVarQ"
 case_description = "SMIB test case with a step on the load reactive power"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_3_LoadVarQ", "SMIB.jobs")
 
@@ -52,7 +52,7 @@ test_cases.append((case_name, case_description, job_file, 30, standardReturnCode
 #           SMIB_4_DisconnectLine      #
 ########################################
 
-case_name = "SMIB_DisconnectLine"
+case_name = "SMIB - DisconnectLine"
 case_description = "SMIB test case with a line disconnection"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_4_DisconnectLine", "SMIB.jobs")
 
@@ -62,7 +62,7 @@ test_cases.append((case_name, case_description, job_file, 30, standardReturnCode
 #           SMIB_5_Fault               #
 ########################################
 
-case_name = "SMIB_Fault"
+case_name = "SMIB - Fault"
 case_description = "SMIB test case with a fault"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB_BasicTestCases", "SMIB_5_Fault", "SMIB.jobs")
 
@@ -72,7 +72,7 @@ test_cases.append((case_name, case_description, job_file, 30, standardReturnCode
 #          Kundur Example 13            #
 #########################################
 
-case_name = "Kundur Example 13"
+case_name = "Kundur - Example 13"
 case_description = "Impact of the excitation control on a synchronous generator transient stability"
 job_file = os.path.join(os.path.dirname(__file__), "SMIB_KundurEx13", "SMIB.jobs")
 

@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+  <curve model="NETWORK" variable="_KANA___1_TN_U_value"/>
+  <curve model="NETWORK" variable="_TURN___2_TN_U_value"/>
+  <curve model="NETWORK" variable="_LOGA___3_TN_U_value"/>
+  <curve model="NETWORK" variable="_BEAV___6_TN_U_value"/>
+  <curve model="NETWORK" variable="_CLIN___8_TN_U_value"/>
+  <curve model="NETWORK" variable="_SALT___9_TN_U_value"/>
+  <curve model="NETWORK" variable="_GLEN__12_TN_U_value"/>
+  <curve model="_LOAD___1_EC" variable="tapChangerT_UTarget"/>
+  <curve model="_LOAD___1_EC" variable="tapChangerT_UMonitored_value"/>
+  <curve model="_LOAD___1_EC" variable="tapChangerT_tap_value"/>
+  <curve model="_LOAD___1_EC" variable="tapChangerT_tapMax"/>
+  <curve model="_LOAD___1_EC" variable="tapChangerT_tapMin"/>
+  <curve model="_LOAD__38_EC" variable="tapChanger_UTarget"/>
+  <curve model="_LOAD__38_EC" variable="tapChanger_UMonitored_value"/>
+  <curve model="_LOAD__38_EC" variable="tapChanger_tap_value"/>
+  <curve model="_LOAD__38_EC" variable="tapChanger_tapMax"/>
+  <curve model="_LOAD__38_EC" variable="tapChanger_tapMin"/>
+  <curve model="_LOAD__38_EC" variable="load_PPu"/>
+  <curve model="_LOAD__38_EC" variable="load_QPu"/>
+</curvesInput>
