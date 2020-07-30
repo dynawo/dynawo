@@ -70,6 +70,40 @@ To get started with \Dynawo , different possibilities exist, depending on your b
 
 \subsection{Changes from v1.2.0}
 
+\underline{Main changes:}
+\begin{itemize}
+\item Creation of an example directory with additional test cases
+\item Steady-state calculation models release (restorative load, generators, frequency regulation model - Signal N-, HVDCPTanPhi and HVDCPV)
+\item Performance improvement up to 20 \% on large-scale simulations (variables simplification, algorithm optimization and implementation improvements)
+\item Modeling robustness (handling bad topology, propagation of disconnection signals, data handling improvement)
+\end{itemize}
+
+\underline{New features:}
+\begin{itemize}
+\item New criteria system
+\item Complete log refactoring
+\end{itemize}
+
+\underline{New models:}
+\begin{itemize}
+\item HVDC Standard model
+\item Shackshaft saturation model
+\item Steady-state models
+\end{itemize}
+
+\underline{3rd Party:}
+\begin{itemize}
+\item Improvement in Adept integration (better complex handling and support of CombiTable)
+\item Python scripts adaptation to Python 3
+\item Modelica utilities integration
+\end{itemize}
+
+\underline{Test cases:}
+\begin{itemize}
+\item Full OM grid forming converter and HVDC test cases (in the examples package of the Dynawo library)
+\item Examples section in Dynawo (Steady-state calculation examples - DynaFlow, long-term stability examples - DynaWaltz, transient stability examples - DynaSwing).
+\end{itemize}
+
 \subsection{Changes from v1.1.0}
 
 \underline{New features:}
