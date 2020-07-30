@@ -154,10 +154,10 @@ modelType_("TwoWindingsTransformer") {
   double b = tfo->getB() * coeff;
 
   if (phaseTapChanger) {
-    modelPhaseChanger_.reset(new ModelPhaseTapChanger(tfo->getID()));
+    const int lowIndex = phaseTapChanger->getLowPosition();
+    modelPhaseChanger_.reset(new ModelPhaseTapChanger(tfo->getID(), lowIndex));
 
     vector<shared_ptr<StepInterface> > steps = phaseTapChanger->getSteps();
-    int lowIndex = phaseTapChanger->getLowPosition();
     double rTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentR() / 100. : 0.;
     double xTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentX() / 100. : 0.;
     double bTapChanger = ratioTapChanger ? ratioTapChanger->getCurrentB() / 100. : 0.;
@@ -170,9 +170,8 @@ modelType_("TwoWindingsTransformer") {
       double xTap = x * (1. + xTapChanger + steps[i]->getX() / 100.);
       double gTap = g * (1. + gTapChanger + steps[i]->getG() / 100.);
       double bTap = b * (1. + bTapChanger + steps[i]->getB() / 100.);
-      modelPhaseChanger_->addStep(lowIndex + i, TapChangerStep(rho, phaseShift, rTap, xTap, gTap, bTap));
+      modelPhaseChanger_->addStep(TapChangerStep(rho, phaseShift, rTap, xTap, gTap, bTap));
     }
-    modelPhaseChanger_->setLowStepIndex(lowIndex);
     modelPhaseChanger_->setHighStepIndex(phaseTapChanger->getNbTap() - 1. + lowIndex);
     modelPhaseChanger_->setCurrentStepIndex(phaseTapChanger->getCurrentPosition());
 
@@ -183,21 +182,20 @@ modelType_("TwoWindingsTransformer") {
     modelPhaseChanger_->setThresholdI(thresholdI);
   } else if (ratioTapChanger) {
     if (tfo->getRatioTapChanger()->hasLoadTapChangingCapabilities() && tfo->getRatioTapChanger()->getTerminalRefSide() != "") {
-      modelRatioChanger_.reset(new ModelRatioTapChanger(tfo->getID(), tfo->getRatioTapChanger()->getTerminalRefSide()));
+      const int lowIndex = ratioTapChanger->getLowPosition();
+      modelRatioChanger_.reset(new ModelRatioTapChanger(tfo->getID(), tfo->getRatioTapChanger()->getTerminalRefSide(), lowIndex));
 
       terminalRefId_ = tfo->getRatioTapChanger()->getTerminalRefId();
       side_ = tfo->getRatioTapChanger()->getTerminalRefSide();
       vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
-      int lowIndex = ratioTapChanger->getLowPosition();
       for (unsigned int i = 0; i < steps.size(); ++i) {
         double rho = ratio * steps[i]->getRho();
         double rTap = r * (1. + steps[i]->getR() / 100.);
         double xTap = x * (1. + steps[i]->getX() / 100.);
         double gTap = g * (1. + steps[i]->getG() / 100.);
         double bTap = b * (1. + steps[i]->getB() / 100.);
-        modelRatioChanger_->addStep(lowIndex + i, TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
+        modelRatioChanger_->addStep(TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
       }
-      modelRatioChanger_->setLowStepIndex(lowIndex);
       modelRatioChanger_->setHighStepIndex(ratioTapChanger->getNbTap() - 1. + lowIndex);
       modelRatioChanger_->setCurrentStepIndex(ratioTapChanger->getCurrentPosition());
 
@@ -206,8 +204,8 @@ modelType_("TwoWindingsTransformer") {
       modelRatioChanger_->setRegulating(regulating);
       modelRatioChanger_->setTargetV(targetV);
     } else {
-      modelTapChanger_.reset(new ModelTapChanger(tfo->getID()));
-      int currentStepIndex = ratioTapChanger->getCurrentPosition();
+      const int currentStepIndex = ratioTapChanger->getCurrentPosition();
+      modelTapChanger_.reset(new ModelTapChanger(tfo->getID(), currentStepIndex));
       vector<shared_ptr<StepInterface> > steps = ratioTapChanger->getSteps();
       // The steps law begins at 0 while the lowIndex could have another value.
       int indexInSteps = currentStepIndex - ratioTapChanger->getLowPosition();
@@ -216,16 +214,14 @@ modelType_("TwoWindingsTransformer") {
       double xTap = x * (1. + steps[indexInSteps]->getX() / 100.);
       double gTap = g * (1. + steps[indexInSteps]->getG() / 100.);
       double bTap = b * (1. + steps[indexInSteps]->getB() / 100.);
-      modelTapChanger_->addStep(currentStepIndex, TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
-      modelTapChanger_->setLowStepIndex(currentStepIndex);
+      modelTapChanger_->addStep(TapChangerStep(rho, 0, rTap, xTap, gTap, bTap));
       modelTapChanger_->setHighStepIndex(currentStepIndex);
       modelTapChanger_->setCurrentStepIndex(currentStepIndex);
     }
   } else {
     // create default ratio changer
-    modelTapChanger_.reset(new ModelTapChanger(tfo->getID()));
-    modelTapChanger_->addStep(0, TapChangerStep(ratio, 0, r, x, g, b));
-    modelTapChanger_->setLowStepIndex(0);
+    modelTapChanger_.reset(new ModelTapChanger(tfo->getID(), 0));
+    modelTapChanger_->addStep(TapChangerStep(ratio, 0, r, x, g, b));
     modelTapChanger_->setHighStepIndex(0);
     modelTapChanger_->setCurrentStepIndex(0);
   }

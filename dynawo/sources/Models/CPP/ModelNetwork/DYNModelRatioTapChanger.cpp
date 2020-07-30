@@ -25,8 +25,8 @@
 namespace DYN {
 
 ModelRatioTapChanger::ModelRatioTapChanger(const std::string& id,
-                                           const std::string& side)
-    : ModelTapChanger(id),
+                                           const std::string& side, int lowIndex)
+    : ModelTapChanger(id, lowIndex),
       side_(side),
       tolV_(0.015),
       targetV_(0),
