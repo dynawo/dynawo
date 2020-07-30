@@ -7,8 +7,7 @@
 
 mkdir -p dynawoDocumentation
 
-folders=(introduction installation configuringDynawo functionalDoc ../examples/DynaFlow/description ../examples/DynaWaltz/description
-../examples/DynaSwing/description advancedDoc)
+folders=(introduction installation configuringDynawo functionalDoc advancedDoc)
 
 pdflatex_options="-halt-on-error -interaction=nonstopmode"
 output_file=DynawoDocumentation.tex
