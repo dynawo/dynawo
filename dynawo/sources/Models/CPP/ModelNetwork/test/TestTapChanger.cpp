@@ -42,7 +42,7 @@ TEST(ModelsModelNetwork, ModelNetworkTapChangerStep) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkTapChanger) {
-  ModelTapChanger ptc("MyModelTapChanger");
+  ModelTapChanger ptc("MyModelTapChanger", 0);
   ASSERT_EQ(ptc.id(), "MyModelTapChanger");
   ASSERT_EQ(ptc.size(), 0);
   ASSERT_EQ(ptc.getCurrentStepIndex(), 0);
@@ -56,8 +56,6 @@ TEST(ModelsModelNetwork, ModelNetworkTapChanger) {
   ASSERT_EQ(ptc.getCurrentStepIndex(), 2);
   ptc.setRegulating(true);
   ASSERT_TRUE(ptc.getRegulating());
-  ptc.setLowStepIndex(1);
-  ASSERT_EQ(ptc.getLowStepIndex(), 1);
   ptc.setHighStepIndex(10);
   ASSERT_EQ(ptc.getHighStepIndex(), 10);
   ptc.setTFirst(100.);
@@ -68,9 +66,9 @@ TEST(ModelsModelNetwork, ModelNetworkTapChanger) {
   ASSERT_THROW_DYNAWO(ptc.getCurrentStep(), Error::MODELER, KeyError_t::UndefinedStep);
   ASSERT_THROW_DYNAWO(ptc.getStep(3), Error::MODELER, KeyError_t::UndefinedStep);
 
-  ptc.addStep(1, TapChangerStep(1., 1., 1., 1., 1., 1.));
-  ptc.addStep(10, TapChangerStep(10., 10., 10., 10., 10., 10.));
-  ptc.addStep(2, TapChangerStep(2., 2., 2., 2., 2., 2.));
+  ptc.addStep(TapChangerStep(1., 1., 1., 1., 1., 1.));
+  ptc.addStep(TapChangerStep(10., 10., 10., 10., 10., 10.));
+  ptc.addStep(TapChangerStep(2., 2., 2., 2., 2., 2.));
 
   const TapChangerStep& tcs = ptc.getCurrentStep();
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs.getRho(), 2.);
@@ -80,7 +78,7 @@ TEST(ModelsModelNetwork, ModelNetworkTapChanger) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs.getG(), 2.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs.getB(), 2.);
 
-  const TapChangerStep& tcs2 = ptc.getStep(10);
+  const TapChangerStep& tcs2 = ptc.getStep(1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs2.getRho(), 10.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs2.getAlpha(), 10.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs2.getR(), 10.);
@@ -88,7 +86,7 @@ TEST(ModelsModelNetwork, ModelNetworkTapChanger) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs2.getG(), 10.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs2.getB(), 10.);
 
-  const TapChangerStep& tcs3 = ptc.getStep(1);
+  const TapChangerStep& tcs3 = ptc.getStep(0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs3.getRho(), 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs3.getAlpha(), 1.);
   ASSERT_DOUBLE_EQUALS_DYNAWO(tcs3.getR(), 1.);
@@ -98,13 +96,12 @@ TEST(ModelsModelNetwork, ModelNetworkTapChanger) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkPhaseTapChanger) {
-  ModelPhaseTapChanger ptc("MyModelPhaseTapChanger");
+  ModelPhaseTapChanger ptc("MyModelPhaseTapChanger", 0);
   ASSERT_EQ(ptc.sizeG(), 6);
   ASSERT_EQ(ptc.sizeZ(), 0);
 
   ptc.setThresholdI(5.);
   ptc.setRegulating(true);
-  ptc.setLowStepIndex(0);
   ptc.setHighStepIndex(10);
   ptc.setTFirst(100.);
   ptc.setTNext(20.);
@@ -208,7 +205,7 @@ TEST(ModelsModelNetwork, ModelNetworkPhaseTapChanger) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
-  ModelRatioTapChanger ptc("MyModelRatioTapChanger", "TWO");
+  ModelRatioTapChanger ptc("MyModelRatioTapChanger", "TWO", 0);
   ASSERT_EQ(ptc.sizeG(), 7);
   ASSERT_EQ(ptc.sizeZ(), 0);
 
@@ -216,7 +213,6 @@ TEST(ModelsModelNetwork, ModelNetworkRatioTapChanger) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(ptc.getTolV(), 0.1);
   ptc.setTargetV(10.);
   ptc.setRegulating(true);
-  ptc.setLowStepIndex(0);
   ptc.setHighStepIndex(10);
   ptc.setTFirst(100.);
   ptc.setTNext(20.);

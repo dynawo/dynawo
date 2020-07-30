@@ -15,7 +15,6 @@
  * @file  DYNModelRatioTapChanger.h
  *
  * @brief Model of ratio tap changer : header file
- *
  */
 #ifndef MODELS_CPP_MODELNETWORK_DYNMODELRATIOTAPCHANGER_H_
 #define MODELS_CPP_MODELNETWORK_DYNMODELRATIOTAPCHANGER_H_
@@ -34,8 +33,9 @@ class ModelRatioTapChanger : public ModelTapChanger {
    *
    * @param id : name of the tap changer
    * @param side : side where the voltage is controlled
+   * @param lowIndex : lowest step index
    */
-  explicit ModelRatioTapChanger(const std::string& id, const std::string& side);
+  explicit ModelRatioTapChanger(const std::string& id, const std::string& side, int lowIndex);
 
   /**
    * @brief destructor

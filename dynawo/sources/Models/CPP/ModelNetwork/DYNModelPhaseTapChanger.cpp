@@ -23,8 +23,8 @@
 
 namespace DYN {
 
-ModelPhaseTapChanger::ModelPhaseTapChanger(const std::string& id)
-    : ModelTapChanger(id),
+ModelPhaseTapChanger::ModelPhaseTapChanger(const std::string& id, int lowIndex)
+    : ModelTapChanger(id, lowIndex),
       thresholdI_(0),
       whenUp_(VALDEF),
       whenDown_(VALDEF),
