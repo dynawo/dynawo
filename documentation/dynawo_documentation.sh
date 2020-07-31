@@ -18,6 +18,7 @@ echo '%% Except where otherwise noted, content in this documentation is Copyrigh
 %% license. All rights reserved.
 
 \documentclass[a4paper, 12pt]{report}
+\usepackage{etex}
 
 % Latex setup
 \input{../latex_setup.tex}
