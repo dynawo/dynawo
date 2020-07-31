@@ -18,6 +18,7 @@ echo '%% Except where otherwise noted, content in this documentation is Copyrigh
 %% license. All rights reserved.
 
 \documentclass[a4paper, 12pt]{report}
+\usepackage{etex}
 
 % Latex setup
 \input{../latex_setup.tex}
@@ -27,7 +28,7 @@ echo '%% Except where otherwise noted, content in this documentation is Copyrigh
 
 \begin{document}
 
-\title{\huge{\Dynawo Documentation} \\ \LARGE{v1.2.0} \\
+\title{\huge{\Dynawo Documentation} \\ \LARGE{v1.2.1} \\
 \includegraphics[width=0.7\textwidth]{../resources/dynawoLogo.png}}
 \date\today
 
