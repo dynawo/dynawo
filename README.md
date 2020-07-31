@@ -10,7 +10,8 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
     simulation tool for power systems.
 -->
-# Dyna&omega;o - An hybrid C++/Modelica time-domain simulation tool for power systems
+# Dyna&omega;o - An hybrid C++/Modelica suite of simulation tools for power systems
+
 [![Build Status](https://travis-ci.com/dynawo/dynawo.svg?branch=master)](https://travis-ci.com/dynawo/dynawo)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=alert_status)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dynawo_dynawo&metric=coverage)](https://sonarcloud.io/dashboard?id=dynawo_dynawo)
@@ -18,24 +19,29 @@
 
 [http://dynawo.org](http://dynawo.org)
 
-This repository contains Dyna&omega;o's simulation tool code.
+This repository contains Dyna&omega;o's project code.
+
+<p align="center">
+  <img src="documentation/resources/dynawoLogo.png" />
+</p>
 
 ## Table of Contents
 
 - [About Dyna&omega;o](#about)
 - [Getting started!](#start)
-- [Dyna&omega;o Binaries](#distribution)
-- [Building requirements](#requirements)
-  * [Linux and MacOS](#requirements_linux)
-  * [Windows](#requirements_windows)
-- [Building Dyna&omega;o](#build)
-  * [Linux](#build_linux)
-  * [Windows](#build_windows)
-  * [MacOS](#build_macos)
-- [Launch Dyna&omega;o](#launch)
-  * [Linux and MacOS](#launch_linux)
-  * [Windows](#launch_windows)
-- [Docker Dyna&omega;o](#docker)
+- [Installation](#installation)
+  * [Dyna&omega;o Binaries](#distribution)
+  * [Building requirements](#requirements)
+    * [Linux and MacOS](#requirements_linux)
+    * [Windows](#requirements_windows)
+  * [Building Dyna&omega;o](#build)
+    * [Linux](#build_linux)
+    * [Windows](#build_windows)
+    * [MacOS](#build_macos)
+  * [Launch Dyna&omega;o](#launch)
+    * [Linux and MacOS](#launch_linux)
+    * [Windows](#launch_windows)
+  * [Docker Dyna&omega;o](#docker)
 - [Dyna&omega;o Documentation](#documentation)
 - [Get involved](#contributions)
 - [Quoting Dyna&omega;o](#quoting)
@@ -47,33 +53,50 @@ This repository contains Dyna&omega;o's simulation tool code.
 <a name="about"></a>
 ## About Dyna&omega;o
 
-**Dyna&omega;o is an open source time domain simulation tool for power systems using the Modelica language. It aims at providing power system stakeholders with a transparent, flexible, interoperable and robust simulation tool that could ease collaboration and cooperation in the power system community**.
+**Dyna&omega;o is an hybrid C++/Modelica open source suite of simulation tools for power systems. It aims at providing power system stakeholders with a transparent, flexible, interoperable and robust suite of simulation tools that could ease collaboration and cooperation in the power system community.**
 
-The nature of power system dynamics is deeply evolving towards a more diverse and difficult to predict behavior due to the massive changes going on in the power system (large penetration of power-electronic based components such as Renewable Energies Sources - RES - or High Voltage Direct Current - HVDC - lines, booming use of complex automata, control strategies or smart grids). Due to this radical change from physically-driven to numerically-driven dynamics, being able to assess the system stability becomes harder but is still essential as any generalized incident will be unacceptable for the economy and the consumers. This requires to have access to a transparent, flexible, robust and easy to use simulation tool that will allow to run collaborative studies in a very simple way by sharing not only the same data but also the same modeling and solving choices in an open-source frame. Such tools will ensure to get similar results and to agree upon optimal and shared actions on the system to accompany the ongoing changes in the best possible way. This analysis has motivated us to launch a new effort on time-domain simulation tools that finally ends up in the development of the Dyna&omega;o's software.
+The nature of power system dynamics is deeply evolving towards a more diverse and difficult to predict behavior due to the massive changes going on in the power system (large penetration of power-electronic based components such as Renewable Energies Sources - RES - or High Voltage Direct Current - HVDC - lines, booming use of complex automata, control strategies or smart grids). Due to this radical change from physically-driven to numerically-driven dynamics, being able to assess the system stability becomes harder but is still essential as any generalized incident will be unacceptable for the economy and the consumers. This requires to have access to a transparent, flexible, robust and easy to use suite of simulation tools that will allow to run collaborative studies in a very simple way by sharing not only the same data but also the same modeling and solving choices in an open-source frame. Such tools will ensure to get similar results and to agree upon optimal and shared actions on the system to accompany the ongoing changes in the best possible way. This analysis has motivated us to launch a new effort on simulation tools that finally ends up in the development of the Dyna&omega;o's software.
 
 **To achieve this goal, Dyna&omega;o is based on two mains principles: the use of a high-level modeling language Modelica and a strict separation between modeling and solving parts**. Modelica is an equation-based, declarative and object-oriented modeling language that is easy to read and understand (the equations are written in a similar way than they are written in textbooks for example) and already used in different and various industrial sectors. Using this language enables to easily share and discuss the modeling choices done because the final models implementation is available in an understandable way, even for the end-user. It is important to mention that Modelica-based tools already exist (Dymola, OpenModelica, JModelica, etc.) but they are not efficient enough for large-scale simulation of power system, which was one of the motivation for Dyna&omega;o. In addition to this, the Modelica language itself has some limitations that are adressed in Dyna&omega;o by the possibility to use C++ models in a similar way than Modelica models. The second important point in Dyna&omega;o is the strict separation between modeler and solvers - it means that the models only expose a few methods to the solvers such as the residual evaluation, the Jacobian evaluation or the zero-crossing functions or in other words that the numerical resolution method doesn't interfere in the modeling part. This feature has several advantages: it enables to easily test or use new solvers, it eases the addition of new model and it allows modeling expert not to bother about numerical difficulties and vice versa.
 
-**Dyna&omega;o's primary focus has been on RMS simulations and most of the tests done until now have been for long-term and short-term stability studies.** However, the simulation tool structure offers great flexibility and makes it also possible to run other types of power system simulations, as long as the user provides the necessary models and solvers. Different initiatives are under discussion or submission to test the possibility to use Dyna&omega;o for EMT simulations or multi-system simulations.
+![image](documentation/resources/DynawoModelSolverLight.png "Dyna&omega;o's two main principles")
 
-**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/tree/master/dynawo/sources/Models/Modelica/Dynawo). Don't hesitate to open it in any Modelica environment to see what are the available models.**
+**Dyna&omega;o's primary focus has been on long-term and short-term stability studies** but the very encouraging results obtained and the flexibility of the approach led to **an extension of the initiative. Dyna&omega;o is now evolving towards a complete and coherent suite of simulation tools**, sharing the same philosophy:
+  - DynaFlow for steady-state calculations
+  - DySym for short-circuit calculations
+  - DynaWaltz for long-term stability simulations
+  - DynaSwing for short-term stability studies
+  - DynaWave for stability studies and system design with a high-penetration of power-electronics based components (quasi-EMT)
+  
+![image](documentation/resources/DynawoLogos.png "Dyna&omega;o's suite of simulation tools")
+
+![image](documentation/resources/DynawoInitiative.png "Dyna&omega;o's high-level vision")
+<p align="center"> High level vision of the Dyna&omega;o initiative </p>
 
 <a name="start"></a>
 ## Getting started!
 
 To get started with Dyna&omega;o you have different possibilities, depending on your background and what you want to do:
-- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/tree/master/dynawo/sources/Models/Modelica/Dynawo) in OpenModelica for example.
-- If you want to launch simulations and examples with Dyna&omega;o and observe the performances, you can use the [pre-built distribution](#distribution)
+- If you are interested in the models available and want to have a quick look to them, please open the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.2.0/Dynawo_Modelica_library_v1.2.0.zip) in OpenModelica for example.
+- If you want to launch simulations and examples with Dyna&omega;o and observe the performances, you can use the [pre-built distribution](#distribution) and the examples directory.
 - If you want to checkout the repository and build it yourself to be able to modify the tool, please follow the build instructions available [here](#build)
 
+
+**All validated models are included into the [Dyna&omega;o Modelica library](https://github.com/dynawo/dynawo/releases/download/v1.2.0/Dynawo_Modelica_library_v1.2.0.zip). Don't hesitate to open it in [OpenModelica](https://www.openmodelica.org/) to see what are the available models and simulate the simple full Modelica illustrative examples we provide.**
+
+**In addition, we also provide an example directory containing validated test cases for DynaFlow, DynaWaltz and DynaSwing. Don't hesitate to simulate them and open the [associated documentation](https://github.com/dynawo/dynawo/releases/download/v1.2.0/DynawoDocumentation.zip).**
+
+<a name="installation"></a>
+## Installation
 <a name="distribution"></a>
-## Dyna&omega;o Distribution
+### Dyna&omega;o Distribution
 
 You can download a pre-built Dyna&omega;o release to start testing it. Pre-built releases are available for **Linux**, **MacOS** and **Windows**:
-- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.3.0/Dynawo_Linux_v1.3.0.zip)
-- [MacOS](https://github.com/dynawo/dynawo/releases/download/v1.3.0/Dynawo_MacOS_v1.3.0.zip)
-- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.3.0/Dynawo_Windows_v1.3.0.zip)
+- [Linux](https://github.com/dynawo/dynawo/releases/download/v1.2.0/Dynawo_Linux_v1.2.0.zip)
+- [MacOS](https://github.com/dynawo/dynawo/releases/download/v1.2.0/Dynawo_MacOS_v1.2.0.zip)
+- [Windows](https://github.com/dynawo/dynawo/releases/download/v1.2.0/Dynawo_Windows_v1.2.0.zip)
 
-### Linux Requirements for Distribution
+#### Linux Requirements for Distribution
 
 - Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/) or [clang](https://clang.llvm.org/)), C++98 or C++11 compatible for C++ standard
 - Python2 or Python3
@@ -114,7 +137,7 @@ You can launch the following commands to download and test the latest distributi
 $> curl -L $(curl -s -L -X GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep "Dynawo_Linux" | grep url | cut -d '"' -f 4) -o Dynawo_Linux_latest.zip
 $> unzip Dynawo_Linux_latest.zip
 $> cd dynawo
-$> ./dynawo.sh jobs-with-curves Dynawo_Linux_latest/testcases/IEEE14/IEEE14_SyntaxExamples/IEEE14_ModelicaModel/IEEE14.jobs
+$> ./dynawo.sh jobs-with-curves sources/examples/DynaWaltz/IEEE14/IEEE14_GeneratorDisconnections/IEEE14.jobs
 $> ./dynawo.sh help
 $> ./dynawo.sh jobs --help
 ```
@@ -124,24 +147,24 @@ $> ./dynawo.sh jobs --help
 Download the zip of the distribution and unzip it somewhere. Then open either `Command Prompt` or `x64 Native Tools Command Prompt for VS2019` (to be able to use your own models) and use `cd` to go into the directory you previously unzipped. You should see a `dynawo.cmd` file at the top of the folder. You can then launch a simulation with:
 
 ``` batch
-> dynawo --jobs-file testcases\IEEE14\IEEE14_BasicTestCases\IEEE14_LoadVariation\IEEE14.jobs
+> dynawo --jobs-file sources\examples\DynaWaltz\IEEE14\IEEE14_GeneratorDisconnections\IEEE14.jobs
 ```
 
 <a name="requirements"></a>
-## Building requirements
+### Building requirements
 
-You can also build Dyna&omega;o from sources. Dyna&omega;o is a cross-platform software and has been tested on **Linux** platforms (Centos and Debian based), for other distributions don't hesitate to contact us if you run in problems. It has also been tested on **MacOS** (only on Mojave), a complete procedure to help non-developers install it on this platform will be available soon. We recently added **Windows** compatibility and you can now completly build and develop Dynawo on it. <br>
+You can also build Dyna&omega;o from sources. Dyna&omega;o is a cross-platform software and has been tested on **Linux** platforms (Centos and Debian based), for other distributions don't hesitate to contact us if you run in problems. It has also been tested on **MacOS** (only on Mojave), a complete procedure to help non-developers install it on this platform will be available soon. We recently added **Windows** compatibility and you can now completly build and develop Dyna&omega;o on it. <br>
 If you have any issue building Dyna&omega;o don't hesitate to send us an [email](mailto:rte-dynawo@rte-france.com) with your errors and we will try to answer you back quickly.
 
 In the following we give a list of requirements needed to build Dyna&omega;o and its dependencies.
 
 <a name="requirements_linux"></a>
-### Unix (Linux and MacOS)
+#### Unix (Linux and MacOS)
 
-#### Global
+##### Global
 - Compilers: C and C++ ([gcc](https://www.gnu.org/software/gcc/), [clang](https://clang.llvm.org/) or Apple Clang with Xcode or Command Line Tools), C++98 or C++11 compatible for C++ standard
 
-#### OpenModelica Compiler
+##### OpenModelica Compiler
 - Compiler: Fortran ([gfortran](https://gcc.gnu.org/fortran/))
 - Build systems: [autoconf](https://www.gnu.org/software/autoconf/), [automake](https://www.gnu.org/software/autoconf/), [libtool](https://www.gnu.org/software/libtool/), [pkgconf](http://pkgconf.org/), make, [CMake](https://cmake.org/)
 - Binary utilities: [xz](https://tukaani.org/xz/), patch, [GNU sed](https://www.gnu.org/software/sed/), msgfmt from [gettext](https://www.gnu.org/software/gettext/), [rsync](https://rsync.samba.org/)
@@ -149,7 +172,7 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 - Libraries: [expat](https://libexpat.github.io/), [BLAS](http://www.netlib.org/blas/index.html), [LAPACK](http://www.netlib.org/lapack/index.html)
 - [lpsolve55](http://lpsolve.sourceforge.net/) or [bison](https://www.gnu.org/software/bison/) and [flex](https://www.gnu.org/software/flex/) (to let OpenModelica compiles lpsolve itself)
 
-#### Dyna&omega;o user
+##### Dyna&omega;o user
 - [CMake](https://cmake.org/): minimum version 3.9.6 (last version to compile with c++98 compiler)
 - Python2 or Python3
 - Python packages: [lxml](https://lxml.de/)
@@ -157,13 +180,13 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 
 **Note** For Python you need to have the `python` command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with `export DYNAWO_PYTHON_COMMAND="python3"`.
 
-#### Dyna&omega;o developer
+##### Dyna&omega;o developer
 - [Doxygen](http://www.doxygen.nl/): minimum version 1.8, [Graphviz](https://graphviz.readthedocs.io/en/stable/) and LaTeX to build full documentation
 - Python packages: [psutil](https://psutil.readthedocs.io/en/latest/)
 - [LCOV](http://ltp.sourceforge.net/coverage/lcov.php): 1.7 to 1.13 versions work fine
 
 <a name="requirements_windows"></a>
-### Windows
+#### Windows
 
 - [Visual Studio 2019](https://visualstudio.microsoft.com/), Visual Studio 2015 was also tested
 - [CMake](https://cmake.org/)
@@ -172,10 +195,10 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 **Note** For Python you need to have the `python` command available in your PATH. If you don't have one you can use an environment variable to point to your Python version with `set DYNAWO_PYTHON_COMMAND=python3`.
 
 <a name="build"></a>
-## Building Dyna&omega;o
+### Building Dyna&omega;o
 
 <a name="build_linux"></a>
-### Linux
+#### Linux
 
 You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu:
 
@@ -232,7 +255,7 @@ $> export HTTP_PROXY=$http_proxy;export HTTPS_PROXY=$https_proxy;export NO_PROXY
 ```
 
 <a name="build_windows"></a>
-### Windows
+#### Windows
 
 Open `x64 Native Tools Command Prompt for VS2019` and run the following commands:
 
@@ -257,11 +280,11 @@ Open `x64 Native Tools Command Prompt for VS2019` and run the following commands
 **Warning** Only the build directories (b and b-3-p) can be located in the `dynawo` folder, the install (d-i and d-3-p), OMDev and OpenModelica folders should be located outside to avoid problems with CMake.
 
 <a name="build_macos"></a>
-### MacOS
+#### MacOS
 
 The difficult part of building Dyna&omega;o on MacOS is the compilation of OpenModelica. We propose two solutions, one with pre-built binaries for OpenModelica and one with building OpenModelica.
 
-#### With pre-built OpenModelica
+##### With pre-built OpenModelica
 
 Use the following commands in a terminal to download those binaries and use them to build Dyna&omega;o:
 
@@ -295,19 +318,19 @@ $> chmod +x myEnvDynawo.sh
 $> ./myEnvDynawo.sh build-user
 ```
 
-#### With building OpenModelica
+##### With building OpenModelica
 
 A solution has been develop but it is not yet available on Github and we advise you to [contact us](mailto:rte-dynawo@rte-france.com) so we can provide you with it. This solution should be available soon once it is completely stable.
 
 <a name="launch"></a>
-## Launch Dyna&omega;o
+### Launch Dyna&omega;o
 
 <a name="launch_linux"></a>
-### Linux and MacOS
+#### Linux and MacOS
 
 Once you have build Dyna&omega;o you can start launching a simulation with the command:
 ``` bash
-$> ./myEnvDynawo.sh jobs-with-curves nrt/data/IEEE14/IEEE14_BasicTestCases/IEEE14_DisconnectLine/IEEE14.jobs
+$> ./myEnvDynawo.sh jobs-with-curves examples/DynaWaltz/IEEE14/IEEE14_GeneratorDisconnections/IEEE14.jobs
 ```
 
 You can also list all available commands with:
@@ -324,21 +347,21 @@ $> ./myEnvDynawo.sh deploy-autocompletion --deploy --shell-type zsh
 Then you can launch:
 ``` bash
 $> dynawo help
-$> dynawo jobs-with-curves nrt/data/IEEE14/IEEE14_BasicTestCases/IEEE14_DisconnectLine/IEEE14.jobs
+$> dynawo jobs-with-curves examples/DynaWaltz/IEEE14/IEEE14_GeneratorDisconnections/IEEE14.jobs
 ```
 
 <a name="launch_windows"></a>
-### Windows
+#### Windows
 
 Once you have build Dyna&omega;o you can start launching a simulation with the command:
 
-``` batch
+``` "batch
 > cd ..\d-i
-> dynawo --jobs-file ..\dynawo\nrt\data\IEEE14\IEEE14_BasicTestCases\IEEE14_DisconnectLine\IEEE14.jobs
+> dynawo --jobs-file ..\dynawo\examples\DynaWaltz\IEEE14\IEEE14_GeneratorDisconnections\IEEE14.jobs
 ```
 
 <a name="docker"></a>
-## Docker
+### Docker
 
 We provide on [Docker Hub](https://hub.docker.com/r/dynawo/dynawo) an image of Dyna&omega;o master. You can use it by launching the following command:
 
@@ -350,7 +373,7 @@ You can have more information on how to use Docker to build and try Dyna&omega;o
 
 <a name="documentation"></a>
 ## Dyna&omega;o Documentation
-You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.3.0/DynawoDocumentation.pdf).
+You can download Dyna&omega;o documentation [here](https://github.com/dynawo/dynawo/releases/download/v1.2.0/DynawoDocumentation.zip).
 
 <a name="contributions"></a>
 ## Get involved!
@@ -400,29 +423,25 @@ In case of questions or issues, you can also send an e-mail to [rte-dynawo@rte-f
 ## Roadmap
 Below are the major development axis identified for Dyna&omega;o for the next few months, with associated contents and due date. It is important to notice that the development content and the due dates may be subject to change due to unforeseen complexity in implementing features or priority changes.
 
-### Axis 1 - Test cases and models development
+### Axis 1 - Models development
 
-* ~~Adding larger IEEE cases (IEEE14, IEEE57)~~
-* Adding large scale test cases (national and panEuropean ones): postponed to June 2020
 * ~~Adding new models (proportional and proportional integral VR, proportional governor, static var compensator, PLL, injectors)~~
-* PV WECC model: under progress, expected February 2020
-* Grid forming converters models: under progress, expected March 2020
-* Nordic32 case: expected June 2020
-* Wind WECC model: expected July 2020
-* HVDC standard model: expected September 2020
+* PV and Wind WECC model: under final validation and integration
+* ~~Grid forming converters models, expected April 2020~~ Available since V1.1.0.
+* ~~HVDC standard model: expected September 2020~~: Available since V1.2.0
+* Additional models for steady-state calculations (Static Var Compensator, voltage regulation, etc.): December 2020
 
-### Axis 2 - Dependencies upgrade and cross-platform deployment
+### Axis 2 - Test cases
+* Adding large scale test cases (national and panEuropean ones): internally ready but postponed to December 2020 (anonymisation) for public availability
+* ~~New examples section~~: Available since V1.2.0.
+* Nordic32 case: under development both in full Modelica and Dyna&omega;o format
 
+### Axis 3 - Dependencies, architecture and performances
 * ~~Switch to OpenModelica V1.13 version and DAE mode use~~
 * Switch to Sundials V5.0.0 and Suitesparse V5.3.0
-* Switch to a newer IIDM library version: postponed to June 2020
-* ~~Mac and Windows portability~~
-* ~~Switch to Modelica V3.2.3~~
-
-### Axis 3 - Dyna&omega;o structure evolution
-* ~~Performance improvement (code optimization, models improvements)~~
-* New initialization strategy: using Modelica initEquations section into Dyna&omega;o: postponed
-* Dyna&omega;o connectivity analysis improvement (system splitting): postponed December 2020
+* Switch to a newer IIDM library version: under progres, expected November 2020
+* Performances improvements: under progress
+* Dyna&omega;o connectivity analysis improvement (system splitting): postponed 2021
 
 <a name="links"></a>
 ## Links
