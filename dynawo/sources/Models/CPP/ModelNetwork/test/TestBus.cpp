@@ -245,7 +245,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   shared_ptr<ModelBus> bus = p.first;
   bus->initSize();
   unsigned nbZ = 3;
-  unsigned nbG = 4;
+  unsigned nbG = 2;
   ASSERT_EQ(bus->sizeZ(), nbZ);
   ASSERT_EQ(bus->sizeG(), nbG);
   std::vector<double> y(bus->sizeY(), 0.);
@@ -303,8 +303,6 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   ASSERT_EQ(i, 2);
   g[0] = ROOT_DOWN;
   g[1] = ROOT_DOWN;
-  g[2] = ROOT_UP;
-  g[3] = ROOT_UP;
   bus->evalZ(10.);
   network->setCurrentTime(10);
   for (constraints::ConstraintsCollection::const_iterator it = constraints->cbegin(),
@@ -328,8 +326,6 @@ TEST(ModelsModelNetwork, ModelNetworkBusDiscreteVariables) {
   bus->evalG(0.);
   ASSERT_EQ(g[0], ROOT_UP);
   ASSERT_EQ(g[1], ROOT_DOWN);
-  ASSERT_EQ(g[2], ROOT_DOWN);
-  ASSERT_EQ(g[3], ROOT_UP);
   std::map<int, std::string> gEquationIndex;
   bus->setGequations(gEquationIndex);
   ASSERT_EQ(gEquationIndex.size(), nbG);

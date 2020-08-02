@@ -272,7 +272,7 @@ ModelBus::initSize() {
     if (hasConnection_)
       sizeY_ = 4;
     sizeZ_ = 3;  // numCC, switchOff, state
-    sizeG_ = 4;  // U> Umax or U< Umin
+    sizeG_ = 2;  // U> Umax or U< Umin
     sizeMode_ = 0;
     sizeCalculatedVar_ = nbCalculatedVariables_;
   }
@@ -672,22 +672,18 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
 
 NetworkComponent::StateChange_t
 ModelBus::evalZ(const double& /*t*/) {
-  if (g_[0] == ROOT_UP && !stateUmax_ && !getSwitchOff()) {
+  if (g_[0] == ROOT_UP && !stateUmax_) {
     network_->addConstraint(constraintId_, true, DYNConstraint(USupUmax), modelType_);
     stateUmax_ = true;
-  }
-
-  if (g_[1] == ROOT_UP && !stateUmin_ && !getSwitchOff()) {
-    network_->addConstraint(constraintId_, true, DYNConstraint(UInfUmin), modelType_);
-    stateUmin_ = true;
-  }
-
-  if (g_[2] == ROOT_UP && stateUmax_) {
+  } else if (g_[0] == ROOT_DOWN && stateUmax_) {
     network_->addConstraint(constraintId_, false, DYNConstraint(USupUmax), modelType_);
     stateUmax_ = false;
   }
 
-  if (g_[3] == ROOT_UP && stateUmin_) {
+  if (g_[1] == ROOT_UP && !stateUmin_) {
+    network_->addConstraint(constraintId_, true, DYNConstraint(UInfUmin), modelType_);
+    stateUmin_ = true;
+  } else if (g_[1] == ROOT_DOWN && stateUmin_) {
     network_->addConstraint(constraintId_, false, DYNConstraint(UInfUmin), modelType_);
     stateUmin_ = false;
   }
@@ -716,16 +712,12 @@ ModelBus::evalG(const double& /*t*/) {
   double upu = getCurrentU(ModelBus::UPuType_);
   g_[0] = (upu - uMax_ > 0) ? ROOT_UP : ROOT_DOWN;  // U > Umax
   g_[1] = (uMin_ - upu > 0 && !getSwitchOff()) ? ROOT_UP : ROOT_DOWN;  // U < Umin
-  g_[2] = (uMax_ - upu > 0) ? ROOT_UP : ROOT_DOWN;  // U < Umax
-  g_[3] = (upu - uMin_ > 0 || getSwitchOff()) ? ROOT_UP : ROOT_DOWN;  // U > Umin ; end constraint if node switch off
 }
 
 void
 ModelBus::setGequations(std::map<int, std::string>& gEquationIndex) {
   gEquationIndex[0] = "U > UMax";
   gEquationIndex[1] = "U < UMin";
-  gEquationIndex[2] = "U < UMax";
-  gEquationIndex[3] = "U > UMin";
 
   assert(gEquationIndex.size() == (unsigned int) sizeG() && "Model Bus: gEquationIndex.size() != g_.size()");
 }
