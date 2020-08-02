@@ -62,11 +62,11 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
 ![image](documentation/resources/DynawoModelSolverLight.png "Dyna&omega;o's two main principles")
 
 **Dyna&omega;o's primary focus has been on long-term and short-term stability studies** but the very encouraging results obtained and the flexibility of the approach led to **an extension of the initiative. Dyna&omega;o is now evolving towards a complete and coherent suite of simulation tools**, sharing the same philosophy:
-  - DynaFlow for steady-state calculations
-  - DySym for short-circuit calculations
-  - DynaWaltz for long-term stability simulations
-  - DynaSwing for short-term stability studies
-  - DynaWave for stability studies and system design with a high-penetration of power-electronics based components (quasi-EMT)
+  - **[DynaFlow](http://dynawo.org/about/dynaflow)** for steady-state calculations
+  - **[DySym](http://dynawo.org/about/dysym)** for short-circuit calculations
+  - **[DynaWaltz](http://dynawo.org/about/dynawaltz)** for long-term stability simulations
+  - **[DynaSwing](http://dynawo.org/about/dynaswing)** for short-term stability studies
+  - **[DynaWave](http://dynawo.org/about/dynawave)** for stability studies and system design with a high-penetration of power-electronics based components (quasi-EMT)
   
 ![image](documentation/resources/DynawoLogos.png "Dyna&omega;o's suite of simulation tools")
 
@@ -441,6 +441,7 @@ Below are the major development axis identified for Dyna&omega;o for the next fe
 * Switch to Sundials V5.0.0 and Suitesparse V5.3.0
 * Switch to a newer IIDM library version: under progres, expected November 2020
 * Performances improvements: under progress
+* Ancilarry services - contingency analysis and margin calculation: under progress
 * Dyna&omega;o connectivity analysis improvement (system splitting): postponed 2021
 
 <a name="links"></a>
