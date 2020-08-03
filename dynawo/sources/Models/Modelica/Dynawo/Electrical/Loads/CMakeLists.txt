@@ -19,6 +19,8 @@ set(MODEL_FILES
     LoadAlphaBetaRestorative.extvar
     LoadPQ.mo
     LoadPQ.extvar
+    LoadZIP.mo
+    LoadZIP.extvar
     Load_INIT.mo
     LoadConnect_INIT.mo
     LoadAuxiliaries_INIT.mo
