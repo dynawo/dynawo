@@ -37,13 +37,13 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
 
   mcl.addLimit(8., 5.);
   ASSERT_EQ(mcl.sizeZ(), 0);
-  ASSERT_EQ(mcl.sizeG(), 3);
+  ASSERT_EQ(mcl.sizeG(), 2);
   mcl.addLimit(std::numeric_limits<double>::quiet_NaN(), std::numeric_limits<int>::max());
   ASSERT_EQ(mcl.sizeZ(), 0);
-  ASSERT_EQ(mcl.sizeG(), 3);
+  ASSERT_EQ(mcl.sizeG(), 2);
   mcl.addLimit(10., std::numeric_limits<int>::max());
   ASSERT_EQ(mcl.sizeZ(), 0);
-  ASSERT_EQ(mcl.sizeG(), 6);
+  ASSERT_EQ(mcl.sizeG(), 4);
   states.resize(mcl.sizeG(), NO_ROOT);
   mcl.setMaxTimeOperation(10.);
   mcl.setSide(ModelCurrentLimits::SIDE_2);
@@ -56,7 +56,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
 
   mcl.evalG(t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
-    if (i == 5)
+    if (i == 3)
       ASSERT_EQ(states[i], NO_ROOT);
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
@@ -66,7 +66,7 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   for (size_t i = 0; i < states.size(); ++i) {
     if (i == 0)
       ASSERT_EQ(states[i], ROOT_UP);
-    else if (i == 5)
+    else if (i == 3)
       ASSERT_EQ(states[i], NO_ROOT);
     else
       ASSERT_EQ(states[i], ROOT_DOWN);
@@ -76,12 +76,10 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   current = 11.;
   mcl.evalG(t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
-    if (i == 3)
+    if (i == 0 || i == 2)
       ASSERT_EQ(states[i], ROOT_UP);
-    else if (i == 5)
+    else if (i == 3)
       ASSERT_EQ(states[i], NO_ROOT);
-    else
-      ASSERT_EQ(states[i], ROOT_DOWN);
   }
   mcl.evalZ("MY COMP", t, &states[0], &network, desactivate, modelType);
 
@@ -111,9 +109,9 @@ TEST(ModelsModelNetwork, ModelNetworkCurrentLimits) {
   t = 5.1;
   mcl.evalG(t, current, &states[0], desactivate);
   for (size_t i = 0; i < states.size(); ++i) {
-    if (i == 0 || i == 3)
+    if (i == 0 || i == 2)
       ASSERT_EQ(states[i], ROOT_DOWN);
-    else if (i == 5)
+    else if (i == 3)
       ASSERT_EQ(states[i], NO_ROOT);
     else
       ASSERT_EQ(states[i], ROOT_UP);

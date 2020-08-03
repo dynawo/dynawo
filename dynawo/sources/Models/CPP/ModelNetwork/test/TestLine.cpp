@@ -909,7 +909,7 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
   shared_ptr<ModelLine> dl = p.first;
   dl->initSize();
   unsigned nbZ = 2;
-  unsigned nbG = 9;
+  unsigned nbG = 6;
   ASSERT_EQ(dl->sizeZ(), nbZ);
   ASSERT_EQ(dl->sizeG(), nbG);
   std::vector<double> y(dl->sizeY(), 0.);
@@ -1054,9 +1054,6 @@ TEST(ModelsModelNetwork, ModelNetworkLineDiscreteVariables) {
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[3], ROOT_DOWN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[4], ROOT_DOWN);
   ASSERT_DOUBLE_EQUALS_DYNAWO(g[5], ROOT_DOWN);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(g[6], ROOT_DOWN);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(g[7], ROOT_DOWN);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(g[8], ROOT_DOWN);
 
   shared_ptr<ModelLine> dlInit = createModelLine(false, true).first;
   dlInit->initSize();
