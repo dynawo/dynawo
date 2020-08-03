@@ -227,7 +227,7 @@ TEST(ModelsModelNetwork, ModelNetworkDanglingLineDiscreteVariables) {
   shared_ptr<ModelDanglingLine> dl = p.first;
   dl->initSize();
   unsigned nbZ = 2;
-  unsigned nbG = 9;
+  unsigned nbG = 6;
   ASSERT_EQ(dl->sizeZ(), nbZ);
   ASSERT_EQ(dl->sizeG(), nbG);
   std::vector<double> y(dl->sizeY(), 0.);
