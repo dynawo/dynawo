@@ -672,7 +672,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
   shared_ptr<ModelTwoWindingsTransformer> t2w = p.first;
   t2w->initSize();
   unsigned nbZ = 5;
-  unsigned nbG = 13;
+  unsigned nbG = 11;
   ASSERT_EQ(t2w->sizeZ(), nbZ);
   ASSERT_EQ(t2w->sizeG(), nbG);
   std::vector<double> y(t2w->sizeY(), 0.);
@@ -735,8 +735,6 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
   ASSERT_EQ(g[8], ROOT_DOWN);
   ASSERT_EQ(g[9], ROOT_DOWN);
   ASSERT_EQ(g[10], ROOT_DOWN);
-  ASSERT_EQ(g[11], ROOT_DOWN);
-  ASSERT_EQ(g[12], ROOT_DOWN);
 
   shared_ptr<ModelTwoWindingsTransformer> t2wInit = createModelTwoWindingsTransformer(false, true, true, false).first;
   t2wInit->initSize();
@@ -747,7 +745,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerDiscreteVariables) {
 
   shared_ptr<ModelTwoWindingsTransformer> t2wPhase = createModelTwoWindingsTransformer(false, false, false, true).first;
   t2wPhase->initSize();
-  nbG = 12;
+  nbG = 10;
   ASSERT_EQ(t2wPhase->sizeZ(), nbZ);
   ASSERT_EQ(t2wPhase->sizeG(), nbG);
   delete[] zConnected;
@@ -759,7 +757,7 @@ TEST(ModelsModelNetwork, ModelNetworkTwoWindingsTransformerOpenedDiscreteVariabl
   shared_ptr<ModelTwoWindingsTransformer> t2w = p.first;
   t2w->initSize();
   unsigned nbZ = 5;
-  unsigned nbG = 13;
+  unsigned nbG = 11;
   ASSERT_EQ(t2w->sizeZ(), nbZ);
   ASSERT_EQ(t2w->sizeG(), nbG);
   std::vector<double> y(t2w->sizeY(), 0.);
