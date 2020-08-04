@@ -75,8 +75,8 @@ equation
     rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
   else
-    terminal1.i = Complex (0);
-    terminal2.i = Complex (0);
+    terminal1.i = terminal2.i;
+    terminal2.V = Complex (0);
   end if;
 
   if (running.value) then

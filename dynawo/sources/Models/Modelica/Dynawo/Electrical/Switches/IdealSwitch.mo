@@ -48,8 +48,8 @@ equation
 
   // When the switch is closed, V and i are equal on both sides. Otherwise, the currents are zero.
   if (running.value) then
-    terminal1.V = terminal2.V;
     terminal1.i = - terminal2.i;
+    terminal1.V = terminal2.V;
     P1Pu = ComplexMath.real(terminal1.V * ComplexMath.conj(terminal1.i));
     Q1Pu = ComplexMath.imag(terminal1.V * ComplexMath.conj(terminal1.i));
     P1GenPu = - P1Pu;
@@ -57,8 +57,8 @@ equation
     P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
     Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
   else
-    terminal1.i = Complex(0);
-    terminal2.i = Complex(0);
+    terminal1.i = terminal2.i;
+    terminal2.V = Complex(0);
     P1Pu = 0;
     Q1Pu = 0;
     P1GenPu = 0;
