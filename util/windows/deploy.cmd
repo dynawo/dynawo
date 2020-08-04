@@ -61,22 +61,8 @@ xcopy %dynawo_source_dir%\util\nrt_diff\*.py %deploy_dir%\sbin\nrt\nrt_diff /i
 xcopy %dynawo_source_dir%\nrt\nrt.py %deploy_dir%\sbin\nrt /i
 xcopy %dynawo_source_dir%\nrt\resources %deploy_dir%\sbin\nrt /i
 
-pushd %dynawo_source_dir%
-
-:: Copy sources
-SETLOCAL ENABLEDELAYEDEXPANSION
-for /f %%i in ('git ls-files') do (
-  SET FILE=%%i
-  set FILE_DIR=%%~dpi
-  set FILE_INTERMEDIATE_DIR=!FILE_DIR:%dynawo_source_dir_abs%=!
-  xcopy !FILE:/=\! %deploy_dir_abs%\sources!FILE_INTERMEDIATE_DIR! /i /y
-  )
-ENDLOCAL
-
-popd
-
-xcopy %deploy_dir_abs%\sources\nrt\data %deploy_dir%\testcases /E /i
-forfiles /p %deploy_dir%\testcases /m *.py /s /c "cmd /c del @path /s /f /q"
+xcopy %dynawo_source_dir%\examples %deploy_dir%\examples /E /i
+forfiles /p %deploy_dir%\examples /m *.py /s /c "cmd /c del @path /s /f /q"
 
 :: Third parties
 xcopy %thirdPartyInstallPath%\adept\cmake %deploy_dir%\cmake /E /i
