@@ -15,6 +15,7 @@ within Dynawo.Electrical.Machines.SignalN;
 model GeneratorPV "Model for generator PV based on SignalN for the frequency handling"
 
   extends BaseClasses.BaseGeneratorSignalN;
+  extends AdditionalIcons.Machine;
 
   equation
 
