@@ -15,6 +15,7 @@ within Dynawo.Electrical.Machines.SignalN;
 model GeneratorPVProp "Model for generator PV based on SignalN for the frequency handling and with a proportional voltage regulation"
 
   extends BaseClasses.BaseGeneratorSignalN;
+  extends AdditionalIcons.Machine;
 
   parameter Types.PerUnit KVoltage "Parameter of the proportional voltage regulation";
 
