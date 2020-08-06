@@ -22,7 +22,6 @@ model GeneratorPV "Generator with power / frequency modulation and voltage / rea
   import Dynawo.NonElectrical.Logs.Timeline;
   import Dynawo.NonElectrical.Logs.TimelineKeys;
 
-  extends BaseClasses.BaseGeneratorSimplified;
   extends BaseClasses.BaseGeneratorSimplifiedPFBehavior;
   extends AdditionalIcons.Machine;
 

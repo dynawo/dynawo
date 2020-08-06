@@ -45,6 +45,7 @@ package BaseClasses
   partial model BaseGeneratorSimplifiedPFBehavior "Base model for generator active power / frequency modulation"
     import Dynawo.NonElectrical.Logs.Timeline;
     import Dynawo.NonElectrical.Logs.TimelineKeys;
+    extends BaseGeneratorSimplified;
     type PStatus = enumeration(Standard "Active power is modulated by the frequency deviation", LimitPMin "Active power is fixed to its minimum value", LimitPMax "Active power is fixed to its maximum value");
     Connectors.ImPin omegaRefPu "Network angular reference frequency in p.u (base OmegaNom)";
     parameter Types.ActivePower PMin "Minimum active power in MW";

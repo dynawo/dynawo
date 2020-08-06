@@ -47,11 +47,11 @@ package BaseClasses
 
   equation
 
-    when QGenPu <= QMinPu and (pre(QGenPu) <> QMinPu or UPu > URefPu.value) then
+    when QGenPu <= QMinPu and (pre(qStatus) <> QStatus.AbsorptionMax or UPu > URefPu.value) then
       qStatus = QStatus.AbsorptionMax;
-    elsewhen QGenPu >= QMaxPu and (pre(QGenPu) <> QMaxPu or UPu < URefPu.value) then
+    elsewhen QGenPu >= QMaxPu and (pre(qStatus) <> QStatus.GenerationMax or UPu < URefPu.value) then
       qStatus = QStatus.GenerationMax;
-    elsewhen (QGenPu > QMinPu or (pre(QGenPu) == QMinPu and UPu <= URefPu.value)) and (QGenPu < QMaxPu or (pre(QGenPu) == QMaxPu and UPu >= URefPu.value)) then
+    elsewhen (QGenPu > QMinPu or (pre(qStatus) == QStatus.AbsorptionMax and UPu <= URefPu.value)) and (QGenPu < QMaxPu or (pre(qStatus) == QStatus.GenerationMax and UPu >= URefPu.value)) then
       qStatus = QStatus.Standard;
     end when;
 
