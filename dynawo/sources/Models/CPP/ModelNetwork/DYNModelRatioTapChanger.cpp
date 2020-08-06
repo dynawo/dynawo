@@ -66,52 +66,24 @@ bool ModelRatioTapChanger::getUpIncreaseTargetU() const {
   return upIncreaseTargetU;
 }
 
-void ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff,
-                                 state_g* g, double disable, double locked,
-                                 bool tfoClosed) {
-  g[0] =
-      (uValue > targetV_ + tolV_ && doubleNotEquals(uValue, targetV_ + tolV_) &&
-       !(disable > 0) && !(nodeOff) && tfoClosed)
-          ? ROOT_UP
-          : ROOT_DOWN;  // U > Uc + deadBand
-  g[1] =
-      (uValue < targetV_ - tolV_ && doubleNotEquals(uValue, targetV_ - tolV_) &&
-       !(disable > 0) && !(nodeOff) && tfoClosed)
-          ? ROOT_UP
-          : ROOT_DOWN;  // U < Uc - deadBand
-  g[2] = (uValue <= targetV_ + tolV_ && uValue >= targetV_ - tolV_)
-             ? ROOT_UP
-             : ROOT_DOWN;  // U-deadBand < U < U + deadBand
-  g[3] = (moveUp_ && (t - whenUp_ >= getTFirst()) &&
-          getCurrentStepIndex() < getHighStepIndex() && !(locked > 0) &&
-          getRegulating() && getCurrentStepIndex() == tapRefUp_ && !(nodeOff) &&
-          tfoClosed)
-             ? ROOT_UP
-             : ROOT_DOWN;  // first tap Up
-  g[4] = (moveUp_ && (t - whenLastTap_ >= getTNext()) &&
-          getCurrentStepIndex() < getHighStepIndex() && !(locked > 0) &&
-          getRegulating() && getCurrentStepIndex() != tapRefUp_ && !(nodeOff) &&
-          tfoClosed)
-             ? ROOT_UP
-             : ROOT_DOWN;  // next tap Up
-
-  g[5] = (moveDown_ && (t - whenDown_ >= getTFirst()) &&
-          getCurrentStepIndex() > getLowStepIndex() && !(locked > 0) &&
-          getRegulating() && getCurrentStepIndex() == tapRefDown_ &&
-          !(nodeOff) && tfoClosed)
-             ? ROOT_UP
-             : ROOT_DOWN;  // first tap down
-  g[6] = (moveDown_ && (t - whenLastTap_ >= getTNext()) &&
-          getCurrentStepIndex() > getLowStepIndex() && !(locked > 0) &&
-          getRegulating() && getCurrentStepIndex() != tapRefDown_ &&
-          !(nodeOff) && tfoClosed)
-             ? ROOT_UP
-             : ROOT_DOWN;  // next tap down
+void
+ModelRatioTapChanger::evalG(double t, double uValue, bool nodeOff, state_g* g, double disable, double locked, bool tfoClosed) {
+  int currentStepIndex = getCurrentStepIndex();
+  g[0] = (uValue > targetV_ + tolV_ && doubleNotEquals(uValue, targetV_ + tolV_)
+  && !(disable > 0) && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U > Uc + deadBand
+  g[1] = (uValue < targetV_ - tolV_ && doubleNotEquals(uValue, targetV_ - tolV_)
+  && !(disable > 0) && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // U < Uc - deadBand
+  g[2] = (moveUp_ && ((t - whenUp_ >= getTFirst() && currentStepIndex == tapRefUp_) || (t - whenLastTap_ >= getTNext() && currentStepIndex != tapRefUp_))
+          && currentStepIndex < getHighStepIndex() && !(locked > 0) && getRegulating()
+          && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // first or next tap up
+  g[3] = (moveDown_
+          && ((t - whenDown_ >= getTFirst() && currentStepIndex == tapRefDown_) || (t - whenLastTap_ >= getTNext() && currentStepIndex != tapRefDown_))
+          && currentStepIndex > getLowStepIndex() && !(locked > 0) && getRegulating()
+          && !(nodeOff) && tfoClosed) ? ROOT_UP : ROOT_DOWN;  // first or next tap down
 }
 
-void ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
-                                 double disable, bool nodeOff, double locked,
-                                 bool tfoClosed) {
+void
+ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network, double disable, bool nodeOff, double locked, bool tfoClosed) {
   if (!(disable > 0) && !(nodeOff) && !(locked > 0) && tfoClosed) {
     if (g[0] == ROOT_UP && !uMaxState_) {  // U > UMax
       if (!getUpIncreaseTargetU()) {
@@ -155,7 +127,7 @@ void ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
       uTargetState_ = false;
     }
 
-    if (g[2] == ROOT_UP && !uTargetState_) {
+    if (g[0] == ROOT_DOWN && g[1] == ROOT_DOWN && !uTargetState_) {
       whenUp_ = VALDEF;
       moveUp_ = false;
       tapRefUp_ = getLowStepIndex();
@@ -167,13 +139,13 @@ void ModelRatioTapChanger::evalZ(double t, state_g* g, ModelNetwork* network,
       uMinState_ = false;
     }
 
-    if (g[3] == ROOT_UP || g[4] == ROOT_UP) {
+    if (g[2] == ROOT_UP) {
       setCurrentStepIndex(getCurrentStepIndex() + 1);
       whenLastTap_ = t;
       network->addEvent(id(), DYNTimeline(TapUp));
     }
 
-    if (g[5] == ROOT_UP || g[6] == ROOT_UP) {
+    if (g[3] == ROOT_UP) {
       setCurrentStepIndex(getCurrentStepIndex() - 1);
       whenLastTap_ = t;
       network->addEvent(id(), DYNTimeline(TapDown));
