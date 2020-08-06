@@ -64,7 +64,8 @@ class ModelRatioTapChanger : public ModelTapChanger {
    * @brief  get the size of the local G function
    * @return size of G function
    */
-  int sizeG() const;
+
+  inline int sizeG() const { return 4; }
 
   /**
    * @brief  get size of discrete variables
