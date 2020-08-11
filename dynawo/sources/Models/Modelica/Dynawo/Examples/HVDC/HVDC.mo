@@ -86,7 +86,7 @@ equation
   connect(nodeFault.terminal, line2.terminal1) annotation(
     Line(points = {{42, -84}, {42, -40}}, color = {0, 0, 255}));
   annotation(
-    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.0001),
+    experiment(StartTime = 0, StopTime = 10, Tolerance = 1e-06, Interval = 0.0001, emit_protected = "()"),
     Documentation(info = "<html><head></head><body><span style=\"font-size: 12px;\">
      This test case works with Modelica Standard Library 3.2.3. </div><div><br></div><div>This test case consists in one HVDC link connected to two infinite buses. A short-circuit at the HVDC link terminal 2 is simulated at t = 0.5s and cleared at t = 1.5s.    </div><div><br></div><div>The following figures show the evolution of the active power, reactive power, AC voltage and DC voltage for each terminal of the HVDC link.
     <figure>
