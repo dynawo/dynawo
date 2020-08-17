@@ -26,8 +26,7 @@ equation
     PPu = PRefPu.value;
     QPu = QRefPu.value;
   else
-    PPu = 0;
-    QPu = 0;
+    terminal.i = Complex(0);
   end if;
 
 annotation(preferredView = "text");
