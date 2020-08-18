@@ -24,6 +24,14 @@ tfo_terminal1_V_re                                : alias of line1_terminal2_V_r
  ====== INIT CALCULATED VARIABLES VALUES ======
 busInf_terminal_V_im                              : y =       0.000000
 busInf_terminal_V_re                              : y =       0.900810
+line1_P1Pu                                        : y =     -12.993269
+line1_P2Pu                                        : y =      12.993269
+line1_Q1Pu                                        : y =       0.563297
+line1_Q2Pu                                        : y =       4.131241
+line2_P1Pu                                        : y =      -6.985782
+line2_P2Pu                                        : y =       6.985782
+line2_Q1Pu                                        : y =       0.302855
+line2_Q2Pu                                        : y =       2.221146
 line1_terminal1_V_im                              : y =       0.000000
 line1_terminal1_V_re                              : y =       0.900810
 line2_terminal1_V_im                              : y =       0.000000
