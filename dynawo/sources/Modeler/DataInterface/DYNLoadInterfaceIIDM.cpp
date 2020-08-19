@@ -84,16 +84,22 @@ void
 LoadInterfaceIIDM::importStaticParameters() {
   staticParameters_.clear();
   double P = getP();
+  double P0 = getP0();
   double Q = getQ();
+  double Q0 = getQ0();
   double SN = SNREF;
   SN = 1.5 * sqrt(P * P + Q * Q);
   SN = (SN < SNREF ? SNREF : SN);
 
   staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(P / SNREF)));
+  staticParameters_.insert(std::make_pair("p0_pu", StaticParameter("p0_pu", StaticParameter::DOUBLE).setValue(P0 / SNREF)));
   staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(Q / SNREF)));
+  staticParameters_.insert(std::make_pair("q0_pu", StaticParameter("q0_pu", StaticParameter::DOUBLE).setValue(Q0 / SNREF)));
   staticParameters_.insert(std::make_pair("sn_pu", StaticParameter("sn_pu", StaticParameter::DOUBLE).setValue(SN / SNREF)));
   staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(P)));
+  staticParameters_.insert(std::make_pair("p0", StaticParameter("p0", StaticParameter::DOUBLE).setValue(P0)));
   staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(Q)));
+  staticParameters_.insert(std::make_pair("q0", StaticParameter("q0", StaticParameter::DOUBLE).setValue(Q0)));
   staticParameters_.insert(std::make_pair("sn", StaticParameter("sn", StaticParameter::DOUBLE).setValue(SN)));
 
   if (busInterface_ && loadIIDM_.has_voltageLevel()) {
@@ -144,8 +150,18 @@ LoadInterfaceIIDM::getP() {
 }
 
 double
+LoadInterfaceIIDM::getP0() {
+  return loadIIDM_.p0();
+}
+
+double
 LoadInterfaceIIDM::getQ() {
   return InjectorInterfaceIIDM<IIDM::Load>::getQ();
+}
+
+double
+LoadInterfaceIIDM::getQ0() {
+  return loadIIDM_.q0();
 }
 
 string
