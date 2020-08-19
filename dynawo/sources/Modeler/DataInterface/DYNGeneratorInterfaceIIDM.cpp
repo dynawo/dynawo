@@ -95,6 +95,8 @@ GeneratorInterfaceIIDM::importStaticParameters() {
   staticParameters_.insert(std::make_pair("pMax", StaticParameter("pMax", StaticParameter::DOUBLE).setValue(pMax)));
   staticParameters_.insert(std::make_pair("qMax", StaticParameter("qMax", StaticParameter::DOUBLE).setValue(qMax)));
   staticParameters_.insert(std::make_pair("qMin", StaticParameter("qMin", StaticParameter::DOUBLE).setValue(qMin)));
+  staticParameters_.insert(std::make_pair("targetP_pu", StaticParameter("targetP_pu", StaticParameter::DOUBLE).setValue(getTargetP() / SNREF)));
+  staticParameters_.insert(std::make_pair("targetP_pu", StaticParameter("targetP", StaticParameter::DOUBLE).setValue(getTargetP())));
   double sNom = sqrt(pMax * pMax + qMax * qMax);
   staticParameters_.insert(std::make_pair("sNom", StaticParameter("sNom", StaticParameter::DOUBLE).setValue(sNom)));
   if (busInterface_) {
@@ -113,6 +115,10 @@ GeneratorInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("uc", StaticParameter("uc", StaticParameter::DOUBLE).setValue(U0)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
     staticParameters_.insert(std::make_pair("vNom", StaticParameter("vNom", StaticParameter::DOUBLE).setValue(vNom)));
+    staticParameters_.insert(std::make_pair("targetV_pu", StaticParameter("targetV_pu", StaticParameter::DOUBLE).setValue(getTargetV()/vNom)));
+    staticParameters_.insert(std::make_pair("targetV", StaticParameter("targetV", StaticParameter::DOUBLE).setValue(getTargetV())));
+    staticParameters_.insert(std::make_pair("targetQ_pu", StaticParameter("targetQ_pu", StaticParameter::DOUBLE).setValue(getTargetQ()/vNom)));
+    staticParameters_.insert(std::make_pair("targetQ", StaticParameter("targetQ", StaticParameter::DOUBLE).setValue(getTargetQ())));
   } else {
     staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
@@ -121,6 +127,8 @@ GeneratorInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("uc", StaticParameter("uc", StaticParameter::DOUBLE).setValue(0.)));
     staticParameters_.insert(std::make_pair("vNom", StaticParameter("vNom", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("targetV_pu", StaticParameter("targetV_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("targetV", StaticParameter("targetV", StaticParameter::DOUBLE).setValue(0.)));
   }
 }
 
@@ -160,6 +168,12 @@ GeneratorInterfaceIIDM::getPMax() {
 }
 
 double
+GeneratorInterfaceIIDM::getTargetP() {
+  return generatorIIDM_.targetP();
+}
+
+
+double
 GeneratorInterfaceIIDM::getQ() {
   return InjectorInterfaceIIDM<IIDM::Generator>::getQ();
 }
@@ -169,7 +183,7 @@ GeneratorInterfaceIIDM::getQMax() {
   if (generatorIIDM_.has_minMaxReactiveLimits()) {
     return generatorIIDM_.minMaxReactiveLimits().max();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
-    assert(generatorIIDM_.reactiveCapabilityCurve().size()>0);
+    assert(generatorIIDM_.reactiveCapabilityCurve().size() > 0);
     double qMax = 0;
     const double pGen = - getP();
     const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
@@ -197,7 +211,7 @@ GeneratorInterfaceIIDM::getQMin() {
   if (generatorIIDM_.has_minMaxReactiveLimits()) {
     return generatorIIDM_.minMaxReactiveLimits().min();
   } else if (generatorIIDM_.has_reactiveCapabilityCurve()) {
-    assert(generatorIIDM_.reactiveCapabilityCurve().size()>0);
+    assert(generatorIIDM_.reactiveCapabilityCurve().size() > 0);
     double qMin = 0;
     const double pGen = - getP();
     const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
@@ -219,6 +233,23 @@ GeneratorInterfaceIIDM::getQMin() {
     return -0.3 * getPMax();
   }
 }
+
+double
+GeneratorInterfaceIIDM::getTargetQ() {
+  if (generatorIIDM_.has_targetQ()) {
+    return generatorIIDM_.targetQ();
+  }
+  return 0;
+}
+
+double
+GeneratorInterfaceIIDM::getTargetV() {
+  if (generatorIIDM_.has_targetV()) {
+    return generatorIIDM_.targetV();
+  }
+  return 0;
+}
+
 
 string
 GeneratorInterfaceIIDM::getID() const {

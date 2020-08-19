@@ -70,6 +70,12 @@ class GeneratorInterface : public ComponentInterface {
   virtual double getPMax() = 0;
 
   /**
+   * @brief Getter for the target active power of the generator
+   * @return The target active power of the generator in MW (generator convention)
+   */
+  virtual double getTargetP() = 0;
+
+  /**
    * @brief Getter for the reactive power of the generator
    * @return The reactive power of the generator in Mvar (generator convention)
    */
@@ -86,6 +92,18 @@ class GeneratorInterface : public ComponentInterface {
    * @return The minimum reactive power of the generator in MVar (generator convention)
    */
   virtual double getQMin() = 0;
+
+  /**
+   * @brief Getter for the target reactive power of the generator
+   * @return The target reactive power of the generator in MVar (generator convention)
+   */
+  virtual double getTargetQ() = 0;
+
+  /**
+   * @brief Getter for the target voltage of the generator
+   * @return The target voltage of the generator in kV
+   */
+  virtual double getTargetV() = 0;
 
   /**
    * @brief Getter for the initial connection state of the generator

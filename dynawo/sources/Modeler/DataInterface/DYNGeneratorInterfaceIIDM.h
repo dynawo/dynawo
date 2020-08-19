@@ -105,6 +105,11 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   double getPMax();
 
   /**
+   * @copydoc GeneratorInterface::getTargetP()
+   */
+  double getTargetP();
+
+  /**
    * @copydoc GeneratorInterface::getQ()
    */
   double getQ();
@@ -118,6 +123,16 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
    * @copydoc GeneratorInterface::getQMin()
    */
   double getQMin();
+
+  /**
+   * @copydoc GeneratorInterface::getTargetQ()
+   */
+  double getTargetQ();
+
+  /**
+   * @copydoc GeneratorInterface::getTargetV()
+   */
+  double getTargetV();
 
   /**
    * @copydoc GeneratorInterface::getID() const
