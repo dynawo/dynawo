@@ -186,13 +186,15 @@ createBusBreakerNetwork(const BusBreakerNetworkProperty& properties) {
     IIDM::builders::GeneratorBuilder gb;
     IIDM::MinMaxReactiveLimits limits(1., 20.);
     gb.minMaxReactiveLimits(limits);
-    gb.targetP(1.05);
+    gb.targetP(-105.);
     gb.pmin(-150.);
     gb.pmax(200.);
     gb.energySource(IIDM::Generator::source_nuclear);
     IIDM::Generator g = gb.build("MyGenerator");
     g.p(-105.);
     g.q(-90.);
+    g.targetQ(-90.);
+    g.targetV(150.);
     g.connectTo("MyVoltageLevel", p1);
     vl.add(g);
   }
