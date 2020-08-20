@@ -115,7 +115,7 @@ GeneratorInterfaceIIDM::importStaticParameters() {
     staticParameters_.insert(std::make_pair("uc", StaticParameter("uc", StaticParameter::DOUBLE).setValue(U0)));
     staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
     staticParameters_.insert(std::make_pair("vNom", StaticParameter("vNom", StaticParameter::DOUBLE).setValue(vNom)));
-    staticParameters_.insert(std::make_pair("targetV_pu", StaticParameter("targetV_pu", StaticParameter::DOUBLE).setValue(getTargetV()/vNom)));
+    staticParameters_.insert(std::make_pair("targetV_pu", StaticParameter("targetV_pu", StaticParameter::DOUBLE).setValue(getTargetV() / vNom)));
     staticParameters_.insert(std::make_pair("targetV", StaticParameter("targetV", StaticParameter::DOUBLE).setValue(getTargetV())));
     staticParameters_.insert(std::make_pair("targetQ_pu", StaticParameter("targetQ_pu", StaticParameter::DOUBLE).setValue(getTargetQ() / SNREF)));
     staticParameters_.insert(std::make_pair("targetQ", StaticParameter("targetQ", StaticParameter::DOUBLE).setValue(getTargetQ())));
@@ -238,16 +238,18 @@ double
 GeneratorInterfaceIIDM::getTargetQ() {
   if (generatorIIDM_.has_targetQ()) {
     return generatorIIDM_.targetQ();
+  } else {
+    return 0;
   }
-  return 0;
 }
 
 double
 GeneratorInterfaceIIDM::getTargetV() {
   if (generatorIIDM_.has_targetV()) {
     return generatorIIDM_.targetV();
+  } else {
+    return 0;
   }
-  return 0;
 }
 
 
