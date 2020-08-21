@@ -50,6 +50,8 @@ set(MODELICA_PREASSEMBLED_MODELS
     NodeFault.xml
     PhaseShifterI.xml
     PhaseShifterP.xml
+    ShuntBNonLinear.xml
+    ShuntBNonLinearWithRegulation.xml
     SetPoint.xml
     StaticVarCompensator.xml
     Step.xml
