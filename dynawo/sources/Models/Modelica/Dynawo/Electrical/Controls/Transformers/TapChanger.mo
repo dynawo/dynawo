@@ -29,7 +29,7 @@ model TapChanger "Tap-changer monitoring the voltage so that it remains within [
 
 equation
 
-    connect (UMonitored.value, valueToMonitor.value);
+    connect(UMonitored, valueToMonitor);
 
     when (valueToMonitor.value < valueMin) and not(locked) then
       Timeline.logEvent1(TimelineKeys.TapChangerBelowMin);
