@@ -67,3 +67,23 @@ case_description = "Small System with two Phase Shifters"
 job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "examples", "DynaFlow", "IllustrativeExamples", "PhaseShifters", "PhaseShifters.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+##########################################
+#  Small System with a Non Linear Shunt  #
+##########################################
+
+case_name = "DynaFlow - Shunts"
+case_description = "Small System with a Non Linear Shunt"
+job_file = os.path.join(os.path.dirname(__file__), "Shunts", "Shunt.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
+
+###################################################################
+#  Small System with a Non Linear Shunt and a section regulation  #
+###################################################################
+
+case_name = "DynaFlow - Shunts with regulation"
+case_description = "Small System with a Non Linear Shunt and a section regulation"
+job_file = os.path.join(os.path.dirname(__file__), "ShuntWithRegulation", "Shunt.jobs")
+
+test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
