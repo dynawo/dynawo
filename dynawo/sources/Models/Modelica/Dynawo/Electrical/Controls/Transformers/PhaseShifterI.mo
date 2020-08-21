@@ -26,7 +26,7 @@ model PhaseShifterI "Phase-shifter monitoring the current so that it remains und
     Connectors.ImPin iMonitored (value (start = I0)) "Monitored current";
 
 equation
-  connect (iMonitored.value, valueToMonitor.value);
+  connect(iMonitored, valueToMonitor);
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>The phase shifter I ensures that the current on a line remains lower than a predefined threshold called valueMax. When the current monitored goes above IMax, the phase-shifter will act to modify its tap to bring back the current in an acceptable range.<div><div>The time interval before the first time change is specified with a first timer and a second timer indicates the time interval between further changes. The automaton can be locked by an external controller: in this case, it stops acting.&nbsp;</div><div><br></div><div>The detailed phase-shifter I behavior is explained in the following state diagram:

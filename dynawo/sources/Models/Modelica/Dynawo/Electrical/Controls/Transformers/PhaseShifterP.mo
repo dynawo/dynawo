@@ -28,7 +28,7 @@ model PhaseShifterP "Phase-shifter monitoring the active power so that it remain
     Connectors.ImPin PMonitored (value (start = P0)) "Monitored active power";
 
 equation
-  connect (PMonitored.value, valueToMonitor.value);
+  connect(PMonitored, valueToMonitor);
 
   when (valueToMonitor.value < valueMin) and not(locked) then
     Timeline.logEvent1(TimelineKeys.PhaseShifterBelowMin);
