@@ -268,8 +268,8 @@ class ModelVariationArea : public ModelCPP::Impl {
 
  private:
   // parameters
-  double deltaP_;  ///< variation of active power
-  double deltaQ_;  ///< variation of reactive power
+  std::vector<double> deltaP_;  ///< load variations for active power
+  std::vector<double> deltaQ_;  ///< load variations for reactive power
   double startTime_;  ///< start time
   double stopTime_;  ///< stop time
   int nbLoads_;  ///< number of loads
