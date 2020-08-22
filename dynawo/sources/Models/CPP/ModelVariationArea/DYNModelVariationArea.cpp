@@ -133,13 +133,13 @@ ModelVariationArea::evalF(double t, propertyF_t type) {
     }
   } else if (stateVariationArea_ == ON_GOING) {  // load increase in progress
     for (int i = 0; i < nbLoads_; ++i) {
-      fLocal_[i * 2] = yLocal_[i * 2] - deltaP_ / (stopTime_ - startTime_)*(t - startTime_);
-      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_ / (stopTime_ - startTime_)*(t - startTime_);
+      fLocal_[i * 2] = yLocal_[i * 2] - deltaP_[i] / (stopTime_ - startTime_)*(t - startTime_);
+      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_[i] / (stopTime_ - startTime_)*(t - startTime_);
     }
   } else if (stateVariationArea_ == FINISHED) {  // load increase completed
     for (int i = 0; i < nbLoads_; ++i) {
-      fLocal_[i * 2] = yLocal_[i * 2] - deltaP_;
-      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_;
+      fLocal_[i * 2] = yLocal_[i * 2] - deltaP_[i];
+      fLocal_[i * 2 + 1] = yLocal_[i * 2 + 1] - deltaQ_[i];
     }
   }
 }
@@ -289,8 +289,8 @@ ModelVariationArea::defineParameters(vector<ParameterModeler>& parameters) {
   parameters.push_back(ParameterModeler("nbLoads", VAR_TYPE_INT, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("startTime", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
   parameters.push_back(ParameterModeler("stopTime", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("deltaP", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
-  parameters.push_back(ParameterModeler("deltaQ", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER));
+  parameters.push_back(ParameterModeler("deltaP_load", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
+  parameters.push_back(ParameterModeler("deltaQ_load", VAR_TYPE_DOUBLE, EXTERNAL_PARAMETER, "*", "nbLoads"));
 }
 
 void
@@ -298,8 +298,15 @@ ModelVariationArea::setSubModelParameters() {
   nbLoads_ = findParameterDynamic("nbLoads").getValue<int>();
   startTime_ = findParameterDynamic("startTime").getValue<double>();
   stopTime_ = findParameterDynamic("stopTime").getValue<double>();
-  deltaP_ = findParameterDynamic("deltaP").getValue<double>();
-  deltaQ_ = findParameterDynamic("deltaQ").getValue<double>();
+  for (int k = 0; k < nbLoads_; ++k) {
+    std::stringstream deltaPName;
+    deltaPName << "deltaP_load_" << k;
+    deltaP_.push_back(findParameterDynamic(deltaPName.str()).getValue<double>());
+
+    std::stringstream deltaQName;
+    deltaQName << "deltaQ_load_" << k;
+    deltaQ_.push_back(findParameterDynamic(deltaQName.str()).getValue<double>());
+  }
 }
 
 void

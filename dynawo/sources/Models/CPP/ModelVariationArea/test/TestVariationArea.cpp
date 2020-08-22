@@ -33,7 +33,7 @@
 
 namespace DYN {
 
-boost::shared_ptr<SubModel> initModelVariationArea() {
+boost::shared_ptr<SubModel> initModelVariationArea(double deltaPLoad2, double deltaQLoad2) {
   boost::shared_ptr<SubModel> modelVariationArea = SubModelFactory::createSubModelFromLib("../DYNModelVariationArea" + std::string(sharedLibraryExtension()));
 
   std::vector<ParameterModeler> parameters;
@@ -42,8 +42,10 @@ boost::shared_ptr<SubModel> initModelVariationArea() {
   parametersSet->createParameter("nbLoads", 2);
   parametersSet->createParameter("startTime", 0.);
   parametersSet->createParameter("stopTime", 5.);
-  parametersSet->createParameter("deltaP", .2);
-  parametersSet->createParameter("deltaQ", .1);
+  parametersSet->createParameter("deltaP_load_0", 0.2);
+  parametersSet->createParameter("deltaQ_load_0", 0.05);
+  parametersSet->createParameter("deltaP_load_1", deltaPLoad2);
+  parametersSet->createParameter("deltaQ_load_1", deltaQLoad2);
   modelVariationArea->setPARParameters(parametersSet);
   modelVariationArea->addParameters(parameters, false);
   modelVariationArea->setParametersFromPARFile();
@@ -65,8 +67,10 @@ TEST(ModelsModelVariationArea, ModelVariationAreaDefineMethods) {
   parametersSet->createParameter("nbLoads", 2);
   parametersSet->createParameter("startTime", 0.);
   parametersSet->createParameter("stopTime", 5.);
-  parametersSet->createParameter("deltaP", .2);
-  parametersSet->createParameter("deltaQ", .1);
+  parametersSet->createParameter("deltaP_load_0", .2);
+  parametersSet->createParameter("deltaQ_load_0", .1);
+  parametersSet->createParameter("deltaP_load_1", .5);
+  parametersSet->createParameter("deltaQ_load_1", .05);
   ASSERT_NO_THROW(modelVariationArea->setPARParameters(parametersSet));
 
   modelVariationArea->addParameters(parameters, false);
@@ -163,7 +167,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaDefineMethods) {
 }
 
 TEST(ModelsModelVariationArea, ModelVariationAreaTypeMethods) {
-  boost::shared_ptr<SubModel> modelVariationArea = initModelVariationArea();
+  boost::shared_ptr<SubModel> modelVariationArea = initModelVariationArea(.1, .01);
   unsigned nbY = 4;
   unsigned nbF = 4;
   std::vector<propertyContinuousVar_t> yTypes(nbY, UNDEFINED_PROPERTY);
@@ -189,7 +193,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaTypeMethods) {
 }
 
 TEST(ModelsModelVariationArea, ModelVariationAreaInit) {
-  boost::shared_ptr<SubModel> modelVariationArea = initModelVariationArea();
+  boost::shared_ptr<SubModel> modelVariationArea = initModelVariationArea(.1, .01);
   std::vector<double> y(modelVariationArea->sizeY(), 0);
   std::vector<double> yp(modelVariationArea->sizeY(), 0);
   modelVariationArea->setBufferY(&y[0], &yp[0], 0.);
@@ -212,7 +216,7 @@ TEST(ModelsModelVariationArea, ModelVariationAreaInit) {
 }
 
 TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
-  boost::shared_ptr<SubModel> modelVariationArea = initModelVariationArea();
+  boost::shared_ptr<SubModel> modelVariationArea = initModelVariationArea(.1, .01);
   std::vector<double> y(modelVariationArea->sizeY(), 0);
   std::vector<double> yp(modelVariationArea->sizeY(), 0);
   modelVariationArea->setBufferY(&y[0], &yp[0], 0.);
@@ -256,18 +260,18 @@ TEST(ModelsModelVariationArea, ModelVariationAreaContinuousAndDiscreteMethods) {
   modelVariationArea->evalZ(2.);
   modelVariationArea->evalF(2., UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], -0.08);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], -0.04);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], -0.08);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], -0.04);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], -0.02);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], -0.04);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], -0.004);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 1);
 
   modelVariationArea->evalG(6.);
   modelVariationArea->evalZ(6.);
   modelVariationArea->evalF(6., UNDEFINED_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[0], -0.2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], -0.1);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], -0.2);
-  ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], -0.1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], -0.05);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], -0.1);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], -0.01);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], 2);
 
   SparseMatrix smjPrim;
