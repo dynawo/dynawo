@@ -298,6 +298,9 @@ ModelVariationArea::setSubModelParameters() {
   nbLoads_ = findParameterDynamic("nbLoads").getValue<int>();
   startTime_ = findParameterDynamic("startTime").getValue<double>();
   stopTime_ = findParameterDynamic("stopTime").getValue<double>();
+
+  deltaP_.clear();
+  deltaQ_.clear();
   for (int k = 0; k < nbLoads_; ++k) {
     std::stringstream deltaPName;
     deltaPName << "deltaP_load_" << k;
