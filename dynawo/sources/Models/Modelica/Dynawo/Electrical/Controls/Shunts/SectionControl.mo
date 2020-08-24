@@ -12,14 +12,13 @@ within Dynawo.Electrical.Controls.Shunts;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model SectionControl "Section control for non linear shunt"
-
+model SectionControl "Section control for non linear shunt. The section of the shunt is changed depending on a measured voltage that is compared to its reference."
   import Dynawo.Connectors;
   import Dynawo.Types;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Modelica;
 
-public
+  Connectors.ZPin URefPu (value(start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
+  Connectors.ZPin section(value (start = section0)) "section position of the shunt";
 
   parameter Real section0 "Initial section of the shunt";
   parameter Real sectionMax "Maximum section of the shunt";
@@ -28,9 +27,7 @@ public
   parameter Boolean isSelf "Boolean that states if the shunt is a self (true) or a condenser (false)";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in p.u (base UNom)";
 
-  Connectors.ZPin URefPu (value(start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
   input Real URegulatedPu "Regulated voltage in p.u (base UNom)";
-  Connectors.ZPin section(value (start = section0)) "section position of the shunt";
 
 equation
 
@@ -53,5 +50,4 @@ equation
  end if;
 
 annotation(preferredView = "text");
-
 end SectionControl;

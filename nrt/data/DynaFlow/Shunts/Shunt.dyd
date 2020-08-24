@@ -24,7 +24,7 @@
         <dyn:staticRef var="load_state" staticVar="state"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="Shunt" lib="ShuntBNonLinear" parFile="Shunt.par" parId="4"/>
-  <dyn:blackBoxModel id="Section" lib="EventSetPointReal" parFile="Shunt.par" parId="5"/>
+  <dyn:blackBoxModel id="SectionChange" lib="EventSetPointReal" parFile="Shunt.par" parId="5"/>
   <dyn:connect id1="Generator___1" var1="generator_terminal" id2="NETWORK" var2="@_Generator___1@@NODE@_ACPIN"/>
   <dyn:connect id1="Generator___1" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_Generator___1@@NODE@_switchOff"/>
   <dyn:connect id1="Generator___1" var1="generator_N_value" id2="Signal_N" var2="n_grp_0_value"/>
@@ -33,5 +33,5 @@
   <dyn:connect id1="Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
   <dyn:connect id1="Load__10" var1="load_terminal" id2="NETWORK" var2="_BUS___10_TN_ACPIN"/>
   <dyn:connect id1="Load__10" var1="load_terminal" id2="Shunt" var2="shunt_terminal"/>
-  <dyn:connect id1="Section" var1="event_state1" id2="Shunt" var2="shunt_section"/>
+  <dyn:connect id1="SectionChange" var1="event_state1" id2="Shunt" var2="shunt_section"/>
 </dyn:dynamicModelsArchitecture>

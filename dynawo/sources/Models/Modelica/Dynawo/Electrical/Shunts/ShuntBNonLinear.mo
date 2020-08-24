@@ -19,24 +19,26 @@ model ShuntBNonLinear "Shunt element with voltage dependent reactive power and a
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Modelica;
 
-  extends SwitchOff.SwitchOffLoad;
+  extends SwitchOff.SwitchOffShunt;
 
 public
+
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the shunt to the grid";
+  Connectors.ZPin section(value (start = section0)) "section position of the shunt";
 
   parameter Real section0 "Initial section of the shunt";
   parameter String tableBPuName "Name of the table to calculate BPu from the section of the shunt";
   parameter String tableBPuFile "File containing the table to calculate BPu from the section of the shunt";
-  Modelica.Blocks.Tables.CombiTable1D tableBPu(tableOnFile = true, tableName = tableBPuName, fileName = tableBPuFile) "Table to get BPu from section";
 
   Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at shunt terminal in p.u (base UNom)";
   Types.ActivePowerPu PPu(start = 0) "Active power at shunt terminal in p.u (base SnRef, receptor convention)";
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at shunt terminal in p.u (base SnRef, receptor convention)";
   Types.ComplexApparentPowerPu SPu(re (start = 0), im (start = s0Pu.im)) "Apparent power at shunt terminal in p.u (base SnRef, receptor convention)";
-  Connectors.ZPin section(value (start = section0)) "section position of the shunt";
   Types.PerUnit BPu(start = - s0Pu.im / ComplexMath.'abs'(u0Pu)^2) "Variable susceptance of the shunt in p.u (base SnRef, UNom)";
+  Modelica.Blocks.Tables.CombiTable1D tableBPu(tableOnFile = true, tableName = tableBPuName, fileName = tableBPuFile) "Table to get BPu from the section of the shunt";
 
 protected
+
   parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at shunt terminal in p.u (base UNom)";
   parameter Types.ComplexApparentPowerPu s0Pu  "Start value of apparent power at shunt terminal in p.u (base SnRef, receptor convention)";
   parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at shunt terminal in p.u (base UNom, SnRef, receptor convention)";
@@ -63,5 +65,4 @@ equation
   end if;
 
 annotation(preferredView = "text");
-
 end ShuntBNonLinear;

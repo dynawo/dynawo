@@ -15,7 +15,7 @@
   <dyn:job name="Shunt">
     <dyn:solver lib="dynawo_SolverSIM" parFile="solvers.par" parId="3"/>
     <dyn:modeler compileDir="outputs/compilation">
-      <dyn:network iidmFile="Shunt.iidm" parFile="Shunt.par" parId="10"/>
+      <dyn:network iidmFile="Shunt.iidm" parFile="Shunt.par" parId="6"/>
       <dyn:dynModels dydFile="Shunt.dyd"/>
       <dyn:precompiledModels useStandardModels="true"/>
       <dyn:modelicaModels useStandardModels="true"/>
