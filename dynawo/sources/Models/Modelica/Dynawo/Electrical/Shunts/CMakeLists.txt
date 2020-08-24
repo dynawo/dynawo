@@ -12,8 +12,8 @@
 
 set(MODEL_FILES
     package.mo
-    ShuntBNonLinear.mo
-    ShuntBNonLinear.extvar
+    ShuntBWithSections.mo
+    ShuntBWithSections.extvar
     Shunt_INIT.mo
     )
 

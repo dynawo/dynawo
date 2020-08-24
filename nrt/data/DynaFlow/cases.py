@@ -68,22 +68,22 @@ job_file = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
-##########################################
-#  Small System with a Non Linear Shunt  #
-##########################################
+#############################################
+#  Small System with a Shunt with sections  #
+#############################################
 
 case_name = "DynaFlow - Shunts"
-case_description = "Small System with a Non Linear Shunt"
+case_description = "Small System with a Shunt with Sections"
 job_file = os.path.join(os.path.dirname(__file__), "Shunts", "Shunt.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))
 
-###################################################################
-#  Small System with a Non Linear Shunt and a section regulation  #
-###################################################################
+######################################################################
+#  Small System with a Shunt with sections and a section regulation  #
+######################################################################
 
 case_name = "DynaFlow - Shunts with regulation"
-case_description = "Small System with a Non Linear Shunt and a section regulation"
+case_description = "Small System with a Shunt with Sections and a Section Regulation"
 job_file = os.path.join(os.path.dirname(__file__), "ShuntWithRegulation", "Shunt.jobs")
 
 test_cases.append((case_name, case_description, job_file, 1, standardReturnCodeType, standardReturnCode))

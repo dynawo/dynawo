@@ -12,7 +12,7 @@ within Dynawo.Electrical.Controls.Shunts;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model SectionControl_INIT "Initialization model of section control for non linear shunt"
+model SectionControl_INIT "Initialization model of section control for shunts with sections"
   extends AdditionalIcons.Init;
 
 protected

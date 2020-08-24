@@ -11,7 +11,7 @@
     This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="ShuntBNonLinear">
-    <dyn:unitDynamicModel id="shunt" name="Dynawo.Electrical.Shunts.ShuntBNonLinear" initName="Dynawo.Electrical.Shunts.Shunt_INIT"/>
+  <dyn:modelicaModel id="ShuntBWithSections">
+    <dyn:unitDynamicModel id="shunt" name="Dynawo.Electrical.Shunts.ShuntBWithSections" initName="Dynawo.Electrical.Shunts.Shunt_INIT"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>
