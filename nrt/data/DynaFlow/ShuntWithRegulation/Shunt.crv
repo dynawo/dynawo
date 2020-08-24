@@ -21,6 +21,6 @@
   <curve model="Shunt" variable="shunt_section_value"/>
   <curve model="Shunt" variable="shunt_QPu"/>
   <curve model="Shunt" variable="shunt_BPu"/>
-  <curve model="Shunt" variable="regulation_URegulatedPu"/>
+  <curve model="Shunt" variable="regulation_UMonitoredPu"/>
   <curve model="Shunt" variable="regulation_URefPu_value"/>
   </curvesInput>

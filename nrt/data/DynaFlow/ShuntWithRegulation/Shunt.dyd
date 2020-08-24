@@ -33,6 +33,6 @@
   <dyn:connect id1="Signal_N" var1="tetaRef_0_value" id2="NETWORK" var2="@_Generator___1@@NODE@_phi_value"/>
   <dyn:connect id1="Load__10" var1="load_terminal" id2="NETWORK" var2="_BUS___10_TN_ACPIN"/>
   <dyn:connect id1="Load__10" var1="load_terminal" id2="Shunt" var2="shunt_terminal"/>
-  <dyn:connect id1="Shunt" var1="regulation_URegulatedPu" id2="NETWORK" var2="_BUS___10_TN_Upu_value"/>
+  <dyn:connect id1="Shunt" var1="regulation_UMonitoredPu" id2="NETWORK" var2="_BUS___10_TN_Upu_value"/>
   <dyn:connect id1="Disconnect_Line" var1="event_state1_value" id2="NETWORK" var2="_BUS____8-BUS___10-2_AC_state_value"/>
 </dyn:dynamicModelsArchitecture>

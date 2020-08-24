@@ -1,4 +1,4 @@
-time;Load__10_load_PPu;Load__10_load_QPu;Load__10_load_UPu;Generator___1_generator_PGenPu;Generator___1_generator_QGenPu;Shunt_shunt_section_value;Shunt_shunt_QPu;Shunt_shunt_BPu;Shunt_regulation_URegulatedPu;Shunt_regulation_URefPu_value;
+time;Load__10_load_PPu;Load__10_load_QPu;Load__10_load_UPu;Generator___1_generator_PGenPu;Generator___1_generator_QGenPu;Shunt_shunt_section_value;Shunt_shunt_QPu;Shunt_shunt_BPu;Shunt_regulation_UMonitoredPu;Shunt_regulation_URefPu_value;
 0.000000;29.450748;0.000000;0.964667;29.853295;7.447932;0.000000;-0.930582;1.000000;0.964667;0.964667;
 10.000000;29.450748;0.000000;0.964667;29.853295;7.447932;0.000000;-0.930582;1.000000;0.964667;0.964667;
 20.000000;29.450748;0.000000;0.964667;29.853295;7.447932;0.000000;-0.930582;1.000000;0.964667;0.964667;

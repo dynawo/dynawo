@@ -27,22 +27,22 @@ model SectionControl "Section control for shunts with sections. The section of t
   parameter Boolean isSelf "Boolean that states if the shunt is a self (true) or a condenser (false)";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in p.u (base UNom)";
 
-  input Real URegulatedPu "Regulated voltage in p.u (base UNom)";
+  input Types.VoltageModulePu UMonitoredPu "Monitored voltage in p.u (base UNom)";
 
 equation
 
  if isSelf then
-   if URegulatedPu < URefPu.value - DeadbandUPu and pre(section.value) > sectionMin then
+   if UMonitoredPu < URefPu.value - DeadbandUPu and pre(section.value) > sectionMin then
      section.value = pre(section.value) - 1;
-   elseif URegulatedPu > URefPu.value + DeadbandUPu and pre(section.value) < sectionMax then
+   elseif UMonitoredPu > URefPu.value + DeadbandUPu and pre(section.value) < sectionMax then
      section.value = pre(section.value) + 1;
    else
      section.value = pre(section.value);
    end if;
  else
-   if URegulatedPu < URefPu.value - DeadbandUPu and pre(section.value) < sectionMax then
+   if UMonitoredPu < URefPu.value - DeadbandUPu and pre(section.value) < sectionMax then
      section.value = pre(section.value) + 1;
-   elseif URegulatedPu > URefPu.value + DeadbandUPu and pre(section.value) > sectionMin then
+   elseif UMonitoredPu > URefPu.value + DeadbandUPu and pre(section.value) > sectionMin then
      section.value = pre(section.value) - 1;
    else
      section.value = pre(section.value);

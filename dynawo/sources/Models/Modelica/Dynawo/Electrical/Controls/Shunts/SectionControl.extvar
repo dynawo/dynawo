@@ -12,6 +12,6 @@
     simulation tool for power systems.
 -->
 <external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <variable type="continuous" id="URegulatedPu"/>
+  <variable type="continuous" id="UMonitoredPu"/>
   <variable type="discrete" id="URefPu.value"/>
 </external_variables>

@@ -24,18 +24,18 @@ model ShuntBWithSections "Shunt element with voltage dependent reactive power an
 public
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the shunt to the grid";
-  Connectors.ZPin section(value(start = section0)) "section position of the shunt";
+  Connectors.ZPin section(value(start = section0)) "Section position of the shunt";
 
   parameter Real section0 "Initial section of the shunt";
   parameter String tableBPuName "Name of the table to calculate BPu from the section of the shunt";
   parameter String tableBPuFile "File containing the table to calculate BPu from the section of the shunt";
+  Modelica.Blocks.Tables.CombiTable1D tableBPu(tableOnFile = true, tableName = tableBPuName, fileName = tableBPuFile) "Table to get BPu from the section of the shunt";
 
   Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at shunt terminal in p.u (base UNom)";
   Types.ActivePowerPu PPu(start = 0) "Active power at shunt terminal in p.u (base SnRef, receptor convention)";
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at shunt terminal in p.u (base SnRef, receptor convention)";
   Types.ComplexApparentPowerPu SPu(re(start = 0), im(start = s0Pu.im)) "Apparent power at shunt terminal in p.u (base SnRef, receptor convention)";
   Types.PerUnit BPu(start = - s0Pu.im / ComplexMath.'abs'(u0Pu)^2) "Variable susceptance of the shunt in p.u (base SnRef, UNom)";
-  Modelica.Blocks.Tables.CombiTable1D tableBPu(tableOnFile = true, tableName = tableBPuName, fileName = tableBPuFile) "Table to get BPu from the section of the shunt";
 
 protected
 
@@ -47,21 +47,15 @@ equation
 
   section.value = tableBPu.u[1];
   BPu = tableBPu.y[1];
+  UPu = ComplexMath.'abs'(terminal.V);
+  SPu = Complex(PPu, QPu);
+  SPu = terminal.V * ComplexMath.conj(terminal.i);
 
   if (running.value) then
-    SPu = Complex(PPu, QPu);
-    SPu = terminal.V * ComplexMath.conj(terminal.i);
-    UPu = ComplexMath.'abs'(terminal.V);
     QPu = - BPu * UPu ^ 2;
     PPu = 0;
   else
-    terminal.i.re = 0;
-    terminal.i.im = 0;
-    terminal.V.re = 0;
-    terminal.V.im = 0;
-    UPu = 0;
-    QPu = 0;
-    PPu = 0;
+    terminal.i = Complex(0);
   end if;
 
 annotation(preferredView = "text");
