@@ -12,7 +12,7 @@ within Dynawo.Electrical.Shunts;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model Shunt_INIT "Initialization for shunt models"
+model ShuntBWithSections_INIT "Initialization for shunt with sections models"
   extends AdditionalIcons.Init;
   import Dynawo.Types;
 
@@ -35,4 +35,4 @@ equation
   Section0 = section0;
 
 annotation(preferredView = "text");
-end Shunt_INIT;
+end ShuntBWithSections_INIT;
