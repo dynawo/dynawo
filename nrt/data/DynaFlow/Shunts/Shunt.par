@@ -51,7 +51,7 @@
     <par type="DOUBLE" name="event_stateEvent1" value="1.0"/>
     <par type="DOUBLE" name="event_tEvent" value="50"/>
   </set>
-  <set id="10">
+  <set id="6">
     <par type="DOUBLE" name="capacitor_no_reclosing_delay" value="300"/>
     <par type="DOUBLE" name="dangling_line_currentLimit_maxTimeOperation" value="90"/>
     <par type="DOUBLE" name="line_currentLimit_maxTimeOperation" value="90"/>

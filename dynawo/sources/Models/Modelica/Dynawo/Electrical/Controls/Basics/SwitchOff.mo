@@ -124,6 +124,30 @@ partial model SwitchOffLoad "Switch-off model for a load"
 annotation(preferredView = "text");
 end SwitchOffLoad;
 
+partial model SwitchOffShunt "Switch-off model for a shunt"
+  /* The two possible/expected switch-off signals for a shunt are:
+     - a switch-off signal coming from the node in case of a node disconnection
+     - a switch-off signal coming from the user (event)
+  */
+  import Dynawo.Electrical.Constants;
+
+  extends SwitchOffLogic(NbSwitchOffSignals = 2);
+
+  public
+    Constants.state state (start = State0) "Shunt connection state";
+
+  protected
+    parameter Constants.state State0 = Constants.state.Closed " Start value of connection state";
+
+  equation
+    when not(running.value) then
+      Timeline.logEvent1 (TimelineKeys.LoadDisconnected);
+      state = Constants.state.Open;
+    end when;
+
+annotation(preferredView = "text");
+end SwitchOffShunt;
+
 partial model SwitchOffTapChanger "Switch-off model for a tap-changer"
   /* The only possible/expected switch-off signal for a tap-changer is:
      - a switch-off signal coming from the node in case of a node disconnection

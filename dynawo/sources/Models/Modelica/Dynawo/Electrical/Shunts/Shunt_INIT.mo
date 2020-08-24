@@ -26,7 +26,7 @@ model Shunt_INIT "Initialization for shunt models"
     Types.ComplexVoltagePu u0Pu "Start value of complex voltage at shunt terminal in p.u (base UNom)";
     Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
     flow Types.ComplexCurrentPu i0Pu "Start value of complex current at shunt terminal in p.u (base UNom, SnRef) (receptor convention)";
-    Real section0 "Initial section of the shunt";
+    Real section0 "Initial section of the shunt. This variable is equal to the section0 of the section control";
 
 equation
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);

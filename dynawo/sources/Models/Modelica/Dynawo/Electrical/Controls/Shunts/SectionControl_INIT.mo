@@ -17,10 +17,9 @@ model SectionControl_INIT "Initialization model of section control for non linea
 
 protected
 
-  Real section0 "Initial section of the shunt";
+  Real section0 "Initial section of the shunt. This variable is equal to the section0 of the shunt.";
 
 equation
 
 annotation(preferredView = "text");
-
 end SectionControl_INIT;
