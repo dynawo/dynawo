@@ -12,7 +12,7 @@ within Dynawo.Electrical.Shunts;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model ShuntBNonLinear "Shunt element with voltage dependent reactive power and a variable susceptance given by a table and a section"
+model ShuntBWithSections "Shunt element with voltage dependent reactive power and a variable susceptance given by a table and a section"
 
   import Dynawo.Connectors;
   import Dynawo.Types;
@@ -24,7 +24,7 @@ model ShuntBNonLinear "Shunt element with voltage dependent reactive power and a
 public
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the shunt to the grid";
-  Connectors.ZPin section(value (start = section0)) "section position of the shunt";
+  Connectors.ZPin section(value(start = section0)) "section position of the shunt";
 
   parameter Real section0 "Initial section of the shunt";
   parameter String tableBPuName "Name of the table to calculate BPu from the section of the shunt";
@@ -33,7 +33,7 @@ public
   Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at shunt terminal in p.u (base UNom)";
   Types.ActivePowerPu PPu(start = 0) "Active power at shunt terminal in p.u (base SnRef, receptor convention)";
   Types.ReactivePowerPu QPu(start = s0Pu.im) "Reactive power at shunt terminal in p.u (base SnRef, receptor convention)";
-  Types.ComplexApparentPowerPu SPu(re (start = 0), im (start = s0Pu.im)) "Apparent power at shunt terminal in p.u (base SnRef, receptor convention)";
+  Types.ComplexApparentPowerPu SPu(re(start = 0), im(start = s0Pu.im)) "Apparent power at shunt terminal in p.u (base SnRef, receptor convention)";
   Types.PerUnit BPu(start = - s0Pu.im / ComplexMath.'abs'(u0Pu)^2) "Variable susceptance of the shunt in p.u (base SnRef, UNom)";
   Modelica.Blocks.Tables.CombiTable1D tableBPu(tableOnFile = true, tableName = tableBPuName, fileName = tableBPuFile) "Table to get BPu from the section of the shunt";
 
@@ -65,4 +65,4 @@ equation
   end if;
 
 annotation(preferredView = "text");
-end ShuntBNonLinear;
+end ShuntBWithSections;
