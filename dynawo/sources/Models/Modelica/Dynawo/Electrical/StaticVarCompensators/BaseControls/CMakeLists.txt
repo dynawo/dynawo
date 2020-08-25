@@ -16,8 +16,10 @@ set(MODEL_FILES
     Parameters.mo
     CalculBG.mo
     Regulation.mo
+    RegulationSimplified.mo
     Limitations.mo
     ModeHandling.mo
+    ModeHandlingSimplified.mo
     ModeConnector.mo
     )
 
