@@ -39,15 +39,15 @@
     <reference type="DOUBLE" name="load_UPhase0" origData="IIDM" origName="angle_pu"/>
   </set>
   <set id="4">
-    <par type="DOUBLE" name="regulation_DeadbandUPu" value="0.05"/>
-    <par type="BOOL" name="regulation_isSelf" value="false"/>
+    <par type="DOUBLE" name="regulation_DeadbandUPu" value="0.1"/>
+    <par type="BOOL" name="regulation_IsSelf" value="false"/>
     <reference type="DOUBLE" name="regulation_URef0Pu" origData="IIDM" origName="v_pu" componentId="_Load__10"/>
-    <par type="DOUBLE" name="regulation_sectionMin" value="0"/>
-    <par type="DOUBLE" name="regulation_sectionMax" value="4"/>
+    <par type="DOUBLE" name="regulation_SectionMin" value="0"/>
+    <par type="DOUBLE" name="regulation_SectionMax" value="4"/>
     <par type="DOUBLE" name="shunt_Section0" value="0"/>
-    <par type="STRING" name="shunt_tableBPuName" value="tableBPu"/>
-    <par type="STRING" name="shunt_tableBPuFile" value="nrt/data/DynaFlow/ShuntWithRegulation/ShuntSections.txt"/>
-    <par type="DOUBLE" name="shunt_Q0Pu" value="-0.93"/>
+    <par type="STRING" name="shunt_TableBPuName" value="tableBPu"/>
+    <par type="STRING" name="shunt_TableBPuFile" value="nrt/data/DynaFlow/ShuntWithRegulation/ShuntSections.txt"/>
+    <par type="DOUBLE" name="shunt_Q0Pu" value="0"/>
     <reference type="DOUBLE" name="shunt_U0Pu" origData="IIDM" origName="v_pu" componentId="_Load__10"/>
     <reference type="DOUBLE" name="shunt_UPhase0" origData="IIDM" origName="angle_pu" componentId="_Load__10"/>
   </set>

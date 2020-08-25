@@ -27,9 +27,9 @@ public
   Connectors.ZPin section(value(start = section0)) "Section position of the shunt";
 
   parameter Real section0 "Initial section of the shunt";
-  parameter String tableBPuName "Name of the table to calculate BPu from the section of the shunt";
-  parameter String tableBPuFile "File containing the table to calculate BPu from the section of the shunt";
-  Modelica.Blocks.Tables.CombiTable1D tableBPu(tableOnFile = true, tableName = tableBPuName, fileName = tableBPuFile) "Table to get BPu from the section of the shunt";
+  parameter String TableBPuName "Name of the table to calculate BPu from the section of the shunt";
+  parameter String TableBPuFile "File containing the table to calculate BPu from the section of the shunt";
+  Modelica.Blocks.Tables.CombiTable1D tableBPu(tableOnFile = true, tableName = TableBPuName, fileName = TableBPuFile) "Table to get BPu from the section of the shunt";
 
   Types.VoltageModulePu UPu(start = ComplexMath.'abs'(u0Pu)) "Voltage amplitude at shunt terminal in p.u (base UNom)";
   Types.ActivePowerPu PPu(start = 0) "Active power at shunt terminal in p.u (base SnRef, receptor convention)";

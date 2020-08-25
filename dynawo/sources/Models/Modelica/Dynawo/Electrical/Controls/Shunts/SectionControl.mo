@@ -17,32 +17,32 @@ model SectionControl "Section control for shunts with sections. The section of t
   import Dynawo.Types;
   import Modelica;
 
-  Connectors.ZPin URefPu(value(start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
+  Connectors.ImPin URefPu(value(start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
   Connectors.ZPin section(value(start = section0)) "section position of the shunt";
 
   parameter Real section0 "Initial section of the shunt";
-  parameter Real sectionMax "Maximum section of the shunt";
-  parameter Real sectionMin "Minimum section of the shunt";
+  parameter Real SectionMax "Maximum section of the shunt";
+  parameter Real SectionMin "Minimum section of the shunt";
   parameter Real DeadbandUPu "Deadband of the section control in p.u (base UNom)";
-  parameter Boolean isSelf "Boolean that states if the shunt is a self (true) or a condenser (false)";
+  parameter Boolean IsSelf "Boolean that states if the shunt is a self (true) or a condenser (false)";
   parameter Types.VoltageModulePu URef0Pu "Start value of the voltage regulation set point in p.u (base UNom)";
 
   input Types.VoltageModulePu UMonitoredPu "Monitored voltage in p.u (base UNom)";
 
 equation
 
- if isSelf then
-   if UMonitoredPu < URefPu.value - DeadbandUPu and pre(section.value) > sectionMin then
+ if IsSelf then
+   if UMonitoredPu < URefPu.value - DeadbandUPu and pre(section.value) > SectionMin then
      section.value = pre(section.value) - 1;
-   elseif UMonitoredPu > URefPu.value + DeadbandUPu and pre(section.value) < sectionMax then
+   elseif UMonitoredPu > URefPu.value + DeadbandUPu and pre(section.value) < SectionMax then
      section.value = pre(section.value) + 1;
    else
      section.value = pre(section.value);
    end if;
  else
-   if UMonitoredPu < URefPu.value - DeadbandUPu and pre(section.value) < sectionMax then
+   if UMonitoredPu < URefPu.value - DeadbandUPu and pre(section.value) < SectionMax then
      section.value = pre(section.value) + 1;
-   elseif UMonitoredPu > URefPu.value + DeadbandUPu and pre(section.value) > sectionMin then
+   elseif UMonitoredPu > URefPu.value + DeadbandUPu and pre(section.value) > SectionMin then
      section.value = pre(section.value) - 1;
    else
      section.value = pre(section.value);
