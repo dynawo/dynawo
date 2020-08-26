@@ -29,12 +29,18 @@ package Parameters "Parameters of the static var compensator"
       import Dynawo.Types;
       parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in p.u (base SNom)";
       parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in p.u (base SNom)";
+
+  annotation(preferredView = "text");
+  end Params_Limitations;
+
+  record Params_CurrentLimiter
+      import Dynawo.Types;
       parameter Types.PerUnit IMaxPu "Maximum value for the current in p.u (base UNom, SNom)";
       parameter Types.PerUnit IMinPu "Minimum value for the current in p.u (base UNom, SNom)";
       parameter Types.PerUnit KCurrentLimiter "Integral gain of current limiter";
 
   annotation(preferredView = "text");
-  end Params_Limitations;
+  end Params_CurrentLimiter;
 
   record Params_CalculBG
     import Dynawo.Types;
@@ -45,10 +51,6 @@ package Parameters "Parameters of the static var compensator"
 
   record Params_ModeHandling
      import Dynawo.Types;
-     parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
-     parameter Types.VoltageModule UBlock "Voltage value under which the static var compensator is blocked";
-     parameter Types.VoltageModule UUnblockUp "Upper voltage value defining the voltage interval in which the static var compensator is unblocked";
-     parameter Types.VoltageModule UUnblockDown "Lower voltage value defining the voltage interval in which the static var compensator is unblocked";
      parameter Types.VoltageModule URefUp "Voltage reference taken into account when the static var compensator switches from standy mode to running mode by exceeding UThresholdUp for more than tThresholdUp seconds";
      parameter Types.VoltageModule URefDown "Voltage reference taken into account when the static var compensator switches from standy mode to running mode by falling under UThresholdDown for more than tThresholdDown seconds";
      parameter Types.VoltageModule UThresholdUp "Voltage value above which the static var compensator automatically switches from standby mode to running mode";
@@ -56,14 +58,17 @@ package Parameters "Parameters of the static var compensator"
      parameter Types.Time tThresholdUp "Time duration associated with the condition U>UThresholdUp for the change from standby to running mode";
      parameter Types.Time tThresholdDown "Time duration associated with the condition U<UThresholdDown for the change from standby to running mode";
 
-     final parameter Types.VoltageModule UThresholdUpPu =  UThresholdUp / UNom;
-     final parameter Types.VoltageModule UThresholdDownPu =  UThresholdDown / UNom;
-     final parameter Types.VoltageModule UBlockPu  = UBlock / UNom;
-     final parameter Types.VoltageModule UUnblockUpPu  = UUnblockUp / UNom;
-     final parameter Types.VoltageModule UUnblockDownPu = UUnblockDown / UNom;
-
   annotation(preferredView = "text");
   end Params_ModeHandling;
+
+  record Params_BlockingFunction
+     import Dynawo.Types;
+     parameter Types.VoltageModule UBlock "Voltage value under which the static var compensator is blocked";
+     parameter Types.VoltageModule UUnblockUp "Upper voltage value defining the voltage interval in which the static var compensator is unblocked";
+     parameter Types.VoltageModule UUnblockDown "Lower voltage value defining the voltage interval in which the static var compensator is unblocked";
+
+  annotation(preferredView = "text");
+  end Params_BlockingFunction;
 
 annotation(preferredView = "text");
 end Parameters;

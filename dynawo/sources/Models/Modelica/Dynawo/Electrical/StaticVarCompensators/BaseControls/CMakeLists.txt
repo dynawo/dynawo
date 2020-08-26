@@ -14,12 +14,11 @@ set(MODEL_FILES
     # Voltage control models
     package.mo
     Parameters.mo
+    BlockingFunction.mo
     CalculBG.mo
     Regulation.mo
-    RegulationSimplified.mo
     Limitations.mo
     ModeHandling.mo
-    ModeHandlingSimplified.mo
     ModeConnector.mo
     )
 

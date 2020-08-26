@@ -54,7 +54,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     ShuntBWithSectionsWithRegulation.xml
     SetPoint.xml
     StaticVarCompensator.xml
-    StaticVarCompensatorSimplified.xml
+    StaticVarCompensatorPV.xml
     Step.xml
     TapChangerAutomaton.xml
     TapChangerBlockingArea.xml

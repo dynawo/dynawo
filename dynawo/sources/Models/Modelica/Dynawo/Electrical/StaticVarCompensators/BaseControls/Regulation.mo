@@ -12,11 +12,12 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model Regulation "Variable susceptance calculation"
+model Regulation "Variable susceptance calculation with current limiter"
   import Modelica;
 
   extends Parameters.Params_Regulation;
   extends Parameters.Params_Limitations;
+  extends Parameters.Params_CurrentLimiter;
 
   Modelica.Blocks.Interfaces.RealInput UPu "Voltage at the static var compensator terminal in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-174, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-117, 21}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
@@ -26,7 +27,7 @@ model Regulation "Variable susceptance calculation"
     Placement(visible = true, transformation(origin = {-174, 6}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-117, 67}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput IPu "Current of the static var compensator in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-174, 44}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-117, -79}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.BooleanInput blocked "Wheter the static var compensator is blocked due to very low voltages" annotation(
+  Modelica.Blocks.Interfaces.BooleanInput blocked "Whether the static var compensator is blocked due to very low voltages" annotation(
     Placement(visible = true, transformation(origin = {122, 84}, extent = {{-20, -20}, {20, 20}}, rotation = -90), iconTransformation(origin = {80, 120}, extent = {{-20, -20}, {20, 20}}, rotation = -90)));
 
   Modelica.Blocks.Interfaces.RealOutput BVarPu "Variable susceptance of the static var compensator in p.u (base SNom)" annotation(
