@@ -14,8 +14,9 @@ add_subdirectory(BaseControls A)
 set(MODEL_FILES
     # Voltage control models
     package.mo
-    SVarCSimplified.mo
-    SVarCSimplified.extvar
+    SVarCPV.mo
+    SVarCPV.extvar
+    SVarCPV_INIT.mo
     SVarCStandard.mo
     SVarCStandard.extvar
     SVarCStandard_INIT.mo

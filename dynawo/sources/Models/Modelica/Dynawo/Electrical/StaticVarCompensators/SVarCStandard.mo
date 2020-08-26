@@ -21,19 +21,27 @@ model SVarCStandard "Standard static var compensator model"
 
   extends BaseControls.Parameters.Params_Regulation;
   extends BaseControls.Parameters.Params_Limitations;
+  extends BaseControls.Parameters.Params_CurrentLimiter;
   extends BaseControls.Parameters.Params_CalculBG;
   extends BaseControls.Parameters.Params_ModeHandling;
-
-  Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
-    Placement(visible = true, transformation(origin = {-200, 28}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 85}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-
-  Modelica.Blocks.Interfaces.BooleanInput selectModeAuto(start = selectModeAuto0) "Wheter the static var compensator is in automatic configuration" annotation(
-    Placement(visible = true, transformation(origin = {-200, 56}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 1}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-  Modelica.Blocks.Interfaces.IntegerInput setModeManual(start = setModeManual0) "Mode selected when in manual configuration" annotation(
-    Placement(visible = true, transformation(origin = {-200, 86}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, -79}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+  extends BaseControls.Parameters.Params_BlockingFunction;
+  parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
+  final parameter Types.VoltageModule UThresholdUpPu =  UThresholdUp / UNom;
+  final parameter Types.VoltageModule UThresholdDownPu =  UThresholdDown / UNom;
+  final parameter Types.VoltageModule UBlockPu  = UBlock / UNom;
+  final parameter Types.VoltageModule UUnblockUpPu  = UUnblockUp / UNom;
+  final parameter Types.VoltageModule UUnblockDownPu = UUnblockDown / UNom;
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid" annotation(
     Placement(visible = true, transformation(origin = {228, -18}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {115, -1}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+
+  Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
+    Placement(visible = true, transformation(origin = {-200, 48}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 85}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+
+  Modelica.Blocks.Interfaces.BooleanInput selectModeAuto(start = selectModeAuto0) "Whether the static var compensator is in automatic configuration" annotation(
+    Placement(visible = true, transformation(origin = {-200, 82}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 1}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+  Modelica.Blocks.Interfaces.IntegerInput setModeManual(start = setModeManual0) "Mode selected when in manual configuration" annotation(
+    Placement(visible = true, transformation(origin = {-200, 110}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, -79}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
   InjectorBG injector(SNom = SNom, U0Pu = U0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, u0Pu = u0Pu, s0Pu = s0Pu, i0Pu = i0Pu) "Controlled injector BG"  annotation(
     Placement(visible = true, transformation(origin = {136, -18}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -46,11 +54,12 @@ model SVarCStandard "Standard static var compensator model"
     Placement(visible = true, transformation(origin = {-90, -30}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain PuConversion(k = SystemBase.SnRef / SNom)  annotation(
     Placement(visible = true, transformation(origin = {-160, -66}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UBlock = UBlock, UUnblockDown = UUnblockDown, UUnblockUp = UUnblockUp, UNom = UNom, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0)  annotation(
-    Placement(visible = true, transformation(origin = {-91, 39}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
+  BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UNom = UNom, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0)  annotation(
+    Placement(visible = true, transformation(origin = {-91, 77}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
   BaseControls.CalculBG calculBG(BShuntPu = BShuntPu)  annotation(
     Placement(visible = true, transformation(origin = {66, -16}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
-
+  BaseControls.BlockingFunction blockingFunction(UBlock = UBlock, UNom = UNom, UUnblockDown = UUnblockDown, UUnblockUp = UUnblockUp)  annotation(
+    Placement(visible = true, transformation(origin = {-91, 27}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
 protected
 
   parameter Types.PerUnit G0Pu "Start value of the conductance in p.u (base SNom)";
@@ -68,7 +77,7 @@ protected
   parameter Integer setModeManual0 = 2 "Start value of the mode when in manual configuration";
 equation
   connect(modeHandling.mode, calculBG.mode) annotation(
-    Line(points = {{-70.1, 39}, {77.9, 39}, {77.9, 3}}, color = {0, 0, 127}));
+    Line(points = {{-70, 77}, {77.9, 77}, {77.9, 3}}, color = {0, 0, 127}));
   connect(calculBG.GPu, injector.GPu) annotation(
     Line(points = {{85.26, -26.62}, {96.26, -26.62}, {96.26, -24.62}, {109.26, -24.62}, {109.26, -26.62}, {113.26, -26.62}}, color = {0, 0, 127}));
   connect(injector.terminal, terminal) annotation(
@@ -79,18 +88,14 @@ equation
     Line(points = {{11, -40}, {19, -40}, {19, -40}, {27, -40}, {27, -26}, {36, -26}, {36, -26}, {45, -26}}, color = {0, 0, 127}));
   connect(calculBG.BPu, injector.BPu) annotation(
     Line(points = {{85.26, -5.38}, {99.26, -5.38}, {99.26, -5.38}, {111.26, -5.38}, {111.26, -5.38}, {112.26, -5.38}, {112.26, -5.38}, {113.26, -5.38}}, color = {0, 0, 127}));
-  connect(modeHandling.blocked, regulation.blocked) annotation(
-    Line(points = {{-70.1, 50.4}, {-29.05, 50.4}, {-29.05, 50.4}, {12, 50.4}, {12, 34.2}, {12, 34.2}, {12, 18}}, color = {255, 0, 255}));
   connect(modeHandling.URefPu, regulation.URefPu) annotation(
-    Line(points = {{-70.1, 27.6}, {-58.6, 27.6}, {-58.6, 27.6}, {-47.1, 27.6}, {-47.1, 8}, {-23, 8}}, color = {0, 0, 127}));
-  connect(URef, modeHandling.URef) annotation(
-    Line(points = {{-200, 28}, {-158, 28}, {-158, 34}, {-114, 34}, {-114, 32}}, color = {0, 0, 127}));
+    Line(points = {{-70, 66}, {-47.1, 66}, {-47.1, 8}, {-23, 8}}, color = {0, 0, 127}));
   connect(selectModeAuto, modeHandling.selectModeAuto) annotation(
-    Line(points = {{-200, 56}, {-179.5, 56}, {-179.5, 56}, {-157, 56}, {-157, 44}, {-135.5, 44}, {-135.5, 44}, {-114, 44}}, color = {255, 0, 255}));
+    Line(points = {{-200, 82}, {-114, 82}}, color = {255, 0, 255}));
   connect(setModeManual, modeHandling.setModeManual) annotation(
-    Line(points = {{-200, 86}, {-142, 86}, {-142, 54}, {-128, 54}, {-128, 54}, {-114, 54}}, color = {255, 127, 0}));
+    Line(points = {{-200, 110}, {-157, 110}, {-157, 92}, {-114, 92}}, color = {255, 127, 0}));
   connect(injector.UPu, modeHandling.UPu) annotation(
-    Line(points = {{159, -1.8}, {170, -1.8}, {170, -1.8}, {181, -1.8}, {181, -97.8}, {-193, -97.8}, {-193, 0.2}, {-143, 0.2}, {-143, 24.2}, {-129, 24.2}, {-129, 24.2}, {-115, 24.2}}, color = {0, 0, 127}));
+    Line(points = {{159, -1.8}, {181, -1.8}, {181, -97.8}, {-193, -97.8}, {-193, 0.2}, {-143, 0.2}, {-143, 62}, {-114, 62}}, color = {0, 0, 127}));
   connect(PuConversion.y, division1.u1) annotation(
     Line(points = {{-149, -66}, {-131, -66}, {-131, -24}, {-102, -24}}, color = {0, 0, 127}));
   connect(PuConversion.y, regulation.QPu) annotation(
@@ -103,6 +108,12 @@ equation
     Line(points = {{159, -1.8}, {170, -1.8}, {170, -1.8}, {181, -1.8}, {181, -97.8}, {-193, -97.8}, {-193, -35.8}, {-103, -35.8}, {-103, -35.8}, {-103, -35.8}, {-103, -35.8}}, color = {0, 0, 127}));
   connect(injector.UPu, regulation.UPu) annotation(
     Line(points = {{159, -1.8}, {170, -1.8}, {170, -1.8}, {181, -1.8}, {181, -97.8}, {-193, -97.8}, {-193, 0.2}, {-25, 0.2}, {-25, 0.2}, {-25, 0.2}, {-25, 0.2}}, color = {0, 0, 127}));
+  connect(URef, modeHandling.URef) annotation(
+    Line(points = {{-200, 48}, {-156, 48}, {-156, 70}, {-114, 70}, {-114, 70}}, color = {0, 0, 127}));
+  connect(blockingFunction.blocked, regulation.blocked) annotation(
+    Line(points = {{-70, 27}, {12, 27}, {12, 18}}, color = {255, 0, 255}));
+  connect(injector.UPu, blockingFunction.UPu) annotation(
+    Line(points = {{159, -1.8}, {181, -1.8}, {181, -97.8}, {-193, -97.8}, {-193, 0.2}, {-143, 0.2}, {-143, 28}, {-114, 28}, {-114, 28}}, color = {0, 0, 127}));
   annotation(preferredView = "diagram",
     Diagram,
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "SVarC Control")}));
