@@ -60,19 +60,16 @@ At $t=0s$, the static var compensator injects 0 MW and 0 Mvar, so its terminal v
 
 The static var compensator is modeled using a simplified SVarCPV model. Its control has no dynamic.
 
-\subsubsection{B Injector}
-The static var compensator can be seen as a variable admittance and is thus modelled thanks to a B injector.\\
+The static var compensator can be seen as a variable admittance and is thus modelled thanks to the susceptance B.\\
 
-The B injector is a current injector. Its injected complex current i is computed thanks to the susceptance B and the complex voltage at its terminal u with the following equation:
+Its injected complex current i is computed thanks to the susceptance B and the complex voltage at its terminal u with the following equation:
 \[
 \begin{aligned}
 & i = j*B*u \\
 \end{aligned}
 \]
 
-The susceptance B is given by the control model.
-
-\subsubsection{Control model}
+The susceptance B is given by the model.
 
 The susceptance represents the reactive power contribution of the static var compensator. The susceptance computation in per-unit depends on the static var compensator regulation mode:
 
@@ -145,7 +142,7 @@ At $t=10s$, the SVC starts providing reactive power to follow the voltage refere
 \newpage
 \subsection{Reactive load variation}
 
-The SVC is initially in the standby mode. A reactive load variation of Q=150 Mvar is realised at $t=1s$.
+The SVC is initially in the standby mode. A reactive load variation of Q=150 Mvar is realised at $t=10s$.
 
 \begin{figure}[H]
 \subfigure[Voltage (kV)]

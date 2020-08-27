@@ -24,8 +24,7 @@ model SVarCPV "PV static var compensator model"
   extends BaseControls.Parameters.Params_ModeHandling;
   parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in p.u (base SnRef)";
   parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in p.u (base SnRef)";
-  parameter Types.PerUnit Lambda "Statism of the regulation law URefPu = UPu + Lambda*QPu in p.u (base UNom, SNom)";
-  parameter Types.ApparentPowerModule SNom "Static Var Compensator nominal apparent power in MVA";
+  parameter Types.PerUnit LambdaPu "Statism of the regulation law URefPu = UPu + Lambda*QPu in p.u (base UNom, SnRef)";
   parameter Types.PerUnit BShuntPu "Fixed susceptance of the static var compensator in p.u (for standby mode) (base SnRef)";
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
   final parameter Types.VoltageModule UThresholdUpPu =  UThresholdUp / UNom;
@@ -40,6 +39,7 @@ model SVarCPV "PV static var compensator model"
   Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in p.u (base SnRef)";
   Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in p.u (base UNom)";
   Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in p.u (base SnRef) (generator convention)";
+  Types.VoltageModulePu URefPu(start = URef0 / UNom) = modeHandling.URefPu "Reference voltage amplitude in p.u (base UNom)";
 
   BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UNom = UNom, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0);
 
@@ -62,8 +62,8 @@ equation
   selectModeAuto = modeHandling.selectModeAuto;
   setModeManual = modeHandling.setModeManual;
 
-  modeHandling.URefPu = UPu + Lambda * (SystemBase.SnRef / SNom) * (BVarRawPu + BShuntPu) * UPu ^ 2;
-  BVarPu = if BVarRawPu > BMaxPu - BShuntPu then BMaxPu - BShuntPu elseif BVarRawPu < BMinPu - BShuntPu then BMinPu - BShuntPu else BVarRawPu;
+  URefPu = UPu + LambdaPu * (BVarRawPu + BShuntPu) * UPu ^ 2;
+  BVarPu = if BVarRawPu > BMaxPu then BMaxPu elseif BVarRawPu < BMinPu then BMinPu else BVarRawPu;
 
   if modeHandling.mode.value == Mode.RUNNING_V then
     BPu = BVarPu + BShuntPu;
