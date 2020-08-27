@@ -29,18 +29,12 @@ package Parameters "Parameters of the static var compensator"
       import Dynawo.Types;
       parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in p.u (base SNom)";
       parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in p.u (base SNom)";
-
-  annotation(preferredView = "text");
-  end Params_Limitations;
-
-  record Params_CurrentLimiter
-      import Dynawo.Types;
       parameter Types.PerUnit IMaxPu "Maximum value for the current in p.u (base UNom, SNom)";
       parameter Types.PerUnit IMinPu "Minimum value for the current in p.u (base UNom, SNom)";
       parameter Types.PerUnit KCurrentLimiter "Integral gain of current limiter";
 
   annotation(preferredView = "text");
-  end Params_CurrentLimiter;
+  end Params_Limitations;
 
   record Params_CalculBG
     import Dynawo.Types;

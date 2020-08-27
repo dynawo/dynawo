@@ -12,7 +12,7 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model BlockingFunction "Blocking function"
+model BlockingFunction "Blocking function for the SVarC model"
   import Modelica;
 
   extends Parameters.Params_BlockingFunction;
@@ -20,6 +20,7 @@ model BlockingFunction "Blocking function"
   final parameter Types.VoltageModule UBlockPu  = UBlock / UNom;
   final parameter Types.VoltageModule UUnblockUpPu  = UUnblockUp / UNom;
   final parameter Types.VoltageModule UUnblockDownPu = UUnblockDown / UNom;
+
   Modelica.Blocks.Interfaces.RealInput UPu "Voltage at the static var compensator terminal in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanOutput blocked "Whether the static var compensator is blocked due to very low voltages" annotation(

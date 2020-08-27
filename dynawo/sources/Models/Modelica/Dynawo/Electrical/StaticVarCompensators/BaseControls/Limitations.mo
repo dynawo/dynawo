@@ -16,7 +16,6 @@ model Limitations "Variable susceptance limits computation"
   import Modelica;
 
   extends Parameters.Params_Limitations;
-  extends Parameters.Params_CurrentLimiter;
 
   Modelica.Blocks.Interfaces.RealInput IPu "Current of the static var compensator in p.u (base UNom, SNom)" annotation(
     Placement(visible = true, transformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 0}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
