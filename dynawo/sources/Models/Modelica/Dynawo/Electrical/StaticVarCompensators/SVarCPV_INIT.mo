@@ -24,7 +24,7 @@ model SVarCPV_INIT "Initialization for PV static var compensator model"
   parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
 
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
-  parameter Types.PerUnit Lambda "Statism of the regulation law URefPu = UPu - Lambda * QPu";
+  parameter Types.PerUnit LambdaPu "Statism of the regulation law URefPu = UPu + Lambda*QPu in p.u (base UNom, SnRef)";
 
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in p.u (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
@@ -34,7 +34,7 @@ model SVarCPV_INIT "Initialization for PV static var compensator model"
 
 equation
 
-  URef0 = (U0Pu + Lambda * B0Pu * U0Pu ^ 2) * UNom;
+  URef0 = (U0Pu + LambdaPu * B0Pu * U0Pu ^ 2) * UNom;
   s0Pu = Complex(P0Pu, Q0Pu);
   u0Pu = ComplexMath.fromPolar(U0Pu, UPhase0);
   s0Pu = u0Pu * ComplexMath.conj(i0Pu);

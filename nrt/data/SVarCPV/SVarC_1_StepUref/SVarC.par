@@ -33,7 +33,7 @@
     <par type="DOUBLE" name="SNom" value="100"/>
     <par type="DOUBLE" name="UNom" value="225"/>
     <par type="DOUBLE" name="BShuntPu" value="0"/>
-    <par type="DOUBLE" name="Lambda" value="0.01"/>
+    <par type="DOUBLE" name="LambdaPu" value="0.01"/>
     <par type="DOUBLE" name="BMaxPu" value="1.0678"/>
     <par type="DOUBLE" name="BMinPu" value="-1.0466"/>
     <par type="DOUBLE" name="URefUp" value="230"/>
