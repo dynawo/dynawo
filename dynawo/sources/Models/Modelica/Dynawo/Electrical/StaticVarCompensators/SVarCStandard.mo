@@ -21,7 +21,6 @@ model SVarCStandard "Standard static var compensator model"
 
   extends BaseControls.Parameters.Params_Regulation;
   extends BaseControls.Parameters.Params_Limitations;
-  extends BaseControls.Parameters.Params_CurrentLimiter;
   extends BaseControls.Parameters.Params_CalculBG;
   extends BaseControls.Parameters.Params_ModeHandling;
   extends BaseControls.Parameters.Params_BlockingFunction;
@@ -37,7 +36,6 @@ model SVarCStandard "Standard static var compensator model"
 
   Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
     Placement(visible = true, transformation(origin = {-200, 48}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 85}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
-
   Modelica.Blocks.Interfaces.BooleanInput selectModeAuto(start = selectModeAuto0) "Whether the static var compensator is in automatic configuration" annotation(
     Placement(visible = true, transformation(origin = {-200, 82}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 1}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Interfaces.IntegerInput setModeManual(start = setModeManual0) "Mode selected when in manual configuration" annotation(
@@ -45,7 +43,6 @@ model SVarCStandard "Standard static var compensator model"
 
   InjectorBG injector(SNom = SNom, U0Pu = U0Pu, P0Pu = P0Pu, Q0Pu = Q0Pu, u0Pu = u0Pu, s0Pu = s0Pu, i0Pu = i0Pu) "Controlled injector BG"  annotation(
     Placement(visible = true, transformation(origin = {136, -18}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-
   Modelica.Blocks.Sources.Constant GPuCst(k = G0Pu)  annotation(
     Placement(visible = true, transformation(origin = {0, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   BaseControls.Regulation regulation(BMaxPu = BMaxPu, BMinPu = BMinPu, BVar0Pu = BVar0Pu, IMaxPu = IMaxPu, IMinPu = IMinPu, KCurrentLimiter = KCurrentLimiter, Kp = Kp, Lambda = Lambda, SNom = SNom, Ti = Ti)  annotation(
@@ -60,8 +57,8 @@ model SVarCStandard "Standard static var compensator model"
     Placement(visible = true, transformation(origin = {66, -16}, extent = {{-18, -18}, {18, 18}}, rotation = 0)));
   BaseControls.BlockingFunction blockingFunction(UBlock = UBlock, UNom = UNom, UUnblockDown = UUnblockDown, UUnblockUp = UUnblockUp)  annotation(
     Placement(visible = true, transformation(origin = {-91, 27}, extent = {{-19, -19}, {19, 19}}, rotation = 0)));
-protected
 
+protected
   parameter Types.PerUnit G0Pu "Start value of the conductance in p.u (base SNom)";
   parameter Types.PerUnit B0Pu "Start value of the susceptance in p.u (base SNom)";
   parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in p.u (base UNom)";
@@ -75,6 +72,7 @@ protected
   parameter BaseControls.Mode Mode0 "Start value for mode";
   parameter Boolean selectModeAuto0 = true "Start value of the boolean indicating whether the SVarC is initially in automatic configuration";
   parameter Integer setModeManual0 = 2 "Start value of the mode when in manual configuration";
+
 equation
   connect(modeHandling.mode, calculBG.mode) annotation(
     Line(points = {{-70, 77}, {77.9, 77}, {77.9, 3}}, color = {0, 0, 127}));
@@ -114,8 +112,8 @@ equation
     Line(points = {{-70, 27}, {12, 27}, {12, 18}}, color = {255, 0, 255}));
   connect(injector.UPu, blockingFunction.UPu) annotation(
     Line(points = {{159, -1.8}, {181, -1.8}, {181, -97.8}, {-193, -97.8}, {-193, 0.2}, {-143, 0.2}, {-143, 28}, {-114, 28}, {-114, 28}}, color = {0, 0, 127}));
+
   annotation(preferredView = "diagram",
     Diagram,
     Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "SVarC Control")}));
-
 end SVarCStandard;

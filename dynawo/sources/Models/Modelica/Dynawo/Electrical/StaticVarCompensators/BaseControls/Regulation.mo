@@ -12,12 +12,11 @@ within Dynawo.Electrical.StaticVarCompensators.BaseControls;
 * This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 */
 
-model Regulation "Variable susceptance calculation with current limiter"
+model Regulation "Variable susceptance calculation"
   import Modelica;
 
   extends Parameters.Params_Regulation;
   extends Parameters.Params_Limitations;
-  extends Parameters.Params_CurrentLimiter;
 
   Modelica.Blocks.Interfaces.RealInput UPu "Voltage at the static var compensator terminal in p.u (base UNom)" annotation(
     Placement(visible = true, transformation(origin = {-174, -30}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-117, 21}, extent = {{-17, -17}, {17, 17}}, rotation = 0)));

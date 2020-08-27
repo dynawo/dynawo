@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+    Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
+    See AUTHORS.txt
+    All rights reserved.
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, you can obtain one at http://mozilla.org/MPL/2.0/.
+    SPDX-License-Identifier: MPL-2.0
+
+    This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+    simulation tool for power systems.
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <!-- SVarC and infinite bus-->
+  <dyn:modelicaModel id="Test">
+    <dyn:unitDynamicModel id="busInf" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="SVarC.par" parId="1"/>
+    <dyn:unitDynamicModel id="line" name="Dynawo.Electrical.Lines.Line" parFile="SVarC.par" parId="2"/>
+    <dyn:unitDynamicModel id="svarc" name="Dynawo.Electrical.StaticVarCompensators.SVarCPV" initName="Dynawo.Electrical.StaticVarCompensators.SVarCPV_INIT" parFile="SVarC.par" parId="3"/>
+    <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.Step" initName="Dynawo.Electrical.Controls.Basics.Step_INIT" parFile="SVarC.par" parId="4"/>
+    <dyn:initConnect id1="URef" var1="Value0" id2="svarc" var2="URef0"/>
+    <dyn:connect id1="busInf" var1="terminal" id2="line" var2="terminal1"/>
+    <dyn:connect id1="line" var1="terminal2" id2="svarc" var2="terminal"/>
+    <dyn:connect id1="URef" var1="step.value" id2="svarc" var2="URef"/>
+  </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>

@@ -12,19 +12,21 @@ within Dynawo.Electrical.StaticVarCompensators;
 * This file is part of Dynawo, an hybrid C++/Modelica open source suite of simulation tools for power systems.
 */
 
-model SVarCPV "Static var compensator model"
+model SVarCPV "PV static var compensator model"
   import Modelica;
   import Dynawo.Types;
   import Dynawo.Connectors;
   import Dynawo.Electrical.StaticVarCompensators.BaseControls.Mode;
+  import Dynawo.Electrical.SystemBase;
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid";
 
+  extends BaseControls.Parameters.Params_ModeHandling;
   parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in p.u (base SnRef)";
   parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in p.u (base SnRef)";
-  parameter Types.PerUnit Lambda "Statism of the regulation law URefPu = UPu + Lambda*QPu in p.u (base UNom, SnRef)";
+  parameter Types.PerUnit Lambda "Statism of the regulation law URefPu = UPu + Lambda*QPu in p.u (base UNom, SNom)";
+  parameter Types.ApparentPowerModule SNom "Static Var Compensator nominal apparent power in MVA";
   parameter Types.PerUnit BShuntPu "Fixed susceptance of the static var compensator in p.u (for standby mode) (base SnRef)";
-  extends BaseControls.Parameters.Params_ModeHandling;
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
   final parameter Types.VoltageModule UThresholdUpPu =  UThresholdUp / UNom;
   final parameter Types.VoltageModule UThresholdDownPu =  UThresholdDown / UNom;
@@ -36,12 +38,12 @@ model SVarCPV "Static var compensator model"
   Types.PerUnit BVarRawPu(start = BVar0Pu) "Raw variable susceptance of the static var compensator in p.u (base SnRef)";
   Types.PerUnit BVarPu(start = BVar0Pu) "Variable susceptance of the static var compensator in p.u (base SnRef)";
   Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in p.u (base SnRef)";
-  Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude in p.u (base UNom)";
+  Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in p.u (base UNom)";
+  Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in p.u (base SnRef) (generator convention)";
 
   BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UNom = UNom, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0);
 
 protected
-
   parameter Types.PerUnit B0Pu "Start value of the susceptance in p.u (base SnRef)";
   parameter Types.VoltageModulePu U0Pu  "Start value of voltage amplitude at injector terminal in p.u (base UNom)";
   parameter Types.ComplexVoltagePu u0Pu  "Start value of complex voltage at injector terminal in p.u (base UNom)";
@@ -53,14 +55,14 @@ protected
   parameter Integer setModeManual0 = 2 "Start value of the mode when in manual configuration";
 
 equation
-
-  URef = modeHandling.URef;
   UPu = Modelica.ComplexMath.'abs'(terminal.V);
+
+  UPu = modeHandling.UPu;
+  URef = modeHandling.URef;
   selectModeAuto = modeHandling.selectModeAuto;
   setModeManual = modeHandling.setModeManual;
-  modeHandling.URefPu = UPu + Lambda * (BVarRawPu + BShuntPu) * UPu^2;
-  modeHandling.UPu = UPu;
 
+  modeHandling.URefPu = UPu + Lambda * (SystemBase.SnRef / SNom) * (BVarRawPu + BShuntPu) * UPu ^ 2;
   BVarPu = if BVarRawPu > BMaxPu - BShuntPu then BMaxPu - BShuntPu elseif BVarRawPu < BMinPu - BShuntPu then BMinPu - BShuntPu else BVarRawPu;
 
   if modeHandling.mode.value == Mode.RUNNING_V then
@@ -71,8 +73,8 @@ equation
     BPu = 0;
   end if;
 
-terminal.i = terminal.V * Complex(0, BPu);
+  terminal.i = terminal.V * Complex(0, BPu);
+  QInjPu = - ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
 
   annotation(preferredView = "text");
-
 end SVarCPV;
