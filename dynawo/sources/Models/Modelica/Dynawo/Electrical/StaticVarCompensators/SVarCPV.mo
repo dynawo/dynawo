@@ -24,7 +24,7 @@ model SVarCPV "PV static var compensator model"
   extends BaseControls.Parameters.Params_ModeHandling;
   parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in p.u (base SnRef)";
   parameter Types.PerUnit BMinPu "Minimum value for the variable susceptance in p.u (base SnRef)";
-  parameter Types.PerUnit LambdaPu "Statism of the regulation law URefPu = UPu + Lambda*QPu in p.u (base UNom, SnRef)";
+  parameter Types.PerUnit LambdaPu "Statism of the regulation law URefPu = UPu + LambdaPu*QPu in p.u (base UNom, SnRef)";
   parameter Types.PerUnit BShuntPu "Fixed susceptance of the static var compensator in p.u (for standby mode) (base SnRef)";
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
   final parameter Types.VoltageModule UThresholdUpPu =  UThresholdUp / UNom;

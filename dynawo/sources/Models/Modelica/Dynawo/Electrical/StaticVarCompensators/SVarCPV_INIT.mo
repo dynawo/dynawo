@@ -24,7 +24,7 @@ model SVarCPV_INIT "Initialization for PV static var compensator model"
   parameter Types.ReactivePowerPu Q0Pu  "Start value of reactive power in p.u (base SnRef) (receptor convention)";
 
   parameter Types.VoltageModule UNom "Static var compensator nominal voltage in kV";
-  parameter Types.PerUnit LambdaPu "Statism of the regulation law URefPu = UPu + Lambda*QPu in p.u (base UNom, SnRef)";
+  parameter Types.PerUnit LambdaPu "Statism of the regulation law URefPu = UPu + LambdaPu*QPu in p.u (base UNom, SnRef)";
 
   Types.ComplexVoltagePu u0Pu "Start value of complex voltage at injector terminal in p.u (base UNom)";
   Types.ComplexApparentPowerPu s0Pu "Start value of complex apparent power in p.u (base SnRef) (receptor convention)";
