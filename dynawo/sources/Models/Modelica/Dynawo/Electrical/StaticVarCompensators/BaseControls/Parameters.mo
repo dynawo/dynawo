@@ -45,8 +45,8 @@ package Parameters "Parameters of the static var compensator"
 
   record Params_ModeHandling
      import Dynawo.Types;
-     parameter Types.VoltageModule URefUp "Voltage reference taken into account when the static var compensator switches from standy mode to running mode by exceeding UThresholdUp for more than tThresholdUp seconds";
-     parameter Types.VoltageModule URefDown "Voltage reference taken into account when the static var compensator switches from standy mode to running mode by falling under UThresholdDown for more than tThresholdDown seconds";
+     parameter Types.VoltageModule URefUp "Voltage reference taken into account when the static var compensator switches from standby mode to running mode by exceeding UThresholdUp for more than tThresholdUp seconds";
+     parameter Types.VoltageModule URefDown "Voltage reference taken into account when the static var compensator switches from standby mode to running mode by falling under UThresholdDown for more than tThresholdDown seconds";
      parameter Types.VoltageModule UThresholdUp "Voltage value above which the static var compensator automatically switches from standby mode to running mode";
      parameter Types.VoltageModule UThresholdDown "Voltage value under which the static var compensator automatically switches from standby mode to running mode";
      parameter Types.Time tThresholdUp "Time duration associated with the condition U>UThresholdUp for the change from standby to running mode";
