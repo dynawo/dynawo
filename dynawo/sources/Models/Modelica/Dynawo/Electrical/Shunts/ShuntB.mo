@@ -19,6 +19,7 @@ model ShuntB "Shunt element with constant susceptance, reactive power depends on
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Modelica;
 
+  extends AdditionalIcons.Shunt;
   extends SwitchOff.SwitchOffShunt;
 
 public
