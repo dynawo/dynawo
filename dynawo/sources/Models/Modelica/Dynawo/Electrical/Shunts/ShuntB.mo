@@ -14,6 +14,13 @@ within Dynawo.Electrical.Shunts;
 
 model ShuntB "Shunt element with constant susceptance, reactive power depends on voltage"
 
+  import Dynawo.Connectors;
+  import Dynawo.Types;
+  import Dynawo.Electrical.Controls.Basics.SwitchOff;
+  import Modelica;
+
+  extends SwitchOff.SwitchOffShunt;
+
 public
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the shunt to the grid" annotation(
   Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
@@ -30,10 +37,16 @@ protected
   parameter Types.ComplexCurrentPu i0Pu  "Start value of complex current at shunt terminal in p.u (base UNom, SnRef, receptor convention)";
 
 equation
+
   SPu = Complex(PPu, QPu);
   SPu = terminal.V * ComplexMath.conj(terminal.i);     
   UPu = ComplexMath.'abs'(terminal.V);
-  QPu = BPu * UPu^2;  
-  PPu = 0;
+    
+  if (running.value) then    
+    QPu = BPu * UPu^2;  
+    PPu = 0;
+  else
+    terminal.i = Complex(0);
+  end if;
 
 end ShuntB;
