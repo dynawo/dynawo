@@ -49,7 +49,7 @@ package AdditionalIcons "Icons for the Dynawo library"
   equation
 
   annotation(
-    Icon(graphics = {Text(origin = {-1, -120}, lineColor = {0, 0, 255}, extent = {{-81, 10}, {81, -10}}, textString = "%name"), Rectangle(origin = {0, -34}, fillPattern = FillPattern.Solid, extent = {{-20, 2}, {20, -2}}), Rectangle(origin = {0, -46}, fillPattern = FillPattern.Solid, extent = {{-20, 2}, {20, -2}}), Line(origin = {0, -17}, points = {{0, 17}, {0, -17}}), Rectangle(origin = {0, -70}, fillPattern = FillPattern.Solid, extent = {{-20, 0.12}, {20, -0.13}}), Line(origin = {0, -58}, points = {{0, 12}, {0, -12}})}, coordinateSystem(initialScale = 0.1))); end Shunt;	  
+    Icon(graphics = {Text(origin = {-1, -120}, lineColor = {0, 0, 255}, extent = {{-81, 10}, {81, -10}}, textString = "%name"), Rectangle(origin = {0, -42}, fillPattern = FillPattern.Solid, extent = {{-40, 2}, {40, -2}}), Rectangle(origin = {-20, -62}, fillPattern = FillPattern.Solid, extent = {{-20, 2}, {60, -2}}), Line(origin = {0, -21}, points = {{0, 21}, {0, -21}}), Line(origin = {0, -100}, points = {{-40, 0}, {40, 0}}), Line(origin = {0, -81}, points = {{0, -19}, {0, 19}})}, coordinateSystem(initialScale = 0.1))); end Shunt;	  
 	  
   model Switch
   equation
