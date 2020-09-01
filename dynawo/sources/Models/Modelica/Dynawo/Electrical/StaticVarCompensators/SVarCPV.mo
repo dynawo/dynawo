@@ -18,6 +18,10 @@ model SVarCPV "PV static var compensator model"
   import Dynawo.Connectors;
   import Dynawo.Electrical.StaticVarCompensators.BaseControls.Mode;
   import Dynawo.Electrical.SystemBase;
+  import Dynawo.Electrical.Controls.Basics.SwitchOff;
+
+  extends AdditionalIcons.Shunt;
+  extends SwitchOff.SwitchOffShunt;
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid";
 
@@ -39,6 +43,7 @@ model SVarCPV "PV static var compensator model"
   Types.PerUnit BPu(start = B0Pu) "Susceptance of the static var compensator in p.u (base SnRef)";
   Types.VoltageModulePu UPu(start = U0Pu) "Voltage amplitude at terminal in p.u (base UNom)";
   Types.ReactivePowerPu QInjPu(start = B0Pu * U0Pu ^ 2) "Reactive power in p.u (base SnRef) (generator convention)";
+  Types.ReactivePowerPu PInjPu(start = 0) "Active power in p.u (base SnRef) (generator convention)";
   Types.VoltageModulePu URefPu(start = URef0 / UNom) = modeHandling.URefPu "Reference voltage amplitude in p.u (base UNom)";
 
   BaseControls.ModeHandling modeHandling(Mode0 = Mode0, UNom = UNom, URefDown = URefDown, URefUp = URefUp, UThresholdDown = UThresholdDown, UThresholdUp = UThresholdUp, tThresholdDown = tThresholdDown, tThresholdUp = tThresholdUp, URef0 = URef0);
@@ -73,7 +78,13 @@ equation
     BPu = 0;
   end if;
 
-  terminal.i = terminal.V * Complex(0, BPu);
+  if (running.value) then
+    terminal.i = terminal.V * Complex(0, BPu);
+  else
+    terminal.i = Complex(0);
+  end if;
+
+  PInjPu = 0;
   QInjPu = - ComplexMath.imag(terminal.V * ComplexMath.conj(terminal.i));
 
   annotation(preferredView = "text");
