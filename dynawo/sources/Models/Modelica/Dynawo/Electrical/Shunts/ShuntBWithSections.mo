@@ -19,6 +19,7 @@ model ShuntBWithSections "Shunt element with voltage dependent reactive power an
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Modelica;
 
+  extends AdditionalIcons.Shunt;
   extends SwitchOff.SwitchOffShunt;
 
 public
