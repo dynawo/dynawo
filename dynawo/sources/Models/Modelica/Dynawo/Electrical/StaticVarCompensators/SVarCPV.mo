@@ -20,7 +20,7 @@ model SVarCPV "PV static var compensator model"
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
-  extends AdditionalIcons.Shunt;
+  extends AdditionalIcons.SVarC;
   extends SwitchOff.SwitchOffShunt;
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid";

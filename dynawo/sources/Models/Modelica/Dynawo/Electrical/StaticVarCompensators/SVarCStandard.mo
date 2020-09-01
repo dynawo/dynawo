@@ -19,6 +19,7 @@ model SVarCStandard "Standard static var compensator model"
   import Dynawo.Electrical.Sources.InjectorBG;
   import Dynawo.Electrical.SystemBase;
 
+  extends AdditionalIcons.SVarC;
   extends BaseControls.Parameters.Params_Regulation;
   extends BaseControls.Parameters.Params_Limitations;
   extends BaseControls.Parameters.Params_CalculBG;
@@ -114,6 +115,6 @@ equation
     Line(points = {{159, -1.8}, {181, -1.8}, {181, -97.8}, {-193, -97.8}, {-193, 0.2}, {-143, 0.2}, {-143, 28}, {-114, 28}, {-114, 28}}, color = {0, 0, 127}));
 
   annotation(preferredView = "diagram",
-    Diagram,
-    Icon(coordinateSystem(initialScale = 0.1), graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 34}, extent = {{-59, 22}, {129, -88}}, textString = "SVarC Control")}));
+    Diagram(coordinateSystem(grid = {1, 1}, extent = {{-120, -70}, {120, 70}})),
+    Icon(coordinateSystem(grid = {1, 1})));
 end SVarCStandard;
