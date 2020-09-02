@@ -447,6 +447,18 @@ class ModelWriter(ModelWriterBase):
         self.addLine("}\n")
 
     ##
+    # Add the body of callCustomParametersConstructors in the cpp file
+    # @param self : object pointer
+    # @return
+    def fill_callCustomParametersConstructors(self):
+        self.addEmptyLine()
+        self.addLine(self.void_function_prefix+ self.className + "::callCustomParametersConstructors()\n")
+        self.addLine("{\n")
+
+        self.addBody(self.builder.get_list_for_callcustomparametersconstructors())
+        self.addLine("}\n")
+
+    ##
     # Add the body of setVariables in the cpp file
     # @param self : object pointer
     # @return

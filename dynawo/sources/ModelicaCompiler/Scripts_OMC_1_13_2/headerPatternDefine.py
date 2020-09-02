@@ -62,6 +62,7 @@ class HeaderPatternDefine:
     void collectSilentZ(bool* silentZTable);
     void setOomc();
     void setY0omc();
+    void callCustomParametersConstructors();
     void setYType_omc(propertyContinuousVar_t* yType);
     void setFType_omc(propertyF_t* fType);
     boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues();
@@ -145,6 +146,7 @@ namespace DYN {
     void setZomc();
     void collectSilentZ(bool* silentZTable);
     void setY0omc();
+    void callCustomParametersConstructors();
     void setYType_omc(propertyContinuousVar_t* yType);
     void setFType_omc(propertyF_t* fType);
     boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues(); ///< set parameter values based on internal Modelica data
