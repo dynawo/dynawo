@@ -49,16 +49,9 @@ model HVDC "HVDC link connected to two infinite buses"
 initial equation
   HVDC.PPu_Side.limitsCalculationFunction.iqMod1Pu = 0;
 equation
-  line1.switchOffSignal1.value = false;
-  line1.switchOffSignal2.value = false;
-  line2.switchOffSignal1.value = false;
-  line2.switchOffSignal2.value = false;
-  HVDC.Conv1.switchOffSignal1.value = false;
-  HVDC.Conv1.switchOffSignal2.value = false;
-  HVDC.Conv1.switchOffSignal3.value = false;
-  HVDC.Conv2.switchOffSignal1.value = false;
-  HVDC.Conv2.switchOffSignal2.value = false;
-  HVDC.Conv2.switchOffSignal3.value = false;
+  line1.running.value = true;
+  line2.running.value = true;
+  HVDC.running.value = true;
   connect(HVDC.terminal2, line2.terminal1) annotation(
     Line(points = {{33, -40}, {42, -40}}, color = {0, 0, 255}));
   connect(HVDC.terminal1, line1.terminal2) annotation(

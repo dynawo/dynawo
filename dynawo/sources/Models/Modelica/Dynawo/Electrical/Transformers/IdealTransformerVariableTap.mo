@@ -33,8 +33,8 @@ equation
     terminal1.i = - rTfoPu * terminal2.i;
     rTfoPu * terminal1.V = terminal2.V;
   else
-    terminal1.i = terminal2.i;
-    terminal2.V = Complex (0);
+    terminal1.i = Complex (0);
+    terminal1.V = terminal2.V;
   end if;
 
 annotation(preferredView = "text",

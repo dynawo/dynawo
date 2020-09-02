@@ -35,6 +35,8 @@ model SVarCStandard "Standard static var compensator model"
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid" annotation(
     Placement(visible = true, transformation(origin = {228, -18}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {115, -1}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
 
+  Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
+
   Modelica.Blocks.Interfaces.RealInput URef(start = URef0) "Voltage reference for the regulation in kV" annotation(
     Placement(visible = true, transformation(origin = {-200, 48}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-115, 85}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
   Modelica.Blocks.Interfaces.BooleanInput selectModeAuto(start = selectModeAuto0) "Whether the static var compensator is in automatic configuration" annotation(
@@ -75,6 +77,7 @@ protected
   parameter Integer setModeManual0 = 2 "Start value of the mode when in manual configuration";
 
 equation
+  connect(running, injector.running);
   connect(modeHandling.mode, calculBG.mode) annotation(
     Line(points = {{-70, 77}, {77.9, 77}, {77.9, 3}}, color = {0, 0, 127}));
   connect(calculBG.GPu, injector.GPu) annotation(

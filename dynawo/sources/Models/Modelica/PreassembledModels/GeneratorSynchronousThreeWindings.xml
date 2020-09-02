@@ -14,6 +14,7 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <!-- Synchronous generator with three windings, a fixed mechanical power and a fixed excitation voltage-->
   <dyn:modelicaModel id="GeneratorSynchronousThreeWindings">
+    <dyn:unitDynamicModel id="switchOff" name="Dynawo.Electrical.Controls.SwitchOff.SwitchOffGenerator"/>
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.GeneratorSynchronous" initName ="Dynawo.Electrical.Machines.GeneratorSynchronousExt_3E_INIT"/>
     <dyn:unitDynamicModel id="Pm" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
     <dyn:unitDynamicModel id="URef" name="Dynawo.Electrical.Controls.Basics.SetPoint" initName="Dynawo.Electrical.Controls.Basics.SetPoint_INIT"/>
@@ -21,5 +22,6 @@
     <dyn:initConnect id1="generator" var1="Efd0Pu" id2="URef" var2="Value0"/>
     <dyn:connect id1="generator" var1="PmPu" id2="Pm" var2="setPoint"/>
     <dyn:connect id1="generator" var1="efdPu" id2="URef" var2="setPoint"/>
+    <dyn:connect id1="switchOff" var1="running" id2="generator" var2="running"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

@@ -19,6 +19,5 @@
   <variable type="continuous" id="P1RefPu"/>
   <variable type="discrete" id="U1RefPu.value"/>
   <variable type="discrete" id="U2RefPu.value"/>
-  <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
+  <variable type="discrete" id="running.value" defaultValue="true"/>
 </external_variables>

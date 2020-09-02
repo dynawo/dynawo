@@ -19,12 +19,11 @@ model InjectorBG "Injector controlled by a the susceptance B and the conductance
     import Dynawo.Connectors;
     import Dynawo.Types;
     import Dynawo.Electrical.SystemBase;
-    import Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-    extends SwitchOff.SwitchOffInjector;
 
     Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -61}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+
+    Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
 
     parameter Types.ApparentPowerModule SNom "Injector nominal apparent power in MVA";
 

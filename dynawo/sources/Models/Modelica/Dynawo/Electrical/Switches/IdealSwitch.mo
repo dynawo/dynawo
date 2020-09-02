@@ -25,15 +25,15 @@ model IdealSwitch "Ideal switch"
   */
 
   import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends AdditionalIcons.Switch;
-  extends SwitchOff.SwitchOffIdealSwitch;
 
   Connectors.ACPower terminal1 "Switch side 1" annotation(
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Connectors.ACPower terminal2 "Switch side 2" annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
 
   // Variables for display
   Types.ActivePowerPu P1Pu "Active power on side 1 in p.u (base SnRef) (receptor convention)";
@@ -57,8 +57,8 @@ equation
     P2Pu = ComplexMath.real(terminal2.V * ComplexMath.conj(terminal2.i));
     Q2Pu = ComplexMath.imag(terminal2.V * ComplexMath.conj(terminal2.i));
   else
-    terminal1.i = terminal2.i;
-    terminal2.V = Complex(0);
+    terminal1.i = Complex (0);
+    terminal1.V = terminal2.V;
     P1Pu = 0;
     Q1Pu = 0;
     P1GenPu = 0;

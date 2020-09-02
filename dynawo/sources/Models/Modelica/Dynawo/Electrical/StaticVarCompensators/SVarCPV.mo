@@ -18,12 +18,11 @@ model SVarCPV "PV static var compensator model"
   import Dynawo.Connectors;
   import Dynawo.Electrical.StaticVarCompensators.BaseControls.Mode;
   import Dynawo.Electrical.SystemBase;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
   extends AdditionalIcons.SVarC;
-  extends SwitchOff.SwitchOffShunt;
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the static var compensator to the grid";
+  Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
 
   extends BaseControls.Parameters.Params_ModeHandling;
   parameter Types.PerUnit BMaxPu "Maximum value for the variable susceptance in p.u (base SnRef)";

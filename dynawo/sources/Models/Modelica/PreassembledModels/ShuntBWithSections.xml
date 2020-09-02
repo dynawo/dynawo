@@ -12,6 +12,8 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="ShuntBWithSections">
+    <dyn:unitDynamicModel id="switchOff" name="Dynawo.Electrical.Controls.SwitchOff.SwitchOffShunt"/>
     <dyn:unitDynamicModel id="shunt" name="Dynawo.Electrical.Shunts.ShuntBWithSections" initName="Dynawo.Electrical.Shunts.ShuntBWithSections_INIT"/>
+    <dyn:connect id1="switchOff" var1="running" id2="shunt" var2="running"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

@@ -13,6 +13,8 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="GeneratorPVSignalN">
+    <dyn:unitDynamicModel id="switchOff" name="Dynawo.Electrical.Controls.SwitchOff.SwitchOffGenerator"/>
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.SignalN.GeneratorPV" initName ="Dynawo.Electrical.Machines.SignalN.GeneratorPV_INIT"/>
+    <dyn:connect id1="switchOff" var1="running" id2="generator" var2="running"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

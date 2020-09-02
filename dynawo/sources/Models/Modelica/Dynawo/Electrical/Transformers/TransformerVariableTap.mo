@@ -52,8 +52,8 @@ equation
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
     ZPu * terminal1.i = rTfoPu * rTfoPu * terminal1.V - rTfoPu * terminal2.V;
   else
-    terminal1.i = terminal2.i;
-    terminal2.V = Complex (0);
+    terminal1.i = Complex (0);
+    terminal1.V = terminal2.V;
   end if;
 
 annotation(preferredView = "text");

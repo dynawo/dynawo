@@ -29,9 +29,7 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
 */
 
   import Dynawo.Connectors;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
 
-  extends SwitchOff.SwitchOffTransformer;
   extends BaseClasses.TransformerParameters;
   extends AdditionalIcons.Transformer;
 
@@ -39,6 +37,8 @@ model GeneratorTransformer "Two winding transformer with a fixed ratio"
     Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Connectors.ACPower terminal2 (V (re (start = u20Pu.re), im (start = u20Pu.im)),i (re (start = i20Pu.re), im (start = i20Pu.im))) annotation(
     Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
 
   parameter Types.PerUnit rTfoPu "Transformation ratio in p.u: U2/U1 in no load conditions";
 
@@ -75,8 +75,8 @@ equation
     rTfoPu * rTfoPu * terminal1.V = rTfoPu * terminal2.V + ZPu * terminal1.i;
     terminal1.i = rTfoPu * (YPu * terminal2.V - terminal2.i);
   else
-    terminal1.i = terminal2.i;
-    terminal2.V = Complex (0);
+    terminal1.i = Complex (0);
+    terminal1.V = terminal2.V;
   end if;
 
   if (running.value) then

@@ -21,6 +21,7 @@ model GeneratorPVProp "Model for generator PV based on SignalN for the frequency
 
   equation
 
+  if running.value then
     if qStatus == QStatus.GenerationMax then
       QGenPu = QMaxPu;
     elseif qStatus == QStatus.AbsorptionMax then
@@ -28,6 +29,9 @@ model GeneratorPVProp "Model for generator PV based on SignalN for the frequency
     else
       QGenPu = QGen0Pu + KVoltage * (URefPu.value - UPu);
     end if;
+  else
+    terminal.i.im = 0;
+  end if;
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage UPu with a proportional regulation unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).</div></body></html>"));

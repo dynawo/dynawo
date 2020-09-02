@@ -16,6 +16,5 @@
   <variable type="continuous" id="terminal1.V.im"/>
   <variable type="continuous" id="terminal2.V.re"/>
   <variable type="continuous" id="terminal2.V.im"/>
-  <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
+  <variable type="discrete" id="running.value" defaultValue="true"/>
 </external_variables>

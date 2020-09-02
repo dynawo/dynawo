@@ -24,7 +24,6 @@ set(MODEL_FILES
     Load_INIT.mo
     LoadConnect_INIT.mo
     LoadAuxiliaries_INIT.mo
-    SwitchOffLoad.extvar
     )
 
 #

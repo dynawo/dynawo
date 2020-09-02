@@ -21,13 +21,12 @@ model InjectorIDQ "Injector controlled by d and q current components idPu and iq
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
   import Dynawo.Types;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-  extends SwitchOff.SwitchOffInjector;
 
   // Terminal connection
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the injector to the grid"  annotation(
     Placement(visible = true, transformation(extent = {{0, 0}, {0, 0}}, rotation = 0), iconTransformation(origin = {115, -79}, extent = {{-15, -15}, {15, 15}}, rotation = 0)));
+
+  Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
 
   parameter Types.ApparentPowerModule SNom "Nominal apparent power in MVA";
 

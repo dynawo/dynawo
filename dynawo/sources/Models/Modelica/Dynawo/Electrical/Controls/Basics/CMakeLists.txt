@@ -16,7 +16,6 @@ set(MODEL_FILES
     SetPoint_INIT.mo
     Step.mo
     Step_INIT.mo
-    SwitchOff.mo
     )
 
 #

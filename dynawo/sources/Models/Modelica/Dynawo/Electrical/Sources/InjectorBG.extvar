@@ -16,7 +16,5 @@
   <variable type="continuous" id="terminal.V.im"/>
   <variable type="continuous" id="BPu"/>
   <variable type="continuous" id="GPu"/>
-  <variable type="discrete" id="switchOffSignal1.value" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal2.value" defaultValue="false"/>
-  <variable type="discrete" id="switchOffSignal3.value" defaultValue="false"/>
+  <variable type="discrete" id="running.value" defaultValue="true"/>
 </external_variables>

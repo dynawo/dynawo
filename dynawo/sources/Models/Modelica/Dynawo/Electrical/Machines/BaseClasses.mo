@@ -17,11 +17,13 @@ package BaseClasses
 
   partial model BaseGeneratorSimplified "Base model for simplified generator models"
     import Dynawo.Connectors;
-    import Dynawo.Electrical.Controls.Basics.SwitchOff;
-    extends SwitchOff.SwitchOffGenerator;
+
   public
     Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
       Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+    Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
+
   protected
     parameter Types.VoltageModulePu U0Pu "Start value of voltage at terminal amplitude in p.u (base UNom)";
     parameter Types.ActivePowerPu PGen0Pu "Start value of active power at terminal in p.u (base SnRef) (generator convention)";
@@ -118,13 +120,13 @@ package BaseClasses
 
   partial model BaseGeneratorSynchronous "Synchronous machine - Base dynamic model"
     import Dynawo.Connectors;
-    import Dynawo.Electrical.Controls.Basics.SwitchOff;
     import Dynawo.Electrical.SystemBase;
     extends GeneratorSynchronousParameters;
-    extends SwitchOff.SwitchOffGenerator;
   public
     Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the synchronous generator to the grid" annotation(
       Placement(visible = true, transformation(origin = {-1.42109e-14, 98}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-1.42109e-14, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+    Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
+
     // Input variables
     Connectors.ImPin omegaRefPu(value(start = SystemBase.omegaRef0Pu)) "Reference frequency in p.u";
     Connectors.ImPin PmPu(value(start = Pm0Pu)) "Mechanical power in p.u (base PNomTurb)";

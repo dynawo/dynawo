@@ -14,6 +14,7 @@
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <!-- LoadAlphaBeta plus two transformers-->
   <dyn:modelicaModel id="LoadTwoTransformers">
+    <dyn:unitDynamicModel id="switchOff" name="Dynawo.Electrical.Controls.SwitchOff.SwitchOffLoad"/>
     <dyn:unitDynamicModel id="load" name="Dynawo.Electrical.Loads.LoadAlphaBeta" initName="Dynawo.Electrical.Loads.LoadConnect_INIT"/>
     <dyn:unitDynamicModel id="transformerD" name="Dynawo.Electrical.Transformers.TransformerVariableTap" initName="Dynawo.Electrical.Transformers.TransformerVariableTapI_INIT"/>
     <dyn:unitDynamicModel id="transformerT" name="Dynawo.Electrical.Transformers.TransformerVariableTap" initName="Dynawo.Electrical.Transformers.TransformerVariableTapPQ_INIT"/>
@@ -23,9 +24,8 @@
     <dyn:initConnect id1="transformerD" var1="u10Pu" id2="transformerT" var2="u20Pu"/>
     <dyn:connect id1="load" var1="terminal" id2="transformerD" var2="terminal2"/>
     <dyn:connect id1="transformerD" var1="terminal1" id2="transformerT" var2="terminal2"/>
-    <dyn:connect id1="load" var1="switchOffSignal1" id2="transformerD" var2="switchOffSignal1"/>
-    <dyn:connect id1="load" var1="switchOffSignal2" id2="transformerD" var2="switchOffSignal2"/>
-    <dyn:connect id1="transformerD" var1="switchOffSignal1" id2="transformerT" var2="switchOffSignal1"/>
-    <dyn:connect id1="transformerD" var1="switchOffSignal2" id2="transformerT" var2="switchOffSignal2"/>
+    <dyn:connect id1="switchOff" var1="running" id2="load" var2="running"/>
+    <dyn:connect id1="switchOff" var1="running" id2="transformerD" var2="running"/>
+    <dyn:connect id1="switchOff" var1="running" id2="transformerT" var2="running"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

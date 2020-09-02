@@ -29,9 +29,6 @@ annotation(preferredView = "text");
 end TransformerParameters;
 
 partial model BaseTransformerVariableTap "Base class for ideal and classical transformers with variable tap"
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
-
-  extends SwitchOff.SwitchOffTransformer;
 
   parameter Types.PerUnit rTfoMinPu "Minimum transformation ratio in p.u: U2/U1 in no load conditions";
   parameter Types.PerUnit rTfoMaxPu "Maximum transformation ratio in p.u: U2/U1 in no load conditions";
@@ -42,6 +39,8 @@ partial model BaseTransformerVariableTap "Base class for ideal and classical tra
   Placement(visible = true, transformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Connectors.ACPower terminal2 (V(re(start = u20Pu.re), im(start = u20Pu.im)),i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the transformer to the grid" annotation(
   Placement(visible = true, transformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {100, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+
+  Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
 
   // Input connectors
   Connectors.ZPin tap (value (start = Tap0)) "Current transformer tap (between 0 and NbTap - 1)";

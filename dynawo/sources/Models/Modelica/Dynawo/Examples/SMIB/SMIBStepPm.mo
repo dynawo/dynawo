@@ -85,15 +85,10 @@ equation
   connect(generatorSynchronous.omegaRefPu, Omega0Pu.setPoint);
   connect(generatorSynchronous.PmPu, PmPu.step);
   connect(generatorSynchronous.efdPu, EfdPu.setPoint);
-  line1.switchOffSignal1.value = false;
-  line1.switchOffSignal2.value = false;
-  line2.switchOffSignal1.value = false;
-  line2.switchOffSignal2.value = false;
-  transformer.switchOffSignal1.value = false;
-  transformer.switchOffSignal2.value = false;
-  generatorSynchronous.switchOffSignal1.value = false;
-  generatorSynchronous.switchOffSignal2.value = false;
-  generatorSynchronous.switchOffSignal3.value = false;
+  line1.running.value = true;
+  line2.running.value = true;
+  transformer.running.value = true;
+  generatorSynchronous.running.value = true;
   annotation(
     experiment(StartTime = 0, StopTime = 30, Tolerance = 0.000001),
     //__OpenModelica_commandLineOptions = "--daeMode",

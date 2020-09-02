@@ -33,7 +33,6 @@ set(MODEL_FILES
     GeneratorSynchronousIntTfo_INIT.mo
     GeneratorSynchronousExtTfo_4E_INIT.mo
     GeneratorSynchronousExtTfo_3E_INIT.mo
-    SwitchOffGenerator.extvar
     )
 
 #

@@ -14,5 +14,5 @@
 <external_variables xmlns="http://www.rte-france.com/dynawo" xmlns:xi="http://www.w3.org/2001/XInclude">
   <variable type="continuous" id="PMonitored.value"/>
   <variable id="locked" type="discrete" defaultValue="false"/>
-  <variable id="switchOffSignal1.value" type="discrete" defaultValue="false"/>
+  <variable type="discrete" id="running.value" defaultValue="true"/>
 </external_variables>

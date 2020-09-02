@@ -17,6 +17,7 @@ add_subdirectory(Shunts S)
 add_subdirectory(Transformers T)
 add_subdirectory(Basics B)
 add_subdirectory(PLL P)
+add_subdirectory(SwitchOff W)
 
 set(MODEL_FILES
     package.mo

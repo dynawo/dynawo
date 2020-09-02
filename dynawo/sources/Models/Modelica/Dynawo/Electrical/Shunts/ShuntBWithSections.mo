@@ -16,15 +16,14 @@ model ShuntBWithSections "Shunt element with voltage dependent reactive power an
 
   import Dynawo.Connectors;
   import Dynawo.Types;
-  import Dynawo.Electrical.Controls.Basics.SwitchOff;
   import Modelica;
 
   extends AdditionalIcons.Shunt;
-  extends SwitchOff.SwitchOffShunt;
 
 public
 
   Connectors.ACPower terminal(V(re(start = u0Pu.re), im(start = u0Pu.im)), i(re(start = i0Pu.re), im(start = i0Pu.im))) "Connector used to connect the shunt to the grid";
+  Connectors.BPin running(value(start=true)) "Indicates if the component is running or not";
   Connectors.ZPin section(value(start = section0)) "Section position of the shunt";
 
   parameter Real section0 "Initial section of the shunt";

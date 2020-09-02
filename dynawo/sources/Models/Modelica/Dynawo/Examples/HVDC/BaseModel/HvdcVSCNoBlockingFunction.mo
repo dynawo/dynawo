@@ -26,6 +26,8 @@ model HvdcVSCNoBlockingFunction "HVDC VSC model without blocking function"
   Connectors.ACPower terminal2(V(re(start = u20Pu.re), im(start = u20Pu.im)), i(re(start = i20Pu.re), im(start = i20Pu.im))) "Connector used to connect the injector to the grid" annotation(
     Placement(visible = true, transformation(origin = {130, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {110, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
+  Connectors.BPin running (value (start=true)) "Indicates if the component is running or not";
+
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_DCLine;
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_ActivePowerControl;
   extends HVDC.HvdcVSC.BaseControls.Parameters.Params_DCVoltageControl;
@@ -94,6 +96,8 @@ protected
   parameter Types.PerUnit Iq20Pu "Start value of reactive current at terminal 2 in p.u (base SNom)";
   parameter Real modeU20 "Start value of the real assessing the mode of the control at terminal 2: 1 if U mode, 0 if Q mode";
 equation
+  connect(running, Conv1.running);
+  connect(running, Conv2.running);
   connect(modeU1, realToBoolean.u) annotation(
     Line(points = {{-30, 77}, {-30, 64}}, color = {0, 0, 127}));
   connect(modeU2, realToBoolean1.u) annotation(
