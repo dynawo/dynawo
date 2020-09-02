@@ -1304,8 +1304,10 @@ nrt() {
   if ! is_launcher_installed; then
     install_launcher || error_exit "Error during launcher installation."
   fi
+  pushd "$DYNAWO_HOME" > /dev/null
   $DYNAWO_PYTHON_COMMAND -u $DYNAWO_NRT_DIR/nrt.py $@
   FAILED_CASES_NUM=$?
+  popd > /dev/null
 
   jenkins_mode=$(printenv | grep "DYNAWO_JENKINS_MODE" | wc -l)
 

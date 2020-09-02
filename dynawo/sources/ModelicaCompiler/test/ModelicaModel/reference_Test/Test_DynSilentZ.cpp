@@ -272,6 +272,10 @@ void ModelTestSilentZ_Dyn::setY0omc()
   }
 }
 
+void ModelTestSilentZ_Dyn::callCustomParametersConstructors()
+{
+}
+
 void ModelTestSilentZ_Dyn::setYType_omc(propertyContinuousVar_t* yType)
 {
    yType[ 0 ] = DIFFERENTIAL;   /* u (rSta)  */

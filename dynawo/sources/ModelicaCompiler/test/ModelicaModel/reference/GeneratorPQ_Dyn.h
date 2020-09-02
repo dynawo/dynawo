@@ -34,6 +34,7 @@ namespace DYN {
     void collectSilentZ(bool* silentZTable);
     void setOomc();
     void setY0omc();
+    void callCustomParametersConstructors();
     void setYType_omc(propertyContinuousVar_t* yType);
     void setFType_omc(propertyF_t* fType);
     boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues();
@@ -57,7 +58,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("552def2affda16967c355f42441f26d7"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("ba5315e081522c75585cbe4bf880a6d9"); }
 
     private:
     DYNDATA * data;

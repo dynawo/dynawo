@@ -110,6 +110,12 @@ class ModelModelica {
   virtual void setY0omc() = 0;
 
   /**
+   * @brief call the constructors of objects that need a custom build based on parameters values
+   *
+   */
+  virtual void callCustomParametersConstructors() = 0;
+
+  /**
    * @brief set the values of the parameters of the model
    *
    * @param params set of parameters where to read the values of the model's parameters
