@@ -176,6 +176,12 @@ class MyModelica: public ModelModelica {
     ++nbCallY0_;
   }
 
+  /**
+   * @brief call the constructors of objects that need a custom build based on parameters values
+   *
+   */
+  void callCustomParametersConstructors() { }
+
   unsigned getNbCallY0() const {
     return nbCallY0_;
   }

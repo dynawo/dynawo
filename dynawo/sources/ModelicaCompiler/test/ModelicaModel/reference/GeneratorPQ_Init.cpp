@@ -292,6 +292,10 @@ void ModelGeneratorPQ_Init::setY0omc()
   }
 }
 
+void ModelGeneratorPQ_Init::callCustomParametersConstructors()
+{
+}
+
 boost::shared_ptr<parameters::ParametersSet> ModelGeneratorPQ_Init::setSharedParametersDefaultValues()
 {
 

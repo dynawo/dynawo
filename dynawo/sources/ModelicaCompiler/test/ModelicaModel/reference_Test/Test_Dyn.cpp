@@ -227,6 +227,10 @@ void ModelTest_Dyn::setY0omc()
   data->localData[0]->realVars[0] /* u */ = 1.0;
 }
 
+void ModelTest_Dyn::callCustomParametersConstructors()
+{
+}
+
 void ModelTest_Dyn::setYType_omc(propertyContinuousVar_t* yType)
 {
    yType[ 0 ] = DIFFERENTIAL;   /* u (rSta)  */

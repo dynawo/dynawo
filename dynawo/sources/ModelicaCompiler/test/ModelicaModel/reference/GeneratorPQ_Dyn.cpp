@@ -575,6 +575,10 @@ void ModelGeneratorPQ_Dyn::setY0omc()
   data->localData[0]->realVars[6] /* generator.SGenPu.im */ = data->simulationInfo->realParameter[4] /* generator.QGen0Pu PARAM */;
 }
 
+void ModelGeneratorPQ_Dyn::callCustomParametersConstructors()
+{
+}
+
 void ModelGeneratorPQ_Dyn::setYType_omc(propertyContinuousVar_t* yType)
 {
    yType[ 0 ] = EXTERNAL;   /* generator_omegaRefPu_value (rSta) - external variables */

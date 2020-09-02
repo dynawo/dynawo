@@ -32,6 +32,7 @@ namespace DYN {
     void setZomc();
     void collectSilentZ(bool* silentZTable);
     void setY0omc();
+    void callCustomParametersConstructors();
     void setYType_omc(propertyContinuousVar_t* yType);
     void setFType_omc(propertyF_t* fType);
     boost::shared_ptr<parameters::ParametersSet> setSharedParametersDefaultValues(); ///< set parameter values based on internal Modelica data
@@ -55,7 +56,7 @@ namespace DYN {
     inline void setModelType(std::string modelType) { modelType_ = modelType; }
     inline ModelManager * getModelManager() const { return modelManager_; }
     inline void setModelManager (ModelManager * model) { modelManager_ = model; }
-    void checkSum(std::string & checkSum) { checkSum = std::string("bfcfcf1928572efa6b39399f1e87d294"); }
+    void checkSum(std::string & checkSum) { checkSum = std::string("c0d58b099f458a88a6a4930a64f9b792"); }
 
     private:
     DYNDATA * data;
