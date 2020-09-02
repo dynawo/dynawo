@@ -173,6 +173,7 @@ ModelManager::init(const double& t0) {
   for (int i = 0; i < 2; ++i) {
     modelModelica()->initRpar();
   }
+  modelModelica()->callCustomParametersConstructors();
 
   getSize();
 
@@ -421,6 +422,7 @@ ModelManager::getY0() {
   if (!withLoadedVariables_) {
     modelModelica()->setY0omc();
   }
+
   simulationInfo()->initial = false;
 }
 

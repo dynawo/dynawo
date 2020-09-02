@@ -251,6 +251,8 @@ class Factory:
 
         ## List of equations to add in setY0 function
         self.list_for_sety0 = []
+        ## List of equations to add in setY0 function
+        self.list_for_callcustomparametersconstructors = []
         ## List of equations to add in setFOmc function
         self.list_for_setf = []
         ## List of equations to add in evalMode function
@@ -1316,7 +1318,7 @@ class Factory:
     def prepare_for_sety0(self):
         # In addition to system vars, discrete vars (bool or not) must be initialized as well
         # We concatenate system vars and discrete vars
-        list_vars = itertools.chain(self.list_vars_syst, self.list_all_vars_discr, self.list_vars_int, self.reader.external_objects, self.reader.list_complex_const_vars)
+        list_vars = itertools.chain(self.list_vars_syst, self.list_all_vars_discr, self.list_vars_int, self.reader.list_complex_const_vars)
         found_init_by_param_and_at_least2lines = False # for reading comfort when printing
 
         # sort by taking init function number read in *06inz.c
@@ -1411,6 +1413,44 @@ class Factory:
                 self.list_for_sety0.insert(index,line_tmp)
         return self.list_for_sety0
 
+
+    ##
+    # prepare the equations/variables for setY0 methods
+    # @param self : object pointer
+    # @return
+    def prepare_for_callcustomparametersconstructors(self):
+        found_init_by_param_and_at_least2lines = False # for reading comfort when printing
+        # Initialization of external objects
+        for var in self.reader.external_objects :
+            var.clean_start_text () # Clean up initialization text before printing
+
+            # Lines for reading comfort at the impression
+            if len(var.get_start_text()) > 1 :
+                if not found_init_by_param_and_at_least2lines:
+                    self.list_for_callcustomparametersconstructors.append("\n")
+                found_init_by_param_and_at_least2lines = True
+            else : found_init_by_param_and_at_least2lines = False
+
+            for L in var.get_start_text() :
+                if "FILE_INFO" not in L and "omc_assert_warning" not in L:
+                    L = replace_var_names(L)
+                    for const_string in self.reader.list_of_stringconstants:
+                        if const_string+"," in L:
+                            L = L.replace(const_string+",", const_string+".c_str(),")
+                        elif const_string+";" in L:
+                            L = L.replace(const_string+";", const_string+".c_str();")
+                        elif const_string+" " in L:
+                            L = L.replace(const_string+" ", const_string+".c_str() ")
+                    self.list_for_callcustomparametersconstructors.append("  " + L)
+
+            if len(var.get_start_text()) > 1 : self.list_for_callcustomparametersconstructors.append("\n") # reading comfort
+
+    ##
+    # return the list of lines that constitutes the body of callCustomParametersConstructors
+    # @param self : object pointer
+    # @return list of lines
+    def get_list_for_callcustomparametersconstructors(self):
+        return self.list_for_callcustomparametersconstructors
 
     def filter_external_function_call(self):
         body = []
@@ -3305,6 +3345,7 @@ class Factory:
         self.prepare_for_setg()
         self.prepare_for_setg_equations()
         self.prepare_for_sety0()
+        self.prepare_for_callcustomparametersconstructors()
         self.prepare_for_initrpar()
         self.prepare_for_setupdatastruc()
         self.prepare_for_setytype()

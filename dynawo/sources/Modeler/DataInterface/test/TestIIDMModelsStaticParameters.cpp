@@ -698,7 +698,6 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyLoad", "P_value"));
   ASSERT_THROW_DYNAWO(data->setReference("badParam", loadItf->getID(), "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStateVariable);
   ASSERT_THROW_DYNAWO(data->setReference("p", "", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::WrongReferenceId);
-  ASSERT_THROW_DYNAWO(data->setReference("p", "MyBadLoad", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStaticComponent);
   ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyLoad", "myBadModelVar"));
   ASSERT_THROW_DYNAWO(data->getStateVariableReference(), Error::MODELER, KeyError_t::StateVariableNoReference);
   const bool filterForCriteriaCheck = false;
@@ -711,6 +710,12 @@ TEST(DataInterfaceIIDMTest, testBadlyFormedStaticRefModel) {
   ASSERT_NO_THROW(data->setReference("p", "MyLoad", "MyBadLoad", "p_pu"));
   ASSERT_THROW_DYNAWO(data->getStateVariableReference(), Error::MODELER, KeyError_t::StateVariableNoReference);
   ASSERT_NO_THROW(data->updateFromModel(filterForCriteriaCheck));
+
+  // Reset
+  data = createBusBreakerNetwork(properties);
+  exportStateVariables(data);
+  loadItf = data->getNetwork()->getVoltageLevels()[0]->getLoads()[0];
+  ASSERT_THROW_DYNAWO(data->setReference("p", "MyBadLoad", "MyLoad", "p_pu"), Error::MODELER, KeyError_t::UnknownStaticComponent);
 }
 
 TEST(DataInterfaceIIDMTest, testBadlyFormedRegulatingRatioTapChangerNoTargetV) {
