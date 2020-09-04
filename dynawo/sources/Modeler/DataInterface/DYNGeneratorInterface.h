@@ -71,7 +71,7 @@ class GeneratorInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the target active power of the generator
-   * @return The target active power of the generator in MW (generator convention)
+   * @return The target active power of the generator in MW (receptor convention)
    */
   virtual double getTargetP() = 0;
 
@@ -95,7 +95,7 @@ class GeneratorInterface : public ComponentInterface {
 
   /**
    * @brief Getter for the target reactive power of the generator
-   * @return The target reactive power of the generator in MVar (generator convention)
+   * @return The target reactive power of the generator in MVar (receptor convention)
    */
   virtual double getTargetQ() = 0;
 
