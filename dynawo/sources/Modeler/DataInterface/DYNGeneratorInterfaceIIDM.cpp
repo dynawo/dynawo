@@ -169,7 +169,7 @@ GeneratorInterfaceIIDM::getPMax() {
 
 double
 GeneratorInterfaceIIDM::getTargetP() {
-  return - generatorIIDM_.targetP();
+  return - 1.0 * generatorIIDM_.targetP();
 }
 
 
@@ -237,7 +237,7 @@ GeneratorInterfaceIIDM::getQMin() {
 double
 GeneratorInterfaceIIDM::getTargetQ() {
   if (generatorIIDM_.has_targetQ()) {
-    return - generatorIIDM_.targetQ();
+    return - 1.0 * generatorIIDM_.targetQ();
   } else {
     return 0;
   }
