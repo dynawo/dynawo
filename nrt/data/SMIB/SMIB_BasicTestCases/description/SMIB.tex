@@ -241,7 +241,7 @@ We observe that the voltage drops directly after the load modification. In order
   \begin{tikzpicture}
     \begin{axis}[height = 2.4in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_generator_UPu}*24]
+        table[x=time, y expr=\thisrow{generator_generator_UPu}*24]
         {../SMIB_3_LoadVarQ/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -251,7 +251,7 @@ We observe that the voltage drops directly after the load modification. In order
   \begin{tikzpicture}
     \begin{axis}[height = 2.4in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_generator_QGenPu}*100/2220]
+        table[x=time, y expr=\thisrow{generator_generator_QGenPu}*100/2220]
         {../SMIB_3_LoadVarQ/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -272,7 +272,7 @@ We observe that the system is oscillating after the event but stabilizes after a
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_generator_UPu}*24]
+        table[x=time, y expr=\thisrow{generator_generator_UPu}*24]
         {../SMIB_4_DisconnectLine/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -282,7 +282,7 @@ We observe that the system is oscillating after the event but stabilizes after a
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_generator_PGenPu}*100/2220]
+        table[x=time, y expr=\thisrow{generator_generator_PGenPu}*100/2220]
         {../SMIB_4_DisconnectLine/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -292,7 +292,7 @@ We observe that the system is oscillating after the event but stabilizes after a
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_generator_QGenPu}*100/2220]
+        table[x=time, y expr=\thisrow{generator_generator_QGenPu}*100/2220]
         {../SMIB_4_DisconnectLine/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -313,7 +313,7 @@ We observe that active power during the fault is zero and that it is restored to
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_generator_UPu}*24]
+        table[x=time, y expr=\thisrow{generator_generator_UPu}*24]
         {../SMIB_5_Fault/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -323,7 +323,7 @@ We observe that active power during the fault is zero and that it is restored to
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_generator_PGenPu}*100/2220]
+        table[x=time, y expr=\thisrow{generator_generator_PGenPu}*100/2220]
         {../SMIB_5_Fault/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}
@@ -333,7 +333,7 @@ We observe that active power during the fault is zero and that it is restored to
   \begin{tikzpicture}
     \begin{axis}[height = 1.7in]
         \addplot[color=blue!50]
-        table[x=time, y expr=\thisrow{SM_generator_QGenPu}*100/2220]
+        table[x=time, y expr=\thisrow{generator_generator_QGenPu}*100/2220]
         {../SMIB_5_Fault/reference/outputs/curves/curves.csv};
     \end{axis}
   \end{tikzpicture}

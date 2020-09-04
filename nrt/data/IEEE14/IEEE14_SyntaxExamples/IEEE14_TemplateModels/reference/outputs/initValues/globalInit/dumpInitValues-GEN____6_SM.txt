@@ -92,10 +92,10 @@ voltageRegulator_limUsRef_y                       : y =       1.143236
  ====== INIT DISCRETE VARIABLES VALUES ======
 voltageRegulator_limiterWithLag_tUMaxReached      : z =   1.000000e+60
 voltageRegulator_limiterWithLag_tUMinReached      : z =   1.000000e+60
-generator_running_value                           : z =       1.000000
-generator_switchOffSignal1_value                  : z =      -1.000000
-generator_switchOffSignal2_value                  : z =      -1.000000
-generator_switchOffSignal3_value                  : z =      -1.000000
+switchOff_running_value                           : z =       1.000000
+switchOff_switchOffSignal1_value                  : z =      -1.000000
+switchOff_switchOffSignal2_value                  : z =      -1.000000
+switchOff_switchOffSignal3_value                  : z =      -1.000000
 voltageRegulator_limitationDown_value             : z =      -1.000000
 voltageRegulator_limitationEfdMax                 : z =      -1.000000
 voltageRegulator_limitationEfdMin                 : z =      -1.000000
@@ -106,8 +106,9 @@ voltageRegulator_limiterWithLag_initSaturatedMax  : z =      -1.000000
 voltageRegulator_limiterWithLag_initSaturatedMin  : z =      -1.000000
 governor_activeFrequencyRegulation_y              : z =       1.000000
 governor_switch_u2                                : z =       1.000000
-generator_state                                   : z =       2.000000
 governor_state                                    : z =       1.000000
+switchOff_state                                   : z =       2.000000
+generator_running_value                           : alias of switchOff_running_value
  ====== PARAMETERS VALUES ======
 Pm_Value0                                          =       0.000095
 URef_Value0                                        =       1.143236
@@ -243,7 +244,7 @@ governor_limiter_strict                            =      -1.000000
 voltageRegulator_limUsRef_limitsAtInit             =       1.000000
 voltageRegulator_limUsRef_strict                   =      -1.000000
 generator_ExcitationPu                             =              1
-generator_NbSwitchOffSignals                       =              3
-generator_State0                                   =              2
 governor_limiter_homotopyType                      =              2
+switchOff_NbSwitchOffSignals                       =              3
+switchOff_State0                                   =              2
 voltageRegulator_limUsRef_homotopyType             =              2

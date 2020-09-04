@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -70,15 +70,15 @@
   <dyn:connect id1="_LOAD___3_EC" var1="transformer_tap" id2="TAP_CHANGER_LOAD_3" var2="tapChanger_tap"/>
   <dyn:connect id1="_LOAD___3_EC" var1="transformer_U2Pu" id2="TAP_CHANGER_LOAD_3" var2="tapChanger_UMonitored"/>
   <dyn:connect id1="GEN____1_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____1_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____1_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____2_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____2_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____2_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____3_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____3_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____3_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____3_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____3_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____3_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____6_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____6_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____6_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____8_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
   <dyn:connect id1="TAP_CHANGER_LOCK" var1="tapChangerLock_UMonitored" id2="NETWORK" var2="_BUS____3_TN_U"/>
   <dyn:connect id2="TAP_CHANGER_LOAD_2" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerLock_lockedT"/>
   <dyn:connect id2="TAP_CHANGER_LOAD_3" var2="tapChanger_locked" id1="TAP_CHANGER_LOCK" var1="tapChangerLock_lockedT"/>

@@ -1,4 +1,13 @@
-0.0232834 | GEN____3_SM | PMIN : activation
+0 | GEN____8_SM | PMIN : activation
+0.0306918 | GEN____3_SM | PMIN : activation
+0.34838 | GEN____8_SM | PMIN : deactivation
+0.828637 | GEN____3_SM | PMIN : deactivation
+0.834737 | GEN____8_SM | PMIN : activation
+1.90528 | GEN____8_SM | PMIN : deactivation
+2.18388 | GEN____3_SM | PMIN : activation
+2.33948 | GEN____8_SM | PMIN : activation
+2.75791 | GEN____3_SM | PMIN : deactivation
+5.34609 | GEN____8_SM | PMIN : deactivation
 20 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
 20 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
 20 | TAP_CHANGER_LOCK | TCL : tap changers lock arming (U < UMin)
@@ -11,15 +20,16 @@
 20 | TAP_CHANGER_LOAD_2 | Tap-changer : below minimum allowed value
 20 | TAP_CHANGER_LOAD_3 | Tap-changer : below minimum allowed value
 20 | TAP_CHANGER_LOCK | TCL : tap changers lock arming (U < UMin)
-20.091 | GEN____8_SM | PMIN : activation
-20.2024 | GEN____6_SM | PMIN : activation
-21.9784 | TAP_CHANGER_LOCK | TCL : tap changers lock disarming (U > UMin)
+20.0002 | GEN____3_SM | PMIN : activation
+20.0688 | GEN____8_SM | PMIN : activation
+20.2042 | GEN____6_SM | PMIN : activation
+21.9785 | TAP_CHANGER_LOCK | TCL : tap changers lock disarming (U > UMin)
 80 | TAP_CHANGER_LOAD_2 | Tap +1
 80 | TAP_CHANGER_LOAD_3 | Tap +1
 80 | TAP_CHANGER_LOAD_2 | Tap +1
 80 | TAP_CHANGER_LOAD_3 | Tap +1
-80.0048 | TAP_CHANGER_LOCK | TCL : tap changers lock arming (U < UMin)
-80.3749 | TAP_CHANGER_LOCK | TCL : tap changers lock disarming (U > UMin)
+80.0047 | TAP_CHANGER_LOCK | TCL : tap changers lock arming (U < UMin)
+80.3751 | TAP_CHANGER_LOCK | TCL : tap changers lock disarming (U > UMin)
 90 | TAP_CHANGER_LOAD_2 | Tap +1
 90 | TAP_CHANGER_LOAD_3 | Tap +1
 90 | TAP_CHANGER_LOAD_2 | Tap +1

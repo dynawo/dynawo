@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -15,7 +15,7 @@
   <dyn:blackBoxModel id="_LOAD___2_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___2_EC">
     <dyn:staticRef var="load_PPu" staticVar="p"/>
     <dyn:staticRef var="load_QPu" staticVar="q"/>
-    <dyn:staticRef var="load_state" staticVar="state"/>
+    <dyn:staticRef var="switchOff_state" staticVar="state"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="_LOAD___3_EC" lib="LoadAlphaBeta" parFile="IEEE14.par" parId="1" staticId="_LOAD___3_EC">
     <dyn:macroStaticRef id="LOAD"/>
@@ -50,7 +50,7 @@
   <dyn:blackBoxModel id="GEN____1_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="2" staticId="_GEN____1_SM">
     <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
     <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
-    <dyn:staticRef var="generator_state" staticVar="state"/>
+    <dyn:staticRef var="switchOff_state" staticVar="state"/>
   </dyn:blackBoxModel>
   <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="3" staticId="_GEN____2_SM">
     <dyn:macroStaticRef id="GEN"/>
@@ -97,23 +97,23 @@
   <dyn:connect id1="_LOAD___6_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____6_TN_ACPIN"/>
   <dyn:connect id1="_LOAD___9_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____9_TN_ACPIN"/>
   <dyn:connect id1="GEN____1_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____1_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____1_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____2_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____2_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____2_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____3_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____3_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____3_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____3_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____3_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____3_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____6_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____6_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____6_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____8_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
   <dyn:macroStaticReference id="GEN">
     <dyn:staticRef var="generator_PGenPu" staticVar="p"/>
     <dyn:staticRef var="generator_QGenPu" staticVar="q"/>
-    <dyn:staticRef var="generator_state" staticVar="state"/>
+    <dyn:staticRef var="switchOff_state" staticVar="state"/>
   </dyn:macroStaticReference>
   <dyn:macroStaticReference id="LOAD">
     <dyn:staticRef var="load_PPu" staticVar="p"/>
     <dyn:staticRef var="load_QPu" staticVar="q"/>
-    <dyn:staticRef var="load_state" staticVar="state"/>
+    <dyn:staticRef var="switchOff_state" staticVar="state"/>
   </dyn:macroStaticReference>
 </dyn:dynamicModelsArchitecture>

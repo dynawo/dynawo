@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -40,6 +40,8 @@
     <dyn:connect id1="governor" var1="PmRefPu" id2="Pm" var2="setPoint"/>
     <dyn:connect id1="governor" var1="omegaPu" id2="generator" var2="omegaPu"/>
     <dyn:connect id1="governor" var1="PmPu" id2="generator" var2="PmPu"/>
+    <dyn:unitDynamicModel id="switchOff" name="Dynawo.Electrical.Controls.SwitchOff.SwitchOffGenerator"/>
+    <dyn:connect id1="switchOff" var1="running" id2="generator" var2="running"/>
   </dyn:modelicaModel>
   <dyn:blackBoxModel id="GEN____2_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="13" staticId="_GEN____2_SM"/>
   <dyn:blackBoxModel id="GEN____3_SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="IEEE14.par" parId="14" staticId="_GEN____3_SM"/>
@@ -78,13 +80,13 @@
   <dyn:connect id1="_LOAD___6_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____6_TN_ACPIN"/>
   <dyn:connect id1="_LOAD___9_EC" var1="load_terminal" id2="NETWORK" var2="_BUS____9_TN_ACPIN"/>
   <dyn:connect id1="GEN____1_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____1_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____1_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____1_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____2_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____2_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____2_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____2_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____3_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____3_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____3_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____3_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____3_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____3_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____6_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____6_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____6_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____6_SM@@NODE@_switchOff"/>
   <dyn:connect id1="GEN____8_SM" var1="generator_terminal" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_ACPIN"/>
-  <dyn:connect id1="GEN____8_SM" var1="generator_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
+  <dyn:connect id1="GEN____8_SM" var1="switchOff_switchOffSignal1" id2="NETWORK" var2="@_GEN____8_SM@@NODE@_switchOff"/>
 </dyn:dynamicModelsArchitecture>

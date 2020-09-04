@@ -12,10 +12,11 @@ load_UPu_value                                    : y =       0.984956
  ====== INIT DISCRETE VARIABLES VALUES ======
 load_PRefPu_value                                 : z =       0.410000
 load_QRefPu_value                                 : z =       0.210000
-load_running_value                                : z =       1.000000
-load_switchOffSignal1_value                       : z =      -1.000000
-load_switchOffSignal2_value                       : z =      -1.000000
-load_state                                        : z =       2.000000
+switchOff_running_value                           : z =       1.000000
+switchOff_switchOffSignal1_value                  : z =      -1.000000
+switchOff_switchOffSignal2_value                  : z =      -1.000000
+switchOff_state                                   : z =       2.000000
+load_running_value                                : alias of switchOff_running_value
  ====== PARAMETERS VALUES ======
 load_alpha                                         =       1.500000
 load_beta                                          =       2.500000
@@ -25,5 +26,5 @@ load_s0Pu_im                                       =       0.210000
 load_s0Pu_re                                       =       0.410000
 load_u0Pu_im                                       =      -0.102782
 load_u0Pu_re                                       =       0.979550
-load_NbSwitchOffSignals                            =              2
-load_State0                                        =              2
+switchOff_NbSwitchOffSignals                       =              2
+switchOff_State0                                   =              2

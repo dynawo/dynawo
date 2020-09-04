@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -39,5 +39,5 @@
   <dyn:connect id1="Line2" var1="line_terminal2" id2="Transformer" var2="transformer_terminal1"/>
   <dyn:connect id1="Transformer" var1="transformer_terminal1" id2="Fault" var2="fault_terminal"/>
   <dyn:connect id1="Transformer" var1="transformer_terminal2" id2="SM" var2="gen_terminal"/>
-  <dyn:connect id1="OpenLine" var1="event_state1" id2="Line2" var2="line_switchOffSignal2"/>
+  <dyn:connect id1="OpenLine" var1="event_state1" id2="Line2" var2="switchOff_switchOffSignal2"/>
 </dyn:dynamicModelsArchitecture>

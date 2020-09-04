@@ -38,17 +38,8 @@ line2_terminal1_V_im                              : y =       0.000000
 line2_terminal1_V_re                              : y =       0.900810
  ====== INIT DISCRETE VARIABLES VALUES ======
 line1_running_value                               : z =       1.000000
-line1_switchOffSignal1_value                      : z =      -1.000000
-line1_switchOffSignal2_value                      : z =      -1.000000
 line2_running_value                               : z =       1.000000
-line2_switchOffSignal1_value                      : z =      -1.000000
-line2_switchOffSignal2_value                      : z =      -1.000000
 tfo_running_value                                 : z =       1.000000
-tfo_switchOffSignal1_value                        : z =      -1.000000
-tfo_switchOffSignal2_value                        : z =      -1.000000
-line1_state                                       : z =       2.000000
-line2_state                                       : z =       2.000000
-tfo_state                                         : z =       2.000000
  ====== PARAMETERS VALUES ======
 busInf_UPhase                                      =       0.000000
 busInf_UPu                                         =       0.900810
@@ -77,9 +68,3 @@ tfo_YPu_re                                         =       0.000000
 tfo_ZPu_im                                         =       0.006750
 tfo_ZPu_re                                         =       0.000000
 tfo_rTfoPu                                         =       1.000000
-line1_NbSwitchOffSignals                           =              2
-line1_State0                                       =              2
-line2_NbSwitchOffSignals                           =              2
-line2_State0                                       =              2
-tfo_NbSwitchOffSignals                             =              2
-tfo_State0                                         =              2

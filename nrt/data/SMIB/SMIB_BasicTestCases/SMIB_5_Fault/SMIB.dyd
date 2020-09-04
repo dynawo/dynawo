@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
@@ -12,24 +12,18 @@
     simulation tool for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <!-- Network model with a fault-->
-  <dyn:modelicaModel id="Network">
-    <dyn:unitDynamicModel id="busInf" name="Dynawo.Electrical.Buses.InfiniteBus" parFile="SMIB.par" parId="1"/>
-    <dyn:unitDynamicModel id="line1" name="Dynawo.Electrical.Lines.Line" parFile="SMIB.par" parId="2"/>
-    <dyn:unitDynamicModel id="line2" name="Dynawo.Electrical.Lines.Line" parFile="SMIB.par" parId="3"/>
-    <dyn:unitDynamicModel id="tfo" name="Dynawo.Electrical.Transformers.TransformerFixedRatio" parFile="SMIB.par" parId="4"/>
-    <dyn:unitDynamicModel id="fault" name="Dynawo.Electrical.Events.NodeFault" parFile="event.par" parId="1"/>
-    <dyn:connect id1="busInf" var1="terminal" id2="line1" var2="terminal1"/>
-    <dyn:connect id1="busInf" var1="terminal" id2="line2" var2="terminal1"/>
-    <dyn:connect id1="line1" var1="terminal2" id2="tfo" var2="terminal1"/>
-    <dyn:connect id1="line2" var1="terminal2" id2="tfo" var2="terminal1"/>
-    <dyn:connect id1="tfo" var1="terminal1" id2="fault" var2="terminal"/>
-  </dyn:modelicaModel>
-  <!-- Generator -->
-  <dyn:blackBoxModel id="SM" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="SMIB.par" parId="5"/>
-  <!-- OmegaRef -->
-  <dyn:blackBoxModel id="OmegaRef" lib="SetPoint" parFile="SMIB.par" parId="6"/>
-  <!-- Connections -->
-  <dyn:connect id1="Network" var1="tfo_terminal2" id2="SM" var2="generator_terminal"/>
-  <dyn:connect id1="OmegaRef" var1="setPoint_setPoint" id2="SM" var2="generator_omegaRefPu"/>
+  <dyn:blackBoxModel id="busInf" lib="InfiniteBus" parFile="SMIB.par" parId="1"/>
+  <dyn:blackBoxModel id="line1" lib="Line" parFile="SMIB.par" parId="2"/>
+  <dyn:blackBoxModel id="line2" lib="Line" parFile="SMIB.par" parId="3"/>
+  <dyn:blackBoxModel id="tfo" lib="TransformerFixedRatio" parFile="SMIB.par" parId="4"/>
+  <dyn:blackBoxModel id="generator" lib="GeneratorSynchronousFourWindingsProportionalRegulations" parFile="SMIB.par" parId="5"/>
+  <dyn:blackBoxModel id="omegaRef" lib="SetPoint" parFile="SMIB.par" parId="6"/>
+  <dyn:blackBoxModel id="nodeFault" lib="NodeFault" parFile="event.par" parId="1"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line1" var2="line_terminal1"/>
+  <dyn:connect id1="busInf" var1="infiniteBus_terminal" id2="line2" var2="line_terminal1"/>
+  <dyn:connect id1="line1" var1="line_terminal2" id2="tfo" var2="transformer_terminal1"/>
+  <dyn:connect id1="line2" var1="line_terminal2" id2="tfo" var2="transformer_terminal1"/>
+  <dyn:connect id1="tfo" var1="transformer_terminal2" id2="generator" var2="generator_terminal"/>
+  <dyn:connect id1="omegaRef" var1="setPoint_setPoint" id2="generator" var2="generator_omegaRefPu"/>
+  <dyn:connect id1="nodeFault" var1="fault_terminal" id2="tfo" var2="transformer_terminal1"/>
 </dyn:dynamicModelsArchitecture>

@@ -3,44 +3,42 @@
     Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
     See AUTHORS.txt
     All rights reserved.
-    This Source Code Form is subject to the terSM of the Mozilla Public
+    This Source Code Form is subject to the terms of the Mozilla Public
     License, v. 2.0. If a copy of the MPL was not distributed with this
     file, you can obtain one at http://mozilla.org/MPL/2.0/.
     SPDX-License-Identifier: MPL-2.0
 
     This file is part of Dynawo, an hybrid C++/Modelica open source time domain
-    simulation tool for power systeSM.
+    simulation tool for power systems.
 -->
 <curvesInput xmlns="http://www.rte-france.com/dynawo">
-  <curve model="SM" variable="generator_cePu"/>
-  <curve model="SM" variable="generator_PePu"/>
-  <curve model="SM" variable="generator_cmPu"/>
-  <curve model="SM" variable="generator_PmPu"/>
-  <curve model="SM" variable="generator_ufPu"/>
-  <curve model="SM" variable="generator_efdPu"/>
-  <curve model="SM" variable="generator_omegaPu"/>
-  <curve model="SM" variable="generator_theta"/>
-  <curve model="SM" variable="generator_PGenPu"/>
-  <curve model="SM" variable="generator_QGenPu"/>
-  <curve model="SM" variable="generator_PGen"/>
-  <curve model="SM" variable="generator_QGen"/>
-  <curve model="SM" variable="generator_UPu"/>
-  <curve model="SM" variable="generator_IStatorPu"/>
-  <curve model="SM" variable="generator_IRotorPu"/>
-  <curve model="SM" variable="generator_UStatorPu"/>
-  <curve model="SM" variable="generator_QStatorPu"/>
-  <curve model="SM" variable="generator_thetaInternal"/>
+  <curve model="generator" variable="generator_cePu"/>
+  <curve model="generator" variable="generator_PePu"/>
+  <curve model="generator" variable="generator_cmPu"/>
+  <curve model="generator" variable="generator_PmPu"/>
+  <curve model="generator" variable="generator_ufPu"/>
+  <curve model="generator" variable="generator_efdPu"/>
+  <curve model="generator" variable="generator_omegaPu"/>
+  <curve model="generator" variable="generator_theta"/>
+  <curve model="generator" variable="generator_PGenPu"/>
+  <curve model="generator" variable="generator_QGenPu"/>
+  <curve model="generator" variable="generator_PGen"/>
+  <curve model="generator" variable="generator_QGen"/>
+  <curve model="generator" variable="generator_UPu"/>
+  <curve model="generator" variable="generator_IStatorPu"/>
+  <curve model="generator" variable="generator_IRotorPu"/>
+  <curve model="generator" variable="generator_UStatorPu"/>
+  <curve model="generator" variable="generator_QStatorPu"/>
+  <curve model="generator" variable="generator_thetaInternal"/>
+  <curve model="generator" variable="generator_MdPPu"/>
+  <curve model="generator" variable="generator_MqPPu"/>
+  <curve model="generator" variable="generator_MdSatPPu"/>
+  <curve model="generator" variable="generator_MqSatPPu"/>
+  <curve model="generator" variable="generator_MiPu"/>
+  <curve model="generator" variable="generator_lambdaADPu"/>
+  <curve model="generator" variable="generator_lambdaAQPu"/>
   <curve model="Load" variable="load_PPu"/>
   <curve model="Load" variable="load_QPu"/>
   <curve model="Load" variable="load_PRefPu"/>
   <curve model="Load" variable="load_QRefPu"/>
-
-  <curve model="SM" variable="generator_MdPPu"/>
-  <curve model="SM" variable="generator_MqPPu"/>
-  <curve model="SM" variable="generator_MdSatPPu"/>
-  <curve model="SM" variable="generator_MqSatPPu"/>
-<curve model="SM" variable="generator_MiPu"/>
-
-<curve model="SM" variable="generator_lambdaADPu"/>
-<curve model="SM" variable="generator_lambdaAQPu"/>
 </curvesInput>
