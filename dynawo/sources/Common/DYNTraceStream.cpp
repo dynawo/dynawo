@@ -27,12 +27,16 @@ TraceStream::TraceStream() :
 buffer_(),
 slv_(INFO),
 tag_("") {
+  buffer_ = boost::shared_ptr<std::stringstream>(new std::stringstream);
 }
 
 TraceStream::TraceStream(SeverityLevel slv, const std::string& tag) :
 buffer_(),
 slv_(slv),
 tag_(tag) {
+  if (Trace::logExists(tag, slv)) {
+    buffer_ = boost::shared_ptr<std::stringstream>(new std::stringstream);
+  }
 }
 
 TraceStream::TraceStream(const TraceStream& ts) :
@@ -46,14 +50,18 @@ TraceStream::~TraceStream() {
 
 TraceStream&
 TraceStream::operator<<(const char* t) {
-  buffer_ << t;
+  if (buffer_) {
+    (*buffer_) << t;
+  }
   return *this;
 }
 
 void
 TraceStream::flush() {
-  Trace::log(slv_, tag_, buffer_.str());
-  buffer_.str(std::string());
+  if (buffer_) {
+    Trace::log(slv_, tag_, buffer_->str());
+    buffer_->str(std::string());
+  }
 }
 
 TraceStream&

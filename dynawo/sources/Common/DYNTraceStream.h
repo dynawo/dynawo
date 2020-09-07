@@ -22,6 +22,7 @@
 #ifndef COMMON_DYNTRACESTREAM_H_
 #define COMMON_DYNTRACESTREAM_H_
 
+#include <boost/shared_ptr.hpp>
 #include <sstream>
 #include <string>
 
@@ -116,7 +117,9 @@ class TraceStream {
    */
   template<typename T>
   TraceStream& operator<<(const T& t) {
-    buffer_ << t;
+    if (buffer_) {
+      (*buffer_) << t;
+    }
     return *this;
   }
 
@@ -147,7 +150,7 @@ class TraceStream {
   TraceStream& operator<<(tspf);
 
  private:
-  std::stringstream buffer_;  ///< Internal buffer owning trace message.
+  boost::shared_ptr<std::stringstream> buffer_;  ///< Internal buffer owning trace message.
   SeverityLevel slv_;  ///< Severity level of the message.
   std::string tag_;  ///< Tag added to the message. "" means no tag.
 };
