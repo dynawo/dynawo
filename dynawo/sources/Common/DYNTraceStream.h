@@ -27,7 +27,7 @@
 #include <string>
 
 #ifdef _MSC_VER
-#undef ERROR   // avoid conflict with macro ERROR defined somewhere on Windows !
+#undef ERROR  // avoid conflict with macro ERROR defined somewhere on Windows !
 #endif
 
 namespace DYN {
@@ -41,9 +41,9 @@ namespace DYN {
  */
 enum SeverityLevel {
   DEBUG,  ///< Debug severity level
-  INFO,  ///< Information severity level
-  WARN,  ///< Warning severity level
-  ERROR  ///< @verbatim Error severity level @endverbatim
+  INFO,   ///< Information severity level
+  WARN,   ///< Warning severity level
+  ERROR   ///< @verbatim Error severity level @endverbatim
 };
 
 /**
@@ -86,6 +86,19 @@ class TraceStream {
    * side effects that do not appear by creating an empty buffer.
    */
   TraceStream(const TraceStream& ts);
+
+  /**
+   * @brief Copy assignemnt operator
+   *
+   * Creates a new TraceStream with empty buffer and same severity level and tag as
+   * TraceStream object given.
+   * @param ts : TraceStream to copy
+   * @return Created TraceStream
+   *
+   * @note Copying buffer content seemed to be a bad behaviour. It could have some
+   * side effects that do not appear by creating an empty buffer.
+   */
+  TraceStream& operator=(const TraceStream& ts);
 
   /**
    * @brief Destructor
@@ -138,7 +151,7 @@ class TraceStream {
    * operator that automatically flushes the content of the buffer
    * to the logging core.
    */
-  typedef TraceStream& (*tspf) (TraceStream&);
+  typedef TraceStream& (*tspf)(TraceStream&);
 
   /**
    * @brief Operator<< overload for TraceStream function pointer
@@ -151,8 +164,8 @@ class TraceStream {
 
  private:
   boost::shared_ptr<std::stringstream> buffer_;  ///< Internal buffer owning trace message.
-  SeverityLevel slv_;  ///< Severity level of the message.
-  std::string tag_;  ///< Tag added to the message. "" means no tag.
+  SeverityLevel slv_;                            ///< Severity level of the message.
+  std::string tag_;                              ///< Tag added to the message. "" means no tag.
 };
 
 /**
