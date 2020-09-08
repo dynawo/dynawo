@@ -68,17 +68,12 @@ equation
   elsewhen UPu < UUnblockUpPu and UPu > UUnblockDownPu then
     blocked = false;
   end when;
-  // URefPu evaluation
+  // URefAuto evaluation
   when modeAuto.value == Mode.RUNNING_V and pre(modeAuto.value) == Mode.STANDBY and UPu > UThresholdUpPu then
     URefAuto = URefUp;
   elsewhen modeAuto.value == Mode.RUNNING_V and pre(modeAuto.value) == Mode.STANDBY and UPu < UThresholdDownPu then
     URefAuto = URefDown;
   end when;
-  if Mode0 == Mode.STANDBY then
-    URefPu = URefAuto / UNom;
-  else
-    URefPu = URef /UNom;
-  end if;
   // Manual mode setting
   if setModeManual == 1 then
     modeManual.value = Mode.OFF;
@@ -90,11 +85,13 @@ equation
     assert(false, "Failed to convert setModeManual value into mode (enum: 1:OFF, 2:STANDBY, 3:RUNNING_V)");
     modeManual.value = Mode.OFF;
   end if;
-  // Evaluation of current mode
+  // Evaluation of current mode and setpoint
   if selectModeAuto == true then
     mode.value = modeAuto.value;
+    URefPu = URefAuto / UNom;
   else
     mode.value = modeManual.value;
+    URefPu = URef /UNom;
   end if;
   annotation(preferredView = "text",
     Diagram(graphics = {Rectangle(extent = {{-100, 100}, {100, -100}}), Text(origin = {-33, 8}, extent = {{-57, 10}, {123, -22}}, textString = "ModeHandling")}),

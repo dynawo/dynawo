@@ -65,7 +65,8 @@ protected
   final parameter Types.PerUnit BVar0Pu = B0Pu - BShuntPu "Start value of variable susceptance in p.u";
   parameter BaseControls.Mode Mode0 "Start value for mode";
   parameter Boolean selectModeAuto0 = true "Start value of the boolean indicating whether the SVarC is initially in automatic configuration";
-  parameter Integer setModeManual0 = 2 "Start value of the mode when in manual configuration";
+  final parameter Integer setModeManual0 = Integer(Mode0) "Start value of the mode when in manual configuration";
+
 equation
   connect(modeHandling.mode, calculBG.mode) annotation(
     Line(points = {{-70.1, 39}, {77.9, 39}, {77.9, 3}}, color = {0, 0, 127}));
