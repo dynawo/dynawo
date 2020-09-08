@@ -17,7 +17,7 @@ model ModeChange
 
 equation
 
-  when time >= 3 then
+  when time >= 0.5 then
     selectModeAuto = false;
   elsewhen time >= 5 then
     selectModeAuto = true;

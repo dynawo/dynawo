@@ -50,6 +50,7 @@
     <par type="DOUBLE" name="UThresholdDown" value="218"/>
     <par type="DOUBLE" name="tThresholdUp" value="60"/>
     <par type="DOUBLE" name="tThresholdDown" value="0"/>
+    <par type="BOOL" name="selectModeAuto0" value="false"/>
     <par type="INT" name="Mode0" value="3"/>
   </set>
   <!-- URef Step - ValueIn is overwritten by init -->
