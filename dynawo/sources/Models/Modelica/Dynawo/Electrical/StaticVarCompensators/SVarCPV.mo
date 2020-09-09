@@ -57,7 +57,7 @@ protected
   final parameter Types.PerUnit BVar0Pu = B0Pu - BShuntPu "Start value of variable susceptance in p.u";
   parameter BaseControls.Mode Mode0 "Start value for mode";
   parameter Boolean selectModeAuto0 = true "Start value of the boolean indicating whether the SVarC is initially in automatic configuration";
-  parameter Integer setModeManual0 = 2 "Start value of the mode when in manual configuration";
+  final parameter Integer setModeManual0 = Integer(Mode0) "Start value of the mode when in manual configuration";
 
 equation
   UPu = Modelica.ComplexMath.'abs'(terminal.V);
