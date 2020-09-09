@@ -27,14 +27,13 @@ TraceStream::TraceStream() :
 buffer_(boost::shared_ptr<std::stringstream>(new std::stringstream)),
 slv_(INFO),
 tag_("") {
-  buffer_ = boost::shared_ptr<std::stringstream>(new std::stringstream);
 }
 
 TraceStream::TraceStream(SeverityLevel slv, const std::string& tag) :
 buffer_(),
 slv_(slv),
 tag_(tag) {
-  if (Trace::logExists(tag, slv)) {
+  if (Trace::standardLogExists(slv) || Trace::logExists(tag, slv)) {
     buffer_ = boost::shared_ptr<std::stringstream>(new std::stringstream);
   }
 }

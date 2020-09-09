@@ -318,11 +318,28 @@ class Trace {
   /**
    * @brief test if a log exists
    *
+   * This tests only the file logs
+   *
    * @param tag : Tag added to the log, can be used as a filter in logging sinks.
    * @param slv : Severity level.
    * @return true if this log with this level exists
    */
   static bool logExists(const std::string& tag, SeverityLevel slv);
+
+  /**
+   * @brief Test if a standard log exists
+   *
+   * This test the level of the standard output log
+   *
+   * @param slv Severity level
+   * @returns whether the standard log accepts the log level
+   */
+  static bool standardLogExists(SeverityLevel slv) {
+    return slv >= defaultLevel_;
+  }
+
+ private:
+  static const SeverityLevel defaultLevel_;  ///< Default log level for standard output
 
  private:
   /**
