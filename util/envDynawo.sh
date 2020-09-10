@@ -2109,7 +2109,7 @@ else
 fi
 
 if [ -n "$BASH_VERSION" ]; then
-  SCRIPT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && echo "$(pwd)"/"$(basename ${BASH_SOURCE[0]})")
+  SCRIPT=$(cd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && echo "$(pwd)"/"$(basename ${BASH_SOURCE[0]})")
 elif [ -n "$ZSH_VERSION" ]; then
   SCRIPT=$(cd "$(dirname "$0")" && echo "$(pwd)"/"$(basename $0)")
 fi
