@@ -58,6 +58,8 @@ set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/DYNLog_keys.cpp PROPERTI
 set(COMMON_SOURCES
   DYNBitMask.cpp
   DYNCommon.cpp
+  DYNDelay.cpp
+  DYNDelayManager.cpp
   DYNError.cpp
   DYNTerminate.cpp
   DYNExecUtils.cpp
@@ -67,6 +69,7 @@ set(COMMON_SOURCES
   DYNMessageTimeline.cpp
   DYNGraph.cpp
   DYNParameter.cpp
+  DYNRingBuffer.cpp
   DYNSparseMatrix.cpp
   ${CPP_KEYS}
   DYNErrorQueue.cpp
@@ -79,6 +82,8 @@ set(COMMON_SOURCES
 set(COMMON_INCLUDE_HEADERS
   DYNBitMask.h
   DYNCommon.h
+  DYNDelay.h
+  DYNDelayManager.h
   DYNError.h
   DYNTerminate.h
   DYNExecUtils.h
@@ -91,6 +96,7 @@ set(COMMON_INCLUDE_HEADERS
   DYNMessageTimeline.hpp
   DYNMacrosMessage.h
   DYNParameter.h
+  DYNRingBuffer.h
   DYNSparseMatrix.h
   DYNParameter.hpp
   gtest_dynawo.h
