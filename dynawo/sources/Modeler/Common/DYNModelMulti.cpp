@@ -574,6 +574,13 @@ ModelMulti::reinitMode() {
 }
 
 void
+ModelMulti::notifyTimeStep() {
+  for (unsigned int i = 0; i < subModels_.size(); ++i) {
+    subModels_[i]->notifyTimeStep();
+  }
+}
+
+void
 ModelMulti::evalCalculatedVariables(const double & t, const vector<double> &y, const vector<double> &yp, const vector<double> &z) {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("ModelMulti::evalCalculatedVariables");

@@ -108,6 +108,9 @@ class ReaderOMC:
         self._16dae_h_file = os.path.join (input_dir, self.mod_name + "_16dae.h")
         exist_file(self._16dae_h_file)
 
+        ## Delay file
+        self._07dly_c_file = os.path.join (input_dir, self.mod_name + "_07dly.c")
+
         ## Full name of xml containing fictitious equations description
         self.eq_fictive_xml_file = os.path.join (input_dir, self.mod_name + ".extvar")
 
@@ -236,6 +239,11 @@ class ReaderOMC:
         self.var_init_val = {}
         ## List of warnings defined in this file
         self.warnings = []
+
+        # -----------------------------------------
+        # Attribute for reading *_07dly.c file
+        # -----------------------------------------
+        self.list_delay_defs = []
 
         # ---------------------------------------------
         # reading zeroCrossings func in *_05evt.c file
@@ -912,6 +920,20 @@ class ReaderOMC:
                         self.map_equation_formula[index] = list_body[-1].lstrip().strip('\n')
                         break
 
+    def read_07dly_c_file(self):
+        if os.path.isfile(self._07dly_c_file):
+            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[(?P<localId>\d+)\]->realVars\[(?P<varId>\d*)\].*?, data->localData\[(?P<timeId>\d*)\]->timeValue.*(?P<delayMax>\d+\.\d*)\)")
+            with open(self._07dly_c_file, 'r') as f:
+                for line in f:
+                    match = re.search(pattern, line)
+                    if match:
+                        self.list_delay_defs.append({
+                            "exprId": match.group("exprId"),
+                            "localId": match.group("localId"),
+                            "varId": match.group("varId"),
+                            "timeId": match.group("timeId"),
+                            "delayMax": match.group("delayMax"),
+                        })
     ##
     #  Initialise variables in list_vars by values found in 08bnd file
     # @param self : object pointer
@@ -1482,6 +1504,25 @@ class ReaderOMC:
             return init_val
         return None
 
+    ##
+    # Remove functions relative to delay and add hardcoded-one
+    # @param self : object pointer
+    # @return
+    def add_delay_func(self):
+        # Remove all other functions relative to delay
+        self.list_omc_functions = [f for f in self.list_omc_functions if "delay" not in f.get_name()]
+        # Add in hard the delayImpl signature
+        func = RawOmcFunctions()
+        func.set_name("delayImpl")
+        func.set_signature("modelica_real delayImpl(DATA* data, int exprNumber, modelica_real exprValue, modelica_real time, modelica_real delayTime, modelica_real delayMax)")
+        func.set_return_type("modelica_real")
+        func.add_params(OmcFunctionParameter("data", "DATA*", 0, True))
+        func.add_params(OmcFunctionParameter("exprNumber", "int", 1, True))
+        func.add_params(OmcFunctionParameter("exprValue", "modelica_real", 2, True))
+        func.add_params(OmcFunctionParameter("time", "modelica_real", 3, True))
+        func.add_params(OmcFunctionParameter("delayTime", "modelica_real", 4, True))
+        func.add_params(OmcFunctionParameter("delayMax", "modelica_real", 5, True))
+        self.list_omc_functions.append(func)
 
 
     ##
@@ -1497,6 +1538,7 @@ class ReaderOMC:
         global crossed_opening_braces
         global stop_at_next_call
         ptrn_func = re.compile(r'^(?![\/]).* (?P<var>.*)\((?P<params>.*)\)')
+
         with open(file_to_read, 'r') as f:
             while True:
                 nb_braces_opened = 0
@@ -1526,6 +1568,9 @@ class ReaderOMC:
                     # "takewhile" only stops when the whole body of the function is read
                     func.set_body( list(itertools.takewhile(stop_reading_function, it)) )
                     self.list_omc_functions.append(func)
+
+        self.add_delay_func()
+
     ##
     # return True if the variable is an auxiliary var
     # @param self : object pointer

@@ -321,6 +321,11 @@ class ModelCPP : public SubModel {
   virtual void initSubBuffers() = 0;
 
   /**
+   * @copydoc SubModel::notifyTimeStep()
+   */
+  virtual void notifyTimeStep() = 0;
+
+  /**
    * @brief class implementation
    */
 

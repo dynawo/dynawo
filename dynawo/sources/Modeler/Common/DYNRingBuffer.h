@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -17,8 +17,8 @@
  * @brief Ring Buffer class header
  *
  */
-#ifndef COMMON_DYNRINGBUFFER_H_
-#define COMMON_DYNRINGBUFFER_H_
+#ifndef MODELER_COMMON_DYNRINGBUFFER_H_
+#define MODELER_COMMON_DYNRINGBUFFER_H_
 
 #include <deque>
 #include <utility>
@@ -56,7 +56,8 @@ class RingBuffer {
   /**
    * @brief Retrieve the variable's value with delay
    *
-   * Computes the value associated with the timepoint @a time - @a delay. Performs linear interpolation if necessary
+   * Computes the value associated with the timepoint @a time - @a delay.
+   * Performs linear interpolation if necessary and when it is possible
    *
    * @param time the timepoint requested
    * @param delay the delay requested
@@ -82,10 +83,6 @@ class RingBuffer {
    */
   double maxDelay() const {
     return maxDelay_;
-  }
-
-  const std::pair<double, double>& last() const {
-    return queue_.back();
   }
 
  private:
@@ -118,8 +115,8 @@ class RingBuffer {
 
  private:
   std::deque<std::pair<double, double>> queue_;  ///< queue of  (timestamp, value) pairs
-  double maxDelay_;                              ///< maximum delay allowed for this buffer
+  const double maxDelay_;                        ///< maximum delay allowed for this buffer
 };
 }  // namespace DYN
 
-#endif  // COMMON_DYNRINGBUFFER_H_
+#endif  // MODELER_COMMON_DYNRINGBUFFER_H_

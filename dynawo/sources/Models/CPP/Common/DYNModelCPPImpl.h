@@ -216,6 +216,13 @@ class ModelCPP::Impl : public ModelCPP {
    */
   virtual void initSubBuffers() { /* no internal buffers for CPP models excepted the network model */ }
 
+  /**
+   * @copydoc ModelCPP::notifyTimeStep()
+   */
+  void notifyTimeStep() {
+    // do nothing
+  }
+
  public:
   /**
    * @copydoc ModelCPP::modelType()

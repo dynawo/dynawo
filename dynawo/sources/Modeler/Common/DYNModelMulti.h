@@ -145,6 +145,11 @@ class ModelMulti : public Model, private boost::noncopyable {
   void reinitMode();
 
   /**
+   * @copydoc Model::notifyTimeStep()
+   */
+  void notifyTimeStep();
+
+  /**
    * @brief retrieve if at least one non-silent discrete variable has changed
    *
    *

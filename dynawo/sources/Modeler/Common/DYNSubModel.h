@@ -368,6 +368,11 @@ class SubModel {
    */
   virtual void initSubBuffers() = 0;
 
+  /**
+   * @brief Notify that time step has been performed in the simulation
+   */
+  virtual void notifyTimeStep() = 0;
+
   /// common to each subModels
  public:
   /**

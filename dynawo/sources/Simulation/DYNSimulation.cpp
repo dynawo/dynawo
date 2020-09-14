@@ -857,6 +857,8 @@ Simulation::simulate() {
         criteriaChecked = checkCriteria(tCurrent_, false);
       }
       ++currentIterNb;
+
+      model_->notifyTimeStep();
     }
 
     // If we haven't evaluated the calculated variables for the last iteration before, we must do it here for the IIDM file export

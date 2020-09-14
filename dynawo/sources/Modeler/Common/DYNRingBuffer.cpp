@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 // See AUTHORS.txt
 // All rights reserved.
 // This Source Code Form is subject to the terms of the Mozilla Public
@@ -25,10 +25,16 @@
 #include <functional>
 
 namespace DYN {
-RingBuffer::RingBuffer(double maxDelay) : queue_{}, maxDelay_{maxDelay} {}
+RingBuffer::RingBuffer(double maxDelay) : queue_(), maxDelay_(maxDelay) {}
 
 void
 RingBuffer::add(double time, double value) {
+#if _DEBUG_
+  if (queue_.size() > 0) {
+    assert(time > queue_.back().first);
+  }
+#endif
+
   queue_.push_back(std::make_pair(time, value));
 
   removeUseless();
@@ -55,20 +61,27 @@ RingBuffer::get(double time, double delay) const {
   double time_value = time - delay;
 
   if (delay > maxDelay_ || delay < 0.0) {
-    throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delay, maxDelay_);
+    throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delay, time, maxDelay_);
   }
 
   std::deque<std::pair<double, double>>::const_iterator found =
       std::lower_bound(queue_.cbegin(), queue_.cend(), time_value, std::bind(&RingBuffer::comparePairTime, this, std::placeholders::_1, std::placeholders::_2));
   if (found == queue_.cend()) {
     // it means that the required time is greater than the last value in the queue
-    return queue_.back().second;
+    // => we perform linear interpolation using the last two most recent if we can
+    if (queue_.size() > 1) {
+      std::deque<std::pair<double, double>>::const_reverse_iterator it = queue_.rbegin();
+      ++it;
+      return interpol(*(queue_.rbegin()), *it, time_value);
+    } else {
+      return queue_.back().second;
+    }
   } else if (doubleEquals(found->first, time_value)) {
     return found->second;
   } else if (found == queue_.cbegin()) {
     // case first element: it would mean that delay is greater than max delay
     // shouldn't happen by construction with function add
-    throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delay, maxDelay_);
+    throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delay, time, maxDelay_);
   } else {
     const std::pair<double, double>& previous = *(found - 1);
     // linear interpolation
@@ -78,6 +91,7 @@ RingBuffer::get(double time, double delay) const {
 
 bool
 RingBuffer::comparePairTime(const std::pair<double, double>& pair, const double& time_value) const {
+  // timed value cannot be too close to each other as these times are sent by the solvers
   return pair.first < time_value;
 }
 

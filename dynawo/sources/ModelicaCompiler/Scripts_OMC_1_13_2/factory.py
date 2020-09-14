@@ -1450,6 +1450,15 @@ class Factory:
     # @param self : object pointer
     # @return list of lines
     def get_list_for_callcustomparametersconstructors(self):
+        self.list_for_callcustomparametersconstructors.append("  // Delays\n")
+
+        for item in self.reader.list_delay_defs:
+            line_tmp = "  createDelay(" + item["exprId"] + \
+            ", &(data->localData[" + item["timeId"] + "]->timeValue)" + \
+            ", &(data->localData[" + item["localId"] + "]->realVars[" + item["varId"] + "])" + \
+            ", " + item["delayMax"] + ");\n"
+            self.list_for_callcustomparametersconstructors.append(line_tmp)
+
         return self.list_for_callcustomparametersconstructors
 
     def filter_external_function_call(self):
@@ -2222,6 +2231,13 @@ class Factory:
                     idx+=1
                     l+=line_split[idx].strip()
                 #hack to handle cast
+
+                if l.endswith("STATE"):
+                    idx+=1
+                    l+=line_split[idx].strip()
+                    idx+=1
+                    l+=line_split[idx].strip()
+
                 while l.endswith("modelica_integer)") or l.endswith("modelica_real)") or l.endswith("modelica_boolean)"):
                     idx+=1
                     l+=line_split[idx].strip()

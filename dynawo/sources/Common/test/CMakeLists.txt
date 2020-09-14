@@ -12,14 +12,12 @@ set(MODULE_NAME COMMON_unittest)
 
 set(MODULE_SOURCES
     TestBitMask.cpp
-    TestDelay.cpp
     TestGraph.cpp
     TestParameter.cpp
     TestErrorQueue.cpp
     Test.cpp
     TestIoDico.cpp
     TestValidateDic.cpp
-    TestRingBuffer.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})

@@ -267,6 +267,12 @@ T pow_dynawo(T a, T b) {
     callExternalAutomatonModel((this)->getModelManager()->name(), command, time, inputs, inputs_name, nbInputs, nbMaxInputs, outputs, outputs_name, nbOutputs, \
 nbMaxOutputs, this->getModelManager()->getWorkingDirectory());
 
+#define delayImpl(data, exprNumber, exprValue, time, delayTime, delayMax) \
+  computeDelay((this)->getModelManager(), data, exprNumber, exprValue, time, delayTime, delayMax)
+
+#define createDelay(exprNumber, time, exprValue, delayMax) \
+  addDelay((this)->getModelManager(), exprNumber, time, exprValue, delayMax)
+
 #endif  // DOXYGEN_SHOULD_SKIP_THIS
 
 /**
@@ -358,6 +364,35 @@ const char* stringAppend(const modelica_string s1, const std::string s2);
  * @return concatenantion of the two strings
  */
 const char* stringAppend(const std::string s1, const modelica_string s2);
+
+/**
+ * @brief Computes the delayed value
+ *
+ * Calls the corresponding function of @p manager
+ *
+ * @param manager the model manager to use
+ * @param data the data of the current simulation
+ * @param exprNumber the id of the delay, in practice the index in the arrays of delayed variables
+ * @param time the current time point
+ * @param delayTIme the delay to apply to the value
+ * @param delayMax the maximum delay allowed
+ *
+ * @returns the computed delayed value
+ */
+modelica_real computeDelay(ModelManager* manager, DYNDATA* data, int exprNumber, double exprValue, double time, double delayTime, double delayMax);
+
+/**
+ * @brief Add a new delay to manage
+ *
+ * calls the corresponding function in @p manager
+ *
+ * @param exprNumber the id of the delay to create
+ * @param time pointer to the time that will be externally updated at runtime
+ * @param exprValue pointer to the value that will be externally updated at runtime
+ * @param delayMax maximum allowed delay
+ *
+ */
+void addDelay(ModelManager* manager, int exprNumber, const double* time, const double* exprValue, double delayMax);
 
 /**
  * @brief print log to std output

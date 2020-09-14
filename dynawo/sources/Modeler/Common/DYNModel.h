@@ -514,6 +514,11 @@ class Model {
    * @param z vector of discrete values from the solver data structure
    */
   virtual void setCurrentZ(const std::vector<double> &z) = 0;
+
+  /**
+   * @brief Notify that time step is performed in the simulation
+   */
+  virtual void notifyTimeStep() = 0;
 };  ///< Generic class for Model
 }  // namespace DYN
 
