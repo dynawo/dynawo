@@ -25,6 +25,7 @@
 #include <map>
 #include <boost/core/noncopyable.hpp>
 
+#include "DYNDelayManager.h"
 #include "DYNSubModel.h"
 #include "DYNModelManagerCommon.h"
 #include "DYNVariableAlias.h"
@@ -224,6 +225,11 @@ class ModelManager : public SubModel, private boost::noncopyable {
   void rotateBuffers();
 
   /**
+   * @copydoc SubModel::notifyTimeStep()
+   */
+  void notifyTimeStep();
+
+  /**
    * @copydoc SubModel::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement)
    */
   //---------------------------------------------------------------------
@@ -314,6 +320,33 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @copydoc SubModel::initSubBuffers()
    */
   void initSubBuffers();
+
+  /**
+   * @brief Computes the delayed value
+   *
+   * Retrieves the value corresponding to timepoint @p time - @p delayTime if allowed by @p delayMax
+   *
+   * @throw IncorrectDelay error if @p delayTime is not compatible (negative or less than @p delayMax)
+   *
+   * @param data the data of the current simulation
+   * @param exprNumber the id of the delay, in practice the index in the arrays of delayed variables
+   * @param time the current time point
+   * @param delayTIme the delay to apply to the value
+   * @param delayMax the maximum delay allowed
+   *
+   * @returns the computed delayed value
+   */
+  double computeDelay(DYNDATA* data, int exprNumber, double exprValue, double time, double delayTime, double delayMax);
+
+  /**
+   * @brief Add new delay struture
+   *
+   * @param exprNumber the id of the delay to create
+   * @param time pointer to the time that will be externally updated at runtime
+   * @param exprValue pointer to the value that will be externally updated at runtime
+   * @param delayMax maximum allowed delay
+   */
+  void addDelay(int exprNumber, const double* time, const double* exprValue, double delayMax);
 
  private:
 #ifdef _ADEPT_
@@ -485,6 +518,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   DYNDATA * dataInit_;  ///< dynamic data for init model
   DYNDATA * dataDyn_;  ///< dynamic data
   std::string modelType_;  ///< model type
+  DelayManager delayManager_;  ///< manager of delayed values
 
  private:
   /**

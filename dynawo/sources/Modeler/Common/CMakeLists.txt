@@ -33,6 +33,9 @@ set(MODELER_SOURCES
     DYNVariableNativeFactory.cpp
     DYNCompiler.cpp
     DYNModelUtil.cpp
+    DYNDelay.cpp
+    DYNDelayManager.cpp
+    DYNRingBuffer.cpp
     )
 
 set(MODELER_INCLUDE_HEADERS
@@ -63,6 +66,9 @@ set(MODELER_INCLUDE_HEADERS
     DYNConnectorCalculatedVariable.h
     DYNConnector.h
     DYNStaticRefInterface.h
+    DYNDelay.h
+    DYNDelayManager.h
+    DYNRingBuffer.h
     )
 
 add_library(dynawo_ModelerCommon ${LIBRARY_TYPE} ${MODELER_SOURCES})

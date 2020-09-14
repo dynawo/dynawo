@@ -241,6 +241,10 @@ class SubModelMockBase : public SubModel {
   void initParams() {
     // Dummy class used for testing
   }
+
+  void notifyTimeStep() {
+    // Dummy class used for testing
+  }
 };
 
 class SubModelMock : public SubModelMockBase {

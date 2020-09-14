@@ -17,6 +17,7 @@
  *
  */
 
+#include "DYNCommon.h"
 #include "DYNRingBuffer.h"
 #include "gtest_dynawo.h"
 
@@ -35,7 +36,7 @@ TEST(CommonTest, testRingBufferClass) {
   ASSERT_EQ(value, 3.3);
 
   value = buffer.get(6, 0);  // corresponding timepoint not in buffer
-  ASSERT_EQ(value, 5.5);
+  ASSERT_TRUE(DYN::doubleEquals(value, 6.6));
 
   value = buffer.get(5, 1.5);
   ASSERT_EQ(value, 3.85);

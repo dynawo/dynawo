@@ -297,4 +297,14 @@ callExternalAutomatonModel(const std::string& modelName, const char* command, co
   }
 }
 
+modelica_real
+computeDelay(ModelManager* manager, DYNDATA* data, int exprNumber, double exprValue, double time, double delayTime, double delayMax) {
+  return manager->computeDelay(data, exprNumber, exprValue, time, delayTime, delayMax);
+}
+
+void
+addDelay(ModelManager* manager, int exprNumber, const double* time, const double* exprValue, double delayMax) {
+  manager->addDelay(exprNumber, time, exprValue, delayMax);
+}
+
 }  // namespace DYN

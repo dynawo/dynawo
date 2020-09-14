@@ -24,7 +24,7 @@ SignalReceived              =             simulation interrupted by external sig
 CriteriaNotChecked          =             one simulation's criteria is not respected
 OpenFileFailed              =             failed to open file %1%
 NoJobDefined                =             no job found in the .jobs file
-IncorrectDelay              =             incorrect delay %1% chosen while max delay is %2%
+IncorrectDelay              =             inconsistent delay %1% at time %2% (max delay is %3%)
 //---------------- SOLVER -----------------------------------------
 SolverSubModelYvsF          =             model's initialisation %1% :  Variables number %2% not equals to the equations number %3%
 SolverYvsF                  =             variables number %1% not equals to the equations number %2%

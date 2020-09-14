@@ -283,6 +283,13 @@ class ConnectorCalculatedVariable : public SubModel {
    */
   void defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement);
 
+  /**
+   * @copydoc SubModel::notifyTimeStep()
+   */
+  void notifyTimeStep() {
+    // do nothing
+  }
+
    /**
     * @brief setter for the variable name
     *

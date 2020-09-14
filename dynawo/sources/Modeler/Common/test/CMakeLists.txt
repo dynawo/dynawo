@@ -13,6 +13,8 @@ set(MODULE_NAME MODELER_COMMON_unittest)
 set(MODULE_SOURCES
     Test.cpp
     CompilerTest.cpp
+    TestDelay.cpp
+    TestRingBuffer.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
