@@ -33,3 +33,23 @@ The --types option is provided to specify which types should be updated. It coul
 ``` bash
 $> --types <jobs/dyd/par/crv>
 ```
+
+## Use XSL script from a distribution
+
+XSL files can be used to update old test cases with a new dynawo distribution. Follow [this](https://github.com/dynawo/dynawo#using-a-distribution) on how to download a distribution.
+
+Then you can use the following commands to update a test case:
+
+``` bash
+$> unzip Dynawo_Linux_latest.zip
+$> cd dynawo/sbin/xsl
+$> export DYNAWO_NRT_SCRIPT_DIR=$(pwd)/../nrt
+$> export DYNAWO_BRANCH_NAME=master
+$> export DYNAWO_NRT_DIR=$DYNAWO_NRT_SCRIPT_DIR
+$> export DYNAWO_NRT_DIFF_DIR=$DYNAWO_NRT_SCRIPT_DIR/nrt_diff
+$> export DYNAWO_CURVES_TO_HTML_DIR=$(pwd)/../curvesToHtml
+$> export DYNAWO_ENV_DYNAWO=nothing
+$> python applyXsltToXml.py -j <PATH_TO_JOB>
+```
+
+Note: an issue is currently open to ease the use of this script and avoid unnecessary environment variables definition.
