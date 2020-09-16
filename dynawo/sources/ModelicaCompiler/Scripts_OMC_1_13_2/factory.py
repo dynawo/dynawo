@@ -1450,7 +1450,8 @@ class Factory:
     # @param self : object pointer
     # @return list of lines
     def get_list_for_callcustomparametersconstructors(self):
-        self.list_for_callcustomparametersconstructors.append("  // Delays\n")
+        if (len(self.reader.list_delay_defs) > 0):
+            self.list_for_callcustomparametersconstructors.append("  // Delays\n")
 
         for item in self.reader.list_delay_defs:
             line_tmp = "  createDelay(" + item["exprId"] + \

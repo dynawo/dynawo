@@ -780,6 +780,8 @@ Simulation::calculateIC() {
   solver_->calculateIC();
   model_->getCurrentZ(zCurrent_);
 
+  model_->notifyTimeStep();
+
   if (dumpGlobalInitValues_) {
     string globalInitDir = createAbsolutePath("initValues/globalInit", outputsDirectory_);
     if (!exists(globalInitDir))

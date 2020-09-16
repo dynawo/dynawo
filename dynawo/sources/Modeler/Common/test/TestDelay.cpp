@@ -43,7 +43,7 @@ TEST(CommonTest, testDelayClass) {
   delay.saveTimepoint();
 
   ASSERT_EQ(delay.size(), 5);
-  ASSERT_EQ(delay.initialValue(), 1.1);
+  ASSERT_EQ(*(delay.initialValue()), 1.1);
 
   time = 5;
   double val = delay.getDelay(2);
@@ -98,6 +98,8 @@ TEST(CommonTest, testDelayManagerClass) {
   double value2 = 1.1;
   manager.addDelay(id2, &time2, &value2, 1.5);
 
+  manager.saveTimepoint();
+
   time = 2;
   value = 2.2;
   time2 = 2;
@@ -122,8 +124,8 @@ TEST(CommonTest, testDelayManagerClass) {
   value2 = 5.5;
   manager.saveTimepoint();
 
-  ASSERT_EQ(manager.getInitialValue(id), 1.1);
-  ASSERT_EQ(manager.getInitialValue(id2), 1.1);
+  ASSERT_EQ(*(manager.getInitialValue(id)), 1.1);
+  ASSERT_EQ((*manager.getInitialValue(id2)), 1.1);
 
   // global ids
   ASSERT_TRUE(manager.isIdAcceptable(id));
