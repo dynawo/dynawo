@@ -8,9 +8,6 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-# Minimum required (for ExternalProject_Add)
-cmake_minimum_required(VERSION 3.9.6 FATAL_ERROR)
-
 option(BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of static ones (.lib/.a)" ON)
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: Debug Release RelWithDebInfo MinSizeRel (CMake defaults)")
 option(CXX11_ENABLED "Enable support of C++11 standard" TRUE)
@@ -904,12 +901,21 @@ else()
   set(LIBZIP_HOME ${install_dir})
 endif()
 
-# if ( CXX11_ENABLED )                                                                              # New part for IIDM-2
+#-wip- if ( CXX11_ENABLED )                                                                              # New part for IIDM-2
 
-        # HERE IS THE NEW PART
+# Minimum required for powsybl that sets that rule
+cmake_minimum_required(VERSION 3.12)
 
-# else()                                                                                            # old part : legacy IIDM
+include( "Support-LibXml2")
+#-wip- include( "Support-LibIIDM")  --> uses/sets the same variables LIBIIDM_foo than legacy IIDM
+
+#-wip- else()                                                                                            # old part : legacy IIDM
+
+# Minimum required (for ExternalProject_Add)
+cmake_minimum_required(VERSION 3.9.6)
+
 set(XERCESC_HOME      CACHE PATH "Path where a Xerces-C installation already exists")               # Start install XERCESC
+# Xercesc est aussi mentionné REQUIRED depuis le script CMakeLists.txt principal. A tester avant de le retirer
 
 set(xercesc_version      3.2.2)
 set(xercesc_name         xerces-c-${xercesc_version}.tar.gz)
@@ -1090,4 +1096,5 @@ else()
   ExternalProject_Get_Property(libiidm install_dir)
   set(LIBIIDM_HOME ${install_dir})
 endif()
-                                                                                        # End install IIDM old one and DG changes
+
+#-wip- endif ()                                                                            # End install IIDM old one and DG changes
