@@ -22,6 +22,8 @@
 
 #include "DYNRingBuffer.h"
 
+#include <boost/optional.hpp>
+
 #include <utility>
 
 namespace DYN {
@@ -42,9 +44,7 @@ class Delay {
   /**
    * @brief Record a timepoint with the current value
    */
-  void saveTimepoint() {
-    buffer_.add(*time_, *value_);
-  }
+  void saveTimepoint();
 
   /**
    * @brief Retrieves the delayed variable
@@ -71,17 +71,17 @@ class Delay {
   /**
    * @brief Retrieves initial value of variable
    *
-   * @returns initial value when delay was created
+   * @returns initial value
    */
-  double initialValue() const {
+  const boost::optional<double>& initialValue() const {
     return initialValue_;
   }
 
  private:
-  const double* time_;         ///< pointer to time to use for timepoint and delay computation
-  const double* value_;        ///< pointer to value to use for timepoint
-  RingBuffer buffer_;          ///< ring buffer to manage the records
-  const double initialValue_;  ///< Initial value to use when delay cannot be computed
+  const double* time_;   ///< pointer to time to use for timepoint and delay computation
+  const double* value_;  ///< pointer to value to use for timepoint
+  RingBuffer buffer_;    ///< ring buffer to manage the records
+  boost::optional<double> initialValue_;  ///< Initial value to use when delay cannot be computed
 };
 }  // namespace DYN
 

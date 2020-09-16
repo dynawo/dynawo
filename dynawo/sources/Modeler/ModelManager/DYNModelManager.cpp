@@ -1416,14 +1416,15 @@ ModelManager::computeDelay(DYNDATA* data, int exprNumber, double exprValue, doub
   }
 
   if (time < data->simulationInfo->tStart + delayTime || doubleEquals(time, data->simulationInfo->tStart + delayTime)) {
-    // requested time is allowed but the simulation has not run for enought time to compute the value: use the oldest value
-    return delayManager_.getInitialValue(exprNumber);
-    // do not save the timepoint
+    // requested time is allowed but the simulation has not run for enought time to compute the delayed value:
+    // use the initial value to avoid artefacts
+    const boost::optional<double>& initialValue = delayManager_.getInitialValue(exprNumber);
+#if _DEBUG_
+    // shouldn't happen by construction
+    assert(initialValue.is_initialized());
+#endif
+    return *initialValue;
   }
-
-  // if (doubleEquals(delayTime, 0)) {
-  //   return exprValue;
-  // }
 
   return delayManager_.getDelay(exprNumber, delayTime);
 }

@@ -82,9 +82,9 @@ class DelayManager {
    *
    * @param id the delay id to use
    *
-   * @returns the initial value of the delay
+   * @returns the initial value of the delay, if exists
    */
-  double getInitialValue(size_t id) const;
+  const boost::optional<double>& getInitialValue(size_t id) const;
 
  private:
   /**

@@ -31,9 +31,6 @@ void
 DelayManager::addDelay(size_t id, const double* time, const double* value, double delayMax) {
   Delay new_delay(time, value, delayMax);
 
-  // Initialize with first value
-  new_delay.saveTimepoint();
-
   delays_.insert(std::make_pair(id, new_delay));
 }
 
@@ -51,7 +48,7 @@ DelayManager::getDelay(size_t id, double delayValue) const {
   return delay.getDelay(delayValue);
 }
 
-double
+const boost::optional<double>&
 DelayManager::getInitialValue(size_t id) const {
   const Delay& delay = getDelayById(id);
 
