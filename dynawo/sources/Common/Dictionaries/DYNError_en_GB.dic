@@ -251,6 +251,7 @@ ExternalVariableAttributeOnlyForArray=    external variable (%1%) could not have
 ExternalVariableIDNotUnique =             external variable id (%1%) is not unique
 //---FS----------------------
 //---JOB---------------------
+CriteriaStepError           =             criteria step should be a positive integer (value found: %1%)
 //---PAR---------------------
 ParameterAlreadyInSet       =             the parameter %1% already exists in set %2%
 ParameterNotFoundInSet      =             parameter %1% not found in set %2%
