@@ -329,9 +329,10 @@ class ModelManager : public SubModel, private boost::noncopyable {
    * @throw IncorrectDelay error if @p delayTime is not compatible (negative or less than @p delayMax)
    *
    * @param data the data of the current simulation
+   * @param exprValue the value corresponding to @p time
    * @param exprNumber the id of the delay, in practice the index in the arrays of delayed variables
    * @param time the current time point
-   * @param delayTIme the delay to apply to the value
+   * @param delayTime the delay to apply to the value
    * @param delayMax the maximum delay allowed
    *
    * @returns the computed delayed value
