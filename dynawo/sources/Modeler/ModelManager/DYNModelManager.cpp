@@ -557,8 +557,13 @@ ModelManager::dumpParameters(map< string, string > & mapParameters) {
   // same method can't be applied to string due to the implicit cast from
   // modelica_string to string
   vector<string> paramsString;
-  for (unsigned int i = 0; i < modelData()->nParametersString; ++i)
+  for (unsigned int i = 0; i < modelData()->nParametersString; ++i) {
     paramsString.push_back(simulationInfo()->stringParameter[i]);
+  }
+  std::vector<std::string> delays = delayManager_.dumpDelays();
+  for (std::vector<std::string>::const_iterator it = delays.begin(); it != delays.end(); ++it) {
+    paramsString.push_back(*it);
+  }
 
   os << cSum;
   os << cSumInit;
@@ -779,12 +784,18 @@ ModelManager::loadParameters(const string & parameters) {
   if (parameterIntValues.size() != static_cast<unsigned>(modelData()->nParametersInteger))
     throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
 
-  if (parameterStringValues.size() != static_cast<unsigned>(modelData()->nParametersString))
+  if (parameterStringValues.size() < static_cast<unsigned>(modelData()->nParametersString))
     throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
 
   // loading of read parameters
-  for (unsigned int i = 0; i < parameterStringValues.size(); ++i)
+  for (unsigned int i = 0; i < static_cast<unsigned>(modelData()->nParametersString); ++i)
     simulationInfo()->stringParameter[i] = parameterStringValues[i].c_str();
+
+  std::vector<std::string> delay_def(parameterStringValues.begin() + static_cast<unsigned>(modelData()->nParametersString), parameterStringValues.end());
+
+  if (!delayManager_.loadDelays(delay_def)) {
+    throw DYNError(Error::MODELER, WrongDataNum, parametersFileName().c_str());
+  }
 
   // copy of loaded parameters in the map
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (this)->getParametersDynamic();

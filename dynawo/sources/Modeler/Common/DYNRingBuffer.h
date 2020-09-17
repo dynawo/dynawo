@@ -23,6 +23,7 @@
 #include <cstddef>
 #include <deque>
 #include <utility>
+#include <vector>
 
 namespace DYN {
 
@@ -53,6 +54,25 @@ class RingBuffer {
    * @param value value of the variable
    */
   void add(double time, double value);
+
+  /**
+   * @brief Add timed value without performing other actions
+   *
+   * @param time timestamp of the value
+   * @param value value of the variable
+   */
+  void addNoCheck(double time, double value) {
+    queue_.push_back(std::make_pair(time, value));
+  }
+
+  /**
+   * @brief Set the maximum allowed delay
+   *
+   * @param delayMax maximum allowed delay
+   */
+  void maxDelay(double delayMax) {
+    maxDelay_ = delayMax;
+  }
 
   /**
    * @brief Retrieve the variable's value with delay
@@ -86,6 +106,13 @@ class RingBuffer {
     return maxDelay_;
   }
 
+  /**
+   * @brief Retrieves the list of registered timed values as a vector
+   *
+   * @param vec The list of timed values
+   */
+  void points(std::vector<std::pair<double, double> >& vec) const;
+
  private:
   /**
    * @brief Performs linear interpolation between the two 2D points @p p1 and @p p2 in abcisse @p time
@@ -116,7 +143,7 @@ class RingBuffer {
 
  private:
   std::deque<std::pair<double, double> > queue_;  ///< queue of  (timestamp, value) pairs
-  const double maxDelay_;                         ///< maximum delay allowed for this buffer
+  double maxDelay_;                               ///< maximum delay allowed for this buffer
 };
 }  // namespace DYN
 

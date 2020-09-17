@@ -23,6 +23,25 @@
 namespace DYN {
 Delay::Delay(const double* time, const double* value, double delayMax) : time_(time), value_(value), buffer_(delayMax), initialValue_() {}
 
+Delay::Delay(const std::vector<std::pair<double, double> >& timepoints) : time_(NULL), value_(NULL), buffer_(0) {
+  for (std::vector<std::pair<double, double> >::const_iterator it = timepoints.begin(); it != timepoints.end(); ++it) {
+    buffer_.addNoCheck(it->first, it->second);
+  }
+}
+
+void
+Delay::update(const double* time, const double* value, double delayMax) {
+#if _DEBUG_
+  // shouldn't happen by construction
+  assert(time_ == NULL);
+  assert(value_ == NULL);
+#endif
+
+  time_ = time;
+  value_ = value;
+  buffer_.maxDelay(delayMax);
+}
+
 void
 Delay::saveTimepoint() {
   if (!initialValue_.is_initialized()) {

@@ -61,6 +61,14 @@ TEST(CommonTest, testRingBufferClass) {
     ASSERT_EQ(e.type(), DYN::Error::SIMULATION);
     ASSERT_EQ(e.key(), DYN::KeyError_t::IncorrectDelay);
   }
+
+  std::vector<std::pair<double, double> > vec;
+  buffer.points(vec);
+  ASSERT_EQ(vec[0], std::make_pair(1., 1.1));
+  ASSERT_EQ(vec[1], std::make_pair(2., 2.2));
+  ASSERT_EQ(vec[2], std::make_pair(3., 3.3));
+  ASSERT_EQ(vec[3], std::make_pair(4., 4.4));
+  ASSERT_EQ(vec[4], std::make_pair(5., 5.5));
 }
 
 TEST(CommonTest, testRingBufferClassFloat) {
