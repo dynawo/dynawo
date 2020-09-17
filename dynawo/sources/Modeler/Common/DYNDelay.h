@@ -78,9 +78,9 @@ class Delay {
   }
 
  private:
-  const double* time_;   ///< pointer to time to use for timepoint and delay computation
-  const double* value_;  ///< pointer to value to use for timepoint
-  RingBuffer buffer_;    ///< ring buffer to manage the records
+  const double* time_;                    ///< pointer to time to use for timepoint and delay computation
+  const double* value_;                   ///< pointer to value to use for timepoint
+  RingBuffer buffer_;                     ///< ring buffer to manage the records
   boost::optional<double> initialValue_;  ///< Initial value to use when delay cannot be computed
 };
 }  // namespace DYN
