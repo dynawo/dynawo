@@ -20,6 +20,7 @@
 #ifndef MODELER_COMMON_DYNRINGBUFFER_H_
 #define MODELER_COMMON_DYNRINGBUFFER_H_
 
+#include <cstddef>
 #include <deque>
 #include <utility>
 
@@ -114,8 +115,8 @@ class RingBuffer {
   bool comparePairTime(const std::pair<double, double>& pair, const double& time_value) const;
 
  private:
-  std::deque<std::pair<double, double>> queue_;  ///< queue of  (timestamp, value) pairs
-  const double maxDelay_;                        ///< maximum delay allowed for this buffer
+  std::deque<std::pair<double, double> > queue_;  ///< queue of  (timestamp, value) pairs
+  const double maxDelay_;                         ///< maximum delay allowed for this buffer
 };
 }  // namespace DYN
 

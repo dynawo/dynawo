@@ -22,7 +22,7 @@
 #include "DYNMacrosMessage.h"
 
 #include <algorithm>
-#include <functional>
+#include <boost/bind.hpp>
 
 namespace DYN {
 RingBuffer::RingBuffer(double maxDelay) : queue_(), maxDelay_(maxDelay) {}
@@ -45,8 +45,8 @@ RingBuffer::removeUseless() {
   double last_time = queue_.back().first;
   // By construction, the queue is sorted by "time" value so if the criteria is no longer passed,
   // it will never be passed again
-  std::deque<std::pair<double, double>>::iterator found = std::lower_bound(
-      queue_.begin(), queue_.end(), last_time - maxDelay_, std::bind(&RingBuffer::comparePairTime, this, std::placeholders::_1, std::placeholders::_2));
+  std::deque<std::pair<double, double> >::iterator found =
+      std::lower_bound(queue_.begin(), queue_.end(), last_time - maxDelay_, boost::bind<bool>(&RingBuffer::comparePairTime, this, _1, _2));
 
   if (found != queue_.begin() && queue_.size() > 0) {
     // we keep the first point which doesn't respect to enable interpolation
@@ -64,13 +64,13 @@ RingBuffer::get(double time, double delay) const {
     throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delay, time, maxDelay_);
   }
 
-  std::deque<std::pair<double, double>>::const_iterator found =
-      std::lower_bound(queue_.cbegin(), queue_.cend(), time_value, std::bind(&RingBuffer::comparePairTime, this, std::placeholders::_1, std::placeholders::_2));
-  if (found == queue_.cend()) {
+  std::deque<std::pair<double, double> >::const_iterator found =
+      std::lower_bound(queue_.begin(), queue_.end(), time_value, boost::bind<bool>(&RingBuffer::comparePairTime, this, _1, _2));
+  if (found == queue_.end()) {
     // it means that the required time is greater than the last value in the queue
     // => we perform linear interpolation using the last two most recent if we can
     if (queue_.size() > 1) {
-      std::deque<std::pair<double, double>>::const_reverse_iterator it = queue_.rbegin();
+      std::deque<std::pair<double, double> >::const_reverse_iterator it = queue_.rbegin();
       ++it;
       return interpol(*(queue_.rbegin()), *it, time_value);
     } else {
@@ -78,7 +78,7 @@ RingBuffer::get(double time, double delay) const {
     }
   } else if (doubleEquals(found->first, time_value)) {
     return found->second;
-  } else if (found == queue_.cbegin()) {
+  } else if (found == queue_.begin()) {
     // case first element: it would mean that delay is greater than max delay
     // shouldn't happen by construction with function add
     throw DYNError(DYN::Error::SIMULATION, IncorrectDelay, delay, time, maxDelay_);

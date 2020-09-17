@@ -36,7 +36,7 @@ DelayManager::addDelay(size_t id, const double* time, const double* value, doubl
 
 void
 DelayManager::saveTimepoint() {
-  for (std::unordered_map<size_t, Delay>::iterator it = delays_.begin(); it != delays_.end(); ++it) {
+  for (boost::unordered_map<size_t, Delay>::iterator it = delays_.begin(); it != delays_.end(); ++it) {
     it->second.saveTimepoint();
   }
 }
