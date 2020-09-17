@@ -264,7 +264,7 @@ def main():
     global listCases
     global totalTime
 
-    usage=u""" Usage: %prog --firstDirectory=<directory> --secondDirectory=<directory> --outputDir=<directory>
+    usage=u""" Usage: %prog --firstDirectory=<directory> --secondDirectory=<directory> --outputDir=<directory> --displayMissingDirectories
     Compare two launches of non regression test and check if there is differences between their outputs
     """
     parser = OptionParser(usage)
@@ -274,6 +274,8 @@ def main():
                        help=u"directory where the output of the second non-regression test are located")
     parser.add_option( '--outputDir', dest='outputDir',
                        help=u"directory where the resulting files will be stored (default: <current_folder>/nrt-diff-output)")
+    parser.add_option( '--displayMissingDirectories', dest='display_missing_directory',
+                       help=u"if True files or directories present in one folder but not in the other will be shown as error in the report (default value=False)")
     (options, args) = parser.parse_args()
     if options.firstDirectory == None:
         parser.error("First directory is not set")
@@ -283,6 +285,15 @@ def main():
         output_dir_all_nrt = os.path.join(os.getcwd(), "nrt-diff-output")
     else:
         output_dir_all_nrt = options.outputDir
+
+    display_missing_directory= False
+    if options.display_missing_directory != None:
+        display_missing_directory = options.display_missing_directory == 'True'
+    if display_missing_directory:
+        print("[INFO] Missing files will be considered as an error ")
+    else:
+        print("[INFO] Only common files will be compared")
+
     output_dir = os.path.join(output_dir_all_nrt, branch_name)
     html_output = os.path.join(output_dir, "nrtDiff.html")
 
@@ -345,14 +356,14 @@ def main():
                 if os.path.isdir(os.path.join(nrt_left_first, second_dir)) and os.path.isdir(os.path.join(nrt_right_first, second_dir)):
 
                     if (multi_threaded):
-                        thread = threading.Thread (target = DirectoryDiffJobMultiThread, name = first_dir + "/" + second_dir, args = (first_dir, second_dir, semaphore, pool))
+                        thread = threading.Thread (target = DirectoryDiffJobMultiThread, name = first_dir + "/" + second_dir, args = (first_dir, second_dir, semaphore, pool, display_missing_directory))
                         threads_list.append(thread)
                         thread.start()
 
                     else:
-                        DirectoryDiffJob (first_dir, second_dir)
+                        DirectoryDiffJob (first_dir, second_dir, display_missing_directory)
 
-                elif os.path.isdir(os.path.join(nrt_left_first, second_dir)):
+                elif display_missing_directory and os.path.isdir(os.path.join(nrt_left_first, second_dir)):
                     WriteLogMessage (case_name + " only on left side" + "\n", True)
                     test_case = TestCase(case_name)
                     test_case.ok_ = False
@@ -362,7 +373,7 @@ def main():
                     test_case.case_ = "case_" + str(len(listCases))
                     listCases.append(test_case)
 
-                elif os.path.isdir(os.path.join(nrt_right_first, second_dir)):
+                elif display_missing_directory and os.path.isdir(os.path.join(nrt_right_first, second_dir)):
                     WriteLogMessage (case_name + " only on right side" + "\n", True)
                     test_case = TestCase(case_name)
                     test_case.ok_ = False
@@ -372,7 +383,7 @@ def main():
                     test_case.case_ = "case_" + str(len(listCases))
                     listCases.append(test_case)
 
-        elif (os.path.isdir(os.path.join(firstDirectory, first_dir))):
+        elif (display_missing_directory and os.path.isdir(os.path.join(firstDirectory, first_dir))):
             WriteLogMessage (first_dir + " only on left side", True)
             test_case = TestCase(first_dir)
             test_case.ok_ = False
@@ -381,7 +392,7 @@ def main():
             test_case.case_ = "case_" + str(len(listCases))
             listCases.append(test_case)
 
-        elif (os.path.isdir(os.path.join(secondDirectory, first_dir))):
+        elif (display_missing_directory and os.path.isdir(os.path.join(secondDirectory, first_dir))):
             WriteLogMessage (first_dir + " only on right side", True)
             test_case = TestCase(first_dir)
             test_case.ok_ = False
@@ -414,18 +425,19 @@ def main():
 # @param second_dir : the directory on the right side
 # @param semaphore : the semaphore used for multi-thread
 # @param pool : the pool used for multi-thread
-def DirectoryDiffJobMultiThread (first_dir, second_dir, semaphore, pool):
+def DirectoryDiffJobMultiThread (first_dir, second_dir, semaphore, pool, display_missing_directory=True):
     with semaphore:
         name = threading.currentThread().getName()
         pool.makeActive(name)
-        DirectoryDiffJob (first_dir, second_dir)
+        DirectoryDiffJob (first_dir, second_dir, display_missing_directory)
         pool.makeInactive(name)
 
 ##
 # General job for comparing two directories
 # @param first_dir : the directory on the left side
 # @param second_dir : the directory on the right side
-def DirectoryDiffJob (first_dir, second_dir):
+# @param display_missing_directory : whether to display missing files/directories in the report
+def DirectoryDiffJob (first_dir, second_dir, display_missing_directory=True):
 
     case_name = first_dir + "/" + second_dir
     test_case = TestCase(case_name)
@@ -461,7 +473,7 @@ def DirectoryDiffJob (first_dir, second_dir):
 
     print("diff " + test_case.directory_ + "\n")
 
-    (diff_statuses, return_message, file_names, left_paths, right_paths, diff_messages) = DirectoryDiff (nrt_left_second, nrt_right_second, False)
+    (diff_statuses, return_message, file_names, left_paths, right_paths, diff_messages) = DirectoryDiff (nrt_left_second, nrt_right_second, False, display_missing_directory)
 
     WriteLogMessage ("======================================", True)
     WriteLogMessage (first_dir + "/" + second_dir , True)
@@ -497,7 +509,8 @@ def DirectoryDiffJob (first_dir, second_dir):
 # @param directory_left : the directory on the left side
 # @param directory_right : the directory on the right side (should be the reference directory for reference checks)
 # @param is_reference_check : whether the function is called within a reference check (or a standard diff)
-def DirectoryDiff (directory_left, directory_right, is_reference_check):
+# @param display_missing_directory : whether to display missing files/directories in the report
+def DirectoryDiff (directory_left, directory_right, is_reference_check, display_missing_directory=True):
     identical_dir = True # whether the directories contain identical data (apart from timestamps)
     close_enough_dir = True # whether the directory is close enough (with respect to numeric values comparison)
     file_names = [] # list of relative path of compared files
@@ -567,18 +580,24 @@ def DirectoryDiff (directory_left, directory_right, is_reference_check):
                 close_enough_dir = False
 
         elif (os.path.isfile(left_path)) and (not os.path.isfile(right_path)):
-            identical_dir = False
-            close_enough_dir = False
-            diff_status = MISSING_DATA_RIGHT
+            if display_missing_directory:
+                identical_dir = False
+                close_enough_dir = False
+                diff_status = MISSING_DATA_RIGHT
+            else:
+                diff_status = IDENTICAL
             left_paths.append(left_path)
             right_paths.append("")
             return_message_str += str(os.path.relpath(left_path, directory_left) + " only on left side" + "\n")
             message_added = os.path.basename(left_path) + " only on left side"
 
         elif (not os.path.isfile(left_path)) and (os.path.isfile(right_path)):
-            identical_dir = False
-            close_enough_dir = False
-            diff_status = MISSING_DATA_LEFT
+            if display_missing_directory:
+                identical_dir = False
+                close_enough_dir = False
+                diff_status = MISSING_DATA_LEFT
+            else:
+                diff_status = IDENTICAL
             left_paths.append("")
             right_paths.append(right_path)
             return_message_str += str(os.path.relpath(right_path, directory_right) + " only on right side" + "\n")
@@ -737,7 +756,7 @@ def keepPathForComparison (root_nrt_directory, relative_file_path, is_reference_
 ##
 # Check whether all settings have been set
 def CheckAllSettings():
-    requiredSettings = ["directories_included", "directories_excluded", "error_absolute", "error_relative", "files_included", "files_excluded", "logs_destination", "maximum_threads_nb"]
+    requiredSettings = ["directories_included", "directories_excluded", "max_DTW", "files_included", "files_excluded", "logs_destination", "maximum_threads_nb"]
     optionalSettings = ["logs_file_path"]
     for singleSetting in requiredSettings:
         if (not hasattr(settings, singleSetting)):
