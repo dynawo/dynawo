@@ -94,11 +94,21 @@ DelayManager::loadDelays(const std::vector<std::string>& values) {
       return false;
     }
 
+    boost::optional<double> last_time;
     std::vector<std::pair<double, double> > items;
     while (is.rdbuf()->in_avail()) {
       double time;
       double value;
       is >> time;
+
+      if (!last_time) {
+        last_time = value;
+      } else if (*last_time > time || doubleEquals(time, *last_time)) {
+        // last_time >= time : error
+        return false;
+      }
+      last_time = time;
+
       is >> c;
       if (is.fail()) {
         return false;
