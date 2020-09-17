@@ -29,6 +29,14 @@ RingBuffer::RingBuffer(double maxDelay) : queue_(), maxDelay_(maxDelay) {}
 
 void
 RingBuffer::add(double time, double value) {
+  if (queue_.size() > 0 && doubleEquals(queue_.back().first, time)) {
+#if _DEBUG_
+    assert(doubleEquals(queue_.back().second, value));
+#endif
+    // ignore if we add multiple time the same value
+    return;
+  }
+
 #if _DEBUG_
   if (queue_.size() > 0) {
     assert(time > queue_.back().first);
@@ -101,6 +109,13 @@ RingBuffer::interpol(const std::pair<double, double>& p1, const std::pair<double
   double b = (p2.first * p1.second - p1.first * p2.second) / (p2.first - p1.first);
 
   return a * time + b;
+}
+
+void
+RingBuffer::points(std::vector<std::pair<double, double> >& vec) const {
+  for (std::deque<std::pair<double, double> >::const_iterator it = queue_.begin(); it != queue_.end(); ++it) {
+    vec.push_back(*it);
+  }
 }
 
 }  // namespace DYN

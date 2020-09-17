@@ -24,6 +24,7 @@
 
 #include <boost/optional.hpp>
 
+#include <cstddef>
 #include <utility>
 
 namespace DYN {
@@ -33,13 +34,35 @@ namespace DYN {
 class Delay {
  public:
   /**
-   * @brief Constructor
+   * @brief Constructor by input reference
+   *
+   * This constructor will be used during a normal simulation
    *
    * @param time pointer to the time variable used for this delay
    * @param value pointer to the value variable used for this delay
    * @param delayMax maximum allowed delay
    */
   Delay(const double* time, const double* value, double delayMax);
+
+  /**
+   * @brief Constructor by timepoints
+   *
+   * This constructor wil be used to start a simulation from a dump
+   *
+   * @param timepoints the list of the timepoints to use
+   */
+  explicit Delay(const std::vector<std::pair<double, double> >& timepoints);
+
+  /**
+   * @brief Update reference internal values
+   *
+   * This function MUST NOT be called for delays constructed with the references (Delay(time, value, delayMax))
+   *
+   * @param time pointer to the time variable used for this delay
+   * @param value pointer to the value variable used for this delay
+   * @param delayMax maximum allowed delay
+   */
+  void update(const double* time, const double* value, double delayMax);
 
   /**
    * @brief Record a timepoint with the current value
@@ -75,6 +98,15 @@ class Delay {
    */
   const boost::optional<double>& initialValue() const {
     return initialValue_;
+  }
+
+  /**
+   * @brief Retrieves the list of registered timepoints
+   *
+   * @param vec the list of registered time points
+   */
+  void points(std::vector<std::pair<double, double> >& vec) const {
+    buffer_.points(vec);
   }
 
  private:

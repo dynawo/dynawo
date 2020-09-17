@@ -82,6 +82,33 @@ TEST(CommonTest, testDelayClass) {
     ASSERT_EQ(e.type(), DYN::Error::SIMULATION);
     ASSERT_EQ(e.key(), DYN::KeyError_t::IncorrectDelay);
   }
+
+  std::vector<std::pair<double, double> > vec;
+  delay.points(vec);
+  ASSERT_EQ(vec[0], std::make_pair(1., 1.1));
+  ASSERT_EQ(vec[1], std::make_pair(2., 2.2));
+  ASSERT_EQ(vec[2], std::make_pair(3., 3.3));
+  ASSERT_EQ(vec[3], std::make_pair(4., 4.4));
+  ASSERT_EQ(vec[4], std::make_pair(5., 5.5));
+}
+
+TEST(CommonTest, testDelayClassParameters) {
+  std::vector<std::pair<double, double> > values;
+  values.push_back(std::make_pair(1., 1.1));
+  values.push_back(std::make_pair(2., 2.2));
+  values.push_back(std::make_pair(3., 3.3));
+  values.push_back(std::make_pair(4., 4.4));
+  values.push_back(std::make_pair(5., 5.5));
+
+  DYN::Delay delay(values);
+
+  std::vector<std::pair<double, double> > vec;
+  delay.points(vec);
+  ASSERT_EQ(vec[0], std::make_pair(1., 1.1));
+  ASSERT_EQ(vec[1], std::make_pair(2., 2.2));
+  ASSERT_EQ(vec[2], std::make_pair(3., 3.3));
+  ASSERT_EQ(vec[3], std::make_pair(4., 4.4));
+  ASSERT_EQ(vec[4], std::make_pair(5., 5.5));
 }
 
 TEST(CommonTest, testDelayManagerClass) {
@@ -181,4 +208,31 @@ TEST(CommonTest, testDelayManagerClass) {
   time2 = 5;
   val = manager.getDelay(id2, 1.5);
   ASSERT_EQ(val, 3.85);
+}
+
+static bool
+compare(const std::vector<std::string>& lhs, const std::vector<std::string>& rhs) {
+  for (std::vector<std::string>::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
+    if (std::find(rhs.begin(), rhs.end(), *it) == rhs.end()) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+TEST(CommonTest, testDelayManagerClassParameters) {
+  std::string formatted1 = "10:1,1.1;2,2.2;3,3.3;4,4.4;5,5.5;";
+  std::string formatted2 = "20:1,1.1;2,2.2;3,3.3;4,4.4;5,5.5;";
+  std::vector<std::string> format;
+  format.push_back(formatted1);
+  format.push_back(formatted2);
+
+  DYN::DelayManager manager;
+
+  bool ok = manager.loadDelays(format);
+  ASSERT_TRUE(ok);
+
+  std::vector<std::string> formatted = manager.dumpDelays();
+  ASSERT_TRUE(compare(formatted, format));
 }

@@ -86,6 +86,29 @@ class DelayManager {
    */
   const boost::optional<double>& getInitialValue(size_t id) const;
 
+  /**
+   * @brief Format delay manager information
+   *
+   * This list of string follows the following format:
+   * 1 line by delay, and for each delay:
+   *
+   * <id>:<time1>,<value1>;<time2>,<value2>;...
+   *
+   * where id is the delay id ; timex, valuex are the pairs defining a timepoint
+   *
+   * @returns the formatted delays
+   */
+  std::vector<std::string> dumpDelays() const;
+
+  /**
+   * @brief Load delays from their formatted version
+   *
+   * @param values the delays definition, formatted according to the format defined by dumpDelays
+   *
+   * @returns false if an parsing error occurs, true if not
+   */
+  bool loadDelays(const std::vector<std::string>& values);
+
  private:
   /**
    * @brief Retrieves the delay by id
