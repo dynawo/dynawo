@@ -73,9 +73,9 @@ model GeneratorSynchronous "Synchronous machine"
 
 equation
 
-    UPu = ComplexMath.'abs' (terminal.V);
-
   if running.value then
+
+    UPu = ComplexMath.'abs' (terminal.V);
 
     // Active and reactive power at terminal
     PGenPu = - ComplexMath.real(terminal.V * ComplexMath.conj(terminal.i));
@@ -97,6 +97,7 @@ equation
     thetaInternal.value = ComplexMath.arg(Complex(uqPu, udPu));
 
   else
+    UPu = 0;
     PGenPu = 0;
     QGenPu = 0;
     PGen = 0;
