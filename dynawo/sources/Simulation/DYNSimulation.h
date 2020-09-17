@@ -321,9 +321,7 @@ class Simulation {
    * @brief setter for criteria step
    * @param step number of iterations between 2 criteria check
    */
-  inline void setCriteriaStep(const int& step) {
-    criteriaStep_ = step;
-  }
+  void setCriteriaStep(const int& step);
   /**
    * @brief getter for the start time of the simulation
    * @return the start time of the simulation

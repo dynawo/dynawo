@@ -988,6 +988,13 @@ Simulation::printEnd() {
 }
 
 void
+Simulation::setCriteriaStep(const int& step) {
+  if (step <= 0)
+    throw DYNError(Error::API, CriteriaStepError, step);
+  criteriaStep_ = step;
+}
+
+void
 Simulation::terminate() {
 #if defined(_DEBUG_) || defined(PRINT_TIMERS)
   Timer timer("Simulation::terminate()");
