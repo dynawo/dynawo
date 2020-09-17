@@ -373,8 +373,9 @@ const char* stringAppend(const std::string s1, const modelica_string s2);
  * @param manager the model manager to use
  * @param data the data of the current simulation
  * @param exprNumber the id of the delay, in practice the index in the arrays of delayed variables
+ * @param exprValue the value corresponding to @p time
  * @param time the current time point
- * @param delayTIme the delay to apply to the value
+ * @param delayTime the delay to apply to the value
  * @param delayMax the maximum delay allowed
  *
  * @returns the computed delayed value
@@ -386,6 +387,7 @@ modelica_real computeDelay(ModelManager* manager, DYNDATA* data, int exprNumber,
  *
  * calls the corresponding function in @p manager
  *
+ * @param manager The model manager to use
  * @param exprNumber the id of the delay to create
  * @param time pointer to the time that will be externally updated at runtime
  * @param exprValue pointer to the value that will be externally updated at runtime
