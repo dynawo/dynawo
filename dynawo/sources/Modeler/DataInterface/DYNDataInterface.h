@@ -21,6 +21,7 @@
 #define MODELER_DATAINTERFACE_DYNDATAINTERFACE_H_
 
 #include <string>
+#include <vector>
 #include <boost/shared_ptr.hpp>
 
 #include "CRTCriteriaCollection.h"
@@ -148,6 +149,12 @@ class DataInterface {
    * @return name of the bus where the component is connected
    */
   virtual std::string getBusName(const std::string& staticID, const std::string& labelNode) = 0;
+
+  /**
+   * @brief dump the network to a file with the proper format
+   * @param filepath file to create
+   */
+  virtual void dumpToFile(const std::string& filepath) const = 0;
 };  ///< Class for data interface
 }  // namespace DYN
 
