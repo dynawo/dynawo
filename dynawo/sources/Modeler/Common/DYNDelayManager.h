@@ -92,7 +92,7 @@ class DelayManager {
    * This list of string follows the following format:
    * 1 line by delay, and for each delay:
    *
-   * <id>:<time1>,<value1>;<time2>,<value2>;...
+   * id:time1,value1;time2,value2;...
    *
    * where id is the delay id ; timex, valuex are the pairs defining a timepoint
    *
