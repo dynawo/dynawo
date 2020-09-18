@@ -8,43 +8,45 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-set(MODULE_NAME SOLVERSIM_unittest)
+set(MODULE_NAME MODELER_DATAINTERFACEIIDM_unittest)
 
 set(MODULE_SOURCES
-  TestBasics.cpp
+    TestBusBarSectionInterface.cpp
+    TestCriteria.cpp
+    TestIIDMModelsStaticParameters.cpp
+    TestStateVariable.cpp
+    TestStaticParameter.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
 
 target_link_libraries(${MODULE_NAME}
-  dynawo_ModelerCommon
   dynawo_API_PAR
-  dynawo_API_TL
-  dynawo_SolverSIM
-  dynawo_SolverCommon
-  dynawo_API_DYD
-  iidm-xml
+  dynawo_API_CRT
+  dynawo_ModelerCommon
   dynawo_DataInterfaceIIDM
   dynawo_DataInterface
-  dynawo_CPPModelsCommon
+  iidm-ext-activeseason-xml
+  iidm-ext-busbarsectionposition-xml
+  iidm-ext-connectableposition-xml
+  iidm-ext-currentlimitsperseason-xml
+  iidm-ext-generatoractivepowercontrol-xml
+  iidm-ext-generatorentsoecategory-xml
+  iidm-ext-generatorstartup-xml
+  iidm-ext-hvdcangledroopactivepowercontrol-xml
+  iidm-ext-hvdcoperatoractivepowerrange-xml
+  iidm-ext-loaddetail-xml
+  iidm-ext-standbyautomaton-xml
   dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-tests
-  COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" "DYNAWO_XSD_DIR=./" $<TARGET_FILE:${MODULE_NAME}>
+  COMMAND ${CMAKE_COMMAND} -E env "${runtime_tests_PATH}" $<TARGET_FILE:${MODULE_NAME}>
   DEPENDS
-    ${MODULE_NAME}-pre-tests
     ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
 
-add_custom_target(${MODULE_NAME}-pre-tests
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/jobs ${CMAKE_CURRENT_BINARY_DIR}/jobs
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../API/DYD/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../API/PAR/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/../../../API/EXTVAR/xsd/ ${CMAKE_CURRENT_BINARY_DIR}/
-  )
-
 if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
-  set(EXTRACT_PATTERNS "'*/sources/Solvers/SolverSIM/DYN*'")
+  set(EXTRACT_PATTERNS "'*/sources/Modeler/DataInterfaceIIDM/DYN*'")
 
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
