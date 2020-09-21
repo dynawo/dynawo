@@ -64,11 +64,16 @@ TEST(CommonTest, testRingBufferClass) {
 
   std::vector<std::pair<double, double> > vec;
   buffer.points(vec);
-  ASSERT_EQ(vec[0], std::make_pair(1., 1.1));
-  ASSERT_EQ(vec[1], std::make_pair(2., 2.2));
-  ASSERT_EQ(vec[2], std::make_pair(3., 3.3));
-  ASSERT_EQ(vec[3], std::make_pair(4., 4.4));
-  ASSERT_EQ(vec[4], std::make_pair(5., 5.5));
+  ASSERT_EQ(vec[0].first, 1.);
+  ASSERT_EQ(vec[0].second, 1.1);
+  ASSERT_EQ(vec[1].first, 2.);
+  ASSERT_EQ(vec[1].second, 2.2);
+  ASSERT_EQ(vec[2].first, 3.);
+  ASSERT_EQ(vec[2].second, 3.3);
+  ASSERT_EQ(vec[3].first, 4.);
+  ASSERT_EQ(vec[3].second, 4.4);
+  ASSERT_EQ(vec[4].first, 5.);
+  ASSERT_EQ(vec[4].second, 5.5);
 }
 
 TEST(CommonTest, testRingBufferClassFloat) {
