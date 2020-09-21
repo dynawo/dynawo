@@ -8,20 +8,24 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.12)    
 
-set(packet_name        "libxml2")
-set(packet_finder      "LibXml2")
+include($ENV{DYNAWO_HOME}/dynawo/cmake/CPUCount.cmake)   
+if(NOT DEFINED CPU_COUNT ) 
+  message(FATAL_ERROR "CPUCount.cmake: file not found.")
+endif()
+
+set(packet_name        "libxml2")  
+set(packet_finder      "LibXml2")  
 set(packet_install_dir "${CMAKE_INSTALL_PREFIX}/${packet_name}")
-set(packet_RequiredVersion 2.9)
-
+set(packet_RequiredVersion 2.9)     
 string(TOUPPER "${packet_name}" packet_uppername)
 
 unset(CMAKE_MODULE_PATH)
 if(IS_DIRECTORY "$ENV{DYNAWO_HOME}/dynawo/3rdParty/${packet_name}")
   list(APPEND CMAKE_MODULE_PATH "$ENV{DYNAWO_HOME}/dynawo/3rdParty/${packet_name}")
 endif()
-list(APPEND CMAKE_MODULE_PATH "$ENV{DYNAWO_HOME}/dynawo/cmake")
+list(APPEND CMAKE_MODULE_PATH "$ENV{DYNAWO_HOME}/dynawo/cmake")  
 
 set(CMAKE_PREFIX_PATH "${packet_install_dir}")
 find_package("${packet_finder}" "${packet_RequiredVersion}" QUIET)
@@ -30,11 +34,12 @@ if(${packet_finder}_FOUND)
   message(STATUS "Found ${packet_name} ${${packet_uppername}_VERSION_STRING}"
                  " - lib: ${${packet_uppername}_LIBRARY} - include_dir: ${${packet_uppername}_INCLUDE_DIR}"
   )
+  add_custom_target("${packet_name}")          
 
 else()
 
-  set(packet_VersionToInstall 2.9.4)
-  set(packet_md5   85235a3961e6f02b6af8774e33eaa1f2)
+  set(packet_VersionToInstall 2.9.4)   
+  set(packet_md5   85235a3961e6f02b6af8774e33eaa1f2)       
 
   if(DEFINED $ENV{DYNAWO_LIBXML2_DOWNLOAD_URL})
     set(packet_prefix_url $ENV{DYNAWO_LIBXML2_DOWNLOAD_URL})
@@ -45,10 +50,11 @@ else()
 
   include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
   ExternalProject_Add(
-                        ${packet_name}
+                        "${packet_name}"                              
+
     INSTALL_DIR         ${packet_install_dir}
 
-    DOWNLOAD_DIR        ${CMAKE_CURRENT_BINARY_DIR}/download_dir
+    DOWNLOAD_DIR        ${CMAKE_CURRENT_BINARY_DIR}/download_dir      
     TMP_DIR             ${CMAKE_CURRENT_BINARY_DIR}/tmp_dir
     STAMP_DIR           ${CMAKE_CURRENT_BINARY_DIR}/stamp_dir
     SOURCE_DIR          ${CMAKE_CURRENT_BINARY_DIR}/source_dir
@@ -67,9 +73,12 @@ else()
                         "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>"
                         "$<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>"
                         "--without-python"
+
+    BUILD_COMMAND   make -j ${CPU_COUNT} all                      
   )
 
-  ExternalProject_Get_Property(${packet_name} install_dir)
+  set(LIBXML2_LIBRARY      "${packet_install_dir}/lib/${packet_name}${CMAKE_SHARED_LIBRARY_SUFFIX}")       
+  set(LIBXML2_INCLUDE_DIR  "${packet_install_dir}/include/${packet_name}")
 
   unset(packet_url)
   unset(packet_prefix_url)
