@@ -38,12 +38,21 @@ target_include_directories(dynawo_SolverSIM SYSTEM
 
 target_link_libraries(dynawo_SolverSIM
   PRIVATE
-    dynawo_Common
     dynawo_API_PAR
     dynawo_API_TL
     dynawo_SolverCommon
     dynawo_SolverKINSOL
   )
+
+if(LIBRARY_TYPE STREQUAL "STATIC")
+  target_include_directories(lib PRIVATE $<TARGET_PROPERTY:dynawo_Common,INTERFACE_INCLUDE_DIRECTORIES>)
+  if(MSVC OR APPLE)
+    # Link done to avoid duplicating the Trace singleton
+    target_link_libraries(dynawo_SolverSIM PRIVATE dynawo_Common)
+  endif()
+else()
+  target_link_libraries(dynawo_SolverSIM PRIVATE dynawo_Common)
+endif()
 
 if(APPLE)
   if(LIBRARY_TYPE STREQUAL "STATIC")

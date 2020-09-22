@@ -38,13 +38,22 @@ target_include_directories(dynawo_SolverIDA SYSTEM
 
 target_link_libraries(dynawo_SolverIDA
   PRIVATE
-    dynawo_Common
     dynawo_SolverCommon
     dynawo_SolverKINSOL
     Sundials::Sundials_NVECSERIAL
     Sundials::Sundials_SUNLINSOLKLU
     Sundials::Sundials_IDA
   )
+
+if(LIBRARY_TYPE STREQUAL "STATIC")
+  target_include_directories(lib PRIVATE $<TARGET_PROPERTY:dynawo_Common,INTERFACE_INCLUDE_DIRECTORIES>)
+  if(MSVC OR APPLE)
+    # Link done to avoid duplicating the Trace singleton
+    target_link_libraries(dynawo_SolverIDA PRIVATE dynawo_Common)
+  endif()
+else()
+  target_link_libraries(dynawo_SolverIDA PRIVATE dynawo_Common)
+endif()
 
 if(APPLE)
   if(LIBRARY_TYPE STREQUAL "STATIC")
