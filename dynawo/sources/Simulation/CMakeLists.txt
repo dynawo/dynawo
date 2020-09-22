@@ -45,6 +45,7 @@ target_link_libraries(dynawo_Simulation
     dynawo_ModelerCommon
     dynawo_DataInterface
     dynawo_DataInterfaceFactory
+    dynawo_SolverCommon
     libZIP::libZIP
     Boost::filesystem
     Boost::serialization
