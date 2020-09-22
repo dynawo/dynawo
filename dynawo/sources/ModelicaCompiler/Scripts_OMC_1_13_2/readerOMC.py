@@ -922,17 +922,27 @@ class ReaderOMC:
 
     def read_07dly_c_file(self):
         if os.path.isfile(self._07dly_c_file):
-            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[(?P<localId>\d+)\]->realVars\[(?P<varId>\d*)\].*?, data->localData\[(?P<timeId>\d*)\]->timeValue.*(?P<delayMax>\d+\.\d*)\)")
+            pattern_with_parameters = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[(?P<localId>\d+)\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.]+) variable\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,.*?\/\*\s*(?P<delayMaxName>[\w.]+).*\)")
+            pattern = re.compile(r"storeDelayedExpression\(data,\s*threadData,\s*(?P<exprId>\d+), data->localData\[\d+\]->realVars\[\d+\]\s*\/\*\s*(?P<name>[\w.]+) variable\s*\*\/, data->localData\[(?P<timeId>\d*)\]->timeValue.*,\s*(?P<delayMax>\d+\.\d+)\)")
             with open(self._07dly_c_file, 'r') as f:
                 for line in f:
                     match = re.search(pattern, line)
                     if match:
                         self.list_delay_defs.append({
                             "exprId": match.group("exprId"),
-                            "localId": match.group("localId"),
-                            "varId": match.group("varId"),
+                            "name": match.group("name"),
                             "timeId": match.group("timeId"),
                             "delayMax": match.group("delayMax"),
+                        })
+                        continue
+                    match = re.search(pattern_with_parameters, line)
+                    if match:
+                        test_param_address(match.group("delayMaxName"))
+                        self.list_delay_defs.append({
+                            "exprId": match.group("exprId"),
+                            "name": match.group("name"),
+                            "timeId": match.group("timeId"),
+                            "delayMaxName": match.group("delayMaxName"),
                         })
     ##
     #  Initialise variables in list_vars by values found in 08bnd file

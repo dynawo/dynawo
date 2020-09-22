@@ -20,6 +20,8 @@
 
 #include "DYNDelay.h"
 
+#include "DYNCommon.h"
+
 namespace DYN {
 Delay::Delay(const double* time, const double* value, double delayMax) : time_(time), value_(value), buffer_(delayMax), initialValue_() {}
 
@@ -45,7 +47,7 @@ Delay::update(const double* time, const double* value, double delayMax) {
 void
 Delay::saveTimepoint() {
   if (!initialValue_.is_initialized()) {
-    initialValue_ = *value_;
+    initialValue_ = doubleEquals(*value_, 0.0) ? 0.0 : *value_;
   }
 
   buffer_.add(*time_, *value_);
