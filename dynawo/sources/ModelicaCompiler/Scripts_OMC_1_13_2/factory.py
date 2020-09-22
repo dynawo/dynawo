@@ -1454,9 +1454,12 @@ class Factory:
             self.list_for_callcustomparametersconstructors.append("  // Delays\n")
 
         for item in self.reader.list_delay_defs:
+            test_param_address(item["name"])
+            if "delayMaxName" in item:
+                item["delayMax"] = to_param_address(item["delayMaxName"])
             line_tmp = "  createDelay(" + item["exprId"] + \
             ", &(data->localData[" + item["timeId"] + "]->timeValue)" + \
-            ", &(data->localData[" + item["localId"] + "]->realVars[" + item["varId"] + "])" + \
+            ", &(" + to_param_address(item["name"]) + ")" + \
             ", " + item["delayMax"] + ");\n"
             self.list_for_callcustomparametersconstructors.append(line_tmp)
 

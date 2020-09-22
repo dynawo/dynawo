@@ -111,18 +111,6 @@ class DelayManager {
 
  private:
   /**
-   * @brief Retrieves the delay by id
-   *
-   * Precondition: the id is acceptable
-   *
-   * @param id the id to use
-   * @returns the corresponding delay
-   */
-  Delay& getDelayById(size_t id) {
-    return delays_.at(id);
-  }
-
-  /**
    * @brief Retrieves the delay by id (const version)
    *
    * Precondition: the id is acceptable
