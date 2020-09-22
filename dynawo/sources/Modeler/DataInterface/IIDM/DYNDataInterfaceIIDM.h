@@ -98,7 +98,8 @@ class DataInterfaceIIDM : public DataInterface {
   IIDM::Network& getNetworkIIDM();
 
   /**
-   * @copydoc DataInterface::dumpToFile(const std::string& filepath) const
+   * @brief dump the network to a file with the proper format
+   * @param filepath file to create
    */
   void dumpToFile(const std::string& filepath) const;
 
