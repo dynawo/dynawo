@@ -48,7 +48,7 @@ if(LIBRARY_TYPE STREQUAL "STATIC")
   target_include_directories(lib PRIVATE $<TARGET_PROPERTY:dynawo_Common,INTERFACE_INCLUDE_DIRECTORIES>)
   if(MSVC OR APPLE)
     # Link done to avoid duplicating the Trace singleton
-    target_link_libraries(dynawo_SolverSIM PRIVATE dynawo_Common)
+    target_link_libraries(dynawo_SolverSIM PRIVATE dynawo)
   endif()
 else()
   target_link_libraries(dynawo_SolverSIM PRIVATE dynawo_Common)
