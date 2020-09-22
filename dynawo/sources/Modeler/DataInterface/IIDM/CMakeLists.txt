@@ -60,6 +60,7 @@ target_link_libraries(dynawo_DataInterfaceIIDM
     dynawo_Common
     dynawo_ModelerCommon
     dynawo_DataInterface
+    dynawo_API_CRT
   PUBLIC
     iidm-ext-activeseason-xml
     iidm-ext-busbarsectionposition-xml
