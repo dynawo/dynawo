@@ -20,6 +20,8 @@ set(MODEL_FILES
     VRProportionalIntegral_INIT.mo
     VRProportionalReactiveFeedback.extvar
     VRProportionalReactiveFeedback.mo
+    VRRemote.extvar
+    VRRemote.mo
     )
 
 #
