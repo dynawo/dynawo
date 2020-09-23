@@ -20,9 +20,12 @@ set(MODELICA_PREASSEMBLED_MODELS
     EventSetPointDoubleReal.xml
     GeneratorFictitious.xml
     GeneratorPQ.xml
+    GeneratorPQPropSignalN.xml
     GeneratorPV.xml
     GeneratorPVSignalN.xml
+    GeneratorPVDiagramPQSignalN.xml
     GeneratorPVPropSignalN.xml
+    GeneratorPVRemoteSignalN.xml
     GeneratorSynchronousFourWindings.xml
     GeneratorSynchronousThreeWindings.xml
     GeneratorSynchronousFourWindingsProportionalRegulations.xml
@@ -60,6 +63,7 @@ set(MODELICA_PREASSEMBLED_MODELS
     TapChangerBlockingArea.xml
     TransformerFixedRatio.xml
     UnderVoltageAutomaton.xml
+    VRRemote.xml
     )
 
 # PYTHON scripts preassembled models

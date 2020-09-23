@@ -13,11 +13,18 @@
 set(MODEL_FILES
     package.mo
     BaseClasses.mo
+    GeneratorPQProp.mo
+    GeneratorPQProp.extvar
     GeneratorPV.mo
     GeneratorPV.extvar
     GeneratorPV_INIT.mo
+    GeneratorPVDiagramPQ.mo
+    GeneratorPVDiagramPQ.extvar
+    GeneratorPVDiagram_INIT.mo
     GeneratorPVProp.mo
     GeneratorPVProp.extvar
+    GeneratorPVRemote.mo
+    GeneratorPVRemote.extvar
     )
 
 #
