@@ -13,6 +13,8 @@ set(MODEL_FILES
     package.mo
     TCL.mo
     TCL.extvar
+    VRRemote.mo
+    VRRemote.extvar
     )
 
 #

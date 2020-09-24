@@ -1,4 +1,4 @@
-within Dynawo.Electrical.Controls.Machines.VoltageRegulators;
+within Dynawo.Electrical.Controls.Voltage;
 
 /*
 * Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
@@ -21,14 +21,14 @@ import Dynawo.Types;
   parameter Real Gain "Control gain";
   parameter Types.Time tIntegral "Time integration constant";
 
-  Connectors.ZPin URefPu (value(start = U0Pu)) "Voltage regulation set point in p.u (base UNom)";
+  Connectors.ImPin URefPu (value(start = U0Pu)) "Voltage regulation set point in p.u (base UNom)";
   Connectors.ImPin URegulatedPu (value(start = U0Pu)) "Regulated voltage in p.u (base UNom)";
   Connectors.ImPin NQ "Signal to change the reactive power generation of the generators participating in the centralized distant voltage regulation";
 
+protected
   Types.PerUnit UErrorIntegralPu (start = 0) "Time-integral of the control error in p.u (base UNom)";
 
 equation
-
   der(UErrorIntegralPu) = Gain/tIntegral * (URefPu.value - URegulatedPu.value);
   NQ.value = (URefPu.value - URegulatedPu.value) * Gain + UErrorIntegralPu;
 
