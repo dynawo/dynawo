@@ -17,17 +17,36 @@ model GeneratorPVProp "Model for generator PV based on SignalN for the frequency
   extends BaseClasses.BaseGeneratorSignalN;
   extends AdditionalIcons.Machine;
 
+  type QStatus = enumeration (Standard "Reactive power is fixed to its initial value",
+                              AbsorptionMax "Reactive power is fixed to its absorption limit",
+                              GenerationMax "Reactive power is fixed to its generation limit");
+
+  parameter Types.ReactivePowerPu QMinPu  "Minimum reactive power in p.u (base SnRef)";
+  parameter Types.ReactivePowerPu QMaxPu  "Maximum reactive power in p.u (base SnRef)";
   parameter Types.PerUnit KVoltage "Parameter of the proportional voltage regulation";
 
-  equation
+  Connectors.ZPin URefPu (value(start = U0Pu)) "Voltage regulation set point in p.u (base UNom)";
 
-    if qStatus == QStatus.GenerationMax then
-      QGenPu = QMaxPu;
-    elseif qStatus == QStatus.AbsorptionMax then
-      QGenPu = QMinPu;
-    else
-      QGenPu = QGen0Pu + KVoltage * (URefPu.value - UPu);
-    end if;
+protected
+  QStatus qStatus (start = QStatus.Standard) "Voltage regulation status: standard, absorptionMax or generationMax";
+
+equation
+
+  when QGenPu <= QMinPu and UPu >= URefPu.value then
+    qStatus = QStatus.AbsorptionMax;
+  elsewhen QGenPu >= QMaxPu and UPu <= URefPu.value then
+    qStatus = QStatus.GenerationMax;
+  elsewhen (QGenPu > QMinPu or UPu < URefPu.value) and (QGenPu < QMaxPu or UPu > URefPu.value) then
+    qStatus = QStatus.Standard;
+  end when;
+
+  if qStatus == QStatus.GenerationMax then
+    QGenPu = QMaxPu;
+  elseif qStatus == QStatus.AbsorptionMax then
+    QGenPu = QMinPu;
+  else
+    QGenPu = QGen0Pu + KVoltage * (URefPu.value - UPu);
+  end if;
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage UPu with a proportional regulation unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).</div></body></html>"));

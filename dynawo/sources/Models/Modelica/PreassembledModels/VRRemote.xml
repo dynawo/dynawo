@@ -13,6 +13,6 @@
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
   <dyn:modelicaModel id="VRRemote">
-    <dyn:unitDynamicModel id="vrremote" name="Dynawo.Electrical.Controls.Machines.VoltageRegulators.VRRemote"/>
+    <dyn:unitDynamicModel id="vrremote" name="Dynawo.Electrical.Controls.Voltage.VRRemote"/>
   </dyn:modelicaModel>
 </dyn:dynamicModelsArchitecture>

@@ -1,8 +1,8 @@
 BaseClasses
 GeneratorPQProp
-GeneratorPV_INIT
 GeneratorPV
-GeneratorPVDiagram_INIT
+GeneratorPV_INIT
 GeneratorPVDiagramPQ
+GeneratorPVDiagram_INIT
 GeneratorPVProp
 GeneratorPVRemote
