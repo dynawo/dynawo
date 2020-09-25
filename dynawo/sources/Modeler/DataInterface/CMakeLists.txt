@@ -26,6 +26,32 @@ set(DATA_INTERFACE_SOURCES
 
 set(DATA_INTERFACE_INCLUDE_HEADERS
     DYNDataInterface.h
+    DYNNetworkInterface.h
+    DYNLineInterface.h
+    DYNTwoWTransformerInterface.h
+    DYNThreeWTransformerInterface.h
+    DYNVoltageLevelInterface.h
+    DYNHvdcLineInterface.h
+    DYNBusInterface.h
+    DYNCurrentLimitInterface.h
+    DYNSwitchInterface.h
+    DYNLoadInterface.h
+    DYNGeneratorInterface.h
+    DYNStaticVarCompensatorInterface.h
+    DYNShuntCompensatorInterface.h
+    DYNVscConverterInterface.h
+    DYNLccConverterInterface.h
+    DYNBusInterface.h
+    DYNPhaseTapChangerInterface.h
+    DYNRatioTapChangerInterface.h
+    DYNDanglingLineInterface.h
+    DYNComponentInterface.h
+    DYNComponentInterface.hpp
+    DYNStepInterface.h
+    DYNStateVariable.h
+    DYNStateVariable.hpp
+    DYNStaticParameter.h
+    DYNStaticParameter.hpp
     )
 
 set(DATA_INTERFACE_FACTORY_SOURCES
