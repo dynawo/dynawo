@@ -100,6 +100,7 @@ where [option] can be:"
         nrt-diff ([args])                     make a diff between two non-regression test outputs
         nrt-ref ([args])                      define or redefine automatically the non-regression tests references
         nrt-xsl ([args])                      update automatically the xml input files from the nrt
+        filter-timeline ([args])              filter timeline file to remove duplicated or opposed elements
         version-validation                    clean all built items, then build them all and run non-regression tests
         list-tests                            print all available unittest target
         run-doc-tests                         run all tests provided in the documentation
@@ -1458,6 +1459,10 @@ nrt_xsl() {
   $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/xsl/applyXsltToXml.py $@
 }
 
+filter_timeline() {
+  $DYNAWO_PYTHON_COMMAND $DYNAWO_HOME/util/timeline_filter/timelineFilter.py $@
+}
+
 check_coding_files() {
   # html escape .dic files for dictionary
   for dicfile in $(find $DYNAWO_INSTALL_DIR -iname '*.dic')
@@ -1737,6 +1742,7 @@ deploy_dynawo() {
   cp -r $DYNAWO_NRT_DIR/nrt.py sbin/nrt/.
   cp -r $DYNAWO_NRT_DIR/resources sbin/nrt/.
   cp -r $DYNAWO_HOME/util/xsl sbin/.
+  cp -r $DYNAWO_HOME/util/timeline_filter sbin/.
 
   rm -f lib/*.la
   find OpenModelica/lib -name "*.la" -exec rm {} \;
@@ -2349,6 +2355,10 @@ case $MODE in
 
   nrt-xsl)
     nrt_xsl ${ARGS} || error_exit "Error during Dynawo's NRT xsl execution"
+    ;;
+
+  filter-timeline)
+    filter_timeline ${ARGS} || error_exit "Error during timeline filtering"
     ;;
 
   nrt-doc)
