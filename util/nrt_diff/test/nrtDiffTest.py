@@ -69,17 +69,23 @@ class TestnrtDiffDirectoryDiff(unittest.TestCase):
     def test_directory_diff(self):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         (diff_statuses, return_message_str, file_names, left_paths, right_paths, diff_messages) = nrtDiff.DirectoryDiff (os.path.join(dir_path, "initValues"), os.path.join(dir_path, "initValues2"), True)
-        for status in diff_statuses:
-            self.assertEqual(status, nrtDiff.DIFFERENT)
+        for i in range(len(file_names)):
+            if file_names[i] == "globalInit/dumpInitValues-_LOAD___3_EC.txt":
+                self.assertEqual(diff_statuses[i], nrtDiff.IDENTICAL)
+            else:
+                self.assertEqual(diff_statuses[i], nrtDiff.DIFFERENT)
         if return_message_str.startswith("globalInit/dumpInitValues-GEN____1_SM.txt") :
-            self.assertEqual(return_message_str, "globalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (Problem with dumpInitValues-GEN____1_SM.txt)\nglobalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (Problem with dumpInitValues-_LOAD___2_EC.txt)\n(all other files are identical)\n")
+            self.assertEqual(return_message_str, "globalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (1 different initial values)\nglobalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (1 different initial values)\n(all other files are identical)\n")
         else:
-            self.assertEqual(return_message_str, "globalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (Problem with dumpInitValues-_LOAD___2_EC.txt)\nglobalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (Problem with dumpInitValues-GEN____1_SM.txt)\n(all other files are identical)\n")
+            self.assertEqual(return_message_str, "globalInit/dumpInitValues-_LOAD___2_EC.txt DIFFERENT (1 different initial values)\nglobalInit/dumpInitValues-GEN____1_SM.txt DIFFERENT (1 different initial values)\n(all other files are identical)\n")
+        self.assertEqual(len(file_names), 3)
         for file in file_names:
             if "GEN" in file:
                 self.assertEqual(file, "globalInit/dumpInitValues-GEN____1_SM.txt")
-            elif "LOAD" in file:
+            elif "LOAD___2" in file:
                 self.assertEqual(file, "globalInit/dumpInitValues-_LOAD___2_EC.txt")
+            elif "LOAD___3" in file:
+                self.assertEqual(file, "globalInit/dumpInitValues-_LOAD___3_EC.txt")
             else:
                 assert(0)
         i = 0
@@ -92,7 +98,8 @@ class TestnrtDiffDirectoryDiff(unittest.TestCase):
             i += 1
         i = 0
         for msg in diff_messages:
-            self.assertEqual(msg, "Problem with " + os.path.basename(file_names[i]))
+            if len(msg) > 0:
+                self.assertEqual(msg, "1 different initial values")
             i += 1
 
 # the main function

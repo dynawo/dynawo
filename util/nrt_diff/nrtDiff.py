@@ -961,6 +961,17 @@ def CompareTwoFiles (path_left, logs_separator_left, path_right, logs_separator_
 
             else:
                 return_value = IDENTICAL
+        elif file_name.startswith("dumpInitValues-") and file_extension == ".txt":
+            (nb_differences) = InitValuesCloseEnough (path_left, path_right)
+            dir = os.path.abspath(os.path.join(path_left, os.pardir))
+            parent_dir = os.path.abspath(os.path.join(dir, os.pardir))
+            message = os.path.basename(parent_dir) + "/" + os.path.basename(dir) + "/" + os.path.basename(path_left) + ": "
+            if (nb_differences > 0):
+                return_value = DIFFERENT
+                message = str(nb_differences) + " different initial values"
+
+            else:
+                return_value = IDENTICAL
         else:
             message = "Problem with " + os.path.basename(path_left)
             return_value = DIFFERENT
@@ -1198,6 +1209,79 @@ def DTWDistance(left, right) :
             DTW[i][j] = cost + min(min(DTW[i-1][j],DTW[i][j-1]), DTW[i-1][j-1])
 
     return DTW[n][m]
+
+# Check whether two initial values files are close enough
+# @param path_left : the absolute path to the left-side file
+# @param path_right : the absolute path to the right-side file
+def InitValuesCloseEnough (path_left, path_right):
+    file_left = open (path_left, "rt")
+    file_right = open (path_right, "rt")
+    name_2_val_left = {}
+    name_2_val_right = {}
+    aliases_2_ref_var_left = {}
+    aliases_2_ref_var_right = {}
+    ptrn_comment = re.compile(r'\s[=]+\s[\w]+[\s=]+')
+    ptrn_var_y_yp = re.compile(r'(?P<varName>[\w]+)[\s]+: y =[\s]*(?P<yVal>[-0-9\.]+)[\s]*yp =[\s]*(?P<ypVal>[-0-9\.]+)')
+    ptrn_single_val = re.compile(r'(?P<varName>[\w]+)[\s]+=[\s]*(?P<val>[-0-9\.]+)[\s]*\n')
+    ptrn_alias_val = re.compile(r'(?P<varName>[\w]+)[\s]+: alias of (?P<refVar>[\w]+)')
+    for line_left in file_left:
+        if ptrn_comment.search(line_left) is not None:
+            continue
+        match = ptrn_var_y_yp.findall(line_left)
+        for varName, y, yp in match:
+            name_2_val_left[varName] = [float(y), float(yp)]
+        if len(match) == 0:
+            match = ptrn_single_val.findall(line_left)
+            for name, val in match:
+                name_2_val_left[name] = [float(val)]
+        match = ptrn_alias_val.findall(line_left)
+        for name, ref_name in match:
+            aliases_2_ref_var_left[name] = ref_name
+    for line_right in file_right:
+        if ptrn_comment.search(line_right) is not None:
+            continue
+        match = ptrn_var_y_yp.findall(line_right)
+        for varName, y, yp in match:
+            name_2_val_right[varName] = [float(y), float(yp)]
+        if len(match) == 0:
+            match = ptrn_single_val.findall(line_right)
+            for name, val in match:
+                name_2_val_right[name] = [float(val)]
+        match = ptrn_alias_val.findall(line_right)
+        for name, ref_name in match:
+            aliases_2_ref_var_right[name] = ref_name
+
+    file_left.close()
+    file_right.close()
+    if len(name_2_val_left) != len(name_2_val_right) :
+        return abs(len(name_2_val_left) != len(name_2_val_right))
+    if len(aliases_2_ref_var_left) != len(aliases_2_ref_var_right) :
+        return abs(len(aliases_2_ref_var_left) != len(aliases_2_ref_var_right))
+
+    nb_diff = 0
+    for name in name_2_val_left:
+        left = name_2_val_left[name]
+        if name in name_2_val_right:
+            right = name_2_val_right[name]
+            if len(left) != len(right):
+                nb_diff+=1
+            else:
+                for i in range(len(left)):
+                    error = abs(left[i] - right[i])
+                    if error > 1e-6:
+                        nb_diff+=1
+        else:
+            nb_diff+=1
+    for name in aliases_2_ref_var_left:
+        left = aliases_2_ref_var_left[name]
+        if name in aliases_2_ref_var_right:
+            right = aliases_2_ref_var_right[name]
+            if left != right:
+                nb_diff+=1
+        else:
+            nb_diff+=1
+
+    return nb_diff
 
 # Check whether two csv files are close enough
 # @param path_left : the absolute path to the left-side file
