@@ -50,6 +50,7 @@ SolverEmptyYVector          =             impossible to create the KINSOL's stru
 SolverUnstableZMode         =             discrete events are unstable during the solve of the equation
 SolverUnbalanced            =             the number of algebraic/differential variables is different from the number of algebraic/differential equations in the simulated problem
 WrongLinearSolverChoice     =             the linear solver name provided is not valid
+SolverMissingParam          =             no value found for mandatory solver parameter '%1%'
 //--------------- MODELER -----------------------------------------
 UndefinedStep               =             step %1% does not exist for tap changer %2%
 NanValue                    =             error when calculating F function for model %2% (index %1%) : find a NaN (Not a Number)

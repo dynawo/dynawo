@@ -163,14 +163,14 @@ SolverSIM::defineSpecificParameters() {
 
 void
 SolverSIM::setSolverSpecificParameters() {
-  hMin_ = findParameter("hMin").getValue<double>();
-  hMax_ = findParameter("hMax").getValue<double>();
-  kReduceStep_ = findParameter("kReduceStep").getValue<double>();
-  nEff_ = findParameter("nEff").getValue<int>();
-  nDeadband_ = findParameter("nDeadband").getValue<int>();
-  maxRootRestart_ = findParameter("maxRootRestart").getValue<int>();
-  maxNewtonTry_ =  findParameter("maxNewtonTry").getValue<int>();
-  recalculateStep_ = findParameter("recalculateStep").getValue<bool>();
+  hMin_ = getMandatoryParameterValue<double>("hMin");
+  hMax_ = getMandatoryParameterValue<double>("hMax");
+  kReduceStep_ = getMandatoryParameterValue<double>("kReduceStep");
+  nEff_ = getMandatoryParameterValue<int>("nEff");
+  nDeadband_ = getMandatoryParameterValue<int>("nDeadband");
+  maxRootRestart_ = getMandatoryParameterValue<int>("maxRootRestart");
+  maxNewtonTry_ =  getMandatoryParameterValue<int>("maxNewtonTry");
+  recalculateStep_ = getMandatoryParameterValue<bool>("recalculateStep");
 
   linearSolverName_ = findParameter("linearSolverName").getValue<std::string>();
   if (findParameter("fnormtol").hasValue())
