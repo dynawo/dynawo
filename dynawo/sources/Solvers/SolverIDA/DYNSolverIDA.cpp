@@ -177,12 +177,12 @@ SolverIDA::defineSpecificParameters() {
 
 void
 SolverIDA::setSolverSpecificParameters() {
-  order_ = findParameter("order").getValue<int>();
-  initStep_ = findParameter("initStep").getValue<double>();
-  minStep_ = findParameter("minStep").getValue<double>();
-  maxStep_ = findParameter("maxStep").getValue<double>();
-  absAccuracy_ = findParameter("absAccuracy").getValue<double>();
-  relAccuracy_ = findParameter("relAccuracy").getValue<double>();
+  order_ = getMandatoryParameterValue<int>("order");
+  initStep_ = getMandatoryParameterValue<double>("initStep");
+  minStep_ = getMandatoryParameterValue<double>("minStep");
+  maxStep_ = getMandatoryParameterValue<double>("maxStep");
+  absAccuracy_ = getMandatoryParameterValue<double>("absAccuracy");
+  relAccuracy_ = getMandatoryParameterValue<double>("relAccuracy");
 }
 
 std::string
