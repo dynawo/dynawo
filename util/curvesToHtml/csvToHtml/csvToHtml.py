@@ -50,7 +50,7 @@ def readCsvToHtml(csv_file, output_dir, withoutOffset, showpoints):
 
     full_path = os.path.expanduser(csv_file)
     ## read csv and create data structures
-    cr = csv.reader(open(full_path,"rb"),delimiter=";")
+    cr = csv.reader(open(full_path,"r"),delimiter=";")
     datas=[]
     timeIndex = 0
     index =  -1
