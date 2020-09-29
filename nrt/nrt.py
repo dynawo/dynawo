@@ -809,7 +809,7 @@ def main():
     if (options.directory_names is not None) and (len(options.directory_names) > 0):
         with_directory_name = True
         directory_names = options.directory_names
-        if options.timeout > 0:
+        if (options.timeout is not None and options.timeout > 0):
             log_message += " and"
         else:
             log_message += " with"
@@ -822,7 +822,7 @@ def main():
     directory_patterns = []
     if (options.directory_patterns is not None) and  (len(options.directory_patterns) > 0):
         directory_patterns = options.directory_patterns
-        if options.timeout > 0 or with_directory_name:
+        if (options.timeout is not None and options.timeout > 0) or with_directory_name:
             log_message += " and"
         else:
             log_message += " with"
