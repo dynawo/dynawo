@@ -34,6 +34,7 @@ target_include_directories(dynawo_Simulation
 target_link_libraries(dynawo_Simulation
   PUBLIC
     dynawo_SolverCommon
+    libZIP::libZIP
   PRIVATE
     dynawo_Common
     dynawo_SimulationCommon
@@ -47,7 +48,6 @@ target_link_libraries(dynawo_Simulation
     dynawo_ModelerCommon
     dynawo_DataInterface
     dynawo_DataInterfaceFactory
-    libZIP::libZIP
     Boost::filesystem
     Boost::serialization
   )
