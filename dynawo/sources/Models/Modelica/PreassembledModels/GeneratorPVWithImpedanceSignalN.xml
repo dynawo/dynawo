@@ -12,7 +12,7 @@
     simulation tools for power systems.
 -->
 <dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
-  <dyn:modelicaModel id="GeneratorPVSignalNWithImpedance">
+  <dyn:modelicaModel id="GeneratorPVWithImpedanceSignalN">
     <dyn:unitDynamicModel id="coupling" name="Dynawo.Electrical.Switches.IdealSwitch"/>
     <dyn:unitDynamicModel id="generator" name="Dynawo.Electrical.Machines.SignalN.GeneratorPV" initName="Dynawo.Electrical.Machines.SignalN.GeneratorPV_INIT"/>
     <dyn:unitDynamicModel id="line" name="Dynawo.Electrical.Lines.Line"/>
