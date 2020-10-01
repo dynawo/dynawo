@@ -67,7 +67,7 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
   - **[DynaWaltz](http://dynawo.org/about/dynawaltz)** for long-term stability simulations
   - **[DynaSwing](http://dynawo.org/about/dynaswing)** for short-term stability studies
   - **[DynaWave](http://dynawo.org/about/dynawave)** for stability studies and system design with a high-penetration of power-electronics based components (quasi-EMT)
-  
+
 ![image](documentation/resources/DynawoLogos.png "Dyna&omega;o's suite of simulation tools")
 
 ![image](documentation/resources/DynawoInitiative.png "Dyna&omega;o's high-level vision")
@@ -451,3 +451,4 @@ For more information about Dyna&omega;o:
 
 * Consult [Dyna&omega;o website](http://dynawo.org)
 * Contact us at [rte-dynawo@rte-france.com](mailto:rte-dynawo@rte-france.com)
+#Modal Analysis of small/large scale power system
