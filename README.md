@@ -67,7 +67,7 @@ The nature of power system dynamics is deeply evolving towards a more diverse an
   - **[DynaWaltz](http://dynawo.org/about/dynawaltz)** for long-term stability simulations
   - **[DynaSwing](http://dynawo.org/about/dynaswing)** for short-term stability studies
   - **[DynaWave](http://dynawo.org/about/dynawave)** for stability studies and system design with a high-penetration of power-electronics based components (quasi-EMT)
-  
+
 ![image](documentation/resources/DynawoLogos.png "Dyna&omega;o's suite of simulation tools")
 
 ![image](documentation/resources/DynawoInitiative.png "Dyna&omega;o's high-level vision")
@@ -200,13 +200,18 @@ In the following we give a list of requirements needed to build Dyna&omega;o and
 <a name="build_linux"></a>
 #### Linux
 
-You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu:
+You can install the following packages to have no dependency problem in the following steps. This example works for Ubuntu until 19.04 included:
 
 ``` bash
 $> apt-get install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev qt4-qmake qt4-dev-tools lsb-release libxml2-utils python-lxml python-psutil wget libcurl4-openssl-dev rsync bash-completion
 ```
 
-This one works for Fedora:
+For Ubuntu 20.04 use:
+``` bash
+$> apt install -y git gcc g++ gfortran autoconf pkgconf automake make libtool cmake hwloc openjdk-8-jdk libblas-dev liblpsolve55-dev libarchive-dev doxygen doxygen-latex liblapack-dev libexpat1-dev libsqlite3-dev zlib1g-dev gettext patch clang python3-pip libncurses5-dev libreadline-dev libdigest-perl-md5-perl unzip gcovr lcov libboost-all-dev qt5-default lsb-release libxml2-utils python-lxml python-psutil wget libcurl4-openssl-dev rsync libopenblas-openmp-dev
+```
+
+And for Fedora:
 ``` bash
 $> dnf install -y git gcc gcc-c++ gcc-gfortran autoconf automake make libtool cmake hwloc java-1.8.0-openjdk-devel blas-devel lapack-devel lpsolve-devel expat-devel glibc-devel sqlite-devel libarchive-devel zlib-devel doxygen doxygen-latex qt-devel gettext patch wget python-devel clang llvm-devel ncurses-devel readline-devel unzip perl-Digest-MD5 vim gcovr python-pip python-psutil boost-devel lcov gtest-devel gmock-devel xz rsync python-lxml graphviz libcurl-devel bash-completion
 ```
@@ -243,6 +248,7 @@ Below is a description of some environment variables that might be changed in `m
 | DYNAWO_BROWSER | Default browser command |
 | DYNAWO_NB_PROCESSORS_USED | Maximum number of cores to use |
 | DYNAWO_BUILD_TYPE | Build type: Release or Debug |
+| DYNAWO_COMPILER | Compiler: GCC (default) or CLANG |
 
 You can have more information about compilation options [here](https://dynawo.github.io/install/compilation_options).
 
