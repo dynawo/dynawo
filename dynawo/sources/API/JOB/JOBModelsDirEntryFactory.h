@@ -12,35 +12,36 @@
 //
 
 /**
- * @file  JOBDynModelsEntryFactory.h
+ * @file  JOBModelsDirEntryFactory.h
  *
  * @brief Dynawo dynamic model entry factory : header file
  *
  */
-#ifndef API_JOB_JOBDYNMODELSENTRYFACTORY_H_
-#define API_JOB_JOBDYNMODELSENTRYFACTORY_H_
+#ifndef API_JOB_JOBMODELSDIRENTRYFACTORY_H_
+#define API_JOB_JOBMODELSDIRENTRYFACTORY_H_
 
 #include <boost/shared_ptr.hpp>
 
 namespace job {
-class DynModelsEntry;
+
+class ModelsDirEntry;
 
 /**
- * @class  DynModelsEntryFactory
+ * @class  ModelsDirEntryFactory
  *
  * @brief dynamic model entry factory
  *
  */
-class DynModelsEntryFactory {
+class ModelsDirEntryFactory {
  public:
   /**
    * @brief create a new instance of dynamic model entry
    *
    * @return dynamic model entry
    */
-  static boost::shared_ptr<DynModelsEntry> newInstance();
+  static boost::shared_ptr<ModelsDirEntry> newInstance();
 };
 
 }  // namespace job
 
-#endif  // API_JOB_JOBDYNMODELSENTRYFACTORY_H_
+#endif  // API_JOB_JOBMODELSDIRENTRYFACTORY_H_
