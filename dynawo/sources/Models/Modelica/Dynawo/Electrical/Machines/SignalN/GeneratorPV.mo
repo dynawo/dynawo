@@ -39,6 +39,7 @@ equation
     qStatus = QStatus.Standard;
   end when;
 
+if running.value then
   if qStatus == QStatus.GenerationMax then
     QGenPu = QMaxPu;
   elseif qStatus == QStatus.AbsorptionMax then
@@ -46,6 +47,9 @@ equation
   else
     UPu = URefPu.value;
   end if;
+else
+  QGenPu = 0;
+end if;
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This generator regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu (in this case, the generator provides QMinPu or QMaxPu and the voltage is no longer regulated).</div></body></html>"));
