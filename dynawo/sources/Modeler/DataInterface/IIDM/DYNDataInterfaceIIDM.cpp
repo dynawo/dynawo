@@ -516,11 +516,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
     components_[lcc->getID()] = lcc;
     lcc->setVoltageLevelInterface(voltageLevel);
   }
-#ifdef LANG_CXX11
-  return std::move(voltageLevel);
-#else
   return voltageLevel;
-#endif
 }
 
 shared_ptr<SwitchInterface>
@@ -545,11 +541,7 @@ DataInterfaceIIDM::importSwitch(IIDM::Switch& switchIIDM) {
     string voltageLevelId = switchIIDM.voltageLevel().id();
     sw->setBusInterface2(findCalculatedBusInterface(voltageLevelId, node));
   }
-#ifdef LANG_CXX11
-  return std::move(sw);
-#else
   return sw;
-#endif
 }
 
 shared_ptr<GeneratorInterface>
@@ -565,11 +557,7 @@ DataInterfaceIIDM::importGenerator(IIDM::Generator & generatorIIDM) {
     int node = generatorIIDM.node();
     generator->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-#ifdef LANG_CXX11
-  return std::move(generator);
-#else
   return generator;
-#endif
 }
 
 shared_ptr<LoadInterface>
@@ -585,11 +573,7 @@ DataInterfaceIIDM::importLoad(IIDM::Load& loadIIDM) {
     int node = loadIIDM.node();
     load->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-#ifdef LANG_CXX11
-  return std::move(load);
-#else
   return load;
-#endif
 }
 
 shared_ptr<ShuntCompensatorInterface>
@@ -605,11 +589,7 @@ DataInterfaceIIDM::importShuntCompensator(IIDM::ShuntCompensator& shuntIIDM) {
     int node = shuntIIDM.node();
     shunt->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-#ifdef LANG_CXX11
-  return std::move(shunt);
-#else
   return shunt;
-#endif
 }
 
 shared_ptr<DanglingLineInterface>
@@ -645,11 +625,7 @@ DataInterfaceIIDM::importDanglingLine(IIDM::DanglingLine& danglingLineIIDM) {
       }
     }
   }
-#ifdef LANG_CXX11
-  return std::move(danglingLine);
-#else
   return danglingLine;
-#endif
 }
 
 shared_ptr<StaticVarCompensatorInterface>
@@ -665,11 +641,7 @@ DataInterfaceIIDM::importStaticVarCompensator(IIDM::StaticVarCompensator& svcIID
     int node = svcIIDM.node();
     svc->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-#ifdef LANG_CXX11
-  return std::move(svc);
-#else
   return svc;
-#endif
 }
 
 shared_ptr<TwoWTransformerInterface>
@@ -761,11 +733,7 @@ DataInterfaceIIDM::importTwoWindingsTransformer(IIDM::Transformer2Windings & two
       }
     }
   }
-#ifdef LANG_CXX11
-  return std::move(twoWTfo);
-#else
   return twoWTfo;
-#endif
 }
 
 shared_ptr<ThreeWTransformerInterface>
@@ -868,11 +836,7 @@ DataInterfaceIIDM::importThreeWindingsTransformer(IIDM::Transformer3Windings & t
       }
     }
   }
-#ifdef LANG_CXX11
-  return std::move(threeWTfo);
-#else
   return threeWTfo;
-#endif
 }
 
 shared_ptr<LineInterface>
@@ -943,11 +907,7 @@ DataInterfaceIIDM::importLine(IIDM::Line& lineIIDM) {
       }
     }
   }
-#ifdef LANG_CXX11
-  return std::move(line);
-#else
   return line;
-#endif
 }
 
 void
@@ -968,11 +928,7 @@ DataInterfaceIIDM::importVscConverter(IIDM::VscConverterStation& vscIIDM) {
     int node = vscIIDM.node();
     vsc->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-#ifdef LANG_CXX11
-  return std::move(vsc);
-#else
   return vsc;
-#endif
 }
 
 shared_ptr<LccConverterInterface>
@@ -988,11 +944,7 @@ DataInterfaceIIDM::importLccConverter(IIDM::LccConverterStation& lccIIDM) {
     int node = lccIIDM.node();
     lcc->setBusInterface(findCalculatedBusInterface(voltageLevelId, node));
   }
-#ifdef LANG_CXX11
-  return std::move(lcc);
-#else
   return lcc;
-#endif
 }
 
 shared_ptr<HvdcLineInterface>
@@ -1001,11 +953,7 @@ DataInterfaceIIDM::importHvdcLine(IIDM::HvdcLine& hvdcLineIIDM) {
   shared_ptr<ConverterInterface> conv2 = dynamic_pointer_cast<ConverterInterface>(findComponent(hvdcLineIIDM.converterStation2()));
 
   shared_ptr<HvdcLineInterfaceIIDM> hvdcLine(new HvdcLineInterfaceIIDM(hvdcLineIIDM, conv1, conv2));
-#ifdef LANG_CXX11
-  return std::move(hvdcLine);
-#else
   return hvdcLine;
-#endif
 }
 
 

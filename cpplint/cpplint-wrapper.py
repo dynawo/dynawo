@@ -56,10 +56,12 @@ def getModifiedFiles(root_directory):
 def cpplint(root_directory, filename, filter):
     # Prepare cpplint command line
     cpplint_path = os.path.abspath(os.path.join(os.path.split(__file__)[0], "cpplint.py"))
-
-    options = ["python", cpplint_path, "--quiet", filename]
+    cmd = "python"
+    if os.environ.get('DYNAWO_PYTHON_COMMAND') is not None:
+        cmd = os.environ.get('DYNAWO_PYTHON_COMMAND')
+    options = [cmd, cpplint_path, "--quiet", filename]
     if filter != None:
-        options = ["python", cpplint_path, "--quiet", "--filter", filter, filename]
+        options = [cmd, cpplint_path, "--quiet", "--filter", filter, filename]
     process = subprocess.Popen(options, stdout=subprocess.PIPE, cwd=root_directory)
     process.wait()
 

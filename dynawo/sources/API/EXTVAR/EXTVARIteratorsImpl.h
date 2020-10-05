@@ -20,6 +20,8 @@
 #ifndef API_EXTVAR_EXTVARITERATORSIMPL_H_
 #define API_EXTVAR_EXTVARITERATORSIMPL_H_
 
+#include <string>
+
 #include "EXTVARVariablesCollectionImpl.h"
 
 namespace externalVariables {
