@@ -30,7 +30,12 @@ protected
 equation
 
   QGenRawPu = QGen0Pu + QPercent * NQ.value;
+
+if running.value then
   QGenPu = if QGenRawPu >= QMaxPu then QMaxPu elseif QGenRawPu <= QMinPu then QMinPu else QGenRawPu;
+else
+  QGenPu = 0;
+end if;
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body> This PQ generator adapts it Q to regulate the voltage of a distant bus along with other generators depending on a participation factor QPercent. To do so, it receives a set point NQ to adapt its Q. This NQ is common to all the generators participating in this regulation.</div></body></html>"));

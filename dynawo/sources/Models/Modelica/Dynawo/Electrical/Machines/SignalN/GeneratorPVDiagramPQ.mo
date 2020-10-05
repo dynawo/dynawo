@@ -54,6 +54,7 @@ equation
     qStatus = QStatus.Standard;
   end when;
 
+if running.value then
   if qStatus == QStatus.GenerationMax then
     QGenPu = QMaxPu;
   elseif qStatus == QStatus.AbsorptionMax then
@@ -61,6 +62,9 @@ equation
   else
     UPu = URefPu.value;
   end if;
+else
+  QGenPu = 0;
+end if;
 
 annotation(preferredView = "text",
     Documentation(info = "<html><head></head><body>  This generator provides an active power PGenPu that depends on an emulated frequency regulation (signal N and total generators participation alphaSum) and regulates the voltage UPu unless its reactive power generation hits its limits QMinPu or QMaxPu. These limits are calculated in the model depending on PGenPu.</div></body></html>"));
