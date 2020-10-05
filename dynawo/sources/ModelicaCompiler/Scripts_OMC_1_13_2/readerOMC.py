@@ -1220,6 +1220,9 @@ class ReaderOMC:
                     ext.set_name(name)
                     self.external_objects.append(ext)
                 test_param_address(name)
+        for var_name in map_var_name_2_addresses:
+            if map_var_name_2_addresses[var_name] == "constVars" and "der("+var_name+")" in map_var_name_2_addresses:
+                map_var_name_2_addresses[var_name] = "realVars"
 
 
     ##
@@ -1257,6 +1260,8 @@ class ReaderOMC:
             elif "realVars" in address:
                 map_var_name_2_addresses[name]= "data->localData[0]->realVars["+str(index_real_var)+"]"
                 index_real_var+=1
+                if var.is_fixed():
+                    var.set_fixed(False)
             elif "discreteVars" in address:
                 map_var_name_2_addresses[name]= "data->localData[0]->discreteVars["+str(index_discrete_var)+"]"
                 index_discrete_var+=1
