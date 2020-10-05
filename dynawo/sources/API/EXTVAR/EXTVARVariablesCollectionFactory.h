@@ -20,6 +20,7 @@
 #ifndef API_EXTVAR_EXTVARVARIABLESCOLLECTIONFACTORY_H_
 #define API_EXTVAR_EXTVARVARIABLESCOLLECTIONFACTORY_H_
 
+#include <string>
 #include <boost/shared_ptr.hpp>
 
 namespace externalVariables {

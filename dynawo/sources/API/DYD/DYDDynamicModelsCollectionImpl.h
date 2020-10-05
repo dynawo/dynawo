@@ -22,6 +22,7 @@
 
 #include <map>
 #include <vector>
+#include <string>
 
 #include "DYDDynamicModelsCollection.h"
 
