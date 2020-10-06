@@ -1,0 +1,1550 @@
+2020-06-29 16:46:31 | INFO |  ============================================================
+2020-06-29 16:46:31 | INFO | DYNAWO VERSION  :     1.1.0
+2020-06-29 16:46:31 | INFO | DYNAWO REVISION :  ModalAnalysis-3a330ea9
+2020-06-29 16:46:31 | INFO |  ============================================================
+2020-06-29 16:46:31 | DEBUG | This file is organized as follows:
+2020-06-29 16:46:31 | DEBUG |   -- For each model, initial and dynamic models parameters values before local initialization
+2020-06-29 16:46:31 | DEBUG |   -- For each model, dynamic models parameters values after local initialization
+2020-06-29 16:46:31 | DEBUG | caption:
+2020-06-29 16:46:31 | DEBUG |   -- "modelica file"  -> default value specified in modelica model
+2020-06-29 16:46:31 | DEBUG |   -- "parameters"     -> value read from parameter file
+2020-06-29 16:46:31 | DEBUG |   -- "IIDM"           -> value read from iidm file
+2020-06-29 16:46:31 | DEBUG |   -- "loaded dump"    -> value read from initial state file
+2020-06-29 16:46:31 | DEBUG |   -- "initialization" -> value computed by local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel HVDC initial parameters before local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | parameter PRefPu_ValueIn has value 0.898 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter QRef1Pu_ValueIn has value 0.301 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter QRef2Pu_ValueIn has value 0.301 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter URef1Pu_ValueIn has value 1.06662 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter URef2Pu_ValueIn has value 1.07977 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter UdcRefPu_ValueIn has value 1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Lambda has value 0.175439 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_P10Pu has value -8.98 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_P20Pu has value 9 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Q10Pu has value -3.01 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Q20Pu has value -3.01 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_RdcPu has value 0.000244 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_SNom has value 1000 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_U10Pu has value 1.01381 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_U20Pu has value 1.02696 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UPhase10 has value 0.0316757 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UPhase20 has value -0.0328494 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_modeU1Set has value 1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_modeU2Set has value 1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter modeU1_ValueIn has value 1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter modeU2_ValueIn has value 1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel HVDC parameters before local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_CdcPu has value 1.99 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_NbSwitchOffSignals has value 3 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_State0 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_NbSwitchOffSignals has value 3 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_State0 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_DUDC has value 0.01 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_DeadBandU has value 0 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_InPu has value 1.081 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_IpMaxCstPu has value 1.001 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_KiACVoltageControl has value 33.5 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_KiDeltaP has value 20 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_KiPControl has value 100 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Kidc has value 20 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_KpACVoltageControl has value 0 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_KpDeltaP has value 10 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_KpPControl has value 0.4 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Kpdc has value 40 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Lambda has value 0.175439 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_P10Pu has value -8.98 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_P20Pu has value 9 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PMaxOPPu has value 1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PMinOPPu has value -1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_add_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_add_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_const_k has value 0.1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_firstOrder_initType has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_firstOrder_k has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_gain_k has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_columns_1_ has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_extrapolation has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_fileName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_n has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_smoothness has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_tableName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_tableOnFile has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_verboseExtrapolation has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_verboseRead has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_columns_1_ has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_extrapolation has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_fileName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_n has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_smoothness has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_tableName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_tableOnFile has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_verboseExtrapolation has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_verboseRead has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_columns_1_ has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_extrapolation has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_fileName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_n has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_smoothness has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_tableName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_tableOnFile has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_verboseExtrapolation has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_verboseRead has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_columns_1_ has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_extrapolation has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_fileName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_n has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_smoothness has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_tableName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_tableOnFile has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_verboseExtrapolation has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_verboseRead has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_columns_1_ has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_extrapolation has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_fileName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_n has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_smoothness has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_tableName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_tableOnFile has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_verboseExtrapolation has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_verboseRead has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_limiter_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_limiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_limiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu12 has value 0.4 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu21 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu22 has value 0.301 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu31 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu41 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu12 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu21 has value 1.10526 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu22 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu31 has value 1.13158 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu12 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu21 has value 0.911 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu22 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu31 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu32 has value -0.288 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu41 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu51 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu52 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu12 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu21 has value 0.986842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu22 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu31 has value 1.05263 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu32 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu42 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_variableLimiter1_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_variableLimiter1_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_variableLimiter1_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_variableLimiter1_ySimplified has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_variableLimiter_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_variableLimiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_variableLimiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_variableLimiter_ySimplified has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_add1_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_add1_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_add_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_add_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_integrator_initType has value 3 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_integrator_use_reset has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_integrator_use_set has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_limiter1_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_limiter1_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_limiter1_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_deadZone_deadZoneAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_Td has value 0.001 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_initType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_y_start has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_Td has value 0.001 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_initType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_y_start has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu12 has value 0.4 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu21 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu22 has value 0.301 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu31 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu41 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu12 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu21 has value 1.10526 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu22 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu31 has value 1.13158 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu12 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu21 has value 0.911 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu22 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu31 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu32 has value -0.288 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu41 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu51 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu52 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu12 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu21 has value 0.986842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu22 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu31 has value 1.05263 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu32 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu42 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod12 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod21 has value 0.736842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod22 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod31 has value 0.894737 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod41 has value 1.15789 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod51 has value 1.31579 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod52 has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod61 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod62 has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_variableLimiter_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_variableLimiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_variableLimiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_variableLimiter_ySimplified has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_zero_k has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_add1_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_add1_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_constant1_k has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_add1_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_add1_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_add_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_add_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_integrator_initType has value 3 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_integrator_use_reset has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_integrator_use_set has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_integrator_y_start has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_limiter1_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_limiter1_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_limiter1_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_gain_k has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_limiter_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_limiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_limiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_limiter_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_limiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_limiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_add1_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_add1_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_add_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_add_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_integrator_initType has value 3 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_integrator_use_reset has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_integrator_use_set has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_variableLimiter_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_variableLimiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_variableLimiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_variableLimiter_ySimplified has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_slewRateLimiter_Td has value 0.001 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_slewRateLimiter_initType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_slewRateLimiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_slewRateLimiter_y_start has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_zero_k has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu12 has value 0.4 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu21 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu22 has value 0.301 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu31 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu41 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu12 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu21 has value 1.10526 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu22 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu31 has value 1.13158 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu12 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu21 has value 0.911 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu22 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu31 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu32 has value -0.288 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu41 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu51 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu52 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu12 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu21 has value 0.986842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu22 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu31 has value 1.05263 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu32 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu42 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod12 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod21 has value 0.736842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod22 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod31 has value 0.894737 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod41 has value 1.15789 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod51 has value 1.31579 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod52 has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod61 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod62 has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Q10Pu has value -3.01 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Q20Pu has value -3.01 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_QMaxCombPu has value 0.4 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_QMaxOPPu has value 0.4 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_QMinCombPu has value -0.6 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_QMinOPPu has value -0.6 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_RdcPu has value 0.000244 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_SNom has value 1000 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_SlopePRefPu has value 0.083333 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_SlopeQRefPu has value 100 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_SlopeRPFault has value 1000 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_SlopeURefPu has value 100 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_TBlock has value 0.1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_TBlockUV has value 0.01 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_TDeblockU has value 0.02 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_TQ has value 0.1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_U10Pu has value 1.01381 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_U20Pu has value 1.02696 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UBlockUVPu has value -1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UMaxdbPu has value 1.2 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UMindbPu has value 0.8 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UPhase10 has value 0.0316757 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UPhase20 has value -0.0328494 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcMaxPu has value 1.05 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcMinPu has value 0.95 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_add_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_add_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_const_k has value 0.1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_firstOrder_initType has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_firstOrder_k has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_gain_k has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_columns_1_ has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_extrapolation has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_fileName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_n has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_smoothness has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_tableName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_tableOnFile has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_verboseExtrapolation has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_verboseRead has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_columns_1_ has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_extrapolation has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_fileName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_n has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_smoothness has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_tableName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_tableOnFile has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_verboseExtrapolation has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_verboseRead has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_columns_1_ has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_extrapolation has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_fileName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_n has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_smoothness has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_tableName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_tableOnFile has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_verboseExtrapolation has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_verboseRead has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_columns_1_ has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_extrapolation has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_fileName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_n has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_smoothness has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_tableName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_tableOnFile has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_verboseExtrapolation has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_verboseRead has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_columns_1_ has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_extrapolation has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_fileName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_n has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_smoothness has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_tableName has value NoName (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_tableOnFile has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_verboseExtrapolation has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_verboseRead has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_limiter_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_limiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_limiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu12 has value 0.4 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu21 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu22 has value 0.301 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu31 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu41 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu12 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu21 has value 1.10526 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu22 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu31 has value 1.13158 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu12 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu21 has value 0.911 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu22 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu31 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu32 has value -0.288 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu41 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu51 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu52 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu12 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu21 has value 0.986842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu22 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu31 has value 1.05263 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu32 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu42 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_variableLimiter1_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_variableLimiter1_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_variableLimiter1_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_variableLimiter1_ySimplified has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_variableLimiter_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_variableLimiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_variableLimiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_variableLimiter_ySimplified has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_add1_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_add1_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_add_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_add_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_integrator_initType has value 3 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_integrator_use_reset has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_integrator_use_set has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_limiter1_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_limiter1_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_limiter1_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_deadZone_deadZoneAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_Td has value 0.001 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_initType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_y_start has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_Td has value 0.001 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_initType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_y_start has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu12 has value 0.4 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu21 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu22 has value 0.301 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu31 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu41 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu12 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu21 has value 1.10526 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu22 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu31 has value 1.13158 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu12 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu21 has value 0.911 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu22 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu31 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu32 has value -0.288 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu41 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu51 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu52 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu12 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu21 has value 0.986842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu22 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu31 has value 1.05263 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu32 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu42 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod12 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod21 has value 0.736842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod22 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod31 has value 0.894737 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod41 has value 1.15789 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod51 has value 1.31579 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod52 has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod61 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod62 has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_variableLimiter_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_variableLimiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_variableLimiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_variableLimiter_ySimplified has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_zero_k has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_add1_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_add1_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_add_k1 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_add_k2 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_integrator_initType has value 3 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_integrator_use_reset has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_integrator_use_set has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_limiter1_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_limiter1_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_limiter1_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_gain1_k has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_limiter_homotopyType has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_limiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_limiter_strict has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu12 has value 0.4 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu21 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu22 has value 0.301 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu31 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu41 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu12 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu21 has value 1.10526 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu22 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu31 has value 1.13158 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu12 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu21 has value 0.911 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu22 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu31 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu32 has value -0.288 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu41 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu51 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu52 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu12 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu21 has value 0.986842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu22 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu31 has value 1.05263 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu32 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu42 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod12 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod21 has value 0.736842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod22 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod31 has value 0.894737 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod41 has value 1.15789 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod51 has value 1.31579 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod52 has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod61 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod62 has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcRefMaxPu has value 1.15 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcRefMinPu has value 0.95 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_realToBoolean1_threshold has value 0.5 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_realToBoolean_threshold has value 0.5 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu12 has value 0.4 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu21 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu22 has value 0.301 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu31 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu41 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu12 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu21 has value 1.10526 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu22 has value 0.401 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu31 has value 1.13158 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu12 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu21 has value 0.911 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu22 has value -0.6 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu31 has value 1.018 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu32 has value -0.288 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu41 has value 1.049 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu51 has value 1.04901 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu52 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu12 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu21 has value 0.986842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu22 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu31 has value 1.05263 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu32 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu41 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu42 has value -0.601 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod11 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod12 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod21 has value 0.736842 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod22 has value 1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod31 has value 0.894737 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod32 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod41 has value 1.15789 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod42 has value 0 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod51 has value 1.31579 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod52 has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod61 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod62 has value -1 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_TBlock was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_TBlockUV was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_TDeblockU was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_U10Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_U20Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_UBlockUVPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_UMaxdbPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_UMindbPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction1_TBlock was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction1_TBlockUV was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction1_TDeblockU was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction1_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction1_UBlockUVPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction1_UMaxdbPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction1_UMindbPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction2_TBlock was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction2_TBlockUV was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction2_TDeblockU was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction2_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction2_UBlockUVPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction2_UMaxdbPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Blocking_blockingFunction2_UMindbPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_Id0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_Iq0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_P0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_Q0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_SNom was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_UPhase0 was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_i0Pu_im was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_i0Pu_re was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_s0Pu_im was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_s0Pu_re was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_u0Pu_im was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv1_u0Pu_re was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_Id0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_Iq0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_P0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_Q0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_SNom was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_UPhase0 was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_i0Pu_im was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_i0Pu_re was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_s0Pu_im was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_s0Pu_re was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_u0Pu_im was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Conv2_u0Pu_re was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_DeadBandU was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_InPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_Ip0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_IpMaxCstPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_Iq0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_KiACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_KiDeltaP was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_KiPControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_KpACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_KpDeltaP was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_KpPControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_Lambda was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_P0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_PMaxOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_PMinOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_Q0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_QMaxCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_QMaxOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_QMinCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_QMinOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_SlopePRefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_SlopeQRefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_SlopeRPFault was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_SlopeURefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_TQ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_Udc0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_UdcMaxPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_UdcMinPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_DeadBandU was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_InPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_Ip0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_Iq0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_KiACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_KpACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_Lambda was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_P0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_Q0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_QMaxCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_QMaxOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_QMinCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_QMinOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_SlopeQRefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_SlopeURefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_TQ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_firstOrder_T was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_firstOrder_y_start was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_table_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_u_max was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_iqMod_u_min was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_modeU0 was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_P0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_Q0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_u_max was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxPPu_u_min was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_u_max was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMaxUPu_u_min was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_8_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_8_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_9_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_9_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_u_max was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinPPu_u_min was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_u_max was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_QMinUPu_u_min was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_limiter_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_limiter_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_8_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_8_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_9_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_9_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_DeadBandU was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_KiACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_KpACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_Lambda was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_Ki was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_Kp was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_gain1_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_integrator_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_integrator_y_start was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_limiter1_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_limiter1_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_PI_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_Q0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_QMaxCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_QMinCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_SlopeQRefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_SlopeURefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_deadZone_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_deadZone_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_gain_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_Falling was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_Rising was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_Falling was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_Rising was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMaxUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_8_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_8_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_9_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinPPu_9_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableQMinUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_aCVoltageControl_tableiqMod_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_Ip0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_IpMaxCstPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_KiDeltaP was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_KiPControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_KpDeltaP was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_KpPControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_P0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_PMaxOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_PMinOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_RPFault_SlopeRPFault was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_SlopePRefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_SlopeRPFault was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_Udc0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_UdcMaxPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_UdcMinPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_Ip0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_IpMaxCstPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_KiDeltaP was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_KpDeltaP was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_Ki was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_Kp was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_gain1_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_integrator_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_limiter1_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_limiter1_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_PI_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_Udc0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_UdcMaxPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_UdcMinPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_limiter_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_deltaP_limiter_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_limiter_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_limiter_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_Ki was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_Kp was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_gain1_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_integrator_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_pIAntiWindupVariableLimits_integrator_y_start was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_slewRateLimiter_Falling was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_activePowerControl_slewRateLimiter_Rising was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_limitsCalculationFunction_InPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_limitsCalculationFunction_Ip0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_limitsCalculationFunction_IpMaxCstPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_limitsCalculationFunction_Iq0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_modeU0 was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMaxUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_8_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_8_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_9_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinPPu_9_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableQMinUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_PPu_Side_tableiqMod_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_DUDC was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_DeadBandU was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_InPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_Ip0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_IpMaxCstPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_Iq0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_KiACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_Kidc was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_KpACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_Kpdc was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_Lambda was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_P0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_Q0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_QMaxCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_QMaxOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_QMinCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_QMinOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_SlopeQRefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_SlopeURefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_TQ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_Udc0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_UdcRefMaxPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_UdcRefMinPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_DeadBandU was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_InPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_Ip0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_Iq0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_KiACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_KpACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_Lambda was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_P0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_Q0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_QMaxCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_QMaxOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_QMinCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_QMinOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_SlopeQRefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_SlopeURefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_TQ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_firstOrder_T was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_firstOrder_y_start was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_table_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_u_max was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_iqMod_u_min was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_modeU0 was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_P0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_Q0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_table_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_u_max was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxPPu_u_min was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_table_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_u_max was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMaxUPu_u_min was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinOPPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_8_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_8_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_9_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_table_9_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_u_max was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinPPu_u_min was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_table_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_u_max was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_QMinUPu_u_min was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_limiter_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_limiter_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMaxUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_8_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_8_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_9_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinPPu_9_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefLim_tableQMinUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_DeadBandU was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_KiACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_KpACVoltageControl was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_Lambda was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_Ki was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_Kp was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_gain1_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_integrator_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_integrator_y_start was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_limiter1_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_limiter1_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_PI_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_Q0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_QMaxCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_QMinCombPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_SlopeQRefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_SlopeURefPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_U0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_deadZone_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_deadZone_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_gain_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_Falling was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter1_Rising was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_Falling was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_qRefQU_slewRateLimiter_Rising was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMaxUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_8_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_8_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_9_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinPPu_9_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableQMinUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_aCVoltageControl_tableiqMod_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_DUDC was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_Ip0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_IpMaxCstPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_Kidc was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_Kpdc was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_Ki was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_Kp was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_gain1_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_integrator_k was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_integrator_y_start was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_limiter1_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_limiter1_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_PI_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_Udc0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_UdcRefMaxPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_UdcRefMinPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_activateDeltaPfunction_DUDC was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_activateDeltaPfunction_Ip0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_activateDeltaPfunction_IpMaxCstPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_activateDeltaPfunction_greaterThreshold_threshold was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_activateDeltaPfunction_lessThreshold_threshold was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_limiter_uMax was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_dCVoltageControl_limiter_uMin was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_limitsCalculationFunction_InPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_limitsCalculationFunction_Ip0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_limitsCalculationFunction_IpMaxCstPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_limitsCalculationFunction_Iq0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_modeU0 was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMaxUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_8_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_8_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_9_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinPPu_9_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableQMinUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UdcPu_Side_tableiqMod_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_dCLine_CdcPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_dCLine_P10Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_dCLine_P20Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_dCLine_RdcPu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_dCLine_SNom was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_dCLine_U1dc0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_dCLine_U2dc0Pu was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMaxUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_7_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_7_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_8_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_8_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_9_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinPPu_9_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableQMinUPu_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_1_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_1_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_2_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_2_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_3_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_3_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_4_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_4_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_5_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_5_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_6_1_ was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_tableiqMod_6_2_ was computed internally
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel InfBus1 parameters before local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | parameter infiniteBus_UPhase has value 0 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter infiniteBus_UPu has value 1 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel InfBus2 parameters before local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | parameter infiniteBus_UPhase has value 0 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter infiniteBus_UPu has value 1.02 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel Line1 parameters before local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | parameter line_BPu has value 0 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter line_GPu has value 0 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter line_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter line_RPu has value 0.00037 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter line_State0 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter line_XPu has value 0.0037 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter line_YPu_im was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter line_YPu_re was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter line_ZPu_im was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter line_ZPu_re was computed internally
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel Line2 parameters before local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | parameter line_BPu has value 0 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter line_GPu has value 0 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter line_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter line_RPu has value 0.00037 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter line_State0 has value 2 (coming from origin modelica file)
+2020-06-29 16:46:31 | DEBUG | parameter line_XPu has value 0.0037 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter line_YPu_im was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter line_YPu_re was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter line_ZPu_im was computed internally
+2020-06-29 16:46:31 | DEBUG | parameter line_ZPu_re was computed internally
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | IDASolver parameters initial parameters
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | parameter absAccuracy has value 0.0001 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | no value found for parameter fnormtolAlg
+2020-06-29 16:46:31 | DEBUG | no value found for parameter fnormtolAlgJ
+2020-06-29 16:46:31 | DEBUG | parameter initStep has value 0.001 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | no value found for parameter initialaddtolAlg
+2020-06-29 16:46:31 | DEBUG | no value found for parameter initialaddtolAlgJ
+2020-06-29 16:46:31 | DEBUG | parameter maxStep has value 10 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | parameter minStep has value 1e-06 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | no value found for parameter msbsetAlg
+2020-06-29 16:46:31 | DEBUG | no value found for parameter msbsetAlgJ
+2020-06-29 16:46:31 | DEBUG | no value found for parameter mxiterAlg
+2020-06-29 16:46:31 | DEBUG | no value found for parameter mxiterAlgJ
+2020-06-29 16:46:31 | DEBUG | no value found for parameter mxnewtstepAlg
+2020-06-29 16:46:31 | DEBUG | no value found for parameter mxnewtstepAlgJ
+2020-06-29 16:46:31 | DEBUG | parameter order has value 2 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | no value found for parameter printflAlg
+2020-06-29 16:46:31 | DEBUG | no value found for parameter printflAlgJ
+2020-06-29 16:46:31 | DEBUG | parameter relAccuracy has value 0.0001 (coming from origin parameters)
+2020-06-29 16:46:31 | DEBUG | no value found for parameter scsteptolAlg
+2020-06-29 16:46:31 | DEBUG | no value found for parameter scsteptolAlgJ
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel HVDC parameters after local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | parameter PRefPu_Value0 has value 0.898 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter QRef1Pu_Value0 has value 0.301 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter QRef2Pu_Value0 has value 0.301 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter URef1Pu_Value0 has value 1.06662 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter URef2Pu_Value0 has value 1.07977 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter UdcRefPu_Value0 has value 1 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Ip10Pu has value 0.885768 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Ip20Pu has value -0.876373 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Iq10Pu has value -0.2969 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Iq20Pu has value -0.293098 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Lambda has value 0.175439 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_P10Pu has value -8.98 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_P20Pu has value 9 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Q10Pu has value -3.01 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Q20Pu has value -3.01 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_RdcPu has value 0.000244 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_SNom has value 1000 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_U10Pu has value 1.01381 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_U20Pu has value 1.02696 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UPhase10 has value 0.0316757 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_UPhase20 has value -0.0328494 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Udc10Pu has value 0.997809 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_Udc20Pu has value 1 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_i10Pu_im has value 2.68698 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_i10Pu_re has value -8.94726 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_i20Pu_im has value 2.64157 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_i20Pu_re has value 8.85527 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_modeU10 has value 1 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_modeU20 has value 1 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_s10Pu_im has value -3.01 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_s10Pu_re has value -8.98 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_s20Pu_im has value -3.01 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_s20Pu_re has value 9 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_u10Pu_im has value 0.0321078 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_u10Pu_re has value 1.0133 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_u20Pu_im has value -0.033729 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter hvdc_u20Pu_re has value 1.02641 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter modeU1_Value0 has value 1 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | parameter modeU2_Value0 has value 1 (coming from origin initialization)
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel InfBus1 parameters after local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel InfBus2 parameters after local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel Line1 parameters after local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | SubModel Line2 parameters after local initialization
+2020-06-29 16:46:31 | DEBUG | ------------------------------
