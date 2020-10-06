@@ -26,6 +26,8 @@
 #include <fstream>
 #include <cassert>
 #include <cmath>
+#include <eigen3/Eigen/Eigenvalues>
+#include <eigen3/Eigen/Dense>
 
 #include "DYNCommon.h"
 #include "DYNMacrosMessage.h"
@@ -203,6 +205,26 @@ void SparseMatrix::printToFile(bool sparse) const {
 
   ++nbPrint;
   file.close();
+}
+
+Eigen::MatrixXd SparseMatrix::fullMatrix(bool sparse) const {
+  Eigen::MatrixXd x = Eigen::MatrixXd::Zero(nbCol_, nbCol_);
+  if (!sparse) {
+    std::vector< std::vector<double> > matrix;
+    for (int i = 0; i < nbCol_; ++i) {
+      std::vector<double> row(nbCol_, 0);
+      matrix.push_back(row);
+    }
+    for (int iCol = 0; iCol < nbCol_; ++iCol) {
+      for (unsigned ind = Ap_[iCol]; ind < Ap_[iCol + 1]; ++ind) {
+        int iRow1 = Ai_[ind];
+        double val = Ax_[ind];
+        matrix[iRow1][iCol] = val;
+        x(iCol, iRow1) = val;
+      }
+    }
+}
+  return x;
 }
 
 void SparseMatrix::print() const {

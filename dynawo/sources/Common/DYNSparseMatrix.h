@@ -23,6 +23,8 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_set.hpp>
+#include <eigen3/Eigen/Eigenvalues>
+#include <eigen3/Eigen/Dense>
 
 namespace DYN {
 class Model;
@@ -117,6 +119,14 @@ class SparseMatrix {
    * @param sparse @b true if the matrix should be printed with a sparse pattern
    */
   void printToFile(bool sparse = false) const;
+
+  /**
+   * @brief retunr a full dynamic double matrix
+   *
+   * @param sparse @b false if the matrix should be returned with a full pattern
+   */
+
+  Eigen::MatrixXd fullMatrix(bool sparse = false) const;
 
   /**
    * @brief erase some rows and columns in the matrix and returns a new matrix
