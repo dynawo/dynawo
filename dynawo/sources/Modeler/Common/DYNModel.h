@@ -25,6 +25,10 @@
 #include <string>
 #include <boost/shared_ptr.hpp>
 #include "DYNEnumUtils.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <eigen3/Eigen/Eigenvalues>
 
 namespace timeline {
 class Timeline;
@@ -138,6 +142,37 @@ class Model {
    * @param JtPrim jacobian matrix to fullfill
    */
   virtual void evalJtPrim(const double t, const double cj, SparseMatrix& JtPrim) = 0;
+
+  /**
+   * @brief compute all modes of the linear power system \f$ @x = Ax \f$
+   *
+   * @param t time to use for the evaluation
+   */
+  virtual void allModes(const double t) = 0;
+
+  /**
+   * @brief compute all modes of the linear power system \f$ @x = Ax \f$
+   *
+   * @param t time to use for the evaluation
+   * @param nbrMode number of slected mode
+   */
+  virtual void subParticipation(const double t, int nbrMode) = 0;
+
+  /**
+   * @brief compute the modes of the linear power system \f$ @x = Ax \f$
+   *
+   * @param t time to use for the evaluation
+   * @param partFactor value of minimum relative participation factor
+   */
+  virtual void evalmodalAnalysis(const double t, const double partFactor) = 0;
+
+  /**
+   * @brief determine the linear model of the nonlinear given power system \f$ J = @F/@x $
+   *
+   * @param t time to use for the evaluation
+   */
+  virtual void evalLinearise(const double t) = 0;
+
 
   /**
    * @brief ensure data coherence (asserts, min/max, sanity checks ....)

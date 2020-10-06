@@ -23,6 +23,11 @@
 #include <map>
 #include <fstream>
 #include <algorithm>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fstream>
+#include <iostream>
+
 
 #include "TLTimeline.h"
 #include "CRVCurve.h"
@@ -45,7 +50,17 @@
 #include "DYNCommon.h"
 #include "DYNVariable.h"
 #include "DYNVariableAlias.h"
+#include <iomanip>
+#include <stack>
+#include <eigen3/Eigen/Eigenvalues>
+#include <eigen3/Eigen/Dense>
+#include "DYNFileSystemUtils.h"
+#include <armadillo>
+#define ARMA_DONT_USE_WRAPPER
 
+using std::complex;
+using std::min;
+using std::abs;
 using std::min;
 using std::max;
 using std::vector;
@@ -61,6 +76,26 @@ using finalState::finalStateModel_iterator;
 using finalState::finalStateVariable_iterator;
 using constraints::ConstraintsCollection;
 using std::fstream;
+using std::ifstream;
+using std::ofstream;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::fill;
+using std::setprecision;
+using std::count;
+using std::greater;
+using std::setw;
+using std::fixed;
+using Eigen::ArrayXd;
+using Eigen::MatrixXd;
+using Eigen::MatrixXcd;
+using Eigen::MatrixXi;
+using Eigen::VectorXi;
+using Eigen::VectorXd;
+using Eigen::VectorXcd;
+using Eigen::EigenSolver;
+using arma::mat;
 
 namespace DYN {
 
