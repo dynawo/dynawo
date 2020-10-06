@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:modelicaModel id="SMIB">
+    <!--dyn:unitDynamicModel id="SMIB1" name="SMIB"/>
+    <dyn:unitDynamicModel id="URef1" name="Dynawo.Electrical.Controls.Basics.Step"/>
+    <dyn:connect id1="URef1" var1="step.value" id2="SMIB1" var2="URef"/-->
+    <dyn:unitDynamicModel id="SMIB1" name="Smib"/>
+    <dyn:unitDynamicModel id="URef1" name="Dynawo.Electrical.Controls.Basics.Step"/>
+    <!--initName="Dynawo.Electrical.Controls.Basics.Step_INIT" moFile="Step.mo" parFile="event.par" parId="1"  moFile="SMIB.mo"/-->
+    <dyn:initConnect id1="SMIB1" var1="UsRefPu" id2="URef1" var2="Value0"/>
+    <dyn:connect id1="SMIB1" var1="UsRefPu" id2="URef1" var2="step.value"/>
+   </dyn:modelicaModel>
+</dyn:dynamicModelsArchitecture>
