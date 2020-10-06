@@ -1,0 +1,106 @@
+2020-10-05 10:26:08 | INFO |  ============================================================ 
+2020-10-05 10:26:08 | INFO | DYNAWO VERSION  :     1.3.0
+2020-10-05 10:26:08 | INFO | DYNAWO REVISION :  ModalAnalysisDynawo-1a4ade8
+2020-10-05 10:26:08 | INFO |  ============================================================ 
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | Network initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS___10_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS___10_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD__10_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS___11_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS___11_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD__11_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS___12_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS___12_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD__12_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS___13_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS___13_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD__13_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS___14_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS___14_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD__14_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS____1_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS____1_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | generator _GEN____1_SM using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS____2_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS____2_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD___2_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | generator _GEN____2_SM using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS____3_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS____3_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD___3_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | generator _GEN____3_SM using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS____9_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS____9_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD___9_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Shunt Compensator _BANK___9_SC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS____7_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS____7_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS____4_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS____4_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD___4_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS____6_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS____6_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD___6_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | generator _GEN____6_SM using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS____5_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS____5_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | load _LOAD___5_EC using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding voltage level _BUS____8_VL to the Network
+2020-10-05 10:26:08 | DEBUG | adding bus _BUS____8_TN to the Network.
+2020-10-05 10:26:08 | DEBUG | generator _GEN____8_SM using an external dynamic modelisation : not added to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS___10-BUS___11-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS___12-BUS___13-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS___13-BUS___14-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____1-BUS____2-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____1-BUS____5-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____2-BUS____3-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____2-BUS____4-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____2-BUS____5-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____3-BUS____4-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____4-BUS____5-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____6-BUS___11-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____6-BUS___12-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____6-BUS___13-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____7-BUS____8-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____7-BUS____9-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____9-BUS___10-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Line _BUS____9-BUS___14-1_AC to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Two Windings Transformer _BUS____4-BUS____9-1_PT to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Two Windings Transformer _BUS____4-BUS____7-1_PT to the Network.
+2020-10-05 10:26:08 | DEBUG | adding Two Windings Transformer _BUS____5-BUS____6-1_PT to the Network.
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | network statistics:
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | number of voltage levels              : 14
+2020-10-05 10:26:08 | DEBUG | number of buses                       : 14
+2020-10-05 10:26:08 | DEBUG | number of switches                    : 0 (static: 0, dynamic: 0)
+2020-10-05 10:26:08 | DEBUG | number of loads                       : 11 (static: 0, dynamic: 11)
+2020-10-05 10:26:08 | DEBUG | number of generator                   : 5 (static: 0, dynamic: 5)
+2020-10-05 10:26:08 | DEBUG | number of shunt compensators          : 1 (static: 1, dynamic: 0)
+2020-10-05 10:26:08 | DEBUG | number of SVCs                        : 0 (static: 0, dynamic: 0)
+2020-10-05 10:26:08 | DEBUG | number of dangling lines              : 0 (static: 0, dynamic: 0)
+2020-10-05 10:26:08 | DEBUG | number of lines                       : 17 (static: 17, dynamic: 0)
+2020-10-05 10:26:08 | DEBUG | number of two windings transformers   : 3 (static: 3, dynamic: 0)
+2020-10-05 10:26:08 | DEBUG | number of three windings transformers : 0 (static: 0, dynamic: 0)
+2020-10-05 10:26:08 | DEBUG | number of HVDCs                       : 0 (static: 0, dynamic: 0)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubNetworks at time 0
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | nbSubNetwork = 1
+2020-10-05 10:26:08 | DEBUG | subNetwork[0] nbBus = 14
+2020-10-05 10:26:08 | DEBUG |                 _BUS___10_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS___11_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS____6_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS___12_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS___13_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS___14_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS____9_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS____7_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS____8_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS____4_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS____2_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS____1_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS____5_TN (subNetwork 0)
+2020-10-05 10:26:08 | DEBUG |                 _BUS____3_TN (subNetwork 0)
