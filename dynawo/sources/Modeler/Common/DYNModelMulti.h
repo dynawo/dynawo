@@ -24,6 +24,11 @@
 #include <vector>
 #include <boost/core/noncopyable.hpp>
 #include <boost/unordered_map.hpp>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <armadillo>
+#include <eigen3/Eigen/Eigenvalues>
 
 #include "DYNModel.h"
 #include "DYNVariable.h"
@@ -266,6 +271,211 @@ class ModelMulti : public Model, private boost::noncopyable {
    */
   void getGInfos(const int globalGIndex, std::string& subModelName, int& localGIndex, std::string& gEquation);
 
+  // ===============================================================================================================================//
+  //                                                     FUNCTIONS FOR MODAL ANALYSIS
+  // ===============================================================================================================================//
+  /**
+   * @copydoc Model::evalLinearise() const
+   */
+  void evalLinearise(const double t);
+  /**
+   * @copydoc Model::subParticipation() const
+   */
+  void subParticipation(const double t, int nbrMode);
+  /**
+   * @copydoc Model::allModes() const
+   */
+  void allModes(const double t);
+  /**
+   * @copydoc Model::evalmodalAnalysis() const
+   */
+  void evalmodalAnalysis(const double t, const double partFactor);
+
+  // fonction to creat an integer vector of Eigenlib type from a given file
+  Eigen::VectorXi createEigenVectorXi(int & n, Eigen::VectorXi &v, std::string fileName);
+
+  // fonction to creat a double matrix of EigenLib type from a given file
+  Eigen::MatrixXd createEigenMatrixXd(int & nrs, std::string fileName);
+
+  // function to dump a double Eigenlib matrix
+  void writeToFile(Eigen::MatrixXd x, std::string fileName);
+
+  // function to dump a double complex Eigenlib matrix
+  void writeToFileComplex(Eigen::MatrixXcd x, std::string fileName);
+
+  // function to return the differential state associated to selected modes
+  std::vector<std::string> getStateMode(std::vector<std::string> &varDiff, std::vector<int> &indexS);
+
+  // function to return the damping vector of a given modes
+  std::vector<float> computeDamping(std::vector<double> &realPart, std::vector<double> &imagPart);
+
+  // function to return the frequency vector of a given modes
+  std::vector<float> computeFrequency(std::vector<double> &imagPart);
+
+  // function to return the values associated to a given indices
+  std::vector<float> getValueIndex(Eigen::MatrixXd &mat, std::vector<double> &indModes,
+std::vector<double> &indexPartMax, unsigned int n);
+
+  // function to return the type of given modes
+  std::string getModeType(std::string inLine, std::vector<std::string> &strVector);
+
+  // funtion to dump the stables modes
+  void printToFileStableModes(std::string fileName, std::vector<std::string> &states, std::vector<std::string> &strVec,
+std::vector<double> &vr, std::vector<double> &vi, std::vector<float> &freq, std::vector<float> &damp, std::vector<float> &phas,
+std::vector<float> &part, std::vector<double> &ivi, std::vector<double> &unsvi, std::vector<double> &iR,
+std::vector<std::string> &namesMachines);
+
+  // funtion to dump the unstables modes
+  void printToFileUnstableModes(std::string fileName, std::vector<std::string> &states, std::vector<std::string> &strVec, std::vector<double> &vr,
+std::vector<double> &vi, std::vector<float> &freq, std::vector<float> &damp, std::vector<float> &phas,
+std::vector<float> &part, std::vector<double> &ivi, std::vector<std::string> &namesMachines);
+
+  // funtion to dump the real modes
+  void printToFileRealModes(std::string fileName, std::vector<std::string> &states, std::vector<std::string> &strVec, std::vector<double> &vr,
+std::vector<float> &part, std::vector<double> &ir, std::vector<std::string> &namesMachines);
+
+  // funtion to return the index position of maximum value of each column of a given matrix
+  std::vector<double> getIndexPositionMax(Eigen::MatrixXd &mat);
+
+  // funtion to return the index position of a string in a given file
+  std::vector<int> getIndexPositionString(std::vector<std::string> &varCombined, std::string in_out);
+
+  // function to eliminate the redundancy in a given vector of integer
+  void uniqueVector(std::vector <int> & v);
+
+  // function to extrat an integer from a given string
+  std::string extractIntegerWords(std::string str);
+
+  // function to return an Eigenlib matrix of phase position of all modes
+  Eigen::MatrixXd createEigenArgMatrix(Eigen::MatrixXcd &mat);
+
+  // function to convert a double array of Eigenlib type to std double vector
+  std::vector<double> convertEigenArrayToStdVector(Eigen::ArrayXd &v1);
+
+  // function to convert a double array of Eigenlib type to std double vector
+  std::vector<std::complex<double> > convertEigenArrayCToStdVector(Eigen::ArrayXcd &v1);
+  // function to return the names of participating machines
+  std::vector<std::string> nameMachine(std::vector<int> &indexVect);
+
+  // function to return the index positons of differential  (var = 1) / algebraic (var = 2) equations
+  std::vector<int> getIndexEquation(int var);
+
+  // function to return the names of dynamic devices
+  std::string getVariableNameDevices(int index);
+
+  // function to return the index positions of differential (var = 1) / algebraic (var = 2) variables
+  std::vector<int> getIndexVariable(int var);
+
+  // function to return the names of dynamic devices associated to differential/algebraic variables according the value of variable var
+  // var = 1: returns the names of devices associated to differential variables,
+  // var = 2: returns the names of devices associated to algebraic variables
+  std::vector<std::string> getNameDynamicDevices(int var);
+
+  // Function that returns the index positions of most participation states of each dynamic device involved in a given mode
+  std::vector<int> getIndexMostCoupledDevices(std::vector<std::string> &statesofCoupledDevices, std::vector<int> &indexSelecPart,
+std::vector<std::string> &namesD);
+
+  // dump the coupled devices of stable and unstable complex modes
+  void printToFileCoupledDevices(std::string fileName, std::vector<double> &irealPartImag_, Eigen::MatrixXd &matRelativeRealParticipation,
+Eigen::MatrixXd &phaseMatrix, Eigen::VectorXcd &eigenValComplex, std::vector<std::string> &strVec, const double partFactor);
+
+  // return the names of differential/algebraic variables
+  std::vector<std::string> getNameVariable(int var);
+
+  //  function that returns the index positions according the type of state: ROT; SMD, SMQ, INJ, OTH, ....
+  //  var = 1: returns the indices of ROT, 2 of SMD, 3 of SMQ, default: INJ et OTH
+  std::vector<int> getIndexTypeState(std::vector<std::string> &statesDiff, std::string type, int var);
+
+  // function to return the sub participation factors of a given mode
+  double getSubPart(int &nbMode, std::vector<int> &indexState, Eigen::MatrixXd &part);
+
+  // function to return the index positions of non-zero elements in a given vector (For example vector of imag parts)
+  std::vector<double> getIndexImagPart(std::vector<double> &imagPart, std::vector<double> &allImagPart);
+
+  //  Function that returns the non-zero Imaginary parts, the purely real parts, and the indices of purely real parts
+  //  1 : Imaginary parts, 2: Real Parts, 3: Indices of purely real parts
+  std::vector<double> getImagRealIndexPart(Eigen::ArrayXd &imagEigen, Eigen::ArrayXd &realEigen, int var);
+  //  Function that returns the stable real parts associated to the imaginary parts that are different to zero,
+  //  the index position of stable real parts associated to the imaginary parts that are different ot zero,
+  //  the unstable real parts associated to the imaginary parts that are different to zero and the index
+  //  positions of unstable real parts.
+  std::vector<double> getStableUnstableIndexofModes(std::vector<double> &iImagPartNotZero, Eigen::ArrayXd &realEigen,
+std::vector<double> &imaginaryPartNotZero, int var);
+
+  // function to return the index positions of state associated at the most important participation of a given mode (stable, real, unstable)
+  std::vector<int> getIndexState(std::vector<double> &indexMaxPart, std::vector<double> &indexUSPart);
+
+  //  function to construct a submatrix from another matrix
+  Eigen::MatrixXd contructSubMatrix(Eigen::MatrixXd &x, int nr, int nc, std::vector<int> &index1, std::vector<int> &index2);
+
+  // function to return the state matrix A
+  Eigen::MatrixXd getMatrixA(const double t);
+
+  // function to return the input matrix B
+  Eigen::MatrixXd getMatrixB(const double t);
+
+  // function to return the output matrix C
+  Eigen::MatrixXd getMatrixC();
+
+  // function to return the output matrix RSA
+  Eigen::MatrixXd getMatrixRSM(const double t);
+
+  // function to return the index associated to rotational states of a given mode
+  std::vector<int> getIndexRot();
+
+  // function to return the indices associated to SMD states of a given mode
+  std::vector<int> getIndexSMD();
+
+  // function to return the indices associated to SMQ states of a given mode
+  std::vector<int> getIndexSMQ();
+
+  // function to return the indices associated to OTH (other) states of a given mode
+  std::vector<int> getIndexOTH();
+
+  // function to return the indices associated to Injector states of a given mode
+  std::vector<int> getIndexINJ();
+
+  // function to return the indices associated to Governor states of a given mode
+  std::vector<int> getIndexGOV();
+
+  // function to return the indices associated to Avr states of a given mode
+  std::vector<int> getIndexAVR();
+
+  // funtion to dump the subparticipation factors associated to a given mode
+  void printSubParticipation(int nbrMode, Eigen::MatrixXd &A, Eigen::VectorXcd &eigenComp);
+
+  // function to dump an std vector
+  void writeToFileStd(std::vector<int> x, std::string fileName);
+
+  // function to dump an std vector
+
+  void writeToFileComplexStd(std::vector<std::complex<double> > x, std::string fileName);
+  // function to dump a string vector
+  void writeToFileString(std::vector<std::string> x, std::string fileName);
+
+  // function that returns the name of machines of a given power system without redundancy
+  std::vector<std::string> nameMachineDiff();
+
+  // function that returns the name of machines of a given power system with redundancy
+  std::vector<std::string> nameDynamicDevicesDiff();
+
+  std::vector<int> getRelevantIndex(std::vector<int> coupledClass);
+
+  Eigen::MatrixXd contructReducedMatrix(const double t, std::vector<int> coupledClass);
+
+  std::vector<int> getLessRelevantIndex(std::vector<int> coupledClass);
+  // Function get the sub matrix of A
+  Eigen::MatrixXd getSubMatrix(Eigen::MatrixXd A, std::vector<int> indexi, std::vector<int> indexj);
+
+  void largeScaleModalAnalysis(const double t);
+
+  Eigen::MatrixXcd contructMMatrix(const double t, std::vector<int> coupledClass);
+
+  double getCond(Eigen::MatrixXcd Acond);
+
+  // fonction assures the conversion of eigen matrix to armadillo matrix
+  arma::mat example_cast_arma(Eigen::MatrixXd eigen_A);
+  // ==================================================================================================================== //
   // ==============================
   // interface SIMULATION <-> MODEL
   // ==============================
@@ -551,6 +761,8 @@ class ModelMulti : public Model, private boost::noncopyable {
   std::vector<double> zSave_;  ///< save of the last discretes values
   propertyF_t* fType_;  ///< local buffer to fill with the property of each continuous equation (Algebraic or Differential)
   propertyContinuousVar_t* yType_;  ///< local buffer to fill with the property of each variable (Algebraic / Differential / External)
+  std::ofstream outputFile;
+  std::vector<std::string> _yNames;  ///< names of all variables y
 
   int sizeF_;  ///< number of the residuals functions
   int sizeZ_;  ///< number of discretes values
