@@ -1,0 +1,1466 @@
+2020-10-05 10:26:08 | INFO |  ============================================================ 
+2020-10-05 10:26:08 | INFO | DYNAWO VERSION  :     1.3.0
+2020-10-05 10:26:08 | INFO | DYNAWO REVISION :  ModalAnalysisDynawo-1a4ade8
+2020-10-05 10:26:08 | INFO |  ============================================================ 
+2020-10-05 10:26:08 | DEBUG | This file is organized as follows: 
+2020-10-05 10:26:08 | DEBUG |   -- For each model, initial and dynamic models parameters values before local initialization
+2020-10-05 10:26:08 | DEBUG |   -- For each model, dynamic models parameters values after local initialization
+2020-10-05 10:26:08 | DEBUG | caption: 
+2020-10-05 10:26:08 | DEBUG |   -- "modelica file"  -> default value specified in modelica model
+2020-10-05 10:26:08 | DEBUG |   -- "parameters"     -> value read from parameter file
+2020-10-05 10:26:08 | DEBUG |   -- "IIDM"           -> value read from iidm file
+2020-10-05 10:26:08 | DEBUG |   -- "loaded dump"    -> value read from initial state file
+2020-10-05 10:26:08 | DEBUG |   -- "initialization" -> value computed by local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel NETWORK parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter capacitor_no_reclosing_delay has value 300 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter dangling_line_currentLimit_maxTimeOperation has value 90 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter line_currentLimit_maxTimeOperation has value 90 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_Tp has value 90 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_Tq has value 90 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_alphaLong has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_betaLong has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_isControllable has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_isRestorative has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_zPMax has value 100 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_zQMax has value 100 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter reactance_no_reclosing_delay has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter transformer_currentLimit_maxTimeOperation has value 90 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter transformer_t1st_HT has value 60 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter transformer_t1st_THT has value 30 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter transformer_tNext_HT has value 10 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter transformer_tNext_THT has value 10 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter transformer_tolV has value 0.015 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____1_SM initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter Pm_ValueIn has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter URef_ValueIn has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 5.4 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPuEfd has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -2.3239 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 1090 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 1090 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value 0.1655 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RaPu has value 0.002796 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 1211 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 1211 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tpd0 has value 8.094 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tppd0 has value 0.08 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tppq0 has value 0.084 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tpq0 has value 1.572 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.06 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value 0 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XdPu has value 2.22 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XlPu has value 0.202 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XpdPu has value 0.384 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XppdPu has value 0.264 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XppqPu has value 0.262 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XpqPu has value 0.393 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XqPu has value 2.22 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.215 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.215 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 6.995 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 6.995 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LdPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_LqPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_QNomAlt was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_rTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMin was computed internally
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____1_SM parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter URef_Height has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter URef_tStep has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 5.4 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_NbSwitchOffSignals has value 3 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -2.3239 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 1090 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 1090 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value 0.1655 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 1211 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 1211 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.06 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value 0 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.215 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.215 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 6.995 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 6.995 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_KGover has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMax has value 1090 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMin has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PNom has value 1090 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmRawPu_k1 has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmRawPu_k2 has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_homotopyType has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_strict has value 0 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_omegaRefPu_k has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_LagEfdMax has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_LagEfdMin has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRefMaxPu has value 1.2 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRefMinPu has value 0.8 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_homotopyType has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_limitsAtInit has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_strict has value 0 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMaxReached0 has value 1e+60 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMinReached0 has value 1e+60 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Kuf was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_QNomAlt was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_rTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_ActiveFrequencyRegulation was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMaxPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMinPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmCst_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_activeFrequencyRegulation_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_gain_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_uMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_uMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_gain_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_uMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_uMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_LagMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_LagMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMin was computed internally
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____2_SM initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter Pm_ValueIn has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter URef_ValueIn has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 6.3 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPuEfd has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0.4 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 1008 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 1008 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.4356 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RaPu has value 0.00357 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 1120 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 1120 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tpd0 has value 9.651 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tppd0 has value 0.058 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tppq0 has value 0.06 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tpq0 has value 1.009 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.04507 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.0869174 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XdPu has value 2.57 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XlPu has value 0.219 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XpdPu has value 0.407 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XppdPu has value 0.3 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XppqPu has value 0.301 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XpqPu has value 0.454 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XqPu has value 2.57 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.084 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.084 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 5.57 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 5.57 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LdPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_LqPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_QNomAlt was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_rTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMin was computed internally
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____2_SM parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter URef_Height has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter URef_tStep has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 6.3 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_NbSwitchOffSignals has value 3 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0.4 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 1008 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 1008 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.4356 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 1120 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 1120 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.04507 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 24 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.0869174 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.084 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.084 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 5.57 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 5.57 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_KGover has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMax has value 1008 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMin has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PNom has value 1008 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmRawPu_k1 has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmRawPu_k2 has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_homotopyType has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_strict has value 0 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_omegaRefPu_k has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_LagEfdMax has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_LagEfdMin has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRefMaxPu has value 1.2 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRefMinPu has value 0.8 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_homotopyType has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_limitsAtInit has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_strict has value 0 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMaxReached0 has value 1e+60 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMinReached0 has value 1e+60 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Kuf was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_QNomAlt was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_rTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_ActiveFrequencyRegulation was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMaxPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMinPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmCst_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_activeFrequencyRegulation_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_gain_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_uMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_uMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_gain_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_uMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_uMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_LagMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_LagMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMin was computed internally
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____3_SM initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter Pm_ValueIn has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter URef_ValueIn has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 5.625 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPuEfd has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 1485 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 1485 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.2507 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RaPu has value 0.00316 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 1650 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 1650 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tpd0 has value 10.041 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tppd0 has value 0.065 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tppq0 has value 0.094 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tpq0 has value 1.22 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.01 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.22218 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XdPu has value 2.81 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XlPu has value 0.256 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XpdPu has value 0.509 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XppdPu has value 0.354 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XppqPu has value 0.377 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XpqPu has value 0.601 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XqPu has value 2.62 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.05 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.05 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 9.285 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 9.285 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LdPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_LqPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_QNomAlt was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_rTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMin was computed internally
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____3_SM parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter URef_Height has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter URef_tStep has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 5.625 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_NbSwitchOffSignals has value 3 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 1485 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 1485 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.2507 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 1650 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 1650 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.01 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 69 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.22218 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.05 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.05 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 9.285 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 9.285 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_KGover has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMax has value 1485 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMin has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PNom has value 1485 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmRawPu_k1 has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmRawPu_k2 has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_homotopyType has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_strict has value 0 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_omegaRefPu_k has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_LagEfdMax has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_LagEfdMin has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRefMaxPu has value 1.2 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRefMinPu has value 0.8 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_homotopyType has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_limitsAtInit has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_strict has value 0 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMaxReached0 has value 1e+60 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMinReached0 has value 1e+60 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Kuf was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_QNomAlt was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_rTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_ActiveFrequencyRegulation was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMaxPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMinPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmCst_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_activeFrequencyRegulation_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_gain_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_uMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_uMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_gain_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_uMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_uMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_LagMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_LagMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMin was computed internally
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____6_SM initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter Pm_ValueIn has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter URef_ValueIn has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 4.975 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPuEfd has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 74.4 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 74.4 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.1273 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RaPu has value 0.004 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 80 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 80 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tpd0 has value 3 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tppd0 has value 0.04 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tppq0 has value 0.04 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.07029 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 15 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 15 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 15 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 15 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 15 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.248186 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XdPu has value 0.75 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XlPu has value 0.102 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XpdPu has value 0.225 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XppdPu has value 0.154 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XppqPu has value 0.2 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XqPu has value 0.45 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.16 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.16 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 5.7 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 5.7 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LdPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_LqPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_QNomAlt was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_rTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMin was computed internally
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____6_SM parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter URef_Height has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter URef_tStep has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 4.975 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_NbSwitchOffSignals has value 3 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 74.4 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 74.4 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.1273 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 80 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 80 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.07029 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 15 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 15 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 15 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 15 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 15 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.248186 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.16 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.16 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 5.7 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 5.7 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_KGover has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMax has value 74.4 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMin has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PNom has value 74.4 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmRawPu_k1 has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmRawPu_k2 has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_homotopyType has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_strict has value 0 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_omegaRefPu_k has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_LagEfdMax has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_LagEfdMin has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRefMaxPu has value 1.2 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRefMinPu has value 0.8 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_homotopyType has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_limitsAtInit has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_strict has value 0 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMaxReached0 has value 1e+60 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMinReached0 has value 1e+60 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Kuf was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_QNomAlt was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_rTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_ActiveFrequencyRegulation was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMaxPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMinPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmCst_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_activeFrequencyRegulation_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_gain_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_uMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_uMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_gain_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_uMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_uMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_LagMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_LagMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMin was computed internally
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____8_SM initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter Pm_ValueIn has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter URef_ValueIn has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 2.748 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPuEfd has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 228 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 228 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.1762 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RaPu has value 0.004 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 250 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 250 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tpd0 has value 8.4 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tppd0 has value 0.096 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Tppq0 has value 0.56 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.08986 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 13.8 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 18 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 18 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 13.8 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 18 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.233176 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XdPu has value 1.53 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XlPu has value 0.11 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XpdPu has value 0.31 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XppdPu has value 0.275 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XppqPu has value 0.58 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XqPu has value 0.99 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LdPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_LqPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_QNomAlt was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_rTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMin was computed internally
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____8_SM parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter URef_Height has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter URef_tStep has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 2.748 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_NbSwitchOffSignals has value 3 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 228 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 228 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.1762 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 250 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 250 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.08986 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 13.8 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 18 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 18 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 13.8 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 18 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.233176 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_KGover has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMax has value 228 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMin has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PNom has value 228 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmRawPu_k1 has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmRawPu_k2 has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_homotopyType has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_limitsAtInit has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_strict has value 0 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter governor_omegaRefPu_k has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_LagEfdMax has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_LagEfdMin has value 0 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRefMaxPu has value 1.2 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRefMinPu has value 0.8 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_homotopyType has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_limitsAtInit has value 1 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_strict has value 0 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMaxReached0 has value 1e+60 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMinReached0 has value 1e+60 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Kuf was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_QNomAlt was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter generator_rTfoPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_ActiveFrequencyRegulation was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMaxPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PMinPu was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_PmCst_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_activeFrequencyRegulation_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_gain_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_uMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter governor_limiter_uMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_gain_k was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_uMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limUsRef_uMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_LagMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_LagMin was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMax was computed internally
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_UMin was computed internally
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel OMEGA_REF parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter nbGen has value 5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter weight_gen_0 has value 1211 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter weight_gen_1 has value 1120 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter weight_gen_2 has value 1650 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter weight_gen_3 has value 80 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter weight_gen_4 has value 250 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__10_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.09 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value 0.058 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.05099 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.263496 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__10_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__11_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.035 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value 0.018 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.05691 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.258145 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__11_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__12_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.061 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value 0.016 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.05519 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.263117 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__12_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__13_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.135 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value 0.058 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.05038 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.264531 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__13_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__14_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.149 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value 0.05 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.03668 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.279839 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__14_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___2_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.217 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value 0.127 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.04507 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.0869174 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___2_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___3_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.942 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value 0.19 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.01 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.22218 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___3_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___4_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.478 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value -0.039 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.01767 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.179994 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___4_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___5_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.076 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value 0.016 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.01951 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.153132 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___5_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___6_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.112 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value 0.075 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.07029 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.248186 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___6_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___9_EC initial parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_P0Pu has value 0.295 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_Q0Pu has value 0.166 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_U0Pu has value 1.05593 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | parameter load_UPhase0 has value -0.260726 (coming from origin IIDM)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___9_EC parameters before local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_NbSwitchOffSignals has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_State0 has value 2 (coming from origin modelica file)
+2020-10-05 10:26:08 | DEBUG | parameter load_alpha has value 1.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter load_beta has value 2.5 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | IDASolver parameters initial parameters
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter absAccuracy has value 1e-06 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | no value found for parameter enableSilentZ
+2020-10-05 10:26:08 | DEBUG | no value found for parameter fnormtolAlg
+2020-10-05 10:26:08 | DEBUG | no value found for parameter fnormtolAlgJ
+2020-10-05 10:26:08 | DEBUG | parameter initStep has value 1e-06 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | no value found for parameter initialaddtolAlg
+2020-10-05 10:26:08 | DEBUG | no value found for parameter initialaddtolAlgJ
+2020-10-05 10:26:08 | DEBUG | parameter maxStep has value 10 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | parameter minStep has value 1e-06 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | no value found for parameter minimumModeChangeTypeForAlgebraicRestoration
+2020-10-05 10:26:08 | DEBUG | no value found for parameter msbsetAlg
+2020-10-05 10:26:08 | DEBUG | no value found for parameter msbsetAlgJ
+2020-10-05 10:26:08 | DEBUG | no value found for parameter mxiterAlg
+2020-10-05 10:26:08 | DEBUG | no value found for parameter mxiterAlgJ
+2020-10-05 10:26:08 | DEBUG | no value found for parameter mxnewtstepAlg
+2020-10-05 10:26:08 | DEBUG | no value found for parameter mxnewtstepAlgJ
+2020-10-05 10:26:08 | DEBUG | no value found for parameter optimizeReinitAlgebraicResidualsEvaluations
+2020-10-05 10:26:08 | DEBUG | parameter order has value 2 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | no value found for parameter printflAlg
+2020-10-05 10:26:08 | DEBUG | no value found for parameter printflAlgJ
+2020-10-05 10:26:08 | DEBUG | parameter relAccuracy has value 1e-06 (coming from origin parameters)
+2020-10-05 10:26:08 | DEBUG | no value found for parameter scsteptolAlg
+2020-10-05 10:26:08 | DEBUG | no value found for parameter scsteptolAlgJ
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel NETWORK parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | no value found for parameter _BANK___9_SC_no_reclosing_delay
+2020-10-05 10:26:08 | DEBUG | no value found for parameter bus_uMax
+2020-10-05 10:26:08 | DEBUG | no value found for parameter bus_uMin
+2020-10-05 10:26:08 | DEBUG | no value found for parameter line_isDynamic
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____1_SM parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter Pm_Value0 has value 0.213304 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter URef_Value0 has value 1.13066 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Ce0Pu has value 0.191991 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Cm0Pu has value 0.213304 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Cos2Eta0 has value 0.934965 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Efd0Pu has value 1.43583 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 5.4 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_IRotor0Pu has value 1.08857 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_IStator0Pu has value 2.19791 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Id0Pu has value -0.042878 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_If0Pu has value 0.711509 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Iq0Pu has value -0.176358 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Kuf has value 0.00043225 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LDPPu has value 0.0940333 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LQ1PPu has value 0.210968 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LQ2PPu has value 0.0874809 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAD0Pu has value 1.02305 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAQ0Pu has value -0.269817 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAirGap0Pu has value 1.05803 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaD0Pu has value 1.02297 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaQ10Pu has value -0.269817 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaQ20Pu has value -0.269817 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdad0Pu has value 1.0101 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdaf0Pu has value 1.1653 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdaq0Pu has value -0.323078 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LdPPu has value 0.202 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LfPPu has value 0.200041 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LqPPu has value 0.202 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPPu has value 2.018 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPPuEfd has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdSat0PPu has value 1.52994 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mds0Pu has value 1.52994 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mi0Pu has value 1.52994 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqPPu has value 2.018 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqSat0PPu has value 1.52994 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mqs0Pu has value 1.52994 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MrcPPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MsalPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -2.3239 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PGen0Pu has value 2.3239 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 1090 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 1090 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Pm0Pu has value 0.213304 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value 0.1655 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QGen0Pu has value -0.1655 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QStator0Pu has value -0.125609 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QStator0PuQNom has value -0.0238051 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RDPPu has value 0.010983 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RQ1PPu has value 0.00451337 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RQ2PPu has value 0.0105528 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RaPPu has value 0.002796 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RfPPu has value 0.000872281 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 1211 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Sin2Eta0 has value 0.0650348 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 1211 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Theta0 has value 0.309599 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ThetaInternal0 has value 0.309599 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.06 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 69 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 24 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 24 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 69 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 24 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UStator0Pu has value 1.05887 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Ud0Pu has value 0.322958 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Uf0Pu has value 0.000620636 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Uq0Pu has value 1.0096 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_i0Pu_im has value -0.156132 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_i0Pu_re has value -2.19236 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_iStator0Pu_im has value -0.156132 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_iStator0Pu_re has value -2.19236 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.215 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.215 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 6.995 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 6.995 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_s0Pu_im has value 0.1655 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_s0Pu_re has value -2.3239 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_sStator0Pu_im has value 0.125609 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_sStator0Pu_re has value -2.3239 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_u0Pu_im has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_u0Pu_re has value 1.06 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_uStator0Pu_im has value 0.0181037 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_uStator0Pu_re has value 1.05871 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter governor_Pm0Pu has value 0.213304 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Efd0Pu has value 1.43583 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Efd0PuLF has value 1.43583 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Us0Pu has value 1.05887 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRef0Pu has value 1.13066 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMaxReached0 has value 1e+60 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMinReached0 has value 1e+60 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_u0 has value 1.43583 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_y0 has value 1.43583 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____2_SM parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter Pm_Value0 has value 0.0396927 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter URef_Value0 has value 1.11225 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Ce0Pu has value 0.0357234 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Cm0Pu has value 0.0396927 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Cos2Eta0 has value 0.99608 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Efd0Pu has value 1.26893 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 6.3 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_IRotor0Pu has value 1.1386 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_IStator0Pu has value 0.565888 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Id0Pu has value -0.0396038 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_If0Pu has value 0.539739 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Iq0Pu has value -0.031375 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Kuf has value 0.000358487 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LDPPu has value 0.142318 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LQ1PPu has value 0.261099 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LQ2PPu has value 0.125948 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAD0Pu has value 1.05505 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAQ0Pu has value -0.066187 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAirGap0Pu has value 1.05712 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaD0Pu has value 1.05506 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaQ10Pu has value -0.066187 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaQ20Pu has value -0.066187 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdad0Pu has value 1.04241 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdaf0Pu has value 1.16535 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdaq0Pu has value -0.0761956 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LdPPu has value 0.219 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LfPPu has value 0.20434 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LqPPu has value 0.219 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPPu has value 2.351 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPPuEfd has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdSat0PPu has value 2.10954 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mds0Pu has value 2.10954 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mi0Pu has value 2.10954 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqPPu has value 2.351 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqSat0PPu has value 2.10954 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mqs0Pu has value 2.10954 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MrcPPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MsalPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0.4 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PGen0Pu has value 0.4 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 1008 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 1008 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Pm0Pu has value 0.0396927 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.4356 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QGen0Pu has value 0.4356 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QStator0Pu has value 0.438459 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QStator0PuQNom has value 0.089812 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RDPPu has value 0.0181282 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RQ1PPu has value 0.0082404 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RQ2PPu has value 0.0191489 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RaPPu has value 0.00357 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RfPPu has value 0.000842804 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 1120 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Sin2Eta0 has value 0.00392008 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 1120 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Theta0 has value -0.0140789 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ThetaInternal0 has value -0.0140789 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.04507 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 69 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 24 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 24 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 69 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 24 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.0869174 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UStator0Pu has value 1.0488 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Ud0Pu has value 0.0760542 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Uf0Pu has value 0.000454894 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Uq0Pu has value 1.0423 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_i0Pu_im has value 0.448465 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_i0Pu_re has value -0.345121 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_iStator0Pu_im has value 0.448465 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_iStator0Pu_re has value -0.345121 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.084 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.084 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 5.57 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 5.57 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_s0Pu_im has value -0.4356 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_s0Pu_re has value -0.4 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_sStator0Pu_im has value -0.438459 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_sStator0Pu_re has value -0.4 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_u0Pu_im has value -0.0907207 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_u0Pu_re has value 1.04113 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_uStator0Pu_im has value -0.0876392 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_uStator0Pu_re has value 1.04513 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter governor_Pm0Pu has value 0.0396927 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Efd0Pu has value 1.26893 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Efd0PuLF has value 1.26893 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Us0Pu has value 1.0488 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRef0Pu has value 1.11225 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMaxReached0 has value 1e+60 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMinReached0 has value 1e+60 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_u0 has value 1.26893 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_y0 has value 1.26893 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____3_SM parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter Pm_Value0 has value 7.94589e-07 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter URef_Value0 has value 1.06712 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Ce0Pu has value 7.1513e-07 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Cm0Pu has value 7.94589e-07 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Cos2Eta0 has value 1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Efd0Pu has value 1.11226 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 5.625 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_IRotor0Pu has value 1.05168 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_IStator0Pu has value 0.248218 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Id0Pu has value -0.0150435 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_If0Pu has value 0.435497 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Iq0Pu has value -6.81839e-07 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Kuf has value 0.000351866 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LDPPu has value 0.159961 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LQ1PPu has value 0.403952 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LQ2PPu has value 0.186362 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAD0Pu has value 1.01536 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAQ0Pu has value -1.51703e-06 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAirGap0Pu has value 1.01536 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaD0Pu has value 1.01535 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaQ10Pu has value -1.51703e-06 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaQ20Pu has value -1.51703e-06 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdad0Pu has value 1.01 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdaf0Pu has value 1.13765 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdaq0Pu has value -1.75976e-06 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LdPPu has value 0.256 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LfPPu has value 0.280818 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LqPPu has value 0.256 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPPu has value 2.554 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPPuEfd has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdSat0PPu has value 2.4149 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mds0Pu has value 2.4149 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mi0Pu has value 2.4149 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqPPu has value 2.364 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqSat0PPu has value 2.2249 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mqs0Pu has value 2.23525 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MrcPPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MsalPu has value 0.19 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PGen0Pu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 1485 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 1485 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Pm0Pu has value 7.94589e-07 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.2507 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QGen0Pu has value 0.2507 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QStator0Pu has value 0.251073 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QStator0PuQNom has value 0.0349092 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RDPPu has value 0.020223 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RQ1PPu has value 0.00722186 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RQ2PPu has value 0.0179934 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RaPPu has value 0.00316 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RfPPu has value 0.000898666 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 1650 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Sin2Eta0 has value 2.23228e-12 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 1650 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Theta0 has value -0.222226 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ThetaInternal0 has value -0.222226 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.01 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 69 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 20 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 20 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 69 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 20 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.22218 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UStator0Pu has value 1.0115 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Ud0Pu has value -4.57777e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Uf0Pu has value 0.000391367 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Uq0Pu has value 1.01 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_i0Pu_im has value 0.242116 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_i0Pu_re has value 0.0546965 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_iStator0Pu_im has value 0.242116 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_iStator0Pu_re has value 0.0546965 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 9.285 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 9.285 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_s0Pu_im has value -0.2507 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_s0Pu_re has value -0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_sStator0Pu_im has value -0.251073 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_sStator0Pu_re has value 6.93889e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_u0Pu_im has value -0.222561 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_u0Pu_re has value 0.985173 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_uStator0Pu_im has value -0.222892 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_uStator0Pu_re has value 0.986641 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter governor_Pm0Pu has value 7.94589e-07 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Efd0Pu has value 1.11226 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Efd0PuLF has value 1.11226 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Us0Pu has value 1.0115 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRef0Pu has value 1.06712 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMaxReached0 has value 1e+60 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMinReached0 has value 1e+60 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_u0 has value 1.11226 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_y0 has value 1.11226 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____6_SM parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter Pm_Value0 has value 9.50717e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter URef_Value0 has value 1.14324 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Ce0Pu has value 8.84166e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Cm0Pu has value 9.50717e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Cos2Eta0 has value 1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Efd0Pu has value 1.45893 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 4.975 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_IRotor0Pu has value 1.16219 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_IStator0Pu has value 0.11894 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Id0Pu has value -0.148675 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_If0Pu has value 2.25144 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Iq0Pu has value -7.91131e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Kuf has value 0.00130962 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LDPPu has value 0.0900845 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LQ1PPu has value 0.136416 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LQ2PPu has value 100000 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAD0Pu has value 1.08545 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAQ0Pu has value -1.71041e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAirGap0Pu has value 1.08545 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaD0Pu has value 1.08544 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaQ10Pu has value -1.71041e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaQ20Pu has value -1.71041e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdad0Pu has value 1.07029 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdaf0Pu has value 1.42725 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdaq0Pu has value -2.51736e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LdPPu has value 0.102 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LfPPu has value 0.151817 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LqPPu has value 0.102 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPPu has value 0.648 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPPuEfd has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdSat0PPu has value 0.516198 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mds0Pu has value 0.516198 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mi0Pu has value 0.516198 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqPPu has value 0.348 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqSat0PPu has value 0.216198 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mqs0Pu has value 0.277217 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MrcPPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MsalPu has value 0.3 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PGen0Pu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 74.4 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 74.4 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Pm0Pu has value 9.50717e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.1273 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QGen0Pu has value 0.1273 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QStator0Pu has value 0.1273 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QStator0PuQNom has value 0.432923 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RDPPu has value 0.0169567 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RQ1PPu has value 0.0385486 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RQ2PPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RaPPu has value 0.004 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RfPPu has value 0.000848632 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 80 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Sin2Eta0 has value 2.48299e-10 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 80 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Theta0 has value -0.248718 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ThetaInternal0 has value -0.248718 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.07029 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 15 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 15 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 15 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 15 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 15 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.248186 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UStator0Pu has value 1.07029 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Ud0Pu has value -0.000569525 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Uf0Pu has value 0.00191064 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Uq0Pu has value 1.07029 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_i0Pu_im has value 0.115295 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_i0Pu_re has value 0.029217 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_iStator0Pu_im has value 0.115295 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_iStator0Pu_re has value 0.029217 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0.16 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0.16 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 5.7 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 5.7 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_s0Pu_im has value -0.1273 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_s0Pu_re has value -0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_sStator0Pu_im has value -0.1273 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_sStator0Pu_re has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_u0Pu_im has value -0.262912 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_u0Pu_re has value 1.0375 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_uStator0Pu_im has value -0.262912 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_uStator0Pu_re has value 1.0375 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter governor_Pm0Pu has value 9.50717e-05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Efd0Pu has value 1.45893 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Efd0PuLF has value 1.45893 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Us0Pu has value 1.07029 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRef0Pu has value 1.14324 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMaxReached0 has value 1e+60 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMinReached0 has value 1e+60 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_u0 has value 1.45893 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_y0 has value 1.45893 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel GEN____8_SM parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter Pm_Value0 has value -2.39592e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter URef_Value0 has value 1.15609 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Ce0Pu has value -2.18508e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Cm0Pu has value -2.39592e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Cos2Eta0 has value 1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_DPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Efd0Pu has value 1.19527 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ExcitationPu has value 1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_H has value 2.748 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_IRotor0Pu has value 1.19527 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_IStator0Pu has value 0.161673 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Id0Pu has value -0.0646691 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_If0Pu has value 0.841736 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Iq0Pu has value 1.73472e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Kuf has value 0.000441062 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LDPPu has value 0.942857 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LQ1PPu has value 1.00878 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LQ2PPu has value 100000 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAD0Pu has value 1.10344 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAQ0Pu has value 1.73472e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaAirGap0Pu has value 1.10344 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaD0Pu has value 1.10344 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaQ10Pu has value 1.52656e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LambdaQ20Pu has value 1.52656e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdad0Pu has value 1.08986 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdaf0Pu has value 1.29938 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Lambdaq0Pu has value 4.55365e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LdPPu has value 0.11 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LfPPu has value 0.232787 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_LqPPu has value 0.11 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPPu has value 1.42 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdPPuEfd has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MdSat0PPu has value 1.42 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mds0Pu has value 1.42 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mi0Pu has value 1.42 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqPPu has value 0.88 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MqSat0PPu has value 0.88 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Mqs0Pu has value 0.88 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MrcPPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_MsalPu has value 0.54 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_P0Pu has value -0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PGen0Pu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomAlt has value 228 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_PNomTurb has value 228 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Pm0Pu has value -2.39592e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Q0Pu has value -0.1762 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QGen0Pu has value 0.1762 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QStator0Pu has value 0.177246 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_QStator0PuQNom has value 0.172842 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RDPPu has value 0.037894 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RQ1PPu has value 0.010736 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RQ2PPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RTfPu has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RaPPu has value 0.004 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_RfPPu has value 0.000626308 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SNom has value 250 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Sin2Eta0 has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_SnTfo has value 250 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Theta0 has value -0.233413 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_ThetaInternal0 has value -0.233413 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_U0Pu has value 1.08986 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseHV has value 13.8 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UBaseLV has value 18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNom has value 18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomHV has value 13.8 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UNomLV has value 18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UPhase0 has value -0.233176 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_UStator0Pu has value 1.09632 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Ud0Pu has value -0.000258677 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Uf0Pu has value 0.000527186 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_Uq0Pu has value 1.08986 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_XTfPu has value 0.1 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_i0Pu_im has value 0.157298 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_i0Pu_re has value 0.0373575 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_iStator0Pu_im has value 0.157298 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_iStator0Pu_re has value 0.0373575 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_md has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_mq has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nd has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_nq has value 0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_s0Pu_im has value -0.1762 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_s0Pu_re has value -0 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_sStator0Pu_im has value -0.177246 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_sStator0Pu_re has value -6.93889e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_u0Pu_im has value -0.251831 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_u0Pu_re has value 1.06036 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_uStator0Pu_im has value -0.253326 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter generator_uStator0Pu_re has value 1.06665 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter governor_Pm0Pu has value -2.39592e-18 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Efd0Pu has value 1.19527 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Efd0PuLF has value 1.19527 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMaxPu has value 5 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_EfdMinPu has value -5 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Gain has value 20 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_Us0Pu has value 1.09632 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_UsRef0Pu has value 1.15609 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMaxReached0 has value 1e+60 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_tUMinReached0 has value 1e+60 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_u0 has value 1.19527 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter voltageRegulator_limiterWithLag_y0 has value 1.19527 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel OMEGA_REF parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | no value found for parameter weight_gen
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__10_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.0755855 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.0683046 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value 0.058 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.09 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.273737 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 1.01471 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__11_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.0249205 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.0276705 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value 0.018 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.035 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.269814 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 1.02189 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__12_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.0296771 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.0518762 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value 0.016 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.061 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.274446 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 1.01887 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__13_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.0869013 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.109617 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value 0.058 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.135 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.274628 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 1.01384 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD__14_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.0860527 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.124816 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value 0.05 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.149 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.286332 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 0.996351 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___2_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.139089 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.196308 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value 0.127 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.217 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.0907207 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 1.04113 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___3_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.389016 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.868294 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value 0.19 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.942 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.222561 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 0.985173 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___4_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.0463837 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.468972 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value -0.039 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.478 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.182187 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 1.00123 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___5_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.0268808 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.0712792 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value 0.016 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.076 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.155511 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 1.00758 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___6_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.0936329 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.0842247 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value 0.075 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.112 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.262912 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 1.0375 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | SubModel _LOAD___9_EC parameters after local initialization
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_im has value -0.223911 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_i0Pu_re has value 0.229406 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_im has value 0.166 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_s0Pu_re has value 0.295 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_im has value -0.272201 (coming from origin initialization)
+2020-10-05 10:26:08 | DEBUG | parameter load_u0Pu_re has value 1.02025 (coming from origin initialization)
