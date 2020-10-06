@@ -1,0 +1,289 @@
+2020-10-05 10:26:08 | INFO |  ============================================================ 
+2020-10-05 10:26:08 | INFO | DYNAWO VERSION  :     1.3.0
+2020-10-05 10:26:08 | INFO | DYNAWO REVISION :  ModalAnalysisDynawo-1a4ade8
+2020-10-05 10:26:08 | INFO |  ============================================================ 
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | connection list
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_omega_grp_0 with GEN____1_SM_generator_omegaPu
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_omegaRef_grp_0 with GEN____1_SM_generator_omegaRefPu
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_running_grp_0 with GEN____1_SM_generator_running
+2020-10-05 10:26:08 | DEBUG | connecting GEN____1_SM_generator_switchOffSignal1 with NETWORK__BUS____1_TN_switchOff
+2020-10-05 10:26:08 | DEBUG | connecting GEN____1_SM_generator_terminal with NETWORK__BUS____1_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_omega_grp_1 with GEN____2_SM_generator_omegaPu
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_omegaRef_grp_1 with GEN____2_SM_generator_omegaRefPu
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_running_grp_1 with GEN____2_SM_generator_running
+2020-10-05 10:26:08 | DEBUG | connecting GEN____2_SM_generator_switchOffSignal1 with NETWORK__BUS____2_TN_switchOff
+2020-10-05 10:26:08 | DEBUG | connecting GEN____2_SM_generator_terminal with NETWORK__BUS____2_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_omega_grp_2 with GEN____3_SM_generator_omegaPu
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_omegaRef_grp_2 with GEN____3_SM_generator_omegaRefPu
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_running_grp_2 with GEN____3_SM_generator_running
+2020-10-05 10:26:08 | DEBUG | connecting GEN____3_SM_generator_switchOffSignal1 with NETWORK__BUS____3_TN_switchOff
+2020-10-05 10:26:08 | DEBUG | connecting GEN____3_SM_generator_terminal with NETWORK__BUS____3_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_omega_grp_3 with GEN____6_SM_generator_omegaPu
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_omegaRef_grp_3 with GEN____6_SM_generator_omegaRefPu
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_running_grp_3 with GEN____6_SM_generator_running
+2020-10-05 10:26:08 | DEBUG | connecting GEN____6_SM_generator_switchOffSignal1 with NETWORK__BUS____6_TN_switchOff
+2020-10-05 10:26:08 | DEBUG | connecting GEN____6_SM_generator_terminal with NETWORK__BUS____6_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_omega_grp_4 with GEN____8_SM_generator_omegaPu
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_omegaRef_grp_4 with GEN____8_SM_generator_omegaRefPu
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_running_grp_4 with GEN____8_SM_generator_running
+2020-10-05 10:26:08 | DEBUG | connecting GEN____8_SM_generator_switchOffSignal1 with NETWORK__BUS____8_TN_switchOff
+2020-10-05 10:26:08 | DEBUG | connecting GEN____8_SM_generator_terminal with NETWORK__BUS____8_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_numcc_node_0 with NETWORK__BUS____1_TN_numcc
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_numcc_node_1 with NETWORK__BUS____2_TN_numcc
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_numcc_node_2 with NETWORK__BUS____3_TN_numcc
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_numcc_node_3 with NETWORK__BUS____6_TN_numcc
+2020-10-05 10:26:08 | DEBUG | connecting OMEGA_REF_numcc_node_4 with NETWORK__BUS____8_TN_numcc
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD__10_EC_load_terminal with NETWORK__BUS___10_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD__11_EC_load_terminal with NETWORK__BUS___11_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD__12_EC_load_terminal with NETWORK__BUS___12_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD__13_EC_load_terminal with NETWORK__BUS___13_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD__14_EC_load_terminal with NETWORK__BUS___14_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD___2_EC_load_terminal with NETWORK__BUS____2_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD___3_EC_load_terminal with NETWORK__BUS____3_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD___4_EC_load_terminal with NETWORK__BUS____4_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD___5_EC_load_terminal with NETWORK__BUS____5_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD___6_EC_load_terminal with NETWORK__BUS____6_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | connecting _LOAD___9_EC_load_terminal with NETWORK__BUS____9_TN_ACPIN
+2020-10-05 10:26:08 | DEBUG | ------------------------------
+2020-10-05 10:26:08 | DEBUG | model :NETWORK                  =>NETWORK
+2020-10-05 10:26:08 | DEBUG |          Y : [     0 ;     54[
+2020-10-05 10:26:08 | DEBUG |            _BUS___10_VL    Y[     0 ;      4[
+2020-10-05 10:26:08 | DEBUG |            _BUS___11_VL    Y[     4 ;      8[
+2020-10-05 10:26:08 | DEBUG |            _BUS___12_VL    Y[     8 ;     12[
+2020-10-05 10:26:08 | DEBUG |            _BUS___13_VL    Y[    12 ;     16[
+2020-10-05 10:26:08 | DEBUG |            _BUS___14_VL    Y[    16 ;     20[
+2020-10-05 10:26:08 | DEBUG |            _BUS____1_VL    Y[    20 ;     24[
+2020-10-05 10:26:08 | DEBUG |            _BUS____2_VL    Y[    24 ;     28[
+2020-10-05 10:26:08 | DEBUG |            _BUS____3_VL    Y[    28 ;     32[
+2020-10-05 10:26:08 | DEBUG |            _BUS____9_VL    Y[    32 ;     36[
+2020-10-05 10:26:08 | DEBUG |            _BUS____7_VL    Y[    36 ;     38[
+2020-10-05 10:26:08 | DEBUG |            _BUS____4_VL    Y[    38 ;     42[
+2020-10-05 10:26:08 | DEBUG |            _BUS____6_VL    Y[    42 ;     46[
+2020-10-05 10:26:08 | DEBUG |            _BUS____5_VL    Y[    46 ;     50[
+2020-10-05 10:26:08 | DEBUG |            _BUS____8_VL    Y[    50 ;     54[
+2020-10-05 10:26:08 | DEBUG |          F : [     0 ;     28[
+2020-10-05 10:26:08 | DEBUG |            _BUS___10_VL    F[     0 ;      2[
+2020-10-05 10:26:08 | DEBUG |            _BUS___11_VL    F[     2 ;      4[
+2020-10-05 10:26:08 | DEBUG |            _BUS___12_VL    F[     4 ;      6[
+2020-10-05 10:26:08 | DEBUG |            _BUS___13_VL    F[     6 ;      8[
+2020-10-05 10:26:08 | DEBUG |            _BUS___14_VL    F[     8 ;     10[
+2020-10-05 10:26:08 | DEBUG |            _BUS____1_VL    F[    10 ;     12[
+2020-10-05 10:26:08 | DEBUG |            _BUS____2_VL    F[    12 ;     14[
+2020-10-05 10:26:08 | DEBUG |            _BUS____3_VL    F[    14 ;     16[
+2020-10-05 10:26:08 | DEBUG |            _BUS____9_VL    F[    16 ;     18[
+2020-10-05 10:26:08 | DEBUG |            _BUS____7_VL    F[    18 ;     20[
+2020-10-05 10:26:08 | DEBUG |            _BUS____4_VL    F[    20 ;     22[
+2020-10-05 10:26:08 | DEBUG |            _BUS____6_VL    F[    22 ;     24[
+2020-10-05 10:26:08 | DEBUG |            _BUS____5_VL    F[    24 ;     26[
+2020-10-05 10:26:08 | DEBUG |            _BUS____8_VL    F[    26 ;     28[
+2020-10-05 10:26:08 | DEBUG |          Z : [     0 ;     95[
+2020-10-05 10:26:08 | DEBUG |       mode : [     0 ;     44[
+2020-10-05 10:26:08 | DEBUG |          G : [     0 ;     75[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :GeneratorSynchronousFourWindingsProportionalRegulations=>GEN____1_SM
+2020-10-05 10:26:08 | DEBUG |          Y : [    54 ;    101[
+2020-10-05 10:26:08 | DEBUG |          F : [    28 ;     72[
+2020-10-05 10:26:08 | DEBUG |          Z : [    95 ;    113[
+2020-10-05 10:26:08 | DEBUG |       mode : [    44 ;     57[
+2020-10-05 10:26:08 | DEBUG |          G : [    75 ;    101[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :GeneratorSynchronousFourWindingsProportionalRegulations=>GEN____2_SM
+2020-10-05 10:26:08 | DEBUG |          Y : [   101 ;    148[
+2020-10-05 10:26:08 | DEBUG |          F : [    72 ;    116[
+2020-10-05 10:26:08 | DEBUG |          Z : [   113 ;    131[
+2020-10-05 10:26:08 | DEBUG |       mode : [    57 ;     70[
+2020-10-05 10:26:08 | DEBUG |          G : [   101 ;    127[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :GeneratorSynchronousFourWindingsProportionalRegulations=>GEN____3_SM
+2020-10-05 10:26:08 | DEBUG |          Y : [   148 ;    195[
+2020-10-05 10:26:08 | DEBUG |          F : [   116 ;    160[
+2020-10-05 10:26:08 | DEBUG |          Z : [   131 ;    149[
+2020-10-05 10:26:08 | DEBUG |       mode : [    70 ;     83[
+2020-10-05 10:26:08 | DEBUG |          G : [   127 ;    153[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :GeneratorSynchronousThreeWindingsProportionalRegulations=>GEN____6_SM
+2020-10-05 10:26:08 | DEBUG |          Y : [   195 ;    242[
+2020-10-05 10:26:08 | DEBUG |          F : [   160 ;    204[
+2020-10-05 10:26:08 | DEBUG |          Z : [   149 ;    167[
+2020-10-05 10:26:08 | DEBUG |       mode : [    83 ;     96[
+2020-10-05 10:26:08 | DEBUG |          G : [   153 ;    179[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :GeneratorSynchronousThreeWindingsProportionalRegulations=>GEN____8_SM
+2020-10-05 10:26:08 | DEBUG |          Y : [   242 ;    289[
+2020-10-05 10:26:08 | DEBUG |          F : [   204 ;    248[
+2020-10-05 10:26:08 | DEBUG |          Z : [   167 ;    185[
+2020-10-05 10:26:08 | DEBUG |       mode : [    96 ;    109[
+2020-10-05 10:26:08 | DEBUG |          G : [   179 ;    205[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :omegaRef                 =>OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Y : [   289 ;    309[
+2020-10-05 10:26:08 | DEBUG |          F : [   248 ;    263[
+2020-10-05 10:26:08 | DEBUG |          Z : [   185 ;    195[
+2020-10-05 10:26:08 | DEBUG |       mode : [   109 ;    110[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD__10_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   309 ;    315[
+2020-10-05 10:26:08 | DEBUG |          F : [   263 ;    267[
+2020-10-05 10:26:08 | DEBUG |          Z : [   195 ;    201[
+2020-10-05 10:26:08 | DEBUG |       mode : [   110 ;    113[
+2020-10-05 10:26:08 | DEBUG |          G : [   205 ;    207[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD__11_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   315 ;    321[
+2020-10-05 10:26:08 | DEBUG |          F : [   267 ;    271[
+2020-10-05 10:26:08 | DEBUG |          Z : [   201 ;    207[
+2020-10-05 10:26:08 | DEBUG |       mode : [   113 ;    116[
+2020-10-05 10:26:08 | DEBUG |          G : [   207 ;    209[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD__12_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   321 ;    327[
+2020-10-05 10:26:08 | DEBUG |          F : [   271 ;    275[
+2020-10-05 10:26:08 | DEBUG |          Z : [   207 ;    213[
+2020-10-05 10:26:08 | DEBUG |       mode : [   116 ;    119[
+2020-10-05 10:26:08 | DEBUG |          G : [   209 ;    211[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD__13_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   327 ;    333[
+2020-10-05 10:26:08 | DEBUG |          F : [   275 ;    279[
+2020-10-05 10:26:08 | DEBUG |          Z : [   213 ;    219[
+2020-10-05 10:26:08 | DEBUG |       mode : [   119 ;    122[
+2020-10-05 10:26:08 | DEBUG |          G : [   211 ;    213[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD__14_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   333 ;    339[
+2020-10-05 10:26:08 | DEBUG |          F : [   279 ;    283[
+2020-10-05 10:26:08 | DEBUG |          Z : [   219 ;    225[
+2020-10-05 10:26:08 | DEBUG |       mode : [   122 ;    125[
+2020-10-05 10:26:08 | DEBUG |          G : [   213 ;    215[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD___2_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   339 ;    345[
+2020-10-05 10:26:08 | DEBUG |          F : [   283 ;    287[
+2020-10-05 10:26:08 | DEBUG |          Z : [   225 ;    231[
+2020-10-05 10:26:08 | DEBUG |       mode : [   125 ;    128[
+2020-10-05 10:26:08 | DEBUG |          G : [   215 ;    217[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD___3_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   345 ;    351[
+2020-10-05 10:26:08 | DEBUG |          F : [   287 ;    291[
+2020-10-05 10:26:08 | DEBUG |          Z : [   231 ;    237[
+2020-10-05 10:26:08 | DEBUG |       mode : [   128 ;    131[
+2020-10-05 10:26:08 | DEBUG |          G : [   217 ;    219[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD___4_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   351 ;    357[
+2020-10-05 10:26:08 | DEBUG |          F : [   291 ;    295[
+2020-10-05 10:26:08 | DEBUG |          Z : [   237 ;    243[
+2020-10-05 10:26:08 | DEBUG |       mode : [   131 ;    134[
+2020-10-05 10:26:08 | DEBUG |          G : [   219 ;    221[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD___5_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   357 ;    363[
+2020-10-05 10:26:08 | DEBUG |          F : [   295 ;    299[
+2020-10-05 10:26:08 | DEBUG |          Z : [   243 ;    249[
+2020-10-05 10:26:08 | DEBUG |       mode : [   134 ;    137[
+2020-10-05 10:26:08 | DEBUG |          G : [   221 ;    223[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD___6_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   363 ;    369[
+2020-10-05 10:26:08 | DEBUG |          F : [   299 ;    303[
+2020-10-05 10:26:08 | DEBUG |          Z : [   249 ;    255[
+2020-10-05 10:26:08 | DEBUG |       mode : [   137 ;    140[
+2020-10-05 10:26:08 | DEBUG |          G : [   223 ;    225[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model :LoadAlphaBeta            =>_LOAD___9_EC
+2020-10-05 10:26:08 | DEBUG |          Y : [   369 ;    375[
+2020-10-05 10:26:08 | DEBUG |          F : [   303 ;    307[
+2020-10-05 10:26:08 | DEBUG |          Z : [   255 ;    261[
+2020-10-05 10:26:08 | DEBUG |       mode : [   140 ;    143[
+2020-10-05 10:26:08 | DEBUG |          G : [   225 ;    227[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG | model connectors (Y,Flow) NB = 68
+2020-10-05 10:26:08 | DEBUG |          F : [   307 ;    375[
+2020-10-05 10:26:08 | DEBUG | 
+2020-10-05 10:26:08 | DEBUG |  ====== connectors list ===== 
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    58] = Y[   299]      F = F[   307] / model GEN____1_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    59] = Y[   304]      F = F[   308] / model GEN____1_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    21] = Y[    60]      F = F[   309] / model NETWORK to model GEN____1_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    20] = Y[    61]      F = F[   310] / model NETWORK to model GEN____1_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   105] = Y[   300]      F = F[   311] / model GEN____2_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   106] = Y[   305]      F = F[   312] / model GEN____2_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    25] = Y[   107]      F = F[   313] / model NETWORK to model GEN____2_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   339] = Y[   107]      F = F[   314] / model _LOAD___2_EC to model GEN____2_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    24] = Y[   108]      F = F[   315] / model NETWORK to model GEN____2_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   340] = Y[   108]      F = F[   316] / model _LOAD___2_EC to model GEN____2_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   152] = Y[   301]      F = F[   317] / model GEN____3_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   153] = Y[   306]      F = F[   318] / model GEN____3_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    29] = Y[   154]      F = F[   319] / model NETWORK to model GEN____3_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   345] = Y[   154]      F = F[   320] / model _LOAD___3_EC to model GEN____3_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    28] = Y[   155]      F = F[   321] / model NETWORK to model GEN____3_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   346] = Y[   155]      F = F[   322] / model _LOAD___3_EC to model GEN____3_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   199] = Y[   302]      F = F[   323] / model GEN____6_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   200] = Y[   307]      F = F[   324] / model GEN____6_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    43] = Y[   201]      F = F[   325] / model NETWORK to model GEN____6_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   363] = Y[   201]      F = F[   326] / model _LOAD___6_EC to model GEN____6_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    42] = Y[   202]      F = F[   327] / model NETWORK to model GEN____6_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   364] = Y[   202]      F = F[   328] / model _LOAD___6_EC to model GEN____6_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   246] = Y[   303]      F = F[   329] / model GEN____8_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[   247] = Y[   308]      F = F[   330] / model GEN____8_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    51] = Y[   248]      F = F[   331] / model NETWORK to model GEN____8_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    50] = Y[   249]      F = F[   332] / model NETWORK to model GEN____8_SM
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[     1] = Y[   309]      F = F[   333] / model NETWORK to model _LOAD__10_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[     0] = Y[   310]      F = F[   334] / model NETWORK to model _LOAD__10_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[     5] = Y[   315]      F = F[   335] / model NETWORK to model _LOAD__11_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[     4] = Y[   316]      F = F[   336] / model NETWORK to model _LOAD__11_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[     9] = Y[   321]      F = F[   337] / model NETWORK to model _LOAD__12_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[     8] = Y[   322]      F = F[   338] / model NETWORK to model _LOAD__12_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    13] = Y[   327]      F = F[   339] / model NETWORK to model _LOAD__13_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    12] = Y[   328]      F = F[   340] / model NETWORK to model _LOAD__13_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    17] = Y[   333]      F = F[   341] / model NETWORK to model _LOAD__14_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    16] = Y[   334]      F = F[   342] / model NETWORK to model _LOAD__14_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    39] = Y[   351]      F = F[   343] / model NETWORK to model _LOAD___4_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    38] = Y[   352]      F = F[   344] / model NETWORK to model _LOAD___4_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    47] = Y[   357]      F = F[   345] / model NETWORK to model _LOAD___5_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    46] = Y[   358]      F = F[   346] / model NETWORK to model _LOAD___5_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    33] = Y[   369]      F = F[   347] / model NETWORK to model _LOAD___9_EC
+2020-10-05 10:26:08 | DEBUG |          Yconnector Y[    32] = Y[   370]      F = F[   348] / model NETWORK to model _LOAD___9_EC
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[    83] +Y[    23]  = 0      F = F[   343]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[    84] +Y[    22]  = 0      F = F[   344]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   130] +Y[    27] +Y[   343]  = 0      F = F[   345]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   131] +Y[    26] +Y[   344]  = 0      F = F[   346]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   177] +Y[    31] +Y[   349]  = 0      F = F[   347]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   178] +Y[    30] +Y[   350]  = 0      F = F[   348]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   224] +Y[    45] +Y[   367]  = 0      F = F[   349]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   225] +Y[    44] +Y[   368]  = 0      F = F[   350]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   271] +Y[    53]  = 0      F = F[   351]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   272] +Y[    52]  = 0      F = F[   352]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   313] +Y[     3]  = 0      F = F[   353]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   314] +Y[     2]  = 0      F = F[   354]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   319] +Y[     7]  = 0      F = F[   355]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   320] +Y[     6]  = 0      F = F[   356]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   325] +Y[    11]  = 0      F = F[   357]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   326] +Y[    10]  = 0      F = F[   358]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   331] +Y[    15]  = 0      F = F[   359]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   332] +Y[    14]  = 0      F = F[   360]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   337] +Y[    19]  = 0      F = F[   361]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   338] +Y[    18]  = 0      F = F[   362]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   355] +Y[    41]  = 0      F = F[   363]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   356] +Y[    40]  = 0      F = F[   364]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   361] +Y[    49]  = 0      F = F[   365]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   362] +Y[    48]  = 0      F = F[   366]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   373] +Y[    35]  = 0      F = F[   367]
+2020-10-05 10:26:08 | DEBUG |          flowConnector : Y[   374] +Y[    34]  = 0      F = F[   368]
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    97] = Z[   190] / model GEN____1_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    16] = Z[    98] / model NETWORK to model GEN____1_SM
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[   115] = Z[   191] / model GEN____2_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    19] = Z[   116] / model NETWORK to model GEN____2_SM
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[   133] = Z[   192] / model GEN____3_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    22] = Z[   134] / model NETWORK to model GEN____3_SM
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[   151] = Z[   193] / model GEN____6_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    38] = Z[   152] / model NETWORK to model GEN____6_SM
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[   169] = Z[   194] / model GEN____8_SM to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    44] = Z[   170] / model NETWORK to model GEN____8_SM
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    15] = Z[   185] / model NETWORK to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    18] = Z[   186] / model NETWORK to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    21] = Z[   187] / model NETWORK to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    37] = Z[   188] / model NETWORK to model OMEGA_REF
+2020-10-05 10:26:08 | DEBUG |          Zconnector Z[    43] = Z[   189] / model NETWORK to model OMEGA_REF
