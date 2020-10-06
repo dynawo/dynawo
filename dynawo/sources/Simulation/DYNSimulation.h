@@ -38,12 +38,14 @@ class Timeline;
 namespace linearise {
 class Linearise;
 }
+
 namespace modalanalysis {
 class ModalAnalysis;
 }
 namespace allmodes {
 class AllModes;
 }
+
 namespace subparticipation {
 class SubParticipation;
 }
@@ -537,6 +539,102 @@ class Simulation {
 
 
   /**
+   * @brief setter of the time of the linearisation
+   * @param time start time of the linearisation
+   */
+  inline void setLineariseTime(const double& time) {
+    tLinearise_ = time;
+  }
+
+  /**
+   * @brief setter of the time of the modalanalysis
+   * @param time start time of the modalanalysis
+   */
+  inline void setModalAnalysisTime(const double& time) {
+    tModalAnalysis_ = time;
+  }
+
+  /**
+   * @brief setter of the time of the modalanalysis
+   * @param time start time of the modalanalysis
+   */
+  inline void setAllModesTime(const double& time) {
+    tAllModes_ = time;
+  }
+
+  /**
+   * @brief setter of the time of the SubParticipation
+   * @param time start time of the SubParticipation
+   */
+  inline void setSubParticipationTime(const double& time) {
+    tSubParticipation_ = time;
+  }
+
+  /**
+   * @brief setter of the number of required mode
+   * @param nbmode start the number of required mode
+   */
+  inline void setSubParticipationNbMode(const double& nbmode) {
+    NbMode_ = nbmode;
+  }
+
+  /**
+   * @brief getter for the start number of mode of subparticipation factor
+   * @return the start number of mode of subparticipation factor
+   */
+  inline double getSubParticipationNbMode() const {
+    return NbMode_;
+  }
+
+  /**
+   * @brief setter of the value of minimum relative participation
+   * @param participation start the value of minimum relative participation
+   */
+  inline void setModalAnalysisPart(const double& participation) {
+    Part_ = participation;
+  }
+
+  /**
+   * @brief getter for the start time of the linearisation
+   * @return the start time of the linearisation
+   */
+  inline double getLineariseTime() const {
+    return tLinearise_;
+  }
+
+  /**
+   * @brief getter for the start time of the modal analysis
+   * @return the start time of the modal analysis
+   */
+  inline double getModalAnalysisTime() const {
+    return tModalAnalysis_;
+  }
+
+  /**
+   * @brief getter for the start time of the modal analysis
+   * @return the start time of the modal analysis
+   */
+  inline double getAllModesTime() const {
+    return tAllModes_;
+  }
+
+  /**
+   * @brief getter for the start time of the Sub Participation
+   * @return the start time of the Sub Participation
+   */
+  inline double getSubParticipationTime() const {
+    return tSubParticipation_;
+  }
+
+  /**
+   * @brief getter for the start value of minimum relative participation factor
+   * @return the start value of minimum relative participation factor
+   */
+  inline double getModalAnalysisPart() const {
+    return Part_;
+  }
+
+  /**
    * @brief set if final state dump is activated
    * @param activate @b true if final state dump should be made, @b false otherwise
    */
@@ -771,6 +869,13 @@ class Simulation {
 
   bool exportIIDM_;  ///< @b true if final IIDM file should be dump
   std::string exportIIDMFile_;  ///< final IIDM file dump
+
+  double tModalAnalysis_;  ///< start time of the Modal analysis
+  double tAllModes_;  ///< start time of the all modes
+  double tSubParticipation_;  ///< start time of the sub participation
+  double NbMode_;  ///< start number of mode of the sub participation
+  double tLinearise_;  ///< start time of the Linearisation
+  double Part_;  ///< minimum value of relative participation factor
 
   double tStart_;  ///< start time of the simulation
   double tCurrent_;  ///< current time of the simulation
