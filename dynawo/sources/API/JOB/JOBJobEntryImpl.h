@@ -82,6 +82,17 @@ class JobEntry::Impl : public JobEntry {
   boost::shared_ptr<OutputsEntry> getOutputsEntry() const;
 
   /**
+   * @copydoc JobEntry::setLineariseEntry()
+   */
+
+  void setLineariseEntry(const boost::shared_ptr<LineariseEntry> & lineariseEntry);
+
+  /**
+   * @copydoc JobEntry::getLineariseEntry()
+   */
+  boost::shared_ptr<LineariseEntry> getLineariseEntry() const;
+
+  /**
    * @copydoc JobEntry::setName()
    */
   void setName(const std::string & name);
@@ -96,6 +107,7 @@ class JobEntry::Impl : public JobEntry {
   boost::shared_ptr<SolverEntry> solverEntry_;  ///< Solver entries container
   boost::shared_ptr<SimulationEntry> simulationEntry_;  ///< Simulation entries container
   boost::shared_ptr<OutputsEntry> outputsEntry_;  ///< Outputs entries container
+  boost::shared_ptr<LineariseEntry> lineariseEntry_;  ///< Linearise entries container
   std::string name_;  ///< Name of the job used for description and logs purpose
 };
 

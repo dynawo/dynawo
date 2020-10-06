@@ -49,7 +49,10 @@ class ModelerEntry;
 class SolverEntry;
 class JobEntry;
 class JobsCollection;
-
+class LineariseEntry;
+class ModalAnalysisEntry;
+class AllModesEntry;
+class SubParticipationEntry;
 /**
  * @class AppenderHandler
  * @brief Handler used to parse appender element
@@ -364,6 +367,143 @@ class TimelineHandler : public xml::sax::parser::ComposableElementHandler {
 };
 
 /**
+ * @class LineariseHandler
+ * @brief Handler used to parse linearise element
+ */
+class LineariseHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit LineariseHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~LineariseHandler() { }
+
+  /**
+   * @brief return the linearise entry read in xml file
+   * @return linearise entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<LineariseEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<LineariseEntry> linearise_;  ///< current linearise entry object
+};
+
+/**
+ * @class ModalAnalysisHandler
+ * @brief Handler used to parse ModalAnalysis element
+ */
+class ModalAnalysisHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit ModalAnalysisHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~ModalAnalysisHandler() { }
+
+  /**
+   * @brief return the ModalAnalysis entry read in xml file
+   * @return ModalAnaysis entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<ModalAnalysisEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<ModalAnalysisEntry> modalanalysis_;  ///< current modalanalysis entry object
+};
+
+/**
+ * @class AllModesHandler
+ * @brief Handler used to parse AllModes element
+ */
+class AllModesHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit AllModesHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~AllModesHandler() { }
+
+  /**
+   * @brief return the AllModes entry read in xml file
+   * @return allModes entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<AllModesEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<AllModesEntry> allmodes_;  ///< current allmodes entry object
+};
+
+/**
+ * @class SubParticipationHandler
+ * @brief Handler used to parse SubParticipation element
+ */
+class SubParticipationHandler : public xml::sax::parser::ComposableElementHandler {
+ public:
+  /**
+   * @brief Constructor
+   * @param root_element complete name of the element read by the handler
+   */
+  explicit SubParticipationHandler(elementName_type const &root_element);
+
+  /**
+   * @brief default destructor
+   */
+  ~SubParticipationHandler() { }
+
+  /**
+   * @brief return the SubParticipation entry read in xml file
+   * @return SubParticipation entry object build thanks to infos read in xml file
+   */
+  boost::shared_ptr<SubParticipationEntry> get() const;
+
+ protected:
+  /**
+   * @brief Called when the XML element opening tag is read
+   * @param attributes attributes of the element
+   */
+  void create(attributes_type const& attributes);
+
+ private:
+  boost::shared_ptr<SubParticipationEntry> subparticipation_;  ///< current subparticipation entry object
+};
+
+
+/**
  * @class FinalStateHandler
  * @brief Handler used to parse final state element
  */
@@ -524,6 +664,26 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void addLog();
 
+    /**
+   * @brief add a linearise object to the current job
+   */
+  void addLinearise();
+
+  /**
+   * @brief add a modalanalysis object to the current job
+   */
+  void addModalAnalysis();
+
+  /**
+   * @brief add a allmodes object to the current job
+   */
+  void addAllModes();
+
+  /**
+   * @brief add a subParticipation object to the current job
+   */
+  void addSubParticipation();
+
  protected:
   /**
    * @brief Called when the XML element opening tag is read
@@ -539,6 +699,10 @@ class OutputsHandler : public xml::sax::parser::ComposableElementHandler {
   FinalStateHandler finalStateHandler_;  ///< handler used to read finalState element
   CurvesHandler curvesHandler_;  ///< handler used to read curves element
   LogsHandler logsHandler_;  ///< handler used to read logs element
+  ModalAnalysisHandler modalanalysisHandler_;  ///< handler used to read modalanalysis element
+  AllModesHandler allmodesHandler_;  ///< handler used to read allmodes element
+  SubParticipationHandler subparticipationHandler_;  ///< handler used to read subparticipation element
+  LineariseHandler lineariseHandler_;  ///< handler used to read linearise element
 };
 
 /**

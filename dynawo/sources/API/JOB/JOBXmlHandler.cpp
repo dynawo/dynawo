@@ -44,6 +44,10 @@
 #include "JOBTimelineEntryImpl.h"
 #include "DYNMacrosMessage.h"
 #include "JOBModelsDirEntryImpl.h"
+#include "JOBEvalModalAnalysisEntryImpl.h"
+#include "JOBAllModesEntryImpl.h"
+#include "JOBSubParticipationEntryImpl.h"
+#include "JOBEvalLineariseEntryImpl.h"
 
 using std::map;
 using std::string;
@@ -249,6 +253,10 @@ OutputsHandler::OutputsHandler(elementName_type const& root_element) :
 initValuesHandler_(parser::ElementName(jobs_ns, "dumpInitValues")),
 constraintsHandler_(parser::ElementName(jobs_ns, "constraints")),
 timelineHandler_(parser::ElementName(jobs_ns, "timeline")),
+modalanalysisHandler_(parser::ElementName(jobs_ns, "modalanalysis")),
+allmodesHandler_(parser::ElementName(jobs_ns, "allmodes")),
+subparticipationHandler_(parser::ElementName(jobs_ns, "subparticipation")),
+lineariseHandler_(parser::ElementName(jobs_ns, "linearise")),
 finalStateHandler_(parser::ElementName(jobs_ns, "finalState")),
 curvesHandler_(parser::ElementName(jobs_ns, "curves")),
 logsHandler_(parser::ElementName(jobs_ns, "logs")) {
@@ -257,6 +265,10 @@ logsHandler_(parser::ElementName(jobs_ns, "logs")) {
   onElement(root_element + jobs_ns("dumpInitValues"), initValuesHandler_);
   onElement(root_element + jobs_ns("constraints"), constraintsHandler_);
   onElement(root_element + jobs_ns("timeline"), timelineHandler_);
+  onElement(root_element + jobs_ns("modalanalysis"), modalanalysisHandler_);
+  onElement(root_element + jobs_ns("allmodes"), allmodesHandler_);
+  onElement(root_element + jobs_ns("subparticipation"), subparticipationHandler_);
+  onElement(root_element + jobs_ns("linearise"), lineariseHandler_);
   onElement(root_element + jobs_ns("finalState"), finalStateHandler_);
   onElement(root_element + jobs_ns("curves"), curvesHandler_);
   onElement(root_element + jobs_ns("logs"), logsHandler_);
@@ -267,6 +279,30 @@ logsHandler_(parser::ElementName(jobs_ns, "logs")) {
   finalStateHandler_.onEnd(lambda::bind(&OutputsHandler::addFinalState, lambda::ref(*this)));
   curvesHandler_.onEnd(lambda::bind(&OutputsHandler::addCurves, lambda::ref(*this)));
   logsHandler_.onEnd(lambda::bind(&OutputsHandler::addLog, lambda::ref(*this)));
+  modalanalysisHandler_.onEnd(lambda::bind(&OutputsHandler::addModalAnalysis, lambda::ref(*this)));
+  allmodesHandler_.onEnd(lambda::bind(&OutputsHandler::addAllModes, lambda::ref(*this)));
+  subparticipationHandler_.onEnd(lambda::bind(&OutputsHandler::addSubParticipation, lambda::ref(*this)));
+  lineariseHandler_.onEnd(lambda::bind(&OutputsHandler::addLinearise, lambda::ref(*this)));
+}
+
+void
+OutputsHandler::addModalAnalysis() {
+  outputs_->setModalAnalysisEntry(modalanalysisHandler_.get());
+}
+
+void
+OutputsHandler::addAllModes() {
+  outputs_->setAllModesEntry(allmodesHandler_.get());
+}
+
+void
+OutputsHandler::addSubParticipation() {
+  outputs_->setSubParticipationEntry(subparticipationHandler_.get());
+}
+
+void
+OutputsHandler::addLinearise() {
+  outputs_->setLineariseEntry(lineariseHandler_.get());
 }
 
 void
@@ -354,6 +390,68 @@ TimelineHandler::create(attributes_type const& attributes) {
 shared_ptr<TimelineEntry>
 TimelineHandler::get() const {
   return timeline_;
+}
+
+ModalAnalysisHandler::ModalAnalysisHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&ModalAnalysisHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+void
+ModalAnalysisHandler::create(attributes_type const& attributes) {
+  modalanalysis_ = shared_ptr<ModalAnalysisEntry>(new ModalAnalysisEntry::Impl());
+  modalanalysis_->setModalAnalysisTime(attributes["modalanalysisTime"]);
+  modalanalysis_->setModalAnalysisPart(attributes["modalanalysisPart"]);
+}
+
+shared_ptr<ModalAnalysisEntry>
+ModalAnalysisHandler::get() const {
+  return modalanalysis_;
+}
+
+AllModesHandler::AllModesHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&AllModesHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+void
+AllModesHandler::create(attributes_type const& attributes) {
+  allmodes_ = shared_ptr<AllModesEntry>(new AllModesEntry::Impl());
+  allmodes_->setAllModesTime(attributes["allmodesTime"]);
+}
+
+shared_ptr<AllModesEntry>
+AllModesHandler::get() const {
+  return allmodes_;
+}
+
+SubParticipationHandler::SubParticipationHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&SubParticipationHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+void
+SubParticipationHandler::create(attributes_type const& attributes) {
+  subparticipation_ = shared_ptr<SubParticipationEntry>(new SubParticipationEntry::Impl());
+  subparticipation_->setSubParticipationTime(attributes["subparticipationTime"]);
+  subparticipation_->setSubParticipationNbMode(attributes["subparticipationNbMode"]);
+}
+
+shared_ptr<SubParticipationEntry>
+SubParticipationHandler::get() const {
+  return subparticipation_;
+}
+
+LineariseHandler::LineariseHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&LineariseHandler::create, lambda::ref(*this), lambda_args::arg2));
+}
+
+void
+LineariseHandler::create(attributes_type const& attributes) {
+  linearise_ = shared_ptr<LineariseEntry>(new LineariseEntry::Impl());
+  linearise_->setLineariseTime(attributes["lineariseTime"]);
+}
+
+shared_ptr<LineariseEntry>
+LineariseHandler::get() const {
+  return linearise_;
 }
 
 FinalStateHandler::FinalStateHandler(elementName_type const& root_element) {

@@ -22,13 +22,11 @@ set(API_JOB_SOURCES
     JOBXmlHandler.cpp
     JOBXmlImporter.cpp
     JOBAppenderEntryImpl.cpp
-    JOBAppenderEntryFactory.cpp
     JOBConstraintsEntryImpl.cpp
     JOBCurvesEntryImpl.cpp
     JOBDynModelsEntryImpl.cpp
     JOBDynModelsEntryFactory.cpp
     JOBFinalStateEntryImpl.cpp
-    JOBFinalStateEntryFactory.cpp
     JOBInitValuesEntryImpl.cpp
     JOBInitialStateEntryImpl.cpp
     JOBIterators.cpp
@@ -44,33 +42,26 @@ set(API_JOB_SOURCES
     JOBSolverEntryImpl.cpp
     JOBTimelineEntryImpl.cpp
     JOBModelsDirEntryImpl.cpp
-    JOBJobEntryFactory.cpp
-    JOBLogsEntryFactory.cpp
-    JOBModelerEntryFactory.cpp
-    JOBNetworkEntryFactory.cpp
-    JOBOutputsEntryFactory.cpp
-    JOBSimulationEntryFactory.cpp
-    JOBSolverEntryFactory.cpp
-    JOBModelsDirEntryFactory.cpp
+    JOBEvalLineariseEntryImpl.cpp
+    JOBEvalModalAnalysisEntryImpl.cpp
+    JOBAllModesEntryImpl.cpp
+    JOBSubParticipationEntryImpl.cpp
     )
 
 set(API_JOB_INCLUDE_HEADERS
     JOBXmlHandler.h
     JOBXmlImporter.h
     JOBAppenderEntry.h
-    JOBAppenderEntryFactory.h
     JOBConstraintsEntry.h
     JOBCurvesEntry.h
     JOBDynModelsEntry.h
     JOBDynModelsEntryFactory.h
     JOBFinalStateEntry.h
-    JOBFinalStateEntryFactory.h
     JOBInitValuesEntry.h
     JOBInitialStateEntry.h
     JOBIterators.h
     JOBImporter.h
     JOBJobEntry.h
-    JOBJobEntryFactory.h
     JOBJobsCollectionFactory.h
     JOBJobsCollection.h
     JOBJobsCollectionImpl.h
@@ -80,15 +71,12 @@ set(API_JOB_INCLUDE_HEADERS
     JOBOutputsEntry.h
     JOBSimulationEntry.h
     JOBSolverEntry.h
-    JOBLogsEntryFactory.h
-    JOBModelerEntryFactory.h
-    JOBNetworkEntryFactory.h
-    JOBOutputsEntryFactory.h
-    JOBSimulationEntryFactory.h
-    JOBSolverEntryFactory.h
-    JOBModelsDirEntryFactory.h
     JOBTimelineEntry.h
     JOBModelsDirEntry.h
+    JOBLineariseEntry.h
+    JOBModalAnalysisEntry.h
+    JOBAllModesEntry.h
+    JOBSubParticipationEntry.h
     )
 
 add_library(dynawo_API_JOB ${LIBRARY_TYPE} ${API_JOB_SOURCES})
