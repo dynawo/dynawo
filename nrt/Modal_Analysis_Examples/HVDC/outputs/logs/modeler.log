@@ -1,0 +1,77 @@
+2020-06-29 16:46:31 | INFO |  ============================================================
+2020-06-29 16:46:31 | INFO | DYNAWO VERSION  :     1.1.0
+2020-06-29 16:46:31 | INFO | DYNAWO REVISION :  ModalAnalysis-3a330ea9
+2020-06-29 16:46:31 | INFO |  ============================================================
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | connection list
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | connecting Line1_line_terminal2 with HVDC_hvdc_terminal1
+2020-06-29 16:46:31 | DEBUG | connecting Line2_line_terminal2 with HVDC_hvdc_terminal2
+2020-06-29 16:46:31 | DEBUG | connecting InfBus1_infiniteBus_terminal with Line1_line_terminal1
+2020-06-29 16:46:31 | DEBUG | connecting InfBus2_infiniteBus_terminal with Line2_line_terminal1
+2020-06-29 16:46:31 | DEBUG | ------------------------------
+2020-06-29 16:46:31 | DEBUG | model :HVDCStandard             =>HVDC
+2020-06-29 16:46:31 | DEBUG |          Y : [     0 ;    120[
+2020-06-29 16:46:31 | DEBUG |          F : [     0 ;    116[
+2020-06-29 16:46:31 | DEBUG |          Z : [     0 ;     38[
+2020-06-29 16:46:31 | DEBUG |       mode : [     0 ;     65[
+2020-06-29 16:46:31 | DEBUG |          G : [     0 ;     75[
+2020-06-29 16:46:31 | DEBUG |
+2020-06-29 16:46:31 | DEBUG | model :InfiniteBus              =>InfBus1
+2020-06-29 16:46:31 | DEBUG |          Y : [   120 ;    122[
+2020-06-29 16:46:31 | DEBUG |          F : [   116 ;    116[
+2020-06-29 16:46:31 | DEBUG |
+2020-06-29 16:46:31 | DEBUG | model :InfiniteBus              =>InfBus2
+2020-06-29 16:46:31 | DEBUG |          Y : [   122 ;    124[
+2020-06-29 16:46:31 | DEBUG |          F : [   116 ;    116[
+2020-06-29 16:46:31 | DEBUG |
+2020-06-29 16:46:31 | DEBUG | model :Line                     =>Line1
+2020-06-29 16:46:31 | DEBUG |          Y : [   124 ;    132[
+2020-06-29 16:46:31 | DEBUG |          F : [   116 ;    120[
+2020-06-29 16:46:31 | DEBUG |          Z : [    38 ;     42[
+2020-06-29 16:46:31 | DEBUG |       mode : [    65 ;     66[
+2020-06-29 16:46:31 | DEBUG |          G : [    75 ;     77[
+2020-06-29 16:46:31 | DEBUG |
+2020-06-29 16:46:31 | DEBUG | model :Line                     =>Line2
+2020-06-29 16:46:31 | DEBUG |          Y : [   132 ;    140[
+2020-06-29 16:46:31 | DEBUG |          F : [   120 ;    124[
+2020-06-29 16:46:31 | DEBUG |          Z : [    42 ;     46[
+2020-06-29 16:46:31 | DEBUG |       mode : [    66 ;     67[
+2020-06-29 16:46:31 | DEBUG |          G : [    77 ;     79[
+2020-06-29 16:46:31 | DEBUG |
+2020-06-29 16:46:31 | DEBUG | model :ConnectorCalculatedVariable=>InfBus1_infiniteBus_terminal_V_im
+2020-06-29 16:46:31 | DEBUG |          Y : [   140 ;    141[
+2020-06-29 16:46:31 | DEBUG |          F : [   124 ;    125[
+2020-06-29 16:46:31 | DEBUG |
+2020-06-29 16:46:31 | DEBUG | model :ConnectorCalculatedVariable=>InfBus1_infiniteBus_terminal_V_re
+2020-06-29 16:46:31 | DEBUG |          Y : [   141 ;    142[
+2020-06-29 16:46:31 | DEBUG |          F : [   125 ;    126[
+2020-06-29 16:46:31 | DEBUG |
+2020-06-29 16:46:31 | DEBUG | model :ConnectorCalculatedVariable=>InfBus2_infiniteBus_terminal_V_im
+2020-06-29 16:46:31 | DEBUG |          Y : [   142 ;    143[
+2020-06-29 16:46:31 | DEBUG |          F : [   126 ;    127[
+2020-06-29 16:46:31 | DEBUG |
+2020-06-29 16:46:31 | DEBUG | model :ConnectorCalculatedVariable=>InfBus2_infiniteBus_terminal_V_re
+2020-06-29 16:46:31 | DEBUG |          Y : [   143 ;    144[
+2020-06-29 16:46:31 | DEBUG |          F : [   127 ;    128[
+2020-06-29 16:46:31 | DEBUG |
+2020-06-29 16:46:31 | DEBUG | model connectors (Y,Flow) NB = 16
+2020-06-29 16:46:31 | DEBUG |          F : [   128 ;    144[
+2020-06-29 16:46:31 | DEBUG |
+2020-06-29 16:46:31 | DEBUG |  ====== connectors list =====
+2020-06-29 16:46:31 | DEBUG |          Yconnector Y[    14] = Y[   126]      F = F[   128] / model HVDC to model Line1
+2020-06-29 16:46:31 | DEBUG |          Yconnector Y[    15] = Y[   127]      F = F[   129] / model HVDC to model Line1
+2020-06-29 16:46:31 | DEBUG |          Yconnector Y[    16] = Y[   134]      F = F[   130] / model HVDC to model Line2
+2020-06-29 16:46:31 | DEBUG |          Yconnector Y[    17] = Y[   135]      F = F[   131] / model HVDC to model Line2
+2020-06-29 16:46:31 | DEBUG |          Yconnector Y[   140] = Y[   124]      F = F[   132] / model InfBus1_infiniteBus_terminal_V_im to model Line1
+2020-06-29 16:46:31 | DEBUG |          Yconnector Y[   141] = Y[   125]      F = F[   133] / model InfBus1_infiniteBus_terminal_V_re to model Line1
+2020-06-29 16:46:31 | DEBUG |          Yconnector Y[   142] = Y[   132]      F = F[   134] / model InfBus2_infiniteBus_terminal_V_im to model Line2
+2020-06-29 16:46:31 | DEBUG |          Yconnector Y[   143] = Y[   133]      F = F[   135] / model InfBus2_infiniteBus_terminal_V_re to model Line2
+2020-06-29 16:46:31 | DEBUG |          flowConnector : Y[   130] +Y[   116]  = 0      F = F[   136]
+2020-06-29 16:46:31 | DEBUG |          flowConnector : Y[   131] +Y[   117]  = 0      F = F[   137]
+2020-06-29 16:46:31 | DEBUG |          flowConnector : Y[   138] +Y[   118]  = 0      F = F[   138]
+2020-06-29 16:46:31 | DEBUG |          flowConnector : Y[   139] +Y[   119]  = 0      F = F[   139]
+2020-06-29 16:46:31 | DEBUG |          flowConnector : Y[   120] +Y[   128]  = 0      F = F[   140]
+2020-06-29 16:46:31 | DEBUG |          flowConnector : Y[   121] +Y[   129]  = 0      F = F[   141]
+2020-06-29 16:46:31 | DEBUG |          flowConnector : Y[   122] +Y[   136]  = 0      F = F[   142]
+2020-06-29 16:46:31 | DEBUG |          flowConnector : Y[   123] +Y[   137]  = 0      F = F[   143]

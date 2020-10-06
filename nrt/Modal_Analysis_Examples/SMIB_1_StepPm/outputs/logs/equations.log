@@ -1,0 +1,144 @@
+2020-10-05 10:27:33 | INFO |  ============================================================ 
+2020-10-05 10:27:33 | INFO | DYNAWO VERSION  :     1.3.0
+2020-10-05 10:27:33 | INFO | DYNAWO REVISION :  ModalAnalysisDynawo-1a4ade8
+2020-10-05 10:27:33 | INFO |  ============================================================ 
+2020-10-05 10:28:18 | DEBUG | ------------------------------
+2020-10-05 10:28:18 | DEBUG | Equations init
+2020-10-05 10:28:18 | DEBUG | ------------------------------
+2020-10-05 10:28:18 | DEBUG | 0 gen._RfPu = (gen.MdPu + gen.LfPu) / gen.T1dPu model: SM
+2020-10-05 10:28:18 | DEBUG | 1 gen._RfPPu = gen.RfPu * gen.rTfoPu ^ 2.0 model: SM
+2020-10-05 10:28:18 | DEBUG | 2 gen._Kuf = if gen.ExcitationPu == Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT.ExcitationPuType.Kundur then 1.0 else if gen.ExcitationPu == Dynawo.Electrical.Machines.GeneratorSynchronousExt_4E_INIT.ExcitationPuType.UserBase then gen.RfPPu / gen.MdPPuEfd else gen.RfPPu / gen.MdPPu model: SM
+2020-10-05 10:28:18 | DEBUG | 3 gen._Lambdad0Pu = gen.Uq0Pu - (gen.RaPPu + gen.RTfoPu) * gen.Iq0Pu model: SM
+2020-10-05 10:28:18 | DEBUG | 4 gen._If0Pu = (gen.Lambdad0Pu - (gen.MdSat0PPu + gen.LdPPu + gen.XTfoPu) * gen.Id0Pu) / gen.MdSat0PPu model: SM
+2020-10-05 10:28:18 | DEBUG | 5 gen._Uf0Pu = gen.RfPPu * gen.If0Pu model: SM
+2020-10-05 10:28:18 | DEBUG | 6 avr._Efd0PuLF = gen.Uf0Pu / (gen.Kuf * gen.rTfoPu) model: SM
+2020-10-05 10:28:18 | DEBUG | 7 avr._Efd0Pu = if avr.Efd0PuLF < avr.limiterWithLag.UMin then avr.limiterWithLag.UMin else if avr.Efd0PuLF > avr.limiterWithLag.UMax then avr.limiterWithLag.UMax else avr.Efd0PuLF model: SM
+2020-10-05 10:28:18 | DEBUG | 8 $DAEres1 = gen.u0Pu.im * gen.i0Pu.re + (-gen.u0Pu.re) * gen.i0Pu.im - gen.Q0Pu model: SM
+2020-10-05 10:28:18 | DEBUG | 9 $DAEres0 = gen.u0Pu.im * gen.i0Pu.im + gen.u0Pu.re * gen.i0Pu.re - gen.P0Pu model: SM
+2020-10-05 10:28:18 | DEBUG | 10 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 11 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 12 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 13 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 14 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 15 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 16 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 17 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 18 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 19 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 20 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 21 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 22 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 23 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 24 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | 25 call to external function omc_Dynawo_Electrical_Machines_BaseClasses__INIT_RotorPositionEstimation  model: SM
+2020-10-05 10:28:18 | DEBUG | ------------------------------
+2020-10-05 10:28:18 | DEBUG | Equations
+2020-10-05 10:28:18 | DEBUG | ------------------------------
+2020-10-05 10:28:18 | DEBUG | 0 busInf._terminal._i._im = (-line1.terminal1.i.im) - line2.terminal1.i.im model: Network
+2020-10-05 10:28:18 | DEBUG | 1 busInf._terminal._i._re = (-line1.terminal1.i.re) - line2.terminal1.i.re model: Network
+2020-10-05 10:28:18 | DEBUG | 2 $DAEres5 = line1.terminal2.i.im + line2.terminal2.i.im + tfo.terminal1.i.im model: Network
+2020-10-05 10:28:18 | DEBUG | 3 $DAEres4 = line1.terminal2.i.re + line2.terminal2.i.re + tfo.terminal1.i.re model: Network
+2020-10-05 10:28:18 | DEBUG | 4 $DAEres10 = if line1.running.value then line1.ZPu.re * (line1.terminal2.i.re + line1.YPu.im * line1.terminal2.V.im - line1.YPu.re * line1.terminal2.V.re) - line1.ZPu.im * (line1.terminal2.i.im + (-line1.YPu.re) * line1.terminal2.V.im - line1.YPu.im * line1.terminal2.V.re) - (line1.terminal2.V.re - busInf.terminal.V.re) else line1.terminal1.i.re model: Network
+2020-10-05 10:28:18 | DEBUG | 5 $DAEres11 = if line1.running.value then line1.ZPu.re * (line1.terminal2.i.im + (-line1.YPu.re) * line1.terminal2.V.im - line1.YPu.im * line1.terminal2.V.re) + line1.ZPu.im * (line1.terminal2.i.re + line1.YPu.im * line1.terminal2.V.im - line1.YPu.re * line1.terminal2.V.re) - (line1.terminal2.V.im - busInf.terminal.V.im) else line1.terminal1.i.im model: Network
+2020-10-05 10:28:18 | DEBUG | 6 $DAEres12 = if line1.running.value then line1.ZPu.re * (line1.terminal1.i.re + line1.YPu.im * busInf.terminal.V.im - line1.YPu.re * busInf.terminal.V.re) - line1.ZPu.im * (line1.terminal1.i.im + (-line1.YPu.re) * busInf.terminal.V.im - line1.YPu.im * busInf.terminal.V.re) - (busInf.terminal.V.re - line1.terminal2.V.re) else line1.terminal2.i.re model: Network
+2020-10-05 10:28:18 | DEBUG | 7 $DAEres13 = if line1.running.value then line1.ZPu.re * (line1.terminal1.i.im + (-line1.YPu.re) * busInf.terminal.V.im - line1.YPu.im * busInf.terminal.V.re) + line1.ZPu.im * (line1.terminal1.i.re + line1.YPu.im * busInf.terminal.V.im - line1.YPu.re * busInf.terminal.V.re) - (busInf.terminal.V.im - line1.terminal2.V.im) else line1.terminal2.i.im model: Network
+2020-10-05 10:28:18 | DEBUG | 8 $DAEres6 = if line2.running.value then line2.ZPu.re * (line2.terminal2.i.re + line2.YPu.im * line1.terminal2.V.im - line2.YPu.re * line1.terminal2.V.re) - line2.ZPu.im * (line2.terminal2.i.im + (-line2.YPu.re) * line1.terminal2.V.im - line2.YPu.im * line1.terminal2.V.re) - (line1.terminal2.V.re - busInf.terminal.V.re) else line2.terminal1.i.re model: Network
+2020-10-05 10:28:18 | DEBUG | 9 $DAEres7 = if line2.running.value then line2.ZPu.re * (line2.terminal1.i.im + (-line2.YPu.re) * busInf.terminal.V.im - line2.YPu.im * busInf.terminal.V.re) + line2.ZPu.im * (line2.terminal1.i.re + line2.YPu.im * busInf.terminal.V.im - line2.YPu.re * busInf.terminal.V.re) - (busInf.terminal.V.im - line1.terminal2.V.im) else line2.terminal2.i.im model: Network
+2020-10-05 10:28:18 | DEBUG | 10 $DAEres8 = if line2.running.value then line2.ZPu.re * (line2.terminal2.i.im + (-line2.YPu.re) * line1.terminal2.V.im - line2.YPu.im * line1.terminal2.V.re) + line2.ZPu.im * (line2.terminal2.i.re + line2.YPu.im * line1.terminal2.V.im - line2.YPu.re * line1.terminal2.V.re) - (line1.terminal2.V.im - busInf.terminal.V.im) else line2.terminal1.i.im model: Network
+2020-10-05 10:28:18 | DEBUG | 11 $DAEres9 = if line2.running.value then line2.ZPu.re * (line2.terminal1.i.re + line2.YPu.im * busInf.terminal.V.im - line2.YPu.re * busInf.terminal.V.re) - line2.ZPu.im * (line2.terminal1.i.im + (-line2.YPu.re) * busInf.terminal.V.im - line2.YPu.im * busInf.terminal.V.re) - (busInf.terminal.V.re - line1.terminal2.V.re) else line2.terminal2.i.re model: Network
+2020-10-05 10:28:18 | DEBUG | 12 $DAEres2 = if tfo.running.value then tfo.rTfoPu ^ 2.0 * line1.terminal2.V.im - (tfo.rTfoPu * tfo.terminal2.V.im + tfo.ZPu.re * tfo.terminal1.i.im + tfo.ZPu.im * tfo.terminal1.i.re) else tfo.terminal1.i.im model: Network
+2020-10-05 10:28:18 | DEBUG | 13 $DAEres3 = if tfo.running.value then tfo.rTfoPu ^ 2.0 * line1.terminal2.V.re - (tfo.rTfoPu * tfo.terminal2.V.re + tfo.ZPu.re * tfo.terminal1.i.re - tfo.ZPu.im * tfo.terminal1.i.im) else tfo.terminal1.i.re model: Network
+2020-10-05 10:28:18 | DEBUG | 14 tfo._terminal2._i._re = if tfo.running.value then (-tfo.terminal1.i.re) / tfo.rTfoPu - (tfo.YPu.im * tfo.terminal2.V.im - tfo.YPu.re * tfo.terminal2.V.re) else 0.0 model: Network
+2020-10-05 10:28:18 | DEBUG | 15 tfo._terminal2._i._im = if tfo.running.value then tfo.YPu.re * tfo.terminal2.V.im + tfo.YPu.im * tfo.terminal2.V.re - tfo.terminal1.i.im / tfo.rTfoPu else 0.0 model: Network
+2020-10-05 10:28:18 | DEBUG | 16 gover._feedback._y = gover.omegaRefPu.k - gen.omegaPu.value model: SM
+2020-10-05 10:28:18 | DEBUG | 17 gover._PmRawPu._u2 = gover.gain.k * gover.feedback.y model: SM
+2020-10-05 10:28:18 | DEBUG | 18 avr._UsRefPu = URef.Value0 + (if time < URef.tStep then 0.0 else URef.Height) model: SM
+2020-10-05 10:28:18 | DEBUG | 19 avr._feedback._u1 = smooth(0, if avr.UsRefPu > avr.limUsRef.uMax then avr.limUsRef.uMax else if avr.UsRefPu < avr.limUsRef.uMin then avr.limUsRef.uMin else avr.UsRefPu) model: SM
+2020-10-05 10:28:18 | DEBUG | 20 gover._PmRawPu._u1 = Pm.Value0 + (if time < Pm.tStep then 0.0 else Pm.Height) model: SM
+2020-10-05 10:28:18 | DEBUG | 21 gover._PmRawPu._y = gover.PmRawPu.k1 * gover.PmRawPu.u1 + gover.PmRawPu.k2 * gover.PmRawPu.u2 model: SM
+2020-10-05 10:28:18 | DEBUG | 22 gover._limiter._y = smooth(0, if gover.PmRawPu.y > gover.limiter.uMax then gover.limiter.uMax else if gover.PmRawPu.y < gover.limiter.uMin then gover.limiter.uMin else gover.PmRawPu.y) model: SM
+2020-10-05 10:28:18 | DEBUG | 23 gover._switch._y = if gover.activeFrequencyRegulation.k then gover.limiter.y else gover.PmCst.k model: SM
+2020-10-05 10:28:18 | DEBUG | 24 $DAEres2 = if gen.running.value then gen.terminal.V.re - (sin(gen.theta) * gen.udPu + cos(gen.theta) * gen.uqPu) else gen.udPu model: SM
+2020-10-05 10:28:18 | DEBUG | 25 $DAEres3 = if gen.running.value then gen.terminal.V.im - (sin(gen.theta) * gen.uqPu - cos(gen.theta) * gen.udPu) else gen.uqPu model: SM
+2020-10-05 10:28:18 | DEBUG | 26 $DAEres4 = if gen.running.value then der(gen.theta) - 314.1592653589793 * (gen.omegaPu.value - omegaRef.Value0) else der(gen.theta) model: SM
+2020-10-05 10:28:18 | DEBUG | 27 gen._cmPu = if gen.running.value then gover.switch.y / gen.omegaPu.value else 0.0 model: SM
+2020-10-05 10:28:18 | DEBUG | 28 $DAEres5 = if gen.running.value then gen.lambdaqPu - ((gen.MqSatPPu + gen.LqPPu + gen.XTfoPu) * gen.iqPu + gen.MqSatPPu * (gen.iQ1Pu + gen.iQ2Pu)) else gen.iDPu model: SM
+2020-10-05 10:28:18 | DEBUG | 29 $DAEres6 = if gen.running.value then gen.lambdadPu - ((gen.MdSatPPu + gen.LdPPu + gen.XTfoPu) * gen.idPu + gen.MdSatPPu * (gen.ifPu + gen.iDPu)) else gen.idPu model: SM
+2020-10-05 10:28:18 | DEBUG | 30 $DAEres7 = if gen.running.value then gen.lambdafPu - (gen.MdSatPPu * gen.idPu + (gen.MdSatPPu + gen.LfPPu + gen.MrcPPu) * gen.ifPu + (gen.MdSatPPu + gen.MrcPPu) * gen.iDPu) else gen.iqPu model: SM
+2020-10-05 10:28:18 | DEBUG | 31 $DAEres8 = if gen.running.value then gen.lambdaDPu - (gen.MdSatPPu * gen.idPu + (gen.MdSatPPu + gen.MrcPPu) * gen.ifPu + (gen.MdSatPPu + gen.LDPPu + gen.MrcPPu) * gen.iDPu) else gen.ifPu model: SM
+2020-10-05 10:28:18 | DEBUG | 32 $DAEres9 = if gen.running.value then gen.lambdaAirGapPu - sqrt(gen.lambdaADPu ^ 2.0 + gen.lambdaAQPu ^ 2.0) else gen.lambdaAirGapPu model: SM
+2020-10-05 10:28:18 | DEBUG | 33 $DAEres10 = if gen.running.value then gen.mdsPu - gen.MdPPu / (1.0 + gen.md * gen.lambdaAirGapPu ^ gen.nd) else gen.mdsPu model: SM
+2020-10-05 10:28:18 | DEBUG | 34 $DAEres11 = if gen.running.value then gen.MdSatPPu - (gen.miPu + gen.MsalPu * gen.sin2Eta) else gen.MdSatPPu - gen.MdPPu model: SM
+2020-10-05 10:28:18 | DEBUG | 35 $DAEres12 = if gen.running.value then gen.sin2Eta - (gen.lambdaAQPu / gen.lambdaAirGapPu) ^ 2.0 else gen.sin2Eta model: SM
+2020-10-05 10:28:18 | DEBUG | 36 $DAEres13 = if gen.running.value then gen.mqsPu - gen.MqPPu / (1.0 + gen.mq * gen.lambdaAirGapPu ^ gen.nq) else gen.mqsPu model: SM
+2020-10-05 10:28:18 | DEBUG | 37 $DAEres14 = if gen.running.value then gen.miPu - (gen.mdsPu * gen.cos2Eta + gen.mqsPu * gen.sin2Eta) else gen.miPu model: SM
+2020-10-05 10:28:18 | DEBUG | 38 $DAEres15 = if gen.running.value then gen.cos2Eta - (gen.lambdaADPu / gen.lambdaAirGapPu) ^ 2.0 else gen.cos2Eta model: SM
+2020-10-05 10:28:18 | DEBUG | 39 $DAEres16 = if gen.running.value then gen.lambdaADPu - gen.MdSatPPu * (gen.idPu + gen.ifPu + gen.iDPu) else gen.lambdaADPu model: SM
+2020-10-05 10:28:18 | DEBUG | 40 $DAEres17 = if gen.running.value then gen.udPu - ((gen.RaPPu + gen.RTfoPu) * gen.idPu - gen.omegaPu.value * gen.lambdaqPu) else gen.lambdadPu model: SM
+2020-10-05 10:28:18 | DEBUG | 41 $DAEres18 = if gen.running.value then gen.uqPu - ((gen.RaPPu + gen.RTfoPu) * gen.iqPu + gen.omegaPu.value * gen.lambdadPu) else gen.lambdaqPu model: SM
+2020-10-05 10:28:18 | DEBUG | 42 $DAEres19 = if gen.running.value then gen.lambdaQ1Pu - (gen.MqSatPPu * gen.iqPu + (gen.MqSatPPu + gen.LQ1PPu) * gen.iQ1Pu + gen.MqSatPPu * gen.iQ2Pu) else gen.iQ1Pu model: SM
+2020-10-05 10:28:18 | DEBUG | 43 $DAEres20 = if gen.running.value then gen.lambdaQ2Pu - (gen.MqSatPPu * (gen.iqPu + gen.iQ1Pu) + (gen.MqSatPPu + gen.LQ2PPu) * gen.iQ2Pu) else gen.iQ2Pu model: SM
+2020-10-05 10:28:18 | DEBUG | 44 $DAEres21 = if gen.running.value then gen.lambdaAQPu - gen.MqSatPPu * (gen.iqPu + gen.iQ1Pu + gen.iQ2Pu) else gen.lambdaAQPu model: SM
+2020-10-05 10:28:18 | DEBUG | 45 $DAEres22 = if gen.running.value then gen.MqSatPPu - (gen.miPu - gen.MsalPu * gen.cos2Eta) else gen.MqSatPPu - gen.MqPPu model: SM
+2020-10-05 10:28:18 | DEBUG | 46 gen._terminal._i._re = if gen.running.value then 0.01 * (cos(gen.theta) * gen.iqPu + sin(gen.theta) * gen.idPu) * gen.SNom else 0.0 model: SM
+2020-10-05 10:28:18 | DEBUG | 47 gen._terminal._i._im = if gen.running.value then 0.01 * (sin(gen.theta) * gen.iqPu - cos(gen.theta) * gen.idPu) * gen.SNom else 0.0 model: SM
+2020-10-05 10:28:18 | DEBUG | 48 $DAEres23 = if gen.running.value then (-gen.RDPPu) * gen.iDPu - 0.003183098861837907 * der(gen.lambdaDPu) else der(gen.lambdaDPu) model: SM
+2020-10-05 10:28:18 | DEBUG | 49 gen._cePu = if gen.running.value then gen.lambdaqPu * gen.idPu - gen.lambdadPu * gen.iqPu else 0.0 model: SM
+2020-10-05 10:28:18 | DEBUG | 50 $DAEres24 = if gen.running.value then 2.0 * gen.H * der(gen.omegaPu.value) - (gen.cmPu * gen.PNomTurb / gen.SNom + gen.DPu * (omegaRef.Value0 - gen.omegaPu.value) - gen.cePu) else der(gen.omegaPu.value) model: SM
+2020-10-05 10:28:18 | DEBUG | 51 $DAEres25 = if gen.running.value then (-gen.RQ1PPu) * gen.iQ1Pu - 0.003183098861837907 * der(gen.lambdaQ1Pu) else der(gen.lambdaQ1Pu) model: SM
+2020-10-05 10:28:18 | DEBUG | 52 $DAEres26 = if gen.running.value then (-gen.RQ2PPu) * gen.iQ2Pu - 0.003183098861837907 * der(gen.lambdaQ2Pu) else der(gen.lambdaQ2Pu) model: SM
+2020-10-05 10:28:18 | DEBUG | 53 gen._uStatorPu._im = if gen.running.value then (gen.terminal.V.im + (-100.0) * (gen.terminal.i.re * gen.XTfoPu + gen.terminal.i.im * gen.RTfoPu) / gen.SNom) / gen.rTfoPu else 0.0 model: SM
+2020-10-05 10:28:18 | DEBUG | 54 gen._uStatorPu._re = if gen.running.value then (gen.terminal.V.re + (-100.0) * (gen.terminal.i.re * gen.RTfoPu - gen.terminal.i.im * gen.XTfoPu) / gen.SNom) / gen.rTfoPu else 0.0 model: SM
+2020-10-05 10:28:18 | DEBUG | 55 avr._UsPu = if gen.running.value then (gen.uStatorPu.re ^ 2.0 + gen.uStatorPu.im ^ 2.0) ^ 0.5 else 0.0 model: SM
+2020-10-05 10:28:18 | DEBUG | 56 avr._feedback._y = avr.feedback.u1 - avr.UsPu model: SM
+2020-10-05 10:28:18 | DEBUG | 57 avr._gain._y = avr.gain.k * avr.feedback.y model: SM
+2020-10-05 10:28:18 | DEBUG | 58 avr._EfdPu = if time - avr.limiterWithLag.tUMinReached >= avr.limiterWithLag.LagMin then avr.limiterWithLag.UMin else if time - avr.limiterWithLag.tUMaxReached >= avr.limiterWithLag.LagMax then avr.limiterWithLag.UMax else avr.gain.y model: SM
+2020-10-05 10:28:18 | DEBUG | 59 gen._ufPu = if gen.running.value then avr.EfdPu * gen.Kuf * gen.rTfoPu else 0.0 model: SM
+2020-10-05 10:28:18 | DEBUG | 60 $DAEres27 = if gen.running.value then gen.ufPu - (gen.RfPPu * gen.ifPu + 0.003183098861837907 * der(gen.lambdafPu)) else der(gen.lambdafPu) model: SM
+2020-10-05 10:28:18 | DEBUG | 61 Network_tfo_terminal2_V_im = SM_gen_terminal_V_im
+2020-10-05 10:28:18 | DEBUG | 62 Network_tfo_terminal2_V_re = SM_gen_terminal_V_re
+2020-10-05 10:28:18 | DEBUG | 63 tfo_terminal2_i_im+gen_terminal_i_im = 0
+2020-10-05 10:28:18 | DEBUG | 64 tfo_terminal2_i_re+gen_terminal_i_re = 0
+2020-10-05 10:28:18 | DEBUG | ------------------------------
+2020-10-05 10:28:18 | DEBUG | Roots init
+2020-10-05 10:28:18 | DEBUG | ------------------------------
+2020-10-05 10:28:18 | DEBUG | 0 avr.Efd0PuLF < avr.limiterWithLag.UMin model: SM
+2020-10-05 10:28:18 | DEBUG | 1 avr.Efd0PuLF > avr.limiterWithLag.UMax model: SM
+2020-10-05 10:28:18 | DEBUG | 2 avr.Efd0PuLF <= avr.limiterWithLag.UMax model: SM
+2020-10-05 10:28:18 | DEBUG | 3 avr.Efd0PuLF >= avr.limiterWithLag.UMin model: SM
+2020-10-05 10:28:18 | DEBUG | ------------------------------
+2020-10-05 10:28:18 | DEBUG | Roots
+2020-10-05 10:28:18 | DEBUG | ------------------------------
+2020-10-05 10:28:18 | DEBUG | 0  $whenCondition1:  data->localData[0]->booleanVars[0] /* $whenCondition1 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[0] /* line1.running.value DISCRETE */)));  model: Network
+2020-10-05 10:28:18 | DEBUG | 1  $whenCondition2:  data->localData[0]->booleanVars[1] /* $whenCondition2 DISCRETE */ = ((toNativeBool (data->localData[0]->discreteVars[1] /* line1.switchOffSignal1.value DISCRETE */)) || ((toNativeBool (data->localData[0]->discreteVars[2] /* line1.switchOffSignal2.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[0] /* line1.running.value DISCRETE */))));  model: Network
+2020-10-05 10:28:18 | DEBUG | 2  $whenCondition3:  data->localData[0]->booleanVars[2] /* $whenCondition3 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[3] /* line2.running.value DISCRETE */)));  model: Network
+2020-10-05 10:28:18 | DEBUG | 3  $whenCondition4:  data->localData[0]->booleanVars[3] /* $whenCondition4 DISCRETE */ = ((toNativeBool (data->localData[0]->discreteVars[4] /* line2.switchOffSignal1.value DISCRETE */)) || ((toNativeBool (data->localData[0]->discreteVars[5] /* line2.switchOffSignal2.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[3] /* line2.running.value DISCRETE */))));  model: Network
+2020-10-05 10:28:18 | DEBUG | 4  $whenCondition5:  data->localData[0]->booleanVars[4] /* $whenCondition5 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[6] /* tfo.running.value DISCRETE */)));  model: Network
+2020-10-05 10:28:18 | DEBUG | 5  $whenCondition6:  data->localData[0]->booleanVars[5] /* $whenCondition6 DISCRETE */ = ((toNativeBool (data->localData[0]->discreteVars[7] /* tfo.switchOffSignal1.value DISCRETE */)) || ((toNativeBool (data->localData[0]->discreteVars[8] /* tfo.switchOffSignal2.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[6] /* tfo.running.value DISCRETE */))));  model: Network
+2020-10-05 10:28:18 | DEBUG | 6 time - avr.limiterWithLag.tUMinReached >= avr.limiterWithLag.LagMin model: SM
+2020-10-05 10:28:18 | DEBUG | 7 time - avr.limiterWithLag.tUMaxReached >= avr.limiterWithLag.LagMax model: SM
+2020-10-05 10:28:18 | DEBUG | 8 time < URef.tStep model: SM
+2020-10-05 10:28:18 | DEBUG | 9 time < Pm.tStep model: SM
+2020-10-05 10:28:18 | DEBUG | 10 avr.gain.y < avr.limiterWithLag.UMin model: SM
+2020-10-05 10:28:18 | DEBUG | 11 avr.gain.y >= avr.limiterWithLag.UMin model: SM
+2020-10-05 10:28:18 | DEBUG | 12 avr.gain.y > avr.limiterWithLag.UMax model: SM
+2020-10-05 10:28:18 | DEBUG | 13 avr.gain.y <= avr.limiterWithLag.UMax model: SM
+2020-10-05 10:28:18 | DEBUG | 14 time - avr.limiterWithLag.tUMinReached >= avr.LagEfdMin model: SM
+2020-10-05 10:28:18 | DEBUG | 15 time - avr.limiterWithLag.tUMinReached < avr.LagEfdMin and pre(avr.limitationEfdMin) model: SM
+2020-10-05 10:28:18 | DEBUG | 16 time - avr.limiterWithLag.tUMaxReached >= avr.LagEfdMax model: SM
+2020-10-05 10:28:18 | DEBUG | 17 time - avr.limiterWithLag.tUMaxReached < avr.LagEfdMax and pre(avr.limitationEfdMax) model: SM
+2020-10-05 10:28:18 | DEBUG | 18 avr.UsRefPu <= avr.UsRefMinPu model: SM
+2020-10-05 10:28:18 | DEBUG | 19 avr.UsRefPu >= avr.UsRefMaxPu model: SM
+2020-10-05 10:28:18 | DEBUG | 20 avr.UsRefPu < avr.UsRefMaxPu and avr.UsRefPu > avr.UsRefMinPu and (pre(avr.limitationUsRefMin) or pre(avr.limitationUsRefMax)) model: SM
+2020-10-05 10:28:18 | DEBUG | 21 gover.PmRawPu.y >= gover.PMaxPu and pre(gover.state) <> Dynawo.Electrical.Controls.Machines.Governors.GoverProportional.status.LimitPMax model: SM
+2020-10-05 10:28:18 | DEBUG | 22 gover.PmRawPu.y <= gover.PMinPu and pre(gover.state) <> Dynawo.Electrical.Controls.Machines.Governors.GoverProportional.status.LimitPMin model: SM
+2020-10-05 10:28:18 | DEBUG | 23 gover.PmRawPu.y > gover.PMinPu and gover.PmRawPu.y < gover.PMaxPu and pre(gover.state) == Dynawo.Electrical.Controls.Machines.Governors.GoverProportional.status.LimitPMin model: SM
+2020-10-05 10:28:18 | DEBUG | 24 gover.PmRawPu.y > gover.PMinPu model: SM
+2020-10-05 10:28:18 | DEBUG | 25 gover.PmRawPu.y < gover.PMaxPu model: SM
+2020-10-05 10:28:18 | DEBUG | 26  $whenCondition12:  data->localData[0]->booleanVars[3] /* $whenCondition12 DISCRETE */ = (!(toNativeBool (data->localData[0]->discreteVars[10] /* gen.running.value DISCRETE */)));  model: SM
+2020-10-05 10:28:18 | DEBUG | 27  $whenCondition13:  data->localData[0]->booleanVars[4] /* $whenCondition13 DISCRETE */ = (((toNativeBool (data->localData[0]->discreteVars[11] /* gen.switchOffSignal1.value DISCRETE */)) || (toNativeBool (data->localData[0]->discreteVars[12] /* gen.switchOffSignal2.value DISCRETE */))) || ((toNativeBool (data->localData[0]->discreteVars[13] /* gen.switchOffSignal3.value DISCRETE */)) && (toNativeBool (data->simulationInfo->discreteVarsPre[10] /* gen.running.value DISCRETE */))));  model: SM
+2020-10-05 10:28:18 | DEBUG | 28  $whenCondition14:  modelica_boolean tmp23;  modelica_boolean tmp24;  RELATIONHYSTERESIS(tmp23, data->localData[0]->realVars[43] /* gover.PmRawPu.y variable */, data->simulationInfo->realParameter[121] /* gover.PMinPu PARAM */, 18, Greater);  RELATIONHYSTERESIS(tmp24, data->localData[0]->realVars[43] /* gover.PmRawPu.y variable */, data->simulationInfo->realParameter[119] /* gover.PMaxPu PARAM */, 19, Less);  data->localData[0]->booleanVars[5] /* $whenCondition14 DISCRETE */ = ((tmp23 && tmp24) && (data->simulationInfo->integerDoubleVarsPre[1] /* gover.state DISCRETE */ == 3));  model: SM
+2020-10-05 10:28:18 | DEBUG | 29 Zero crossing for condition change in relation 21: tmp7 = Greater(data->localData[0]->realVars[18] /* avr.UsRefPu variable */,data->simulationInfo->realParameter[18] /* avr.limUsRef.uMax PARAM */); model: SM
+2020-10-05 10:28:18 | DEBUG | 30 Zero crossing for condition change in relation 22: tmp8 = Less(data->localData[0]->realVars[18] /* avr.UsRefPu variable */,data->simulationInfo->realParameter[19] /* avr.limUsRef.uMin PARAM */); model: SM
+2020-10-05 10:28:18 | DEBUG | 31 Zero crossing for condition change in relation 23: tmp26 = Greater(data->localData[0]->realVars[66] /* gover.PmRawPu.y variable */,data->simulationInfo->realParameter[128] /* gover.limiter.uMax PARAM */); model: SM
+2020-10-05 10:28:18 | DEBUG | 32 Zero crossing for condition change in relation 24: tmp27 = Less(data->localData[0]->realVars[66] /* gover.PmRawPu.y variable */,data->simulationInfo->realParameter[129] /* gover.limiter.uMin PARAM */); model: SM
