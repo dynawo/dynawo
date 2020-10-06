@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<curvesInput xmlns="http://www.rte-france.com/dynawo">
+<curve model="Model" variable="SMIB1_omega"/>
+<curve model="Model" variable="URef1_step_value"/>
+<!--curve model="Model" variable="SMIB1_delta"/>
+<curve model="Model" variable="SMIB1_eqp"/>
+<curve model="Model" variable="SMIB1_Pgv"/>
+<curve model="Model" variable="SMIB1_Pm"/>
+<curve model="Model" variable="SMIB1_U1"/>
+<curve model="Model" variable="SMIB1_U2"/>
+<curve model="Model" variable="SMIB1_Vt"/>
+<curve model="Model" variable="URef1_step_value"/-->
+</curvesInput>
