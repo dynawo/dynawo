@@ -152,7 +152,7 @@ class GeneratorInterface : public ComponentInterface {
   virtual std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const = 0;
 
   /**
-   * @brief Determines if voltage regualtion is on
+   * @brief Determines if voltage regulation is on
    * @returns whether voltage regulation is on
    */
   virtual bool isVoltageRegulationOn() const = 0;
