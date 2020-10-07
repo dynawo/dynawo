@@ -125,16 +125,16 @@ class LoadInterfaceIIDM : public LoadInterface, public InjectorInterfaceIIDM<IID
   int getComponentVarIndex(const std::string& varName) const;
 
   /**
-   * @brief Getter for the bus' country
-   * @return the bus country
+   * @brief Getter for the load' country
+   * @return the load country
    */
   inline const std::string& getCountry() const {
     return country_;
   }
 
   /**
-   * @brief Setter for the bus' country
-   * @param country bus country
+   * @brief Setter for the load' country
+   * @param country load country
    */
   inline void setCountry(const std::string& country) {
     country_ = country;

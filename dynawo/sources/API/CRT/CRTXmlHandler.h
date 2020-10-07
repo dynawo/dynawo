@@ -26,7 +26,7 @@ class CriteriaParams;
 
 /**
  * @class ElementWithIdHandler
- * @brief Handler used to parse an element witn an id
+ * @brief Handler used to parse an element with an id
  */
 class ElementWithIdHandler : public xml::sax::parser::ComposableElementHandler {
  public:

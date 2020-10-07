@@ -210,16 +210,16 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   }
 
   /**
-   * @brief Getter for the bus' country
-   * @return the bus country
+   * @brief Getter for the voltage level' country
+   * @return the voltage level country
    */
   inline const std::string& getCountry() const {
     return country_;
   }
 
   /**
-   * @brief Setter for the bus' country
-   * @param country bus country
+   * @brief Setter for the voltage level' country
+   * @param country voltage level country
    */
   inline void setCountry(const std::string& country) {
     country_ = country;

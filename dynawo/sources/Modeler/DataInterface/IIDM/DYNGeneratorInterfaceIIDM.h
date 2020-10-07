@@ -145,16 +145,16 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
   int getComponentVarIndex(const std::string& varName) const;
 
   /**
-   * @brief Getter for the bus' country
-   * @return the bus country
+   * @brief Getter for the generator' country
+   * @return the generator country
    */
   inline const std::string& getCountry() const {
     return country_;
   }
 
   /**
-   * @brief Setter for the bus' country
-   * @param country bus country
+   * @brief Setter for the generator' country
+   * @param country generator country
    */
   inline void setCountry(const std::string& country) {
     country_ = country;
