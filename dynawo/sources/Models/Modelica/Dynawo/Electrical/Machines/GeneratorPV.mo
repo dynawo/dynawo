@@ -30,7 +30,7 @@ model GeneratorPV "Generator with power / frequency modulation and voltage / rea
                                 AbsorptionMax "Reactive power is fixed to its absorption limit",
                                 GenerationMax "Reactive power is fixed to its generation limit");
 
-    Connectors.ZPin URefPu (value = URef0Pu) "Voltage regulation set point in p.u (base UNom)";
+    Connectors.ImPin URefPu (value (start = URef0Pu)) "Voltage regulation set point in p.u (base UNom)";
 
     parameter Types.ReactivePower QMin "Minimum reactive power in Mvar";
     parameter Types.ReactivePower QMax "Maximum reactive power in Mvar";
