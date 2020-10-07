@@ -22,6 +22,7 @@
 #include <iosfwd>
 #include <stdexcept>
 
+#include <boost/lexical_cast.hpp>
 #include <boost/variant.hpp>
 
 
@@ -164,7 +165,7 @@ public:
    * @param p the Port to output
    * @returns the stream after output
    */
-  friend std::ostream& operator<<(std::ostream& stream, Port const& p) { return stream << p.port; }
+  friend std::ostream& operator<<(std::ostream& stream, Port const& p) { return stream << boost::lexical_cast<std::string>(p.port); }
 };
 
 /**
