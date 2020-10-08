@@ -99,6 +99,10 @@ else()
   set(NUMBER_OF_PROCESSORS 1)
 endif()
 
+if(DEFINED ENV{DYNAWO_NB_PROCESSORS_USED})
+  set(NUMBER_OF_PROCESSORS $ENV{DYNAWO_NB_PROCESSORS_USED})
+endif()
+
 include(ExternalProject)
 
 # Sources of external projects

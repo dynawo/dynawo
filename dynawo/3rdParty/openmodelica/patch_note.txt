@@ -63,6 +63,7 @@ Add the declaration of the method used to generated the structure file in new fr
 ### OMCompiler-configure-ac.patch ###
 
 - bug fix for MacOS - report from OpenModelica master
+- various fix for newer gnu compiler - report from OpenModelica master
 
 ### RemoveSimpleEquations-mo.patch ###
 
@@ -79,3 +80,7 @@ declaration of Dynawo specific c++ tables
 ### XMLCreateDynawo.mo ###
 
 Meta-Modelica code to generate the structure file
+
+### OMCompiler/3rdParty/SuiteSparse/CMakeLists.txt ###
+
+fix to compile on newer compiler - report from OpenModelica master
