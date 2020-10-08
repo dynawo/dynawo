@@ -146,9 +146,10 @@ static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump t
 
 namespace DYN {
 
-Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context) :
+Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
 context_(context),
 jobEntry_(jobEntry),
+data_(data),
 iidmFile_(""),
 networkParFile_(""),
 networkParSet_(""),
@@ -221,7 +222,7 @@ Simulation::configureSimulationInputs() {
 
   if (jobEntry_->getModelerEntry()->getNetworkEntry()) {
     iidmFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getIidmFile(), context_->getInputDirectory());
-    if (!exists(iidmFile_))
+    if (!data_ && !exists(iidmFile_))  // no need to check iidm file if data interface is provided
       throw DYNError(Error::GENERAL, UnknownIidmFile, iidmFile_);
 
     networkParFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile(), context_->getInputDirectory());
@@ -483,25 +484,29 @@ Simulation::loadDynamicData() {
   dyd_->setRootDirectory(context_->getInputDirectory());
   dyd_->setParametersReference(referenceParameters_);
 
-  if (iidmFile_ != "") {
-    data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM1, iidmFile_);
-    if (criteriaCollection_)
-      data_->configureCriteria(criteriaCollection_);
-
-    data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.
-
-    dyd_->setDataInterface(data_);
-
-    dyd_->initFromDydFiles(dydFiles_);
-    data_->mapConnections();
-
-    // the Network parameter file path is considered to be relative to the jobs file directory
-    dyd_->getNetworkParameters(networkParFile_, networkParSet_);
-  } else {
-    dyd_->initFromDydFiles(dydFiles_);
-    if (activateCriteria_)
-      Trace::warn() << DYNLog(CriteriaDefinedButNoIIDM) << Trace::endline;
+  if (!data_) {
+    if (iidmFile_ != "") {
+      data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM1, iidmFile_);
+    } else {
+      dyd_->initFromDydFiles(dydFiles_);
+      if (activateCriteria_) {
+        Trace::warn() << DYNLog(CriteriaDefinedButNoIIDM) << Trace::endline;
+      }
+      return;
+    }
   }
+  if (criteriaCollection_)
+    data_->configureCriteria(criteriaCollection_);
+
+  data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.
+
+  dyd_->setDataInterface(data_);
+
+  dyd_->initFromDydFiles(dydFiles_);
+  data_->mapConnections();
+
+  // the Network parameter file path is considered to be relative to the jobs file directory
+  dyd_->getNetworkParameters(networkParFile_, networkParSet_);
 }
 
 void
