@@ -21,11 +21,18 @@ model ACEmulation_INIT "Initialisation for AC Emulation for HVDC"
   import Dynawo.Connectors;
   import Dynawo.Electrical.SystemBase;
 
+  parameter Types.PerUnit KACEmulation "Inverse of the emulated AC reactance";
+
 protected
 
   Types.Angle Theta10 "Start value of angle of the voltage at terminal 1 in rad";
   Types.Angle Theta20 "Start value of angle of the voltage at terminal 2 in rad";
   Types.ActivePowerPu PRef0Pu "Start value of active power reference in p.u (base SnRef) (receptor convention)";
+  Types.ActivePowerPu PRefSet0Pu "Raw reference active power in p.u (base SNom)";
+
+equation
+
+  PRefSet0Pu = PRef0Pu - KACEmulation * (Theta10 - Theta20)
 
 annotation(preferredView = "text");
 end ACEmulation_INIT;
