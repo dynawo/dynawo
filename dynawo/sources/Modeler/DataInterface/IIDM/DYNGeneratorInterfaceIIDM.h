@@ -154,7 +154,7 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
    */
   bool isVoltageRegulationOn() const;
 
-  /*
+  /**
    * @brief Getter for the generator' country
    * @return the generator country
    */
