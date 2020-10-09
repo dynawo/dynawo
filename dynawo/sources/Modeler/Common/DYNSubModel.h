@@ -1111,7 +1111,7 @@ class SubModel {
    *
    * @return names of all continuous aliases variables
    */
-  inline const std::vector<std::pair<std::string, std::string> >& xAliasesNames() {
+  inline const std::vector<std::pair<std::string, std::pair<std::string, bool> > >& xAliasesNames() {
     return xAliasesNames_;
   }
 
@@ -1120,7 +1120,7 @@ class SubModel {
    *
    * @return names of all discrete aliases variables
    */
-  inline const std::vector<std::pair<std::string, std::string> >& zAliasesNames() {
+  inline const std::vector<std::pair<std::string, std::pair<std::string, bool> > >& zAliasesNames() {
     return zAliasesNames_;
   }
 
@@ -1486,8 +1486,8 @@ class SubModel {
   std::vector<std::string> zNames_;  ///< vector of the discretes variables name
   std::vector<std::string> xNames_;  ///< vector of the continuous variables names
   std::vector<std::string> calculatedVarNames_;  ///< vector of sub-model calculated variables names
-  std::vector<std::pair<std::string, std::string> > xAliasesNames_;  ///< vector of the continuous aliases variables names
-  std::vector<std::pair<std::string, std::string> > zAliasesNames_;  ///< vector of the discrete aliases variables names
+  std::vector<std::pair<std::string, std::pair<std::string, bool> > > xAliasesNames_;  ///< vector of the continuous aliases variables names
+  std::vector<std::pair<std::string, std::pair<std::string, bool> > > zAliasesNames_;  ///< vector of the discrete aliases variables names
 
   std::vector<std::string> zNamesInit_;  ///< name of the discrete variables of the init model
   std::vector<std::string> xNamesInit_;  ///< name of the continuous variables of the init model
