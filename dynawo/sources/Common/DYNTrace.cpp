@@ -124,7 +124,7 @@ void Trace::disableLogging() {
   logging::core::get()->set_logging_enabled(false);
 }
 
-void Trace::addAppenders(std::vector<TraceAppender> & appenders) {
+void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
   // remove old appenders (console_log)
   Trace::resetCustomAppenders();
 
