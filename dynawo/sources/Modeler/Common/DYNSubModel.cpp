@@ -414,9 +414,9 @@ SubModel::defineVariables() {
         } else {
           variable->setReferenceVariable(dynamic_pointer_cast<VariableNative> (iter->second));
           if (iter->second->isState() && (iter->second->getType() == DISCRETE || iter->second->getType() == BOOLEAN))
-            zAliasesNames_.push_back(std::make_pair(variable->getName(), iter->first));
+            zAliasesNames_.push_back(std::make_pair(variable->getName(), std::make_pair(iter->first, variable->getNegated())));
           else if (iter->second->isState() && (iter->second->getType() == CONTINUOUS || iter->second->getType() == FLOW))
-            xAliasesNames_.push_back(std::make_pair(variable->getName(), iter->first));
+            xAliasesNames_.push_back(std::make_pair(variable->getName(), std::make_pair(iter->first, variable->getNegated())));
         }
       }
     }

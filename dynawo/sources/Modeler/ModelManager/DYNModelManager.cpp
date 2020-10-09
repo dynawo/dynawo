@@ -1225,9 +1225,10 @@ ModelManager::printInitValues(const string & directory) {
     file << std::setw(50) << std::left << xNames[i] << std::right << ": y =" << std::setw(15) << DYN::double2String(yLocal_[i])
       << " yp =" << std::setw(15) << DYN::double2String(ypLocal_[i]) << "\n";
 
-  const vector<std::pair<string, string> >& xAliasesNames = (*this).xAliasesNames();
+  const vector<std::pair<string, std::pair<string, bool> > >& xAliasesNames = (*this).xAliasesNames();
   for (unsigned int i = 0, iEnd = xAliasesNames.size(); i < iEnd; ++i)
-    file << std::setw(50) << std::left << xAliasesNames[i].first << std::right << ": alias of " << xAliasesNames[i].second << "\n";
+    file << std::setw(50) << std::left << xAliasesNames[i].first << std::right << ": " <<
+    ((xAliasesNames[i].second.second)?"negated ":"") << "alias of " << xAliasesNames[i].second.first << "\n";
 
   if (sizeCalculatedVar() > 0) {
     evalCalculatedVars();
@@ -1243,9 +1244,10 @@ ModelManager::printInitValues(const string & directory) {
   for (unsigned int i = 0; i < sizeZ(); ++i)
     file << std::setw(50) << std::left << zNames[i] << std::right << ": z =" << std::setw(15) << DYN::double2String(zLocal_[i]) << "\n";
 
-  const vector<std::pair<string, string> >& zAliasesNames = (*this).zAliasesNames();
+  const vector<std::pair<string, std::pair<string, bool> > >& zAliasesNames = (*this).zAliasesNames();
   for (unsigned int i = 0, iEnd = zAliasesNames.size(); i < iEnd; ++i)
-    file << std::setw(50) << std::left << zAliasesNames[i].first << std::right << ": alias of " << zAliasesNames[i].second << "\n";
+    file << std::setw(50) << std::left << zAliasesNames[i].first << std::right << ": "<<
+    ((zAliasesNames[i].second.second)?"negated ":"") << "alias of " << zAliasesNames[i].second.first << "\n";
 
   file << " ====== PARAMETERS VALUES ======\n";
   const boost::unordered_map<string, ParameterModeler>& parametersMap = (*this).getParametersDynamic();
