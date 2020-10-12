@@ -831,8 +831,8 @@ Simulation::simulate() {
       model_->notifyTimeStep();
     }
 
-    // If we haven't evaluated the calculated variables for the last iteration before, we must do it here for the IIDM file export
-    if (exportIIDM_ && (exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_))
+    // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
+    if (exportIIDM_ || exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_)
       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
 
     if (SignalHandler::gotExitSignal() && !end()) {
