@@ -1,0 +1,22 @@
+within OpenEMTP.Examples.Machine;
+
+model SMTest2
+  Modelica.Blocks.Sources.Constant Vf(k = 0) annotation(
+    Placement(visible = true, transformation(origin = {-92, 54}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  Electrical.Machines.SM SM(F = 0, H = 3.7, Pb = 555, Phi0 = {0, 0, 0, 0, 0, 0}, Vn = 24, d_theta0 = 0, fn = 60) annotation(
+    Placement(visible = true, transformation(origin = {-42, 60}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant constant1(k = 0) annotation(
+    Placement(visible = true, transformation(origin = {-90, 78}, extent = {{-6, -6}, {6, 6}}, rotation = 0)));
+  OpenEMTP.Electrical.Sources.YCosineVoltage ac(Vm = 24 * {1, 1, 1})  annotation(
+    Placement(visible = true, transformation(origin = {4, 60}, extent = {{10, -10}, {-10, 10}}, rotation = 0)));
+equation
+  connect(constant1.y, SM.Pm) annotation(
+    Line(points = {{-84, 78}, {-68, 78}, {-68, 68}, {-54, 68}, {-54, 68}}, color = {0, 0, 127}));
+  connect(Vf.y, SM.Vf) annotation(
+    Line(points = {{-86, 54}, {-56, 54}, {-56, 54}, {-54, 54}}, color = {0, 0, 127}));
+  connect(ac.Pk, SM.Pk) annotation(
+    Line(points = {{-6, 60}, {-32, 60}, {-32, 60}, {-32, 60}}, color = {0, 0, 255}));
+  annotation(
+    Diagram(graphics = {Text(origin = {-132, 80}, extent = {{-6, 4}, {6, -4}}, textString = "0.55558e6")}),
+    experiment(StartTime = 0, StopTime = 1, Tolerance = 1e-6, Interval = 0.0002));
+end SMTest2;

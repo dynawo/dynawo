@@ -1,0 +1,58 @@
+within OpenEMTP.Examples.Machine;
+
+model SMTestEMTP
+  Connectors.Plug_c plug_c annotation(
+    Placement(visible = true, transformation(origin = {-24, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Connectors.Plug_b plug_b annotation(
+    Placement(visible = true, transformation(origin = {-24, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Electrical.RLC_Branches.R Rc(R = 100) annotation(
+    Placement(visible = true, transformation(origin = {38, -40}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Electrical.RLC_Branches.R Ra(R = 100) annotation(
+    Placement(visible = true, transformation(origin = {38, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Electrical.RLC_Branches.R Rb(R = 100) annotation(
+    Placement(visible = true, transformation(origin = {38, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Connectors.Plug_a plug_a annotation(
+    Placement(visible = true, transformation(origin = {-24, 80}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  OpenEMTP.Electrical.Machines.SM_3rdOrder sm(Phi0 = {-5.8510e-04, 0.0026, 0.0032, 0}, d_theta0(displayUnit = "rad") = 90) annotation(
+    Placement(visible = true, transformation(origin = {-64, 20}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant Pm(k = 0) annotation(
+    Placement(visible = true, transformation(origin = {-105, 29}, extent = {{-7, -7}, {7, 7}}, rotation = 0)));
+  Modelica.Blocks.Sources.Constant Vf(k = 0.17347) annotation(
+    Placement(visible = true, transformation(origin = {-106, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  OpenEMTP.Electrical.Switches.IdealSwitch sw(Tclosing = 1, Topening = 1.1) annotation(
+    Placement(visible = true, transformation(origin = {20, 50}, extent = {{-10, -10}, {10, 10}}, rotation = -90)));
+  Electrical.RLC_Branches.Ground g annotation(
+    Placement(visible = true, transformation(origin = {98, -8}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+equation
+  connect(Rc.p, plug_c.pin_p) annotation(
+    Line(points = {{28, -40}, {-22, -40}, {-22, -40}, {-22, -40}}, color = {0, 0, 255}));
+  connect(Ra.p, plug_a.pin_p) annotation(
+    Line(points = {{28, 80}, {-22, 80}, {-22, 80}, {-22, 80}}, color = {0, 0, 255}));
+  connect(Rb.p, plug_b.pin_p) annotation(
+    Line(points = {{28, 20}, {-22, 20}, {-22, 20}, {-22, 20}}, color = {0, 0, 255}));
+  connect(plug_a.plug_p, sm.Pk) annotation(
+    Line(points = {{-26, 80}, {-48, 80}, {-48, 20}, {-54, 20}, {-54, 20}}, color = {0, 0, 255}));
+  connect(plug_c.plug_p, sm.Pk) annotation(
+    Line(points = {{-26, -40}, {-48, -40}, {-48, 20}, {-54, 20}, {-54, 20}}, color = {0, 0, 255}));
+  connect(plug_b.plug_p, sm.Pk) annotation(
+    Line(points = {{-26, 20}, {-54, 20}, {-54, 20}, {-54, 20}}, color = {0, 0, 255}));
+  connect(sm.Pm, Pm.y) annotation(
+    Line(points = {{-76, 28}, {-87, 28}, {-87, 29}, {-97, 29}}, color = {0, 0, 127}));
+  connect(Vf.y, sm.Vfd) annotation(
+    Line(points = {{-95, 0}, {-86, 0}, {-86, 14}, {-76, 14}}, color = {0, 0, 127}));
+  connect(sw.pin_p, Ra.p) annotation(
+    Line(points = {{20, 61}, {20, 80}, {28, 80}}, color = {0, 0, 255}));
+  connect(sw.pin_n, Rb.p) annotation(
+    Line(points = {{20, 39}, {20, 20}, {28, 20}}, color = {0, 0, 255}));
+  connect(Ra.n, g.p) annotation(
+    Line(points = {{48, 80}, {98, 80}, {98, 2}, {98, 2}}, color = {0, 0, 255}));
+  connect(Rc.n, g.p) annotation(
+    Line(points = {{48, -40}, {76, -40}, {76, 2}, {98, 2}, {98, 2}}, color = {0, 0, 255}));
+  connect(Rb.n, g.p) annotation(
+    Line(points = {{48, 20}, {98, 20}, {98, 2}, {98, 2}}, color = {0, 0, 255}));
+  annotation(
+    experiment(StartTime = 0, StopTime = 2, Tolerance = 1e-06, Interval = 0.0001),
+    __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian -d=initialization ",
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "dassl"),
+    Diagram(graphics = {Text(origin = {-107, -23}, extent = {{-11, 7}, {11, -7}}, textString = "0.17347")}, coordinateSystem(initialScale = 0.1)));
+end SMTestEMTP;

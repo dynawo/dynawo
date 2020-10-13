@@ -8,8 +8,32 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-set(DYNAWO_MODELICA_MODELS_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+add_subdirectory(Unsaturated U)
 
-add_subdirectory(Dynawo D)
-add_subdirectory(PreassembledModels P)
-add_subdirectory(OpenEMTP O)
+# Connectors models
+
+set(MODEL_FILES
+    package.mo
+    IdealUnit.mo
+    Nonideal_Unit.mo
+    YgD01.mo
+    YD01.mo
+    YgD11.mo
+    YD11.mo
+    YgYg.mo
+    YY.mo
+    DD.mo
+    DY11.mo
+    DY01.mo
+    DYg01.mo
+    DYg11.mo
+    YgYgD.mo
+    YgDD.mo
+    )
+
+#
+# Modelica models install
+#
+foreach( MODEL_FILE ${MODEL_FILES} )
+    INSTALL_MODEL_file(${MODEL_FILE})
+endforeach( MODEL_FILE )

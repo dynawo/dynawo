@@ -8,8 +8,16 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-set(DYNAWO_MODELICA_MODELS_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
-
-add_subdirectory(Dynawo D)
-add_subdirectory(PreassembledModels P)
-add_subdirectory(OpenEMTP O)
+# DECLARATION : sets MODEL_FILES VARIABLE to package.mo
+set(MODEL_FILES
+    package.mo
+    Clark_Transformation.mo
+    Park_Transformation.mo
+    ExponentialInterpolate.mo
+    )
+#
+# Installing models (MODEL_FILE iterator through the MODEL_FILES array)
+#
+foreach (MODEL_FILE ${MODEL_FILES} )
+    INSTALL_MODEL_file(${MODEL_FILE})
+endforeach(MODEL_FILE)

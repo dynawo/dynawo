@@ -8,8 +8,24 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-set(DYNAWO_MODELICA_MODELS_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_subdirectory(Dynawo D)
-add_subdirectory(PreassembledModels P)
-add_subdirectory(OpenEMTP O)
+set(MODEL_FILES
+    package.mo
+    IEEE13Bus_CP.mo
+    Load632.mo
+    Load645.mo
+    Load646Z.mo
+    Load634.mo
+    Load671D.mo
+    Load671Y.mo
+    Load692D.mo
+    Load675Y.mo
+    Load652.mo
+    Load611.mo
+    )
+#
+# Modelica models install
+#
+foreach( MODEL_FILE ${MODEL_FILES} )
+    INSTALL_MODEL_file(${MODEL_FILE})
+endforeach( MODEL_FILE )
