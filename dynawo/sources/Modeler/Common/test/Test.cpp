@@ -157,7 +157,7 @@ class SubModelMockBase : public SubModel {
     // Dummy class used for testing
   }
 
-  void collectSilentZ(bool* ) {
+  void collectSilentZ(BitMask* ) {
     // Dummy class used for testing
   }
 

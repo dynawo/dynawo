@@ -410,7 +410,7 @@ class ModelWriter(ModelWriterBase):
     def fill_collectSilentZ(self):
         self.addEmptyLine()
 
-        self.addLine(self.void_function_prefix+ self.className + "::collectSilentZ(bool* silentZTable)\n")
+        self.addLine(self.void_function_prefix+ self.className + "::collectSilentZ(BitMask* silentZTable)\n")
         self.addLine("{\n")
 
         if (len(self.builder.get_list_for_collectsilentz()) > 0):

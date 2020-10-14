@@ -205,7 +205,7 @@ class ModelCPP : public SubModel {
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */
-  virtual void collectSilentZ(bool* silentZTable) = 0;
+  virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
   /**
    * @brief update residual functions' properties during the simulation

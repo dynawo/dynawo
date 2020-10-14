@@ -131,7 +131,7 @@ class ModelCPP::Impl : public ModelCPP {
   /**
    * @copydoc ModelCPP::collectSilentZ()
    */
-  virtual void collectSilentZ(bool* silentZTable) = 0;
+  virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
   /**
    * @copydoc ModelCPP::updateFType()

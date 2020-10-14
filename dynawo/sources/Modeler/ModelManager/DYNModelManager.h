@@ -151,7 +151,7 @@ class ModelManager : public SubModel, private boost::noncopyable {
   /**
    * @copydoc SubModel::collectSilentZ()
    */
-  void collectSilentZ(bool* silentZTable);
+  void collectSilentZ(BitMask* silentZTable);
 
   /**
    * @copydoc SubModel::updateFType()

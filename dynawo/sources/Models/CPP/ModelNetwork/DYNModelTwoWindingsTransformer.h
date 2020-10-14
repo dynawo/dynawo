@@ -346,7 +346,7 @@ class ModelTwoWindingsTransformer : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(bool* silentZTable);
+  void collectSilentZ(BitMask* silentZTable);
 
   /**
    * @brief evaluate the term of the jacobian

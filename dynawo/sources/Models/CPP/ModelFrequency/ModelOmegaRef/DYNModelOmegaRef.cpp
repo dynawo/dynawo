@@ -291,8 +291,10 @@ ModelOmegaRef::evalZ(const double& /*t*/) {
 }
 
 void
-ModelOmegaRef::collectSilentZ(bool* silentZTable) {
-  std::fill_n(silentZTable, sizeZ_, true);
+ModelOmegaRef::collectSilentZ(BitMask* silentZTable) {
+  for (unsigned k = 0; k < sizeZ_; ++k) {
+    silentZTable[k].setFlags(NotUsedInDiscreteEquations);
+  }
 }
 
 /**

@@ -192,7 +192,7 @@ class ModelStaticVarCompensator : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(bool* silentZTable);
+  void collectSilentZ(BitMask* silentZTable);
 
   /**
    * @copydoc NetworkComponent::evalYMat()

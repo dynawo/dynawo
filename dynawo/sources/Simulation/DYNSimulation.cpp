@@ -820,7 +820,9 @@ Simulation::simulate() {
         model_->getCurrentZ(zCurrent_);
         solver_->printSolve();
         printHighestDerivativesValues();
-      } else if (solverState.getFlags(ZChange) || solverState.getFlags(SilentZChange)) {
+      } else if (solverState.getFlags(ZChange)
+          || solverState.getFlags(SilentZNotUsedInDiscreteEqChange)
+          || solverState.getFlags(SilentZNotUsedInContinuousEqChange)) {
         updateCurves(true);
         model_->getCurrentZ(zCurrent_);
         modifZ = true;
