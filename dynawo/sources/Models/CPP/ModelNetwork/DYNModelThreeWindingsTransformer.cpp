@@ -127,7 +127,7 @@ ModelThreeWindingsTransformer::defineElements(vector<Element>& /*elements*/, map
   // not needed
 }
 void
-ModelThreeWindingsTransformer::collectSilentZ(bool* /*silentZTable*/) {
+ModelThreeWindingsTransformer::collectSilentZ(BitMask* /*silentZTable*/) {
   // not needed
 }
 

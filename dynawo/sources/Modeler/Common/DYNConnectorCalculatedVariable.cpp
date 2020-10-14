@@ -118,7 +118,7 @@ ConnectorCalculatedVariable::evalZ(const double& /*t*/) {
 
 
 void
-ConnectorCalculatedVariable::collectSilentZ(bool* /*silentZTable*/) {
+ConnectorCalculatedVariable::collectSilentZ(BitMask* /*silentZTable*/) {
   // no discrete variable
 }
 

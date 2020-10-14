@@ -211,10 +211,10 @@ ModelGenerator::evalZ(const double& /*t*/) {
 }
 
 void
-ModelGenerator::collectSilentZ(bool* silentZTable) {
-  silentZTable[0] = true;
-  silentZTable[1] = true;
-  silentZTable[2] = true;
+ModelGenerator::collectSilentZ(BitMask* silentZTable) {
+  silentZTable[0].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[1].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[2].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
 }
 
 void

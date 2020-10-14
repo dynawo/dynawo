@@ -193,9 +193,9 @@ ModelHvdcLink::evalZ(const double& /*t*/) {
 }
 
 void
-ModelHvdcLink::collectSilentZ(bool* silentZTable) {
-  silentZTable[state1Num_] = true;
-  silentZTable[state2Num_] = true;
+ModelHvdcLink::collectSilentZ(BitMask* silentZTable) {
+  silentZTable[state1Num_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[state2Num_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
 }
 
 void

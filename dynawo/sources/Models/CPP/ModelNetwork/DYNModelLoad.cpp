@@ -615,8 +615,8 @@ ModelLoad::getY0() {
 }
 
 void
-ModelLoad::collectSilentZ(bool* silentZTable) {
-  silentZTable[0] = true;
+ModelLoad::collectSilentZ(BitMask* silentZTable) {
+  silentZTable[0].setFlags(NotUsedInDiscreteEquations);
 }
 
 void

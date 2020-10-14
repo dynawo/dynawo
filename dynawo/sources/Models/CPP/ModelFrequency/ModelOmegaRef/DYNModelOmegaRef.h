@@ -133,7 +133,7 @@ class ModelOmegaRef : public ModelCPP::Impl {
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */
-  void collectSilentZ(bool* silentZTable);
+  void collectSilentZ(BitMask* silentZTable);
 
   /**
    * @copydoc ModelCPP::evalMode(const double& t)

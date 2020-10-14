@@ -27,6 +27,7 @@
 
 #include "DYNModel.h"
 #include "DYNVariable.h"
+#include "DYNBitMask.h"
 
 namespace DYN {
 class SubModel;
@@ -159,13 +160,12 @@ class ModelMulti : public Model, private boost::noncopyable {
   bool zChange() const;
 
   /**
-   * @brief retrieve if at least one silent discrete variable has changed
-   *
-   *
-   * @return @b true at least one silent discrete variable has changed
+   * @brief retrieve if at least one discrete variable not used in G equations has changed
+   * @param type type of silent z to test
+   * @return @b true at least one discrete variable not used in G equations has changed
    */
-  inline bool getSilentZChange() const {
-    return silentZChange_;
+  inline bool getSilentZChange(SilentZFlags type) const {
+    return silentZChange_.getFlags(type);
   }
 
   /**
@@ -558,7 +558,7 @@ class ModelMulti : public Model, private boost::noncopyable {
   int sizeMode_;  ///< number of mode
   int sizeY_;  ///< number of continuous values
   bool zChange_;  ///< @b true if at least one non-silent discrete value has changed
-  bool silentZChange_;  ///< @b true if at least one silent discrete value has changed
+  BitMask silentZChange_;  ///< @b indicates which types of silent Z has changed
   bool modeChange_;  ///< @b true if one mode has changed
   modeChangeType_t modeChangeType_;  ///< type of mode change
 
@@ -571,9 +571,10 @@ class ModelMulti : public Model, private boost::noncopyable {
   double* ypLocal_;  ///< local buffer to use when accessing derivatives of continuous variables
   double* zLocal_;  ///< local buffer to use when accessing discretes variables
   bool* zConnectedLocal_;  ///< local buffer to use when accessing discretes variables connection status
-  bool* silentZ_;  ///< local buffer indicating if the corresponding discrete variable is used only in residual equations
+  BitMask* silentZ_;  ///< local buffer indicating if the corresponding discrete variable is used only in residual equations
   bool enableSilentZ_;  ///< enable or disable the use of silentZ in the discrete variable propagation loop
-  std::vector<size_t> silentZIndexes_;  ///< indexes of silent discrete variables
+  std::vector<size_t> notUsedInDiscreteEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in discrete equations
+  std::vector<size_t> notUsedInContinuousEqSilentZIndexes_;  ///< indexes of silent discrete variables not used in continuous equations
   std::vector<size_t> nonSilentZIndexes_;  ///< indexes of non silent discrete variables
 };  ///< Class for Multiple-Model
 

@@ -50,14 +50,23 @@ TEST(ModelicaCompilerTestSuite, BasicCompilationTest) {
       "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable of level 1."
       "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable of level 1."
       "    [INFO]: Starting dynamic model generation"
-      "    [INFO]: Discrete variable generator.state is defined as silent.";
+      "    [INFO]: Discrete variable generator.state is defined as silent (not used in discrete equations)."
+      "    [INFO]: Discrete variable generator.state is defined as silent (not used in continuous equations)."
+      "    [INFO]: Discrete variable generator.switchOffSignal1.value is defined as silent (not used in continuous equations)."
+      "    [INFO]: Discrete variable generator.switchOffSignal2.value is defined as silent (not used in continuous equations)."
+      "    [INFO]: Discrete variable generator.switchOffSignal3.value is defined as silent (not used in continuous equations).";
   std::string res2 = "Executing command : " + varExtCommand +
       "    [INFO]: Starting init model generation"
       "    [INFO]: Variable generator.PGen0Pu is set as a calculated variable of level 1."
       "    [INFO]: Variable generator.QGen0Pu is set as a calculated variable of level 1."
       "    [INFO]: Starting dynamic model generation"
-      "    [INFO]: Discrete variable generator.state is defined as silent.";
+      "    [INFO]: Discrete variable generator.state is defined as silent (not used in discrete equations)."
+      "    [INFO]: Discrete variable generator.state is defined as silent (not used in continuous equations)."
+      "    [INFO]: Discrete variable generator.switchOffSignal1.value is defined as silent (not used in continuous equations)."
+      "    [INFO]: Discrete variable generator.switchOffSignal2.value is defined as silent (not used in continuous equations)."
+      "    [INFO]: Discrete variable generator.switchOffSignal3.value is defined as silent (not used in continuous equations).";
   std::cout << result << std::endl;
+  std::cout << res << std::endl;
   if (result != res && result != res2)
     assert(false);
   std::cout << ssPython.str() << std::endl;

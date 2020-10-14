@@ -172,7 +172,7 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
   /**
    * @copydoc ModelCPP::collectSilentZ()
    */
-  void collectSilentZ(bool* silentZTable);
+  void collectSilentZ(BitMask* silentZTable);
 
   /**
    * @copydoc ModelCPP::updateFType()
