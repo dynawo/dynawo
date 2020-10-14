@@ -224,7 +224,7 @@ void ModelTest_Dyn::setZomc()
 {
 }
 
-void ModelTest_Dyn::collectSilentZ(bool* silentZTable)
+void ModelTest_Dyn::collectSilentZ(BitMask* silentZTable)
 {
 }
 

@@ -27,6 +27,7 @@
 #include <boost/shared_ptr.hpp>
 
 #include "DYNEnumUtils.h"
+#include "DYNBitMask.h"
 #include "DYNModelConstants.h"
 
 namespace parameters {
@@ -197,7 +198,7 @@ class NetworkComponent {  ///< Base class for network component models
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */
-  virtual void collectSilentZ(bool* silentZTable) = 0;
+  virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
   /**
    * @brief set the local buffer for residual function properties

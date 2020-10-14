@@ -131,7 +131,7 @@ class ModelSignalN : public ModelCPP::Impl {
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */
-  void collectSilentZ(bool* silentZTable);
+  void collectSilentZ(BitMask* silentZTable);
   /**
    * @brief Model mode change type evaluation
    *

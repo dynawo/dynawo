@@ -165,7 +165,7 @@ class MyModelica: public ModelModelica {
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */
-  void collectSilentZ(bool* /*silentZTable*/) { }
+  void collectSilentZ(BitMask* /*silentZTable*/) { }
 
   /**
    * @brief calculates the initial values (discretes and continuous) of the model

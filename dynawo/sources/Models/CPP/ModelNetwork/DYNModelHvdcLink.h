@@ -102,7 +102,7 @@ class ModelHvdcLink : public NetworkComponent::Impl {
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  void collectSilentZ(bool* silentZTable);
+  void collectSilentZ(BitMask* silentZTable);
 
   /**
    * @brief init size

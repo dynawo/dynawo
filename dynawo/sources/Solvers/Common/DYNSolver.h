@@ -46,7 +46,8 @@ typedef enum {
   NoChange = 0x00,
   ModeChange = 0x01,
   ZChange = 0x02,
-  SilentZChange = 0x04
+  SilentZNotUsedInDiscreteEqChange = 0x04,
+  SilentZNotUsedInContinuousEqChange = 0x08
 } StateFlags;
 
 /**

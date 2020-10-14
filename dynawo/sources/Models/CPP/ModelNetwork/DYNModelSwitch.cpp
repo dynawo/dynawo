@@ -141,7 +141,7 @@ ModelSwitch::evalF(propertyF_t type) {
 }
 
 void
-ModelSwitch::collectSilentZ(bool* /*silentZTable*/) {
+ModelSwitch::collectSilentZ(BitMask* /*silentZTable*/) {
   // no silent z
 }
 

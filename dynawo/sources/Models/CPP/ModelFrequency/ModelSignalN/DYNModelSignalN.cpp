@@ -216,8 +216,10 @@ ModelSignalN::evalZ(const double& /*t*/) {
 }
 
 void
-ModelSignalN::collectSilentZ(bool* silentZTable) {
-  std::fill_n(silentZTable, sizeZ_, true);
+ModelSignalN::collectSilentZ(BitMask* silentZTable) {
+  for (unsigned k = 0; k < sizeZ_; ++k) {
+    silentZTable[k].setFlags(NotUsedInDiscreteEquations);
+  }
 }
 
 modeChangeType_t

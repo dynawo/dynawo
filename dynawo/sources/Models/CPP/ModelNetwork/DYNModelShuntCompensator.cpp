@@ -230,11 +230,11 @@ ModelShuntCompensator::evalZ(const double& t) {
 }
 
 void
-ModelShuntCompensator::collectSilentZ(bool* silentZTable) {
-  silentZTable[connectionStateNum_] = true;
-  silentZTable[isCapacitorNum_] = true;
-  silentZTable[isAvailableNum_] = true;
-  silentZTable[currentSectionNum_] = true;
+ModelShuntCompensator::collectSilentZ(BitMask* silentZTable) {
+  silentZTable[connectionStateNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[isCapacitorNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[isAvailableNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[currentSectionNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
 }
 
 void

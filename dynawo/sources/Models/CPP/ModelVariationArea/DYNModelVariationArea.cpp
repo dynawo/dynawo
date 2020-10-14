@@ -214,8 +214,8 @@ ModelVariationArea::evalZ(const double& /*t*/) {
 
 
 void
-ModelVariationArea::collectSilentZ(bool* silentZTable) {
-  silentZTable[0] = true;
+ModelVariationArea::collectSilentZ(BitMask* silentZTable) {
+  silentZTable[0].setFlags(NotUsedInDiscreteEquations);
 }
 
 // evaluation of modes (alternatives) of F(t,y,y') functions

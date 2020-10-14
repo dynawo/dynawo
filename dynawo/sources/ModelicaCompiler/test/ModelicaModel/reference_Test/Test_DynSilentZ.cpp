@@ -243,10 +243,13 @@ void ModelTestSilentZ_Dyn::setZomc()
   data->simulationInfo->discreteCall = 0;
 }
 
-void ModelTestSilentZ_Dyn::collectSilentZ(bool* silentZTable)
+void ModelTestSilentZ_Dyn::collectSilentZ(BitMask* silentZTable)
 {
-  silentZTable[2] /* z3 */ = true;
-  silentZTable[0] /* b */ = true;
+  silentZTable[2].setFlags(NotUsedInDiscreteEquations) /*z3 */;
+  silentZTable[0].setFlags(NotUsedInDiscreteEquations) /*b */;
+  silentZTable[1].setFlags(NotUsedInContinuousEquations) /*z2 */;
+  silentZTable[2].setFlags(NotUsedInContinuousEquations) /*z3 */;
+  silentZTable[0].setFlags(NotUsedInContinuousEquations) /*b */;
 }
 
 void ModelTestSilentZ_Dyn::setGomc(state_g * gout)

@@ -472,9 +472,9 @@ ModelBus::updateFType() {
 }
 
 void
-ModelBus::collectSilentZ(bool* silentZTable) {
-  silentZTable[numSubNetworkNum_] = true;
-  silentZTable[connectionStateNum_] = true;
+ModelBus::collectSilentZ(BitMask* silentZTable) {
+  silentZTable[numSubNetworkNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[connectionStateNum_].setFlags(NotUsedInDiscreteEquations);
 }
 
 
