@@ -1332,12 +1332,12 @@ ModelTwoWindingsTransformer::evalZ(const double& t) {
 }
 
 void
-ModelTwoWindingsTransformer::collectSilentZ(bool* silentZTable) {
-  silentZTable[connectionStateNum_] = true;
-  silentZTable[currentStepIndexNum_] = true;
-  silentZTable[currentLimitsDesactivateNum_] = true;
-  silentZTable[disableInternalTapChangerNum_] = true;
-  silentZTable[tapChangerLockedNum_] = true;
+ModelTwoWindingsTransformer::collectSilentZ(BitMask* silentZTable) {
+  silentZTable[connectionStateNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[currentStepIndexNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[currentLimitsDesactivateNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[disableInternalTapChangerNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
+  silentZTable[tapChangerLockedNum_].setFlags(NotUsedInDiscreteEquations | NotUsedInContinuousEquations);
 }
 
 double

@@ -33,6 +33,8 @@
 #include "DYNEnumUtils.h"
 #include "DYNParameterModeler.h"
 #include "PARParametersSet.h"
+#include "CSTRConstraintsCollection.h"
+#include "DYNBitMask.h"
 
 namespace parameters {
 class ParametersSet;
@@ -122,7 +124,7 @@ class SubModel {
    * @brief set the silent flag for discrete variables
    * @param silentZTable flag table
    */
-  virtual void collectSilentZ(bool* silentZTable) = 0;
+  virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
  public:
   /**

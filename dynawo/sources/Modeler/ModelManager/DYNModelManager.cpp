@@ -436,7 +436,7 @@ ModelManager::evalFType() {
 
 
 void
-ModelManager::collectSilentZ(bool* silentZTable) {
+ModelManager::collectSilentZ(BitMask* silentZTable) {
   modelModelica()->collectSilentZ(silentZTable);
 }
 

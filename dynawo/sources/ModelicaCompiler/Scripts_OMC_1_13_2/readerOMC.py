@@ -146,8 +146,11 @@ class ReaderOMC:
         ## List of variables defined by initial equation
         self.initial_defined = []
 
-        ## List of silent discrete variables
-        self.silent_discrete_vars = []
+        ## List of silent discrete variables (not used in discrete equations)
+        self.silent_discrete_vars_not_used_in_discr_eq = []
+
+        ## List of silent discrete variables (not used in continuous equations)
+        self.silent_discrete_vars_not_used_in_continuous_eq = []
 
         ## List of residual variables which computes a derivative values
         self.derivative_residual_vars = []
@@ -1272,6 +1275,23 @@ class ReaderOMC:
                 discr_vars.append(name)
         return discr_vars
 
+
+
+    ##
+    # Collect all continuous variables names
+    # @param self : object pointer
+    # Requires map_var_name_2_addresses to be ready
+    # @return all continuous variables names
+    def collect_continuous_variables_names(self):
+        continous_vars = []
+        for var in self.list_vars:
+            name = var.get_name()
+            if name not in map_var_name_2_addresses : continue
+            address = map_var_name_2_addresses[name]
+            if "realVars" in address or "derivativeVars" in address:
+                continous_vars.append(name)
+        return continous_vars
+
     ##
     # Mark as silent Z all discrete variables that are used only in continuous equations
     # @param self : object pointer
@@ -1280,8 +1300,10 @@ class ReaderOMC:
     def detect_z_only_used_internally(self):
         map_num_eq_vars_defined = self.get_map_num_eq_vars_defined()
         discr_variable_to_discs_equation_dependencies = {}
+        discr_variable_to_cont_equation_dependencies = {}
         # Collect all discrete variables
         discr_vars = self.collect_discrete_variables_names()
+        continuous_vars = self.collect_continuous_variables_names()
 
         # Build a dictionary that associate each discrete variable name to the list of discrete equations that use it
         # If a discrete variable is not present in this list then it means that it is not used in discrete equations
@@ -1301,12 +1323,23 @@ class ReaderOMC:
                             discr_variable_to_discs_equation_dependencies[discr_var] = []
                         discr_variable_to_discs_equation_dependencies[discr_var].append(f_num_omc)
 
+            if name_var_eval is not None and name_var_eval in continuous_vars:
+                for discr_var in discr_vars:
+                    if discr_var == name_var_eval: continue
+                    if "/* " + discr_var + " " in str(f.get_body()):
+                        if not discr_var in discr_variable_to_cont_equation_dependencies:
+                            discr_variable_to_cont_equation_dependencies[discr_var] = []
+                        discr_variable_to_cont_equation_dependencies[discr_var].append(f_num_omc)
+
         # Mark as silent all discrete variables that are not in the dictionary defined above
         # boolean whenCondition variable are filtered as they are not in the Z table
         for discr_var in discr_vars:
             if discr_var not in discr_variable_to_discs_equation_dependencies and not is_when_condition(discr_var):
-                print_info("Discrete variable " + discr_var + " is defined as silent.")
-                self.silent_discrete_vars.append(discr_var)
+                print_info("Discrete variable " + discr_var + " is defined as silent (not used in discrete equations).")
+                self.silent_discrete_vars_not_used_in_discr_eq.append(discr_var)
+            if discr_var not in discr_variable_to_cont_equation_dependencies and not is_when_condition(discr_var):
+                print_info("Discrete variable " + discr_var + " is defined as silent (not used in continuous equations).")
+                self.silent_discrete_vars_not_used_in_continuous_eq.append(discr_var)
 
 
     ##

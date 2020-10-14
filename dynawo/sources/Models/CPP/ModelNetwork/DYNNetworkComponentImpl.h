@@ -143,7 +143,7 @@ class NetworkComponent::Impl : public NetworkComponent {
   /**
    * @copydoc NetworkComponent::collectSilentZ()
    */
-  virtual void collectSilentZ(bool* silentZTable) = 0;
+  virtual void collectSilentZ(BitMask* silentZTable) = 0;
 
   /**
    * @copydoc NetworkComponent::evalYType()

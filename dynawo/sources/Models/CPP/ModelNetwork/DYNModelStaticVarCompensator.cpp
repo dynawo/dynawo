@@ -480,8 +480,8 @@ ModelStaticVarCompensator::evalZ(const double& /*t*/) {
 }
 
 void
-ModelStaticVarCompensator::collectSilentZ(bool* silentZTable) {
-  silentZTable[connectionStateNum_] = true;
+ModelStaticVarCompensator::collectSilentZ(BitMask* silentZTable) {
+  silentZTable[connectionStateNum_].setFlags(NotUsedInDiscreteEquations);
 }
 
 void

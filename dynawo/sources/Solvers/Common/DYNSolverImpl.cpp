@@ -261,13 +261,16 @@ Solver::Impl::evalZMode(vector<state_g> &G0, vector<state_g> &G1, const double &
     model_->evalZ(time);
     ++stats_.nze_;
 
-    if (model_->getSilentZChange())
-      state_.setFlags(SilentZChange);
+    if (model_->getSilentZChange(NotUsedInDiscreteEquations))
+      state_.setFlags(SilentZNotUsedInDiscreteEqChange);
 
     if (model_->zChange()) {
       model_->evalG(time, G1);
       ++stats_.nge_;
-      state_.setFlags(ZChange);
+      if (model_->getSilentZChange(NotUsedInContinuousEquations))
+        state_.setFlags(SilentZNotUsedInContinuousEqChange);
+      else
+        state_.setFlags(ZChange);
       nonSilentZChange = true;
       change = true;
 #ifdef _DEBUG_

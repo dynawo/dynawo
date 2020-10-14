@@ -83,6 +83,15 @@ typedef enum {
 } modeChangeType_t;
 
 /**
+ * @brief Flags for the different types of silent Z
+ */
+typedef enum {
+  NotSilent = 0x00,
+  NotUsedInDiscreteEquations = 0x01,
+  NotUsedInContinuousEquations = 0x02
+} SilentZFlags;
+
+/**
  * @brief return the string associated to the mode change type
  * @param modeChangeType mode change type as an enum
  * @return the string associated to the mode change type

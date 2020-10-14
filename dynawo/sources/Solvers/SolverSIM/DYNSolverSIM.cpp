@@ -395,7 +395,7 @@ void SolverSIM::updateZAndMode(SolverStatus_t& status) {
     evalZMode(g0_, g1_, tSolve_ + h_);
 
     if (skipNRIfInitialGuessOK_ &&
-       ((getState().getFlags(ModeChange)|| getState().getFlags(ZChange))))
+       ((getState().getFlags(ModeChange)|| getState().getFlags(NotSilentZChange) || getState().getFlags(SilentZNotUsedInDiscreteEqChange))))
       skipNextNR_ = false;
     status = ROOT;
   }

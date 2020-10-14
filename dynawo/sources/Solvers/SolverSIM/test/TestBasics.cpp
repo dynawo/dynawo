@@ -310,7 +310,7 @@ TEST(SimulationTest, testSolverSIMTestBeta) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZNotUsedInDiscreteEqChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
@@ -357,7 +357,7 @@ TEST(SimulationTest, testSolverSIMTestBetaUnstableRoot) {
   solver->solve(tStop, tCurrent);
   y = solver->getCurrentY();
   yp = solver->getCurrentYP();
-  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZChange), true);
+  ASSERT_EQ(solver->getState().getFlags(ModeChange | SilentZNotUsedInDiscreteEqChange), true);
   ASSERT_DOUBLE_EQUALS_DYNAWO(y[0], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(yp[0], 1);
   ASSERT_DOUBLE_EQUALS_DYNAWO(z[0], -1);
@@ -745,24 +745,24 @@ TEST(SimulationTest, testSolverSIMSilentZ) {
   // Solve at t = 1
   solver->solve(tStop, tCurrent);
   ASSERT_FALSE(solver->getState().getFlags(ZChange));
-  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
   // Solve at t = 2 => z1 is modified
   solver->solve(tStop, tCurrent);
   ASSERT_FALSE(solver->getState().getFlags(ZChange));
-  ASSERT_TRUE(solver->getState().getFlags(SilentZChange));
+  ASSERT_TRUE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
 
   // Solve at t = 3
   solver->solve(tStop, tCurrent);
   ASSERT_FALSE(solver->getState().getFlags(ZChange));
-  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
   // Solve at t = 4 -> z2 is modified
   solver->solve(tStop, tCurrent);
   ASSERT_TRUE(solver->getState().getFlags(ZChange));
-  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
   // Solve at t = 5 -> z1 and z2 are modified
   solver->solve(tStop, tCurrent);
   ASSERT_TRUE(solver->getState().getFlags(ZChange));
-  ASSERT_FALSE(solver->getState().getFlags(SilentZChange));
+  ASSERT_FALSE(solver->getState().getFlags(SilentZNotUsedInDiscreteEqChange));
 }
 
 TEST(ParametersTest, testParameters) {

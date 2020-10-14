@@ -362,7 +362,7 @@ ModelVoltageLevel::updateFType() {
 
 
 void
-ModelVoltageLevel::collectSilentZ(bool* silentZTable) {
+ModelVoltageLevel::collectSilentZ(BitMask* silentZTable) {
   unsigned int offsetComponent = 0;
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = components_.begin(), itEnd = components_.end();
       itComponent != itEnd; ++itComponent) {

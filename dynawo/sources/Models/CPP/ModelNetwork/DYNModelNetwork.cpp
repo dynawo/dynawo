@@ -1252,7 +1252,7 @@ ModelNetwork::evalFType() {
 }
 
 void
-ModelNetwork::collectSilentZ(bool* silentZTable) {
+ModelNetwork::collectSilentZ(BitMask* silentZTable) {
   unsigned int offsetComponent = 0;
   for (vector<shared_ptr<NetworkComponent> >::const_iterator itComponent = getComponents().begin(),
       itEnd = getComponents().end(); itComponent != itEnd; ++itComponent) {
