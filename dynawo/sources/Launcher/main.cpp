@@ -117,19 +117,15 @@ int main(int argc, char ** argv) {
 
     launchSimu(jobsFileName);
   } catch (const DYN::Error& e) {
-    Trace::error() << e.what() << Trace::endline;
     return e.type();
   } catch (const char *s) {
-    Trace::error() << s << Trace::endline;
     return -1;
   } catch (const string & Msg) {
-    Trace::error() << Msg << Trace::endline;
     return -1;
   } catch (const xml::sax::parser::ParserException& exp) {
     Trace::error() << DYNLog(XmlParsingError, jobsFileName, exp.what()) << Trace::endline;
     return -1;
   } catch (std::exception & exc) {
-    Trace::error() << exc.what() << Trace::endline;
     return -1;
   } catch (...) {
     Trace::error() << __FILE__ << " " << __LINE__ << " " << DYNLog(UnexpectedError) << Trace::endline;
