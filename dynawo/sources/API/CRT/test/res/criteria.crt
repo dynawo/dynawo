@@ -16,9 +16,15 @@
     <parameters id ="busCritId" scope="DYNAMIC" type="LOCAL_VALUE" uMaxPu="0.8" uNomMin="225"/>
     <component id="MyId"/>
     <component id="MyId2"/>
+    <country id="BE"/>
   </busCriteria>
   <loadCriteria>
     <parameters id ="loadCritId"  scope="FINAL" type="SUM" pMax="200"/>
+  </loadCriteria>
+  <loadCriteria>
+    <parameters id ="loadCritIdWithCountry"  scope="FINAL" type="SUM" pMax="300"/>
+    <country id="IT"/>
+    <country id="EN"/>
   </loadCriteria>
   <loadCriteria>
     <parameters id ="loadCritId2"  scope="FINAL" type="SUM" pMax="1500" uMinPu="0.2"/>

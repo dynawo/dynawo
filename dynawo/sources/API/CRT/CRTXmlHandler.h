@@ -25,21 +25,21 @@ class Criteria;
 class CriteriaParams;
 
 /**
- * @class ComponentsHandler
- * @brief Handler used to parse component element
+ * @class ElementWithIdHandler
+ * @brief Handler used to parse an element with an id
  */
-class ComponentsHandler : public xml::sax::parser::ComposableElementHandler {
+class ElementWithIdHandler : public xml::sax::parser::ComposableElementHandler {
  public:
   /**
    * @brief Constructor
    * @param root_element complete name of the element read by the handler
    */
-  explicit ComponentsHandler(elementName_type const& root_element);
+  explicit ElementWithIdHandler(elementName_type const& root_element);
 
   /**
    * @brief default destructor
    */
-  ~ComponentsHandler() { }
+  ~ElementWithIdHandler() { }
 
   /**
    * @brief return the component read in xml file
@@ -125,6 +125,10 @@ class CriteriaHandler : public xml::sax::parser::ComposableElementHandler {
    */
   void addComponent();
   /**
+   * @brief add a country to the criteria
+   */
+  void addCountry();
+  /**
    * @brief Called when the XML element opening tag is read
    * @param attributes attributes of the element
    */
@@ -133,7 +137,8 @@ class CriteriaHandler : public xml::sax::parser::ComposableElementHandler {
  private:
   boost::shared_ptr<Criteria> criteriaRead_;  ///< current criteria
   CriteriaParamsHandler criteriaParamsHandler_;  ///< handler used to read criteria parameters element
-  ComponentsHandler cmpHandler_;  ///< handler used to read criteria parameters element
+  ElementWithIdHandler cmpHandler_;  ///< handler used to read component
+  ElementWithIdHandler countryHandler_;  ///< handler used to read countries
 };
 
 /**

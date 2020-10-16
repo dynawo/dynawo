@@ -65,7 +65,7 @@ class Trace {
      * @brief Tag attribute getter
      * @return Tag filtered by the appender
      */
-    std::string getTag() {
+    std::string getTag() const {
       return tag_;
     }
 
@@ -73,7 +73,7 @@ class Trace {
      * @brief File path attribute getter
      * @return Output file path of the appender
      */
-    std::string getFilePath() {
+    std::string getFilePath() const {
       return filePath_;
     }
 
@@ -81,7 +81,7 @@ class Trace {
      * @brief Level filter attribute getter
      * @return Minimum severity level exported by the appender
      */
-    SeverityLevel getLvlFilter() {
+    SeverityLevel getLvlFilter() const {
       return lvlFilter_;
     }
 
@@ -202,7 +202,7 @@ class Trace {
    * @brief Add custom appenders to trace system
    * @param[in] appenders: Appenders to add
    */
-  static void addAppenders(std::vector<TraceAppender> & appenders);
+  static void addAppenders(const std::vector<TraceAppender>& appenders);
 
   /**
    * @brief Reset all custom appenders of trace system

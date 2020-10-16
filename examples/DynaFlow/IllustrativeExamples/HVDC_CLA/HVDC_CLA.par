@@ -48,10 +48,9 @@
     <par type="DOUBLE" name="hvdc_Q1MaxPu" value="100"/>
     <par type="DOUBLE" name="hvdc_Q2MinPu" value="-100"/>
     <par type="DOUBLE" name="hvdc_Q2MaxPu" value="100"/>
-    <par type="DOUBLE" name="acemulation_KACEmulation" value="500"/>
     <par type="DOUBLE" name="hvdc_KLosses" value="1"/>
+    <par type="DOUBLE" name="acemulation_KACEmulation" value="500"/>
     <par type="DOUBLE" name="acemulation_tFilter" value="60"/>
-    <par type="DOUBLE" name="acemulation_PRefSetPu" value="0"/>
   </set>
   <set id="6">
     <par type="DOUBLE" name="Value0" value="1.0"/>

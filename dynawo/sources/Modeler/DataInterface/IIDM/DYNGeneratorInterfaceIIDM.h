@@ -144,8 +144,35 @@ class GeneratorInterfaceIIDM : public GeneratorInterface, public InjectorInterfa
    */
   int getComponentVarIndex(const std::string& varName) const;
 
+  /**
+   * @copydoc GeneratorInterface::getReactiveCurvesPoints() const
+   */
+  std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const;
+
+  /**
+   * @copydoc GeneratorInterface::isVoltageRegulationOn() const
+   */
+  bool isVoltageRegulationOn() const;
+
+  /**
+   * @brief Getter for the generator' country
+   * @return the generator country
+   */
+  inline const std::string& getCountry() const {
+    return country_;
+  }
+
+  /**
+   * @brief Setter for the generator' country
+   * @param country generator country
+   */
+  inline void setCountry(const std::string& country) {
+    country_ = country;
+  }
+
  private:
   IIDM::Generator& generatorIIDM_;  ///< reference to the iidm generator instance
+  std::string country_;  ///< country of the generator
 };
 }  // namespace DYN
 

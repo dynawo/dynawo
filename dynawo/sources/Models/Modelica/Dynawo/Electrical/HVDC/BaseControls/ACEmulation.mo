@@ -22,13 +22,12 @@ model ACEmulation "AC Emulation for HVDC"
 
   parameter Types.Time tFilter "Time constant of the angle measurement filter";
   parameter Types.PerUnit KACEmulation "Inverse of the emulated AC reactance";
-  parameter Types.ActivePowerPu PRefSetPu "Raw reference active power in p.u (base SNom)";
 
   Modelica.Blocks.Interfaces.RealInput Theta1(start = Theta10) "Angle of the voltage at terminal 1 in rad" annotation(
     Placement(visible = true, transformation(origin = {-110, 50}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Interfaces.RealInput Theta2(start = Theta20) "Angle of the voltage at terminal 2 in rad" annotation(
     Placement(visible = true, transformation(origin = {-110, -20}, extent = {{-10, -10}, {10, 10}}, rotation = 0), iconTransformation(origin = {-110, -70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Sources.Constant PSetPu(k = PRefSetPu) "Raw reference active power in p.u (base SNom)"  annotation(
+  Modelica.Blocks.Sources.Constant PSetPu(k = PRefSet0Pu) "Raw reference active power in p.u (base SNom)"  annotation(
     Placement(visible = true, transformation(origin = {-110, -71}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 
   Modelica.Blocks.Interfaces.RealOutput PRefPu(start = PRef0Pu) "Reference active power in p.u (base SNom)" annotation(
@@ -48,6 +47,7 @@ protected
   parameter Types.Angle Theta10;
   parameter Types.Angle Theta20;
   parameter Types.ActivePowerPu PRef0Pu;
+  parameter Types.ActivePowerPu PRefSet0Pu "Raw reference active power in p.u (base SNom)";
 
 equation
   connect(firstOrder.y, feedback.u1) annotation(

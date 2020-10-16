@@ -22,11 +22,34 @@
 
 #include "DYNComponentInterface.hpp"
 
+#include <vector>
+
 namespace DYN {
 class BusInterface;
 class VoltageLevelInterface;
 
 class GeneratorInterface : public ComponentInterface {
+ public:
+  /**
+   * @brief Reactive curve point
+   *
+   * Represents a point extracted from network file
+   */
+  struct ReactiveCurvePoint {
+      /**
+       * @brief Constructor
+       *
+       * @param p active power
+       * @param qmin minimum reactive power
+       * @param qmax maximum reactive power
+       */
+      ReactiveCurvePoint(double p, double qmin, double qmax): p(p), qmin(qmin), qmax(qmax) {}
+
+      double p;     ///< active power
+      double qmin;  ///< minimum reactive power
+      double qmax;  ///< maximum reactive power
+  };
+
  public:
   /**
    * @brief Destructor
@@ -121,6 +144,18 @@ class GeneratorInterface : public ComponentInterface {
    * @copydoc ComponentInterface::exportStateVariablesUnitComponent()
    */
   virtual void exportStateVariablesUnitComponent() = 0;
+
+  /**
+   * @brief Retrieve the list of reactive curve points, if any
+   * @returns list of reactive curve points
+   */
+  virtual std::vector<ReactiveCurvePoint> getReactiveCurvesPoints() const = 0;
+
+  /**
+   * @brief Determines if voltage regulation is on
+   * @returns whether voltage regulation is on
+   */
+  virtual bool isVoltageRegulationOn() const = 0;
 };  ///< Class for Generator data interface
 }  // namespace DYN
 

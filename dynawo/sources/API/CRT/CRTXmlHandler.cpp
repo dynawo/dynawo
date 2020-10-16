@@ -85,12 +85,15 @@ XmlHandler::addGenCriteria() {
 
 CriteriaHandler::CriteriaHandler(elementName_type const& root_element) :
 criteriaParamsHandler_(parser::ElementName(crt_ns, "parameters")),
-cmpHandler_(parser::ElementName(crt_ns, "component")) {
+cmpHandler_(parser::ElementName(crt_ns, "component")),
+countryHandler_(parser::ElementName(crt_ns, "country")) {
   onStartElement(root_element, lambda::bind(&CriteriaHandler::create, lambda::ref(*this), lambda_args::arg2));
   onElement(root_element + crt_ns("parameters"), criteriaParamsHandler_);
   onElement(root_element + crt_ns("component"), cmpHandler_);
+  onElement(root_element + crt_ns("country"), countryHandler_);
   criteriaParamsHandler_.onEnd(lambda::bind(&CriteriaHandler::addCriteriaParams, lambda::ref(*this)));
   cmpHandler_.onEnd(lambda::bind(&CriteriaHandler::addComponent, lambda::ref(*this)));
+  countryHandler_.onEnd(lambda::bind(&CriteriaHandler::addCountry, lambda::ref(*this)));
 }
 
 void CriteriaHandler::create(attributes_type const & /*attributes*/) {
@@ -110,6 +113,11 @@ CriteriaHandler::addCriteriaParams() {
 void
 CriteriaHandler::addComponent() {
   criteriaRead_->addComponentId(cmpHandler_.get());
+}
+
+void
+CriteriaHandler::addCountry() {
+  criteriaRead_->addCountry(countryHandler_.get());
 }
 
 
@@ -142,16 +150,16 @@ CriteriaParamsHandler::get() const {
 }
 
 
-ComponentsHandler::ComponentsHandler(elementName_type const& root_element) {
-  onStartElement(root_element, lambda::bind(&ComponentsHandler::create, lambda::ref(*this), lambda_args::arg2));
+ElementWithIdHandler::ElementWithIdHandler(elementName_type const& root_element) {
+  onStartElement(root_element, lambda::bind(&ElementWithIdHandler::create, lambda::ref(*this), lambda_args::arg2));
 }
 
-void ComponentsHandler::create(attributes_type const & attributes) {
+void ElementWithIdHandler::create(attributes_type const & attributes) {
   cmpRead_ = attributes["id"].as_string();
 }
 
 const std::string&
-ComponentsHandler::get() const {
+ElementWithIdHandler::get() const {
   return cmpRead_;
 }
 }  // namespace criteria

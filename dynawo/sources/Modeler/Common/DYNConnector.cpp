@@ -639,6 +639,7 @@ ConnectorContainer::getY0ConnectorForYConnector() {
     // Searching the initialization reference
     vector<connectedSubModel>::iterator itReference;
     bool referenceFound = false;
+    bool zNegated = false;
     for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
             it != yc->connectedSubModels().end();
             ++it) {
@@ -647,6 +648,7 @@ ConnectorContainer::getY0ConnectorForYConnector() {
       if (yType[it->variable()->getIndex()] != EXTERNAL && yType[it->variable()->getIndex()] != OPTIONAL_EXTERNAL) {  // non external variable
         itReference = it;
         referenceFound = true;
+        zNegated = it->negated();
         break;
       }
     }
@@ -657,12 +659,17 @@ ConnectorContainer::getY0ConnectorForYConnector() {
     // Propagating reference init value
     const int numVarReference = itReference->subModel()->getVariableIndexGlobal(itReference->variable());
     for (vector<connectedSubModel>::iterator it = yc->connectedSubModels().begin();
-            it != yc->connectedSubModels().end();
-            ++it) {
+        it != yc->connectedSubModels().end();
+        ++it) {
       if (it != itReference) {
         const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
-        yLocal_[ numVar2 ] = yLocal_[ numVarReference ];
-        ypLocal_[ numVar2 ] = ypLocal_[ numVarReference ];
+        if (it->negated() == zNegated) {
+          yLocal_[ numVar2 ] = yLocal_[ numVarReference ];
+          ypLocal_[ numVar2 ] = ypLocal_[ numVarReference ];
+        } else {
+          yLocal_[ numVar2 ] = -yLocal_[ numVarReference ];
+          ypLocal_[ numVar2 ] = -ypLocal_[ numVarReference ];
+        }
       }
     }
   }
@@ -681,12 +688,14 @@ ConnectorContainer::getY0ConnectorForZConnector() {
     // Searching the initialization reference
     vector<connectedSubModel>::iterator itReference;
     bool nonZeroVariableFound = false;
+    bool zNegated = false;
     for (vector<connectedSubModel>::iterator it = zc->connectedSubModels().begin();
         it != zc->connectedSubModels().end();
         ++it) {
       const int numVar = it->subModel()->getVariableIndexGlobal(it->variable());
       if (doubleNotEquals(zLocal_[numVar], 0)) {  // non zero variable
         itReference = it;
+        zNegated = it->negated();
         nonZeroVariableFound = true;
         break;
       }
@@ -704,7 +713,11 @@ ConnectorContainer::getY0ConnectorForZConnector() {
       if (it != itReference) {
         const int numVar2 = it->subModel()->getVariableIndexGlobal(it->variable());
         zConnectedLocal_[numVar2] = true;
-        zLocal_[numVar2] = zLocal_[numVarReference];
+        if (it->negated() == zNegated) {
+          zLocal_[numVar2] = zLocal_[numVarReference];
+        } else {
+          zLocal_[numVar2] = -zLocal_[numVarReference];
+        }
       }
     }
   }

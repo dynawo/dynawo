@@ -30,10 +30,15 @@
     <xs:sequence>
       <xs:element name="parameters" type="dyn:CriteriaParams" minOccurs="1" maxOccurs="1"/>
       <xs:element name="component" minOccurs="0" maxOccurs="unbounded" type="dyn:Component"/>
+      <xs:element name="country" minOccurs="0" maxOccurs="unbounded" type="dyn:Country"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="Component">
+    <xs:attribute name="id" use="required" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="Country">
     <xs:attribute name="id" use="required" type="xs:string"/>
   </xs:complexType>
 

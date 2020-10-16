@@ -93,6 +93,7 @@ where [option] can be:"
         =========== Distribution
         distrib                               create distribution of Dynawo
         distrib-omc                           create distribution with omc binary
+        distrib-headers                       create distribution with Dynawo headers but without omc
         deploy                                deploy the current version of dynawo binaries/libraries/includes to be used as a release by an another project
 
         =========== Tests
@@ -318,6 +319,7 @@ set_environment() {
     export_var_env DYNAWO_INSTALL_DIR=$DYNAWO_HOME/install/$DYNAWO_COMPILER_NAME$DYNAWO_COMPILER_VERSION/$DYNAWO_BRANCH_NAME/$DYNAWO_BUILD_TYPE$SUFFIX_CX11/$(echo $DYNAWO_LIBRARY_TYPE | tr "[A-Z]" "[a-z]")/dynawo
   fi
   export_var_env DYNAWO_DEBUG_COMPILER_OPTION="-O0"
+  export_var_env DYNAWO_FORCE_CXX11_ABI=false
 
   # Third parties
   export_var_env_force DYNAWO_THIRD_PARTY_SRC_DIR=$DYNAWO_SRC_DIR/3rdParty
@@ -651,6 +653,9 @@ config_3rd_party() {
     *)
       ;;
   esac
+  if [ $DYNAWO_FORCE_CXX11_ABI = true ]; then
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DFORCE_CXX11_ABI=$DYNAWO_FORCE_CXX11_ABI"
+  fi
 
   mkdir -p $DYNAWO_THIRD_PARTY_BUILD_DIR/build
   cd $DYNAWO_THIRD_PARTY_BUILD_DIR/build
@@ -770,6 +775,9 @@ config_dynawo() {
     *)
       ;;
   esac
+  if [ $DYNAWO_FORCE_CXX11_ABI = true ]; then
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DFORCE_CXX11_ABI=$DYNAWO_FORCE_CXX11_ABI"
+  fi
 
   cmake -DLIBRARY_TYPE=$DYNAWO_LIBRARY_TYPE \
     -DCMAKE_C_COMPILER:PATH=$DYNAWO_C_COMPILER \
@@ -1809,6 +1817,9 @@ create_modelica_distrib() {
     error_exit "You need to give a version."
   fi
   version=$1
+  if [ ! -x "$(command -v zip)" ]; then
+    error_exit "You need to install zip command line utility."
+  fi
   # create zipped Dynawo library for OM users
   DYNAWO_LIB_ZIP_FILE=Dynawo_Modelica_library_V$version.zip
   pushd $DYNAWO_INSTALL_DIR/ddb
@@ -1817,7 +1828,12 @@ create_modelica_distrib() {
   popd
 }
 
-create_distrib_with_omc() {
+create_distrib_with_headers() {
+  if [ ! -z "$1" ]; then
+    if [ "$1" = "with_omc" ]; then
+      with_omc=yes
+    fi
+  fi
   DISTRIB_DIR=$DYNAWO_HOME/distributions
   mkdir -p $DISTRIB_DIR
 
@@ -1825,7 +1841,11 @@ create_distrib_with_omc() {
   DYNAWO_VERSION=$(version) || error_exit "Error with version."
   version=$(echo $DYNAWO_VERSION | cut -f1 -d' ')
 
-  ZIP_FILE=Dynawo_omc_V$version.zip
+  if [ "$with_omc" = "yes" ]; then
+    ZIP_FILE=Dynawo_omc_V$version.zip
+  else
+    ZIP_FILE=Dynawo_headers_V$version.zip
+  fi
 
   # check coding
   check_coding_files
@@ -1879,7 +1899,15 @@ create_distrib_with_omc() {
   # need with omc binary
   zip -r -g -y $ZIP_FILE dynawo/ddb/ dynawo/include/ dynawo/sbin/ dynawo/cmake/
 
-  zip -r -g -y $ZIP_FILE dynawo/OpenModelica
+  if [ "$with_omc" = "yes" ]; then
+    zip -r -g -y $ZIP_FILE dynawo/OpenModelica
+  else
+    if [ "`uname`" = "Linux" ]; then
+      for lib in {gfortran,quadmath,lapack,blas,lpsolve,cblas,atlas}; do
+        zip -d $ZIP_FILE dynawo/lib/lib${lib}* || echo -n # to avoid errors
+      done
+    fi
+  fi
 
   # move distribution in distribution directory
   mv $ZIP_FILE $DISTRIB_DIR
@@ -1926,6 +1954,10 @@ create_distrib() {
         install_name_tool -delete_rpath $lib_path $lib
       done
     done
+  fi
+
+  if [ ! -x "$(command -v zip)" ]; then
+    error_exit "You need to install zip command line utility."
   fi
 
   # create distribution
@@ -2274,7 +2306,11 @@ case $MODE in
     ;;
 
   distrib-omc)
-    create_distrib_with_omc || error_exit "Error while building Dynawo distribution"
+    create_distrib_with_headers "with_omc" || error_exit "Error while building Dynawo distribution"
+    ;;
+
+  distrib-headers)
+    create_distrib_with_headers || error_exit "Error while building Dynawo distribution"
     ;;
 
   doc)

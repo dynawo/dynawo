@@ -201,8 +201,28 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
     return calculatedBus_;
   }
 
+  /**
+   * @brief get the detailed status of the node
+   * @return @b true if the node is detailed
+   */
   inline bool isNodeBreakerTopology() const {
     return isNodeBreakerTopology_;
+  }
+
+  /**
+   * @brief Getter for the voltage level' country
+   * @return the voltage level country
+   */
+  inline const std::string& getCountry() const {
+    return country_;
+  }
+
+  /**
+   * @brief Setter for the voltage level' country
+   * @param country voltage level country
+   */
+  inline void setCountry(const std::string& country) {
+    country_ = country;
   }
 
  private:
@@ -222,6 +242,7 @@ class VoltageLevelInterfaceIIDM : public VoltageLevelInterface {
   std::vector<boost::shared_ptr<StaticVarCompensatorInterface> > staticVarCompensators_;  ///< staticVarCompensator interface created
   std::vector<boost::shared_ptr<VscConverterInterface> > vscConverters_;  ///< vscConverter interface created
   std::vector<boost::shared_ptr<LccConverterInterface> > lccConverters_;  ///< lccConverter interface created
+  std::string country_;  ///< country of the voltage level
 };  /// end of class declaration
 
 }  // namespace DYN

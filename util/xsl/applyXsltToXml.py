@@ -14,12 +14,31 @@ import re
 from optparse import OptionParser
 
 try:
-    nrt_dir = os.environ["DYNAWO_NRT_SCRIPT_DIR"]
-    sys.path.append(nrt_dir)
-    from nrt import TestCase
-    sys.path.remove(nrt_dir)
+    nrtDiff_dir = os.path.join(os.environ["DYNAWO_HOME"],"util", "nrt_diff")
+    sys.path.append(nrtDiff_dir)
+    import nrtUtils
+    sys.path.remove(nrtDiff_dir)
 except:
-    print ("Failed to import non-regression test script")
+    try:
+        nrtDiff_dir = os.path.join(os.environ["DYNAWO_HOME"],"sbin", "nrt", "nrt_diff")
+        sys.path.append(nrtDiff_dir)
+        import nrtUtils
+        sys.path.remove(nrtDiff_dir)
+    except:
+        try:
+            if os.getenv("DYNAWO_NRT_DIFF_DIR") is not None:
+                nrtDiff_dir = os.environ["DYNAWO_NRT_DIFF_DIR"]
+                sys.path.append(nrtDiff_dir)
+                import nrtUtils
+                sys.path.remove(nrtDiff_dir)
+            else:
+                print ("Failed to find nrtDiff script")
+        except:
+            print ("Failed to import nrtDiff test script")
+            sys.exit(1)
+
+if os.getenv("DYNAWO_NRT_DIR") is None:
+    print("environment variable DYNAWO_NRT_DIR needs to be defined")
     sys.exit(1)
 
 data_dir = os.path.join(os.environ["DYNAWO_NRT_DIR"], "data")
@@ -177,7 +196,7 @@ def main():
                 except:
                     pass
     else:
-        current_test = TestCase("case", "customCase", "", jobs_file, "0", "", "")
+        current_test = nrtUtils.TestCase("case", "customCase", "", jobs_file, "0", "", "")
         updateTestCase(current_test, xsl_to_apply)
 
 

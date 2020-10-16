@@ -258,4 +258,21 @@ GeneratorInterfaceIIDM::getID() const {
   return generatorIIDM_.id();
 }
 
+std::vector<GeneratorInterface::ReactiveCurvePoint> GeneratorInterfaceIIDM::getReactiveCurvesPoints() const {
+  std::vector<GeneratorInterface::ReactiveCurvePoint> ret;
+  if (generatorIIDM_.has_reactiveCapabilityCurve()) {
+    const IIDM::ReactiveCapabilityCurve& reactiveCurve = generatorIIDM_.reactiveCapabilityCurve();
+    for (IIDM::ReactiveCapabilityCurve::const_iterator it = reactiveCurve.begin(); it != reactiveCurve.end(); ++it) {
+      ReactiveCurvePoint point(it->p, it->qmin, it->qmax);
+      ret.push_back(point);
+    }
+  }
+
+  return ret;
+}
+
+bool GeneratorInterfaceIIDM::isVoltageRegulationOn() const {
+  return generatorIIDM_.voltageRegulatorOn();
+}
+
 }  // namespace DYN

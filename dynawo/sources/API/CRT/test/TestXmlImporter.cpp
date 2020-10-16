@@ -74,6 +74,8 @@ TEST(APICRTTest, testXmlFileImporter) {
         else
           assert(false);
       }
+      ASSERT_TRUE(criteria->hasCountryFilter());
+      ASSERT_TRUE(criteria->containsCountry("BE"));
       ASSERT_EQ(criteria->getParams()->getScope(), CriteriaParams::DYNAMIC);
       ASSERT_EQ(criteria->getParams()->getType(), CriteriaParams::LOCAL_VALUE);
       ASSERT_EQ(criteria->getParams()->getId(), "busCritId");
@@ -104,7 +106,24 @@ TEST(APICRTTest, testXmlFileImporter) {
       ASSERT_FALSE(criteria->getParams()->hasUNomMin());
       ASSERT_FALSE(criteria->getParams()->hasUNomMax());
       ASSERT_FALSE(criteria->getParams()->hasPMin());
+      ASSERT_EQ(criteria->begin() == criteria->end(), true);
+      ASSERT_FALSE(criteria->hasCountryFilter());
     } else if (idx == 1) {
+      assert(criteria->begin() == criteria->end());
+      ASSERT_EQ(criteria->getParams()->getScope(), CriteriaParams::FINAL);
+      ASSERT_EQ(criteria->getParams()->getType(), CriteriaParams::SUM);
+      ASSERT_EQ(criteria->getParams()->getId(), "loadCritIdWithCountry");
+      ASSERT_DOUBLE_EQUALS_DYNAWO(criteria->getParams()->getPMax(), 300);
+      ASSERT_FALSE(criteria->getParams()->hasUMinPu());
+      ASSERT_FALSE(criteria->getParams()->hasUMaxPu());
+      ASSERT_FALSE(criteria->getParams()->hasUNomMin());
+      ASSERT_FALSE(criteria->getParams()->hasUNomMax());
+      ASSERT_FALSE(criteria->getParams()->hasPMin());
+      ASSERT_EQ(criteria->begin() == criteria->end(), true);
+      ASSERT_TRUE(criteria->hasCountryFilter());
+      ASSERT_TRUE(criteria->containsCountry("EN"));
+      ASSERT_TRUE(criteria->containsCountry("IT"));
+    } else if (idx == 2) {
       size_t idx2 = 0;
       for (Criteria::component_id_const_iterator it2 = criteria->begin(), it2End = criteria->end();
           it2 != it2End; ++it2, ++idx2) {
@@ -124,6 +143,7 @@ TEST(APICRTTest, testXmlFileImporter) {
       ASSERT_FALSE(criteria->getParams()->hasPMin());
       ASSERT_FALSE(criteria->getParams()->hasUNomMin());
       ASSERT_FALSE(criteria->getParams()->hasUNomMax());
+      ASSERT_FALSE(criteria->hasCountryFilter());
     } else {
       assert(false);
     }

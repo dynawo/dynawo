@@ -288,7 +288,7 @@ DataInterfaceIIDM::initFromIIDM() {
   for (; itSubstation != networkIIDM_.substations().end(); ++itSubstation) {
     IIDM::Contains<IIDM::VoltageLevel>::iterator itVoltageLevel = itSubstation->voltageLevels().begin();
     for (; itVoltageLevel != itSubstation->voltageLevels().end(); ++itVoltageLevel) {
-      shared_ptr<VoltageLevelInterface> voltageLevel = importVoltageLevel(*itVoltageLevel);
+      shared_ptr<VoltageLevelInterface> voltageLevel = importVoltageLevel(*itVoltageLevel, itSubstation->country());
       network_->addVoltageLevel(voltageLevel);
       voltageLevels_[voltageLevel->getID()] = voltageLevel;
     }
@@ -362,8 +362,9 @@ DataInterfaceIIDM::initFromIIDM() {
 }
 
 shared_ptr<VoltageLevelInterface>
-DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
+DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM, const std::string& country) {
   shared_ptr<VoltageLevelInterfaceIIDM> voltageLevel(new VoltageLevelInterfaceIIDM(voltageLevelIIDM));
+  voltageLevel->setCountry(country);
 
   if (voltageLevelIIDM.mode() == IIDM::VoltageLevel::node_breaker) {
     voltageLevel->calculateBusTopology();
@@ -372,6 +373,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
     for (unsigned int i = 0; i < buses.size(); ++i) {
       components_[buses[i]->getID()] = buses[i];
       calculatedBusComponents_[voltageLevel->getID()].push_back(buses[i]);
+      buses[i]->setCountry(country);
       voltageLevel->addBus(buses[i]);
     }
 
@@ -394,6 +396,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
     IIDM::Contains<IIDM::Bus>::iterator itBus = voltageLevelIIDM.buses().begin();
     for (; itBus != voltageLevelIIDM.buses().end(); ++itBus) {
       shared_ptr<BusInterfaceIIDM> bus(new BusInterfaceIIDM(*itBus));
+      bus->setCountry(country);
       components_[bus->getID()] = bus;
       busComponents_[bus->getID()] = bus;
       voltageLevel->addBus(bus);
@@ -419,7 +422,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
       Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itGen).id()) << Trace::endline;
       continue;
     }
-    shared_ptr<GeneratorInterface> generator = importGenerator(*itGen);
+    shared_ptr<GeneratorInterface> generator = importGenerator(*itGen, country);
     voltageLevel->addGenerator(generator);
     components_[generator->getID()] = generator;
     generatorComponents_[generator->getID()] = generator;
@@ -435,7 +438,7 @@ DataInterfaceIIDM::importVoltageLevel(IIDM::VoltageLevel& voltageLevelIIDM) {
       Trace::debug(Trace::modeler()) << DYNLog(NoNetworkConnection, (*itLoad).id()) << Trace::endline;
       continue;
     }
-    shared_ptr<LoadInterface> load = importLoad(*itLoad);
+    shared_ptr<LoadInterface> load = importLoad(*itLoad, country);
     voltageLevel->addLoad(load);
     components_[load->getID()] = load;
     loadComponents_[load->getID()] = load;
@@ -545,8 +548,9 @@ DataInterfaceIIDM::importSwitch(IIDM::Switch& switchIIDM) {
 }
 
 shared_ptr<GeneratorInterface>
-DataInterfaceIIDM::importGenerator(IIDM::Generator & generatorIIDM) {
+DataInterfaceIIDM::importGenerator(IIDM::Generator & generatorIIDM, const std::string& country) {
   shared_ptr<GeneratorInterfaceIIDM> generator(new GeneratorInterfaceIIDM(generatorIIDM));
+  generator->setCountry(country);
 
   // reference to bus interface
   if (generatorIIDM.is_bus()) {
@@ -561,8 +565,9 @@ DataInterfaceIIDM::importGenerator(IIDM::Generator & generatorIIDM) {
 }
 
 shared_ptr<LoadInterface>
-DataInterfaceIIDM::importLoad(IIDM::Load& loadIIDM) {
+DataInterfaceIIDM::importLoad(IIDM::Load& loadIIDM, const std::string& country) {
   shared_ptr<LoadInterfaceIIDM> load(new LoadInterfaceIIDM(loadIIDM));
+  load->setCountry(country);
 
   // reference to bus interface
   if (loadIIDM.is_bus()) {
@@ -1136,6 +1141,14 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
           const boost::shared_ptr<ComponentInterface>& cmp = busItfIter->second;
           if (cmp->getType() != ComponentInterface::BUS)
             Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "bus") << Trace::endline;
+          if (crit->hasCountryFilter()) {
+            boost::shared_ptr<BusInterfaceIIDM> bus = dynamic_pointer_cast<BusInterfaceIIDM>(cmp);
+            if (bus && !bus->getCountry().empty() && !crit->containsCountry(bus->getCountry()))
+              continue;
+            boost::shared_ptr<CalculatedBusInterfaceIIDM> calcBus = dynamic_pointer_cast<CalculatedBusInterfaceIIDM>(cmp);
+            if (calcBus && !calcBus->getCountry().empty() && !crit->containsCountry(calcBus->getCountry()))
+              continue;
+          }
           boost::shared_ptr<BusInterface> bus = dynamic_pointer_cast<BusInterface>(cmp);
           assert(bus);
           dynCriteria->addBus(bus);
@@ -1147,6 +1160,11 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
       for (std::map<std::string, boost::shared_ptr<BusInterface> >::const_iterator cmpIt = busComponents_.begin(),
           cmpItEnd = busComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
+        if (crit->hasCountryFilter()) {
+          boost::shared_ptr<BusInterfaceIIDM> bus = dynamic_pointer_cast<BusInterfaceIIDM>(cmpIt->second);
+          if (!bus->getCountry().empty() && !crit->containsCountry(bus->getCountry()))
+            continue;
+        }
         dynCriteria->addBus(cmpIt->second);
       }
       for (std::map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > >::const_iterator cmpIt = calculatedBusComponents_.begin(),
@@ -1154,6 +1172,8 @@ DataInterfaceIIDM::configureBusCriteria(const boost::shared_ptr<criteria::Criter
           cmpIt != cmpItEnd; ++cmpIt) {
         const std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> >& calBuses = cmpIt->second;
         for (size_t i = 0, iEnd = calBuses.size(); i < iEnd; ++i) {
+          if (crit->hasCountryFilter() && !calBuses[i]->getCountry().empty() && !crit->containsCountry(calBuses[i]->getCountry()))
+              continue;
           dynCriteria->addBus(calBuses[i]);
         }
       }
@@ -1181,6 +1201,11 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
           const boost::shared_ptr<ComponentInterface>& cmp = loadItfIter->second;
           if (cmp->getType() != ComponentInterface::LOAD)
             Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "load") << Trace::endline;
+          if (crit->hasCountryFilter()) {
+            boost::shared_ptr<LoadInterfaceIIDM> load = dynamic_pointer_cast<LoadInterfaceIIDM>(cmp);
+            if (!load->getCountry().empty() && !crit->containsCountry(load->getCountry()))
+              continue;
+          }
           boost::shared_ptr<LoadInterface> load = dynamic_pointer_cast<LoadInterface>(cmp);
           assert(load);
           dynCriteria->addLoad(load);
@@ -1192,6 +1217,11 @@ DataInterfaceIIDM::configureLoadCriteria(const boost::shared_ptr<criteria::Crite
       for (std::map<std::string, boost::shared_ptr<LoadInterface> >::const_iterator cmpIt = loadComponents_.begin(),
           cmpItEnd = loadComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
+        if (crit->hasCountryFilter()) {
+          boost::shared_ptr<LoadInterfaceIIDM> load = dynamic_pointer_cast<LoadInterfaceIIDM>(cmpIt->second);
+          if (!load->getCountry().empty() && !crit->containsCountry(load->getCountry()))
+            continue;
+        }
         dynCriteria->addLoad(cmpIt->second);
       }
     }
@@ -1218,6 +1248,11 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
           const boost::shared_ptr<ComponentInterface>& cmp = generatorItfIter->second;
           if (cmp->getType() != ComponentInterface::GENERATOR)
             Trace::warn() << DYNLog(WrongComponentType, *cmpIt, "generator") << Trace::endline;
+          if (crit->hasCountryFilter()) {
+            boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmp);
+            if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
+              continue;
+          }
           boost::shared_ptr<GeneratorInterface> gen = dynamic_pointer_cast<GeneratorInterface>(cmp);
           assert(gen);
           dynCriteria->addGenerator(gen);
@@ -1229,6 +1264,11 @@ DataInterfaceIIDM::configureGeneratorCriteria(const boost::shared_ptr<criteria::
       for (std::map<std::string, boost::shared_ptr<GeneratorInterface> >::const_iterator cmpIt = generatorComponents_.begin(),
           cmpItEnd = generatorComponents_.end();
           cmpIt != cmpItEnd; ++cmpIt) {
+        if (crit->hasCountryFilter()) {
+          boost::shared_ptr<GeneratorInterfaceIIDM> gen = dynamic_pointer_cast<GeneratorInterfaceIIDM>(cmpIt->second);
+          if (!gen->getCountry().empty() && !crit->containsCountry(gen->getCountry()))
+            continue;
+        }
         dynCriteria->addGenerator(cmpIt->second);
       }
     }

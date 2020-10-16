@@ -52,6 +52,12 @@ class Criteria {
    */
   virtual void addComponentId(const std::string& id) = 0;
 
+  /**
+   * @brief Add a country to the country list
+   * @param id country id to add
+   */
+  virtual void addCountry(const std::string& id) = 0;
+
 
   class Impl;
  protected:
@@ -170,6 +176,19 @@ class Criteria {
    * @return a component_id_const_iterator to the end of components ids container
    */
   virtual component_id_const_iterator end() const = 0;
+
+  /**
+   * @brief Test if this criterion has at least one country filter
+   * @return @b true if this criterion has at least one country filter
+   */
+  virtual bool hasCountryFilter() const = 0;
+
+  /**
+   * @brief Test if this criterion is limited to a specific country
+   * @param country to test
+   * @return @b true if this criterion should be limited to this country
+   */
+  virtual bool containsCountry(const std::string& country) const = 0;
 };
 
 }  // namespace criteria

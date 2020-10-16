@@ -134,12 +134,29 @@ class BusInterfaceIIDM : public BusInterface {
     return 0;  // The bus index is non 0 only for a calculated bus
   }
 
+  /**
+   * @brief Getter for the bus' country
+   * @return the bus country
+   */
+  inline const std::string& getCountry() const {
+    return country_;
+  }
+
+  /**
+   * @brief Setter for the bus' country
+   * @param country bus country
+   */
+  inline void setCountry(const std::string& country) {
+    country_ = country;
+  }
+
  private:
   IIDM::Bus& busIIDM_;  ///< reference to the iidm bus instance
   bool hasConnection_;  ///< @b true if the bus has an outside connection, @b false else
   // state variables
   boost::optional<double> U0_;  ///< initial voltage
   boost::optional<double> angle0_;  ///< initial angle
+  std::string country_;  ///< country of the bus
 };  ///< Interface class for Bus Model
 }  // namespace DYN
 
