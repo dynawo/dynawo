@@ -27,6 +27,7 @@ namespace job {
 class InitValuesEntry;
 class ConstraintsEntry;
 class TimelineEntry;
+class TimestepsEntry;
 class FinalStateEntry;
 class CurvesEntry;
 class LogsEntry;
@@ -89,6 +90,18 @@ class OutputsEntry {
    * @return the timeline entry container
    */
   virtual boost::shared_ptr<TimelineEntry> getTimelineEntry() const = 0;
+
+  /**
+   * @brief Timesteps entry setter
+   * @param timestepsEntry : timesteps entry container for the job
+   */
+  virtual void setTimestepsEntry(const boost::shared_ptr<TimestepsEntry>& timestepsEntry) = 0;
+
+  /**
+   * @brief Timesteps entries container getter
+   * @return the timesteps entry container
+   */
+  virtual boost::shared_ptr<TimestepsEntry> getTimestepsEntry() const = 0;
 
   /**
    * @brief Final State entry setter
