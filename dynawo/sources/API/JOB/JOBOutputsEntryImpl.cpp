@@ -69,6 +69,16 @@ OutputsEntry::Impl::getTimelineEntry() const {
 }
 
 void
+OutputsEntry::Impl::setTimestepsEntry(const boost::shared_ptr<TimestepsEntry>& timestepsEntry) {
+  timestepsEntry_ = timestepsEntry;
+}
+
+boost::shared_ptr<TimestepsEntry>
+OutputsEntry::Impl::getTimestepsEntry() const {
+  return timestepsEntry_;
+}
+
+void
 OutputsEntry::Impl::setFinalStateEntry(const boost::shared_ptr<FinalStateEntry>& finalStateEntry) {
   finalStateEntry_ = finalStateEntry;
 }

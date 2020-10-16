@@ -32,6 +32,7 @@
 #include "JOBInitValuesEntry.h"
 #include "JOBConstraintsEntry.h"
 #include "JOBTimelineEntry.h"
+#include "JOBTimestepsEntry.h"
 #include "JOBFinalStateEntry.h"
 #include "JOBCurvesEntry.h"
 #include "JOBLogsEntry.h"
@@ -207,6 +208,11 @@ TEST(APIJOBTest, testXmlImporter) {
   ASSERT_NE(outputs->getTimelineEntry(), boost::shared_ptr<TimelineEntry>());
   boost::shared_ptr<TimelineEntry> timeline = outputs->getTimelineEntry();
   ASSERT_EQ(timeline->getExportMode(), "TXT");
+
+  // ===== TimestepsEntry =====
+  ASSERT_NE(outputs->getTimestepsEntry(), boost::shared_ptr<TimestepsEntry>());
+  boost::shared_ptr<TimestepsEntry> timesteps = outputs->getTimestepsEntry();
+  ASSERT_EQ(timesteps->getStep(), 10);
 
   // ===== FinalStateEntry =====
   ASSERT_NE(outputs->getFinalStateEntry(), boost::shared_ptr<FinalStateEntry>());

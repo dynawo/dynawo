@@ -2365,6 +2365,10 @@ case $MODE in
     launch_jobs --valgrind-callgrind ${ARGS} || error_exit "Dynawo job failed"
     ;;
 
+  jobs-valgrind-massif)
+    launch_jobs --valgrind-massif ${ARGS} || error_exit "Dynawo job failed"
+    ;;
+
   jobs-with-curves)
     jobs_with_curves ${ARGS} || error_exit "Dynawo job with curves failed"
     ;;

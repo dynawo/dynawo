@@ -83,6 +83,7 @@
 #include "JOBInitValuesEntry.h"
 #include "JOBConstraintsEntry.h"
 #include "JOBTimelineEntry.h"
+#include "JOBTimestepsEntry.h"
 #include "JOBFinalStateEntry.h"
 #include "JOBCurvesEntry.h"
 #include "JOBSimulationEntry.h"
@@ -272,6 +273,7 @@ Simulation::configureSimulationOutputs() {
     }
     configureConstraintsOutputs();
     configureTimelineOutputs();
+    configureTimestepsOutputs();
     configureCurveOutputs();
     configureFinalStateOutputs();
   }
@@ -334,6 +336,22 @@ Simulation::configureTimelineOutputs() {
     setTimelineOutputFile(outputFile);
   } else {
     setTimelineExportMode(Simulation::EXPORT_TIMELINE_NONE);
+  }
+}
+
+void
+Simulation::configureTimestepsOutputs() {
+  // Timeline settings
+  if (jobEntry_->getOutputsEntry()->getTimestepsEntry()) {
+    string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
+    if (!is_directory(outputsDirectory))
+      create_directory(outputsDirectory);
+
+    stringstream fileName;
+    fileName << outputsDirectory << "/.dynawoexec-" << pid_;
+    timestepsOutputFile_ = fileName.str();
+
+    timestepsSteps_ = jobEntry_->getOutputsEntry()->getTimestepsEntry()->getStep();
   }
 }
 
@@ -770,12 +788,6 @@ Simulation::simulate() {
   Timer timer("Simulation::simulate()");
 #endif
   printSolverHeader();
-  string outputsDirectory = createAbsolutePath("outputs", context_->getInputDirectory());
-  if (!is_directory(outputsDirectory))
-    create_directory(outputsDirectory);
-
-  stringstream fileName;
-  fileName << outputsDirectory << "/.dynawoexec-" << pid_;
 
   // Printing out the initial solution
   solver_->printSolve();
@@ -822,7 +834,8 @@ Simulation::simulate() {
 
       model_->checkDataCoherence(tCurrent_);
       model_->printMessages();
-      printCurrentTime(fileName.str());
+      if (timestepsOutputFile_ != "" && currentIterNb % timestepsSteps_ == 0)
+        printCurrentTime(timestepsOutputFile_);
 
       if (isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
@@ -849,17 +862,21 @@ Simulation::simulate() {
         throw DYNError(Error::SIMULATION, CriteriaNotChecked);
       }
     }
-    remove(fileName.str());
+    if (timestepsOutputFile_ != "")
+        remove(timestepsOutputFile_);
   } catch (const Terminate& t) {
     Trace::warn() << t.what() << Trace::endline;
     model_->printMessages();
-    remove(fileName.str());
+    if (timestepsOutputFile_ != "")
+        remove(timestepsOutputFile_);
   } catch (const Error& e) {
     Trace::error() << e.what() << Trace::endline;
-    remove(fileName.str());
+    if (timestepsOutputFile_ != "")
+        remove(timestepsOutputFile_);
     throw;
   } catch (...) {
-    remove(fileName.str());
+    if (timestepsOutputFile_ != "")
+        remove(timestepsOutputFile_);
     throw;
   }
 }
