@@ -42,8 +42,9 @@ class ParameterCommon {
    *
    * @param name name of the parameter
    * @param valueType type of the parameter (bool, int, string, double)
+   * @param mandatory whether the parameter is mandatory or optional
    */
-  ParameterCommon(const std::string& name, const typeVarC_t& valueType);
+  ParameterCommon(const std::string& name, const typeVarC_t& valueType, bool mandatory);
 
   /**
    * @brief Default copy Constructor
@@ -67,6 +68,14 @@ class ParameterCommon {
    */
   inline const std::string& getName() const {
     return name_;
+  }
+
+  /**
+   * @brief Getter for parameter's type
+   * @return true if the parameter is mandatory else otherwise
+   */
+  inline bool isMandatory() const {
+    return mandatory_;
   }
 
   /**
@@ -131,6 +140,7 @@ class ParameterCommon {
   std::string name_;  ///< name of the parameter
   typeVarC_t valueType_;  ///< type of the parameter value (BOOL, INT, DOUBLE, STRING: as defined in enum)
   boost::optional<unsigned int> index_;  ///< parameter index in the raw parameters' vector
+  bool mandatory_;  ///< true if this parameter is mandatory
 };
 
 /**

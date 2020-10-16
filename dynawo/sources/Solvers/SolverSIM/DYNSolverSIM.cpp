@@ -138,39 +138,41 @@ SolverSIM::~SolverSIM() {
 
 void
 SolverSIM::defineSpecificParameters() {
+  const bool mandatory = true;
+  const bool optional = false;
   // Time-domain part parameters
-  parameters_.insert(make_pair("hMin", ParameterSolver("hMin", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("hMax", ParameterSolver("hMax", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("kReduceStep", ParameterSolver("kReduceStep", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("nEff", ParameterSolver("nEff", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("nDeadband", ParameterSolver("nDeadband", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("maxRootRestart", ParameterSolver("maxRootRestart", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("maxNewtonTry", ParameterSolver("maxNewtonTry", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("recalculateStep", ParameterSolver("recalculateStep", VAR_TYPE_BOOL)));
+  parameters_.insert(make_pair("hMin", ParameterSolver("hMin", VAR_TYPE_DOUBLE, mandatory)));
+  parameters_.insert(make_pair("hMax", ParameterSolver("hMax", VAR_TYPE_DOUBLE, mandatory)));
+  parameters_.insert(make_pair("kReduceStep", ParameterSolver("kReduceStep", VAR_TYPE_DOUBLE, mandatory)));
+  parameters_.insert(make_pair("nEff", ParameterSolver("nEff", VAR_TYPE_INT, mandatory)));
+  parameters_.insert(make_pair("nDeadband", ParameterSolver("nDeadband", VAR_TYPE_INT, mandatory)));
+  parameters_.insert(make_pair("maxRootRestart", ParameterSolver("maxRootRestart", VAR_TYPE_INT, mandatory)));
+  parameters_.insert(make_pair("maxNewtonTry", ParameterSolver("maxNewtonTry", VAR_TYPE_INT, mandatory)));
+  parameters_.insert(make_pair("recalculateStep", ParameterSolver("recalculateStep", VAR_TYPE_BOOL, mandatory)));
 
   // Parameters for the algebraic resolution at each time step
-  parameters_.insert(make_pair("linearSolverName", ParameterSolver("linearSolverName", VAR_TYPE_STRING)));
-  parameters_.insert(make_pair("fnormtol", ParameterSolver("fnormtol", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("initialaddtol", ParameterSolver("initialaddtol", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("scsteptol", ParameterSolver("scsteptol", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("mxnewtstep", ParameterSolver("mxnewtstep", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("msbset", ParameterSolver("msbset", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("mxiter", ParameterSolver("mxiter", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("printfl", ParameterSolver("printfl", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("optimizeAlgebraicResidualsEvaluations", ParameterSolver("optimizeAlgebraicResidualsEvaluations", VAR_TYPE_BOOL)));
-  parameters_.insert(make_pair("skipNRIfInitialGuessOK", ParameterSolver("skipNRIfInitialGuessOK", VAR_TYPE_BOOL)));
+  parameters_.insert(make_pair("linearSolverName", ParameterSolver("linearSolverName", VAR_TYPE_STRING, mandatory)));
+  parameters_.insert(make_pair("fnormtol", ParameterSolver("fnormtol", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("initialaddtol", ParameterSolver("initialaddtol", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("scsteptol", ParameterSolver("scsteptol", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("mxnewtstep", ParameterSolver("mxnewtstep", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("msbset", ParameterSolver("msbset", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("mxiter", ParameterSolver("mxiter", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("printfl", ParameterSolver("printfl", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("optimizeAlgebraicResidualsEvaluations", ParameterSolver("optimizeAlgebraicResidualsEvaluations", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("skipNRIfInitialGuessOK", ParameterSolver("skipNRIfInitialGuessOK", VAR_TYPE_BOOL, optional)));
 }
 
 void
 SolverSIM::setSolverSpecificParameters() {
-  hMin_ = getMandatoryParameterValue<double>("hMin");
-  hMax_ = getMandatoryParameterValue<double>("hMax");
-  kReduceStep_ = getMandatoryParameterValue<double>("kReduceStep");
-  nEff_ = getMandatoryParameterValue<int>("nEff");
-  nDeadband_ = getMandatoryParameterValue<int>("nDeadband");
-  maxRootRestart_ = getMandatoryParameterValue<int>("maxRootRestart");
-  maxNewtonTry_ =  getMandatoryParameterValue<int>("maxNewtonTry");
-  recalculateStep_ = getMandatoryParameterValue<bool>("recalculateStep");
+  hMin_ = findParameter("hMin").getValue<double>();
+  hMax_ = findParameter("hMax").getValue<double>();
+  kReduceStep_ = findParameter("kReduceStep").getValue<double>();
+  nEff_ = findParameter("nEff").getValue<int>();
+  nDeadband_ = findParameter("nDeadband").getValue<int>();
+  maxRootRestart_ = findParameter("maxRootRestart").getValue<int>();
+  maxNewtonTry_ =  findParameter("maxNewtonTry").getValue<int>();
+  recalculateStep_ = findParameter("recalculateStep").getValue<bool>();
 
   linearSolverName_ = findParameter("linearSolverName").getValue<std::string>();
   if (findParameter("fnormtol").hasValue())

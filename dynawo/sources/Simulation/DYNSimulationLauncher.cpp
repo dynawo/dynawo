@@ -65,8 +65,9 @@ void launchSimu(const std::string& jobsFileName) {
     context->setInputDirectory(prefixJobFile);
     context->setWorkingDirectory(prefixJobFile);
 
-    boost::shared_ptr<Simulation> simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
+    boost::shared_ptr<Simulation> simulation;
     try {
+      simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
       simulation->init();
     } catch (const DYN::Error& err) {
       Trace::error() << err.what() << Trace::endline;

@@ -55,7 +55,17 @@ class ParametersSet::Impl : public ParametersSet {
   /**
    * @copydoc ParametersSet::getId()
    */
-  std::string getId() const;
+  const std::string& getId() const;
+
+  /**
+   * @copydoc ParametersSet::getFilePath()
+   */
+  const std::string& getFilePath() const;
+
+  /**
+   * @copydoc ParametersSet::setFilePath()
+   */
+  void setFilePath(const std::string& filepath);
 
   /**
    * @copydoc ParametersSet::createAlias(const std::string& aliasName, const std::string& origName)
@@ -235,6 +245,7 @@ class ParametersSet::Impl : public ParametersSet {
   std::vector<std::string> tableParameterNames(const std::string& name, const std::string& row, const std::string& column) const;
 
   std::string id_; /**< Parameters' set id */
+  std::string filepath_; /**< Parameters' set filepath */
   std::map<std::string, boost::shared_ptr<Parameter> > parameters_; /**< Map of the parameters */
   boost::unordered_map<std::string, boost::shared_ptr<Reference> > references_; /**< Map of the references */
 };
