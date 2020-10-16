@@ -166,23 +166,24 @@ SolverIDA::~SolverIDA() {
 
 void
 SolverIDA::defineSpecificParameters() {
+  const bool mandatory = true;
   // Time-domain part parameters
-  parameters_.insert(make_pair("order", ParameterSolver("order", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("initStep", ParameterSolver("initStep", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("minStep", ParameterSolver("minStep", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("maxStep", ParameterSolver("maxStep", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("absAccuracy", ParameterSolver("absAccuracy", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE)));
+  parameters_.insert(make_pair("order", ParameterSolver("order", VAR_TYPE_INT, mandatory)));
+  parameters_.insert(make_pair("initStep", ParameterSolver("initStep", VAR_TYPE_DOUBLE, mandatory)));
+  parameters_.insert(make_pair("minStep", ParameterSolver("minStep", VAR_TYPE_DOUBLE, mandatory)));
+  parameters_.insert(make_pair("maxStep", ParameterSolver("maxStep", VAR_TYPE_DOUBLE, mandatory)));
+  parameters_.insert(make_pair("absAccuracy", ParameterSolver("absAccuracy", VAR_TYPE_DOUBLE, mandatory)));
+  parameters_.insert(make_pair("relAccuracy", ParameterSolver("relAccuracy", VAR_TYPE_DOUBLE, mandatory)));
 }
 
 void
 SolverIDA::setSolverSpecificParameters() {
-  order_ = getMandatoryParameterValue<int>("order");
-  initStep_ = getMandatoryParameterValue<double>("initStep");
-  minStep_ = getMandatoryParameterValue<double>("minStep");
-  maxStep_ = getMandatoryParameterValue<double>("maxStep");
-  absAccuracy_ = getMandatoryParameterValue<double>("absAccuracy");
-  relAccuracy_ = getMandatoryParameterValue<double>("relAccuracy");
+  order_ = findParameter("order").getValue<int>();
+  initStep_ = findParameter("initStep").getValue<double>();
+  minStep_ = findParameter("minStep").getValue<double>();
+  maxStep_ = findParameter("maxStep").getValue<double>();
+  absAccuracy_ = findParameter("absAccuracy").getValue<double>();
+  relAccuracy_ = findParameter("relAccuracy").getValue<double>();
 }
 
 std::string

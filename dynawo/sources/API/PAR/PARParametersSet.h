@@ -52,7 +52,21 @@ class ParametersSet : public boost::enable_shared_from_this<ParametersSet> {
    *
    * @returns Parameters' set id
    */
-  virtual std::string getId() const = 0;
+  virtual const std::string& getId() const = 0;
+
+  /**
+   * @brief Getter for parameters' set file path
+   *
+   * @returns Parameters' set file path
+   */
+  virtual const std::string& getFilePath() const = 0;
+
+  /**
+   * @brief Setter for parameters' set file path
+   *
+   * @param filepath Parameters' set file path
+   */
+  virtual void setFilePath(const std::string& filepath) = 0;
 
   /**
    * @brief Add a parameter alias in the parameters set

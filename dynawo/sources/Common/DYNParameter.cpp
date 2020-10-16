@@ -24,17 +24,19 @@ using std::string;
 
 namespace DYN {
 
-ParameterCommon::ParameterCommon(const string& name, const typeVarC_t& valueType) :
+ParameterCommon::ParameterCommon(const string& name, const typeVarC_t& valueType, bool mandatory) :
 name_(name),
 valueType_(valueType),
-index_(boost::none) {
+index_(boost::none),
+mandatory_(mandatory) {
 }
 
 #ifndef LANG_CXX11
 ParameterCommon::ParameterCommon(const ParameterCommon& parameter) :
 name_(parameter.name_),
 valueType_(parameter.valueType_),
-index_(parameter.index_) {
+index_(parameter.index_),
+mandatory_(parameter.mandatory_) {
 }
 #endif
 

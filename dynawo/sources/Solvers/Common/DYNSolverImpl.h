@@ -244,13 +244,6 @@ class Solver::Impl : public Solver, private boost::noncopyable {
    * @param value : the value to set
    */
   template <typename T> void setParameterValue(ParameterSolver &parameter, const T &value);
-  /**
-   * @brief get a given parameter value
-   *
-   * @param paramName: the name of the desired parameter
-   * @return the value of the parameter or throw an error if it does not exist
-   */
-  template <typename T> T getMandatoryParameterValue(const std::string& paramName);
 
   /**
    * @brief initialize all internal structure of the solver

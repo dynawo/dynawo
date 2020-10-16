@@ -25,8 +25,8 @@ using std::string;
 
 namespace DYN {
 
-ParameterSolver::ParameterSolver(const string& name, const typeVarC_t& valueType) :
-  ParameterCommon(name, valueType),
+ParameterSolver::ParameterSolver(const string& name, const typeVarC_t& valueType, bool mandatory) :
+  ParameterCommon(name, valueType, mandatory),
   value_(boost::none) {
 }
 

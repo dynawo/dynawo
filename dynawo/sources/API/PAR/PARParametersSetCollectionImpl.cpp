@@ -67,6 +67,15 @@ ParametersSetCollection::Impl::hasParametersSet(const string& id) {
   return (parametersSets_.find(id) != parametersSets_.end());
 }
 
+void
+ParametersSetCollection::Impl::propagateOriginData(const std::string& filepath) {
+  for (map<string, shared_ptr<ParametersSet> >::const_iterator itParams = parametersSets_.begin();
+          itParams != parametersSets_.end();
+          ++itParams) {
+    itParams->second->setFilePath(filepath);
+  }
+}
+
 ParametersSetCollection::parametersSet_const_iterator
 ParametersSetCollection::Impl::cbeginParametersSet() const {
   return ParametersSetCollection::parametersSet_const_iterator(this, true);
