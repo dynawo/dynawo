@@ -113,7 +113,6 @@
 #include "DYNDataInterfaceFactory.h"
 #include "DYNExecUtils.h"
 #include "DYNSignalHandler.h"
-#include "DYNDataInterfaceIIDM.h"
 #include "DYNBitMask.h"
 
 using std::ofstream;
