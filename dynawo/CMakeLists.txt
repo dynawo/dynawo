@@ -55,6 +55,7 @@ if(DEFINED DYNAWO_THIRD_PARTY_DIR)
   set(ZLIB_ROOT ${DYNAWO_THIRD_PARTY_DIR}/zlib CACHE PATH "Path where a ZLib installation already exists")
   set(XERCESC_HOME ${DYNAWO_THIRD_PARTY_DIR}/xerces-c CACHE PATH "Path where a Xerces-c installation already exists")
   set(NICSLU_HOME ${DYNAWO_THIRD_PARTY_DIR}/nicslu CACHE PATH "Path where a Nicslu installation already exists")
+  set(LIBXML2_HOME ${DYNAWO_THIRD_PARTY_DIR}/libxml2 CACHE PATH "Path where libxml2 installation already exists")
 endif()
 
 get_filename_component(DYNAWO_HOME ${DYNAWO_HOME} ABSOLUTE)
@@ -86,11 +87,13 @@ set(OPENMODELICA_VERSION "1_13_2" CACHE STRING "Version of OpenModelica")
 # If C++11 is enabled, check flags availability
 set(CXX11_ENABLED ON CACHE BOOL "")
 
+list(APPEND CMAKE_PREFIX_PATH "${LIBXML2_HOME}")
+
 if(MSVC)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS -D_WIN32_WINNT=0x0601)
   add_definitions(-DLANG_CXX11)
 
-  set(CMAKE_PREFIX_PATH ${DYNAWO_THIRD_PARTY_DIR}/dlfcnwin32)
+  list(APPEND CMAKE_PREFIX_PATH "${DYNAWO_THIRD_PARTY_DIR}/dlfcnwin32")
 
   find_package(dlfcn-win32 REQUIRED)
   set(CMAKE_DL_LIBS dlfcn-win32::dl)
@@ -225,6 +228,12 @@ endif()
 # Tell BOOST to disable auto linking
 add_definitions(-DBOOST_ALL_NO_LIB)
 
+if(CXX11_ENABLED)
+  set(Boost_RequiredVersion  "1.65")
+else()
+  set(Boost_RequiredVersion  "1.64")
+endif()
+
 if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
   find_package(Boost 1.64 REQUIRED
           COMPONENTS
@@ -237,15 +246,9 @@ if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage"
           iostreams
           )
 else()
-  find_package(Boost 1.64 REQUIRED
-          COMPONENTS
-          filesystem
-          program_options
-          serialization
-          system
-          log
-          log_setup
-          )
+  find_package(Boost "${Boost_RequiredVersion}" REQUIRED
+    COMPONENTS filesystem program_options serialization system log log_setup
+  )
 endif()
 
 set(BUILD_TESTS ${BUILD_TESTS} CACHE BOOL "Build tests.")
@@ -310,8 +313,7 @@ if(MSVC)
   endif()
 endif()
 find_package(ZLIB 1.2.3 REQUIRED)
-set_property(TARGET ZLIB::ZLIB APPEND PROPERTY
-  IMPORTED_LOCATION "${ZLIB_LIBRARY}")
+set_property(TARGET ZLIB::ZLIB APPEND PROPERTY IMPORTED_LOCATION "${ZLIB_LIBRARY}")
 
 if(MSVC)
   if(LIBRARY_TYPE STREQUAL "STATIC")
@@ -347,33 +349,39 @@ endif()
 find_package(libXML 0.2.4 REQUIRED PATHS ${LIBXML_HOME})
 
 # libIIDM
-find_package(libIIDM 0.2.8 REQUIRED PATHS ${LIBIIDM_HOME}
-  COMPONENTS
-    core
-    xml
-    ext-activeseason
-    ext-activeseason-xml
-    ext-busbarsectionposition
-    ext-busbarsectionposition-xml
-    ext-connectableposition
-    ext-connectableposition-xml
-    ext-currentlimitsperseason
-    ext-currentlimitsperseason-xml
-    ext-generatoractivepowercontrol
-    ext-generatoractivepowercontrol-xml
-    ext-hvdcangledroopactivepowercontrol
-    ext-hvdcangledroopactivepowercontrol-xml
-    ext-hvdcoperatoractivepowerrange
-    ext-hvdcoperatoractivepowerrange-xml
-    ext-generatorentsoecategory
-    ext-generatorentsoecategory-xml
-    ext-generatorstartup
-    ext-generatorstartup-xml
-    ext-loaddetail
-    ext-loaddetail-xml
-    ext-standbyautomaton
-    ext-standbyautomaton-xml
+
+if(CXX11_ENABLED)
+  find_package(LibXml2 "2.9" REQUIRED)
+  find_package(LibIIDM "1.2.1" REQUIRED PATHS ${LIBIIDM_HOME})
+else()
+  find_package(libIIDM "0.2.8" REQUIRED PATHS ${LIBIIDM_HOME}
+    COMPONENTS
+      core
+      xml
+      ext-activeseason
+      ext-activeseason-xml
+      ext-busbarsectionposition
+      ext-busbarsectionposition-xml
+      ext-connectableposition
+      ext-connectableposition-xml
+      ext-currentlimitsperseason
+      ext-currentlimitsperseason-xml
+      ext-generatoractivepowercontrol
+      ext-generatoractivepowercontrol-xml
+      ext-hvdcangledroopactivepowercontrol
+      ext-hvdcangledroopactivepowercontrol-xml
+      ext-hvdcoperatoractivepowerrange
+      ext-hvdcoperatoractivepowerrange-xml
+      ext-generatorentsoecategory
+      ext-generatorentsoecategory-xml
+      ext-generatorstartup
+      ext-generatorstartup-xml
+      ext-loaddetail
+      ext-loaddetail-xml
+      ext-standbyautomaton
+      ext-standbyautomaton-xml
   )
+endif()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h @ONLY)
 
@@ -382,16 +390,19 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/sources/config.h.in ${CMAKE_CURRENT_S
 #
 add_custom_target(CREATE_DDBDIR
   COMMAND ${CMAKE_COMMAND} -E make_directory ${ddbdir}
-  )
+)
 
 if(MSVC)
-  set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
+  set(runtime_PATH "PATH=${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${LIBXML2_HOME}/bin;${libdir};$ENV{PATH}")
   if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
     set(runtime_tests_PATH "PATH=${GTEST_ROOT}/bin;${ADEPT_HOME}/bin;${Boost_INCLUDE_DIR}/../lib;${dlfcn-win32_INCLUDE_DIRS}/../bin;${INSTALL_OPENMODELICA}/bin;${SUITESPARSE_HOME}/bin;${SUNDIALS_HOME}/lib;${XercesC_INCLUDE_DIRS}/../bin;${LibIIDM_BIN_DIR};${LibXML_BIN_DIR};${libdir};$ENV{PATH}")
   endif()
 else() # Linux
-  set(runtime_LD_LIBRARY_PATH "LD_LIBRARY_PATH=${ADEPT_HOME}/lib:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${SUNDIALS_HOME}/lib:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LibXML_LIB_DIR}:${libdir}:${Boost_INCLUDE_DIR}/../lib:$ENV{LD_LIBRARY_PATH}")
+  set(runtime_LD_LIBRARY_PATH "LD_LIBRARY_PATH=${ADEPT_HOME}/lib:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${SUNDIALS_HOME}/lib:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LibXML_LIB_DIR}:${libdir}:${Boost_INCLUDE_DIR}/../lib:${LIBXML2_HOME}/lib:$ENV{LD_LIBRARY_PATH}")
   set(runtime_PATH "PATH=${INSTALL_OPENMODELICA}/bin:$ENV{PATH}")
+  if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+    set(runtime_tests_PATH "LD_LIBRARY_PATH=${GTEST_ROOT}/lib:${ADEPT_HOME}/lib:${SUITESPARSE_HOME}/lib:${SUNDIALS_HOME}/lib64:${SUNDIALS_HOME}/lib:${XercesC_INCLUDE_DIRS}/../lib:${LibIIDM_LIB_DIR}:${LibXML_LIB_DIR}:${libdir}:${Boost_INCLUDE_DIR}/../lib:${LIBXML2_HOME}/lib:$ENV{LD_LIBRARY_PATH}")
+  endif()
 endif()
 
 include(../cpplint/cpplint.cmake)
@@ -425,7 +436,7 @@ write_basic_package_version_file(
 )
 
 install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/dynawo-config-version.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/dynawo-config-version.cmake
   DESTINATION ${SHAREDIR_NAME}
 )
 
@@ -436,6 +447,7 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSuiteSparse.cmake DESTINATIO
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindNICSLU.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindSundials.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/FindlibZIP.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/CPUCount.cmake DESTINATION ${SHAREDIR_NAME}/cmake)
 
 if(MSVC)
   if(CMAKE_BUILD_TYPE STREQUAL "Tests" OR CMAKE_BUILD_TYPE STREQUAL "TestCoverage")

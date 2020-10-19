@@ -53,6 +53,7 @@ CalculatedBusInterfaceIIDM::~CalculatedBusInterfaceIIDM() {
 void
 CalculatedBusInterfaceIIDM::addBusBarSection(const shared_ptr<BusBarSectionInterface>& bbs) {
   busBarSections_.push_back(bbs);
+  bbsNames_.push_back(bbs->id());
 }
 
 void
@@ -167,12 +168,9 @@ CalculatedBusInterfaceIIDM::hasNode(const int& node) {
   return (nodes_.find(node) != nodes_.end());
 }
 
-vector<string>
+const vector<string>&
 CalculatedBusInterfaceIIDM::getBusBarSectionNames() const {
-  vector<string> names;
-  for (unsigned int i = 0; i < busBarSections_.size(); ++i)
-    names.push_back(busBarSections_[i]->id());
-  return names;
+  return bbsNames_;
 }
 
 set<int>

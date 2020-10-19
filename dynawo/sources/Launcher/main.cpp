@@ -105,7 +105,7 @@ int main(int argc, char ** argv) {
 
     if (!exists(jobsFileName)) {
       cout << " failed to locate jobs file (" << jobsFileName << ")" << endl;
-      cout << desc << endl;
+      usage(desc);
       return 1;
     }
 

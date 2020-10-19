@@ -13,7 +13,7 @@
 
 //======================================================================
 /**
- * @file  DYNVscConverterInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNVscConverterInterfaceIIDM.h
  *
  * @brief Vsc converter interface : header file for IIDM implementation
  *

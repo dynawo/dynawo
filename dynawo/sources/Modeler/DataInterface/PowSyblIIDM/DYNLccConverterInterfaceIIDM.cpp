@@ -1,0 +1,142 @@
+//
+// Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+// See AUTHORS.txt
+// All rights reserved.
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, you can obtain one at http://mozilla.org/MPL/2.0/.
+// SPDX-License-Identifier: MPL-2.0
+//
+// This file is part of Dynawo, an hybrid C++/Modelica open source time domain
+// simulation tool for power systems.
+//
+
+//======================================================================
+/**
+ * @file  DYNLccConverterInterfaceIIDM.cpp
+ *
+ * @brief Lcc Converter data interface : implementation file for IIDM interface
+ *
+ */
+//======================================================================
+
+#include "DYNLccConverterInterfaceIIDM.h"
+
+#include <powsybl/iidm/HvdcLine.hpp>
+#include <powsybl/iidm/LccConverterStation.hpp>
+
+#include <boost/shared_ptr.hpp>
+
+#include <string>
+
+using boost::shared_ptr;
+
+namespace DYN {
+
+LccConverterInterfaceIIDM::~LccConverterInterfaceIIDM() {
+}
+
+LccConverterInterfaceIIDM::LccConverterInterfaceIIDM(powsybl::iidm::LccConverterStation& lcc) : InjectorInterfaceIIDM(lcc, lcc.getId()),
+                                                                                                lccConverterIIDM_(lcc) {
+  setType(ComponentInterface::LCC_CONVERTER);
+}
+
+int
+LccConverterInterfaceIIDM::getComponentVarIndex(const std::string& /*varName*/) const {
+  return -1;
+}
+
+void
+LccConverterInterfaceIIDM::exportStateVariablesUnitComponent() {
+  /* not needed */
+}
+
+void
+LccConverterInterfaceIIDM::importStaticParameters() {
+  staticParameters_.clear();
+  staticParameters_.insert(std::make_pair("p_pu", StaticParameter("p_pu", StaticParameter::DOUBLE).setValue(-1 * getP() / SNREF)));
+  staticParameters_.insert(std::make_pair("q_pu", StaticParameter("q_pu", StaticParameter::DOUBLE).setValue(-1 * getQ() / SNREF)));
+  staticParameters_.insert(std::make_pair("p", StaticParameter("p", StaticParameter::DOUBLE).setValue(-1 * getP())));
+  staticParameters_.insert(std::make_pair("q", StaticParameter("q", StaticParameter::DOUBLE).setValue(-1 * getQ())));
+  if (getBusInterface()) {
+    double U0 = getBusInterface()->getV0();
+    double vNom = lccConverterIIDM_.getHvdcLine().get().getNominalVoltage();
+    double teta = getBusInterface()->getAngle0();
+    staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(U0 / vNom)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(teta * M_PI / 180)));
+    staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(U0)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(teta)));
+  } else {
+    staticParameters_.insert(std::make_pair("v_pu", StaticParameter("v_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle_pu", StaticParameter("angle_pu", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("v", StaticParameter("v", StaticParameter::DOUBLE).setValue(0.)));
+    staticParameters_.insert(std::make_pair("angle", StaticParameter("angle", StaticParameter::DOUBLE).setValue(0.)));
+  }
+}
+
+void
+LccConverterInterfaceIIDM::setBusInterface(const shared_ptr<BusInterface>& busInterface) {
+  setBusInterfaceInjector(busInterface);
+}
+
+void
+LccConverterInterfaceIIDM::setVoltageLevelInterface(const shared_ptr<VoltageLevelInterface>& voltageLevelInterface) {
+  setVoltageLevelInterfaceInjector(voltageLevelInterface);
+}
+
+shared_ptr<BusInterface>
+LccConverterInterfaceIIDM::getBusInterface() const {
+  return getBusInterfaceInjector();
+}
+
+bool
+LccConverterInterfaceIIDM::getInitialConnected() {
+  return getInitialConnectedInjector();
+}
+
+double
+LccConverterInterfaceIIDM::getVNom() const {
+  return getVNomInjector();
+}
+
+bool
+LccConverterInterfaceIIDM::hasP() {
+  return hasPInjector();
+}
+
+bool
+LccConverterInterfaceIIDM::hasQ() {
+  return hasQInjector();
+}
+
+double
+LccConverterInterfaceIIDM::getP() {
+  return getPInjector();
+}
+
+double
+LccConverterInterfaceIIDM::getQ() {
+  return getQInjector();
+}
+
+std::string
+LccConverterInterfaceIIDM::getID() const {
+  return lccConverterIIDM_.getId();
+}
+
+double
+LccConverterInterfaceIIDM::getLossFactor() const {
+  return lccConverterIIDM_.getLossFactor();
+}
+
+double
+LccConverterInterfaceIIDM::getPowerFactor() const {
+  return lccConverterIIDM_.getPowerFactor();
+}
+
+powsybl::iidm::LccConverterStation&
+LccConverterInterfaceIIDM::getLccIIDM() {
+  return lccConverterIIDM_;
+}
+
+}  // namespace DYN

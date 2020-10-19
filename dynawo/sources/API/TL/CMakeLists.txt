@@ -53,8 +53,9 @@ target_include_directories(dynawo_API_TL SYSTEM
   )
 
 target_link_libraries(dynawo_API_TL
-  PRIVATE
+  PUBLIC
     XMLSAXFormatter${LibXML_LINK_SUFFIX}
+  PRIVATE
     dynawo_Common
     )
 

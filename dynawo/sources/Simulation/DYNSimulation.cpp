@@ -111,7 +111,6 @@
 #include "DYNDataInterfaceFactory.h"
 #include "DYNExecUtils.h"
 #include "DYNSignalHandler.h"
-#include "DYNDataInterfaceIIDM.h"
 #include "DYNBitMask.h"
 
 using std::ofstream;
@@ -483,7 +482,7 @@ Simulation::loadDynamicData() {
   dyd_->setParametersReference(referenceParameters_);
 
   if (iidmFile_ != "") {
-    data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM1, iidmFile_);
+    data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM, iidmFile_);
     if (criteriaCollection_)
       data_->configureCriteria(criteriaCollection_);
 

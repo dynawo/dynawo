@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNDataInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNDataInterfaceIIDM.h
  *
  * @brief Data interface : header file of IIDM implementation
  *
@@ -27,6 +27,7 @@
 
 #include "DYNDataInterface.h"
 #include "DYNCriteria.h"
+#include "DYNServiceManagerInterfaceIIDM.h"
 
 namespace IIDM {
 class Network;
@@ -188,6 +189,13 @@ class DataInterfaceIIDM : public DataInterface {
    * @copydoc DataInterface::getBusName(const std::string& staticID, const std::string& labelNode)
    */
   std::string getBusName(const std::string& staticID, const std::string& labelNode);
+
+  /**
+   * @copydoc DataInterface::getServiceManager
+   */
+  boost::shared_ptr<ServiceManagerInterface> getServiceManager() const {
+    return serviceManager_;
+  }
 
  private:
   /**
@@ -365,6 +373,7 @@ class DataInterfaceIIDM : public DataInterface {
   std::map<std::string, boost::shared_ptr<GeneratorInterface> > generatorComponents_;  ///< map of generators by name
   std::map<std::string, std::vector<boost::shared_ptr<CalculatedBusInterfaceIIDM> > > calculatedBusComponents_;  ///< calculatedBus per voltageLevel
   std::vector<boost::shared_ptr<Criteria> > criteria_;  ///< table of criteria to check
+  boost::shared_ptr<ServiceManagerInterfaceIIDM> serviceManager_;  ///< Service manager
 };  ///< Generic data interface for IIDM format files
 }  // namespace DYN
 
