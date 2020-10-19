@@ -54,6 +54,11 @@ namespace po = boost::program_options;
 
 using boost::shared_ptr;
 
+void usage(const po::options_description& desc) {
+  cout << "Usage: dynawo <jobs-file>" << std::endl << std::endl;
+  cout << desc << endl;
+}
+
 /**
  * @brief main function for dynawo
  *
@@ -66,28 +71,33 @@ using boost::shared_ptr;
 int main(int argc, char ** argv) {
   string jobsFileName = "";
 
+  // declarations of supported options
+  // -----------------------------------
+
+  po::options_description desc;
+  desc.add_options()
+    ("help,h", "produce help message")
+    ("version,v", "print dynawo version");
+
+  po::options_description hidden("Hidden options");
+  hidden.add_options() ("jobs-file", po::value<string>(&jobsFileName), "set job file");
+
+  po::positional_options_description positionalOptions;
+  positionalOptions.add("jobs-file", 1);
+
+  po::options_description cmdlineOptions;
+  cmdlineOptions.add(desc).add(hidden);
+
   try {
-    // declarations of supported options
-    // -----------------------------------
-
-    po::options_description desc;
-    desc.add_options()
-            ("help,h", " produce help message")
-            ("jobs-file", po::value<string>(&jobsFileName), "set job file")
-            ("version,v", " print dynawo version");
-
-    po::positional_options_description positionalOptions;
-    positionalOptions.add("jobs-file", 1);
-
     po::variables_map vm;
     // parse regular options
-    po::store(po::command_line_parser(argc, argv).options(desc)
+    po::store(po::command_line_parser(argc, argv).options(cmdlineOptions)
             .positional(positionalOptions).run(),
             vm);
     po::notify(vm);
 
     if (vm.count("help")) {
-      cout << desc << endl;
+      usage(desc);
       return 0;
     }
 
@@ -98,8 +108,8 @@ int main(int argc, char ** argv) {
 
     // launch simulation
     if (jobsFileName == "") {
-      cout << " job file name is required" << endl;
-      cout << desc << endl;
+      cout << "Error: a jobs file name is required." << endl;
+      usage(desc);
       return 1;
     }
 
@@ -118,6 +128,9 @@ int main(int argc, char ** argv) {
     launchSimu(jobsFileName);
   } catch (const DYN::Error& e) {
     return e.type();
+  } catch (const po::error&) {
+    usage(desc);
+    return -1;
   } catch (const char*) {
     return -1;
   } catch (const string&) {

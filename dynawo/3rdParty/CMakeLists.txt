@@ -841,6 +841,7 @@ if(NOT OMCompiler)
                           --disable-omnotebook
                           --disable-omshell-terminal
                           --with-qwt=NO
+                          --with-omc=no
       BUILD_COMMAND       make -j ${NUMBER_OF_PROCESSORS} omc
       INSTALL_COMMAND     make install
               COMMAND     cd <INSTALL_DIR>/bin && ln -s -f omc omcDynawo
