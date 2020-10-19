@@ -17,7 +17,6 @@
  * @brief Simulation implementation
  *
  */
-
 #include <eigen3/Eigen/Eigenvalues>
 #include <iomanip>
 #include <vector>
@@ -84,16 +83,16 @@
 #include "JOBInitValuesEntry.h"
 #include "JOBConstraintsEntry.h"
 #include "JOBTimelineEntry.h"
+#include "JOBLineariseEntry.h"
+#include "JOBModalAnalysisEntry.h"
+#include "JOBAllModesEntry.h"
+#include "JOBSubParticipationEntry.h"
 #include "JOBFinalStateEntry.h"
 #include "JOBCurvesEntry.h"
 #include "JOBSimulationEntry.h"
 #include "JOBLogsEntry.h"
 #include "JOBAppenderEntry.h"
 #include "JOBDynModelsEntry.h"
-#include "JOBLineariseEntry.h"
-#include "JOBModalAnalysisEntry.h"
-#include "JOBAllModesEntry.h"
-#include "JOBSubParticipationEntry.h"
 
 #include "gitversion.h"
 #include "config.h"
@@ -151,10 +150,9 @@ static const char TIME_FILENAME[] = "time.bin";  ///< name of the file to dump t
 
 namespace DYN {
 
-Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context, shared_ptr<DataInterface> data) :
+Simulation::Simulation(shared_ptr<job::JobEntry>& jobEntry, shared_ptr<SimulationContext>& context) :
 context_(context),
 jobEntry_(jobEntry),
-data_(data),
 iidmFile_(""),
 networkParFile_(""),
 networkParSet_(""),
@@ -191,6 +189,7 @@ dumpGlobalInitValues_(false) {
   timeline_ = TimelineFactory::newInstance("Simulation_" + pid_string.str());
   curvesCollection_ = CurvesCollectionFactory::newInstance("Simulation_" + pid_string.str());
   constraintsCollection_ = ConstraintsCollectionFactory::newInstance("Simulation_" + pid_string.str());
+
 
   // Set simulation parameters
   setStartTime(jobEntry_->getSimulationEntry()->getStartTime());
@@ -231,7 +230,7 @@ Simulation::configureSimulationInputs() {
 
   if (jobEntry_->getModelerEntry()->getNetworkEntry()) {
     iidmFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getIidmFile(), context_->getInputDirectory());
-    if (!data_ && !exists(iidmFile_))  // no need to check iidm file if data interface is provided
+    if (!exists(iidmFile_))
       throw DYNError(Error::GENERAL, UnknownIidmFile, iidmFile_);
 
     networkParFile_ = createAbsolutePath(jobEntry_->getModelerEntry()->getNetworkEntry()->getNetworkParFile(), context_->getInputDirectory());
@@ -279,14 +278,14 @@ Simulation::configureSimulationOutputs() {
       setDumpLocalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpLocalInitValues());
       setDumpGlobalInitValues(jobEntry_->getOutputsEntry()->getInitValuesEntry()->getDumpGlobalInitValues());
     }
+    configureAllModesOutputs();
+    configureModalAnalysisOutputs();
+    configureSubParticipationOutputs();
+    configureLineariseOutputs();
     configureConstraintsOutputs();
     configureTimelineOutputs();
     configureCurveOutputs();
     configureFinalStateOutputs();
-    configureAllModesOutputs();
-    configureModalAnalysisOutputs();
-    configureSubParticipationOutputs();
-    configureLineariseOutputs()
   }
 }
 
@@ -329,7 +328,6 @@ Simulation::configureLineariseOutputs() {
       setLineariseTime(tLinearise_);
 }
 }
-
 void
 Simulation::configureConstraintsOutputs() {
   // Constraints settings
@@ -537,29 +535,25 @@ Simulation::loadDynamicData() {
   dyd_->setRootDirectory(context_->getInputDirectory());
   dyd_->setParametersReference(referenceParameters_);
 
-  if (!data_) {
-    if (iidmFile_ != "") {
-      data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM1, iidmFile_);
-    } else {
-      dyd_->initFromDydFiles(dydFiles_);
-      if (activateCriteria_) {
-        Trace::warn() << DYNLog(CriteriaDefinedButNoIIDM) << Trace::endline;
-      }
-      return;
-    }
+  if (iidmFile_ != "") {
+    data_ = DataInterfaceFactory::build(DataInterfaceFactory::DATAINTERFACE_IIDM1, iidmFile_);
+    if (criteriaCollection_)
+      data_->configureCriteria(criteriaCollection_);
+
+    data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.
+
+    dyd_->setDataInterface(data_);
+
+    dyd_->initFromDydFiles(dydFiles_);
+    data_->mapConnections();
+
+    // the Network parameter file path is considered to be relative to the jobs file directory
+    dyd_->getNetworkParameters(networkParFile_, networkParSet_);
+  } else {
+    dyd_->initFromDydFiles(dydFiles_);
+    if (activateCriteria_)
+      Trace::warn() << DYNLog(CriteriaDefinedButNoIIDM) << Trace::endline;
   }
-  if (criteriaCollection_)
-    data_->configureCriteria(criteriaCollection_);
-
-  data_->importStaticParameters();  // Import static model's parameters' values into DataInterface, these values are useful for referece parameters.
-
-  dyd_->setDataInterface(data_);
-
-  dyd_->initFromDydFiles(dydFiles_);
-  data_->mapConnections();
-
-  // the Network parameter file path is considered to be relative to the jobs file directory
-  dyd_->getNetworkParameters(networkParFile_, networkParSet_);
 }
 
 void
@@ -570,7 +564,6 @@ Simulation::setSolver() {
 
   parameters::XmlImporter importer;
   boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
-  parameters->propagateOriginData(solverParFile);
   referenceParameters_[solverParFile] = parameters;
   string parId = jobEntry_->getSolverEntry()->getParametersId();
   shared_ptr<ParametersSet> solverParams = ParametersSetFactory::copyInstance(parameters->getParametersSet(parId));
@@ -707,6 +700,7 @@ Simulation::init() {
     model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
     model_->setGequationsModel();  ///< set formula for modelica models' root equations and Network models' equations
     model_->printEquations();
+    // model_->printEquationsNew();
   }
 #ifdef _DEBUG_
   model_->setFequationsModel();  ///< set formula for modelica models' equations and Network models' equations
@@ -842,18 +836,21 @@ Simulation::simulate() {
   bool criteriaChecked = true;
   try {
     if (data_ && (exportIIDM_ || activateCriteria_)) {  // no need to update state variable if the IIDM final state is not exported (same for criteria check)
-      data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
-                                         // either in a modelica model or in a C++ model.
+    data_->getStateVariableReference();   // Each state variable in DataInterface has a mapped reference variable in dynamic model,
+  // either in a modelica model or in a C++ model.
     }
-    int currentIterNb = 0;
+  int currentIterNb = 0;
     while (!end() && !SignalHandler::gotExitSignal() && criteriaChecked) {
       bool isCheckCriteriaIter = data_ && activateCriteria_ && currentIterNb % criteriaStep_ == 0;
 
       solver_->solve(tStop_, tCurrent_);
       solver_->printSolve();
+      // <<<<<<< HEAD
+      // =======
       if (currentIterNb == 0)
         printHighestDerivativesValues();
 
+      // >>>>>>> c55bfdb295da9deab5dfde6bb1b31979927a39a8
       BitMask solverState = solver_->getState();
       bool modifZ = false;
       if (solverState.getFlags(ModeChange)) {
@@ -868,35 +865,37 @@ Simulation::simulate() {
         model_->getCurrentZ(zCurrent_);
         modifZ = true;
       }
-
-      if (isCheckCriteriaIter)
-        model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
-      updateCurves(!isCheckCriteriaIter && !modifZ);
-
-      model_->checkDataCoherence(tCurrent_);
-      model_->printMessages();
-      printCurrentTime(fileName.str());
-
       // Compute the state matrix, input matrix B, and output matrix C
       if (tCurrent_ == tLinearise_) {
       model_->evalLinearise(tCurrent_);
       }
-
       // Compute all modes of small system
       if (tCurrent_ == tAllModes_) {
       model_->allModes(tCurrent_);
       }
-
       // Compute the sub participation factor of a given mode
       if (tCurrent_ == tSubParticipation_) {
       model_->subParticipation(tCurrent_, NbMode_);
       }
-
-      // Complete Eigenanalysis of small power system
+      // Call of Complete Eigenanalysis Function
       if (tCurrent_ == tModalAnalysis_) {
       model_->evalmodalAnalysis(tCurrent_, Part_);
       }
+      // end of call
 
+
+      if (isCheckCriteriaIter)
+// <<<<<<< HEAD
+//      model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
+//      updateCurves(!isCheckCriteriaIter && !solverState.getFlags(ZChange));
+// =======
+       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
+      updateCurves(!isCheckCriteriaIter && !modifZ);
+
+// >>>>>>> c55bfdb295da9deab5dfde6bb1b31979927a39a8
+      model_->checkDataCoherence(tCurrent_);
+      model_->printMessages();
+      printCurrentTime(fileName.str());
 
       if (isCheckCriteriaIter) {
         criteriaChecked = checkCriteria(tCurrent_, false);
@@ -906,8 +905,8 @@ Simulation::simulate() {
       model_->notifyTimeStep();
     }
 
-    // If we haven't evaluated the calculated variables for the last iteration before, we must do it here if it might be used in the post process
-    if (exportIIDM_ || exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_)
+    // If we haven't evaluated the calculated variables for the last iteration before, we must do it here for the IIDM file export
+    if (exportIIDM_ && (exportCurvesMode_ != EXPORT_CURVES_NONE || activateCriteria_))
       model_->evalCalculatedVariables(tCurrent_, solver_->getCurrentY(), solver_->getCurrentYP(), zCurrent_);
 
     if (SignalHandler::gotExitSignal() && !end()) {
@@ -1058,6 +1057,22 @@ Simulation::terminate() {
     fileTimeline.close();
   }
 
+/* if (lineariseOutputFile_ != "") {
+    ofstream fileLinearise;
+    openFileStream(fileLinearise, lineariseOutputFile_);
+    // std::cin >> tCurrent_;
+    // printLinearise(fileLinearise);
+    fileLinearise.close();
+  }*/
+// à vérifier: erreur lors de la compilation
+/* if (modalanalysisOutputFile_ != "") {
+    ofstream fileModalanalysis;
+    openFileStream(fileModalAnalysis, modalanalysisOutputFile_);
+    // std::cin >> tCurrent_;
+    // printLinearise(fileLinearise);
+    fileModalAnalysis.close();
+  }
+*/
   if (finalStateOutputFile_ != "") {
     ofstream fileFinalState;
     openFileStream(fileFinalState, finalStateOutputFile_);
@@ -1129,6 +1144,26 @@ Simulation::printTimeline(std::ostream& stream) const {
     }
   }
 }
+
+/* void
+Simulation::printLinearise() const {
+  switch (exportLineariseMode_) {
+  case EXPORT_LINEARISE_NONE:
+      break;
+  case EXPORT_LINEARISE_CSV: {
+      model_->evalLinearise(tCurrent_, yCurrent_);
+      break;
+    }
+    case EXPORT_LINEARISE_XML: {
+      model_->evalLinearise(tCurrent_, yCurrent_);
+      break;
+    }
+    case EXPORT_LINEARISE_TXT: {
+    model_->evalLinearise(tCurrent_, yCurrent_);
+      break;
+    }
+  }
+}*/
 
 void
 Simulation::printFinalState(std::ostream& stream) const {
@@ -1237,7 +1272,6 @@ Simulation::loadState(const string & fileName) {
 
   setStartTime(tStart_);
   setStopTime(tStop_);
-
   model_->setInitialTime(tCurrent_);
 
   // loading parameters/model variables
@@ -1259,5 +1293,4 @@ Simulation::printCurrentTime(const string& fileName) {
   out.close();
   fs::permissions(fileName, fs::group_read | fs::group_write | fs::owner_write | fs::others_write | fs::owner_read | fs::others_read);
 }
-
 }  // end of namespace DYN
