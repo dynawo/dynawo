@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNStepInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNStepInterfaceIIDM.h
  *
  * @brief Step data interface : header file for IIDM implementation
  *

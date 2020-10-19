@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNLineInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNLineInterfaceIIDM.h
  *
  * @brief  Line data interface : header file for IIDM interface
  *
@@ -137,7 +137,8 @@ class LineInterfaceIIDM : public LineInterface {
   void setBusInterface1(const boost::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc LineInterface::setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @brief Setter for the line's voltageLevel interface side 1
+   * @param voltageLevelInterface of the bus where the side 1 of the line is connected
    */
   void setVoltageLevelInterface1(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
@@ -147,7 +148,8 @@ class LineInterfaceIIDM : public LineInterface {
   void setBusInterface2(const boost::shared_ptr<BusInterface>& busInterface);
 
   /**
-   * @copydoc LineInterface::setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface)
+   * @brief Setter for the line's voltageLevel interface side 2
+   * @param voltageLevelInterface of the bus where the side 2 of the line is connected
    */
   void setVoltageLevelInterface2(const boost::shared_ptr<VoltageLevelInterface>& voltageLevelInterface);
 
