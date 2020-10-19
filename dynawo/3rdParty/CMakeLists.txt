@@ -28,8 +28,8 @@ if(MSVC_STATIC_RUNTIME_LIBRARY)
   set(Boost_USE_STATIC_RUNTIME ON)
 endif()
 
-if (APPLE)
-  if (NOT DEFINED CMAKE_OSX_DEPLOYMENT_TARGET)
+if(APPLE)
+  if(NOT DEFINED CMAKE_OSX_DEPLOYMENT_TARGET)
     set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "Variable to specify -mmacosx-version-min flag.")
   endif()
 endif()
@@ -67,6 +67,7 @@ set(BOOST_ROOT        CACHE PATH "Path where a Boost installation already exists
 set(GTEST_ROOT        CACHE PATH "Path where a GoogleTest installation already exists")
 set(LIBARCHIVE_HOME   CACHE PATH "Path where a LibArchive installation already exists")
 set(ZLIB_ROOT         CACHE PATH "Path where a ZLib installation already exists")
+set(LIBXML2_HOME      CACHE PATH "Path where a libxml2 installation already exists")
 
 if(NOT MSVC)
   # check if c++11 can be enabled
@@ -133,6 +134,14 @@ else()
   set(boost_version        1.64.0)
   set(boost_md5            319C6FFBBECCC366F14BB68767A6DB79)
 endif()
+
+if(CXX11_ENABLED)
+ if(${boost_version} STRLESS "1.65.0")
+   set(boost_version "1.65.0")
+   set(boost_md5          d75a27ad1a34cfc7c9b5cb92594410c3)
+ endif()
+endif(CXX11_ENABLED)
+
 string(REPLACE "." "_" boost_version_ ${boost_version})
 set(boost_name           boost_${boost_version_}.tar.gz)
 if(DEFINED ENV{DYNAWO_BOOST_DOWNLOAD_URL})
@@ -140,6 +149,7 @@ if(DEFINED ENV{DYNAWO_BOOST_DOWNLOAD_URL})
 else()
   set(boost_prefix_url https://sourceforge.net/projects/boost/files/boost)
 endif()
+
 set(boost_url            ${boost_prefix_url}/${boost_version}/${boost_name})
 
 set(googletest_version   1.8.1)
@@ -235,7 +245,7 @@ function(GetPatchCommand projectName)
   endif()
   set(commonPatchFile "${CMAKE_CURRENT_SOURCE_DIR}/${projectName}/patch/common/${projectName}.patch")
   if(EXISTS ${commonPatchFile})
-    if (UNIX)
+    if(UNIX)
       set(commonPatchCommand patch -p1 --forward --no-backup-if-mismatch -r ${nullFile} -i ${commonPatchFile} || echo -n)
     else()
       set(commonPatchCommand git apply -p1 ${commonPatchFile} --reverse --check 2> ${nullFile} || git apply --ignore-whitespace --whitespace=nowarn -p1 ${commonPatchFile})
@@ -243,7 +253,7 @@ function(GetPatchCommand projectName)
   endif()
   set(compilerPatchFile "${CMAKE_CURRENT_SOURCE_DIR}/${projectName}/patch/${CMAKE_CXX_COMPILER_ID}/${projectName}.patch")
   if(EXISTS ${compilerPatchFile})
-    if (UNIX)
+    if(UNIX)
       set(compilerPatchCommand patch -p1 --forward --no-backup-if-mismatch -r ${nullFile} -i ${compilerPatchFile} || echo -n)
     else()
       set(compilerPatchCommand git apply -p1 ${compilerPatchFile} --reverse --check 2> ${nullFile} || git apply --ignore-whitespace --whitespace=nowarn -p1 ${compilerPatchFile})
@@ -469,8 +479,18 @@ if(NOT BUILD_SHARED_LIBS)
 endif()
 # find Boost in two steps to avoid warnings 'Imported targets and dependency information not available for Boost version'
 find_package(Boost ${boost_version} QUIET)
+
 if(Boost_FOUND)
-  find_package(Boost ${boost_version} QUIET COMPONENTS filesystem program_options serialization system log iostreams)
+  if(CXX11_ENABLED)
+    find_package(Boost ${boost_version} QUIET
+      COMPONENTS date_time filesystem program_options serialization system log iostreams
+    )
+  else()
+    find_package(Boost ${boost_version} QUIET
+      COMPONENTS filesystem program_options serialization system log iostreams
+    )
+  endif()
+
 endif()
 
 if(MSVC)
@@ -513,7 +533,14 @@ else()
 
       INSTALL_COMMAND     ""
     )
+
   else()
+    if(CXX11_ENABLED)
+      set(TmpVar "--with-libraries=date_time,filesystem,program_options,serialization,system,log,iostreams,test")
+    else()
+      set(TmpVar "--with-libraries=filesystem,program_options,serialization,system,log,iostreams")
+    endif()
+
     ExternalProject_Add(boost
       INSTALL_DIR         ${CMAKE_INSTALL_PREFIX}/boost
       DOWNLOAD_DIR        ${CMAKE_CURRENT_SOURCE_DIR}/boost
@@ -526,12 +553,12 @@ else()
 
       CONFIGURE_COMMAND   <SOURCE_DIR>/bootstrap.sh
                           --without-icu
-                          --with-libraries=filesystem,program_options,serialization,system,log,iostreams
+                          ${TmpVar}
 
       BUILD_COMMAND       <SOURCE_DIR>/b2
                           -j${NUMBER_OF_PROCESSORS}
-                          -sNO_BZIP2=1 cxxflags=-fPIC
-                          $<$<BOOL:${FORCE_CXX11_ABI}>:cxxflags=-D_GLIBCXX_USE_CXX11_ABI=1>
+                          -sNO_BZIP2=1
+                          cxxflags=-fPIC
                           install
                           --prefix=<INSTALL_DIR>
                           $<$<BOOL:${APPLE}>:toolset=clang>
@@ -542,6 +569,7 @@ else()
 
       INSTALL_COMMAND     ""
     )
+    unset(TmpVar)
   endif()
   if(APPLE)
     ExternalProject_Add_Step(boost install-macos
@@ -645,7 +673,7 @@ else()
 endif()
 
 if(UNIX)
-  if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/nicslu/_nicslu301.zip")
+  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/nicslu/_nicslu301.zip")
     set(NICSLU_HOME ${CMAKE_INSTALL_PREFIX}/nicslu)
     find_package(NICSLU QUIET)
     if(NICSLU_FOUND)
@@ -731,7 +759,6 @@ else()
   ExternalProject_Get_Property(sundials install_dir)
   set(SUNDIALS_HOME ${install_dir})
 endif()
-
 
 GetPatchCommand(dlfcnwin32)
 if(MSVC)
@@ -912,7 +939,7 @@ else()
   set(LIBZIP_HOME ${install_dir})
 endif()
 
-set(XERCESC_HOME      CACHE PATH "Path where a Xerces-C installation already exists")
+set(XERCESC_HOME      CACHE PATH "Path where a Xerces-C installation already exists")     # Start install XERCESC
 
 set(xercesc_version      3.2.2)
 set(xercesc_name         xerces-c-${xercesc_version}.tar.gz)
@@ -1060,6 +1087,13 @@ else()
   set(LIBXML_HOME ${install_dir})
 endif()
 
+if(CXX11_ENABLED)
+ cmake_minimum_required(VERSION 3.12)
+
+ include("${CMAKE_CURRENT_SOURCE_DIR}/libxml2/libxml2.cmake")
+ include("${CMAKE_CURRENT_SOURCE_DIR}/libiidm/libiidm.cmake")
+
+else()
 set(LIBIIDM_HOME ${CMAKE_INSTALL_PREFIX}/libiidm)
 find_package(libIIDM 0.2.8 QUIET)
 unset(LIBIIDM_HOME)
@@ -1095,3 +1129,4 @@ else()
   ExternalProject_Get_Property(libiidm install_dir)
   set(LIBIIDM_HOME ${install_dir})
 endif()
+endif(CXX11_ENABLED)

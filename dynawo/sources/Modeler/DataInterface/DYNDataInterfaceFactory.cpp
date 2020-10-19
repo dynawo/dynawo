@@ -20,7 +20,9 @@
 
 
 #include "DYNDataInterfaceFactory.h"
+#ifndef LANG_CXX11
 #include "DYNDataInterfaceIIDM.h"
+#endif
 
 using std::string;
 using boost::shared_ptr;
@@ -28,10 +30,12 @@ using boost::shared_ptr;
 namespace DYN {
 shared_ptr<DataInterface>
 DataInterfaceFactory::build(dataInterfaceType_t type, const string& filepath) {
-  switch(type) {
+#ifndef LANG_CXX11
+  switch (type) {
   case DATAINTERFACE_IIDM1:
     return DataInterfaceIIDM::build(filepath);
   }
+#endif
   return boost::shared_ptr<DataInterface>();
 }
 }  // namespace DYN
