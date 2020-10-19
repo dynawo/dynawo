@@ -122,6 +122,8 @@ while (($#)); do
       ;;
     jobs-help)
       shift
+      echo "Usage: dynawo.sh jobs <jobs-file>"
+      echo "       dynawo.sh jobs [launcher-options]"
       jobs --help || error_exit "Dynawo execution failed"
       break
       ;;
