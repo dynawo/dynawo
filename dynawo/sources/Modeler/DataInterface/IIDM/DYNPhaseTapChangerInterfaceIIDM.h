@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNPhaseTapChangerInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNPhaseTapChangerInterfaceIIDM.h
  *
  * @brief Phase tap changer data interface : header file for IIDM implementation
  *

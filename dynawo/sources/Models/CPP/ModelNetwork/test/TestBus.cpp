@@ -14,10 +14,17 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/TopologyKind.hpp>
+#else
 #include <IIDM/builders/VoltageLevelBuilder.h>
 #include <IIDM/builders/BusBuilder.h>
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/components/Bus.h>
+#endif
 
 #include "DYNVoltageLevelInterfaceIIDM.h"
 #include "DYNBusInterfaceIIDM.h"
@@ -42,6 +49,31 @@ namespace DYN {
 
 std::pair<shared_ptr<ModelBus>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelBus(bool initModel) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("test", "test");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+      .setId("MyBus1")
+      .add();
+  iidmBus.setV(100);
+  iidmBus.setAngle(90.);
+
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  bus1ItfIIDM->hasConnection(true);
+#else
   IIDM::builders::BusBuilder bb;
   bb.angle(90);
   bb.v(100);
@@ -58,6 +90,7 @@ createModelBus(bool initModel) {
   shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
   bus1ItfIIDM->hasConnection(true);
+#endif
 
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
@@ -66,7 +99,7 @@ createModelBus(bool initModel) {
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setConstraints(constraints);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, true));
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   return std::make_pair(bus1, vl);
@@ -608,6 +641,47 @@ TEST(ModelsModelNetwork, ModelNetworkBusJt) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("test", "test");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus1 = vlIIDM.getBusBreakerView().newBus()
+      .setId("MyBus1")
+      .add();
+  iidmBus1.setV(90.);
+  iidmBus1.setAngle(100);
+
+  powsybl::iidm::Bus& iidmBus2 = vlIIDM.getBusBreakerView().newBus()
+      .setId("MyBus2")
+      .add();
+  iidmBus2.setV(90.);
+  iidmBus2.setAngle(100);
+
+  powsybl::iidm::Bus& iidmBus3 = vlIIDM.getBusBreakerView().newBus()
+      .setId("MyBus3")
+      .add();
+  iidmBus3.setV(90.);
+  iidmBus3.setAngle(100);
+
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus1));
+  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
+  shared_ptr<BusInterfaceIIDM> bus3ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus3));
+  bus1ItfIIDM->hasConnection(true);
+  bus2ItfIIDM->hasConnection(true);
+  bus3ItfIIDM->hasConnection(true);
+#else
   IIDM::builders::BusBuilder bb;
   bb.angle(90);
   bb.v(100);
@@ -632,6 +706,7 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   bus1ItfIIDM->hasConnection(true);
   bus2ItfIIDM->hasConnection(true);
   bus3ItfIIDM->hasConnection(true);
+#endif
 
   ModelNetwork* network = new ModelNetwork();
   boost::shared_ptr<constraints::ConstraintsCollection> constraints =
@@ -639,13 +714,13 @@ TEST(ModelsModelNetwork, ModelNetworkBusContainer) {
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   network->setConstraints(constraints);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, true));
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM));
+  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, true));
   bus2->setNetwork(network);
   bus2->setVoltageLevel(vl);
-  shared_ptr<ModelBus> bus3 = shared_ptr<ModelBus>(new ModelBus(bus3ItfIIDM));
+  shared_ptr<ModelBus> bus3 = shared_ptr<ModelBus>(new ModelBus(bus3ItfIIDM, true));
   bus3->setNetwork(network);
   bus3->setVoltageLevel(vl);
 

@@ -43,8 +43,9 @@ class ModelBus : public NetworkComponent::Impl {  ///< Generic AC network bus
   /**
    * @brief default constructor
    * @param bus: bus data interface to use for the model
+   * @param isCalculated: true if the voltage level is in BUS BREAKER
    */
-  explicit ModelBus(const boost::shared_ptr<BusInterface>& bus);
+  explicit ModelBus(const boost::shared_ptr<BusInterface>& bus, bool isCalculated);
 
   /**
    * @brief destructor
