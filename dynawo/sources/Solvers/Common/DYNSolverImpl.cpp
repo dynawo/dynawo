@@ -327,29 +327,31 @@ void Solver::Impl::defineParameters() {
 
 void
 Solver::Impl::defineCommonParameters() {
+  const bool optional = false;
   // Parameters for the algebraic restoration
-  parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("initialaddtolAlg", ParameterSolver("initialaddtolAlg", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("scsteptolAlg", ParameterSolver("scsteptolAlg", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("mxnewtstepAlg", ParameterSolver("mxnewtstepAlg", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("msbsetAlg", ParameterSolver("msbsetAlg", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("mxiterAlg", ParameterSolver("mxiterAlg", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("printflAlg", ParameterSolver("printflAlg", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("fnormtolAlg", ParameterSolver("fnormtolAlg", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("initialaddtolAlg", ParameterSolver("initialaddtolAlg", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("scsteptolAlg", ParameterSolver("scsteptolAlg", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("mxnewtstepAlg", ParameterSolver("mxnewtstepAlg", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("msbsetAlg", ParameterSolver("msbsetAlg", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("mxiterAlg", ParameterSolver("mxiterAlg", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("printflAlg", ParameterSolver("printflAlg", VAR_TYPE_INT, optional)));
 
   // Parameters for the algebraic restoration with J recalculation
-  parameters_.insert(make_pair("fnormtolAlgJ", ParameterSolver("fnormtolAlgJ", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("initialaddtolAlgJ", ParameterSolver("initialaddtolAlgJ", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("scsteptolAlgJ", ParameterSolver("scsteptolAlgJ", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("mxnewtstepAlgJ", ParameterSolver("mxnewtstepAlgJ", VAR_TYPE_DOUBLE)));
-  parameters_.insert(make_pair("msbsetAlgJ", ParameterSolver("msbsetAlgJ", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT)));
-  parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT)));
+  parameters_.insert(make_pair("fnormtolAlgJ", ParameterSolver("fnormtolAlgJ", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("initialaddtolAlgJ", ParameterSolver("initialaddtolAlgJ", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("scsteptolAlgJ", ParameterSolver("scsteptolAlgJ", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("mxnewtstepAlgJ", ParameterSolver("mxnewtstepAlgJ", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("msbsetAlgJ", ParameterSolver("msbsetAlgJ", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT, optional)));
+  parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT, optional)));
 
   // Parameters for performance optimization
-  parameters_.insert(make_pair("enableSilentZ", ParameterSolver("enableSilentZ", VAR_TYPE_BOOL)));
-  parameters_.insert(make_pair("optimizeReinitAlgebraicResidualsEvaluations", ParameterSolver("optimizeReinitAlgebraicResidualsEvaluations", VAR_TYPE_BOOL)));
+  parameters_.insert(make_pair("enableSilentZ", ParameterSolver("enableSilentZ", VAR_TYPE_BOOL, optional)));
+  parameters_.insert(make_pair("optimizeReinitAlgebraicResidualsEvaluations",
+      ParameterSolver("optimizeReinitAlgebraicResidualsEvaluations", VAR_TYPE_BOOL, optional)));
   parameters_.insert(make_pair("minimumModeChangeTypeForAlgebraicRestoration",
-      ParameterSolver("minimumModeChangeTypeForAlgebraicRestoration", VAR_TYPE_STRING)));
+      ParameterSolver("minimumModeChangeTypeForAlgebraicRestoration", VAR_TYPE_STRING, optional)));
 }
 
 bool
@@ -405,6 +407,8 @@ Solver::Impl::setParameterFromSet(const string& parName, const boost::shared_ptr
           throw DYNError(Error::GENERAL, ParameterNoTypeDetected, parName);
         }
       }
+    } else if (parameter.isMandatory()) {
+      throw DYNError(Error::GENERAL, SolverMissingParam, parameter.getName(), parametersSet->getId(), parametersSet->getFilePath());
     }
   } else {
     throw DYNError(Error::GENERAL, ParameterNotReadFromOrigin, origin2Str(PAR), parName);

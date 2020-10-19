@@ -570,6 +570,7 @@ Simulation::setSolver() {
 
   parameters::XmlImporter importer;
   boost::shared_ptr<ParametersSetCollection> parameters = importer.importFromFile(solverParFile);
+  parameters->propagateOriginData(solverParFile);
   referenceParameters_[solverParFile] = parameters;
   string parId = jobEntry_->getSolverEntry()->getParametersId();
   shared_ptr<ParametersSet> solverParams = ParametersSetFactory::copyInstance(parameters->getParametersSet(parId));

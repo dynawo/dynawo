@@ -24,7 +24,7 @@ namespace DYN {
 
 class ParameterCommonMock : public ParameterCommon {
  public:
-  ParameterCommonMock(const std::string& name, const typeVarC_t& valueType);
+  ParameterCommonMock(const std::string& name, const typeVarC_t& valueType, bool mandatory);
 
   boost::any getAnyValue() const {
     // unused
@@ -42,16 +42,19 @@ class ParameterCommonMock : public ParameterCommon {
   }
 };
 
-ParameterCommonMock::ParameterCommonMock(const std::string& name, const typeVarC_t& valueType) : ParameterCommon(name, valueType) {
+ParameterCommonMock::ParameterCommonMock(const std::string& name, const typeVarC_t& valueType, bool mandatory) : ParameterCommon(name, valueType, mandatory) {
 }
 
 TEST(CommonTest, testClassParameter) {
-  ParameterCommonMock parameter("Parameter1", VAR_TYPE_DOUBLE);
+  ParameterCommonMock parameter("Parameter1", VAR_TYPE_DOUBLE, true);
   ASSERT_EQ(parameter.getName(), "Parameter1");
   ASSERT_EQ(parameter.getValueType(), VAR_TYPE_DOUBLE);
   ASSERT_EQ(parameter.indexSet(), false);
+  ASSERT_TRUE(parameter.isMandatory());
   parameter.setIndex(1);
   ASSERT_EQ(parameter.getIndex(), 1);
   ASSERT_EQ(parameter.indexSet(), true);
+  ParameterCommonMock parameter2("Parameter1", VAR_TYPE_DOUBLE, false);
+  ASSERT_FALSE(parameter2.isMandatory());
 }
 }  // namespace DYN

@@ -41,8 +41,9 @@ class ParameterSolver : public ParameterCommon {
    *
    * @param name name of the parameter
    * @param valueType type of the parameter (bool, int, string, double)
+   * @param mandatory whether the parameter is mandatory or optional
    */
-  ParameterSolver(const std::string& name, const typeVarC_t& valueType);
+  ParameterSolver(const std::string& name, const typeVarC_t& valueType, bool mandatory);
 
   /**
    * @brief Default copy Constructor

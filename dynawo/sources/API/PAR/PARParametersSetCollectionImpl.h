@@ -72,6 +72,11 @@ class ParametersSetCollection::Impl : public ParametersSetCollection {
    */
   parametersSet_const_iterator cendParametersSet() const;
 
+  /**
+   * @copydoc ParametersSetCollection::propagateOriginData()
+   */
+  void propagateOriginData(const std::string& filepath);
+
   friend class ParametersSetCollection::BaseIteratorImpl;
 
  private:

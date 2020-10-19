@@ -27,7 +27,7 @@ namespace DYN {
 
 ParameterModeler::ParameterModeler(const string& name, const typeVarC_t& valueType, const parameterScope_t& scope, const string& cardinality,
                      const string& cardinalityInformator) :
-ParameterCommon(name, valueType),
+ParameterCommon(name, valueType, true),
 origin_(boost::none),
 scope_(scope),
 cardinality_(cardinality),

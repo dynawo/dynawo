@@ -32,33 +32,39 @@
 namespace DYN {
 
 TEST(SimulationCommonTest, testParameterSolver) {
-  ParameterSolver psd("MyDoubleParam", VAR_TYPE_DOUBLE);
+  const bool mandatory = true;
+  const bool optional = false;
+  ParameterSolver psd("MyDoubleParam", VAR_TYPE_DOUBLE, mandatory);
   ASSERT_NO_THROW(psd.setValue<double>(42.));
   ASSERT_THROW_DYNAWO(psd.setValue<bool>(true), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psd.setValue<int>(4), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psd.setValue<std::string>("MyString"), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_DOUBLE_EQUALS_DYNAWO(42., psd.getDoubleValue());
+  ASSERT_TRUE(psd.isMandatory());
 
-  ParameterSolver psb("MyBoolParam", VAR_TYPE_BOOL);
+  ParameterSolver psb("MyBoolParam", VAR_TYPE_BOOL, mandatory);
   ASSERT_NO_THROW(psb.setValue<bool>(true));
   ASSERT_THROW_DYNAWO(psb.setValue<double>(42.), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psb.setValue<int>(4), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psd.setValue<std::string>("MyString"), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_DOUBLE_EQUALS_DYNAWO(1., psb.getDoubleValue());
+  ASSERT_TRUE(psb.isMandatory());
 
-  ParameterSolver psi("MyIntParam", VAR_TYPE_INT);
+  ParameterSolver psi("MyIntParam", VAR_TYPE_INT, optional);
   ASSERT_NO_THROW(psi.setValue<int>(4));
   ASSERT_THROW_DYNAWO(psi.setValue<double>(42.), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psi.setValue<bool>(true), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psd.setValue<std::string>("MyString"), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_DOUBLE_EQUALS_DYNAWO(4., psi.getDoubleValue());
+  ASSERT_FALSE(psi.isMandatory());
 
-  ParameterSolver pss("MyStringParam", VAR_TYPE_STRING);
+  ParameterSolver pss("MyStringParam", VAR_TYPE_STRING, optional);
   ASSERT_NO_THROW(pss.setValue<std::string>("MyString"));
   ASSERT_THROW_DYNAWO(pss.setValue<double>(42.), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(pss.setValue<bool>(true), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(psb.setValue<int>(4), DYN::Error::MODELER, DYN::KeyError_t::ParameterInvalidTypeRequested);
   ASSERT_THROW_DYNAWO(pss.getDoubleValue(), DYN::Error::GENERAL, DYN::KeyError_t::ParameterUnableToConvertToDouble);
+  ASSERT_FALSE(pss.isMandatory());
 
   ASSERT_EQ(pss.getTypeError(), DYN::Error::GENERAL);
 }

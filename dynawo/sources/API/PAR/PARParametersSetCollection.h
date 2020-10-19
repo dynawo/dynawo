@@ -71,6 +71,13 @@ class ParametersSetCollection {
    */
   virtual bool hasParametersSet(const std::string& id) = 0;
 
+  /**
+   * @brief propatgates the origin of parameters (file path, parent param set id)
+   *
+   * @param filepath origin file path
+   */
+  virtual void propagateOriginData(const std::string& filepath) = 0;
+
   class Impl;
 
  protected:
