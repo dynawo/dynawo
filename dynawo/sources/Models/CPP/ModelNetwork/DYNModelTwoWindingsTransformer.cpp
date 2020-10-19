@@ -117,13 +117,13 @@ modelType_("TwoWindingsTransformer") {
   } else {
     connectionState_ = OPEN;  // should not happened, filtered by model network
     if (tfo->getBusInterface1()) {
-      vNom1_ = tfo->getVNom1();
+      vNom1_ = tfo->getBusInterface1()->getVNom();
     } else {
       vNom1_ = tfo->getRatedU1();  // bus1 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
     }
 
     if (tfo->getBusInterface2()) {
-      vNom2_ = tfo->getVNom2();
+      vNom2_ = tfo->getBusInterface2()->getVNom();
     } else {
       vNom2_ = tfo->getRatedU2();  // bus2 is unknown, so for the per unit we decided to use the ratedU2, not correct but better than nothing
     }
@@ -1428,28 +1428,28 @@ ModelTwoWindingsTransformer::setGequations(std::map<int, std::string>& gEquation
   int offset = 0;
   if (currentLimits1_) {
     for (int i = 0; i < currentLimits1_->sizeG(); ++i) {
-      gEquationIndex[i] = "ModelTwoWindingsTransformer: currentLimits1.";
+      gEquationIndex[i] = "ModelTwoWindingsTransformer "+ id() +" : currentLimits1.";
     }
     offset += currentLimits1_->sizeG();
   }
 
   if (currentLimits2_) {
     for (int i = 0; i < currentLimits2_->sizeG(); ++i) {
-      gEquationIndex[i + offset] = "ModelTwoWindingsTransformer: currentLimits2.";
+      gEquationIndex[i + offset] = "ModelTwoWindingsTransformer "+ id() +" : currentLimits2.";
     }
     offset += currentLimits2_->sizeG();
   }
 
   if (modelRatioChanger_) {
     for (int i = 0; i < modelRatioChanger_->sizeG(); ++i) {
-      gEquationIndex[i + offset] = "ModelTwoWindingsTransformer: modelRatioChagner.";
+      gEquationIndex[i + offset] = "ModelTwoWindingsTransformer "+ id() +" : modelRatioChanger.";
     }
     offset += modelRatioChanger_->sizeG();
   }
 
   if (modelPhaseChanger_) {
     for (int i = 0; i < modelPhaseChanger_->sizeG(); ++i) {
-      gEquationIndex[i + offset] = "ModelTwoWindingsTransformer: modelPhaseChagner.";
+      gEquationIndex[i + offset] = "ModelTwoWindingsTransformer "+ id() +" : modelPhaseChanger.";
     }
   }
 

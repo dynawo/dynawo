@@ -36,6 +36,7 @@ set(DATA_INTERFACE_IIDM_SOURCES
     DYNVscConverterInterfaceIIDM.cpp
     DYNLccConverterInterfaceIIDM.cpp
     DYNHvdcLineInterfaceIIDM.cpp
+    DYNServiceManagerInterfaceIIDM.cpp
     )
 
 set(DATA_INTERFACE_IIDM_INCLUDE_HEADERS
@@ -44,7 +45,7 @@ set(DATA_INTERFACE_IIDM_INCLUDE_HEADERS
 
 add_library(dynawo_DataInterfaceIIDM ${LIBRARY_TYPE} ${DATA_INTERFACE_IIDM_SOURCES})
 
-target_include_directories(dynawo_DataInterface
+target_include_directories(dynawo_DataInterfaceIIDM
   INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${INCLUDEDIR_NAME}>

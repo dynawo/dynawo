@@ -14,6 +14,13 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/TopologyKind.hpp>
+#include <powsybl/iidm/StaticVarCompensatorAdder.hpp>
+#else
 #include <IIDM/builders/StaticVarCompensatorBuilder.h>
 #include <IIDM/builders/VoltageLevelBuilder.h>
 #include <IIDM/builders/BusBuilder.h>
@@ -22,6 +29,7 @@
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/components/Bus.h>
 #include <IIDM/extensions/StandbyAutomaton.h>
+#endif
 
 #include "DYNStaticVarCompensatorInterfaceIIDM.h"
 #include "DYNVoltageLevelInterfaceIIDM.h"
@@ -42,6 +50,49 @@ using boost::shared_ptr;
 namespace DYN {
 std::pair<shared_ptr<ModelStaticVarCompensator>, shared_ptr<ModelVoltageLevel> >  // need to return the voltage level so that it is not destroyed
 createModelStaticVarCompensator(bool open, bool initModel) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("MyNetwork", "MyNetwork");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+
+  powsybl::iidm::StaticVarCompensator& svcIIDM = vlIIDM.newStaticVarCompensator()
+    .setId("MyStaticVarCompensator")
+    .setName("MyStaticVarCompensator_NAME")
+    .setBus(iidmBus.getId())
+    .setConnectableBus(iidmBus.getId())
+    .setBmin(0.)
+    .setBmax(5.)
+    .setVoltageSetpoint(0.5)
+    .setReactivePowerSetpoint(0.8)
+    .setRegulationMode(powsybl::iidm::StaticVarCompensator::RegulationMode::REACTIVE_POWER)
+    .add();
+  svcIIDM.getTerminal().setP(3.);
+  svcIIDM.getTerminal().setQ(5.);
+  if (open)
+    svcIIDM.getTerminal().disconnect();
+
+  shared_ptr<StaticVarCompensatorInterfaceIIDM> scItfIIDM = shared_ptr<StaticVarCompensatorInterfaceIIDM>(new StaticVarCompensatorInterfaceIIDM(svcIIDM));
+  shared_ptr<VoltageLevelInterfaceIIDM> vlItfIIDM = shared_ptr<VoltageLevelInterfaceIIDM>(new VoltageLevelInterfaceIIDM(vlIIDM));
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  scItfIIDM->setVoltageLevelInterface(vlItfIIDM);
+  scItfIIDM->setBusInterface(bus1ItfIIDM);
+#else
   IIDM::connection_status_t cs = {!open};
   IIDM::Port p1("MyBus1", cs);
   IIDM::Connection c1("MyVoltageLevel", p1, IIDM::side_1);
@@ -77,6 +128,7 @@ createModelStaticVarCompensator(bool open, bool initModel) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vlIIDM.get_bus("MyBus1")));
   scItfIIDM->setVoltageLevelInterface(vlItfIIDM);
   scItfIIDM->setBusInterface(bus1ItfIIDM);
+#endif
 
   shared_ptr<ModelStaticVarCompensator> sc = shared_ptr<ModelStaticVarCompensator>(new ModelStaticVarCompensator(scItfIIDM));
   ModelNetwork* network = new ModelNetwork();
@@ -84,7 +136,7 @@ createModelStaticVarCompensator(bool open, bool initModel) {
   network->setTimeline(timeline::TimelineFactory::newInstance("Test"));
   sc->setNetwork(network);
   shared_ptr<ModelVoltageLevel> vl = shared_ptr<ModelVoltageLevel>(new ModelVoltageLevel(vlItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   bus1->setNetwork(network);
   bus1->setVoltageLevel(vl);
   sc->setModelBus(bus1);

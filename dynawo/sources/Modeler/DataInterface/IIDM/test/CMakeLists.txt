@@ -15,7 +15,6 @@ set(MODULE_SOURCES
     TestCriteria.cpp
     TestIIDMModelsStaticParameters.cpp
     TestStateVariable.cpp
-    TestStaticParameter.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -46,8 +45,7 @@ add_custom_target(${MODULE_NAME}-tests
   COMMENT "Running ${MODULE_NAME}...")
 
 if(BUILD_TESTS_COVERAGE)
-  set(EXTRACT_PATTERNS "'*/sources/Modeler/DataInterfaceIIDM/DYN*'")
-
+  set(EXTRACT_PATTERNS "'*/sources/Modeler/DataInterface/IIDM/DYN*'")
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
 

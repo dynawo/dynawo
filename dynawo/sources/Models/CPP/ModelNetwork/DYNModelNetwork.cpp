@@ -171,7 +171,7 @@ ModelNetwork::initializeFromData(const shared_ptr<DataInterface>& data) {
     for (iBus = buses.begin(); iBus != buses.end(); ++iBus) {
       string id = (*iBus)->getID();
       Trace::debug(Trace::network()) << DYNLog(AddingBusToNetwork, id) << Trace::endline;
-      shared_ptr<ModelBus> modelBus(new ModelBus(*iBus));
+      shared_ptr<ModelBus> modelBus(new ModelBus(*iBus, (*iVL)->isNodeBreakerTopology()));
       componentsById[id] = (*iBus);
       modelBusById[id] = modelBus;
       // Add to containers

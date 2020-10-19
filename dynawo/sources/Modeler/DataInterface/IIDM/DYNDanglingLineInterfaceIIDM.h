@@ -13,7 +13,7 @@
 
 //======================================================================
 /**
- * @file  DYNDanglingLineInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNDanglingLineInterfaceIIDM.h
  *
  * @brief Dangling line data interface : header file for IIDM implementation
  *

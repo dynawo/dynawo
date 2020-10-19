@@ -29,7 +29,7 @@ class DataInterfaceFactory {
    * @brief Type of possibles inputs
    */
   typedef enum {
-    DATAINTERFACE_IIDM1,  ///< Use IIDM1.0 library
+    DATAINTERFACE_IIDM,  ///< Use IIDM library
   } dataInterfaceType_t;
 
   /**

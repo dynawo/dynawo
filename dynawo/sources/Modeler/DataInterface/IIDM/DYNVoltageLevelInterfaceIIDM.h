@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNVoltageLevelInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNVoltageLevelInterfaceIIDM.h
  *
  * @brief VoltageLevel data interface : header file for IIDM interface
  *

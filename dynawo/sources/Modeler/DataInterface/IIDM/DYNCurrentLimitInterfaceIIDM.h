@@ -12,7 +12,7 @@
 //
 
 /**
- * @file  DYNCurrentLimitInterfaceIIDM.h
+ * @file  DataInterface/IIDM/DYNCurrentLimitInterfaceIIDM.h
  *
  * @brief Current limit interface : header file for IIDM interface
  *

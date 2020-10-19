@@ -16,12 +16,19 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#ifdef LANG_CXX11
+#include <powsybl/iidm/Bus.hpp>
+#include <powsybl/iidm/Substation.hpp>
+#include <powsybl/iidm/VoltageLevel.hpp>
+#include <powsybl/iidm/TopologyKind.hpp>
+#else
 #include <IIDM/builders/VoltageLevelBuilder.h>
 #include <IIDM/builders/SwitchBuilder.h>
 #include <IIDM/builders/BusBuilder.h>
 #include <IIDM/components/Switch.h>
 #include <IIDM/components/VoltageLevel.h>
 #include <IIDM/components/Bus.h>
+#endif
 
 #include "gtest_dynawo.h"
 #include "DYNVariable.h"
@@ -38,6 +45,46 @@ namespace DYN {
 
 shared_ptr<ModelSwitch>
 createModelSwitch(bool open, bool initModel) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("test", "test");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+
+  powsybl::iidm::Bus& iidmBus2 = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus2")
+              .add();
+  iidmBus2.setV(1);
+  iidmBus2.setAngle(0.);
+  powsybl::iidm::Switch& swIIDM = vlIIDM.getBusBreakerView()
+      .newSwitch()
+      .setId("MySwitch")
+      .setName("MySwitchName")
+      .setFictitious(false)
+      .setBus1("MyBus1")
+      .setBus2("MyBus2")
+      .add();
+  swIIDM.setOpen(open);
+
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
+  shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+#else
   IIDM::builders::BusBuilder bb;
   IIDM::Bus bus1IIDM = bb.build("MyBus1");
   IIDM::Bus bus2IIDM = bb.build("MyBus2");
@@ -59,11 +106,12 @@ createModelSwitch(bool open, bool initModel) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus1")));
   shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus2")));
   shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+#endif
 
   shared_ptr<ModelSwitch> sw = shared_ptr<ModelSwitch>(new ModelSwitch(swItfIIDM));
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   sw->setModelBus1(bus1);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM));
+  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
   sw->setModelBus2(bus2);
   ModelNetwork* network = new ModelNetwork();
   network->setIsInitModel(initModel);
@@ -75,6 +123,46 @@ createModelSwitch(bool open, bool initModel) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("test", "test");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+
+  powsybl::iidm::Bus& iidmBus2 = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus2")
+              .add();
+  iidmBus2.setV(1);
+  iidmBus2.setAngle(0.);
+  powsybl::iidm::Switch& swIIDM = vlIIDM.getBusBreakerView()
+      .newSwitch()
+      .setId("MySwitch")
+      .setName("MySwitchName")
+      .setFictitious(false)
+      .setBus1("MyBus1")
+      .setBus2("MyBus2")
+      .add();
+  swIIDM.setOpen(true);
+
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
+  shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+#else
   IIDM::builders::BusBuilder bb;
   IIDM::Bus bus1IIDM = bb.build("MyBus1");
   IIDM::Bus bus2IIDM = bb.build("MyBus2");
@@ -95,6 +183,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus1")));
   shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus2")));
   shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+#endif
 
   shared_ptr<ModelSwitch> sw = shared_ptr<ModelSwitch>(new ModelSwitch(swItfIIDM));
   ASSERT_EQ(sw->isInLoop(), false);
@@ -102,10 +191,10 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
   ASSERT_EQ(sw->irYNum(), 0);
   ASSERT_EQ(sw->iiYNum(), 0);
   ASSERT_THROW_DYNAWO(sw->getModelBus1(), Error::MODELER, KeyError_t::SwitchMissingBus1);
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   sw->setModelBus1(bus1);
   ASSERT_THROW_DYNAWO(sw->getModelBus2(), Error::MODELER, KeyError_t::SwitchMissingBus2);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM));
+  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
   sw->setModelBus2(bus2);
   ASSERT_EQ(sw->getModelBus1(), bus1);
   ASSERT_EQ(sw->getModelBus2(), bus2);
@@ -113,6 +202,46 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationOpened) {
 }
 
 TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
+#ifdef LANG_CXX11
+  powsybl::iidm::Network networkIIDM("test", "test");
+
+  powsybl::iidm::Substation& s = networkIIDM.newSubstation()
+      .setId("S")
+      .add();
+
+  powsybl::iidm::VoltageLevel& vlIIDM = s.newVoltageLevel()
+      .setId("MyVoltageLevel")
+      .setNominalVoltage(5.)
+      .setTopologyKind(powsybl::iidm::TopologyKind::BUS_BREAKER)
+      .setHighVoltageLimit(2.)
+      .setLowVoltageLimit(.5)
+      .add();
+
+  powsybl::iidm::Bus& iidmBus = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus1")
+              .add();
+  iidmBus.setV(1);
+  iidmBus.setAngle(0.);
+
+  powsybl::iidm::Bus& iidmBus2 = vlIIDM.getBusBreakerView().newBus()
+              .setId("MyBus2")
+              .add();
+  iidmBus2.setV(1);
+  iidmBus2.setAngle(0.);
+  powsybl::iidm::Switch& swIIDM = vlIIDM.getBusBreakerView()
+      .newSwitch()
+      .setId("MySwitch")
+      .setName("MySwitchName")
+      .setFictitious(false)
+      .setBus1("MyBus1")
+      .setBus2("MyBus2")
+      .add();
+  swIIDM.setOpen(false);
+
+  shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus));
+  shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(iidmBus2));
+  shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+#else
   IIDM::builders::BusBuilder bb;
   IIDM::Bus bus1IIDM = bb.build("MyBus1");
   IIDM::Bus bus2IIDM = bb.build("MyBus2");
@@ -133,6 +262,7 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
   shared_ptr<BusInterfaceIIDM> bus1ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus1")));
   shared_ptr<BusInterfaceIIDM> bus2ItfIIDM = shared_ptr<BusInterfaceIIDM>(new BusInterfaceIIDM(vl.get_bus("MyBus2")));
   shared_ptr<SwitchInterfaceIIDM> swItfIIDM = shared_ptr<SwitchInterfaceIIDM>(new SwitchInterfaceIIDM(swIIDM));
+#endif
 
   shared_ptr<ModelSwitch> sw = shared_ptr<ModelSwitch>(new ModelSwitch(swItfIIDM));
   ASSERT_EQ(sw->isInLoop(), false);
@@ -140,10 +270,10 @@ TEST(ModelsModelNetwork, ModelNetworkSwitchInitializationClosed) {
   ASSERT_EQ(sw->irYNum(), 0);
   ASSERT_EQ(sw->iiYNum(), 0);
   ASSERT_THROW_DYNAWO(sw->getModelBus1(), Error::MODELER, KeyError_t::SwitchMissingBus1);
-  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM));
+  shared_ptr<ModelBus> bus1 = shared_ptr<ModelBus>(new ModelBus(bus1ItfIIDM, false));
   sw->setModelBus1(bus1);
   ASSERT_THROW_DYNAWO(sw->getModelBus2(), Error::MODELER, KeyError_t::SwitchMissingBus2);
-  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM));
+  shared_ptr<ModelBus> bus2 = shared_ptr<ModelBus>(new ModelBus(bus2ItfIIDM, false));
   sw->setModelBus2(bus2);
   ASSERT_EQ(sw->getModelBus1(), bus1);
   ASSERT_EQ(sw->getModelBus2(), bus2);
