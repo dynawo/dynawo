@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,30 +16,30 @@ set(DATA_INTERFACE_IIDM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 set(DATA_INTERFACE_IIDM_SOURCES
     DYNBusInterfaceIIDM.cpp
-    DYNCalculatedBusInterfaceIIDM.cpp
-    DYNSwitchInterfaceIIDM.cpp
-    DYNLineInterfaceIIDM.cpp
-    DYNTwoWTransformerInterfaceIIDM.cpp
-    DYNThreeWTransformerInterfaceIIDM.cpp
-    DYNLoadInterfaceIIDM.cpp
-    DYNShuntCompensatorInterfaceIIDM.cpp
-    DYNStaticVarCompensatorInterfaceIIDM.cpp
-    DYNGeneratorInterfaceIIDM.cpp
-    DYNDanglingLineInterfaceIIDM.cpp
-    DYNNetworkInterfaceIIDM.cpp
-    DYNPhaseTapChangerInterfaceIIDM.cpp
-    DYNRatioTapChangerInterfaceIIDM.cpp
-    DYNStepInterfaceIIDM.cpp
+#    DYNCalculatedBusInterfaceIIDM.cpp
     DYNCurrentLimitInterfaceIIDM.cpp
-    DYNDataInterfaceIIDM.cpp
-    DYNVoltageLevelInterfaceIIDM.cpp
-    DYNVscConverterInterfaceIIDM.cpp
-    DYNLccConverterInterfaceIIDM.cpp
-    DYNHvdcLineInterfaceIIDM.cpp
+    DYNLineInterfaceIIDM.cpp
+    DYNLoadInterfaceIIDM.cpp
+#    DYNRatioTapChangerInterfaceIIDM.cpp
+    DYNStepInterfaceIIDM.cpp
+    DYNSwitchInterfaceIIDM.cpp
+#   DYNTwoWTransformerInterfaceIIDM.cpp
+#   DYNThreeWTransformerInterfaceIIDM.cpp
+#   DYNShuntCompensatorInterfaceIIDM.cpp
+#   DYNStaticVarCompensatorInterfaceIIDM.cpp
+#   DYNGeneratorInterfaceIIDM.cpp
+#   DYNDanglingLineInterfaceIIDM.cpp
+#   DYNNetworkInterfaceIIDM.cpp
+#   DYNPhaseTapChangerInterfaceIIDM.cpp
+#   DYNDataInterfaceIIDM.cpp
+#   DYNVoltageLevelInterfaceIIDM.cpp
+#   DYNVscConverterInterfaceIIDM.cpp
+#   DYNLccConverterInterfaceIIDM.cpp
+#   DYNHvdcLineInterfaceIIDM.cpp
     )
 
 set(DATA_INTERFACE_IIDM_INCLUDE_HEADERS
-    DYNDataInterfaceIIDM.h
+#    DYNDataInterfaceIIDM.h
     )
 
 add_library(dynawo_DataInterfaceIIDM ${LIBRARY_TYPE} ${DATA_INTERFACE_IIDM_SOURCES})
@@ -60,19 +60,8 @@ target_link_libraries(dynawo_DataInterfaceIIDM
     dynawo_Common
     dynawo_ModelerCommon
     dynawo_DataInterface
-    dynawo_API_CRT
   PUBLIC
-    iidm-ext-activeseason-xml
-    iidm-ext-busbarsectionposition-xml
-    iidm-ext-connectableposition-xml
-    iidm-ext-currentlimitsperseason-xml
-    iidm-ext-generatoractivepowercontrol-xml
-    iidm-ext-generatorentsoecategory-xml
-    iidm-ext-generatorstartup-xml
-    iidm-ext-hvdcangledroopactivepowercontrol-xml
-    iidm-ext-hvdcoperatoractivepowerrange-xml
-    iidm-ext-loaddetail-xml
-    iidm-ext-standbyautomaton-xml
+    IIDM::iidm
   )
 
 set_target_properties(dynawo_DataInterfaceIIDM PROPERTIES VERSION ${DATA_INTERFACE_IIDM_VERSION_STRING}

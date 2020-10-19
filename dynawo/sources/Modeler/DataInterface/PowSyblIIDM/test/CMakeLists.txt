@@ -1,4 +1,4 @@
-# Copyright (c) 2015-2019, RTE (http://www.rte-france.com)
+# Copyright (c) 2015-2020, RTE (http://www.rte-france.com)
 # See AUTHORS.txt
 # All rights reserved.
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -11,10 +11,16 @@
 set(MODULE_NAME MODELER_DATAINTERFACEIIDM_unittest)
 
 set(MODULE_SOURCES
-    TestBusBarSectionInterface.cpp
-    TestCriteria.cpp
-    TestIIDMModelsStaticParameters.cpp
-    TestStateVariable.cpp
+  TestBusInterface.cpp
+ # TestBusBarSectionInterface.cpp
+ # TestCalculatedBusInterface.cpp
+  TestCurrentLimitInterface.cpp
+  TestInjectorInterface.cpp
+  TestLineInterface.cpp
+  TestLoadInterface.cpp
+#  TestRatioTapChangerInterface.cpp
+  TestStepInterface.cpp
+  TestSwitchInterface.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
@@ -25,17 +31,7 @@ target_link_libraries(${MODULE_NAME}
   dynawo_ModelerCommon
   dynawo_DataInterfaceIIDM
   dynawo_DataInterface
-  iidm-ext-activeseason-xml
-  iidm-ext-busbarsectionposition-xml
-  iidm-ext-connectableposition-xml
-  iidm-ext-currentlimitsperseason-xml
-  iidm-ext-generatoractivepowercontrol-xml
-  iidm-ext-generatorentsoecategory-xml
-  iidm-ext-generatorstartup-xml
-  iidm-ext-hvdcangledroopactivepowercontrol-xml
-  iidm-ext-hvdcoperatoractivepowerrange-xml
-  iidm-ext-loaddetail-xml
-  iidm-ext-standbyautomaton-xml
+  IIDM::iidm
   dynawo_Test)
 
 add_custom_target(${MODULE_NAME}-tests
@@ -44,11 +40,12 @@ add_custom_target(${MODULE_NAME}-tests
     ${MODULE_NAME}
   COMMENT "Running ${MODULE_NAME}...")
 
-if(BUILD_TESTS_COVERAGE)
-  set(EXTRACT_PATTERNS "'*/sources/Modeler/DataInterface/IIDM/DYN*'")
+if(CMAKE_BUILD_TYPE STREQUAL "TestCoverage")
+  set(EXTRACT_PATTERNS "'*/sources/Modeler/DataInterface/PowSyblIIDM/DYN*'")
+
   add_test_coverage(${MODULE_NAME}-tests "${EXTRACT_PATTERNS}")
 endif()
 
-if(BUILD_TESTS)
+if(CMAKE_BUILD_TYPE STREQUAL "Tests")
   add_test(${MODULE_NAME}-tests)
 endif()

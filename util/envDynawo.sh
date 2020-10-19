@@ -365,6 +365,13 @@ set_environment() {
     fi
   fi
 
+  if [ -d "$DYNAWO_THIRD_PARTY_INSTALL_DIR/libxml2" ]; then
+    if [ ! -z "$(ls -A $DYNAWO_THIRD_PARTY_INSTALL_DIR/libxml2)" ]; then
+      export_var_env DYNAWO_LIBXML2_HOME=$DYNAWO_THIRD_PARTY_INSTALL_DIR/libxml2
+      unset DYNAWO_LIBXML2_HOME_DEFAULT
+    fi
+  fi
+
   # External libs
   export_var_env_default DYNAWO_ZLIB_HOME=UNDEFINED
   export_var_env_default DYNAWO_LIBARCHIVE_HOME=UNDEFINED
@@ -372,6 +379,7 @@ set_environment() {
   export_var_env DYNAWO_BOOST_USE_STATIC=OFF
   export_var_env_default DYNAWO_GTEST_HOME=UNDEFINED
   export_var_env_default DYNAWO_GMOCK_HOME=UNDEFINED
+  export_var_env_default DYNAWO_LIBXML2_HOME=UNDEFINED
 
   export_var_env_force DYNAWO_SUITESPARSE_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/suitesparse
   export_var_env_force DYNAWO_NICSLU_INSTALL_DIR=$DYNAWO_THIRD_PARTY_INSTALL_DIR/nicslu
@@ -492,6 +500,10 @@ set_standard_environment_variables() {
 
   if [ $DYNAWO_BOOST_HOME_DEFAULT != true ]; then
     ld_library_path_prepend $DYNAWO_BOOST_HOME/lib
+  fi
+
+  if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
+    ld_library_path_prepend $DYNAWO_LIBXML2_HOME/lib
   fi
 
   if [ "$DYNAWO_BUILD_TYPE" = "Debug" ]; then
@@ -646,6 +658,9 @@ config_3rd_party() {
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
   fi
+  if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBXML2_HOME=$DYNAWO_LIBXML2_HOME"
+  fi
   if [ $DYNAWO_BUILD_TESTS = "ON" -o $DYNAWO_BUILD_TESTS_COVERAGE = "ON" ]; then
       if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
         CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DGTEST_ROOT=$DYNAWO_GTEST_HOME"
@@ -760,6 +775,9 @@ config_dynawo() {
   fi
   if [ $DYNAWO_LIBARCHIVE_HOME_DEFAULT != true ]; then
     CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBARCHIVE_HOME=$DYNAWO_LIBARCHIVE_HOME"
+  fi
+  if [ $DYNAWO_LIBXML2_HOME_DEFAULT != true ]; then
+    CMAKE_OPTIONAL="$CMAKE_OPTIONAL -DLIBXML2_HOME=$DYNAWO_LIBXML2_HOME"
   fi
   if [ $DYNAWO_BUILD_TESTS = "ON" -o $DYNAWO_BUILD_TESTS_COVERAGE = "ON" ]; then
       if [ $DYNAWO_GTEST_HOME_DEFAULT != true ]; then
