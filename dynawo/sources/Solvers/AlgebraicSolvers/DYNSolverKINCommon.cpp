@@ -130,7 +130,7 @@ SolverKINCommon::initCommon(const std::string& linearSolverName, double fnormtol
   // -------------------
   // Passing CSR_MAT indicates that we solve A'x = B - linear system using the matrix transpose -
   // and not Ax = B (see sunlinsol_klu.c:149)
-  const int nnz = 0.01 * nbF_ * nbF_;  // This value will be adjusted later on in the process
+  const int nnz = 0.0001 * nbF_ * nbF_;  // This value will be adjusted later on in the process
   M_ = SUNSparseMatrix(nbF_, nbF_, nnz, CSR_MAT);
   if (M_ == NULL)
     throw DYNError(Error::SUNDIALS_ERROR, SolverFuncErrorKINSOL, "SUNSparseMatrix");
