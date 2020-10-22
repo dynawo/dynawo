@@ -15,7 +15,7 @@ XmlUtilsXercesInit          =             error during Xerces initialization
 XmlFileParsingError         =             error while parsing file %1% : %2%
 XmlParsingError             =             error while parsing stream %1%
 //---------------- SIMULATION ---------------------------------------
-SlowStepIncrease            =             slow increase step simulation => end the simulation
+SlowStepIncrease            =             time step <= %2% s for more than %1% iterations
 ArchFileError               =             error during the close of the archives file
 IncompleteDump              =             incomplete dump
 DumpStateError              =             size of the dump state is inconsistent
