@@ -817,13 +817,15 @@ TEST(ParametersTest, testParameters) {
   params->addParameter(parameters::ParameterFactory::newParameter("msbsetAlgJ", 10));
   params->addParameter(parameters::ParameterFactory::newParameter("mxiterAlgJ", 2));
   params->addParameter(parameters::ParameterFactory::newParameter("printflAlgJ", 0));
+  params->addParameter(parameters::ParameterFactory::newParameter("minimalAcceptableStep", 10e-6));
+  params->addParameter(parameters::ParameterFactory::newParameter("maximumNumberSlowStepIncrease", 10));
   params->addParameter(parameters::ParameterFactory::newParameter("optimizeAlgebraicResidualsEvaluations", false));
   params->addParameter(parameters::ParameterFactory::newParameter("optimizeReinitAlgebraicResidualsEvaluations", false));
   params->addParameter(parameters::ParameterFactory::newParameter("skipNRIfInitialGuessOK", false));
   params->addParameter(parameters::ParameterFactory::newParameter("minimumModeChangeTypeForAlgebraicRestoration", std::string("ALGEBRAIC_J_UPDATE")));
   ASSERT_NO_THROW(solver->setParametersFromPARFile(params));
   ASSERT_NO_THROW(solver->setSolverParameters());
-  ASSERT_EQ(solver->getParametersMap().size(), 31);
+  ASSERT_EQ(solver->getParametersMap().size(), 33);
 }
 
 }  // namespace DYN
