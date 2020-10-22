@@ -564,6 +564,12 @@ MMC_REFSTRINGLIT(OMC_STRINGLIT_1_FE),
 MMC_REFSTRINGLIT(OMC_STRINGLIT_1_FF),
 };
 
+/**
+ * Method copied from <OpenModelica Sources>/SimulationRuntime/c/util/index_spec.h
+ * It is needed for Dynawo models dynamic libraries compilation
+ */
+int imax(int i, int j) { return ((i < j) ? j : i); }
+
 static inline void real_set_(real_array_t *a, size_t i, modelica_real r) {
   (reinterpret_cast<modelica_real *> (a->data))[i] = r;
 }
@@ -825,6 +831,306 @@ void put_integer_element(modelica_integer value, int i1, integer_array_t* dest) 
     /* Assert that dest has correct dimension */
     /* Assert that i1 is a valid index */
     integer_set(dest, i1, value);
+}
+
+static inline modelica_real *real_ptrget(const real_array_t *a, size_t i) {
+    return reinterpret_cast<modelica_real *>(a->data) + i;
+}
+
+modelica_real* real_array_element_addr1(const real_array_t * source, int /*ndims*/, int dim1) {
+    return real_ptrget(source, dim1 - 1);
+}
+
+static modelica_integer integer_le(modelica_integer x, modelica_integer y) {
+    return (x <= y);
+}
+
+static modelica_integer integer_ge(modelica_integer x, modelica_integer y) {
+    return (x >= y);
+}
+
+/* Creates an integer array from a range with a start, stop and step value.
+ * Ex: 1:2:6 => {1,3,5} */
+void create_integer_array_from_range(integer_array_t *dest, modelica_integer start, modelica_integer step, modelica_integer stop) {
+    size_t elements;
+    size_t i;
+    modelica_integer (*comp_func)(modelica_integer, modelica_integer);
+
+    assert(step != 0);
+
+    comp_func = (step > 0) ? &integer_le : &integer_ge;
+    elements = comp_func(start, stop) ? (((stop - start) / step) + 1) : 0;
+
+    simple_alloc_1d_integer_array(dest, elements);
+
+    for (i = 0; i < elements; start += step, ++i) {
+        integer_set(dest, i, start);
+    }
+}
+
+/* integer_array_make_index_array
+ *
+ * Creates an integer array if indices to be used by e.g.
+ ** create_index_spec defined in index_spec.c
+ */
+
+_index_t* integer_array_make_index_array(const integer_array_t *arr) {
+    return reinterpret_cast<int*>(arr->data);
+}
+
+/* Fills an array with a value. */
+void fill_alloc_real_array(real_array_t* dest, modelica_real value, int ndims, ...) {
+    size_t i;
+    size_t elements = 0;
+    va_list ap;
+    va_start(ap, ndims);
+    elements = alloc_base_array(dest, ndims, ap);
+    va_end(ap);
+    dest->data = real_alloc(elements);
+
+    for (i = 0; i < elements; ++i) {
+        real_set(dest, i, value);
+    }
+}
+
+real_array_t sub_alloc_real_array(const real_array_t a, const real_array_t b) {
+    real_array_t dest;
+    clone_real_array_spec(&a, &dest);
+    alloc_real_array_data(&dest);
+    sub_real_array(&a, &b, &dest);
+    return dest;
+}
+
+/* Copy real data*/
+void copy_real_array_data(const real_array_t source, real_array_t *dest) {
+    size_t i, nr_of_elements;
+
+    assert(base_array_ok(&source));
+    assert(base_array_ok(dest));
+    assert(base_array_shape_eq(&source, dest));
+
+    nr_of_elements = base_array_nr_of_elements(source);
+
+    for (i = 0; i < nr_of_elements; ++i) {
+        real_set(dest, i, real_get(source, i));
+    }
+}
+
+/* Allocation of real data */
+void alloc_real_array_data(real_array_t *a) {
+    a->data = real_alloc(base_array_nr_of_elements(*a));
+}
+
+void sub_real_array(const real_array_t * a, const real_array_t * b, real_array_t* dest) {
+    size_t nr_of_elements;
+    size_t i;
+
+    /* Assert a and b are of the same size */
+    /* Assert that dest are of correct size */
+    nr_of_elements = base_array_nr_of_elements(*a);
+    for (i = 0; i < nr_of_elements; ++i) {
+        real_set(dest, i, real_get(*a, i)-real_get(*b, i));
+    }
+}
+
+void clone_base_array_spec(const base_array_t *source, base_array_t *dest) {
+    int i;
+    assert(base_array_ok(source));
+
+    dest->ndims = source->ndims;
+    dest->dim_size = size_alloc(dest->ndims);
+    assert(dest->dim_size);
+
+    for (i = 0; i < dest->ndims; ++i) {
+        dest->dim_size[i] = source->dim_size[i];
+    }
+}
+
+int base_array_ok(const base_array_t *a) {
+    int i;
+    if (a == NULL) {
+      return 0;
+    }
+    if (a->ndims < 0) {
+      return 0;
+    }
+    if (a->dim_size == NULL) {
+      return 0;
+    }
+    for (i = 0; i < a->ndims; ++i) {
+        if (a->dim_size[i] < 0) {
+          return 0;
+        }
+    }
+    return 1;
+}
+
+int base_array_shape_eq(const base_array_t *a, const base_array_t *b) {
+    int i;
+
+    if (a->ndims != b->ndims) {
+        return 0;
+    }
+
+    for (i = 0; i < a->ndims; ++i) {
+        if (a->dim_size[i] != b->dim_size[i]) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+void indexed_assign_real_array(const real_array_t source, real_array_t* dest,
+                               const index_spec_t* dest_spec) {
+    _index_t *idx_vec1, *idx_size;
+    size_t j;
+    indexed_assign_base_array_size_alloc(&source, dest, dest_spec, &idx_vec1, &idx_size);
+
+    j = 0;
+    do {
+        real_set(dest,
+                 calc_base_index_spec(dest->ndims, idx_vec1, dest, dest_spec),
+                 real_get(source, j));
+        j++;
+    } while (0 == next_index(dest_spec->ndims, idx_vec1, idx_size));
+
+    assert(j == base_array_nr_of_elements(source));
+}
+
+void indexed_assign_base_array_size_alloc(const base_array_t *source, base_array_t *dest,
+    const index_spec_t *dest_spec, _index_t** _idx_vec1, _index_t** _idx_size) {
+    _index_t* idx_vec1;
+    _index_t* idx_size;
+    int i, j;
+    assert(base_array_ok(source));
+    assert(base_array_ok(dest));
+    assert(index_spec_ok(dest_spec));
+    assert(index_spec_fit_base_array(dest_spec, dest));
+    for (i = 0, j = 0; i < dest_spec->ndims; ++i) {
+        if (dest_spec->dim_size[i] != 0) {
+            ++j;
+        }
+    }
+    assert(j == source->ndims);
+
+    idx_vec1 = size_alloc(dest->ndims);
+    idx_size = size_alloc(dest_spec->ndims);
+
+    for (i = 0; i < dest_spec->ndims; ++i) {
+        idx_vec1[i] = 0;
+
+        if (dest_spec->index[i] != NULL) { /* is 'S' or 'A' */
+            idx_size[i] = imax(dest_spec->dim_size[i], 1);
+        } else { /* is 'W' */
+            idx_size[i] = dest->dim_size[i];
+        }
+    }
+    *_idx_vec1 = idx_vec1;
+    *_idx_size = idx_size;
+}
+/*
+ a[1:3] := b;
+*/
+size_t calc_base_index_spec(int ndims, const _index_t *idx_vec,
+                            const base_array_t *arr, const index_spec_t *spec) {
+    /* idx_vec is zero based */
+    /* spec is one based */
+    int i;
+    int d2;
+    size_t index = 0;
+
+    assert(base_array_ok(arr));
+    assert(index_spec_ok(spec));
+    assert(index_spec_fit_base_array(spec, arr));
+    assert((ndims == arr->ndims) && (ndims == spec->ndims));
+
+    index = 0;
+    for (i = 0; i < ndims; ++i) {
+        int d = idx_vec[i];
+        if (spec->index[i] != NULL) {
+            d2 = spec->index[i][d] - 1;
+        } else {
+            d2 = d;
+        }
+        index = (index * arr->dim_size[i]) + d2;
+    }
+
+    return index;
+}
+
+/* Calculates the next index for copying subscripted array.
+ * ndims - dimension size of indices.
+ * idx - updated with the the next index
+ * size - size of each index dimension
+ * The function returns 0 if new index is calculated and 1 if no more indices
+ * are available (all indices traversed).
+  */
+int next_index(int ndims, _index_t* idx, const _index_t* size) {
+    int d = ndims - 1;
+
+    idx[d]++;
+
+    while (idx[d] >= size[d]) {
+        idx[d] = 0;
+        if (d == 0) {
+            return 1;
+        }
+        d--;
+        idx[d]++;
+    }
+
+    return 0;
+}
+
+int index_spec_ok(const index_spec_t* s) {
+    int i;
+    if (s == NULL) {
+      return 0;
+    }
+    if (s->ndims < 0) {
+      return 0;
+    }
+    if (s->dim_size == NULL) {
+      return 0;
+    }
+    if (s->index == NULL) {
+      return 0;
+    }
+    for (i = 0; i < s->ndims; ++i) {
+        if (s->dim_size[i] < 0) {
+          return 0;
+        }
+        if ((s->index[i] == 0) && (s->dim_size[i] != 1)) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int index_spec_fit_base_array(const index_spec_t *s, const base_array_t *a) {
+    int i, j;
+
+    if (s->ndims != a->ndims) {
+        return 0;
+    }
+    for (i = 0; i < s->ndims; ++i) {
+        if (s->dim_size[i] == 0) {
+            if ((s->index[i][0] <= 0) || (s->index[i][0] > a->dim_size[i])) {
+                return 0;
+            }
+        }
+
+        if (s->index[i] != NULL) {
+            for (j = 0; j < s->dim_size[i]; ++j) {
+                if ((s->index[i][j] <= 0) || (s->index[i][j] > a->dim_size[i])) {
+                    return 0;
+                }
+            }
+        }
+    }
+
+    return 1;
 }
 
 #ifdef __clang__

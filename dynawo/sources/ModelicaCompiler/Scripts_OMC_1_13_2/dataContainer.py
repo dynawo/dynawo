@@ -1359,7 +1359,7 @@ class EqMaker():
     def with_throw(self):
         with_throw = False
         for line in self.body_func:
-            if "throwStreamPrint" in line or "omc_assert_withEquationIndexes" in line:
+            if "throwStreamPrint" in line or "omc_assert_withEquationIndexes" in line or "omc_assert_warning_withEquationIndexes" in line:
                 with_throw = True
         return with_throw
 
@@ -1987,6 +1987,8 @@ class Warn:
             line = replace_var_names(line)
             line = line.replace("threadData, ","")
             line = sub_division_sim(line)
+            if "omc_assert_warning" in line and not with_throw:
+                line = line.replace(INFO_OMC_PARAM,"")
             if has_omc_trace (line) or has_omc_equation_indexes (line) or "infoStreamPrint" in line:
                 continue
             elif "MMC_DEFSTRINGLIT" in line:
@@ -2010,8 +2012,7 @@ class Warn:
                 continue;
             elif "omc_assert_warning" in line:
                 if not with_throw:
-                    line_tmp = line.replace(INFO_OMC_PARAM,"")
-                    tmp_body.append(line_tmp)
+                    tmp_body.append(line)
             else:
                 tmp_body.append(line)
 
