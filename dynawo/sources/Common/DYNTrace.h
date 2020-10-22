@@ -81,7 +81,7 @@ class Trace {
      * @brief File path attribute getter
      * @return Output file path of the appender
      */
-    const std::string &getFilePath() const {
+    const std::string& getFilePath() const {
       return filePath_;
     }
 
