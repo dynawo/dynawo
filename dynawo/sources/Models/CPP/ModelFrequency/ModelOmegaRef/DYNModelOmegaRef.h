@@ -230,6 +230,10 @@ class ModelOmegaRef : public ModelCPP::Impl {
    */
   void defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement);
   /**
+   * @copydoc SubModel::dumpUserReadableElementList()
+   */
+  void dumpUserReadableElementList(const std::string& nameElement) const;
+  /**
    * @brief initialize variables of the model
    *
    * A variable is a structure which contained all information needed to interact with the model

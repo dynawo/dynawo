@@ -829,27 +829,27 @@ ModelLine::defineElements(std::vector<Element>& elements, std::map<std::string, 
   if (isDynamic_) {
     string name = lineName + string("_iBranch");
     addElement(name, Element::STRUCTURE, elements, mapElement);
-    addSubElement("re", name, Element::TERMINAL, elements, mapElement);
-    addSubElement("im", name, Element::TERMINAL, elements, mapElement);
-    addElementWithValue(lineName + string("_omegaRef"), elements, mapElement);
+    addSubElement("re", name, Element::TERMINAL, id(), modelType_, elements, mapElement);
+    addSubElement("im", name, Element::TERMINAL, id(), modelType_, elements, mapElement);
+    addElementWithValue(lineName + string("_omegaRef"), modelType_, elements, mapElement);
   }
-  addElementWithValue(lineName + string("_i1"), elements, mapElement);
-  addElementWithValue(lineName + string("_i2"), elements, mapElement);
-  addElementWithValue(lineName + string("_P1"), elements, mapElement);
-  addElementWithValue(lineName + string("_P2"), elements, mapElement);
-  addElementWithValue(lineName + string("_Q1"), elements, mapElement);
-  addElementWithValue(lineName + string("_Q2"), elements, mapElement);
-  addElementWithValue(lineName + string("_iS1ToS2Side1"), elements, mapElement);
-  addElementWithValue(lineName + string("_iS2ToS1Side1"), elements, mapElement);
-  addElementWithValue(lineName + string("_iS1ToS2Side2"), elements, mapElement);
-  addElementWithValue(lineName + string("_iS2ToS1Side2"), elements, mapElement);
-  addElementWithValue(lineName + string("_iSide1"), elements, mapElement);
-  addElementWithValue(lineName + string("_iSide2"), elements, mapElement);
-  addElementWithValue(lineName + string("_U1"), elements, mapElement);
-  addElementWithValue(lineName + string("_U2"), elements, mapElement);
-  addElementWithValue(lineName + string("_lineState"), elements, mapElement);
-  addElementWithValue(lineName + string("_state"), elements, mapElement);
-  addElementWithValue(lineName + string("_desactivate_currentLimits"), elements, mapElement);
+  addElementWithValue(lineName + string("_i1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_i2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_P1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_P2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_Q1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_Q2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iS1ToS2Side1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iS2ToS1Side1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iS1ToS2Side2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iS2ToS1Side2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iSide1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_iSide2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_U1"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_U2"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_lineState"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_state"), modelType_, elements, mapElement);
+  addElementWithValue(lineName + string("_desactivate_currentLimits"), modelType_, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

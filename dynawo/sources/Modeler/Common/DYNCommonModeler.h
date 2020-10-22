@@ -43,11 +43,14 @@ namespace DYN {
    * @param name : name of the sub element
    * @param elementName : name of the element
    * @param type : type of the sub element
+   * @param parentName : name of the parent model
+   * @param parentType : type of the parent model
    * @param elements: vector where the new sub element should be store
    * @param mapElement: map associating name of element and element where the new sub element should be store
    */
-  void addSubElement(const std::string& name, const std::string& elementName, const Element::typeElement& type, std::vector<Element> &elements,
-      std::map<std::string, int>& mapElement);
+  void addSubElement(const std::string& name, const std::string& elementName, const Element::typeElement& type,
+      const std::string parentName, const std::string& parentType,
+      std::vector<Element> &elements, std::map<std::string, int>& mapElement);
 
   /**
    * @brief Collect the existing connected extvar

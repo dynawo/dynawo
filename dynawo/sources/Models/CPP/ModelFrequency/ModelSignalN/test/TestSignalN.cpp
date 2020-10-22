@@ -137,6 +137,40 @@ TEST(ModelsModelSignalN, ModelSignalNTypeMethods) {
   modelSignalN->evalFType();
   ASSERT_EQ(fTypes[0], ALGEBRAIC_EQ);
   ASSERT_EQ(fTypes[1], ALGEBRAIC_EQ);
+  ASSERT_NO_THROW(modelSignalN->dumpUserReadableElementList("MyElement"));
+  ASSERT_NO_THROW(modelSignalN->initializeFromData(boost::shared_ptr<DataInterface>()));
+  std:: vector<double> res;
+  std::vector<int> indexes;
+  ASSERT_NO_THROW(modelSignalN->evalJCalculatedVarI(0, res));
+  ASSERT_NO_THROW(modelSignalN->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+  ASSERT_NO_THROW(modelSignalN->evalCalculatedVars());
+  ASSERT_NO_THROW(modelSignalN->updateFType());
+  ASSERT_NO_THROW(modelSignalN->updateYType());
+  ASSERT_NO_THROW(modelSignalN->initializeStaticData());
+  ASSERT_NO_THROW(modelSignalN->setGequations());
+  ASSERT_EQ(modelSignalN->evalCalculatedVarI(0), 0.);
+
+
+  boost::shared_ptr<SubModel> modelSignalN2 = SubModelFactory::createSubModelFromLib("../DYNModelSignalN" + std::string(sharedLibraryExtension()));
+
+  std::vector<ParameterModeler> parameters;
+  modelSignalN2->defineParameters(parameters);
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
+  parametersSet->createParameter("nbGen", 2);
+  modelSignalN2->setPARParameters(parametersSet);
+  modelSignalN2->addParameters(parameters, false);
+  modelSignalN2->setParametersFromPARFile();
+  modelSignalN2->setSubModelParameters();
+  modelSignalN2->init(0.);
+  modelSignalN2->getSize();
+  std::vector<double> z(modelSignalN2->sizeZ(), 0);
+  bool* zConnected = new bool[modelSignalN2->sizeZ()];
+  for (size_t i = 0; i < modelSignalN2->sizeZ(); ++i)
+    zConnected[i] = true;
+  z[5] = 0.;
+  z[6] = 1.;
+  modelSignalN2->setBufferZ(&z[0], zConnected, 0);
+  ASSERT_THROW_DYNAWO(modelSignalN2->evalZ(0.), Error::MODELER, KeyError_t::TooMuchSubNetwork);
 }
 
 TEST(ModelsModelSignalN, ModelSignalNInit) {
@@ -175,6 +209,8 @@ TEST(ModelsModelSignalN, ModelSignalNContinuousAndDiscreteMethods) {
   for (size_t i = 0; i < modelSignalN->sizeZ(); ++i)
     zConnected[i] = true;
   modelSignalN->setBufferZ(&z[0], zConnected, 0);
+  bool* silentZ = new bool[modelSignalN->sizeZ()];
+  std::fill_n(silentZ, modelSignalN->sizeZ(), false);
   z[2] = 1;
   z[3] = 1;
   std::vector<double> f(modelSignalN->sizeF(), 0);
@@ -182,8 +218,16 @@ TEST(ModelsModelSignalN, ModelSignalNContinuousAndDiscreteMethods) {
   modelSignalN->init(0);
   modelSignalN->getY0();
   ASSERT_NO_THROW(modelSignalN->setFequations());
+  ASSERT_NO_THROW(modelSignalN->evalG(0.));
+  modelSignalN->collectSilentZ(silentZ);
+  for (size_t i = 0; i < modelSignalN->sizeZ(); ++i)
+    ASSERT_TRUE(silentZ[i]);
 
   modelSignalN->evalF(0, UNDEFINED_EQ);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], 0);
+  modelSignalN->evalF(0, DIFFERENTIAL_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[2], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[3], 0);
@@ -221,6 +265,11 @@ TEST(ModelsModelSignalN, ModelSignalNContinuousAndDiscreteMethods) {
   ASSERT_EQ(smjPrim.nbElem(), 0);
   modeChangeType_t mode = modelSignalN->evalMode(1);
   ASSERT_EQ(mode, NO_MODE);
+  z[5] = 1.;
+  z[6] = 1.;
+  modelSignalN->evalZ(0.);
+  mode = modelSignalN->evalMode(1);
+  ASSERT_EQ(mode, ALGEBRAIC_J_UPDATE_MODE);
   delete[] zConnected;
 }
 

@@ -659,19 +659,19 @@ void
 ModelDanglingLine::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   string lineName = id_;
   // ===== OUTPUT_I =====
-  addElementWithValue(lineName + string("_i"), elements, mapElement);
+  addElementWithValue(lineName + string("_i"), modelType_, elements, mapElement);
 
   // ===== OUTPUT_P =====
-  addElementWithValue(lineName + string("_P"), elements, mapElement);
+  addElementWithValue(lineName + string("_P"), modelType_, elements, mapElement);
 
   // ===== OUTPUT_Q =====
-  addElementWithValue(lineName + string("_Q"), elements, mapElement);
+  addElementWithValue(lineName + string("_Q"), modelType_, elements, mapElement);
 
   // ========  CONNECTION STATE ======
-  addElementWithValue(lineName + string("_state"), elements, mapElement);
+  addElementWithValue(lineName + string("_state"), modelType_, elements, mapElement);
 
   // ========= Desactivate_current_limit
-  addElementWithValue(lineName + string("_desactivate_currentLimits"), elements, mapElement);
+  addElementWithValue(lineName + string("_desactivate_currentLimits"), modelType_, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

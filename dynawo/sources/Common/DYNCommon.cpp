@@ -107,4 +107,41 @@ unsigned getPrecisionAsNbDecimal() {
   return MAXIMUM_PRECISION_AS_NB_DECIMAL;
 }
 
+size_t
+LevensteinDistance(const std::string& s1, const std::string& s2,
+    size_t insertCost,
+    size_t deleteCost,
+    size_t replaceCost) {
+  if (s1.size() > s2.size()) {
+    return LevensteinDistance(s2, s1, deleteCost, insertCost, replaceCost);
+  }
+
+  const size_t minSize = s1.size();
+  const size_t maxSize = s2.size();
+  std::vector<size_t> levDist(minSize + 1);
+
+  levDist[0] = 0;
+  for (size_t i = 1; i <= minSize; ++i) {
+    levDist[i] = levDist[i - 1] + deleteCost;
+  }
+
+  for (size_t j = 1; j <= maxSize; ++j) {
+    size_t previousDiagonal = levDist[0];
+    size_t previousDiagonalSave;
+    levDist[0] += insertCost;
+
+    for (size_t i = 1; i <= minSize; ++i) {
+      previousDiagonalSave = levDist[i];
+      if (s1[i - 1] == s2[j - 1]) {
+        levDist[i] = previousDiagonal;
+      } else {
+        levDist[i] = std::min(std::min(levDist[i - 1] + deleteCost, levDist[i] + insertCost), previousDiagonal + replaceCost);
+      }
+      previousDiagonal = previousDiagonalSave;
+    }
+  }
+
+  return levDist[minSize];
+}
+
 }  // namespace DYN

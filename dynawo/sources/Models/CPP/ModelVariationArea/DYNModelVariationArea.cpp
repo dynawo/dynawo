@@ -315,16 +315,22 @@ ModelVariationArea::setSubModelParameters() {
 void
 ModelVariationArea::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   for (int i = 0; i < nbLoads_; ++i) {
-    std::stringstream name;
-    name << "DeltaPc_load_" << i;
-    addElement(name.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name.str(), Element::TERMINAL, elements, mapElement);
+    std::stringstream namess;
+    namess << "DeltaPc_load_" << i;
+    addElement(namess.str(), Element::STRUCTURE, elements, mapElement);
+    addSubElement("value", namess.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
 
     std::stringstream name1;
     name1 << "DeltaQc_load_" << i;
     addElement(name1.str(), Element::STRUCTURE, elements, mapElement);
-    addSubElement("value", name1.str(), Element::TERMINAL, elements, mapElement);
+    addSubElement("value", name1.str(), Element::TERMINAL, name(), modelType(), elements, mapElement);
   }
 }
 
+void
+ModelVariationArea::dumpUserReadableElementList(const std::string& /*nameElement*/) const {
+  Trace::info() << DYNLog(ElementNames, name(), modelType()) << Trace::endline;
+  Trace::info() << "  ->" << "DeltaPc_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
+  Trace::info() << "  ->" << "DeltaQc_load_" << "<0-" << nbLoads_ << ">_value" << Trace::endline;
+}
 }  // namespace DYN

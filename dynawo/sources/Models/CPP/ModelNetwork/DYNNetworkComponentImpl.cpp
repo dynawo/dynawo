@@ -170,9 +170,10 @@ std::string NetworkComponent::Impl::getParameterDynamicNoThrow(const boost::unor
 }
 
 void
-NetworkComponent::Impl::addElementWithValue(string elementName, vector<Element>& elements, std::map<string, int>& mapElement) {
+NetworkComponent::Impl::addElementWithValue(const string& elementName, const std::string& parentType,
+    vector<Element>& elements, std::map<string, int>& mapElement) {
   addElement(elementName, Element::STRUCTURE, elements, mapElement);
-  addSubElement("value", elementName, Element::TERMINAL, elements, mapElement);
+  addSubElement("value", elementName, Element::TERMINAL, id(), parentType, elements, mapElement);
 }
 
 }  // namespace DYN

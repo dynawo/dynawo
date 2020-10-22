@@ -164,22 +164,22 @@ void
 ModelGenerator::defineElements(std::vector<Element> &elements, std::map<std::string, int>& mapElement) {
   string genName = id_;
   // ========  CONNECTION STATE ======
-  addElementWithValue(genName + string("_state"), elements, mapElement);
+  addElementWithValue(genName + string("_state"), "Generator", elements, mapElement);
 
   // ========  Active power target ======
-  addElementWithValue(genName + string("_Pc"), elements, mapElement);
+  addElementWithValue(genName + string("_Pc"), "Generator", elements, mapElement);
 
   // ========  Reactive power target ======
-  addElementWithValue(genName + string("_Qc"), elements, mapElement);
+  addElementWithValue(genName + string("_Qc"), "Generator", elements, mapElement);
 
   // ========  P VALUE  ======
-  addElementWithValue(genName + string("_P"), elements, mapElement);
+  addElementWithValue(genName + string("_P"), "Generator", elements, mapElement);
 
   // ========  Q VALUE  ======
-  addElementWithValue(genName + string("_Q"), elements, mapElement);
+  addElementWithValue(genName + string("_Q"), "Generator", elements, mapElement);
 
   // ========  state VALUE as continuous variable ======
-  addElementWithValue(genName + string("_genState"), elements, mapElement);
+  addElementWithValue(genName + string("_genState"), "Generator", elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

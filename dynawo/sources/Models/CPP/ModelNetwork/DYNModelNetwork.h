@@ -291,6 +291,12 @@ class ModelNetwork : public ModelCPP::Impl, private boost::noncopyable {
    */
   void printModel() const;
 
+ protected:
+  /**
+  * @copydoc SubModel::dumpUserReadableElementList()
+  */
+  void dumpUserReadableElementList(const std::string& nameElement) const;
+
   // Specific methods for ModelNetwork class
   // ---------------------------------------------
  private:

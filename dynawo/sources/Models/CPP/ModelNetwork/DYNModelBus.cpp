@@ -639,10 +639,10 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
   if (hasConnection_) {
     string name = id + string("_PWPIN");
     addElement(name, Element::STRUCTURE, elements, mapElement);
-    addSubElement("vr", name, Element::TERMINAL, elements, mapElement);
-    addSubElement("vi", name, Element::TERMINAL, elements, mapElement);
-    addSubElement("ir", name, Element::TERMINAL, elements, mapElement);
-    addSubElement("ii", name, Element::TERMINAL, elements, mapElement);
+    addSubElement("vr", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("vi", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("ir", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("ii", name, Element::TERMINAL, id_, modelType_, elements, mapElement);
 
     string ACName = id + string("_ACPIN");
     addElement(ACName, Element::STRUCTURE, elements, mapElement);
@@ -650,24 +650,24 @@ ModelBus::defineElementsById(const std::string& id, std::vector<Element>& elemen
     string ACNameV = id + string("_ACPIN_V");
     addElement(ACNameI, Element::STRUCTURE, elements, mapElement);
     addElement(ACNameV, Element::STRUCTURE, elements, mapElement);
-    addSubElement("i", ACName, Element::STRUCTURE, elements, mapElement);
-    addSubElement("V", ACName, Element::STRUCTURE, elements, mapElement);
-    addSubElement("re", ACNameI, Element::TERMINAL, elements, mapElement);
-    addSubElement("im", ACNameI, Element::TERMINAL, elements, mapElement);
-    addSubElement("re", ACNameV, Element::TERMINAL, elements, mapElement);
-    addSubElement("im", ACNameV, Element::TERMINAL, elements, mapElement);
+    addSubElement("i", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
+    addSubElement("V", ACName, Element::STRUCTURE, id_, modelType_, elements, mapElement);
+    addSubElement("re", ACNameI, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("im", ACNameI, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("re", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
+    addSubElement("im", ACNameV, Element::TERMINAL, id_, modelType_, elements, mapElement);
   }
 
   // Calculated variables addition
-  addElementWithValue(id + string("_Upu"), elements, mapElement);
-  addElementWithValue(id + string("_phipu"), elements, mapElement);
-  addElementWithValue(id + string("_U"), elements, mapElement);
-  addElementWithValue(id + string("_phi"), elements, mapElement);
+  addElementWithValue(id + string("_Upu"), modelType_, elements, mapElement);
+  addElementWithValue(id + string("_phipu"), modelType_, elements, mapElement);
+  addElementWithValue(id + string("_U"), modelType_, elements, mapElement);
+  addElementWithValue(id + string("_phi"), modelType_, elements, mapElement);
 
   // Discrete variables addition
-  addElementWithValue(id + string("_numcc"), elements, mapElement);
-  addElementWithValue(id + string("_switchOff"), elements, mapElement);
-  addElementWithValue(id + string("_state"), elements, mapElement);
+  addElementWithValue(id + string("_numcc"), modelType_, elements, mapElement);
+  addElementWithValue(id + string("_switchOff"), modelType_, elements, mapElement);
+  addElementWithValue(id + string("_state"), modelType_, elements, mapElement);
 }
 
 NetworkComponent::StateChange_t
