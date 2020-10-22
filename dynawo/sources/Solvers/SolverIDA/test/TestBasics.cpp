@@ -85,6 +85,8 @@ boost::shared_ptr<Solver> initSolver() {
   params->addParameter(parameters::ParameterFactory::newParameter("msbsetAlgJ", 1));
   params->addParameter(parameters::ParameterFactory::newParameter("mxiterAlgJ", 50));
   params->addParameter(parameters::ParameterFactory::newParameter("printflAlgJ", 0));
+  params->addParameter(parameters::ParameterFactory::newParameter("minimalAcceptableStep", 10e-6));
+  params->addParameter(parameters::ParameterFactory::newParameter("maximumNumberSlowStepIncrease", 10));
   solver->setParameters(params);
 
   return solver;

@@ -333,13 +333,19 @@ class Solver::Impl : public Solver, private boost::noncopyable {
   int mxiterAlgJ_;  ///< maximum number of nonlinear iterations
   int printflAlgJ_;  ///< level of verbosity of output
 
+  // Time step evolution parameters
+  double minimalAcceptableStep_;  ///< minimum time step to consider that the solver is not blocked
+  int maximumNumberSlowStepIncrease_;  ///< maximum number of consecutive time-steps with a time step lower than minimalAcceptableStep
+
+  // Performance optimization parameters
+  bool enableSilentZ_;  ///< enable the possibility to break discrete variable propagation loop if only silent z are modified
+  bool optimizeReinitAlgebraicResidualsEvaluations_;  ///< enable or disable the optimization of the number of algebraic residuals evals during reinit
+  modeChangeType_t minimumModeChangeTypeForAlgebraicRestoration_;  ///< parameter to set the minimum mode level at which algebraic restoration will occur
+
   stat_t stats_;  ///< execution statistics of the solver
   double tSolve_;  ///< current internal time of the solver
   BitMask state_;  ///< current state value of the solver
   PreviousReinit previousReinit_;  ///< previous reinitialization status of the solver
-  bool enableSilentZ_;  ///< enable the possibility to break discrete variable propagation loop if only silent z are modified
-  bool optimizeReinitAlgebraicResidualsEvaluations_;  ///< enable or disable the optimization of the number of algebraic residuals evals during reinit
-  modeChangeType_t minimumModeChangeTypeForAlgebraicRestoration_;  ///< parameter to set the minimum mode level at which algebraic restoration will occur
 };
 
 }  // end of namespace DYN

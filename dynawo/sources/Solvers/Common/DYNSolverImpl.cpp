@@ -84,11 +84,13 @@ mxnewtstepAlgJ_(100000),
 msbsetAlgJ_(1),
 mxiterAlgJ_(50),
 printflAlgJ_(0),
-tSolve_(0.),
-previousReinit_(None),
+minimalAcceptableStep_(1e-6),
+maximumNumberSlowStepIncrease_(10),
 enableSilentZ_(true),
 optimizeReinitAlgebraicResidualsEvaluations_(true),
-minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE) { }
+minimumModeChangeTypeForAlgebraicRestoration_(ALGEBRAIC_MODE),
+tSolve_(0.),
+previousReinit_(None) { }
 
 Solver::Impl::~Impl() {
   clean();
@@ -345,6 +347,10 @@ Solver::Impl::defineCommonParameters() {
   parameters_.insert(make_pair("mxiterAlgJ", ParameterSolver("mxiterAlgJ", VAR_TYPE_INT)));
   parameters_.insert(make_pair("printflAlgJ", ParameterSolver("printflAlgJ", VAR_TYPE_INT)));
 
+  // Parameters related to time-step evolution
+  parameters_.insert(make_pair("minimalAcceptableStep", ParameterSolver("minimalAcceptableStep", VAR_TYPE_DOUBLE, optional)));
+  parameters_.insert(make_pair("maximumNumberSlowStepIncrease", ParameterSolver("maximumNumberSlowStepIncrease", VAR_TYPE_INT, optional)));
+
   // Parameters for performance optimization
   parameters_.insert(make_pair("enableSilentZ", ParameterSolver("enableSilentZ", VAR_TYPE_BOOL)));
   parameters_.insert(make_pair("optimizeReinitAlgebraicResidualsEvaluations", ParameterSolver("optimizeReinitAlgebraicResidualsEvaluations", VAR_TYPE_BOOL)));
@@ -460,6 +466,13 @@ void Solver::Impl::setSolverCommonParameters() {
   const ParameterSolver& printflAlgJ = findParameter("printflAlgJ");
   if (printflAlgJ.hasValue())
     printflAlgJ_ = printflAlgJ.getValue<int>();
+
+  const ParameterSolver& minimalAcceptableStep = findParameter("minimalAcceptableStep");
+  if (minimalAcceptableStep.hasValue())
+     minimalAcceptableStep_ = minimalAcceptableStep.getValue<double>();
+  const ParameterSolver& maximumNumberSlowStepIncrease = findParameter("maximumNumberSlowStepIncrease");
+  if (maximumNumberSlowStepIncrease.hasValue())
+    maximumNumberSlowStepIncrease_ = maximumNumberSlowStepIncrease.getValue<int>();
 
   const ParameterSolver& enableSilentZ = findParameter("enableSilentZ");
   if (enableSilentZ.hasValue())
