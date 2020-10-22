@@ -182,6 +182,59 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefTypeMethods) {
   modelOmegaRef->evalFType();
   ASSERT_EQ(fTypes[0], ALGEBRAIC_EQ);
   ASSERT_EQ(fTypes[10], ALGEBRAIC_EQ);
+
+  ASSERT_NO_THROW(modelOmegaRef->dumpUserReadableElementList("MyElement"));
+  ASSERT_NO_THROW(modelOmegaRef->initializeFromData(boost::shared_ptr<DataInterface>()));
+  std:: vector<double> res;
+  std::vector<int> indexes;
+  ASSERT_NO_THROW(modelOmegaRef->evalJCalculatedVarI(0, res));
+  ASSERT_NO_THROW(modelOmegaRef->getIndexesOfVariablesUsedForCalculatedVarI(0, indexes));
+  ASSERT_NO_THROW(modelOmegaRef->evalCalculatedVars());
+  ASSERT_NO_THROW(modelOmegaRef->updateFType());
+  ASSERT_NO_THROW(modelOmegaRef->updateYType());
+  ASSERT_NO_THROW(modelOmegaRef->initializeStaticData());
+  ASSERT_NO_THROW(modelOmegaRef->setGequations());
+  ASSERT_EQ(modelOmegaRef->evalCalculatedVarI(0), 0.);
+
+  boost::shared_ptr<SubModel> modelOmegaRef2 = SubModelFactory::createSubModelFromLib("../DYNModelOmegaRef" + std::string(sharedLibraryExtension()));
+
+  std::vector<ParameterModeler> parameters;
+  modelOmegaRef2->defineParameters(parameters);
+  boost::shared_ptr<parameters::ParametersSet> parametersSet = parameters::ParametersSetFactory::newInstance("Parameterset");
+  parametersSet->createParameter("nbGen", 11);
+  parametersSet->createParameter("weight_gen_0", 2.);
+  parametersSet->createParameter("weight_gen_1", 2.);
+  parametersSet->createParameter("weight_gen_2", 2.);
+  parametersSet->createParameter("weight_gen_3", 2.);
+  parametersSet->createParameter("weight_gen_4", 2.);
+  parametersSet->createParameter("weight_gen_5", 2.);
+  parametersSet->createParameter("weight_gen_6", 2.);
+  parametersSet->createParameter("weight_gen_7", 2.);
+  parametersSet->createParameter("weight_gen_8", 2.);
+  parametersSet->createParameter("weight_gen_9", 2.);
+  parametersSet->createParameter("weight_gen_10", 2.);
+  parametersSet->createParameter("weight_gen_11", 2.);
+  modelOmegaRef2->setPARParameters(parametersSet);
+  modelOmegaRef2->addParameters(parameters, false);
+  modelOmegaRef2->setParametersFromPARFile();
+  modelOmegaRef2->setSubModelParameters();
+  modelOmegaRef2->init(0.);
+  modelOmegaRef2->getSize();
+  std::vector<double> y(modelOmegaRef2->sizeY(), 0);
+  std::vector<double> yp(modelOmegaRef2->sizeY(), 0);
+  modelOmegaRef2->setBufferY(&y[0], &yp[0], 0.);
+  std::vector<double> z(modelOmegaRef2->sizeZ(), 0);
+  bool* zConnected = new bool[modelOmegaRef2->sizeZ()];
+  for (size_t i = 0; i < modelOmegaRef2->sizeZ(); ++i)
+    zConnected[i] = true;
+  for (size_t i = 0; i < 11; ++i)
+    z[i] = i;
+  for (size_t i = 11; i < modelOmegaRef2->sizeZ(); ++i)
+    z[i] = 1.;
+  modelOmegaRef2->setBufferZ(&z[0], zConnected, 0);
+  modelOmegaRef2->evalZ(0.);
+
+  ASSERT_THROW_DYNAWO(modelOmegaRef2->getY0(), Error::MODELER, KeyError_t::TooMuchSubNetwork);
 }
 
 TEST(ModelsModelOmegaRef, ModelOmegaRefInit) {
@@ -218,6 +271,8 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   modelOmegaRef->setBufferY(&y[0], &yp[0], 0.);
   std::vector<double> z(modelOmegaRef->sizeZ(), 0);
   bool* zConnected = new bool[modelOmegaRef->sizeZ()];
+  bool* silentZ = new bool[modelOmegaRef->sizeZ()];
+  std::fill_n(silentZ, modelOmegaRef->sizeZ(), false);
   for (size_t i = 0; i < modelOmegaRef->sizeZ(); ++i)
     zConnected[i] = true;
   modelOmegaRef->setBufferZ(&z[0], zConnected, 0);
@@ -228,8 +283,16 @@ TEST(ModelsModelOmegaRef, ModelOmegaRefContinuousAndDiscreteMethods) {
   modelOmegaRef->init(0);
   modelOmegaRef->getY0();
   ASSERT_NO_THROW(modelOmegaRef->setFequations());
+  ASSERT_NO_THROW(modelOmegaRef->evalG(0.));
+  modelOmegaRef->collectSilentZ(silentZ);
+  for (size_t i = 0; i < modelOmegaRef->sizeZ(); ++i)
+    ASSERT_TRUE(silentZ[i]);
 
   modelOmegaRef->evalF(0, UNDEFINED_EQ);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
+  ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);
+  modelOmegaRef->evalF(0, DIFFERENTIAL_EQ);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[1], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[10], 0);
   ASSERT_DOUBLE_EQUALS_DYNAWO(f[11], 0);

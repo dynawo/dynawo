@@ -62,7 +62,7 @@ class ModelVoltageLevel : public NetworkComponent::Impl {
    * @brief getter for the voltage level components
    * @return the voltage level components
    */
-  inline std::vector<boost::shared_ptr<NetworkComponent> > getComponents() const {
+  inline const std::vector<boost::shared_ptr<NetworkComponent> >& getComponents() const {
     return components_;
   }
 

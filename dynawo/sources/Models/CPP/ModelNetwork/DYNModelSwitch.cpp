@@ -242,8 +242,8 @@ ModelSwitch::defineParameters(vector<ParameterModeler>& /*parameters*/) {
 void
 ModelSwitch::defineElements(std::vector<Element>& elements, std::map<std::string, int>& mapElement) {
   string switchName = id_;
-  addElementWithValue(switchName + string("_state"), elements, mapElement);
-  addElementWithValue(switchName + string("_swState"), elements, mapElement);
+  addElementWithValue(switchName + string("_state"), "Switch", elements, mapElement);
+  addElementWithValue(switchName + string("_swState"), "Switch", elements, mapElement);
 }
 
 NetworkComponent::StateChange_t

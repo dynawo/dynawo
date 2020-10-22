@@ -154,6 +154,23 @@ namespace DYN {
     return dynawoBool >  0.0;
   }
 
+
+  /**
+   * @brief distance between two strings
+   *
+   * @param s1 first string
+   * @param s2 second string
+   * @param insertCost penalty for character insertion
+   * @param deleteCost penalty for character deletion
+   * @param replaceCost penalty for character replacement
+   * @return the distance between the two strings
+   */
+  size_t
+  LevensteinDistance(const std::string& s1, const std::string& s2,
+      size_t insertCost = 1,
+      size_t deleteCost = 1,
+      size_t replaceCost = 1);
+
   /**
    * @brief structure use for sorting pairs in a vector
    */

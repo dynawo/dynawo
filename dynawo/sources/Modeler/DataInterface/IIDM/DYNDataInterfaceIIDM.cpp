@@ -107,6 +107,9 @@ DataInterfaceIIDM::~DataInterfaceIIDM() {
 
 boost::shared_ptr<DataInterface>
 DataInterfaceIIDM::build(std::string iidmFilePath) {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("DataInterfaceIIDM::build()");
+#endif
   boost::shared_ptr<DataInterfaceIIDM>  data;
   try {
     IIDM::xml::xml_parser parser;
@@ -138,6 +141,9 @@ DataInterfaceIIDM::build(std::string iidmFilePath) {
 
 void
 DataInterfaceIIDM::dumpToFile(const std::string& iidmFilePath) const {
+#if defined(_DEBUG_) || defined(PRINT_TIMERS)
+  Timer timer("DataInterfaceIIDM::dumpToFile()");
+#endif
   IIDM::xml::xml_formatter formatter;
   formatter.register_extension(
       &IIDM::extensions::busbarsection_position::xml::exportBusbarSectionPosition,
