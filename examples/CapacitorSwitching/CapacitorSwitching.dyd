@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  Le .dyd se compose de deux parties:
+
+  1) une où tu donnes les modèles dynamiques qui vont apparaître dans la simulation (blackBoxModel),
+  .so files are libraries : they are also the dynawo model
+  ils se presentent sous la forme de fichiers .so, qui sont le resultat de la compilation du modele Modelica
+
+  2) une où tu donnes la connexion entre ces modèles (connect).
+  connect sert a connecter des variables (ou parametres) externes entre chaque blackbox model
+  C'est pour ca qu'on a besoin du fichier .extvar. C'est une declaration des variables
+  externes du modele qui devront etres connectee ici (une fois le composant instanciee en tant que
+  blackBox model)
+
+
+  lib is the .so file, parfile is where the parameters of the blackbox model are located, parId is so that
+  you cna identifie the blackbox model you declared here in the .par file
+
+  lib is for the .so file
+-->
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+  <dyn:blackBoxModel id="CapacitorSwitchingModel" lib="CapacitorSwitching" parFile="./CapacitorSwitching.par" parId="1"/>
+</dyn:dynamicModelsArchitecture>
+
+<!--
+  example:
+
+<dyn:dynamicModelsArchitecture xmlns:dyn="http://www.rte-france.com/dynawo">
+<dyn:blackBoxModel id="RLC" lib="SeriesRLC" parFile="./RLC.par" parId="1"/>
+<dyn:blackBoxModel id="Ground" lib="Ground" parFile="./RLC.par" parId="2"/>
+<dyn:blackBoxModel id="Source" lib="CosineVoltage" parFile="./RLC.par" parId="3"/>
+<dyn:connect id1="Source" var1="p_i" id2="RLC" var2="n_i"/>
+<dyn:connect id1="RLC" var1="p_i" id2="Ground" var2="n_i"/>
+<dyn:connect id1="Ground" var1="p_i" id2="Source" var2="n_i"/>
+</dyn:dynamicModelsArchitecture>
+-->

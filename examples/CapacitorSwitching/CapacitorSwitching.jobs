@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jobs xmlns="http://www.rte-france.com/dynawo">
-    <job name="test">
+    <job name="testJobsCapacitorWithSwitch">
         <solver lib="dynawo_SolverIDA" parFile="solvers.par" parId="1"/>
         <modeler compileDir="outputs/compilation">
-            <dynModels dydFile="newRLC.dyd"/>
+            <dynModels dydFile="CapacitorSwitching.dyd"/>
             <precompiledModels useStandardModels="true"/>
             <modelicaModels useStandardModels="true">
               <directory path="." recursive="false"/>
             </modelicaModels>
         </modeler>
-        <simulation startTime="0" stopTime="0.1" precision="1e-6"/>
+        <simulation startTime="0" stopTime="0.6" precision="1e-4"/>
         <outputs directory="outputs">
-            <curves inputFile="newRLC.crv" exportMode="CSV"/>
-            <!--<logs>
+            <!--
             <dumpInitValues local="true" global="true"/>
             <constraints exportMode="XML"/>
             <timeline exportMode="TXT"/>
+
+            -->
+
+            <curves inputFile="CapacitorSwitching.crv" exportMode="CSV"/>
+
+            <logs>
               <appender tag="" file="dynawo.log" lvlFilter="DEBUG"/>
               <appender tag="COMPILE" file="dynawoCompiler.log" lvlFilter="DEBUG"/>
             </logs>
-            -->
         </outputs>
     </job>
 </jobs>

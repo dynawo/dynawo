@@ -54,7 +54,7 @@ equation
     Line(points={{19,-96},{34,-96},{34,-70},{34,-70}},          color = {255, 0, 255}));
   connect(rSFlipFlop1.S, zeroCrossing1.y) annotation (
     Line(points={{34,-58},{28,-58},{28,-32},{21,-32},{21,-32}},            color = {255, 0, 255}));
-  assert(Tclosing < Topening, "Closing time must be less tha opening time.", AssertionLevel.warning);
+  //assert(Tclosing < Topening, "Closing time must be less tha opening time.", AssertionLevel.warning);
   connect(pin_p, idealClosingSwitch1.p) annotation (
     Line(points = {{-96, 0}, {-64, 0}, {-64, 0}, {-62, 0}}, color = {0, 0, 255}));
   annotation (

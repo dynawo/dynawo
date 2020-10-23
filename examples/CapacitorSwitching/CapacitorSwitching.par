@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+      <par type="DOUBLE" name="SimpleCapacitor_AC1_Phase" value="0"/>
+      <par type="DOUBLE" name="SimpleCapacitor_AC1_StartTime" value="0"/>
+      <par type="DOUBLE" name="SimpleCapacitor_AC1_StopTime" value="1"/>
+      <par type="DOUBLE" name="SimpleCapacitor_AC1_Vm" value="230"/>
+      <par type="DOUBLE" name="SimpleCapacitor_AC1_f" value="60"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_Tclosing" value="0.10000000000000001"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_Topening" value="1"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_booleanConstant1_k" value="false"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_clock1_offset" value="0"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_clock1_startTime" value="0"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_clock2_offset" value="0"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_clock2_startTime" value="0"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_greaterThreshold1_threshold"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_greaterThreshold2_threshold"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_idealClosingSwitch1_Goff" value="1.0000000000000001e-15"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_idealClosingSwitch1_Ron" value="1.0000000000000001e-15"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_idealClosingSwitch1_T" value="293.14999999999998"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_idealClosingSwitch1_useHeatPort" value="false"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_rSFlipFlop1_Qini" value="false"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR1_rSFlipFlop1_pre_pre_u_start"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_Tclosing" value="0.20000000000000001"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_Topening" value="0.40000000000000002"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_booleanConstant1_k" value="false"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_clock1_offset" value="0"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_clock1_startTime" value="0"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_clock2_offset" value="0"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_clock2_startTime" value="0"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_greaterThreshold1_threshold"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_greaterThreshold2_threshold"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_idealClosingSwitch1_Goff" value="1.0000000000000001e-15"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_idealClosingSwitch1_Ron" value="1.0000000000000001e-15"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_idealClosingSwitch1_T" value="293.14999999999998"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_idealClosingSwitch1_useHeatPort" value="false"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_rSFlipFlop1_Qini" value="false"/>
+      <par type="DOUBLE" name="SimpleCapacitor_BR2_rSFlipFlop1_pre_pre_u_start"/>
+      <par type="DOUBLE" name="SimpleCapacitor_C1_C" value="5.0000000000000004e-06"/>
+      <par type="DOUBLE" name="SimpleCapacitor_C2_C" value="5.0000000000000004e-06"/>
+      <par type="DOUBLE" name="SimpleCapacitor_C_C" value="4.9999999999999998e-07"/>
+      <par type="DOUBLE" name="SimpleCapacitor_L1_L" value="7.4999999999999993e-05"/>
+      <par type="DOUBLE" name="SimpleCapacitor_L_L" value="7.4999999999999993e-05"/>
+      <par type="DOUBLE" name="SimpleCapacitor_R1_R" value="30"/>
+      <par type="DOUBLE" name="SimpleCapacitor_RLs_L" value="0.039800000000000002"/>
+      <par type="DOUBLE" name="SimpleCapacitor_RLs_R" value="1"/>
+      <par type="DOUBLE" name="SimpleCapacitor_R_R" value="30"/>
+      <par type="DOUBLE" name="SimpleCapacitor_Rds_R" value="10000"/>
+  </set>
+</parametersSet>
+
+
+<!--
+Example:
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par type="DOUBLE" name="converter_P0Pu" value="-1.55"/>
+    <par type="DOUBLE" name="converter_Q0Pu" value="0"/>
+    <par type="DOUBLE" name="converter_U0Pu" value="1"/>
+    <par type="DOUBLE" name="converter_UPhase0" value="0.06"/>
+    <par type="DOUBLE" name="converter_Cdc" value="0.01"/>
+    <par type="DOUBLE" name="converter_Rfilter" value="0.005"/>
+    <par type="DOUBLE" name="converter_Lfilter" value="0.15"/>
+    <par type="DOUBLE" name="converter_Cfilter" value="0.066"/>
+    <par type="DOUBLE" name="converter_Rtransformer" value="0.01"/>
+    <par type="DOUBLE" name="converter_Ltransformer" value="0.2"/>
+    <par type="DOUBLE" name="converter_SNom" value="250"/>
+    <par type="DOUBLE" name="control_KpVI" value="0.67"/>
+    <par type="DOUBLE" name="control_XRratio" value="5"/>
+    <par type="DOUBLE" name="control_Kpc" value="0.7388"/>
+    <par type="DOUBLE" name="control_Kic" value="1.19"/>
+    <par type="DOUBLE" name="control_Kpv" value="0.52"/>
+    <par type="DOUBLE" name="control_Kiv" value="1.161022"/>
+    <par type="DOUBLE" name="control_Mq" value="0.000"/>
+    <par type="DOUBLE" name="control_Wf" value="60"/>
+    <par type="DOUBLE" name="control_Mp" value="0.02"/>
+    <par type="DOUBLE" name="control_Wff" value="16.66"/>
+    <par type="DOUBLE" name="control_Kff" value="0.01"/>
+    <par type="DOUBLE" name="control_Rfilter" value="0.005"/>
+    <par type="DOUBLE" name="control_Lfilter" value="0.15"/>
+    <par type="DOUBLE" name="control_Cfilter" value="0.066"/>
+    <par type="DOUBLE" name="control_Kpdc" value="50"/>
+    <par type="DOUBLE" name="PRefPu_ValueIn" value="0.6"/>
+    <par type="DOUBLE" name="QRefPu_ValueIn" value="0"/>
+    <par type="DOUBLE" name="UFilterRefPu_ValueIn" value="1"/>
+    <par type="DOUBLE" name="IdcSourceRefPu_ValueIn" value="0.6"/>
+    <par type="DOUBLE" name="UdcSourceRefPu_ValueIn" value="1"/>
+  </set>
+</parametersSet>
+-->

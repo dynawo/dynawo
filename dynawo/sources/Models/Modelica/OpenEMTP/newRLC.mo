@@ -12,8 +12,6 @@ model newRLC
   OpenEMTP.Electrical.RLC_Branches.Ground g annotation(
     Placement(visible = true, transformation(origin = {40, -56}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(ac.p, r.p) annotation(
-    Line(points = {{-44, -46}, {-44, 10}, {-42, 10}}, color = {0, 0, 255}));
   connect(c.n, g.p) annotation(
     Line(points = {{38, 10}, {40, 10}, {40, -46}}, color = {0, 0, 255}));
   connect(ac.n, g.p) annotation(
@@ -22,4 +20,6 @@ equation
     Line(points = {{10, 10}, {16, 10}, {16, 10}, {18, 10}}, color = {0, 0, 255}));
   connect(l.p, r.n) annotation(
     Line(points = {{-10, 10}, {-22, 10}, {-22, 10}, {-22, 10}}, color = {0, 0, 255}));
+  connect(r.p, ac.p) annotation(
+    Line(points = {{-42, 10}, {-44, 10}, {-44, -46}, {-44, -46}}, color = {0, 0, 255}));
 end newRLC;

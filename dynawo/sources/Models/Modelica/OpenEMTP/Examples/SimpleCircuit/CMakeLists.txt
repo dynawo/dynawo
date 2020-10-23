@@ -8,20 +8,13 @@
 #
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
-add_subdirectory(CPline C)
-add_subdirectory(WBline W)
-add_subdirectory(Transformer T)
-add_subdirectory(Machine M)
-add_subdirectory(IEEE39Bus I39)
-add_subdirectory(IEEE13Bus I13)
-add_subdirectory(Ferroresonance F)
-add_subdirectory(Lightning L)
-add_subdirectory(SimpleCircuit S)
-
 
 set(MODEL_FILES
     package.mo
+    CapacitorSwitching.mo
+    CapacitorBank.mo
     )
+
 #
 # Modelica models install
 #

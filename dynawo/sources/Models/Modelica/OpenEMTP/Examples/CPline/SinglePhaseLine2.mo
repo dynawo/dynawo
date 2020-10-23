@@ -1,4 +1,5 @@
 within OpenEMTP.Examples.CPline;
+
 model SinglePhaseLine2
   Electrical.RLC_Branches.Ground G2 annotation(
     Placement(visible = true, transformation(origin = {80, 58}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));

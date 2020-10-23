@@ -53,7 +53,7 @@ equation
   connect(l1.n, Zno1.p) annotation(
     Line(points = {{78, 20}, {90, 20}, {90, -16}}, color = {0, 0, 255}));
   annotation(
-    experiment(StartTime = 0, StopTime = 0.0003, Tolerance = 1e-06, Interval = 1.00003e-08),
+    experiment(StartTime = 0, StopTime = 0.0003, Tolerance = 1e-04, Interval = 1.00003e-08),
     __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian,newInst",
-    __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "impeuler", clock = "CPU", ls = "klu", lss = "klu"));
+    __OpenModelica_simulationFlags(lv = "LOG_STATS", outputFormat = "mat", s = "ida", clock = "CPU", lss = "klu"));
 end MO_arrester;

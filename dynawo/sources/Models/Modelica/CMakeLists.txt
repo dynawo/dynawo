@@ -10,6 +10,6 @@
 
 set(DYNAWO_MODELICA_MODELS_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_subdirectory(Dynawo D)
+# add_subdirectory(Dynawo D)
 add_subdirectory(PreassembledModels P)
 add_subdirectory(OpenEMTP O)

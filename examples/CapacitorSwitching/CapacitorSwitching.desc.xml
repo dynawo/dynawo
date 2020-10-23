@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<model xmlns="http://www.rte-france.com/dynawo">
+  <name>CapacitorSwitching</name>
+  <elements>
+    <parameters>
+      <parameter name="SimpleCapacitor_AC1_Phase" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="SimpleCapacitor_AC1_StartTime" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="SimpleCapacitor_AC1_StopTime" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1"/>
+      <parameter name="SimpleCapacitor_AC1_Vm" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="230"/>
+      <parameter name="SimpleCapacitor_AC1_f" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="60"/>
+      <parameter name="SimpleCapacitor_BR1_Tclosing" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0.10000000000000001"/>
+      <parameter name="SimpleCapacitor_BR1_Topening" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1"/>
+      <parameter name="SimpleCapacitor_BR1_booleanConstant1_k" valueType="BOOL" cardinality="1" readOnly="false" defaultValue="false"/>
+      <parameter name="SimpleCapacitor_BR1_clock1_offset" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="SimpleCapacitor_BR1_clock1_startTime" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="SimpleCapacitor_BR1_clock2_offset" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="SimpleCapacitor_BR1_clock2_startTime" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="SimpleCapacitor_BR1_greaterThreshold1_threshold" valueType="DOUBLE" cardinality="1" readOnly="true"/>
+      <parameter name="SimpleCapacitor_BR1_greaterThreshold2_threshold" valueType="DOUBLE" cardinality="1" readOnly="true"/>
+      <parameter name="SimpleCapacitor_BR1_idealClosingSwitch1_Goff" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1.0000000000000001e-15"/>
+      <parameter name="SimpleCapacitor_BR1_idealClosingSwitch1_Ron" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1.0000000000000001e-15"/>
+      <parameter name="SimpleCapacitor_BR1_idealClosingSwitch1_T" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="293.14999999999998"/>
+      <parameter name="SimpleCapacitor_BR1_idealClosingSwitch1_useHeatPort" valueType="BOOL" cardinality="1" readOnly="false" defaultValue="false"/>
+      <parameter name="SimpleCapacitor_BR1_rSFlipFlop1_Qini" valueType="BOOL" cardinality="1" readOnly="false" defaultValue="false"/>
+      <parameter name="SimpleCapacitor_BR1_rSFlipFlop1_pre_pre_u_start" valueType="BOOL" cardinality="1" readOnly="true"/>
+      <parameter name="SimpleCapacitor_BR2_Tclosing" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0.20000000000000001"/>
+      <parameter name="SimpleCapacitor_BR2_Topening" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0.40000000000000002"/>
+      <parameter name="SimpleCapacitor_BR2_booleanConstant1_k" valueType="BOOL" cardinality="1" readOnly="false" defaultValue="false"/>
+      <parameter name="SimpleCapacitor_BR2_clock1_offset" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="SimpleCapacitor_BR2_clock1_startTime" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="SimpleCapacitor_BR2_clock2_offset" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="SimpleCapacitor_BR2_clock2_startTime" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="SimpleCapacitor_BR2_greaterThreshold1_threshold" valueType="DOUBLE" cardinality="1" readOnly="true"/>
+      <parameter name="SimpleCapacitor_BR2_greaterThreshold2_threshold" valueType="DOUBLE" cardinality="1" readOnly="true"/>
+      <parameter name="SimpleCapacitor_BR2_idealClosingSwitch1_Goff" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1.0000000000000001e-15"/>
+      <parameter name="SimpleCapacitor_BR2_idealClosingSwitch1_Ron" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1.0000000000000001e-15"/>
+      <parameter name="SimpleCapacitor_BR2_idealClosingSwitch1_T" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="293.14999999999998"/>
+      <parameter name="SimpleCapacitor_BR2_idealClosingSwitch1_useHeatPort" valueType="BOOL" cardinality="1" readOnly="false" defaultValue="false"/>
+      <parameter name="SimpleCapacitor_BR2_rSFlipFlop1_Qini" valueType="BOOL" cardinality="1" readOnly="false" defaultValue="false"/>
+      <parameter name="SimpleCapacitor_BR2_rSFlipFlop1_pre_pre_u_start" valueType="BOOL" cardinality="1" readOnly="true"/>
+      <parameter name="SimpleCapacitor_C1_C" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="5.0000000000000004e-06"/>
+      <parameter name="SimpleCapacitor_C2_C" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="5.0000000000000004e-06"/>
+      <parameter name="SimpleCapacitor_C_C" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="4.9999999999999998e-07"/>
+      <parameter name="SimpleCapacitor_L1_L" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="7.4999999999999993e-05"/>
+      <parameter name="SimpleCapacitor_L_L" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="7.4999999999999993e-05"/>
+      <parameter name="SimpleCapacitor_R1_R" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="30"/>
+      <parameter name="SimpleCapacitor_RLs_L" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0.039800000000000002"/>
+      <parameter name="SimpleCapacitor_RLs_R" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1"/>
+      <parameter name="SimpleCapacitor_R_R" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="30"/>
+      <parameter name="SimpleCapacitor_Rds_R" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="10000"/>
+    </parameters>
+    <variables>
+      <variable name="SimpleCapacitor_AC1_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_AC1_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_AC1_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_AC1_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_AC1_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_AC1_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_and1_u1" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_and1_u2" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_and1_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_booleanConstant1_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_clock1_y" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_clock2_y" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_currentSensor1_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_currentSensor1_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_currentSensor1_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_currentSensor1_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_currentSensor1_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_greaterThreshold1_u" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_greaterThreshold1_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_greaterThreshold2_u" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_greaterThreshold2_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_LossPower" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_T_heatPort" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_control" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_off" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_s" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_idealClosingSwitch1_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_pin_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_pin_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_pin_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_pin_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_Q" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_QI" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_R" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_S" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_nor1_u1" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_nor1_u2" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_nor1_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_nor_u1" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_nor_u2" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_nor_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_pre_u" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_rSFlipFlop1_pre_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_zeroCrossing1_disable" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_zeroCrossing1_enable" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_zeroCrossing1_u" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR1_zeroCrossing1_u_pos" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR1_zeroCrossing1_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_and1_u1" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_and1_u2" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_and1_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_booleanConstant1_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_clock1_y" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_clock2_y" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_currentSensor1_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_currentSensor1_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_currentSensor1_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_currentSensor1_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_currentSensor1_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_greaterThreshold1_u" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_greaterThreshold1_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_greaterThreshold2_u" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_greaterThreshold2_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_LossPower" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_T_heatPort" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_control" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_off" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_s" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_idealClosingSwitch1_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_pin_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_pin_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_pin_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_pin_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_Q" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_QI" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_R" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_S" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_nor1_u1" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_nor1_u2" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_nor1_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_nor_u1" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_nor_u2" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_nor_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_pre_u" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_rSFlipFlop1_pre_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_zeroCrossing1_disable" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_zeroCrossing1_enable" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_zeroCrossing1_u" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_BR2_zeroCrossing1_u_pos" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_BR2_zeroCrossing1_y" valueType="BOOL"/>
+      <variable name="SimpleCapacitor_C1_Q" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C1_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C1_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C1_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C1_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C1_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C1_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C2_Q" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C2_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C2_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C2_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C2_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C2_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C2_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C_Q" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_C_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_G1_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_G1_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_G2_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_G2_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_G_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_G_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L1_P" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L1_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L1_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L1_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L1_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L1_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L1_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L_P" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_L_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R1_P" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R1_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R1_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R1_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R1_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R1_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R1_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_RLs_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_RLs_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_RLs_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_RLs_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_RLs_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_RLs_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R_P" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_R_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_Rds_P" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_Rds_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_Rds_n_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_Rds_n_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_Rds_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_Rds_p_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_Rds_v" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_g_p_i" valueType="DOUBLE"/>
+      <variable name="SimpleCapacitor_g_p_v" valueType="DOUBLE"/>
+    </variables>
+  </elements>
+</model>

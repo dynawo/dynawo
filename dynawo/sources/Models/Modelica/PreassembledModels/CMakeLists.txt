@@ -11,64 +11,13 @@
 # Preassembled models
 
 set(MODELICA_PREASSEMBLED_MODELS
-    CurrentLimitAutomaton.xml
-    EventConnectedStatus.xml
-    EventQuadripoleConnection.xml
-    EventQuadripoleDisconnection.xml
-    EventSetPointBoolean.xml
-    EventSetPointReal.xml
-    EventSetPointDoubleReal.xml
-    GeneratorFictitious.xml
-    GeneratorPQ.xml
-    GeneratorPQPropSignalN.xml
-    GeneratorPV.xml
-    GeneratorPVSignalN.xml
-    GeneratorPVWithImpedanceSignalN.xml
-    GeneratorPVDiagramPQSignalN.xml
-    GeneratorPVDiagramPQWithImpedanceSignalN.xml
-    GeneratorPVPropSignalN.xml
-    GeneratorPVRemoteSignalN.xml
-    GeneratorSynchronousFourWindings.xml
-    GeneratorSynchronousThreeWindings.xml
-    GeneratorSynchronousFourWindingsProportionalRegulations.xml
-    GeneratorSynchronousThreeWindingsProportionalRegulations.xml
-    GeneratorSynchronousFourWindingsGoverPropVRPropInt.xml
-    GeneratorSynchronousThreeWindingsGoverPropVRPropInt.xml
-    GenericAutomaton.xml
-    GridFormingConverterDroopControl.xml
-    GridFormingConverterMatchingControl.xml
-    GridFormingConverterDispatchableVirtualOscillatorControl.xml
-    HvdcPVEmulation.xml
-    HvdcPTanPhi.xml
-    HvdcVSC.xml
-    HvdcVSCEmulation.xml
-    InfiniteBus.xml
-    InjectorBG.xml
-    Line.xml
-    LoadAlphaBeta.xml
-    LoadAlphaBetaRestorative.xml
-    LoadOneTransformer.xml
-    LoadOneTransformerTapChanger.xml
-    LoadPQ.xml
-    LoadTwoTransformers.xml
-    LoadTwoTransformersTapChangers.xml
-    LoadZIP.xml
-    NodeFault.xml
-    PhaseShifterI.xml
-    PhaseShifterP.xml
-    ShuntBWithSections.xml
-    ShuntBWithSectionsWithRegulation.xml
-    SetPoint.xml
-    StaticVarCompensator.xml
-    StaticVarCompensatorPV.xml
-    Step.xml
-    TapChangerAutomaton.xml
-    TapChangerBlockingArea.xml
-    TransformerFixedRatio.xml
-    UnderVoltageAutomaton.xml
-    VRRemote.xml
     newRLC.xml
+    SinglePhaseLine2.xml
+    CapacitorSwitching.xml
     )
+    # CapacitorBank.xml
+    # MO_arrester.xml
+    # AerialLine.xml
 
 # PYTHON scripts preassembled models
 set(PYTHON_SCRIPTS_PREASSEMBLED_MODELS
