@@ -15,28 +15,28 @@ set(DATA_INTERFACE_IIDM_VERSION_STRING ${DYNAWO_VERSION_STRING})
 set(DATA_INTERFACE_IIDM_VERSION_MAJOR ${DYNAWO_VERSION_MAJOR})
 
 set(DATA_INTERFACE_IIDM_SOURCES
-    DYNBusInterfaceIIDM.cpp
-#    DYNCalculatedBusInterfaceIIDM.cpp
-    DYNCurrentLimitInterfaceIIDM.cpp
-    DYNLineInterfaceIIDM.cpp
-    DYNLoadInterfaceIIDM.cpp
-#    DYNRatioTapChangerInterfaceIIDM.cpp
-    DYNStepInterfaceIIDM.cpp
-    DYNSwitchInterfaceIIDM.cpp
-#   DYNTwoWTransformerInterfaceIIDM.cpp
-#   DYNThreeWTransformerInterfaceIIDM.cpp
-#   DYNShuntCompensatorInterfaceIIDM.cpp
-#   DYNStaticVarCompensatorInterfaceIIDM.cpp
-#   DYNGeneratorInterfaceIIDM.cpp
-#   DYNDanglingLineInterfaceIIDM.cpp
-#   DYNNetworkInterfaceIIDM.cpp
-#   DYNPhaseTapChangerInterfaceIIDM.cpp
-#   DYNDataInterfaceIIDM.cpp
-#   DYNVoltageLevelInterfaceIIDM.cpp
-#   DYNVscConverterInterfaceIIDM.cpp
-#   DYNLccConverterInterfaceIIDM.cpp
-#   DYNHvdcLineInterfaceIIDM.cpp
-    )
+  DYNBusInterfaceIIDM.cpp
+#  DYNCalculatedBusInterfaceIIDM.cpp
+  DYNCurrentLimitInterfaceIIDM.cpp
+  DYNLineInterfaceIIDM.cpp
+  DYNLoadInterfaceIIDM.cpp
+  DYNRatioTapChangerInterfaceIIDM.cpp
+  DYNStepInterfaceIIDM.cpp
+  DYNSwitchInterfaceIIDM.cpp
+# DYNTwoWTransformerInterfaceIIDM.cpp
+# DYNThreeWTransformerInterfaceIIDM.cpp
+# DYNShuntCompensatorInterfaceIIDM.cpp
+# DYNStaticVarCompensatorInterfaceIIDM.cpp
+# DYNGeneratorInterfaceIIDM.cpp
+# DYNDanglingLineInterfaceIIDM.cpp
+# DYNNetworkInterfaceIIDM.cpp
+# DYNPhaseTapChangerInterfaceIIDM.cpp
+# DYNDataInterfaceIIDM.cpp
+# DYNVoltageLevelInterfaceIIDM.cpp
+# DYNVscConverterInterfaceIIDM.cpp
+# DYNLccConverterInterfaceIIDM.cpp
+# DYNHvdcLineInterfaceIIDM.cpp
+)
 
 set(DATA_INTERFACE_IIDM_INCLUDE_HEADERS
 #    DYNDataInterfaceIIDM.h
