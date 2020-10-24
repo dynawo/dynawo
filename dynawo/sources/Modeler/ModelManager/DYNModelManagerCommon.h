@@ -256,6 +256,7 @@ T pow_dynawo(T a, T b) {
 #define size_of_dimension_base_array(x, y) sizeOffArray_ (x.dim_size, y - 1)
 
 #define MMC_STRINGDATA(x) x
+#define MMC_THROW_INTERNAL() assert(false)
 
 #define integer_array_element_addr1(source, ndims, dim1) integerArrayElementAddress1_(*source, dim1)
 

@@ -65,8 +65,27 @@ void launchSimu(const std::string& jobsFileName) {
     context->setInputDirectory(prefixJobFile);
     context->setWorkingDirectory(prefixJobFile);
 
-    boost::shared_ptr<Simulation> simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
-    simulation->init();
+    boost::shared_ptr<Simulation> simulation;
+    try {
+      simulation = boost::shared_ptr<Simulation>(new Simulation((*itJobEntry), context));
+      simulation->init();
+    } catch (const DYN::Error& err) {
+      Trace::error() << err.what() << Trace::endline;
+      throw;
+    } catch (const DYN::MessageError& e) {
+      Trace::error() << e.what() << Trace::endline;
+      throw;
+    } catch (const char *s) {
+      Trace::error() << s << Trace::endline;
+      throw;
+    } catch (const std::string & Msg) {
+      Trace::error() << Msg << Trace::endline;
+      throw;
+    } catch (std::exception & exc) {
+      Trace::error() << exc.what() << Trace::endline;
+      throw;
+    }
+
     try {
       simulation->simulate();
       simulation->terminate();
@@ -74,12 +93,27 @@ void launchSimu(const std::string& jobsFileName) {
       // Needed as otherwise terminate might crash due to missing staticRef variables
       if (err.key() == DYN::KeyError_t::StateVariableNoReference)
         simulation->activateExportIIDM(false);
+      Trace::error() << err.what() << Trace::endline;
       simulation->terminate();
       throw;
-    } catch (const DYN::Terminate&) {
+    } catch (const DYN::Terminate& e) {
+      Trace::error() << e.what() << Trace::endline;
       simulation->terminate();
       throw;
-    } catch (const DYN::MessageError&) {
+    } catch (const DYN::MessageError& e) {
+      Trace::error() << e.what() << Trace::endline;
+      simulation->terminate();
+      throw;
+    } catch (const char *s) {
+      Trace::error() << s << Trace::endline;
+      simulation->terminate();
+      throw;
+    } catch (const std::string & Msg) {
+      Trace::error() << Msg << Trace::endline;
+      simulation->terminate();
+      throw;
+    } catch (std::exception & exc) {
+      Trace::error() << exc.what() << Trace::endline;
       simulation->terminate();
       throw;
     }

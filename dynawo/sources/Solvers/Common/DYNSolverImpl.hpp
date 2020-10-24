@@ -33,19 +33,6 @@ inline Solver::Impl::setParameterValue(ParameterSolver& parameter, const T& valu
   }
 }
 
-template<typename T>
-T
-inline Solver::Impl::getMandatoryParameterValue(const std::string& paramName) {
-  if (hasParameter(paramName)) {
-    ParameterSolver& parameter = findParameter(paramName);
-    if (parameter.hasValue())
-      return parameter.getValue<T>();
-    else
-      throw DYNError(Error::GENERAL, SolverMissingParam, parameter.getName());
-  }
-  throw DYNError(Error::GENERAL, ParameterNotDefined, paramName);
-}
-
 }  // namespace DYN
 
 #endif  // SOLVERS_COMMON_DYNSOLVERIMPL_HPP_

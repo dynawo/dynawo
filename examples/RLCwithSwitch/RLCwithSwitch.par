@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parametersSet xmlns="http://www.rte-france.com/dynawo">
+  <set id="1">
+    <par name="RLCwithSwitchTest_ac_Phase" type="DOUBLE" value="0"/>
+    <par name="RLCwithSwitchTest_ac_StartTime" type="DOUBLE" value="0"/>
+    <par name="RLCwithSwitchTest_ac_StopTime" type="DOUBLE" value="1"/>
+    <par name="RLCwithSwitchTest_ac_Vm" type="DOUBLE" value="10"/>
+    <par name="RLCwithSwitchTest_ac_f" type="DOUBLE" value="60"/>
+    <par name="RLCwithSwitchTest_c_C" type="DOUBLE" value="5.0000000000000004e-06"/>
+    <par name="RLCwithSwitchTest_l_L" type="DOUBLE" value="0.14999999999999999"/>
+    <par name="RLCwithSwitchTest_r_R" type="DOUBLE" value="5"/>
+    <par name="RLCwithSwitchTest_sw_Tclosing" type="DOUBLE" value="0.10000000000000001"/>
+    <par name="RLCwithSwitchTest_sw_Topening" type="DOUBLE" value="0.20000000000000001"/>
+    <par name="RLCwithSwitchTest_sw_booleanConstant1_k" type="BOOL" value="false"/>
+    <par name="RLCwithSwitchTest_sw_clock1_offset" type="DOUBLE" value="0"/>
+    <par name="RLCwithSwitchTest_sw_clock1_startTime" type="DOUBLE" value="0"/>
+    <par name="RLCwithSwitchTest_sw_clock2_offset" type="DOUBLE" value="0"/>
+    <par name="RLCwithSwitchTest_sw_clock2_startTime" type="DOUBLE" value="0"/>
+    <par name="RLCwithSwitchTest_sw_idealClosingSwitch1_Goff" type="DOUBLE" value="1.0000000000000001e-15"/>
+    <par name="RLCwithSwitchTest_sw_idealClosingSwitch1_Ron" type="DOUBLE" value="1.0000000000000001e-15"/>
+    <par name="RLCwithSwitchTest_sw_idealClosingSwitch1_T" type="DOUBLE" value="293.14999999999998"/>
+    <par name="RLCwithSwitchTest_sw_idealClosingSwitch1_useHeatPort" type="BOOL" value="false"/>
+    <par name="RLCwithSwitchTest_sw_rSFlipFlop1_Qini" type="BOOL" value="false"/>
+  </set>
+</parametersSet>

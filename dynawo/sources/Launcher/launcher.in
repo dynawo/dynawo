@@ -13,7 +13,10 @@
 usage_help() {
   if [ -f "$GENERATE_PREASSEMBLED" ]; then
     echo \
-"###### LAUNCHER HELP #####
+"##### DYNAWO HELP #####"
+  ${DYNAWO} --help
+echo \
+"###### LAUNCHER OPTIONS #####
    --valgrind                                    launch DYNAWO with valgrind (must be the first argument)
    --valgrind-callgrind                          launch DYNAWO with valgrind using callgrind tool (must be the first argument)
    --valgrind-massif                             launch DYNAWO with valgrind using memory tool (must be the first argument)
@@ -27,23 +30,21 @@ usage_help() {
    --dump-model-valgrind                         launch DYNAWO dumpModel executable in valgrind (must be the first argument)
    --compile-cpp-modelica-model-in-dynamic-lib   launch DYNAWO compileLibModeliaOMC (must be the first argument)
    --version                                     show dynawo version (must be the first argument)
-   --help                                        produce help message (must be the first argument)
-
-##### DYNAWO HELP #####"
-  ${DYNAWO} --help
+   --help                                        produce help message (must be the first argument)"
   else
     echo \
-"###### LAUNCHER HELP #####
+"##### DYNAWO HELP #####"
+  ${DYNAWO} --help
+echo \
+"
+###### LAUNCHER OPTIONS #####
    --valgrind                                    launch DYNAWO with valgrind (must be the first argument)
    --valgrind-callgrind                          launch DYNAWO with valgrind using callgrind tool (must be the first argument)
    --valgrind-massif                             launch DYNAWO with valgrind using memory tool (must be the first argument)
    --valgrind-dhat                               launch DYNAWO with valgrind using dhat tool (must be the first argument)
    --gdb                                         launch DYNAWO with gdb (must be the first argument)
    --version                                     show dynawo version (must be the first argument)
-   --help                                        produce help message (must be the first argument)
-
-##### DYNAWO HELP #####"
-    ${DYNAWO} --help
+   --help                                        produce help message (must be the first argument)"
   fi
 }
 

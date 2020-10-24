@@ -43,9 +43,19 @@ id_(id) {
 ParametersSet::Impl::~Impl() {
 }
 
-std::string
+const std::string&
 ParametersSet::Impl::getId() const {
   return id_;
+}
+
+const std::string&
+ParametersSet::Impl::getFilePath() const {
+  return filepath_;
+}
+
+void
+ParametersSet::Impl::setFilePath(const std::string& filepath) {
+  filepath_ = filepath;
 }
 
 // in case of using omc, parameter A[1] will be renamed A_1

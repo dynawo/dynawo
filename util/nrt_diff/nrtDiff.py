@@ -55,13 +55,6 @@ DYN_NAMESPACE = "http://www.rte-france.com/dynawo"
 def namespaceDYN(tag):
     return "{" + DYN_NAMESPACE + "}" + tag
 
-
-if os.getenv("DYNAWO_BRANCH_NAME") is None:
-    print("environment variable DYNAWO_BRANCH_NAME needs to be defined")
-    sys.exit(1)
-
-# Output configuration
-branch_name = os.environ["DYNAWO_BRANCH_NAME"]
 resources_dir = os.path.join(os.path.dirname(__file__), "..", "..","nrt", "resources")
 web_browser = os.getenv ('DYNAWO_BROWSER', 'firefox')
 files_included = set(settings.files_included)
@@ -294,7 +287,8 @@ def main():
     else:
         print("[INFO] Only common files will be compared")
 
-    output_dir = os.path.join(output_dir_all_nrt, branch_name)
+    # Output configuration
+    output_dir = output_dir_all_nrt
     html_output = os.path.join(output_dir, "nrtDiff.html")
 
     print("[INFO] output dir: " + output_dir)

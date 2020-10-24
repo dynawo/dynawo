@@ -54,7 +54,15 @@ class Trace {
     /**
      * @brief TraceAppender constructor
      */
-    TraceAppender() { }
+    TraceAppender():
+      tag_(),
+      filePath_(),
+      lvlFilter_(INFO),
+      showLevelTag_(false),
+      separator_(),
+      showTimeStamp_(false),
+      timeStampFormat_(),
+      append_(false) { }
 
     /**
      * @brief TraceAppender destructor
@@ -65,7 +73,7 @@ class Trace {
      * @brief Tag attribute getter
      * @return Tag filtered by the appender
      */
-    std::string getTag() const {
+    const std::string& getTag() const {
       return tag_;
     }
 
@@ -73,7 +81,7 @@ class Trace {
      * @brief File path attribute getter
      * @return Output file path of the appender
      */
-    std::string getFilePath() const {
+    const std::string& getFilePath() const {
       return filePath_;
     }
 
@@ -97,7 +105,7 @@ class Trace {
      * @brief separator between log information getter
      * @return the separator used to separate information inside the log
      */
-    std::string getSeparator() const {
+    const std::string& getSeparator() const {
       return separator_;
     }
 
@@ -113,8 +121,16 @@ class Trace {
      * @brief get the time stamp format used inside the log
      * @return the time stamp format used
      */
-    std::string getTimeStampFormat() const {
+    const std::string& getTimeStampFormat() const {
       return timeStampFormat_;
+    }
+
+    /**
+     * @brief Determines if log is appended to existing file
+     * @returns whether the log must appended to existing log file
+     */
+    bool doesAppend() const {
+      return append_;
     }
 
     /**
@@ -173,6 +189,15 @@ class Trace {
       timeStampFormat_ = format;
     }
 
+    /**
+     * @brief Set the append attribute
+     *
+     * @param append determines if the log must appended to existing file
+     */
+    void setAppend(bool append) {
+      append_ = append;
+    }
+
    private:
     std::string tag_;  ///< Tag filtered by the appender
     std::string filePath_;  ///< Output file path of the appender
@@ -181,6 +206,7 @@ class Trace {
     std::string separator_;  ///< separator used between each log information date severity log
     bool showTimeStamp_;  ///< @b true if the timestamp of the log should be printed
     std::string timeStampFormat_;  ///< format of the timestamp information , "" if no time to print
+    bool append_;  ///< Append to existing file instead of erasing
   };
 
   /**

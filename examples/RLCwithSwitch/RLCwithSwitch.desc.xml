@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<model xmlns="http://www.rte-france.com/dynawo">
+  <name>RLCwithSwitch</name>
+  <elements>
+    <parameters>
+      <parameter name="RLCwithSwitchTest_ac_Phase" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="RLCwithSwitchTest_ac_StartTime" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="RLCwithSwitchTest_ac_StopTime" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1"/>
+      <parameter name="RLCwithSwitchTest_ac_Vm" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="10"/>
+      <parameter name="RLCwithSwitchTest_ac_f" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="60"/>
+      <parameter name="RLCwithSwitchTest_c_C" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="5.0000000000000004e-06"/>
+      <parameter name="RLCwithSwitchTest_l_L" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0.14999999999999999"/>
+      <parameter name="RLCwithSwitchTest_r_R" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="5"/>
+      <parameter name="RLCwithSwitchTest_sw_Tclosing" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0.10000000000000001"/>
+      <parameter name="RLCwithSwitchTest_sw_Topening" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0.20000000000000001"/>
+      <parameter name="RLCwithSwitchTest_sw_booleanConstant1_k" valueType="BOOL" cardinality="1" readOnly="false" defaultValue="false"/>
+      <parameter name="RLCwithSwitchTest_sw_clock1_offset" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="RLCwithSwitchTest_sw_clock1_startTime" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="RLCwithSwitchTest_sw_clock2_offset" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="RLCwithSwitchTest_sw_clock2_startTime" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="0"/>
+      <parameter name="RLCwithSwitchTest_sw_greaterThreshold1_threshold" valueType="DOUBLE" cardinality="1" readOnly="true"/>
+      <parameter name="RLCwithSwitchTest_sw_greaterThreshold2_threshold" valueType="DOUBLE" cardinality="1" readOnly="true"/>
+      <parameter name="RLCwithSwitchTest_sw_idealClosingSwitch1_Goff" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1.0000000000000001e-15"/>
+      <parameter name="RLCwithSwitchTest_sw_idealClosingSwitch1_Ron" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="1.0000000000000001e-15"/>
+      <parameter name="RLCwithSwitchTest_sw_idealClosingSwitch1_T" valueType="DOUBLE" cardinality="1" readOnly="false" defaultValue="293.14999999999998"/>
+      <parameter name="RLCwithSwitchTest_sw_idealClosingSwitch1_useHeatPort" valueType="BOOL" cardinality="1" readOnly="false" defaultValue="false"/>
+      <parameter name="RLCwithSwitchTest_sw_rSFlipFlop1_Qini" valueType="BOOL" cardinality="1" readOnly="false" defaultValue="false"/>
+      <parameter name="RLCwithSwitchTest_sw_rSFlipFlop1_pre_pre_u_start" valueType="BOOL" cardinality="1" readOnly="true"/>
+    </parameters>
+    <variables>
+      <variable name="RLCwithSwitchTest_ac_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_ac_n_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_ac_n_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_ac_p_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_ac_p_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_ac_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_c_Q" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_c_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_c_n_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_c_n_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_c_p_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_c_p_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_c_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_g_p_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_g_p_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_l_P" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_l_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_l_n_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_l_n_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_l_p_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_l_p_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_l_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_r_P" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_r_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_r_n_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_r_n_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_r_p_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_r_p_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_r_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_and1_u1" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_and1_u2" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_and1_y" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_booleanConstant1_y" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_clock1_y" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_clock2_y" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_currentSensor1_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_currentSensor1_n_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_currentSensor1_n_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_currentSensor1_p_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_currentSensor1_p_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_greaterThreshold1_u" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_greaterThreshold1_y" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_greaterThreshold2_u" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_greaterThreshold2_y" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_LossPower" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_T_heatPort" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_control" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_n_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_n_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_off" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_p_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_p_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_s" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_idealClosingSwitch1_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_not1_u" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_not1_y" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_pin_n_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_pin_n_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_pin_p_i" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_pin_p_v" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_Q" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_QI" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_R" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_S" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_nor1_u1" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_nor1_u2" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_nor1_y" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_nor_u1" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_nor_u2" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_nor_y" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_pre_u" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_rSFlipFlop1_pre_y" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_zeroCrossing1_disable" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_zeroCrossing1_enable" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_zeroCrossing1_u" valueType="DOUBLE"/>
+      <variable name="RLCwithSwitchTest_sw_zeroCrossing1_u_pos" valueType="BOOL"/>
+      <variable name="RLCwithSwitchTest_sw_zeroCrossing1_y" valueType="BOOL"/>
+    </variables>
+  </elements>
+</model>

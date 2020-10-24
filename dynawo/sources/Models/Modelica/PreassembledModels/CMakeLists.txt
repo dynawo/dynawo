@@ -9,11 +9,12 @@
 # This file is part of Dynawo, an hybrid C++/Modelica open source time domain simulation tool for power systems.
 
 # Preassembled models
-
 set(MODELICA_PREASSEMBLED_MODELS
     newRLC.xml
+    triphase.xml
     SinglePhaseLine2.xml
     CapacitorSwitching.xml
+    RLCwithSwitch.xml
     )
     # CapacitorBank.xml
     # MO_arrester.xml

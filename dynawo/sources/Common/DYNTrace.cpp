@@ -131,7 +131,10 @@ void Trace::addAppenders(const std::vector<TraceAppender>& appenders) {
   std::stringstream s;
   // Add appender
   for (unsigned int i = 0; i < appenders.size(); ++i) {
-    boost::shared_ptr< file_sink > sink(new file_sink(keywords::file_name = appenders[i].getFilePath()));
+    const std::ios_base::openmode mode = appenders[i].doesAppend() ? std::ios_base::app : std::ios_base::out;
+    boost::shared_ptr< file_sink > sink(new file_sink(
+      keywords::file_name = appenders[i].getFilePath(),
+      keywords::open_mode = mode));
 
     // build format for each appenders depending on its attributes
     string separator = appenders[i].getSeparator();

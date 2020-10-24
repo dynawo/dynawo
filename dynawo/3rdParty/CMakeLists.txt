@@ -16,6 +16,7 @@ set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options a
 option(CXX11_ENABLED "Enable support of C++11 standard" TRUE)
 set(MSVC_STATIC_RUNTIME_LIBRARY OFF CACHE BOOL "Choose either ON or OFF.")
 set(BOOST_ROOT_DEFAULT "true" CACHE STRING "Enable to find boost in system path or not.")
+set(FORCE_CXX11_ABI OFF CACHE BOOL "Choose either ON or OFF.")
 
 if(BOOST_ROOT_DEFAULT STREQUAL "true")
   set(Boost_NO_SYSTEM_PATHS FALSE)
@@ -530,6 +531,7 @@ else()
       BUILD_COMMAND       <SOURCE_DIR>/b2
                           -j${NUMBER_OF_PROCESSORS}
                           -sNO_BZIP2=1 cxxflags=-fPIC
+                          $<$<BOOL:${FORCE_CXX11_ABI}>:cxxflags=-D_GLIBCXX_USE_CXX11_ABI=1>
                           install
                           --prefix=<INSTALL_DIR>
                           $<$<BOOL:${APPLE}>:toolset=clang>
@@ -839,6 +841,7 @@ if(NOT OMCompiler)
                           --disable-omnotebook
                           --disable-omshell-terminal
                           --with-qwt=NO
+                          --with-omc=no
       BUILD_COMMAND       make -j ${NUMBER_OF_PROCESSORS} omc
       INSTALL_COMMAND     make install
               COMMAND     cd <INSTALL_DIR>/bin && ln -s -f omc omcDynawo
@@ -894,6 +897,7 @@ else()
 
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                           -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+                          $<$<BOOL:${FORCE_CXX11_ABI}>:-DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1>
                           -DLIBZIP_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
                           -DLIBZIP_BUILD_STATIC:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>
                           -DLIBZIP_BUILD_TESTS:BOOL=$<BOOL:${LIBZIP_BUILD_TESTS}>
@@ -908,12 +912,7 @@ else()
   set(LIBZIP_HOME ${install_dir})
 endif()
 
-# if ( CXX11_ENABLED )                                                                              # New part for IIDM-2
-
-        # HERE IS THE NEW PART
-
-# else()                                                                                            # old part : legacy IIDM
-set(XERCESC_HOME      CACHE PATH "Path where a Xerces-C installation already exists")               # Start install XERCESC
+set(XERCESC_HOME      CACHE PATH "Path where a Xerces-C installation already exists")
 
 set(xercesc_version      3.2.2)
 set(xercesc_name         xerces-c-${xercesc_version}.tar.gz)
@@ -1023,7 +1022,7 @@ else()
   ExternalProject_Get_Property(xercesc install_dir)
   set(XERCESC_HOME ${install_dir} CACHE PATH "Path to XercesC installation" FORCE)
 endif()
-                                                                                        # End install XERCESC - Start install LIBXML
+
 set(LIBXML_HOME ${CMAKE_INSTALL_PREFIX}/libxml)
 find_package(libXML 0.2.4 QUIET)
 unset(LIBXML_HOME)
@@ -1046,6 +1045,7 @@ else()
                           -DCXX11_ENABLED:BOOL=${CXX11_ENABLED}
 
       CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+                          $<$<BOOL:${FORCE_CXX11_ABI}>:-DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1>
                           -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
                           -DLibXML_SAX_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
                           -DLibXML_SAX_BUILD_STATIC:BOOL=$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>
@@ -1059,7 +1059,7 @@ else()
   ExternalProject_Get_Property(libxml install_dir)
   set(LIBXML_HOME ${install_dir})
 endif()
-                                                                                        # End install LIBXML - Start install legacy IIDM
+
 set(LIBIIDM_HOME ${CMAKE_INSTALL_PREFIX}/libiidm)
 find_package(libIIDM 0.2.8 QUIET)
 unset(LIBIIDM_HOME)
@@ -1083,6 +1083,7 @@ else()
 
           CMAKE_ARGS          -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
                               -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
+                              $<$<BOOL:${FORCE_CXX11_ABI}>:-DCMAKE_CXX_FLAGS=-D_GLIBCXX_USE_CXX11_ABI=1>
                               -DIIDM_BUILD_SHARED:BOOL=$<BOOL:${BUILD_SHARED_LIBS}>
                               -DBUILD_XML:BOOL=ON
                               -DBUILD_SAMPLES:BOOL=$<BOOL:${LIBIIDM_BUILD_SAMPLES}>
@@ -1094,4 +1095,3 @@ else()
   ExternalProject_Get_Property(libiidm install_dir)
   set(LIBIIDM_HOME ${install_dir})
 endif()
-                                                                                        # End install IIDM old one and DG changes

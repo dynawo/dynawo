@@ -12,6 +12,8 @@
 set(MODEL_FILES
         package.mo
         newRLC.mo
+        RLCwithSwitch.mo
+        triphase.mo
         )
 
 #
