@@ -32,6 +32,7 @@ protected:
   static const std::string node;
   static const std::string inner;
   static const std::string content;
+  static const std::string encoding;
 
   static const std::string default_uri;
   static const std::string ns1_uri;
@@ -48,6 +49,10 @@ protected:
 
   f::FormatterPtr make_formatter_namespace(bool indented = true) {
     return f::Formatter::createFormatter(stream, default_uri, indented ? indent : "");
+  }
+
+  f::FormatterPtr make_formatter_encoding(bool useEncoding = true) {
+    return f::Formatter::createFormatter(stream, default_uri, "", useEncoding ? encoding : "");
   }
 
   //line is reduced to is "attribute" part: prefix and suffix are removed.
@@ -76,6 +81,7 @@ const std::string TestFormatter::ns1_uri = "URI1";
 const std::string TestFormatter::ns2_uri = "URI2";
 const std::string TestFormatter::ns1 = "ns1";
 const std::string TestFormatter::ns2 = "ns2";
+const std::string TestFormatter::encoding = "ENCODING_TEST";
 
 
 
@@ -282,6 +288,68 @@ TEST_F(TestFormatter, XMLnamespace) {
 
   //ignore the first line (the <?xml ?>)
   std::getline(stream, line);
+
+  //root element shall declare all namespaces
+  std::getline(stream, line);
+  {
+    SCOPED_TRACE("root");
+    check_element_open(line, "<"+root+" ", ">");
+  }
+
+  ASSERT_TRUE(contains(line, ns1+"=\""+ns1_uri+"\"")) << "root element shall declare namespace "<<ns1<<", but found \""<<line<<'"';
+  ASSERT_TRUE(contains(line, ns2+"=\""+ns2_uri+"\"")) << "root element shall declare attribute "<<ns2<<", but found \""<<line<<'"';
+
+  //ns1:node empty
+  std::getline(stream, line);
+  ASSERT_EQ(line, indent+"<"+ns1+":"+node+"/>");
+
+  //ns1:node containing...
+  std::getline(stream, line);
+  ASSERT_EQ(line, indent+"<"+ns1+":"+node+">");
+
+  //ns2:inner empty
+  std::getline(stream, line);
+  ASSERT_EQ(line, indent+indent+"<"+ns2+":"+inner+"/>");
+
+  //...end of ns1:node
+  std::getline(stream, line);
+  ASSERT_EQ(line, indent+"</"+ns1+":"+node+">");
+
+  //end of root non namespace
+  std::getline(stream, line);
+  ASSERT_EQ(line, "</"+root+">");
+}
+
+TEST_F(TestFormatter, XMLencoding) {
+  using std::string;
+
+  f::FormatterPtr ptr = make_formatter_encoding();
+  ptr->addNamespace(ns1, ns1_uri);
+  ptr->addNamespace(ns2, ns2_uri);
+
+  ptr->setEncoding(encoding);
+
+  ptr->startDocument();
+
+  ptr->startElement(root);//root no prefix
+    ptr->startElement(ns1, node);
+    ptr->endElement();
+
+    //attribute on complex element
+    ptr->startElement(ns1, node);
+      ptr->startElement(ns2, inner);
+      ptr->endElement();
+    ptr->endElement();
+
+  ptr->endElement();
+
+  ptr->endDocument();
+
+  string line;
+  // string::size_type pos;
+
+  std::getline(stream, line);
+  ASSERT_TRUE(contains(line, "<?xml version=\"1.0\" encoding=" + encoding + " standalone=\"no\"?>"));
 
   //root element shall declare all namespaces
   std::getline(stream, line);
