@@ -466,6 +466,7 @@ unset(Boost_INCLUDE_DIR CACHE)
 
 if(NOT BUILD_SHARED_LIBS)
   set(Boost_USE_STATIC_LIBS TRUE)
+  set(Boost_NO_SYSTEM_PATHS TRUE) # Always build a static boost instead of a system one
 endif()
 # find Boost in two steps to avoid warnings 'Imported targets and dependency information not available for Boost version'
 find_package(Boost ${boost_version} QUIET)
@@ -1009,7 +1010,8 @@ else()
       CONFIGURE_COMMAND   <SOURCE_DIR>/configure
                           "CC=${CMAKE_C_COMPILER}"
                           "CXX=${CMAKE_CXX_COMPILER}"
-                          "CXXFLAGS=${CXX_STDFLAG} $<$<CONFIG:Debug>:-O0>"
+                          "CXXFLAGS=${CXX_STDFLAG} $<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:-fPIC> $<$<CONFIG:Debug>:-O0>"
+                          "CFLAGS=$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:-fPIC>"
                           --prefix=<INSTALL_DIR>
                           $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--disable-static,--enable-static>
                           $<IF:$<BOOL:${BUILD_SHARED_LIBS}>,--enable-shared,--disable-shared>
