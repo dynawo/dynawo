@@ -26,12 +26,13 @@ namespace xml {
 namespace sax {
 namespace formatter {
 
-FormatterImpl::FormatterImpl(std::ostream& out, std::string const& defaultNamespace, std::string const& indentation):
+FormatterImpl::FormatterImpl(std::ostream& out, std::string const& defaultNamespace, std::string const& indentation, const std::string& encoding):
   out_(out),
   tagClosed_(true),
   hasCharacters_(false),
   prettyFormat_(!indentation.empty()),
-  indentation_(indentation)
+  indentation_(indentation),
+  encoding_(encoding)
 {
   namespaces_[""] = defaultNamespace; // set default namespace
 }
@@ -39,8 +40,6 @@ FormatterImpl::FormatterImpl(std::ostream& out, std::string const& defaultNamesp
 
 
 FormatterImpl::~FormatterImpl() {}
-
-
 
 void FormatterImpl::addNamespace(std::string const& prefix, std::string const& uri) {
   if (namespaces_.find(prefix) != namespaces_.end()) {
@@ -54,7 +53,7 @@ void FormatterImpl::addNamespace(std::string const& prefix, std::string const& u
 
 
 void FormatterImpl::startDocument() {
-  out_ << "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>";
+  out_ << "<?xml version=\"1.0\" encoding=\"" << encoding_ << "\" standalone=\"no\"?>";
   add_newline();
 }
 

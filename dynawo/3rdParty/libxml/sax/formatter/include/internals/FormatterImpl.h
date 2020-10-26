@@ -46,8 +46,9 @@ public:
    * @param indentation If set to "", no spacing is added to make its format user friendly
    * @param defaultNamespace Default namespace URI of the XML file (put in the xmlns
    * attribute of the first element)
+   * @param encoding encoding of the XML files (put in encoding attribute of document)
    */
-  FormatterImpl(std::ostream& out, std::string const& defaultNamespace, std::string const& indentation);
+  FormatterImpl(std::ostream& out, std::string const& defaultNamespace, std::string const& indentation, const std::string& encoding);
 
   /**
    * @brief Destructor
@@ -58,6 +59,13 @@ public:
    * @copydoc Formatter::addNamespace()
    */
   virtual void addNamespace(std::string const& prefix, std::string const& uri);
+
+  /**
+   * @copydoc Formatter::setEncoding()
+   */
+  virtual void setEncoding(const std::string& encoding) {
+    encoding_ = encoding;
+  }
 
   /**
    * @copydoc Formatter::startDocument()
@@ -135,6 +143,7 @@ private:
 
   bool prettyFormat_;         ///< Is pretty format used
   std::string indentation_;   ///< Indent depth, in spaces
+  std::string encoding_;      ///< Encoding choice
 };
 
 } // end of namespace xml::sax::parser::
