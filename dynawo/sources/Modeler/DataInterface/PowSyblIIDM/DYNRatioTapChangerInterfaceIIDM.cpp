@@ -23,7 +23,6 @@
 #include "DYNErrorQueue.h"
 #include "DYNMacrosMessage.h"
 #include "DYNStepInterfaceIIDM.h"
-// #include "DYNTrace.h"
 
 using boost::shared_ptr;
 
@@ -32,8 +31,9 @@ namespace DYN {
 RatioTapChangerInterfaceIIDM::~RatioTapChangerInterfaceIIDM() {
 }
 
-RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger& tapChanger, const std::string& parentName) : tapChangerIIDM_(tapChanger) {
-  sanityCheck(parentName);
+RatioTapChangerInterfaceIIDM::RatioTapChangerInterfaceIIDM(powsybl::iidm::RatioTapChanger& tapChanger, const std::string& parentName) :
+  tapChangerIIDM_(tapChanger) {
+    sanityCheck(parentName);
 }
 
 void
