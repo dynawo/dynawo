@@ -52,11 +52,13 @@ public:
    * @param indentation If set to "", no spacing is added to make its format user friendly
    * @param defaultNamespace Default namespace URI of the XML file (put in the xmlns
    * attribute of the first element)
+   * @param encoding encoding of the XML files (put in encoding attribute of document)
    *
    * @returns FormatterPtr to the created Formatter instance.
    */
-  static FormatterPtr createFormatter(std::ostream& out, std::string const& defaultNamespace = "", std::string const& indentation = "  ") {
-    return FormatterPtr(newFormatter(out, defaultNamespace, indentation));
+  static FormatterPtr createFormatter(std::ostream& out, std::string const& defaultNamespace = "",
+    std::string const& indentation = "  ", const std::string& encoding = "ISO-8859-1") {
+    return FormatterPtr(newFormatter(out, defaultNamespace, indentation, encoding));
   }
 
   /**
@@ -77,6 +79,13 @@ public:
    * Adds the XML declaration in the stream
    */
   virtual void startDocument() = 0;
+
+  /**
+   * @brief Set encoding for exported document
+   *
+   * @param encoding the new encoding
+   */
+  virtual void setEncoding(const std::string& encoding) = 0;
 
   /**
    * @brief End the XML document
@@ -141,7 +150,8 @@ public:
   virtual void characters(std::string const& chars) = 0;
 
 public:
-  static Formatter* newFormatter(std::ostream& out, std::string const& defaultNamespace = "", std::string const& indentation = "  ");
+  static Formatter* newFormatter(std::ostream& out, std::string const& defaultNamespace = "",
+      std::string const& indentation = "  ", const std::string& encoding = "ISO-8859-1");
 };
 
 } // end of namespace xml::sax::parser::

@@ -63,19 +63,39 @@ if /I "%~1"=="jobs" (
   "%DYNAWO_INSTALL_DIR%"bin\dynawo %2
 ) else (
   if /I "%~1"=="jobs-with-curves" (
-  "%DYNAWO_INSTALL_DIR%"bin\dynawo %2
-  "%DYNAWO_PYTHON_COMMAND%" "%DYNAWO_INSTALL_DIR%\sbin\curvesToHtml\curvesToHtml.py" --jobsFile=%2 --withoutOffset --htmlBrowser="%DYNAWO_BROWSER%"
-  "%DYNAWO_BROWSER%" "%curvesHtml%"
-  echo.
-  echo Open %curvesHtml% with your browser if if does not do it automatically.
-  echo.
-  ) else (
-    echo Usage: %~n0 option
+    "%DYNAWO_INSTALL_DIR%"bin\dynawo %2
+    "%DYNAWO_PYTHON_COMMAND%" "%DYNAWO_INSTALL_DIR%\sbin\curvesToHtml\curvesToHtml.py" --jobsFile=%2 --withoutOffset --htmlBrowser="%DYNAWO_BROWSER%"
+    "%DYNAWO_BROWSER%" "%curvesHtml%"
     echo.
-    echo   option:
-    echo     jobs <jobs-file>
-    echo     jobs-with-curves <jobs-file>
+    echo Open %curvesHtml% with your browser if it does not do it automatically.
+    echo.
+  ) else (
+    if /I "%~1"=="version" (
+      "%DYNAWO_INSTALL_DIR%"bin\dynawo --version
+    ) else (
+      if /I "%~1"=="help" (
+        call :dynawo_help
+      ) else (
+        call :dynawo_help
+      )
+    )
   )
 )
 
 PATH=%oldpath%
+
+exit /B %ERRORLEVEL%
+
+setlocal
+
+:dynawo_help
+echo Usage: %~n0 option
+echo.
+echo   where option is:
+echo     jobs ^<jobs-file^>
+echo     jobs-with-curves ^<jobs-file^>
+echo     version
+echo     help
+exit /B 0
+
+endlocal

@@ -26,8 +26,8 @@ namespace formatter {
 Formatter::~Formatter() {}
 
 Formatter*
-Formatter::newFormatter(std::ostream& out, std::string const& defaultNamespace, std::string const& indentation) {
-  return new FormatterImpl(out, defaultNamespace, indentation);
+Formatter::newFormatter(std::ostream& out, std::string const& defaultNamespace, std::string const& indentation, const std::string& encoding) {
+  return new FormatterImpl(out, defaultNamespace, indentation, encoding);
 }
 
 } // end of namespace xml::sax::parser::
