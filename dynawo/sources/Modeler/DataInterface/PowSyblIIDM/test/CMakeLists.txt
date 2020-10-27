@@ -21,6 +21,7 @@ set(MODULE_SOURCES
   TestRatioTapChangerInterface.cpp
   TestStepInterface.cpp
   TestSwitchInterface.cpp
+  TestVscConverterInterface.cpp
 )
 
 add_executable(${MODULE_NAME} ${MODULE_SOURCES})
